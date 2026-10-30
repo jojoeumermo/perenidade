@@ -68,16 +68,16 @@ export function Vitrine({ estaticos }: { estaticos: Profissional[] }) {
   const areas = useMemo(() => [...new Set(todos.flatMap((p) => p.areas))].sort((a, b) => a.localeCompare(b, "pt-BR")), [todos]);
   const vistos = area ? todos.filter((p) => p.areas.includes(area)) : todos;
 
-  if (desligada) return <p className="mt-10 border-2 border-[#221C17] p-6 text-center font-sans">O mural está pausado no momento. Em emergência: SAMU 192 · Bombeiros 193 · CVV 188.</p>;
-  if (todos.length === 0) return <p className="mt-10 border border-dashed border-[#221C17]/40 p-10 text-center font-sans text-[#221C17]/75">Ainda não há profissionais no mural.</p>;
+  if (desligada) return <p className="mt-10 border-2 border-ink p-6 text-center font-sans">O mural está pausado no momento. Em emergência: SAMU 192 · Bombeiros 193 · CVV 188.</p>;
+  if (todos.length === 0) return <p className="mt-10 border border-dashed border-ink/40 p-10 text-center font-sans text-ink/75">Ainda não há profissionais no mural.</p>;
 
   return (
     <div className="mt-10">
       {areas.length > 1 && todos.length > 1 && (
         <div role="group" aria-label="Filtrar por área" className="mb-6 flex flex-wrap gap-2 font-sans text-sm">
-          <button type="button" aria-pressed={!area} onClick={() => setArea("")} className={`cursor-pointer border px-3 py-1 ${!area ? "border-[#221C17] bg-[#221C17] text-[#F4EBDB]" : "border-[#221C17]/30 hover:border-[#221C17]"}`}>Todas as áreas</button>
+          <button type="button" aria-pressed={!area} onClick={() => setArea("")} className={`cursor-pointer border px-3 py-1 ${!area ? "border-ink bg-ink text-parchment" : "border-ink/30 hover:border-ink"}`}>Todas as áreas</button>
           {areas.map((a) => (
-            <button key={a} type="button" aria-pressed={area === a} onClick={() => setArea(a)} className={`cursor-pointer border px-3 py-1 ${area === a ? "border-[#221C17] bg-[#221C17] text-[#F4EBDB]" : "border-[#221C17]/30 hover:border-[#221C17]"}`}>{a}</button>
+            <button key={a} type="button" aria-pressed={area === a} onClick={() => setArea(a)} className={`cursor-pointer border px-3 py-1 ${area === a ? "border-ink bg-ink text-parchment" : "border-ink/30 hover:border-ink"}`}>{a}</button>
           ))}
         </div>
       )}
@@ -102,16 +102,16 @@ export function CartaoDoProfissional({ p, unico = false, abrir }: { p: Profissio
   const consulta = CONSULTA_DO_CONSELHO[p.conselho.toUpperCase()];
   const publico = (p.publico ?? []).map((x) => nomeDoPublico[x]).filter(Boolean);
   const lugar = [p.cidade, p.estado].filter(Boolean).join(" / ");
-  const rotulo = "text-xs uppercase tracking-wider text-[#221C17]/70";
+  const rotulo = "text-xs uppercase tracking-wider text-ink/70";
   return (
-    <article className={`saude-cartao relative border border-[#221C17]/40 bg-[#FBF6EC] text-[#221C17] ${unico ? "grid md:grid-cols-[minmax(0,20rem)_1fr]" : "flex h-full flex-col"}`}>
+    <article className={`saude-cartao relative border border-ink/40 bg-folha text-ink ${unico ? "grid md:grid-cols-[minmax(0,20rem)_1fr]" : "flex h-full flex-col"}`}>
       {p.foto ? (
-        <div className={`relative overflow-hidden border-b border-[#221C17]/20 ${unico ? "md:border-b-0 md:border-r" : ""}`}>
+        <div className={`relative overflow-hidden border-b border-ink/20 ${unico ? "md:border-b-0 md:border-r" : ""}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={p.foto} alt={`Foto de ${p.nome}`} className={`w-full object-cover ${unico ? "aspect-[4/5] h-full" : "aspect-[4/5]"}`} loading="lazy" />
         </div>
       ) : (
-        <div aria-hidden className={`flex aspect-[4/5] items-center justify-center border-b border-[#221C17]/20 bg-[#EFE4D0] font-serif text-6xl text-[#221C17]/60 ${unico ? "md:border-b-0 md:border-r" : ""}`}>{p.nome.split(/\s+/).map((x) => x[0]).slice(0, 2).join("")}</div>
+        <div aria-hidden className={`flex aspect-[4/5] items-center justify-center border-b border-ink/20 bg-parchment-deep font-serif text-6xl text-ink/60 ${unico ? "md:border-b-0 md:border-r" : ""}`}>{p.nome.split(/\s+/).map((x) => x[0]).slice(0, 2).join("")}</div>
       )}
       <div className={`flex flex-1 flex-col p-5 ${unico ? "md:p-8" : ""}`}>
         <h3 className={`font-serif font-semibold leading-tight ${unico ? "text-4xl md:text-[2.6rem]" : "text-3xl"}`}>{p.nome}</h3>
@@ -132,11 +132,11 @@ export function CartaoDoProfissional({ p, unico = false, abrir }: { p: Profissio
         )}
         <div className="mt-auto pt-5">
           {abrir && (
-            <button type="button" onClick={abrir} className="w-full cursor-pointer border border-[#221C17] bg-[#221C17] px-5 py-3 font-sans font-semibold text-[#F4EBDB] hover:bg-[#3a3029] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#221C17]">
+            <button type="button" onClick={abrir} className="w-full cursor-pointer border border-ink bg-ink px-5 py-3 font-sans font-semibold text-parchment hover:bg-ink-soft focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-ink">
               Ver contato
             </button>
           )}
-          <p className="mt-3 font-sans text-xs leading-snug text-[#221C17]/75">
+          <p className="mt-3 font-sans text-xs leading-snug text-ink/75">
             {p.verificado_em ? `Registro conferido pela coordenação do mural em ${new Date(`${p.verificado_em}T12:00:00`).toLocaleDateString("pt-BR")}. ` : "Registro informado no perfil. "}
             O Instituto não indica nem responde pelo atendimento. Dúvida ou denúncia: <a href={`mailto:${EMAIL_DE_CONTATO}`} className="underline">{EMAIL_DE_CONTATO}</a>.
           </p>
@@ -207,8 +207,8 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
 
   return (
     <div role="dialog" aria-modal aria-labelledby="saude-contato-titulo" className="fixed inset-0 z-50 flex items-center justify-center bg-[#17130e]/85 p-3 sm:p-6" onClick={(e) => e.target === e.currentTarget && fechar()}>
-      <div ref={caixa} className="max-h-[94dvh] w-full max-w-2xl overflow-y-auto border border-[#221C17] bg-[#F4EBDB] font-sans text-[#221C17] shadow-2xl">
-        <div className="flex items-center justify-between gap-3 border-b border-[#221C17]/30 px-5 py-3">
+      <div ref={caixa} className="max-h-[94dvh] w-full max-w-2xl overflow-y-auto border border-ink bg-parchment-deep font-sans text-ink shadow-2xl">
+        <div className="flex items-center justify-between gap-3 border-b border-ink/30 px-5 py-3">
           <p id="saude-contato-titulo" className="font-semibold">{NOME_VITRINE} · contato: {p.nome}</p>
           <button type="button" onClick={fechar} aria-label="Fechar" className="cursor-pointer px-2 text-2xl leading-none hover:opacity-70">×</button>
         </div>
@@ -219,61 +219,61 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
               {AVISO_COMPLETO.map((a) => <li key={a}>{a}</li>)}
             </ul>
             <label className="mt-5 block">
-              <span className="font-semibold">Seu nome</span> <span className="text-[#221C17]/75">(obrigatório; vai no cartão e na mensagem para o profissional e fica só neste aparelho)</span>
-              <input value={nome} onChange={(e) => setNome(e.target.value.slice(0, 60))} maxLength={60} required aria-required="true" autoComplete="name" placeholder="Como você quer ser chamado" className="mt-1 block w-full border border-[#221C17] bg-[#FBF6EC] px-3 py-2" />
+              <span className="font-semibold">Seu nome</span> <span className="text-ink/75">(obrigatório; vai no cartão e na mensagem para o profissional e fica só neste aparelho)</span>
+              <input value={nome} onChange={(e) => setNome(e.target.value.slice(0, 60))} maxLength={60} required aria-required="true" autoComplete="name" placeholder="Como você quer ser chamado" className="mt-1 block w-full border border-ink bg-folha px-3 py-2" />
               {nome.length > 0 && !nomeValido && <span role="status" className="mt-1 block text-sm font-semibold">Escreva o seu nome para continuar.</span>}
             </label>
-            <label className="mt-4 flex items-start gap-3 border border-[#221C17]/50 bg-[#FBF6EC] p-3">
+            <label className="mt-4 flex items-start gap-3 border border-ink/50 bg-folha p-3">
               <input type="checkbox" checked={ciente} onChange={(e) => setCiente(e.target.checked)} className="mt-1 h-5 w-5 shrink-0" />
               <span>{CIENCIA}</span>
             </label>
-            <button type="button" disabled={!ciente || !nomeValido} onClick={() => void seguir()} className="mt-5 w-full cursor-pointer bg-[#221C17] px-5 py-3 font-semibold text-[#F4EBDB] hover:bg-[#3a3029] disabled:cursor-not-allowed disabled:opacity-40">
+            <button type="button" disabled={!ciente || !nomeValido} onClick={() => void seguir()} className="mt-5 w-full cursor-pointer bg-ink px-5 py-3 font-semibold text-parchment hover:bg-ink-soft disabled:cursor-not-allowed disabled:opacity-40">
               Continuar
             </button>
           </div>
         ) : (
           <div className="p-5 sm:p-7">
             <h2 className="font-serif text-2xl font-semibold">Seu cartão de encaminhamento</h2>
-            <p className="mt-1 text-[#221C17]/80">Baixe e mande junto com a primeira mensagem: assim {primeiroNome(p.nome)} sabe que você encontrou o contato no mural. O código é sorteado aqui e não fica guardado em lugar nenhum.</p>
+            <p className="mt-1 text-ink/80">Baixe e mande junto com a primeira mensagem: assim {primeiroNome(p.nome)} sabe que você encontrou o contato no mural. O código é sorteado aqui e não fica guardado em lugar nenhum.</p>
             {erro && <p role="status" className="mt-3 font-semibold">{erro}</p>}
             {imagem && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={imagem.url} alt={`Cartão de encaminhamento para ${p.nome}, código ${codigo}`} className="mx-auto mt-4 w-full max-w-sm border border-[#221C17]" />
+              <img src={imagem.url} alt={`Cartão de encaminhamento para ${p.nome}, código ${codigo}`} className="mx-auto mt-4 w-full max-w-sm border border-ink" />
             )}
             <p className="mt-3 text-center font-mono text-sm">Código: <strong>{codigo}</strong></p>
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {imagem && (
-                <a href={imagem.url} download={arquivo} className="flex items-center justify-center gap-2 border border-[#221C17] bg-[#FBF6EC] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
+                <a href={imagem.url} download={arquivo} className="flex items-center justify-center gap-2 border border-ink bg-folha px-4 py-3 font-semibold hover:bg-parchment-deep">
                   <Icone d={ICONES.baixar} /> Baixar o cartão
                 </a>
               )}
               {podeCompartilhar && (
-                <button type="button" onClick={() => void compartilhar()} className="flex cursor-pointer items-center justify-center gap-2 border border-[#221C17] bg-[#FBF6EC] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
+                <button type="button" onClick={() => void compartilhar()} className="flex cursor-pointer items-center justify-center gap-2 border border-ink bg-folha px-4 py-3 font-semibold hover:bg-parchment-deep">
                   Compartilhar o cartão
                 </button>
               )}
               {p.contatos.whatsapp && (
-                <a href={linkDoWhatsapp(p.contatos.whatsapp, mensagem)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-[#221C17] bg-[#221C17] px-4 py-3 font-semibold text-[#F4EBDB] hover:bg-[#3a3029]">
+                <a href={linkDoWhatsapp(p.contatos.whatsapp, mensagem)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-ink bg-ink px-4 py-3 font-semibold text-parchment hover:bg-ink-soft">
                   <Icone d={ICONES.whatsapp} /> WhatsApp
                 </a>
               )}
               {p.contatos.instagram && (
-                <a href={linkDoInstagram(p.contatos.instagram)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-[#221C17] bg-[#221C17] px-4 py-3 font-semibold text-[#F4EBDB] hover:bg-[#3a3029]">
+                <a href={linkDoInstagram(p.contatos.instagram)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-ink bg-ink px-4 py-3 font-semibold text-parchment hover:bg-ink-soft">
                   <Icone d={ICONES.instagram} /> Instagram @{p.contatos.instagram}
                 </a>
               )}
               {p.contatos.email && (
-                <a href={`mailto:${p.contatos.email}?subject=${encodeURIComponent(`Contato pelo ${NOME_VITRINE}`)}&body=${encodeURIComponent(mensagem)}`} className="flex items-center justify-center gap-2 border border-[#221C17] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
+                <a href={`mailto:${p.contatos.email}?subject=${encodeURIComponent(`Contato pelo ${NOME_VITRINE}`)}&body=${encodeURIComponent(mensagem)}`} className="flex items-center justify-center gap-2 border border-ink px-4 py-3 font-semibold hover:bg-parchment-deep">
                   <Icone d={ICONES.email} /> E-mail
                 </a>
               )}
               {p.contatos.site && (
-                <a href={p.contatos.site} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-[#221C17] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
+                <a href={p.contatos.site} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-ink px-4 py-3 font-semibold hover:bg-parchment-deep">
                   <Icone d={ICONES.site} /> Site
                 </a>
               )}
             </div>
-            <p className="mt-4 text-xs text-[#221C17]/75">Os botões abrem sites e aplicativos de terceiros, com as regras de privacidade deles. Não mande dados de saúde, exames ou documentos pelo site do instituto.</p>
+            <p className="mt-4 text-xs text-ink/75">Os botões abrem sites e aplicativos de terceiros, com as regras de privacidade deles. Não mande dados de saúde, exames ou documentos pelo site do instituto.</p>
           </div>
         )}
       </div>

@@ -15,9 +15,9 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/saude/neut
 export default async function NeutralidadeDoMural({ params }: PageProps<"/[lang]/saude/neutralidade">) {
   const { lang } = await loadLang(params);
   return (
-    <div className="mural-de-saude bg-[#F4EBDB] text-[#221C17]">
+    <div className="mural-de-saude bg-parchment-deep text-ink">
       <article className="mx-auto max-w-3xl px-4 py-12" lang="pt-BR">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#221C17]/70">{NOME_VITRINE}</p>
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">{NOME_VITRINE}</p>
         <h1 className="mt-2 font-serif text-4xl font-semibold leading-tight">{TEXTOS.neutralidade.titulo}</h1>
         <div className="mt-6 space-y-4 text-lg leading-relaxed">
           {TEXTOS.neutralidade.paragrafos.map((p) => <p key={p}>{p}</p>)}

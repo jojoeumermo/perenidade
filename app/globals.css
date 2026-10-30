@@ -20,6 +20,8 @@
   --pontos: #e2d9c6;
   --linha-pauta: #ebe2cf;
   --margem-pauta: #e0837a;
+  --borda-forte: #1f1a14;
+  --texto-meio: #4a4034;
   /* Altura da barra de botões do aparelho que as abas de baixo precisam pular. No navegador é sempre zero:
      o DuckDuckGo do Android informa a altura das barras do sistema mesmo sem "viewport-fit=cover", e o
      env() deixava um vão embaixo das abas (e outro no topo). Só o aplicativo, que vai de borda a borda, usa o valor real. */
@@ -29,43 +31,64 @@
   --recuo-baixo: env(safe-area-inset-bottom, 0px);
 }
 
-/* Tema escuro: segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
+/* Tema escuro (refeito em 30/10/2026): fundo quase preto e quente, superfícies um tom acima, bordas visíveis,
+   o vermelho do prelo mais aceso e o amarelo do ipê como ouro. Segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --parchment: #17130e;
-    --parchment-deep: #221c13;
-    --ink: #efe4c8;
-    --ink-soft: #b3a584;
-    --gold: #d4a24c;
-    --oxblood: #e0837a;
-    --rule: #3a3020;
+    --parchment: #141310;
+    --parchment-deep: #23211c;
+    --ink: #ece6da;
+    --ink-soft: #a9a196;
+    --gold: #f0b323;
+    --oxblood: #e2584d;
+    --rule: #3a352d;
     --ok: #8fc796;
     --apoie-luz: 68%;
-    --folha: #241d14;
+    --folha: #1d1b17;
     --sombra: #000;
-    --prelo-texto: #e0837a;
-    --pontos: #3a3020;
-    --linha-pauta: #31291c;
+    --prelo: #c9322a;
+    --prelo-texto: #e2584d;
+    --pontos: #2b2822;
+    --linha-pauta: #2b2822;
     --margem-pauta: #7d3029;
+    --borda-forte: #6a6255;
+    --texto-meio: #cfc7b9;
   }
 }
 
 :root[data-theme="dark"] {
-  --parchment: #17130e;
-  --parchment-deep: #221c13;
-  --ink: #efe4c8;
-  --ink-soft: #b3a584;
-  --gold: #d4a24c;
-  --oxblood: #e0837a;
-  --rule: #3a3020;
+  --parchment: #141310;
+  --parchment-deep: #23211c;
+  --ink: #ece6da;
+  --ink-soft: #a9a196;
+  --gold: #f0b323;
+  --oxblood: #e2584d;
+  --rule: #3a352d;
   --ok: #8fc796;
   --apoie-luz: 68%;
-  --folha: #241d14;
+  --folha: #1d1b17;
   --sombra: #000;
-  --prelo-texto: #e0837a;
-  --pontos: #3a3020;
-  --linha-pauta: #31291c;
+  --prelo: #c9322a;
+  --prelo-texto: #e2584d;
+  --pontos: #2b2822;
+  --linha-pauta: #2b2822;
   --margem-pauta: #7d3029;
+  --borda-forte: #6a6255;
+  --texto-meio: #cfc7b9;
+}
+
+/* No escuro, o contorno de tinta (que no claro é preto) vira um fio visível mas calmo: com a tinta clara, cada cartão
+   ganhava uma moldura branca. Fica na camada das utilidades com a especificidade de uma classe só, para que um
+   "hover:border-..." ou um contorno de outra cor continue mandando. Contraste, papel eletrônico e leitor ficam de fora. */
+@layer utilities {
+  @media (prefers-color-scheme: dark) {
+    :where(:root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor])) :is(.border-ink, .cartao, .cartao-v, .botao:where(:not(.botao-tinta, .botao-instagram))) {
+      border-color: var(--borda-forte);
+    }
+  }
+  :where(:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor])) :is(.border-ink, .cartao, .cartao-v, .botao:where(:not(.botao-tinta, .botao-instagram))) {
+    border-color: var(--borda-forte);
+  }
 }
 
 /* "app:" vale só quando o site roda como aplicativo (PWA instalado ou WebView do Android): veja isApp em lib/prefs.ts. */
@@ -808,13 +831,13 @@ body {
   transform: rotate(-2.5deg);
 }
 :root[data-theme="dark"] .jornal-carimbo {
-  border-color: #e0837a;
-  color: #e0837a;
+  border-color: var(--prelo-texto);
+  color: var(--prelo-texto);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .jornal-carimbo {
-    border-color: #e0837a;
-    color: #e0837a;
+    border-color: var(--prelo-texto);
+    color: var(--prelo-texto);
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .jornal-carimbo {
@@ -2349,15 +2372,15 @@ html[data-escrita-foco="1"] .painel {
   --margem: rgba(194, 31, 22, 0.55);
 }
 :root[data-theme="dark"] {
-  --papel: #241e16;
-  --papel-tinta: #efe4c8;
+  --papel: #1d1b17;
+  --papel-tinta: #ece6da;
   --pauta: rgba(127, 170, 200, 0.22);
   --margem: rgba(224, 131, 122, 0.5);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --papel: #241e16;
-    --papel-tinta: #efe4c8;
+    --papel: #1d1b17;
+    --papel-tinta: #ece6da;
     --pauta: rgba(127, 170, 200, 0.22);
     --margem: rgba(224, 131, 122, 0.5);
   }
@@ -2437,11 +2460,11 @@ html[data-escrita-foco="1"] .painel {
   font-variant-numeric: tabular-nums;
 }
 :root[data-theme="dark"] .caderno-numero {
-  color: #e0837a;
+  color: var(--prelo-texto);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .caderno-numero {
-    color: #e0837a;
+    color: var(--prelo-texto);
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .caderno-numero {
@@ -2497,13 +2520,13 @@ html[data-escrita-foco="1"] .painel {
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .estudio-app:not([data-estudio-tema="claro"]) {
-    --e-fundo: #17130e;
-    --e-painel: #1f1a14;
-    --e-campo: #2a231d;
-    --e-tinta: #efe4c8;
-    --e-suave: #b3a584;
-    --e-fio: #3a3020;
-    --e-bordo: #e0837a;
+    --e-fundo: #141310;
+    --e-painel: #1d1b17;
+    --e-campo: #2b2822;
+    --e-tinta: #ece6da;
+    --e-suave: #a9a196;
+    --e-fio: #3a352d;
+    --e-bordo: #e2584d;
     --e-bordo-claro: #3b211c;
     --e-palco: #120f0b;
     color-scheme: dark;
@@ -2511,13 +2534,13 @@ html[data-escrita-foco="1"] .painel {
 }
 :root[data-theme="dark"] .estudio-app:not([data-estudio-tema="claro"]),
 .estudio-app[data-estudio-tema="escuro"] {
-  --e-fundo: #17130e;
-  --e-painel: #1f1a14;
-  --e-campo: #2a231d;
-  --e-tinta: #efe4c8;
-  --e-suave: #b3a584;
-  --e-fio: #3a3020;
-  --e-bordo: #e0837a;
+  --e-fundo: #141310;
+  --e-painel: #1d1b17;
+  --e-campo: #2b2822;
+  --e-tinta: #ece6da;
+  --e-suave: #a9a196;
+  --e-fio: #3a352d;
+  --e-bordo: #e2584d;
   --e-bordo-claro: #3b211c;
   --e-palco: #120f0b;
   color-scheme: dark;
