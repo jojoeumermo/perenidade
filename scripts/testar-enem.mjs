@@ -8,7 +8,7 @@ import path from "node:path";
 import { acharNaMatriz, areaPelaNumeracao, AREAS_DO_ENEM, calcularIncidencia, diasAte, fatosCitados, formatarFato, substituirFatos, todosOsObjetos, validarEdicao, validarMatriz } from "../lib/enem.ts";
 import { competenciaDaHabilidade, FAIXAS_DO_ENEM } from "../lib/mapa-curricular.ts";
 import { conferirSecoesDoEnem, ehOrientacao, ehRedacao } from "../lib/modelo-de-aula.ts";
-import { anosImportados, carregarAulas, carregarClassificacoes, carregarEdicao, carregarExercicios, carregarMapas, carregarMatriz, carregarRedacao, existeArquivo, importadasDe, lerYaml, raiz, textoDaIncidencia } from "./enem-dados.mjs";
+import { anosImportados, carregarAulas, carregarClassificacoes, carregarSimulados, carregarEdicao, carregarExercicios, carregarMapas, carregarMatriz, carregarRedacao, existeArquivo, importadasDe, lerYaml, raiz, textoDaIncidencia } from "./enem-dados.mjs";
 
 let ok = 0;
 const falhas = [];
@@ -160,6 +160,17 @@ if (matriz) {
   }
 }
 
+// ── 6b. Diagnóstico e minissimulados ──
+if (matriz) {
+  const sim = tentar("simulados", () => carregarSimulados(matriz));
+  if (sim) {
+    conferir("diagnóstico: 60 questões, 15 por área", Object.values(sim.diagnostico).flat().length === 60);
+    const porId = new Map(classificacoes.map((c) => [c.id, c]));
+    conferir("diagnóstico: cada questão ligada a uma habilidade", Object.values(sim.diagnostico).flat().every((id) => porId.get(id)?.habilidade));
+    conferir("minissimulados: 10 por área", AREAS_DO_ENEM.every((a) => sim.minissimulados.filter((m) => m.area === a).length === 10));
+  }
+}
+
 // ── 7. Incidência em dia ──
 if (matriz) {
   const atual = existeArquivo("content/enem/incidencia.yml") ? fs.readFileSync(path.join(raiz, "content/enem/incidencia.yml"), "utf8") : "";
@@ -183,11 +194,53 @@ conferir("seções do ENEM: aceita os títulos", conferirSecoesDoEnem("enem-reta
 conferir("seções do ENEM: redação não cobra questão comentada", conferirSecoesDoEnem("enem-redacao", "## Como isso cai no ENEM\n## Para aprofundar").length === 0 && conferirSecoesDoEnem("enem-reta-final", "## Como isso cai no ENEM\n## Para aprofundar", "redacao-expressa-x").length === 0);
 conferir("seções do ENEM: aula de orientação na reta final não cobra", conferirSecoesDoEnem("enem-reta-final", "## Nada", "a-vespera-e-o-dia-da-prova").length === 0);
 
-// ── 10. Módulos com contas (entram nas ondas seguintes; conferidos se existirem) ──
-for (const modulo of ["enem-plano", "enem-tri", "enem-sisu"]) {
-  if (!fs.existsSync(path.join(raiz, `lib/${modulo}.ts`))) continue;
-  const m = await import(`../lib/${modulo}.ts`);
-  if (typeof m.autoteste === "function") for (const [nome, cond] of m.autoteste()) conferir(`${modulo}: ${nome}`, cond);
+// ── 10. Plano de estudos (lib/enem-plano.ts) ──
+{
+  const { gerarPlano, icsDoPlano } = await import("../lib/enem-plano.ts");
+  const topicos = ["matematica", "natureza", "linguagens", "humanas"].flatMap((area, i) => Array.from({ length: 6 }, (_, j) => ({ id: `${area}-t${j}`, nome: `${area} ${j}`, area, peso: 10 - j + i, href: "/enem/praticar" })));
+  const base = { hoje: "2026-10-30", prova: "2026-11-08", modo: "reta-final", horasPorSemana: 10, dias: [1, 2, 3, 4, 5, 6], trabalha: false, topicos };
+  const itens = (pl) => pl.semanas.flatMap((s) => s.itens);
+  const porDia = (pl) => {
+    const m = new Map();
+    for (const i of itens(pl)) m.set(i.dia, (m.get(i.dia) ?? 0) + i.minutos);
+    return m;
+  };
+  const p1 = gerarPlano(base);
+  conferir("plano: reta final até a véspera, em 2 semanas", p1.semanas.length === 2 && itens(p1).every((i) => i.dia < "2026-11-08") && p1.diasAteAProva === 9);
+  conferir("plano: só nos dias escolhidos", itens(p1).every((i) => new Date(`${i.dia}T12:00:00Z`).getUTCDay() !== 0));
+  conferir("plano: nenhum dia passa do tempo que a pessoa tem", [...porDia(p1).values()].every((m) => m <= Math.round(600 / 6)));
+  conferir("plano: redação toda semana e simulado na reta final", p1.semanas.every((s) => s.itens.some((i) => i.tipo === "redacao")) && itens(p1).some((i) => i.tipo === "simulado"));
+  conferir("plano: revisões espaçadas depois do estudo", itens(p1).filter((i) => i.tipo === "revisao").every((r) => itens(p1).some((e) => e.tipo === "estudo" && e.topico === r.topico && e.dia < r.dia)));
+  const amanha = gerarPlano({ ...base, hoje: "2026-11-07" });
+  conferir("plano: prova amanhã (só hoje, uma semana)", amanha.semanas.length === 1 && itens(amanha).every((i) => i.dia === "2026-11-07") && amanha.diasAteAProva === 1);
+  const passou = gerarPlano({ ...base, hoje: "2026-12-01", modo: "3-meses" });
+  conferir("plano: prova já passou (vale para a próxima, pelo modo)", passou.provaPassou && passou.semanas.length === 13);
+  const pouco = gerarPlano({ ...base, horasPorSemana: 1 });
+  conferir("plano: pouco tempo (o que não cabe é contado, sem estourar o dia)", pouco.ficaramDeFora > 0 && [...porDia(pouco).values()].every((m) => m <= 60));
+  const pesada = gerarPlano({ ...base, modo: "1-mes", prova: null, pesos: { matematica: 4 } });
+  const primeiros = itens(pesada).filter((i) => i.tipo === "estudo").slice(0, 8);
+  conferir("plano: peso maior põe a área mais vezes no começo", primeiros.filter((i) => i.area === "matematica").length >= 3);
+  const ics = icsDoPlano(p1, "19:00", "https://institutolucia.org/pt", new Date("2026-10-30T12:00:00Z"));
+  conferir("plano: arquivo de agenda com um evento por dia de estudo", ics.startsWith("BEGIN:VCALENDAR") && (ics.match(/BEGIN:VEVENT/g) ?? []).length === porDia(p1).size && ics.split("\r\n").every((l) => l.length <= 75));
+}
+
+// ── 11. Laboratório da TRI e média do Sisu ──
+{
+  const { estimarTheta, ITENS_ILUSTRATIVOS, probabilidade } = await import("../lib/enem-tri.ts");
+  const it = { a: 1.5, b: 0, c: 0.2 };
+  conferir("TRI: na dificuldade, a chance é c + (1 − c)/2", Math.abs(probabilidade(it, 0) - 0.6) < 1e-12);
+  conferir("TRI: muito abaixo, sobra o chute", Math.abs(probabilidade(it, -20) - 0.2) < 1e-6 && probabilidade(it, 20) > 0.999);
+  const coerente = ITENS_ILUSTRATIVOS.map((_, i) => i < 5);
+  const incoerente = ITENS_ILUSTRATIVOS.map((_, i) => i >= 5);
+  conferir("TRI: mesmos acertos, quem acerta as fáceis fica acima", estimarTheta(ITENS_ILUSTRATIVOS, coerente) > estimarTheta(ITENS_ILUSTRATIVOS, incoerente));
+  conferir("TRI: mais acertos coerentes, proficiência maior", estimarTheta(ITENS_ILUSTRATIVOS, ITENS_ILUSTRATIVOS.map((_, i) => i < 7)) > estimarTheta(ITENS_ILUSTRATIVOS, coerente));
+  conferir("TRI: acertar ou errar tudo não vai ao infinito", Math.abs(estimarTheta(ITENS_ILUSTRATIVOS, ITENS_ILUSTRATIVOS.map(() => true))) < 4 && Math.abs(estimarTheta(ITENS_ILUSTRATIVOS, ITENS_ILUSTRATIVOS.map(() => false))) < 4);
+  const { mediaPonderada } = await import("../lib/enem-sisu.ts");
+  const notas = { linguagens: 600, humanas: 650, natureza: 550, matematica: 700, redacao: 800 };
+  conferir("Sisu: pesos iguais dão a média simples", mediaPonderada(notas, { linguagens: 1, humanas: 1, natureza: 1, matematica: 1, redacao: 1 }) === 660);
+  conferir("Sisu: média ponderada", mediaPonderada(notas, { linguagens: 1, humanas: 1, natureza: 2, matematica: 3, redacao: 1 }) === (600 + 650 + 1100 + 2100 + 800) / 8);
+  conferir("Sisu: nota faltando ou fora de 0 a 1000 não calcula", mediaPonderada({ ...notas, redacao: undefined }, { linguagens: 1, humanas: 1, natureza: 1, matematica: 1, redacao: 1 }) === null && mediaPonderada({ ...notas, matematica: 1200 }, { linguagens: 1, humanas: 1, natureza: 1, matematica: 1, redacao: 1 }) === null);
+  conferir("Sisu: pesos zerados não calculam", mediaPonderada(notas, { linguagens: 0, humanas: 0, natureza: 0, matematica: 0, redacao: 0 }) === null);
 }
 
 console.log(`enem: ${ok} conferências certas, ${falhas.length} falhas`);

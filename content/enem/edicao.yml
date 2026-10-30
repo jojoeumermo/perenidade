@@ -62,6 +62,10 @@ fontes:
     titulo: "Página do Participante"
     orgao: "Inep"
     url: "https://enem.inep.gov.br/participante"
+  sisu-perguntas:
+    titulo: "Sisu, perguntas frequentes: como o sistema faz esse cálculo?"
+    orgao: "MEC"
+    url: "https://www.gov.br/mec/pt-br/acesso-a-informacao/perguntas-frequentes/sisu/notas-do-enem/como-o-sistema-faz-esse"
   sisu:
     titulo: "Sisu: página oficial"
     orgao: "MEC"
@@ -163,6 +167,13 @@ fatos:
     fonte: edital-64
     item: "15.13"
     trecho: "será divulgado 60 (sessenta) dias após a divulgação dos resultados do Exame."
+    conferido: "2026-10-30"
+  sisu-media-ponderada:
+    afirmacao: "Como o Sisu usa as notas"
+    tipo: texto
+    valor: "aplica os pesos que cada instituição define para o curso e usa a edição do Enem que dá a maior média ponderada"
+    fonte: sisu-perguntas
+    trecho: "para cada oferta de curso, aplica os pesos definidos pela instituição de ensino superior. Em seguida, seleciona automaticamente a edição do Enem que gera a maior média ponderada para aquela oferta específica."
     conferido: "2026-10-30"
   sisu-2027-cronograma:
     afirmacao: "Cronograma do Sisu, do Prouni e do Fies que usarão as notas do Enem 2026"
