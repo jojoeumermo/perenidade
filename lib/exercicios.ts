@@ -7,6 +7,7 @@
 
 import { calculate } from "./expressao";
 import { equals, type Fraction, frac, fromDecimal } from "./fracao";
+import { type AreaDoEnem, COMPETENCIAS_DO_ENEM, competenciaDaHabilidade } from "./mapa-curricular";
 
 export type Dificuldade = 1 | 2 | 3;
 
@@ -30,6 +31,20 @@ interface Base {
   revisao: Revisao;
   /** Quem escreveu. */
   autoria: string;
+  /** Etiquetas do curso ENEM (docs/ENEM.md): a área, a habilidade da Matriz e o objeto/tópico de content/enem/matriz.yml. */
+  enem?: EtiquetasDoEnem;
+  /** Texto-base da questão (no estilo ENEM: texto-base, comando no enunciado e 5 alternativas). */
+  textoBase?: string;
+}
+
+export interface EtiquetasDoEnem {
+  area: AreaDoEnem;
+  competencia: number;
+  habilidade: number;
+  /** Id de objeto ou tópico de content/enem/matriz.yml; testar:enem confere se existe e se é da área. */
+  objeto?: string;
+  /** "enem": texto-base, comando e 5 alternativas (A a E). */
+  estilo?: "enem";
 }
 
 export interface Alternativa {
@@ -92,6 +107,21 @@ function revisaoDe(bruto: unknown, onde: string, arquivo: string): Revisao {
   return { status: "revisada", por, em };
 }
 
+/** As etiquetas do ENEM, quando o exercício tem alguma. A forma é conferida aqui; a matriz, em testar:enem. */
+function etiquetasDe(d: Dado, onde: string, arquivo: string): EtiquetasDoEnem | undefined {
+  if (d.area === undefined && d.habilidade === undefined && d.objeto === undefined && d.estilo === undefined && d.competencia === undefined) return undefined;
+  const area = d.area as AreaDoEnem;
+  if (!(area in COMPETENCIAS_DO_ENEM)) falhar(arquivo, `${onde}: "area" deve ser linguagens, humanas, natureza ou matematica`);
+  const habilidade = Number(d.habilidade);
+  if (!Number.isInteger(habilidade) || habilidade < 1 || habilidade > 30) falhar(arquivo, `${onde}: "habilidade" vai de 1 a 30 (H1 a H30 da área)`);
+  const competencia = competenciaDaHabilidade(area, habilidade);
+  if (d.competencia !== undefined && Number(d.competencia) !== competencia) falhar(arquivo, `${onde}: H${habilidade} de ${area} é da competência ${competencia}, não ${d.competencia}`);
+  const objeto = opcional(d, "objeto", onde, arquivo);
+  if (objeto && !/^(lin|mat|nat|hum)-[a-z0-9-]+$/.test(objeto)) falhar(arquivo, `${onde}: "objeto" é um id de content/enem/matriz.yml`);
+  if (d.estilo !== undefined && d.estilo !== "enem") falhar(arquivo, `${onde}: "estilo" só aceita "enem"`);
+  return { area, competencia, habilidade, objeto, estilo: d.estilo === "enem" ? "enem" : undefined };
+}
+
 /** Confere a lista de exercícios de um arquivo. Qualquer problema para a montagem, com o arquivo e o item no erro. */
 export function validarExercicios(bruto: unknown, arquivo: string): ExercicioNovo[] {
   if (!Array.isArray(bruto)) falhar(arquivo, "o arquivo deve ser uma lista de exercícios");
@@ -118,7 +148,13 @@ export function validarExercicios(bruto: unknown, arquivo: string): ExercicioNov
       nivelamento: d.nivelamento === true,
       revisao: revisaoDe(d.revisao, onde, arquivo),
       autoria: opcional(d, "autoria", onde, arquivo) ?? "Instituto Lúcia",
+      enem: etiquetasDe(d, onde, arquivo),
+      textoBase: d.texto_base === undefined ? undefined : texto(d, "texto_base", onde, arquivo, 4000),
     };
+    if (base.enem?.estilo === "enem") {
+      if (!base.textoBase) falhar(arquivo, `${onde}: questão no estilo ENEM precisa de "texto_base"`);
+      if (!Array.isArray(d.alternativas) || d.alternativas.length !== 5) falhar(arquivo, `${onde}: questão no estilo ENEM tem 5 alternativas (A a E)`);
+    }
     const tipo = d.tipo ?? "escolha";
     if (tipo === "escolha") {
       const brutas = d.alternativas;

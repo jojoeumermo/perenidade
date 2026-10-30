@@ -28,20 +28,29 @@ export type AreaDoEnem = "matematica" | "linguagens" | "natureza" | "humanas";
 /** Na Matriz de Referência do Enem, cada área tem 30 habilidades (H1 a H30), divididas entre as competências. */
 export const COMPETENCIAS_DO_ENEM: Record<AreaDoEnem, number> = { matematica: 7, linguagens: 9, natureza: 8, humanas: 6 };
 
-/** Matemática: as habilidades de cada competência de área (C1: H1–H5, C2: H6–H9 …). */
-const FAIXAS_DE_MATEMATICA: [number, number][] = [
-  [1, 5],
-  [6, 9],
-  [10, 14],
-  [15, 18],
-  [19, 23],
-  [24, 26],
-  [27, 30],
-];
+/**
+ * As habilidades de cada competência de área (C1: H1–H5, C2: H6–H9 …), como estão na Matriz de Referência do Enem
+ * (Inep, download.inep.gov.br/download/enem/matriz_referencia.pdf, conferida em 30/10/2026). content/enem/matriz.yml
+ * repete a mesma divisão, e `npm run testar:enem` confere que as duas batem.
+ */
+export const FAIXAS_DO_ENEM: Record<AreaDoEnem, [number, number][]> = {
+  matematica: [[1, 5], [6, 9], [10, 14], [15, 18], [19, 23], [24, 26], [27, 30]],
+  linguagens: [[1, 4], [5, 8], [9, 11], [12, 14], [15, 17], [18, 20], [21, 24], [25, 27], [28, 30]],
+  natureza: [[1, 4], [5, 7], [8, 12], [13, 16], [17, 19], [20, 23], [24, 27], [28, 30]],
+  humanas: [[1, 5], [6, 10], [11, 15], [16, 20], [21, 25], [26, 30]],
+};
+
+/** A competência de área a que uma habilidade pertence (H12 de Linguagens → C4). */
+export function competenciaDaHabilidade(area: AreaDoEnem, habilidade: number): number {
+  const i = FAIXAS_DO_ENEM[area].findIndex(([de, ate]) => habilidade >= de && habilidade <= ate);
+  return i + 1;
+}
 
 export interface MapaDaAula {
   bncc: HabilidadeBncc[];
   enem: HabilidadeEnem[];
+  /** Ids de objetos de conhecimento ou tópicos de content/enem/matriz.yml (vazio quando a aula não é do percurso). */
+  objetos: string[];
 }
 
 export interface MapaDaTrilha {
@@ -92,13 +101,15 @@ export function validarMapa(bruto: unknown, arquivo: string): MapaDaTrilha {
       const habilidade = Number(h?.habilidade);
       if (!Number.isInteger(competencia) || competencia < 1 || competencia > COMPETENCIAS_DO_ENEM[area]) falhar(arquivo, `${onde}: competência ${h?.competencia} não existe na matriz de ${area}`);
       if (!Number.isInteger(habilidade) || habilidade < 1 || habilidade > 30) falhar(arquivo, `${onde}: habilidade ${h?.habilidade} não existe (H1 a H30)`);
-      if (area === "matematica") {
-        const [de, ate] = FAIXAS_DE_MATEMATICA[competencia - 1];
-        if (habilidade < de || habilidade > ate) falhar(arquivo, `${onde}: H${habilidade} não pertence à competência ${competencia} de Matemática (H${de} a H${ate})`);
-      }
+      const [de, ate] = FAIXAS_DO_ENEM[area][competencia - 1];
+      if (habilidade < de || habilidade > ate) falhar(arquivo, `${onde}: H${habilidade} não pertence à competência ${competencia} de ${area} (H${de} a H${ate})`);
       return { area, competencia, habilidade, resumo: resumoDe(h?.resumo, onde, arquivo), situacao: situacaoDe(h?.situacao, onde, arquivo) };
     });
-    aulas[aula] = { bncc, enem };
+    // Objetos de conhecimento (e tópicos) de content/enem/matriz.yml que a aula ensina. Aqui só a forma;
+    // `npm run testar:enem` confere se cada id existe na matriz.
+    const brutos = m.objetos ?? [];
+    if (!Array.isArray(brutos) || !brutos.every((o) => typeof o === "string" && /^(lin|mat|nat|hum)-[a-z0-9-]+$/.test(o))) falhar(arquivo, `${aula}.objetos: lista de ids de content/enem/matriz.yml (ex.: mat-numeros-porcentagem)`);
+    aulas[aula] = { bncc, enem, objetos: brutos as string[] };
   }
   return { fontes: d.fontes as string[], aulas };
 }

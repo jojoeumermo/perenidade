@@ -1,0 +1,858 @@
+# A Matriz de Referência do Enem, do jeito que o curso usa: áreas, competências de área, habilidades (H1 a H30 em
+# cada área), objetos de conhecimento do anexo da Matriz e as cinco competências da redação.
+# Formato e validação: lib/enem.ts (validarMatriz). Documentação: docs/ENEM.md.
+#
+# REGRAS
+# - Os números das competências e das habilidades são os oficiais. O "resumo" é uma frase da equipe para orientar o
+#   estudo; NÃO é a redação oficial (que está no documento do Inep, na fonte abaixo).
+# - Os "objetos" são os do anexo da Matriz ("Objetos de conhecimento associados às Matrizes de Referência"), com o
+#   nome oficial curto. A lista de "habilidades" de cada objeto é proposta da equipe (o anexo não liga objeto a
+#   habilidade): por isso fica "situacao: a-confirmar" até um educador da área conferir.
+# - Os "topicos" quebram cada objeto nas aulas do percurso. O id de um tópico começa sempre pelo id do objeto
+#   (mat-numeros → mat-numeros-porcentagem). Ids nunca mudam depois de publicados: exercícios e questões apontam
+#   para eles.
+# - Objeto com "anexo: false" não está no anexo oficial; foi criado pela equipe para uma competência que o anexo
+#   não detalha (caso da língua estrangeira).
+
+fonte:
+  titulo: "Matriz de Referência Enem"
+  autor: "Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (Inep)"
+  url: "https://download.inep.gov.br/download/enem/matriz_referencia.pdf"
+  pagina: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos"
+  citada_em: "Edital nº 64, de 21 de maio de 2026, item 3.1"
+  conferido: "2026-10-30"
+
+eixos:
+  - { sigla: DL, resumo: "Dominar linguagens: a norma-padrão do português e as linguagens da matemática, das artes, das ciências e das línguas estrangeiras." }
+  - { sigla: CF, resumo: "Compreender fenômenos: usar conceitos das várias áreas para entender a natureza, a história, a geografia, a técnica e a arte." }
+  - { sigla: SP, resumo: "Enfrentar situações-problema: escolher, organizar e interpretar dados para decidir." }
+  - { sigla: CA, resumo: "Construir argumentação: juntar informações e conhecimentos para defender uma posição de forma consistente." }
+  - { sigla: EP, resumo: "Elaborar propostas: usar o que se aprendeu para propor intervenções solidárias na realidade, respeitando os direitos humanos e a diversidade." }
+
+areas:
+  # ─────────────────────────────── LINGUAGENS ───────────────────────────────
+  linguagens:
+    nome: "Linguagens, Códigos e suas Tecnologias"
+    sigla: LC
+    dia: 1
+    componentes: ["Língua Portuguesa", "Literatura", "Língua Estrangeira (Inglês ou Espanhol)", "Artes", "Educação Física", "Tecnologias da Informação e Comunicação"]
+    competencias:
+      - numero: 1
+        resumo: "Usar as tecnologias da comunicação e da informação na escola, no trabalho e na vida."
+        habilidades:
+          - { numero: 1, resumo: "Reconhecer as diferentes linguagens e os recursos expressivos de cada meio de comunicação." }
+          - { numero: 2, resumo: "Usar o que se sabe sobre os meios de comunicação para resolver problemas sociais." }
+          - { numero: 3, resumo: "Relacionar as informações dos meios de comunicação à função social que eles têm." }
+          - { numero: 4, resumo: "Reconhecer críticas aos usos sociais das linguagens e dos meios de comunicação." }
+      - numero: 2
+        resumo: "Ler em língua estrangeira (inglês ou espanhol) para chegar a informações e a outras culturas."
+        habilidades:
+          - { numero: 5, resumo: "Ligar palavras e expressões de um texto em língua estrangeira ao tema dele." }
+          - { numero: 6, resumo: "Usar a língua estrangeira para ampliar o acesso a informações, tecnologias e culturas." }
+          - { numero: 7, resumo: "Relacionar um texto em língua estrangeira às suas estruturas, à sua função e ao seu uso social." }
+          - { numero: 8, resumo: "Reconhecer a produção cultural em língua estrangeira como parte da diversidade de culturas e línguas." }
+      - numero: 3
+        resumo: "Entender a linguagem do corpo como parte da vida, da convivência e da identidade."
+        habilidades:
+          - { numero: 9, resumo: "Reconhecer que as práticas corporais nascem de necessidades do dia a dia de cada grupo social." }
+          - { numero: 10, resumo: "Reconhecer quando é preciso mudar hábitos corporais por causa das necessidades do corpo em movimento." }
+          - { numero: 11, resumo: "Reconhecer o corpo como meio de convivência, respeitando limites e adaptações para cada pessoa." }
+      - numero: 4
+        resumo: "Entender a arte como saber cultural e estético que dá sentido ao mundo e à identidade."
+        habilidades:
+          - { numero: 12, resumo: "Reconhecer as funções da arte e o trabalho dos artistas no meio em que vivem." }
+          - { numero: 13, resumo: "Analisar obras de arte como forma de explicar culturas, padrões de beleza e preconceitos." }
+          - { numero: 14, resumo: "Valorizar a diversidade artística e as trocas entre as manifestações de diferentes grupos sociais e étnicos." }
+      - numero: 5
+        resumo: "Analisar e interpretar os recursos das linguagens, ligando cada texto ao seu contexto de produção e de leitura."
+        habilidades:
+          - { numero: 15, resumo: "Relacionar o texto literário ao momento histórico, social e político em que foi escrito." }
+          - { numero: 16, resumo: "Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído." }
+          - { numero: 17, resumo: "Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais." }
+      - numero: 6
+        resumo: "Usar os sistemas de símbolos das linguagens para organizar o pensamento, comunicar e informar."
+        habilidades:
+          - { numero: 18, resumo: "Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos." }
+          - { numero: 19, resumo: "Analisar a função da linguagem que predomina num texto, em cada situação de comunicação." }
+          - { numero: 20, resumo: "Reconhecer o patrimônio linguístico como parte da memória e da identidade do país." }
+      - numero: 7
+        resumo: "Confrontar opiniões e pontos de vista sobre as linguagens e suas manifestações."
+        habilidades:
+          - { numero: 21, resumo: "Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos." }
+          - { numero: 22, resumo: "Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes." }
+          - { numero: 23, resumo: "Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados." }
+          - { numero: 24, resumo: "Reconhecer estratégias para convencer o público, como intimidação, sedução, comoção ou chantagem." }
+      - numero: 8
+        resumo: "Usar a língua portuguesa como língua materna, que dá sentido ao mundo e à identidade."
+        habilidades:
+          - { numero: 25, resumo: "Identificar as marcas das variedades linguísticas sociais, regionais e de registro." }
+          - { numero: 26, resumo: "Relacionar cada variedade linguística à situação de uso em que ela aparece." }
+          - { numero: 27, resumo: "Reconhecer os usos da norma-padrão nas diferentes situações de comunicação." }
+      - numero: 9
+        resumo: "Entender a natureza e o impacto das tecnologias da comunicação e da informação na vida pessoal e social."
+        habilidades:
+          - { numero: 28, resumo: "Reconhecer a função e o impacto social das tecnologias da comunicação e da informação." }
+          - { numero: 29, resumo: "Identificar as tecnologias da comunicação pela análise das linguagens que elas usam." }
+          - { numero: 30, resumo: "Relacionar as tecnologias da comunicação ao desenvolvimento das sociedades e ao conhecimento que elas produzem." }
+    objetos:
+      - id: lin-texto
+        nome: "Estudo do texto"
+        resumo: "Sequências e gêneros textuais, modos de organizar um texto, leitura e escrita nas esferas pública e privada."
+        habilidades: [18, 19, 21, 22, 23]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-texto-estrategias-de-leitura, nome: "Estratégias de leitura e inferência" }
+          - { id: lin-texto-tipos-textuais, nome: "Tipos textuais: narrar, descrever, expor, argumentar, instruir" }
+          - { id: lin-texto-funcoes-da-linguagem, nome: "Funções da linguagem" }
+          - { id: lin-texto-generos-jornalisticos, nome: "Gêneros jornalísticos: notícia e reportagem" }
+          - { id: lin-texto-generos-opinativos, nome: "Artigo de opinião, editorial, carta aberta e resenha" }
+          - { id: lin-texto-cronica-e-conto, nome: "Crônica e conto" }
+          - { id: lin-texto-humor-grafico, nome: "Charge, tirinha, cartum e meme" }
+          - { id: lin-texto-generos-do-cotidiano, nome: "Verbete, manual, receita, anúncio e campanha" }
+          - { id: lin-texto-infografico, nome: "Infográfico e texto multimodal" }
+      - id: lin-praticas-corporais
+        nome: "Estudo das práticas corporais"
+        resumo: "O corpo como linguagem: esporte, dança, lutas, jogos, brincadeiras, saúde, lazer e identidade."
+        habilidades: [9, 10, 11]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-praticas-corporais-sociedade, nome: "Práticas corporais, cultura e sociedade" }
+          - { id: lin-praticas-corporais-saude-e-beleza, nome: "Corpo, saúde e padrões de beleza" }
+          - { id: lin-praticas-corporais-lutas-dancas-ginasticas, nome: "Lutas, danças e ginásticas" }
+          - { id: lin-praticas-corporais-jogos-e-brincadeiras, nome: "Jogos e brincadeiras" }
+          - { id: lin-praticas-corporais-esporte-midia, nome: "Esporte, mídia e mercado" }
+      - id: lin-artes
+        nome: "Produção e recepção de textos artísticos"
+        resumo: "Artes visuais, teatro, música e dança: forma, contexto, comunidade, diversidade e patrimônio."
+        habilidades: [12, 13, 14]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-artes-arte-como-linguagem, nome: "Arte como linguagem e patrimônio" }
+          - { id: lin-artes-indigena-e-afro, nome: "Arte indígena e afro-brasileira" }
+          - { id: lin-artes-barroco-mineiro, nome: "Barroco mineiro" }
+          - { id: lin-artes-modernismo, nome: "Modernismo nas artes visuais" }
+          - { id: lin-artes-contemporanea-e-urbana, nome: "Arte contemporânea e arte urbana" }
+          - { id: lin-artes-musica-brasileira, nome: "Música brasileira e as culturas que a criaram" }
+          - { id: lin-artes-teatro-danca-cinema-foto, nome: "Teatro, dança, cinema e fotografia" }
+          - { id: lin-artes-cultura-popular, nome: "Cultura popular e patrimônio imaterial" }
+      - id: lin-literatura
+        nome: "Estudo do texto literário"
+        resumo: "Literatura e processo social, movimentos literários, gêneros e a formação do patrimônio literário nacional."
+        habilidades: [15, 16, 17]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-literatura-texto-literario, nome: "O texto literário e os gêneros literários" }
+          - { id: lin-literatura-quinhentismo, nome: "Quinhentismo e literatura de informação" }
+          - { id: lin-literatura-barroco, nome: "Barroco" }
+          - { id: lin-literatura-arcadismo, nome: "Arcadismo" }
+          - { id: lin-literatura-romantismo, nome: "Romantismo" }
+          - { id: lin-literatura-realismo-naturalismo, nome: "Realismo e Naturalismo" }
+          - { id: lin-literatura-parnasianismo-simbolismo, nome: "Parnasianismo e Simbolismo" }
+          - { id: lin-literatura-pre-modernismo, nome: "Pré-Modernismo" }
+          - { id: lin-literatura-semana-de-22, nome: "Vanguardas europeias e Semana de 1922" }
+          - { id: lin-literatura-primeira-geracao-modernista, nome: "Primeira geração modernista" }
+          - { id: lin-literatura-geracao-de-30, nome: "Romance de 30 e poesia de 30" }
+          - { id: lin-literatura-geracao-de-45, nome: "Geração de 45" }
+          - { id: lin-literatura-contemporanea, nome: "Poesia concreta e produção contemporânea" }
+          - { id: lin-literatura-afro-brasileira, nome: "Literatura afro-brasileira" }
+          - { id: lin-literatura-indigena, nome: "Literatura indígena" }
+          - { id: lin-literatura-cordel-e-oralidade, nome: "Cordel e literatura oral" }
+          - { id: lin-literatura-marginal-e-periferica, nome: "Literatura marginal e periférica" }
+      - id: lin-recursos-expressivos
+        nome: "Estudo dos aspectos linguísticos em diferentes textos"
+        resumo: "Recursos expressivos da língua e a articulação entre ideias (relações lógico-semânticas)."
+        habilidades: [18, 22]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-recursos-expressivos-coesao-e-coerencia, nome: "Coesão e coerência" }
+          - { id: lin-recursos-expressivos-intertextualidade, nome: "Intertextualidade: paródia, paráfrase, citação, alusão" }
+          - { id: lin-recursos-expressivos-figuras, nome: "Figuras de linguagem" }
+          - { id: lin-recursos-expressivos-semantica, nome: "Semântica: polissemia, ambiguidade, denotação e conotação" }
+      - id: lin-argumentacao
+        nome: "Estudo do texto argumentativo, seus gêneros e recursos linguísticos"
+        resumo: "Pontos de vista, progressão do texto, papéis dos interlocutores e propósitos de quem escreve."
+        habilidades: [21, 22, 23, 24]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-argumentacao-tema-tese-argumento, nome: "Tema, tese e argumento" }
+          - { id: lin-argumentacao-estrategias, nome: "Estratégias argumentativas" }
+          - { id: lin-argumentacao-publicidade, nome: "Persuasão na publicidade e na propaganda" }
+      - id: lin-lingua-portuguesa
+        nome: "Estudo dos aspectos linguísticos da língua portuguesa"
+        resumo: "Norma-padrão e variação linguística, registro, formalidade, escolha de palavras, tempos verbais e coesão."
+        habilidades: [20, 25, 26, 27]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-lingua-portuguesa-variacao, nome: "Variação linguística" }
+          - { id: lin-lingua-portuguesa-preconceito-linguistico, nome: "Preconceito linguístico" }
+          - { id: lin-lingua-portuguesa-norma-padrao, nome: "Norma-padrão em uso: concordância, regência, crase, pontuação, colocação" }
+          - { id: lin-lingua-portuguesa-formacao-de-palavras, nome: "Formação de palavras" }
+          - { id: lin-lingua-portuguesa-oralidade-e-escrita, nome: "Oralidade e escrita" }
+          - { id: lin-lingua-portuguesa-portugues-no-brasil, nome: "O português no Brasil e as línguas indígenas e africanas" }
+      - id: lin-generos-digitais
+        nome: "Estudo dos gêneros digitais"
+        resumo: "Tecnologias da comunicação e informação: suportes, interlocutores, linguagem e função social."
+        habilidades: [1, 2, 3, 4, 28, 29, 30]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-generos-digitais-hipertexto, nome: "Internet, hipertexto e redes sociais" }
+          - { id: lin-generos-digitais-algoritmos, nome: "Algoritmos e bolhas" }
+          - { id: lin-generos-digitais-desinformacao, nome: "Desinformação e checagem" }
+          - { id: lin-generos-digitais-privacidade, nome: "Privacidade e dados" }
+      - id: lin-lem
+        nome: "Leitura em língua estrangeira (inglês ou espanhol)"
+        resumo: "Leitura de textos em inglês ou espanhol: vocabulário em contexto, gêneros, cognatos e falsos cognatos."
+        anexo: false
+        habilidades: [5, 6, 7, 8]
+        situacao: a-confirmar
+        topicos:
+          - { id: lin-lem-ingles-estrategias, nome: "Inglês: estratégias de leitura (cognatos, skimming, scanning, inferência)" }
+          - { id: lin-lem-ingles-generos, nome: "Inglês: gêneros mais frequentes e vocabulário em contexto" }
+          - { id: lin-lem-ingles-conectivos, nome: "Inglês: conectivos e marcadores do texto" }
+          - { id: lin-lem-espanhol-estrategias, nome: "Espanhol: estratégias de leitura e falsos cognatos (heterosemánticos)" }
+          - { id: lin-lem-espanhol-generos, nome: "Espanhol: gêneros mais frequentes e vocabulário em contexto" }
+          - { id: lin-lem-espanhol-conectivos, nome: "Espanhol: conectivos e marcadores do texto" }
+
+  # ─────────────────────────────── MATEMÁTICA ───────────────────────────────
+  matematica:
+    nome: "Matemática e suas Tecnologias"
+    sigla: MT
+    dia: 2
+    componentes: ["Matemática"]
+    competencias:
+      - numero: 1
+        resumo: "Entender o sentido dos números naturais, inteiros, racionais e reais."
+        habilidades:
+          - { numero: 1, resumo: "Reconhecer, em situações sociais, os significados e as formas de escrever números e operações." }
+          - { numero: 2, resumo: "Identificar padrões numéricos ou princípios de contagem." }
+          - { numero: 3, resumo: "Resolver problemas com conhecimentos numéricos." }
+          - { numero: 4, resumo: "Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números." }
+          - { numero: 5, resumo: "Avaliar propostas de intervenção na realidade usando conhecimentos numéricos." }
+      - numero: 2
+        resumo: "Usar a geometria para ler, representar e agir sobre a realidade."
+        habilidades:
+          - { numero: 6, resumo: "Interpretar posição e movimento no espaço e sua representação no plano (mapas, vistas, plantas)." }
+          - { numero: 7, resumo: "Identificar características de figuras planas e espaciais." }
+          - { numero: 8, resumo: "Resolver problemas de geometria de espaço e forma." }
+          - { numero: 9, resumo: "Usar a geometria para escolher argumentos que resolvem problemas do cotidiano." }
+      - numero: 3
+        resumo: "Entender grandezas e medidas para resolver problemas do cotidiano."
+        habilidades:
+          - { numero: 10, resumo: "Identificar relações entre grandezas e unidades de medida." }
+          - { numero: 11, resumo: "Usar escalas para ler representações do cotidiano." }
+          - { numero: 12, resumo: "Resolver problemas com medidas de grandezas." }
+          - { numero: 13, resumo: "Avaliar o resultado de uma medição ao construir um argumento." }
+          - { numero: 14, resumo: "Avaliar propostas de intervenção usando grandezas e medidas." }
+      - numero: 4
+        resumo: "Entender como as grandezas variam juntas, para resolver problemas do cotidiano."
+        habilidades:
+          - { numero: 15, resumo: "Identificar quando uma grandeza depende de outra." }
+          - { numero: 16, resumo: "Resolver problemas com grandezas direta ou inversamente proporcionais." }
+          - { numero: 17, resumo: "Analisar a variação de grandezas para construir argumentos." }
+          - { numero: 18, resumo: "Avaliar propostas de intervenção que envolvem variação de grandezas." }
+      - numero: 5
+        resumo: "Modelar e resolver problemas sociais, econômicos, técnicos ou científicos com álgebra."
+        habilidades:
+          - { numero: 19, resumo: "Identificar a expressão algébrica que traduz a relação entre grandezas." }
+          - { numero: 20, resumo: "Interpretar gráficos cartesianos que relacionam grandezas." }
+          - { numero: 21, resumo: "Resolver problemas cuja modelagem pede álgebra." }
+          - { numero: 22, resumo: "Usar álgebra e geometria para construir argumentos." }
+          - { numero: 23, resumo: "Avaliar propostas de intervenção usando álgebra." }
+      - numero: 6
+        resumo: "Ler gráficos e tabelas de natureza científica e social para prever, estimar e interpretar."
+        habilidades:
+          - { numero: 24, resumo: "Fazer inferências a partir de gráficos ou tabelas." }
+          - { numero: 25, resumo: "Resolver problemas com dados de tabelas ou gráficos." }
+          - { numero: 26, resumo: "Analisar gráficos ou tabelas para construir argumentos." }
+      - numero: 7
+        resumo: "Entender o acaso e usar estatística e probabilidade para interpretar dados."
+        habilidades:
+          - { numero: 27, resumo: "Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos." }
+          - { numero: 28, resumo: "Resolver problemas de estatística e probabilidade." }
+          - { numero: 29, resumo: "Usar estatística e probabilidade para construir argumentos." }
+          - { numero: 30, resumo: "Avaliar propostas de intervenção usando estatística e probabilidade." }
+    objetos:
+      - id: mat-numeros
+        nome: "Conhecimentos numéricos"
+        resumo: "Operações nos conjuntos numéricos, divisibilidade, razões, proporções, porcentagem, juros, sequências e contagem."
+        habilidades: [1, 2, 3, 4, 5, 15, 16, 17, 18]
+        situacao: a-confirmar
+        topicos:
+          - { id: mat-numeros-operacoes, nome: "Operações com inteiros e racionais" }
+          - { id: mat-numeros-fracoes-e-decimais, nome: "Frações e decimais" }
+          - { id: mat-numeros-potencias-e-notacao-cientifica, nome: "Potências, raízes e notação científica" }
+          - { id: mat-numeros-multiplos-e-divisores, nome: "Múltiplos, divisores, MMC e MDC" }
+          - { id: mat-numeros-expressoes, nome: "Expressões numéricas" }
+          - { id: mat-numeros-estimativa, nome: "Arredondamento e estimativa" }
+          - { id: mat-numeros-razao-e-proporcao, nome: "Razão e proporção" }
+          - { id: mat-numeros-grandezas-proporcionais, nome: "Grandezas direta e inversamente proporcionais" }
+          - { id: mat-numeros-regra-de-tres, nome: "Regra de três simples e composta" }
+          - { id: mat-numeros-porcentagem, nome: "Porcentagem" }
+          - { id: mat-numeros-aumentos-e-descontos, nome: "Aumentos e descontos sucessivos" }
+          - { id: mat-numeros-juros-simples, nome: "Juros simples" }
+          - { id: mat-numeros-juros-compostos, nome: "Juros compostos" }
+          - { id: mat-numeros-inflacao, nome: "Inflação e poder de compra" }
+          - { id: mat-numeros-contas-do-dia-a-dia, nome: "Contas do dia a dia: luz, água, salário, parcelamento, impostos" }
+          - { id: mat-numeros-taxas, nome: "Velocidade, vazão, densidade e outras taxas" }
+          - { id: mat-numeros-progressoes, nome: "Progressões aritméticas e geométricas" }
+          - { id: mat-numeros-contagem, nome: "Princípio fundamental da contagem" }
+          - { id: mat-numeros-arranjos-e-combinacoes, nome: "Permutações, arranjos e combinações" }
+      - id: mat-geometria
+        nome: "Conhecimentos geométricos"
+        resumo: "Figuras planas e espaciais, grandezas e medidas, escalas, áreas e volumes, ângulos, semelhança e trigonometria."
+        habilidades: [6, 7, 8, 9, 10, 11, 12, 13, 14]
+        situacao: a-confirmar
+        topicos:
+          - { id: mat-geometria-unidades-de-medida, nome: "Unidades de comprimento, área, volume, capacidade, massa e tempo" }
+          - { id: mat-geometria-escalas, nome: "Escalas em mapas, plantas e maquetes" }
+          - { id: mat-geometria-angulos-e-retas, nome: "Ângulos, retas e paralelismo" }
+          - { id: mat-geometria-poligonos, nome: "Polígonos" }
+          - { id: mat-geometria-triangulos, nome: "Triângulos e congruência" }
+          - { id: mat-geometria-semelhanca-e-tales, nome: "Semelhança e Teorema de Tales" }
+          - { id: mat-geometria-pitagoras, nome: "Teorema de Pitágoras e relações métricas" }
+          - { id: mat-geometria-trigonometria, nome: "Trigonometria no triângulo retângulo" }
+          - { id: mat-geometria-areas, nome: "Áreas de figuras planas" }
+          - { id: mat-geometria-circunferencia, nome: "Circunferência e círculo" }
+          - { id: mat-geometria-vistas-e-projecoes, nome: "Vistas e projeções ortogonais" }
+          - { id: mat-geometria-planificacoes, nome: "Planificações" }
+          - { id: mat-geometria-poliedros, nome: "Poliedros e relação de Euler" }
+          - { id: mat-geometria-prismas-e-cilindros, nome: "Prismas e cilindros" }
+          - { id: mat-geometria-piramides-e-cones, nome: "Pirâmides e cones" }
+          - { id: mat-geometria-esfera, nome: "Esfera" }
+          - { id: mat-geometria-volumes-e-embalagens, nome: "Volume e capacidade de embalagens" }
+          - { id: mat-geometria-simetria, nome: "Simetria, translação, rotação e ladrilhamentos" }
+      - id: mat-estatistica
+        nome: "Conhecimentos de estatística e probabilidade"
+        resumo: "Representação e análise de dados, média, moda, mediana, dispersão e probabilidade."
+        habilidades: [24, 25, 26, 27, 28, 29, 30]
+        situacao: a-confirmar
+        topicos:
+          - { id: mat-estatistica-tabelas, nome: "Leitura de tabelas" }
+          - { id: mat-estatistica-graficos, nome: "Gráficos de barras, colunas, linhas e setores" }
+          - { id: mat-estatistica-histogramas, nome: "Histogramas e infográficos" }
+          - { id: mat-estatistica-media-mediana-moda, nome: "Média, mediana e moda" }
+          - { id: mat-estatistica-media-ponderada, nome: "Média ponderada" }
+          - { id: mat-estatistica-dispersao, nome: "Amplitude, variância e desvio padrão" }
+          - { id: mat-estatistica-probabilidade, nome: "Probabilidade simples" }
+          - { id: mat-estatistica-probabilidade-condicional, nome: "União, complementar e probabilidade condicional" }
+          - { id: mat-estatistica-eventos-independentes, nome: "Eventos independentes" }
+      - id: mat-algebra
+        nome: "Conhecimentos algébricos"
+        resumo: "Gráficos e funções (afim, quadrática, exponencial, logarítmica, trigonométrica), equações e inequações."
+        habilidades: [19, 20, 21, 22, 23]
+        situacao: a-confirmar
+        topicos:
+          - { id: mat-algebra-equacoes, nome: "Equações do 1º grau" }
+          - { id: mat-algebra-inequacoes, nome: "Inequações" }
+          - { id: mat-algebra-funcoes-e-graficos, nome: "Conceito de função e leitura de gráficos" }
+          - { id: mat-algebra-funcao-afim, nome: "Função afim" }
+          - { id: mat-algebra-funcao-quadratica, nome: "Função quadrática: vértice, máximo e mínimo" }
+          - { id: mat-algebra-funcao-exponencial, nome: "Função exponencial" }
+          - { id: mat-algebra-logaritmos, nome: "Logaritmos e escalas logarítmicas (pH, Richter, decibéis)" }
+          - { id: mat-algebra-funcoes-trigonometricas, nome: "Fenômenos periódicos e funções trigonométricas" }
+          - { id: mat-algebra-matrizes, nome: "Matrizes e tabelas" }
+      - id: mat-algebra-geometria
+        nome: "Conhecimentos algébricos/geométricos"
+        resumo: "Plano cartesiano, retas, circunferências, paralelismo, perpendicularidade e sistemas de equações."
+        habilidades: [6, 8, 19, 20, 21, 22]
+        situacao: a-confirmar
+        topicos:
+          - { id: mat-algebra-geometria-plano-cartesiano, nome: "Plano cartesiano e distância entre pontos" }
+          - { id: mat-algebra-geometria-reta, nome: "Equação da reta, paralelismo e perpendicularidade" }
+          - { id: mat-algebra-geometria-circunferencia, nome: "Equação da circunferência" }
+          - { id: mat-algebra-geometria-sistemas, nome: "Sistemas lineares" }
+
+  # ─────────────────────────────── NATUREZA ───────────────────────────────
+  natureza:
+    nome: "Ciências da Natureza e suas Tecnologias"
+    sigla: CN
+    dia: 2
+    componentes: ["Física", "Química", "Biologia"]
+    competencias:
+      - numero: 1
+        resumo: "Entender as ciências e as tecnologias como construções humanas ligadas à produção e à vida social."
+        habilidades:
+          - { numero: 1, resumo: "Reconhecer propriedades de ondas e oscilações e seus usos." }
+          - { numero: 2, resumo: "Ligar soluções de problemas (comunicação, transporte, saúde) ao avanço científico e tecnológico." }
+          - { numero: 3, resumo: "Comparar explicações científicas com as do senso comum, em épocas ou culturas diferentes." }
+          - { numero: 4, resumo: "Avaliar propostas de intervenção no ambiente, pensando na vida humana e na biodiversidade." }
+      - numero: 2
+        resumo: "Reconhecer e usar as tecnologias ligadas às ciências em diferentes situações."
+        habilidades:
+          - { numero: 5, resumo: "Dimensionar circuitos e aparelhos elétricos do dia a dia." }
+          - { numero: 6, resumo: "Entender manuais de instalação ou de uso de aparelhos e sistemas técnicos comuns." }
+          - { numero: 7, resumo: "Escolher testes ou critérios para comparar materiais e produtos, defendendo consumidor, trabalhador e saúde." }
+      - numero: 3
+        resumo: "Ligar a degradação ou a conservação do ambiente a processos produtivos e sociais e a ações técnicas."
+        habilidades:
+          - { numero: 8, resumo: "Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos." }
+          - { numero: 9, resumo: "Entender a importância dos ciclos biogeoquímicos e do fluxo de energia, e o que os perturba." }
+          - { numero: 10, resumo: "Analisar perturbações ambientais: origem, caminho e destino dos poluentes e seus efeitos." }
+          - { numero: 11, resumo: "Reconhecer benefícios, limites e questões éticas da biotecnologia." }
+          - { numero: 12, resumo: "Avaliar impactos de atividades sociais ou econômicas no ambiente, com interesses em conflito." }
+      - numero: 4
+        resumo: "Entender as relações entre os seres vivos e o ambiente, em especial as ligadas à saúde humana."
+        habilidades:
+          - { numero: 13, resumo: "Reconhecer como a vida se transmite e prever ou explicar características dos seres vivos." }
+          - { numero: 14, resumo: "Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade." }
+          - { numero: 15, resumo: "Interpretar modelos e experimentos que explicam processos biológicos." }
+          - { numero: 16, resumo: "Entender o papel da evolução nos padrões biológicos e na classificação dos seres vivos." }
+      - numero: 5
+        resumo: "Entender os métodos das ciências e aplicá-los em diferentes situações."
+        habilidades:
+          - { numero: 17, resumo: "Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências." }
+          - { numero: 18, resumo: "Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem." }
+          - { numero: 19, resumo: "Avaliar métodos das ciências que ajudam a diagnosticar ou resolver problemas sociais, econômicos ou ambientais." }
+      - numero: 6
+        resumo: "Usar a física para interpretar, avaliar ou planejar intervenções em situações-problema."
+        habilidades:
+          - { numero: 20, resumo: "Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes." }
+          - { numero: 21, resumo: "Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos." }
+          - { numero: 22, resumo: "Entender a interação entre radiação e matéria e suas consequências." }
+          - { numero: 23, resumo: "Avaliar formas de gerar, usar ou transformar energia, com suas implicações." }
+      - numero: 7
+        resumo: "Usar a química para interpretar, avaliar ou planejar intervenções em situações-problema."
+        habilidades:
+          - { numero: 24, resumo: "Usar a linguagem e a nomenclatura da química para descrever materiais e transformações." }
+          - { numero: 25, resumo: "Caracterizar materiais e substâncias: etapas, rendimentos e impactos de sua produção." }
+          - { numero: 26, resumo: "Avaliar impactos da produção e do consumo de recursos energéticos ou minerais." }
+          - { numero: 27, resumo: "Avaliar propostas de intervenção no ambiente usando a química, pesando riscos e benefícios." }
+      - numero: 8
+        resumo: "Usar a biologia para interpretar, avaliar ou planejar intervenções em situações-problema."
+        habilidades:
+          - { numero: 28, resumo: "Ligar adaptações dos organismos ao modo de vida e ao lugar onde vivem, em especial no Brasil." }
+          - { numero: 29, resumo: "Interpretar experimentos e técnicas com seres vivos e suas consequências." }
+          - { numero: 30, resumo: "Avaliar propostas individuais ou coletivas de cuidado com a saúde e com o ambiente." }
+    objetos:
+      # Física
+      - id: nat-fis-fundamentos
+        nome: "Conhecimentos básicos e fundamentais"
+        componente: "Física"
+        resumo: "Ordem de grandeza, notação científica, Sistema Internacional, medidas, gráficos e vetores."
+        habilidades: [17]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-fis-fundamentos-grandezas-e-unidades, nome: "Grandezas, unidades e notação científica" }
+          - { id: nat-fis-fundamentos-vetores, nome: "Vetores" }
+      - id: nat-fis-movimento
+        nome: "O movimento, o equilíbrio e a descoberta de leis físicas"
+        componente: "Física"
+        resumo: "Cinemática, leis de Newton, quantidade de movimento, impulso, atrito, torque e equilíbrio."
+        habilidades: [20, 17, 2]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-fis-movimento-cinematica, nome: "Cinemática: MU, MUV e gráficos" }
+          - { id: nat-fis-movimento-queda-e-lancamentos, nome: "Queda livre e lançamentos" }
+          - { id: nat-fis-movimento-leis-de-newton, nome: "Leis de Newton, atrito e plano inclinado" }
+          - { id: nat-fis-movimento-quantidade-de-movimento, nome: "Quantidade de movimento e impulso" }
+          - { id: nat-fis-movimento-equilibrio, nome: "Torque e equilíbrio" }
+          - { id: nat-fis-movimento-hidrostatica, nome: "Pressão, Stevin, Pascal, empuxo e densidade" }
+      - id: nat-fis-energia
+        nome: "Energia, trabalho e potência"
+        componente: "Física"
+        resumo: "Trabalho, energia cinética e potencial, conservação e dissipação, potência e rendimento."
+        habilidades: [23, 20, 17]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-fis-energia-trabalho-e-energia, nome: "Trabalho, energia e conservação" }
+          - { id: nat-fis-energia-potencia-e-rendimento, nome: "Potência e rendimento" }
+          - { id: nat-fis-energia-matriz-energetica, nome: "Matriz energética e usinas" }
+      - id: nat-fis-universo
+        nome: "A Mecânica e o funcionamento do Universo"
+        componente: "Física"
+        resumo: "Peso, gravitação universal, leis de Kepler, marés e a origem do universo."
+        habilidades: [20, 3]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-fis-universo-gravitacao, nome: "Gravitação, leis de Kepler e marés" }
+      - id: nat-fis-eletricidade
+        nome: "Fenômenos elétricos e magnéticos"
+        componente: "Física"
+        resumo: "Carga, corrente, Lei de Ohm, potência e consumo, circuitos, campo magnético, motores e geradores."
+        habilidades: [2, 5, 6, 21]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-fis-eletricidade-eletrostatica, nome: "Eletrostática" }
+          - { id: nat-fis-eletricidade-lei-de-ohm, nome: "Corrente, tensão, resistência e Lei de Ohm" }
+          - { id: nat-fis-eletricidade-consumo, nome: "Potência elétrica, consumo em kWh e conta de luz" }
+          - { id: nat-fis-eletricidade-circuitos, nome: "Circuitos em série e em paralelo" }
+          - { id: nat-fis-eletricidade-seguranca, nome: "Segurança elétrica e choque" }
+          - { id: nat-fis-eletricidade-magnetismo, nome: "Magnetismo, motores, geradores e transformadores" }
+      - id: nat-fis-ondas
+        nome: "Oscilações, ondas, óptica e radiação"
+        componente: "Física"
+        resumo: "Ondas, som, reflexão, refração, lentes, espelhos, instrumentos ópticos e radiação."
+        habilidades: [1, 2, 22]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-fis-ondas-ondas-e-som, nome: "Ondas e som: altura, intensidade, timbre, ressonância, Doppler" }
+          - { id: nat-fis-ondas-espectro, nome: "Espectro eletromagnético" }
+          - { id: nat-fis-ondas-reflexao-e-espelhos, nome: "Reflexão e espelhos" }
+          - { id: nat-fis-ondas-refracao-e-lentes, nome: "Refração e lentes" }
+          - { id: nat-fis-ondas-olho-humano, nome: "O olho humano e os defeitos da visão" }
+          - { id: nat-fis-ondas-fisica-moderna, nome: "Efeito fotoelétrico, radioatividade e energia nuclear" }
+      - id: nat-fis-calor
+        nome: "O calor e os fenômenos térmicos"
+        componente: "Física"
+        resumo: "Calor e temperatura, escalas, trocas de calor, dilatação, mudanças de estado, gases e máquinas térmicas."
+        habilidades: [9, 21, 23]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-fis-calor-temperatura-e-dilatacao, nome: "Temperatura, escalas e dilatação" }
+          - { id: nat-fis-calor-trocas-de-calor, nome: "Calor sensível e latente, trocas de calor e mudanças de estado" }
+          - { id: nat-fis-calor-propagacao, nome: "Propagação do calor" }
+          - { id: nat-fis-calor-termodinamica, nome: "Gases, termodinâmica e máquinas térmicas" }
+      # Química
+      - id: nat-qui-transformacoes
+        nome: "Transformações químicas"
+        componente: "Química"
+        resumo: "Evidências de reação, gases, modelos atômicos, estrutura do átomo, tabela periódica e reações."
+        habilidades: [24, 3]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-transformacoes-modelos-atomicos, nome: "Modelos atômicos" }
+          - { id: nat-qui-transformacoes-tabela-periodica, nome: "Tabela periódica" }
+          - { id: nat-qui-transformacoes-gases, nome: "Estudo dos gases" }
+          - { id: nat-qui-transformacoes-reacoes, nome: "Reações químicas e suas evidências" }
+      - id: nat-qui-representacao
+        nome: "Representação das transformações químicas"
+        componente: "Química"
+        resumo: "Fórmulas, balanceamento, leis ponderais, mol, massa molar e cálculos estequiométricos."
+        habilidades: [24, 17, 25]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-representacao-balanceamento, nome: "Reações e balanceamento" }
+          - { id: nat-qui-representacao-mol, nome: "Mol, massa molar e constante de Avogadro" }
+          - { id: nat-qui-representacao-estequiometria, nome: "Estequiometria" }
+      - id: nat-qui-materiais
+        nome: "Materiais, suas propriedades e usos"
+        componente: "Química"
+        resumo: "Estados físicos, misturas e separação, substâncias, ligações, polaridade e forças intermoleculares."
+        habilidades: [7, 18, 24, 25]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-materiais-estados-fisicos, nome: "Matéria e estados físicos" }
+          - { id: nat-qui-materiais-misturas, nome: "Substâncias e misturas" }
+          - { id: nat-qui-materiais-separacao, nome: "Separação de misturas" }
+          - { id: nat-qui-materiais-ligacoes, nome: "Ligações químicas" }
+          - { id: nat-qui-materiais-polaridade, nome: "Geometria molecular e polaridade" }
+          - { id: nat-qui-materiais-forcas-intermoleculares, nome: "Forças intermoleculares" }
+      - id: nat-qui-agua
+        nome: "Água"
+        componente: "Química"
+        resumo: "Água e vida, soluções, solubilidade, concentração, propriedades coligativas, ácidos, bases, sais e óxidos."
+        habilidades: [10, 24, 25]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-agua-solucoes, nome: "Soluções, concentração e diluição" }
+          - { id: nat-qui-agua-coligativas, nome: "Propriedades coligativas" }
+          - { id: nat-qui-agua-funcoes-inorganicas, nome: "Ácidos, bases, sais e óxidos" }
+          - { id: nat-qui-agua-tratamento, nome: "Tratamento de água e esgoto" }
+      - id: nat-qui-energia
+        nome: "Transformações químicas e energia"
+        componente: "Química"
+        resumo: "Termoquímica, Lei de Hess, oxirredução, pilhas, eletrólise e radioatividade."
+        habilidades: [21, 22, 24, 26]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-energia-termoquimica, nome: "Termoquímica e combustíveis" }
+          - { id: nat-qui-energia-eletroquimica, nome: "Pilhas, baterias, eletrólise e corrosão" }
+          - { id: nat-qui-energia-radioatividade, nome: "Radioatividade" }
+      - id: nat-qui-cinetica
+        nome: "Dinâmica das transformações químicas"
+        componente: "Química"
+        resumo: "Velocidade de reação, energia de ativação e os fatores que a alteram."
+        habilidades: [17, 24]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-cinetica-velocidade, nome: "Cinética química" }
+      - id: nat-qui-equilibrio
+        nome: "Transformação química e equilíbrio"
+        componente: "Química"
+        resumo: "Constante de equilíbrio, pH, hidrólise, solubilidade e o princípio de Le Chatelier."
+        habilidades: [17, 24, 25]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-equilibrio-le-chatelier, nome: "Equilíbrio químico e Le Chatelier" }
+          - { id: nat-qui-equilibrio-ph, nome: "pH e indicadores" }
+      - id: nat-qui-carbono
+        nome: "Compostos de carbono"
+        componente: "Química"
+        resumo: "Funções orgânicas, hidrocarbonetos, polímeros, óleos, gorduras, sabões, proteínas e enzimas."
+        habilidades: [24, 25, 18]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-carbono-cadeias, nome: "Cadeias carbônicas" }
+          - { id: nat-qui-carbono-funcoes, nome: "Funções orgânicas" }
+          - { id: nat-qui-carbono-isomeria, nome: "Isomeria" }
+          - { id: nat-qui-carbono-reacoes, nome: "Reações orgânicas" }
+          - { id: nat-qui-carbono-polimeros, nome: "Polímeros e plásticos" }
+      - id: nat-qui-sociedade
+        nome: "Relações da química com as tecnologias, a sociedade e o meio ambiente"
+        componente: "Química"
+        resumo: "Química no cotidiano, na agricultura, na saúde e nos alimentos; indústria, mineração e poluição."
+        habilidades: [8, 10, 12, 25, 27]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-sociedade-ambiental, nome: "Química ambiental: chuva ácida, efeito estufa, ozônio, metais pesados" }
+          - { id: nat-qui-sociedade-lixo-e-reciclagem, nome: "Lixo e reciclagem" }
+          - { id: nat-qui-sociedade-cotidiano, nome: "Química do cotidiano: sabões, alimentos, medicamentos, cosméticos" }
+      - id: nat-qui-energias
+        nome: "Energias químicas no cotidiano"
+        componente: "Química"
+        resumo: "Petróleo, gás natural, carvão, biomassa, biocombustíveis e energia nuclear."
+        habilidades: [8, 23, 26]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-qui-energias-combustiveis, nome: "Petróleo, gás e biocombustíveis" }
+          - { id: nat-qui-energias-nuclear, nome: "Energia nuclear e lixo atômico" }
+      # Biologia
+      - id: nat-bio-celulas
+        nome: "Moléculas, células e tecidos"
+        componente: "Biologia"
+        resumo: "Célula, metabolismo, fotossíntese e respiração, divisão celular, síntese de proteínas e biotecnologia."
+        habilidades: [11, 13, 15, 29]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-bio-celulas-moleculas, nome: "Água, sais e moléculas orgânicas" }
+          - { id: nat-bio-celulas-enzimas, nome: "Enzimas" }
+          - { id: nat-bio-celulas-celula, nome: "Célula, membrana e organelas" }
+          - { id: nat-bio-celulas-metabolismo, nome: "Respiração, fermentação e fotossíntese" }
+          - { id: nat-bio-celulas-divisao, nome: "Mitose e meiose" }
+          - { id: nat-bio-celulas-dna, nome: "Ácidos nucleicos e síntese de proteínas" }
+          - { id: nat-bio-celulas-biotecnologia, nome: "Biotecnologia: transgênicos, clonagem, PCR, vacinas e edição gênica" }
+      - id: nat-bio-hereditariedade
+        nome: "Hereditariedade e diversidade da vida"
+        componente: "Biologia"
+        resumo: "Herança, grupos sanguíneos, mutações, aconselhamento genético e bases genéticas da evolução."
+        habilidades: [11, 13, 29]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-bio-hereditariedade-mendel, nome: "Genética mendeliana e heredogramas" }
+          - { id: nat-bio-hereditariedade-grupos-sanguineos, nome: "Grupos sanguíneos" }
+          - { id: nat-bio-hereditariedade-ligada-ao-sexo, nome: "Herança ligada ao sexo" }
+          - { id: nat-bio-hereditariedade-mutacoes, nome: "Mutações" }
+      - id: nat-bio-seres-vivos
+        nome: "Identidade dos seres vivos"
+        componente: "Biologia"
+        resumo: "Níveis de organização, vírus, procariontes e eucariontes, classificação, ciclos de vida e fisiologia humana."
+        habilidades: [14, 16, 28]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-bio-seres-vivos-classificacao, nome: "Classificação dos seres vivos" }
+          - { id: nat-bio-seres-vivos-virus-e-bacterias, nome: "Vírus e bactérias" }
+          - { id: nat-bio-seres-vivos-protistas-e-fungos, nome: "Protistas e fungos" }
+          - { id: nat-bio-seres-vivos-plantas, nome: "Plantas e fisiologia vegetal" }
+          - { id: nat-bio-seres-vivos-animais, nome: "Animais: invertebrados e vertebrados" }
+          - { id: nat-bio-seres-vivos-corpo-humano, nome: "Sistemas do corpo humano" }
+      - id: nat-bio-ecologia
+        nome: "Ecologia e ciências ambientais"
+        componente: "Biologia"
+        resumo: "Ecossistemas, cadeias e teias, populações, ciclos biogeoquímicos, biomas, problemas ambientais e saneamento."
+        habilidades: [4, 9, 10, 12, 28]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-bio-ecologia-cadeias-e-teias, nome: "Cadeias e teias, níveis tróficos e pirâmides" }
+          - { id: nat-bio-ecologia-ciclos, nome: "Ciclos biogeoquímicos" }
+          - { id: nat-bio-ecologia-relacoes, nome: "Relações ecológicas" }
+          - { id: nat-bio-ecologia-populacoes-e-sucessao, nome: "Populações e sucessão ecológica" }
+          - { id: nat-bio-ecologia-biomas, nome: "Biomas brasileiros" }
+          - { id: nat-bio-ecologia-impactos, nome: "Impactos ambientais e sustentabilidade" }
+      - id: nat-bio-evolucao
+        nome: "Origem e evolução da vida"
+        componente: "Biologia"
+        resumo: "A biologia como ciência, origem da vida, teorias da evolução e seleção artificial."
+        habilidades: [3, 16]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-bio-evolucao-metodo-cientifico, nome: "Método científico" }
+          - { id: nat-bio-evolucao-origem-da-vida, nome: "Origem da vida" }
+          - { id: nat-bio-evolucao-teorias, nome: "Evolução e especiação" }
+      - id: nat-bio-saude
+        nome: "Qualidade de vida das populações humanas"
+        componente: "Biologia"
+        resumo: "Saúde e desigualdade, indicadores, doenças que afetam o Brasil, IST, drogas, saneamento e SUS."
+        habilidades: [2, 14, 19, 30]
+        situacao: a-confirmar
+        topicos:
+          - { id: nat-bio-saude-doencas, nome: "Doenças infecciosas e parasitárias" }
+          - { id: nat-bio-saude-vacinacao, nome: "Vacinação e imunidade" }
+          - { id: nat-bio-saude-saneamento, nome: "Saneamento e saúde" }
+          - { id: nat-bio-saude-ist, nome: "IST e saúde sexual" }
+          - { id: nat-bio-saude-sus, nome: "Saúde pública e SUS" }
+
+  # ─────────────────────────────── HUMANAS ───────────────────────────────
+  humanas:
+    nome: "Ciências Humanas e suas Tecnologias"
+    sigla: CH
+    dia: 1
+    componentes: ["História", "Geografia", "Filosofia", "Sociologia"]
+    competencias:
+      - numero: 1
+        resumo: "Entender os elementos culturais que formam as identidades."
+        habilidades:
+          - { numero: 1, resumo: "Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura." }
+          - { numero: 2, resumo: "Analisar como as sociedades produzem a memória." }
+          - { numero: 3, resumo: "Ligar manifestações culturais de hoje aos seus processos históricos." }
+          - { numero: 4, resumo: "Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura." }
+          - { numero: 5, resumo: "Identificar manifestações da diversidade do patrimônio cultural e artístico." }
+      - numero: 2
+        resumo: "Entender as mudanças do espaço geográfico como resultado de relações econômicas, culturais e de poder."
+        habilidades:
+          - { numero: 6, resumo: "Interpretar mapas, gráficos e outras representações do espaço." }
+          - { numero: 7, resumo: "Identificar o sentido histórico e geográfico das relações de poder entre nações." }
+          - { numero: 8, resumo: "Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais." }
+          - { numero: 9, resumo: "Comparar organizações políticas e econômicas em escala local, regional ou mundial." }
+          - { numero: 10, resumo: "Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade." }
+      - numero: 3
+        resumo: "Entender a origem e o papel das instituições sociais, políticas e econômicas, ligadas a grupos, conflitos e movimentos."
+        habilidades:
+          - { numero: 11, resumo: "Identificar registros das práticas de grupos sociais no tempo e no espaço." }
+          - { numero: 12, resumo: "Analisar o papel da justiça como instituição na organização das sociedades." }
+          - { numero: 13, resumo: "Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder." }
+          - { numero: 14, resumo: "Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas." }
+          - { numero: 15, resumo: "Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história." }
+      - numero: 4
+        resumo: "Entender as mudanças técnicas e tecnológicas e seu impacto no trabalho, no conhecimento e na vida social."
+        habilidades:
+          - { numero: 16, resumo: "Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social." }
+          - { numero: 17, resumo: "Analisar o impacto das novas tecnologias na localização da produção." }
+          - { numero: 18, resumo: "Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade." }
+          - { numero: 19, resumo: "Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano." }
+          - { numero: 20, resumo: "Escolher argumentos a favor ou contra as mudanças que as novas tecnologias impõem à vida e ao trabalho." }
+      - numero: 5
+        resumo: "Usar a história para entender e valorizar a cidadania e a democracia."
+        habilidades:
+          - { numero: 21, resumo: "Identificar o papel dos meios de comunicação na vida social." }
+          - { numero: 22, resumo: "Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas." }
+          - { numero: 23, resumo: "Analisar a importância dos valores éticos na organização política das sociedades." }
+          - { numero: 24, resumo: "Relacionar cidadania e democracia na organização das sociedades." }
+          - { numero: 25, resumo: "Identificar estratégias de inclusão social." }
+      - numero: 6
+        resumo: "Entender as relações entre sociedade e natureza no espaço, em diferentes épocas e lugares."
+        habilidades:
+          - { numero: 26, resumo: "Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem." }
+          - { numero: 27, resumo: "Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia." }
+          - { numero: 28, resumo: "Relacionar o uso de tecnologias aos impactos sociais e ambientais." }
+          - { numero: 29, resumo: "Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana." }
+          - { numero: 30, resumo: "Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas." }
+    objetos:
+      - id: hum-cultura
+        nome: "Diversidade cultural, conflitos e vida em sociedade"
+        resumo: "Patrimônio e diversidade cultural; conquista da América; escravidão e resistência; povos africanos e indígenas."
+        habilidades: [1, 2, 3, 4, 5, 11, 13, 15]
+        situacao: a-confirmar
+        topicos:
+          - { id: hum-cultura-patrimonio, nome: "Cultura material e imaterial e patrimônio no Brasil", componente: "História" }
+          - { id: hum-cultura-povos-indigenas, nome: "Povos indígenas e a formação do Brasil", componente: "História" }
+          - { id: hum-cultura-conquista-da-america, nome: "Conquista da América e conflitos com os indígenas", componente: "História" }
+          - { id: hum-cultura-escravidao-e-resistencia, nome: "Escravidão, resistência e quilombos", componente: "História" }
+          - { id: hum-cultura-reinos-africanos, nome: "Reinos africanos e história dos povos africanos", componente: "História" }
+          - { id: hum-cultura-luta-negra, nome: "A luta negra no Brasil e o pós-abolição", componente: "História" }
+          - { id: hum-cultura-renascimento-e-reformas, nome: "Renascimento e Reformas", componente: "História" }
+          - { id: hum-cultura-identidade-e-etnocentrismo, nome: "Cultura, identidade, etnocentrismo e relativismo", componente: "Sociologia" }
+          - { id: hum-cultura-religiao, nome: "Religião e sociedade", componente: "Sociologia" }
+          - { id: hum-cultura-industria-cultural, nome: "Mídia, indústria cultural e Escola de Frankfurt", componente: "Filosofia" }
+          - { id: hum-cultura-estetica, nome: "Estética", componente: "Filosofia" }
+      - id: hum-organizacao-social
+        nome: "Formas de organização social, movimentos sociais, pensamento político e ação do Estado"
+        resumo: "Cidadania e democracia, revoluções, formação do Brasil, liberalismo e seus críticos, totalitarismos, direitos."
+        habilidades: [7, 8, 9, 10, 12, 13, 14, 21, 22, 23, 24, 25]
+        situacao: a-confirmar
+        topicos:
+          - { id: hum-organizacao-social-antiguidade, nome: "Antiguidade: Mesopotâmia, Egito, Grécia e Roma", componente: "História" }
+          - { id: hum-organizacao-social-idade-media, nome: "Idade Média, feudalismo e mundo islâmico", componente: "História" }
+          - { id: hum-organizacao-social-absolutismo, nome: "Absolutismo e mercantilismo", componente: "História" }
+          - { id: hum-organizacao-social-iluminismo, nome: "Iluminismo", componente: "História" }
+          - { id: hum-organizacao-social-revolucoes-burguesas, nome: "Revolução Inglesa, independência dos EUA e Revolução Francesa", componente: "História" }
+          - { id: hum-organizacao-social-independencias, nome: "Independências na América Latina", componente: "História" }
+          - { id: hum-organizacao-social-colonia, nome: "Colônia: revoltas coloniais, família real e independência do Brasil", componente: "História" }
+          - { id: hum-organizacao-social-imperio, nome: "Primeiro Reinado, Regências e Segundo Reinado", componente: "História" }
+          - { id: hum-organizacao-social-primeira-republica, nome: "Primeira República: coronelismo, revoltas e greves", componente: "História" }
+          - { id: hum-organizacao-social-era-vargas, nome: "Era Vargas", componente: "História" }
+          - { id: hum-organizacao-social-republica-de-46, nome: "República de 1946", componente: "História" }
+          - { id: hum-organizacao-social-ditadura, nome: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia", componente: "História" }
+          - { id: hum-organizacao-social-redemocratizacao, nome: "Diretas Já, Constituição de 1988 e Nova República", componente: "História" }
+          - { id: hum-organizacao-social-ideologias, nome: "Liberalismo, socialismo e anarquismo", componente: "História" }
+          - { id: hum-organizacao-social-imperialismo, nome: "Imperialismo e partilha da África e da Ásia", componente: "História" }
+          - { id: hum-organizacao-social-guerras-mundiais, nome: "Primeira e Segunda Guerras e o Holocausto", componente: "História" }
+          - { id: hum-organizacao-social-revolucao-russa, nome: "Revolução Russa e revoluções do século XX", componente: "História" }
+          - { id: hum-organizacao-social-totalitarismos, nome: "Crise de 1929, fascismo e nazismo", componente: "História" }
+          - { id: hum-organizacao-social-guerra-fria, nome: "Guerra Fria, descolonização e fim da URSS", componente: "História" }
+          - { id: hum-organizacao-social-ditaduras-latinas, nome: "Ditaduras na América Latina", componente: "História" }
+          - { id: hum-organizacao-social-mundo-atual, nome: "Conflitos contemporâneos e organismos internacionais", componente: "História" }
+          - { id: hum-organizacao-social-movimentos-sociais, nome: "Movimentos sociais no Brasil", componente: "Sociologia" }
+          - { id: hum-organizacao-social-cidadania-e-direitos, nome: "Cidadania, direitos e Constituição de 1988", componente: "Sociologia" }
+          - { id: hum-organizacao-social-estado-e-democracia, nome: "Estado, democracia e participação", componente: "Sociologia" }
+          - { id: hum-organizacao-social-desigualdade, nome: "Desigualdade e estratificação", componente: "Sociologia" }
+          - { id: hum-organizacao-social-racismo, nome: "Raça, racismo e o mito da democracia racial", componente: "Sociologia" }
+          - { id: hum-organizacao-social-genero, nome: "Gênero", componente: "Sociologia" }
+          - { id: hum-organizacao-social-violencia, nome: "Violência", componente: "Sociologia" }
+          - { id: hum-organizacao-social-classicos-da-sociologia, nome: "Surgimento da sociologia: Durkheim, Weber e Marx", componente: "Sociologia" }
+          - { id: hum-organizacao-social-pensamento-brasileiro, nome: "Pensamento social brasileiro", componente: "Sociologia" }
+          - { id: hum-organizacao-social-filosofia-antiga, nome: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos", componente: "Filosofia" }
+          - { id: hum-organizacao-social-filosofia-medieval, nome: "Filosofia medieval", componente: "Filosofia" }
+          - { id: hum-organizacao-social-maquiavel-e-contratualistas, nome: "Maquiavel e os contratualistas (Hobbes, Locke, Rousseau)", componente: "Filosofia" }
+          - { id: hum-organizacao-social-racionalismo-e-empirismo, nome: "Racionalismo, empirismo e Kant", componente: "Filosofia" }
+          - { id: hum-organizacao-social-hegel-marx-nietzsche, nome: "Hegel, Marx e Nietzsche", componente: "Filosofia" }
+          - { id: hum-organizacao-social-filosofia-contemporanea, nome: "Existencialismo, Hannah Arendt e Foucault", componente: "Filosofia" }
+          - { id: hum-organizacao-social-etica, nome: "Ética e moral", componente: "Filosofia" }
+          - { id: hum-organizacao-social-logica, nome: "Lógica, argumentação e falácias", componente: "Filosofia" }
+          - { id: hum-organizacao-social-filosofia-da-ciencia, nome: "Filosofia da ciência", componente: "Filosofia" }
+          - { id: hum-organizacao-social-regionalizacao, nome: "Formação territorial e regionalização do Brasil", componente: "Geografia" }
+          - { id: hum-organizacao-social-geopolitica, nome: "Geopolítica e blocos econômicos", componente: "Geografia" }
+          - { id: hum-organizacao-social-populacao, nome: "População, demografia e pirâmides etárias", componente: "Geografia" }
+          - { id: hum-organizacao-social-migracoes, nome: "Migrações", componente: "Geografia" }
+          - { id: hum-organizacao-social-urbanizacao, nome: "Urbanização, segregação e mobilidade", componente: "Geografia" }
+      - id: hum-producao
+        nome: "Características e transformações das estruturas produtivas"
+        resumo: "Formas de organizar a produção, economia colonial, Revolução Industrial, industrialização, globalização e campo."
+        habilidades: [16, 17, 18, 19, 20, 28]
+        situacao: a-confirmar
+        topicos:
+          - { id: hum-producao-modos-de-producao, nome: "Escravismo antigo, feudalismo, capitalismo e socialismo", componente: "História" }
+          - { id: hum-producao-economia-colonial, nome: "Açúcar, mineração, café e borracha", componente: "História" }
+          - { id: hum-producao-revolucao-industrial, nome: "Revolução Industrial", componente: "História" }
+          - { id: hum-producao-trabalho, nome: "Taylorismo, fordismo, toyotismo, precarização e plataformas", componente: "Sociologia" }
+          - { id: hum-producao-industrializacao-brasileira, nome: "Industrialização brasileira", componente: "Geografia" }
+          - { id: hum-producao-globalizacao, nome: "Globalização e divisão internacional do trabalho", componente: "Geografia" }
+          - { id: hum-producao-espaco-agrario, nome: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo", componente: "Geografia" }
+          - { id: hum-producao-energia-e-transportes, nome: "Energia e transportes", componente: "Geografia" }
+      - id: hum-ambiente
+        nome: "Os domínios naturais e a relação do ser humano com o ambiente"
+        resumo: "Recursos naturais, questões ambientais, sustentabilidade, relevo, clima e vegetação."
+        habilidades: [26, 27, 28, 29, 30]
+        situacao: a-confirmar
+        topicos:
+          - { id: hum-ambiente-relevo, nome: "Estrutura geológica e relevo", componente: "Geografia" }
+          - { id: hum-ambiente-clima, nome: "Clima, fenômenos atmosféricos e mudanças climáticas", componente: "Geografia" }
+          - { id: hum-ambiente-hidrografia, nome: "Hidrografia e crise hídrica", componente: "Geografia" }
+          - { id: hum-ambiente-dominios, nome: "Biomas e domínios morfoclimáticos", componente: "Geografia" }
+          - { id: hum-ambiente-questoes-ambientais, nome: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição", componente: "Geografia" }
+          - { id: hum-ambiente-territorios-tradicionais, nome: "Territórios indígenas e quilombolas", componente: "Geografia" }
+          - { id: hum-ambiente-sociedade-e-natureza, nome: "Meio ambiente e sociedade", componente: "Sociologia" }
+      - id: hum-cartografia
+        nome: "Representação espacial"
+        resumo: "Projeções cartográficas, mapas temáticos, físicos e políticos e tecnologias da cartografia."
+        habilidades: [6, 26]
+        situacao: a-confirmar
+        topicos:
+          - { id: hum-cartografia-escalas-e-projecoes, nome: "Escalas e projeções cartográficas", componente: "Geografia" }
+          - { id: hum-cartografia-coordenadas-e-fusos, nome: "Coordenadas geográficas e fusos horários", componente: "Geografia" }
+          - { id: hum-cartografia-mapas-tematicos, nome: "Mapas temáticos e curvas de nível", componente: "Geografia" }
+
+# ─────────────────────────────── REDAÇÃO ───────────────────────────────
+# As cinco competências, conferidas na Cartilha do Participante "A Redação do Enem 2026" (Inep, setembro de 2026).
+# Cada uma vale de 0 a 200 pontos, por avaliador. Os níveis ficam em content/enem/redacao/grade.yml.
+redacao:
+  fonte:
+    titulo: "A Redação do Enem 2026: Cartilha do Participante"
+    autor: "Inep"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/acervo-linha-editorial/publicacoes-institucionais/avaliacoes-e-exames-da-educacao-basica/a-redacao-do-enem-2026-cartilha-do-a-participante"
+    conferido: "2026-10-30"
+  competencias:
+    - { numero: 1, resumo: "Escrever na modalidade formal da língua portuguesa (norma-padrão)." }
+    - { numero: 2, resumo: "Entender a proposta e desenvolver o tema com conhecimentos de várias áreas, dentro da estrutura dissertativo-argumentativa em prosa." }
+    - { numero: 3, resumo: "Escolher, relacionar, organizar e interpretar informações, fatos e opiniões para defender um ponto de vista." }
+    - { numero: 4, resumo: "Usar os mecanismos da língua que ligam as partes do texto e constroem a argumentação (coesão)." }
+    - { numero: 5, resumo: "Propor uma intervenção para o problema discutido, respeitando os direitos humanos." }

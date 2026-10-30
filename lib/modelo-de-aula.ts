@@ -51,6 +51,27 @@ export function conferirModelo(aula: { corpo: string; quiz: number; fontes: numb
   ];
 }
 
+// ───────────── As seções a mais da aula do percurso ENEM (docs/ENEM.md) ─────────────
+
+export type SecaoDoEnem = "como-cai" | "questao-comentada" | "aprofundar";
+export const SECOES_DO_ENEM: SecaoDoEnem[] = ["como-cai", "questao-comentada", "aprofundar"];
+const TITULOS_DO_ENEM: Record<SecaoDoEnem, RegExp> = {
+  "como-cai": /^como (isso |esse conte[uú]do )?cai no enem/i,
+  "questao-comentada": /^quest(ã|a)o comentada/i,
+  aprofundar: /^para aprofundar/i,
+};
+/** Trilhas do percurso que são de orientação (como a prova funciona, estratégia): não levam as seções de conteúdo. */
+export const TRILHAS_DE_ORIENTACAO = ["enem-como-funciona", "enem-estrategia-de-prova"];
+/** Na redação não há questão de múltipla escolha: a "questão comentada" é a própria redação-modelo. */
+const SEM_QUESTAO = /^enem-redacao/;
+
+/** Que seções do percurso ENEM faltam numa aula (vazio para trilhas fora do percurso ou de orientação). */
+export function conferirSecoesDoEnem(trilha: string, corpo: string): SecaoDoEnem[] {
+  if (!trilha.startsWith("enem-") || TRILHAS_DE_ORIENTACAO.includes(trilha)) return [];
+  const lista = titulos(corpo);
+  return SECOES_DO_ENEM.filter((s) => !(s === "questao-comentada" && SEM_QUESTAO.test(trilha)) && !lista.some((t) => TITULOS_DO_ENEM[s].test(t)));
+}
+
 // ───────────── Revisões ─────────────
 
 export interface Revisao {

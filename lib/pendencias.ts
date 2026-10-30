@@ -10,7 +10,7 @@ import path from "node:path";
 import { CORE_SCHEMA, load } from "js-yaml";
 import { validarExercicios } from "./exercicios";
 import { parseFrontmatter } from "./frontmatter";
-import { conferirModelo, lerRevisoes, type ParteDoModelo, type Revisao } from "./modelo-de-aula";
+import { conferirModelo, conferirSecoesDoEnem, lerRevisoes, type ParteDoModelo, type Revisao, type SecaoDoEnem } from "./modelo-de-aula";
 
 export interface AulaPendente {
   trilha: string;
@@ -21,6 +21,8 @@ export interface AulaPendente {
   situacao: "revisada" | "aprovada" | "em-revisao";
   revisoes: Revisao[];
   faltam: ParteDoModelo[];
+  /** Nas aulas do percurso ENEM: as seções a mais que faltam ("Como isso cai no ENEM", questão comentada, "Para aprofundar"). */
+  faltamEnem: SecaoDoEnem[];
   exercicios: number;
   exerciciosEmRevisao: number;
 }
@@ -85,6 +87,7 @@ export function lerPendencias(raiz = process.cwd()): Pendencias {
         situacao: revisoes.length ? "revisada" : data.revisada === true ? "aprovada" : "em-revisao",
         revisoes,
         faltam: modelo.filter((m) => !m.ok).map((m) => m.parte),
+        faltamEnem: conferirSecoesDoEnem(trilha.name, content),
         exercicios: ex.total,
         exerciciosEmRevisao: ex.emRevisao,
       });

@@ -1,0 +1,25 @@
+# GERADO por `npm run incidencia:enem` a partir de content/enem/questoes-oficiais. NÃO edite à mão.
+# Método: docs/ENEM.md, seção "Incidência".
+gerado: npm run incidencia:enem
+metodo: >-
+  Contagem das questões classificadas em content/enem/questoes-oficiais (área auditada pela numeração do caderno, habilidade e objeto de
+  conhecimento), nas últimas 10 edições que têm classificação. A parte é a porcentagem sobre as questões classificadas daquela área.
+  Enquanto houver poucas edições classificadas, a contagem é parcial: veja base.anos e base.classificadas.
+base:
+  anos: []
+  classificadas: 0
+  porArea:
+    linguagens: 0
+    humanas: 0
+    natureza: 0
+    matematica: 0
+objetos:
+  linguagens: []
+  humanas: []
+  natureza: []
+  matematica: []
+habilidades:
+  linguagens: []
+  humanas: []
+  natureza: []
+  matematica: []
