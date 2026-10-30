@@ -23,7 +23,7 @@ resumo: "O instituto é feito com software livre e conteúdo aberto. Aqui está 
 | [CC-CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict), de MDBG e colaboradores (convertido para JSON pelo instituto; a conversão segue a mesma licença) | Dicionário de chinês | CC BY-SA 4.0 |
 | [VERO](https://github.com/wooorm/dictionaries/tree/main/dictionaries/pt), dicionário de português do Brasil de Raimundo Moura e equipe, pelo pacote [dictionary-pt](https://github.com/wooorm/dictionaries) | Corretor ortográfico | LGPL-3.0 ou MPL-2.0 |
 | [Tailwind CSS](https://tailwindcss.com) | estilos | MIT |
-| EB Garamond, Inter e IBM Plex Mono | letras | OFL-1.1 |
+| EB Garamond, Inter, IBM Plex Mono e Anton | letras | OFL-1.1 |
 
 ## Simulações do PhET
 

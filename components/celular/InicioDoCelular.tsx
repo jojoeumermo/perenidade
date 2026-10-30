@@ -105,7 +105,7 @@ export function InicioDoCelular({
 
       <div className="px-4 pt-7">
         <h2 className="font-serif text-[1.55rem] font-semibold leading-none">{textos.muro}</h2>
-        <div className="lambe-do-celular mt-3 rounded-[1.25rem] border-[1.5px] border-[#1f1a14] bg-[#1f1a14] px-5 pt-5 pb-4 shadow-[4px_4px_0_#c21f16]">{lambe}</div>
+        <div className="lambe-do-celular mt-3">{lambe}</div>
       </div>
 
       <div className="px-4 pt-7">{aulaDaSemana}</div>
