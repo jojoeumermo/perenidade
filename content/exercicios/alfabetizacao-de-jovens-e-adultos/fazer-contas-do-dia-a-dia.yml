@@ -1,0 +1,76 @@
+# Exercícios da aula "Fazer contas do dia a dia" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-contas-01
+  tema: "Escolher a conta"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "60 pães vão ser postos em pacotes com 6 pães cada. Qual conta mostra quantos pacotes?"
+  alternativas:
+    - texto: "60 × 6"
+      erro: "Multiplicar daria muito mais pães, não menos pacotes. Repartir 60 em grupos de 6 é dividir."
+    - texto: "60 − 6"
+      erro: "Tirar 6 uma vez só mostra o que sobra de um pacote. Para saber quantos grupos de 6 cabem em 60, divida."
+    - texto: "60 ÷ 6"
+      certa: true
+  explicacao: "Repartir em grupos iguais é dividir: 60 ÷ 6 = 10 pacotes. Confira: 10 × 6 = 60."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-contas-02
+  tipo: numero
+  tema: "Multiplicar no dia a dia"
+  dificuldade: 2
+  enunciado: "A passagem custa R$ 5 e você pega 2 ônibus por dia, 5 dias por semana. Quanto gasta na semana, em reais?"
+  resposta: "50"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "25"
+      explicacao: "Você contou um ônibus por dia. São 2 por dia: 2 × 5 = 10 passagens na semana, e 10 × 5 = 50."
+    - resposta: "12"
+      explicacao: "Você somou 5 + 2 + 5. Os valores se repetem: são 10 passagens de 5 reais, então multiplique."
+  dica: "Primeiro conte quantas passagens são na semana. Depois multiplique pelo preço."
+  explicacao: "2 passagens × 5 dias = 10 passagens. 10 × 5 = 50 reais."
+  conferir: "2 * 5 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-contas-03
+  tipo: numero
+  tema: "Dividir a conta"
+  dificuldade: 2
+  enunciado: "Uma conta de luz de R$ 180 vai ser dividida igualmente entre 4 pessoas da casa. Quanto paga cada uma, em reais?"
+  resposta: "45"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "720"
+      explicacao: "Você multiplicou. Repartir é dividir: 180 ÷ 4."
+    - resposta: "176"
+      explicacao: "Você tirou 4 de 180. A conta é de repartir em 4 partes iguais: 180 ÷ 4."
+  dica: "Repartir igual é dividir. Confira multiplicando o resultado por 4."
+  explicacao: "180 ÷ 4 = 45. Confira: 45 × 4 = 180."
+  conferir: "180 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-contas-04
+  tipo: numero
+  tema: "Várias contas juntas"
+  dificuldade: 3
+  enunciado: "Seu Lázaro ganha R$ 150 por diária e trabalhou 4 dias. Gastou R$ 12 de passagem em cada dia trabalhado. Quanto sobrou, em reais?"
+  resposta: "552"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "588"
+      explicacao: "Você tirou só uma passagem. Foram 4 dias: 4 × 12 = 48 de passagem. 600 − 48 = 552."
+    - resposta: "600"
+      explicacao: "600 é o que entrou (4 × 150). Falta tirar o que saiu de passagem: 4 × 12 = 48."
+  dica: "Calcule o que entrou, depois o que saiu, e tire um do outro."
+  explicacao: "Entrou 4 × 150 = 600. Saiu 4 × 12 = 48. Sobrou 600 − 48 = 552."
+  conferir: "4 * 150 - 4 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

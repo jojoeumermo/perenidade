@@ -1,0 +1,68 @@
+# Exercícios da aula "O seu nome" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-nome-01
+  tema: "Prenome e sobrenome"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "No nome ANA PAULA SOUZA, qual é o sobrenome?"
+  alternativas:
+    - texto: "ANA"
+      erro: "ANA é parte do prenome, o nome de chamar. O sobrenome é o nome de família, que vem no fim."
+    - texto: "ANA PAULA"
+      erro: "ANA PAULA é o prenome inteiro, o nome de chamar. O sobrenome é o de família: SOUZA."
+    - texto: "SOUZA"
+      certa: true
+  explicacao: "O prenome é ANA PAULA, o nome de chamar. O sobrenome, de família, é SOUZA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-nome-02
+  tema: "Contar as letras"
+  dificuldade: 2
+  enunciado: "Quantas letras tem o nome JOÃO?"
+  alternativas:
+    - texto: "3"
+      erro: "Quase. O Ã com til é uma letra só, mas conta. Conte de novo: J, O, Ã, O."
+    - texto: "4"
+      certa: true
+    - texto: "5"
+      erro: "O til não é uma letra: ele fica em cima do A. As letras são J, O, Ã, O."
+  explicacao: "J, O, Ã, O: quatro letras. O til faz parte do Ã."
+  conferir: "4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-nome-03
+  tema: "Escrever como no documento"
+  dificuldade: 2
+  enunciado: "Na certidão de Conceição está escrito SOUSA, com S. Como ela deve escrever o sobrenome?"
+  alternativas:
+    - texto: "SOUZA, com Z, porque o som é de Z"
+      erro: "O som é mesmo de Z, mas o nome se escreve como está no documento. Na certidão está SOUSA, com S."
+    - texto: "SOUSA, com S, como está na certidão"
+      certa: true
+    - texto: "Tanto faz"
+      erro: "No nome, não é tanto faz: o documento vale. Escrever diferente pode dar problema num cadastro. Siga a certidão: SOUSA."
+  explicacao: "O nome se escreve do jeito que o cartório registrou. Se a certidão diz SOUSA, é com S."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-nome-04
+  tema: "Antes de assinar"
+  dificuldade: 1
+  enunciado: "Alguém do banco pede para Seu Zé assinar um papel com espaços em branco, dizendo que preenche depois. O que ele deve fazer?"
+  alternativas:
+    - texto: "Assinar, porque é do banco"
+      erro: "Ser do banco não basta. Papel em branco pode ser preenchido com qualquer coisa depois da assinatura."
+    - texto: "Pôr o dedo no lugar da assinatura"
+      erro: "A digital vale como assinatura. O problema não é o jeito de assinar, é o papel em branco."
+    - texto: "Não assinar papel em branco; pedir que leiam tudo em voz alta e levar alguém de confiança"
+      certa: true
+  explicacao: "Assinar é concordar com o que está escrito. Com espaços em branco, ninguém sabe com o que se concorda. Peça a leitura em voz alta e uma cópia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
