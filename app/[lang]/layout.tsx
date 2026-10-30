@@ -46,7 +46,7 @@ export const viewport: Viewport = {
   themeColor: [
     // No celular a barra do navegador continua a faixa preta de avisos do topo do site.
     { media: "(max-width: 767.98px)", color: "#1f1a14" },
-    { media: "(prefers-color-scheme: light)", color: "#f4ecd8" },
+    { media: "(prefers-color-scheme: light)", color: "#f8f5ee" },
     { media: "(prefers-color-scheme: dark)", color: "#17130e" },
   ],
 };
