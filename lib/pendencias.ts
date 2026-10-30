@@ -87,7 +87,7 @@ export function lerPendencias(raiz = process.cwd()): Pendencias {
         situacao: revisoes.length ? "revisada" : data.revisada === true ? "aprovada" : "em-revisao",
         revisoes,
         faltam: modelo.filter((m) => !m.ok).map((m) => m.parte),
-        faltamEnem: conferirSecoesDoEnem(trilha.name, content),
+        faltamEnem: conferirSecoesDoEnem(trilha.name, content, aula),
         exercicios: ex.total,
         exerciciosEmRevisao: ex.emRevisao,
       });
