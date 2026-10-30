@@ -41,9 +41,14 @@ export function carregarClassificacoes(matriz) {
   const pasta = "content/enem/questoes-oficiais";
   if (!existe(pasta)) return [];
   const todas = [];
-  for (const nome of fs.readdirSync(path.join(raiz, pasta)).filter((n) => /^\d{4}\.yml$/.test(n)).sort()) {
+  const onde = new Map();
+  for (const nome of fs.readdirSync(path.join(raiz, pasta)).filter((n) => /^\d{4}(-[a-z]+)?\.yml$/.test(n)).sort()) {
     const ano = Number(nome.slice(0, 4));
-    todas.push(...validarClassificacoes(yaml(`${pasta}/${nome}`), `${pasta}/${nome}`, importadasDe(ano), (id) => acharNaMatriz(matriz, id)?.objeto ?? null));
+    for (const c of validarClassificacoes(yaml(`${pasta}/${nome}`), `${pasta}/${nome}`, importadasDe(ano), (id) => acharNaMatriz(matriz, id)?.objeto ?? null)) {
+      if (onde.has(c.id)) throw new Error(`Conteúdo do ENEM inválido: ${c.id} está em ${onde.get(c.id)} e em ${nome}`);
+      onde.set(c.id, nome);
+      todas.push(c);
+    }
   }
   return todas;
 }
