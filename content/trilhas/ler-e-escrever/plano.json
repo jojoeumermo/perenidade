@@ -24,6 +24,10 @@
     "titulo": "Sílabas: pedaços que se repetem"
   },
   {
+    "slug": "da-palavra-a-frase",
+    "titulo": "Da palavra à frase"
+  },
+  {
     "slug": "ler-placas-onibus-e-contas",
     "titulo": "Ler placas, ônibus e contas"
   },
@@ -34,6 +38,10 @@
   {
     "slug": "os-numeros-e-o-dinheiro",
     "titulo": "Os números e o dinheiro"
+  },
+  {
+    "slug": "somar-e-tirar-as-primeiras-contas",
+    "titulo": "Somar e tirar: as primeiras contas no papel"
   },
   {
     "slug": "preencher-um-formulario",

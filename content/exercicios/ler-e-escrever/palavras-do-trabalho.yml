@@ -1,0 +1,68 @@
+# Exercícios da aula "Palavras do trabalho" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-trabalho-01
+  tema: "Palavras do trabalho"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual palavra quer dizer 'o descanso de todo ano, pago'?"
+  alternativas:
+    - texto: "FOLGA"
+      erro: "FOLGA é o dia de descanso da semana. O descanso de todo ano, pago, tem outro nome: FÉRIAS."
+    - texto: "FÉRIAS"
+      certa: true
+    - texto: "HORA EXTRA"
+      erro: "HORA EXTRA é o tempo trabalhado a mais, não descanso. O descanso do ano é FÉRIAS."
+  explicacao: "FÉRIAS são o descanso anual, pago, com um terço a mais que o salário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-trabalho-02
+  tema: "Montar palavras com TIJOLO"
+  dificuldade: 2
+  enunciado: "Com os pedaços das famílias de TIJOLO (do T, do J e do L), qual palavra dá para montar?"
+  alternativas:
+    - texto: "LUTA"
+      certa: true
+    - texto: "MATO"
+      erro: "MATO tem MA, da família do M, que não está em TIJOLO. TIJOLO dá as famílias do T, do J e do L."
+    - texto: "CAJU"
+      erro: "CAJU tem CA, da família do C, que não está em TIJOLO. Procure uma palavra só com T, J e L."
+  explicacao: "LU (família do L) + TA (família do T) = LUTA. De TIJOLO saiu LUTA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-trabalho-03
+  tema: "Pedaços que aparecem muito"
+  dificuldade: 2
+  enunciado: "Qual destas palavras tem o pedaço LH?"
+  alternativas:
+    - texto: "GANHO"
+      erro: "GANHO tem NH, como em NINHO. Procure o LH, que soa como em OLHO."
+    - texto: "CHEFE"
+      erro: "CHEFE tem CH, como em CHUVA. O LH soa como em OLHO e aparece em TRABALHO."
+    - texto: "TRABALHO"
+      certa: true
+  explicacao: "TRA-BA-LHO: o último pedaço tem LH. O H se junta ao L e faz um som novo, como em OLHO."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-trabalho-04
+  tema: "Ler o contracheque"
+  dificuldade: 3
+  enunciado: "No contracheque, os PROVENTOS somam R$ 1.800 e os DESCONTOS somam R$ 250. Quanto é o LÍQUIDO, o que fica para o trabalhador?"
+  alternativas:
+    - texto: "R$ 2.050"
+      erro: "Você somou os descontos. Mas desconto é o que sai: tire os descontos dos proventos, 1.800 − 250."
+    - texto: "R$ 1.550"
+      certa: true
+    - texto: "R$ 1.650"
+      erro: "Quase: a conta é de menos, mas o resultado escorregou. De 250 até 1.800 faltam 1.550. Confira: 1.550 + 250 = 1.800."
+  explicacao: "Líquido = proventos − descontos = 1.800 − 250 = 1.550. Confira: 1.550 + 250 = 1.800."
+  conferir: "1800 - 250"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

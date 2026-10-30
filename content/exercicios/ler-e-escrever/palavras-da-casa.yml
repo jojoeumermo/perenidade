@@ -1,0 +1,67 @@
+# Exercícios da aula "Palavras da casa" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-casa-01
+  tema: "Sílabas de PANELA"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se divide PANELA em pedaços?"
+  alternativas:
+    - texto: "PAN - E - LA"
+      erro: "Quase. Bata palmas devagar: PA... NE... LA. O N vai junto com o E, no segundo pedaço."
+    - texto: "PA - NE - LA"
+      certa: true
+    - texto: "P - A - N - E - L - A"
+      erro: "Assim você separou as letras, não os pedaços. Cada palma é um pedaço com vogal: PA - NE - LA."
+  explicacao: "Uma palma em cada pedaço: PA - NE - LA. Três sílabas, cada uma com a sua vogal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-casa-02
+  tema: "Montar palavras novas"
+  dificuldade: 2
+  enunciado: "Juntando LU + PA, que palavra sai?"
+  alternativas:
+    - texto: "LUPA"
+      certa: true
+    - texto: "PALU"
+      erro: "Você juntou os pedaços na ordem trocada. A ordem é a do enunciado: primeiro LU, depois PA."
+    - texto: "LUTA"
+      erro: "LUTA tem TA no fim, da família do T. Aqui o segundo pedaço é PA, da família do P: LU-PA."
+  explicacao: "LU + PA = LUPA, aquela lente que aumenta as coisas. Os dois pedaços estão nas famílias de PANELA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-casa-03
+  tema: "Famílias de sílabas"
+  dificuldade: 2
+  enunciado: "Qual destas palavras NÃO dá para montar só com as famílias do P, do N e do L, que saem de PANELA?"
+  alternativas:
+    - texto: "PANO"
+      erro: "PANO dá: PA (família do P) + NO (família do N). Procure a palavra que tem um pedaço de outra família."
+    - texto: "PELE"
+      erro: "PELE dá: PE (família do P) + LE (família do L). Procure um pedaço que não seja de P, N nem L."
+    - texto: "MESA"
+      certa: true
+  explicacao: "MESA tem ME e SA, das famílias do M e do S. PANELA só dá as famílias do P, do N e do L."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-casa-04
+  tema: "O S com som de Z"
+  dificuldade: 3
+  enunciado: "Em qual palavra o S soa como Z?"
+  alternativas:
+    - texto: "SAL"
+      erro: "No começo da palavra, o S tem som de S mesmo: SAL. O som de Z aparece quando o S fica entre duas vogais."
+    - texto: "CASA"
+      certa: true
+    - texto: "PASTA"
+      erro: "Em PASTA, o S fica entre o A e o T, uma consoante. Ele soa como S. O som de Z vem entre duas vogais, como em CA-SA."
+  explicacao: "Entre duas vogais, o S costuma soar como Z: CASA, MESA, CAMISA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

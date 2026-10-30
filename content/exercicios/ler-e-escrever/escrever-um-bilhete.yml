@@ -1,0 +1,51 @@
+# Exercícios da aula "Escrever um bilhete" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-bilhete-01
+  tema: "As partes do bilhete"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "No bilhete 'ZÉ, FUI AO POSTO. VOLTO ÀS 11. UM BEIJO, CIDA', quem é o destinatário, a pessoa que vai ler?"
+  alternativas:
+    - texto: "CIDA"
+      erro: "Cida é quem escreveu e assinou no fim: a remetente. Quem vai ler vem no começo do bilhete."
+    - texto: "O POSTO"
+      erro: "O posto é o lugar para onde a Cida foi. O destinatário é a pessoa para quem o bilhete foi escrito, no começo."
+    - texto: "ZÉ"
+      certa: true
+  explicacao: "O nome do começo é de quem vai ler: o destinatário, Zé. O nome do fim é de quem escreveu: a remetente, Cida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-bilhete-02
+  tema: "Recado completo"
+  dificuldade: 2
+  enunciado: "Qual bilhete deixa a pessoa sem dúvidas?"
+  alternativas:
+    - texto: "MÃE, O MOÇO DA ÁGUA VOLTA AMANHÃ, DAS 8 AO MEIO-DIA. ALGUÉM PRECISA ESTAR EM CASA. JOÃO"
+      certa: true
+    - texto: "PASSOU UM MOÇO AQUI."
+      erro: "Esse deixa perguntas no ar: que moço? Volta quando? O que fazer? Um bom recado responde antes da pergunta."
+    - texto: "MÃE, VOLTA AMANHÃ. JOÃO"
+      erro: "Falta dizer quem volta. A mãe vai ficar sem saber. Diga o quê, quando e o que a pessoa precisa fazer."
+  explicacao: "O primeiro diz quem passou, quando volta e o que fazer, e tem para quem e quem escreveu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-bilhete-03
+  tema: "O que falta no bilhete"
+  dificuldade: 2
+  enunciado: "Bia achou na geladeira: 'FUI À REUNIÃO. VOLTO ÀS 9.' O que falta para ela saber quem escreveu?"
+  alternativas:
+    - texto: "A hora"
+      erro: "A hora está lá: VOLTO ÀS 9. O que falta é o nome de quem escreveu, com a despedida."
+    - texto: "A despedida e o nome de quem escreveu"
+      certa: true
+    - texto: "O recado"
+      erro: "O recado está lá: FUI À REUNIÃO. VOLTO ÀS 9. Falta a última parte: a despedida e o nome."
+  explicacao: "Sem o nome no fim, quem lê não sabe quem escreveu. Basta: BEIJO, MÃE."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
