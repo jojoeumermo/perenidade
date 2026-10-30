@@ -1159,3 +1159,19 @@
     line-height: 1.75;
   }
 }
+
+/* Tema escuro: a pílula escolhida das abas não vira uma placa clara; fica no vermelho do prelo com letra branca (5,3:1). */
+@media (max-width: 767.98px) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) main .aba-pasta:is([aria-pressed="true"], [aria-current="page"]) {
+    border-color: var(--prelo);
+    background: var(--prelo);
+    color: #fff;
+  }
+}
+@media (max-width: 767.98px) {
+  :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) main .aba-pasta:is([aria-pressed="true"], [aria-current="page"]) {
+    border-color: var(--prelo);
+    background: var(--prelo);
+    color: #fff;
+  }
+}
