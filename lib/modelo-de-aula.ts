@@ -51,6 +51,31 @@ export function conferirModelo(aula: { corpo: string; quiz: number; fontes: numb
   ];
 }
 
+// ───────────── As seções a mais da aula do percurso ENEM (docs/ENEM.md) ─────────────
+
+export type SecaoDoEnem = "como-cai" | "questao-comentada" | "aprofundar";
+export const SECOES_DO_ENEM: SecaoDoEnem[] = ["como-cai", "questao-comentada", "aprofundar"];
+const TITULOS_DO_ENEM: Record<SecaoDoEnem, RegExp> = {
+  "como-cai": /^como (isso |esse conte[uú]do )?cai no enem/i,
+  "questao-comentada": /^quest(ã|a)o comentada/i,
+  aprofundar: /^para aprofundar/i,
+};
+/** Trilhas do percurso que são de orientação (como a prova funciona, estratégia): não levam as seções de conteúdo. */
+export const TRILHAS_DE_ORIENTACAO = ["enem-como-funciona", "enem-estrategia-de-prova"];
+/** Aulas de orientação dentro de trilhas de conteúdo ("trilha/aula"). */
+export const AULAS_DE_ORIENTACAO = ["enem-reta-final/como-usar-a-reta-final", "enem-reta-final/a-vespera-e-o-dia-da-prova"];
+/** Aula de orientação: não ensina conteúdo da Matriz (nem leva as etiquetas de área nos exercícios). */
+export const ehOrientacao = (trilha: string, aula: string) => TRILHAS_DE_ORIENTACAO.includes(trilha) || AULAS_DE_ORIENTACAO.includes(`${trilha}/${aula}`);
+/** Aula de redação: não há questão de múltipla escolha (a "questão comentada" é o trecho de redação comentado) nem área da Matriz. */
+export const ehRedacao = (trilha: string, aula: string) => /^enem-redacao/.test(trilha) || /^redacao-/.test(aula);
+
+/** Que seções do percurso ENEM faltam numa aula (vazio para trilhas fora do percurso ou de orientação). */
+export function conferirSecoesDoEnem(trilha: string, corpo: string, aula = ""): SecaoDoEnem[] {
+  if (!trilha.startsWith("enem-") || ehOrientacao(trilha, aula)) return [];
+  const lista = titulos(corpo);
+  return SECOES_DO_ENEM.filter((s) => !(s === "questao-comentada" && ehRedacao(trilha, aula)) && !lista.some((t) => TITULOS_DO_ENEM[s].test(t)));
+}
+
 // ───────────── Revisões ─────────────
 
 export interface Revisao {

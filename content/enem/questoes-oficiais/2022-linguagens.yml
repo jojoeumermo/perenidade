@@ -1,0 +1,915 @@
+# Camada do Instituto Lúcia sobre a prova de Linguagens do ENEM 2022 (questões 1 a 45).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Fora deste arquivo: as questões 1 a 5 de inglês (não existem no arquivo importado, que só traz as de espanhol).
+# As questões 7 e 24 vêm marcadas como "humanas" no arquivo importado; pela numeração (1 a 45 desde 2017) são de Linguagens.
+# Os textos-base podem ser protegidos: as resoluções citam só palavras soltas ou trechos curtos, entre aspas.
+ano: 2022
+questoes:
+  - id: enem-2022-1-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 7
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      O comando pede a função social do cartaz, isto é, para que ele existe.
+      A imagem mostra um provérbio escrito em zapoteco (uma língua indígena do México), o desenho de um caracol e a pergunta “¿Te gustó?” (você gostou?). A pista está no texto de baixo: as “lenguas originarias” (línguas originárias, as dos povos que já estavam ali) “guardan gran parte de la riqueza cultural” (guardam grande parte da riqueza cultural). E fecha assim: se essas línguas são faladas, reconhecidas e respeitadas, “protegemos nuestro patrimonio nacional” (protegemos o nosso patrimônio nacional).
+      O cartaz usa o provérbio como amostra e pede que as línguas indígenas continuem vivas, porque elas fazem parte da diversidade do país. Alternativa E.
+    enganos:
+      A: "O desenho do caracol enfeita o cartaz, mas o texto fala de línguas, não de arte. Palavra-isca: ver a imagem e concluir que o assunto é a arte."
+      B: "O provérbio zapoteco é só um exemplo da língua. O cartaz não fala de literatura nem de resgatar textos. Redução."
+      C: "A pergunta “¿Te gustó?” (você gostou?) convida a apreciar o provérbio; não testa o que o povo sabe. Nada no texto questiona o conhecimento de alguém."
+      D: "Os logotipos da Secretaria de Educação e do instituto de línguas só assinam a peça. O cartaz não fala do papel desses órgãos: fala do que todos nós devemos fazer."
+    aulas: [espanhol-medio/as-variedades-do-espanhol-na-america-latina, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-2-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 5
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede o alvo da crítica do autor. Comece pelo título: “Pequeño hermano” (pequeno irmão) lembra o “Grande Irmão”, o vigia que tudo controla. O pequeno irmão é o celular.
+      A cena-chave: o autor desativou tudo, mas, depois de uma viagem e algumas fotos, o aparelho mostra o aviso “Tienes un recuerdo nuevo” (você tem uma lembrança nova). Ele reage com perguntas indignadas e chama aquilo de “intromisión” (intromissão) e “descaro” (atrevimento). A queixa é que a máquina decide, por ele, o que é ou não é uma lembrança dele.
+      “Ingerência” quer dizer justamente isto: meter-se no que é do outro. O alvo é a interferência do celular nas escolhas de quem o usa. Alternativa D.
+    enganos:
+      A: "O autor não diz que as pessoas sabem pouco sobre tecnologia. Ele mesmo sabe desativar os alertas. Extrapolação."
+      B: "Ninguém mexe no celular do autor. Quem se intromete é o próprio aparelho. Leitura errada do sujeito da ação."
+      C: "A obsolescência programada (o aparelho feito para durar pouco) aparece como esperança irônica no fim, não como alvo. E o fax “obsoleto” só entra na comparação do começo."
+      E: "Ele sabe configurar os alertas: diz que estão todos desativados. O problema é o aparelho avisar mesmo assim. Palavra-isca: “alertas”."
+    aulas: [espanhol-medio/como-ler-noticias-em-espanhol, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-3-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 8
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pergunta do que dependem as formas de dizer “amigo” que o texto apresenta.
+      Siga cada exemplo. Em Havana, o amigo é “mi tierra” ou “mi sangre” (minha terra, meu sangue). Em Caracas, é “mi pana”, de “panadería” (padaria), a fonte do pão para as fomes da alma, ou “mi llave” (minha chave). A explicação da chave vem pelo escritor Mario Benedetti: em Buenos Aires, “en los tiempos del terror” (nos tempos do terror, a ditadura), ele levava as chaves de cinco casas de amigos, as chaves que o salvaram.
+      Cada palavra nasce do que o amigo representa naquele lugar e naquela situação: origem, alimento, refúgio. A forma muda conforme o papel da amizade em cada contexto. Alternativa C.
+    enganos:
+      A: "Só Havana aparece com “suburbios”. Caracas e Buenos Aires não são subúrbios, e a explicação das palavras não vem do bairro. Redução."
+      B: "“Hambres del alma” (fomes da alma) é uma imagem para explicar “pana”. O texto não mede a força de nenhuma conexão. Palavra-isca."
+      D: "O pão de “pana” é metáfora do que o amigo dá, não o costume de reunir amigos à mesa. Leitura literal de uma imagem."
+      E: "O texto não põe as palavras numa escala de mais ou menos íntimo. Todas são formas carinhosas, cada uma ligada a uma situação. Extrapolação."
+    aulas: [espanhol-superior/literatura-hispano-americana-de-sor-juana-a-garcia-marquez, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-4-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 5
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o que a canção critica ao terminar com “un mañana sin sol” (um amanhã sem sol). Atenção: no arquivo importado a alternativa A saiu como “Descanso”; pelo sentido, a palavra é “descaso” (desleixo, indiferença).
+      O título já dá a pista: “Los niños de nuestro olvido” (as crianças do nosso esquecimento). Cada estrofe mostra uma criança na rua: dormindo na calçada, desviando de balas, pedindo esmola num bar, lavando para-brisas por uma moeda ou um pão. Enquanto isso, quem canta só procura palavras.
+      A última estrofe faz a conta: se “las flores del futuro” (as flores do futuro, as crianças) crescem com tanta dor, o amanhã será sem sol. O “nosso esquecimento” é o descaso de todos com essas crianças. Alternativa A.
+    enganos:
+      B: "As balas aparecem numa estrofe só. A violência é um dos sofrimentos da criança, não o alvo da crítica. Redução."
+      C: "A canção não estimula a mendicância nem critica quem pede: ela mostra a criança pedindo esmola como prova do abandono. Inversão."
+      D: "Lavar para-brisas é um detalhe da vida na rua. A canção não trata de trabalho informal em geral. Redução."
+      E: "Não há nada sobre hospitais ou serviços de saúde no texto. Extrapolação."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa]
+
+  - id: enem-2022-5-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 5
+    objeto: lin-lem
+    topico: lin-lem-espanhol-estrategias
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O comando pergunta para que servem as palavras “crianza” e “tribu” no texto. A imagem é um quadro de uma rede feminista sobre maternidade na pandemia.
+      Primeira armadilha: “crianza” não é “criança”. É um falso cognato (palavra parecida com a nossa, de sentido diferente): quer dizer criação, o trabalho de criar os filhos. Criança, em espanhol, é “niño” ou “niña”.
+      A pista está no quadro de baixo, em destaque: “para maternar se necesita una tribu, la crianza no debería vivirse en soledad” (para ser mãe é preciso uma tribo; a criação dos filhos não deveria ser vivida na solidão). A “tribu” é a rede de pessoas, a família, a comunidade, desenhada logo abaixo. As duas palavras defendem que a mãe precisa de apoio para criar os filhos. Alternativa A.
+    enganos:
+      B: "O quadro diz que nem todas vivem as mesmas condições, mas a comparação entre classes não é o que “crianza” e “tribu” fazem. Redução."
+      C: "O fechamento de escolas e creches aparece no primeiro quadro como causa do aumento do trabalho. É o contexto, não a função das duas palavras."
+      D: "É o contrário. O texto critica a romantização: diz que “la maternidad está romantizada” (a maternidade está romantizada). Contradição."
+      E: "A “soledad” (solidão) é a da mãe, que cria sozinha. O texto não fala de proteger os filhos do isolamento. Palavra-isca: pandemia lembra isolamento."
+    aulas: [espanhol-superior/traduzir-do-espanhol-as-armadilhas, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-6
+    area: linguagens
+    competencia: 8
+    habilidade: 25
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-variacao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando diz que o texto é distenso (relaxado) e pouco formal, e pede a marca que mostra isso. Procure o que soa como conversa do dia a dia.
+      A primeira frase traz uma metáfora tirada do volante: a vida “engata uma primeira e sai em disparada”. Engatar a primeira marcha é expressão de quem dirige e fala com amigos, não de documento formal. A comparação com a vida acelerada fica leve e próxima do leitor.
+      As outras marcas citadas nas alternativas existem no texto, mas não são de informalidade. Alternativa E.
+    enganos:
+      A: "O texto não é impessoal: usa “temos”, “caímos”, “esquecemos”, a primeira pessoa do plural, que aproxima. E impessoalidade, quando existe, deixa o texto mais formal, não menos."
+      B: "A pressa é o tema do texto, não uma marca de registro. Falar de urgência não torna a linguagem informal. Confusão entre assunto e forma."
+      C: "A repetição do “se” no começo existe, mas repetir estruturas é recurso de ênfase que aparece também em textos formais. Não indica informalidade."
+      D: "“Uma refeição que pode durar uma vida” é metáfora do amor, não exagero. E o texto não se apoia em hipérboles. Nome errado para o recurso."
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, portugues-medio/figuras-de-linguagem]
+
+  - id: enem-2022-7
+    area: linguagens
+    competencia: 7
+    habilidade: 22
+    objeto: lin-texto
+    topico: lin-texto-estrategias-de-leitura
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O comando pede o que o Texto II faz em relação ao Texto I. Compare os dois.
+      O Texto I é um cartaz de uma feira de adoção de cães e gatos: um cachorro e um gato juntos, o pedido “Me leve para sua casa!!!”, o selo “Adote um animal de rua” e a lista de documentos. A ideia é que o animal de rua precisa de um lar.
+      O Texto II conta a vida de Delegado, um cão que nunca foi preso, viveu muito, conhecia a cidade e virou um “cão comunitário”. O narrador diz que nunca se soube por que ele escolheu a rua, “talvez lhe tenham feito mal dentro de quatro paredes”. Ou seja: a casa nem sempre é o melhor lugar, e um animal pode viver bem cuidado pela comunidade.
+      Problematizar é pôr uma ideia em questão. O Texto II faz pensar sobre a ideia de que todo animal de rua precisa ser adotado. Alternativa A.
+    enganos:
+      B: "Delegado não foi adotado nem teve dono. Ele teve protetoras e a cidade. Não há troca entre pet adotado e dono no Texto II."
+      C: "Reforçar a campanha é o papel do Texto I. O Texto II mostra outra possibilidade de vida para o animal. Confusão entre os dois textos."
+      D: "O Texto II fala de um cão só, nenhum gato, e diz que ele fugia de quem precisava fugir. Não exalta uma natureza amigável."
+      E: "Promover a adoção é o que o cartaz faz. O Texto II não pede adoção. Confusão entre os dois textos."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2022-8
+    area: linguagens
+    competencia: 7
+    habilidade: 23
+    objeto: lin-texto
+    topico: lin-texto-generos-jornalisticos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pergunta o que o texto busca ao divulgar a versão do jogo com mulheres notáveis.
+      A pista está na mudança das perguntas: em vez de perguntar sobre a aparência (cabelo, olhos, chapéu), o jogador pergunta sobre os feitos (ganhou um Nobel? fez uma descoberta?). E cada personagem tem um cartão com fatos da vida dela.
+      Jogando, a pessoa aprende quem foram e quem são mulheres que mudaram a ciência, a arte e a política. Isso contribui para a formação cidadã: conhecer a história e valorizar o papel das mulheres nela. Alternativa A.
+    enganos:
+      B: "O jogo troca a aparência pelos feitos, mas não discute padrões de beleza. As perguntas antigas eram sobre cabelo e chapéu, não sobre beleza. Extrapolação."
+      C: "A regra “quanto mais doou, mais rápido vai jogar” é um detalhe da campanha de arrecadação, não o objetivo do texto. Palavra-isca."
+      D: "A arrecadação pela internet aparece como informação sobre o projeto, não como o que o texto quer mostrar. Detalhe tomado pelo todo."
+      E: "O conhecimento que o jogo traz é sobre mulheres da história e de hoje, não sobre brincadeiras “dos tempos atuais”. Redução."
+    aulas: [midia-fundamental/o-que-e-noticia, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2022-9
+    area: linguagens
+    competencia: 7
+    habilidade: 24
+    objeto: lin-argumentacao
+    topico: lin-argumentacao-publicidade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O comando pede a estratégia de convencimento da peça do Detran do Espírito Santo.
+      A imagem mostra uma pessoa cobrindo o rosto com as mãos e, sobre ela, a palavra “Arrependimento”. Ao lado, o texto fala diretamente com o leitor: causar um acidente “é algo que você leva pro resto da vida”, e termina com “Não beba se for dirigir”.
+      Quem aparece não é a vítima, é quem causou o acidente. A peça faz o motorista imaginar a culpa que carregaria para sempre. É um apelo à comoção, pelo sentimento de culpa. Alternativa A.
+    enganos:
+      B: "A pessoa da foto é quem causou o acidente: o texto diz “você leva”. A peça não fala do trauma das vítimas. Troca de personagem."
+      C: "Não há nada sobre fiscalização ou autoridades no texto. Extrapolação."
+      D: "A peça não fala de punição, multa ou prisão. O peso vem da consciência, não da lei."
+      E: "A perda de parentes não aparece. O sofrimento mostrado é o do motorista arrependido. Troca de personagem."
+    aulas: [midia-fundamental/publicidade]
+
+  - id: enem-2022-10
+    area: linguagens
+    competencia: 9
+    habilidade: 28
+    objeto: lin-generos-digitais
+    topico: lin-generos-digitais-hipertexto
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede o que pode ficar em risco com as novas possibilidades que a internet abre para a arte.
+      Leo Cunha diz que a reprodução e o compartilhamento das obras ficaram imensos e, ao mesmo tempo, crescem os dilemas da “autoria”, dos “direitos autorais” e da “reprodução e intervenção não autorizadas”. Esse é o risco: a obra pode ser copiada, alterada e espalhada sem o consentimento de quem a criou.
+      Proteger a autoria e os direitos de quem cria é proteger a produção estética (artística). Alternativa C.
+    enganos:
+      A: "O texto não diz que os artistas terão menos sucesso. Extrapolação."
+      B: "Yacy-Ara Froner diz que computador, vídeo e internet são só suportes, meios. Ela não fala de risco para eles. Mistura de dois trechos."
+      D: "A distribuição das obras ganha alternativas, segundo o texto. Ela é o que se amplia, não o que corre risco. Inversão."
+      E: "O compartilhamento é justamente a possibilidade que cresce. Não é ele que está em risco. Inversão."
+    aulas: [artes-superior/walter-benjamin-e-a-reprodutibilidade-tecnica]
+
+  - id: enem-2022-11
+    area: linguagens
+    competencia: 9
+    habilidade: 30
+    objeto: lin-generos-digitais
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pergunta o que mais pesa para quem usa uma técnica nova, segundo o texto.
+      O primeiro parágrafo descreve uma ilusão: toda técnica nova se acha única e parece prometer que ninguém vai precisar aprender nada. O segundo parágrafo desmonta essa ilusão: “é o contrário que acontece”. Cada técnica nova exige “uma longa iniciação numa nova linguagem”, e ela é ainda mais longa porque a cabeça está acostumada às linguagens anteriores.
+      O impacto, portanto, é a dificuldade de se apropriar (tomar posse, aprender a usar) da nova linguagem. Alternativa A.
+    enganos:
+      B: "A técnica “se pretende orgulhosa e única”: é a pretensão dela, não o efeito sobre quem a usa. Confusão entre a ilusão e a realidade."
+      C: "O autor diz que viu muitas mudanças na vida, mas o que ele destaca como impacto é o tempo de aprendizado, não a frequência das mudanças. Detalhe tomado pelo todo."
+      D: "Que a técnica nova varre o que veio antes é a ilusão que o texto desmente. Contradição."
+      E: "O texto fala em iniciação “longa”. Rapidez é o oposto. Contradição."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2022-12
+    area: linguagens
+    competencia: 8
+    habilidade: 27
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-norma-padrao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pergunta por que a norma-padrão defendida por um dos personagens fica inadequada.
+      O texto se chama “Papos”: é uma conversa entre conhecidos. Um personagem interrompe o outro a cada frase para corrigir a colocação do pronome (“me disseram” ou “disseram-me”). A conversa trava, o outro se irrita e, no fim, resume: o importante é que o entendam.
+      A norma-padrão tem lugar certo: textos formais, documentos, provas. Num bate-papo, o português do dia a dia é o adequado. O erro do corretor é não perceber o contexto da comunicação. Alternativa B.
+    enganos:
+      A: "Nada no texto indica idades diferentes. Os dois se entendem; quem atrapalha é a correção. Extrapolação."
+      C: "Um chama o outro de grosseiro, mas isso é efeito das correções, não a causa da inadequação. A causa é corrigir uma conversa informal."
+      D: "O texto não diz quanto cada um estudou. Extrapolação."
+      E: "A palavra “elitismo” é uma acusação feita na briga, não uma informação sobre a classe social dos dois. Palavra-isca."
+    aulas: [portugues-medio/colocacao-pronominal, portugues-medio/variacao-linguistica-e-preconceito-linguistico]
+
+  - id: enem-2022-13
+    area: linguagens
+    competencia: 9
+    habilidade: 28
+    objeto: lin-generos-digitais
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede o que os pesquisadores do Ipea fazem ao ligar o uso da internet ao perfil de quem a usa.
+      Eles mostram que quem mais acessa a rede é quem já tem mais: mais escolaridade, mais renda, trabalho qualificado, homens e brancos. E os excluídos da rede são os mesmos excluídos de antes. A frase-chave: a internet, “se não produz diretamente a exclusão, certamente a reproduz”.
+      Muita gente acredita que a internet dá a todos o mesmo acesso à informação. Os dados mostram que não. Os pesquisadores questionam essa crença. Alternativa B.
+    enganos:
+      A: "O texto não propõe solução nenhuma, muito menos o desenvolvimento econômico. Extrapolação."
+      C: "O uso comercial da rede não é citado. A causa apontada é a desigualdade que já existia. Extrapolação."
+      D: "É o contrário: os dados confirmam que menos escolaridade significa menos acesso. Contradição."
+      E: "Os pesquisadores descrevem o problema; não condicionam nada a políticas públicas. Extrapolação."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2022-14
+    area: linguagens
+    competencia: 7
+    habilidade: 22
+    objeto: lin-recursos-expressivos
+    topico: lin-recursos-expressivos-semantica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede a ideia do Texto II que exemplifica o Texto I.
+      O Texto I diz que a língua não é uma lista de nomes neutros colados nas coisas: ela classifica a realidade e “condensa as experiências de um dado povo”. O lugar onde isso aparece mais é o léxico (o conjunto das palavras).
+      O Texto II dá o exemplo: expressões como “dia negro”, “lado negro” e “ovelha negra” usam a palavra “negro” sempre com sentido ruim. Essas escolhas carregam a história de discriminação contra a população negra no país.
+      A experiência que a língua guardou, nesse caso, é o preconceito. Alternativa D.
+    enganos:
+      A: "O Texto I diz justamente que a língua não é um sistema neutro de opções. As expressões vêm da história da sociedade, não de um mecanismo do sistema. Contradição."
+      B: "As expressões não nomeiam realidades novas: são antigas e repetidas. Extrapolação."
+      C: "A alternativa fala em “acervo da formação do idioma”, mas apaga o ponto principal do Texto II, que é a discriminação. Redução."
+      E: "Expressões carregadas de preconceito não são objetivas: elas avaliam e rebaixam. Contradição."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2022-15
+    area: linguagens
+    competencia: 1
+    habilidade: 3
+    objeto: lin-generos-digitais
+    topico: lin-generos-digitais-hipertexto
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O comando pede o objetivo da publicação do Senado ao usar a forma de outro gênero.
+      A imagem imita um outdoor iluminado. Nele, em letras grandes, “QUANTO CUSTOU?”. Abaixo: uma proposta obriga o órgão público a mostrar, na própria peça publicitária, quanto gastou com ela. E termina: “Qual sua opinião?”.
+      O gênero apropriado é o anúncio de outdoor; a função do post é divulgar um projeto de lei sobre transparência dos gastos públicos e chamar o cidadão a opinar. Alternativa B.
+    enganos:
+      A: "O post não ensina a usar campanhas do governo. Ele divulga um projeto que exige mostrar o custo delas. Leitura torta."
+      C: "Perguntar a opinião não é passar ao cidadão a responsabilidade de controlar os gastos. Extrapolação."
+      D: "Opinar sobre um projeto não é administrar projetos de lei. Extrapolação."
+      E: "É uma “proposta”, ainda não aprovada. O post divulga a ideia; não assegura nada. Extrapolação."
+    aulas: [midia-fundamental/publicidade]
+
+  - id: enem-2022-16
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-texto
+    topico: lin-texto-generos-opinativos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pede a função social do gênero do texto.
+      O primeiro parágrafo resume a história real por trás do filme “Elena”: a irmã mais velha que sonhava ser atriz, a depressão, a morte, e a irmã caçula que, vinte anos depois, refaz os passos dela. O segundo parágrafo muda de tom e julga a obra: é um filme sobre a busca, a perda, a memória e, “essencialmente”, sobre a delicadeza.
+      Apresentar uma obra e dar uma opinião fundamentada sobre ela é o que faz a resenha crítica, publicada aqui numa revista. Alternativa E.
+    enganos:
+      A: "Narrar com imagem e poesia é o que o filme faz, não o texto da revista. Confusão entre a obra e o texto sobre a obra."
+      B: "As memórias são de Petra, no filme. O texto não descreve a separação pelas memórias dela. Confusão entre a obra e o texto."
+      C: "O texto resume a história, mas não escolhe cenas, e o segundo parágrafo avalia. Ficar só no resumo é redução."
+      D: "Quem assina o texto não é a diretora do filme. A história é da família de Petra, não do autor do texto. Leitura errada de quem fala."
+    aulas: [portugues-superior/escrita-academica-artigo-resenha-e-relatorio]
+
+  - id: enem-2022-17
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-texto-literario
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando diz que o texto imita um verbete de dicionário, mas é um poema, e pergunta por quê.
+      Um verbete informa com linguagem objetiva. Este texto faz outra coisa: dá vida às palavras. “A palavra nuvem chove”, “a palavra faca corta”, e as palavras têm “corpo e alma”. Palavra não tem corpo nem alma no sentido literal: é uma metáfora, que aproxima a palavra de um ser vivo.
+      É essa linguagem figurada, que cria sentidos novos, que transforma o falso verbete em poema. Alternativa B.
+    enganos:
+      A: "O texto fala dos poetas, mas falar de poesia não torna um texto poema: um artigo também pode fazer isso. O que faz o poema é o modo de dizer."
+      C: "A lista de classes gramaticais aparece para ser contrastada com o jeito dos poetas, que é o que o texto valoriza. Contradição."
+      D: "O trecho citado contrasta palavras e pessoas, e comparar não basta para fazer um poema. A força está na metáfora da alma e do corpo."
+      E: "Dar informações sobre um conceito é o que faz o verbete, não o poema. É justamente o contrário do que se pergunta."
+    aulas: [portugues-medio/figuras-de-linguagem, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-18
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-recursos-expressivos
+    topico: lin-recursos-expressivos-coesao-e-coerencia
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o recurso que organiza a estrutura do texto. Olhe para a forma das frases, não para o assunto.
+      O narrador, um homem de mais de setenta anos, xinga a calçada portuguesa. As frases são curtas e postas uma ao lado da outra, quase sem conectivos. Algumas não têm verbo, são frases nominais: “Mosaico estúpido.”, “Buraco, cratera, pedra solta, bueiro-bomba.”. Outras têm verbo: “Joga concreto em cima e aplaina.”.
+      Justapor é pôr lado a lado sem ligação explícita. O texto avança assim, alternando frases nominais e verbais, como o pensamento irritado de quem anda olhando o chão. Alternativa A.
+    enganos:
+      B: "Os fatos seguem no presente, sem idas e voltas no tempo. Não há jogo temporal. Extrapolação."
+      C: "Há alguns adjetivos (“estúpido”, “traiçoeira”), mas eles não são o que organiza o texto. Detalhe tomado pelo todo."
+      D: "“Buraco” e “cratera” formam uma gradação (cada vez maior), não sinônimos. E o texto não se encadeia por sinônimos."
+      E: "É o contrário: quase não há conectivos (porque, portanto, mas). As frases vêm soltas. Contradição."
+    aulas: [portugues-medio/coesao-e-coerencia, portugues-medio/oracoes-coordenadas-e-subordinadas]
+
+  - id: enem-2022-19
+    area: linguagens
+    competencia: 3
+    habilidade: 11
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-sociedade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pergunta como o texto caracteriza a violência no futebol.
+      O texto parte da confusão no Maracanã, mas logo amplia: aquilo é reflexo da insegurança do Rio e de como a violência social entra no esporte. Depois diz que reprimir só as torcidas organizadas não resolve num país com mais de 61 mil homicídios por ano. E fecha com um sociólogo: é impossível separar a violência no futebol da “desordem pública, social, econômica e política” do país.
+      A violência no estádio, portanto, é reflexo da precariedade da organização social. Alternativa C.
+    enganos:
+      A: "O Rio é o exemplo, mas os números são do futebol brasileiro todo e a explicação é nacional. Redução."
+      B: "O texto critica justamente o foco só nas torcidas organizadas: chama essa postura de “ineficaz”. Contradição."
+      D: "A invasão de quem não tinha ingresso é o estopim do caso, não a explicação da violência. Detalhe tomado pelo todo."
+      E: "Os clubes e a organização dos jogos não aparecem no texto. Extrapolação."
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora]
+
+  - id: enem-2022-20
+    area: linguagens
+    competencia: 3
+    habilidade: 10
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-saude-e-beleza
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede uma estratégia que leve em conta os dados da pesquisa e uma visão ampliada de saúde (saúde não é só o corpo em forma; depende também de renda, estudo, tempo livre).
+      Os números da Pnad 2015 mostram uma “relação direta entre escolaridade e renda” e prática de esporte: 17,3% entre quem não tinha instrução e 56,7% entre quem tinha superior completo; 31,1% na classe sem rendimento e 65,2% na de cinco salários mínimos ou mais. E a falta de instalações foi pouco citada.
+      Se a prática depende de estudo e de renda, a estratégia precisa mexer nisso: educação e distribuição de renda. Alternativa C.
+    enganos:
+      A: "Falta de tempo é um dos motivos do sedentarismo; pedir “mais tempo aos esportes” ignora isso. E aptidão física é a visão estreita de saúde, não a ampliada."
+      B: "Combater o sedentarismo é o objetivo, não a estratégia. A alternativa repete o problema sem dizer como resolvê-lo."
+      D: "O texto diz que a falta de instalações foi “um motivo pouco citado”. Contradição."
+      E: "Incentivo fiscal para empresas não aparece na pesquisa. Extrapolação."
+    aulas: [educacao-fisica-fundamental/por-que-se-mexer-o-que-a-oms-recomenda]
+
+  - id: enem-2022-21
+    area: linguagens
+    competencia: 5
+    habilidade: 15
+    objeto: lin-literatura
+    topico: lin-literatura-romantismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede o aspecto da realidade do século XIX que o conto de Maria Firmina dos Reis revela.
+      Quem fala é uma senhora abolicionista. Ela se espanta que alguém ainda defenda a escravidão “no século dezenove” e chama a moral religiosa e a moral cívica para o debate. Pergunta: se Cristo deu o sangue para resgatar o homem, como se pode aceitar a escravidão? A sociedade que se diz cristã convive com o cativeiro.
+      Mostrar que quem se apoia na religião e na moral defende algo que as contradiz é apontar a hipocrisia do discurso escravocrata. Alternativa B.
+    enganos:
+      A: "A religião aparece como argumento contra a escravidão, não como algo imposto às pessoas escravizadas. Leitura invertida."
+      C: "O texto diz que a escravidão atrasa o comércio e a lavoura; não fala de violência feita em nome do progresso. Inversão."
+      D: "O declínio é ligado ao trabalho forçado (“porque o seu trabalho é forçado”), não à raça. Palavra-isca."
+      E: "O tom é de indignação direta, com exclamações e perguntas. Não há ironia. Erro de tom."
+    aulas: [literatura-brasileira/romantismo, escravidao-no-brasil/o-movimento-abolicionista-negro-luiz-gama-andre-reboucas-e-jose-do-pat]
+
+  - id: enem-2022-22
+    area: linguagens
+    competencia: 7
+    habilidade: 22
+    objeto: lin-texto
+    topico: lin-texto-estrategias-de-leitura
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pede o ponto comum entre os dois projetos, no tema tecnologia e acessibilidade.
+      O Mural Eletrônico quer que as diferenças entre pessoas não sejam obstáculo “no acesso à informação”: tem vídeos em Libras, leitura sonora e braile. O Surdonews leva notícias em Libras para pessoas surdas, para que a falta de informação não as isole.
+      Os dois querem que a informação e o conhecimento cheguem a quem costuma ficar de fora. Esse é o objetivo comum: disseminar (espalhar) o conhecimento. Alternativa E.
+    enganos:
+      A: "O Mural “promete” tornar a informação acessível. Nenhum dos textos diz que os projetos garantem a igualdade. Extrapolação."
+      B: "Só o Surdonews foi criado por uma pesquisadora surda. O Mural é de engenheiros e tecnólogos. Vale só para um texto."
+      C: "Só o Surdonews nasceu num mestrado. Vale só para um texto."
+      D: "O Mural nasceu para as escolas, mas o Surdonews é uma página no Facebook. Vale só para um texto."
+    aulas: [inclusao/o-que-e-acessibilidade, inclusao/tecnologia-assistiva]
+
+  - id: enem-2022-23
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-geracao-de-30
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pede o que reflete a descrição dos olhos de Maria Santa, no romance “Fronteira”, de Cornélio Penna.
+      O trecho é um período só, longo, que começa no olhar verde da personagem e vai deslizando para o passado: homens aventureiros que procuravam ouro e diamante e mulheres “caladas e sofredoras” que os seguiam pelas matas, expostas às febres, às feras e às cobras, sonhando com um “pouso” onde ter uma vida de família que era só ilusão.
+      O olho da personagem carrega essa história. As ideias se encadeiam por associação, sem cortes, como a memória funciona: é o fluxo de consciência. E o que esse fluxo traz à tona são as misérias e os sofrimentos antigos. Alternativa E.
+    enganos:
+      A: "O texto fala em “origem cruzada”, mas não para classificar a personagem: o foco é o sofrimento das gerações que vieram antes. Palavra-isca."
+      B: "Os antepassados buscavam ouro, mas o texto destaca as misérias, não conquistas da família. Inversão do tom."
+      C: "As mulheres seguiam os maridos; o sofrimento vinha da jornada, das febres e das feras, não de brigas com eles. Extrapolação."
+      D: "A vida dos antepassados é descrita como dura e “ilusória”. Ninguém deseja voltar a ela. Contradição."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-24
+    area: linguagens
+    competencia: 8
+    habilidade: 26
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-variacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pergunta o que o autor mostra ao usar uma fala rebuscada para comprar pão.
+      O exemplo é exagerado de propósito: pedir dez pãezinhos citando o Código Civil às sete da manhã. Logo depois vem o jeito simples, “Bom dia! O senhor poderia me vender cinco reais de pão francês?”. O autor diz que quem tem saber jurídico precisa saber “quando e como” usar o português rebuscado, que tem lugar em documentos jurídicos, não na padaria.
+      Cada situação pede um jeito de falar: é a adequação da linguagem à situação de comunicação. Alternativa E.
+    enganos:
+      A: "O “notável saber jurídico” aparece com ironia. O texto não defende tê-lo, mas usá-lo na hora certa. Palavra-isca."
+      B: "O autor critica a cultura de valorizar quem parece inteligente em vez de quem é. Inversão."
+      C: "É o contrário: o texto diz que falar difícil faz parecer inteligente “mas não por muito tempo”. Contradição."
+      D: "Coesão e coerência aparecem no fim como o que é falar bem. O exemplo do pão não trata de documento jurídico. Detalhe fora do lugar."
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico]
+
+  - id: enem-2022-25
+    area: linguagens
+    competencia: 3
+    habilidade: 11
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-sociedade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede o que a jornalista questiona ao falar da medalha de Rayssa Leal.
+      As perguntas dela são a pista: por que a menina ganha boneca e não um esporte de aventura? Por que o menino pode se machucar e a menina tem de estar sempre “lindinha dentro de um padrão”? Ela diz que é preciso parar de enquadrar as pessoas em regras e que isso limita talentos.
+      O padrão questionado é o que trata o skate e os esportes de risco como coisa de homem. A conquista da skatista ajuda a desconstruir essa ideia. Alternativa C.
+    enganos:
+      A: "A jornalista cita o próprio gosto pelo skate como exemplo, mas a pergunta dela é sobre gênero, não sobre conciliar profissão e esporte. Detalhe tomado pelo todo."
+      B: "Ela não discute como as mulheres entraram no skate street. Ela questiona o padrão que diz o que é de menina e o que é de menino. Redução."
+      D: "Ser a mais jovem no pódio é um dado do texto, não o objeto do questionamento. Palavra-isca."
+      E: "A medalha é o ponto de partida, não o que se questiona. Redução."
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora]
+
+  - id: enem-2022-26
+    area: linguagens
+    competencia: 6
+    habilidade: 19
+    objeto: lin-texto
+    topico: lin-texto-funcoes-da-linguagem
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando diz que na canção predomina a função poética e pede o verso em que aparece a função emotiva.
+      Função emotiva (ou expressiva) é a linguagem centrada em quem fala: os sentimentos e o estado do eu. A marca costuma ser a primeira pessoa (eu, me, mim).
+      O verso da alternativa C fala do próprio eu lírico, com “mim”: a cidade deixou de morar nele. É a expressão de um sentimento de quem fala, o desejo de voltar para a terra. Alternativa C.
+    enganos:
+      A: "O verso mostra um movimento, sem o eu de quem fala. Não expressa sentimento do emissor."
+      B: "O verso descreve um lugar e um momento. Não há marca do eu lírico."
+      D: "O verso descreve como era a terra antes. É descrição, não expressão do eu."
+      E: "“Ó Manuel” é um chamamento (vocativo): a linguagem se volta para quem ouve. Essa é a função conativa, não a emotiva. Troca de função."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2022-27
+    area: linguagens
+    competencia: 7
+    habilidade: 21
+    objeto: lin-argumentacao
+    topico: lin-argumentacao-publicidade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O comando pede o propósito de juntar palavras e imagens no texto.
+      A imagem tem duas fotos. Na primeira, uma mulher sorridente dirige; sobre ela, o ditado “Mulher ao volante, perigo constante” com o fim riscado e trocado por “tem estrada para andar”. Na segunda, um homem com uma lágrima desenhada; sobre ele, “Os homens não choram”, com o “não” riscado.
+      O risco sobre os ditados mostra a correção: as frases feitas sobre o que mulheres e homens são ou fazem estão erradas. A peça leva o leitor a rever esses estereótipos de gênero. Alternativa B.
+    enganos:
+      A: "A peça apaga as diferenças que os ditados inventam. Não quer que se identifiquem distinções. Contradição."
+      C: "Não há proposta de medida, regra ou ação de prevenção. Extrapolação."
+      D: "Ratificar é confirmar. A peça risca os ditados para negá-los. Contradição."
+      E: "A peça retoma ditados preconceituosos para corrigi-los, não opiniões sobre diversidade. Leitura invertida do que é retomado."
+    aulas: [midia-fundamental/publicidade]
+
+  - id: enem-2022-28
+    area: linguagens
+    competencia: 6
+    habilidade: 20
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-portugues-no-brasil
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede o que dá ao movimento de recuperação do patxôhã um caráter de identidade.
+      O texto conta que os pataxós quase perderam a língua por causa da violência: depois do Fogo de 1951 foram expulsos e se espalharam. Décadas depois, voltaram e começaram a recuperar a língua. Uma professora resume: “É a nossa identidade. Você diz quem você é por meio da sua língua”.
+      Retomar a língua é, ao mesmo tempo, resistir como povo (contra a perseguição que quase a apagou) e preservar a memória cultural. Alternativa B.
+    enganos:
+      A: "A perseguição é contada como causa da perda, mas o movimento não se resume a denunciar: ele recupera a língua e a identidade. Redução."
+      C: "O professor estuda na universidade, mas o movimento acontece na aldeia, com as crianças e as famílias. Detalhe tomado pelo todo."
+      D: "O retorno à terra veio antes do movimento (“retornaram ao antigo local e iniciaram”). Inversão de causa e efeito."
+      E: "Os números do texto mostram quantas línguas se perderam, não que a recuperação aumente a contagem. Palavra-isca."
+    aulas: [historia-e-direitos-indigenas/a-constituicao-de-1988-e-os-direitos-indigenas, portugues-superior/historia-da-lingua-portuguesa]
+
+  - id: enem-2022-29
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-realismo-naturalismo
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede onde está a ironia no trecho de “Esaú e Jacó”, de Machado de Assis, em que duas senhoras ricas visitam uma vidente.
+      Bárbara é apresentada como uma moça simples: “leve e breve”, chinelinha, cabelo preso com uma fita suja. O narrador brinca que a fita e o raminho de arruda já lhe dão “um pouco de sacerdotisa”. Mas os olhos são “lúcidos e agudos” e entram pela gente adentro. E, quando Natividade entrega retratos e cabelos “por lhe haverem dito que bastava”, Bárbara só confirma: “Basta”.
+      A moça singela é também esperta: deixa a cliente dizer o que ela precisa e concorda. A ironia está nessa mistura de simplicidade e astúcia nos gestos dela. Alternativa D.
+    enganos:
+      A: "Só a roupa de Bárbara é descrita, e não como alvo da ironia. Não há retrato dos moradores do morro. Generalização."
+      B: "O trecho não fala de dinheiro nem de renda. Extrapolação."
+      C: "O mistério, diz o narrador, “estava nos olhos” de Bárbara, não nas clientes. Troca de personagem."
+      E: "É uma ideia geral sobre Machado, não o que este trecho mostra. Generalização."
+    aulas: [lendo-machado-de-assis/a-ironia-machadiana]
+
+  - id: enem-2022-30
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-realismo-naturalismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede a influência de pensamento que aparece quando o narrador julga a personagem feminina, num romance naturalista.
+      A frase-chave explica por que Margarida trata bem as crianças: “Não era isso uma sentimentalidade cristã, uma ternura”, era um “cru instinto da maternidade”, por “mera simpatia carnal”. O narrador tira a explicação da fé e do afeto e a põe no corpo e no instinto.
+      Explicar o comportamento humano pelo instinto e pela biologia é marca do Naturalismo, que se apoiava na ciência do século XIX. Alternativa C.
+    enganos:
+      A: "Margarida distribui tarefas, mas o comando pergunta sobre o julgamento das emoções femininas, não sobre trabalho. Palavra-isca."
+      B: "Não há busca de igualdade: as escravizadas recebem ordens. Contradição."
+      D: "O narrador nega a explicação religiosa: “não era isso uma sentimentalidade cristã”. Contradição."
+      E: "O narrador nega também a ternura. O cuidado vem do instinto, não do afeto. Contradição."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-31
+    area: linguagens
+    competencia: 5
+    habilidade: 15
+    objeto: lin-literatura
+    topico: lin-literatura-geracao-de-30
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o recurso que liga o trecho de “A bagaceira”, de José Américo de Almeida, ao Romance de 30, o romance regionalista que retratou o Nordeste e a seca.
+      O trecho descreve os retirantes da seca de 1898 sem suavizar nada: “esqueletos redivivos”, o fedor das covas, a magreza, as barrigas inchadas de quem comeu comida tóxica. No fim, eles perdem até a individualidade: “Eram os retirantes. Nada mais.”
+      Mostrar a miséria de forma direta, crua, para denunciar a realidade social é o traço do Romance de 30. Alternativa A.
+    enganos:
+      B: "O espaço é definido: o sertão na seca de 1898. O que se generaliza são as pessoas, não o lugar. Leitura torta."
+      C: "O narrador olha de fora, descreve corpos e movimentos. Não entra na cabeça dos personagens. Não há análise psicológica."
+      D: "Nesse trecho o narrador não toma posição política explícita: ele mostra. Extrapolação."
+      E: "As imagens existem (o paraíso perdido, as espadas de fogo), mas servem ao retrato duro, não à contemplação lírica da paisagem. Erro de tom."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-32
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-texto
+    topico: lin-texto-generos-do-cotidiano
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O comando pede a função das informações do texto sobre os nativos digitais.
+      A imagem é a apresentação de um manual de orientação da Sociedade Brasileira de Pediatria para pais e pediatras. Ela se divide em três colunas, cada uma para uma idade: até 2 anos (não expor a criança às telas de forma passiva), de 2 a 5 anos (limitar a 1 hora por dia) e até 10 anos (acesso controlado e nada de TV ou computador no quarto).
+      Cada faixa de idade recebe uma recomendação própria. O texto propõe ações específicas para cada etapa da infância. Alternativa A.
+    enganos:
+      B: "É um manual de orientação, para “ajudar pais e pediatras”. Dá recomendações, não regras para cumprir à risca. Exagero."
+      C: "Há só uma explicação curta (a criança pequena não separa fantasia de realidade). O centro do texto são as recomendações. Redução."
+      D: "Não há rituais no texto. Extrapolação."
+      E: "A alternativa é vaga. O texto não apresenta estratégias de formação, e sim limites de uso de telas por idade. Generalização."
+    aulas: [portugues-medio/generos-textuais]
+
+  - id: enem-2022-33
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-recursos-expressivos
+    topico: lin-recursos-expressivos-figuras
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o recurso que faz o narrador de “Memórias póstumas de Brás Cubas” chamar o trecho de “inventário”.
+      Inventário é uma lista de bens. O trecho é isso: uma sequência de itens separados por vírgulas, quase sem verbo principal, que vai do choro ao caixão, dos convidados ao padre, do martelo ao coche fúnebre.
+      Essa lista de objetos e acontecimentos, um depois do outro, é a enumeração. Alternativa A.
+    enganos:
+      B: "A linguagem é seca, mas objetividade sozinha não faz uma lista. O que faz o inventário é a enumeração."
+      C: "O período é longo porque a lista é longa. É consequência, não o recurso. Inversão de causa e efeito."
+      D: "Há verbos no presente e no passado, mas eles não explicam a ideia de inventário. Detalhe tomado pelo todo."
+      E: "Velório e enterro são o assunto. Um texto sobre funeral não é, por isso, um inventário. Confusão entre tema e forma."
+    aulas: [lendo-machado-de-assis/memorias-postumas-de-bras-cubas, portugues-medio/figuras-de-linguagem]
+
+  - id: enem-2022-34
+    area: linguagens
+    competencia: 3
+    habilidade: 9
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-sociedade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede a marca das atividades de aventura que a história do mountainboard mostra.
+      O esporte nasceu de uma falta: praticantes de snowboard queriam continuar quando não havia neve. Eles adaptaram uma prancha com pneus, e o esporte passou a caber em grama, terra, pedra, asfalto e areia, e até em trilhas que o praticante procura.
+      Inventar um equipamento e levar a prática a lugares novos é criatividade para se adaptar a novos espaços. Alternativa D.
+    enganos:
+      A: "O circuito nacional é citado, mas a história do esporte não fala de rivalidade. Palavra-isca."
+      B: "O texto não fala de padrões técnicos. O que se destaca é a invenção. Extrapolação."
+      C: "Não há regras no texto. Extrapolação."
+      E: "É o contrário: o esporte se faz em muitos terrenos e trilhas que cada um procura. Contradição."
+    aulas: []
+
+  - id: enem-2022-35
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-texto
+    topico: lin-texto-cronica-e-conto
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede uma característica da crônica que Clarice Lispector questiona.
+      Ela nota que escrever para jornal muda o jeito de escrever e pergunta, incomodada: mudar só porque é uma crônica? “Ser mais leve” porque o leitor quer? Divertir? “Fazer passar uns minutos de leitura”? E compara: nos livros, ela busca uma comunicação profunda.
+      O que ela põe em dúvida é a crônica leve, rápida, que trata o assunto de forma breve e sem aprofundar. Alternativa C.
+    enganos:
+      A: "Ela diz o contrário: está ficando “pessoal demais”. A crônica aproxima quem escreve de quem lê. Contradição."
+      B: "O texto não fala de vários núcleos de narrativa. Extrapolação."
+      D: "Não há personagens descritos no texto. Extrapolação."
+      E: "Ela diz que o jornal é aberto por “todo o mundo”; exclusivo é o leitor do livro. Inversão."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2022-36
+    area: linguagens
+    competencia: 1
+    habilidade: 3
+    objeto: lin-texto
+    topico: lin-texto-generos-jornalisticos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede o papel que a notícia cumpre além de informar.
+      O fato noticiado é a aprovação, numa comissão da Câmara de Belo Horizonte, de uma proposta de vacinação gratuita de cães contra a leishmaniose. Mas, antes do fato, a notícia explica a doença: é “grave”, transmitida pela picada do mosquito-palha, atinge pessoas e cachorros e é “um problema de saúde pública”.
+      Ao explicar a doença e o risco, a notícia ajuda a população a entender e a se cuidar: conscientiza. Alternativa C.
+    enganos:
+      A: "A notícia não cobra nem fiscaliza ações. Ela relata uma proposta. Extrapolação."
+      B: "A notícia relata um projeto de vacinação gratuita, mas não defende serviços gratuitos em geral. Extrapolação."
+      D: "Quem propõe a campanha é a Câmara, não a notícia. Troca de quem faz a ação."
+      E: "Não há atraso nem culpados no texto. Extrapolação."
+    aulas: [midia-fundamental/o-que-e-noticia]
+
+  - id: enem-2022-37
+    area: linguagens
+    competencia: 9
+    habilidade: 28
+    objeto: lin-generos-digitais
+    topico: lin-generos-digitais-hipertexto
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pergunta em que se apoia a positividade tóxica ligada à “vida perfeita” das redes.
+      O texto descreve influenciadores sempre felizes, com corpo esbelto, viagens, casas e carros, e “alegria em tempo integral”, algo “bem improvável”. Depois define a positividade tóxica: a pressão por um discurso sempre positivo, junto com “uma vida editada para as redes sociais”.
+      Uma felicidade sempre igual, editada e de vitrine é uma representação estereotipada (de modelo pronto) e superficial. Alternativa A.
+    enganos:
+      B: "O texto não fala de um novo sentido para a alegria. Fala de uma alegria fingida, sempre igual. Extrapolação."
+      C: "O texto não discute se o brasileiro pode ou não ter esse estilo de vida. Extrapolação."
+      D: "Os influenciadores aparecem sempre felizes, com um discurso coerente. O problema é a falsidade, não a contradição."
+      E: "O corpo esbelto é um item da lista, ao lado de viagens, casas e carros. Ficar só na beleza é redução."
+    aulas: [saude-mental/o-que-e-saude-mental]
+
+  - id: enem-2022-38
+    area: linguagens
+    competencia: 4
+    habilidade: 13
+    objeto: lin-artes
+    topico: lin-artes-arte-como-linguagem
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O comando pede o que distingue o “Laocoonte” de El Greco como obra maneirista.
+      A imagem mostra Laocoonte caído no chão lutando com uma serpente, um filho já tombado, outro em pé segurando uma cobra, e figuras nuas à direita. Repare nos corpos: são compridos demais, retorcidos, com membros esticados. O céu é tempestuoso e a cidade ao fundo parece solta do primeiro plano.
+      O Maneirismo, que veio depois do Renascimento, abandonou as proporções equilibradas e alongou e torceu as figuras para criar tensão. Essa distorção da figura humana é a marca da obra. Alternativa B.
+    enganos:
+      A: "A nudez masculina já era comum no Renascimento. Não distingue o Maneirismo."
+      C: "O tema vem de um mito antigo, mas temas clássicos também eram comuns no Renascimento. O que distingue é o jeito de pintar, não o assunto."
+      D: "A morte como castigo é o tema da história, dito no Texto II. O comando pergunta pelo estilo. Confusão entre tema e forma."
+      E: "A perspectiva que integra os planos é marca do Renascimento. Aqui os planos parecem desencontrados. Contradição."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-39
+    area: linguagens
+    competencia: 4
+    habilidade: 12
+    objeto: lin-artes
+    topico: lin-artes-contemporanea-e-urbana
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      O comando pede o que a imagem e o texto dizem da obra minimalista.
+      A imagem mostra dez caixas iguais, retangulares, presas na parede uma acima da outra, com o mesmo espaço entre elas. Não representam nada: são só formas. O texto diz que o Minimalismo fazia “estruturas aparentemente simples”, muitas vezes com materiais industriais.
+      Formas reduzidas ao essencial (sintéticas), repetidas e distribuídas no espaço da parede: a obra é essa combinação. Alternativa E.
+    enganos:
+      A: "A obra não representa a simplicidade: ela é simples. A arte minimalista não quer representar nada. Leitura errada da proposta."
+      B: "O Cubismo decompunha figuras em muitos planos. Aqui há caixas inteiras e iguais. Mistura de movimentos."
+      C: "Os materiais são industriais, mas a obra não fala do cotidiano. Palavra-isca."
+      D: "É o contrário: os elementos são poucos e simples. Contradição."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-40
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede o que reforça a expressividade lírica (a emoção) no trecho do conto de Coelho Netto.
+      O narrador pergunta pelo velho Firmo. O cafuzo responde primeiro com um gesto, fica “comovido” e conta: de madrugada, jogou um verso para provocar o velho cantador, e ele não respondeu, logo ele, que nunca deixava um verso sem resposta. Estava morto. E então o cafuzo esporeia o cavalo “para que eu não lhe visse as lágrimas”.
+      A emoção vem do afeto de quem dá a notícia da morte do amigo cantador e tenta esconder o choro. Alternativa D.
+    enganos:
+      A: "O gado saindo é só o cenário do começo. Não é ele que dá a emoção. Detalhe tomado pelo todo."
+      B: "O cafuzo sobe no cavalo comovido, não firme. Ele foge para esconder o choro. Contradição."
+      C: "A palhoça indica pobreza, mas o trecho não trata disso. Extrapolação."
+      E: "Ele esconde as lágrimas, mas o que dá lirismo à cena é o afeto, não a preocupação em parecer forte. Palavra-isca."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-41
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-pre-modernismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede o que o narrador expressa diante das atitudes coletivas do carnaval, no conto de João do Rio.
+      Há dois movimentos. De um lado, desejo: ele se joga “no mar alto da depravação”, sente “uma ânsia de acanalhar-me, quase mórbida” e quer o “deboche anônimo”. De outro, nojo de si e do que faz: “Era ignóbil” (vil, baixo).
+      Atração e repulsa ao mesmo tempo diante da libertinagem: é essa a mistura. Alternativa B.
+    enganos:
+      A: "Ele não celebra a alegria do povo. Fala de depravação e de deboche. Erro de tom."
+      C: "Ele não se espanta com a multidão. A cidade “inteira estava assim” é constatação, não espanto."
+      D: "Ele quer o anônimo, o “chegar, pegar, acabar”, e não confraternizar. Leitura torta."
+      E: "O carnaval aparece como ocasião de excesso, não como manifestação cultural reconhecida. Extrapolação."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-42
+    area: linguagens
+    competencia: 5
+    habilidade: 17
+    objeto: lin-literatura
+    topico: lin-literatura-afro-brasileira
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede o que aparece na reflexão de Carolina Maria de Jesus depois da conversa na delegacia, no diário “Quarto de despejo”.
+      O tenente diz que a favela favorece o crime. Ela começa elogiando: “Que homem amavel!”. Mas logo pensa: se ele sabe disso, por que não escreve aos políticos, em vez de falar para ela, “uma pobre lixeira”? E fecha: o Brasil precisa ser dirigido por quem já passou fome, porque “a fome tambem é professora”.
+      O elogio inicial se vira contra o tenente: ela devolve o discurso da autoridade com ironia e com uma lição própria. Alternativa D.
+    enganos:
+      A: "A lição do trecho é dela (a fome ensina), não do tenente. Inversão."
+      B: "Ela reflete com lucidez, não se emociona. Erro de tom."
+      C: "Ela cita políticos conhecidos, não a vida política da comunidade. Palavra-isca."
+      E: "A reflexão é sobre a sociedade e o governo, não sobre desejos íntimos. Leitura torta."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-43
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-contemporanea
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pergunta de onde vem o efeito expressivo da trajetória de Vanda, a empregada, contada pelo narrador da crônica de Antonio Prata.
+      Os fatos são violentos: dada pela mãe aos sete anos, proibida de comer o que gostava, trabalhou até os quinze, teve o nariz quebrado com um rolo de amassar pão. Mas o narrador os conta como “causo”: ela vinha “de dentro de um livro de Charles Dickens”, a patroa age “como uma vilã de folhetim”, a infância é de “gata-borralheira”, e Vanda ainda faz as crianças apertarem o nariz quebrado antes de expulsá-las da cozinha.
+      Contar violência como anedota (história curta, quase engraçada) é o que dá o efeito: a leveza do tom deixa a dureza ainda mais visível. Alternativa E.
+    enganos:
+      A: "As referências a Dickens, ao folhetim e à gata-borralheira existem, mas são ferramentas do tom anedótico. Ficar nelas é parar no meio do caminho. Redução."
+      B: "As crianças são descritas como “mimadas” e importunas, não inocentes. Palavra-isca."
+      C: "O narrador não discute a bondade humana. Ele conta a história. Extrapolação."
+      D: "Só Vanda vem do interior, e ela não é descrita em detalhe físico. Generalização."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-44
+    area: linguagens
+    competencia: 4
+    habilidade: 12
+    objeto: lin-artes
+    topico: lin-artes-contemporanea-e-urbana
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O comando pede o que mostra o diálogo entre a instalação de Regina Silveira e a “Roda de bicicleta” de Duchamp.
+      A imagem mostra, numa sala da Bienal, um bloco branco e, saindo dele, a sombra comprida e deformada de uma roda de bicicleta sobre um banquinho. Mas a roda não está lá: só a sombra. Daí o título “In absentia” (na ausência).
+      O Texto II diz que Duchamp, ao pôr objetos comuns no museu, fez uma crítica radical ao sistema da arte. Regina Silveira vai além: tira até o objeto e deixa só a sombra dele. As duas obras desfazem a ideia de que arte é um objeto belo e feito à mão. Elas desmistificam os valores estéticos estabelecidos. Alternativa C.
+    enganos:
+      A: "A instalação não repete a crítica: cria outra forma, a ausência do objeto. Contradição."
+      B: "Não se fala em temas que se repetem no fim do século XX. Extrapolação."
+      D: "A distância no tempo não é o que transforma a arte aqui. É a proposta da artista. Extrapolação."
+      E: "A sombra não degrada a forma nem supera o modelo: ela conversa com ele. Extrapolação."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2022-45
+    area: linguagens
+    competencia: 4
+    habilidade: 14
+    objeto: lin-artes
+    topico: lin-artes-musica-brasileira
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pergunta como Chico Science renovou a música de Pernambuco.
+      O texto conta que, no manguebeat, o maracatu e suas alfaias (os tambores grandes) se misturaram com as batidas do hip-hop, as guitarras do rock, os elementos eletrônicos e o sotaque recifense de Chico Science. O próprio nome junta “mangue” (a vegetação local) e “beat” (batida).
+      Juntar referências de origens diferentes, locais e de fora, numa estética nova é a marca do movimento. Alternativa E.
+    enganos:
+      A: "Os tambores do maracatu continuam: o eletrônico se soma a eles, não os substitui. Contradição."
+      B: "O mangue dá nome ao movimento; não se fala em shows na natureza. Palavra-isca."
+      C: "O texto diz que Recife deixou de ser “apenas” do frevo, não que o frevo foi trocado. Leitura torta."
+      D: "Não é recuperar o folclore como era: é misturá-lo com o novo. Redução."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]

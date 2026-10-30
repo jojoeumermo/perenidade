@@ -1,0 +1,67 @@
+# O diagnóstico do curso: 15 questões oficiais por área, uma por habilidade sempre que possível, sem imagem,
+# de dificuldade 1 ou 2 (classificação a confirmar). Gerado da camada das provas; formato em lib/enem.ts (validarSimulados).
+areas:
+  linguagens:
+    - enem-2023-1-espanhol
+    - enem-2023-5-espanhol
+    - enem-2023-6
+    - enem-2023-8
+    - enem-2023-10
+    - enem-2023-11
+    - enem-2023-15
+    - enem-2023-16
+    - enem-2023-28
+    - enem-2023-32
+    - enem-2023-35
+    - enem-2023-2-espanhol
+    - enem-2023-7
+    - enem-2023-9
+    - enem-2023-17
+  humanas:
+    - enem-2023-48
+    - enem-2023-50
+    - enem-2023-52
+    - enem-2023-53
+    - enem-2023-58
+    - enem-2023-60
+    - enem-2023-61
+    - enem-2023-62
+    - enem-2023-64
+    - enem-2023-65
+    - enem-2023-66
+    - enem-2023-67
+    - enem-2023-69
+    - enem-2023-70
+    - enem-2023-78
+  natureza:
+    - enem-2023-91
+    - enem-2023-92
+    - enem-2023-93
+    - enem-2023-97
+    - enem-2023-98
+    - enem-2023-108
+    - enem-2023-115
+    - enem-2023-128
+    - enem-2023-130
+    - enem-2023-131
+    - enem-2023-96
+    - enem-2023-101
+    - enem-2023-103
+    - enem-2023-107
+    - enem-2023-117
+  matematica:
+    - enem-2023-150
+    - enem-2023-153
+    - enem-2023-180
+    - enem-2023-159
+    - enem-2022-139
+    - enem-2022-164
+    - enem-2022-169
+    - enem-2022-175
+    - enem-2022-142
+    - enem-2022-145
+    - enem-2023-162
+    - enem-2023-143
+    - enem-2023-147
+    - enem-2023-171
+    - enem-2023-175
