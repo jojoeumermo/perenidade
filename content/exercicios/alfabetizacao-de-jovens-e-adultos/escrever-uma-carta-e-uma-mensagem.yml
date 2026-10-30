@@ -1,0 +1,51 @@
+# Exercícios da aula "Escrever uma carta e uma mensagem" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-carta-01
+  tema: "Formal ou informal"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o melhor fim para uma carta à Secretaria de Obras?"
+  alternativas:
+    - texto: "Um beijo,"
+      erro: "Um beijo é para a família e os amigos. Para um órgão público, use um fim formal."
+    - texto: "Atenciosamente,"
+      certa: true
+    - texto: "Valeu, falou!"
+      erro: "É um jeito de falar entre amigos. Na carta formal, a despedida mais usada é 'Atenciosamente,'."
+  explicacao: "Carta para órgão público é formal: começa com o cargo ('Senhor Secretário,') e termina com 'Atenciosamente,', o nome e a data."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-carta-02
+  tema: "O que não pode faltar"
+  dificuldade: 2
+  enunciado: "Uma carta diz apenas: 'Senhor Prefeito, a rua está ruim. Atenciosamente, Moradores.' O que mais falta?"
+  alternativas:
+    - texto: "Um desenho da rua"
+      erro: "Um desenho pode ajudar, mas o que falta é informação: qual rua, qual problema, desde quando e o que se pede."
+    - texto: "Mais elogios ao prefeito"
+      erro: "Elogio não resolve. A carta precisa dizer com clareza o problema e o pedido."
+    - texto: "Qual rua, qual é o problema, desde quando e o que se pede"
+      certa: true
+  explicacao: "Uma boa carta de reclamação diz quem pede, o problema, onde, desde quando, as consequências e o que se pede."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-carta-03
+  tema: "Entregar o pedido"
+  dificuldade: 2
+  enunciado: "Na hora de entregar a carta na prefeitura, o que é bom pedir?"
+  alternativas:
+    - texto: "Um número de protocolo ou uma cópia carimbada com a data"
+      certa: true
+    - texto: "Nada; é só deixar na mesa"
+      erro: "Sem prova da entrega, fica difícil cobrar a resposta depois. Peça protocolo ou cópia carimbada."
+    - texto: "Que leiam na hora e respondam ali mesmo"
+      erro: "Nem sempre dá para responder na hora. O importante é ter a prova de que você pediu: o protocolo."
+  explicacao: "O protocolo prova que o pedido foi entregue e quando. Com ele, você pode cobrar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

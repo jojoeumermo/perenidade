@@ -1,0 +1,51 @@
+# Exercícios da aula "Ler em voz alta" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-voz-01
+  tema: "Fluência"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Joana leu um texto muito rápido, mas não soube contar o que ele dizia. O que faltou?"
+  alternativas:
+    - texto: "Ler ainda mais rápido"
+      erro: "Velocidade ela já tem. O que falta é entender: ler bem é ler com sentido, mesmo que mais devagar."
+    - texto: "Entender: ler com ritmo, mas prestando atenção no sentido"
+      certa: true
+    - texto: "Ler só em silêncio"
+      erro: "Em silêncio ou em voz alta, a leitura só vale quando a pessoa entende. O problema aqui é o sentido, não o jeito."
+  explicacao: "Fluência é ritmo com entendimento. No fim de cada leitura, vale perguntar: o que esse texto disse?"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-voz-02
+  tema: "Palavras difíceis"
+  dificuldade: 2
+  enunciado: "Qual é a melhor maneira de ler a palavra COMPROVANTE pela primeira vez?"
+  alternativas:
+    - texto: "Pular e seguir sem ela"
+      erro: "Pular pode fazer perder o sentido da frase. Tente por pedaços: COM-PRO-VAN-TE."
+    - texto: "Adivinhar pela primeira letra"
+      erro: "Pela primeira letra dá para chutar muitas palavras: COMPRA, COMPANHIA... Leia todos os pedaços."
+    - texto: "Por pedaços: COM-PRO-VAN-TE, e depois inteira"
+      certa: true
+  explicacao: "Separar em sílabas, ler cada pedaço e juntar devagar: assim qualquer palavra nova pode ser lida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-voz-03
+  tema: "Entonação"
+  dificuldade: 2
+  enunciado: "Como a voz deve ficar no fim da frase 'Vamos levar isso para a reunião?'"
+  alternativas:
+    - texto: "Subir, porque é uma pergunta"
+      certa: true
+    - texto: "Descer, como no ponto final"
+      erro: "A voz desce no ponto final, num aviso. Esta frase termina com interrogação: é pergunta, e a voz sobe."
+    - texto: "Gritar, como na exclamação"
+      erro: "A força é da exclamação (!). Aqui o sinal é ? e pede a voz subindo no fim."
+  explicacao: "O ponto de interrogação avisa: é pergunta. Na leitura em voz alta, a voz sobe no fim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
