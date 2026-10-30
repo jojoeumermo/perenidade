@@ -1,0 +1,51 @@
+# Exercícios da aula "Ler uma notícia curta" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-noticia-01
+  tema: "As perguntas da notícia"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Leia: 'A feira do bairro muda de dia. A partir de março, ela acontece aos sábados, na praça da igreja.' Onde vai ser a feira?"
+  alternativas:
+    - texto: "Aos sábados"
+      erro: "Aos sábados responde a QUANDO. A pergunta é ONDE: procure o lugar."
+    - texto: "Na praça da igreja"
+      certa: true
+    - texto: "A partir de março"
+      erro: "A partir de março também é QUANDO. O lugar está no fim da frase: na praça da igreja."
+  explicacao: "ONDE pede um lugar: na praça da igreja. Sábados e março respondem a QUANDO."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-noticia-02
+  tema: "Palavra nova pelo contexto"
+  dificuldade: 2
+  enunciado: "Leia: 'O mutirão juntou trinta vizinhos para limpar o córrego.' Pelo resto da frase, o que deve ser um MUTIRÃO?"
+  alternativas:
+    - texto: "Um trabalho feito por muita gente junta"
+      certa: true
+    - texto: "Uma máquina de limpar"
+      erro: "Boa tentativa, mas a frase diz que o mutirão juntou trinta vizinhos. Quem limpa são as pessoas, juntas."
+    - texto: "Um tipo de rio"
+      erro: "O rio da frase é o córrego. O mutirão foi o que juntou os vizinhos para trabalhar."
+  explicacao: "A frase diz que o mutirão juntou trinta vizinhos para limpar: é um trabalho coletivo. Ler até o fim da frase ajuda a entender a palavra nova."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-noticia-03
+  tema: "Notícia falsa"
+  dificuldade: 2
+  enunciado: "Qual destas mensagens tem mais cara de notícia falsa?"
+  alternativas:
+    - texto: "A Prefeitura informa: a vacinação começa dia 10 nos postos de saúde. Veja no site oficial."
+      erro: "Essa diz quem informou, dá a data e indica onde conferir. São sinais de notícia confiável."
+    - texto: "O posto de saúde do bairro abre às 7h a partir de segunda, segundo a Secretaria de Saúde."
+      erro: "Essa diz a fonte, a Secretaria de Saúde, e não pede nada. Dá para conferir no próprio posto."
+    - texto: "URGENTE!!! Remédio caseiro cura tudo em 3 dias. Compartilhe antes que apaguem!"
+      certa: true
+  explicacao: "Pressa, cura milagrosa, nenhuma fonte e o pedido para compartilhar: quatro sinais de notícia falsa juntos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

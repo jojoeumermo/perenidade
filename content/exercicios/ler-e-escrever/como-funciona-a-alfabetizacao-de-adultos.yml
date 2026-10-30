@@ -1,0 +1,50 @@
+# Exercícios da aula "Para quem vai ensinar: como funciona a alfabetização de adultos" (Ler e escrever).
+# Formato em docs/EXERCICIOS.md. Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-ensinar-01
+  tema: "Por onde começar"
+  dificuldade: 1
+  enunciado: "Você vai ajudar uma vizinha de 60 anos a aprender a ler. Por onde começar?"
+  alternativas:
+    - texto: "Pela cartilha das crianças, do A ao Z"
+      erro: "A cartilha infantil trata o adulto como criança e ignora o que ele já sabe do mundo. Comece pela vida dela."
+    - texto: "Por uma conversa sobre a vida e o trabalho dela, para achar as palavras que importam"
+      certa: true
+    - texto: "Por um ditado de palavras difíceis, para ver o nível"
+      erro: "Um ditado difícil logo no começo assusta e humilha. Para saber o que ela já sabe, peça poucas palavras da vida dela, sem cobrar acerto."
+  explicacao: "Freire começava pela leitura do mundo: a conversa revela as palavras geradoras, que pesam na vida do grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-ensinar-02
+  tema: "Ler a escrita de quem aprende"
+  dificuldade: 2
+  enunciado: "Seu Antônio escreveu PNL para PANELA. Em que etapa ele está?"
+  alternativas:
+    - texto: "Ainda não liga letra e som"
+      erro: "Ele liga, sim: P para PA, N para NE, L para LA. Cada letra corresponde a um pedaço da palavra."
+    - texto: "Já escreve uma letra para cada som"
+      erro: "Ainda não: faltam as vogais. Ele pôs uma letra por sílaba. A escrita com uma letra para cada som seria PANELA."
+    - texto: "Escreve uma letra para cada sílaba, com letras que têm o som certo"
+      certa: true
+  explicacao: "Uma letra por sílaba, e cada letra com valor de som: é a etapa que Emilia Ferreiro e Ana Teberosky chamaram de silábica. O próximo passo é perceber que cada pedaço tem mais de um som."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-ensinar-03
+  tema: "Corrigir sem humilhar"
+  dificuldade: 2
+  enunciado: "A aluna escreveu CAZA para CASA. O que é melhor dizer?"
+  alternativas:
+    - texto: "Está errado, presta atenção"
+      erro: "Isso só aponta o erro e tira a coragem. O engano dela tem lógica: o som é mesmo de Z."
+    - texto: "Você ouviu certo: soa como Z. Mas entre duas vogais a escrita usa S. Vamos ver outras: MESA, CAMISA."
+      certa: true
+    - texto: "Não diga nada, para não desanimar"
+      erro: "Calar também não ajuda: ela fica sem saber. Dá para mostrar a regra valorizando o que ela já percebeu."
+  explicacao: "Primeiro reconheça o que a pessoa acertou (o som), depois mostre a regra com outros exemplos. O erro vira caminho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

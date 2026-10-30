@@ -43,9 +43,14 @@ quiz:
     opcoes: ["Empurrar a porta", "Puxar a porta para você", "Esperar alguém abrir"]
     resposta: 1
     explicacao: "PUXE começa com PU. EMPURRE começa com EM. A primeira sílaba já resolve."
+ferramentas: [contas-do-dia-a-dia]
 ---
 
 Você já sabe [as vogais](/trilhas/ler-e-escrever/as-vogais), já escreve [o seu nome](/trilhas/ler-e-escrever/o-seu-nome) e já sabe dividir as palavras em [sílabas](/trilhas/ler-e-escrever/silabas-pedacos-que-se-repetem). Agora vamos para a rua.
+
+## O que você vai aprender
+
+Ao fim desta aula você vai ler as placas mais comuns da rua, entender o letreiro do ônibus e as abreviações (AV., R., JD.) e achar, na conta de luz, o vencimento, o total a pagar e o consumo. Também vai saber desconfiar de uma conta falsa.
 
 ## Você já lê a rua
 
@@ -154,6 +159,42 @@ Existe um desconto na conta de luz para famílias de baixa renda: a **Tarifa Soc
 
 Para saber se a sua casa tem direito, procure o **CRAS** (Centro de Referência de Assistência Social) ou o posto do Cadastro Único da sua cidade, e leve uma conta de luz.
 
+## Exemplo resolvido
+
+**Na conta de luz da Dona Cida, a leitura atual é 3.415 e a anterior é 3.270. Quanto a casa gastou? E até quando ela pode pagar?**
+
+1. Ache as palavras **LEITURA ATUAL** e **LEITURA ANTERIOR**. Ao lado de cada uma está um número.
+2. O gasto do mês é o número maior menos o menor: 3.415 − 3.270.
+3. Faça a conta por partes. De 3.270 até 3.300 faltam 30. De 3.300 até 3.415 faltam 115. Somando: 30 + 115 = **145**.
+4. O gasto é **145 kWh** (quilowatt-hora). Confira se o mesmo número aparece na conta, ao lado de **CONSUMO**.
+5. Agora ache a palavra **VENCIMENTO**. A data ao lado é o último dia para pagar sem multa.
+
+Confira a conta ao contrário: 3.270 + 145 = 3.415. Bateu.
+
+## Leia o letreiro
+
+Toque e ouça o letreiro inteiro, com as palavras por extenso.
+
+```pronuncia
+lingua: pt-BR
+215 TERMINAL CENTRO VIA AVENIDA BRASIL | 215 TERM. CENTRO VIA AV. BRASIL
+JARDIM DAS FLORES | JD. DAS FLORES
+VILA NOVA | VL. NOVA
+```
+
+## Abreviação e palavra inteira
+
+Vire duas cartas por vez e junte a abreviação com a palavra inteira.
+
+```memoria
+AV. = AVENIDA
+R. = RUA
+TERM. = TERMINAL
+JD. = JARDIM
+VL. = VILA
+PQ. = PARQUE
+```
+
 ## Para praticar
 
 1. Na próxima vez que sair, ache três placas e leia a primeira sílaba de cada uma.
@@ -163,6 +204,14 @@ Para saber se a sua casa tem direito, procure o **CRAS** (Centro de Referência 
 5. Faça a conta: a leitura atual é 2.480 e a anterior era 2.360. Quanto a casa gastou?
 
 **Resposta do item 5:** 2.480 menos 2.360 dá **120 kWh**.
+
+## Resumo
+
+- Placa se lê pela cor, pelo desenho e pela primeira palavra: SAÍDA, PERIGO, PROIBIDO.
+- No ônibus, **decore o número da linha** e a primeira palavra do destino. VIA diz por onde ele passa.
+- Na conta de luz importam: **VENCIMENTO**, **TOTAL A PAGAR** e **CONSUMO** (em kWh).
+- Consumo = leitura atual − leitura anterior.
+- Conta que chega por mensagem pedindo pagamento urgente pode ser golpe: confira com a empresa.
 
 ## Para pensar
 

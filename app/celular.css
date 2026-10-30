@@ -1162,3 +1162,11 @@
     display: flex;
   }
 }
+
+/* Letra grande nas trilhas de alfabetização (veja app/globals.css): no celular, um pouco menor que no computador. */
+@media (max-width: 767.98px) {
+  :root:not([data-leitor]):not([data-spacing]) main .folha-da-aula[data-letra-grande] .prose-lesson {
+    font-size: 1.35rem;
+    line-height: 1.75;
+  }
+}
