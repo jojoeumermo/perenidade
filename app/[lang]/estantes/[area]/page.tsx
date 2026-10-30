@@ -11,6 +11,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { SecaoEstudioDePratica } from "@/components/EstudioDePraticaSecao";
 import { temEstudio } from "@/lib/estudio";
 import { loadLang } from "@/i18n";
+import { ligado } from "@/lib/recursos";
+import { textosDoEstudo } from "@/lib/textos-estudo";
 import { paginaMeta } from "@/lib/seo";
 import { localePath, plural } from "@/i18n/config";
 import { areaSlugs, areaTools, isArea, stages } from "@/lib/areas";
@@ -50,6 +52,11 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
         {t.areas[area][1]}
       </PageHeading>
 
+      {ligado("enem-curso") && area === "enem" && (
+        <Link href={to("/enem")} className="mt-6 block border-2 border-ink bg-ink p-4 font-sans text-parchment shadow-[4px_4px_0_var(--sombra)] hover:bg-oxblood">
+          {textosDoEstudo(lang).s.enem.irParaCurso} →
+        </Link>
+      )}
       {/* As partes da disciplina: as trilhas (o caminho principal) e, ao lado, o que os educadores secundários publicam fora delas. */}
       <nav aria-label={t.shelf.sections} className="mt-8 flex flex-wrap gap-2 font-sans text-sm">
         <a href="#trilhas" className="border-2 border-ink bg-ink px-3 py-1.5 font-semibold text-parchment hover:bg-oxblood">{t.shelf.tracks}</a>

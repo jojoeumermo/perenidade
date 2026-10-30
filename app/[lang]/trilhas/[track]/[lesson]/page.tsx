@@ -44,6 +44,7 @@ import { creditosDeRevisao, EtiquetaDeRevisao } from "@/components/estudo/Etique
 import { revisoesDaAula } from "@/lib/revisoes-conteudo";
 import { HabilidadesDaAula } from "@/components/estudo/Habilidades";
 import { mapaDaAula } from "@/lib/curriculo-conteudo";
+import { questoesOficiaisDaAula } from "@/lib/enem-conteudo";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -117,6 +118,8 @@ export default async function LessonPage({ params }: Props) {
   const exercicios = ligado("exercicios") ? exerciciosDaAula(track.slug, lesson.slug) : [];
   const revisoes = ligado("revisoes") ? revisoesDaAula(lesson.file) : [];
   const habilidades = ligado("mapa-curricular") ? mapaDaAula(track.slug, lesson.slug) : null;
+  // Curso ENEM: as questões oficiais classificadas que citam esta aula (content/enem/questoes-oficiais).
+  const oficiais = ligado("enem-curso") ? questoesOficiaisDaAula(track.slug, lesson.slug) : [];
   // O que é bom ter visto antes e as aulas parecidas em outras disciplinas ("também em Química").
   const requisitos = requisitosDaAula(lang, track, lesson.slug);
   const outras = tambemEmOutras(lang, track, lesson.slug);
@@ -203,6 +206,22 @@ export default async function LessonPage({ params }: Props) {
           {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={id} guardarNoAparelho={ligado("meu-estudo")} />}
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
           {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />}
+          {oficiais.length > 0 && (
+            <section aria-labelledby="questoes-oficiais" className="no-print mt-10 border-2 border-ink bg-parchment-deep p-4 font-sans text-sm">
+              <h2 id="questoes-oficiais" className="font-serif text-2xl font-semibold">{estudo.enem.naAula.titulo}</h2>
+              <p className="mt-1 text-ink-soft">{estudo.enem.naAula.lead}</p>
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {oficiais.slice(0, 30).map((q) => (
+                  <li key={q.id}>
+                    <Link href={`${to("/enem/praticar")}?q=${q.id}`} className="inline-block border border-rule bg-parchment px-2 py-1 hover:border-oxblood">{fill(estudo.enem.naAula.item, { ano: q.ano, n: Number(q.id.split("-")[2]) })}</Link>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3">
+                <Link href={`${to("/enem/praticar")}?q=${oficiais.map((q) => q.id).join(",")}`} className="font-semibold underline hover:text-oxblood">{estudo.enem.naAula.praticarTodas} →</Link>
+              </p>
+            </section>
+          )}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
           {outras.length > 0 && (
             <aside aria-label={t.lesson.alsoInTitle} className="no-print mt-10 border-t-4 border-[#c21f16] bg-parchment-deep p-4 font-sans text-sm">
