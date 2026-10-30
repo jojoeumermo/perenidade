@@ -587,20 +587,9 @@
   :root:not([data-leitor]) .inicio-do-celular {
     display: block;
   }
-  /* O lambe-lambe do dia, o mesmo do computador, na medida do cartão do celular. */
-  :root:not([data-leitor]) .lambe-do-celular .lambe {
-    margin-top: 0.75rem;
-    font-size: 2.45rem;
-    overflow-wrap: anywhere;
-  }
-  :root:not([data-leitor]) .lambe-do-celular .lambe + p {
-    margin-top: 0.9rem;
-    font-size: 1.05rem;
-  }
-  :root:not([data-leitor]) .lambe-do-celular .xilogravura {
-    margin-top: 0.5rem;
-    height: 2rem;
-    width: 6rem;
+  /* O lambe-lambe do dia, o mesmo do computador: a letra já se mede pela largura do cartaz; aqui só a altura cede. */
+  :root:not([data-leitor]) .lambe-do-celular .lambe-papel {
+    min-height: 0;
   }
 
   /* ───── Disciplinas: cada grupo vira uma fileira de cadernos que corre de lado ───── */
@@ -671,7 +660,7 @@
     left: 8px;
     width: 6px;
     background-size: 6px 16px;
-    background-image: radial-gradient(circle, #f4ecd8 2.4px, transparent 2.8px);
+    background-image: radial-gradient(circle, var(--parchment) 2.4px, transparent 2.8px);
   }
   :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > button {
     margin-top: 0.5rem;

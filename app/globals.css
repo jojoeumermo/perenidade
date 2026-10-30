@@ -2,23 +2,26 @@
 @import "tailwindcss";
 
 :root {
-  --parchment: #f4ecd8;
-  --parchment-deep: #e9dcbc;
+  /* Papel claro (30/10/2026): o mesmo papel quente, com metade do amarelo, para não ler como papel velho. */
+  --parchment: #f8f5ee;
+  --parchment-deep: #efe9dc;
   --ink: #1f1a14;
   --ink-soft: #5a4e3c;
   --gold: #8a5f1c;
   --oxblood: #6e1f1a;
-  --rule: #cdbb91;
+  --rule: #d9cfbc;
   --ok: #2f5d34;
   --apoie-luz: 38%;
   /* Caderno do Povo: a folha dos cartões, a sombra dura dos cartazes, o vermelho do prelo como texto
      e as linhas do papel pontilhado e do pautado. */
-  --folha: #fbf6e8;
+  --folha: #fffdf8;
   --sombra: #1f1a14;
   --prelo-texto: #c21f16;
-  --pontos: #cdbb91;
-  --linha-pauta: #e3d3aa;
+  --pontos: #e2d9c6;
+  --linha-pauta: #ebe2cf;
   --margem-pauta: #e0837a;
+  --borda-forte: #1f1a14;
+  --texto-meio: #4a4034;
   /* Altura da barra de botões do aparelho que as abas de baixo precisam pular. No navegador é sempre zero:
      o DuckDuckGo do Android informa a altura das barras do sistema mesmo sem "viewport-fit=cover", e o
      env() deixava um vão embaixo das abas (e outro no topo). Só o aplicativo, que vai de borda a borda, usa o valor real. */
@@ -28,43 +31,64 @@
   --recuo-baixo: env(safe-area-inset-bottom, 0px);
 }
 
-/* Tema escuro: segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
+/* Tema escuro (refeito em 30/10/2026): fundo quase preto e quente, superfícies um tom acima, bordas visíveis,
+   o vermelho do prelo mais aceso e o amarelo do ipê como ouro. Segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --parchment: #17130e;
-    --parchment-deep: #221c13;
-    --ink: #efe4c8;
-    --ink-soft: #b3a584;
-    --gold: #d4a24c;
-    --oxblood: #e0837a;
-    --rule: #3a3020;
+    --parchment: #141310;
+    --parchment-deep: #23211c;
+    --ink: #ece6da;
+    --ink-soft: #a9a196;
+    --gold: #f0b323;
+    --oxblood: #e2584d;
+    --rule: #3a352d;
     --ok: #8fc796;
     --apoie-luz: 68%;
-    --folha: #241d14;
+    --folha: #1d1b17;
     --sombra: #000;
-    --prelo-texto: #e0837a;
-    --pontos: #3a3020;
-    --linha-pauta: #31291c;
+    --prelo: #c9322a;
+    --prelo-texto: #e2584d;
+    --pontos: #2b2822;
+    --linha-pauta: #2b2822;
     --margem-pauta: #7d3029;
+    --borda-forte: #6a6255;
+    --texto-meio: #cfc7b9;
   }
 }
 
 :root[data-theme="dark"] {
-  --parchment: #17130e;
-  --parchment-deep: #221c13;
-  --ink: #efe4c8;
-  --ink-soft: #b3a584;
-  --gold: #d4a24c;
-  --oxblood: #e0837a;
-  --rule: #3a3020;
+  --parchment: #141310;
+  --parchment-deep: #23211c;
+  --ink: #ece6da;
+  --ink-soft: #a9a196;
+  --gold: #f0b323;
+  --oxblood: #e2584d;
+  --rule: #3a352d;
   --ok: #8fc796;
   --apoie-luz: 68%;
-  --folha: #241d14;
+  --folha: #1d1b17;
   --sombra: #000;
-  --prelo-texto: #e0837a;
-  --pontos: #3a3020;
-  --linha-pauta: #31291c;
+  --prelo: #c9322a;
+  --prelo-texto: #e2584d;
+  --pontos: #2b2822;
+  --linha-pauta: #2b2822;
   --margem-pauta: #7d3029;
+  --borda-forte: #6a6255;
+  --texto-meio: #cfc7b9;
+}
+
+/* No escuro, o contorno de tinta (que no claro é preto) vira um fio visível mas calmo: com a tinta clara, cada cartão
+   ganhava uma moldura branca. Fica na camada das utilidades com a especificidade de uma classe só, para que um
+   "hover:border-..." ou um contorno de outra cor continue mandando. Contraste, papel eletrônico e leitor ficam de fora. */
+@layer utilities {
+  @media (prefers-color-scheme: dark) {
+    :where(:root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor])) :is(.border-ink, .cartao, .cartao-v, .botao:where(:not(.botao-tinta, .botao-instagram))) {
+      border-color: var(--borda-forte);
+    }
+  }
+  :where(:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor])) :is(.border-ink, .cartao, .cartao-v, .botao:where(:not(.botao-tinta, .botao-instagram))) {
+    border-color: var(--borda-forte);
+  }
 }
 
 /* "app:" vale só quando o site roda como aplicativo (PWA instalado ou WebView do Android): veja isApp em lib/prefs.ts. */
@@ -303,8 +327,8 @@ body {
 }
 
 .paper {
-  background-image: radial-gradient(circle, color-mix(in srgb, var(--pontos) 70%, transparent) 1.1px, transparent 1.4px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(circle, var(--pontos) 1.1px, transparent 1.4px);
+  background-size: 18px 18px;
 }
 
 /* ───── Caderno do Povo: as peças que repetem em todo o site ─────
@@ -315,7 +339,7 @@ body {
   .pont {
     background-color: var(--parchment);
     background-image: radial-gradient(circle, var(--pontos) 1.1px, transparent 1.4px);
-    background-size: 20px 20px;
+    background-size: 18px 18px;
   }
   .pauta {
     background-color: var(--folha);
@@ -522,14 +546,14 @@ body {
     font-size: 0.75rem;
     color: var(--ink-soft);
   }
-  /* O grito do lambe-lambe. */
+  /* O grito do lambe-lambe: letra de madeira condensada, como nos cartazes de gráfica popular. */
   .lambe {
-    font-family: var(--font-ui), system-ui, sans-serif;
-    font-weight: 900;
-    font-style: italic;
+    font-family: var(--font-cartaz), "Arial Narrow", Impact, sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.01em;
     line-height: 0.92;
+    overflow-wrap: anywhere;
   }
   /* Carimbo redondo, torto, no vermelho do prelo. */
   .carimbo {
@@ -575,7 +599,7 @@ body {
     top: 18px;
     bottom: 18px;
     width: 8px;
-    background-image: radial-gradient(circle, #f4ecd8 3px, transparent 3.5px);
+    background-image: radial-gradient(circle, var(--parchment) 3px, transparent 3.5px);
     background-size: 8px 22px;
   }
   .caderno:hover {
@@ -587,8 +611,8 @@ body {
   }
   .etiqueta {
     border: 1.5px solid #1f1a14;
-    background-color: #fbf6e8;
-    background-image: repeating-linear-gradient(#fbf6e8 0 21px, #e6d6b0 21px 22px);
+    background-color: #fffdf8;
+    background-image: repeating-linear-gradient(#fffdf8 0 21px, #e8dfcb 21px 22px);
     color: #1f1a14;
   }
   /* Abas de pasta de arquivo (filtros das estantes, editorias). */
@@ -807,13 +831,13 @@ body {
   transform: rotate(-2.5deg);
 }
 :root[data-theme="dark"] .jornal-carimbo {
-  border-color: #e0837a;
-  color: #e0837a;
+  border-color: var(--prelo-texto);
+  color: var(--prelo-texto);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .jornal-carimbo {
-    border-color: #e0837a;
-    color: #e0837a;
+    border-color: var(--prelo-texto);
+    color: var(--prelo-texto);
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .jornal-carimbo {
@@ -2354,15 +2378,15 @@ html[data-escrita-foco="1"] .painel {
   --margem: rgba(194, 31, 22, 0.55);
 }
 :root[data-theme="dark"] {
-  --papel: #241e16;
-  --papel-tinta: #efe4c8;
+  --papel: #1d1b17;
+  --papel-tinta: #ece6da;
   --pauta: rgba(127, 170, 200, 0.22);
   --margem: rgba(224, 131, 122, 0.5);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --papel: #241e16;
-    --papel-tinta: #efe4c8;
+    --papel: #1d1b17;
+    --papel-tinta: #ece6da;
     --pauta: rgba(127, 170, 200, 0.22);
     --margem: rgba(224, 131, 122, 0.5);
   }
@@ -2442,11 +2466,11 @@ html[data-escrita-foco="1"] .painel {
   font-variant-numeric: tabular-nums;
 }
 :root[data-theme="dark"] .caderno-numero {
-  color: #e0837a;
+  color: var(--prelo-texto);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .caderno-numero {
-    color: #e0837a;
+    color: var(--prelo-texto);
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .caderno-numero {
@@ -2489,12 +2513,12 @@ html[data-escrita-foco="1"] .painel {
    As cores da interface do estúdio: claras por padrão, escuras quando o site está no tema escuro ou quando a
    pessoa escolhe "interface escura" no próprio estúdio (data-estudio-tema). O palco é sempre escuro. */
 :root {
-  --e-fundo: #f4ecd8;
-  --e-painel: #faf5e9;
+  --e-fundo: #f8f5ee;
+  --e-painel: #fcfaf5;
   --e-campo: #ffffff;
   --e-tinta: #1f1a14;
   --e-suave: #6b6156;
-  --e-fio: #ddd0b3;
+  --e-fio: #e2d9c6;
   --e-bordo: #6e1f1a;
   --e-bordo-claro: #f3e3dc;
   --e-palco: #2a231d;
@@ -2502,13 +2526,13 @@ html[data-escrita-foco="1"] .painel {
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .estudio-app:not([data-estudio-tema="claro"]) {
-    --e-fundo: #17130e;
-    --e-painel: #1f1a14;
-    --e-campo: #2a231d;
-    --e-tinta: #efe4c8;
-    --e-suave: #b3a584;
-    --e-fio: #3a3020;
-    --e-bordo: #e0837a;
+    --e-fundo: #141310;
+    --e-painel: #1d1b17;
+    --e-campo: #2b2822;
+    --e-tinta: #ece6da;
+    --e-suave: #a9a196;
+    --e-fio: #3a352d;
+    --e-bordo: #e2584d;
     --e-bordo-claro: #3b211c;
     --e-palco: #120f0b;
     color-scheme: dark;
@@ -2516,13 +2540,13 @@ html[data-escrita-foco="1"] .painel {
 }
 :root[data-theme="dark"] .estudio-app:not([data-estudio-tema="claro"]),
 .estudio-app[data-estudio-tema="escuro"] {
-  --e-fundo: #17130e;
-  --e-painel: #1f1a14;
-  --e-campo: #2a231d;
-  --e-tinta: #efe4c8;
-  --e-suave: #b3a584;
-  --e-fio: #3a3020;
-  --e-bordo: #e0837a;
+  --e-fundo: #141310;
+  --e-painel: #1d1b17;
+  --e-campo: #2b2822;
+  --e-tinta: #ece6da;
+  --e-suave: #a9a196;
+  --e-fio: #3a352d;
+  --e-bordo: #e2584d;
   --e-bordo-claro: #3b211c;
   --e-palco: #120f0b;
   color-scheme: dark;
@@ -3392,6 +3416,71 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 .busca-aberta {
   animation: busca-alonga 0.18s ease-out backwards;
 }
+/* O campo calmo (30/10/2026): borda fina, sem sombra; a borda de tinta e um halo leve só com o cursor dentro. */
+.busca-campo {
+  border: 1px solid var(--rule);
+  background: var(--folha);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+a.busca-campo:hover {
+  border-color: var(--ink-soft);
+}
+a.busca-campo:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--prelo) 18%, transparent);
+}
+.busca-campo-aberto,
+.busca-campo:focus-within {
+  border: 1.5px solid var(--ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--prelo) 18%, transparent);
+}
+.busca-campo input:focus-visible {
+  outline: none;
+}
+.busca-tecla {
+  border: 1px solid var(--rule);
+  background: var(--folha);
+  padding: 0 0.35rem;
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.busca-lista {
+  border: 1.5px solid var(--ink);
+  background: var(--folha);
+  box-shadow: 0 12px 28px rgb(31 26 20 / 0.14);
+}
+.busca-item {
+  border-left: 3px solid transparent;
+}
+.busca-item-ativo {
+  border-left-color: var(--prelo);
+  background: var(--parchment-deep);
+}
+.busca-marca {
+  background: color-mix(in srgb, #f0b323 45%, transparent);
+  color: inherit;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .busca-lista {
+    border-color: var(--borda-forte);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 0.5);
+  }
+}
+:root[data-theme="dark"] .busca-lista {
+  border-color: var(--borda-forte);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.5);
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) :is(.busca-campo, .busca-lista, .busca-tecla) {
+  border-color: var(--ink);
+  box-shadow: none;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .busca-marca {
+  background: none;
+  text-decoration: underline;
+}
 @media (prefers-reduced-motion: reduce) {
   .busca-aberta { animation: none; }
 }
@@ -3541,113 +3630,75 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   padding: 0.3rem 0.6rem;
 }
 
-/* O lambe-lambe da inicial (components/inicio/LambeDoDia.tsx): o papel muda de cor com o formato do dia, uma cor por
-   cartaz (nunca o arco-íris junto). O vermelho é o grito de sempre; a fita e o carimbo são os mesmos em todos. */
+/* O lambe-lambe da inicial (components/inicio/LambeDoDia.tsx), no desenho do cartaz de gráfica popular (30/10/2026):
+   reto, sem fita nem carimbo, duas cores por cartaz. O papel muda com o tom do dia: vermelho, anil, mata, ipê e tinta.
+   A letra do grito é medida pela largura do cartaz (cqw). */
+.lambe-cartaz {
+  container-type: inline-size;
+}
 .lambe-papel {
+  min-height: 30rem;
   background: #c21f16;
-  color: #fff;
+  color: #fff8ea;
+  --lambe-destaque: #f0b323;
 }
-.lambe-numero {
-  color: #fde2dd;
+.lambe-anil .lambe-papel {
+  background: #23408e;
 }
-.lambe-xilo {
-  color: #f4ecd8;
+.lambe-mata .lambe-papel {
+  background: #2e6b4f;
 }
-.lambe-tiragem {
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-  padding-top: 0.6rem;
-  color: rgba(255, 255, 255, 0.78);
-}
-.lambe-memoria .lambe-papel {
+.lambe-tinta .lambe-papel {
   background: #1f1a14;
-  color: #f4ecd8;
 }
-.lambe-memoria .lambe-numero {
-  color: #e0837a;
-}
-.lambe-memoria .lambe-tiragem {
-  border-color: #5a4e3c;
-  color: #b3a584;
-}
-.lambe-festa .lambe-papel {
+.lambe-ipe .lambe-papel {
   background: #f0b323;
   color: #1f1a14;
-  padding-top: 2.4rem;
+  --lambe-destaque: #a3201a;
 }
-.lambe-festa .lambe-numero {
-  color: #6e1f1a;
+.lambe-tema,
+.lambe-destaque {
+  color: var(--lambe-destaque);
 }
-.lambe-festa .lambe-xilo {
-  color: #1f1a14;
+.lambe-tiragem {
+  border-top: 2px solid currentColor;
+  padding-top: 0.75rem;
 }
-.lambe-festa .lambe-tiragem {
-  border-color: rgba(31, 26, 20, 0.35);
-  color: #4a3a12;
+/* No escuro, o cartaz de tinta ganharia o mesmo tom do fundo: um fio claro o separa da parede. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lambe-tinta .lambe-papel {
+    outline: 1px solid var(--borda-forte);
+  }
 }
-.lambe-pergunta .lambe-papel {
-  background: #23408e;
-  color: #fff;
+:root[data-theme="dark"] .lambe-tinta .lambe-papel {
+  outline: 1px solid var(--borda-forte);
 }
-.lambe-pergunta .lambe-numero {
-  color: #c9d6f5;
-}
-.lambe-pergunta .lambe-interrogacao {
-  color: rgba(255, 255, 255, 0.13);
-}
-.lambe-terra .lambe-papel {
-  background: #2e6b4f;
-  color: #f4ecd8;
-}
-.lambe-terra .lambe-numero {
-  color: #f0cf8e;
-}
-.lambe-terra .lambe-tiragem {
-  border-color: rgba(244, 236, 216, 0.35);
-  color: #d9e6dc;
-}
-.lambe-cordel .lambe-papel,
-.lambe-classificado .lambe-papel {
-  color: #1f1a14;
-}
-.lambe-cordel .lambe-papel {
-  background: #f4ecd8;
-  border-style: double;
-  border-width: 5px;
-}
-.lambe-classificado .lambe-papel {
-  background: #fbf6e8;
-}
-.lambe-cordel .lambe-numero,
-.lambe-classificado .lambe-numero {
-  color: #6e1f1a;
-}
-.lambe-cordel .lambe-xilo,
-.lambe-classificado .lambe-xilo {
-  color: #1f1a14;
-}
-.lambe-cordel .lambe-tiragem,
-.lambe-classificado .lambe-tiragem {
-  border-color: #cdbb91;
-  color: #5a4e3c;
-}
-.lambe-tirinha {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-/* Contraste, papel eletrônico e leitura: o cartaz vira quadro simples, sem cor de fundo, inclinação nem fita. */
-:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz {
-  transform: none;
-}
+/* Contraste, papel eletrônico e leitura: o cartaz vira quadro simples, preto no branco. */
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel {
+  min-height: 0;
   border: 2px solid var(--ink) !important;
   background: var(--parchment) !important;
-  box-shadow: none !important;
+  outline: none;
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel * {
   color: var(--ink) !important;
 }
-:root:is([data-contrast], [data-eink], [data-leitor]) :is(.lambe-cartaz .lambe-fita, .lambe-interrogacao) {
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel .lambe {
+  font-size: 2rem !important;
+}
+.lambe-sep {
   display: none;
+}
+:root[data-leitor] .lambe-sep {
+  display: inline;
+}
+:root[data-leitor] .lambe-papel > * + * {
+  margin-top: 0.75rem;
+}
+@media (monochrome), (update: slow) {
+  .lambe-sep {
+    display: inline;
+  }
 }
 
 /* A abertura da galeria (components/galeria/VaralDaGaleria.tsx): o varal de cordel da feira, com os cartazes do acervo
@@ -3674,7 +3725,7 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 .varal-folha {
   padding: 0.3rem 0.3rem 0.85rem;
   border: 1px solid rgba(31, 26, 20, 0.5);
-  background: #f7f1e1;
+  background: var(--folha);
   box-shadow: 5px 6px 0 var(--sombra);
   transition: transform 0.2s ease;
 }
@@ -4409,4 +4460,223 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   font-style: italic;
   font-weight: 900;
   color: #fff;
+}
+
+/* ───── Painel da equipe, ambiente de trabalho (30/10/2026) ─────
+   Superfícies neutras, painéis brancos de fio fino e cantos de 4 px, Inter na interface e EB Garamond só no título da
+   página. A identidade fica no logo, no vermelho dos botões principais e no fio do item ativo do menu; a cor só aparece
+   onde informa. Dentro de .painel as cores do site (parchment, ink, rule...) apontam para esta paleta, então as seções
+   mudam sem reescrever cada uma. A porta de entrada (.painel-porta) continua com o desenho do site. */
+:root:not([data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
+  --parchment: #f6f6f4;
+  --parchment-deep: #fafaf8;
+  --folha: #ffffff;
+  --ink: #1c1b19;
+  --ink-soft: #6b6862;
+  --rule: #e3e1dc;
+  --borda-forte: #d6d3cc;
+  --pontos: transparent;
+  --sombra: transparent;
+  --oxblood: #a3201a;
+  --gold: #7a5410;
+  --linha-pauta: #efede8;
+  --painel-ativo: #f1efea;
+  --painel-linha: #efede8;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  background-image: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"], [data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
+    --parchment: #141310;
+    --parchment-deep: #1d1b17;
+    --folha: #1d1b17;
+    --ink: #ece6da;
+    --ink-soft: #a9a196;
+    --rule: #3a352d;
+    --borda-forte: #4a443a;
+    --oxblood: #e2584d;
+    --gold: #f0b323;
+    --linha-pauta: #2b2822;
+    --painel-ativo: #2b2822;
+    --painel-linha: #2b2822;
+  }
+}
+:root[data-theme="dark"]:not([data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
+  --parchment: #141310;
+  --parchment-deep: #1d1b17;
+  --folha: #1d1b17;
+  --ink: #ece6da;
+  --ink-soft: #a9a196;
+  --rule: #3a352d;
+  --borda-forte: #4a443a;
+  --oxblood: #e2584d;
+  --gold: #f0b323;
+  --linha-pauta: #2b2822;
+  --painel-ativo: #2b2822;
+  --painel-linha: #2b2822;
+}
+/* Letra: Inter em tudo; a serifa fica só no título da página. Os rótulos em letra de máquina viram Inter miúda. */
+.painel:not(.painel-porta) :is(.font-serif, .font-mono):not(h1, h1 *, .painel-titulo, kbd, code, pre, textarea) {
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.painel:not(.painel-porta) .font-mono[class*="uppercase"]:not(kbd, code) {
+  letter-spacing: 0.06em;
+}
+.painel:not(.painel-porta) h2.font-serif,
+.painel:not(.painel-porta) h3.font-serif {
+  letter-spacing: -0.01em;
+}
+.painel:not(.painel-porta) .painel-rotulo {
+  letter-spacing: 0.08em;
+}
+/* Fios finos: as molduras grossas de cartaz viram um fio de 1 px, nos mesmos lados. */
+.painel:not(.painel-porta) :is([class~="border-2"], [class*="border-[3px]"], [class*="border-[1.5px]"], [class*="border-[2.5px]"]) {
+  border-width: 1px;
+}
+.painel:not(.painel-porta) :is([class~="border-b-2"], [class*="border-b-[3px]"], [class~="border-b-4"]):not(.painel-aba) {
+  border-bottom-width: 1px;
+}
+.painel:not(.painel-porta) :is([class~="border-t-2"], [class*="border-t-[3px]"], [class~="border-t-4"], [class*="border-t-[5px]"], [class*="border-t-[6px]"]) {
+  border-top-width: 1px;
+}
+.painel:not(.painel-porta) :is([class~="border-r-2"], [class*="border-r-[3px]"]) {
+  border-right-width: 1px;
+}
+.painel:not(.painel-porta) .border-ink {
+  border-color: var(--rule);
+}
+.painel:not(.painel-porta) :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]), select, textarea, .painel-campo, .painel-botao-claro, button.border-ink) {
+  border-color: var(--borda-forte);
+}
+/* Sem sombra dura: no máximo uma sombra macia nas janelas que abrem por cima. */
+.painel:not(.painel-porta) :is([class*="shadow-["], .cartao, .cartao-v, .sombra, .sombra-v, .sombra-p, .sombra-pv, .botao, .selo, .painel-ir) {
+  box-shadow: none;
+}
+.painel:not(.painel-porta) [role="dialog"] {
+  box-shadow: 0 16px 40px rgb(28 27 25 / 0.16);
+}
+.painel:not(.painel-porta) .pont {
+  background-image: none;
+}
+/* Botões: o principal no vermelho do instituto, o secundário branco de fio fino; nenhum sobe nem afunda. */
+.painel:not(.painel-porta) .painel-botao-principal {
+  background: #c21f16;
+  color: #fff;
+}
+.painel:not(.painel-porta) .painel-botao-principal:not(:disabled):hover {
+  background: #a51810;
+}
+.painel:not(.painel-porta) .painel-botao-claro {
+  background: var(--folha);
+  color: var(--ink);
+}
+.painel:not(.painel-porta) .painel-botao-claro:not(:disabled):hover {
+  background: var(--parchment);
+}
+.painel:not(.painel-porta) :is(.painel-botao, .botao, .painel-quadro):not(:disabled):is(:hover, :active) {
+  transform: none;
+  box-shadow: none;
+}
+/* Os cartões e quadros: painel branco, fio fino, sem o fio grosso de jornal no alto. */
+.painel:not(.painel-porta) :is(.painel-quadro, .painel-cartao) {
+  background: var(--folha);
+  border: 1px solid var(--rule);
+}
+.painel:not(.painel-porta) .painel-quadro:hover {
+  border-color: var(--borda-forte);
+}
+.painel:not(.painel-porta) .painel-quadro-alerta {
+  border-color: color-mix(in srgb, #c21f16 35%, var(--rule));
+}
+.painel:not(.painel-porta) .painel-conteudo h2[class~="font-serif"][class~="text-2xl"]::before {
+  display: none;
+}
+.painel:not(.painel-porta) .painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+  border-top-width: 1px;
+  border-top-color: var(--rule);
+  background: var(--folha);
+}
+.painel:not(.painel-porta) .painel-conteudo [class~="divide-y"] > *:hover {
+  background: var(--parchment-deep);
+}
+.painel:not(.painel-porta) .painel-campo:focus {
+  border-color: var(--ink-soft);
+  box-shadow: 0 0 0 3px color-mix(in srgb, #c21f16 15%, transparent);
+}
+.painel:not(.painel-porta) .painel-procura:focus-within {
+  border-color: var(--ink-soft);
+}
+.painel:not(.painel-porta) .mesa .jornal-editoria {
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0;
+}
+.painel:not(.painel-porta) .mesa .jornal-secao::after {
+  height: 1px;
+  background: var(--rule);
+}
+/* Tabelas limpas: cabeçalho miúdo em cinza, linhas separadas por um fio claro. */
+.painel:not(.painel-porta) table th {
+  background: var(--parchment-deep);
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+}
+.painel:not(.painel-porta) table td {
+  border-bottom: 1px solid var(--painel-linha);
+}
+/* O menu lateral: discreto, o item ativo no fundo cinza com o fio vermelho à esquerda. */
+.painel:not(.painel-porta) .painel-menu .painel-item {
+  border-left: 0;
+  color: var(--ink);
+  border-radius: 4px;
+}
+.painel:not(.painel-porta) .painel-menu .painel-item:hover {
+  background: var(--parchment);
+  padding-left: 2.25rem;
+}
+.painel:not(.painel-porta) .painel-menu .painel-item:hover svg {
+  color: var(--ink);
+}
+.painel:not(.painel-porta) .painel-menu :is(.painel-item-ativo, .painel-item-ativo:hover) {
+  background: var(--painel-ativo);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 #c21f16;
+  padding-left: 2.25rem;
+}
+.painel:not(.painel-porta) .painel-menu .painel-item-ativo svg {
+  color: var(--prelo-texto);
+}
+.painel:not(.painel-porta) .painel-menu .painel-cabeca {
+  border-radius: 4px;
+}
+.painel:not(.painel-porta) .painel-menu .painel-cabeca:hover {
+  background: var(--parchment);
+}
+.painel:not(.painel-porta) .painel-area-ativa {
+  background: var(--painel-ativo);
+  box-shadow: inset 3px 0 0 #c21f16;
+}
+.painel:not(.painel-porta) .painel-cabeca .selo {
+  border: 1px solid var(--rule);
+}
+:root:is([data-contrast], [data-eink]) .painel:not(.painel-porta) .painel-menu .painel-item-ativo {
+  background: var(--ink);
+  color: var(--parchment);
+  box-shadow: none;
+}
+/* Cantos de 4 px e etiquetas em pílula: sem especificidade, para um "rounded-..." da própria peça continuar mandando. */
+@layer utilities {
+  :where(.painel:not(.painel-porta)) :where([class~="border"], [class~="border-2"], [class~="border-[1.5px]"], .painel-quadro, .painel-cartao, .painel-campo, button, input:not([type="checkbox"], [type="radio"]), select, textarea, [role="dialog"], kbd) {
+    border-radius: 4px;
+  }
+  :where(.painel:not(.painel-porta)) :where(span.painel-pilula, span[class*="bg-["][class~="px-1.5"], span[class*="bg-["][class~="px-2"], span[class*="bg-["][class~="px-1"]) {
+    border-radius: 999px;
+  }
 }
