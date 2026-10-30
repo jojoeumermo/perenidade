@@ -30,7 +30,7 @@ questoes:
       B: "2 é contar só os cruzamentos da linha T = 2 (ou só os cruzamentos do zero). A equação T² = 4 tem duas raízes: falta contar os três toques em T = −2."
       C: "3 é contar só os três vales em T = −2. A equação T² − 4 = 0 também tem a raiz T = 2, e a curva passa por ela duas vezes."
       D: "4 aparece quando um dos cinco pontos fica de fora, por exemplo um dos três vales. Percorra o gráfico da esquerda para a direita marcando cada passagem por 2 e por −2."
-    aulas: [matematica-medio/funcoes-a-ideia, matematica-fundamental/leitura-de-graficos-e-tabelas]
+    aulas: [matematica-medio/funcoes-a-ideia, matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-137
     area: matematica
@@ -55,7 +55,7 @@ questoes:
       B: "40/64 não corresponde a uma contagem coerente. Some C(6,3) + C(6,4) + C(6,5) + C(6,6) = 20 + 15 + 6 + 1."
       D: "44/64 não sai de uma conta natural. Confira se cada caso foi contado uma vez só: 20 + 15 + 6 + 1 = 42."
       E: "52/64 não sai de uma conta natural. Lembre que o adversário também pode virar: ele é campeão nas 22 sequências em que o vencedor da primeira faz 2 vitórias ou menos (15 + 6 + 1), e 64 − 22 = 42."
-    aulas: [matematica-medio/probabilidade, matematica-medio/analise-combinatoria]
+    aulas: [matematica-medio/probabilidade, matematica-medio/analise-combinatoria, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-138
     area: matematica
@@ -78,7 +78,7 @@ questoes:
       B: "2,0 não sai de uma conta natural com o gráfico. Separe só os meses de lucro, ponha os oito valores em ordem e tire a média dos dois do meio."
       C: "2,9 é a média dos lucros: 23 ÷ 8 = 2,875. A pergunta pede a mediana, o valor do meio da lista ordenada."
       E: "5,5 é a mediana das receitas (em ordem, o 6º e o 7º valores são 5 e 6). Lucro é receita menos despesa."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-139
     area: matematica
@@ -100,7 +100,7 @@ questoes:
       C: "1,90 e 0,80 é o tamanho do espaço inteiro, sem as folgas de 10 cm pedidas pelo fabricante."
       D: "2,00 e 0,90 vem de somar 10 cm ao espaço em vez de tirar. A folga reduz o tamanho máximo do aparelho."
       E: "2,00 e 1,00 vem de somar as folgas (10 em cima, 10 + 10 nas laterais). A folga tem de ser descontada do espaço."
-    aulas: [matematica-fundamental/razao-e-proporcao, matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade]
+    aulas: [matematica-fundamental/razao-e-proporcao, matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-140
     area: matematica
@@ -121,7 +121,7 @@ questoes:
       C: "28 vem de 7 · 4: contou 4 dias para cada um dos 7 jogos, inclusive depois da final. O primeiro jogo é no dia 1, e são só 6 intervalos de 4 dias: 1 + 6 · 4 = 25."
       D: "48 é o número de partidas da fase de grupos (8 grupos com 6 jogos), como se fosse um jogo por dia. Vários jogos podem acontecer no mesmo dia."
       E: "64 não sai de uma conta natural (o torneio inteiro tem 48 + 8 + 4 + 2 + 1 = 63 partidas). O que limita o calendário é o descanso de cada time, não o total de partidas."
-    aulas: [matematica-fundamental/as-quatro-operacoes]
+    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-141
     area: matematica
@@ -146,7 +146,7 @@ questoes:
       B: "2/(46 · 45) conta só duas sequências da coluna ou da diagonal e esquece que Pedro também ganha se o 12 sair na 6ª rodada (45 casos). São 45 + 4 = 49 casos."
       C: "8/(46 · 45) não sai de uma conta natural: os pares que completam coluna ou diagonal são 4 sequências (05-45, 45-05, 11-19, 19-11), e falta somar os 45 casos do 12 na 6ª rodada."
       D: "43/(46 · 45) não sai de uma conta natural. Os casos de vitória na 6ª rodada são 45 (o 12 sai na 6ª) mais 4 (coluna ou diagonal completadas), 49 ao todo."
-    aulas: [matematica-medio/probabilidade]
+    aulas: [matematica-medio/probabilidade, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-142
     area: matematica
@@ -189,7 +189,7 @@ questoes:
       B: "100 000 é a quantidade de moedas do pacote básico. O especial tem 10 000 gemas e precisa de 500 000 moedas no total."
       C: "200 000 é o que viria em dois pacotes básicos, sem as 6 000 gemas extras e sem manter a proporção de 50 moedas por gema."
       D: "300 000 vem de 500 000 − 200 000, tomando dois pacotes básicos como ponto de partida. O gabarito oficial considera o acréscimo sobre o pacote básico (100 000 moedas)."
-    aulas: [matematica-fundamental/razao-e-proporcao]
+    aulas: [matematica-fundamental/razao-e-proporcao, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-146
     area: matematica
@@ -232,7 +232,7 @@ questoes:
       B: "Regular (até 100%) aparece quando se compara só o dinheiro total: de R$ 300,00 para R$ 600,00, mais 100%. Mas cada rede responde ao seu investimento de um jeito: a A triplica e a B cresce 1,5 vez."
       D: "Muito bom (150% a 190%) não sai de uma conta natural com os dados. Faça as contas de compradores rede por rede: 15 antes, 36 depois."
       E: "Excelente aparece quando se olha só a rede A, que vai de 9 para 27 compradores (mais 200%). A rede B cresce menos e puxa o total para baixo."
-    aulas: [matematica-fundamental/porcentagem, matematica-fundamental/razao-e-proporcao]
+    aulas: [matematica-fundamental/porcentagem, matematica-fundamental/razao-e-proporcao, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-148
     area: matematica
@@ -276,7 +276,7 @@ questoes:
       C: "1,9 é a média: (0 · 100 + 1 · 400 + 2 · 200 + 3 · 150 + 4 · 100 + 5 · 50) ÷ 1 000 = 1 900 ÷ 1 000. A pergunta pede a mediana."
       D: "2,1 vem de dividir as 1 900 crianças só pelas 900 famílias que têm criança. A mediana usa todas as 1 000 famílias, em ordem."
       E: "2,5 é a mediana dos valores 0, 1, 2, 3, 4 e 5 da coluna, sem levar em conta quantas famílias há em cada um. Cada valor pesa pela frequência."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-150
     area: matematica
@@ -299,7 +299,7 @@ questoes:
       B: "Apenas I e II não sai de uma conta natural. A altura máxima, 21,67 m acima do piso, passa também dos tetos de 19 m e de 21 m."
       C: "I, II e III vem de usar a altura máxima de 20,17 m sem somar 1,5 m: o eixo x está 1,5 m acima do piso. Com a soma, a bola também bate no teto de 21 m."
       E: "Em todos os ginásios exigiria a bola passar de 40 m. A altura máxima é cerca de 21,67 m."
-    aulas: [matematica-medio/funcao-do-2-grau]
+    aulas: [matematica-medio/funcao-do-2-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-151
     area: matematica
@@ -320,7 +320,7 @@ questoes:
       B: "Entre 35 e 45 min vem de tirar 40% de 1,7 L: 1,7 · 0,6 = 1,02 kg, cerca de 41 min. Mas 1,7 L já é a massa perdida mais 40%; é preciso dividir por 1,4."
       D: "Entre 60 e 70 min vem de tratar 1,7 L como a massa perdida: 1,7 ÷ 1,5 ≈ 1,13 h ≈ 68 min. Esqueceu os 40% a mais."
       E: "70 min ou mais vem de somar 40% a 1,7 (2,38 kg), cerca de 95 min. Os 40% já estão dentro do 1,7 L bebido."
-    aulas: [matematica-fundamental/porcentagem, matematica-fundamental/regra-de-tres]
+    aulas: [matematica-fundamental/porcentagem, matematica-fundamental/regra-de-tres, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-153
     area: matematica
@@ -362,7 +362,7 @@ questoes:
       B: "86 700 é o tamanho da queda (115 600 − 28 900), ou 28 900 · 3. A pergunta quer o total de vagas criadas em 2012."
       D: "441 343 é um quarto dos desligamentos (1 765 372 ÷ 4). As vagas criadas são o saldo, 28 900, e é sobre ele que vale a queda de 75%."
       E: "448 568 é um quarto das admissões (1 794 272 ÷ 4). A queda de 75% é do saldo de vagas, não das admissões."
-    aulas: [matematica-fundamental/porcentagem, estatistica-para-ler-o-brasil/porcentagem-no-noticiario]
+    aulas: [matematica-fundamental/porcentagem, estatistica-para-ler-o-brasil/porcentagem-no-noticiario, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-155
     area: matematica
@@ -429,7 +429,7 @@ questoes:
       B: "A proposta II (meses 3 e 4) pega a subida da curva, com 45 e 48 infectados, mas não o pico. Calcule o vértice: t = −b/(2a) = 5."
       D: "A proposta IV (meses 7 a 9) pega a descida da curva (45, 40 e 33). O máximo é no mês 5."
       E: "A proposta V contém t = 12, a raiz da equação −t² + 10t + 24 = 0. Na raiz o número de infectados é zero; o máximo está no vértice, no meio entre as raízes −2 e 12."
-    aulas: [matematica-medio/funcao-do-2-grau]
+    aulas: [matematica-medio/funcao-do-2-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-159
     area: matematica
@@ -498,7 +498,7 @@ questoes:
       C: "89,24 não sai de uma conta natural com as medidas. Separe o L em dois retângulos sem sobreposição e multiplique a área por 2 500."
       D: "133,60 é a área do desenho, em cm². Falta passar para o tamanho real (× 2 500) e para metro quadrado (÷ 10 000)."
       E: "534,40 não sai de uma conta natural (é 133,6 · 4). A área real é 133,6 · 2 500 cm² = 33,40 m²."
-    aulas: [matematica-fundamental/perimetro-e-area, matematica-fundamental/razao-e-proporcao]
+    aulas: [matematica-fundamental/perimetro-e-area, matematica-fundamental/razao-e-proporcao, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-162
     area: matematica
@@ -521,7 +521,7 @@ questoes:
       B: "7 000 vem de repetir no último período as vendas do segundo (15 000 + 7 000). O texto manda manter a tendência: as vendas continuam caindo."
       D: "18 000 não sai de uma conta natural com o gráfico. Prolongue as duas retas até o dia 30: adulto 12 000, infantil 6 000."
       E: "29 000 vem de 77 000 − 48 000, esquecendo as vendas dos últimos dez dias. O gráfico só mostra até o dia 20, mas a pergunta é sobre o dia 30."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-medio/funcao-do-1-grau]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-medio/funcao-do-1-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-163
     area: matematica
@@ -542,7 +542,7 @@ questoes:
       B: "20,7% vem da média simples: (10 000 + x) ÷ 2 = 12 240 dá x = 14 480, cerca de 20,7% a mais. Há mais mestres que doutores; a média é ponderada."
       C: "22,0% não sai de uma conta natural com os dados. Calcule a folha máxima (1 224 000), tire a dos mestres (600 000) e divida o resto pelos 40 doutores."
       E: "37,5% não sai de uma conta natural com os dados. Com 37,5%, cada doutor ganharia 16 500, e a média passaria de 12 240."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, matematica-fundamental/porcentagem]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-164
     area: matematica
@@ -562,7 +562,7 @@ questoes:
       C: "4,8 vem de 360 ÷ 75, sendo 75 = 3 600 ÷ 48: tratou os 60 dias como 60 horas. Um dia tem 1 440 minutos."
       D: "6 é o gasto por dia (360 ÷ 60). Cada dia tem 30 acionamentos, então divida de novo por 30."
       E: "12 vem de 360 ÷ 30: dividiu pelos acionamentos de um dia só. Em 60 dias são 1 800 acionamentos."
-    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, matematica-fundamental/as-quatro-operacoes]
+    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-165
     area: matematica
@@ -582,7 +582,7 @@ questoes:
       C: "730 é 365 · 2, também com o ano de Z dobrado e sem converter para dias de Z (que duram 73 dias terrestres)."
       D: "13 322,5 vem de 182,5 · 73: multiplicou pela duração do dia de Z em vez de dividir."
       E: "53 290 vem de 730 · 73: dobrou o ano em vez de dividir por 2 e multiplicou pelo dia de Z em vez de dividir."
-    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, matematica-fundamental/razao-e-proporcao]
+    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, matematica-fundamental/razao-e-proporcao, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-167
     area: matematica
@@ -604,7 +604,7 @@ questoes:
       C: "200 não sai de uma conta natural com os dados. Calcule os dois valores (1 078 e 1 080) e subtraia."
       D: "42 maior vem de somar 2% em vez de descontar: 1 100 · 1,02 = 1 122, que é 42 a mais que 1 080. No cartão há desconto."
       E: "80 maior compara a conta da cliente (1 080) com o preço promocional (1 000). A pergunta compara o valor da loja com o valor da cliente."
-    aulas: [matematica-fundamental/porcentagem]
+    aulas: [matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-168
     area: matematica
@@ -652,7 +652,7 @@ questoes:
       B: "O modelo II tem o mesmo volume do I: dobra a profundidade, mas a base fica pela metade."
       C: "O modelo III tem só metade do volume do I: metade do raio deixa a base com 1/4 da área."
       D: "O modelo IV tem o mesmo volume do I. Dobrar a área da base não é o mesmo que dobrar o raio."
-    aulas: [matematica-medio/geometria-espacial]
+    aulas: [matematica-medio/geometria-espacial, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-170
     area: matematica
@@ -678,7 +678,7 @@ questoes:
       C: "Em 2009 a rentabilidade é 0,5%. O aluguel subiu, mas o valor do imóvel mais que dobrou."
       D: "Em 2011 a rentabilidade é 0,4%, a menor de todas."
       E: "2013 tem o maior aluguel e o maior valor de imóvel, mas a razão entre eles (0,6%) não é a maior. Rentabilidade é razão, não valor absoluto."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-fundamental/razao-e-proporcao]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-fundamental/razao-e-proporcao, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-171
     area: matematica
@@ -701,7 +701,7 @@ questoes:
       C: "O jogador III também precisa de 19 pontos (90 − 71). Somar os quatro jogos é o primeiro passo."
       D: "O jogador IV precisa de 15 pontos (90 − 75). O jogador I precisa de só 13."
       E: "O jogador V tem as maiores pontuações em jogos isolados (22 e 23), mas soma 75 e precisa de 15. O que conta é a soma dos quatro jogos."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-172
     area: matematica
@@ -725,7 +725,7 @@ questoes:
       C: "O projeto III tem as paredes de menor área (42 m²), mas o fundo de 90 m² pesa. É preciso somar fundo e paredes: 132 m²."
       D: "O projeto IV dá 117 m². Faça a soma completa de cada projeto antes de comparar."
       E: "O projeto V tem o menor fundo (36 m²), mas as paredes altas somam 75 m²: total 111 m², mais que os 101 m² do II."
-    aulas: [matematica-medio/geometria-espacial]
+    aulas: [matematica-medio/geometria-espacial, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-173
     area: matematica
@@ -746,7 +746,7 @@ questoes:
       B: "400 não sai de uma conta natural com o quadro. Multiplique, curso a curso, vagas por candidatos por vaga e some."
       C: "1 200 vem de 200 vagas vezes a média simples dos candidatos por vaga (36 ÷ 6 = 6). Os cursos têm números de vagas diferentes, então essa média não serve."
       E: "7 200 vem de 200 · 36: multiplicou o total de vagas pela soma de todas as relações candidato/vaga."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-174
     area: matematica
@@ -809,7 +809,7 @@ questoes:
       B: "O ponto II não sai de uma conta natural. Dá cerca de 69,5 km, mais que os 67,1 km do ponto IV."
       C: "O ponto III (x = 35) é o meio entre 20 e 50. Como as cidades estão a alturas diferentes (40 e 20), o ponto ótimo fica mais perto da cidade mais baixa. III dá cerca de 67,7 km."
       E: "O ponto V fica bem abaixo da Cidade B: o trecho da 002 é o menor (20 km), mas o da 001 fica com 50 km. Total: 70 km."
-    aulas: [matematica-medio/geometria-plana]
+    aulas: [matematica-medio/geometria-plana, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-177
     area: matematica
@@ -831,7 +831,7 @@ questoes:
       C: "O operário III custa 1 020 só de mão de obra, mais o transporte. Passa de 960."
       D: "O operário IV tem a hora mais barata, mas trabalha 9 horas (990 reais) e ainda cobra transporte. O preço da hora sozinho não decide."
       E: "O operário V tem a hora mais barata e não cobra transporte, mas leva 10 horas: 1 100 reais."
-    aulas: [matematica-fundamental/as-quatro-operacoes]
+    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
 
   - id: enem-2022-178
     area: matematica
@@ -873,7 +873,7 @@ questoes:
       C: "75,07 não sai de uma conta natural com os dados. Monte a equação da média: (73,95 + x) ÷ 2 = 74,23."
       D: "75,23 não sai de uma conta natural (é 74,23 + 1). O gráfico cresce cerca de 0,28 por ano, não 1."
       E: "78,49 não sai de uma conta natural com os dados. Um salto de mais de 4 anos em um ano não combina com o gráfico."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, matematica-fundamental/leitura-de-graficos-e-tabelas]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
 
   - id: enem-2022-180
     area: matematica

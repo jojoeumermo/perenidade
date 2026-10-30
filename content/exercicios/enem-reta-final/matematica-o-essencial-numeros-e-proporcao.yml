@@ -1,0 +1,203 @@
+# Exercícios da aula "Matemática, o essencial: números, proporção e porcentagem" (trilha enem-reta-final).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-mat-operacoes-01
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  dificuldade: 1
+  enunciado: "Uma costureira cobra R$ 35 para fazer a barra de uma calça. Numa semana, ela fez 24 barras. Quanto recebeu nessa semana?"
+  alternativas:
+    - texto: "R$ 59"
+      erro: "Você somou 35 + 24. Cada barra rende R$ 35, então são 24 vezes 35: é uma multiplicação."
+    - texto: "R$ 720"
+      erro: "Você fez só 30 × 24 e esqueceu os 5 × 24 = 120. Quebrando o 35 em 30 + 5, multiplique as duas partes."
+    - texto: "R$ 840"
+      certa: true
+    - texto: "R$ 700"
+      erro: "Você fez só 35 × 20 e esqueceu as outras 4 barras (35 × 4 = 140). Some as duas partes: 700 + 140."
+    - texto: "R$ 8.400"
+      erro: "Sobrou um zero. Estime antes: 35 × 24 é perto de 35 × 25, que é 875. A resposta tem de estar perto disso."
+  explicacao: "Quebre o 24: 35 × 20 = 700 e 35 × 4 = 140. Some: 700 + 140 = 840 reais."
+  conferir: "35 * 24"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-contas-01
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma trabalhadora vai contratar internet para o celular e usa, em média, 6 GB por mês. A operadora oferece dois planos:
+    Plano X: R$ 40,00 por mês, com 10 GB incluídos.
+    Plano Y: R$ 25,00 por mês, com 4 GB incluídos; cada GB a mais custa R$ 4,00.
+  enunciado: "Escolhendo o plano mais barato para o uso dela, a trabalhadora vai pagar, por mês,"
+  alternativas:
+    - texto: "R$ 33,00"
+      certa: true
+    - texto: "R$ 40,00"
+      erro: "Esse é o Plano X, que sobra GB mas custa mais. Calcule o Plano Y com os 2 GB extras: 25 + 2 × 4 = 33."
+    - texto: "R$ 25,00"
+      erro: "Você esqueceu os GB que passam do pacote. Ela usa 6 GB e o Plano Y inclui 4: sobram 2 GB a pagar."
+    - texto: "R$ 49,00"
+      erro: "Você cobrou R$ 4 por todos os 6 GB (25 + 6 × 4). Só se paga o que passa dos 4 GB incluídos."
+    - texto: "R$ 24,00"
+      erro: "Você calculou só 6 × 4 e esqueceu a mensalidade de R$ 25. O preço do plano é a mensalidade mais os GB extras."
+  explicacao: "Plano X: R$ 40. Plano Y: 6 − 4 = 2 GB extras; 25 + 2 × 4 = 25 + 8 = 33 reais. O Plano Y é o mais barato: R$ 33,00."
+  conferir: "25 + (6 - 4) * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-porcentagem-01
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  dificuldade: 1
+  enunciado: "Numa turma de cursinho popular com 40 estudantes, 35% trabalham durante o dia. Quantos estudantes trabalham durante o dia?"
+  alternativas:
+    - texto: "35"
+      erro: "Você usou a taxa como se fosse a quantidade. 35% é 35 em cada 100; a turma tem 40, então a resposta é menor que 35."
+    - texto: "4"
+      erro: "4 é só 10% de 40. Monte 35% por pedaços: 30% (3 × 4 = 12) mais 5% (metade de 4, que é 2)."
+    - texto: "26"
+      erro: "26 são os que não trabalham durante o dia (40 − 14). A pergunta pede os que trabalham."
+    - texto: "12"
+      erro: "12 é 30% de 40. Faltaram os 5%: a metade de 10%, que é 2. Some: 12 + 2."
+    - texto: "14"
+      certa: true
+  explicacao: "10% de 40 é 4. Então 30% é 12 e 5% é 2. 35% de 40 = 12 + 2 = 14 estudantes."
+  conferir: "40 * 35 / 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-aumentos-01
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa revenda de bairro, o botijão de gás custava R$ 120,00. Num mês, o preço subiu 10%. No mês seguinte, o novo
+    preço subiu mais 5%.
+  enunciado: "Depois dos dois aumentos, o botijão passou a custar"
+  alternativas:
+    - texto: "R$ 138,00"
+      erro: "Você somou as taxas (10% + 5% = 15%). O segundo aumento incide sobre R$ 132, não sobre R$ 120: multiplique 1,1 × 1,05."
+    - texto: "R$ 138,60"
+      certa: true
+    - texto: "R$ 126,00"
+      erro: "Você aplicou só o aumento de 5%. Primeiro vem o de 10% (vai a 132); depois, 5% de 132."
+    - texto: "R$ 132,00"
+      erro: "Esse é o preço depois do primeiro aumento. Falta o segundo: 5% de 132 é 6,60."
+    - texto: "R$ 18,60"
+      erro: "Esse é só o quanto o preço subiu no total (12 + 6,60). A pergunta pede o novo preço: 120 + 18,60."
+  explicacao: "Primeiro aumento: 10% de 120 = 12; o preço vai a 132. Segundo aumento: 5% de 132 é a metade de 10% (13,20), ou seja, 6,60; o preço vai a 138,60. Pelos fatores: 120 × 1,1 × 1,05 = 138,60."
+  conferir: "120 * 1.1 * 1.05"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-escalas-01
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um grupo de mães quer abrir uma creche comunitária numa sala de um galpão. Na planta do galpão, feita na escala
+    1 : 200, a sala é um retângulo de 2,5 cm por 3 cm.
+  enunciado: "A área real dessa sala é de"
+  alternativas:
+    - texto: "7,5 m²"
+      erro: "7,5 é a área do retângulo na planta, em centímetros quadrados. Converta cada lado para o real antes de multiplicar."
+    - texto: "0,15 m²"
+      erro: "Você aplicou a escala uma vez só à área (7,5 cm² × 200 = 1.500 cm²). A área cresce 200 × 200: converta cada lado."
+    - texto: "22 m²"
+      erro: "22 m é o perímetro da sala (5 + 6 + 5 + 6). A pergunta pede a área: comprimento vezes largura."
+    - texto: "30 m²"
+      certa: true
+    - texto: "3.000 m²"
+      erro: "Na conversão, 500 cm virou 50 m. Lembre: 100 cm = 1 m, então 500 cm = 5 m."
+  explicacao: "Cada centímetro da planta vale 200 cm. Lados reais: 2,5 × 200 = 500 cm = 5 m e 3 × 200 = 600 cm = 6 m. Área: 5 × 6 = 30 m²."
+  conferir: "(2.5 * 200 / 100) * (3 * 200 / 100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-unidades-01
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 2
+  enunciado: "Uma caixa-d'água tem a forma de um bloco com 2 m de comprimento, 1,5 m de largura e 1 m de altura. Quantos litros cabem nela?"
+  alternativas:
+    - texto: "300 L"
+      erro: "Você multiplicou os 3 m³ por 100. Um metro cúbico tem 1.000 litros: 3 × 1.000."
+    - texto: "3.000 L"
+      certa: true
+    - texto: "4,5 L"
+      erro: "Você somou as medidas (2 + 1,5 + 1). Volume é comprimento vezes largura vezes altura, e depois a conversão para litros."
+    - texto: "30.000 L"
+      erro: "Você multiplicou por 10.000. Guarde a ponte: 1 m³ = 1.000 L."
+    - texto: "3 L"
+      erro: "Você achou o volume certo, 3 m³, mas tratou metro cúbico como litro. Cada m³ tem 1.000 litros."
+  explicacao: "Volume: 2 × 1,5 × 1 = 3 m³. Como 1 m³ = 1.000 L, cabem 3 × 1.000 = 3.000 litros."
+  conferir: "2 * 1.5 * 1 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-progressoes-01
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-progressoes
+  dificuldade: 3
+  enunciado: "Num mutirão de reflorestamento, o grupo plantou 12 mudas no primeiro dia e, a cada dia, 3 mudas a mais que no dia anterior. Quantas mudas foram plantadas, ao todo, nos 10 primeiros dias?"
+  alternativas:
+    - texto: "39"
+      erro: "39 é o que se plantou só no 10º dia (12 + 9 × 3). A pergunta pede o total dos 10 dias: use a soma da PA."
+    - texto: "120"
+      erro: "Você fez 12 × 10, como se todo dia fossem 12 mudas. O número cresce 3 por dia."
+    - texto: "150"
+      erro: "Você somou 12 × 10 com 3 × 10. O acréscimo se acumula: no 2º dia são 3 a mais, no 3º são 6 a mais, e assim por diante."
+    - texto: "270"
+      erro: "Você calculou o 10º termo com 10 razões (12 + 10 × 3 = 42). Do 1º ao 10º dia há 9 aumentos: o 10º termo é 39."
+    - texto: "255"
+      certa: true
+  explicacao: "É uma PA com a₁ = 12 e r = 3. O 10º termo é a₁₀ = 12 + 9 × 3 = 39. A soma é (12 + 39) × 10 ÷ 2 = 51 × 5 = 255 mudas."
+  conferir: "(12 + (12 + 9 * 3)) * 10 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-proporcao-01
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-grandezas-proporcionais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num mutirão para pintar a fachada da escola do bairro, 5 voluntários, trabalhando no mesmo ritmo, terminariam o
+    serviço em 12 horas. No dia marcado, apareceram 6 voluntários, todos com o mesmo ritmo dos anteriores.
+  enunciado: "Com os 6 voluntários, o tempo para pintar a fachada inteira é de"
+  alternativas:
+    - texto: "14 horas e 24 minutos."
+      erro: "Você usou regra de três direta (12 × 6 ÷ 5 = 14,4 h). Com mais gente, o tempo diminui: as grandezas são inversas."
+    - texto: "11 horas."
+      erro: "Você tirou 1 hora porque chegou 1 pessoa a mais. Na inversa, o produto pessoas × horas fica constante: 5 × 12 = 60."
+    - texto: "10 horas."
+      certa: true
+    - texto: "13 horas."
+      erro: "Você somou 1 hora por causa da pessoa a mais. Mais voluntários terminam mais rápido, não mais devagar."
+    - texto: "72 horas."
+      erro: "Você multiplicou 12 × 6. O que fica constante é 5 × 12 = 60 horas de trabalho; divida esse total por 6."
+  explicacao: "Pessoas e tempo são inversamente proporcionais. O serviço vale 5 × 12 = 60 horas de trabalho. Com 6 pessoas: 60 ÷ 6 = 10 horas."
+  conferir: "5 * 12 / 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

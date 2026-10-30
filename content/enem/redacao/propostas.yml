@@ -1,0 +1,277 @@
+# Propostas de treino de redação (originais do Instituto Lúcia). Formato: docs/ENEM.md, seção 8, e validarPropostas
+# (lib/enem.ts). Nenhum destes temas caiu no Enem (aplicação regular, reaplicação ou PPL) até 2025, pelo que a equipe
+# conferiu. Os textos motivadores são originais; dado oficial só entra com a fonte aberta e conferida, entre parênteses.
+# Conferido em 30/10/2026.
+
+- id: eja-permanencia-de-trabalhadores
+  tema: "Desafios para a permanência de adultos trabalhadores na educação de jovens e adultos no Brasil"
+  eixo: educacao
+  recorte: >-
+    O tema não pede um texto sobre a educação em geral, nem só sobre o analfabetismo. O foco é a permanência: por que
+    adultos que trabalham começam a EJA e não conseguem continuar (jornada, cansaço, transporte, filhos, turmas que não
+    conversam com a vida adulta). Falar só da importância da escola, sem tratar de quem trabalha e estuda, é
+    tangenciar. Escrever sobre crianças fora da escola é fugir do recorte.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        Dona Cida saiu da fábrica às 17h, pegou dois ônibus e chegou à escola às 19h10, com a aula já começada. Na
+        terceira semana, o filho menor adoeceu. Na quinta, a chefia mudou o turno dela. Ela não desistiu de aprender:
+        a escola é que não coube no dia dela.
+      fonte: "Texto original do Instituto Lúcia"
+    - titulo: "Texto II"
+      texto: >-
+        Segundo o ministro da Educação, no lançamento do Pacto Nacional pela Superação do Analfabetismo e Qualificação
+        na Educação de Jovens e Adultos, em junho de 2024, os dados do Censo Demográfico 2022 mostram uma taxa de
+        analfabetismo de 7% no Brasil. O pacto foi apresentado como voltado a 11,4 milhões de brasileiros.
+      fonte: "Texto original do Instituto Lúcia, com dados da Secretaria-Geral da Presidência (gov.br, 07/06/2024): https://www.gov.br/secretariageral/pt-br/noticias/2024/junho/pacto-nacional-para-11-4-milhoes-de-brasileiros-superarem-o-analfabetismo-foi-lancado-com-participacao-de-alunos-de-todos-os-estados"
+    - titulo: "Texto III"
+      texto: >-
+        A Constituição Federal diz, no art. 205, que a educação é direito de todos e dever do Estado e da família, e
+        que ela visa ao pleno desenvolvimento da pessoa, ao preparo para a cidadania e à qualificação para o trabalho.
+      fonte: "Texto original do Instituto Lúcia, a partir da Constituição Federal de 1988, art. 205 (Planalto): https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: acesso-a-saude-bucal
+  tema: "Caminhos para ampliar o acesso à saúde bucal no Brasil"
+  eixo: saude
+  recorte: >-
+    O tema pede caminhos (soluções) para o acesso: quem não consegue tratar os dentes e por quê (custo, falta de
+    dentista na unidade de saúde perto de casa, filas, falta de informação). Um texto só sobre higiene, escovação e
+    hábitos individuais tangencia o tema. Falar da saúde pública em geral, sem a saúde bucal, também tangencia.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        Seu Antônio passou dois anos sem sorrir nas fotos da família. Não era tristeza: era vergonha dos dentes que
+        faltavam. Quando conseguiu uma prótese, a neta disse que ele parecia outra pessoa. Ele respondeu que tinha
+        voltado a ser ele mesmo.
+      fonte: "Texto original do Instituto Lúcia"
+    - titulo: "Texto II"
+      texto: >-
+        A Lei nº 14.572, de 8 de maio de 2023, instituiu a Política Nacional de Saúde Bucal no âmbito do Sistema Único
+        de Saúde (SUS). Entre os objetivos está garantir acesso universal, equânime e contínuo a serviços de saúde
+        bucal de qualidade.
+      fonte: "Texto original do Instituto Lúcia, a partir da Lei nº 14.572/2023 (Planalto): https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14572.htm"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: calor-extremo-nas-cidades
+  tema: "Desafios para proteger a população do calor extremo nas cidades brasileiras"
+  eixo: meio-ambiente
+  recorte: >-
+    O recorte é a proteção das pessoas nas cidades durante o calor extremo: quem sofre mais (quem trabalha na rua,
+    quem mora em casa sem ventilação, bairros sem árvores, pessoas doentes) e o que a cidade pode fazer. Um texto só
+    sobre o aquecimento global no planeta, sem chegar às cidades e a quem vive nelas, tangencia. Falar de desmatamento
+    na floresta, sem ligação com a vida urbana, foge do recorte.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        No mesmo bairro, duas ruas: numa, árvores fazem sombra na calçada e o ponto de ônibus tem cobertura. Na outra,
+        asfalto, telhado de zinco e nenhum lugar para esperar. Quem passa a tarde na segunda rua sente, no corpo, que o
+        calor não é igual para todos.
+      fonte: "Texto original do Instituto Lúcia"
+    - titulo: "Texto II"
+      texto: >-
+        A Constituição Federal (art. 225) garante a todos o direito ao meio ambiente ecologicamente equilibrado, bem de
+        uso comum do povo, e impõe ao poder público e à coletividade o dever de defendê-lo e preservá-lo para as
+        presentes e futuras gerações.
+      fonte: "Texto original do Instituto Lúcia, a partir da Constituição Federal de 1988, art. 225 (Planalto): https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+    - titulo: "Texto III"
+      texto: >-
+        O Estatuto da Cidade (Lei nº 10.257/2001) põe entre as diretrizes da política urbana a garantia do direito a
+        cidades sustentáveis, entendido como o direito à terra urbana, à moradia, ao saneamento ambiental, à
+        infraestrutura, ao transporte, aos serviços públicos, ao trabalho e ao lazer, para as presentes e futuras
+        gerações.
+      fonte: "Texto original do Instituto Lúcia, a partir da Lei nº 10.257/2001, art. 2º, I (Planalto): https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: trabalho-por-aplicativos
+  tema: "Os desafios do trabalho por aplicativos no Brasil"
+  eixo: trabalho
+  recorte: >-
+    O tema é a situação de quem trabalha por meio de aplicativos (entregas, transporte de passageiros, serviços):
+    renda, jornada, segurança, proteção em caso de doença ou acidente. Um texto sobre o desemprego em geral, ou sobre
+    a tecnologia que facilita a vida do consumidor, tangencia. Defender ou atacar uma empresa específica não é o
+    caminho: o texto discute o problema social.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        Às 22h, Jefferson ainda pedalava. Tinha feito catorze entregas e o aplicativo prometia um bônus se ele fizesse
+        mais duas. Choveu. Ele fez as duas. Na volta para casa, pensou que ninguém, além dele, sabia quantas horas ele
+        tinha trabalhado naquele dia.
+      fonte: "Texto original do Instituto Lúcia"
+    - titulo: "Texto II"
+      texto: >-
+        Do ponto de vista de quem pede a comida, tudo cabe num toque na tela: o restaurante, o preço, o tempo de
+        espera. O que a tela não mostra é a pessoa do outro lado: quanto ela recebe, quanto gasta com a moto ou a
+        bicicleta, e quem a ampara se cair na rua.
+      fonte: "Texto original do Instituto Lúcia"
+    - titulo: "Texto III"
+      texto: >-
+        A Declaração Universal dos Direitos Humanos, adotada pela Assembleia Geral da ONU em 10 de dezembro de 1948,
+        afirma no artigo 23 que toda pessoa tem direito ao trabalho, a condições justas e favoráveis de trabalho e a
+        uma remuneração que lhe assegure, e à sua família, uma existência digna.
+      fonte: "Texto original do Instituto Lúcia, a partir da Declaração Universal dos Direitos Humanos (Unicef Brasil): https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: inclusao-digital-pelo-celular
+  tema: "Os limites da inclusão digital feita só pelo celular no Brasil"
+  eixo: tecnologia
+  recorte: >-
+    O tema não pergunta se as pessoas usam internet, e sim o que fica de fora quando o único acesso é o celular:
+    estudar, fazer um currículo, preencher um cadastro do governo, trabalhar a distância, com tela pequena e pacote de
+    dados que acaba. Um texto sobre o vício em redes sociais ou sobre notícias falsas foge do recorte. Falar da
+    exclusão digital em geral, sem tratar do acesso só pelo celular, tangencia.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        Segundo a pesquisa TIC Domicílios 2024, 60% dos usuários de internet do Brasil se conectavam apenas pelo
+        telefone celular. Na classe A, eram 18%; nas classes D e E, 86%.
+      fonte: "Texto original do Instituto Lúcia, com dados da TIC Domicílios 2024, tabela C16A (Cetic.br/NIC.br): https://cetic.br/pt/tics/domicilios/2024/individuos/C16A/"
+    - titulo: "Texto II"
+      texto: >-
+        O Marco Civil da Internet (Lei nº 12.965/2014), no art. 7º, afirma: "O acesso à internet é essencial ao
+        exercício da cidadania".
+      fonte: "Lei nº 12.965/2014, art. 7º (Planalto): https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm"
+    - titulo: "Texto III"
+      texto: >-
+        Larissa fez a inscrição do curso técnico pelo celular, no ônibus. O formulário pedia um arquivo em PDF do
+        histórico escolar. Ela tinha a foto do papel, não o arquivo. Faltava um dia para o prazo e o pacote de dados
+        tinha acabado.
+      fonte: "Texto original do Instituto Lúcia"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: patrimonio-historico-das-cidades
+  tema: "Desafios para a preservação do patrimônio histórico e cultural das cidades brasileiras"
+  eixo: cultura
+  recorte: >-
+    O recorte é o patrimônio das cidades: prédios, praças, centros históricos, festas e saberes ligados à memória de
+    quem formou aquele lugar, e por que eles se perdem (abandono, especulação imobiliária, falta de verba, falta de
+    participação dos moradores). Um texto só sobre turismo, ou só sobre a importância da arte em geral, tangencia.
+    Falar de museus de outros países, sem chegar ao Brasil, foge do recorte.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        A Constituição Federal (art. 216) define como patrimônio cultural brasileiro os bens materiais e imateriais
+        ligados à identidade, à ação e à memória dos grupos que formaram a sociedade brasileira, entre eles as formas de
+        expressão, os modos de criar, fazer e viver, as edificações e os conjuntos urbanos de valor histórico. O § 1º
+        diz que o poder público, com a colaboração da comunidade, promoverá e protegerá esse patrimônio, por meio de
+        inventários, registros, vigilância, tombamento e desapropriação, entre outras formas.
+      fonte: "Texto original do Instituto Lúcia, a partir da Constituição Federal de 1988, art. 216 (Planalto): https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+    - titulo: "Texto II"
+      texto: >-
+        O casarão da esquina, onde funcionou a primeira escola do bairro, virou estacionamento numa semana. Os mais
+        velhos ainda indicam o caminho dizendo "ali onde era a escola". A cidade apagou o prédio, mas a memória do
+        bairro continua usando o endereço antigo.
+      fonte: "Texto original do Instituto Lúcia"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: transporte-publico-como-direito
+  tema: "O transporte público como direito social no Brasil"
+  eixo: cidadania
+  recorte: >-
+    O tema liga o transporte coletivo (ônibus, trem, metrô, barco) à ideia de direito: quem não consegue chegar ao
+    trabalho, à escola, ao hospital ou ao lazer por causa do preço, da distância ou da falta de linhas. Um texto sobre
+    trânsito e engarrafamento de carros, ou sobre a Lei Seca, foge do recorte. Falar de mobilidade sem tratar do
+    direito de ir e vir de quem depende do transporte público tangencia.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        Desde a Emenda Constitucional nº 90, de 2015, o transporte está na lista de direitos sociais do art. 6º da
+        Constituição Federal, ao lado da educação, da saúde, da alimentação, do trabalho, da moradia e do lazer, entre
+        outros.
+      fonte: "Texto original do Instituto Lúcia, a partir da Constituição Federal de 1988, art. 6º (Planalto): https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+    - titulo: "Texto II"
+      texto: >-
+        No fim do mês, Rosana faz as contas: se pagar as passagens da semana inteira, falta para o gás. Então ela
+        escolhe. Vai ao posto de saúde a pé, quarenta minutos de subida. A consulta é de graça. Chegar até ela, não.
+      fonte: "Texto original do Instituto Lúcia"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: desigualdade-no-saneamento
+  tema: "A desigualdade no acesso ao saneamento básico no Brasil"
+  eixo: desigualdade
+  recorte: >-
+    A palavra que manda no tema é desigualdade: quem tem e quem não tem esgoto coletado e água tratada, e onde
+    (regiões, cidades pequenas, periferias). Um texto só sobre doenças, sem mostrar a diferença entre grupos e
+    lugares, tangencia. Escrever sobre poluição dos oceanos ou sobre lixo, sem ligar ao saneamento das casas, foge do
+    recorte.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        Segundo o Censo Demográfico 2022, do IBGE, a proporção de domicílios com acesso à rede de coleta de esgoto
+        chegou a 62,5% em 2022 (era 44,4% em 2000). A diferença entre regiões é grande: 86,2% no Sudeste e 22,8% no
+        Norte. Nos municípios de até 5 mil habitantes, a cobertura era de 28,6%.
+      fonte: "Texto original do Instituto Lúcia, com dados da Secom/PR (gov.br, 23/02/2024), a partir do Censo 2022 do IBGE: https://www.gov.br/secom/pt-br/acompanhe-a-secom/noticias/2024/02/domicilios_coleta_esgoto_crescem_18_pontos_percentuais"
+    - titulo: "Texto II"
+      texto: >-
+        A Lei nº 14.026, de 15 de julho de 2020, que atualizou o marco legal do saneamento básico, fixou metas de
+        universalização: atender 99% da população com água potável e 90% com coleta e tratamento de esgoto até 31 de
+        dezembro de 2033.
+      fonte: "Texto original do Instituto Lúcia, a partir da Lei nº 14.026/2020, art. 11-B (Planalto): https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/lei/l14026.htm"
+    - titulo: "Texto III"
+      texto: >-
+        Na rua de cima, a vala corre a céu aberto desde que Joana se mudou, há doze anos. Em dia de chuva, as crianças
+        não descem para brincar. Na rua de baixo, a do comércio, o asfalto é novo e a tubulação passa por baixo dele.
+      fonte: "Texto original do Instituto Lúcia"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: violencia-nas-escolas
+  tema: "Caminhos para enfrentar a violência nas escolas brasileiras"
+  eixo: violencia
+  recorte: >-
+    O recorte é a escola: agressões, intimidação sistemática (bullying), ameaças e o clima de medo que atrapalha o
+    aprender, e o que a comunidade escolar pode fazer. Um texto sobre a violência urbana em geral, sem chegar à escola,
+    tangencia. Propor só polícia na porta, detector de metal ou punição de alunos, sem educação e cuidado, empobrece a
+    proposta e pode ferir direitos.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        A Lei nº 13.185, de 6 de novembro de 2015, instituiu o Programa de Combate à Intimidação Sistemática (Bullying).
+        A lei define a intimidação sistemática como todo ato de violência física ou psicológica, intencional e
+        repetitivo, praticado contra uma pessoa, e diz que é dever do estabelecimento de ensino, dos clubes e das
+        agremiações recreativas assegurar medidas de conscientização, prevenção e combate a ela.
+      fonte: "Texto original do Instituto Lúcia, a partir da Lei nº 13.185/2015 (Planalto): https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13185.htm"
+    - titulo: "Texto II"
+      texto: >-
+        A professora percebeu que Davi não saía mais para o recreio. Ficava na sala, desenhando. Quando ela perguntou,
+        ele disse que preferia. Só no fim do bimestre, num bilhete esquecido na carteira, ela entendeu do que ele se
+        escondia.
+      fonte: "Texto original do Instituto Lúcia"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: trabalho-analogo-ao-de-escravo
+  tema: "A persistência do trabalho análogo ao de escravo no Brasil contemporâneo"
+  eixo: direitos-humanos
+  recorte: >-
+    O tema pede o presente (contemporâneo) e a palavra persistência: por que, mais de um século depois da abolição,
+    ainda há pessoas em trabalho forçado, jornada exaustiva, condições degradantes ou presas por dívida. Um texto só
+    sobre a escravidão no período colonial, sem chegar a hoje, tangencia. Falar de desemprego ou de trabalho informal
+    em geral, sem as situações do crime, também tangencia.
+  textos:
+    - titulo: "Texto I"
+      texto: >-
+        Em 2023, a fiscalização do Ministério do Trabalho e Emprego resgatou 3.190 trabalhadores de condições análogas
+        à escravidão, o maior número dos últimos 14 anos, segundo o ministério. O cultivo de café (302 resgatados) e o
+        de cana-de-açúcar (258) foram as atividades com mais resgates.
+      fonte: "Texto original do Instituto Lúcia, com dados do Ministério do Trabalho e Emprego (gov.br, 10/01/2024): https://www.gov.br/trabalho-e-emprego/pt-br/noticias-e-conteudo/2024/janeiro/mte-resgata-3-190-trabalhadores-de-condicoes-analogas-a-escravidao-em-2023"
+    - titulo: "Texto II"
+      texto: >-
+        O Código Penal, no art. 149, trata como crime reduzir alguém a condição análoga à de escravo: submeter a pessoa
+        a trabalhos forçados ou a jornada exaustiva, sujeitá-la a condições degradantes de trabalho ou restringir sua
+        locomoção por causa de dívida com o empregador.
+      fonte: "Texto original do Instituto Lúcia, a partir do Código Penal (Decreto-Lei nº 2.848/1940), art. 149 (Planalto): https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm"
+    - titulo: "Texto III"
+      texto: >-
+        A Lei nº 3.353, de 13 de maio de 1888, a Lei Áurea, declarou extinta a escravidão no Brasil. Ela tem dois
+        artigos. Nenhum deles fala de terra, de escola ou de salário para quem tinha sido escravizado.
+      fonte: "Texto original do Instituto Lúcia, a partir da Lei nº 3.353/1888 (Planalto): https://www.planalto.gov.br/ccivil_03/leis/lim/lim3353.htm"
+  fonte: "Proposta original do Instituto Lúcia"
+  revisao: { status: em-revisao }

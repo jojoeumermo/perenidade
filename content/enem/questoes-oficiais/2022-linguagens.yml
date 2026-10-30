@@ -24,7 +24,7 @@ questoes:
       B: "O provérbio zapoteco é só um exemplo da língua. O cartaz não fala de literatura nem de resgatar textos. Redução."
       C: "A pergunta “¿Te gustó?” (você gostou?) convida a apreciar o provérbio; não testa o que o povo sabe. Nada no texto questiona o conhecimento de alguém."
       D: "Os logotipos da Secretaria de Educação e do instituto de línguas só assinam a peça. O cartaz não fala do papel desses órgãos: fala do que todos nós devemos fazer."
-    aulas: [espanhol-medio/as-variedades-do-espanhol-na-america-latina, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [espanhol-medio/as-variedades-do-espanhol-na-america-latina, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-2-espanhol
     area: linguagens
@@ -44,7 +44,7 @@ questoes:
       B: "Ninguém mexe no celular do autor. Quem se intromete é o próprio aparelho. Leitura errada do sujeito da ação."
       C: "A obsolescência programada (o aparelho feito para durar pouco) aparece como esperança irônica no fim, não como alvo. E o fax “obsoleto” só entra na comparação do começo."
       E: "Ele sabe configurar os alertas: diz que estão todos desativados. O problema é o aparelho avisar mesmo assim. Palavra-isca: “alertas”."
-    aulas: [espanhol-medio/como-ler-noticias-em-espanhol, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [espanhol-medio/como-ler-noticias-em-espanhol, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-3-espanhol
     area: linguagens
@@ -64,7 +64,7 @@ questoes:
       B: "“Hambres del alma” (fomes da alma) é uma imagem para explicar “pana”. O texto não mede a força de nenhuma conexão. Palavra-isca."
       D: "O pão de “pana” é metáfora do que o amigo dá, não o costume de reunir amigos à mesa. Leitura literal de uma imagem."
       E: "O texto não põe as palavras numa escala de mais ou menos íntimo. Todas são formas carinhosas, cada uma ligada a uma situação. Extrapolação."
-    aulas: [espanhol-superior/literatura-hispano-americana-de-sor-juana-a-garcia-marquez, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [espanhol-superior/literatura-hispano-americana-de-sor-juana-a-garcia-marquez, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-4-espanhol
     area: linguagens
@@ -84,7 +84,7 @@ questoes:
       C: "A canção não estimula a mendicância nem critica quem pede: ela mostra a criança pedindo esmola como prova do abandono. Inversão."
       D: "Lavar para-brisas é um detalhe da vida na rua. A canção não trata de trabalho informal em geral. Redução."
       E: "Não há nada sobre hospitais ou serviços de saúde no texto. Extrapolação."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-5-espanhol
     area: linguagens
@@ -105,7 +105,7 @@ questoes:
       C: "O fechamento de escolas e creches aparece no primeiro quadro como causa do aumento do trabalho. É o contexto, não a função das duas palavras."
       D: "É o contrário. O texto critica a romantização: diz que “la maternidad está romantizada” (a maternidade está romantizada). Contradição."
       E: "A “soledad” (solidão) é a da mãe, que cria sozinha. O texto não fala de proteger os filhos do isolamento. Palavra-isca: pandemia lembra isolamento."
-    aulas: [espanhol-superior/traduzir-do-espanhol-as-armadilhas, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [espanhol-superior/traduzir-do-espanhol-as-armadilhas, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-6
     area: linguagens
@@ -125,7 +125,7 @@ questoes:
       B: "A pressa é o tema do texto, não uma marca de registro. Falar de urgência não torna a linguagem informal. Confusão entre assunto e forma."
       C: "A repetição do “se” no começo existe, mas repetir estruturas é recurso de ênfase que aparece também em textos formais. Não indica informalidade."
       D: "“Uma refeição que pode durar uma vida” é metáfora do amor, não exagero. E o texto não se apoia em hipérboles. Nome errado para o recurso."
-    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, portugues-medio/figuras-de-linguagem]
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, portugues-medio/figuras-de-linguagem, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-7
     area: linguagens
@@ -147,7 +147,7 @@ questoes:
       C: "Reforçar a campanha é o papel do Texto I. O Texto II mostra outra possibilidade de vida para o animal. Confusão entre os dois textos."
       D: "O Texto II fala de um cão só, nenhum gato, e diz que ele fugia de quem precisava fugir. Não exalta uma natureza amigável."
       E: "Promover a adoção é o que o cartaz faz. O Texto II não pede adoção. Confusão entre os dois textos."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-8
     area: linguagens
@@ -167,7 +167,7 @@ questoes:
       C: "A regra “quanto mais doou, mais rápido vai jogar” é um detalhe da campanha de arrecadação, não o objetivo do texto. Palavra-isca."
       D: "A arrecadação pela internet aparece como informação sobre o projeto, não como o que o texto quer mostrar. Detalhe tomado pelo todo."
       E: "O conhecimento que o jogo traz é sobre mulheres da história e de hoje, não sobre brincadeiras “dos tempos atuais”. Redução."
-    aulas: [midia-fundamental/o-que-e-noticia, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+    aulas: [midia-fundamental/o-que-e-noticia, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-9
     area: linguagens
@@ -188,7 +188,7 @@ questoes:
       C: "Não há nada sobre fiscalização ou autoridades no texto. Extrapolação."
       D: "A peça não fala de punição, multa ou prisão. O peso vem da consciência, não da lei."
       E: "A perda de parentes não aparece. O sofrimento mostrado é o do motorista arrependido. Troca de personagem."
-    aulas: [midia-fundamental/publicidade]
+    aulas: [midia-fundamental/publicidade, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-10
     area: linguagens
@@ -208,7 +208,7 @@ questoes:
       B: "Yacy-Ara Froner diz que computador, vídeo e internet são só suportes, meios. Ela não fala de risco para eles. Mistura de dois trechos."
       D: "A distribuição das obras ganha alternativas, segundo o texto. Ela é o que se amplia, não o que corre risco. Inversão."
       E: "O compartilhamento é justamente a possibilidade que cresce. Não é ele que está em risco. Inversão."
-    aulas: [artes-superior/walter-benjamin-e-a-reprodutibilidade-tecnica]
+    aulas: [artes-superior/walter-benjamin-e-a-reprodutibilidade-tecnica, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-11
     area: linguagens
@@ -227,7 +227,7 @@ questoes:
       C: "O autor diz que viu muitas mudanças na vida, mas o que ele destaca como impacto é o tempo de aprendizado, não a frequência das mudanças. Detalhe tomado pelo todo."
       D: "Que a técnica nova varre o que veio antes é a ilusão que o texto desmente. Contradição."
       E: "O texto fala em iniciação “longa”. Rapidez é o oposto. Contradição."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-12
     area: linguagens
@@ -247,7 +247,7 @@ questoes:
       C: "Um chama o outro de grosseiro, mas isso é efeito das correções, não a causa da inadequação. A causa é corrigir uma conversa informal."
       D: "O texto não diz quanto cada um estudou. Extrapolação."
       E: "A palavra “elitismo” é uma acusação feita na briga, não uma informação sobre a classe social dos dois. Palavra-isca."
-    aulas: [portugues-medio/colocacao-pronominal, portugues-medio/variacao-linguistica-e-preconceito-linguistico]
+    aulas: [portugues-medio/colocacao-pronominal, portugues-medio/variacao-linguistica-e-preconceito-linguistico, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-13
     area: linguagens
@@ -266,7 +266,7 @@ questoes:
       C: "O uso comercial da rede não é citado. A causa apontada é a desigualdade que já existia. Extrapolação."
       D: "É o contrário: os dados confirmam que menos escolaridade significa menos acesso. Contradição."
       E: "Os pesquisadores descrevem o problema; não condicionam nada a políticas públicas. Extrapolação."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-14
     area: linguagens
@@ -287,7 +287,7 @@ questoes:
       B: "As expressões não nomeiam realidades novas: são antigas e repetidas. Extrapolação."
       C: "A alternativa fala em “acervo da formação do idioma”, mas apaga o ponto principal do Texto II, que é a discriminação. Redução."
       E: "Expressões carregadas de preconceito não são objetivas: elas avaliam e rebaixam. Contradição."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-15
     area: linguagens
@@ -308,7 +308,7 @@ questoes:
       C: "Perguntar a opinião não é passar ao cidadão a responsabilidade de controlar os gastos. Extrapolação."
       D: "Opinar sobre um projeto não é administrar projetos de lei. Extrapolação."
       E: "É uma “proposta”, ainda não aprovada. O post divulga a ideia; não assegura nada. Extrapolação."
-    aulas: [midia-fundamental/publicidade]
+    aulas: [midia-fundamental/publicidade, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-16
     area: linguagens
@@ -328,7 +328,7 @@ questoes:
       B: "As memórias são de Petra, no filme. O texto não descreve a separação pelas memórias dela. Confusão entre a obra e o texto."
       C: "O texto resume a história, mas não escolhe cenas, e o segundo parágrafo avalia. Ficar só no resumo é redução."
       D: "Quem assina o texto não é a diretora do filme. A história é da família de Petra, não do autor do texto. Leitura errada de quem fala."
-    aulas: [portugues-superior/escrita-academica-artigo-resenha-e-relatorio]
+    aulas: [portugues-superior/escrita-academica-artigo-resenha-e-relatorio, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-17
     area: linguagens
@@ -348,7 +348,7 @@ questoes:
       C: "A lista de classes gramaticais aparece para ser contrastada com o jeito dos poetas, que é o que o texto valoriza. Contradição."
       D: "O trecho citado contrasta palavras e pessoas, e comparar não basta para fazer um poema. A força está na metáfora da alma e do corpo."
       E: "Dar informações sobre um conceito é o que faz o verbete, não o poema. É justamente o contrário do que se pergunta."
-    aulas: [portugues-medio/figuras-de-linguagem, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [portugues-medio/figuras-de-linguagem, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-18
     area: linguagens
@@ -368,7 +368,7 @@ questoes:
       C: "Há alguns adjetivos (“estúpido”, “traiçoeira”), mas eles não são o que organiza o texto. Detalhe tomado pelo todo."
       D: "“Buraco” e “cratera” formam uma gradação (cada vez maior), não sinônimos. E o texto não se encadeia por sinônimos."
       E: "É o contrário: quase não há conectivos (porque, portanto, mas). As frases vêm soltas. Contradição."
-    aulas: [portugues-medio/coesao-e-coerencia, portugues-medio/oracoes-coordenadas-e-subordinadas]
+    aulas: [portugues-medio/coesao-e-coerencia, portugues-medio/oracoes-coordenadas-e-subordinadas, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-19
     area: linguagens
@@ -388,7 +388,7 @@ questoes:
       B: "O texto critica justamente o foco só nas torcidas organizadas: chama essa postura de “ineficaz”. Contradição."
       D: "A invasão de quem não tinha ingresso é o estopim do caso, não a explicação da violência. Detalhe tomado pelo todo."
       E: "Os clubes e a organização dos jogos não aparecem no texto. Extrapolação."
-    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora]
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-20
     area: linguagens
@@ -408,7 +408,7 @@ questoes:
       B: "Combater o sedentarismo é o objetivo, não a estratégia. A alternativa repete o problema sem dizer como resolvê-lo."
       D: "O texto diz que a falta de instalações foi “um motivo pouco citado”. Contradição."
       E: "Incentivo fiscal para empresas não aparece na pesquisa. Extrapolação."
-    aulas: [educacao-fisica-fundamental/por-que-se-mexer-o-que-a-oms-recomenda]
+    aulas: [educacao-fisica-fundamental/por-que-se-mexer-o-que-a-oms-recomenda, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-21
     area: linguagens
@@ -428,7 +428,7 @@ questoes:
       C: "O texto diz que a escravidão atrasa o comércio e a lavoura; não fala de violência feita em nome do progresso. Inversão."
       D: "O declínio é ligado ao trabalho forçado (“porque o seu trabalho é forçado”), não à raça. Palavra-isca."
       E: "O tom é de indignação direta, com exclamações e perguntas. Não há ironia. Erro de tom."
-    aulas: [literatura-brasileira/romantismo, escravidao-no-brasil/o-movimento-abolicionista-negro-luiz-gama-andre-reboucas-e-jose-do-pat]
+    aulas: [literatura-brasileira/romantismo, escravidao-no-brasil/o-movimento-abolicionista-negro-luiz-gama-andre-reboucas-e-jose-do-pat, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-22
     area: linguagens
@@ -448,7 +448,7 @@ questoes:
       B: "Só o Surdonews foi criado por uma pesquisadora surda. O Mural é de engenheiros e tecnólogos. Vale só para um texto."
       C: "Só o Surdonews nasceu num mestrado. Vale só para um texto."
       D: "O Mural nasceu para as escolas, mas o Surdonews é uma página no Facebook. Vale só para um texto."
-    aulas: [inclusao/o-que-e-acessibilidade, inclusao/tecnologia-assistiva]
+    aulas: [inclusao/o-que-e-acessibilidade, inclusao/tecnologia-assistiva, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-23
     area: linguagens
@@ -468,7 +468,7 @@ questoes:
       B: "Os antepassados buscavam ouro, mas o texto destaca as misérias, não conquistas da família. Inversão do tom."
       C: "As mulheres seguiam os maridos; o sofrimento vinha da jornada, das febres e das feras, não de brigas com eles. Extrapolação."
       D: "A vida dos antepassados é descrita como dura e “ilusória”. Ninguém deseja voltar a ela. Contradição."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-24
     area: linguagens
@@ -488,7 +488,7 @@ questoes:
       B: "O autor critica a cultura de valorizar quem parece inteligente em vez de quem é. Inversão."
       C: "É o contrário: o texto diz que falar difícil faz parecer inteligente “mas não por muito tempo”. Contradição."
       D: "Coesão e coerência aparecem no fim como o que é falar bem. O exemplo do pão não trata de documento jurídico. Detalhe fora do lugar."
-    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico]
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-25
     area: linguagens
@@ -508,7 +508,7 @@ questoes:
       B: "Ela não discute como as mulheres entraram no skate street. Ela questiona o padrão que diz o que é de menina e o que é de menino. Redução."
       D: "Ser a mais jovem no pódio é um dado do texto, não o objeto do questionamento. Palavra-isca."
       E: "A medalha é o ponto de partida, não o que se questiona. Redução."
-    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora]
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-26
     area: linguagens
@@ -528,7 +528,7 @@ questoes:
       B: "O verso descreve um lugar e um momento. Não há marca do eu lírico."
       D: "O verso descreve como era a terra antes. É descrição, não expressão do eu."
       E: "“Ó Manuel” é um chamamento (vocativo): a linguagem se volta para quem ouve. Essa é a função conativa, não a emotiva. Troca de função."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-27
     area: linguagens
@@ -549,7 +549,7 @@ questoes:
       C: "Não há proposta de medida, regra ou ação de prevenção. Extrapolação."
       D: "Ratificar é confirmar. A peça risca os ditados para negá-los. Contradição."
       E: "A peça retoma ditados preconceituosos para corrigi-los, não opiniões sobre diversidade. Leitura invertida do que é retomado."
-    aulas: [midia-fundamental/publicidade]
+    aulas: [midia-fundamental/publicidade, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-28
     area: linguagens
@@ -569,7 +569,7 @@ questoes:
       C: "O professor estuda na universidade, mas o movimento acontece na aldeia, com as crianças e as famílias. Detalhe tomado pelo todo."
       D: "O retorno à terra veio antes do movimento (“retornaram ao antigo local e iniciaram”). Inversão de causa e efeito."
       E: "Os números do texto mostram quantas línguas se perderam, não que a recuperação aumente a contagem. Palavra-isca."
-    aulas: [historia-e-direitos-indigenas/a-constituicao-de-1988-e-os-direitos-indigenas, portugues-superior/historia-da-lingua-portuguesa]
+    aulas: [historia-e-direitos-indigenas/a-constituicao-de-1988-e-os-direitos-indigenas, portugues-superior/historia-da-lingua-portuguesa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-29
     area: linguagens
@@ -589,7 +589,7 @@ questoes:
       B: "O trecho não fala de dinheiro nem de renda. Extrapolação."
       C: "O mistério, diz o narrador, “estava nos olhos” de Bárbara, não nas clientes. Troca de personagem."
       E: "É uma ideia geral sobre Machado, não o que este trecho mostra. Generalização."
-    aulas: [lendo-machado-de-assis/a-ironia-machadiana]
+    aulas: [lendo-machado-de-assis/a-ironia-machadiana, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-30
     area: linguagens
@@ -609,7 +609,7 @@ questoes:
       B: "Não há busca de igualdade: as escravizadas recebem ordens. Contradição."
       D: "O narrador nega a explicação religiosa: “não era isso uma sentimentalidade cristã”. Contradição."
       E: "O narrador nega também a ternura. O cuidado vem do instinto, não do afeto. Contradição."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-31
     area: linguagens
@@ -629,7 +629,7 @@ questoes:
       C: "O narrador olha de fora, descreve corpos e movimentos. Não entra na cabeça dos personagens. Não há análise psicológica."
       D: "Nesse trecho o narrador não toma posição política explícita: ele mostra. Extrapolação."
       E: "As imagens existem (o paraíso perdido, as espadas de fogo), mas servem ao retrato duro, não à contemplação lírica da paisagem. Erro de tom."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-32
     area: linguagens
@@ -650,7 +650,7 @@ questoes:
       C: "Há só uma explicação curta (a criança pequena não separa fantasia de realidade). O centro do texto são as recomendações. Redução."
       D: "Não há rituais no texto. Extrapolação."
       E: "A alternativa é vaga. O texto não apresenta estratégias de formação, e sim limites de uso de telas por idade. Generalização."
-    aulas: [portugues-medio/generos-textuais]
+    aulas: [portugues-medio/generos-textuais, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-33
     area: linguagens
@@ -670,7 +670,7 @@ questoes:
       C: "O período é longo porque a lista é longa. É consequência, não o recurso. Inversão de causa e efeito."
       D: "Há verbos no presente e no passado, mas eles não explicam a ideia de inventário. Detalhe tomado pelo todo."
       E: "Velório e enterro são o assunto. Um texto sobre funeral não é, por isso, um inventário. Confusão entre tema e forma."
-    aulas: [lendo-machado-de-assis/memorias-postumas-de-bras-cubas, portugues-medio/figuras-de-linguagem]
+    aulas: [lendo-machado-de-assis/memorias-postumas-de-bras-cubas, portugues-medio/figuras-de-linguagem, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-34
     area: linguagens
@@ -690,7 +690,7 @@ questoes:
       B: "O texto não fala de padrões técnicos. O que se destaca é a invenção. Extrapolação."
       C: "Não há regras no texto. Extrapolação."
       E: "É o contrário: o esporte se faz em muitos terrenos e trilhas que cada um procura. Contradição."
-    aulas: []
+    aulas: [enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-35
     area: linguagens
@@ -710,7 +710,7 @@ questoes:
       B: "O texto não fala de vários núcleos de narrativa. Extrapolação."
       D: "Não há personagens descritos no texto. Extrapolação."
       E: "Ela diz que o jornal é aberto por “todo o mundo”; exclusivo é o leitor do livro. Inversão."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-36
     area: linguagens
@@ -730,7 +730,7 @@ questoes:
       B: "A notícia relata um projeto de vacinação gratuita, mas não defende serviços gratuitos em geral. Extrapolação."
       D: "Quem propõe a campanha é a Câmara, não a notícia. Troca de quem faz a ação."
       E: "Não há atraso nem culpados no texto. Extrapolação."
-    aulas: [midia-fundamental/o-que-e-noticia]
+    aulas: [midia-fundamental/o-que-e-noticia, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-37
     area: linguagens
@@ -750,7 +750,7 @@ questoes:
       C: "O texto não discute se o brasileiro pode ou não ter esse estilo de vida. Extrapolação."
       D: "Os influenciadores aparecem sempre felizes, com um discurso coerente. O problema é a falsidade, não a contradição."
       E: "O corpo esbelto é um item da lista, ao lado de viagens, casas e carros. Ficar só na beleza é redução."
-    aulas: [saude-mental/o-que-e-saude-mental]
+    aulas: [saude-mental/o-que-e-saude-mental, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
 
   - id: enem-2022-38
     area: linguagens
@@ -771,7 +771,7 @@ questoes:
       C: "O tema vem de um mito antigo, mas temas clássicos também eram comuns no Renascimento. O que distingue é o jeito de pintar, não o assunto."
       D: "A morte como castigo é o tema da história, dito no Texto II. O comando pergunta pelo estilo. Confusão entre tema e forma."
       E: "A perspectiva que integra os planos é marca do Renascimento. Aqui os planos parecem desencontrados. Contradição."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-39
     area: linguagens
@@ -792,7 +792,7 @@ questoes:
       B: "O Cubismo decompunha figuras em muitos planos. Aqui há caixas inteiras e iguais. Mistura de movimentos."
       C: "Os materiais são industriais, mas a obra não fala do cotidiano. Palavra-isca."
       D: "É o contrário: os elementos são poucos e simples. Contradição."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-40
     area: linguagens
@@ -811,7 +811,7 @@ questoes:
       B: "O cafuzo sobe no cavalo comovido, não firme. Ele foge para esconder o choro. Contradição."
       C: "A palhoça indica pobreza, mas o trecho não trata disso. Extrapolação."
       E: "Ele esconde as lágrimas, mas o que dá lirismo à cena é o afeto, não a preocupação em parecer forte. Palavra-isca."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-41
     area: linguagens
@@ -831,7 +831,7 @@ questoes:
       C: "Ele não se espanta com a multidão. A cidade “inteira estava assim” é constatação, não espanto."
       D: "Ele quer o anônimo, o “chegar, pegar, acabar”, e não confraternizar. Leitura torta."
       E: "O carnaval aparece como ocasião de excesso, não como manifestação cultural reconhecida. Extrapolação."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-42
     area: linguagens
@@ -851,7 +851,7 @@ questoes:
       B: "Ela reflete com lucidez, não se emociona. Erro de tom."
       C: "Ela cita políticos conhecidos, não a vida política da comunidade. Palavra-isca."
       E: "A reflexão é sobre a sociedade e o governo, não sobre desejos íntimos. Leitura torta."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-43
     area: linguagens
@@ -871,7 +871,7 @@ questoes:
       B: "As crianças são descritas como “mimadas” e importunas, não inocentes. Palavra-isca."
       C: "O narrador não discute a bondade humana. Ele conta a história. Extrapolação."
       D: "Só Vanda vem do interior, e ela não é descrita em detalhe físico. Generalização."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-44
     area: linguagens
@@ -892,7 +892,7 @@ questoes:
       B: "Não se fala em temas que se repetem no fim do século XX. Extrapolação."
       D: "A distância no tempo não é o que transforma a arte aqui. É a proposta da artista. Extrapolação."
       E: "A sombra não degrada a forma nem supera o modelo: ela conversa com ele. Extrapolação."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
 
   - id: enem-2022-45
     area: linguagens
@@ -912,4 +912,4 @@ questoes:
       B: "O mangue dá nome ao movimento; não se fala em shows na natureza. Palavra-isca."
       C: "O texto diz que Recife deixou de ser “apenas” do frevo, não que o frevo foi trocado. Leitura torta."
       D: "Não é recuperar o folclore como era: é misturá-lo com o novo. Redução."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]

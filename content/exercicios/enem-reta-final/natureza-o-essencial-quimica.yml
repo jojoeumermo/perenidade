@@ -1,0 +1,199 @@
+# Exercícios da aula "Natureza, o essencial: química" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-nat-inorganicas-01
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  dificuldade: 1
+  enunciado: "O ácido clorídrico (HCl) reage com o hidróxido de sódio (NaOH) numa neutralização. O que se forma?"
+  alternativas:
+    - texto: "Mais hidróxido de sódio"
+      erro: "O NaOH é um dos reagentes: ele é consumido, não formado. Na neutralização, ácido e base viram sal e água."
+    - texto: "Só água"
+      erro: "A água se forma, sim, do H⁺ do ácido com o OH⁻ da base. Mas sobram Na⁺ e Cl⁻, que formam o sal."
+    - texto: "Cloreto de sódio (NaCl) e água"
+      certa: true
+    - texto: "Gás cloro (Cl₂) e sódio metálico (Na)"
+      erro: "Para separar o cloro e o sódio é preciso eletrólise, com energia de fora. A neutralização só junta íons."
+    - texto: "Gás carbônico (CO₂) e água"
+      erro: "CO₂ sai quando o ácido encontra um carbonato. Aqui não há carbono nos reagentes."
+  explicacao: "Neutralização: ácido + base → sal + água. HCl + NaOH → NaCl + H₂O. O H⁺ do ácido e o OH⁻ da base formam a água; o Na⁺ e o Cl⁻ formam o sal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-solucoes-01
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  dificuldade: 2
+  enunciado: "Dissolvem-se 4 g de sal em água até formar 500 mL de solução. Qual é a concentração, em gramas por litro?"
+  alternativas:
+    - texto: "8 g/L"
+      certa: true
+    - texto: "2 g/L"
+      erro: "Você multiplicou a massa por 0,5 L. A concentração é a massa dividida pelo volume: 4 ÷ 0,5."
+    - texto: "2.000 g/L"
+      erro: "Você multiplicou massa por volume em mL (4 × 500). Divida a massa pelo volume em litros."
+    - texto: "0,008 g/L"
+      erro: "O volume entrou em mL (4 ÷ 500 dá gramas por mililitro). Para g/L, use 500 mL = 0,5 L."
+    - texto: "125 g/L"
+      erro: "A divisão foi invertida (500 ÷ 4). A concentração é massa do soluto dividida pelo volume da solução."
+  explicacao: "500 mL = 0,5 L. Concentração = 4 g ÷ 0,5 L = 8 g/L."
+  conferir: "4 / 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-solucoes-02
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa de limpeza compra um produto concentrado, com 60 g/L de tensoativo. Para lavar o chão, a
+    equipe prepara baldes com 2 L de solução diluída, com 3 g/L de tensoativo. O concentrado é medido num copo
+    graduado e completado com água até os 2 L.
+  enunciado: "O volume de produto concentrado usado em cada balde é de"
+  alternativas:
+    - texto: "50 mL"
+      erro: "Essa é a conta para 1 L. O balde tem 2 L de solução: precisa do dobro de tensoativo."
+    - texto: "0,1 mL"
+      erro: "A conta deu 0,1, mas em litros. Passe para mililitros: 0,1 L = 100 mL."
+    - texto: "1.900 mL"
+      erro: "Esse é o volume de água que se junta ao concentrado. A pergunta é quanto concentrado entra."
+    - texto: "100 mL"
+      certa: true
+    - texto: "40.000 mL"
+      erro: "A proporção foi invertida (60 × 2 ÷ 3). Na diluição, o volume do concentrado é menor que o da solução final."
+  explicacao: "A massa de tensoativo não muda na diluição: C₁ · V₁ = C₂ · V₂. Então 60 × V₁ = 3 × 2, e V₁ = 6 ÷ 60 = 0,1 L = 100 mL."
+  conferir: "3 * 2 / 60 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-tratamento-01
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-agua-tratamento
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa visita à estação de tratamento da cidade, estudantes veem um técnico juntar sulfato de alumínio à água
+    que chega da represa, ainda barrenta. Logo depois, a água é mexida devagar num tanque, e começam a aparecer
+    flocos de sujeira cada vez maiores.
+  enunciado: "O sulfato de alumínio é posto na água para"
+  alternativas:
+    - texto: "matar as bactérias que causam doenças"
+      erro: "Essa é a desinfecção, feita mais adiante, com cloro. O sulfato de alumínio age sobre a sujeira, não sobre os micróbios."
+    - texto: "fazer as partículas pequenas de sujeira se juntarem em flocos"
+      certa: true
+    - texto: "acrescentar flúor, que protege os dentes"
+      erro: "A fluoretação é uma das últimas etapas e usa compostos de flúor. O texto descreve o começo do tratamento."
+    - texto: "dissolver a sujeira, que some da água"
+      erro: "A sujeira não se dissolve: ela se junta em flocos visíveis, que depois descem para o fundo e são retirados."
+    - texto: "filtrar a água pela areia e pelo carvão"
+      erro: "A filtração vem depois da decantação, quando a maior parte dos flocos já foi ao fundo."
+  explicacao: "É a coagulação: o produto faz as partículas finas grudarem. Com a água mexida devagar (floculação), formam-se flocos maiores, que depois descem na decantação."
+  fonte: "Questão original do Instituto Lúcia, com base na descrição do tratamento de água do CDC (https://www.cdc.gov/drinking-water/about/how-water-treatment-works.html)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-cadeias-01
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 1
+  enunciado: "A cadeia do but-2-eno, CH₃–CH=CH–CH₃, é classificada como:"
+  alternativas:
+    - texto: "fechada, normal, saturada e homogênea"
+      erro: "A cadeia não forma anel: é aberta. E a dupla ligação ('-eno') a torna insaturada."
+    - texto: "aberta, ramificada, saturada e heterogênea"
+      erro: "Os quatro carbonos estão em fila, sem ramos; há uma dupla; e não há outro átomo entre os carbonos."
+    - texto: "aberta, normal, saturada e homogênea"
+      erro: "Quase: falta ver a dupla ligação entre os carbonos 2 e 3. Com ela, a cadeia é insaturada."
+    - texto: "aromática, normal, insaturada e homogênea"
+      erro: "Aromática é a cadeia com o anel benzênico. Esta é aberta, sem anel."
+    - texto: "aberta, normal, insaturada e homogênea"
+      certa: true
+  explicacao: "Sem anel: aberta. Quatro carbonos em fila: normal. Uma dupla entre carbonos (o '-eno' do nome): insaturada. Só carbono na cadeia: homogênea."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-eletroquimica-01
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-eletroquimica
+  dificuldade: 2
+  enunciado: "Numa pilha acontece a reação Zn + Cu²⁺ → Zn²⁺ + Cu. O que acontece com o zinco?"
+  alternativas:
+    - texto: "Ganha elétrons e se reduz"
+      erro: "O zinco sai como Zn²⁺: perdeu dois elétrons. Ganhar elétrons é o que acontece com o Cu²⁺."
+    - texto: "Não muda, porque é só o eletrodo"
+      erro: "O zinco metálico vira íon Zn²⁺ e vai para a solução. Ele participa da reação e se gasta."
+    - texto: "Perde elétrons e vira o cátodo"
+      erro: "Perder elétrons está certo, mas o eletrodo onde há oxidação é o ânodo. O cátodo é onde há redução."
+    - texto: "Perde elétrons, se oxida e é o ânodo da pilha"
+      certa: true
+    - texto: "Ganha prótons e vira Zn²⁺"
+      erro: "A carga positiva do Zn²⁺ vem da perda de elétrons, não do ganho de prótons. O núcleo não muda na reação química."
+  explicacao: "O nox do zinco sobe de 0 (Zn) para +2 (Zn²⁺): ele perdeu dois elétrons e se oxidou. Na pilha, o eletrodo onde há oxidação é o ânodo. O Cu²⁺ ganha os elétrons e se reduz a Cu, no cátodo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-equilibrio-01
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-le-chatelier
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num refrigerante fechado, parte do gás carbônico está dissolvida no líquido e parte está no espaço acima dele,
+    sob pressão. As duas partes estão em equilíbrio: CO₂ (gás) ⇌ CO₂ (dissolvido). Quando a garrafa é aberta, o gás
+    de cima escapa e a pressão sobre o líquido cai até a pressão do ambiente.
+  enunciado: "Logo depois de abrir a garrafa, surgem bolhas no líquido porque"
+  alternativas:
+    - texto: "o ar que entra na garrafa reage com o açúcar e forma gás"
+      erro: "As bolhas são de gás carbônico que já estava dissolvido. O ar não reage com o açúcar nesse tempo."
+    - texto: "o líquido começa a ferver com a queda da pressão"
+      erro: "As bolhas não são de vapor de água. O líquido continua frio; o que sai é o CO₂ dissolvido."
+    - texto: "com menos pressão, o equilíbrio se desloca no sentido de formar gás"
+      certa: true
+    - texto: "o equilíbrio se desloca no sentido de dissolver mais gás"
+      erro: "É o contrário. A perturbação foi a perda de gás acima do líquido; o sistema reage formando mais gás."
+    - texto: "o equilíbrio não se altera, e as bolhas são só ar preso na garrafa"
+      erro: "O equilíbrio muda, sim: tirar gás de um lado faz o sistema repor esse gás. Por isso o refrigerante aberto perde o gás."
+  explicacao: "Pelo princípio de Le Chatelier, o equilíbrio se desloca para diminuir a perturbação. A pressão do gás acima do líquido caiu; então o CO₂ dissolvido sai do líquido, formando bolhas, para repor esse gás. A solubilidade de um gás num líquido aumenta com a pressão do gás."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-cotidiano-01
+  tema: "Química do cotidiano: sabões, alimentos, medicamentos, cosméticos"
+  area: natureza
+  habilidade: 27
+  objeto: nat-qui-sociedade-cotidiano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa cidade abastecida por poço, a água é rica em íons cálcio (Ca²⁺) e magnésio (Mg²⁺), a chamada água dura.
+    As pessoas reparam que o sabão em barra faz pouca espuma e deixa um resíduo branco na roupa e no tanque. Já o
+    detergente sintético lava bem com a mesma água.
+  enunciado: "A diferença entre os dois produtos nessa água se explica porque"
+  alternativas:
+    - texto: "o sabão é ácido e o detergente é básico"
+      erro: "A diferença não é de acidez. É de como cada um reage com os íons cálcio e magnésio da água."
+    - texto: "o sabão forma, com o cálcio e o magnésio, compostos que não se dissolvem; o detergente forma compostos solúveis"
+      certa: true
+    - texto: "o detergente não tem parte apolar, por isso não reage com a água dura"
+      erro: "O detergente tem, sim, uma cauda apolar; é ela que segura a gordura. O que muda é o produto que ele forma com o cálcio."
+    - texto: "a água dura dissolve o sabão rápido demais, e ele vai embora antes de agir"
+      erro: "É o contrário: parte do sabão sai da solução como sólido (o resíduo branco) e deixa de limpar."
+    - texto: "o cálcio e o magnésio são gorduras, e o sabão gasta tudo com eles"
+      erro: "Cálcio e magnésio são íons metálicos dissolvidos, não gorduras. Eles se juntam à cabeça iônica do sabão."
+  explicacao: "Sabões e detergentes têm cauda apolar e cabeça iônica. Na água dura, a cabeça do sabão se junta ao cálcio e ao magnésio e forma compostos insolúveis: é o resíduo, e o sabão perde força. O detergente forma compostos solúveis e continua limpando."
+  fonte: "Questão original do Instituto Lúcia, com base em OpenStax, Chemistry 2e, seção 11.5 (https://openstax.org/books/chemistry-2e/pages/11-5-colloids)"
+  revisao: { status: em-revisao }

@@ -1,0 +1,79 @@
+# Exercícios da aula "Redação expressa: a proposta de intervenção completa" (trilha enem-reta-final).
+# Formato: docs/EXERCICIOS.md. Aula de redação: sem etiquetas de área da Matriz (docs/ENEM.md, seção 3).
+
+- id: enem-red-intervencao-01
+  tema: "Elementos da proposta"
+  dificuldade: 1
+  texto_base: |
+    "As prefeituras devem ampliar as linhas de ônibus nos bairros periféricos, por meio de planos de mobilidade
+    discutidos com os moradores, a fim de garantir que o transporte chegue a quem mais depende dele."
+  enunciado: "Nessa proposta, qual é o agente?"
+  alternativas:
+    - texto: "Os moradores"
+      erro: "Os moradores participam do meio (os planos discutidos com eles), mas quem executa a ação é outro. Pergunte: quem vai ampliar as linhas?"
+    - texto: "Ampliar as linhas de ônibus"
+      erro: "Isso é a ação, o que deve ser feito. O agente é quem faz."
+    - texto: "Os bairros periféricos"
+      erro: "Os bairros são o lugar onde a ação acontece, um detalhe da ação. Não são quem age."
+    - texto: "As prefeituras"
+      certa: true
+  explicacao: "O agente responde a 'quem vai fazer?'. Aqui, as prefeituras ampliam as linhas (ação), por meio de planos de mobilidade (meio), a fim de garantir o transporte a quem depende dele (finalidade)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-intervencao-02
+  tema: "Propor e constatar"
+  dificuldade: 2
+  enunciado: "Qual destas frases é uma proposta de intervenção, e não uma constatação?"
+  alternativas:
+    - texto: "O Ministério do Trabalho e Emprego deve ampliar as equipes de fiscalização no campo, com prioridade para as regiões com mais denúncias, para retirar trabalhadores de condições degradantes."
+      certa: true
+    - texto: "Ainda faltam fiscais do trabalho em muitas regiões do país."
+      erro: "A frase reconhece um problema, mas não indica nenhuma ação. Constatar não é propor."
+    - texto: "O trabalho análogo ao de escravo é uma ferida aberta na sociedade brasileira."
+      erro: "É uma avaliação do problema, boa para a introdução ou para a tese. Não diz o que deve ser feito."
+    - texto: "Se houvesse mais fiscalização, talvez o número de resgates pudesse mudar."
+      erro: "A forma condicional deixa dúvida se você está mesmo propondo. A Cartilha 2026 pede uma proposta explícita: quem deve fazer o quê."
+  explicacao: "A primeira frase tem agente (o ministério), ação (ampliar as equipes), detalhamento (prioridade para as regiões com mais denúncias) e finalidade (retirar trabalhadores de condições degradantes). As outras só descrevem ou supõem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-intervencao-03
+  tema: "Completar a proposta"
+  dificuldade: 2
+  texto_base: |
+    Proposta de um estudante para o tema "Caminhos para ampliar o acesso à saúde bucal no Brasil":
+    "O Ministério da Saúde deve levar dentistas às unidades básicas de saúde dos bairros mais pobres."
+  enunciado: "O que falta para essa proposta ficar completa?"
+  alternativas:
+    - texto: "Falta o agente"
+      erro: "O agente está lá: o Ministério da Saúde. Releia procurando quem faz."
+    - texto: "Meio, finalidade e detalhamento"
+      certa: true
+    - texto: "Falta a ação"
+      erro: "A ação existe: levar dentistas às unidades de saúde. O que falta são as respostas a 'como?', 'para quê?' e algo que detalhe."
+    - texto: "Nada: com agente e ação, a proposta já está completa"
+      erro: "Agente e ação são o começo. A proposta completa também diz como (meio), para quê (finalidade) e traz um detalhamento."
+  explicacao: "Uma versão completa: 'O Ministério da Saúde deve levar dentistas às unidades básicas de saúde dos bairros mais pobres, por meio de verbas específicas repassadas aos municípios, com atendimento também à noite para quem trabalha durante o dia, a fim de que a falta de tempo e de dinheiro deixe de impedir o tratamento.'"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-intervencao-04
+  tema: "Direitos humanos na proposta"
+  dificuldade: 3
+  texto_base: |
+    Tema de treino: "Caminhos para enfrentar a violência nas escolas brasileiras". Quatro estudantes escreveram
+    propostas diferentes.
+  enunciado: "Qual proposta respeita os direitos humanos e responde ao problema?"
+  alternativas:
+    - texto: "Expor em cartazes, na entrada da escola, o nome dos alunos que praticaram intimidação, para servir de exemplo."
+      erro: "Humilhar em público viola a dignidade de crianças e adolescentes, que o ECA protege com absoluta prioridade. Combater uma violência com outra não respeita os direitos humanos."
+    - texto: "Autorizar os pais das vítimas a resolver o problema diretamente com os agressores, fora da escola."
+      erro: "Isso põe a punição nas mãos de indivíduos, o que a Cartilha 2026 aponta como desrespeito aos direitos humanos em qualquer tema."
+    - texto: "As secretarias de educação devem formar equipes de convivência nas escolas, com psicólogos e assistentes sociais, para identificar casos de intimidação e acompanhar vítimas e agressores com as famílias."
+      certa: true
+    - texto: "Expulsar da rede pública, sem conversa, todo aluno envolvido em briga."
+      erro: "Retirar o direito à educação sem nenhum cuidado não resolve a violência e pode empurrar o adolescente para fora da escola de vez. A proposta deve proteger direitos, não retirá-los."
+  explicacao: "A proposta certa tem agente, ação, meio, finalidade e detalhamento, e trata a violência com cuidado e responsabilização, sem humilhação nem punição feita por particulares."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

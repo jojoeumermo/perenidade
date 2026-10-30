@@ -1,0 +1,200 @@
+# Exercícios da aula "Humanas, o essencial: geografia" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-hum-ambientais-01
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 28
+  objeto: hum-ambiente-questoes-ambientais
+  dificuldade: 1
+  enunciado: "Numa manhã fria de inverno, a fumaça dos carros fica parada sobre a cidade e o ar fica pesado. Que fenômeno explica isso?"
+  alternativas:
+    - texto: "Ilha de calor"
+      erro: "Ilha de calor é o centro mais quente que a periferia. Aqui o problema é o ar que não sobe e prende a poluição."
+    - texto: "Efeito estufa"
+      erro: "O efeito estufa trata do calor retido na atmosfera do planeta todo, não da fumaça parada sobre uma cidade numa manhã."
+    - texto: "Salinização"
+      erro: "Salinização é sal acumulado no solo de áreas secas irrigadas. Não tem a ver com o ar."
+    - texto: "Inversão térmica"
+      certa: true
+    - texto: "Desertificação"
+      erro: "Desertificação é a degradação da terra em áreas secas, num processo de anos."
+  explicacao: "Na inversão térmica, uma camada de ar frio fica presa perto do chão, embaixo de uma camada mais quente. O ar não sobe e a poluição se acumula. É comum em manhãs frias de inverno."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-agrario-01
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No Censo Agropecuário de 2017, do IBGE, os estabelecimentos da agricultura familiar eram 77% do total de
+    estabelecimentos rurais do país, mas ocupavam 23% da área de todos eles.
+  enunciado: "Os dados indicam, no campo brasileiro,"
+  alternativas:
+    - texto: "uma divisão igualitária da terra entre pequenos e grandes produtores."
+      erro: "Se fosse igual, 77% dos estabelecimentos teriam perto de 77% da área. Eles têm só 23%."
+    - texto: "a concentração fundiária: poucos estabelecimentos grandes ocupam a maior parte da área."
+      certa: true
+    - texto: "o fim da agricultura familiar no país."
+      erro: "A agricultura familiar é a maioria dos estabelecimentos. O dado mostra pouca terra, não desaparecimento."
+    - texto: "que a agricultura familiar ocupa mais terra que o agronegócio."
+      erro: "Você inverteu os números. A agricultura familiar tem mais estabelecimentos, mas menos área."
+    - texto: "que todos os estabelecimentos têm o mesmo tamanho."
+      erro: "Com 77% dos estabelecimentos em 23% da área, os outros 23% ocupam 77% da terra: tamanhos muito diferentes."
+  explicacao: "A maioria dos estabelecimentos (77%) fica com a menor parte da área (23%). Os outros 23% dos estabelecimentos ficam com 77% da terra. Isso é concentração fundiária."
+  fonte: "Questão original do Instituto Lúcia, com dados do Censo Agropecuário 2017 (IBGE)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-relevo-01
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  dificuldade: 1
+  enunciado: "A cordilheira dos Andes é um dobramento moderno. Ela se formou, principalmente, pelo"
+  alternativas:
+    - texto: "choque entre placas tectônicas, que dobrou e elevou as rochas."
+      certa: true
+    - texto: "desgaste causado pelo vento e pela chuva."
+      erro: "Vento e chuva são forças externas: desgastam o relevo, não levantam montanhas."
+    - texto: "acúmulo de sedimentos trazidos pelos rios."
+      erro: "Sedimentos de rio formam planícies, áreas baixas e planas, e não cordilheiras."
+    - texto: "derretimento das geleiras."
+      erro: "As geleiras esculpem vales, mas não criam a cordilheira. A força que levanta é interna."
+    - texto: "ação humana na mineração."
+      erro: "A mineração altera o relevo em pequena escala. Uma cordilheira leva milhões de anos de movimento das placas."
+  explicacao: "Os Andes ficam onde a placa de Nazca mergulha sob a placa Sul-Americana. É uma força interna (endógena)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-geopolitica-01
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um sapato fabricado na Argentina entra no Brasil sem pagar imposto de importação. Já um sapato fabricado na Índia
+    paga, para entrar no Brasil, a mesma tarifa que pagaria para entrar na Argentina, no Paraguai ou no Uruguai.
+    (Texto do Instituto Lúcia.)
+  enunciado: "A situação descrita é própria de um bloco econômico organizado como"
+  alternativas:
+    - texto: "zona de livre comércio, sem nenhuma tarifa comum."
+      erro: "Na zona de livre comércio, cada país cobra a tarifa que quiser de fora. Aqui a tarifa é a mesma nos quatro."
+    - texto: "união monetária, com moeda única."
+      erro: "O texto não fala de moeda. A pista é a tarifa igual para quem é de fora."
+    - texto: "federação, com um governo central único."
+      erro: "Bloco econômico não é federação: os países seguem soberanos."
+    - texto: "mercado comum completo, com livre circulação de trabalhadores sem restrição."
+      erro: "O texto trata só de mercadorias e tarifas. Mercado comum exige também livre circulação de pessoas, serviços e capitais."
+    - texto: "união aduaneira, com livre comércio interno e tarifa externa comum."
+      certa: true
+  explicacao: "Livre comércio entre os membros mais tarifa externa comum (TEC) é a união aduaneira. É o caso do Mercosul, que funciona assim desde 1995."
+  fonte: "Questão original do Instituto Lúcia, no estilo da questão 62 do Enem 2022 (Inep)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-clima-01
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 30
+  objeto: hum-ambiente-clima
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O relatório de síntese do IPCC, de 2023, mostra mapas do mundo com a mudança da temperatura em três cenários de
+    aquecimento global: 1,5 °C, 2 °C e 4 °C acima do período pré-industrial. Em todos os mapas, as áreas continentais
+    e o Ártico aquecem mais que a média do planeta, e a mancha de cor mais forte cresce a cada cenário.
+  enunciado: "A leitura dos mapas permite concluir que"
+  alternativas:
+    - texto: "o aquecimento é igual em todos os lugares do planeta."
+      erro: "Os mapas mostram cores diferentes: continentes e Ártico aquecem mais. O aquecimento médio esconde diferenças regionais."
+    - texto: "os oceanos aquecem mais que os continentes."
+      erro: "Você inverteu a leitura. O texto diz que as áreas continentais aquecem mais que a média."
+    - texto: "cada décimo de grau a mais no aquecimento global amplia as regiões com aumento forte de temperatura."
+      certa: true
+    - texto: "o cenário de 4 °C é o atual."
+      erro: "Os mapas são cenários futuros comparados. Leia o título do mapa antes de concluir."
+    - texto: "o Acordo de Paris fixou a meta de 4 °C."
+      erro: "O Acordo de Paris busca manter o aquecimento bem abaixo de 2 °C e fazer esforços para 1,5 °C."
+  explicacao: "De um cenário para o outro, a mancha mais forte cresce. Por isso o IPCC insiste que cada fração de grau evitada importa. Continentes e Ártico aquecem mais que a média global."
+  fonte: "Questão original do Instituto Lúcia, no estilo da questão 89 do Enem 2023 (Inep), com base no IPCC AR6, Relatório de Síntese"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-agua-01
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  dificuldade: 1
+  enunciado: "Quando uma área com mata vira loteamento asfaltado, o que tende a acontecer com a água da chuva?"
+  alternativas:
+    - texto: "Infiltra mais no solo e abastece o lençol subterrâneo."
+      erro: "É o contrário. O asfalto impede a água de entrar no solo."
+    - texto: "Evapora toda antes de cair."
+      erro: "O tipo de chão não muda a chuva que cai. Muda o caminho da água depois que ela toca o chão."
+    - texto: "Escoa mais pela superfície e chega mais rápido aos rios, aumentando o risco de enchente."
+      certa: true
+    - texto: "Fica parada no mesmo lugar, sem escoar."
+      erro: "A água corre para as partes baixas. Sem infiltrar, ela escoa ainda mais."
+    - texto: "Vira sal no solo."
+      erro: "Isso é salinização, de áreas secas e irrigadas. Não é o caso de um loteamento urbano."
+  explicacao: "O solo impermeável não deixa a água entrar. Ela escoa pela superfície, chega de uma vez aos córregos e alaga as partes baixas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-migracoes-01
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma mulher deixou o seu país depois de ser presa duas vezes por participar de um sindicato de oposição ao governo.
+    Ao chegar ao Brasil, pediu proteção, dizendo que seria perseguida se voltasse. (Texto do Instituto Lúcia.)
+  enunciado: "Pela Convenção de 1951 relativa ao Estatuto dos Refugiados, a situação dessa mulher corresponde à de"
+  alternativas:
+    - texto: "turista, porque entrou no país por um tempo curto."
+      erro: "Ela não veio a passeio: fugiu de perseguição e pede proteção."
+    - texto: "apátrida, porque nenhum país a reconhece como cidadã."
+      erro: "Ela tem nacionalidade: o problema é a perseguição no país dela, não a falta de cidadania."
+    - texto: "migrante econômico, porque saiu em busca de emprego melhor."
+      erro: "O motivo da saída é a perseguição política, não o emprego."
+    - texto: "refugiada, por temor fundado de perseguição por opinião política."
+      certa: true
+    - texto: "deslocada interna, porque mudou de cidade dentro do próprio país."
+      erro: "Ela cruzou a fronteira e está no Brasil. Deslocado interno é quem foge sem sair do próprio país."
+  explicacao: "Refugiado é quem está fora do seu país por temor fundado de perseguição por raça, religião, nacionalidade, grupo social ou opinião política. A participação num sindicato de oposição é opinião política."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-urbanizacao-01
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 26
+  objeto: hum-organizacao-social-urbanizacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Pedro mora num bairro na borda da região metropolitana, onde o aluguel cabe no salário. Trabalha no centro da capital,
+    onde estão a maior parte dos empregos, dos hospitais e das faculdades. Gasta, por dia, quase quatro horas entre trem e
+    ônibus. Perto do trabalho dele, há prédios e terrenos vazios à espera de valorização. (Texto do Instituto Lúcia.)
+  enunciado: "A situação de Pedro expressa um processo urbano conhecido como"
+  alternativas:
+    - texto: "êxodo urbano, a volta da população das cidades para o campo."
+      erro: "Pedro mora e trabalha na região metropolitana. Não há volta ao campo no texto."
+    - texto: "segregação socioespacial, em que os mais pobres moram longe dos empregos e dos serviços."
+      certa: true
+    - texto: "gentrificação, a chegada de moradores ricos à periferia distante."
+      erro: "Gentrificação é a troca de moradores pobres por mais ricos num bairro que se valoriza. O texto fala de quem foi empurrado para longe."
+    - texto: "ilha de calor, o aquecimento do centro da cidade."
+      erro: "O texto não fala de temperatura. Fala de onde se mora, onde se trabalha e do tempo de deslocamento."
+    - texto: "conurbação, que resolveu o problema da mobilidade."
+      erro: "Conurbação é a junção das manchas urbanas. Ela não resolve a mobilidade; muitas vezes, alonga as viagens."
+  explicacao: "O preço da terra empurra os mais pobres para longe; os empregos e serviços ficam no centro. O resultado são horas no transporte. Os terrenos vazios no centro mostram por que a Constituição e o Estatuto da Cidade falam em função social da cidade."
+  fonte: "Questão original do Instituto Lúcia, no estilo da questão 72 do Enem 2022 (Inep)"
+  revisao: { status: em-revisao }
