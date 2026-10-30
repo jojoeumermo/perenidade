@@ -32,9 +32,14 @@ quiz:
     opcoes: ["Um favor do governo", "Um luxo de quem pode pagar", "Um direito social"]
     resposta: 2
     explicacao: "Desde 2000, o artigo 6º da Constituição põe a moradia entre os direitos sociais, ao lado da saúde, da educação e do trabalho."
+ferramentas: [palavras-geradoras, silabario]
 ---
 
 Nas duas primeiras aulas, você conheceu [as vogais](/trilhas/ler-e-escrever/as-vogais) e escreveu [o seu nome](/trilhas/ler-e-escrever/o-seu-nome). Agora vamos ler as palavras que estão em volta de você, todo dia: as palavras da casa.
+
+## O que você vai aprender
+
+Ao fim desta aula você vai ler palavras da casa pela primeira letra e pelos pedaços. Vai dividir PANELA em sílabas, conhecer as famílias PA, NE e LA e montar palavras novas com elas. E vai escrever uma lista de compras.
 
 ## Primeiro, a conversa
 
@@ -163,6 +168,50 @@ Se errar uma letra, não tem problema. O importante é que você consiga ler a s
 
 Algumas palavras da casa chegam todo mês num papel com valor para pagar: **LUZ**, **ÁGUA**, **GÁS**, **ALUGUEL**. Aprender a ler essas palavras é o começo para entender as contas. Isso fica para a aula [Ler placas, ônibus e contas](/trilhas/ler-e-escrever/ler-placas-onibus-e-contas).
 
+## Exemplo resolvido
+
+**Quantas palavras dá para montar com os pedaços de PANELA? Vamos achar uma: LONA.**
+
+1. Divida a palavra geradora: **PA - NE - LA**.
+2. Escreva as famílias de cada pedaço: PA, PE, PI, PO, PU; NA, NE, NI, NO, NU; LA, LE, LI, LO, LU.
+3. Escolha um pedaço da família do L: **LO**.
+4. Escolha um pedaço da família do N: **NA**.
+5. Junte os dois, na ordem: LO + NA = **LONA**.
+6. Leia em voz alta, devagar e depois de uma vez: LO... NA... LONA.
+
+Confira: LONA só usa pedaços que estão nas famílias. Então ela "nasce" de PANELA.
+
+Agora tente sozinho: junte PE + NA. Que palavra saiu? (Resposta: PENA.)
+
+## Jogo da memória da casa
+
+Vire duas cartas por vez. Ache a palavra que combina com a parte da casa.
+
+```memoria
+FOGÃO = cozinha
+CAMA = quarto
+CHUVEIRO = banheiro
+SOFÁ = sala
+VARAL = quintal
+TELHADO = em cima da casa
+```
+
+## Monte a lista
+
+Toque nas palavras na ordem certa para montar a frase da lista.
+
+```frase
+lingua: pt-BR
+COMPRAR ARROZ FEIJÃO E CAFÉ | (a lista de compras)
+A PANELA ESTÁ NO FOGÃO | (onde está a panela?)
+```
+
+Quer trabalhar com outra palavra da sua casa? A ferramenta de palavras geradoras ajuda a conversar, separar e montar.
+
+```ferramenta
+palavras-geradoras | Abrir as palavras geradoras
+```
+
 ## Para praticar
 
 1. Leia as famílias de PANELA em voz alta, sem olhar a tabela.
@@ -170,6 +219,14 @@ Algumas palavras da casa chegam todo mês num papel com valor para pagar: **LUZ*
 3. Ache na sua cozinha três pacotes e diga a primeira letra de cada um.
 4. Faça uma lista de compras com cinco coisas.
 5. Leia em voz alta: CASA, MESA, CAMISA. Escute o som de Z.
+
+## Resumo
+
+- Antes da letra vem a conversa: a casa é parte da vida e um direito social (Constituição, artigo 6º).
+- Dá para começar a ler uma palavra pela **primeira letra** e pelo desenho da embalagem.
+- **PA - NE - LA**: cada pedaço tem uma família, a mesma consoante com as cinco vogais.
+- Juntando pedaços das famílias, você **monta** palavras novas: PANO, LONA, PENA, LUPA.
+- Entre duas vogais, o S costuma soar como Z: CASA, MESA.
 
 ## Para pensar
 

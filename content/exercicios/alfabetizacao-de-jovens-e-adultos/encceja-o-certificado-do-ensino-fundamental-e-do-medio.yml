@@ -1,0 +1,52 @@
+# Exercícios da aula "Encceja: o certificado do ensino fundamental e do médio" (Depois das primeiras letras).
+# Formato em docs/EXERCICIOS.md. Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Regras conferidas no Edital nº 27/2026 do Inep (Encceja Nacional 2026); podem mudar a cada edição.
+
+- id: eja-encceja-01
+  tema: "Idade mínima"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Pedro tem 16 anos e não terminou o ensino fundamental. Ele pode fazer o Encceja para esse certificado?"
+  alternativas:
+    - texto: "Não, só a partir dos 18"
+      erro: "18 anos é a idade mínima para o certificado do ensino médio. Para o fundamental, bastam 15 anos completos."
+    - texto: "Não, o Encceja é só para quem tem mais de 21"
+      erro: "Não existe essa regra. Para o fundamental, 15 anos completos na data da prova."
+    - texto: "Sim, porque para o fundamental a idade mínima é 15 anos completos"
+      certa: true
+  explicacao: "Fundamental: 15 anos completos na data da prova. Médio: 18 anos completos."
+  fonte: "Questão original do Instituto Lúcia, com base no edital do Encceja 2026 (Inep)"
+  revisao:
+    status: em-revisao
+
+- id: eja-encceja-02
+  tema: "Nota para passar"
+  dificuldade: 2
+  enunciado: "Pelo edital de 2026, em qual destes casos a pessoa passou na área de Matemática?"
+  alternativas:
+    - texto: "Tirou 96 pontos"
+      erro: "Quase. Pelo edital de 2026, é preciso pelo menos 100 pontos em cada área."
+    - texto: "Tirou 104 pontos"
+      certa: true
+    - texto: "Tirou 5 pontos"
+      erro: "A nota 5 vale para a redação, que vai de 0 a 10. Nas provas objetivas, a nota mínima é 100 pontos."
+  explicacao: "Em cada prova objetiva é preciso pelo menos 100 pontos. Na redação, pelo menos 5, de 0 a 10."
+  fonte: "Questão original do Instituto Lúcia, com base no edital do Encceja 2026 (Inep)"
+  revisao:
+    status: em-revisao
+
+- id: eja-encceja-03
+  tema: "Aprovação parcial"
+  dificuldade: 3
+  enunciado: "Carla passou em três áreas do Encceja e não passou na quarta. O que ela faz?"
+  alternativas:
+    - texto: "Pede a declaração parcial e faz só a área que falta numa próxima edição"
+      certa: true
+    - texto: "Perde tudo e faz as quatro provas de novo"
+      erro: "Não perde. As áreas aprovadas ficam guardadas na declaração parcial de proficiência."
+    - texto: "Recebe o certificado mesmo assim"
+      erro: "O certificado completo exige todas as áreas. Com três, ela recebe a declaração parcial e completa depois."
+  explicacao: "A declaração parcial de proficiência guarda as áreas aprovadas. Ela só precisa fazer a que falta."
+  fonte: "Questão original do Instituto Lúcia, com base no edital do Encceja 2026 (Inep)"
+  revisao:
+    status: em-revisao

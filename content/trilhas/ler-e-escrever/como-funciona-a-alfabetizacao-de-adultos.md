@@ -22,6 +22,10 @@ fontes:
     autor: "Instituto Brasileiro de Geografia e Estatística (IBGE)"
     ano: "2024"
     url: "https://censo2022.ibge.gov.br/"
+  - titulo: "Analfabetismo fica abaixo de 5% em 2025, mas 8,4 milhões ainda não sabem ler e escrever (PNAD Contínua Educação 2025)"
+    autor: "Agência de Notícias do IBGE"
+    ano: "2026"
+    url: "https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2012-agencia-de-noticias/noticias/47221-analfabetismo-fica-abaixo-de-5-em-2025-mas-8-4-milhoes-ainda-nao-sabem-ler-e-escrever.html"
   - titulo: "Lei nº 9.394, de 20 de dezembro de 1996 (Lei de Diretrizes e Bases da Educação), artigo 37"
     autor: "Presidência da República"
     ano: "1996"
@@ -40,20 +44,27 @@ quiz:
     resposta: 1
     explicacao: "Ela gera duas coisas: o debate sobre a realidade e, pelas suas sílabas, novas palavras."
   - pergunta: "Por que não se deve usar cartilha infantil com adultos?"
-    opcoes: ["Porque é cara", "Porque trata o adulto como criança e ignora tudo o que ele já sabe do mundo", "Porque é proibido por lei"]
-    resposta: 1
+    opcoes: ["Porque trata o adulto como criança e ignora tudo o que ele já sabe do mundo", "Porque é cara", "Porque é proibido por lei"]
+    resposta: 0
     explicacao: "O adulto não leu livros, mas leu o mundo a vida inteira. É daí que se parte."
   - pergunta: "O que aconteceu em Angicos, no Rio Grande do Norte, em 1963?"
-    opcoes: ["Foi fundada a primeira universidade do país", "Cerca de trezentos trabalhadores foram alfabetizados em quarenta horas de aula", "Foi assinada a Lei de Diretrizes e Bases"]
-    resposta: 1
+    opcoes: ["Foi fundada a primeira universidade do país", "Foi assinada a Lei de Diretrizes e Bases", "Cerca de trezentos trabalhadores foram alfabetizados em quarenta horas de aula"]
+    resposta: 2
     explicacao: "A experiência, coordenada por Paulo Freire, tornou o método conhecido no país inteiro."
+ferramentas: [palavras-geradoras, silabario]
 ---
 
 Esta aula é para quem vai **ensinar**: um filho, uma vizinha, uma militante do bairro, um voluntário. As aulas seguintes da trilha são para quem está aprendendo, e foram feitas para serem lidas a dois. Nada aqui substitui a formação de um professor; é um ponto de partida para quem quer ajudar sem atrapalhar.
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quem são os adultos que não leem no Brasil e por que isso é um direito negado, não uma falta de capacidade. Vai conhecer o caminho das palavras geradoras de Paulo Freire, as etapas que Emilia Ferreiro descreveu e dez conselhos para ajudar alguém sem atrapalhar.
+
 ## Quem não lê no Brasil
 
 No Censo de 2022, **11,4 milhões** de pessoas com 15 anos ou mais não sabiam ler e escrever: **7,0%** da população dessa idade. É a menor taxa já medida, e ainda assim é muita gente.
+
+A pesquisa anual do IBGE, a PNAD Contínua, mostra a queda continuando. Em 2025, a taxa ficou em **4,9%**: **8,4 milhões** de pessoas de 15 anos ou mais. Entre quem tem 60 anos ou mais, eram **13,8%**. No Nordeste, **10,6%**. Os números do Censo e da PNAD não se comparam direto, porque são pesquisas feitas de jeitos diferentes; os dois contam a mesma história.
 
 Essa gente não está espalhada por acaso:
 
@@ -148,5 +159,42 @@ Seu Antônio, 68 anos, escreve "AO" para "gato". O que isso mostra?
 - Que ele está chutando
 > Lembre das etapas descritas por Ferreiro e Teberosky.
 ```
+
+## Exemplo resolvido
+
+**Dona Rosa, 61 anos, trabalhou a vida inteira como cozinheira. Por onde começar?**
+
+1. **Converse antes de escrever.** Pergunte sobre o trabalho dela. Ela fala de PANELA, TEMPERO, PATROA, MARMITA. Anote as palavras que voltam e que pesam: são candidatas a palavra geradora.
+2. **Descubra o que ela já sabe.** Peça para escrever o nome e, do jeito que souber, quatro palavras: MARMITA, PANELA, SAL e uma frase curta, "A PANELA ESTÁ NO FOGO". Não corrija nessa hora. Ela escreveu "AAA" para PANELA? Usou uma letra por sílaba: já sabe que a escrita representa os sons.
+3. **Escolha a primeira palavra geradora.** PANELA: é da vida dela e tem sílabas simples.
+4. **Conversem sobre a palavra.** Quem cozinha? Quem come primeiro? A panela fica cheia o mês inteiro? Só depois apareça a palavra escrita.
+5. **Divida e monte.** PA - NE - LA, as famílias de cada pedaço e as palavras novas que saem delas: PANO, LONA, PENA.
+6. **Feche com algo da vida dela.** Ela escreve, com ajuda, o nome de três temperos da cozinha.
+
+Confira o caminho: começou pela vida, passou pela conversa, chegou à letra e voltou para a vida. A ferramenta de palavras geradoras acompanha esse caminho passo a passo.
+
+```ferramenta
+palavras-geradoras | Abrir as palavras geradoras
+```
+
+## As etapas da escrita
+
+Arraste cada escrita para a etapa que ela mostra. A palavra pedida foi **PANELA**.
+
+```arrastar
+Ainda sem ligar letra e som: rabiscos, letras soltas sem ordem
+Uma letra para cada sílaba: AEA, PNL
+Às vezes uma, às vezes duas letras por sílaba: PAEA, PNLA
+Uma letra para cada som: PANELA, PANELLA
+```
+
+## Resumo
+
+- Em 2025, segundo a PNAD Contínua do IBGE, **8,4 milhões** de pessoas de 15 anos ou mais não sabiam ler e escrever: **4,9%**. No Censo de 2022, que mede de outro jeito, eram 11,4 milhões (7,0%).
+- O analfabetismo se concentra entre os mais velhos, no Nordeste e entre pretos, pardos e indígenas. É um direito negado, não falta de capacidade.
+- Adulto não é criança grande: parta do que a pessoa já sabe do mundo, nunca de cartilha infantil.
+- O caminho de Freire: conversa, palavra geradora, sílabas, famílias, palavras novas, de volta à vida.
+- Quem escreve "AEA" para PANELA está num caminho, não errando à toa.
+- A EJA é gratuita e é um direito. Ajudar em casa soma; não substitui a escola.
 
 A próxima aula, sobre as vogais, é a primeira para ler junto com quem está aprendendo.
