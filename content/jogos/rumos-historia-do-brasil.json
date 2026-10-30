@@ -627,7 +627,7 @@
         "retorno": "Com uma canetada, quase todo o povo da vila deixa de votar. A política vira assunto de poucos."
       },
       "historia": {
-        "texto": "A Lei Saraiva (1881) criou eleições diretas, mas proibiu o alistamento de novos eleitores analfabetos. Segundo os cálculos do historiador José Murilo de Carvalho, a parcela da população que votava caiu de cerca de 10% em 1872 para menos de 1% depois da reforma.",
+        "texto": "A Lei Saraiva (1881) criou eleições diretas, mas proibiu o alistamento de novos eleitores analfabetos. Segundo os cálculos do historiador José Murilo de Carvalho, a parcela da população que votava caiu de cerca de 11% em 1872 para menos de 1% depois da reforma.",
         "fonte": {
           "titulo": "Cidadania no Brasil: o longo caminho",
           "autor": "José Murilo de Carvalho",
@@ -1022,10 +1022,10 @@
       "historia": {
         "texto": "O Ato Institucional nº 5, de 13 de dezembro de 1968, permitiu à ditadura fechar o Congresso, cassar mandatos e suspender o habeas corpus para crimes políticos. A Comissão Nacional da Verdade (2014) reconheceu 434 mortos e desaparecidos políticos pela ação do Estado no período.",
         "fonte": {
-          "titulo": "Ato Institucional nº 5, de 13 de dezembro de 1968",
-          "autor": "Presidência da República (texto histórico)",
-          "ano": "1968",
-          "url": "https://www.planalto.gov.br/ccivil_03/ait/ait-05-68.htm"
+          "titulo": "Relatório final da Comissão Nacional da Verdade",
+          "autor": "Comissão Nacional da Verdade",
+          "ano": "2014",
+          "url": "https://www.gov.br/memoriasreveladas/pt-br/assuntos/comissoes-da-verdade/cnv"
         }
       },
       "aula": {
