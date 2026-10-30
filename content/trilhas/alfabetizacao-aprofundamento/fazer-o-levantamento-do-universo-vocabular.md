@@ -23,7 +23,7 @@ quiz:
     opcoes: ["A cópia do alfabeto", "O levantamento do universo vocabular do grupo", "A prova de leitura"]
     resposta: 1
     explicacao: "Primeiro se descobre como o grupo fala e de que fala. Só depois se escolhem as palavras geradoras."
-  - pergunta: "Quais são os dois critérios que Freire usava para escolher uma palavra geradora?"
+  - pergunta: "Quais destes estão entre os critérios que Freire usava para escolher uma palavra geradora?"
     opcoes: ["Ser bonita e ser curta", "Ser do dicionário e ser difícil", "Pesar na vida do grupo e ter sílabas que ajudem a formar outras palavras"]
     resposta: 2
     explicacao: "Ele falava na riqueza fonêmica, na dificuldade crescente e no peso da palavra na vida do grupo."
@@ -106,7 +106,7 @@ Ordene as palavras escolhidas pela dificuldade das sílabas:
 | Etapa | Tipo de sílaba | Exemplos |
 | --- | --- | --- |
 | começo | consoante + vogal (CV) | TIJOLO, PANELA, SAPATO |
-| meio | sílabas com som nasal, R e S no fim (CVC) | CAMPO, SALÁRIO, MERCADO |
+| meio | sílabas com som nasal, R e S no fim (CVC) | CAMPO, PORTA, MERCADO |
 | depois | duas consoantes juntas (CCV), LH, NH, CH | TRABALHO, PLANTÃO, FOLHA |
 
 ## Exemplo resolvido

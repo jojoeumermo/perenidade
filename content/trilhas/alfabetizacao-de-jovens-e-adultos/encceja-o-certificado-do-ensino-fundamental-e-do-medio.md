@@ -93,7 +93,7 @@ São **quatro provas objetivas**, com **30 questões** de múltipla escolha cada
 
 ## A nota para passar
 
-Cada área tem uma nota numa escala em que a média é 100. Pelo edital de 2026, para passar numa área é preciso:
+Cada prova objetiva recebe uma nota numa escala que vai de 60 a 180 pontos. Pelo edital de 2026, para passar numa área é preciso:
 
 - pelo menos **100 pontos** em cada prova objetiva;
 - na área de Linguagens, também nota **5 ou mais** (de 0 a 10) na **redação**.

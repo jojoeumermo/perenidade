@@ -28,7 +28,7 @@ quiz:
     resposta: 2
     explicacao: "Ditado popular, repente, cordel e música do grupo têm rima e ritmo, e são da cultura dos adultos."
   - pergunta: "Qual é a unidade de som mais fácil de perceber?"
-    opcoes: ["A sílaba", "O fonema", "A letra muda"]
+    opcoes: ["A sílaba (junto com a rima)", "O fonema", "A letra muda"]
     resposta: 0
     explicacao: "Sílaba se percebe batendo palma. O fonema, isolado, é bem mais difícil, e costuma aparecer junto com o contato com a escrita."
 ---
@@ -45,7 +45,7 @@ Ao fim desta aula você vai saber o que é consciência fonológica e em que ní
 
 ## Os níveis da consciência fonológica
 
-Os pesquisadores costumam falar em níveis, do mais fácil ao mais difícil:
+Os pesquisadores costumam falar em níveis. Sílaba e rima são, em geral, os mais fáceis (não há consenso sobre qual dos dois vem primeiro); o fonema isolado é o mais difícil:
 
 | Nível | O que a pessoa percebe | Atividade |
 | --- | --- | --- |
@@ -115,7 +115,7 @@ Escolha um ditado popular ou uma música que o seu grupo conhece. Ache nele duas
 ## Resumo
 
 - **Consciência fonológica** é prestar atenção nos sons da fala, separados do sentido.
-- Os níveis vão do mais fácil ao mais difícil: **rima, sílaba, som inicial, fonema**.
+- Os níveis: **rima**, **sílaba**, **som inicial** e **fonema**. Sílaba e rima são as mais fáceis; o fonema isolado, o mais difícil.
 - O estudo de Morais e colegas (1979) mostrou que adultos que nunca leram têm dificuldade com fonemas, e os que aprenderam a ler adultos não: essa consciência se desenvolve **junto com a escrita**.
 - Trabalhe com **cultura adulta**: ditados, cordel, repente, músicas, nomes, palavras do trabalho.
 - As atividades rendem mais quando a escrita está na frente de todos.

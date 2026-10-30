@@ -41,7 +41,7 @@ quiz:
     resposta: 2
     explicacao: "O Inaf aplica um teste a pessoas de 15 a 64 anos e as classifica em níveis, do analfabeto ao proficiente."
   - pergunta: "O que o Plano Nacional de Educação de 2014 previa para o analfabetismo até 2024, e o que aconteceu?"
-    opcoes: ["Erradicar o analfabetismo absoluto; a meta não foi cumprida", "Dobrar o analfabetismo; a meta foi cumprida", "Nada sobre o tema"]
+    opcoes: ["Erradicar o analfabetismo absoluto até o fim do plano; a meta não foi cumprida", "Dobrar o analfabetismo; a meta foi cumprida", "Nada sobre o tema"]
     resposta: 0
     explicacao: "A meta 9 previa erradicar o analfabetismo absoluto e reduzir pela metade o funcional até o fim do plano. Em 2025, ainda havia 8,4 milhões de analfabetos de 15 anos ou mais."
 ---
@@ -92,7 +92,7 @@ Por que isso interessa a quem alfabetiza adultos? Porque **as crianças que não
 
 ## As metas e o que não se cumpriu
 
-O **Plano Nacional de Educação** de 2014 (Lei nº 13.005), na **meta 9**, previa **erradicar o analfabetismo absoluto** e **reduzir pela metade o analfabetismo funcional** até o fim do plano, em 2024. A meta não foi cumprida: em 2025, ainda havia 8,4 milhões de analfabetos de 15 anos ou mais, e o Inaf de 2024 não mostrou queda do analfabetismo funcional em relação a 2018.
+O **Plano Nacional de Educação** de 2014 (Lei nº 13.005), na **meta 9**, previa **erradicar o analfabetismo absoluto** e **reduzir pela metade o analfabetismo funcional** até o fim do plano, que ia até 2024 e foi prorrogado até dezembro de 2025 (Lei nº 14.934, de 2024). A meta não foi cumprida: em 2025, ainda havia 8,4 milhões de analfabetos de 15 anos ou mais, e o Inaf de 2024 não mostrou queda do analfabetismo funcional em relação a 2018.
 
 ## Como ler um número com cuidado
 
@@ -124,7 +124,7 @@ Procure uma notícia recente com um número sobre alfabetização. Escreva: de q
 - **Censo** e **PNAD Contínua** (IBGE) perguntam se a pessoa sabe ler e escrever um bilhete simples: Censo 2022, **7,0%** (11,4 milhões); PNAD 2025, **4,9%** (8,4 milhões). Não se comparam diretamente.
 - O **Inaf** testa o alfabetismo funcional: em 2024, **29%** de 15 a 64 anos nos níveis mais baixos.
 - Para crianças: **ANA** (3º ano, 2013–2016), **Saeb** (2º ano, desde 2019) e o **Indicador Criança Alfabetizada** (56% em 2023, 59,2% em 2024 e 66% em 2025).
-- A **meta 9 do PNE** de 2014 (erradicar o analfabetismo até 2024) não foi cumprida.
+- A **meta 9 do PNE** de 2014 (erradicar o analfabetismo até o fim do plano, prorrogado até 2025) não foi cumprida.
 - Ao ler um número: que pesquisa, quem, que ano, mede o quê, dá para comparar, quem divulgou.
 
 ```roda
