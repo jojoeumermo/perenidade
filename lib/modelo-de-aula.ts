@@ -62,14 +62,18 @@ const TITULOS_DO_ENEM: Record<SecaoDoEnem, RegExp> = {
 };
 /** Trilhas do percurso que são de orientação (como a prova funciona, estratégia): não levam as seções de conteúdo. */
 export const TRILHAS_DE_ORIENTACAO = ["enem-como-funciona", "enem-estrategia-de-prova"];
-/** Na redação não há questão de múltipla escolha: a "questão comentada" é a própria redação-modelo. */
-const SEM_QUESTAO = /^enem-redacao/;
+/** Aulas de orientação dentro de trilhas de conteúdo ("trilha/aula"). */
+export const AULAS_DE_ORIENTACAO = ["enem-reta-final/como-usar-a-reta-final", "enem-reta-final/a-vespera-e-o-dia-da-prova"];
+/** Aula de orientação: não ensina conteúdo da Matriz (nem leva as etiquetas de área nos exercícios). */
+export const ehOrientacao = (trilha: string, aula: string) => TRILHAS_DE_ORIENTACAO.includes(trilha) || AULAS_DE_ORIENTACAO.includes(`${trilha}/${aula}`);
+/** Aula de redação: não há questão de múltipla escolha (a "questão comentada" é o trecho de redação comentado) nem área da Matriz. */
+export const ehRedacao = (trilha: string, aula: string) => /^enem-redacao/.test(trilha) || /^redacao-/.test(aula);
 
 /** Que seções do percurso ENEM faltam numa aula (vazio para trilhas fora do percurso ou de orientação). */
-export function conferirSecoesDoEnem(trilha: string, corpo: string): SecaoDoEnem[] {
-  if (!trilha.startsWith("enem-") || TRILHAS_DE_ORIENTACAO.includes(trilha)) return [];
+export function conferirSecoesDoEnem(trilha: string, corpo: string, aula = ""): SecaoDoEnem[] {
+  if (!trilha.startsWith("enem-") || ehOrientacao(trilha, aula)) return [];
   const lista = titulos(corpo);
-  return SECOES_DO_ENEM.filter((s) => !(s === "questao-comentada" && SEM_QUESTAO.test(trilha)) && !lista.some((t) => TITULOS_DO_ENEM[s].test(t)));
+  return SECOES_DO_ENEM.filter((s) => !(s === "questao-comentada" && ehRedacao(trilha, aula)) && !lista.some((t) => TITULOS_DO_ENEM[s].test(t)));
 }
 
 // ───────────── Revisões ─────────────
