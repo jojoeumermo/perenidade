@@ -4744,6 +4744,58 @@ a.busca-campo:focus-visible {
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .mesa-de-previa {
     background-color: #2b2822;
   }
+  /* Etiqueta pautada das capas dos cadernos: papel escuro, pauta discreta. */
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .etiqueta {
+    border-color: #4a443a;
+    background-color: #1d1b17;
+    background-image: repeating-linear-gradient(#1d1b17 0 21px, #2b2822 21px 22px);
+    color: var(--ink);
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .etiqueta [class*="text-[#5a4e3c]"] {
+    color: #a9a196;
+  }
+  /* Botão principal de tinta e afins (botões e links com fundo de tinta): no escuro viram o vermelho do prelo com letra branca
+     (5,3:1). Ficam de fora o painel da equipe, a área infantil e a faixa da rádio, que têm o seu próprio desenho. */
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta,
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) :is(a, button).bg-ink:not(.painel *, .area-infantil *, .radio-player *),
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .caderno-lombada[aria-pressed="true"] {
+    border-color: var(--prelo);
+    background-color: var(--prelo);
+    color: #fff;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta {
+    box-shadow: 4px 4px 0 var(--sombra);
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover,
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) :is(a, button).bg-ink:not(.painel *, .area-infantil *, .radio-player *):hover {
+    border-color: #a8281f;
+    background-color: #a8281f;
+    color: #fff;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover {
+    box-shadow: 6px 6px 0 var(--sombra);
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta:active {
+    box-shadow: 0 0 0 var(--sombra);
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-menor.botao-tinta {
+    box-shadow: 3px 3px 0 var(--sombra);
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) :is(.botao-tinta, :is(a, button).bg-ink) :is(.text-parchment, .text-ink-soft) {
+    color: inherit;
+  }
+  /* Etiquetas de tinta (tarja de seção, rótulos): no escuro, papel um tom acima com fio, em vez de uma placa clara. */
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .tarja-nome,
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) :is(span, h2, h3, h4, p, strong, small, li).bg-ink.text-parchment:not(.painel *, .area-infantil *, .radio-player *) {
+    background-color: #2b2822;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px #4a443a;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .tarja-v .tarja-nome {
+    background-color: var(--prelo);
+    color: #fff;
+    box-shadow: none;
+  }
 }
 /* Bilhete amarelo (anotação da aula, tarefas do Despertar): papel escuro com a tarja ipê no alto. */
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .bilhete {
@@ -4802,4 +4854,56 @@ a.busca-campo:focus-visible {
 /* A mesa cinza em volta da prévia do cartaz (a prévia continua clara: é o que vai para a impressão). */
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .mesa-de-previa {
   background-color: #2b2822;
+}
+/* Etiqueta pautada das capas dos cadernos: papel escuro, pauta discreta. */
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .etiqueta {
+  border-color: #4a443a;
+  background-color: #1d1b17;
+  background-image: repeating-linear-gradient(#1d1b17 0 21px, #2b2822 21px 22px);
+  color: var(--ink);
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .etiqueta [class*="text-[#5a4e3c]"] {
+  color: #a9a196;
+}
+/* Botão principal de tinta e afins (botões e links com fundo de tinta): no escuro viram o vermelho do prelo com letra branca
+   (5,3:1). Ficam de fora o painel da equipe, a área infantil e a faixa da rádio, que têm o seu próprio desenho. */
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta,
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) :is(a, button).bg-ink:not(.painel *, .area-infantil *, .radio-player *),
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .caderno-lombada[aria-pressed="true"] {
+  border-color: var(--prelo);
+  background-color: var(--prelo);
+  color: #fff;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta {
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover,
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) :is(a, button).bg-ink:not(.painel *, .area-infantil *, .radio-player *):hover {
+  border-color: #a8281f;
+  background-color: #a8281f;
+  color: #fff;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover {
+  box-shadow: 6px 6px 0 var(--sombra);
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta:active {
+  box-shadow: 0 0 0 var(--sombra);
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-menor.botao-tinta {
+  box-shadow: 3px 3px 0 var(--sombra);
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) :is(.botao-tinta, :is(a, button).bg-ink) :is(.text-parchment, .text-ink-soft) {
+  color: inherit;
+}
+/* Etiquetas de tinta (tarja de seção, rótulos): no escuro, papel um tom acima com fio, em vez de uma placa clara. */
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .tarja-nome,
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) :is(span, h2, h3, h4, p, strong, small, li).bg-ink.text-parchment:not(.painel *, .area-infantil *, .radio-player *) {
+  background-color: #2b2822;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px #4a443a;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .tarja-v .tarja-nome {
+  background-color: var(--prelo);
+  color: #fff;
+  box-shadow: none;
 }
