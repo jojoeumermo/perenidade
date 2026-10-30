@@ -182,3 +182,9 @@ export function conferirLinhas(testes: Teste[], linhas: unknown[][]): boolean[] 
 
 /** Rascunho do projeto neste aparelho (só aqui; nada vai para servidor). */
 export const chaveDoRascunho = (perfil: Perfil, exercicio?: string) => `lucia:lab:${perfil}:${exercicio ?? "livre"}`;
+
+/**
+ * Os baralhos do jogo Rumos (lib/rumos.ts), na ordem da página de jogos. Cada um mora em content/jogos/rumos-<id>.json,
+ * é importado em app/[lang]/laboratorios/jogos/page.tsx e passa pelo validador no build e em `npm run testar:jogos`.
+ */
+export const BARALHOS_DE_RUMOS = ["historia-do-brasil", "filosofia-e-sociologia", "politica-e-cidadania", "revisao-enem"] as const;
