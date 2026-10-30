@@ -5,6 +5,8 @@ aprovação.** As decisões em que escolhi o lado mais conservador estão marcad
 
 ## 0. Decisões que pedem um sim ou um não
 
+**Aprovadas todas as 7 em 30/10/2026.**
+
 1. Idade mínima **18** (hoje 16). Conta abaixo disso fica fora só da Rede, com mensagem gentil; o resto do site continua aberto. **(c)**
 2. A linha **Tudo** e as comunidades de luta ficam para **membros logados**; só as comunidades das disciplinas (o fórum de
    dúvidas de hoje) continuam abertas a quem não tem conta, sem indexação por padrão. **(c)**
