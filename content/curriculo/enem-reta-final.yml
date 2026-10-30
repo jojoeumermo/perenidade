@@ -1,0 +1,143 @@
+# Mapa curricular da trilha enem-reta-final (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+# Formato: docs/ENEM.md, seção 5. Tudo a-confirmar.
+fontes:
+  - "Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf"
+aulas:
+  formulario-de-matematica:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: "Resolver problemas com conhecimentos numéricos."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: "Resolver problemas de geometria de espaço e forma."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 11
+        resumo: "Usar escalas para ler representações do cotidiano."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 16
+        resumo: "Resolver problemas com grandezas direta ou inversamente proporcionais."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 21
+        resumo: "Resolver problemas cuja modelagem pede álgebra."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 27
+        resumo: "Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 28
+        resumo: "Resolver problemas de estatística e probabilidade."
+        situacao: a-confirmar
+    objetos:
+      - mat-numeros-porcentagem
+      - mat-numeros-aumentos-e-descontos
+      - mat-numeros-juros-simples
+      - mat-numeros-juros-compostos
+      - mat-numeros-razao-e-proporcao
+      - mat-geometria-escalas
+      - mat-geometria-areas
+      - mat-geometria-circunferencia
+      - mat-geometria-prismas-e-cilindros
+      - mat-geometria-piramides-e-cones
+      - mat-geometria-esfera
+      - mat-geometria-pitagoras
+      - mat-geometria-trigonometria
+      - mat-estatistica-media-mediana-moda
+      - mat-estatistica-media-ponderada
+      - mat-estatistica-probabilidade
+      - mat-estatistica-eventos-independentes
+      - mat-numeros-contagem
+      - mat-numeros-arranjos-e-combinacoes
+      - mat-algebra-funcao-afim
+      - mat-algebra-funcao-quadratica
+      - mat-numeros-progressoes
+      - mat-algebra-logaritmos
+  formulario-de-fisica:
+    enem:
+      - area: natureza
+        competencia: 1
+        habilidade: 1
+        resumo: "Reconhecer propriedades de ondas e oscilações e seus usos."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 2
+        habilidade: 5
+        resumo: "Dimensionar circuitos e aparelhos elétricos do dia a dia."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: "Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 20
+        resumo: "Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: "Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 23
+        resumo: "Avaliar formas de gerar, usar ou transformar energia, com suas implicações."
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-movimento-cinematica
+      - nat-fis-movimento-queda-e-lancamentos
+      - nat-fis-movimento-leis-de-newton
+      - nat-fis-movimento-hidrostatica
+      - nat-fis-energia-trabalho-e-energia
+      - nat-fis-energia-potencia-e-rendimento
+      - nat-fis-calor-temperatura-e-dilatacao
+      - nat-fis-calor-trocas-de-calor
+      - nat-fis-ondas-ondas-e-som
+      - nat-fis-ondas-espectro
+      - nat-fis-ondas-reflexao-e-espelhos
+      - nat-fis-ondas-refracao-e-lentes
+      - nat-fis-eletricidade-lei-de-ohm
+      - nat-fis-eletricidade-circuitos
+      - nat-fis-eletricidade-consumo
+  formulario-de-quimica:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: "Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: "Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: "Usar a linguagem e a nomenclatura da química para descrever materiais e transformações."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 25
+        resumo: "Caracterizar materiais e substâncias: etapas, rendimentos e impactos de sua produção."
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-representacao-mol
+      - nat-qui-representacao-estequiometria
+      - nat-qui-agua-solucoes
+      - nat-qui-equilibrio-ph
+      - nat-qui-transformacoes-gases
+      - nat-qui-energia-termoquimica

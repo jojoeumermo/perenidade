@@ -1,0 +1,151 @@
+# Exercícios da aula "Formulário de matemática" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-form-01
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  dificuldade: 1
+  enunciado: "Um salário de R$ 1.800,00 tem um desconto de 7,5%. De quanto é o desconto?"
+  alternativas:
+    - texto: "R$ 13,50"
+      erro: "A vírgula andou uma casa a mais: você fez 1.800 × 0,0075. Lembre que 7,5% é 7,5 ÷ 100 = 0,075."
+    - texto: "R$ 75,00"
+      erro: "Você usou só o número da taxa. A porcentagem é sempre de alguma coisa: multiplique 0,075 pelo salário."
+    - texto: "R$ 135,00"
+      certa: true
+    - texto: "R$ 180,00"
+      erro: "180 é 10% de 1.800. A taxa é 7,5%, um pouco menos: 1.800 × 0,075."
+    - texto: "R$ 1.665,00"
+      erro: "Esse é o salário depois do desconto (1.800 − 135). A pergunta pede o valor do desconto."
+  explicacao: "7,5% = 0,075. O desconto é 1.800 × 0,075 = 135. Um jeito sem calculadora: 10% de 1.800 é 180; 5% é 90; 2,5% é 45; 5% + 2,5% = 90 + 45 = 135."
+  conferir: "1800 * 0.075"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-form-02
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma trabalhadora precisou de R$ 1.000,00 emprestados para consertar a geladeira. A financeira cobra juros
+    compostos de 10% ao mês, e ela vai pagar tudo de uma vez, ao fim de 2 meses.
+  enunciado: "O valor que ela vai pagar ao fim dos 2 meses é de"
+  alternativas:
+    - texto: "R$ 1.210,00"
+      certa: true
+    - texto: "R$ 1.200,00"
+      erro: "Esse seria o valor a juros simples (10% de 1.000 em cada mês). Nos juros compostos, o 2º mês cobra 10% sobre 1.100, não sobre 1.000."
+    - texto: "R$ 1.100,00"
+      erro: "Esse é o valor depois de 1 mês só. Falta aplicar os juros do 2º mês sobre 1.100."
+    - texto: "R$ 1.020,00"
+      erro: "A taxa foi lida como 1% ao mês. 10% em número decimal é 0,1, e o fator de cada mês é 1,1."
+    - texto: "R$ 2.000,00"
+      erro: "Você multiplicou o valor pelo número de meses. Os juros são uma porcentagem sobre o valor, não o valor inteiro de novo."
+  explicacao: "M = C · (1 + i)ᵗ = 1.000 × 1,1² = 1.000 × 1,21 = 1.210. Mês a mês: 1.000 + 100 = 1.100; 1.100 + 110 = 1.210."
+  conferir: "1000 * 1.1^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-form-03
+  tema: "Teorema de Pitágoras"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  dificuldade: 1
+  enunciado: "Uma escada de 5 m está apoiada num muro. O pé da escada fica a 3 m da base do muro, no chão plano. A que altura do muro a escada encosta?"
+  alternativas:
+    - texto: "2 m"
+      erro: "Você subtraiu os lados (5 − 3). No Pitágoras, quem se subtrai são os quadrados: 25 − 9."
+    - texto: "8 m"
+      erro: "Você somou os lados. A escada é a hipotenusa, o maior lado: a altura tem de ser menor que 5 m."
+    - texto: "16 m"
+      erro: "16 é o quadrado da altura (25 − 9). Falta tirar a raiz quadrada: √16 = 4."
+    - texto: "34 m"
+      erro: "Você somou os quadrados (25 + 9) e tratou a altura como hipotenusa. A hipotenusa é a escada, de 5 m."
+    - texto: "4 m"
+      certa: true
+  explicacao: "A escada, o muro e o chão formam um triângulo retângulo; a escada é a hipotenusa. 5² = 3² + h², então h² = 25 − 9 = 16 e h = 4 m."
+  conferir: "sqrt(5^2 - 3^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-form-04
+  tema: "Média, mediana e moda"
+  area: matematica
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 2
+  enunciado: "Num cursinho popular, as notas de um simulado de 5 estudantes foram 4, 6, 6, 7 e 10. Qual é a média aritmética?"
+  alternativas:
+    - texto: "6"
+      erro: "6 é a mediana (o valor do meio) e também a moda (o que mais se repete). A média soma tudo e divide por 5."
+    - texto: "6,6"
+      certa: true
+    - texto: "7"
+      erro: "Você fez a média só da menor e da maior nota, (4 + 10) ÷ 2. A média usa todas as notas."
+    - texto: "8,25"
+      erro: "A soma está certa (33), mas a divisão foi por 4. São 5 estudantes: divida por 5."
+    - texto: "33"
+      erro: "33 é a soma das notas. Falta dividir pela quantidade de notas, 5."
+  explicacao: "Soma: 4 + 6 + 6 + 7 + 10 = 33. Média: 33 ÷ 5 = 6,6."
+  conferir: "(4 + 6 + 6 + 7 + 10) / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-form-05
+  tema: "Combinações"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-arranjos-e-combinacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma associação de moradores tem 6 voluntários disponíveis para formar a comissão que vai levar um abaixo-assinado
+    à prefeitura. A comissão terá 3 pessoas, todas com a mesma função.
+  enunciado: "O número de comissões diferentes que podem ser formadas é"
+  alternativas:
+    - texto: "18"
+      erro: "Você multiplicou 6 por 3. Isso não conta os grupos possíveis: use C(6, 3) = 6! ÷ (3! · 3!)."
+    - texto: "120"
+      erro: "120 é o arranjo (6 × 5 × 4), que conta a ordem. Como as três pessoas têm a mesma função, a ordem não importa: divida por 3! = 6."
+    - texto: "216"
+      erro: "Você fez 6 × 6 × 6, como se a mesma pessoa pudesse ser escolhida mais de uma vez. Cada voluntário entra uma vez só."
+    - texto: "20"
+      certa: true
+    - texto: "720"
+      erro: "720 é 6!, o número de jeitos de pôr as 6 pessoas em fila. A comissão escolhe só 3, sem ordem."
+  explicacao: "A ordem não importa (as funções são iguais), então é combinação: C(6, 3) = (6 × 5 × 4) ÷ (3 × 2 × 1) = 120 ÷ 6 = 20."
+  conferir: "(6 * 5 * 4) / (3 * 2 * 1)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-form-06
+  tema: "Função quadrática"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa de costura estudou o lucro mensal L, em reais, com a venda de bolsas. Concluiu que, vendendo
+    cada bolsa por x reais, o lucro é dado por L(x) = −x² + 40x − 300, para x entre 10 e 30.
+  enunciado: "O maior lucro mensal que a cooperativa pode ter, segundo esse modelo, é de"
+  alternativas:
+    - texto: "R$ 20,00"
+      erro: "20 é o preço que dá o maior lucro (o x do vértice, −40 ÷ (2 × −1)). A pergunta pede o lucro: calcule L(20)."
+    - texto: "R$ 100,00"
+      certa: true
+    - texto: "R$ 300,00"
+      erro: "300 é o termo sem x, com o sinal trocado. Ele não é o máximo: o máximo é o y do vértice."
+    - texto: "R$ 400,00"
+      erro: "400 é o delta (40² − 4 × (−1) × (−300) = 1.600 − 1.200). Falta dividir: y do vértice = −Δ ÷ (4a) = −400 ÷ (−4)."
+    - texto: "R$ 700,00"
+      erro: "O sinal do −300 foi trocado na conta de L(20): −400 + 800 + 300. Refaça com −300: −400 + 800 − 300."
+  explicacao: "Como a = −1 é negativo, a parábola tem um máximo no vértice. x do vértice = −b ÷ (2a) = −40 ÷ (−2) = 20. L(20) = −400 + 800 − 300 = 100. Também dá pelo y do vértice: −Δ ÷ (4a) = −400 ÷ (−4) = 100."
+  conferir: "-(20^2) + 40 * 20 - 300"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
