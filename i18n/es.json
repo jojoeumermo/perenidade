@@ -4842,6 +4842,7 @@
     "mistakesLead": "Las preguntas que fallaste en las clases, en el banco de preguntas, en los simulacros y aquí en el cuaderno. Acierta dos veces seguidas y sale de la lista.",
     "mistakesEmpty": "No hay errores guardados. Cuando falles una pregunta en una clase o en un simulacro, aparecerá aquí.",
     "mistakesRedo": "Rehacer los errores",
+    "mistakesWeek": "Repasar los errores de la semana ({n})",
     "mistakesCount": "{n} preguntas para repasar",
     "yourAnswer": "Marcaste",
     "rightAnswer": "Respuesta correcta",

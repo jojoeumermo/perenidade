@@ -22,6 +22,8 @@ export interface Erro {
   quando: number;
   /** Acertos seguidos ao refazer: com dois, a questão sai da lista. */
   seguidos: number;
+  /** Quantas vezes a pessoa já errou esta questão (o erro que se repete sobe na fila de refazer). */
+  vezes?: number;
 }
 
 const CHAVE_ERROS = "lucia:erros";
@@ -55,10 +57,11 @@ export function idDaQuestao(pergunta: string, opcoes: string[]): string {
 
 export const lerErros = () => ler<Erro>(CHAVE_ERROS);
 
-export function registrarErro(q: Omit<Erro, "id" | "quando" | "seguidos"> & { id?: string }) {
+export function registrarErro(q: Omit<Erro, "id" | "quando" | "seguidos" | "vezes"> & { id?: string }) {
   const id = q.id ?? idDaQuestao(q.pergunta, q.opcoes);
+  const antes = lerErros().find((e) => e.id === id);
   const lista = lerErros().filter((e) => e.id !== id);
-  lista.unshift({ ...q, id, quando: Date.now(), seguidos: 0 });
+  lista.unshift({ ...q, id, quando: Date.now(), seguidos: 0, vezes: (antes?.vezes ?? 1) + (antes ? 1 : 0) });
   gravar(CHAVE_ERROS, lista.slice(0, MAX_ERROS));
 }
 
@@ -68,10 +71,22 @@ export function refazerErro(id: string, acertou: boolean, escolhida: number): bo
   const e = lista.find((x) => x.id === id);
   if (!e) return false;
   if (acertou) e.seguidos += 1;
-  else Object.assign(e, { seguidos: 0, escolhida, quando: Date.now() });
+  else Object.assign(e, { seguidos: 0, escolhida, quando: Date.now(), vezes: (e.vezes ?? 1) + 1 });
   const saiu = e.seguidos >= 2;
   gravar(CHAVE_ERROS, saiu ? lista.filter((x) => x.id !== id) : lista);
   return saiu;
+}
+
+/**
+ * A fila para refazer os erros: primeiro os que mais se repetem; entre os empatados, a ordem sorteada.
+ * Com `desde`, só os erros feitos (ou repetidos) a partir dessa hora: é o "revisar os erros da semana".
+ */
+export function filaDeErros(erros: Erro[], desde?: number, sorteio: () => number = Math.random): string[] {
+  return erros
+    .filter((e) => desde === undefined || e.quando >= desde)
+    .map((e) => ({ e, s: sorteio() }))
+    .sort((a, b) => (b.e.vezes ?? 1) - (a.e.vezes ?? 1) || a.s - b.s)
+    .map(({ e }) => e.id);
 }
 
 export const apagarErro = (id: string) => gravar(CHAVE_ERROS, lerErros().filter((e) => e.id !== id));

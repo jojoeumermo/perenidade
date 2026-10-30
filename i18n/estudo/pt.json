@@ -364,7 +364,9 @@
       "tri": "Laboratório da TRI",
       "triTexto": "Por que o mesmo número de acertos pode dar notas diferentes. Não calcula a nota oficial.",
       "sisu": "Média ponderada do Sisu",
-      "sisuTexto": "As suas notas e os pesos do curso que você quer, na conta do Sisu."
+      "sisuTexto": "As suas notas e os pesos do curso que você quer, na conta do Sisu.",
+      "oficina": "Oficina de redação",
+      "oficinaTexto": "Proposta, planejamento, folha de 30 linhas com relógio e banco de repertório."
     },
     "irParaCurso": "Abrir o curso ENEM completo: diagnóstico, plano, provas oficiais resolvidas, redação e reta final",
     "emBreve": "Em preparação",
@@ -586,6 +588,60 @@
       "resultado": "Média ponderada: {m}",
       "conta": "Média ponderada = (nota 1 × peso 1 + … + nota 5 × peso 5) ÷ (peso 1 + … + peso 5)",
       "semCorte": "Aqui não há nota de corte: ela muda a cada edição e está no próprio Sisu, assim como os pesos de cada curso."
+    },
+    "oficina": {
+      "titulo": "Oficina de redação",
+      "lead": "Uma proposta de treino, o planejamento guiado, a folha de 30 linhas com o relógio e a revisão pelas cinco competências. Tudo fica neste aparelho; ninguém corrige por você aqui. Para ter uma correção, leve o texto à aula de reforço ou ao educador da sua sala.",
+      "proposta": "Escolha a proposta",
+      "escolha": "Proposta de treino",
+      "emRevisao": "Proposta original do instituto, em revisão pela equipe.",
+      "oQueOTemaPede": "O que o tema pede (leia depois de planejar)",
+      "planejar": "Planeje",
+      "planejarLead": "Antes de escrever, responda em poucas palavras. O que você escrever fica guardado neste aparelho.",
+      "passos": {
+        "tema": "O tema, com as suas palavras",
+        "recorte": "O recorte: qual parte do problema você vai discutir",
+        "tese": "A sua tese, numa frase",
+        "argumento1": "Argumento 1 e o repertório que o sustenta",
+        "argumento2": "Argumento 2 e o repertório que o sustenta",
+        "intervencao": "Proposta de intervenção: agente, ação, meio, finalidade e detalhamento"
+      },
+      "escrever": "Escreva no tempo",
+      "minutos": "Minutos",
+      "iniciar": "Iniciar o relógio",
+      "parar": "Parar o relógio",
+      "acabou": "Tempo esgotado",
+      "tempoDica": "Na prova, a redação divide o 1º dia com Linguagens e Humanas. Muita gente reserva perto de uma hora e meia para ela; treine com o tempo que funcionar para você.",
+      "repertorio": "Banco de repertório",
+      "repertorioLead": "Leis, dados, obras e conceitos com fonte, e como ligar cada um ao tema. Repertório só vale quando serve ao seu argumento.",
+      "buscar": "Buscar",
+      "eixo": "Eixo",
+      "todos": "Todos",
+      "achados": "{n} itens",
+      "coringa": "serve a muitos temas",
+      "comoUsar": "Como usar",
+      "eixos": {
+        "educacao": "Educação",
+        "saude": "Saúde",
+        "meio-ambiente": "Meio ambiente",
+        "trabalho": "Trabalho",
+        "tecnologia": "Tecnologia",
+        "cultura": "Cultura",
+        "cidadania": "Cidadania",
+        "desigualdade": "Desigualdade",
+        "violencia": "Violência",
+        "direitos-humanos": "Direitos humanos",
+        "minorias": "Minorias"
+      }
+    },
+    "progresso": {
+      "titulo": "No curso ENEM",
+      "lead": "O que você já fez nas provas e simulados do curso, neste aparelho. Não é nota: serve para escolher o que revisar.",
+      "porArea": "Acertos por área, somando tudo",
+      "linhaArea": "{area}: {a} de {b}",
+      "revisar": "Habilidades para revisar primeiro",
+      "feitas": "Provas e simulados feitos",
+      "linhaProva": "{titulo} ({data}): {a} de {b}"
     }
   }
 }

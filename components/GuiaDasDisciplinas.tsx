@@ -14,7 +14,7 @@ import { useI18n } from "./I18n";
  * disciplinas em ordem, cada uma com a primeira aula, ou três caminhos para escolher um. A resposta fica guardada
  * neste navegador ("objetivo:etapa"), para o caminho continuar ali na próxima visita; "Refazer" apaga.
  */
-export function GuiaDasDisciplinas({ caminhos, s, etapas }: { caminhos: Record<Objetivo, Record<Stage, PassoDoGuia[]>>; s: Dict["tracks"]["guide"]; etapas: readonly Stage[] }) {
+export function GuiaDasDisciplinas({ caminhos, s, etapas, cursoEnem }: { caminhos: Record<Objetivo, Record<Stage, PassoDoGuia[]>>; s: Dict["tracks"]["guide"]; etapas: readonly Stage[]; /** Com o curso ENEM ligado (recurso "enem-curso"), o texto do link para /enem. */ cursoEnem?: string }) {
   const { lang, t } = useI18n();
   const hydrated = useHydrated();
   const guardado = useStored(KEYS.guia);
@@ -107,6 +107,11 @@ export function GuiaDasDisciplinas({ caminhos, s, etapas }: { caminhos: Record<O
                 <Link href={localePath(lang, extra === "despertar" ? "/despertar" : "/nivelamento")} className="underline underline-offset-4 hover:text-prelo-texto">
                   {extra === "despertar" ? s.extraDespertar : s.extraNivelamento}
                 </Link>
+              </p>
+            )}
+            {objetivo === "enem" && cursoEnem && (
+              <p className="mt-4 font-sans text-sm">
+                <Link href={localePath(lang, "/enem")} className="font-semibold underline underline-offset-4 hover:text-prelo-texto">{cursoEnem} →</Link>
               </p>
             )}
             <p className="mt-3 font-sans text-sm text-ink-soft">{s.also}</p>

@@ -4842,6 +4842,7 @@
     "mistakesLead": "The questions you got wrong in lessons, in the question bank, in mock exams and here in the notebook. Get one right twice in a row and it leaves the list.",
     "mistakesEmpty": "No mistakes saved. When you miss a question in a lesson or a mock exam, it shows up here.",
     "mistakesRedo": "Redo the mistakes",
+    "mistakesWeek": "Review this week's mistakes ({n})",
     "mistakesCount": "{n} questions to review",
     "yourAnswer": "You chose",
     "rightAnswer": "Right answer",

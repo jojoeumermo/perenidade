@@ -11,7 +11,7 @@ import { fill, localePath } from "@/i18n/config";
 import { areaTools } from "@/lib/areas";
 import { getTracks } from "@/lib/content";
 import { formatarFato } from "@/lib/enem";
-import { classificacoesDoEnem, edicaoDoEnem, simuladosDoEnem } from "@/lib/enem-conteudo";
+import { classificacoesDoEnem, edicaoDoEnem, redacaoDoEnem, simuladosDoEnem } from "@/lib/enem-conteudo";
 import { lessonId } from "@/lib/ids";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
@@ -87,6 +87,7 @@ export default async function Page({ params }: PageProps<"/[lang]/enem">) {
         <Secao titulo={s.secoes.provas} texto={s.secoes.provasTexto} href={to("/enem/provas")} emBreve={s.emBreve} />
         <Secao titulo={s.secoes.simulados} texto={s.secoes.simuladosTexto} href={temRota.diagnostico ? to("/enem/simulados") : undefined} emBreve={s.emBreve} />
         <Secao titulo={s.secoes.redacao} texto={s.secoes.redacaoTexto} href={trilha("enem-redacao") ? to("/trilhas/enem-redacao") : undefined} emBreve={s.emBreve} />
+        <Secao titulo={s.secoes.oficina} texto={s.secoes.oficinaTexto} href={redacaoDoEnem().propostas.length ? to("/enem/redacao") : undefined} emBreve={s.emBreve} />
         <Secao titulo={s.secoes.retaFinal} texto={s.secoes.retaFinalTexto} href={trilha("enem-reta-final") ? to("/trilhas/enem-reta-final") : undefined} emBreve={s.emBreve} />
         <Secao titulo={s.secoes.diaDaProva} texto={s.secoes.diaDaProvaTexto} href={to("/enem/dia-da-prova")} emBreve={s.emBreve} />
       </div>
