@@ -7,11 +7,11 @@ import { PAINEL_REMOTO, transmitir } from "@/lib/tempo-real";
 
 // O painel é a mesa de trabalho da equipe e existe só em português.
 
-export const campo = "painel-campo mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
-export const botao = "painel-botao cursor-pointer bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
-export const botaoClaro = "painel-botao cursor-pointer border-2 border-ink px-5 py-2 font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
+export const campo = "painel-campo mt-1 w-full border border-ink bg-folha px-3 py-2";
+export const botao = "painel-botao painel-botao-principal cursor-pointer px-5 py-2.5 font-semibold disabled:cursor-not-allowed disabled:opacity-50";
+export const botaoClaro = "painel-botao painel-botao-claro cursor-pointer border px-5 py-2 font-semibold disabled:cursor-not-allowed disabled:opacity-50";
 export const elo = "cursor-pointer underline hover:text-oxblood";
-export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
+export const rotulo = "painel-rotulo text-xs font-semibold uppercase text-ink-soft";
 
 export const papeis: Record<Role["papel"], string> = {
   coordenacao: "Coordenação comunitária",
@@ -274,7 +274,7 @@ export function Aviso({ texto }: { texto: string }) {
 /** Divisões dentro de uma seção do painel, para aparecer uma coisa de cada vez. */
 export function Abas<T extends string>({ opcoes, atual, escolher }: { opcoes: { id: T; nome: string; conta?: number }[]; atual: T; escolher: (id: T) => void }) {
   return (
-    <div role="tablist" className="mb-6 flex flex-wrap gap-x-6 gap-y-1 border-b-2 border-ink">
+    <div role="tablist" className="mb-6 flex flex-wrap gap-x-6 gap-y-1 border-b border-rule">
       {opcoes.map((opcao) => (
         <button
           key={opcao.id}
@@ -282,10 +282,10 @@ export function Abas<T extends string>({ opcoes, atual, escolher }: { opcoes: { 
           role="tab"
           aria-selected={atual === opcao.id}
           onClick={() => escolher(opcao.id)}
-          className={`painel-aba -mb-0.5 cursor-pointer border-b-4 pb-2 ${atual === opcao.id ? "border-[#c21f16] font-semibold text-ink" : "border-transparent text-ink-soft hover:border-rule hover:text-ink"}`}
+          className={`painel-aba -mb-px cursor-pointer border-b-2 pb-2 ${atual === opcao.id ? "border-[#c21f16] font-semibold text-ink" : "border-transparent text-ink-soft hover:border-rule hover:text-ink"}`}
         >
           {opcao.nome}
-          {Boolean(opcao.conta) && <span className="ml-1.5 bg-oxblood px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold text-parchment">{opcao.conta}</span>}
+          {Boolean(opcao.conta) && <span className="painel-pilula ml-1.5 bg-[#c21f16] px-1.5 py-0.5 text-[0.7rem] font-semibold text-white">{opcao.conta}</span>}
         </button>
       ))}
     </div>

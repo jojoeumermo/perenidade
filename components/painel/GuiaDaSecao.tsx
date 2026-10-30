@@ -85,10 +85,10 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
       </button>
 
       {convite && !aberto && (
-        <p role="status" className="no-print mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-2 border-ink bg-[#1f1a14] px-4 py-3 text-[#f4ecd8] shadow-[4px_4px_0_var(--prelo)]">
-          <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[#e0837a]">Primeira vez aqui?</span>
-          <span className="min-w-0 flex-1">{guia.paraQue} Veja como funciona em {guia.passos.length} passos.</span>
-          <button type="button" onClick={abrir} className="cursor-pointer border-2 border-[#f4ecd8] bg-[#c21f16] px-3 py-1 font-bold text-white hover:bg-[#a51810]">
+        <p role="status" className="no-print mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border border-ink bg-folha px-4 py-3 text-ink">
+          <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">Primeira vez aqui?</span>
+          <span className="min-w-[min(100%,14rem)] flex-1">{guia.paraQue} Veja como funciona em {guia.passos.length} passos.</span>
+          <button type="button" onClick={abrir} className="cursor-pointer bg-[#c21f16] px-3 py-1 font-bold text-white hover:bg-[#a51810]">
             Ver o passo a passo
           </button>
           <button
@@ -97,7 +97,7 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
               setConvite(false);
               marcarVisto(id);
             }}
-            className="cursor-pointer underline hover:text-white"
+            className="cursor-pointer underline hover:text-prelo-texto"
           >
             Agora não
           </button>
@@ -112,7 +112,7 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
                 // sem armazenamento
               }
             }}
-            className="cursor-pointer underline hover:text-white"
+            className="cursor-pointer underline hover:text-prelo-texto"
           >
             Não oferecer em outras seções
           </button>
