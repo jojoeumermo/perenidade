@@ -5,7 +5,9 @@ import { useState } from "react";
 import Link from "@/components/Link";
 import { fill, localePath } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import type { Baralho } from "@/lib/rumos";
 import { useI18n } from "../I18n";
+import { Rumos } from "./Rumos";
 
 type Placar = { unidade: number; fundo: number; pressao: number; apoio: number };
 interface Escolha {
@@ -282,10 +284,12 @@ function QuemDisse({ frases, s }: { frases: Frase[]; s: S }) {
   );
 }
 
-/** Os jogos de formação: abas para Greve!, Linha do tempo e Quem disse? Tudo roda no aparelho, sem placar guardado. */
-export function JogosDeFormacao({ greve, fatos, frases, s }: { greve: DadosDaGreve; fatos: Fato[]; frases: Frase[]; s: S }) {
-  const [aba, setAba] = useState<"greve" | "tempo" | "frases">("greve");
-  const abas: ["greve" | "tempo" | "frases", string][] = [
+/** Os jogos de formação: abas para Rumos, Greve!, Linha do tempo e Quem disse? Tudo roda no aparelho, sem placar guardado (Rumos lembra só as partidas e os desfechos vistos). */
+export function JogosDeFormacao({ baralhos, greve, fatos, frases, s }: { baralhos: Baralho[]; greve: DadosDaGreve; fatos: Fato[]; frases: Frase[]; s: S }) {
+  type Aba = "rumos" | "greve" | "tempo" | "frases";
+  const [aba, setAba] = useState<Aba>("rumos");
+  const abas: [Aba, string][] = [
+    ["rumos", s.rumos.title],
     ["greve", s.strike],
     ["tempo", s.timeline],
     ["frases", s.quotes],
@@ -300,6 +304,7 @@ export function JogosDeFormacao({ greve, fatos, frases, s }: { greve: DadosDaGre
         ))}
       </div>
       <div className="mt-6">
+        {aba === "rumos" && <Rumos baralhos={baralhos} s={s.rumos} />}
         {aba === "greve" && <Greve dados={greve} s={s} />}
         {aba === "tempo" && <LinhaDoTempo fatos={fatos} s={s} />}
         {aba === "frases" && <QuemDisse frases={frases} s={s} />}
