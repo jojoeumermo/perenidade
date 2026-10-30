@@ -18,22 +18,26 @@ fontes:
     url: "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12612.htm"
 quiz:
   - pergunta: "O que Freire chamou de educação bancária?"
-    opcoes: ["A educação em que o professor deposita conteúdos no aluno, visto como recipiente vazio", "A educação financeira", "O ensino em bancos"]
-    resposta: 0
+    opcoes: ["A educação financeira", "A educação em que o professor deposita conteúdos no aluno, visto como recipiente vazio", "O ensino em bancos"]
+    resposta: 1
     explicacao: "Freire opõe a ela uma educação dialógica e problematizadora."
   - pergunta: "De onde vêm as palavras geradoras?"
-    opcoes: ["De uma cartilha nacional igual para todos", "Da pesquisa do universo vocabular do grupo: palavras carregadas de sentido na vida dos educandos", "Do dicionário"]
-    resposta: 1
+    opcoes: ["De uma cartilha nacional igual para todos", "Do dicionário", "Da pesquisa do universo vocabular do grupo: palavras carregadas de sentido na vida dos educandos"]
+    resposta: 2
     explicacao: "Por isso mudam de um lugar para outro."
   - pergunta: "O que é a ficha de descoberta?"
     opcoes: ["O quadro com as famílias silábicas da palavra geradora, usado para formar palavras novas", "Uma prova", "Um documento de matrícula"]
     resposta: 0
     explicacao: "Ex.: TA-TE-TI-TO-TU, JA-JE-JI-JO-JU, LA-LE-LI-LO-LU, a partir de TIJOLO."
   - pergunta: "O que é o círculo de cultura?"
-    opcoes: ["O espaço de diálogo que substitui a sala de aula tradicional, com um coordenador no lugar do professor que só transmite", "Um clube de leitura de elite", "Uma escola particular"]
-    resposta: 0
+    opcoes: ["Um clube de leitura de elite", "Uma escola particular", "O espaço de diálogo que substitui a sala de aula tradicional, com um coordenador no lugar do professor que só transmite"]
+    resposta: 2
     explicacao: "No círculo, todos sabem algo e todos aprendem."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai explicar o método de alfabetização de Paulo Freire (o levantamento do universo vocabular, as palavras geradoras, a codificação e os círculos de cultura) e os fundamentos da sua pedagogia: o diálogo, a conscientização e a crítica à educação bancária. E vai conhecer as principais leituras e críticas da obra dele.
 
 ## Quem foi Paulo Freire
 
@@ -88,6 +92,14 @@ No lugar da sala de aula tradicional, o **círculo de cultura**: pessoas sentada
 ## Leituras e críticas
 
 O método foi aplicado e reinventado em muitos países. Também foi criticado: há quem aponte que a ênfase na conscientização pode secundarizar a técnica da leitura, ou que a sistematização silábica não basta para a fluência. O próprio Freire insistia que o método não era uma receita fixa, mas uma postura diante dos educandos.
+
+## Resumo
+
+- **Paulo Freire** (1921–1997), Patrono da Educação Brasileira (Lei nº 12.612/2012), criticou a **educação bancária**, que "deposita" conteúdos em quem aprende, e propôs a **educação problematizadora**, pelo diálogo.
+- O método: **levantamento do universo vocabular**, escolha das **palavras geradoras**, **codificação** (situações da vida em imagens), **fichas** com as famílias silábicas.
+- No **círculo de cultura**, há um coordenador de debates e participantes, não professor e alunos.
+- A alfabetização é também **conscientização**: ler a palavra junto com a leitura do mundo.
+- A obra tem leituras e críticas diversas; vale estudá-la nas fontes, a começar por *Educação como prática da liberdade* e *Pedagogia do oprimido*.
 
 ## Para pesquisar e debater
 
