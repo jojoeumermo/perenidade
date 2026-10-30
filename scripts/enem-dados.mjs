@@ -7,7 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CORE_SCHEMA, dump, load } from "js-yaml";
-import { acharNaMatriz, calcularIncidencia, validarClassificacoes, validarEdicao, validarMatriz, validarPropostas, validarRepertorio, validarTemasOficiais } from "../lib/enem.ts";
+import { acharNaMatriz, calcularIncidencia, validarClassificacoes, validarSimulados, validarEdicao, validarMatriz, validarPropostas, validarRepertorio, validarTemasOficiais } from "../lib/enem.ts";
 import { validarExercicios } from "../lib/exercicios.ts";
 import { parseFrontmatter } from "../lib/frontmatter.ts";
 import { validarMapa } from "../lib/mapa-curricular.ts";
@@ -106,6 +106,13 @@ export function carregarRedacao() {
     propostas: existe(`${r}/propostas.yml`) ? validarPropostas(yaml(`${r}/propostas.yml`)) : [],
     repertorio: existe(`${r}/repertorio.yml`) ? validarRepertorio(yaml(`${r}/repertorio.yml`)) : [],
   };
+}
+
+/** O diagnóstico e os minissimulados (content/enem/simulados), conferidos contra as questões classificadas. */
+export function carregarSimulados(matriz) {
+  if (!existe("content/enem/simulados/diagnostico.yml")) return null;
+  const area = new Map(carregarClassificacoes(matriz).map((c) => [c.id, c.area]));
+  return validarSimulados(yaml("content/enem/simulados/diagnostico.yml"), yaml("content/enem/simulados/minissimulados.yml"), (id) => area.get(id) ?? null);
 }
 
 export const lerYaml = yaml;

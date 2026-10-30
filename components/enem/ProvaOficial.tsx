@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
-import { type Placar, registrarProva, relogio, somar } from "@/lib/enem-aparelho";
+import { mudarEnem, type Placar, registrarProva, relogio, somar } from "@/lib/enem-aparelho";
 import { lerErros, refazerErro, registrarErro } from "@/lib/estudo";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { L, useI18n } from "../I18n";
@@ -22,7 +22,16 @@ const claro = "cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold hove
  * dificuldade, e o tempo em cada questão) fica no aparelho; as erradas e em branco vão para o caderno de erros.
  * Não há nota TRI: só acertos.
  */
-export function ProvaOficial({ ano, dia, minutosOficiais, habilidades, areas, s }: { ano: number; dia: 1 | 2; minutosOficiais: number; habilidades: Record<string, string>; areas: Record<string, string>; s: S }) {
+/** De onde vêm as questões: um dia de uma prova oficial, ou uma lista fixa (minissimulado, diagnóstico). */
+export type FonteDaProva = { tipo: "dia"; ano: number; dia: 1 | 2; minutos: number } | { tipo: "lista"; id: string; titulo: string; ids: string[]; minutos: number; diagnostico?: boolean };
+
+const anoDoId = (id: string) => Number(id.split("-")[1]);
+
+export function ProvaOficial({ fonte, habilidades, areas, s }: { fonte: FonteDaProva; habilidades: Record<string, string>; areas: Record<string, string>; s: S }) {
+  const dia = fonte.tipo === "dia" ? fonte.dia : 0;
+  const minutosOficiais = fonte.minutos;
+  const diagnostico = fonte.tipo === "lista" && fonte.diagnostico === true;
+  const anos = useMemo(() => (fonte.tipo === "dia" ? [fonte.ano] : [...new Set(fonte.ids.map(anoDoId))]), [fonte]);
   const { lang } = useI18n();
   const p = s.provas;
   const [todas, setTodas] = useState<QuestaoOficial[] | null>(null);
@@ -39,18 +48,23 @@ export function ProvaOficial({ ano, dia, minutosOficiais, habilidades, areas, s 
 
   useEffect(() => {
     let vivo = true;
-    carregarProva(ano, lang)
-      .then((q) => vivo && setTodas(q))
+    Promise.all(anos.map((a) => carregarProva(a, lang)))
+      .then((listas) => vivo && setTodas(listas.flat()))
       .catch(() => vivo && setErro(true));
     return () => {
       vivo = false;
     };
-  }, [ano, lang]);
+  }, [anos, lang]);
 
   const linguas = useMemo(() => [...new Set((todas ?? []).filter((q) => q.dia === dia && q.lingua).map((q) => q.lingua))], [todas, dia]);
   // Se a prova só tem uma das línguas (a fonte de algumas edições não traz o inglês), vale a que existe.
   const linguaDaProva = linguas.includes(lingua) ? lingua : (linguas[0] ?? lingua);
-  const doDiaEscolhido = useMemo(() => (todas ? doDia(todas, dia, linguaDaProva) : []), [todas, dia, linguaDaProva]);
+  const doDiaEscolhido = useMemo(() => {
+    if (!todas) return [];
+    if (fonte.tipo === "dia") return doDia(todas, fonte.dia, linguaDaProva);
+    const porId = new Map(todas.map((q) => [q.id, q]));
+    return fonte.ids.map((id) => porId.get(id)).filter((q): q is QuestaoOficial => Boolean(q));
+  }, [todas, fonte, linguaDaProva]);
 
   /** Soma ao tempo da questão aberta o que passou desde que ela apareceu. */
   const contarTempo = (id: string | undefined) => {
@@ -76,15 +90,19 @@ export function ProvaOficial({ ano, dia, minutosOficiais, habilidades, areas, s 
         somar(porHabilidade, `${q.camada.area}-${q.camada.habilidade}`, certo);
         somar(porDificuldade, String(q.camada.dificuldade), certo);
       }
-      const href = q.camada?.aulas[0]?.href ?? `/enem/provas/${ano}/${dia}`;
+      const href = q.camada?.aulas[0]?.href ?? "/enem/provas";
+      if (diagnostico) continue;
       if (certo) {
         if (erradas.has(q.id)) refazerErro(q.id, true, r[q.id]);
       } else {
-        registrarErro({ id: q.id, pergunta: `Enem ${ano}, questão ${q.n}: ${q.enunciado}`, opcoes: q.alternativas, resposta: q.resposta, escolhida: r[q.id] ?? -1, explicacao: q.camada?.resolucao, href, origem: "simulado" });
+        registrarErro({ id: q.id, pergunta: `Enem ${anoDoId(q.id)}, questão ${q.n}: ${q.enunciado}`, opcoes: q.alternativas, resposta: q.resposta, escolhida: r[q.id] ?? -1, explicacao: q.camada?.resolucao, href, origem: "simulado" });
       }
     }
     const segundos = (Date.now() - inicio) / 1000;
-    registrarProva({ id: `oficial-${ano}-${dia}${linguas.length ? `-${linguaDaProva}` : ""}`, titulo: `Enem ${ano}, ${dia}º dia`, quando: Date.now(), acertos, total: questoes.length, porArea, porHabilidade, porDificuldade, segundos: Math.round(segundos) }, Object.fromEntries(Object.entries(tempos.current).map(([k, v]) => [k, Math.round(v)])));
+    if (diagnostico) mudarEnem((e) => (e.diagnosticos = [{ quando: Date.now(), porArea, porHabilidade }, ...e.diagnosticos].slice(0, 20)));
+    const idDaProva = fonte.tipo === "dia" ? `oficial-${fonte.ano}-${fonte.dia}${linguas.length ? `-${linguaDaProva}` : ""}` : fonte.id;
+    const tituloDaProva = fonte.tipo === "dia" ? `Enem ${fonte.ano}, ${fonte.dia}º dia` : fonte.titulo;
+    registrarProva({ id: idDaProva, titulo: tituloDaProva, quando: Date.now(), acertos, total: questoes.length, porArea, porHabilidade, porDificuldade, segundos: Math.round(segundos) }, Object.fromEntries(Object.entries(tempos.current).map(([k, v]) => [k, Math.round(v)])));
     setFase({ tipo: "fim", questoes, respostas: r, tempoAcabou, segundos });
     window.scrollTo({ top: document.getElementById("prova")?.offsetTop ?? 0, behavior: "smooth" });
   };
@@ -139,12 +157,12 @@ export function ProvaOficial({ ano, dia, minutosOficiais, habilidades, areas, s 
           <fieldset>
             <legend className="font-semibold">{p.tempo}</legend>
             <label className="mr-4 inline-flex items-center gap-2">
-              <input type="radio" name="relogio" checked={comRelogio} onChange={() => setComRelogio(true)} /> {fill(p.tempoOficial, { n: dia, t: relogio(minutosOficiais * 60) })}
+              <input type="radio" name="relogio" checked={comRelogio} onChange={() => setComRelogio(true)} /> {fonte.tipo === "dia" ? fill(p.tempoOficial, { n: dia, t: relogio(minutosOficiais * 60) }) : fill(p.tempoSugerido, { t: relogio(minutosOficiais * 60) })}
             </label>
             <label className="inline-flex items-center gap-2">
               <input type="radio" name="relogio" checked={!comRelogio} onChange={() => setComRelogio(false)} /> {p.semRelogio}
             </label>
-            {dia === 1 && <p className="mt-1 text-ink-soft">{p.redacaoNoTempo}</p>}
+            {fonte.tipo === "dia" && dia === 1 && <p className="mt-1 text-ink-soft">{p.redacaoNoTempo}</p>}
           </fieldset>
         </div>
         <p className="mt-5">
@@ -278,8 +296,8 @@ export function ProvaOficial({ ano, dia, minutosOficiais, habilidades, areas, s 
     <section id="prova" className="mt-8 font-sans text-sm">
       <div className="border-2 border-ink bg-parchment-deep p-5">
         {fase.tempoAcabou && <p className="mb-2 font-semibold text-oxblood">{p.tempoAcabou}</p>}
-        <h2 className="font-serif text-3xl font-semibold">{p.relatorio}</h2>
-        <p className="mt-1 font-serif text-2xl">{fill(p.acertos, { a: acertos, b: questoes.length })}</p>
+        <h2 className="font-serif text-3xl font-semibold">{diagnostico ? s.diagnostico.fimTitulo : p.relatorio}</h2>
+        {diagnostico ? <p className="mt-1">{s.diagnostico.fimLead}</p> : <p className="mt-1 font-serif text-2xl">{fill(p.acertos, { a: acertos, b: questoes.length })}</p>}
         <p className="mt-1 text-ink-soft">
           {fill(p.tempoTotal, { t: relogio(fase.segundos) })} · {fill(p.tempoMedio, { t: relogio(fase.segundos / Math.max(1, questoes.length)) })}
         </p>
@@ -295,7 +313,19 @@ export function ProvaOficial({ ano, dia, minutosOficiais, habilidades, areas, s 
             <ul className="mt-2 max-h-80 space-y-1 overflow-y-auto pr-2">{tabela(contas.hab, nomeHab)}</ul>
           </div>
         </div>
-        {acertos < questoes.length && (
+        {diagnostico && (
+          <div className="mt-4 border border-rule bg-parchment p-4">
+            {Object.values(contas.area).some(([a, t]) => a / t < 0.35) && (
+              <p>
+                {s.diagnostico.base} <L href="/trilhas/matematica-fundamental" className="underline hover:text-oxblood">{s.diagnostico.baseMatematica}</L> · <L href="/trilhas/portugues-fundamental" className="underline hover:text-oxblood">{s.diagnostico.baseLeitura}</L> · <L href="/trilhas/alfabetizacao-de-jovens-e-adultos" className="underline hover:text-oxblood">{s.diagnostico.baseAlfabetizacao}</L>
+              </p>
+            )}
+            <p className="mt-2">
+              <L href="/enem/plano" className="font-semibold underline hover:text-oxblood">{s.diagnostico.irParaPlano} →</L>
+            </p>
+          </div>
+        )}
+        {!diagnostico && acertos < questoes.length && (
           <p className="mt-4 text-ink-soft">
             {p.erradasNoCaderno} <L href="/caderno?ferramenta=erros" className="underline hover:text-oxblood">→</L>
           </p>
