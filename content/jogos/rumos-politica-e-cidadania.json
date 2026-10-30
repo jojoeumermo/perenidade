@@ -112,7 +112,7 @@
         "retorno": "O médico aparece na semana seguinte, e some no mês seguinte. O que veio como favor vai embora como favor."
       },
       "historia": {
-        "texto": "A Lei 8.142, de 1990, criou os conselhos e as conferências de saúde do SUS. Nos conselhos, que existem em cada município, nos estados e na União, metade das vagas é dos usuários, a outra metade é dividida entre governo, prestadores de serviço e profissionais de saúde.",
+        "texto": "A Lei 8.142, de 1990, garante a participação da comunidade no SUS por meio dos conselhos e das conferências de saúde, em cada município, nos estados e na União. Nos conselhos, a representação dos usuários é paritária em relação ao conjunto dos demais segmentos (governo, prestadores de serviço e profissionais de saúde).",
         "fonte": {
           "titulo": "Lei nº 8.142, de 28 de dezembro de 1990",
           "autor": "Presidência da República",
@@ -268,7 +268,7 @@
         "retorno": "Você explica no bairro que trocar bem por voto é crime eleitoral. Alguns entendem, outros ficam bravos com a cesta perdida."
       },
       "historia": {
-        "texto": "A Lei 9.840, de 1999, a primeira lei de iniciativa popular aprovada no país, nasceu de mais de um milhão de assinaturas recolhidas por entidades como a CNBB. Ela permite cassar o registro ou o diploma de quem dá ou oferece bem ou vantagem ao eleitor em troca do voto (art. 41-A da Lei das Eleições).",
+        "texto": "A Lei 9.840, de 1999, uma das primeiras leis nascidas de iniciativa popular no país, veio de uma campanha com mais de um milhão de assinaturas recolhidas por entidades como a CNBB. Ela permite cassar o registro ou o diploma de quem dá ou oferece bem ou vantagem ao eleitor em troca do voto (art. 41-A da Lei das Eleições).",
         "fonte": {
           "titulo": "Lei nº 9.840, de 28 de setembro de 1999",
           "autor": "Presidência da República",
@@ -692,7 +692,7 @@
         "retorno": "Os 22 alunos teriam de ir a uma escola a 8 km, à noite. A maioria desiste."
       },
       "historia": {
-        "texto": "A Constituição (art. 208, I) garante o ensino fundamental obrigatório e gratuito, assegurada inclusive a oferta gratuita para todos os que não tiveram acesso a ele na idade própria. É a base da Educação de Jovens e Adultos (EJA).",
+        "texto": "A Constituição (art. 208, I, com a redação da Emenda Constitucional 59, de 2009) garante a educação básica obrigatória e gratuita dos 4 aos 17 anos, assegurada inclusive a oferta gratuita para todos os que não tiveram acesso a ela na idade própria. É a base da Educação de Jovens e Adultos (EJA).",
         "fonte": {
           "titulo": "Constituição da República Federativa do Brasil de 1988, art. 208",
           "autor": "Presidência da República",
@@ -809,7 +809,7 @@
         "retorno": "O bairro tem problemas de sobra, é verdade. Mas muitos deles só se resolvem com lei nacional."
       },
       "historia": {
-        "texto": "Pela Constituição (art. 61, § 2º), um projeto de lei de iniciativa popular precisa da assinatura de pelo menos 1% do eleitorado nacional, distribuído por no mínimo cinco estados, com não menos de 0,3% dos eleitores de cada um. A Lei da Ficha Limpa (Lei Complementar 135, de 2010) nasceu assim.",
+        "texto": "Pela Constituição (art. 61, § 2º), um projeto de lei de iniciativa popular precisa da assinatura de pelo menos 1% do eleitorado nacional, distribuído por no mínimo cinco estados, com não menos de 0,3% dos eleitores de cada um. A Lei da Ficha Limpa (Lei Complementar 135, de 2010) nasceu de uma campanha de iniciativa popular, com mais de um milhão de assinaturas.",
         "fonte": {
           "titulo": "Lei Complementar nº 135, de 4 de junho de 2010 (Lei da Ficha Limpa)",
           "autor": "Presidência da República",
