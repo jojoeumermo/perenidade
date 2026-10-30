@@ -70,7 +70,7 @@ function Titulacao() {
         </>
       }
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
         <div className="space-y-4">
           <label className="block text-sm">
             <span className="font-semibold">Ácido no frasco</span>
@@ -90,7 +90,7 @@ function Titulacao() {
             <div className="text-ink">
               <Frasco cor={corCss(indicador.cor(ph))} nivel={(va + vb) / (va + vMax)} rotulo={`Frasco com ${num(va + vb, 1)} mL, cor do indicador em pH ${num(ph)}`} />
             </div>
-            <div className="grid flex-1 grid-cols-2 gap-2">
+            <div className="grid min-w-[13rem] flex-1 grid-cols-2 gap-2">
               <Leitura rotulo="pH agora" valor={num(ph)} destaque />
               <Leitura rotulo="Base na bureta" valor={`${num(vb)} mL`} />
               <Leitura rotulo="Ponto de equivalência" valor={Number.isFinite(veq) ? `${num(veq)} mL` : "—"} />
@@ -122,7 +122,7 @@ function Diluicao() {
   const intensidade = Math.min(1, c2 / 1);
   return (
     <Bancada titulo="Diluição" subtitulo="C₁ · V₁ = C₂ · V₂: a quantidade de soluto não muda, só a água">
-      <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
         <div className="space-y-4">
           <Deslizante rotulo="Concentração inicial C₁ (mol/L)" valor={c1} min={0.1} max={2} passo={0.1} mudar={setC1} formato={(v) => num(v, 1)} />
           <Deslizante rotulo="Volume inicial V₁ (mL)" valor={v1} min={10} max={200} passo={5} mudar={setV1} />
@@ -171,7 +171,7 @@ function EscalaDePh() {
           <span key={ph} className="flex flex-1 items-end justify-center pb-0.5 font-mono text-[0.6rem] text-[#1f1a14]" style={{ background: corCss(indicador.cor(ph)) }}>{ph}</span>
         ))}
       </div>
-      <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {DO_DIA_A_DIA.map((s) => (
           <li key={s.nome}>
             <button type="button" onClick={() => setEscolhida(s)} aria-pressed={escolhida.nome === s.nome} className={`flex w-full cursor-pointer items-center gap-3 border-2 px-3 py-2 text-left text-sm ${escolhida.nome === s.nome ? "border-ink bg-ink text-parchment" : "border-ink bg-folha"}`}>
@@ -216,7 +216,7 @@ export function LabQuimica() {
   return (
     <div className="mt-8 font-sans">
       <p className="border-l-4 border-[#c21f16] bg-folha px-3 py-2 text-sm">Simulação para aprender. Na bancada de verdade: avental, luva e óculos de proteção, e nunca prove nem cheire reagentes diretamente.</p>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
         <div>
           <Modulos itens={MODULOS} atual={atual} escolher={setAtual} />
         </div>

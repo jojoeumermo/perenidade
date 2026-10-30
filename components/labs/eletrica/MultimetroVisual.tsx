@@ -73,7 +73,7 @@ export function MultimetroVisual({ pecas, missoes = [], titulo = "Bancada" }: { 
   const corDoAviso = leitura.tipo === "perigo" ? "border-[#c21f16] bg-[#c21f16]/10" : leitura.tipo === "aviso" ? "border-gold bg-parchment-deep" : "border-ok bg-parchment-deep";
 
   return (
-    <div className="grid gap-6 font-sans text-sm lg:grid-cols-[19rem_minmax(0,1fr)]">
+    <div className="grid grid-cols-1 gap-6 font-sans text-sm lg:grid-cols-[19rem_minmax(0,1fr)]">
       {/* O multímetro */}
       <div className="mx-auto w-full max-w-[19rem]">
         <svg viewBox="0 0 300 470" className="w-full" role="group" aria-label="Multímetro digital">
@@ -128,7 +128,7 @@ export function MultimetroVisual({ pecas, missoes = [], titulo = "Bancada" }: { 
           <button type="button" aria-pressed={ativa === "preta"} onClick={() => setAtiva("preta")} className={`cursor-pointer border-2 px-3 py-1 font-bold ${ativa === "preta" ? "border-ink bg-ink text-parchment" : "border-ink"}`}>ponteira preta</button>
           {(vermelha || preta) && <button type="button" onClick={() => { setVermelha(null); setPreta(null); setAtiva("vermelha"); }} className="cursor-pointer underline hover:text-oxblood">tirar as ponteiras</button>}
         </div>
-        <ul className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
           {pecas.map((p) => (
             <li key={p.id} className={`border-2 p-2 ${mesmaPeca?.id === p.id ? "border-ink bg-parchment-deep" : "border-ink/20"}`}>
               <p className="flex items-center gap-2 font-semibold"><Selo nome={p.icone} className="h-6 w-6 shrink-0" />{p.nome}{(p.dc || p.ac) ? <span className="ml-auto text-[0.65rem] font-bold uppercase text-[#c21f16]">energizada</span> : null}</p>
