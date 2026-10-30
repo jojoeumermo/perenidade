@@ -2,22 +2,23 @@
 @import "tailwindcss";
 
 :root {
-  --parchment: #f4ecd8;
-  --parchment-deep: #e9dcbc;
+  /* Papel claro (30/10/2026): o mesmo papel quente, com metade do amarelo, para não ler como papel velho. */
+  --parchment: #f8f5ee;
+  --parchment-deep: #efe9dc;
   --ink: #1f1a14;
   --ink-soft: #5a4e3c;
   --gold: #8a5f1c;
   --oxblood: #6e1f1a;
-  --rule: #cdbb91;
+  --rule: #d9cfbc;
   --ok: #2f5d34;
   --apoie-luz: 38%;
   /* Caderno do Povo: a folha dos cartões, a sombra dura dos cartazes, o vermelho do prelo como texto
      e as linhas do papel pontilhado e do pautado. */
-  --folha: #fbf6e8;
+  --folha: #fffdf8;
   --sombra: #1f1a14;
   --prelo-texto: #c21f16;
-  --pontos: #cdbb91;
-  --linha-pauta: #e3d3aa;
+  --pontos: #e2d9c6;
+  --linha-pauta: #ebe2cf;
   --margem-pauta: #e0837a;
   /* Altura da barra de botões do aparelho que as abas de baixo precisam pular. No navegador é sempre zero:
      o DuckDuckGo do Android informa a altura das barras do sistema mesmo sem "viewport-fit=cover", e o
@@ -303,8 +304,8 @@ body {
 }
 
 .paper {
-  background-image: radial-gradient(circle, color-mix(in srgb, var(--pontos) 70%, transparent) 1.1px, transparent 1.4px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(circle, var(--pontos) 1.1px, transparent 1.4px);
+  background-size: 18px 18px;
 }
 
 /* ───── Caderno do Povo: as peças que repetem em todo o site ─────
@@ -315,7 +316,7 @@ body {
   .pont {
     background-color: var(--parchment);
     background-image: radial-gradient(circle, var(--pontos) 1.1px, transparent 1.4px);
-    background-size: 20px 20px;
+    background-size: 18px 18px;
   }
   .pauta {
     background-color: var(--folha);
@@ -575,7 +576,7 @@ body {
     top: 18px;
     bottom: 18px;
     width: 8px;
-    background-image: radial-gradient(circle, #f4ecd8 3px, transparent 3.5px);
+    background-image: radial-gradient(circle, var(--parchment) 3px, transparent 3.5px);
     background-size: 8px 22px;
   }
   .caderno:hover {
@@ -587,8 +588,8 @@ body {
   }
   .etiqueta {
     border: 1.5px solid #1f1a14;
-    background-color: #fbf6e8;
-    background-image: repeating-linear-gradient(#fbf6e8 0 21px, #e6d6b0 21px 22px);
+    background-color: #fffdf8;
+    background-image: repeating-linear-gradient(#fffdf8 0 21px, #e8dfcb 21px 22px);
     color: #1f1a14;
   }
   /* Abas de pasta de arquivo (filtros das estantes, editorias). */
@@ -2483,12 +2484,12 @@ html[data-escrita-foco="1"] .painel {
    As cores da interface do estúdio: claras por padrão, escuras quando o site está no tema escuro ou quando a
    pessoa escolhe "interface escura" no próprio estúdio (data-estudio-tema). O palco é sempre escuro. */
 :root {
-  --e-fundo: #f4ecd8;
-  --e-painel: #faf5e9;
+  --e-fundo: #f8f5ee;
+  --e-painel: #fcfaf5;
   --e-campo: #ffffff;
   --e-tinta: #1f1a14;
   --e-suave: #6b6156;
-  --e-fio: #ddd0b3;
+  --e-fio: #e2d9c6;
   --e-bordo: #6e1f1a;
   --e-bordo-claro: #f3e3dc;
   --e-palco: #2a231d;
@@ -3668,7 +3669,7 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 .varal-folha {
   padding: 0.3rem 0.3rem 0.85rem;
   border: 1px solid rgba(31, 26, 20, 0.5);
-  background: #f7f1e1;
+  background: var(--folha);
   box-shadow: 5px 6px 0 var(--sombra);
   transition: transform 0.2s ease;
 }

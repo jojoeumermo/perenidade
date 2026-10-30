@@ -121,38 +121,38 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
 
       {aberto && (
         <div className="no-print fixed inset-0 z-[60] flex items-center justify-center bg-[#17130e]/60 px-4" onClick={fechar}>
-          <div role="dialog" aria-modal="true" aria-labelledby="guia-titulo" className="w-full max-w-lg border-2 border-[#1f1a14] bg-[#fbf6e8] p-6 text-[#1f1a14] shadow-[8px_8px_0_#c21f16] sm:p-7" onClick={(e) => e.stopPropagation()}>
-            <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[#c21f16]">
+          <div role="dialog" aria-modal="true" aria-labelledby="guia-titulo" className="w-full max-w-lg border-2 border-ink bg-folha p-6 text-ink shadow-[8px_8px_0_#c21f16] sm:p-7" onClick={(e) => e.stopPropagation()}>
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">
               {`${nome} · passo ${passo + 1} de ${guia.passos.length}`}
             </p>
-            {passo === 0 && <p className="mt-2 text-[0.95rem] leading-snug text-[#5a4e3c]">{guia.paraQue}</p>}
+            {passo === 0 && <p className="mt-2 text-[0.95rem] leading-snug text-ink-soft">{guia.paraQue}</p>}
             <h2 id="guia-titulo" className="mt-3 flex items-start gap-3 font-serif text-[1.7rem] font-semibold leading-tight">
-              <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center border-2 border-[#1f1a14] bg-[#c21f16] font-sans text-base font-black text-white">
+              <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center border-2 border-ink bg-[#c21f16] font-sans text-base font-black text-white">
                 {passo + 1}
               </span>
               {atual.titulo}
             </h2>
             <p className="mt-3 text-[1.02rem] leading-relaxed">{atual.texto}</p>
             {ultimo && guia.dica && (
-              <p className="mt-4 border-2 border-dashed border-[#1f1a14] px-3 py-2 text-[0.92rem] leading-snug">
+              <p className="mt-4 border-2 border-dashed border-ink px-3 py-2 text-[0.92rem] leading-snug">
                 <strong>Dica:</strong> {guia.dica}
               </p>
             )}
             <div aria-hidden className="mt-5 flex gap-1.5">
               {guia.passos.map((_, i) => (
-                <span key={i} className={`h-1.5 flex-1 ${i <= passo ? "bg-[#c21f16]" : "bg-[#e2d2ab]"}`} />
+                <span key={i} className={`h-1.5 flex-1 ${i <= passo ? "bg-[#c21f16]" : "bg-rule"}`} />
               ))}
             </div>
             <div className="mt-5 flex flex-wrap items-center gap-2">
               {passo > 0 && (
-                <button type="button" onClick={() => setPasso(passo - 1)} className="cursor-pointer border-2 border-[#1f1a14] px-3.5 py-2 font-bold hover:bg-[#f4ecd8]">
+                <button type="button" onClick={() => setPasso(passo - 1)} className="cursor-pointer border-2 border-ink px-3.5 py-2 font-bold hover:bg-parchment">
                   ← Voltar
                 </button>
               )}
-              <button type="button" autoFocus onClick={() => (ultimo ? fechar() : setPasso(passo + 1))} className="cursor-pointer border-2 border-[#1f1a14] bg-[#c21f16] px-4 py-2 font-bold text-white shadow-[3px_3px_0_#1f1a14] hover:bg-[#a51810]">
+              <button type="button" autoFocus onClick={() => (ultimo ? fechar() : setPasso(passo + 1))} className="cursor-pointer border-2 border-ink bg-[#c21f16] px-4 py-2 font-bold text-white shadow-[3px_3px_0_#1f1a14] hover:bg-[#a51810]">
                 {ultimo ? "Entendi" : "Próximo →"}
               </button>
-              <button type="button" onClick={fechar} className="ml-auto cursor-pointer underline hover:text-[#c21f16]">
+              <button type="button" onClick={fechar} className="ml-auto cursor-pointer underline hover:text-prelo-texto">
                 Fechar
               </button>
             </div>

@@ -104,7 +104,7 @@ export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]
                   ))}
                   {etapa.leituras.map((id) => obras.get(id)).filter((o) => o !== undefined).map((obra) => (
                     <li key={obra.id} className="flex flex-wrap items-baseline gap-x-3">
-                      <span className="shrink-0 bg-[#e9dcbc] px-1.5 py-0.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-ink">{s.reading}</span>
+                      <span className="shrink-0 bg-parchment-deep px-1.5 py-0.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-ink">{s.reading}</span>
                       <Link href={to(`/acervo/${obra.id}`)} className="font-sans font-semibold text-ink hover:text-prelo-texto">{obra.title}</Link>
                       <span className="font-sans text-xs text-ink-soft">{obra.author}</span>
                     </li>
