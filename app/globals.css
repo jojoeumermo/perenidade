@@ -4702,6 +4702,48 @@ a.busca-campo:focus-visible {
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .bilhete textarea:focus-visible {
     outline-color: #f0b323;
   }
+  /* Quadros dos laboratórios: superfície escura; o traço de tinta do desenho vira o traço claro. */
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro {
+    background-color: #1d1b17;
+    color: var(--ink);
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro input {
+    background-color: #141310;
+    color: var(--ink);
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro mark {
+    color: #1f1a14;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro [stroke="#17130e"] {
+    stroke: #ece6da;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro [fill="#17130e"] {
+    fill: #ece6da;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro text:not([fill]) {
+    fill: #ece6da;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro [fill="#4a4032"] {
+    fill: #a9a196;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro [stroke="#e6dcc4"] {
+    stroke: #2b2822;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-quadro [stroke="#f9f3e3"] {
+    stroke: #1d1b17;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-barra {
+    background-color: #2b2822;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-escolhido {
+    background-color: #2b2822;
+    border-color: #f0b323;
+    box-shadow: 3px 3px 0 #f0b323;
+  }
+  /* A mesa cinza em volta da prévia do cartaz (a prévia continua clara: é o que vai para a impressão). */
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .mesa-de-previa {
+    background-color: #2b2822;
+  }
 }
 /* Bilhete amarelo (anotação da aula, tarefas do Despertar): papel escuro com a tarja ipê no alto. */
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .bilhete {
@@ -4718,4 +4760,46 @@ a.busca-campo:focus-visible {
 }
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .bilhete textarea:focus-visible {
   outline-color: #f0b323;
+}
+/* Quadros dos laboratórios: superfície escura; o traço de tinta do desenho vira o traço claro. */
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro {
+  background-color: #1d1b17;
+  color: var(--ink);
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro input {
+  background-color: #141310;
+  color: var(--ink);
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro mark {
+  color: #1f1a14;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro [stroke="#17130e"] {
+  stroke: #ece6da;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro [fill="#17130e"] {
+  fill: #ece6da;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro text:not([fill]) {
+  fill: #ece6da;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro [fill="#4a4032"] {
+  fill: #a9a196;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro [stroke="#e6dcc4"] {
+  stroke: #2b2822;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-quadro [stroke="#f9f3e3"] {
+  stroke: #1d1b17;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-barra {
+  background-color: #2b2822;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-escolhido {
+  background-color: #2b2822;
+  border-color: #f0b323;
+  box-shadow: 3px 3px 0 #f0b323;
+}
+/* A mesa cinza em volta da prévia do cartaz (a prévia continua clara: é o que vai para a impressão). */
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .mesa-de-previa {
+  background-color: #2b2822;
 }
