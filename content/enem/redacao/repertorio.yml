@@ -390,8 +390,9 @@
   tipo: dado
   resumo: >-
     Segundo o Censo Demográfico 2022, do IBGE, a proporção de domicílios com acesso à rede de coleta de esgoto chegou a
-    62,5% em 2022 (44,4% em 2000 e 52,8% em 2010). O Sudeste tinha 86,2% e o Norte, 22,8%. Nos municípios de até 5 mil
-    habitantes, a cobertura era de 28,6%; nos de mais de 500 mil, de 83,4%.
+    62,5% em 2022 (44,4% em 2000 e 52,8% em 2010). Na parcela da população que mora em domicílios com coleta, o Sudeste tinha
+    86,2% e o Norte, 22,8%. Nos municípios de até 5 mil habitantes, essa parcela era de 28,6%; nos de mais de 500 mil,
+    de 83,4%.
   como_usar: >-
     O dado vale mais pela comparação do que pelo número sozinho: Norte e Sudeste, cidades pequenas e grandes. Use para
     mostrar que o mesmo direito chega de forma desigual conforme o lugar onde se mora. Escreva o ano e a fonte no

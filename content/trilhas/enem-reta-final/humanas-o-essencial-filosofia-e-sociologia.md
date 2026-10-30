@@ -7,6 +7,10 @@ fontes:
     autor: "Presidência da República"
     ano: "2006"
     url: "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm"
+  - titulo: "Lei nº 15.384, de 9 de abril de 2026 (violência vicária)"
+    autor: "Presidência da República"
+    ano: "2026"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15384.htm"
   - titulo: "Lei nº 14.994, de 9 de outubro de 2024 (feminicídio como crime autônomo)"
     autor: "Presidência da República"
     ano: "2024"
@@ -104,7 +108,7 @@ quiz:
   - pergunta: "Pela Lei Maria da Penha, quem esconde os documentos da companheira e controla o salário dela para que ela não possa sair de casa pratica qual forma de violência?"
     opcoes: ["Nenhuma, porque não houve agressão física", "Só violência moral", "Violência sexual", "Violência patrimonial (e também psicológica)"]
     resposta: 3
-    explicacao: "O artigo 7º da Lei nº 11.340 lista cinco formas: física, psicológica, sexual, patrimonial e moral. Reter documentos e controlar o dinheiro é violência patrimonial; o controle e o isolamento também são violência psicológica."
+    explicacao: "O artigo 7º da Lei nº 11.340 lista as formas: física, psicológica, sexual, patrimonial, moral e, desde a Lei nº 15.384, de 2026, vicária. Reter documentos e controlar o dinheiro é violência patrimonial; o controle e o isolamento também são violência psicológica."
   - pergunta: "O que os primeiros filósofos gregos, os pré-socráticos, procuravam?"
     opcoes: ["A vontade dos deuses do Olimpo", "A arché, o princípio de que tudo é feito, explicado pela razão", "A melhor forma de governo", "A data do fim do mundo"]
     resposta: 1
@@ -146,7 +150,7 @@ Foi o tópico que mais caiu em toda a área de Humanas: 6 questões. Caíram o c
 - **Invisibilização:** o trabalho e a obra das mulheres somem do registro, como nas reportagens que não citaram a arquiteta.
 - Simone de Beauvoir, em *O segundo sexo* (1949), defendeu que ninguém nasce mulher: torna-se mulher, pela educação e pela sociedade.
 
-A **Lei Maria da Penha** (Lei nº 11.340, de 2006), no artigo 7º, define cinco formas de violência doméstica e familiar contra a mulher: **física, psicológica, sexual, patrimonial e moral**. Violência não é só agressão ao corpo. Desde a Lei nº 14.994, de 2024, o feminicídio (matar uma mulher por razões da condição de sexo feminino) é crime próprio, com pena de 20 a 40 anos.
+A **Lei Maria da Penha** (Lei nº 11.340, de 2006), no artigo 7º, define as formas de violência doméstica e familiar contra a mulher: **física, psicológica, sexual, patrimonial e moral**. Desde a Lei nº 15.384, de 2026, há uma sexta, a **vicária**: a violência contra filhos, parentes ou pessoas próximas para fazer a mulher sofrer. Violência não é só agressão ao corpo. Desde a Lei nº 14.994, de 2024, o feminicídio (matar uma mulher por razões da condição de sexo feminino) é crime próprio, com pena de 20 a 40 anos.
 
 ## Filosofia antiga
 
@@ -165,7 +169,7 @@ Caiu em 4 questões: Hannah Arendt e a pluralidade, Michel Foucault duas vezes (
 
 - **Hannah Arendt** (*A condição humana*, 1958): a política nasce da **pluralidade**, do fato de sermos muitos e diferentes; agir e falar em público é o que nos faz seres políticos. Em *Eichmann em Jerusalém* (1963), falou da **banalidade do mal**: o grande crime cometido por gente comum, que obedece sem pensar.
 - **Michel Foucault** (*Vigiar e punir*, 1975): o poder moderno funciona pela **disciplina**, a vigilância constante que molda corpos e comportamentos, na prisão, na escola, no quartel, na fábrica. A imagem é o panóptico, a prisão em que o preso pode ser visto o tempo todo sem saber quando.
-- **Jean-Paul Sartre** (*O ser e o nada*, 1943): "a existência precede a essência". Não há natureza humana pronta; somos o que fazemos de nós. Por isso somos livres e responsáveis, mesmo numa situação que não escolhemos.
+- **Jean-Paul Sartre** (*O existencialismo é um humanismo*, 1946): "a existência precede a essência". Não há natureza humana pronta; somos o que fazemos de nós. Por isso somos livres e responsáveis, mesmo numa situação que não escolhemos.
 
 ## Desigualdade
 
@@ -254,7 +258,7 @@ Confira: a resposta sai das palavras do próprio trecho. O nome do autor só con
 - **Habilidades:** H1 (interpretar fontes sobre a cultura), H3 (ligar práticas de hoje a processos históricos), H4 (comparar pontos de vista), H10 (ação coletiva na mudança da realidade), H11 (registros das práticas de grupos sociais), H12 (o papel da justiça), H14 (comparar interpretações sobre as instituições), H16 (técnicas e tecnologias no trabalho), H20 (argumentos sobre as novas tecnologias no trabalho), H22 (lutas sociais que mudaram leis), H23 (valores éticos na política), H24 (cidadania e democracia), H25 (estratégias de inclusão social), H26 e H29 (sociedade, natureza e recursos).
 - **Armadilhas:**
   - Escolher pelo nome do autor e não pelo trecho. Leia o texto antes das alternativas.
-  - Achar que violência contra a mulher é só agressão física. A lei lista cinco formas.
+  - Achar que violência contra a mulher é só agressão física. A lei lista seis formas.
   - Confundir o fordismo (linha de montagem, massa) com o toyotismo (flexível, estoque mínimo).
   - Misturar Platão (mundo das Ideias) com Aristóteles (virtude como meio-termo).
   - Tratar raça como dado biológico. Na sociologia, é construção social com efeitos reais.
@@ -273,7 +277,7 @@ E) configura violência patrimonial e psicológica, formas previstas na lei.
 
 **Resolução.**
 
-1. Lembre as cinco formas do artigo 7º: física, psicológica, sexual, patrimonial e moral.
+1. Lembre as formas do artigo 7º: física, psicológica, sexual, patrimonial, moral e, desde 2026, vicária.
 2. Reter documentos, controlar o dinheiro dela e destruir o celular atingem os bens e os recursos de Joana: é **violência patrimonial**.
 3. Impedir que ela trabalhe, controlar e isolar: é **violência psicológica**.
 
@@ -292,7 +296,7 @@ Você conhece o número 180? É a Central de Atendimento à Mulher: a ligação 
 
 ## Resumo
 
-- Gênero é construção social. A Lei Maria da Penha lista cinco violências: física, psicológica, sexual, patrimonial e moral. Feminicídio é crime próprio desde 2024.
+- Gênero é construção social. A Lei Maria da Penha lista seis violências: física, psicológica, sexual, patrimonial, moral e, desde 2026, vicária. Feminicídio é crime próprio desde 2024.
 - Filosofia antiga: arché dos pré-socráticos; Sócrates contra os sofistas; Ideias em Platão; meio-termo em Aristóteles; estoicos e epicuristas.
 - Contemporânea: pluralidade e banalidade do mal (Arendt); disciplina e vigilância (Foucault); existência antes da essência (Sartre).
 - Desigualdade: estratificação, classe, mobilidade, interseccionalidade.

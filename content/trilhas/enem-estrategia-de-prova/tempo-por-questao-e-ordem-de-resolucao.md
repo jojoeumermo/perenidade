@@ -8,7 +8,7 @@ fontes:
     ano: "2026"
     url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
   - titulo: "A formatação da prova afeta o desempenho dos estudantes? Evidências do Enem (2016). Educação e Pesquisa, v. 48"
-    autor: "Lucas Barichello, Rodrigo Schneider Guimarães e Dalson Britto Figueiredo Filho"
+    autor: "Leonardo Barichello, Rita Santos Guimarães e Dalson Britto Figueiredo Filho"
     ano: "2022"
     url: "https://doi.org/10.1590/S1678-4634202248241713por"
   - titulo: "Como funciona o Enem: guia completo para acesso ao ensino superior em 15 minutos"

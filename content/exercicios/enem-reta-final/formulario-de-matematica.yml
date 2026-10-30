@@ -42,7 +42,7 @@
     - texto: "R$ 1.100,00"
       erro: "Esse é o valor depois de 1 mês só. Falta aplicar os juros do 2º mês sobre 1.100."
     - texto: "R$ 1.020,00"
-      erro: "A taxa foi lida como 1% ao mês. 10% em número decimal é 0,1, e o fator de cada mês é 1,1."
+      erro: "A taxa foi lida como 1% ao mês (1.000 + 10 + 10). 10% em número decimal é 0,1, e o fator de cada mês é 1,1."
     - texto: "R$ 2.000,00"
       erro: "Você multiplicou o valor pelo número de meses. Os juros são uma porcentagem sobre o valor, não o valor inteiro de novo."
   explicacao: "M = C · (1 + i)ᵗ = 1.000 × 1,1² = 1.000 × 1,21 = 1.210. Mês a mês: 1.000 + 100 = 1.100; 1.100 + 110 = 1.210."

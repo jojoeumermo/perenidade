@@ -41,7 +41,7 @@ quiz:
     resposta: 2
     explicacao: "Coringa não é atalho para decorar. É um conhecimento que você domina e sabe aplicar, refazendo a ligação com o recorte de cada tema."
   - pergunta: "Para o tema “A desigualdade no acesso ao saneamento básico no Brasil”, qual uso do repertório é mais produtivo?"
-    opcoes: ["Citar que, segundo o Censo 2022, a coleta de esgoto chegava a 86,2% dos domicílios no Sudeste e a 22,8% no Norte, e explicar que o mesmo direito chega de forma desigual conforme a região", "Abrir com uma frase de um filósofo grego sobre a sociedade ideal", "Dizer que a Constituição garante muitos direitos", "Citar um filme famoso sem dizer do que ele trata"]
+    opcoes: ["Citar que, segundo o Censo 2022, a coleta de esgoto chegava a 86,2% da população no Sudeste e a 22,8% no Norte, e explicar que o mesmo direito chega de forma desigual conforme a região", "Abrir com uma frase de um filósofo grego sobre a sociedade ideal", "Dizer que a Constituição garante muitos direitos", "Citar um filme famoso sem dizer do que ele trata"]
     resposta: 0
     explicacao: "O dado é legítimo (fonte oficial), pertinente (trata de saneamento) e produtivo (sustenta a ideia de desigualdade, que é o centro do tema)."
 ---
@@ -121,7 +121,7 @@ Passo 1. **Entenda o repertório numa frase sua:** o lugar onde a pessoa mora in
 
 Passo 2. **Tema A, "A desigualdade no acesso ao saneamento básico no Brasil".** Escreva a ligação com o recorte:
 
-> Para o geógrafo Milton Santos, em *O espaço do cidadão*, a cidadania brasileira é incompleta enquanto o acesso a bens e serviços depender do território. O saneamento mostra isso com clareza: segundo o Censo 2022, a rede de coleta de esgoto chegava a 86,2% dos domicílios do Sudeste, mas a apenas 22,8% dos do Norte. Morar no Norte, portanto, ainda significa ter menos acesso a um serviço básico de saúde.
+> Para o geógrafo Milton Santos, em *O espaço do cidadão*, a cidadania brasileira é incompleta enquanto o acesso a bens e serviços depender do território. O saneamento mostra isso com clareza: segundo o Censo 2022, a rede de coleta de esgoto chegava a 86,2% da população do Sudeste, mas a apenas 22,8% da do Norte. Morar no Norte, portanto, ainda significa ter menos acesso a um serviço básico de saúde.
 
 Passo 3. **Tema B, "Os limites da inclusão digital feita só pelo celular no Brasil".** Mesmo repertório, ligação nova:
 

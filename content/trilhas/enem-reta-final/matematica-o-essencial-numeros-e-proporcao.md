@@ -61,7 +61,7 @@ Ao fim desta aula você vai ter revisado os números da prova de Matemática, na
 
 Nas provas de 2022 e 2023, classificadas pelo instituto, 81 questões de Matemática entraram na contagem. Os conhecimentos numéricos ficaram com 24 delas (29,6%), empatados com a geometria.
 
-Dentro dos números, os tópicos que mais apareceram foram operações (5 questões) e porcentagem (5). Depois vêm escalas, unidades de medida e progressões, com 3 cada. As contas do dia a dia tiveram 2. Aumentos e descontos sucessivos e razão e proporção tiveram 1 cada.
+Dentro dos números, os tópicos que mais apareceram foram operações (5 questões) e porcentagem (5). Depois vêm as progressões, com 3. Escalas e unidades de medida, que a Matriz põe na geometria, também tiveram 3 cada. As contas do dia a dia tiveram 2. Aumentos e descontos sucessivos e razão e proporção tiveram 1 cada.
 
 São só duas provas. A contagem mostra uma tendência, não uma promessa. Mas, com poucos dias, ela ajuda a escolher por onde começar.
 
