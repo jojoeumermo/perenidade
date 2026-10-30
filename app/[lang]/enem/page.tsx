@@ -11,7 +11,7 @@ import { fill, localePath } from "@/i18n/config";
 import { areaTools } from "@/lib/areas";
 import { getTracks } from "@/lib/content";
 import { formatarFato } from "@/lib/enem";
-import { classificacoesDoEnem, edicaoDoEnem } from "@/lib/enem-conteudo";
+import { classificacoesDoEnem, edicaoDoEnem, simuladosDoEnem } from "@/lib/enem-conteudo";
 import { lessonId } from "@/lib/ids";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
@@ -52,7 +52,7 @@ export default async function Page({ params }: PageProps<"/[lang]/enem">) {
     .filter((tr) => tr.area === "enem")
     .sort((a, b) => a.order - b.order);
   const trilha = (slug: string) => trilhas.find((tr) => tr.slug === slug && tr.lessons.length > 0);
-  const temRota = { diagnostico: false, plano: false };
+  const temRota = { diagnostico: Boolean(simuladosDoEnem()), plano: true };
   const classificadas = classificacoesDoEnem().length;
   const ferramentas = areaTools.enem ?? [];
   return (
@@ -85,6 +85,7 @@ export default async function Page({ params }: PageProps<"/[lang]/enem">) {
           {classificadas > 0 && <p className="mt-2 font-mono text-xs">{fill(s.classificadas, { n: classificadas })}</p>}
         </Secao>
         <Secao titulo={s.secoes.provas} texto={s.secoes.provasTexto} href={to("/enem/provas")} emBreve={s.emBreve} />
+        <Secao titulo={s.secoes.simulados} texto={s.secoes.simuladosTexto} href={temRota.diagnostico ? to("/enem/simulados") : undefined} emBreve={s.emBreve} />
         <Secao titulo={s.secoes.redacao} texto={s.secoes.redacaoTexto} href={trilha("enem-redacao") ? to("/trilhas/enem-redacao") : undefined} emBreve={s.emBreve} />
         <Secao titulo={s.secoes.retaFinal} texto={s.secoes.retaFinalTexto} href={trilha("enem-reta-final") ? to("/trilhas/enem-reta-final") : undefined} emBreve={s.emBreve} />
         <Secao titulo={s.secoes.diaDaProva} texto={s.secoes.diaDaProvaTexto} href={to("/enem/dia-da-prova")} emBreve={s.emBreve} />
@@ -125,6 +126,12 @@ export default async function Page({ params }: PageProps<"/[lang]/enem">) {
             </li>
           );
         })}
+        <li>
+          <Link href={to("/enem/laboratorio-tri")} className="inline-block border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.secoes.tri}</Link>
+        </li>
+        <li>
+          <Link href={to("/enem/sisu")} className="inline-block border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.secoes.sisu}</Link>
+        </li>
         <li>
           <Link href={to("/laboratorios/simulacoes")} className="inline-block border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{t.labs.simulacoes}</Link>
         </li>

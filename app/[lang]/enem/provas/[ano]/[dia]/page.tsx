@@ -48,7 +48,7 @@ export default async function Page({ params }: PageProps<"/[lang]/enem/provas/[a
       </PageHeading>
       <Untranslated lang={lang} t={t} show={!traduzido} />
       <p className="mt-6 border border-rule bg-parchment-deep p-4 font-sans text-sm text-ink-soft">{s.provas.aviso}</p>
-      <ProvaOficial ano={ano} dia={dia} minutosOficiais={minutos} habilidades={resumosDasHabilidades()} areas={areas} s={s} />
+      <ProvaOficial fonte={{ tipo: "dia", ano, dia, minutos }} habilidades={resumosDasHabilidades()} areas={areas} s={s} />
     </div>
   );
 }

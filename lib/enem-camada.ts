@@ -9,6 +9,7 @@ import path from "node:path";
 import type { Locale } from "@/i18n/config";
 import { getTracks } from "./content";
 import { acharNaMatriz, AREAS_DO_ENEM, type Letra } from "./enem";
+import { todosOsMapas } from "./curriculo-conteudo";
 import { classificacoesDoEnem, matrizDoEnem } from "./enem-conteudo";
 import type { AreaDoEnem } from "./mapa-curricular";
 
@@ -70,6 +71,27 @@ export function resumosDasHabilidades(): Record<string, string> {
 export function objetosParaFiltro(): Record<AreaDoEnem, { id: string; nome: string }[]> {
   const m = matrizDoEnem();
   return Object.fromEntries(AREAS_DO_ENEM.map((a) => [a, m.areas[a].objetos.map((o) => ({ id: o.id, nome: o.nome }))])) as Record<AreaDoEnem, { id: string; nome: string }[]>;
+}
+
+/**
+ * Os tópicos da matriz para o plano de estudos: o peso é a incidência (questões oficiais classificadas no tópico) e o
+ * endereço é a aula do percurso ligada ao tópico no mapa curricular, ou a prática daquele conteúdo.
+ */
+export function topicosParaPlano(): { id: string; nome: string; area: AreaDoEnem; peso: number; href: string }[] {
+  const m = matrizDoEnem();
+  const peso = new Map<string, number>();
+  for (const c of classificacoesDoEnem()) {
+    peso.set(c.objeto, (peso.get(c.objeto) ?? 0) + 1);
+    if (c.topico) peso.set(c.topico, (peso.get(c.topico) ?? 0) + 1);
+  }
+  const aula = new Map<string, string>();
+  for (const [trilha, mapa] of todosOsMapas())
+    if (trilha.startsWith("enem-")) for (const [slug, a] of Object.entries(mapa.aulas)) for (const id of a.objetos) if (!aula.has(id)) aula.set(id, `/trilhas/${trilha}/${slug}`);
+  return AREAS_DO_ENEM.flatMap((area) =>
+    m.areas[area].objetos.flatMap((o) =>
+      o.topicos.map((t) => ({ id: t.id, nome: t.nome, area, peso: (peso.get(t.id) ?? 0) * 10 + (peso.get(o.id) ?? 0) / Math.max(1, o.topicos.length), href: aula.get(t.id) ?? aula.get(o.id) ?? `/enem/praticar?objeto=${o.id}` })),
+    ),
+  );
 }
 
 /** Os anos com prova do Enem importada (public/questoes/enem-<ano>.json), do mais novo ao mais velho. */

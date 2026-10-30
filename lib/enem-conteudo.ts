@@ -16,6 +16,7 @@ import {
   type Matriz,
   type Proposta,
   type QuestaoImportada,
+  type Simulados,
   substituirFatos,
   type TemaOficial,
   validarClassificacoes,
@@ -23,6 +24,7 @@ import {
   validarMatriz,
   validarPropostas,
   validarRepertorio,
+  validarSimulados,
   validarTemasOficiais,
 } from "./enem";
 
@@ -84,3 +86,10 @@ export function questoesOficiaisDaAula(trilha: string, aula: string): Classifica
     .filter((c) => c.aulas.includes(alvo))
     .sort((a, b) => b.ano - a.ano || a.id.localeCompare(b.id, "pt", { numeric: true }));
 }
+
+/** O diagnóstico e os minissimulados (content/enem/simulados), conferidos contra as questões classificadas. */
+export const simuladosDoEnem = guardado<Simulados | null>(() => {
+  if (!existe("simulados/diagnostico.yml")) return null;
+  const area = new Map(classificacoesDoEnem().map((c) => [c.id, c.area]));
+  return validarSimulados(yaml("simulados/diagnostico.yml"), yaml("simulados/minissimulados.yml"), (id) => area.get(id) ?? null);
+});

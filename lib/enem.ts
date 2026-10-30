@@ -646,3 +646,55 @@ export function validarRepertorio(bruto: unknown, arquivo = "content/enem/redaca
     };
   });
 }
+
+// ───────────────────────────── Simulados e diagnóstico (simulados/) ─────────────────────────────
+
+export interface Minissimulado {
+  id: string;
+  area: AreaDoEnem;
+  minutos: number;
+  questoes: string[];
+}
+export interface Simulados {
+  /** 15 questões oficiais classificadas por área, cada uma ligada a uma habilidade. */
+  diagnostico: Record<AreaDoEnem, string[]>;
+  minissimulados: Minissimulado[];
+}
+
+/**
+ * Confere o diagnóstico e os minissimulados. `classificada(id)` devolve a área da questão oficial classificada (ou null
+ * se o id não está em questoes-oficiais): todo id usado precisa estar classificado, na área certa.
+ */
+export function validarSimulados(diag: unknown, minis: unknown, classificada: (id: string) => AreaDoEnem | null): Simulados {
+  const a1 = "content/enem/simulados/diagnostico.yml";
+  if (!objeto(diag) || !objeto(diag.areas)) falhar(a1, '"areas" traz a lista de questões de cada área');
+  const diagnostico = {} as Record<AreaDoEnem, string[]>;
+  const todos = new Set<string>();
+  for (const area of AREAS_DO_ENEM) {
+    const ids = (diag.areas as Dado)[area];
+    if (!Array.isArray(ids) || ids.length !== 15) falhar(a1, `${area}: o diagnóstico tem 15 questões por área`);
+    for (const id of ids) {
+      if (typeof id !== "string" || classificada(id) !== area) falhar(a1, `${area}: "${id}" não é questão oficial classificada de ${area}`);
+      if (todos.has(id)) falhar(a1, `"${id}" aparece duas vezes`);
+      todos.add(id);
+    }
+    diagnostico[area] = ids as string[];
+  }
+  const a2 = "content/enem/simulados/minissimulados.yml";
+  if (!objeto(minis) || !Array.isArray(minis.minissimulados)) falhar(a2, '"minissimulados" é a lista');
+  const vistos = new Set<string>();
+  const minissimulados = (minis.minissimulados as unknown[]).map((m, i): Minissimulado => {
+    if (!objeto(m)) falhar(a2, `item ${i + 1}: precisa de id, area, minutos e questoes`);
+    const id = texto(m, "id", `item ${i + 1}`, a2, 60);
+    if (!ID.test(id) || vistos.has(id)) falhar(a2, `"${id}": id inválido ou repetido`);
+    vistos.add(id);
+    const area = m.area as AreaDoEnem;
+    if (!AREAS_DO_ENEM.includes(area)) falhar(a2, `${id}: área inválida`);
+    if (!Number.isInteger(m.minutos) || (m.minutos as number) < 5 || (m.minutos as number) > 180) falhar(a2, `${id}: "minutos" de 5 a 180`);
+    const qs = lista(m, "questoes", id, a2);
+    if (qs.length < 5 || new Set(qs).size !== qs.length) falhar(a2, `${id}: ao menos 5 questões, sem repetir`);
+    for (const q of qs) if (typeof q !== "string" || classificada(q) !== area) falhar(a2, `${id}: "${q}" não é questão oficial classificada de ${area}`);
+    return { id, area, minutos: m.minutos as number, questoes: qs as string[] };
+  });
+  return { diagnostico, minissimulados };
+}
