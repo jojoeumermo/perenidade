@@ -13,6 +13,7 @@ import crypto from "node:crypto";
 import http from "node:http";
 import { validarEntrada } from "../supabase/functions/assistente/assistente.ts";
 import { criarBanco } from "./banco-local.mjs";
+import { ligarTempoReal } from "./tempo-real-local.mjs";
 
 // Outra porta com PORTA_BANCO=54400, para duas cópias do projeto rodarem ao mesmo tempo.
 export const PORTA = Number(process.env.PORTA_BANCO) || 54399;
@@ -140,6 +141,7 @@ export async function iniciar({ silencioso = false } = {}) {
     if (!silencioso) console.log("[local] podcast semeado: um episódio no ar; revisor@local é da supervisão");
   }
 
+  let tempoReal = null;
   const servidor = http.createServer(async (req, res) => {
     res.setHeader("access-control-allow-origin", "*");
     res.setHeader("access-control-allow-headers", "authorization, apikey, content-type, prefer, accept, accept-profile, content-profile, x-client-info, x-supabase-api-version, x-upsert, cache-control, range");
@@ -162,6 +164,13 @@ export async function iniciar({ silencioso = false } = {}) {
     }
 
     try {
+      // ── Tempo real: o envio pelo endereço HTTP (scripts/tempo-real-local.mjs) ──
+      if (url.pathname === "/realtime/v1/api/broadcast" && req.method === "POST") {
+        for (const m of Array.isArray(corpo.messages) ? corpo.messages : []) tempoReal?.difundir(String(m.topic ?? ""), String(m.event ?? ""), m.payload ?? {});
+        res.writeHead(202);
+        return res.end();
+      }
+
       // ── Funções do banco ──
       const funcao = /^\/rest\/v1\/rpc\/([a-z_]+)$/.exec(url.pathname);
       if (funcao && req.method === "POST") {
@@ -546,6 +555,7 @@ export async function iniciar({ silencioso = false } = {}) {
     }
   });
 
+  tempoReal = await ligarTempoReal(servidor);
   await new Promise((resolve) => servidor.listen(PORTA, "127.0.0.1", resolve));
   if (!silencioso) console.log(`[local] banco e contas de teste em ${URL_LOCAL}`);
   return { banco, ids, servidor };
