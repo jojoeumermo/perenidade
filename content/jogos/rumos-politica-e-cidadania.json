@@ -1,0 +1,979 @@
+{
+  "formato": "rumos/1",
+  "id": "politica-e-cidadania",
+  "titulo": "Política e cidadania hoje",
+  "resumo": "Dois anos na associação de moradores de um morro inventado: posto de saúde, eleição, despejo, boato e direitos que só existem quando alguém cobra.",
+  "papel": "Você acaba de ser eleita para presidir a associação de moradores do Morro do Cajueiro, um bairro inventado de uma cidade grande qualquer. As leis citadas em cada carta são reais e estão em vigor.",
+  "sobre": "O bairro e as personagens são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+  "modo": "fases",
+  "medidores": [
+    {
+      "id": "confianca",
+      "nome": "Moradores",
+      "descricao": "A confiança do bairro na associação. Sem ela, ninguém aparece; com ela demais, tudo passa a depender de você."
+    },
+    {
+      "id": "prefeitura",
+      "nome": "Prefeitura",
+      "descricao": "A relação com o poder público. Rompida, nada anda; colada demais, a associação vira braço do prefeito."
+    },
+    {
+      "id": "caixa",
+      "nome": "Caixa",
+      "descricao": "O dinheiro da associação. Zerado, não há nem a conta de luz da sede; cheio demais e parado, vira suspeita."
+    },
+    {
+      "id": "rua",
+      "nome": "Mobilização",
+      "descricao": "A disposição do bairro de ir para a rua. Baixa, as demandas são esquecidas; no limite, o conflito sai do controle."
+    }
+  ],
+  "inicio": {
+    "confianca": 45,
+    "prefeitura": 50,
+    "caixa": 40,
+    "rua": 40
+  },
+  "personagens": [
+    {
+      "id": "lurdes",
+      "nome": "Dona Lurdes",
+      "papel": "agente comunitária de saúde"
+    },
+    {
+      "id": "wesley",
+      "nome": "Wesley",
+      "papel": "estudante de 16 anos"
+    },
+    {
+      "id": "neide",
+      "nome": "Neide",
+      "papel": "costureira e tesoureira da associação"
+    },
+    {
+      "id": "secretario",
+      "nome": "Secretário Barbosa",
+      "papel": "secretário de obras da prefeitura"
+    },
+    {
+      "id": "candidato",
+      "nome": "Doutor Renan",
+      "papel": "candidato a vereador"
+    },
+    {
+      "id": "ivone",
+      "nome": "Ivone",
+      "papel": "professora da escola do morro"
+    },
+    {
+      "id": "tiao",
+      "nome": "Tião",
+      "papel": "dono do bar da esquina"
+    }
+  ],
+  "fases": [
+    {
+      "id": "ano-um",
+      "nome": "Primeiro ano do mandato",
+      "cartas": 6
+    },
+    {
+      "id": "ano-dois",
+      "nome": "Segundo ano do mandato",
+      "cartas": 6
+    }
+  ],
+  "cartas": [
+    {
+      "id": "pc-posto",
+      "fase": "ano-um",
+      "titulo": "O posto sem médico",
+      "personagem": "lurdes",
+      "texto": "O posto de saúde do morro está há três meses sem médico. Dona Lurdes diz que existe um conselho municipal de saúde com vaga para representante dos usuários. Tião sugere ligar para um vereador amigo.",
+      "esquerda": {
+        "texto": "Ocupar a vaga no conselho",
+        "efeito": {
+          "confianca": 10,
+          "prefeitura": -5,
+          "rua": 8
+        },
+        "retorno": "O caminho é mais lento, mas a demanda vira pauta oficial, registrada em ata, e não favor de ninguém.",
+        "liga": [
+          "conselho"
+        ]
+      },
+      "direita": {
+        "texto": "Ligar para o vereador amigo",
+        "efeito": {
+          "prefeitura": 10,
+          "confianca": -5,
+          "rua": -10
+        },
+        "retorno": "O médico aparece na semana seguinte, e some no mês seguinte. O que veio como favor vai embora como favor."
+      },
+      "historia": {
+        "texto": "A Lei 8.142, de 1990, garante a participação da comunidade no SUS por meio dos conselhos e das conferências de saúde, em cada município, nos estados e na União. Nos conselhos, a representação dos usuários é paritária em relação ao conjunto dos demais segmentos (governo, prestadores de serviço e profissionais de saúde).",
+        "fonte": {
+          "titulo": "Lei nº 8.142, de 28 de dezembro de 1990",
+          "autor": "Presidência da República",
+          "ano": "1990",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm"
+        }
+      },
+      "aula": {
+        "titulo": "O SUS: saúde como direito",
+        "href": "/trilhas/biologia-fundamental/o-sus-saude-como-direito"
+      }
+    },
+    {
+      "id": "pc-remocao",
+      "fase": "ano-um",
+      "titulo": "A obra da avenida",
+      "personagem": "secretario",
+      "texto": "A prefeitura vai alargar a avenida e diz que 40 casas da parte de baixo do morro \"terão de sair\". O secretário Barbosa oferece um cheque para cada família e pressa.",
+      "esquerda": {
+        "texto": "Aceitar o cheque",
+        "efeito": {
+          "prefeitura": 12,
+          "caixa": 5,
+          "confianca": -15
+        },
+        "retorno": "O cheque não paga uma casa em lugar nenhum perto dali. As famílias se espalham para longe do trabalho e da escola."
+      },
+      "direita": {
+        "texto": "Exigir audiência pública",
+        "efeito": {
+          "rua": 12,
+          "confianca": 8,
+          "prefeitura": -12
+        },
+        "retorno": "A lei manda ouvir quem vai ser afetado. A obra para até a audiência ser marcada.",
+        "proxima": "pc-audiencia"
+      },
+      "historia": {
+        "texto": "O Estatuto da Cidade (Lei 10.257, de 2001) regulamenta a função social da propriedade urbana e a gestão democrática da cidade, com audiências públicas e participação da população nos planos e projetos que a afetam. O plano diretor é obrigatório para cidades com mais de 20 mil habitantes.",
+        "fonte": {
+          "titulo": "Lei nº 10.257, de 10 de julho de 2001 (Estatuto da Cidade)",
+          "autor": "Presidência da República",
+          "ano": "2001",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm"
+        }
+      },
+      "aula": {
+        "titulo": "O Estatuto da Cidade e a função social da propriedade",
+        "href": "/trilhas/direito-a-cidade/o-estatuto-da-cidade-e-a-funcao-social-da-propriedade"
+      }
+    },
+    {
+      "id": "pc-audiencia",
+      "fase": "ano-um",
+      "soEncadeada": true,
+      "titulo": "Na audiência",
+      "personagem": "secretario",
+      "texto": "Na audiência, o salão está lotado. O secretário apresenta duas saídas: apartamentos num conjunto a 30 km, ou reassentar as famílias ali perto, demarcando o morro como área de moradia popular.",
+      "esquerda": {
+        "texto": "Aceitar o conjunto distante",
+        "efeito": {
+          "prefeitura": 8,
+          "confianca": -10
+        },
+        "retorno": "Casa com escritura, longe de tudo. Duas horas de ônibus por dia para chegar ao emprego."
+      },
+      "direita": {
+        "texto": "Defender a área de moradia no morro",
+        "efeito": {
+          "confianca": 12,
+          "rua": 5,
+          "prefeitura": -8
+        },
+        "retorno": "A associação leva o mapa feito pelos moradores. O morro vira assunto do plano diretor, não só da obra."
+      },
+      "historia": {
+        "texto": "Entre os instrumentos do Estatuto da Cidade (art. 4º) estão as Zonas Especiais de Interesse Social (ZEIS): áreas demarcadas no plano diretor para moradia popular, onde a regularização e a urbanização protegem quem já mora ali.",
+        "fonte": {
+          "titulo": "Lei nº 10.257, de 10 de julho de 2001 (Estatuto da Cidade), art. 4º",
+          "autor": "Presidência da República",
+          "ano": "2001",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Henri Lefebvre e o direito à cidade",
+        "href": "/trilhas/direito-a-cidade/henri-lefebvre-e-o-direito-a-cidade"
+      }
+    },
+    {
+      "id": "pc-gastos",
+      "fase": "ano-um",
+      "titulo": "Quanto custou a praça?",
+      "personagem": "neide",
+      "texto": "A praça reformada já está rachando. Neide quer saber quanto a prefeitura pagou e para quem. Tião acha que pedir isso \"vai arrumar inimigo\".",
+      "esquerda": {
+        "texto": "Pedir os dados à prefeitura",
+        "efeito": {
+          "confianca": 10,
+          "prefeitura": -10,
+          "rua": 5
+        },
+        "retorno": "O pedido é um direito, não uma afronta. Em semanas, a planilha chega, e o bairro aprende a ler um contrato."
+      },
+      "direita": {
+        "texto": "Deixar para lá",
+        "efeito": {
+          "prefeitura": 8,
+          "confianca": -10
+        },
+        "retorno": "Sem fiscalização, a próxima obra vai rachar igual. Dinheiro público que ninguém acompanha é dinheiro que some."
+      },
+      "historia": {
+        "texto": "A Lei de Acesso à Informação (Lei 12.527, de 2011) permite que qualquer pessoa peça informações aos órgãos públicos, sem precisar explicar o motivo. Em regra, a resposta deve vir em até 20 dias, prorrogáveis por mais 10.",
+        "fonte": {
+          "titulo": "Lei nº 12.527, de 18 de novembro de 2011 (Lei de Acesso à Informação)",
+          "autor": "Presidência da República",
+          "ano": "2011",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm"
+        }
+      },
+      "aula": {
+        "titulo": "O que diz a Constituição de 1988",
+        "href": "/trilhas/direito-fundamental/o-que-diz-a-constituicao-de-1988"
+      }
+    },
+    {
+      "id": "pc-cesta",
+      "fase": "ano-um",
+      "titulo": "A cesta do candidato",
+      "personagem": "candidato",
+      "texto": "Doutor Renan aparece com um caminhão de cestas básicas. Quer distribuir pela associação, \"sem compromisso nenhum\", só com o santinho dele dentro de cada caixa.",
+      "esquerda": {
+        "texto": "Distribuir as cestas",
+        "efeito": {
+          "caixa": 10,
+          "confianca": 5,
+          "rua": -12,
+          "prefeitura": 5
+        },
+        "retorno": "A fome é real, e a cesta ajuda por uma semana. O voto do bairro, que vale quatro anos, fica com dono.",
+        "liga": [
+          "cabresto"
+        ]
+      },
+      "direita": {
+        "texto": "Recusar e denunciar",
+        "efeito": {
+          "confianca": 8,
+          "rua": 10,
+          "caixa": -8
+        },
+        "retorno": "Você explica no bairro que trocar bem por voto é crime eleitoral. Alguns entendem, outros ficam bravos com a cesta perdida."
+      },
+      "historia": {
+        "texto": "A Lei 9.840, de 1999, uma das primeiras leis nascidas de iniciativa popular no país, veio de uma campanha com mais de um milhão de assinaturas recolhidas por entidades como a CNBB. Ela permite cassar o registro ou o diploma de quem dá ou oferece bem ou vantagem ao eleitor em troca do voto (art. 41-A da Lei das Eleições).",
+        "fonte": {
+          "titulo": "Lei nº 9.840, de 28 de setembro de 1999",
+          "autor": "Presidência da República",
+          "ano": "1999",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/l9840.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Dinheiro de campanha",
+        "href": "/trilhas/disputar-as-eleicoes/dinheiro-de-campanha"
+      }
+    },
+    {
+      "id": "pc-boato",
+      "fase": "ano-um",
+      "titulo": "O áudio no grupo",
+      "personagem": "tiao",
+      "texto": "Corre no grupo do bairro um áudio dizendo que a tesoureira Neide desviou o dinheiro da festa junina. Não é verdade, mas já tem gente pedindo a cabeça dela.",
+      "esquerda": {
+        "texto": "Afastar a Neide até esfriar",
+        "efeito": {
+          "prefeitura": 5,
+          "confianca": -12,
+          "caixa": -5
+        },
+        "retorno": "Afastar uma inocente para acalmar o boato é dar razão ao boato. A próxima vítima pode ser qualquer um."
+      },
+      "direita": {
+        "texto": "Abrir as contas na assembleia",
+        "efeito": {
+          "confianca": 12,
+          "rua": 5,
+          "caixa": -5
+        },
+        "retorno": "As notas fiscais vão para o mural. A mentira se desmancha à luz do dia, e quem espalhou fica sem graça."
+      },
+      "historia": {
+        "texto": "Acusar alguém falsamente pode ser crime: o Código Penal pune a calúnia (atribuir falsamente um crime a alguém), a difamação (ofender a reputação) e a injúria (ofender a dignidade), nos artigos 138 a 140.",
+        "fonte": {
+          "titulo": "Decreto-Lei nº 2.848, de 7 de dezembro de 1940 (Código Penal), arts. 138 a 140",
+          "autor": "Presidência da República",
+          "ano": "1940",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Como identificar uma notícia falsa",
+        "href": "/trilhas/midia-fundamental/como-identificar-uma-noticia-falsa"
+      }
+    },
+    {
+      "id": "pc-dados",
+      "fase": "ano-um",
+      "titulo": "O cadastro da cesta",
+      "personagem": "neide",
+      "texto": "Um programa de doação pede que a associação mande uma planilha com nome, CPF, foto, religião e renda de cada família atendida.",
+      "esquerda": {
+        "texto": "Mandar tudo como pediram",
+        "efeito": {
+          "prefeitura": 8,
+          "caixa": 8,
+          "confianca": -12
+        },
+        "retorno": "Os dados saem da sede e ninguém sabe para onde vão. Religião não tem nada a ver com cesta básica."
+      },
+      "direita": {
+        "texto": "Mandar só o necessário",
+        "efeito": {
+          "confianca": 10,
+          "prefeitura": -5,
+          "caixa": -5
+        },
+        "retorno": "Nome e renda, sim; religião e foto, não. Proteger os dados do bairro também é cuidar dele."
+      },
+      "historia": {
+        "texto": "A Lei Geral de Proteção de Dados (Lei 13.709, de 2018) exige que dados pessoais sejam usados para uma finalidade clara e só no necessário. Convicção religiosa, origem racial, saúde e opinião política são dados sensíveis, com proteção reforçada.",
+        "fonte": {
+          "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (LGPD)",
+          "autor": "Presidência da República",
+          "ano": "2018",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Seus dados valem dinheiro",
+        "href": "/trilhas/midia-fundamental/seus-dados-valem-dinheiro"
+      }
+    },
+    {
+      "id": "pc-crianca",
+      "fase": "ano-um",
+      "titulo": "O menino do semáforo",
+      "personagem": "lurdes",
+      "texto": "Um menino de 11 anos vende bala no semáforo até tarde da noite para ajudar em casa. Tião acha que \"trabalho nunca matou ninguém\".",
+      "esquerda": {
+        "texto": "Chamar o conselho tutelar e ajudar a família",
+        "efeito": {
+          "confianca": 5,
+          "caixa": -10,
+          "prefeitura": 5
+        },
+        "retorno": "O conselho tutelar não existe para punir a família, e sim para proteger a criança. A associação ajuda a mãe a buscar renda."
+      },
+      "direita": {
+        "texto": "Não se meter",
+        "efeito": {
+          "confianca": -8,
+          "rua": -5,
+          "caixa": 6
+        },
+        "retorno": "O menino continua no semáforo e larga a escola. Trabalho infantil rouba a infância e o futuro."
+      },
+      "historia": {
+        "texto": "A Constituição (art. 7º, XXXIII) proíbe qualquer trabalho a menores de 16 anos, salvo como aprendiz a partir dos 14, e o trabalho noturno, perigoso ou insalubre a menores de 18. O Estatuto da Criança e do Adolescente (Lei 8.069, de 1990) criou os conselhos tutelares.",
+        "fonte": {
+          "titulo": "Lei nº 8.069, de 13 de julho de 1990 (Estatuto da Criança e do Adolescente)",
+          "autor": "Presidência da República",
+          "ano": "1990",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Trabalho infantil e os direitos da criança",
+        "href": "/trilhas/sociologia-fundamental/trabalho-infantil-e-os-direitos-da-crianca"
+      }
+    },
+    {
+      "id": "pc-conferencia",
+      "fase": "ano-dois",
+      "condicao": {
+        "flags": [
+          "conselho"
+        ]
+      },
+      "peso": 3,
+      "titulo": "A conferência de saúde",
+      "personagem": "lurdes",
+      "texto": "Graças à vaga no conselho, o bairro foi chamado para a conferência municipal de saúde. Dá para levar uma proposta. Lurdes quer pedir uma equipe de saúde da família só para o morro.",
+      "esquerda": {
+        "texto": "Levar a proposta do bairro",
+        "efeito": {
+          "confianca": 12,
+          "rua": 5,
+          "caixa": -5
+        },
+        "retorno": "A proposta é aprovada na conferência e entra no plano municipal de saúde. Agora é cobrar."
+      },
+      "direita": {
+        "texto": "Deixar a vaga para outro bairro",
+        "efeito": {
+          "prefeitura": 5,
+          "confianca": -8,
+          "caixa": 5
+        },
+        "retorno": "Participar cansa. Mas quem não vai à reunião não entra no orçamento."
+      },
+      "historia": {
+        "texto": "Pela Lei 8.142, de 1990, a conferência de saúde se reúne a cada quatro anos, com representação dos vários segmentos sociais, para avaliar a situação de saúde e propor as diretrizes da política de saúde em cada esfera de governo.",
+        "fonte": {
+          "titulo": "Lei nº 8.142, de 28 de dezembro de 1990, art. 1º",
+          "autor": "Presidência da República",
+          "ano": "1990",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm"
+        }
+      },
+      "aula": {
+        "titulo": "O SUS: saúde como direito",
+        "href": "/trilhas/biologia-fundamental/o-sus-saude-como-direito"
+      }
+    },
+    {
+      "id": "pc-candidata",
+      "fase": "ano-dois",
+      "titulo": "Uma de nós na chapa",
+      "personagem": "neide",
+      "texto": "Um partido procurou a associação: precisa de mulheres para completar a lista de candidaturas. Neide topa se candidatar, mas quer saber se vai ter apoio de verdade ou só servir de nome.",
+      "esquerda": {
+        "texto": "Apoiar a campanha da Neide",
+        "efeito": {
+          "confianca": 10,
+          "rua": 10,
+          "caixa": -12
+        },
+        "retorno": "Panfleto feito na máquina de costura, reunião de cozinha em cozinha. Ganhe ou perca, o bairro aprende a disputar.",
+        "liga": [
+          "candidata"
+        ]
+      },
+      "direita": {
+        "texto": "Associação não se mete em eleição",
+        "efeito": {
+          "prefeitura": 8,
+          "rua": -8,
+          "caixa": 8
+        },
+        "retorno": "A associação fica neutra, e a política continua sendo feita por quem nunca subiu o morro."
+      },
+      "historia": {
+        "texto": "A Lei das Eleições (Lei 9.504, de 1997, art. 10, § 3º) obriga cada partido a ter no mínimo 30% e no máximo 70% de candidaturas de cada sexo. A Justiça Eleitoral pune candidaturas femininas fictícias, lançadas só para cumprir a cota.",
+        "fonte": {
+          "titulo": "Lei nº 9.504, de 30 de setembro de 1997 (Lei das Eleições)",
+          "autor": "Presidência da República",
+          "ano": "1997",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/l9504.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Convenção, registro e chapa",
+        "href": "/trilhas/disputar-as-eleicoes/convencao-registro-e-chapa"
+      }
+    },
+    {
+      "id": "pc-16-anos",
+      "fase": "ano-dois",
+      "titulo": "Posso votar?",
+      "personagem": "wesley",
+      "texto": "Wesley, de 16 anos, quer tirar o título e chamar a turma da escola. A mãe dele acha que é cedo e que \"política é coisa de adulto\".",
+      "esquerda": {
+        "texto": "Fazer mutirão do título na escola",
+        "efeito": {
+          "rua": 10,
+          "confianca": 8,
+          "caixa": -5
+        },
+        "retorno": "Quarenta adolescentes tiram o título. Os candidatos passam a subir o morro também para conversar com eles."
+      },
+      "direita": {
+        "texto": "Esperar que façam 18",
+        "efeito": {
+          "rua": -10,
+          "confianca": -5,
+          "caixa": 5
+        },
+        "retorno": "O direito existe desde os 16, mas sem incentivo quase ninguém usa. E quem não vota não é procurado."
+      },
+      "historia": {
+        "texto": "Pela Constituição (art. 14), o voto é obrigatório a partir dos 18 anos e facultativo para jovens de 16 e 17 anos, para maiores de 70 e para analfabetos. A mesma regra garante o voto direto e secreto, com valor igual para todos.",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988, art. 14",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "O que é a Constituição",
+        "href": "/trilhas/politica-fundamental/o-que-e-a-constituicao"
+      }
+    },
+    {
+      "id": "pc-ocupacao",
+      "fase": "ano-dois",
+      "titulo": "O prédio vazio",
+      "personagem": "ivone",
+      "texto": "Um prédio da avenida está abandonado há 15 anos, com dívida de imposto. Famílias despejadas do morro entraram nele. O dono apareceu exigindo que a associação ajude a tirá-las.",
+      "esquerda": {
+        "texto": "Ajudar a tirar as famílias",
+        "efeito": {
+          "prefeitura": 10,
+          "confianca": -12,
+          "rua": -8
+        },
+        "retorno": "O prédio volta a ficar vazio, e as famílias voltam para a rua. A propriedade fica protegida; a moradia, não."
+      },
+      "direita": {
+        "texto": "Apoiar a negociação pela moradia",
+        "efeito": {
+          "rua": 12,
+          "confianca": 8,
+          "prefeitura": -12
+        },
+        "retorno": "A associação leva o caso à Defensoria e à prefeitura: imóvel abandonado e endividado pode virar moradia popular."
+      },
+      "historia": {
+        "texto": "A Constituição garante o direito de propriedade, mas diz que ela deve atender à sua função social (art. 5º, XXIII), e inclui a moradia entre os direitos sociais (art. 6º, desde a Emenda Constitucional 26, de 2000). O Estatuto da Cidade prevê punições ao imóvel urbano vazio, como o IPTU progressivo.",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988, arts. 5º e 6º",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Engels e a questão da moradia",
+        "href": "/trilhas/direito-a-cidade/engels-e-a-questao-da-moradia"
+      }
+    },
+    {
+      "id": "pc-padaria",
+      "fase": "ano-dois",
+      "titulo": "Na padaria",
+      "personagem": "tiao",
+      "texto": "O dono da padaria chamou Ivone, professora negra, de um nome racista na frente de todo mundo. Tião pede para \"não fazer escândalo, ele é gente boa\".",
+      "esquerda": {
+        "texto": "Acompanhar a Ivone na delegacia",
+        "efeito": {
+          "confianca": 10,
+          "rua": 10,
+          "prefeitura": -5
+        },
+        "retorno": "Racismo é crime, não briga de vizinho. A associação vai junto, com testemunhas."
+      },
+      "direita": {
+        "texto": "Pedir que façam as pazes",
+        "efeito": {
+          "prefeitura": 5,
+          "confianca": -12,
+          "rua": -5
+        },
+        "retorno": "Pedir que a vítima esqueça é proteger o agressor. A Ivone sai da padaria sozinha."
+      },
+      "historia": {
+        "texto": "A Lei 14.532, de 2023, equiparou a injúria racial ao crime de racismo, com pena de reclusão de 2 a 5 anos. Pela Constituição (art. 5º, XLII), a prática do racismo é crime inafiançável e imprescritível.",
+        "fonte": {
+          "titulo": "Lei nº 14.532, de 11 de janeiro de 2023",
+          "autor": "Presidência da República",
+          "ano": "2023",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14532.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Preconceito e discriminação",
+        "href": "/trilhas/sociologia-fundamental/preconceito-e-discriminacao"
+      }
+    },
+    {
+      "id": "pc-vizinha",
+      "fase": "ano-dois",
+      "titulo": "Os gritos da casa ao lado",
+      "personagem": "lurdes",
+      "texto": "Toda sexta, os vizinhos ouvem os gritos de uma mulher apanhando do marido. Ninguém faz nada porque \"em briga de marido e mulher não se mete a colher\".",
+      "esquerda": {
+        "texto": "Ligar 180 e organizar a rede de apoio",
+        "efeito": {
+          "confianca": 10,
+          "rua": 5,
+          "caixa": -5
+        },
+        "retorno": "Ligar é um começo. A rede de vizinhas ajuda a mulher a chegar ao atendimento e a não ficar sozinha."
+      },
+      "direita": {
+        "texto": "Respeitar a privacidade do casal",
+        "efeito": {
+          "confianca": -10,
+          "rua": -8
+        },
+        "retorno": "Violência doméstica não é assunto privado. O silêncio do bairro protege quem bate."
+      },
+      "historia": {
+        "texto": "A Lei Maria da Penha (Lei 11.340, de 2006) criou mecanismos para coibir a violência doméstica e familiar contra a mulher, como as medidas protetivas de urgência. A Central de Atendimento à Mulher, o Ligue 180, é gratuita e funciona 24 horas.",
+        "fonte": {
+          "titulo": "Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha)",
+          "autor": "Presidência da República",
+          "ano": "2006",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Feminicídio",
+        "href": "/trilhas/historia-das-lutas-das-mulheres/feminicidio"
+      }
+    },
+    {
+      "id": "pc-orcamento",
+      "fase": "ano-dois",
+      "titulo": "Quem decide o orçamento",
+      "personagem": "secretario",
+      "texto": "A prefeitura vai decidir onde gastar o dinheiro de obras do ano que vem. O secretário diz que \"o técnico sabe o que é melhor\". Ivone ouviu falar de uma cidade onde os bairros votam as prioridades.",
+      "esquerda": {
+        "texto": "Propor plenárias nos bairros",
+        "efeito": {
+          "rua": 12,
+          "confianca": 8,
+          "prefeitura": -10
+        },
+        "retorno": "A primeira plenária tem 30 pessoas; a segunda, 300. Quando o povo decide o orçamento, a creche passa na frente do viaduto."
+      },
+      "direita": {
+        "texto": "Confiar nos técnicos",
+        "efeito": {
+          "prefeitura": 10,
+          "rua": -10
+        },
+        "retorno": "O técnico conhece a planilha, mas não sobe a escadaria do morro todo dia. O orçamento sai sem a cara do bairro."
+      },
+      "historia": {
+        "texto": "O orçamento participativo começou em Porto Alegre em 1989: em assembleias por região, a população passou a definir as prioridades de investimento da prefeitura. A experiência se espalhou por centenas de cidades no Brasil e no mundo.",
+        "fonte": {
+          "titulo": "Orçamento participativo: a experiência de Porto Alegre",
+          "autor": "Tarso Genro e Ubiratan de Souza",
+          "ano": "1997"
+        }
+      },
+      "aula": {
+        "titulo": "Orçamento participativo",
+        "href": "/trilhas/politica-medio/orcamento-participativo"
+      }
+    },
+    {
+      "id": "pc-eja",
+      "fase": "ano-dois",
+      "titulo": "O fim da turma da noite",
+      "personagem": "ivone",
+      "texto": "A secretaria de educação quer fechar a turma noturna de jovens e adultos da escola do morro, \"por falta de alunos\". Ivone diz que a turma tem 22 pessoas.",
+      "esquerda": {
+        "texto": "Fazer abaixo-assinado e ato",
+        "efeito": {
+          "rua": 12,
+          "confianca": 8,
+          "prefeitura": -10
+        },
+        "retorno": "Quarenta pessoas lotam a secretaria com a lista de chamada na mão. A turma da noite continua."
+      },
+      "direita": {
+        "texto": "Aceitar a decisão",
+        "efeito": {
+          "prefeitura": 8,
+          "confianca": -10,
+          "rua": -5
+        },
+        "retorno": "Os 22 alunos teriam de ir a uma escola a 8 km, à noite. A maioria desiste."
+      },
+      "historia": {
+        "texto": "A Constituição (art. 208, I, com a redação da Emenda Constitucional 59, de 2009) garante a educação básica obrigatória e gratuita dos 4 aos 17 anos, assegurada inclusive a oferta gratuita para todos os que não tiveram acesso a ela na idade própria. É a base da Educação de Jovens e Adultos (EJA).",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988, art. 208",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Direitos fundamentais",
+        "href": "/trilhas/politica-fundamental/direitos-fundamentais"
+      }
+    },
+    {
+      "id": "pc-rampa",
+      "fase": "ano-dois",
+      "titulo": "A escadaria",
+      "personagem": "wesley",
+      "texto": "O irmão de Wesley usa cadeira de rodas e não consegue chegar à sede da associação, no alto da escadaria. A reforma da sede custaria quase todo o caixa.",
+      "esquerda": {
+        "texto": "Fazer as reuniões lá embaixo",
+        "efeito": {
+          "confianca": 10,
+          "caixa": -5,
+          "rua": 5
+        },
+        "retorno": "Enquanto a obra não sai, as reuniões descem para a praça. Ninguém mais fica de fora por causa de degrau."
+      },
+      "direita": {
+        "texto": "Adiar para o ano que vem",
+        "efeito": {
+          "caixa": 8,
+          "confianca": -10
+        },
+        "retorno": "Adiar acessibilidade é adiar a cidadania de alguém. Ele vai continuar acompanhando tudo pelo celular."
+      },
+      "historia": {
+        "texto": "A Lei Brasileira de Inclusão (Lei 13.146, de 2015) garante às pessoas com deficiência o direito à acessibilidade e à participação na vida pública e política, em igualdade de condições com as demais.",
+        "fonte": {
+          "titulo": "Lei nº 13.146, de 6 de julho de 2015 (Lei Brasileira de Inclusão)",
+          "autor": "Presidência da República",
+          "ano": "2015",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm"
+        }
+      },
+      "aula": {
+        "titulo": "A Lei Brasileira de Inclusão",
+        "href": "/trilhas/direitos-das-pessoas-com-deficiencia/a-lei-brasileira-de-inclusao"
+      }
+    },
+    {
+      "id": "pc-onibus",
+      "fase": "ano-um",
+      "titulo": "A linha cortada",
+      "personagem": "tiao",
+      "texto": "A empresa de ônibus cortou a única linha que sobe o morro depois das 21h. Quem estuda ou trabalha à noite volta a pé, no escuro.",
+      "esquerda": {
+        "texto": "Fazer um ato no ponto final",
+        "efeito": {
+          "rua": 15,
+          "prefeitura": -10,
+          "confianca": 5
+        },
+        "retorno": "O ato sai no jornal da TV. Em duas semanas, a linha volta, com horário reduzido."
+      },
+      "direita": {
+        "texto": "Organizar uma van do bairro",
+        "efeito": {
+          "caixa": -12,
+          "confianca": 8,
+          "rua": -5
+        },
+        "retorno": "A van resolve hoje e tira a pressão de quem devia resolver: transporte é serviço público."
+      },
+      "historia": {
+        "texto": "Desde a Emenda Constitucional 90, de 2015, o transporte está no artigo 6º da Constituição como direito social, ao lado da educação, da saúde, da alimentação, do trabalho e da moradia. A mudança veio depois das manifestações de junho de 2013, que começaram contra o aumento das passagens.",
+        "fonte": {
+          "titulo": "Emenda Constitucional nº 90, de 15 de setembro de 2015",
+          "autor": "Presidência da República",
+          "ano": "2015",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc90.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Henri Lefebvre e o direito à cidade",
+        "href": "/trilhas/direito-a-cidade/henri-lefebvre-e-o-direito-a-cidade"
+      }
+    },
+    {
+      "id": "pc-iniciativa",
+      "fase": "ano-dois",
+      "condicao": {
+        "partidas": 1
+      },
+      "peso": 2,
+      "titulo": "Uma lei escrita pelo povo",
+      "personagem": "ivone",
+      "texto": "Associações de vários estados querem propor uma lei nacional por iniciativa popular. Precisam de milhares de assinaturas no morro. Dá trabalho, e não é garantia de nada.",
+      "esquerda": {
+        "texto": "Entrar na coleta",
+        "efeito": {
+          "rua": 12,
+          "confianca": 8,
+          "caixa": -8
+        },
+        "retorno": "Banca na feira, prancheta na porta da igreja e do terreiro. O bairro descobre que também pode escrever lei."
+      },
+      "direita": {
+        "texto": "Cuidar só do bairro",
+        "efeito": {
+          "prefeitura": 5,
+          "rua": -10,
+          "caixa": 6
+        },
+        "retorno": "O bairro tem problemas de sobra, é verdade. Mas muitos deles só se resolvem com lei nacional."
+      },
+      "historia": {
+        "texto": "Pela Constituição (art. 61, § 2º), um projeto de lei de iniciativa popular precisa da assinatura de pelo menos 1% do eleitorado nacional, distribuído por no mínimo cinco estados, com não menos de 0,3% dos eleitores de cada um. A Lei da Ficha Limpa (Lei Complementar 135, de 2010) nasceu de uma campanha de iniciativa popular, com mais de um milhão de assinaturas.",
+        "fonte": {
+          "titulo": "Lei Complementar nº 135, de 4 de junho de 2010 (Lei da Ficha Limpa)",
+          "autor": "Presidência da República",
+          "ano": "2010",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Democracia direta: plebiscito, referendo e conselhos",
+        "href": "/trilhas/eleicoes-partidos-e-voto/democracia-direta-plebiscito-referendo-e-conselhos"
+      }
+    }
+  ],
+  "finais": [
+    {
+      "id": "pc-moradores-zero",
+      "tipo": "queda",
+      "medidor": "confianca",
+      "limite": "zero",
+      "titulo": "A sede vazia",
+      "texto": "Ninguém mais aparece nas reuniões. A associação existe no papel, com carimbo e CNPJ, mas não fala por ninguém.",
+      "aula": {
+        "titulo": "Movimentos sociais",
+        "href": "/trilhas/sociologia-medio/movimentos-sociais"
+      }
+    },
+    {
+      "id": "pc-moradores-cem",
+      "tipo": "queda",
+      "medidor": "confianca",
+      "limite": "cem",
+      "titulo": "Tudo depende de você",
+      "texto": "O bairro confia tanto em você que ninguém mais decide nada sozinho. Quando você adoece por uma semana, a associação para. Organização que depende de uma pessoa só é frágil.",
+      "historia": {
+        "texto": "Max Weber chamou de dominação carismática a autoridade baseada nas qualidades excepcionais atribuídas a uma pessoa. Para ele, ela é instável: sem rotina e sem regras, não sobrevive à saída do líder.",
+        "fonte": {
+          "titulo": "Max Weber",
+          "autor": "Stanford Encyclopedia of Philosophy (Sung Ho Kim)",
+          "url": "https://plato.stanford.edu/entries/weber/"
+        }
+      },
+      "aula": {
+        "titulo": "Weber e a ação social",
+        "href": "/trilhas/sociologia-medio/weber-e-a-acao-social"
+      }
+    },
+    {
+      "id": "pc-prefeitura-zero",
+      "tipo": "queda",
+      "medidor": "prefeitura",
+      "limite": "zero",
+      "titulo": "Portas fechadas",
+      "texto": "A prefeitura não atende mais a associação. Nenhum pedido anda, nenhuma obra chega. Brigar só funciona quando também se sabe negociar.",
+      "aula": {
+        "titulo": "Os três poderes",
+        "href": "/trilhas/politica-fundamental/os-tres-poderes"
+      }
+    },
+    {
+      "id": "pc-prefeitura-cem",
+      "tipo": "queda",
+      "medidor": "prefeitura",
+      "limite": "cem",
+      "titulo": "Braço do prefeito",
+      "texto": "A associação virou extensão da prefeitura: distribui o que ela manda e cala o que ela não quer ouvir. Quando o bairro precisa reclamar, não tem mais com quem. O nome disso é clientelismo: apoio político trocado por favor.",
+      "aula": {
+        "titulo": "A Primeira República",
+        "href": "/trilhas/historia-do-brasil/a-primeira-republica"
+      }
+    },
+    {
+      "id": "pc-caixa-zero",
+      "tipo": "queda",
+      "medidor": "caixa",
+      "limite": "zero",
+      "titulo": "Luz cortada",
+      "texto": "A conta de luz da sede venceu e não há como pagar. Sem sede, sem telefone, sem xerox, a associação se dispersa.",
+      "aula": {
+        "titulo": "Movimentos sociais",
+        "href": "/trilhas/sociologia-medio/movimentos-sociais"
+      }
+    },
+    {
+      "id": "pc-caixa-cem",
+      "tipo": "queda",
+      "medidor": "caixa",
+      "limite": "cem",
+      "titulo": "Dinheiro parado",
+      "texto": "O caixa está cheio e ninguém sabe para quê. Começam as suspeitas, os grupos rivais e o boato. Dinheiro de associação existe para virar ação.",
+      "aula": {
+        "titulo": "O que diz a Constituição de 1988",
+        "href": "/trilhas/direito-fundamental/o-que-diz-a-constituicao-de-1988"
+      }
+    },
+    {
+      "id": "pc-rua-zero",
+      "tipo": "queda",
+      "medidor": "rua",
+      "limite": "zero",
+      "titulo": "Ninguém na rua",
+      "texto": "O bairro desistiu de cobrar. As demandas viram fila de espera eterna, e os problemas do morro somem da agenda da cidade.",
+      "historia": {
+        "texto": "Muitos direitos da Constituição de 1988, como o SUS e os capítulos sobre a reforma urbana, foram conquistados pela pressão de movimentos populares durante a Constituinte, que reuniram milhões de assinaturas em emendas populares.",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "A redemocratização e a Constituição de 1988",
+        "href": "/trilhas/historia-do-brasil/a-redemocratizacao-e-a-constituicao-de-1988"
+      }
+    },
+    {
+      "id": "pc-rua-cem",
+      "tipo": "queda",
+      "medidor": "rua",
+      "limite": "cem",
+      "titulo": "O conflito saiu do controle",
+      "texto": "A mobilização cresceu mais que a organização. Um ato termina em confronto, a polícia sobe o morro e a pauta do bairro some atrás das manchetes de violência.",
+      "historia": {
+        "texto": "A Constituição garante a reunião pacífica, sem armas, em locais abertos ao público, independentemente de autorização, exigido apenas aviso prévio à autoridade (art. 5º, XVI). Movimentos experientes cuidam da segurança dos próprios atos justamente para que a pauta não se perca.",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988, art. 5º, XVI",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Direitos fundamentais",
+        "href": "/trilhas/politica-fundamental/direitos-fundamentais"
+      }
+    },
+    {
+      "id": "pc-chegada-cabresto",
+      "tipo": "chegada",
+      "condicao": {
+        "flags": [
+          "cabresto"
+        ]
+      },
+      "titulo": "Voto com dono",
+      "texto": "O mandato chega ao fim, mas a cesta do candidato deixou rastro: o bairro passou a ser tratado como curral eleitoral. Na próxima eleição, vai ser preciso começar de novo."
+    },
+    {
+      "id": "pc-chegada-politica",
+      "tipo": "chegada",
+      "condicao": {
+        "flags": [
+          "conselho",
+          "candidata"
+        ]
+      },
+      "titulo": "O morro entrou na política",
+      "texto": "Dois anos depois, o Morro do Cajueiro tem cadeira no conselho de saúde e uma candidata saída da própria associação. A política deixou de ser coisa dos outros."
+    },
+    {
+      "id": "pc-chegada",
+      "tipo": "chegada",
+      "titulo": "Fim do mandato",
+      "texto": "Seu mandato termina. O bairro ganhou umas, perdeu outras, e aprendeu que direito escrito só vale quando alguém cobra. Veja abaixo o que cada lei diz de verdade."
+    }
+  ]
+}
