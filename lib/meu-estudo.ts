@@ -16,6 +16,8 @@ export const CHAVES = {
   nivelamento: "lucia:nivelamento",
   ajudou: "lucia:ajudou",
   turmas: "lucia:turmas",
+  /** O curso ENEM (lib/enem-aparelho.ts): provas e simulados feitos, diagnóstico, plano de estudos e tempo por questão. */
+  enem: "lucia:enem",
 } as const;
 
 /** As chaves deste arquivo, para a cópia de segurança e para o "apagar". */

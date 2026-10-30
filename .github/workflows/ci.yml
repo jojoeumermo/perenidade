@@ -72,6 +72,11 @@ jobs:
       - run: npm run testar:estudo
       # Os exercícios com explicação do erro (content/exercicios): formato, aula existente e cada conta refeita.
       - run: npm run testar:exercicios
+      # O curso ENEM (docs/ENEM.md): matriz, edição corrente, provas oficiais classificadas, incidência e ligações.
+      - run: npm run testar:enem
+      # A cobertura contra a Matriz e a fila de revisão (só refazem os relatórios; falham se algum arquivo estiver errado).
+      - run: npm run cobertura:enem
+      - run: npm run fila:enem
       # O que os recursos novos guardam no aparelho (Meu estudo, revisão dos erros, turma, metas) e a leitura das flags.
       - run: npm run testar:meu-estudo
       # O histórico de revisões das aulas (campo "revisoes") e os arquivos de exercícios com o formato certo.
