@@ -15791,6 +15791,497 @@ begin
   end loop;
 end $$;
 
+-- ───────────────────────────── Rede Lúcia v2: fundação (Fase 2) ─────────────────────────────
+-- Especificação aprovada em 30/10/2026 (docs/rede/ESPEC.md). Só acréscimos: nada da Rede de hoje muda de comportamento.
+-- As telas novas ficam atrás do recurso "rede-v2" e usam estas tabelas; as funções públicas chegam na Fase 3.
+-- Regra de quem vê o quê: interno.rede2_pode_ver, provada pela matriz em scripts/testar-rede.mjs.
+
+alter table interno.perfis add column if not exists rede_handle text;
+alter table interno.perfis add column if not exists rede_modo text not null default 'aberto';
+alter table interno.perfis add column if not exists rede_fixado uuid;
+alter table interno.perfis add column if not exists rede_18 boolean not null default false;
+alter table interno.perfis add column if not exists rede_consentimento integer;
+alter table interno.perfis add column if not exists rede_selos text[] not null default '{}';
+do $$
+begin
+  alter table interno.perfis add constraint perfis_rede_handle_formato check (rede_handle is null or rede_handle ~ '^[a-z0-9_]{3,20}$');
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table interno.perfis add constraint perfis_rede_modo check (rede_modo in ('aberto', 'trancado', 'invisivel'));
+exception when duplicate_object then null;
+end $$;
+create unique index if not exists perfis_rede_handle on interno.perfis (rede_handle) where rede_handle is not null;
+
+-- Posts: os tipos novos, a árvore de respostas e o público da v2. "publico" nulo = post da Rede de hoje (vale o alcance).
+alter table interno.rede_posts add column if not exists tipo text not null default 'post';
+alter table interno.rede_posts add column if not exists titulo text;
+alter table interno.rede_posts add column if not exists corpo text;
+alter table interno.rede_posts add column if not exists publico text;
+alter table interno.rede_posts add column if not exists root_id uuid references interno.rede_posts (id) on delete cascade;
+alter table interno.rede_posts add column if not exists profundidade smallint not null default 0;
+alter table interno.rede_posts add column if not exists quote_of uuid references interno.rede_posts (id) on delete set null;
+alter table interno.rede_posts add column if not exists flair text;
+alter table interno.rede_posts add column if not exists nucleo uuid;
+alter table interno.rede_posts add column if not exists aceita uuid;
+alter table interno.rede_posts add column if not exists verificada boolean not null default false;
+alter table interno.rede_posts add column if not exists travado boolean not null default false;
+alter table interno.rede_posts add column if not exists fixado boolean not null default false;
+alter table interno.rede_posts add column if not exists editado_em timestamptz;
+alter table interno.rede_posts add column if not exists apagado_em timestamptz;
+do $$
+begin
+  alter table interno.rede_posts add constraint rede_posts_tipo check (tipo in ('post', 'discussao', 'duvida', 'chamado', 'enquete', 'aviso'));
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table interno.rede_posts add constraint rede_posts_publico check (publico is null or publico in ('internet', 'membros', 'seguidores', 'comunidade', 'nucleo', 'equipe'));
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table interno.rede_posts add constraint rede_posts_tamanhos check (char_length(coalesce(titulo, '')) <= 140 and char_length(coalesce(corpo, '')) <= 10000 and char_length(coalesce(flair, '')) <= 40);
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table interno.rede_posts add constraint rede_posts_nucleo_com_publico check (publico <> 'nucleo' or nucleo is not null);
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table interno.rede_posts add column busca tsvector generated always as (
+    to_tsvector('portuguese', coalesce(titulo, '') || ' ' || texto || ' ' || coalesce(corpo, ''))) stored;
+exception when duplicate_column then null;
+end $$;
+create index if not exists rede_posts_raiz on interno.rede_posts (root_id, criado_em);
+create index if not exists rede_posts_busca on interno.rede_posts using gin (busca);
+create index if not exists rede_posts_nucleo on interno.rede_posts (nucleo, criado_em desc) where nucleo is not null;
+
+/** Resposta herda a raiz e ganha um nível. A raiz vem do banco, nunca de quem envia. */
+create or replace function interno.rede2_arvore() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_pai rede_posts;
+begin
+  if new.resposta_a is null then
+    new.root_id := null;
+    new.profundidade := 0;
+  else
+    select * into v_pai from rede_posts where id = new.resposta_a;
+    new.root_id := coalesce(v_pai.root_id, v_pai.id);
+    new.profundidade := least(coalesce(v_pai.profundidade, 0) + 1, 32000);
+  end if;
+  return new;
+end $$;
+drop trigger if exists rede2_arvore on interno.rede_posts;
+create trigger rede2_arvore before insert or update of resposta_a on interno.rede_posts for each row execute function interno.rede2_arvore();
+
+create table if not exists interno.rede_post_edicoes (
+  id uuid primary key default gen_random_uuid(),
+  post uuid not null references interno.rede_posts (id) on delete cascade,
+  texto_anterior text not null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_post_edicoes_post on interno.rede_post_edicoes (post, criado_em);
+
+create table if not exists interno.rede_midia (
+  id uuid primary key default gen_random_uuid(),
+  post uuid not null references interno.rede_posts (id) on delete cascade,
+  caminho text not null unique check (caminho ~ '^[a-f0-9-]{36}/[a-f0-9-]{36}\.(jpg|png|webp)$'),
+  tipo text not null check (tipo in ('image/jpeg', 'image/png', 'image/webp')),
+  largura integer check (largura between 1 and 8000),
+  altura integer check (altura between 1 and 8000),
+  blurhash text check (char_length(coalesce(blurhash, '')) <= 100),
+  alt text not null default '' check (char_length(alt) <= 1000),
+  ordem smallint not null default 0 check (ordem between 0 and 3),
+  criado_em timestamptz not null default now(),
+  unique (post, ordem)
+);
+
+-- Uma reação por pessoa, tipo e post: o total é contado, nunca guardado num campo que dois pedidos disputam.
+create table if not exists interno.rede_reacoes (
+  post uuid not null references interno.rede_posts (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  tipo text not null check (tipo in ('apoio', 'util')),
+  criado_em timestamptz not null default now(),
+  primary key (post, usuario, tipo)
+);
+
+create table if not exists interno.rede_enquetes (
+  post uuid primary key references interno.rede_posts (id) on delete cascade,
+  prazo timestamptz not null,
+  multipla boolean not null default false
+);
+create table if not exists interno.rede_opcoes (
+  id uuid primary key default gen_random_uuid(),
+  enquete uuid not null references interno.rede_enquetes (post) on delete cascade,
+  texto text not null check (char_length(texto) between 1 and 80),
+  ordem smallint not null check (ordem between 0 and 5),
+  unique (enquete, ordem)
+);
+-- Voto secreto: a função de votar confere a pessoa, mas nenhuma função devolve quem votou em quê, só os totais.
+create table if not exists interno.rede_votos (
+  opcao uuid not null references interno.rede_opcoes (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  primary key (opcao, usuario)
+);
+
+create table if not exists interno.rede_chamados (
+  post uuid primary key references interno.rede_posts (id) on delete cascade,
+  inicio timestamptz not null,
+  fim timestamptz,
+  cidade text not null check (char_length(cidade) between 2 and 80),
+  ponto text not null check (char_length(ponto) between 3 and 140),
+  tipo text not null default 'ato' check (tipo in ('ato', 'assembleia', 'roda', 'mutirao', 'aula', 'outro')),
+  link text check (link is null or link ~ '^https://'),
+  cancelado boolean not null default false,
+  check (fim is null or fim > inicio)
+);
+
+create table if not exists interno.rede_comunidades (
+  slug text primary key check (slug ~ '^[a-z0-9-]{2,60}$'),
+  nome text not null check (char_length(nome) between 3 and 60),
+  descricao text not null default '' check (char_length(descricao) <= 500),
+  categoria text not null check (categoria in ('lutas', 'disciplinas', 'instituto')),
+  tipo text not null default 'aberta' check (tipo in ('aberta', 'restrita', 'fechada')),
+  publico_padrao text not null default 'membros' check (publico_padrao in ('internet', 'membros', 'comunidade')),
+  icone text not null default '' check (char_length(icone) <= 40),
+  cor text not null default '' check (cor = '' or cor ~ '^#[0-9a-f]{6}$'),
+  aulas text[] not null default '{}',
+  trilhas text[] not null default '{}',
+  apelidos text[] not null default '{}',
+  criada_por uuid references interno.perfis (id) on delete set null,
+  criada_em timestamptz not null default now(),
+  -- Só as comunidades das disciplinas abrem para a internet (decisão 2).
+  check (publico_padrao <> 'internet' or categoria = 'disciplinas')
+);
+create index if not exists rede_comunidades_apelidos on interno.rede_comunidades using gin (apelidos);
+
+create table if not exists interno.rede_comunidade_membros (
+  comunidade text not null references interno.rede_comunidades (slug) on delete cascade on update cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  papel text not null default 'membro' check (papel in ('membro', 'moderacao')),
+  situacao text not null default 'ativo' check (situacao in ('ativo', 'pendente', 'banido')),
+  banido_ate timestamptz,
+  entrou_em timestamptz not null default now(),
+  primary key (comunidade, usuario)
+);
+create index if not exists rede_comunidade_membros_usuario on interno.rede_comunidade_membros (usuario);
+
+create table if not exists interno.rede_comunidade_regras (
+  comunidade text not null references interno.rede_comunidades (slug) on delete cascade on update cascade,
+  numero smallint not null check (numero between 1 and 20),
+  titulo text not null check (char_length(titulo) between 3 and 80),
+  texto text not null default '' check (char_length(texto) <= 500),
+  primary key (comunidade, numero)
+);
+create table if not exists interno.rede_comunidade_flairs (
+  comunidade text not null references interno.rede_comunidades (slug) on delete cascade on update cascade,
+  nome text not null check (char_length(nome) between 2 and 40),
+  cor text not null default '' check (cor = '' or cor ~ '^#[0-9a-f]{6}$'),
+  primary key (comunidade, nome)
+);
+-- Comunidade nova só por proposta aprovada pela coordenação (decisão 4).
+create table if not exists interno.rede_propostas (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid references interno.perfis (id) on delete set null,
+  slug text not null check (slug ~ '^[a-z0-9-]{2,60}$'),
+  nome text not null check (char_length(nome) between 3 and 60),
+  objetivo text not null check (char_length(objetivo) between 20 and 1000),
+  regras text not null check (char_length(regras) between 20 and 2000),
+  moderadores uuid[] not null check (cardinality(moderadores) >= 2),
+  situacao text not null default 'aberta' check (situacao in ('aberta', 'aprovada', 'recusada')),
+  decidida_por uuid references interno.perfis (id) on delete set null,
+  motivo text not null default '' check (char_length(motivo) <= 500),
+  criado_em timestamptz not null default now()
+);
+
+create table if not exists interno.rede_nucleos (
+  id uuid primary key default gen_random_uuid(),
+  nucleo uuid unique references interno.nucleos (id) on delete set null,
+  nome text not null check (char_length(nome) between 3 and 80),
+  cidade text not null default '' check (char_length(cidade) <= 80),
+  trilha text check (trilha is null or trilha ~ '^[a-z0-9-]{2,80}$'),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+do $$
+begin
+  alter table interno.rede_posts add constraint rede_posts_nucleo_fk foreign key (nucleo) references interno.rede_nucleos (id) on delete cascade;
+exception when duplicate_object then null;
+end $$;
+create table if not exists interno.rede_nucleo_membros (
+  nucleo uuid not null references interno.rede_nucleos (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  papel text not null default 'membro' check (papel in ('mediacao', 'membro')),
+  entrou_em timestamptz not null default now(),
+  primary key (nucleo, usuario)
+);
+create index if not exists rede_nucleo_membros_usuario on interno.rede_nucleo_membros (usuario);
+-- O banco guarda só o hash do convite: quem lê a tabela não consegue entrar com ele.
+create table if not exists interno.rede_convites (
+  id uuid primary key default gen_random_uuid(),
+  nucleo uuid not null references interno.rede_nucleos (id) on delete cascade,
+  token_hash text not null unique check (token_hash ~ '^[a-f0-9]{64}$'),
+  escopo text not null default 'membro' check (escopo in ('membro', 'mediacao')),
+  validade timestamptz not null,
+  usos_max smallint not null default 1 check (usos_max between 1 and 200),
+  usos smallint not null default 0,
+  revogado_em timestamptz,
+  convidou uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  check (usos <= usos_max)
+);
+create table if not exists interno.rede_encontros (
+  id uuid primary key default gen_random_uuid(),
+  nucleo uuid not null references interno.rede_nucleos (id) on delete cascade,
+  quando timestamptz not null,
+  local_tipo text not null check (local_tipo in ('praca', 'biblioteca', 'sindicato', 'escola', 'universidade', 'associacao', 'online', 'outro')),
+  local_texto text not null default '' check (char_length(local_texto) <= 140),
+  lembrete boolean not null default true,
+  presentes smallint check (presentes is null or presentes between 0 and 500),
+  criado_em timestamptz not null default now()
+);
+
+alter table interno.rede_seguindo add column if not exists pendente boolean not null default false;
+
+create table if not exists interno.rede_silenciados (
+  id uuid primary key default gen_random_uuid(),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  pessoa uuid references interno.perfis (id) on delete cascade,
+  comunidade text check (comunidade is null or comunidade ~ '^[a-z0-9-]{2,60}$'),
+  palavra text check (palavra is null or char_length(palavra) between 2 and 60),
+  conversa uuid references interno.rede_posts (id) on delete cascade,
+  ate timestamptz,
+  criado_em timestamptz not null default now(),
+  check (num_nonnulls(pessoa, comunidade, palavra, conversa) = 1)
+);
+create index if not exists rede_silenciados_usuario on interno.rede_silenciados (usuario);
+
+create table if not exists interno.rede_salvos (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  post uuid not null references interno.rede_posts (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (usuario, post)
+);
+
+-- E-mail desligado por padrão; push só ligado pela pessoa e sem o texto do post (decisão 6).
+create table if not exists interno.rede_avisos_prefs (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  tipo text not null check (tipo in ('resposta', 'mencao', 'citacao', 'seguidor', 'chamado', 'nucleo', 'moderacao')),
+  canal text not null check (canal in ('site', 'email', 'push')),
+  ligado boolean not null,
+  primary key (usuario, tipo, canal)
+);
+
+create table if not exists interno.rede_denuncias (
+  id uuid primary key default gen_random_uuid(),
+  protocolo text not null unique default upper(substr(md5(gen_random_uuid()::text), 1, 10)),
+  alvo_tipo text not null check (alvo_tipo in ('post', 'perfil', 'comunidade')),
+  alvo text not null check (char_length(alvo) between 1 and 80),
+  categoria text not null check (categoria in ('menores', 'ameaca', 'exposicao', 'violencia', 'autolesao', 'odio', 'assedio', 'golpe', 'spam', 'outro')),
+  prioridade smallint not null default 3 check (prioridade between 1 and 3),
+  texto text not null default '' check (char_length(texto) <= 2000),
+  quem uuid references interno.perfis (id) on delete set null,
+  situacao text not null default 'aberta' check (situacao in ('aberta', 'em_analise', 'resolvida', 'descartada')),
+  cuida uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_denuncias_fila on interno.rede_denuncias (situacao, prioridade, criado_em);
+
+-- Registro de moderação: só inserção. Nem as funções do banco apagam ou alteram uma linha (gatilho abaixo).
+create table if not exists interno.rede_moderacao (
+  id uuid primary key default gen_random_uuid(),
+  acao text not null check (acao in ('remover', 'restaurar', 'reter', 'travar', 'destravar', 'fixar', 'banir', 'desbanir', 'suspender', 'avisar', 'quebra_vidro', 'recurso_mantido', 'recurso_revertido')),
+  alvo_tipo text not null check (alvo_tipo in ('post', 'perfil', 'comunidade', 'nucleo')),
+  alvo text not null check (char_length(alvo) between 1 and 80),
+  regra text not null default '' check (char_length(regra) <= 80),
+  motivo text not null check (char_length(motivo) between 3 and 1000),
+  quem uuid references interno.perfis (id) on delete set null,
+  denuncia uuid references interno.rede_denuncias (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_moderacao_alvo on interno.rede_moderacao (alvo_tipo, alvo, criado_em desc);
+create or replace function interno.rede2_so_insercao() returns trigger language plpgsql as $$
+begin
+  raise exception 'O registro de moderação não se altera nem se apaga.' using errcode = 'P0001';
+end $$;
+drop trigger if exists rede2_so_insercao on interno.rede_moderacao;
+create trigger rede2_so_insercao before update or delete on interno.rede_moderacao for each row execute function interno.rede2_so_insercao();
+drop trigger if exists rede2_so_insercao_truncate on interno.rede_moderacao;
+create trigger rede2_so_insercao_truncate before truncate on interno.rede_moderacao for each statement execute function interno.rede2_so_insercao();
+
+create table if not exists interno.rede_recursos (
+  id uuid primary key default gen_random_uuid(),
+  acao uuid not null unique references interno.rede_moderacao (id),
+  autor uuid references interno.perfis (id) on delete set null,
+  texto text not null check (char_length(texto) between 10 and 2000),
+  situacao text not null default 'aberto' check (situacao in ('aberto', 'mantido', 'revertido')),
+  revisou uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  decidido_em timestamptz
+);
+-- Quem revê o recurso nunca é quem tomou a decisão contestada.
+create or replace function interno.rede2_recurso_outra_pessoa() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if new.revisou is not null and new.revisou = (select quem from rede_moderacao where id = new.acao) then
+    raise exception 'O recurso precisa ser revisto por outra pessoa da moderação.' using errcode = 'P0001';
+  end if;
+  return new;
+end $$;
+drop trigger if exists rede2_recurso_outra_pessoa on interno.rede_recursos;
+create trigger rede2_recurso_outra_pessoa before insert or update on interno.rede_recursos for each row execute function interno.rede2_recurso_outra_pessoa();
+
+create table if not exists interno.rede_regras (
+  versao integer primary key check (versao > 0),
+  texto text not null check (char_length(texto) between 50 and 20000),
+  criado_em timestamptz not null default now()
+);
+create table if not exists interno.rede_consentimentos (
+  id uuid primary key default gen_random_uuid(),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  versao integer not null,
+  criado_em timestamptz not null default now(),
+  revogado_em timestamptz
+);
+create index if not exists rede_consentimentos_usuario on interno.rede_consentimentos (usuario, criado_em desc);
+
+-- Mapa da migração (fórum → Rede, slugs antigos → novos): permite voltar atrás durante os 30 dias.
+create table if not exists interno.rede_migracao (
+  tipo text not null check (tipo in ('topico', 'resposta', 'voto', 'comunidade', 'espaco')),
+  antigo text not null,
+  novo text not null,
+  criado_em timestamptz not null default now(),
+  primary key (tipo, antigo)
+);
+
+-- ── Quem é quem na Rede ──
+
+/** Membro da Rede: conta ativa, 18+ confirmado e consentimento em vigor (decisão 1). */
+create or replace function interno.rede2_membro(p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_usuario is not null and exists (
+    select 1 from perfis f where f.id = p_usuario and f.rede_18 and not f.suspenso and f.rede_consentimento is not null
+      and exists (select 1 from rede_consentimentos c where c.usuario = p_usuario and c.versao = f.rede_consentimento and c.revogado_em is null))
+$$;
+
+create or replace function interno.rede2_na_comunidade(p_comunidade text, p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_usuario is not null and exists (
+    select 1 from rede_comunidade_membros m where m.comunidade = p_comunidade and m.usuario = p_usuario
+      and m.situacao = 'ativo' and (m.banido_ate is null or m.banido_ate < now()))
+$$;
+
+create or replace function interno.rede2_no_nucleo(p_nucleo uuid, p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_usuario is not null and exists (select 1 from rede_nucleo_membros m where m.nucleo = p_nucleo and m.usuario = p_usuario)
+$$;
+
+/** O público de fato do post: posts da Rede de hoje são lidos pelas regras da v2 (decisão 2: "público" vira "membros"). */
+create or replace function interno.rede2_publico(p interno.rede_posts) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select case
+    -- Internet só nas comunidades das disciplinas; em qualquer outro lugar cai para membros.
+    when coalesce(p.publico, case p.alcance when 'seguidores' then 'seguidores' when 'equipe' then 'equipe' else 'internet' end) = 'internet'
+      then case when exists (select 1 from rede_comunidades c where c.slug = p.comunidade and c.categoria = 'disciplinas') then 'internet' else 'membros' end
+    else coalesce(p.publico, case p.alcance when 'seguidores' then 'seguidores' when 'equipe' then 'equipe' else 'membros' end)
+  end
+$$;
+
+/**
+ * Esta pessoa pode ver este post? A matriz da seção 2 da especificação, numa função só. Vale para linha, busca, aviso,
+ * prévia, exportação e contagem: toda função da v2 que devolve post, número de respostas ou citação passa por aqui.
+ * p_quem nulo = visitante. A moderação geral não entra em núcleo por aqui: isso é o quebra-vidro, registrado à parte.
+ */
+create or replace function interno.rede2_pode_ver(p interno.rede_posts, p_quem uuid) returns boolean language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v_publico text;
+  v_comunidade rede_comunidades;
+  v_equipe boolean;
+begin
+  if p is null or p.id is null then return false; end if;
+  if p_quem is not null and p.autor = p_quem then return true; end if;
+  -- Removido, apagado ou retido: só o autor (acima).
+  if p.oculto or p.retido or p.apagado_em is not null then return false; end if;
+  if interno.rede_bloqueado(p_quem, p.autor) then return false; end if;
+  if p_quem is not null and exists (select 1 from perfis f where f.id = p_quem and f.suspenso) then return false; end if;
+
+  v_publico := interno.rede2_publico(p);
+  v_equipe := p_quem is not null and interno.voluntario_e(p_quem);
+
+  -- A comunidade restringe antes do público: em comunidade fechada só entra quem é dela; em restrita, membro da Rede lê.
+  if p.comunidade is not null then
+    select * into v_comunidade from rede_comunidades where slug = p.comunidade;
+    if v_comunidade.slug is not null and v_comunidade.tipo = 'fechada' and not interno.rede2_na_comunidade(p.comunidade, p_quem) then return false; end if;
+    if v_comunidade.slug is not null and v_comunidade.tipo = 'restrita' and not (interno.rede2_membro(p_quem) or interno.rede2_na_comunidade(p.comunidade, p_quem)) then return false; end if;
+  end if;
+
+  return case v_publico
+    when 'internet' then true
+    when 'membros' then interno.rede2_membro(p_quem) or v_equipe
+    when 'seguidores' then exists (select 1 from rede_seguindo s where s.quem = p_quem and s.segue = p.autor and not s.pendente)
+    when 'comunidade' then p.comunidade is not null and interno.rede2_na_comunidade(p.comunidade, p_quem)
+    when 'nucleo' then p.nucleo is not null and interno.rede2_no_nucleo(p.nucleo, p_quem)
+    when 'equipe' then v_equipe
+    else false
+  end;
+end $$;
+
+/** A mesma regra para quem está na sessão. */
+create or replace function interno.rede2_ve(p interno.rede_posts) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.rede2_pode_ver(p, auth.uid())
+$$;
+
+/** Respostas que esta pessoa pode ver: o número de respostas também obedece à matriz. */
+create or replace function interno.rede2_respostas_visiveis(p_post uuid, p_quem uuid) returns integer language sql stable security definer set search_path = interno, pg_temp as $$
+  select count(*)::integer from rede_posts r where r.resposta_a = p_post and interno.rede2_pode_ver(r, p_quem)
+$$;
+
+/**
+ * Limites da v2, por pessoa (ou por endereço, para quem não entrou). Contas novas (menos de 3 dias) têm metade do teto,
+ * o freio mais simples contra contas criadas em série.
+ */
+create or replace function interno.rede2_limite(p_acao text) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v_teto integer;
+  v_minutos integer := 60;
+  v_nova boolean := exists (select 1 from auth.users u where u.id = auth.uid() and u.created_at > now() - interval '3 days');
+begin
+  v_teto := case p_acao
+    when 'postar' then 20 when 'responder' then 60 when 'reagir' then 300 when 'seguir' then 100
+    when 'denunciar' then 20 when 'salvar' then 300 when 'votar' then 100 when 'propor' then 3 when 'convidar' then 20
+    when 'buscar' then 120 when 'editar' then 60
+    else null end;
+  if v_teto is null then perform interno.erro('acao_desconhecida'); end if;
+  if p_acao in ('propor', 'convidar') then v_minutos := 1440; end if;
+  if v_nova then v_teto := greatest(1, v_teto / 2); end if;
+  perform interno.limite('rede2_' || p_acao, v_teto, v_minutos);
+end $$;
+
+/** @handle: 3 a 20 letras minúsculas, números ou _, livre e sem imitar a equipe. */
+create or replace function interno.rede2_handle_ok(p_handle text, p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_handle ~ '^[a-z0-9_]{3,20}$'
+    and p_handle !~ '(instituto|lucia|equipe|coordena|modera|admin|suporte|oficial)'
+    and not exists (select 1 from perfis f where f.rede_handle = p_handle and f.id <> p_usuario)
+$$;
+
+/** Prioridade da fila de denúncias: abuso de menores, ameaça, exposição, violência e autolesão primeiro. */
+create or replace function interno.rede2_prioridade(p_categoria text) returns smallint language sql immutable as $$
+  select case when p_categoria in ('menores', 'ameaca', 'exposicao', 'violencia', 'autolesao') then 1
+              when p_categoria in ('odio', 'assedio', 'golpe') then 2 else 3 end::smallint
+$$;
+
+revoke all on function interno.rede2_membro(uuid), interno.rede2_na_comunidade(text, uuid), interno.rede2_no_nucleo(uuid, uuid),
+  interno.rede2_publico(interno.rede_posts), interno.rede2_pode_ver(interno.rede_posts, uuid), interno.rede2_ve(interno.rede_posts),
+  interno.rede2_respostas_visiveis(uuid, uuid), interno.rede2_limite(text), interno.rede2_handle_ok(text, uuid),
+  interno.rede2_prioridade(text), interno.rede2_arvore(), interno.rede2_so_insercao(), interno.rede2_recurso_outra_pessoa() from public;
+
+-- Respostas da Rede de hoje ganham raiz e nível (uma vez; nas próximas execuções não sobra nada para preencher).
+with recursive arvore as (
+  select id, id as raiz, 0 as nivel from interno.rede_posts where resposta_a is null
+  union all
+  select p.id, a.raiz, a.nivel + 1 from interno.rede_posts p join arvore a on p.resposta_a = a.id where a.nivel < 1000
+)
+update interno.rede_posts p set root_id = a.raiz, profundidade = least(a.nivel, 32000)
+from arvore a where a.id = p.id and p.resposta_a is not null and p.root_id is null;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
