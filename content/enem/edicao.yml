@@ -1,0 +1,541 @@
+# A edição corrente do Enem: datas e regras, cada uma com fonte oficial, item, trecho conferido e data da conferência.
+# É o ÚNICO lugar do site com datas e regras da edição. As páginas leem daqui; as aulas citam um fato com
+# {{enem:<id>}} no texto (por exemplo {{enem:aplicacao-dia-1}}), e a montagem troca pelo valor.
+# Formato e validação: lib/enem.ts (validarEdicao). Atualização anual: docs/ENEM.md, seção "Todo ano".
+#
+# REGRAS
+# - Só entra o que está numa fonte oficial (Inep, MEC, Diário Oficial). Notícia de jornal não conta.
+# - "trecho" é a passagem conferida, copiada do ato oficial (atos oficiais não têm proteção de direito autoral,
+#   Lei nº 9.610/1998, art. 8º, IV). Sem trecho, não entra.
+# - Não confirmado: "situacao: confirmar-no-edital", sem "valor", com uma "nota" dizendo o que falta. O site mostra
+#   "confirmar no edital" no lugar do valor.
+# - Horários são sempre de Brasília (item 9.4 do edital).
+
+edicao: 2026
+conferido: "2026-10-30"
+
+fontes:
+  edital-64:
+    titulo: "Edital nº 64, de 21 de maio de 2026 (Exame Nacional do Ensino Médio — Enem 2026)"
+    orgao: "Inep"
+    publicado: "2026-05-22"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+  retificacao-64:
+    titulo: "Retificação do Edital nº 64, de 21 de maio de 2026 (língua estrangeira dos inscritos de forma automática)"
+    orgao: "Inep"
+    url: "https://www.in.gov.br/web/dou/-/retificacao-737098769"
+  legislacao-2026:
+    titulo: "Legislação e documentos do Enem 2026"
+    orgao: "Inep"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/legislacao/enem/2026"
+  noticia-inscricoes:
+    titulo: "Inscrições para o Enem 2026 estão abertas"
+    orgao: "Inep"
+    publicado: "2026-05-25"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/inscricoes-para-o-enem-2026-estao-abertas"
+  noticia-prazo-12-6:
+    titulo: "Enem 2026: prazo de inscrição é ampliado até 12/6"
+    orgao: "Inep"
+    publicado: "2026-06-05"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/enem-2026-prazo-de-inscricao-e-ampliado-ate-12-6"
+  noticia-taxa-22-6:
+    titulo: "Participantes têm mais tempo para pagar a taxa de inscrição: até 22/6"
+    orgao: "Inep"
+    publicado: "2026-06-17"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/participantes-tem-mais-tempo-para-pagar-a-taxa-de-inscricao-ate-22-6"
+  noticia-local-de-prova:
+    titulo: "Candidatos já podem conferir o local de prova do Enem 2026"
+    orgao: "MEC"
+    publicado: "2026-10-27"
+    url: "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/candidatos-ja-podem-conferir-o-local-de-prova-do-enem-2026"
+  noticia-cartilha:
+    titulo: "Enem 2026: cartilha da redação está disponível"
+    orgao: "Inep"
+    publicado: "2026-09-18"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/enem-2026-cartilha-da-redacao-esta-disponivel"
+  cartilha-2026:
+    titulo: "A Redação do Enem 2026: Cartilha do Participante"
+    orgao: "Inep"
+    publicado: "2026-09-18"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/acervo-linha-editorial/publicacoes-institucionais/avaliacoes-e-exames-da-educacao-basica/a-redacao-do-enem-2026-cartilha-do-a-participante"
+  pagina-participante:
+    titulo: "Página do Participante"
+    orgao: "Inep"
+    url: "https://enem.inep.gov.br/participante"
+  sisu-perguntas:
+    titulo: "Sisu, perguntas frequentes: como o sistema faz esse cálculo?"
+    orgao: "MEC"
+    url: "https://www.gov.br/mec/pt-br/acesso-a-informacao/perguntas-frequentes/sisu/notas-do-enem/como-o-sistema-faz-esse"
+  sisu:
+    titulo: "Sisu: página oficial"
+    orgao: "MEC"
+    url: "https://acessounico.mec.gov.br/sisu"
+
+fatos:
+  # ── Datas ──
+  aplicacao-dia-1:
+    afirmacao: "Primeiro dia de provas"
+    tipo: data
+    valor: "2026-11-08"
+    fonte: edital-64
+    item: "1.3"
+    trecho: "Aplicação 8/11 e 15/11/2026"
+    conferido: "2026-10-30"
+  aplicacao-dia-2:
+    afirmacao: "Segundo dia de provas"
+    tipo: data
+    valor: "2026-11-15"
+    fonte: edital-64
+    item: "1.3"
+    trecho: "Aplicação 8/11 e 15/11/2026"
+    conferido: "2026-10-30"
+  inscricao-inicio:
+    afirmacao: "Início das inscrições"
+    tipo: data
+    valor: "2026-05-25"
+    fonte: edital-64
+    item: "1.3"
+    trecho: "Inscrições 25/5 a 5/6/2026"
+    conferido: "2026-10-30"
+  inscricao-fim:
+    afirmacao: "Fim das inscrições (prazo ampliado)"
+    tipo: data
+    valor: "2026-06-12"
+    fonte: noticia-prazo-12-6
+    trecho: "Agora, os interessados têm até 12 de junho para se inscrever na Página do Participante."
+    conferido: "2026-10-30"
+  taxa-valor:
+    afirmacao: "Valor da taxa de inscrição"
+    tipo: dinheiro
+    valor: 85
+    fonte: edital-64
+    item: "6.2"
+    trecho: "O valor da taxa de inscrição será de R$ 85,00 (oitenta e cinco reais)."
+    conferido: "2026-10-30"
+  taxa-fim:
+    afirmacao: "Último dia para pagar a taxa (prazo ampliado)"
+    tipo: data
+    valor: "2026-06-22"
+    fonte: noticia-taxa-22-6
+    trecho: "O prazo foi ampliado até 22 de junho. O valor é de R$ 85"
+    conferido: "2026-10-30"
+  lingua-automatica-prazo:
+    afirmacao: "Prazo para quem foi inscrito de forma automática escolher a língua estrangeira (depois disso, vale inglês)"
+    tipo: data
+    valor: "2026-10-18"
+    fonte: retificacao-64
+    item: "5.7.1"
+    trecho: "deverá selecionar a língua (Inglês ou Espanhol) em que realizará a prova de Língua Estrangeira até o dia 18 de outubro de 2026"
+    conferido: "2026-10-30"
+  locais-de-prova:
+    afirmacao: "Data em que os locais de prova foram publicados no Cartão de Confirmação"
+    tipo: data
+    valor: "2026-10-27"
+    fonte: noticia-local-de-prova
+    trecho: "publicou nesta terça-feira, 27 de outubro, os locais de prova da edição de 2026 do Exame Nacional do Ensino Médio"
+    conferido: "2026-10-30"
+  gabarito-prazo:
+    afirmacao: "Quando sai o gabarito das provas objetivas"
+    tipo: texto
+    valor: "até o 10º dia útil depois do 2º dia de provas, no Portal do Inep"
+    fonte: edital-64
+    item: "15.1"
+    trecho: "Os gabaritos das provas objetivas serão divulgados no Portal do Inep [...] até o 10° dia útil após o 2° dia de aplicação."
+    conferido: "2026-10-30"
+  resultado-data:
+    afirmacao: "Data do resultado individual"
+    tipo: data
+    situacao: confirmar-no-edital
+    fonte: edital-64
+    item: "15.2"
+    trecho: "em data a ser divulgada pelo Inep"
+    nota: "O edital não fixa a data; o Inep anuncia depois da prova."
+    conferido: "2026-10-30"
+  reaplicacao-data:
+    afirmacao: "Datas da reaplicação"
+    tipo: data
+    situacao: confirmar-no-edital
+    fonte: edital-64
+    item: "13.7"
+    trecho: "Haverá apenas uma reaplicação do Exame, em datas a serem divulgadas pelo Inep."
+    nota: "O edital não fixa a data; o pedido é feito na Página do Participante, em prazo que o Inep divulga."
+    conferido: "2026-10-30"
+  treineiro-resultado:
+    afirmacao: "Quando sai o resultado de quem fez como treineiro"
+    tipo: texto
+    valor: "60 dias depois da divulgação dos resultados do Exame"
+    fonte: edital-64
+    item: "15.13"
+    trecho: "será divulgado 60 (sessenta) dias após a divulgação dos resultados do Exame."
+    conferido: "2026-10-30"
+  sisu-media-ponderada:
+    afirmacao: "Como o Sisu usa as notas"
+    tipo: texto
+    valor: "aplica os pesos que cada instituição define para o curso e usa a edição do Enem que dá a maior média ponderada"
+    fonte: sisu-perguntas
+    trecho: "para cada oferta de curso, aplica os pesos definidos pela instituição de ensino superior. Em seguida, seleciona automaticamente a edição do Enem que gera a maior média ponderada para aquela oferta específica."
+    conferido: "2026-10-30"
+  sisu-2027-cronograma:
+    afirmacao: "Cronograma do Sisu, do Prouni e do Fies que usarão as notas do Enem 2026"
+    tipo: texto
+    situacao: confirmar-no-edital
+    fonte: sisu
+    trecho: "Cronograma não localizado em fonte oficial do MEC na conferência de 30/10/2026."
+    nota: "Os editais do Sisu, do Prouni e do Fies de 2027 ainda não tinham sido publicados na data da conferência."
+    conferido: "2026-10-30"
+
+  # ── Horários (de Brasília) ──
+  portoes-abertura:
+    afirmacao: "Abertura dos portões"
+    tipo: hora
+    valor: "12:00"
+    fonte: edital-64
+    item: "9.1"
+    trecho: "os portões de acesso aos locais de provas serão abertos às 12h e fechados às 13h (horário de Brasília-DF)."
+    conferido: "2026-10-30"
+  portoes-fechamento:
+    afirmacao: "Fechamento dos portões"
+    tipo: hora
+    valor: "13:00"
+    fonte: edital-64
+    item: "9.1"
+    trecho: "os portões de acesso aos locais de provas serão abertos às 12h e fechados às 13h (horário de Brasília-DF)."
+    conferido: "2026-10-30"
+  prova-inicio:
+    afirmacao: "Início das provas"
+    tipo: hora
+    valor: "13:30"
+    fonte: edital-64
+    item: "9.4"
+    trecho: "A aplicação das provas terá início às 13h30 e término às 19h, no primeiro dia, e às 18h30, no segundo dia"
+    conferido: "2026-10-30"
+  prova-fim-dia-1:
+    afirmacao: "Fim das provas no 1º dia"
+    tipo: hora
+    valor: "19:00"
+    fonte: edital-64
+    item: "9.4"
+    trecho: "A aplicação das provas terá início às 13h30 e término às 19h, no primeiro dia, e às 18h30, no segundo dia"
+    conferido: "2026-10-30"
+  prova-fim-dia-2:
+    afirmacao: "Fim das provas no 2º dia"
+    tipo: hora
+    valor: "18:30"
+    fonte: edital-64
+    item: "9.4"
+    trecho: "A aplicação das provas terá início às 13h30 e término às 19h, no primeiro dia, e às 18h30, no segundo dia"
+    conferido: "2026-10-30"
+  horario-de-brasilia:
+    afirmacao: "Todo o país segue o horário de Brasília"
+    tipo: texto
+    valor: "Os horários são os de Brasília em todos os estados e no Distrito Federal."
+    fonte: edital-64
+    item: "9.4"
+    trecho: "horário de Brasília-DF, em todos os estados e no Distrito Federal."
+    conferido: "2026-10-30"
+  porta-da-sala:
+    afirmacao: "Até quando é preciso estar na porta da sala para a identificação"
+    tipo: hora
+    valor: "13:00"
+    fonte: edital-64
+    item: "11.1.8"
+    trecho: "Apresentar-se na porta de sua sala de provas até as 13h (horário de Brasília-DF) para procedimentos de identificação."
+    conferido: "2026-10-30"
+
+  # ── Duração e estrutura ──
+  duracao-dia-1:
+    afirmacao: "Duração do 1º dia"
+    tipo: minutos
+    valor: 330
+    fonte: edital-64
+    item: "3.3"
+    trecho: "1º dia — Linguagens, Códigos e suas Tecnologias e Redação; Ciências Humanas e suas Tecnologias — 5h30"
+    conferido: "2026-10-30"
+  duracao-dia-2:
+    afirmacao: "Duração do 2º dia"
+    tipo: minutos
+    valor: 300
+    fonte: edital-64
+    item: "3.3"
+    trecho: "2º dia — Ciências da Natureza e suas Tecnologias; Matemática e suas Tecnologias — 5h"
+    conferido: "2026-10-30"
+  tempo-adicional:
+    afirmacao: "Tempo adicional para quem teve o pedido aprovado"
+    tipo: minutos
+    valor: 60
+    fonte: edital-64
+    item: "9.4.1"
+    trecho: "terá acréscimo de 60 (sessenta) minutos em cada dia de aplicação"
+    conferido: "2026-10-30"
+  tempo-adicional-libras:
+    afirmacao: "Tempo adicional para quem faz a videoprova em Libras"
+    tipo: minutos
+    valor: 120
+    fonte: edital-64
+    item: "9.4.2"
+    trecho: "terá acréscimo de 120 (cento e vinte) minutos em cada dia de aplicação"
+    conferido: "2026-10-30"
+  estrutura:
+    afirmacao: "Como a prova é formada"
+    tipo: texto
+    valor: "quatro provas objetivas, de 45 questões de múltipla escolha cada, e uma redação em língua portuguesa"
+    fonte: edital-64
+    item: "3.2"
+    trecho: "O Exame será constituído de quatro provas objetivas e uma redação em Língua Portuguesa. Cada prova objetiva terá 45 (quarenta e cinco) questões de múltipla escolha."
+    conferido: "2026-10-30"
+  questoes-por-area:
+    afirmacao: "Questões por área"
+    tipo: numero
+    valor: 45
+    fonte: edital-64
+    item: "3.2"
+    trecho: "Cada prova objetiva terá 45 (quarenta e cinco) questões de múltipla escolha."
+    conferido: "2026-10-30"
+  provas-dia-1:
+    afirmacao: "O que cai no 1º dia"
+    tipo: lista
+    valor: ["Linguagens, Códigos e suas Tecnologias", "Redação", "Ciências Humanas e suas Tecnologias"]
+    fonte: edital-64
+    item: "3.3"
+    trecho: "1º dia — Linguagens, Códigos e suas Tecnologias e Redação; Ciências Humanas e suas Tecnologias"
+    conferido: "2026-10-30"
+  provas-dia-2:
+    afirmacao: "O que cai no 2º dia"
+    tipo: lista
+    valor: ["Ciências da Natureza e suas Tecnologias", "Matemática e suas Tecnologias"]
+    fonte: edital-64
+    item: "3.3"
+    trecho: "2º dia — Ciências da Natureza e suas Tecnologias; Matemática e suas Tecnologias"
+    conferido: "2026-10-30"
+  lingua-estrangeira:
+    afirmacao: "Língua estrangeira"
+    tipo: texto
+    valor: "Inglês ou espanhol, escolhido na inscrição; a pessoa responde só às questões da língua escolhida."
+    fonte: edital-64
+    item: "3.3.2 e 5.2.6.1"
+    trecho: "O participante deverá responder apenas às questões referentes à língua estrangeira escolhida no ato da inscrição."
+    conferido: "2026-10-30"
+  nota-tri:
+    afirmacao: "Como as notas das provas objetivas são calculadas"
+    tipo: texto
+    valor: "pela Teoria de Resposta ao Item (TRI)"
+    fonte: edital-64
+    item: "14.3"
+    trecho: "O cálculo das proficiências dos participantes, a partir de suas respostas às questões de múltipla escolha das provas objetivas, terá como base a Teoria de Resposta ao Item (TRI)."
+    conferido: "2026-10-30"
+
+  # ── Na sala ──
+  documentos-aceitos:
+    afirmacao: "Documentos de identificação aceitos (brasileiros), sempre originais e com foto"
+    tipo: lista
+    valor:
+      - "Carteira de identidade das Secretarias de Segurança Pública, das Forças Armadas, da Polícia Militar ou da Polícia Federal"
+      - "Carteira de Identidade Nacional (CIN)"
+      - "Identidade de ordem ou conselho de classe que valha por lei como documento de identidade"
+      - "Passaporte"
+      - "Carteira Nacional de Habilitação (no modelo da Lei nº 9.503/1997)"
+      - "Carteira de Trabalho e Previdência Social emitida depois de 27 de janeiro de 1997"
+      - "Documentos digitais com foto (e-Título, CNH e CIN) nos aplicativos oficiais ou no aplicativo gov.br"
+    fonte: edital-64
+    item: "10.1"
+    trecho: "é obrigatória a apresentação de documento de identificação oficial e original com foto, emitido por órgãos brasileiros."
+    conferido: "2026-10-30"
+  documentos-recusados:
+    afirmacao: "Documentos que NÃO valem"
+    tipo: lista
+    valor:
+      - "Boletim de ocorrência e protocolos"
+      - "Certidão de nascimento ou de casamento"
+      - "Título de eleitor impresso"
+      - "Carteira de estudante"
+      - "Crachá e identidade funcional"
+      - "Cópias, mesmo autenticadas"
+      - "CNH no modelo anterior à Lei nº 9.503/1997"
+    fonte: edital-64
+    item: "10.4"
+    trecho: "Não serão aceitos documentos de identificação que não estejam listados nos itens 10.1 e 10.2, como: boletim de ocorrência; protocolos; [...] Certidão de Nascimento; Certidão de Casamento; Título Eleitoral (versão impressa); [...] Carteira de Estudante"
+    conferido: "2026-10-30"
+  caneta:
+    afirmacao: "Caneta permitida"
+    tipo: texto
+    valor: "caneta esferográfica de tinta preta, fabricada em material transparente"
+    fonte: edital-64
+    item: "11.1.30"
+    trecho: "com caneta esferográfica de tinta preta, fabricada em material transparente"
+    conferido: "2026-10-30"
+  envelope-porta-objetos:
+    afirmacao: "O que tem de ficar dentro do envelope porta-objetos (fora dele, elimina)"
+    tipo: lista
+    valor:
+      - "Celular e qualquer aparelho eletrônico, desligados"
+      - "Relógio de qualquer tipo"
+      - "Calculadora, fone de ouvido, pen drive, alarme"
+      - "Lápis, lapiseira, borracha, régua, corretivo e caneta que não seja transparente"
+      - "Boné, chapéu, viseira, gorro e óculos escuros"
+      - "Livros, apostilas, anotações e impressos, inclusive o Cartão de Confirmação e a Declaração de Comparecimento"
+      - "Cigarro eletrônico e garrafa ou copo digital"
+    fonte: edital-64
+    item: "12.1.17"
+    trecho: "Portar, fora do envelope porta-objetos fornecido pelo chefe de sala, ao iniciar as provas, Declaração de Comparecimento impressa, Cartão de Confirmação da Inscrição, bulas, óculos escuros e artigos de chapelaria [...] relógio de qualquer tipo e quaisquer dispositivos eletrônicos"
+    conferido: "2026-10-30"
+  saida-minima:
+    afirmacao: "Tempo mínimo antes de poder sair em definitivo"
+    tipo: minutos
+    valor: 120
+    fonte: edital-64
+    item: "11.1.35"
+    trecho: "Não se ausentar da sala de provas, em definitivo, antes de decorridas duas horas do início das provas."
+    conferido: "2026-10-30"
+  levar-caderno:
+    afirmacao: "Quando se pode levar o Caderno de Questões"
+    tipo: minutos
+    valor: 30
+    fonte: edital-64
+    item: "11.1.34"
+    trecho: "exceto o Caderno de Questões e a Folha de Rascunho, desde que, nesse caso, deixe a sala em definitivo nos últimos 30 (trinta) minutos que antecedem o término da prova."
+    conferido: "2026-10-30"
+  tres-ultimos:
+    afirmacao: "Os três últimos participantes de cada sala"
+    tipo: texto
+    valor: "saem juntos, depois de assinar a Ata de Sala (menos nas salas de atendimento especializado)"
+    fonte: edital-64
+    item: "11.1.37"
+    trecho: "Saírem juntos os três últimos participantes presentes na sala de provas somente após assinatura da Ata de Sala, exceto nas salas de atendimento especializado."
+    conferido: "2026-10-30"
+  rasura:
+    afirmacao: "Respostas com rasura"
+    tipo: texto
+    valor: "só são corrigidas as respostas marcadas no Cartão-Resposta sem emendas ou rasuras, com a caneta preta transparente"
+    fonte: edital-64
+    item: "14.1"
+    trecho: "Serão corrigidas somente as redações transcritas para a Folha de Redação e as respostas efetivamente marcadas no Cartão-Resposta, sem emendas ou rasuras"
+    conferido: "2026-10-30"
+  rascunho-nao-conta:
+    afirmacao: "Rascunho e marcações no caderno"
+    tipo: texto
+    valor: "não são corrigidos"
+    fonte: edital-64
+    item: "14.2"
+    trecho: "Os rascunhos e as marcações assinaladas nos Cadernos de Provas não serão corrigidos."
+    conferido: "2026-10-30"
+
+  # ── Redação ──
+  redacao-linhas:
+    afirmacao: "Tamanho máximo da redação"
+    tipo: numero
+    valor: 30
+    fonte: noticia-cartilha
+    trecho: "os participantes deverão produzir um texto dissertativo-argumentativo, com até 30 linhas"
+    conferido: "2026-10-30"
+  redacao-minimo:
+    afirmacao: "Texto insuficiente (nota zero)"
+    tipo: numero
+    valor: 7
+    fonte: edital-64
+    item: "14.7.3"
+    trecho: "Apresente até 7 (sete) linhas manuscritas, qualquer que seja o conteúdo, o que configurará \"Texto insuficiente\""
+    conferido: "2026-10-30"
+  redacao-nota:
+    afirmacao: "Como a redação é corrigida"
+    tipo: texto
+    valor: "dois corretores independentes; cada um dá de 0 a 200 pontos em cada uma das 5 competências; a nota vai de 0 a 1.000"
+    fonte: edital-64
+    item: "14.4, 14.5 e 14.5.1"
+    trecho: "A redação será corrigida por dois corretores de forma independente. Cada corretor atribuirá uma nota entre 0 (zero) e 200 (duzentos) pontos para cada uma das cinco competências."
+    conferido: "2026-10-30"
+  redacao-discrepancia:
+    afirmacao: "Quando entra um terceiro corretor"
+    tipo: texto
+    valor: "quando as notas totais dos dois corretores diferem em mais de 100 pontos, ou em mais de 80 pontos numa competência"
+    fonte: edital-64
+    item: "14.5.3"
+    trecho: "se suas notas totais diferirem por mais de 100 (cem) pontos; ou se a diferença de suas notas em qualquer uma das competências for superior a 80 (oitenta) pontos"
+    conferido: "2026-10-30"
+  redacao-zero:
+    afirmacao: "O que zera a redação"
+    tipo: lista
+    valor:
+      - "Fuga ao tema ou texto que não é dissertativo-argumentativo"
+      - "Folha de Redação em branco"
+      - "Até 7 linhas manuscritas (texto insuficiente)"
+      - "Impropérios, desenhos ou outras formas de anular de propósito"
+      - "Parte do texto desligada do tema de propósito"
+      - "Nome, assinatura, rubrica ou outra identificação no espaço do texto"
+      - "Texto escrito todo ou quase todo em língua estrangeira"
+      - "Letra ilegível para dois avaliadores"
+    fonte: edital-64
+    item: "14.7"
+    trecho: "A banca avaliadora poderá atribuir nota 0 (zero) à redação que: [...]"
+    conferido: "2026-10-30"
+  redacao-copia:
+    afirmacao: "Linhas copiadas da prova"
+    tipo: texto
+    valor: "não contam para o mínimo de linhas"
+    fonte: edital-64
+    item: "14.8"
+    trecho: "A redação que apresentar cópia dos textos da Proposta de Redação ou do Caderno de Provas terá o número de linhas copiadas desconsiderado para a contagem do número mínimo de linhas."
+    conferido: "2026-10-30"
+  intervencao-elementos:
+    afirmacao: "Os elementos da proposta de intervenção"
+    tipo: lista
+    valor: ["agente", "ação", "modo ou meio", "finalidade ou efeito", "detalhamento"]
+    fonte: cartilha-2026
+    trecho: "A proposta de intervenção apresenta os cinco elementos exigidos pela Grade de Avaliação das redações do Enem: agente (...), ação (...), modo/meio (...), finalidade (...), detalhamento (...)."
+    conferido: "2026-10-30"
+
+  # ── Pedidos e direitos ──
+  reaplicacao-doencas:
+    afirmacao: "Doenças que dão direito a pedir a reaplicação (com documento)"
+    tipo: lista
+    valor: ["tuberculose", "coqueluche", "difteria", "doença invasiva por Haemophilus influenzae", "doença meningocócica e outras meningites", "varíola", "varíola dos macacos (mpox)", "influenza humana A e B", "poliomielite por poliovírus selvagem", "sarampo", "rubéola", "varicela (catapora)", "covid-19"]
+    fonte: edital-64
+    item: "13.1.1"
+    trecho: "O participante que esteja com tuberculose, coqueluche, difteria, [...] sarampo, rubéola, varicela (catapora) ou covid-19 não deverá comparecer ao local de aplicação para realizar o Exame e deverá solicitar reaplicação."
+    conferido: "2026-10-30"
+  reaplicacao-mal-estar:
+    afirmacao: "Quem passa mal durante a prova e sai"
+    tipo: texto
+    valor: "não volta à sala e não pode pedir a reaplicação"
+    fonte: edital-64
+    item: "13.5"
+    trecho: "não poderá retornar à sala de provas para concluir o Exame e não poderá solicitar a reaplicação."
+    conferido: "2026-10-30"
+  atendimento-condicoes:
+    afirmacao: "Condições que podem pedir atendimento especializado"
+    tipo: lista
+    valor: ["baixa visão", "cegueira", "visão monocular", "deficiência física", "deficiência auditiva", "surdez", "deficiência intelectual", "surdocegueira", "dislexia", "TDAH", "TEA", "discalculia", "diabetes", "fibromialgia", "transtornos mentais", "gestante", "lactante", "idoso", "estudante em classe hospitalar", "outra condição específica"]
+    fonte: edital-64
+    item: "4.2.1"
+    trecho: "baixa visão, cegueira, visão monocular, deficiência física, deficiência auditiva, surdez, deficiência intelectual, surdocegueira, dislexia, [...] gestante, lactante, idoso, estudante em classe hospitalar e/ou outra condição específica."
+    conferido: "2026-10-30"
+  atendimento-depois-do-prazo:
+    afirmacao: "Atendimento especializado por acidente depois da inscrição: prazo"
+    tipo: texto
+    valor: "de 6 de julho a 12 de outubro de 2026, pela Página do Participante"
+    fonte: edital-64
+    item: "4.12"
+    trecho: "entre o dia 6 de julho de 2026 e as 23h59 do dia 12 de outubro de 2026 (horário de Brasília-DF)."
+    conferido: "2026-10-30"
+  nome-social:
+    afirmacao: "Nome social"
+    tipo: texto
+    valor: "pedido na inscrição, a partir do nome social cadastrado na Receita Federal; aparece em todos os materiais do Exame"
+    fonte: edital-64
+    item: "5.2.5 e 5.2.5.1"
+    trecho: "Assinalar a opção tratamento pelo nome social para a utilização do nome social, caso o participante o tenha cadastrado na Receita Federal [...] e será apresentado em todos os materiais do Exame."
+    conferido: "2026-10-30"
+  certificacao:
+    afirmacao: "Usar o Enem para tirar o certificado do ensino médio"
+    tipo: texto
+    valor: "é preciso ter marcado essa opção na inscrição, não ter concluído o ensino médio (nem concluir em 2026) e ter 18 anos completos até o 1º dia de provas"
+    fonte: edital-64
+    item: "16.3"
+    trecho: "deverá, no ato da inscrição, indicar a utilização do seu resultado para tal fim, [...] não ter concluído o ensino médio ou não ser concluinte no ano de 2026 e possuir 18 (dezoito) anos completos até o primeiro dia de realização das provas"
+    conferido: "2026-10-30"
+  pe-de-meia:
+    afirmacao: "Pé-de-Meia: incentivo para concluintes de 2026"
+    tipo: texto
+    valor: "quem é concluinte de 2026 no programa e faz os dois dias de prova recebe R$ 200 a mais, depois de confirmada a conclusão"
+    fonte: noticia-inscricoes
+    trecho: "Os participantes do Pé-de-Meia que concluírem o ensino médio em 2026 e participarem dos dois dias de prova do Enem receberão um incentivo adicional de R$ 200."
+    conferido: "2026-10-30"

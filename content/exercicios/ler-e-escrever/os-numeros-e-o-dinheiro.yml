@@ -1,0 +1,74 @@
+# Exercícios da aula "Os números e o dinheiro" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-numeros-01
+  tema: "A posição muda o valor"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em 52, quanto vale o algarismo 5?"
+  alternativas:
+    - texto: "5"
+      erro: "O 5 valeria 5 se estivesse no fim. Em 52 ele está na casa das dezenas: vale cinco dezenas, cinquenta."
+    - texto: "50"
+      certa: true
+    - texto: "500"
+      erro: "500 seria se o 5 estivesse na casa das centenas, como em 520. Em 52 ele está nas dezenas: vale 50."
+  explicacao: "52 = 50 + 2. O 5 está na casa das dezenas e vale cinquenta; o 2 vale dois."
+  conferir: "52 - 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-numeros-02
+  tema: "Ler preços"
+  dificuldade: 1
+  enunciado: "Como se lê R$ 12,90?"
+  alternativas:
+    - texto: "Mil duzentos e noventa reais"
+      erro: "A vírgula separa reais de centavos. Antes dela, 12 reais; depois, 90 centavos."
+    - texto: "Cento e vinte e nove reais"
+      erro: "A vírgula não pode ser ignorada: ela separa os reais (12) dos centavos (90)."
+    - texto: "Doze reais e noventa centavos"
+      certa: true
+  explicacao: "Antes da vírgula, os reais: doze. Depois da vírgula, os centavos: noventa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-numeros-03
+  tema: "Moedas"
+  dificuldade: 2
+  tipo: numero
+  enunciado: "Quantas moedas de 25 centavos são necessárias para fazer 2 reais?"
+  resposta: "8"
+  unidade: "moedas"
+  erros_comuns:
+    - resposta: "4"
+      explicacao: "Quatro moedas de 25 fazem 1 real. Para 2 reais, é o dobro."
+    - resposta: "2"
+      explicacao: "2 é o valor em reais. A pergunta é quantas moedas de 25 centavos: cada real precisa de 4, então 2 reais precisam de 8."
+  dica: "Primeiro descubra quantas moedas de 25 fazem 1 real."
+  explicacao: "4 moedas de 25 centavos fazem 1 real. Para 2 reais, 4 + 4 = 8 moedas."
+  conferir: "200 / 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-numeros-04
+  tema: "Conferir o troco"
+  dificuldade: 3
+  tipo: numero
+  enunciado: "Uma passagem custa R$ 5,30 e você paga com uma nota de R$ 10. Qual é o troco, em reais?"
+  resposta: "4,70"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "5,70"
+      explicacao: "Quase. Conte do preço até o valor pago: de 5,30 até 6 faltam 0,70; de 6 até 10 faltam 4. O troco é 4,70."
+    - resposta: "15,30"
+      explicacao: "Você somou o preço e a nota. O troco é o que falta do preço até o que você pagou: 10 − 5,30."
+  dica: "Conte do preço até o valor pago: primeiro até o próximo real inteiro, depois até 10."
+  explicacao: "De 5,30 até 6 faltam 0,70. De 6 até 10 faltam 4. Troco: 0,70 + 4 = R$ 4,70. Confira: 5,30 + 4,70 = 10."
+  conferir: "10 - 5.30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

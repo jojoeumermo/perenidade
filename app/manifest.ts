@@ -18,7 +18,7 @@ export default function manifest(): MetadataRoute.Manifest {
     orientation: "any",
     dir: "ltr",
     prefer_related_applications: false,
-    background_color: "#f4ecd8",
+    background_color: "#f8f5ee",
     theme_color: "#6e1f1a",
     categories: ["education", "books"],
     icons: [

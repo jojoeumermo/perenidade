@@ -204,17 +204,17 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
       ) : (
         <div className="pointer-events-auto fixed inset-0" />
       )}
-      <div className="pointer-events-auto fixed border-2 border-[#1f1a14] bg-[#fbf6e8] p-5 font-sans text-sm text-[#1f1a14] shadow-[6px_6px_0_#c21f16]" style={estilo}>
+      <div className="pointer-events-auto fixed border-2 border-ink bg-folha p-5 font-sans text-sm text-ink shadow-[6px_6px_0_#c21f16]" style={estilo}>
         {ultimo && (
-          <span aria-hidden className="tutorial-carimbo absolute top-3 right-3 rotate-[-5deg] border-[3px] border-double border-[#c21f16] bg-[#fbf6e8] px-2.5 py-0.5 font-mono text-[0.66rem] font-black uppercase tracking-[0.22em] text-[#c21f16]">
+          <span aria-hidden className="tutorial-carimbo absolute top-3 right-3 rotate-[-5deg] border-[3px] border-double border-[#c21f16] bg-folha px-2.5 py-0.5 font-mono text-[0.66rem] font-black uppercase tracking-[0.22em] text-prelo-texto">
             Passeio feito
           </span>
         )}
-        <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[#c21f16]">
+        <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">
           {`Tutorial · ${passo + 1} de ${passos.length}`}
         </p>
         <h2 id="tutorial-titulo" className="mt-1.5 flex items-start gap-2.5 font-serif text-2xl font-semibold leading-tight">
-          <span aria-hidden className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center border-2 border-[#1f1a14] bg-[#c21f16] font-sans text-[0.8rem] font-black text-white">
+          <span aria-hidden className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center border-2 border-ink bg-[#c21f16] font-sans text-[0.8rem] font-black text-white">
             {passo + 1}
           </span>
           {atual.titulo}
@@ -222,8 +222,8 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
         <p className="mt-2 leading-relaxed">{atual.texto}</p>
         {naReserva && atual.reserva && <p className="mt-2 font-semibold leading-snug">{atual.reserva.nota}</p>}
         {experimente && caixa && (
-          <p role="status" className={`mt-3 flex items-start gap-2 border-2 px-3 py-2 font-semibold leading-snug ${feito ? "tutorial-feito border-[#1f1a14] bg-[#1f1a14] text-[#f4ecd8]" : "border-dashed border-[#1f1a14]"}`}>
-            <span aria-hidden className={`mt-px flex h-4 w-4 shrink-0 items-center justify-center border-2 ${feito ? "border-[#c21f16] bg-[#c21f16] text-white" : "border-[#1f1a14]"}`}>
+          <p role="status" className={`mt-3 flex items-start gap-2 border-2 px-3 py-2 font-semibold leading-snug ${feito ? "tutorial-feito border-ink bg-ink text-parchment" : "border-dashed border-ink"}`}>
+            <span aria-hidden className={`mt-px flex h-4 w-4 shrink-0 items-center justify-center border-2 ${feito ? "border-[#c21f16] bg-[#c21f16] text-white" : "border-ink"}`}>
               {feito && (
                 <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12.5l4.5 4.5L19 7" />
@@ -243,7 +243,7 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
                   fechar();
                   extra.fazer();
                 }}
-                className="cursor-pointer font-semibold underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-[#c21f16]"
+                className="cursor-pointer font-semibold underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto"
               >
                 {extra.rotulo}
               </button>
@@ -252,20 +252,20 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
         )}
         <div aria-hidden className="mt-4 flex gap-1">
           {passos.map((p, i) => (
-            <span key={p.titulo} className={`h-1.5 flex-1 ${i <= passo ? "bg-[#c21f16]" : "bg-[#e2d2ab]"}`} />
+            <span key={p.titulo} className={`h-1.5 flex-1 ${i <= passo ? "bg-[#c21f16]" : "bg-rule"}`} />
           ))}
         </div>
         <div className="mt-4 flex flex-wrap items-center gap-2">
           {passo > 0 && (
-            <button type="button" onClick={() => andar(passo - 1)} className="cursor-pointer border-2 border-[#1f1a14] px-3 py-1.5 font-bold hover:bg-[#f4ecd8]">
+            <button type="button" onClick={() => andar(passo - 1)} className="cursor-pointer border-2 border-ink px-3 py-1.5 font-bold hover:bg-parchment">
               ← Voltar
             </button>
           )}
-          <button type="button" autoFocus onClick={() => (ultimo ? fechar() : andar(passo + 1))} className="cursor-pointer border-2 border-[#1f1a14] bg-[#c21f16] px-3.5 py-1.5 font-bold text-white shadow-[3px_3px_0_#1f1a14] hover:bg-[#a51810]">
+          <button type="button" autoFocus onClick={() => (ultimo ? fechar() : andar(passo + 1))} className="cursor-pointer border-2 border-ink bg-[#c21f16] px-3.5 py-1.5 font-bold text-white shadow-[3px_3px_0_#1f1a14] hover:bg-[#a51810]">
             {ultimo ? "Começar a trabalhar" : "Próximo →"}
           </button>
           {!ultimo && (
-            <button type="button" onClick={fechar} className="ml-auto cursor-pointer underline hover:text-[#c21f16]">
+            <button type="button" onClick={fechar} className="ml-auto cursor-pointer underline hover:text-prelo-texto">
               Pular
             </button>
           )}

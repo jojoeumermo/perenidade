@@ -1,0 +1,899 @@
+# Camada do Instituto Lúcia sobre a prova de Matemática do ENEM 2022 (questões 136 a 180).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Fora deste arquivo:
+# - enem-2022-143: as imagens das alternativas não batem com o gabarito importado (a planificação da letra A não fecha
+#   no cubo; a que fecha é a da letra D). Provável troca de caderno na fonte. Conferir no caderno oficial.
+# - enem-2022-144 e enem-2022-166: o importador perdeu a alternativa "0" e as letras andaram uma casa; o gabarito
+#   importado aponta para um valor errado (144 dá 7 e o gabarito importado dá 8; 166 dá 0 e o importado dá 1).
+# - enem-2022-152: o texto perdeu a largura da tela, sem a qual a conta não sai.
+# - enem-2022-157: questão anulada pelo Inep (erro de digitação na alternativa que seria a certa).
+ano: 2022
+questoes:
+  - id: enem-2022-136
+    area: matematica
+    competencia: 5
+    habilidade: 20
+    objeto: mat-algebra
+    topico: mat-algebra-funcoes-e-graficos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      O gráfico mostra a temperatura T, entre −2 °C e 4 °C, ao longo de 10 horas. A curva começa perto de 3, sobe até 4, desce cruzando a linha T = 2, chega a −2, volta a subir até 0, desce a −2, sobe a 0, desce a −2 de novo e, no fim, sobe cruzando T = 2 e termina perto de 3.
+      1. A velocidade se anula quando V = T² − 4 = 0, ou seja, T² = 4. Isso dá T = 2 ou T = −2.
+      2. Vezes em que T vale 2: a curva cruza essa linha uma vez descendo e uma vez subindo. São 2 vezes.
+      3. Vezes em que T vale −2: a curva encosta em −2 nos três vales. São 3 vezes.
+      4. Total: 2 + 3 = 5 vezes. Alternativa E.
+    enganos:
+      A: "1 não sai de uma conta natural com o gráfico. Primeiro descubra para quais temperaturas V vale zero (T = 2 e T = −2) e depois conte, no gráfico, cada vez que a curva passa por essas linhas."
+      B: "2 é contar só os cruzamentos da linha T = 2 (ou só os cruzamentos do zero). A equação T² = 4 tem duas raízes: falta contar os três toques em T = −2."
+      C: "3 é contar só os três vales em T = −2. A equação T² − 4 = 0 também tem a raiz T = 2, e a curva passa por ela duas vezes."
+      D: "4 aparece quando um dos cinco pontos fica de fora, por exemplo um dos três vales. Percorra o gráfico da esquerda para a direita marcando cada passagem por 2 e por −2."
+    aulas: [matematica-medio/funcoes-a-ideia, matematica-fundamental/leitura-de-graficos-e-tabelas]
+
+  - id: enem-2022-137
+    area: matematica
+    competencia: 7
+    habilidade: 28
+    objeto: mat-estatistica
+    topico: mat-estatistica-eventos-independentes
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O texto diz que cada time tem chance 1/2 de vencer qualquer partida. As alternativas trazem frações de denominador 64.
+      Chame de X o time que venceu a primeira partida. Ele ainda precisa de 3 vitórias antes de o outro fazer 4.
+      Truque: imagine que as 6 partidas restantes sejam todas jogadas, mesmo depois de alguém chegar a 4 (isso não muda quem é campeão). X é campeão se vencer pelo menos 3 dessas 6.
+      Cada sequência das 6 partidas tem chance (1/2)⁶ = 1/64.
+      Número de sequências com 3, 4, 5 ou 6 vitórias de X: C(6,3) + C(6,4) + C(6,5) + C(6,6) = 20 + 15 + 6 + 1 = 42.
+      Probabilidade: 42/64. Alternativa C.
+      Conferência pelo outro caminho: X vence na 4ª partida (1/8 = 8/64), na 5ª (3/16 = 12/64), na 6ª (6/32 = 12/64) ou na 7ª (10/64). Soma: 42/64.
+    enganos:
+      A: "35/64 não sai de uma conta natural com estes dados (35 é C(7,3), mas aqui só restam 6 partidas). Conte as sequências das 6 partidas que faltam em que o vencedor da primeira faz pelo menos 3 vitórias."
+      B: "40/64 não corresponde a uma contagem coerente. Some C(6,3) + C(6,4) + C(6,5) + C(6,6) = 20 + 15 + 6 + 1."
+      D: "44/64 não sai de uma conta natural. Confira se cada caso foi contado uma vez só: 20 + 15 + 6 + 1 = 42."
+      E: "52/64 não sai de uma conta natural. Lembre que o adversário também pode virar: ele é campeão nas 22 sequências em que o vencedor da primeira faz 2 vitórias ou menos (15 + 6 + 1), e 64 − 22 = 42."
+    aulas: [matematica-medio/probabilidade, matematica-medio/analise-combinatoria]
+
+  - id: enem-2022-138
+    area: matematica
+    competencia: 7
+    habilidade: 27
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-mediana-moda
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O gráfico de colunas traz receita e despesa (em milhão de reais) de cada mês: jan 6 e 3; fev 4 e 5; mar 3 e 2; abr 5 e 6; mai 6 e 1; jun 5 e 2; jul 6 e 4; ago 2 e 4; set 7 e 3; out 2 e 4; nov 8 e 7; dez 6 e 2.
+      1. Receita − despesa: jan 3; fev −1; mar 1; abr −1; mai 5; jun 3; jul 2; ago −2; set 4; out −2; nov 1; dez 4.
+      2. Lucro só existe quando a diferença é positiva. Os lucros são: 3, 1, 5, 3, 2, 4, 1, 4 (oito meses).
+      3. Em ordem: 1, 1, 2, 3, 3, 4, 4, 5. Com 8 valores, a mediana é a média do 4º e do 5º: (3 + 3) ÷ 2 = 3.
+      Alternativa D.
+    enganos:
+      A: "1,5 é a mediana das 12 diferenças, incluindo os prejuízos: em ordem, −2, −2, −1, −1, 1, 1, 2, 3, 3, 4, 4, 5; o 6º e o 7º são 1 e 2. Mas a pergunta é sobre os lucros: os meses de prejuízo ficam de fora."
+      B: "2,0 não sai de uma conta natural com o gráfico. Separe só os meses de lucro, ponha os oito valores em ordem e tire a média dos dois do meio."
+      C: "2,9 é a média dos lucros: 23 ÷ 8 = 2,875. A pergunta pede a mediana, o valor do meio da lista ordenada."
+      E: "5,5 é a mediana das receitas (em ordem, o 6º e o 7º valores são 5 e 6). Lucro é receita menos despesa."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+
+  - id: enem-2022-139
+    area: matematica
+    competencia: 3
+    habilidade: 11
+    objeto: mat-geometria
+    topico: mat-geometria-escalas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      1. Na escala 1 : 50, cada centímetro da planta vale 50 cm de verdade.
+      2. Altura do espaço: 3,8 · 50 = 190 cm. Largura: 1,6 · 50 = 80 cm.
+      3. Em cima, o refrigerador precisa de 10 cm livres: altura máxima 190 − 10 = 180 cm = 1,80 m.
+      4. Nas laterais, 10 cm de cada lado: largura máxima 80 − 2 · 10 = 60 cm = 0,60 m.
+      Alternativa A.
+    enganos:
+      B: "0,70 m de largura vem de 80 − 10: tirou a folga de um lado só. São duas laterais, então tire 10 cm de cada uma."
+      C: "1,90 e 0,80 é o tamanho do espaço inteiro, sem as folgas de 10 cm pedidas pelo fabricante."
+      D: "2,00 e 0,90 vem de somar 10 cm ao espaço em vez de tirar. A folga reduz o tamanho máximo do aparelho."
+      E: "2,00 e 1,00 vem de somar as folgas (10 em cima, 10 + 10 nas laterais). A folga tem de ser descontada do espaço."
+    aulas: [matematica-fundamental/razao-e-proporcao, matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade]
+
+  - id: enem-2022-140
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-operacoes
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      1. A regra do exemplo: jogo no domingo, próximo jogo só na quinta. Ou seja, entre dois jogos de um time passam 4 dias (dia 1, dia 5, dia 9...).
+      2. Quem chega à final joga: 3 partidas no grupo (contra as outras 3 equipes), oitavas, quartas, semifinal e final. São 7 jogos.
+      3. Não há limite de jogos por dia, então o torneio pode andar no ritmo de um jogo a cada 4 dias para todos: grupo nos dias 1, 5 e 9; oitavas no dia 13; quartas no 17; semifinal no 21; final no 25.
+      4. Do primeiro ao último dia: 25 dias. Alternativa B.
+    enganos:
+      A: "22 vem de 1 + 7 · 3, um jogo a cada 3 dias. Mas é preciso descansar 3 dias inteiros entre os jogos: de domingo para quinta são 4 dias de distância."
+      C: "28 vem de 7 · 4: contou 4 dias para cada um dos 7 jogos, inclusive depois da final. O primeiro jogo é no dia 1, e são só 6 intervalos de 4 dias: 1 + 6 · 4 = 25."
+      D: "48 é o número de partidas da fase de grupos (8 grupos com 6 jogos), como se fosse um jogo por dia. Vários jogos podem acontecer no mesmo dia."
+      E: "64 não sai de uma conta natural (o torneio inteiro tem 48 + 8 + 4 + 2 + 1 = 63 partidas). O que limita o calendário é o descanso de cada time, não o total de partidas."
+    aulas: [matematica-fundamental/as-quatro-operacoes]
+
+  - id: enem-2022-141
+    area: matematica
+    competencia: 7
+    habilidade: 28
+    objeto: mat-estatistica
+    topico: mat-estatistica-probabilidade-condicional
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      A Figura 1 mostra que se ganha com uma linha, uma coluna ou uma diagonal completa. A Figura 2 mostra a cartela de Pedro (4 por 4): linha de cima 03, 48, 12, 27; depois 49, 11, 22, 05; 29, 50, 19, 45; 33, 23, 38, 07. Estão marcados 03, 48, 27 e 07.
+      1. Linha de cima: falta só o 12. Última coluna (27, 05, 45, 07): faltam 05 e 45. Diagonal (03, 11, 19, 07): faltam 11 e 19. As outras precisam de 3 ou mais números.
+      2. Restam 46 números. Ganhar na 5ª rodada: sair o 12. Chance 1/46.
+      3. Ganhar só na 6ª rodada, caso a: na 5ª não sai o 12 (45/46) e na 6ª sai o 12 (1/45). Chance 45/(46 · 45).
+      4. Caso b: na 5ª sai um de 05, 45, 11 ou 19 (4/46) e na 6ª sai o par dele (1/45). Chance 4/(46 · 45).
+      5. Os outros jogadores têm no máximo um número e não ganham em duas rodadas.
+      Total: 1/46 + (45 + 4)/(46 · 45) = 1/46 + 49/(46 · 45). Alternativa E.
+    enganos:
+      A: "1/46 + 1/45 trata a 6ª rodada como se o 12 ainda estivesse garantido no sorteio, sem multiplicar pela chance de ele não ter saído na 5ª (45/46). E esquece as vitórias pela coluna e pela diagonal."
+      B: "2/(46 · 45) conta só duas sequências da coluna ou da diagonal e esquece que Pedro também ganha se o 12 sair na 6ª rodada (45 casos). São 45 + 4 = 49 casos."
+      C: "8/(46 · 45) não sai de uma conta natural: os pares que completam coluna ou diagonal são 4 sequências (05-45, 45-05, 11-19, 19-11), e falta somar os 45 casos do 12 na 6ª rodada."
+      D: "43/(46 · 45) não sai de uma conta natural. Os casos de vitória na 6ª rodada são 45 (o 12 sai na 6ª) mais 4 (coluna ou diagonal completadas), 49 ao todo."
+    aulas: [matematica-medio/probabilidade]
+
+  - id: enem-2022-142
+    area: matematica
+    competencia: 1
+    habilidade: 2
+    objeto: mat-numeros
+    topico: mat-numeros-contagem
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      1. Opcionais: cada um dos 3 pode entrar ou não. São 2 · 2 · 2 = 8 escolhas (inclui nenhum e todos).
+      2. Sem contar a cor: 7 modelos · 2 motores · 8 escolhas de opcionais = 112 configurações.
+      3. Com c cores: 112 · c configurações. É preciso passar de 1 000.
+      4. Com 8 cores: 896, não basta. Com 9 cores: 1 008, passa. Mínimo: 9 cores. Alternativa B.
+    enganos:
+      A: "8 vem de arredondar 1 000 ÷ 112 ≈ 8,9 para baixo. Mas 112 · 8 = 896, menos de 1 000. É preciso arredondar para cima."
+      C: "11 vem de contar 7 escolhas de opcionais (sem a opção nenhum): 7 · 2 · 7 = 98 e 1 000 ÷ 98 ≈ 10,2. O cliente pode também não querer nenhum opcional: são 8 escolhas."
+      D: "18 vem de contar 4 escolhas de opcionais (nenhum, um, dois ou três): 7 · 2 · 4 = 56 e 1 000 ÷ 56 ≈ 17,9. Mas escolher um opcional pode ser qualquer um dos três: cada opcional entra ou não, 2³ = 8."
+      E: "24 vem de contar só 3 escolhas de opcionais: 7 · 2 · 3 = 42 e 1 000 ÷ 42 ≈ 23,8. Os opcionais podem ser combinados: 2³ = 8 escolhas."
+    aulas: [matematica-medio/analise-combinatoria]
+
+  - id: enem-2022-145
+    area: matematica
+    competencia: 4
+    habilidade: 16
+    objeto: mat-numeros
+    topico: mat-numeros-razao-e-proporcao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      1. No pacote básico há 100 000 ÷ 2 000 = 50 moedas para cada gema.
+      2. Dois pacotes básicos (R$ 100,00) dariam 4 000 gemas. O especial terá 6 000 a mais: 10 000 gemas.
+      3. Mantida a proporção, o especial precisa ter 10 000 · 50 = 500 000 moedas.
+      4. A pergunta fala nas moedas que a empresa vai inserir ao montar o pacote especial a partir do básico, que já tem 100 000. Faltam 500 000 − 100 000 = 400 000 moedas. Alternativa E, a do gabarito oficial.
+      Atenção: o enunciado é ambíguo. Lendo como acréscimo sobre dois pacotes básicos, a conta daria 500 000 − 200 000 = 300 000, que não é o gabarito.
+    enganos:
+      A: "50 000 não sai de uma conta natural. Talvez venha da razão de 50 moedas por gema, mas a razão precisa ser multiplicada pelas 10 000 gemas do pacote especial."
+      B: "100 000 é a quantidade de moedas do pacote básico. O especial tem 10 000 gemas e precisa de 500 000 moedas no total."
+      C: "200 000 é o que viria em dois pacotes básicos, sem as 6 000 gemas extras e sem manter a proporção de 50 moedas por gema."
+      D: "300 000 vem de 500 000 − 200 000, tomando dois pacotes básicos como ponto de partida. O gabarito oficial considera o acréscimo sobre o pacote básico (100 000 moedas)."
+    aulas: [matematica-fundamental/razao-e-proporcao]
+
+  - id: enem-2022-146
+    area: matematica
+    competencia: 5
+    habilidade: 21
+    objeto: mat-algebra-geometria
+    topico: mat-algebra-geometria-sistemas
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      1. Seja a o tamanho do circuito maior e b o do menor. Do primeiro dia: 3a + 2b = 1 800 e 2a + b = 1 100.
+      2. Da segunda equação, b = 1 100 − 2a. Na primeira: 3a + 2 200 − 4a = 1 800, então a = 400 m e b = 300 m.
+      3. No segundo dia: 400x + 300y = 5 000, ou 4x + 3y = 50, com x e y inteiros.
+      4. Para ter mais voltas, use o máximo de voltas no circuito menor. x = 0 dá y = 50/3 (não serve); x = 1 dá 46/3 (não serve); x = 2 dá y = 14.
+      5. Total: 2 + 14 = 16 voltas. Alternativa E.
+    enganos:
+      A: "10 não sai de uma conta natural: nenhuma solução inteira de 4x + 3y = 50 dá 10 voltas. As soluções são (2, 14), (5, 10), (8, 6) e (11, 2)."
+      B: "13 vem de x = 11 e y = 2: 11 · 400 + 2 · 300 = 5 000. Fecha a distância, mas usa muitas voltas no circuito maior. Para ter mais voltas, prefira o menor."
+      C: "14 vem de x = 8 e y = 6. É uma solução, mas não a de maior número de voltas."
+      D: "15 vem de x = 5 e y = 10. Ainda dá para trocar 3 voltas grandes por 4 pequenas e chegar a 2 + 14 = 16."
+    aulas: [matematica-medio/matrizes-e-sistemas-lineares, matematica-fundamental/equacoes-do-1-grau]
+
+  - id: enem-2022-147
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-porcentagem
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      1. Primeira divulgação. Rede A: 3 000 · 10% = 300 cliques; 300 · 3% = 9 compradores. Rede B: 1 000 · 30% = 300 cliques; 300 · 2% = 6 compradores. Total: 15.
+      2. Segunda divulgação, com R$ 300,00 em cada rede. Na A, o investimento é 3 vezes o de antes (300 ÷ 100): 9 · 3 = 27 compradores. Na B, é 1,5 vez (300 ÷ 200): 6 · 1,5 = 9 compradores. Total: 36.
+      3. Aumento em relação à primeira: (36 − 15) ÷ 15 = 21 ÷ 15 = 1,4 = 140%.
+      4. 140% está entre 100% e 150%: bom. Alternativa C.
+    enganos:
+      A: "Não satisfatório (até 60%) aparece quando se olha só a rede B, que cresce 50%. É preciso juntar as duas redes."
+      B: "Regular (até 100%) aparece quando se compara só o dinheiro total: de R$ 300,00 para R$ 600,00, mais 100%. Mas cada rede responde ao seu investimento de um jeito: a A triplica e a B cresce 1,5 vez."
+      D: "Muito bom (150% a 190%) não sai de uma conta natural com os dados. Faça as contas de compradores rede por rede: 15 antes, 36 depois."
+      E: "Excelente aparece quando se olha só a rede A, que vai de 9 para 27 compradores (mais 200%). A rede B cresce menos e puxa o total para baixo."
+    aulas: [matematica-fundamental/porcentagem, matematica-fundamental/razao-e-proporcao]
+
+  - id: enem-2022-148
+    area: matematica
+    competencia: 4
+    habilidade: 17
+    objeto: mat-numeros
+    topico: mat-numeros-potencias-e-notacao-cientifica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A lei da imagem é L = c · R² · T⁴. As alternativas são L_E = L_F/2, L_F/4, L_F, 4L_F e 8L_F.
+      1. A estrela E tem raio R/2 e temperatura 2T, sendo R e T os da estrela F.
+      2. L_E = c · (R/2)² · (2T)⁴ = c · (R²/4) · 16T⁴ = 4 · c · R² · T⁴.
+      3. Logo L_E = 4 L_F. Alternativa D.
+    enganos:
+      A: "L_F/2 vem de elevar o raio ao quadrado, mas usar a temperatura sem o expoente 4: (1/2)² · 2 = 1/2. A temperatura entra na quarta potência: 2⁴ = 16."
+      B: "L_F/4 vem de trocar os expoentes (raio na quarta, temperatura ao quadrado): (1/2)⁴ · 2² = 1/4. Na lei, R está ao quadrado e T na quarta potência."
+      C: "L_E = L_F vem de ignorar os expoentes: metade do raio vezes o dobro da temperatura dá 1. Os expoentes 2 e 4 mudam tudo."
+      E: "8L_F vem de usar o raio sem o quadrado: (1/2) · 2⁴ = 8. O raio entra ao quadrado: (1/2)² = 1/4."
+    aulas: [matematica-fundamental/potencias-e-raizes]
+
+  - id: enem-2022-149
+    area: matematica
+    competencia: 7
+    habilidade: 27
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-mediana-moda
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O quadro mostra: 100 famílias com 0 criança, 400 com 1, 200 com 2, 150 com 3, 100 com 4 e 50 com 5. Total: 1 000 famílias.
+      1. Com 1 000 dados, a mediana é a média do 500º e do 501º, na lista em ordem.
+      2. Frequência acumulada: 0 criança vai até a 100ª família; 1 criança, até a 500ª; 2 crianças, até a 700ª.
+      3. A 500ª família tem 1 criança e a 501ª tem 2. Mediana: (1 + 2) ÷ 2 = 1,5. Alternativa B.
+    enganos:
+      A: "1,0 é o valor da 500ª família só. Com número par de dados, a mediana é a média dos dois do meio, o 500º e o 501º."
+      C: "1,9 é a média: (0 · 100 + 1 · 400 + 2 · 200 + 3 · 150 + 4 · 100 + 5 · 50) ÷ 1 000 = 1 900 ÷ 1 000. A pergunta pede a mediana."
+      D: "2,1 vem de dividir as 1 900 crianças só pelas 900 famílias que têm criança. A mediana usa todas as 1 000 famílias, em ordem."
+      E: "2,5 é a mediana dos valores 0, 1, 2, 3, 4 e 5 da coluna, sem levar em conta quantas famílias há em cada um. Cada valor pesa pela frequência."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+
+  - id: enem-2022-150
+    area: matematica
+    competencia: 5
+    habilidade: 21
+    objeto: mat-algebra
+    topico: mat-algebra-funcao-quadratica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A parábola da imagem é y = −x²/6 − 7x/3 + 12, e a figura mostra que o eixo x fica 1,5 m acima do piso.
+      1. Vértice: x = −b/(2a), com a = −1/6 e b = −7/3. x = (7/3) ÷ (−1/3) = −7.
+      2. Altura máxima em relação ao eixo: y(−7) = −49/6 + 49/3 + 12 = 49/6 + 12 ≈ 8,17 + 12 = 20,17 m.
+      3. Em relação ao piso: 20,17 + 1,5 ≈ 21,67 m.
+      4. O saque é invalidado onde o teto é mais baixo que 21,67 m: ginásios I (17), II (18), III (19) e IV (21). No V (40 m) não. Alternativa D.
+    enganos:
+      A: "Apenas o ginásio I não sai de uma conta natural com a parábola. Calcule o vértice e some os 1,5 m do eixo ao piso: a bola sobe até cerca de 21,67 m."
+      B: "Apenas I e II não sai de uma conta natural. A altura máxima, 21,67 m acima do piso, passa também dos tetos de 19 m e de 21 m."
+      C: "I, II e III vem de usar a altura máxima de 20,17 m sem somar 1,5 m: o eixo x está 1,5 m acima do piso. Com a soma, a bola também bate no teto de 21 m."
+      E: "Em todos os ginásios exigiria a bola passar de 40 m. A altura máxima é cerca de 21,67 m."
+    aulas: [matematica-medio/funcao-do-2-grau]
+
+  - id: enem-2022-151
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-porcentagem
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      1. A pessoa bebeu 1,7 L, que corresponde à massa perdida mais 40%: 1,4 · m = 1,7.
+      2. Massa perdida: m = 1,7 ÷ 1,4 ≈ 1,214 kg.
+      3. Perde 1,5 kg por hora: tempo = 1,214 ÷ 1,5 ≈ 0,81 h.
+      4. Em minutos: 0,81 · 60 ≈ 48,6 min. Fica entre 45 e 55 minutos. Alternativa C.
+    enganos:
+      A: "30 minutos ou menos não sai de uma conta natural com os dados. Primeiro descubra a massa perdida (1,7 ÷ 1,4) e depois o tempo (÷ 1,5)."
+      B: "Entre 35 e 45 min vem de tirar 40% de 1,7 L: 1,7 · 0,6 = 1,02 kg, cerca de 41 min. Mas 1,7 L já é a massa perdida mais 40%; é preciso dividir por 1,4."
+      D: "Entre 60 e 70 min vem de tratar 1,7 L como a massa perdida: 1,7 ÷ 1,5 ≈ 1,13 h ≈ 68 min. Esqueceu os 40% a mais."
+      E: "70 min ou mais vem de somar 40% a 1,7 (2,38 kg), cerca de 95 min. Os 40% já estão dentro do 1,7 L bebido."
+    aulas: [matematica-fundamental/porcentagem, matematica-fundamental/regra-de-tres]
+
+  - id: enem-2022-153
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-piramides-e-cones
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A figura mostra o cone de chocolate com 8 cm de diâmetro na base (raio 4 cm) e 10 cm de altura.
+      1. Volume do cone: V = (1/3) · π · r² · h. Com a mesma altura, o volume é proporcional a r².
+      2. O novo volume é 19% menor: 81% do antigo. Então o novo r² = 0,81 · 4² = 0,81 · 16 = 12,96.
+      3. Novo raio: r = √12,96 = 3,6 cm (ou 0,9 · 4). Alternativa C.
+    enganos:
+      A: "1,52 vem de 19% do diâmetro (0,19 · 8). O 19% é a redução do volume, não uma medida da base."
+      B: "3,24 vem de 0,81 · 4: aplicou os 81% direto no raio. O volume depende do raio ao quadrado, então o raio é multiplicado por √0,81 = 0,9."
+      D: "6,48 vem de 0,81 · 8: usou o diâmetro e não tirou a raiz quadrada."
+      E: "7,20 vem de 0,9 · 8: a conta da raiz está certa, mas foi feita com o diâmetro. A pergunta pede o raio: 0,9 · 4."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2022-154
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-porcentagem
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      1. Uma queda de 75% significa que o valor de 2013 é 25% do valor de 2012.
+      2. Sendo x as vagas de janeiro de 2012: 0,25 · x = 28 900.
+      3. x = 28 900 ÷ 0,25 = 28 900 · 4 = 115 600. Alternativa C.
+    enganos:
+      A: "16 514 vem de 28 900 ÷ 1,75, como se 2013 fosse 75% maior que 2012. Houve queda: 2013 é 25% de 2012."
+      B: "86 700 é o tamanho da queda (115 600 − 28 900), ou 28 900 · 3. A pergunta quer o total de vagas criadas em 2012."
+      D: "441 343 é um quarto dos desligamentos (1 765 372 ÷ 4). As vagas criadas são o saldo, 28 900, e é sobre ele que vale a queda de 75%."
+      E: "448 568 é um quarto das admissões (1 794 272 ÷ 4). A queda de 75% é do saldo de vagas, não das admissões."
+    aulas: [matematica-fundamental/porcentagem, estatistica-para-ler-o-brasil/porcentagem-no-noticiario]
+
+  - id: enem-2022-155
+    area: matematica
+    competencia: 1
+    habilidade: 2
+    objeto: mat-numeros
+    topico: mat-numeros-arranjos-e-combinacoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      As alternativas são expressões: 9 · 6!/(6 − 2)!, 9 · 6!/[(6 − 2)! · 2!], 9 · 4!/[(4 − 2)! · 2!], 9 · 2!/[(2 − 2)! · 2!] e 9 · {8!/[(8 − 2)! · 2!] − 1}.
+      1. Pelo menos um quarto com sol de manhã: finais 1, 2, 3, 4, 5 e 6. São 6 apartamentos por andar.
+      2. Escolher 2 deles, sem importar a ordem: C(6,2) = 6!/[(6 − 2)! · 2!] = 15.
+      3. Os dois têm de estar no mesmo andar, e há 9 andares: 9 · C(6,2) = 135 maneiras. Alternativa B.
+    enganos:
+      A: "9 · 6!/(6 − 2)! conta a ordem de escolha (arranjo). Comprar o 11 e o 12 é o mesmo que comprar o 12 e o 11: divida por 2!."
+      C: "9 · C(4,2) usa só os finais 3, 4, 5 e 6. Os finais 1 e 2 também servem: ali os dois quartos recebem sol de manhã."
+      D: "9 · C(2,2) usa só os finais 1 e 2. Os finais 3 a 6 também têm um quarto com sol de manhã, o que basta."
+      E: "9 · [C(8,2) − 1] tira só o par 7 e 8. Mas qualquer par com o 7 ou com o 8 já tem um apartamento sem sol de manhã."
+    aulas: [matematica-medio/analise-combinatoria]
+
+  - id: enem-2022-156
+    area: matematica
+    competencia: 2
+    habilidade: 7
+    objeto: mat-geometria
+    topico: mat-geometria-simetria
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      As figuras mostram um quadrado dobrado nas duas diagonais. Sobra um triângulo com vértice O no centro do quadrado e o lado oposto sobre um lado do quadrado; M é o ponto médio desse lado. As alternativas mostram o quadrado com furos de formas diferentes.
+      1. R fica sobre OM, com OR = OM/4. O arco tem centro R e raio OM/2. Como OR é menor que o raio, o corte retira um pedaço que contém o ponto O.
+      2. As quatro camadas do papel dobrado ficam umas sobre as outras. Ao desdobrar, o mesmo corte aparece nos quatro triângulos, como num espelho em cada dobra.
+      3. Cada corte é um pedaço de círculo com centro em um ponto a OM/4 do centro, na direção do meio de um lado. O furo é a união desses quatro círculos: uma flor de quatro pétalas, com as pétalas apontando para os meios dos lados (em cima, embaixo, à esquerda e à direita), e reentrâncias nas direções das diagonais. Alternativa C.
+    enganos:
+      A: "A flor com pétalas nas diagonais põe os centros dos arcos sobre as linhas de dobra. Os centros ficam sobre OM, que aponta para o meio do lado, então as pétalas apontam para os meios dos lados."
+      B: "Um círculo perfeito só sairia com o arco centrado em O. O centro é R, fora de O, e cada dobra espelha esse arco: aparecem quatro arcos."
+      D: "A elipse não sai de dobras e cortes em arco: desdobrar o papel só junta cópias espelhadas do mesmo arco."
+      E: "Dois setores separados apareceriam se o corte não passasse pelo centro e só uma dobra fosse considerada. Aqui o corte contém O e se repete nas quatro camadas."
+    aulas: [matematica-medio/geometria-plana]
+
+  - id: enem-2022-158
+    area: matematica
+    competencia: 5
+    habilidade: 21
+    objeto: mat-algebra
+    topico: mat-algebra-funcao-quadratica
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      As imagens trazem o modelo p(t) = −t² + 10t + 24 e as propostas: I, meses 1 e 2; II, 3 e 4; III, 5 e 6; IV, 7 a 9; V, 10 a 12.
+      1. A parábola tem a < 0, então tem um ponto de máximo no vértice.
+      2. Mês do vértice: t = −b/(2a) = −10/(2 · (−1)) = 5.
+      3. Conferência: p(5) = −25 + 50 + 24 = 49; p(4) = p(6) = 48.
+      4. O mês 5 está na proposta III. Alternativa C.
+    enganos:
+      A: "A proposta I não sai de uma conta natural: nos meses 1 e 2 o modelo dá 33 e 40 infectados, abaixo do pico de 49 no mês 5."
+      B: "A proposta II (meses 3 e 4) pega a subida da curva, com 45 e 48 infectados, mas não o pico. Calcule o vértice: t = −b/(2a) = 5."
+      D: "A proposta IV (meses 7 a 9) pega a descida da curva (45, 40 e 33). O máximo é no mês 5."
+      E: "A proposta V contém t = 12, a raiz da equação −t² + 10t + 24 = 0. Na raiz o número de infectados é zero; o máximo está no vértice, no meio entre as raízes −2 e 12."
+    aulas: [matematica-medio/funcao-do-2-grau]
+
+  - id: enem-2022-159
+    area: matematica
+    competencia: 1
+    habilidade: 2
+    objeto: mat-numeros
+    topico: mat-numeros-multiplos-e-divisores
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O quadro mostra o ciclo de 13 dias: T1, R, R, T2, R, R, T3, R, T4, R, R, T5, R. As alternativas são sequências de 7 dias.
+      1. A 24ª semana vai do dia 23 · 7 + 1 = 162 ao dia 24 · 7 = 168.
+      2. Posição no ciclo: resto da divisão por 13. 13 · 12 = 156, então o dia 162 é o 6º dia do ciclo; o 168 é o 12º.
+      3. Dias 6 a 12 do ciclo: R, T3, R, T4, R, R, T5. Alternativa B.
+    enganos:
+      A: "T3 R T4 R R T5 R são os dias 7 a 13 do ciclo: a semana foi começada um dia depois (no dia 163). A 24ª semana começa no dia 23 · 7 + 1 = 162."
+      C: "R T4 R R T5 R T1 são os dias 8 a 13 e o 1º do ciclo seguinte: começou dois dias depois do certo. Confira o resto de 162 por 13, que é 6."
+      D: "R R T5 R T1 R R não sai de uma conta natural (começaria no 10º dia do ciclo). Divida 162 por 13 e use o resto, 6."
+      E: "R T5 R T1 R R T2 não sai de uma conta natural (começaria no 11º dia do ciclo). O primeiro dia da 24ª semana é o 162º, que cai no 6º dia do ciclo."
+    aulas: [matematica-fundamental/multiplos-divisores-e-numeros-primos]
+
+  - id: enem-2022-160
+    area: matematica
+    competencia: 2
+    habilidade: 6
+    objeto: mat-geometria
+    topico: mat-geometria-vistas-e-projecoes
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A figura mostra o início: de P (centro de cima) o robô vai para a face da direita, vira à esquerda e vai para a face de trás, vira à direita e desce para a face de baixo. As alternativas mostram a base dividida em quatro quadradinhos, com contornos diferentes.
+      1. Seguindo a alternância de conversões: de baixo, vira à esquerda e vai para a face da esquerda; ali vira à direita e vai para a face da frente; ali vira à esquerda e sobe para a face de cima, chegando a P. Ordem: cima, direita, trás, baixo, esquerda, frente, cima.
+      2. Cada passo vai de um centro de face ao meio de uma aresta e daí ao centro da face seguinte.
+      3. Na projeção sobre a base (centro da base no meio), o caminho da primeira metade passa por: centro, meio da direita, canto direita-fundo, meio do fundo, centro. Isso contorna o quadradinho de trás à direita.
+      4. A segunda metade passa por: centro, meio da esquerda, canto esquerda-frente, meio da frente, centro. Contorna o quadradinho da frente à esquerda.
+      5. O desenho são dois quadradinhos opostos, unidos pelo centro: fundo-direita e frente-esquerda. Alternativa A.
+    enganos:
+      B: "Três quadradinhos contornados não correspondem ao trajeto: o robô passa por seis faces e a projeção contorna só dois quadradinhos, opostos pelo centro."
+      C: "Dois quadradinhos do mesmo lado (direito) apareceriam se o robô virasse sempre para o mesmo lado. Ele alterna esquerda e direita, por isso os quadradinhos ficam em cantos opostos."
+      D: "Dois quadradinhos do fundo apareceriam se a segunda metade do caminho repetisse a primeira do mesmo lado. Depois da face de baixo, o robô vai para a esquerda e para a frente."
+      E: "Três quadradinhos contornados não correspondem ao trajeto. Refaça a sequência de faces: cima, direita, trás, baixo, esquerda, frente, cima."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2022-161
+    area: matematica
+    competencia: 3
+    habilidade: 11
+    objeto: mat-geometria
+    topico: mat-geometria-escalas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A planta mostra a varanda em L: uma faixa de cima com 16 cm por 5 cm e uma faixa da esquerda com 4 cm de largura, numa altura total de 18,4 cm.
+      1. Área no desenho: faixa de cima 16 · 5 = 80 cm²; faixa da esquerda, abaixo dela, 4 · (18,4 − 5) = 4 · 13,4 = 53,6 cm². Total: 133,6 cm².
+      2. Na escala 1 : 50, cada medida de comprimento é multiplicada por 50; a área, por 50² = 2 500.
+      3. Área real: 133,6 · 2 500 = 334 000 cm².
+      4. Como 1 m² = 10 000 cm²: 334 000 ÷ 10 000 = 33,40 m². Alternativa A.
+    enganos:
+      B: "66,80 vem de multiplicar a área por 50 (e não por 50²) e dividir por 100 (e não por 10 000). Área muda com o quadrado da escala, e 1 m² tem 10 000 cm²."
+      C: "89,24 não sai de uma conta natural com as medidas. Separe o L em dois retângulos sem sobreposição e multiplique a área por 2 500."
+      D: "133,60 é a área do desenho, em cm². Falta passar para o tamanho real (× 2 500) e para metro quadrado (÷ 10 000)."
+      E: "534,40 não sai de uma conta natural (é 133,6 · 4). A área real é 133,6 · 2 500 cm² = 33,40 m²."
+    aulas: [matematica-fundamental/perimetro-e-area, matematica-fundamental/razao-e-proporcao]
+
+  - id: enem-2022-162
+    area: matematica
+    competencia: 6
+    habilidade: 24
+    objeto: mat-estatistica
+    topico: mat-estatistica-graficos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O gráfico mostra: setor adulto vendeu 18 000 nos dez primeiros dias e 15 000 do dia 10 ao 20; setor infantil, 8 000 e 7 000.
+      1. A tendência é linear: o adulto cai 3 000 a cada dez dias e o infantil cai 1 000.
+      2. Do dia 20 ao 30: adulto 15 000 − 3 000 = 12 000; infantil 7 000 − 1 000 = 6 000.
+      3. Total do mês: 18 000 + 15 000 + 12 000 + 8 000 + 7 000 + 6 000 = 66 000.
+      4. Falta para a meta: 77 000 − 66 000 = 11 000. Alternativa C.
+    enganos:
+      A: "5 000 não sai de uma conta natural com o gráfico. Some as vendas dos três períodos dos dois setores e compare com 77 000."
+      B: "7 000 vem de repetir no último período as vendas do segundo (15 000 + 7 000). O texto manda manter a tendência: as vendas continuam caindo."
+      D: "18 000 não sai de uma conta natural com o gráfico. Prolongue as duas retas até o dia 30: adulto 12 000, infantil 6 000."
+      E: "29 000 vem de 77 000 − 48 000, esquecendo as vendas dos últimos dez dias. O gráfico só mostra até o dia 20, mas a pergunta é sobre o dia 30."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-medio/funcao-do-1-grau]
+
+  - id: enem-2022-163
+    area: matematica
+    competencia: 7
+    habilidade: 27
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-ponderada
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      1. Média máxima de 12 240 para 100 professores: folha total de no máximo 12 240 · 100 = 1 224 000 reais.
+      2. Mestres com 25%: 8 000 · 1,25 = 10 000. Os 60 mestres somam 600 000.
+      3. Sobram para os 40 doutores: 1 224 000 − 600 000 = 624 000, ou 15 600 cada.
+      4. Aumento dos doutores: 15 600 ÷ 12 000 = 1,30, ou seja, 30%. Alternativa D.
+    enganos:
+      A: "14,4% vem de trocar as quantidades (40 mestres e 60 doutores): (1 224 000 − 400 000) ÷ 60 ≈ 13 733, cerca de 14,4% sobre 12 000. São 60 mestres e 40 doutores."
+      B: "20,7% vem da média simples: (10 000 + x) ÷ 2 = 12 240 dá x = 14 480, cerca de 20,7% a mais. Há mais mestres que doutores; a média é ponderada."
+      C: "22,0% não sai de uma conta natural com os dados. Calcule a folha máxima (1 224 000), tire a dos mestres (600 000) e divida o resto pelos 40 doutores."
+      E: "37,5% não sai de uma conta natural com os dados. Com 37,5%, cada doutor ganharia 16 500, e a média passaria de 12 240."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, matematica-fundamental/porcentagem]
+
+  - id: enem-2022-164
+    area: matematica
+    competencia: 3
+    habilidade: 12
+    objeto: mat-geometria
+    topico: mat-geometria-unidades-de-medida
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      1. Um dia tem 24 · 60 = 1 440 minutos. Acionando a cada 48 minutos: 1 440 ÷ 48 = 30 acionamentos por dia.
+      2. Em 60 dias: 30 · 60 = 1 800 acionamentos.
+      3. Cada acionamento libera 360 ÷ 1 800 = 0,2 mL. Alternativa B.
+    enganos:
+      A: "0,125 vem de 360 ÷ (60 · 48) = 360 ÷ 2 880: multiplicou dias por minutos. É preciso transformar os 60 dias em minutos e dividir por 48."
+      C: "4,8 vem de 360 ÷ 75, sendo 75 = 3 600 ÷ 48: tratou os 60 dias como 60 horas. Um dia tem 1 440 minutos."
+      D: "6 é o gasto por dia (360 ÷ 60). Cada dia tem 30 acionamentos, então divida de novo por 30."
+      E: "12 vem de 360 ÷ 30: dividiu pelos acionamentos de um dia só. Em 60 dias são 1 800 acionamentos."
+    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, matematica-fundamental/as-quatro-operacoes]
+
+  - id: enem-2022-165
+    area: matematica
+    competencia: 3
+    habilidade: 12
+    objeto: mat-geometria
+    topico: mat-geometria-unidades-de-medida
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      1. Dois anos de Z valem um ano terrestre. Então um ano de Z dura 365 ÷ 2 = 182,5 dias terrestres.
+      2. Um dia de Z dura 73 dias terrestres.
+      3. Dias de Z num ano de Z: 182,5 ÷ 73 = 2,5. Alternativa A.
+    enganos:
+      B: "10 vem de 730 ÷ 73: tomou o ano de Z como dois anos terrestres. É o contrário: dois anos de Z cabem em um ano terrestre."
+      C: "730 é 365 · 2, também com o ano de Z dobrado e sem converter para dias de Z (que duram 73 dias terrestres)."
+      D: "13 322,5 vem de 182,5 · 73: multiplicou pela duração do dia de Z em vez de dividir."
+      E: "53 290 vem de 730 · 73: dobrou o ano em vez de dividir por 2 e multiplicou pelo dia de Z em vez de dividir."
+    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, matematica-fundamental/razao-e-proporcao]
+
+  - id: enem-2022-167
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-aumentos-e-descontos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      1. Preço normal: 10% acima de 1 000, ou seja, 1 100 reais.
+      2. Valor da loja no cartão: 2% de desconto sobre 1 100: 1 100 · 0,98 = 1 078 reais.
+      3. Conta da cliente: 1 000 · 1,08 = 1 080 reais.
+      4. 1 078 é 2 reais menor que 1 080. Alternativa A.
+      Por que a diferença: +10% e depois −2% não é o mesmo que +8%, porque o desconto incide sobre o preço já aumentado.
+    enganos:
+      B: "100 é a diferença entre o preço normal (1 100) e o promocional (1 000). A pergunta compara o valor no cartão (1 078) com a conta da cliente (1 080)."
+      C: "200 não sai de uma conta natural com os dados. Calcule os dois valores (1 078 e 1 080) e subtraia."
+      D: "42 maior vem de somar 2% em vez de descontar: 1 100 · 1,02 = 1 122, que é 42 a mais que 1 080. No cartão há desconto."
+      E: "80 maior compara a conta da cliente (1 080) com o preço promocional (1 000). A pergunta compara o valor da loja com o valor da cliente."
+    aulas: [matematica-fundamental/porcentagem]
+
+  - id: enem-2022-168
+    area: matematica
+    competencia: 2
+    habilidade: 6
+    objeto: mat-geometria
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A figura é uma malha de ruas. O carro sai de P subindo (seta para cima) e o caminho destacado é: sobe até a primeira rua, anda duas quadras para a direita, sobe duas quadras, anda uma para a direita, desce uma, anda uma para a direita, sobe três e anda uma para a direita até Q.
+      Em cada cruzamento, olhe do ponto de vista de quem dirige:
+      1. Subindo, vira para o leste (direita do motorista): D.
+      2. Cruzamento seguinte, segue: F. 3. Vira para cima: E.
+      4. Segue: F. 5. Vira para o leste: D. 6. Vira para baixo: D.
+      7. Descendo, vira para o leste (esquerda de quem desce): E. 8. Vira para cima: E.
+      9 e 10. Segue duas vezes: F, F. 11. Vira para o leste: D.
+      Sequência: DFEFDDEEFFD. Alternativa C.
+    enganos:
+      A: "DDEFDDEEFFD troca o segundo cruzamento: ali o carro só segue em frente (F), não vira."
+      B: "DDD no meio erra o 7º cruzamento: o carro está descendo e vira para a direita do mapa, que é a esquerda de quem dirige (E)."
+      D: "EFDFEEDDFFE troca esquerda e direita em todos os cruzamentos: é o caminho lido do ponto de vista de quem olha o mapa de frente, ou espelhado. Pense em quem está dirigindo."
+      E: "EFDFEEEDFFE troca esquerda e direita em toda a sequência e ainda erra o 7º cruzamento, como na alternativa B."
+    aulas: []
+
+  - id: enem-2022-169
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-prismas-e-cilindros
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Volume do cilindro: área da base · profundidade. Modelo I: V = Ab · P.
+      II: (Ab/2) · 2P = V.
+      III: raio pela metade deixa a área da base em 1/4: (Ab/4) · 2P = V/2.
+      IV: 2Ab · (P/2) = V.
+      V: raio dobrado deixa a área da base 4 vezes maior: 4Ab · (P/2) = 2V.
+      O maior volume é o do modelo V. Alternativa E.
+    enganos:
+      A: "O modelo I tem volume V, e o modelo V tem 2V. Dobrar o raio quadruplica a área da base."
+      B: "O modelo II tem o mesmo volume do I: dobra a profundidade, mas a base fica pela metade."
+      C: "O modelo III tem só metade do volume do I: metade do raio deixa a base com 1/4 da área."
+      D: "O modelo IV tem o mesmo volume do I. Dobrar a área da base não é o mesmo que dobrar o raio."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2022-170
+    area: matematica
+    competencia: 6
+    habilidade: 25
+    objeto: mat-estatistica
+    topico: mat-estatistica-graficos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      Os gráficos mostram, para 2005, 2007, 2009, 2011 e 2013: aluguel mensal de 630, 960, 1 350, 1 800 e 3 240 reais; valor do imóvel de 90, 120, 270, 450 e 540 mil reais.
+      Rentabilidade = aluguel ÷ valor do imóvel:
+      2005: 630 ÷ 90 000 = 0,7%.
+      2007: 960 ÷ 120 000 = 0,8%.
+      2009: 1 350 ÷ 270 000 = 0,5%.
+      2011: 1 800 ÷ 450 000 = 0,4%.
+      2013: 3 240 ÷ 540 000 = 0,6%.
+      A maior é a de 2007. Alternativa B.
+    enganos:
+      A: "Em 2005 a rentabilidade é 0,7%, a segunda maior. Em 2007 é 0,8%."
+      C: "Em 2009 a rentabilidade é 0,5%. O aluguel subiu, mas o valor do imóvel mais que dobrou."
+      D: "Em 2011 a rentabilidade é 0,4%, a menor de todas."
+      E: "2013 tem o maior aluguel e o maior valor de imóvel, mas a razão entre eles (0,6%) não é a maior. Rentabilidade é razão, não valor absoluto."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-fundamental/razao-e-proporcao]
+
+  - id: enem-2022-171
+    area: matematica
+    competencia: 7
+    habilidade: 27
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-mediana-moda
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O quadro traz os pontos dos quatro jogos: I 12, 25, 20, 20; II 12, 12, 27, 20; III 14, 14, 17, 26; IV 15, 18, 21, 21; V 22, 15, 23, 15.
+      1. Média 18 em 5 jogos exige 18 · 5 = 90 pontos.
+      2. Somas até agora: I 77; II 71; III 71; IV 75; V 75.
+      3. Pontos que faltam no quinto jogo: I 13; II 19; III 19; IV 15; V 15.
+      4. Quem precisa de menos é o jogador I. Alternativa A.
+    enganos:
+      B: "O jogador II precisa de 19 pontos (90 − 71), dos que mais precisam."
+      C: "O jogador III também precisa de 19 pontos (90 − 71). Somar os quatro jogos é o primeiro passo."
+      D: "O jogador IV precisa de 15 pontos (90 − 75). O jogador I precisa de só 13."
+      E: "O jogador V tem as maiores pontuações em jogos isolados (22 e 23), mas soma 75 e precisa de 15. O que conta é a soma dos quatro jogos."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+
+  - id: enem-2022-172
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-prismas-e-cilindros
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Todos os projetos têm 90 m³ (90 000 L). Revestimento = fundo + 4 paredes = c · l + 2 · p · (l + c), com p profundidade, l largura e c comprimento.
+      I: 2 · 25 + 2 · 1,8 · 27 = 50 + 97,2 = 147,2 m².
+      II: 5 · 9 + 2 · 2 · 14 = 45 + 56 = 101 m².
+      III: 6 · 15 + 2 · 1 · 21 = 90 + 42 = 132 m².
+      IV: 15 · 4 + 2 · 1,5 · 19 = 60 + 57 = 117 m².
+      V: 3 · 12 + 2 · 2,5 · 15 = 36 + 75 = 111 m².
+      A menor área é a do projeto II. Alternativa B.
+    enganos:
+      A: "O projeto I tem a maior área de revestimento (147,2 m²): é longo e estreito, com muita parede."
+      C: "O projeto III tem as paredes de menor área (42 m²), mas o fundo de 90 m² pesa. É preciso somar fundo e paredes: 132 m²."
+      D: "O projeto IV dá 117 m². Faça a soma completa de cada projeto antes de comparar."
+      E: "O projeto V tem o menor fundo (36 m²), mas as paredes altas somam 75 m²: total 111 m², mais que os 101 m² do II."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2022-173
+    area: matematica
+    competencia: 6
+    habilidade: 25
+    objeto: mat-estatistica
+    topico: mat-estatistica-tabelas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O quadro traz vagas e candidatos por vaga: Administração 30 e 6; Ciências Contábeis 40 e 6; Engenharia Elétrica 50 e 7; História 30 e 8; Letras 25 e 4; Pedagogia 25 e 5.
+      Candidatos de cada curso = vagas · candidatos por vaga:
+      180 + 240 + 350 + 240 + 100 + 125 = 1 235. Alternativa D.
+    enganos:
+      A: "200 é o total de vagas (30 + 40 + 50 + 30 + 25 + 25). A pergunta é sobre candidatos."
+      B: "400 não sai de uma conta natural com o quadro. Multiplique, curso a curso, vagas por candidatos por vaga e some."
+      C: "1 200 vem de 200 vagas vezes a média simples dos candidatos por vaga (36 ÷ 6 = 6). Os cursos têm números de vagas diferentes, então essa média não serve."
+      E: "7 200 vem de 200 · 36: multiplicou o total de vagas pela soma de todas as relações candidato/vaga."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas]
+
+  - id: enem-2022-174
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-esfera
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      1. Volume do cilindro: π · 4² · 50 = 800π cm³.
+      2. Esfera com diâmetro 1 cm tem raio 0,5 cm. Volume: (4/3) · π · 0,5³ = (4/3) · π · (1/8) = π/6 cm³.
+      3. Número de esferas: 800π ÷ (π/6) = 800 · 6 = 4 800. Alternativa D.
+    enganos:
+      A: "800 vem de dividir 800π só por π, como se a esfera tivesse volume π. O volume da esfera de raio 0,5 é π/6."
+      B: "1 200 vem de usar (4/3) · π · 0,5 = 2π/3, sem elevar o raio ao cubo."
+      C: "2 400 vem de usar (4/3) · π · 0,5² = π/3, com o raio ao quadrado. No volume da esfera o raio vai ao cubo."
+      E: "6 400 vem de usar π · 0,5³ = π/8, esquecendo o fator 4/3 da fórmula da esfera."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2022-175
+    area: matematica
+    competencia: 1
+    habilidade: 1
+    objeto: mat-numeros
+    topico: mat-numeros-potencias-e-notacao-cientifica
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      1. Um bilhão é 1 000 000 000 (nove zeros, ou 10⁹).
+      2. 1,35 bilhão = 1,35 · 1 000 000 000 = 1 350 000 000.
+      3. Com os centavos: 1 350 000 000,00. Alternativa E.
+    enganos:
+      A: "135 000,00 é 135 mil. Um bilhão tem três classes de zeros a mais do que mil."
+      B: "1 350 000,00 é 1,35 milhão. Bilhão é mil vezes milhão."
+      C: "13 500 000,00 é 13,5 milhões. A vírgula foi deslocada e a classe ficou errada."
+      D: "135 000 000,00 é 135 milhões, dez vezes menos que 1,35 bilhão."
+    aulas: [matematica-fundamental/numeros-decimais, matematica-fundamental/potencias-e-raizes]
+
+  - id: enem-2022-176
+    area: matematica
+    competencia: 5
+    habilidade: 22
+    objeto: mat-algebra-geometria
+    topico: mat-algebra-geometria-plano-cartesiano
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A figura mostra, num plano cartesiano em km, a Cidade A em (20, 40), a Cidade B em (50, 20) e a Rodovia 003 sobre o eixo x. As localizações sugeridas para o ponto de conexão ficam no eixo x: I em 20, II em 30, III em 35, IV em 40 e V em 50.
+      1. Truque do espelho: refletindo B no eixo x, temos B' = (50, −20). A distância até B é a mesma que até B'.
+      2. O caminho mais curto de A até B' é a reta. Inclinação: (−20 − 40) ÷ (50 − 20) = −2. A reta corta o eixo x quando 0 = 40 − 2 · (x − 20), ou seja, x = 40. Esse é o ponto IV.
+      3. Conferência com Pitágoras: em IV, √(20² + 40²) + √(10² + 20²) ≈ 44,72 + 22,36 = 67,08 km. Em III: 42,72 + 25 = 67,72. Em II: 41,23 + 28,28 ≈ 69,51. Em V: 50 + 20 = 70. Em I: 40 + 36,06 = 76,06.
+      Alternativa D.
+    enganos:
+      A: "O ponto I fica bem abaixo da Cidade A: o trecho da 001 é o menor possível (40 km), mas o da 002 fica longo. Total: cerca de 76 km."
+      B: "O ponto II não sai de uma conta natural. Dá cerca de 69,5 km, mais que os 67,1 km do ponto IV."
+      C: "O ponto III (x = 35) é o meio entre 20 e 50. Como as cidades estão a alturas diferentes (40 e 20), o ponto ótimo fica mais perto da cidade mais baixa. III dá cerca de 67,7 km."
+      E: "O ponto V fica bem abaixo da Cidade B: o trecho da 002 é o menor (20 km), mas o da 001 fica com 50 km. Total: 70 km."
+    aulas: [matematica-medio/geometria-plana]
+
+  - id: enem-2022-177
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-contas-do-dia-a-dia
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O quadro traz preço por hora, transporte por dia e horas de serviço: I 120, 0, 8 h; II 180, 0, 6 h; III 170, 20, 6 h; IV 110, 10, 9 h; V 110, 0, 10 h.
+      1. Mão de obra: I 120 · 8 = 960; II 180 · 6 = 1 080; III 170 · 6 = 1 020; IV 110 · 9 = 990; V 110 · 10 = 1 100.
+      2. O transporte só aumenta o gasto de III e IV. Mesmo sem ele, todos ficam acima de 960.
+      3. O mais barato é o operário I, com 960 reais. Alternativa A.
+    enganos:
+      B: "O operário II não cobra transporte, mas a hora mais cara dá 1 080 reais."
+      C: "O operário III custa 1 020 só de mão de obra, mais o transporte. Passa de 960."
+      D: "O operário IV tem a hora mais barata, mas trabalha 9 horas (990 reais) e ainda cobra transporte. O preço da hora sozinho não decide."
+      E: "O operário V tem a hora mais barata e não cobra transporte, mas leva 10 horas: 1 100 reais."
+    aulas: [matematica-fundamental/as-quatro-operacoes]
+
+  - id: enem-2022-178
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-esfera
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      1. O volume da esfera depende do raio ao cubo. Dobrar o diâmetro (de 2 cm para 4 cm) multiplica o volume por 2³ = 8.
+      2. Cada docinho grande gasta a massa de 8 pequenos. 150 grandes equivalem a 150 · 8 = 1 200 pequenos.
+      3. Uma porção faz 50 pequenos: 1 200 ÷ 50 = 24 porções. Alternativa E.
+    enganos:
+      A: "2 não sai de uma conta natural com os dados. Compare os volumes: o docinho de 4 cm tem 8 vezes o volume do de 2 cm."
+      B: "3 vem de 150 ÷ 50, sem considerar que o docinho ficou maior."
+      C: "6 vem de 3 · 2: dobrou a massa porque dobrou o diâmetro. Volume cresce com o cubo da medida: 2³ = 8."
+      D: "12 vem de 3 · 4: usou o quadrado (2² = 4), como se fosse área. Docinho maciço é volume: 2³ = 8."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2022-179
+    area: matematica
+    competencia: 6
+    habilidade: 24
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-mediana-moda
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O gráfico mostra a esperança de vida: 72,78 (2008), 73,09 (2009), 73,4 (2010), 73,67 (2011), 73,95 (2012) e 74,23 (2013).
+      1. Conferência: (73,67 + 74,23) ÷ 2 = 73,95, o valor de 2012.
+      2. A suposição: 2013 é a média de 2012 e 2014. Então (73,95 + x) ÷ 2 = 74,23.
+      3. 73,95 + x = 148,46, logo x = 74,51. Alternativa B.
+    enganos:
+      A: "74,23 é o valor de 2013. A pergunta é sobre 2014."
+      C: "75,07 não sai de uma conta natural com os dados. Monte a equação da média: (73,95 + x) ÷ 2 = 74,23."
+      D: "75,23 não sai de uma conta natural (é 74,23 + 1). O gráfico cresce cerca de 0,28 por ano, não 1."
+      E: "78,49 não sai de uma conta natural com os dados. Um salto de mais de 4 anos em um ano não combina com o gráfico."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, matematica-fundamental/leitura-de-graficos-e-tabelas]
+
+  - id: enem-2022-180
+    area: matematica
+    competencia: 2
+    habilidade: 6
+    objeto: mat-geometria
+    topico: mat-geometria-vistas-e-projecoes
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      A figura mostra o globo com dois caminhos destacados. No hemisfério norte: do polo N desce por um meridiano até o Equador, anda um quarto do Equador e sobe pelo outro meridiano até N. No hemisfério sul, do lado oposto: do polo S sobe por um meridiano até o Equador, anda um quarto do Equador e desce pelo outro meridiano até S. As alternativas mostram vistas de cima.
+      1. Cada meridiano está num plano perpendicular ao plano α. Visto de cima, um arco de meridiano vira um segmento reto, do centro (polo) até a borda.
+      2. O Equador é paralelo a α: visto de cima, continua sendo um arco de circunferência.
+      3. Cada caminho vira, então, dois raios e um quarto de circunferência: um setor de um quarto de círculo.
+      4. Os dois setores ficam em quadrantes opostos e se tocam no centro. Alternativa E.
+    enganos:
+      A: "A circunferência inteira com linhas curvas trata os meridianos como curvas vistas de cima. Meridiano em plano perpendicular a α se projeta como segmento reto."
+      B: "Setores com lados curvos também trocam os meridianos por curvas. Vistos de cima, eles são raios retos."
+      C: "Setores com lados curvos, de novo, não respeitam a projeção dos meridianos, que são segmentos retos ligando o centro à borda."
+      D: "O círculo inteiro com a cruz seria a projeção dos dois meridianos completos e do Equador inteiro. Os caminhos destacados usam só um quarto do Equador em cada hemisfério."
+    aulas: [matematica-medio/geometria-espacial]

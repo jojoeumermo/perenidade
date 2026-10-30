@@ -8,7 +8,9 @@ import { QuestoesAbas } from "@/components/QuestoesAbas";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
+import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
+import { textosDoEstudo } from "@/lib/textos-estudo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/questoes">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -31,6 +33,11 @@ export default async function Page({ params }: PageProps<"/[lang]/questoes">) {
       <p className="mt-6 font-sans text-sm">
         <Link href={`${localePath(lang, "/contribuir")}?tipo=questao`} className="inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{t.lists.bankSend} →</Link>
       </p>
+      {ligado("enem-curso") && (
+        <Link href={localePath(lang, "/enem/provas")} className="mt-4 block border-2 border-ink bg-ink p-4 font-sans text-parchment hover:bg-oxblood">
+          {textosDoEstudo(lang).s.enem.irParaCurso} →
+        </Link>
+      )}
       <QuestoesAbas totalInstituto={questoes.length} instituto={<BancoDeQuestoes questoes={questoes} />} publicas={<ProvasPublicas s={t.lists} />} />
     </div>
   );
