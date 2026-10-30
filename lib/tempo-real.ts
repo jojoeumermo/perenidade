@@ -3,7 +3,7 @@
 
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useEffect, useRef } from "react";
-import { getClient, hasBackend, localBackend } from "./backend";
+import { getClient, hasBackend } from "./backend";
 
 /**
  * Tempo real. O serviço de contas tem um canal de mensagens instantâneas (Realtime, por WebSocket) que não passa pelo
@@ -24,7 +24,8 @@ let canal: Promise<RealtimeChannel | null> | null = null;
 /** Marca deste painel, para ignorar os próprios sinais. */
 const marca = Math.random().toString(36).slice(2, 10);
 
-export const temTempoReal = hasBackend && !localBackend;
+// O banco de teste local também tem o canal (scripts/tempo-real-local.mjs): a sala ao vivo se testa entre duas abas.
+export const temTempoReal = hasBackend;
 
 /**
  * O canal "painel" é aberto (qualquer um com a chave pública do site entra nele), então quem repetisse avisos sem parar
@@ -126,6 +127,8 @@ export interface Presente {
 export class Sala {
   private canal: RealtimeChannel | null = null;
   private eu: Presente;
+  /** Já saiu (a página desmontou a sala): uma entrada ainda em andamento desfaz o que abriu. */
+  private saiu = false;
 
   constructor(
     private readonly id: string,
@@ -141,6 +144,13 @@ export class Sala {
     if (!temTempoReal) return false;
     try {
       const supabase = await getClient();
+      // O cliente devolve o canal que já existe com o mesmo nome. Quando a sala é montada de novo (a página reconhece a
+      // conta de quem ensina logo depois de abrir, e a sala recomeça com os controles de quem conduz), o canal antigo
+      // ainda estava saindo: a sala nova recebia esse canal, que fechava em seguida, e o vídeo de quem ensina nunca
+      // chegava a ninguém. Agora o antigo sai de vez antes de abrir o novo.
+      const antigo = supabase.getChannels().find((c) => c.topic === `realtime:aula:${this.id}`);
+      if (antigo) await supabase.removeChannel(antigo);
+      if (this.saiu) return false;
       const canal = supabase.channel(`aula:${this.id}`, { config: { broadcast: { self: false }, presence: { key: this.eu.chave } } });
       canal.on("broadcast", { event: "sinal" }, ({ payload }) => {
         const p = payload as { para?: string; de?: string; dados?: Record<string, unknown>; assinatura?: unknown };
@@ -156,13 +166,22 @@ export class Sala {
         canal.subscribe((status) => {
           if (status === "SUBSCRIBED") {
             void canal.track(this.eu).then(() => resolver());
-          } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") recusar(new Error(status));
+          } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") recusar(new Error(status));
         });
+        window.setTimeout(() => recusar(new Error("demorou")), 15_000);
       });
+      if (this.saiu) {
+        void supabase.removeChannel(canal);
+        return false;
+      }
       this.canal = canal;
       return true;
     } catch {
       this.canal = null;
+      // Desfaz o canal que não abriu, para a próxima tentativa começar do zero.
+      const supabase = await getClient().catch(() => null);
+      const preso = supabase?.getChannels().find((c) => c.topic === `realtime:aula:${this.id}`);
+      if (supabase && preso) await supabase.removeChannel(preso).catch(() => undefined);
       return false;
     }
   }
@@ -179,7 +198,9 @@ export class Sala {
   }
 
   sair() {
-    void this.canal?.unsubscribe();
+    this.saiu = true;
+    const canal = this.canal;
     this.canal = null;
+    if (canal) void getClient().then((supabase) => supabase.removeChannel(canal));
   }
 }
