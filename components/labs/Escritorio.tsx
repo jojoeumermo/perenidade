@@ -23,7 +23,7 @@ export function Escritorio({ s, inicial = "gridcraft" }: { s: TextosDoEscritorio
   const ed = editor(atual)!;
   return (
     <div className="font-sans">
-      <div role="tablist" aria-label={s.tab} className="mt-6 grid gap-2 sm:grid-cols-3">
+      <div role="tablist" aria-label={s.tab} className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
         {ESCRITORIO.map((id) => {
           const e = editor(id)!;
           const textos = s.editors[id];

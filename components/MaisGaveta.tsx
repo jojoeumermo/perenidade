@@ -9,6 +9,7 @@ import type { SecaoDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 import { normalize } from "@/lib/text";
 import { KEYS, setItem, useStored } from "@/lib/storage";
+import { abrirAcessibilidade } from "./A11yWidget";
 import { useI18n } from "./I18n";
 import { Ladrilhos } from "./celular/Atalhos";
 import { ABRIR_MAIS, LanguageSwitcher, MAIS_NO_MENU, SAIR_MAIS } from "./NavLinks";
@@ -332,7 +333,7 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
               </details>
             ))}
             {!termo && (
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2.5">
                 <TemaNoMais />
                 <label className="flex h-11 shrink-0 items-center gap-1.5 rounded-full border-[1.5px] border-ink bg-folha px-3 font-sans text-sm font-bold [&_select]:max-w-[7.5rem] [&_select]:border-0 [&_select]:bg-transparent">
                   <span className="sr-only">{t.common.language}</span>
@@ -342,6 +343,21 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
                   </svg>
                   <LanguageSwitcher wide />
                 </label>
+                {/* No aplicativo, o painel de acessibilidade mora aqui (o botão redondo não flutua por cima do conteúdo). */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAbertaEm(null);
+                    window.setTimeout(abrirAcessibilidade, 50);
+                  }}
+                  className="hidden h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border-[1.5px] border-ink bg-folha px-4 font-sans text-sm font-bold app:flex"
+                >
+                  <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="4.5" r="1.5" fill="currentColor" />
+                    <path d="M5 8.5c4.5 1.5 9.5 1.5 14 0M12 9.5v5.5m0 0-3.5 6m3.5-6 3.5 6" />
+                  </svg>
+                  {t.a11y.button}
+                </button>
               </div>
             )}
             {!termo && (
