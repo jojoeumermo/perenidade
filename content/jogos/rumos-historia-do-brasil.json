@@ -1,0 +1,1275 @@
+{
+  "formato": "rumos/1",
+  "id": "historia-do-brasil",
+  "titulo": "História do Brasil: da Colônia à República",
+  "resumo": "Uma vila inventada atravessa quatro séculos. Quem manda, quem trabalha e quem paga a conta?",
+  "papel": "Você fala pela câmara da vila de Rio Fundo, um lugar inventado que atravessa a Colônia, o Império e a República. As pessoas que batem à sua porta são inventadas; os fatos de cada carta, não.",
+  "sobre": "Rio Fundo e as personagens são inventados para o jogo. O que aparece em \"Na história real\" é fato conferido, com a fonte ao lado. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+  "modo": "fases",
+  "medidores": [
+    {
+      "id": "povo",
+      "nome": "Povo",
+      "descricao": "Quem trabalha na vila: lavradores, escravizados, libertos, artesãos, operários. Sem ele, nada anda; contra ele, a revolta."
+    },
+    {
+      "id": "senhores",
+      "nome": "Senhores",
+      "descricao": "Os grandes donos de terra e de gente. Quando se sentem ameaçados, conspiram; quando mandam em tudo, a câmara vira fachada."
+    },
+    {
+      "id": "governo",
+      "nome": "Governo",
+      "descricao": "O poder de longe: a Coroa, depois o Império, depois a República. Desconfiado demais, manda a tropa; próximo demais, engole a vila."
+    },
+    {
+      "id": "cofre",
+      "nome": "Cofre",
+      "descricao": "O dinheiro da câmara. Vazio, a vila para; cheio demais, atrai cobradores e cobiça."
+    }
+  ],
+  "inicio": {
+    "povo": 45,
+    "senhores": 55,
+    "governo": 50,
+    "cofre": 45
+  },
+  "personagens": [
+    {
+      "id": "jaci",
+      "nome": "Jaci",
+      "papel": "liderança da aldeia tupi vizinha"
+    },
+    {
+      "id": "pecanha",
+      "nome": "Capitão Gonçalo Peçanha",
+      "papel": "homem de confiança do donatário"
+    },
+    {
+      "id": "leonor",
+      "nome": "Sinhá Leonor",
+      "papel": "dona do maior engenho do vale"
+    },
+    {
+      "id": "quiteria",
+      "nome": "Quitéria",
+      "papel": "liberta, quitandeira na praça"
+    },
+    {
+      "id": "bento",
+      "nome": "Frei Bento",
+      "papel": "religioso da missão"
+    },
+    {
+      "id": "tiburcio",
+      "nome": "Tibúrcio",
+      "papel": "tropeiro e comerciante"
+    },
+    {
+      "id": "venancio",
+      "nome": "Bacharel Venâncio",
+      "papel": "advogado formado na capital"
+    },
+    {
+      "id": "juvencio",
+      "nome": "Juvêncio",
+      "papel": "tipógrafo do jornal da vila"
+    },
+    {
+      "id": "zefa",
+      "nome": "Dona Zefa",
+      "papel": "lavadeira e voz do bairro de baixo"
+    },
+    {
+      "id": "ataliba",
+      "nome": "Coronel Ataliba",
+      "papel": "fazendeiro e chefe político"
+    }
+  ],
+  "fases": [
+    {
+      "id": "colonia",
+      "nome": "Colônia (séculos XVI a XVIII)",
+      "cartas": 5
+    },
+    {
+      "id": "imperio",
+      "nome": "Império (1822 a 1889)",
+      "cartas": 5
+    },
+    {
+      "id": "republica",
+      "nome": "República (de 1889 em diante)",
+      "cartas": 5
+    }
+  ],
+  "cartas": [
+    {
+      "id": "hb-sesmarias",
+      "fase": "colonia",
+      "titulo": "As terras do vale",
+      "personagem": "pecanha",
+      "texto": "O donatário mandou repartir as terras do vale. Os senhores querem léguas inteiras para a cana. Os lavradores pobres pedem pequenos lotes para roça.",
+      "esquerda": {
+        "texto": "Léguas para os senhores",
+        "efeito": {
+          "senhores": 15,
+          "povo": -12,
+          "cofre": 5
+        },
+        "retorno": "Terra grande nas mãos de poucos: é assim que nasce o latifúndio, e quem planta para comer fica sem chão."
+      },
+      "direita": {
+        "texto": "Pequenos lotes para quem planta",
+        "efeito": {
+          "povo": 12,
+          "senhores": -15,
+          "governo": -5
+        },
+        "retorno": "A roça alimenta a vila, mas os senhores reclamam ao donatário: a Coroa queria açúcar para vender, não comida para o povo."
+      },
+      "historia": {
+        "texto": "A partir de 1534, a Coroa portuguesa dividiu a costa em capitanias hereditárias, entregues a donatários. Eles concediam sesmarias, grandes extensões de terra, sobretudo a quem tinha recursos para montar engenhos. Daí vem a concentração de terras que atravessa a história do Brasil.",
+        "fonte": {
+          "titulo": "História do Brasil",
+          "autor": "Boris Fausto",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A invasão portuguesa e a colonização",
+        "href": "/trilhas/historia-do-brasil/a-invasao-portuguesa-e-a-colonizacao"
+      }
+    },
+    {
+      "id": "hb-aldeia",
+      "fase": "colonia",
+      "titulo": "A aldeia do outro lado do rio",
+      "personagem": "jaci",
+      "texto": "Os homens do capitão entraram na aldeia para levar gente para o engenho. Jaci atravessou o rio para pedir que a câmara pare com isso.",
+      "esquerda": {
+        "texto": "Defender a aldeia",
+        "efeito": {
+          "povo": 10,
+          "senhores": -15,
+          "governo": -5
+        },
+        "retorno": "Os senhores perdem braços e reclamam. Mas a vila aprende que a terra já tinha dono antes das caravelas."
+      },
+      "direita": {
+        "texto": "Deixar o capitão agir",
+        "efeito": {
+          "senhores": 15,
+          "povo": -10,
+          "cofre": 5
+        },
+        "retorno": "O engenho ganha braços à força. A aldeia se esvazia, e a vila perde quem conhecia cada rio e cada planta."
+      },
+      "historia": {
+        "texto": "Antes de 1500 havia milhões de indígenas no território. Na Colônia, muitos foram escravizados ou morreram de doenças trazidas pelos europeus e de guerras. A resistência indígena foi constante; hoje a Constituição de 1988 (art. 231) reconhece os direitos dos povos originários às terras que tradicionalmente ocupam.",
+        "fonte": {
+          "titulo": "História dos índios no Brasil",
+          "autor": "Manuela Carneiro da Cunha (org.)",
+          "ano": "1992"
+        }
+      },
+      "aula": {
+        "titulo": "Os povos originários antes de 1500",
+        "href": "/trilhas/historia-do-brasil/os-povos-originarios-antes-de-1500"
+      }
+    },
+    {
+      "id": "hb-engenho",
+      "fase": "colonia",
+      "titulo": "O engenho quer mais gente",
+      "personagem": "leonor",
+      "texto": "Sinhá Leonor quer que a câmara empreste dinheiro para comprar mais africanos escravizados no porto. Diz que, sem isso, o açúcar da vila não chega a Lisboa.",
+      "esquerda": {
+        "texto": "Recusar o empréstimo",
+        "efeito": {
+          "senhores": -15,
+          "cofre": 5,
+          "povo": 5
+        },
+        "retorno": "A câmara não financia a escravidão. A sinhá vai ao governador reclamar de você."
+      },
+      "direita": {
+        "texto": "Emprestar o dinheiro",
+        "efeito": {
+          "senhores": 12,
+          "cofre": -15,
+          "povo": -10
+        },
+        "retorno": "O açúcar cresce, e cresce junto a violência: a riqueza da vila passa a depender de gente arrancada da África."
+      },
+      "historia": {
+        "texto": "O Brasil foi o maior destino do tráfico atlântico de pessoas escravizadas. Estima-se que cerca de 4,8 milhões de africanos tenham desembarcado aqui entre os séculos XVI e XIX, segundo o banco de dados Slave Voyages. A economia do açúcar, e depois do ouro e do café, foi erguida sobre esse trabalho forçado.",
+        "fonte": {
+          "titulo": "Slave Voyages: banco de dados do tráfico transatlântico",
+          "autor": "Projeto Slave Voyages (Universidade Emory e parceiros)",
+          "url": "https://www.slavevoyages.org/"
+        }
+      },
+      "aula": {
+        "titulo": "A escravidão no Brasil",
+        "href": "/trilhas/historia-do-brasil/a-escravidao-no-brasil"
+      }
+    },
+    {
+      "id": "hb-fuga",
+      "fase": "colonia",
+      "titulo": "Os que fugiram para a serra",
+      "personagem": "quiteria",
+      "texto": "Um grupo fugiu do engenho e montou roças na serra, junto com outros fugitivos. Quitéria leva comida escondida para eles. O capitão quer mandar caçá-los.",
+      "esquerda": {
+        "texto": "Não mandar a caçada",
+        "efeito": {
+          "povo": 12,
+          "senhores": -15,
+          "governo": -8
+        },
+        "retorno": "A serra vira refúgio. Os senhores dizem que a câmara protege fugitivos, e o governador fica de olho.",
+        "liga": [
+          "quilombo"
+        ]
+      },
+      "direita": {
+        "texto": "Pagar a caçada",
+        "efeito": {
+          "senhores": 12,
+          "cofre": -10,
+          "povo": -12
+        },
+        "retorno": "A caçada custa caro e não acaba com nada: onde há escravidão, há fuga e resistência."
+      },
+      "historia": {
+        "texto": "Palmares, na Serra da Barriga (atual Alagoas), resistiu por quase um século no século XVII, reunindo milhares de pessoas. Zumbi, seu líder mais conhecido, foi morto em 20 de novembro de 1695. Desde a Lei 14.759, de 2023, o 20 de novembro é feriado nacional, o Dia de Zumbi e da Consciência Negra.",
+        "fonte": {
+          "titulo": "Lei nº 14.759, de 21 de dezembro de 2023",
+          "autor": "Presidência da República",
+          "ano": "2023",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14759.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Palmares e os quilombos",
+        "href": "/trilhas/lutas-do-povo/palmares-e-os-quilombos"
+      }
+    },
+    {
+      "id": "hb-quinto",
+      "fase": "colonia",
+      "titulo": "O ouro das Gerais",
+      "personagem": "tiburcio",
+      "texto": "Tibúrcio voltou das minas com ouro e notícias: a Coroa cobra a quinta parte de tudo e ameaça uma cobrança forçada se a meta não for batida. Ele pede para a vila esconder parte do ouro.",
+      "esquerda": {
+        "texto": "Esconder o ouro",
+        "efeito": {
+          "cofre": 15,
+          "governo": -15
+        },
+        "retorno": "O cofre engorda, mas a Coroa desconfia. Nas minas, gente foi presa e morta por menos."
+      },
+      "direita": {
+        "texto": "Pagar o quinto inteiro",
+        "efeito": {
+          "governo": 12,
+          "cofre": -12,
+          "povo": -5
+        },
+        "retorno": "A Coroa fica satisfeita; a vila, mais pobre. O ouro vai para Lisboa, e de lá para os credores ingleses."
+      },
+      "historia": {
+        "texto": "No século XVIII, a Coroa cobrava o quinto (20%) do ouro extraído em Minas Gerais. A ameaça de uma derrama, a cobrança forçada dos impostos atrasados, ajudou a precipitar a Inconfidência Mineira (1789). Denunciados, os conspiradores foram presos; Tiradentes foi enforcado no Rio de Janeiro em 21 de abril de 1792.",
+        "fonte": {
+          "titulo": "História do Brasil",
+          "autor": "Boris Fausto",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A invasão portuguesa e a colonização",
+        "href": "/trilhas/historia-do-brasil/a-invasao-portuguesa-e-a-colonizacao"
+      }
+    },
+    {
+      "id": "hb-alfaiates",
+      "fase": "colonia",
+      "titulo": "Os papéis colados nas paredes",
+      "personagem": "quiteria",
+      "texto": "Amanheceram papéis nas paredes da vila pedindo república, igualdade e fim da diferença entre brancos, pretos e pardos. Quem escreveu foram alfaiates e soldados. O capitão quer prender todo mundo.",
+      "esquerda": {
+        "texto": "Ouvir o que os papéis pedem",
+        "efeito": {
+          "povo": 15,
+          "governo": -15,
+          "senhores": -5
+        },
+        "retorno": "Pela primeira vez, a gente de baixo fala de liberdade para todos, não só para os ricos. A Coroa não perdoa."
+      },
+      "direita": {
+        "texto": "Entregar os autores",
+        "efeito": {
+          "governo": 15,
+          "senhores": 5,
+          "povo": -15
+        },
+        "retorno": "A ordem volta, pela forca. O recado é claro: liberdade, só a que não ameaça a escravidão."
+      },
+      "historia": {
+        "texto": "Na Conjuração Baiana de 1798, também chamada Revolta dos Alfaiates, panfletos espalhados em Salvador defendiam a república, a igualdade e o fim da escravidão. Entre os presos, quatro homens pobres, negros e pardos (os alfaiates João de Deus e Manuel Faustino e os soldados Lucas Dantas e Luís Gonzaga das Virgens) foram enforcados em 1799.",
+        "fonte": {
+          "titulo": "Brasil: uma biografia",
+          "autor": "Lilia M. Schwarcz e Heloisa M. Starling",
+          "ano": "2015"
+        }
+      },
+      "aula": {
+        "titulo": "Independência para quem?",
+        "href": "/trilhas/historia-do-brasil/independencia-para-quem"
+      }
+    },
+    {
+      "id": "hb-missao",
+      "fase": "colonia",
+      "titulo": "A escola da missão",
+      "personagem": "bento",
+      "texto": "Frei Bento quer abrir uma escola de primeiras letras, mas só para os filhos dos senhores. Quitéria pergunta por que as crianças da praça não podem entrar.",
+      "esquerda": {
+        "texto": "Escola para todas as crianças",
+        "efeito": {
+          "povo": 12,
+          "senhores": -10,
+          "cofre": -8
+        },
+        "retorno": "Ler é poder. Os senhores não gostam: gente que lê começa a fazer perguntas.",
+        "liga": [
+          "letras"
+        ]
+      },
+      "direita": {
+        "texto": "Só para os filhos dos senhores",
+        "efeito": {
+          "senhores": 10,
+          "povo": -8,
+          "cofre": -4
+        },
+        "retorno": "A escola reproduz a hierarquia da vila: quem já manda aprende a mandar melhor."
+      },
+      "historia": {
+        "texto": "Na Colônia, a educação formal era rara e ficava sobretudo nas mãos de ordens religiosas, como os jesuítas, que chegaram em 1549 com o primeiro governador-geral, Tomé de Sousa. A imensa maioria da população, e quase toda a escravizada, não tinha acesso às letras.",
+        "fonte": {
+          "titulo": "História do Brasil",
+          "autor": "Boris Fausto",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A invasão portuguesa e a colonização",
+        "href": "/trilhas/historia-do-brasil/a-invasao-portuguesa-e-a-colonizacao"
+      }
+    },
+    {
+      "id": "hb-constituicao-1824",
+      "fase": "imperio",
+      "titulo": "Quem vota no Império",
+      "personagem": "venancio",
+      "texto": "O imperador deu uma Constituição ao país. O bacharel Venâncio explica: só vota quem tem renda. Zefa quer saber se lavadeira entra na conta.",
+      "esquerda": {
+        "texto": "Lutar pelo voto dos pobres",
+        "efeito": {
+          "povo": 12,
+          "governo": -10,
+          "senhores": -8
+        },
+        "retorno": "Você compra briga com o Império e com os senhores. Mas a pergunta da Zefa fica no ar: democracia de quem?"
+      },
+      "direita": {
+        "texto": "Seguir a lei como está",
+        "efeito": {
+          "governo": 10,
+          "senhores": 8,
+          "povo": -10
+        },
+        "retorno": "A vila segue a regra: quem tem renda decide, quem trabalha obedece."
+      },
+      "historia": {
+        "texto": "A Constituição de 1824 foi outorgada (imposta) por D. Pedro I depois de ele dissolver a Assembleia Constituinte. Criou o Poder Moderador, exclusivo do imperador, e o voto censitário: para votar e ser votado era preciso ter uma renda mínima. Escravizados não votavam, e as mulheres também não.",
+        "fonte": {
+          "titulo": "Constituição Política do Império do Brasil, de 25 de março de 1824",
+          "autor": "Presidência da República (texto histórico)",
+          "ano": "1824",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao24.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Independência para quem?",
+        "href": "/trilhas/historia-do-brasil/independencia-para-quem"
+      }
+    },
+    {
+      "id": "hb-males",
+      "fase": "imperio",
+      "titulo": "Os papéis em árabe",
+      "personagem": "quiteria",
+      "texto": "Quitéria conta que, em Salvador, africanos muçulmanos se levantaram e que os senhores daqui estão com medo. Querem proibir reuniões de africanos na vila.",
+      "esquerda": {
+        "texto": "Não proibir as reuniões",
+        "efeito": {
+          "povo": 10,
+          "senhores": -12,
+          "governo": -8
+        },
+        "retorno": "A vila não persegue uma fé inteira por medo. Os senhores dizem que você brinca com fogo."
+      },
+      "direita": {
+        "texto": "Proibir e vigiar",
+        "efeito": {
+          "senhores": 12,
+          "governo": 8,
+          "povo": -15
+        },
+        "retorno": "A vigilância cresce, e a raiva também. Proibir reunião nunca acabou com a vontade de ser livre."
+      },
+      "historia": {
+        "texto": "Em janeiro de 1835, africanos muçulmanos, chamados malês, organizaram em Salvador uma das maiores revoltas urbanas de escravizados das Américas. A revolta foi derrotada em poucas horas; depois veio uma repressão dura, com prisões, açoites, deportações e execuções.",
+        "fonte": {
+          "titulo": "Revolta dos Malês",
+          "autor": "Impressões Rebeldes, Departamento de História da UFF",
+          "url": "https://www.historia.uff.br/impressoesrebeldes/revolta/revolta-dos-males/"
+        }
+      },
+      "aula": {
+        "titulo": "Revolta dos Malês",
+        "href": "/trilhas/lutas-do-povo/revolta-dos-males"
+      }
+    },
+    {
+      "id": "hb-lei-de-terras",
+      "fase": "imperio",
+      "titulo": "Terra só por compra",
+      "personagem": "venancio",
+      "texto": "Chegou a lei nova: terra devoluta, agora, só por compra. O bacharel quer que a câmara venda os terrenos baldios da beira do rio. Lá moram libertos e lavradores sem papel.",
+      "esquerda": {
+        "texto": "Garantir quem já mora",
+        "efeito": {
+          "povo": 15,
+          "senhores": -10,
+          "cofre": -8
+        },
+        "retorno": "Quem planta fica. Os senhores dizem que a câmara rasga a lei do Império."
+      },
+      "direita": {
+        "texto": "Vender os terrenos",
+        "efeito": {
+          "cofre": 15,
+          "senhores": 10,
+          "povo": -15
+        },
+        "retorno": "O cofre enche e os senhores compram tudo. Quem não tinha dinheiro, e era quase todo mundo, fica de fora da terra."
+      },
+      "historia": {
+        "texto": "A Lei de Terras (Lei 601, de 18 de setembro de 1850) determinou que as terras devolutas só poderiam ser obtidas por compra. Ela veio duas semanas depois da Lei Eusébio de Queirós, que proibiu o tráfico de africanos: com o fim anunciado da escravidão, a terra foi fechada para libertos, pobres e imigrantes sem dinheiro.",
+        "fonte": {
+          "titulo": "Lei nº 601, de 18 de setembro de 1850",
+          "autor": "Presidência da República (texto histórico)",
+          "ano": "1850",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/l0601-1850.htm"
+        }
+      },
+      "aula": {
+        "titulo": "A Lei de Terras e a abolição sem reparação",
+        "href": "/trilhas/escravidao-no-brasil/a-lei-de-terras-e-a-abolicao-sem-reparacao"
+      }
+    },
+    {
+      "id": "hb-ventre-livre",
+      "fase": "imperio",
+      "titulo": "A lei das crianças",
+      "personagem": "leonor",
+      "texto": "A lei agora diz que os filhos de escravizadas nascem livres. Sinhá Leonor avisa que vai ficar com as crianças trabalhando até os 21 anos, como a lei permite.",
+      "esquerda": {
+        "texto": "Cobrar que as crianças estudem",
+        "efeito": {
+          "povo": 10,
+          "senhores": -12,
+          "cofre": -6
+        },
+        "retorno": "Você aponta o buraco da lei: liberdade no papel, trabalho na prática."
+      },
+      "direita": {
+        "texto": "Aceitar o que a lei permite",
+        "efeito": {
+          "senhores": 10,
+          "governo": 5,
+          "povo": -12
+        },
+        "retorno": "A lei adia a abolição e protege o senhor. Muita criança \"livre\" cresce no mesmo eito da mãe."
+      },
+      "historia": {
+        "texto": "A Lei do Ventre Livre (Lei 2.040, de 28 de setembro de 1871) declarou livres os filhos de mulheres escravizadas nascidos a partir dali. Mas o senhor podia usar o trabalho deles até os 21 anos ou entregá-los ao Estado em troca de indenização. Foi uma das leis que adiaram a abolição.",
+        "fonte": {
+          "titulo": "Lei nº 2.040, de 28 de setembro de 1871",
+          "autor": "Presidência da República (texto histórico)",
+          "ano": "1871",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/lim/lim2040.htm"
+        }
+      },
+      "aula": {
+        "titulo": "As leis que adiaram a abolição",
+        "href": "/trilhas/escravidao-no-brasil/as-leis-que-adiaram-a-abolicao"
+      }
+    },
+    {
+      "id": "hb-rabula",
+      "fase": "imperio",
+      "titulo": "O advogado dos cativos",
+      "personagem": "quiteria",
+      "texto": "Quitéria descobriu que muitos africanos da vila chegaram depois que o tráfico já era proibido. Pela lei, estão escravizados ilegalmente. Ela quer que a câmara pague um advogado para levar os casos à Justiça.",
+      "esquerda": {
+        "texto": "Pagar os processos",
+        "efeito": {
+          "povo": 15,
+          "senhores": -15,
+          "cofre": -8
+        },
+        "retorno": "A lei do próprio Império vira arma contra a escravidão. Cada processo ganho é uma pessoa livre.",
+        "liga": [
+          "abolicionista"
+        ]
+      },
+      "direita": {
+        "texto": "Não se meter",
+        "efeito": {
+          "senhores": 8,
+          "povo": -10
+        },
+        "retorno": "A ilegalidade continua porque ninguém cobra. A lei existe, mas só funciona quando alguém luta por ela."
+      },
+      "historia": {
+        "texto": "Luiz Gama nasceu livre em Salvador, foi vendido ilegalmente como escravizado ainda menino e, depois de conquistar a liberdade, se tornou advogado sem diploma (rábula) em São Paulo. Usando as próprias leis do Império, como a que proibia o tráfico, libertou centenas de pessoas nos tribunais.",
+        "fonte": {
+          "titulo": "Com a palavra, Luiz Gama: poemas, artigos, cartas, máximas",
+          "autor": "Ligia Fonseca Ferreira (org.)",
+          "ano": "2011"
+        }
+      },
+      "aula": {
+        "titulo": "O movimento abolicionista negro",
+        "href": "/trilhas/escravidao-no-brasil/o-movimento-abolicionista-negro-luiz-gama-andre-reboucas-e-jose-do-pat"
+      }
+    },
+    {
+      "id": "hb-jangadeiros",
+      "fase": "imperio",
+      "titulo": "O porto parado",
+      "personagem": "tiburcio",
+      "texto": "Os barqueiros do porto se recusam a levar escravizados vendidos para outras províncias. Tibúrcio perdeu um negócio e quer que a câmara obrigue os barqueiros a trabalhar.",
+      "esquerda": {
+        "texto": "Apoiar os barqueiros",
+        "efeito": {
+          "povo": 15,
+          "senhores": -12,
+          "cofre": -5
+        },
+        "retorno": "Trabalhador que cruza os braços também faz abolição. O porto parado vira notícia na província inteira.",
+        "liga": [
+          "abolicionista"
+        ]
+      },
+      "direita": {
+        "texto": "Obrigar a levar",
+        "efeito": {
+          "senhores": 10,
+          "cofre": 8,
+          "povo": -15
+        },
+        "retorno": "O negócio segue, mas a vila fica marcada como lugar onde ainda se vende gente."
+      },
+      "historia": {
+        "texto": "Em 1881, jangadeiros de Fortaleza, entre eles Francisco José do Nascimento, o Dragão do Mar, se recusaram a transportar escravizados para os navios que os levariam ao Sul. A pressão popular ajudou o Ceará a declarar o fim da escravidão em 25 de março de 1884, quatro anos antes da Lei Áurea.",
+        "fonte": {
+          "titulo": "Brasil: uma biografia",
+          "autor": "Lilia M. Schwarcz e Heloisa M. Starling",
+          "ano": "2015"
+        }
+      },
+      "aula": {
+        "titulo": "Império e abolição",
+        "href": "/trilhas/historia-do-brasil/imperio-e-abolicao"
+      }
+    },
+    {
+      "id": "hb-lei-saraiva",
+      "fase": "imperio",
+      "titulo": "Quem não sabe ler não vota",
+      "personagem": "venancio",
+      "texto": "A nova lei eleitoral faz eleição direta, mas proíbe que analfabetos se alistem. Venâncio comemora: \"voto de gente esclarecida\". Na vila, quase ninguém sabe ler.",
+      "esquerda": {
+        "texto": "Abrir aulas noturnas de leitura",
+        "efeito": {
+          "povo": 12,
+          "cofre": -10,
+          "senhores": -6
+        },
+        "retorno": "Se a lei exige saber ler, a vila ensina a ler. Os senhores percebem a manobra e não gostam.",
+        "liga": [
+          "letras"
+        ]
+      },
+      "direita": {
+        "texto": "Aplaudir a lei",
+        "efeito": {
+          "senhores": 10,
+          "governo": 8,
+          "povo": -15
+        },
+        "retorno": "Com uma canetada, quase todo o povo da vila deixa de votar. A política vira assunto de poucos."
+      },
+      "historia": {
+        "texto": "A Lei Saraiva (1881) criou eleições diretas, mas proibiu o alistamento de novos eleitores analfabetos. Segundo os cálculos do historiador José Murilo de Carvalho, a parcela da população que votava caiu de cerca de 10% em 1872 para menos de 1% depois da reforma.",
+        "fonte": {
+          "titulo": "Cidadania no Brasil: o longo caminho",
+          "autor": "José Murilo de Carvalho",
+          "ano": "2001"
+        }
+      },
+      "aula": {
+        "titulo": "Império e abolição",
+        "href": "/trilhas/historia-do-brasil/imperio-e-abolicao"
+      }
+    },
+    {
+      "id": "hb-capitao-do-mato",
+      "fase": "imperio",
+      "titulo": "O capitão do mato voltou",
+      "personagem": "pecanha",
+      "condicao": {
+        "flags": [
+          "quilombo"
+        ]
+      },
+      "peso": 3,
+      "texto": "O neto do velho capitão chegou com uma tropa: quer subir a serra e destruir o quilombo que a vila deixou crescer. Pede guias e mantimentos.",
+      "esquerda": {
+        "texto": "Avisar o quilombo",
+        "efeito": {
+          "povo": 12,
+          "governo": -15,
+          "senhores": -8
+        },
+        "retorno": "O quilombo se espalha pela mata antes da tropa chegar. Você vira suspeito de ajudar \"negros fugidos\".",
+        "proxima": "hb-quilombo-negocia"
+      },
+      "direita": {
+        "texto": "Dar guias e mantimentos",
+        "efeito": {
+          "governo": 12,
+          "senhores": 10,
+          "povo": -15,
+          "cofre": -5
+        },
+        "retorno": "A tropa sobe. Parte do quilombo resiste, parte se dispersa. A serra fica em silêncio."
+      },
+      "historia": {
+        "texto": "Quilombos existiram em todas as regiões do Brasil durante toda a escravidão, e muitos negociavam, comerciavam e se aliavam a lavradores pobres das vilas vizinhas. Hoje há comunidades quilombolas em todo o país: o Censo 2022 contou, pela primeira vez, cerca de 1,3 milhão de pessoas quilombolas.",
+        "fonte": {
+          "titulo": "IBGE divulga retrato inédito sobre quilombolas",
+          "autor": "IBGE, Censo 2022",
+          "ano": "2023",
+          "url": "https://censo2022.ibge.gov.br/noticias-por-estado/37489-ibge-divulga-retrato-inedito-sobre-quilombolas-e-ressalta-modelo-de-consulta-as-liderancas-dessa-populacao"
+        }
+      },
+      "aula": {
+        "titulo": "Palmares e os quilombos",
+        "href": "/trilhas/lutas-do-povo/palmares-e-os-quilombos"
+      }
+    },
+    {
+      "id": "hb-quilombo-negocia",
+      "fase": "imperio",
+      "soEncadeada": true,
+      "titulo": "O recado da serra",
+      "personagem": "quiteria",
+      "texto": "Quitéria traz um recado do quilombo: eles querem vender farinha e comprar ferramentas na feira da vila, às claras.",
+      "esquerda": {
+        "texto": "Abrir a feira para eles",
+        "efeito": {
+          "povo": 10,
+          "cofre": 8,
+          "senhores": -10
+        },
+        "retorno": "A feira cresce, e a fronteira entre \"vila\" e \"quilombo\" fica cada vez mais fina.",
+        "liga": [
+          "abolicionista"
+        ]
+      },
+      "direita": {
+        "texto": "Negociar escondido",
+        "efeito": {
+          "cofre": 5,
+          "povo": 5
+        },
+        "retorno": "O comércio acontece, como sempre aconteceu, mas na sombra. Ninguém assume o que todo mundo sabe."
+      },
+      "historia": {
+        "texto": "Historiadores como Flávio dos Santos Gomes mostram que muitos quilombos mantinham trocas regulares com vendeiros, lavradores e até senhores das redondezas. Longe de serem mundos isolados, faziam parte da economia e da política locais.",
+        "fonte": {
+          "titulo": "Mocambos e quilombos: uma história do campesinato negro no Brasil",
+          "autor": "Flávio dos Santos Gomes",
+          "ano": "2015"
+        }
+      },
+      "aula": {
+        "titulo": "Palmares e os quilombos",
+        "href": "/trilhas/lutas-do-povo/palmares-e-os-quilombos"
+      }
+    },
+    {
+      "id": "hb-aurea",
+      "fase": "republica",
+      "titulo": "Livres, e depois?",
+      "personagem": "zefa",
+      "texto": "A escravidão acabou por lei, sem nada para quem foi escravizado: nem terra, nem escola, nem salário. Zefa pede que a câmara reparta as terras da antiga fazenda abandonada entre as famílias libertas.",
+      "esquerda": {
+        "texto": "Repartir a terra",
+        "efeito": {
+          "povo": 15,
+          "senhores": -15,
+          "governo": -5
+        },
+        "retorno": "É o que a lei não fez: dar chão a quem construiu o país. Os senhores gritam que é roubo."
+      },
+      "direita": {
+        "texto": "Leiloar a fazenda",
+        "efeito": {
+          "cofre": 12,
+          "senhores": 10,
+          "povo": -15
+        },
+        "retorno": "A terra volta para quem já tinha dinheiro. Os libertos vão para as periferias e para os morros."
+      },
+      "historia": {
+        "texto": "A Lei Áurea (Lei 3.353, de 13 de maio de 1888) tem só dois artigos: declara extinta a escravidão e revoga as disposições em contrário. Não houve indenização nem reparação para as pessoas libertas, nem acesso à terra, à educação ou ao trabalho assalariado.",
+        "fonte": {
+          "titulo": "Lei nº 3.353, de 13 de maio de 1888",
+          "autor": "Presidência da República (texto histórico)",
+          "ano": "1888",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/lim/lim3353.htm"
+        }
+      },
+      "aula": {
+        "titulo": "A Lei de Terras e a abolição sem reparação",
+        "href": "/trilhas/escravidao-no-brasil/a-lei-de-terras-e-a-abolicao-sem-reparacao"
+      }
+    },
+    {
+      "id": "hb-coronel",
+      "fase": "republica",
+      "titulo": "O coronel e a eleição",
+      "personagem": "ataliba",
+      "texto": "Chegou a República, mas o voto continua aberto. O coronel Ataliba oferece estrada nova para a vila, se os eleitores votarem no candidato dele. Os capangas vão \"acompanhar\" a votação.",
+      "esquerda": {
+        "texto": "Recusar o trato",
+        "efeito": {
+          "povo": 10,
+          "senhores": -15,
+          "governo": -5,
+          "cofre": -5
+        },
+        "retorno": "Sem a estrada, mas com a cabeça erguida. O coronel não esquece desfeita."
+      },
+      "direita": {
+        "texto": "Aceitar a estrada",
+        "efeito": {
+          "senhores": 12,
+          "cofre": 10,
+          "povo": -12
+        },
+        "retorno": "A estrada sai, e o voto da vila passa a ter dono. É o voto de cabresto.",
+        "liga": [
+          "coronel"
+        ]
+      },
+      "historia": {
+        "texto": "Na Primeira República (1889-1930), o voto não era secreto, e os grandes fazendeiros, os coronéis, controlavam os eleitores em troca de favores, com ameaças e fraude. O jurista Victor Nunes Leal descreveu esse sistema como um compromisso entre o poder privado dos coronéis e o poder público.",
+        "fonte": {
+          "titulo": "Coronelismo, enxada e voto: o município e o regime representativo no Brasil",
+          "autor": "Victor Nunes Leal",
+          "ano": "1948"
+        }
+      },
+      "aula": {
+        "titulo": "A Primeira República",
+        "href": "/trilhas/historia-do-brasil/a-primeira-republica"
+      }
+    },
+    {
+      "id": "hb-arraial",
+      "fase": "republica",
+      "titulo": "O arraial do sertão",
+      "personagem": "bento",
+      "texto": "No sertão, milhares de pobres seguem um beato e vivem num arraial onde a terra é de todos. O governo diz que é um ninho de inimigos da República e pede soldados de cada vila.",
+      "esquerda": {
+        "texto": "Não mandar soldados",
+        "efeito": {
+          "povo": 10,
+          "governo": -15
+        },
+        "retorno": "A vila se recusa a marchar contra gente pobre. O governo anota o nome de quem desobedeceu."
+      },
+      "direita": {
+        "texto": "Mandar soldados",
+        "efeito": {
+          "governo": 15,
+          "povo": -12,
+          "cofre": -8
+        },
+        "retorno": "Os moços da vila marcham para o sertão. Muitos voltam calados, outros não voltam."
+      },
+      "historia": {
+        "texto": "Canudos, no sertão da Bahia, reuniu milhares de pessoas em torno de Antônio Conselheiro. Entre 1896 e 1897, o governo republicano enviou quatro expedições militares; a última destruiu o arraial em outubro de 1897, matando a maior parte de seus moradores. Euclides da Cunha narrou a guerra em Os sertões.",
+        "fonte": {
+          "titulo": "Os sertões: campanha de Canudos",
+          "autor": "Euclides da Cunha",
+          "ano": "1902"
+        }
+      },
+      "aula": {
+        "titulo": "Canudos",
+        "href": "/trilhas/lutas-do-povo/canudos"
+      }
+    },
+    {
+      "id": "hb-vacina",
+      "fase": "republica",
+      "titulo": "A vacina e o bota-abaixo",
+      "personagem": "zefa",
+      "texto": "O governo vai derrubar os cortiços do centro e vacinar todo mundo à força, entrando nas casas. Zefa diz que ninguém explicou nada ao povo, só mandaram a polícia.",
+      "esquerda": {
+        "texto": "Explicar e vacinar com o bairro",
+        "efeito": {
+          "povo": 10,
+          "governo": -5,
+          "cofre": -10
+        },
+        "retorno": "Saúde pública funciona com confiança. Explicar custa tempo e dinheiro, mas evita a guerra na rua."
+      },
+      "direita": {
+        "texto": "Cumprir à força",
+        "efeito": {
+          "governo": 12,
+          "povo": -15
+        },
+        "retorno": "A vacina era boa; o jeito, não. Sem diálogo, o povo vê a polícia na porta e reage."
+      },
+      "historia": {
+        "texto": "Em novembro de 1904, o Rio de Janeiro viveu a Revolta da Vacina. A população reagiu à vacinação obrigatória contra a varíola, imposta sem explicação, e às demolições de cortiços da reforma urbana do prefeito Pereira Passos. A revolta foi reprimida, e muitos presos foram deportados para o Acre.",
+        "fonte": {
+          "titulo": "Os bestializados: o Rio de Janeiro e a República que não foi",
+          "autor": "José Murilo de Carvalho",
+          "ano": "1987"
+        }
+      },
+      "aula": {
+        "titulo": "A reforma Pereira Passos e o bota-abaixo",
+        "href": "/trilhas/historia-das-favelas/a-reforma-pereira-passos-e-o-bota-abaixo"
+      }
+    },
+    {
+      "id": "hb-greve-1917",
+      "fase": "republica",
+      "titulo": "A fábrica de tecidos",
+      "personagem": "juvencio",
+      "texto": "As tecelãs da fábrica nova pararam: jornada de 14 horas, crianças nas máquinas, salário cortado. Juvêncio quer imprimir o manifesto delas no jornal da vila. O dono da fábrica ameaça fechar as portas.",
+      "esquerda": {
+        "texto": "Imprimir o manifesto",
+        "efeito": {
+          "povo": 15,
+          "senhores": -12,
+          "cofre": -5
+        },
+        "retorno": "A greve ganha voz. Outras categorias começam a ler, e a perguntar.",
+        "liga": [
+          "letras"
+        ]
+      },
+      "direita": {
+        "texto": "Pedir que voltem ao trabalho",
+        "efeito": {
+          "senhores": 10,
+          "cofre": 5,
+          "povo": -15
+        },
+        "retorno": "A fábrica volta a girar, e a revolta fica guardada para depois."
+      },
+      "historia": {
+        "texto": "Em julho de 1917, uma greve que começou em fábricas têxteis de São Paulo virou greve geral, com dezenas de milhares de trabalhadores parados. A morte do sapateiro José Martinez, baleado pela polícia, levou multidões às ruas. Os grevistas conquistaram aumento salarial e promessas que, em boa parte, não foram cumpridas.",
+        "fonte": {
+          "titulo": "Trabalho urbano e conflito social (1890-1920)",
+          "autor": "Boris Fausto",
+          "ano": "1976"
+        }
+      },
+      "aula": {
+        "titulo": "A greve geral de 1917 em São Paulo",
+        "href": "/trilhas/historia-do-sindicalismo/a-greve-geral-de-1917-em-sao-paulo"
+      }
+    },
+    {
+      "id": "hb-voto-feminino",
+      "fase": "republica",
+      "titulo": "Mulher na urna",
+      "personagem": "zefa",
+      "texto": "O novo código eleitoral garante o voto secreto e o voto das mulheres. Zefa quer que a câmara ajude as moradoras a tirar o título. O coronel diz que \"mulher não entende de política\".",
+      "esquerda": {
+        "texto": "Fazer o mutirão do título",
+        "efeito": {
+          "povo": 15,
+          "senhores": -10,
+          "cofre": -6
+        },
+        "retorno": "Metade da vila entra na política de uma vez. O voto secreto também tira força do cabresto.",
+        "desliga": [
+          "coronel"
+        ]
+      },
+      "direita": {
+        "texto": "Deixar como está",
+        "efeito": {
+          "senhores": 10,
+          "povo": -10
+        },
+        "retorno": "O direito existe, mas sem ajuda poucas mulheres conseguem exercê-lo. Lei sem organização fica no papel."
+      },
+      "historia": {
+        "texto": "O Código Eleitoral de 1932 (Decreto 21.076, de 24 de fevereiro de 1932) instituiu o voto secreto, criou a Justiça Eleitoral e garantiu o voto feminino. A conquista veio de décadas de luta das sufragistas, como Bertha Lutz e a Federação Brasileira pelo Progresso Feminino.",
+        "fonte": {
+          "titulo": "Decreto nº 21.076, de 24 de fevereiro de 1932 (Código Eleitoral)",
+          "autor": "Presidência da República (texto histórico)",
+          "ano": "1932",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto/1930-1949/d21076.htm"
+        }
+      },
+      "aula": {
+        "titulo": "As sufragistas e o direito ao voto",
+        "href": "/trilhas/historia-das-lutas-das-mulheres/as-sufragistas-e-o-direito-ao-voto"
+      }
+    },
+    {
+      "id": "hb-clt",
+      "fase": "republica",
+      "titulo": "A carteira de trabalho",
+      "personagem": "juvencio",
+      "texto": "As leis do trabalho chegaram: jornada de 8 horas, férias, carteira assinada. Mas o sindicato só vale se for reconhecido pelo governo, e os trabalhadores do campo e as domésticas ficaram de fora.",
+      "esquerda": {
+        "texto": "Lutar para incluir quem ficou fora",
+        "efeito": {
+          "povo": 12,
+          "senhores": -12,
+          "governo": -5
+        },
+        "retorno": "Direito conquistado é ponto de partida. As lavradoras e as domésticas da vila vão esperar décadas, mas a luta começa aqui."
+      },
+      "direita": {
+        "texto": "Aceitar o sindicato do governo",
+        "efeito": {
+          "governo": 15,
+          "povo": 5,
+          "senhores": -5
+        },
+        "retorno": "Os direitos chegam, presos ao Estado. O sindicato fica mais perto do ministério do que da fábrica."
+      },
+      "historia": {
+        "texto": "A Consolidação das Leis do Trabalho (CLT, Decreto-Lei 5.452, de 1º de maio de 1943) reuniu direitos como a jornada de 8 horas, férias e salário mínimo, mas atrelou os sindicatos ao Estado. O texto original excluía trabalhadores rurais e domésticos; as trabalhadoras domésticas só tiveram direitos equiparados com a Emenda Constitucional 72, de 2013.",
+        "fonte": {
+          "titulo": "Decreto-Lei nº 5.452, de 1º de maio de 1943 (CLT)",
+          "autor": "Presidência da República",
+          "ano": "1943",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        }
+      },
+      "aula": {
+        "titulo": "A Era Vargas",
+        "href": "/trilhas/historia-do-brasil/a-era-vargas"
+      }
+    },
+    {
+      "id": "hb-ai5",
+      "fase": "republica",
+      "titulo": "A lista do quartel",
+      "personagem": "pecanha",
+      "condicao": {
+        "partidas": 1
+      },
+      "texto": "É 1968. Um oficial chega com uma lista: professores, o tipógrafo Juvêncio e a filha da Zefa. Quer que a câmara confirme endereços. Diz que, com o novo ato, nem precisa de juiz.",
+      "esquerda": {
+        "texto": "Recusar e avisar os da lista",
+        "efeito": {
+          "povo": 12,
+          "governo": -20
+        },
+        "retorno": "Você protege vizinhos e vira alvo. Na ditadura, solidariedade era crime."
+      },
+      "direita": {
+        "texto": "Confirmar os endereços",
+        "efeito": {
+          "governo": 15,
+          "povo": -20
+        },
+        "retorno": "Os nomes da lista somem por dias, alguns por anos. A vila aprende a falar baixo."
+      },
+      "historia": {
+        "texto": "O Ato Institucional nº 5, de 13 de dezembro de 1968, permitiu à ditadura fechar o Congresso, cassar mandatos e suspender o habeas corpus para crimes políticos. A Comissão Nacional da Verdade (2014) reconheceu 434 mortos e desaparecidos políticos pela ação do Estado no período.",
+        "fonte": {
+          "titulo": "Ato Institucional nº 5, de 13 de dezembro de 1968",
+          "autor": "Presidência da República (texto histórico)",
+          "ano": "1968",
+          "url": "https://www.planalto.gov.br/ccivil_03/ait/ait-05-68.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Os atos institucionais e o AI-5",
+        "href": "/trilhas/ditadura-de-1964/os-atos-institucionais-e-o-ai-5"
+      }
+    },
+    {
+      "id": "hb-1988",
+      "fase": "republica",
+      "titulo": "A nova Constituição",
+      "personagem": "zefa",
+      "texto": "O país escreve uma Constituição nova. A vila pode mandar emendas assinadas pelo povo. Zefa quer propor saúde e educação como direito de todos; o coronel quer que a câmara mande só o que a prefeitura aprovar.",
+      "esquerda": {
+        "texto": "Colher assinaturas no bairro",
+        "efeito": {
+          "povo": 15,
+          "senhores": -10,
+          "cofre": -5
+        },
+        "retorno": "A Constituição que sai dali carrega a voz de quem nunca foi ouvido. Direito escrito é ferramenta para as próximas lutas."
+      },
+      "direita": {
+        "texto": "Deixar para os políticos",
+        "efeito": {
+          "senhores": 8,
+          "governo": 8,
+          "povo": -12
+        },
+        "retorno": "Outros decidem pela vila. A Constituição sai mesmo assim, mas sem a marca do bairro de baixo."
+      },
+      "historia": {
+        "texto": "A Assembleia Nacional Constituinte (1987-1988) aceitou emendas populares, com pelo menos 30 mil assinaturas cada; foram apresentadas 122. A Constituição de 1988 garantiu saúde e educação como direitos de todos e dever do Estado, o voto facultativo para analfabetos e jovens de 16 e 17 anos, e o racismo como crime inafiançável.",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "A redemocratização e a Constituição de 1988",
+        "href": "/trilhas/historia-do-brasil/a-redemocratizacao-e-a-constituicao-de-1988"
+      }
+    }
+  ],
+  "finais": [
+    {
+      "id": "hb-povo-zero",
+      "tipo": "queda",
+      "medidor": "povo",
+      "limite": "zero",
+      "titulo": "A vila vazia",
+      "texto": "Ninguém mais trabalha para uma câmara que só manda. Uns fogem para a serra, outros para outras vilas. Sem povo, Rio Fundo é só casa fechada e engenho parado.",
+      "historia": {
+        "texto": "Fugas, quilombos, revoltas e o abandono das fazendas foram formas de resistência constantes ao longo da escravidão. Nos anos finais, as fugas em massa das fazendas paulistas ajudaram a tornar a abolição inevitável.",
+        "fonte": {
+          "titulo": "Da senzala à colônia",
+          "autor": "Emília Viotti da Costa",
+          "ano": "1966"
+        }
+      },
+      "aula": {
+        "titulo": "A escravidão no Brasil",
+        "href": "/trilhas/historia-do-brasil/a-escravidao-no-brasil"
+      }
+    },
+    {
+      "id": "hb-povo-cem",
+      "tipo": "queda",
+      "medidor": "povo",
+      "limite": "cem",
+      "titulo": "A câmara tomada",
+      "texto": "O povo ocupa a câmara e decide tudo em assembleia na praça. Senhores e governo se unem contra a vila, e a tropa chega antes que o novo jeito de mandar se firme.",
+      "historia": {
+        "texto": "Na Cabanagem (1835-1840), no Pará, indígenas, negros e mestiços pobres chegaram a tomar o governo da província. A repressão do Império foi violenta: estima-se que dezenas de milhares de pessoas tenham morrido.",
+        "fonte": {
+          "titulo": "História do Brasil",
+          "autor": "Boris Fausto",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "Independência para quem?",
+        "href": "/trilhas/historia-do-brasil/independencia-para-quem"
+      }
+    },
+    {
+      "id": "hb-senhores-zero",
+      "tipo": "queda",
+      "medidor": "senhores",
+      "limite": "zero",
+      "titulo": "A conspiração dos senhores",
+      "texto": "Os senhores se reúnem na casa-grande e decidem que a câmara foi longe demais. Com dinheiro e jagunços, derrubam você e põem um dos seus no lugar.",
+      "historia": {
+        "texto": "Quando reformas ameaçaram seus interesses, as elites agrárias reagiram com força. Em 1964, a reação às reformas de base do governo João Goulart, incluindo a reforma agrária, foi parte das forças que apoiaram o golpe.",
+        "fonte": {
+          "titulo": "1964: a conquista do Estado",
+          "autor": "René Armand Dreifuss",
+          "ano": "1981"
+        }
+      },
+      "aula": {
+        "titulo": "O governo João Goulart e as reformas de base",
+        "href": "/trilhas/ditadura-de-1964/o-governo-joao-goulart-e-as-reformas-de-base"
+      }
+    },
+    {
+      "id": "hb-senhores-cem",
+      "tipo": "queda",
+      "medidor": "senhores",
+      "limite": "cem",
+      "titulo": "A câmara de fachada",
+      "texto": "Os senhores mandam em tudo: escolhem o padre, o juiz e o resultado da eleição. A câmara continua existindo, mas só para carimbar o que a casa-grande decide.",
+      "historia": {
+        "texto": "Victor Nunes Leal mostrou como, na Primeira República, os municípios ficaram sob o mando dos coronéis, que controlavam votos, cargos e a polícia local em troca de apoio aos governos estaduais.",
+        "fonte": {
+          "titulo": "Coronelismo, enxada e voto",
+          "autor": "Victor Nunes Leal",
+          "ano": "1948"
+        }
+      },
+      "aula": {
+        "titulo": "A Primeira República",
+        "href": "/trilhas/historia-do-brasil/a-primeira-republica"
+      }
+    },
+    {
+      "id": "hb-governo-zero",
+      "tipo": "queda",
+      "medidor": "governo",
+      "limite": "zero",
+      "titulo": "A tropa na estrada",
+      "texto": "O governo cansou de desobediência. Manda a tropa, dissolve a câmara e nomeia um interventor. Rio Fundo passa a ser governada de longe.",
+      "historia": {
+        "texto": "Movimentos que desafiaram o poder central, da Conjuração Baiana a Canudos, foram esmagados pela força. Na República, governadores e municípios também sofreram intervenção federal, como no Estado Novo (1937-1945), quando Vargas nomeou interventores nos estados.",
+        "fonte": {
+          "titulo": "História do Brasil",
+          "autor": "Boris Fausto",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A Era Vargas",
+        "href": "/trilhas/historia-do-brasil/a-era-vargas"
+      }
+    },
+    {
+      "id": "hb-governo-cem",
+      "tipo": "queda",
+      "medidor": "governo",
+      "limite": "cem",
+      "titulo": "Braço do poder",
+      "texto": "A câmara faz tudo o que o governo manda, antes mesmo de ele pedir. Ninguém na vila sabe mais para que serve votar em vereador.",
+      "historia": {
+        "texto": "Na ditadura de 1964, prefeitos de capitais e de municípios considerados de segurança nacional passaram a ser nomeados, e não eleitos. A autonomia local foi substituída pela obediência ao governo militar.",
+        "fonte": {
+          "titulo": "Brasil: uma biografia",
+          "autor": "Lilia M. Schwarcz e Heloisa M. Starling",
+          "ano": "2015"
+        }
+      },
+      "aula": {
+        "titulo": "O golpe de 1964 e a ditadura",
+        "href": "/trilhas/historia-do-brasil/o-golpe-de-1964-e-a-ditadura"
+      }
+    },
+    {
+      "id": "hb-cofre-zero",
+      "tipo": "queda",
+      "medidor": "cofre",
+      "limite": "zero",
+      "titulo": "A câmara falida",
+      "texto": "Não há dinheiro nem para o sino da igreja. As obras param, os credores batem à porta, e a vila passa a depender de quem tiver dinheiro para emprestar.",
+      "historia": {
+        "texto": "Dívidas externas marcaram o Brasil desde a independência: para ter a separação reconhecida por Portugal, em 1825, o país assumiu uma dívida portuguesa com banqueiros ingleses. Nos anos 1980, a crise da dívida trouxe inflação alta e recessão, a chamada década perdida.",
+        "fonte": {
+          "titulo": "História do Brasil",
+          "autor": "Boris Fausto",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A redemocratização e a Constituição de 1988",
+        "href": "/trilhas/historia-do-brasil/a-redemocratizacao-e-a-constituicao-de-1988"
+      }
+    },
+    {
+      "id": "hb-cofre-cem",
+      "tipo": "queda",
+      "medidor": "cofre",
+      "limite": "cem",
+      "titulo": "Os cobradores",
+      "texto": "O cofre cheio chama atenção. O governo manda cobradores, os senhores querem a parte deles, e o dinheiro guardado vira motivo de briga, não de obra.",
+      "historia": {
+        "texto": "A cobiça da Coroa sobre o ouro das Minas levou a impostos pesados e à ameaça da derrama, a cobrança forçada dos atrasados, que precipitou a Inconfidência Mineira em 1789.",
+        "fonte": {
+          "titulo": "História do Brasil",
+          "autor": "Boris Fausto",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A invasão portuguesa e a colonização",
+        "href": "/trilhas/historia-do-brasil/a-invasao-portuguesa-e-a-colonizacao"
+      }
+    },
+    {
+      "id": "hb-chegada-letras",
+      "tipo": "chegada",
+      "condicao": {
+        "flags": [
+          "letras",
+          "abolicionista"
+        ]
+      },
+      "titulo": "A vila que leu e libertou",
+      "texto": "Rio Fundo chega ao fim do século XX com escola aberta, jornal na praça e memória da luta contra a escravidão. Não ficou rica nem perfeita, mas aprendeu que direito se conquista junto.",
+      "historia": {
+        "texto": "A Lei 10.639, de 2003, tornou obrigatório o ensino de história e cultura afro-brasileira nas escolas, fruto de décadas de luta do movimento negro por uma história contada também por quem foi escravizado.",
+        "fonte": {
+          "titulo": "Lei nº 10.639, de 9 de janeiro de 2003",
+          "autor": "Presidência da República",
+          "ano": "2003",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2003/l10.639.htm"
+        }
+      }
+    },
+    {
+      "id": "hb-chegada-coronel",
+      "tipo": "chegada",
+      "condicao": {
+        "flags": [
+          "coronel"
+        ]
+      },
+      "titulo": "A vila do coronel",
+      "texto": "Rio Fundo atravessou os séculos, mas o voto ainda tem dono. A estrada chegou, a escola demorou, e quem manda continua sendo quem sempre mandou."
+    },
+    {
+      "id": "hb-chegada",
+      "tipo": "chegada",
+      "titulo": "A vila atravessou o tempo",
+      "texto": "Rio Fundo chega à República de 1988 com cicatrizes e conquistas. Cada escolha deixou marca: veja abaixo o que você decidiu e o que aconteceu de verdade em cada época."
+    }
+  ]
+}
