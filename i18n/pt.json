@@ -4842,6 +4842,7 @@
     "mistakesLead": "As questões que você errou nas aulas, no banco de questões, nos simulados e aqui no caderno. Acerte duas vezes seguidas e ela sai da lista.",
     "mistakesEmpty": "Nenhum erro guardado. Quando errar uma questão numa aula ou num simulado, ela aparece aqui.",
     "mistakesRedo": "Refazer os erros",
+    "mistakesWeek": "Revisar os erros da semana ({n})",
     "mistakesCount": "{n} questões para rever",
     "yourAnswer": "Você marcou",
     "rightAnswer": "Resposta certa",

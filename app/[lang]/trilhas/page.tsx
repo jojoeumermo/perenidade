@@ -2,6 +2,8 @@
 import type { Metadata } from "next";
 import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
 import { GuiaDasDisciplinas } from "@/components/GuiaDasDisciplinas";
+import { textosDoEstudo } from "@/lib/textos-estudo";
+import { ligado } from "@/lib/recursos";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -36,7 +38,7 @@ export default async function Disciplinas({ params }: PageProps<"/[lang]/trilhas
       <PageHeading eyebrow={t.tracks.eyebrow} title={t.tracks.title}>
         {t.tracks.lead}
       </PageHeading>
-      <GuiaDasDisciplinas caminhos={caminhosDoGuia(tracks, stages)} s={t.tracks.guide} etapas={stages} />
+      <GuiaDasDisciplinas caminhos={caminhosDoGuia(tracks, stages)} s={t.tracks.guide} etapas={stages} cursoEnem={ligado("enem-curso") ? textosDoEstudo(lang).s.enem.irParaCurso : undefined} />
       <DisciplineBrowser groups={data} s={t.tracks} stageNames={t.stages} />
     </div>
   );

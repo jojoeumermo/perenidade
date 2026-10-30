@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ProgressoEnem } from "@/components/enem/ProgressoEnem";
 import { MeuEstudo } from "@/components/estudo/MeuEstudo";
 import { MetaDaSemana } from "@/components/estudo/Metas";
 import { MinhasTurmas } from "@/components/estudo/MinhasTurmas";
@@ -11,6 +12,9 @@ import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
+import { AREAS_DO_ENEM } from "@/lib/enem";
+import { resumosDasHabilidades } from "@/lib/enem-camada";
+import { matrizDoEnem } from "@/lib/enem-conteudo";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { textosDoEstudo } from "@/lib/textos-estudo";
@@ -48,6 +52,7 @@ export default async function Page({ params }: PageProps<"/[lang]/meu-estudo">) 
             {ligado("metas") && <MetaDaSemana s={s.metas} />}
             {ligado("nivelamento") && <NivelamentosFeitos s={s.nivelamento} />}
             {ligado("turma") && <MinhasTurmas s={s.turma} />}
+            {ligado("enem-curso") && <ProgressoEnem areas={Object.fromEntries(AREAS_DO_ENEM.map((a) => [a, matrizDoEnem().areas[a].nome]))} habilidades={resumosDasHabilidades()} s={s.enem.progresso} />}
           </>
         }
       />

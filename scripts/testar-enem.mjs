@@ -243,6 +243,19 @@ conferir("seções do ENEM: aula de orientação na reta final não cobra", conf
   conferir("Sisu: pesos zerados não calculam", mediaPonderada(notas, { linguagens: 0, humanas: 0, natureza: 0, matematica: 0, redacao: 0 }) === null);
 }
 
+// ── 12. Caderno de erros: o erro que se repete sobe; os erros da semana ──
+{
+  const { filaDeErros } = await import("../lib/estudo.ts");
+  const agora = Date.UTC(2026, 9, 30);
+  const erros = [
+    { id: "a", quando: agora - 10 * 86_400_000, vezes: 1 },
+    { id: "b", quando: agora - 1 * 86_400_000, vezes: 3 },
+    { id: "c", quando: agora - 2 * 86_400_000 },
+  ];
+  conferir("erros: o que mais se repete vem primeiro", filaDeErros(erros, undefined, () => 0.5)[0] === "b");
+  conferir("erros: os da semana", filaDeErros(erros, agora - 7 * 86_400_000, () => 0.5).join() === "b,c");
+}
+
 console.log(`enem: ${ok} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
 process.exit(falhas.length ? 1 : 0);

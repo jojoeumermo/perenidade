@@ -33,6 +33,8 @@ export interface EstadoDoEnem {
   lista: string[];
   diagnosticos: unknown[];
   plano: unknown;
+  /** O planejamento da oficina de redação, por proposta. */
+  oficina?: Record<string, Record<string, string>>;
 }
 
 const VAZIO: EstadoDoEnem = { provas: [], tempos: {}, lista: [], diagnosticos: [], plano: null };
@@ -50,6 +52,7 @@ export function lerEnem(): EstadoDoEnem {
       lista: Array.isArray(o.lista) ? o.lista.filter((x) => typeof x === "string") : [],
       diagnosticos: Array.isArray(o.diagnosticos) ? o.diagnosticos : [],
       plano: o.plano ?? null,
+      oficina: o.oficina && typeof o.oficina === "object" ? o.oficina : {},
     };
   } catch {
     return { ...VAZIO };
