@@ -7,7 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { acharNaMatriz, areaPelaNumeracao, AREAS_DO_ENEM, calcularIncidencia, diasAte, fatosCitados, formatarFato, substituirFatos, todosOsObjetos, validarEdicao, validarMatriz } from "../lib/enem.ts";
 import { competenciaDaHabilidade, FAIXAS_DO_ENEM } from "../lib/mapa-curricular.ts";
-import { conferirSecoesDoEnem } from "../lib/modelo-de-aula.ts";
+import { conferirSecoesDoEnem, TRILHAS_DE_ORIENTACAO } from "../lib/modelo-de-aula.ts";
 import { anosImportados, carregarAulas, carregarClassificacoes, carregarEdicao, carregarExercicios, carregarMapas, carregarMatriz, carregarRedacao, existeArquivo, importadasDe, lerYaml, raiz, textoDaIncidencia } from "./enem-dados.mjs";
 
 let ok = 0;
@@ -132,8 +132,8 @@ if (matriz)
     conferir(`${arquivo} ${ex.id}: objeto ${ex.enem.objeto} existe`, Boolean(achado));
     if (achado) conferir(`${arquivo} ${ex.id}: objeto é da área ${ex.enem.area}`, achado.objeto.area === ex.enem.area, achado.objeto.area);
   }
-for (const { ex, arquivo } of exercicios.filter((e) => e.trilha.startsWith("enem-"))) {
-  conferir(`${arquivo} ${ex.id}: exercício do percurso tem as etiquetas do ENEM`, Boolean(ex.enem?.objeto));
+for (const { ex, arquivo, trilha } of exercicios.filter((e) => e.trilha.startsWith("enem-"))) {
+  if (!TRILHAS_DE_ORIENTACAO.includes(trilha)) conferir(`${arquivo} ${ex.id}: exercício do percurso tem as etiquetas do ENEM (area, habilidade, objeto)`, Boolean(ex.enem?.objeto));
   conferir(`${arquivo} ${ex.id}: nasce em revisão`, ex.revisao.status === "em-revisao");
 }
 
