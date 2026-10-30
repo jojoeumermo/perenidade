@@ -89,7 +89,7 @@ function DesafiosDefesa() {
   return (
     <div className="mt-6 font-sans text-sm">
       <p className="border-l-4 border-gold bg-parchment-deep px-4 py-3">Ambiente simulado e didático, no espírito do hacking ético: autorização e lei sempre. Aqui você aprende a reconhecer ataques e, para cada um, a defesa. Nada ataca sistemas reais.</p>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
         <ol className="space-y-1">
           {DESAFIOS.map((x, i) => (
             <li key={x.id}><button type="button" onClick={() => { setAtual(i); setEscolha(null); }} className={`cursor-pointer text-left underline hover:text-oxblood ${i === atual ? "font-semibold" : ""}`}>{i + 1}. {x.titulo} {acertos[x.id] === true && <span className="text-ok">✓</span>}{acertos[x.id] === false && <span className="text-oxblood">✗</span>}</button></li>

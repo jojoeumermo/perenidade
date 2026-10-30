@@ -64,7 +64,7 @@ export function Resistores() {
   const potencia = (vf - vled) * (ma / 1000);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <section>
         <h3 className="font-serif text-xl font-semibold">Código de cores</h3>
         <Resistor faixas={faixas} tol={tol} />

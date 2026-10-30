@@ -308,7 +308,7 @@ export function TerminalLinux() {
   const conferir = () => { if (exercicio) setResultado(exercicio.confere(fs, estado.current.cwd, estado.current.historico)); };
   const prompt = `aluno@lucia:${cwd.replace("/home/aluno", "~") || "/"}$`;
   return (
-    <div className="mt-6 grid gap-4 font-sans text-sm lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div className="mt-6 grid grid-cols-1 gap-4 font-sans text-sm lg:grid-cols-[minmax(0,1fr)_20rem]">
       <div>
         <div className="border-4 border-ink bg-[#17130e] p-3 font-mono text-[0.8rem] text-[#efe4c8]" onClick={() => document.getElementById("terminal-entrada")?.focus()}>
           <div className="h-80 overflow-y-auto whitespace-pre-wrap">

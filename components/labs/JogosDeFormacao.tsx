@@ -252,7 +252,7 @@ function QuemDisse({ frases, s }: { frases: Frase[]; s: S }) {
     <div lang="pt-BR">
       <p className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-prelo-texto">{fill(s.round, { i: atual + 1, n: rodadas.length })}</p>
       <blockquote className="mt-2 border-l-4 border-ink pl-4 font-serif text-xl italic leading-snug">“{rodada.frase.texto}”</blockquote>
-      <div className="mt-4 grid gap-2 sm:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
         {rodada.opcoes.map((autor) => {
           const marcada = resposta === autor;
           const certa = autor === rodada.frase.autor;

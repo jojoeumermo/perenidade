@@ -29,7 +29,15 @@ function Switch({ checked, onChange, label, hint }: { checked: boolean; onChange
   );
 }
 
-/** Botão flutuante de acessibilidade: tamanho do texto, contraste, e-ink, foco e leitura em voz alta. */
+/** Pede para abrir o painel de acessibilidade (o item "Acessibilidade" do "Mais", no aplicativo). */
+export const ABRIR_ACESSIBILIDADE = "lucia:abrir-acessibilidade";
+export const abrirAcessibilidade = () => window.dispatchEvent(new Event(ABRIR_ACESSIBILIDADE));
+
+/**
+ * Botão flutuante de acessibilidade: tamanho do texto, contraste, e-ink, foco e leitura em voz alta. No aplicativo o
+ * botão redondo não flutua por cima do conteúdo (cobria ícones e títulos, coisa de site): o painel abre pelo item
+ * "Acessibilidade" do "Mais". Só volta a aparecer enquanto a leitura em voz alta está tocando, para dar como parar.
+ */
 export function A11yWidget() {
   const { t } = useI18n();
   const prefs = usePrefs();
@@ -38,6 +46,12 @@ export function A11yWidget() {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const abrir = () => setOpen(true);
+    window.addEventListener(ABRIR_ACESSIBILIDADE, abrir);
+    return () => window.removeEventListener(ABRIR_ACESSIBILIDADE, abrir);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -149,7 +163,7 @@ export function A11yWidget() {
         aria-expanded={open}
         aria-label={speaking ? `${t.a11y.button} (${t.a11y.reading})` : t.a11y.button}
         title={t.a11y.button}
-        className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood"
+        className={`relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood ${speaking || open ? "" : "app:hidden"}`}
       >
         <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="4.5" r="1.5" fill="currentColor" />

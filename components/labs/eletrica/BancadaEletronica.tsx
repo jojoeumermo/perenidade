@@ -63,7 +63,7 @@ export function LedResistor() {
   const ESTADO = { apagado: "Apagado: a fonte não vence a tensão do LED", fraco: "Aceso fraquinho", certo: "Aceso na medida", forte: "Forte demais: vida curta", queimou: "Queimou!" };
   return (
     <Bancada titulo="LED e resistor" subtitulo="A primeira montagem na protoboard">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_17rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_17rem]">
         <div>
           <svg viewBox="0 0 520 220" className="w-full" role="img" aria-label={`Protoboard: fonte de ${num(s.fonte)} V, resistor de ${ohms(ohm)} e LED ${s.cor}: ${ESTADO[r.estado]}`}>
             <Furos largura={520} altura={220} />
@@ -153,7 +153,7 @@ export function Capacitor() {
   function iniciar(carregar: boolean) { setCarregando(carregar); setT(0); setRodando(true); }
   return (
     <Bancada titulo="Capacitor e o tempo" subtitulo="Carga e descarga no osciloscópio">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <svg viewBox="0 0 520 170" className="w-full rounded bg-[#0f1a14]" role="img" aria-label={`Osciloscópio: o capacitor está em ${num(v, 1)} V`}>
             {Array.from({ length: 6 }, (_, k) => <line key={k} x1={10 + k * 100} x2={10 + k * 100} y1="10" y2="160" stroke="#2c4a3a" strokeDasharray={k ? "3 4" : undefined} />)}
@@ -235,7 +235,7 @@ export function Logica() {
     <Bancada titulo="Portas lógicas" subtitulo="O processador por dentro: só 0 e 1">
       <Escolha rotulo="Bancada" valor={aba} opcoes={[["portas", "Portas e tabela-verdade"], ["somador", "Somador de 4 bits"]]} mudar={setAba} />
       {aba === "portas" ? (
-        <div className="mt-4 grid gap-5 lg:grid-cols-2">
+        <div className="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-2">
           <div>
             <Escolha rotulo="Porta" valor={p} opcoes={LISTA.map((k) => [k, `${PORTAS[k].nome} (${PORTAS[k].ingles})`])} mudar={setP} />
             <div className="mt-4 flex items-center gap-4">
@@ -263,7 +263,7 @@ export function Logica() {
         </div>
       ) : (
         <div className="mt-4">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {[{ nome: "Número A", n: x, set: setX }, { nome: "Número B", n: y, set: setY }].map((e) => (
               <div key={e.nome}>
                 <p className="text-sm font-semibold">{e.nome} = {e.n}</p>
@@ -303,7 +303,7 @@ export function Fonte() {
   const pronta = tipo !== "nenhuma" && r.min > 0 && r.ripple < 1;
   return (
     <Bancada titulo="Fonte de alimentação" subtitulo="Transformador, diodos e capacitor de filtro">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <ol className="mb-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
             <li className="rounded bg-parchment-deep px-2 py-1">Tomada 127 V~</li><li aria-hidden>→</li>
@@ -357,7 +357,7 @@ export function SensorDeLuz() {
   const momento = lux < 5 ? "noite" : lux < 50 ? "anoitecer" : lux < 400 ? "sala iluminada" : "dia claro";
   return (
     <Bancada titulo="Sensor de luz" subtitulo="O poste que acende sozinho">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <svg viewBox="0 0 520 220" className="w-full rounded" role="img" aria-label={`Rua ao ${momento}: o poste está ${aceso ? "aceso" : "apagado"}`}>
             <rect width="520" height="220" fill={ceuCor} />

@@ -30,7 +30,7 @@ export function LabModelos() {
   return (
     <div className="mt-6 font-sans">
       <p className="rounded border-l-4 border-gold bg-parchment-deep px-4 py-3 text-sm">Cada simulação começa com uma pergunta: anote a sua previsão, rode, compare e leia a explicação e os limites do modelo. Tudo o que é sorteado tem semente (a mesma semente repete o resultado, para mostrar igual em sala) e nada sai do seu aparelho.</p>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
         <Modulos itens={MODULOS} atual={atual} escolher={setAtual} />
         <div className="min-w-0">
           {atual === "probabilidade" && <Probabilidade />}

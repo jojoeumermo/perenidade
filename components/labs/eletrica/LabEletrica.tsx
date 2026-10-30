@@ -32,7 +32,7 @@ function Calculadoras() {
   const fmt = (x: number, c = 2) => (Number.isFinite(x) ? x.toLocaleString("pt-BR", { maximumFractionDigits: c }) : "—");
   const campo = "mt-1 w-full border-2 border-ink/30 bg-parchment px-2 py-1.5";
   return (
-    <div className="grid gap-5 font-sans text-sm md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-5 font-sans text-sm md:grid-cols-2">
       <section className="border-2 border-ink bg-parchment-deep p-4">
         <h3 className="font-serif text-xl font-semibold">Lei de Ohm e potência</h3>
         <div className="mt-2 grid grid-cols-2 gap-2">
@@ -83,7 +83,7 @@ export function LabEletrica() {
   return (
     <div className="mt-8 font-sans">
       <p className="border-l-4 border-[#c21f16] bg-parchment-deep px-3 py-2 text-sm">Simulação para aprender. Na vida real: desligue o disjuntor antes de mexer, confirme que não há tensão e use as ferramentas e os equipamentos de proteção. Instalação nova ou reforma é trabalho de eletricista habilitado.</p>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
         <div>
           <p className="mb-2 hidden text-[0.65rem] font-semibold uppercase tracking-widest text-ink-soft lg:block">Elétrica de casa · eletrônica</p>
           <Modulos itens={MODULOS} atual={atual} escolher={setAtual} />

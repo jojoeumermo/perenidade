@@ -37,7 +37,7 @@ export function Vizinhos() {
   }, [pontos, k]);
   return (
     <Bancada titulo="k vizinhos mais próximos" subtitulo="Classificar pelo que está perto" acoes={<><Botao onClick={() => setPontos([])}>Limpar</Botao></>}>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <canvas ref={tela} width={420} height={420} onClick={(e) => {
           const b = e.currentTarget.getBoundingClientRect();
           setPontos([...pontos, { x: ((e.clientX - b.left) / b.width) * 12 - 6, y: 6 - ((e.clientY - b.top) / b.height) * 12, c: cor }]);
@@ -74,7 +74,7 @@ export function KMedias() {
   const py = (y: number) => ((6 - y) / 12) * 400;
   return (
     <Bancada titulo="Agrupamento (k-médias)" subtitulo="A máquina acha grupos sem ninguém dizer quais são" acoes={<><Botao primario onClick={passo}>Próximo passo</Botao><Botao onClick={() => setEstado({ centros: inicio, grupo: pts.map(() => -1), inercias: [] })}>↺</Botao></>}>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <svg viewBox="0 0 400 400" className="mx-auto w-full max-w-[420px] rounded border-2 border-ink bg-[#17130e]" role="img" aria-label="Pontos coloridos pelo grupo e os centros marcados com X">
           {pts.map((p, i) => <circle key={i} cx={px(p.x)} cy={py(p.y)} r={4} fill={estado.grupo[i] >= 0 ? CORES[estado.grupo[i]] : "#9a9a9a"} />)}
           {estado.centros.map((c, i) => <g key={i} transform={`translate(${px(c.x)},${py(c.y)})`}><path d="M-9-9L9 9M9-9L-9 9" stroke="#fff" strokeWidth={6} /><path d="M-9-9L9 9M9-9L-9 9" stroke={CORES[i]} strokeWidth={3} /></g>)}
@@ -110,7 +110,7 @@ export function Sobreajuste() {
   const [et, ev] = [erro(treino), erro(teste)];
   return (
     <Bancada titulo="Ajuste demais (sobreajuste)" subtitulo="Quando o modelo decora em vez de aprender">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <svg viewBox="0 0 400 300" className="w-full rounded border-2 border-ink bg-[#17130e]" role="img" aria-label="Pontos de treino e de teste e a curva ajustada">
           <polyline points={curva} fill="none" stroke="#ffd27a" strokeWidth={2.5} />
           {treino.map((p, i) => <circle key={`t${i}`} cx={px(p.x)} cy={py(p.y)} r={5} fill="#9ec5ff" />)}
@@ -147,7 +147,7 @@ export function ProximaPalavra() {
   }
   return (
     <Bancada titulo="A próxima palavra" subtitulo="Como um modelo de linguagem escreve, em miniatura">
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <div>
           <p className="min-h-24 rounded border-2 border-ink bg-[#17130e] p-4 font-serif text-2xl leading-snug text-parchment">{frase.join(" ")}<span className="animate-pulse motion-reduce:animate-none">▍</span></p>
           <p className="mt-3 text-sm font-semibold">Depois de “{frase.at(-1)}”, o modelo dá estas chances:</p>
@@ -208,7 +208,7 @@ export function Vies() {
   }, [viesHistorico, usarBairro]);
   return (
     <Bancada titulo="Viés em algoritmos" subtitulo="O sistema aprende o preconceito dos dados (dados fictícios)">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <p className="text-sm">Um sistema de seleção aprende com 400 decisões antigas. Depois, julga 100 candidatos novos de cada bairro, <strong>com exatamente as mesmas notas</strong>.</p>
           <div className="mt-4 grid grid-cols-2 gap-4">

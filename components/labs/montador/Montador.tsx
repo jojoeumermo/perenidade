@@ -40,7 +40,7 @@ function Ordem() {
   };
   const fim = feitas.length === ETAPAS.length;
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
         <p className={rotulo}>Toque na próxima etapa</p>
         <ul className="mt-1 space-y-1">
@@ -82,7 +82,7 @@ function Casos() {
       <ol className="mt-3 flex flex-wrap gap-1">
         {lista.map((c) => <li key={c.id}><button type="button" onClick={() => abrir(c.id)} className={`cursor-pointer border px-2 py-1 text-xs ${c.id === caso.id ? "border-ink bg-ink text-parchment" : resolvidos[c.id] ? "border-ok text-ok" : "border-rule"}`}>{resolvidos[c.id] ? "✓ " : ""}{c.titulo}</button></li>)}
       </ol>
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
           <p className={rotulo}>{caso.aparelho} · ordem de serviço</p>
           <p className="mt-1 font-serif text-xl font-semibold">{caso.titulo}</p>
@@ -136,7 +136,7 @@ export function Montador() {
         {aba === "resistores" && <Resistores />}
         {aba === "casos" && <Casos />}
         {aba === "seguranca" && (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {SEGURANCA.map(([t, x]) => <div key={t} className={caixa}><p className="font-semibold">{t}</p><p className="mt-1 text-ink-soft">{x}</p></div>)}
           </div>
         )}

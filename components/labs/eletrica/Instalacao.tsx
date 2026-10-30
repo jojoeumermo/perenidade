@@ -22,7 +22,7 @@ export function Instalacao() {
   const campo = "border-2 border-ink/30 bg-parchment px-2 py-1.5";
   const corDe = (c: Cor) => CORES.find(([n]) => n === c)?.[1] ?? "#000";
   return (
-    <div className="grid gap-5 font-sans text-sm lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <div className="grid grid-cols-1 gap-5 font-sans text-sm lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       <div>
         <p className="text-ink-soft">Ligue o ponto de luz (com interruptor simples) e a tomada ao quadro. Escolha cada fio: de onde, para onde e a cor. Depois ligue o disjuntor.</p>
         <div className="mt-3 grid gap-2 border-2 border-ink/20 bg-parchment-deep p-3">

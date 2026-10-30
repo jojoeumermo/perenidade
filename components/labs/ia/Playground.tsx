@@ -128,7 +128,7 @@ export function Playground() {
         <Botao onClick={() => { setRodando(false); reiniciar(); }}>↺ Recomeçar</Botao>
       </>}
     >
-      <div className="grid gap-5 md:grid-cols-[15rem_minmax(0,1fr)] 2xl:grid-cols-[15rem_minmax(0,1fr)_17rem]">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-[15rem_minmax(0,1fr)] 2xl:grid-cols-[15rem_minmax(0,1fr)_17rem]">
         <div className="space-y-4">
           <Escolha rotulo="Dados" valor={conjunto} opcoes={CONJUNTOS} mudar={setConjunto} />
           <Deslizante rotulo="Ruído" valor={ruido} min={0} max={1} passo={0.05} mudar={setRuido} formato={(v) => v.toFixed(2)} />

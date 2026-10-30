@@ -190,16 +190,17 @@ export function LabRedes() {
         <button type="button" className={claro} onClick={() => arquivo.current?.click()}>Abrir JSON</button>
         <input ref={arquivo} type="file" accept="application/json,.json" className="sr-only" onChange={(e) => { void abrir(e.target.files?.[0]); e.target.value = ""; }} />
         <button type="button" className="cursor-pointer underline" onClick={() => { if (window.confirm("Começar uma rede vazia?")) { setHistorico((h) => [...h, t]); setT(vazia()); setEstado(estadoNovo()); } }}>Nova</button>
-        <details className="ml-auto">
+        <details className="relative ml-auto">
           <summary className="cursor-pointer underline">Exercícios ({lista.length})</summary>
-          <ol className="absolute z-10 mt-1 max-h-64 w-72 overflow-y-auto border-2 border-ink bg-parchment p-2 shadow-lg">
+          {/* Abre para a esquerda, a partir da borda direita do botão: no celular, a lista cabia só metade na tela. */}
+          <ol className="absolute right-0 z-10 mt-1 max-h-64 w-72 max-w-[calc(100vw-2rem)] overflow-y-auto border-2 border-ink bg-parchment p-2 shadow-lg">
             {lista.map((ex, i) => <li key={ex.id}><button type="button" className="cursor-pointer py-0.5 text-left underline hover:text-oxblood" onClick={() => abrirExercicio(ex)}>{i + 1}. {ex.titulo} <span className="font-mono text-[0.6rem] text-ink-soft">{"●".repeat(ex.nivel)}</span></button></li>)}
           </ol>
         </details>
       </div>
       <p role="status" className="mt-1 min-h-5 text-xs text-ink-soft">{aviso || (ferramenta === "cabo" ? (cabeando ? `Agora clique numa porta de outro dispositivo (de ${t.dispositivos.find((d) => d.id === cabeando.dispositivo)?.nome} ${cabeando.porta}).` : "Clique numa porta (círculo) e depois noutra para ligar o cabo; clique numa porta cabeada para desligar.") : "Arraste os dispositivos; clique para configurar. No celular, toque e segure para arrastar.")}</p>
 
-      <div className="mt-2 grid gap-3 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="mt-2 grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="overflow-auto border-4 border-ink bg-[#f8f2e4]" style={{ maxHeight: "34rem" }}>
           <svg ref={svg} width={largura * zoom} height={altura * zoom} viewBox={`0 0 ${largura} ${altura}`} className="block touch-none select-none"
             onPointerMove={(e) => { if (arrasto) { const p = posicao(e); setT((atual) => ({ ...atual, dispositivos: atual.dispositivos.map((d) => (d.id === arrasto.id ? { ...d, x: Math.max(40, p.x - arrasto.dx), y: Math.max(40, p.y - arrasto.dy) } : d)) })); } }}

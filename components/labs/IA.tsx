@@ -32,7 +32,7 @@ export function LabIA() {
   return (
     <div className="mt-6 font-sans">
       <p className="rounded border-l-4 border-gold bg-parchment-deep px-4 py-3 text-sm">Tudo aqui treina de verdade, no seu aparelho: nada vai para servidor nenhum. São modelos pequenos, para ver com os olhos o que “aprender” quer dizer; os grandes usam as mesmas ideias, em escala gigantesca.</p>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
         <Modulos itens={MODULOS} atual={modulo} escolher={setModulo} />
         <div className="min-w-0">
           {modulo === "rede" && <Playground />}

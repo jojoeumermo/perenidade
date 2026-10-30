@@ -35,6 +35,8 @@ for (const caminho of PAGINAS) {
   test(`S24 no aplicativo, sem rolar para o lado: ${caminho}`, async ({ page }, info) => {
     await abrir(page, caminho);
     await page.waitForTimeout(1500);
+    // Menus de abrir e fechar (como "Exercícios" do laboratório de redes) também precisam caber: abre todos antes de medir.
+    await page.evaluate(() => document.querySelectorAll("main details").forEach((d) => d.setAttribute("open", "")));
     await page.screenshot({ path: info.outputPath("tela.png"), fullPage: false });
     // O que passa da largura: a página toda e, para achar o culpado, os elementos que vazam para a direita.
     const medida = await page.evaluate(() => {
@@ -43,12 +45,15 @@ for (const caminho of PAGINAS) {
       for (const el of Array.from(document.querySelectorAll("body *"))) {
         const r = el.getBoundingClientRect();
         if (r.width === 0 || r.right <= largura + 1) continue;
-        // Dentro de algo que rola de lado (uma tabela, uma faixa de abas) não conta.
+        // O texto de um editor de código rola de lado junto com o campo de digitação: linha longa ali é normal.
+        if (el.closest("pre, textarea, .cm-editor")) continue;
+        // Dentro de algo que rola de lado de propósito (uma tabela, uma faixa de abas ou de cartões) não conta. O que só
+        // fica escondido (overflow hidden ou clip) conta: some da tela sem a pessoa conseguir ver.
         let pai = el.parentElement;
         let rolavel = false;
         while (pai && pai !== document.body) {
           const estilo = getComputedStyle(pai);
-          if (/(auto|scroll|hidden|clip)/.test(estilo.overflowX) && pai.getBoundingClientRect().right <= largura + 1) {
+          if (/(auto|scroll)/.test(estilo.overflowX) && pai.getBoundingClientRect().right <= largura + 1) {
             rolavel = true;
             break;
           }
@@ -65,3 +70,14 @@ for (const caminho of PAGINAS) {
     expect(medida.vazam, `vaza para o lado (página com ${medida.pagina}px em ${medida.largura}px)`).toEqual([]);
   });
 }
+
+test("S24 no aplicativo: acessibilidade pelo menu Mais, sem botão flutuando por cima do conteúdo", async ({ page }) => {
+  await abrir(page, "/pt");
+  await expect(page.locator("button[title='Acessibilidade']")).toBeHidden();
+  await expect(async () => {
+    await page.getByRole("link", { name: "Mais", exact: true }).last().click({ timeout: 5000 });
+    await expect(page.getByRole("dialog").getByRole("button", { name: "Acessibilidade" })).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 90_000 });
+  await page.getByRole("dialog").getByRole("button", { name: "Acessibilidade" }).click();
+  await expect(page.getByRole("dialog", { name: "Acessibilidade" })).toBeVisible();
+});
