@@ -1,7 +1,10 @@
 # Abrir o código: o que já está pronto e o que falta decidir
 
-Conferido em 20/10/2026. O repositório é **privado** hoje. Nada foi publicado nem reescrito: este documento lista o que foi
-preparado e o que depende de decisão da coordenação antes de tornar o repositório público.
+**O repositório é público desde 30/10/2026.** Na abertura, o histórico foi reescrito: os registros passaram a ter como
+autor o endereço "noreply" do GitHub (item 2), os ramos antigos já juntados ao principal saíram, e a varredura de segredos
+do histórico inteiro (gitleaks) não achou nada. As cópias do banco (`backup.yml` e `copia-do-banco.yml`) não rodam com o
+repositório público, porque o artefato fica ao alcance de qualquer conta. O resto do documento é o que foi preparado em
+20/10/2026, antes da abertura.
 
 ## Já pronto
 

@@ -1,7 +1,7 @@
 # Rede Lúcia v2: inventário (Fase 0)
 
 Levantado em 29/10/2026 no código do `master` (depois do commit 8ccbe84). Nesta fase só mudou o **bloco urgente** (item 1). Tudo o
-mais é retrato do que existe, com as lacunas em relação ao prompt "Rede Lúcia v2" e uma proposta de deduplicação das comunidades,
+mais é retrato do que existe, com as lacunas em relação ao pedido "Rede Lúcia v2" e uma proposta de deduplicação das comunidades,
 que espera aprovação.
 
 ## 1. Bloco urgente (feito, commit 8ccbe84)
@@ -13,7 +13,7 @@ que espera aprovação.
 | "Postando como", avatar, perfil | "Postando como" mostra o codinome; o rosto padrão sai das iniciais do codinome; o perfil da Rede mostra o codinome e o selo "equipe do instituto", sem cargo, sem a bio do painel e sem o ícone do painel (que pode ser foto de rosto). Bio própria da Rede: coluna `rede_bio` (a tela de editar entra na Fase 3). |
 | **Fórum também** (achado no inventário) | `topicos_listar` e `topico_ver` devolviam o nome inteiro do painel a qualquer visitante, sem login. Agora saem pelo codinome. |
 | Avisos administrativos na Rede | `interno.avisos` ganhou `categoria` (`equipe`, `rede`, `conta`). A Rede lê `rede_avisos`: só respostas, moderação do que a pessoa escreveu e alertas de segurança da própria conta. O sino da equipe (login de outras contas, fotos para aprovar, currículos) continua só no painel. |
-| Mensagem individual ou público de uma pessoa só | Não existe na Rede. Os alcances são `publico`, `seguidores` e `equipe`; os "núcleos fechados" são espaços de grupo. As conversas privadas que existem são as do **painel da equipe** (fora da Rede, como manda o prompt). Nada a desligar. |
+| Mensagem individual ou público de uma pessoa só | Não existe na Rede. Os alcances são `publico`, `seguidores` e `equipe`; os "núcleos fechados" são espaços de grupo. As conversas privadas que existem são as do **painel da equipe** (fora da Rede, como manda o pedido). Nada a desligar. |
 | Banco ainda antigo | Se a resposta não marcar `codinome: true` (produção antes do `install.sql`), a tela mostra "Pessoa sem codinome" em vez de arriscar o nome civil. |
 | Data do registro de moderação | Passou a sair no idioma da página (antes, `toLocaleDateString()` sem idioma dava 10/12/2026 em navegador em inglês). |
 
@@ -38,7 +38,7 @@ Componentes: `components/comunidade/Rede.tsx` (≈1.200 linhas, tudo numa peça)
 
 O cliente nunca toca nas tabelas: `anon` e `authenticated` não têm permissão no schema `interno`, e tudo passa por funções
 `security definer` que conferem quem pede (`interno.rede_ve` decide quem vê cada post). É controle por função, não por RLS de
-tabela: mais estrito contra acesso direto, mas a "matriz de visibilidade" do prompt ainda não tem teste automático completo.
+tabela: mais estrito contra acesso direto, mas a "matriz de visibilidade" do pedido ainda não tem teste automático completo.
 
 | Tabela | Para quê |
 | --- | --- |
@@ -66,9 +66,9 @@ comunidade, banimento, denúncia urgente que retém o post e registro público s
 (menos de 7 dias) postam até 8 vezes por dia. Segundo fator obrigatório para coordenação, vice, supervisão, curadoria e
 mediação quando a coordenação liga a exigência (`interno.exige_2fa`).
 
-## 4. Lacunas em relação ao prompt
+## 4. Lacunas em relação ao pedido
 
-| Tema | Hoje | Prompt |
+| Tema | Hoje | Pedido |
 | --- | --- | --- |
 | Endereços | Uma página com estado interno | Uma URL por comunidade, post, perfil, chamado, núcleo, busca, tag, avisos, salvos, config, regras, moderação |
 | Tipos de post | Post curto (500) na Rede; discussão e dúvida só no fórum, em outro sistema | Um sistema só: post, discussão, dúvida, chamado, enquete, aviso da coordenação |

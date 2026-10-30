@@ -1,10 +1,11 @@
 name: Cópia do banco
 
-# Uma cópia cifrada do banco de produção, toda segunda-feira, guardada 30 dias como artefato do repositório privado.
+# Uma cópia cifrada do banco de produção, toda segunda-feira, guardada 30 dias como artefato do repositório.
 # Fica desligada até a coordenação pôr dois segredos no GitHub (Settings › Secrets and variables › Actions):
 #   SUPABASE_DB_URL  a "Connection string" do Supabase (Project Settings › Database › URI, modo Session)
 #   COPIA_SENHA      uma frase longa só para esta cópia; sem ela ninguém abre o arquivo
 # O passo a passo de restaurar está em docs/ESPELHO-E-COPIAS.md. O arquivo tem dados pessoais: por isso sai cifrado.
+# Artefato de repositório público qualquer conta do GitHub baixa: com o repositório público a rotina não roda.
 on:
   schedule:
     - cron: "0 7 * * 1"
@@ -15,6 +16,7 @@ permissions:
 
 jobs:
   copia:
+    if: github.event.repository.private
     runs-on: ubuntu-latest
     env:
       SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}

@@ -1,6 +1,6 @@
 # Rede Lúcia v2: especificação (Fase 1)
 
-Base: o prompt "Rede Lúcia v2" (29/10/2026) e o inventário em `docs/rede/INVENTARIO.md`. **Nada daqui vai para o código antes da
+Base: o pedido "Rede Lúcia v2" (29/10/2026) e o inventário em `docs/rede/INVENTARIO.md`. **Nada daqui vai para o código antes da
 aprovação.** As decisões em que escolhi o lado mais conservador estão marcadas com **(c)**.
 
 ## 0. Decisões que pedem um sim ou um não
@@ -20,7 +20,7 @@ aprovação.** As decisões em que escolhi o lado mais conservador estão marcad
 ## 1. Modelo de dados
 
 Reaproveita o que existe (schema `interno`, só por funções `security definer`, `anon` e `authenticated` sem acesso às tabelas).
-Onde o prompt fala em RLS, a regra mora na função de visibilidade (`interno.rede_ve`), testada pela matriz da seção 2; as
+Onde o pedido fala em RLS, a regra mora na função de visibilidade (`interno.rede_ve`), testada pela matriz da seção 2; as
 tabelas novas também ganham RLS ligada e sem política para os papéis do cliente, como segunda tranca. **(c)**
 
 | Tabela | Colunas principais | Nota |
