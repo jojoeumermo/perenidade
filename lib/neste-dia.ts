@@ -200,10 +200,17 @@ function linkDe(evento: Evento, lingua: string): string {
 export function escolherFatos(feed: Feed | null, lingua: string, curados: FatoDoDia[], quantos = 3): FatoDoDia[] {
   const vistos = new Set<string>();
   const saida: (FatoDoDia & { n: number })[] = [];
+  // Palavras de quatro letras ou mais: dois textos do mesmo ano que dividem três delas contam o mesmo fato.
+  const palavras = (texto: string) => new Set(simples(texto).match(/\p{L}{4,}/gu) ?? []);
+  const repete = (fato: FatoDoDia) => {
+    const minhas = palavras(fato.texto);
+    return saida.some((outro) => outro.ano === fato.ano && [...palavras(outro.texto)].filter((p) => minhas.has(p)).length >= 3);
+  };
   const somar = (fato: FatoDoDia, n: number) => {
-    // O mesmo fato costuma vir duas vezes (nos destaques e na lista do dia), com textos diferentes e o mesmo link.
+    // O mesmo fato costuma vir duas vezes (nos destaques e na lista do dia, ou na lista da equipe e na Wikipédia), com
+    // textos diferentes: mesmo link ou as mesmas palavras no mesmo ano.
     const chaves = [`${fato.ano}:${simples(fato.texto).slice(0, 40)}`, ...(/\/wiki\/./.test(fato.link) ? [`${fato.ano}:${fato.link}`] : [])];
-    if (chaves.some((chave) => vistos.has(chave))) return;
+    if (chaves.some((chave) => vistos.has(chave)) || repete(fato)) return;
     for (const chave of chaves) vistos.add(chave);
     saida.push({ ...fato, n });
   };

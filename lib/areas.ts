@@ -2,14 +2,15 @@
 // Os nomes e descrições de cada disciplina ficam nos dicionários (i18n/), um por idioma.
 
 export const groups = [
-  // A teoria revolucionária abre a lista: é o que faz do instituto uma escola da vida, e não só um site de aulas.
+  // Alfabetização e ENEM abrem a lista: são as portas de entrada (aprender a ler e chegar à universidade).
+  { id: "percursos", areas: ["alfabetizacao", "enem"] },
+  // Depois a teoria revolucionária: é o que faz do instituto uma escola da vida, e não só um site de aulas.
   // Começa pela formação militante (a pessoa como sujeito da luta), passa pela política básica (o Estado, as
   // instituições, o voto) e só então chega ao capitalismo e às correntes.
   {
     id: "teoria",
     areas: ["formacao-militante", "politica", "ciencia-politica", "estado", "instituicoes", "eleicoes", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"],
   },
-  { id: "percursos", areas: ["alfabetizacao", "enem"] },
   {
     id: "linguagens",
     areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "alemao", "artes", "desenho", "design", "musica", "samba-e-cultura", "danca", "teatro", "cinema", "educacao-fisica", "defesa-pessoal"],
@@ -72,7 +73,7 @@ export const areaSlugs = groups.flatMap((group) => group.areas) as readonly Area
 export const isArea = (value: string): value is AreaSlug => (areaSlugs as readonly string[]).includes(value);
 
 /** O essencial: ler, escrever, contar, línguas e ciências. É o que aparece no filtro "Essencial" das disciplinas. */
-export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "matematica", "ingles", "chines", "historia", "geografia", "fisica", "quimica", "biologia", "informatica", "enem"];
+export const essential: readonly AreaSlug[] = ["alfabetizacao", "enem", "portugues", "matematica", "ingles", "chines", "historia", "geografia", "fisica", "quimica", "biologia", "informatica"];
 
 /**
  * As disciplinas de cada etapa, para o filtro: o que se estuda no ensino fundamental, no médio e no superior.
