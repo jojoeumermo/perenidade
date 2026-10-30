@@ -19,7 +19,7 @@ export function Epidemia() {
   const limiar = Math.max(0, 1 - 1 / (contato / gama));
   return (
     <Bancada titulo="Epidemia (modelo SIR)" subtitulo="Suscetíveis, infectados e recuperados">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <Grafico series={[["#9ec5ff", serie.map((p) => p.S)], ["#ff6b5a", serie.map((p) => p.I)], ["#9fe0a8", serie.map((p) => p.R)]]} max={1} altura={180} rotulos={["suscetíveis", "infectados ao mesmo tempo", "recuperados ou vacinados"]} />
           <div className="mt-3 grid grid-cols-3 gap-2"><Leitura rotulo="R efetivo" valor={R0.toFixed(2)} destaque={R0 > 1} /><Leitura rotulo="Pico de infectados" valor={`${(pico * 100).toFixed(1)}%`} /><Leitura rotulo="Vacinação que barra o surto" valor={`${Math.round(limiar * 100)}%`} /></div>
@@ -43,7 +43,7 @@ export function PredadorPresa() {
   const serie = useMemo(() => lotkaVolterra(3000, 0.01, { a, b: 0.4, c, d: 0.1 }, 10, 10), [a, c]);
   return (
     <Bancada titulo="Predador e presa (Lotka-Volterra)" subtitulo="Coelhos e raposas sobem e descem em ciclos">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <Grafico series={[["#9fe0a8", serie.map((p) => p[0])], ["#ff6b5a", serie.map((p) => p[1])]]} altura={170} rotulos={["presas", "predadores"]} />
           <svg viewBox="0 0 200 200" className="mx-auto mt-3 w-full max-w-[260px] rounded bg-[#17130e]" role="img" aria-label="Retrato de fase: predadores contra presas">
@@ -71,7 +71,7 @@ export function Gravidade() {
   const px = (x: number) => 100 + x * 40;
   return (
     <Bancada titulo="Gravidade" subtitulo="Órbitas e lançamentos">
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <div>
           <svg viewBox="0 0 200 200" className="w-full rounded bg-[#0d0b08]" role="img" aria-label="Órbita de um planeta em volta de uma estrela">
             <circle cx={100} cy={100} r={6} fill="#ffd27a" />
@@ -127,7 +127,7 @@ export function Ondas() {
     <Bancada titulo="Ondas e Fourier" subtitulo="Toda onda periódica é uma soma de senos" acoes={<Botao primario onClick={() => setTocando(!tocando)}>{tocando ? "Parar" : "Ouvir (220 Hz)"}</Botao>}>
       <Escolha rotulo="Onda que queremos montar" valor={tipo} opcoes={[["quadrada", "Quadrada"], ["serra", "Dente de serra"], ["triangular", "Triangular"]]} mudar={setTipo} />
       <svg viewBox="0 0 300 120" className="mt-3 w-full rounded bg-[#17130e]" role="img" aria-label="Soma de senos"><line x1={0} x2={300} y1={60} y2={60} stroke="#ffffff22" /><polyline fill="none" stroke="#ffd27a" strokeWidth={1.5} points={pts} /></svg>
-      <div className="mt-3 grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="mt-3 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <Deslizante rotulo="Quantos senos somar" valor={n} min={1} max={60} mudar={setN} />
         <PrevejaRode pergunta="Com 1 seno, a onda já é quadrada? Quantos precisam?" explicacao="Com 1, é só um seno. A cada termo a soma fica mais parecida; com dezenas, quase quadrada, mas sempre com uma pontinha nos cantos (o fenômeno de Gibbs). Ouvindo, cada termo novo acrescenta um harmônico: é isso que dá o timbre diferente de cada instrumento." limites="O som sai pelo navegador, sem microfone e sem gravar nada." aprofundar="Por que a onda triangular converge bem mais rápido que a quadrada? Olhe o tamanho de cada termo." />
       </div>
@@ -159,7 +159,7 @@ export function Automatos() {
   return (
     <Bancada titulo="Autômatos celulares" subtitulo="Regras simples, padrões complexos" acoes={modo === "vida" ? <><Botao primario onClick={() => setRodando(!rodando)}>{rodando ? "⏸" : "▶ Rodar"}</Botao><Botao onClick={() => { setVida(Array(L * L).fill(false)); setGeracao(0); }}>Limpar</Botao></> : undefined}>
       <Escolha rotulo="Autômato" valor={modo} opcoes={[["vida", "Jogo da Vida"], ["regra", "Regra de uma linha"]]} mudar={setModo} />
-      <div className="mt-3 grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="mt-3 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         {modo === "vida" ? (
           <svg viewBox={`0 0 ${L} ${L}`} onClick={(e) => { const b = e.currentTarget.getBoundingClientRect(); const x = Math.floor(((e.clientX - b.left) / b.width) * L); const y = Math.floor(((e.clientY - b.top) / b.height) * L); setVida((g) => g.map((v, i) => (i === y * L + x ? !v : v))); }} className="mx-auto w-full max-w-[420px] cursor-crosshair rounded border-2 border-ink bg-[#17130e]" role="img" aria-label="Grade do Jogo da Vida: clique para ligar ou desligar uma célula">
             {vida.map((v, i) => (v ? <rect key={i} x={i % L} y={Math.floor(i / L)} width={0.95} height={0.95} fill="#9fe0a8" /> : null))}

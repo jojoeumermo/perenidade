@@ -210,7 +210,7 @@ function Mesa({ b, carta, numero, fase, aoEscolher, aoPrever, s }: { b: Baralho;
           {s.howToKeys}
         </p>
       </div>
-      <div className="mx-auto mt-4 grid max-w-md gap-2 sm:grid-cols-2">
+      <div className="mx-auto mt-4 grid grid-cols-1 max-w-md gap-2 sm:grid-cols-2">
         {(["esquerda", "direita"] as const).map((lado) => (
           <button
             key={lado}
@@ -333,7 +333,7 @@ function Desfecho({ b, partida, progresso, deNovo, outro, s }: { b: Baralho; par
       </ol>
 
       <h3 className="mt-8 font-serif text-2xl font-semibold">{s.studyMore}</h3>
-      <ul className="mt-2 grid gap-1 sm:grid-cols-2">
+      <ul className="mt-2 grid grid-cols-1 gap-1 sm:grid-cols-2">
         {aulasDaPartida(b, partida).map((a) => (
           <li key={a.href}>
             <Link {...PT} href={localePath(lang, a.href)} className="underline underline-offset-4 hover:text-prelo-texto">
@@ -397,7 +397,7 @@ export function Rumos({ baralhos, s }: { baralhos: Baralho[]; s: S }) {
     return (
       <div>
         <p className="max-w-2xl leading-relaxed">{s.intro}</p>
-        <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+        <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {baralhos.map((b) => (
             <li key={b.id}>
               <button
@@ -434,7 +434,7 @@ export function Rumos({ baralhos, s }: { baralhos: Baralho[]; s: S }) {
         <h3 {...PT} className="mt-3 font-serif text-2xl font-semibold">{b.titulo}</h3>
         <p {...PT} className="mt-2 max-w-2xl leading-relaxed">{b.papel}</p>
         <h4 className="mt-5 font-sans text-xs font-bold uppercase tracking-[0.1em]">{s.meters}</h4>
-        <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+        <ul className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
           {b.medidores.map((m) => (
             <li key={m.id} {...PT} className="leading-snug">
               <strong className="font-sans">{m.nome}:</strong> {m.descricao}
