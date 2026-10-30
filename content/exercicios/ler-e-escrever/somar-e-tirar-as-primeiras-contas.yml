@@ -1,0 +1,90 @@
+# Exercícios da aula "Somar e tirar: as primeiras contas no papel" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-somar-01
+  tema: "Escolher a conta"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Você tinha R$ 30 e gastou R$ 12 na feira. Qual conta mostra quanto sobrou?"
+  alternativas:
+    - texto: "30 + 12"
+      erro: "Somar seria juntar mais dinheiro. Aqui o dinheiro saiu: é conta de menos, 30 − 12."
+    - texto: "12 − 30"
+      erro: "A conta é de menos, mas a ordem trocou. O número maior, o que você tinha, vem primeiro: 30 − 12."
+    - texto: "30 − 12"
+      certa: true
+  explicacao: "Sobrar é tirar o que saiu do que você tinha: 30 − 12 = 18."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-somar-02
+  tipo: numero
+  tema: "Somar com reserva"
+  dificuldade: 2
+  enunciado: "Quanto é 38 + 25?"
+  resposta: "63"
+  erros_comuns:
+    - resposta: "53"
+      explicacao: "Faltou levar o 1. Nas unidades, 8 + 5 = 13: escreva 3 e leve 1 para as dezenas. Dezenas: 3 + 2 + 1 = 6."
+    - resposta: "513"
+      explicacao: "Você escreveu o 13 inteiro embaixo das unidades. Escreva só o 3 e leve o 1 para somar com as dezenas."
+  dica: "Comece pelas unidades, da direita. Se passar de 9, leve 1 para a coluna do lado."
+  explicacao: "Unidades: 8 + 5 = 13, escreva 3 e leve 1. Dezenas: 3 + 2 + 1 = 6. Resultado: 63. Confira: 63 − 25 = 38."
+  conferir: "38 + 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-somar-03
+  tipo: numero
+  tema: "Tirar pedindo emprestado"
+  dificuldade: 2
+  enunciado: "Quanto é 70 − 26?"
+  resposta: "44"
+  erros_comuns:
+    - resposta: "56"
+      explicacao: "Você fez 6 − 0 em vez de 0 − 6. Como 0 − 6 não dá, peça emprestado: o 0 vira 10, e 10 − 6 = 4. O 7 vira 6, e 6 − 2 = 4."
+    - resposta: "54"
+      explicacao: "Quase. Depois de pedir emprestado, o 7 vira 6. Nas dezenas fica 6 − 2 = 4, não 5."
+  dica: "Nas unidades, 0 − 6 não dá. Pegue uma dezena emprestada do 7."
+  explicacao: "Unidades: 10 − 6 = 4. Dezenas: 6 − 2 = 4. Resultado: 44. Prova real: 44 + 26 = 70."
+  conferir: "70 - 26"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-somar-04
+  tema: "Prova real"
+  dificuldade: 1
+  enunciado: "Ana fez 90 − 45 = 45. Qual conta confere se ela acertou?"
+  alternativas:
+    - texto: "45 + 45, que tem de dar 90"
+      certa: true
+    - texto: "90 + 45, que tem de dar 135"
+      erro: "Somar os dois números do começo não desfaz a conta de menos. Some o resultado com o que foi tirado: 45 + 45 tem de voltar a 90."
+    - texto: "45 − 45, que tem de dar 0"
+      erro: "Fazer outra conta de menos não confere nada. A soma é que desfaz a subtração: 45 + 45 = 90."
+  explicacao: "O resultado mais o que foi tirado volta ao número do começo: 45 + 45 = 90. Ana acertou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-somar-05
+  tipo: numero
+  tema: "Mais e menos juntos"
+  dificuldade: 3
+  enunciado: "Você tinha R$ 50, gastou R$ 18 no mercado e R$ 12 na farmácia. Quanto sobrou, em reais?"
+  resposta: "20"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "32"
+      explicacao: "Você tirou só o gasto do mercado. Faltou tirar também os 12 da farmácia: 32 − 12 = 20."
+    - resposta: "80"
+      explicacao: "Você somou tudo. Os gastos saem do dinheiro: junte os gastos (18 + 12 = 30) e tire de 50."
+  dica: "Junte primeiro os dois gastos. Depois tire do que você tinha."
+  explicacao: "Gastos: 18 + 12 = 30. Sobrou: 50 − 30 = 20. Confira: 20 + 30 = 50."
+  conferir: "50 - 18 - 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

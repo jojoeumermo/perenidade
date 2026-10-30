@@ -1,0 +1,1008 @@
+# Camada do Instituto Lúcia sobre a prova de Ciências da Natureza do ENEM 2022 (questões 91 a 135).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Avisos sobre a importação (public/questoes/enem-2022.json, não editado):
+# - enem-2022-92 e enem-2022-108 vieram com area "humanas"; pela numeração (91–135, desde 2017) são de Natureza.
+# - enem-2022-100 aparece duas vezes no JSON (cópias iguais); a unidade "m/s²" da gravidade virou imagem ("s⁻²").
+# - enem-2022-101: a unidade "mg/L" virou imagem ("L⁻¹") no meio da frase.
+# - enem-2022-108: as alternativas são imagens (1,8; 2,4; 3,6; 4,8; 9,6 g/L).
+# - enem-2022-116: o calor específico veio truncado ("4,2 e J/gº C").
+# - enem-2022-129: as cargas sumiram nas alternativas ("NH4 +", "NO3" sem o sinal de menos).
+# - enem-2022-132: a alternativa D começa com "Ompetição" (falta o "C").
+# - enem-2022-109 e enem-2022-131: palavras grudadas no texto-base ("Oelementoiodo…").
+ano: 2022
+questoes:
+  - id: enem-2022-91
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-energia
+    topico: nat-qui-energia-eletroquimica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O esquema mostra o persulfato (S₂O₈²⁻) virando o radical sulfato (•SO₄⁻), que ataca o TCE (Cl₂C=CHCl). No fim saem CO₂, H₂O e íons Cl⁻.
+      Vamos olhar o número de oxidação (nox) do carbono. No TCE, o carbono ligado a H e Cl tem nox 0 e o carbono ligado a dois Cl tem nox +2: média +1.
+      No CO₂, o carbono tem nox +4. Então o carbono perdeu elétrons: foi oxidado.
+      Quem recebeu esses elétrons foi o radical sulfato, que volta a ser sulfato (SO₄²⁻): ele foi reduzido.
+      Perda e ganho de elétrons ao mesmo tempo é oxirredução. Alternativa A.
+    enganos:
+      B: "No caminho, o cloro sai da molécula e o oxigênio entra, o que lembra uma substituição. Mas o carbono termina como CO₂, com nox +4: o que move o processo é a troca de elétrons com o radical oxidante."
+      C: "Precipitação forma um sólido que não se dissolve. Os produtos do esquema são gás (CO₂), água e íons dissolvidos (Cl⁻)."
+      D: "Desidratação tira água de uma molécula. Aqui a água aparece como produto da oxidação dos hidrogênios do TCE, e não por retirada de água."
+      E: "Neutralização é ácido com base formando sal e água. Nenhuma base entra no processo; o persulfato age como oxidante, não como base."
+    aulas: [quimica-medio/eletroquimica-pilhas-e-eletrolise, quimica-medio/reacoes-quimicas-e-balanceamento, quimica-medio/quimica-ambiental]
+
+  - id: enem-2022-92
+    area: natureza
+    competencia: 8
+    habilidade: 30
+    objeto: nat-bio-saude
+    topico: nat-bio-saude-doencas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Profilaxia é o conjunto de medidas que evitam a doença.
+      A filariose é causada por um verme que passa de pessoa a pessoa pela picada de mosquito (o pernilongo Culex).
+      A leishmaniose é causada por um protozoário que passa pela picada do mosquito-palha.
+      As duas dependem de um inseto vetor, isto é, um animal que leva o parasita de um hospedeiro a outro. Sem vetor, não há transmissão.
+      A medida comum às duas é controlar as populações desses insetos. Alternativa D.
+    enganos:
+      A: "Recolher lixo ajuda contra alguns criadouros, mas incinerar lixo orgânico não é a medida que vale para as duas doenças. O ponto comum entre elas é o inseto transmissor."
+      B: "Esgoto tratado reduz criadouros do pernilongo da filariose, mas o mosquito-palha da leishmaniose não se cria em esgoto. A medida não é comum às duas."
+      C: "A leishmaniose é causada por protozoário, e vermífugo não age sobre ele. Além disso, remédio trata quem já está doente; não impede a transmissão pelo inseto."
+      E: "Carne bem cozida previne doenças passadas pela carne, como a teníase. Nem a filariose nem a leishmaniose se pegam comendo carne."
+    aulas: [biologia-fundamental/doencas-transmissiveis-e-saneamento, biologia-medio/saude-publica-e-epidemias]
+
+  - id: enem-2022-93
+    area: natureza
+    competencia: 6
+    habilidade: 23
+    objeto: nat-fis-energia
+    topico: nat-fis-energia-potencia-e-rendimento
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      A irradiância diz quanta potência de luz chega em cada metro quadrado: 1 500 W/m².
+      O painel converte só 20% disso em eletricidade: 0,20 · 1 500 = 300 W por metro quadrado.
+      O parque inteiro tem 150 MW = 150 000 000 W.
+      Área = potência total ÷ potência por metro quadrado = 150 000 000 ÷ 300 = 500 000 m². Alternativa B.
+    enganos:
+      A: "1 000 000 m² sai de 300 MW ÷ 300 W/m²: somou de novo as duas usinas. Os 150 MW já são o total do parque (75 MW + 75 MW)."
+      C: "250 000 m² sai de 75 MW ÷ 300 W/m²: é a área de uma usina só. A pergunta pede o parque inteiro, com 150 MW."
+      D: "100 000 m² sai de 150 MW ÷ 1 500 W/m²: esqueceu o rendimento. Só 20% da luz vira eletricidade, então é preciso mais área."
+      E: "20 000 m² sai de multiplicar 100 000 por 0,20: usou o rendimento ao contrário. Rendimento menor exige área maior, não menor."
+    aulas: [fisica-medio/trabalho-energia-e-potencia, fisica-fundamental/energia-e-suas-transformacoes]
+
+  - id: enem-2022-94
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-agua
+    topico: nat-qui-agua-funcoes-inorganicas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O quadro diz: ácido mineral forte e concentrado não pode encontrar cianeto, e ácido nítrico concentrado não pode encontrar matéria orgânica.
+      Conjunto 1: o ácido clorídrico entrega H⁺ ao cianeto. HCl + KCN → KCl + HCN. O HCN (gás cianídrico) evapora com facilidade e é muito tóxico. Resultado: liberação de gás tóxico.
+      Conjunto 2: o ácido nítrico concentrado é um oxidante forte. A sacarose é matéria orgânica, rica em carbono e hidrogênio, e é oxidada com violência, com calor.
+      Resultado: reação oxidativa forte. Alternativa A.
+    enganos:
+      B: "Os dois efeitos estão certos, mas na ordem trocada. O gás tóxico vem do cianeto (conjunto 1); a oxidação forte vem do ácido nítrico com açúcar (conjunto 2)."
+      C: "O sal que se forma no conjunto 1 é o KCl, parecido com o sal de cozinha e pouco perigoso. O perigo é o HCN, que sai como gás."
+      D: "No conjunto 2, o que define o risco é o ácido nítrico oxidar a sacarose com violência. Podem sair gases, mas como produto dessa oxidação; o quadro descreve reação energética e explosão."
+      E: "Erra os dois conjuntos: o sal formado no 1 não é o problema (o problema é o gás HCN), e no 2 o efeito central é a oxidação forte da matéria orgânica."
+    aulas: [quimica-medio/funcoes-inorganicas, quimica-fundamental/acidos-e-bases-em-casa]
+
+  - id: enem-2022-95
+    area: natureza
+    competencia: 6
+    habilidade: 21
+    objeto: nat-fis-eletricidade
+    topico: nat-fis-eletricidade-magnetismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A figura mostra um fio vertical com corrente para cima, atravessando um plano. As bússolas A (atrás, à esquerda), B (frente, à esquerda) e C (frente, à direita) estão num círculo em volta do fio.
+      O campo de um fio reto forma círculos em volta dele. O sentido sai da regra da mão direita: polegar no sentido da corrente (para cima), os outros dedos mostram o campo. Visto de cima, o campo gira no sentido anti-horário.
+      A agulha da bússola se alinha ao campo, com o norte (ponta escura) apontando no sentido dele, tangente ao círculo.
+      Na frente do fio (B e C), o campo vai da esquerda para a direita; no lado esquerdo (A), vem de trás para a frente.
+      Assim: em A a ponta escura aponta para a esquerda e para a frente; em B, para a direita; em C, para a direita e para trás. É o desenho da alternativa D.
+    enganos:
+      A: "As agulhas apontam para fora, para longe do fio, como se o campo saísse do fio em linha reta. O campo do fio dá voltas em torno dele; a agulha fica tangente ao círculo."
+      B: "As agulhas apontam para o fio, como se ele atraísse o norte. O campo magnético do fio não aponta para o fio; ele gira em volta dele."
+      C: "As três agulhas apontam para o mesmo lado, como se só existisse um campo uniforme (o da Terra, por exemplo). O enunciado manda considerar apenas o campo da corrente, que muda de direção em cada ponto do círculo."
+      E: "As agulhas estão tangentes, mas no sentido horário visto de cima. Esse seria o campo de uma corrente para baixo; com corrente para cima, a mão direita dá o sentido anti-horário."
+    aulas: [fisica-medio/eletromagnetismo, fisica-fundamental/imas-e-magnetismo]
+
+  - id: enem-2022-96
+    area: natureza
+    competencia: 2
+    habilidade: 5
+    objeto: nat-fis-eletricidade
+    topico: nat-fis-eletricidade-seguranca
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O quadro diz que a parada respiratória acontece com corrente entre 20 mA e 100 mA.
+      Com a pele molhada, a resistência do corpo é de cerca de 1 kΩ = 1 000 Ω.
+      Pela Lei de Ohm, i = U ÷ R. Para passar de 20 mA (0,020 A) com 1 000 Ω, a tensão precisa passar de 0,020 · 1 000 = 20 V.
+      Uma bateria sozinha dá 12 V, o que daria 12 mA. Só duas baterias em série, com os polos somando (+ de uma ligado ao − da outra), chegam a 24 V.
+      i = 24 ÷ 1 000 = 0,024 A = 24 mA, na faixa da parada respiratória. Na alternativa A, A sai do + da primeira, o − dela vai ao + da segunda, e B sai do − da segunda. Alternativa A.
+    enganos:
+      B: "Aqui o − da primeira está ligado ao − da segunda: as baterias estão em série, mas uma contra a outra. As tensões se anulam (12 − 12 = 0) e quase não passa corrente."
+      C: "Os fios ligam polo igual com polo igual: é uma ligação em paralelo. A tensão entre A e B continua 12 V, o que dá 12 mA, só aumento das contrações."
+      D: "Mais uma vez os polos + estão ligados entre si, e as baterias ficam uma contra a outra. A tensão entre A e B se anula."
+      E: "O + de cima encontra o − de baixo nos dois lados: as baterias formam um curto entre si. A corrente circula entre elas, e a tensão entre A e B fica perto de zero; nunca chega aos 24 V necessários."
+    aulas: [fisica-medio/circuitos-eletricos, fisica-fundamental/eletricidade-em-casa]
+
+  - id: enem-2022-97
+    area: natureza
+    competencia: 7
+    habilidade: 25
+    objeto: nat-qui-materiais
+    topico: nat-qui-materiais-separacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Isótopos do mesmo elemento têm a mesma química: o mesmo número de prótons e de elétrons. O que muda é a massa (o urânio-238 tem três nêutrons a mais).
+      Então o método de separação tem de usar só a diferença de massa.
+      Na centrifugação, o material gira muito depressa. As partículas mais pesadas vão mais para fora, e as mais leves ficam mais perto do centro.
+      Com o gás UF₆ girando em centrífugas, a parte com urânio-238 se acumula na borda e a parte com urânio-235 fica no meio. Alternativa B.
+    enganos:
+      A: "Peneira separa grãos sólidos de tamanhos diferentes. Moléculas de gás passam por qualquer peneira, e as duas têm praticamente o mesmo tamanho."
+      C: "Extração por solvente depende de uma substância se dissolver melhor que a outra. Como os isótopos têm a mesma química, os dois hexafluoretos se dissolvem do mesmo jeito."
+      D: "Destilação separa líquidos por temperatura de ebulição. A diferença de massa entre os isótopos quase não muda essa temperatura, então a separação seria inútil na prática."
+      E: "Separação magnética retira materiais atraídos por ímã. Os dois hexafluoretos respondem igual ao ímã; o que os diferencia é só a massa."
+    aulas: [quimica-fundamental/separacao-de-misturas, quimica-fundamental/o-atomo-e-a-tabela-periodica]
+
+  - id: enem-2022-98
+    area: natureza
+    competencia: 3
+    habilidade: 11
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-biotecnologia
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Na doença, o gene RPE65 tem uma mutação. Com o gene defeituoso, a célula da retina não faz a enzima certa e a visão se perde.
+      Na terapia gênica, um vírus modificado serve de transporte (vetor) e leva uma cópia normal do gene para dentro das células da retina.
+      Lá dentro, a célula lê essa cópia: transcreve o gene em RNA mensageiro e traduz o RNA em proteína. Isso se chama expressão do gene.
+      Assim a célula volta a produzir a enzima normal. Alternativa E.
+    enganos:
+      A: "O código genético é a regra que liga trinca de bases a aminoácido, e é a mesma em quase todos os seres vivos. A terapia não muda essa regra nem conserta o gene doente: ela acrescenta uma cópia boa."
+      B: "O RNA ribossômico faz parte do ribossomo e não tem defeito nessa doença. O problema está no gene RPE65."
+      C: "A terapia não provoca mutação. Ela entrega um gene normal já pronto."
+      D: "O produto leva um gene, não a proteína pronta. A proteína é feita aos poucos pela própria célula, depois que ela lê o gene."
+    aulas: [biologia-medio/biotecnologia, biologia-medio/dna-rna-e-sintese-de-proteinas]
+
+  - id: enem-2022-99
+    area: natureza
+    competencia: 3
+    habilidade: 12
+    objeto: nat-bio-ecologia
+    topico: nat-bio-ecologia-impactos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      A jaqueira veio da Ásia e se adaptou bem ao Brasil. Espécie exótica é a que vem de outro lugar; ela vira invasora quando se espalha sozinha.
+      Aqui ela não tem os inimigos naturais da terra de origem e cresce em áreas de mata.
+      Ao ocupar espaço, luz e nutrientes, ela toma o lugar de plantas nativas. Com menos plantas nativas, os animais que dependem delas também perdem espaço.
+      Por isso a biodiversidade cai. Alternativa A.
+    enganos:
+      B: "A jaca é comida a mais para muitos animais. O problema não é eliminar animais que perdem a disputa pelo fruto, e sim a planta tomar o lugar da flora nativa."
+      C: "Aumentar as possibilidades de relações entre os seres vivos tenderia a manter a diversidade, não a reduzir. A alternativa se contradiz."
+      D: "Nenhuma população fica muito tempo acima da capacidade de suporte: sem recursos, ela diminui. A invasora cresce até ocupar o espaço que era de outras espécies."
+      E: "Menos competição e mais dispersão de sementes nativas ajudariam as nativas. Isso não explica perda de biodiversidade."
+    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, biologia-medio/biomas-brasileiros]
+
+  - id: enem-2022-100
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-queda-e-lancamentos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Com a mangueira na horizontal, a água faz um lançamento horizontal: anda com velocidade constante para o lado e cai como em queda livre.
+      1. Tempo de queda de 1 m: h = g·t²/2, então 1 = 10·t²/2 e t² = 0,2 s².
+      2. Velocidade de saída: v = distância ÷ tempo = 3 ÷ t. Então v² = 9 ÷ 0,2 = 45 m²/s².
+      3. Com a mangueira na vertical, a água sobe até parar. Pela conservação da energia (ou Torricelli): H = v² ÷ (2g) = 45 ÷ 20 = 2,25 m.
+      Alternativa B.
+    enganos:
+      A: "Não vemos um engano de conta que leve a 1,50 m. A conta certa dá v² = 45 m²/s² e H = 45 ÷ 20."
+      C: "4,00 m parece somar a distância horizontal (3 m) e a altura (1 m). Essas medidas não se somam: elas servem para achar a velocidade de saída."
+      D: "4,50 m sai de H = v² ÷ g: esqueceu o 2 de H = v² ÷ (2g)."
+      E: "Não vemos um engano de conta que leve a 5,00 m. Confira os passos: tempo de queda, velocidade de saída e, por fim, a altura máxima."
+    aulas: [fisica-medio/cinematica-movimento-uniforme-e-variado, fisica-medio/trabalho-energia-e-potencia]
+
+  - id: enem-2022-101
+    area: natureza
+    competencia: 5
+    habilidade: 17
+    objeto: nat-qui-energias
+    topico: nat-qui-energias-combustiveis
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O quadro dá, para cada cana, a sacarose inicial (g/L) e os microrganismos (mg/L): RB72 13,0 e 0,7; RB84 18,0 e 0,8; RB92 16,0 e 0,6; SP79 14,0 e 0,5; SP80 17,0 e 0,9.
+      A perda é de cerca de 50% para cada 1,0 mg/L de microrganismos. Então a perda é proporcional: 0,7 mg/L tira 35%, e assim por diante.
+      Sacarose depois de 10 horas = inicial × (1 − perda):
+      RB72: 13 × 0,65 = 8,45. RB84: 18 × 0,60 = 10,8. RB92: 16 × 0,70 = 11,2. SP79: 14 × 0,75 = 10,5. SP80: 17 × 0,55 ≈ 9,4.
+      A RB92 fica com mais sacarose e rende mais etanol. Alternativa C.
+    enganos:
+      A: "A RB72 começa com menos açúcar de todas e ainda perde 35%. Fica com cerca de 8,5 g/L, o menor valor."
+      B: "A RB84 tem a maior sacarose inicial, mas perde 40%. Sobram 10,8 g/L, menos que os 11,2 g/L da RB92. Olhar só o começo engana."
+      D: "A SP79 tem menos microrganismos e perde só 25%, mas começa com pouco açúcar. Sobram 10,5 g/L."
+      E: "A SP80 começa bem (17 g/L), mas tem mais microrganismos e perde 45%. Sobram cerca de 9,4 g/L."
+    aulas: [quimica-fundamental/combustiveis-e-combustao, biologia-medio/metabolismo-respiracao-e-fotossintese]
+
+  - id: enem-2022-102
+    area: natureza
+    competencia: 8
+    habilidade: 29
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-biotecnologia
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      A PCR copia DNA muitas vezes seguidas. A enzima que faz as cópias, a DNA polimerase, só usa DNA como molde.
+      O SARS-CoV-2 tem material genético de RNA. Então, antes da PCR, é preciso transformar o RNA em DNA.
+      Quem faz isso é a transcriptase reversa: ela lê o RNA e monta um DNA complementar, chamado cDNA.
+      Com o cDNA pronto, a PCR consegue multiplicar o material do vírus. Por isso o exame se chama RT-PCR. Alternativa E.
+    enganos:
+      A: "Juntar mais RNA não resolve: a DNA polimerase da PCR não copia RNA, por mais que ele esteja concentrado."
+      B: "Procurar anticorpos é outro tipo de exame, o sorológico. O teste genético procura o material genético do vírus."
+      C: "Cultivar o vírus é lento e arriscado, e não é preciso: a própria PCR multiplica o material genético."
+      D: "Limpar a amostra ajuda, mas não basta. Mesmo puro, o RNA não serve de molde para a DNA polimerase; a etapa indispensável é fazer o cDNA."
+    aulas: [biologia-medio/biotecnologia, biologia-medio/dna-rna-e-sintese-de-proteinas]
+
+  - id: enem-2022-103
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-leis-de-newton
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      A muleta está inclinada, com o topo para a direita e a ponta apoiada no chão. Os esquemas mostram as forças F, P, N e de atrito.
+      Vamos pôr cada força no lugar certo:
+      1. F é paralela à muleta, aplicada no topo, apontando para baixo ao longo dela (o enunciado diz isso).
+      2. O peso P age no centro de massa (CM), vertical para baixo.
+      3. A normal N age no ponto de contato com o chão, perpendicular ao chão, para cima.
+      4. A força F empurra a ponta para a esquerda. Por isso o atrito estático, no ponto de contato, aponta para a direita, contra essa tendência de escorregar.
+      Só a alternativa E tem as quatro forças assim.
+    enganos:
+      A: "Desenha F vertical, mas o ensaio mantém F paralela à muleta. Também põe o peso na ponta, quando ele age no centro de massa."
+      B: "F está vertical, a normal está no centro de massa e o atrito aponta para a esquerda. A normal nasce no contato com o chão, e o atrito deve se opor ao escorregamento da ponta para a esquerda."
+      C: "F está certa, mas o peso aparece na ponta da muleta. O peso age no centro de massa."
+      D: "A normal está no centro de massa e o atrito aponta para a esquerda. A normal age no contato com o chão, e o atrito, ali, aponta para a direita."
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-medio/vetores]
+
+  - id: enem-2022-104
+    area: natureza
+    competencia: 4
+    habilidade: 14
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-corpo-humano
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Eritropoiese é a produção de hemácias (glóbulos vermelhos) na medula óssea. A eritropoietina é o hormônio que manda produzir mais hemácias.
+      As hemácias carregam hemoglobina, que leva o oxigênio dos pulmões aos músculos.
+      Com mais hemácias, o sangue leva mais oxigênio por minuto. O músculo faz mais respiração aeróbica e aguenta mais esforço.
+      Alternativa E.
+    enganos:
+      A: "O hormônio age na medula óssea, não no coração. A frequência cardíaca não é o alvo desse doping."
+      B: "O tamanho dos pulmões não muda. O que muda é quanto oxigênio o sangue consegue levar depois que o ar chega aos pulmões."
+      C: "Ganho de massa muscular é efeito de outros hormônios, como os anabolizantes. A eritropoietina age sobre o sangue."
+      D: "Com mais oxigênio, o músculo depende menos do metabolismo anaeróbico, não mais."
+    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/o-corpo-humano-e-seus-sistemas]
+
+  - id: enem-2022-105
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-quantidade-de-movimento
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Força média: pelo teorema do impulso, F · Δt = variação da quantidade de movimento (m · Δv). As duas colisões duram o mesmo tempo.
+      Com os blocos, o carro para: a velocidade vai de v até 0.
+      Com os pneus, o carro para e volta: a velocidade vai de v para trás. A variação é maior (v até zero, e mais um pouco no outro sentido).
+      Mesma duração e variação maior: a força média é maior nos pneus.
+      Energia dissipada: com os blocos, o carro para e toda a energia cinética se perde. Com os pneus, o carro volta com alguma velocidade, então guardou parte da energia.
+      A energia dissipada é maior nos blocos. Alternativa A.
+    enganos:
+      B: "Inverte as duas coisas. O carro que volta muda mais a quantidade de movimento (força maior nos pneus), e o carro que para perde toda a energia (dissipação maior nos blocos)."
+      C: "A força não é maior nos blocos: lá a velocidade só cai até zero. E a energia dissipada não é igual, porque nos pneus o carro sai ainda com energia cinética."
+      D: "Acerta a força, mas erra a energia. Nos pneus o carro volta andando, então parte da energia cinética continua com ele."
+      E: "Acerta a energia, mas erra a força. Com o mesmo tempo de colisão, a força maior fica onde a variação da quantidade de movimento é maior: nos pneus."
+    aulas: [fisica-medio/quantidade-de-movimento, fisica-medio/trabalho-energia-e-potencia]
+
+  - id: enem-2022-106
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-equilibrio
+    topico: nat-qui-equilibrio-ph
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A imagem dá a penicilamina, HS–C(CH₃)₂–CH(NH₂)–COOH, e os pKa: carboxila 1,8; amínio (–NH₃⁺) 7,9; tiol 10,5.
+      Regra: se o pH do meio é maior que o pKa do grupo, ele fica sem o H⁺ (desprotonado). Se o pH é menor que o pKa, ele fica com o H⁺ (protonado).
+      Na urina, o pH fica entre 5 e 7.
+      Carboxila: pH maior que 1,8, perde o H⁺ e vira –COO⁻.
+      Amino: pH menor que 7,9, fica com o H⁺, como –NH₃⁺.
+      Tiol: pH menor que 10,5, continua –SH.
+      A estrutura com –SH, –NH₃⁺ e –COO⁻ é a da alternativa C.
+    enganos:
+      A: "Tem –S⁻ e –NH₂: tiol e amino sem o H⁺. Isso só aconteceria com pH acima de 10,5, bem mais básico que a urina."
+      B: "Tem –S⁻ e –NH₂, mas mantém –COOH. É incoerente: a carboxila, o grupo mais ácido, seria o primeiro a perder o H⁺."
+      D: "Tem –S⁻ e –COOH. O tiol só perde o H⁺ acima de pH 10,5, e a carboxila só fica com ele abaixo de pH 1,8. Na urina, nenhum dos dois acontece."
+      E: "Tudo protonado (–SH, –NH₃⁺ e –COOH) é o que se teria com pH abaixo de 1,8, como no estômago. Na urina, a carboxila já perdeu o H⁺."
+    aulas: [quimica-medio/ph, quimica-medio/cinetica-e-equilibrio-quimico]
+
+  - id: enem-2022-107
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-cinetica
+    topico: nat-qui-cinetica-velocidade
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O esquema mostra a quebra da ligação entre dois açúcares da celulose.
+      No começo, o H⁺ se liga ao oxigênio da ligação, que se rompe. A água entra no lugar e, no fim, um H⁺ sai de novo.
+      O H⁺ entra no começo e volta no fim, sem ser gasto. Ele abre um caminho mais fácil para a reação, com energia de ativação menor.
+      Isso é o que faz um catalisador: aumenta a velocidade da reação. Alternativa C.
+    enganos:
+      A: "Quem dissolve é a água, o solvente. O H⁺ participa das etapas da reação."
+      B: "Catalisador acelera a ida e a volta da reação por igual. Ele faz o equilíbrio chegar mais depressa, mas não o desloca."
+      D: "A constante de equilíbrio só muda com a temperatura. O catalisador não a altera."
+      E: "O H⁺ se liga ao oxigênio da ligação entre os açúcares por uma ligação de verdade (o oxigênio fica com carga +). Não é ligação de hidrogênio, que é uma atração mais fraca entre moléculas."
+    aulas: [quimica-medio/cinetica-e-equilibrio-quimico]
+
+  - id: enem-2022-108
+    area: natureza
+    competencia: 5
+    habilidade: 17
+    objeto: nat-qui-agua
+    topico: nat-qui-agua-solucoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      A equação (em imagem) mostra o ácido tartárico (massa molar 150 g/mol) reagindo com 2 NaOH: cada molécula do ácido tem dois H ácidos.
+      As alternativas (também em imagem) são: A 1,8 g/L; B 2,4 g/L; C 3,6 g/L; D 4,8 g/L; E 9,6 g/L.
+      1. Mols de NaOH gastos: 0,10 mol/L × 0,0080 L = 0,00080 mol.
+      2. Proporção 1 ácido : 2 NaOH. Mols de ácido: 0,00080 ÷ 2 = 0,00040 mol.
+      3. Esse ácido estava em 25,0 mL de vinho: 0,00040 ÷ 0,025 L = 0,016 mol/L.
+      4. Em gramas por litro: 0,016 × 150 = 2,4 g/L. Alternativa B.
+    enganos:
+      A: "1,8 g/L sai de dividir 0,06 g de ácido por 33 mL: somou o volume do vinho com o da base. A concentração é a do vinho, nos 25,0 mL da amostra."
+      C: "3,6 g/L sai de usar a proporção 1 : 1 e ainda dividir por 33 mL. São dois erros: o ácido gasta 2 NaOH e o volume certo é 25,0 mL."
+      D: "4,8 g/L sai da proporção 1 : 1. A equação mostra 2 NaOH para cada ácido, então os mols de ácido são a metade dos de base."
+      E: "9,6 g/L sai de multiplicar os mols de NaOH por 2 em vez de dividir. É o ácido que vale metade da base, não o dobro."
+    aulas: [quimica-medio/solucoes-e-concentracao, quimica-medio/mol-e-estequiometria]
+
+  - id: enem-2022-109
+    area: natureza
+    competencia: 5
+    habilidade: 17
+    objeto: nat-qui-energia
+    topico: nat-qui-energia-radioatividade
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O quadro dá a massa de iodo-131 ao longo dos dias: 12,0 µg no dia 0; 6,0 µg no dia 8; 3,6 µg no dia 14.
+      Meia-vida é o tempo para a massa cair à metade. De 12,0 para 6,0 µg passaram 8 dias: a meia-vida é 8 dias.
+      40 dias ÷ 8 dias = 5 meias-vidas.
+      12 → 6 → 3 → 1,5 → 0,75 → 0,375 µg. Ou seja, 12 ÷ 2⁵ = 12 ÷ 32 = 0,375 µg, perto de 0,4 µg. Alternativa D.
+    enganos:
+      A: "2,4 µg sai de 12 ÷ 5: dividiu pelo número de meias-vidas. A cada meia-vida a massa cai à metade, então se divide por 2 cinco vezes (por 32)."
+      B: "1,5 µg é a massa depois de 3 meias-vidas (24 dias). Faltam mais duas para chegar aos 40 dias."
+      C: "0,8 µg fica perto de 0,75 µg, a massa depois de 4 meias-vidas (32 dias). Faltou uma meia-vida."
+      E: "0,2 µg fica perto de 0,19 µg, a massa depois de 6 meias-vidas (48 dias). Passou uma meia-vida."
+    aulas: [fisica-superior/fisica-nuclear-e-de-particulas, matematica-medio/exponencial-e-logaritmo]
+
+  - id: enem-2022-110
+    area: natureza
+    competencia: 4
+    habilidade: 16
+    objeto: nat-bio-evolucao
+    topico: nat-bio-evolucao-teorias
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      As quatro espécies de sapo se reproduzem de jeitos diferentes.
+      A espécie 1 faz muitos ovos (cerca de 5 000) e não cuida deles: muitos morrem, mas alguns sobrevivem.
+      As espécies 2, 3 e 4 fazem cada vez menos ovos e protegem mais os filhotes: o macho vigia, os ovos ficam longe da água, ou se desenvolvem dentro do saco vocal do pai.
+      As quatro continuam existindo. Pela seleção natural, estratégias diferentes podem dar certo: muitos filhotes com pouco cuidado, ou poucos filhotes com muito cuidado. Alternativa D.
+    enganos:
+      A: "O texto não diz nada sobre as fêmeas mudarem o comportamento dos machos. Ele só descreve quantos ovos elas produzem e onde eles se desenvolvem."
+      B: "Na espécie 1 os filhotes crescem sem os pais e a espécie sobrevive. Logo, cuidado parental não é obrigatório."
+      C: "Não existe espécie mais evoluída que outra. Todas as espécies atuais passaram pelo mesmo tempo de evolução, cada uma adaptada ao seu modo de vida."
+      E: "Essa é a ideia de que o ambiente muda o indivíduo e a mudança passa adiante. Pela seleção natural, as diferenças existem antes, e o ambiente favorece as que dão mais certo."
+    aulas: [biologia-medio/evolucao-darwin-e-a-selecao-natural, biologia-fundamental/reproducao-e-sexualidade]
+
+  - id: enem-2022-111
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-universo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A primeira figura mostra a Terra em 21 de dezembro: por causa da inclinação do eixo, o Sol bate de frente (ao meio-dia) no Trópico de Capricórnio.
+      O gráfico mostra a energia da placa em 10/01, 10/04, 10/07 e 10/10. A maior é em janeiro e a menor é em julho.
+      Janeiro é verão no hemisfério Sul: o Sol fica mais alto e o dia mais longo. Julho é inverno no Sul.
+      Então a casa está no hemisfério Sul. Como há produção razoável o ano todo, inclusive em julho, ela não está num polo.
+      Entre as opções, só o Trópico de Capricórnio serve. Alternativa A.
+    enganos:
+      B: "No Trópico de Câncer, no hemisfério Norte, o verão é em julho. A placa produziria mais em julho e menos em janeiro, o contrário do gráfico."
+      C: "No Polo Norte, em janeiro, é noite o dia inteiro. A placa não produziria nada, e o gráfico mostra o maior valor justamente em janeiro."
+      D: "No Polo Sul, em julho, é noite o dia inteiro, e a produção seria zero. O gráfico mostra produção em julho."
+      E: "No Equador, o Sol fica alto o ano todo e a produção quase não muda. Lá os maiores valores viriam perto de março e setembro, não em janeiro."
+    aulas: []
+
+  - id: enem-2022-112
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-leis-de-newton
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      A tensão é maior no ponto mais baixo, onde a velocidade é máxima.
+      1. Velocidade no ponto mais baixo. O balanço sai do repouso a 90° da vertical, ou seja, desce uma altura igual ao comprimento L da corda. Energia: m·g·L = m·v²/2, então v² = 2·g·L.
+      2. Forças no ponto mais baixo. A força para o centro (resultante centrípeta) é m·v²/L = m·2gL/L = 2·m·g.
+      3. As duas cordas puxam para cima e o peso puxa para baixo: T_total − m·g = 2·m·g, então T_total = 3·m·g = 3 · 24 · 10 = 720 N.
+      4. São dois segmentos iguais: cada um aguenta 720 ÷ 2 = 360 N.
+      5. Margem de segurança de 25%: 360 · 1,25 = 450 N. Alternativa D.
+    enganos:
+      A: "120 N é o peso (240 N) dividido pelas duas cordas. Esqueceu que, em movimento, a corda também faz a força centrípeta, e esqueceu a margem de 25%."
+      B: "300 N sai de 240 N · 1,25: usou só o peso, sem a parte do movimento, e não dividiu pelas duas cordas."
+      C: "360 N é a tensão máxima em cada corda. Faltou a margem de segurança: a corda precisa aguentar 25% a mais."
+      E: "900 N sai de 720 N · 1,25: esqueceu de dividir a força entre os dois segmentos de corda."
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-medio/trabalho-energia-e-potencia]
+
+  - id: enem-2022-113
+    area: natureza
+    competencia: 5
+    habilidade: 18
+    objeto: nat-qui-energia
+    topico: nat-qui-energia-eletroquimica
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      A equação da imagem é 4 Fe + 2 H₂O + 3 O₂ → 2 Fe₂O₃·H₂O: o ferro só enferruja se encontrar oxigênio e água ao mesmo tempo.
+      A zircônia (ZrO₂) e a alumina (Al₂O₃) são cerâmicas: óxidos que já estão oxidados e não reagem com o ar.
+      Um filme fino dessas cerâmicas cobre o metal e funciona como uma capa. O oxigênio e a umidade não chegam ao ferro.
+      Esse é o efeito de barreira. Alternativa D.
+    enganos:
+      A: "Proteção catódica usa um metal mais reativo, ligado ao ferro, que perde elétrons no lugar dele. ZrO₂ e Al₂O₃ não são metais; são óxidos que não reagem."
+      B: "Metal de sacrifício precisa ser um metal que se oxida no lugar do ferro. As cerâmicas do texto não se oxidam: só isolam."
+      C: "Passivação é quando o próprio metal forma uma camada fina de óxido que o protege. Aqui a camada é de outros óxidos, colocados de fora, e a ferrugem do ferro é porosa e não protege."
+      E: "Galvanização cobre o ferro com zinco, um metal. O filme do texto é cerâmico, sem metal para se oxidar no lugar do ferro."
+    aulas: [quimica-medio/eletroquimica-pilhas-e-eletrolise]
+
+  - id: enem-2022-114
+    area: natureza
+    competencia: 4
+    habilidade: 15
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-celula
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      Meio hipotônico tem menos soluto (é mais diluído) que o interior da célula.
+      Por osmose, a água passa do meio mais diluído para o mais concentrado: entra na célula e vai para o vacúolo.
+      O vacúolo incha e o pigmento roxo fica mais diluído, então a cor fica mais clara.
+      A célula vegetal não estoura porque a parede celular, rígida, segura o volume. Ela fica túrgida. Alternativa C.
+    enganos:
+      A: "A água entra no vacúolo, mas ele incha sem se partir. A parede celular limita o volume."
+      B: "Em célula vegetal, a parede celular impede que a membrana se rompa. Quem pode estourar em meio hipotônico é a célula animal, como a hemácia."
+      D: "A parede celular é resistente e não se quebra com a entrada de água. Ela é justamente o que impede a célula de estourar."
+      E: "A célula murcha em meio hipertônico (mais concentrado), quando perde água. Em meio hipotônico ela ganha água."
+    aulas: [biologia-medio/citologia, biologia-fundamental/a-celula]
+
+  - id: enem-2022-115
+    area: natureza
+    competencia: 6
+    habilidade: 21
+    objeto: nat-fis-calor
+    topico: nat-fis-calor-trocas-de-calor
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O quadro dá: água, densidade 1 000 kg/m³ e calor específico 4,2 J/(g·°C); concreto, densidade 2 500 kg/m³ e calor específico 0,8 J/(g·°C).
+      As duas áreas recebem a mesma energia Q e têm o mesmo volume V. A massa é densidade × volume.
+      Pela equação do calor sensível, Q = m·c·ΔT, então ΔT = Q ÷ (densidade · V · c).
+      Razão: ΔT concreto ÷ ΔT água = (densidade da água · c da água) ÷ (densidade do concreto · c do concreto).
+      = (1 000 · 4,2) ÷ (2 500 · 0,8) = 4 200 ÷ 2 000 = 2,1. Alternativa B.
+    enganos:
+      A: "1,0 seria a resposta se os dois materiais esquentassem igual. Densidade e calor específico diferentes fazem as variações serem diferentes."
+      C: "2,5 é só a razão entre as densidades. Faltou o calor específico, que também entra na conta."
+      D: "5,3 é só a razão entre os calores específicos (4,2 ÷ 0,8), como se as massas fossem iguais. O volume é que é igual; o concreto tem mais massa."
+      E: "13,1 sai de 5,25 · 2,5: multiplicou pela razão das densidades em vez de dividir. Mais massa de concreto faz a temperatura dele subir menos, não mais."
+    aulas: [fisica-fundamental/calor-e-temperatura, fisica-medio/termodinamica]
+
+  - id: enem-2022-116
+    area: natureza
+    competencia: 2
+    habilidade: 5
+    objeto: nat-fis-eletricidade
+    topico: nat-fis-eletricidade-consumo
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O quadro dá ΔT para duas vazões: 3 L/min (morno 10 °C, quente 20 °C, superquente 30 °C) e 6 L/min (5, 10 e 15 °C).
+      A maior potência é a do nível superquente. Nele, 3 L/min esquentam 30 °C (e 6 L/min esquentam 15 °C: dá a mesma potência).
+      1. Massa de água por segundo: 3 L/min = 3 000 g por 60 s = 50 g/s.
+      2. Potência = (massa por segundo) · c · ΔT = 50 · 4,2 · 30 = 6 300 W.
+      3. Corrente: i = P ÷ U = 6 300 ÷ 220 ≈ 28,6 A.
+      4. O múltiplo de 5 A logo acima de 28,6 A é 30 A. Alternativa B.
+    enganos:
+      A: "60 A aparece ao misturar linhas do quadro: 6 L/min com 30 °C dá 12 600 W e 57 A. Mas com 6 L/min o superquente esquenta só 15 °C."
+      C: "20 A sai do nível quente (4 200 W, cerca de 19 A). O disjuntor tem de proteger o nível de maior potência, o superquente."
+      D: "10 A sai do nível morno (2 100 W, cerca de 9,5 A). É o nível mais fraco; o disjuntor desarmaria nos outros."
+      E: "Não vemos um engano de conta que leve a 5 A. Até o nível morno já passa de 9 A."
+    aulas: [fisica-medio/circuitos-eletricos, fisica-fundamental/eletricidade-em-casa, fisica-fundamental/calor-e-temperatura]
+
+  - id: enem-2022-117
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-agua
+    topico: nat-qui-agua-funcoes-inorganicas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A figura mostra o mármore no ácido e o gás passando por um tubo e borbulhando em outro recipiente.
+      Mármore é carbonato de cálcio. Ácido com carbonato forma ácido carbônico, que se desfaz em água e gás carbônico.
+      CaCO₃ + 2 HCl → CaCl₂ + H₂O + CO₂.
+      O gás é o CO₂. Alternativa C.
+    enganos:
+      A: "Ácido solta H₂ quando reage com metal, como zinco ou ferro. O mármore é um carbonato, não um metal."
+      B: "O oxigênio do carbonato fica no CO₂ e na água. A reação não libera O₂."
+      D: "CO vem de queima com pouco oxigênio. Aqui o carbono já está como no CO₂ e só sai do carbonato, sem perder nem ganhar elétrons."
+      E: "Para virar Cl₂, o cloreto precisaria ser oxidado por um oxidante forte. No experimento ele fica dissolvido como CaCl₂."
+    aulas: [quimica-medio/funcoes-inorganicas, quimica-fundamental/acidos-e-bases-em-casa]
+
+  - id: enem-2022-118
+    area: natureza
+    competencia: 4
+    habilidade: 15
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-animais
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O gráfico mostra a concentração do hormônio no sangue: machos controle, cerca de 4 ng/mL; machos expostos à atrazina, cerca de 0,4 ng/mL; fêmeas controle, cerca de 0,55 ng/mL.
+      O hormônio é alto nos machos normais e baixo nas fêmeas. Nos machos expostos, ele cai ao nível das fêmeas.
+      O texto liga essa queda à perda dos caracteres masculinos (desmasculinização da laringe, hermafroditismo).
+      O hormônio que forma e mantém os caracteres sexuais masculinos é a testosterona. Alternativa C.
+    enganos:
+      A: "O estrogênio é o hormônio feminino principal: seria mais alto nas fêmeas que nos machos. O gráfico mostra o contrário."
+      B: "Feromônio é liberado para fora do corpo, para comunicar com outros animais. Não é o hormônio do sangue que forma os caracteres sexuais."
+      D: "A somatotrofina (hormônio do crescimento) controla o crescimento do corpo. Não explica a diferença entre machos e fêmeas nem a desmasculinização."
+      E: "O hormônio folículo-estimulante age na produção de gametas nos dois sexos. O texto fala da perda de caracteres masculinos, ligada à testosterona."
+    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/reproducao-e-sexualidade]
+
+  - id: enem-2022-119
+    area: natureza
+    competencia: 2
+    habilidade: 5
+    objeto: nat-fis-eletricidade
+    topico: nat-fis-eletricidade-lei-de-ohm
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      1. Resistência da lâmpada: R = U² ÷ P = 4,5² ÷ 4,5 = 4,5 Ω.
+      2. Força eletromotriz com uma pilha invertida: duas somam e uma subtrai. 1,5 + 1,5 − 1,5 = 1,5 V.
+      3. Resistência total do circuito: as três resistências internas continuam lá (3 · 0,5 = 1,5 Ω), mais a lâmpada (4,5 Ω). Total: 6,0 Ω.
+      4. Corrente: i = 1,5 ÷ 6,0 = 0,25 A. Alternativa A.
+    enganos:
+      B: "0,33 A sai de 1,5 ÷ 4,5: esqueceu as resistências internas das pilhas, que continuam no caminho da corrente mesmo com uma invertida."
+      C: "0,75 A sai de 4,5 ÷ 6,0: usou as três pilhas somando. Com uma invertida, a força eletromotriz cai para 1,5 V."
+      D: "1,00 A é a corrente normal da lâmpada (4,5 W ÷ 4,5 V). Com o erro na montagem, a corrente é bem menor."
+      E: "Não vemos um engano de conta que leve a 1,33 A. Esse valor passa até da corrente normal da lâmpada, o que é impossível com menos tensão."
+    aulas: [fisica-medio/circuitos-eletricos]
+
+  - id: enem-2022-120
+    area: natureza
+    competencia: 4
+    habilidade: 15
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-enzimas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      O quadro dá a decomposição de H₂O₂ (em 10⁻¹² mol/min) em cada temperatura: 10 °C 8,0; 15 °C 10,5; 20 °C 9,5; 25 °C 5,0; 30 °C 3,6; 35 °C 3,1.
+      Só a temperatura variou. A atividade sobe até 15 °C e depois cai.
+      Enzima é uma proteína, e funciona porque tem uma forma (estrutura tridimensional) que encaixa no substrato.
+      Acima da temperatura ótima, o calor desfaz essa forma: a enzima se desnatura e perde atividade.
+      Abaixo da ótima, as moléculas se movem menos e os encontros são mais raros. Entre as opções, a que explica a queda forte depois de 15 °C é a mudança da estrutura da enzima. Alternativa E.
+    enganos:
+      A: "O pH não mudou: o texto diz que os ensaios foram feitos nas mesmas condições, variando só a temperatura."
+      B: "A enzima diminui a energia de ativação, e a temperatura não muda esse valor. O que o calor faz é deformar a enzima."
+      C: "A enzima é catalisador: não é consumida na reação. Ela sai inteira e pode ser usada de novo."
+      D: "Todos os ensaios começaram com o mesmo substrato. A diferença entre eles é a temperatura, não a quantidade de H₂O₂."
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, biologia-medio/citologia]
+
+  - id: enem-2022-121
+    area: natureza
+    competencia: 8
+    habilidade: 30
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-celula
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O quadro lista cinco antimicrobianos: 1 se liga aos ribossomos; 2 aos microtúbulos; 3 aos fosfolipídios da membrana; 4 atrapalha a síntese de timina; 5 a de uracila.
+      O remédio tem de atingir algo que o fungo tem e a bactéria não tem.
+      Fungo é eucarionte: na divisão, separa as cromátides com um fuso feito de microtúbulos.
+      Bactéria é procarionte: não tem microtúbulos nem fuso de divisão.
+      Então o antimicrobiano 2 para a divisão do fungo e não afeta as bactérias da flora normal. Alternativa B.
+    enganos:
+      A: "Bactérias também têm ribossomos e fazem proteínas. Um remédio que se liga aos ribossomos, como descrito, também atingiria a microbiota."
+      C: "Toda célula, de fungo ou de bactéria, tem membrana com fosfolipídios. O remédio atingiria as duas."
+      D: "A timina faz parte do DNA de fungos e de bactérias. Bloquear a timina atinge os dois."
+      E: "A uracila faz parte do RNA de todas as células. Bloquear a uracila também atinge as bactérias."
+    aulas: [biologia-medio/citologia, biologia-fundamental/os-reinos-dos-seres-vivos-e-os-virus]
+
+  - id: enem-2022-122
+    area: natureza
+    competencia: 3
+    habilidade: 11
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-corpo-humano
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O veneno da cascavel causa hemorragia porque mexe na coagulação, o processo que forma coágulos para fechar um ferimento.
+      A molécula nova, feita a partir de uma proteína do veneno, regula (modula) a coagulação.
+      Um remédio que freia a coagulação serve para quem forma coágulos onde não devia. Esses coágulos dentro dos vasos se chamam trombos.
+      Um trombo pode entupir uma artéria do cérebro e causar um tipo de AVC. Prevenir trombos é a aplicação esperada. Alternativa A.
+    enganos:
+      B: "Quem perdeu muito sangue precisa repor sangue e ferro. Um remédio que atrapalha a coagulação pioraria o sangramento."
+      C: "Urticária é reação alérgica, ligada à histamina. Não tem relação com a coagulação."
+      D: "O inchaço dos linfonodos é parte da defesa contra infecções. A molécula age sobre a coagulação, não sobre a resposta imune."
+      E: "Já houve remédio de pressão vindo de veneno de serpente, mas de outra cobra e por outro mecanismo. O texto fala em coagulação, não em pressão arterial."
+    aulas: [biologia-medio/fisiologia-humana, biologia-medio/biotecnologia]
+
+  - id: enem-2022-123
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-universo
+    topico: nat-fis-universo-gravitacao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Pela lei da gravitação de Newton, a força entre o Sol e um planeta depende só das duas massas e da distância entre os centros: F = G·M·m ÷ d².
+      O buraco negro do texto tem a mesma massa do Sol e fica no mesmo lugar. As distâncias até os planetas não mudam.
+      Então a força sobre cada planeta é a mesma de antes.
+      O raio de 3 km só importa para quem chega muito perto. Os planetas estão a milhões de quilômetros.
+      Mesma força, mesmas órbitas. Alternativa E.
+    enganos:
+      A: "Para cair em espiral, o planeta teria de perder energia aos poucos. Nada na troca muda a força sobre ele."
+      B: "Não há causa para oscilação aleatória: a força continua a mesma, em valor e direção."
+      C: "O buraco negro só prende o que passa muito perto do horizonte de eventos, a cerca de 3 km. De longe, ele atrai como o Sol atraía."
+      D: "Com a mesma massa e as mesmas distâncias, nada muda no movimento dos planetas, nem a precessão."
+    aulas: [fisica-medio/gravitacao-universal]
+
+  - id: enem-2022-124
+    area: natureza
+    competencia: 7
+    habilidade: 27
+    objeto: nat-qui-sociedade
+    topico: nat-qui-sociedade-cotidiano
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O ozônio (O₃) é uma forma instável do oxigênio e tem grande tendência a receber elétrons de outras substâncias.
+      Quem recebe elétrons e faz o outro perder é um oxidante.
+      É assim que ele mata micróbios: oxida as moléculas deles. Mas faz o mesmo com os tecidos humanos, em especial pulmões e olhos.
+      Por isso o uso sem controle é perigoso. Alternativa B.
+    enganos:
+      A: "Catalisador acelera uma reação e não é gasto. O ozônio é gasto: ele reage e vira outras substâncias."
+      C: "Redutor perde elétrons. O ozônio faz o contrário: recebe elétrons."
+      D: "O risco do ozônio não vem de liberar H⁺. Ele não tem hidrogênio; age como oxidante."
+      E: "O ozônio não recebe H⁺ nem libera OH⁻. O dano que ele causa vem da oxidação."
+    aulas: [quimica-medio/quimica-ambiental, quimica-medio/reacoes-quimicas-e-balanceamento]
+
+  - id: enem-2022-125
+    area: natureza
+    competencia: 4
+    habilidade: 13
+    objeto: nat-bio-hereditariedade
+    topico: nat-bio-hereditariedade-ligada-ao-sexo
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      A figura mostra o zigoto XX virando blástula. Em cada célula, um dos X é desligado ao acaso: em umas, o X do pai; em outras, o X da mãe. As células filhas herdam a escolha, e o corpo fica com manchas (mosaico).
+      Pense numa mulher heterozigota para um gene recessivo ligado ao X: um X tem o alelo normal e o outro, o alelo da doença.
+      Nas células em que o X normal foi desligado, só funciona o alelo da doença.
+      A proporção dessas células muda de uma mulher para outra, por puro acaso.
+      Por isso, mulheres com o mesmo genótipo podem ter desde nenhum sintoma até sinais leves ou mais fortes. Essa variação no grau de manifestação é a expressividade variável. Alternativa E.
+    enganos:
+      A: "Pleiotropia é um gene só influenciar várias características. A inativação do X não tem relação com isso."
+      B: "Desligar um X não muda a sequência do DNA; só impede que ele seja lido. Não é mutação."
+      C: "Interação gênica é quando dois ou mais genes atuam juntos numa característica. Aqui se trata de um gene só."
+      D: "Penetrância incompleta é quando parte das pessoas com o genótipo não mostra a característica de jeito nenhum. A figura leva a variações de grau entre as portadoras, que é a expressividade variável."
+    aulas: [biologia-medio/genetica-as-leis-de-mendel, biologia-medio/divisao-celular]
+
+  - id: enem-2022-126
+    area: natureza
+    competencia: 3
+    habilidade: 8
+    objeto: nat-qui-agua
+    topico: nat-qui-agua-tratamento
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Na coagulação, a estação põe um produto que faz as partículas pequenas grudarem e formarem flocos maiores.
+      Na decantação, a água fica parada em tanques e os flocos, mais densos, descem para o fundo. É aqui que sai a maior parte da sujeira.
+      Depois, a filtração retira o que sobrou, a desinfecção mata micróbios e a fluoretação acrescenta flúor.
+      A etapa que retira grande parte dos sólidos é a decantação. Alternativa B.
+    enganos:
+      A: "A coagulação junta as partículas em flocos, mas não as tira da água. Elas só saem na etapa seguinte."
+      C: "A filtração vem depois e retira as partículas que a decantação deixou. A maior parte já saiu antes."
+      D: "A desinfecção, com cloro, mata micróbios. Não serve para retirar sólidos."
+      E: "A fluoretação acrescenta flúor para proteger os dentes. Ela põe uma substância, não tira sujeira."
+    aulas: [quimica-fundamental/agua-tratamento-e-qualidade, quimica-fundamental/separacao-de-misturas]
+
+  - id: enem-2022-127
+    area: natureza
+    competencia: 4
+    habilidade: 14
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-metabolismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Na mitocôndria, a cadeia respiratória bombeia prótons (H⁺) para o espaço entre as duas membranas. Forma-se um acúmulo de prótons.
+      Os prótons voltam passando pela ATP sintase, que usa esse fluxo para fazer ATP. Esse conjunto é a fosforilação oxidativa.
+      A termogenina abre outro caminho para os prótons voltarem, sem passar pela ATP sintase. A energia do fluxo não vira ATP: vira calor.
+      Então ela interfere na fosforilação oxidativa. Alternativa E.
+    enganos:
+      A: "A glicólise ocorre no citoplasma e faz ATP sem usar o fluxo de prótons. A termogenina não age ali."
+      B: "A fermentação lática ocorre no citoplasma, sem mitocôndria e sem ATP sintase."
+      C: "O ciclo do ácido cítrico, na matriz da mitocôndria, produz NADH e FADH₂. Ele não depende da passagem de prótons pela ATP sintase."
+      D: "A oxidação do piruvato forma acetil-CoA, CO₂ e NADH. Não é a etapa em que os prótons passam pela ATP sintase."
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, biologia-medio/citologia]
+
+  - id: enem-2022-128
+    area: natureza
+    competencia: 5
+    habilidade: 17
+    objeto: nat-fis-eletricidade
+    topico: nat-fis-eletricidade-lei-de-ohm
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A tabela dá a d.d.p. e a corrente de cada rota: 1, 510 e 4; 2, 608 e 4; 3, 575 e 3.
+      Pela analogia com a Lei de Ohm, resistência = d.d.p. ÷ corrente.
+      Rota 1: 510 ÷ 4 = 127,5. Rota 2: 608 ÷ 4 = 152. Rota 3: 575 ÷ 3 ≈ 191,7.
+      Em ordem crescente: 1, 2, 3. Alternativa A.
+    enganos:
+      B: "1, 3, 2 é a ordem das d.d.p. sozinhas (510, 575, 608). A resistência depende também da corrente."
+      C: "Não vemos um engano de conta que leve a 2, 1, 3. A rota 2 tem resistência 152, maior que a da rota 1 (127,5)."
+      D: "3, 1, 2 põe a rota 3 primeiro por ter a menor corrente. Mas corrente menor com d.d.p. alta significa resistência maior."
+      E: "3, 2, 1 sai de calcular corrente ÷ d.d.p. (o inverso da resistência) ou de ordenar do maior para o menor. O aplicativo pede R = U ÷ i em ordem crescente."
+    aulas: [fisica-medio/circuitos-eletricos]
+
+  - id: enem-2022-129
+    area: natureza
+    competencia: 3
+    habilidade: 9
+    objeto: nat-qui-equilibrio
+    topico: nat-qui-equilibrio-le-chatelier
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O esquema mostra o ciclo do nitrogênio: fixação, amonificação (amônia NH₃ e amônio NH₄⁺), nitrificação (nitrito e nitrato), assimilação pelas plantas e desnitrificação.
+      Amônia e amônio estão em equilíbrio: NH₃ + H⁺ ⇌ NH₄⁺.
+      Solo de pH menor tem mais H⁺. Pelo princípio de Le Chatelier, o excesso de H⁺ empurra o equilíbrio para a direita.
+      Assim, a amônia recebe H⁺ e vira amônio. Alternativa C.
+    enganos:
+      A: "N₂ volta ao ar pela desnitrificação, feita por bactérias. O que o aumento de H⁺ favorece de forma direta é a troca entre amônia e amônio."
+      B: "NH₃ é a forma que recebe o H⁺. Com mais H⁺, a amônia é consumida e vira NH₄⁺; ela diminui, não aumenta."
+      D: "O nitrito é uma base fraca: com mais H⁺, ele tende a receber H⁺, e não a se formar mais."
+      E: "O nitrato vem da nitrificação, feita por bactérias. Mais H⁺ não favorece essa etapa; o efeito direto da acidez é transformar amônia em amônio."
+    aulas: [quimica-medio/cinetica-e-equilibrio-quimico, quimica-medio/ph, biologia-medio/ecologia-populacoes-e-ecossistemas]
+
+  - id: enem-2022-130
+    area: natureza
+    competencia: 6
+    habilidade: 22
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-olho-humano
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O texto separa as funções: cones respondem à energia dos fótons (ou seja, à frequência, que dá a cor); bastonetes respondem à quantidade de fótons.
+      Pouca luz significa poucos fótons chegando ao olho.
+      Bastonetes mais sensíveis respondem mesmo com poucos fótons.
+      Esse animal enxerga bem com pouca luz. Alternativa C.
+    enganos:
+      A: "Daltonismo é dificuldade de distinguir cores, ligada aos cones. Bastonetes não tratam de cor."
+      B: "Perceber cores depende da energia dos fótons, função dos cones. A sensibilidade dos bastonetes não amplia as cores vistas."
+      D: "É o contrário: bastonetes mais sensíveis precisam de menos luz para funcionar."
+      E: "Distinguir cores, no claro, é tarefa dos cones. Bastonetes sensíveis ajudam no escuro."
+    aulas: [fisica-medio/optica-geometrica, fisica-fundamental/luz-sombra-e-cores, biologia-medio/fisiologia-humana]
+
+  - id: enem-2022-131
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-carbono
+    topico: nat-qui-carbono-cadeias
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A imagem mostra seis substâncias de óleos vegetais: benzaldeído, salicilato de metila, anetol, vanilina, eugenol e cinamaldeído.
+      O texto diz que os aromáticos formam uma família pela estrutura, e não pelo cheiro.
+      Todas as seis têm o mesmo pedaço: um anel de seis carbonos com ligações duplas alternadas, o anel benzênico.
+      Essa unidade define os compostos aromáticos. Alternativa C.
+    enganos:
+      A: "O tamanho e a posição dos grupos presos ao anel mudam de uma substância para outra. Ramificação não é o que une a família."
+      B: "Todas têm insaturações, mas muitas substâncias não aromáticas também têm, como o eteno. Ligação dupla sozinha não define a família."
+      D: "Por acaso, as seis substâncias têm oxigênio. Mas o benzeno, o aromático mais simples, não tem nenhum. O oxigênio não define a família."
+      E: "Nenhuma das seis tem carbono ligado a quatro grupos diferentes. Carbono assimétrico não aparece aqui."
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes]
+
+  - id: enem-2022-132
+    area: natureza
+    competencia: 8
+    habilidade: 30
+    objeto: nat-bio-ecologia
+    topico: nat-bio-ecologia-relacoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O texto diz que a bactéria Wolbachia vive dentro das células do mosquito, e que o vírus da dengue também precisa entrar nas células para se multiplicar.
+      Os dois usam os mesmos recursos da célula. Quando dois organismos disputam o mesmo recurso, a relação é de competição.
+      Com a bactéria ocupando a célula, o vírus se multiplica menos. O mosquito fica com menos vírus e transmite menos dengue.
+      Alternativa D.
+    enganos:
+      A: "A bactéria não come o vírus. O texto fala em disputa por recursos dentro da célula."
+      B: "No método do texto, os mosquitos com a bactéria se reproduzem e passam a bactéria adiante pelo cruzamento. A ideia é espalhar a bactéria, não esterilizar os mosquitos."
+      C: "A bactéria vive dentro das células do mosquito, mas não muda os genes dele. Ela é passada adiante como um organismo, não como gene do inseto."
+      E: "Ninguém coloca genes do vírus na bactéria. A técnica usa a bactéria como ela é."
+    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, biologia-medio/saude-publica-e-epidemias]
+
+  - id: enem-2022-133
+    area: natureza
+    competencia: 4
+    habilidade: 14
+    objeto: nat-bio-saude
+    topico: nat-bio-saude-vacinacao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Antígeno é qualquer molécula que o sistema imune reconhece como alvo.
+      Os pesquisadores fizeram um T. cruzi que não causa doença e que produz a molécula do tumor.
+      Ao combater o protozoário, o corpo é apresentado também à molécula do tumor, como se ela fosse um sinal do invasor.
+      As defesas aprendem a reconhecer essa molécula específica e passam a atacar as células do tumor que a têm.
+      O mecanismo é a apresentação de um antígeno específico. Alternativa D.
+    enganos:
+      A: "Autoimunidade é o sistema imune atacar, por erro, tecidos sadios do corpo. Aqui o ataque é dirigido de propósito a uma molécula do tumor."
+      B: "Hipersensibilidade é uma resposta exagerada, como a alergia. O texto descreve uma resposta treinada para um alvo."
+      C: "A resposta inata é a defesa geral, que não aprende alvos específicos. O texto fala em reconhecer uma molécula em particular."
+      E: "Processo anti-inflamatório reduz a resposta de defesa. A vacina busca o contrário: ativar a defesa contra o tumor."
+    aulas: [biologia-fundamental/vacinas-como-funcionam, biologia-superior/imunologia]
+
+  - id: enem-2022-134
+    area: natureza
+    competencia: 1
+    habilidade: 1
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-ondas-e-som
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A figura mostra o barco a uma distância L da geleira, com o detector A na água e o B no ar. Os gráficos mostram o sinal começando por volta de 214 s no A e de 226 s no B.
+      O som chega antes pela água, que o leva mais depressa. A diferença entre as chegadas é de cerca de 12 s.
+      Tempo no ar menos tempo na água: L ÷ 340 − L ÷ 1 540 = 12.
+      L · (1 540 − 340) ÷ (340 · 1 540) = 12, então L · 1 200 ÷ 523 600 = 12.
+      L = 12 · 523 600 ÷ 1 200 ≈ 5 236 m, perto de 5 240 m. Alternativa D.
+    enganos:
+      A: "339 000 m fica perto de 1 540 · 220: usou um instante lido no gráfico como se fosse o tempo de viagem. O relógio foi ligado antes da queda; só a diferença entre as chegadas serve."
+      B: "78 900 m fica perto de 340 · 232: mesmo engano, com o instante lido no gráfico do detector B. O tempo de viagem não é a leitura do relógio."
+      C: "14 400 m sai de 12 · 1 200: multiplicou o atraso pela diferença das velocidades. A conta certa usa a diferença entre os tempos, L ÷ 340 − L ÷ 1 540."
+      E: "100 m sai de 1 200 ÷ 12: dividiu a diferença das velocidades pelo atraso. A grandeza não dá distância."
+    aulas: [fisica-medio/ondas, fisica-fundamental/som]
+
+  - id: enem-2022-135
+    area: natureza
+    competencia: 1
+    habilidade: 1
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-refracao-e-lentes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      As fotos mostram uma garrafa PET com água brilhando presa no telhado, e um galpão escuro iluminado por várias delas.
+      A luz do Sol entra pela parte da garrafa que fica para fora do telhado.
+      Ao passar do ar para o plástico e a água, e da água para o ar de dentro da casa, a luz muda de direção. Essa mudança de direção ao trocar de meio é a refração.
+      Assim, a luz que chegava de cima sai da garrafa espalhada em várias direções, e a garrafa ilumina o cômodo como uma lâmpada. O cloro só serve para evitar que cresçam algas e a água turve.
+      Alternativa E.
+    enganos:
+      A: "Difração aparece quando a luz passa por abertura do tamanho do seu comprimento de onda. O texto diz que o buraco é muito maior, então a difração não explica o efeito."
+      B: "Absorção tira luz em vez de levar luz para dentro. Se a água absorvesse a luz, a garrafa ficaria escura."
+      C: "Polarização seleciona a direção de vibração da onda de luz. Ela não espalha a luz pelo cômodo."
+      D: "Parte da luz se reflete na garrafa, mas o efeito principal é a luz atravessar a água e mudar de direção ao trocar de meio, ou seja, refração."
+    aulas: [fisica-medio/optica-geometrica, fisica-fundamental/luz-sombra-e-cores]

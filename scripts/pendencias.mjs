@@ -16,6 +16,8 @@ const trilhas = args.filter((a) => !a.startsWith("--"));
 const { aulas, exercicios, exerciciosEmRevisao, erros } = lerPendencias();
 
 const NOMES = { objetivo: "objetivo", explicacao: "explicação", exemplo: "exemplo resolvido", exercicio: "exercício", resumo: "resumo", fontes: "fontes" };
+// As seções a mais das aulas do percurso ENEM (docs/ENEM.md).
+const NOMES_ENEM = { "como-cai": "como isso cai no ENEM", "questao-comentada": "questão comentada", aprofundar: "para aprofundar" };
 const conta = (f) => aulas.filter(f).length;
 
 console.log("Pendências de revisão e do modelo de aula (docs/MODELO-DE-AULA.md, docs/CHECKLIST-DE-REVISAO.md)\n");
@@ -30,10 +32,11 @@ for (const trilha of trilhas) {
   console.log(`\n${trilha}${lista.length ? "" : ": nenhuma aula com esse nome de trilha"}`);
   for (const a of lista) {
     const situacao = a.situacao === "revisada" ? `revisada por ${a.revisoes[0].funcao} em ${a.revisoes[0].data}` : a.situacao === "aprovada" ? "aprovada no painel" : "em revisão";
-    const falta = a.faltam.length ? `falta: ${a.faltam.map((p) => NOMES[p]).join(", ")}` : "segue o modelo";
+    const todas = [...a.faltam.map((p) => NOMES[p]), ...a.faltamEnem.map((s) => NOMES_ENEM[s])];
+    const falta = todas.length ? `falta: ${todas.join(", ")}` : "segue o modelo";
     const ex = a.exercicios ? ` · ${a.exercicios} exercícios (${a.exerciciosEmRevisao} em revisão)` : "";
     console.log(`  ${a.aula.padEnd(44)} ${situacao} · ${falta}${ex}`);
-    if (estrito && a.faltam.length) problemas++;
+    if (estrito && todas.length) problemas++;
   }
 }
 

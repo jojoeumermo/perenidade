@@ -53,7 +53,11 @@
     "importar:catalogo": "node scripts/importar-catalogo.mjs",
     "testar:isolamento": "node scripts/testar-isolamento.mjs",
     "testar:aovivo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-aovivo.mjs",
-    "testar:depositos": "node scripts/testar-depositos.mjs"
+    "testar:depositos": "node scripts/testar-depositos.mjs",
+    "testar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-enem.mjs",
+    "cobertura:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/cobertura-enem.mjs",
+    "fila:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/fila-enem.mjs",
+    "incidencia:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/incidencia-enem.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",

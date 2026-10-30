@@ -1,0 +1,68 @@
+# Exercícios da aula "Da palavra à frase" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-frase-01
+  tema: "Espaço entre as palavras"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como fica OCAFÉESTÁQUENTE com os espaços no lugar certo?"
+  alternativas:
+    - texto: "OCA FÉ ESTÁ QUENTE"
+      erro: "Você separou dentro de CAFÉ. Bata uma palma em cada palavra: O / CAFÉ / ESTÁ / QUENTE."
+    - texto: "O CAFÉ ESTÁ QUENTE"
+      certa: true
+    - texto: "O CAFÉESTÁ QUENTE"
+      erro: "Quase. Faltou um espaço entre CAFÉ e ESTÁ: são duas palavras."
+  explicacao: "Quatro palavras, quatro palmas: O / CAFÉ / ESTÁ / QUENTE."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-frase-02
+  tema: "Contar palavras"
+  dificuldade: 1
+  enunciado: "Quantas palavras tem a frase EU MORO NO BAIRRO DA PAZ?"
+  alternativas:
+    - texto: "6"
+      certa: true
+    - texto: "4"
+      erro: "Faltaram as palavras pequenas. NO e DA também são palavras: EU / MORO / NO / BAIRRO / DA / PAZ."
+    - texto: "8"
+      erro: "8 é o número de sílabas, não de palavras. Bata uma palma por palavra: são seis."
+  explicacao: "EU / MORO / NO / BAIRRO / DA / PAZ: seis palavras."
+  conferir: "6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-frase-03
+  tema: "A ordem das palavras"
+  dificuldade: 2
+  enunciado: "Arrume a ordem das palavras: SALÁRIO / O / ATRASOU."
+  alternativas:
+    - texto: "ATRASOU O SALÁRIO."
+      erro: "Dá para entender, mas a ordem mais comum em português começa por quem: O SALÁRIO, depois o que aconteceu, ATRASOU."
+    - texto: "SALÁRIO O ATRASOU."
+      erro: "O O fica antes da palavra que ele acompanha: O SALÁRIO. Depois vem o que aconteceu."
+    - texto: "O SALÁRIO ATRASOU."
+      certa: true
+  explicacao: "Quem (O SALÁRIO) + o que aconteceu (ATRASOU). Começa com letra grande e termina com ponto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-frase-04
+  tema: "O sinal do fim"
+  dificuldade: 2
+  enunciado: "Qual sinal termina a frase A REUNIÃO É HOJE quando ela é uma pergunta?"
+  alternativas:
+    - texto: "O ponto (.)"
+      erro: "O ponto termina um aviso. Para perguntar, a frase termina com o ponto de interrogação."
+    - texto: "O ponto de interrogação (?)"
+      certa: true
+    - texto: "O ponto de exclamação (!)"
+      erro: "A exclamação mostra surpresa ou grito. Pergunta termina com o ponto de interrogação."
+  explicacao: "A REUNIÃO É HOJE? Na pergunta, a voz sobe no fim, e a escrita mostra isso com o ponto de interrogação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

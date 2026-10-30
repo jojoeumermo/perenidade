@@ -1,0 +1,69 @@
+# Exercícios da aula "As vogais" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-vogais-01
+  tema: "Reconhecer as vogais"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quais destas letras são todas vogais?"
+  alternativas:
+    - texto: "M, N, P"
+      erro: "Quase. M, N e P são consoantes: tente falar só o M, sem vogal, e sai um som abafado. As vogais saem com a boca aberta e o ar livre."
+    - texto: "A, B, C"
+      erro: "O A é vogal, mas B e C são consoantes. Elas precisam de uma vogal do lado para virar som de palavra: BA, CA."
+    - texto: "E, I, O"
+      certa: true
+  explicacao: "As vogais são A, E, I, O, U. E, I e O são três delas. Todas as outras letras são consoantes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-vogais-02
+  tema: "Vogal do começo"
+  dificuldade: 1
+  enunciado: "Qual destas palavras começa com a vogal U?"
+  alternativas:
+    - texto: "OVO"
+      erro: "OVO começa com O. Fale devagar e escute o primeiro som: O-VO."
+    - texto: "UNHA"
+      certa: true
+    - texto: "IGREJA"
+      erro: "IGREJA começa com I: I-GRE-JA. Procure a palavra cujo primeiro som é U, de boca bem fechadinha."
+  explicacao: "U-NHA: o primeiro som é U."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-vogais-03
+  tema: "Contar as vogais"
+  dificuldade: 2
+  enunciado: "Quantas vogais tem a palavra PANELA?"
+  alternativas:
+    - texto: "Duas"
+      erro: "Você achou duas, mas falta uma. Bata palmas: PA - NE - LA. Cada pedaço tem uma vogal: A, E, A."
+    - texto: "Seis"
+      erro: "Seis é o número de letras da palavra. As vogais são só as letras de boca aberta: A, E, A."
+    - texto: "Três"
+      certa: true
+      valor: "3"
+  explicacao: "PA - NE - LA tem três pedaços, e cada um tem uma vogal: A, E e A."
+  conferir: "3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-vogais-04
+  tema: "Acento muda o som"
+  dificuldade: 2
+  enunciado: "AVÓ e AVÔ têm as mesmas letras. O que o sinal em cima do O muda?"
+  alternativas:
+    - texto: "O som e o sentido: AVÓ (som aberto) é a mulher; AVÔ (som fechado) é o homem"
+      certa: true
+    - texto: "Nada, é só enfeite"
+      erro: "O sinal não é enfeite. Diga AVÓ e depois AVÔ: a boca abre mais no primeiro. E o sentido muda junto."
+    - texto: "Só o tamanho da letra"
+      erro: "O tamanho da letra fica igual. O sinal em cima mostra se o som é aberto (Ó) ou fechado (Ô)."
+  explicacao: "O acento agudo (Ó) marca som aberto, como em PÓ. O circunflexo (Ô) marca som fechado, como em ÔNIBUS."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

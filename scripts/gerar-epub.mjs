@@ -13,6 +13,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { lerCabecalho } from "./cabecalho.mjs";
+import { comFatos } from "./enem-fatos.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const trilhas = path.join(raiz, "content", "trilhas");
@@ -167,7 +168,7 @@ for (const pasta of fs.readdirSync(trilhas, { withFileTypes: true }).filter((ent
   const aulas = fs
     .readdirSync(base)
     .filter((nome) => nome.endsWith(".md") && nome !== "_trilha.md" && !/\.(en|es|zh|ru|fr)\.md$/.test(nome))
-    .map((nome) => ({ slug: nome.replace(/^\d+-/, "").replace(/\.md$/, ""), ...lerCabecalho(fs.readFileSync(path.join(base, nome), "utf8")) }))
+    .map((nome) => ({ slug: nome.replace(/^\d+-/, "").replace(/\.md$/, ""), ...lerCabecalho(comFatos(fs.readFileSync(path.join(base, nome), "utf8"))) }))
     .filter((aula) => aula.dados.ativo !== false && aula.dados.titulo)
     .sort((a, b) => (roteiro.indexOf(a.slug) + 1 || 9999) - (roteiro.indexOf(b.slug) + 1 || 9999) || a.slug.localeCompare(b.slug));
   if (aulas.length === 0) continue;

@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata, Viewport } from "next";
-import { Caveat, EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Anton, Caveat, EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 // O celular (navegador e aplicativo) com cara de aplicativo: só vale até 767,98 px e fora do leitor de tinta.
 import "../celular.css";
@@ -35,6 +35,8 @@ const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin"]
 const ui = Inter({ variable: "--font-ui", subsets: ["latin"] });
 const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin"], weight: ["400", "500"] });
 // A letra escrita à mão do estúdio de design (bilhetes, legendas de foto revelada): só carrega quando alguém usa.
+// A letra de madeira condensada do lambe-lambe da inicial (OFL-1.1). Sem pré-carga: só baixa na página que a usa.
+const cartaz = Anton({ variable: "--font-cartaz", subsets: ["latin"], weight: "400", preload: false });
 const mao = Caveat({ variable: "--font-hand", subsets: ["latin", "latin-ext"], preload: false });
 
 // A cor da barra do navegador acompanha o tema. O "viewport-fit=cover" (de borda a borda, sabendo onde ficam
@@ -46,7 +48,7 @@ export const viewport: Viewport = {
   themeColor: [
     // No celular a barra do navegador continua a faixa preta de avisos do topo do site.
     { media: "(max-width: 767.98px)", color: "#1f1a14" },
-    { media: "(prefers-color-scheme: light)", color: "#f4ecd8" },
+    { media: "(prefers-color-scheme: light)", color: "#f8f5ee" },
     { media: "(prefers-color-scheme: dark)", color: "#17130e" },
   ],
 };
@@ -89,7 +91,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   return (
     <html
       lang={htmlLang[lang]}
-      className={`${serif.variable} ${ui.variable} ${mono.variable} ${mao.variable} h-full antialiased`}
+      className={`${serif.variable} ${ui.variable} ${mono.variable} ${cartaz.variable} ${mao.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

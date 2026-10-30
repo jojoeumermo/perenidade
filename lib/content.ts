@@ -7,6 +7,7 @@ import { areaSlugs, licenses, stages, tools, type AreaSlug, type License, type S
 import { parseFrontmatter } from "./frontmatter";
 import { type Exercicio, validarPratica } from "./pratica";
 import { plainText } from "./text";
+import { comFatosDaEdicao } from "./enem-conteudo";
 import { type Acontecimento, lugaresDaLinha, type LugarDaLinha, temasDaLinha, type TemaDaLinha } from "./linha-do-tempo";
 import { regiaoDoLocal, type RegiaoDoMemorial } from "./memorial";
 
@@ -449,9 +450,13 @@ function loadLesson(file: string, name: string, lang: Locale): (Lesson & { numbe
   // "03-fracoes.md" (aulas iniciais, numeradas) ou "fracoes.md" (aulas vindas do painel).
   const match = /^(?:(\d+)-)?([a-z0-9-]+)\.md$/.exec(name);
   if (!match) fail(file, `nome de arquivo deve ser "slug.md" ou "NN-slug.md", com letras minúsculas, números e hífens`);
-  const { data, body, translated } = read(file, lang);
+  const lido = read(file, lang);
+  const { data, translated } = lido;
   if (!isActive(data)) return null;
-  if (!body) fail(file, "a aula está sem conteúdo");
+  if (!lido.body) fail(file, "a aula está sem conteúdo");
+  // As aulas do ENEM citam datas e regras da edição por {{enem:<id>}} (content/enem/edicao.yml, docs/ENEM.md).
+  const body = comFatosDaEdicao(lido.body, file);
+  if (Array.isArray(data.quiz)) data.quiz = JSON.parse(comFatosDaEdicao(JSON.stringify(data.quiz), file));
   return {
     slug: match[2],
     number: match[1] ? Number(match[1]) : 9999,

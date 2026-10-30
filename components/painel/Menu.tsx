@@ -159,7 +159,7 @@ export function MenuDoPainel({
       {/* Recolhido (só no computador): o trilho dos ícones das áreas. Um clique abre o menu já com aquela área aberta. */}
       {compacto && (
         <aside id="trilho-do-painel" aria-label="Menu do painel" className="painel-menu no-print hidden lg:sticky lg:top-0 lg:flex lg:h-screen">
-          <nav aria-label="Áreas do painel" data-tour="areas" className="painel-trilho flex w-[4.5rem] shrink-0 flex-col items-center gap-1.5 border-r-[3px] border-[#c21f16] bg-[#1f1a14] py-4 text-[#cdbb91]">
+          <nav aria-label="Áreas do painel" data-tour="areas" className="painel-trilho flex w-[4.5rem] shrink-0 flex-col items-center gap-1.5 border-r border-rule bg-folha py-4 text-ink-soft">
             <L href="/" title="Instituto Lúcia · voltar ao site" className="mb-2 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/marca-96.png" alt="Instituto Lúcia" width={44} height={44} className="h-11 w-11" />
@@ -175,12 +175,12 @@ export function MenuDoPainel({
                     alternarCompacto();
                   }}
                   title={a.nome}
-                  className={`painel-area relative flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center ${a.grupo === atual.grupo ? "bg-[#c21f16] text-white" : "hover:bg-[#2b241b] hover:text-white"}`}
+                  className={`painel-area relative flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center ${a.grupo === atual.grupo ? "painel-area-ativa text-ink" : "hover:bg-parchment hover:text-ink"}`}
                 >
                   <Desenho d={a.desenho} className="h-[22px] w-[22px]" />
                   <span className="sr-only">{a.nome}</span>
                   {n > 0 && (
-                    <span className="absolute -top-1 -right-1 border-2 border-[#1f1a14] bg-[#c21f16] px-1 font-mono text-[0.62rem] font-extrabold leading-tight text-white">
+                    <span className="painel-pilula absolute -top-1 -right-1 bg-[#c21f16] px-1 text-[0.62rem] font-bold leading-tight text-white">
                       {n}
                       <span className="sr-only"> esperando</span>
                     </span>
@@ -188,7 +188,7 @@ export function MenuDoPainel({
                 </button>
               );
             })}
-            <button type="button" onClick={alternarCompacto} data-tour="recolher" title="Abrir o menu" className="mt-auto flex h-10 w-10 cursor-pointer items-center justify-center hover:bg-[#2b241b] hover:text-white">
+            <button type="button" onClick={alternarCompacto} data-tour="recolher" title="Abrir o menu" className="mt-auto flex h-10 w-10 cursor-pointer items-center justify-center hover:bg-parchment hover:text-ink">
               <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 6l6 6-6 6M4 4v16" />
               </svg>
@@ -203,10 +203,10 @@ export function MenuDoPainel({
       <aside
         id="menu-do-painel"
         aria-label="Menu do painel"
-        className={`painel-menu no-print flex-col border-ink bg-parchment text-ink lg:sticky lg:top-0 lg:h-screen lg:border-r-2 max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] ${aberto ? "flex" : "hidden"} ${compacto ? "lg:hidden" : "lg:flex"}`}
+        className={`painel-menu no-print flex-col border-rule bg-folha text-ink lg:sticky lg:top-0 lg:h-screen lg:border-r max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] ${aberto ? "flex" : "hidden"} ${compacto ? "lg:hidden" : "lg:flex"}`}
       >
         {/* O alto: a marca, onde se está e a busca. */}
-        <div className="border-b-[3px] border-[#c21f16] bg-[#1f1a14] px-3 pt-4 pb-3 text-[#f4ecd8]">
+        <div className="px-3 pt-4 pb-3 text-ink">
           <div className="hidden items-center gap-2.5 lg:flex">
             <L href="/" title="Instituto Lúcia · voltar ao site" className="shrink-0">
               {/* A marca não muda nunca. */}
@@ -215,10 +215,10 @@ export function MenuDoPainel({
             </L>
             <span className="min-w-0">
               <span className="block truncate font-serif text-[1.05rem] font-semibold leading-tight">Instituto Lúcia</span>
-              <span className="block font-mono text-[0.6rem] uppercase tracking-[0.22em] text-[#cdbb91]">Painel · {ambiente}</span>
+              <span className="block text-xs text-ink-soft">Painel · {ambiente}</span>
             </span>
           </div>
-          <label data-tour="ir-para" className="flex items-center gap-2 border-2 border-[#f4ecd8] bg-[#f4ecd8] px-2.5 text-[#1f1a14] focus-within:shadow-[3px_3px_0_#c21f16] lg:mt-3.5">
+          <label data-tour="ir-para" className="painel-procura flex items-center gap-2 border border-rule bg-folha px-2.5 text-ink lg:mt-3.5">
             <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
               <circle cx="10.5" cy="10.5" r="6.5" />
               <path d="M15.5 15.5 20 20" />
@@ -233,9 +233,9 @@ export function MenuDoPainel({
                 if (e.key === "Escape") setBusca("");
               }}
               placeholder="Ir para…"
-              className="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-[#5a4e3c]"
+              className="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-ink-soft"
             />
-            <kbd className="hidden font-mono text-[0.6rem] text-[#5a4e3c] lg:inline">Ctrl K</kbd>
+            <kbd className="hidden border border-rule px-1 font-mono text-[0.6rem] text-ink-soft lg:inline">Ctrl K</kbd>
           </label>
         </div>
 
@@ -303,7 +303,7 @@ export function MenuDoPainel({
         </nav>
 
         {/* O pé: quem está aqui, recolher o menu, as ferramentas e o resto. */}
-        <div className="border-t-2 border-ink px-3 pt-3 pb-[calc(0.85rem+env(safe-area-inset-bottom,0px))]">
+        <div className="border-t border-rule px-3 pt-3 pb-[calc(0.85rem+env(safe-area-inset-bottom,0px))]">
           <p className="flex items-center gap-2.5">
             <button type="button" onClick={() => ir("conta")} title="Minha conta" data-tour="conta" className="shrink-0 cursor-pointer">
               <Avatar nome={eu.nome} avatar={eu.avatar ?? undefined} className="h-9 w-9" texto="font-sans font-black italic" />
@@ -316,7 +316,7 @@ export function MenuDoPainel({
             </span>
           </p>
           <p className="mt-2.5 flex flex-wrap items-center gap-1.5">
-            <button type="button" onClick={alternarCompacto} aria-pressed={compacto} data-tour="recolher" title="Recolher o menu (fica só o trilho de ícones)" className="hidden cursor-pointer border-2 border-ink p-1.5 hover:bg-ink hover:text-parchment lg:block">
+            <button type="button" onClick={alternarCompacto} aria-pressed={compacto} data-tour="recolher" title="Recolher o menu (fica só o trilho de ícones)" className="hidden cursor-pointer border border-ink p-1.5 hover:bg-parchment lg:block">
               <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 6l-6 6 6 6M20 4v16" />
               </svg>

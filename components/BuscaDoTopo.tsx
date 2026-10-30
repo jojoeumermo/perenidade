@@ -3,8 +3,8 @@
 
 import Link from "@/components/Link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
-import { type Locale, localePath, plural } from "@/i18n/config";
+import { Fragment, type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { type Locale, fill, localePath } from "@/i18n/config";
 import type { SearchEntry, SearchHit } from "@/lib/search";
 import { useI18n } from "./I18n";
 
@@ -38,10 +38,46 @@ function carregarBuscador(lang: Locale): Promise<Buscador> {
 
 const MAXIMO = 8;
 
+/** Tira acento e maiúscula letra por letra, para achar o trecho digitado no título sem perder a posição de cada letra. */
+const dobrar = (letra: string) => letra.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+
+/** O título com o trecho procurado marcado (a palavra mais comprida da consulta que aparece nele). */
+function marcar(titulo: string, consulta: string): ReactNode {
+  const letras = [...titulo];
+  const dobradas = letras.map(dobrar);
+  if (dobradas.some((d) => d.length !== 1)) return titulo;
+  const texto = dobradas.join("");
+  const palavras = dobrar(consulta)
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((p) => p.length >= 2)
+    .sort((a, b) => b.length - a.length);
+  for (const palavra of palavras) {
+    const em = texto.indexOf(palavra);
+    if (em < 0) continue;
+    return (
+      <>
+        {letras.slice(0, em).join("")}
+        <mark className="busca-marca">{letras.slice(em, em + palavra.length).join("")}</mark>
+        {letras.slice(em + palavra.length).join("")}
+      </>
+    );
+  }
+  return titulo;
+}
+
+function Lupa({ className }: { className: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </svg>
+  );
+}
+
 /**
- * O campo "Buscar" do alto, no computador. Um clique e ele se alonga ali mesmo, sobre o espaço vazio do cabeçalho;
- * os resultados aparecem logo abaixo enquanto se digita, sem abrir outra página. Setas escolhem, Enter abre, Esc
- * fecha. Sem JavaScript, ele continua sendo o link para a página de busca.
+ * O campo "Buscar" do alto, no computador: calmo, de borda fina, que só ganha a borda de tinta quando recebe o cursor.
+ * Um clique (ou a tecla "/") e ele se alonga ali mesmo; os resultados aparecem logo abaixo enquanto se digita,
+ * agrupados por tipo. Setas escolhem, Enter abre, Esc fecha. Sem JavaScript, ele continua sendo o link para a página de busca.
  */
 export function BuscaDoTopo() {
   const { lang, t } = useI18n();
@@ -62,7 +98,7 @@ export function BuscaDoTopo() {
     // Até onde dá para crescer sem cobrir o nome do instituto (o subtítulo miúdo fica por baixo enquanto se busca).
     const fim = caixa.current?.getBoundingClientRect().right ?? 0;
     const marca = document.querySelector(".cabecalho-site .marca-nome")?.getBoundingClientRect().right ?? 0;
-    setLargura(Math.max(caixa.current?.offsetWidth ?? 240, Math.min(640, fim - marca - 28)));
+    setLargura(Math.max(caixa.current?.offsetWidth ?? 240, Math.min(560, fim - marca - 28)));
     setAbertaEm(pathname);
     setFalhou(false);
     carregarBuscador(lang)
@@ -91,18 +127,29 @@ export function BuscaDoTopo() {
     return () => document.removeEventListener("pointerdown", fora);
   }, [aberta]);
 
-  // Todos os achados contam no total; só os primeiros aparecem na lista (o resto está em "Ver todos os resultados").
+  // Todos os achados contam no total; só os primeiros aparecem, agrupados por tipo na ordem em que o primeiro de cada
+  // tipo apareceu (o resto está em "Ver os N resultados"). A ordem de teclado segue a ordem da tela.
   const achados = buscador && consulta.trim() ? buscador(consulta, 500) : [];
-  const resultados = achados.slice(0, MAXIMO);
-  const tipos = t.search.kinds as Record<string, string>;
+  const grupos: { kind: SearchEntry["kind"]; itens: SearchHit[] }[] = [];
+  for (const achado of achados.slice(0, MAXIMO)) {
+    const grupo = grupos.find((g) => g.kind === achado.entry.kind);
+    if (grupo) grupo.itens.push(achado);
+    else grupos.push({ kind: achado.entry.kind, itens: [achado] });
+  }
+  const resultados = grupos.flatMap((g) => g.itens);
+  const nomesDosGrupos = t.nav.searchGroups as Record<string, string>;
   const todos = `${localePath(lang, "/busca")}?q=${encodeURIComponent(consulta.trim())}`;
+  const formas = t.nav.searchSeeN as Record<string, string>;
+  const verTodos = fill(formas[new Intl.PluralRules(lang).select(achados.length)] ?? formas.other, { n: achados.length });
   const ir = (href: string) => {
     fechar();
     router.push(href);
   };
+  const aviso = falhou ? t.search.failed : !buscador ? t.search.loading : !consulta.trim() ? t.nav.searchTyping : resultados.length === 0 ? t.nav.searchNothing.replace("{q}", consulta.trim()) : "";
+  let posicao = -1;
 
   return (
-    <div ref={caixa} className="relative h-11 w-[15rem] shrink-0 xl:w-[17rem]">
+    <div ref={caixa} className="relative h-10 w-[15rem] shrink-0 xl:w-[17rem]">
       {!aberta ? (
         <Link
           href={localePath(lang, "/busca")}
@@ -111,16 +158,13 @@ export function BuscaDoTopo() {
             e.preventDefault();
             abrir();
           }}
-          aria-label={t.nav.search}
+          aria-label={`${t.nav.search}: ${t.nav.searchPlaceholder}`}
           aria-keyshortcuts="/"
-          className="busca-do-topo absolute inset-y-0 right-0 flex w-full items-center gap-2.5 border-2 border-ink bg-folha px-3 font-sans text-[0.95rem] text-ink-soft hover:text-ink"
+          className="busca-do-topo busca-campo absolute inset-y-0 right-0 flex w-full items-center gap-2.5 px-3 font-sans text-[0.94rem] text-ink-soft hover:text-ink"
         >
-          <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px] shrink-0 text-ink" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-            <circle cx="10.5" cy="10.5" r="6.5" />
-            <path d="M15.5 15.5 20 20" />
-          </svg>
-          <span className="flex-1">{t.nav.search}</span>
-          <kbd aria-hidden className="border border-rule px-1.5 py-px font-mono text-[0.7rem] text-ink-soft">/</kbd>
+          <Lupa className="h-4 w-4 shrink-0" />
+          <span className="flex-1 truncate">{t.nav.searchPlaceholder}</span>
+          <kbd aria-hidden className="busca-tecla">/</kbd>
         </Link>
       ) : (
         <div style={{ width: largura ?? undefined }} className="busca-do-topo busca-aberta absolute inset-y-0 right-0 z-50">
@@ -132,12 +176,9 @@ export function BuscaDoTopo() {
               if (escolhido) ir(localePath(lang, escolhido.entry.href));
               else if (consulta.trim()) ir(todos);
             }}
-            className="flex h-11 items-center gap-2.5 border-2 border-ink bg-folha px-3 shadow-[4px_4px_0_var(--prelo)]"
+            className="busca-campo busca-campo-aberto flex h-10 items-center gap-2.5 px-3"
           >
-            <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px] shrink-0 text-ink" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-              <circle cx="10.5" cy="10.5" r="6.5" />
-              <path d="M15.5 15.5 20 20" />
-            </svg>
+            <Lupa className="h-4 w-4 shrink-0 text-ink" />
             <input
               ref={campo}
               type="text"
@@ -169,41 +210,64 @@ export function BuscaDoTopo() {
               aria-autocomplete="list"
               aria-label={t.search.label}
               placeholder={t.nav.searchPlaceholder}
-              className="min-w-0 flex-1 bg-transparent font-sans text-[0.98rem] text-ink outline-none placeholder:text-ink-soft"
+              className="min-w-0 flex-1 bg-transparent font-sans text-[0.95rem] text-ink outline-none placeholder:text-ink-soft"
             />
             <button type="button" onClick={fechar} aria-label={t.nav.searchClose} className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center text-ink-soft hover:text-ink">
-              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                 <path d="M6 6l12 12M18 6 6 18" />
               </svg>
             </button>
           </form>
 
-          <div className="absolute inset-x-0 top-[calc(100%+0.5rem)] min-w-[22rem] border-2 border-ink bg-folha shadow-[6px_6px_0_var(--prelo)]">
-            <p role="status" className="border-b border-rule px-4 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink-soft">
-              {falhou ? t.search.failed : !buscador ? t.search.loading : !consulta.trim() ? t.nav.searchTyping : resultados.length === 0 ? t.nav.searchNothing.replace("{q}", consulta.trim()) : plural(lang, achados.length, t.search.results)}
+          <div className="busca-lista absolute inset-x-0 top-[calc(100%+0.375rem)] min-w-[24rem]">
+            <p role="status" aria-live="polite" className={aviso ? "px-3.5 py-3 font-sans text-sm text-ink-soft" : "sr-only"}>
+              {aviso || verTodos}
             </p>
             {resultados.length > 0 && (
-              <ul id={lista} role="listbox" aria-label={t.search.label} className="max-h-[min(26rem,60vh)] overflow-y-auto">
-                {resultados.map(({ entry, snippet }, i) => (
-                  <li key={entry.href} id={`${lista}-${i}`} role="option" aria-selected={i === marcado}>
-                    <Link
-                      href={localePath(lang, entry.href)}
-                      onClick={fechar}
-                      onPointerEnter={() => setMarcado(i)}
-                      className={`block border-b border-rule px-4 py-2.5 text-ink last:border-b-0 hover:text-ink ${i === marcado ? "bg-[color-mix(in_srgb,var(--prelo)_9%,transparent)]" : ""}`}
-                    >
-                      <span className="block font-mono text-[0.66rem] uppercase tracking-[0.1em] text-prelo-texto">{[tipos[entry.kind], entry.area, entry.context].filter(Boolean).join(" · ")}</span>
-                      <span className="mt-0.5 block font-serif text-[1.12rem] font-semibold leading-snug">{entry.title}</span>
-                      {snippet && <span className="mt-0.5 block truncate font-sans text-[0.82rem] text-ink-soft">{snippet}</span>}
-                    </Link>
-                  </li>
+              <ul id={lista} role="listbox" aria-label={t.search.label} className="max-h-[min(28rem,62vh)] overflow-y-auto py-2">
+                {grupos.map((grupo) => (
+                  <Fragment key={grupo.kind}>
+                    <li role="presentation" aria-hidden className="busca-grupo px-3.5 pt-2.5 pb-1 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-soft first:pt-1">
+                      {nomesDosGrupos[grupo.kind] ?? grupo.kind}
+                    </li>
+                    {grupo.itens.map(({ entry }) => {
+                      posicao += 1;
+                      const i = posicao;
+                      const ativo = i === marcado;
+                      return (
+                        <li key={entry.href} id={`${lista}-${i}`} role="option" aria-selected={ativo} aria-label={`${nomesDosGrupos[entry.kind] ?? ""}: ${entry.title}`}>
+                          <Link
+                            href={localePath(lang, entry.href)}
+                            onClick={fechar}
+                            tabIndex={-1}
+                            onPointerEnter={() => setMarcado(i)}
+                            className={`busca-item flex items-baseline gap-3 px-3.5 py-2 text-ink hover:text-ink ${ativo ? "busca-item-ativo" : ""}`}
+                          >
+                            <span className="min-w-0 flex-1 truncate font-serif text-[1.08rem] leading-snug">{marcar(entry.title, consulta)}</span>
+                            {(entry.area || entry.context) && <small className="max-w-[45%] shrink-0 truncate font-sans text-xs text-ink-soft">{[entry.area, entry.context].filter(Boolean).join(" · ")}</small>}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </Fragment>
                 ))}
               </ul>
             )}
             {consulta.trim() && (
-              <Link href={todos} onClick={fechar} className="flex items-center justify-between border-t-2 border-ink px-4 py-2.5 font-sans text-sm font-bold text-ink hover:bg-ink hover:text-parchment">
-                {t.nav.searchAll} <span aria-hidden>→</span>
-              </Link>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-rule px-3.5 pt-2.5 pb-2 font-sans text-xs text-ink-soft">
+                <span aria-hidden>
+                  <kbd className="busca-tecla">↑</kbd> <kbd className="busca-tecla">↓</kbd> {t.nav.searchPick}
+                </span>
+                <span aria-hidden>
+                  <kbd className="busca-tecla">Enter</kbd> {t.nav.searchGo}
+                </span>
+                <span aria-hidden>
+                  <kbd className="busca-tecla">Esc</kbd> {t.nav.searchShut}
+                </span>
+                <Link href={todos} onClick={fechar} className="ml-auto font-semibold text-ink underline-offset-4 hover:text-prelo-texto hover:underline">
+                  {achados.length > 0 ? verTodos : t.nav.searchAll} <span aria-hidden>→</span>
+                </Link>
+              </div>
             )}
           </div>
         </div>

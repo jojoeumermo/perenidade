@@ -1,0 +1,51 @@
+# Exercícios da aula "Preencher um formulário" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-formulario-01
+  tema: "A data"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Seu Raimundo nasceu em 9 de julho de 1958. Como fica a data no formulário?"
+  alternativas:
+    - texto: "07/09/1958"
+      erro: "Você pôs o mês antes do dia, como se faz nos Estados Unidos. No Brasil, primeiro o dia (09), depois o mês (07)."
+    - texto: "09/07/1958"
+      certa: true
+    - texto: "1958/09/07"
+      erro: "O ano vai no fim. A ordem é dia, mês e ano: 09/07/1958."
+  explicacao: "Dia 9 vira 09. Julho é o mês 07. O ano é 1958. Fica 09/07/1958."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-formulario-02
+  tema: "O campo certo"
+  dificuldade: 2
+  enunciado: "Em qual campo se escreve JARDIM ESPERANÇA?"
+  alternativas:
+    - texto: "BAIRRO"
+      certa: true
+    - texto: "NOME DA MÃE"
+      erro: "NOME DA MÃE pede o nome de uma pessoa. JARDIM ESPERANÇA é um lugar: o bairro."
+    - texto: "ENDEREÇO"
+      erro: "Quase. No campo ENDEREÇO vão a rua e o número. O bairro tem um campo só dele."
+  explicacao: "JARDIM ESPERANÇA é o nome do bairro. Cada campo leva só a sua informação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-formulario-03
+  tema: "Cuidar dos dados"
+  dificuldade: 2
+  enunciado: "Uma mensagem diz que é do banco e pede a sua senha para 'atualizar o cadastro'. O que fazer?"
+  alternativas:
+    - texto: "Mandar, porque é do banco"
+      erro: "Banco nenhum pede senha por mensagem. Quem pede senha assim quer usar a sua conta."
+    - texto: "Mandar só metade da senha"
+      erro: "Nem metade. A senha é só sua. Na dúvida, vá à agência ou ligue para o número que está no seu cartão."
+    - texto: "Não mandar, e procurar o banco pelo telefone do cartão ou na agência"
+      certa: true
+  explicacao: "Senha não se dá a ninguém. O caminho seguro para tirar a dúvida é o telefone impresso no cartão ou a agência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

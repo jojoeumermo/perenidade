@@ -1,0 +1,152 @@
+# Exercícios da aula "Formulário de química" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-qui-form-01
+  tema: "Mol e massa molar"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-representacao-mol
+  dificuldade: 1
+  enunciado: "Quantos mols de água há em 90 g de água? Massa molar da água: 18 g/mol."
+  alternativas:
+    - texto: "1.620 mol"
+      erro: "Você multiplicou a massa pela massa molar. Para achar mols, divida: n = m ÷ M."
+    - texto: "0,2 mol"
+      erro: "A divisão foi invertida (18 ÷ 90). O número de mols é a massa dividida pela massa molar: 90 ÷ 18."
+    - texto: "72 mol"
+      erro: "Você subtraiu (90 − 18). A massa molar diz quantos gramas tem 1 mol: divida a massa por ela."
+    - texto: "108 mol"
+      erro: "Você somou (90 + 18). Use n = m ÷ M."
+    - texto: "5 mol"
+      certa: true
+  explicacao: "n = m ÷ M = 90 g ÷ 18 g/mol = 5 mol. Pela regra de três: 18 g estão para 1 mol assim como 90 g estão para 5 mol."
+  conferir: "90 / 18"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-form-02
+  tema: "Diluição"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-agua-solucoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa horta comunitária, um produto para limpar ferramentas vem concentrado, a 4 mol/L. A instrução diz para
+    pegar 50 mL do produto e completar com água até 200 mL antes de usar.
+  enunciado: "A concentração da solução pronta para o uso é de"
+  alternativas:
+    - texto: "1 mol/L"
+      certa: true
+    - texto: "16 mol/L"
+      erro: "Você multiplicou a concentração pela razão dos volumes. Ao acrescentar água, a concentração diminui: C₂ = C₁ · V₁ ÷ V₂."
+    - texto: "4 mol/L"
+      erro: "Acrescentar água não tira soluto, mas aumenta o volume. A mesma quantidade de soluto num volume maior fica menos concentrada."
+    - texto: "2 mol/L"
+      erro: "Você dividiu por 2, como se o volume tivesse dobrado. O volume passou de 50 mL para 200 mL: ficou 4 vezes maior."
+    - texto: "0,25 mol/L"
+      erro: "Você dividiu a concentração por 16 (4 × 4). O volume ficou 4 vezes maior, então divida a concentração por 4 só uma vez."
+  explicacao: "C₁ · V₁ = C₂ · V₂: 4 × 50 = C₂ × 200, então C₂ = 200 ÷ 200 = 1 mol/L. O volume ficou 4 vezes maior; a concentração, 4 vezes menor."
+  conferir: "4 * 50 / 200"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-form-03
+  tema: "pH e pOH"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-ph
+  dificuldade: 1
+  enunciado: "A 25 °C, uma solução de limpeza tem pOH igual a 2,5. Qual é o pH dela?"
+  alternativas:
+    - texto: "2,5"
+      erro: "Esse é o pOH, não o pH. A 25 °C, pH + pOH = 14."
+    - texto: "16,5"
+      erro: "Você somou 14 e o pOH. A relação é pH + pOH = 14, então pH = 14 − pOH."
+    - texto: "11,5"
+      certa: true
+    - texto: "7"
+      erro: "7 é o pH neutro. Esta solução tem pOH baixo, então tem muito OH⁻ e é básica: pH = 14 − 2,5."
+    - texto: "5"
+      erro: "Você dobrou o pOH. Não há essa regra: use pH = 14 − pOH."
+  explicacao: "A 25 °C, pH + pOH = 14. Então pH = 14 − 2,5 = 11,5. A solução é básica, como muitos produtos de limpeza."
+  conferir: "14 - 2.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-form-04
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-representacao-estequiometria
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A amônia (NH₃) é a base de muitos fertilizantes usados na agricultura. Ela é produzida na indústria a partir
+    do nitrogênio do ar e do hidrogênio, pela reação N₂ + 3 H₂ → 2 NH₃. Massas molares: N₂ = 28 g/mol;
+    NH₃ = 17 g/mol.
+  enunciado: "Considerando rendimento de 100%, a massa de amônia produzida a partir de 56 g de nitrogênio é de"
+  alternativas:
+    - texto: "34 g"
+      erro: "Você usou a proporção 1 para 1. A equação diz que 1 mol de N₂ forma 2 mol de NH₃: 2 mol de N₂ formam 4 mol."
+    - texto: "68 g"
+      certa: true
+    - texto: "17 g"
+      erro: "Essa é a massa de 1 mol de amônia. Primeiro calcule quantos mols de N₂ há em 56 g (56 ÷ 28 = 2)."
+    - texto: "136 g"
+      erro: "A proporção foi aplicada duas vezes (2 × 2 × 2 mol). São 2 mol de N₂, que formam 2 × 2 = 4 mol de NH₃."
+    - texto: "56 g"
+      erro: "A massa se conserva na reação inteira, mas os 56 g são só de nitrogênio; o hidrogênio também entra. Faça a conta pelos mols."
+  explicacao: "Mols de N₂: 56 ÷ 28 = 2 mol. Pela equação, 1 mol de N₂ forma 2 mol de NH₃; então 2 mol formam 4 mol. Massa: 4 × 17 = 68 g."
+  conferir: "(56 / 28) * 2 * 17"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-form-05
+  tema: "Gases ideais"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-transformacoes-gases
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um cilindro de 24,6 L guarda um gás a 2 atm de pressão, num depósito onde a temperatura é de 27 °C. Considere o
+    gás ideal e use R = 0,082 atm·L/(mol·K).
+  enunciado: "A quantidade de gás no cilindro é de"
+  alternativas:
+    - texto: "0,5 mol"
+      erro: "A fórmula foi isolada ao contrário (R · T ÷ p · V). De p · V = n · R · T, sai n = p · V ÷ (R · T)."
+    - texto: "1 mol"
+      erro: "A pressão ficou de fora da conta. Use n = p · V ÷ (R · T), com p = 2 atm."
+    - texto: "cerca de 22 mol"
+      erro: "A temperatura entrou em graus Celsius (27). Na equação dos gases, use kelvin: 27 + 273 = 300 K."
+    - texto: "2 mol"
+      certa: true
+    - texto: "49,2 mol"
+      erro: "Você fez só p · V (2 × 24,6). Falta dividir por R · T."
+  explicacao: "T = 27 + 273 = 300 K. n = p · V ÷ (R · T) = (2 × 24,6) ÷ (0,082 × 300) = 49,2 ÷ 24,6 = 2 mol."
+  conferir: "(2 * 24.6) / (0.082 * 300)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-form-06
+  tema: "Lei de Hess"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-energia-termoquimica
+  dificuldade: 2
+  enunciado: "Com valores arredondados: C + O₂ → CO₂ tem ΔH = −394 kJ; CO + ½ O₂ → CO₂ tem ΔH = −283 kJ. Pela lei de Hess, qual é o ΔH de C + ½ O₂ → CO?"
+  alternativas:
+    - texto: "−677 kJ"
+      erro: "Você somou as duas equações como estão. A segunda tem de ser invertida (CO₂ → CO + ½ O₂), e aí o sinal do ΔH troca para +283."
+    - texto: "+111 kJ"
+      erro: "O sinal ficou trocado. Faça −394 + 283: a primeira etapa é exotérmica e pesa mais."
+    - texto: "−283 kJ"
+      erro: "Esse é o ΔH da segunda equação, do jeito que ela está. Inverta-a e some com a primeira."
+    - texto: "+677 kJ"
+      erro: "Você inverteu as duas equações. Só a segunda precisa ser invertida, para o CO aparecer como produto."
+    - texto: "−111 kJ"
+      certa: true
+  explicacao: "Mantenha a primeira (C + O₂ → CO₂, −394 kJ) e inverta a segunda (CO₂ → CO + ½ O₂, +283 kJ). Somando, o CO₂ se cancela e sobra C + ½ O₂ → CO, com ΔH = −394 + 283 = −111 kJ."
+  conferir: "-394 + 283"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

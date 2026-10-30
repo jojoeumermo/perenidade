@@ -1,0 +1,864 @@
+# Camada do Instituto Lúcia sobre a prova de Linguagens do ENEM 2023 (questões 1 a 45).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Fora deste arquivo: as questões 1 a 5 de inglês (não existem no arquivo importado, que só traz as de espanhol),
+# a questão 34 (não existe no arquivo importado) e enem-2023-44 (a campanha do Ministério da Saúde é uma imagem que
+# se perdeu na importação e também na fonte; sem ela não dá para resolver com certeza).
+# Os textos-base podem ser protegidos: as resoluções citam só palavras soltas, entre aspas.
+ano: 2023
+questoes:
+  - id: enem-2023-1-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 5
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o que se conclui juntando o cartaz e a sinopse do filme. A imagem do cartaz não veio na importação, mas o texto dele veio: são as perguntas do menino sobre si mesmo, como “¿por qué no consigo aprender como los demás?” (por que não consigo aprender como os outros?).
+      A sinopse conta que Ishaan não vai bem na escola, que os pais o mandam para um internato “para que le disciplinen” (para que o disciplinem) e que lá nada melhora. A virada vem no fim: o novo professor de arte “se interesa por el pequeño Ishaan y todo cambia” (se interessa pelo pequeno Ishaan e tudo muda).
+      Juntando os dois: o menino sofre com dúvidas sobre si; a disciplina não resolve; o que muda a história é alguém que olha para ele de outro jeito. Alternativa A.
+    enganos:
+      B: "As perguntas do cartaz mostram angústia e dúvida sobre si mesmo, não um tom de quem questiona o mundo. É uma palavra-isca: ver ponto de interrogação e concluir “questionador”."
+      C: "É o contrário. A sinopse diz que os pais o internam para que o disciplinem e que lá “las cosas no mejoran” (as coisas não melhoram). A disciplina não funcionou."
+      D: "O texto diz que Ishaan sofre por ficar longe dos pais, não que o contato com eles atrapalhe. É uma inversão do que está escrito."
+      E: "A sinopse compara os interesses da criança (cores, peixes, pipas) com os dos adultos (deveres, notas), mas ninguém passa de uma fase para a outra. Extrapolação."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-2-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 7
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o recurso que dá ênfase às características e atitudes da mulher negra. A palavra “enfatizar” é a pista: procure o que intensifica.
+      No poema, a eu lírica recusa negar a voz, a pele e a história, e descreve a boca, o nariz e a pele com orgulho. Quase todas essas afirmações vêm reforçadas por advérbios terminados em “-mente”: “rotundamente” (redondamente, de forma total), “categóricamente” (categoricamente), “absolutamente” e “valientemente” (valentemente).
+      O advérbio modifica o verbo ou o adjetivo e diz com que força algo é feito ou é. Repetido, ele vira a marca do poema: a recusa é total e o orgulho também. Alternativa A.
+    enganos:
+      B: "Os verbos “me niego” e “me acepto” dizem qual é a atitude (recusar, aceitar), mas quem dá a força a essa atitude é o advérbio que vem junto. O comando pede o recurso de ênfase."
+      C: "Os adjetivos descrevem os traços (grande, bonita), mas, no poema, eles aparecem intensificados pelo advérbio que vem antes. Sozinhos, só descrevem."
+      D: "Os substantivos nomeiam as partes do corpo e da identidade (sangue, pele). Nomear não é enfatizar. Redução."
+      E: "Os possessivos marcam que aquilo pertence à eu lírica. Eles reforçam a posse, mas não a intensidade, que é o que o comando pede."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa]
+
+  - id: enem-2023-3-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 8
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pede o que o eu poético enaltece (elogia, põe no alto).
+      O poema lista pratos típicos da Espanha (tortilla, tapas, gazpacho, jamón), mas a lista é só o caminho. A pista está na última estrofe: “¡Son más que ‘recetas’!” (são mais que receitas) e “¡será ‘identidad’!” (será identidade). Logo depois, os pratos são o mar, os rios, as serras e os vales: a comida representa a própria terra e a gente dela.
+      O elogio, portanto, é à gastronomia como expressão da identidade cultural de um povo. Alternativa E.
+    enganos:
+      A: "O povo amistoso aparece num verso só (“te amistan”, fazem amizade contigo). É um detalhe tomado pelo todo: redução."
+      B: "Mar, rios e serras aparecem como metáfora dos pratos (“son mar, ríos, sierras”). A paisagem serve para falar da comida, não é ela o objeto do elogio."
+      C: "A lista de pratos existe, mas o poema diz que eles são “más que recetas”. Ficar só na variedade é parar no meio do caminho."
+      D: "O olfato e o paladar são citados na estrofe do meio, como modo de reconhecer cada lugar. É um detalhe, não o centro do poema."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-4-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 5
+    objeto: lin-lem
+    topico: lin-lem-espanhol-estrategias
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pergunta o que a expressão “cortina de humo” revela sobre o manipulador.
+      “Humo” é fumaça. “Cortina de humo” é a nossa cortina de fumaça: algo lançado para esconder o que está atrás e desviar a atenção. A frase do texto é “el ridículo vale la pena si con ello se logra una cortina de humo” (o ridículo vale a pena se com isso se consegue uma cortina de fumaça).
+      Ou seja: o manipulador aceita até passar ridículo, desde que isso tire os olhos do público do que importa. Ele quer mascarar a verdade. Alternativa B.
+    enganos:
+      A: "O texto fala de adultos que amadureceram pouco desde a infância, mas isso está no segundo parágrafo e não tem relação com a expressão pedida."
+      C: "É verdade que o manipulador “no admite cuestionamientos” (não admite questionamentos), mas isso está em outra frase. O comando pergunta o que a expressão “cortina de humo” revela."
+      D: "O texto diz que o manipulador precisa de cidadãos indefesos e desinformados, não que ele se aproxime deles. E isso não sai da expressão pedida."
+      E: "A presença controladora está no texto, mas é outra ideia. A cortina de fumaça serve para esconder, não para controlar à vista de todos."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-superior/traduzir-do-espanhol-as-armadilhas]
+
+  - id: enem-2023-5-espanhol
+    area: linguagens
+    competencia: 2
+    habilidade: 8
+    objeto: lin-lem
+    topico: lin-lem-espanhol-generos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o que a letra da canção revela.
+      A canção abre com uma pergunta indignada: como é possível que tantas bocas, olhos e mentes se fechem diante de um “acto xenofóbico” (ato xenófobo, de ódio ao estrangeiro). Depois conta um caso no metrô de Barcelona: uma mulher “de color diferente” (de outra cor) leva chutes no rosto de um homem que ri dela. E termina repetindo que o agressor “aún anda suelto” (ainda anda solto).
+      Racismo e xenofobia são desrespeito à diversidade. O tom de denúncia e a cobrança às autoridades mostram indignação. Alternativa A.
+    enganos:
+      B: "A violência da canção tem causa: a cor e a origem da vítima. Dizer que é violência “típica das metrópoles” apaga o racismo, que é o tema. Generalização."
+      C: "A vítima é chamada de “ángel” (anjo) como imagem poética de inocência. Não há nada sobre misticismo. Palavra-isca."
+      D: "O sonho que vira pesadelo é o da pessoa que migrou, e ele acaba por causa do racismo, não por descuido da população."
+      E: "O metrô é só o lugar onde o fato aconteceu. A canção não fala de segurança no transporte, e sim de racismo e impunidade."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa]
+
+  - id: enem-2023-6
+    area: linguagens
+    competencia: 3
+    habilidade: 11
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-sociedade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pergunta qual foi o objetivo da mudança no lema olímpico.
+      O texto diz com todas as letras: a alteração foi feita “para ressaltar a solidariedade”, com a palavra “juntos” acrescentada ao fim do lema antigo.
+      Solidariedade e “juntos” apontam para a cooperação: o esporte não só como disputa de quem é mais rápido ou mais forte, mas como algo feito em conjunto. Associar o lema à cooperatividade é exatamente isso. Alternativa D.
+    enganos:
+      A: "O lema antigo não foi unido a outro: ele foi mantido e ganhou uma palavra. “Unificação” supõe dois lemas que viram um, e isso não aconteceu."
+      B: "O COI aprovou a mudança, mas aproximar o lema do COI não foi o objetivo. Confunde quem decidiu com o porquê da decisão."
+      C: "O lema já expressava os valores do esporte desde 1894, diz o texto. O que é novo é a solidariedade, e a alternativa não fala dela."
+      E: "Os eventos atléticos não aparecem como motivo da mudança. Alternativa vaga, que não usa a pista dada (“solidariedade”)."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-7
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-afro-brasileira
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pergunta o que revelam os recursos expressivos usados pela narradora.
+      Ela descreve o próprio corpo de mulher, parte por parte, e logo o chama de “faminto”, “cruel” e “violento”, um “animal da caatinga”. Depois liga esse corpo aos corpos de pessoas escravizadas que chegavam ao porto do Ceará, contados pelos dedos e pelos calcanhares, como mercadoria.
+      Os recursos (a enumeração das partes do corpo, as imagens de força e de ferida, a ligação com a história da escravidão) mostram que a identidade da narradora é feita dessas marcas: ser mulher e ser negra num país marcado pela violência. Alternativa A.
+    enganos:
+      B: "A repetição “dizem e eu ouvi” pode soar como dúvida, mas a narradora não nega nem contesta o fato. Ela confirma que depois também leu. Ver crítica onde há relato é extrapolação."
+      C: "É o oposto. O corpo descrito é “cruel”, “violento”, “forte demais”: a narradora recusa o padrão de beleza, não o reproduz."
+      D: "Não há clima de sonho nem busca espiritual. As imagens são concretas, de corpo e de história."
+      E: "Inverte a relação. Quem é comparada à paisagem é a narradora (“animal da caatinga”). A paisagem não imita os corpos escravizados."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-8
+    area: linguagens
+    competencia: 8
+    habilidade: 26
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-preconceito-linguistico
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede a causa do preconceito contra o português brasileiro, a partir do trecho da poeta citado por Agualusa.
+      O trecho diz que, em Portugal, dizem que o português do Brasil é “errado” e que os brasileiros “não falam português”. Para alguém dizer que uma forma de falar é errada, precisa acreditar que existe uma forma certa, ideal. Nesse caso, a forma ideal seria a de Portugal.
+      Não existe uma língua ideal: o português de Portugal e o do Brasil são variedades da mesma língua, cada uma com as suas regras. O preconceito nasce dessa crença. Alternativa C.
+    enganos:
+      A: "O texto fala de um livro de poemas, mas o preconceito não tem relação com a literatura brasileira ser aceita ou não lá fora. A palavra “antologia” é a isca."
+      B: "Ninguém no texto fala de escolaridade. O preconceito é contra o português do Brasil como um todo, seja qual for o estudo de quem fala."
+      D: "Intercâmbio cultural aproximaria os povos. O texto mostra o contrário: desdém e racismo."
+      E: "A distância geográfica explica por que as variedades são diferentes, mas não explica por que uma é tratada como errada. Diferença não é causa de preconceito; a crença numa forma superior é."
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, linguistica/variacao-linguistica]
+
+  - id: enem-2023-9
+    area: linguagens
+    competencia: 9
+    habilidade: 30
+    objeto: lin-generos-digitais
+    topico: lin-generos-digitais-desinformacao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pergunta a que o texto liga a eficácia da propagação de notícias na Idade Média.
+      O texto enumera muitos meios: cavalos, ordens religiosas que pediam esmola, jograis (artistas de rua), peregrinos, andarilhos, correios das cidades e selos para lacrar cartas. Depois fecha com “graças a tudo isso”, a circulação de boatos era intensa.
+      “Tudo isso” retoma a lista inteira. A eficácia vinha da variedade de meios que aquela época tinha. Alternativa E.
+    enganos:
+      A: "A velocidade aparece (30 km por dia a cavalo), mas é só um dos itens. O texto atribui a eficácia ao conjunto, com “graças a tudo isso”. Redução."
+      B: "O texto não fala de quanto a população sabia ler. Os andarilhos aparecem como quem levava notícias, não como pessoas mais ou menos letradas."
+      C: "Não há censura no texto. Os selos serviam para tentar garantir que a carta era verdadeira, não para barrar notícias."
+      D: "O rei que some e volta é o exemplo de boato, não a explicação da eficácia. A nobreza não aparece como fonte confiável."
+    aulas: [midia-fundamental/como-identificar-uma-noticia-falsa]
+
+  - id: enem-2023-10
+    area: linguagens
+    competencia: 9
+    habilidade: 28
+    objeto: lin-generos-digitais
+    topico: lin-generos-digitais-desinformacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pergunta para que serve analisar a linguagem dos perfis falsos.
+      O texto diz que pesquisadores começam a observar “padrões de comportamento” desses perfis: publicações só em horário comercial e “pobreza vocabular” (pouca variedade de palavras), porque uma mesma pessoa controla muitos perfis.
+      Esses traços são “pistas”, palavra do próprio texto. Servem para reconhecer quem está espalhando informação falsa nas redes. Alternativa E.
+    enganos:
+      A: "Os profissionais citados são os que administram perfis falsos, não os de tecnologia em geral. E o texto não fala em controlar o trabalho de ninguém."
+      B: "Analisar a linguagem serve para detectar os “trolls”, não para desenvolvê-los. Inversão."
+      C: "O horário de trabalho é uma pista para achar os perfis. O texto não propõe mudar turno de ninguém."
+      D: "O texto descreve como identificar os perfis. Não fala em regras ou leis para os robôs. Extrapolação."
+    aulas: [midia-fundamental/como-identificar-uma-noticia-falsa, midia-fundamental/o-algoritmo-e-a-bolha]
+
+  - id: enem-2023-11
+    area: linguagens
+    competencia: 7
+    habilidade: 23
+    objeto: lin-argumentacao
+    topico: lin-argumentacao-estrategias
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede o objetivo do texto, a partir dos procedimentos argumentativos.
+      O texto usa três passos: um dado assustador (a estimativa de mortes no trânsito em 2030), uma lista de atitudes que levam à violência (pressa, sensação de invencibilidade, falta de civilidade) e, no fim, os valores que a campanha Maio Amarelo pede: menos pressa, mais respeito, “atenção pela vida”.
+      O dado e a lista preparam o leitor para o apelo final. O objetivo é sensibilizar o público para dirigir com responsabilidade. Alternativa D.
+    enganos:
+      A: "A lista de causas existe, mas é um meio. O texto não para nela: termina propondo outra atitude. Confundir o recurso com o objetivo é redução."
+      B: "A cor amarela é explicada como convenção mundial, mas isso é um detalhe do primeiro parágrafo, não o propósito do texto."
+      C: "Há um único número no texto. Ele serve para chamar a atenção, não é o centro do texto."
+      E: "O texto cita atitudes e valores, não só emoções, e fala também de limites. “Restringir” diz mais do que o texto diz."
+    aulas: [portugues-medio/o-texto-dissertativo-argumentativo, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-12
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando diz que o trecho mostra a renovação da ficção nos anos 1950 e pede em que isso se observa.
+      A narradora descreve Timóteo vestido com as roupas que foram da mãe: o vestido de franjas apertado a ponto de rasgar, o leque, o perfume “enjoativo”, o rosto pintado, o turbante. A descrição é feita de impressões dos sentidos (o que ela vê, o cheiro que sente) e se fixa na obsessão do personagem por aquelas roupas, que é o seu fetiche.
+      Essa descrição sensorial, carregada de impressões, de um comportamento que a família trata como “bizarrice”, é o traço pedido. Alternativa C.
+    enganos:
+      A: "A descrição é minuciosa e concreta: cor, tecido, cheiro, gesto. Não há jogo de sentidos ambíguos."
+      B: "A narradora registra estranhamento (“bizarrice”), mas não faz crítica social aos patrões. Extrapolação a partir do fato de ela ser empregada."
+      D: "O foco narrativo é bem definido: primeira pessoa, alguém que se aproxima e observa. Contradiz o trecho."
+      E: "O romance tem, sim, um clima de segredo familiar, mas este trecho trata da aparência de Timóteo, não das relações entre os parentes. Extrapolação."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-13
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-primeira-geracao-modernista
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pergunta o que o eu lírico revela diante da pessoa amada, ao lembrar o passado.
+      Na primeira estrofe, o dedo do outro percorre devagar as marcas do rosto, os sulcos deixados pela vida. O gesto é de carinho, em clima de silêncio. Na segunda, o eu lírico lembra quatro amores e chega ao presente: “o quarto és tu”. E fecha dizendo que enfim se “repousou” das suas preocupações.
+      As memórias não trazem dor: desembocam em descanso e entrega ao amor de agora. É a serenidade construída aos poucos (sedimentada) pela entrega tranquila ao desejo. Alternativa C.
+    enganos:
+      A: "Os sulcos do rosto são marcas do tempo, mas são tocados com carinho. Não há sinal de vergonha."
+      B: "Não há dúvida no presente: o quarto amor é o interlocutor, e com ele vem o repouso. Contradição."
+      D: "O eu lírico não quer voltar a nenhum amor antigo. A lembrança termina no presente, em paz."
+      E: "Os amores são chamados de “eternos”, e o atual traz descanso. Prazer passageiro é o oposto disso."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-14
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-geracao-de-45
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pergunta por que os moradores gostam de ouvir a novela recontada por Soropita.
+      O trecho dá uma informação decisiva: os moradores já tinham ouvido o capítulo inteiro no rádio de um comprador de ovos. Mesmo assim, querem ouvir de novo. Ou seja, não é a história em si que os atrai.
+      O que atrai está no último parágrafo: Soropita conta “com prazer de demorar”, enche a sala com os personagens, prende a atenção de todos. É o jeito dele de contar, singular, que faz a novela valer a pena outra vez. Alternativa D.
+    enganos:
+      A: "O rádio é pequeno e de pilha, e o que os moradores querem é a voz de Soropita, não o aparelho."
+      B: "Zuz diz que a história é “estável de boa” (muito boa), mas comprida. Isso fala da história, não do motivo de ouvirem Soropita. Palavra-isca."
+      C: "O texto diz que eles já tinham ouvido tudo na véspera. Não havia nada de inédito. Contradição."
+      E: "Eles querem ouvir “por confirmação”, mas o trecho destaca o prazer de ouvir Soropita, não uma dificuldade de entender."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-15
+    area: linguagens
+    competencia: 6
+    habilidade: 20
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-portugues-no-brasil
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede por que a perda das gravações no incêndio do Museu Nacional pesa tanto.
+      O texto conta que o museu guardava gravações de cantos e conversas de dezenas de povos indígenas, algumas em línguas que já não têm falantes vivos. A linguista diz que vai a campo de novo, mas que “não dá para recuperar a fala” de quem já morreu.
+      Uma língua guarda a memória e o modo de ver o mundo de um povo, e esses povos fazem parte do país. Perder o único registro é um dano que não se repara, à memória e à identidade nacionais. Alternativa B.
+    enganos:
+      A: "A pesquisadora fala em refazer o próprio trabalho de campo, não em especialistas de várias áreas. E o peso da perda está justamente no que não se refaz."
+      C: "Exagero. A própria linguista vai fazer novas viagens. A pesquisa continua; o que se perdeu foi o registro antigo."
+      D: "As culturas indígenas continuam vivas. O que se perdeu foram registros, alguns de línguas que já estavam extintas antes do incêndio."
+      E: "Os Tikuna são o povo com quem a linguista trabalha e a língua deles tem falantes. Ela pode recompor parte do material. Exagero."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-16
+    area: linguagens
+    competencia: 8
+    habilidade: 25
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-variacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o que o texto mostra sobre a Libras.
+      O texto começa com exemplos do português (mandioca, macaxeira, aipim) e diz que “a mesma coisa acontece” com a Libras. A professora explica que a língua de sinais varia conforme a região, a idade e o gênero de quem fala, e o texto ainda cita mudanças ao longo das gerações.
+      Região, idade, gênero e tempo são os mesmos fatores de variação de qualquer língua. A Libras é uma língua como as outras. Alternativa A.
+    enganos:
+      B: "Nos exemplos, sinais diferentes querem dizer a mesma coisa (verde, cerveja). Não há palavra ganhando sentido novo. Inversão."
+      C: "Trocar o sinal de uma palavra é variação no vocabulário, não mudança na estrutura da língua. Exagero."
+      D: "A Libras é uma só língua, com variações regionais, assim como o português. Não há uma língua diferente em cada região."
+      E: "O texto não diz que as pessoas deixam de se entender. Variação não impede a comunicação."
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, linguistica/variacao-linguistica]
+
+  - id: enem-2023-17
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-recursos-expressivos
+    topico: lin-recursos-expressivos-semantica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede a que se liga o uso fora do padrão dos colchetes no nome da revista.
+      O próprio editor explica: os colchetes estão “voltados para fora” porque são “sinais abertos, receptivos”, bons para a circulação de ideias. E diz que a revista continua montando as edições com assuntos que saem “das estantes de uma grande livraria”.
+      O sinal gráfico ganha um sentido novo (abertura) que representa o que a revista é: um lugar de receber e espalhar ideias que vêm dos livros. Isso é a identidade da revista. Alternativa D.
+    enganos:
+      A: "O texto não fala de leitores especialistas nem de leitura acadêmica. Fala de livros em geral e de quem lê."
+      B: "O uso dos colchetes é justamente fora da norma. Ligá-lo ao rigor normativo é contradição."
+      C: "A lista de temas (literatura, sociologia, filosofia, artes) é ampla e o texto fala em “interesses ampliados”. Não há exclusividade."
+      E: "O “outro visual” é citado, mas o editor explica os colchetes pela abertura às ideias, não pelo desenho dos artigos."
+    aulas: [portugues-fundamental/pontuacao-ponto-virgula-e-companhia, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-18
+    area: linguagens
+    competencia: 7
+    habilidade: 22
+    objeto: lin-texto
+    topico: lin-texto-estrategias-de-leitura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede o que as duas letras de canção, de épocas diferentes, têm em comum.
+      Na primeira, o eu lírico anda pela cidade entre bancas de revista cheias de notícias, fotos e nomes. Na segunda, fala de telas, do Vale do Silício e de uma vida que virou “algoritmo”, e repete “e mais” várias vezes.
+      Nas duas há excesso de informação que chega pelos meios de cada tempo: a imprensa nos anos 1960, as telas e as redes hoje. A profusão (a grande quantidade) de informação gerada pela tecnologia é o ponto comum. Alternativa B.
+    enganos:
+      A: "As cores aparecem nas duas, mas a primeira canção não faz crítica: fala de alegria. A semelhança é só de palavra."
+      C: "Vício e virtude aparecem só na segunda canção. O comando pede o que as duas têm em comum."
+      D: "Nenhuma das duas trata de liberdade de expressão. “Por que não?” é a disposição de seguir andando, não um protesto por voz."
+      E: "A segunda fala em vender, mas não em notícias. A primeira cita notícias, mas sem crítica ao comércio. Cada metade vem de uma canção."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-19
+    area: linguagens
+    competencia: 7
+    habilidade: 23
+    objeto: lin-argumentacao
+    topico: lin-argumentacao-estrategias
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede o objetivo de usar uma citação e dados estatísticos no texto.
+      A citação é uma estrofe do poeta sobre a morte de jovens negros. Os dados vêm do Atlas da Violência: em 2019, os negros foram 77% das vítimas de homicídio, e um negro tem quase 2,7 vezes mais chance de ser morto do que um branco.
+      Os dois recursos trabalham juntos: o poema denuncia e os números provam. Servem de argumento para mostrar que os negros são as vítimas mais prováveis da violência no país. Alternativa D.
+    enganos:
+      A: "O texto não diz que as mortes crescem “a cada dia”. Os dados são de um ano. A alternativa acrescenta uma informação que não está lá."
+      B: "Não há dado sobre a quantidade de livros ou poemas sobre preconceito. Extrapolação."
+      C: "O texto não mede o número de manifestações artísticas. Os dados são sobre homicídios."
+      E: "O texto fala de “resistência crescente”, mas os números citados medem a violência, não a participação de jovens. Confunde a conclusão com o dado."
+    aulas: [portugues-medio/o-texto-dissertativo-argumentativo]
+
+  - id: enem-2023-20
+    area: linguagens
+    competencia: 7
+    habilidade: 24
+    objeto: lin-argumentacao
+    topico: lin-argumentacao-estrategias
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pede a estratégia usada para convencer o leitor de que muita gente não entende a linguagem de quem tem poder.
+      A ideia está no terceiro parágrafo. A autora pergunta quem entende a linguagem de advogados, juízes, médicos, burocratas e cientistas, e afirma que a maior parte da população foi impedida “de propósito” de compreendê-la.
+      Ela critica a linguagem especializada como uma barreira que mantém privilégios e deixa a maioria de fora. Alternativa E.
+    enganos:
+      A: "A frase bíblica abre o texto e serve para mostrar a força da palavra. Não é ela que sustenta a ideia pedida no comando."
+      B: "O silenciamento no futuro aparece na conclusão. O comando pergunta como a autora mostra que o povo não entende a linguagem do poder."
+      C: "A relação entre sociedade e linguagem é o tema geral. A estratégia pedida é uma crítica, não uma descrição. Alternativa vaga."
+      D: "A destruição da linguagem é a pergunta do segundo parágrafo, outra ideia. A falta de compreensão vem dos usos especializados, não do esfacelamento."
+    aulas: [portugues-medio/o-texto-dissertativo-argumentativo]
+
+  - id: enem-2023-21
+    area: linguagens
+    competencia: 8
+    habilidade: 26
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-variacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O comando pede o resultado do trabalho dos pesquisadores que registraram usos regionais de termos de saúde.
+      Eles fizeram um dicionário que traduz nomes populares de sintomas (como “defruço” e “chanha”) para os termos médicos. O motivo é dito no texto: desconhecer esses nomes pode levar a um diagnóstico errado, e o reitor lembra que a comunicação é fundamental entre médico e paciente.
+      Com o dicionário, o médico entende melhor o que o paciente sente. Alternativa D.
+    enganos:
+      A: "O texto fala do risco de erro, não de erros que os pesquisadores tenham apontado. E a variedade local não é tratada como erro."
+      B: "Os pesquisadores não explicaram problemas: criaram uma ferramenta para evitá-los. E ninguém é incapaz de se comunicar; as pessoas usam palavras diferentes."
+      C: "Os sintomas já existiam. O que o dicionário faz é traduzir os nomes deles."
+      E: "O dicionário traduz nomes de sintomas, não lista doenças novas da região."
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico]
+
+  - id: enem-2023-22
+    area: linguagens
+    competencia: 6
+    habilidade: 20
+    objeto: lin-lingua-portuguesa
+    topico: lin-lingua-portuguesa-portugues-no-brasil
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede o que a “cantiga de voltar” representa como patrimônio linguístico.
+      O texto diz que era uma canção que os negros mais velhos ensinavam aos mais novos; que, na África, os homens a cantavam ao voltar da pesca ou da caça; e que estava numa língua que alguns negros ainda falavam. Luandi a aprendeu com o pai.
+      É uma herança africana passada de geração em geração pela voz, sem escrita. Isso é preservar a ancestralidade pela tradição oral. Alternativa C.
+    enganos:
+      A: "O texto diz que alguns negros ainda falavam essa língua, principalmente os velhos. Ela não está extinta. Contradição."
+      B: "A cantiga é de quem volta para casa e é ensinada pelos mais velhos. Não fala da rotina de jovens."
+      D: "Luandi “não entendia as palavras do canto”. Elas não são inteligíveis para ele. Contradição."
+      E: "O texto chama a cantiga de “alegre” e “vitoriosa”. Não há tristeza. Contradição."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-23
+    area: linguagens
+    competencia: 7
+    habilidade: 22
+    objeto: lin-texto
+    topico: lin-texto-estrategias-de-leitura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede como o Texto II explica a imagem da mulher que aparece no Texto I.
+      No Texto I, a cronista vê um desenho que imaginava o futuro com carros voadores, mas cheio de piadas sobre mulher no volante: a tecnologia avançou, as ideias sobre as pessoas não. No Texto II, a autora diz que masculino e feminino são “formações imaginárias” que tentam criar uma grande diferença onde só há diferenças mínimas.
+      A piada machista é uma dessas construções imaginárias, fixas há tanto tempo que nem o desenho do futuro conseguiu mudá-la. Alternativa C.
+    enganos:
+      A: "O Texto II fala da mulher privada da palavra pública, mas o Texto I mostra piadas sobre dirigir, não censura à fala de Jane."
+      B: "Jane aparece dirigindo, e o Texto II diz que a separação entre público e privado valeu até o século 19. O desenho mostra estereótipo, não ausência."
+      D: "O Texto II diz o contrário: as diferenças entre homens e mulheres são mínimas. Não há limitação “inerente” (natural)."
+      E: "O Texto II diz que, até o século 19, a divisão de papéis era “clara”. Não havia dificuldade de atribuí-los."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-24
+    area: linguagens
+    competencia: 7
+    habilidade: 21
+    objeto: lin-argumentacao
+    topico: lin-argumentacao-publicidade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      O anúncio mostra três mulheres de máscara e o título “Eu uso máscara mas não me calo!”. No alto, a hashtag #JuntasSomosMaisFortes e o “Disque 180”. O texto diz que, no isolamento da pandemia, a Defensoria Pública alerta para o aumento da violência contra a mulher. No fim, em destaque: “Não se cale! Denuncie!”.
+      O comando pede a finalidade do anúncio. Os verbos no imperativo (“não se cale”, “denuncie”) mostram o que se espera de quem lê. Todo o resto (o dado sobre o aumento, o telefone, a imagem das mulheres juntas) serve para levar a essa ação. O anúncio incentiva as mulheres a denunciar a violência durante o isolamento. Alternativa E.
+    enganos:
+      A: "O “Disque 180” está lá, mas é o meio para denunciar, não a finalidade. A mensagem central é o imperativo “Denuncie!”."
+      B: "A Defensoria assina o anúncio, mas ele não descreve o que a entidade faz. Confunde quem fala com o que se quer."
+      C: "“A Defensoria não para” é um selo pequeno no canto. O anúncio não detalha o trabalho do órgão."
+      D: "O alerta sobre o aumento da violência existe, mas é a justificativa. O anúncio não para no alerta: pede a denúncia. E o aumento é ligado ao isolamento, não ao vírus em si."
+    aulas: [midia-fundamental/publicidade, violencia-domestica-sinais-e-ajuda/sinais-para-pedir-ajuda]
+
+  - id: enem-2023-25
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-contemporanea
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede o que revela a tentativa da narradora de voltar a falar.
+      Ela escolhe a palavra “arado”, ligada ao trabalho do pai na roça. Quando tenta dizê-la, o som sai deformado, e ela o compara a um arado torto que, em vez de preparar a terra, a deixa estragada e sem fruto.
+      A palavra e a ferramenta viram uma coisa só: a fala é um instrumento que abre caminho, como o arado abre a terra, e a fala ferida estraga o que toca. A linguagem é tratada como ferramenta de lavoura, por metáfora. Alternativa B.
+    enganos:
+      A: "O pai aparece na lembrança, mas o olhar é da narradora. E o tema é a fala dela, não as etapas do plantio."
+      C: "Ela estava sozinha quando tentou, mas o texto não fala em medo da solidão. É uma circunstância, não o sentido."
+      D: "A frustração é com o som que sai da boca. A terra estragada é imagem para falar da fala, não um problema real com a terra."
+      E: "Não há nada sobre o tempo parado. A narrativa avança: ela tenta, falha e descreve o que sentiu."
+    aulas: [portugues-medio/figuras-de-linguagem, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-26
+    area: linguagens
+    competencia: 5
+    habilidade: 15
+    objeto: lin-literatura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando diz que o texto de 1902 (catorze anos depois da Abolição) enfatiza as mazelas da escravidão e pede como.
+      Bilac olha para os meninos que brincam de peteca e diz que eles nunca viram um escravizado. Quando crescerem, vão saber dos horrores pelos museus e pelos livros. Mas a indignação deles nunca será tão grande quanto a de quem viveu aquilo de perto.
+      O autor prevê que, com o tempo, as marcas da escravidão vão se apagar da experiência do dia a dia e ficar só como memória distante. Ao antecipar esse apagamento, ele insiste em descrever os horrores. Alternativa C.
+    enganos:
+      A: "O texto é carregado de emoção: “época maldita”, “feitor bestial”, “raça mártir”. Não há nada de impessoal."
+      B: "Bilac não fala de crianças escravizadas em contraste com as livres. O contraste é entre as gerações: quem viveu a escravidão e quem só vai saber dela."
+      D: "Os museus mostram a “coleção hedionda” dos instrumentos de tortura. O autor não os acusa de suavizar a violência."
+      E: "O autor diz que as novas gerações terão indignação, só que menor. Não há indiferença, e o texto fala do futuro, não dos contemporâneos."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-27
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-recursos-expressivos
+    topico: lin-recursos-expressivos-coesao-e-coerencia
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o recurso que faz o texto avançar e constrói a ideia de que os amores têm um enredo comum.
+      Na segunda metade do trecho, a narradora diz que em algum momento seria o fim, e enumera: o fim de todos os grandes amores, de todos os pequenos, de todas as juras, de todos os casamentos. A palavra “todos” (e “todas”) abre item após item.
+      A repetição do pronome indefinido junta todos os tipos de relação no mesmo destino. Assim o texto avança e mostra que todas têm o mesmo enredo: acabam. Alternativa A.
+    enganos:
+      B: "O travessão introduz uma explicação (nada poderia ser definitivo), não uma oposição. E aparece uma vez só."
+      C: "“Isso” retoma os números de antes (duas horas, duas décadas). É uma retomada local, que não constrói a ideia de enredo comum."
+      D: "O “mas” aparece uma vez e marca que haveria um fim. A progressão vem da lista com “todos”, que vem depois."
+      E: "Há substantivação (“o Nunca Mais”), mas é pontual. Não é ela que faz o texto avançar."
+    aulas: [portugues-medio/coesao-e-coerencia]
+
+  - id: enem-2023-28
+    area: linguagens
+    competencia: 6
+    habilidade: 19
+    objeto: lin-texto
+    topico: lin-texto-funcoes-da-linguagem
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando diz que o poema tem função emotiva (o eu lírico fala de si) e pede qual o propósito dela.
+      O eu lírico fala da garganta, entre a mente e o coração, onde de repente se forma um “nó”. Conta que, quando quer falar, grita, e quando quer gritar, fala. O resultado, na última palavra, é que ele se cala.
+      Tudo gira em torno da voz que não sai do jeito certo. O eu lírico expressa a sua dificuldade de se comunicar. Alternativa C.
+    enganos:
+      A: "O coração aparece, mas como lugar de onde vêm as emoções. Não há história de amor no poema. Palavra-isca."
+      B: "O silêncio vem de um conflito de dentro (o nó na garganta), não de alguém que proíbe o eu lírico de falar."
+      D: "O que vem “de cima” e “de baixo” vem da mente e do coração, de dentro. Não são pressões de fora."
+      E: "O poema não fala de escrever nem de criar. Fala de conseguir ou não dizer."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-29
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pergunta em que se centra o efeito desconcertante (que causa estranhamento) de ligar o gato aos inconfidentes.
+      O narrador parte do gato gordo que não caça ratos e passa aos ratos de Ouro Preto, “dignos e solenes”, descendentes dos que teriam assistido às reuniões dos inconfidentes. Depois imagina esses ratos subindo ao poste onde foi exposta a cabeça de Tiradentes e entrando no crânio dele.
+      O estranhamento vem do choque: de um lado, a história grandiosa e solene da Inconfidência; do outro, a imagem nojenta dos ratos roendo o crânio do herói. Alternativa E.
+    enganos:
+      A: "Os casarões de Ouro Preto são o cenário. O efeito desconcertante não vem da descrição deles."
+      B: "O narrador mistura fatos históricos e imaginação, mas o choque do trecho é entre o solene e o repugnante, não entre ficção e realidade."
+      C: "O gato “cultor das boas letras” é uma brincadeira do começo. O efeito pedido vem dos ratos e da Inconfidência."
+      D: "Os inconfidentes são chamados de “sonhadores” e “absortos na esperança”. Nada põe em dúvida a sanidade deles."
+    aulas: [literatura-brasileira/arcadismo-e-a-inconfidencia]
+
+  - id: enem-2023-30
+    area: linguagens
+    competencia: 5
+    habilidade: 15
+    objeto: lin-literatura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando diz que os fatos do romance dão um esboço do momento político dos anos 1970 (a ditadura) e pede como isso aparece.
+      No trecho, a Companhia proíbe coisas absurdas (como tapar o sol com peneira) e coisas do dia a dia (pular muro para cortar caminho). Não confia só na proibição e manda pôr cacos de vidro nos muros. O pai do menino explica que agora a Companhia não admite “nenhuma brecha” e faz o gesto de torcer o pescoço de um frango.
+      Proibições em excesso, castigos rigorosos e a ameaça no gesto do pai: o medo entra na vida comum da cidade. É o culto ao medo. Alternativa A.
+    enganos:
+      B: "Ninguém duvida das informações no trecho. As ordens são claras e os castigos também."
+      C: "O romance tem elementos fora do comum, mas o trecho fala de regras e punições concretas. O clima é de opressão, não de sonho."
+      D: "A Companhia é uma empresa, mas no trecho ela só proíbe e pune. Não há nada de desenvolvimento econômico. Palavra-isca."
+      E: "Os meninos são citados como os que mais pulavam muros, mas a proibição vale para todos. Não há política de isolar as crianças."
+    aulas: [ditadura-de-1964/censura-tortura-e-desaparecimentos, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-31
+    area: linguagens
+    competencia: 5
+    habilidade: 16
+    objeto: lin-literatura
+    topico: lin-literatura-contemporanea
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando diz que o poema retoma a tradição lírica (o amor como tema) e pede o que o torna contemporâneo.
+      O eu lírico acha que o fim de um amor pede um cenário solene e lista vários, todos de grande drama (tempestade, abismo, despedida). Mas, no fim, nada disso acontece: o outro abaixa os olhos e recolhe as migalhas de pão da mesa posta para dois.
+      O grande sofrimento amoroso, que a tradição pintaria com cenários grandiosos, se dissolve num gesto pequeno de café da manhã. Diluir em banalidade a comoção de um amor frustrado é isso. Alternativa C.
+    enganos:
+      A: "O poema descreve o gesto do outro (“você abaixa os olhos”), mas não chama ninguém a tomar posição."
+      B: "O poema não discute se vale a pena amar. Trata de como o fim de um amor acontece."
+      D: "O gesto de recolher migalhas mostra constrangimento e resignação, não paz. E o poema não resolve o conflito."
+      E: "Os lugares idealizados são o que “seria necessário” para a despedida, e o poema os recusa. A alternativa inverte o sentido."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-32
+    area: linguagens
+    competencia: 4
+    habilidade: 14
+    objeto: lin-artes
+    topico: lin-artes-musica-brasileira
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o que caracteriza a interpretação de Jurandy do Sax no pôr do sol.
+      Ele toca o Bolero de Ravel, peça de um compositor erudito francês, e depois “Asa branca”, de Luiz Gonzaga, e uma canção que funciona como hino popular da Paraíba.
+      Erudito europeu e música popular nordestina parecem mundos distantes, mas convivem no mesmo repertório. Isso é a inter-relação de referências estéticas aparentemente distanciadas. Alternativa A.
+    enganos:
+      B: "O pôr do sol sugere calma, mas o texto não fala da mensagem das músicas. Palavra-isca."
+      C: "O repertório mistura erudito e popular. Não há consagração de um sobre o outro. Contradição."
+      D: "O turismo não aparece no texto. Extrapolação."
+      E: "O texto mostra os gêneros juntos, sem hierarquia. A alternativa diz o contrário."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-33
+    area: linguagens
+    competencia: 4
+    habilidade: 13
+    objeto: lin-artes
+    topico: lin-artes-modernismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A pintura mostra figuras humanas alongadas e angulosas, com rostos grandes, olhos vazados e traços deformados, em tons escuros. Não há preocupação com a proporção realista: é uma obra expressionista, que deforma o corpo para mostrar sofrimento; o título sugere gente sem lugar fixo, sempre a caminho.
+      O Texto II conta que o regime nazista expôs e confiscou a obra como “Arte Degenerada”. O comando pergunta por que ela foi considerada degenerada.
+      O regime queria uma arte que exaltasse um ideal de corpo e de povo. Uma pintura que deforma figuras e mostra gente errante e sofrida ia contra esse ideal. A estética foi tida como inconveniente para a ideologia política do momento. Alternativa A.
+    enganos:
+      B: "O texto não diz que a obra foi feita por grupos de oposição. Quem decidiu que ela era degenerada foi o regime, por causa da estética."
+      C: "A pintura deforma o corpo, mas o motivo da perseguição não era mostrar o corpo em partes. A alternativa pega um traço da imagem e o põe como causa."
+      D: "Se antecipasse o imaginário que o regime defendia, a obra não teria sido perseguida. Contradição."
+      E: "Qualquer obra pode estimular discussões. Isso não explica por que o regime a chamou de degenerada. Alternativa vaga."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-35
+    area: linguagens
+    competencia: 3
+    habilidade: 9
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-esporte-midia
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o que o contexto em que o esporte eletrônico é apresentado demonstra.
+      O texto junta vários sinais de crescimento: o mercado cresce mais rápido que a economia mundial, o público que pratica subiu de 44,7% para 55,4%, a audiência no Brasil cresceu 20% em 2020, e o Comitê Olímpico Internacional deu o primeiro passo para um evento olímpico oficial.
+      Todos esses dados apontam para um cenário favorável a que a modalidade se espalhe ainda mais. Alternativa A.
+    enganos:
+      B: "Os grandes jogadores aparecem como um dos fatores do reconhecimento pelo COI, não como promotores da prática. Redução."
+      C: "O texto não fala de campanhas de marketing. Extrapolação."
+      D: "As desenvolvedoras aparecem como parceiras das federações, não como beneficiadas. O texto não fala em favorecimento."
+      E: "O texto fala de audiência, mas não de televisão, e não descreve mudança no modo de assistir."
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo]
+
+  - id: enem-2023-36
+    area: linguagens
+    competencia: 4
+    habilidade: 12
+    objeto: lin-artes
+    topico: lin-artes-cultura-popular
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pergunta que função o Marabaixo exerce como expressão de arte e cultura.
+      O texto conta que o nome vem dos cantos de lamento por pessoas escravizadas jogadas ao mar nos navios negreiros. Depois, “posteriormente”, o Marabaixo passou a ser um ciclo de danças, cantos com tambores e festas religiosas das comunidades negras do Amapá, reconhecido como Patrimônio Cultural do Brasil.
+      Um episódio de dor virou prática cultural viva, com dança e festa. Isso é ressignificar (dar sentido novo a) um fato dramático. Alternativa A.
+    enganos:
+      B: "O mar está na origem do nome, não nos movimentos da dança. O texto não fala de imitar o mar."
+      C: "O lamento é a origem. O texto mostra que, depois, a manifestação ganhou dança e festa. Ficar só no lamento é redução."
+      D: "O Marabaixo guarda a memória da escravidão. Apagamento é o contrário."
+      E: "As festas são religiosas e comunitárias, não rituais fúnebres. A alternativa mistura a origem com o presente."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-37
+    area: linguagens
+    competencia: 4
+    habilidade: 12
+    objeto: lin-artes
+    topico: lin-artes-contemporanea-e-urbana
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede o objetivo do artista ao expor o trabalho nas plataformas virtuais.
+      O texto diz que as redes sociais foram para ele uma forma de “ampliar universos”, num lugar (Goiás) onde o ambiente para as artes visuais era “árido”, isto é, com pouco espaço. E informa que as colagens dele estão em capas de livros no Brasil e no exterior.
+      Ampliar o alcance para além do lugar de origem, até fora do país, é usar a rede como vitrine para dar visibilidade às obras. Alternativa C.
+    enganos:
+      A: "O texto não fala de dificuldades técnicas da colagem. A dificuldade era o ambiente com pouco espaço para a arte."
+      B: "As capas de livro são resultado da exposição, não o objetivo de imitar uma estética."
+      D: "A frase “ser diferente é uma potência” fala de quem tem projeto próprio, não de se opor às artes tradicionais. Palavra-isca."
+      E: "O texto não diz que as colagens ganharam sentido tecnológico. A rede é o lugar de mostrar, não muda a obra."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-38
+    area: linguagens
+    competencia: 4
+    habilidade: 14
+    objeto: lin-artes
+    topico: lin-artes-musica-brasileira
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede o que o rap feito por povos originários revela.
+      O texto conta que o grupo Brô MCs conheceu o rap, gênero urbano, pelo rádio, dentro da aldeia. E que Kunumi MC faz letras inspiradas “tanto pelo rap quanto pelos ritmos indígenas”, falando de demarcação de terras.
+      Uma manifestação urbana contemporânea se mistura com a cultura indígena e passa a falar das lutas dela. É uma fusão. Alternativa A.
+    enganos:
+      B: "As letras tratam de demarcação de terras dentro do rap. O texto mostra união, não oposição entre temas."
+      C: "Foi pelo rádio que o grupo conheceu o rap. O texto não fala de rejeição. Contradição."
+      D: "As letras falam da demarcação de terras, que é a realidade indígena. Contradição."
+      E: "Kunumi gosta de poesia, mas o texto não fala em estudar poesia indígena. Extrapolação."
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira]
+
+  - id: enem-2023-39
+    area: linguagens
+    competencia: 9
+    habilidade: 28
+    objeto: lin-generos-digitais
+    topico: lin-generos-digitais-hipertexto
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O comando pede o que impulsionou a mudança do verbete “casamento” no dicionário.
+      A notícia começa assim: a petição on-line criada por um cidadão “surtiu efeito”. O diretor do site diz que a mudança mostra a “eficiência da mobilização” e que a plataforma serve para causas que importam às pessoas.
+      A causa da mudança foi um cidadão usar publicamente a petição para mobilizar outros. Alternativa C.
+    enganos:
+      A: "Mudar o verbete foi a consequência. E a mudança tirou palavras (homem, mulher), mais do que incluiu informação."
+      B: "O texto não discute a importância do casamento. O motor da mudança foi a mobilização."
+      D: "O que foi rápido foi a mudança (dois dias), não a circulação do verbete na internet."
+      E: "O diretor fala bem da plataforma, mas a mudança veio do uso que o cidadão fez dela, não de propaganda do site."
+    aulas: [midia-fundamental/o-que-e-noticia]
+
+  - id: enem-2023-40
+    area: linguagens
+    competencia: 3
+    habilidade: 11
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-sociedade
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pede o que, no texto, mostra os limites do potencial inclusivo do esporte.
+      A atleta fez história por participar dos Jogos como mulher trans. Mas o último período traz a condição do Comitê Olímpico: mulheres trans podem competir se o nível de testosterona estiver abaixo de um valor fixo por pelo menos 12 meses.
+      A inclusão existe, mas depende de o corpo se encaixar num padrão biológico definido pela entidade. Esse é o limite. Alternativa B.
+    enganos:
+      A: "Ela ficou fora da disputa por medalhas, mas o texto não liga isso a limites da inclusão. Palavra-isca."
+      C: "O texto não diz que falta uma categoria para pessoas trans. A regra é para competir na categoria feminina."
+      D: "O afastamento de 2001 foi decisão dela, pela pressão que sentia. Não é regra do esporte."
+      E: "A terapia hormonal é permitida e até exigida pela regra. A alternativa contradiz o texto."
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora]
+
+  - id: enem-2023-41
+    area: linguagens
+    competencia: 3
+    habilidade: 11
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-saude-e-beleza
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O comando pergunta sobre que relação o caso faz refletir.
+      A notícia junta dois fatos da vida da ginasta: o abuso sexual que ela sofreu e denunciou, e a “lesão psicológica” que a impediu de competir em Tóquio. O texto diz que ela virou líder na luta contra o preconceito com problemas de saúde mental.
+      Os dois fatos tratam do que o atleta sente e sofre, não do que ele rende. A reflexão é sobre o esporte e a dimensão emocional dos atletas. Alternativa B.
+    enganos:
+      A: "As medalhas abrem a fala dela, mas o assunto é o abuso e a saúde mental. O desempenho é só o contraste."
+      C: "O Comitê Olímpico é acusado, mas a reflexão pedida não é sobre os comitês. Eles são parte do caso, não o tema."
+      D: "O FBI aparece como alvo da investigação, mas o texto não propõe pensar o esporte e os órgãos de inteligência."
+      E: "A federação é citada entre os responsáveis. O centro da reflexão é o atleta, não a entidade."
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora]
+
+  - id: enem-2023-42
+    area: linguagens
+    competencia: 3
+    habilidade: 9
+    objeto: lin-praticas-corporais
+    topico: lin-praticas-corporais-sociedade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pede o fator central que pesa nas práticas corporais no tempo de lazer.
+      O texto diz que as práticas prazerosas, de lazer, se concentram nas populações “mais abastadas” (com mais dinheiro), enquanto os mais pobres se exercitam principalmente no deslocamento, a pé ou de bicicleta para o trabalho. E chama isso de relação “inversa e perversa” entre condição socioeconômica e acesso.
+      O fator central é a desigualdade entre classes sociais. Alternativa E.
+    enganos:
+      A: "Mulheres aparecem na lista dos mais inativos, mas a lista inclui vários grupos. O texto organiza tudo pelo eixo da renda."
+      B: "O texto fala de pessoas que “desconhecem” os programas públicos. Então eles existem. Contradição."
+      C: "A idade é um dos itens da lista, não o fator central."
+      D: "Ser negro aparece na lista, mas o texto põe a condição econômica como explicação principal."
+    aulas: [educacao-fisica-fundamental/por-que-se-mexer-o-que-a-oms-recomenda, educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora]
+
+  - id: enem-2023-43
+    area: linguagens
+    competencia: 6
+    habilidade: 18
+    objeto: lin-recursos-expressivos
+    topico: lin-recursos-expressivos-figuras
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O comando pede uma característica do discurso de homenagem a Machado de Assis.
+      Rui Barbosa fala do soneto que Machado escreveu para a esposa morta (os “catorze versos”) e o chama de “aliança de ouro” de um “segundo noivado”, um “anel de outras núpcias”. Fala ainda da “florescência e frutificação” da alma do escritor.
+      Casamento, anel, flor e fruto são imagens. Elas falam da vida pessoal de Machado (o amor pela esposa) e da obra dele (o soneto, a literatura que floresceu). São metáforas da trajetória pessoal e criadora do homenageado. Alternativa A.
+    enganos:
+      B: "Há frases com ritmo no começo, mas o que atravessa o trecho e marca a homenagem são as imagens. Recurso secundário."
+      C: "As frases são longas e cheias de imagens. Contradição."
+      D: "Há oposições (a morte que não separa, mas aproxima), mas são do orador, não ideias tiradas da obra de Machado."
+      E: "Rui Barbosa corrige a ideia de despedida: para ele, a morte transforma e renova. O tom é de glorificação, não de nostalgia."
+    aulas: [portugues-medio/figuras-de-linguagem, lendo-machado-de-assis/por-onde-comecar]
+
+  - id: enem-2023-45
+    area: linguagens
+    competencia: 7
+    habilidade: 23
+    objeto: lin-texto
+    topico: lin-texto-generos-opinativos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O comando pede o objetivo da carta aberta.
+      A pista está no destinatário: o título é “Carta aberta à população brasileira” e o texto começa com “Prezados Cidadãos e Cidadãs”. Depois mostra que o país não está preparado para atender os idosos e descreve falhas em cada nível da saúde pública: postos, especialistas, hospitais.
+      A carta se dirige à população e expõe a qualidade ruim dos serviços para os idosos. Seu objetivo é chamar a atenção do povo para esse problema. Alternativa E.
+    enganos:
+      A: "A carta não dá conselhos de saúde aos idosos. Fala do sistema público, não de cuidados pessoais."
+      B: "O texto diz que espera a reflexão dos governantes, mas a carta é dirigida à população. Confunde um pedido do fim com o objetivo."
+      C: "A sociedade assina a carta, mas não fala do próprio trabalho. Confunde autor com assunto."
+      D: "O texto não fala de leis que pioraram. Ao contrário, reconhece “indiscutíveis avanços”."
+    aulas: [portugues-medio/generos-textuais]
