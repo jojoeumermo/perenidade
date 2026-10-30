@@ -35,9 +35,14 @@ quiz:
     opcoes: ["Que ela não vai aprender nunca", "Que ela já percebeu que a palavra tem três pedaços e pôs uma letra para cada um", "Que ela copiou errado"]
     resposta: 1
     explicacao: "É um passo do caminho. Ela já ouve as sílabas. Falta descobrir as consoantes que vão junto."
+ferramentas: [silabario, palavras-geradoras]
 ---
 
 Nas aulas [Palavras da casa](/trilhas/ler-e-escrever/palavras-da-casa) e [Palavras do trabalho](/trilhas/ler-e-escrever/palavras-do-trabalho), você dividiu PANELA e TIJOLO em pedaços e montou palavras novas. Esses pedaços têm nome: **sílabas**. Nesta aula, você vai aprender a fazer isso com qualquer palavra.
+
+## O que você vai aprender
+
+Ao fim desta aula você vai separar qualquer palavra em sílabas, batendo palmas. Vai conhecer as famílias de sílabas e as que mudam de som (CA e CE, GA e GE). E vai montar e desmontar palavras trocando um pedaço por vez.
 
 ## Bater palmas
 
@@ -145,6 +150,50 @@ Numa dessas etapas, a pessoa já ouve as sílabas e põe **uma letra para cada p
 
 Se você escreve assim, ótimo sinal. Continue batendo palmas e procurando, em cada pedaço, a consoante que vem junto da vogal.
 
+## Exemplo resolvido
+
+**Como ler uma palavra que você nunca viu escrita: SINDICATO?**
+
+1. Bata palmas enquanto fala: SIN - DI - CA - TO. São quatro palmas, quatro sílabas.
+2. Leia o primeiro pedaço. **SIN** tem um N no fim: o som vai pelo nariz, como em SINO.
+3. Leia **DI**, da família DA, DE, DI, DO, DU.
+4. Leia **CA**. Atenção: CA tem som de K, como em CASA. Seria diferente se fosse CE ou CI.
+5. Leia **TO**, da família TA, TE, TI, TO, TU.
+6. Junte devagar e depois de uma vez: SIN... DI... CA... TO... **SINDICATO**.
+
+Confira: o número de palmas (4) é o número de pedaços que você leu (4). Se sobrar ou faltar palma, volte e fale mais devagar.
+
+## Ouça as famílias
+
+Toque em cada linha e repita junto com o aparelho.
+
+```pronuncia
+lingua: pt-BR
+BA BE BI BO BU | família do B
+MA ME MI MO MU | família do M
+CA CO CU | o C com som de K
+CE CI | o C com som de S
+GA GO GU | o G de GATO
+GE GI | o G de GENTE
+```
+
+## Quantas palmas?
+
+Arraste cada palavra para o número de sílabas que ela tem.
+
+```arrastar
+Uma sílaba: SAL, PÃO, MÃE, LUZ
+Duas sílabas: CAFÉ, FEIJÃO, PORTA, CAMPO
+Três sílabas: PANELA, MARMITA, TIJOLO, CEBOLA
+Quatro sílabas: SINDICATO, LIBERDADE, TELEFONE, APOSENTO
+```
+
+No silabário, cada letra e cada sílaba fala quando você toca nela.
+
+```ferramenta
+silabario | Abrir o silabário
+```
+
 ## Para praticar
 
 1. Bata palmas e diga quantas sílabas tem: SAL, FEIJÃO, MARMITA, SINDICATO.
@@ -155,10 +204,18 @@ Se você escreve assim, ótimo sinal. Continue batendo palmas e procurando, em c
 
 **Respostas:** 1) SAL (1), FEI-JÃO (2), MAR-MI-TA (3), SIN-DI-CA-TO (4). 2) LOBO, TOMA, LAMA. 3) Um exemplo: LATA → MATA → MALA → MOLA. 5) PRA-TO, POR-TA, CAM-PO.
 
+## Resumo
+
+- Cada palma é uma **sílaba**. Toda sílaba tem pelo menos uma vogal.
+- Uma **família** é a mesma consoante com as cinco vogais: BA, BE, BI, BO, BU.
+- Algumas famílias mudam de som: **CA** e **CE**, **GA** e **GE**. Para o som de K antes de E e I, usa-se **QUE** e **QUI**; para o G de GATO, **GUE** e **GUI**.
+- Trocando um pedaço por vez, uma palavra vira outra: LATA, MATA, MALA, MOLA.
+- Escrever uma letra só para cada pedaço (AEA para PANELA) é uma etapa do caminho, não um defeito.
+
 ## Para pensar
 
 Com as famílias, você pode tentar ler **qualquer palavra**, mesmo uma que nunca viu escrita. Vai devagar, pedaço por pedaço, e depois junta tudo.
 
 Escolha uma palavra comprida que importa para você: o nome do seu bairro, da sua cidade, do seu remédio. Peça a alguém para escrever. Bata palmas. Descubra os pedaços.
 
-Na próxima aula, você vai usar tudo isso na rua: [Ler placas, ônibus e contas](/trilhas/ler-e-escrever/ler-placas-onibus-e-contas).
+Na próxima aula, você vai juntar as palavras e escrever a primeira frase: [Da palavra à frase](/trilhas/ler-e-escrever/da-palavra-a-frase).

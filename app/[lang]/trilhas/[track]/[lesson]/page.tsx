@@ -177,7 +177,7 @@ export default async function LessonPage({ params }: Props) {
       </aside>
 
       {/* No celular, a posição e a trilha aparecem na barra de cima (components/celular/BarraDoCelular.tsx). */}
-      <article className="folha-da-aula min-w-0 justify-self-center" data-posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} data-trilha={track.title}>
+      <article className="folha-da-aula min-w-0 justify-self-center" data-posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} data-trilha={track.title} data-letra-grande={track.area === "alfabetizacao" && track.stage !== "superior" ? "" : undefined}>
         <p className="rotulo">
           {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })}
         </p>
