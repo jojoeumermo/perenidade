@@ -62,7 +62,7 @@ quiz:
   - pergunta: "Um táxi cobra R$ 6 de bandeirada (valor fixo) e R$ 3 por quilômetro. Quanto custa uma corrida de 8 km?"
     opcoes: ["R$ 54", "R$ 30", "R$ 24", "R$ 17"]
     resposta: 1
-    explicacao: "É uma função afim: preço = 6 + 3 · km. Para 8 km: 6 + 3 × 8 = 6 + 24 = 30. Quem marca 24 esqueceu a bandeirada; quem marca 54 multiplicou a bandeirada também."
+    explicacao: "É uma função afim: preço = 6 + 3 · km. Para 8 km: 6 + 3 × 8 = 6 + 24 = 30. Quem marca 24 esqueceu a bandeirada."
 ---
 
 ```provocacao

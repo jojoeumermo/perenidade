@@ -85,7 +85,8 @@ a massa molar é a soma das massas atômicas da fórmula: água, H₂O, é 2 × 
 ```formula
 N = n · 6,02 × 10²³
 número de partículas: o número de mols vezes a constante de Avogadro
-um mol de qualquer coisa tem cerca de 602 bilhões de trilhões de unidades```
+um mol de qualquer coisa tem cerca de 602 bilhões de trilhões de unidades
+```
 
 ```formula
 1 mol de gás ≈ 22,4 L a 0 °C e 1 atm

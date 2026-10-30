@@ -120,7 +120,7 @@ Este é um material de revisão. Ele não ensina cada assunto do zero: para isso
 
 Leia cada caixa em voz alta. A primeira linha é a fórmula. As linhas de baixo dizem a mesma coisa em palavras. Se a leitura em palavras fizer sentido, você entendeu a fórmula. Se não fizer, abra a aula do assunto.
 
-Uma dica que vale para tudo: antes de fazer a conta, escreva as unidades. Metade dos erros de prova vem de misturar centímetro com metro, mês com ano, ou porcentagem com número decimal.
+Uma dica que vale para tudo: antes de fazer a conta, escreva as unidades. Muitos erros de prova vêm de misturar centímetro com metro, mês com ano, ou porcentagem com número decimal.
 
 ## Números: porcentagem, juros e proporção
 
@@ -407,7 +407,7 @@ E) 200 km.
 **Por que as outras não:**
 
 - A) 0,02 km: os centímetros foram divididos por 10.000.000 em vez de 100.000. Lembre que 1 km = 1.000 m = 100.000 cm.
-- B) 0,2 km: a conversão de metro para quilômetro foi feita duas vezes, ou se dividiu por 1.000.000. Refaça passo a passo: cm, depois m, depois km.
+- B) 0,2 km: os centímetros foram divididos por 1.000.000 em vez de 100.000. Refaça passo a passo: cm, depois m, depois km.
 - D) 20 km: faltou uma divisão por 10 na conversão. Confira quantos zeros tem 100.000.
 - E) 200 km: os 200.000 cm foram lidos como metros. Escreva a unidade ao lado de cada número.
 

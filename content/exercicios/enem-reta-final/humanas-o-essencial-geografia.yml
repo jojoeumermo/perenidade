@@ -114,7 +114,7 @@
       erro: "Os mapas mostram cores diferentes: continentes e Ártico aquecem mais. O aquecimento médio esconde diferenças regionais."
     - texto: "os oceanos aquecem mais que os continentes."
       erro: "Você inverteu a leitura. O texto diz que as áreas continentais aquecem mais que a média."
-    - texto: "cada décimo de grau a mais no aquecimento global amplia as regiões com aumento forte de temperatura."
+    - texto: "quanto maior o aquecimento global, maiores ficam as regiões com aumento forte de temperatura."
       certa: true
     - texto: "o cenário de 4 °C é o atual."
       erro: "Os mapas são cenários futuros comparados. Leia o título do mapa antes de concluir."

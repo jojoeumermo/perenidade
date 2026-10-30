@@ -79,7 +79,7 @@ quiz:
 ---
 
 ```provocacao
-Quando chove forte, por que a rua do centro alaga em minutos e o sítio do seu tio, não? A resposta está em quase metade da prova de geografia.
+Quando chove forte, por que a rua do centro alaga em minutos e o sítio do seu tio, não? A resposta passa por vários dos temas de geografia que a prova cobra.
 ```
 
 ## O que você vai aprender
