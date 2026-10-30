@@ -712,14 +712,14 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       {/* O termo de voluntário: quem tem função aceita uma vez; quem recusa sai. Banco antigo não manda o campo e nada aparece. */}
       {voluntario && eu.termo_voluntario === false && <TermoDeVoluntario aceitou={recarregar} sair={sair} />}
       {/* Barra do alto no celular: a faixa bordô do site, o nome e o menu. */}
-      <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-[#f4ecd8] lg:hidden">
+      <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-rule bg-folha px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-ink lg:hidden">
         <span className="flex min-w-0 items-center gap-2.5">
-          <Star className="h-5 w-5 shrink-0 text-[#f4ecd8]" />
+          <Star className="h-5 w-5 shrink-0 text-prelo-texto" />
           <span className="truncate font-serif text-lg font-semibold">Instituto Lúcia</span>
-          <span className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#f0cf8e]">{ambiente}</span>
+          <span className="text-xs text-ink-soft">{ambiente}</span>
         </span>
         <span className="flex shrink-0 items-center gap-2">
-          <button type="button" onClick={() => setIrPara(true)} aria-label="Ir para uma seção" data-tour="ir-para" className="cursor-pointer border border-[#f4ecd8]/50 p-1.5">
+          <button type="button" onClick={() => setIrPara(true)} aria-label="Ir para uma seção" data-tour="ir-para" className="cursor-pointer border border-rule p-1.5">
             <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
           </button>
           <button
@@ -728,7 +728,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
             aria-expanded={menu}
             aria-controls="menu-do-painel"
             data-tour="menu-celular"
-            className="cursor-pointer border border-[#f4ecd8]/50 px-3 py-1.5 font-semibold"
+            className="cursor-pointer border border-rule px-3 py-1.5 font-semibold"
           >
             {menu ? "Fechar" : "Menu"}
           </button>
@@ -777,7 +777,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
 
       <div className={`min-w-0 ${menu ? "hidden lg:block" : ""}`}>
         {/* O alto de cada seção: a barra fina com o caminho e os atalhos, e o título no papel, com o selo da seção. */}
-        <header key={`cabeca-${atual.id}`} className="painel-cabeca no-print border-b-[3px] border-ink bg-parchment">
+        <header key={`cabeca-${atual.id}`} className="painel-cabeca no-print border-b border-rule bg-folha">
           <div className="painel-barra flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-rule px-5 py-2.5 sm:px-8">
             <p className="min-w-0 truncate font-mono text-[0.66rem] uppercase tracking-[0.2em] text-ink-soft">
               Painel · {ambiente}
@@ -813,9 +813,9 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
             </p>
           )}
           {!amplo && (
-            <div className="pont px-5 pt-6 pb-6 sm:px-8">
-              <h1 className="flex items-center gap-3.5 font-serif text-[2.1rem] font-semibold leading-none sm:text-[2.6rem]">
-                <span className="selo h-12 w-12 shrink-0 bg-folha shadow-[3px_3px_0_var(--prelo)]">
+            <div className="px-5 pt-6 pb-6 sm:px-8">
+              <h1 className="flex items-center gap-3.5 font-serif text-[1.9rem] font-semibold leading-none sm:text-[2.2rem]">
+                <span className="selo h-11 w-11 shrink-0 bg-parchment">
                   <Icone id={atual.id} className="h-7 w-7 text-prelo-texto" />
                 </span>
                 {atual.nome}
@@ -1049,7 +1049,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <div className="flex min-w-0 flex-col gap-1.5">
             <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-ink-soft">{hoje}</p>
-            <h2 className="font-serif text-[2.5rem] font-medium leading-[1.05] max-sm:text-[2.1rem]">
+            <h2 className="painel-titulo font-serif text-[2.5rem] font-medium leading-[1.05] max-sm:text-[2.1rem]">
               {saudacao}, <em className="text-prelo-texto">{me.nome.split(" ")[0]}</em>.
             </h2>
           </div>
