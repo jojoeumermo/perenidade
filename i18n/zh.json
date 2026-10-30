@@ -4765,6 +4765,7 @@
     "mistakesLead": "你在课程、题库、模拟考试和这本笔记里答错的题。连续答对两次，它就会离开列表。",
     "mistakesEmpty": "还没有保存的错题。在课程或模拟考试中答错时，题目会出现在这里。",
     "mistakesRedo": "重做错题",
+    "mistakesWeek": "复习本周的错题（{n}）",
     "mistakesCount": "待复习 {n} 题",
     "yourAnswer": "你的选择",
     "rightAnswer": "正确答案",

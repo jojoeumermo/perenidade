@@ -4,7 +4,7 @@
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import { type Fonte, limpar, type Marca, novoId } from "@/lib/caderno";
-import { agendar, apagarCartao, apagarErro, type CartaoDeRevisao, type Erro, guardarCartoes, hoje, lerCartoes, lerCopia, lerErros, montarCopia, type Nota, paraHoje, refazerErro, responderCartao, restaurarCopia } from "@/lib/estudo";
+import { agendar, apagarCartao, apagarErro, type CartaoDeRevisao, type Erro, filaDeErros, guardarCartoes, hoje, lerCartoes, lerCopia, lerErros, montarCopia, type Nota, paraHoje, refazerErro, responderCartao, restaurarCopia } from "@/lib/estudo";
 import { L } from "../I18n";
 import type { NotebookStrings } from "./Caderno";
 
@@ -198,6 +198,9 @@ export function Revisao({ s }: { s: NotebookStrings }) {
 
 // ───────────── Caderno de erros ─────────────
 
+/** Sete dias atrás, em milissegundos (para "os erros da semana"). */
+const semanaPassada = () => Date.now() - 7 * 86_400_000;
+
 export function Erros({ s }: { s: NotebookStrings }) {
   const [erros, recarregar] = useGuardado<Erro[]>(lerErros, []);
   const [refazendo, setRefazendo] = useState<string[] | null>(null);
@@ -241,7 +244,8 @@ export function Erros({ s }: { s: NotebookStrings }) {
     <div>
       <p className="font-serif text-lg italic leading-snug text-ink-soft">{s.mistakesLead}</p>
       <p className="mt-3 flex flex-wrap items-center gap-3">
-        <button type="button" className={botao} disabled={erros.length === 0} onClick={() => setRefazendo([...erros].sort(() => Math.random() - 0.5).map((e) => e.id))}>{s.mistakesRedo}</button>
+        <button type="button" className={botao} disabled={erros.length === 0} onClick={() => setRefazendo(filaDeErros(erros))}>{s.mistakesRedo}</button>
+        <button type="button" className={claro} disabled={!filaDeErros(erros, semanaPassada()).length} onClick={() => setRefazendo(filaDeErros(erros, semanaPassada()))}>{fill(s.mistakesWeek, { n: filaDeErros(erros, semanaPassada()).length })}</button>
         <L href="/questoes#simulado" className={claro}>{s.mockExam}</L>
         <span className="font-mono text-xs text-ink-soft">{fill(s.mistakesCount, { n: erros.length })}</span>
       </p>

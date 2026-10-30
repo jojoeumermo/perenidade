@@ -10,7 +10,7 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 - Testes das aulas do percurso: 213 perguntas · posição da certa (1ª a 5ª opção): 84 / 70 / 32 / 27 / 0
 - Questões oficiais classificadas e resolvidas: **347** de 2689 importadas (12.9%) · anos: 2022, 2023
 - Redação: 0 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
-- Fatos da edição 2026: 54 (3 a confirmar no edital)
+- Fatos da edição 2026: 55 (3 a confirmar no edital)
 
 ## Habilidades (meta: cada uma com 1 aula do percurso e 10 exercícios)
 

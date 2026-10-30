@@ -4842,6 +4842,7 @@
     "mistakesLead": "Les questions que vous avez ratées dans les cours, la banque de questions, les examens blancs et ici dans le cahier. Réussissez-en une deux fois de suite et elle sort de la liste.",
     "mistakesEmpty": "Aucune erreur enregistrée. Quand vous ratez une question dans un cours ou un examen blanc, elle apparaît ici.",
     "mistakesRedo": "Refaire les erreurs",
+    "mistakesWeek": "Revoir les erreurs de la semaine ({n})",
     "mistakesCount": "{n} questions à revoir",
     "yourAnswer": "Vous avez choisi",
     "rightAnswer": "Bonne réponse",
