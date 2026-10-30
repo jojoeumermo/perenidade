@@ -90,16 +90,18 @@ export function Quiz({ questions, registro, guardarNoAparelho = false }: { quest
             {t.lesson.nextQuestion} →
           </button>
         )}
-        <span aria-hidden className="ml-auto flex gap-1.5">
-          {questions.map((x, i) => (
-            <button
-              key={i}
-              type="button"
-              tabIndex={-1}
-              onClick={() => setAtual(i)}
-              className={`h-2.5 w-6 cursor-pointer border border-ink ${answers[i] === undefined ? (i === atual ? "bg-ink" : "bg-transparent") : answers[i] === x.answer ? "bg-[#2f5d34]" : "bg-[#c21f16]"}`}
-            />
-          ))}
+        {/* A régua: dá para voltar e rever as já respondidas, mas não pular para a frente. Com muitas questões (as
+            provas), ela ocupa a linha inteira e os tracinhos encolhem, sem sair da caixa. */}
+        <span aria-hidden className={`flex gap-1 ${questions.length > 8 ? "order-first w-full" : "ml-auto gap-1.5"}`}>
+          {questions.map((x, i) => {
+            const cor = answers[i] === undefined ? (i === atual ? "bg-ink" : "bg-transparent") : answers[i] === x.answer ? "bg-[#2f5d34]" : "bg-[#c21f16]";
+            const tamanho = questions.length > 8 ? "min-w-0 flex-1" : "w-6";
+            return answers[i] !== undefined && i !== atual ? (
+              <button key={i} type="button" tabIndex={-1} onClick={() => setAtual(i)} className={`h-2.5 cursor-pointer border border-ink ${tamanho} ${cor}`} />
+            ) : (
+              <span key={i} className={`h-2.5 border border-ink ${tamanho} ${cor}`} />
+            );
+          })}
         </span>
       </div>
       {finished && (

@@ -40,7 +40,7 @@ export function NesteDia({ s, lang }: { s: Dict["home"]; lang: string }) {
         <h2 id="neste-dia" className="flex flex-wrap items-baseline gap-x-3 text-3xl font-semibold">
           {s.onThisDay} <span className="font-mono text-base font-normal tracking-[0.1em] text-prelo-texto">{dia}</span>
         </h2>
-        <ol className="mt-6 grid gap-6 sm:grid-cols-3">
+        <ol className={`mt-6 grid gap-6 ${fatos.length >= 3 ? "sm:grid-cols-3" : fatos.length === 2 ? "sm:grid-cols-2" : ""}`}>
           {fatos.map((fato) => (
             <li key={`${fato.ano}${fato.texto.slice(0, 20)}`} className="border-t-[3px] border-[#c21f16] pt-3">
               <p className="lambe text-2xl text-prelo-texto">{fato.ano}</p>

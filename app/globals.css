@@ -2629,16 +2629,12 @@ html[data-escrita-foco="1"] .painel {
   background-size: 48px 16px;
 }
 
-/* Kit de divulgação: na impressão sai só a peça escolhida, que vai para uma raiz própria no fim do body
-   (components/governanca/KitDeDivulgacao.tsx), no tamanho real, com as cores de fundo e uma folha por página. */
-.peca-para-imprimir {
-  display: none;
-}
+/* Kit de divulgação: na impressão sai só a peça escolhida, no tamanho real e com as cores de fundo. */
 @media print {
-  :root[data-imprimir-peca] body > :not(.peca-para-imprimir) { display: none !important; }
-  :root[data-imprimir-peca] .peca-para-imprimir { display: block; }
-  :root[data-imprimir-peca] .folha-impressa { break-after: page; }
-  :root[data-imprimir-peca] .folha-impressa:last-child { break-after: auto; }
+  :root[data-imprimir-peca] body * { visibility: hidden !important; }
+  :root[data-imprimir-peca] .peca-impressa,
+  :root[data-imprimir-peca] .peca-impressa * { visibility: visible !important; }
+  :root[data-imprimir-peca] .peca-impressa { position: fixed; left: 0; top: 0; margin: 0 !important; }
   :root[data-imprimir-peca] * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
@@ -4143,57 +4139,6 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   .linha-br .linha-cartao::after,
   .linha-fora .linha-cartao::after {
     display: none;
-  }
-}
-
-/* O catálogo do kit de agitação: cada ficha mostra a peça de verdade, encolhida. A escolhida fica com o fio de tinta. */
-.kit-ficha {
-  display: block;
-  width: 100%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  padding: 0.5rem;
-  text-align: left;
-  transition: border-color 0.12s ease, background-color 0.12s ease;
-}
-.kit-ficha:hover {
-  border-color: var(--rule);
-  background-color: var(--folha);
-}
-.kit-ficha[aria-pressed="true"] {
-  border-color: var(--ink);
-  background-color: var(--folha);
-  box-shadow: 4px 4px 0 var(--prelo);
-}
-.kit-miniatura {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: #d8d0c0;
-}
-.kit-nova {
-  margin-right: 0.4rem;
-  display: inline-block;
-  background-color: var(--ink);
-  padding: 0 0.25rem;
-  vertical-align: 1px;
-  font-family: var(--font-archive), ui-monospace, monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--parchment);
-}
-@media (prefers-reduced-motion: reduce) {
-  .kit-ficha {
-    transition: none;
-  }
-}
-/* No celular, os botões de escolha viram pílula (app/celular.css); a ficha do catálogo é um cartão, com o canto de cartão. */
-@media (max-width: 767.98px) {
-  :root:not([data-leitor]) main button.kit-ficha.kit-ficha[aria-pressed] {
-    border-radius: var(--cel-raio, 1rem);
   }
 }
 

@@ -25,7 +25,10 @@ function secoes(corpo: string): { abertura: string; partes: string[] } {
   return { abertura, partes: pedacos };
 }
 
-/** Uma seção com "### " vira cartões: o título, o primeiro parágrafo à vista e o resto em "saiba mais". */
+/**
+ * Uma seção com "### " vira cartões: o título, uma ou duas frases à vista e o resto em "saiba mais". Resumos do mesmo
+ * tamanho deixam os cartões iguais (com o parágrafo inteiro, um cartão tinha quatro linhas e o vizinho, doze).
+ */
 function funcoes(secao: string): { cabeca: string; cartoes: { titulo: string; resumo: string; resto: string }[] } | null {
   const [cabeca, ...blocos] = secao.split(/\n(?=### )/);
   if (blocos.length === 0) return null;
@@ -34,10 +37,16 @@ function funcoes(secao: string): { cabeca: string; cartoes: { titulo: string; re
     cartoes: blocos.map((bloco) => {
       const [linha, ...corpo] = bloco.split("\n");
       const texto = corpo.join("\n").trim();
-      let corte = texto.indexOf("\n\n");
-      // Parágrafo que anuncia uma lista ("você pode encontrar:") leva a lista junto no resumo.
-      if (corte !== -1 && texto.slice(0, corte).trimEnd().endsWith(":")) corte = texto.indexOf("\n\n", corte + 2);
-      return { titulo: linha.replace(/^###\s+/, "").trim(), resumo: corte === -1 ? texto : texto.slice(0, corte), resto: corte === -1 ? "" : texto.slice(corte + 2) };
+      const fim = texto.indexOf("\n\n") === -1 ? texto.length : texto.indexOf("\n\n");
+      // Fim de frase: ponto, interrogação ou exclamação seguidos de espaço, fora de lista e de link.
+      let corte = -1;
+      for (const m of texto.slice(0, fim).matchAll(/[.?!](?=\s)/g)) {
+        corte = m.index + 1;
+        if (corte >= 60) break;
+      }
+      if (corte === -1 || corte >= fim - 1) corte = fim;
+      const resumo = texto.slice(0, corte).trim();
+      return { titulo: linha.replace(/^###\s+/, "").trim(), resumo, resto: texto.slice(corte).trim() };
     }),
   };
 }
@@ -104,7 +113,8 @@ export default async function Voluntarios({ params }: PageProps<"/[lang]/volunta
             <div className="mx-auto max-w-3xl">
               <Markdown lang={lang}>{cartoes.cabeca}</Markdown>
             </div>
-            <ul className="mt-6 grid gap-5 md:grid-cols-2">
+            {/* Todas as fileiras com a altura da maior (auto-rows-fr), e o cartão que sobra sozinho no fim fica no meio. */}
+            <ul className="mt-6 grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-3 md:max-lg:[&>li:last-child:nth-child(odd)]:col-span-2 lg:[&>li:last-child:nth-child(3n+1)]:col-start-2">
               {cartoes.cartoes.map((c) => (
                 <li key={c.titulo} className="cartao flex flex-col p-5 sm:p-6">
                   <h3 className="font-serif text-[1.45rem] font-semibold leading-tight">{c.titulo}</h3>
