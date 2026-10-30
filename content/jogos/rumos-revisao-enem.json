@@ -1,0 +1,1075 @@
+{
+  "formato": "rumos/1",
+  "id": "revisao-enem",
+  "titulo": "Revisão ENEM: Ciências Humanas",
+  "resumo": "Doze cartas sorteadas entre os temas de História, Geografia, Filosofia e Sociologia que mais aparecem na prova. Escolha a área ou misture tudo.",
+  "papel": "Você aconselha o governo de um país imaginário. A cada carta, alguém traz um dilema que já foi vivido ou pensado no mundo real. Decida, veja o que ensina e siga a aula que aprofunda o tema.",
+  "sobre": "O país e as personagens são inventados. Os fatos e as ideias de \"Na história real\" são conferidos, com a fonte ao lado. As cartas são sorteadas a cada partida. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+  "modo": "sorteio",
+  "duracao": 12,
+  "medidores": [
+    {
+      "id": "povo",
+      "nome": "Povo",
+      "descricao": "O bem-estar e a voz da maioria. Esquecido, ele se revolta; atendido sem limite, as contas e as instituições não aguentam."
+    },
+    {
+      "id": "poder",
+      "nome": "Instituições",
+      "descricao": "A força das regras e do governo. Fracas, o país se desmancha; fortes demais, viram autoritarismo."
+    },
+    {
+      "id": "natureza",
+      "nome": "Natureza",
+      "descricao": "Florestas, rios, clima e território. Destruídos, cobram a conta; intocados por decreto, travam a vida de quem mora neles."
+    },
+    {
+      "id": "economia",
+      "nome": "Economia",
+      "descricao": "Produção, emprego e dinheiro público. Em colapso, falta tudo; superaquecida, concentra riqueza e explode em crise."
+    }
+  ],
+  "inicio": {
+    "povo": 50,
+    "poder": 50,
+    "natureza": 50,
+    "economia": 50
+  },
+  "personagens": [
+    {
+      "id": "ministra",
+      "nome": "Ministra Aurélia",
+      "papel": "ministra de um país imaginário"
+    },
+    {
+      "id": "professor",
+      "nome": "Professor Natan",
+      "papel": "historiador da universidade pública"
+    },
+    {
+      "id": "lider",
+      "nome": "Joana",
+      "papel": "liderança de um movimento popular"
+    },
+    {
+      "id": "empresario",
+      "nome": "Sr. Prado",
+      "papel": "industrial"
+    },
+    {
+      "id": "geografa",
+      "nome": "Dra. Iara",
+      "papel": "geógrafa do instituto de pesquisas"
+    },
+    {
+      "id": "estudante",
+      "nome": "Lia",
+      "papel": "estudante que vai prestar o ENEM"
+    }
+  ],
+  "cartas": [
+    {
+      "id": "en-atenas",
+      "area": "historia",
+      "titulo": "Democracia de quem?",
+      "personagem": "professor",
+      "texto": "O governo quer copiar a democracia direta da Grécia Antiga: todos os cidadãos votando cada lei em praça pública. O professor Natan lembra quem eram os \"cidadãos\" de Atenas.",
+      "esquerda": {
+        "texto": "Copiar o modelo antigo",
+        "efeito": {
+          "poder": -10,
+          "povo": -10
+        },
+        "retorno": "Em Atenas, a assembleia era de poucos: a democracia antiga convivia com a escravidão e a exclusão das mulheres."
+      },
+      "direita": {
+        "texto": "Assembleias abertas a todos",
+        "efeito": {
+          "povo": 12,
+          "poder": -5,
+          "economia": -5
+        },
+        "retorno": "Participação direta, sim, mas com cidadania ampliada: sem excluir ninguém por sexo, origem ou condição."
+      },
+      "historia": {
+        "texto": "Na Atenas do século V a.C., os cidadãos votavam diretamente as leis na assembleia (eclésia). Mas eram cidadãos só os homens adultos filhos de atenienses: mulheres, escravizados e estrangeiros residentes (metecos) estavam fora, ou seja, a maioria da população.",
+        "fonte": {
+          "titulo": "Política",
+          "autor": "Aristóteles",
+          "ano": "século IV a.C."
+        }
+      },
+      "aula": {
+        "titulo": "Grécia Antiga",
+        "href": "/trilhas/historia-antiga/grecia-antiga"
+      }
+    },
+    {
+      "id": "en-maquinas",
+      "area": "historia",
+      "titulo": "As máquinas chegaram",
+      "personagem": "empresario",
+      "texto": "O Sr. Prado vai trocar 300 tecelões por teares automáticos. Os trabalhadores ameaçam quebrar as máquinas. Ele pede proteção da polícia.",
+      "esquerda": {
+        "texto": "Mandar a polícia",
+        "efeito": {
+          "economia": 12,
+          "poder": 8,
+          "povo": -15
+        },
+        "retorno": "A fábrica produz mais com menos gente. Os tecelões, sem direitos nem seguro, vão para a miséria."
+      },
+      "direita": {
+        "texto": "Negociar transição e direitos",
+        "efeito": {
+          "povo": 12,
+          "economia": -8,
+          "poder": 5
+        },
+        "retorno": "Tecnologia não é o inimigo: o problema é quem fica com o ganho. Jornada, salário e requalificação entram na mesa."
+      },
+      "historia": {
+        "texto": "Na Revolução Industrial inglesa, entre 1811 e 1816, trabalhadores conhecidos como luditas quebraram máquinas que ameaçavam seus empregos e salários. A repressão foi dura. A luta operária depois se organizou em sindicatos, que conquistaram a redução da jornada.",
+        "fonte": {
+          "titulo": "A era das revoluções: 1789-1848",
+          "autor": "Eric Hobsbawm",
+          "ano": "1962"
+        }
+      },
+      "aula": {
+        "titulo": "A Revolução Industrial e os primeiros sindicatos",
+        "href": "/trilhas/historia-do-sindicalismo/a-revolucao-industrial-e-os-primeiros-sindicatos"
+      }
+    },
+    {
+      "id": "en-declaracao",
+      "area": "historia",
+      "titulo": "Direitos do homem, e da mulher?",
+      "personagem": "lider",
+      "texto": "O país vai aprovar uma declaração de direitos. Joana nota que o texto fala sempre em \"o homem e o cidadão\" e pede que as mulheres sejam citadas.",
+      "esquerda": {
+        "texto": "Manter o texto como está",
+        "efeito": {
+          "poder": 8,
+          "povo": -12
+        },
+        "retorno": "Universal no papel, excludente na prática. Na França, quem apontou isso pagou caro."
+      },
+      "direita": {
+        "texto": "Incluir as mulheres",
+        "efeito": {
+          "povo": 12,
+          "poder": -5
+        },
+        "retorno": "Direitos que valem para todos precisam dizer isso com todas as letras."
+      },
+      "historia": {
+        "texto": "A Declaração dos Direitos do Homem e do Cidadão foi aprovada em 26 de agosto de 1789, na Revolução Francesa. Em 1791, Olympe de Gouges publicou a Declaração dos Direitos da Mulher e da Cidadã, cobrando igualdade; foi guilhotinada em 1793.",
+        "fonte": {
+          "titulo": "A era das revoluções: 1789-1848",
+          "autor": "Eric Hobsbawm",
+          "ano": "1962"
+        }
+      },
+      "aula": {
+        "titulo": "A Revolução Francesa",
+        "href": "/trilhas/lutas-do-povo/a-revolucao-francesa"
+      }
+    },
+    {
+      "id": "en-haiti",
+      "area": "historia",
+      "titulo": "A ilha que se libertou",
+      "personagem": "professor",
+      "texto": "O livro didático do país fala das revoluções da França e dos Estados Unidos, mas nem cita a ilha onde os escravizados venceram. O professor quer incluir o capítulo.",
+      "esquerda": {
+        "texto": "Incluir o capítulo",
+        "efeito": {
+          "povo": 10,
+          "poder": -5,
+          "economia": -5
+        },
+        "retorno": "A história das revoluções muda quando se conta também a dos que estavam acorrentados."
+      },
+      "direita": {
+        "texto": "Deixar o livro como está",
+        "efeito": {
+          "poder": 8,
+          "povo": -10
+        },
+        "retorno": "Silenciar uma revolução também é uma escolha política: diz quem pode ser herói."
+      },
+      "historia": {
+        "texto": "A Revolução Haitiana começou em 1791 com o levante dos escravizados de São Domingos, colônia francesa. Em 1804, o Haiti declarou independência: foi a primeira nação independente da América Latina e o primeiro país a abolir a escravidão de forma definitiva depois de uma revolução vitoriosa de escravizados.",
+        "fonte": {
+          "titulo": "Os jacobinos negros: Toussaint L'Ouverture e a revolução de São Domingos",
+          "autor": "C. L. R. James",
+          "ano": "1938"
+        }
+      },
+      "aula": {
+        "titulo": "A Revolução Haitiana",
+        "href": "/trilhas/lutas-do-povo/01-revolucao-haitiana"
+      }
+    },
+    {
+      "id": "en-blocos",
+      "area": "historia",
+      "titulo": "Escolher um lado",
+      "personagem": "ministra",
+      "texto": "Duas superpotências disputam o mundo e pressionam o país a escolher um lado: bases militares e empréstimos de uma, ou acordos e técnicos da outra.",
+      "esquerda": {
+        "texto": "Alinhar-se a uma potência",
+        "efeito": {
+          "economia": 12,
+          "poder": 8,
+          "povo": -10
+        },
+        "retorno": "O dinheiro chega, com condições. O país vira peça no tabuleiro de outros."
+      },
+      "direita": {
+        "texto": "Não se alinhar",
+        "efeito": {
+          "poder": -5,
+          "economia": -8,
+          "povo": 10
+        },
+        "retorno": "Menos dinheiro fácil, mais autonomia. Muitos países do Sul global tentaram esse caminho."
+      },
+      "historia": {
+        "texto": "Na Guerra Fria (de 1947 a 1991), Estados Unidos e União Soviética disputaram influência no mundo, sem guerra direta entre si, mas com corrida armamentista e guerras em outros países. Em 1955, na Conferência de Bandung, 29 países da Ásia e da África discutiram a descolonização e a recusa aos blocos, embrião do Movimento dos Não Alinhados.",
+        "fonte": {
+          "titulo": "Era dos extremos: o breve século XX",
+          "autor": "Eric Hobsbawm",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A Guerra Fria",
+        "href": "/trilhas/historia-superior/a-guerra-fria"
+      }
+    },
+    {
+      "id": "en-colonia",
+      "area": "historia",
+      "titulo": "A fronteira desenhada de fora",
+      "personagem": "geografa",
+      "texto": "Um tratado antigo, assinado por potências estrangeiras, dividiu o território do país com régua, separando povos aparentados e juntando rivais. Agora, há quem queira redesenhar tudo.",
+      "esquerda": {
+        "texto": "Manter as fronteiras",
+        "efeito": {
+          "poder": 10,
+          "povo": -8
+        },
+        "retorno": "Mexer em fronteira pode virar guerra. Mantê-las sem ouvir os povos também mantém o conflito."
+      },
+      "direita": {
+        "texto": "Autonomia para os povos",
+        "efeito": {
+          "povo": 10,
+          "poder": -10,
+          "economia": -5,
+          "natureza": 8
+        },
+        "retorno": "Reconhecer os povos dentro do Estado é um caminho difícil, mas mais justo que a régua de quem veio de fora."
+      },
+      "historia": {
+        "texto": "Na Conferência de Berlim (1884-1885), potências europeias definiram regras para dividir a África entre si, sem nenhum representante africano. Muitas fronteiras traçadas depois ignoraram povos, línguas e reinos, e marcaram conflitos que continuaram após as independências.",
+        "fonte": {
+          "titulo": "A era dos impérios: 1875-1914",
+          "autor": "Eric Hobsbawm",
+          "ano": "1987"
+        }
+      },
+      "aula": {
+        "titulo": "Colonialismo e imperialismo",
+        "href": "/trilhas/historia-superior/colonialismo-e-imperialismo"
+      }
+    },
+    {
+      "id": "en-cidades",
+      "area": "geografia",
+      "titulo": "Todo mundo para a cidade",
+      "personagem": "geografa",
+      "texto": "Milhões de pessoas deixaram o campo nas últimas décadas. As cidades incham: falta casa, sobra favela. A ministra pergunta o que fazer primeiro.",
+      "esquerda": {
+        "texto": "Remover as favelas",
+        "efeito": {
+          "poder": 8,
+          "povo": -15,
+          "economia": 5
+        },
+        "retorno": "Remover sem oferecer moradia só empurra o problema para mais longe, e mais para cima do morro."
+      },
+      "direita": {
+        "texto": "Urbanizar e regularizar",
+        "efeito": {
+          "povo": 12,
+          "economia": -8,
+          "natureza": 5
+        },
+        "retorno": "Água, esgoto, escola e título de posse onde o povo já mora. Mais barato e mais justo do que remover."
+      },
+      "historia": {
+        "texto": "O Brasil se urbanizou muito rápido. No Censo de 1970, pela primeira vez, a maioria da população vivia em cidades; no Censo de 2010, eram cerca de 84%. Milton Santos estudou como essa urbanização concentrou pobreza e periferias nas grandes cidades.",
+        "fonte": {
+          "titulo": "A urbanização brasileira",
+          "autor": "Milton Santos",
+          "ano": "1993"
+        }
+      },
+      "aula": {
+        "titulo": "Milton Santos e a urbanização brasileira",
+        "href": "/trilhas/direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira"
+      }
+    },
+    {
+      "id": "en-floresta",
+      "area": "geografia",
+      "titulo": "A floresta e o pasto",
+      "personagem": "empresario",
+      "texto": "O Sr. Prado quer abrir pasto e soja em área de floresta. Diz que gera emprego. A Dra. Iara mostra as imagens de satélite do desmatamento crescendo.",
+      "esquerda": {
+        "texto": "Liberar o desmatamento",
+        "efeito": {
+          "economia": 12,
+          "natureza": -15,
+          "povo": -5
+        },
+        "retorno": "O lucro fica com poucos; a seca, a fumaça e a perda de chuva ficam com todos."
+      },
+      "direita": {
+        "texto": "Fiscalizar e proteger",
+        "efeito": {
+          "natureza": 15,
+          "economia": -8,
+          "poder": 5
+        },
+        "retorno": "Satélite, fiscalização e crédito condicionado funcionam: o Brasil já provou isso."
+      },
+      "historia": {
+        "texto": "Segundo o sistema Prodes, do INPE, a taxa de desmatamento na Amazônia caiu de 27.772 km² em 2004 para 4.571 km² em 2012, uma queda de cerca de 83%, com o Plano de Ação para Prevenção e Controle do Desmatamento na Amazônia (PPCDAm), monitoramento por satélite e fiscalização.",
+        "fonte": {
+          "titulo": "TerraBrasilis: dados do Prodes",
+          "autor": "Instituto Nacional de Pesquisas Espaciais (INPE)",
+          "url": "https://terrabrasilis.dpi.inpe.br/"
+        }
+      },
+      "aula": {
+        "titulo": "Recursos naturais",
+        "href": "/trilhas/geografia-fundamental/recursos-naturais"
+      }
+    },
+    {
+      "id": "en-energia",
+      "area": "geografia",
+      "titulo": "De onde vem a luz",
+      "personagem": "ministra",
+      "texto": "O país precisa de mais energia elétrica. Há três propostas: uma usina térmica a carvão, uma grande hidrelétrica num rio com povos indígenas, ou parques solares e eólicos.",
+      "esquerda": {
+        "texto": "Térmica a carvão",
+        "efeito": {
+          "economia": 10,
+          "natureza": -15
+        },
+        "retorno": "Rápida de construir, cara para o clima: queimar carvão é das maiores fontes de gases de efeito estufa."
+      },
+      "direita": {
+        "texto": "Sol e vento",
+        "efeito": {
+          "natureza": 12,
+          "economia": -5,
+          "povo": 5
+        },
+        "retorno": "Renovável e com impacto menor, mas também exige ouvir quem vive onde as torres e placas são instaladas."
+      },
+      "historia": {
+        "texto": "A matriz elétrica brasileira é majoritariamente renovável, com a hidreletricidade como principal fonte, segundo a Empresa de Pesquisa Energética (EPE). Grandes hidrelétricas, porém, alagam terras e deslocam comunidades, como no caso de Belo Monte, no rio Xingu.",
+        "fonte": {
+          "titulo": "Matriz energética e elétrica",
+          "autor": "Empresa de Pesquisa Energética (EPE)",
+          "url": "https://www.epe.gov.br/pt/abcdenergia/matriz-energetica-e-eletrica"
+        }
+      },
+      "aula": {
+        "titulo": "Recursos naturais",
+        "href": "/trilhas/geografia-fundamental/recursos-naturais"
+      }
+    },
+    {
+      "id": "en-clima",
+      "area": "geografia",
+      "titulo": "O acordo do clima",
+      "personagem": "lider",
+      "texto": "O mundo vai assinar um acordo para frear o aquecimento global. O país precisa dizer quanto vai cortar de emissões. Joana lembra que quem mais polui não é quem mais sofre.",
+      "esquerda": {
+        "texto": "Meta tímida para não frear a economia",
+        "efeito": {
+          "economia": 10,
+          "natureza": -12,
+          "povo": -5
+        },
+        "retorno": "Adiar a transição sai mais caro depois: secas, enchentes e ondas de calor batem primeiro nos mais pobres."
+      },
+      "direita": {
+        "texto": "Meta ousada com transição justa",
+        "efeito": {
+          "natureza": 12,
+          "povo": 5,
+          "economia": -10
+        },
+        "retorno": "Cortar emissões protegendo empregos e quem vive no campo e na periferia: é o que se chama de transição justa."
+      },
+      "historia": {
+        "texto": "O Acordo de Paris, adotado em 2015, tem como objetivo manter o aumento da temperatura média global bem abaixo de 2 °C em relação aos níveis pré-industriais e fazer esforços para limitá-lo a 1,5 °C. Cada país apresenta as próprias metas de redução de emissões.",
+        "fonte": {
+          "titulo": "The Paris Agreement",
+          "autor": "Convenção-Quadro das Nações Unidas sobre Mudança do Clima (UNFCCC)",
+          "url": "https://unfccc.int/process-and-meetings/the-paris-agreement"
+        }
+      },
+      "aula": {
+        "titulo": "O Acordo de Paris",
+        "href": "/trilhas/crise-climatica/o-acordo-de-paris"
+      }
+    },
+    {
+      "id": "en-censo",
+      "area": "geografia",
+      "titulo": "Quem somos nós",
+      "personagem": "geografa",
+      "texto": "O censo está pronto. A Dra. Iara quer publicar os dados de cor ou raça por bairro. Um assessor acha que isso \"divide o país\" e prefere não divulgar.",
+      "esquerda": {
+        "texto": "Esconder os dados",
+        "efeito": {
+          "poder": 5,
+          "povo": -12
+        },
+        "retorno": "Sem dados, a desigualdade fica invisível, e o que não se vê não entra no orçamento."
+      },
+      "direita": {
+        "texto": "Publicar tudo",
+        "efeito": {
+          "povo": 10,
+          "poder": 5,
+          "economia": -5
+        },
+        "retorno": "Os dados mostram onde faltam escola, posto e emprego. Política pública começa por saber quem é o povo."
+      },
+      "historia": {
+        "texto": "No Censo 2022 do IBGE, as pessoas pardas foram 45,3% da população, o maior grupo pela primeira vez desde 1991; brancas, 43,5%; pretas, 10,2%. Somadas, pretas e pardas são 55,5% da população brasileira.",
+        "fonte": {
+          "titulo": "Censo 2022: pela primeira vez desde 1991, a maior parte da população do Brasil se declara parda",
+          "autor": "Agência de Notícias do IBGE",
+          "ano": "2023",
+          "url": "https://agenciadenoticias.ibge.gov.br/agencia-noticias/2012-agenciade-noticias/noticias/38719-censo-2022-pela-primeira-vez-desde-1991a-maior-parte-da-populacao-do-brasil-se-declara-parda"
+        }
+      },
+      "aula": {
+        "titulo": "A população brasileira",
+        "href": "/trilhas/geografia-fundamental/a-populacao-brasileira"
+      }
+    },
+    {
+      "id": "en-campo",
+      "area": "geografia",
+      "titulo": "Quem planta a comida",
+      "personagem": "lider",
+      "texto": "O crédito agrícola do ano vai quase todo para grandes fazendas de exportação. Joana pede uma parte maior para a agricultura familiar.",
+      "esquerda": {
+        "texto": "Priorizar a exportação",
+        "efeito": {
+          "economia": 12,
+          "natureza": -8,
+          "povo": -8
+        },
+        "retorno": "Entram dólares, mas a comida da mesa fica mais cara e o campo se esvazia."
+      },
+      "direita": {
+        "texto": "Mais crédito para a família agricultora",
+        "efeito": {
+          "povo": 12,
+          "natureza": 10,
+          "economia": -8
+        },
+        "retorno": "Mais gente trabalhando no campo e mais variedade de alimentos perto das cidades."
+      },
+      "historia": {
+        "texto": "Segundo o Censo Agropecuário 2017 do IBGE, a agricultura familiar reunia 77% dos estabelecimentos rurais do país, mas ocupava só 23% da área. Ela empregava cerca de 10 milhões de pessoas, 67% de quem trabalhava no campo. É a expressão da concentração de terras.",
+        "fonte": {
+          "titulo": "Censo Agropecuário 2017: resultados definitivos da agricultura familiar",
+          "autor": "IBGE",
+          "ano": "2019",
+          "url": "https://biblioteca.ibge.gov.br/visualizacao/periodicos/3096/agro_2017_agricultura_familiar.pdf"
+        }
+      },
+      "aula": {
+        "titulo": "Cidade e campo",
+        "href": "/trilhas/geografia-fundamental/cidade-e-campo"
+      }
+    },
+    {
+      "id": "en-animal-politico",
+      "area": "filosofia",
+      "titulo": "Viver sozinho no mato",
+      "personagem": "estudante",
+      "texto": "Um grupo quer sair do país e viver isolado, sem leis nem governo, cada família por si. Lia pergunta se a gente consegue mesmo viver sem a cidade.",
+      "esquerda": {
+        "texto": "Deixar que vão",
+        "efeito": {
+          "poder": -8,
+          "povo": 5,
+          "natureza": -5
+        },
+        "retorno": "Liberdade de ir, sim. Mas mesmo o grupo isolado vai precisar de regras para viver junto."
+      },
+      "direita": {
+        "texto": "Convidar para o debate público",
+        "efeito": {
+          "poder": 5,
+          "povo": 8
+        },
+        "retorno": "Discordar da cidade também é fazer política dentro dela."
+      },
+      "historia": {
+        "texto": "Na Política (século IV a.C.), Aristóteles afirma que o ser humano é por natureza um animal político (zoon politikon): só se realiza plenamente vivendo na pólis, partilhando a palavra e as decisões sobre o justo e o injusto. Quem vive fora da cidade, diz ele, é um bicho ou um deus.",
+        "fonte": {
+          "titulo": "Aristotle's Political Theory",
+          "autor": "Stanford Encyclopedia of Philosophy (Fred Miller)",
+          "url": "https://plato.stanford.edu/entries/aristotle-politics/"
+        }
+      },
+      "aula": {
+        "titulo": "Aristóteles",
+        "href": "/trilhas/filosofia-medio/aristoteles"
+      }
+    },
+    {
+      "id": "en-duvida",
+      "area": "filosofia",
+      "titulo": "Duvidar de tudo",
+      "personagem": "estudante",
+      "texto": "Lia recebeu três vídeos dizendo coisas opostas sobre a mesma vacina. Ela pergunta: dá para ter certeza de alguma coisa?",
+      "esquerda": {
+        "texto": "Acreditar no vídeo mais confiante",
+        "efeito": {
+          "povo": -10,
+          "poder": -5
+        },
+        "retorno": "Certeza no tom não é prova. Quem fala mais alto nem sempre sabe mais."
+      },
+      "direita": {
+        "texto": "Duvidar com método",
+        "efeito": {
+          "povo": 8,
+          "poder": 5
+        },
+        "retorno": "Dúvida metódica: separar o que tem evidência do que é só opinião, passo a passo, até chegar ao que resiste."
+      },
+      "historia": {
+        "texto": "No Discurso do método (1637), René Descartes propõe duvidar de tudo o que pode ser posto em dúvida até chegar a algo indubitável: o próprio pensamento. Daí a frase \"Penso, logo existo\", base do racionalismo moderno.",
+        "fonte": {
+          "titulo": "Descartes' Epistemology",
+          "autor": "Stanford Encyclopedia of Philosophy (Lex Newman)",
+          "url": "https://plato.stanford.edu/entries/descartes-epistemology/"
+        }
+      },
+      "aula": {
+        "titulo": "Descartes e o racionalismo",
+        "href": "/trilhas/filosofia-medio/descartes-e-o-racionalismo"
+      }
+    },
+    {
+      "id": "en-tabula-rasa",
+      "area": "filosofia",
+      "titulo": "Nasceu assim?",
+      "personagem": "ministra",
+      "texto": "Um deputado diz que crianças pobres \"já nascem sem talento para estudar\" e quer cortar vagas nas escolas da periferia.",
+      "esquerda": {
+        "texto": "Cortar as vagas",
+        "efeito": {
+          "economia": 8,
+          "povo": -15
+        },
+        "retorno": "A ideia de que a capacidade é de nascença serve para justificar a desigualdade que a própria sociedade produz."
+      },
+      "direita": {
+        "texto": "Ampliar as escolas",
+        "efeito": {
+          "povo": 12,
+          "economia": -10
+        },
+        "retorno": "O que sabemos vem, em grande parte, da experiência. Dar experiência é dar oportunidade."
+      },
+      "historia": {
+        "texto": "No Ensaio sobre o entendimento humano (1689), John Locke defende que a mente ao nascer é como uma folha em branco (tábula rasa): todo conhecimento vem da experiência, pelos sentidos e pela reflexão. É uma das bases do empirismo.",
+        "fonte": {
+          "titulo": "John Locke",
+          "autor": "Stanford Encyclopedia of Philosophy (William Uzgalis)",
+          "url": "https://plato.stanford.edu/entries/locke/"
+        }
+      },
+      "aula": {
+        "titulo": "O empirismo: Locke e Hume",
+        "href": "/trilhas/filosofia-medio/o-empirismo-locke-e-hume"
+      }
+    },
+    {
+      "id": "en-esclarecimento",
+      "area": "filosofia",
+      "titulo": "Pensar com a própria cabeça",
+      "personagem": "estudante",
+      "texto": "Um programa de TV popular quer ensinar ao povo \"o que pensar\" sobre cada assunto. Lia acha que a escola devia ensinar a pensar, e não o que pensar.",
+      "esquerda": {
+        "texto": "Patrocinar o programa",
+        "efeito": {
+          "poder": 10,
+          "povo": -10
+        },
+        "retorno": "Quem recebe tudo pensado continua dependendo de quem pensa por ele."
+      },
+      "direita": {
+        "texto": "Investir em escola e debate",
+        "efeito": {
+          "povo": 10,
+          "poder": -5,
+          "economia": -5
+        },
+        "retorno": "Ousar saber: o caminho é mais lento, e é o único que forma gente autônoma."
+      },
+      "historia": {
+        "texto": "No texto Resposta à pergunta: o que é o esclarecimento? (1784), Immanuel Kant define o esclarecimento como a saída do ser humano da menoridade, a incapacidade de usar o próprio entendimento sem a direção de outro. O lema é \"Sapere aude\": ouse saber.",
+        "fonte": {
+          "titulo": "Resposta à pergunta: o que é o esclarecimento?",
+          "autor": "Immanuel Kant",
+          "ano": "1784"
+        }
+      },
+      "aula": {
+        "titulo": "Kant",
+        "href": "/trilhas/filosofia-medio/kant"
+      }
+    },
+    {
+      "id": "en-poderes",
+      "area": "filosofia",
+      "titulo": "Tudo na mão de um só",
+      "personagem": "ministra",
+      "texto": "O presidente quer poder para fechar o Parlamento e nomear juízes sem aprovação de ninguém, \"para governar mais rápido\".",
+      "esquerda": {
+        "texto": "Dar o poder",
+        "efeito": {
+          "poder": 15,
+          "povo": -15
+        },
+        "retorno": "Governar rápido sem freio nenhum é a receita do autoritarismo. Quem vai julgar os abusos?"
+      },
+      "direita": {
+        "texto": "Manter os três poderes",
+        "efeito": {
+          "povo": 8,
+          "poder": -5,
+          "economia": -5
+        },
+        "retorno": "É mais lento, de propósito: um poder vigia o outro."
+      },
+      "historia": {
+        "texto": "Em O espírito das leis (1748), Montesquieu defende separar os poderes Legislativo, Executivo e Judiciário, para que o poder freie o poder. A Constituição brasileira de 1988 diz, no artigo 2º, que eles são independentes e harmônicos entre si.",
+        "fonte": {
+          "titulo": "Montesquieu",
+          "autor": "Stanford Encyclopedia of Philosophy (Sharon Krause e outros)",
+          "url": "https://plato.stanford.edu/entries/montesquieu/"
+        }
+      },
+      "aula": {
+        "titulo": "Montesquieu e a separação dos poderes",
+        "href": "/trilhas/ciencia-politica-medio/montesquieu-e-a-separacao-dos-poderes"
+      }
+    },
+    {
+      "id": "en-existencia",
+      "area": "filosofia",
+      "titulo": "É o destino?",
+      "personagem": "estudante",
+      "texto": "Lia ouviu a vida inteira que \"pobre nasce para servir\". Ela pergunta se pode escolher outro caminho ou se já está tudo escrito.",
+      "esquerda": {
+        "texto": "Dizer que é o destino",
+        "efeito": {
+          "povo": -12,
+          "poder": 5
+        },
+        "retorno": "Chamar de destino o que é condição social é tirar das pessoas a chance de agir sobre a própria vida."
+      },
+      "direita": {
+        "texto": "Dizer que ela escolhe",
+        "efeito": {
+          "povo": 10,
+          "economia": -5
+        },
+        "retorno": "Escolher dentro de condições difíceis, e lutar para mudá-las: é aí que mora a liberdade."
+      },
+      "historia": {
+        "texto": "Na conferência O existencialismo é um humanismo (1945, publicada em 1946), Jean-Paul Sartre afirma que a existência precede a essência: o ser humano não nasce com natureza fixa, ele se faz pelas próprias escolhas, e é responsável por elas.",
+        "fonte": {
+          "titulo": "Jean-Paul Sartre",
+          "autor": "Stanford Encyclopedia of Philosophy (Thomas Flynn)",
+          "url": "https://plato.stanford.edu/entries/sartre/"
+        }
+      },
+      "aula": {
+        "titulo": "Existencialismo: Sartre e Beauvoir",
+        "href": "/trilhas/filosofia-medio/existencialismo-sartre-e-beauvoir"
+      }
+    },
+    {
+      "id": "en-solidariedade",
+      "area": "sociologia",
+      "titulo": "O que nos mantém juntos",
+      "personagem": "professor",
+      "texto": "No interior, todos se conhecem e pensam parecido. Na capital, cada um faz uma coisa e ninguém conhece o vizinho. Um ministro diz que a cidade grande \"perdeu a união\".",
+      "esquerda": {
+        "texto": "Impor valores iguais para todos",
+        "efeito": {
+          "poder": 10,
+          "povo": -10
+        },
+        "retorno": "Na sociedade complexa, impor semelhança à força só gera conflito. A união ali vem da interdependência."
+      },
+      "direita": {
+        "texto": "Fortalecer os serviços que ligam todos",
+        "efeito": {
+          "povo": 8,
+          "economia": -5,
+          "poder": 5
+        },
+        "retorno": "Na cidade, um depende do trabalho do outro: o motorista, a enfermeira, o padeiro. Essa rede também é laço."
+      },
+      "historia": {
+        "texto": "Em Da divisão do trabalho social (1893), Émile Durkheim distingue a solidariedade mecânica, das sociedades simples, baseada na semelhança entre as pessoas, e a solidariedade orgânica, das sociedades modernas, baseada na divisão do trabalho e na dependência entre funções diferentes.",
+        "fonte": {
+          "titulo": "Da divisão do trabalho social",
+          "autor": "Émile Durkheim",
+          "ano": "1893"
+        }
+      },
+      "aula": {
+        "titulo": "Durkheim e o fato social",
+        "href": "/trilhas/sociologia-medio/durkheim-e-o-fato-social"
+      }
+    },
+    {
+      "id": "en-etica-protestante",
+      "area": "sociologia",
+      "titulo": "Trabalhar e poupar",
+      "personagem": "empresario",
+      "texto": "O Sr. Prado diz que ficou rico porque trabalhou duro e nunca gastou à toa, \"como manda a minha religião\". Ele quer que a escola ensine isso como regra de vida.",
+      "esquerda": {
+        "texto": "Ensinar como regra",
+        "efeito": {
+          "economia": 8,
+          "povo": -8
+        },
+        "retorno": "Trabalho duro é real, mas quem trabalha mais no país não é quem enriquece. O esforço explica pouco sem olhar a estrutura."
+      },
+      "direita": {
+        "texto": "Estudar de onde vem a ideia",
+        "efeito": {
+          "povo": 8,
+          "poder": 5,
+          "economia": -5
+        },
+        "retorno": "Valores religiosos e econômicos se influenciam: entender isso ajuda a ver o capitalismo como fenômeno histórico."
+      },
+      "historia": {
+        "texto": "Em A ética protestante e o espírito do capitalismo (1904-1905), Max Weber argumenta que valores de certas correntes protestantes, como o trabalho metódico e a poupança vistos como sinal de salvação, favoreceram a mentalidade do capitalismo moderno.",
+        "fonte": {
+          "titulo": "A ética protestante e o espírito do capitalismo",
+          "autor": "Max Weber",
+          "ano": "1904-1905"
+        }
+      },
+      "aula": {
+        "titulo": "Weber e a ação social",
+        "href": "/trilhas/sociologia-medio/weber-e-a-acao-social"
+      }
+    },
+    {
+      "id": "en-mais-valia",
+      "area": "sociologia",
+      "titulo": "A conta que não fecha",
+      "personagem": "lider",
+      "texto": "Os operários da fábrica do Sr. Prado produzem, num dia, o equivalente ao salário do mês em quatro horas. O resto do dia de trabalho vira lucro. Joana quer redução da jornada sem corte de salário.",
+      "esquerda": {
+        "texto": "Apoiar a redução da jornada",
+        "efeito": {
+          "povo": 12,
+          "economia": -10
+        },
+        "retorno": "Menos horas, mesmo salário: o trabalhador recupera parte do tempo que produzia para outro."
+      },
+      "direita": {
+        "texto": "Manter a jornada",
+        "efeito": {
+          "economia": 10,
+          "povo": -12
+        },
+        "retorno": "O lucro cresce, e a desigualdade também. A diferença entre o que se produz e o que se recebe tem nome."
+      },
+      "historia": {
+        "texto": "Em O capital (livro I, 1867), Karl Marx chama de mais-valia a diferença entre o valor que o trabalhador produz e o valor que recebe como salário. Para ele, ela é a fonte do lucro capitalista e a base da exploração do trabalho.",
+        "fonte": {
+          "titulo": "O capital, livro I",
+          "autor": "Karl Marx",
+          "ano": "1867"
+        }
+      },
+      "aula": {
+        "titulo": "Marx e as classes sociais",
+        "href": "/trilhas/sociologia-medio/marx-e-as-classes-sociais"
+      }
+    },
+    {
+      "id": "en-terra",
+      "area": "sociologia",
+      "titulo": "A ocupação da fazenda",
+      "personagem": "lider",
+      "texto": "Trezentas famílias sem terra ocuparam uma fazenda improdutiva. O dono pede despejo imediato. Joana diz que a terra não cumpre função social.",
+      "esquerda": {
+        "texto": "Despejo imediato",
+        "efeito": {
+          "poder": 10,
+          "economia": 5,
+          "povo": -15
+        },
+        "retorno": "A fazenda volta a ficar vazia, e as famílias vão para a beira da estrada. O conflito só muda de lugar."
+      },
+      "direita": {
+        "texto": "Vistoria para reforma agrária",
+        "efeito": {
+          "povo": 12,
+          "natureza": 10,
+          "poder": -8
+        },
+        "retorno": "A Constituição prevê desapropriar terra que não cumpre função social. Movimento social organizado faz a lei sair do papel."
+      },
+      "historia": {
+        "texto": "O Movimento dos Trabalhadores Rurais Sem Terra (MST) foi fundado em janeiro de 1984, num encontro nacional em Cascavel (PR). A Constituição de 1988 (art. 184) permite desapropriar, para reforma agrária, o imóvel rural que não cumpre sua função social.",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988, art. 184",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "A fundação do MST",
+        "href": "/trilhas/historia-da-luta-pela-terra/a-fundacao-do-mst"
+      }
+    },
+    {
+      "id": "en-democracia-racial",
+      "area": "sociologia",
+      "titulo": "Aqui não tem racismo",
+      "personagem": "ministra",
+      "texto": "Um discurso oficial diz que o país \"nunca teve racismo, porque todos se misturaram\". Os números de renda, emprego e violência mostram outra coisa.",
+      "esquerda": {
+        "texto": "Repetir o discurso oficial",
+        "efeito": {
+          "poder": 5,
+          "povo": -12
+        },
+        "retorno": "Negar o racismo é a forma mais eficiente de mantê-lo: o que não existe não precisa ser combatido."
+      },
+      "direita": {
+        "texto": "Encarar os números",
+        "efeito": {
+          "povo": 12,
+          "poder": -5,
+          "economia": -5
+        },
+        "retorno": "Reconhecer a desigualdade racial é o primeiro passo para políticas como as cotas."
+      },
+      "historia": {
+        "texto": "Em A integração do negro na sociedade de classes (1964), Florestan Fernandes mostrou que a abolição deixou a população negra à margem do trabalho livre e chamou de mito a ideia de democracia racial no Brasil. A Lei de Cotas (Lei 12.711, de 2012) reserva metade das vagas das universidades federais para estudantes de escola pública e, dentro delas, vagas para pretos, pardos, indígenas e, desde 2023, quilombolas.",
+        "fonte": {
+          "titulo": "Lei nº 12.711, de 29 de agosto de 2012 (Lei de Cotas)",
+          "autor": "Presidência da República",
+          "ano": "2012",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Florestan Fernandes e a sociologia brasileira",
+        "href": "/trilhas/sociologia-medio/florestan-fernandes-e-a-sociologia-brasileira"
+      }
+    },
+    {
+      "id": "en-industria-cultural",
+      "area": "sociologia",
+      "titulo": "A novela do governo",
+      "personagem": "empresario",
+      "texto": "Uma grande empresa de mídia oferece patrocinar toda a programação cultural do país. Em troca, decide o que passa. O Sr. Prado acha ótimo: \"o povo gosta do que é popular\".",
+      "esquerda": {
+        "texto": "Aceitar o patrocínio",
+        "efeito": {
+          "economia": 10,
+          "povo": -8,
+          "poder": -5
+        },
+        "retorno": "A cultura vira produto feito em série para vender. O gosto do povo passa a ser fabricado."
+      },
+      "direita": {
+        "texto": "Fomentar cultura local e pública",
+        "efeito": {
+          "povo": 10,
+          "economia": -8
+        },
+        "retorno": "Rádio comunitária, ponto de cultura, festa de bairro: cultura feita pelo povo, não só para ele."
+      },
+      "historia": {
+        "texto": "Theodor Adorno e Max Horkheimer, da Escola de Frankfurt, criaram o conceito de indústria cultural em Dialética do esclarecimento (1947): a produção de cultura em série, como mercadoria, que padroniza gostos e tende a reforçar a ordem existente.",
+        "fonte": {
+          "titulo": "Dialética do esclarecimento",
+          "autor": "Theodor W. Adorno e Max Horkheimer",
+          "ano": "1947"
+        }
+      },
+      "aula": {
+        "titulo": "Indústria cultural e consumo",
+        "href": "/trilhas/sociologia-medio/industria-cultural-e-consumo"
+      }
+    }
+  ],
+  "finais": [
+    {
+      "id": "en-povo-zero",
+      "tipo": "queda",
+      "medidor": "povo",
+      "limite": "zero",
+      "titulo": "A revolta",
+      "texto": "O povo, esquecido por tempo demais, toma as ruas. O governo cai. Na prova e na vida, revoluções e revoltas costumam ter a mesma raiz: fome e exclusão.",
+      "aula": {
+        "titulo": "A Revolução Francesa",
+        "href": "/trilhas/lutas-do-povo/a-revolucao-francesa"
+      }
+    },
+    {
+      "id": "en-povo-cem",
+      "tipo": "queda",
+      "medidor": "povo",
+      "limite": "cem",
+      "titulo": "Promessas demais",
+      "texto": "Tudo foi prometido a todos ao mesmo tempo, sem plano nem orçamento. As instituições não acompanham, e a frustração vem na mesma medida da esperança.",
+      "aula": {
+        "titulo": "Ciências Humanas: Filosofia e Sociologia",
+        "href": "/trilhas/enem-por-area/ciencias-humanas-filosofia-e-sociologia"
+      }
+    },
+    {
+      "id": "en-poder-zero",
+      "tipo": "queda",
+      "medidor": "poder",
+      "limite": "zero",
+      "titulo": "O Estado se desmanchou",
+      "texto": "Sem instituições respeitadas, cada grupo faz a própria lei. Quem tem arma ou dinheiro manda. É o cenário que os contratualistas temiam.",
+      "aula": {
+        "titulo": "Hobbes, Locke e Rousseau: o contrato social",
+        "href": "/trilhas/ciencia-politica-medio/hobbes-locke-e-rousseau-o-contrato-social"
+      }
+    },
+    {
+      "id": "en-poder-cem",
+      "tipo": "queda",
+      "medidor": "poder",
+      "limite": "cem",
+      "titulo": "Autoritarismo",
+      "texto": "O governo concentrou tanto poder que ninguém mais o controla. Imprensa calada, juízes nomeados, eleições de fachada.",
+      "historia": {
+        "texto": "Hannah Arendt, em Origens do totalitarismo (1951), analisou como regimes como o nazismo e o stalinismo usaram o terror, a propaganda e a destruição da vida pública para dominar sociedades inteiras.",
+        "fonte": {
+          "titulo": "Hannah Arendt",
+          "autor": "Stanford Encyclopedia of Philosophy (Maurizio Passerin d'Entrèves)",
+          "url": "https://plato.stanford.edu/entries/arendt/"
+        }
+      },
+      "aula": {
+        "titulo": "O que é fascismo",
+        "href": "/trilhas/antifascismo/o-que-e-fascismo"
+      }
+    },
+    {
+      "id": "en-natureza-zero",
+      "tipo": "queda",
+      "medidor": "natureza",
+      "limite": "zero",
+      "titulo": "A conta do clima",
+      "texto": "Florestas no chão, rios secos, cidades alagadas. A natureza não negocia: a destruição cobra de todos, e primeiro dos mais pobres.",
+      "aula": {
+        "titulo": "O que é o aquecimento global",
+        "href": "/trilhas/crise-climatica/o-que-e-o-aquecimento-global"
+      }
+    },
+    {
+      "id": "en-natureza-cem",
+      "tipo": "queda",
+      "medidor": "natureza",
+      "limite": "cem",
+      "titulo": "Proteção sem gente",
+      "texto": "Áreas enormes foram fechadas por decreto, sem ouvir quem morava nelas. Ribeirinhos, indígenas e pequenos agricultores perderam o lugar. Proteger a natureza exige proteger quem vive com ela.",
+      "aula": {
+        "titulo": "Povos indígenas e quilombolas como guardiões do território",
+        "href": "/trilhas/ecossocialismo-basico/povos-indigenas-e-quilombolas-como-guardioes-do-territorio"
+      }
+    },
+    {
+      "id": "en-economia-zero",
+      "tipo": "queda",
+      "medidor": "economia",
+      "limite": "zero",
+      "titulo": "Crise",
+      "texto": "Fábricas fechadas, desemprego, inflação. Sem produção, nenhum direito fica de pé por muito tempo.",
+      "historia": {
+        "texto": "A quebra da Bolsa de Nova York, em outubro de 1929, abriu a Grande Depressão, a maior crise do capitalismo no século XX, com desemprego em massa em vários países. No Brasil, derrubou o preço do café e ajudou a abrir caminho para a Revolução de 1930.",
+        "fonte": {
+          "titulo": "Era dos extremos: o breve século XX",
+          "autor": "Eric Hobsbawm",
+          "ano": "1994"
+        }
+      },
+      "aula": {
+        "titulo": "A Era Vargas",
+        "href": "/trilhas/historia-do-brasil/a-era-vargas"
+      }
+    },
+    {
+      "id": "en-economia-cem",
+      "tipo": "queda",
+      "medidor": "economia",
+      "limite": "cem",
+      "titulo": "Bolha",
+      "texto": "A economia cresceu rápido demais, concentrada em poucos. Os salários ficaram para trás, e a bolha estourou. Crescimento sem distribuição não se sustenta.",
+      "historia": {
+        "texto": "No chamado milagre econômico brasileiro (1968-1973), o PIB cresceu a taxas altas, mas o arrocho salarial aumentou a concentração de renda. A frase atribuída à época, \"fazer o bolo crescer para depois dividir\", virou símbolo dessa escolha.",
+        "fonte": {
+          "titulo": "Brasil: uma biografia",
+          "autor": "Lilia M. Schwarcz e Heloisa M. Starling",
+          "ano": "2015"
+        }
+      },
+      "aula": {
+        "titulo": "O milagre econômico e o arrocho",
+        "href": "/trilhas/ditadura-de-1964/o-milagre-economico-e-o-arrocho"
+      }
+    },
+    {
+      "id": "en-chegada",
+      "tipo": "chegada",
+      "titulo": "Revisão feita",
+      "texto": "Doze temas de Ciências Humanas revistos. Abaixo estão as suas decisões, o que cada tema representa na história e no pensamento, e as aulas para aprofundar antes da prova.",
+      "aula": {
+        "titulo": "Ciências Humanas: História e Geografia",
+        "href": "/trilhas/enem-por-area/ciencias-humanas-historia-e-geografia"
+      }
+    }
+  ]
+}

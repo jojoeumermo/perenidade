@@ -172,6 +172,8 @@ const CHAVES_DA_COPIA = new Set([
   "lucia:turmas",
   // A escolha "lembrar o VLibras neste aparelho" (lib/vlibras.ts).
   "lucia:vlibras",
+  // O progresso entre partidas do jogo Rumos (lib/rumos.ts): quantas partidas e que desfechos já se viu em cada baralho.
+  "lucia:jogos",
 ]);
 /** Chaves que guardam um objeto por item (aula ou exercício): na restauração, cada item fica com a versão mais nova. */
 const REGISTROS = ["lucia:testes", "lucia:exercicios", "lucia:concluidas-em", "lucia:nivelamento", "lucia:ajudou"];

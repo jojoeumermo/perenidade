@@ -1,0 +1,1048 @@
+{
+  "formato": "rumos/1",
+  "id": "filosofia-e-sociologia",
+  "titulo": "Filosofia e Sociologia: dilemas do cursinho",
+  "resumo": "Um cursinho popular noturno, um ano letivo e muitas perguntas sem resposta pronta: justiça, verdade, poder e o que nos une.",
+  "papel": "Você coordena o Cursinho da Estação, um cursinho popular inventado que funciona à noite numa escola emprestada. Cada problema do dia a dia esconde uma pergunta que filósofos e sociólogos já fizeram.",
+  "sobre": "O cursinho e as personagens são inventados para o jogo. As ideias citadas em \"Na história real\" são de obras reais, com a fonte ao lado. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+  "modo": "fases",
+  "medidores": [
+    {
+      "id": "autoridade",
+      "nome": "Regras",
+      "descricao": "O quanto os combinados são respeitados. Sem regra nenhuma, vale a lei do mais forte; regra demais, o cursinho vira quartel."
+    },
+    {
+      "id": "participacao",
+      "nome": "Participação",
+      "descricao": "O quanto a turma decide junto. Sem ela, ninguém se sente dono de nada; em excesso, a assembleia nunca termina."
+    },
+    {
+      "id": "lacos",
+      "nome": "Laços",
+      "descricao": "A solidariedade entre as pessoas. Fracos, cada um por si; fortes demais, a turma vira panelinha que fecha a porta."
+    },
+    {
+      "id": "recursos",
+      "nome": "Recursos",
+      "descricao": "Dinheiro, sala, giz, apostila. Sem eles o cursinho fecha; demais, ele corre o risco de virar negócio."
+    }
+  ],
+  "inicio": {
+    "autoridade": 50,
+    "participacao": 45,
+    "lacos": 50,
+    "recursos": 40
+  },
+  "personagens": [
+    {
+      "id": "dalva",
+      "nome": "Dalva",
+      "papel": "aluna, diarista, 41 anos"
+    },
+    {
+      "id": "kaique",
+      "nome": "Kaique",
+      "papel": "aluno, entregador de aplicativo, 19 anos"
+    },
+    {
+      "id": "marta",
+      "nome": "Professora Marta",
+      "papel": "voluntária de Filosofia"
+    },
+    {
+      "id": "osvaldo",
+      "nome": "Seu Osvaldo",
+      "papel": "zelador da escola emprestada"
+    },
+    {
+      "id": "rute",
+      "nome": "Rute",
+      "papel": "aluna, operadora de caixa, 23 anos"
+    },
+    {
+      "id": "helio",
+      "nome": "Hélio",
+      "papel": "voluntário de Sociologia"
+    }
+  ],
+  "fases": [
+    {
+      "id": "primeiro",
+      "nome": "Primeiro semestre",
+      "cartas": 6
+    },
+    {
+      "id": "segundo",
+      "nome": "Segundo semestre",
+      "cartas": 6
+    }
+  ],
+  "cartas": [
+    {
+      "id": "fs-celular",
+      "fase": "primeiro",
+      "titulo": "O celular sumido",
+      "personagem": "osvaldo",
+      "texto": "O celular de uma aluna sumiu e apareceu na mochila de um colega. Seu Osvaldo quer que ele seja expulso na hora, \"para servir de exemplo\".",
+      "esquerda": {
+        "texto": "Expulsar para dar exemplo",
+        "efeito": {
+          "autoridade": 15,
+          "lacos": -10,
+          "participacao": -5
+        },
+        "retorno": "A punição exemplar acalma uns e assusta outros. O rapaz some, e ninguém fica sabendo por que ele fez o que fez."
+      },
+      "direita": {
+        "texto": "Roda de conversa e reparação",
+        "efeito": {
+          "lacos": 12,
+          "autoridade": -8,
+          "participacao": 6
+        },
+        "retorno": "Quem errou devolve, explica e repara o dano diante da turma. Dá mais trabalho que expulsar, e ensina mais.",
+        "liga": [
+          "roda"
+        ]
+      },
+      "historia": {
+        "texto": "Em Vigiar e punir (1975), Michel Foucault mostra como as sociedades modernas trocaram o suplício público pela disciplina: vigiar, examinar e corrigir os corpos em prisões, quartéis, fábricas e escolas. A pergunta dele é para que serve, de fato, a punição.",
+        "fonte": {
+          "titulo": "Michel Foucault",
+          "autor": "Stanford Encyclopedia of Philosophy (Gary Gutting e Johanna Oksala)",
+          "url": "https://plato.stanford.edu/entries/foucault/"
+        }
+      },
+      "aula": {
+        "titulo": "Estado e poder",
+        "href": "/trilhas/sociologia-medio/estado-e-poder"
+      }
+    },
+    {
+      "id": "fs-mentira",
+      "fase": "primeiro",
+      "titulo": "A declaração de presença",
+      "personagem": "dalva",
+      "texto": "Dalva faltou ao trabalho para fazer um simulado. Pede uma declaração dizendo que ela estava numa consulta médica, senão a patroa desconta o dia.",
+      "esquerda": {
+        "texto": "Não mentir na declaração",
+        "efeito": {
+          "autoridade": 10,
+          "lacos": -10
+        },
+        "retorno": "Para Kant, mentir é errado mesmo com boa intenção: se todo mundo mentisse quando conviesse, ninguém mais acreditaria em declaração nenhuma."
+      },
+      "direita": {
+        "texto": "Escrever o que ela pede",
+        "efeito": {
+          "lacos": 10,
+          "autoridade": -12
+        },
+        "retorno": "Você pesou as consequências: um dia descontado pesa muito para quem ganha pouco. Mas a mentira tem perna curta.",
+        "proxima": "fs-patroa-liga"
+      },
+      "historia": {
+        "texto": "Na Fundamentação da metafísica dos costumes (1785), Immanuel Kant propõe o imperativo categórico: agir só segundo a regra que você poderia querer que valesse para todos. Por esse teste, a mentira, mesmo bem-intencionada, não passa.",
+        "fonte": {
+          "titulo": "Kant's Moral Philosophy",
+          "autor": "Stanford Encyclopedia of Philosophy (Robert Johnson e Adam Cureton)",
+          "url": "https://plato.stanford.edu/entries/kant-moral/"
+        }
+      },
+      "aula": {
+        "titulo": "Kant",
+        "href": "/trilhas/filosofia-medio/kant"
+      }
+    },
+    {
+      "id": "fs-patroa-liga",
+      "fase": "primeiro",
+      "soEncadeada": true,
+      "titulo": "A patroa ligou",
+      "personagem": "dalva",
+      "texto": "A patroa da Dalva ligou para o cursinho para \"confirmar a consulta\". Ela está do outro lado, olhando para você.",
+      "esquerda": {
+        "texto": "Contar a verdade e defender a Dalva",
+        "efeito": {
+          "autoridade": 8,
+          "lacos": 5,
+          "recursos": -5
+        },
+        "retorno": "Você assume o erro e argumenta: estudar também é direito. A patroa desliga sem dizer se vai descontar."
+      },
+      "direita": {
+        "texto": "Sustentar a mentira",
+        "efeito": {
+          "autoridade": -10,
+          "lacos": -5
+        },
+        "retorno": "A mentira precisa de outra mentira para ficar de pé. O cursinho perde um pouco da palavra."
+      },
+      "historia": {
+        "texto": "Para o utilitarismo de John Stuart Mill (Utilitarismo, 1861), a ação certa é a que produz mais felicidade para o maior número. Os críticos lembram que contar só as consequências imediatas esquece as de longo prazo, como a perda de confiança.",
+        "fonte": {
+          "titulo": "John Stuart Mill",
+          "autor": "Stanford Encyclopedia of Philosophy (Christopher Macleod)",
+          "url": "https://plato.stanford.edu/entries/mill/"
+        }
+      },
+      "aula": {
+        "titulo": "Ética no dia a dia",
+        "href": "/trilhas/filosofia-fundamental/etica-no-dia-a-dia"
+      }
+    },
+    {
+      "id": "fs-assembleia",
+      "fase": "primeiro",
+      "titulo": "O novo horário",
+      "personagem": "kaique",
+      "texto": "A escola só empresta a sala até as 22h. É preciso mudar o horário das aulas. Kaique pede que a turma decida; Seu Osvaldo diz que você resolve isso em cinco minutos.",
+      "esquerda": {
+        "texto": "Decidir sozinha, rápido",
+        "efeito": {
+          "autoridade": 10,
+          "participacao": -15
+        },
+        "retorno": "Resolvido em cinco minutos e desobedecido em cinco dias: quem não decide não se compromete."
+      },
+      "direita": {
+        "texto": "Assembleia da turma",
+        "efeito": {
+          "participacao": 15,
+          "autoridade": -5,
+          "recursos": -5
+        },
+        "retorno": "Demora uma noite inteira. Mas o horário que sai dali é de todo mundo, e todo mundo cumpre.",
+        "liga": [
+          "assembleia"
+        ]
+      },
+      "historia": {
+        "texto": "Em Do contrato social (1762), Jean-Jacques Rousseau afirma que a soberania pertence ao povo e não pode ser representada: a lei legítima é expressão da vontade geral, decidida pelos próprios cidadãos.",
+        "fonte": {
+          "titulo": "Do contrato social",
+          "autor": "Jean-Jacques Rousseau",
+          "ano": "1762"
+        }
+      },
+      "aula": {
+        "titulo": "Hobbes, Locke e Rousseau: o contrato social",
+        "href": "/trilhas/ciencia-politica-medio/hobbes-locke-e-rousseau-o-contrato-social"
+      }
+    },
+    {
+      "id": "fs-apostila",
+      "fase": "primeiro",
+      "titulo": "A apostila de graça",
+      "personagem": "helio",
+      "texto": "Uma rede de lojas oferece apostilas de graça para todo o cursinho. Em troca, a marca dela vai em todas as páginas e os alunos recebem cupons de desconto.",
+      "esquerda": {
+        "texto": "Aceitar as apostilas",
+        "efeito": {
+          "recursos": 15,
+          "participacao": -5,
+          "lacos": -5
+        },
+        "retorno": "O material chega, bonito. Junto, chega a propaganda: a sala de aula vira mais uma vitrine."
+      },
+      "direita": {
+        "texto": "Recusar e fazer vaquinha",
+        "efeito": {
+          "recursos": -10,
+          "lacos": 12,
+          "participacao": 5
+        },
+        "retorno": "A apostila sai em xerox, feita pela própria turma. Mais feia, e sem ninguém vendendo nada.",
+        "liga": [
+          "vaquinha"
+        ]
+      },
+      "historia": {
+        "texto": "Theodor Adorno e Max Horkheimer criaram o conceito de indústria cultural em Dialética do esclarecimento (1947): a cultura produzida como mercadoria, em série, que vende produtos e, junto, um jeito de ver o mundo.",
+        "fonte": {
+          "titulo": "Dialética do esclarecimento",
+          "autor": "Theodor W. Adorno e Max Horkheimer",
+          "ano": "1947"
+        }
+      },
+      "aula": {
+        "titulo": "Indústria cultural e consumo",
+        "href": "/trilhas/sociologia-medio/industria-cultural-e-consumo"
+      }
+    },
+    {
+      "id": "fs-cansaco",
+      "fase": "primeiro",
+      "titulo": "Os que dormem na carteira",
+      "personagem": "kaique",
+      "texto": "Kaique dormiu de novo na aula. Fez 11 horas de entrega no dia. A professora Marta quer cobrar presença e atenção; ele diz que faz o que pode.",
+      "esquerda": {
+        "texto": "Cobrar mais disciplina",
+        "efeito": {
+          "autoridade": 12,
+          "lacos": -10,
+          "participacao": -5
+        },
+        "retorno": "A cobrança cai sobre quem já está no limite. O problema não é preguiça: é a jornada."
+      },
+      "direita": {
+        "texto": "Discutir o trabalho na aula",
+        "efeito": {
+          "participacao": 10,
+          "lacos": 8,
+          "autoridade": -8
+        },
+        "retorno": "A aula daquela noite é sobre o próprio cansaço: por que trabalhar tanto e ainda assim não sobrar nada?"
+      },
+      "historia": {
+        "texto": "Nos Manuscritos econômico-filosóficos (1844), Karl Marx descreve o trabalho alienado: o trabalhador não controla o que produz nem como produz, e o trabalho, em vez de realizá-lo, o esgota e o torna estranho a si mesmo.",
+        "fonte": {
+          "titulo": "Manuscritos econômico-filosóficos",
+          "autor": "Karl Marx",
+          "ano": "1844"
+        }
+      },
+      "aula": {
+        "titulo": "Trabalho e alienação",
+        "href": "/trilhas/sociologia-medio/trabalho-e-alienacao"
+      }
+    },
+    {
+      "id": "fs-socrates",
+      "fase": "primeiro",
+      "titulo": "Pergunta demais",
+      "personagem": "rute",
+      "texto": "O pai da Rute apareceu na porta: diz que, desde que ela entrou no cursinho, a filha \"questiona tudo em casa\" e quer que as aulas de Filosofia acabem.",
+      "esquerda": {
+        "texto": "Cortar as aulas de Filosofia",
+        "efeito": {
+          "autoridade": 8,
+          "participacao": -12,
+          "lacos": -5
+        },
+        "retorno": "O conflito some, e a pergunta também. Educar sem perguntar é só treinar."
+      },
+      "direita": {
+        "texto": "Convidar o pai para uma aula",
+        "efeito": {
+          "participacao": 12,
+          "lacos": 5,
+          "autoridade": -6
+        },
+        "retorno": "O pai vem desconfiado e sai discutindo. Perguntar incomoda, e é para incomodar mesmo."
+      },
+      "historia": {
+        "texto": "Em 399 a.C., Sócrates foi julgado em Atenas, acusado de corromper a juventude e de não honrar os deuses da cidade. Condenado à morte, recusou-se a parar de filosofar. A defesa dele está na Apologia de Sócrates, escrita por Platão.",
+        "fonte": {
+          "titulo": "Socrates",
+          "autor": "Stanford Encyclopedia of Philosophy (Debra Nails)",
+          "url": "https://plato.stanford.edu/entries/socrates/"
+        }
+      },
+      "aula": {
+        "titulo": "Sócrates e a arte de perguntar",
+        "href": "/trilhas/filosofia-fundamental/socrates-e-a-arte-de-perguntar"
+      }
+    },
+    {
+      "id": "fs-religiao",
+      "fase": "primeiro",
+      "titulo": "A oração antes da aula",
+      "personagem": "osvaldo",
+      "texto": "Um grupo de alunos quer começar toda aula com uma oração da igreja deles. Outros alunos, de outras religiões e sem religião, ficam desconfortáveis.",
+      "esquerda": {
+        "texto": "Oração para todos, todo dia",
+        "efeito": {
+          "lacos": 8,
+          "participacao": -10,
+          "autoridade": 5,
+          "recursos": 10
+        },
+        "retorno": "Os que rezam se sentem em casa; os outros, visitas. A igreja do grupo passa a doar o lanche, mas a maioria decidiu algo que só cabia a cada um."
+      },
+      "direita": {
+        "texto": "Espaço livre, ninguém obrigado",
+        "efeito": {
+          "participacao": 8,
+          "lacos": -5,
+          "autoridade": 5
+        },
+        "retorno": "Cada um reza, ou não, do seu jeito. O cursinho é de todos porque não é de nenhuma fé."
+      },
+      "historia": {
+        "texto": "Na Carta sobre a tolerância (1689), John Locke defende que o governo não deve impor crenças, porque a fé não se obtém pela força. A Constituição de 1988 garante a liberdade de crença (art. 5º, VI) e proíbe o Estado de se aliar a cultos ou igrejas (art. 19, I).",
+        "fonte": {
+          "titulo": "Constituição da República Federativa do Brasil de 1988, arts. 5º e 19",
+          "autor": "Presidência da República",
+          "ano": "1988",
+          "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+        }
+      },
+      "aula": {
+        "titulo": "O empirismo: Locke e Hume",
+        "href": "/trilhas/filosofia-medio/o-empirismo-locke-e-hume"
+      }
+    },
+    {
+      "id": "fs-bolsa",
+      "fase": "primeiro",
+      "titulo": "Uma bolsa, vinte pedidos",
+      "personagem": "helio",
+      "texto": "Uma faculdade doou uma bolsa integral. Vinte alunos querem. Hélio propõe dar a quem tirou a maior nota; Dalva acha que deve ir para quem mais precisa.",
+      "esquerda": {
+        "texto": "Maior nota leva",
+        "efeito": {
+          "autoridade": 10,
+          "lacos": -10,
+          "recursos": 6
+        },
+        "retorno": "Parece justo, mas quem teve mais tempo para estudar já saiu na frente. Mérito também tem ponto de partida."
+      },
+      "direita": {
+        "texto": "Quem mais precisa leva",
+        "efeito": {
+          "lacos": 10,
+          "participacao": 5,
+          "autoridade": -8
+        },
+        "retorno": "A turma discute critérios: renda, filhos, distância. Ninguém sai totalmente satisfeito, mas todos entendem por quê."
+      },
+      "historia": {
+        "texto": "Em Uma teoria da justiça (1971), John Rawls propõe imaginar as regras da sociedade sob um véu da ignorância, sem saber que lugar ocuparíamos nela. Daí vem o princípio da diferença: desigualdades só se justificam se beneficiarem os que estão em pior situação.",
+        "fonte": {
+          "titulo": "John Rawls",
+          "autor": "Stanford Encyclopedia of Philosophy (Leif Wenar)",
+          "url": "https://plato.stanford.edu/entries/rawls/"
+        }
+      },
+      "aula": {
+        "titulo": "O que é justiça",
+        "href": "/trilhas/filosofia-fundamental/o-que-e-justica"
+      }
+    },
+    {
+      "id": "fs-sobrinho",
+      "fase": "primeiro",
+      "titulo": "O sobrinho do vereador",
+      "personagem": "osvaldo",
+      "texto": "Um vereador promete reformar o banheiro da escola se o sobrinho dele virar professor do cursinho, mesmo sem ter passado pela seleção dos voluntários.",
+      "esquerda": {
+        "texto": "Aceitar o sobrinho",
+        "efeito": {
+          "recursos": 15,
+          "autoridade": -12,
+          "participacao": -5
+        },
+        "retorno": "O banheiro sai. A regra da seleção, não. Quando o público vira favor, quem não tem padrinho fica de fora."
+      },
+      "direita": {
+        "texto": "Seleção vale para todos",
+        "efeito": {
+          "autoridade": 10,
+          "recursos": -10,
+          "participacao": 5
+        },
+        "retorno": "Sem banheiro novo, com regra de pé. O vereador espalha que o cursinho é \"ingrato\"."
+      },
+      "historia": {
+        "texto": "Em Raízes do Brasil (1936), Sérgio Buarque de Holanda descreve o homem cordial: a dificuldade de separar o público do privado, o costume de resolver tudo pelo afeto, pelo parentesco e pelo favor. Ele usa o conceito de patrimonialismo, de Max Weber.",
+        "fonte": {
+          "titulo": "Raízes do Brasil",
+          "autor": "Sérgio Buarque de Holanda",
+          "ano": "1936"
+        }
+      },
+      "aula": {
+        "titulo": "Weber e a ação social",
+        "href": "/trilhas/sociologia-medio/weber-e-a-acao-social"
+      }
+    },
+    {
+      "id": "fs-bancaria",
+      "fase": "segundo",
+      "titulo": "O professor que só dita",
+      "personagem": "rute",
+      "texto": "O voluntário novo de Química passa a aula inteira ditando. Rute diz que copia tudo e não entende nada. Ele responde que \"conteúdo é conteúdo\".",
+      "esquerda": {
+        "texto": "Deixar como está",
+        "efeito": {
+          "autoridade": 5,
+          "participacao": -12,
+          "lacos": -5
+        },
+        "retorno": "A turma vira plateia. O caderno enche, a cabeça fica vazia."
+      },
+      "direita": {
+        "texto": "Propor aula a partir das perguntas",
+        "efeito": {
+          "participacao": 12,
+          "lacos": 5,
+          "autoridade": -6
+        },
+        "retorno": "A aula começa pela panela de pressão da casa da Rute. A Química passa a ter cheiro de feijão."
+      },
+      "historia": {
+        "texto": "Paulo Freire chamou de educação bancária a que deposita conteúdo em alunos vistos como recipientes vazios. Em 1963, em Angicos (RN), a experiência dele alfabetizou cerca de 300 trabalhadores partindo das palavras da vida deles. A ideia está em Pedagogia do oprimido, escrito no exílio, no Chile, no fim dos anos 1960.",
+        "fonte": {
+          "titulo": "Pedagogia do oprimido",
+          "autor": "Paulo Freire",
+          "ano": "escrito em 1968"
+        }
+      },
+      "aula": {
+        "titulo": "Quem foi Paulo Freire",
+        "href": "/trilhas/educacao-popular-fundamental/quem-foi-paulo-freire"
+      }
+    },
+    {
+      "id": "fs-ordens",
+      "fase": "segundo",
+      "titulo": "Só cumpro ordens",
+      "personagem": "osvaldo",
+      "texto": "A diretoria da escola mandou: quem faltar três vezes perde a vaga, sem conversa. Seu Osvaldo já riscou cinco nomes. \"Não é comigo, só cumpro ordens.\"",
+      "esquerda": {
+        "texto": "Cumprir a regra da diretoria",
+        "efeito": {
+          "autoridade": 12,
+          "lacos": -12,
+          "recursos": 8
+        },
+        "retorno": "Ninguém decidiu nada, e mesmo assim cinco pessoas ficaram de fora. A regra cumprida sem pensar também machuca."
+      },
+      "direita": {
+        "texto": "Ouvir cada caso antes",
+        "efeito": {
+          "lacos": 10,
+          "participacao": 5,
+          "autoridade": -10
+        },
+        "retorno": "Três faltaram por doença, uma por despejo, um por turno dobrado. Pensar é o que nos faz responsáveis."
+      },
+      "historia": {
+        "texto": "Ao acompanhar o julgamento do nazista Adolf Eichmann, Hannah Arendt escreveu Eichmann em Jerusalém (1963), com a ideia de banalidade do mal: crimes enormes podem ser cometidos por pessoas comuns que obedecem sem pensar no que fazem.",
+        "fonte": {
+          "titulo": "Hannah Arendt",
+          "autor": "Stanford Encyclopedia of Philosophy (Maurizio Passerin d'Entrèves)",
+          "url": "https://plato.stanford.edu/entries/arendt/"
+        }
+      },
+      "aula": {
+        "titulo": "Liberdade e responsabilidade",
+        "href": "/trilhas/filosofia-fundamental/liberdade-e-responsabilidade"
+      }
+    },
+    {
+      "id": "fs-evasao",
+      "fase": "segundo",
+      "titulo": "Os que foram embora",
+      "personagem": "helio",
+      "texto": "Um terço da turma desistiu até agosto. A professora Marta acha que faltou força de vontade. Hélio diz que o problema é maior que cada um.",
+      "esquerda": {
+        "texto": "Campanha de motivação",
+        "efeito": {
+          "autoridade": 5,
+          "recursos": -5,
+          "lacos": -5
+        },
+        "retorno": "Os cartazes dizem \"Você consegue!\". Quem foi embora continua sem ônibus à noite e sem creche para os filhos."
+      },
+      "direita": {
+        "texto": "Pesquisar por que saíram",
+        "efeito": {
+          "participacao": 10,
+          "lacos": 8,
+          "recursos": -8
+        },
+        "retorno": "A pesquisa mostra padrões: mulheres com filhos, quem mora longe, quem trabalha em escala. O problema é social, a resposta também."
+      },
+      "historia": {
+        "texto": "Em As regras do método sociológico (1895), Émile Durkheim define o fato social: maneiras de agir e de pensar exteriores ao indivíduo, gerais na sociedade e que exercem pressão sobre cada um. Para ele, fenômenos que parecem individuais têm causas sociais.",
+        "fonte": {
+          "titulo": "As regras do método sociológico",
+          "autor": "Émile Durkheim",
+          "ano": "1895"
+        }
+      },
+      "aula": {
+        "titulo": "Durkheim e o fato social",
+        "href": "/trilhas/sociologia-medio/durkheim-e-o-fato-social"
+      }
+    },
+    {
+      "id": "fs-formulario",
+      "fase": "segundo",
+      "titulo": "O formulário de dez páginas",
+      "personagem": "dalva",
+      "texto": "Para se inscrever no vestibular comunitário é preciso um formulário de dez páginas, com seis documentos. Dalva desistiu na terceira página.",
+      "esquerda": {
+        "texto": "Mutirão para preencher",
+        "efeito": {
+          "lacos": 10,
+          "participacao": 8,
+          "recursos": -8
+        },
+        "retorno": "A burocracia continua, mas ninguém enfrenta sozinho. A turma vira especialista em formulário."
+      },
+      "direita": {
+        "texto": "Cada um se vira",
+        "efeito": {
+          "autoridade": 5,
+          "lacos": -12,
+          "recursos": 6
+        },
+        "retorno": "A regra é igual para todos no papel, mas pesa mais para quem tem menos tempo e menos estudo."
+      },
+      "historia": {
+        "texto": "Max Weber descreveu a dominação racional-legal, típica do Estado moderno: autoridade baseada em regras impessoais e numa burocracia de funcionários. Ele via nela eficiência, mas também o risco de uma jaula de ferro que aprisiona as pessoas em procedimentos.",
+        "fonte": {
+          "titulo": "Max Weber",
+          "autor": "Stanford Encyclopedia of Philosophy (Sung Ho Kim)",
+          "url": "https://plato.stanford.edu/entries/weber/"
+        }
+      },
+      "aula": {
+        "titulo": "Weber e a ação social",
+        "href": "/trilhas/sociologia-medio/weber-e-a-acao-social"
+      }
+    },
+    {
+      "id": "fs-mercado",
+      "fase": "segundo",
+      "titulo": "O segurança do mercado",
+      "personagem": "kaique",
+      "texto": "No intervalo, o segurança do mercado em frente seguiu Kaique e outros dois alunos negros pelos corredores. Os alunos brancos entraram e saíram sem ninguém olhar.",
+      "esquerda": {
+        "texto": "Ir com a turma ao gerente e denunciar",
+        "efeito": {
+          "lacos": 12,
+          "participacao": 8,
+          "autoridade": -5
+        },
+        "retorno": "A turma inteira vai junto. Racismo não é problema de quem sofre: é de todo mundo que vê."
+      },
+      "direita": {
+        "texto": "Pedir que evitem o mercado",
+        "efeito": {
+          "autoridade": 5,
+          "lacos": -15
+        },
+        "retorno": "Evitar é pedir que a vítima se esconda. O mercado segue igual, e os três se sentem sozinhos."
+      },
+      "historia": {
+        "texto": "Em A integração do negro na sociedade de classes (1964), Florestan Fernandes mostrou que a abolição não incluiu a população negra e desmontou o mito da democracia racial. A Lei 7.716, de 1989, define os crimes de racismo, e a Constituição (art. 5º, XLII) o torna inafiançável e imprescritível.",
+        "fonte": {
+          "titulo": "Lei nº 7.716, de 5 de janeiro de 1989",
+          "autor": "Presidência da República",
+          "ano": "1989",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/l7716.htm"
+        }
+      },
+      "aula": {
+        "titulo": "Raça e racismo estrutural",
+        "href": "/trilhas/sociologia-medio/raca-e-racismo-estrutural"
+      }
+    },
+    {
+      "id": "fs-marido",
+      "fase": "segundo",
+      "titulo": "O marido não deixa",
+      "personagem": "rute",
+      "texto": "Rute conta que o marido quer que ela largue o cursinho: \"mulher casada não precisa de faculdade\". Ela está pensando em desistir.",
+      "esquerda": {
+        "texto": "Dizer que é assunto do casal",
+        "efeito": {
+          "autoridade": 5,
+          "lacos": -12
+        },
+        "retorno": "O que parece assunto privado é um padrão: muitas mulheres deixam de estudar pela mesma razão."
+      },
+      "direita": {
+        "texto": "Roda de conversa só das alunas",
+        "efeito": {
+          "lacos": 12,
+          "participacao": 8,
+          "recursos": -5
+        },
+        "retorno": "Rute descobre que não está sozinha. Seis alunas contam a mesma história, e combinam de vir juntas."
+      },
+      "historia": {
+        "texto": "Em O segundo sexo (1949), Simone de Beauvoir escreve que não se nasce mulher, torna-se mulher: o papel feminino não é destino biológico, mas construção social e histórica, que pode ser questionada e transformada.",
+        "fonte": {
+          "titulo": "Simone de Beauvoir",
+          "autor": "Stanford Encyclopedia of Philosophy (Debra Bergoffen e Megan Burke)",
+          "url": "https://plato.stanford.edu/entries/beauvoir/"
+        }
+      },
+      "aula": {
+        "titulo": "Existencialismo: Sartre e Beauvoir",
+        "href": "/trilhas/filosofia-medio/existencialismo-sartre-e-beauvoir"
+      }
+    },
+    {
+      "id": "fs-escuro",
+      "fase": "segundo",
+      "titulo": "A luz caiu",
+      "personagem": "osvaldo",
+      "texto": "Faltou luz no bairro durante a aula. No escuro, sumiram duas bolsas. Seu Osvaldo quer câmeras, catraca e revista na entrada.",
+      "esquerda": {
+        "texto": "Câmeras, catraca e revista",
+        "efeito": {
+          "autoridade": 15,
+          "recursos": -10,
+          "participacao": -8
+        },
+        "retorno": "A sensação de segurança aumenta, e a de ser suspeito também. Quem chega cansado do trabalho agora é revistado."
+      },
+      "direita": {
+        "texto": "Combinar cuidado mútuo",
+        "efeito": {
+          "lacos": 10,
+          "participacao": 5,
+          "autoridade": -5
+        },
+        "retorno": "Lanternas, armários coletivos e um combinado: na próxima queda de luz, todo mundo fica junto."
+      },
+      "historia": {
+        "texto": "No Leviatã (1651), Thomas Hobbes imagina o estado de natureza, sem governo, como uma guerra de todos contra todos, e conclui que as pessoas aceitam um poder soberano forte em troca de segurança. Locke e Rousseau responderam com outras ideias sobre o pacto social.",
+        "fonte": {
+          "titulo": "Hobbes's Moral and Political Philosophy",
+          "autor": "Stanford Encyclopedia of Philosophy (Sharon A. Lloyd e Susanne Sreedhar)",
+          "url": "https://plato.stanford.edu/entries/hobbes-moral/"
+        }
+      },
+      "aula": {
+        "titulo": "Hobbes, Locke e Rousseau: o contrato social",
+        "href": "/trilhas/ciencia-politica-medio/hobbes-locke-e-rousseau-o-contrato-social"
+      }
+    },
+    {
+      "id": "fs-boato",
+      "fase": "segundo",
+      "titulo": "O boato no grupo",
+      "personagem": "kaique",
+      "texto": "Correu no grupo de mensagens que o cursinho vai fechar no mês que vem. Metade da turma acredita. Ninguém sabe de onde veio.",
+      "esquerda": {
+        "texto": "Apagar o boato do grupo",
+        "efeito": {
+          "autoridade": 10,
+          "participacao": -10
+        },
+        "retorno": "O boato some do grupo e continua na cabeça das pessoas. Proibir não ensina a desconfiar."
+      },
+      "direita": {
+        "texto": "Aula sobre como checar",
+        "efeito": {
+          "participacao": 10,
+          "lacos": 5,
+          "recursos": -5
+        },
+        "retorno": "A turma rastreia a mensagem até a origem: um áudio de outra cidade, de outro cursinho. Sair da caverna dá trabalho."
+      },
+      "historia": {
+        "texto": "Na alegoria da caverna, no livro VII de A República, Platão descreve prisioneiros que só veem sombras projetadas na parede e as tomam pela realidade. Sair da caverna, para ele, é o esforço doloroso de buscar o conhecimento verdadeiro.",
+        "fonte": {
+          "titulo": "A República",
+          "autor": "Platão",
+          "ano": "século IV a.C."
+        }
+      },
+      "aula": {
+        "titulo": "Platão",
+        "href": "/trilhas/filosofia-medio/platao"
+      }
+    },
+    {
+      "id": "fs-heranca",
+      "fase": "segundo",
+      "titulo": "Quem leu os clássicos",
+      "personagem": "marta",
+      "texto": "A professora Marta percebeu que vão melhor na redação os alunos que cresceram com livros em casa. Ela quer separar a turma por nível.",
+      "esquerda": {
+        "texto": "Separar por nível",
+        "efeito": {
+          "autoridade": 8,
+          "lacos": -12
+        },
+        "retorno": "A turma \"forte\" acelera; a \"fraca\" entende o recado. A escola confirma a desigualdade que já vinha de casa."
+      },
+      "direita": {
+        "texto": "Clube de leitura para todos",
+        "efeito": {
+          "lacos": 10,
+          "participacao": 8,
+          "recursos": -8
+        },
+        "retorno": "O que uns herdaram em casa, outros conquistam juntos. Leva tempo, mas encurta a distância."
+      },
+      "historia": {
+        "texto": "Pierre Bourdieu e Jean-Claude Passeron, em Os herdeiros (1964), mostraram que a escola premia o capital cultural (gosto, vocabulário, familiaridade com livros e arte) que os filhos das classes altas trazem de casa, e assim tende a reproduzir as desigualdades sociais.",
+        "fonte": {
+          "titulo": "Os herdeiros: os estudantes e a cultura",
+          "autor": "Pierre Bourdieu e Jean-Claude Passeron",
+          "ano": "1964"
+        }
+      },
+      "aula": {
+        "titulo": "Desigualdade social",
+        "href": "/trilhas/sociologia-fundamental/desigualdade-social"
+      }
+    },
+    {
+      "id": "fs-capacidade",
+      "fase": "segundo",
+      "condicao": {
+        "flags": [
+          "vaquinha"
+        ]
+      },
+      "peso": 3,
+      "titulo": "A vaquinha cresceu",
+      "personagem": "dalva",
+      "texto": "A vaquinha da apostila deu certo e virou caixa coletivo. Agora a turma discute: todo mundo paga igual, ou cada um dá o que pode e recebe o que precisa?",
+      "esquerda": {
+        "texto": "Todos pagam igual",
+        "efeito": {
+          "autoridade": 8,
+          "recursos": 8,
+          "lacos": -10
+        },
+        "retorno": "Simples de contar, pesado para quem ganha menos. Igual nem sempre é justo."
+      },
+      "direita": {
+        "texto": "Cada um conforme pode",
+        "efeito": {
+          "lacos": 12,
+          "participacao": 5,
+          "recursos": -5
+        },
+        "retorno": "O caixa encolhe um pouco e a turma cresce muito. Ninguém fica de fora por não ter dinheiro."
+      },
+      "historia": {
+        "texto": "Na Crítica do Programa de Gotha (1875), Karl Marx resume o princípio de uma sociedade comunista desenvolvida: de cada um segundo suas capacidades, a cada um segundo suas necessidades.",
+        "fonte": {
+          "titulo": "Crítica do Programa de Gotha",
+          "autor": "Karl Marx",
+          "ano": "1875"
+        }
+      },
+      "aula": {
+        "titulo": "Marx e o materialismo",
+        "href": "/trilhas/filosofia-medio/marx-e-o-materialismo"
+      }
+    },
+    {
+      "id": "fs-eleicao",
+      "fase": "segundo",
+      "condicao": {
+        "partidas": 1
+      },
+      "peso": 2,
+      "titulo": "A eleição da coordenação",
+      "personagem": "helio",
+      "texto": "Vai haver eleição para a coordenação do cursinho. Hélio sugere espalhar que a outra chapa \"quer cobrar mensalidade\". Não é verdade, mas ganharia a eleição.",
+      "esquerda": {
+        "texto": "Espalhar o boato",
+        "efeito": {
+          "autoridade": 10,
+          "lacos": -15,
+          "participacao": -5
+        },
+        "retorno": "Você ganha, e governa um cursinho que desconfia de você. O fim justificou os meios?"
+      },
+      "direita": {
+        "texto": "Disputar com propostas",
+        "efeito": {
+          "participacao": 12,
+          "lacos": 5,
+          "autoridade": -8
+        },
+        "retorno": "A disputa é dura e limpa. Ganhe ou perca, o cursinho sai mais forte."
+      },
+      "historia": {
+        "texto": "Em O príncipe (escrito em 1513 e publicado em 1532), Nicolau Maquiavel separa a política da moral cristã: o governante precisa às vezes agir contra a bondade para manter o poder. O livro descreve a política como ela é, e não como deveria ser.",
+        "fonte": {
+          "titulo": "Niccolò Machiavelli",
+          "autor": "Stanford Encyclopedia of Philosophy (Cary Nederman)",
+          "url": "https://plato.stanford.edu/entries/machiavelli/"
+        }
+      },
+      "aula": {
+        "titulo": "Maquiavel e o poder como ele é",
+        "href": "/trilhas/ciencia-politica-medio/maquiavel-e-o-poder-como-ele-e"
+      }
+    }
+  ],
+  "finais": [
+    {
+      "id": "fs-regras-zero",
+      "tipo": "queda",
+      "medidor": "autoridade",
+      "limite": "zero",
+      "titulo": "Cada um faz o que quer",
+      "texto": "Nenhum combinado se sustenta. Quem grita mais decide, quem é mais fraco se cala, e o cursinho vira terra de ninguém.",
+      "historia": {
+        "texto": "Hobbes, no Leviatã (1651), descreve a vida sem um poder comum como solitária, pobre, sórdida, brutal e curta. Rousseau discordava: para ele, era a sociedade desigual que corrompia as pessoas.",
+        "fonte": {
+          "titulo": "Leviatã",
+          "autor": "Thomas Hobbes",
+          "ano": "1651"
+        }
+      },
+      "aula": {
+        "titulo": "Hobbes, Locke e Rousseau: o contrato social",
+        "href": "/trilhas/ciencia-politica-medio/hobbes-locke-e-rousseau-o-contrato-social"
+      }
+    },
+    {
+      "id": "fs-regras-cem",
+      "tipo": "queda",
+      "medidor": "autoridade",
+      "limite": "cem",
+      "titulo": "A escola-quartel",
+      "texto": "Catraca, chamada, revista, punição. Tudo funciona, e ninguém mais quer estar ali. O cursinho perdeu o motivo de existir.",
+      "historia": {
+        "texto": "Foucault, em Vigiar e punir (1975), usa o Panóptico, prisão projetada por Jeremy Bentham em que o vigiado nunca sabe se está sendo observado, como imagem da sociedade disciplinar.",
+        "fonte": {
+          "titulo": "Vigiar e punir",
+          "autor": "Michel Foucault",
+          "ano": "1975"
+        }
+      },
+      "aula": {
+        "titulo": "Estado e poder",
+        "href": "/trilhas/sociologia-medio/estado-e-poder"
+      }
+    },
+    {
+      "id": "fs-participacao-zero",
+      "tipo": "queda",
+      "medidor": "participacao",
+      "limite": "zero",
+      "titulo": "Uma plateia muda",
+      "texto": "A turma assiste, copia e vai embora. Ninguém propõe, ninguém discorda. O cursinho popular virou um cursinho qualquer.",
+      "historia": {
+        "texto": "Paulo Freire defendia que ninguém educa ninguém e ninguém se educa sozinho: as pessoas se educam juntas, mediatizadas pelo mundo. Sem diálogo, para ele, não há educação libertadora.",
+        "fonte": {
+          "titulo": "Pedagogia do oprimido",
+          "autor": "Paulo Freire",
+          "ano": "escrito em 1968"
+        }
+      },
+      "aula": {
+        "titulo": "Círculos de cultura",
+        "href": "/trilhas/educacao-popular-fundamental/circulos-de-cultura"
+      }
+    },
+    {
+      "id": "fs-participacao-cem",
+      "tipo": "queda",
+      "medidor": "participacao",
+      "limite": "cem",
+      "titulo": "A assembleia sem fim",
+      "texto": "Tudo vai para votação: a cor do giz, o lanche, a vírgula da ata. As aulas não acontecem porque a reunião nunca acaba.",
+      "historia": {
+        "texto": "A democracia ateniense, no século V a.C., era direta: os cidadãos votavam as leis na assembleia. Mas só uma minoria era cidadã; mulheres, escravizados e estrangeiros estavam excluídos. Participar muito não garante que todos participem.",
+        "fonte": {
+          "titulo": "Política",
+          "autor": "Aristóteles",
+          "ano": "século IV a.C."
+        }
+      },
+      "aula": {
+        "titulo": "Grécia Antiga",
+        "href": "/trilhas/historia-antiga/grecia-antiga"
+      }
+    },
+    {
+      "id": "fs-lacos-zero",
+      "tipo": "queda",
+      "medidor": "lacos",
+      "limite": "zero",
+      "titulo": "Cada um por si",
+      "texto": "Ninguém conhece o nome do colega do lado. Quando alguém some, ninguém pergunta. O cursinho se desfaz sem briga, por pura solidão.",
+      "historia": {
+        "texto": "Durkheim chamou de anomia o enfraquecimento das normas e dos laços que ligam o indivíduo à sociedade. Em O suicídio (1897), mostrou que até atos vividos como íntimos variam conforme a força desses laços.",
+        "fonte": {
+          "titulo": "Émile Durkheim",
+          "autor": "Internet Encyclopedia of Philosophy",
+          "url": "https://iep.utm.edu/emile-durkheim/"
+        }
+      },
+      "aula": {
+        "titulo": "Durkheim e o fato social",
+        "href": "/trilhas/sociologia-medio/durkheim-e-o-fato-social"
+      }
+    },
+    {
+      "id": "fs-lacos-cem",
+      "tipo": "queda",
+      "medidor": "lacos",
+      "limite": "cem",
+      "titulo": "A panelinha",
+      "texto": "A turma ficou tão unida que ninguém novo consegue entrar. Quem pensa diferente é olhado torto. O cursinho popular virou clube fechado.",
+      "historia": {
+        "texto": "Para Durkheim, em Da divisão do trabalho social (1893), a solidariedade mecânica das sociedades mais simples se baseia na semelhança e pune quem foge do padrão; a solidariedade orgânica das sociedades complexas se baseia na diferença e na interdependência.",
+        "fonte": {
+          "titulo": "Da divisão do trabalho social",
+          "autor": "Émile Durkheim",
+          "ano": "1893"
+        }
+      },
+      "aula": {
+        "titulo": "Durkheim e o fato social",
+        "href": "/trilhas/sociologia-medio/durkheim-e-o-fato-social"
+      }
+    },
+    {
+      "id": "fs-recursos-zero",
+      "tipo": "queda",
+      "medidor": "recursos",
+      "limite": "zero",
+      "titulo": "Sem giz, sem sala",
+      "texto": "Acabou o dinheiro do xerox, a escola pediu a sala de volta e os voluntários não têm como pagar a passagem. O cursinho fecha, por enquanto. Movimentos sociais sabem disso: sem base material, nem a melhor ideia se sustenta.",
+      "aula": {
+        "titulo": "Movimentos sociais",
+        "href": "/trilhas/sociologia-medio/movimentos-sociais"
+      }
+    },
+    {
+      "id": "fs-recursos-cem",
+      "tipo": "queda",
+      "medidor": "recursos",
+      "limite": "cem",
+      "titulo": "Virou negócio",
+      "texto": "Tanto patrocínio, tanta parceria, que o cursinho começou a cobrar \"uma taxinha\". Em pouco tempo, quem mais precisava já não cabia mais.",
+      "historia": {
+        "texto": "Marx, em O capital (1867), descreve como, no capitalismo, as coisas tendem a virar mercadoria, produzidas para a troca e o lucro, e não para a necessidade de quem as usa.",
+        "fonte": {
+          "titulo": "O capital, livro I",
+          "autor": "Karl Marx",
+          "ano": "1867"
+        }
+      },
+      "aula": {
+        "titulo": "Marx e as classes sociais",
+        "href": "/trilhas/sociologia-medio/marx-e-as-classes-sociais"
+      }
+    },
+    {
+      "id": "fs-chegada-autogestao",
+      "tipo": "chegada",
+      "condicao": {
+        "flags": [
+          "roda",
+          "assembleia"
+        ]
+      },
+      "titulo": "Uma escola que se governa",
+      "texto": "O ano termina com a turma decidindo junto e resolvendo os conflitos em roda. Nem todos passaram no vestibular, mas todos aprenderam a pensar e a decidir em comum."
+    },
+    {
+      "id": "fs-chegada",
+      "tipo": "chegada",
+      "titulo": "Fim do ano letivo",
+      "texto": "O cursinho chega a dezembro. Cada decisão puxou a balança para um lado: veja abaixo o que você escolheu e o que os pensadores diriam disso."
+    }
+  ]
+}
