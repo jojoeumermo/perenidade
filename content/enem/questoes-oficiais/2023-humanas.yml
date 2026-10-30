@@ -1,0 +1,882 @@
+# Camada do Instituto Lúcia sobre a prova de Ciências Humanas do ENEM 2023 (questões 46 a 90).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Fora deste arquivo: enem-2023-56 (a charge de Laerte, que é o texto-base, se perdeu na importação e também na fonte
+# enem.dev; sem ela não há como resolver com segurança).
+# Problemas no arquivo importado: o id enem-2023-50 aparece duas vezes; a questão 81 vem com area "linguagens" (pela
+# numeração é humanas) e com as alternativas grudadas no enunciado; a imagem da questão 65 também se perdeu (o texto
+# basta para resolver).
+ano: 2023
+questoes:
+  - id: enem-2023-46
+    area: humanas
+    competencia: 1
+    habilidade: 1
+    objeto: hum-cultura
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A imagem é um bordado sobre pano: no alto, a fotografia de uma senhora estampada no tecido, contornada por linhas vermelhas; embaixo, bordado em azul, a frase “Sertão é a avó bordando caminhos com linhas coloridas”. Fios soltos de várias cores descem do pano.
+      O comando pede a ideia de Sertão que o bordado constrói. Ali o Sertão não é definido por mapa, clima ou economia. É definido por uma pessoa querida (a avó), por um gesto (bordar) e por caminhos feitos com linhas. Isso é o espaço como lugar vivido: memória de família, afeto e trajetos da vida.
+      Na geografia, esse é o sentido de lugar: o espaço que ganha significado pela experiência das pessoas. Por isso, “vivências e itinerários socioafetivos”. Alternativa C.
+    enganos:
+      A: "Turismo é deslocamento de visitante, com roteiro comercial. O bordado fala de uma avó e de caminhos da família, não de quem visita. Procure no texto quem age e por quê."
+      B: "“Holístico” quer dizer visão do todo, e a palavra não tem apoio no bordado. Os caminhos ali são afetivos e familiares. Não escolha a alternativa pela palavra bonita: confira se ela aparece na fonte."
+      D: "Fronteira e demarcação são a ideia de território como limite e posse. O bordado faz o oposto: troca o limite pelo afeto. Na leitura de fontes, separe território (poder) de lugar (vivência)."
+      E: "Nada no bordado fala de trabalho remunerado ou interesse econômico. O bordar aparece como gesto de cuidado e memória. Leia a frase bordada inteira antes de concluir."
+    aulas: [enem-por-area/ciencias-humanas-historia-e-geografia]
+
+  - id: enem-2023-47
+    area: humanas
+    competencia: 1
+    habilidade: 1
+    objeto: hum-cultura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O trecho saiu numa revista de modas do Rio de Janeiro em 1853. O tom é irônico: o autor finge lamentar os “felizes tempos” em que as moças quase não saíam de casa e “não sabiam escrever”, e por isso não trocavam bilhetes.
+      No século XIX, mais moças da elite urbana aprendiam a ler e escrever, e cresciam as revistas feitas para elas. Ler e escrever muda o costume: a moça passa a se comunicar por conta própria, fora do controle da família.
+      O comando pede os fatores da mudança, segundo o autor. Ele liga a mudança ao fato de as filhas agora saberem escrever (prática de letramento) e a um novo jeito de viver (transformação cultural). Alternativa D.
+    enganos:
+      A: "A leitura está no centro, mas o texto não fala de mudança de cidade ou de região. “Mobilidade regional” é um fator que o texto não traz. Toda parte da alternativa precisa ter apoio no trecho."
+      B: "Impressos circulavam, sim, mas o texto não fala em troca de religião. A ida à missa aparece como costume antigo, não como mudança religiosa. Cuidado com a alternativa meio certa."
+      C: "O texto não fala de imigrantes nem de valorização da língua. O ponto é a escrita das moças. Não traga para a questão um tema do século XIX que o texto não menciona."
+      E: "O trecho não fala de reforma do ensino nem de leis da escola. Fala de um costume: escrever e trocar bilhetes. Diferencie escola (instituição) de letramento (prática)."
+    aulas: []
+
+  - id: enem-2023-48
+    area: humanas
+    competencia: 4
+    habilidade: 18
+    objeto: hum-producao
+    topico: hum-producao-espaco-agrario
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      No Cerrado, a expansão da soja, do milho e do gado em grandes áreas mecanizadas avançou sobre terras de camponeses, comunidades tradicionais e povos indígenas. Os autores chamam isso de territorialização do agronegócio: o capital passa a controlar a terra, a água e as sementes.
+      O texto lista os efeitos: bens comuns viram “propriedade privada”, há “chuvas de veneno” (agrotóxicos), superexploração e violência contra a pessoa. Quem sofre esses efeitos é a população do campo que vive da terra.
+      O comando pede o que esses elementos demonstram. Demonstram um cerco aos camponeses, que perdem as condições de manter a vida no lugar. Alternativa A.
+    enganos:
+      B: "O latifúndio é o lado que avança no texto, não o que sofre. Inverter quem ganha e quem perde é um engano comum. Pergunte sempre: quem é o sujeito e quem é o atingido?"
+      C: "O texto fala de camponeses, não de assalariados nem de sindicatos. Não troque o grupo social que o texto descreve por outro."
+      D: "Governantes não aparecem no trecho, e a questão não é a criação de empregos. O texto trata de terra, água e sementes tomadas da população do campo."
+      E: "O empresariado é quem investe e se expande no texto. Dizer que ele sofre assédio inverte a relação descrita pelos autores."
+    aulas: [geografia-fundamental/cidade-e-campo, a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria]
+
+  - id: enem-2023-49
+    area: humanas
+    competencia: 2
+    habilidade: 8
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-migracoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Xinjiang fica no extremo oeste da China. Os textos dão três pistas: a região faz fronteira com oito países, é passagem do projeto de infraestrutura Cinturão e Rota e guarda as maiores reservas de carvão e gás do país. Também dizem que a maioria da população é de minorias muçulmanas, sobretudo uigures.
+      O Texto II mostra a política: o governo dá subsídios para que chineses da etnia han, a maioria no país, se mudem para lá e aumentem sua proporção na população local.
+      O comando pede o objetivo estratégico dessa política demográfica. Mudar a composição da população numa área de fronteira, rica em recursos e com minorias que o governo vê como risco é uma forma de reforçar o controle do Estado sobre o território. Por isso, “assegurar a integridade territorial”. Alternativa E.
+    enganos:
+      A: "O texto fala de migração para a província, não de ocupação do campo em especial. O foco é a etnia de quem chega, não a atividade rural."
+      B: "Aumentar a proporção de han diante de minorias muçulmanas não amplia a liberdade religiosa delas. Leia o efeito da política sobre o grupo que já vivia lá."
+      C: "A política é decidida e paga pelo governo central. Isso é o contrário de descentralizar. Veja quem decide e quem executa."
+      D: "Mudar a proporção a favor da etnia majoritária tende a diminuir o peso das culturas locais, não a incentivar a pluralidade. Compare a intenção declarada com o efeito descrito."
+    aulas: [geografia-medio/globalizacao]
+
+  - id: enem-2023-50
+    area: humanas
+    competencia: 1
+    habilidade: 2
+    objeto: hum-cultura
+    topico: hum-cultura-identidade-e-etnocentrismo
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Durante muito tempo, a história do Brasil foi contada a partir do olhar europeu, do colonizador. Nesse relato, as pessoas negras aparecem quase só como escravizadas, sem nome, sem obra e sem ideias.
+      O texto apresenta uma plataforma digital que reúne a trajetória de pessoas negras “encobertas pela perspectiva histórica imposta pelos colonizadores”. É uma forma de produzir outra memória.
+      O comando pede o que iniciativas assim favorecem no conhecimento sobre a formação cultural do Brasil. Elas questionam a visão que põe a Europa no centro e julga as outras culturas por ela: o eurocentrismo. Alternativa E.
+    enganos:
+      A: "Tradicionalismo é apego a costumes antigos. A plataforma faz o contrário: revisa a história contada até agora. Não confunda resgatar figuras esquecidas com conservar tradições."
+      B: "Antropocentrismo é pôr o ser humano no centro do universo, ideia ligada ao Renascimento. O texto discute quem conta a história, não o lugar do ser humano na natureza."
+      C: "Etnocentrismo é julgar outros povos pela régua do próprio grupo. A plataforma combate essa régua, não a reforça. Atenção à inversão de sentido."
+      D: "Teocentrismo é pôr Deus no centro da explicação do mundo, como na Idade Média. O texto não trata de religião."
+    aulas: [sociologia-fundamental/cultura-e-diversidade, sociologia-medio/raca-e-racismo-estrutural]
+
+  - id: enem-2023-51
+    area: humanas
+    competencia: 2
+    habilidade: 7
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-mundo-atual
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      Em 2 de novembro de 1917, durante a Primeira Guerra Mundial, o governo britânico declarou apoio a um “lar nacional para o povo judeu” na Palestina. Na mesma frase, prometeu que nada prejudicaria os direitos das comunidades não judaicas que já viviam ali, a maioria árabe.
+      Depois da guerra, a Palestina ficou sob mandato britânico. A imigração judaica cresceu, e os choques entre judeus e árabes pela terra também. O Reino Unido não conseguiu conciliar as duas promessas. Levou a questão à ONU, que aprovou um plano de partilha em 1947. Em 1948 os britânicos saíram, foi proclamado o Estado de Israel e começou a guerra com os países árabes vizinhos. O conflito pelo território dura até hoje.
+      O comando pede o objetivo que o governo inglês não conseguiu garantir. Foi mediar os conflitos territoriais entre os povos da região. Alternativa C.
+    enganos:
+      A: "A declaração não trata de bem-estar social, e a questão não é sobre políticas sociais. O ponto é a disputa pela terra entre dois povos."
+      B: "Os britânicos buscaram apoio árabe na guerra, mas o comando pede o resultado do processo aberto pela declaração. Esse resultado foi o conflito pelo território, que eles não conseguiram mediar."
+      D: "A cooperação regional não é o objetivo expresso na carta. A carta faz duas promessas a dois grupos; o fracasso foi não conseguir conciliar as duas."
+      E: "Combater governos autocráticos não aparece na declaração nem no mandato. Não traga para 1917 um objetivo de outra época."
+    aulas: [geopolitica-contemporanea/palestina-ocupacao-colonizacao-e-direito-internacional, historia-superior/colonialismo-e-imperialismo]
+
+  - id: enem-2023-52
+    area: humanas
+    competencia: 5
+    habilidade: 23
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-etica
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Paulo Freire (1921–1997) foi um educador brasileiro. Para ele, ninguém é só produto da genética, da cultura ou da classe. Se fosse, não seria responsável pelo que faz, e não haveria ética. O Texto I diz isso.
+      O Texto II completa: as desigualdades parecem naturais, mas foram construídas pela sociedade e pela história. Se foram construídas, podem ser mudadas. Por isso o educando precisa tomar consciência da sua realidade “para, assim, transformá-la”.
+      O comando pede pelo que os educandos se tornam responsáveis. Transformar a realidade social é agir na vida coletiva e política. Isso é participação sociopolítica. Alternativa A.
+    enganos:
+      B: "Os textos não tratam de estética nem de gosto. A ética de Freire liga consciência a ação sobre a sociedade."
+      C: "Freire critica as estruturas de opressão; competir no mercado não é o objetivo da sua pedagogia. Fique com o que o texto propõe: transformar a realidade."
+      D: "Manter o sistema escolar como está é o oposto de transformar. O Texto II diz que as estruturas são construídas e podem ser mudadas."
+      E: "Subir na vida sozinho é um projeto individual. Freire fala de consciência e transformação coletiva. Leia o sujeito da ação: os educandos, juntos, diante da realidade."
+    aulas: [educacao-popular-fundamental/quem-foi-paulo-freire, filosofia-fundamental/liberdade-e-responsabilidade]
+
+  - id: enem-2023-53
+    area: humanas
+    competencia: 6
+    habilidade: 27
+    objeto: hum-ambiente
+    topico: hum-ambiente-relevo
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      A crosta da Terra é dividida em placas tectônicas que se movem devagar sobre o manto. Onde duas placas continentais se chocam, as rochas se dobram e sobem, formando cordilheiras. São os chamados dobramentos modernos.
+      O Himalaia nasceu do choque da placa Indo-Australiana com a placa Euro-Asiática, que começou há cerca de 50 milhões de anos, como diz o texto. O choque continua; por isso o Everest ainda sobe alguns milímetros por ano.
+      O comando pede a dinâmica natural que explica o fenômeno (montanhas altíssimas que ainda crescem). É o encontro de placas tectônicas. Alternativa B.
+    enganos:
+      A: "Vulcões formam montanhas, mas o Himalaia não é de origem vulcânica. Ele é feito de rochas dobradas pelo choque de placas."
+      C: "Intemperismo químico desgasta as rochas. Ele rebaixa o relevo, não o faz crescer. Separe forças que constroem o relevo (internas) das que o desgastam (externas)."
+      D: "Erosão pelo vento também desgasta. Sedimentação forma planícies e bacias, não cordilheiras de 8 mil metros."
+      E: "Geleiras derretendo mudam a paisagem e esculpem vales, mas não erguem montanhas. O texto fala de altitude que cresce, e isso vem de dentro da Terra."
+    aulas: [geografia-fundamental/relevo-clima-e-vegetacao]
+
+  - id: enem-2023-54
+    area: humanas
+    competencia: 1
+    habilidade: 4
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-racionalismo-e-empirismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      René Descartes (1596–1650) separou a realidade em duas substâncias: a coisa pensante (a mente, sem extensão) e a coisa extensa (o corpo, a matéria). Essa separação é o dualismo cartesiano.
+      Merleau-Ponty, no século XX, parte do raciocínio de Descartes: se a raiva é um pensamento, ela seria só “espírito”. Mas, ao olhar a própria experiência, ele percebe que a raiva estava “inexplicavelmente” no corpo. Para ele, mente e corpo não se separam assim.
+      O comando pede por que a filosofia de Descartes é o contraponto do texto. Porque ela apresenta uma visão dualista, que o autor contesta. Alternativa A.
+    enganos:
+      B: "Naturalismo explica tudo pela natureza e pela matéria. Descartes faz o oposto: põe o pensamento fora da matéria."
+      C: "Descartes buscava verdades certas e indubitáveis, não relativas. A premissa dele sobre mente e corpo é apresentada como certeza."
+      D: "Descartes valoriza o pensamento, mas o ponto que o texto contesta é a separação entre mente e corpo. O nome desse ponto é dualismo. Responda ao problema que o comando aponta: o do corpo."
+      E: "Intencionalidade é um conceito da fenomenologia, a corrente do próprio Merleau-Ponty. Atribuí-la a Descartes troca os autores de lugar."
+    aulas: [filosofia-medio/descartes-e-o-racionalismo]
+
+  - id: enem-2023-55
+    area: humanas
+    competencia: 4
+    habilidade: 16
+    objeto: hum-cultura
+    topico: hum-cultura-industria-cultural
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Adorno e Horkheimer, da Escola de Frankfurt, criaram o conceito de indústria cultural no livro Dialética do esclarecimento, publicado em 1947. A ideia: filmes, músicas e programas passam a ser fabricados como qualquer mercadoria, em série, para vender.
+      O texto diz que a diversão é “o prolongamento do trabalho”. A pessoa procura lazer para descansar e voltar ao trabalho. E o que ela consome no lazer foi feito pela mesma lógica mecanizada da fábrica.
+      O comando pede como o tempo livre é concebido. Como consumo de produtos culturais feitos pelo mesmo sistema produtivo do capitalismo. Alternativa A.
+    enganos:
+      B: "Os autores não veem o lazer como realização das potencialidades humanas. Para eles, o lazer reproduz o trabalho. Essa alternativa diz o que o texto critica que não acontece."
+      C: "O texto até diz que a pessoa busca escapar do trabalho, mas conclui que ela só encontra cópias do trabalho. Ficar só com a primeira parte é leitura parcial."
+      D: "Necessidades artificiais é um tema próximo, mas o texto fala da produção da diversão no mesmo molde do trabalho. Escolha o que o trecho afirma, não o que parece com a teoria."
+      E: "“Organização do ócio e do prazer” é vago e neutro. O texto é uma crítica: o lazer é capturado pela lógica do trabalho mecanizado."
+    aulas: [sociologia-medio/industria-cultural-e-consumo]
+
+  - id: enem-2023-57
+    area: humanas
+    competencia: 5
+    habilidade: 23
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-etica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Paul Ricoeur (1913–2005) foi um filósofo francês que pensou a memória, a culpa e o perdão.
+      No trecho, quem pede perdão precisa estar pronto para ouvir um não. O perdão não é um direito de quem pede; é uma decisão livre de quem foi ferido. Por isso “perdão pedido não é perdão a que se tem direito”. A grandeza do perdão está justamente em não ser obrigatório.
+      O comando pede o fundamento dessa reflexão. O perdão acontece entre pessoas e depende da liberdade de cada uma delas: relações interpessoais medidas pela autonomia dos indivíduos. Alternativa E.
+    enganos:
+      A: "O texto não liga a recusa a desejo de poder. A recusa é uma possibilidade da liberdade de quem foi ferido."
+      B: "Ricoeur não diz que a decisão vem da vontade de Deus. Ela vem da pessoa. Não leia religião onde o texto fala de liberdade humana."
+      C: "Predestinação tira a liberdade. O texto afirma a liberdade de perdoar ou não."
+      D: "O perdão não é definido por observação nem por experiência medida. É uma escolha ética entre pessoas."
+    aulas: [filosofia-fundamental/etica-no-dia-a-dia, filosofia-fundamental/liberdade-e-responsabilidade]
+
+  - id: enem-2023-58
+    area: humanas
+    competencia: 1
+    habilidade: 3
+    objeto: hum-cultura
+    topico: hum-cultura-patrimonio
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O texto conta a história de uma festa religiosa em Caicó (RN). Até os anos 1970, os agricultores iam à cidade a cavalo nos dias de feira e, na Festa de Sant'Ana, cavalgavam até a catedral para pedir bênção aos animais. Com a chegada do automóvel, a prática acabou. Em 2002, um grupo a retomou como Cavalgada, que hoje atrai também gente da cidade e fãs de vaquejada.
+      O comando pede o que caracteriza essas mudanças. Há elementos tradicionais (cavalgada, devoção, bênção) convivendo com elementos modernos (carros, público urbano, eventos de vaquejada), tudo em torno da fé em Sant'Ana. Alternativa A.
+    enganos:
+      B: "Não há ordem do papa no texto. A retomada veio de um grupo de moradores e da associação de vaqueiros."
+      C: "O texto não fala de fundamentos estéticos nem de etnografia. E a festa é organizada por moradores, não por uma cerimônia do clero."
+      D: "Não houve imposição da Igreja. A prática acabou por causa do transporte e voltou por iniciativa local."
+      E: "Não há discurso filosófico nem decisão da paróquia no texto. Os sujeitos da mudança são os moradores, os vaqueiros e o automóvel."
+    aulas: [sociologia-fundamental/cultura-e-diversidade]
+
+  - id: enem-2023-59
+    area: humanas
+    competencia: 3
+    habilidade: 11
+    objeto: hum-cultura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Norbert Elias (1897–1990), sociólogo alemão, estudou como as boas maneiras à mesa surgiram nas cortes europeias. No livro O processo civilizador, de 1939, ele mostra que regras de etiqueta nascem como forma de os grupos de cima se diferenciarem dos outros.
+      O texto dá as pistas: o garfo era usado “nas classes mais altas”, chegou à França pelo rei Henrique III, os cortesãos foram ridicularizados e, ainda no século XVII, o garfo era “artigo de luxo”, de prata ou ouro.
+      O comando pede o princípio da etiqueta que se forma. Usar o garfo marcava quem pertencia à corte e às classes altas. Por isso, distinção das classes sociais. Alternativa A.
+    enganos:
+      B: "Higiene é a explicação que parece óbvia hoje, mas o texto não fala dela. Cuidado com o anacronismo: ler o passado com as razões de hoje."
+      C: "O garfo veio da Itália, mas o texto não diz que a regra exaltava a cultura do Mediterrâneo. Ele fala de luxo e de classe."
+      D: "O garfo é uma novidade dos séculos XVI e XVII, não uma tradição medieval. O texto descreve uma mudança, não uma continuidade."
+      E: "Garfos de prata e ouro eram objetos de luxo, não produtos fabricados em massa. Disseminação é o contrário de exclusividade."
+    aulas: []
+
+  - id: enem-2023-60
+    area: humanas
+    competencia: 5
+    habilidade: 22
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-genero
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      A Lei Maria da Penha (Lei nº 11.340, de 2006) define cinco formas de violência doméstica e familiar contra a mulher: física, psicológica, sexual, patrimonial e moral.
+      As condutas do texto (negar dinheiro para necessidades, comprar no nome dela sem consentimento, esconder documentos, trocar senhas do banco, proibi-la de trabalhar, destruir seus pertences) atacam os bens, o dinheiro, os documentos e os meios de vida da mulher.
+      A lei chama isso de violência patrimonial. Alternativa D.
+    enganos:
+      A: "Difamar é atacar a honra da pessoa; na lei, isso entra na violência moral. As condutas do texto atingem dinheiro, documentos e bens."
+      B: "“Desvio comportamental” trata o abuso como problema de conduta individual e não usa o nome que a lei dá. A lei define essas condutas como violência."
+      C: "Preconceito é atitude ou fala que discrimina. O texto descreve controle de dinheiro e de bens, não expressão."
+      E: "Chamar de “desentendimento” é justamente o que esconde o abuso. O texto diz que essas condutas são previstas na lei como forma de violência."
+    aulas: [feminismo-fundamental/a-lei-maria-da-penha, violencia-domestica-sinais-e-ajuda/sinais-para-pedir-ajuda]
+
+  - id: enem-2023-61
+    area: humanas
+    competencia: 4
+    habilidade: 16
+    objeto: hum-producao
+    topico: hum-producao-trabalho
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Assistentes de voz e outros sistemas de inteligência artificial aprendem com grandes volumes de dados. Alguém precisa ler, ouvir e rotular esses dados. O texto mostra que esse trabalho é feito por linguistas subcontratados, mal pagos e com horas extras sem pagamento.
+      A propaganda apresenta a IA como “mágica”, como se funcionasse sozinha. O texto desmonta essa imagem: por trás da máquina há trabalho humano, que o usuário não vê.
+      O comando pede a consequência da mudança tecnológica que o texto critica. É a invisibilidade do profissional: o trabalho existe, mas fica escondido atrás do produto. Alternativa E.
+    enganos:
+      A: "O texto descreve uma tarefa repetitiva e “tediosa” de rotular dados, não uma variedade de funções. Leia os adjetivos que o autor usa."
+      B: "Os trabalhadores estão distribuídos pelo mundo, mas o texto não critica deslocamento de população. A crítica é ao trabalho escondido e mal pago."
+      C: "Subcontratação, salário baixo e hora extra não paga são o oposto de autonomia. Não confunda trabalho fora da empresa com trabalho livre."
+      D: "O texto fala de trabalho espalhado globalmente e subcontratado, não de produção concentrada num lugar."
+    aulas: [sociologia-medio/trabalho-e-alienacao, uberizacao-e-cooperativismo/o-breque-dos-apps]
+
+  - id: enem-2023-62
+    area: humanas
+    competencia: 2
+    habilidade: 7
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-guerra-fria
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      Em 1945, no fim da Segunda Guerra, a Coreia foi dividida no paralelo 38: o norte sob influência da União Soviética, o sul sob influência dos Estados Unidos. Formaram-se dois Estados, um socialista e outro capitalista. A Guerra da Coreia (1950–1953) terminou num armistício, sem tratado de paz, e a fronteira continua militarizada.
+      Os alto-falantes, os boletins críticos e a disputa de mastros são formas simbólicas de rivalidade entre os dois governos. O texto chama o Norte de “vizinho comunista”, o que já indica a raiz do conflito.
+      O comando pede a origem histórica dessa competição. É a disputa político-ideológica entre os dois Estados, herdada da Guerra Fria. Alternativa C.
+    enganos:
+      A: "O K-pop aparece como instrumento da disputa, não como a sua origem. Separe o meio usado (cultura) da causa histórica (divisão política)."
+      B: "Norte e Sul têm o mesmo povo e a mesma língua. A divisão não é étnica; é política."
+      D: "Quem instala alto-falantes e mastros são os governos, não empresas. O conflito não nasceu de imposição financeira."
+      E: "Não há tema ambiental no texto. A disputa é entre dois Estados rivais."
+    aulas: [historia-superior/a-guerra-fria]
+
+  - id: enem-2023-63
+    area: humanas
+    competencia: 1
+    habilidade: 5
+    objeto: hum-cultura
+    topico: hum-cultura-patrimonio
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      No século XVIII, o ouro de Minas Gerais enriqueceu cidades como Ouro Preto, Mariana e Sabará. Portugal mantinha comércio com a Ásia desde o século XVI, por rotas que passavam pela Índia e por Macau, na China. Porcelanas, sedas e móveis asiáticos chegavam assim à colônia.
+      O texto mostra que esses objetos inspiraram as “chinesices”: pássaros, pagodes e mandarins pintados em igrejas barrocas mineiras.
+      O comando pede o que tornou esse processo artístico possível. Foi a circulação de mercadorias e imagens entre continentes (Ásia, Europa, América): um intercâmbio transcontinental. Alternativa B.
+    enganos:
+      A: "A arquitetura é onde a pintura aparece, não a causa dela. A causa é a chegada de objetos chineses pelo comércio."
+      C: "A colônia dependia de Portugal, mas o texto explica a arte pelo contato com objetos asiáticos, e não pela dependência. Responda à pergunta do texto."
+      D: "O texto diz que os objetos “circulavam livremente” numa sociedade rica. Não fala de ação do Estado para criar essa arte."
+      E: "Padrão estético é o resultado (o estilo), não o que o tornou possível. Distinga a causa do efeito."
+    aulas: []
+
+  - id: enem-2023-64
+    area: humanas
+    competencia: 6
+    habilidade: 30
+    objeto: hum-ambiente
+    topico: hum-ambiente-questoes-ambientais
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      A COP-26 foi a conferência do clima da ONU realizada em Glasgow, na Escócia, em novembro de 2021. Txai Suruí, jovem do povo Paiter Suruí, de Rondônia, falou na abertura.
+      O discurso lista sinais de uma crise ambiental: o clima esquenta, animais desaparecem, rios morrem e plantações não florescem. Esses efeitos vêm do desmatamento, da queima de combustíveis fósseis e do uso dos recursos naturais acima da capacidade de recuperação da natureza.
+      O comando pede o problema global ligado ao discurso. É a exploração predatória dos recursos. Alternativa D.
+    enganos:
+      A: "O manejo tradicional dos povos indígenas costuma ser apontado como parte da solução, não do problema. Inverter o papel deles é um engano grave."
+      B: "Reciclagem é uma resposta ao lixo. O discurso fala de clima, animais e rios, efeitos de uma exploração em grande escala."
+      C: "Consumo consciente é uma proposta para reduzir danos, não o problema que o discurso denuncia."
+      E: "Reaproveitar energia também é proposta, não problema. Pergunte: o comando pede causa ou solução?"
+    aulas: [crise-climatica/o-que-e-o-aquecimento-global, meio-ambiente-fundamental/o-que-e-a-mudanca-do-clima]
+
+  - id: enem-2023-65
+    area: humanas
+    competencia: 2
+    habilidade: 10
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-genero
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Lina Bo Bardi (1914–1992) foi uma arquiteta nascida na Itália que fez carreira no Brasil. Ela projetou o MASP e outras obras importantes.
+      O texto conta que, em 1947, as reportagens sobre a inauguração do museu não citaram o nome dela; todo o louvor foi para o marido. Décadas depois, ela recebeu, já falecida, o Leão de Ouro da Bienal de Arquitetura de Veneza e ganhou biografias.
+      O comando pede quais mobilizações permitiram esse reconhecimento tardio. O apagamento de Lina tem a ver com o lugar dado às mulheres no trabalho e na vida pública. Os movimentos feministas lutaram para mudar isso. Por isso, equidade de gênero. Alternativa A.
+    enganos:
+      B: "Liberdade de expressão é importante, mas o texto não fala de censura. Lina não foi calada por um governo; foi esquecida por ser mulher."
+      C: "O voto feminino foi uma conquista anterior e não explica o reconhecimento do trabalho de uma arquiteta. Leia o problema que o texto mostra: o apagamento da mulher na profissão."
+      D: "Igualdade de oportunidade é próxima, mas genérica. O texto aponta uma diferença de tratamento por gênero (ela e o marido). A alternativa que nomeia isso é a de gênero."
+      E: "“Reciprocidade de tratamento” não nomeia nenhuma mobilização social conhecida. Prefira a alternativa que corresponde a um movimento real."
+    aulas: [feminismo-fundamental/o-que-e-feminismo]
+
+  - id: enem-2023-66
+    area: humanas
+    competencia: 3
+    habilidade: 11
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-desigualdade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Carolina Maria de Jesus (1914–1977) morava numa favela em São Paulo e escreveu um diário sobre a fome e a vida dela e dos filhos. O diário virou o livro Quarto de despejo, publicado em 1960.
+      O Texto I é de Carolina, nos anos 1950: a mãe que olha a panela vazia. O Texto II é de 2021: uma mãe em Pernambuco, sem trabalho e sem o auxílio, que às vezes não tem nem o leite da filha.
+      O comando pede o que aproxima os dois textos. Mais de 60 anos separam as duas mães, e a fome é a mesma. Os textos mostram que a miséria se repete no Brasil. Alternativa A.
+    enganos:
+      B: "Nenhum dos textos fala de planejamento de saúde. Os dois falam de fome."
+      C: "Os textos mostram que a escassez não foi superada: ela volta em 2021. Essa alternativa diz o contrário."
+      D: "O Texto II mostra perda de trabalho e de auxílio, ou seja, instabilidade. Não há constância econômica a celebrar."
+      E: "Romantizar seria apresentar a pobreza como bonita. Os dois textos fazem o oposto: mostram a dor da fome sem enfeite."
+    aulas: [sociologia-fundamental/desigualdade-social]
+
+  - id: enem-2023-67
+    area: humanas
+    competencia: 6
+    habilidade: 29
+    objeto: hum-ambiente
+    topico: hum-ambiente-sociedade-e-natureza
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Cabruca é o cultivo de cacau à sombra das árvores da floresta nativa, no sul da Bahia, área de Mata Atlântica. Em vez de derrubar a mata, o agricultor planta o cacau por baixo dela.
+      O texto diz que esse sistema conserva mais biodiversidade que monoculturas, lavouras comuns ou pastagens. É uma forma de produzir mantendo boa parte da floresta de pé.
+      O comando pede de que a prática é exemplo. De uso sustentável dos recursos naturais: produzir hoje sem destruir a base de recursos para o futuro. Alternativa B.
+    enganos:
+      A: "Cacau é cultura permanente: a árvore produz por muitos anos. Lavoura temporária é a de ciclo curto, como milho e soja."
+      C: "O texto trata de cacau e floresta, não de criação de gado. E a cabruca é o oposto da produção intensiva."
+      D: "A cabruca é um modo de plantar, não uma imposição de dieta a povos tradicionais. Nada no texto fala disso."
+      E: "O sistema existe desde o século XVIII e não é plantio convencional. O texto o elogia por ser diferente das monoculturas."
+    aulas: [meio-ambiente-fundamental/os-biomas-do-brasil]
+
+  - id: enem-2023-68
+    area: humanas
+    competencia: 6
+    habilidade: 26
+    objeto: hum-ambiente
+    topico: hum-ambiente-questoes-ambientais
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O trecho é do romance O moleque Ricardo, de José Lins do Rego, publicado em 1935. Ele descreve os mocambos do Recife: casas de restos de caixote e zinco, construídas sobre o mangue, onde a maré entra na casa, o curtume despeja resíduos, os peixes morrem envenenados e os urubus ciscam a lama.
+      A cidade cresceu sem lugar para os pobres, que ocuparam o mangue. Essa ocupação mudou o ambiente: aterro, lixo, poluição, doenças.
+      O comando pede o resultado da aglomeração urbana descrita. É a interferência humana no espaço geográfico, que transforma o mangue e degrada a vida de quem mora ali. Alternativa C.
+    enganos:
+      A: "O texto se passa na cidade, sobre o mangue, e não fala de conservar o campo."
+      B: "A vegetação nativa sofre com a ocupação: há lama, peixe morto e resíduos. Não há crescimento de mata."
+      D: "O cenário descrito é de desequilíbrio: maré dentro de casa, mau cheiro, envenenamento. A alternativa diz o contrário."
+      E: "Os urubus e os insetos se multiplicam com o lixo. Não há controle de animais; há proliferação."
+    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira]
+
+  - id: enem-2023-69
+    area: humanas
+    competencia: 5
+    habilidade: 24
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-genero
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Em agosto de 2021, o Talibã voltou ao poder no Afeganistão. O grupo impõe regras que restringem a vida das mulheres: estudo, trabalho e circulação.
+      O texto conta que mais de 220 juízas estão escondidas, ameaçadas de morte por homens que elas condenaram e que foram soltos. E cita estimativa de ONGs de que cerca de 87% das mulheres e meninas sofrerão abuso.
+      O comando pede o que essa situação representa. Ameaças de morte, perda do direito de trabalhar e violência generalizada contra mulheres ferem direitos humanos básicos. Isso é desrespeito à dignidade humana. Alternativa D.
+    enganos:
+      A: "As juízas não afrontam as estruturas sociais; são elas as perseguidas. Veja quem é a vítima no texto."
+      B: "O texto não diz que as juízas desprezam a religião. Elas aplicavam a lei contra crimes. Não confunda a cultura de um país com a ação de um grupo armado."
+      C: "Falar em “transgressão às normas morais” põe a culpa nas mulheres. O texto denuncia a violência contra elas."
+      E: "As juízas não se opõem à hierarquia por si. Elas sofrem ameaça por ter feito o trabalho delas. O tema é violação de direitos."
+    aulas: []
+
+  - id: enem-2023-70
+    area: humanas
+    competencia: 3
+    habilidade: 15
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-ditadura
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O jornalista Vladimir Herzog foi preso e morto no DOI-Codi de São Paulo em outubro de 1975, durante a ditadura civil-militar (1964–1985). A versão oficial falou em suicídio. Anos depois, a Justiça e o próprio Estado reconheceram que essa versão era falsa.
+      O trecho descreve o enterro: medo, pressa, jornalistas que tinham passado pelo DOI dizendo “eles matam”, e uma pergunta de Ruth Escobar: “até quando vamos suportar tanta violência?”.
+      O comando pede que característica do regime o acontecimento atesta. O DOI-Codi era um órgão do Estado para prender, interrogar e torturar opositores. Isso é institucionalização de mecanismos repressivos para eliminar a resistência. Alternativa C.
+    enganos:
+      A: "O texto não fala de cultura popular nem de propaganda de integração. Fala de morte e medo."
+      B: "A ditadura fez propaganda, mas o trecho descreve repressão, não campanha cívica. Responda ao que o acontecimento mostra."
+      D: "O enterro não foi uma cerimônia do governo para controlar opositores. Foi um funeral feito sob medo, e os discursos foram de protesto."
+      E: "Houve censura, mas a imprensa não foi estatizada. E o trecho trata de violência física, não de controle da notícia."
+    aulas: [ditadura-de-1964/censura-tortura-e-desaparecimentos, historia-do-brasil/o-golpe-de-1964-e-a-ditadura]
+
+  - id: enem-2023-71
+    area: humanas
+    competencia: 4
+    habilidade: 18
+    objeto: hum-producao
+    topico: hum-producao-espaco-agrario
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O geógrafo Ariovaldo Umbelino de Oliveira discute o desmatamento na Amazônia. Ele admite que a soja tem parte nisso, mas diz que a lógica principal é o “tripé grileiros, madeireiros e pecuaristas”.
+      Grileiro é quem se apossa de terra pública com documento falso ou por ocupação ilegal. Terras devolutas são terras públicas que o Estado ainda não destinou. O grileiro toma essas terras, o madeireiro tira a madeira e o pecuarista põe o gado, consolidando a posse.
+      O comando pede o que desencadeia o problema, na visão do autor. É a apropriação de áreas devolutas. Alternativa A.
+    enganos:
+      B: "Imposto não aparece no texto. O problema central é a terra tomada."
+      C: "Exportação ilegal não é o tema. O texto fala de quem toma a terra e desmata, antes da produção."
+      D: "Desoneração é redução de impostos para setores. O texto não fala de política tributária."
+      E: "Leis mais frouxas podem ajudar o desmatamento, mas o autor aponta outra causa: a ação de grileiros, madeireiros e pecuaristas. Fique com a causa que o texto nomeia."
+    aulas: [historia-da-luta-pela-terra/chico-mendes-e-os-povos-da-floresta, a-terra-e-quem-nela-trabalha/a-funcao-social-da-terra-na-constituicao]
+
+  - id: enem-2023-72
+    area: humanas
+    competencia: 4
+    habilidade: 20
+    objeto: hum-producao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O Texto I é otimista: só os mais ricos vão ao espaço agora, mas as tecnologias criadas podem voltar para todos, como já aconteceu com câmeras e com o titânio.
+      O Texto II é uma charge com o título “Bilionários lançam nova era de viagens ao espaço...”. Um astronauta chega a outro planeta e diz “Viemos em paz!”. Um extraterrestre segura um tablet onde aparece um indígena que avisa: “Acredite em mim. Não confie nesse pessoal!”. A charge lembra a chegada dos europeus à América, que se apresentaram como amigos e trouxeram conquista e destruição.
+      O comando pede as perspectivas, na ordem. O Texto I mostra expectativa de benefícios; o Texto II mostra desconfiança das intenções. Alternativa B.
+    enganos:
+      A: "O Texto I não fala de dependência, e o II não fala de progresso; ao contrário, desconfia dele. Confira cada texto na ordem."
+      C: "O Texto I é esperançoso, não angustiado. E a charge não fala de adaptação, mas de alerta."
+      D: "Pioneirismo cabe no Texto I, mas a charge não fala de retrocesso técnico. Ela fala de desconfiança, a partir da memória da colonização."
+      E: "O Texto I não demonstra receio; é otimista. Inverter a ordem das ideias é um engano comum em “respectivamente”."
+    aulas: [corrida-espacial/o-sputnik-e-o-comeco-da-era-espacial]
+
+  - id: enem-2023-73
+    area: humanas
+    competencia: 6
+    habilidade: 29
+    objeto: hum-ambiente
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Nos séculos XV e XVI, Portugal e Espanha lançaram as grandes navegações. Os navios eram de madeira, e cada viagem exigia frotas novas, consertos e muita lenha. O texto aponta a construção naval e a metalurgia como grandes consumidoras de madeira, ao lado das cidades em crescimento.
+      O comando pede o acontecimento do período que agravou diretamente a “crise florestal”. A expansão marítima puxou a construção naval e o comércio, que consumiram as florestas. Alternativa A.
+    enganos:
+      B: "O Renascimento mudou as artes e as ideias, mas não exigiu madeira em grande escala. Procure o acontecimento ligado a navios e metalurgia."
+      C: "A centralização política é do mesmo período, mas o texto liga a crise ao consumo de madeira, não à formação do Estado. Prefira a causa direta."
+      D: "As reformas religiosas mudaram a fé e a Igreja, sem relação direta com o uso das florestas."
+      E: "O texto diz que as estruturas medievais estavam “desmoronando”. Falar em manutenção do feudalismo contraria o trecho."
+    aulas: []
+
+  - id: enem-2023-74
+    area: humanas
+    competencia: 3
+    habilidade: 11
+    objeto: hum-cultura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O Império Inca, chamado Tahuantinsuyu, dominava grande parte dos Andes, com capital em Cuzco, até a conquista espanhola iniciada em 1532.
+      O texto mostra dois lados. Na dominação, os povos submetidos deviam aprender o quéchua, adorar o Sapa Inca e o Sol e pagar tributo em trabalho. Na prática cultural, eles continuavam a adorar seus deuses locais e a falar suas línguas: o império era “um mosaico cultural”.
+      O comando pede a postura dos incas ao comparar dominação e cultura. Eles exigiam o culto oficial, mas aceitavam que os cultos locais continuassem. Foi uma postura flexível quanto aos costumes religiosos. Alternativa D.
+    enganos:
+      A: "“Direitos humanos” é uma ideia do século XX. Usá-la para os incas é anacronismo."
+      B: "Crenças coloniais seriam as dos europeus, que chegaram depois. O texto trata de antes da conquista."
+      C: "O tributo em trabalho era obrigatório. O texto não mostra tolerância nos impostos; mostra tolerância na religião e na língua."
+      E: "As horas de trabalho eram exigidas oficialmente. A flexibilidade do texto está nos deuses e nas línguas, não nas normas de trabalho."
+    aulas: [historia-antiga/os-povos-originarios-das-americas]
+
+  - id: enem-2023-75
+    area: humanas
+    competencia: 1
+    habilidade: 3
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-racismo
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O texto conta que parte da torcida do Fluminense pediu para tirar de um canto a expressão “mulambo imundo”, usada contra o Flamengo. O motivo: “mulambo” era palavra usada pelos senhores contra pessoas escravizadas.
+      Muitas palavras do dia a dia carregam a herança da escravidão e do racismo. Quando um grupo percebe isso e muda o que canta, há uma mudança de comportamento.
+      O comando pede o que a proposta reflete. Reflete a condenação do preconceito racial. Alternativa C.
+    enganos:
+      A: "A palavra não é criticada por ser de elite. É criticada por vir da escravidão e humilhar pessoas negras."
+      B: "Misoginia é ódio às mulheres. A origem do termo, segundo o texto, é racial."
+      D: "Não há relação com orientação sexual no texto. E a proposta é de torcedores, não uma lei que crie crime."
+      E: "Machismo não é o tema. O termo ligado à escravidão é o centro da proposta."
+    aulas: [sociologia-medio/raca-e-racismo-estrutural, sociologia-fundamental/preconceito-e-discriminacao]
+
+  - id: enem-2023-76
+    area: humanas
+    competencia: 2
+    habilidade: 6
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-populacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O gráfico de barras, com fonte no IBGE, mostra a taxa de fecundidade no Brasil (filhos por mulher) por década: 6,3 em 1960, 5,8 em 1970, 4,1 em 1980, 2,8 em 1990, 2,4 em 2000, 1,8 em 2010 e 1,5 em 2020, com projeção de 1,5 até 2050.
+      A queda forte acompanha a urbanização e a entrada das mulheres no trabalho fora de casa. Na cidade e com emprego, criar muitos filhos custa mais e disputa tempo com a carreira; o acesso a métodos contraceptivos também cresceu.
+      O comando pede o fator determinante da mudança. Entre as alternativas, é a participação feminina no mercado de trabalho. Alternativa D.
+    enganos:
+      A: "No Brasil, o aborto continua permitido só em poucos casos previstos em lei ou reconhecidos pelo STF. Não houve flexibilização ampla que explique uma queda que começa em 1960."
+      B: "O envelhecimento é consequência da queda da fecundidade, não a causa. Cuidado com a inversão de causa e efeito."
+      C: "Mais gravidez precoce aumentaria o número de filhos, não diminuiria. A alternativa vai contra o que o gráfico mostra."
+      E: "A licença-maternidade não diminuiu no período; a Constituição de 1988 a fixou em 120 dias. E licença menor não explica uma queda que já vinha desde 1960."
+    aulas: [geografia-fundamental/a-populacao-brasileira, geografia-medio/demografia]
+
+  - id: enem-2023-77
+    area: humanas
+    competencia: 5
+    habilidade: 23
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-iluminismo
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      A vacina contra a varíola (as “bexigas”) foi desenvolvida pelo médico inglês Edward Jenner em 1796. O autor do texto, em 1828, já com o Brasil independente, acusa o governo português de não ter trazido logo a vacina para a colônia: Portugal estaria “mais ocupado de seu ouro que de seus habitantes”.
+      O Iluminismo (século XVIII) defendeu que o governo existe para o bem do povo, e não o contrário. Daí a ideia de que cabe aos governantes cuidar da felicidade pública, da instrução e da saúde da população.
+      O comando pede a ideia iluminista que o texto expressa. A crítica é que o governo falhou em proteger a saúde dos súditos. Logo, a responsabilidade dos governantes assegura a saúde dos povos. Alternativa E.
+    enganos:
+      A: "Leis naturais que regem a matéria são ideia iluminista, ligada à ciência de Newton. Mas o texto não discute física; discute o dever do governo com a saúde."
+      B: "O texto critica o governo português, não elogia um rei racional. Uma ideia iluminista verdadeira, mas fora do texto, não é a resposta."
+      C: "O texto cita escravizados só como perda econômica pela doença. Não defende a liberdade deles. Não leia no texto o que ele não diz."
+      D: "A ideia de que a terra gera a riqueza é dos fisiocratas. O texto fala de ouro e de saúde, não de agricultura."
+    aulas: []
+
+  - id: enem-2023-78
+    area: humanas
+    competencia: 4
+    habilidade: 19
+    objeto: hum-producao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Agricultura urbana é plantar dentro da cidade: em quintais, lajes, terrenos baldios, beiras de linha e praças. O texto, sobre a favela da Penha, no Rio de Janeiro, diz que essa prática aproxima quem planta de quem come e encurta a cadeia de produção.
+      Para plantar na cidade é preciso achar chão disponível. A prática costuma usar terrenos vazios ou abandonados, que passam a ter função.
+      O comando pede a vantagem dessa prática no espaço urbano. É a ocupação de lugares ociosos. Alternativa A.
+    enganos:
+      B: "Densificar é concentrar mais construções e pessoas numa área. Hortas fazem o contrário: abrem espaço verde."
+      C: "O texto fala de alimento para consumo local, não de exportação."
+      D: "Hortas urbanas comunitárias costumam evitar agrotóxicos, e o texto não fala de insumos químicos."
+      E: "A agricultura urbana é feita em pequena escala, à mão. Mecanização é marca da grande lavoura."
+    aulas: [direito-a-cidade/o-estatuto-da-cidade-e-a-funcao-social-da-propriedade]
+
+  - id: enem-2023-79
+    area: humanas
+    competencia: 1
+    habilidade: 4
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-contemporanea
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Jean-Paul Sartre (1905–1980) foi o principal nome do existencialismo francês. Em O ser e o nada (1943), ele diz que cada pessoa vive numa situação que não escolheu (corpo, lugar, passado: a facticidade). Mas é a liberdade que dá sentido a essa situação, ao projetar algo além dela. Esse ir além do dado é a transcendência.
+      Gerineldo, no conto de García Márquez, acha que tudo já está previsto: calculou o ponto em que os vidros vão quebrar e dorme “conformado”. Para ele, o futuro está fechado.
+      O comando pede por que a postura dele contrasta com Sartre. Porque ela nega a possibilidade de superar a situação, de transcender. Alternativa B.
+    enganos:
+      A: "Inconsciente é conceito da psicanálise de Freud, não do texto de Sartre nem do conto. Gerineldo calcula tudo de forma consciente."
+      C: "“Conhecimento difuso” não tem apoio em nenhum dos textos. O contraste está entre determinismo e liberdade."
+      D: "O conto não trata de a vida ser passageira. Trata de um homem que acha tudo previsível."
+      E: "Nenhum dos textos fala de evolução biológica. O determinismo de Gerineldo é sobre o cotidiano, não sobre a natureza das espécies."
+    aulas: [filosofia-medio/existencialismo-sartre-e-beauvoir]
+
+  - id: enem-2023-80
+    area: humanas
+    competencia: 3
+    habilidade: 13
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-ditadura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      As Ligas Camponesas surgiram em Pernambuco nos anos 1950 e se espalharam pelo país, com a bandeira da reforma agrária. Em 1964, a reforma agrária estava entre as reformas de base do governo João Goulart.
+      O golpe de 1964 reprimiu duramente as Ligas. Com os sindicatos rurais, a atitude foi outra: o regime não os eliminou, mas formou lideranças com princípios conservadores, com apoio dos Estados Unidos e de membros da Igreja Católica.
+      O comando pede por que os sindicatos foram tratados assim. O governo queria sindicatos sob sua influência, que canalizassem as demandas do campo sem confronto. Isso é controlar as tensões políticas. Alternativa A.
+    enganos:
+      B: "O texto não fala de leis trabalhistas. Fala de formar lideranças sindicais com ideias conservadoras."
+      C: "O programa que costuma ser chamado de populista era o do governo derrubado em 1964. O regime não ia usar os sindicatos para divulgar o programa do adversário."
+      D: "Regularizar a terra era o que as Ligas pediam, e elas foram reprimidas. O tratamento dos sindicatos visava controle, não reforma."
+      E: "Oferta de mão de obra é tema econômico e não aparece no trecho. O tema é o controle da organização dos trabalhadores rurais."
+    aulas: [historia-da-luta-pela-terra/as-ligas-camponesas-e-francisco-juliao, ditadura-de-1964/o-golpe-de-1-de-abril-de-1964]
+
+  - id: enem-2023-81
+    area: humanas
+    competencia: 3
+    habilidade: 12
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-contemporanea
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Michel Foucault (1926–1984) estudou como o poder de punir mudou na sociedade capitalista. Em Vigiar e punir (1975), ele mostra que a punição não é igual para todos.
+      No trecho, as ilegalidades se dividem por classe. Aos pobres, cabe a ilegalidade dos bens (o roubo), julgada pelos tribunais comuns e punida com castigo. À burguesia, cabe a ilegalidade dos direitos (fraude, sonegação), tratada em “jurisdições especiais”, com acordos e multas leves.
+      O comando pede como o poder punitivo se caracteriza nesse cálculo. O sistema judicial administra as ilegalidades, separando-as e tratando cada uma de um jeito. Isso é gestão das ilicitudes pelo sistema judicial. Alternativa A.
+    enganos:
+      B: "“Equânime” quer dizer igual para todos. O texto mostra justamente o contrário: punições diferentes por classe."
+      C: "O texto não diz que a pena severa acaba com o crime. Diz que a punição é distribuída de forma desigual, com multas leves para alguns."
+      D: "Não há justiça social no trecho. A divisão favorece a burguesia, o que é o oposto de justiça social."
+      E: "A divisão descrita é de classe e de tribunal, não de hierarquia cultural."
+    aulas: []
+
+  - id: enem-2023-82
+    area: humanas
+    competencia: 1
+    habilidade: 1
+    objeto: hum-cultura
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Entre 1890 e 1930, muitos portugueses emigraram para o Brasil. As cartas atravessavam o oceano nos navios a vapor e ligavam quem partiu a quem ficou.
+      O texto diz que essas cartas levavam notícias, fotos, conselhos, dinheiro e pedidos, e que essa escrita “possibilitava a transmissão e reconstrução das tradições”. Ou seja, costumes e ideias iam e voltavam entre Portugal e Brasil.
+      O comando pede o que a correspondência possibilitava. Uma troca de cultura nos dois sentidos, entre a sociedade de partida e a de chegada: circularidade cultural. Alternativa B.
+    enganos:
+      A: "O texto fala de laços de família e afeto, não de conflito com os brasileiros."
+      C: "As cartas eram escritas pelas próprias famílias, sem controle de doutrina. Nada no trecho fala de censura."
+      D: "Fiscalização seria ação do Estado. O texto trata de cartas pessoais, não de vigilância de governos."
+      E: "Monitorar grupos de trabalhadores não aparece no texto. As cartas eram entre parentes e amigos."
+    aulas: []
+
+  - id: enem-2023-83
+    area: humanas
+    competencia: 6
+    habilidade: 27
+    objeto: hum-ambiente
+    topico: hum-ambiente-questoes-ambientais
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O solo é um recurso natural que leva muito tempo para se formar. O texto mostra que a degradação começa quase sempre com o desmatamento e segue com ocupação desordenada: cortes de encosta, queimadas, mineração, irrigação excessiva, pasto em excesso, despejo de resíduos.
+      Essas ações tiram a cobertura vegetal, levam embora a camada superficial pela erosão, queimam a matéria orgânica e acumulam sais e poluentes. O solo perde nutrientes e vida.
+      O comando pede o que impede a recuperação do recurso. É a diminuição da fertilidade: um solo pobre não sustenta vegetação, e sem vegetação ele não se recompõe. Alternativa C.
+    enganos:
+      A: "Biomassa é a quantidade de matéria viva. Com desmatamento e queimada, ela cai, não sobe."
+      B: "A irrigação excessiva tende a aumentar a salinização, não a reduzir. A alternativa inverte o efeito."
+      D: "A microfauna do solo diminui com queimadas e poluição. Ampliá-la ajudaria a recuperar, não impediria."
+      E: "A decomposição de matéria orgânica forma solo fértil. Ela é parte da recuperação, não o que a impede."
+    aulas: [geografia-fundamental/recursos-naturais]
+
+  - id: enem-2023-84
+    area: humanas
+    competencia: 4
+    habilidade: 16
+    objeto: hum-producao
+    topico: hum-producao-trabalho
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      No começo do século XX, ideias de racionalização do trabalho, vindas da indústria (como o taylorismo), chegaram à casa. O texto mostra que, a partir dos anos 1930, no Brasil, se discutia organizar a cozinha para economizar movimentos, com fogão a gás, eletricidade e equipamentos padronizados.
+      Na época, o trabalho doméstico recaía quase todo sobre as mulheres. Tarefas mais simples e rápidas liberavam parte do tempo delas.
+      O comando pede o que essas mudanças proporcionavam às mulheres. Com menos horas presas à cozinha, havia mais tempo para outras atividades e para o convívio. Por isso, ampliação dos momentos de socialização. Alternativa D.
+    enganos:
+      A: "O texto não fala de quem controla o dinheiro da casa. Fala de tempo e de movimentos no trabalho doméstico."
+      B: "Nada no texto liga a nova cozinha à religião. Não traga um tema que o trecho não menciona."
+      C: "Participação política das mulheres é outro tema. O texto trata da organização do trabalho dentro de casa."
+      E: "A racionalização especializa e organiza as tarefas; não afasta ninguém delas. A alternativa inverte o sentido da mudança."
+    aulas: [uberizacao-e-cooperativismo/do-fordismo-ao-toyotismo]
+
+  - id: enem-2023-85
+    area: humanas
+    competencia: 2
+    habilidade: 9
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-geopolitica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O Mercosul e a União Europeia negociam há anos um acordo de livre comércio, que reduziria tarifas entre os dois blocos.
+      O texto mostra dois grupos europeus. Os produtores rurais são contra: temem a carne sul-americana mais barata e alegam regras de produção mais rígidas na Europa. Para eles, interessa manter exigências sanitárias e de produção que dificultem a entrada desses produtos. Barreira fitossanitária é justamente essa exigência sanitária usada para barrar importações. Já a indústria, como a automotiva, é a favor: quer vender mais no Mercosul com tarifas menores.
+      O comando pede o que cada grupo defende, na ordem. Produtores rurais: manutenção das barreiras fitossanitárias. Indústria: livre circulação de mercadorias. Alternativa D.
+    enganos:
+      A: "O acordo é comercial; migração e sindicatos não aparecem no texto."
+      B: "O texto não fala de leis trabalhistas. E a indústria europeia quer exportar manufaturados, não importá-los."
+      C: "Proteger florestas não é a pauta dos produtores europeus no trecho, que falam de concorrência. E a indústria quer vender, não transferir tecnologia."
+      E: "Remover entraves alfandegários é o que a indústria quer, não os produtores rurais. A ordem está trocada e a segunda parte não tem apoio no texto."
+    aulas: [geografia-medio/globalizacao]
+
+  - id: enem-2023-86
+    area: humanas
+    competencia: 3
+    habilidade: 11
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-genero
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O trecho é do romance Ilusões perdidas, de Honoré de Balzac, escrito na primeira metade do século XIX. Na França daquele tempo, esperava-se que a mulher da elite fosse graciosa e modesta e se preparasse para ser mãe de família. Opinião firme e julgamento próprio eram vistos como qualidades de homem.
+      A personagem Anaïs recebe de um padre uma educação “masculina” e fica com opiniões fortes e “excelente opinião de si mesma”, apesar dos conselhos de modéstia.
+      O comando pede a postura que o comportamento dela revela. Ela rompe com os valores que a sociedade e as instituições (família, Igreja) reservavam às mulheres. Ruptura de valores institucionalizados. Alternativa E.
+    enganos:
+      A: "O texto não mostra Anaïs abandonando a família. Mostra uma moça independente na forma de pensar."
+      B: "Ela afirma a própria subjetividade, com opiniões e julgamento próprios. Negar a subjetividade seria o contrário."
+      C: "O narrador mostra que ela não aceitou o papel que se esperava da mulher. A alternativa inverte o sentido."
+      D: "O tema é o papel da mulher, não a divisão entre classes sociais. E a postura dela rompe, não consolida."
+    aulas: []
+
+  - id: enem-2023-87
+    area: humanas
+    competencia: 2
+    habilidade: 8
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-era-vargas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Nos anos 1930, durante o governo Vargas, o Brasil recebeu imigrantes judeus que fugiam do antissemitismo na Europa. Ao mesmo tempo, crescia aqui o nacionalismo e o medo do comunismo.
+      O Texto II explica as desconfianças: o imigrante era visto como concorrente do trabalhador brasileiro ou como explorador da riqueza local (argumento econômico e social) e como portador de ideias anarquistas e comunistas (argumento ideológico).
+      O comando pede em que se fundamentava o tratamento dado a esses grupos. Em aspectos socioeconômicos e ideológicos. Alternativa B.
+    enganos:
+      A: "Havia antissemitismo, mas os textos destacam argumentos de trabalho, riqueza e doutrina política, não de teologia."
+      C: "Os textos não falam de território nem de alfândega. Falam de imagem negativa construída na imprensa e na política."
+      D: "Nenhum dos textos cita a Constituição ou estatutos. Eles tratam de ideias e desconfianças."
+      E: "Os textos não mencionam decretos nem acordos internacionais. Responda com o que está nos textos."
+    aulas: [historia-do-brasil/a-era-vargas]
+
+  - id: enem-2023-88
+    area: humanas
+    competencia: 4
+    habilidade: 18
+    objeto: hum-producao
+    topico: hum-producao-globalizacao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O geógrafo Milton Santos (1926–2001) separa duas ideias. Concorrência respeita regras de convivência. Competitividade é uma “guerra em que tudo vale”, em que a única regra é chegar à melhor posição.
+      Dumping é vender abaixo do custo, de propósito, para quebrar os concorrentes e depois dominar o mercado. É vencer sem respeitar as regras do jogo comercial.
+      O comando pede a prática condenável segundo o autor. É a que encarna a competitividade sem regras: o dumping comercial. Alternativa A.
+    enganos:
+      B: "Juntar funções administrativas é organização interna da empresa. Não é, em si, uma arma de guerra contra rivais."
+      C: "Holding é uma empresa que controla outras. É forma de organizar a propriedade, não prática desleal por definição."
+      D: "Limitar o monopólio protege a concorrência. Seria uma prática que o autor aprovaria, não condenaria."
+      E: "Modernizar a produção pode ser concorrência saudável. O texto condena a luta sem regras, não a melhoria técnica."
+    aulas: [geografia-medio/globalizacao, direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira]
+
+  - id: enem-2023-89
+    area: humanas
+    competencia: 6
+    habilidade: 30
+    objeto: hum-ambiente
+    topico: hum-ambiente-clima
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A imagem traz duas fileiras de mapas-múndi com simulações do IPCC, o painel de cientistas do clima da ONU. A de cima mostra a mudança da temperatura média anual em três cenários de aquecimento global (1,5 °C, 2 °C e 4 °C acima do período pré-industrial): quanto maior o aquecimento, mais vermelho e escuro o mapa, com o Ártico esquentando mais. A de baixo mostra a mudança da chuva: algumas regiões ficam mais secas (em marrom), outras mais úmidas (em azul), e as diferenças crescem com o aquecimento.
+      O aquecimento global vem sobretudo do aumento de gases de efeito estufa, principalmente o gás carbônico liberado pela queima de combustíveis fósseis e pelo desmatamento.
+      O comando pede a medida capaz de reduzir essas mudanças. É controlar as emissões de carbono. Alternativa D.
+    enganos:
+      A: "Navios queimam combustível fóssil. Expandir o transporte marítimo aumentaria as emissões."
+      B: "Migração é uma consequência possível da crise do clima, não uma forma de reduzi-la."
+      C: "Vulcões não são a causa do aquecimento atual, e monitorá-los não reduz a temperatura. A causa principal está nas atividades humanas."
+      E: "Termoelétricas a carvão, óleo ou gás emitem muito gás carbônico. Priorizá-las pioraria o cenário."
+    aulas: [crise-climatica/o-ipcc-e-os-relatorios, crise-climatica/o-efeito-estufa]
+
+  - id: enem-2023-90
+    area: humanas
+    competencia: 1
+    habilidade: 4
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-antiga
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Os sofistas eram professores que, na Atenas do século V a.C., ensinavam retórica (a arte de falar e convencer) em troca de pagamento. Sócrates e Platão os criticaram: para eles, os sofistas buscavam vencer a discussão e não a verdade.
+      Brás Cubas, o narrador de Machado de Assis (romance de 1881), diz que da universidade guardou só “a fraseologia, a casca, a ornamentação”: frases e citações para usar na conversa e parecer culto.
+      O comando pede em que o personagem se parece com os sofistas. Ele usa o saber como enfeite para impressionar e convencer, sem buscar a verdade. Isso é utilização persuasiva do discurso. Alternativa B.
+    enganos:
+      A: "Elaborar conceitos com rigor é o que Sócrates e Platão buscavam. Brás Cubas diz que ficou só com a casca, sem o conteúdo."
+      C: "Rapsodos recitavam poemas épicos, como os de Homero. Não é com eles que o texto compara o personagem."
+      D: "Investigar a physis (a natureza) era a busca dos pré-socráticos. Brás Cubas não investigou nada; decorou fórmulas."
+      E: "Nem os sofistas nem o personagem se expressam por desenhos. A alternativa não tem apoio no texto."
+    aulas: [filosofia-medio/platao, filosofia-fundamental/socrates-e-a-arte-de-perguntar]

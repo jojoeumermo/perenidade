@@ -135,7 +135,7 @@ export function BancadaVisual() {
         {PEDIDOS.map((x, i) => <button key={x.nome} type="button" aria-pressed={i === pedido} onClick={() => setPedido(i)} className={`cursor-pointer rounded border-2 px-2.5 py-1 text-xs font-semibold ${i === pedido ? "border-ink bg-ink text-parchment" : "border-ink/25 hover:border-ink"}`}>{x.nome}</button>)}
       </div>
       <p className="mt-2 text-ink-soft"><strong>Pedido:</strong> {p.texto}</p>
-      <div className="mt-4 grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="mt-4 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div>
           <Placa e={e} />
           <div className="mt-3">

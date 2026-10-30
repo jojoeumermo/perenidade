@@ -68,7 +68,7 @@ export function Circuitos() {
         {!geral && <text x="300" y="30" fontSize="13" fill="#c21f16">chave geral aberta</text>}
       </svg>
 
-      <div className="mt-4 grid gap-3 md:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
         {ls.map((l, i) => (
           <div key={i} className="border-2 border-ink/20 bg-parchment-deep p-3">
             <p className="font-bold">Lâmpada {i + 1}</p>
