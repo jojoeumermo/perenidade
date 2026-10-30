@@ -671,7 +671,7 @@
     left: 8px;
     width: 6px;
     background-size: 6px 16px;
-    background-image: radial-gradient(circle, #f4ecd8 2.4px, transparent 2.8px);
+    background-image: radial-gradient(circle, var(--parchment) 2.4px, transparent 2.8px);
   }
   :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > button {
     margin-top: 0.5rem;
