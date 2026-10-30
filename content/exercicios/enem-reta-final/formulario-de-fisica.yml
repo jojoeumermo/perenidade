@@ -1,0 +1,148 @@
+# Exercícios da aula "Formulário de física" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fis-form-01
+  tema: "Velocidade média"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-cinematica
+  dificuldade: 1
+  enunciado: "Um ônibus intermunicipal percorre 120 km em 1 hora e 30 minutos. Qual é a velocidade média dele?"
+  alternativas:
+    - texto: "180 km/h"
+      erro: "Você multiplicou a distância pelo tempo. Velocidade média é distância dividida por tempo: 120 ÷ 1,5."
+    - texto: "80 km/h"
+      certa: true
+    - texto: "92,3 km/h"
+      erro: "1 hora e 30 minutos foi lido como 1,3 h. Meia hora é 0,5 h: o tempo é 1,5 h."
+    - texto: "120 km/h"
+      erro: "Esse seria o valor se a viagem durasse 1 hora. O tempo é de 1 hora e meia."
+    - texto: "4 km/h"
+      erro: "O tempo foi usado em minutos (120 ÷ 30). Para ter km/h, o tempo tem de estar em horas: 1,5 h."
+  explicacao: "v média = Δs ÷ Δt = 120 km ÷ 1,5 h = 80 km/h."
+  conferir: "120 / 1.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-form-02
+  tema: "Consumo de energia elétrica"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa casa, o chuveiro elétrico tem potência de 4.400 W. Cada morador toma um banho de 15 minutos por dia, e
+    moram 2 pessoas na casa. A conta de luz cobra pela energia em quilowatt-hora (kWh).
+  enunciado: "A energia gasta pelo chuveiro em 30 dias é de"
+  alternativas:
+    - texto: "3.960 kWh"
+      erro: "O tempo entrou em minutos (4,4 × 30 min × 30 dias). Na conta em kWh, o tempo tem de estar em horas: 30 min = 0,5 h."
+    - texto: "33 kWh"
+      erro: "Essa é a conta de uma pessoa só. São 2 moradores: o tempo por dia é 2 × 15 min = 30 min."
+    - texto: "66.000 kWh"
+      erro: "A potência entrou em watts: 4.400 W × 15 h = 66.000 watts-hora, não quilowatts-hora. Passe para quilowatts antes: 4.400 W = 4,4 kW."
+    - texto: "66 kWh"
+      certa: true
+    - texto: "2,2 kWh"
+      erro: "Esse é o gasto de um dia só. Multiplique pelos 30 dias do mês."
+  explicacao: "Potência: 4,4 kW. Tempo por dia: 2 banhos × 15 min = 30 min = 0,5 h. Em 30 dias: 0,5 × 30 = 15 h. Energia: E = P · Δt = 4,4 × 15 = 66 kWh."
+  conferir: "4.4 * (2 * 0.25) * 30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-form-03
+  tema: "Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 1
+  enunciado: "Um aparelho de resistência 44 Ω é ligado numa tomada de 220 V. Qual é a corrente elétrica que passa por ele?"
+  alternativas:
+    - texto: "5 A"
+      certa: true
+    - texto: "9.680 A"
+      erro: "Você multiplicou tensão por resistência. Pela lei de Ohm, U = R · i, então i = U ÷ R."
+    - texto: "0,2 A"
+      erro: "A divisão foi invertida (44 ÷ 220). A corrente é a tensão dividida pela resistência: 220 ÷ 44."
+    - texto: "264 A"
+      erro: "Você somou tensão e resistência. São grandezas diferentes; use i = U ÷ R."
+    - texto: "176 A"
+      erro: "Você subtraiu a resistência da tensão. Use i = U ÷ R."
+  explicacao: "U = R · i, então i = U ÷ R = 220 ÷ 44 = 5 A."
+  conferir: "220 / 44"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-form-04
+  tema: "Ondas eletromagnéticas"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 2
+  enunciado: "Uma rádio comunitária transmite em 100 MHz (100 milhões de hertz). As ondas de rádio viajam a 300.000.000 m/s. Qual é o comprimento de onda?"
+  alternativas:
+    - texto: "0,3 m"
+      erro: "Sobrou um zero na frequência, como se fossem 1.000 MHz. Confira os zeros: 300.000.000 ÷ 100.000.000 = 3."
+    - texto: "30 m"
+      erro: "Faltou um zero na frequência, como se fossem 10 MHz. 100 MHz são 100.000.000 Hz (cem milhões)."
+    - texto: "300 m"
+      erro: "A frequência foi lida como 1 MHz (1.000.000 Hz). São 100 MHz, ou 100 milhões de hertz."
+    - texto: "1/3 m"
+      erro: "A divisão foi invertida (f ÷ v). Pela fórmula v = λ · f, o comprimento é λ = v ÷ f."
+    - texto: "3 m"
+      certa: true
+  explicacao: "v = λ · f, então λ = v ÷ f = 300.000.000 ÷ 100.000.000 = 3 m."
+  conferir: "3 * 10^8 / (100 * 10^6)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-form-05
+  tema: "Pressão hidrostática"
+  area: natureza
+  habilidade: 17
+  objeto: nat-fis-movimento-hidrostatica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num conjunto habitacional, a caixa-d'água fica no alto do prédio. O nível da água está 5 m acima da torneira do
+    térreo. Para saber se a torneira vai aguentar, o síndico quer calcular quanto a coluna de água acrescenta à
+    pressão na torneira fechada. Use a densidade da água igual a 1.000 kg/m³ e g = 10 m/s².
+  enunciado: "O acréscimo de pressão, causado pela coluna de água, na torneira do térreo é de"
+  alternativas:
+    - texto: "50 Pa"
+      erro: "Faltou a densidade da água na conta. A pressão da coluna é d · g · h: 1.000 × 10 × 5."
+    - texto: "5.000 Pa"
+      erro: "Faltou a gravidade. A pressão vem do peso da água: multiplique também por g = 10 m/s²."
+    - texto: "50.000 Pa"
+      certa: true
+    - texto: "2.000 Pa"
+      erro: "A altura entrou dividindo (1.000 × 10 ÷ 5). Quanto mais fundo, maior a pressão: a altura multiplica."
+    - texto: "0,5 Pa"
+      erro: "0,5 é o valor aproximado em atmosferas (50.000 Pa é cerca de meia atmosfera). A pergunta pede a pressão em pascal: d · g · h = 50.000 Pa."
+  explicacao: "Δp = d · g · h = 1.000 × 10 × 5 = 50.000 Pa. Como a pressão do ar é cerca de 100.000 Pa, a coluna de 5 m acrescenta cerca de meia atmosfera."
+  conferir: "1000 * 10 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-form-06
+  tema: "Calor sensível"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 2
+  enunciado: "Para fazer café, alguém aquece 2 litros de água (2.000 g) de 20 °C até 70 °C. O calor específico da água é 1 cal/(g·°C). Quanto calor a água recebe?"
+  alternativas:
+    - texto: "140.000 cal"
+      erro: "Você usou a temperatura final (70 °C) no lugar da variação. ΔT é a final menos a inicial: 70 − 20 = 50 °C."
+    - texto: "40.000 cal"
+      erro: "Você usou a temperatura inicial (20 °C) no lugar da variação. ΔT = 70 − 20 = 50 °C."
+    - texto: "100 cal"
+      erro: "A massa entrou em quilogramas (2 kg). Com o calor específico em cal/(g·°C), a massa tem de estar em gramas: 2.000 g."
+    - texto: "100.000 cal"
+      certa: true
+    - texto: "50.000 cal"
+      erro: "A conta usou 1.000 g, a massa de 1 litro. São 2 litros, ou 2.000 g."
+  explicacao: "Q = m · c · ΔT = 2.000 g × 1 cal/(g·°C) × 50 °C = 100.000 cal, ou 100 kcal."
+  conferir: "2000 * 1 * (70 - 20)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

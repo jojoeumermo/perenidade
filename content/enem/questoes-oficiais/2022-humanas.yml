@@ -1,0 +1,915 @@
+# Camada do Instituto Lúcia sobre a prova de Ciências Humanas do ENEM 2022 (questões 46 a 90).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Todas as 45 questões estão aqui. As imagens das questões 49, 56, 65, 68, 70, 74, 78 e 82 foram abertas e descritas.
+# Problemas no arquivo importado: o id enem-2022-50 aparece duas vezes (o mesmo texto repetido); na questão 81, o
+# decreto vem como "1 949, de 27/17/1937", mas o decreto que criou o DIP é o Decreto-Lei nº 1.915, de 27 de dezembro de
+# 1939 (planalto.gov.br); na questão 50, o nome do autor vem grafado "FOOT HARDWAN" e o ano da edição parece errado;
+# há erros de digitação em vários enunciados (por exemplo, "respectivemerte" na 66 e "contemporárea" na 56).
+ano: 2022
+questoes:
+  - id: enem-2022-46
+    area: humanas
+    competencia: 6
+    habilidade: 26
+    objeto: hum-ambiente
+    topico: hum-ambiente-dominios
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O trecho é de “Os sertões”, de Euclides da Cunha, livro publicado em 1902 sobre a guerra de Canudos, no sertão da Bahia. Ele descreve a “experiência de Santa Luzia”: o sertanejo deixa seis pedrinhas de sal ao relento durante a noite, uma para cada mês de janeiro a junho. Se a pedra derrete com a umidade, é sinal de chuva naquele mês. Se todas ficam intactas, é sinal de seca.
+      O comando pede o que essa relação com a paisagem e com a fé mostra sobre o sertanejo. O ritual tem um nome religioso, mas o que o sertanejo faz é observar o ambiente: a umidade do ar da noite, o orvalho, o sinal de chuva. Ele lê as condições do lugar onde vive, a Caatinga, de clima semiárido, em que saber se vai chover decide a vida no campo.
+      Por isso, o sertanejo aparece “íntimo à Caatinga ao interpretar condições ambientais”. Alternativa D.
+    enganos:
+      A: "A fé está presente, mas o sertanejo não aceita passivamente um destino: ele investiga, observa o sal e tira conclusões sobre o tempo. Leia o que a pessoa faz no texto, não só o nome do ritual."
+      B: "O texto não fala de pobreza nem de aceitar o acaso. Fala de prever a chuva a partir de sinais. Não acrescente à leitura um tema que a fonte não traz."
+      C: "O experimento usa sal e umidade do ar, não exame do solo. Confira qual elemento da natureza o texto realmente mostra."
+      E: "Nenhuma planta é identificada no trecho. O que se observa é o tempo (a umidade e a chuva). Cuidado com a alternativa que troca o elemento observado."
+    aulas: [meio-ambiente-fundamental/os-biomas-do-brasil]
+
+  - id: enem-2022-47
+    area: humanas
+    competencia: 5
+    habilidade: 23
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-contemporanea
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O trecho é de “A condição humana”, livro da filósofa Hannah Arendt publicado em 1958. Para ela, a ação e o discurso só existem porque os seres humanos são muitos e diferentes entre si (a pluralidade).
+      O texto diz que é o discurso “que faz do homem um ser político”. Também separa o homem “no singular” dos homens “no plural”: são os homens no plural, que vivem juntos, que só entendem o sentido das coisas porque podem falar e se fazer entender uns pelos outros.
+      O comando pede em que processo a linguagem é importante. É na vida em comum: a fala permite discutir, combinar e agir junto. Isso é a construção da sociabilidade. Alternativa E.
+    enganos:
+      A: "Cultura é um campo amplo, mas o texto insiste em outra coisa: falar e se entender com os outros para viver em comum. Procure a palavra-chave que o autor repete (o plural, o político)."
+      B: "Criatividade não aparece no trecho. A linguagem é tratada como meio de viver junto, não de inventar algo novo. Não escolha a alternativa que só soa positiva."
+      C: "O texto até diz que pode haver verdades para o homem “no singular”, mas o centro do argumento são os homens no plural. Escolher a individualidade é uma leitura parcial que inverte o foco."
+      D: "Técnica é o fazer de objetos e ferramentas. O trecho fala de discurso e de vida política. Separe o mundo do fazer do mundo do agir e falar."
+    aulas: [enem-por-area/ciencias-humanas-filosofia-e-sociologia]
+
+  - id: enem-2022-48
+    area: humanas
+    competencia: 3
+    habilidade: 11
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-racismo
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O trecho é de “Quarto de despejo”, o diário de Carolina Maria de Jesus, moradora da favela do Canindé, em São Paulo, lançado em 1960. A escravidão tinha sido abolida em 1888, com a Lei Áurea.
+      Ela conta a revolta de um homem negro com um guarda branco que espancou um homem negro e o amarrou a uma árvore. E pergunta se o guarda não sabe que a escravidão acabou, já que o país continua no “regime de chibata”.
+      O comando pede a característica da sociedade brasileira exposta no texto. A violência descrita repete castigos do tempo da escravidão e vem de um agente do Estado. Ela não é um caso isolado: é um padrão que atravessa as instituições e a vida diária. Isso é o racismo estrutural. Alternativa A.
+    enganos:
+      B: "Ninguém no trecho está procurando emprego. O fato central é a violência de um guarda contra um homem negro. Não troque o tema da fonte por outro problema social."
+      C: "A desigualdade de renda existe no Brasil, mas o texto não fala de dinheiro. Fala de cor da pele e castigo físico. Responda pelo que a fonte mostra."
+      D: "O homem do texto está lendo um jornal. O problema não é falta de informação, e sim a violência racial. Leia os detalhes da cena."
+      E: "A escola não aparece no trecho. A autora escreve com a grafia dela, mas isso não é o tema da questão. Não confunda a forma do texto com o seu conteúdo."
+    aulas: [sociologia-medio/raca-e-racismo-estrutural, luta-negra-fundamental/o-que-e-racismo]
+
+  - id: enem-2022-49
+    area: humanas
+    competencia: 6
+    habilidade: 29
+    objeto: hum-ambiente
+    topico: hum-ambiente-hidrografia
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      A imagem tem quatro quadros, do solo coberto de vegetação até a cidade com 75% a 100% de superfície impermeável (asfalto, concreto, telhado). Em cada quadro, setas mostram para onde vai a água da chuva.
+      Com cobertura natural: 40% volta ao ar por evapotranspiração, 10% escoa pela superfície, 25% infiltra perto da superfície e 25% desce fundo no solo (percolação). Na cidade densa: evapotranspiração cai para 30%, o escoamento superficial sobe para 55%, a infiltração cai para 10% e a percolação para 5%.
+      O comando pede o que a ocupação urbana afeta de forma imediata. Os números mostram a água mudando de caminho: menos água entra no solo e abastece o lençol, mais água corre pela rua (o que favorece enchentes). Esse caminho da água entre o ar, a superfície e o subsolo é o ciclo hidrológico. Alternativa B.
+    enganos:
+      A: "Nível altimétrico é a altitude do terreno. Construir casas não muda a altitude de forma imediata. Veja o que as setas da imagem medem: água, não altura."
+      C: "O clima é um padrão de décadas e de grandes áreas. A imagem mostra a mudança imediata no destino da água da chuva. Não confunda o efeito local e imediato com uma mudança de clima."
+      D: "Placas tectônicas se movem por forças internas da Terra, em escala de milhões de anos. Cidades não as alteram. Separe forças internas de ação humana na superfície."
+      E: "As rochas não mudam com o asfalto em cima. O que muda é quanto de água chega ao subsolo. Leia os rótulos da imagem."
+    aulas: [meio-ambiente-fundamental/o-ciclo-da-agua]
+
+  - id: enem-2022-50
+    area: humanas
+    competencia: 3
+    habilidade: 15
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-primeira-republica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      A Estrada de Ferro Madeira-Mamoré foi construída na Amazônia, onde hoje é Rondônia, entre 1907 e 1912. Para tratar os trabalhadores doentes, sobretudo de malária, foi erguido o Hospital da Candelária.
+      O texto vê o hospital com duas faces: “monumento ao progresso científico” e, ao mesmo tempo, lugar de morte. As maiores vítimas foram os trabalhadores, que ficaram “na sombra”, como “credores sem nome”.
+      O comando pede a crítica ao modo de ocupar a Amazônia. A obra era apresentada como progresso e modernidade do país, mas foi feita à custa da saúde e da vida de quem a construiu. É a contradição entre desenvolvimento nacional e respeito aos trabalhadores. Alternativa E.
+    enganos:
+      A: "O texto não fala de animais nem de engenharia ambiental. As vítimas são pessoas: os trabalhadores doentes. Pergunte sempre quem sofre na fonte."
+      B: "Máquinas e controle da floresta não são o foco. O texto fala de hospital, doenças e vítimas sem nome. Não escolha a alternativa pela palavra “floresta”, que combina com Amazônia."
+      C: "O texto não fala em investimento do Estado nem em povos indígenas. As vítimas citadas são os trabalhadores da obra. Não troque o grupo social da fonte por outro."
+      D: "O quinino aparece como remédio usado, não como disputa entre indústria e plantas medicinais. Cuidado com detalhes do texto transformados em tema central."
+    aulas: [historia-do-brasil/a-primeira-republica]
+
+  - id: enem-2022-51
+    area: humanas
+    competencia: 4
+    habilidade: 17
+    objeto: hum-producao
+    topico: hum-producao-globalizacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O sociólogo Manuel Castells descreve uma economia “informacional, global e em rede”. Ela depende da informação, organiza suas partes em escala mundial e funciona como uma rede de empresas ligadas entre si.
+      O comando pede a mudança estrutural que resulta desse modo de organizar a economia. Se as etapas da produção estão ligadas por redes de informação no mundo todo, a fábrica não precisa estar num só lugar. A pesquisa pode ficar num país, a montagem em outro, a venda em vários.
+      Isso é a desterritorialização da produção: a produção deixa de estar presa a um território só. Alternativa E.
+    enganos:
+      A: "Fabricação em série é a marca do fordismo, modelo anterior à economia em rede. Escolher isso é anacronismo: põe um traço antigo como resultado do novo."
+      B: "A organização em rede e por informação busca justamente reduzir estoques, produzindo conforme a demanda. A alternativa inverte a tendência."
+      C: "Cartéis são acordos entre empresas para controlar preços. O texto não fala deles. Não escolha um termo econômico que a fonte não menciona."
+      D: "Padronizar mercadorias é outra marca da produção em massa antiga. A economia em rede tende a variar produtos e adaptá-los a mercados diferentes."
+    aulas: [geografia-medio/globalizacao]
+
+  - id: enem-2022-52
+    area: humanas
+    competencia: 4
+    habilidade: 19
+    objeto: hum-producao
+    topico: hum-producao-espaco-agrario
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      A canção contrapõe o país que cresce “a tijolo e cimento” (a cidade) ao sertão e ao campo. Diz que esse país em crescimento precisa de comida na mesa e agradece a quem planta e colhe: quem leva a semente, quem trabalha no cacau, quem passa o dia no milharal.
+      O comando pede a função do espaço rural na relação com a cidade que a letra valoriza. Todas as pistas apontam para o alimento: arroz, feijão, pão, cacau, milho, e as pessoas que o produzem.
+      O campo aparece como quem alimenta a cidade. Alternativa D.
+    enganos:
+      A: "A letra fala de quem planta e colhe no campo, não de gente que vai trabalhar na cidade. Leia o que as pessoas citadas fazem."
+      B: "Não há máquina nem tecnologia na letra. O trabalho descrito é manual: levar semente, pisar no cacau. Não traga para a leitura o agronegócio moderno que a fonte não mostra."
+      C: "A canção não fala de proteger espécies ou ecossistemas. Fala de comida na mesa. Diferencie a função ambiental da função produtiva do campo."
+      E: "Moradia não aparece como tema. O “tijolo e cimento” é a imagem da cidade que cresce, não uma função do campo."
+    aulas: [geografia-fundamental/cidade-e-campo]
+
+  - id: enem-2022-53
+    area: humanas
+    competencia: 1
+    habilidade: 1
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-imperio
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O Segundo Reinado vai de 1840, quando Dom Pedro II assumiu o trono, até a proclamação da República, em 1889. O texto diz que, nesse período, cresceu o número de mulheres que sabiam ler e gostavam de romances, muitos publicados em capítulos nos jornais (os folhetins).
+      Essas leitoras formaram um público importante para a literatura e a imprensa. E não só leram: surgiram mais escritoras e uma imprensa feminina feita “por e para mulheres”.
+      O comando pede a que o texto associa a entrada das mulheres no mundo da leitura e da escrita. Ler folhetins, escrever, editar jornais: são novos costumes, novas formas de viver a cultura. Alternativa A.
+    enganos:
+      B: "O texto não diz que as mulheres contestavam hábitos dos homens. Diz que criaram seus próprios espaços de leitura e escrita. Não transforme uma mudança de costume em disputa que a fonte não descreve."
+      C: "O público citado é de mulheres, não de jovens leitores em especial. Confira quem é o sujeito do texto."
+      D: "Manuais pedagógicos não aparecem. O texto fala de romances, folhetins e imprensa feminina. Diferencie leitura de lazer e de ficção de material escolar."
+      E: "Editoras comerciais não são citadas como causa. O texto liga a mudança ao novo público leitor e às escritoras. Não escolha um fator externo que o texto não traz."
+    aulas: [historia-do-brasil/imperio-e-abolicao]
+
+  - id: enem-2022-54
+    area: humanas
+    competencia: 3
+    habilidade: 13
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-imperio
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Os caixeiros eram empregados do comércio de varejo. O texto diz que, no Rio de Janeiro, capital do Império, eles estiveram entre os primeiros trabalhadores a se organizar e a cobrar direitos. Na década de 1880, saíram às ruas junto com republicanos e abolicionistas.
+      Foi a década final do Império: a escravidão foi abolida pela Lei Áurea, em 13 de maio de 1888, e a República foi proclamada em 15 de novembro de 1889.
+      O comando pede o que essa atuação representou. Ao marchar com os republicanos, que queriam o fim da monarquia, os caixeiros participaram de um movimento que questionava o regime. Alternativa E.
+    enganos:
+      A: "Os caixeiros exigiam direitos e a intervenção dos poderes públicos. Isso é o contrário de manter as regras dos patrões. Veja o verbo que o texto usa: exigir."
+      B: "Republicanos e abolicionistas usavam ideias liberais de liberdade e cidadania. Os caixeiros se aproximaram delas, não se afastaram. A alternativa inverte a relação."
+      C: "O texto fala de luta por direitos, não de contratos já fortalecidos. Não confunda reivindicação com conquista."
+      D: "Sindicatos consolidados são posteriores. Nos anos 1880 havia associações em formação. Chamar isso de estrutura sindical consolidada é anacronismo."
+    aulas: [historia-do-brasil/imperio-e-abolicao]
+
+  - id: enem-2022-55
+    area: humanas
+    competencia: 6
+    habilidade: 28
+    objeto: hum-ambiente
+    topico: hum-ambiente-questoes-ambientais
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O texto explica a salinização no semiárido: a água corre para as partes baixas do relevo trazendo sais. Com o calor, ela evapora antes de infiltrar, e o sal fica na camada de cima do solo. Repetido por anos, o processo deixa o solo salgado. O texto diz que a expansão agrícola tem ampliado esse problema.
+      O comando pede como a agricultura agrava a salinização. No semiárido, plantar exige irrigação. Se a água da irrigação é posta no solo sem drenagem (sem um caminho para a água em excesso sair), ela evapora no lugar e deixa os sais, exatamente como no processo natural descrito, só que mais rápido.
+      Por isso, irrigar sem drenar intensifica o problema. Alternativa B.
+    enganos:
+      A: "Pinus e pousio não têm relação com o acúmulo de sal descrito. O mecanismo do texto é água que evapora e deixa sal. Procure a alternativa que repete esse mecanismo."
+      C: "Açudes guardam água e são comuns no semiárido, mas a alternativa fala de vazão de rios, não de sal no solo. Ela não explica o processo descrito."
+      D: "Desmatar e assorear são problemas reais, mas assoreamento é terra que entope rios. O problema do texto é sal na superfície do solo. Não troque um impacto por outro."
+      E: "O texto não cita adubos. E a salinização descrita vem de sais trazidos pela água, não de adubo orgânico. Cuidado com a alternativa que parece técnica, mas não tem apoio na fonte."
+    aulas: [geografia-fundamental/recursos-naturais]
+
+  - id: enem-2022-56
+    area: humanas
+    competencia: 5
+    habilidade: 25
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-desigualdade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A charge (Texto I) mostra casas amontoadas numa favela. Uma voz pergunta “Tá estudando, Júnior?”, e o menino, no alto de uma laje, segura um celular pendurado numa vara e responde que está tentando achar sinal de wi-fi.
+      O Texto II, sobre educação na pandemia, diz que os problemas não foram criados por ela: já existiam e estavam “debaixo do tapete”. Muitos estudantes não têm internet em casa nem computador, e os pacotes de dados do celular não bastam para as aulas.
+      O comando pede o aspecto da sociedade que a charge e o texto criticam. Os dois mostram que a falta de acesso à internet e a equipamentos afasta os estudantes pobres da escola. Isso é exclusão social. Alternativa A.
+    enganos:
+      B: "A expansão digital existe, mas a crítica é que ela não chega a todos. Escolher “expansão” lê só a superfície e inverte o sentido da charge."
+      C: "Não há manifestação cultural na cena. O menino está tentando estudar. Leia a situação da charge, não só o cenário."
+      D: "As casas amontoadas mostram onde o menino mora, mas a crítica é sobre acesso à educação, não sobre o desenho da cidade. Separe o cenário da mensagem."
+      E: "Os textos não falam de valorizar intelectuais. Falam de quem fica de fora das aulas. Procure a crítica, não um tema ligado à escola."
+    aulas: [sociologia-fundamental/desigualdade-social]
+
+  - id: enem-2022-57
+    area: humanas
+    competencia: 3
+    habilidade: 14
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-contemporanea
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O trecho é de “Vigiar e punir”, do filósofo Michel Foucault, publicado em 1975. Ele compara duas formas de controle diante de doenças. Com a lepra, o doente era excluído: mandado para fora, misturado numa massa sem diferença. Com a peste, a cidade era repartida e vigiada em detalhe, pessoa por pessoa.
+      O texto resume: “o grande fechamento por um lado; o bom treinamento por outro”. O modelo da peste é o de um poder que observa, separa, registra e treina cada indivíduo.
+      O comando pede em que se baseia esse sistema de controle. Para Foucault, o modelo da peste anuncia a sociedade disciplinar: escolas, quartéis, fábricas e prisões que vigiam e treinam os corpos. Alternativa A.
+    enganos:
+      B: "O texto descreve controle meticuloso, que se multiplica e se subdivide. Isso é endurecer as regras, não flexibilizá-las. A alternativa inverte o sentido."
+      C: "O poder não é banido. Ele se espalha e fica mais minucioso. Leia os verbos que o texto usa para o poder: multiplica, articula, subdivide."
+      D: "O texto não condena nem defende nada. Descreve como o poder funciona. Não confunda análise com julgamento moral."
+      E: "Foucault fala de um poder espalhado pela sociedade, não só da hierarquia dos órgãos do Estado. Escolher burocracia estatal é generalizar a partir de uma parte."
+    aulas: [enem-por-area/ciencias-humanas-filosofia-e-sociologia]
+
+  - id: enem-2022-58
+    area: humanas
+    competencia: 1
+    habilidade: 1
+    objeto: hum-cultura
+    topico: hum-cultura-religiao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Os dois textos falam de Juazeiro, no Ceará, e do Padre Cícero. O Texto I diz que, em março de 1889, chegaram as primeiras romarias atraídas pelos milagres da beata Maria de Araújo, e Juazeiro virou um centro religioso, como outros santuários. O Texto II conta que a hóstia sangrava na boca da beata e que o fato foi proclamado milagre sem o conhecimento nem a autorização do bispo.
+      O comando pede a que as práticas se associam, “respectivamente”. O Texto I trata do nascimento de um lugar sagrado, que atrai romeiros: a criação de um lugar místico. O Texto II trata de uma fé vivida pelo povo, com milagres, paninhos guardados e visitação, fora do controle da hierarquia da Igreja: o catolicismo popular. Alternativa E.
+    enganos:
+      A: "A religiosidade não é abandonada: ela é o centro dos dois textos. E o Texto I fala de um espaço sagrado, não de paisagem urbana. Confira cada metade da alternativa."
+      B: "Nada no texto é judaico. Os elementos são católicos: hóstia, beata, capela, bispo. Não escolha uma palavra difícil sem conferir seu sentido."
+      C: "Juazeiro vira centro religioso, mas não há expansão de fronteiras regionais. E o caso se passa em 1889, não na Idade Média. Escolher “cristianismo medieval” é anacronismo."
+      D: "Ecumênico quer dizer reunir religiões diferentes. Os textos tratam só do catolicismo. Confira o sentido de cada termo antes de escolher."
+    aulas: []
+
+  - id: enem-2022-59
+    area: humanas
+    competencia: 4
+    habilidade: 18
+    objeto: hum-producao
+    topico: hum-producao-espaco-agrario
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O Programa de Aquisição de Alimentos (PAA) foi criado em 2003, pelo artigo 19 da Lei nº 10.696. O governo compra alimentos de agricultores familiares, assentados, quilombolas, indígenas e outros grupos do campo e os destina a ações de segurança alimentar. A lei permitiu essas compras sem licitação, dentro de regras próprias.
+      O comando pede por que o programa é uma conquista para os pequenos produtores. O maior problema de quem produz pouco é vender: o atravessador paga pouco e o mercado é incerto. Com o PAA, o Estado vira comprador. O produtor sabe que terá para quem vender.
+      Isso é a comercialização garantida. Alternativa C.
+    enganos:
+      A: "O programa compra a produção; não fornece máquinas nem tecnologia. Separe política de compra de política de inovação."
+      B: "Reestruturação fundiária é mudar quem é dono da terra, como na reforma agrária. O PAA não distribui terra: compra o que já é produzido. Assentados podem vender, mas o programa não os assenta."
+      D: "O texto não fala de frete. Não acrescente vantagens que a fonte não cita."
+      E: "Bolsa de valores é mercado de ações de grandes empresas. O PAA é compra pública direta. Não confunda mercado institucional com mercado financeiro."
+    aulas: [geografia-fundamental/cidade-e-campo]
+
+  - id: enem-2022-60
+    area: humanas
+    competencia: 4
+    habilidade: 16
+    objeto: hum-producao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O texto descreve um experimento: cada participante estava ligado a dois conhecidos, e quando ele se exercitava mais, os conhecidos ganhavam dinheiro. O celular media a atividade. O resultado foi melhor do que pagar a cada pessoa por si.
+      O comando lembra a visão mais comum, de que a tecnologia afasta as pessoas, e pergunta que função o celular cumpre ao contrário disso. No experimento, a pessoa se esforça porque o seu esforço beneficia os outros. O celular serve de ponte para uma troca entre pessoas: eu faço por você, você faz por mim.
+      Isso é uma função social, que estimula a reciprocidade. Alternativa B.
+    enganos:
+      A: "O experimento é sobre atividade física e incentivo entre conhecidos, não sobre diversão. Leia o objetivo do estudo."
+      C: "Não há desenvolvedor nem trabalho no experimento. Os participantes são membros de uma comunidade. Não traga um tema que a fonte não tem."
+      D: "Ninguém compra produto no experimento. O dinheiro vai para os conhecidos. Separe incentivo em dinheiro de consumo."
+      E: "O celular mede passos, mas o ponto do texto é o efeito entre as pessoas, que superou o incentivo individual. Escolher “cognitiva” lê só a ferramenta e esquece o resultado."
+    aulas: []
+
+  - id: enem-2022-61
+    area: humanas
+    competencia: 4
+    habilidade: 20
+    objeto: hum-producao
+    topico: hum-producao-trabalho
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O texto conta que a inteligência artificial começa a fazer dublagem, levando a voz de atores para outras línguas. Diz que isso reforça a automação de postos de trabalho e pode tornar mais raras as oportunidades para dubladores.
+      O comando pede a consequência dessa mudança tecnológica. Quando uma máquina passa a fazer o que um grupo de trabalhadores fazia, esses empregos somem e não voltam quando a economia melhora. Esse é o desemprego estrutural, causado pela mudança na forma de produzir, e não por uma crise passageira.
+      Alternativa E.
+    enganos:
+      A: "O texto não fala de economia nacional nem de proteção. A tecnologia é oferecida por empresas a estúdios. Não invente um efeito que a fonte não aponta."
+      B: "Nada no texto valoriza tradição. A novidade substitui um trabalho artístico. Leia o efeito descrito: menos oportunidades."
+      C: "O texto não fala de escola ou faculdade. O efeito é sobre o emprego, não sobre a formação. Separe trabalho de estudo."
+      D: "A dublagem continua existindo, feita por máquina. O que diminui é o trabalho humano. “Estagnação da manifestação artística” generaliza demais."
+    aulas: [ia-fundamental/inteligencia-artificial-e-o-seu-trabalho]
+
+  - id: enem-2022-62
+    area: humanas
+    competencia: 2
+    habilidade: 9
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-geopolitica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O Mercosul foi criado pelo Tratado de Assunção, em 26 de março de 1991, por Argentina, Brasil, Paraguai e Uruguai. Em 1º de janeiro de 1995, passou a funcionar como união aduaneira, com uma Tarifa Externa Comum (TEC): o mesmo imposto de importação, cobrado pelos quatro países, sobre produtos que vêm de fora do bloco.
+      O texto conta que o Brasil queria reduzir a TEC e a Argentina temia o efeito sobre sua indústria. Depois do acordo entre os dois, ainda faltava levar a proposta a Paraguai e Uruguai.
+      O comando pede a característica do Mercosul que explica por que é preciso negociar. Numa união aduaneira, a tarifa é comum: nenhum país pode mudá-la sozinho. Alternativa C.
+    enganos:
+      A: "O texto trata de imposto sobre importação, não de circulação de dinheiro. Não confunda tarifa comercial com fluxo financeiro."
+      B: "O Mercosul não tem moeda única nem política monetária igual. Isso seria próprio de uma união monetária, etapa que o bloco não alcançou."
+      D: "A exportação agrícola é forte nos países do bloco, mas o texto discute a tarifa de importação e a indústria argentina. Ela não explica a necessidade de negociar."
+      E: "Leis trabalhistas iguais não são exigência do bloco nem tema do texto. Cada país mantém a sua legislação."
+    aulas: [ciencia-politica-superior/integracao-latino-americana-mercosul-alba-e-celac]
+
+  - id: enem-2022-63
+    area: humanas
+    competencia: 3
+    habilidade: 12
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-idade-media
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O texto trata da fome nos primeiros séculos da Idade Média, na Itália e na Gália. Na Gália, reinavam os merovíngios, dinastia dos francos que se converteu ao cristianismo católico com o rei Clóvis, no fim do século V.
+      A autora diz que ajudar os famintos era parte da “gestão pública”, mesmo quando as fontes da época apresentam essa ajuda como caridade pessoal. Ou seja: o que parece bondade individual era, na verdade, um dever de quem governava.
+      O comando pede a quem pertencia o dever de agir diante da fome. Pertencia à realeza. Num reino cristão, o rei era visto como responsável por cuidar do seu povo, e a caridade fazia parte da ideia de bom governo. Alternativa B.
+    enganos:
+      A: "O texto liga o auxílio à gestão pública, não à proteção senhorial. Atribuir isso à nobreza troca quem governava por quem tinha terras e armas."
+      C: "Os mosteiros praticavam caridade, mas o texto diz que a ajuda estava no domínio da gestão pública. Fique com a tese do autor, não com o que você imagina da época."
+      D: "Bispos participavam da vida comunitária, mas o texto fala de agentes públicos. Escolher os bispados é levar a sério a aparência de caridade que o texto desmonta."
+      E: "Corporações de ofício com estatutos são típicas das cidades medievais de séculos posteriores. Situá-las no século VI é anacronismo."
+    aulas: [historia-antiga/a-idade-media]
+
+  - id: enem-2022-64
+    area: humanas
+    competencia: 6
+    habilidade: 27
+    objeto: hum-ambiente
+    topico: hum-ambiente-relevo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O texto distingue duas forças. As internas, movidas pelo calor de dentro da Terra, geram terremotos, vulcões e montanhas. As externas, movidas pelo calor do Sol, geram chuva, gelo e erosão.
+      O comando pede uma formação que nasce da interação dessas forças e que favorece a ocupação humana. A lava e as cinzas dos vulcões (força interna) se transformam em solo pela ação da chuva e do clima (força externa). Esses solos costumam ser ricos em nutrientes e bons para a agricultura, o que atrai população.
+      Os solos vulcânicos resultam das duas forças juntas e favorecem a ocupação. Alternativa A.
+    enganos:
+      B: "Dorsais oceânicas são cadeias de montanhas no fundo do mar, formadas por força interna. Não são lugar de ocupação humana."
+      C: "Relevos escarpados (encostas íngremes) dificultam a ocupação, com risco de deslizamento. A alternativa vai contra o “favorece” do comando."
+      D: "Superfícies lateríticas são camadas endurecidas, pobres para a agricultura. Elas não favorecem a ocupação."
+      E: "Dobramentos modernos são cadeias de montanhas altas, formadas sobretudo por força interna. O relevo acidentado e frio dificulta a ocupação."
+    aulas: [geografia-fundamental/relevo-clima-e-vegetacao]
+
+  - id: enem-2022-65
+    area: humanas
+    competencia: 3
+    habilidade: 11
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-genero
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      A ilustração é uma espiral que sobe. Ela passa várias vezes por três fases: “tensão” (insulto, humilhação, ameaça, controle, isolamento), “agressão” (empurrão, tapa, chute, espancamento) e “lua de mel” (carinho, presentes, promessas, reconciliação). A cada volta, a espiral se fecha mais. No alto, o último ponto é “morte”, marcado com uma cruz.
+      O comando pede a conduta social que corresponde ao ápice da ilustração. A imagem representa o ciclo da violência contra a mulher numa relação. Quando o ciclo não é interrompido, ele pode terminar no assassinato da mulher. Esse crime é o feminicídio: matar uma mulher por ela ser mulher, inclusive em contexto de violência doméstica. No Brasil, a Lei nº 13.104, de 2015, o incluiu no Código Penal.
+      Alternativa B.
+    enganos:
+      A: "Cultura do cancelamento é a reação coletiva, em geral nas redes, contra alguém. A imagem trata de violência dentro de uma relação. Não troque o tema pelo termo da moda."
+      C: "Negacionismo é negar fatos comprovados, como na ciência. A espiral não fala disso. Leia o rótulo do topo: morte."
+      D: "A espiral mostra violência que se repete e cresce, com controle e ameaça. Isso não é involuntário. Cuidado com a alternativa que tira a responsabilidade do agressor."
+      E: "“Defesa da honra” foi um argumento usado para desculpar quem matava mulheres. A imagem não o defende; mostra o fim do ciclo. Não confunda a desculpa do agressor com o nome do crime."
+    aulas: [historia-das-lutas-das-mulheres/feminicidio, feminismo-fundamental/a-lei-maria-da-penha]
+
+  - id: enem-2022-66
+    area: humanas
+    competencia: 3
+    habilidade: 14
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-genero
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      A lei de 15 de outubro de 1827 mandou criar escolas de primeiras letras pelo Império. O texto conta que meninos e meninas estudariam separados e com currículos diferentes. No Senado, o Visconde de Cayru defendeu que as meninas aprendessem só as quatro operações, porque o “belo sexo” não teria capacidade para ir além. O Marquês de Santo Amaro defendeu o mesmo currículo de matemática para meninas e meninos, “às luzes do tempo”.
+      O comando pede a oposição entre os dois pontos de vista, na ordem. Cayru limita o que as meninas podem aprender a partir de uma ideia sobre seus corpos e mentes: é a dominação, o controle sobre elas. Santo Amaro defende que todos podem aprender o mesmo: é a igualdade humana.
+      Alternativa C.
+    enganos:
+      A: "A ordem está trocada e os termos não batem: o debate é sobre currículo escolar, não sobre liberdade de gênero. Em questões com “respectivamente”, confira cada parte na ordem."
+      B: "Nenhum dos dois fala de escolha das meninas. Santo Amaro defende acesso igual ao conhecimento, não liberdade de escolha. Leia o argumento de cada senador."
+      D: "O debate é sobre o que se ensina nas escolas de primeiras letras, não sobre profissão. Não leve a questão para o mercado de trabalho."
+      E: "Os textos não falam de participação política das mulheres. E a ordem ficaria invertida. Confira o tema e a ordem."
+    aulas: [historia-do-brasil/imperio-e-abolicao, feminismo-fundamental/o-que-e-feminismo]
+
+  - id: enem-2022-67
+    area: humanas
+    competencia: 2
+    habilidade: 10
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-movimentos-sociais
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O texto conta que um movimento ocupou, em 2012, um terreno abandonado em Santo André (SP) e, sete anos depois, conseguiu a inauguração de condomínios no local. Lembra que o artigo 6º da Constituição garante o direito à moradia. Esse direito entrou no artigo 6º pela Emenda Constitucional nº 26, de 2000.
+      O comando pede para que serve a estratégia do movimento. Ocupar um terreno sem uso é uma forma de pressionar o poder público. O objetivo é fazer valer na prática o que a Constituição já promete: moradia.
+      Alternativa D.
+    enganos:
+      A: "O resultado foi a inauguração com representantes dos três níveis de governo. O movimento buscou o poder público para cumprir um direito, não para enfraquecê-lo."
+      B: "Economia solidária são cooperativas e trocas sem patrão. O texto fala de moradia. Não troque a pauta do movimento."
+      C: "O terreno estava abandonado e a meta era morar nele. O movimento não queria controlar bens do Estado."
+      E: "Especulação é deixar imóvel parado à espera de valorização. A ocupação vai contra isso. A alternativa inverte o sentido."
+    aulas: [direito-a-cidade/o-estatuto-da-cidade-e-a-funcao-social-da-propriedade, sociologia-medio/movimentos-sociais]
+
+  - id: enem-2022-68
+    area: humanas
+    competencia: 2
+    habilidade: 7
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-geopolitica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O Texto I diz que a Marinha dos Estados Unidos, pela voz de Thomas Barnett, vê uma grande região do mundo como “insubmissa” às regras promovidas pelos EUA e por FMI, OMC e Banco Mundial, muitas vezes porque os Estados ali são frágeis.
+      O mapa (Texto II) traça com linha pontilhada essa “brecha” do “Novo Mapa do Pentágono”: ela cobre o Caribe, parte da América do Sul, a África, o Oriente Médio e partes da Ásia. A legenda marca círculos de alta diversidade de material genético (biodiversidade) e manchas de petróleo e gás, muitas delas dentro ou perto da brecha.
+      O comando pede a estratégia por trás dessas preocupações. Querer que essas regiões, ricas em petróleo, gás e biodiversidade, sigam as regras econômicas dos EUA e das instituições que eles apoiam é buscar ampliar a influência econômica. Alternativa D.
+    enganos:
+      A: "Nada no texto fala de dividir tecnologia. A preocupação é com regiões que não seguem as regras dos EUA. Leia o verbo: submeter, não compartilhar."
+      B: "A estratégia é trazer essas regiões para as regras do FMI e do Banco Mundial, o que é o contrário de independência financeira. A alternativa inverte o objetivo."
+      C: "Cultura não aparece no texto nem no mapa. O mapa marca recursos naturais. Use a legenda."
+      E: "O mapa marca recursos, mas o interesse descrito é controlar e usar, não preservar. Cuidado com a alternativa que lê a legenda e esquece a intenção."
+    aulas: [capitalismo-contemporaneo/imperialismo-hoje]
+
+  - id: enem-2022-69
+    area: humanas
+    competencia: 2
+    habilidade: 7
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-mundo-atual
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Em março de 2014, depois de um referendo que a comunidade internacional não reconheceu, a Rússia oficializou a anexação da Crimeia, península que pertencia à Ucrânia. No discurso de 18 de março daquele ano, Vladimir Putin disse que, “na mente e no coração do povo”, a Crimeia sempre foi parte da Rússia. Segundo o censo ucraniano de 2001, a maior parte dos moradores da Crimeia tinha o russo como língua materna.
+      O comando pede o argumento a que Putin apela. Ele não fala de leis nem de tratados: fala de um “povo” que pensa e sente como russo. Por trás disso está a ideia de que quem compartilha língua e cultura deve viver sob o mesmo Estado.
+      Alternativa A.
+    enganos:
+      B: "O discurso não fala de imperialismo soviético nem de potências vizinhas se acomodando. Ele invoca o povo e a tradição. Não troque o argumento do texto por outro."
+      C: "Putin não discute a ONU nem outros organismos. O argumento é de identidade do povo. Escolher isso é deduzir algo que o texto não diz."
+      D: "Livre circulação é tema de integração econômica, como em blocos regionais. Anexar território é outra coisa. Não confunda integração com anexação."
+      E: "O trecho não fala de forças navais. A questão pede a justificativa apresentada no discurso, não interesses militares que você conheça por fora."
+    aulas: []
+
+  - id: enem-2022-70
+    area: humanas
+    competencia: 2
+    habilidade: 6
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-desigualdade
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O Texto I define interseccionalidade como o cruzamento de desigualdades que gera formas complexas de discriminação. O Texto II é um gráfico do IBGE com a parte das pessoas abaixo da linha de pobreza por tipo de família, no Brasil, em 2017.
+      O maior índice é de mulheres sem cônjuge e com filhos de até 14 anos: 56,9%. O gráfico separa esse grupo por cor: 64,4% entre as mulheres pretas ou pardas e 41,5% entre as brancas. Casais com filhos ficam em 30,4%, e casais sem filhos, em 10,0%.
+      O comando pede os fatores que, cruzados, intensificam a discriminação. Ser mulher já aumenta o risco de pobreza; ser mulher preta ou parda aumenta ainda mais. São gênero e raça somados. Alternativa A.
+    enganos:
+      B: "O gráfico separa por cor, que se lê como raça (categoria do IBGE), e não por moradia. Habitação não aparece nos dados."
+      C: "Idade aparece só na idade dos filhos, e estado civil não é o foco: o recorte decisivo é mulher, e mulher preta ou parda. Leia qual comparação o gráfico destaca."
+      D: "O gráfico não traz profissão nem sexualidade. Não escolha fatores reais de discriminação que os dados não mostram."
+      E: "Escolaridade não aparece. Ter filhos aparece, mas o gráfico destaca a diferença entre mulheres brancas e negras. Use a comparação que o próprio gráfico faz."
+    aulas: [historia-das-lutas-das-mulheres/feminismo-negro, sociologia-fundamental/desigualdade-social]
+
+  - id: enem-2022-71
+    area: humanas
+    competencia: 5
+    habilidade: 24
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-estado-e-democracia
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O jurista Canotilho define o Estado de direito: o poder público não pode agir por vontade própria, sem regra (o arbítrio). Ninguém está acima da lei, nem o presidente. Os governos democráticos exercem o poder pela lei e também obedecem a ela.
+      O comando pede o que viola esse princípio. Suprimir eleições é governar sem a regra que dá autoridade aos governantes numa democracia. Quem se mantém no poder sem eleição se coloca acima da lei e age por arbítrio.
+      Alternativa A.
+    enganos:
+      B: "A ação social de uma igreja em áreas pobres não viola a lei nem é um poder público agindo sem regra. Pergunte: quem está acima da lei aqui?"
+      C: "Universidades com projetos sociais agem dentro da lei. Isso não é arbítrio do Estado."
+      D: "Concentração de renda é um problema social sério, mas não é, por si, um governo agindo fora da lei. Separe desigualdade de violação do Estado de direito."
+      E: "O Legislativo fazer leis sobre o trabalho é justamente o Estado agindo pela lei. A alternativa descreve o princípio funcionando, não sendo violado."
+    aulas: [ciencia-politica-fundamental/regimes-politicos-democracia-ditadura-e-o-que-fica-no-meio]
+
+  - id: enem-2022-72
+    area: humanas
+    competencia: 6
+    habilidade: 26
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-urbanizacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      A reportagem cita uma pesquisa do IBGE: no Sudeste, 13% das pessoas levam mais de uma hora para chegar ao trabalho. Conta a rotina de Marcelo: acorda às 4h30, pega trem e ônibus e chega ao trabalho por volta das 7h10. Um especialista diz que os mais pobres moram mais longe do emprego.
+      O comando pede a dinâmica populacional retratada. É a ida diária de casa para o trabalho, em outra parte da cidade ou em outra cidade, e a volta no fim do dia, sem mudar de moradia. Esse vaivém se chama movimento pendular.
+      Alternativa D.
+    enganos:
+      A: "Fluxo de retorno é quem migrou e volta a morar na região de origem. Marcelo não muda de casa: vai e volta todo dia."
+      B: "Migração interna é mudar de residência dentro do país. Aqui ninguém se muda. Separe migração (mudar de casa) de deslocamento diário."
+      C: "Mudança sazonal acontece em certas épocas do ano, como na colheita. O trajeto de Marcelo é diário."
+      E: "Deslocamento forçado é sair de casa por guerra, desastre ou despejo. O texto fala do caminho de todo dia para o trabalho."
+    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, geografia-medio/demografia]
+
+  - id: enem-2022-73
+    area: humanas
+    competencia: 1
+    habilidade: 2
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-ideologias
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Em julho de 1889, um congresso socialista internacional reunido em Paris (o que deu origem à Segunda Internacional) decidiu fazer do 1º de maio um dia de manifestação operária. A data lembrava a greve de 1º de maio de 1886, em Chicago, pela redução da jornada de trabalho. O primeiro 1º de maio internacional foi em 1890.
+      A historiadora Michelle Perrot diz que essa data foi um “ato político deliberado”: os socialistas queriam construir a classe operária, dar a ela unidade política e cultural, por meio de uma festa.
+      O comando pede o objetivo de fixar a data. Era fazer os operários de lugares diferentes se reconhecerem como uma só classe, com interesses comuns. Isso é afirmar uma identidade coletiva. Alternativa B.
+    enganos:
+      A: "A data era dos operários e dos socialistas, que se opunham à burguesia. Dizer que valorizava um sentimento burguês inverte quem organiza a festa."
+      C: "O texto fala de uma classe, não de uma nação. A manifestação foi pensada para vários países ao mesmo tempo. Não confunda identidade de classe com identidade nacional."
+      D: "Comunidade cívica lembra cidadãos de um mesmo Estado. O texto fala de construir a classe operária. A Revolução Francesa aparece só como exemplo do uso da festa."
+      E: "A data foi criada de propósito por um ato político, não nasceu do costume popular. O texto destaca o lado “voluntário” da construção. Leia essa palavra."
+    aulas: [historia-do-sindicalismo/a-revolucao-industrial-e-os-primeiros-sindicatos]
+
+  - id: enem-2022-74
+    area: humanas
+    competencia: 2
+    habilidade: 6
+    objeto: hum-ambiente
+    topico: hum-ambiente-clima
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O mapa mostra a radiação solar média anual no Brasil, em kWh/m² (energia que chega a cada metro quadrado). A escala vai de cerca de 3,15 até mais de 6,65. Os tons mais escuros (valores menores) aparecem no oeste da Amazônia, no litoral do Sudeste e no Sul. A mancha mais clara, de maior radiação, fica no interior do Nordeste, sobretudo no interior da Bahia, no semiárido.
+      O comando pede a característica regional que explica o maior potencial de energia solar. No semiárido chove pouco e o céu passa a maior parte do ano limpo, com poucas nuvens. Menos nuvem significa mais luz do Sol chegando ao chão. Na Amazônia e no Sul, a cobertura de nuvens é maior e a radiação cai.
+      A região de maior potencial tem reduzida nebulosidade. Alternativa C.
+    enganos:
+      A: "A inclinação do terreno não decide a radiação de uma região inteira. Compare: áreas planas da Amazônia têm radiação baixa no mapa."
+      B: "Extensão leste-oeste não explica o padrão. O mapa mostra valores diferentes em regiões de mesma longitude. Use o mapa para testar a alternativa."
+      D: "Chuva irregular é marca do semiárido, mas o que deixa a luz do Sol passar é a falta de nuvens. A alternativa troca a causa por uma característica vizinha."
+      E: "A continentalidade (distância do mar) afeta a temperatura, e o interior do Nordeste não está sob influência reduzida dela. Não explica a radiação."
+    aulas: [geografia-fundamental/como-ler-mapas-tematicos, geografia-fundamental/relevo-clima-e-vegetacao]
+
+  - id: enem-2022-75
+    area: humanas
+    competencia: 1
+    habilidade: 5
+    objeto: hum-cultura
+    topico: hum-cultura-povos-indigenas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O texto apresenta o povo Kambeba, “o povo das águas”. Pela narrativa dos mais velhos, o povo nasceu de uma gota de chuva. Márcia Wayna Kambeba, geógrafa e escritora, conta que ia com o pai observar o rio Solimões em silêncio, e ele dizia “ouço o rio” e “confie no rio e aprenda com ele”.
+      O comando pede o que o rio é para os Kambeba. Ele está na origem do povo (a narrativa sobre a gota), no saber passado de pai para filha e na memória de família. É um bem cultural que liga o povo à sua história, e um laço de afeto.
+      O rio é patrimônio cultural e afetivo. Alternativa E.
+    enganos:
+      A: "Tombamento é proteção oficial pelo Estado, e museu guarda objetos. O rio do texto é vivo e vivido no dia a dia. Não confunda patrimônio vivido com patrimônio oficializado."
+      B: "Há uma narrativa de origem, mas o texto fala de saber, convivência e afeto, não de culto religioso. “Sacralizada” estreita demais a relação descrita."
+      C: "Cenário bucólico é paisagem bonita para olhar. Para os Kambeba, o rio ensina e faz parte da identidade. Não reduza a relação à aparência."
+      D: "O rio é coletivo e passado entre gerações. Isso é o contrário de “individual e efêmero” (passageiro)."
+    aulas: [os-primeiros-povos/quem-sao-os-povos-indigenas-do-brasil]
+
+  - id: enem-2022-76
+    area: humanas
+    competencia: 6
+    habilidade: 26
+    objeto: hum-ambiente
+    topico: hum-ambiente-hidrografia
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O texto descreve a construção do açude Itans, em Caicó (RN). Milhares de sertanejos cavam a terra e levam caixas no lombo de burricos, num trabalho organizado contra a seca. As famílias moram em pequenas casas de taipa, que o autor chama de “embrião de futura cidade”.
+      O comando pede quem se destaca na obra. São os trabalhadores: o texto fala do “formigar de homens” e do “esforço destes milhares de sertanejos”. E o resultado da obra não é só o açude. Em volta dela nasce um povoado, um novo espaço habitado.
+      Trabalhadores na formação de novos espaços. Alternativa D.
+    enganos:
+      A: "Não há engenheiros nem canais de rio no texto. Os protagonistas são os trabalhadores que cavam a terra. Procure quem age na cena."
+      B: "Coronéis e fazendas não aparecem. O texto fala de uma obra coletiva e de um povoado novo. Não traga um tema do sertão que a fonte não menciona."
+      C: "O texto mostra trabalhadores construindo o açude, não distribuindo água. Separe construir a obra de gerir o recurso."
+      E: "Comércio e negociantes não aparecem. Não acrescente personagens ao texto."
+    aulas: []
+
+  - id: enem-2022-77
+    area: humanas
+    competencia: 3
+    habilidade: 15
+    objeto: hum-producao
+    topico: hum-producao-economia-colonial
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O texto trata dos impérios coloniais, como o português, na época do Iluminismo. Os senhores sofriam com as doenças que atingiam os escravizados. Por isso, foram publicadas obras sobre a “administração de escravos”, para uma gestão “moderna” da mão de obra. A medicina passou a ser vista como “instrumento fundamental ao desenvolvimento colonial”.
+      O comando pede a que objetivos a medicina servia. Cuidar da saúde dos escravizados era, para os senhores, proteger um investimento e manter a produção. A medicina era útil ao lucro de quem controlava a economia colonial.
+      Objetivos econômicos das elites. Alternativa A.
+    enganos:
+      B: "Viajantes naturalistas aparecem na história da ciência, mas o texto fala de senhores, administração de escravos e desenvolvimento colonial. Não troque o sujeito da fonte."
+      C: "Cuidar da saúde dos escravizados para manter a produção não é lutar pelo fim da escravidão. A alternativa inverte o sentido."
+      D: "O texto fala de medicina ligada ao Iluminismo, não de saberes tradicionais dos povos nativos. Leia de onde vem o saber médico citado."
+      E: "As metrópoles queriam desenvolver as colônias para si, não emancipá-las. Escolher “emancipadores” é anacronismo e inverte o interesse colonial."
+    aulas: [historia-do-brasil/a-escravidao-no-brasil]
+
+  - id: enem-2022-78
+    area: humanas
+    competencia: 2
+    habilidade: 6
+    objeto: hum-cartografia
+    topico: hum-cartografia-escalas-e-projecoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      O mapa mostra o possível trajeto do voo MH370, da Malaysia Airlines, em 2014, e o local onde destroços foram avistados no Oceano Índico. Uma linha liga esse local à cidade de Perth, na Austrália, com a marca de 2.500 km.
+      O comando diz que essa distância mede 2 cm no mapa e pede a escala. Escala é a razão entre a distância no mapa e a distância real, na mesma unidade.
+      Passe 2.500 km para centímetros: 1 km = 100.000 cm, então 2.500 km = 250.000.000 cm. Se 2 cm no mapa valem 250.000.000 cm, 1 cm vale 250.000.000 ÷ 2 = 125.000.000 cm.
+      A escala é 1 : 125 000 000. Alternativa E.
+    enganos:
+      A: "Esse valor esquece quase toda a conversão de quilômetro para centímetro. Lembre: 1 km = 100.000 cm (cinco zeros)."
+      B: "Faltam zeros na conversão. Refaça: 2.500 km = 250.000.000 cm; dividido por 2 = 125.000.000."
+      C: "Ainda faltam zeros. Com essa escala, 2 cm seriam 25 km, distância pequena demais para atravessar o oceano. Teste o resultado com o bom senso."
+      D: "Errou um zero, talvez por converter km em metros (×1.000) e não em centímetros (×100.000). Com essa escala, 2 cm seriam 250 km, não 2.500 km."
+    aulas: [geografia-fundamental/mapas-escalas-e-coordenadas]
+
+  - id: enem-2022-79
+    area: humanas
+    competencia: 1
+    habilidade: 5
+    objeto: hum-cultura
+    topico: hum-cultura-patrimonio
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O texto é narrado por um tamborete (banquinho) de baiana que hoje está num museu. Ele lembra das mãos que o fizeram e o venderam e das mulheres que o usaram para vender seus produtos. Diz que sua história vai além de estilos e da patrimonialização: está ligada “aos dons individuais das pessoas e suas práticas sociais”, como a destreza no desenho.
+      O comando pede a que o objeto associa a sua história. Ele a liga às pessoas: ao saber fazer de quem o construiu e aos usos de quem trabalhou com ele. São as habilidades artísticas e culturais dos sujeitos.
+      Alternativa A.
+    enganos:
+      B: "O texto não fala de religião nem de ensino. Os sujeitos citados são artesãos, vendedores e baianas. Não tire conclusão do nome “baiana”."
+      C: "O tamborete fala de quem o fez e usou, não de quem o expõe no museu. Separe os criadores dos expositores."
+      D: "O texto diz que a história do objeto vai além da preservação e dos estilos. Escolher conservação lê o oposto do que ele afirma."
+      E: "Venda aparece, mas como uma das práticas sociais, não como competência financeira. O foco são os dons e o saber fazer das pessoas."
+    aulas: []
+
+  - id: enem-2022-80
+    area: humanas
+    competencia: 5
+    habilidade: 24
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-antiga
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O historiador Jean-Pierre Vernant liga o nascimento da filosofia ao surgimento da pólis, a cidade grega. A razão grega não teria caído do céu: foi construída junto com as estruturas da vida na cidade, onde as decisões se tomam no debate público.
+      O comando pede qual grupo de pensadores fortaleceu esse vínculo entre a pólis e a razão. No século V a.C., os sofistas eram professores que viajavam de cidade em cidade e cobravam para ensinar, sobretudo retórica, a arte de falar e convencer. Na Atenas democrática, onde as questões se decidiam em assembleia e nos tribunais, saber argumentar era muito procurado. Os sofistas ligaram o ensino do pensamento e da palavra à vida política da cidade.
+      Alternativa C.
+    enganos:
+      A: "Os epicuristas são uma escola posterior, do período helenístico, e buscavam a felicidade sobretudo longe da vida política. Escolher isso é anacronismo e foge da relação com a pólis."
+      B: "Os estoicos também são posteriores e tratam de suportar os males da vida. O texto pede o grupo ligado ao nascimento da razão na cidade."
+      D: "Peripatéticos são os seguidores de Aristóteles, que veio depois dos sofistas. Ensinar não basta: a questão pede o grupo ligado à vida pública da pólis."
+      E: "Os rapsodos recitavam os mitos. O texto trata da passagem do mito para a razão, então eles representam o que veio antes, não o que fortaleceu a razão."
+    aulas: [filosofia-medio/os-pre-socraticos, filosofia-fundamental/mito-e-razao]
+
+  - id: enem-2022-81
+    area: humanas
+    competencia: 5
+    habilidade: 21
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-era-vargas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O Departamento de Imprensa e Propaganda (DIP) foi criado pelo Decreto-Lei nº 1.915, de 27 de dezembro de 1939, no Estado Novo, a ditadura de Getúlio Vargas. Ficava subordinado direto ao presidente e foi extinto em 1945.
+      Os trechos dizem que o DIP devia “coordenar” as relações da imprensa com o poder e aproximá-la dos “interesses nacionais”. E que só devolveria o dinheiro depositado para importar papel aos jornais que, a seu juízo, mostrassem “utilidade pública”. Ou seja: o governo decidia quem teria papel para imprimir.
+      O comando pede o que essas finalidades permitiram ao governo. Controlar a pauta e o papel da imprensa é limitar o que se pode publicar. Isso é cerceamento da liberdade de expressão. Alternativa D.
+    enganos:
+      A: "Um órgão que aproxima a imprensa dos interesses do governo e decide quem recebe papel reduz a variedade de opiniões. A alternativa inverte o efeito."
+      B: "O decreto fala de imprensa e propaganda, não de vender cultura popular. Não traga outro tema da Era Vargas."
+      C: "Vargas também controlou os sindicatos, mas não por este decreto. Os trechos tratam de jornais. Responda pelo documento dado."
+      E: "O DIP aumentou o controle do Estado sobre a imprensa. Privatizar seria passar meios do Estado para empresas, o que o texto não descreve."
+    aulas: [historia-do-brasil/a-era-vargas]
+
+  - id: enem-2022-82
+    area: humanas
+    competencia: 6
+    habilidade: 29
+    objeto: hum-ambiente
+    topico: hum-ambiente-relevo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O mapa do IBGE mostra as rochas ígneas da Amazônia Legal. As manchas escuras aparecem sobretudo no Pará, no norte do Mato Grosso, no Amapá, em Roraima e em Rondônia.
+      Rochas ígneas (ou magmáticas) se formam quando o magma, rocha derretida, esfria e endurece. No processo, minerais com metais podem se concentrar. Por isso, as áreas de rochas ígneas e de escudos cristalinos antigos são as que mais guardam minérios metálicos, como ferro, ouro e manganês.
+      O comando pede o que esse recurso pode conter. Jazidas de minerais metálicos. Alternativa B.
+    enganos:
+      A: "Abalos sísmicos frequentes ocorrem nas bordas das placas tectônicas. A Amazônia fica no meio da placa Sul-Americana. Não confunda tipo de rocha com atividade sísmica."
+      C: "Petróleo e gás se formam em bacias sedimentares, a partir de restos de seres vivos, não em rocha ígnea. Lembre: combustível fóssil é rocha sedimentar."
+      D: "Aquíferos grandes ficam em rochas sedimentares porosas, que guardam água. Rochas ígneas são pouco porosas. A alternativa troca o tipo de rocha."
+      E: "Rochas metamórficas se formam pela transformação de outras rochas sob calor e pressão. O mapa mostra rochas ígneas. Não confunda as três famílias de rochas."
+    aulas: [geografia-fundamental/recursos-naturais]
+
+  - id: enem-2022-83
+    area: humanas
+    competencia: 2
+    habilidade: 8
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-migracoes
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O texto conta o caso de duas irmãs nascidas no Líbano, filhas de pais sírios. O Líbano só registra filhos de pai e mãe libaneses. A Síria só registra filhos de pais casados oficialmente, o que não era o caso. Resultado: nenhum dos dois países reconhece as meninas como suas cidadãs.
+      O comando pede a condição de quem nasce assim. Uma pessoa que nenhum Estado reconhece como sua cidadã é apátrida (sem pátria, sem nacionalidade). Sem nacionalidade, ela tem dificuldade de conseguir documentos, estudar, trabalhar e ter acesso a serviços.
+      Alternativa B.
+    enganos:
+      A: "Exilado é quem foi forçado a deixar o próprio país, em geral por motivo político. As meninas não saíram de país nenhum: nasceram sem nacionalidade."
+      C: "Foragido é quem foge da justiça. Bebês recém-nascidos não estão nessa condição. Não confunda falta de documento com crime."
+      D: "Refugiado tem nacionalidade, mas fugiu do país por guerra ou perseguição. O problema do texto é a falta de nacionalidade. Separe as duas condições."
+      E: "Clandestino é quem entra ou fica num país sem autorização. As meninas nasceram no Líbano; o problema é que não foram registradas por nenhum Estado."
+    aulas: [politica-medio/direitos-humanos]
+
+  - id: enem-2022-84
+    area: humanas
+    competencia: 1
+    habilidade: 4
+    objeto: hum-cultura
+    topico: hum-cultura-estetica
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      No Texto I, o filósofo Merleau-Ponty diz que uma filosofia da percepção, que queira “reaprender a ver o mundo”, devolve à pintura e às artes o seu lugar. No Texto II, Deleuze diz que os grandes cineastas podem ser comparados a pensadores, porque “pensam com imagens, em vez de conceitos”.
+      O comando pede como os textos defendem um saber que vem da sensibilidade. Os dois tratam o ver como forma de conhecer: a percepção reaprende o mundo, a imagem do cinema pensa. Ver não é só receber impressões; é uma experiência que produz conhecimento.
+      Alternativa C.
+    enganos:
+      A: "Transcendental é o que está além da experiência. Os textos fazem o contrário: põem o conhecimento na percepção e na imagem. Não confunda “sensível” com “transcendente”."
+      B: "Juízo de gosto é decidir se algo é belo. Os textos não falam de gosto, e sim de conhecer pelo olhar. Leia o que o comando pede: um saber."
+      D: "Os textos não põem a arte como ajudante da razão. Dizem que a imagem já pensa por si. A alternativa diminui o papel que os autores dão à sensibilidade."
+      E: "A frase coloca a inteligência como consequência das representações. Os textos falam da experiência de ver, não de representações mentais. Fica longe do argumento."
+    aulas: []
+
+  - id: enem-2022-85
+    area: humanas
+    competencia: 3
+    habilidade: 11
+    objeto: hum-cultura
+    topico: hum-cultura-religiao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O Texto I é uma ordem do Santo Ofício (a Inquisição) de Lima, tribunal que começou a funcionar em 1570 no vice-reino do Peru, colônia da Espanha. Ela proíbe parar carroças, pôr mesas ou cadeiras nas ruas da procissão e atirar coisas nos réus no dia do auto de fé, a cerimônia pública em que se liam e cumpriam as sentenças. O Texto II diz que, no auto de fé, lugares, posturas, gestos e palavras eram fixados antes, em detalhe.
+      O comando pede o que o rito mostra sobre a capacidade da Igreja. A Igreja decide como a cidade deve se portar: onde ficar, o que não fazer, como andar. E a cerimônia inteira mostra, em público, o que acontece com quem desobedece. Ela ensina e impõe um jeito de agir.
+      A Igreja produzia padrões de conduta. Alternativa D.
+    enganos:
+      A: "O rito expõe os réus em público e os leva a açoites. Isso não abranda a punição; dá a ela força de espetáculo."
+      B: "A ordem proíbe atirar pedras e frutas nos réus. A Igreja controla a violência do público, não a estimula. Leia as proibições do texto."
+      C: "A Inquisição não critica a disciplina: ela a impõe. A alternativa inverte o papel da instituição."
+      E: "Heresia é o que a Inquisição perseguia, não o que organizava como culto. Cuidado com a alternativa que usa a palavra certa no sentido errado."
+    aulas: []
+
+  - id: enem-2022-86
+    area: humanas
+    competencia: 1
+    habilidade: 1
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-antiga
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      Empédocles foi um filósofo grego do século V a.C., nascido em Agrigento, na Sicília. Os primeiros filósofos gregos, chamados pré-socráticos, buscavam a arché: o princípio de que tudo é feito e que explica a ordem do mundo.
+      O texto mostra a resposta de Empédocles: há quatro elementos eternos (fogo, ar, água e terra), que se misturam e se separam. O que os move são duas forças, o Amor, que une, e o Ódio, que separa. O mundo nasce e muda nesse vaivém.
+      O comando pede por que isso é típico dos pré-socráticos. Porque explica como o cosmo se forma e se transforma: é uma discussão cosmogônica (sobre a origem e a ordem do universo). Alternativa C.
+    enganos:
+      A: "Toda filosofia investiga, então essa alternativa não diz o que é próprio dos pré-socráticos. Procure a resposta específica: a busca da origem do cosmo."
+      B: "Os quatro elementos são coisas do mundo que vemos e tocamos. Empédocles explica a natureza por ela mesma, sem sair do mundo sensível."
+      D: "Amor e Ódio aqui são forças da natureza que unem e separam elementos, não sentimentos humanos. Não leia as palavras no sentido do dia a dia."
+      E: "Os pré-socráticos são justamente a passagem da explicação pelo mito para a explicação racional. Amor e Ódio não são deuses de uma narrativa, mas princípios do cosmo."
+    aulas: [filosofia-medio/os-pre-socraticos, filosofia-fundamental/mito-e-razao]
+
+  - id: enem-2022-87
+    area: humanas
+    competencia: 4
+    habilidade: 19
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-urbanizacao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O texto, atribuído ao geógrafo Milton Santos, define macrocefalia urbana: muitas atividades econômicas concentradas em poucas metrópoles. Isso atrai fluxos de migrantes, gera falta de empregos, ocupação desordenada de áreas da cidade e estigma sobre grupos sociais.
+      O comando pede o fator geográfico que estimulou essa concentração. No Brasil e em outros países subdesenvolvidos, a modernização do campo e a concentração de terras empurraram muita gente para as cidades grandes, em busca de trabalho. Esse é o êxodo rural, a saída da população do campo.
+      Alternativa B.
+    enganos:
+      A: "Área pequena não causa concentração de atividades. As metrópoles crescem e se espalham. A alternativa confunde causa e efeito."
+      C: "O risco de morar em áreas inseguras é efeito da ocupação desordenada, não a causa da concentração. Cuidado com a inversão de causa e consequência."
+      D: "Falta de transporte é um problema da cidade grande, não o que leva pessoas para ela. Separe os problemas urbanos da causa do crescimento."
+      E: "O texto fala de “fluxos migratórios” como motor do processo. O crescimento veio da chegada de migrantes, não principalmente de mais filhos por mulher."
+    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, geografia-fundamental/cidade-e-campo]
+
+  - id: enem-2022-88
+    area: humanas
+    competencia: 5
+    habilidade: 23
+    objeto: hum-organizacao-social
+    topico: hum-organizacao-social-filosofia-antiga
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Sêneca foi um filósofo romano, nascido por volta de 4 a.C. em Córdoba (hoje na Espanha) e morto em 65 d.C. Foi um dos principais nomes do estoicismo, e as “Cartas morais” (a Lucílio) estão entre suas obras mais conhecidas. Para os estoicos, a pessoa sábia não se deixa dominar pelas paixões, como o medo e a dor, e aceita com serenidade o que não depende dela.
+      No trecho, Sêneca elogia o amigo Basso, que tem “ânimo alegre” diante da morte e é forte qualquer que seja o estado do corpo. E diz que isso “resulta da filosofia”.
+      O comando pede o bem fundamental que a filosofia promove. Manter a calma e a alegria diante da morte e da doença é não ser arrastado pelo medo e pela dor. Isso é a moderação das paixões. Alternativa E.
+    enganos:
+      A: "O texto não fala de debate nem de diálogo. Fala de serenidade diante da morte. Não confunda a filosofia de Sêneca com a de quem debate em praça pública."
+      B: "Sêneca não manda rejeitar a vida social. Ele fala de domínio sobre si diante da dor. A alternativa troca uma virtude interior por uma atitude contra a sociedade."
+      C: "A força de Basso vem da filosofia, diz o texto, não da religião. Leia a palavra exata da fonte."
+      D: "Sêneca elogia quem fica forte e alegre apesar do sofrimento, não quem o exalta. Exaltar a dor inverte a ideia estoica."
+    aulas: [filosofia-fundamental/etica-no-dia-a-dia]
+
+  - id: enem-2022-89
+    area: humanas
+    competencia: 1
+    habilidade: 1
+    objeto: hum-cultura
+    topico: hum-cultura-conquista-da-america
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      O trecho do escritor uruguaio Eduardo Galeano descreve as sociedades que os espanhóis encontraram na América: o império dos incas, os astecas no vale do México e os maias. Fala de conhecimentos próprios: os maias foram grandes astrônomos, mediram o tempo com precisão e conheceram o zero; os cirurgiões incas operavam crânios.
+      O comando pede o que essas sociedades deixaram como legado. O texto destaca saberes criados por esses povos, antes e sem a influência europeia: astronomia, matemática, medicina.
+      Heranças culturais constituídas de saberes próprios. Alternativa C.
+    enganos:
+      A: "Esses povos tinham suas próprias religiões. O cristianismo chegou com os espanhóis. Dizer que o legado tem matriz cristã é anacronismo."
+      B: "O texto não fala de armas tomadas em batalha. Fala de saberes. Não troque o legado por um episódio da conquista."
+      D: "O texto destaca o que esses povos criaram por si. Dizer que seus costumes foram moldados por estrangeiros inverte o sentido."
+      E: "A cirurgia inca aparece, mas chamá-la de “conhecimento científico” no sentido moderno é anacronismo. E a alternativa deixa de fora a astronomia e a matemática."
+    aulas: [historia-antiga/os-povos-originarios-das-americas]
+
+  - id: enem-2022-90
+    area: humanas
+    competencia: 6
+    habilidade: 26
+    objeto: hum-ambiente
+    topico: hum-ambiente-sociedade-e-natureza
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O texto apresenta as paneleiras de Goiabeiras, em Vitória (ES), mulheres que fazem as panelas de barro da culinária capixaba. O saber passa de mãe para filha e mistura origens indígena, africana e portuguesa. As matérias-primas vêm da natureza: argila do barreiro, madeira e tinta da casca do mangue-vermelho. Em 2002, o Iphan registrou o ofício das paneleiras de Goiabeiras como o primeiro bem do Livro de Registro dos Saberes, do patrimônio imaterial do Brasil.
+      O comando pede o que essas práticas tradicionais ligam aos recursos naturais. O uso do barro e do mangue sustenta um ofício, uma renda, uma tradição de família e uma identidade. Ou seja, garante que esse jeito de viver continue.
+      Manutenção dos modos de vida. Alternativa A.
+    enganos:
+      B: "O texto fala de barro, madeira e mangue, não de roça. Não troque a atividade descrita."
+      C: "O texto valoriza a tradição passada entre gerações, não a modernização da gestão. A alternativa vai no sentido contrário."
+      D: "As panelas são vendidas, mas o que o texto destaca é o saber tradicional e a ligação com a natureza, não o consumo. Leia o que a fonte valoriza."
+      E: "O texto cita várias etapas, mas feitas pelas mesmas mulheres, com saber passado em família. Especializar etapas é lógica de fábrica, oposta ao ofício descrito."
+    aulas: []
