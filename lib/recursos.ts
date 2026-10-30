@@ -21,6 +21,7 @@ export const RECURSOS = {
   ajudou: "\"Isso ajudou?\" no fim da aula, guardado só no aparelho",
   "guia-contribuir": "Guia de contribuição: funções, passo a passo, modelo de aula e checklist de revisão",
   "pratica-sem-placar": "Esconde os pontos e a sequência de dias da prática das aulas de idioma",
+  "enem-curso": "Curso ENEM: a página /enem, diagnóstico, plano, prática por habilidade, provas oficiais por ano e dia, oficina de redação e reta final",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;

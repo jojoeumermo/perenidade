@@ -93,6 +93,8 @@ if (edicao) {
   const aConfirmar = structuredClone(bruta);
   aConfirmar.fatos["resultado-data"].valor = "2027-01-15";
   recusa("edição: fato a confirmar não leva valor", () => validarEdicao(aConfirmar), "não leva");
+  const { escreverFato } = await import("./enem-fatos.mjs");
+  conferir("edição: o roteiro do EPUB escreve cada fato igual ao site", Object.values(edicao.fatos).every((f) => escreverFato(f) === formatarFato(f)));
   conferir("edição: substitui o fato no texto", substituirFatos("Prova em {{enem:aplicacao-dia-1}}.", edicao, "x") === "Prova em 8 de novembro de 2026.");
   recusa("edição: fato inexistente na aula para a montagem", () => substituirFatos("{{enem:nao-existe}}", edicao, "aula.md"), "não existe");
   conferir("edição: duração do 1º dia bate com os horários", edicao.fatos["duracao-dia-1"].valor === 330 && edicao.fatos["prova-inicio"].valor === "13:30" && edicao.fatos["prova-fim-dia-1"].valor === "19:00");

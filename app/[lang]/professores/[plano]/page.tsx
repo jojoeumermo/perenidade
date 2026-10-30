@@ -42,7 +42,7 @@ export default async function Page({ params }: Props) {
   const trilha = getTrack(plano.trilha, lang);
   const aulas = plano.aulas.map((a) => ({ slug: a, titulo: trilha?.lessons.find((l) => l.slug === a)?.title ?? a }));
   // As habilidades das aulas do plano, juntas e sem repetir.
-  const mapa: MapaDaAula = { bncc: [], enem: [] };
+  const mapa: MapaDaAula = { bncc: [], enem: [], objetos: [] };
   if (ligado("mapa-curricular"))
     for (const a of plano.aulas) {
       const m = mapaDaAula(plano.trilha, a);

@@ -6,9 +6,11 @@ import { MetaDaSemana } from "@/components/estudo/Metas";
 import { MinhasTurmas } from "@/components/estudo/MinhasTurmas";
 import { NivelamentosFeitos } from "@/components/estudo/Nivelamento";
 import { RegistroDeConclusao } from "@/components/estudo/RegistroDeConclusao";
+import Link from "@/components/Link";
 import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { localePath } from "@/i18n/config";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { textosDoEstudo } from "@/lib/textos-estudo";
@@ -31,6 +33,11 @@ export default async function Page({ params }: PageProps<"/[lang]/meu-estudo">) 
         {s.meuEstudo.lead}
       </PageHeading>
       <Untranslated lang={lang} t={t} show={!traduzido} />
+      {ligado("enem-curso") && (
+        <Link href={localePath(lang, "/enem")} className="mt-6 block border-2 border-ink bg-ink p-4 font-sans text-parchment hover:bg-oxblood">
+          {s.enem.irParaCurso} →
+        </Link>
+      )}
       <RegistroDeConclusao />
       <MeuEstudo
         s={s.meuEstudo}
