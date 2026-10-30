@@ -49,3 +49,23 @@ export async function abrir(page: Page, caminho: string) {
   const aviso = page.locator("dialog[open]").getByRole("button", { name: "Fechar" }).first();
   if (await aviso.waitFor({ timeout: 3000 }).then(() => true, () => false)) await aviso.click();
 }
+
+/** Sessão com o segundo fator (a coordenação só age assim). No banco local o código é sempre 123456. */
+export async function sessaoForte(email: string) {
+  const s = await sessao(email);
+  const cab = { apikey: CHAVE_ANON, authorization: `Bearer ${s.access_token}`, "content-type": "application/json" };
+  const fator = (await (await fetch(`${BANCO}/auth/v1/factors`, { method: "POST", headers: cab, body: JSON.stringify({ factor_type: "totp", friendly_name: `teste ${Date.now()}` }) })).json()) as { id: string };
+  await fetch(`${BANCO}/auth/v1/factors/${fator.id}/challenge`, { method: "POST", headers: cab, body: "{}" });
+  const r = await fetch(`${BANCO}/auth/v1/factors/${fator.id}/verify`, { method: "POST", headers: cab, body: JSON.stringify({ code: "123456" }) });
+  if (!r.ok) throw new Error(`segundo fator de ${email}: ${r.status}`);
+  return (await r.json()) as { access_token: string };
+}
+
+/** Abre o site já com a sessão forte guardada. */
+export async function entrarForteComo(page: Page, email: string) {
+  const s = await sessaoForte(email);
+  // O termo de voluntariado vem antes de tudo no painel: aceito direto no banco local.
+  await rpc(s.access_token, "termo_voluntario_aceitar").catch(() => null);
+  await page.addInitScript((valor) => window.localStorage.setItem("lucia:sessao", valor), JSON.stringify(s));
+  return s;
+}

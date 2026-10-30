@@ -92,6 +92,10 @@ export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang,
             defaultLanguage: lang,
             subject: assunto ?? "",
             disableThirdPartyRequests: true,
+            // Sem ligação direta entre dois aparelhos (o "P2P" que o Jitsi usa quando só há duas pessoas): o vídeo passa
+            // sempre pelo servidor da sala. A ligação direta falha em muitas redes de celular e de escola, e a troca de
+            // uma para a outra quando entra a terceira pessoa deixava gente sem receber a imagem.
+            p2p: { enabled: false },
             enableWelcomePage: false,
             toolbarButtons: conduzo || doCanal ? BOTOES_DE_QUEM_CONDUZ : BOTOES_DE_QUEM_ASSISTE,
             // Sem gravação, sem transmissão para fora: a sala é só para quem está nela.

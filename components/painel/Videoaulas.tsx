@@ -478,13 +478,25 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
     return canvas.captureStream(24);
   }
 
-  async function finalizar(blob: Blob, usado: Formato) {
+  async function finalizar(blob: Blob, usado: Formato, podeConverter = true) {
     try {
       const medidas = await medir(blob);
+      if (medidas.duracao > LIMITE_SEGUNDOS) throw new VideoErro("longo");
+      // A câmera nem sempre respeita o tamanho pedido (há celulares e câmeras que entregam 720p mesmo assim): passou de
+      // 480p ou do peso, converte aqui mesmo, como no vídeo enviado pronto, em vez de recusar a gravação.
+      if ((!cabe(medidas) || blob.size > LIMITE_BYTES) && podeConverter) {
+        setEstado("convertendo");
+        setProgresso(0);
+        cancelar.current = new AbortController();
+        const convertido = await converterPara720p(blob, setProgresso, cancelar.current.signal);
+        setEstado("parado");
+        return finalizar(convertido.blob, convertido.formato, false);
+      }
       if (blob.size > LIMITE_BYTES) throw new VideoErro("pesado");
-      if (!cabe(medidas)) throw new VideoErro(medidas.duracao > LIMITE_SEGUNDOS ? "longo" : "formato");
+      if (!cabe(medidas)) throw new VideoErro("formato");
       aoTerminar({ blob, formato: usado, medidas, previa: URL.createObjectURL(blob) });
     } catch (erro) {
+      setEstado("parado");
       setAviso(erroDe(erro));
     }
   }
@@ -557,7 +569,7 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
       cancelar.current = new AbortController();
       const { blob, formato: usado } = await converterPara720p(arquivo, setProgresso, cancelar.current.signal);
       setEstado("parado");
-      await finalizar(blob, usado);
+      await finalizar(blob, usado, false);
     } catch (erro) {
       setEstado("parado");
       setAviso(erroDe(erro));
