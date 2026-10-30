@@ -110,7 +110,26 @@
     "searchTyping": "输入内容，在全站搜索。",
     "signOut": "退出",
     "signingOut": "正在退出……",
-    "searchNothing": "没有找到与“{q}”相关的内容。"
+    "searchNothing": "没有找到与“{q}”相关的内容。",
+    "searchPick": "选择",
+    "searchGo": "打开",
+    "searchShut": "关闭",
+    "searchSeeN": {
+      "other": "查看全部 {n} 条结果"
+    },
+    "searchGroups": {
+      "aula": "课程",
+      "obra": "作品",
+      "trilha": "学习路径",
+      "autor": "作者",
+      "memorial": "纪念馆",
+      "verbete": "词汇表",
+      "materia": "报纸",
+      "checagem": "事实核查",
+      "debate": "辩论",
+      "pergunta": "问题",
+      "falacia": "谬误"
+    }
   },
   "labs": {
     "eyebrow": "真正的实践",
