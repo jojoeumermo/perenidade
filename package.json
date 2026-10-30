@@ -65,7 +65,7 @@
     "github-slugger": "^2.0.0",
     "hanzi-writer": "3.7.3",
     "i18n-iso-countries": "^7.14.0",
-    "js-yaml": "^4.3.2",
+    "js-yaml": "^5.5.0",
     "JSCPP": "^2.0.9",
     "katex": "^0.18.11",
     "mammoth": "^1.11.0",
