@@ -17,22 +17,26 @@ fontes:
     url: "https://pt.wikipedia.org/wiki/Magda_Soares"
 quiz:
   - pergunta: "O que é alfabetização, para Magda Soares?"
-    opcoes: ["A aprendizagem do sistema de escrita: as relações entre letras e sons", "Qualquer leitura de mundo", "Saber escrever romances"]
-    resposta: 0
+    opcoes: ["Qualquer leitura de mundo", "A aprendizagem do sistema de escrita: as relações entre letras e sons", "Saber escrever romances"]
+    resposta: 1
     explicacao: "É a aquisição da tecnologia da escrita."
   - pergunta: "E o que é letramento?"
-    opcoes: ["O uso competente da leitura e da escrita nas práticas sociais", "O mesmo que alfabetização", "Escrever com letra bonita"]
-    resposta: 0
+    opcoes: ["O mesmo que alfabetização", "Escrever com letra bonita", "O uso competente da leitura e da escrita nas práticas sociais"]
+    resposta: 2
     explicacao: "Ler um contrato, escrever uma carta, usar um aplicativo, compreender uma notícia."
   - pergunta: "O que significa alfabetizar letrando?"
     opcoes: ["Ensinar o sistema de escrita ao mesmo tempo em que se usam textos reais em situações reais", "Ensinar só textos, sem letras", "Ensinar só letras, sem textos"]
     resposta: 0
     explicacao: "Os dois processos são distintos, mas inseparáveis."
   - pergunta: "Uma pessoa pode ser alfabetizada e pouco letrada?"
-    opcoes: ["Sim: sabe decodificar, mas tem dificuldade de usar a escrita no dia a dia", "Não, nunca", "Só crianças"]
-    resposta: 0
+    opcoes: ["Não, nunca", "Só crianças", "Sim: sabe decodificar, mas tem dificuldade de usar a escrita no dia a dia"]
+    resposta: 2
     explicacao: "É o fenômeno que se mede como analfabetismo funcional."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai explicar a distinção entre alfabetização e letramento proposta por Magda Soares, por que os dois processos são distintos e inseparáveis, e o que quer dizer "alfabetizar letrando". E vai aplicar a ideia ao planejamento de uma atividade com adultos.
 
 ## Quem foi Magda Soares
 
@@ -74,6 +78,25 @@ O letramento depende das **oportunidades** de contato com a escrita: livros em c
 ## Para adultos
 
 Na alfabetização de adultos, letrar desde o início é natural: o adulto já vive cercado de textos (contas, placas, documentos, mensagens no celular, a Bíblia). Partir desses textos é partir do que importa a ele, o que aproxima Magda Soares de Paulo Freire.
+
+## Exemplo resolvido
+
+**Classifique cada situação como alfabetização, letramento ou as duas coisas. Depois diga o que falta em cada uma.**
+
+1. **Seu Antônio sabe de cor que no contracheque o número de baixo é o que ele recebe, mas não sabe ler as palavras.** Tem um começo de **letramento** (conhece o uso e a forma do texto), sem **alfabetização**. Falta: aprender o sistema de escrita, a partir de PROVENTOS, DESCONTOS, LÍQUIDO.
+2. **Um curso faz os adultos copiarem famílias silábicas (BA, BE, BI, BO, BU) o mês inteiro, sem ler nenhum texto.** Trabalha a **alfabetização** (o código), sem **letramento**. Falta: textos reais e usos da escrita.
+3. **Dona Rita lê sílabas e palavras, mas nunca leu uma conta de luz nem um bilhete inteiro.** Está **alfabetizada** em começo, com pouco **letramento**. Falta: textos da vida dela, com função.
+4. **No círculo, o grupo lê o folheto da vacinação, estuda as palavras VACINA e POSTO, monta as famílias do V e do P e escreve um bilhete avisando a vizinha.** São **as duas coisas juntas**: alfabetizar letrando.
+
+Confira: o caso 4 é o que Magda Soares propunha. Os casos 1 a 3 mostram os dois desvios que ela criticava: só o uso, sem o código; e só o código, sem o uso. Para planejar com textos reais, veja [Produzir materiais a partir de textos reais](/trilhas/alfabetizacao-aprofundamento/produzir-materiais-a-partir-de-textos-reais).
+
+## Resumo
+
+- **Alfabetização**: aprender o sistema de escrita, as relações entre letras e sons.
+- **Letramento**: usar a leitura e a escrita nas práticas sociais.
+- Para Magda Soares, são processos **distintos e inseparáveis**: o caminho é **alfabetizar letrando**.
+- Os dois desvios: ensinar só o código, sem textos e usos; ou só os textos, sem o ensino sistemático do código.
+- O letramento é desigual na sociedade; com adultos, parte-se dos textos que circulam na vida deles.
 
 ## Para pesquisar e debater
 

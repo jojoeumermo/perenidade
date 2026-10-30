@@ -2,7 +2,7 @@
 titulo: "ENEM: aprofundamento"
 area: enem
 etapa: medio
-ordem: 4
+ordem: 6
 resumo: "Revisões por área, treino com provas anteriores e informações para quem precisa de atendimento especializado."
 ---
 

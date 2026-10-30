@@ -1,0 +1,922 @@
+# Camada do Instituto Lúcia sobre a prova de Matemática do ENEM 2023 (questões 136 a 180).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Fora deste arquivo: enem-2023-141, enem-2023-142 e enem-2023-146 (o texto-base se perdeu na importação) e a
+# questão 174 (não existe no arquivo importado).
+ano: 2023
+questoes:
+  - id: enem-2023-136
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-piramides-e-cones
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      A figura mostra o cone de 36 cm de altura e 18 cm de diâmetro (raio 9), o cone pequeno de 6 cm de diâmetro tirado da ponta e, ao lado, o tronco com o furo cilíndrico no meio.
+      1. Cone grande: V = (1/3) · 3 · 9² · 36 = 2 916 cm³.
+      2. Cone pequeno: o raio é 3, um terço do raio grande. Como os cones são semelhantes, a altura também é um terço: 36 ÷ 3 = 12 cm. V = (1/3) · 3 · 3² · 12 = 108 cm³.
+      3. Tronco: 2 916 − 108 = 2 808 cm³.
+      4. Furo: cilindro de raio 3 com a altura do tronco, 36 − 12 = 24 cm. V = 3 · 3² · 24 = 648 cm³.
+      5. Escultura: 2 808 − 648 = 2 160 cm³.
+      6. Massa: 2 160 · 0,6 = 1 296 g. Alternativa B.
+    enganos:
+      A: "1.198,8 g corresponde a 1 998 cm³, volume que não sai de nenhum caminho razoável com estes dados. Refaça as três partes em separado: cone grande, cone pequeno (altura 12) e cilindro (altura 24)."
+      C: "1 360,8 g vem de 2 268 cm³ = 2 916 − 648: tirou o cilindro, mas esqueceu de tirar o cone pequeno da ponta. A escultura perde as duas partes."
+      D: "4 665,6 g vem de 7 776 cm³ = 8 748 − 324 − 648: as contas do cone foram feitas sem o fator 1/3. O volume do cone é um terço do volume do cilindro de mesma base e altura."
+      E: "4 860 g vem de 8 100 cm³ = 8 748 − 648: esqueceu o fator 1/3 do cone e também não tirou o cone pequeno. Volume do cone = (1/3) · área da base · altura."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2023-137
+    area: matematica
+    competencia: 7
+    habilidade: 27
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-ponderada
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O quadro diz que 75 funcionários da Produção ganham R$ 2 000,00 e 25 da Administração ganham R$ 7 000,00.
+      Cada salário pesa pela quantidade de pessoas que o recebem. Por isso a média é ponderada:
+      folha total = 75 · 2 000 + 25 · 7 000 = 150 000 + 175 000 = 325 000 reais.
+      Média = 325 000 ÷ 100 = 3 250 reais. Alternativa C.
+    enganos:
+      A: "2 000 é o salário da maioria (a moda), não a média. A média precisa juntar também os 25 salários de 7 000."
+      B: "2 500 é a metade da diferença entre os salários, (7 000 − 2 000) ÷ 2. Essa conta não é média. Some todos os salários e divida pelo número de pessoas."
+      D: "4 500 é (2 000 + 7 000) ÷ 2, a média simples dos dois valores, como se cada setor tivesse o mesmo número de pessoas. Aqui um setor tem 75 e o outro 25: use os pesos."
+      E: "9 000 é a soma dos dois salários, sem dividir por nada. A média divide a folha total pelos 100 funcionários."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+
+  - id: enem-2023-138
+    area: matematica
+    competencia: 7
+    habilidade: 28
+    objeto: mat-estatistica
+    topico: mat-estatistica-eventos-independentes
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      As retiradas nas duas urnas são independentes, então a chance de ganhar é o produto das chances.
+      1. Hoje a urna B tem 4 pretas e a chance de preta é 25%. Logo há 4 ÷ 0,25 = 16 bolinhas, sendo 12 brancas.
+      2. Depois da mudança, com b brancas: P(ganhar) = 0,20 · 4/(4 + b).
+      3. Queremos 0,20 · 4/(4 + b) ≤ 0,01. Dividindo por 0,20: 4/(4 + b) ≤ 0,05. Então 4 + b ≥ 4 ÷ 0,05 = 80, ou seja, b ≥ 76.
+      4. Já existem 12 brancas. Faltam 76 − 12 = 64. Alternativa C.
+    enganos:
+      A: "20 sai de 4 ÷ 0,20, misturando as 4 pretas da urna B com a chance da urna A. Cada urna tem a sua conta; o 20% entra multiplicando."
+      B: "60 sai de 76 − 16: subtraiu o total de bolinhas da urna (16) em vez de só as brancas (12). As 4 pretas continuam lá e não contam como brancas."
+      D: "68 sai de 80 − 12: usou 80 como número de brancas, mas 80 é o total da urna (4 pretas + 76 brancas)."
+      E: "80 é o total de bolinhas que a urna B precisa ter, não o número de brancas a acrescentar. Tire as 4 pretas e as 12 brancas que já existem."
+    aulas: [matematica-medio/probabilidade]
+
+  - id: enem-2023-139
+    area: matematica
+    competencia: 6
+    habilidade: 24
+    objeto: mat-numeros
+    topico: mat-numeros-progressoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A tabela mostra: produto I vendeu 80, 90 e 100 (abril a junho); produto II vendeu 190, 170 e 150.
+      O produto I sobe 10 por mês e o II cai 20 por mês. Continuando o padrão:
+      julho: I = 110, II = 130 (II ainda maior);
+      agosto: I = 120, II = 110 (agora I supera II).
+      A produção do II para no mês seguinte àquele em que I superou II. Se a virada foi em agosto, o produto II parou em setembro. Alternativa D.
+    enganos:
+      A: "Junho é o último mês da tabela, quando II (150) ainda vende mais que I (100). Continue as duas sequências mês a mês."
+      B: "Julho seria escolher o mês logo após a tabela sem fazer as contas. Em julho II ainda vende 130 contra 110 de I."
+      C: "Agosto é o mês em que I passa II. A regra manda parar no mês seguinte a esse, então é setembro."
+      E: "Outubro aparece se o produto I ficar parado em 100: aí II só fica abaixo em setembro (90) e para em outubro. Mas I também cresce 10 por mês."
+    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas, matematica-fundamental/leitura-de-graficos-e-tabelas]
+
+  - id: enem-2023-140
+    area: matematica
+    competencia: 7
+    habilidade: 27
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-mediana-moda
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      Lendo o gráfico de barras: 10 motoristas fizeram 1 viagem, 10 fizeram 2, 55 fizeram 3, 25 fizeram 4, nenhum fez 5, 50 fizeram 6 e 10 fizeram 7. Total: 160.
+      Moda: o valor mais frequente é 3 viagens (55 motoristas).
+      Mediana: com 160 dados, é a média do 80º e do 81º. Acumulando: 10, 20, 75, 100. Os dois estão no grupo de 4 viagens. Mediana = 4.
+      Média: (10·1 + 10·2 + 55·3 + 25·4 + 50·6 + 10·7) ÷ 160 = (10 + 20 + 165 + 100 + 300 + 70) ÷ 160 = 665 ÷ 160 ≈ 4,16.
+      Assim, moda (3) < mediana (4) < média (4,16). Alternativa E.
+    enganos:
+      A: "A mediana (4) e a média (cerca de 4,16) são próximas, mas não iguais, e a moda (3) é a menor das três, não a maior."
+      B: "Mediana e moda não coincidem: a moda é 3 e a mediana é 4. Confira a posição do 80º e do 81º dado na contagem acumulada."
+      C: "Esta ordem põe a moda como maior valor. A moda é 3, o menor dos três; talvez a barra mais longa tenha sido lida como a viagem 6."
+      D: "A média (4,16) ficou abaixo da mediana (4) nesta ordem. Faça a conta da média com os pesos: 665 ÷ 160 passa um pouco de 4."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda]
+
+  - id: enem-2023-143
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-porcentagem
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      1. Lista de espera deste ano: 400 cresceu 10%, então 400 · 1,10 = 440 nomes.
+      2. Sem obras, a lista do próximo ano também teria 440 nomes.
+      3. A meta é uma lista 25% menor que a deste ano: 440 · 0,75 = 330 nomes.
+      4. É preciso tirar 440 − 330 = 110 crianças da lista, ou seja, abrir 110 vagas novas.
+      5. Cada sala nova atende 10 crianças: 110 ÷ 10 = 11 salas. Alternativa B.
+    enganos:
+      A: "10 salas vêm de 25% de 400 = 100 vagas: usou a lista do ano passado. A meta é sobre a lista deste ano, que já tem 440 nomes."
+      C: "12 salas dariam 120 vagas, número que não sai de uma conta coerente com os dados. A redução pedida é de 25% de 440, que dá 110."
+      D: "30 salas vêm de 300 ÷ 10, sendo 300 = 400 · 0,75: tomou a lista final como número de vagas. As salas novas só precisam cobrir a diferença entre 440 e 330."
+      E: "33 salas vêm de 330 ÷ 10: 330 é o tamanho da lista que vai sobrar, não o de vagas a abrir. Subtraia: 440 − 330 = 110."
+    aulas: [matematica-fundamental/porcentagem]
+
+  - id: enem-2023-144
+    area: matematica
+    competencia: 3
+    habilidade: 12
+    objeto: mat-geometria
+    topico: mat-geometria-prismas-e-cilindros
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O quadro (a foto da cisterna é só ilustração) dá o nível da água: 0,5 m às 6h, 1,1 m às 8h, 2,3 m às 12h e 3,2 m às 15h.
+      De 6h a 8h o nível sobe 0,6 m em 2 h; de 8h a 12h, 1,2 m em 4 h; de 12h a 15h, 0,9 m em 3 h. Em todos os trechos a subida é de 0,3 m por hora.
+      Num cilindro, volume = área da base · altura. A cada hora entram 3 m² · 0,3 m = 0,9 m³.
+      A vazão é 0,9 m³ por hora. Alternativa C.
+    enganos:
+      A: "0,3 é quanto o nível sobe por hora, em metro. Para virar volume, multiplique pela área da base, 3 m²."
+      B: "0,5 é o nível da água às 6h, um dado do quadro, e não uma taxa por hora."
+      D: "1,8 vem de 0,6 · 3: usou a subida de 2 horas (0,6 m) como se fosse de uma hora. Divida a subida pelo tempo antes."
+      E: "2,7 vem de 0,9 · 3: usou a subida de 3 horas (de 12h a 15h) como se fosse de uma hora. A subida por hora é 0,3 m."
+    aulas: [matematica-medio/geometria-espacial]
+
+  - id: enem-2023-145
+    area: matematica
+    competencia: 2
+    habilidade: 7
+    objeto: mat-geometria
+    topico: mat-geometria-circunferencia
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      A figura mostra o campo, os pés da trave A e B, os jogadores Q1 a Q6 e várias circunferências tracejadas que passam por A e B.
+      Propriedade usada: todos os pontos de um mesmo arco de circunferência que passa por A e B enxergam o segmento AB sob o mesmo ângulo (ângulos inscritos que olham o mesmo arco são iguais).
+      Então basta achar o jogador que está na mesma circunferência tracejada que Q1. Na figura, Q1 e Q3 estão sobre a mesma circunferência. Os ângulos AQ3B e AQ1B são iguais, e a bola vai para Q3. Alternativa B.
+    enganos:
+      A: "Q2 está numa circunferência menor, mais perto da trave. De mais perto, o jogador vê AB sob um ângulo maior que o de Q1."
+      C: "Q4 também está numa circunferência menor que a de Q1, então o ângulo AQ4B é maior. Estar alinhado com Q1 e B não garante ângulo igual."
+      D: "Q5 está perto de Q1, mas numa circunferência maior. Pontos mais distantes da trave veem AB sob ângulo menor. Proximidade com Q1 não basta."
+      E: "Q6 está numa circunferência ainda maior, então vê AB sob ângulo menor que Q1. O que importa é estar no mesmo arco que Q1."
+    aulas: [matematica-medio/geometria-plana]
+
+  - id: enem-2023-147
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-operacoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      1. Cada pessoa caminha 30 minutos e precisa de 1 g de carboidrato por minuto: 30 g por dia.
+      2. O casal são duas pessoas: 60 g por dia.
+      3. Em 30 dias: 60 · 30 = 1 800 g.
+      4. Um pacote tem 18 fatias de 15 g: 18 · 15 = 270 g.
+      5. Pacotes: 1 800 ÷ 270 ≈ 6,67. Seis pacotes não bastam, porque faltaria carboidrato. É preciso arredondar para cima: 7 pacotes. Alternativa D.
+    enganos:
+      A: "1 pacote cobre só a necessidade de um dia do casal (60 g, menos que 270 g). O suprimento é para 30 dias."
+      B: "4 pacotes vêm de 900 g ÷ 270 g ≈ 3,33, arredondado para cima: a conta foi feita para uma pessoa só. O casal são duas pessoas."
+      C: "6 vem de cortar a parte decimal de 6,67. Com 6 pacotes há 1 620 g, menos que os 1 800 g necessários. Quando falta, arredonde para cima."
+      E: "8 pacotes passam do necessário e não saem de uma conta coerente. Sete pacotes (1 890 g) já cobrem os 1 800 g."
+    aulas: [matematica-fundamental/as-quatro-operacoes]
+
+  - id: enem-2023-148
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-trigonometria
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A figura mostra o mastro, o ponto P na altura h e três cabos que formam o ângulo α com o chão. Cada cabo é a hipotenusa de um triângulo retângulo; h é o cateto oposto a α. Então cabo = h ÷ sen α.
+      Opção I: 11 ÷ sen 30° = 11 ÷ 0,5 = 22 m.
+      Opção II: 12 ÷ (√2/2) = 24/√2 = 12√2 ≈ 16,97 m.
+      Opção III: 18 ÷ (√3/2) = 36/√3 = 12√3 ≈ 20,78 m.
+      O menor é 12√2 m, da opção II. Alternativa C (as alternativas trazem as medidas em forma de raiz).
+    enganos:
+      A: "22√3/3 é 11 ÷ cos 30°: usou o cosseno na opção I. A altura h fica oposta ao ângulo com o chão, então a razão certa é o seno."
+      B: "11√2 mistura a altura da opção I (11 m) com o ângulo da opção II (45°). Cada opção tem o seu par de h e α."
+      D: "12√3 é o cabo da opção III. Está certo para essa opção, mas não é o menor: 12√3 ≈ 20,8 m, maior que 12√2 ≈ 17,0 m."
+      E: "22 é o cabo da opção I, certo para ela, mas maior que o da opção II (cerca de 17 m). A pergunta pede o menor."
+    aulas: [matematica-medio/trigonometria-no-triangulo-retangulo]
+
+  - id: enem-2023-149
+    area: matematica
+    competencia: 3
+    habilidade: 11
+    objeto: mat-geometria
+    topico: mat-geometria-escalas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      Na tela, a linha do voo sobe até um quadradinho de altura e fica nesse nível no trecho mais alto. Logo, a maior altitude aparece como 1 cm.
+      Essa altitude real é 5 km. Para a escala, as duas medidas precisam estar na mesma unidade:
+      5 km = 5 000 m = 500 000 cm.
+      Então 1 cm na tela corresponde a 500 000 cm no real. Escala 1 : 500 000. Alternativa E.
+    enganos:
+      A: "1 : 5 compara 1 cm com 5 km sem converter a unidade. Escala só vale com as duas medidas na mesma unidade."
+      B: "1 : 11 não sai de uma conta coerente: a escala compara a altitude no desenho (1 cm) com a real (5 km), e o 11 não é nenhuma dessas medidas."
+      C: "1 : 55 parece juntar o 5 dos quilômetros com outro número da figura, sem converter unidade. Use só a altitude: 1 cm para 500 000 cm."
+      D: "1 : 5000 converteu 5 km em metro (5 000 m), mas a medida da tela está em centímetro. Falta converter metro em centímetro: 5 000 m = 500 000 cm."
+    aulas: [matematica-fundamental/razao-e-proporcao, matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade]
+
+  - id: enem-2023-150
+    area: matematica
+    competencia: 5
+    habilidade: 19
+    objeto: mat-algebra
+    topico: mat-algebra-funcao-afim
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O texto diz que, ao fim da primeira hora, a concentração C corresponde a cerca de 90% da quantidade q ingerida.
+      "90% de q" é 90/100 de q, ou seja, 0,9 · q.
+      Então C = 0,9q. É uma relação de proporção direta: dobrando q, C também dobra. Alternativa A.
+    enganos:
+      B: "0,1q seria 10% de q, a parte que ainda não está no sangue. O texto fala que a concentração corresponde a 90%."
+      C: "1 − 0,1q mistura o número 1 com a quantidade q. Porcentagem de q vira multiplicação: 90% de q = 0,9q."
+      D: "1 − 0,9q subtrai a parte certa de 1, mas o 1 não tem papel aqui. Basta escrever 90% de q como 0,9q."
+      E: "q − 10 tira 10 unidades de q, e não 10%. Porcentagem é sempre uma fração da quantidade: 90% de q = 0,9q."
+    aulas: [matematica-medio/funcao-do-1-grau, matematica-fundamental/porcentagem]
+
+  - id: enem-2023-151
+    area: matematica
+    competencia: 5
+    habilidade: 20
+    objeto: mat-algebra-geometria
+    topico: mat-algebra-geometria-plano-cartesiano
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      No gráfico, o eixo horizontal é o valor de A e o vertical é o valor de B (em milhar de real). Cada hora é um ponto (A, B):
+      9h (3; 0,5), 10h (2; 2), 11h (4; 4), 12h (5,5; 3), 13h (6; 1,5), 14h (3,5; 2), 15h (2,5; 4), 16h (1; 5), 17h (0,5; 3,5).
+      A está mais valorizada quando A > B: 9h, 12h, 13h e 14h. Às 10h e às 11h os valores são iguais, então não contam.
+      São 4 instantes. Alternativa B.
+    enganos:
+      A: "3 é o número de instantes em que B estava mais valorizada que A (15h, 16h e 17h). A pergunta pede o contrário."
+      C: "6 inclui as 10h e as 11h, quando A e B valem o mesmo. Estar mais valorizada exige valor estritamente maior."
+      D: "7 não sai de uma leitura coerente do gráfico. Compare as coordenadas de cada ponto: A é a horizontal e B é a vertical."
+      E: "9 é o total de instantes observados, não os instantes em que A vale mais que B."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas]
+
+  - id: enem-2023-152
+    area: matematica
+    competencia: 5
+    habilidade: 21
+    objeto: mat-algebra
+    topico: mat-algebra-logaritmos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      As imagens dão a fórmula N = log₁₀ I¹⁰ − log₁₀ I₀¹⁰, com I₀ = 10⁻¹² W/m², I = 8 × 10⁻⁸ W/m² e log₁₀ 2 ≈ 0,3.
+      1. Propriedade da potência: N = 10 log I − 10 log I₀ = 10 · log (I / I₀).
+      2. I / I₀ = 8 × 10⁻⁸ ÷ 10⁻¹² = 8 × 10⁴.
+      3. log (8 × 10⁴) = log 8 + 4 = 3 · log 2 + 4 ≈ 0,9 + 4 = 4,9.
+      4. N = 10 · 4,9 = 49 dB.
+      49 dB está entre 48 dB e 55 dB, faixa do som moderado: medida preventiva II. Alternativa B.
+    enganos:
+      A: "A medida I sai de usar log 8 = log 2 = 0,3: N = 10 · 4,3 = 43 dB. Mas 8 = 2³, então log 8 = 3 · 0,3 = 0,9."
+      C: "A medida III sai de log 8 = 8 · 0,3 = 2,4: N = 10 · 6,4 = 64 dB. O expoente vai para fora do log, e 8 = 2³ dá 3 · log 2."
+      D: "A medida IV não sai de uma conta coerente com a fórmula. Refaça: N = 10 · log(8 × 10⁴) = 49 dB."
+      E: "A medida V aparece se o fator 10 for aplicado duas vezes: 10 · 10 · 4,9 = 490. O 10 dos expoentes já vira o único 10 da frente."
+    aulas: [matematica-medio/exponencial-e-logaritmo]
+
+  - id: enem-2023-153
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-operacoes
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Como cada caixa começa um atendimento agora, a espera do cliente é o tempo médio de atendimento vezes o número de pessoas na fila à frente dele:
+      caixa I: 12 · 5 = 60 min; caixa II: 6 · 9 = 54 min; caixa III: 5 · 6 = 30 min; caixa IV: 15 · 2 = 30 min; caixa V: 9 · 3 = 27 min.
+      A menor espera é a do caixa V, 27 minutos. Alternativa E.
+    enganos:
+      A: "O caixa I dá a maior espera (60 min). Ele não resulta de um caminho razoável para quem quer esperar menos."
+      B: "O caixa II dá 54 min de espera. Não basta olhar o tempo de atendimento: com 9 pessoas na fila a espera fica longa."
+      C: "O caixa III tem o atendimento mais rápido (5 min), mas a espera é 30 min. Ele também aparece se o cliente somar uma pessoa a mais em cada fila. Mas cada caixa começa agora a atender o primeiro da fila, então a espera é tempo vezes pessoas na fila."
+      D: "O caixa IV tem a fila mais curta (2 pessoas), mas cada atendimento leva 15 min: espera de 30 min, maior que os 27 do caixa V."
+    aulas: [matematica-fundamental/as-quatro-operacoes]
+
+  - id: enem-2023-154
+    area: matematica
+    competencia: 2
+    habilidade: 7
+    objeto: mat-geometria
+    topico: mat-geometria-circunferencia
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O quadro mostra a lua (um círculo) atrás do telhado triangular da torre mais alta. O enunciado diz que o centro da lua coincide com um vértice do telhado.
+      A parte escondida fica entre os dois lados do triângulo que saem desse vértice e o contorno da lua. Os dois lados são raios do círculo e o contorno é um arco.
+      A região limitada por dois raios e um arco é um setor circular (aqui, de 60°, o ângulo do triângulo equilátero). Alternativa B.
+    enganos:
+      A: "Cone é um sólido, com volume. A pintura é plana, então a resposta é uma figura plana."
+      C: "Segmento circular é limitado por uma corda e um arco. Aqui as bordas retas saem do centro da lua: são raios, o que define um setor."
+      D: "Triângulo isósceles teria três lados retos. A parte escondida tem um lado curvo, o contorno da lua."
+      E: "Arco de circunferência é só a linha do contorno, sem a região dentro. A pergunta é sobre a parte da lua escondida, que é uma região."
+    aulas: [matematica-medio/geometria-plana]
+
+  - id: enem-2023-155
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-areas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A figura mostra a piscina quadrada no meio e a calçada de 5 m em volta, nos quatro lados.
+      1. Lado da piscina: √400 = 20 m.
+      2. Lado do quadrado externo (piscina + calçada): 20 + 5 + 5 = 30 m. Área: 30² = 900 m².
+      3. Calçada = área externa − área da piscina = 900 − 400 = 500 m². Alternativa D.
+    enganos:
+      A: "1 000 m² não sai de uma conta coerente. Desenhe o quadrado de 30 m e tire dele o quadrado de 20 m."
+      B: "900 m² é a área do quadrado externo inteiro, que inclui a piscina. Falta subtrair os 400 m² da piscina."
+      C: "600 m² vem de 4 faixas de 30 m × 5 m: os quatro cantos foram contados duas vezes. Tire os 4 cantos de 25 m², ou use 900 − 400."
+      E: "400 m² é a área da piscina. Também sai de 4 faixas de 20 m × 5 m, esquecendo os quatro cantos de 5 m × 5 m."
+    aulas: [matematica-fundamental/perimetro-e-area]
+
+  - id: enem-2023-156
+    area: matematica
+    competencia: 5
+    habilidade: 20
+    objeto: mat-algebra
+    topico: mat-algebra-funcoes-e-graficos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O gráfico mostra a intensidade do sinal ao longo dos 30 minutos. Sem sinal é quando a linha encosta no eixo do tempo (intensidade zero).
+      Isso acontece em dois trechos: de 10 a 12 minutos (2 minutos) e de 16 a 20 minutos (4 minutos).
+      Total sem sinal: 2 + 4 = 6 minutos. Alternativa A.
+    enganos:
+      B: "8 minutos aparecem ao somar um trecho em que o sinal está caindo, mas ainda não é zero (por exemplo, de 14 a 16). Só conta onde a linha está no zero."
+      C: "10 minutos é o intervalo de 10 a 20 inteiro. No meio dele, entre 12 e 16, o sinal volta e chega ao pico em 14."
+      D: "14 é o instante do pico de sinal no meio da caminhada, e não uma duração sem sinal."
+      E: "24 minutos é 30 − 6, o tempo com algum sinal. A pergunta pede o tempo sem sinal."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-medio/funcoes-a-ideia]
+
+  - id: enem-2023-157
+    area: matematica
+    competencia: 6
+    habilidade: 25
+    objeto: mat-estatistica
+    topico: mat-estatistica-graficos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      O gráfico de pontos traz dez estudantes, com massa no eixo horizontal e altura no vertical. As médias informadas são 80 kg e 1,65 m.
+      Massa abaixo de 80 kg: os cinco pontos em 50, 55, 60, 65 e cerca de 68 kg.
+      Desses, quais têm altura acima de 1,65 m? O de 50 kg tem 1,60 m; os de 55 e 60 kg estão exatamente em 1,65 m, que não é acima; o de 65 kg está perto de 1,68 m e o de 68 kg em 1,70 m.
+      São 2 estudantes em 10: 20%. Alternativa B.
+    enganos:
+      A: "10% seria um estudante só. Os pontos de 65 kg (cerca de 1,68 m) e de 68 kg (1,70 m) cumprem as duas condições."
+      C: "30% não sai de uma leitura coerente do gráfico. Faça as duas condições juntas: massa abaixo de 80 e altura acima de 1,65."
+      D: "50% é a parte com massa abaixo da média (5 de 10). Falta a segunda condição, altura acima de 1,65 m."
+      E: "70% conta quem tem altura de 1,65 m ou mais (7 de 10), sem olhar a massa. E altura igual à média não é acima dela."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, estatistica-para-ler-o-brasil/como-ler-um-grafico-sem-ser-enganado]
+
+  - id: enem-2023-158
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-contas-do-dia-a-dia
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Pesca por número de ajudantes: 1 → 300 kg; 2 → 400 kg; 3 → 500 kg; 4 → 600 kg (cada ajudante a partir do segundo soma 100 kg).
+      Lucro = receita − 900 − 250 por ajudante − 4% da receita. Como 4% vai para os ajudantes, sobra 96% da receita: 0,96 · 5 · kg = 4,8 · kg.
+      1 ajudante: 4,8 · 300 − 900 − 250 = 1 440 − 1 150 = 290.
+      2 ajudantes: 4,8 · 400 − 900 − 500 = 1 920 − 1 400 = 520.
+      3 ajudantes: 4,8 · 500 − 900 − 750 = 2 400 − 1 650 = 750.
+      4 ajudantes: 4,8 · 600 − 900 − 1 000 = 2 880 − 1 900 = 980.
+      O primeiro lucro de pelo menos R$ 800,00 vem com 4 ajudantes. Alternativa D.
+    enganos:
+      A: "1 ajudante só bate a meta se o lucro for confundido com a receita (300 · 5 = 1 500). Do valor das vendas ainda saem o custo fixo, a diária e os 4%."
+      B: "2 ajudantes aparecem quando se esquece a diária de R$ 250,00: 1 920 − 900 = 1 020. A diária de cada ajudante também é custo."
+      C: "3 ajudantes aparecem quando se esquecem os 4% da receita: 2 500 − 900 − 750 = 850. Com os 4%, o lucro cai para 750, abaixo da meta."
+      E: "5 ajudantes também dão lucro acima de 800, mas a pergunta pede a quantidade mínima, e 4 já bastam."
+    aulas: [matematica-fundamental/porcentagem]
+
+  - id: enem-2023-159
+    area: matematica
+    competencia: 5
+    habilidade: 21
+    objeto: mat-algebra
+    topico: mat-algebra-funcao-exponencial
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      1. Todo o produto (5 L) vai de uma vez, e 1 L serve para 200 000 larvas. Então a população deve ser 5 · 200 000 = 1 000 000 = 10⁶ larvas.
+      2. A população começa com 100 = 10² e é multiplicada por 10 a cada 3 dias.
+      3. De 10² até 10⁶ são 4 multiplicações por 10 (10³, 10⁴, 10⁵, 10⁶).
+      4. Cada multiplicação leva 3 dias: 4 · 3 = 12 dias. Alternativa D.
+    enganos:
+      A: "2 dias não sai de um caminho razoável: em 2 dias a população ainda não completou nem uma multiplicação por 10."
+      B: "4 é o número de multiplicações por 10. Cada uma leva 3 dias, então são 12 dias."
+      C: "6 dias dão só 2 multiplicações: 100 → 10 000 larvas. É pouco para os 5 litros, que servem para 1 000 000 de larvas."
+      E: "18 dias vêm de contar as multiplicações a partir de 1 larva (6 · 3). O método começa com 100 larvas, então faltam só 4 multiplicações."
+    aulas: [matematica-medio/exponencial-e-logaritmo]
+
+  - id: enem-2023-160
+    area: matematica
+    competencia: 1
+    habilidade: 2
+    objeto: mat-numeros
+    topico: mat-numeros-arranjos-e-combinacoes
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A imagem só nomeia as probabilidades p1, p2 e p3. A chance de acertar na primeira tentativa é 1 dividido pelo número de senhas possíveis; quanto mais senhas, menor a chance.
+      Caracteres: 10 + 26 + 26 + 6 = 68. Letras: 52.
+      Tipo I (4 distintos entre 68): 68 · 67 · 66 · 65 = 19 545 240.
+      Tipo II (3 letras distintas, 1 algarismo, 1 especial): 52 · 51 · 50 · 10 · 6 = 7 956 000.
+      Tipo III (2 letras, 2 algarismos, 2 especiais, todos distintos): 52 · 51 · 10 · 9 · 6 · 5 = 7 161 200.
+      O tipo I tem mais senhas, depois o II, depois o III. Então p1 < p2 < p3, e o tipo I é o mais difícil de descobrir. Alternativa A.
+    enganos:
+      B: "O tipo I tem menos caracteres, mas isso não explica a resposta. Ele vence porque cada posição pode receber qualquer um dos 68 caracteres."
+      C: "Ter mais letras não garante mais senhas. O tipo II prende posições a grupos pequenos (10 algarismos, 6 especiais) e fica com menos senhas que o tipo I."
+      D: "A ordem p3 < p2 < p1 é a inversa. Mais senhas possíveis dão menor probabilidade, e o tipo I tem mais senhas que os outros."
+      E: "Mais caracteres não bastam: no tipo III cada posição só aceita um grupo pequeno. Fazendo as contas, ele tem menos senhas que o tipo I."
+    aulas: [matematica-medio/analise-combinatoria, matematica-medio/probabilidade]
+
+  - id: enem-2023-161
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-juros-compostos
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O enunciado pede 5,29 para a raiz quadrada de 28 (o sinal de raiz se perdeu na importação).
+      1. Preço financiado: 1 500 · 1,2 = 1 800, em 3 parcelas de 600. A primeira é paga na hora.
+      2. O valor de fato financiado é 1 500 − 600 = 900, pago com 600 em 30 dias e 600 em 60 dias.
+      3. Com u = 1 + taxa, levando tudo para 60 dias: 900 · u² = 600 · u + 600. Dividindo por 300: 3u² − 2u − 2 = 0.
+      4. u = (2 + √(4 + 24)) / 6 = (2 + √28) / 6 ≈ (2 + 5,29) / 6 = 7,29 / 6 = 1,215.
+      5. Taxa ≈ 0,215 = 21,5% ao mês. Alternativa D.
+    enganos:
+      A: "6,7% vem de dividir os 20% de acréscimo por 3 parcelas. A taxa mensal depende de quanto se deve em cada mês, não do acréscimo repartido."
+      B: "10% vem de dividir os 20% por 2 meses. Mas a primeira parcela é paga na hora: o que se financia é 900, não 1 500."
+      C: "20% é o acréscimo total sobre o preço à vista, não a taxa mensal. Como a entrada é paga no ato, a taxa real por mês fica maior."
+      E: "23,3% não sai do caminho certo. Aparece, por exemplo, se a raiz de 28 for estimada como 5,4: (2 + 5,4) / 6 ≈ 1,233. Use 5,29."
+    aulas: [matematica-medio/juros-simples-e-compostos, matematica-medio/funcao-do-2-grau]
+
+  - id: enem-2023-162
+    area: matematica
+    competencia: 5
+    habilidade: 19
+    objeto: mat-algebra
+    topico: mat-algebra-funcao-afim
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O preço tem uma parte fixa e uma parte que cresce com o volume.
+      Parte fixa: a taxa de bombeamento, R$ 500,00, paga uma vez, seja qual for o volume.
+      Parte variável: R$ 250,00 por metro cúbico, ou seja, 250 · x.
+      Somando: y = 250x + 500. É uma função afim: 250 é a taxa de variação e 500 é o valor inicial. Alternativa D.
+    enganos:
+      A: "y = 250x esquece a taxa de bombeamento de R$ 500,00, que é cobrada sempre."
+      B: "y = 500x trata a taxa fixa como preço por metro cúbico. O que multiplica x é o preço do metro cúbico, 250."
+      C: "y = 750x soma as duas partes e multiplica tudo pelo volume. A parte fixa não depende de x."
+      E: "y = 500x + 250 troca os papéis: o 250 é que multiplica o volume, e o 500 fica fixo."
+    aulas: [matematica-medio/funcao-do-1-grau]
+
+  - id: enem-2023-163
+    area: matematica
+    competencia: 2
+    habilidade: 6
+    objeto: mat-geometria
+    topico: mat-geometria-circunferencia
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O gráfico mostra a distância do vigilante à base: sobe em linha reta de 0 a 3 km entre 0 e 10 min, fica em 3 km de 10 a 20 min e volta a 0 entre 20 e 30 min.
+      1. Primeiro trecho: a distância cresce em ritmo constante, então ele se afasta da base em linha reta (um raio de 3 km).
+      2. Segundo trecho: a distância fica em 3 km. Ele anda sobre um arco de circunferência com centro na base.
+      3. Terceiro trecho: volta à base em linha reta.
+      Como a velocidade é constante e cada trecho dura 10 min, os três trechos têm o mesmo comprimento, 3 km. A figura com dois raios e um arco entre eles é o setor circular da alternativa A.
+    enganos:
+      B: "No triângulo, o lado de cima é reto. Andando nele, a distância até a base primeiro diminui e depois aumenta. O gráfico pede distância constante: um arco."
+      C: "O caminho de dois lados começa e termina em pontos diferentes, mas o gráfico mostra distância zero no início e no fim: ele sai da base e volta a ela. Também falta o trecho de distância constante."
+      D: "O trapézio copia o formato do gráfico. Mas o gráfico é distância × tempo, não o desenho do caminho. Distância constante vira arco, não reta."
+      E: "No semicírculo, o arco mede π · 3 ≈ 9,4 km e levaria cerca de 31 min na mesma velocidade, não 10 min. O arco precisa ter 3 km, como em A."
+    aulas: [matematica-medio/geometria-plana, matematica-medio/funcoes-a-ideia]
+
+  - id: enem-2023-164
+    area: matematica
+    competencia: 6
+    habilidade: 24
+    objeto: mat-estatistica
+    topico: mat-estatistica-graficos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O gráfico de barras mostra a porcentagem vacinada em cada categoria. Trabalhadores da saúde estão em 100%; crianças de 6 meses a 2 anos, perto de 87%; indígenas, perto de 65%; doentes crônicos, perto de 56%; gestantes, perto de 54%; adultos de 20 a 29 anos, perto de 41%.
+      Fica mais exposta ao vírus a categoria com a menor parte imunizada.
+      A menor barra é a dos adultos entre 20 e 29 anos. Alternativa D.
+    enganos:
+      A: "Indígenas têm cerca de 65% imunizados, mais que gestantes, doentes crônicos e adultos de 20 a 29 anos."
+      B: "Gestantes têm cerca de 54%, mais que os adultos de 20 a 29 anos. Procure a menor barra."
+      C: "Doentes crônicos têm cerca de 56%. Não é a menor barra do gráfico."
+      E: "Crianças de 6 meses a 2 anos têm a maior barra depois dos trabalhadores da saúde: são as mais protegidas. A pergunta é sobre a mais exposta, a menor barra."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-por-area/matematica-ler-graficos-e-tabelas]
+
+  - id: enem-2023-165
+    area: matematica
+    competencia: 2
+    habilidade: 8
+    objeto: mat-geometria
+    topico: mat-geometria-areas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      A figura dá: largura da escada 1,0 m; cada piso tem 0,25 m de profundidade; cada espelho tem 0,20 m de altura; são 3 degraus.
+      1. Pisos: 3 · 0,25 · 1,0 = 0,75 m².
+      2. Espelhos: 3 · 0,20 · 1,0 = 0,60 m².
+      3. Cada parede lateral tem forma de escada, vista como três colunas de 0,25 m de largura com alturas 0,60, 0,40 e 0,20 m: 0,25 · (0,60 + 0,40 + 0,20) = 0,30 m². São duas paredes laterais: 0,60 m².
+      Total: 0,75 + 0,60 + 0,60 = 1,95 m². Alternativa E.
+    enganos:
+      A: "1,20 m² soma espelhos (0,60) e as duas laterais (0,60), mas esquece os pisos (0,75)."
+      B: "1,35 m² soma só pisos e espelhos. Faltam as duas paredes laterais, 0,30 m² cada."
+      C: "1,65 m² conta só uma parede lateral. A escada tem duas, uma de cada lado."
+      D: "1,80 m² vem de tratar uma parede lateral como um retângulo cheio de 0,75 × 0,60 = 0,45 m². A parede tem degraus: sua área é 0,30 m², e são duas."
+    aulas: [matematica-fundamental/perimetro-e-area]
+
+  - id: enem-2023-166
+    area: matematica
+    competencia: 6
+    habilidade: 25
+    objeto: mat-estatistica
+    topico: mat-estatistica-tabelas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      Os dois quadros dão as horas de cada atividade por dia e o gasto por hora: caminhar 248, correr 764, bicicleta 356, futebol 492 cal/h.
+      Gasto de cada dia = soma de (horas · gasto por hora):
+      segunda: 1,0·248 + 0,5·764 + 0 + 2,0·492 = 248 + 382 + 984 = 1 614;
+      terça: 0,5·248 + 1,0·764 + 0,5·356 + 1,0·492 = 124 + 764 + 178 + 492 = 1 558;
+      quarta: 0 + 1,5·764 + 1,0·356 + 0,5·492 = 1 146 + 356 + 246 = 1 748;
+      quinta: 2,0·764 = 1 528;
+      sexta: 0,5·764 + 2,5·492 = 382 + 1 230 = 1 612.
+      O maior gasto é o de quarta-feira, 1 748 cal. Alternativa C.
+    enganos:
+      A: "Segunda é o dia com mais horas de atividade (3,5 h), mas parte delas é caminhada, que gasta pouco. Some horas vezes gasto por hora."
+      B: "Terça é o único dia com as quatro atividades. Variedade não é gasto: terça dá 1 558 cal, menos que quarta."
+      D: "Quinta tem mais horas de corrida (2 h), a atividade que mais gasta, mas só isso: 1 528 cal, o menor total."
+      E: "Sexta tem mais horas de futebol (2,5 h) e chega a 1 612 cal, perto do maior valor, mas abaixo dos 1 748 de quarta."
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas]
+
+  - id: enem-2023-167
+    area: matematica
+    competencia: 4
+    habilidade: 16
+    objeto: mat-numeros
+    topico: mat-numeros-porcentagem
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      1. Proporção: 6 000 folhas ÷ 1 200 alunos = 5 folhas por aluno.
+      2. Neste bimestre: 1 150 · 5 = 5 750 folhas.
+      3. As folhas vêm em embalagens de 100: 57,5 embalagens não existem, então são 58 embalagens.
+      4. Preço: 58 · 4 = 232 reais. Ela pode gastar 220: o desconto precisa ser de 12 reais.
+      5. Em porcentagem: 12 ÷ 232 ≈ 0,0517 = 5,17%, que está entre 5,0 e 5,5. Alternativa A.
+    enganos:
+      B: "8,33% vem de comprar as mesmas 6 000 folhas do bimestre passado: 60 embalagens, 240 reais, desconto de 20 ÷ 240. A escola agora tem 1 150 alunos."
+      C: "Este intervalo aparece ao ler os 12 reais de desconto como 12%. Desconto em porcentagem é 12 ÷ 232."
+      D: "Este intervalo aparece ao usar 6 000 folhas (desconto de 20 reais) e ler esses 20 reais como 20%. Corrija a quantidade e divida pelo preço."
+      E: "3,5% a 4,0% não sai de um caminho coerente com os dados. Mesmo pagando meia embalagem (230 reais), o desconto daria 10 ÷ 230 ≈ 4,35%."
+    aulas: [matematica-fundamental/regra-de-tres, matematica-fundamental/porcentagem]
+
+  - id: enem-2023-168
+    area: matematica
+    competencia: 7
+    habilidade: 28
+    objeto: mat-estatistica
+    topico: mat-estatistica-probabilidade-condicional
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      As alternativas vêm em imagem com pares de frações. A certa é 1/50 e 1/60.
+      Primeiro sai o algarismo das unidades, entre 10 bolas: chance 1/10.
+      Número 50: unidade 0. As dezenas que formam número de 01 a 55 com final 0 são 1, 2, 3, 4 e 5 (00 não vale). São 5 bolas: chance 1/5. P(50) = 1/10 · 1/5 = 1/50.
+      Número 02: unidade 2. As dezenas possíveis são 0, 1, 2, 3, 4 e 5 (02, 12, 22, 32, 42, 52). São 6 bolas: chance 1/6. P(02) = 1/10 · 1/6 = 1/60.
+      Alternativa A.
+    enganos:
+      B: "1/50 e 1/50 supõe que a segunda urna tem sempre 5 bolas. Com unidade 2, a dezena 0 também vale (02), então são 6 bolas."
+      C: "1/10 para o 02 conta só o sorteio das unidades. Depois ainda é preciso sortear a dezena, entre 6 bolas."
+      D: "1/55 e 1/54 tratam o sorteio como se fosse direto entre os 55 números. Aqui ele é feito em duas etapas, e o número de bolas da segunda urna muda."
+      E: "1/100 e 1/100 supõem duas urnas sempre com 10 bolas. Na segunda urna só ficam as dezenas que formam número de 01 a 55."
+    aulas: [matematica-medio/probabilidade]
+
+  - id: enem-2023-169
+    area: matematica
+    competencia: 1
+    habilidade: 2
+    objeto: mat-numeros
+    topico: mat-numeros-progressoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O esquema mostra a intensidade L₀ na superfície, 2/3 L₀ a 1 m, 4/9 L₀ a 2 m e 8/27 L₀ a 3 m.
+      A cada metro a intensidade é multiplicada por 2/3: é uma progressão geométrica de razão 2/3.
+      Na profundidade n, a intensidade é (2/3)ⁿ · L₀. Para 6 m: (2/3)⁶ = 2⁶/3⁶ = 64/729.
+      Intensidade a 6 m: 64/729 L₀. Alternativa D (as alternativas são frações de L₀ em imagem).
+    enganos:
+      A: "1/9 L₀ não sai de um caminho razoável com o padrão. Cada metro multiplica por 2/3: numerador potência de 2, denominador potência de 3."
+      B: "16/27 L₀ avança o numerador para 2⁴ e deixa o denominador em 3³. Numerador e denominador sobem juntos: (2/3)ⁿ."
+      C: "32/243 L₀ é (2/3)⁵, a intensidade a 5 m. Para 6 m falta multiplicar mais uma vez por 2/3."
+      E: "128/2187 L₀ é (2/3)⁷, a intensidade a 7 m: um passo a mais. A superfície é a profundidade 0."
+    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas]
+
+  - id: enem-2023-170
+    area: matematica
+    competencia: 5
+    habilidade: 21
+    objeto: mat-algebra
+    topico: mat-algebra-funcao-quadratica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      As imagens dão V(x) = x²/4 − 10x + 105 e as faixas: ótimo V₀ ≥ 24; bom 20 ≤ V₀ < 24; normal 10 ≤ V₀ < 20; ruim 4 ≤ V₀ < 10; péssimo V₀ < 4.
+      O coeficiente de x² é positivo (1/4), então a parábola tem ponto de mínimo, no vértice.
+      x do vértice = −b / (2a) = 10 / (2 · 1/4) = 10 / 0,5 = 20. O dia 20 está entre 1 e 30.
+      V(20) = 400/4 − 200 + 105 = 100 − 200 + 105 = 5.
+      O menor montante é 5 mil reais: 4 ≤ 5 < 10, desempenho ruim. Alternativa D.
+    enganos:
+      A: "Ótimo aparece ao calcular o montante do primeiro dia: V(1) = 0,25 − 10 + 105 = 95,25. A pergunta pede o menor montante do mês, que fica no vértice."
+      B: "Bom não sai de uma conta coerente com a função. Ache o vértice: x = 20 e V(20) = 5."
+      C: "Normal não sai de uma conta coerente com a função. Confira o cálculo de V(20): 100 − 200 + 105 = 5."
+      E: "Péssimo aparece com erro de sinal: −Δ/(4a) com Δ = 100 − 105 = −5 dá +5, e não −5. O mínimo é 5, faixa ruim."
+    aulas: [matematica-medio/funcao-do-2-grau]
+
+  - id: enem-2023-171
+    area: matematica
+    competencia: 1
+    habilidade: 3
+    objeto: mat-numeros
+    topico: mat-numeros-operacoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      1. Tempo de governo: 20 ciclos de 52 anos Haab = 1 040 anos Haab.
+      2. Em dias: 1 040 · 365 = 379 600 dias.
+      3. Em anos Tzolkim, de 260 dias: 379 600 ÷ 260 = 1 460.
+      Atalho: 52 · 365 = 18 980 = 73 · 260, então cada ciclo tem 73 anos Tzolkim, e 20 · 73 = 1 460. Alternativa C.
+    enganos:
+      A: "741 vem de 1 040 · 260 ÷ 365 ≈ 740,8: a razão foi invertida. O ano Tzolkim é mais curto, então cabem mais anos Tzolkim, não menos."
+      B: "1 040 é o tempo em anos Haab. Falta converter para anos Tzolkim, que têm 260 dias."
+      D: "2 100 não sai de uma conversão coerente. Passe tudo para dias e divida por 260."
+      E: "5 200 vem de 20 · 260, multiplicando os ciclos pelos dias do ano Tzolkim. Os 52 anos Haab de cada ciclo ficaram de fora."
+    aulas: [matematica-fundamental/as-quatro-operacoes, matematica-fundamental/razao-e-proporcao]
+
+  - id: enem-2023-172
+    area: matematica
+    competencia: 2
+    habilidade: 9
+    objeto: mat-geometria
+    topico: mat-geometria-pitagoras
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      Na segunda figura, as meias pizzas formam um triângulo com os três diâmetros. O ângulo α fica entre os diâmetros das pizzas dos amigos, de frente para o diâmetro da pizza do professor.
+      A área de um círculo é proporcional ao quadrado do diâmetro. Então a pizza do professor é maior que as outras duas juntas quando a² > b² + c².
+      Pela lei dos cossenos, a² = b² + c² − 2bc · cos α. Logo a² > b² + c² quando cos α < 0, ou seja, quando α é obtuso: 90° < α < 180°. Alternativa C.
+    enganos:
+      A: "Com α agudo, cos α > 0 e a² < b² + c²: a pizza do professor seria menor que a soma das outras."
+      B: "Com α = 90°, vale Pitágoras: a² = b² + c². As áreas seriam iguais, não maior."
+      D: "180° não forma triângulo: os três lados ficariam alinhados."
+      E: "Ângulo interno de triângulo é sempre menor que 180°. Esta faixa não pode acontecer."
+    aulas: [matematica-medio/geometria-plana, matematica-medio/trigonometria-no-triangulo-retangulo]
+
+  - id: enem-2023-173
+    area: matematica
+    competencia: 3
+    habilidade: 10
+    objeto: mat-geometria
+    topico: mat-geometria-unidades-de-medida
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      As alternativas são frações de unidades em imagem.
+      O EC é a razão entre o consumo de oxigênio, em mL por minuto, e a massa, em kg.
+      Unidade: (mL/min) ÷ kg. Dividir por kg é o mesmo que multiplicar o denominador por kg: mL / (min · kg).
+      Essa é a fração com mL em cima e min · kg embaixo. Alternativa B.
+    enganos:
+      A: "min / (mL · kg) inverte o consumo: o oxigênio (mL) deve ficar no numerador."
+      C: "(min · mL) / kg multiplica pelo minuto em vez de dividir. O consumo é mL por minuto, então min vai para baixo."
+      D: "(min · kg) / mL é a razão inteira invertida. O EC é consumo dividido pela massa."
+      E: "(mL · kg) / min multiplica pela massa em vez de dividir. A massa fica no denominador."
+    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade]
+
+  - id: enem-2023-175
+    area: matematica
+    competencia: 5
+    habilidade: 21
+    objeto: mat-algebra-geometria
+    topico: mat-algebra-geometria-sistemas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Sejam a o preço de um tíquete azul e v o de um vermelho. Cada cartela tem 9 tíquetes.
+      1. Duas cartelas azuis e uma vermelha: 18a + 9v = 32,40.
+      2. a − v = v + 0,05, então a = 2v + 0,05.
+      3. Substituindo: 18(2v + 0,05) + 9v = 32,40 → 36v + 0,90 + 9v = 32,40 → 45v = 31,50 → v = 0,70.
+      4. Cartela vermelha: 9 · 0,70 = 6,30 reais.
+      Conferência: a = 1,45; 18 · 1,45 + 6,30 = 26,10 + 6,30 = 32,40. Alternativa B.
+    enganos:
+      A: "4,68 não sai de uma montagem coerente do sistema. Escreva as duas equações e confira o total de 32,40 no fim."
+      C: "9,30 não sai de uma montagem coerente do sistema. Lembre que são 9 tíquetes por cartela, nas duas cores."
+      D: "10,50 aparece ao ler a segunda informação como a − v = 0,05, esquecendo o v do outro lado. A frase diz a − v = v + 0,05."
+      E: "10,65 não sai de uma montagem coerente do sistema. Resolva por substituição e confira com 18a + 9v = 32,40."
+    aulas: [matematica-medio/matrizes-e-sistemas-lineares, matematica-fundamental/equacoes-do-1-grau]
+
+  - id: enem-2023-176
+    area: matematica
+    competencia: 1
+    habilidade: 2
+    objeto: mat-numeros
+    topico: mat-numeros-progressoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      A figura mostra os seis primeiros números pentagonais: 1, 5, 12, 22, 35 e 51.
+      Diferenças entre termos seguidos: 4, 7, 10, 13, 16. As diferenças crescem de 3 em 3.
+      Próximas diferenças: 19 e 22.
+      Sétimo: 51 + 19 = 70. Oitavo: 70 + 22 = 92.
+      Conferência pela fórmula n(3n − 1)/2: 8 · 23 / 2 = 92. Alternativa E.
+    enganos:
+      A: "59 não sai do padrão. Note que as diferenças entre os termos crescem de 3 em 3."
+      B: "83 vem de repetir a última diferença (16) duas vezes: 51 + 16 + 16. As diferenças aumentam 3 a cada passo."
+      C: "86 vem de 51 + 16 + 19: repetiu a diferença 16 antes de crescer. A próxima diferença já é 19."
+      D: "89 vem de 70 + 19: achou o sétimo certo, mas repetiu a diferença 19. Do sétimo para o oitavo a diferença é 22."
+    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas]
+
+  - id: enem-2023-177
+    area: matematica
+    competencia: 5
+    habilidade: 20
+    objeto: mat-algebra
+    topico: mat-algebra-funcoes-trigonometricas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A figura mostra a pessoa P no topo da roda, que gira em velocidade constante.
+      A altura da cadeira é a altura do centro mais o raio vezes o cosseno do ângulo girado. Por isso o gráfico é uma curva periódica, do tipo cosseno.
+      Ela começa no ponto mais alto, desce de forma suave até o ponto mais baixo (que fica acima do solo) e volta a subir. Perto do topo e do fundo a altura muda devagar, então a curva é arredondada nos máximos e nos mínimos.
+      A alternativa A mostra esse formato. Alternativa A.
+    enganos:
+      B: "A linha em zigue-zague diz que a altura muda sempre no mesmo ritmo. Numa roda girando, a altura muda devagar no topo e no fundo."
+      C: "Os trechos retos e parados sugerem que a cadeira para em cima e embaixo. A roda gira sem parar, com velocidade constante."
+      D: "As pontas no ponto mais baixo indicariam uma virada brusca. No fundo da roda o movimento é suave, como no topo."
+      E: "A ponta no ponto mais alto indicaria uma virada brusca no topo. A curva deve ser arredondada lá também."
+    aulas: [matematica-medio/funcoes-a-ideia]
+
+  - id: enem-2023-178
+    area: matematica
+    competencia: 5
+    habilidade: 20
+    objeto: mat-algebra
+    topico: mat-algebra-funcoes-e-graficos
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      As alternativas são gráficos de volume (L) por tempo (s), de 0 a 11 s.
+      De 0 a 3 s a água sai com vazão constante: o volume acumulado cresce em linha reta.
+      De 3 a 8 s a torneira fecha: nada sai, mas o volume já liberado continua lá. O gráfico fica na horizontal, na mesma altura.
+      De 8 a 11 s a água volta com a mesma vazão: o volume cresce de novo, com a mesma inclinação do começo.
+      O gráfico com subida, patamar e nova subida igual é o da alternativa B.
+    enganos:
+      A: "Aqui o volume cai a zero durante a pausa. Volume acumulado não diminui: a água que já saiu continua contada."
+      C: "Este gráfico mostra a vazão (liga e desliga), não o volume acumulado. O volume cresce enquanto a torneira está aberta."
+      D: "A reta contínua supõe água saindo os 11 segundos. De 3 a 8 s a torneira fica fechada."
+      E: "O volume cai a zero na pausa e a segunda subida é mais inclinada. Mas o volume acumulado não diminui, e a vazão é a mesma."
+    aulas: [matematica-medio/funcoes-a-ideia, matematica-medio/funcao-do-1-grau]
+
+  - id: enem-2023-179
+    area: matematica
+    competencia: 1
+    habilidade: 1
+    objeto: mat-numeros
+    topico: mat-numeros-operacoes
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O quadrinho mostra: 1 = urapum; 2 = okosa; 3 = okosa urapum; 4 = okosa okosa; 6 = okosa okosa okosa.
+      O padrão é contar de dois em dois (okosa) e, se sobrar um, terminar com urapum.
+      5 = 2 + 2 + 1 = okosa okosa urapum.
+      7 = 2 + 2 + 2 + 1 = okosa okosa okosa urapum.
+      Alternativa C.
+    enganos:
+      A: "As somas dão 5 e 7, mas não seguem o padrão: no quadrinho nunca aparece mais de um urapum, porque dois urapum viram um okosa."
+      B: "O cinco está certo, mas o sete virou 2 + 2 + 2 + 2 + 1 = 9. Conte de novo os okosa."
+      D: "O cinco ficou 2 + 1 + 1 = 4, e o sete mistura a ordem das palavras. No padrão, os okosa vêm primeiro e há no máximo um urapum."
+      E: "O cinco está certo, mas o sete virou 2 + 2 + 2 + 2 = 8. Sete é ímpar, então termina com urapum."
+    aulas: [matematica-fundamental/as-quatro-operacoes]
+
+  - id: enem-2023-180
+    area: matematica
+    competencia: 7
+    habilidade: 27
+    objeto: mat-estatistica
+    topico: mat-estatistica-media-mediana-moda
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      A semente precisa de muita água nos dois primeiros meses depois do plantio. Então comparamos a média de cada par de meses seguidos:
+      outubro e novembro: (250 + 150) ÷ 2 = 200 mm;
+      novembro e dezembro: (150 + 200) ÷ 2 = 175 mm;
+      dezembro e janeiro: (200 + 450) ÷ 2 = 325 mm;
+      janeiro e fevereiro: (450 + 100) ÷ 2 = 275 mm;
+      fevereiro e março: (100 + 200) ÷ 2 = 150 mm.
+      A maior média é a de dezembro e janeiro. O plantio é no início de dezembro. Alternativa C.
+    enganos:
+      A: "Outubro e novembro têm média de 200 mm, menor que os 325 mm de dezembro e janeiro."
+      B: "Plantando em novembro, os dois primeiros meses são novembro e dezembro, com média de 175 mm. Os meses contam a partir do plantio."
+      D: "Janeiro tem a maior chuva de um mês só (450 mm), mas é seguido por fevereiro, o mais seco: média de 275 mm. A pergunta pede a melhor média de dois meses."
+      E: "Fevereiro e março têm a menor média, 150 mm."
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda]

@@ -1,0 +1,959 @@
+# GERADO por `npm run incidencia:enem` a partir de content/enem/questoes-oficiais. NÃO edite à mão.
+# Método: docs/ENEM.md, seção "Incidência".
+gerado: npm run incidencia:enem
+metodo: >-
+  Contagem das questões classificadas em content/enem/questoes-oficiais (área auditada pela numeração do caderno, habilidade e objeto de
+  conhecimento), nas últimas 10 edições que têm classificação. A parte é a porcentagem sobre as questões classificadas daquela área.
+  Enquanto houver poucas edições classificadas, a contagem é parcial: veja base.anos e base.classificadas.
+base:
+  anos:
+    - 2022
+    - 2023
+  classificadas: 347
+  porArea:
+    linguagens: 88
+    humanas: 89
+    natureza: 89
+    matematica: 81
+objetos:
+  linguagens:
+    - id: lin-literatura
+      questoes: 19
+      parte: 21.6
+    - id: lin-texto
+      questoes: 12
+      parte: 13.6
+    - id: lin-lem
+      questoes: 10
+      parte: 11.4
+    - id: lin-artes
+      questoes: 9
+      parte: 10.2
+    - id: lin-lingua-portuguesa
+      questoes: 9
+      parte: 10.2
+    - id: lin-praticas-corporais
+      questoes: 9
+      parte: 10.2
+    - id: lin-generos-digitais
+      questoes: 8
+      parte: 9.1
+    - id: lin-argumentacao
+      questoes: 6
+      parte: 6.8
+    - id: lin-recursos-expressivos
+      questoes: 6
+      parte: 6.8
+  humanas:
+    - id: hum-organizacao-social
+      questoes: 45
+      parte: 50.6
+    - id: hum-ambiente
+      questoes: 15
+      parte: 16.9
+    - id: hum-cultura
+      questoes: 15
+      parte: 16.9
+    - id: hum-producao
+      questoes: 13
+      parte: 14.6
+    - id: hum-cartografia
+      questoes: 1
+      parte: 1.1
+  natureza:
+    - id: nat-bio-celulas
+      questoes: 10
+      parte: 11.2
+    - id: nat-bio-seres-vivos
+      questoes: 9
+      parte: 10.1
+    - id: nat-fis-ondas
+      questoes: 9
+      parte: 10.1
+    - id: nat-fis-movimento
+      questoes: 8
+      parte: 9
+    - id: nat-fis-eletricidade
+      questoes: 7
+      parte: 7.9
+    - id: nat-qui-agua
+      questoes: 6
+      parte: 6.7
+    - id: nat-bio-ecologia
+      questoes: 5
+      parte: 5.6
+    - id: nat-bio-saude
+      questoes: 4
+      parte: 4.5
+    - id: nat-qui-carbono
+      questoes: 4
+      parte: 4.5
+    - id: nat-qui-sociedade
+      questoes: 4
+      parte: 4.5
+    - id: nat-qui-energia
+      questoes: 3
+      parte: 3.4
+    - id: nat-qui-equilibrio
+      questoes: 3
+      parte: 3.4
+    - id: nat-qui-materiais
+      questoes: 3
+      parte: 3.4
+    - id: nat-bio-hereditariedade
+      questoes: 2
+      parte: 2.2
+    - id: nat-fis-calor
+      questoes: 2
+      parte: 2.2
+    - id: nat-fis-universo
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-energias
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-representacao
+      questoes: 2
+      parte: 2.2
+    - id: nat-bio-evolucao
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-energia
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-cinetica
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-transformacoes
+      questoes: 1
+      parte: 1.1
+  matematica:
+    - id: mat-geometria
+      questoes: 24
+      parte: 29.6
+    - id: mat-numeros
+      questoes: 24
+      parte: 29.6
+    - id: mat-estatistica
+      questoes: 18
+      parte: 22.2
+    - id: mat-algebra
+      questoes: 11
+      parte: 13.6
+    - id: mat-algebra-geometria
+      questoes: 4
+      parte: 4.9
+habilidades:
+  linguagens:
+    - habilidade: 16
+      questoes: 14
+      parte: 15.9
+    - habilidade: 18
+      questoes: 8
+      parte: 9.1
+    - habilidade: 5
+      questoes: 5
+      parte: 5.7
+    - habilidade: 11
+      questoes: 5
+      parte: 5.7
+    - habilidade: 22
+      questoes: 5
+      parte: 5.7
+    - habilidade: 28
+      questoes: 5
+      parte: 5.7
+    - habilidade: 12
+      questoes: 4
+      parte: 4.5
+    - habilidade: 15
+      questoes: 4
+      parte: 4.5
+    - habilidade: 23
+      questoes: 4
+      parte: 4.5
+    - habilidade: 8
+      questoes: 3
+      parte: 3.4
+    - habilidade: 9
+      questoes: 3
+      parte: 3.4
+    - habilidade: 14
+      questoes: 3
+      parte: 3.4
+    - habilidade: 20
+      questoes: 3
+      parte: 3.4
+    - habilidade: 26
+      questoes: 3
+      parte: 3.4
+    - habilidade: 3
+      questoes: 2
+      parte: 2.3
+    - habilidade: 7
+      questoes: 2
+      parte: 2.3
+    - habilidade: 13
+      questoes: 2
+      parte: 2.3
+    - habilidade: 19
+      questoes: 2
+      parte: 2.3
+    - habilidade: 21
+      questoes: 2
+      parte: 2.3
+    - habilidade: 24
+      questoes: 2
+      parte: 2.3
+    - habilidade: 25
+      questoes: 2
+      parte: 2.3
+    - habilidade: 30
+      questoes: 2
+      parte: 2.3
+    - habilidade: 10
+      questoes: 1
+      parte: 1.1
+    - habilidade: 17
+      questoes: 1
+      parte: 1.1
+    - habilidade: 27
+      questoes: 1
+      parte: 1.1
+  humanas:
+    - habilidade: 1
+      questoes: 7
+      parte: 7.9
+    - habilidade: 11
+      questoes: 7
+      parte: 7.9
+    - habilidade: 23
+      questoes: 5
+      parte: 5.6
+    - habilidade: 26
+      questoes: 5
+      parte: 5.6
+    - habilidade: 4
+      questoes: 4
+      parte: 4.5
+    - habilidade: 6
+      questoes: 4
+      parte: 4.5
+    - habilidade: 7
+      questoes: 4
+      parte: 4.5
+    - habilidade: 16
+      questoes: 4
+      parte: 4.5
+    - habilidade: 18
+      questoes: 4
+      parte: 4.5
+    - habilidade: 29
+      questoes: 4
+      parte: 4.5
+    - habilidade: 5
+      questoes: 3
+      parte: 3.4
+    - habilidade: 8
+      questoes: 3
+      parte: 3.4
+    - habilidade: 15
+      questoes: 3
+      parte: 3.4
+    - habilidade: 19
+      questoes: 3
+      parte: 3.4
+    - habilidade: 24
+      questoes: 3
+      parte: 3.4
+    - habilidade: 27
+      questoes: 3
+      parte: 3.4
+    - habilidade: 2
+      questoes: 2
+      parte: 2.2
+    - habilidade: 3
+      questoes: 2
+      parte: 2.2
+    - habilidade: 9
+      questoes: 2
+      parte: 2.2
+    - habilidade: 10
+      questoes: 2
+      parte: 2.2
+    - habilidade: 12
+      questoes: 2
+      parte: 2.2
+    - habilidade: 13
+      questoes: 2
+      parte: 2.2
+    - habilidade: 14
+      questoes: 2
+      parte: 2.2
+    - habilidade: 20
+      questoes: 2
+      parte: 2.2
+    - habilidade: 30
+      questoes: 2
+      parte: 2.2
+    - habilidade: 17
+      questoes: 1
+      parte: 1.1
+    - habilidade: 21
+      questoes: 1
+      parte: 1.1
+    - habilidade: 22
+      questoes: 1
+      parte: 1.1
+    - habilidade: 25
+      questoes: 1
+      parte: 1.1
+    - habilidade: 28
+      questoes: 1
+      parte: 1.1
+  natureza:
+    - habilidade: 24
+      questoes: 11
+      parte: 12.4
+    - habilidade: 20
+      questoes: 10
+      parte: 11.2
+    - habilidade: 1
+      questoes: 7
+      parte: 7.9
+    - habilidade: 15
+      questoes: 7
+      parte: 7.9
+    - habilidade: 17
+      questoes: 6
+      parte: 6.7
+    - habilidade: 14
+      questoes: 5
+      parte: 5.6
+    - habilidade: 21
+      questoes: 5
+      parte: 5.6
+    - habilidade: 30
+      questoes: 5
+      parte: 5.6
+    - habilidade: 5
+      questoes: 4
+      parte: 4.5
+    - habilidade: 18
+      questoes: 4
+      parte: 4.5
+    - habilidade: 9
+      questoes: 2
+      parte: 2.2
+    - habilidade: 10
+      questoes: 2
+      parte: 2.2
+    - habilidade: 11
+      questoes: 2
+      parte: 2.2
+    - habilidade: 13
+      questoes: 2
+      parte: 2.2
+    - habilidade: 16
+      questoes: 2
+      parte: 2.2
+    - habilidade: 22
+      questoes: 2
+      parte: 2.2
+    - habilidade: 23
+      questoes: 2
+      parte: 2.2
+    - habilidade: 27
+      questoes: 2
+      parte: 2.2
+    - habilidade: 28
+      questoes: 2
+      parte: 2.2
+    - habilidade: 29
+      questoes: 2
+      parte: 2.2
+    - habilidade: 4
+      questoes: 1
+      parte: 1.1
+    - habilidade: 8
+      questoes: 1
+      parte: 1.1
+    - habilidade: 12
+      questoes: 1
+      parte: 1.1
+    - habilidade: 19
+      questoes: 1
+      parte: 1.1
+    - habilidade: 25
+      questoes: 1
+      parte: 1.1
+  matematica:
+    - habilidade: 3
+      questoes: 12
+      parte: 14.8
+    - habilidade: 8
+      questoes: 9
+      parte: 11.1
+    - habilidade: 21
+      questoes: 7
+      parte: 8.6
+    - habilidade: 27
+      questoes: 7
+      parte: 8.6
+    - habilidade: 2
+      questoes: 6
+      parte: 7.4
+    - habilidade: 20
+      questoes: 5
+      parte: 6.2
+    - habilidade: 6
+      questoes: 4
+      parte: 4.9
+    - habilidade: 24
+      questoes: 4
+      parte: 4.9
+    - habilidade: 25
+      questoes: 4
+      parte: 4.9
+    - habilidade: 28
+      questoes: 4
+      parte: 4.9
+    - habilidade: 7
+      questoes: 3
+      parte: 3.7
+    - habilidade: 11
+      questoes: 3
+      parte: 3.7
+    - habilidade: 12
+      questoes: 3
+      parte: 3.7
+    - habilidade: 1
+      questoes: 2
+      parte: 2.5
+    - habilidade: 16
+      questoes: 2
+      parte: 2.5
+    - habilidade: 19
+      questoes: 2
+      parte: 2.5
+    - habilidade: 9
+      questoes: 1
+      parte: 1.2
+    - habilidade: 10
+      questoes: 1
+      parte: 1.2
+    - habilidade: 17
+      questoes: 1
+      parte: 1.2
+    - habilidade: 22
+      questoes: 1
+      parte: 1.2
+topicos:
+  linguagens:
+    - id: lin-lem-espanhol-generos
+      questoes: 8
+      parte: 9.1
+    - id: lin-praticas-corporais-sociedade
+      questoes: 6
+      parte: 6.8
+    - id: lin-generos-digitais-hipertexto
+      questoes: 4
+      parte: 4.5
+    - id: lin-lingua-portuguesa-variacao
+      questoes: 4
+      parte: 4.5
+    - id: lin-texto-estrategias-de-leitura
+      questoes: 4
+      parte: 4.5
+    - id: lin-argumentacao-estrategias
+      questoes: 3
+      parte: 3.4
+    - id: lin-argumentacao-publicidade
+      questoes: 3
+      parte: 3.4
+    - id: lin-artes-contemporanea-e-urbana
+      questoes: 3
+      parte: 3.4
+    - id: lin-artes-musica-brasileira
+      questoes: 3
+      parte: 3.4
+    - id: lin-lingua-portuguesa-portugues-no-brasil
+      questoes: 3
+      parte: 3.4
+    - id: lin-literatura-contemporanea
+      questoes: 3
+      parte: 3.4
+    - id: lin-generos-digitais-desinformacao
+      questoes: 2
+      parte: 2.3
+    - id: lin-lem-espanhol-estrategias
+      questoes: 2
+      parte: 2.3
+    - id: lin-literatura-afro-brasileira
+      questoes: 2
+      parte: 2.3
+    - id: lin-literatura-geracao-de-30
+      questoes: 2
+      parte: 2.3
+    - id: lin-literatura-realismo-naturalismo
+      questoes: 2
+      parte: 2.3
+    - id: lin-praticas-corporais-saude-e-beleza
+      questoes: 2
+      parte: 2.3
+    - id: lin-recursos-expressivos-coesao-e-coerencia
+      questoes: 2
+      parte: 2.3
+    - id: lin-recursos-expressivos-figuras
+      questoes: 2
+      parte: 2.3
+    - id: lin-recursos-expressivos-semantica
+      questoes: 2
+      parte: 2.3
+    - id: lin-texto-funcoes-da-linguagem
+      questoes: 2
+      parte: 2.3
+    - id: lin-texto-generos-jornalisticos
+      questoes: 2
+      parte: 2.3
+    - id: lin-texto-generos-opinativos
+      questoes: 2
+      parte: 2.3
+    - id: lin-artes-arte-como-linguagem
+      questoes: 1
+      parte: 1.1
+    - id: lin-artes-cultura-popular
+      questoes: 1
+      parte: 1.1
+    - id: lin-artes-modernismo
+      questoes: 1
+      parte: 1.1
+    - id: lin-lingua-portuguesa-norma-padrao
+      questoes: 1
+      parte: 1.1
+    - id: lin-lingua-portuguesa-preconceito-linguistico
+      questoes: 1
+      parte: 1.1
+    - id: lin-literatura-geracao-de-45
+      questoes: 1
+      parte: 1.1
+    - id: lin-literatura-pre-modernismo
+      questoes: 1
+      parte: 1.1
+    - id: lin-literatura-primeira-geracao-modernista
+      questoes: 1
+      parte: 1.1
+    - id: lin-literatura-romantismo
+      questoes: 1
+      parte: 1.1
+    - id: lin-literatura-texto-literario
+      questoes: 1
+      parte: 1.1
+    - id: lin-praticas-corporais-esporte-midia
+      questoes: 1
+      parte: 1.1
+    - id: lin-texto-cronica-e-conto
+      questoes: 1
+      parte: 1.1
+    - id: lin-texto-generos-do-cotidiano
+      questoes: 1
+      parte: 1.1
+  humanas:
+    - id: hum-organizacao-social-genero
+      questoes: 6
+      parte: 6.7
+    - id: hum-ambiente-questoes-ambientais
+      questoes: 4
+      parte: 4.5
+    - id: hum-organizacao-social-filosofia-antiga
+      questoes: 4
+      parte: 4.5
+    - id: hum-organizacao-social-filosofia-contemporanea
+      questoes: 4
+      parte: 4.5
+    - id: hum-producao-espaco-agrario
+      questoes: 4
+      parte: 4.5
+    - id: hum-ambiente-relevo
+      questoes: 3
+      parte: 3.4
+    - id: hum-cultura-patrimonio
+      questoes: 3
+      parte: 3.4
+    - id: hum-organizacao-social-desigualdade
+      questoes: 3
+      parte: 3.4
+    - id: hum-organizacao-social-geopolitica
+      questoes: 3
+      parte: 3.4
+    - id: hum-producao-trabalho
+      questoes: 3
+      parte: 3.4
+    - id: hum-ambiente-clima
+      questoes: 2
+      parte: 2.2
+    - id: hum-ambiente-hidrografia
+      questoes: 2
+      parte: 2.2
+    - id: hum-ambiente-sociedade-e-natureza
+      questoes: 2
+      parte: 2.2
+    - id: hum-cultura-religiao
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-ditadura
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-era-vargas
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-etica
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-imperio
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-migracoes
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-mundo-atual
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-racismo
+      questoes: 2
+      parte: 2.2
+    - id: hum-organizacao-social-urbanizacao
+      questoes: 2
+      parte: 2.2
+    - id: hum-producao-globalizacao
+      questoes: 2
+      parte: 2.2
+    - id: hum-ambiente-dominios
+      questoes: 1
+      parte: 1.1
+    - id: hum-cartografia-escalas-e-projecoes
+      questoes: 1
+      parte: 1.1
+    - id: hum-cultura-conquista-da-america
+      questoes: 1
+      parte: 1.1
+    - id: hum-cultura-estetica
+      questoes: 1
+      parte: 1.1
+    - id: hum-cultura-identidade-e-etnocentrismo
+      questoes: 1
+      parte: 1.1
+    - id: hum-cultura-industria-cultural
+      questoes: 1
+      parte: 1.1
+    - id: hum-cultura-povos-indigenas
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-estado-e-democracia
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-guerra-fria
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-idade-media
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-ideologias
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-iluminismo
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-movimentos-sociais
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-populacao
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-primeira-republica
+      questoes: 1
+      parte: 1.1
+    - id: hum-organizacao-social-racionalismo-e-empirismo
+      questoes: 1
+      parte: 1.1
+    - id: hum-producao-economia-colonial
+      questoes: 1
+      parte: 1.1
+  natureza:
+    - id: nat-bio-seres-vivos-corpo-humano
+      questoes: 4
+      parte: 4.5
+    - id: nat-fis-movimento-leis-de-newton
+      questoes: 4
+      parte: 4.5
+    - id: nat-bio-celulas-metabolismo
+      questoes: 3
+      parte: 3.4
+    - id: nat-bio-ecologia-impactos
+      questoes: 3
+      parte: 3.4
+    - id: nat-bio-seres-vivos-plantas
+      questoes: 3
+      parte: 3.4
+    - id: nat-fis-ondas-ondas-e-som
+      questoes: 3
+      parte: 3.4
+    - id: nat-bio-celulas-biotecnologia
+      questoes: 2
+      parte: 2.2
+    - id: nat-bio-celulas-celula
+      questoes: 2
+      parte: 2.2
+    - id: nat-bio-saude-doencas
+      questoes: 2
+      parte: 2.2
+    - id: nat-bio-saude-vacinacao
+      questoes: 2
+      parte: 2.2
+    - id: nat-bio-seres-vivos-animais
+      questoes: 2
+      parte: 2.2
+    - id: nat-fis-calor-trocas-de-calor
+      questoes: 2
+      parte: 2.2
+    - id: nat-fis-eletricidade-lei-de-ohm
+      questoes: 2
+      parte: 2.2
+    - id: nat-fis-eletricidade-magnetismo
+      questoes: 2
+      parte: 2.2
+    - id: nat-fis-movimento-queda-e-lancamentos
+      questoes: 2
+      parte: 2.2
+    - id: nat-fis-ondas-espectro
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-agua-funcoes-inorganicas
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-agua-solucoes
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-agua-tratamento
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-carbono-cadeias
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-energia-eletroquimica
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-equilibrio-le-chatelier
+      questoes: 2
+      parte: 2.2
+    - id: nat-qui-sociedade-cotidiano
+      questoes: 2
+      parte: 2.2
+    - id: nat-bio-celulas-divisao
+      questoes: 1
+      parte: 1.1
+    - id: nat-bio-celulas-enzimas
+      questoes: 1
+      parte: 1.1
+    - id: nat-bio-celulas-moleculas
+      questoes: 1
+      parte: 1.1
+    - id: nat-bio-ecologia-ciclos
+      questoes: 1
+      parte: 1.1
+    - id: nat-bio-ecologia-relacoes
+      questoes: 1
+      parte: 1.1
+    - id: nat-bio-evolucao-teorias
+      questoes: 1
+      parte: 1.1
+    - id: nat-bio-hereditariedade-ligada-ao-sexo
+      questoes: 1
+      parte: 1.1
+    - id: nat-bio-hereditariedade-mutacoes
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-eletricidade-circuitos
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-eletricidade-consumo
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-eletricidade-seguranca
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-energia-potencia-e-rendimento
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-movimento-cinematica
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-movimento-quantidade-de-movimento
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-ondas-fisica-moderna
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-ondas-olho-humano
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-ondas-refracao-e-lentes
+      questoes: 1
+      parte: 1.1
+    - id: nat-fis-universo-gravitacao
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-carbono-isomeria
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-carbono-reacoes
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-cinetica-velocidade
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-energia-radioatividade
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-energias-combustiveis
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-energias-nuclear
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-equilibrio-ph
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-materiais-forcas-intermoleculares
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-materiais-ligacoes
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-materiais-separacao
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-representacao-estequiometria
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-representacao-mol
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-sociedade-ambiental
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-sociedade-lixo-e-reciclagem
+      questoes: 1
+      parte: 1.1
+    - id: nat-qui-transformacoes-gases
+      questoes: 1
+      parte: 1.1
+  matematica:
+    - id: mat-estatistica-media-mediana-moda
+      questoes: 6
+      parte: 7.4
+    - id: mat-numeros-operacoes
+      questoes: 5
+      parte: 6.2
+    - id: mat-numeros-porcentagem
+      questoes: 5
+      parte: 6.2
+    - id: mat-estatistica-graficos
+      questoes: 4
+      parte: 4.9
+    - id: mat-algebra-funcao-quadratica
+      questoes: 3
+      parte: 3.7
+    - id: mat-algebra-funcoes-e-graficos
+      questoes: 3
+      parte: 3.7
+    - id: mat-geometria-circunferencia
+      questoes: 3
+      parte: 3.7
+    - id: mat-geometria-escalas
+      questoes: 3
+      parte: 3.7
+    - id: mat-geometria-prismas-e-cilindros
+      questoes: 3
+      parte: 3.7
+    - id: mat-geometria-unidades-de-medida
+      questoes: 3
+      parte: 3.7
+    - id: mat-numeros-progressoes
+      questoes: 3
+      parte: 3.7
+    - id: mat-algebra-funcao-afim
+      questoes: 2
+      parte: 2.5
+    - id: mat-algebra-geometria-plano-cartesiano
+      questoes: 2
+      parte: 2.5
+    - id: mat-algebra-geometria-sistemas
+      questoes: 2
+      parte: 2.5
+    - id: mat-estatistica-eventos-independentes
+      questoes: 2
+      parte: 2.5
+    - id: mat-estatistica-media-ponderada
+      questoes: 2
+      parte: 2.5
+    - id: mat-estatistica-probabilidade-condicional
+      questoes: 2
+      parte: 2.5
+    - id: mat-estatistica-tabelas
+      questoes: 2
+      parte: 2.5
+    - id: mat-geometria-areas
+      questoes: 2
+      parte: 2.5
+    - id: mat-geometria-esfera
+      questoes: 2
+      parte: 2.5
+    - id: mat-geometria-piramides-e-cones
+      questoes: 2
+      parte: 2.5
+    - id: mat-geometria-vistas-e-projecoes
+      questoes: 2
+      parte: 2.5
+    - id: mat-numeros-arranjos-e-combinacoes
+      questoes: 2
+      parte: 2.5
+    - id: mat-numeros-contas-do-dia-a-dia
+      questoes: 2
+      parte: 2.5
+    - id: mat-numeros-potencias-e-notacao-cientifica
+      questoes: 2
+      parte: 2.5
+    - id: mat-algebra-funcao-exponencial
+      questoes: 1
+      parte: 1.2
+    - id: mat-algebra-funcoes-trigonometricas
+      questoes: 1
+      parte: 1.2
+    - id: mat-algebra-logaritmos
+      questoes: 1
+      parte: 1.2
+    - id: mat-geometria-pitagoras
+      questoes: 1
+      parte: 1.2
+    - id: mat-geometria-simetria
+      questoes: 1
+      parte: 1.2
+    - id: mat-geometria-trigonometria
+      questoes: 1
+      parte: 1.2
+    - id: mat-numeros-aumentos-e-descontos
+      questoes: 1
+      parte: 1.2
+    - id: mat-numeros-contagem
+      questoes: 1
+      parte: 1.2
+    - id: mat-numeros-juros-compostos
+      questoes: 1
+      parte: 1.2
+    - id: mat-numeros-multiplos-e-divisores
+      questoes: 1
+      parte: 1.2
+    - id: mat-numeros-razao-e-proporcao
+      questoes: 1
+      parte: 1.2
