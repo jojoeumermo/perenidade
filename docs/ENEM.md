@@ -172,7 +172,8 @@ Formato de `docs/EXERCICIOS.md`, mais estes campos (validados por `lib/exercicio
   revisao: { status: em-revisao }
 ```
 
-- Em todo exercício de `content/exercicios/enem-*` as etiquetas `area`, `habilidade` e `objeto` são obrigatórias.
+- Em todo exercício de `content/exercicios/enem-*` as etiquetas `area`, `habilidade` e `objeto` são obrigatórias (menos nas
+  trilhas de orientação, `enem-como-funciona` e `enem-estrategia-de-prova`, que não ensinam conteúdo da Matriz).
 - Por tópico: os três níveis, com pelo menos 2 no estilo ENEM; meta de distribuição 30% / 45% / 25% (níveis 1/2/3).
 - **Posição da certa:** distribua de forma equilibrada entre A, B, C, D e E (a tela embaralha os testes das aulas, mas
   o arquivo é lido por quem revisa e pela apostila). `npm run cobertura:enem` mostra a distribuição.
@@ -201,7 +202,8 @@ aulas:
 ## 6. Provas oficiais: a camada do instituto
 
 `public/questoes/enem-<ano>.json` é regravado toda semana pelo importador (`scripts/importar-questoes.mjs`): **não edite**.
-A nossa camada fica em `content/enem/questoes-oficiais/<ano>.yml`:
+A nossa camada fica em `content/enem/questoes-oficiais/<ano>.yml` ou, para equipes trabalharem em paralelo, em
+`<ano>-<area>.yml` (por exemplo `2023-matematica.yml`, só com questões daquela área; um id não pode aparecer em dois arquivos):
 
 ```yaml
 ano: 2023

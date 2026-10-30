@@ -444,7 +444,10 @@ export function validarClassificacoes(bruto: unknown, arquivo: string, importada
   if (!objeto(bruto)) falhar(arquivo, "o arquivo precisa de ano e questoes");
   const ano = bruto.ano;
   if (!Number.isInteger(ano)) falhar(arquivo, '"ano" é o ano da prova');
-  if (!arquivo.endsWith(`${ano}.yml`)) falhar(arquivo, `o arquivo deve se chamar ${ano}.yml`);
+  // Um arquivo por ano (2023.yml) ou por ano e área (2023-matematica.yml), para equipes diferentes trabalharem ao mesmo tempo.
+  const nome = /(\d{4})(?:-(linguagens|humanas|natureza|matematica))?\.yml$/.exec(arquivo);
+  if (!nome || Number(nome[1]) !== ano) falhar(arquivo, `o arquivo deve se chamar ${ano}.yml ou ${ano}-<area>.yml`);
+  const soDaArea = nome[2] as AreaDoEnem | undefined;
   const vistos = new Set<string>();
   return lista(bruto, "questoes", "questoes", arquivo).map((q, i): Classificacao => {
     if (!objeto(q)) falhar(arquivo, `questoes[${i}]: cada item é um bloco com campos`);
@@ -458,6 +461,7 @@ export function validarClassificacoes(bruto: unknown, arquivo: string, importada
     const area = q.area as AreaDoEnem;
     if (!AREAS_DO_ENEM.includes(area)) falhar(arquivo, `${onde}: "area" deve ser linguagens, humanas, natureza ou matematica`);
     if (auditada && auditada.area !== area) falhar(arquivo, `${onde}: pela numeração (questão ${imp.n} de ${ano}), a área é ${auditada.area}, não ${area}`);
+    if (soDaArea && area !== soDaArea) falhar(arquivo, `${onde}: este arquivo é só de ${soDaArea}`);
     const habilidade = Number(q.habilidade);
     if (!Number.isInteger(habilidade) || habilidade < 1 || habilidade > 30) falhar(arquivo, `${onde}: "habilidade" vai de 1 a 30`);
     const competencia = Number(q.competencia);
@@ -504,6 +508,8 @@ export interface Incidencia {
   /** Contagem por objeto e por habilidade, de cada área, da mais frequente para a menos. */
   objetos: Record<AreaDoEnem, { id: string; questoes: number; parte: number }[]>;
   habilidades: Record<AreaDoEnem, { habilidade: number; questoes: number; parte: number }[]>;
+  /** Só as questões que têm tópico: a parte é sobre todas as classificadas da área. */
+  topicos: Record<AreaDoEnem, { id: string; questoes: number; parte: number }[]>;
 }
 
 /** Conta, nas últimas `edicoes` edições classificadas, quantas questões caem em cada objeto e habilidade. */
@@ -515,6 +521,7 @@ export function calcularIncidencia(todas: Classificacao[], edicoes = 10): Omit<I
   const parte = (n: number, total: number) => (total ? Math.round((n / total) * 1000) / 10 : 0);
   const objetos = {} as Incidencia["objetos"];
   const habilidades = {} as Incidencia["habilidades"];
+  const topicos = {} as Incidencia["topicos"];
   for (const a of AREAS_DO_ENEM) {
     const daArea = base.filter((c) => c.area === a);
     const contaObj = new Map<string, number>();
@@ -523,10 +530,13 @@ export function calcularIncidencia(todas: Classificacao[], edicoes = 10): Omit<I
       contaObj.set(c.objeto, (contaObj.get(c.objeto) ?? 0) + 1);
       contaHab.set(c.habilidade, (contaHab.get(c.habilidade) ?? 0) + 1);
     }
+    const contaTop = new Map<string, number>();
+    for (const c of daArea) if (c.topico) contaTop.set(c.topico, (contaTop.get(c.topico) ?? 0) + 1);
     objetos[a] = ordenar([...contaObj].map(([id, n]) => ({ id, questoes: n, parte: parte(n, daArea.length) })), (x) => x.id);
     habilidades[a] = ordenar([...contaHab].map(([h, n]) => ({ habilidade: h, questoes: n, parte: parte(n, daArea.length) })), (x) => x.habilidade);
+    topicos[a] = ordenar([...contaTop].map(([id, n]) => ({ id, questoes: n, parte: parte(n, daArea.length) })), (x) => x.id);
   }
-  return { base: { anos: anos.sort((a, b) => a - b), classificadas: base.length, porArea }, objetos, habilidades };
+  return { base: { anos: anos.sort((a, b) => a - b), classificadas: base.length, porArea }, objetos, habilidades, topicos };
 }
 
 // ───────────────────────────── Redação (redacao/) ─────────────────────────────

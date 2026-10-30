@@ -1,0 +1,973 @@
+# Camada do Instituto Lúcia sobre a prova de Ciências da Natureza do ENEM 2023 (questões 91 a 135).
+# Formato: docs/ENEM.md, seção 6. Classificação proposta pela equipe (situacao: a-confirmar).
+# Fora deste arquivo: enem-2023-132 (no arquivo importado, as alternativas A a D vieram vazias, sem os gráficos).
+# Avisos sobre a importação: enem-2023-100 aparece duas vezes no JSON; em enem-2023-99 falta a pergunta final
+# (o enunciado termina no texto-base, mas as alternativas deixam claro que se pede a amostra a analisar); em
+# enem-2023-114 as alternativas A e C vieram com o mesmo texto; em enem-2023-129 a fórmula do Aldrin virou
+# "[imagem da prova]" (não é preciso para resolver).
+ano: 2023
+questoes:
+  - id: enem-2023-91
+    area: natureza
+    competencia: 1
+    habilidade: 4
+    objeto: nat-bio-ecologia
+    topico: nat-bio-ecologia-impactos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      As bombas de sementes espalham plantas nativas que crescem até em solo pobre.
+      Plantas com flores oferecem néctar e pólen. Esse é o alimento das abelhas: o néctar dá energia (açúcar) e o pólen dá proteína para as larvas.
+      Abelhas e plantas vivem uma relação de ganho mútuo: a abelha come e, ao passar de flor em flor, leva o pólen e ajuda a planta a se reproduzir.
+      Mais plantas floridas no ambiente significam mais comida disponível para as colmeias. Alternativa D.
+    enganos:
+      A: "Flores não protegem a abelha de quem a come (aves, aranhas, outros insetos). O ganho das plantas novas está no que elas oferecem: néctar e pólen."
+      B: "O método não muda a quantidade de veneno usada nas lavouras. Pesticida é uma das causas do declínio, mas as bolinhas de sementes não agem sobre ela."
+      C: "Abelhas não usam as flores como abrigo; a colmeia fica em ocos, frestas ou caixas. A planta entra na vida da abelha como fonte de alimento."
+      E: "A reprodução da abelha acontece dentro da colmeia, não nas plantas. Quem se reproduz com ajuda da flor é a planta, pela polinização."
+    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, biologia-fundamental/cadeias-alimentares]
+
+  - id: enem-2023-92
+    area: natureza
+    competencia: 8
+    habilidade: 30
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-moleculas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O texto fala de crianças pálidas e de práticas para pôr ferro na comida: panela de ferro e prego enferrujado no feijão.
+      O ferro é parte da hemoglobina, a proteína das hemácias que leva oxigênio do pulmão para o corpo.
+      Com pouco ferro, o corpo faz pouca hemoglobina. A pessoa fica pálida, cansada e sem fôlego: é a anemia por falta de ferro, a mais comum.
+      Então o objetivo das práticas antigas era prevenir a anemia. Alternativa B.
+    enganos:
+      A: "Diarreia se combate com água limpa, saneamento e reidratação (soro). Ferro na comida não trata diarreia."
+      C: "Verminose se evita com higiene, água tratada e esgoto, e se trata com remédio contra vermes. Ferro não mata vermes, embora alguns vermes causem anemia."
+      D: "Raquitismo é a fraqueza dos ossos por falta de vitamina D e de cálcio. O ferro serve ao sangue, não à formação dos ossos."
+      E: "Febre amarela é causada por um vírus transmitido por mosquito. Ela se previne com vacina, não com ferro na alimentação."
+    aulas: [biologia-fundamental/alimentacao-e-nutricao, biologia-medio/fisiologia-humana]
+
+  - id: enem-2023-93
+    area: natureza
+    competencia: 6
+    habilidade: 23
+    objeto: nat-qui-energias
+    topico: nat-qui-energias-nuclear
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Numa usina nuclear, núcleos de urânio se partem (fissão) e liberam muita energia na forma de calor.
+      Esse calor ferve a água, o vapor gira a turbina e o gerador produz eletricidade, como numa usina a carvão.
+      A diferença está na fonte do calor: não há queima de carvão, petróleo ou gás. Por isso a usina não lança gás carbônico de combustão nem os gases que formam a chuva ácida.
+      Essa é a vantagem que o texto pede: produzir calor sem consumir combustível fóssil. Alternativa E.
+    enganos:
+      A: "O lixo nuclear é o maior problema da tecnologia: continua radioativo por muito tempo e precisa ser guardado com cuidado. Não é facilmente reciclável."
+      B: "Uma usina nuclear ocupa pouca área para a energia que gera. Desmatamento grande está ligado, por exemplo, a lagos de hidrelétricas e à lenha, não à fissão."
+      C: "A chuva ácida vem de óxidos de enxofre e de nitrogênio soltos na queima de combustíveis fósseis. A fissão não queima nada."
+      D: "A fumaça branca das torres de resfriamento é vapor de água. A fissão não libera gás tóxico de combustão; o risco dela está na radiação e nos resíduos."
+    aulas: [fisica-medio/fisica-moderna-relatividade-e-quantica, enem-por-area/ciencias-da-natureza-fisica]
+
+  - id: enem-2023-94
+    area: natureza
+    competencia: 5
+    habilidade: 19
+    objeto: nat-qui-agua
+    topico: nat-qui-agua-tratamento
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      O quadro lista cinco testes: 1 cálcio, 2 cloreto, 3 turbidez, 4 coliformes totais, 5 sólidos sedimentáveis.
+      O texto diz que o problema são sais pouco solúveis de sulfato e de carbonato que se acumulam dentro dos canos. Isso é a chamada dureza da água.
+      Água dura tem muitos íons cálcio (Ca²⁺) e magnésio dissolvidos. Quando a água esquenta na caldeira, o cálcio se junta ao carbonato e ao sulfato e forma crostas de CaCO₃ e CaSO₄, que entopem os canos.
+      Medir o cálcio mostra o risco dessas crostas. Alternativa A (teste 1).
+    enganos:
+      B: "Cloreto forma sais muito solúveis com cálcio, magnésio e sódio. Ele pode corroer, mas não forma as crostas de sulfato e carbonato descritas no texto."
+      C: "Turbidez mede partículas em suspensão que deixam a água turva. As crostas vêm de íons dissolvidos, que não turvam a água."
+      D: "Coliformes medem contaminação por micróbios, importante para a água de beber. Não têm relação com sais que se depositam em caldeira."
+      E: "Sólidos sedimentáveis são partículas que já estão na água e descem no fundo, removíveis por decantação. As crostas nascem de íons dissolvidos que precipitam com o calor."
+    aulas: [quimica-fundamental/agua-tratamento-e-qualidade, quimica-medio/funcoes-inorganicas]
+
+  - id: enem-2023-95
+    area: natureza
+    competencia: 8
+    habilidade: 28
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-animais
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Músculo vermelho é rico em vasos sanguíneos, em mioglobina (proteína que guarda oxigênio e dá a cor) e em mitocôndrias.
+      Com muito oxigênio chegando, a fibra faz respiração aeróbica: tira bastante ATP de cada molécula de glicose ou de gordura e quase não se cansa.
+      Uma viagem migratória pede trabalho longo e contínuo das asas. Isso exige um metabolismo alto e sustentado, que só o músculo bem irrigado consegue manter.
+      Alternativa B.
+    enganos:
+      A: "Manobras rápidas e arrancadas usam mais o músculo branco, de contração rápida, que trabalha com pouco oxigênio e cansa logo. O vermelho é o músculo da resistência."
+      C: "Aerodinâmica depende da forma do corpo e das penas, não do tipo de fibra muscular."
+      D: "Velocidade máxima em pouco tempo é tarefa do músculo branco. O vermelho garante que a ave voe por muitas horas, não que voe mais rápido."
+      E: "Voar alto depende sobretudo do sistema respiratório e do sangue captarem oxigênio do ar rarefeito. O texto liga o músculo vermelho às longas distâncias."
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese]
+
+  - id: enem-2023-96
+    area: natureza
+    competencia: 5
+    habilidade: 17
+    objeto: nat-qui-representacao
+    topico: nat-qui-representacao-mol
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O antimofo tem cloreto de cálcio sem água (CaCl₂). Ele puxa a umidade do ar e vira CaCl₂·2H₂O: cada CaCl₂ prende duas moléculas de água.
+      1. Massa inicial, por mol: 111 g.
+      2. Massa que entra: 2 · 18 = 36 g de água.
+      3. Ganho percentual sobre a massa inicial: 36 ÷ 111 ≈ 0,324, ou seja, cerca de 32%.
+      Alternativa D.
+    enganos:
+      A: "14% sai de 18 ÷ 129: contou uma água só e dividiu pela massa final. A fórmula tem 2H₂O, e o ganho se mede sobre a massa de partida (111 g)."
+      B: "16% sai de 18 ÷ 111: dividiu certo pela massa inicial, mas contou uma água só. O 2 antes de H₂O dobra a massa ganha: 36 g."
+      C: "24% sai de 36 ÷ 147: dividiu pela massa do sal já hidratado. O ganho é sobre o que se tinha antes, 111 g."
+      E: "75% sai de 111 ÷ 147: é a parte do sal anidro dentro do sal hidratado, não o ganho. O ganho é a água que entrou (36 g) sobre a massa inicial."
+    aulas: [quimica-medio/mol-e-estequiometria]
+
+  - id: enem-2023-97
+    area: natureza
+    competencia: 4
+    habilidade: 15
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-plantas
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Frutos como o abacate continuam vivos depois de colhidos e soltam etileno, um gás que funciona como hormônio vegetal.
+      O etileno dispara o amadurecimento: o fruto amolece, muda de cor e fica mais doce. E o fruto que amadurece solta ainda mais etileno.
+      Na fruteira aberta, o gás se espalha no ar. No recipiente fechado, ele se acumula em volta dos frutos e acelera o processo.
+      É a mesma ideia de embrulhar fruta verde em jornal. Alternativa A.
+    enganos:
+      B: "Um recipiente fechado tende a guardar umidade, não a tirar. E a umidade não é o sinal que manda o fruto amadurecer."
+      C: "O gás carbônico também se acumula, mas em concentração alta ele atrasa o amadurecimento; por isso se usa CO₂ para conservar frutas. Quem acelera é o etileno."
+      D: "Fruto colhido não depende de luz para amadurecer. A diferença entre os dois grupos está no gás que fica preso, não na claridade."
+      E: "Com menos oxigênio, a respiração do fruto ficaria mais lenta e o amadurecimento também. Além disso, o recipiente ainda tem ar dentro."
+    aulas: [biologia-fundamental/plantas-e-fotossintese]
+
+  - id: enem-2023-98
+    area: natureza
+    competencia: 8
+    habilidade: 28
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-metabolismo
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      A lesma guarda os cloroplastos das algas que come, e eles continuam funcionando dentro das células dela.
+      Cloroplasto é a organela da fotossíntese: usa a luz para juntar gás carbônico e água e produzir glicose, liberando oxigênio.
+      Glicose é um carboidrato. Então o produto direto, primário, que a lesma passa a obter é carboidrato. Outras substâncias podem ser feitas depois a partir dele, mas não são o produto da fotossíntese.
+      Alternativa B.
+    enganos:
+      A: "A fotossíntese não produz ácidos nucleicos. DNA e RNA são montados pela própria célula, com nitrogênio e fósforo vindos de outras fontes."
+      C: "Proteínas precisam de nitrogênio, que não sai da fotossíntese. O cloroplasto fabrica açúcar a partir de CO₂ e água."
+      D: "Vitaminas não são o produto da fotossíntese. O que o cloroplasto entrega é glicose, um carboidrato."
+      E: "Lipídios podem até ser feitos depois, a partir do açúcar, mas não são o produto primário. A pergunta pede o que a fotossíntese fornece diretamente."
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, biologia-medio/citologia]
+
+  - id: enem-2023-99
+    area: natureza
+    competencia: 8
+    habilidade: 30
+    objeto: nat-bio-saude
+    topico: nat-bio-saude-doencas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      No arquivo importado falta a pergunta final, mas o texto e as alternativas mostram o que se quer: qual amostra colher dos cães para achar o protozoário.
+      A leishmaniose visceral passa de forma indireta, por um inseto que pica e se alimenta de sangue (o vetor). O inseto se infecta ao sugar um animal doente e transmite ao picar outro.
+      O parasita vive dentro de células de defesa e de órgãos que produzem e filtram o sangue, como medula óssea, baço e fígado. Por isso ele, ou os anticorpos contra ele, são procurados numa amostra de sangue.
+      Os outros líquidos não fazem parte do caminho de transmissão. Alternativa D.
+    enganos:
+      A: "A doença não passa pela urina e o parasita não vive no sistema urinário. A insuficiência renal é um efeito da doença, não o lugar do parasita."
+      B: "A transmissão não é por mordida nem por lambida. Ela depende do inseto que suga sangue."
+      C: "A diarreia é sintoma, mas o protozoário não sai nas fezes como os vermes intestinais. Ele vive em células do sangue e de órgãos internos."
+      E: "A conjuntivite é um dos sintomas, mas não é por aí que a doença se transmite nem onde o parasita se concentra. O vetor pega o parasita ao sugar sangue."
+    aulas: [biologia-medio/saude-publica-e-epidemias, biologia-fundamental/doencas-transmissiveis-e-saneamento]
+
+  - id: enem-2023-100
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-queda-e-lancamentos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O quadro lista, para a velocidade e para a aceleração, três casos: diferente de zero para cima, diferente de zero para baixo, ou zero (sem sentido).
+      Velocidade no ponto mais alto: a esfera sobe cada vez mais devagar, para por um instante e começa a descer. Nesse instante, v = 0.
+      Aceleração: depois de solta, a única força sobre a esfera (sem contar o ar) é o peso, que aponta para baixo. Então a aceleração é a da gravidade, g ≈ 10 m/s², para baixo, durante todo o voo, inclusive no topo.
+      Se a aceleração fosse zero no topo, a esfera ficaria parada lá. Alternativa C.
+    enganos:
+      A: "A velocidade é zero, certo, mas a aceleração não aponta para cima. Quem acelera a esfera é o peso, sempre para baixo."
+      B: "No topo a esfera para por um instante, então v = 0. E a aceleração nunca é zero: o peso continua agindo."
+      D: "Velocidade para cima vale para a subida, não para o topo. E a aceleração da gravidade aponta para baixo o tempo todo."
+      E: "Velocidade para baixo vale para a descida, depois do topo. No instante mais alto, a velocidade é zero."
+    aulas: [fisica-medio/cinematica-movimento-uniforme-e-variado, fisica-fundamental/peso-massa-e-gravidade]
+
+  - id: enem-2023-101
+    area: natureza
+    competencia: 4
+    habilidade: 14
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-corpo-humano
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Depois da ovulação, o folículo que soltou o óvulo vira o corpo lúteo, uma estrutura do ovário que produz progesterona e estrógeno. Esses hormônios preparam o útero para uma possível gravidez.
+      Se não há gravidez, o corpo lúteo regride (some aos poucos) no fim do ciclo.
+      Com isso, a produção de progesterona e estrógeno cai. É essa queda que antecede a menstruação e, segundo o texto, se liga à queda da serotonina.
+      Alternativa A.
+    enganos:
+      B: "A ocitocina vem da hipófise e age no parto e na saída do leite. Ela não controla a produção de estrógeno e progesterona pelo ovário."
+      C: "A ovulação acontece no meio do ciclo, e depois dela os hormônios sobem, porque o corpo lúteo começa a trabalhar. A queda vem no fim do ciclo."
+      D: "LH e FSH estimulam o ovário. Se subissem, a produção ovariana tenderia a aumentar. Na fase antes da menstruação eles estão baixos."
+      E: "A adrenalina vem das glândulas suprarrenais e responde a estresse. Ela não explica a queda dos hormônios do ovário."
+    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/reproducao-e-sexualidade]
+
+  - id: enem-2023-102
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-carbono
+    topico: nat-qui-carbono-reacoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      Hexan-3-ona tem seis carbonos e a carbonila (C=O) no carbono 3, no meio da cadeia: CH₃CH₂–CO–CH₂CH₂CH₃.
+      Cetona se obtém pela oxidação de um álcool secundário, aquele em que o carbono do OH está ligado a outros dois carbonos.
+      O oxidante (permanganato em meio ácido) tira dois hidrogênios: o do OH e o do carbono que segura o OH. O C–OH vira C=O, no mesmo lugar da cadeia.
+      Para a carbonila ficar no carbono 3, o OH precisa estar no carbono 3: hexan-3-ol. Alternativa C.
+    enganos:
+      A: "Hexanal é um aldeído, com a carbonila no carbono 1. Oxidado, ele vira ácido hexanoico, não uma cetona."
+      B: "Hexan-1-ol é álcool primário (OH na ponta). Oxidado, dá hexanal e depois ácido hexanoico. A carbonila nunca vai parar no carbono 3."
+      D: "Em hex-1-en-1-ol o oxigênio está no carbono 1, e a dupla ligação fica na ponta. Nenhuma oxidação comum leva a carbonila para o carbono 3."
+      E: "Ácido hexanoico já está no grau máximo de oxidação da ponta da cadeia. Ele não vira cetona por oxidação."
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes]
+
+  - id: enem-2023-103
+    area: natureza
+    competencia: 4
+    habilidade: 16
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-plantas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Em musgos e samambaias, o gameta masculino precisa nadar numa película de água até o gameta feminino. Sem água, não há fecundação.
+      Nas gimnospermas (como o pinheiro) e nas angiospermas (plantas com flor), o grão de pólen chega pelo vento ou por animais. Ao germinar, ele forma o tubo polínico, um canal que cresce até o óvulo e leva o gameta masculino até lá.
+      Assim a fecundação deixa de depender de água externa. A pergunta é sobre a fecundação, então a estrutura é o tubo polínico. Alternativa D.
+    enganos:
+      A: "O fruto só existe nas angiospermas e serve para proteger e espalhar as sementes. As gimnospermas não têm fruto e já fecundam sem água."
+      B: "Musgos e samambaias têm esporos e continuam precisando de água para o gameta masculino nadar. Esporo não resolve a fecundação."
+      C: "A semente protege e espalha o embrião, que já é resultado da fecundação. A pergunta é sobre o que leva o gameta até o óvulo."
+      E: "Samambaias já têm vasos condutores e mesmo assim dependem de água para fecundar. Os vasos levam água e seiva, não gametas."
+    aulas: [biologia-medio/classificacao-dos-seres-vivos, biologia-medio/evolucao-darwin-e-a-selecao-natural]
+
+  - id: enem-2023-104
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-equilibrio
+    topico: nat-qui-equilibrio-le-chatelier
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      O texto descreve um equilíbrio: alumínio preso no vidro ⇌ alumínio na solução. O gluconato se liga com força ao íon alumínio dissolvido.
+      Quando o gluconato prende o alumínio em solução, ele tira esse íon "livre" do lado dos produtos. Pelo princípio de Le Chatelier, o equilíbrio se desloca para repor o que foi tirado: mais alumínio sai do vidro.
+      Quanto mais gluconato de cálcio, mais íons são capturados e maior o deslocamento. Logo, o risco cresce com a concentração do suplemento.
+      Alternativa B.
+    enganos:
+      A: "A cor ou a transparência do vidro não entram no equilíbrio descrito. O que puxa o alumínio para fora é a substância que se liga a ele."
+      C: "A dissolução acontece na superfície que toca o líquido. Um vidro mais grosso não aumenta essa superfície."
+      D: "A esterilização é feita antes, sem o suplemento dentro, e o texto diz que esse vidro aguenta o calor. O problema surge no contato com o gluconato."
+      E: "Ser endotérmica só pesaria se a temperatura subisse. O texto aponta outra causa: a ligação forte do gluconato ao íon, que depende da concentração."
+    aulas: [quimica-medio/cinetica-e-equilibrio-quimico]
+
+  - id: enem-2023-105
+    area: natureza
+    competencia: 4
+    habilidade: 15
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-plantas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      A casca leva junto o floema, o tecido que transporta a seiva elaborada: açúcar feito nas folhas, descendo para o resto da planta.
+      O xilema, que leva água e sais da raiz para as folhas, fica na madeira, mais para dentro, e não sai com a casca.
+      Tirando um anel inteiro de casca, o açúcar das folhas não consegue mais descer. As raízes ficam sem alimento, morrem, e sem raiz a árvore inteira morre. Se o corte não fecha o anel, o açúcar desce pela faixa que sobrou.
+      Alternativa E.
+    enganos:
+      A: "As folhas continuam recebendo água pelo xilema, que fica intacto, e seguem fazendo fotossíntese. O que para é a descida do açúcar."
+      B: "A transpiração acontece nas folhas, com água que sobe pelo xilema. O xilema não foi cortado."
+      C: "A troca de gases ocorre pelos estômatos das folhas, que não foram atingidos."
+      D: "Os brotos ficam acima ou abaixo do corte e podem até aparecer. A causa da morte é a raiz sem alimento."
+    aulas: [biologia-fundamental/plantas-e-fotossintese]
+
+  - id: enem-2023-106
+    area: natureza
+    competencia: 4
+    habilidade: 14
+    objeto: nat-bio-saude
+    topico: nat-bio-saude-vacinacao
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      A vacina leva um RNA mensageiro com a receita de uma proteína do vírus (no caso da covid-19, a proteína da espícula, a "coroa").
+      A capa de gordura protege o RNAm e o ajuda a entrar na célula. No citoplasma, os ribossomos da própria célula leem o RNAm e fabricam a proteína viral. É o mesmo trabalho que todo RNAm faz, no mesmo lugar.
+      Essa proteína funciona como antígeno: o sistema de defesa a reconhece, produz anticorpos e guarda memória. Se o vírus vier depois, a resposta é rápida.
+      Alternativa C.
+    enganos:
+      A: "A capa de lipídios é só embalagem: protege o RNAm e o leva para dentro da célula. Quem dispara a defesa é a proteína produzida a partir dele."
+      B: "O RNAm não captura vírus nem age fora da célula. Ele atua dentro, no citoplasma, como molde para fabricar proteína."
+      D: "A vacina não foi feita para disputar ribossomos com o vírus. O objetivo é produzir a proteína viral e ensinar o corpo a reconhecê-la."
+      E: "O RNAm da vacina não entra no núcleo nem se junta ao DNA; ele é lido no citoplasma e depois degradado. O texto diz que ele age no compartimento de sempre."
+    aulas: [biologia-fundamental/vacinas-como-funcionam, biologia-medio/dna-rna-e-sintese-de-proteinas]
+
+  - id: enem-2023-107
+    area: natureza
+    competencia: 8
+    habilidade: 29
+    objeto: nat-bio-seres-vivos
+    topico: nat-bio-seres-vivos-corpo-humano
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      O acrossomo é uma bolsa na ponta da cabeça do espermatozoide, cheia de enzimas que digerem.
+      O ovócito é cercado por duas barreiras: a corona radiata (camada de células) e a zona pelúcida (camada de proteínas e açúcares). As enzimas do acrossomo abrem caminho por elas.
+      Com as enzimas bloqueadas, o espermatozoide não atravessa as barreiras e nem chega à membrana do ovócito. Tudo o que viria depois deixa de acontecer, mas o passo impedido diretamente é a passagem.
+      Alternativa D.
+    enganos:
+      A: "O pronúcleo masculino se forma depois que o espermatozoide entra. Ele não se formou porque a entrada falhou antes, na passagem pelas barreiras."
+      B: "A divisão do zigoto exige fecundação, que nem começou. As enzimas do acrossomo não agem na divisão celular."
+      C: "O fim da segunda meiose do ovócito é disparado pela entrada do espermatozoide. O bloqueio aconteceu num passo anterior."
+      E: "A fusão das membranas depende de proteínas da superfície das duas células, e só ocorre depois de atravessar a zona pelúcida. O acrossomo age antes disso."
+    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/reproducao-e-sexualidade]
+
+  - id: enem-2023-108
+    area: natureza
+    competencia: 6
+    habilidade: 21
+    objeto: nat-fis-eletricidade
+    topico: nat-fis-eletricidade-magnetismo
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Sob o vidro do fogão de indução há uma bobina ligada a uma corrente alternada, que muda de sentido muitas vezes por segundo.
+      Essa corrente cria um campo magnético que também varia sem parar. Pela lei de Faraday, um fluxo magnético variando através de um metal induz corrente elétrica nele.
+      No fundo da panela (de metal adequado) surgem essas correntes induzidas, e a resistência do metal transforma a energia em calor (efeito Joule). A panela esquenta por dentro, sem chama.
+      Alternativa D.
+    enganos:
+      A: "Radiação é uma forma de levar calor, não de criar corrente. A corrente no fundo da panela nasce da variação do campo magnético."
+      B: "Condução é a passagem de calor por contato, como na chama do fogão comum. Aqui o calor nasce dentro da própria panela."
+      C: "O campo elétrico que empurra os elétrons existe, mas ele é consequência da variação do campo magnético da bobina. A causa, segundo Faraday, é o campo magnético variável."
+      E: "O fogão não depende de sintonizar uma frequência de ressonância. Basta o campo magnético variar perto do metal."
+    aulas: [fisica-medio/eletromagnetismo, fisica-fundamental/imas-e-magnetismo]
+
+  - id: enem-2023-109
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-leis-de-newton
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      A figura mostra os dois aparelhos. No tipo 1, a corda puxada pelo usuário (força F para cima, no lado direito) passa só por polias fixas e desce direto até M₁. No tipo 2, M₂ fica pendurada numa polia móvel: uma ponta da corda está presa no alto, desce, contorna a polia móvel, sobe, passa pelas polias fixas e chega à mão do usuário.
+      Velocidade constante significa força resultante zero em cada carga.
+      1. Tipo 1: só um trecho de corda segura M₁, então F = M₁ · g.
+      2. Tipo 2: dois trechos de corda seguram a polia móvel, cada um com tensão F. Então 2F = M₂ · g.
+      3. Com o mesmo F: M₂ · g = 2 · M₁ · g, logo M₂/M₁ = 2.
+      Com a mesma força, o aparelho 2 levanta o dobro da carga. Alternativa D.
+    enganos:
+      A: "1/4 seria o caso de duas polias móveis com a razão invertida. Aqui há uma só polia móvel, e ela ajuda: a carga do tipo 2 é maior, não menor."
+      B: "1/2 inverte a razão. A polia móvel divide a força por dois, então com a mesma força se ergue o dobro: M₂ = 2M₁."
+      C: "Polias fixas só mudam a direção, mas a polia móvel do tipo 2 divide o peso entre dois trechos de corda. As cargas não são iguais."
+      E: "4 corresponderia a duas polias móveis. Na figura, só a polia presa em M₂ se move; as outras são fixas."
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-fundamental/maquinas-simples]
+
+  - id: enem-2023-110
+    area: natureza
+    competencia: 5
+    habilidade: 17
+    objeto: nat-qui-representacao
+    topico: nat-qui-representacao-estequiometria
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      As imagens trazem a equação Hg₂(NO₃)₂ + 2 NaCl → Hg₂Cl₂(s) + 2 NaNO₃ e o quadro com o NaCl posto em cada frasco: I 0,2 g; II 0,4; III 0,6; IV 0,8; V 1,0; VI 1,2; VII 1,4 g.
+      1. Mercúrio em cada frasco: 5,25 g ÷ 525 g/mol = 0,01 mol de Hg₂(NO₃)₂.
+      2. NaCl para reagir com tudo: a proporção é 1 : 2, então 0,02 mol · 58 = 1,16 g.
+      3. Precipitado máximo: 0,01 mol de Hg₂Cl₂ · 472 = 4,72 g.
+      4. Até 1,16 g de NaCl, o sal de cozinha é o reagente que acaba primeiro e a massa de precipitado cresce em linha reta a partir de zero. Por exemplo, 0,2 g de NaCl é cerca de 0,00345 mol, que forma metade disso de Hg₂Cl₂, cerca de 0,0017 mol, ou 0,81 g.
+      5. Acima de 1,16 g (frascos VI e VII), o mercúrio acaba e a massa fica parada em 4,72 g.
+      O gráfico certo sai da origem, sobe em reta e fica plano perto de 4,7 g a partir de cerca de 1,16 g de NaCl. Alternativa B.
+    enganos:
+      A: "O gráfico A fica plano já perto de 0,58 g de NaCl. Isso acontece se a proporção for lida como 1 : 1. A equação pede 2 NaCl para cada Hg₂(NO₃)₂."
+      C: "Uma reta que nunca para ignora o reagente limitante. Quando o mercúrio acaba, mais NaCl não forma mais precipitado."
+      D: "O gráfico D começa em cerca de 2,5 g com zero de NaCl. Sem cloreto não se forma Hg₂Cl₂, então a curva tem de partir da origem."
+      E: "O gráfico E começa perto de 5,25 g, a massa do nitrato dissolvido, e passa de 4,72 g. Sem NaCl não há precipitado, e o máximo possível é 4,72 g."
+    aulas: [quimica-medio/mol-e-estequiometria, quimica-medio/reacoes-quimicas-e-balanceamento]
+
+  - id: enem-2023-111
+    area: natureza
+    competencia: 1
+    habilidade: 1
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-ondas-e-som
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A tirinha mostra Cebolinha e Cascão a uma boa distância, cada um com uma lata na orelha ou na boca, ligadas por um barbante esticado.
+      A voz faz o fundo da lata vibrar, a vibração corre pelo barbante e faz a outra lata vibrar.
+      Ao longo do caminho, parte da energia da onda se perde (atrito, aquecimento, vibração que escapa para o ar). Quanto mais longo o barbante, mais energia se perde.
+      A energia de uma onda está ligada à sua amplitude, que se percebe como volume. Então o som chega cada vez mais fraco: a amplitude diminui. Alternativa C.
+    enganos:
+      A: "Altura (grave ou agudo) depende da frequência, que é dada pela voz de quem fala. Ela não muda com o comprimento do barbante."
+      B: "O período é o inverso da frequência e também é fixado pela fonte. Ele não muda no caminho."
+      D: "A velocidade depende do meio: material e tensão do barbante. O texto diz que as demais condições ficaram iguais, então a velocidade não muda."
+      E: "Comprimento de onda = velocidade ÷ frequência. Como as duas não mudam, ele também não muda."
+    aulas: [fisica-medio/ondas, fisica-fundamental/som]
+
+  - id: enem-2023-112
+    area: natureza
+    competencia: 1
+    habilidade: 1
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-espectro
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      O texto dá a chave: a difração atrapalha quando a cavidade tem tamanho parecido com o comprimento de onda da luz. Para ler cavidades menores, a luz precisa ter comprimento de onda menor.
+      Na luz visível, o comprimento de onda diminui nesta ordem: vermelho > laranja > amarelo > verde > azul > violeta. O infravermelho fica além do vermelho, com comprimento ainda maior.
+      Entre as opções, o menor comprimento de onda é o do violeta. Com ele, cabem mais cavidades, e mais dados, na mesma área. Alternativa A.
+    enganos:
+      B: "O azul tem comprimento de onda menor que o verde e o vermelho, mas o violeta tem menor ainda. A pergunta pede o que otimiza."
+      C: "O verde fica no meio do espectro visível. Azul e violeta têm comprimentos menores."
+      D: "O vermelho tem o maior comprimento de onda da luz visível. Ele pede cavidades maiores, o contrário do que se quer."
+      E: "O infravermelho tem comprimento de onda ainda maior que o vermelho. É a pior escolha para cavidades pequenas."
+    aulas: [fisica-medio/ondas, fisica-medio/optica-geometrica, fisica-fundamental/luz-sombra-e-cores]
+
+  - id: enem-2023-113
+    area: natureza
+    competencia: 1
+    habilidade: 1
+    objeto: nat-fis-ondas
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      As alternativas vêm como imagens: A 2,0 · 10⁻⁶; B 2,0 · 10⁻⁵; C 2,4 · 10⁻⁵; D 2,4 · 10⁻³; E 2,4 · 10⁻¹.
+      A onda sai da antena para todos os lados. A 10 m de distância, a potência está espalhada sobre uma esfera de raio 10 m.
+      1. Potência em watts: 2,4 mW = 2,4 · 10⁻³ W.
+      2. Área da esfera: A = 4πr² = 4 · 3 · 10² = 1 200 m².
+      3. Intensidade = potência ÷ área = 2,4 · 10⁻³ ÷ 1 200 = 2,0 · 10⁻⁶ W/m².
+      Esse é o valor no limite de 10 m, o mínimo que a antena ainda detecta. Alternativa A.
+    enganos:
+      B: "2,0 · 10⁻⁵ sai de dividir por 4πr = 120, com r sem elevar ao quadrado. A área da esfera é 4πr²."
+      C: "2,4 · 10⁻⁵ sai de dividir só por r² = 100, sem o 4π. A área de uma esfera é 4πr², não r²."
+      D: "2,4 · 10⁻³ é a própria potência em watts, sem dividir pela área. Intensidade é potência por metro quadrado."
+      E: "2,4 · 10⁻¹ sai de multiplicar a potência por r² (2,4 · 10⁻³ · 100) em vez de dividir. Quanto mais longe, mais fraca a intensidade."
+    aulas: [fisica-medio/ondas]
+
+  - id: enem-2023-114
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-leis-de-newton
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A figura mostra o caminhão andando para a direita, com a caixa M na carroceria. A corda 1 liga a caixa à parede de trás; a corda 2 liga a caixa à parede da frente, do lado da cabine.
+      Atrito máximo: N = m · g = 200 · 10 = 2 000 N; atrito = 0,2 · 2 000 = 400 N.
+      1. Arrancada (3 m/s² para frente): a caixa precisa de m · a = 200 · 3 = 600 N para frente. Ela tende a ficar para trás, então o atrito puxa para frente com até 400 N. Falta 200 N, que vêm da corda da frente: T2 = 200 N e T1 = 0 (corda frouxa não puxa).
+      2. Freada (5 m/s² para trás): a caixa precisa de 200 · 5 = 1 000 N para trás. Ela tende a escorregar para frente, então o atrito puxa para trás com 400 N. Faltam 600 N, da corda de trás: T1 = 600 N e T2 = 0.
+      Alternativa A. Observação: no arquivo importado, o texto da alternativa C saiu igual ao da A.
+    enganos:
+      B: "1 400 N sai de somar o atrito à força que falta (1 000 + 400). Na freada, o atrito ajuda a segurar a caixa, então se subtrai: 1 000 − 400 = 600 N."
+      C: "No arquivo importado, o texto desta alternativa veio igual ao da A, o que é erro de cópia. Pelas contas, os valores certos são aceleração T2 = 200 N e freada T1 = 600 N; confira a sua prova com eles."
+      D: "560 e 960 saem de 600 − 40 e 1 000 − 40, com o atrito calculado como 0,2 · 200 = 40, sem a gravidade. Além disso, as cordas estão trocadas: na arrancada quem segura é a da frente (2)."
+      E: "640 e 1 040 somam um atrito de 40 N (calculado sem g) em vez de subtrair 400 N. E as cordas estão trocadas: na freada a caixa vai para frente e quem segura é a corda de trás (1)."
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton]
+
+  - id: enem-2023-115
+    area: natureza
+    competencia: 3
+    habilidade: 10
+    objeto: nat-bio-ecologia
+    topico: nat-bio-ecologia-impactos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Metais como mercúrio, chumbo e cádmio são elementos químicos. Nenhum ser vivo consegue quebrá-los em algo menor.
+      O aguapé absorve esses metais pelas raízes junto com a água e os guarda nos seus tecidos. O metal sai da água e fica preso na planta.
+      Depois, as plantas são retiradas do ambiente e descartadas com cuidado, levando o metal junto.
+      Alternativa B.
+    enganos:
+      A: "Enzimas quebram moléculas, como amido ou proteína. Um metal é um elemento e não pode ser quebrado."
+      C: "Estômatos trocam gases e vapor de água. Metais absorvidos não saem por eles."
+      D: "Plantas não têm glândulas que eliminem metais. E o metal não se transforma em outra coisa menos tóxica dentro do corpo."
+      E: "A energia da planta vem da fotossíntese. Metais tóxicos não servem de combustível; ao contrário, fazem mal às células."
+    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, quimica-medio/quimica-ambiental]
+
+  - id: enem-2023-116
+    area: natureza
+    competencia: 3
+    habilidade: 9
+    objeto: nat-bio-ecologia
+    topico: nat-bio-ecologia-ciclos
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: B
+    imagem: true
+    resolucao: |
+      A figura mostra: 1 gás nitrogênio → amônia; 2 detritos → amônia; 3 amônia → nitrito; 4 nitrito → nitrato; 5 nitrato → gás nitrogênio.
+      Detritos são restos de seres vivos, fezes e urina. Os decompositores (bactérias e fungos) quebram as proteínas desses restos e liberam o nitrogênio como amônia. Essa etapa se chama amonificação.
+      Sem decompositores, os detritos não virariam amônia: a etapa 2 não aconteceria. Alternativa B.
+    enganos:
+      A: "A etapa 1 é a fixação: bactérias fixadoras, livres ou nas raízes de leguminosas, transformam o N₂ do ar em amônia. Não depende de decompositores."
+      C: "A etapa 3 é a primeira parte da nitrificação, feita por bactérias que oxidam amônia a nitrito para obter energia. Não são decompositoras."
+      D: "A etapa 4 é a segunda parte da nitrificação, nitrito virando nitrato, também feita por bactérias nitrificantes."
+      E: "A etapa 5 é a desnitrificação, em que bactérias devolvem o nitrogênio ao ar como N₂. É outro grupo, não o dos decompositores."
+    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas]
+
+  - id: enem-2023-117
+    area: natureza
+    competencia: 6
+    habilidade: 22
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-fisica-moderna
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      1. Horas de voo por ano: 1 000 h. A fase de cruzeiro é 80% disso: 0,8 · 1 000 = 800 h.
+      2. Dose no ano: 800 h · 2 μSv/h = 1 600 μSv.
+      3. Mesma unidade: 1 mSv = 1 000 μSv, então 1 600 μSv = 1,6 mSv.
+      4. Número de radiografias: 1,6 ÷ 0,2 = 8.
+      A dose de um ano corresponde a cerca de 8 radiografias de tórax. Alternativa A.
+    enganos:
+      B: "10 sai de usar as 1 000 horas inteiras (2 000 μSv = 2 mSv; 2 ÷ 0,2 = 10). O texto dá a dose média só para o cruzeiro, que é 80% do tempo."
+      C: "80 aparece quando a conversão de unidades sai errada por um fator 10, por exemplo tratando 0,2 mSv como 20 μSv. Lembre: 0,2 mSv = 200 μSv."
+      D: "100 junta os dois enganos: usa 1 000 h e erra a conversão (2 000 ÷ 20). Corrija as duas coisas: 800 h e 0,2 mSv = 200 μSv."
+      E: "1 000 é o número de horas de trabalho por ano, não de radiografias. É preciso calcular a dose e dividir pela dose de uma radiografia."
+    aulas: [fisica-medio/fisica-moderna-relatividade-e-quantica]
+
+  - id: enem-2023-118
+    area: natureza
+    competencia: 5
+    habilidade: 18
+    objeto: nat-qui-carbono
+    topico: nat-qui-carbono-cadeias
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O quadro traz: I n-decano; II n-heptano; III 2,2,4-trimetilpentano; IV 3-etil-4-metilex-1-eno; V 3-etil-2-metilpentan-1-ol.
+      O texto pede três coisas: hidrocarboneto, cadeia saturada (só ligações simples), de 8 a 12 carbonos, e de preferência ramificada.
+      1. I: hidrocarboneto saturado com 10 C, mas de cadeia normal (o "n" indica cadeia sem ramificação).
+      2. II: 7 C e cadeia normal.
+      3. III: pentano (5 C) + três metilas = 8 C; saturado e muito ramificado. Atende a tudo.
+      4. IV: tem dupla ligação ("-eno"), então não é saturado.
+      5. V: tem OH ("-ol"); é álcool, não hidrocarboneto.
+      Alternativa C.
+    enganos:
+      A: "O n-decano é saturado e tem 10 carbonos, mas a cadeia é reta. O texto pede cadeia ramificada para resistir à compressão."
+      B: "O n-heptano tem só 7 carbonos, fora da faixa de 8 a 12, e a cadeia é reta."
+      D: "O sufixo -eno indica dupla ligação: a cadeia é insaturada. O texto pede hidrocarboneto saturado."
+      E: "O sufixo -ol indica álcool. A gasolina descrita é mistura de hidrocarbonetos, só carbono e hidrogênio."
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, quimica-fundamental/combustiveis-e-combustao]
+
+  - id: enem-2023-119
+    area: natureza
+    competencia: 6
+    habilidade: 21
+    objeto: nat-qui-transformacoes
+    topico: nat-qui-transformacoes-gases
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A imagem dá a constante: R = 0,082 L·atm/(mol·K).
+      Use a equação dos gases ideais, P · V = n · R · T, com tudo nas unidades da constante.
+      1. Volume em litros: 100 mL = 0,1 L.
+      2. Temperatura em kelvin: 650 + 273 = 923 K.
+      3. P = n · R · T ÷ V = 0,1 · 0,082 · 923 ÷ 0,1 = 0,082 · 923 ≈ 75,7 atm.
+      O valor mais próximo é 76 atm. Alternativa C.
+    enganos:
+      A: "756 é dez vezes o certo. Vem de usar 100 mL como 0,01 L. Lembre: 1 L = 1 000 mL, então 100 mL = 0,1 L."
+      B: "533 junta dois enganos: temperatura em Celsius (650) e volume como 0,01 L. A conta de gases pede kelvin e o volume certo, 0,1 L."
+      D: "53 sai de usar 650 °C direto na fórmula (0,082 · 650 ≈ 53). A equação dos gases só funciona com a temperatura em kelvin: 923 K."
+      E: "13 atm não sai de uma conta com os dados convertidos certo. Refaça com V = 0,1 L e T = 923 K."
+    aulas: [fisica-medio/termodinamica, quimica-medio/mol-e-estequiometria]
+
+  - id: enem-2023-120
+    area: natureza
+    competencia: 2
+    habilidade: 5
+    objeto: nat-fis-eletricidade
+    topico: nat-fis-eletricidade-circuitos
+    dificuldade: 3
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A figura mostra a fonte ligada a três conjuntos em série; cada conjunto é uma lâmpada em paralelo com um resistor R.
+      Chame de r a resistência de cada lâmpada. Cada conjunto vale r · R ÷ (r + R), um valor menor que R.
+      1. Quando L2 queima, o conjunto do meio passa a ser só o resistor R. A resistência dele aumenta.
+      2. A resistência total do circuito aumenta, então a corrente que sai da fonte diminui (i = U ÷ R total).
+      3. Os conjuntos de L1 e L3 não mudaram e recebem essa corrente menor. A tensão em cada um (U = R · i) cai, e a potência das lâmpadas (P = U² ÷ r) também cai.
+      L1 e L3 brilham menos, e do mesmo jeito, porque estão em conjuntos iguais e na mesma corrente. Alternativa C.
+    enganos:
+      A: "O brilho só ficaria igual se a resistência total não mudasse. Mas o conjunto do meio perdeu o caminho da lâmpada e ficou mais resistente."
+      B: "A ideia de que a energia da lâmpada queimada sobra para as outras não vale aqui. Com resistência total maior, a corrente cai para todos."
+      D: "L1 e L3 estão em conjuntos iguais e são atravessadas pela mesma corrente, porque os conjuntos estão em série. O que acontece com uma acontece com a outra."
+      E: "A posição em relação aos polos da fonte não muda nada num circuito em série: a corrente é a mesma em todos os conjuntos. L1 e L3 mudam igual."
+    aulas: [fisica-medio/circuitos-eletricos, fisica-fundamental/eletricidade-em-casa]
+
+  - id: enem-2023-121
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-materiais
+    topico: nat-qui-materiais-ligacoes
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    imagem: true
+    resolucao: |
+      A figura mostra o carboxilato (–COO⁻) preso ao biocarvão atraindo o cátion metálico (Mⁿ⁺). O quadro dá as eletronegatividades: K 0,82; Ca 1,00; Mg 1,31; Zn 1,65; Fe 1,83.
+      Uma ligação é mais iônica quanto maior a diferença de eletronegatividade entre os dois átomos. O oxigênio vale 3,44.
+      Diferenças: K 3,44 − 0,82 = 2,62; Ca 2,44; Mg 2,13; Zn 1,79; Fe 1,61.
+      A maior diferença é com o potássio. Alternativa A.
+    enganos:
+      B: "O cálcio dá diferença de 2,44, alta, mas menor que a do potássio (2,62). Compare todas as diferenças antes de escolher."
+      C: "O magnésio dá 2,13, menor que a do potássio. Quanto mais perto do oxigênio for a eletronegatividade do metal, menos iônica a ligação."
+      D: "O zinco dá só 1,79. Ser micronutriente não tem relação com o caráter iônico; o que conta é a diferença de eletronegatividade."
+      E: "O ferro tem a maior eletronegatividade da tabela (1,83), então a menor diferença (1,61): é a ligação menos iônica das cinco."
+    aulas: [quimica-medio/ligacoes-quimicas]
+
+  - id: enem-2023-122
+    area: natureza
+    competencia: 6
+    habilidade: 21
+    objeto: nat-fis-calor
+    topico: nat-fis-calor-trocas-de-calor
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Siga a água que passa pela parede oca: ela entra como vapor a 120 °C e sai como água líquida a 100 °C.
+      1. De 120 °C a 100 °C o vapor só esfria, sem mudar de estado. A energia que ele cede é calor sensível (muda a temperatura).
+      2. A 100 °C o vapor vira líquido. Essa condensação libera calor latente (muda o estado, sem mudar a temperatura).
+      As duas parcelas passam pela parede e vão para o doce. Lá dentro, a água do doce evapora: isso consome energia, não é a fonte dela.
+      Alternativa D.
+    enganos:
+      A: "A vaporização é o que acontece dentro do tacho, com a água do doce. Ela gasta a energia, não fornece."
+      B: "Falta o calor sensível: antes de condensar, o vapor esfria de 120 °C para 100 °C e também cede energia."
+      C: "O calor sensível está certo, mas a vaporização consome energia. Quem libera é a condensação do vapor na parede."
+      E: "A condensação fornece energia, mas a vaporização a consome. E o resfriamento de 120 °C para 100 °C (calor sensível) ficou de fora."
+    aulas: [quimica-fundamental/estados-fisicos-e-mudancas-de-estado, fisica-fundamental/calor-e-temperatura]
+
+  - id: enem-2023-123
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-carbono
+    topico: nat-qui-carbono-isomeria
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      As figuras mostram a fórmula do ibuprofeno e de cinco princípios ativos.
+      O ibuprofeno é quiral: tem um carbono ligado a quatro grupos diferentes (H, CH₃, COOH e o anel benzênico). Esse carbono assimétrico gera isomeria óptica: duas formas que são imagem no espelho uma da outra.
+      Procure um carbono com quatro grupos diferentes nas outras moléculas:
+      1. Fenacetina e paracetamol: carbonos do anel e da amida não têm quatro grupos diferentes; CH₃ e CH₂ repetem hidrogênios.
+      2. Dipirona: os carbonos fora do anel são CH₃ ou CH₂, com hidrogênios repetidos.
+      3. Diclofenaco: o CH₂ entre o anel e o carboxilato tem dois H.
+      4. Butilbrometo de escopolamina: o carbono ligado ao anel benzênico, ao H, ao CH₂OH e ao grupo éster tem quatro grupos diferentes (a figura até desenha esse H em cunha). Há isomeria óptica.
+      Alternativa E.
+    enganos:
+      A: "Na fenacetina, nenhum carbono tem quatro grupos diferentes: os do anel fazem dupla ligação e os de fora têm hidrogênios repetidos."
+      B: "O paracetamol é parecido com a fenacetina e também não tem carbono assimétrico. Sem esse carbono, não há isomeria óptica."
+      C: "Na dipirona, os carbonos fora dos anéis são CH₃ ou CH₂, com hidrogênios repetidos. Nenhum é ligado a quatro grupos diferentes."
+      D: "No diclofenaco, o carbono vizinho ao carboxilato é um CH₂: tem dois hidrogênios iguais. Não é carbono quiral."
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes]
+
+  - id: enem-2023-124
+    area: natureza
+    competencia: 6
+    habilidade: 20
+    objeto: nat-fis-movimento
+    topico: nat-fis-movimento-cinematica
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: B
+    resolucao: |
+      Use tempo = distância ÷ velocidade e some as paradas de quem para.
+      1. Carro: 480 ÷ 100 = 4,8 h = 288 min. Ele para nas 10 praças: 10 · 3 = 30 min. Total: 318 min.
+      2. Caminhão: 480 ÷ 80 = 6 h = 360 min. Com cobrança automática, não para.
+      3. Diferença: 360 − 318 = 42 min.
+      O carro leva 42 minutos a menos. Alternativa B.
+    enganos:
+      A: "30 min é só o tempo que o carro perde nas cabines. Falta comparar os tempos de estrada, que são diferentes."
+      C: "72 min é 360 − 288: compara só a estrada e esquece os 30 min do carro nos pedágios."
+      D: "288 min é o tempo de estrada do carro, não a diferença entre os dois."
+      E: "360 min é o tempo total do caminhão. A pergunta pede quanto o carro leva a menos."
+    aulas: [fisica-medio/cinematica-movimento-uniforme-e-variado, fisica-fundamental/movimento-e-velocidade-media]
+
+  - id: enem-2023-125
+    area: natureza
+    competencia: 4
+    habilidade: 13
+    objeto: nat-bio-hereditariedade
+    topico: nat-bio-hereditariedade-mutacoes
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Quem tem síndrome de Down tem três cromossomos 21. Na meiose, esses três se repartem entre as duas células: uma fica com um, a outra com dois.
+      Então cada pai e cada mãe com a síndrome pode formar gametas com um cromossomo 21 ou com dois.
+      Combinações na fecundação:
+      1. 1 + 1 = 2 cromossomos: zigoto normal (foi o caso da menina citada no texto).
+      2. 1 + 2 = 3: trissômico (síndrome de Down).
+      3. 2 + 2 = 4: tetrassômico.
+      Os três tipos são possíveis. Alternativa E.
+    enganos:
+      A: "Nem todos os gametas levam um só cromossomo 21. Com três cromossomos, a meiose forma gametas com um ou com dois."
+      B: "Só daria tetrassômicos se todos os gametas tivessem dois cromossomos 21. Metade, em média, leva um só."
+      C: "Falta a combinação de um gameta com um 21 e outro com dois 21, que forma trissômico. Ela também acontece."
+      D: "Falta a combinação 1 + 1, que forma zigoto normal. O próprio texto conta o caso de uma menina sem a síndrome."
+    aulas: [biologia-medio/divisao-celular, biologia-medio/genetica-as-leis-de-mendel]
+
+  - id: enem-2023-126
+    area: natureza
+    competencia: 5
+    habilidade: 18
+    objeto: nat-qui-materiais
+    topico: nat-qui-materiais-forcas-intermoleculares
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      A equação mostra R₃N + HCl → (R₃NH)⁺Cl⁻. A amina, que tem par de elétrons livre no nitrogênio, recebe o H⁺ do ácido e vira um sal (cloridrato).
+      A amina de cadeia longa é pouco polar e se mistura mal com água. O cloridrato tem um cátion e um ânion: é uma espécie iônica.
+      Íons são cercados por moléculas de água (interação íon-dipolo), então o sal dissolve bem no plasma, que é aquoso. Por isso o fármaco circula melhor no sangue.
+      O que aumentou foi o caráter iônico. Alternativa C.
+    enganos:
+      A: "O HCl neutraliza a amina, que é a parte básica da molécula. O cloridrato fica menos básico, não mais."
+      B: "Lipofilicidade é afinidade por gordura. Ao virar íon, a molécula fica mais afim de água e menos de gordura."
+      D: "A cadeia carbônica não muda na reação: só o nitrogênio recebe um H⁺."
+      E: "Não há oxidação nem redução: o nitrogênio só recebe um próton. O número de oxidação dele continua o mesmo."
+    aulas: [quimica-medio/ligacoes-quimicas, quimica-medio/funcoes-inorganicas]
+
+  - id: enem-2023-127
+    area: natureza
+    competencia: 4
+    habilidade: 15
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-metabolismo
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: C
+    imagem: true
+    resolucao: |
+      O esquema mostra o caminho dos elétrons: o substrato do alimento libera CO₂ e entrega elétrons ao NAD⁺, que vira NADH. O NADH passa os elétrons aos transportadores 1, 2 e 3, depois à citocromo c oxidase (Fe³⁺ vira Fe²⁺), e por fim ao oxigênio, que vira água.
+      O cianeto prende o Fe³⁺ da citocromo c oxidase e trava a cadeia. Os transportadores ficam cheios de elétrons e não conseguem receber mais.
+      Assim, o NADH não consegue entregar seus elétrons e não volta a ser NAD⁺. Ele se acumula na célula.
+      Alternativa C.
+    enganos:
+      A: "Sem a cadeia funcionando, não há gradiente de prótons, e a produção de ATP cai. O ATP diminui."
+      B: "A água se forma quando o oxigênio recebe os elétrons no fim da cadeia. Com a cadeia travada, forma-se menos água."
+      D: "O CO₂ sai das reações que precisam de NAD⁺. Como o NAD⁺ não é regenerado, essas reações ficam lentas e sai menos CO₂."
+      E: "A citocromo c oxidase é uma enzima da membrana. O cianeto não faz a célula fabricar mais dela; só bloqueia a que existe."
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese]
+
+  - id: enem-2023-128
+    area: natureza
+    competencia: 1
+    habilidade: 1
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-espectro
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: C
+    resolucao: |
+      Um receptor de rádio é sintonizado numa frequência: ele responde às ondas dessa frequência e rejeita as outras.
+      Um sinal do celular só atrapalha a comunicação se chegar ao rádio do avião na mesma frequência em que ele está sintonizado. Aí as duas ondas se somam no receptor (interferência) e a mensagem se mistura.
+      Ondas de frequências diferentes passam pelo mesmo lugar sem confundir o receptor. Alternativa C.
+    enganos:
+      A: "Ondas de rádio e de celular são eletromagnéticas, não som. Nenhuma das duas é audível."
+      B: "Potência sozinha não basta: um sinal forte numa frequência diferente é rejeitado pelo filtro do rádio."
+      D: "Intensidade alta numa frequência diferente também é filtrada. O que importa para interferir é a frequência coincidir."
+      E: "No ar, todas as ondas eletromagnéticas andam praticamente à mesma velocidade, a da luz. Essa diferença não existe."
+    aulas: [fisica-medio/ondas]
+
+  - id: enem-2023-129
+    area: natureza
+    competencia: 3
+    habilidade: 10
+    objeto: nat-qui-sociedade
+    topico: nat-qui-sociedade-ambiental
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      O texto diz que o Aldrin é organoclorado e de baixa polaridade. Substâncias pouco polares se misturam bem com gorduras e mal com água: "semelhante dissolve semelhante".
+      Por isso o Aldrin se acumula no tecido gorduroso dos organismos.
+      Entre os líquidos analisados, saliva, sangue, lágrima e urina são principalmente água. O leite tem muita gordura, então é onde o inseticida deve estar mais concentrado.
+      Alternativa E.
+    enganos:
+      A: "A saliva é quase toda água. As enzimas dela não juntam uma substância pouco polar."
+      B: "O plasma do sangue é aquoso, e hemácias e leucócitos não armazenam gordura. O sangue transporta o Aldrin, mas não o concentra."
+      C: "Sais são iônicos e polares. Eles não atraem uma molécula de baixa polaridade."
+      D: "A urina elimina substâncias solúveis em água, como a ureia, que é polar. Uma molécula apolar fica retida na gordura do corpo."
+    aulas: [quimica-medio/quimica-ambiental, quimica-medio/ligacoes-quimicas]
+
+  - id: enem-2023-130
+    area: natureza
+    competencia: 5
+    habilidade: 18
+    objeto: nat-qui-sociedade
+    topico: nat-qui-sociedade-lixo-e-reciclagem
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: D
+    resolucao: |
+      Duas informações do texto decidem a questão.
+      1. O copo não esquenta por fora com café quente dentro: o material conduz mal o calor. Ele tem baixa condutividade térmica.
+      2. O copo é reutilizável e devolvido para lavar. Cada copo usado muitas vezes substitui muitos copos descartáveis de plástico, que não se degradam. Isso reduz o resíduo não biodegradável.
+      Alternativa D.
+    enganos:
+      A: "O copo tem 50% de plástico reciclado não biodegradável. Ele não é totalmente biodegradável."
+      B: "Se a condutividade fosse alta, o calor do café passaria para fora e o copo esquentaria na mão. O texto diz o contrário."
+      C: "Mau condutor está certo, mas a vantagem não é aumentar resíduo. O ganho é reduzir lixo, porque o copo é reutilizado."
+      E: "Condutividade alta contradiz o texto, e metade do material é plástico que não se degrada."
+    aulas: [quimica-medio/polimeros-e-plasticos, fisica-fundamental/calor-e-temperatura]
+
+  - id: enem-2023-131
+    area: natureza
+    competencia: 7
+    habilidade: 24
+    objeto: nat-qui-agua
+    topico: nat-qui-agua-solucoes
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: A
+    resolucao: |
+      Densidade = massa ÷ volume.
+      As duas latas têm o mesmo volume e quase a mesma composição. A diferença é o açúcar: o refrigerante comum tem muita massa de açúcar dissolvida, e o diet tem adoçantes em massa muito pequena.
+      Mais massa no mesmo volume dá maior densidade. É por isso que, num balde de água, a lata comum costuma afundar e a diet costuma boiar.
+      Alternativa A.
+    enganos:
+      B: "Muito açúcar dissolvido deixa o líquido mais grosso, como uma calda. A viscosidade do comum tende a ser maior, não menor."
+      C: "O texto diz que os dois têm água carbonatada e a mesma quantidade de aditivos. Nada indica que o comum tenha mais gás."
+      D: "O comum tem mais soluto: todo aquele açúcar. Os adoçantes do diet têm massa muito pequena."
+      E: "Soluto dissolvido baixa a temperatura de congelamento (efeito crioscópico). Com mais açúcar, o comum congela a uma temperatura menor."
+    aulas: [quimica-medio/solucoes-e-concentracao, fisica-medio/hidrostatica]
+
+  - id: enem-2023-133
+    area: natureza
+    competencia: 7
+    habilidade: 27
+    objeto: nat-qui-sociedade
+    topico: nat-qui-sociedade-cotidiano
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: E
+    imagem: true
+    resolucao: |
+      A figura mostra o tensoativo: uma cadeia de carbonos cheia de ramificações (várias metilas), ligada a um anel benzênico, que tem na outra ponta o grupo sulfonato (–SO₃⁻ Na⁺).
+      O tensoativo precisa das duas partes: a cauda apolar segura a gordura e a cabeça iônica fica na água.
+      O texto dá a pista: os microrganismos não conseguem quebrar moléculas ramificadas. Então basta trocar a cauda ramificada por uma cadeia normal (reta). A molécula continua sendo detergente e passa a ser degradada pelos microrganismos.
+      Alternativa E.
+    enganos:
+      A: "Sem a parte polar, a molécula deixa de se misturar com a água e para de funcionar como detergente. E o problema apontado é a ramificação."
+      B: "O texto liga a não biodegradabilidade às ramificações, não ao anel. Detergentes com anel e cadeia reta são degradados."
+      C: "Trocar a carga da cabeça muda o tipo de detergente, mas a cauda continuaria ramificada e difícil de quebrar."
+      D: "Uma cabeça catiônica ainda deixa a cauda ramificada. O que impede a degradação é a ramificação da cadeia."
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, quimica-medio/quimica-ambiental]
+
+  - id: enem-2023-134
+    area: natureza
+    competencia: 4
+    habilidade: 15
+    objeto: nat-bio-celulas
+    topico: nat-bio-celulas-divisao
+    dificuldade: 1
+    situacao: a-confirmar
+    gabarito: E
+    resolucao: |
+      Na divisão celular, o fuso puxa os cromossomos para os dois polos da célula.
+      Se um pedaço de cromossomo se quebra (por causa de uma substância que lesa o DNA) ou se um cromossomo inteiro não se prende bem ao fuso, ele fica para trás.
+      Quando os núcleos-filhos se refazem, esse material solto ganha uma membrana própria e vira um núcleo pequeno: o micronúcleo.
+      O texto diz que micronúcleos são fragmentos de DNA. Na célula, o DNA do núcleo está organizado em cromossomos. Alternativa E.
+    enganos:
+      A: "O nucléolo é a região do núcleo que monta ribossomos, e some durante a divisão. Ele não é o material que fica para trás no fuso."
+      B: "Lisossomos são bolsas de enzimas digestivas no citoplasma. Não têm DNA."
+      C: "Ribossomos são feitos de RNA e proteína e montam proteínas. Não têm DNA."
+      D: "Mitocôndrias têm DNA próprio, mas não são puxadas pelo fuso. O micronúcleo vem do DNA do núcleo, organizado em cromossomos."
+    aulas: [biologia-medio/divisao-celular, biologia-medio/citologia]
+
+  - id: enem-2023-135
+    area: natureza
+    competencia: 1
+    habilidade: 1
+    objeto: nat-fis-ondas
+    topico: nat-fis-ondas-ondas-e-som
+    dificuldade: 2
+    situacao: a-confirmar
+    gabarito: D
+    imagem: true
+    resolucao: |
+      O esquema mostra o emissor na superfície, uma camada de rocha, a camada líquida de 450 m e outra rocha embaixo.
+      O primeiro eco volta do topo do líquido; o segundo volta do fundo do líquido. A diferença entre eles é o tempo extra que o pulso passou dentro do líquido.
+      1. Tempo extra: 1,1 − 0,5 = 0,6 s.
+      2. Nesse tempo o pulso desce e sobe pela camada: 2 · 450 = 900 m.
+      3. Velocidade: 900 ÷ 0,6 = 1 500 m/s.
+      Alternativa D.
+    enganos:
+      A: "270 sai de 450 · 0,6: multiplicou distância por tempo. Velocidade é distância dividida por tempo."
+      B: "540 sai de 900 · 0,6: de novo multiplicou em vez de dividir. Faça 900 ÷ 0,6."
+      C: "818 sai de 900 ÷ 1,1: usou o tempo total do segundo eco, que inclui a ida e a volta pela rocha. Só os 0,6 s de diferença são passados no líquido."
+      E: "1 800 sai de 900 ÷ 0,5: usou o tempo do primeiro eco, que é o percurso na rocha. O tempo no líquido é 1,1 − 0,5 = 0,6 s."
+    aulas: [fisica-medio/ondas]
