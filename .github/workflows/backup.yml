@@ -1,8 +1,10 @@
 name: Cópia do banco
 
 # Toda semana tira uma cópia do banco (dados do instituto, contas e regras dos depósitos), cifra com uma senha que só a
-# coordenação tem e guarda aqui no GitHub por 90 dias, como "artefato" da rotina (o repositório é privado). O plano
-# gratuito do Supabase não guarda cópias que se possam restaurar. Restaurar: docs/seguranca/BACKUP.md.
+# coordenação tem e guarda aqui no GitHub por 90 dias, como "artefato" da rotina. O plano gratuito do Supabase não
+# guarda cópias que se possam restaurar. Restaurar: docs/seguranca/BACKUP.md.
+# Artefato de repositório público qualquer conta do GitHub baixa: com o repositório público a rotina não roda, mesmo
+# com a cifra (a cópia tem contas e dados pessoais, e uma senha fraca cairia com tempo).
 #
 # Só roda depois de criados os segredos (Settings → Secrets and variables → Actions → Secrets):
 #   BACKUP_DB_URL     a conexão "Session pooler" do Supabase (Connect → Session pooler), com a senha do banco
@@ -21,6 +23,7 @@ concurrency:
 
 jobs:
   copia:
+    if: github.event.repository.private
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
