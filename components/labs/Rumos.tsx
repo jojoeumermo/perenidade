@@ -1,16 +1,34 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import Link from "@/components/Link";
 import { fill, localePath } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
-import { aulasDaPartida, escolher, faseAtual, lerProgresso, mexeCom, novaPartida, registrarPartida, type Area, type Baralho, type Carta, type Escolha, type Lado, type Nota, type Partida, type Progresso } from "@/lib/rumos";
+import { aulasDaPartida, CHAVE_JOGOS, escolher, faseAtual, lerProgresso, mexeCom, novaPartida, registrarPartida, type Area, type Baralho, type Carta, type Escolha, type Lado, type Nota, type Partida, type Progresso } from "@/lib/rumos";
 import { useI18n } from "../I18n";
 
 type S = Dict["labs"]["jogos"]["rumos"];
 /** O texto dos baralhos está em português; a interface, no idioma da pessoa. */
 const PT = { lang: "pt-BR" } as const;
+
+/** O progresso guardado (partidas e desfechos vistos), lido do armazenamento do aparelho e relido quando muda. */
+const MUDOU = "lucia:jogos";
+function assinarProgresso(avisar: () => void) {
+  window.addEventListener(MUDOU, avisar);
+  window.addEventListener("storage", avisar);
+  return () => {
+    window.removeEventListener(MUDOU, avisar);
+    window.removeEventListener("storage", avisar);
+  };
+}
+function lerBruto() {
+  try {
+    return localStorage.getItem(CHAVE_JOGOS) ?? "{}";
+  } catch {
+    return "{}";
+  }
+}
 
 /** Arrasto que conta como escolha (em pixels) e arrasto que só mostra a escolha. */
 const SOLTAR = 110;
@@ -362,11 +380,9 @@ export function Rumos({ baralhos, s }: { baralhos: Baralho[]; s: S }) {
   const [partida, setPartida] = useState<Partida | null>(null);
   const [retorno, setRetorno] = useState<{ jogada: Partida["jogadas"][number]; seguinte: Partida } | null>(null);
   const [previa, setPrevia] = useState<Lado | null>(null);
-  const [progresso, setProgresso] = useState<Record<string, Progresso>>({});
   const [vendoFim, setVendoFim] = useState(false);
-  useEffect(() => {
-    setProgresso(lerProgresso());
-  }, []);
+  const bruto = useSyncExternalStore(assinarProgresso, lerBruto, () => "{}");
+  const progresso = useMemo(() => lerProgresso({ getItem: () => bruto }), [bruto]);
   const topo = useRef<HTMLDivElement>(null);
 
   const iniciar = (b: Baralho) => {
@@ -484,7 +500,8 @@ export function Rumos({ baralhos, s }: { baralhos: Baralho[]; s: S }) {
             setPartida(retorno.seguinte);
             setRetorno(null);
             if (retorno.seguinte.fim) {
-              setProgresso(registrarPartida(retorno.seguinte));
+              registrarPartida(retorno.seguinte);
+              window.dispatchEvent(new Event(MUDOU));
               setVendoFim(true);
             }
           }}
