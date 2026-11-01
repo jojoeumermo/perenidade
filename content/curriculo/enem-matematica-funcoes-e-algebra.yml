@@ -1,0 +1,133 @@
+# Mapa curricular da trilha enem-matematica-funcoes-e-algebra: cada aula ligada às habilidades da Matriz do Enem e aos
+# tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - "Matriz de Referência do Enem, Inep: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem"
+aulas:
+  funcoes-e-graficos:
+    enem:
+      - area: matematica
+        competencia: 5
+        habilidade: 19
+        resumo: "Identificar a expressão algébrica que traduz a relação entre grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 20
+        resumo: "Interpretar gráficos cartesianos que relacionam grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 21
+        resumo: "Resolver problemas cuja modelagem pede álgebra."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 22
+        resumo: "Usar álgebra e geometria para construir argumentos."
+        situacao: a-confirmar
+    objetos: [mat-algebra-funcoes-e-graficos]
+  funcao-afim:
+    enem:
+      - area: matematica
+        competencia: 5
+        habilidade: 19
+        resumo: "Identificar a expressão algébrica que traduz a relação entre grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 20
+        resumo: "Interpretar gráficos cartesianos que relacionam grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 21
+        resumo: "Resolver problemas cuja modelagem pede álgebra."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 22
+        resumo: "Usar álgebra e geometria para construir argumentos."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 23
+        resumo: "Avaliar propostas de intervenção usando álgebra."
+        situacao: a-confirmar
+    objetos: [mat-algebra-funcao-afim]
+  funcao-quadratica:
+    enem:
+      - area: matematica
+        competencia: 5
+        habilidade: 20
+        resumo: "Interpretar gráficos cartesianos que relacionam grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 21
+        resumo: "Resolver problemas cuja modelagem pede álgebra."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 23
+        resumo: "Avaliar propostas de intervenção usando álgebra."
+        situacao: a-confirmar
+    objetos: [mat-algebra-funcao-quadratica]
+  progressoes:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 2
+        resumo: "Identificar padrões numéricos ou princípios de contagem."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: "Resolver problemas com conhecimentos numéricos."
+        situacao: a-confirmar
+    objetos: [mat-numeros-progressoes]
+  funcao-exponencial:
+    enem:
+      - area: matematica
+        competencia: 5
+        habilidade: 19
+        resumo: "Identificar a expressão algébrica que traduz a relação entre grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 20
+        resumo: "Interpretar gráficos cartesianos que relacionam grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 21
+        resumo: "Resolver problemas cuja modelagem pede álgebra."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 22
+        resumo: "Usar álgebra e geometria para construir argumentos."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 23
+        resumo: "Avaliar propostas de intervenção usando álgebra."
+        situacao: a-confirmar
+    objetos: [mat-algebra-funcao-exponencial]
+  logaritmos:
+    enem:
+      - area: matematica
+        competencia: 5
+        habilidade: 19
+        resumo: "Identificar a expressão algébrica que traduz a relação entre grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 21
+        resumo: "Resolver problemas cuja modelagem pede álgebra."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 22
+        resumo: "Usar álgebra e geometria para construir argumentos."
+        situacao: a-confirmar
+    objetos: [mat-algebra-logaritmos]

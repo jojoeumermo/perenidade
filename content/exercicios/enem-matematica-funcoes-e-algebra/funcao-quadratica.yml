@@ -1,0 +1,257 @@
+# Exercícios da aula "Função quadrática: vértice, máximo e mínimo" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-quadratica-01
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcao-quadratica
+  dificuldade: 1
+  enunciado: "O gráfico de f(x) = −2x² + 8x − 3 é uma parábola que"
+  alternativas:
+    - texto: "abre para cima e tem um ponto de mínimo."
+      erro: "A abertura depende do sinal do a, o número do x². Aqui a = −2, negativo: a parábola abre para baixo."
+    - texto: "abre para baixo e tem um ponto de máximo."
+      certa: true
+    - texto: "é uma reta que desce."
+      erro: "Com x², o gráfico não é reta. Reta é a função afim, em que o maior expoente do x é 1."
+    - texto: "abre para baixo e tem um ponto de mínimo."
+      erro: "A abertura está certa, mas um morro tem um ponto mais alto, não mais baixo. Parábola para baixo tem máximo."
+    - texto: "abre para cima, porque o 8 é positivo."
+      erro: "Quem decide a abertura é o a (−2), não o b (8). O b só ajuda a localizar o vértice."
+  explicacao: "O a é −2, negativo. A parábola abre para baixo, como um morro, e o vértice é o ponto de máximo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-02
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  dificuldade: 1
+  enunciado: "Qual é a maior raiz da equação x² − 9x + 14 = 0?"
+  alternativas:
+    - texto: "2"
+      erro: "2 também é raiz, mas é a menor. Com o sinal de mais: (9 + 5) ÷ 2 = 7."
+    - texto: "14"
+      erro: "14 é o produto das raízes (2 × 7), não uma raiz. Calcule Δ = 81 − 56 = 25."
+    - texto: "9"
+      erro: "9 é a soma das raízes (2 + 7). Falta separar: as raízes são (9 ± 5) ÷ 2."
+    - texto: "7"
+      certa: true
+    - texto: "5"
+      erro: "5 é a raiz de delta, √25. Ainda falta somar ao −b e dividir por 2a: (9 + 5) ÷ 2."
+  explicacao: "a = 1, b = −9, c = 14. Δ = 81 − 56 = 25 e √25 = 5. x = (9 ± 5) ÷ 2: as raízes são 7 e 2. A maior é 7. Confira: 7 + 2 = 9 e 7 × 2 = 14."
+  conferir: "(9 + sqrt(81 - 56)) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-03
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  dificuldade: 1
+  enunciado: "Qual é o x do vértice da parábola f(x) = x² − 10x + 21?"
+  alternativas:
+    - texto: "5"
+      certa: true
+    - texto: "−5"
+      erro: "O sinal se perdeu. A fórmula é −b ÷ (2a), e b = −10. Então −(−10) = +10, e 10 ÷ 2 = 5."
+    - texto: "10"
+      erro: "Faltou dividir por 2a. O vértice é −b ÷ (2a) = 10 ÷ 2."
+    - texto: "21"
+      erro: "21 é o c, onde a curva corta o eixo vertical. O x do vértice vem de −b ÷ (2a)."
+    - texto: "−4"
+      erro: "−4 é o y do vértice, f(5) = 25 − 50 + 21. A pergunta pede o x."
+  explicacao: "xᵥ = −b ÷ (2a) = 10 ÷ 2 = 5. As raízes são 3 e 7, e o vértice fica no meio delas: (3 + 7) ÷ 2 = 5."
+  conferir: "10 / (2 * 1)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-04
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa aula de educação física, uma estudante chuta uma bola para cima. Desprezando a resistência do ar, a altura da
+    bola em relação ao pé da estudante, em metros, é dada por h(t) = −5t² + 10t, em que t é o tempo, em segundos, contado
+    a partir do chute.
+  enunciado: "A altura máxima atingida pela bola, em relação ao pé da estudante, é de"
+  alternativas:
+    - texto: "1 m"
+      erro: "1 é o tempo do vértice, em segundos: t = −10 ÷ (2 × (−5)) = 1. Substitua o 1 na lei para achar a altura."
+    - texto: "10 m"
+      erro: "10 é o b, a velocidade de saída da bola na lei. A altura máxima é h(1) = −5 + 10."
+    - texto: "2 m"
+      erro: "2 é o tempo em que a bola volta ao pé (a outra raiz de −5t² + 10t = 0). O máximo fica no meio, em t = 1."
+    - texto: "15 m"
+      erro: "O sinal do −5 se perdeu: 5 + 10 = 15. Com a negativo, h(1) = −5 × 1 + 10 × 1 = 5."
+    - texto: "5 m"
+      certa: true
+  explicacao: "O a é −5: há máximo. O vértice está em t = −10 ÷ (2 × (−5)) = 1 s. A altura é h(1) = −5 × 1² + 10 × 1 = 5 m."
+  conferir: "-5 * 1^2 + 10 * 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-05
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  dificuldade: 2
+  enunciado: "Qual é a raiz positiva da equação x² − 5x − 6 = 0?"
+  alternativas:
+    - texto: "1"
+      erro: "Você trocou o sinal do b. As raízes de x² + 5x − 6 = 0 seriam 1 e −6. Aqui b = −5, então −b = +5."
+    - texto: "5"
+      erro: "5 é a soma das raízes (6 + (−1)), não uma raiz. Calcule o delta antes."
+    - texto: "6"
+      certa: true
+    - texto: "3"
+      erro: "No delta, −4ac com c = −6 dá +24, não −24. Δ = 25 + 24 = 49, e não 1."
+    - texto: "7"
+      erro: "7 é √Δ = √49. Falta somar ao −b e dividir por 2a: (5 + 7) ÷ 2."
+  explicacao: "a = 1, b = −5, c = −6. Δ = 25 − 4 × 1 × (−6) = 25 + 24 = 49 e √49 = 7. x = (5 ± 7) ÷ 2: as raízes são 6 e −1. A positiva é 6. Confira: 6 + (−1) = 5 e 6 × (−1) = −6."
+  conferir: "(5 + sqrt(25 + 24)) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-06
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Moradores vão cercar uma horta comunitária retangular encostada no muro de uma creche. O muro faz um dos lados do
+    retângulo; os outros três lados serão cercados com 60 metros de tela, sem sobra. Os dois lados perpendiculares ao muro
+    medem x metros cada um, e o lado paralelo ao muro mede 60 − 2x metros.
+  enunciado: "A maior área que essa horta pode ter é de"
+  alternativas:
+    - texto: "450 m²"
+      certa: true
+    - texto: "225 m²"
+      erro: "Você dividiu a tela em quatro lados iguais (15 × 15). O muro poupa um lado: a área é x(60 − 2x)."
+    - texto: "400 m²"
+      erro: "Você fez três lados iguais de 20 m (20 × 20). Não é o máximo: com x = 15, o lado do muro mede 30 e a área é 450."
+    - texto: "900 m²"
+      erro: "Você usou 30 × 30. Só o lado paralelo ao muro mede 30; os outros dois medem 15."
+    - texto: "15 m²"
+      erro: "15 é a medida do lado x no vértice, em metros. A área é 15 × (60 − 30)."
+  explicacao: "A área é A(x) = x(60 − 2x) = −2x² + 60x. O a é negativo: há máximo. O vértice está em x = −60 ÷ (2 × (−2)) = 15. A área máxima é 15 × 30 = 450 m²."
+  conferir: "15 * (60 - 2 * 15)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-07
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  dificuldade: 2
+  enunciado: "Qual é o valor mínimo da função f(x) = x² − 4x + 7?"
+  alternativas:
+    - texto: "2"
+      erro: "2 é o x do vértice, onde o mínimo acontece. O valor mínimo é f(2) = 4 − 8 + 7."
+    - texto: "3"
+      certa: true
+    - texto: "7"
+      erro: "7 é o c, o valor em x = 0. A curva ainda desce depois de x = 0, até x = 2."
+    - texto: "−3"
+      erro: "O sinal se perdeu. Pela fórmula, −Δ ÷ (4a) = −(16 − 28) ÷ 4 = 12 ÷ 4 = 3, positivo."
+    - texto: "19"
+      erro: "Você calculou f(−2) = 4 + 8 + 7. O x do vértice é −b ÷ (2a) = +2, não −2."
+  explicacao: "a = 1, positivo: há mínimo. xᵥ = 4 ÷ 2 = 2 e f(2) = 4 − 8 + 7 = 3. Pela outra fórmula: Δ = 16 − 28 = −12 e −Δ ÷ (4a) = 12 ÷ 4 = 3."
+  conferir: "2^2 - 4 * 2 + 7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-08
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 23
+  objeto: mat-algebra-funcao-quadratica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma padaria comunitária vende 200 pães por dia ao preço de R$ 1,00 cada. Uma pesquisa com os fregueses indicou que, a
+    cada R$ 0,10 de aumento no preço, a padaria venderia 10 pães a menos por dia. A diretoria quer escolher o preço que
+    traz a maior receita diária (preço vezes quantidade vendida).
+  enunciado: "Segundo a pesquisa, o preço do pão que dá a maior receita diária é"
+  alternativas:
+    - texto: "R$ 1,00"
+      erro: "Esse é o preço de hoje, sem aumento. Teste R$ 1,50: são 150 pães e R$ 225 de receita, mais que os R$ 200 de hoje."
+    - texto: "R$ 2,00"
+      erro: "Com R$ 2,00 são 10 aumentos e só 100 pães: a receita volta a R$ 200. O máximo fica antes, no meio do caminho."
+    - texto: "R$ 1,50"
+      certa: true
+    - texto: "R$ 0,50"
+      erro: "O sinal do vértice se perdeu (x = −5). Com R(x) = −x² + 10x + 200, o vértice é −10 ÷ (−2) = +5 aumentos."
+    - texto: "R$ 3,00"
+      erro: "Com R$ 3,00 a padaria não vende nenhum pão (200 − 10 × 20 = 0): é uma raiz, não o máximo. O vértice fica no meio."
+  explicacao: "Chame de x o número de aumentos de R$ 0,10. Receita: R(x) = (1 + 0,1x)(200 − 10x) = −x² + 10x + 200. O vértice está em x = −10 ÷ (2 × (−1)) = 5. Preço: 1 + 0,1 × 5 = R$ 1,50, com 150 pães e receita de R$ 225. Confira: com 4 ou 6 aumentos, a receita é R$ 224."
+  conferir: "1 + 0.1 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-09
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcao-quadratica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O gráfico de uma função quadrática f é uma parábola que abre para cima. Ela corta o eixo vertical no ponto (0, 3) e
+    corta o eixo horizontal nos pontos (1, 0) e (3, 0). Alguns pontos do gráfico estão na tabela:
+    x:    0   1   3   4
+    f(x): 3   0   0   3
+  enunciado: "O valor mínimo de f é"
+  alternativas:
+    - texto: "2"
+      erro: "2 é o x do vértice (o meio das raízes 1 e 3). O valor mínimo é o y desse ponto, f(2)."
+    - texto: "3"
+      erro: "3 é o valor em x = 0 e em x = 4. Entre as raízes, a curva fica abaixo do eixo: o mínimo é negativo."
+    - texto: "0"
+      erro: "0 é o valor nas raízes. Entre elas a parábola desce abaixo do eixo, então o mínimo é menor que zero."
+    - texto: "−1"
+      certa: true
+    - texto: "1"
+      erro: "O sinal se perdeu. f(2) = (2 − 1)(2 − 3) = 1 × (−1) = −1."
+  explicacao: "Com raízes 1 e 3, a lei é f(x) = a(x − 1)(x − 3). Como f(0) = 3a = 3, a = 1. O vértice fica no meio das raízes, x = 2, e f(2) = (1)(−1) = −1."
+  conferir: "(2 - 1) * (2 - 3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-quadratica-10
+  tema: "Função quadrática: vértice, máximo e mínimo"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa praça, um chafariz lança um jato de água a partir de um bico que fica a 3,2 m do chão. A altura do jato, em metros,
+    é dada por h(x) = −0,2x² + 1,2x + 3,2, em que x é a distância horizontal, em metros, até o bico. O jato sobe até 5 m
+    de altura e depois desce até tocar o chão.
+  enunciado: "A que distância horizontal do bico o jato de água toca o chão?"
+  alternativas:
+    - texto: "3 m"
+      erro: "3 m é onde o jato chega ao ponto mais alto (−1,2 ÷ (−0,4) = 3). O chão é h(x) = 0."
+    - texto: "5 m"
+      erro: "5 m é a altura máxima, não uma distância. Resolva h(x) = 0."
+    - texto: "2 m"
+      erro: "2 vem da raiz negativa, x = −2, sem o sinal. Distância à frente do bico é a raiz positiva."
+    - texto: "6 m"
+      erro: "Em x = 6 o jato volta à altura do bico (3,2 m), por simetria. Ele ainda desce até o chão, mais adiante."
+    - texto: "8 m"
+      certa: true
+  explicacao: "Toca o chão quando h(x) = 0. Multiplique −0,2x² + 1,2x + 3,2 = 0 por −5: x² − 6x − 16 = 0. Δ = 36 + 64 = 100 e √100 = 10. x = (6 ± 10) ÷ 2: 8 ou −2. A distância é 8 m. Confira: −0,2 × 64 + 1,2 × 8 + 3,2 = −12,8 + 9,6 + 3,2 = 0."
+  conferir: "(6 + sqrt(36 + 64)) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

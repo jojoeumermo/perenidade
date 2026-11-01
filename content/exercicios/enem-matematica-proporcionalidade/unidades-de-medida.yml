@@ -1,0 +1,253 @@
+# Exercícios da aula "Unidades de medida: comprimento, área, volume, massa e tempo" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-unidades-01
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 1
+  enunciado: "Um pacote de farinha tem 1,8 kg. Quantos gramas são?"
+  alternativas:
+    - texto: "180 g"
+      erro: "A vírgula andou só duas casas. Quilo quer dizer mil: 1 kg = 1.000 g, então são três casas."
+    - texto: "18.000 g"
+      erro: "A vírgula andou quatro casas. De quilograma para grama, são três: 1,8 × 1.000."
+    - texto: "1.800 g"
+      certa: true
+    - texto: "0,0018 g"
+      erro: "Você dividiu por 1.000 em vez de multiplicar. O grama é menor que o quilo, então o número tem de crescer."
+    - texto: "18 g"
+      erro: "Você só tirou a vírgula. 18 g é menos que um pacotinho de tempero; 1,8 kg é quase dois quilos."
+  explicacao: "1 kg = 1.000 g. 1,8 × 1.000 = 1.800 g."
+  conferir: "1.8 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-02
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 1
+  enunciado: "Uma lata de óleo tem 450 mL. Quantos litros são?"
+  alternativas:
+    - texto: "0,45 L"
+      certa: true
+    - texto: "4,5 L"
+      erro: "A vírgula voltou só duas casas. Mili quer dizer milésimo: 1 L = 1.000 mL, então são três casas."
+    - texto: "45 L"
+      erro: "A vírgula voltou uma casa só. 45 litros encheriam um balde grande; uma lata de óleo tem menos de um litro."
+    - texto: "0,045 L"
+      erro: "A vírgula voltou quatro casas. Divida 450 por 1.000, não por 10.000."
+    - texto: "450.000 L"
+      erro: "Você multiplicou por 1.000. O litro é maior que o mililitro, então o número tem de diminuir."
+  explicacao: "1 L = 1.000 mL. 450 ÷ 1.000 = 0,45 L."
+  conferir: "450 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-03
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 1
+  enunciado: "Uma oficina de costura durou 3 horas e 15 minutos. Quantos minutos durou a oficina?"
+  alternativas:
+    - texto: "315 minutos"
+      erro: "Você juntou os algarismos 3 e 15. Cada hora tem 60 minutos: 3 × 60 = 180, mais 15."
+    - texto: "180 minutos"
+      erro: "180 minutos são só as 3 horas. Faltaram os 15 minutos."
+    - texto: "165 minutos"
+      erro: "Você tirou os 15 minutos em vez de somar."
+    - texto: "195 minutos"
+      certa: true
+    - texto: "45 minutos"
+      erro: "Você multiplicou 3 × 15. As horas viram minutos multiplicando por 60, e depois os 15 minutos se somam."
+  explicacao: "3 horas são 3 × 60 = 180 minutos. Mais 15: 195 minutos."
+  conferir: "3 * 60 + 15"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-04
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa unidade básica de saúde, uma criança recebeu a receita de um xarope: 5 mL a cada 8 horas, durante 10 dias. O
+    xarope é vendido em frascos de 75 mL.
+  enunciado: "Para fazer o tratamento inteiro, o número mínimo de frascos a comprar é"
+  alternativas:
+    - texto: "1."
+      erro: "Você contou uma dose por dia (50 mL). De 8 em 8 horas são 3 doses por dia: 24 ÷ 8."
+    - texto: "2."
+      certa: true
+    - texto: "6."
+      erro: "Você contou 8 doses por dia. As 8 horas são o intervalo entre as doses: num dia de 24 horas cabem 3 doses."
+    - texto: "30."
+      erro: "30 é o número de doses do tratamento, não de frascos. Cada frasco tem várias doses de 5 mL."
+    - texto: "10."
+      erro: "Você contou um frasco por dia. Cada dia gasta 3 × 5 = 15 mL, bem menos que um frasco."
+  explicacao: "Doses por dia: 24 ÷ 8 = 3. Em 10 dias: 30 doses. Total: 30 × 5 = 150 mL. Frascos: 150 ÷ 75 = 2."
+  conferir: "24 / 8 * 10 * 5 / 75"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-05
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 10
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 2
+  enunciado: "Uma torneira enche um balde de 12 litros em 3 minutos. Qual é a vazão dessa torneira, em litros por hora?"
+  alternativas:
+    - texto: "4 L/h"
+      erro: "4 é a vazão em litros por minuto. Uma hora tem 60 minutos: multiplique por 60."
+    - texto: "36 L/h"
+      erro: "Você multiplicou 12 × 3. Vazão é litros divididos pelo tempo: 12 ÷ 3 por minuto."
+    - texto: "720 L/h"
+      erro: "Você fez 12 × 60, como se o balde enchesse em 1 minuto. Ele leva 3 minutos."
+    - texto: "20 L/h"
+      erro: "Você dividiu 60 por 3. Isso dá quantos baldes cabem numa hora (20); falta multiplicar pelos 12 litros de cada um."
+    - texto: "240 L/h"
+      certa: true
+  explicacao: "Por minuto: 12 ÷ 3 = 4 litros. Por hora: 4 × 60 = 240 litros. Ou: em uma hora cabem 20 baldes de 12 L, e 20 × 12 = 240."
+  conferir: "12 / 3 * 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-06
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma cozinha comunitária serve 240 refeições por dia e funciona 5 dias por semana. Em cada refeição vão 80 g de feijão
+    cru.
+  enunciado: "A quantidade de feijão cru usada em uma semana de funcionamento é de"
+  alternativas:
+    - texto: "19,2 kg."
+      erro: "19,2 kg é o feijão de um dia só. A cozinha funciona 5 dias: multiplique por 5."
+    - texto: "960 kg."
+      erro: "Na conversão, 96.000 g viraram 960 kg. De grama para quilograma, divida por 1.000."
+    - texto: "96 kg."
+      certa: true
+    - texto: "9,6 kg."
+      erro: "Na conversão, a vírgula voltou quatro casas. 96.000 g ÷ 1.000 = 96 kg."
+    - texto: "134,4 kg."
+      erro: "Você contou 7 dias. A cozinha funciona 5 dias por semana."
+  explicacao: "Por dia: 240 × 80 = 19.200 g. Na semana: 19.200 × 5 = 96.000 g. Em quilogramas: 96.000 ÷ 1.000 = 96 kg."
+  conferir: "240 * 80 * 5 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-07
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 2
+  enunciado: "Uma lajota quadrada tem 50 cm de lado. Quantas lajotas são precisas para cobrir um piso de 6 m², sem sobras nem cortes?"
+  alternativas:
+    - texto: "24"
+      certa: true
+    - texto: "12"
+      erro: "Você tomou a lajota como 0,5 m². Ela tem 0,5 m de lado; a área é 0,5 × 0,5 = 0,25 m²."
+    - texto: "2.400"
+      erro: "Você usou 1 m² = 1.000.000 cm². Esse número vale para o volume (cm³ em 1 m³). Na área, 1 m² = 10.000 cm²."
+    - texto: "2,4"
+      erro: "Você usou 1 m² = 1.000 cm². Um metro quadrado é 100 cm × 100 cm = 10.000 cm²."
+    - texto: "0,24"
+      erro: "Você usou 1 m² = 100 cm². Na área cada degrau vale 100: 1 m² = 10.000 cm²."
+  explicacao: "Área da lajota: 0,5 × 0,5 = 0,25 m², ou seja, um quarto de metro quadrado. Em cada m² cabem 4 lajotas. Em 6 m²: 6 × 4 = 24 lajotas."
+  conferir: "6 * 10000 / (50 * 50)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-08
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa campanha contra o desperdício de água, uma escola mediu uma torneira mal fechada: ela soltava uma gota a cada
+    3 segundos. Considere que cada gota tem 0,05 mL e que a torneira ficou pingando, sem parar, por 30 dias.
+  enunciado: "O volume de água desperdiçado nesses 30 dias foi de"
+  alternativas:
+    - texto: "1,44 L."
+      erro: "1,44 L é o desperdício de um dia só. Multiplique pelos 30 dias."
+    - texto: "432 L."
+      erro: "Na conversão, 43.200 mL viraram 432 L. De mililitro para litro, divida por 1.000: 43,2 L."
+    - texto: "4,32 L."
+      erro: "A vírgula voltou uma casa a mais. 43.200 mL ÷ 1.000 = 43,2 L."
+    - texto: "43,2 L."
+      certa: true
+    - texto: "129,6 L."
+      erro: "Você contou uma gota por segundo. A torneira solta uma gota a cada 3 segundos: divida os segundos por 3."
+  explicacao: "Um dia tem 24 × 60 × 60 = 86.400 segundos. Gotas por dia: 86.400 ÷ 3 = 28.800. Volume por dia: 28.800 × 0,05 = 28.800 ÷ 20 = 1.440 mL = 1,44 L. Em 30 dias: 1,44 × 30 = 43,2 L."
+  conferir: "24 * 60 * 60 / 3 * 0.05 * 30 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-09
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 3
+  enunciado: "Um eletricista leva 1,4 hora para cada instalação. Quanto tempo ele leva para fazer 3 instalações?"
+  alternativas:
+    - texto: "4 horas e 20 minutos"
+      valor: "260"
+      erro: "Você leu 4,2 horas como 4 horas e 20 minutos. O tempo não é decimal: 0,2 hora é 0,2 × 60 = 12 minutos."
+    - texto: "4 horas e 12 minutos"
+      valor: "252"
+      certa: true
+    - texto: "4 horas e 2 minutos"
+      valor: "242"
+      erro: "Você leu 0,2 hora como 2 minutos. Multiplique a parte depois da vírgula por 60: 0,2 × 60 = 12."
+    - texto: "1 hora e 24 minutos"
+      valor: "84"
+      erro: "Esse é o tempo de uma instalação só (1,4 × 60 = 84 minutos). Faltou multiplicar por 3."
+    - texto: "5 horas"
+      valor: "300"
+      erro: "Você leu 1,4 hora como 1 hora e 40 minutos (100 minutos) e multiplicou por 3. 1,4 hora são 1 hora e 24 minutos."
+  explicacao: "3 × 1,4 = 4,2 horas. A parte inteira são 4 horas. A parte decimal: 0,2 × 60 = 12 minutos. Total: 4 horas e 12 minutos (252 minutos)."
+  conferir: "1.4 * 3 * 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-unidades-10
+  tema: "Unidades de medida"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-unidades-de-medida
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num hospital público, uma enfermeira precisa ajustar o gotejamento de um soro de 480 mL, que deve correr inteiro em
+    4 horas. No equipo (o tubinho por onde o soro desce) usado nesse hospital, 1 mL corresponde a 20 gotas.
+  enunciado: "Para o soro correr no tempo indicado, o número de gotas por minuto deve ser"
+  alternativas:
+    - texto: "120."
+      erro: "120 é a vazão em mL por hora (480 ÷ 4). A pergunta pede gotas por minuto: passe mL para gotas e horas para minutos."
+    - texto: "2."
+      erro: "2 é a vazão em mL por minuto (480 ÷ 240). Falta transformar mL em gotas: cada mL tem 20 gotas."
+    - texto: "2.400."
+      erro: "2.400 são as gotas por hora. Uma hora tem 60 minutos: divida por 60."
+    - texto: "160."
+      erro: "Você dividiu o total de gotas por 60 minutos, como se o soro corresse em 1 hora. Ele corre em 4 horas, ou 240 minutos."
+    - texto: "40."
+      certa: true
+  explicacao: "Total de gotas: 480 × 20 = 9.600. Tempo: 4 × 60 = 240 minutos. Gotas por minuto: 9.600 ÷ 240 = 40. Ou: 480 mL em 240 minutos dá 2 mL por minuto, e 2 × 20 = 40 gotas."
+  conferir: "480 * 20 / (4 * 60)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

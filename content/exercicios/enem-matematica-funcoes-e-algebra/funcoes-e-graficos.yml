@@ -1,0 +1,258 @@
+# Exercícios da aula "Função e leitura de gráficos" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-funcoes-graficos-01
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcoes-e-graficos
+  dificuldade: 1
+  enunciado: "Se f(x) = 2x + 5, quanto vale f(3)?"
+  alternativas:
+    - texto: "6"
+      erro: "Você fez só 2 × 3 e esqueceu o + 5. Troque o x por 3 na lei inteira."
+    - texto: "16"
+      erro: "Você somou antes de multiplicar: 2 × (3 + 5). A multiplicação vem primeiro: 2 × 3 = 6, depois + 5."
+    - texto: "11"
+      certa: true
+    - texto: "10"
+      erro: "Você multiplicou o 2 pelo 5. O x é que vale 3: 2 × 3 + 5."
+    - texto: "8"
+      erro: "Você somou 3 + 5 e esqueceu o 2 que multiplica o x."
+  explicacao: "Troque o x por 3: f(3) = 2 × 3 + 5 = 6 + 5 = 11."
+  conferir: "2 * 3 + 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-02
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcoes-e-graficos
+  dificuldade: 1
+  enunciado: "Num gráfico que mostra o preço pago (eixo vertical, em reais) em função da quantidade de feijão comprada (eixo horizontal, em quilos), aparece o ponto (5, 40). Esse ponto quer dizer que"
+  alternativas:
+    - texto: "5 kg de feijão custam R$ 40."
+      certa: true
+    - texto: "40 kg de feijão custam R$ 5."
+      erro: "Você trocou os eixos. No ponto (x, y), o primeiro número é do eixo horizontal (os quilos) e o segundo, do vertical (o preço)."
+    - texto: "o quilo do feijão custa R$ 40."
+      erro: "R$ 40 é o preço de 5 kg. O quilo sai a 40 ÷ 5 = R$ 8."
+    - texto: "o quilo do feijão custa R$ 5."
+      erro: "5 é a quantidade em quilos, não um preço. O preço está no eixo vertical."
+    - texto: "a pessoa gastou R$ 45 no total."
+      erro: "Os números do ponto não se somam. Eles dizem: quando a entrada é 5, a saída é 40."
+  explicacao: "No ponto (x, y), x é a entrada (quilos) e y é a saída (reais). Então (5, 40) diz que 5 kg custam R$ 40."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-03
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcoes-e-graficos
+  dificuldade: 1
+  enunciado: "Uma função f tem estes valores: f(1) = 4, f(2) = 7, f(3) = 9, f(4) = 8, f(5) = 5 e f(6) = 2. Qual é a diferença entre o maior e o menor valor de f nessa lista?"
+  alternativas:
+    - texto: "9"
+      erro: "9 é só o maior valor. Falta tirar o menor, que é 2."
+    - texto: "2"
+      erro: "2 é só o menor valor. A diferença é o maior menos o menor: 9 − 2."
+    - texto: "3"
+      erro: "3 é o x em que o máximo acontece. A pergunta é sobre os valores de f, as saídas."
+    - texto: "5"
+      erro: "Você fez 6 − 1, a diferença entre as entradas. Use as saídas: 9 − 2."
+    - texto: "7"
+      certa: true
+  explicacao: "O maior valor de f é 9 (em x = 3) e o menor é 2 (em x = 6). A diferença é 9 − 2 = 7."
+  conferir: "9 - 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-04
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcoes-e-graficos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Durante uma estiagem, a associação de moradores de um bairro anotou o volume de água de um reservatório comunitário,
+    em milhares de litros, no começo de cada dia:
+    dia 1: 80; dia 2: 76; dia 3: 70; dia 4: 65; dia 5: 60.
+    O gráfico desses valores, com o dia no eixo horizontal, é uma linha que só desce.
+  enunciado: "Do dia 1 ao dia 5, o volume do reservatório diminuiu, em média, por dia,"
+  alternativas:
+    - texto: "20 mil litros."
+      erro: "20 mil litros é a queda total, do dia 1 ao dia 5. Divida pelo número de intervalos entre os dias."
+    - texto: "5 mil litros."
+      certa: true
+    - texto: "4 mil litros."
+      erro: "Você dividiu por 5 dias. Do dia 1 ao dia 5 há 4 intervalos (5 − 1). A taxa é 20 ÷ 4."
+    - texto: "12 mil litros."
+      erro: "Você dividiu o volume final (60) por 5. A taxa usa a variação: (60 − 80) ÷ (5 − 1)."
+    - texto: "16 mil litros."
+      erro: "Você dividiu o volume inicial (80) por 5. A taxa usa a variação, não o volume."
+  explicacao: "Taxa média = (60 − 80) ÷ (5 − 1) = −20 ÷ 4 = −5. O sinal negativo diz que o volume diminuiu: 5 mil litros por dia, em média."
+  conferir: "(80 - 60) / (5 - 1)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-05
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-e-graficos
+  dificuldade: 2
+  enunciado: "O táxi A cobra R$ 6 de saída e R$ 2 por quilômetro. O táxi B cobra R$ 2 de saída e R$ 3 por quilômetro. Para qual distância os dois cobram o mesmo valor?"
+  alternativas:
+    - texto: "8 km"
+      erro: "Você somou a saída e o preço do quilômetro do táxi A (6 + 2). Iguale os dois preços: 6 + 2x = 2 + 3x."
+    - texto: "2 km"
+      erro: "Com 2 km, o A cobra 6 + 4 = 10 e o B cobra 2 + 6 = 8: ainda são diferentes. Resolva 6 + 2x = 2 + 3x."
+    - texto: "1 km"
+      erro: "1 é a diferença entre os preços por quilômetro (3 − 2). Ela divide a diferença das saídas: (6 − 2) ÷ 1."
+    - texto: "4 km"
+      certa: true
+    - texto: "14 km"
+      erro: "14 é o valor em reais que os dois cobram com 4 km (6 + 2 × 4). A pergunta pede a distância."
+  explicacao: "Iguale os preços: 6 + 2x = 2 + 3x. Passe os termos: 6 − 2 = 3x − 2x, então x = 4 km. Confira: A cobra 6 + 8 = 14 e B cobra 2 + 12 = 14."
+  conferir: "(6 - 2) / (3 - 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-06
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcoes-e-graficos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa estufa de mudas, a temperatura foi medida de duas em duas horas. O gráfico liga os pontos da tabela por
+    segmentos de reta:
+    hora:              6    8    10   12   14   16   18
+    temperatura (°C):  14   18   24   29   31   26   21
+    Em palavras: a linha sobe das 6 às 14 h, chega ao ponto mais alto às 14 h e desce até as 18 h.
+  enunciado: "O intervalo de duas horas em que a temperatura subiu mais depressa foi"
+  alternativas:
+    - texto: "das 12 às 14 h."
+      erro: "Às 14 h a temperatura chega ao máximo, mas nesse trecho ela subiu só 2 °C. Ponto mais alto não é subida mais rápida."
+    - texto: "das 6 às 8 h."
+      erro: "Nesse trecho a subida foi de 4 °C. Compare com as 8 às 10 h, quando foi de 6 °C."
+    - texto: "das 16 às 18 h."
+      erro: "Nesse trecho a temperatura caiu 5 °C. A pergunta é sobre a maior subida."
+    - texto: "das 10 às 12 h."
+      erro: "Subiu 5 °C, bastante, mas das 8 às 10 h subiu 6 °C."
+    - texto: "das 8 às 10 h."
+      certa: true
+  explicacao: "Calcule a mudança em cada trecho de subida: 6–8 h, +4; 8–10 h, +6; 10–12 h, +5; 12–14 h, +2. A maior é +6 °C, das 8 às 10 h: 3 °C por hora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-07
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcoes-e-graficos
+  dificuldade: 2
+  enunciado: "Uma função tem estes valores: para x = 0, y = 3; para x = 1, y = 5; para x = 2, y = 7; para x = 3, y = 9. Qual lei descreve essa função?"
+  alternativas:
+    - texto: "y = x + 3"
+      erro: "Vale para x = 0, mas para x = 1 daria 4, não 5. A cada passo em x, o y sobe 2: o número do x é 2."
+    - texto: "y = 3x + 2"
+      erro: "Você trocou os números. Em x = 0 o y é 3, então o termo fixo é 3; o y sobe 2 por passo, então o x vem multiplicado por 2."
+    - texto: "y = 2x + 3"
+      certa: true
+    - texto: "y = 2x"
+      erro: "Falta o valor de partida. Em x = 0, y = 3, e 2 × 0 dá 0."
+    - texto: "y = x² + 3"
+      erro: "Vale para x = 0, mas para x = 2 daria 7 e para x = 3 daria 12, não 9. Os saltos são sempre de 2: é uma reta."
+  explicacao: "Quando x = 0, y = 3: esse é o termo fixo. A cada passo de 1 em x, o y sobe 2: esse é o número que multiplica o x. A lei é y = 2x + 3. Confira: 2 × 3 + 3 = 9."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-08
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcoes-e-graficos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma trabalhadora fez o gráfico do saldo da sua conta bancária, em reais, ao longo de um mês de 30 dias. O gráfico
+    liga por segmentos de reta estes pontos (dia; saldo):
+    (1; 300), (5; 1.800), (10; 900), (20; 400), (30; −200).
+    Em palavras: o saldo sobe do dia 1 ao dia 5, quando cai o salário, e depois só desce, ficando negativo no fim do mês.
+  enunciado: "Do dia 10 ao dia 30, o saldo diminuiu, em média, por dia,"
+  alternativas:
+    - texto: "R$ 55,00."
+      certa: true
+    - texto: "R$ 35,00."
+      erro: "Você fez (900 − 200) ÷ 20. O saldo final é −200, negativo: a variação é −200 − 900 = −1.100."
+    - texto: "R$ 50,00."
+      erro: "R$ 50 por dia é a média só do dia 10 ao dia 20 (500 ÷ 10). A pergunta vai até o dia 30."
+    - texto: "R$ 1.100,00."
+      erro: "R$ 1.100 é a queda total. A pergunta pede a média por dia: divida por 30 − 10 = 20 dias."
+    - texto: "R$ 110,00."
+      erro: "Você dividiu por 10 dias. Do dia 10 ao dia 30 são 20 dias."
+  explicacao: "Taxa média = (−200 − 900) ÷ (30 − 10) = −1.100 ÷ 20 = −55. O saldo caiu, em média, R$ 55,00 por dia."
+  conferir: "(900 - (-200)) / (30 - 10)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-09
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-e-graficos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para limpar uma caixa-d'água de 1.200 litros, um zelador abriu o registro de saída. O volume de água na caixa, em
+    litros, t minutos depois, é dado por V(t) = 1.200 − 40t, até a caixa esvaziar. O gráfico de V é uma reta que desce
+    de 1.200 litros, em t = 0, até 0 litro.
+  enunciado: "Depois de quantos minutos a caixa estará com um quarto do volume inicial?"
+  alternativas:
+    - texto: "7,5 minutos"
+      erro: "Você dividiu 300 por 40. Mas 300 litros é o que deve sobrar, não o que deve sair. Saem 1.200 − 300 = 900 litros."
+    - texto: "30 minutos"
+      erro: "Em 30 minutos a caixa esvazia por completo (1.200 ÷ 40). A pergunta é quando sobra um quarto."
+    - texto: "15 minutos"
+      erro: "Em 15 minutos sobra a metade (600 litros). Um quarto de 1.200 é 300 litros."
+    - texto: "22,5 minutos"
+      certa: true
+    - texto: "37,5 minutos"
+      erro: "Você somou: (1.200 + 300) ÷ 40. Resolva 1.200 − 40t = 300, que dá 40t = 900."
+  explicacao: "Um quarto de 1.200 é 300 litros. Resolva 1.200 − 40t = 300: 40t = 900 e t = 900 ÷ 40 = 22,5 minutos."
+  conferir: "(1200 - 300) / 40"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-funcoes-graficos-10
+  tema: "Conceito de função e leitura de gráficos"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-funcoes-e-graficos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma operadora oferece dois planos de telefone. No plano A, a pessoa paga R$ 35,00 por mês mais R$ 0,10 por minuto. No
+    plano B, paga R$ 20,00 por mês mais R$ 0,30 por minuto. Num mesmo gráfico de custo por minutos, as duas retas se
+    cruzam em 75 minutos: antes disso, o B é mais barato; depois, o A.
+  enunciado: "Uma pessoa que fala 150 minutos por mês economiza, escolhendo o plano mais barato para ela,"
+  alternativas:
+    - texto: "R$ 65,00."
+      erro: "R$ 65 é quanto ela pagaria no plano B (20 + 0,30 × 150). A economia é a diferença entre os dois planos."
+    - texto: "R$ 15,00."
+      certa: true
+    - texto: "R$ 50,00."
+      erro: "R$ 50 é quanto ela paga no plano A (35 + 0,10 × 150). A economia é 65 − 50."
+    - texto: "R$ 30,00."
+      erro: "Você comparou só os minutos (0,20 × 150 = 30) e esqueceu que o A tem mensalidade R$ 15 mais cara."
+    - texto: "R$ 45,00."
+      erro: "R$ 45 é só o custo dos minutos no plano B (0,30 × 150). Some as mensalidades e compare os totais."
+  explicacao: "Com 150 minutos, passou de 75: o A é o mais barato. Plano A: 35 + 0,10 × 150 = 35 + 15 = R$ 50. Plano B: 20 + 0,30 × 150 = 20 + 45 = R$ 65. Economia: 65 − 50 = R$ 15,00."
+  conferir: "(20 + 0.30 * 150) - (35 + 0.10 * 150)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
