@@ -1,0 +1,506 @@
+# Redações-modelo do Instituto Lúcia. Formato: docs/ENEM.md, seção 8, e validarModelos (lib/enem.ts).
+# Todos os textos são ORIGINAIS, escritos pela equipe para as propostas de propostas.yml. Nenhum foi copiado da
+# Cartilha do Inep, de cursinho ou de candidato. As medianas e as fracas têm, de propósito, os problemas que mais
+# aparecem nos treinos (tangenciamento, repertório de bolso, cópia de texto motivador, coesão fraca, proposta
+# incompleta, desvios da norma-padrão); os desvios estão no texto de propósito e são apontados no comentário.
+# Os PONTOS são uma ESTIMATIVA DA EQUIPE, feita com os níveis da Cartilha 2026. NÃO são nota oficial: só a banca do
+# Inep corrige redação do Enem. Os fatos usados nas fortes saem de propostas.yml e repertorio.yml, já conferidos.
+# Escrito em 01/11/2026.
+
+# ───────────────────────────── Fortes ─────────────────────────────
+
+- id: forte-eja-permanencia
+  proposta: eja-permanencia-de-trabalhadores
+  nivel: forte
+  texto: |
+    No Brasil, a Constituição Federal de 1988, em seu artigo 205, define a educação como direito de todos e dever do Estado, com o objetivo de preparar a pessoa para a cidadania e para o trabalho. Na educação de jovens e adultos (EJA), contudo, esse direito costuma terminar na matrícula: muitos trabalhadores começam o curso e não conseguem continuar. Essa interrupção decorre, sobretudo, de uma escola organizada como se o aluno não trabalhasse e de um ensino que pouco dialoga com a experiência de quem já é adulto.
+
+    Em primeiro lugar, o horário e a estrutura da EJA ignoram a rotina de quem a frequenta. O trabalhador que sai do serviço no fim da tarde enfrenta um transporte demorado, chega à aula cansado e, com frequência, atrasado. Se a escala de trabalho muda ou um filho adoece, não há a quem recorrer: a turma segue, as faltas se acumulam e a desistência parece a única saída. Assim, o abandono não revela desinteresse, mas uma rotina em que a escola não cabe, o que transforma um direito universal em privilégio de quem tem tempo livre.
+
+    Além disso, o modelo de ensino frequentemente trata o adulto como uma criança atrasada. O educador Paulo Freire, em "Pedagogia do oprimido", criticou a "educação bancária", na qual o professor apenas deposita conteúdos em um aluno visto como recipiente vazio. Na EJA, essa lógica é ainda mais nociva, porque desconsidera os saberes que o estudante já acumulou no trabalho, na família e na comunidade. Quando a aula não conversa com essa vida, o esforço diário de chegar até ela perde o sentido, e a permanência se torna mais difícil.
+
+    Portanto, para que os trabalhadores permaneçam na EJA, é necessário adaptar a escola ao estudante. O Ministério da Educação, em parceria com as secretarias estaduais e municipais, deve ampliar a oferta de turmas com horários flexíveis e com parte das atividades a distância, por meio de financiamento específico para a modalidade, a fim de que a jornada de trabalho deixe de ser motivo de abandono. Esse programa deve incluir espaços de acolhimento para os filhos dos alunos durante as aulas e a formação de professores para um ensino que parta da experiência adulta, como propunha Freire. Desse modo, o direito previsto no artigo 205 alcançará também quem estuda depois de um dia inteiro de trabalho.
+  competencias:
+    - numero: 1
+      pontos: 200
+      comentario: >-
+        Na estimativa da equipe, nível máximo. As frases são longas, mas bem construídas, e a pontuação acompanha o
+        raciocínio. A equipe não achou desvio de concordância, regência ou crase ("chega à aula", "dever do Estado").
+        O registro é formal do começo ao fim, sem marca de fala. Para manter: continuar revisando por tipo de desvio
+        antes de passar a limpo.
+    - numero: 2
+      pontos: 200
+      comentario: >-
+        O texto trata do recorte exato: a permanência de adultos que trabalham, e não a educação em geral. A palavra
+        "permanência" aparece na tese e volta na conclusão. O repertório é legítimo e produtivo: o art. 205 abre e
+        fecha o texto, e a ideia de "educação bancária", de Paulo Freire, é explicada e aplicada ao caso da EJA, em vez
+        de só citada. Por isso a equipe estima 200.
+    - numero: 3
+      pontos: 200
+      comentario: >-
+        Há projeto de texto claro: a introdução anuncia duas causas (a escola que não cabe na rotina e o ensino que não
+        conversa com o adulto), e cada parágrafo desenvolve uma delas, com explicação e consequência. A frase "o
+        abandono não revela desinteresse" mostra autoria: é uma interpretação própria, que vai além dos textos
+        motivadores. A proposta responde às duas causas. Estimativa da equipe: 200.
+    - numero: 4
+      pontos: 200
+      comentario: >-
+        Os parágrafos estão ligados por conectivos variados e adequados ("contudo", "Em primeiro lugar", "Além disso",
+        "Portanto", "Desse modo"). Dentro dos parágrafos, as retomadas evitam repetição ("essa lógica", "essa vida",
+        "Esse programa"). Os dois-pontos também fazem coesão: introduzem a explicação. A equipe estima 200.
+    - numero: 5
+      pontos: 200
+      comentario: >-
+        A proposta tem os cinco elementos: agente (Ministério da Educação, com as secretarias), ação (ampliar turmas
+        com horários flexíveis e parte a distância), meio (financiamento específico), finalidade (que a jornada deixe
+        de ser motivo de abandono) e detalhamento (acolhimento dos filhos e formação de professores). Ela responde aos
+        dois argumentos e respeita os direitos humanos. Estimativa da equipe: 200.
+  revisao: { status: em-revisao }
+
+- id: forte-saneamento-desigualdade
+  proposta: desigualdade-no-saneamento
+  nivel: forte
+  texto: |
+    Em "O espaço do cidadão", publicado em 1987, o geógrafo Milton Santos defende que, no Brasil, os direitos de uma pessoa dependem do lugar onde ela mora. Poucas questões confirmam essa ideia tão bem quanto o saneamento básico. Embora a coleta de esgoto tenha avançado nas últimas décadas, ela continua concentrada em algumas regiões e nos bairros mais ricos, o que revela uma desigualdade produzida tanto pela distribuição dos investimentos quanto pela invisibilidade política de quem vive sem rede.
+
+    Inicialmente, os números do Censo Demográfico 2022, do IBGE, mostram que o problema é territorial. Enquanto 86,2% da população do Sudeste morava em domicílios com coleta de esgoto, no Norte essa parcela era de apenas 22,8%; nos municípios de até 5 mil habitantes, de 28,6%. Essa diferença não se explica pelo acaso: obras de saneamento são caras e tendem a ir para onde há mais arrecadação e mais retorno financeiro. Dessa forma, cidades pequenas e regiões distantes dos grandes centros ficam para depois, e a mesma lógica se repete dentro de cada cidade, entre o centro e a periferia.
+
+    Ademais, a falta de esgoto atinge justamente quem tem menos voz para reivindicá-lo. Diferentemente de uma avenida asfaltada, uma tubulação enterrada rende pouca visibilidade política, e os moradores de áreas irregulares ou afastadas raramente participam das decisões sobre onde o dinheiro público será aplicado. Assim, a vala a céu aberto passa a ser vista como parte da paisagem, e não como violação de um direito, o que perpetua o ciclo de doenças, de desvalorização dos imóveis e de exclusão. É exatamente o cenário que Milton Santos descreve: uma cidadania incompleta, definida pelo endereço.
+
+    Diante disso, a Lei nº 14.026, de 2020, que fixou a meta de atender 90% da população com coleta e tratamento de esgoto até 2033, só será cumprida se a desigualdade estiver no centro do planejamento. Cabe ao Ministério das Cidades, em conjunto com os governos estaduais, priorizar o financiamento de obras nos municípios pequenos e nas periferias com menor cobertura, por meio de critérios públicos que considerem os índices do Censo, a fim de reduzir a distância entre as regiões. Esse processo deve contar com conselhos de moradores que acompanhem as obras e divulguem os prazos, para que o direito ao saneamento deixe de depender do endereço de cada família.
+  competencias:
+    - numero: 1
+      pontos: 200
+      comentario: >-
+        Na estimativa da equipe, nível máximo. A estrutura das frases é variada e correta, inclusive nas comparações
+        longas ("Enquanto... no Norte..."). O ponto e vírgula organiza bem a enumeração dos dados. Vocabulário preciso
+        ("perpetua", "reivindicá-lo") sem cair no rebuscado. Nenhum desvio relevante encontrado pela equipe.
+    - numero: 2
+      pontos: 200
+      comentario: >-
+        A palavra que manda no tema, desigualdade, é o centro do texto: ele compara regiões, tamanhos de município e
+        bairros, sem virar um texto só sobre doenças. O repertório de Milton Santos é produtivo porque é explicado (os
+        direitos dependem do lugar) e volta no fim do segundo argumento como conclusão. Os dados do Censo são usados
+        para provar a tese, não como enfeite. Estimativa da equipe: 200.
+    - numero: 3
+      pontos: 200
+      comentario: >-
+        A tese anuncia duas causas (onde vai o investimento e a falta de voz de quem não tem rede), e cada parágrafo
+        desenvolve uma. Há interpretação própria: a comparação entre a avenida asfaltada e a tubulação enterrada é uma
+        ideia do autor, não dos textos motivadores. A lei de 2020 entra na conclusão para mostrar que a meta depende de
+        enfrentar a desigualdade discutida. A equipe estima 200.
+    - numero: 4
+      pontos: 200
+      comentario: >-
+        Conectivos variados entre os parágrafos ("Inicialmente", "Ademais", "Diante disso") e dentro deles
+        ("Embora", "Enquanto", "Dessa forma", "Assim"). Retomadas bem feitas: "essa ideia", "essa parcela", "Essa
+        diferença", "Esse processo". O leitor nunca perde o fio. Estimativa da equipe: 200.
+    - numero: 5
+      pontos: 200
+      comentario: >-
+        Proposta completa e ligada aos dois argumentos: agente (Ministério das Cidades com os estados), ação
+        (priorizar o financiamento nos municípios pequenos e periferias), meio (critérios públicos baseados no Censo),
+        finalidade (reduzir a distância entre as regiões) e detalhamento (conselhos de moradores que acompanhem as
+        obras, o que responde à "falta de voz" do segundo argumento). Estimativa da equipe: 200.
+  revisao: { status: em-revisao }
+
+- id: forte-inclusao-digital-celular
+  proposta: inclusao-digital-pelo-celular
+  nivel: forte
+  texto: |
+    Segundo a pesquisa TIC Domicílios 2024, 60% dos usuários de internet no Brasil se conectavam apenas pelo celular, proporção que chegava a 86% nas classes D e E e caía para 18% na classe A. À primeira vista, o dado sugere inclusão: o telefone levou a rede a quem nunca teve computador. Entretanto, o acesso feito só pelo celular é uma inclusão incompleta, porque limita as tarefas que exigem mais do que trocar mensagens e porque reproduz, no mundo digital, a desigualdade de renda que já existe fora dele.
+
+    Em primeiro lugar, muitas tarefas essenciais da vida adulta não foram pensadas para uma tela pequena. Escrever um currículo, preencher um cadastro em um site do governo, anexar um documento em PDF ou acompanhar uma aula longa são atividades difíceis no celular e, às vezes, impossíveis. Quem depende apenas dele consegue se comunicar, mas encontra obstáculos justamente nas ações que abrem portas para o emprego e para a escola. Desse modo, o aparelho que deveria aproximar o cidadão dos serviços se transforma, muitas vezes, em mais uma barreira.
+
+    Além disso, o pacote de dados torna o acesso intermitente. Quando a franquia acaba no meio do mês, a pessoa fica desconectada até o próximo pagamento, e um prazo de inscrição ou uma entrevista on-line podem ser perdidos por isso. Esse limite pesa mais sobre as famílias pobres, que são as que mais dependem do celular, o que contraria o artigo 3º da Constituição Federal, segundo o qual reduzir as desigualdades sociais é um dos objetivos fundamentais da República. Se o Marco Civil da Internet afirma que o acesso à rede é essencial ao exercício da cidadania, um acesso que se interrompe por falta de dinheiro é também uma cidadania pela metade.
+
+    Logo, é preciso ampliar as formas de acesso, e não apenas o número de conectados. O Ministério das Comunicações, em parceria com as prefeituras, deve instalar pontos públicos com computadores e internet gratuita em escolas, bibliotecas e centros comunitários das periferias, por meio de recursos do orçamento destinados à inclusão digital, a fim de que a população de baixa renda possa realizar as tarefas que o celular não comporta. Nesses espaços, monitores capacitados devem orientar os usuários a elaborar currículos, preencher cadastros e participar de cursos a distância. Assim, a inclusão digital deixará de caber apenas na palma da mão.
+  competencias:
+    - numero: 1
+      pontos: 200
+      comentario: >-
+        Na estimativa da equipe, nível máximo. Crase bem usada ("À primeira vista", "à rede", "à inclusão digital"),
+        concordância correta mesmo com sujeito composto ("um prazo de inscrição ou uma entrevista on-line podem ser
+        perdidos"), registro formal sem deslizes.
+    - numero: 2
+      pontos: 200
+      comentario: >-
+        O texto não discute se as pessoas usam internet, e sim o que fica de fora quando o único acesso é o celular,
+        que é o recorte da proposta. O art. 3º da Constituição é repertório de fora dos textos motivadores, ligado ao
+        argumento da desigualdade. A frase final ("cidadania pela metade") mostra que o autor entendeu o Marco Civil e
+        o usou para concluir, não só para citar. A equipe estima 200.
+    - numero: 3
+      pontos: 160
+      comentario: >-
+        Projeto de texto claro e dois argumentos bem desenvolvidos (a tela pequena e o pacote que acaba). A equipe
+        estima 160, e não 200, porque boa parte da sustentação vem dos próprios textos motivadores: os números da TIC
+        Domicílios abrem o texto, o caso do PDF lembra o Texto III e o Marco Civil é o Texto II. Para subir: trazer um
+        exemplo ou uma informação própria no primeiro argumento, em vez de repetir a situação da proposta.
+    - numero: 4
+      pontos: 200
+      comentario: >-
+        Conectivos adequados à relação de sentido: oposição ("Entretanto"), adição ("Além disso"), conclusão ("Logo",
+        "Assim"), condição ("Se... é também"). Retomadas como "o dado", "dele", "Esse limite", "Nesses espaços"
+        mantêm a referência clara. Estimativa da equipe: 200.
+    - numero: 5
+      pontos: 200
+      comentario: >-
+        Os cinco elementos estão presentes: agente (Ministério das Comunicações e prefeituras), ação (instalar pontos
+        públicos com computador e internet), meio (recursos do orçamento para inclusão digital), finalidade (realizar
+        as tarefas que o celular não comporta) e detalhamento (monitores que orientem currículo, cadastro e curso). A
+        proposta responde aos dois problemas: tela pequena e falta de dados. Estimativa da equipe: 200.
+  revisao: { status: em-revisao }
+
+- id: forte-transporte-direito-social
+  proposta: transporte-publico-como-direito
+  nivel: forte
+  texto: |
+    No fim do século XIX, a demolição de cortiços no centro do Rio de Janeiro, como o Cabeça de Porco, em 1893, empurrou a população pobre para longe das áreas onde estavam os empregos e os serviços. Mais de um século depois, essa distância permanece em muitas cidades brasileiras, e o transporte coletivo tornou-se a ponte entre a periferia e o restante da cidade. Desde 2015, a Constituição Federal reconhece o transporte como direito social; na prática, entretanto, o preço da passagem e a escassez de linhas ainda impedem que muitas pessoas o exerçam plenamente.
+
+    Em primeiro lugar, a tarifa pesa de forma desigual sobre o orçamento das famílias. Para quem ganha pouco, pagar duas conduções por dia, significa comprometer parte importante da renda, e muitas pessoas passam a escolher quais deslocamentos podem fazer: vão ao trabalho, mas deixam de ir ao posto de saúde, ao curso ou ao parque. Nesse cenário, o direito de ir e vir passa a ser medido pelo saldo do cartão de transporte, e outros direitos sociais, como saúde, educação e lazer, ficam também mais distantes.
+
+    Além disso, a distribuição das linhas acompanha a lógica de uma cidade feita para o centro. Bairros afastados, costumam ter ônibus com intervalos longos, veículos lotados e poucas opções à noite e nos fins de semana. O Estatuto da Cidade, de 2001, inclui o transporte entre os elementos do direito a cidades sustentáveis, mas o morador da periferia gasta horas em deslocamentos que, para quem mora perto do centro, levariam minutos. Esse tempo perdido é retirado do descanso, da convivência familiar e dos estudos, o que aprofunda a desigualdade iniciada com a expulsão dos mais pobres das áreas centrais.
+
+    Portanto, garantir o transporte como direito exige tratá-lo como serviço essencial, e não apenas como negócio. As prefeituras, com apoio financeiro dos governos estaduais e federal, devem criar programas de tarifa reduzida ou gratuita para estudantes, desempregados e famílias de baixa renda inscritas em cadastros sociais, por meio de subsídios previstos no orçamento, a fim de que o preço deixe de impedir o acesso aos demais direitos. Paralelamente, as linhas que atendem os bairros periféricos devem ser ampliadas à partir de consultas públicas com os moradores, que conhecem os horários e os trajetos mais necessários. Assim, a promessa da Emenda Constitucional nº 90 chegará, de fato, ao ponto de ônibus.
+  competencias:
+    - numero: 1
+      pontos: 160
+      comentario: >-
+        O texto é bem escrito, mas a equipe achou três desvios e por isso estima 160. Dois são vírgulas entre o sujeito
+        e o verbo: "pagar duas conduções por dia, significa" e "Bairros afastados, costumam". O terceiro é crase antes
+        de verbo: "à partir de" (o certo é "a partir de"). Para subir: na revisão, procure toda vírgula colocada logo
+        antes do verbo e pergunte se ela separa o sujeito dele.
+    - numero: 2
+      pontos: 200
+      comentario: >-
+        O texto liga o transporte coletivo à ideia de direito, como o tema pede, e não fala de engarrafamento de carros.
+        O repertório histórico (a demolição dos cortiços, em 1893) é produtivo: explica por que os pobres moram longe e
+        dependem do ônibus. O Estatuto da Cidade aparece ligado ao argumento das linhas. Estimativa da equipe: 200.
+    - numero: 3
+      pontos: 200
+      comentario: >-
+        Projeto de texto claro: preço (primeiro argumento) e oferta de linhas (segundo). A ideia de que o direito de ir
+        e vir "passa a ser medido pelo saldo do cartão" é autoria. O fim do segundo parágrafo volta à expulsão do
+        século XIX, fechando o raciocínio aberto na introdução. A equipe estima 200.
+    - numero: 4
+      pontos: 200
+      comentario: >-
+        Boa articulação entre os parágrafos ("Em primeiro lugar", "Além disso", "Portanto") e dentro deles
+        ("entretanto", "Nesse cenário", "Paralelamente"). Retomadas como "essa distância", "Esse tempo perdido" e o
+        pronome "o" em "o exerçam" evitam repetição sem confundir. Estimativa da equipe: 200.
+    - numero: 5
+      pontos: 200
+      comentario: >-
+        Agente (prefeituras, com apoio dos estados e da União), ação (programas de tarifa reduzida ou gratuita), meio
+        (subsídios previstos no orçamento), finalidade (que o preço deixe de impedir o acesso aos outros direitos) e
+        detalhamento (quem seria atendido e a ampliação das linhas com consulta aos moradores). A proposta responde aos
+        dois argumentos. Estimativa da equipe: 200.
+  revisao: { status: em-revisao }
+
+# ───────────────────────────── Medianas ─────────────────────────────
+
+- id: mediana-saude-bucal
+  proposta: acesso-a-saude-bucal
+  nivel: mediana
+  texto: |
+    A saúde bucal é muito importante para a vida das pessoas. Um sorriso bonito ajuda na autoestima e também na saúde do corpo todo. No Brasil, porém, muitas pessoas não conseguem cuidar dos dentes, devido a falta de dinheiro e de atendimento. Por isso, é preciso pensar em caminhos para ampliar o acesso à saúde bucal no país.
+
+    Em primeiro lugar, o tratamento odontológico é caro. Uma consulta particular custa muito, e uma prótese custa ainda mais. Existe muitas famílias que precisam escolher entre pagar o dentista ou pagar as contas da casa. Por isso, muitas pessoas só procuram o dentista quando sentem dor, e aí o problema já está grave. A Constituição diz que a saúde é direito de todos e dever do Estado, mas isso não acontece na prática.
+
+    Além disso, falta dentista nos postos de saúde. Em muitos bairros a fila para conseguir uma consulta, demora meses. Além disso, muitas pessoas não sabem que podem ser atendidas de graça pelo SUS. Desde 2023 existe a Lei nº 14.572, que criou a Política Nacional de Saúde Bucal, mas a muitos anos a população reclama da falta de atendimento e a situação continua difícil.
+
+    Além disso, é importante que as pessoas escovem os dentes depois das refeições e usem fio dental. Muitas pessoas não tem esse hábito desde criança, e isso causa cáries e outros problemas. A educação sobre higiene é muito importante para evitar esses problemas.
+
+    Portanto, o governo deve contratar mais dentistas para os postos de saúde, para que a população tenha atendimento de qualidade. Também é preciso fazer campanhas de conscientização sobre a escovação. Assim, o Brasil vai ter mais saúde bucal e mais sorrisos.
+  competencias:
+    - numero: 1
+      pontos: 120
+      comentario: >-
+        O texto se entende bem, mas a equipe contou vários desvios, por isso estima 120: "devido a falta" (falta a
+        crase: "devido à falta"); "Existe muitas famílias" (o certo é "Existem"); "a fila para conseguir uma consulta,
+        demora" (vírgula entre sujeito e verbo); "a muitos anos" (tempo passado pede "há muitos anos"); "não tem esse
+        hábito" ("têm", no plural); e "aí", marca da fala. Para subir: revisar só concordância e crase numa segunda
+        leitura.
+    - numero: 2
+      pontos: 120
+      comentario: >-
+        O texto trata do acesso, mas de forma previsível. O repertório é pouco explorado: a Constituição aparece sem
+        artigo e sem explicação, e a Lei nº 14.572 vem do texto motivador. O quarto parágrafo fala de escovação e fio
+        dental, que é hábito individual: a proposta avisa que isso tangencia o tema. Como o resto do texto discute o
+        acesso, não houve tangenciamento do texto inteiro. Estimativa da equipe: 120. Para subir: trocar o parágrafo da
+        escovação por uma causa ligada ao acesso (distância, informação) com um repertório explicado.
+    - numero: 3
+      pontos: 120
+      comentario: >-
+        Há um ponto de vista (o acesso é difícil por custo e falta de atendimento), mas os argumentos são só listados,
+        sem explicar causas e consequências. O terceiro parágrafo junta três ideias soltas (fila, falta de informação,
+        lei). O quarto parágrafo foge do projeto anunciado na introdução. A equipe estima 120. Para subir: um
+        argumento por parágrafo, desenvolvido até o fim.
+    - numero: 4
+      pontos: 120
+      comentario: >-
+        "Além disso" aparece três vezes e "Por isso" duas, o que deixa o texto repetitivo. As palavras "pessoas" e
+        "dentista" também se repetem muito, sem retomadas. Há ligação entre os parágrafos, mas pobre. Estimativa da
+        equipe: 120. Para subir: variar os conectivos (também, ademais, outro fator) e retomar "as pessoas" por
+        "essa população", "os pacientes".
+    - numero: 5
+      pontos: 120
+      comentario: >-
+        Há agente ("o governo"), ação (contratar dentistas) e finalidade (atendimento de qualidade). Faltam o meio
+        (como contratar, com que verba?) e o detalhamento. O agente é genérico: qual governo? A segunda ação
+        (campanha de escovação) responde ao parágrafo que saiu do recorte. A equipe estima 120. Para subir: "O
+        Ministério da Saúde, com os municípios, deve ampliar as equipes de saúde bucal nas unidades básicas, por meio
+        de verba própria, a fim de...", com um detalhe sobre onde ou como.
+  revisao: { status: em-revisao }
+
+- id: mediana-violencia-nas-escolas
+  proposta: violencia-nas-escolas
+  nivel: mediana
+  texto: |
+    Segundo o sociólogo Zygmunt Bauman, a sociedade contemporânea vive uma "modernidade líquida", na qual as relações humanas se tornaram frágeis. Nesse contexto, a violência nas escolas brasileiras é um problema grave, que precisa ser enfrentado. Esse cenário ocorre por causa da intimidação sistemática entre os alunos e da falta de preparo das escolas para lidar com os conflitos.
+
+    Em primeiro lugar, o bullying é uma das principais formas de violência no ambiente escolar. Muitos estudantes são humilhados, agredidos ou excluídos pelos colegas de forma repetida, o que provoca medo, isolamento e queda no rendimento. A Lei nº 13.185, de 2015, criou o Programa de Combate à Intimidação Sistemática, mas essa lei ainda é pouco conhecida nas escolas. Dessa forma, muitos casos continuam acontecendo sem que ninguém perceba, como o do aluno que deixa de ir ao recreio para se esconder.
+
+    Além disso, as escolas não estão preparadas para lidar com os conflitos. Os professores tem turmas cheias e pouco tempo para conversar com os alunos, e em muitas escolas não há psicólogos nem assistentes sociais. Assim, quando uma briga acontece, a resposta costuma ser apenas a suspensão do aluno, o que não resolve a origem do problema. Consequentemente a violência se repete e o clima de medo aumenta.
+
+    Portanto, é necessário que o Ministério da Educação, em parceria com as secretarias de educação, contrate psicólogos e assistentes sociais para as escolas públicas, por meio de verbas específicas, a fim de prevenir a violência e acolher as vítimas. Além disso, as escolas devem realizar rodas de conversa sobre o respeito às diferenças. Desse modo, a escola será um lugar mais seguro para todos.
+  competencias:
+    - numero: 1
+      pontos: 160
+      comentario: >-
+        Boa estrutura de frases e registro formal. A equipe achou dois desvios: "Os professores tem" (o certo é
+        "têm", com acento, no plural) e a falta de vírgula depois de "Consequentemente", no começo da frase. Por isso
+        a estimativa é 160. Para subir: revisar os acentos de "têm" e "vêm" no plural, que escapam muito.
+    - numero: 2
+      pontos: 120
+      comentario: >-
+        O texto fica no recorte da escola e não cai na violência urbana em geral. Mas a citação de Bauman é um
+        "repertório de bolso", do tipo que a Cartilha 2026 critica: serve para qualquer tema, aparece na primeira frase
+        e nunca mais é retomada; o texto não explica o que relações "frágeis" têm a ver com bullying. A lei de 2015 e o
+        caso do recreio vêm dos textos motivadores. Estimativa da equipe: 120. Para subir: ou explicar a ligação de
+        Bauman com o tema, ou trocar por um repertório que sustente um dos argumentos.
+    - numero: 3
+      pontos: 120
+      comentario: >-
+        Projeto de texto visível (bullying e falta de preparo da escola), com argumentos coerentes. Mas a
+        argumentação é previsível e se apoia nos textos motivadores; o segundo argumento é o mais bem desenvolvido
+        (mostra que a suspensão não resolve a origem). A equipe estima 120. Para subir: aprofundar o primeiro
+        argumento com uma explicação própria (por que a lei é pouco conhecida? quem deveria divulgá-la?).
+    - numero: 4
+      pontos: 160
+      comentario: >-
+        Conectivos adequados e variados ("Nesse contexto", "Em primeiro lugar", "Dessa forma", "Assim",
+        "Consequentemente", "Portanto") e retomadas como "Esse cenário" e "essa lei". Há repetição de "Além disso" e
+        da palavra "escolas" em sequência. Estimativa da equipe: 160.
+    - numero: 5
+      pontos: 160
+      comentario: >-
+        Agente (Ministério da Educação com as secretarias), ação (contratar psicólogos e assistentes sociais), meio
+        ("verbas específicas", ainda vago) e finalidade (prevenir a violência e acolher as vítimas). A proposta
+        responde ao segundo argumento e evita a solução só punitiva, como pede o recorte. Falta um detalhamento: as
+        rodas de conversa são outra ação, não o detalhe da primeira. A equipe estima 160. Para subir: detalhar, por
+        exemplo, como esses profissionais atuariam com as famílias.
+  revisao: { status: em-revisao }
+
+- id: mediana-trabalho-por-aplicativos
+  proposta: trabalho-por-aplicativos
+  nivel: mediana
+  texto: |
+    Nos últimos anos, os aplicativos mudaram a forma como as pessoas pedem comida, chamam um carro e contratam serviços. Hoje é possível resolver quase tudo pelo celular, e isso trouxe praticidade para a vida de muita gente. Mas o trabalho por aplicativos também tem muitos desafios no Brasil, principalmente para os trabalhadores.
+
+    Os entregadores e motoristas trabalham muitas horas por dia para conseguir uma renda razoável. Eles pagam a gasolina, a manutenção da moto e o celular. Eles não tem carteira assinada e se ficam doentes não recebem nada. Muitos trabalham até tarde da noite e ainda correm risco de acidente no trânsito e de assalto. A Declaração Universal dos Direitos Humanos diz que toda pessoa tem direito a condições justas de trabalho, isso mostra que a situação desses trabalhadores é injusta.
+
+    A tecnologia é muito importante para o mundo atual. Os aplicativos geram trabalho para quem estava desempregado e ajudam as empresas a vender mais. O consumidor também ganha, porque recebe as coisas em casa rápido e pode comparar preços. A tecnologia veio para ficar, e o Brasil precisa acompanhar as mudanças do mundo. Os aplicativos são uma forma de modernizar a economia.
+
+    Portanto o governo precisa criar leis para proteger os trabalhadores de aplicativos. A sociedade também deve se conscientizar e valorizar o trabalho deles. Assim os trabalhadores vão ter uma vida melhor.
+  competencias:
+    - numero: 1
+      pontos: 120
+      comentario: >-
+        Frases simples e compreensíveis, mas com desvios que se repetem: "Eles não tem" (o certo é "têm"); falta
+        vírgula em "e se ficam doentes não recebem nada" e depois de "Portanto" e "Assim"; e há duas frases emendadas
+        por vírgula em "condições justas de trabalho, isso mostra" (cabia ponto ou "o que mostra"). Estimativa da
+        equipe: 120.
+    - numero: 2
+      pontos: 120
+      comentario: >-
+        O segundo parágrafo trata do recorte (renda, jornada, proteção em caso de doença). O terceiro, porém, fala da
+        tecnologia que facilita a vida do consumidor, o que a proposta aponta como tangenciamento. Como o texto também
+        discute a situação de quem trabalha, a equipe não o considera tangente por inteiro, mas estima 120. O único
+        repertório, a Declaração Universal, vem do texto motivador e é só citado. Para subir: cortar o terceiro
+        parágrafo e desenvolver outro problema do trabalhador (segurança, o que acontece num acidente).
+    - numero: 3
+      pontos: 80
+      comentario: >-
+        A tese é vaga ("tem muitos desafios") e o texto se contradiz: o segundo parágrafo chama a situação de
+        injusta, e o terceiro elogia os aplicativos sem ligar uma coisa à outra. O leitor não sabe qual ponto de vista
+        o autor defende. A Cartilha 2026 põe "desorganizados ou contraditórios" na faixa de 80, que é a estimativa da
+        equipe. Para subir: escrever a tese numa frase antes de começar e conferir se cada parágrafo a defende.
+    - numero: 4
+      pontos: 80
+      comentario: >-
+        Quase não há conectivos dentro dos parágrafos: as frases vêm uma depois da outra, e "Eles" começa duas frases
+        seguidas. O terceiro parágrafo começa sem nenhuma ligação com o anterior, o que faz o texto parecer uma lista
+        de opiniões. Estimativa da equipe: 80. Para subir: começar cada parágrafo ligando-o ao anterior ("Apesar de
+        ...", "Além da renda, ...") e ligar as frases com causa e consequência.
+    - numero: 5
+      pontos: 80
+      comentario: >-
+        Há agente genérico ("o governo") e uma ação vaga ("criar leis"), sem dizer que lei, por qual meio e com que
+        finalidade concreta. A segunda parte ("A sociedade deve se conscientizar") é o tipo de proposta vaga que a
+        Cartilha 2026 põe nos níveis baixos. A equipe estima 80. Para subir: dizer quem (o Congresso Nacional, o
+        Ministério do Trabalho), o que (que proteção), como, para quê, e um detalhe.
+  revisao: { status: em-revisao }
+
+# ───────────────────────────── Fracas ─────────────────────────────
+
+- id: fraca-calor-tangente
+  proposta: calor-extremo-nas-cidades
+  nivel: fraca
+  texto: |
+    O aquecimento global é um dos maiores problemas da humanidade. Desde a Revolução Industrial, o ser humano polui o planeta, e a temperatura da Terra aumenta cada vez mais. Segundo o Relatório Brundtland, de 1987, desenvolvimento sustentável é aquele que atende às necessidades do presente sem comprometer as gerações futuras. Por isso, precisamos cuidar do planeta.
+
+    Em primeiro lugar, as geleiras estão derretendo e o nível do mar está subindo. Os ursos polares estão perdendo o seu habitat, e muitas espécies podem ser extintas. As fábricas e os carros soltam gases poluentes que aumentam o efeito estufa, e as florestas são desmatadas para dar lugar ao gado.
+
+    Além disso, o aquecimento global causa desastres naturais, como secas, enchentes e tempestades, em vários países do mundo. Muitas pessoas perdem suas casas e precisam mudar de lugar. Se nada for feito, o futuro da humanidade estará em risco.
+
+    Portanto, é preciso que os países do mundo se unam para diminuir a poluição. As pessoas também devem fazer a sua parte, economizando energia e usando menos o carro. Só assim vamos salvar o planeta para as próximas gerações.
+  competencias:
+    - numero: 1
+      pontos: 160
+      comentario: >-
+        A equipe não achou desvio grave de gramática. Estima 160, e não 200, porque as frases são quase todas curtas
+        e do mesmo formato, o que mostra pouco domínio da estrutura dos períodos. O texto ensina uma coisa: escrever
+        certo não basta, porque a nota cai nas outras competências por causa do tema.
+    - numero: 2
+      pontos: 40
+      comentario: >-
+        É um tangenciamento: o texto fala do aquecimento global no planeta (geleiras, ursos polares, outros países) e
+        nunca chega às cidades brasileiras nem a quem sofre com o calor nelas, que é o recorte. A Cartilha 2026 diz
+        que, no tangenciamento, a Competência 2 fica em no máximo 40. O Relatório Brundtland é verdadeiro, mas virou
+        repertório de bolso: definição solta, sem ligação com o calor urbano. Estimativa da equipe: 40. Para subir:
+        sublinhar "proteger", "população", "calor extremo" e "cidades" e escrever a tese com essas palavras.
+    - numero: 3
+      pontos: 40
+      comentario: >-
+        Os argumentos são organizados, mas sobre o assunto geral, não sobre o tema. Pela Cartilha 2026, o
+        tangenciamento também limita a Competência 3 a no máximo 40, que é a estimativa da equipe. Para subir: os dois
+        argumentos poderiam ser quem sofre mais (quem trabalha na rua, quem mora em casa sem ventilação) e o que falta
+        na cidade (sombra, abrigo, árvores).
+    - numero: 4
+      pontos: 120
+      comentario: >-
+        Há conectivos entre os parágrafos ("Em primeiro lugar", "Além disso", "Portanto"), mas são os mais
+        previsíveis, e dentro dos parágrafos as frases só se somam com "e". O segundo parágrafo é uma lista de fatos
+        sem relação de causa entre eles. Estimativa da equipe: 120.
+    - numero: 5
+      pontos: 40
+      comentario: >-
+        A proposta ("os países do mundo se unam", "as pessoas façam a sua parte") é vaga e ligada só ao assunto
+        geral. A Cartilha 2026 põe a proposta "relacionada apenas ao assunto" em 40, e o tangenciamento também limita
+        esta competência. Estimativa da equipe: 40. Para subir: propor algo para a cidade, com agente (as prefeituras),
+        ação (plantar árvores e cobrir pontos de ônibus nos bairros mais quentes), meio, finalidade e detalhe.
+  revisao: { status: em-revisao }
+
+- id: fraca-patrimonio-bolso-e-copia
+  proposta: patrimonio-historico-das-cidades
+  nivel: fraca
+  texto: |
+    Como dizia Aristóteles, o homem é um animal político. Por isso o patrimônio histórico é importante. A Constituição Federal define como patrimônio cultural brasileiro os bens materiais e imateriais ligados à identidade, à ação e à memória dos grupos que formaram a sociedade brasileira.
+
+    Os predios antigos estão sendo derrubados. Nas cidade tem muitos casarões abandonado, que ninguém cuida. As prefeitura não tem dinheiro. As construtoras quer o terreno pra fazer prédio novo. A memoria da cidade se perde.
+
+    O turismo é muito importante pra economia. Os turistas gosta de ver os centros históricos e gastam dinheiro nos restaurantes e nos hotel. As cidades históricas atrai muitos visitantes. Se os prédios cair, os turistas não vem mais.
+
+    Então o governo tem que fazer alguma coisa para preservar o patrimonio histórico. Porque senão vamos perder a nossa história.
+  competencias:
+    - numero: 1
+      pontos: 40
+      comentario: >-
+        Os desvios são muitos e de vários tipos, e se repetem: acento ("predios", "memoria", "patrimonio"),
+        concordância ("Nas cidade", "casarões abandonado", "As prefeitura", "As construtoras quer", "Os turistas gosta",
+        "nos hotel", "As cidades históricas atrai", "os prédios cair", "os turistas não vem"), regência ("que ninguém
+        cuida", em vez de "de que ninguém cuida"), marca da fala ("pra", "tem que") e uma frase solta ("Porque senão
+        vamos perder..."). Estimativa da equipe: 40. Para subir: uma revisão só de concordância (sujeito no plural,
+        verbo no plural) já mudaria muito este texto.
+    - numero: 2
+      pontos: 80
+      comentario: >-
+        O texto trata do patrimônio das cidades, mas a terceira frase é quase cópia do Texto I da proposta. Copiar
+        não mostra o que o autor pensa. A frase de Aristóteles é real, mas
+        é repertório de bolso: não tem ligação explicada com o patrimônio. O terceiro parágrafo vai para o turismo,
+        que a proposta aponta como tangenciamento. A Cartilha 2026 põe a cópia dos motivadores em 80, a estimativa da
+        equipe. Para subir: dizer com palavras próprias por que o patrimônio importa (a memória de quem formou o
+        lugar).
+    - numero: 3
+      pontos: 80
+      comentario: >-
+        Há um ponto de vista fraco (o patrimônio se perde e isso é ruim), mas as causas aparecem em frases soltas, uma
+        por linha, sem explicação. O argumento do turismo trata o patrimônio só como fonte de dinheiro, o que muda o
+        foco do texto. Estimativa da equipe: 80. Para subir: escolher duas causas (abandono e especulação imobiliária,
+        por exemplo) e explicar cada uma num parágrafo.
+    - numero: 4
+      pontos: 40
+      comentario: >-
+        Quase não há conectivo: as frases do segundo e do terceiro parágrafo vêm empilhadas, sem "porque", "por isso"
+        ou "além disso". Os parágrafos não se ligam entre si, e "Então" no começo da conclusão é marca da fala.
+        Estimativa da equipe: 40. Para subir: juntar frases curtas com causa e consequência ("Como as prefeituras não
+        têm verba, os casarões ficam abandonados, e as construtoras...").
+    - numero: 5
+      pontos: 40
+      comentario: >-
+        "O governo tem que fazer alguma coisa" não diz o que fazer, como nem para quê: é a proposta vaga ou precária
+        da faixa de 40 na Cartilha 2026. Estimativa da equipe: 40. Para subir: por exemplo, as prefeituras, com os
+        moradores, inventariam e tombam os prédios de valor histórico, por meio de um conselho municipal de
+        patrimônio, para que a memória do bairro não vire estacionamento.
+  revisao: { status: em-revisao }
+
+- id: fraca-trabalho-escravo-tangente
+  proposta: trabalho-analogo-ao-de-escravo
+  nivel: fraca
+  texto: |
+    A escravidão foi um dos períodos mais tristes da história do Brasil. Durante o período colonial e o Império, milhões de africanos foram trazidos à força para trabalhar nas lavouras de cana-de-açúcar, nas minas e, mais tarde, nas fazendas de café. Eles eram tratados como mercadoria, sofriam castigos físicos e não tinham nenhum direito.
+
+    Os escravizados resistiam de várias formas, como as fugas e a formação de quilombos. Haviam muitos quilombos, e o de Palmares foi um dos mais conhecidos. Zumbi dos Palmares se tornou um símbolo da luta contra a escravidão, e hoje o dia 20 de novembro é lembrado como Dia da Consciência Negra.
+
+    Em 1888, a princesa Isabel assinou a Lei Áurea, que acabou com a escravidão no Brasil. No entanto a lei não deu terra, escola nem salário para os libertos, que ficaram abandonados a própria sorte e foram morar em lugares precários. Dessa forma, a escravidão deixou marcas profundas na sociedade brasileira.
+
+    Portanto, conclui-se que a escravidão foi um período muito triste, que não pode ser esquecido. É importante estudar essa história nas escolas para que as pessoas conheçam o passado do nosso país.
+  competencias:
+    - numero: 1
+      pontos: 120
+      comentario: >-
+        A escrita é clara, mas há desvios: "Haviam muitos quilombos" (haver, no sentido de existir, fica no singular:
+        "Havia"); "abandonados a própria sorte" (pede crase: "à própria sorte"); falta vírgula depois de "No
+        entanto". Há ainda repetição de "período" e de "triste". Estimativa da equipe: 120.
+    - numero: 2
+      pontos: 40
+      comentario: >-
+        É um tangenciamento. O tema pede o Brasil contemporâneo e a persistência: por que ainda há trabalho forçado,
+        jornada exaustiva ou servidão por dívida hoje. O texto fala só da escravidão colonial e imperial e para em
+        1888; a proposta avisa exatamente esse risco. As informações históricas estão corretas, mas não respondem ao
+        tema. Pela Cartilha 2026, o tangenciamento deixa esta competência em no máximo 40. Para subir: ligar o passado
+        ao presente, usando, por exemplo, o art. 149 do Código Penal ou os dados de resgates do Texto I com uma
+        interpretação própria.
+    - numero: 3
+      pontos: 40
+      comentario: >-
+        O texto é organizado em ordem cronológica, mas isso é uma exposição de história, não uma defesa de ponto de
+        vista sobre o tema. O terceiro parágrafo chega perto ("marcas profundas"), mas não explica que marcas são nem
+        como elas explicam o crime de hoje. O tangenciamento também limita esta competência a 40, a estimativa da
+        equipe. Para subir: uma tese como "a persistência se explica pela pobreza de quem é aliciado e pela
+        fiscalização insuficiente", com um parágrafo para cada causa.
+    - numero: 4
+      pontos: 120
+      comentario: >-
+        Há conectivos adequados ("No entanto", "Dessa forma", "Portanto") e retomadas ("Eles", "os libertos"), mas o
+        segundo parágrafo começa sem ligação com o primeiro, e "Portanto, conclui-se que" é redundante (os dois dizem
+        a mesma coisa). Estimativa da equipe: 120.
+    - numero: 5
+      pontos: 40
+      comentario: >-
+        A conclusão traz só "é importante estudar essa história nas escolas", sem agente, sem meio e ligada ao assunto
+        geral (a escravidão do passado), não ao problema de hoje. É a faixa de 40 da Cartilha 2026, e o tangenciamento
+        também limita esta competência. Estimativa da equipe: 40. Para subir: propor algo contra o crime atual, como
+        ampliar a fiscalização do trabalho, com quem faz, como, para quê e um detalhe.
+  revisao: { status: em-revisao }

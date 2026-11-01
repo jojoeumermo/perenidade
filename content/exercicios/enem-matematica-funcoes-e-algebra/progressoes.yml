@@ -1,0 +1,255 @@
+# Exercícios da aula "Progressões aritméticas e geométricas" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-progressoes-01
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-progressoes
+  dificuldade: 1
+  enunciado: "Qual é a razão da progressão aritmética 12, 9, 6, 3, …?"
+  alternativas:
+    - texto: "3"
+      erro: "O tamanho do salto é 3, mas a sequência desce. A razão é o termo menos o anterior: 9 − 12 = −3."
+    - texto: "12"
+      erro: "12 é o primeiro termo. A razão é a diferença entre dois termos seguidos."
+    - texto: "0"
+      erro: "0 seria o próximo termo (3 − 3). A pergunta pede a razão, o quanto se soma a cada passo."
+    - texto: "−3"
+      certa: true
+    - texto: "4"
+      erro: "Você dividiu 12 por 3, como numa PG. Na PA se subtrai: 9 − 12 = −3."
+  explicacao: "Razão da PA = termo − anterior = 9 − 12 = −3. Confira: 6 − 9 = −3 e 3 − 6 = −3. A sequência desce de 3 em 3."
+  conferir: "9 - 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-02
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-progressoes
+  dificuldade: 1
+  enunciado: "Qual é o 15º termo da progressão aritmética 2, 5, 8, 11, …?"
+  alternativas:
+    - texto: "47"
+      erro: "Você contou 15 saltos (2 + 15 × 3). Do 1º ao 15º termo são 14 saltos."
+    - texto: "44"
+      certa: true
+    - texto: "45"
+      erro: "Você fez 15 × 3 e esqueceu o primeiro termo. A fórmula começa do a₁ = 2."
+    - texto: "42"
+      erro: "Você fez 14 × 3 e esqueceu de somar o primeiro termo, 2."
+    - texto: "30"
+      erro: "Você multiplicou 2 × 15. A razão é 3, não 2: 5 − 2 = 3."
+  explicacao: "a₁₅ = a₁ + 14 × r = 2 + 14 × 3 = 2 + 42 = 44."
+  conferir: "2 + (15 - 1) * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-03
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-progressoes
+  dificuldade: 1
+  enunciado: "Qual é o 6º termo da progressão geométrica 5, 10, 20, …?"
+  alternativas:
+    - texto: "320"
+      erro: "Você multiplicou por 2 seis vezes (5 × 2⁶). Do 1º ao 6º termo são 5 multiplicações."
+    - texto: "30"
+      erro: "Você tratou como PA de razão 5 (5, 10, 15, …). Mas 20 não é 10 + 5: a sequência dobra."
+    - texto: "60"
+      erro: "Você fez 5 × 2 × 6. Na PG a razão vira potência: 5 × 2⁵."
+    - texto: "80"
+      erro: "Esse é o 5º termo (5 × 2⁴). Falta mais uma multiplicação por 2."
+    - texto: "160"
+      certa: true
+  explicacao: "A razão é q = 10 ÷ 5 = 2. a₆ = 5 × 2⁵ = 5 × 32 = 160. Confira escrevendo: 5, 10, 20, 40, 80, 160."
+  conferir: "5 * 2^5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-04
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-progressoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma trabalhadora decidiu juntar dinheiro para um curso. No primeiro mês guardou R$ 40,00 e, a partir do segundo,
+    passou a guardar a cada mês R$ 15,00 a mais do que no mês anterior. Ela manteve esse plano por 12 meses.
+  enunciado: "Ao fim dos 12 meses, o total guardado foi de"
+  alternativas:
+    - texto: "R$ 1.470,00"
+      certa: true
+    - texto: "R$ 205,00"
+      erro: "R$ 205 é o que ela guardou só no 12º mês (40 + 11 × 15). A pergunta pede o total dos 12 meses."
+    - texto: "R$ 1.560,00"
+      erro: "Você contou 12 aumentos (12º mês = 40 + 12 × 15 = 220). São 11, do 1º ao 12º mês."
+    - texto: "R$ 2.940,00"
+      erro: "Faltou dividir por 2 na soma: (40 + 205) × 12 = 2.940. A soma da PA é (a₁ + aₙ) × n ÷ 2."
+    - texto: "R$ 480,00"
+      erro: "Você fez 40 × 12, como se ela guardasse sempre R$ 40. A cada mês ela guarda R$ 15 a mais."
+  explicacao: "É uma PA com a₁ = 40 e r = 15. No 12º mês: a₁₂ = 40 + 11 × 15 = 205. Total: (40 + 205) × 12 ÷ 2 = 245 × 6 = R$ 1.470,00."
+  conferir: "(40 + (40 + 11 * 15)) * 12 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-05
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-progressoes
+  dificuldade: 2
+  enunciado: "Um convite é enviado por uma pessoa a 3 amigas. Na rodada seguinte, cada uma das que receberam envia a 3 pessoas novas, e assim por diante. Na 1ª rodada recebem 3 pessoas; na 2ª, 9. Quantas pessoas recebem o convite na 5ª rodada?"
+  alternativas:
+    - texto: "15"
+      erro: "Você somou 3 a cada rodada (3 × 5). Cada pessoa manda a 3: o número é multiplicado por 3."
+    - texto: "81"
+      erro: "81 é a 4ª rodada (3⁴). Na 5ª, multiplique por 3 mais uma vez."
+    - texto: "243"
+      certa: true
+    - texto: "363"
+      erro: "363 é o total das 5 rodadas (3 + 9 + 27 + 81 + 243). A pergunta pede só a 5ª rodada."
+    - texto: "125"
+      erro: "Você fez 5³, com os números trocados. A razão é 3 e há 5 rodadas: 3⁵."
+  explicacao: "É uma PG com a₁ = 3 e q = 3. a₅ = 3 × 3⁴ = 3⁵ = 243. Escrevendo: 3, 9, 27, 81, 243."
+  conferir: "3^5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-06
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-progressoes
+  dificuldade: 2
+  enunciado: "Na sequência 3, 4, 7, 12, 19, …, qual é o próximo termo?"
+  alternativas:
+    - texto: "26"
+      erro: "Você repetiu a última diferença (+7). As diferenças são 1, 3, 5, 7: crescem de 2 em 2, então a próxima é 9."
+    - texto: "28"
+      certa: true
+    - texto: "31"
+      erro: "Você somou 19 + 12, os dois últimos termos. O padrão está nas diferenças: 1, 3, 5, 7, 9."
+    - texto: "38"
+      erro: "Você dobrou o 19. A sequência não é PG: 4 ÷ 3 não é igual a 7 ÷ 4."
+    - texto: "27"
+      erro: "A próxima diferença é 9, não 8. As diferenças são os números ímpares: 1, 3, 5, 7, 9."
+  explicacao: "Não é PA nem PG. As diferenças são 1, 3, 5 e 7, que crescem de 2 em 2. A próxima diferença é 9: 19 + 9 = 28."
+  conferir: "19 + 9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-07
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-progressoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num depósito de material de construção, tijolos foram empilhados em camadas. A camada de baixo tem 30 tijolos, a
+    seguinte tem 28, a outra 26, e assim por diante, sempre 2 a menos, até a camada do topo, que tem 2 tijolos. São 15
+    camadas ao todo.
+  enunciado: "Quantos tijolos há nessa pilha?"
+  alternativas:
+    - texto: "15"
+      erro: "15 é o número de camadas. A pergunta pede o total de tijolos, a soma das camadas."
+    - texto: "480"
+      erro: "Faltou dividir por 2: (30 + 2) × 15 = 480. Cada par (camada de baixo mais a de cima) junta duas camadas."
+    - texto: "256"
+      erro: "Você usou 16 camadas. De 30 a 2, descendo de 2 em 2, são (30 − 2) ÷ 2 + 1 = 15 camadas."
+    - texto: "224"
+      erro: "Você usou 14 camadas, esquecendo uma. De 30 a 2, de 2 em 2, são 15 camadas."
+    - texto: "240"
+      certa: true
+  explicacao: "É uma PA com a₁ = 30, r = −2 e a₁₅ = 2. A soma é (30 + 2) × 15 ÷ 2 = 32 × 15 ÷ 2 = 240 tijolos."
+  conferir: "(30 + 2) * 15 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-08
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-progressoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um entregador comprou uma moto por R$ 16.000,00. Ele estima que, a cada ano, a moto perde 25% do valor que tinha no
+    começo daquele ano. Assim, os valores ano a ano formam uma progressão geométrica.
+  enunciado: "Segundo essa estimativa, depois de 3 anos a moto vai valer"
+  alternativas:
+    - texto: "R$ 4.000,00"
+      erro: "Você tirou 25% de R$ 16.000 todo ano (R$ 4.000 × 3). A perda é sobre o valor do começo de cada ano, que vai diminuindo."
+    - texto: "R$ 12.000,00"
+      erro: "Esse é o valor depois de 1 ano (16.000 × 0,75). Faltam mais dois anos."
+    - texto: "R$ 9.000,00"
+      erro: "Esse é o valor depois de 2 anos (12.000 × 0,75). Falta o 3º ano."
+    - texto: "R$ 6.750,00"
+      certa: true
+    - texto: "R$ 5.062,50"
+      erro: "Esse é o valor depois de 4 anos. Conte as multiplicações: são 3, uma por ano."
+  explicacao: "Perder 25% é ficar com 75%: a razão da PG é 0,75. Depois de 3 anos: 16.000 × 0,75³. Passo a passo: 16.000 × 0,75 = 12.000; × 0,75 = 9.000; × 0,75 = 6.750."
+  conferir: "16000 * 0.75^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-09
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-progressoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No auditório de um centro cultural, o número de cadeiras aumenta sempre a mesma quantidade de uma fileira para a
+    seguinte. A 3ª fileira tem 17 cadeiras e a 8ª fileira tem 42 cadeiras.
+  enunciado: "Quantas cadeiras tem a 1ª fileira?"
+  alternativas:
+    - texto: "7"
+      certa: true
+    - texto: "12"
+      erro: "Você voltou só uma fileira (17 − 5). Da 3ª para a 1ª são 2 passos: 17 − 2 × 5."
+    - texto: "5"
+      erro: "5 é a razão, o aumento de uma fileira para a outra. Use-a para voltar da 3ª à 1ª fileira."
+    - texto: "2"
+      erro: "Você voltou 3 passos (17 − 3 × 5). Da 3ª para a 1ª fileira são 2 passos."
+    - texto: "25"
+      erro: "25 é o aumento da 3ª para a 8ª fileira (42 − 17). Divida pelos 5 passos para achar a razão."
+  explicacao: "Da 3ª à 8ª fileira são 5 passos e 42 − 17 = 25 cadeiras a mais: a razão é 25 ÷ 5 = 5. Voltando 2 passos da 3ª fileira: 17 − 2 × 5 = 7. Confira: 7, 12, 17, 22, 27, 32, 37, 42."
+  conferir: "17 - 2 * (42 - 17) / (8 - 3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-progressoes-10
+  tema: "Progressões aritméticas e geométricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-progressoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa negociação, um sindicato recebeu duas propostas de reajuste para um salário de R$ 2.000,00, com um reajuste por
+    ano, durante 3 anos:
+    Proposta 1: aumento de R$ 100,00 por ano (os salários formam uma PA).
+    Proposta 2: aumento de 5% por ano, sempre sobre o salário do ano anterior (os salários formam uma PG).
+  enunciado: "Depois dos 3 reajustes, a diferença entre o salário da proposta 2 e o da proposta 1 será de"
+  alternativas:
+    - texto: "R$ 0,00"
+      erro: "No 1º ano as duas dão R$ 2.100, porque 5% de 2.000 é 100. Mas na proposta 2 os 5% seguintes incidem sobre um salário maior."
+    - texto: "R$ 100,00"
+      erro: "R$ 100 é o aumento anual da proposta 1. Calcule os dois salários depois de 3 reajustes e subtraia."
+    - texto: "R$ 15,25"
+      certa: true
+    - texto: "R$ 5,00"
+      erro: "Essa é a diferença depois de 2 reajustes (2.205 − 2.200). São 3 reajustes."
+    - texto: "R$ 31,01"
+      erro: "Essa é a diferença depois de 4 reajustes. Conte: são 3, um por ano."
+  explicacao: "Proposta 1: 2.000 + 3 × 100 = 2.300. Proposta 2: 2.000 × 1,05 = 2.100; × 1,05 = 2.205; × 1,05 = 2.315,25. Diferença: 2.315,25 − 2.300 = R$ 15,25."
+  conferir: "2000 * 1.05^3 - (2000 + 3 * 100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

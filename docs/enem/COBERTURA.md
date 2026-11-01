@@ -4,12 +4,12 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 ## Números gerais
 
-- Aulas escritas no percurso (trilhas enem-*): **51** em 6 trilhas
-- Exercícios do instituto com as etiquetas do ENEM: **98** (meta: 2.000) · níveis 1/2/3: 28 / 47 / 23
-- Exercícios nas trilhas enem-* (todos): 110 · posição da certa (A–E): 22 / 23 / 21 / 23 / 21
-- Testes das aulas do percurso: 213 perguntas · posição da certa (1ª a 5ª opção): 84 / 70 / 32 / 27 / 0
+- Aulas escritas no percurso (trilhas enem-*): **75** em 10 trilhas
+- Exercícios do instituto com as etiquetas do ENEM: **338** (meta: 2.000) · níveis 1/2/3: 100 / 143 / 95
+- Exercícios nas trilhas enem-* (todos): 350 · posição da certa (A–E): 70 / 71 / 69 / 71 / 69
+- Testes das aulas do percurso: 309 perguntas · posição da certa (1ª a 5ª opção): 108 / 94 / 56 / 51 / 0
 - Questões oficiais classificadas e resolvidas: **347** de 2689 importadas (12.9%) · anos: 2022, 2023
-- Redação: 0 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
+- Redação: 27 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
 - Fatos da edição 2026: 55 (3 a confirmar no edital)
 
 ## Habilidades (meta: cada uma com 1 aula do percurso e 10 exercícios)
@@ -124,35 +124,35 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | C | H | Habilidade (resumo nosso) | Aulas | Exercícios | Questões oficiais |
 | --- | --- | --- | --- | --- | --- |
 | 1 | H1 | Reconhecer, em situações sociais, os significados e as formas de escrever números e operações. | 0 | 0 | 2 |
-| 1 | H2 | Identificar padrões numéricos ou princípios de contagem. | 1 | 2 | 6 |
-| 1 | H3 | Resolver problemas com conhecimentos numéricos. | 2 | 6 | 12 |
-| 1 | H4 | Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números. | 0 | 0 | 0 |
-| 1 | H5 | Avaliar propostas de intervenção na realidade usando conhecimentos numéricos. | 0 | 0 | 0 |
-| 2 | H6 | Interpretar posição e movimento no espaço e sua representação no plano (mapas, vistas, plantas). | 0 | 0 | 4 |
-| 2 | H7 | Identificar características de figuras planas e espaciais. | 0 | 0 | 3 |
-| 2 | H8 | Resolver problemas de geometria de espaço e forma. | 2 | 3 | 9 |
-| 2 | H9 | Usar a geometria para escolher argumentos que resolvem problemas do cotidiano. | 0 | 0 | 1 |
-| 3 | H10 | Identificar relações entre grandezas e unidades de medida. | 0 | 0 | 1 |
-| 3 | H11 | Usar escalas para ler representações do cotidiano. | 2 | 1 | 3 |
-| 3 | H12 | Resolver problemas com medidas de grandezas. | 1 | 1 | 3 |
+| 1 | H2 | Identificar padrões numéricos ou princípios de contagem. | 3 | 14 | 6 |
+| 1 | H3 | Resolver problemas com conhecimentos numéricos. | 8 | 44 | 12 |
+| 1 | H4 | Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números. | 2 | 3 | 0 |
+| 1 | H5 | Avaliar propostas de intervenção na realidade usando conhecimentos numéricos. | 1 | 0 | 0 |
+| 2 | H6 | Interpretar posição e movimento no espaço e sua representação no plano (mapas, vistas, plantas). | 1 | 5 | 4 |
+| 2 | H7 | Identificar características de figuras planas e espaciais. | 4 | 8 | 3 |
+| 2 | H8 | Resolver problemas de geometria de espaço e forma. | 7 | 25 | 9 |
+| 2 | H9 | Usar a geometria para escolher argumentos que resolvem problemas do cotidiano. | 1 | 3 | 1 |
+| 3 | H10 | Identificar relações entre grandezas e unidades de medida. | 1 | 2 | 1 |
+| 3 | H11 | Usar escalas para ler representações do cotidiano. | 3 | 11 | 3 |
+| 3 | H12 | Resolver problemas com medidas de grandezas. | 6 | 26 | 3 |
 | 3 | H13 | Avaliar o resultado de uma medição ao construir um argumento. | 0 | 0 | 0 |
-| 3 | H14 | Avaliar propostas de intervenção usando grandezas e medidas. | 0 | 0 | 0 |
+| 3 | H14 | Avaliar propostas de intervenção usando grandezas e medidas. | 1 | 5 | 0 |
 | 4 | H15 | Identificar quando uma grandeza depende de outra. | 0 | 0 | 0 |
-| 4 | H16 | Resolver problemas com grandezas direta ou inversamente proporcionais. | 2 | 1 | 2 |
+| 4 | H16 | Resolver problemas com grandezas direta ou inversamente proporcionais. | 4 | 8 | 2 |
 | 4 | H17 | Analisar a variação de grandezas para construir argumentos. | 0 | 0 | 1 |
 | 4 | H18 | Avaliar propostas de intervenção que envolvem variação de grandezas. | 0 | 0 | 0 |
-| 5 | H19 | Identificar a expressão algébrica que traduz a relação entre grandezas. | 0 | 0 | 2 |
-| 5 | H20 | Interpretar gráficos cartesianos que relacionam grandezas. | 1 | 0 | 5 |
-| 5 | H21 | Resolver problemas cuja modelagem pede álgebra. | 2 | 3 | 7 |
-| 5 | H22 | Usar álgebra e geometria para construir argumentos. | 0 | 0 | 1 |
-| 5 | H23 | Avaliar propostas de intervenção usando álgebra. | 0 | 0 | 0 |
-| 6 | H24 | Fazer inferências a partir de gráficos ou tabelas. | 1 | 1 | 4 |
-| 6 | H25 | Resolver problemas com dados de tabelas ou gráficos. | 1 | 0 | 4 |
-| 6 | H26 | Analisar gráficos ou tabelas para construir argumentos. | 0 | 0 | 0 |
-| 7 | H27 | Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos. | 2 | 3 | 7 |
-| 7 | H28 | Resolver problemas de estatística e probabilidade. | 2 | 1 | 4 |
-| 7 | H29 | Usar estatística e probabilidade para construir argumentos. | 0 | 0 | 0 |
-| 7 | H30 | Avaliar propostas de intervenção usando estatística e probabilidade. | 0 | 0 | 0 |
+| 5 | H19 | Identificar a expressão algébrica que traduz a relação entre grandezas. | 4 | 7 | 2 |
+| 5 | H20 | Interpretar gráficos cartesianos que relacionam grandezas. | 5 | 9 | 5 |
+| 5 | H21 | Resolver problemas cuja modelagem pede álgebra. | 7 | 30 | 7 |
+| 5 | H22 | Usar álgebra e geometria para construir argumentos. | 4 | 4 | 1 |
+| 5 | H23 | Avaliar propostas de intervenção usando álgebra. | 3 | 3 | 0 |
+| 6 | H24 | Fazer inferências a partir de gráficos ou tabelas. | 3 | 9 | 4 |
+| 6 | H25 | Resolver problemas com dados de tabelas ou gráficos. | 3 | 9 | 4 |
+| 6 | H26 | Analisar gráficos ou tabelas para construir argumentos. | 2 | 3 | 0 |
+| 7 | H27 | Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos. | 4 | 12 | 7 |
+| 7 | H28 | Resolver problemas de estatística e probabilidade. | 5 | 20 | 4 |
+| 7 | H29 | Usar estatística e probabilidade para construir argumentos. | 2 | 2 | 0 |
+| 7 | H30 | Avaliar propostas de intervenção usando estatística e probabilidade. | 1 | 0 | 0 |
 
 ### Resumo por área
 
@@ -161,8 +161,8 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | Linguagens, Códigos e suas Tecnologias | 21 de 30 | 0 de 30 |
 | Ciências Humanas e suas Tecnologias | 29 de 30 | 0 de 30 |
 | Ciências da Natureza e suas Tecnologias | 19 de 30 | 0 de 30 |
-| Matemática e suas Tecnologias | 12 de 30 | 0 de 30 |
-| **Total** | **81 de 120 (68%)** | **0 de 120 (0%)** |
+| Matemática e suas Tecnologias | 25 de 30 | 8 de 30 |
+| **Total** | **94 de 120 (78%)** | **8 de 120 (7%)** |
 
 ## Objetos de conhecimento e tópicos (meta: cada um com aula própria)
 
@@ -451,16 +451,16 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 
 | Objeto / tópico | Questões oficiais | Aulas | Exercícios |
 | --- | --- | --- | --- |
-| **Conhecimentos numéricos** (`mat-numeros`) | 24 | 2 | 9 |
+| **Conhecimentos numéricos** (`mat-numeros`) | 24 | 8 | 69 |
 | ↳ Operações com inteiros e racionais (`mat-numeros-operacoes`) | 5 | 1 | 1 |
-| ↳ Porcentagem (`mat-numeros-porcentagem`) | 5 | 2 | 2 |
-| ↳ Progressões aritméticas e geométricas (`mat-numeros-progressoes`) | 3 | 2 | 1 |
+| ↳ Porcentagem (`mat-numeros-porcentagem`) | 5 | 3 | 12 |
+| ↳ Progressões aritméticas e geométricas (`mat-numeros-progressoes`) | 3 | 3 | 11 |
 | ↳ Potências, raízes e notação científica (`mat-numeros-potencias-e-notacao-cientifica`) | 2 | 0 | 0 |
-| ↳ Contas do dia a dia: luz, água, salário, parcelamento, impostos (`mat-numeros-contas-do-dia-a-dia`) | 2 | 1 | 1 |
-| ↳ Permutações, arranjos e combinações (`mat-numeros-arranjos-e-combinacoes`) | 2 | 1 | 1 |
+| ↳ Contas do dia a dia: luz, água, salário, parcelamento, impostos (`mat-numeros-contas-do-dia-a-dia`) | 2 | 2 | 11 |
+| ↳ Permutações, arranjos e combinações (`mat-numeros-arranjos-e-combinacoes`) | 2 | 2 | 11 |
 | ↳ Múltiplos, divisores, MMC e MDC (`mat-numeros-multiplos-e-divisores`) | 1 | 0 | 0 |
-| ↳ Razão e proporção (`mat-numeros-razao-e-proporcao`) | 1 | 2 | 0 |
-| ↳ Aumentos e descontos sucessivos (`mat-numeros-aumentos-e-descontos`) | 1 | 2 | 1 |
+| ↳ Razão e proporção (`mat-numeros-razao-e-proporcao`) | 1 | 3 | 10 |
+| ↳ Aumentos e descontos sucessivos (`mat-numeros-aumentos-e-descontos`) | 1 | 3 | 11 |
 | ↳ Juros compostos (`mat-numeros-juros-compostos`) | 1 | 1 | 1 |
 | ↳ Princípio fundamental da contagem (`mat-numeros-contagem`) | 1 | 1 | 0 |
 | ↳ Frações e decimais (`mat-numeros-fracoes-e-decimais`) | 0 | 0 | 0 |
@@ -471,15 +471,15 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Juros simples (`mat-numeros-juros-simples`) | 0 | 1 | 0 |
 | ↳ Inflação e poder de compra (`mat-numeros-inflacao`) | 0 | 0 | 0 |
 | ↳ Velocidade, vazão, densidade e outras taxas (`mat-numeros-taxas`) | 0 | 0 | 0 |
-| **Conhecimentos geométricos** (`mat-geometria`) | 24 | 3 | 5 |
-| ↳ Unidades de comprimento, área, volume, capacidade, massa e tempo (`mat-geometria-unidades-de-medida`) | 3 | 1 | 1 |
-| ↳ Escalas em mapas, plantas e maquetes (`mat-geometria-escalas`) | 3 | 2 | 1 |
-| ↳ Circunferência e círculo (`mat-geometria-circunferencia`) | 3 | 2 | 1 |
-| ↳ Prismas e cilindros (`mat-geometria-prismas-e-cilindros`) | 3 | 2 | 1 |
-| ↳ Áreas de figuras planas (`mat-geometria-areas`) | 2 | 2 | 0 |
-| ↳ Vistas e projeções ortogonais (`mat-geometria-vistas-e-projecoes`) | 2 | 0 | 0 |
-| ↳ Pirâmides e cones (`mat-geometria-piramides-e-cones`) | 2 | 1 | 0 |
-| ↳ Esfera (`mat-geometria-esfera`) | 2 | 1 | 0 |
+| **Conhecimentos geométricos** (`mat-geometria`) | 24 | 11 | 85 |
+| ↳ Unidades de comprimento, área, volume, capacidade, massa e tempo (`mat-geometria-unidades-de-medida`) | 3 | 2 | 11 |
+| ↳ Escalas em mapas, plantas e maquetes (`mat-geometria-escalas`) | 3 | 3 | 11 |
+| ↳ Circunferência e círculo (`mat-geometria-circunferencia`) | 3 | 3 | 11 |
+| ↳ Prismas e cilindros (`mat-geometria-prismas-e-cilindros`) | 3 | 3 | 11 |
+| ↳ Áreas de figuras planas (`mat-geometria-areas`) | 2 | 3 | 10 |
+| ↳ Vistas e projeções ortogonais (`mat-geometria-vistas-e-projecoes`) | 2 | 1 | 10 |
+| ↳ Pirâmides e cones (`mat-geometria-piramides-e-cones`) | 2 | 2 | 10 |
+| ↳ Esfera (`mat-geometria-esfera`) | 2 | 2 | 10 |
 | ↳ Teorema de Pitágoras e relações métricas (`mat-geometria-pitagoras`) | 1 | 1 | 1 |
 | ↳ Trigonometria no triângulo retângulo (`mat-geometria-trigonometria`) | 1 | 1 | 0 |
 | ↳ Simetria, translação, rotação e ladrilhamentos (`mat-geometria-simetria`) | 1 | 0 | 0 |
@@ -490,22 +490,22 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Planificações (`mat-geometria-planificacoes`) | 0 | 0 | 0 |
 | ↳ Poliedros e relação de Euler (`mat-geometria-poliedros`) | 0 | 0 | 0 |
 | ↳ Volume e capacidade de embalagens (`mat-geometria-volumes-e-embalagens`) | 0 | 0 | 0 |
-| **Conhecimentos de estatística e probabilidade** (`mat-estatistica`) | 18 | 2 | 5 |
-| ↳ Média, mediana e moda (`mat-estatistica-media-mediana-moda`) | 6 | 2 | 2 |
-| ↳ Gráficos de barras, colunas, linhas e setores (`mat-estatistica-graficos`) | 4 | 1 | 1 |
-| ↳ Leitura de tabelas (`mat-estatistica-tabelas`) | 2 | 1 | 0 |
-| ↳ Média ponderada (`mat-estatistica-media-ponderada`) | 2 | 2 | 1 |
-| ↳ União, complementar e probabilidade condicional (`mat-estatistica-probabilidade-condicional`) | 2 | 1 | 0 |
+| **Conhecimentos de estatística e probabilidade** (`mat-estatistica`) | 18 | 7 | 55 |
+| ↳ Média, mediana e moda (`mat-estatistica-media-mediana-moda`) | 6 | 3 | 12 |
+| ↳ Gráficos de barras, colunas, linhas e setores (`mat-estatistica-graficos`) | 4 | 2 | 11 |
+| ↳ Leitura de tabelas (`mat-estatistica-tabelas`) | 2 | 2 | 10 |
+| ↳ Média ponderada (`mat-estatistica-media-ponderada`) | 2 | 3 | 11 |
+| ↳ União, complementar e probabilidade condicional (`mat-estatistica-probabilidade-condicional`) | 2 | 2 | 10 |
 | ↳ Eventos independentes (`mat-estatistica-eventos-independentes`) | 2 | 2 | 1 |
 | ↳ Histogramas e infográficos (`mat-estatistica-histogramas`) | 0 | 0 | 0 |
 | ↳ Amplitude, variância e desvio padrão (`mat-estatistica-dispersao`) | 0 | 0 | 0 |
 | ↳ Probabilidade simples (`mat-estatistica-probabilidade`) | 0 | 2 | 0 |
-| **Conhecimentos algébricos** (`mat-algebra`) | 11 | 2 | 3 |
-| ↳ Conceito de função e leitura de gráficos (`mat-algebra-funcoes-e-graficos`) | 3 | 1 | 0 |
-| ↳ Função quadrática: vértice, máximo e mínimo (`mat-algebra-funcao-quadratica`) | 3 | 2 | 2 |
-| ↳ Função afim (`mat-algebra-funcao-afim`) | 2 | 2 | 1 |
-| ↳ Função exponencial (`mat-algebra-funcao-exponencial`) | 1 | 0 | 0 |
-| ↳ Logaritmos e escalas logarítmicas (pH, Richter, decibéis) (`mat-algebra-logaritmos`) | 1 | 1 | 0 |
+| **Conhecimentos algébricos** (`mat-algebra`) | 11 | 7 | 53 |
+| ↳ Conceito de função e leitura de gráficos (`mat-algebra-funcoes-e-graficos`) | 3 | 2 | 10 |
+| ↳ Função quadrática: vértice, máximo e mínimo (`mat-algebra-funcao-quadratica`) | 3 | 3 | 12 |
+| ↳ Função afim (`mat-algebra-funcao-afim`) | 2 | 3 | 11 |
+| ↳ Função exponencial (`mat-algebra-funcao-exponencial`) | 1 | 1 | 10 |
+| ↳ Logaritmos e escalas logarítmicas (pH, Richter, decibéis) (`mat-algebra-logaritmos`) | 1 | 2 | 10 |
 | ↳ Fenômenos periódicos e funções trigonométricas (`mat-algebra-funcoes-trigonometricas`) | 1 | 0 | 0 |
 | ↳ Equações do 1º grau (`mat-algebra-equacoes`) | 0 | 0 | 0 |
 | ↳ Inequações (`mat-algebra-inequacoes`) | 0 | 0 | 0 |
@@ -516,12 +516,11 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Equação da reta, paralelismo e perpendicularidade (`mat-algebra-geometria-reta`) | 0 | 0 | 0 |
 | ↳ Equação da circunferência (`mat-algebra-geometria-circunferencia`) | 0 | 0 | 0 |
 
-Objetos com aula: **33 de 42** · tópicos com aula: **134 de 286**.
+Objetos com aula: **33 de 42** · tópicos com aula: **136 de 286**.
 
 ## As 40 lacunas mais urgentes (tópico sem aula, pela incidência)
 
 - Potências, raízes e notação científica (`mat-numeros-potencias-e-notacao-cientifica`, matematica): 2 questões oficiais classificadas
-- Vistas e projeções ortogonais (`mat-geometria-vistas-e-projecoes`, matematica): 2 questões oficiais classificadas
 - Sistemas lineares (`mat-algebra-geometria-sistemas`, matematica): 2 questões oficiais classificadas
 - Norma-padrão em uso: concordância, regência, crase, pontuação, colocação (`lin-lingua-portuguesa-norma-padrao`, linguagens): 1 questões oficiais classificadas
 - Idade Média, feudalismo e mundo islâmico (`hum-organizacao-social-idade-media`, humanas): 1 questões oficiais classificadas
@@ -560,3 +559,4 @@ Objetos com aula: **33 de 42** · tópicos com aula: **134 de 286**.
 - Radioatividade (`nat-qui-energia-radioatividade`, natureza): 1 questões oficiais classificadas
 - Gravitação, leis de Kepler e marés (`nat-fis-universo-gravitacao`, natureza): 1 questões oficiais classificadas
 - Petróleo, gás e biocombustíveis (`nat-qui-energias-combustiveis`, natureza): 1 questões oficiais classificadas
+- Energia nuclear e lixo atômico (`nat-qui-energias-nuclear`, natureza): 1 questões oficiais classificadas

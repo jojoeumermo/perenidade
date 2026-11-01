@@ -1,0 +1,250 @@
+# Exercícios da aula "Pirâmides e cones" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-piramides-01
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-piramides-e-cones
+  dificuldade: 1
+  enunciado: "Uma pirâmide tem base quadrada de 3 m de lado e 4 m de altura. Qual é o volume dela?"
+  alternativas:
+    - texto: "12 m³"
+      certa: true
+    - texto: "36 m³"
+      erro: "36 m³ é o prisma de mesma base e altura (9 × 4). A pirâmide tem um terço disso."
+    - texto: "4 m³"
+      erro: "Você usou o lado (3) como se fosse a área da base. A base é um quadrado: 3 × 3 = 9 m²."
+    - texto: "10 m³"
+      erro: "Você somou as medidas (3 + 3 + 4). O volume é área da base vezes altura, dividido por 3."
+    - texto: "18 m³"
+      erro: "Você dividiu por 2, como no triângulo. Na pirâmide, divide-se por 3: 36 ÷ 3."
+  explicacao: "Área da base: 3 × 3 = 9 m². Volume: 9 × 4 ÷ 3 = 36 ÷ 3 = 12 m³."
+  conferir: "3 * 3 * 4 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-02
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-piramides-e-cones
+  dificuldade: 1
+  enunciado: "Um copinho de papel tem a forma de um cone com 2 cm de raio da boca e 9 cm de altura. Usando π = 3, quanto cabe nele?"
+  alternativas:
+    - texto: "108 cm³"
+      erro: "108 é o cilindro de mesma base e altura (3 × 4 × 9). Falta dividir por 3."
+    - texto: "36 cm³"
+      certa: true
+    - texto: "18 cm³"
+      erro: "Você não elevou o raio ao quadrado (3 × 2 × 9 ÷ 3). A base é π · r² = 3 × 4."
+    - texto: "144 cm³"
+      erro: "Você usou o diâmetro (4 cm) como raio: 3 × 16 × 9 ÷ 3. O raio é 2 cm."
+    - texto: "54 cm³"
+      erro: "Você dividiu por 2 em vez de 3. O cone tem um terço do cilindro: 108 ÷ 3."
+  explicacao: "V = π · r² · h ÷ 3 = 3 × 4 × 9 ÷ 3 = 108 ÷ 3 = 36 cm³, ou 36 mL."
+  conferir: "3 * 2^2 * 9 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-03
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-piramides-e-cones
+  dificuldade: 1
+  enunciado: "Um cone tem 6 cm de raio da base e 8 cm de altura. Quanto mede a geratriz (a linha inclinada do vértice até a borda da base)?"
+  alternativas:
+    - texto: "14 cm"
+      erro: "Você somou raio e altura. Eles são catetos de um triângulo retângulo: a geratriz sai pelo Teorema de Pitágoras."
+    - texto: "100 cm"
+      erro: "100 é a geratriz ao quadrado (36 + 64). Falta tirar a raiz quadrada: a raiz de 100 é 10."
+    - texto: "10 cm"
+      certa: true
+    - texto: "2 cm"
+      erro: "Você subtraiu as medidas. A geratriz é a hipotenusa: g² = 6² + 8²."
+    - texto: "48 cm"
+      erro: "Você multiplicou raio e altura. Pelo Teorema de Pitágoras, some os quadrados e tire a raiz."
+  explicacao: "Altura, raio e geratriz formam um triângulo retângulo. g² = 6² + 8² = 36 + 64 = 100. g = 10 cm."
+  conferir: "(6^2 + 8^2)^(1/2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-04
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-piramides-e-cones
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num mutirão de construção de casas, a areia é despejada no terreno e forma um monte em forma de cone, com 6 m de
+    diâmetro na base e 2 m de altura. A areia vai ser levada para outro canteiro numa caçamba que carrega 6 m³ por
+    viagem. Use π = 3.
+  enunciado: "O número mínimo de viagens da caçamba para levar todo o monte é"
+  alternativas:
+    - texto: "9"
+      erro: "Você calculou o monte como cilindro (3 × 9 × 2 = 54 m³). O cone tem um terço disso: 18 m³."
+    - texto: "12"
+      erro: "Você usou o diâmetro (6 m) como raio: 3 × 36 × 2 ÷ 3 = 72 m³. O raio é 3 m."
+    - texto: "18"
+      erro: "18 m³ é o volume do monte. Falta dividir pela capacidade da caçamba, 6 m³."
+    - texto: "3"
+      certa: true
+    - texto: "1"
+      erro: "Você não elevou o raio ao quadrado (3 × 3 × 2 ÷ 3 = 6 m³). A base é π · r² = 3 × 9 = 27 m²."
+  explicacao: "Raio: 3 m. Volume: 3 × 9 × 2 ÷ 3 = 18 m³. Viagens: 18 ÷ 6 = 3."
+  conferir: "(3 * 3^2 * 2 / 3) / 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-05
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-piramides-e-cones
+  dificuldade: 2
+  enunciado: "Um funil cônico, com o bico tampado, tem 5 cm de raio da boca e 12 cm de altura. Usando π = 3,14, quantos mililitros cabem nele?"
+  alternativas:
+    - texto: "942 mL"
+      erro: "942 é o cilindro de mesma base e altura (3,14 × 25 × 12). O cone tem um terço."
+    - texto: "62,8 mL"
+      erro: "Você não elevou o raio ao quadrado: 3,14 × 5 × 12 ÷ 3. A base é π · r² = 3,14 × 25."
+    - texto: "1.256 mL"
+      erro: "Você usou o diâmetro (10 cm) como raio: 3,14 × 100 × 12 ÷ 3. O raio é 5 cm."
+    - texto: "157 mL"
+      erro: "Você dividiu por 6 em vez de 3. O cone é um terço do cilindro: 942 ÷ 3."
+    - texto: "314 mL"
+      certa: true
+  explicacao: "V = π · r² · h ÷ 3 = 3,14 × 25 × 12 ÷ 3 = 3,14 × 25 × 4 = 3,14 × 100 = 314 cm³ = 314 mL."
+  conferir: "3.14 * 5^2 * 12 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-06
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-piramides-e-cones
+  dificuldade: 2
+  enunciado: "Um chapéu de festa é a superfície lateral de um cone com 3 cm de raio da base e 5 cm de geratriz. Usando π = 3, quanto papel tem o chapéu?"
+  alternativas:
+    - texto: "45 cm²"
+      certa: true
+    - texto: "27 cm²"
+      erro: "27 é a área da base (π · r² = 3 × 9). O chapéu não tem base: é só a lateral, π · r · g."
+    - texto: "90 cm²"
+      erro: "Você multiplicou por 2, como no rótulo do cilindro. A lateral do cone é π · r · g, sem o 2."
+    - texto: "15 cm²"
+      erro: "Você fez r · g e esqueceu o π. A área lateral é π · r · g = 3 × 3 × 5."
+    - texto: "72 cm²"
+      erro: "Você somou a base (27) à lateral (45). O chapéu é aberto embaixo: só a lateral."
+  explicacao: "Área lateral do cone: π · r · g = 3 × 3 × 5 = 45 cm²."
+  conferir: "3 * 3 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-07
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-piramides-e-cones
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O quiosque de uma praça tem um telhado em forma de pirâmide de base quadrada, com 8 m de lado da base e 3 m de
+    altura (do centro da base até o bico). O telhado é formado por quatro faces triangulares iguais, que vão ser
+    cobertas com telhas. A base da pirâmide é o forro, que não leva telha.
+  enunciado: "A área a ser coberta com telhas, em metro quadrado, é"
+  alternativas:
+    - texto: "48"
+      erro: "Você usou a altura da pirâmide (3 m) como altura das faces. Cada face é inclinada: a altura dela é a apótema, 5 m."
+    - texto: "80"
+      certa: true
+    - texto: "160"
+      erro: "Você esqueceu de dividir por 2 a área de cada triângulo. Cada face tem 8 × 5 ÷ 2 = 20 m²."
+    - texto: "64"
+      erro: "64 m² é a área da base, o forro. As telhas cobrem as quatro faces inclinadas."
+    - texto: "144"
+      erro: "Você somou o forro (64 m²) às faces (80 m²). A base não leva telha."
+  explicacao: "Apótema: altura 3 m e metade do lado 4 m formam um triângulo retângulo; 3² + 4² = 25, apótema 5 m. Cada face: 8 × 5 ÷ 2 = 20 m². Quatro faces: 80 m²."
+  conferir: "4 * (8 * 5 / 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-08
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-piramides-e-cones
+  dificuldade: 3
+  enunciado: "Uma taça tem a forma de um cone com o bico para baixo. Ela é enchida com suco até a metade da sua altura. Que fração da capacidade da taça está ocupada?"
+  alternativas:
+    - texto: "1/2"
+      erro: "Metade da altura não é metade do volume. O suco forma um cone menor com todas as medidas pela metade: (1/2)³."
+    - texto: "1/4"
+      erro: "Você elevou 1/2 ao quadrado, como numa área. O volume tem três dimensões: (1/2)³ = 1/8."
+    - texto: "1/8"
+      certa: true
+    - texto: "1/6"
+      erro: "Você tomou metade do um terço da fórmula do cone. O que vale é a semelhança: o cone do suco é o grande reduzido pela metade em tudo."
+    - texto: "7/8"
+      erro: "7/8 é a parte vazia da taça (1 − 1/8). A pergunta é a parte ocupada."
+  explicacao: "O suco forma um cone semelhante ao da taça, com altura e raio pela metade. O volume depende de três medidas, então fica (1/2) × (1/2) × (1/2) = 1/8 do total."
+  conferir: "(1/2)^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-09
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-piramides-e-cones
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um grupo de geração de renda faz velas decorativas em forma de pirâmide de base quadrada, com 6 cm de lado da base
+    e 10 cm de altura. A parafina custa R$ 0,05 por centímetro cúbico.
+  enunciado: "O custo da parafina de cada vela é de"
+  alternativas:
+    - texto: "R$ 18,00"
+      erro: "Você calculou o prisma (36 × 10 = 360 cm³). A pirâmide tem um terço: 120 cm³."
+    - texto: "R$ 9,00"
+      erro: "Você dividiu por 2 em vez de 3 (180 cm³). O volume da pirâmide é área da base vezes altura, dividido por 3."
+    - texto: "R$ 1,00"
+      erro: "Você não elevou o lado ao quadrado (6 × 10 ÷ 3 = 20 cm³). A base é um quadrado: 6 × 6 = 36 cm²."
+    - texto: "R$ 6,00"
+      certa: true
+    - texto: "R$ 120,00"
+      erro: "120 é o volume, em cm³. Falta multiplicar pelo preço de cada centímetro cúbico, R$ 0,05."
+  explicacao: "Volume: 6 × 6 × 10 ÷ 3 = 120 cm³. Custo: 120 × 0,05 = R$ 6,00."
+  conferir: "6 * 6 * 10 / 3 * 0.05"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-piramides-10
+  tema: "Pirâmides e cones"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-piramides-e-cones
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma escola vai montar uma tenda cônica para a festa da comunidade, com 6 m de raio na base e 8 m de altura. A lona
+    cobre só a superfície lateral da tenda (o chão é de terra). A lona custa R$ 10,00 o metro quadrado. Use π = 3.
+  enunciado: "O gasto com lona será de"
+  alternativas:
+    - texto: "R$ 1.440,00"
+      erro: "Você usou a altura (8 m) no lugar da geratriz. A lona é inclinada: g² = 8² + 6² = 100, g = 10 m."
+    - texto: "R$ 3.600,00"
+      erro: "Você multiplicou por 2, como no rótulo de um cilindro. A lateral do cone é π · r · g, sem o 2."
+    - texto: "R$ 1.080,00"
+      erro: "Você calculou a área do chão (π · r² = 108 m²). A lona cobre a lateral, não o chão."
+    - texto: "R$ 2.880,00"
+      erro: "Você usou o volume da tenda (3 × 36 × 8 ÷ 3 = 288 m³). Lona é área, não volume."
+    - texto: "R$ 1.800,00"
+      certa: true
+  explicacao: "Geratriz: g² = 8² + 6² = 64 + 36 = 100, g = 10 m. Área lateral: π · r · g = 3 × 6 × 10 = 180 m². Custo: 180 × 10 = R$ 1.800,00."
+  conferir: "3 * 6 * 10 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

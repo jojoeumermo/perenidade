@@ -1,0 +1,14 @@
+[
+  { "slug": "razao-e-proporcao", "titulo": "Razão e proporção" },
+  { "slug": "grandezas-direta-e-inversamente-proporcionais", "titulo": "Grandezas direta e inversamente proporcionais" },
+  { "slug": "regra-de-tres-simples-e-composta", "titulo": "Regra de três simples e composta" },
+  { "slug": "porcentagem", "titulo": "Porcentagem" },
+  { "slug": "aumentos-e-descontos-sucessivos", "titulo": "Aumentos e descontos sucessivos" },
+  { "slug": "juros-simples", "titulo": "Juros simples" },
+  { "slug": "juros-compostos", "titulo": "Juros compostos" },
+  { "slug": "inflacao-e-poder-de-compra", "titulo": "Inflação e poder de compra" },
+  { "slug": "contas-do-dia-a-dia", "titulo": "Contas do dia a dia: luz, água, salário, parcelamento e impostos" },
+  { "slug": "unidades-de-medida", "titulo": "Unidades de medida: comprimento, área, volume, massa e tempo" },
+  { "slug": "velocidade-vazao-densidade-e-outras-taxas", "titulo": "Velocidade, vazão, densidade e outras taxas" },
+  { "slug": "escalas", "titulo": "Escalas em mapas, plantas e maquetes" }
+]

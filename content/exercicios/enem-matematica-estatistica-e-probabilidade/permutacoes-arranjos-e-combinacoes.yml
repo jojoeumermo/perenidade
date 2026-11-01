@@ -1,0 +1,260 @@
+# Exercícios da aula "Permutações, arranjos e combinações" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-arranjos-combinacoes-01
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-arranjos-e-combinacoes
+  dificuldade: 1
+  enunciado: "Uma biblioteca comunitária recebeu 5 livros diferentes e vai colocá-los lado a lado numa prateleira. De quantas maneiras diferentes eles podem ser arrumados?"
+  alternativas:
+    - texto: "120"
+      certa: true
+    - texto: "25"
+      erro: "Você fez 5 × 5, como se cada lugar tivesse sempre 5 opções. Depois de pôr um livro, sobram 4, depois 3, e assim por diante."
+    - texto: "15"
+      erro: "Você somou 5 + 4 + 3 + 2 + 1. Escolhas feitas uma depois da outra se multiplicam."
+    - texto: "5"
+      erro: "5 é só o número de opções para o primeiro lugar. Para cada uma, há 4 para o segundo, e assim por diante."
+    - texto: "60"
+      erro: "Você dividiu 5! por 2. Só se divide quando há livros iguais; aqui os 5 são diferentes."
+  explicacao: "É uma permutação de 5: 5 × 4 × 3 × 2 × 1 = 5! = 120 maneiras."
+  conferir: "5 * 4 * 3 * 2 * 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-02
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-arranjos-e-combinacoes
+  dificuldade: 1
+  enunciado: "Na corrida de rua do bairro, 10 pessoas disputam a categoria juvenil. De quantas maneiras diferentes pode ficar o pódio, com 1º, 2º e 3º lugares?"
+  alternativas:
+    - texto: "120"
+      erro: "120 é a combinação de 10 tomados 3 a 3, que não liga para a ordem. No pódio, ouro e prata são lugares diferentes: a ordem importa."
+    - texto: "720"
+      certa: true
+    - texto: "1.000"
+      erro: "Você fez 10 × 10 × 10, como se a mesma pessoa pudesse ficar em dois lugares do pódio. Depois do 1º, sobram 9."
+    - texto: "30"
+      erro: "Você multiplicou 10 pelo número de lugares (3). Use uma casinha para cada lugar: 10, depois 9, depois 8."
+    - texto: "27"
+      erro: "Você somou 10 + 9 + 8. As escolhas são feitas uma depois da outra: multiplique."
+  explicacao: "A ordem importa (é um pódio): arranjo de 10 tomados 3 a 3. 10 × 9 × 8 = 720 maneiras."
+  conferir: "10 * 9 * 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-03
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-arranjos-e-combinacoes
+  dificuldade: 1
+  enunciado: "Uma sorveteria de bairro tem 6 sabores. Um cliente quer uma casquinha com 2 sabores diferentes, e tanto faz qual vai embaixo. Quantas escolhas diferentes ele pode fazer?"
+  alternativas:
+    - texto: "30"
+      erro: "30 é 6 × 5, um arranjo: conta morango com chocolate e chocolate com morango como escolhas diferentes. Como tanto faz a ordem, divida por 2."
+    - texto: "36"
+      erro: "Você fez 6 × 6, deixando repetir o sabor. O cliente quer 2 sabores diferentes."
+    - texto: "15"
+      certa: true
+    - texto: "12"
+      erro: "Você multiplicou os 6 sabores pelos 2 que serão escolhidos. Use as casinhas: 6 para o primeiro, 5 para o segundo, e divida pelas 2 ordens."
+    - texto: "11"
+      erro: "Você somou 6 + 5. Escolhas seguidas se multiplicam."
+  explicacao: "A ordem não importa: combinação de 6 tomados 2 a 2. (6 × 5) ÷ 2 = 30 ÷ 2 = 15 escolhas."
+  conferir: "6 * 5 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-04
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-arranjos-e-combinacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa turma de alfabetização de adultos, a educadora propõe um jogo: formar todas as sequências possíveis com as
+    seis letras da palavra BANANA, usando cada letra exatamente uma vez, tenham as sequências sentido ou não. Cada
+    sequência diferente vale como um anagrama.
+  enunciado: "O número de anagramas da palavra BANANA é"
+  alternativas:
+    - texto: "720"
+      erro: "720 é 6!, que trataria as 6 letras como todas diferentes. Os três A e os dois N trocados entre si não criam sequência nova."
+    - texto: "120"
+      erro: "Você dividiu só pelas trocas dos A (3! = 6). Falta dividir também pelas trocas dos dois N (2! = 2)."
+    - texto: "360"
+      erro: "Você dividiu só pelas trocas dos N (2! = 2). Falta dividir também pelas trocas dos três A (3! = 6)."
+    - texto: "60"
+      certa: true
+    - texto: "36"
+      erro: "Você fez 6 × 6. Anagrama é permutação das letras: 6!, dividido pelas repetições."
+  explicacao: "São 6 letras, com A repetido 3 vezes e N repetido 2 vezes. 6! = 720. Divida por 3! = 6 e por 2! = 2: 720 ÷ 12 = 60 anagramas."
+  conferir: "720 / (6 * 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-05
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 3
+  objeto: mat-numeros-arranjos-e-combinacoes
+  dificuldade: 2
+  enunciado: "Um sindicato vai mandar 3 pessoas a um congresso: 2 homens e 1 mulher, sem funções diferentes. Há 5 homens e 4 mulheres dispostos a ir. Quantos grupos diferentes podem ser formados?"
+  alternativas:
+    - texto: "84"
+      erro: "84 é a combinação de 9 pessoas tomadas 3 a 3, sem a condição de 2 homens e 1 mulher. Escolha os homens e a mulher separadamente."
+    - texto: "14"
+      erro: "Você somou as escolhas dos homens (10) e das mulheres (4). As duas escolhas acontecem juntas: multiplique."
+    - texto: "80"
+      erro: "Você escolheu os 2 homens com ordem (5 × 4 = 20). Sem funções, a dupla de homens é uma só: divida por 2."
+    - texto: "9"
+      erro: "9 é o total de pessoas dispostas a ir, não o número de grupos."
+    - texto: "40"
+      certa: true
+  explicacao: "Homens: C(5, 2) = (5 × 4) ÷ 2 = 10 duplas. Mulher: 4 opções. Pelo princípio multiplicativo: 10 × 4 = 40 grupos."
+  conferir: "(5 * 4 / 2) * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-06
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 3
+  objeto: mat-numeros-arranjos-e-combinacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O cadeado do armário da associação de moradores usa uma senha de 4 algarismos. Para não esquecer, a diretoria
+    decidiu duas regras: os 4 algarismos têm de ser diferentes entre si, e o primeiro não pode ser zero.
+  enunciado: "Quantas senhas diferentes seguem essas duas regras?"
+  alternativas:
+    - texto: "4.536"
+      certa: true
+    - texto: "5.040"
+      erro: "5.040 é 10 × 9 × 8 × 7, que deixa o zero no primeiro lugar. Comece pelo primeiro algarismo: só 9 opções."
+    - texto: "10.000"
+      erro: "10.000 é 10 × 10 × 10 × 10, que deixa repetir algarismos e começar com zero. As duas regras proíbem isso."
+    - texto: "6.561"
+      erro: "Você fez 9 × 9 × 9 × 9, que deixa repetir. Depois de usar um algarismo, ele sai das próximas casinhas."
+    - texto: "3.024"
+      erro: "Você tirou o zero de todas as posições (9 × 8 × 7 × 6). O zero só é proibido no primeiro lugar: na segunda casinha, ele volta a valer."
+  explicacao: "Casinhas: 1º algarismo, 9 opções (de 1 a 9). 2º, 9 opções (os 10 algarismos menos o já usado; o zero volta). 3º, 8. 4º, 7. Total: 9 × 9 × 8 × 7 = 4.536."
+  conferir: "9 * 9 * 8 * 7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-07
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-arranjos-e-combinacoes
+  dificuldade: 2
+  enunciado: "Quatro pessoas vão se sentar em 4 cadeiras lado a lado numa reunião. Duas delas são irmãs e querem ficar uma ao lado da outra. De quantas maneiras as quatro podem se sentar?"
+  alternativas:
+    - texto: "24"
+      erro: "24 é 4!, sem a condição. Nem todas essas arrumações deixam as irmãs juntas."
+    - texto: "6"
+      erro: "Você juntou as irmãs num bloco e arrumou os 3 blocos (3! = 6), mas esqueceu que as irmãs podem trocar de lugar dentro do bloco."
+    - texto: "12"
+      certa: true
+    - texto: "48"
+      erro: "Você multiplicou 4! por 2. Ao juntar as irmãs num bloco, sobram 3 blocos para arrumar, não 4."
+    - texto: "3"
+      erro: "3 é só o número de posições possíveis para o bloco das irmãs. Falta arrumar as outras duas pessoas e trocar as irmãs entre si."
+  explicacao: "Trate as irmãs como um bloco só. Há 3 blocos para arrumar: 3! = 6 maneiras. Dentro do bloco, as irmãs podem trocar: 2! = 2. Total: 6 × 2 = 12."
+  conferir: "3 * 2 * 1 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-08
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 3
+  objeto: mat-numeros-arranjos-e-combinacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na Mega-Sena, o apostador marca números entre os 60 do volante, e o prêmio principal vai para quem acerta os 6
+    números sorteados. Uma aposta com mais de 6 números equivale a todos os jogos de 6 números que se podem formar
+    com os números marcados. Uma pessoa marcou 8 números num volante.
+  enunciado: "Essa aposta equivale a quantos jogos de 6 números?"
+  alternativas:
+    - texto: "48"
+      erro: "Você multiplicou 8 por 6. Escolher 6 dos 8 números é uma combinação: a ordem dos números no jogo não importa."
+    - texto: "56"
+      erro: "56 é 8 × 7, um arranjo dos 2 números que ficam de fora. Mas a ordem desses 2 não importa: divida por 2."
+    - texto: "2"
+      erro: "2 é quantos números sobram (8 − 6). A pergunta é de quantos jeitos se escolhem os 6 que formam um jogo."
+    - texto: "28"
+      certa: true
+    - texto: "20.160"
+      erro: "20.160 é 8 × 7 × 6 × 5 × 4 × 3, um arranjo: conta o mesmo jogo várias vezes, uma para cada ordem. Divida por 6! = 720."
+  explicacao: "Escolher 6 dos 8 números é o mesmo que escolher os 2 que ficam de fora: C(8, 6) = C(8, 2) = (8 × 7) ÷ 2 = 28 jogos."
+  conferir: "8 * 7 / 2"
+  fonte: "Questão original do Instituto Lúcia, com a regra da aposta conferida na página da Mega-Sena da Caixa (https://loterias.caixa.gov.br/Paginas/Mega-Sena.aspx)"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-09
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 3
+  objeto: mat-numeros-arranjos-e-combinacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um coletivo de cultura tem 4 mulheres e 3 homens. Para organizar o sarau do mês, será escolhida uma comissão de
+    3 pessoas, sem funções diferentes. A única regra é que a comissão tenha pelo menos uma mulher.
+  enunciado: "O número de comissões diferentes que seguem essa regra é"
+  alternativas:
+    - texto: "35"
+      erro: "35 é C(7, 3), o total de comissões sem a regra. Falta tirar a comissão que não tem nenhuma mulher."
+    - texto: "60"
+      erro: "Você fixou uma mulher (4 opções) e escolheu as outras 2 pessoas entre 6 (15). Assim, a mesma comissão com duas mulheres é contada mais de uma vez."
+    - texto: "1"
+      erro: "1 é o número de comissões só de homens, a que a regra proíbe. A pergunta pede as que seguem a regra."
+    - texto: "30"
+      erro: "Você somou as comissões com 1 mulher (4 × 3 = 12) e com 2 mulheres (6 × 3 = 18), mas esqueceu as de 3 mulheres (4)."
+    - texto: "34"
+      certa: true
+  explicacao: "Total de comissões: C(7, 3) = (7 × 6 × 5) ÷ 6 = 35. Sem nenhuma mulher, há só uma: os 3 homens. Com pelo menos uma mulher: 35 − 1 = 34. Por casos: 12 + 18 + 4 = 34."
+  conferir: "7 * 6 * 5 / 6 - 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-arranjos-combinacoes-10
+  tema: "Permutações, arranjos e combinações"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-arranjos-e-combinacoes
+  dificuldade: 3
+  enunciado: "Seis voluntários de uma cozinha solidária vão organizar o almoço de domingo. Um deles será o coordenador e outros dois serão auxiliares, com a mesma função entre si. De quantas maneiras essa equipe pode ser montada?"
+  alternativas:
+    - texto: "120"
+      erro: "120 é 6 × 5 × 4, que trata os dois auxiliares como cargos diferentes. Trocar um auxiliar pelo outro não muda a equipe."
+    - texto: "60"
+      certa: true
+    - texto: "20"
+      erro: "20 é C(6, 3), que esquece que o coordenador tem um cargo diferente dos auxiliares."
+    - texto: "30"
+      erro: "Você escolheu o coordenador (6) e só um auxiliar (5). São dois auxiliares: escolha 2 entre os 5 que sobram."
+    - texto: "15"
+      erro: "15 é a escolha dos dois auxiliares entre 6 pessoas, sem o coordenador. Primeiro escolha o coordenador; depois, 2 entre os 5 que sobram."
+  explicacao: "Coordenador: 6 opções. Auxiliares: 2 entre os 5 que sobram, sem ordem: C(5, 2) = (5 × 4) ÷ 2 = 10. Total: 6 × 10 = 60."
+  conferir: "6 * (5 * 4 / 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
