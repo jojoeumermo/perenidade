@@ -57,14 +57,10 @@ echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudf
 apt-get update
 apt-get install -y cloudflared
 
-# Coolify: o painel que publica e mantém o site (instala também o Docker).
-if [ ! -d /data/coolify/source ]; then
-  curl -fsSL https://cdn.coollabs.io/coolify/install.sh -o /root/coolify-install.sh
-  bash /root/coolify-install.sh
-fi
-
-# Trava: ninguém de fora abre conexão direto com os contêineres. O site e o painel só entram pelo túnel do Cloudflare
-# (que sai daqui para fora). A Oracle já bloqueia essas portas na rede dela; esta é a segunda tranca, na própria máquina.
+# Trava, antes de qualquer contêiner existir:
+# 1. ninguém de fora abre conexão direto com os contêineres. O site e o painel só entram pelo túnel do Cloudflare (que
+#    sai daqui para fora). A Oracle já bloqueia essas portas na rede dela; esta é a segunda tranca, na própria máquina;
+# 2. nenhum contêiner lê o serviço de metadados da Oracle (169.254.169.254), onde ficam os dados de criação da máquina.
 cat > /usr/local/sbin/lucia-trava <<'EOF'
 #!/usr/bin/env bash
 set -e
@@ -72,6 +68,8 @@ placa=$(ip route get 1.1.1.1 | awk '{for (i = 1; i <= NF; i++) if ($i == "dev") 
 iptables -N DOCKER-USER 2>/dev/null || true
 iptables -C DOCKER-USER -i "$placa" -m conntrack --ctstate NEW -j DROP 2>/dev/null \
   || iptables -I DOCKER-USER -i "$placa" -m conntrack --ctstate NEW -j DROP
+iptables -C DOCKER-USER -d 169.254.169.254 -j DROP 2>/dev/null \
+  || iptables -I DOCKER-USER -d 169.254.169.254 -j DROP
 EOF
 chmod 755 /usr/local/sbin/lucia-trava
 cat > /etc/systemd/system/lucia-trava.service <<'EOF'
@@ -89,7 +87,16 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
-systemctl enable --now lucia-trava.service
+systemctl enable lucia-trava.service
+/usr/local/sbin/lucia-trava
+
+# Coolify: o painel que publica e mantém o site (instala também o Docker).
+if [ ! -d /data/coolify/source ]; then
+  curl -fsSL https://cdn.coollabs.io/coolify/install.sh -o /root/coolify-install.sh
+  bash /root/coolify-install.sh
+fi
+# Com o Docker no ar, confere a trava de novo (o Docker liga a cadeia DOCKER-USER na entrada dos contêineres).
+/usr/local/sbin/lucia-trava
 
 date -Is > /root/lucia-preparado
 echo "Servidor do Instituto Lúcia preparado."
