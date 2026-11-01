@@ -47,11 +47,18 @@ jobs:
         run: |
           set -uo pipefail
           C="$OCI_CLI_TENANCY"
+          # Quantas máquinas "lucia" vivas existem. Lista vazia volta sem texto (= 0); erro da Oracle para a rotina.
           existe() {
-            oci compute instance list -c "$C" --display-name "$NOME" --all \
-              --query 'data[?"lifecycle-state"!=`TERMINATED`] | length(@)' --raw-output 2>/dev/null
+            local r
+            if ! r=$(oci compute instance list -c "$C" --display-name "$NOME" --all \
+                  --query 'data[?"lifecycle-state"!=`TERMINATED`] | length(@)' --raw-output 2>&1); then
+              echo "::error::A Oracle recusou a consulta: $r" >&2; exit 1
+            fi
+            r=$(printf '%s' "$r" | tr -dc '0-9'); echo "${r:-0}"
           }
-          if [ "$(existe)" != "0" ]; then echo "A máquina \"$NOME\" já existe. Nada a fazer."; exit 0; fi
+          vivas=$(existe) || exit 1
+          echo "Máquinas \"$NOME\" na conta: $vivas"
+          if [ "$vivas" != "0" ]; then echo "A máquina \"$NOME\" já existe. Nada a fazer."; exit 0; fi
           if [ -z "$TUNEL" ]; then echo "::error::Falta o segredo OCI_TUNEL_TOKEN."; exit 1; fi
           # Aceita o comando inteiro que o Cloudflare mostra ("cloudflared service install <token>"): fica só o token.
           TUNEL=$(printf '%s' "$TUNEL" | tr -s '[:space:]' '\n' | grep -v '^$' | tail -n 1)
