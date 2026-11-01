@@ -35,7 +35,7 @@ export function Circuitos() {
         <label className="flex items-center gap-2"><input type="checkbox" checked={geral} onChange={(e) => setGeral(e.target.checked)} />Chave geral ligada</label>
       </div>
 
-      <svg viewBox="0 0 640 260" className="mt-4 w-full border-2 border-ink bg-[#f9f3e3]" role="img" aria-label={`Circuito ${tipo === "serie" ? "em série" : "em paralelo"} com três lâmpadas`}>
+      <svg viewBox="0 0 640 260" className="lab-quadro mt-4 w-full border-2 border-ink bg-[#f9f3e3]" role="img" aria-label={`Circuito ${tipo === "serie" ? "em série" : "em paralelo"} com três lâmpadas`}>
         {/* Bateria */}
         <g>
           <line x1="40" y1="110" x2="40" y2="150" stroke="#17130e" strokeWidth="3" />
