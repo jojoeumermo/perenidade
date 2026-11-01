@@ -4468,20 +4468,21 @@ a.busca-campo:focus-visible {
    onde informa. Dentro de .painel as cores do site (parchment, ink, rule...) apontam para esta paleta, então as seções
    mudam sem reescrever cada uma. A porta de entrada (.painel-porta) continua com o desenho do site. */
 :root:not([data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
-  --parchment: #f6f6f4;
-  --parchment-deep: #fafaf8;
-  --folha: #ffffff;
+  /* O mesmo bege claro do site; cartões um tom acima, para não sumirem no fundo. */
+  --parchment: #f8f5ee;
+  --parchment-deep: #fcfaf5;
+  --folha: #fffdf8;
   --ink: #1c1b19;
   --ink-soft: #6b6862;
-  --rule: #e3e1dc;
-  --borda-forte: #d6d3cc;
+  --rule: #e6dfd0;
+  --borda-forte: #d8cfbd;
   --pontos: transparent;
   --sombra: transparent;
   --oxblood: #a3201a;
   --gold: #7a5410;
-  --linha-pauta: #efede8;
-  --painel-ativo: #f1efea;
-  --painel-linha: #efede8;
+  --linha-pauta: #ece5d6;
+  --painel-ativo: #f0eadc;
+  --painel-linha: #ece5d6;
   font-family: var(--font-ui), system-ui, sans-serif;
   background-image: none;
 }
@@ -4514,6 +4515,15 @@ a.busca-campo:focus-visible {
   --linha-pauta: #2b2822;
   --painel-ativo: #2b2822;
   --painel-linha: #2b2822;
+}
+/* Menu, trilho e cabeçalho no mesmo bege do site (no tema claro); a linha da borda separa. */
+:root:not([data-theme="dark"], [data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) :is(.painel-menu, .painel-trilho, .painel-cabeca) {
+  background-color: var(--parchment);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"], [data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) :is(.painel-menu, .painel-trilho, .painel-cabeca) {
+    background-color: var(--folha);
+  }
 }
 /* Letra: Inter em tudo; a serifa fica só no título da página. Os rótulos em letra de máquina viram Inter miúda. */
 .painel:not(.painel-porta) :is(.font-serif, .font-mono):not(h1, h1 *, .painel-titulo, kbd, code, pre, textarea) {
