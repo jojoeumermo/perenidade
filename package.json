@@ -57,7 +57,8 @@
     "testar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-enem.mjs",
     "cobertura:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/cobertura-enem.mjs",
     "fila:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/fila-enem.mjs",
-    "incidencia:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/incidencia-enem.mjs"
+    "incidencia:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/incidencia-enem.mjs",
+    "ligar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/ligar-questoes-enem.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
