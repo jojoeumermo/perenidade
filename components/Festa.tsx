@@ -5,7 +5,7 @@ import { useSyncExternalStore } from "react";
 
 /**
  * As datas da festa: um enfeite pequeno pendurado no fio das fitas, logo abaixo da faixa preta, só nos dias de cada
- * festa (bandeirinhas no São João, pisca-pisca no Natal, papel picado no Dia dos Mortos, a faixa tecida no mês da
+ * festa (bandeirinhas no São João, pisca-pisca no Natal, uma vela no Finados, a faixa tecida no mês da
  * Consciência Negra...). O resto do ano, nada. A data é a de Brasília e quem decide é o navegador, então o enfeite
  * aparece e some no dia certo mesmo numa página montada semanas antes.
  */
@@ -33,7 +33,7 @@ function pascoa(ano: number): number {
 
 const DIA = 86_400_000;
 
-export type Festa = "natal" | "reis" | "carnaval" | "mulher" | "pascoa" | "indigena" | "trabalho" | "junina" | "orgulho" | "arvore" | "criancas" | "mortos" | "consciencia";
+export type Festa = "natal" | "reis" | "carnaval" | "mulher" | "pascoa" | "indigena" | "trabalho" | "junina" | "orgulho" | "arvore" | "criancas" | "finados" | "consciencia";
 
 /** Qual festa cai na data (em Brasília), ou null. */
 export function festaDe(agora: Date): Festa | null {
@@ -57,7 +57,7 @@ export function festaDe(agora: Date): Festa | null {
   if (md >= 601 && md <= 731) return "junina";
   if (md >= 915 && md <= 925) return "arvore";
   if (md >= 1010 && md <= 1012) return "criancas";
-  if (md === 1101 || md === 1102) return "mortos";
+  if (md === 1102) return "finados";
   if (md >= 1103 && md <= 1130) return "consciencia";
   return null;
 }
@@ -175,16 +175,13 @@ function desenho(festa: Festa): { largura: number; svg: string } {
         `<path d="M${x} ${y - 5}L${x + 4} ${y}L${x} ${y + 5}L${x - 4} ${y}z" fill="${a}"/><path d="M${x} ${y - 5}L${x + 4} ${y}L${x} ${y}z M${x} ${y}L${x - 4} ${y}L${x} ${y + 5}z" fill="${b}"/><path d="M${x} ${y + 5}q2 3 -1 5 t1 4" stroke="${TINTA}" stroke-width=".5" fill="none"/>`;
       return { largura: 120, svg: pipa(26, 7, "#c21f16", "#f0b323") + pipa(86, 6, "#23408e", "#2e6b4f") };
     }
-    case "mortos": {
-      // Papel picado do Dia dos Mortos: bandeirolas recortadas.
-      const corpo = (["#e4577f", "#ea7a24", "#1f8a85", "#f0b323"] as const)
-        .map((cor, i) => {
-          const x = 3 + i * 22;
-          const y = altura(x + 9, 88) - 0.2;
-          return `<path fill-rule="evenodd" fill="${cor}" d="M${x} ${y}h18v11.5l-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5z M${x + 9} ${y + 2.5}l2.2 2.8-2.2 2.8-2.2-2.8z M${x + 3.5} ${y + 4.6}a1.1 1.1 0 1 0 .01 0z M${x + 14.5} ${y + 4.6}a1.1 1.1 0 1 0 .01 0z"/>`;
-        })
-        .join("");
-      return { largura: 88, svg: cordao(88) + corpo };
+    case "finados": {
+      // Finados é dia de luto e de lembrança, não de festa: só uma vela acesa, pequena, de tempos em tempos.
+      const x = 150;
+      return {
+        largura: 300,
+        svg: `<rect x="${x - 2.6}" y="7" width="5.2" height="10" fill="#efe3c6" stroke="${TINTA}" stroke-width=".7"/><path d="M${x} 7V5.4" stroke="${TINTA}" stroke-width=".6"/><path d="M${x} .8c1.6 1.9 1.9 3.3 0 4.6c-1.9-1.3-1.6-2.7 0-4.6z" fill="#f0b323"/>`,
+      };
     }
     case "consciencia": {
       // A faixa tecida, como a dos panos: blocos de cor sobre a trama escura.
