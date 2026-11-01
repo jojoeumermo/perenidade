@@ -736,7 +736,7 @@ export function KitDeDivulgacao({ qr, email }: { qr: string; email: string }) {
         <p className="w-full text-sm text-ink-soft">Papel: {atual.papel}. Tamanho real: {atual.w} × {atual.h} mm.</p>
       </div>
       {/* A prévia encolhe para caber na tela; a impressão sai no tamanho real. */}
-      <div className="mt-6 overflow-x-auto border-2 border-ink bg-[#d8d0c0] p-4">
+      <div className="mesa-de-previa mt-6 overflow-x-auto border-2 border-ink bg-[#d8d0c0] p-4">
         <div className="peca-impressa mx-auto" style={{ width: `${atual.w}mm` }}>
           {peca === "lambe" && <Lambe c={c} modo={modo} qr={qr} u={1} />}
           {peca === "raios" && <Raios c={c} modo={modo} qr={qr} />}

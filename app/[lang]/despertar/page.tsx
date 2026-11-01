@@ -117,7 +117,7 @@ export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]
                   </ol>
                 </details>
               </div>
-              <aside className={`self-start border-2 border-ink p-5 shadow-[5px_5px_0_var(--sombra)] ${i === etapas.length - 1 ? "bg-[#1f1a14] text-[#f4ecd8] shadow-[5px_5px_0_#c21f16]" : "bg-[#f9e7a6] text-[#1f1a14] " + (i % 2 ? "-rotate-1" : "rotate-1")}`}>
+              <aside className={`self-start border-2 border-ink p-5 shadow-[5px_5px_0_var(--sombra)] ${i === etapas.length - 1 ? "bg-[#1f1a14] text-[#f4ecd8] shadow-[5px_5px_0_#c21f16]" : "bilhete bg-[#f9e7a6] text-[#1f1a14] " + (i % 2 ? "-rotate-1" : "rotate-1")}`}>
                 <p className={`font-mono text-[0.66rem] uppercase tracking-[0.2em] ${i === etapas.length - 1 ? "text-[#e0837a]" : ""}`}>{i === etapas.length - 1 ? s.finalTask : s.task}</p>
                 <p className="mt-2 font-serif text-xl italic leading-snug">{etapa.tarefa}</p>
               </aside>

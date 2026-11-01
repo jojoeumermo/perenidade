@@ -53,7 +53,7 @@ export function Regex() {
       </div>
       {erro && <p className="mt-1 text-sm text-oxblood">{erro}</p>}
       {desafio === null && <textarea value={texto} onChange={(e) => setTexto(e.target.value.slice(0, 2000))} rows={3} aria-label="Texto" className="mt-3 w-full border-2 border-ink/30 bg-parchment p-2 text-sm" />}
-      <p className="mt-3 rounded border-2 border-ink bg-white p-3 text-lg leading-relaxed">{partes}</p>
+      <p className="lab-quadro mt-3 rounded border-2 border-ink bg-white p-3 text-lg leading-relaxed">{partes}</p>
       <p className="mt-2 text-sm">{achados.length} achado(s){venceu ? " · ✓ Desafio resolvido!" : ""}</p>
       {desafio !== null && !venceu && <details className="mt-1 text-sm"><summary className="cursor-pointer underline">Dica</summary><code>{DESAFIOS[desafio].dica}</code></details>}
       <div className="mt-4 grid grid-cols-1 gap-3 text-xs sm:grid-cols-4">

@@ -50,7 +50,7 @@ export function MargemDaAula({ aula, termo, laboratorio, children }: { aula: str
 
   return (
     <aside aria-label={l.myNote} className="margem-da-aula no-print flex flex-col gap-6 font-sans">
-      <label className="block rotate-[1.2deg] border-[1.5px] border-[#1f1a14] bg-[#f7e27c] p-3.5 text-[#1f1a14] shadow-[3px_3px_0_#1f1a14]">
+      <label className="bilhete block rotate-[1.2deg] border-[1.5px] border-[#1f1a14] bg-[#f7e27c] p-3.5 text-[#1f1a14] shadow-[3px_3px_0_#1f1a14]">
         <span className="block font-mono text-[0.66rem] font-semibold uppercase tracking-[0.16em]">{l.myNote}</span>
         <textarea
           ref={campo}

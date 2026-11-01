@@ -177,7 +177,7 @@ export function BancadaVisual() {
           </div>
           <ul className="mt-3 grid gap-2">
             {cat.lista.map((x) => (
-              <li key={x.id}><button type="button" aria-pressed={escolhido(x.id)} onClick={() => escolher(x.id)} className={`w-full cursor-pointer rounded-md border-2 px-3 py-2 text-left text-sm ${escolhido(x.id) ? "border-ink bg-[#fff6e0] shadow-[3px_3px_0_#17130e]" : "border-ink/20 bg-parchment hover:border-ink"}`}>
+              <li key={x.id}><button type="button" aria-pressed={escolhido(x.id)} onClick={() => escolher(x.id)} className={`w-full cursor-pointer rounded-md border-2 px-3 py-2 text-left text-sm ${escolhido(x.id) ? "lab-escolhido border-ink bg-[#fff6e0] shadow-[3px_3px_0_#17130e]" : "border-ink/20 bg-parchment hover:border-ink"}`}>
                 <span className="mr-2" aria-hidden>{cat.icone}</span>{x.nome}
               </button></li>
             ))}
