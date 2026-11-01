@@ -53,6 +53,8 @@ jobs:
           }
           if [ "$(existe)" != "0" ]; then echo "A máquina \"$NOME\" já existe. Nada a fazer."; exit 0; fi
           if [ -z "$TUNEL" ]; then echo "::error::Falta o segredo OCI_TUNEL_TOKEN."; exit 1; fi
+          # Aceita o comando inteiro que o Cloudflare mostra ("cloudflared service install <token>"): fica só o token.
+          TUNEL=$(printf '%s' "$TUNEL" | tr -s '[:space:]' '\n' | grep -v '^$' | tail -n 1)
 
           AD=$(oci iam availability-domain list -c "$C" --query 'data[0].name' --raw-output)
           SUBREDE=$(oci network subnet list -c "$C" --all \
