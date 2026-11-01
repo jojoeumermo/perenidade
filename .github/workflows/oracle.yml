@@ -45,7 +45,7 @@ jobs:
 
       - name: Tentar até conseguir (55 minutos)
         run: |
-          set -uo pipefail
+          set +e -uo pipefail  # o GitHub liga o "-e"; aqui cada erro é tratado à mão
           trap 'echo "Fim do passo (código $?)."' EXIT
           C="$OCI_CLI_TENANCY"
           # Quantas máquinas "lucia" vivas existem. Lista vazia volta sem texto (= 0); erro da Oracle para a rotina.
