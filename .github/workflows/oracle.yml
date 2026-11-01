@@ -46,6 +46,7 @@ jobs:
       - name: Tentar até conseguir (55 minutos)
         run: |
           set -uo pipefail
+          trap 'echo "Fim do passo (código $?)."' EXIT
           C="$OCI_CLI_TENANCY"
           # Quantas máquinas "lucia" vivas existem. Lista vazia volta sem texto (= 0); erro da Oracle para a rotina.
           existe() {
@@ -85,22 +86,25 @@ jobs:
           while [ $SECONDS -lt $fim ]; do
             for forma in '{"ocpus": 2, "memoryInGBs": 12}' '{"ocpus": 1, "memoryInGBs": 6}'; do
               n=$((n + 1))
-              saida=$(oci compute instance launch -c "$C" --availability-domain "$AD" --display-name "$NOME" \
+              echo "Tentativa $n ($forma)..."
+              oci compute instance launch -c "$C" --availability-domain "$AD" --display-name "$NOME" \
                 --shape VM.Standard.A1.Flex --shape-config "$forma" --image-id "$IMAGEM" --subnet-id "$SUBREDE" \
                 --assign-public-ip false --boot-volume-size-in-gbs 100 --user-data-file /tmp/cloud-init.sh \
                 --instance-options '{"areLegacyImdsEndpointsDisabled": true}' \
-                --query 'data.id' --raw-output 2>&1)
-              if [[ "$saida" == ocid1.instance.* ]]; then
-                echo "Conseguiu na tentativa $n ($forma): $saida"
+                --query 'data.id' --raw-output > /tmp/saida.txt 2>&1
+              codigo=$?
+              saida=$(cat /tmp/saida.txt)
+              id=$(grep -o 'ocid1\.instance\.[A-Za-z0-9._-]*' /tmp/saida.txt | head -n 1)
+              if [ "$codigo" = "0" ] && [ -n "$id" ]; then
+                echo "Conseguiu na tentativa $n ($forma): $id"
                 gh issue create -R "$GITHUB_REPOSITORY" --title "A máquina grátis da Oracle foi criada" \
-                  --body "A rotina conseguiu a vaga na tentativa $n, com $forma. Máquina: \`$saida\`. Próximo passo: configurar o Coolify nela e fazer a mudança (docs/HOSPEDAGEM.md)."
+                  --body "A rotina conseguiu a vaga na tentativa $n, com $forma. Máquina: \`$id\`. Próximo passo: configurar o Coolify nela e fazer a mudança (docs/HOSPEDAGEM.md)." || true
                 exit 0
               fi
-              motivo=$(echo "$saida" | grep -o '"message": "[^"]*"' | head -1)
-              echo "Tentativa $n ($forma): ${motivo:-$saida}" | cut -c1-220
+              echo "  resposta (código $codigo): $(grep -o '"message": "[^"]*"' /tmp/saida.txt | head -n 1)"
+              echo "  $(head -c 600 /tmp/saida.txt | tr '\n' ' ')"
               case "$saida" in
-                *"Out of host capacity"*|*"Out of capacity"*|*TooManyRequests*|*InternalError*) ;;
-                *LimitExceeded*) ;;
+                *"Out of host capacity"*|*"Out of capacity"*|*TooManyRequests*|*InternalError*|*LimitExceeded*) ;;
                 *) echo "::error::Erro inesperado da Oracle (veja acima)."; exit 1 ;;
               esac
               sleep 30
