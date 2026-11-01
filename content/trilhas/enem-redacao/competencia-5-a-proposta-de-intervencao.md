@@ -12,7 +12,7 @@ glossario:
     definicao: "Na redação do ENEM, a solução que o autor propõe para o problema discutido, com agente, ação, meio, finalidade e detalhamento, respeitando os direitos humanos."
 quiz:
   - pergunta: "Quais são os cinco elementos de uma proposta de intervenção completa?"
-    opcoes: ["Introdução, tese, argumento, repertório e conclusão", "Agente, ação, modo ou meio, efeito ou finalidade, e detalhamento", "Título, tema, autor, data e assinatura"]
+    opcoes: ["Introdução, tese, argumento, repertório e conclusão", "Pela cartilha: {{enem:intervencao-elementos}}", "Título, tema, autor, data e assinatura"]
     resposta: 1
     explicacao: "A cartilha do Inep pede que a proposta diga quem age, o que faz, como, para quê, e traga algum detalhamento."
   - pergunta: "Na proposta \"O Ministério da Saúde deve criar centros de convivência nos bairros, por meio de parcerias com os municípios, para reduzir o isolamento das pessoas idosas\", qual é o agente?"
@@ -20,9 +20,9 @@ quiz:
     resposta: 1
     explicacao: "O agente é quem executa a ação: o Ministério da Saúde."
   - pergunta: "O que acontece com uma proposta que desrespeita os direitos humanos, como defender \"justiça com as próprias mãos\"?"
-    opcoes: ["Perde só alguns pontos", "Recebe zero na competência 5", "Anula a redação inteira"]
+    opcoes: ["Perde só alguns pontos", "Pela cartilha, {{enem:redacao-direitos-humanos}}", "Anula a redação inteira"]
     resposta: 1
-    explicacao: "Segundo a cartilha de 2026, propostas que desrespeitem os direitos humanos recebem nota zero na competência 5."
+    explicacao: "Segundo a cartilha de 2026, a proposta que desrespeita os direitos humanos {{enem:redacao-direitos-humanos}}. O resto do texto continua sendo avaliado."
   - pergunta: "Uma proposta como \"É preciso que todos se conscientizem\" recebe nota alta?"
     opcoes: ["Sim, porque é bonita", "Não: é vaga, sem agente, meio nem finalidade claros", "Sim, se estiver na conclusão"]
     resposta: 1
@@ -30,6 +30,13 @@ quiz:
 ---
 
 A competência 5 avalia a **proposta de intervenção**: a solução que você apresenta para o problema discutido no texto. É a competência em que mais gente perde pontos por descuido, e também a mais fácil de dominar com treino, porque tem uma receita clara.
+
+## O que você vai aprender
+
+- O que a Competência 5 avalia e o que a cartilha do Inep pede.
+- Os cinco elementos de uma proposta completa, um por um.
+- Como montar uma proposta ligada aos argumentos do texto.
+- O que a cartilha considera desrespeito aos direitos humanos.
 
 ## O que a cartilha do Inep pede
 
@@ -40,6 +47,8 @@ Segundo a cartilha da redação do ENEM 2026, para fazer uma proposta **muito be
 - **respeitar os direitos humanos**.
 
 ## Os cinco elementos
+
+A cartilha lista os elementos: {{enem:intervencao-elementos}}.
 
 | Elemento | Pergunta que responde | Exemplo |
 | --- | --- | --- |
@@ -100,7 +109,7 @@ Segundo a cartilha, são sempre avaliadas como contrárias aos direitos humanos:
 - a **incitação à violência** motivada por raça, etnia, gênero, crença, opinião política, condição física, origem geográfica ou socioeconômica;
 - qualquer forma de **discurso de ódio** contra grupos sociais.
 
-Uma proposta assim recebe **zero na competência 5**. O restante da redação continua sendo avaliado, mas perder 200 pontos de uma vez pesa muito.
+Segundo a cartilha, uma proposta assim {{enem:redacao-direitos-humanos}}. O restante da redação continua sendo avaliado, mas perder uma competência inteira pesa muito.
 
 ## Erros comuns
 
@@ -115,3 +124,26 @@ Uma proposta assim recebe **zero na competência 5**. O restante da redação co
 1. Para o tema "Desafios para a valorização de comunidades e povos tradicionais no Brasil" (ENEM 2022), escreva uma proposta com os cinco elementos e marque cada um com uma cor.
 2. Pegue uma redação sua e confira: a proposta tem os cinco elementos? Ela responde aos problemas dos argumentos?
 3. Reescreva esta proposta vaga para que fique completa: "A sociedade precisa mudar sua visão sobre os idosos."
+
+## Como isso cai no ENEM
+
+- **Formato:** a C5 é uma das cinco notas da redação. Pelo edital, {{enem:redacao-nota}}.
+- **Competência ligada:** C5, elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos.
+- **Armadilhas:** proposta vaga ("é preciso conscientizar"); agente genérico ("o governo"); proposta que não responde aos argumentos; proposta que fere direitos; ficar sem tempo e sem proposta. O tangenciamento do tema também limita esta competência: pela Cartilha 2026, a C5 fica em no máximo 40 pontos.
+
+## Resumo
+
+- A proposta de intervenção é a solução para o problema discutido no texto.
+- Cinco elementos: agente, ação, modo ou meio, finalidade ou efeito, e detalhamento.
+- O detalhamento é qualquer informação a mais sobre um dos outros quatro.
+- A proposta precisa estar ligada ao tema e responder aos argumentos.
+- Proposta que desrespeita os direitos humanos perde toda a nota desta competência.
+- Planeje a proposta junto com os argumentos, antes de escrever.
+
+## Para aprofundar
+
+- [Redação expressa: a proposta de intervenção completa](/trilhas/enem-reta-final/redacao-expressa-a-proposta-de-intervencao-completa)
+- [O que diz a Constituição de 1988](/trilhas/direito-fundamental/o-que-diz-a-constituicao-de-1988)
+- [Estado e poder](/trilhas/sociologia-medio/estado-e-poder)
+- [Movimentos sociais](/trilhas/sociologia-medio/movimentos-sociais)
+- [Competência 3: organizar os argumentos](/trilhas/enem-redacao/competencia-3-organizar-os-argumentos)

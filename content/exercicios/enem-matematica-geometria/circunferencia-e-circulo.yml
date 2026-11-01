@@ -1,0 +1,250 @@
+# Exercícios da aula "Circunferência e círculo" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-circunferencia-01
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-circunferencia
+  dificuldade: 1
+  enunciado: "A roda de um carrinho de feira tem 30 cm de raio. Usando π = 3,14, qual é o comprimento da borda dessa roda?"
+  alternativas:
+    - texto: "188,4 cm"
+      certa: true
+    - texto: "94,2 cm"
+      erro: "Você fez só π · r (3,14 × 30). O comprimento é 2 · π · r: falta multiplicar por 2."
+    - texto: "2.826 cm"
+      erro: "Você calculou π · r², que é a área da roda, em centímetros quadrados. A borda é um comprimento: 2 · π · r."
+    - texto: "60 cm"
+      erro: "60 cm é o diâmetro (dois raios). A volta inteira é um pouco mais de três diâmetros: π × 60."
+    - texto: "376,8 cm"
+      erro: "Você usou o diâmetro na fórmula do raio: 2 × 3,14 × 60. Ou use 2 · π · r com r = 30, ou π · d com d = 60."
+  explicacao: "C = 2 · π · r = 2 × 3,14 × 30 = 6,28 × 30 = 188,4 cm."
+  conferir: "2 * 3.14 * 30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-02
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-circunferencia
+  dificuldade: 1
+  enunciado: "Uma tampa de panela é um círculo de 10 cm de raio. Usando π = 3,14, qual é a área da tampa?"
+  alternativas:
+    - texto: "62,8 cm²"
+      erro: "62,8 é o comprimento da borda (2 × 3,14 × 10), em centímetros. A área é π · r²."
+    - texto: "314 cm²"
+      certa: true
+    - texto: "31,4 cm²"
+      erro: "Você multiplicou π pelo raio sem elevar ao quadrado. A área é π · r² = 3,14 × 100."
+    - texto: "1.256 cm²"
+      erro: "Você usou o diâmetro (20 cm) no lugar do raio: 3,14 × 400. O raio é 10."
+    - texto: "100 cm²"
+      erro: "100 é só o raio ao quadrado. Falta multiplicar por π."
+  explicacao: "A = π · r² = 3,14 × 10² = 3,14 × 100 = 314 cm²."
+  conferir: "3.14 * 10^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-03
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-circunferencia
+  dificuldade: 1
+  enunciado: "Uma mesa redonda tem 1,2 m de diâmetro. Usando π = 3, quantos metros de fita são necessários para dar uma volta na borda da mesa?"
+  alternativas:
+    - texto: "1,8 m"
+      erro: "Você fez π × 0,6, com o raio, mas sem o 2. Com o diâmetro, a volta é π · d = 3 × 1,2."
+    - texto: "7,2 m"
+      erro: "Você usou o diâmetro na fórmula 2 · π · r. Com o diâmetro, não multiplique por 2: C = π · d."
+    - texto: "3,6 m"
+      certa: true
+    - texto: "4,32 m"
+      erro: "Você fez π · d², misturando a fórmula da área com o diâmetro. A fita mede comprimento: π · d."
+    - texto: "1,08 m"
+      erro: "Você calculou π · r² (3 × 0,36), que é a área do tampo. A fita mede a volta, não a área."
+  explicacao: "C = π · d = 3 × 1,2 = 3,6 m. Pelo raio dá o mesmo: 2 × 3 × 0,6 = 3,6 m."
+  conferir: "3 * 1.2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-04
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-circunferencia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma pizzaria de bairro vende pizzas redondas em dois tamanhos: a média, com 30 cm de diâmetro, e a grande, com
+    40 cm de diâmetro. As duas têm a mesma espessura. Um cliente quer saber quanto de pizza a mais vem na grande.
+  enunciado: "A área da pizza grande é quantas vezes a área da pizza média?"
+  alternativas:
+    - texto: "4/3"
+      erro: "4/3 é a razão entre os diâmetros (40 ÷ 30). Na área, a medida entra ao quadrado: (4/3)² = 16/9."
+    - texto: "8/3"
+      erro: "Você multiplicou 4/3 por 2. Para a área, a razão dos comprimentos é elevada ao quadrado, não dobrada."
+    - texto: "64/27"
+      erro: "Você elevou a razão ao cubo, como se fosse volume. A pizza tem a mesma espessura: compare áreas, (4/3)²."
+    - texto: "16/9"
+      certa: true
+    - texto: "4"
+      erro: "A área só fica 4 vezes maior quando o diâmetro dobra. Aqui ele passou de 30 para 40, não para 60."
+  explicacao: "Raios: 15 cm e 20 cm. Áreas: π · 225 e π · 400. A razão é 400 ÷ 225 = 16/9, quase 1,8. O π se cancela."
+  conferir: "(20^2) / (15^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-05
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-circunferencia
+  dificuldade: 2
+  enunciado: "Uma pista de corrida tem a forma de uma circunferência de 50 m de raio. Uma atleta corre um arco correspondente a 72° dessa pista. Usando π = 3, quantos metros ela correu?"
+  alternativas:
+    - texto: "300 m"
+      erro: "300 m é a volta inteira (2 × 3 × 50). Ela correu só 72°, que é 72 ÷ 360 = 1/5 da volta."
+    - texto: "30 m"
+      erro: "Você tomou 1/5 de π · r (150). O comprimento da volta é 2 · π · r = 300; 1/5 disso é 60."
+    - texto: "1.500 m"
+      erro: "Você calculou a área do setor (1/5 de 3 × 2.500), em metros quadrados. A pergunta é a distância corrida, um comprimento."
+    - texto: "3.600 m"
+      erro: "Você multiplicou o ângulo pelo raio (72 × 50). O ângulo entra como fração da volta: 72 ÷ 360."
+    - texto: "60 m"
+      certa: true
+  explicacao: "Volta inteira: 2 × 3 × 50 = 300 m. 72° é 72 ÷ 360 = 1/5 da volta. Arco: 300 ÷ 5 = 60 m."
+  conferir: "(72 / 360) * 2 * 3 * 50"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-06
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-circunferencia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa escola, há um canteiro circular de 3 m de raio. Em volta dele, a comunidade vai assentar uma faixa de pedriscos
+    com 1 m de largura, acompanhando toda a borda. Vista de cima, a faixa é um anel: tem a mesma borda de dentro do
+    canteiro e uma borda de fora, 1 m mais afastada do centro. Use π = 3,14.
+  enunciado: "A área da faixa de pedriscos, em metro quadrado, é"
+  alternativas:
+    - texto: "21,98"
+      certa: true
+    - texto: "3,14"
+      erro: "Você fez π · (4 − 3)², elevando a diferença dos raios ao quadrado. A coroa é π · (4² − 3²) = π · 7."
+    - texto: "50,24"
+      erro: "50,24 é a área do círculo de raio 4 inteiro, canteiro incluído. Falta tirar a área do canteiro (28,26)."
+    - texto: "28,26"
+      erro: "28,26 é a área do canteiro (π · 9). A faixa é o que fica entre o círculo de raio 4 e o de raio 3."
+    - texto: "78,5"
+      erro: "Você somou as áreas, π · (16 + 9). A faixa é a diferença: o círculo grande menos o pequeno."
+  explicacao: "Raio de fora: 3 + 1 = 4 m. Coroa: π · (4² − 3²) = 3,14 × (16 − 9) = 3,14 × 7 = 21,98 m²."
+  conferir: "3.14 * (4^2 - 3^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-07
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-circunferencia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um entregador usa uma bicicleta cuja roda tem 0,6 m de diâmetro. O trajeto da padaria até a casa de um cliente tem
+    900 m. Em cada volta completa, a roda faz a bicicleta avançar o comprimento da sua circunferência, sem deslizar.
+    Use π = 3.
+  enunciado: "Quantas voltas completas a roda dá nesse trajeto?"
+  alternativas:
+    - texto: "250"
+      erro: "Você usou 2 · π · d (3,6 m por volta). Com o diâmetro, a volta é π · d = 1,8 m."
+    - texto: "500"
+      certa: true
+    - texto: "1.000"
+      erro: "Você calculou a volta como π · r = 0,9 m, sem o 2. A volta é 2 · π · r = π · d = 1,8 m."
+    - texto: "1.500"
+      erro: "Você dividiu 900 pelo diâmetro (0,6 m). Em cada volta, a roda avança a circunferência inteira, não o diâmetro."
+    - texto: "540"
+      erro: "Você multiplicou 900 por 0,6. Para saber quantas voltas cabem no trajeto, divida a distância pela volta da roda."
+  explicacao: "Uma volta: π · d = 3 × 0,6 = 1,8 m. Voltas: 900 ÷ 1,8 = 9.000 ÷ 18 = 500."
+  conferir: "900 / (3 * 0.6)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-08
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-circunferencia
+  dificuldade: 2
+  enunciado: "Uma pizza de 20 cm de raio é cortada em 8 fatias iguais. Usando π = 3, qual é a área de cada fatia?"
+  alternativas:
+    - texto: "15 cm²"
+      erro: "15 é o comprimento da borda de cada fatia (120 ÷ 8), em centímetros. A pergunta pede área."
+    - texto: "1.200 cm²"
+      erro: "1.200 cm² é a pizza inteira (3 × 400). Falta dividir pelas 8 fatias."
+    - texto: "150 cm²"
+      certa: true
+    - texto: "300 cm²"
+      erro: "Você dividiu a pizza por 4. São 8 fatias: cada uma é um setor de 45°, um oitavo do círculo."
+    - texto: "600 cm²"
+      erro: "Você usou o diâmetro (40 cm) como raio: 3 × 1.600 ÷ 8. O raio já é 20 cm."
+  explicacao: "Pizza inteira: π · r² = 3 × 400 = 1.200 cm². Cada fatia: 1.200 ÷ 8 = 150 cm²."
+  conferir: "3 * 20^2 / 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-09
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-circunferencia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para pintar o piso de uma rotatória circular de 4 m de raio, a prefeitura gastou 6 latas de tinta. Agora vai pintar,
+    com a mesma tinta e o mesmo rendimento, o piso de outra rotatória circular, com 8 m de raio.
+  enunciado: "Quantas latas de tinta serão necessárias para a nova rotatória?"
+  alternativas:
+    - texto: "12"
+      erro: "Você dobrou as latas porque o raio dobrou. A tinta cobre área, e a área cresce com o quadrado do raio: 2² = 4."
+    - texto: "48"
+      erro: "Você multiplicou por 2³ = 8, como se fosse volume. O piso é uma área: multiplique por 2² = 4."
+    - texto: "10"
+      erro: "Você somou 4 latas, uma para cada metro a mais de raio. A área não cresce somando: ela fica (8/4)² = 4 vezes maior."
+    - texto: "24"
+      certa: true
+    - texto: "36"
+      erro: "Você elevou o número de latas ao quadrado (6²). Quem vai ao quadrado é a razão dos raios, 8 ÷ 4 = 2."
+  explicacao: "A área é π · r². O raio dobrou, então a área ficou 2² = 4 vezes maior. As latas também: 6 × 4 = 24."
+  conferir: "6 * (8 / 4)^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-circunferencia-10
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-circunferencia
+  dificuldade: 3
+  enunciado: "Um agente ambiental passa uma fita métrica em volta do tronco de uma árvore e mede 1,57 m. Supondo o tronco redondo e usando π = 3,14, qual é o diâmetro do tronco?"
+  alternativas:
+    - texto: "0,25 m"
+      erro: "0,25 m é o raio (1,57 ÷ 6,28). A pergunta pede o diâmetro, que é o dobro."
+    - texto: "1,57 m"
+      erro: "A volta não é o diâmetro: ela é um pouco mais de três diâmetros. Divida a volta por π."
+    - texto: "2 m"
+      erro: "Você inverteu a divisão (3,14 ÷ 1,57). Da fórmula C = π · d, o diâmetro é d = C ÷ π."
+    - texto: "0,125 m"
+      erro: "Você dividiu a volta por 4 · π (12,56). Da fórmula C = π · d, basta dividir por π."
+    - texto: "0,5 m"
+      certa: true
+  explicacao: "C = π · d, então d = C ÷ π = 1,57 ÷ 3,14 = 0,5 m. Confira: 3,14 × 0,5 = 1,57."
+  conferir: "1.57 / 3.14"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -7,14 +7,15 @@ fontes:
     autor: "Inep"
     ano: "2026"
     url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/acervo-linha-editorial/publicacoes-institucionais/avaliacoes-e-exames-da-educacao-basica/a-redacao-do-enem-2026-cartilha-do-a-participante"
-  - titulo: "Manual de correção da redação: situações que levam à nota zero"
+  - titulo: "Edital nº 64, de 21 de maio de 2026 (Enem 2026), item 14.7"
     autor: "Inep"
-    url: "https://download.inep.gov.br/educacao_basica/enem/downloads/2020/Situacoes_nota_zero.pdf"
+    ano: "2026"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
 quiz:
-  - pergunta: "Uma redação com 7 linhas escritas recebe que nota?"
+  - pergunta: "Uma redação com {{enem:redacao-minimo}} linhas escritas recebe que nota?"
     opcoes: ["Nota proporcional ao tamanho", "Zero, por texto insuficiente", "Metade da nota"]
     resposta: 1
-    explicacao: "Textos de até 7 linhas manuscritas recebem zero. E linhas copiadas dos textos motivadores não entram na conta."
+    explicacao: "Pelo edital, texto com até {{enem:redacao-minimo}} linhas manuscritas é texto insuficiente e recebe zero. E as linhas copiadas {{enem:redacao-copia}}."
   - pergunta: "Um candidato escreve no fim do texto \"Espero que o corretor goste\". O que pode acontecer?"
     opcoes: ["Nada", "A redação pode ser anulada por parte deliberadamente desconectada do tema", "Ganha pontos de simpatia"]
     resposta: 1
@@ -31,21 +32,20 @@ quiz:
 
 Um texto com bons argumentos pode receber **zero** por causa de um detalhe. A boa notícia é que todas as situações que zeram a redação estão listadas na cartilha oficial do Inep, e quase todas são fáceis de evitar. Esta aula passa por cada uma, com as regras da **cartilha do ENEM 2026**.
 
+## O que você vai aprender
+
+- A lista oficial das situações que zeram a redação.
+- A diferença entre fugir do tema (zera) e tangenciar (perde pontos).
+- O que conta como parte desconectada e como identificação.
+- Um checklist para conferir o texto antes de passar a limpo.
+
 ## A lista oficial
 
-Segundo a cartilha, a redação recebe **nota zero** quando apresenta:
+Pelo edital do Enem 2026 (item 14.7), a banca pode dar **nota zero** à redação nestes casos: {{enem:redacao-zero}}.
 
-- **fuga total ao tema**;
-- **não obediência ao tipo dissertativo-argumentativo**;
-- **folha de redação sem texto**, que o Inep classifica como "Em branco";
-- **até 7 linhas manuscritas** (ou até 10 em braile), qualquer que seja o conteúdo, classificadas como "Texto insuficiente";
-- **impropérios (palavrões e ofensas), desenhos e outras formas propositais de anulação**, classificados como "Anulada";
-- **parte deliberadamente desconectada do tema**;
-- **nome, assinatura, rubrica ou outra identificação** fora do espaço próprio, também "Anulada";
-- **texto escrito predominantemente ou todo em língua estrangeira**;
-- **texto ilegível**, que dois corretores não consigam ler, também "Anulada".
+A cartilha dá nomes a algumas dessas situações: "Em branco" para a folha sem texto, "Texto insuficiente" para o texto curto demais e "Anulada" para impropérios, desenhos, identificação e outras formas de anulação.
 
-E uma regra sobre **cópia**: as linhas copiadas dos textos motivadores ou do caderno de questões são **descontadas** da contagem de linhas. Quem copia muito pode acabar com menos de 8 linhas próprias, e aí o texto vira "insuficiente".
+E uma regra sobre **cópia**: pelo edital, as linhas copiadas dos textos motivadores ou do caderno {{enem:redacao-copia}}. Quem copia muito pode ficar sem linhas próprias suficientes, e aí o texto vira "insuficiente".
 
 ## Fuga ao tema e tangenciamento
 
@@ -63,9 +63,9 @@ Uma redação que é, na maior parte, uma **história** (narração), uma **cart
 
 ## Texto insuficiente
 
-Até **7 linhas** escritas à mão é zero, qualquer que seja o conteúdo. O título, se houver, conta como linha. As linhas copiadas não contam.
+Pelo edital, até **{{enem:redacao-minimo}} linhas** escritas à mão é zero, qualquer que seja o conteúdo. O título, se houver, conta como linha. As linhas copiadas não contam.
 
-**Como evitar:** treine para escrever entre 25 e 30 linhas. Se o tempo estiver acabando, é melhor um texto mais simples e completo do que um começo brilhante sem fim.
+**Como evitar:** treine para escrever de 25 linhas até o limite de {{enem:redacao-linhas}}. Se o tempo estiver acabando, é melhor um texto mais simples e completo do que um começo brilhante sem fim.
 
 ## Parte desconectada
 
@@ -97,7 +97,7 @@ E a **letra** precisa ser legível para dois corretores. Se você tem letra dif�
 
 ## E a proposta que desrespeita os direitos humanos?
 
-Ela **não zera a redação inteira**: recebe zero só na **competência 5**. Mas são 200 pontos a menos. A aula sobre a competência 5 explica o que a cartilha considera desrespeito aos direitos humanos.
+Ela **não zera a redação inteira**. Pela cartilha, a proposta que desrespeita os direitos humanos {{enem:redacao-direitos-humanos}}, e o resto do texto continua sendo avaliado. Mas é uma competência inteira perdida. A aula sobre a competência 5 explica o que a cartilha considera desrespeito aos direitos humanos.
 
 ## O checklist final
 
@@ -105,12 +105,23 @@ Antes de passar a limpo, confira:
 
 - O texto trata do **tema inteiro**, não só do assunto geral?
 - É um texto **dissertativo-argumentativo**, com tese, argumentos e proposta?
-- Tem **mais de 7 linhas próprias**, sem contar cópias? (O ideal é entre 25 e 30.)
+- Tem **mais de {{enem:redacao-minimo}} linhas próprias**, sem contar cópias? (O ideal é de 25 linhas até o limite de {{enem:redacao-linhas}}.)
 - Não há **bilhetes**, comentários sobre a prova, orações ou frases soltas?
 - Não há **nome**, assinatura ou marcas fora do lugar?
 - O **título**, se houver, não tem desenhos nem sinais?
 - A **letra** está legível?
 - A **proposta** respeita os direitos humanos?
+
+## Exemplo resolvido
+
+Um candidato treinou com o tema do instituto "Caminhos para enfrentar a violência nas escolas brasileiras". O rascunho tem quatro pontos de atenção. Para cada um, a pergunta é: zera ou não?
+
+1. **No segundo parágrafo, ele conta em quatro linhas o caso de um colega que deixou de ir ao recreio.** Não zera. Um caso curto, usado como exemplo dentro de um argumento, é permitido. O problema seria o texto inteiro, ou quase todo, virar uma história.
+2. **Ele cita um verso de uma canção sobre amizade para mostrar como a escola pode acolher.** Não zera, se o verso estiver ligado ao argumento. É repertório. Colado no fim, sem ligação, seria parte desconectada.
+3. **Na última linha, escreveu: "Desculpe a letra, corretor, estava nervoso".** Zera. É bilhete para a banca, uma parte desligada do tema de propósito. Basta apagar a frase no rascunho.
+4. **Ele assinou as iniciais embaixo do texto, por costume.** Zera. É identificação fora do espaço próprio.
+
+O que fazer: manter 1 e 2, cortar 3 e 4 antes de passar a limpo. Dois detalhes de um minuto separam um texto bom de um zero.
 
 ## Para praticar
 
@@ -119,3 +130,26 @@ Antes de passar a limpo, confira:
 3. Escreva uma redação completa na [folha de redação](/ferramentas/redacao) do site e confira a contagem de linhas.
 
 Respostas do 1: (a) zera, por texto insuficiente; (b) não zera, se estiver ligado ao argumento; (c) zera, por parte desconectada; (d) zera, por identificação.
+
+## Como isso cai no ENEM
+
+- **Formato:** não há questão: estas regras valem para a sua redação. Pelo edital, as situações de nota zero são: {{enem:redacao-zero}}.
+- **Competências ligadas:** a fuga ao tema e o texto que não é dissertativo-argumentativo são avaliados na C2 e, se acontecerem, a redação não é avaliada em nenhuma competência. A proposta que desrespeita os direitos humanos é avaliada na C5.
+- **Armadilhas:** bilhete para o corretor no fim do texto; assinatura ou iniciais por costume; título com desenho ou sinais; cópia dos textos motivadores para encher linhas; um texto curto demais por falta de tempo.
+
+## Resumo
+
+- O edital lista as situações que levam a nota zero; quase todas se evitam com atenção.
+- Fugir do tema zera; tangenciar não zera, mas derruba a nota.
+- O texto tem de ser dissertativo-argumentativo; um caso curto como exemplo é permitido.
+- Linhas copiadas da prova não contam como suas.
+- Nada de bilhete, oração, frase solta, nome, assinatura ou desenho.
+- A proposta que fere os direitos humanos não zera o texto, mas zera a C5.
+- Passe o checklist antes de escrever a versão final.
+
+## Para aprofundar
+
+- [A estrutura da redação do ENEM](/trilhas/enem-redacao/a-estrutura-da-redacao-do-enem)
+- [Competência 2: entender o tema e usar repertório](/trilhas/enem-redacao/competencia-2-entender-o-tema-e-usar-repertorio)
+- [Competência 5: a proposta de intervenção](/trilhas/enem-redacao/competencia-5-a-proposta-de-intervencao)
+- [Gêneros textuais](/trilhas/portugues-medio/generos-textuais)

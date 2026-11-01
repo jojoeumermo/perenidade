@@ -1,0 +1,256 @@
+# Exercícios da aula "Função exponencial" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-exponencial-01
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-exponencial
+  dificuldade: 1
+  enunciado: "Se f(x) = 5 · 3ˣ, quanto vale f(2)?"
+  alternativas:
+    - texto: "30"
+      erro: "Você fez 5 × 3 × 2, multiplicando pelo expoente. O 2 é expoente: 3² = 9."
+    - texto: "225"
+      erro: "Você multiplicou antes de fazer a potência: (5 × 3)² = 15². A potência vem primeiro: 5 × 3²."
+    - texto: "11"
+      erro: "Você somou 5 + 3 + 3. Na exponencial se multiplica: 5 × 3 × 3."
+    - texto: "15"
+      erro: "Você multiplicou por 3 uma vez só. Com x = 2, multiplica-se por 3 duas vezes."
+    - texto: "45"
+      certa: true
+  explicacao: "Primeiro a potência: 3² = 9. Depois a multiplicação: 5 × 9 = 45."
+  conferir: "5 * 3^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-02
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcao-exponencial
+  dificuldade: 1
+  enunciado: "Uma cooperativa tem hoje 1.000 associados, e o número cresce 20% ao ano, sempre sobre o total do ano anterior. Qual lei dá o número de associados P depois de t anos?"
+  alternativas:
+    - texto: "P(t) = 1.000 · 1,2ᵗ"
+      certa: true
+    - texto: "P(t) = 1.000 · 0,2ᵗ"
+      erro: "Multiplicar por 0,2 deixa só 20% do total, o que faz o número cair. Crescer 20% é multiplicar por 1 + 0,2 = 1,2."
+    - texto: "P(t) = 1.000 + 200t"
+      erro: "Essa lei soma 200 por ano, sempre 20% de 1.000. Mas os 20% incidem sobre o total do ano anterior, que vai aumentando."
+    - texto: "P(t) = 1.000 · 20ᵗ"
+      erro: "20 é a porcentagem, não o fator. Multiplicar por 20 seria crescer 1.900% ao ano."
+    - texto: "P(t) = 1,2 · 1.000ᵗ"
+      erro: "Os números trocaram de lugar. O valor inicial (1.000) multiplica, e o fator (1,2) vai na base da potência."
+  explicacao: "Valor inicial: 1.000. Fator anual: 1 + 0,2 = 1,2. A lei é P(t) = 1.000 · 1,2ᵗ."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-03
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-exponencial
+  dificuldade: 1
+  enunciado: "Qual é o valor de x na equação 3ˣ = 81?"
+  alternativas:
+    - texto: "27"
+      erro: "Você dividiu 81 por 3. A pergunta é quantas vezes o 3 se multiplica para dar 81."
+    - texto: "3"
+      erro: "3³ = 27, não 81. Falta mais um fator 3."
+    - texto: "4"
+      certa: true
+    - texto: "9"
+      erro: "9 é a raiz quadrada de 81 (9 × 9). O 3 é a base: 3 × 3 × 3 × 3 = 81."
+    - texto: "78"
+      erro: "Você subtraiu 81 − 3. Escreva 81 como potência de 3."
+  explicacao: "Escreva 81 como potência de 3: 3, 9, 27, 81. São quatro fatores 3: 81 = 3⁴, então x = 4."
+  conferir: "log(81, 3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-04
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-exponencial
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num exemplo de aula de farmacologia, uma pessoa toma uma dose de 400 mg de um medicamento. O organismo elimina a
+    substância de modo que a quantidade no corpo cai pela metade a cada 4 horas (a meia-vida é de 4 horas).
+  enunciado: "Doze horas depois da dose, a quantidade do medicamento no corpo será de"
+  alternativas:
+    - texto: "100 mg"
+      erro: "100 mg é o que resta depois de 8 horas, com 2 meias-vidas. Em 12 horas são 3."
+    - texto: "50 mg"
+      certa: true
+    - texto: "0 mg"
+      erro: "Você tirou 200 mg a cada 4 horas, como se a queda fosse sempre a mesma. Cai a metade do que resta, e o que resta nunca chega a zero."
+    - texto: "133 mg"
+      erro: "Você dividiu 400 por 3. Cada meia-vida divide por 2: 400 ÷ 2 ÷ 2 ÷ 2."
+    - texto: "25 mg"
+      erro: "25 mg é o que resta depois de 16 horas. Em 12 horas há 12 ÷ 4 = 3 meias-vidas."
+  explicacao: "12 horas são 12 ÷ 4 = 3 meias-vidas. 400 → 200 → 100 → 50. Pela lei: 400 × (1/2)³ = 400 ÷ 8 = 50 mg."
+  conferir: "400 * 0.5^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-05
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-exponencial
+  dificuldade: 2
+  enunciado: "Um valor de R$ 5.000,00 foi aplicado a 2% ao mês, a juros compostos. Quanto haverá depois de 2 meses?"
+  alternativas:
+    - texto: "R$ 5.200,00"
+      erro: "Você usou juros simples: 2% de 5.000 duas vezes. Nos compostos, o 2º mês rende sobre R$ 5.100."
+    - texto: "R$ 202,00"
+      erro: "R$ 202 são só os juros. A pergunta pede o montante: 5.000 + 202."
+    - texto: "R$ 5.020,00"
+      erro: "Você usou 0,2% em vez de 2%. A taxa de 2% vira 0,02, e o fator é 1,02."
+    - texto: "R$ 5.202,00"
+      certa: true
+    - texto: "R$ 5.100,00"
+      erro: "Esse é o valor depois de 1 mês. Falta o 2º mês: 5.100 × 1,02."
+  explicacao: "Fator mensal: 1,02. Mês 1: 5.000 × 1,02 = 5.100. Mês 2: 5.100 × 1,02 = 5.202. Pela fórmula: 5.000 × 1,02² = 5.000 × 1,0404 = R$ 5.202,00."
+  conferir: "5000 * 1.02^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-06
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcao-exponencial
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma rede de trocas de livros entre vizinhos anotou o número de participantes no fim de cada mês:
+    mês:            0   1   2    3
+    participantes:  2   6   18   54
+    Em palavras: o gráfico desses pontos sobe devagar no começo e cada vez mais depressa, como uma curva exponencial.
+    A organização supõe que o padrão vai continuar.
+  enunciado: "Mantido o padrão, o número de participantes no fim do mês 5 será"
+  alternativas:
+    - texto: "486"
+      certa: true
+    - texto: "162"
+      erro: "162 é o mês 4 (54 × 3). Falta mais um mês: 162 × 3."
+    - texto: "90"
+      erro: "Você somou a última diferença (36) ao 54. As diferenças não são iguais; os quocientes são: cada mês é o triplo do anterior."
+    - texto: "30"
+      erro: "Você fez 2 × 3 × 5, multiplicando pelo número de meses. O número de meses vai no expoente: 2 × 3⁵."
+    - texto: "1.458"
+      erro: "1.458 é o mês 6. Conte os meses: 54 (mês 3), 162 (mês 4), 486 (mês 5)."
+  explicacao: "Os quocientes são 6 ÷ 2 = 3, 18 ÷ 6 = 3 e 54 ÷ 18 = 3: a lei é P(m) = 2 · 3ᵐ. No mês 5: 2 × 3⁵ = 2 × 243 = 486."
+  conferir: "2 * 3^5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-07
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 23
+  objeto: mat-algebra-funcao-exponencial
+  dificuldade: 2
+  enunciado: "Uma rede de bibliotecas comunitárias tem 4 unidades. O plano 1 é abrir 6 unidades novas por ano. O plano 2 é dobrar o número de unidades a cada ano. Depois de 4 anos, quantas unidades o plano 2 terá a mais que o plano 1?"
+  alternativas:
+    - texto: "64"
+      erro: "64 é o total do plano 2 (4 × 2⁴). A pergunta pede a diferença: 64 − 28."
+    - texto: "28"
+      erro: "28 é o total do plano 1 (4 + 4 × 6). A pergunta pede a diferença entre os planos."
+    - texto: "10"
+      erro: "10 é a diferença depois de 3 anos (32 − 22). São 4 anos."
+    - texto: "92"
+      erro: "Você somou os dois totais (64 + 28). Para saber quanto um tem a mais, subtraia."
+    - texto: "36"
+      certa: true
+  explicacao: "Plano 1, afim: 4 + 4 × 6 = 28 unidades. Plano 2, exponencial: 4 × 2⁴ = 4 × 16 = 64 unidades. Diferença: 64 − 28 = 36."
+  conferir: "4 * 2^4 - (4 + 6 * 4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-08
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-exponencial
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num modelo usado numa aula de epidemiologia, o número de pessoas infectadas numa cidade, sem nenhuma medida de
+    controle, dobra a cada 5 dias. No dia em que o modelo começa (t = 0), há 3.000 pessoas infectadas, e depois de t dias
+    há N(t) = 3.000 · 2^(t/5).
+  enunciado: "Segundo o modelo, o número de infectados chega a 48.000 depois de"
+  alternativas:
+    - texto: "16 dias."
+      erro: "16 é o fator de crescimento (48.000 ÷ 3.000 = 16 = 2⁴). O tempo vem do expoente: t ÷ 5 = 4."
+    - texto: "20 dias."
+      certa: true
+    - texto: "4 dias."
+      erro: "4 é o número de vezes que o total dobrou. Cada dobra leva 5 dias: 4 × 5."
+    - texto: "80 dias."
+      erro: "Você multiplicou o fator 16 por 5. O que se multiplica por 5 é o número de dobras, 4."
+    - texto: "9 dias."
+      erro: "Você somou 4 + 5. O número de dobras (4) é multiplicado pelos 5 dias de cada dobra."
+  explicacao: "3.000 · 2^(t/5) = 48.000. Divida por 3.000: 2^(t/5) = 16 = 2⁴. Então t ÷ 5 = 4 e t = 20 dias. Tabela: 3.000 (0), 6.000 (5), 12.000 (10), 24.000 (15), 48.000 (20)."
+  conferir: "5 * log(48000 / 3000, 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-09
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-exponencial
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma oficina comunitária comprou uma máquina de costura industrial por R$ 20.000,00. Estima-se que a máquina perca 10%
+    do valor a cada ano, sempre sobre o valor do ano anterior. Use os valores aproximados:
+    0,9⁴ ≈ 0,66; 0,9⁵ ≈ 0,59; 0,9⁶ ≈ 0,53; 0,9⁷ ≈ 0,48.
+  enunciado: "O valor da máquina fica, pela primeira vez, abaixo da metade do preço de compra depois de"
+  alternativas:
+    - texto: "5 anos."
+      erro: "Você somou 10% por ano (5 × 10% = 50%). A perda é sobre o valor do ano anterior: depois de 5 anos ainda restam cerca de 59%."
+    - texto: "6 anos."
+      erro: "Depois de 6 anos restam cerca de 53% do valor: ainda acima da metade."
+    - texto: "10 anos."
+      erro: "Você supôs que a máquina perde R$ 2.000 todo ano até zerar. Numa queda percentual, o valor nunca zera."
+    - texto: "7 anos."
+      certa: true
+    - texto: "4 anos."
+      erro: "Depois de 4 anos restam cerca de 66% do valor, bem acima da metade."
+  explicacao: "O valor depois de n anos é 20.000 × 0,9ⁿ. Ficar abaixo da metade é ter 0,9ⁿ menor que 0,5. Pela tabela, 0,9⁶ ≈ 0,53 (ainda acima) e 0,9⁷ ≈ 0,48 (abaixo). São 7 anos: cerca de 20.000 × 0,48 = R$ 9.600."
+  conferir: "7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-exponencial-10
+  tema: "Função exponencial"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-funcao-exponencial
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma trabalhadora tem uma dívida de R$ 2.000,00 que cresce a juros compostos de 5% ao mês (taxa de exemplo). Ela quer
+    mostrar a uma colega quanto a dívida cresce em dois meses sem pagamento, comparando com o que seria a juros simples.
+  enunciado: "Em dois meses sem pagamento, a juros compostos, a dívida cresce"
+  alternativas:
+    - texto: "R$ 200,00."
+      erro: "R$ 200 seria o crescimento a juros simples (100 por mês). Nos compostos, o 2º mês rende 5% sobre R$ 2.100."
+    - texto: "R$ 2.205,00."
+      erro: "R$ 2.205 é o valor total da dívida. A pergunta pede quanto ela cresceu: 2.205 − 2.000."
+    - texto: "R$ 205,00."
+      certa: true
+    - texto: "R$ 100,00."
+      erro: "R$ 100 é o crescimento de um mês só. São dois meses."
+    - texto: "R$ 20,50."
+      erro: "A vírgula andou uma casa. Confira a ordem de grandeza: 5% de R$ 2.000 já são R$ 100 num mês."
+  explicacao: "Mês 1: 2.000 × 1,05 = 2.100. Mês 2: 2.100 × 1,05 = 2.205. A dívida cresceu 2.205 − 2.000 = R$ 205,00. A juros simples, cresceria R$ 200: os R$ 5 a mais são juros sobre juros."
+  conferir: "2000 * 1.05^2 - 2000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

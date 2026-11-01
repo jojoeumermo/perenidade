@@ -9,8 +9,8 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 | educador de ciências da natureza | 13 |
 | educador de ciências humanas | 9 |
 | educador de linguagens | 9 |
-| educador de matemática | 11 |
-| revisor de redação | 16 |
+| educador de matemática | 59 |
+| revisor de redação | 17 |
 
 ## coordenação pedagógica (orientação de estudo e fatos da prova)
 
@@ -84,11 +84,59 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 ## educador de matemática
 
+- [ ] aula `content/trilhas/enem-matematica-estatistica-e-probabilidade/graficos-de-barras-linhas-e-setores.md` (Gráficos de barras, colunas, linhas e setores): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-estatistica-e-probabilidade/leitura-de-tabelas.md` (Leitura de tabelas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-estatistica-e-probabilidade/media-mediana-e-moda.md` (Média, mediana e moda): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-estatistica-e-probabilidade/media-ponderada.md` (Média ponderada): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-estatistica-e-probabilidade/permutacoes-arranjos-e-combinacoes.md` (Permutações, arranjos e combinações): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-estatistica-e-probabilidade/uniao-complementar-e-probabilidade-condicional.md` (União, complementar e probabilidade condicional): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-funcoes-e-algebra/funcao-afim.md` (Função afim): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-funcoes-e-algebra/funcao-exponencial.md` (Função exponencial): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-funcoes-e-algebra/funcao-quadratica.md` (Função quadrática: vértice, máximo e mínimo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-funcoes-e-algebra/funcoes-e-graficos.md` (Função e leitura de gráficos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-funcoes-e-algebra/logaritmos.md` (Logaritmos e escalas logarítmicas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-funcoes-e-algebra/progressoes.md` (Progressões aritméticas e geométricas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-geometria/areas-de-figuras-planas.md` (Áreas de figuras planas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-geometria/circunferencia-e-circulo.md` (Circunferência e círculo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-geometria/esfera.md` (Esfera): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-geometria/piramides-e-cones.md` (Pirâmides e cones): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-geometria/prismas-e-cilindros.md` (Prismas e cilindros): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-geometria/vistas-e-projecoes.md` (Vistas e projeções ortogonais): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-proporcionalidade/aumentos-e-descontos-sucessivos.md` (Aumentos e descontos sucessivos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-proporcionalidade/contas-do-dia-a-dia.md` (Contas do dia a dia: luz, água, salário, parcelamento e impostos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-proporcionalidade/escalas.md` (Escalas em mapas, plantas e maquetes): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-proporcionalidade/porcentagem.md` (Porcentagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-proporcionalidade/razao-e-proporcao.md` (Razão e proporção): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-matematica-proporcionalidade/unidades-de-medida.md` (Unidades de medida: comprimento, área, volume, massa e tempo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-por-area/matematica-ler-graficos-e-tabelas.md` (Matemática: ler gráficos e tabelas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-por-area/matematica-o-que-mais-cai.md` (Matemática: o que mais cai): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-matematica.md` (Formulário de matemática): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes.md` (Matemática, o essencial: geometria, dados e funções): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/matematica-o-essencial-numeros-e-proporcao.md` (Matemática, o essencial: números, proporção e porcentagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-estatistica-e-probabilidade/graficos-de-barras-linhas-e-setores.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-estatistica-e-probabilidade/leitura-de-tabelas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-estatistica-e-probabilidade/media-mediana-e-moda.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-estatistica-e-probabilidade/media-ponderada.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-estatistica-e-probabilidade/permutacoes-arranjos-e-combinacoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-estatistica-e-probabilidade/uniao-complementar-e-probabilidade-condicional.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-funcoes-e-algebra/funcao-afim.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-funcoes-e-algebra/funcao-exponencial.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-funcoes-e-algebra/funcao-quadratica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-funcoes-e-algebra/funcoes-e-graficos.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-funcoes-e-algebra/logaritmos.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-funcoes-e-algebra/progressoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-geometria/areas-de-figuras-planas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-geometria/circunferencia-e-circulo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-geometria/esfera.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-geometria/piramides-e-cones.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-geometria/prismas-e-cilindros.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-geometria/vistas-e-projecoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-proporcionalidade/aumentos-e-descontos-sucessivos.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-proporcionalidade/contas-do-dia-a-dia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-proporcionalidade/escalas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-proporcionalidade/porcentagem.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-proporcionalidade/razao-e-proporcao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-matematica-proporcionalidade/unidades-de-medida.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-matematica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/matematica-o-essencial-numeros-e-proporcao.yml`: conferir gabarito, contas, enganos e etiquetas
@@ -114,4 +162,5 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 - [ ] 4 exercícios em `content/exercicios/enem-reta-final/redacao-expressa-repertorios-coringa.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 10 propostas de treino (`content/enem/redacao/propostas.yml`)
 - [ ] 30 itens de repertório (`content/enem/redacao/repertorio.yml`): conferir cada fonte
+- [ ] 27 temas oficiais (`content/enem/redacao/temas-oficiais.yml`): conferir na página do Inep
 

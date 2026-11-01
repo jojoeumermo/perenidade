@@ -1,0 +1,272 @@
+# Exercícios da aula "Média ponderada" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-media-ponderada-01
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-ponderada
+  dificuldade: 1
+  enunciado: "Num bimestre, a prova tem peso 2, o trabalho tem peso 1 e a participação tem peso 1. Um estudante tirou 7 na prova, 4 no trabalho e 8 na participação. Qual é a média ponderada dele?"
+  alternativas:
+    - texto: "6,5"
+      certa: true
+    - texto: "6,3"
+      erro: "Perto de 6,3 é a média simples ((7 + 4 + 8) ÷ 3). A prova tem peso 2: ela conta duas vezes."
+    - texto: "26"
+      erro: "26 é a soma ponderada (7 × 2 + 4 + 8). Falta dividir pela soma dos pesos, 4."
+    - texto: "8,7"
+      erro: "Você dividiu a soma ponderada (26) por 3, a quantidade de notas. Divida pela soma dos pesos: 2 + 1 + 1 = 4."
+    - texto: "4,75"
+      erro: "Você dividiu pela soma dos pesos, mas não multiplicou a nota da prova pelo peso 2 (19 ÷ 4). Primeiro multiplique, depois some."
+  explicacao: "Multiplique cada nota pelo peso: 7 × 2 = 14; 4 × 1 = 4; 8 × 1 = 8. Some: 26. Divida pela soma dos pesos, 2 + 1 + 1 = 4: 26 ÷ 4 = 6,5."
+  conferir: "(7*2 + 4*1 + 8*1) / (2 + 1 + 1)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-02
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-ponderada
+  dificuldade: 1
+  enunciado: "Uma lanchonete comprou 10 litros de leite a R$ 5,00 o litro e, depois, 5 litros a R$ 6,50 o litro. Qual foi o preço médio do litro nessas compras?"
+  alternativas:
+    - texto: "R$ 5,75"
+      erro: "R$ 5,75 é a média simples dos dois preços. A lanchonete comprou o dobro de litros do leite mais barato: o preço médio fica mais perto de R$ 5,00."
+    - texto: "R$ 5,50"
+      certa: true
+    - texto: "R$ 82,50"
+      erro: "R$ 82,50 é o gasto total. Falta dividir pelo total de litros, 15."
+    - texto: "R$ 41,25"
+      erro: "Você dividiu o gasto total pelo número de compras (2). O preço médio do litro é o gasto dividido pelos litros."
+    - texto: "R$ 6,00"
+      erro: "Você trocou as quantidades: pôs 5 litros a R$ 5,00 e 10 litros a R$ 6,50. Confira no enunciado qual compra foi maior."
+  explicacao: "Gasto total: 10 × 5 + 5 × 6,50 = 50 + 32,50 = 82,50 reais. Total de litros: 15. Preço médio: 82,50 ÷ 15 = R$ 5,50."
+  conferir: "(10*5 + 5*6.5) / (10 + 5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-03
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-ponderada
+  dificuldade: 1
+  enunciado: "Numa fábrica, 30 trabalhadores fazem jornada de 8 horas por dia e 10 fazem jornada de 6 horas. Qual é a jornada média por trabalhador?"
+  alternativas:
+    - texto: "7 horas"
+      erro: "7 é a média simples das duas jornadas. Há três vezes mais gente na jornada de 8 horas: ela pesa mais."
+    - texto: "300 horas"
+      erro: "300 é o total de horas trabalhadas por dia (240 + 60). Falta dividir pelos 40 trabalhadores."
+    - texto: "7,5 horas"
+      certa: true
+    - texto: "150 horas"
+      erro: "Você dividiu o total de horas pelos 2 grupos. A média é por trabalhador: divida por 40."
+    - texto: "6,5 horas"
+      erro: "Você trocou os grupos: pôs 10 pessoas na jornada de 8 horas e 30 na de 6. Confira no enunciado."
+  explicacao: "Total de horas: 30 × 8 + 10 × 6 = 240 + 60 = 300. Trabalhadores: 40. Jornada média: 300 ÷ 40 = 7,5 horas."
+  conferir: "(30*8 + 10*6) / 40"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-04
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-ponderada
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um processo seletivo para um curso técnico calcula a nota final pela média ponderada de três provas, com os pesos
+    abaixo:
+    Linguagens: peso 1.
+    Matemática: peso 2.
+    Redação: peso 2.
+    Um candidato tirou 600 pontos em Linguagens, 700 em Matemática e 800 na Redação.
+  enunciado: "A nota final desse candidato é"
+  alternativas:
+    - texto: "700"
+      erro: "700 é a média simples das três notas. Matemática e Redação têm peso 2: contam duas vezes cada."
+    - texto: "3.600"
+      erro: "3.600 é a soma ponderada (600 + 1.400 + 1.600). Falta dividir pela soma dos pesos, 5."
+    - texto: "1.200"
+      erro: "Você dividiu a soma ponderada por 3, a quantidade de provas. Divida pela soma dos pesos: 1 + 2 + 2 = 5."
+    - texto: "720"
+      certa: true
+    - texto: "680"
+      erro: "Você trocou os pesos: deu peso 2 a Linguagens e peso 1 à Redação. Confira a tabela."
+  explicacao: "Soma ponderada: 600 × 1 + 700 × 2 + 800 × 2 = 600 + 1.400 + 1.600 = 3.600. Soma dos pesos: 5. Nota final: 3.600 ÷ 5 = 720."
+  conferir: "(600*1 + 700*2 + 800*2) / (1 + 2 + 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-05
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-ponderada
+  dificuldade: 2
+  enunciado: "Numa escola, a média do bimestre é ponderada: a prova tem peso 2 e o trabalho tem peso 1. Uma estudante tirou 9 no trabalho e quer média 7. Que nota ela precisa tirar na prova?"
+  alternativas:
+    - texto: "5"
+      erro: "5 sai da média simples ((x + 9) ÷ 2 = 7). Mas a prova tem peso 2: a soma ponderada precisa ser 7 × 3 = 21."
+    - texto: "12"
+      erro: "12 é o que a prova precisa somar já multiplicada pelo peso (21 − 9). Falta dividir pelo peso 2."
+    - texto: "7"
+      erro: "Tirar 7 na prova daria (14 + 9) ÷ 3, perto de 7,7: mais do que precisa. Com o 9 no trabalho, ela pode tirar menos que 7 na prova."
+    - texto: "3"
+      erro: "Você trocou os pesos: deu peso 2 ao trabalho. Assim, (18 + x) ÷ 3 = 7 dá 3. Confira: é a prova que tem peso 2."
+    - texto: "6"
+      certa: true
+  explicacao: "Soma dos pesos: 2 + 1 = 3. Para média 7, a soma ponderada é 7 × 3 = 21. O trabalho já dá 9 × 1 = 9. Faltam 21 − 9 = 12, que vêm da prova com peso 2: 12 ÷ 2 = 6. Confira: (6 × 2 + 9) ÷ 3 = 21 ÷ 3 = 7."
+  conferir: "(7*3 - 9*1) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-06
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-ponderada
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um cursinho popular aplicou o mesmo simulado em duas turmas:
+    Turma da manhã: 10 estudantes, média 9,0.
+    Turma da noite: 40 estudantes, média 6,0.
+    No mural, a coordenação escreveu que a média geral do cursinho foi 7,5.
+  enunciado: "A média geral correta dos 50 estudantes é"
+  alternativas:
+    - texto: "6,6"
+      certa: true
+    - texto: "7,5"
+      erro: "7,5 é a média das duas médias, o erro do mural. A turma da noite tem quatro vezes mais gente e pesa mais."
+    - texto: "330"
+      erro: "330 é a soma das notas de todos (90 + 240). Falta dividir pelos 50 estudantes."
+    - texto: "8,4"
+      erro: "Você trocou o tamanho das turmas: pôs 40 estudantes na média 9 e 10 na média 6. Confira no texto."
+    - texto: "15"
+      erro: "15 é a soma das duas médias. Média de grupos se faz pelas somas de cada grupo, divididas pelo total de pessoas."
+  explicacao: "Média vezes quantidade dá a soma de cada turma: manhã 10 × 9 = 90; noite 40 × 6 = 240. Total: 330 pontos para 50 estudantes. Média geral: 330 ÷ 50 = 6,6."
+  conferir: "(10*9 + 40*6) / (10 + 40)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-07
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-ponderada
+  dificuldade: 2
+  texto_base: |
+    No orçamento de uma família, 40% do gasto vai para alimentação, 35% para moradia e 25% para transporte. Num
+    ano, os preços subiram 5% na alimentação, 2% na moradia e 8% no transporte.
+  enunciado: "Considerando esses pesos, de quanto foi o aumento médio do custo de vida dessa família?"
+  alternativas:
+    - texto: "5%"
+      erro: "5% é a média simples dos três aumentos. Cada aumento pesa conforme a parte do orçamento que ele atinge."
+    - texto: "15%"
+      erro: "15% é a soma dos três aumentos. Um aumento médio fica entre o menor (2%) e o maior (8%)."
+    - texto: "4,7%"
+      certa: true
+    - texto: "8%"
+      erro: "8% é só o aumento do transporte, o maior. Ele pesa só 25% do orçamento."
+    - texto: "2%"
+      erro: "2% é só a parte que a alimentação contribui (0,4 × 5). Falta somar a moradia e o transporte."
+  explicacao: "Com pesos em porcentagem, multiplique e some: 0,40 × 5 + 0,35 × 2 + 0,25 × 8 = 2 + 0,7 + 2 = 4,7%. Os pesos somam 1, então não é preciso dividir."
+  conferir: "0.40*5 + 0.35*2 + 0.25*8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-08
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-ponderada
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa de agricultores vende dois tipos de café: o especial, a R$ 30,00 o quilo, e o comum, a R$ 20,00
+    o quilo. Para lançar uma mistura, vai juntar 6 kg do café comum com certa quantidade do especial, de modo que a
+    mistura saia a R$ 24,00 o quilo, sem lucro nem prejuízo em relação aos preços de cada tipo.
+  enunciado: "A quantidade de café especial na mistura deve ser de"
+  alternativas:
+    - texto: "6 kg"
+      erro: "Com 6 kg de cada, o preço da mistura seria a média simples, R$ 25,00. Para dar R$ 24,00, mais perto de 20, entra menos café especial."
+    - texto: "10 kg"
+      erro: "10 kg é o total da mistura (4 + 6). A pergunta pede só a parte do café especial."
+    - texto: "24 kg"
+      erro: "24 é o preço da mistura por quilo, não a quantidade. Monte a média ponderada com a quantidade de especial como incógnita."
+    - texto: "4 kg"
+      certa: true
+    - texto: "9 kg"
+      erro: "Você trocou os preços: pôs os 6 kg a R$ 30,00. O comum, de R$ 20,00, é que tem os 6 kg."
+  explicacao: "Chame de x os quilos de café especial. Preço médio: (30x + 20 × 6) ÷ (x + 6) = 24. Então 30x + 120 = 24x + 144; 6x = 24; x = 4 kg. Confira: (4 × 30 + 6 × 20) ÷ 10 = (120 + 120) ÷ 10 = 24."
+  conferir: "(24*6 - 20*6) / (30 - 24)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-09
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-ponderada
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Três turmas de uma escola fizeram a mesma avaliação:
+    Turma A: 25 estudantes, média 6,0.
+    Turma B: 30 estudantes, média 7,0.
+    Turma C: 20 estudantes, média ainda não divulgada.
+    A direção informou que a média geral dos 75 estudantes foi 7,0.
+  enunciado: "A média da Turma C foi"
+  alternativas:
+    - texto: "8,0"
+      erro: "8,0 sai da média simples das três médias ((6 + 7 + x) ÷ 3 = 7). As turmas têm tamanhos diferentes: trabalhe com as somas."
+    - texto: "165"
+      erro: "165 é a soma das notas da Turma C. Falta dividir pelos 20 estudantes dela."
+    - texto: "7,0"
+      erro: "Se a Turma C tivesse média 7,0, a média geral ficaria abaixo de 7,0, porque a Turma A teve 6,0. A Turma C precisa compensar."
+    - texto: "2,2"
+      erro: "Você dividiu a soma da Turma C (165) pelo total de estudantes (75). A média da turma é a soma dela dividida pelos 20 estudantes dela."
+    - texto: "8,25"
+      certa: true
+  explicacao: "Soma de todos: 7 × 75 = 525. Turma A: 25 × 6 = 150. Turma B: 30 × 7 = 210. Turma C: 525 − 150 − 210 = 165. Média da C: 165 ÷ 20 = 8,25."
+  conferir: "(7*75 - 25*6 - 30*7) / 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-ponderada-10
+  tema: "Média ponderada"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-ponderada
+  dificuldade: 3
+  enunciado: "Um motorista de aplicativo abasteceu duas vezes, gastando R$ 200,00 em cada vez. Na primeira, o litro custava R$ 5,00; na segunda, R$ 4,00. Qual foi o preço médio do litro nessas duas compras?"
+  alternativas:
+    - texto: "R$ 4,50"
+      erro: "R$ 4,50 é a média simples dos preços. Mas, com o mesmo dinheiro, ele levou mais litros quando estava a R$ 4,00: o preço médio fica mais perto de 4."
+    - texto: "Cerca de R$ 4,44"
+      certa: true
+      valor: "40/9"
+    - texto: "90 litros"
+      erro: "90 é o total de litros (40 + 50). A pergunta pede o preço médio: dinheiro gasto dividido pelos litros."
+    - texto: "Cerca de R$ 4,56"
+      erro: "Você trocou as quantidades: pôs 50 litros a R$ 5,00 e 40 litros a R$ 4,00. Com R$ 200,00 a R$ 5,00 o litro, ele leva só 40 litros."
+    - texto: "R$ 9,00"
+      erro: "Você somou os dois preços. O preço médio fica entre R$ 4,00 e R$ 5,00."
+  explicacao: "Litros da primeira compra: 200 ÷ 5 = 40. Da segunda: 200 ÷ 4 = 50. Total: R$ 400,00 por 90 litros. Preço médio: 400 ÷ 90 = 40/9, cerca de R$ 4,44. O peso de cada preço é a quantidade de litros, não o dinheiro gasto."
+  conferir: "400 / 90"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

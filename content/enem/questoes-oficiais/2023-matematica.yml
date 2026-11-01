@@ -27,7 +27,7 @@ questoes:
       C: "1 360,8 g vem de 2 268 cm³ = 2 916 − 648: tirou o cilindro, mas esqueceu de tirar o cone pequeno da ponta. A escultura perde as duas partes."
       D: "4 665,6 g vem de 7 776 cm³ = 8 748 − 324 − 648: as contas do cone foram feitas sem o fator 1/3. O volume do cone é um terço do volume do cilindro de mesma base e altura."
       E: "4 860 g vem de 8 100 cm³ = 8 748 − 648: esqueceu o fator 1/3 do cone e também não tirou o cone pequeno. Volume do cone = (1/3) · área da base · altura."
-    aulas: [matematica-medio/geometria-espacial]
+    aulas: [matematica-medio/geometria-espacial, enem-matematica-geometria/piramides-e-cones]
 
   - id: enem-2023-137
     area: matematica
@@ -49,7 +49,7 @@ questoes:
       B: "2 500 é a metade da diferença entre os salários, (7 000 − 2 000) ÷ 2. Essa conta não é média. Some todos os salários e divida pelo número de pessoas."
       D: "4 500 é (2 000 + 7 000) ÷ 2, a média simples dos dois valores, como se cada setor tivesse o mesmo número de pessoas. Aqui um setor tem 75 e o outro 25: use os pesos."
       E: "9 000 é a soma dos dois salários, sem dividir por nada. A média divide a folha total pelos 100 funcionários."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/media-ponderada]
 
   - id: enem-2023-138
     area: matematica
@@ -94,7 +94,7 @@ questoes:
       B: "Julho seria escolher o mês logo após a tabela sem fazer as contas. Em julho II ainda vende 130 contra 110 de I."
       C: "Agosto é o mês em que I passa II. A regra manda parar no mês seguinte a esse, então é setembro."
       E: "Outubro aparece se o produto I ficar parado em 100: aí II só fica abaixo em setembro (90) e para em outubro. Mas I também cresce 10 por mês."
-    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas, matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas, matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-funcoes-e-algebra/progressoes]
 
   - id: enem-2023-140
     area: matematica
@@ -117,7 +117,7 @@ questoes:
       B: "Mediana e moda não coincidem: a moda é 3 e a mediana é 4. Confira a posição do 80º e do 81º dado na contagem acumulada."
       C: "Esta ordem põe a moda como maior valor. A moda é 3, o menor dos três; talvez a barra mais longa tenha sido lida como a viagem 6."
       D: "A média (4,16) ficou abaixo da mediana (4) nesta ordem. Faça a conta da média com os pesos: 665 ÷ 160 passa um pouco de 4."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, estatistica-para-ler-o-brasil/media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/media-mediana-e-moda]
 
   - id: enem-2023-143
     area: matematica
@@ -139,7 +139,7 @@ questoes:
       C: "12 salas dariam 120 vagas, número que não sai de uma conta coerente com os dados. A redução pedida é de 25% de 440, que dá 110."
       D: "30 salas vêm de 300 ÷ 10, sendo 300 = 400 · 0,75: tomou a lista final como número de vagas. As salas novas só precisam cobrir a diferença entre 440 e 330."
       E: "33 salas vêm de 330 ÷ 10: 330 é o tamanho da lista que vai sobrar, não o de vagas a abrir. Subtraia: 440 − 330 = 110."
-    aulas: [matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-proporcionalidade/porcentagem]
 
   - id: enem-2023-144
     area: matematica
@@ -161,7 +161,7 @@ questoes:
       B: "0,5 é o nível da água às 6h, um dado do quadro, e não uma taxa por hora."
       D: "1,8 vem de 0,6 · 3: usou a subida de 2 horas (0,6 m) como se fosse de uma hora. Divida a subida pelo tempo antes."
       E: "2,7 vem de 0,9 · 3: usou a subida de 3 horas (de 12h a 15h) como se fosse de uma hora. A subida por hora é 0,3 m."
-    aulas: [matematica-medio/geometria-espacial, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/geometria-espacial, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/prismas-e-cilindros]
 
   - id: enem-2023-145
     area: matematica
@@ -182,7 +182,7 @@ questoes:
       C: "Q4 também está numa circunferência menor que a de Q1, então o ângulo AQ4B é maior. Estar alinhado com Q1 e B não garante ângulo igual."
       D: "Q5 está perto de Q1, mas numa circunferência maior. Pontos mais distantes da trave veem AB sob ângulo menor. Proximidade com Q1 não basta."
       E: "Q6 está numa circunferência ainda maior, então vê AB sob ângulo menor que Q1. O que importa é estar no mesmo arco que Q1."
-    aulas: [matematica-medio/geometria-plana, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/geometria-plana, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/circunferencia-e-circulo]
 
   - id: enem-2023-147
     area: matematica
@@ -249,7 +249,7 @@ questoes:
       B: "1 : 11 não sai de uma conta coerente: a escala compara a altitude no desenho (1 cm) com a real (5 km), e o 11 não é nenhuma dessas medidas."
       C: "1 : 55 parece juntar o 5 dos quilômetros com outro número da figura, sem converter unidade. Use só a altitude: 1 cm para 500 000 cm."
       D: "1 : 5000 converteu 5 km em metro (5 000 m), mas a medida da tela está em centímetro. Falta converter metro em centímetro: 5 000 m = 500 000 cm."
-    aulas: [matematica-fundamental/razao-e-proporcao, matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/razao-e-proporcao, matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-proporcionalidade/escalas]
 
   - id: enem-2023-150
     area: matematica
@@ -269,7 +269,7 @@ questoes:
       C: "1 − 0,1q mistura o número 1 com a quantidade q. Porcentagem de q vira multiplicação: 90% de q = 0,9q."
       D: "1 − 0,9q subtrai a parte certa de 1, mas o 1 não tem papel aqui. Basta escrever 90% de q como 0,9q."
       E: "q − 10 tira 10 unidades de q, e não 10%. Porcentagem é sempre uma fração da quantidade: 90% de q = 0,9q."
-    aulas: [matematica-medio/funcao-do-1-grau, matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/funcao-do-1-grau, matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-funcoes-e-algebra/funcao-afim]
 
   - id: enem-2023-151
     area: matematica
@@ -315,7 +315,7 @@ questoes:
       C: "A medida III sai de log 8 = 8 · 0,3 = 2,4: N = 10 · 6,4 = 64 dB. O expoente vai para fora do log, e 8 = 2³ dá 3 · log 2."
       D: "A medida IV não sai de uma conta coerente com a fórmula. Refaça: N = 10 · log(8 × 10⁴) = 49 dB."
       E: "A medida V aparece se o fator 10 for aplicado duas vezes: 10 · 10 · 4,9 = 490. O 10 dos expoentes já vira o único 10 da frente."
-    aulas: [matematica-medio/exponencial-e-logaritmo]
+    aulas: [matematica-medio/exponencial-e-logaritmo, enem-matematica-funcoes-e-algebra/logaritmos]
 
   - id: enem-2023-153
     area: matematica
@@ -356,7 +356,7 @@ questoes:
       C: "Segmento circular é limitado por uma corda e um arco. Aqui as bordas retas saem do centro da lua: são raios, o que define um setor."
       D: "Triângulo isósceles teria três lados retos. A parte escondida tem um lado curvo, o contorno da lua."
       E: "Arco de circunferência é só a linha do contorno, sem a região dentro. A pergunta é sobre a parte da lua escondida, que é uma região."
-    aulas: [matematica-medio/geometria-plana, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/geometria-plana, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/circunferencia-e-circulo]
 
   - id: enem-2023-155
     area: matematica
@@ -378,7 +378,7 @@ questoes:
       B: "900 m² é a área do quadrado externo inteiro, que inclui a piscina. Falta subtrair os 400 m² da piscina."
       C: "600 m² vem de 4 faixas de 30 m × 5 m: os quatro cantos foram contados duas vezes. Tire os 4 cantos de 25 m², ou use 900 − 400."
       E: "400 m² é a área da piscina. Também sai de 4 faixas de 20 m × 5 m, esquecendo os quatro cantos de 5 m × 5 m."
-    aulas: [matematica-fundamental/perimetro-e-area, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-fundamental/perimetro-e-area, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/areas-de-figuras-planas]
 
   - id: enem-2023-156
     area: matematica
@@ -399,7 +399,7 @@ questoes:
       C: "10 minutos é o intervalo de 10 a 20 inteiro. No meio dele, entre 12 e 16, o sinal volta e chega ao pico em 14."
       D: "14 é o instante do pico de sinal no meio da caminhada, e não uma duração sem sinal."
       E: "24 minutos é 30 − 6, o tempo com algum sinal. A pergunta pede o tempo sem sinal."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-medio/funcoes-a-ideia, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, matematica-medio/funcoes-a-ideia, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-funcoes-e-algebra/funcoes-e-graficos]
 
   - id: enem-2023-157
     area: matematica
@@ -421,7 +421,7 @@ questoes:
       C: "30% não sai de uma leitura coerente do gráfico. Faça as duas condições juntas: massa abaixo de 80 e altura acima de 1,65."
       D: "50% é a parte com massa abaixo da média (5 de 10). Falta a segunda condição, altura acima de 1,65 m."
       E: "70% conta quem tem altura de 1,65 m ou mais (7 de 10), sem olhar a massa. E altura igual à média não é acima dela."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, estatistica-para-ler-o-brasil/como-ler-um-grafico-sem-ser-enganado, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, estatistica-para-ler-o-brasil/como-ler-um-grafico-sem-ser-enganado, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/graficos-de-barras-linhas-e-setores]
 
   - id: enem-2023-158
     area: matematica
@@ -445,7 +445,7 @@ questoes:
       B: "2 ajudantes aparecem quando se esquece a diária de R$ 250,00: 1 920 − 900 = 1 020. A diária de cada ajudante também é custo."
       C: "3 ajudantes aparecem quando se esquecem os 4% da receita: 2 500 − 900 − 750 = 850. Com os 4%, o lucro cai para 750, abaixo da meta."
       E: "5 ajudantes também dão lucro acima de 800, mas a pergunta pede a quantidade mínima, e 4 já bastam."
-    aulas: [matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-proporcionalidade/contas-do-dia-a-dia]
 
   - id: enem-2023-159
     area: matematica
@@ -466,7 +466,7 @@ questoes:
       B: "4 é o número de multiplicações por 10. Cada uma leva 3 dias, então são 12 dias."
       C: "6 dias dão só 2 multiplicações: 100 → 10 000 larvas. É pouco para os 5 litros, que servem para 1 000 000 de larvas."
       E: "18 dias vêm de contar as multiplicações a partir de 1 larva (6 · 3). O método começa com 100 larvas, então faltam só 4 multiplicações."
-    aulas: [matematica-medio/exponencial-e-logaritmo]
+    aulas: [matematica-medio/exponencial-e-logaritmo, enem-matematica-funcoes-e-algebra/funcao-exponencial]
 
   - id: enem-2023-160
     area: matematica
@@ -490,7 +490,7 @@ questoes:
       C: "Ter mais letras não garante mais senhas. O tipo II prende posições a grupos pequenos (10 algarismos, 6 especiais) e fica com menos senhas que o tipo I."
       D: "A ordem p3 < p2 < p1 é a inversa. Mais senhas possíveis dão menor probabilidade, e o tipo I tem mais senhas que os outros."
       E: "Mais caracteres não bastam: no tipo III cada posição só aceita um grupo pequeno. Fazendo as contas, ele tem menos senhas que o tipo I."
-    aulas: [matematica-medio/analise-combinatoria, matematica-medio/probabilidade]
+    aulas: [matematica-medio/analise-combinatoria, matematica-medio/probabilidade, enem-matematica-estatistica-e-probabilidade/permutacoes-arranjos-e-combinacoes]
 
   - id: enem-2023-161
     area: matematica
@@ -534,7 +534,7 @@ questoes:
       B: "y = 500x trata a taxa fixa como preço por metro cúbico. O que multiplica x é o preço do metro cúbico, 250."
       C: "y = 750x soma as duas partes e multiplica tudo pelo volume. A parte fixa não depende de x."
       E: "y = 500x + 250 troca os papéis: o 250 é que multiplica o volume, e o 500 fica fixo."
-    aulas: [matematica-medio/funcao-do-1-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/funcao-do-1-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-funcoes-e-algebra/funcao-afim]
 
   - id: enem-2023-163
     area: matematica
@@ -557,7 +557,7 @@ questoes:
       C: "O caminho de dois lados começa e termina em pontos diferentes, mas o gráfico mostra distância zero no início e no fim: ele sai da base e volta a ela. Também falta o trecho de distância constante."
       D: "O trapézio copia o formato do gráfico. Mas o gráfico é distância × tempo, não o desenho do caminho. Distância constante vira arco, não reta."
       E: "No semicírculo, o arco mede π · 3 ≈ 9,4 km e levaria cerca de 31 min na mesma velocidade, não 10 min. O arco precisa ter 3 km, como em A."
-    aulas: [matematica-medio/geometria-plana, matematica-medio/funcoes-a-ideia, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/geometria-plana, matematica-medio/funcoes-a-ideia, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/circunferencia-e-circulo]
 
   - id: enem-2023-164
     area: matematica
@@ -578,7 +578,7 @@ questoes:
       B: "Gestantes têm cerca de 54%, mais que os adultos de 20 a 29 anos. Procure a menor barra."
       C: "Doentes crônicos têm cerca de 56%. Não é a menor barra do gráfico."
       E: "Crianças de 6 meses a 2 anos têm a maior barra depois dos trabalhadores da saúde: são as mais protegidas. A pergunta é sobre a mais exposta, a menor barra."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-por-area/matematica-ler-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-por-area/matematica-ler-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/graficos-de-barras-linhas-e-setores]
 
   - id: enem-2023-165
     area: matematica
@@ -601,7 +601,7 @@ questoes:
       B: "1,35 m² soma só pisos e espelhos. Faltam as duas paredes laterais, 0,30 m² cada."
       C: "1,65 m² conta só uma parede lateral. A escada tem duas, uma de cada lado."
       D: "1,80 m² vem de tratar uma parede lateral como um retângulo cheio de 0,75 × 0,60 = 0,45 m². A parede tem degraus: sua área é 0,30 m², e são duas."
-    aulas: [matematica-fundamental/perimetro-e-area, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-fundamental/perimetro-e-area, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/areas-de-figuras-planas]
 
   - id: enem-2023-166
     area: matematica
@@ -627,7 +627,7 @@ questoes:
       B: "Terça é o único dia com as quatro atividades. Variedade não é gasto: terça dá 1 558 cal, menos que quarta."
       D: "Quinta tem mais horas de corrida (2 h), a atividade que mais gasta, mas só isso: 1 528 cal, o menor total."
       E: "Sexta tem mais horas de futebol (2,5 h) e chega a 1 612 cal, perto do maior valor, mas abaixo dos 1 748 de quarta."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/leitura-de-tabelas]
 
   - id: enem-2023-167
     area: matematica
@@ -649,7 +649,7 @@ questoes:
       C: "Este intervalo aparece ao ler os 12 reais de desconto como 12%. Desconto em porcentagem é 12 ÷ 232."
       D: "Este intervalo aparece ao usar 6 000 folhas (desconto de 20 reais) e ler esses 20 reais como 20%. Corrija a quantidade e divida pelo preço."
       E: "3,5% a 4,0% não sai de um caminho coerente com os dados. Mesmo pagando meia embalagem (230 reais), o desconto daria 10 ÷ 230 ≈ 4,35%."
-    aulas: [matematica-fundamental/regra-de-tres, matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/regra-de-tres, matematica-fundamental/porcentagem, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-proporcionalidade/porcentagem]
 
   - id: enem-2023-168
     area: matematica
@@ -672,7 +672,7 @@ questoes:
       C: "1/10 para o 02 conta só o sorteio das unidades. Depois ainda é preciso sortear a dezena, entre 6 bolas."
       D: "1/55 e 1/54 tratam o sorteio como se fosse direto entre os 55 números. Aqui ele é feito em duas etapas, e o número de bolas da segunda urna muda."
       E: "1/100 e 1/100 supõem duas urnas sempre com 10 bolas. Na segunda urna só ficam as dezenas que formam número de 01 a 55."
-    aulas: [matematica-medio/probabilidade, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/probabilidade, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/uniao-complementar-e-probabilidade-condicional]
 
   - id: enem-2023-169
     area: matematica
@@ -694,7 +694,7 @@ questoes:
       B: "16/27 L₀ avança o numerador para 2⁴ e deixa o denominador em 3³. Numerador e denominador sobem juntos: (2/3)ⁿ."
       C: "32/243 L₀ é (2/3)⁵, a intensidade a 5 m. Para 6 m falta multiplicar mais uma vez por 2/3."
       E: "128/2187 L₀ é (2/3)⁷, a intensidade a 7 m: um passo a mais. A superfície é a profundidade 0."
-    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-funcoes-e-algebra/progressoes]
 
   - id: enem-2023-170
     area: matematica
@@ -717,7 +717,7 @@ questoes:
       B: "Bom não sai de uma conta coerente com a função. Ache o vértice: x = 20 e V(20) = 5."
       C: "Normal não sai de uma conta coerente com a função. Confira o cálculo de V(20): 100 − 200 + 105 = 5."
       E: "Péssimo aparece com erro de sinal: −Δ/(4a) com Δ = 100 − 105 = −5 dá +5, e não −5. O mínimo é 5, faixa ruim."
-    aulas: [matematica-medio/funcao-do-2-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/funcao-do-2-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-funcoes-e-algebra/funcao-quadratica]
 
   - id: enem-2023-171
     area: matematica
@@ -781,7 +781,7 @@ questoes:
       C: "(min · mL) / kg multiplica pelo minuto em vez de dividir. O consumo é mL por minuto, então min vai para baixo."
       D: "(min · kg) / mL é a razão inteira invertida. O EC é consumo dividido pela massa."
       E: "(mL · kg) / min multiplica pela massa em vez de dividir. A massa fica no denominador."
-    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-proporcionalidade/unidades-de-medida]
 
   - id: enem-2023-175
     area: matematica
@@ -827,7 +827,7 @@ questoes:
       B: "83 vem de repetir a última diferença (16) duas vezes: 51 + 16 + 16. As diferenças aumentam 3 a cada passo."
       C: "86 vem de 51 + 16 + 19: repetiu a diferença 16 antes de crescer. A próxima diferença já é 19."
       D: "89 vem de 70 + 19: achou o sétimo certo, mas repetiu a diferença 19. Do sétimo para o oitavo a diferença é 22."
-    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-medio/progressoes-aritmeticas-e-geometricas, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-funcoes-e-algebra/progressoes]
 
   - id: enem-2023-177
     area: matematica
@@ -872,7 +872,7 @@ questoes:
       C: "Este gráfico mostra a vazão (liga e desliga), não o volume acumulado. O volume cresce enquanto a torneira está aberta."
       D: "A reta contínua supõe água saindo os 11 segundos. De 3 a 8 s a torneira fica fechada."
       E: "O volume cai a zero na pausa e a segunda subida é mais inclinada. Mas o volume acumulado não diminui, e a vazão é a mesma."
-    aulas: [matematica-medio/funcoes-a-ideia, matematica-medio/funcao-do-1-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/funcoes-a-ideia, matematica-medio/funcao-do-1-grau, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-funcoes-e-algebra/funcoes-e-graficos]
 
   - id: enem-2023-179
     area: matematica
@@ -919,4 +919,4 @@ questoes:
       B: "Plantando em novembro, os dois primeiros meses são novembro e dezembro, com média de 175 mm. Os meses contam a partir do plantio."
       D: "Janeiro tem a maior chuva de um mês só (450 mm), mas é seguido por fevereiro, o mais seco: média de 275 mm. A pergunta pede a melhor média de dois meses."
       E: "Fevereiro e março têm a menor média, 150 mm."
-    aulas: [matematica-medio/estatistica-media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/estatistica-media-mediana-e-moda, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/media-mediana-e-moda]

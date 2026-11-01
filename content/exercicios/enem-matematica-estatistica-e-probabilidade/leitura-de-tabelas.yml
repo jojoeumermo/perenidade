@@ -1,0 +1,307 @@
+# Exercícios da aula "Leitura de tabelas" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. As tabelas vêm escritas linha por linha, em texto.
+
+- id: enem-mat-tabelas-01
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-tabelas
+  dificuldade: 1
+  texto_base: |
+    Preço da mesma cesta básica em quatro mercados de um bairro, no mesmo dia (valores de exemplo):
+    Mercado Alvorada: R$ 312.
+    Mercado Bom Preço: R$ 298.
+    Mercado Central: R$ 305.
+    Mercado do Povo: R$ 321.
+  enunciado: "Qual é a diferença entre o preço da cesta no mercado mais caro e no mais barato?"
+  alternativas:
+    - texto: "R$ 23"
+      certa: true
+    - texto: "R$ 619"
+      erro: "Você somou os dois preços (321 + 298). Diferença é subtração: o mais caro menos o mais barato."
+    - texto: "R$ 7"
+      erro: "Você comparou o Central (305) com o Bom Preço (298). O mais caro é o Mercado do Povo, R$ 321."
+    - texto: "R$ 298"
+      erro: "R$ 298 é o preço do mercado mais barato. A pergunta pede a diferença entre ele e o mais caro."
+    - texto: "R$ 9"
+      erro: "Você comparou o Mercado do Povo (321) com o Alvorada (312). O mais barato é o Bom Preço, R$ 298."
+  explicacao: "O mais caro é o Mercado do Povo (R$ 321) e o mais barato, o Bom Preço (R$ 298). A diferença é 321 − 298 = R$ 23."
+  conferir: "321 - 298"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-02
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-tabelas
+  dificuldade: 1
+  texto_base: |
+    Uma associação de moradores perguntou a 80 pessoas como elas vão ao trabalho:
+    Ônibus: 36 pessoas.
+    A pé: 20 pessoas.
+    Bicicleta: 12 pessoas.
+    Carro ou moto: 12 pessoas.
+  enunciado: "Qual é a frequência relativa de quem vai de ônibus?"
+  alternativas:
+    - texto: "36%"
+      erro: "36 é o número de pessoas, a frequência absoluta. Para a relativa, divida pelo total de 80."
+    - texto: "45%"
+      certa: true
+    - texto: "55%"
+      erro: "55% é a parte de quem não vai de ônibus (100% − 45%). A pergunta pede quem vai."
+    - texto: "2,2%"
+      erro: "Você dividiu o total pela frequência (80 ÷ 36). A divisão é ao contrário: a parte sobre o todo, 36 ÷ 80."
+    - texto: "25%"
+      erro: "25% é a parte de quem vai a pé (20 ÷ 80). Confira a linha: a do ônibus tem 36 pessoas."
+  explicacao: "Frequência relativa é a parte do total: 36 ÷ 80 = 0,45 = 45%."
+  conferir: "36 / 80 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-03
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-tabelas
+  dificuldade: 1
+  texto_base: |
+    Renda dos 50 trabalhadores de uma cooperativa, em salários mínimos (SM):
+    Até 1 SM: 14 trabalhadores.
+    Mais de 1 até 2 SM: 22 trabalhadores.
+    Mais de 2 até 3 SM: 9 trabalhadores.
+    Mais de 3 SM: 5 trabalhadores.
+  enunciado: "Quantos trabalhadores ganham até 2 salários mínimos?"
+  alternativas:
+    - texto: "22"
+      erro: "22 são só os que ganham mais de 1 até 2 SM. \"Até 2\" inclui também quem ganha até 1: some as duas linhas."
+    - texto: "14"
+      erro: "14 são só os que ganham até 1 SM. Quem ganha entre 1 e 2 também ganha \"até 2\"."
+    - texto: "36"
+      certa: true
+    - texto: "50"
+      erro: "50 é o total da cooperativa. Os 14 que ganham mais de 2 SM ficam de fora."
+    - texto: "72"
+      erro: "72 é a porcentagem (36 ÷ 50 = 72%). A pergunta pede o número de trabalhadores."
+  explicacao: "\"Até 2 SM\" junta as duas primeiras linhas: 14 + 22 = 36 trabalhadores. É a frequência acumulada até a segunda faixa."
+  conferir: "14 + 22"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-04
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-tabelas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma companhia de água cobra a conta mensal pelas faixas de consumo abaixo (valores de exemplo):
+    Até 10 m³: R$ 35,00 fixos.
+    De 10 a 20 m³: R$ 4,50 por m³ que passa de 10.
+    Acima de 20 m³: R$ 7,00 por m³ que passa de 20.
+    Numa casa onde moram seis pessoas, o consumo do mês foi de 24 m³.
+  enunciado: "O valor da conta de água dessa casa, no mês, foi de"
+  alternativas:
+    - texto: "R$ 168,00"
+      erro: "Você cobrou os 24 m³ pelo preço da última faixa (24 × 7). Cada pedaço do consumo paga o preço da sua faixa."
+    - texto: "R$ 98,00"
+      erro: "Você cobrou todos os 14 m³ que passam de 10 a R$ 4,50. Os 4 m³ que passam de 20 custam R$ 7,00 cada."
+    - texto: "R$ 63,00"
+      erro: "Você pulou a segunda faixa (35 + 4 × 7). Entre 10 e 20 m³ há mais 10 m³ a R$ 4,50."
+    - texto: "R$ 108,00"
+      certa: true
+    - texto: "R$ 73,00"
+      erro: "Você esqueceu os R$ 35,00 fixos da primeira faixa. Eles são pagos mesmo por quem gasta pouco."
+  explicacao: "Quebre os 24 m³: os primeiros 10 pagam R$ 35 fixos; de 10 a 20 são 10 m³ × 4,50 = R$ 45; de 20 a 24 são 4 m³ × 7 = R$ 28. Total: 35 + 45 + 28 = R$ 108,00."
+  conferir: "35 + 10 * 4.5 + 4 * 7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-05
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-tabelas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num mutirão de vacinação, um posto de saúde registrou 400 pessoas atendidas, separadas por idade e por
+    situação da vacina contra a gripe:
+    Crianças: 120 já vacinadas e 30 não vacinadas (150 no total).
+    Adultos: 160 já vacinados e 90 não vacinados (250 no total).
+    Total: 280 já vacinados e 120 não vacinados (400 pessoas).
+  enunciado: "Entre os adultos atendidos, a porcentagem dos que não estavam vacinados era de"
+  alternativas:
+    - texto: "22,5%"
+      erro: "22,5% é 90 ÷ 400: você dividiu pelo total do posto. \"Entre os adultos\" diz que o todo são os 250 adultos."
+    - texto: "75%"
+      erro: "75% é 90 ÷ 120: você dividiu pelo total de não vacinados. Isso responde \"entre os não vacinados, quantos são adultos\"."
+    - texto: "30%"
+      erro: "30% é 120 ÷ 400, a parte de não vacinados no posto inteiro, crianças e adultos juntos."
+    - texto: "64%"
+      erro: "64% é 160 ÷ 250, a parte dos adultos que já estavam vacinados. A pergunta é sobre os não vacinados."
+    - texto: "36%"
+      certa: true
+  explicacao: "O todo são os 250 adultos. Desses, 90 não estavam vacinados: 90 ÷ 250 = 0,36 = 36%."
+  conferir: "90 / 250 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-06
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 26
+  objeto: mat-estatistica-tabelas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Duas escolas públicas de um município divulgaram quantos estudantes do 3º ano se inscreveram num vestibular e
+    quantos foram aprovados:
+    Escola Paulo Freire: 200 inscritos e 180 aprovados.
+    Escola Quilombo: 300 inscritos e 210 aprovados.
+    A diretora da Escola Quilombo afirmou que a sua escola teve o melhor desempenho, porque aprovou mais estudantes.
+  enunciado: "Com base nos dados, a avaliação correta da afirmação da diretora é:"
+  alternativas:
+    - texto: "A Escola Quilombo aprovou mais estudantes em número, mas a Escola Paulo Freire teve a maior taxa de aprovação: 90% contra 70%."
+      certa: true
+    - texto: "A Escola Quilombo teve a maior taxa de aprovação, porque 210 é maior que 180."
+      erro: "210 e 180 são números absolutos, de grupos de tamanhos diferentes. Taxa é aprovados ÷ inscritos: 210 ÷ 300 = 70% e 180 ÷ 200 = 90%."
+    - texto: "As duas escolas tiveram a mesma taxa de aprovação."
+      erro: "Calcule cada uma: 180 ÷ 200 = 0,9 e 210 ÷ 300 = 0,7. As taxas são diferentes."
+    - texto: "A Escola Paulo Freire teve taxa de aprovação de 60%."
+      erro: "60% é 180 ÷ 300: você dividiu os aprovados de uma escola pelos inscritos da outra. Use os inscritos da própria escola, 200."
+    - texto: "Não é possível comparar, porque o número de inscritos é diferente nas duas escolas."
+      erro: "É justamente para isso que serve a porcentagem: ela compara grupos de tamanhos diferentes."
+  explicacao: "Para comparar grupos de tamanhos diferentes, use a taxa. Paulo Freire: 180 ÷ 200 = 90%. Quilombo: 210 ÷ 300 = 70%. A Quilombo aprovou mais em número, mas a Paulo Freire aprovou uma parte maior dos inscritos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-07
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-tabelas
+  dificuldade: 2
+  texto_base: |
+    Casos de dengue registrados num mês em três bairros, com a população de cada um (valores de exemplo):
+    Bairro Aurora: 60 casos e 20.000 habitantes.
+    Bairro Boa Vista: 90 casos e 45.000 habitantes.
+    Bairro Canaã: 50 casos e 10.000 habitantes.
+  enunciado: "No bairro com a maior taxa de casos, quantos casos houve para cada 10.000 habitantes?"
+  alternativas:
+    - texto: "90"
+      erro: "90 é o maior número de casos (Boa Vista), mas esse bairro também é o mais populoso. Compare a taxa: 90 casos em 45.000 são 20 por 10.000."
+    - texto: "30"
+      erro: "30 por 10.000 é a taxa do Bairro Aurora (60 em 20.000). O Canaã tem taxa maior."
+    - texto: "50"
+      certa: true
+    - texto: "5"
+      erro: "5 é a taxa do Canaã para cada 1.000 habitantes. A pergunta pede para cada 10.000."
+    - texto: "200"
+      erro: "200 é a soma dos casos dos três bairros. A pergunta é a taxa de um bairro."
+  explicacao: "Taxa por 10.000 habitantes: Aurora, 60 ÷ 2 = 30; Boa Vista, 90 ÷ 4,5 = 20; Canaã, 50 ÷ 1 = 50. A maior taxa é a do Canaã: 50 casos por 10.000 habitantes."
+  conferir: "50 / 10000 * 10000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-08
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-tabelas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma transportadora cobra o envio de pacotes pela tabela abaixo (valores de exemplo):
+    Até 1 kg: R$ 18,00.
+    Mais de 1 kg até 3 kg: R$ 25,00.
+    Mais de 3 kg até 5 kg: R$ 34,00.
+    Mais de 5 kg: R$ 34,00 mais R$ 6,00 por quilograma, ou fração de quilograma, que passar de 5 kg.
+    Uma artesã vai enviar três pacotes, com 0,8 kg, 2,5 kg e 6,4 kg.
+  enunciado: "O valor total que ela vai pagar pelos três envios é"
+  alternativas:
+    - texto: "R$ 77,00"
+      erro: "Você cobrou o pacote de 6,4 kg como se estivesse na faixa até 5 kg. Ele passou 1,4 kg: falta o adicional."
+    - texto: "R$ 85,40"
+      erro: "Você cobrou 1,4 × 6 = 8,40 de adicional. A tabela cobra por quilograma \"ou fração\": 1,4 kg conta como 2 kg."
+    - texto: "R$ 83,00"
+      erro: "Você cobrou só 1 kg de adicional. A fração de 0,4 kg também é cobrada como um quilograma inteiro: são 2 kg."
+    - texto: "R$ 89,00"
+      certa: true
+    - texto: "R$ 138,00"
+      erro: "Você cobrou os três pacotes pelo preço do mais pesado (3 × 46). Cada pacote paga a sua faixa."
+  explicacao: "Pacote de 0,8 kg: R$ 18. Pacote de 2,5 kg: R$ 25. Pacote de 6,4 kg: passou 1,4 kg de 5 kg; como fração conta inteira, são 2 kg a R$ 6: 34 + 12 = R$ 46. Total: 18 + 25 + 46 = R$ 89,00."
+  conferir: "18 + 25 + 34 + 2 * 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-09
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-tabelas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Matrículas numa escola de jovens e adultos, ano a ano (valores de exemplo):
+    2019: 400 matrículas.
+    2020: 440 matrículas.
+    2021: 500 matrículas.
+    2022: 540 matrículas.
+    2023: 600 matrículas.
+  enunciado: "De 2019 a 2023, o número de matrículas cresceu, no total,"
+  alternativas:
+    - texto: "200%"
+      erro: "200 é o aumento em número de matrículas (600 − 400), não em porcentagem. Divida pelo valor de partida, 400."
+    - texto: "42,7%"
+      erro: "Você somou as taxas de cada ano (10% + 13,6% + 8% + 11,1%). Taxas seguidas não se somam: compare o fim com o começo."
+    - texto: "33,3%"
+      erro: "Você dividiu o aumento pelo valor final (200 ÷ 600). A variação se calcula sobre o valor de partida, 400."
+    - texto: "12,5%"
+      erro: "Você dividiu os 50% pelos 4 anos. A pergunta é o crescimento total, não a média por ano."
+    - texto: "50%"
+      certa: true
+  explicacao: "Compare o fim com o começo: (600 − 400) ÷ 400 = 200 ÷ 400 = 0,5 = 50%."
+  conferir: "(600 - 400) / 400 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-tabelas-10
+  tema: "Leitura de tabelas"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-tabelas
+  dificuldade: 3
+  texto_base: |
+    Uma pesquisa com 500 trabalhadores de uma cidade separou as pessoas por sexo e pelo tipo de vínculo. Algumas
+    células da tabela ficaram em branco:
+    Homens: 150 com carteira assinada; sem carteira, em branco; 270 no total.
+    Mulheres: com carteira, em branco; 120 sem carteira; total em branco.
+    Total: 260 com carteira assinada; sem carteira, em branco; 500 no total.
+  enunciado: "Entre os trabalhadores sem carteira assinada, que porcentagem é de mulheres?"
+  alternativas:
+    - texto: "52,2%"
+      erro: "Esse valor é perto de 120 ÷ 230: você dividiu pelo total de mulheres. \"Entre os sem carteira\" diz que o todo são os 240 sem carteira."
+    - texto: "50%"
+      certa: true
+    - texto: "24%"
+      erro: "24% é 120 ÷ 500: você dividiu pelo total da pesquisa. O todo são só os trabalhadores sem carteira."
+    - texto: "46%"
+      erro: "46% é a parte das mulheres na pesquisa inteira (230 ÷ 500). A pergunta olha só para quem não tem carteira."
+    - texto: "48%"
+      erro: "48% é a parte dos sem carteira na pesquisa (240 ÷ 500). Falta ver quantos deles são mulheres."
+  explicacao: "Complete a tabela pelos totais. Sem carteira no total: 500 − 260 = 240. Desses, 120 são mulheres. 120 ÷ 240 = 0,5 = 50%."
+  conferir: "120 / (500 - 260) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

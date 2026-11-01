@@ -1,0 +1,98 @@
+# Mapa curricular da trilha enem-matematica-geometria: cada aula escrita ligada às habilidades da Matriz do Enem e aos
+# tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
+aulas:
+  circunferencia-e-circulo:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 12
+        resumo: Resolver problemas com medidas de grandezas.
+        situacao: a-confirmar
+    objetos: [mat-geometria-circunferencia]
+  prismas-e-cilindros:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 12
+        resumo: Resolver problemas com medidas de grandezas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 14
+        resumo: Avaliar propostas de intervenção usando grandezas e medidas.
+        situacao: a-confirmar
+    objetos: [mat-geometria-prismas-e-cilindros]
+  areas-de-figuras-planas:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 9
+        resumo: Usar a geometria para escolher argumentos que resolvem problemas do cotidiano.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 12
+        resumo: Resolver problemas com medidas de grandezas.
+        situacao: a-confirmar
+    objetos: [mat-geometria-areas]
+  esfera:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+    objetos: [mat-geometria-esfera]
+  piramides-e-cones:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+    objetos: [mat-geometria-piramides-e-cones]
+  vistas-e-projecoes:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 6
+        resumo: Interpretar posição e movimento no espaço e sua representação no plano (mapas, vistas, plantas).
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+    objetos: [mat-geometria-vistas-e-projecoes]

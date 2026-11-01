@@ -1,0 +1,257 @@
+# Exercícios da aula "Função afim" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-afim-01
+  tema: "Função afim"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcao-afim
+  dificuldade: 1
+  enunciado: "Um encanador cobra R$ 60,00 pela visita mais R$ 45,00 por hora de trabalho. Qual lei dá o preço C, em reais, de um serviço de h horas?"
+  alternativas:
+    - texto: "C(h) = 60 + 45h"
+      certa: true
+    - texto: "C(h) = 45 + 60h"
+      erro: "Você trocou os papéis. O que se multiplica pelas horas é o preço por hora (45); a visita (60) é fixa."
+    - texto: "C(h) = 105h"
+      erro: "Você somou a visita ao preço da hora. A visita se paga uma vez só, não a cada hora."
+    - texto: "C(h) = 60 × 45h"
+      erro: "A parte fixa e a parte por hora se somam, não se multiplicam."
+    - texto: "C(h) = 45h"
+      erro: "Faltou a visita. Mesmo com zero hora de trabalho, a pessoa paga os R$ 60."
+  explicacao: "A parte fixa é a visita, R$ 60 (o b). A parte que cresce é R$ 45 por hora (o a). Então C(h) = 60 + 45h."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-02
+  tema: "Função afim"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-afim
+  dificuldade: 1
+  enunciado: "Se f(x) = −3x + 15, quanto vale f(4)?"
+  alternativas:
+    - texto: "27"
+      erro: "O sinal se perdeu: você fez 12 + 15. O a é −3, então −3 × 4 = −12, e −12 + 15 = 3."
+    - texto: "12"
+      erro: "Você fez só 3 × 4. Faltou o sinal negativo e o + 15."
+    - texto: "3"
+      certa: true
+    - texto: "60"
+      erro: "Você multiplicou 15 por 4. O x vem multiplicado pelo −3, não pelo 15."
+    - texto: "11"
+      erro: "Você fez 15 − 4, esquecendo de multiplicar o x por 3."
+  explicacao: "Troque o x por 4: f(4) = −3 × 4 + 15 = −12 + 15 = 3."
+  conferir: "-3 * 4 + 15"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-03
+  tema: "Função afim"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcao-afim
+  dificuldade: 1
+  enunciado: "Qual é o zero da função f(x) = 4x − 18?"
+  alternativas:
+    - texto: "18"
+      erro: "18 é o valor que se subtrai na lei. O zero é o x que faz 4x − 18 = 0: x = 18 ÷ 4."
+    - texto: "4,5"
+      certa: true
+    - texto: "−4,5"
+      erro: "O sinal se perdeu. De 4x − 18 = 0 vem 4x = +18, então x = +4,5."
+    - texto: "14"
+      erro: "Você fez 18 − 4. O 4 multiplica o x: é preciso dividir, não subtrair."
+    - texto: "22"
+      erro: "Você somou 18 + 4. Isole o x: 4x = 18, então x = 18 ÷ 4."
+  explicacao: "Zero da função: 4x − 18 = 0, então 4x = 18 e x = 18 ÷ 4 = 4,5. Confira: 4 × 4,5 = 18, e 18 − 18 = 0."
+  conferir: "18 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-04
+  tema: "Função afim"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-afim
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa cooperativa de energia, a conta mensal segue uma tarifa simplificada: uma parte fixa mais um valor por
+    quilowatt-hora (kWh) consumido, o que faz do valor da conta uma função afim do consumo. Uma casa que consumiu 150 kWh
+    pagou R$ 120,00; outra, que consumiu 250 kWh, pagou R$ 180,00.
+  enunciado: "Pela mesma tarifa, uma casa que consumir 300 kWh pagará"
+  alternativas:
+    - texto: "R$ 216,00"
+      erro: "Você usou regra de três com a segunda casa (180 ÷ 250 × 300). Com parte fixa, o valor não é proporcional ao consumo."
+    - texto: "R$ 240,00"
+      erro: "Você dobrou a conta da primeira casa, porque 300 é o dobro de 150. Com parte fixa, dobrar o consumo não dobra a conta."
+    - texto: "R$ 30,00"
+      erro: "R$ 30 é a parte fixa da tarifa, o b. Falta somar o consumo: 0,60 × 300."
+    - texto: "R$ 0,60"
+      erro: "R$ 0,60 é o preço de cada kWh, a taxa. Multiplique por 300 e some a parte fixa."
+    - texto: "R$ 210,00"
+      certa: true
+  explicacao: "Taxa: a = (180 − 120) ÷ (250 − 150) = 60 ÷ 100 = 0,60 real por kWh. Parte fixa: 120 = 0,60 × 150 + b, então b = 120 − 90 = 30. Para 300 kWh: 0,60 × 300 + 30 = 180 + 30 = R$ 210,00."
+  conferir: "(180 - 120) / (250 - 150) * 300 + (120 - 0.6 * 150)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-05
+  tema: "Função afim"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcao-afim
+  dificuldade: 2
+  enunciado: "O gráfico de uma função afim é a reta que passa pelos pontos (0, 8) e (4, 0). Qual é a lei dessa função?"
+  alternativas:
+    - texto: "y = 2x + 8"
+      erro: "O sinal da taxa se perdeu. De (0, 8) para (4, 0) o y cai: a = (0 − 8) ÷ (4 − 0) = −2."
+    - texto: "y = −2x + 4"
+      erro: "O b é onde a reta corta o eixo vertical, em (0, 8). O 4 é onde ela corta o eixo horizontal."
+    - texto: "y = 8x + 4"
+      erro: "Você usou os números dos pontos como coeficientes. Calcule a taxa: (0 − 8) ÷ (4 − 0)."
+    - texto: "y = −2x + 8"
+      certa: true
+    - texto: "y = −0,5x + 8"
+      erro: "Você dividiu a variação de x pela de y (4 ÷ 8). A taxa é variação de y ÷ variação de x: −8 ÷ 4."
+  explicacao: "A reta corta o eixo vertical em 8: b = 8. A taxa é a = (0 − 8) ÷ (4 − 0) = −2. A lei é y = −2x + 8. Confira: com x = 4, y = −8 + 8 = 0."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-06
+  tema: "Função afim"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-afim
+  dificuldade: 2
+  enunciado: "Uma corrida custa R$ 5,00 de saída mais R$ 2,50 por quilômetro. Uma passageira pagou R$ 30,00. Quantos quilômetros ela percorreu?"
+  alternativas:
+    - texto: "12 km"
+      erro: "Você dividiu 30 por 2,50 sem tirar a saída. Os R$ 5 não são de quilômetro: (30 − 5) ÷ 2,50."
+    - texto: "10 km"
+      certa: true
+    - texto: "14 km"
+      erro: "Você somou a saída (30 + 5). Ela já está dentro dos R$ 30: tire os 5."
+    - texto: "25 km"
+      erro: "25 é o valor, em reais, gasto com os quilômetros. Divida por R$ 2,50 o quilômetro."
+    - texto: "6 km"
+      erro: "Você dividiu 30 por 5, a saída. O preço de cada quilômetro é R$ 2,50."
+  explicacao: "5 + 2,5x = 30, então 2,5x = 25 e x = 25 ÷ 2,5 = 10 km. Confira: 5 + 2,5 × 10 = 30."
+  conferir: "(30 - 5) / 2.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-07
+  tema: "Função afim"
+  area: matematica
+  habilidade: 23
+  objeto: mat-algebra-funcao-afim
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma loja oferece duas formas de pagamento aos vendedores:
+    Forma 1: salário fixo de R$ 1.400,00 mais 4% do valor vendido no mês.
+    Forma 2: salário fixo de R$ 1.000,00 mais 8% do valor vendido no mês.
+  enunciado: "A forma 2 passa a pagar mais que a forma 1 quando o valor vendido no mês for maior que"
+  alternativas:
+    - texto: "R$ 10.000,00"
+      certa: true
+    - texto: "R$ 5.000,00"
+      erro: "Você dividiu 400 por 0,08. A forma 1 também cresce com as vendas: o que conta é a diferença das taxas, 0,08 − 0,04."
+    - texto: "R$ 100,00"
+      erro: "Você dividiu 400 por 4, usando a porcentagem como número inteiro. 4% é 0,04."
+    - texto: "R$ 2.400,00"
+      erro: "Você somou os dois salários fixos. Iguale os dois pagamentos e resolva para o valor vendido."
+    - texto: "R$ 400,00"
+      erro: "R$ 400 é a diferença entre os fixos. Ela precisa ser compensada pela comissão a mais, de 4%: 400 ÷ 0,04."
+  explicacao: "Iguale: 1.400 + 0,04v = 1.000 + 0,08v. Então 400 = 0,04v e v = 400 ÷ 0,04 = 10.000. Acima de R$ 10.000,00 em vendas, a forma 2 paga mais. Confira: com 10.000, as duas pagam 1.800."
+  conferir: "(1400 - 1000) / (0.08 - 0.04)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-08
+  tema: "Função afim"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-afim
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A temperatura em graus Fahrenheit (°F) é uma função afim da temperatura em graus Celsius (°C). A água congela a 0 °C,
+    que equivalem a 32 °F, e ferve, ao nível do mar, a 100 °C, que equivalem a 212 °F.
+  enunciado: "Uma previsão do tempo de outro país marca 77 °F. Em graus Celsius, essa temperatura é"
+  alternativas:
+    - texto: "45 °C"
+      erro: "Você só tirou o 32. Ainda falta dividir pela taxa: cada grau Celsius vale 1,8 grau Fahrenheit."
+    - texto: "170,6 °C"
+      erro: "Você fez a conversão ao contrário, tratando 77 como Celsius (1,8 × 77 + 32). O 77 está em Fahrenheit."
+    - texto: "138,6 °C"
+      erro: "Você multiplicou 77 por 1,8. Para ir de Fahrenheit para Celsius, tire 32 e divida por 1,8."
+    - texto: "42,8 °C"
+      erro: "Você dividiu 77 por 1,8 sem tirar os 32 da parte fixa."
+    - texto: "25 °C"
+      certa: true
+  explicacao: "Taxa: (212 − 32) ÷ (100 − 0) = 1,8 °F por °C. A lei é F = 1,8C + 32. Com F = 77: 1,8C = 77 − 32 = 45, então C = 45 ÷ 1,8 = 25 °C. Confira: 1,8 × 25 + 32 = 45 + 32 = 77."
+  conferir: "(77 - 32) / ((212 - 32) / 100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-09
+  tema: "Função afim"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcao-afim
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa obra, duas caixas-d'água começam a ser usadas ao mesmo tempo. A caixa A tem 200 litros e recebe 50 litros por
+    minuto. A caixa B tem 800 litros e perde 30 litros por minuto. A tabela mostra alguns valores:
+    tempo (min):     0     5     10
+    caixa A (L):     200   450   700
+    caixa B (L):     800   650   500
+    Em palavras: no gráfico de volume por tempo, a reta de A sobe, a de B desce, e elas se cruzam entre 5 e 10 minutos.
+  enunciado: "Depois de quanto tempo as duas caixas terão o mesmo volume?"
+  alternativas:
+    - texto: "30 minutos"
+      erro: "Você subtraiu as taxas (50 − 30 = 20). Uma caixa enche e a outra esvazia: a distância entre elas diminui 50 + 30 = 80 litros por minuto."
+    - texto: "12 minutos"
+      erro: "Você usou só a caixa A (600 ÷ 50). A caixa B também muda: ela perde 30 litros por minuto."
+    - texto: "7,5 minutos"
+      certa: true
+    - texto: "575 litros"
+      erro: "575 litros é o volume das duas caixas no momento do encontro. A pergunta pede o tempo."
+    - texto: "20 minutos"
+      erro: "Você usou só a caixa B (600 ÷ 30). A caixa A também muda: ela recebe 50 litros por minuto."
+  explicacao: "Iguale: 200 + 50t = 800 − 30t. Então 50t + 30t = 800 − 200, ou 80t = 600, e t = 7,5 minutos. Confira: 200 + 375 = 575 e 800 − 225 = 575."
+  conferir: "(800 - 200) / (50 + 30)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-afim-10
+  tema: "Função afim"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-funcao-afim
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma associação de moradores contou 12.000 habitantes no bairro em 2010 e 15.000 em 2020. Para planejar a ampliação do
+    posto de saúde, ela supôs que a população cresce o mesmo número de pessoas a cada ano, de modo que o gráfico da
+    população pelo ano é uma reta.
+  enunciado: "Com essa suposição, a estimativa da população do bairro em 2026 é de"
+  alternativas:
+    - texto: "18.000 habitantes"
+      erro: "Você somou os 3.000 de dez anos em apenas seis anos. A taxa é 3.000 ÷ 10 = 300 por ano."
+    - texto: "17.250 habitantes"
+      erro: "Você usou porcentagem (25% em dez anos virando 15% em seis). A suposição é de crescimento constante em número de pessoas, não em porcentagem."
+    - texto: "16.500 habitantes"
+      erro: "Você contou 5 anos. De 2020 a 2026 são 6 anos: 15.000 + 6 × 300."
+    - texto: "16.800 habitantes"
+      certa: true
+    - texto: "15.300 habitantes"
+      erro: "Você somou a taxa de um ano só. De 2020 a 2026 são 6 anos de crescimento."
+  explicacao: "Taxa: (15.000 − 12.000) ÷ (2020 − 2010) = 300 habitantes por ano. De 2020 a 2026 são 6 anos: 15.000 + 6 × 300 = 16.800 habitantes."
+  conferir: "15000 + (2026 - 2020) * (15000 - 12000) / (2020 - 2010)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,252 @@
+# Exercícios da aula "Contas do dia a dia: luz, água, salário, parcelamento e impostos" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Tarifas, preços e alíquotas são valores de exemplo, não dados reais.
+
+- id: enem-mat-contas-01
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  dificuldade: 1
+  enunciado: "Uma casa consumiu 150 kWh de energia num mês. Suponha que o kWh custe R$ 0,90. Quanto custou esse consumo?"
+  alternativas:
+    - texto: "R$ 150,00"
+      erro: "150 é o consumo em kWh, não o valor em reais. Multiplique o consumo pelo preço de cada kWh."
+    - texto: "R$ 135,00"
+      certa: true
+    - texto: "R$ 13,50"
+      erro: "A vírgula andou uma casa a mais. Estime: 150 kWh a quase R$ 1 cada dá quase R$ 150."
+    - texto: "R$ 1.350,00"
+      erro: "Faltou pôr a vírgula: 0,90 é menos que 1 real, então o total é menos que 150 reais."
+    - texto: "R$ 150,90"
+      erro: "Você somou o consumo e o preço. Cada kWh custa R$ 0,90: é uma multiplicação."
+  explicacao: "150 × 0,90. Faça 150 × 9 = 1.350 e volte uma casa: 135,00 reais. Ou: 150 × 1 = 150, menos 150 × 0,10 = 15, dá 135."
+  conferir: "150 * 0.9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-02
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  dificuldade: 1
+  enunciado: "Uma diarista cobra R$ 150 por dia e trabalha 3 dias por semana. Quanto ela recebe em 4 semanas?"
+  alternativas:
+    - texto: "R$ 450"
+      erro: "R$ 450 é o que ela recebe numa semana (3 × 150). Faltou multiplicar pelas 4 semanas."
+    - texto: "R$ 600"
+      erro: "Você fez 150 × 4, como se fosse um dia por semana. São 3 dias por semana."
+    - texto: "R$ 157"
+      erro: "Você somou 150 + 3 + 4. Os dias e as semanas multiplicam o valor da diária."
+    - texto: "R$ 18.000"
+      erro: "Sobrou um zero. Estime: 12 diárias de 150 dão perto de 2.000 reais, não 18.000."
+    - texto: "R$ 1.800"
+      certa: true
+  explicacao: "Em 4 semanas são 3 × 4 = 12 diárias. 12 × 150 = 1.800 reais."
+  conferir: "150 * 3 * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-03
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  dificuldade: 1
+  enunciado: "Um celular é vendido em 10 parcelas de R$ 89,90. Quanto se paga no total?"
+  alternativas:
+    - texto: "R$ 899,00"
+      certa: true
+    - texto: "R$ 89,90"
+      erro: "Esse é o valor de uma parcela só. O total é a soma das 10 parcelas."
+    - texto: "R$ 8.990,00"
+      erro: "Você multiplicou por 100. São 10 parcelas: ande a vírgula uma casa só."
+    - texto: "R$ 99,90"
+      erro: "Você somou 10 à parcela. São 10 parcelas iguais: multiplique."
+    - texto: "R$ 809,10"
+      erro: "Você contou 9 parcelas (9 × 89,90). São 10."
+  explicacao: "10 × 89,90 = 899,00 reais: multiplicar por 10 é andar a vírgula uma casa para a direita."
+  conferir: "10 * 89.9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-04
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A companhia de água de um município cobra por faixas de consumo mensal (valores de exemplo):
+    até 10 m³: R$ 3,50 por m³;
+    de 10 m³ a 20 m³: R$ 5,00 por m³ (só no que passar de 10 m³);
+    acima de 20 m³: R$ 9,00 por m³ (só no que passar de 20 m³).
+    Numa casa, o consumo do mês foi de 18 m³.
+  enunciado: "O valor a pagar pelo consumo de água dessa casa é de"
+  alternativas:
+    - texto: "R$ 90,00."
+      erro: "Você cobrou R$ 5,00 por todos os 18 m³. Os 10 primeiros m³ custam R$ 3,50 cada."
+    - texto: "R$ 63,00."
+      erro: "Você cobrou R$ 3,50 por todos os 18 m³. O que passa de 10 m³ custa R$ 5,00."
+    - texto: "R$ 75,00."
+      certa: true
+    - texto: "R$ 162,00."
+      erro: "Você cobrou o preço da terceira faixa por tudo. O consumo de 18 m³ nem chega à terceira faixa."
+    - texto: "R$ 40,00."
+      erro: "R$ 40,00 é só o que passou de 10 m³ (8 × 5). Faltam os 10 primeiros m³: 10 × 3,50 = 35."
+  explicacao: "Primeira faixa: 10 × 3,50 = 35. Segunda faixa: 18 − 10 = 8 m³, e 8 × 5 = 40. Total: 35 + 40 = 75 reais."
+  conferir: "10 * 3.5 + 8 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-05
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  dificuldade: 2
+  enunciado: "No mercado, o mesmo sabão em pó vem em três tamanhos: 1 kg por R$ 12,00, 2,5 kg por R$ 27,50 e 4 kg por R$ 46,00. Qual é o menor preço por quilo, e em que pacote?"
+  alternativas:
+    - texto: "R$ 12,00 por kg, no pacote de 1 kg"
+      erro: "Esse é o maior preço por quilo. Divida o preço de cada pacote pelo peso antes de comparar."
+    - texto: "R$ 11,50 por kg, no pacote de 4 kg"
+      erro: "O pacote de 4 kg sai a 46 ÷ 4 = 11,50 por quilo, mas o de 2,5 kg sai mais barato: 11,00."
+    - texto: "R$ 13,75 por kg, no pacote de 2,5 kg"
+      erro: "Você dividiu 27,50 por 2, deixando de lado o meio quilo. Divida por 2,5: multiplique os dois por 2 e faça 55 ÷ 5."
+    - texto: "R$ 11,00 por kg, no pacote de 2,5 kg"
+      certa: true
+    - texto: "O pacote de 1 kg, porque custa menos dinheiro no caixa"
+      erro: "Ele custa menos no caixa porque tem menos sabão. Para comparar, ache o preço de um quilo em cada pacote."
+  explicacao: "1 kg: R$ 12,00 por kg. 2,5 kg: 27,50 ÷ 2,5 = 55 ÷ 5 = R$ 11,00 por kg. 4 kg: 46 ÷ 4 = R$ 11,50 por kg. O menor é R$ 11,00, no pacote de 2,5 kg."
+  conferir: "27.5 / 2.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-06
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um trabalhador recebe salário de R$ 1.760,00 por 220 horas de trabalho no mês. Pelo acordo da categoria dele, cada
+    hora extra é paga com 50% a mais do que o valor da hora normal. Num mês, ele fez 15 horas extras.
+  enunciado: "Nesse mês, contando o salário e as horas extras, ele recebeu"
+  alternativas:
+    - texto: "R$ 1.880,00."
+      erro: "Você pagou as horas extras pelo valor da hora normal (15 × 8 = 120). Cada hora extra vale 50% a mais: R$ 12,00."
+    - texto: "R$ 1.940,00."
+      certa: true
+    - texto: "R$ 1.775,00."
+      erro: "Você somou 15 reais ao salário. São 15 horas, e cada hora extra vale R$ 12,00."
+    - texto: "R$ 2.000,00."
+      erro: "Você pagou cada hora extra em dobro (R$ 16,00). O acordo fala em 50% a mais, não 100%."
+    - texto: "R$ 180,00."
+      erro: "R$ 180,00 é só o valor das horas extras. A pergunta pede o salário mais as horas extras."
+  explicacao: "Hora normal: 1.760 ÷ 220 = 176 ÷ 22 = 8 reais. Hora extra: 8 + 50% de 8 = 8 + 4 = 12 reais. 15 horas extras: 15 × 12 = 180. Total: 1.760 + 180 = 1.940 reais."
+  conferir: "1760 + 15 * 1760 / 220 * 1.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-07
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  dificuldade: 2
+  enunciado: "Um produto custa R$ 250,00 antes do imposto. Suponha um imposto de 18% calculado sobre esse valor e somado ao preço. Qual é o preço final?"
+  alternativas:
+    - texto: "R$ 268,00"
+      erro: "Você somou 18 reais. São 18% de 250: 10% é 25, 8% é 20; o imposto é 45."
+    - texto: "R$ 45,00"
+      erro: "R$ 45,00 é só o imposto. O preço final é o preço mais o imposto."
+    - texto: "R$ 205,00"
+      erro: "Você tirou o imposto em vez de somar. Aqui o imposto é somado ao preço."
+    - texto: "R$ 275,00"
+      erro: "Você usou 10% (25 reais). Faltaram os 8%: 8% de 250 é 20."
+    - texto: "R$ 295,00"
+      certa: true
+  explicacao: "10% de 250 é 25; 8% é 8 × 2,50 = 20. 18% é 25 + 20 = 45. Preço final: 250 + 45 = 295 reais. Pelo fator: 250 × 1,18 = 295."
+  conferir: "250 * 1.18"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-08
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma operadora oferece dois planos de telefone fixo para pequenos comércios:
+    Plano X: R$ 50,00 por mês, com ligações à vontade.
+    Plano Y: R$ 20,00 por mês, mais R$ 0,25 por minuto de ligação.
+  enunciado: "O plano X passa a ser mais barato que o plano Y para quem fala, por mês, mais de"
+  alternativas:
+    - texto: "120 minutos."
+      certa: true
+    - texto: "200 minutos."
+      erro: "Você dividiu os R$ 50,00 do plano X por 0,25, esquecendo que o plano Y também cobra R$ 20,00 fixos. A diferença das partes fixas é 30."
+    - texto: "80 minutos."
+      erro: "Você dividiu a mensalidade do plano Y por 0,25. O empate acontece quando os minutos do Y cobrem a diferença entre as mensalidades: 50 − 20."
+    - texto: "30 minutos."
+      erro: "30 é a diferença em reais entre as mensalidades. Cada minuto custa R$ 0,25: quantos minutos dão R$ 30,00?"
+    - texto: "280 minutos."
+      erro: "Você somou as mensalidades (70) e dividiu por 0,25. O empate vem da diferença entre elas, 30, e não da soma."
+  explicacao: "Os planos empatam quando o plano Y também custa 50: 20 + 0,25 × minutos = 50. Os minutos têm de custar 30 reais. Cada minuto custa 0,25, ou seja, 4 minutos custam 1 real: 30 × 4 = 120 minutos. Acima disso, o plano X é mais barato."
+  conferir: "(50 - 20) / 0.25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-09
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  dificuldade: 3
+  enunciado: "Um fogão custa R$ 1.200,00 à vista ou 4 parcelas de R$ 330,00. Em relação ao preço à vista, o parcelado sai quantos por cento mais caro?"
+  alternativas:
+    - texto: "R$ 120,00"
+      erro: "R$ 120,00 é a diferença em reais. A pergunta pede em porcentagem do preço à vista: 120 ÷ 1.200."
+    - texto: "9,1%"
+      erro: "Você dividiu a diferença pelo total parcelado (120 ÷ 1.320). A comparação é com o preço à vista, o de partida."
+    - texto: "10%"
+      certa: true
+    - texto: "2,5%"
+      erro: "Você dividiu os 10% pelas 4 parcelas. A porcentagem vale para a compra inteira."
+    - texto: "110%"
+      erro: "O parcelado é 110% do preço à vista (1.320 ÷ 1.200 = 1,1). Ele é 10% mais caro, não 110% mais caro."
+  explicacao: "Parcelado: 4 × 330 = 1.320 reais. Diferença: 1.320 − 1.200 = 120 reais. Em relação ao à vista: 120 ÷ 1.200 = 1/10 = 10%."
+  conferir: "(4 * 330 - 1200) / 1200 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contas-10
+  tema: "Contas do dia a dia"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-contas-do-dia-a-dia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa casa, o chuveiro elétrico tem potência de 4.000 W, ou seja, 4 kW. Somando os banhos de toda a família, ele fica
+    ligado 40 minutos por dia. Suponha que o kWh custe R$ 0,80 e que o mês tenha 30 dias.
+  enunciado: "O gasto mensal com o chuveiro, na conta de luz, é de"
+  alternativas:
+    - texto: "R$ 38,40."
+      erro: "Você tomou 40 minutos como 0,4 hora. Uma hora tem 60 minutos: 40 minutos são 2/3 de hora."
+    - texto: "R$ 3.840,00."
+      erro: "Você usou 40 horas por dia em vez de 40 minutos. Passe os minutos para horas: 40 ÷ 60."
+    - texto: "R$ 80,00."
+      erro: "80 é o consumo do mês em kWh, não o valor em reais. Falta multiplicar pelo preço do kWh."
+    - texto: "R$ 64,00."
+      certa: true
+    - texto: "R$ 64.000,00."
+      erro: "Você usou 4.000 em vez de 4 kW. O preço é por quilowatt-hora: a potência tem de estar em kW."
+  explicacao: "Por dia: 4 kW × 2/3 h = 8/3 kWh. No mês: 8/3 × 30 = 80 kWh. Custo: 80 × 0,80 = 64 reais."
+  conferir: "4 * 40 / 60 * 30 * 0.8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

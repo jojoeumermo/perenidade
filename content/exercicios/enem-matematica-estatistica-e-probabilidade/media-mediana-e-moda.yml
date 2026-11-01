@@ -1,0 +1,261 @@
+# Exercícios da aula "Média, mediana e moda" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-media-mediana-moda-01
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 1
+  enunciado: "Uma agente comunitária de saúde visitou 12, 15, 9 e 14 casas em quatro dias. Quantas casas ela visitou, em média, por dia?"
+  alternativas:
+    - texto: "12,5"
+      certa: true
+    - texto: "50"
+      erro: "50 é a soma das visitas dos quatro dias. Falta dividir pela quantidade de dias: 50 ÷ 4."
+    - texto: "13"
+      erro: "13 é a mediana (ordene: 9, 12, 14, 15; o meio é (12 + 14) ÷ 2). A pergunta pede a média: soma dividida pela quantidade."
+    - texto: "16,7"
+      erro: "Você dividiu a soma por 3. Foram quatro dias: 50 ÷ 4."
+    - texto: "6"
+      erro: "6 é a diferença entre o maior e o menor valor (15 − 9), a amplitude. Para a média, some tudo e divida por 4."
+  explicacao: "Some: 12 + 15 + 9 + 14 = 50 casas. Divida pelos 4 dias: 50 ÷ 4 = 12,5 casas por dia."
+  conferir: "(12 + 15 + 9 + 14) / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-02
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 1
+  enunciado: "Sete trabalhadoras anotaram o tempo, em minutos, que gastam para chegar ao serviço: 40, 25, 60, 35, 90, 30 e 45. Qual é a mediana desses tempos?"
+  alternativas:
+    - texto: "35 minutos"
+      erro: "35 é o valor do meio da lista como ela veio, sem ordenar. Ordene antes: 25, 30, 35, 40, 45, 60, 90."
+    - texto: "40 minutos"
+      certa: true
+    - texto: "46,4 minutos"
+      erro: "Esse valor é perto da média (325 ÷ 7). A mediana é o valor do meio da lista ordenada."
+    - texto: "65 minutos"
+      erro: "65 é a amplitude, a diferença entre o maior e o menor tempo (90 − 25). A mediana é o valor do meio."
+    - texto: "57,5 minutos"
+      erro: "Você fez a média do menor e do maior tempo ((25 + 90) ÷ 2). A mediana não é o meio entre os extremos: é o valor que fica no meio da fila ordenada."
+  explicacao: "Ordene: 25, 30, 35, 40, 45, 60, 90. São 7 valores; o do meio é o 4º, 40. A mediana é 40 minutos."
+  conferir: "40"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-03
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 1
+  enunciado: "Uma sapataria de bairro anotou o número dos últimos dez pares vendidos: 37, 38, 38, 39, 40, 38, 41, 39, 37 e 38. Qual é a moda desses números?"
+  alternativas:
+    - texto: "37"
+      erro: "37 é o menor número vendido, e apareceu só duas vezes. A moda é o número que mais aparece."
+    - texto: "39"
+      erro: "39 apareceu duas vezes. Conte de novo: o 38 aparece quatro vezes."
+    - texto: "38"
+      certa: true
+    - texto: "4"
+      erro: "4 é quantas vezes o 38 aparece, a frequência dele. A moda é o próprio valor, 38."
+    - texto: "38,5"
+      erro: "38,5 é a média (385 ÷ 10). A moda é o valor que mais se repete."
+  explicacao: "Conte as vezes: 37 aparece 2; 38 aparece 4; 39 aparece 2; 40 e 41 aparecem 1 cada. A moda é 38."
+  conferir: "38"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-04
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-mediana-moda
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma feirante anotou o que vendeu em cinco sábados: R$ 420, R$ 380, R$ 450, R$ 400 e R$ 350. Para pagar o
+    conserto da barraca, ela precisa que a média de vendas desses cinco sábados e do próximo, seis ao todo, seja
+    de R$ 410.
+  enunciado: "Para atingir essa média, no sexto sábado ela precisa vender"
+  alternativas:
+    - texto: "R$ 410"
+      erro: "Repetir a meta não basta: a média dos cinco sábados foi 400, abaixo de 410. O sexto sábado tem de compensar a diferença."
+    - texto: "R$ 400"
+      erro: "400 é a média atual (2.000 ÷ 5). A pergunta é quanto vender no sexto sábado para a média subir a 410."
+    - texto: "R$ 2.460"
+      erro: "2.460 é a soma que os seis sábados precisam ter (6 × 410). Ela já vendeu 2.000; falta subtrair."
+    - texto: "R$ 460"
+      certa: true
+    - texto: "R$ 420"
+      erro: "Você somou à meta a falta de um sábado só (410 + 10). Cada um dos cinco sábados ficou R$ 10 abaixo de 410: o sexto tem de cobrir os R$ 50."
+  explicacao: "Média vezes quantidade dá a soma. Os seis sábados precisam somar 6 × 410 = 2.460. Os cinco já somam 420 + 380 + 450 + 400 + 350 = 2.000. Falta 2.460 − 2.000 = 460 reais."
+  conferir: "6 * 410 - (420 + 380 + 450 + 400 + 350)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-05
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 2
+  enunciado: "Numa turma de cursinho popular, oito estudantes tiraram estas notas num simulado: 4, 9, 6, 7, 5, 8, 9 e 3. Qual é a mediana das notas?"
+  alternativas:
+    - texto: "6"
+      erro: "Você tirou a média dos dois valores do meio da lista sem ordenar (7 e 5). Ordene antes: 3, 4, 5, 6, 7, 8, 9, 9."
+    - texto: "7"
+      erro: "7 é só o 5º valor da lista ordenada. Com oito notas há dois valores no meio, o 4º e o 5º: tire a média deles."
+    - texto: "6,4"
+      erro: "Esse valor é perto da média (51 ÷ 8 = 6,375). A mediana é o valor do meio da lista ordenada."
+    - texto: "9"
+      erro: "9 é a moda, a nota que mais aparece. A pergunta pede a mediana."
+    - texto: "6,5"
+      certa: true
+  explicacao: "Ordene: 3, 4, 5, 6, 7, 8, 9, 9. São 8 notas; as do meio são a 4ª (6) e a 5ª (7). A mediana é (6 + 7) ÷ 2 = 6,5."
+  conferir: "(6 + 7) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-06
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 29
+  objeto: mat-estatistica-media-mediana-moda
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa pequena empresa de limpeza, oito trabalhadores ganham R$ 2.000 por mês e o gerente ganha R$ 11.000. Numa
+    reunião, o gerente afirmou que o salário médio da empresa é de R$ 3.000 e que, por isso, os salários são bons.
+  enunciado: "Qual afirmação descreve corretamente o salário típico desse grupo?"
+  alternativas:
+    - texto: "A média, R$ 3.000, mostra o salário da maioria, porque leva em conta todos os salários."
+      erro: "A média leva em conta todos, mas é puxada pelo salário alto do gerente. Nenhum dos oito trabalhadores ganha perto de R$ 3.000."
+    - texto: "A mediana, de R$ 2.000, representa melhor o salário típico, porque o salário alto puxa a média para cima."
+      certa: true
+    - texto: "A média e a mediana são iguais, porque só um salário é diferente dos outros."
+      erro: "Um só valor extremo já afasta a média da mediana. A média é 27.000 ÷ 9 = 3.000; a mediana, o 5º valor ordenado, é 2.000."
+    - texto: "A moda é R$ 11.000, porque é o maior salário do grupo."
+      erro: "Moda é o valor que mais se repete, não o maior. Aqui a moda é R$ 2.000, que aparece oito vezes."
+    - texto: "A mediana é R$ 6.500, o meio entre o menor e o maior salário."
+      erro: "Você fez a média dos extremos ((2.000 + 11.000) ÷ 2). A mediana é o valor do meio da lista ordenada: o 5º de 9 valores."
+  explicacao: "A soma é 8 × 2.000 + 11.000 = 27.000; a média é 27.000 ÷ 9 = 3.000. Na lista ordenada de 9 salários, o do meio é o 5º, R$ 2.000. Como o valor extremo puxa a média, a mediana conta melhor o que a maioria ganha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-07
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 2
+  texto_base: |
+    Numa rua, 20 casas responderam quantas pessoas moram nelas:
+    1 pessoa: 3 casas; 2 pessoas: 5 casas; 3 pessoas: 6 casas; 4 pessoas: 4 casas; 5 pessoas: 2 casas.
+  enunciado: "Qual é o número médio de pessoas por casa nessa rua?"
+  alternativas:
+    - texto: "3"
+      erro: "3 é a mediana e também a moda desta tabela. Para a média, multiplique cada valor pela frequência e divida por 20."
+    - texto: "4"
+      erro: "Você dividiu as 20 casas pelas 5 linhas da tabela. A média é do número de pessoas, não de casas por linha."
+    - texto: "2,85"
+      certa: true
+    - texto: "11,4"
+      erro: "Você dividiu o total de pessoas (57) pelas 5 linhas da tabela. Cada linha representa várias casas: divida pelas 20 casas."
+    - texto: "57"
+      erro: "57 é o total de pessoas da rua. Falta dividir pelo número de casas, 20."
+  explicacao: "Multiplique cada valor pela frequência: 1 × 3 + 2 × 5 + 3 × 6 + 4 × 4 + 5 × 2 = 3 + 10 + 18 + 16 + 10 = 57 pessoas. Divida pelas 20 casas: 57 ÷ 20 = 2,85."
+  conferir: "(1*3 + 2*5 + 3*6 + 4*4 + 5*2) / 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-08
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-mediana-moda
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um grupo de 10 entregadores de bicicleta fez, em média, 8 entregas cada um numa manhã. Um deles, que fez 17
+    entregas, passou a trabalhar em outra região, e o grupo ficou com 9 entregadores.
+  enunciado: "Considerando apenas as entregas daquela manhã, a média de entregas dos 9 que ficaram é"
+  alternativas:
+    - texto: "8"
+      erro: "Tirar alguém do grupo muda a média, a não ser que ele tenha feito exatamente a média. Quem saiu fez 17, bem acima de 8."
+    - texto: "6,3"
+      erro: "Você tirou as 17 entregas do total (80 − 17 = 63), mas dividiu por 10. Ficaram 9 entregadores: 63 ÷ 9."
+    - texto: "7,1"
+      erro: "Você dividiu o excesso de quem saiu (17 − 8 = 9) por 10. Esse excesso some do grupo e a perda se divide entre os 9 que ficaram."
+    - texto: "7"
+      certa: true
+    - texto: "63"
+      erro: "63 é o total de entregas dos 9 que ficaram. Falta dividir por 9."
+  explicacao: "Média vezes quantidade dá a soma: 10 × 8 = 80 entregas. Sem as 17 de quem saiu, sobram 80 − 17 = 63. Divida pelos 9: 63 ÷ 9 = 7."
+  conferir: "(10 * 8 - 17) / 9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-09
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma escola de jovens e adultos anotou quantas faltas cada um dos 30 estudantes de uma turma teve no mês:
+    nenhuma falta: 8 estudantes; 1 falta: 7 estudantes; 2 faltas: 6 estudantes; 3 faltas: 4 estudantes; 4 faltas: 5 estudantes.
+  enunciado: "A mediana do número de faltas dessa turma é"
+  alternativas:
+    - texto: "2"
+      erro: "2 é o valor do meio da coluna de faltas (0, 1, 2, 3, 4). A mediana olha os 30 estudantes enfileirados, não as linhas da tabela."
+    - texto: "1,7"
+      erro: "1,7 é a média (51 ÷ 30). A pergunta pede a mediana, o valor do meio dos 30 dados ordenados."
+    - texto: "0"
+      erro: "0 é a moda, a linha com mais estudantes. A mediana é o valor do meio."
+    - texto: "1"
+      erro: "1 é só o valor do 15º estudante. Com 30 dados há dois no meio, o 15º e o 16º; o 16º já tem 2 faltas."
+    - texto: "1,5"
+      certa: true
+  explicacao: "São 30 dados: os do meio são o 15º e o 16º. Acumule: nenhuma falta ocupa as posições 1 a 8; 1 falta, de 9 a 15; 2 faltas, de 16 a 21. O 15º vale 1 e o 16º vale 2. A mediana é (1 + 2) ÷ 2 = 1,5."
+  conferir: "(1 + 2) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-media-mediana-moda-10
+  tema: "Média, mediana e moda"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 3
+  enunciado: "Um mutirão de reflorestamento plantou, em média, 10 mudas por dia durante 5 dias. Nos 2 dias seguintes, plantou a mesma quantidade em cada dia, e a média dos 7 dias passou a ser 12 mudas por dia. Quantas mudas foram plantadas em cada um desses 2 dias?"
+  alternativas:
+    - texto: "17"
+      certa: true
+    - texto: "34"
+      erro: "34 é o total dos dois dias juntos (84 − 50). Como os dois dias tiveram a mesma quantidade, divida por 2."
+    - texto: "12"
+      erro: "12 é a nova média. Para a média subir de 10 para 12, os dias novos precisam ficar bem acima de 12."
+    - texto: "14"
+      erro: "Você somou a diferença das médias (2) à nova média. Faça pela soma: 7 × 12 = 84 mudas no total; os 5 primeiros dias deram 50."
+    - texto: "11"
+      erro: "11 é a média entre as duas médias (10 e 12). Médias de grupos de tamanhos diferentes não se juntam assim: trabalhe com as somas."
+  explicacao: "Média vezes quantidade dá a soma. Os 7 dias somam 7 × 12 = 84 mudas. Os 5 primeiros somaram 5 × 10 = 50. Os 2 dias novos somaram 84 − 50 = 34, ou seja, 34 ÷ 2 = 17 mudas por dia."
+  conferir: "(7 * 12 - 5 * 10) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
