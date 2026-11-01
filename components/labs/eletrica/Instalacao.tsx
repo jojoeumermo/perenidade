@@ -53,10 +53,10 @@ export function Instalacao() {
         </p>
       </div>
       <div>
-        <svg viewBox="0 0 360 260" className="w-full border-2 border-ink bg-[#f9f3e3]" role="img" aria-label={`Lâmpada ${acesa ? "acesa" : "apagada"}`}>
+        <svg viewBox="0 0 360 260" className="lab-quadro w-full border-2 border-ink bg-[#f9f3e3]" role="img" aria-label={`Lâmpada ${acesa ? "acesa" : "apagada"}`}>
           <rect x="14" y="20" width="80" height="120" fill="#ddd" stroke="#17130e" strokeWidth="2" />
-          <text x="54" y="40" textAnchor="middle" fontSize="11" fontFamily="ui-monospace, monospace">QUADRO</text>
-          <text x="54" y="70" textAnchor="middle" fontSize="11">F · N · T</text>
+          <text x="54" y="40" fill="#000" textAnchor="middle" fontSize="11" fontFamily="ui-monospace, monospace">QUADRO</text>
+          <text x="54" y="70" fill="#000" textAnchor="middle" fontSize="11">F · N · T</text>
           <rect x="150" y="150" width="50" height="70" rx="4" fill="#fff" stroke="#17130e" strokeWidth="2" />
           <rect x="165" y={interruptor ? 165 : 185} width="20" height="20" fill="#bbb" stroke="#17130e" />
           <text x="175" y="238" textAnchor="middle" fontSize="11">interruptor</text>
