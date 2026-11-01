@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   tentar:
-    if: vars.OCI_USUARIO != '' && vars.OCI_PEGAR_MAQUINA != 'nao'
+    if: vars.OCI_USUARIO != ''
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     env:
