@@ -647,6 +647,70 @@ export function validarRepertorio(bruto: unknown, arquivo = "content/enem/redaca
   });
 }
 
+// ───────────────────────────── Grade de autocorreção e redações-modelo ─────────────────────────────
+
+export const PONTOS_DA_REDACAO = [200, 160, 120, 80, 40, 0] as const;
+export interface NivelDaGrade {
+  pontos: number;
+  descricao: string;
+  pergunta: string;
+}
+export interface Grade {
+  fonte: { titulo: string; url: string; conferido: string };
+  competencias: { numero: number; nome: string; niveis: NivelDaGrade[] }[];
+}
+
+export function validarGrade(bruto: unknown, arquivo = "content/enem/redacao/grade.yml"): Grade {
+  if (!objeto(bruto) || !objeto(bruto.fonte)) falhar(arquivo, "precisa de fonte e competencias");
+  const f = bruto.fonte;
+  const competencias = lista(bruto, "competencias", "competencias", arquivo).map((c, i) => {
+    if (!objeto(c) || c.numero !== i + 1) falhar(arquivo, `competencias[${i}]: as competências vão de 1 a 5, em ordem`);
+    const niveis = lista(c, "niveis", `C${i + 1}`, arquivo).map((n, j) => {
+      if (!objeto(n) || n.pontos !== PONTOS_DA_REDACAO[j]) falhar(arquivo, `C${i + 1}.niveis[${j}]: os níveis vão de 200 a 0 (200, 160, 120, 80, 40, 0)`);
+      return { pontos: n.pontos as number, descricao: texto(n, "descricao", `C${i + 1}.${n.pontos}`, arquivo, 600), pergunta: texto(n, "pergunta", `C${i + 1}.${n.pontos}`, arquivo, 300) };
+    });
+    if (niveis.length !== 6) falhar(arquivo, `C${i + 1}: seis níveis`);
+    return { numero: i + 1, nome: texto(c, "nome", `C${i + 1}`, arquivo, 160), niveis };
+  });
+  if (competencias.length !== 5) falhar(arquivo, "cinco competências");
+  return { fonte: { titulo: texto(f, "titulo", "fonte", arquivo), url: https(f, "url", "fonte", arquivo), conferido: data(f, "conferido", "fonte", arquivo) }, competencias };
+}
+
+export interface RedacaoModelo {
+  id: string;
+  /** Id de uma proposta de propostas.yml. */
+  proposta: string;
+  /** Forte, mediana ou fraca: o curso mostra também os textos medianos e fracos, com o erro explicado. */
+  nivel: "forte" | "mediana" | "fraca";
+  texto: string;
+  /** Comentário por competência, com a faixa de pontos estimada pela equipe (não é nota oficial). */
+  competencias: { numero: number; pontos: number; comentario: string }[];
+  revisao: "em-revisao";
+}
+
+export function validarModelos(bruto: unknown, propostas: Set<string>, arquivo = "content/enem/redacao/modelos.yml"): RedacaoModelo[] {
+  if (!Array.isArray(bruto)) falhar(arquivo, "o arquivo é uma lista de redações-modelo");
+  const ids = new Set<string>();
+  return bruto.map((m, i) => {
+    if (!objeto(m)) falhar(arquivo, `modelos[${i}]: bloco com campos`);
+    const id = texto(m, "id", `modelos[${i}]`, arquivo, 60);
+    if (!ID.test(id) || ids.has(id)) falhar(arquivo, `"${id}": id inválido ou repetido`);
+    ids.add(id);
+    const proposta = texto(m, "proposta", id, arquivo, 60);
+    if (!propostas.has(proposta)) falhar(arquivo, `${id}: a proposta "${proposta}" não está em propostas.yml`);
+    if (m.nivel !== "forte" && m.nivel !== "mediana" && m.nivel !== "fraca") falhar(arquivo, `${id}: "nivel" é forte, mediana ou fraca`);
+    const corpo = texto(m, "texto", id, arquivo, 4500);
+    if (corpo.split(/\s+/).length < 120) falhar(arquivo, `${id}: a redação precisa de corpo (ao menos 120 palavras)`);
+    const competencias = lista(m, "competencias", id, arquivo).map((c, j) => {
+      if (!objeto(c) || c.numero !== j + 1) falhar(arquivo, `${id}.competencias[${j}]: de 1 a 5, em ordem`);
+      if (!(PONTOS_DA_REDACAO as readonly number[]).includes(c.pontos as number)) falhar(arquivo, `${id}.C${j + 1}: "pontos" é 0, 40, 80, 120, 160 ou 200`);
+      return { numero: j + 1, pontos: c.pontos as number, comentario: texto(c, "comentario", `${id}.C${j + 1}`, arquivo, 1200) };
+    });
+    if (competencias.length !== 5) falhar(arquivo, `${id}: comentário das cinco competências`);
+    return { id, proposta, nivel: m.nivel, texto: corpo, competencias, revisao: revisaoEmRevisao(m, id, arquivo) };
+  });
+}
+
 // ───────────────────────────── Simulados e diagnóstico (simulados/) ─────────────────────────────
 
 export interface Minissimulado {
