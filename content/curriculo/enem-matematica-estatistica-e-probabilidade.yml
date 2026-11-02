@@ -102,3 +102,88 @@ aulas:
         resumo: Avaliar propostas de intervenção usando estatística e probabilidade.
         situacao: a-confirmar
     objetos: [mat-estatistica-probabilidade-condicional]
+  histogramas-e-infograficos:
+    enem:
+      - area: matematica
+        competencia: 6
+        habilidade: 24
+        resumo: Fazer inferências a partir de gráficos ou tabelas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 6
+        habilidade: 25
+        resumo: Resolver problemas com dados de tabelas ou gráficos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 6
+        habilidade: 26
+        resumo: Analisar gráficos ou tabelas para construir argumentos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 27
+        resumo: Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos.
+        situacao: a-confirmar
+    objetos: [mat-estatistica-histogramas]
+  amplitude-variancia-e-desvio-padrao:
+    enem:
+      - area: matematica
+        competencia: 7
+        habilidade: 27
+        resumo: Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 28
+        resumo: Resolver problemas de estatística e probabilidade.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 29
+        resumo: Usar estatística e probabilidade para construir argumentos.
+        situacao: a-confirmar
+    objetos: [mat-estatistica-dispersao]
+  principio-fundamental-da-contagem:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 2
+        resumo: Identificar padrões numéricos ou princípios de contagem.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-contagem]
+  probabilidade-simples:
+    enem:
+      - area: matematica
+        competencia: 7
+        habilidade: 28
+        resumo: Resolver problemas de estatística e probabilidade.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 29
+        resumo: Usar estatística e probabilidade para construir argumentos.
+        situacao: a-confirmar
+    objetos: [mat-estatistica-probabilidade]
+  eventos-independentes:
+    enem:
+      - area: matematica
+        competencia: 7
+        habilidade: 28
+        resumo: Resolver problemas de estatística e probabilidade.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 29
+        resumo: Usar estatística e probabilidade para construir argumentos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 30
+        resumo: Avaliar propostas de intervenção usando estatística e probabilidade.
+        situacao: a-confirmar
+    objetos: [mat-estatistica-eventos-independentes]

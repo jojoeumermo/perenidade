@@ -1,0 +1,259 @@
+# Exercícios da aula "Juros simples" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Valores, taxas, multas e prazos são de exemplo.
+
+- id: enem-mat-juros-simples-01
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-simples
+  dificuldade: 1
+  enunciado: "Quanto rendem R$ 400,00 a juros simples de 5% ao mês, durante 3 meses?"
+  alternativas:
+    - texto: "R$ 20,00"
+      erro: "R$ 20,00 são os juros de um mês só. Foram 3 meses."
+    - texto: "R$ 460,00"
+      erro: "R$ 460,00 é o montante (capital mais juros). A pergunta pede só os juros."
+    - texto: "R$ 6.000,00"
+      erro: "Você usou a taxa como 5, e não como 0,05. Passe a porcentagem para decimal antes de multiplicar."
+    - texto: "R$ 60,00"
+      certa: true
+    - texto: "R$ 15,00"
+      erro: "Você multiplicou só a taxa pelo tempo (5 × 3). Falta aplicar essa porcentagem sobre os 400 reais."
+  explicacao: "5% de 400 são 20 reais por mês. Em 3 meses, 3 × 20 = 60 reais de juros."
+  conferir: "400 * 0.05 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-02
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-simples
+  dificuldade: 1
+  enunciado: "Qual é o montante de R$ 1.500,00 aplicados a juros simples de 2% ao mês, durante 10 meses?"
+  alternativas:
+    - texto: "R$ 1.800,00"
+      certa: true
+    - texto: "R$ 300,00"
+      erro: "R$ 300,00 são só os juros. O montante é o capital mais os juros."
+    - texto: "R$ 1.530,00"
+      erro: "Você somou os juros de um mês só. Foram 10 meses de 30 reais."
+    - texto: "R$ 1.828,49"
+      erro: "Esse é o resultado em juros compostos, com juros sobre juros. Nos juros simples, a taxa incide sempre sobre os 1.500."
+    - texto: "R$ 31.500,00"
+      erro: "Você usou a taxa como 2, e não como 0,02. Passe a porcentagem para decimal."
+  explicacao: "2% de 1.500 são 30 reais por mês. Em 10 meses, 300 reais. Montante: 1.500 + 300 = 1.800 reais."
+  conferir: "1500 * (1 + 0.02 * 10)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-03
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-simples
+  dificuldade: 1
+  enunciado: "Em juros simples, uma taxa de 24% ao ano corresponde a que taxa ao mês?"
+  alternativas:
+    - texto: "24% ao mês"
+      erro: "A taxa muda com a unidade de tempo. Um mês é 1/12 do ano."
+    - texto: "12% ao mês"
+      erro: "Você dividiu por 2. O ano tem 12 meses: divida 24 por 12."
+    - texto: "2% ao mês"
+      certa: true
+    - texto: "288% ao mês"
+      erro: "Você multiplicou por 12. Para passar do ano para o mês, divida."
+    - texto: "Cerca de 1,8% ao mês"
+      valor: "1.8"
+      erro: "Essa seria a taxa equivalente em juros compostos. Em juros simples, as taxas são proporcionais: 24 ÷ 12."
+  explicacao: "Em juros simples, as taxas são proporcionais ao tempo. 24% ao ano ÷ 12 meses = 2% ao mês."
+  conferir: "24 / 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-04
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-simples
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma conta de luz de R$ 180,00 traz a seguinte informação: "Em caso de pagamento após o vencimento, serão cobrados
+    multa de 2% sobre o valor da conta e juros simples de 0,05% ao dia de atraso, também sobre o valor da conta". Um
+    morador pagou essa conta com 20 dias de atraso.
+  enunciado: "O valor pago foi de"
+  alternativas:
+    - texto: "R$ 183,60."
+      erro: "Você somou só a multa. Faltaram os juros dos 20 dias."
+    - texto: "R$ 185,40."
+      certa: true
+    - texto: "R$ 181,80."
+      erro: "Você somou só os juros. Faltou a multa de 2%."
+    - texto: "R$ 5,40."
+      erro: "R$ 5,40 é só o acréscimo pelo atraso. O morador pagou a conta mais o acréscimo."
+    - texto: "R$ 363,60."
+      erro: "Você usou 5% ao dia, e não 0,05%. Em decimal, 0,05% é 0,0005."
+  explicacao: "Multa: 2% de 180 = 3,60. Juros: 0,05% de 180 = 0,09 por dia; em 20 dias, 1,80. Total: 180 + 3,60 + 1,80 = 185,40 reais."
+  conferir: "180 + 180 * 0.02 + 180 * 0.0005 * 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-05
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-simples
+  dificuldade: 2
+  enunciado: "Em quantos meses R$ 2.000,00, aplicados a juros simples de 4% ao mês, rendem R$ 640,00 de juros?"
+  alternativas:
+    - texto: "80 meses"
+      erro: "80 são os juros de um mês, em reais. O tempo é quantas vezes esses 80 reais cabem em 640."
+    - texto: "160 meses"
+      erro: "Você dividiu os juros pela taxa (640 ÷ 4). Primeiro ache quanto rende por mês: 4% de 2.000."
+    - texto: "3,125 meses"
+      erro: "Você dividiu o capital pelos juros (2.000 ÷ 640). A conta é juros ÷ (juros de um mês)."
+    - texto: "32 meses"
+      erro: "Você dividiu 640 por 20, que é só 1% do capital. A taxa é de 4%: 80 reais por mês."
+    - texto: "8 meses"
+      certa: true
+  explicacao: "Por mês, 4% de 2.000 = 80 reais. Para render 640: 640 ÷ 80 = 8 meses."
+  conferir: "640 / (2000 * 0.04)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-06
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-juros-simples
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma loja anuncia um fogão assim: "R$ 1.200,00 à vista ou R$ 1.320,00 em pagamento único, 2 meses depois da
+    compra". Um cliente quer saber qual é a taxa mensal de juros simples embutida no preço a prazo.
+  enunciado: "Essa taxa é de"
+  alternativas:
+    - texto: "10% ao mês."
+      erro: "10% é o acréscimo total, nos 2 meses. Por mês, a taxa é a metade."
+    - texto: "120% ao mês."
+      erro: "120 são os juros em reais. Para virar taxa, divida pelo valor à vista e pelo tempo."
+    - texto: "5% ao mês."
+      certa: true
+    - texto: "cerca de 4,5% ao mês."
+      valor: "4.55"
+      erro: "Você dividiu os juros pelo preço a prazo (1.320). A taxa incide sobre o valor à vista, que é o capital."
+    - texto: "60% ao mês."
+      erro: "60 são os juros de um mês, em reais. Falta dividir pelo valor à vista."
+  explicacao: "Os juros são 1.320 − 1.200 = 120 reais em 2 meses, ou 60 por mês. Sobre o valor à vista: 60 ÷ 1.200 = 0,05, ou 5% ao mês."
+  conferir: "(1320 - 1200) / 1200 / 2 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-07
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-simples
+  dificuldade: 2
+  enunciado: "Que capital, aplicado a juros simples de 3% ao mês durante 6 meses, rende R$ 360,00 de juros?"
+  alternativas:
+    - texto: "R$ 2.000,00"
+      certa: true
+    - texto: "R$ 64,80"
+      erro: "Você calculou 18% de 360. Os 360 reais são os juros, e o capital é o valor do qual eles são 18%."
+    - texto: "R$ 2.360,00"
+      erro: "R$ 2.360,00 é o montante (capital mais juros). A pergunta pede o capital."
+    - texto: "R$ 120,00"
+      erro: "Você dividiu os juros pela taxa (360 ÷ 3). Faltou considerar o tempo e a porcentagem."
+    - texto: "R$ 20,00"
+      erro: "Você dividiu 360 por 18 e parou. 18% é 0,18: o capital é 360 ÷ 0,18."
+  explicacao: "Em 6 meses, a 3% ao mês, os juros são 18% do capital. Então 0,18 × C = 360, e C = 360 ÷ 0,18 = 2.000 reais."
+  conferir: "360 / (0.03 * 6)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-08
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 5
+  objeto: mat-numeros-juros-simples
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma geladeira custa R$ 2.400,00 à vista. Uma família não tem o dinheiro agora e recebeu duas propostas para pagar
+    tudo de uma vez, 4 meses depois da compra.
+    Proposta 1: pagar R$ 2.640,00.
+    Proposta 2: pagar o valor à vista com juros simples de 2% ao mês.
+  enunciado: "Comparando as duas, a proposta mais barata é"
+  alternativas:
+    - texto: "a proposta 1, por R$ 48,00 a menos."
+      valor: "-48"
+      erro: "A diferença está certa, mas a proposta 2 dá 2.592 reais, menos que 2.640."
+    - texto: "qualquer uma, porque custam o mesmo."
+      valor: "0"
+      erro: "Calcule a proposta 2: 2% de 2.400 são 48 por mês; em 4 meses, 192. Ela dá 2.592, e não 2.640."
+    - texto: "a proposta 2, por R$ 192,00 a menos."
+      valor: "192"
+      erro: "R$ 192,00 são os juros da proposta 2, não a diferença entre as propostas."
+    - texto: "a proposta 2, por R$ 48,00 a menos."
+      valor: "48"
+      certa: true
+    - texto: "a proposta 2, por R$ 240,00 a menos."
+      valor: "240"
+      erro: "R$ 240,00 são os juros embutidos na proposta 1, não a diferença entre as propostas."
+  explicacao: "Proposta 2: 2% de 2.400 = 48 reais por mês; em 4 meses, 192. Total: 2.592. Proposta 1: 2.640. A proposta 2 sai 2.640 − 2.592 = 48 reais mais barata."
+  conferir: "2640 - 2400 * (1 + 0.02 * 4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-09
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-juros-simples
+  dificuldade: 3
+  enunciado: "Um capital é aplicado a juros simples de 5% ao mês. Em quantos meses o montante fica igual ao dobro do capital?"
+  alternativas:
+    - texto: "10 meses"
+      erro: "Em 10 meses os juros são 50% do capital: o montante é 1,5 vez o capital, não o dobro."
+    - texto: "40 meses"
+      erro: "Em 40 meses os juros são 200% do capital: o montante é o triplo. Para dobrar, os juros têm de ser 100%."
+    - texto: "12 meses"
+      erro: "Em um ano, os juros são 12 × 5% = 60% do capital. Ainda falta para dobrar."
+    - texto: "Cerca de 14 meses"
+      valor: "14.2"
+      erro: "Esse é o tempo aproximado em juros compostos. Em juros simples, os juros de cada mês são iguais: 5% por mês até chegar a 100%."
+    - texto: "20 meses"
+      certa: true
+  explicacao: "Dobrar é ganhar juros iguais ao capital, ou seja, 100% dele. A 5% ao mês: 100 ÷ 5 = 20 meses."
+  conferir: "1 / 0.05"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-simples-10
+  tema: "Juros simples"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-simples
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma trabalhadora fez um empréstimo a juros simples. No extrato, ela viu que a dívida (o montante) era de
+    R$ 1.120,00 depois de 2 meses e de R$ 1.300,00 depois de 5 meses. Ela não lembra quanto pegou emprestado.
+  enunciado: "O valor emprestado foi de"
+  alternativas:
+    - texto: "R$ 1.060,00."
+      erro: "Você tirou os juros de um mês só. O montante de 1.120 já tem 2 meses de juros."
+    - texto: "R$ 1.000,00."
+      certa: true
+    - texto: "R$ 1.120,00."
+      erro: "Esse é o montante depois de 2 meses, que já inclui juros."
+    - texto: "R$ 940,00."
+      erro: "Você tirou 3 meses de juros de 1.120. O montante de 1.120 tem só 2 meses de juros."
+    - texto: "R$ 180,00."
+      erro: "R$ 180,00 é quanto a dívida cresceu entre o mês 2 e o mês 5. O valor emprestado é o montante no mês zero."
+  explicacao: "Do mês 2 ao mês 5 (3 meses), a dívida cresceu 1.300 − 1.120 = 180, ou 60 reais por mês. Voltando 2 meses a partir de 1.120: 1.120 − 2 × 60 = 1.000 reais."
+  conferir: "1120 - 2 * (1300 - 1120) / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

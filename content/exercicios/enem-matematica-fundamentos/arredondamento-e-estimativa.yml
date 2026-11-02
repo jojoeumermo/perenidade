@@ -1,0 +1,249 @@
+# Exercícios da aula "Arredondamento e estimativa" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-estimativa-01
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-estimativa
+  dificuldade: 1
+  enunciado: "Quanto é 14.682 arredondado para a centena mais próxima?"
+  alternativas:
+    - texto: "14.700"
+      certa: true
+    - texto: "14.600"
+      erro: "Você cortou o número na centena sem olhar o vizinho. O algarismo à direita do 6 é 8, que é 5 ou mais: o 6 sobe."
+    - texto: "15.000"
+      erro: "15.000 é o arredondamento para o milhar. A pergunta pede a centena."
+    - texto: "14.680"
+      erro: "14.680 é o arredondamento para a dezena. A casa das centenas é a do 6."
+    - texto: "14.800"
+      erro: "O 6 subiu duas unidades. Arredondar sobe a casa em uma unidade só."
+  explicacao: "A casa das centenas tem 6. O vizinho da direita é 8, então o 6 vira 7 e o resto vira zero: 14.700."
+  conferir: "14700"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-02
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-estimativa
+  dificuldade: 1
+  enunciado: "Quanto é 0,8361 arredondado para os centésimos?"
+  alternativas:
+    - texto: "0,83"
+      erro: "Você cortou nos centésimos sem olhar o vizinho. Depois do 3 vem 6: o 3 sobe para 4."
+    - texto: "0,8"
+      erro: "0,8 é o arredondamento para os décimos. Os centésimos são a segunda casa depois da vírgula."
+    - texto: "0,836"
+      erro: "0,836 é o arredondamento para os milésimos, com três casas. Centésimos são duas casas."
+    - texto: "0,9"
+      erro: "Você arredondou para os décimos e ainda subiu o 8. O vizinho do 8 é 3, que não faria subir."
+    - texto: "0,84"
+      certa: true
+  explicacao: "Os centésimos são a casa do 3. O vizinho é 6, então o 3 sobe para 4: 0,84."
+  conferir: "0.84"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-03
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-estimativa
+  dificuldade: 1
+  enunciado: "Qual é a melhor estimativa para 49 × 61?"
+  alternativas:
+    - texto: "Cerca de 300"
+      erro: "Faltou um zero. 50 × 60: 5 × 6 = 30, e há dois zeros nos fatores: 3.000."
+    - texto: "Cerca de 30.000"
+      erro: "Sobrou um zero. 50 × 60 = 3.000. Conte os zeros dos dois fatores: são dois."
+    - texto: "Cerca de 3.000"
+      certa: true
+    - texto: "Cerca de 110"
+      erro: "Você somou 49 + 61. A conta pede uma multiplicação."
+    - texto: "Cerca de 300.000"
+      erro: "Sobraram três zeros. 50 × 60 tem só dois zeros nos fatores."
+  explicacao: "49 fica perto de 50 e 61 perto de 60. 50 × 60 = 3.000. A conta exata dá 2.989, bem perto."
+  conferir: "50 * 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-04
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-estimativa
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma escola estadual vai levar 172 estudantes e 9 professores a uma feira de ciências. A empresa contratada usa
+    ônibus de 46 lugares, e ninguém pode viajar em pé.
+  enunciado: "O menor número de ônibus que leva todo o grupo é"
+  alternativas:
+    - texto: "3."
+      erro: "181 ÷ 46 dá quase 4. Três ônibus levam só 138 pessoas: 43 ficariam sem lugar. Aqui é preciso arredondar para cima."
+    - texto: "4."
+      certa: true
+    - texto: "3,93."
+      erro: "Não existe 0,93 de ônibus. A conta é o primeiro passo; a situação pede um número inteiro de ônibus, arredondado para cima."
+    - texto: "5."
+      erro: "Você contou um ônibus a mais para os professores. Quatro ônibus têm 184 lugares, e o grupo tem 181 pessoas."
+    - texto: "3,7."
+      erro: "Faltaram os 9 professores (172 ÷ 46 ≈ 3,7) e o arredondamento. Some todo o grupo antes de dividir."
+  explicacao: "O grupo tem 172 + 9 = 181 pessoas. 181 ÷ 46 dá um pouco menos de 4. Três ônibus (138 lugares) não bastam; quatro ônibus têm 4 × 46 = 184 lugares. São 4 ônibus."
+  conferir: "184 / 46"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-05
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-estimativa
+  dificuldade: 2
+  enunciado: "Uma cooperativa tem 20 kg de feijão e vai montar pacotes de 1,5 kg. Quantos pacotes cheios ela consegue montar?"
+  alternativas:
+    - texto: "14"
+      erro: "Você arredondou para cima. Com 20 kg, 14 pacotes precisariam de 21 kg. Só valem os pacotes cheios: arredonde para baixo."
+    - texto: "13,33"
+      erro: "Não existe um terço de pacote cheio. A situação pede um número inteiro, arredondado para baixo."
+    - texto: "30"
+      erro: "Você multiplicou 20 × 1,5. Para saber quantos pacotes cabem, divida o total pelo tamanho de cada pacote."
+    - texto: "13"
+      certa: true
+    - texto: "133"
+      erro: "A vírgula andou uma casa. 20 ÷ 1,5 é o mesmo que 200 ÷ 15, que dá pouco mais de 13."
+  explicacao: "20 ÷ 1,5 = 13,33. Treze pacotes usam 13 × 1,5 = 19,5 kg; sobram 0,5 kg, que não enchem outro pacote. São 13 pacotes cheios."
+  conferir: "19.5 / 1.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-06
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-estimativa
+  dificuldade: 2
+  enunciado: "Uma pessoa trabalha 44 horas por semana. Considerando 52 semanas, quantas horas ela trabalha num ano, aproximadamente?"
+  alternativas:
+    - texto: "Cerca de 230"
+      erro: "Faltou um zero. 44 × 52 fica perto de 40 × 50 = 2.000, e a conta exata passa disso."
+    - texto: "Cerca de 528"
+      erro: "Você multiplicou por 12, os meses do ano. A pergunta dá as semanas: 52."
+    - texto: "Cerca de 2.300"
+      certa: true
+      valor: "2288"
+    - texto: "Cerca de 23.000"
+      erro: "Sobrou um zero. Estime: 40 × 50 = 2.000. A resposta fica perto disso, não perto de 20.000."
+    - texto: "Cerca de 96"
+      erro: "Você somou 44 + 52. Horas por semana vezes número de semanas é uma multiplicação."
+  explicacao: "Estimativa: 40 × 50 = 2.000, um pouco abaixo porque os dois números foram arredondados para baixo. Conta exata: 44 × 52 = 44 × 50 + 44 × 2 = 2.200 + 88 = 2.288, cerca de 2.300 horas."
+  conferir: "44 * 52"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-07
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-estimativa
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa compra para a cozinha comunitária, a lista teve 6 itens de R$ 19,90, 3 itens de R$ 7,95 e 2 itens de R$ 31,10.
+  enunciado: "O valor exato da compra foi de"
+  alternativas:
+    - texto: "R$ 143,25."
+      erro: "Faltaram os 2 itens de R$ 31,10. A estimativa (120 + 24 + 62, perto de 206) mostra que o total é maior."
+    - texto: "R$ 58,95."
+      erro: "Você somou um item de cada preço. Multiplique cada preço pela quantidade."
+    - texto: "R$ 2.054,50."
+      erro: "A vírgula andou uma casa. A estimativa, perto de R$ 206,00, mostra o erro."
+    - texto: "R$ 206,00."
+      erro: "R$ 206,00 é a estimativa, com cada preço arredondado para o real. O comando pede o valor exato: faça a conta com os centavos."
+    - texto: "R$ 205,45."
+      certa: true
+  explicacao: "6 × 19,90 = 120 − 0,60 = 119,40. 3 × 7,95 = 24 − 0,15 = 23,85. 2 × 31,10 = 62,20. Total: 119,40 + 23,85 + 62,20 = 205,45."
+  conferir: "6 * 19.90 + 3 * 7.95 + 2 * 31.10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-08
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-estimativa
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O muro de uma escola, com 2,5 m de altura e 18 m de comprimento, vai receber duas demãos de tinta. Segundo o
+    rótulo, cada lata pinta 38 m² por demão. A tinta que sobra de uma lata pode ser usada na demão seguinte.
+  enunciado: "O menor número de latas que precisa ser comprado é"
+  alternativas:
+    - texto: "2."
+      erro: "90 ÷ 38 dá mais que 2. Duas latas pintam só 76 m²: faltariam 14 m². Arredonde para cima."
+    - texto: "3."
+      certa: true
+    - texto: "2,37."
+      erro: "Não se compra parte de uma lata. A conta pede um número inteiro de latas, arredondado para cima."
+    - texto: "4."
+      erro: "Você arredondou em cada demão (45 ÷ 38 ≈ 1,2, que vira 2, vezes 2 demãos). Como a sobra serve para a demão seguinte, calcule a área total primeiro."
+    - texto: "1."
+      erro: "Você calculou uma demão só e arredondou para baixo. São duas demãos, e faltar tinta não resolve o muro."
+  explicacao: "Área: 2,5 × 18 = 45 m². Duas demãos: 90 m². 90 ÷ 38 ≈ 2,37. Duas latas não bastam (76 m²); três latas pintam 3 × 38 = 114 m². São 3 latas."
+  conferir: "114 / 38"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-09
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-estimativa
+  dificuldade: 3
+  enunciado: "Um produto custa R$ 3,46 o quilo. Para comprar 50 kg, uma pessoa arredondou o preço para R$ 3,50 antes de multiplicar. Qual é a diferença entre a conta dela e a conta exata?"
+  alternativas:
+    - texto: "R$ 2,00"
+      certa: true
+    - texto: "R$ 0,04"
+      erro: "R$ 0,04 é a diferença em um quilo. São 50 quilos: o erro se repete 50 vezes."
+    - texto: "R$ 175,00"
+      erro: "R$ 175,00 é a conta arredondada (3,50 × 50). A pergunta é a diferença entre as duas contas."
+    - texto: "R$ 173,00"
+      erro: "R$ 173,00 é a conta exata (3,46 × 50). Falta comparar com a arredondada."
+    - texto: "R$ 20,00"
+      erro: "A vírgula andou uma casa. 0,04 × 50 = 4 × 50 ÷ 100 = 2."
+  explicacao: "Diferença por quilo: 3,50 − 3,46 = 0,04. Em 50 kg: 0,04 × 50 = 2,00. Confira: 175,00 − 173,00 = 2,00."
+  conferir: "(3.50 - 3.46) * 50"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-estimativa-10
+  tema: "Arredondamento e estimativa"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-estimativa
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um aplicativo de mapas indica que o caminho a pé de casa até o cursinho tem 2,7 km. Uma estudante sabe, pelo próprio
+    costume, que leva 12 minutos para andar 1 km.
+  enunciado: "O tempo que ela leva nesse caminho é de, aproximadamente,"
+  alternativas:
+    - texto: "27 minutos."
+      erro: "Você multiplicou 2,7 por 10, e não por 12. São 12 minutos por quilômetro."
+    - texto: "24 minutos."
+      erro: "Você cortou 2,7 km para 2 km. Os 0,7 km também contam: são mais 8,4 minutos."
+    - texto: "36 minutos."
+      erro: "Você arredondou 2,7 km para 3 km antes de multiplicar. O erro de 0,3 km virou 3,6 minutos. Arredonde só no fim."
+    - texto: "32 minutos."
+      certa: true
+      valor: "32.4"
+    - texto: "4,4 minutos."
+      erro: "Você dividiu 12 por 2,7. Quanto mais longe, mais tempo: multiplique a distância pelo tempo de cada quilômetro."
+  explicacao: "2,7 × 12 = 2 × 12 + 0,7 × 12 = 24 + 8,4 = 32,4 minutos, cerca de 32 minutos."
+  conferir: "2.7 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -55,7 +55,7 @@ questoes:
       B: "40/64 não corresponde a uma contagem coerente. Some C(6,3) + C(6,4) + C(6,5) + C(6,6) = 20 + 15 + 6 + 1."
       D: "44/64 não sai de uma conta natural. Confira se cada caso foi contado uma vez só: 20 + 15 + 6 + 1 = 42."
       E: "52/64 não sai de uma conta natural. Lembre que o adversário também pode virar: ele é campeão nas 22 sequências em que o vencedor da primeira faz 2 vitórias ou menos (15 + 6 + 1), e 64 − 22 = 42."
-    aulas: [matematica-medio/probabilidade, matematica-medio/analise-combinatoria, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/probabilidade, matematica-medio/analise-combinatoria, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/eventos-independentes]
 
   - id: enem-2022-138
     area: matematica
@@ -121,7 +121,7 @@ questoes:
       C: "28 vem de 7 · 4: contou 4 dias para cada um dos 7 jogos, inclusive depois da final. O primeiro jogo é no dia 1, e são só 6 intervalos de 4 dias: 1 + 6 · 4 = 25."
       D: "48 é o número de partidas da fase de grupos (8 grupos com 6 jogos), como se fosse um jogo por dia. Vários jogos podem acontecer no mesmo dia."
       E: "64 não sai de uma conta natural (o torneio inteiro tem 48 + 8 + 4 + 2 + 1 = 63 partidas). O que limita o calendário é o descanso de cada time, não o total de partidas."
-    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-fundamentos/operacoes-com-inteiros-e-racionais]
 
   - id: enem-2022-141
     area: matematica
@@ -167,7 +167,7 @@ questoes:
       C: "11 vem de contar 7 escolhas de opcionais (sem a opção nenhum): 7 · 2 · 7 = 98 e 1 000 ÷ 98 ≈ 10,2. O cliente pode também não querer nenhum opcional: são 8 escolhas."
       D: "18 vem de contar 4 escolhas de opcionais (nenhum, um, dois ou três): 7 · 2 · 4 = 56 e 1 000 ÷ 56 ≈ 17,9. Mas escolher um opcional pode ser qualquer um dos três: cada opcional entra ou não, 2³ = 8."
       E: "24 vem de contar só 3 escolhas de opcionais: 7 · 2 · 3 = 42 e 1 000 ÷ 42 ≈ 23,8. Os opcionais podem ser combinados: 2³ = 8 escolhas."
-    aulas: [matematica-medio/analise-combinatoria]
+    aulas: [matematica-medio/analise-combinatoria, enem-matematica-estatistica-e-probabilidade/principio-fundamental-da-contagem]
 
   - id: enem-2022-145
     area: matematica
@@ -211,7 +211,7 @@ questoes:
       B: "13 vem de x = 11 e y = 2: 11 · 400 + 2 · 300 = 5 000. Fecha a distância, mas usa muitas voltas no circuito maior. Para ter mais voltas, prefira o menor."
       C: "14 vem de x = 8 e y = 6. É uma solução, mas não a de maior número de voltas."
       D: "15 vem de x = 5 e y = 10. Ainda dá para trocar 3 voltas grandes por 4 pequenas e chegar a 2 + 14 = 16."
-    aulas: [matematica-medio/matrizes-e-sistemas-lineares, matematica-fundamental/equacoes-do-1-grau]
+    aulas: [matematica-medio/matrizes-e-sistemas-lineares, matematica-fundamental/equacoes-do-1-grau, enem-matematica-fundamentos/sistemas-lineares]
 
   - id: enem-2022-147
     area: matematica
@@ -254,7 +254,7 @@ questoes:
       B: "L_F/4 vem de trocar os expoentes (raio na quarta, temperatura ao quadrado): (1/2)⁴ · 2² = 1/4. Na lei, R está ao quadrado e T na quarta potência."
       C: "L_E = L_F vem de ignorar os expoentes: metade do raio vezes o dobro da temperatura dá 1. Os expoentes 2 e 4 mudam tudo."
       E: "8L_F vem de usar o raio sem o quadrado: (1/2) · 2⁴ = 8. O raio entra ao quadrado: (1/2)² = 1/4."
-    aulas: [matematica-fundamental/potencias-e-raizes]
+    aulas: [matematica-fundamental/potencias-e-raizes, enem-matematica-fundamentos/potencias-raizes-e-notacao-cientifica]
 
   - id: enem-2022-149
     area: matematica
@@ -451,7 +451,7 @@ questoes:
       C: "R T4 R R T5 R T1 são os dias 8 a 13 e o 1º do ciclo seguinte: começou dois dias depois do certo. Confira o resto de 162 por 13, que é 6."
       D: "R R T5 R T1 R R não sai de uma conta natural (começaria no 10º dia do ciclo). Divida 162 por 13 e use o resto, 6."
       E: "R T5 R T1 R R T2 não sai de uma conta natural (começaria no 11º dia do ciclo). O primeiro dia da 24ª semana é o 162º, que cai no 6º dia do ciclo."
-    aulas: [matematica-fundamental/multiplos-divisores-e-numeros-primos]
+    aulas: [matematica-fundamental/multiplos-divisores-e-numeros-primos, enem-matematica-fundamentos/multiplos-divisores-mmc-e-mdc]
 
   - id: enem-2022-160
     area: matematica
@@ -786,7 +786,7 @@ questoes:
       B: "1 350 000,00 é 1,35 milhão. Bilhão é mil vezes milhão."
       C: "13 500 000,00 é 13,5 milhões. A vírgula foi deslocada e a classe ficou errada."
       D: "135 000 000,00 é 135 milhões, dez vezes menos que 1,35 bilhão."
-    aulas: [matematica-fundamental/numeros-decimais, matematica-fundamental/potencias-e-raizes]
+    aulas: [matematica-fundamental/numeros-decimais, matematica-fundamental/potencias-e-raizes, enem-matematica-fundamentos/potencias-raizes-e-notacao-cientifica]
 
   - id: enem-2022-176
     area: matematica
@@ -809,7 +809,7 @@ questoes:
       B: "O ponto II não sai de uma conta natural. Dá cerca de 69,5 km, mais que os 67,1 km do ponto IV."
       C: "O ponto III (x = 35) é o meio entre 20 e 50. Como as cidades estão a alturas diferentes (40 e 20), o ponto ótimo fica mais perto da cidade mais baixa. III dá cerca de 67,7 km."
       E: "O ponto V fica bem abaixo da Cidade B: o trecho da 002 é o menor (20 km), mas o da 001 fica com 50 km. Total: 70 km."
-    aulas: [matematica-medio/geometria-plana, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/geometria-plana, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/plano-cartesiano]
 
   - id: enem-2022-177
     area: matematica

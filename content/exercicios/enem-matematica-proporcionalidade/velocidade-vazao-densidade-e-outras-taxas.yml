@@ -1,0 +1,257 @@
+# Exercícios da aula "Velocidade, vazão, densidade e outras taxas" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Distâncias, preços, volumes e densidades são valores de exemplo.
+
+- id: enem-mat-taxas-01
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-taxas
+  dificuldade: 1
+  enunciado: "Um ciclista percorre 45 km em 2 horas e 30 minutos. Qual é a velocidade média dele?"
+  alternativas:
+    - texto: "112,5 km/h"
+      erro: "Você multiplicou a distância pelo tempo. Velocidade é distância dividida por tempo."
+    - texto: "Cerca de 19,6 km/h"
+      valor: "19.6"
+      erro: "Você leu 2 h 30 min como 2,3 horas. Meia hora é 0,5 hora: o tempo é 2,5 horas."
+    - texto: "22,5 km/h"
+      erro: "Você usou só as 2 horas e esqueceu os 30 minutos."
+    - texto: "15 km/h"
+      erro: "Você arredondou o tempo para 3 horas. O tempo é 2,5 horas."
+    - texto: "18 km/h"
+      certa: true
+  explicacao: "2 h 30 min = 2,5 h. Velocidade média: 45 ÷ 2,5 = 450 ÷ 25 = 18 km/h."
+  conferir: "45 / 2.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-02
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-taxas
+  dificuldade: 1
+  enunciado: "Quanto é 90 km/h em metros por segundo?"
+  alternativas:
+    - texto: "324 m/s"
+      erro: "Você multiplicou por 3,6. De km/h para m/s, divida por 3,6."
+    - texto: "25 m/s"
+      certa: true
+    - texto: "90 m/s"
+      erro: "A unidade mudou, então o número também muda. 1 km/h é bem menos que 1 m/s."
+    - texto: "1,5 m/s"
+      erro: "Você dividiu por 60, como se fosse de hora para minuto. Também é preciso passar de km para m."
+    - texto: "1.500 m/s"
+      erro: "Você passou de km para m (90.000 m) e dividiu pelos minutos da hora (60). Uma hora tem 3.600 segundos."
+  explicacao: "90 km/h são 90.000 m em 3.600 s. 90.000 ÷ 3.600 = 25 m/s. Pelo atalho: 90 ÷ 3,6 = 25."
+  conferir: "90 / 3.6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-03
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-taxas
+  dificuldade: 1
+  enunciado: "Um bloco de madeira tem massa de 2.400 g e volume de 4.000 cm³. Qual é a densidade dele?"
+  alternativas:
+    - texto: "Cerca de 1,67 g/cm³"
+      valor: "5/3"
+      erro: "Você dividiu o volume pela massa. Densidade é massa ÷ volume: g em cima, cm³ embaixo."
+    - texto: "6 g/cm³"
+      erro: "A vírgula ficou no lugar errado. 2.400 ÷ 4.000 é menor que 1."
+    - texto: "6.400 g/cm³"
+      erro: "Você somou massa e volume. Densidade é uma divisão."
+    - texto: "0,6 g/cm³"
+      certa: true
+    - texto: "0,06 g/cm³"
+      erro: "A vírgula andou uma casa a mais. 2.400 ÷ 4.000 = 24 ÷ 40 = 0,6."
+  explicacao: "Densidade = 2.400 ÷ 4.000 = 24 ÷ 40 = 0,6 g/cm³. Como é menor que a da água (cerca de 1 g/cm³), esse bloco tende a boiar."
+  conferir: "2400 / 4000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-04
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-taxas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma caixa-d'água de 1.500 litros está vazia. Uma torneira começa a enchê-la, despejando 30 litros por minuto. Ao
+    mesmo tempo, um vazamento no fundo da caixa deixa escapar 5 litros por minuto.
+  enunciado: "A caixa vai ficar cheia em"
+  alternativas:
+    - texto: "1 hora."
+      valor: "60"
+      certa: true
+    - texto: "50 minutos."
+      valor: "50"
+      erro: "Você esqueceu o vazamento. A caixa ganha 30 litros e perde 5 por minuto."
+    - texto: "cerca de 43 minutos."
+      valor: "42.86"
+      erro: "Você somou o vazamento à torneira. O vazamento tira água: subtraia."
+    - texto: "300 minutos."
+      valor: "300"
+      erro: "300 minutos é o tempo para o vazamento, sozinho, esvaziar a caixa cheia. A vazão que enche é 30 − 5."
+    - texto: "25 minutos."
+      valor: "25"
+      erro: "25 é a vazão que sobra, em litros por minuto, e não o tempo. Divida 1.500 por 25."
+  explicacao: "Vazão líquida: 30 − 5 = 25 litros por minuto. Tempo: 1.500 ÷ 25 = 60 minutos, ou 1 hora."
+  conferir: "1500 / (30 - 5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-05
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 17
+  objeto: mat-numeros-taxas
+  dificuldade: 2
+  enunciado: "Uma motorista vai de uma cidade a outra, a 90 km de distância, com velocidade média de 90 km/h. Na volta, pelo mesmo caminho, a velocidade média é de 45 km/h. Qual é a velocidade média da viagem inteira?"
+  alternativas:
+    - texto: "67,5 km/h"
+      erro: "Você fez a média simples das velocidades. A volta demora mais, e pesa mais na média."
+    - texto: "45 km/h"
+      erro: "45 km/h é só a velocidade da volta. A ida foi mais rápida."
+    - texto: "60 km/h"
+      certa: true
+    - texto: "90 km/h"
+      erro: "90 km/h é só a velocidade da ida. Também é a distância de um trecho, não da viagem inteira."
+    - texto: "135 km/h"
+      erro: "Você somou as velocidades. Velocidade média é distância total ÷ tempo total."
+  explicacao: "Ida: 90 ÷ 90 = 1 hora. Volta: 90 ÷ 45 = 2 horas. São 180 km em 3 horas: 180 ÷ 3 = 60 km/h."
+  conferir: "180 / (90 / 90 + 90 / 45)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-06
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-taxas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um grupo vai viajar de carro para um encontro de cooperativas, a 360 km de distância. O carro faz, em média,
+    12 km por litro de combustível, e o litro custa R$ 6,00 no posto onde vão abastecer.
+  enunciado: "O gasto com combustível só na ida será de"
+  alternativas:
+    - texto: "R$ 30,00."
+      erro: "30 são os litros gastos, e não os reais. Falta multiplicar pelo preço do litro."
+    - texto: "R$ 60,00."
+      erro: "Você dividiu a distância pelo preço do litro. Primeiro ache os litros: 360 ÷ 12."
+    - texto: "R$ 72,00."
+      erro: "Você multiplicou o consumo pelo preço (12 × 6). O consumo diz quantos km o carro anda com 1 litro."
+    - texto: "R$ 180,00."
+      certa: true
+    - texto: "R$ 2.160,00."
+      erro: "Você multiplicou a distância pelo preço, como se o carro gastasse 1 litro por quilômetro."
+  explicacao: "Litros: 360 ÷ 12 = 30. Gasto: 30 × 6 = 180 reais."
+  conferir: "360 / 12 * 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-07
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-taxas
+  dificuldade: 2
+  enunciado: "Um óleo de cozinha tem densidade de 0,9 g/cm³. Qual é a massa de 2 litros desse óleo? Lembre que 1 litro = 1.000 cm³."
+  alternativas:
+    - texto: "1,8 kg"
+      certa: true
+    - texto: "Cerca de 2,2 kg"
+      valor: "2.2"
+      erro: "Você dividiu o volume pela densidade. A massa é densidade × volume."
+    - texto: "1.800 kg"
+      erro: "A conta dá 1.800 gramas, e não quilos. 1.000 g = 1 kg."
+    - texto: "2 kg"
+      erro: "2 kg seria a massa de 2 litros de água. O óleo é menos denso."
+    - texto: "0,18 kg"
+      erro: "A vírgula andou uma casa a mais. 1.800 g são 1,8 kg."
+  explicacao: "2 litros = 2.000 cm³. Massa = 0,9 × 2.000 = 1.800 g = 1,8 kg."
+  conferir: "2000 * 0.9 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-08
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-taxas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A piscina de um clube de bairro tem a forma de um bloco retangular com 6 m de comprimento, 4 m de largura e 1,5 m
+    de profundidade. Para enchê-la, usa-se uma bomba com vazão de 2 litros por segundo. Considere 1 m³ = 1.000 litros.
+  enunciado: "Começando com a piscina vazia, o tempo para enchê-la é de"
+  alternativas:
+    - texto: "18.000 horas."
+      erro: "18.000 é o tempo em segundos. Divida por 3.600 para passar a horas."
+    - texto: "300 horas."
+      erro: "Você dividiu os segundos por 60 e chamou de horas. 18.000 s ÷ 60 = 300 minutos; em horas, divida de novo por 60."
+    - texto: "0,005 hora."
+      erro: "Você não converteu metros cúbicos em litros (36 ÷ 2 = 18 segundos). A piscina tem 36.000 litros."
+    - texto: "20 horas."
+      erro: "Você multiplicou o volume pela vazão. O tempo é volume ÷ vazão."
+    - texto: "5 horas."
+      certa: true
+  explicacao: "Volume: 6 × 4 × 1,5 = 36 m³ = 36.000 litros. Tempo: 36.000 ÷ 2 = 18.000 segundos. Em horas: 18.000 ÷ 3.600 = 5 horas."
+  conferir: "6 * 4 * 1.5 * 1000 / 2 / 3600"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-09
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 17
+  objeto: mat-numeros-taxas
+  dificuldade: 3
+  enunciado: "Sozinha, a torneira A enche um tanque em 3 horas. Sozinha, a torneira B enche o mesmo tanque em 6 horas. Abertas juntas, em quanto tempo elas enchem o tanque vazio?"
+  alternativas:
+    - texto: "4,5 horas"
+      erro: "Você fez a média dos tempos. Juntas, as torneiras têm de encher mais rápido que a mais rápida sozinha."
+    - texto: "9 horas"
+      erro: "Você somou os tempos. Com duas torneiras abertas, o tanque enche mais rápido, não mais devagar."
+    - texto: "2 horas"
+      certa: true
+    - texto: "3 horas"
+      erro: "3 horas é o tempo da torneira A sozinha. A torneira B ajuda e encurta esse tempo."
+    - texto: "1,5 hora"
+      erro: "Você dividiu o tempo de A por 2, como se B fosse igual a A. B é mais lenta: enche só 1/6 do tanque por hora."
+  explicacao: "Por hora, A enche 1/3 do tanque e B enche 1/6. Juntas: 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2 do tanque por hora. O tanque inteiro leva 2 horas."
+  conferir: "1 / (1/3 + 1/6)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-taxas-10
+  tema: "Velocidade, vazão, densidade e outras taxas"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-taxas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa competição escolar de atletismo, uma estudante correu os 100 metros rasos em 12,5 segundos. A professora quer
+    comparar essa marca com a velocidade de um carro na cidade, que costuma ser dada em quilômetros por hora.
+  enunciado: "A velocidade média da estudante, em km/h, foi de"
+  alternativas:
+    - texto: "8 km/h."
+      erro: "8 é a velocidade em metros por segundo. Para passar a km/h, multiplique por 3,6."
+    - texto: "28,8 km/h."
+      certa: true
+    - texto: "cerca de 2,2 km/h."
+      valor: "2.22"
+      erro: "Você dividiu por 3,6. De m/s para km/h, multiplique por 3,6."
+    - texto: "1.250 km/h."
+      erro: "Você multiplicou a distância pelo tempo. Velocidade é distância ÷ tempo."
+    - texto: "0,8 km/h."
+      erro: "A vírgula andou uma casa. 100 ÷ 12,5 = 8 m/s, e 8 × 3,6 = 28,8 km/h."
+  explicacao: "Em m/s: 100 ÷ 12,5 = 8 m/s. Em km/h: 8 × 3,6 = 28,8 km/h."
+  conferir: "100 / 12.5 * 3.6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

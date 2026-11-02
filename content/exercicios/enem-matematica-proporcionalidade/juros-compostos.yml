@@ -1,0 +1,252 @@
+# Exercícios da aula "Juros compostos" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Valores, taxas e prazos são de exemplo.
+
+- id: enem-mat-juros-compostos-01
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  dificuldade: 1
+  enunciado: "R$ 1.000,00 são aplicados a juros compostos de 10% ao mês. Qual é o montante depois de 2 meses?"
+  alternativas:
+    - texto: "R$ 1.210,00"
+      certa: true
+    - texto: "R$ 1.200,00"
+      erro: "Esse é o resultado em juros simples. Nos compostos, o segundo mês rende 10% sobre 1.100, e não sobre 1.000."
+    - texto: "R$ 210,00"
+      erro: "R$ 210,00 são só os juros. O montante é o capital mais os juros."
+    - texto: "R$ 1.100,00"
+      erro: "Esse é o montante depois de 1 mês. Falta o segundo mês."
+    - texto: "R$ 1.331,00"
+      erro: "Esse é o montante depois de 3 meses (1,1³). A aplicação durou 2 meses."
+  explicacao: "Mês 1: 1.000 × 1,1 = 1.100. Mês 2: 1.100 × 1,1 = 1.210 reais."
+  conferir: "1000 * 1.1^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-02
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  dificuldade: 1
+  enunciado: "Qual expressão dá o montante de R$ 500,00 aplicados a juros compostos de 3% ao mês, durante 6 meses?"
+  alternativas:
+    - texto: "500 · (1 + 0,03 · 6)"
+      erro: "Essa é a fórmula dos juros simples. Nos compostos, o fator (1 + i) é elevado ao tempo."
+    - texto: "500 · 1,3⁶"
+      erro: "1,3 é o fator de um aumento de 30%. Para 3%, o fator é 1,03."
+    - texto: "500 · 1,03⁶"
+      certa: true
+    - texto: "500 · 0,03⁶"
+      erro: "Faltou o 1 do fator. Multiplicar por 0,03 deixaria só 3% do valor, e não 103%."
+    - texto: "500 · 6 · 1,03"
+      erro: "Você multiplicou pelo tempo. Nos compostos, o tempo é o expoente: o fator se repete 6 vezes."
+  explicacao: "Cada mês multiplica o valor por 1,03. Em 6 meses, por 1,03 elevado a 6: M = 500 · 1,03⁶."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-03
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-juros-compostos
+  dificuldade: 1
+  enunciado: "Um valor fica 2 meses aplicado a juros compostos de 10% ao mês. No total, ele aumentou"
+  alternativas:
+    - texto: "20%."
+      erro: "Você somou as taxas, como nos juros simples. Nos compostos, multiplique os fatores: 1,1 × 1,1."
+    - texto: "121%."
+      erro: "1,21 é o fator: o valor final é 121% do inicial. O aumento é o que passa de 100%."
+    - texto: "10%."
+      erro: "10% é o aumento de um mês só. Foram dois meses."
+    - texto: "11%."
+      erro: "Você somou ao primeiro mês só o juro sobre juro (1%). O segundo mês também tem os seus 10%."
+    - texto: "21%."
+      certa: true
+  explicacao: "1,1 × 1,1 = 1,21. O valor final é 121% do inicial: aumento de 21%. O 1% a mais é o juro sobre o juro do primeiro mês."
+  conferir: "(1.1^2 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-04
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma cooperativa de crédito oferece aos associados uma aplicação que rende juros compostos de 5% ao ano. Uma
+    associada aplicou R$ 8.000,00 e não vai mexer no dinheiro por 2 anos.
+  enunciado: "Ao fim dos 2 anos, ela terá"
+  alternativas:
+    - texto: "R$ 8.800,00."
+      erro: "Esse é o resultado em juros simples. No segundo ano, os 5% incidem sobre 8.400, e não sobre 8.000."
+    - texto: "R$ 8.820,00."
+      certa: true
+    - texto: "R$ 820,00."
+      erro: "R$ 820,00 são só os juros. A associada terá o capital mais os juros."
+    - texto: "R$ 8.400,00."
+      erro: "Esse é o valor depois de 1 ano. A aplicação dura 2."
+    - texto: "R$ 9.261,00."
+      erro: "Esse é o valor depois de 3 anos (8.000 × 1,05³). A aplicação dura 2."
+  explicacao: "Ano 1: 5% de 8.000 = 400; vai a 8.400. Ano 2: 5% de 8.400 = 420; vai a 8.820 reais. Pela fórmula: 8.000 × 1,05² = 8.000 × 1,1025 = 8.820."
+  conferir: "8000 * 1.05^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-05
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  dificuldade: 2
+  enunciado: "Uma dívida de R$ 2.500,00, a juros compostos, virou R$ 3.025,00 em 2 meses. Qual foi a taxa mensal?"
+  alternativas:
+    - texto: "10,5% ao mês"
+      erro: "Essa seria a taxa em juros simples (525 ÷ 2.500 ÷ 2). Nos compostos, procure o fator que, multiplicado duas vezes, dá 3.025 ÷ 2.500 = 1,21."
+    - texto: "21% ao mês"
+      erro: "21% é o aumento total nos 2 meses, e não a taxa de cada mês."
+    - texto: "1,21% ao mês"
+      erro: "1,21 é o fator total dos 2 meses, e não uma taxa. Ache o fator de um mês: que número vezes ele mesmo dá 1,21?"
+    - texto: "10% ao mês"
+      certa: true
+    - texto: "0,1% ao mês"
+      erro: "O fator do mês é 1,1, e tirando 1 sobra 0,1. Mas 0,1 em decimal é 10%, e não 0,1%."
+  explicacao: "O fator total é 3.025 ÷ 2.500 = 1,21. O fator de um mês é o número que, ao quadrado, dá 1,21: 1,1. Taxa de 10% ao mês."
+  conferir: "((3025 / 2500) ^ 0.5 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-06
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-juros-compostos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um anúncio de empréstimo diz: "Juros de apenas 2% ao mês, ou seja, 24% ao ano". Os juros do empréstimo são
+    compostos, cobrados mês a mês sobre o saldo devedor. Considere 1,02¹² ≈ 1,268.
+  enunciado: "Na verdade, a taxa anual equivalente desse empréstimo é de, aproximadamente,"
+  alternativas:
+    - texto: "24%."
+      erro: "Multiplicar a taxa por 12 vale para juros simples. Nos compostos, o fator do ano é 1,02 elevado a 12."
+    - texto: "2%."
+      erro: "2% é a taxa de um mês. A pergunta é sobre o ano inteiro."
+    - texto: "2,68%."
+      erro: "Você leu 1,268 − 1 = 0,268 como 2,68%. Em porcentagem, 0,268 é 26,8%."
+    - texto: "126,8%."
+      erro: "1,268 é o fator: a dívida vira 126,8% do valor inicial. A taxa é o que passa de 100%."
+    - texto: "26,8%."
+      certa: true
+  explicacao: "Em um ano, a dívida é multiplicada por 1,02¹² ≈ 1,268. O aumento é 0,268, ou cerca de 26,8%: mais que os 24% do anúncio."
+  conferir: "(1.268 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-07
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  dificuldade: 2
+  enunciado: "Um carro que vale R$ 40.000,00 perde 10% do valor a cada ano, sempre sobre o valor do ano anterior. Quanto ele valerá daqui a 2 anos?"
+  alternativas:
+    - texto: "R$ 32.000,00"
+      erro: "Você tirou 20% de uma vez, como nos juros simples. A segunda perda é de 10% sobre 36.000."
+    - texto: "R$ 32.400,00"
+      certa: true
+    - texto: "R$ 36.000,00"
+      erro: "Esse é o valor depois de 1 ano. Falta a perda do segundo ano."
+    - texto: "R$ 48.400,00"
+      erro: "Você aplicou dois aumentos de 10%. O carro perde valor: o fator é 0,9."
+    - texto: "R$ 7.600,00"
+      erro: "R$ 7.600,00 é quanto o carro perde nos 2 anos. A pergunta pede quanto ele vale."
+  explicacao: "Ano 1: 40.000 × 0,9 = 36.000. Ano 2: 36.000 × 0,9 = 32.400 reais. Pela fórmula: 40.000 × 0,9² = 40.000 × 0,81."
+  conferir: "40000 * 0.9^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-08
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um fundo comunitário aplica as doações a juros compostos de 5% ao mês. A tesoureira quer saber em quanto tempo
+    um valor aplicado dobra. Use log 2 ≈ 0,30 e log 1,05 ≈ 0,02.
+  enunciado: "O valor aplicado dobra em cerca de"
+  alternativas:
+    - texto: "15 meses."
+      certa: true
+    - texto: "20 meses."
+      erro: "Esse seria o tempo em juros simples (100 ÷ 5). Nos compostos, o valor dobra antes."
+    - texto: "6 meses."
+      erro: "Você dividiu log 2 pela taxa (0,30 ÷ 0,05). O divisor é o logaritmo do fator, log 1,05."
+    - texto: "0,28 mês."
+      erro: "Você subtraiu os logaritmos (0,30 − 0,02). O tempo é a divisão: log 2 ÷ log 1,05."
+    - texto: "12 meses."
+      erro: "Em um ano o fator é 1,05¹², cerca de 1,8. O valor ainda não dobrou."
+  explicacao: "Dobrar é chegar ao fator 2: 1,05ᵗ = 2. Aplicando o logaritmo: t · log 1,05 = log 2, então t = 0,30 ÷ 0,02 = 15 meses."
+  conferir: "0.30 / 0.02"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-09
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 5
+  objeto: mat-numeros-juros-compostos
+  dificuldade: 3
+  enunciado: "R$ 10.000,00 podem ser aplicados por 2 anos de dois jeitos: A, a juros compostos de 10% ao ano; B, a juros simples de 10,5% ao ano. Comparando os montantes,"
+  alternativas:
+    - texto: "A rende R$ 100,00 a mais."
+      valor: "100"
+      erro: "Você calculou B com 10% em vez de 10,5%. Com 10,5% ao ano, B rende 21% em 2 anos."
+    - texto: "B rende R$ 100,00 a mais."
+      valor: "-100"
+      erro: "Você calculou A como juros simples (12.000). Nos compostos, A vai a 10.000 × 1,1² = 12.100."
+    - texto: "os dois rendem o mesmo."
+      valor: "0"
+      certa: true
+    - texto: "B rende R$ 50,00 a mais."
+      valor: "-50"
+      erro: "Essa é a diferença depois de 1 ano só (11.000 contra 11.050). A aplicação dura 2 anos."
+    - texto: "A rende R$ 2.100,00 a mais."
+      valor: "2100"
+      erro: "R$ 2.100,00 são os juros de A, e não a diferença entre as aplicações."
+  explicacao: "A: 10.000 × 1,1² = 10.000 × 1,21 = 12.100. B: juros de 10,5% × 2 = 21%, e 10.000 × 1,21 = 12.100. Os montantes são iguais."
+  conferir: "10000 * 1.1^2 - 10000 * (1 + 0.105 * 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-juros-compostos-10
+  tema: "Juros compostos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-juros-compostos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma fatura de cartão de R$ 600,00 não foi paga. A dívida passa a crescer com juros compostos de 10% ao mês, sem
+    nenhum pagamento no período. Considere 1,1² = 1,21, 1,1³ = 1,331 e 1,1⁴ = 1,4641.
+  enunciado: "Depois de 3 meses, a dívida será de"
+  alternativas:
+    - texto: "R$ 780,00."
+      erro: "Esse é o resultado em juros simples (30% de 600). Nos compostos, os juros de cada mês incidem sobre a dívida já aumentada."
+    - texto: "R$ 726,00."
+      erro: "Esse é o valor depois de 2 meses (600 × 1,21). Foram 3 meses."
+    - texto: "R$ 198,60."
+      erro: "R$ 198,60 são só os juros dos 3 meses. A dívida é a fatura mais os juros."
+    - texto: "R$ 798,60."
+      certa: true
+    - texto: "R$ 878,46."
+      erro: "Esse é o valor depois de 4 meses (600 × 1,4641). Foram 3 meses."
+  explicacao: "Dívida = 600 × 1,1³ = 600 × 1,331 = 798,60 reais."
+  conferir: "600 * 1.1^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

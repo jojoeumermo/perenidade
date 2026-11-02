@@ -1,0 +1,262 @@
+# Exercícios da aula "Princípio fundamental da contagem" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-contagem-01
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  dificuldade: 1
+  enunciado: "O almoço de um restaurante popular tem 2 opções de entrada, 3 de prato principal e 2 de sobremesa. Quantas refeições diferentes, com uma entrada, um prato e uma sobremesa, dá para montar?"
+  alternativas:
+    - texto: "7"
+      erro: "Você somou 2 + 3 + 2. A refeição tem entrada e prato e sobremesa: as escolhas se multiplicam."
+    - texto: "6"
+      erro: "6 é 2 × 3: faltou multiplicar pelas 2 sobremesas."
+    - texto: "12"
+      certa: true
+    - texto: "8"
+      erro: "Você usou 2 opções para o prato principal. São 3."
+    - texto: "3"
+      erro: "3 são só os pratos principais. Cada um combina com cada entrada e cada sobremesa."
+  explicacao: "Uma casinha para cada parte: [2 entradas] × [3 pratos] × [2 sobremesas] = 12 refeições."
+  conferir: "2 * 3 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-02
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  dificuldade: 1
+  enunciado: "Uma senha tem 2 algarismos diferentes, escolhidos de 0 a 9. A senha pode começar por 0, como em 07. Quantas senhas existem?"
+  alternativas:
+    - texto: "90"
+      certa: true
+    - texto: "100"
+      erro: "100 conta também as senhas com algarismos repetidos, como 33. Os dois têm de ser diferentes."
+    - texto: "81"
+      erro: "Você proibiu o 0 no começo, como se fosse um número. Numa senha, 07 vale."
+    - texto: "19"
+      erro: "Você somou 10 + 9. As duas casinhas são preenchidas uma e depois a outra: multiplique."
+    - texto: "45"
+      erro: "Você dividiu por 2, como se 07 e 70 fossem a mesma senha. Na senha, a ordem importa."
+  explicacao: "Primeira casinha: 10 opções. Segunda: 9, porque não pode repetir a primeira. 10 × 9 = 90."
+  conferir: "10 * 9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-03
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  dificuldade: 1
+  enunciado: "De casa até a escola há 3 ruas possíveis. Da escola até o trabalho há 4. Quantos caminhos diferentes levam de casa ao trabalho, passando pela escola?"
+  alternativas:
+    - texto: "7"
+      erro: "Você somou 3 + 4. É preciso fazer um trecho e depois o outro: multiplique."
+    - texto: "3"
+      erro: "3 são só os caminhos do primeiro trecho. Cada um deles pode seguir por 4 ruas no segundo."
+    - texto: "4"
+      erro: "4 são só os caminhos do segundo trecho. Falta combinar com os 3 do primeiro."
+    - texto: "12"
+      certa: true
+    - texto: "24"
+      erro: "Você multiplicou por 2, como se contasse ida e volta. A pergunta é só a ida."
+  explicacao: "Primeiro trecho: 3 opções. Segundo trecho: 4 opções para cada uma delas. 3 × 4 = 12 caminhos."
+  conferir: "3 * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-04
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 3
+  objeto: mat-numeros-contagem
+  dificuldade: 2
+  texto_base: |
+    Num posto de saúde, a consulta pode ser marcada de manhã, com um de 3 médicos, ou à tarde, com um de 2 médicos.
+    Em cada turno, cada médico atende em 4 horários diferentes.
+  enunciado: "Quantas opções de consulta (turno, médico e horário) existem?"
+  alternativas:
+    - texto: "24"
+      erro: "Você multiplicou 3 × 2 × 4, como se a pessoa escolhesse um médico da manhã e um da tarde. Ela vai de manhã ou à tarde: some os dois turnos."
+    - texto: "9"
+      erro: "Você somou 3 + 2 + 4. Dentro de cada turno, médico e horário se multiplicam."
+    - texto: "12"
+      erro: "12 são só as opções da manhã (3 × 4). Falta somar as da tarde."
+    - texto: "5"
+      erro: "5 é o número de médicos. Cada um tem 4 horários."
+    - texto: "20"
+      certa: true
+  explicacao: "Manhã: 3 médicos × 4 horários = 12. Tarde: 2 × 4 = 8. Como é manhã ou tarde, some: 12 + 8 = 20."
+  conferir: "3*4 + 2*4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-05
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma cooperativa de agricultores identifica cada lote de produção com um código formado por uma vogal (A, E, I, O
+    ou U) seguida de três algarismos diferentes entre si. O primeiro algarismo pode ser 0, como em E047.
+  enunciado: "A quantidade de códigos diferentes que a cooperativa pode formar é"
+  alternativas:
+    - texto: "5.000"
+      erro: "5.000 é 5 × 10 × 10 × 10: você deixou repetir os algarismos. Eles têm de ser diferentes."
+    - texto: "3.600"
+      certa: true
+    - texto: "720"
+      erro: "720 é 10 × 9 × 8, só a parte dos algarismos. Falta multiplicar pelas 5 vogais."
+    - texto: "18.720"
+      erro: "Você usou as 26 letras do alfabeto. O código começa só com vogal: 5 opções."
+    - texto: "3.240"
+      erro: "Você proibiu o 0 no primeiro algarismo (5 × 9 × 9 × 8). O texto diz que o código pode ter 0 ali."
+  explicacao: "Casinhas: [vogal: 5] [algarismo: 10] [algarismo: 9] [algarismo: 8]. 5 × 10 × 9 × 8 = 3.600."
+  conferir: "5 * 10 * 9 * 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-06
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  dificuldade: 2
+  enunciado: "Quantos números de 4 algarismos, podendo repetir algarismos, terminam em 5?"
+  alternativas:
+    - texto: "1.000"
+      erro: "Você deu 10 opções ao primeiro algarismo. Ele não pode ser 0: são 9 opções."
+    - texto: "900"
+      certa: true
+    - texto: "504"
+      erro: "504 é 9 × 8 × 7: você proibiu repetir. O enunciado deixa repetir."
+    - texto: "9.000"
+      erro: "9.000 são todos os números de 4 algarismos. Só os que terminam em 5 contam: a última casinha tem 1 opção."
+    - texto: "4.500"
+      erro: "4.500 conta todos os que terminam em algarismo ímpar. O enunciado fixa o 5."
+  explicacao: "Casinhas: [milhar: 9, sem o 0] [centena: 10] [dezena: 10] [unidade: 1, só o 5]. 9 × 10 × 10 × 1 = 900."
+  conferir: "9 * 10 * 10 * 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-07
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um time de futebol de várzea vai criar uma bandeira com três listras horizontais. Há 5 cores de tinta
+    disponíveis. Duas listras vizinhas não podem ter a mesma cor, mas a listra de cima e a de baixo podem ser iguais.
+  enunciado: "O número de bandeiras diferentes que podem ser pintadas é"
+  alternativas:
+    - texto: "60"
+      erro: "60 é 5 × 4 × 3: você exigiu as três cores diferentes. A de cima e a de baixo podem ser iguais."
+    - texto: "125"
+      erro: "125 é 5 × 5 × 5: você deixou listras vizinhas com a mesma cor."
+    - texto: "10"
+      erro: "10 é o número de grupos de 3 cores sem ordem. Na bandeira, a posição de cada cor importa, e cores podem se repetir nas pontas."
+    - texto: "20"
+      erro: "20 é 5 × 4: faltou a terceira listra."
+    - texto: "80"
+      certa: true
+  explicacao: "Listra de cima: 5 cores. Do meio: 4, porque não pode repetir a de cima. De baixo: 4, porque só não pode repetir a do meio. 5 × 4 × 4 = 80."
+  conferir: "5 * 4 * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-08
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O cadeado de um armário coletivo usa uma senha de 4 algarismos, todos diferentes entre si. Para facilitar a
+    memorização, a associação que cuida dos armários decidiu que toda senha deve começar por um algarismo par e
+    terminar por um algarismo ímpar. A senha pode começar por 0.
+  enunciado: "A quantidade de senhas que obedecem a essas regras é"
+  alternativas:
+    - texto: "1.400"
+      certa: true
+    - texto: "5.040"
+      erro: "5.040 é 10 × 9 × 8 × 7: todas as senhas de algarismos diferentes, sem as regras do par e do ímpar."
+    - texto: "2.500"
+      erro: "2.500 é 5 × 10 × 10 × 5: você deixou repetir os algarismos do meio. Eles têm de ser diferentes dos outros."
+    - texto: "1.600"
+      erro: "Você deu 8 opções às duas casinhas do meio. A segunda do meio tem uma a menos: 8 × 7."
+    - texto: "1.120"
+      erro: "Você tirou o 0 da primeira casinha (4 pares em vez de 5). O texto diz que a senha pode começar por 0."
+  explicacao: "Comece pelas restrições. Primeira casinha: 5 pares (0, 2, 4, 6, 8). Última: 5 ímpares. Sobram 8 algarismos para as duas do meio: 8 × 7 = 56. Total: 5 × 5 × 56 = 1.400."
+  conferir: "5 * 5 * 8 * 7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-09
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 3
+  objeto: mat-numeros-contagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa oficina de criação de jogos, os estudantes montam códigos de 3 letras usando só as letras A, B, C, D e E.
+    As letras podem se repetir, como em BAB ou DDD.
+  enunciado: "A quantidade de códigos com pelo menos uma vogal é"
+  alternativas:
+    - texto: "125"
+      erro: "125 é o total de códigos. Entre eles há códigos sem vogal nenhuma, como BCD."
+    - texto: "27"
+      erro: "27 são os códigos sem vogal (só B, C e D). A pergunta é o contrário."
+    - texto: "50"
+      erro: "50 é 2 × 5 × 5: só os códigos que começam por vogal. A vogal pode estar em qualquer posição."
+    - texto: "98"
+      certa: true
+    - texto: "8"
+      erro: "8 é 2 × 2 × 2: os códigos só com vogais. \"Pelo menos uma\" inclui também os que têm uma ou duas."
+  explicacao: "Conte o contrário. Total: 5 × 5 × 5 = 125. Sem vogal (só B, C e D): 3 × 3 × 3 = 27. Com pelo menos uma vogal: 125 − 27 = 98."
+  conferir: "5^3 - 3^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-contagem-10
+  tema: "Princípio fundamental da contagem"
+  area: matematica
+  competencia: 1
+  habilidade: 2
+  objeto: mat-numeros-contagem
+  dificuldade: 3
+  enunciado: "Quantos números de 3 algarismos diferentes são maiores que 500?"
+  alternativas:
+    - texto: "648"
+      erro: "648 são todos os números de 3 algarismos diferentes. Só contam os que começam por 5, 6, 7, 8 ou 9."
+    - texto: "450"
+      erro: "Você deu 10 opções à dezena. Ela não pode repetir o algarismo da centena: são 9."
+    - texto: "360"
+      certa: true
+    - texto: "288"
+      erro: "Você tirou o 5 da centena. Os números que começam por 5 e têm algarismos diferentes, como 512, são maiores que 500."
+    - texto: "405"
+      erro: "405 é 5 × 9 × 9: a unidade tem de ser diferente da centena e da dezena, então tem 8 opções."
+  explicacao: "Centena: 5, 6, 7, 8 ou 9, ou seja, 5 opções. Dezena: 9 (qualquer algarismo menos o da centena). Unidade: 8. 5 × 9 × 8 = 360. O 500 não entra, porque repete o 0."
+  conferir: "5 * 9 * 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

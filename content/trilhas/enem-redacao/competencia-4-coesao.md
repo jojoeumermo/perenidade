@@ -93,7 +93,7 @@ Qual conectivo completa melhor: "A Constituição garante o direito à moradia. 
 1. Reescreva o trecho repetitivo de um texto seu usando retomadas.
 2. Classifique: contudo, visto que, ademais, a fim de, em suma.
 3. Escreva dois parágrafos ligados por um conectivo de oposição.
-4. Circule todos os conectivos de uma redação nota 1 000 da cartilha do Inep.
+4. Circule todos os conectivos de uma das redações comentadas da cartilha do Inep.
 
 ## Como isso cai no ENEM
 

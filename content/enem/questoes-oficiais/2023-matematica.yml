@@ -71,7 +71,7 @@ questoes:
       B: "60 sai de 76 − 16: subtraiu o total de bolinhas da urna (16) em vez de só as brancas (12). As 4 pretas continuam lá e não contam como brancas."
       D: "68 sai de 80 − 12: usou 80 como número de brancas, mas 80 é o total da urna (4 pretas + 76 brancas)."
       E: "80 é o total de bolinhas que a urna B precisa ter, não o número de brancas a acrescentar. Tire as 4 pretas e as 12 brancas que já existem."
-    aulas: [matematica-medio/probabilidade, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-medio/probabilidade, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-estatistica-e-probabilidade/eventos-independentes]
 
   - id: enem-2023-139
     area: matematica
@@ -204,7 +204,7 @@ questoes:
       B: "4 pacotes vêm de 900 g ÷ 270 g ≈ 3,33, arredondado para cima: a conta foi feita para uma pessoa só. O casal são duas pessoas."
       C: "6 vem de cortar a parte decimal de 6,67. Com 6 pacotes há 1 620 g, menos que os 1 800 g necessários. Quando falta, arredonde para cima."
       E: "8 pacotes passam do necessário e não saem de uma conta coerente. Sete pacotes (1 890 g) já cobrem os 1 800 g."
-    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-fundamentos/operacoes-com-inteiros-e-racionais]
 
   - id: enem-2023-148
     area: matematica
@@ -227,7 +227,7 @@ questoes:
       B: "11√2 mistura a altura da opção I (11 m) com o ângulo da opção II (45°). Cada opção tem o seu par de h e α."
       D: "12√3 é o cabo da opção III. Está certo para essa opção, mas não é o menor: 12√3 ≈ 20,8 m, maior que 12√2 ≈ 17,0 m."
       E: "22 é o cabo da opção I, certo para ela, mas maior que o da opção II (cerca de 17 m). A pergunta pede o menor."
-    aulas: [matematica-medio/trigonometria-no-triangulo-retangulo]
+    aulas: [matematica-medio/trigonometria-no-triangulo-retangulo, enem-matematica-geometria/trigonometria-no-triangulo-retangulo]
 
   - id: enem-2023-149
     area: matematica
@@ -291,7 +291,7 @@ questoes:
       C: "6 inclui as 10h e as 11h, quando A e B valem o mesmo. Estar mais valorizada exige valor estritamente maior."
       D: "7 não sai de uma leitura coerente do gráfico. Compare as coordenadas de cada ponto: A é a horizontal e B é a vertical."
       E: "9 é o total de instantes observados, não os instantes em que A vale mais que B."
-    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes]
+    aulas: [matematica-fundamental/leitura-de-graficos-e-tabelas, enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes, enem-matematica-geometria/plano-cartesiano]
 
   - id: enem-2023-152
     area: matematica
@@ -335,7 +335,7 @@ questoes:
       B: "O caixa II dá 54 min de espera. Não basta olhar o tempo de atendimento: com 9 pessoas na fila a espera fica longa."
       C: "O caixa III tem o atendimento mais rápido (5 min), mas a espera é 30 min. Ele também aparece se o cliente somar uma pessoa a mais em cada fila. Mas cada caixa começa agora a atender o primeiro da fila, então a espera é tempo vezes pessoas na fila."
       D: "O caixa IV tem a fila mais curta (2 pessoas), mas cada atendimento leva 15 min: espera de 30 min, maior que os 27 do caixa V."
-    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-fundamentos/operacoes-com-inteiros-e-racionais]
 
   - id: enem-2023-154
     area: matematica
@@ -513,7 +513,7 @@ questoes:
       B: "10% vem de dividir os 20% por 2 meses. Mas a primeira parcela é paga na hora: o que se financia é 900, não 1 500."
       C: "20% é o acréscimo total sobre o preço à vista, não a taxa mensal. Como a entrada é paga no ato, a taxa real por mês fica maior."
       E: "23,3% não sai do caminho certo. Aparece, por exemplo, se a raiz de 28 for estimada como 5,4: (2 + 5,4) / 6 ≈ 1,233. Use 5,29."
-    aulas: [matematica-medio/juros-simples-e-compostos, matematica-medio/funcao-do-2-grau]
+    aulas: [matematica-medio/juros-simples-e-compostos, matematica-medio/funcao-do-2-grau, enem-matematica-proporcionalidade/juros-compostos]
 
   - id: enem-2023-162
     area: matematica
@@ -738,7 +738,7 @@ questoes:
       B: "1 040 é o tempo em anos Haab. Falta converter para anos Tzolkim, que têm 260 dias."
       D: "2 100 não sai de uma conversão coerente. Passe tudo para dias e divida por 260."
       E: "5 200 vem de 20 · 260, multiplicando os ciclos pelos dias do ano Tzolkim. Os 52 anos Haab de cada ciclo ficaram de fora."
-    aulas: [matematica-fundamental/as-quatro-operacoes, matematica-fundamental/razao-e-proporcao, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/as-quatro-operacoes, matematica-fundamental/razao-e-proporcao, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-fundamentos/operacoes-com-inteiros-e-racionais]
 
   - id: enem-2023-172
     area: matematica
@@ -759,7 +759,7 @@ questoes:
       B: "Com α = 90°, vale Pitágoras: a² = b² + c². As áreas seriam iguais, não maior."
       D: "180° não forma triângulo: os três lados ficariam alinhados."
       E: "Ângulo interno de triângulo é sempre menor que 180°. Esta faixa não pode acontecer."
-    aulas: [matematica-medio/geometria-plana, matematica-medio/trigonometria-no-triangulo-retangulo]
+    aulas: [matematica-medio/geometria-plana, matematica-medio/trigonometria-no-triangulo-retangulo, enem-matematica-geometria/pitagoras-e-relacoes-metricas]
 
   - id: enem-2023-173
     area: matematica
@@ -804,7 +804,7 @@ questoes:
       C: "9,30 não sai de uma montagem coerente do sistema. Lembre que são 9 tíquetes por cartela, nas duas cores."
       D: "10,50 aparece ao ler a segunda informação como a − v = 0,05, esquecendo o v do outro lado. A frase diz a − v = v + 0,05."
       E: "10,65 não sai de uma montagem coerente do sistema. Resolva por substituição e confira com 18a + 9v = 32,40."
-    aulas: [matematica-medio/matrizes-e-sistemas-lineares, matematica-fundamental/equacoes-do-1-grau]
+    aulas: [matematica-medio/matrizes-e-sistemas-lineares, matematica-fundamental/equacoes-do-1-grau, enem-matematica-fundamentos/sistemas-lineares]
 
   - id: enem-2023-176
     area: matematica
@@ -849,7 +849,7 @@ questoes:
       C: "Os trechos retos e parados sugerem que a cadeira para em cima e embaixo. A roda gira sem parar, com velocidade constante."
       D: "As pontas no ponto mais baixo indicariam uma virada brusca. No fundo da roda o movimento é suave, como no topo."
       E: "A ponta no ponto mais alto indicaria uma virada brusca no topo. A curva deve ser arredondada lá também."
-    aulas: [matematica-medio/funcoes-a-ideia]
+    aulas: [matematica-medio/funcoes-a-ideia, enem-matematica-funcoes-e-algebra/funcoes-trigonometricas]
 
   - id: enem-2023-178
     area: matematica
@@ -895,7 +895,7 @@ questoes:
       B: "O cinco está certo, mas o sete virou 2 + 2 + 2 + 2 + 1 = 9. Conte de novo os okosa."
       D: "O cinco ficou 2 + 1 + 1 = 4, e o sete mistura a ordem das palavras. No padrão, os okosa vêm primeiro e há no máximo um urapum."
       E: "O cinco está certo, mas o sete virou 2 + 2 + 2 + 2 = 8. Sete é ímpar, então termina com urapum."
-    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao]
+    aulas: [matematica-fundamental/as-quatro-operacoes, enem-reta-final/matematica-o-essencial-numeros-e-proporcao, enem-matematica-fundamentos/operacoes-com-inteiros-e-racionais]
 
   - id: enem-2023-180
     area: matematica

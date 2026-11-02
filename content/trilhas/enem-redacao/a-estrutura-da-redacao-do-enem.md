@@ -38,7 +38,7 @@ quiz:
     explicacao: "Ela pode aparecer em qualquer parte, mas o lugar mais natural é a conclusão, depois que o problema foi discutido."
 ---
 
-A redação entra na nota de todos os programas que usam o ENEM. É também a parte da prova em que o treino aparece mais rápido na nota. Esta aula mostra o tipo de texto pedido, a estrutura que funciona e como ele é corrigido. As próximas aulas da trilha detalham cada competência.
+Pelo edital, o ENEM é formado por {{enem:estrutura}}. A redação é, portanto, uma das cinco notas do exame, e se treina em casa, texto a texto. Esta aula mostra o tipo de texto pedido, a estrutura que funciona e como ele é corrigido. As próximas aulas da trilha detalham cada competência.
 
 ## O que você vai aprender
 
@@ -125,7 +125,7 @@ nota de cada corretor = soma das 5 competências
 nota final = média das notas dos dois corretores
 ```
 
-Se os dois corretores discordarem muito, um **terceiro corretor** avalia o texto. Pelo edital, isso acontece {{enem:redacao-discrepancia}}. Nesse caso, e a nota final é a média das duas notas mais próximas. Se a discordância continuar, uma banca de três corretores decide.
+Se os dois corretores discordarem muito, um **terceiro corretor** avalia o texto. Pelo edital, isso acontece {{enem:redacao-discrepancia}}. Nesse caso, a nota final é a média das duas notas mais próximas. Se a discordância continuar, uma banca de três corretores decide.
 
 ## O título
 
