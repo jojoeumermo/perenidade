@@ -1,0 +1,11 @@
+# O que não entra na montagem da imagem (Dockerfile). O .git entra de propósito: o histórico do acervo sai dele.
+node_modules
+.next
+coverage
+playwright-report
+test-results
+e2e
+.vercel
+*.log
+.env.local
+.env.development.local
