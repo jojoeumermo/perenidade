@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@diffusionstudio/piper-wasm": "1.0.0",
-    "@electric-sql/pglite": "^0.5.8",
+    "@electric-sql/pglite": "^0.5.13",
     "@ruby/3.4-wasm-wasi": "^2.10.1",
     "@supabase/supabase-js": "^2.117.3",
     "@xterm/addon-fit": "^0.11.0",
