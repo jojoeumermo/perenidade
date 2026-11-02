@@ -1,0 +1,51 @@
+id: as-duas-provas
+aula: enem-estrategia-de-prova/como-a-prova-e-montada
+titulo: Os dois domingos e o tempo de cada um
+tipo: reta-final
+voz: voz-2
+duracao: 60
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: cartaz, texto: "ENEM 2026", titulo: "Dois domingos, cinco provas", nota: "e um relógio só" }
+    fala: >
+      O ENEM não acontece num dia só.
+      São dois domingos de prova, e cada um pede um ritmo diferente.
+  - id: dia1
+    visual:
+      tipo: folha
+      titulo: "{{enem:aplicacao-dia-1}}"
+      itens:
+        - { texto: "Linguagens e Humanas", em: areas1 }
+        - { texto: "e a Redação", em: redacao1, destaque: true }
+        - { texto: "tempo: {{enem:duracao-dia-1}}", em: tempo1 }
+    fala: >
+      {{marca:areas1}}No primeiro dia, {{enem:aplicacao-dia-1}}, caem Linguagens e Ciências Humanas.
+      {{marca:redacao1}}A redação também é nesse dia, e por isso ele é mais longo.
+      {{marca:tempo1}}São {{enem:duracao-dia-1}} de prova.
+  - id: dia2
+    visual:
+      tipo: folha
+      titulo: "{{enem:aplicacao-dia-2}}"
+      itens:
+        - { texto: "Natureza e Matemática", em: areas2 }
+        - { texto: "tempo: {{enem:duracao-dia-2}}", em: tempo2, destaque: true }
+    fala: >
+      {{marca:areas2}}No segundo dia, {{enem:aplicacao-dia-2}}, caem Ciências da Natureza e Matemática.
+      {{marca:tempo2}}O tempo é de {{enem:duracao-dia-2}}, sem redação, só com questões de múltipla escolha.
+  - id: estrutura
+    visual: { tipo: carimbo, titulo: "4 × 45", texto: "Quatro provas objetivas de {{enem:questoes-por-area}} questões cada, mais a redação." }
+    fala: >
+      Ao todo, o edital fala em {{enem:estrutura}}.
+      Saber disso ajuda a dividir o tempo antes de abrir o caderno.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "Como a prova é montada" }
+    fala: >
+      Os horários de cada dia estão no edital e no site do Instituto.
+      A aula sobre como a prova é montada mostra a ordem das áreas e tem exercícios.
+fontes:
+  - titulo: "Edital nº 64, de 21 de maio de 2026, itens 1.3, 3.2 e 3.3 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }

@@ -397,4 +397,5 @@ export const VITRINE: Record<Interativo, [string, "Escrever" | "Imagem, som e te
   simulacao: ["alvo", "Contas e ciência"], molecula: ["molecula", "Contas e ciência"], programacao: ["tijolos", "Contas e ciência"], rodar: ["terminal", "Contas e ciência"],
   mapa: ["mapa", "Imagem, som e tempo"], linhadotempo: ["linhadotempo", "Imagem, som e tempo"], diagrama: ["fluxo", "Imagem, som e tempo"],
   desenho: ["lapis", "Ferramentas"], ferramenta: ["ferramentas", "Ferramentas"], recurso: ["frasco", "Ferramentas"],
+  videocurto: ["claquete", "Imagem, som e tempo"],
 };

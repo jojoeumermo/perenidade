@@ -1,0 +1,40 @@
+id: quando-posso-sair
+aula: enem-como-funciona/o-dia-da-prova-o-que-levar-e-como-administrar-o-tempo
+titulo: Quando dá para sair da sala
+tipo: reta-final
+voz: voz-2
+duracao: 55
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: pergunta, texto: "Terminei. Posso ir embora?", nota: "depende do relógio" }
+    fala: >
+      Terminou a prova antes da hora e quer ir para casa?
+      O edital tem regras para isso, e uma delas decide se o caderno de questões vai com você.
+  - id: regras
+    visual:
+      tipo: folha
+      titulo: Saída da sala
+      itens:
+        - { texto: "sair de vez: só depois de {{enem:saida-minima}}", em: duas, destaque: true }
+        - { texto: "levar o caderno: nos últimos {{enem:levar-caderno}}", em: caderno }
+        - { texto: "os três últimos saem juntos", em: tres }
+    fala: >
+      {{marca:duas}}Ninguém sai da sala em definitivo antes de {{enem:saida-minima}} do início da prova.
+      {{marca:caderno}}Para levar o caderno de questões, é preciso sair nos últimos {{enem:levar-caderno}} antes do fim.
+      {{marca:tres}}E os três últimos participantes da sala {{enem:tres-ultimos}}.
+  - id: dica
+    visual: { tipo: carimbo, titulo: Sobrou tempo, texto: "Use o tempo para revisar as questões fáceis e o cartão." }
+    fala: >
+      Se sobrou tempo, use para revisar as questões que você achou fáceis e conferir o cartão.
+      Um erro de atenção numa questão fácil pesa mais do que parece.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "O dia da prova: o que levar" }
+    fala: >
+      A aula sobre o dia da prova explica também como administrar o tempo em cada domingo.
+fontes:
+  - titulo: "Edital nº 64, de 21 de maio de 2026, itens 11.1.34, 11.1.35 e 11.1.37 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }

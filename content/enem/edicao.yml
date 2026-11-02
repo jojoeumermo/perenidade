@@ -71,6 +71,11 @@ fontes:
     orgao: "MEC"
     url: "https://acessounico.mec.gov.br/sisu"
 
+  guia-nota-2021:
+    titulo: "Entenda a sua nota no Enem: guia do participante (2021)"
+    orgao: "Inep"
+    url: "https://download.inep.gov.br/publicacoes/institucionais/avaliacoes_e_exames_da_educacao_basica/entenda_a_sua_nota_no_enem_guia_do_participante.pdf"
+
 fatos:
   # ── Datas ──
   aplicacao-dia-1:
@@ -546,3 +551,34 @@ fatos:
     fonte: noticia-inscricoes
     trecho: "Os participantes do Pé-de-Meia que concluírem o ensino médio em 2026 e participarem dos dois dias de prova do Enem receberão um incentivo adicional de R$ 200."
     conferido: "2026-10-30"
+
+  # ── Como a nota é calculada (TRI): guia do Inep. Não muda de edição para edição; conferir se o Inep publicar guia novo. ──
+  tri-coerencia:
+    afirmacao: "A TRI considera a coerência das respostas"
+    tipo: texto
+    valor: "a nota não depende só do número de acertos: o modelo espera que quem acerta as difíceis também acerte as fáceis, e acertos sem essa coerência acrescentam menos"
+    fonte: guia-nota-2021
+    item: "2.4"
+    trecho: "Espera-se que participantes que acertaram as questões difíceis devam também acertar as questões fáceis [...] podemos inferir que não existe coerência nas respostas e, dessa forma, os acertos acrescentarão menos na nota do participante na régua."
+    conferido: "2026-11-02"
+  tri-escala:
+    afirmacao: "A régua de cada área"
+    tipo: texto
+    valor: "500 é o desempenho médio dos concluintes regulares do ensino médio de 2009, e 100 é o desvio padrão desse grupo"
+    fonte: guia-nota-2021
+    trecho: "valor de posição ou de referência, para o qual foi atribuído o valor 500, que representa o desempenho médio dos concluintes regulares do ensino médio de 2009 [...] valor de dispersão, para o qual foi atribuído o valor 100"
+    conferido: "2026-11-02"
+  tri-nao-depende:
+    afirmacao: "A nota não depende das outras pessoas"
+    tipo: texto
+    valor: "a nota não depende das notas dos demais participantes, mas do posicionamento das questões na régua"
+    fonte: guia-nota-2021
+    trecho: "sua nota não depende das notas dos demais participantes, mas apenas do posicionamento das questões na régua."
+    conferido: "2026-11-02"
+  tri-branco:
+    afirmacao: "Responder ou deixar em branco"
+    tipo: texto
+    valor: "uma questão certa sempre aumenta a nota, e uma questão em branco é corrigida como errada"
+    fonte: guia-nota-2021
+    trecho: "sempre é melhor responder à questão do que a deixar em branco, pois uma questão certa sempre aumenta a nota, e uma questão deixada em branco é corrigida como errada."
+    conferido: "2026-11-02"

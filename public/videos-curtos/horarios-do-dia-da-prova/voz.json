@@ -1,0 +1,73 @@
+{
+ "hash": "6d5ff14c59a3bf1e8a0cab77212a8be9f76b9a272a6bf0d74d971de7e0abcfff",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-m",
+ "nome": "Voz 2",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 44777,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 3815,
+   "texto": "Todo ano tem gente que chega correndo e encontra o portão fechado."
+  },
+  {
+   "cena": "gancho",
+   "ini": 4175,
+   "fim": 8930,
+   "texto": "Os horários do ENEM são fixos, e valem para o país inteiro no horário de Brasília."
+  },
+  {
+   "cena": "horarios",
+   "ini": 9630,
+   "fim": 11859,
+   "texto": "Os portões abrem às 12h."
+  },
+  {
+   "cena": "horarios",
+   "ini": 12219,
+   "fim": 18150,
+   "texto": "Eles fecham às 13h, e até essa hora você precisa estar na porta da sala para a identificação."
+  },
+  {
+   "cena": "horarios",
+   "ini": 18510,
+   "fim": 21336,
+   "texto": "A prova começa às 13h30."
+  },
+  {
+   "cena": "fim",
+   "ini": 22036,
+   "fim": 25187,
+   "texto": "No primeiro dia, a prova vai até as 19h."
+  },
+  {
+   "cena": "fim",
+   "ini": 25547,
+   "fim": 28548,
+   "texto": "No segundo, até as 18h30."
+  },
+  {
+   "cena": "fuso",
+   "ini": 29248,
+   "fim": 33843,
+   "texto": "Se o seu estado tem outro fuso horário, faça a conta do relógio local na véspera."
+  },
+  {
+   "cena": "fuso",
+   "ini": 34203,
+   "fim": 38171,
+   "texto": "Planeje chegar perto da abertura, com o documento e a caneta na mão."
+  },
+  {
+   "cena": "final",
+   "ini": 38871,
+   "fim": 43577,
+   "texto": "A aula sobre a véspera e o dia da prova tem a lista do que levar e o que deixar em casa."
+  }
+ ]
+}

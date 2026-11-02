@@ -1,0 +1,79 @@
+{
+ "hash": "a4f3807a900a97786c14784b04c1e49ff79a2430b652e2434cddc956d1f07fca",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-f",
+ "nome": "Voz 1",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 50982,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 4865,
+   "texto": "Você já ficou vinte minutos numa questão e depois correu para marcar as últimas no chute?"
+  },
+  {
+   "cena": "gancho",
+   "ini": 5345,
+   "fim": 8377,
+   "texto": "Dá para evitar isso com uma conta feita antes da prova."
+  },
+  {
+   "cena": "conta",
+   "ini": 9077,
+   "fim": 11882,
+   "texto": "No segundo dia, você tem 5 horas de prova."
+  },
+  {
+   "cena": "conta",
+   "ini": 12242,
+   "fim": 15185,
+   "texto": "São 90 questões, de Natureza e de Matemática."
+  },
+  {
+   "cena": "conta",
+   "ini": 15545,
+   "fim": 21363,
+   "texto": "Dividindo, dá cerca de 3 minutos e 20 segundos por questão, sem contar o tempo de marcar o cartão."
+  },
+  {
+   "cena": "duas-voltas",
+   "ini": 22063,
+   "fim": 25610,
+   "texto": "Na primeira volta, resolva o que você sabe fazer sem demora."
+  },
+  {
+   "cena": "duas-voltas",
+   "ini": 25970,
+   "fim": 29761,
+   "texto": "Se a questão travou, faça uma marca no caderno e passe para a próxima."
+  },
+  {
+   "cena": "duas-voltas",
+   "ini": 30121,
+   "fim": 33386,
+   "texto": "Na segunda volta, volte às marcadas com o tempo que sobrou."
+  },
+  {
+   "cena": "armadilha",
+   "ini": 34086,
+   "fim": 39451,
+   "texto": "O erro mais caro é teimar com uma questão difícil enquanto as fáceis esperam no fim do caderno."
+  },
+  {
+   "cena": "armadilha",
+   "ini": 39811,
+   "fim": 44294,
+   "texto": "Reserve também os últimos minutos para passar as respostas para o cartão com calma."
+  },
+  {
+   "cena": "final",
+   "ini": 44994,
+   "fim": 49782,
+   "texto": "A aula sobre tempo por questão faz a mesma conta para o primeiro dia, que tem a redação."
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "as-duas-provas": {
+  "titulo": "Os dois domingos e o tempo de cada um",
+  "aula": "enem-estrategia-de-prova/como-a-prova-e-montada",
+  "segundos": 54
+ },
+ "cartao-resposta-sem-rasura": {
+  "titulo": "O cartão-resposta não aceita rasura",
+  "aula": "enem-estrategia-de-prova/o-cartao-resposta",
+  "segundos": 51
+ },
+ "desconto-sobre-desconto": {
+  "titulo": "Desconto sobre desconto",
+  "aula": "enem-matematica-proporcionalidade/aumentos-e-descontos-sucessivos",
+  "segundos": 68
+ },
+ "documentos-que-valem": {
+  "titulo": "O documento que deixa você entrar",
+  "aula": "enem-como-funciona/o-dia-da-prova-o-que-levar-e-como-administrar-o-tempo",
+  "segundos": 56
+ },
+ "horarios-do-dia-da-prova": {
+  "titulo": "Os horários do dia da prova",
+  "aula": "enem-reta-final/a-vespera-e-o-dia-da-prova",
+  "segundos": 45
+ },
+ "o-que-zera-a-redacao": {
+  "titulo": "O que zera a redação",
+  "aula": "enem-redacao/o-que-zera-a-redacao",
+  "segundos": 55
+ },
+ "proposta-de-intervencao": {
+  "titulo": "Proposta de intervenção: os elementos que a Cartilha pede",
+  "aula": "enem-redacao/competencia-5-a-proposta-de-intervencao",
+  "segundos": 67
+ },
+ "quando-posso-sair": {
+  "titulo": "Quando dá para sair da sala",
+  "aula": "enem-como-funciona/o-dia-da-prova-o-que-levar-e-como-administrar-o-tempo",
+  "segundos": 44
+ },
+ "tempo-por-questao": {
+  "titulo": "Quanto tempo cabe em cada questão",
+  "aula": "enem-estrategia-de-prova/tempo-por-questao-e-ordem-de-resolucao",
+  "segundos": 51
+ },
+ "tri-e-coerencia": {
+  "titulo": "O que é a TRI e por que a coerência pesa",
+  "aula": "enem-como-funciona/a-nota-o-que-e-a-tri",
+  "segundos": 74
+ }
+}
