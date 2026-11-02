@@ -118,6 +118,9 @@ const nextConfig: NextConfig = {
   experimental: { globalNotFound: true },
   // O servidor de desenvolvimento não escreve arquivos de instrução na raiz do projeto.
   agentRules: false,
+  // Na imagem do servidor próprio (Dockerfile), o Next junta num só lugar o servidor e só os pacotes que ele usa
+  // ("standalone"). Fora dela (desenvolvimento, testes), nada muda.
+  ...(process.env.NEXT_OUTPUT_STANDALONE === "1" ? { output: "standalone" as const } : {}),
   // O build gera mais de dezesseis mil páginas. Na Vercel há um só processo para todas, com oito páginas ao mesmo tempo,
   // e o prazo de cada uma conta também a espera na fila: com o padrão de 60 s, até o robots.txt estourava quando o
   // processo estava ocupado, e o build caía (o mesmo commit passava numa tentativa e falhava na outra). Cinco minutos
