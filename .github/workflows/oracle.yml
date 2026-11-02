@@ -12,7 +12,7 @@ name: Pegar a máquina grátis da Oracle
 #   variáveis: OCI_USUARIO, OCI_TENANCIA, OCI_DIGITAL (OCIDs e impressão digital da chave)
 on:
   schedule:
-    # De hora em hora; cada rodada tenta por 55 minutos.
+    # De hora em hora; cada rodada tenta por 50 minutos.
     - cron: "7 * * * *"
   workflow_dispatch:
 
@@ -28,7 +28,7 @@ jobs:
   tentar:
     if: vars.OCI_USUARIO != ''
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 58
     env:
       OCI_CLI_USER: ${{ vars.OCI_USUARIO }}
       OCI_CLI_TENANCY: ${{ vars.OCI_TENANCIA }}
@@ -43,7 +43,7 @@ jobs:
       - name: Instalar a linha de comando da Oracle
         run: pipx install oci-cli > /dev/null && oci --version
 
-      - name: Tentar até conseguir (55 minutos)
+      - name: Tentar até conseguir (50 minutos)
         run: |
           set +e -uo pipefail  # o GitHub liga o "-e"; aqui cada erro é tratado à mão
           trap 'echo "Fim do passo (código $?)."' EXIT
@@ -82,7 +82,7 @@ jobs:
             'curl -fsSL -o /root/preparar.sh https://raw.githubusercontent.com/jojoeumermo/perenidade/master/infra/servidor/preparar.sh && bash /root/preparar.sh > /var/log/lucia-preparar.log 2>&1' \
             > /tmp/cloud-init.sh
 
-          fim=$((SECONDS + 55 * 60)); n=0
+          fim=$((SECONDS + 50 * 60)); n=0
           while [ $SECONDS -lt $fim ]; do
             for forma in '{"ocpus": 2, "memoryInGBs": 12}' '{"ocpus": 1, "memoryInGBs": 6}'; do
               n=$((n + 1))
