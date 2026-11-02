@@ -14,11 +14,13 @@ on:
   schedule:
     # De hora em hora; cada rodada tenta por 50 minutos.
     - cron: "7 * * * *"
+    # O GitHub atrasa e pula agendamentos; por isso cada rodada sem vaga chama a próxima no fim (último passo).
   workflow_dispatch:
 
 permissions:
   contents: read
   issues: write
+  actions: write  # para a rodada chamar a próxima
 
 concurrency:
   group: pegar-maquina-oracle
@@ -44,6 +46,7 @@ jobs:
         run: pipx install oci-cli > /dev/null && oci --version
 
       - name: Tentar até conseguir (50 minutos)
+        id: tentar
         run: |
           set +e -uo pipefail  # o GitHub liga o "-e"; aqui cada erro é tratado à mão
           trap 'echo "Fim do passo (código $?)."' EXIT
@@ -59,7 +62,7 @@ jobs:
           }
           vivas=$(existe) || exit 1
           echo "Máquinas \"$NOME\" na conta: $vivas"
-          if [ "$vivas" != "0" ]; then echo "A máquina \"$NOME\" já existe. Nada a fazer."; exit 0; fi
+          if [ "$vivas" != "0" ]; then echo "A máquina \"$NOME\" já existe. Nada a fazer."; echo "pronto=1" >> "$GITHUB_OUTPUT"; exit 0; fi
           if [ -z "$TUNEL" ]; then echo "::error::Falta o segredo OCI_TUNEL_TOKEN."; exit 1; fi
           # Aceita o comando inteiro que o Cloudflare mostra ("cloudflared service install <token>"): fica só o token.
           TUNEL=$(printf '%s' "$TUNEL" | tr -s '[:space:]' '\n' | grep -v '^$' | tail -n 1)
@@ -99,6 +102,7 @@ jobs:
                 echo "Conseguiu na tentativa $n ($forma): $id"
                 gh issue create -R "$GITHUB_REPOSITORY" --title "A máquina grátis da Oracle foi criada" \
                   --body "A rotina conseguiu a vaga na tentativa $n, com $forma. Máquina: \`$id\`. Próximo passo: configurar o Coolify nela e fazer a mudança (docs/HOSPEDAGEM.md)." || true
+                echo "pronto=1" >> "$GITHUB_OUTPUT"
                 exit 0
               fi
               echo "  resposta (código $codigo): $(grep -o '"message": "[^"]*"' /tmp/saida.txt | head -n 1)"
@@ -109,6 +113,11 @@ jobs:
               esac
               sleep 30
             done
-            if [ "$(existe)" != "0" ]; then echo "A máquina apareceu."; exit 0; fi
+            if [ "$(existe)" != "0" ]; then echo "A máquina apareceu."; echo "pronto=1" >> "$GITHUB_OUTPUT"; exit 0; fi
           done
           echo "Sem vaga nesta rodada. A próxima começa daqui a pouco."
+
+      - name: Chamar a próxima rodada
+        # Só quando a rodada terminou bem e sem máquina. Erro de verdade ou cancelamento param a corrente.
+        if: success() && steps.tentar.outputs.pronto != '1'
+        run: gh workflow run oracle.yml -R "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME"
