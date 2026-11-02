@@ -191,7 +191,7 @@ export function NotaParaOAdulto({ idade, objetivo, aprende, nota }: { idade: str
       <p className="mt-2"><strong>Objetivo:</strong> {objetivo}</p>
       <p className="mt-1"><strong>O que a criança aprende:</strong> {aprende}</p>
       <p className="mt-1">{nota}</p>
-      <p className="mt-1 text-ink-soft">Conteúdo em revisão por educador.</p>
+      <p className="mt-1 text-ink-soft">Conteúdo ainda em revisão.</p>
     </details>
   );
 }
