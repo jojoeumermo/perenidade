@@ -1062,7 +1062,45 @@
       "rodaLink": "Open this subject's room in the community",
       "ouvirTrecho": "Listen to this part"
     },
-    "quickCheck": "Quick check"
+    "quickCheck": "Quick check",
+    "voz": {
+      "escolher": "Voice",
+      "titulo": "Choose the voice",
+      "aparelho": "Device voice · light",
+      "aparelhoNota": "Already on your phone or computer. Nothing to download.",
+      "natural": "Voice {n}",
+      "feminina": "female",
+      "masculina": "male",
+      "naturalNota": "More natural. Downloads {tamanho} once; then it stays in this browser and works offline.",
+      "jaBaixada": "Already on this device.",
+      "amostra": "Play sample",
+      "pararAmostra": "Stop sample",
+      "baixar": "Download and use",
+      "usar": "Use this voice",
+      "usando": "In use",
+      "baixando": "Downloading: {feito} of {total}",
+      "cancelar": "Cancel",
+      "economia": "Your device is saving data. Prefer the device voice, or download the natural one on Wi-Fi.",
+      "fraco": "This device has little memory: the device voice is the lightest and won't freeze.",
+      "pesada": "Heavy for basic devices",
+      "lenta": "On a computer without a graphics card, it may pause between sentences.",
+      "erro": "This voice could not be opened. We'll continue with the device voice.",
+      "semVoz": "This browser has no voice of its own. Choose a natural voice.",
+      "nenhumaNatural": "Natural voices are not available on this site yet.",
+      "fechar": "Close",
+      "credito": "Synthetic voice running on your device: {modelo} ({licenca})."
+    },
+    "leitor": {
+      "regiao": "Reading aloud",
+      "anterior": "Previous sentence",
+      "proxima": "Next sentence",
+      "pausar": "Pause",
+      "continuar": "Resume",
+      "parar": "Stop reading",
+      "velocidade": "Speed",
+      "frase": "Sentence {n} of {total}",
+      "preparando": "Preparing the voice…"
+    }
   },
   "library": {
     "areasTitle": "Areas",

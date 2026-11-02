@@ -1062,7 +1062,45 @@
       "rodaLink": "Abrir a sala desta disciplina na comunidade",
       "ouvirTrecho": "Ouvir este trecho"
     },
-    "quickCheck": "Pergunta rápida"
+    "quickCheck": "Pergunta rápida",
+    "voz": {
+      "escolher": "Voz",
+      "titulo": "Escolha a voz",
+      "aparelho": "Voz do aparelho · leve",
+      "aparelhoNota": "Já vem no seu celular ou computador. Não baixa nada.",
+      "natural": "Voz {n}",
+      "feminina": "feminina",
+      "masculina": "masculina",
+      "naturalNota": "Mais natural. Baixa {tamanho} uma vez; depois fica guardada neste navegador e funciona sem internet.",
+      "jaBaixada": "Já está neste aparelho.",
+      "amostra": "Ouvir amostra",
+      "pararAmostra": "Parar amostra",
+      "baixar": "Baixar e usar",
+      "usar": "Usar esta voz",
+      "usando": "Em uso",
+      "baixando": "Baixando: {feito} de {total}",
+      "cancelar": "Cancelar",
+      "economia": "Seu aparelho está economizando dados. Prefira a voz do aparelho ou baixe a natural no Wi-Fi.",
+      "fraco": "Este aparelho tem pouca memória: a voz do aparelho é a mais leve e não trava.",
+      "pesada": "Pesada para aparelhos simples",
+      "lenta": "Em computador sem placa de vídeo, pode fazer pausas entre as frases.",
+      "erro": "Não deu para abrir esta voz. Seguimos com a voz do aparelho.",
+      "semVoz": "Este navegador não tem voz própria para ler. Escolha uma voz natural.",
+      "nenhumaNatural": "As vozes naturais ainda não estão disponíveis neste site.",
+      "fechar": "Fechar",
+      "credito": "Voz sintética que roda no seu aparelho: {modelo} ({licenca})."
+    },
+    "leitor": {
+      "regiao": "Leitura em voz alta",
+      "anterior": "Frase anterior",
+      "proxima": "Próxima frase",
+      "pausar": "Pausar",
+      "continuar": "Continuar",
+      "parar": "Parar a leitura",
+      "velocidade": "Velocidade",
+      "frase": "Frase {n} de {total}",
+      "preparando": "Preparando a voz…"
+    }
   },
   "library": {
     "areasTitle": "Áreas",

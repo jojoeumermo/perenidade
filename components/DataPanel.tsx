@@ -6,6 +6,7 @@ import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { chavesDeEstudo, entraNaCopia, restaurarCopia } from "@/lib/estudo";
 import { applyPrefs, defaultPrefs } from "@/lib/prefs";
+import { apagarVozes } from "@/lib/vozes/catalogo";
 import { useCompleted } from "@/lib/progress";
 import { getItem, KEYS, setItem, useStored } from "@/lib/storage";
 import { quickExit } from "./Shortcuts";
@@ -67,6 +68,7 @@ export function DataPanel({ s }: { s: Dict["data"] }) {
   function clearAll() {
     for (const key of Object.values(KEYS)) setItem(key, null);
     for (const key of chavesDeEstudo(localStorage)) setItem(key, null);
+    void apagarVozes();
     window.dispatchEvent(new Event("lucia:estudo"));
     document.documentElement.removeAttribute("data-theme");
     applyPrefs(defaultPrefs);

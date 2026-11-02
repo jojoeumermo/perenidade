@@ -1062,7 +1062,45 @@
       "rodaLink": "Abrir la sala de esta materia en la comunidad",
       "ouvirTrecho": "Escuchar este fragmento"
     },
-    "quickCheck": "Pregunta rápida"
+    "quickCheck": "Pregunta rápida",
+    "voz": {
+      "escolher": "Voz",
+      "titulo": "Elige la voz",
+      "aparelho": "Voz del dispositivo · ligera",
+      "aparelhoNota": "Ya viene en tu celular o computadora. No descarga nada.",
+      "natural": "Voz {n}",
+      "feminina": "femenina",
+      "masculina": "masculina",
+      "naturalNota": "Más natural. Descarga {tamanho} una vez; después queda en este navegador y funciona sin internet.",
+      "jaBaixada": "Ya está en este dispositivo.",
+      "amostra": "Escuchar muestra",
+      "pararAmostra": "Detener muestra",
+      "baixar": "Descargar y usar",
+      "usar": "Usar esta voz",
+      "usando": "En uso",
+      "baixando": "Descargando: {feito} de {total}",
+      "cancelar": "Cancelar",
+      "economia": "Tu dispositivo está ahorrando datos. Prefiere la voz del dispositivo o descarga la natural con wifi.",
+      "fraco": "Este dispositivo tiene poca memoria: la voz del dispositivo es la más ligera y no se traba.",
+      "pesada": "Pesada para dispositivos sencillos",
+      "lenta": "En una computadora sin tarjeta gráfica, puede hacer pausas entre las frases.",
+      "erro": "No se pudo abrir esta voz. Seguimos con la voz del dispositivo.",
+      "semVoz": "Este navegador no tiene voz propia para leer. Elige una voz natural.",
+      "nenhumaNatural": "Las voces naturales todavía no están disponibles en este sitio.",
+      "fechar": "Cerrar",
+      "credito": "Voz sintética que funciona en tu dispositivo: {modelo} ({licenca})."
+    },
+    "leitor": {
+      "regiao": "Lectura en voz alta",
+      "anterior": "Frase anterior",
+      "proxima": "Frase siguiente",
+      "pausar": "Pausar",
+      "continuar": "Continuar",
+      "parar": "Detener la lectura",
+      "velocidade": "Velocidad",
+      "frase": "Frase {n} de {total}",
+      "preparando": "Preparando la voz…"
+    }
   },
   "library": {
     "areasTitle": "Áreas",

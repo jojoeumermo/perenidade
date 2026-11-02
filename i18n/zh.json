@@ -1055,7 +1055,45 @@
       "rodaLink": "打开社区里本学科的讨论室",
       "ouvirTrecho": "收听这一段"
     },
-    "quickCheck": "小测验"
+    "quickCheck": "小测验",
+    "voz": {
+      "escolher": "语音",
+      "titulo": "选择语音",
+      "aparelho": "设备语音 · 轻量",
+      "aparelhoNota": "手机或电脑自带，无需下载。",
+      "natural": "语音 {n}",
+      "feminina": "女声",
+      "masculina": "男声",
+      "naturalNota": "更自然。只需下载一次 {tamanho}；之后保存在此浏览器中，离线也能用。",
+      "jaBaixada": "已在此设备上。",
+      "amostra": "试听",
+      "pararAmostra": "停止试听",
+      "baixar": "下载并使用",
+      "usar": "使用此语音",
+      "usando": "使用中",
+      "baixando": "正在下载：{feito} / {total}",
+      "cancelar": "取消",
+      "economia": "你的设备正在节省流量。建议使用设备语音，或在 Wi-Fi 下下载自然语音。",
+      "fraco": "此设备内存较少：设备语音最轻，不会卡顿。",
+      "pesada": "对普通设备较重",
+      "lenta": "在没有显卡的电脑上，句子之间可能会停顿。",
+      "erro": "无法打开此语音。将继续使用设备语音。",
+      "semVoz": "此浏览器没有自带朗读语音。请选择一个自然语音。",
+      "nenhumaNatural": "本站暂时还没有自然语音。",
+      "fechar": "关闭",
+      "credito": "在你的设备上运行的合成语音：{modelo}（{licenca}）。"
+    },
+    "leitor": {
+      "regiao": "朗读",
+      "anterior": "上一句",
+      "proxima": "下一句",
+      "pausar": "暂停",
+      "continuar": "继续",
+      "parar": "停止朗读",
+      "velocidade": "语速",
+      "frase": "第 {n} 句，共 {total} 句",
+      "preparando": "正在准备语音…"
+    }
   },
   "library": {
     "areasTitle": "领域",

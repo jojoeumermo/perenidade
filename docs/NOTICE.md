@@ -12,3 +12,4 @@ Bibliotecas e serviços usados pelo site do Instituto Lúcia, com licença. A p�
 - LanguageTool — LGPL-2.1 (consultado como serviço; servidor próprio recomendado)
 - PhET Interactive Simulations, University of Colorado Boulder — simulações sob CC BY 4.0, embutidas pelo iframe oficial, sem modificação; nome e logotipo pertencem à universidade (conferido em 18/10/2026)
 - Fontes EB Garamond, Inter, IBM Plex Mono — SIL OFL 1.1
+- Vozes naturais do "Ouvir a aula" (rodam no aparelho; nada sai dele; veja docs/VOZES.md): onnxruntime-web 1.22.0 — MIT · piper_phonemize em WebAssembly (@diffusionstudio/piper-wasm 1.0.0) — MIT, com espeak-ng — GPL-3.0-or-later (compatível com a AGPL do site) · Kokoro-82M v1.0 e as vozes pf_dora e pm_alex — Apache-2.0 (conferido em 02/11/2026). As vozes pt_BR do Piper ficaram de fora: licença incerta (ajustadas a partir de vozes de uso não comercial).
