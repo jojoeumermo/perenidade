@@ -4,10 +4,10 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 ## Números gerais
 
-- Aulas escritas no percurso (trilhas enem-*): **161** em 18 trilhas
-- Exercícios do instituto com as etiquetas do ENEM: **1198** (meta: 2.000) · níveis 1/2/3: 358 / 487 / 353
-- Exercícios nas trilhas enem-* (todos): 1210 · posição da certa (A–E): 242 / 243 / 241 / 243 / 241
-- Testes das aulas do percurso: 653 perguntas · posição da certa (1ª a 5ª opção): 194 / 180 / 142 / 137 / 0
+- Aulas escritas no percurso (trilhas enem-*): **163** em 19 trilhas
+- Exercícios do instituto com as etiquetas do ENEM: **1218** (meta: 2.000) · níveis 1/2/3: 364 / 495 / 359
+- Exercícios nas trilhas enem-* (todos): 1230 · posição da certa (A–E): 246 / 247 / 245 / 247 / 245
+- Testes das aulas do percurso: 661 perguntas · posição da certa (1ª a 5ª opção): 196 / 182 / 144 / 139 / 0
 - Questões oficiais classificadas e resolvidas: **347** de 2689 importadas (12.9%) · anos: 2022, 2023
 - Redação: 27 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
 - Fatos da edição 2026: 55 (3 a confirmar no edital)
@@ -92,7 +92,7 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | 1 | H2 | Ligar soluções de problemas (comunicação, transporte, saúde) ao avanço científico e tecnológico. | 0 | 0 | 0 |
 | 1 | H3 | Comparar explicações científicas com as do senso comum, em épocas ou culturas diferentes. | 0 | 0 | 0 |
 | 1 | H4 | Avaliar propostas de intervenção no ambiente, pensando na vida humana e na biodiversidade. | 1 | 0 | 1 |
-| 2 | H5 | Dimensionar circuitos e aparelhos elétricos do dia a dia. | 2 | 3 | 4 |
+| 2 | H5 | Dimensionar circuitos e aparelhos elétricos do dia a dia. | 3 | 12 | 4 |
 | 2 | H6 | Entender manuais de instalação ou de uso de aparelhos e sistemas técnicos comuns. | 0 | 0 | 0 |
 | 2 | H7 | Escolher testes ou critérios para comparar materiais e produtos, defendendo consumidor, trabalhador e saúde. | 0 | 0 | 0 |
 | 3 | H8 | Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos. | 1 | 1 | 1 |
@@ -107,10 +107,10 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | 5 | H17 | Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências. | 4 | 4 | 6 |
 | 5 | H18 | Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem. | 0 | 0 | 4 |
 | 5 | H19 | Avaliar métodos das ciências que ajudam a diagnosticar ou resolver problemas sociais, econômicos ou ambientais. | 1 | 0 | 1 |
-| 6 | H20 | Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes. | 2 | 4 | 10 |
+| 6 | H20 | Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes. | 3 | 14 | 10 |
 | 6 | H21 | Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos. | 3 | 4 | 5 |
 | 6 | H22 | Entender a interação entre radiação e matéria e suas consequências. | 0 | 0 | 2 |
-| 6 | H23 | Avaliar formas de gerar, usar ou transformar energia, com suas implicações. | 1 | 0 | 2 |
+| 6 | H23 | Avaliar formas de gerar, usar ou transformar energia, com suas implicações. | 2 | 1 | 2 |
 | 7 | H24 | Usar a linguagem e a nomenclatura da química para descrever materiais e transformações. | 2 | 7 | 11 |
 | 7 | H25 | Caracterizar materiais e substâncias: etapas, rendimentos e impactos de sua produção. | 1 | 1 | 1 |
 | 7 | H26 | Avaliar impactos da produção e do consumo de recursos energéticos ou minerais. | 0 | 0 | 0 |
@@ -160,9 +160,9 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | --- | --- | --- |
 | Linguagens, Códigos e suas Tecnologias | 28 de 30 | 20 de 30 |
 | Ciências Humanas e suas Tecnologias | 29 de 30 | 0 de 30 |
-| Ciências da Natureza e suas Tecnologias | 19 de 30 | 0 de 30 |
+| Ciências da Natureza e suas Tecnologias | 19 de 30 | 2 de 30 |
 | Matemática e suas Tecnologias | 28 de 30 | 17 de 30 |
-| **Total** | **104 de 120 (87%)** | **37 de 120 (31%)** |
+| **Total** | **104 de 120 (87%)** | **39 de 120 (33%)** |
 
 ## Objetos de conhecimento e tópicos (meta: cada um com aula própria)
 
@@ -353,17 +353,17 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Classificação dos seres vivos (`nat-bio-seres-vivos-classificacao`) | 0 | 0 | 0 |
 | ↳ Vírus e bactérias (`nat-bio-seres-vivos-virus-e-bacterias`) | 0 | 0 | 0 |
 | ↳ Protistas e fungos (`nat-bio-seres-vivos-protistas-e-fungos`) | 0 | 0 | 0 |
-| **O movimento, o equilíbrio e a descoberta de leis físicas** (`nat-fis-movimento`) | 8 | 2 | 5 |
-| ↳ Leis de Newton, atrito e plano inclinado (`nat-fis-movimento-leis-de-newton`) | 4 | 2 | 2 |
+| **O movimento, o equilíbrio e a descoberta de leis físicas** (`nat-fis-movimento`) | 8 | 3 | 15 |
+| ↳ Leis de Newton, atrito e plano inclinado (`nat-fis-movimento-leis-de-newton`) | 4 | 3 | 12 |
 | ↳ Queda livre e lançamentos (`nat-fis-movimento-queda-e-lancamentos`) | 2 | 2 | 1 |
 | ↳ Cinemática: MU, MUV e gráficos (`nat-fis-movimento-cinematica`) | 1 | 1 | 1 |
 | ↳ Quantidade de movimento e impulso (`nat-fis-movimento-quantidade-de-movimento`) | 1 | 0 | 0 |
 | ↳ Torque e equilíbrio (`nat-fis-movimento-equilibrio`) | 0 | 0 | 0 |
 | ↳ Pressão, Stevin, Pascal, empuxo e densidade (`nat-fis-movimento-hidrostatica`) | 0 | 1 | 1 |
-| **Fenômenos elétricos e magnéticos** (`nat-fis-eletricidade`) | 7 | 2 | 4 |
+| **Fenômenos elétricos e magnéticos** (`nat-fis-eletricidade`) | 7 | 3 | 14 |
 | ↳ Corrente, tensão, resistência e Lei de Ohm (`nat-fis-eletricidade-lei-de-ohm`) | 2 | 2 | 2 |
 | ↳ Magnetismo, motores, geradores e transformadores (`nat-fis-eletricidade-magnetismo`) | 2 | 1 | 1 |
-| ↳ Potência elétrica, consumo em kWh e conta de luz (`nat-fis-eletricidade-consumo`) | 1 | 1 | 1 |
+| ↳ Potência elétrica, consumo em kWh e conta de luz (`nat-fis-eletricidade-consumo`) | 1 | 2 | 11 |
 | ↳ Circuitos em série e em paralelo (`nat-fis-eletricidade-circuitos`) | 1 | 1 | 0 |
 | ↳ Segurança elétrica e choque (`nat-fis-eletricidade-seguranca`) | 1 | 0 | 0 |
 | ↳ Eletrostática (`nat-fis-eletricidade-eletrostatica`) | 0 | 0 | 0 |

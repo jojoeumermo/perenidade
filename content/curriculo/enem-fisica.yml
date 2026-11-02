@@ -1,0 +1,27 @@
+# Mapa curricular da trilha enem-fisica (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+fontes:
+  - "Matriz de Referência do Enem, Inep: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos"
+aulas:
+  consumo:
+    enem:
+      - area: natureza
+        competencia: 2
+        habilidade: 5
+        resumo: Dimensionar circuitos e aparelhos elétricos do dia a dia.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 23
+        resumo: Avaliar formas de gerar, usar ou transformar energia, com suas implicações.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-eletricidade-consumo
+  leis-de-newton:
+    enem:
+      - area: natureza
+        competencia: 6
+        habilidade: 20
+        resumo: Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-movimento-leis-de-newton
