@@ -1,0 +1,245 @@
+# Exercícios da aula "Variação linguística" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-variacao-01
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-variacao
+  dificuldade: 1
+  enunciado: "“Mexerica”, “tangerina” e “bergamota” nomeiam a mesma fruta em lugares diferentes do Brasil. Esse é um exemplo de variação"
+  alternativas:
+    - texto: "histórica."
+      erro: "As três palavras são usadas hoje, ao mesmo tempo. Variação histórica é a mudança ao longo do tempo."
+    - texto: "de registro."
+      erro: "Nenhuma das três é mais formal que as outras. Registro é a mudança conforme a situação (formal ou informal)."
+    - texto: "regional."
+      certa: true
+    - texto: "social."
+      erro: "Social é a variação ligada a grupos (idade, profissão, escolaridade). Aqui o que muda é o lugar."
+    - texto: "da escrita."
+      erro: "As três palavras são escritas e faladas normalmente. O que muda de uma para outra é a região."
+  explicacao: "A mesma fruta tem nomes diferentes conforme a região do país. É variação regional, marcada no vocabulário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-02
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-variacao
+  dificuldade: 1
+  enunciado: "Uma enfermeira diz ao colega “o paciente do 12 está taquicárdico” e diz à mãe do paciente “o coração dele está batendo rápido”. Ela fez isso porque"
+  alternativas:
+    - texto: "adequou o vocabulário a quem ouvia."
+      certa: true
+    - texto: "esqueceu o termo técnico ao falar com a mãe."
+      erro: "Ela usou o termo técnico minutos antes. A troca foi escolha, não esquecimento: a mãe não é da área da saúde."
+    - texto: "a mãe falava outra língua."
+      erro: "As duas falas estão em português. O que mudou foi o vocabulário, do técnico para o comum."
+    - texto: "o termo técnico é errado."
+      erro: "“Taquicárdico” é palavra correta e precisa entre profissionais. Só não serve para quem não conhece o jargão."
+    - texto: "a fala com o colega era informal."
+      erro: "Entre colegas ela usou um termo técnico, que não é informal. A diferença é de público, não de formalidade."
+  explicacao: "O jargão da saúde serve entre profissionais. Com a família, a mesma informação vai em palavras comuns. Isso é adequar a variedade ao interlocutor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-03
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-variacao
+  dificuldade: 1
+  enunciado: "A sequência “vossa mercê”, “vosmecê”, “você”, “cê” mostra uma variação"
+  alternativas:
+    - texto: "regional, porque cada forma é de um estado."
+      erro: "As formas não se separam por estado; elas se sucedem no tempo. “Vossa mercê” era usada séculos atrás."
+    - texto: "social, porque só pessoas sem estudo dizem “cê”."
+      erro: "“Cê” aparece na fala rápida de gente de todas as escolaridades. E a sequência mostra mudança no tempo."
+    - texto: "de registro, porque todas são formais."
+      erro: "“Cê” é bem informal. E o que a sequência mostra é a transformação da forma ao longo dos séculos."
+    - texto: "que prova que a língua está se estragando."
+      erro: "Mudar é o normal de toda língua viva. “Você” também já foi uma forma “nova” e hoje é a mais comum."
+    - texto: "histórica, porque uma forma deu origem à outra com o tempo."
+      certa: true
+  explicacao: "“Vossa mercê” foi encurtando ao longo dos séculos até chegar a “você” e, na fala, a “cê”. É variação histórica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-04
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-variacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Áudio enviado por Júlia ao grupo da turma do cursinho popular:
+    “Gente, tô no busão, já já chego. Se o professor perguntar, fala que eu tô na correria, que hoje o trampo apertou. Guarda um lugar pra mim aí, por favor, que eu não quero perder a aula de redação, que é mó importante.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "As marcas de linguagem do áudio indicam, principalmente,"
+  alternativas:
+    - texto: "uma variedade regional do Norte, pelo uso de “busão”."
+      erro: "“Busão” é gíria urbana usada em muitas regiões. Ela não identifica um lugar do país; marca um registro informal."
+    - texto: "um registro informal, próprio de conversa entre colegas, com gírias como “trampo” e “mó”."
+      certa: true
+    - texto: "o uso da norma-padrão, adequado ao assunto escolar."
+      erro: "Falar de aula não torna a fala formal. “Tô”, “já já”, “trampo” e “mó” são marcas de conversa informal."
+    - texto: "uma variação histórica, porque “trampo” é palavra antiga."
+      erro: "“Trampo” é gíria corrente. O áudio não tem formas antigas; tem formas do dia a dia de hoje."
+    - texto: "desconhecimento da língua, já que Júlia mistura gírias e pedido educado."
+      erro: "Misturar gíria e “por favor” é comum e funciona entre colegas. Isso mostra domínio do registro, não falta de conhecimento."
+  explicacao: "O áudio é uma mensagem rápida a colegas. As formas reduzidas (“tô”), as gírias (“busão”, “trampo”, “mó”) e o tom próximo marcam o registro informal, adequado à situação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-05
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-variacao
+  dificuldade: 2
+  enunciado: "Em “nós vamos” e “a gente vai”, as duas formas dizem a mesma coisa. A diferença entre elas está"
+  alternativas:
+    - texto: "no som das vogais."
+      erro: "As duas formas usam palavras diferentes, não a mesma palavra pronunciada de outro jeito."
+    - texto: "no sentido: “a gente” fala de um grupo maior."
+      erro: "As duas incluem quem fala e outras pessoas. O sentido é o mesmo; muda a forma gramatical."
+    - texto: "na pontuação."
+      erro: "Não há sinal de pontuação diferente. A diferença é o pronome e a forma do verbo."
+    - texto: "na forma das palavras: o pronome e a terminação do verbo."
+      certa: true
+    - texto: "na região: “a gente vai” só se diz no Sul."
+      erro: "“A gente vai” é usado no país inteiro, em todas as classes. Não é marca de uma região."
+  explicacao: "“Nós” pede o verbo com “-mos” (“vamos”); “a gente” pede o verbo na terceira pessoa (“vai”). É variação na forma das palavras (morfologia), muito comum no português do Brasil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-06
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-variacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Cartaz afixado numa banca de feira em Goiânia:
+    PAMONHA FRESQUINHA
+    DOCE, SAL E À MODA
+    SAIU AGORINHA DO TACHO, SÔ!
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "No cartaz, o uso de “fresquinha”, “agorinha” e “sô” tem o efeito de"
+  alternativas:
+    - texto: "aproximar o vendedor do freguês, com marcas da fala local e afetiva."
+      certa: true
+    - texto: "mostrar que o vendedor não domina a norma-padrão."
+      erro: "Cartaz de feira não pede norma-padrão rebuscada. As marcas são escolhas que criam proximidade, não sinal de falta de domínio."
+    - texto: "indicar que a pamonha é pequena, pelo uso do diminutivo."
+      erro: "O diminutivo aqui expressa afeto e novidade (“agorinha” não é um agora pequeno). Ler o “-inho” só como tamanho é ler ao pé da letra."
+    - texto: "dar ao cartaz um tom oficial, de aviso público."
+      erro: "Aviso oficial usaria registro formal e impessoal. O cartaz faz o contrário: conversa com quem passa."
+    - texto: "registrar uma forma antiga do português, já em desuso."
+      erro: "“Sô” (redução de “senhor”) é usado hoje na fala de Goiás e de Minas Gerais. Não é forma em desuso."
+  explicacao: "Os diminutivos afetivos e o “sô”, comum na fala goiana e mineira, criam um tom de conversa. Num cartaz de feira, isso aproxima e ajuda a vender: a variedade está adequada à situação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-07
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-variacao
+  dificuldade: 2
+  enunciado: "Em qual situação o registro formal é o mais adequado?"
+  alternativas:
+    - texto: "Mensagem para combinar o futebol de domingo."
+      erro: "Entre amigos, a fala informal é a adequada. O registro formal soaria distante ou até como piada."
+    - texto: "Conversa com a vizinha no portão."
+      erro: "Conversa de portão pede proximidade. O registro formal travaria o papo."
+    - texto: "Recado para a família na porta da geladeira."
+      erro: "Recado em casa é informal por natureza. Formalidade ali não ajuda a comunicação."
+    - texto: "Áudio para o grupo da turma."
+      erro: "Grupo de colegas usa registro informal. O formal cabe em documentos e situações públicas."
+    - texto: "Requerimento à secretaria da escola pedindo a segunda via do histórico."
+      certa: true
+  explicacao: "Requerimento é documento dirigido a uma instituição. Nele, o registro formal e a norma-padrão são os esperados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-08
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-variacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Toda língua viva varia. Varia no espaço, porque comunidades separadas desenvolvem hábitos próprios. Varia no tempo, porque cada geração recebe a língua e a devolve um pouco mudada. Varia entre grupos, porque a língua também marca quem somos e com quem andamos. E varia na boca de cada pessoa, que fala de um jeito com o filho e de outro com o juiz. Estudar a língua é estudar essa variação, e não fingir que ela não existe.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O exemplo que ilustra o último tipo de variação citado no texto é:"
+  alternativas:
+    - texto: "“Farmácia” já foi escrita “pharmacia”."
+      erro: "Esse é um exemplo de variação no tempo, o segundo tipo citado. O último tipo é a variação na fala de uma mesma pessoa."
+    - texto: "Um advogado chama o cliente de “meu querido” no café e de “vossa excelência” ao falar com a juíza na audiência."
+      certa: true
+    - texto: "No Rio Grande do Sul se diz “guri”; em outros estados, “menino”."
+      erro: "É variação no espaço, o primeiro tipo do texto. O último é a mudança de registro de uma mesma pessoa."
+    - texto: "Jovens de um bairro usam gírias que os avós não conhecem."
+      erro: "Isso mistura grupo e geração, os tipos do meio do texto. O último tipo é a mesma pessoa mudando conforme a situação."
+    - texto: "A Libras tem sinais diferentes em cada região."
+      erro: "É variação no espaço, numa língua de sinais. O texto termina falando da mesma pessoa em situações diferentes."
+  explicacao: "O texto termina com a variação “na boca de cada pessoa”, que fala diferente com o filho e com o juiz. É a variação de registro (situação). O advogado que muda do “meu querido” para “vossa excelência” é o exemplo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-09
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-variacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    — Vó, a senhora vai na festa da escola?
+    — Vou, fia. Vou de vestido de chita, que é festa de São João. Me arruma um prato de canjica pra levar?
+    — Arrumo! Mas a professora disse que é “festa junina”, vó, não “festa de São João”.
+    — Dá no mesmo, menina. No meu tempo era tudo São João.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "No diálogo, a última fala da avó chama a atenção para uma variação"
+  alternativas:
+    - texto: "regional, porque “canjica” muda de sentido conforme o estado."
+      erro: "“Canjica” de fato varia de sentido entre regiões, mas a última fala da avó não trata dela. Ela fala de “no meu tempo”."
+    - texto: "de registro, porque a avó passa a falar de modo formal."
+      erro: "A avó continua informal (“dá no mesmo, menina”). O que ela comenta é a mudança do nome da festa."
+    - texto: "social, porque “festa junina” é expressão de pessoas estudadas."
+      erro: "“Festa junina” é usada por todo mundo hoje. A avó não liga a palavra à escolaridade, mas à época."
+    - texto: "histórica, porque o nome usado pela avó era o comum na juventude dela."
+      certa: true
+    - texto: "de modalidade, porque a professora escreveu e a avó falou."
+      erro: "O diálogo inteiro é oral, e a avó não comenta escrita. A marca de “no meu tempo” é de tempo."
+  explicacao: "“No meu tempo era tudo São João” mostra que a avó compara o nome de hoje com o de outra época. A forma que ela usa não é errada: é a que circulava quando ela era jovem. É variação histórica, ligada às gerações."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-variacao-10
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-variacao
+  dificuldade: 3
+  enunciado: "Uma juíza, numa audiência de pensão alimentícia, troca “o requerido deverá adimplir a obrigação” por “o senhor vai ter que pagar a pensão todo mês, até o dia 10”. A troca é"
+  alternativas:
+    - texto: "inadequada, porque a audiência exige sempre linguagem técnica."
+      erro: "A linguagem técnica fica nos autos do processo. Falar com a parte em palavras comuns garante que ela entenda a decisão."
+    - texto: "um erro, porque “ter que” não é norma-padrão."
+      erro: "“Ter que” é forma aceita e corrente. E a questão não é de regra: é de quem precisa entender a decisão."
+    - texto: "adequada, porque a decisão precisa ser entendida por quem vai cumpri-la."
+      certa: true
+    - texto: "uma variação regional, típica do lugar onde ocorre a audiência."
+      erro: "Não há palavra típica de região. A troca é de registro: do técnico-jurídico para o comum."
+    - texto: "um sinal de que a juíza desconhece o vocabulário do Direito."
+      erro: "Ela usou o termo técnico e depois explicou. Escolher a palavra comum mostra domínio, não desconhecimento."
+  explicacao: "O jargão jurídico funciona entre profissionais do Direito. Para a parte, que precisa cumprir a decisão, a juíza escolhe palavras comuns. É adequação do registro ao interlocutor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

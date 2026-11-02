@@ -1,0 +1,243 @@
+# Exercícios da aula "Esporte, mídia e mercado" (trilha enem-linguagens-artes-e-corpo).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-corpo-midia-01
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-esporte-midia
+  dificuldade: 1
+  enunciado: "Qual destas situações mostra o esporte como espetáculo?"
+  alternativas:
+    - texto: "Crianças jogando bola na rua depois da escola."
+      erro: "Na rua, quem joga decide tudo. É esporte de lazer, sem plateia pagante nem transmissão."
+    - texto: "Uma caminhada em grupo no fim da tarde."
+      erro: "A caminhada é prática corporal de lazer e saúde. Não há espetáculo nem venda."
+    - texto: "Uma aula de capoeira na associação do bairro."
+      erro: "A aula é prática e ensino. O centro é quem pratica, não quem assiste."
+    - texto: "Uma final de campeonato com ingresso, patrocínio na camisa e transmissão ao vivo."
+      certa: true
+    - texto: "Uma brincadeira de pega-pega no recreio."
+      erro: "Brincadeira é prática de lazer, sem mercado envolvido."
+  explicacao: "Esporte-espetáculo é o organizado para ser assistido e vendido: ingresso, patrocínio, transmissão. O centro passa a ser quem assiste e quem lucra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-02
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-esporte-midia
+  dificuldade: 1
+  enunciado: "O artigo 54 do Decreto-Lei nº 3.199, de 1941, proibia às mulheres os esportes considerados:"
+  alternativas:
+    - texto: "caros demais para as famílias."
+      erro: "A lei não falava de preço. Falava da \"natureza\" das mulheres."
+    - texto: "\"incompatíveis com as condições de sua natureza\"."
+      certa: true
+    - texto: "perigosos para crianças."
+      erro: "O artigo tratava das mulheres, não das crianças."
+    - texto: "estrangeiros, sem tradição no Brasil."
+      erro: "A origem do esporte não era o critério. O critério era o sexo de quem praticava."
+    - texto: "praticados fora das escolas."
+      erro: "A lei não tratava de escola. Tratava de quem podia praticar."
+  explicacao: "O artigo 54 usava a ideia de \"natureza\" feminina para vetar esportes, entre eles o futebol. A proibição só caiu em 1979."
+  fonte: "Questão original do Instituto Lúcia, com base no Decreto-Lei nº 3.199/1941"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-03
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-esporte-midia
+  dificuldade: 1
+  enunciado: "O que são esportes eletrônicos?"
+  alternativas:
+    - texto: "Esportes tradicionais jogados com bola eletrônica."
+      erro: "Não se trata da bola. Esporte eletrônico é competição de jogos digitais."
+    - texto: "Treinos de academia acompanhados por aplicativo."
+      erro: "Aplicativo de treino não é competição organizada de jogos."
+    - texto: "Transmissões de futebol pela internet."
+      erro: "Transmitir futebol pela internet não faz dele um esporte eletrônico. O jogo continua sendo futebol."
+    - texto: "Jogos de tabuleiro jogados em família."
+      erro: "Tabuleiro não é jogo digital. E não há a estrutura de times e campeonatos."
+    - texto: "Competições organizadas de jogos de computador, console ou celular, com times, campeonatos e público."
+      certa: true
+  explicacao: "Esporte eletrônico é a competição organizada de jogos digitais. Tem times, técnicos, patrocinadores e público, quase sempre pela internet."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-04
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-esporte-midia
+  dificuldade: 2
+  enunciado: "Um campeonato muda o horário dos jogos de domingo à tarde para quarta-feira às 21h45, a pedido da emissora que transmite. A mudança mostra que, no esporte-espetáculo:"
+  alternativas:
+    - texto: "as decisões passam a seguir os interesses de quem transmite e lucra com a audiência."
+      certa: true
+    - texto: "o torcedor que vai ao estádio é a prioridade."
+      erro: "Quem vai ao estádio e trabalha cedo é o mais prejudicado pelo horário. A prioridade é outra."
+    - texto: "os atletas escolhem quando querem jogar."
+      erro: "Quem pediu a mudança foi a emissora, não os atletas."
+    - texto: "o esporte deixa de ter relação com a mídia."
+      erro: "É o contrário: a mídia passa a definir até o horário."
+    - texto: "o horário não tem nenhuma importância."
+      erro: "O horário decide quem consegue ir ao jogo. Ele tem muita importância."
+  explicacao: "Quem paga pelos direitos de transmissão quer audiência e encaixa o jogo na própria programação. É a lógica do espetáculo: o centro passa a ser quem assiste de casa e quem lucra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-05
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-esporte-midia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um levantamento acompanhou uma semana de cobertura esportiva em três canais de televisão. As modalidades
+    masculinas ocuparam a maior parte do tempo de tela. Na mesma semana, as atletas brasileiras conquistaram
+    mais medalhas que os atletas homens em competições internacionais.
+  enunciado: "Os dados do levantamento permitem concluir que"
+  alternativas:
+    - texto: "as atletas tiveram desempenho inferior ao dos homens."
+      erro: "Elas ganharam mais medalhas. A conclusão contradiz os dados."
+    - texto: "o público não se interessa por esportes femininos."
+      erro: "O levantamento mede tempo de tela, não interesse do público. É conclusão sem base."
+    - texto: "a visibilidade na mídia não acompanha o desempenho das mulheres no esporte."
+      certa: true
+    - texto: "a televisão divide o tempo de forma igual entre homens e mulheres."
+      erro: "O texto diz que as modalidades masculinas ocuparam a maior parte do tempo. Contradição."
+    - texto: "os canais deveriam deixar de transmitir esportes."
+      erro: "O texto não propõe isso. É extrapolação."
+  explicacao: "Mais medalhas e menos tempo de tela: a diferença está na escolha da mídia, não no desempenho. A prova cobra essa leitura da visibilidade construída."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-06
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-esporte-midia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O mercado de esportes eletrônicos cresce a cada ano. Torneios lotam ginásios e somam milhões de visualizações
+    pela internet. Clubes de futebol criaram times de jogos digitais, e o Comitê Olímpico Internacional organizou,
+    em 2023, a primeira Olympic Esports Week, em Singapura.
+  enunciado: "O contexto apresentado demonstra que"
+  alternativas:
+    - texto: "os esportes eletrônicos vão substituir o futebol."
+      erro: "O texto mostra clubes de futebol entrando no mercado digital, não o fim do futebol. Extrapolação."
+    - texto: "o Comitê Olímpico rejeita os esportes eletrônicos."
+      erro: "O comitê organizou um evento de esportes eletrônicos. É o contrário."
+    - texto: "os jogos digitais não têm público fora da internet."
+      erro: "O texto fala de ginásios lotados. Contradição."
+    - texto: "jogar videogame faz bem à saúde de todos."
+      erro: "Saúde não é tema do texto. A alternativa traz opinião de fora."
+    - texto: "as práticas esportivas se transformam com a tecnologia e com o mercado."
+      certa: true
+  explicacao: "O texto junta sinais de crescimento: público, clubes, interesse do COI. Isso mostra que o que conta como esporte muda com a tecnologia e com o dinheiro envolvido (H9)."
+  fonte: "Questão original do Instituto Lúcia, com base em notícia do Comitê Olímpico Internacional (2022)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-07
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-esporte-midia
+  dificuldade: 2
+  enunciado: "Depois de reformar o estádio, um clube triplicou o preço do ingresso mais barato e passou a chamar a torcida de \"clientes\". Que efeito social essa mudança tende a ter?"
+  alternativas:
+    - texto: "Afastar do estádio os torcedores de renda mais baixa."
+      certa: true
+    - texto: "Aproximar o clube dos torcedores mais pobres."
+      erro: "Ingresso três vezes mais caro afasta, não aproxima, quem ganha pouco."
+    - texto: "Acabar com o patrocínio no futebol."
+      erro: "A mudança não tem relação com patrocínio. É sobre quem pode pagar o ingresso."
+    - texto: "Tornar o futebol uma prática de lazer gratuita."
+      erro: "Triplicar o preço é o oposto de gratuidade."
+    - texto: "Dar à torcida o poder de decidir o preço."
+      erro: "Quem decidiu foi o clube. Chamar de \"cliente\" não dá poder de decisão."
+  explicacao: "Tratar torcedor como cliente e encarecer o ingresso é a lógica do mercado: fica quem pode pagar. É exclusão por renda dentro do esporte-espetáculo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-08
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-esporte-midia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Esporte eletrônico não é esporte: o corpo fica parado", disse um comentarista. Uma jogadora profissional
+    respondeu: "Treino oito horas por dia, faço fisioterapia nos pulsos, sigo dieta e estudo táticas com o técnico.
+    Meu corpo trabalha o tempo todo. Só que o movimento é pequeno e rápido, e por isso vocês não enxergam."
+  enunciado: "A resposta da jogadora contesta o comentarista ao"
+  alternativas:
+    - texto: "admitir que o esporte eletrônico não exige nada do corpo."
+      erro: "Ela diz o contrário: o corpo \"trabalha o tempo todo\". Inversão."
+    - texto: "afirmar que todo jogo digital é igual ao futebol."
+      erro: "Ela não compara com o futebol. Fala do próprio treino."
+    - texto: "defender que o treino digital dispensa cuidados de saúde."
+      erro: "Ela cita fisioterapia e dieta. O texto mostra cuidado, não dispensa."
+    - texto: "mostrar que a prática exige do corpo um movimento fino, que não se vê de longe."
+      certa: true
+    - texto: "pedir que os esportes eletrônicos entrem nas Olimpíadas."
+      erro: "Ela não fala de Olimpíadas. Responde só à ideia de que \"o corpo fica parado\"."
+  explicacao: "O comentarista diz que o corpo fica parado. A jogadora mostra treino, fisioterapia e dieta, e diz que o movimento é \"pequeno e rápido\". Ela amplia a ideia de prática corporal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-09
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-esporte-midia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em 1941, um decreto-lei proibiu às mulheres os esportes "incompatíveis com as condições de sua natureza".
+    A proibição caiu em 1979. Em 2024, a Fifa escolheu o Brasil para sediar a Copa do Mundo de futebol feminino
+    de 2027. Uma ex-jogadora comentou: "Quem diz que o futebol feminino é fraco esquece que nós começamos
+    com quarenta anos de atraso."
+  enunciado: "A fala da ex-jogadora relaciona a situação atual do futebol feminino"
+  alternativas:
+    - texto: "à falta de talento das jogadoras brasileiras."
+      erro: "Ela não fala de talento. Fala de atraso causado pela proibição."
+    - texto: "ao desinteresse natural das mulheres pelo futebol."
+      erro: "Se houvesse desinteresse, não haveria proibição a fazer. O texto mostra exclusão, não falta de vontade."
+    - texto: "a uma exclusão histórica imposta por lei, que atrasou o desenvolvimento da modalidade."
+      certa: true
+    - texto: "à escolha do Brasil como sede da Copa de 2027."
+      erro: "A Copa de 2027 é o presente. A fala dela explica o \"atraso\", que vem de antes."
+    - texto: "à preferência da mídia pelos esportes individuais."
+      erro: "O texto não compara esportes individuais e coletivos."
+  explicacao: "De 1941 a 1979 são 38 anos de proibição, os \"quarenta anos de atraso\". A ex-jogadora liga o presente à história: a desigualdade foi construída, não é natural."
+  fonte: "Questão original do Instituto Lúcia, com base no Decreto-Lei nº 3.199/1941"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-midia-10
+  tema: "Esporte, mídia e mercado"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-esporte-midia
+  dificuldade: 3
+  enunciado: "Uma atleta ganha mais com propagandas de produtos do que com o salário do clube. Um texto chama isso de \"corpo-vitrine\". A expressão sugere que:"
+  alternativas:
+    - texto: "o corpo da atleta é usado apenas para competir."
+      erro: "Se fosse só para competir, ela ganharia mais do clube. A expressão aponta para outro uso."
+    - texto: "a imagem do corpo da atleta virou também um produto que vende outros produtos."
+      certa: true
+    - texto: "a atleta deixou de ser profissional."
+      erro: "Fazer propaganda não tira a profissão. Mostra outra fonte de renda."
+    - texto: "o patrocínio não tem relação com o esporte."
+      erro: "O patrocínio só existe porque ela é atleta conhecida. A relação é direta."
+    - texto: "a atleta escolhe livremente não aparecer na mídia."
+      erro: "Ela ganha justamente por aparecer. A alternativa contradiz o enunciado."
+  explicacao: "Vitrine é onde se expõe mercadoria. No esporte-espetáculo, o corpo do atleta vira imagem que vende produtos. O atleta também se torna mercadoria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

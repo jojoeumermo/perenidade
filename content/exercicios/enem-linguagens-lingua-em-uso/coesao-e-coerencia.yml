@@ -1,0 +1,239 @@
+# Exercícios da aula "Coesão e coerência" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-coesao-01
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  dificuldade: 1
+  enunciado: "Em “Comprei feijão, arroz e farinha. Os alimentos vão durar o mês”, a expressão “os alimentos”"
+  alternativas:
+    - texto: "introduz um assunto novo, sem ligação com a frase anterior."
+      erro: "Ela retoma o que veio antes. Sem a primeira frase, não se saberia que alimentos são."
+    - texto: "indica oposição entre as frases."
+      erro: "Não há contraste. Há retomada."
+    - texto: "retoma feijão, arroz e farinha com uma palavra mais geral."
+      certa: true
+    - texto: "repete a mesma palavra da frase anterior."
+      erro: "“Alimentos” não aparece antes. É uma palavra nova que engloba as três anteriores."
+    - texto: "cria uma ambiguidade sobre o que foi comprado."
+      erro: "A retomada é clara: só há três alimentos citados."
+  explicacao: "“Os alimentos” é uma palavra mais geral (hiperônimo) que retoma os três itens. É coesão referencial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-02
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  dificuldade: 1
+  enunciado: "Na frase “O posto abriu mais cedo para que os trabalhadores fossem atendidos antes do serviço”, “para que” indica"
+  alternativas:
+    - texto: "causa."
+      erro: "A causa responde “por quê”. Aqui a oração diz o objetivo da abertura mais cedo."
+    - texto: "oposição."
+      erro: "Não há contraste entre abrir cedo e atender trabalhadores."
+    - texto: "condição."
+      erro: "Condição seria “se” ou “caso”. A oração não impõe condição."
+    - texto: "tempo."
+      erro: "“Antes do serviço” fala de tempo, mas “para que” indica outra relação."
+    - texto: "finalidade."
+      certa: true
+  explicacao: "“Para que” introduz o objetivo: o posto abriu cedo com a finalidade de atender os trabalhadores antes do serviço."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-03
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  dificuldade: 1
+  enunciado: "Qual frase tem um problema de coerência?"
+  alternativas:
+    - texto: "“Estava sem fome, por isso comi dois pratos.”"
+      certa: true
+    - texto: "“Estava com fome, por isso comi dois pratos.”"
+      erro: "A fome é causa compreensível para comer bastante. A frase é coerente."
+    - texto: "“Estava sem fome, mas comi dois pratos.”"
+      erro: "O “mas” marca que o fato foi contra o esperado. A frase é coerente."
+    - texto: "“Embora estivesse sem fome, comi dois pratos.”"
+      erro: "A concessão admite o obstáculo e diz que ele não impediu. Coerente."
+    - texto: "“Comi dois pratos porque estava com muita fome.”"
+      erro: "Causa e consequência combinam. Coerente."
+  explicacao: "“Por isso” apresenta a falta de fome como causa de comer muito, o que não combina. Com “mas” ou “embora”, a frase faz sentido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-04
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A biblioteca comunitária começou com uma estante doada. Hoje, ela tem mais de dois mil livros e abre todos os sábados. Esse crescimento não veio de verba pública: veio de rifas, festas e da teimosia de quem a fundou.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A expressão “Esse crescimento” retoma"
+  alternativas:
+    - texto: "a estante doada."
+      erro: "A estante é o ponto de partida. “Esse crescimento” resume o caminho entre ela e o acervo de hoje."
+    - texto: "a passagem de uma estante para mais de dois mil livros e funcionamento semanal."
+      certa: true
+    - texto: "a verba pública."
+      erro: "A verba pública é citada depois, justamente como algo que não houve."
+    - texto: "as rifas e festas."
+      erro: "Rifas e festas são a causa do crescimento, apresentadas depois dele."
+    - texto: "a teimosia dos fundadores."
+      erro: "A teimosia é uma das causas. A expressão retoma o que foi dito antes, não o que vem depois."
+  explicacao: "“Esse crescimento” resume a frase anterior: de uma estante a dois mil livros, com abertura semanal. É uma expressão que retoma e resume, recurso de coesão referencial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-05
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  dificuldade: 2
+  enunciado: "Em “O pai conversou com o filho porque ele estava preocupado”, o problema de coesão é que"
+  alternativas:
+    - texto: "falta um conectivo."
+      erro: "Há conectivo: “porque”. O problema é outro."
+    - texto: "o verbo não concorda com o sujeito."
+      erro: "“O pai conversou” e “ele estava” concordam. A falha não é de concordância."
+    - texto: "a frase é longa demais."
+      erro: "A frase é curta. O problema é a retomada."
+    - texto: "o pronome “ele” pode retomar tanto “o pai” quanto “o filho”."
+      certa: true
+    - texto: "“porque” deveria ser “portanto”."
+      erro: "A preocupação é a causa da conversa: “porque” está certo."
+  explicacao: "Não se sabe quem estava preocupado. Uma solução: “O pai, que estava preocupado, conversou com o filho” (ou “porque o menino estava preocupado”)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-06
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O aplicativo prometia liberdade: você escolhe a hora, você escolhe o dia. No entanto, quem depende dele para pagar o aluguel descobre que a liberdade tem preço. Se recusar corridas, o motorista cai no ranking. Se cair no ranking, recebe menos chamados.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O conectivo “No entanto” estabelece uma relação de"
+  alternativas:
+    - texto: "oposição entre a promessa de liberdade e a dependência real de quem trabalha."
+      certa: true
+    - texto: "conclusão do que foi dito na primeira frase."
+      erro: "Conclusão seria “portanto”. A segunda frase vai contra a primeira, não conclui a partir dela."
+    - texto: "adição de mais vantagens do aplicativo."
+      erro: "A segunda frase não acrescenta vantagem: mostra um custo escondido."
+    - texto: "causa da promessa do aplicativo."
+      erro: "A segunda frase não explica por que houve a promessa. Ela a contradiz."
+    - texto: "tempo, indicando o que veio depois."
+      erro: "“No entanto” não marca sequência no tempo, e sim contraste."
+  explicacao: "“No entanto” opõe a promessa (liberdade) à realidade (quem depende do aplicativo não é tão livre). É a virada que organiza a crítica do texto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-07
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  dificuldade: 2
+  enunciado: "Qual conectivo completa “________ o salário tenha subido, o mercado continua pesando no bolso” mantendo o sentido?"
+  alternativas:
+    - texto: "Porque"
+      erro: "“Porque” indicaria causa: o aumento do salário seria a causa de o mercado pesar. Não faz sentido."
+    - texto: "Portanto"
+      erro: "“Portanto” é conclusão e não combina com o verbo em “tenha subido”."
+    - texto: "Embora"
+      certa: true
+    - texto: "Para que"
+      erro: "“Para que” indicaria finalidade. O aumento não foi feito para o mercado pesar."
+    - texto: "Assim que"
+      erro: "“Assim que” indica tempo imediato. A frase opõe duas ideias, não as põe em sequência."
+  explicacao: "O salário subiu (algo que deveria aliviar), mas o mercado ainda pesa. Esse obstáculo que não impede é concessão: “Embora”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-08
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Dona Nair costura há quarenta anos. Costurou o vestido de noiva da filha, o terno do primeiro emprego do neto, a fantasia de carnaval da vizinha. Costurou também, sem linha e sem agulha, a amizade entre as mulheres da rua, que se encontravam na sala dela para esperar as provas.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A repetição do verbo “costurar” ao longo do texto"
+  alternativas:
+    - texto: "é um defeito de coesão, que deveria ser corrigido com sinônimos."
+      erro: "A repetição é intencional: organiza o texto e prepara a virada final. Trocar por sinônimos apagaria o efeito."
+    - texto: "mantém sempre o mesmo sentido, o de trabalhar com tecido."
+      erro: "No fim, “costurou… sem linha e sem agulha” tem sentido figurado: unir pessoas."
+    - texto: "indica que dona Nair trabalha pouco."
+      erro: "A lista de trabalhos mostra o contrário: uma vida inteira de costura."
+    - texto: "cria uma oposição entre a família e as vizinhas."
+      erro: "Família e vizinhas aparecem juntas, como pessoas atendidas e unidas por ela. Não há oposição."
+    - texto: "faz o texto avançar, somando trabalhos até o sentido figurado de unir as pessoas da rua."
+      certa: true
+  explicacao: "O verbo se repete com objetos concretos (vestido, terno, fantasia) e, na última frase, ganha sentido figurado: dona Nair “costurou” a amizade. A repetição é o fio que faz o texto progredir."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-09
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Trecho de uma redação:
+    “O acesso à internet é desigual no Brasil. Portanto, muitas escolas públicas ainda não têm conexão de qualidade. Além disso, estudantes de baixa renda dependem do celular com pacote limitado. Contudo, a desigualdade digital aprofunda a desigualdade escolar.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "Para que o trecho fique coerente, o ajuste necessário nos conectivos é"
+  alternativas:
+    - texto: "trocar “Além disso” por “No entanto”."
+      erro: "A terceira frase soma mais um exemplo de desigualdade. “Além disso” (adição) está certo."
+    - texto: "trocar “Portanto” por “Porque”."
+      erro: "“Porque” no começo da frase deixaria uma oração de causa solta, sem a principal. Não resolve."
+    - texto: "trocar “Contudo” por “Embora”."
+      erro: "“Embora” pede outra construção (“embora… , …”) e ainda indicaria concessão, que não é a relação."
+    - texto: "trocar “Portanto” por “Por exemplo” e “Contudo” por “Dessa forma”."
+      certa: true
+    - texto: "manter todos, porque o trecho já está coerente."
+      erro: "“Portanto” apresenta um exemplo como se fosse conclusão, e “Contudo” apresenta a conclusão como se fosse oposição."
+  explicacao: "A segunda frase é um exemplo da desigualdade, não uma conclusão: “Por exemplo”. A última frase conclui o raciocínio, não se opõe a ele: “Dessa forma” (ou “Assim”)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-coesao-10
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  dificuldade: 3
+  enunciado: "“Maria chegou cedo. Abriu o portão, varreu a calçada e regou as plantas.” O sujeito dos verbos “abriu”, “varreu” e “regou” é recuperado por"
+  alternativas:
+    - texto: "um pronome que aparece antes de cada verbo."
+      erro: "Não há pronome antes dos verbos. O sujeito não está escrito."
+    - texto: "elipse: o sujeito “Maria” fica subentendido, sem ser repetido."
+      certa: true
+    - texto: "um sinônimo de “Maria”."
+      erro: "Nenhuma palavra substitui “Maria” no trecho."
+    - texto: "um conectivo de causa."
+      erro: "O único conectivo é “e”, de adição. E ele não recupera o sujeito."
+    - texto: "nada: as frases ficam sem sujeito e sem sentido."
+      erro: "O leitor sabe que foi Maria. O sujeito está oculto, recuperado pelo contexto."
+  explicacao: "A omissão de um termo que o leitor recupera pelo contexto se chama elipse. É um recurso de coesão que evita repetir “Maria”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

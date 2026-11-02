@@ -1,0 +1,245 @@
+# Exercícios da aula "Semântica: polissemia, ambiguidade, denotação e conotação" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-semantica-01
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  dificuldade: 1
+  enunciado: "Em qual frase a palavra “doce” está em sentido denotativo (literal)?"
+  alternativas:
+    - texto: "“Ela tem um jeito doce de falar.”"
+      erro: "Jeito de falar não tem sabor. Aqui “doce” quer dizer suave, gentil: sentido figurado."
+    - texto: "“O doce de leite da vó leva três horas no fogo.”"
+      certa: true
+    - texto: "“Aquela vitória teve um gosto doce.”"
+      erro: "Vitória não se come. “Gosto doce” é sentido figurado de alegria."
+    - texto: "“Que vida doce a do gato!”"
+      erro: "“Vida doce” é figurado: vida tranquila, boa."
+    - texto: "“Ele adoça a conversa para conseguir o que quer.”"
+      erro: "“Adoçar a conversa” é figurado: tornar agradável, seduzir."
+  explicacao: "Só no doce de leite a palavra se refere ao sabor e ao alimento de verdade. Nas outras, o sentido nasce de uma associação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-02
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  dificuldade: 1
+  enunciado: "A frase “Encontrei o professor na entrada da escola com o livro” é ambígua porque não se sabe"
+  alternativas:
+    - texto: "qual é a escola."
+      erro: "A escola não é o ponto de dúvida. A dúvida é de quem estava com o livro."
+    - texto: "se o encontro foi de manhã."
+      erro: "O horário não aparece, mas isso não cria duas leituras. A ambiguidade está em “com o livro”."
+    - texto: "o que é um livro."
+      erro: "“Livro” tem sentido claro aqui. O problema é a quem o trecho “com o livro” se liga."
+    - texto: "se a escola tem entrada."
+      erro: "A frase diz que tem. A dúvida é outra: quem levava o livro."
+    - texto: "quem estava com o livro, quem fala ou o professor."
+      certa: true
+  explicacao: "“Com o livro” pode se ligar a quem encontrou ou ao professor. É ambiguidade estrutural. Para desfazer: “Com o livro na mão, encontrei o professor…”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-03
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  dificuldade: 1
+  enunciado: "“Cabeça” em “cabeça de alho”, “cabeça da fila” e “cabeça do movimento” é um caso de"
+  alternativas:
+    - texto: "polissemia: sentidos diferentes ligados pela ideia de parte principal ou de cima."
+      certa: true
+    - texto: "erro de vocabulário."
+      erro: "Todos os usos são correntes e registrados nos dicionários. Não há erro."
+    - texto: "variação regional."
+      erro: "Os três usos aparecem no país todo. A palavra não muda por região, muda de sentido."
+    - texto: "ambiguidade estrutural."
+      erro: "Ambiguidade estrutural é de frase. Aqui é uma palavra com vários sentidos."
+    - texto: "denotação em todos os casos."
+      erro: "Nenhum dos três fala da cabeça do corpo. São sentidos que nascem dela, por associação."
+  explicacao: "Os sentidos de “cabeça” são diferentes, mas aparentados: a parte de cima, o começo, o líder. É polissemia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-04
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Cartaz de uma campanha de doação de sangue:
+    “Doe sangue. Você não perde nada e alguém ganha tudo.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O efeito de sentido do cartaz se apoia"
+  alternativas:
+    - texto: "numa ambiguidade que deixa a mensagem confusa."
+      erro: "A mensagem é clara. O contraste foi feito para convencer, não confunde ninguém."
+    - texto: "no sentido técnico de “sangue”, da medicina."
+      erro: "O cartaz não usa linguagem técnica. A força está no contraste entre “nada” e “tudo”."
+    - texto: "na oposição entre “não perde nada” e “ganha tudo”, que mostra o valor do gesto."
+      certa: true
+    - texto: "numa variação regional do verbo “doar”."
+      erro: "Não há marca regional. O recurso é de sentido: a oposição de palavras."
+    - texto: "no sentido literal de “tudo”, que quer dizer todos os bens de uma pessoa."
+      erro: "“Tudo” aqui é figurado: a vida, a saúde. Ler ao pé da letra perde o efeito."
+  explicacao: "O cartaz põe lado a lado o pequeno custo de quem doa (“nada”) e o enorme ganho de quem recebe (“tudo”, a vida). A oposição convence."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-05
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-semantica
+  dificuldade: 2
+  enunciado: "Dois jornais noticiam o mesmo fato. Um escreve “famílias ocupam terreno abandonado”; o outro, “famílias invadem terreno”. A diferença entre os verbos mostra que"
+  alternativas:
+    - texto: "os dois jornais dizem exatamente a mesma coisa."
+      erro: "Os fatos são os mesmos, mas as palavras avaliam de modo diferente. “Invadir” sugere ilegitimidade; “ocupar”, não."
+    - texto: "um dos jornais errou a concordância."
+      erro: "Os dois verbos concordam com “famílias”. A diferença é de sentido e de valor, não de gramática."
+    - texto: "“ocupar” e “invadir” são sinônimos perfeitos."
+      erro: "Eles nomeiam ações parecidas, mas carregam avaliações opostas. Não são intercambiáveis sem mudar o sentido."
+    - texto: "a escolha da palavra revela o ponto de vista de quem escreve."
+      certa: true
+    - texto: "o segundo jornal usou sentido denotativo, e o primeiro, conotativo."
+      erro: "Os dois usam os verbos em sentido literal. A diferença está no julgamento que cada palavra carrega."
+  explicacao: "Escolher entre “ocupar” e “invadir” é tomar posição. A leitura atenta percebe o valor de cada palavra, mesmo sem “eu acho” no texto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-06
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Placa num salão de beleza do bairro:
+    “Cortamos cabelos e preços.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O efeito da placa é criado pelo uso do verbo “cortar”"
+  alternativas:
+    - texto: "apenas em sentido literal, nos dois casos."
+      erro: "Ninguém corta preço com tesoura. No segundo caso, “cortar” quer dizer reduzir."
+    - texto: "de forma errada, porque preço não se corta."
+      erro: "“Cortar preços” é expressão comum, em sentido figurado. Não é erro, é recurso."
+    - texto: "com sentido técnico, da contabilidade."
+      erro: "A placa é de salão de beleza e fala com o freguês. Não usa vocabulário técnico."
+    - texto: "como gíria regional."
+      erro: "“Cortar preços” é usado em todo o país. O efeito vem do duplo uso do verbo."
+    - texto: "em dois sentidos ao mesmo tempo: o literal (cabelo) e o figurado (baixar preço)."
+      certa: true
+  explicacao: "O mesmo verbo serve aos dois complementos: corta-se o cabelo de verdade e “corta-se” o preço, no sentido de baixar. O jogo chama atenção e diverte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-07
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  dificuldade: 2
+  enunciado: "Qual reescrita desfaz a ambiguidade de “A mãe pediu à filha que lavasse a sua roupa”, deixando claro que a roupa é da filha?"
+  alternativas:
+    - texto: "“A mãe pediu à filha que lavasse sua própria roupa da mãe.”"
+      erro: "A frase ficou contraditória: “própria” aponta a filha e “da mãe” aponta a mãe."
+    - texto: "“A mãe pediu que lavasse a sua roupa.”"
+      erro: "Tirou “à filha” e manteve o “sua” ambíguo. A dúvida continua."
+    - texto: "“A mãe pediu à filha que lavasse a roupa dela, da filha.”"
+      certa: true
+    - texto: "“A filha pediu à mãe que lavasse a sua roupa.”"
+      erro: "Inverteu quem pede e quem lava. Mudou o fato e não desfez a dúvida."
+    - texto: "“A mãe pediu à filha que lavasse roupas.”"
+      erro: "Apagou de quem é a roupa. A informação se perdeu."
+  explicacao: "“Sua” pode apontar a mãe ou a filha. Dizer “dela, da filha” (ou “a própria roupa”) fixa a leitura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-08
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-semantica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I
+    As palavras não são etiquetas neutras. Cada escolha de vocabulário traz um olhar sobre aquilo que nomeia.
+    Texto II
+    Uma crítica frequente ao noticiário policial é a de que ele chamava de “menor” o adolescente pobre envolvido em ocorrência, enquanto o filho da classe média, no mesmo tipo de notícia, aparecia como “jovem” ou “estudante”.
+    Textos do Instituto Lúcia, escritos para este exercício.
+  enunciado: "O Texto II exemplifica a ideia do Texto I porque mostra que"
+  alternativas:
+    - texto: "a escolha entre “menor” e “jovem” carregava um julgamento sobre a classe social do adolescente."
+      certa: true
+    - texto: "“menor” e “jovem” são sinônimos perfeitos, sem diferença de sentido."
+      erro: "Se fossem, a troca não diria nada. O Texto II mostra que a troca acompanhava a classe social."
+    - texto: "os jornais erraram a idade dos adolescentes."
+      erro: "Os dois grupos têm a mesma idade. A diferença está no olhar, não na informação."
+    - texto: "a palavra “estudante” é de uso técnico."
+      erro: "“Estudante” é palavra comum. O ponto é para quem ela era reservada."
+    - texto: "o vocabulário jornalístico é sempre neutro."
+      erro: "É o contrário do que os dois textos dizem."
+  explicacao: "O Texto I diz que o vocabulário traz um olhar. O Texto II mostra o caso: a mesma situação ganhava palavras diferentes conforme a classe do adolescente. A escolha lexical carregava preconceito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-09
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Diálogo numa tirinha:
+    — Doutor, confesso que estou com o pé atrás com esse tratamento.
+    — Então traga o pé para a frente e sente aqui, que eu explico tudo de novo.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O humor da tirinha é construído porque o médico"
+  alternativas:
+    - texto: "usa linguagem técnica que o paciente não entende."
+      erro: "O médico não usa termo técnico nenhum. O humor vem da leitura que ele faz da expressão do paciente."
+    - texto: "comete um erro de concordância."
+      erro: "As falas seguem a norma. O humor é de sentido."
+    - texto: "repete exatamente o que o paciente disse."
+      erro: "O médico não repete: ele reinterpreta. É aí que nasce a graça."
+    - texto: "brinca com o sentido literal da expressão “estar com o pé atrás”, que o paciente usou em sentido figurado."
+      certa: true
+    - texto: "se recusa a explicar o tratamento."
+      erro: "Ele se oferece para explicar tudo de novo. A graça está no jogo entre o sentido figurado e o literal."
+  explicacao: "“Estar com o pé atrás” quer dizer desconfiar. O médico responde como se fosse uma posição do pé, e ao mesmo tempo atende ao pedido: explica de novo. O choque entre os dois sentidos faz o humor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-semantica-10
+  tema: "Semântica"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-semantica
+  dificuldade: 3
+  enunciado: "Em qual situação a ambiguidade é um defeito, e não um recurso?"
+  alternativas:
+    - texto: "Numa charge que brinca com os dois sentidos de “banco”."
+      erro: "Na charge, o duplo sentido costuma ser intencional e cria humor. É recurso."
+    - texto: "Numa cláusula de contrato de aluguel que permite duas leituras sobre quem paga o conserto."
+      certa: true
+    - texto: "Num poema que deixa o leitor imaginar dois sentidos para um verso."
+      erro: "Na poesia, a ambiguidade pode ser escolha estética. É recurso."
+    - texto: "Num anúncio que joga com o sentido de “leve” (peso e preço)."
+      erro: "Publicidade usa o duplo sentido de propósito, para chamar atenção."
+    - texto: "Numa piada de trocadilho entre amigos."
+      erro: "No trocadilho, o duplo sentido é a própria graça."
+  explicacao: "Num contrato, cada cláusula precisa ter uma só leitura. Duas leituras sobre quem paga podem virar briga ou processo. Ali a ambiguidade é defeito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

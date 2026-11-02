@@ -1,0 +1,254 @@
+# Exercícios da aula "Arcadismo" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-arcadismo-01
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-arcadismo
+  dificuldade: 1
+  enunciado: "Qual destas marcas é típica do Arcadismo?"
+  alternativas:
+    - texto: "Antíteses e paradoxos em série, entre pecado e perdão."
+      erro: "Essa é a marca do Barroco, que o Arcadismo quis superar."
+    - texto: "Verso livre e linguagem coloquial das ruas."
+      erro: "Verso livre e fala das ruas são do Modernismo, no século 20."
+    - texto: "Narrador irônico que zomba da elite do Império."
+      erro: "Narrador irônico e crítica à elite do Império são do Realismo, no fim do século 19."
+    - texto: "Culto da pátria e indígena como herói nacional."
+      erro: "O indígena como herói da nação é marca do Romantismo, no século 19."
+    - texto: "O poeta que se imagina pastor, num campo calmo, com linguagem clara."
+      certa: true
+  explicacao: "O árcade se imagina pastor (Dirceu, Marília), canta o campo tranquilo e escreve com clareza e equilíbrio, à moda dos clássicos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-02
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-arcadismo
+  dificuldade: 1
+  enunciado: "A expressão latina carpe diem, muito usada pelos árcades, quer dizer"
+  alternativas:
+    - texto: "fugir da cidade."
+      erro: "Fugir da cidade é fugere urbem."
+    - texto: "a vida modesta de ouro."
+      erro: "Vida modesta e equilibrada é aurea mediocritas."
+    - texto: "aproveite o dia."
+      certa: true
+    - texto: "o lugar agradável."
+      erro: "Lugar agradável é locus amoenus."
+    - texto: "a razão acima de tudo."
+      erro: "A razão é valor do Iluminismo, mas não é o sentido de carpe diem."
+  explicacao: "Carpe diem é aproveitar o dia: a juventude passa, e o amor deve ser vivido agora. A ideia vem do poeta latino Horácio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-03
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-arcadismo
+  dificuldade: 1
+  enunciado: "O Arcadismo brasileiro floresceu em Minas Gerais no século 18 porque ali"
+  alternativas:
+    - texto: "a riqueza do ouro formou uma elite letrada, de juízes, advogados e padres, estudados em Coimbra."
+      certa: true
+    - texto: "ficava a capital do Império."
+      erro: "Não havia Império no século 18. A capital da colônia era Salvador e, desde 1763, o Rio de Janeiro."
+    - texto: "viviam os pastores de ovelhas que escreviam os poemas."
+      erro: "Os poetas não eram pastores. O pastor é uma máscara literária."
+    - texto: "chegou a primeira tipografia do país."
+      erro: "As Obras poéticas de Cláudio e Marília de Dirceu foram impressas em Lisboa, não em Minas."
+    - texto: "terminou a escravidão antes do resto do país."
+      erro: "A riqueza do ouro dependia do trabalho de pessoas escravizadas. A Abolição só veio em 1888."
+  explicacao: "O ouro mudou o centro da colônia para Minas. Vila Rica e Mariana ganharam uma elite de funcionários e letrados, que formou as arcádias e escreveu a poesia do período."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-04
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-arcadismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Tenho próprio casal e nele assisto;
+    Dá-me vinho, legume, fruta, azeite;
+    Das brancas ovelhinhas tiro o leite
+    E mais as finas lãs de que me visto.
+    Graças, Marília bela,
+    Graças à minha Estrela!
+    (Tomás Antônio Gonzaga, Marília de Dirceu, Parte I, Lira I, 1792. Domínio público.)
+  enunciado: "Os versos revelam um ideal árcade, que é o da"
+  alternativas:
+    - texto: "vida urbana, cheia de festas e intrigas."
+      erro: "Não há cidade nos versos. O cenário é o campo, com ovelhas, vinho e fruta."
+    - texto: "luta política contra a Coroa portuguesa."
+      erro: "O poeta participou da Inconfidência, mas estes versos não falam de política."
+    - texto: "angústia diante da morte e do pecado."
+      erro: "Angústia diante da morte e do pecado é tema barroco. Aqui o tom é sereno."
+    - texto: "vida simples e farta no campo, sem luxo, a aurea mediocritas."
+      certa: true
+    - texto: "natureza selvagem e grandiosa da pátria."
+      erro: "A natureza grandiosa ligada à pátria é romântica. A árcade é calma e doméstica."
+  explicacao: "Vinho, legume, fruta, azeite, leite e lã: o que a terra dá basta. É a aurea mediocritas, a vida modesta e equilibrada. O refrão sereno reforça a calma do campo árcade."
+  fonte: "Questão original do Instituto Lúcia; versos de Gonzaga (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-05
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-arcadismo
+  dificuldade: 2
+  enunciado: "Cláudio Manuel da Costa e Tomás Antônio Gonzaga, poetas árcades, foram presos em 1789 por participarem"
+  alternativas:
+    - texto: "da Revolta dos Malês."
+      erro: "A Revolta dos Malês foi em Salvador, em 1835, organizada por africanos muçulmanos."
+    - texto: "da Inconfidência Mineira, que planejava a independência de Minas."
+      certa: true
+    - texto: "da Guerra de Canudos."
+      erro: "Canudos foi no sertão da Bahia, em 1896 e 1897."
+    - texto: "da Revolta da Vacina."
+      erro: "A Revolta da Vacina foi no Rio de Janeiro, em 1904."
+    - texto: "da Semana de Arte Moderna."
+      erro: "A Semana foi em 1922, um evento artístico, não uma conspiração."
+  explicacao: "A Inconfidência Mineira foi denunciada em 1789. Cláudio morreu na prisão naquele ano. Gonzaga foi mandado para Moçambique, em 1792. Tiradentes foi executado em 1792."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-06
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-arcadismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto I
+    Ó Marília, a tarde é breve,
+    breve a rosa no jardim:
+    vamos colher hoje o beijo
+    que amanhã já não tem fim.
+    (Texto original do Instituto Lúcia, no estilo árcade.)
+
+    Texto II
+    Juventude não volta. Por isso, viva agora, mas com juízo: amor sim, loucura não.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "Os dois textos se aproximam por desenvolverem a ideia árcade de"
+  alternativas:
+    - texto: "fugere urbem, a fuga da cidade para o campo."
+      erro: "Nenhum dos textos fala de cidade ou de fuga. O centro é o tempo que passa."
+    - texto: "carpe diem, aproveitar o tempo presente porque a juventude passa."
+      certa: true
+    - texto: "antítese barroca entre o céu e a terra."
+      erro: "Não há conflito religioso. A tarde e a rosa breves pedem que se viva agora."
+    - texto: "nacionalismo romântico, de exaltação da pátria."
+      erro: "Pátria não aparece. O tema é o tempo e o amor."
+    - texto: "denúncia social, contra a pobreza no campo."
+      erro: "Não há denúncia. O tom é de convite amoroso e conselho."
+  explicacao: "\"A tarde é breve, breve a rosa\": tudo passa, então é preciso viver o amor hoje. O Texto II diz o mesmo em prosa, com o equilíbrio árcade (\"amor sim, loucura não\"). É o carpe diem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-07
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-arcadismo
+  dificuldade: 2
+  enunciado: "O Uraguai (1769), de Basílio da Gama, e Caramuru (1781), de Santa Rita Durão, são poemas épicos árcades que"
+  alternativas:
+    - texto: "foram escritos por autores indígenas, em língua guarani."
+      erro: "Os autores eram colonos letrados, e os poemas são em português."
+    - texto: "cantam o amor de pastores numa arcádia grega."
+      erro: "Essa é a lírica pastoril. Os épicos contam feitos de guerra e de conquista no Brasil."
+    - texto: "criticam a colonização com ironia modernista."
+      erro: "A ironia contra a colonização é marca dos modernistas, no século 20."
+    - texto: "foram proibidos e só publicados no século 20."
+      erro: "Os dois foram publicados no século 18, nas datas do enunciado."
+    - texto: "põem o indígena no centro da cena, mas pelo ponto de vista do colonizador."
+      certa: true
+  explicacao: "O Uraguai trata da guerra contra os guaranis das missões do Sul; Caramuru, do náufrago Diogo Álvares e de Paraguaçu. O indígena aparece como bravo ou trágico, mas a conquista é vista como destino: o olhar é o do colonizador."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-08
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-arcadismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Eu, Marília, não sou algum vaqueiro
+    Que viva de guardar alheio gado;
+    De tosco trato, de expressões grosseiro,
+    Dos frios gelos e dos sóis queimado.
+    (Tomás Antônio Gonzaga, Marília de Dirceu, Parte I, Lira I, 1792. Domínio público.)
+  enunciado: "Considerando que o autor era juiz em Vila Rica, numa sociedade baseada na mineração com trabalho escravizado, a recusa de ser \"vaqueiro\" revela que"
+  alternativas:
+    - texto: "a máscara do pastor árcade convive com a marca de classe do poeta, que se distingue de quem trabalha com as mãos."
+      certa: true
+    - texto: "o poeta era, na verdade, um trabalhador rural pobre."
+      erro: "É o contrário: ele diz não ser vaqueiro e, logo depois, afirma ter propriedade."
+    - texto: "o Arcadismo defendia a igualdade entre todos os trabalhadores."
+      erro: "O trecho descreve o vaqueiro com desprezo (\"tosco\", \"grosseiro\"). Não há igualdade."
+    - texto: "a vida no campo era odiada pelos árcades."
+      erro: "Os árcades idealizam o campo. O que o eu lírico recusa é o lugar do trabalhador, não o campo."
+    - texto: "o poema denuncia a escravidão nas minas de ouro."
+      erro: "As minas e as pessoas escravizadas não aparecem no poema. O silêncio sobre elas é parte da leitura crítica."
+  explicacao: "Dirceu brinca de pastor, mas faz questão de não ser o vaqueiro que cuida do gado alheio, descrito como tosco e queimado de sol. A simplicidade árcade é a de um proprietário. Ligar isso à elite de Vila Rica é relacionar o texto ao seu momento social."
+  fonte: "Questão original do Instituto Lúcia; versos de Gonzaga (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-09
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-arcadismo
+  dificuldade: 3
+  enunciado: "Um estudante diz que o campo da poesia árcade e a natureza da poesia romântica são a mesma coisa. Qual é a diferença mais importante entre eles?"
+  alternativas:
+    - texto: "Os árcades não falavam de natureza; os românticos, sim."
+      erro: "Os árcades falam muito de natureza: riachos, ovelhas, sombra. A diferença está no modo."
+    - texto: "O campo árcade é sempre europeu; a natureza romântica, sempre urbana."
+      erro: "A natureza romântica não é urbana. E o campo árcade, mesmo convencional, aparece em Minas."
+    - texto: "O campo árcade é calmo e convencional, imitado dos clássicos; a natureza romântica é grandiosa e ligada ao sentimento e à pátria."
+      certa: true
+    - texto: "Não há diferença: são dois nomes para o mesmo movimento."
+      erro: "São movimentos de séculos diferentes (18 e 19), com propostas diferentes."
+    - texto: "Os românticos escreviam em latim; os árcades, em português."
+      erro: "Os dois escreveram em português. O latim aparece nas expressões que os árcades citam."
+  explicacao: "O árcade imita um cenário clássico, sereno, quase de cartão: pastores, sombra e água. O romântico vê a natureza como força grande, espelho dos sentimentos e símbolo da nação, como as palmeiras de Gonçalves Dias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-arcadismo-10
+  tema: "Arcadismo"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-arcadismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Os inconfidentes de 1789 sonhavam com uma Minas livre da Coroa. Liam filósofos franceses, falavam em liberdade e escreviam versos sobre a vida simples. Enquanto isso, a riqueza deles saía das minas, onde trabalhavam pessoas escravizadas. O plano não previa o fim da escravidão.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "O texto convida a uma reflexão que segue atual: a de que"
+  alternativas:
+    - texto: "a Inconfidência não teve nenhuma importância histórica."
+      erro: "O texto não nega a importância: mostra o limite do projeto."
+    - texto: "toda luta por liberdade do passado foi falsa."
+      erro: "Generalização. O texto fala de um caso concreto, com seu limite concreto."
+    - texto: "os poetas árcades eram contra o Iluminismo."
+      erro: "O texto diz o contrário: eles liam os filósofos franceses."
+    - texto: "é preciso perguntar de quem é a liberdade defendida, e quem fica de fora dela."
+      certa: true
+    - texto: "a poesia não tem relação com a política."
+      erro: "O texto mostra poetas que conspiravam: a poesia e a política estavam juntas."
+  explicacao: "A liberdade dos inconfidentes deixava de fora as pessoas escravizadas, que produziam a riqueza deles. Perguntar quem cabe numa liberdade é uma questão atual, que a leitura do Arcadismo ajuda a pensar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

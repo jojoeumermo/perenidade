@@ -1,0 +1,273 @@
+# Exercícios da aula "Inglês: estratégias de leitura, cognatos e falsos cognatos" (trilha enem-ingles).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-ing-estrategias-01
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    PUSH
+    (aviso colado numa porta de vidro de uma farmácia)
+  enunciado: "Para entrar na farmácia, a pessoa que lê o aviso deve"
+  alternativas:
+    - texto: "empurrar a porta."
+      certa: true
+    - texto: "puxar a porta."
+      erro: "Push parece \"puxar\", mas é falso cognato: quer dizer empurrar. Puxar, em inglês, é pull."
+    - texto: "esperar alguém abrir a porta."
+      erro: "O aviso dá uma ordem curta para quem vai abrir a porta. Não fala de esperar ninguém."
+    - texto: "tocar a campainha."
+      erro: "Nenhuma palavra do aviso fala de campainha (bell). Leia só o que está escrito."
+    - texto: "usar a porta ao lado."
+      erro: "O aviso está na própria porta e diz como abri-la, não manda usar outra."
+  explicacao: "Push quer dizer empurrar. É um falso cognato clássico: parece \"puxar\", que em inglês é pull. Na porta de vidro, o aviso diz \"empurre\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-02
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    The public library on Elm Street will lend laptops to students for two weeks. Bring your school ID card.
+  enunciado: "De acordo com o aviso, o lugar que vai emprestar computadores portáteis é"
+  alternativas:
+    - texto: "uma livraria da rua Elm."
+      erro: "Library parece \"livraria\", mas é falso cognato: quer dizer biblioteca. Livraria é bookstore."
+    - texto: "uma escola da rua Elm."
+      erro: "A escola aparece só no documento pedido (school ID card, a carteirinha da escola). Quem empresta é a library."
+    - texto: "a biblioteca pública da rua Elm."
+      certa: true
+    - texto: "uma loja de informática."
+      erro: "Lend quer dizer emprestar, não vender. E o lugar citado é a public library."
+    - texto: "a prefeitura da cidade."
+      erro: "Public quer dizer pública, mas o texto não fala de prefeitura (city hall). O lugar é a biblioteca."
+  explicacao: "\"The public library\" é a biblioteca pública. \"Will lend laptops\": vai emprestar notebooks. Library é falso cognato de livraria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-03
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    National Vaccination Campaign
+    Protect your family. Vaccines are safe, free and available at all public health units until the end of the month.
+  enunciado: "Os cognatos do texto permitem concluir que ele trata de"
+  alternativas:
+    - texto: "uma pesquisa sobre a família brasileira."
+      erro: "Family aparece, mas como alvo da proteção (protect your family). O tema está no título: vacinação."
+    - texto: "uma venda de remédios com desconto."
+      erro: "Free quer dizer gratuito: não há venda. E o texto fala de vacinas, não de remédios em geral."
+    - texto: "o fim do atendimento nas unidades de saúde."
+      erro: "\"Until the end of the month\" diz até quando a vacina está disponível, não que as unidades vão fechar."
+    - texto: "uma lista de doenças sem vacina."
+      erro: "O texto diz que as vacinas são seguras e estão disponíveis. Não lista doenças."
+    - texto: "uma campanha nacional de vacinação gratuita."
+      certa: true
+  explicacao: "Os cognatos National, Vaccination, Campaign, Vaccines, public e units montam o tema: campanha nacional de vacinação. \"Free\" diz que é gratuita e \"available\" (disponível) diz onde encontrar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-04
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Many people think that bus drivers only drive. Actually, they also help elderly passengers, give directions to
+    tourists and keep the peace when a discussion starts. It is a job that asks for patience every minute.
+  enunciado: "No texto, a palavra \"Actually\" introduz"
+  alternativas:
+    - texto: "uma informação sobre o momento atual do transporte."
+      erro: "Actually parece \"atualmente\", mas é falso cognato. Quer dizer \"na verdade\" e não fala de tempo."
+    - texto: "uma correção do que muitas pessoas pensam."
+      certa: true
+    - texto: "uma conclusão de que o trabalho é fácil."
+      erro: "É o contrário: a última frase diz que o trabalho pede paciência a cada minuto (asks for patience every minute)."
+    - texto: "um exemplo de discussão entre passageiros."
+      erro: "A discussão aparece na lista do que o motorista faz (keep the peace, manter a calma). Actually não introduz esse exemplo."
+    - texto: "uma crítica aos turistas da cidade."
+      erro: "Os turistas só aparecem como quem recebe informação do motorista (give directions, dar direções). Não há crítica."
+  explicacao: "A primeira frase traz o que \"muita gente pensa\": que motorista só dirige. \"Actually\" (na verdade) corrige essa ideia e mostra o resto do trabalho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-05
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    After the storm, the streets of the neighborhood were flooded. Families moved their furniture to the second floor
+    and waited for the water to go down.
+  enunciado: "Pelo contexto, a palavra \"flooded\" significa que as ruas estavam"
+  alternativas:
+    - texto: "vazias."
+      erro: "Vazias não explica por que as famílias levaram os móveis para o andar de cima. Leia a frase seguinte."
+    - texto: "escuras."
+      erro: "A escuridão não faria a água baixar (the water to go down). O contexto fala de água."
+    - texto: "fechadas pela polícia."
+      erro: "Não há polícia no texto. Quem age são as famílias, por causa da água."
+    - texto: "alagadas."
+      certa: true
+    - texto: "em obras."
+      erro: "Obras não combinam com tempestade (storm) nem com esperar a água baixar."
+  explicacao: "Inferência pelo contexto: houve tempestade (storm), as famílias subiram os móveis (furniture) e esperaram \"a água baixar\" (the water to go down). As ruas estavam alagadas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-06
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 6
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Online course: Introduction to Solar Energy
+    Duration: 6 weeks · Language: English, with Portuguese subtitles · Certificate: yes · Price: free
+    Start date: March 3
+  enunciado: "Uma pessoa que procura um curso sem custo e com legendas em português encontra, no anúncio, que o curso"
+  alternativas:
+    - texto: "é pago, mas tem legendas em português."
+      erro: "Price: free quer dizer que o preço é gratuito. Free, aqui, não é \"livre\"."
+    - texto: "atende às duas exigências."
+      certa: true
+    - texto: "é gratuito, mas só em inglês, sem legendas."
+      erro: "O anúncio diz \"with Portuguese subtitles\": com legendas em português."
+    - texto: "dura seis meses e não dá certificado."
+      erro: "Weeks são semanas, não meses. E Certificate: yes diz que há certificado."
+    - texto: "começa em maio e é presencial."
+      erro: "March é março, e Online course diz que o curso é pela internet."
+  explicacao: "Scanning: procure só os dois dados pedidos. \"Price: free\" (preço: gratuito) e \"with Portuguese subtitles\" (com legendas em português). O curso atende às duas exigências."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-07
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    My parents never went to college. They worked in a shoe factory for thirty years. When I got my diploma, my
+    mother cried and my father pretended he had something in his eye.
+  enunciado: "No texto, o narrador conta que o pai"
+  alternativas:
+    - texto: "pretendia ir à formatura, mas não foi."
+      erro: "Pretended parece \"pretendeu\", mas é falso cognato: quer dizer fingiu. O pai estava na formatura."
+    - texto: "nunca foi ao colégio."
+      erro: "College é falso cognato: quer dizer faculdade, não colégio. E o texto fala dos dois pais, não só do pai."
+    - texto: "trabalhou trinta anos sozinho numa fábrica."
+      erro: "Parents quer dizer pai e mãe, não parentes. Os dois trabalharam na fábrica (They worked)."
+    - texto: "machucou o olho na fábrica de sapatos."
+      erro: "O olho aparece no fingimento (pretended he had something in his eye), não num acidente de trabalho."
+    - texto: "fingiu ter algo no olho para disfarçar a emoção."
+      certa: true
+  explicacao: "Três falsos cognatos num texto só. Parents são pai e mãe; college é faculdade; pretended é fingiu. A mãe chorou e o pai \"fingiu que tinha algo no olho\": disfarçou o choro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-08
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    It took me years to realize that my grandmother's recipes were more than food. Each dish carried a story about
+    the village she left, the river she crossed and the people she never saw again. Cooking was her way of keeping
+    them alive.
+  enunciado: "O narrador afirma que, com o tempo, ele"
+  alternativas:
+    - texto: "percebeu que as receitas guardavam a memória da avó."
+      certa: true
+    - texto: "realizou o sonho de abrir um restaurante."
+      erro: "Realize é falso cognato: quer dizer perceber. O texto não fala de restaurante."
+    - texto: "aprendeu a cozinhar todos os pratos da avó."
+      erro: "O texto não diz que o narrador cozinha. Quem cozinhava era a avó (Cooking was her way)."
+    - texto: "voltou à aldeia de onde a avó saiu."
+      erro: "A aldeia (village) aparece nas histórias da avó, não numa viagem do narrador."
+    - texto: "descobriu que a avó nunca cruzou o rio."
+      erro: "É o contrário: o texto fala do rio que ela cruzou (the river she crossed)."
+  explicacao: "\"It took me years to realize\": levei anos para perceber. O que ele percebeu: as receitas eram mais que comida, cada prato carregava uma história (carried a story). Cozinhar era o jeito de a avó manter essas pessoas vivas na memória."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-09
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 6
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Before you sign a rental contract, read every line. Ask who pays for repairs, how much the deposit is and what
+    happens if you leave early. A contract you do not understand is a contract you should not sign yet.
+  enunciado: "O texto orienta quem vai alugar um imóvel a"
+  alternativas:
+    - texto: "evitar contratos de aluguel por serem sempre injustos."
+      erro: "O texto não diz que todo contrato é injusto. Ele diz para não assinar \"ainda\" (yet) o que não se entendeu."
+    - texto: "pagar o depósito antes de ler o contrato."
+      erro: "A ordem é a inversa: ler antes de assinar (Before you sign... read every line). O depósito é uma das perguntas a fazer."
+    - texto: "sair do imóvel antes do prazo para economizar."
+      erro: "\"What happens if you leave early\" é uma pergunta a fazer, não um conselho para sair cedo."
+    - texto: "tirar dúvidas e entender o contrato antes de assinar."
+      certa: true
+    - texto: "consertar o imóvel por conta própria."
+      erro: "O texto manda perguntar quem paga os consertos (who pays for repairs). Não diz que é o inquilino."
+  explicacao: "Os trechos-chave: \"read every line\" (leia cada linha), \"Ask who pays for repairs\" (pergunte quem paga os consertos) e \"A contract you do not understand is a contract you should not sign yet\" (um contrato que você não entende é um contrato que você ainda não deve assinar)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-estrategias-10
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    The lecture about climate change was full. Students, farmers and fishermen asked questions for two hours.
+    Nobody wanted to leave. Eventually, the guards had to turn off the lights.
+  enunciado: "As palavras \"lecture\" e \"Eventually\" indicam, no texto, que"
+  alternativas:
+    - texto: "a leitura de um livro terminou cedo."
+      erro: "Lecture parece \"leitura\", mas é falso cognato: é palestra. E ela durou horas, não terminou cedo."
+    - texto: "a palestra eventualmente aconteceria outra vez."
+      erro: "Eventually parece \"eventualmente\" (às vezes), mas quer dizer \"por fim, depois de um tempo\"."
+    - texto: "a palestra foi tão procurada que, no fim, os guardas apagaram as luzes."
+      certa: true
+    - texto: "os guardas impediram as perguntas desde o começo."
+      erro: "As perguntas duraram duas horas (for two hours). Os guardas só agiram no fim."
+    - texto: "ninguém foi à palestra sobre o clima."
+      erro: "É o contrário: \"was full\" quer dizer que estava lotada."
+  explicacao: "Lecture é palestra; eventually é \"por fim\". A palestra lotou (was full), as perguntas duraram duas horas e, por fim, os guardas tiveram de apagar as luzes (had to turn off the lights)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

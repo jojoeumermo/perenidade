@@ -1,0 +1,243 @@
+# Exercícios da aula "Práticas corporais, cultura e sociedade" (trilha enem-linguagens-artes-e-corpo).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-corpo-sociedade-01
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-sociedade
+  dificuldade: 1
+  enunciado: "O que a expressão \"cultura corporal\" quer dizer na Educação Física?"
+  alternativas:
+    - texto: "O conjunto de exercícios para deixar o corpo dentro de um padrão de beleza."
+      erro: "Isso é estética, não cultura corporal. A expressão fala das práticas que a humanidade criou, não de um corpo ideal."
+    - texto: "As regras oficiais dos esportes olímpicos."
+      erro: "As regras oficiais são só uma parte. Brincadeira de rua, dança e luta também entram, mesmo sem federação."
+    - texto: "O conjunto de práticas corporais criadas pela humanidade, como jogo, esporte, dança, luta e ginástica."
+      certa: true
+    - texto: "O estudo dos músculos e ossos do corpo humano."
+      erro: "Isso é anatomia, da Biologia. A cultura corporal olha para o que as pessoas fazem com o corpo e o sentido disso."
+    - texto: "A capacidade natural de cada pessoa para o esporte."
+      erro: "A ideia de \"natural\" é o oposto da proposta: as práticas são aprendidas e inventadas, não nascem com a pessoa."
+  explicacao: "Cultura corporal é o nome dado às práticas corporais como criações humanas: jogo, esporte, dança, luta, ginástica. Elas são aprendidas e mudam com o tempo e com cada grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-02
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-sociedade
+  dificuldade: 1
+  enunciado: "Qual destas NÃO é uma das seis unidades temáticas da Educação Física na Base Nacional Comum Curricular (BNCC)?"
+  alternativas:
+    - texto: "Musculação para competição de fisiculturismo."
+      certa: true
+    - texto: "Lutas."
+      erro: "Lutas é uma das seis unidades, ao lado de brincadeiras e jogos, esportes, ginásticas, danças e práticas de aventura."
+    - texto: "Danças."
+      erro: "Danças é uma das seis unidades. A dança é prática corporal e também arte."
+    - texto: "Práticas corporais de aventura."
+      erro: "Esta é uma das seis: skate, escalada, trilha, parkour e outras práticas de risco controlado."
+    - texto: "Brincadeiras e jogos."
+      erro: "Brincadeiras e jogos é a primeira das seis unidades. Brincar também é prática corporal."
+  explicacao: "As seis unidades da BNCC são brincadeiras e jogos, esportes, ginásticas, danças, lutas e práticas corporais de aventura. Fisiculturismo de competição não é uma unidade."
+  fonte: "Questão original do Instituto Lúcia, com base na BNCC (MEC, 2018)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-03
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-sociedade
+  dificuldade: 1
+  enunciado: "Em 2021, o Comitê Olímpico Internacional acrescentou a palavra \"juntos\" ao lema olímpico. Segundo o próprio comitê, o objetivo foi:"
+  alternativas:
+    - texto: "aumentar o número de recordes mundiais."
+      erro: "Recorde combina com \"mais rápido, mais alto, mais forte\", a parte antiga. A palavra nova aponta para outra coisa."
+    - texto: "permitir atletas profissionais nos Jogos."
+      erro: "O lema não trata de quem pode competir. O texto do COI fala de solidariedade."
+    - texto: "valorizar os patrocinadores dos Jogos."
+      erro: "Nada na mudança fala de mercado. É uma leitura de fora do texto."
+    - texto: "trocar a disputa por jogos sem vencedor."
+      erro: "A disputa continua. A palavra foi acrescentada ao fim, sem apagar o resto do lema."
+    - texto: "ressaltar a solidariedade."
+      certa: true
+  explicacao: "O COI aprovou em julho de 2021 o lema \"mais rápido, mais alto, mais forte, juntos\" e disse que a mudança ressalta a solidariedade. O esporte também como cooperação."
+  fonte: "Questão original do Instituto Lúcia, com base em notícia do Comitê Olímpico Internacional (2021)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-04
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-sociedade
+  dificuldade: 2
+  enunciado: "Uma reportagem conta que, numa cidade do litoral, pescadores criaram uma corrida na areia com cestos de peixe nas costas, que virou festa anual da comunidade. A origem dessa prática mostra que ela:"
+  alternativas:
+    - texto: "é menos importante que os esportes olímpicos."
+      erro: "A prova não hierarquiza práticas. Uma festa de pescadores é tão prática corporal quanto o atletismo."
+    - texto: "nasceu de um costume do trabalho daquele grupo e ganhou sentido de festa."
+      certa: true
+    - texto: "foi copiada de um esporte estrangeiro."
+      erro: "O enunciado diz que os pescadores criaram a corrida. Nada fala de cópia."
+    - texto: "existe para treinar atletas profissionais."
+      erro: "A corrida virou festa, não treino. O sentido ali é comunitário."
+    - texto: "depende de condições naturais, e não da cultura."
+      erro: "A areia é o lugar, mas quem criou foi o grupo, a partir do trabalho. É a H9: a prática nasce de uma necessidade social."
+  explicacao: "A corrida nasceu do trabalho (carregar peixe) e virou festa. É a ideia da H9: cada prática corporal nasce de necessidades e interesses de um grupo e ganha sentido para ele."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-05
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-sociedade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Pelo artigo 54 do Decreto-Lei nº 3.199, de 1941, às mulheres não se permitiria a prática de esportes
+    "incompatíveis com as condições de sua natureza". Durante décadas, o futebol esteve entre os esportes vetados.
+    Mesmo assim, times femininos continuaram jogando em campos de várzea e em festas de bairro.
+  enunciado: "O texto permite reconhecer que a proibição"
+  alternativas:
+    - texto: "protegia a saúde das mulheres, como mostram estudos médicos da época."
+      erro: "O texto não traz estudo médico. Aceitar a \"natureza\" como argumento é cair na justificativa da própria lei."
+    - texto: "era uma regra técnica do futebol, sem relação com a sociedade."
+      erro: "A lei falava de mulheres, não de regra de jogo. É uma questão de quem pode praticar, ou seja, social."
+    - texto: "acabou com a prática do futebol pelas mulheres no país."
+      erro: "O texto diz o contrário: times femininos continuaram jogando na várzea. É contradição."
+    - texto: "usou a ideia de \"natureza\" para excluir as mulheres de uma prática corporal."
+      certa: true
+    - texto: "era aceita por todas as mulheres da época."
+      erro: "Se todas aceitassem, não haveria times jogando apesar da lei. Generalização sem base no texto."
+  explicacao: "A lei justificava a exclusão pela \"natureza\" feminina. A prova lê isso como relação de gênero: o corpo como meio de convivência pode ser também meio de exclusão (H11)."
+  fonte: "Questão original do Instituto Lúcia, com base no Decreto-Lei nº 3.199/1941"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-06
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-sociedade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Depois de mais uma briga entre torcidas, um colunista escreveu: "Proibir a torcida organizada é fácil e dá
+    manchete. Difícil é admitir que a violência do estádio é a mesma que atravessa o ônibus lotado, a falta de
+    emprego e a polícia que chega atirando. O estádio não inventa a violência: ele a amplifica."
+  enunciado: "Para o colunista, a violência no futebol"
+  alternativas:
+    - texto: "é reflexo de problemas sociais mais amplos, que vão além das torcidas."
+      certa: true
+    - texto: "seria resolvida com a proibição das torcidas organizadas."
+      erro: "O colunista diz que proibir é \"fácil e dá manchete\", mas não resolve. É a solução que ele critica."
+    - texto: "é criada dentro do estádio pelo próprio jogo."
+      erro: "Ele diz justamente que \"o estádio não inventa a violência\". É inversão."
+    - texto: "acontece só nos bairros pobres."
+      erro: "O texto fala de problemas sociais, não de um lugar. É generalização que o texto não faz."
+    - texto: "deve ser combatida apenas com mais policiamento."
+      erro: "Ele cita \"a polícia que chega atirando\" como parte do problema. Mais força policial não é a proposta do texto."
+  explicacao: "O colunista amplia a questão: a violência do estádio vem da violência social (transporte, desemprego, ação policial). A prova cobra essa leitura, que recusa culpar um grupo só."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-07
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-sociedade
+  dificuldade: 2
+  enunciado: "Uma pesquisa mostra que pessoas de renda mais alta praticam esporte sobretudo no lazer, e as de renda mais baixa se exercitam sobretudo no deslocamento para o trabalho, a pé ou de bicicleta. O fator que mais pesa nessa diferença é:"
+  alternativas:
+    - texto: "a preferência pessoal de cada um."
+      erro: "Gosto conta, mas o enunciado separa os grupos pela renda. A diferença é social, não só de gosto."
+    - texto: "a genética de cada grupo."
+      erro: "Nada no enunciado fala de corpo herdado. A divisão é por renda."
+    - texto: "o acesso desigual a dinheiro e tempo livre."
+      certa: true
+    - texto: "a falta de vontade de quem ganha menos."
+      erro: "Quem ganha menos se mexe, e muito, no caminho para o trabalho. Culpar a \"vontade\" ignora o que a pesquisa mostra."
+    - texto: "a ausência de esportes nas escolas particulares."
+      erro: "Escola particular não aparece no enunciado. É informação de fora."
+  explicacao: "Praticar esporte por lazer exige tempo e dinheiro. Quem tem pouco dos dois se mexe por necessidade, no transporte. A prática corporal é marcada pela classe social."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-08
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-sociedade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma escola pública passou a oferecer aulas de vôlei sentado, modalidade paralímpica, para todos os estudantes,
+    com e sem deficiência. A professora explica: "Quando todo mundo joga sentado, ninguém tem vantagem por ser
+    mais alto ou por correr mais. O estudante que usa cadeira de rodas deixou de ser o que 'assiste' e passou a
+    ser o que ensina os colegas a se deslocar no chão."
+  enunciado: "A experiência relatada mostra que adaptar a prática corporal"
+  alternativas:
+    - texto: "torna o esporte menos sério e menos educativo."
+      erro: "O texto mostra aprendizagem de todos. Dizer que o esporte fica \"menos sério\" é um preconceito que o texto desmonta."
+    - texto: "serve apenas aos estudantes com deficiência."
+      erro: "A aula é para todos, com e sem deficiência. Essa é justamente a novidade da experiência."
+    - texto: "acaba com a competição entre os estudantes."
+      erro: "O texto não diz que não há disputa. Diz que ninguém tem vantagem física de saída."
+    - texto: "obriga a escola a abandonar os esportes tradicionais."
+      erro: "Nada no texto fala em abandonar outras modalidades. É extrapolação."
+    - texto: "pode inverter papéis e ampliar a participação de quem costumava ficar de fora."
+      certa: true
+  explicacao: "Com a regra adaptada, o estudante cadeirante passou de quem assiste a quem ensina. É a H11: o corpo como meio de convivência, com adaptações que incluem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-09
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-sociedade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Depois que uma skatista brasileira de 13 anos ganhou uma medalha olímpica, uma colunista perguntou: "Por que
+    a menina ganha boneca de aniversário e o irmão ganha skate? Por que ele pode ralar o joelho e ela tem de voltar
+    para casa sempre arrumada?" E concluiu que medalha nenhuma muda isso sozinha.
+  enunciado: "Com as perguntas, a colunista questiona"
+  alternativas:
+    - texto: "o valor esportivo da medalha conquistada."
+      erro: "Ela parte da medalha para falar de outra coisa. Não diz que a conquista vale menos."
+    - texto: "os papéis de gênero que limitam o acesso das meninas às práticas corporais."
+      certa: true
+    - texto: "o perigo do skate para crianças pequenas."
+      erro: "Ela fala do joelho ralado do menino como algo permitido a ele, não como risco a evitar. O foco é a diferença entre meninos e meninas."
+    - texto: "a falta de pistas de skate nas cidades."
+      erro: "Pistas não aparecem no texto. É informação de fora."
+    - texto: "a preferência natural das meninas por bonecas."
+      erro: "A colunista pergunta justamente por que se dá boneca à menina. Ela questiona essa \"preferência\", não a confirma."
+  explicacao: "As perguntas mostram que meninas e meninos são educados de modos diferentes para o corpo: ele pode se arriscar, ela deve estar \"arrumada\". A medalha não desfaz isso sozinha. É H11, relação de gênero."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-sociedade-10
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 9
+  objeto: lin-praticas-corporais-sociedade
+  dificuldade: 3
+  enunciado: "Um texto afirma que a capoeira, hoje praticada em academias de vários países, se formou entre pessoas escravizadas no Brasil e foi perseguida pela polícia no começo do século 20. Qual conclusão o texto sustenta?"
+  alternativas:
+    - texto: "A capoeira sempre foi aceita como esporte nacional."
+      erro: "O texto diz que ela foi perseguida. É contradição."
+    - texto: "A capoeira perdeu o sentido ao chegar a outros países."
+      erro: "O texto não julga a capoeira de hoje. Diz que ela se espalhou, não que perdeu sentido."
+    - texto: "A capoeira nasceu como esporte de academia e depois chegou às ruas."
+      erro: "É a ordem inversa: nasceu entre escravizados, foi perseguida e só depois chegou às academias."
+    - texto: "O sentido de uma prática corporal muda com o tempo e com os grupos que a praticam."
+      certa: true
+    - texto: "As práticas corporais não têm relação com a história do país."
+      erro: "O texto liga a capoeira à escravidão e à perseguição policial. É o contrário do que a alternativa afirma."
+  explicacao: "A mesma prática foi resistência, foi crime e hoje é praticada no mundo todo. O sentido das práticas corporais muda com a história e com quem as pratica (H9)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

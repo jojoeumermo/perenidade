@@ -1,0 +1,244 @@
+# Exercícios da aula "Estratégias argumentativas" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-argumentos-01
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-estrategias
+  dificuldade: 1
+  enunciado: "“Segundo o Ministério da Saúde, a vacina é segura para gestantes.” Que estratégia argumentativa essa frase usa?"
+  alternativas:
+    - texto: "Exemplo"
+      erro: "Exemplo é um caso concreto (uma pessoa, uma cidade). Aqui o apoio é quem fala: um órgão do governo."
+    - texto: "Comparação"
+      erro: "Não há duas situações aproximadas. O texto se apoia em quem tem saber reconhecido."
+    - texto: "Concessão"
+      erro: "Concessão reconhece um ponto do outro lado (“embora”, “é verdade que”). Não é o caso."
+    - texto: "Autoridade"
+      certa: true
+    - texto: "Intimidação"
+      erro: "Não há ameaça. A frase informa e se apoia num órgão oficial."
+  explicacao: "“Segundo o Ministério da Saúde” apoia a afirmação em quem tem saber e responsabilidade sobre o tema. É argumento de autoridade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-02
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-estrategias
+  dificuldade: 1
+  enunciado: "Qual destas frases é um argumento de causa e consequência?"
+  alternativas:
+    - texto: "“Eu acho que a praça precisa de luz.”"
+      erro: "Isso é só a opinião, sem razão. Falta o “porque” ou o “por isso”."
+    - texto: "“Sem iluminação, a praça fica vazia à noite, e praça vazia fica mais perigosa.”"
+      certa: true
+    - texto: "“O vereador também acha que a praça precisa de luz.”"
+      erro: "Isso se apoia na opinião de alguém com cargo: lembra autoridade, não causa e consequência."
+    - texto: "“Todo mundo do bairro quer luz na praça.”"
+      erro: "Isso é apelo à maioria: algo seria certo porque muitos querem."
+    - texto: "“Na praça da cidade vizinha puseram luz.”"
+      erro: "Isso é exemplo de outro lugar. Não mostra o que leva a quê."
+  explicacao: "A frase certa liga uma causa (falta de luz) a consequências encadeadas (praça vazia, mais perigo). É o argumento de causa e consequência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-03
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-argumentacao-estrategias
+  dificuldade: 1
+  enunciado: "“Só quem ama de verdade a família compra este seguro.” Qual estratégia a frase usa?"
+  alternativas:
+    - texto: "Chantagem"
+      certa: true
+    - texto: "Dados"
+      erro: "A frase não traz número nem pesquisa."
+    - texto: "Autoridade"
+      erro: "Não há ninguém com saber reconhecido sendo citado."
+    - texto: "Exemplo"
+      erro: "Não há caso concreto. A frase põe uma condição emocional."
+    - texto: "Concessão"
+      erro: "A frase não reconhece nenhum ponto do outro lado."
+  explicacao: "A frase condiciona algo valioso (amar a família) à compra. Quem não compra parece não amar. Isso é chantagem, uma das estratégias da habilidade 24."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-04
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    É verdade que a feira livre suja a rua no domingo e atrapalha a passagem dos carros por algumas horas. Ainda assim,
+    ela traz verdura fresca a preço justo, dá renda a dezenas de famílias de agricultores da região e faz o bairro se
+    encontrar. A sujeira se resolve com um mutirão de limpeza no fim do dia; o resto, nenhuma rua vazia oferece.
+  enunciado: "O trecho “É verdade que a feira livre suja a rua… Ainda assim…” serve, na argumentação, para"
+  alternativas:
+    - texto: "defender que a feira seja transferida para outro lugar."
+      erro: "Inversão: o texto defende a feira na rua e até propõe solução para a sujeira."
+    - texto: "mostrar que o autor não tem opinião formada."
+      erro: "O autor tem opinião clara. Reconhecer um ponto contrário não é ficar em cima do muro."
+    - texto: "reconhecer um problema apontado pelos críticos e, depois, mostrar que os benefícios pesam mais."
+      certa: true
+    - texto: "citar uma autoridade que apoia a feira."
+      erro: "Não há autoridade citada no texto."
+    - texto: "ameaçar quem reclama da feira."
+      erro: "Não há ameaça. O tom é de quem pondera e argumenta."
+  explicacao: "“É verdade que” abre uma concessão: o autor admite a sujeira e o trânsito. “Ainda assim” abre a refutação: os benefícios pesam mais, e o problema tem solução. É concessão seguida de refutação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-05
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-estrategias
+  dificuldade: 2
+  enunciado: "“Ela defende mais verba para as creches só porque tem filho pequeno.” Essa frase responde a um argumento com qual falácia?"
+  alternativas:
+    - texto: "Falso dilema"
+      erro: "Falso dilema reduz as saídas a duas. Aqui o problema é outro: atacar quem fala."
+    - texto: "Generalização apressada"
+      erro: "Não há regra tirada de um caso só. A frase desvia o assunto para a vida da pessoa."
+    - texto: "Apelo à maioria"
+      erro: "A frase não fala do que a maioria pensa."
+    - texto: "Argumento de autoridade"
+      erro: "Pelo contrário: a frase tenta tirar a credibilidade de quem fala, sem discutir o que ela disse."
+    - texto: "Ataque à pessoa"
+      certa: true
+  explicacao: "A frase não discute se a verba é necessária. Ataca o motivo pessoal de quem defende. É ataque à pessoa: o argumento dela continua sem resposta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-06
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-argumentacao-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Campanha de doação de sangue no rádio: "Agora mesmo, no hospital da cidade, tem uma mãe esperando a bolsa de sangue
+    que vai salvar o filho dela. Você pode ser a pessoa que ela nunca vai conhecer, mas nunca vai esquecer. Doe."
+  enunciado: "Para convencer o ouvinte, a campanha recorre principalmente à"
+  alternativas:
+    - texto: "intimidação, ameaçando quem não doar."
+      erro: "Não há ameaça nem castigo. A campanha toca o sentimento, não o medo."
+    - texto: "apresentação de dados sobre o estoque de sangue."
+      erro: "Não há números na campanha."
+    - texto: "citação de um médico do hemocentro."
+      erro: "Ninguém é citado como autoridade."
+    - texto: "comparação entre a doação e outras formas de ajuda."
+      erro: "Não há comparação entre situações."
+    - texto: "comoção, mostrando uma situação capaz de despertar compaixão."
+      certa: true
+  explicacao: "A mãe esperando o sangue para o filho mexe com a emoção de quem ouve. É comoção (pathos). A frase final reforça o laço afetivo: “nunca vai esquecer”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-07
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-estrategias
+  dificuldade: 2
+  enunciado: "“Ou a cidade corta o passe livre dos estudantes, ou vai faltar dinheiro para a merenda.” O que há de fraco nesse argumento?"
+  alternativas:
+    - texto: "Apresenta só duas saídas, quando pode haver outras."
+      certa: true
+    - texto: "Usa dados demais e cansa o leitor."
+      erro: "A frase não tem dado nenhum."
+    - texto: "Ataca a pessoa que defende o passe livre."
+      erro: "Ninguém é atacado. O problema é a escolha forçada entre duas opções."
+    - texto: "Cita uma autoridade fora da área."
+      erro: "Não há autoridade citada."
+    - texto: "Faz uma concessão ao lado contrário."
+      erro: "Não há concessão. A frase fecha as opções em duas."
+  explicacao: "O argumento força uma escolha entre duas saídas, como se não existissem outras (rever outros gastos, buscar outra receita). É falso dilema."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-08
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Fechar a biblioteca do bairro para "economizar" é como desligar a geladeira para baixar a conta de luz: a conta cai
+    no primeiro mês, e a comida estraga no segundo. A economia de hoje vira prejuízo amanhã, em jovens sem lugar para
+    estudar e em famílias sem acesso a livros.
+  enunciado: "A principal estratégia argumentativa do texto é a"
+  alternativas:
+    - texto: "citação de autoridade, ao recorrer a especialistas em educação."
+      erro: "Nenhum especialista é citado."
+    - texto: "concessão, ao admitir que fechar a biblioteca traz vantagens."
+      erro: "O texto fala da conta que cai, mas não para conceder: é parte da comparação que mostra o prejuízo depois."
+    - texto: "enumeração de dados sobre o uso da biblioteca."
+      erro: "Não há número nem pesquisa no texto."
+    - texto: "comparação, ao aproximar o fechamento da biblioteca de uma economia que gera prejuízo."
+      certa: true
+    - texto: "intimidação, ao ameaçar os moradores que não usam a biblioteca."
+      erro: "O texto não ameaça ninguém; alerta para uma consequência."
+  explicacao: "O texto aproxima duas situações: desligar a geladeira e fechar a biblioteca. Nas duas, a economia imediata gera prejuízo depois. É argumento por comparação (analogia)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-09
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-argumentacao-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Anúncio de curso pago na internet: "Enquanto você dorme, outros estão ficando ricos. Daqui a um ano, você vai olhar
+    para trás e lembrar deste dia: o dia em que podia ter mudado de vida e não mudou. Últimas vagas."
+  enunciado: "O anúncio procura convencer o leitor sobretudo por meio de"
+  alternativas:
+    - texto: "comoção, despertando pena pelos colegas que não estudaram."
+      erro: "O anúncio não fala de outras pessoas para dar pena; fala do próprio leitor e do arrependimento dele."
+    - texto: "dados que comprovam o resultado do curso."
+      erro: "Não há nenhum dado. Essa ausência é, aliás, um sinal de alerta."
+    - texto: "intimidação, ao ameaçar o leitor com o arrependimento e a perda da chance."
+      certa: true
+    - texto: "concessão, ao reconhecer os limites do curso."
+      erro: "O anúncio não admite limite nenhum."
+    - texto: "autoridade, ao citar pessoas que ficaram ricas."
+      erro: "Ninguém é citado. “Outros” é vago de propósito."
+  explicacao: "O texto ameaça com uma consequência ruim (o arrependimento daqui a um ano) e cria pressa (“últimas vagas”). É intimidação, sem nenhum argumento de razão sobre o curso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-argumentos-10
+  tema: "Estratégias argumentativas"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-estrategias
+  dificuldade: 3
+  enunciado: "Um texto defende a tese “a horta comunitária melhora a alimentação do bairro” só com a frase “Na casa da Dona Lurdes, depois da horta, todo mundo passou a comer salada”. Como deixar o argumento mais forte?"
+  alternativas:
+    - texto: "Repetir a frase sobre a Dona Lurdes no fim do texto."
+      erro: "Repetir não acrescenta prova. O problema é ter um caso só."
+    - texto: "Juntar ao exemplo outros casos ou dados de mais famílias, com fonte."
+      certa: true
+    - texto: "Trocar o exemplo por “todo mundo sabe que horta faz bem”."
+      erro: "Isso é apelo ao senso comum, sem prova. Fica mais fraco, não mais forte."
+    - texto: "Atacar quem é contra a horta."
+      erro: "Atacar a pessoa não sustenta a tese; é uma falácia."
+    - texto: "Tirar o exemplo e deixar só a tese."
+      erro: "Sem nenhuma prova, a tese vira opinião."
+  explicacao: "Um exemplo só aproxima a ideia da vida, mas não prova uma regra geral. Mais casos e dados com fonte transformam o exemplo em sustentação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
