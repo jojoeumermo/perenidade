@@ -463,7 +463,21 @@ export function normalizar(entrada: string, lexico: Lexico = {}): string {
   return t.replace(/\s+([,.;:!?])/g, "$1").replace(/\s{2,}/g, " ").trim();
 }
 
-const ABREV_FIM = /(?:\b(?:Sr|Sra|Srta|Dr|Dra|Prof|Profa|D|p|pág|art|inc|cap|vol|fig|tab|ex|etc|séc|n|nº|a\.C|d\.C|[A-Z])\.)$/;
+/**
+ * Texto em outro idioma (inglês, espanhol, francês…): o espeak daquele idioma já lê números, moeda e siglas do jeito
+ * dele, então nada de regra brasileira aqui (senão "162" sairia "cento e sessenta e dois" com sotaque). Só os anos em
+ * inglês, que o espeak lê como número ("one thousand eight hundred…") e uma pessoa lê em dois pares ("eighteen
+ * twenty-two"), e os espaços.
+ */
+export function normalizarOutroIdioma(texto: string, idioma: string): string {
+  let t = texto.replace(/[   ]/g, " ");
+  if (idioma === "en") {
+    t = t.replace(/(?<![\d$£€.,])\b(1[1-9])(\d{2})\b(?![.,]\d)/g, (_, a: string, b: string) => (b === "00" ? `${a} hundred` : Number(b) < 10 ? `${a} oh ${Number(b)}` : `${a} ${b}`));
+  }
+  return t.replace(/\s{2,}/g, " ").trim();
+}
+
+const ABREV_FIM =/(?:\b(?:Sr|Sra|Srta|Dr|Dra|Prof|Profa|D|p|pág|art|inc|cap|vol|fig|tab|ex|etc|séc|n|nº|a\.C|d\.C|[A-Z])\.)$/;
 
 /** Divide o texto em frases (início e fim de cada uma), sem cortar em "Sr.", "D. Pedro", "3.5" ou "a.C.". */
 export function dividirEmFrases(texto: string, limite = 260): { ini: number; fim: number }[] {

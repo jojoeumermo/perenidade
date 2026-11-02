@@ -13,6 +13,8 @@ export type Arquivo = { url: string; bytes: number; sha256: string; papel?: stri
 export type VozNatural = {
   id: string;
   motor: "kokoro" | "piper" | "teste";
+  /** pt, en, es, fr: a voz natural de cada idioma (a escolhida vale para o português; as outras seguem o gênero dela). */
+  idioma?: string;
   numero: number;
   genero: "f" | "m";
   webgpu: boolean;
@@ -26,14 +28,15 @@ export type VozNatural = {
 };
 type Biblioteca = { js: string; pasta: string; wasm: Arquivo };
 export type Lista = { formato: number; ort: { versao: string; wasm: Biblioteca; webgpu: Biblioteca }; fonemas: { js: string; wasm: Arquivo; dados: Arquivo }; vozes: VozNatural[] };
-export type Escolha = { voz: string; velocidade: number; numero?: number };
+/** modo: "frase" (frase a frase, com respiro entre elas) ou "direto" (a aula toda, emendando as frases). */
+export type Escolha = { voz: string; velocidade: number; numero?: number; modo: "frase" | "direto" };
 
-const PADRAO: Escolha = { voz: VOZ_DO_APARELHO, velocidade: 1 };
+const PADRAO: Escolha = { voz: VOZ_DO_APARELHO, velocidade: 1, modo: "frase" };
 
 export function lerEscolha(): Escolha {
   try {
     const v = JSON.parse(localStorage.getItem(CHAVE_DA_VOZ) ?? "null");
-    if (v && typeof v.voz === "string") return { voz: v.voz, velocidade: Math.min(2, Math.max(0.5, Number(v.velocidade) || 1)), numero: Number(v.numero) || undefined };
+    if (v && typeof v.voz === "string") return { voz: v.voz, velocidade: Math.min(2, Math.max(0.5, Number(v.velocidade) || 1)), numero: Number(v.numero) || undefined, modo: v.modo === "direto" ? "direto" : "frase" };
   } catch {
     // sem armazenamento ou valor estragado: volta ao padrão
   }
@@ -112,8 +115,11 @@ export class MotorNatural {
   private pedidos = new Map<number, Pedido>();
   private proximo = 1;
 
+  private lista: Lista;
+
   constructor(l: Lista, voz: VozNatural, aoProgresso: (feito: number, total: number) => void) {
     this.id = voz.id;
+    this.lista = l;
     this.worker = new Worker("/workers/voz.js");
     let resolverPronto: () => void = () => {};
     let rejeitarPronto: (e: Error) => void = () => {};
@@ -144,13 +150,19 @@ export class MotorNatural {
     return this.pronto;
   }
 
-  async falar(texto: string, velocidade: number) {
+  /** Fala um trecho com a voz dada (do mesmo modelo). `sessao` é o número da leitura: veja cancelar(). */
+  async falar(texto: string, velocidade: number, voz: VozNatural | null, sessao: number) {
     await this.pronto;
     const id = this.proximo++;
     return new Promise<{ pcm: Float32Array; taxa: number }>((resolver, rejeitar) => {
       this.pedidos.set(id, { resolver, rejeitar });
-      this.worker.postMessage({ t: "falar", id, texto, velocidade });
+      this.worker.postMessage({ t: "falar", id, texto, velocidade, sessao, voz: voz && this.lista ? { ...voz, ort: this.lista.ort, fonemas: this.lista.fonemas } : null });
     });
+  }
+
+  /** Descarta, no Worker, tudo o que ainda está na fila das leituras anteriores a `sessao`. O modelo continua aberto. */
+  cancelar(sessao: number) {
+    this.worker.postMessage({ t: "cancelar", sessao });
   }
 
   encerrar() {
