@@ -1,0 +1,109 @@
+{
+ "hash": "bcf8dc8297224fe6b033354772d807a914978d88cf843e391a977080b1fcbd83",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-f",
+ "nome": "Voz 1",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 67446,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 4688,
+   "texto": "Muita redação termina com uma frase assim: o governo deve investir em educação."
+  },
+  {
+   "cena": "gancho",
+   "ini": 5048,
+   "fim": 8978,
+   "texto": "Parece uma proposta, mas para a Competência 5 ela está pela metade."
+  },
+  {
+   "cena": "elementos",
+   "ini": 9678,
+   "fim": 14545,
+   "texto": "A Cartilha do Participante de 2026 lista o que a proposta precisa ter."
+  },
+  {
+   "cena": "elementos",
+   "ini": 14905,
+   "fim": 16642,
+   "texto": "O agente, que é quem vai agir."
+  },
+  {
+   "cena": "elementos",
+   "ini": 17002,
+   "fim": 18677,
+   "texto": "A ação, que é o que será feito."
+  },
+  {
+   "cena": "elementos",
+   "ini": 19037,
+   "fim": 20710,
+   "texto": "O modo ou meio, que diz como."
+  },
+  {
+   "cena": "elementos",
+   "ini": 21070,
+   "fim": 23115,
+   "texto": "A finalidade, que diz para que serve."
+  },
+  {
+   "cena": "elementos",
+   "ini": 23475,
+   "fim": 26727,
+   "texto": "E o detalhamento, que explica melhor um desses elementos."
+  },
+  {
+   "cena": "exemplo",
+   "ini": 27427,
+   "fim": 29357,
+   "texto": "Veja a mesma ideia completa."
+  },
+  {
+   "cena": "exemplo",
+   "ini": 29717,
+   "fim": 35005,
+   "texto": "O Ministério da Educação, que é o agente, deve ampliar as vagas no ensino noturno, que é a ação."
+  },
+  {
+   "cena": "exemplo",
+   "ini": 35365,
+   "fim": 39066,
+   "texto": "Isso se faz por meio de verba para as escolas estaduais, que é o meio."
+  },
+  {
+   "cena": "exemplo",
+   "ini": 39426,
+   "fim": 42248,
+   "texto": "E a finalidade é que quem trabalha volte a estudar."
+  },
+  {
+   "cena": "direitos",
+   "ini": 42948,
+   "fim": 50483,
+   "texto": "Um cuidado que pesa muito: segundo a Cartilha, a proposta que desrespeita os direitos humanos recebe nota 0 na Competência 5."
+  },
+  {
+   "cena": "direitos",
+   "ini": 50843,
+   "fim": 55074,
+   "texto": "Proposta de punir sem lei, de humilhar ou de excluir um grupo cai nesse caso."
+  },
+  {
+   "cena": "final",
+   "ini": 55774,
+   "fim": 62089,
+   "texto": "Antes da prova, escreva três propostas completas para temas diferentes e marque cada elemento com uma cor."
+  },
+  {
+   "cena": "final",
+   "ini": 62449,
+   "fim": 66246,
+   "texto": "A aula da Competência 5 tem modelos e exercícios para treinar."
+  }
+ ]
+}

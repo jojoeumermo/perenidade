@@ -4,7 +4,7 @@
 // guarda dados, em linhas simples que qualquer pessoa escreve sem decorar sintaxe. Este arquivo só lê esses dados
 // (sem React), para o roteiro de conferência (npm run testar:blocos) rodar direto no Node. Sem os atalhos "@/".
 
-export const INTERATIVOS = ["grafico", "geometria", "calculadora", "dados", "simulacao", "molecula", "mapa", "linhadotempo", "diagrama", "teste", "cartoes", "memoria", "forca", "cacapalavras", "arrastar", "frase", "cena", "pronuncia", "musica", "programacao", "rodar", "desenho", "ferramenta", "recurso"] as const;
+export const INTERATIVOS = ["grafico", "geometria", "calculadora", "dados", "simulacao", "molecula", "mapa", "linhadotempo", "diagrama", "teste", "cartoes", "memoria", "forca", "cacapalavras", "arrastar", "frase", "cena", "pronuncia", "musica", "programacao", "rodar", "desenho", "ferramenta", "recurso", "videocurto"] as const;
 export type Interativo = (typeof INTERATIVOS)[number];
 export const eInterativo = (lingua: string): lingua is Interativo => (INTERATIVOS as readonly string[]).includes(lingua);
 
@@ -301,6 +301,12 @@ export function lerFerramenta(spec: string): { id: string; rotulo: string } | nu
   return /^[a-z0-9-]{2,40}$/.test(id) ? { id, rotulo: rotulo.slice(0, 80) } : null;
 }
 
+/** "desconto-sobre-desconto": o id de um vídeo curto (content/enem/videos/<id>.yml). */
+export function lerVideoCurto(spec: string): string | null {
+  const id = (linhasDe(spec)[0] ?? "").trim();
+  return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(id) && id.length <= 60 ? id : null;
+}
+
 /** O que cada bloco mostra quando é novo, e um resumo de como escrever. */
 export const MODELOS_INTERATIVOS: Record<Interativo, { nome: string; modelo: string; ajuda: string }> = {
   grafico: { nome: "Gráfico de função", modelo: "y = a*x^2 + b*x + c\na = 1 [-5, 5]\nb = 0 [-5, 5]\nc = 0 [-5, 5]\nx de -10 a 10\nponto (0, 0) origem", ajuda: "Uma linha por função (y = …, até quatro). Cada letra que aparece vira um controle: a = 1 [-5, 5]. Faixa do eixo: x de -10 a 10. Pontos: ponto (1, 2) nome." },
@@ -326,5 +332,6 @@ export const MODELOS_INTERATIVOS: Record<Interativo, { nome: string; modelo: str
   frase: { nome: "Montar a frase", modelo: "lingua: en-US\nI am a student | Eu sou estudante\nWe read every day | Nós lemos todo dia", ajuda: "lingua: en-US, es-ES, fr-FR… (opcional, para ouvir). Uma frase por linha: frase | tradução. As palavras aparecem embaralhadas e a pessoa monta na ordem." },
   musica: { nome: "Música com letra", modelo: "audio: /arquivos/exemplo.mp3 | Título — autoria (licença)\nlingua: es-ES\n0:05 | Primeira linha da letra | tradução (opcional)\n0:12 | Segunda linha", ajuda: "audio: música do site (envie em Materiais e arquivos, com licença livre ou em domínio público) | crédito. Um verso por linha: tempo (minuto:segundo) | letra | tradução. A letra acompanha a música, e tocar num verso pula para ele." },
   ferramenta: { nome: "Ferramenta do site", modelo: "sistema-solar | Abrir o simulador do sistema solar", ajuda: "O nome da ferramenta (como no endereço /ferramentas/…) e o texto do botão, separados por |." },
+  videocurto: { nome: "Vídeo curto", modelo: "desconto-sobre-desconto", ajuda: "O id de um vídeo curto (o nome do arquivo em content/enem/videos, sem .yml). Só aparece com o recurso enem-video ligado; o áudio carrega depois do clique." },
   recurso: { nome: "Laboratório, obra ou simulação", modelo: "laboratorio: eletrica", ajuda: "Uma linha: laboratorio: linux (ou ide, redes, seguranca, montador, ia, escritorio, simulacoes, eletrica, modelos, quimica) · obra: o endereço da obra no acervo · estudio: photocraft, filmcraft, blockbench… · phet: o nome da simulação. Opcional: altura: 700." },
 };

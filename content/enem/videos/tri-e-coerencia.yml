@@ -1,0 +1,56 @@
+id: tri-e-coerencia
+aula: enem-como-funciona/a-nota-o-que-e-a-tri
+titulo: O que é a TRI e por que a coerência pesa
+tipo: estrategia
+voz: voz-2
+duracao: 75
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: cartaz, texto: "Duas pessoas, 30 acertos", titulo: "Por que as notas saíram diferentes?", nota: "não foi erro do Inep" }
+    fala: >
+      Duas amigas acertaram trinta questões de Matemática, e uma tirou nota maior que a outra.
+      Parece injusto, mas tem explicação, e ela muda o jeito de fazer a prova.
+  - id: o-que-e
+    visual:
+      tipo: folha
+      titulo: A nota das provas objetivas
+      itens:
+        - { texto: "Teoria de Resposta ao Item: TRI", em: tri }
+        - { texto: "cada questão tem a sua dificuldade", em: dificuldade }
+        - { texto: "500 = média dos concluintes de 2009", em: regua, destaque: true }
+    fala: >
+      {{marca:tri}}O edital diz que a nota das provas objetivas é calculada {{enem:nota-tri}}.
+      {{marca:dificuldade}}Nesse método, cada questão foi testada antes e tem a sua dificuldade.
+      {{marca:regua}}A régua de cada área tem o 500 como referência: é o desempenho médio dos concluintes de 2009.
+      A sua nota não depende das notas das outras pessoas que fazem a prova com você.
+  - id: coerencia
+    visual:
+      tipo: lista
+      titulo: O que o modelo espera
+      itens:
+        - { texto: "acertou as fáceis e algumas difíceis: padrão coerente", em: coerente }
+        - { texto: "errou fáceis e acertou difíceis: parece chute", em: estranho, destaque: true }
+    fala: >
+      O Inep explica que o modelo considera a coerência das respostas.
+      {{marca:coerente}}Quem acerta as difíceis também deveria acertar as fáceis, porque o conhecimento vai se somando.
+      {{marca:estranho}}Quando alguém erra fáceis e acerta difíceis, esses acertos acrescentam menos na nota.
+  - id: na-prova
+    visual: { tipo: carimbo, titulo: Não deixe em branco, texto: "Questão em branco é corrigida como errada. Garanta as fáceis primeiro." }
+    fala: >
+      Na prova, isso vira duas atitudes.
+      Primeiro, não perca as questões fáceis por pressa, porque elas sustentam a sua nota.
+      Segundo, não deixe nada em branco: segundo o guia do Inep, uma questão certa sempre aumenta a nota.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "A nota: o que é a TRI" }
+    fala: >
+      Ninguém consegue prever a própria nota pela TRI, mas dá para jogar a favor dela.
+      A aula sobre a TRI tem o resto da explicação e exercícios para conferir.
+fontes:
+  - titulo: "Entenda a sua nota no Enem: guia do participante (Inep, 2021)"
+    url: "https://download.inep.gov.br/publicacoes/institucionais/avaliacoes_e_exames_da_educacao_basica/entenda_a_sua_nota_no_enem_guia_do_participante.pdf"
+  - titulo: "Edital nº 64, de 21 de maio de 2026, item 14.3 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }

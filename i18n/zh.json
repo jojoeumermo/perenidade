@@ -1098,6 +1098,31 @@
       "frase": "第 {n} 句，共 {total} 句",
       "preparando": "正在准备语音…",
       "preparandoProxima": "正在准备下一句…"
+    },
+    "videoCurto": {
+      "selo": "短视频",
+      "rotulo": "短视频：{titulo}",
+      "tocar": "播放视频（{tempo}）",
+      "aviso": "葡萄牙语解说，附字幕和文字稿。点击后才加载音频。",
+      "carregando": "正在加载视频…",
+      "erro": "无法加载音频。字幕和文字稿仍然可用。",
+      "vozDoAparelho": "用设备语音收听（更机械）",
+      "tocarAgora": "播放",
+      "pausar": "暂停",
+      "voltar": "后退 5 秒",
+      "avancar": "前进 5 秒",
+      "posicao": "视频位置",
+      "velocidade": "速度",
+      "legendas": "字幕",
+      "soAudio": "仅音频",
+      "telaCheia": "全屏",
+      "capitulos": "视频章节",
+      "transcricao": "文字稿",
+      "tocando": "正在播放",
+      "pausado": "已暂停",
+      "legendasLigadas": "字幕已开启",
+      "legendasDesligadas": "字幕已关闭",
+      "emRevisao": "内容审核中。"
     }
   },
   "library": {

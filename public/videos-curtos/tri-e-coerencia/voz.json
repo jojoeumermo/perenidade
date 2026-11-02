@@ -1,0 +1,97 @@
+{
+ "hash": "f815cd10d716825c7c485b596a599e873a7b93b819c2f4179f879c9548faf701",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-m",
+ "nome": "Voz 2",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 74262,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 5156,
+   "texto": "Duas amigas acertaram trinta questões de Matemática, e uma tirou nota maior que a outra."
+  },
+  {
+   "cena": "gancho",
+   "ini": 5516,
+   "fim": 9801,
+   "texto": "Parece injusto, mas tem explicação, e ela muda o jeito de fazer a prova."
+  },
+  {
+   "cena": "o-que-e",
+   "ini": 10501,
+   "fim": 16524,
+   "texto": "O edital diz que a nota das provas objetivas é calculada pela Teoria de Resposta ao Item (TRI)."
+  },
+  {
+   "cena": "o-que-e",
+   "ini": 16884,
+   "fim": 21091,
+   "texto": "Nesse método, cada questão foi testada antes e tem a sua dificuldade."
+  },
+  {
+   "cena": "o-que-e",
+   "ini": 21451,
+   "fim": 27735,
+   "texto": "A régua de cada área tem o 500 como referência: é o desempenho médio dos concluintes de 2009."
+  },
+  {
+   "cena": "o-que-e",
+   "ini": 28095,
+   "fim": 32863,
+   "texto": "A sua nota não depende das notas das outras pessoas que fazem a prova com você."
+  },
+  {
+   "cena": "coerencia",
+   "ini": 33563,
+   "fim": 37317,
+   "texto": "O Inep explica que o modelo considera a coerência das respostas."
+  },
+  {
+   "cena": "coerencia",
+   "ini": 37677,
+   "fim": 43320,
+   "texto": "Quem acerta as difíceis também deveria acertar as fáceis, porque o conhecimento vai se somando."
+  },
+  {
+   "cena": "coerencia",
+   "ini": 43680,
+   "fim": 48796,
+   "texto": "Quando alguém erra fáceis e acerta difíceis, esses acertos acrescentam menos na nota."
+  },
+  {
+   "cena": "na-prova",
+   "ini": 49496,
+   "fim": 51747,
+   "texto": "Na prova, isso vira duas atitudes."
+  },
+  {
+   "cena": "na-prova",
+   "ini": 52107,
+   "fim": 56819,
+   "texto": "Primeiro, não perca as questões fáceis por pressa, porque elas sustentam a sua nota."
+  },
+  {
+   "cena": "na-prova",
+   "ini": 57179,
+   "fim": 62627,
+   "texto": "Segundo, não deixe nada em branco: segundo o guia do Inep, uma questão certa sempre aumenta a nota."
+  },
+  {
+   "cena": "final",
+   "ini": 63327,
+   "fim": 68308,
+   "texto": "Ninguém consegue prever a própria nota pela TRI, mas dá para jogar a favor dela."
+  },
+  {
+   "cena": "final",
+   "ini": 68668,
+   "fim": 73062,
+   "texto": "A aula sobre a TRI tem o resto da explicação e exercícios para conferir."
+  }
+ ]
+}
