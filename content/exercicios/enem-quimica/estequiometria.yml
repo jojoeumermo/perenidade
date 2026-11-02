@@ -215,7 +215,7 @@
     - texto: "252 kg"
       certa: true
     - texto: "504 kg"
-      erro: "Você multiplicou pela massa molar e dividiu pela pureza. Pureza multiplica: 500 × 0,9."
+      erro: "Você usou 112 (2 × 56), como se cada CaCO₃ formasse 2 CaO: 450 × 112 ÷ 100 = 504. A proporção é 1 : 1: 450 × 56 ÷ 100."
   explicacao: "Carbonato puro: 500 × 0,9 = 450 kg. 100 g de CaCO₃ dão 56 g de CaO: 450 × 56 ÷ 100 = 252 kg."
   conferir: "500 * 0.9 * 56 / 100"
   fonte: "Questão original do Instituto Lúcia"
