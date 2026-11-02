@@ -33,11 +33,13 @@ export function conferirLexico(dados: unknown): string[] {
 }
 
 let memo: Lexico | null = null;
+// Caminho fixo dentro de content/vozes: o rastreamento do build leva só este arquivo, não o projeto inteiro.
+const ARQUIVO = path.join(process.cwd(), "content", "vozes", "lexico.yml");
 
 /** O léxico pronto para o normalizador. Com erro de forma, o build para (melhor que uma voz lendo errado em silêncio). */
-export function lerLexico(raiz = process.cwd()): Lexico {
+export function lerLexico(): Lexico {
   if (memo) return memo;
-  const dados = load(fs.readFileSync(path.join(raiz, "content/vozes/lexico.yml"), "utf8"), { schema: CORE_SCHEMA });
+  const dados = load(fs.readFileSync(ARQUIVO, "utf8"), { schema: CORE_SCHEMA });
   const erros = conferirLexico(dados);
   if (erros.length) throw new Error(`content/vozes/lexico.yml: ${erros.join("; ")}`);
   const d = dados as Lexico;

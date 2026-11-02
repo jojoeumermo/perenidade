@@ -9,7 +9,7 @@ O "Ouvir a aula" lê a aula frase a frase e destaca a frase lida. Tem pausar, vo
   (Cache Storage "lucia-vozes"). Depois funcionam sem internet.
 
 Nada sai do aparelho: o texto não vai para servidor nenhum, e todo arquivo vem do próprio site (/vozes/ e
-/workers/voz.js). Os modelos **não** vão para o Git: `npm run vozes:baixar` os baixa no servidor.
+/workers/voz.js). Os modelos **não** vão para o Git: o build da Vercel os baixa (`npm run vozes:baixar`, no prebuild).
 
 ## Como funciona
 
@@ -92,40 +92,69 @@ O que deixaria o Kokoro mais rápido, nesta ordem:
    só nas páginas de aula antes de ligar.
 3. Uma voz Piper liberada, se o dono aceitar a licença (veja acima).
 
-## Tráfego (atenção: a conta da Vercel já foi pausada por tráfego)
+## Hospedagem: Vercel com o Cloudflare na frente (decisão de 02/11/2026)
 
-Cada pessoa que escolhe uma voz natural baixa cerca de 105 MB **uma vez** por navegador. Com 100 pessoas, são cerca
-de 10,5 GB. Com 1.000 pessoas, cerca de 105 GB. O plano Hobby da Vercel tem 100 GB por mês de transferência (confirmar no plano atual): cerca
-de mil downloads esgotam o mês. O download só começa depois do clique em "Baixar e usar", que mostra o tamanho
-antes. Ninguém baixa sem querer.
+- **Build**: o `prebuild` do package.json roda `node scripts/vozes-baixar.mjs` depois do EPUB. Na Vercel, o build
+  baixa cerca de 93 MB do Hugging Face (alguns segundos) e põe tudo em public/vozes/. O que o build gera em public/
+  entra no deploy como arquivo estático. A documentação da Vercel (vercel.com/docs/limits, consultada em 02/11/2026)
+  limita a 100 MB, no Hobby, só o *upload* de código-fonte pela linha de comando. Para os arquivos gerados no build,
+  ela diz que "não há limite superior", só o prazo de 45 min do build. O maior arquivo nosso tem 92,4 MB.
+- **Se o Hugging Face cair na hora do build**: o script avisa e o build segue sem vozes naturais. O site mostra só a
+  voz do aparelho, sem erro.
+- **Cache**: o next.config manda `Cache-Control: public, max-age=31536000, immutable` em /vozes/<pasta>/<arquivo>. A
+  versão está no nome da pasta (kokoro-1939ad2/, ort-1.22.0/, espeak-<hash>/), então trocar de versão muda o
+  endereço e nada velho fica preso. A lista /vozes/vozes.json fica sem cache longo, para a troca de versão chegar.
+- **Modelo**: o Kokoro em 8 bits (model_quantized, 92,4 MB) é o menor que roda no WebAssembly e soa bem. O q8f16
+  (86 MB) só economizaria 6 MB e usa contas em 16 bits, que o WebAssembly não faz bem. O 32 bits (326 MB) e o 16 bits
+  (163 MB) ficam fora pelo peso.
 
-Hoje, **na Vercel, as vozes naturais ficam desligadas**: o build de lá (vercel.json) não roda `vozes:baixar`, então não
-existe /vozes/vozes.json e o seletor mostra só a voz do aparelho. Foi de propósito.
+### Tráfego esperado (estimativa; a conta da Vercel já foi pausada por tráfego)
 
-Onde servir os modelos, do melhor para o pior:
+Quem baixa: só quem clica em "Baixar e usar", uma vez por navegador, cerca de 106 MB.
 
-1. **No servidor da Oracle (Coolify)**, que tem 10 TB por mês de saída no plano gratuito (confirmar na página da Oracle): comando de build
-   `npm run vozes:baixar && npm run build`. Os arquivos ficam em public/vozes/ e saem pelo `next start`.
-2. **Cloudflare na frente**, guardando /vozes/* no cache dela. Os nomes das pastas levam a revisão
-   (kokoro-1939ad2/, ort-1.22.0/, espeak-xxxxxxxx/), então os arquivos nunca mudam e podem ser guardados para sempre.
-   Regra de cache para `/vozes/*` e `/vozes-amostras/*`: "Eligible for cache", Edge TTL de 1 ano, e
-   `Cache-Control: public, max-age=31536000, immutable` (por Transform Rule, já que o next.config não foi mexido).
-   Atenção: o plano gratuito da Cloudflare não guarda arquivos acima de 512 MB (os nossos têm até 92 MB, então
-   cabem). O Cloudflare Pages recusa arquivos acima de 25 MiB, então o modelo não cabe lá. R2 aceitaria, mas aí o
-   endereço muda e esbarra na política de segurança (connect-src 'self').
-3. Na Vercel, só se o plano for pago, e mesmo assim com a regra da Cloudflare na frente.
+Sem o Cloudflare guardando, cada download sai da Vercel: 100 pessoas dão 10,6 GB, e 1.000 pessoas dão 106 GB por mês.
+Isso é acima dos 100 GB de transferência do plano Hobby (confirmar no plano atual).
 
-O que precisa mudar no next.config, quando quem cuida da hospedagem puder (anotado aqui, não feito):
+Com a regra de cache abaixo, a Vercel só entrega o arquivo quando um ponto do Cloudflare ainda não o tem:
 
-- `{ source: "/(vozes|vozes-amostras)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }`
-- O COEP só nas páginas de aula, se for testar as várias linhas de execução (item 2 da seção anterior).
+- **Por ponto do Cloudflare**: 106 MB na primeira vez, para as duas vozes. Os arquivos não mudam, então o ponto só
+  busca de novo se o Cloudflare tirar o arquivo do cache por falta de uso (pode acontecer em semanas sem pedido;
+  o Cloudflare não garante o prazo).
+- **Por mês**: o Brasil é atendido por cerca de 15 a 25 pontos do Cloudflare (número aproximado, varia). Sem o
+  Tiered Cache: de 106 MB × 20 = cerca de 2,1 GB, até umas 3 vezes isso se houver remoções, ou seja, **2 a 6 GB por
+  mês saindo da Vercel**, quase independente do número de pessoas. Com o Tiered Cache (camada intermediária, grátis):
+  **cerca de 0,1 a 0,5 GB por mês**, porque só a camada de cima busca na Vercel.
+- **Do Cloudflare para as pessoas**: não é cobrado no plano gratuito.
+
+Isto é estimativa, não medida. Depois de uma semana no ar, confira na Vercel (Usage → Fast Data Transfer e Fast Origin
+Transfer, filtrando /vozes) e no Cloudflare (Analytics → Cache, taxa de acerto em /vozes/).
+
+### Regra de cache que o dono precisa criar no Cloudflare
+
+1. Entre no painel do Cloudflare e abra o domínio institutolucia.org.
+2. **Caching → Cache Rules → Create rule**. Nome: `vozes naturais`.
+3. Em "When incoming requests match", escolha **Custom filter expression → Edit expression** e cole:
+   `(starts_with(http.request.uri.path, "/vozes/") and http.request.uri.path ne "/vozes/vozes.json") or starts_with(http.request.uri.path, "/vozes-amostras/")`
+4. Em "Then": **Cache eligibility → Eligible for cache**.
+5. **Edge TTL → Use cache-control header if present**, com o padrão de 1 year (1 ano).
+6. **Browser TTL → Respect origin**. Salve com **Deploy**.
+7. **Caching → Tiered Cache → Smart Tiered Caching Topology → Enable** (grátis).
+8. Teste: `curl -sI https://institutolucia.org/vozes/ort-1.22.0/ort.wasm.min.js` duas vezes. Na segunda, a linha
+   `cf-cache-status` deve dizer `HIT`.
+
+Sem essa regra, o Cloudflare não guarda .onnx, .bin e .data (não estão na lista padrão dele) e tudo sai da Vercel.
+
+### Se um dia a Vercel não puder servir
+
+A alternativa mais barata é pôr só /vozes/* num depósito R2 do Cloudflare (10 GB grátis, saída sem custo) e levar o
+caminho /vozes/* do domínio para lá com um Worker do Cloudflare (o plano grátis tem cota diária de pedidos; confirmar). Assim o endereço continua o mesmo e a
+política de segurança (connect-src 'self') não muda. O Cloudflare Pages não serve: ele recusa arquivos acima de 25 MiB.
 
 ## Passo a passo para o dono
 
-1. No Coolify, o comando de build passa a ser `npm run vozes:baixar && npm run build`. O `vozes:baixar` leva de 1 a
-   6 min, conforme a rede do servidor (baixa cerca de 93 MB do Hugging Face). Se o Hugging Face estiver fora do ar, ele
-   avisa e o build segue, só sem as vozes naturais. Com `-- --estrito`, ele derruba o build.
-2. Na Cloudflare, faça a regra de cache de /vozes/* descrita acima.
-3. Na Vercel, não mude nada: lá as vozes ficam desligadas.
-4. Para trocar de versão: mude a revisão e os sha256 em scripts/vozes-baixar.mjs. Depois rode
-   `npm run vozes:baixar -- --amostras`, ouça as amostras e rode o teste de verdade.
+1. Crie a regra de cache e ligue o Tiered Cache no Cloudflare (seção acima).
+2. Nada a fazer na Vercel: o build já baixa as vozes.
+3. Para trocar de versão, mude a revisão e os sha256 em scripts/vozes-baixar.mjs. Rode
+   `npm run vozes:baixar -- --amostras`, ouça as amostras e rode o teste de verdade
+   (`VOZES_REAL=kokoro-f npx playwright test e2e/vozes.spec.ts`).
+4. Decida sobre o Piper (seção de licenças).

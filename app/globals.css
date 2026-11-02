@@ -4928,20 +4928,3 @@ a.busca-campo:focus-visible {
   width: min(40rem, calc(100vw - 2rem));
 }
 
-/* A frase que o "Ouvir a aula" está lendo (lib/vozes/leitor.ts, CSS Custom Highlight API: não mexe no texto). */
-::highlight(lucia-frase) {
-  background-color: rgb(194 31 22 / 0.16);
-  color: inherit;
-}
-:root[data-theme="dark"] ::highlight(lucia-frase) {
-  background-color: rgb(255 140 110 / 0.28);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) ::highlight(lucia-frase) {
-    background-color: rgb(255 140 110 / 0.28);
-  }
-}
-:root:is([data-contrast], [data-eink]) ::highlight(lucia-frase) {
-  background-color: Highlight;
-  color: HighlightText;
-}

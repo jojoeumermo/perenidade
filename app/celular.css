@@ -864,6 +864,14 @@
     border-top: 1px solid var(--cel-fio);
     padding-top: 1.5rem;
   }
+  /* A coluna da aula não passa da tela: sem isto, uma linha sem ponto de quebra (o caminho do arquivo no rodapé da
+     aula) alargava a coluna para 510 px num celular de 412 px e cortava o texto dos dois lados. */
+  :root:not([data-leitor]) .grade-da-aula {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  :root:not([data-leitor]) .folha-da-aula footer {
+    overflow-wrap: anywhere;
+  }
   :root:not([data-leitor]) .folha-da-aula h1 {
     font-size: 2.1rem;
     line-height: 1.08;
