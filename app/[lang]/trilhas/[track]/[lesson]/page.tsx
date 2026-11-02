@@ -11,6 +11,7 @@ import { BarraDaAula } from "@/components/aula/BarraDaAula";
 import { AcoesDaAula } from "@/components/celular/AcoesDaAula";
 import { MargemDaAula } from "@/components/aula/MargemDaAula";
 import { OuvirAula } from "@/components/aula/OuvirAula";
+import { lerLexico } from "@/lib/vozes/lexico";
 import { areaLabs, areaTools, universalTools } from "@/lib/areas";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { CartaoDoEducador, EducadoresDaDisciplina } from "@/components/Educadores";
@@ -188,7 +189,7 @@ export default async function LessonPage({ params }: Props) {
           <h1 className="mt-2.5 text-[2.5rem] font-semibold leading-[1.05] text-balance app:max-md:text-[2rem] app:max-md:leading-[1.15] sm:text-[3.4rem]">{lesson.title}</h1>
           <p className="mt-3 text-[1.4rem] italic leading-snug text-ink-soft app:max-md:text-lg">{lesson.summary}</p>
         </div>
-        <OuvirAula minutos={fill(t.tracks.minutes, { n: lesson.minutes })} />
+        <OuvirAula minutos={fill(t.tracks.minutes, { n: lesson.minutes })} lexico={lerLexico()} />
 
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
         <AntesDaAula aula={id} requisitos={requisitos} />

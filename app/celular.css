@@ -285,6 +285,15 @@
     box-shadow: 0 6px 18px rgb(0 0 0 / 0.28);
     overflow: hidden;
   }
+  /* Os controles do "Ouvir a aula" (components/aula/TocadorDaVoz.tsx) ficam acima das abas e da barra da aula. */
+  :root:not([data-leitor]) .tocador-da-voz {
+    bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 0.5rem);
+    /* Deixa à direita o lugar do botão de acessibilidade (.app-flutua). */
+    left: 0.6rem;
+    right: 4.4rem;
+    width: auto;
+    margin: 0;
+  }
   /* O botão de acessibilidade fica menor e acima das abas; o "voltar ao topo" sai (tocar na aba aberta sobe a página). */
   :root:not([data-leitor]) .app-flutua {
     bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 0.75rem);

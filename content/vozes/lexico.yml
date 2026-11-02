@@ -1,0 +1,80 @@
+# Léxico de pronúncia das vozes naturais do "Ouvir a aula" (Kokoro e Piper, que leem pelo espeak-ng em pt-br).
+# Cada entrada diz como a voz deve LER a palavra: a escrita da direita é a que soa certo, não a correta no papel.
+# Só vale para as vozes naturais; a voz do aparelho lê o texto como está.
+#
+# siglas: exatas, em maiúsculas. Sigla sem entrada aqui é lida como palavra quando dá (ONU, PIB, SUS) e letra por letra
+#         quando não dá (STF, IBGE). Ponha aqui só as que a regra erra.
+# palavras: sem diferença de maiúsculas, palavra inteira. Estrangeirismos, nomes próprios, autores e obras.
+#
+# Testado por `npm run testar:vozes` (forma do arquivo e alguns exemplos). Cresce a cada aula ouvida com erro.
+
+siglas:
+  ENEM: Enem
+  INEP: Inep
+  TRI: tê érre i
+  MEC: Méqui
+  SISU: Sisu
+  PROUNI: Prouni
+  FIES: Fíes
+  EJA: Éja
+  ENCCEJA: Encéja
+  CLT: cê éle tê
+  CPF: cê pê éfe
+  RG: érre gê
+  INSS: i êne ésse ésse
+  IPTU: i pê tê u
+  ICMS: i cê ême ésse
+  PIB: Píbi
+  IDH: i dê agá
+  DNA: dê êne á
+  RNA: érre êne á
+  ATP: á tê pê
+  HTML: agá tê ême éle
+  CSS: cê ésse ésse
+  URL: u érre éle
+  PDF: pê dê éfe
+  USP: Úspi
+  UFRJ: u éfe érre jota
+  ONG: Ongui
+  ONGs: Onguis
+  EUA: é u á
+  URSS: u érre ésse ésse
+  OTAN: Otã
+  MST: ême ésse tê
+  CUT: Cúti
+
+palavras:
+  online: onláine
+  offline: ófláine
+  site: sáite
+  sites: sáites
+  software: sóftuer
+  hardware: rárduer
+  download: daunlôud
+  upload: âplôud
+  e-mail: imêil
+  e-mails: imêils
+  WhatsApp: uótsápi
+  YouTube: iutúbi
+  Instagram: Instagrã
+  Kindle: Kíndou
+  Wi-Fi: uaifái
+  internet: internéti
+  link: línqui
+  links: línquis
+  feedback: fídbéqui
+  podcast: pódquésti
+  Marx: Márquis
+  Engels: Énguels
+  Weber: Véber
+  Durkheim: Dúrcaim
+  Foucault: Fucô
+  Bourdieu: Burdiê
+  Hobbes: Róbs
+  Locke: Lóqui
+  Rousseau: Russô
+  Voltaire: Voltér
+  Nietzsche: Nítche
+  Freud: Fróide
+  Shakespeare: Xêiquispir
+  Bauman: Báuman
