@@ -21,7 +21,7 @@ export function TocadorDaVoz() {
   const botao = "min-h-11 min-w-11 cursor-pointer border-2 border-ink px-2 font-sans text-base disabled:opacity-50";
   const claro = `${botao} bg-parchment text-ink hover:bg-parchment-deep`;
   return (
-    <section role="region" aria-label={s.regiao} className="tocador-da-voz no-print no-leitor fixed bottom-4 left-1/2 z-40 flex w-[min(40rem,calc(100vw-2rem))] -translate-x-1/2 flex-wrap items-center gap-2 border-2 border-ink bg-parchment p-2 font-sans text-ink shadow-[4px_4px_0_0_var(--color-ink,#1f1a14)]">
+    <section role="region" aria-label={s.regiao} className="tocador-da-voz no-print no-leitor z-40 flex flex-wrap items-center gap-2 border-2 border-ink bg-parchment p-2 font-sans text-ink shadow-[4px_4px_0_0_var(--color-ink,#1f1a14)]">
       <p className="min-w-0 flex-1 px-1 text-sm" aria-live="polite">
         {e.carregando ? `${s.preparando}${pct ? ` ${pct}%` : ""}` : fill(s.frase, { n: new Intl.NumberFormat(lang).format(e.frase + 1), total: new Intl.NumberFormat(lang).format(e.total) })}
       </p>
