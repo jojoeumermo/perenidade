@@ -56,7 +56,7 @@ e qual é o modelo.
 | --- | --- |
 | Modelo Kokoro (8 bits) | 92,4 MB |
 | Estilo de cada voz (pf_dora, pm_alex) | 0,5 MB cada |
-| onnxruntime-web (WebAssembly) | 11,2 MB (a variante WebGPU tem 21,9 MB e só baixa onde há WebGPU) |
+| onnxruntime-web (WebAssembly) | 11,2 MB |
 | espeak-ng com só o português | 0,6 MB (programa) + 0,9 MB (dados; o pacote original tem 18 MB) |
 | **Total da Voz 1 ou da Voz 2** | **cerca de 105 MB** (a segunda voz acrescenta só 0,5 MB) |
 | Amostras (no Git) | cerca de 250 KB cada |
@@ -65,7 +65,18 @@ e qual é o modelo.
 
 Notebook desta máquina (Intel i5, sem placa de vídeo, Chrome, WebAssembly numa linha só):
 
-VEJA_MEDIDAS
+| Voz | Baixar e abrir (servidor local, sem rede de verdade) | Do clique em "Ouvir" até a 1ª frase soar | Já guardada (página recarregada) | Velocidade de geração |
+| --- | --- | --- | --- | --- |
+| Voz 1 (Kokoro, pf_dora) | 7,4 s | 8,1 s | 9,0 s | 0,40 a 0,45 vez o tempo de fala |
+| Piper faber (fora do site, só teste) | 7,8 s | 0,9 s | 2,5 s | 3 a 4,5 vezes o tempo de fala |
+
+Medido com o Playwright (e2e/vozes.spec.ts, `VOZES_REAL=kokoro-f`) e com scripts/testar-vozes-real.mjs no Node, em
+02/11/2026. A velocidade de geração do Kokoro abaixo de 1 quer dizer que a voz **faz pausas entre as frases**: uma
+frase de 5 s leva cerca de 12 s para ficar pronta. O leitor já prepara as duas frases seguintes enquanto uma toca,
+mas isso não basta para tirar as pausas neste notebook.
+
+Numa rede de verdade, soma-se o download: 105 MB levam cerca de 1,5 min a 10 Mbit/s e cerca de 15 s a 60 Mbit/s.
+Isso acontece só uma vez.
 
 Celular médio: não havia celular para medir. Pela conta, um celular médio (4 a 6 GB de memória, processador de 2021
 a 2023) é 2 a 3 vezes mais lento que este notebook no WebAssembly. A primeira frase do Kokoro levaria de 20 a 40 s,
@@ -74,7 +85,7 @@ para aparelhos simples" e avisa quando o aparelho tem menos de 4 GB de memória 
 
 O que deixaria o Kokoro mais rápido, nesta ordem:
 
-1. **Placa de vídeo (WebGPU)**: o motor já usa quando há (Chrome e Edge recentes).
+1. **Placa de vídeo (WebGPU)**: o motor sabe usar, mas está desligado (`webgpu: false` em scripts/vozes-baixar.mjs). No teste, o modelo de 8 bits travou no WebGPU do Chrome. O WebGPU pede o modelo em 16 bits (163 MB) ou em 32 bits (326 MB), pesado demais para baixar.
 2. **Várias linhas de execução**: o WebAssembly só usa mais de um núcleo quando a página está "isolada"
    (cabeçalhos COOP `same-origin` e COEP `require-corp` ou `credentialless`). O COOP já existe; falta o COEP no
    next.config, que eu não mexi. Atenção: o COEP afeta os quadros de fora (YouTube, PhET, Jitsi). Precisa ser testado

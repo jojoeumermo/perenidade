@@ -4918,6 +4918,16 @@ a.busca-campo:focus-visible {
   box-shadow: none;
 }
 
+/* Os controles do "Ouvir a aula" (components/aula/TocadorDaVoz.tsx), presos no pé da tela. No celular, veja app/celular.css. */
+.tocador-da-voz {
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: min(40rem, calc(100vw - 2rem));
+}
+
 /* A frase que o "Ouvir a aula" está lendo (lib/vozes/leitor.ts, CSS Custom Highlight API: não mexe no texto). */
 ::highlight(lucia-frase) {
   background-color: rgb(194 31 22 / 0.16);

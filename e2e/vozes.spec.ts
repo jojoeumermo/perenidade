@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { expect, test, type Page } from "@playwright/test";
+import { abrir } from "./ajuda";
 
 // O "Ouvir a aula" com a escolha da voz. Sem os modelos baixados (o caso do CI), a lista de vozes é trocada por uma
 // voz falsa ("teste"), que baixa arquivos pequenos do próprio site e fala um zumbido: dá para testar o seletor, o
@@ -39,7 +40,7 @@ function vigiarRede(page: Page) {
 }
 
 async function abrirAula(page: Page) {
-  await page.goto(AULA, { waitUntil: "domcontentloaded" });
+  await abrir(page, AULA);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(page.getByRole("button", { name: /^Voz/ })).toBeVisible({ timeout: 120_000 });
 }
@@ -78,10 +79,15 @@ test("escolher, baixar e ouvir com a voz natural (falsa), com os controles", asy
   await expect(page.getByRole("button", { name: /^Voz\s*Voz 1/ })).toBeVisible();
 
   const falou = page.evaluate(() => new Promise<number>((ok) => document.addEventListener("lucia:voz-falou", (e) => ok((e as CustomEvent).detail.frase), { once: true })));
-  await page.getByRole("button", { name: /Ouvir a aula/ }).click();
+  await page.locator(".folha-da-aula").getByRole("button", { name: /Ouvir a aula/ }).click();
   const tocador = page.getByRole("region", { name: "Leitura em voz alta" });
   await expect(tocador).toContainText(/Frase 1 de \d+/, { timeout: 30_000 });
   expect(await falou).toBe(0);
+  await page.screenshot({ path: test.info().outputPath("tocador.png") });
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.evaluate(() => document.documentElement.setAttribute("data-theme", "dark"));
+  await page.screenshot({ path: test.info().outputPath("tocador-escuro.png") });
+  await page.evaluate(() => document.documentElement.removeAttribute("data-theme"));
   expect(await page.evaluate(() => (CSS as unknown as { highlights?: Map<string, unknown> }).highlights?.has("lucia-frase"))).toBe(true);
 
   await tocador.getByRole("button", { name: "Próxima frase" }).click();
@@ -118,6 +124,9 @@ test("no modo leitor (Kindle), nada do Ouvir aparece", async ({ browser }) => {
 test("voz de verdade: baixa, começa a falar e mede o tempo", async ({ page }) => {
   test.skip(!process.env.VOZES_REAL || !fs.existsSync(path.join(raiz, "public/vozes/vozes.json")), "só com VOZES_REAL=1 e os modelos baixados");
   const id = process.env.VOZES_REAL === "1" ? "kokoro-f" : process.env.VOZES_REAL!;
+  test.setTimeout(900_000);
+  page.on("console", (m) => m.type() === "error" && console.log(`[console] ${m.text()}`));
+  page.on("worker", (w) => w.on("console", (m) => console.log(`[worker] ${m.text()}`)));
   const fora = vigiarRede(page);
   await abrirAula(page);
   await page.getByRole("button", { name: /^Voz/ }).click();
@@ -129,7 +138,7 @@ test("voz de verdade: baixa, começa a falar e mede o tempo", async ({ page }) =
   await page.keyboard.press("Escape");
   const falou = page.evaluate(() => new Promise<number>((ok) => document.addEventListener("lucia:voz-falou", () => ok(performance.now()), { once: true })));
   const t1 = await page.evaluate(() => performance.now());
-  await page.getByRole("button", { name: /Ouvir a aula/ }).click();
+  await page.locator(".folha-da-aula").getByRole("button", { name: /Ouvir a aula/ }).click();
   const comecou = (await falou) - t1;
   console.log(`[vozes] ${id}: baixar e abrir ${(baixou / 1000).toFixed(1)} s; do clique em Ouvir até a primeira frase soar ${(comecou / 1000).toFixed(1)} s`);
   // Recarregada a página, a voz já está guardada: abre sem baixar de novo.
@@ -137,7 +146,7 @@ test("voz de verdade: baixa, começa a falar e mede o tempo", async ({ page }) =
   await expect(page.getByRole("button", { name: /^Voz/ })).toBeVisible({ timeout: 120_000 });
   const falou2 = page.evaluate(() => new Promise<number>((ok) => document.addEventListener("lucia:voz-falou", () => ok(performance.now()), { once: true })));
   const t2 = await page.evaluate(() => performance.now());
-  await page.getByRole("button", { name: /Ouvir a aula/ }).click();
+  await page.locator(".folha-da-aula").getByRole("button", { name: /Ouvir a aula/ }).click();
   console.log(`[vozes] ${id}: já guardada, do clique até a primeira frase ${(((await falou2) - t2) / 1000).toFixed(1)} s`);
   expect(fora).toEqual([]);
 });
