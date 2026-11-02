@@ -4,10 +4,10 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 ## Números gerais
 
-- Aulas escritas no percurso (trilhas enem-*): **163** em 19 trilhas
-- Exercícios do instituto com as etiquetas do ENEM: **1218** (meta: 2.000) · níveis 1/2/3: 364 / 495 / 359
-- Exercícios nas trilhas enem-* (todos): 1230 · posição da certa (A–E): 246 / 247 / 245 / 247 / 245
-- Testes das aulas do percurso: 661 perguntas · posição da certa (1ª a 5ª opção): 196 / 182 / 144 / 139 / 0
+- Aulas escritas no percurso (trilhas enem-*): **236** em 26 trilhas
+- Exercícios do instituto com as etiquetas do ENEM: **1948** (meta: 2.000) · níveis 1/2/3: 583 / 787 / 578
+- Exercícios nas trilhas enem-* (todos): 1960 · posição da certa (A–E): 392 / 391 / 393 / 396 / 388
+- Testes das aulas do percurso: 953 perguntas · posição da certa (1ª a 5ª opção): 269 / 256 / 216 / 212 / 0
 - Questões oficiais classificadas e resolvidas: **347** de 2689 importadas (12.9%) · anos: 2022, 2023
 - Redação: 27 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
 - Fatos da edição 2026: 55 (3 a confirmar no edital)
@@ -53,71 +53,71 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 | C | H | Habilidade (resumo nosso) | Aulas | Exercícios | Questões oficiais |
 | --- | --- | --- | --- | --- | --- |
-| 1 | H1 | Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura. | 2 | 3 | 7 |
-| 1 | H2 | Analisar como as sociedades produzem a memória. | 0 | 0 | 2 |
-| 1 | H3 | Ligar manifestações culturais de hoje aos seus processos históricos. | 2 | 1 | 2 |
-| 1 | H4 | Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura. | 1 | 0 | 4 |
-| 1 | H5 | Identificar manifestações da diversidade do patrimônio cultural e artístico. | 1 | 1 | 3 |
-| 2 | H6 | Interpretar mapas, gráficos e outras representações do espaço. | 1 | 0 | 4 |
-| 2 | H7 | Identificar o sentido histórico e geográfico das relações de poder entre nações. | 2 | 1 | 4 |
-| 2 | H8 | Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais. | 2 | 1 | 3 |
-| 2 | H9 | Comparar organizações políticas e econômicas em escala local, regional ou mundial. | 1 | 1 | 2 |
-| 2 | H10 | Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade. | 1 | 0 | 2 |
-| 3 | H11 | Identificar registros das práticas de grupos sociais no tempo e no espaço. | 1 | 1 | 7 |
-| 3 | H12 | Analisar o papel da justiça como instituição na organização das sociedades. | 1 | 0 | 2 |
-| 3 | H13 | Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder. | 1 | 2 | 2 |
-| 3 | H14 | Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas. | 1 | 0 | 2 |
-| 3 | H15 | Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história. | 1 | 1 | 3 |
-| 4 | H16 | Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social. | 1 | 1 | 4 |
+| 1 | H1 | Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura. | 10 | 17 | 7 |
+| 1 | H2 | Analisar como as sociedades produzem a memória. | 2 | 5 | 2 |
+| 1 | H3 | Ligar manifestações culturais de hoje aos seus processos históricos. | 4 | 4 | 2 |
+| 1 | H4 | Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura. | 5 | 18 | 4 |
+| 1 | H5 | Identificar manifestações da diversidade do patrimônio cultural e artístico. | 3 | 8 | 3 |
+| 2 | H6 | Interpretar mapas, gráficos e outras representações do espaço. | 3 | 7 | 4 |
+| 2 | H7 | Identificar o sentido histórico e geográfico das relações de poder entre nações. | 7 | 15 | 4 |
+| 2 | H8 | Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais. | 4 | 10 | 3 |
+| 2 | H9 | Comparar organizações políticas e econômicas em escala local, regional ou mundial. | 5 | 17 | 2 |
+| 2 | H10 | Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade. | 4 | 4 | 2 |
+| 3 | H11 | Identificar registros das práticas de grupos sociais no tempo e no espaço. | 10 | 29 | 7 |
+| 3 | H12 | Analisar o papel da justiça como instituição na organização das sociedades. | 3 | 2 | 2 |
+| 3 | H13 | Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder. | 7 | 17 | 2 |
+| 3 | H14 | Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas. | 12 | 18 | 2 |
+| 3 | H15 | Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história. | 8 | 14 | 3 |
+| 4 | H16 | Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social. | 6 | 19 | 4 |
 | 4 | H17 | Analisar o impacto das novas tecnologias na localização da produção. | 1 | 0 | 1 |
-| 4 | H18 | Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade. | 1 | 1 | 4 |
-| 4 | H19 | Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano. | 1 | 0 | 3 |
-| 4 | H20 | Escolher argumentos a favor ou contra as mudanças que as novas tecnologias impõem à vida e ao trabalho. | 1 | 0 | 2 |
-| 5 | H21 | Identificar o papel dos meios de comunicação na vida social. | 1 | 1 | 1 |
-| 5 | H22 | Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas. | 1 | 1 | 1 |
-| 5 | H23 | Analisar a importância dos valores éticos na organização política das sociedades. | 1 | 2 | 5 |
-| 5 | H24 | Relacionar cidadania e democracia na organização das sociedades. | 1 | 0 | 3 |
-| 5 | H25 | Identificar estratégias de inclusão social. | 1 | 1 | 1 |
-| 6 | H26 | Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem. | 2 | 1 | 5 |
-| 6 | H27 | Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia. | 1 | 1 | 3 |
-| 6 | H28 | Relacionar o uso de tecnologias aos impactos sociais e ambientais. | 1 | 1 | 1 |
-| 6 | H29 | Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana. | 2 | 1 | 4 |
-| 6 | H30 | Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas. | 1 | 1 | 2 |
+| 4 | H18 | Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade. | 8 | 21 | 4 |
+| 4 | H19 | Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano. | 5 | 9 | 3 |
+| 4 | H20 | Escolher argumentos a favor ou contra as mudanças que as novas tecnologias impõem à vida e ao trabalho. | 3 | 6 | 2 |
+| 5 | H21 | Identificar o papel dos meios de comunicação na vida social. | 7 | 14 | 1 |
+| 5 | H22 | Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas. | 8 | 14 | 1 |
+| 5 | H23 | Analisar a importância dos valores éticos na organização política das sociedades. | 7 | 23 | 5 |
+| 5 | H24 | Relacionar cidadania e democracia na organização das sociedades. | 12 | 23 | 3 |
+| 5 | H25 | Identificar estratégias de inclusão social. | 3 | 5 | 1 |
+| 6 | H26 | Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem. | 5 | 9 | 5 |
+| 6 | H27 | Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia. | 4 | 16 | 3 |
+| 6 | H28 | Relacionar o uso de tecnologias aos impactos sociais e ambientais. | 2 | 3 | 1 |
+| 6 | H29 | Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana. | 4 | 11 | 4 |
+| 6 | H30 | Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas. | 3 | 6 | 2 |
 
 ### Ciências da Natureza e suas Tecnologias
 
 | C | H | Habilidade (resumo nosso) | Aulas | Exercícios | Questões oficiais |
 | --- | --- | --- | --- | --- | --- |
-| 1 | H1 | Reconhecer propriedades de ondas e oscilações e seus usos. | 2 | 3 | 7 |
-| 1 | H2 | Ligar soluções de problemas (comunicação, transporte, saúde) ao avanço científico e tecnológico. | 0 | 0 | 0 |
+| 1 | H1 | Reconhecer propriedades de ondas e oscilações e seus usos. | 4 | 19 | 7 |
+| 1 | H2 | Ligar soluções de problemas (comunicação, transporte, saúde) ao avanço científico e tecnológico. | 2 | 2 | 0 |
 | 1 | H3 | Comparar explicações científicas com as do senso comum, em épocas ou culturas diferentes. | 0 | 0 | 0 |
-| 1 | H4 | Avaliar propostas de intervenção no ambiente, pensando na vida humana e na biodiversidade. | 1 | 0 | 1 |
-| 2 | H5 | Dimensionar circuitos e aparelhos elétricos do dia a dia. | 3 | 12 | 4 |
-| 2 | H6 | Entender manuais de instalação ou de uso de aparelhos e sistemas técnicos comuns. | 0 | 0 | 0 |
-| 2 | H7 | Escolher testes ou critérios para comparar materiais e produtos, defendendo consumidor, trabalhador e saúde. | 0 | 0 | 0 |
-| 3 | H8 | Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos. | 1 | 1 | 1 |
-| 3 | H9 | Entender a importância dos ciclos biogeoquímicos e do fluxo de energia, e o que os perturba. | 0 | 0 | 2 |
-| 3 | H10 | Analisar perturbações ambientais: origem, caminho e destino dos poluentes e seus efeitos. | 0 | 0 | 2 |
-| 3 | H11 | Reconhecer benefícios, limites e questões éticas da biotecnologia. | 1 | 1 | 2 |
-| 3 | H12 | Avaliar impactos de atividades sociais ou econômicas no ambiente, com interesses em conflito. | 1 | 1 | 1 |
+| 1 | H4 | Avaliar propostas de intervenção no ambiente, pensando na vida humana e na biodiversidade. | 2 | 2 | 1 |
+| 2 | H5 | Dimensionar circuitos e aparelhos elétricos do dia a dia. | 5 | 27 | 4 |
+| 2 | H6 | Entender manuais de instalação ou de uso de aparelhos e sistemas técnicos comuns. | 2 | 2 | 0 |
+| 2 | H7 | Escolher testes ou critérios para comparar materiais e produtos, defendendo consumidor, trabalhador e saúde. | 1 | 2 | 0 |
+| 3 | H8 | Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos. | 5 | 14 | 1 |
+| 3 | H9 | Entender a importância dos ciclos biogeoquímicos e do fluxo de energia, e o que os perturba. | 1 | 0 | 2 |
+| 3 | H10 | Analisar perturbações ambientais: origem, caminho e destino dos poluentes e seus efeitos. | 4 | 15 | 2 |
+| 3 | H11 | Reconhecer benefícios, limites e questões éticas da biotecnologia. | 2 | 6 | 2 |
+| 3 | H12 | Avaliar impactos de atividades sociais ou econômicas no ambiente, com interesses em conflito. | 3 | 5 | 1 |
 | 4 | H13 | Reconhecer como a vida se transmite e prever ou explicar características dos seres vivos. | 0 | 0 | 2 |
-| 4 | H14 | Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade. | 1 | 2 | 5 |
-| 4 | H15 | Interpretar modelos e experimentos que explicam processos biológicos. | 1 | 3 | 7 |
-| 4 | H16 | Entender o papel da evolução nos padrões biológicos e na classificação dos seres vivos. | 0 | 0 | 2 |
-| 5 | H17 | Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências. | 4 | 4 | 6 |
-| 5 | H18 | Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem. | 0 | 0 | 4 |
-| 5 | H19 | Avaliar métodos das ciências que ajudam a diagnosticar ou resolver problemas sociais, econômicos ou ambientais. | 1 | 0 | 1 |
-| 6 | H20 | Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes. | 3 | 14 | 10 |
-| 6 | H21 | Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos. | 3 | 4 | 5 |
-| 6 | H22 | Entender a interação entre radiação e matéria e suas consequências. | 0 | 0 | 2 |
-| 6 | H23 | Avaliar formas de gerar, usar ou transformar energia, com suas implicações. | 2 | 1 | 2 |
-| 7 | H24 | Usar a linguagem e a nomenclatura da química para descrever materiais e transformações. | 2 | 7 | 11 |
-| 7 | H25 | Caracterizar materiais e substâncias: etapas, rendimentos e impactos de sua produção. | 1 | 1 | 1 |
-| 7 | H26 | Avaliar impactos da produção e do consumo de recursos energéticos ou minerais. | 0 | 0 | 0 |
-| 7 | H27 | Avaliar propostas de intervenção no ambiente usando a química, pesando riscos e benefícios. | 1 | 1 | 2 |
-| 8 | H28 | Ligar adaptações dos organismos ao modo de vida e ao lugar onde vivem, em especial no Brasil. | 1 | 0 | 2 |
-| 8 | H29 | Interpretar experimentos e técnicas com seres vivos e suas consequências. | 1 | 0 | 2 |
-| 8 | H30 | Avaliar propostas individuais ou coletivas de cuidado com a saúde e com o ambiente. | 1 | 1 | 5 |
+| 4 | H14 | Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade. | 5 | 25 | 5 |
+| 4 | H15 | Interpretar modelos e experimentos que explicam processos biológicos. | 5 | 22 | 7 |
+| 4 | H16 | Entender o papel da evolução nos padrões biológicos e na classificação dos seres vivos. | 2 | 5 | 2 |
+| 5 | H17 | Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências. | 14 | 62 | 6 |
+| 5 | H18 | Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem. | 5 | 8 | 4 |
+| 5 | H19 | Avaliar métodos das ciências que ajudam a diagnosticar ou resolver problemas sociais, econômicos ou ambientais. | 2 | 2 | 1 |
+| 6 | H20 | Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes. | 5 | 26 | 10 |
+| 6 | H21 | Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos. | 8 | 32 | 5 |
+| 6 | H22 | Entender a interação entre radiação e matéria e suas consequências. | 2 | 7 | 2 |
+| 6 | H23 | Avaliar formas de gerar, usar ou transformar energia, com suas implicações. | 6 | 18 | 2 |
+| 7 | H24 | Usar a linguagem e a nomenclatura da química para descrever materiais e transformações. | 15 | 92 | 11 |
+| 7 | H25 | Caracterizar materiais e substâncias: etapas, rendimentos e impactos de sua produção. | 4 | 15 | 1 |
+| 7 | H26 | Avaliar impactos da produção e do consumo de recursos energéticos ou minerais. | 2 | 4 | 0 |
+| 7 | H27 | Avaliar propostas de intervenção no ambiente usando a química, pesando riscos e benefícios. | 4 | 5 | 2 |
+| 8 | H28 | Ligar adaptações dos organismos ao modo de vida e ao lugar onde vivem, em especial no Brasil. | 4 | 9 | 2 |
+| 8 | H29 | Interpretar experimentos e técnicas com seres vivos e suas consequências. | 3 | 6 | 2 |
+| 8 | H30 | Avaliar propostas individuais ou coletivas de cuidado com a saúde e com o ambiente. | 4 | 14 | 5 |
 
 ### Matemática e suas Tecnologias
 
@@ -159,10 +159,10 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | Área | Habilidades com aula | Com 10+ exercícios |
 | --- | --- | --- |
 | Linguagens, Códigos e suas Tecnologias | 28 de 30 | 20 de 30 |
-| Ciências Humanas e suas Tecnologias | 29 de 30 | 0 de 30 |
-| Ciências da Natureza e suas Tecnologias | 19 de 30 | 2 de 30 |
+| Ciências Humanas e suas Tecnologias | 30 de 30 | 17 de 30 |
+| Ciências da Natureza e suas Tecnologias | 28 de 30 | 13 de 30 |
 | Matemática e suas Tecnologias | 28 de 30 | 17 de 30 |
-| **Total** | **104 de 120 (87%)** | **39 de 120 (33%)** |
+| **Total** | **114 de 120 (95%)** | **67 de 120 (56%)** |
 
 ## Objetos de conhecimento e tópicos (meta: cada um com aula própria)
 
@@ -248,32 +248,32 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 
 | Objeto / tópico | Questões oficiais | Aulas | Exercícios |
 | --- | --- | --- | --- |
-| **Formas de organização social, movimentos sociais, pensamento político e ação do Estado** (`hum-organizacao-social`) | 45 | 3 | 15 |
-| ↳ Gênero (`hum-organizacao-social-genero`) | 6 | 1 | 1 |
-| ↳ Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos (`hum-organizacao-social-filosofia-antiga`) | 4 | 1 | 1 |
-| ↳ Existencialismo, Hannah Arendt e Foucault (`hum-organizacao-social-filosofia-contemporanea`) | 4 | 1 | 1 |
-| ↳ Desigualdade e estratificação (`hum-organizacao-social-desigualdade`) | 3 | 1 | 1 |
-| ↳ Geopolítica e blocos econômicos (`hum-organizacao-social-geopolitica`) | 3 | 1 | 1 |
-| ↳ Primeiro Reinado, Regências e Segundo Reinado (`hum-organizacao-social-imperio`) | 2 | 1 | 2 |
-| ↳ Era Vargas (`hum-organizacao-social-era-vargas`) | 2 | 1 | 1 |
-| ↳ Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia (`hum-organizacao-social-ditadura`) | 2 | 1 | 2 |
-| ↳ Conflitos contemporâneos e organismos internacionais (`hum-organizacao-social-mundo-atual`) | 2 | 1 | 1 |
-| ↳ Raça, racismo e o mito da democracia racial (`hum-organizacao-social-racismo`) | 2 | 1 | 1 |
-| ↳ Ética e moral (`hum-organizacao-social-etica`) | 2 | 1 | 1 |
-| ↳ Migrações (`hum-organizacao-social-migracoes`) | 2 | 1 | 1 |
-| ↳ Urbanização, segregação e mobilidade (`hum-organizacao-social-urbanizacao`) | 2 | 1 | 1 |
-| ↳ Idade Média, feudalismo e mundo islâmico (`hum-organizacao-social-idade-media`) | 1 | 0 | 0 |
-| ↳ Iluminismo (`hum-organizacao-social-iluminismo`) | 1 | 0 | 0 |
-| ↳ Primeira República: coronelismo, revoltas e greves (`hum-organizacao-social-primeira-republica`) | 1 | 0 | 0 |
-| ↳ Liberalismo, socialismo e anarquismo (`hum-organizacao-social-ideologias`) | 1 | 0 | 0 |
-| ↳ Guerra Fria, descolonização e fim da URSS (`hum-organizacao-social-guerra-fria`) | 1 | 0 | 0 |
+| **Formas de organização social, movimentos sociais, pensamento político e ação do Estado** (`hum-organizacao-social`) | 45 | 23 | 215 |
+| ↳ Gênero (`hum-organizacao-social-genero`) | 6 | 2 | 11 |
+| ↳ Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos (`hum-organizacao-social-filosofia-antiga`) | 4 | 2 | 11 |
+| ↳ Existencialismo, Hannah Arendt e Foucault (`hum-organizacao-social-filosofia-contemporanea`) | 4 | 2 | 11 |
+| ↳ Desigualdade e estratificação (`hum-organizacao-social-desigualdade`) | 3 | 2 | 11 |
+| ↳ Geopolítica e blocos econômicos (`hum-organizacao-social-geopolitica`) | 3 | 2 | 11 |
+| ↳ Primeiro Reinado, Regências e Segundo Reinado (`hum-organizacao-social-imperio`) | 2 | 2 | 12 |
+| ↳ Era Vargas (`hum-organizacao-social-era-vargas`) | 2 | 2 | 11 |
+| ↳ Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia (`hum-organizacao-social-ditadura`) | 2 | 2 | 12 |
+| ↳ Conflitos contemporâneos e organismos internacionais (`hum-organizacao-social-mundo-atual`) | 2 | 2 | 11 |
+| ↳ Raça, racismo e o mito da democracia racial (`hum-organizacao-social-racismo`) | 2 | 2 | 11 |
+| ↳ Ética e moral (`hum-organizacao-social-etica`) | 2 | 2 | 11 |
+| ↳ Migrações (`hum-organizacao-social-migracoes`) | 2 | 2 | 11 |
+| ↳ Urbanização, segregação e mobilidade (`hum-organizacao-social-urbanizacao`) | 2 | 2 | 11 |
+| ↳ Idade Média, feudalismo e mundo islâmico (`hum-organizacao-social-idade-media`) | 1 | 1 | 10 |
+| ↳ Iluminismo (`hum-organizacao-social-iluminismo`) | 1 | 1 | 10 |
+| ↳ Primeira República: coronelismo, revoltas e greves (`hum-organizacao-social-primeira-republica`) | 1 | 1 | 10 |
+| ↳ Liberalismo, socialismo e anarquismo (`hum-organizacao-social-ideologias`) | 1 | 1 | 10 |
+| ↳ Guerra Fria, descolonização e fim da URSS (`hum-organizacao-social-guerra-fria`) | 1 | 1 | 10 |
 | ↳ Movimentos sociais no Brasil (`hum-organizacao-social-movimentos-sociais`) | 1 | 0 | 0 |
 | ↳ Estado, democracia e participação (`hum-organizacao-social-estado-e-democracia`) | 1 | 0 | 0 |
-| ↳ Racionalismo, empirismo e Kant (`hum-organizacao-social-racionalismo-e-empirismo`) | 1 | 0 | 0 |
+| ↳ Racionalismo, empirismo e Kant (`hum-organizacao-social-racionalismo-e-empirismo`) | 1 | 1 | 10 |
 | ↳ População, demografia e pirâmides etárias (`hum-organizacao-social-populacao`) | 1 | 0 | 0 |
 | ↳ Antiguidade: Mesopotâmia, Egito, Grécia e Roma (`hum-organizacao-social-antiguidade`) | 0 | 0 | 0 |
 | ↳ Absolutismo e mercantilismo (`hum-organizacao-social-absolutismo`) | 0 | 0 | 0 |
-| ↳ Revolução Inglesa, independência dos EUA e Revolução Francesa (`hum-organizacao-social-revolucoes-burguesas`) | 0 | 0 | 0 |
+| ↳ Revolução Inglesa, independência dos EUA e Revolução Francesa (`hum-organizacao-social-revolucoes-burguesas`) | 0 | 1 | 10 |
 | ↳ Independências na América Latina (`hum-organizacao-social-independencias`) | 0 | 0 | 0 |
 | ↳ Colônia: revoltas coloniais, família real e independência do Brasil (`hum-organizacao-social-colonia`) | 0 | 0 | 0 |
 | ↳ República de 1946 (`hum-organizacao-social-republica-de-46`) | 0 | 0 | 0 |
@@ -293,33 +293,33 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Lógica, argumentação e falácias (`hum-organizacao-social-logica`) | 0 | 0 | 0 |
 | ↳ Filosofia da ciência (`hum-organizacao-social-filosofia-da-ciencia`) | 0 | 0 | 0 |
 | ↳ Formação territorial e regionalização do Brasil (`hum-organizacao-social-regionalizacao`) | 0 | 0 | 0 |
-| **Diversidade cultural, conflitos e vida em sociedade** (`hum-cultura`) | 15 | 2 | 3 |
-| ↳ Cultura material e imaterial e patrimônio no Brasil (`hum-cultura-patrimonio`) | 3 | 1 | 2 |
-| ↳ Religião e sociedade (`hum-cultura-religiao`) | 2 | 1 | 1 |
-| ↳ Povos indígenas e a formação do Brasil (`hum-cultura-povos-indigenas`) | 1 | 0 | 0 |
-| ↳ Conquista da América e conflitos com os indígenas (`hum-cultura-conquista-da-america`) | 1 | 0 | 0 |
+| **Diversidade cultural, conflitos e vida em sociedade** (`hum-cultura`) | 15 | 8 | 63 |
+| ↳ Cultura material e imaterial e patrimônio no Brasil (`hum-cultura-patrimonio`) | 3 | 2 | 12 |
+| ↳ Religião e sociedade (`hum-cultura-religiao`) | 2 | 2 | 11 |
+| ↳ Povos indígenas e a formação do Brasil (`hum-cultura-povos-indigenas`) | 1 | 1 | 10 |
+| ↳ Conquista da América e conflitos com os indígenas (`hum-cultura-conquista-da-america`) | 1 | 1 | 10 |
 | ↳ Cultura, identidade, etnocentrismo e relativismo (`hum-cultura-identidade-e-etnocentrismo`) | 1 | 0 | 0 |
-| ↳ Mídia, indústria cultural e Escola de Frankfurt (`hum-cultura-industria-cultural`) | 1 | 0 | 0 |
+| ↳ Mídia, indústria cultural e Escola de Frankfurt (`hum-cultura-industria-cultural`) | 1 | 1 | 10 |
 | ↳ Estética (`hum-cultura-estetica`) | 1 | 0 | 0 |
-| ↳ Escravidão, resistência e quilombos (`hum-cultura-escravidao-e-resistencia`) | 0 | 0 | 0 |
+| ↳ Escravidão, resistência e quilombos (`hum-cultura-escravidao-e-resistencia`) | 0 | 1 | 10 |
 | ↳ Reinos africanos e história dos povos africanos (`hum-cultura-reinos-africanos`) | 0 | 0 | 0 |
 | ↳ A luta negra no Brasil e o pós-abolição (`hum-cultura-luta-negra`) | 0 | 0 | 0 |
 | ↳ Renascimento e Reformas (`hum-cultura-renascimento-e-reformas`) | 0 | 0 | 0 |
-| **Os domínios naturais e a relação do ser humano com o ambiente** (`hum-ambiente`) | 15 | 2 | 4 |
-| ↳ Desmatamento, queimadas, ilha de calor, inversão térmica e poluição (`hum-ambiente-questoes-ambientais`) | 4 | 1 | 1 |
-| ↳ Estrutura geológica e relevo (`hum-ambiente-relevo`) | 3 | 1 | 1 |
-| ↳ Clima, fenômenos atmosféricos e mudanças climáticas (`hum-ambiente-clima`) | 2 | 1 | 1 |
-| ↳ Hidrografia e crise hídrica (`hum-ambiente-hidrografia`) | 2 | 1 | 1 |
+| **Os domínios naturais e a relação do ser humano com o ambiente** (`hum-ambiente`) | 15 | 6 | 44 |
+| ↳ Desmatamento, queimadas, ilha de calor, inversão térmica e poluição (`hum-ambiente-questoes-ambientais`) | 4 | 2 | 11 |
+| ↳ Estrutura geológica e relevo (`hum-ambiente-relevo`) | 3 | 2 | 11 |
+| ↳ Clima, fenômenos atmosféricos e mudanças climáticas (`hum-ambiente-clima`) | 2 | 2 | 11 |
+| ↳ Hidrografia e crise hídrica (`hum-ambiente-hidrografia`) | 2 | 2 | 11 |
 | ↳ Meio ambiente e sociedade (`hum-ambiente-sociedade-e-natureza`) | 2 | 1 | 0 |
 | ↳ Biomas e domínios morfoclimáticos (`hum-ambiente-dominios`) | 1 | 0 | 0 |
 | ↳ Territórios indígenas e quilombolas (`hum-ambiente-territorios-tradicionais`) | 0 | 0 | 0 |
-| **Características e transformações das estruturas produtivas** (`hum-producao`) | 13 | 2 | 2 |
-| ↳ Espaço agrário, agronegócio, agricultura familiar e conflitos no campo (`hum-producao-espaco-agrario`) | 4 | 1 | 1 |
-| ↳ Taylorismo, fordismo, toyotismo, precarização e plataformas (`hum-producao-trabalho`) | 3 | 1 | 1 |
+| **Características e transformações das estruturas produtivas** (`hum-producao`) | 13 | 6 | 42 |
+| ↳ Espaço agrário, agronegócio, agricultura familiar e conflitos no campo (`hum-producao-espaco-agrario`) | 4 | 2 | 11 |
+| ↳ Taylorismo, fordismo, toyotismo, precarização e plataformas (`hum-producao-trabalho`) | 3 | 2 | 11 |
 | ↳ Globalização e divisão internacional do trabalho (`hum-producao-globalizacao`) | 2 | 1 | 0 |
-| ↳ Açúcar, mineração, café e borracha (`hum-producao-economia-colonial`) | 1 | 0 | 0 |
+| ↳ Açúcar, mineração, café e borracha (`hum-producao-economia-colonial`) | 1 | 1 | 10 |
 | ↳ Escravismo antigo, feudalismo, capitalismo e socialismo (`hum-producao-modos-de-producao`) | 0 | 0 | 0 |
-| ↳ Revolução Industrial (`hum-producao-revolucao-industrial`) | 0 | 0 | 0 |
+| ↳ Revolução Industrial (`hum-producao-revolucao-industrial`) | 0 | 1 | 10 |
 | ↳ Industrialização brasileira (`hum-producao-industrializacao-brasileira`) | 0 | 0 | 0 |
 | ↳ Energia e transportes (`hum-producao-energia-e-transportes`) | 0 | 0 | 0 |
 | **Representação espacial** (`hum-cartografia`) | 1 | 0 | 0 |
@@ -331,114 +331,114 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 
 | Objeto / tópico | Questões oficiais | Aulas | Exercícios |
 | --- | --- | --- | --- |
-| **Moléculas, células e tecidos** (`nat-bio-celulas`) | 10 | 1 | 3 |
-| ↳ Respiração, fermentação e fotossíntese (`nat-bio-celulas-metabolismo`) | 3 | 1 | 1 |
-| ↳ Célula, membrana e organelas (`nat-bio-celulas-celula`) | 2 | 1 | 1 |
-| ↳ Biotecnologia: transgênicos, clonagem, PCR, vacinas e edição gênica (`nat-bio-celulas-biotecnologia`) | 2 | 1 | 1 |
+| **Moléculas, células e tecidos** (`nat-bio-celulas`) | 10 | 4 | 33 |
+| ↳ Respiração, fermentação e fotossíntese (`nat-bio-celulas-metabolismo`) | 3 | 2 | 11 |
+| ↳ Célula, membrana e organelas (`nat-bio-celulas-celula`) | 2 | 2 | 11 |
+| ↳ Biotecnologia: transgênicos, clonagem, PCR, vacinas e edição gênica (`nat-bio-celulas-biotecnologia`) | 2 | 2 | 11 |
 | ↳ Água, sais e moléculas orgânicas (`nat-bio-celulas-moleculas`) | 1 | 0 | 0 |
 | ↳ Enzimas (`nat-bio-celulas-enzimas`) | 1 | 0 | 0 |
 | ↳ Mitose e meiose (`nat-bio-celulas-divisao`) | 1 | 0 | 0 |
 | ↳ Ácidos nucleicos e síntese de proteínas (`nat-bio-celulas-dna`) | 0 | 0 | 0 |
-| **Oscilações, ondas, óptica e radiação** (`nat-fis-ondas`) | 9 | 2 | 3 |
-| ↳ Ondas e som: altura, intensidade, timbre, ressonância, Doppler (`nat-fis-ondas-ondas-e-som`) | 3 | 2 | 1 |
-| ↳ Espectro eletromagnético (`nat-fis-ondas-espectro`) | 2 | 2 | 2 |
+| **Oscilações, ondas, óptica e radiação** (`nat-fis-ondas`) | 9 | 4 | 23 |
+| ↳ Ondas e som: altura, intensidade, timbre, ressonância, Doppler (`nat-fis-ondas-ondas-e-som`) | 3 | 3 | 11 |
+| ↳ Espectro eletromagnético (`nat-fis-ondas-espectro`) | 2 | 3 | 12 |
 | ↳ Refração e lentes (`nat-fis-ondas-refracao-e-lentes`) | 1 | 1 | 0 |
 | ↳ O olho humano e os defeitos da visão (`nat-fis-ondas-olho-humano`) | 1 | 0 | 0 |
 | ↳ Efeito fotoelétrico, radioatividade e energia nuclear (`nat-fis-ondas-fisica-moderna`) | 1 | 0 | 0 |
 | ↳ Reflexão e espelhos (`nat-fis-ondas-reflexao-e-espelhos`) | 0 | 1 | 0 |
-| **Identidade dos seres vivos** (`nat-bio-seres-vivos`) | 9 | 1 | 2 |
-| ↳ Sistemas do corpo humano (`nat-bio-seres-vivos-corpo-humano`) | 4 | 1 | 1 |
-| ↳ Plantas e fisiologia vegetal (`nat-bio-seres-vivos-plantas`) | 3 | 1 | 1 |
-| ↳ Animais: invertebrados e vertebrados (`nat-bio-seres-vivos-animais`) | 2 | 1 | 0 |
+| **Identidade dos seres vivos** (`nat-bio-seres-vivos`) | 9 | 4 | 32 |
+| ↳ Sistemas do corpo humano (`nat-bio-seres-vivos-corpo-humano`) | 4 | 2 | 11 |
+| ↳ Plantas e fisiologia vegetal (`nat-bio-seres-vivos-plantas`) | 3 | 2 | 11 |
+| ↳ Animais: invertebrados e vertebrados (`nat-bio-seres-vivos-animais`) | 2 | 2 | 10 |
 | ↳ Classificação dos seres vivos (`nat-bio-seres-vivos-classificacao`) | 0 | 0 | 0 |
 | ↳ Vírus e bactérias (`nat-bio-seres-vivos-virus-e-bacterias`) | 0 | 0 | 0 |
 | ↳ Protistas e fungos (`nat-bio-seres-vivos-protistas-e-fungos`) | 0 | 0 | 0 |
-| **O movimento, o equilíbrio e a descoberta de leis físicas** (`nat-fis-movimento`) | 8 | 3 | 15 |
+| **O movimento, o equilíbrio e a descoberta de leis físicas** (`nat-fis-movimento`) | 8 | 4 | 25 |
 | ↳ Leis de Newton, atrito e plano inclinado (`nat-fis-movimento-leis-de-newton`) | 4 | 3 | 12 |
-| ↳ Queda livre e lançamentos (`nat-fis-movimento-queda-e-lancamentos`) | 2 | 2 | 1 |
+| ↳ Queda livre e lançamentos (`nat-fis-movimento-queda-e-lancamentos`) | 2 | 3 | 11 |
 | ↳ Cinemática: MU, MUV e gráficos (`nat-fis-movimento-cinematica`) | 1 | 1 | 1 |
 | ↳ Quantidade de movimento e impulso (`nat-fis-movimento-quantidade-de-movimento`) | 1 | 0 | 0 |
 | ↳ Torque e equilíbrio (`nat-fis-movimento-equilibrio`) | 0 | 0 | 0 |
 | ↳ Pressão, Stevin, Pascal, empuxo e densidade (`nat-fis-movimento-hidrostatica`) | 0 | 1 | 1 |
-| **Fenômenos elétricos e magnéticos** (`nat-fis-eletricidade`) | 7 | 3 | 14 |
-| ↳ Corrente, tensão, resistência e Lei de Ohm (`nat-fis-eletricidade-lei-de-ohm`) | 2 | 2 | 2 |
-| ↳ Magnetismo, motores, geradores e transformadores (`nat-fis-eletricidade-magnetismo`) | 2 | 1 | 1 |
+| **Fenômenos elétricos e magnéticos** (`nat-fis-eletricidade`) | 7 | 6 | 44 |
+| ↳ Corrente, tensão, resistência e Lei de Ohm (`nat-fis-eletricidade-lei-de-ohm`) | 2 | 3 | 12 |
+| ↳ Magnetismo, motores, geradores e transformadores (`nat-fis-eletricidade-magnetismo`) | 2 | 2 | 11 |
 | ↳ Potência elétrica, consumo em kWh e conta de luz (`nat-fis-eletricidade-consumo`) | 1 | 2 | 11 |
-| ↳ Circuitos em série e em paralelo (`nat-fis-eletricidade-circuitos`) | 1 | 1 | 0 |
+| ↳ Circuitos em série e em paralelo (`nat-fis-eletricidade-circuitos`) | 1 | 2 | 10 |
 | ↳ Segurança elétrica e choque (`nat-fis-eletricidade-seguranca`) | 1 | 0 | 0 |
 | ↳ Eletrostática (`nat-fis-eletricidade-eletrostatica`) | 0 | 0 | 0 |
-| **Água** (`nat-qui-agua`) | 6 | 2 | 5 |
-| ↳ Soluções, concentração e diluição (`nat-qui-agua-solucoes`) | 2 | 2 | 3 |
-| ↳ Ácidos, bases, sais e óxidos (`nat-qui-agua-funcoes-inorganicas`) | 2 | 1 | 1 |
-| ↳ Tratamento de água e esgoto (`nat-qui-agua-tratamento`) | 2 | 1 | 1 |
+| **Água** (`nat-qui-agua`) | 6 | 5 | 35 |
+| ↳ Soluções, concentração e diluição (`nat-qui-agua-solucoes`) | 2 | 3 | 13 |
+| ↳ Ácidos, bases, sais e óxidos (`nat-qui-agua-funcoes-inorganicas`) | 2 | 2 | 11 |
+| ↳ Tratamento de água e esgoto (`nat-qui-agua-tratamento`) | 2 | 2 | 11 |
 | ↳ Propriedades coligativas (`nat-qui-agua-coligativas`) | 0 | 0 | 0 |
-| **Ecologia e ciências ambientais** (`nat-bio-ecologia`) | 5 | 1 | 1 |
-| ↳ Impactos ambientais e sustentabilidade (`nat-bio-ecologia-impactos`) | 3 | 1 | 1 |
+| **Ecologia e ciências ambientais** (`nat-bio-ecologia`) | 5 | 2 | 11 |
+| ↳ Impactos ambientais e sustentabilidade (`nat-bio-ecologia-impactos`) | 3 | 2 | 11 |
 | ↳ Ciclos biogeoquímicos (`nat-bio-ecologia-ciclos`) | 1 | 0 | 0 |
 | ↳ Relações ecológicas (`nat-bio-ecologia-relacoes`) | 1 | 0 | 0 |
 | ↳ Cadeias e teias, níveis tróficos e pirâmides (`nat-bio-ecologia-cadeias-e-teias`) | 0 | 0 | 0 |
 | ↳ Populações e sucessão ecológica (`nat-bio-ecologia-populacoes-e-sucessao`) | 0 | 0 | 0 |
 | ↳ Biomas brasileiros (`nat-bio-ecologia-biomas`) | 0 | 0 | 0 |
-| **Compostos de carbono** (`nat-qui-carbono`) | 4 | 1 | 1 |
-| ↳ Cadeias carbônicas (`nat-qui-carbono-cadeias`) | 2 | 1 | 1 |
-| ↳ Isomeria (`nat-qui-carbono-isomeria`) | 1 | 0 | 0 |
-| ↳ Reações orgânicas (`nat-qui-carbono-reacoes`) | 1 | 0 | 0 |
+| **Compostos de carbono** (`nat-qui-carbono`) | 4 | 4 | 31 |
+| ↳ Cadeias carbônicas (`nat-qui-carbono-cadeias`) | 2 | 2 | 11 |
+| ↳ Isomeria (`nat-qui-carbono-isomeria`) | 1 | 1 | 10 |
+| ↳ Reações orgânicas (`nat-qui-carbono-reacoes`) | 1 | 1 | 10 |
 | ↳ Funções orgânicas (`nat-qui-carbono-funcoes`) | 0 | 0 | 0 |
 | ↳ Polímeros e plásticos (`nat-qui-carbono-polimeros`) | 0 | 0 | 0 |
-| **Relações da química com as tecnologias, a sociedade e o meio ambiente** (`nat-qui-sociedade`) | 4 | 1 | 1 |
-| ↳ Química do cotidiano: sabões, alimentos, medicamentos, cosméticos (`nat-qui-sociedade-cotidiano`) | 2 | 1 | 1 |
-| ↳ Química ambiental: chuva ácida, efeito estufa, ozônio, metais pesados (`nat-qui-sociedade-ambiental`) | 1 | 0 | 0 |
-| ↳ Lixo e reciclagem (`nat-qui-sociedade-lixo-e-reciclagem`) | 1 | 0 | 0 |
-| **Qualidade de vida das populações humanas** (`nat-bio-saude`) | 4 | 1 | 2 |
-| ↳ Doenças infecciosas e parasitárias (`nat-bio-saude-doencas`) | 2 | 1 | 1 |
-| ↳ Vacinação e imunidade (`nat-bio-saude-vacinacao`) | 2 | 1 | 1 |
+| **Relações da química com as tecnologias, a sociedade e o meio ambiente** (`nat-qui-sociedade`) | 4 | 4 | 31 |
+| ↳ Química do cotidiano: sabões, alimentos, medicamentos, cosméticos (`nat-qui-sociedade-cotidiano`) | 2 | 2 | 11 |
+| ↳ Química ambiental: chuva ácida, efeito estufa, ozônio, metais pesados (`nat-qui-sociedade-ambiental`) | 1 | 1 | 10 |
+| ↳ Lixo e reciclagem (`nat-qui-sociedade-lixo-e-reciclagem`) | 1 | 1 | 10 |
+| **Qualidade de vida das populações humanas** (`nat-bio-saude`) | 4 | 3 | 22 |
+| ↳ Doenças infecciosas e parasitárias (`nat-bio-saude-doencas`) | 2 | 2 | 11 |
+| ↳ Vacinação e imunidade (`nat-bio-saude-vacinacao`) | 2 | 2 | 11 |
 | ↳ Saneamento e saúde (`nat-bio-saude-saneamento`) | 0 | 0 | 0 |
 | ↳ IST e saúde sexual (`nat-bio-saude-ist`) | 0 | 0 | 0 |
 | ↳ Saúde pública e SUS (`nat-bio-saude-sus`) | 0 | 0 | 0 |
-| **Materiais, suas propriedades e usos** (`nat-qui-materiais`) | 3 | 0 | 0 |
-| ↳ Separação de misturas (`nat-qui-materiais-separacao`) | 1 | 0 | 0 |
-| ↳ Ligações químicas (`nat-qui-materiais-ligacoes`) | 1 | 0 | 0 |
-| ↳ Forças intermoleculares (`nat-qui-materiais-forcas-intermoleculares`) | 1 | 0 | 0 |
+| **Materiais, suas propriedades e usos** (`nat-qui-materiais`) | 3 | 3 | 30 |
+| ↳ Separação de misturas (`nat-qui-materiais-separacao`) | 1 | 1 | 10 |
+| ↳ Ligações químicas (`nat-qui-materiais-ligacoes`) | 1 | 1 | 10 |
+| ↳ Forças intermoleculares (`nat-qui-materiais-forcas-intermoleculares`) | 1 | 1 | 10 |
 | ↳ Matéria e estados físicos (`nat-qui-materiais-estados-fisicos`) | 0 | 0 | 0 |
 | ↳ Substâncias e misturas (`nat-qui-materiais-misturas`) | 0 | 0 | 0 |
 | ↳ Geometria molecular e polaridade (`nat-qui-materiais-polaridade`) | 0 | 0 | 0 |
-| **Transformações químicas e energia** (`nat-qui-energia`) | 3 | 2 | 2 |
-| ↳ Pilhas, baterias, eletrólise e corrosão (`nat-qui-energia-eletroquimica`) | 2 | 1 | 1 |
-| ↳ Radioatividade (`nat-qui-energia-radioatividade`) | 1 | 0 | 0 |
+| **Transformações químicas e energia** (`nat-qui-energia`) | 3 | 4 | 22 |
+| ↳ Pilhas, baterias, eletrólise e corrosão (`nat-qui-energia-eletroquimica`) | 2 | 2 | 11 |
+| ↳ Radioatividade (`nat-qui-energia-radioatividade`) | 1 | 1 | 10 |
 | ↳ Termoquímica e combustíveis (`nat-qui-energia-termoquimica`) | 0 | 1 | 1 |
-| **Transformação química e equilíbrio** (`nat-qui-equilibrio`) | 3 | 2 | 2 |
-| ↳ Equilíbrio químico e Le Chatelier (`nat-qui-equilibrio-le-chatelier`) | 2 | 1 | 1 |
-| ↳ pH e indicadores (`nat-qui-equilibrio-ph`) | 1 | 1 | 1 |
+| **Transformação química e equilíbrio** (`nat-qui-equilibrio`) | 3 | 4 | 22 |
+| ↳ Equilíbrio químico e Le Chatelier (`nat-qui-equilibrio-le-chatelier`) | 2 | 2 | 11 |
+| ↳ pH e indicadores (`nat-qui-equilibrio-ph`) | 1 | 2 | 11 |
 | **A Mecânica e o funcionamento do Universo** (`nat-fis-universo`) | 2 | 0 | 0 |
 | ↳ Gravitação, leis de Kepler e marés (`nat-fis-universo-gravitacao`) | 1 | 0 | 0 |
-| **O calor e os fenômenos térmicos** (`nat-fis-calor`) | 2 | 2 | 2 |
-| ↳ Calor sensível e latente, trocas de calor e mudanças de estado (`nat-fis-calor-trocas-de-calor`) | 2 | 2 | 2 |
+| **O calor e os fenômenos térmicos** (`nat-fis-calor`) | 2 | 3 | 12 |
+| ↳ Calor sensível e latente, trocas de calor e mudanças de estado (`nat-fis-calor-trocas-de-calor`) | 2 | 3 | 12 |
 | ↳ Temperatura, escalas e dilatação (`nat-fis-calor-temperatura-e-dilatacao`) | 0 | 1 | 0 |
 | ↳ Propagação do calor (`nat-fis-calor-propagacao`) | 0 | 0 | 0 |
 | ↳ Gases, termodinâmica e máquinas térmicas (`nat-fis-calor-termodinamica`) | 0 | 0 | 0 |
-| **Representação das transformações químicas** (`nat-qui-representacao`) | 2 | 1 | 2 |
-| ↳ Mol, massa molar e constante de Avogadro (`nat-qui-representacao-mol`) | 1 | 1 | 1 |
-| ↳ Estequiometria (`nat-qui-representacao-estequiometria`) | 1 | 1 | 1 |
+| **Representação das transformações químicas** (`nat-qui-representacao`) | 2 | 3 | 22 |
+| ↳ Mol, massa molar e constante de Avogadro (`nat-qui-representacao-mol`) | 1 | 2 | 11 |
+| ↳ Estequiometria (`nat-qui-representacao-estequiometria`) | 1 | 2 | 11 |
 | ↳ Reações e balanceamento (`nat-qui-representacao-balanceamento`) | 0 | 0 | 0 |
-| **Energias químicas no cotidiano** (`nat-qui-energias`) | 2 | 0 | 0 |
-| ↳ Petróleo, gás e biocombustíveis (`nat-qui-energias-combustiveis`) | 1 | 0 | 0 |
-| ↳ Energia nuclear e lixo atômico (`nat-qui-energias-nuclear`) | 1 | 0 | 0 |
+| **Energias químicas no cotidiano** (`nat-qui-energias`) | 2 | 2 | 20 |
+| ↳ Petróleo, gás e biocombustíveis (`nat-qui-energias-combustiveis`) | 1 | 1 | 10 |
+| ↳ Energia nuclear e lixo atômico (`nat-qui-energias-nuclear`) | 1 | 1 | 10 |
 | **Hereditariedade e diversidade da vida** (`nat-bio-hereditariedade`) | 2 | 0 | 0 |
 | ↳ Herança ligada ao sexo (`nat-bio-hereditariedade-ligada-ao-sexo`) | 1 | 0 | 0 |
 | ↳ Mutações (`nat-bio-hereditariedade-mutacoes`) | 1 | 0 | 0 |
 | ↳ Genética mendeliana e heredogramas (`nat-bio-hereditariedade-mendel`) | 0 | 0 | 0 |
 | ↳ Grupos sanguíneos (`nat-bio-hereditariedade-grupos-sanguineos`) | 0 | 0 | 0 |
-| **Energia, trabalho e potência** (`nat-fis-energia`) | 1 | 1 | 0 |
-| ↳ Potência e rendimento (`nat-fis-energia-potencia-e-rendimento`) | 1 | 1 | 0 |
+| **Energia, trabalho e potência** (`nat-fis-energia`) | 1 | 2 | 10 |
+| ↳ Potência e rendimento (`nat-fis-energia-potencia-e-rendimento`) | 1 | 2 | 10 |
 | ↳ Trabalho, energia e conservação (`nat-fis-energia-trabalho-e-energia`) | 0 | 1 | 0 |
 | ↳ Matriz energética e usinas (`nat-fis-energia-matriz-energetica`) | 0 | 0 | 0 |
-| **Transformações químicas** (`nat-qui-transformacoes`) | 1 | 1 | 1 |
-| ↳ Estudo dos gases (`nat-qui-transformacoes-gases`) | 1 | 1 | 1 |
+| **Transformações químicas** (`nat-qui-transformacoes`) | 1 | 2 | 11 |
+| ↳ Estudo dos gases (`nat-qui-transformacoes-gases`) | 1 | 2 | 11 |
 | ↳ Modelos atômicos (`nat-qui-transformacoes-modelos-atomicos`) | 0 | 0 | 0 |
 | ↳ Tabela periódica (`nat-qui-transformacoes-tabela-periodica`) | 0 | 0 | 0 |
 | ↳ Reações químicas e suas evidências (`nat-qui-transformacoes-reacoes`) | 0 | 0 | 0 |
-| **Dinâmica das transformações químicas** (`nat-qui-cinetica`) | 1 | 0 | 0 |
-| ↳ Cinética química (`nat-qui-cinetica-velocidade`) | 1 | 0 | 0 |
+| **Dinâmica das transformações químicas** (`nat-qui-cinetica`) | 1 | 1 | 10 |
+| ↳ Cinética química (`nat-qui-cinetica-velocidade`) | 1 | 1 | 10 |
 | **Origem e evolução da vida** (`nat-bio-evolucao`) | 1 | 0 | 0 |
 | ↳ Evolução e especiação (`nat-bio-evolucao-teorias`) | 1 | 0 | 0 |
 | ↳ Método científico (`nat-bio-evolucao-metodo-cientifico`) | 0 | 0 | 0 |
@@ -516,26 +516,16 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Equação da reta, paralelismo e perpendicularidade (`mat-algebra-geometria-reta`) | 0 | 1 | 10 |
 | ↳ Equação da circunferência (`mat-algebra-geometria-circunferencia`) | 0 | 0 | 0 |
 
-Objetos com aula: **33 de 42** · tópicos com aula: **170 de 286**.
+Objetos com aula: **36 de 42** · tópicos com aula: **194 de 286**.
 
 ## As 40 lacunas mais urgentes (tópico sem aula, pela incidência)
 
-- Idade Média, feudalismo e mundo islâmico (`hum-organizacao-social-idade-media`, humanas): 1 questões oficiais classificadas
-- Iluminismo (`hum-organizacao-social-iluminismo`, humanas): 1 questões oficiais classificadas
-- Primeira República: coronelismo, revoltas e greves (`hum-organizacao-social-primeira-republica`, humanas): 1 questões oficiais classificadas
-- Liberalismo, socialismo e anarquismo (`hum-organizacao-social-ideologias`, humanas): 1 questões oficiais classificadas
-- Guerra Fria, descolonização e fim da URSS (`hum-organizacao-social-guerra-fria`, humanas): 1 questões oficiais classificadas
 - Movimentos sociais no Brasil (`hum-organizacao-social-movimentos-sociais`, humanas): 1 questões oficiais classificadas
 - Estado, democracia e participação (`hum-organizacao-social-estado-e-democracia`, humanas): 1 questões oficiais classificadas
-- Racionalismo, empirismo e Kant (`hum-organizacao-social-racionalismo-e-empirismo`, humanas): 1 questões oficiais classificadas
 - População, demografia e pirâmides etárias (`hum-organizacao-social-populacao`, humanas): 1 questões oficiais classificadas
-- Povos indígenas e a formação do Brasil (`hum-cultura-povos-indigenas`, humanas): 1 questões oficiais classificadas
-- Conquista da América e conflitos com os indígenas (`hum-cultura-conquista-da-america`, humanas): 1 questões oficiais classificadas
 - Cultura, identidade, etnocentrismo e relativismo (`hum-cultura-identidade-e-etnocentrismo`, humanas): 1 questões oficiais classificadas
-- Mídia, indústria cultural e Escola de Frankfurt (`hum-cultura-industria-cultural`, humanas): 1 questões oficiais classificadas
 - Estética (`hum-cultura-estetica`, humanas): 1 questões oficiais classificadas
 - Biomas e domínios morfoclimáticos (`hum-ambiente-dominios`, humanas): 1 questões oficiais classificadas
-- Açúcar, mineração, café e borracha (`hum-producao-economia-colonial`, humanas): 1 questões oficiais classificadas
 - Escalas e projeções cartográficas (`hum-cartografia-escalas-e-projecoes`, humanas): 1 questões oficiais classificadas
 - Água, sais e moléculas orgânicas (`nat-bio-celulas-moleculas`, natureza): 1 questões oficiais classificadas
 - Enzimas (`nat-bio-celulas-enzimas`, natureza): 1 questões oficiais classificadas
@@ -546,17 +536,27 @@ Objetos com aula: **33 de 42** · tópicos com aula: **170 de 286**.
 - Segurança elétrica e choque (`nat-fis-eletricidade-seguranca`, natureza): 1 questões oficiais classificadas
 - Ciclos biogeoquímicos (`nat-bio-ecologia-ciclos`, natureza): 1 questões oficiais classificadas
 - Relações ecológicas (`nat-bio-ecologia-relacoes`, natureza): 1 questões oficiais classificadas
-- Isomeria (`nat-qui-carbono-isomeria`, natureza): 1 questões oficiais classificadas
-- Reações orgânicas (`nat-qui-carbono-reacoes`, natureza): 1 questões oficiais classificadas
-- Química ambiental: chuva ácida, efeito estufa, ozônio, metais pesados (`nat-qui-sociedade-ambiental`, natureza): 1 questões oficiais classificadas
-- Lixo e reciclagem (`nat-qui-sociedade-lixo-e-reciclagem`, natureza): 1 questões oficiais classificadas
-- Separação de misturas (`nat-qui-materiais-separacao`, natureza): 1 questões oficiais classificadas
-- Ligações químicas (`nat-qui-materiais-ligacoes`, natureza): 1 questões oficiais classificadas
-- Forças intermoleculares (`nat-qui-materiais-forcas-intermoleculares`, natureza): 1 questões oficiais classificadas
-- Radioatividade (`nat-qui-energia-radioatividade`, natureza): 1 questões oficiais classificadas
 - Gravitação, leis de Kepler e marés (`nat-fis-universo-gravitacao`, natureza): 1 questões oficiais classificadas
-- Petróleo, gás e biocombustíveis (`nat-qui-energias-combustiveis`, natureza): 1 questões oficiais classificadas
-- Energia nuclear e lixo atômico (`nat-qui-energias-nuclear`, natureza): 1 questões oficiais classificadas
 - Herança ligada ao sexo (`nat-bio-hereditariedade-ligada-ao-sexo`, natureza): 1 questões oficiais classificadas
 - Mutações (`nat-bio-hereditariedade-mutacoes`, natureza): 1 questões oficiais classificadas
-- Cinética química (`nat-qui-cinetica-velocidade`, natureza): 1 questões oficiais classificadas
+- Evolução e especiação (`nat-bio-evolucao-teorias`, natureza): 1 questões oficiais classificadas
+- Simetria, translação, rotação e ladrilhamentos (`mat-geometria-simetria`, matematica): 1 questões oficiais classificadas
+- Lutas, danças e ginásticas (`lin-praticas-corporais-lutas-dancas-ginasticas`, linguagens): 0 questões oficiais classificadas
+- Jogos e brincadeiras (`lin-praticas-corporais-jogos-e-brincadeiras`, linguagens): 0 questões oficiais classificadas
+- Arte indígena e afro-brasileira (`lin-artes-indigena-e-afro`, linguagens): 0 questões oficiais classificadas
+- Barroco mineiro (`lin-artes-barroco-mineiro`, linguagens): 0 questões oficiais classificadas
+- Teatro, dança, cinema e fotografia (`lin-artes-teatro-danca-cinema-foto`, linguagens): 0 questões oficiais classificadas
+- Antiguidade: Mesopotâmia, Egito, Grécia e Roma (`hum-organizacao-social-antiguidade`, humanas): 0 questões oficiais classificadas
+- Absolutismo e mercantilismo (`hum-organizacao-social-absolutismo`, humanas): 0 questões oficiais classificadas
+- Independências na América Latina (`hum-organizacao-social-independencias`, humanas): 0 questões oficiais classificadas
+- Colônia: revoltas coloniais, família real e independência do Brasil (`hum-organizacao-social-colonia`, humanas): 0 questões oficiais classificadas
+- República de 1946 (`hum-organizacao-social-republica-de-46`, humanas): 0 questões oficiais classificadas
+- Diretas Já, Constituição de 1988 e Nova República (`hum-organizacao-social-redemocratizacao`, humanas): 0 questões oficiais classificadas
+- Imperialismo e partilha da África e da Ásia (`hum-organizacao-social-imperialismo`, humanas): 0 questões oficiais classificadas
+- Primeira e Segunda Guerras e o Holocausto (`hum-organizacao-social-guerras-mundiais`, humanas): 0 questões oficiais classificadas
+- Revolução Russa e revoluções do século XX (`hum-organizacao-social-revolucao-russa`, humanas): 0 questões oficiais classificadas
+- Crise de 1929, fascismo e nazismo (`hum-organizacao-social-totalitarismos`, humanas): 0 questões oficiais classificadas
+- Ditaduras na América Latina (`hum-organizacao-social-ditaduras-latinas`, humanas): 0 questões oficiais classificadas
+- Cidadania, direitos e Constituição de 1988 (`hum-organizacao-social-cidadania-e-direitos`, humanas): 0 questões oficiais classificadas
+- Violência (`hum-organizacao-social-violencia`, humanas): 0 questões oficiais classificadas
+- Surgimento da sociologia: Durkheim, Weber e Marx (`hum-organizacao-social-classicos-da-sociologia`, humanas): 0 questões oficiais classificadas

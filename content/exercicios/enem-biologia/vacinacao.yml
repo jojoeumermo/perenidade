@@ -1,0 +1,241 @@
+# Exercícios da aula "Vacinação e imunidade" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-vacinacao-01
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  dificuldade: 1
+  enunciado: "Que tipo de célula produz os anticorpos?"
+  alternativas:
+    - texto: "As hemácias."
+      erro: "As hemácias levam oxigênio. Os anticorpos vêm de um tipo de glóbulo branco."
+    - texto: "As plaquetas."
+      erro: "As plaquetas ajudam na coagulação. Não produzem anticorpos."
+    - texto: "Os neurônios."
+      erro: "Neurônios levam recados elétricos. Não fazem parte da defesa específica."
+    - texto: "Os linfócitos B."
+      certa: true
+    - texto: "As células da pele."
+      erro: "A pele é uma barreira da imunidade inata, mas não produz anticorpos."
+  explicacao: "Os linfócitos B, um tipo de glóbulo branco, produzem anticorpos específicos para cada antígeno. Alguns viram células de memória."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-02
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  dificuldade: 1
+  enunciado: "O bebê que mama no peito recebe anticorpos da mãe pelo leite. Que tipo de imunidade é essa?"
+  alternativas:
+    - texto: "Passiva, porque os anticorpos vêm prontos de outra pessoa."
+      certa: true
+    - texto: "Ativa, porque o bebê produziu os anticorpos."
+      erro: "Os anticorpos vieram prontos, da mãe. O corpo do bebê não os produziu."
+    - texto: "Inata, porque todo bebê já nasce com eles."
+      erro: "Anticorpos do leite chegam depois do nascimento, e são específicos. Não fazem parte da imunidade inata."
+    - texto: "Vacinal, porque o leite é uma vacina."
+      erro: "Vacina estimula o corpo a produzir defesa. O leite entrega anticorpos prontos."
+    - texto: "Nenhuma, porque anticorpos do leite são destruídos na boca."
+      erro: "Os anticorpos do leite protegem o bebê, sobretudo no intestino. É uma das razões para incentivar a amamentação."
+  explicacao: "Imunidade passiva é a que vem com anticorpos prontos, de outro organismo: pela placenta, pelo leite ou pelo soro. Protege logo, mas não cria memória."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-03
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  dificuldade: 1
+  enunciado: "Por que a vacina protege contra uma doença?"
+  alternativas:
+    - texto: "Porque mata o micróbio que já está no corpo, como um antibiótico."
+      erro: "A vacina não é remédio para infecção já instalada. Ela prepara o corpo antes."
+    - texto: "Porque traz anticorpos prontos que duram a vida inteira."
+      erro: "Anticorpos prontos são o soro, que dura pouco. A vacina faz o corpo produzir os próprios."
+    - texto: "Porque apresenta o antígeno sem a doença, e o corpo forma memória para responder rápido depois."
+      certa: true
+    - texto: "Porque aumenta a temperatura do corpo para sempre."
+      erro: "A febre depois da vacina, quando acontece, é passageira. A proteção vem da memória do sistema imune."
+    - texto: "Porque muda o DNA da pessoa."
+      erro: "Nenhuma vacina do calendário muda o DNA. Elas ensinam o sistema imune."
+  explicacao: "A vacina apresenta ao corpo o antígeno do micróbio sem causar a doença. O corpo faz a resposta primária e guarda células de memória. No encontro real, a resposta secundária vem rápida e forte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-04
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um gráfico mostra a quantidade de anticorpos no sangue de uma pessoa ao longo de vários meses. Depois da primeira
+    dose de uma vacina, a curva sobe devagar e chega a um pico baixo. Meses depois, na segunda dose, a curva sobe muito
+    mais depressa e chega a um pico várias vezes mais alto.
+  enunciado: "A diferença entre as duas curvas se explica"
+  alternativas:
+    - texto: "pela maior quantidade de vírus vivo na segunda dose."
+      erro: "As doses costumam ser iguais. A diferença está na resposta do corpo, que já conhece o antígeno."
+    - texto: "pelo enfraquecimento do sistema imune com o tempo."
+      erro: "Se o sistema enfraquecesse, a segunda resposta seria menor. Ela foi maior."
+    - texto: "pela febre causada pela primeira dose."
+      erro: "A febre é passageira e não explica uma resposta mais forte meses depois."
+    - texto: "pelo leite materno, que reforça a segunda dose."
+      erro: "O texto fala de uma pessoa vacinada, sem relação com amamentação. A resposta forte vem da memória."
+    - texto: "pelas células de memória formadas na primeira dose, que produzem a resposta secundária."
+      certa: true
+  explicacao: "Na primeira dose, o corpo faz a resposta primária e forma células de memória. Na segunda, essas células reconhecem logo o antígeno e disparam uma resposta mais rápida e mais forte. É o motivo dos reforços no calendário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-05
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre uma vacina atenuada e uma inativada?"
+  alternativas:
+    - texto: "A atenuada não tem antígeno; a inativada tem."
+      erro: "As duas apresentam o antígeno do micróbio. A diferença é se o micróbio está vivo ou morto."
+    - texto: "A atenuada usa o micróbio vivo e enfraquecido; a inativada usa o micróbio morto."
+      certa: true
+    - texto: "A atenuada é soro; a inativada é vacina."
+      erro: "As duas são vacinas: estimulam o corpo a produzir defesa. Soro traz anticorpos prontos."
+    - texto: "A atenuada é para bactérias; a inativada é para vírus."
+      erro: "Há vacinas atenuadas e inativadas contra vírus e contra bactérias."
+    - texto: "Não há diferença, são nomes para a mesma coisa."
+      erro: "São tipos diferentes, com vantagens e cuidados diferentes."
+  explicacao: "A atenuada leva o micróbio vivo, mas enfraquecido, e costuma dar proteção longa; segundo a OpenStax, pode trazer risco para quem tem a imunidade muito baixa. A inativada leva o micróbio morto: é mais estável, mas costuma pedir mais doses e reforços."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-06
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  dificuldade: 2
+  enunciado: "Um anticorpo contra o vírus do sarampo não protege contra o vírus da gripe. Isso mostra que os anticorpos são"
+  alternativas:
+    - texto: "específicos: cada um se encaixa num antígeno determinado."
+      certa: true
+    - texto: "fracos: protegem pouco contra qualquer vírus."
+      erro: "Anticorpos podem proteger muito bem. O ponto é que cada um reconhece um alvo."
+    - texto: "inatos: todo mundo nasce com eles."
+      erro: "Os anticorpos contra um vírus aparecem depois do contato com ele ou com a vacina. São da imunidade adaptativa."
+    - texto: "antibióticos naturais."
+      erro: "Antibióticos agem em bactérias. Anticorpos se encaixam em antígenos, de vírus ou de bactérias."
+    - texto: "iguais em todas as pessoas, por isso só precisam de uma vacina."
+      erro: "O que o exemplo mostra é que cada doença precisa da sua própria resposta, por isso há várias vacinas."
+  explicacao: "O anticorpo se encaixa num antígeno como uma chave na fechadura. Um antígeno diferente não serve. Por isso o calendário tem uma vacina para cada doença ou grupo de doenças."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-07
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-vacinacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa escola, a maioria das crianças tem as vacinas em dia. Uma aluna faz tratamento contra um câncer e, por
+    orientação médica, não pode tomar algumas vacinas por enquanto. A equipe de saúde explica à família que a aluna está
+    mais protegida por estudar numa turma bem vacinada.
+  enunciado: "A explicação da equipe se baseia na ideia de"
+  alternativas:
+    - texto: "imunidade passiva, porque os colegas passam anticorpos à aluna."
+      erro: "Anticorpos não passam de colega para colega. A proteção vem de outro jeito."
+    - texto: "resposta secundária, porque a aluna já teve todas as doenças."
+      erro: "O texto não diz isso. A ideia é que o micróbio não chega até ela."
+    - texto: "imunidade coletiva: com poucos suscetíveis, a doença não consegue circular e não chega à aluna."
+      certa: true
+    - texto: "imunidade inata, que fica mais forte quando há muita gente junta."
+      erro: "A imunidade inata não muda com o número de colegas. A proteção vem da vacinação dos outros."
+    - texto: "transmissão vertical, da mãe para a filha."
+      erro: "Transmissão vertical é de mãe para bebê na gestação ou no parto. Não explica a proteção na escola."
+  explicacao: "Quando quase todos estão vacinados, o micróbio não acha caminho para circular. Isso protege quem não pode se vacinar, como a aluna em tratamento. O Ministério da Saúde lembra que a vacinação protege também quem não pode se vacinar por orientação médica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-08
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma vacina contém uma molécula de RNA mensageiro envolvida numa pequena capa de gordura. O RNA traz a receita de
+    uma proteína da superfície de um vírus. Depois da injeção, a capa ajuda o RNA a entrar em algumas células do braço.
+  enunciado: "A sequência de acontecimentos que leva à proteção é"
+  alternativas:
+    - texto: "o RNA entra no núcleo, muda o DNA, e as células passam a produzir anticorpos para sempre."
+      erro: "O RNA mensageiro da vacina fica no citoplasma e não muda o DNA. Quem produz anticorpos são os linfócitos B."
+    - texto: "o RNA vira um vírus inteiro, que causa uma infecção leve."
+      erro: "Só há a receita de uma proteína, não do vírus inteiro. Não há infecção."
+    - texto: "o RNA é um anticorpo pronto, que se liga ao vírus."
+      erro: "RNA não é anticorpo. Ele é uma receita, lida pelos ribossomos."
+    - texto: "ribossomos das células leem o RNA e fabricam a proteína do vírus; o sistema imune reconhece a proteína como antígeno e forma anticorpos e memória."
+      certa: true
+    - texto: "a capa de gordura vira glicose e dá energia ao sistema imune."
+      erro: "A capa só protege o RNA e ajuda a entrada na célula. Não é o que gera a proteção."
+  explicacao: "No citoplasma, os ribossomos leem o RNA mensageiro e fabricam a proteína do vírus. Essa proteína funciona como antígeno: linfócitos a reconhecem, produzem anticorpos e formam memória. O RNA é desfeito depois e nunca entra no núcleo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-09
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-vacinacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num município, a proporção de crianças vacinadas contra uma doença contagiosa caiu ano após ano. Por muito tempo,
+    nenhum caso apareceu. Então uma pessoa infectada chegou de fora, e em poucas semanas surgiram vários casos,
+    sobretudo em bebês pequenos e em crianças não vacinadas.
+  enunciado: "O que o caso mostra sobre a vacinação?"
+  alternativas:
+    - texto: "Que a vacina perdeu o efeito com os anos."
+      erro: "Os casos aparecem sobretudo em quem não estava vacinado. O problema é a cobertura, não a vacina."
+    - texto: "Que a doença só existe em outras cidades."
+      erro: "A doença chegou de fora e se espalhou ali porque encontrou muitos suscetíveis."
+    - texto: "Que bebês não precisam de vacina, porque têm imunidade inata."
+      erro: "Os bebês foram os mais atingidos. Eles dependem da vacina e da proteção coletiva."
+    - texto: "Que não ter casos por muitos anos prova que a vacina é desnecessária."
+      erro: "A ausência de casos era efeito da vacinação. Com a cobertura baixa, a doença voltou."
+    - texto: "Que, com a cobertura baixa, perdeu-se a proteção coletiva, e a doença circulou entre os suscetíveis."
+      certa: true
+  explicacao: "Enquanto a cobertura era alta, o micróbio não tinha caminho para circular. Com a queda, juntou-se um grupo grande de suscetíveis. Bastou um caso de fora para a doença se espalhar, atingindo primeiro quem não pode ou ainda não foi vacinado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-vacinacao-10
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-vacinacao
+  dificuldade: 3
+  enunciado: "Segundo a Lei nº 6.259/1975, a quem cabe elaborar o Programa Nacional de Imunizações, que define as vacinações, inclusive as obrigatórias?"
+  alternativas:
+    - texto: "Às escolas de cada cidade."
+      erro: "As escolas podem ajudar nas campanhas, mas a lei dá essa tarefa a um órgão federal."
+    - texto: "Ao Ministério da Saúde."
+      certa: true
+    - texto: "Aos laboratórios privados."
+      erro: "Laboratórios podem produzir vacinas, mas não definem o programa nacional."
+    - texto: "A cada família, que decide o próprio calendário."
+      erro: "A família leva a criança ao posto, mas o calendário é nacional, definido pelo programa."
+    - texto: "Ao Inep."
+      erro: "O Inep cuida de avaliações da educação. Não tem relação com vacinas."
+  explicacao: "O artigo 3º da Lei nº 6.259/1975 diz que cabe ao Ministério da Saúde a elaboração do Programa Nacional de Imunizações, que definirá as vacinações, inclusive as de caráter obrigatório. O PNI tem como objetivo o acesso universal, gratuito e igualitário às vacinas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

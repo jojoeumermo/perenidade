@@ -1,0 +1,241 @@
+# Exercícios da aula "Lixo e reciclagem" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Massas de lata e volumes de biogás são valores de exemplo.
+
+- id: enem-qui-lixo-e-reciclagem-01
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  dificuldade: 1
+  enunciado: "O que diferencia um aterro sanitário de um lixão?"
+  alternativas:
+    - texto: "No aterro, o solo é impermeabilizado, o chorume é tratado e os gases são captados."
+      certa: true
+    - texto: "No aterro, o lixo é queimado a céu aberto."
+      erro: "Queimar lixo a céu aberto é justamente o que não se faz num aterro sanitário."
+    - texto: "O lixão fica mais longe da cidade."
+      erro: "A distância não é o que define. O que importa são os cuidados com solo, chorume e gases."
+    - texto: "No lixão, todo o lixo é reciclado."
+      erro: "No lixão nada é tratado. O material só é jogado no chão."
+    - texto: "Não há diferença: são dois nomes para a mesma coisa."
+      erro: "São muito diferentes. A Lei nº 12.305 proíbe o lançamento de lixo a céu aberto."
+  explicacao: "O aterro sanitário protege o solo com mantas, cobre o lixo, coleta e trata o chorume e capta o biogás. O lixão não faz nada disso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-02
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  dificuldade: 1
+  enunciado: "Cascas de frutas, restos de verduras e borra de café de uma cozinha comunitária podem virar adubo por meio da"
+  alternativas:
+    - texto: "incineração"
+      erro: "Queimar transforma os restos em cinzas e gases, não em adubo rico em matéria orgânica."
+    - texto: "reciclagem de plástico"
+      erro: "Restos de comida não são plástico."
+    - texto: "logística reversa"
+      erro: "Logística reversa é a volta de produtos como pilhas e pneus ao fabricante."
+    - texto: "compostagem"
+      certa: true
+    - texto: "eletrólise"
+      erro: "Eletrólise é uma reação forçada por corrente elétrica. Não transforma restos em adubo."
+  explicacao: "Na compostagem, micro-organismos com ar decompõem os restos orgânicos e formam um composto que aduba a terra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-03
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  dificuldade: 1
+  enunciado: "O chorume, que escorre dos lixões, é perigoso porque"
+  alternativas:
+    - texto: "é um gás que explode"
+      erro: "O gás inflamável é o biogás. O chorume é líquido."
+    - texto: "é um líquido com matéria orgânica e metais que contamina solo e água"
+      certa: true
+    - texto: "é água limpa da chuva"
+      erro: "A água da chuva passa pelo lixo e sai carregada de poluentes. Já não é limpa."
+    - texto: "vira plástico no solo"
+      erro: "O chorume não forma plástico. Ele infiltra no solo e chega à água."
+    - texto: "é radioativo"
+      erro: "O chorume comum não é radioativo. O perigo é a carga de matéria orgânica e metais."
+  explicacao: "O chorume vem da decomposição do lixo misturada à chuva. Sem coleta e tratamento, contamina o lençol freático e os rios."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-04
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 27
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  dificuldade: 2
+  enunciado: "Segundo a Política Nacional de Resíduos Sólidos, a ordem de prioridade começa por"
+  alternativas:
+    - texto: "reciclar e depois reduzir"
+      erro: "Reciclar vem depois de não gerar, reduzir e reutilizar."
+    - texto: "tratar e depois dispor"
+      erro: "Tratar e dispor são os últimos passos da ordem."
+    - texto: "não gerar e reduzir"
+      certa: true
+    - texto: "reutilizar e queimar"
+      erro: "A queima é tratamento, perto do fim. E a ordem começa antes da reutilização."
+    - texto: "dispor em aterro e reciclar"
+      erro: "Dispor em aterro é o último passo, só para o que não tem mais aproveitamento."
+  explicacao: "A lei diz: não geração, redução, reutilização, reciclagem, tratamento e disposição final adequada dos rejeitos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-05
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  dificuldade: 2
+  enunciado: "O número 1 no triângulo de reciclagem de uma garrafa de refrigerante indica que ela é de"
+  alternativas:
+    - texto: "PVC"
+      erro: "O PVC é o número 3."
+    - texto: "polipropileno"
+      erro: "O polipropileno (PP) é o número 5."
+    - texto: "vidro"
+      erro: "Vidro não usa esse código de plásticos."
+    - texto: "alumínio"
+      erro: "O triângulo numerado é dos plásticos. Alumínio tem outro símbolo."
+    - texto: "PET"
+      certa: true
+  explicacao: "Código 1: PET, o poli(tereftalato de etileno) das garrafas. Os outros: 2 PEAD, 3 PVC, 4 PEBD, 5 PP, 6 PS, 7 outros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-06
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa cooperativa de reciclagem, os catadores separam plásticos que vão para a extrusora, onde são derretidos e
+    viram grãos para novos produtos. Cabos de panela e algumas peças de tomada são deixados de lado: aquecidos, eles
+    não amolecem, só queimam.
+  enunciado: "Os cabos de panela e as peças de tomada são deixados de lado porque são feitos de plásticos"
+  alternativas:
+    - texto: "termoplásticos, que derretem fácil demais."
+      erro: "Termoplástico amolece e é justamente o que a extrusora aceita."
+    - texto: "biodegradáveis, que se desfazem na extrusora."
+      erro: "O texto diz que eles não amolecem. Não é questão de biodegradação."
+    - texto: "termofixos, que endurecem de vez e não podem ser fundidos de novo."
+      certa: true
+    - texto: "metálicos, que conduzem calor."
+      erro: "Cabos de panela de plástico são isolantes justamente por não serem metal."
+    - texto: "de PET, que só serve para garrafas."
+      erro: "O PET é termoplástico e se recicla por fusão. O problema aqui é outro tipo de plástico."
+  explicacao: "Termofixos formam ligações entre as cadeias quando moldados e não amolecem mais com o calor. Por isso servem para peças que esquentam, mas não se reciclam por fusão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-07
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  dificuldade: 2
+  enunciado: "Num modelo de aterro, cada tonelada de lixo orgânico produz 50 m³ de biogás. Quanto biogás produzem 2.000 toneladas?"
+  alternativas:
+    - texto: "100.000 m³"
+      certa: true
+    - texto: "40 m³"
+      erro: "Você dividiu 2.000 por 50. Cada tonelada produz 50 m³: multiplique."
+    - texto: "2.050 m³"
+      erro: "Você somou. A produção é proporcional à quantidade de lixo: 2.000 × 50."
+    - texto: "10.000 m³"
+      erro: "Faltou um zero. 2.000 × 50 = 100.000."
+    - texto: "1.000.000 m³"
+      erro: "Sobrou um zero. 2.000 × 50 = 100.000."
+  explicacao: "2.000 t × 50 m³/t = 100.000 m³ de biogás. Captado, o metano dele pode gerar energia."
+  conferir: "2000 * 50"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-08
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 27
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um morador juntou numa caixa pilhas gastas, uma bateria de celular estufada e lâmpadas fluorescentes queimadas.
+    Ele quer saber onde descartar tudo sem prejudicar o ambiente.
+  enunciado: "De acordo com a Lei nº 12.305, de 2010, a orientação adequada é"
+  alternativas:
+    - texto: "jogar no lixo comum, porque o aterro trata tudo."
+      erro: "Pilhas, baterias e lâmpadas com mercúrio têm substâncias perigosas. Têm destino próprio."
+    - texto: "enterrar no quintal, longe da casa."
+      erro: "Os metais vazam e contaminam o solo e a água do lençol."
+    - texto: "queimar para eliminar os metais."
+      erro: "Metais não somem com fogo; vão para o ar e para as cinzas. E a queima solta gases tóxicos."
+    - texto: "jogar no rio, que dilui os metais."
+      erro: "Diluir não elimina. Metais pesados se acumulam nos seres vivos do rio."
+    - texto: "levar a pontos de coleta do comércio ou do fabricante, pela logística reversa."
+      certa: true
+  explicacao: "A lei obriga fabricantes, importadores, distribuidores e comerciantes de pilhas, baterias e lâmpadas fluorescentes a receber esses produtos de volta e dar a eles destino adequado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-09
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma associação de catadores recebe por quilo de alumínio. Num dia, uma catadora vendeu 4,5 kg de latas. Considere
+    que cada lata vazia tem cerca de 15 g.
+  enunciado: "O número aproximado de latas que ela recolheu foi"
+  alternativas:
+    - texto: "30"
+      erro: "Você dividiu 4,5 kg por 15 sem converter para gramas. 4,5 kg = 4.500 g."
+    - texto: "300"
+      certa: true
+    - texto: "67"
+      erro: "Você dividiu 1.000 por 15. Use a massa total: 4.500 ÷ 15."
+    - texto: "3.000"
+      erro: "Sobrou um zero. 4.500 ÷ 15 = 300."
+    - texto: "67.500"
+      erro: "Você multiplicou 4.500 por 15. Para saber quantas latas cabem, divida."
+  explicacao: "4,5 kg = 4.500 g. 4.500 ÷ 15 = 300 latas."
+  conferir: "4500 / 15"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-lixo-e-reciclagem-10
+  tema: "Lixo e reciclagem"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-lixo-e-reciclagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num bairro, moradores costumam queimar o lixo no quintal, inclusive restos de canos e fios encapados de PVC, o
+    poli(cloreto de vinila). Agentes de saúde fizeram uma campanha contra a prática.
+  enunciado: "Do ponto de vista químico, a queima do PVC é especialmente perigosa porque"
+  alternativas:
+    - texto: "o PVC não pega fogo, e o calor se acumula no quintal."
+      erro: "O PVC queima, sim, especialmente junto com outros materiais."
+    - texto: "o PVC vira água limpa ao queimar."
+      erro: "Água se forma, mas junto com gases tóxicos. Não é uma queima limpa."
+    - texto: "o PVC libera só oxigênio."
+      erro: "Queima consome oxigênio. Não o libera."
+    - texto: "por ter cloro, a queima forma ácido clorídrico e pode formar dioxinas, substâncias muito tóxicas."
+      certa: true
+    - texto: "o PVC é radioativo."
+      erro: "O PVC não é radioativo. O perigo está no cloro da molécula."
+  explicacao: "O cloro do PVC sai na queima como cloreto de hidrogênio, que forma ácido clorídrico com a umidade. Em queimas mal controladas, formam-se também dioxinas, tóxicas mesmo em quantidades muito pequenas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,241 @@
+# Exercícios da aula "Química do cotidiano: sabões, alimentos, medicamentos, cosméticos" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Doses e concentrações de remédio são valores de exemplo, não receita.
+
+- id: enem-qui-cotidiano-01
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-sociedade-cotidiano
+  dificuldade: 1
+  enunciado: "Para fazer sabão caseiro, ferve-se óleo de cozinha usado com soda cáustica (NaOH). Além do sabão, essa reação produz"
+  alternativas:
+    - texto: "gás carbônico"
+      erro: "A saponificação não solta gás. O outro produto fica dissolvido na mistura."
+    - texto: "sal de cozinha"
+      erro: "O sabão já é um sal (de ácido graxo), mas não é o NaCl. O outro produto é um álcool."
+    - texto: "glicerol, a glicerina"
+      certa: true
+    - texto: "ácido clorídrico"
+      erro: "Não há cloro nos reagentes. O que sai da gordura, além do sabão, é o glicerol."
+    - texto: "petróleo"
+      erro: "Petróleo não se forma numa panela. A gordura se quebra em sabão e glicerol."
+  explicacao: "Gordura (éster de glicerol) + base forte → sabão (sal de ácido graxo) + glicerol."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-02
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-sociedade-cotidiano
+  dificuldade: 1
+  enunciado: "Na molécula de sabão, a parte que se mistura com a gordura é"
+  alternativas:
+    - texto: "o íon sódio"
+      erro: "O sódio fica perto da cabeça, do lado da água. Ele não prende a gordura."
+    - texto: "a cabeça iônica"
+      erro: "A cabeça iônica é polar e fica voltada para a água."
+    - texto: "a água presa na molécula"
+      erro: "O sabão não carrega água presa. Ele tem uma parte polar e outra apolar."
+    - texto: "o oxigênio da cabeça"
+      erro: "O oxigênio faz parte do carboxilato, a cabeça polar. A gordura fica com a outra ponta."
+    - texto: "a cauda longa de carbonos, que é apolar"
+      certa: true
+  explicacao: "Semelhante dissolve semelhante: a cauda apolar se mistura com a gordura apolar; a cabeça iônica, polar, fica na água."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-03
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-sociedade-cotidiano
+  dificuldade: 1
+  enunciado: "A carne de sol dura vários dias fora da geladeira porque o sal"
+  alternativas:
+    - texto: "esquenta a carne e mata os micróbios"
+      erro: "O sal não esquenta nada. Ele age puxando água."
+    - texto: "puxa a água das células dos micróbios por osmose, e eles não se multiplicam"
+      certa: true
+    - texto: "deixa a carne ácida"
+      erro: "O sal de cozinha não é ácido. Quem acidifica é o vinagre ou o limão."
+    - texto: "forma uma capa de plástico na carne"
+      erro: "Não se forma plástico. O efeito é a desidratação dos micróbios."
+    - texto: "reage com a carne e forma um conservante novo"
+      erro: "O sal não precisa reagir. Basta a grande concentração dele do lado de fora das células."
+  explicacao: "Muito sal do lado de fora faz a água sair das células dos micróbios (osmose). Desidratados, eles não se multiplicam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-04
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 27
+  objeto: nat-qui-sociedade-cotidiano
+  dificuldade: 2
+  enunciado: "Um detergente com cauda muito ramificada causava montanhas de espuma nos rios. Qual mudança na molécula resolve o problema?"
+  alternativas:
+    - texto: "Tirar a cabeça iônica."
+      erro: "Sem a cabeça iônica, o detergente não se mistura com a água e deixa de limpar."
+    - texto: "Deixar a cauda mais ramificada."
+      erro: "As ramificações são justamente o que os micro-organismos não conseguem quebrar."
+    - texto: "Encurtar a cauda para dois carbonos."
+      erro: "Com cauda tão curta, a molécula não prende a gordura. Ela deixa de funcionar como detergente."
+    - texto: "Trocar a cauda ramificada por uma cadeia linear."
+      certa: true
+    - texto: "Pôr mais sódio na molécula."
+      erro: "O sódio não decide a biodegradação. O problema está na forma da cauda."
+  explicacao: "Micro-organismos degradam cadeias lineares com facilidade, mas não as muito ramificadas. A cadeia linear continua limpando e passa a ser biodegradável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-05
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 7
+  objeto: nat-qui-sociedade-cotidiano
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma lavadeira que se mudou para uma região de águas calcárias reclamou que o sabão em barra de sempre "não rende":
+    gasta muito mais sabão para fazer espuma, e a roupa fica com manchas esbranquiçadas.
+  enunciado: "O problema acontece porque"
+  alternativas:
+    - texto: "os íons cálcio e magnésio da água formam sais insolúveis com o sabão."
+      certa: true
+    - texto: "a água calcária é ácida e destrói o sabão."
+      erro: "Água calcária costuma ser neutra ou levemente básica. O que atrapalha são os íons cálcio e magnésio."
+    - texto: "a água calcária é fria demais para o sabão."
+      erro: "A temperatura não explica as manchas brancas. Elas são o sal de cálcio formado com o sabão."
+    - texto: "o sabão vira gordura em contato com o cálcio."
+      erro: "O sabão não volta a ser gordura. Ele forma um sal insolúvel com o cálcio."
+    - texto: "a água calcária tem pouco sódio."
+      erro: "Faltar sódio não impede a espuma. O que impede é o excesso de cálcio e magnésio."
+  explicacao: "Ca²⁺ e Mg²⁺ se juntam à cabeça do sabão e formam um sal que não se dissolve. Parte do sabão vira borra, e a borra mancha a roupa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-06
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-sociedade-cotidiano
+  dificuldade: 2
+  enunciado: "A água oxigenada (H₂O₂) é usada para limpar ferimentos e desinfetar superfícies. Ela mata micro-organismos porque"
+  alternativas:
+    - texto: "é uma base forte."
+      erro: "O H₂O₂ não é uma base forte. Ele age tirando elétrons de outras moléculas."
+    - texto: "é muito fria."
+      erro: "A temperatura não é o que mata os micróbios. É uma reação química."
+    - texto: "tem açúcar, que desidrata os micróbios."
+      erro: "Não há açúcar na água oxigenada. O efeito é de oxidação."
+    - texto: "forma uma camada de plástico sobre o ferimento."
+      erro: "A espuma que aparece é de oxigênio, liberado quando o H₂O₂ se decompõe. Não é plástico."
+    - texto: "é um oxidante, que destrói moléculas dos micro-organismos."
+      certa: true
+  explicacao: "O peróxido de hidrogênio é um oxidante: tira elétrons das moléculas das células dos micróbios. Pelo mesmo motivo, irrita a pele em concentrações altas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-07
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-sociedade-cotidiano
+  dificuldade: 2
+  enunciado: "Uma receita indica 20 mg do remédio por quilograma de peso, por dia, dividido em 3 doses iguais. Para uma criança de 15 kg, cada dose tem"
+  alternativas:
+    - texto: "300 mg"
+      erro: "300 mg é a dose do dia inteiro (20 × 15). Ela é dividida em 3 doses."
+    - texto: "60 mg"
+      erro: "Você multiplicou 20 por 3. A conta é 20 × 15 (dose do dia) e depois ÷ 3."
+    - texto: "100 mg"
+      certa: true
+    - texto: "900 mg"
+      erro: "Você multiplicou por 3 em vez de dividir. A dose do dia se reparte em 3 vezes."
+    - texto: "35 mg"
+      erro: "Você somou 20 + 15. A dose depende do peso por multiplicação."
+  explicacao: "Dose do dia: 20 mg × 15 kg = 300 mg. Dividida em 3: 300 ÷ 3 = 100 mg por dose."
+  conferir: "20 * 15 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-08
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 7
+  objeto: nat-qui-sociedade-cotidiano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cozinha comunitária guardava óleo de soja em garrafas transparentes, perto da janela. Em poucas semanas, o
+    óleo ficou com cheiro e gosto ruins. O óleo de soja tem muitas gorduras insaturadas, isto é, com ligações duplas
+    entre carbonos.
+  enunciado: "A medida que mais ajuda a evitar o problema é"
+  alternativas:
+    - texto: "guardar o óleo em recipiente fechado, escuro e longe do calor, para retardar a oxidação das gorduras."
+      certa: true
+    - texto: "pôr sal no óleo, para desidratar os micróbios."
+      erro: "O cheiro ruim do óleo vem da oxidação pelo ar, não de micróbios. O sal não resolve."
+    - texto: "deixar a garrafa aberta, para o óleo respirar."
+      erro: "Ar aberto traz mais oxigênio, e é o oxigênio que oxida a gordura."
+    - texto: "guardar perto do fogão, para o óleo ficar líquido."
+      erro: "O calor acelera a oxidação. O óleo estragaria mais depressa."
+    - texto: "misturar água ao óleo, para diluir o cheiro."
+      erro: "Água e óleo não se misturam. E o cheiro vem de substâncias formadas na oxidação."
+  explicacao: "A rancidez é a oxidação das gorduras insaturadas pelo oxigênio, acelerada por luz e calor. Recipiente fechado, escuro e fresco retarda a reação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-09
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-sociedade-cotidiano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na farmácia do posto de saúde, um xarope traz no rótulo: "cada 5 mL contém 250 mg do princípio ativo". A receita
+    de um paciente pede 150 mg por dose.
+  enunciado: "O volume de xarope em cada dose é de"
+  alternativas:
+    - texto: "8,3 mL"
+      erro: "Você inverteu a proporção (250 × 5 ÷ 150). Menos princípio ativo pede menos xarope, não mais."
+    - texto: "3 mL"
+      certa: true
+    - texto: "30 mL"
+      erro: "A vírgula andou uma casa. 150 × 5 ÷ 250 = 3."
+    - texto: "5 mL"
+      erro: "5 mL têm 250 mg, mais do que a receita pede."
+    - texto: "1,5 mL"
+      erro: "1,5 mL teria só 75 mg, a metade da dose."
+  explicacao: "Regra de três: 250 mg estão em 5 mL; 150 mg estão em x. x = 150 × 5 ÷ 250 = 3 mL."
+  conferir: "150 * 5 / 250"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cotidiano-10
+  tema: "Química do cotidiano"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-sociedade-cotidiano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Ao lavar uma panela engordurada, uma estudante observou que, com detergente, o óleo saiu em gotinhas que ficaram
+    espalhadas na água, em vez de formar uma camada por cima, como acontece só com água.
+  enunciado: "O que explica esse comportamento?"
+  alternativas:
+    - texto: "O detergente transforma o óleo em água."
+      erro: "O óleo não muda de substância. Ele só é cercado e carregado pela água."
+    - texto: "O detergente deixa a água apolar."
+      erro: "A água continua polar. O detergente faz a ponte entre ela e o óleo."
+    - texto: "O óleo fica mais denso que a água e afunda."
+      erro: "As gotinhas ficam espalhadas, não no fundo. O que mudou foi a superfície delas."
+    - texto: "Moléculas do detergente cercam as gotas de óleo com a cauda apolar para dentro e a cabeça polar para fora, formando micelas."
+      certa: true
+    - texto: "O detergente queima o óleo."
+      erro: "Não há combustão na pia. O efeito é físico-químico: formação de micelas."
+  explicacao: "A cauda apolar entra na gota de óleo e a cabeça polar fica na água. A gota coberta de cabeças polares se espalha na água e sai no enxágue."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

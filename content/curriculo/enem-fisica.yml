@@ -25,3 +25,125 @@ aulas:
         situacao: a-confirmar
     objetos:
       - nat-fis-movimento-leis-de-newton
+  queda-e-lancamentos:
+    enem:
+      - area: natureza
+        competencia: 6
+        habilidade: 20
+        resumo: Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-movimento-queda-e-lancamentos
+  potencia-e-rendimento:
+    enem:
+      - area: natureza
+        competencia: 6
+        habilidade: 23
+        resumo: Avaliar formas de gerar, usar ou transformar energia, com suas implicações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 20
+        resumo: Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-energia-potencia-e-rendimento
+  trocas-de-calor:
+    enem:
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 23
+        resumo: Avaliar formas de gerar, usar ou transformar energia, com suas implicações.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-calor-trocas-de-calor
+  ondas-e-som:
+    enem:
+      - area: natureza
+        competencia: 1
+        habilidade: 1
+        resumo: Reconhecer propriedades de ondas e oscilações e seus usos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 1
+        habilidade: 2
+        resumo: Ligar soluções de problemas (comunicação, transporte, saúde) ao avanço científico e tecnológico.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-ondas-ondas-e-som
+  espectro:
+    enem:
+      - area: natureza
+        competencia: 1
+        habilidade: 1
+        resumo: Reconhecer propriedades de ondas e oscilações e seus usos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 22
+        resumo: Entender a interação entre radiação e matéria e suas consequências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 1
+        habilidade: 2
+        resumo: Ligar soluções de problemas (comunicação, transporte, saúde) ao avanço científico e tecnológico.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-ondas-espectro
+  lei-de-ohm:
+    enem:
+      - area: natureza
+        competencia: 2
+        habilidade: 5
+        resumo: Dimensionar circuitos e aparelhos elétricos do dia a dia.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 2
+        habilidade: 6
+        resumo: Entender manuais de instalação ou de uso de aparelhos e sistemas técnicos comuns.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-eletricidade-lei-de-ohm
+  circuitos:
+    enem:
+      - area: natureza
+        competencia: 2
+        habilidade: 5
+        resumo: Dimensionar circuitos e aparelhos elétricos do dia a dia.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 2
+        habilidade: 6
+        resumo: Entender manuais de instalação ou de uso de aparelhos e sistemas técnicos comuns.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-eletricidade-circuitos
+  magnetismo:
+    enem:
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 23
+        resumo: Avaliar formas de gerar, usar ou transformar energia, com suas implicações.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-eletricidade-magnetismo

@@ -1,0 +1,246 @@
+# Exercícios da aula "Mol, massa molar e constante de Avogadro" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Massas arredondadas: H 1, C 12, N 14, O 16, Na 23, S 32, Cl 35,5, Fe 56, Cu 64.
+
+- id: enem-qui-mol-01
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-representacao-mol
+  dificuldade: 1
+  enunciado: "Qual é a massa molar da água, H₂O? (H = 1; O = 16)"
+  alternativas:
+    - texto: "17 g/mol"
+      erro: "Você contou um hidrogênio só. O índice 2 indica dois: 2 × 1 + 16."
+    - texto: "34 g/mol"
+      erro: "Você multiplicou o oxigênio por 2. O índice 2 vale só para o hidrogênio."
+    - texto: "16 g/mol"
+      erro: "Faltaram os hidrogênios. Some todos os átomos da fórmula."
+    - texto: "18 g/mol"
+      certa: true
+    - texto: "32 g/mol"
+      erro: "Você multiplicou 16 por 2. A conta é 2 × 1 (hidrogênios) + 16 (oxigênio)."
+  explicacao: "M = 2 × 1 + 16 = 18 g/mol."
+  conferir: "2 * 1 + 16"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-02
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-mol
+  dificuldade: 1
+  enunciado: "Um copo pequeno tem 36 g de água (18 g/mol). Quantos mols de água há no copo?"
+  alternativas:
+    - texto: "2 mol"
+      certa: true
+    - texto: "0,5 mol"
+      erro: "Você dividiu a massa molar pela massa (18 ÷ 36). A conta é massa ÷ massa molar."
+    - texto: "648 mol"
+      erro: "Você multiplicou 36 por 18. Para achar mols, divida."
+    - texto: "18 mol"
+      erro: "18 é a massa molar, em g/mol. A quantidade é 36 ÷ 18."
+    - texto: "54 mol"
+      erro: "Você somou 36 + 18. Massa e massa molar se dividem."
+  explicacao: "n = m ÷ M = 36 ÷ 18 = 2 mol."
+  conferir: "36 / 18"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-03
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-representacao-mol
+  dificuldade: 1
+  enunciado: "Um mol de ferro e um mol de alumínio têm"
+  alternativas:
+    - texto: "a mesma massa."
+      erro: "Os átomos de ferro e de alumínio pesam diferente. Um mol de cada tem massas diferentes (56 g e 27 g)."
+    - texto: "o mesmo volume."
+      erro: "Volume depende da densidade de cada metal. O que é igual é outra coisa."
+    - texto: "o mesmo número de átomos, cerca de 6,02 × 10²³."
+      certa: true
+    - texto: "o mesmo número de prótons em cada átomo."
+      erro: "Cada elemento tem um número de prótons próprio. É isso que faz ferro ser ferro."
+    - texto: "a mesma cor."
+      erro: "Mol é uma quantidade de partículas. Não diz nada sobre a cor."
+  explicacao: "Mol é uma contagem, como a dúzia: um mol de qualquer coisa tem 6,02 × 10²³ partículas. As massas mudam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-04
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-mol
+  dificuldade: 2
+  enunciado: "Uma garrafa de água com gás tem 2,2 g de CO₂ dissolvido (44 g/mol). Isso corresponde a"
+  alternativas:
+    - texto: "20 mol"
+      erro: "Você dividiu 44 por 2,2. A quantidade é massa ÷ massa molar: 2,2 ÷ 44."
+    - texto: "0,05 mol"
+      certa: true
+    - texto: "0,5 mol"
+      erro: "Faltou um zero. 2,2 ÷ 44 = 0,05."
+    - texto: "96,8 mol"
+      erro: "Você multiplicou 2,2 por 44. Para ir de grama a mol, divida."
+    - texto: "2,2 mol"
+      erro: "2,2 é a massa, em gramas. Mol e grama não são a mesma coisa."
+  explicacao: "n = 2,2 ÷ 44 = 0,05 mol."
+  conferir: "2.2 / 44"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-05
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-mol
+  dificuldade: 2
+  enunciado: "Quantas moléculas há em 0,5 mol de água? (constante de Avogadro: 6,02 × 10²³ por mol)"
+  alternativas:
+    - texto: "0,5 molécula"
+      erro: "0,5 é a quantidade em mols, não o número de moléculas. Multiplique pela constante de Avogadro."
+    - texto: "6,02 × 10²³"
+      erro: "Esse é o número de moléculas de 1 mol. Com meio mol, é a metade."
+    - texto: "12,04 × 10²³"
+      erro: "Você multiplicou por 2. Meio mol é a metade, não o dobro."
+    - texto: "3,01 × 10²²"
+      erro: "A conta do número está certa, mas o expoente caiu sem motivo. 0,5 × 6,02 × 10²³ = 3,01 × 10²³."
+    - texto: "3,01 × 10²³"
+      certa: true
+  explicacao: "N = n × 6,02 × 10²³ = 0,5 × 6,02 × 10²³ = 3,01 × 10²³ moléculas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-06
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-representacao-mol
+  dificuldade: 2
+  enunciado: "Qual é a massa molar da glicose, C₆H₁₂O₆? (C = 12; H = 1; O = 16)"
+  alternativas:
+    - texto: "180 g/mol"
+      certa: true
+    - texto: "29 g/mol"
+      erro: "Você somou as massas de um átomo de cada (12 + 1 + 16). Multiplique cada uma pelo índice."
+    - texto: "24 g/mol"
+      erro: "Você somou só os índices (6 + 12 + 6). Cada índice multiplica a massa do seu átomo."
+    - texto: "168 g/mol"
+      erro: "Faltaram os 12 hidrogênios (12 × 1 = 12)."
+    - texto: "84 g/mol"
+      erro: "Faltaram os oxigênios: 6 × 16 = 96."
+  explicacao: "6 × 12 + 12 × 1 + 6 × 16 = 72 + 12 + 96 = 180 g/mol."
+  conferir: "6 * 12 + 12 * 1 + 6 * 16"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-07
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-mol
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma nutricionista de uma unidade básica de saúde explica que a pressão alta é ligada ao excesso de sódio, e não ao
+    cloro do sal. Para mostrar, ela pesou 5,85 g de sal de cozinha (NaCl, 58,5 g/mol; Na = 23 g/mol).
+  enunciado: "A massa de sódio presente nessa porção de sal é de"
+  alternativas:
+    - texto: "5,85 g"
+      erro: "Essa é a massa do sal inteiro. Parte dela é cloro."
+    - texto: "0,1 g"
+      erro: "0,1 é a quantidade em mols. Multiplique pela massa molar do sódio: 0,1 × 23."
+    - texto: "3,55 g"
+      erro: "3,55 g é o cloro (0,1 × 35,5). A pergunta é o sódio."
+    - texto: "23 g"
+      erro: "23 g é a massa de 1 mol de sódio. A porção tem só 0,1 mol de NaCl."
+    - texto: "2,3 g"
+      certa: true
+  explicacao: "5,85 ÷ 58,5 = 0,1 mol de NaCl, que tem 0,1 mol de Na. Massa: 0,1 × 23 = 2,3 g."
+  conferir: "5.85 / 58.5 * 23"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-08
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-mol
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma associação de pequenos agricultores compara adubos nitrogenados. Um deles é o nitrato de amônio, NH₄NO₃, de
+    massa molar 80 g/mol. Massa molar do nitrogênio: 14 g/mol.
+  enunciado: "A porcentagem, em massa, de nitrogênio no nitrato de amônio é de"
+  alternativas:
+    - texto: "17,5%"
+      erro: "Você contou um nitrogênio só. A fórmula NH₄NO₃ tem dois: um no amônio e outro no nitrato."
+    - texto: "14%"
+      erro: "14 é a massa de um nitrogênio. A porcentagem é a massa de N na fórmula dividida pela massa molar."
+    - texto: "28%"
+      erro: "28 g é a massa dos dois nitrogênios. Falta dividir por 80 e multiplicar por 100."
+    - texto: "35%"
+      certa: true
+    - texto: "70%"
+      erro: "Você contou quatro nitrogênios. Na fórmula há dois N."
+  explicacao: "Dois N: 2 × 14 = 28 g. % = 28 ÷ 80 × 100 = 35%."
+  conferir: "28 / 80 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-09
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-mol
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O sulfato de cobre penta-hidratado, CuSO₄·5H₂O, forma cristais azuis. Aquecido, ele perde a água presa no cristal
+    e vira um pó branco, CuSO₄. Massas molares: CuSO₄ = 160 g/mol; H₂O = 18 g/mol.
+  enunciado: "A porcentagem da massa do cristal azul que se perde no aquecimento é de"
+  alternativas:
+    - texto: "18%"
+      erro: "Você contou uma água só. O \"5H₂O\" são cinco moléculas: 5 × 18 = 90 g."
+    - texto: "56,25%"
+      erro: "Você dividiu a água pela massa do sal seco (90 ÷ 160). A base é o cristal inteiro: 250 g/mol."
+    - texto: "36%"
+      certa: true
+    - texto: "64%"
+      erro: "64% é a parte que fica (160 ÷ 250). A pergunta é a que se perde."
+    - texto: "90%"
+      erro: "90 é a massa de água em gramas por mol. Falta dividir pela massa molar do cristal."
+  explicacao: "Massa molar do cristal: 160 + 5 × 18 = 250 g/mol. Água: 90 g. % = 90 ÷ 250 × 100 = 36%."
+  conferir: "90 / 250 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-mol-10
+  tema: "Mol, massa molar e constante de Avogadro"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-mol
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma farmacêutica precisa preparar cápsulas que forneçam 28 mg de ferro cada uma, usando sulfato ferroso, FeSO₄.
+    Massas molares: Fe = 56 g/mol; FeSO₄ = 152 g/mol.
+  enunciado: "A massa de sulfato ferroso em cada cápsula deve ser de"
+  alternativas:
+    - texto: "28 mg"
+      erro: "28 mg é o ferro. O sal tem também enxofre e oxigênio: é preciso mais massa de sal."
+    - texto: "76 mg"
+      certa: true
+    - texto: "152 mg"
+      erro: "152 mg fornece 56 mg de ferro, o dobro do pedido."
+    - texto: "10,3 mg"
+      erro: "Você multiplicou 28 por 56 ÷ 152. A proporção é a inversa: sal é mais pesado que o ferro dentro dele."
+    - texto: "56 mg"
+      erro: "56 é a massa molar do ferro. A conta é 28 ÷ 56 × 152."
+  explicacao: "28 mg de Fe = 28 ÷ 56 = 0,5 mmol. Cada FeSO₄ tem 1 Fe, então 0,5 mmol de sal: 0,5 × 152 = 76 mg."
+  conferir: "28 / 56 * 152"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

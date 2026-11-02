@@ -1,0 +1,251 @@
+# Exercícios da aula "Raça, racismo e o mito da democracia racial" (trilha enem-sociologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-soc-racismo-01
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-racismo
+  dificuldade: 1
+  enunciado: "Um dono de imóvel se recusa a alugar o apartamento para uma família negra, embora ela tenha renda e fiador. Esse ato é"
+  alternativas:
+    - texto: "apenas preconceito, porque fica só no pensamento."
+      erro: "Ele agiu: negou o aluguel. Quando a ideia vira ação desigual, é discriminação."
+    - texto: "uma decisão neutra de mercado."
+      erro: "A família cumpria as condições (renda e fiador). A recusa por cor não é neutra."
+    - texto: "discriminação racial, uma ação que trata de modo desigual por causa da cor."
+      certa: true
+    - texto: "democracia racial, porque todos podem procurar outro imóvel."
+      erro: "Democracia racial é a crença de que não há racismo. O caso mostra justamente o contrário."
+    - texto: "etnocentrismo, porque compara culturas."
+      erro: "Não há comparação de culturas. Há tratamento desigual por cor."
+  explicacao: "Preconceito é a ideia prévia; discriminação é a ação desigual. Negar o aluguel por cor é discriminação racial, crime pela Lei 7.716/1989."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-02
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-racismo
+  dificuldade: 1
+  enunciado: "Pela Constituição de 1988 (art. 5º, XLII), a prática do racismo é crime"
+  alternativas:
+    - texto: "inafiançável e imprescritível, sujeito a reclusão."
+      certa: true
+    - texto: "punido apenas com advertência."
+      erro: "A Constituição prevê pena de reclusão, não só advertência."
+    - texto: "que prescreve em um ano."
+      erro: "É o contrário: o racismo é imprescritível, pode ser punido a qualquer tempo."
+    - texto: "afiançável, como a maioria dos crimes leves."
+      erro: "O texto constitucional diz \"inafiançável\": não se paga fiança para sair."
+    - texto: "que só existe se houver agressão física."
+      erro: "O racismo não depende de agressão física. Recusar emprego ou acesso por cor também é crime."
+  explicacao: "O art. 5º, XLII, diz que o racismo é crime inafiançável (sem fiança) e imprescritível (sem prazo para punir), com pena de reclusão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-03
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 3
+  objeto: hum-organizacao-social-racismo
+  dificuldade: 1
+  enunciado: "Dizer que a raça é uma \"construção social\" significa que"
+  alternativas:
+    - texto: "não existem diferenças físicas entre as pessoas."
+      erro: "As diferenças físicas existem. O que não tem base biológica é a hierarquia de raças."
+    - texto: "o racismo não tem efeitos reais."
+      erro: "Mesmo sem base biológica, as categorias raciais têm efeitos reais na vida das pessoas."
+    - texto: "cada pessoa pode mudar de raça quando quiser, sem consequências."
+      erro: "A classificação racial é social: não depende só da vontade de cada um e tem consequências."
+    - texto: "as categorias raciais foram criadas pela sociedade, sem base biológica, e mudam conforme o lugar e a época."
+      certa: true
+    - texto: "a ciência prova que há raças superiores."
+      erro: "A ciência derrubou essa ideia, que era pseudociência usada para justificar a escravidão."
+  explicacao: "A raça não é uma divisão biológica da humanidade. É uma categoria social, construída historicamente, que mesmo assim organiza desigualdades reais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-04
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-racismo
+  dificuldade: 2
+  enunciado: "Para Florestan Fernandes, a ideia de que o Brasil seria uma \"democracia racial\""
+  alternativas:
+    - texto: "descrevia com exatidão a sociedade brasileira depois de 1888."
+      erro: "Florestan mostrou o contrário: depois da abolição, a população negra foi deixada sem integração."
+    - texto: "era uma lei aprovada no Império."
+      erro: "Democracia racial não é lei. É uma imagem que o país fazia de si."
+    - texto: "era um mito que escondia a desigualdade racial deixada pela escravidão e mantida na sociedade de classes."
+      certa: true
+    - texto: "foi criada pelo movimento negro para denunciar o racismo."
+      erro: "O movimento negro, ao contrário, combateu essa ideia, por esconder o racismo."
+    - texto: "provava que a miscigenação acabou com o preconceito."
+      erro: "A mistura não acabou com a desigualdade. É isso que Florestan denuncia."
+  explicacao: "Florestan, em A integração do negro na sociedade de classes, mostra que o mito da democracia racial permite ignorar a desigualdade enorme que continuou depois da abolição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-05
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-racismo
+  dificuldade: 2
+  enunciado: "A Lei nº 10.639, de 2003, conquista ligada à luta do movimento negro,"
+  alternativas:
+    - texto: "aboliu a escravidão no Brasil."
+      erro: "A abolição foi em 1888, com a Lei Áurea. A lei de 2003 é sobre educação."
+    - texto: "tornou obrigatório o ensino de história e cultura afro-brasileira nas escolas."
+      certa: true
+    - texto: "criou as cotas raciais nas universidades federais."
+      erro: "As cotas nas universidades federais vieram de outra lei, de 2012."
+    - texto: "transformou a injúria racial em crime de racismo."
+      erro: "Isso foi feito pela Lei 14.532, de 2023."
+    - texto: "proibiu as religiões de matriz africana."
+      erro: "Nada disso. A Constituição garante a liberdade de crença."
+  explicacao: "A Lei 10.639/2003 incluiu no currículo a obrigatoriedade de história e cultura afro-brasileira e pôs o 20 de novembro no calendário escolar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-06
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 3
+  objeto: hum-organizacao-social-racismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num grupo de mensagens, alguém escreve que "a coisa está preta" para dizer que a situação está difícil, e outra
+    pessoa chama um trabalho malfeito de "serviço de preto". Um terceiro participante pede que parem com essas
+    expressões. Os outros respondem: "É só um jeito de falar, ninguém aqui é racista". (Texto original do Instituto
+    Lúcia.)
+  enunciado: "O pedido do terceiro participante se justifica porque as expressões"
+  alternativas:
+    - texto: "são gírias novas, sem relação com a história."
+      erro: "Elas ligam a cor negra a algo ruim, uma associação antiga, ligada à escravidão."
+    - texto: "ofendem apenas quem é muito sensível."
+      erro: "O problema não é a sensibilidade de alguém, e sim o que as palavras reproduzem."
+    - texto: "estão proibidas em todas as conversas privadas por lei."
+      erro: "A questão não é de proibição em conversa privada, e sim de como a linguagem reproduz o racismo."
+    - texto: "são erros de português."
+      erro: "Não há erro gramatical. O problema é o sentido racista."
+    - texto: "associam a cor negra a algo negativo e reproduzem, na linguagem, a herança racista."
+      certa: true
+  explicacao: "Associar \"preto\" a dificuldade ou a trabalho malfeito reproduz, sem que se perceba, a hierarquia racial. A resposta \"ninguém aqui é racista\" é o mecanismo do mito da democracia racial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-07
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-racismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um banco usa um programa de computador para decidir quem recebe crédito. O programa foi treinado com dados de
+    empréstimos dos últimos trinta anos. Descobriu-se que ele nega crédito com mais frequência a moradores de bairros
+    de maioria negra, mesmo quando a renda é parecida. Ninguém programou a cor da pele no sistema. (Texto original do
+    Instituto Lúcia.)
+  enunciado: "O caso exemplifica o"
+  alternativas:
+    - texto: "racismo institucional, em que práticas e sistemas produzem resultados desiguais sem uma ofensa explícita."
+      certa: true
+    - texto: "fim do racismo, porque a decisão foi tomada por uma máquina."
+      erro: "A máquina aprendeu com dados de um passado desigual. Ela reproduz o racismo, não acaba com ele."
+    - texto: "preconceito individual de um funcionário do banco."
+      erro: "Nenhum funcionário decidiu caso a caso. O resultado desigual vem do sistema."
+    - texto: "mérito dos clientes que recebem crédito."
+      erro: "Com renda parecida, a diferença que sobra é o bairro, ligado à cor. Não é mérito."
+    - texto: "relativismo cultural na análise de crédito."
+      erro: "Relativismo cultural é compreender cada cultura por ela mesma. Não tem relação com o caso."
+  explicacao: "O sistema aprende com dados de um passado desigual e repete a desigualdade. É racismo institucional (e estrutural): o resultado discrimina, mesmo sem ninguém escrever nada racista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-08
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-racismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A Lei Áurea, de 1888, declarou extinta a escravidão no Brasil. Não previu terra, escola, trabalho pago nem qualquer
+    reparação para as pessoas libertadas. Nas décadas seguintes, muitas delas foram para os morros e as periferias das
+    cidades, em trabalhos mal pagos e informais. (Texto original do Instituto Lúcia.)
+  enunciado: "A situação descrita ajuda a explicar"
+  alternativas:
+    - texto: "o fim imediato das desigualdades raciais no país."
+      erro: "Sem terra, escola e trabalho, a desigualdade continuou. O texto mostra o contrário do fim."
+    - texto: "a origem do mito da democracia racial como descrição verdadeira do Brasil."
+      erro: "O texto mostra desigualdade. A democracia racial, como descrição, é desmentida por ele."
+    - texto: "a ausência de qualquer relação entre passado e presente."
+      erro: "O texto liga 1888 às décadas seguintes. Há relação direta."
+    - texto: "a escolha individual dos libertos por morar nas periferias."
+      erro: "Sem terra e sem trabalho digno, as opções eram poucas. Não é escolha livre."
+    - texto: "a formação do racismo estrutural, em que a desigualdade racial se reproduz nas bases da sociedade."
+      certa: true
+  explicacao: "A abolição sem integração deixou a população negra em desvantagem de terra, escola e renda. Essa desigualdade passou de geração em geração: é a base do racismo estrutural, como Florestan Fernandes analisou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-09
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-racismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: No Brasil, as raças se misturaram como em nenhum outro lugar. Aqui, ninguém é discriminado pela cor.
+    Texto II: A crença de que não há racismo permite ignorar a enorme desigualdade que a escravidão deixou e que a
+    sociedade de classes manteve.
+    (Textos originais do Instituto Lúcia, inspirados no debate entre leituras da formação brasileira.)
+  enunciado: "O Texto II critica o Texto I ao argumentar que"
+  alternativas:
+    - texto: "a miscigenação nunca aconteceu no Brasil."
+      erro: "O Texto II não nega a mistura. Nega que ela tenha acabado com a desigualdade."
+    - texto: "a ideia de harmonia racial funciona como um mito que encobre desigualdades reais."
+      certa: true
+    - texto: "o Brasil não teve escravidão."
+      erro: "O Texto II fala justamente da desigualdade deixada pela escravidão."
+    - texto: "a desigualdade é natural e não tem relação com a história."
+      erro: "O Texto II liga a desigualdade à escravidão e à sociedade de classes: é histórica."
+    - texto: "a sociedade de classes acabou com o racismo."
+      erro: "O Texto II diz que a sociedade de classes manteve a desigualdade, não que a eliminou."
+  explicacao: "O Texto I expressa a democracia racial. O Texto II é a crítica de Florestan Fernandes: a crença na harmonia é um mito que esconde a desigualdade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-racismo-10
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-racismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um torcedor foi filmado chamando um jogador de "macaco" durante uma partida. Antes, casos assim eram muitas vezes
+    tratados como injúria comum. Desde uma lei de 2023, ofender alguém por raça, cor, etnia ou procedência nacional é
+    tratado como crime de racismo, com pena maior quando ocorre em evento esportivo. (Texto original do Instituto
+    Lúcia, com base na Lei nº 14.532/2023.)
+  enunciado: "A mudança na lei mostra"
+  alternativas:
+    - texto: "que o racismo deixou de existir nos estádios."
+      erro: "O texto parte de um caso de racismo num estádio. A lei não apaga o problema."
+    - texto: "que ofensas raciais passaram a ser vistas como simples brincadeira."
+      erro: "É o contrário: a lei endureceu a punição."
+    - texto: "a ação do Estado contra a liberdade de crença."
+      erro: "A lei trata de ofensa racial, não de religião."
+    - texto: "uma conquista que endureceu a resposta legal ao racismo, resultado de lutas sociais."
+      certa: true
+    - texto: "que a injúria racial foi descriminalizada."
+      erro: "Ela não foi descriminalizada: passou a ser crime de racismo, mais grave."
+  explicacao: "A Lei 14.532/2023 tipificou a injúria racial como crime de racismo, com pena de 2 a 5 anos de reclusão, aumentada em contextos como o esportivo. É uma conquista ligada à luta antirracista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

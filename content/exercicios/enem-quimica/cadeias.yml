@@ -1,0 +1,238 @@
+# Exercícios da aula "Cadeias carbônicas" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-qui-cadeias-01
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 1
+  enunciado: "O gás de cozinha é formado principalmente por propano e butano. O prefixo \"but-\" indica uma cadeia principal de"
+  alternativas:
+    - texto: "4 carbonos"
+      certa: true
+    - texto: "3 carbonos"
+      erro: "3 carbonos é o prefixo \"prop-\", do propano. \"But-\" vem logo depois: 4."
+    - texto: "2 carbonos"
+      erro: "2 carbonos é \"et-\", como no etano e no etanol."
+    - texto: "5 carbonos"
+      erro: "5 carbonos é \"pent-\". A ordem é met, et, prop, but, pent."
+    - texto: "8 carbonos"
+      erro: "8 carbonos é \"oct-\", como no octano da gasolina."
+  explicacao: "Prefixos: met 1, et 2, prop 3, but 4, pent 5. O butano tem 4 carbonos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-02
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 1
+  enunciado: "O propeno (CH₂=CH–CH₃) é usado para fabricar o plástico polipropileno. A cadeia dele é insaturada porque"
+  alternativas:
+    - texto: "tem um anel de carbonos"
+      erro: "O propeno não tem anel: as pontas não se fecham. A insaturação vem de outra coisa."
+    - texto: "tem um oxigênio entre carbonos"
+      erro: "O propeno só tem carbono e hidrogênio. Oxigênio no meio tornaria a cadeia heterogênea, não insaturada."
+    - texto: "tem uma ligação dupla entre carbonos"
+      certa: true
+    - texto: "tem um galho de metil"
+      erro: "Galho torna a cadeia ramificada. No propeno, os três carbonos estão numa fileira."
+    - texto: "tem poucos hidrogênios por acaso"
+      erro: "Não é acaso: a dupla ligação entre carbonos ocupa duas das quatro ligações e sobra menos lugar para hidrogênio."
+  explicacao: "Insaturada é a cadeia com dupla ou tripla entre carbonos. O infixo \"en\" do nome já avisa: há uma dupla."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-03
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 1
+  enunciado: "Os alcanos têm fórmula geral CₙH₂ₙ₊₂. Quantos hidrogênios tem o octano, um alcano de 8 carbonos?"
+  alternativas:
+    - texto: "16"
+      erro: "Você fez 2 × 8 e esqueceu o \"+ 2\" das pontas da cadeia."
+    - texto: "10"
+      erro: "Você somou 8 + 2. A fórmula pede o dobro dos carbonos, mais 2."
+    - texto: "8"
+      erro: "Esse é o número de carbonos. Cada carbono do meio prende dois hidrogênios, e as pontas, três."
+    - texto: "20"
+      erro: "Você somou 4 a mais. A conta é 2 × 8 + 2."
+    - texto: "18"
+      certa: true
+  explicacao: "H = 2n + 2 = 2 × 8 + 2 = 18. O octano é C₈H₁₈."
+  conferir: "2 * 8 + 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-04
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 2
+  enunciado: "Qual destes hidrocarbonetos tem cadeia ramificada?"
+  alternativas:
+    - texto: "Butano, CH₃–CH₂–CH₂–CH₃"
+      erro: "Os quatro carbonos do butano estão numa fileira só: a cadeia é normal."
+    - texto: "Eteno, CH₂=CH₂"
+      erro: "Com dois carbonos não há como ter galho. A cadeia é normal (e insaturada)."
+    - texto: "Pentano, CH₃–(CH₂)₃–CH₃"
+      erro: "O pentano normal tem os cinco carbonos em fileira."
+    - texto: "2-metilpropano, CH₃–CH(CH₃)–CH₃"
+      certa: true
+    - texto: "Propano, CH₃–CH₂–CH₃"
+      erro: "Os três carbonos do propano estão em fileira. Não há galho."
+  explicacao: "No 2-metilpropano, o carbono do meio está ligado a três outros carbonos: há um galho (metil). A cadeia é ramificada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-05
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 2
+  enunciado: "O que define um composto aromático?"
+  alternativas:
+    - texto: "Ter cheiro agradável."
+      erro: "O nome veio do cheiro de alguns, mas há aromáticos sem cheiro bom. A família é definida pela estrutura."
+    - texto: "Ter um anel benzênico: seis carbonos com ligações duplas e simples alternadas."
+      certa: true
+    - texto: "Ter oxigênio na cadeia."
+      erro: "Oxigênio não define aromáticos. O benzeno, o aromático mais simples, só tem carbono e hidrogênio."
+    - texto: "Ser líquido em temperatura ambiente."
+      erro: "Estado físico não define família química. A vanilina, aromática, é sólida."
+    - texto: "Ter qualquer anel de carbonos."
+      erro: "O ciclo-hexano tem anel, mas sem duplas alternadas: é alicíclico, não aromático."
+  explicacao: "Aromático é o composto com anel benzênico. A vanilina, o eugenol e o benzeno têm esse anel."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-06
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Peixes em decomposição liberam substâncias de cheiro forte. Uma delas é a dimetilamina, CH₃–NH–CH₃. Outra
+    substância encontrada no mesmo ambiente é o etanol, CH₃–CH₂–OH.
+  enunciado: "Comparando as duas cadeias, é correto afirmar que"
+  alternativas:
+    - texto: "as duas são heterogêneas."
+      erro: "No etanol, o oxigênio está na ponta, não entre dois carbonos. A cadeia dele é homogênea."
+    - texto: "a dimetilamina é heterogênea e o etanol é homogêneo."
+      certa: true
+    - texto: "as duas são homogêneas."
+      erro: "Na dimetilamina, o nitrogênio está entre dois carbonos: é um heteroátomo. A cadeia é heterogênea."
+    - texto: "o etanol é heterogêneo e a dimetilamina é homogênea."
+      erro: "É o contrário. Confira onde está o átomo diferente: entre carbonos (heterogênea) ou na ponta (homogênea)."
+    - texto: "as duas são aromáticas."
+      erro: "Nenhuma das duas tem anel benzênico. As duas são cadeias abertas."
+  explicacao: "Heteroátomo é o átomo diferente de carbono entre dois carbonos. O N da dimetilamina está no meio (heterogênea); o O do etanol está na ponta (homogênea)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-07
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 2
+  enunciado: "Quantos carbonos tem, ao todo, o 2,3-dimetilbutano?"
+  alternativas:
+    - texto: "4"
+      erro: "4 é só a cadeia principal (butano). Faltam os dois galhos de metil."
+    - texto: "5"
+      erro: "Você contou um metil só. \"Dimetil\" são dois."
+    - texto: "8"
+      erro: "Os números 2 e 3 dizem onde estão os galhos, não quantos carbonos eles têm. Cada metil tem 1."
+    - texto: "7"
+      erro: "Você contou um carbono a mais. São 4 da cadeia principal e 2 dos metis."
+    - texto: "6"
+      certa: true
+  explicacao: "Butano: 4 carbonos. Dimetil: 2 galhos de 1 carbono. Total: 4 + 2 = 6."
+  conferir: "4 + 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-08
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-carbono-cadeias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma oficina-escola explica aos aprendizes que, nos motores a gasolina, hidrocarbonetos saturados de cadeia
+    ramificada resistem melhor à compressão do que os de cadeia normal, o que evita a "batida de pino". Os aprendizes
+    receberam uma lista: hexano; hex-1-eno; 2,2,4-trimetilpentano; ciclo-hexano; octano.
+  enunciado: "O hidrocarboneto da lista que atende às duas condições, saturado e ramificado, é o"
+  alternativas:
+    - texto: "hexano."
+      erro: "O hexano é saturado, mas tem cadeia normal: seis carbonos em fileira."
+    - texto: "hex-1-eno."
+      erro: "O infixo \"en\" indica uma dupla: a cadeia é insaturada. E também é normal."
+    - texto: "2,2,4-trimetilpentano."
+      certa: true
+    - texto: "ciclo-hexano."
+      erro: "O ciclo-hexano é saturado, mas tem cadeia fechada, sem galhos."
+    - texto: "octano."
+      erro: "O octano normal tem 8 carbonos em fileira. Saturado, mas sem ramificação."
+  explicacao: "O 2,2,4-trimetilpentano tem só ligações simples (\"an\") e três galhos de metil. É o isoctano, referência 100 da octanagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-09
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O querosene de aviação é uma mistura de hidrocarbonetos. Um dos componentes é o dodecano, um alcano de cadeia
+    normal com 12 carbonos. A fórmula geral dos alcanos é CₙH₂ₙ₊₂.
+  enunciado: "O número de átomos de hidrogênio numa molécula de dodecano é"
+  alternativas:
+    - texto: "26"
+      certa: true
+    - texto: "24"
+      erro: "Você fez 2 × 12 e esqueceu o \"+ 2\". Os carbonos das pontas prendem um hidrogênio a mais cada."
+    - texto: "14"
+      erro: "Você somou 12 + 2. A fórmula pede o dobro dos carbonos, mais 2."
+    - texto: "12"
+      erro: "Esse é o número de carbonos, não de hidrogênios."
+    - texto: "36"
+      erro: "Você usou três hidrogênios por carbono. Só os carbonos das pontas têm três; os do meio têm dois."
+  explicacao: "H = 2n + 2 = 2 × 12 + 2 = 26. O dodecano é C₁₂H₂₆."
+  conferir: "2 * 12 + 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-cadeias-10
+  tema: "Cadeias carbônicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-cadeias
+  dificuldade: 3
+  enunciado: "O ciclo-hexano é um anel de seis carbonos, todos com ligações simples entre si, e só hidrogênios presos a eles. A cadeia dele é"
+  alternativas:
+    - texto: "aberta, normal, saturada e homogênea"
+      erro: "As pontas se fecham num anel: a cadeia é fechada."
+    - texto: "fechada, aromática, insaturada e homogênea"
+      erro: "Aromático precisa de duplas alternadas no anel. No ciclo-hexano só há ligações simples."
+    - texto: "fechada, alicíclica, saturada e heterogênea"
+      erro: "Só há carbono no anel: não existe heteroátomo. A cadeia é homogênea."
+    - texto: "fechada, alicíclica, saturada e homogênea"
+      certa: true
+    - texto: "aberta, ramificada, saturada e homogênea"
+      erro: "O anel fecha a cadeia, e não há galhos saindo dele."
+  explicacao: "Anel: fechada. Sem anel benzênico: alicíclica. Só ligações simples: saturada. Só carbono no anel: homogênea."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
