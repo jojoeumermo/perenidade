@@ -1,0 +1,245 @@
+# Exercícios da aula "Primeira República: coronelismo, revoltas e greves" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-primeira-republica-01
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-primeira-republica
+  dificuldade: 1
+  enunciado: "Quem era o coronel na Primeira República?"
+  alternativas:
+    - texto: "Um oficial do Exército que governava o país"
+      erro: "Apesar do título, muitos coronéis nunca foram militares. O título vinha da antiga Guarda Nacional."
+    - texto: "Um líder operário das fábricas de São Paulo"
+      erro: "Os líderes operários enfrentavam o poder dos patrões. O coronel era um grande proprietário."
+    - texto: "Um grande fazendeiro que controlava terra, empregos e votos no interior"
+      certa: true
+    - texto: "Um juiz eleito pelo povo"
+      erro: "O coronel não era juiz eleito. Ele, aliás, muitas vezes controlava a justiça local."
+    - texto: "Um padre que dirigia a política da cidade"
+      erro: "O coronel era um proprietário de terras, não um religioso."
+  explicacao: "O coronel mandava no interior pela posse da terra e pela dependência dos trabalhadores. Com o voto aberto, controlava os votos e os trocava por favores com o governador."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-02
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-primeira-republica
+  dificuldade: 1
+  enunciado: "Qual destas mudanças veio com a Constituição de 1891?"
+  alternativas:
+    - texto: "O voto feminino"
+      erro: "As mulheres só conquistaram o voto em 1932."
+    - texto: "O voto secreto"
+      erro: "O voto continuou aberto. O voto secreto veio com o Código Eleitoral de 1932."
+    - texto: "O Poder Moderador"
+      erro: "O Poder Moderador era do Império, e acabou com a República."
+    - texto: "O voto dos analfabetos"
+      erro: "A Constituição de 1891 proibiu o alistamento dos analfabetos."
+    - texto: "A separação entre a Igreja e o Estado"
+      certa: true
+  explicacao: "A Constituição de 1891 tornou o Estado laico: nenhuma igreja podia receber subvenção oficial nem ter aliança com o governo. Também trouxe o presidencialismo e o federalismo."
+  fonte: "Questão original do Instituto Lúcia, a partir do artigo 72 da Constituição de 1891"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-03
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-primeira-republica
+  dificuldade: 1
+  enunciado: "Quem liderou a Revolta da Chibata, em 1910?"
+  alternativas:
+    - texto: "O marinheiro João Cândido"
+      certa: true
+    - texto: "Antônio Conselheiro"
+      erro: "Antônio Conselheiro liderou Canudos, no sertão da Bahia, em 1896–1897."
+    - texto: "Oswaldo Cruz"
+      erro: "Oswaldo Cruz era o sanitarista da campanha de vacinação de 1904."
+    - texto: "Getúlio Vargas"
+      erro: "Vargas chegou ao poder em 1930, com o fim da Primeira República."
+    - texto: "Zumbi dos Palmares"
+      erro: "Zumbi viveu no século XVII e foi morto em 1695."
+  explicacao: "João Cândido Felisberto, marinheiro negro, liderou a revolta contra os castigos com chibata na Marinha. Ficou conhecido como Almirante Negro. Recebeu anistia post mortem em 2008."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-04
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 10
+  objeto: hum-organizacao-social-primeira-republica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No sertão da Bahia, nos anos 1890, milhares de sertanejos pobres deixaram as fazendas onde viviam como agregados
+    e foram morar no arraial de Belo Monte, em torno do líder religioso Antônio Conselheiro. Lá plantavam, criavam
+    animais e dividiam o que produziam. Jornais do litoral chamavam o arraial de "foco de fanáticos monarquistas".
+    (Texto do Instituto Lúcia.)
+  enunciado: "Uma leitura crítica do texto permite entender o arraial como"
+  alternativas:
+    - texto: "um exército organizado para devolver o trono ao imperador."
+      erro: "Essa era a acusação dos jornais do litoral. O texto descreve gente plantando e dividindo a produção, não um exército."
+    - texto: "uma fazenda de café controlada por um coronel."
+      erro: "Os sertanejos saíram justamente das fazendas dos coronéis."
+    - texto: "uma cidade industrial do sertão."
+      erro: "Não há fábricas no texto. A vida era de roça e criação."
+    - texto: "uma forma de os pobres do sertão escaparem do mando dos fazendeiros, organizando a vida em torno da fé e do trabalho comum."
+      certa: true
+    - texto: "um quilombo do século XVII."
+      erro: "Canudos é do fim do século XIX, já na República."
+  explicacao: "A imagem de \"fanáticos monarquistas\" vinha de fora e justificou quatro expedições militares. Lido de perto, Canudos era uma comunidade de pobres que buscava terra, trabalho e autonomia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-05
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-primeira-republica
+  dificuldade: 2
+  enunciado: "Por que a expressão política do café com leite é usada para a Primeira República?"
+  alternativas:
+    - texto: "Porque o país só exportava café e leite"
+      erro: "A expressão é política, não uma lista de exportações. E o país exportava outros produtos, como a borracha."
+    - texto: "Porque São Paulo e Minas Gerais, com mais eleitores, dominaram por muito tempo a presidência"
+      certa: true
+    - texto: "Porque o presidente era sempre um produtor de leite"
+      erro: "Os presidentes vinham de vários grupos. A expressão fala de estados, não de uma profissão."
+    - texto: "Porque o café e o leite eram distribuídos de graça nas eleições"
+      erro: "A expressão não trata de distribuição de comida."
+    - texto: "Porque o Rio Grande do Sul produzia todo o café do país"
+      erro: "O café era sobretudo de São Paulo e de Minas, não do Rio Grande do Sul."
+  explicacao: "São Paulo (café) e Minas Gerais (leite e café) tinham os maiores eleitorados e se revezaram muitas vezes na presidência. Historiadores lembram que o acordo teve rupturas e que outros estados também pesavam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-06
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-primeira-republica
+  dificuldade: 2
+  enunciado: "O que provocou a Guerra do Contestado (1912–1916), entre Paraná e Santa Catarina?"
+  alternativas:
+    - texto: "A expulsão de camponeses de suas terras para a construção de uma ferrovia e a exploração de madeira por empresas estrangeiras"
+      certa: true
+    - texto: "A vacinação obrigatória contra a varíola"
+      erro: "A vacinação obrigatória provocou a Revolta da Vacina, no Rio, em 1904."
+    - texto: "Os castigos com chibata na Marinha"
+      erro: "Os castigos provocaram a Revolta da Chibata, no Rio, em 1910."
+    - texto: "A abolição da escravidão"
+      erro: "A abolição é de 1888, mais de vinte anos antes. A causa do Contestado foi a terra."
+    - texto: "A cobrança do quinto do ouro"
+      erro: "O quinto era um imposto da colônia, no século XVIII."
+  explicacao: "A empresa da ferrovia ganhou faixas de terra de cada lado dos trilhos, e uma madeireira derrubou a mata. Os caboclos expulsos se rebelaram. Cerca de 8 mil pessoas morreram, segundo pesquisadores."
+  fonte: "Questão original do Instituto Lúcia, a partir de texto da UFSC"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-07
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 10
+  objeto: hum-organizacao-social-primeira-republica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em 1904, no centro do Rio de Janeiro, cortiços eram demolidos para abrir avenidas. As famílias pobres iam para os
+    morros e os subúrbios. No mesmo ano, uma lei tornou obrigatória a vacina contra a varíola, e agentes passaram a
+    entrar nas casas para aplicá-la. Em novembro, a cidade viveu dias de barricadas e confronto.
+    (Texto do Instituto Lúcia, a partir de texto da Faculdade de Ciências Econômicas da UFRGS.)
+  enunciado: "O texto ajuda a entender a Revolta da Vacina como"
+  alternativas:
+    - texto: "uma prova de que a população era contra qualquer avanço da ciência."
+      erro: "O texto mostra uma soma de motivos, como a expulsão dos pobres. Reduzir tudo a \"ser contra a ciência\" apaga o contexto."
+    - texto: "um movimento organizado pelos médicos contra o governo."
+      erro: "O governo era quem aplicava a vacina com os médicos sanitaristas. Quem se revoltou foi a população."
+    - texto: "uma reação popular a uma política urbana e sanitária imposta de forma autoritária, que atingia sobretudo os pobres."
+      certa: true
+    - texto: "uma guerra entre o Rio de Janeiro e São Paulo."
+      erro: "O conflito foi dentro do Rio, entre a população e o governo."
+    - texto: "uma revolta de fazendeiros contra a abolição."
+      erro: "A abolição é de 1888. O texto trata de moradores pobres da cidade em 1904."
+  explicacao: "A demolição dos cortiços e a vacinação com entrada forçada nas casas se somaram. A revolta foi contra a forma autoritária da política, que recaía sobre quem já perdia a moradia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-08
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-primeira-republica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em novembro de 1910, marinheiros tomaram navios de guerra na baía de Guanabara. Num documento enviado ao
+    governo, pediam o fim dos castigos com chibata, melhor comida e menos trabalho. A maioria era de homens negros e
+    pobres, alguns filhos de pessoas que tinham sido escravizadas.
+    (Texto do Instituto Lúcia.)
+  enunciado: "O fato de os castigos com chibata ainda existirem em 1910 revela"
+  alternativas:
+    - texto: "que a escravidão ainda era legal na Marinha."
+      erro: "A escravidão legal acabou em 1888. O que continuava era uma prática de castigo herdada dela."
+    - texto: "que os marinheiros eram estrangeiros."
+      erro: "O texto diz que eram homens negros e pobres, muitos filhos de escravizados, isto é, brasileiros."
+    - texto: "que a República aboliu todos os castigos físicos em 1889."
+      erro: "Se tivesse abolido, não haveria chibata em 1910."
+    - texto: "que os marinheiros pediam a volta da monarquia."
+      erro: "O documento pede o fim dos castigos, comida e menos trabalho. Nada sobre monarquia."
+    - texto: "a permanência de práticas violentas da escravidão sobre trabalhadores negros, mesmo depois da abolição."
+      certa: true
+  explicacao: "Mais de vinte anos depois da Lei Áurea, homens negros ainda eram açoitados pelo Estado. A Revolta da Chibata foi também uma luta contra o racismo que sobreviveu à abolição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-09
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 10
+  objeto: hum-organizacao-social-primeira-republica
+  dificuldade: 3
+  enunciado: "Em 1917, uma greve geral parou São Paulo. Qual alternativa explica por que os operários da época recorriam à greve?"
+  alternativas:
+    - texto: "Porque a CLT garantia o direito de greve desde 1900"
+      erro: "A CLT é de 1943. Em 1917 não havia leis gerais do trabalho."
+    - texto: "Porque os patrões pediam que os operários parassem"
+      erro: "Greve é uma ação dos trabalhadores contra as condições impostas pelos patrões."
+    - texto: "Porque o governo oferecia salário mínimo e férias"
+      erro: "Salário mínimo (1940) e férias para todos vieram depois. Em 1917 eles eram reivindicações."
+    - texto: "Porque, sem leis do trabalho, a ação coletiva era o principal meio de exigir jornada menor, aumento e fim do trabalho infantil"
+      certa: true
+    - texto: "Porque era proibido trabalhar em fábricas"
+      erro: "As fábricas funcionavam, e muito. O problema eram as condições."
+  explicacao: "Sem leis que protegessem o trabalhador, a greve era a forma de pressionar. É o que a H10 cobra: a ação coletiva como caminho para mudar a realidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-primeira-republica-10
+  tema: "Primeira República: coronelismo, revoltas e greves"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-primeira-republica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Na eleição, o eleitor chegava à mesa com a cédula já preenchida, entregue pelo capataz da fazenda. Votava diante
+    de todos. Quem desobedecia podia perder o emprego ou a terra onde plantava."
+    (Texto do Instituto Lúcia, sobre as eleições no interior durante a Primeira República.)
+  enunciado: "A situação descrita seria combatida, mais tarde, pela criação"
+  alternativas:
+    - texto: "do Poder Moderador."
+      erro: "O Poder Moderador era do Império e reforçava o poder do imperador, não do eleitor."
+    - texto: "do voto secreto e da Justiça Eleitoral, pelo Código Eleitoral de 1932."
+      certa: true
+    - texto: "do voto censitário."
+      erro: "O voto por renda excluiria ainda mais gente. Não protegeria o eleitor."
+    - texto: "do AI-5."
+      erro: "O AI-5, de 1968, restringiu direitos políticos. Foi o contrário de proteger o eleitor."
+    - texto: "da política dos governadores."
+      erro: "A política dos governadores dependia justamente do controle dos votos pelos coronéis."
+  explicacao: "Com o voto secreto, o capataz não podia mais ver em quem o eleitor votava. A Justiça Eleitoral passou a organizar e fiscalizar as eleições. As duas vieram em 1932."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,250 @@
+# Exercícios da aula "Religião e sociedade" (trilha enem-sociologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-soc-religiao-01
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-religiao
+  dificuldade: 1
+  enunciado: "Para Durkheim, toda religião separa o mundo em"
+  alternativas:
+    - texto: "burguesia e proletariado."
+      erro: "Essa é a divisão de classes de Marx, não a de Durkheim sobre religião."
+    - texto: "mundo sensível e mundo das Ideias."
+      erro: "Essa divisão é de Platão, na filosofia."
+    - texto: "razão e experiência."
+      erro: "Esse é o debate entre racionalismo e empirismo."
+    - texto: "classe, status e poder."
+      erro: "Essas são as dimensões da estratificação em Weber."
+    - texto: "sagrado e profano."
+      certa: true
+  explicacao: "Durkheim, em As formas elementares da vida religiosa (1912), mostra que a religião separa o sagrado (o especial, que inspira respeito) do profano (o cotidiano)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-02
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 24
+  objeto: hum-cultura-religiao
+  dificuldade: 1
+  enunciado: "O Estado laico, garantido pela Constituição de 1988,"
+  alternativas:
+    - texto: "proíbe as pessoas de terem religião."
+      erro: "Laico não é ateu. A Constituição garante a liberdade de crença."
+    - texto: "não estabelece nem financia cultos e protege a liberdade de crença de todos."
+      certa: true
+    - texto: "adota o catolicismo como religião oficial."
+      erro: "O Brasil não tem religião oficial desde a República. A Constituição de 1988 veda isso."
+    - texto: "só reconhece as religiões mais numerosas."
+      erro: "A liberdade de crença vale para todas as religiões, e para quem não tem religião."
+    - texto: "manda as escolas públicas ensinarem uma única fé."
+      erro: "Impor uma fé nas escolas públicas fere a laicidade."
+  explicacao: "Laicidade é neutralidade: o poder público não estabelece nem subvenciona cultos (art. 19, I) e garante a liberdade de consciência e de crença (art. 5º, VI)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-03
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-religiao
+  dificuldade: 1
+  enunciado: "A obra A ética protestante e o espírito do capitalismo, que liga ideias religiosas ao surgimento da mentalidade capitalista, é de"
+  alternativas:
+    - texto: "Émile Durkheim"
+      erro: "Durkheim estudou a religião como fonte de coesão social, em As formas elementares da vida religiosa."
+    - texto: "Karl Marx"
+      erro: "Marx via a religião como reflexo da desigualdade. A tese da ética protestante é de outro autor."
+    - texto: "Max Weber"
+      certa: true
+    - texto: "Gilberto Freyre"
+      erro: "Freyre escreveu Casa-grande & senzala, sobre a formação do Brasil."
+    - texto: "Florestan Fernandes"
+      erro: "Florestan estudou o negro na sociedade de classes no Brasil."
+  explicacao: "Max Weber publicou A ética protestante e o espírito do capitalismo em 1904–1905."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-04
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-religiao
+  dificuldade: 2
+  enunciado: "Segundo o Censo 2022 do IBGE (resultados preliminares, população de 10 anos ou mais), a parte da população que se declarou católica passou de 65,1% em 2010 para 56,7% em 2022. Em quantos pontos percentuais caiu?"
+  alternativas:
+    - texto: "8,4 pontos"
+      certa: true
+    - texto: "121,8 pontos"
+      erro: "Você somou as duas porcentagens. A queda é a diferença entre elas: subtraia."
+    - texto: "9,4 pontos"
+      erro: "Erro na subtração. Confira: 56,7 + 8,4 = 65,1."
+    - texto: "56,7 pontos"
+      erro: "Esse é o valor de 2022, não a queda. Calcule 65,1 − 56,7."
+    - texto: "7,4 pontos"
+      erro: "Erro na subtração. Faça por partes: 65,1 − 56 = 9,1; 9,1 − 0,7 = 8,4."
+  explicacao: "65,1 − 56,7 = 8,4 pontos percentuais. No mesmo período, os evangélicos passaram de 21,6% para 26,9%."
+  conferir: "65.1 - 56.7"
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE (Censo 2022, resultados preliminares)"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-05
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-religiao
+  dificuldade: 2
+  enunciado: "Um terreiro de candomblé é pichado com ofensas, e as pessoas que o frequentam são ameaçadas na rua. Do ponto de vista da lei brasileira, o caso é"
+  alternativas:
+    - texto: "uma briga de vizinhos, sem relevância legal."
+      erro: "Atacar alguém por causa da fé é discriminação, prevista como crime."
+    - texto: "intolerância religiosa, que pode configurar crime de discriminação pela Lei 7.716/1989."
+      certa: true
+    - texto: "permitido, porque a liberdade de expressão não tem limites."
+      erro: "A liberdade de expressão não autoriza ameaçar e discriminar por religião."
+    - texto: "assunto só da religião atacada, sem papel do Estado."
+      erro: "O Estado laico deve proteger a liberdade de crença de todos, inclusive das minorias."
+    - texto: "um caso de laicidade, porque o Estado não pode interferir."
+      erro: "Laicidade não é omissão. O Estado não escolhe uma fé, mas protege todas."
+  explicacao: "A Lei 7.716/1989 inclui a religião entre os motivos de crime de discriminação. As religiões de matriz africana lideram as denúncias de intolerância ao Disque 100, segundo o Ministério dos Direitos Humanos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-06
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-religiao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na festa do padroeiro, a cidade para. Famílias que mal se falam durante o ano carregam juntas o andor, cozinham
+    juntas para a quermesse e cantam juntas na procissão. Quem mudou para longe volta só para esse dia. (Texto
+    original do Instituto Lúcia.)
+  enunciado: "Na perspectiva de Émile Durkheim, a festa descrita evidencia a função da religião de"
+  alternativas:
+    - texto: "justificar a exploração dos trabalhadores pelos patrões."
+      erro: "Essa é uma leitura mais próxima de Marx. O texto destaca a união do grupo."
+    - texto: "promover o desencantamento do mundo."
+      erro: "O desencantamento, de Weber, é o recuo da explicação religiosa. Aqui há o contrário: o rito une todos."
+    - texto: "estimular o lucro e a poupança individual."
+      erro: "Isso lembra a tese de Weber sobre a ética protestante. A festa não fala de economia."
+    - texto: "reforçar a coesão social, unindo o grupo em torno do sagrado."
+      certa: true
+    - texto: "separar o Estado da religião."
+      erro: "Laicidade é tema jurídico e político. O texto fala de uma festa que reúne a comunidade."
+  explicacao: "Para Durkheim, o ritual coletivo une o grupo e renova seus laços. A festa do padroeiro reúne até quem mal se fala: é a coesão social."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-07
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-religiao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A miséria religiosa é, ao mesmo tempo, a expressão da miséria real e o protesto contra ela. A religião é o suspiro
+    da criatura oprimida, o ânimo de um mundo sem coração. É o ópio do povo. (Karl Marx, introdução à Crítica da
+    filosofia do direito de Hegel, 1844, em tradução livre do Instituto Lúcia; obra em domínio público.)
+  enunciado: "No trecho, Marx apresenta a religião como"
+  alternativas:
+    - texto: "uma invenção sem nenhuma relação com a vida real."
+      erro: "O trecho diz o contrário: a religião é expressão da miséria real."
+    - texto: "a principal causa da riqueza das nações."
+      erro: "O trecho não fala de riqueza. Fala de sofrimento e consolo."
+    - texto: "expressão do sofrimento real e consolo que ajuda a suportar a opressão."
+      certa: true
+    - texto: "o fundamento da coesão social, como em Durkheim."
+      erro: "A leitura de coesão é de Durkheim. Marx liga a religião à opressão."
+    - texto: "um motor da racionalização da economia."
+      erro: "A ligação entre religião e racionalização econômica é a tese de Weber."
+  explicacao: "Para Marx, a religião exprime o sofrimento real, protesta contra ele e, como o ópio, alivia a dor sem curar a causa. Por isso ajuda a manter a ordem desigual."
+  fonte: "Questão original do Instituto Lúcia; trecho de Karl Marx (1844), domínio público"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-08
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-religiao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No fim do século XIX, no sertão do Ceará, romeiros começaram a chegar a Juazeiro por causa dos milagres atribuídos
+    a uma beata e da fama de um padre. A Igreja oficial desconfiou dos milagres, mas as romarias cresceram e a cidade
+    virou um dos maiores centros de peregrinação do Nordeste. (Texto original do Instituto Lúcia, sobre Juazeiro do
+    Norte e o Padre Cícero.)
+  enunciado: "O processo descrito mostra que"
+  alternativas:
+    - texto: "a religiosidade popular pode criar lugares sagrados e práticas que escapam ao controle da instituição oficial."
+      certa: true
+    - texto: "a fé popular sempre obedece às decisões da hierarquia da Igreja."
+      erro: "O texto diz que a Igreja desconfiou, e mesmo assim as romarias cresceram."
+    - texto: "o Estado laico financiou a construção do santuário."
+      erro: "O texto não fala de financiamento do Estado. Fala de fé popular."
+    - texto: "a religião desapareceu do sertão com a modernização."
+      erro: "O texto mostra a religião crescendo no sertão, não desaparecendo."
+    - texto: "o desencantamento do mundo acabou com as peregrinações."
+      erro: "As peregrinações cresceram. O texto mostra o encantamento popular, não o seu fim."
+  explicacao: "A fé popular fez de Juazeiro um centro sagrado, mesmo com a desconfiança da Igreja oficial. O ENEM de 2022 cobrou essa fonte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-09
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-religiao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No período colonial, em várias cidades da América espanhola, o tribunal do Santo Ofício organizava cerimônias
+    públicas em que as sentenças dos acusados de heresia eram lidas diante da multidão. As autoridades proibiam que se
+    pusessem mesas e cadeiras no caminho da procissão e que se atirasse qualquer coisa nos réus. (Texto original do
+    Instituto Lúcia, sobre os autos de fé.)
+  enunciado: "A fonte permite compreender que, no mundo colonial, a religião oficial"
+  alternativas:
+    - texto: "era separada do poder político, como num Estado laico."
+      erro: "Um tribunal religioso julgava e punia em público com apoio das autoridades. Não havia separação."
+    - texto: "garantia a liberdade de crença a todos os habitantes."
+      erro: "Acusados de heresia eram julgados e punidos. Não havia liberdade de crença."
+    - texto: "não tinha nenhuma influência sobre a vida pública."
+      erro: "As cerimônias paravam as cidades. A influência era enorme."
+    - texto: "era praticada apenas em segredo, longe das ruas."
+      erro: "Os autos de fé eram públicos, com procissão e multidão."
+    - texto: "funcionava também como instrumento de controle social e de poder, com punições públicas."
+      certa: true
+  explicacao: "O auto de fé era um espetáculo público de punição, organizado pela Inquisição com apoio das autoridades. A religião oficial era parte do poder e do controle social. O ENEM de 2022 cobrou uma fonte parecida, de Lima."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-religiao-10
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 24
+  objeto: hum-cultura-religiao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um vereador propõe que a prefeitura pague a reforma de templos de uma única religião, "a da maioria da cidade".
+    Uma moradora responde na audiência pública: "Eu não tenho religião, minha vizinha é do candomblé e meu irmão é
+    evangélico. O dinheiro é de todos nós". (Texto original do Instituto Lúcia.)
+  enunciado: "O argumento da moradora encontra apoio no princípio constitucional que"
+  alternativas:
+    - texto: "manda o poder público seguir a religião da maioria."
+      erro: "Não existe esse princípio. A Constituição protege a liberdade de todas as crenças, inclusive minoritárias."
+    - texto: "permite ao município escolher uma religião oficial."
+      erro: "A Constituição proíbe estabelecer cultos ou igrejas."
+    - texto: "torna obrigatória a prática religiosa nas escolas."
+      erro: "Isso feriria a liberdade de crença e a laicidade."
+    - texto: "proíbe o poder público de subvencionar cultos ou igrejas, garantindo a neutralidade do Estado."
+      certa: true
+    - texto: "proíbe a existência de templos nas cidades."
+      erro: "A Constituição garante o livre exercício dos cultos e a proteção dos locais de culto."
+  explicacao: "O art. 19, I, da Constituição veda à União, aos estados e aos municípios estabelecer ou subvencionar cultos ou igrejas. Dinheiro público não pode favorecer uma fé."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

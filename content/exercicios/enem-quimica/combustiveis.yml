@@ -1,0 +1,243 @@
+# Exercícios da aula "Petróleo, gás e biocombustíveis" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Poderes caloríficos marcados como "de exemplo" não são valores medidos.
+
+- id: enem-qui-combustiveis-01
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-energias-combustiveis
+  dificuldade: 1
+  enunciado: "Na refinaria, as frações do petróleo (gás, gasolina, querosene, diesel) são separadas principalmente pela diferença de"
+  alternativas:
+    - texto: "cor"
+      erro: "A cor não separa frações. A torre usa o calor."
+    - texto: "magnetismo"
+      erro: "Hidrocarbonetos não são atraídos por ímãs. A separação é térmica."
+    - texto: "temperatura de ebulição"
+      certa: true
+    - texto: "solubilidade em água"
+      erro: "Os hidrocarbonetos quase não se dissolvem em água. A separação é pela fervura."
+    - texto: "tamanho das gotas"
+      erro: "Não se filtra o petróleo por gotas. Cada fração condensa numa temperatura."
+  explicacao: "Na destilação fracionada, cada fração do petróleo ferve e condensa numa faixa de temperatura, conforme o tamanho das cadeias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-02
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energias-combustiveis
+  dificuldade: 1
+  enunciado: "Um aquecedor a gás num banheiro fechado e sem ventilação pode matar por intoxicação. A substância responsável, formada na combustão incompleta, é o"
+  alternativas:
+    - texto: "gás carbônico (CO₂), que é tóxico em qualquer quantidade."
+      erro: "O CO₂ em excesso sufoca, mas o grande perigo da queima com pouco ar é outro gás."
+    - texto: "vapor de água."
+      erro: "O vapor de água é produto de toda combustão e não é tóxico."
+    - texto: "oxigênio (O₂)."
+      erro: "O oxigênio é consumido na queima. Falta dele é que piora tudo."
+    - texto: "nitrogênio (N₂)."
+      erro: "O nitrogênio do ar quase não participa da queima e não é tóxico."
+    - texto: "monóxido de carbono (CO)."
+      certa: true
+  explicacao: "Com pouco oxigênio, a combustão é incompleta e forma CO. Ele se prende à hemoglobina no lugar do oxigênio e não tem cheiro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-03
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 26
+  objeto: nat-qui-energias-combustiveis
+  dificuldade: 1
+  enunciado: "Qual destes combustíveis é renovável?"
+  alternativas:
+    - texto: "Etanol de cana-de-açúcar"
+      certa: true
+    - texto: "Gasolina"
+      erro: "A gasolina vem do petróleo, formado em milhões de anos. Não se renova na escala humana."
+    - texto: "Óleo diesel de petróleo"
+      erro: "O diesel comum é uma fração do petróleo, fóssil."
+    - texto: "Gás natural"
+      erro: "O gás natural é fóssil, como o petróleo."
+    - texto: "Carvão mineral"
+      erro: "O carvão mineral se formou há milhões de anos. É fóssil."
+  explicacao: "A cana cresce a cada safra e tira CO₂ do ar na fotossíntese. Por isso o etanol é renovável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-04
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energias-combustiveis
+  dificuldade: 2
+  enunciado: "Na fermentação do caldo de cana, as leveduras transformam a glicose em"
+  alternativas:
+    - texto: "gasolina e água"
+      erro: "Gasolina vem do petróleo. A fermentação produz um álcool."
+    - texto: "metano e oxigênio"
+      erro: "Metano é produzido por outros micróbios, em biodigestores. As leveduras produzem etanol."
+    - texto: "biodiesel e glicerina"
+      erro: "Biodiesel e glicerina saem da transesterificação de óleos, não da fermentação."
+    - texto: "etanol e gás carbônico"
+      certa: true
+    - texto: "ácido acético e hidrogênio"
+      erro: "O ácido acético aparece quando o vinho azeda, com outras bactérias e oxigênio. A levedura faz etanol."
+  explicacao: "C₆H₁₂O₆ → 2 C₂H₅OH + 2 CO₂. É o mesmo processo do pão crescer e da cerveja."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-05
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energias-combustiveis
+  dificuldade: 2
+  enunciado: "Na fermentação C₆H₁₂O₆ → 2 C₂H₅OH + 2 CO₂, que massa de etanol se forma a partir de 360 g de glicose? (glicose 180 g/mol; etanol 46 g/mol)"
+  alternativas:
+    - texto: "92 g"
+      erro: "92 g sai de 180 g de glicose. Com 360 g, o dobro."
+    - texto: "184 g"
+      certa: true
+    - texto: "360 g"
+      erro: "Parte da massa da glicose sai como CO₂. A massa de etanol é menor."
+    - texto: "176 g"
+      erro: "176 g é a massa de CO₂ (4 mol × 44). A pergunta é o etanol."
+    - texto: "368 g"
+      erro: "Você dobrou duas vezes. 2 mol de glicose dão 4 mol de etanol: 4 × 46 = 184."
+  explicacao: "360 ÷ 180 = 2 mol de glicose → 4 mol de etanol → 4 × 46 = 184 g."
+  conferir: "360 / 180 * 92"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-06
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-energias-combustiveis
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma cooperativa da agricultura familiar instalou uma pequena unidade de biodiesel. O óleo de soja reage com etanol,
+    na presença de um catalisador, e forma uma mistura de ésteres, que é o combustível. Sobra um líquido viscoso que a
+    cooperativa vende para a indústria de cosméticos.
+  enunciado: "A reação e o subproduto descritos são, respectivamente,"
+  alternativas:
+    - texto: "fermentação e gás carbônico."
+      erro: "Fermentação é a do açúcar com leveduras. Aqui um óleo reage com um álcool."
+    - texto: "combustão e vapor de água."
+      erro: "Não há queima na produção do biodiesel. É uma troca de grupos entre óleo e álcool."
+    - texto: "destilação e asfalto."
+      erro: "Destilação separa misturas, não forma ésteres. E asfalto vem do petróleo."
+    - texto: "craqueamento e gasolina."
+      erro: "Craqueamento quebra cadeias de petróleo. Aqui o ponto de partida é óleo vegetal."
+    - texto: "transesterificação e glicerina."
+      certa: true
+  explicacao: "Óleo (éster de glicerol) + álcool → novos ésteres (biodiesel) + glicerol. A glicerina é usada em sabonetes e cremes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-07
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-energias-combustiveis
+  dificuldade: 2
+  enunciado: "O craqueamento do petróleo serve para"
+  alternativas:
+    - texto: "separar o petróleo da água do poço."
+      erro: "Separar água e óleo é uma decantação. O craqueamento é uma reação."
+    - texto: "quebrar moléculas grandes em menores, aumentando a produção de gasolina e gás."
+      certa: true
+    - texto: "transformar petróleo em etanol."
+      erro: "Etanol vem da fermentação de açúcares, não do petróleo."
+    - texto: "juntar moléculas pequenas em grandes, para fazer asfalto."
+      erro: "É o contrário: o craqueamento quebra as moléculas."
+    - texto: "tirar o enxofre do diesel."
+      erro: "Tirar enxofre é outro tratamento. O craqueamento quebra cadeias."
+  explicacao: "Frações pesadas valem menos. O craqueamento, com calor e catalisador, quebra as cadeias longas em cadeias menores, como as da gasolina."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-08
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 26
+  objeto: nat-qui-energias-combustiveis
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num debate na escola, uma estudante disse que o etanol da cana "não polui, porque não solta gás carbônico". Um
+    colega respondeu que "o etanol solta CO₂ do mesmo jeito que a gasolina, então não faz diferença".
+  enunciado: "Do ponto de vista do ciclo do carbono, a avaliação mais correta é que"
+  alternativas:
+    - texto: "a estudante tem razão: a queima do etanol não forma CO₂."
+      erro: "A queima completa do etanol forma CO₂ e água, como a de qualquer combustível com carbono."
+    - texto: "o colega tem razão: os dois combustíveis têm o mesmo efeito no clima."
+      erro: "A origem do carbono é diferente. O do etanol foi tirado do ar recentemente pela cana."
+    - texto: "o etanol forma menos CO₂ porque é líquido."
+      erro: "Gasolina também é líquida. O estado físico não decide o efeito no clima."
+    - texto: "o etanol também solta CO₂, mas esse carbono foi tirado do ar pela cana; ainda assim há emissões no cultivo, no transporte e na produção."
+      certa: true
+    - texto: "o etanol não tem carbono na fórmula."
+      erro: "O etanol é C₂H₆O: tem dois carbonos por molécula."
+  explicacao: "O CO₂ do escapamento volta a ser absorvido na próxima safra. Na gasolina, o carbono estava guardado havia milhões de anos. O etanol não é emissão zero: trator, adubo e transporte também emitem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-09
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energias-combustiveis
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um técnico compara dois combustíveis pela energia liberada por grama queimado. Nos valores de exemplo da aula, o
+    combustível X libera 45 kJ/g. Uma caldeira de cozinha comunitária precisa de 900 kJ para esquentar um caldeirão de
+    água.
+  enunciado: "A massa do combustível X necessária, sem perdas, é de"
+  alternativas:
+    - texto: "40.500 g"
+      erro: "Você multiplicou energia por poder calorífico. Divida a energia necessária pela energia de cada grama."
+    - texto: "2 g"
+      erro: "Você dividiu 900 por 450. São 45 kJ por grama: 900 ÷ 45."
+    - texto: "20 g"
+      certa: true
+    - texto: "0,05 g"
+      erro: "Você dividiu 45 por 900. A conta é 900 ÷ 45."
+    - texto: "855 g"
+      erro: "Você subtraiu 45 de 900. Cada grama dá 45 kJ: conte quantos gramas cabem em 900."
+  explicacao: "Massa = energia ÷ energia por grama = 900 ÷ 45 = 20 g. Na prática, com perdas de calor, gasta-se mais."
+  conferir: "900 / 45"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-combustiveis-10
+  tema: "Petróleo, gás e biocombustíveis"
+  area: natureza
+  habilidade: 26
+  objeto: nat-qui-energias-combustiveis
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cidade vai trocar uma termelétrica a carvão mineral por outra a gás natural, para a mesma produção de
+    eletricidade. O carvão tem muito carbono e impurezas de enxofre; o gás natural é formado principalmente por metano,
+    CH₄.
+  enunciado: "Uma consequência esperada da troca é"
+  alternativas:
+    - texto: "menor emissão de CO₂ e de óxidos de enxofre para a mesma energia, embora o gás continue sendo fóssil."
+      certa: true
+    - texto: "fim das emissões de CO₂, porque o metano não tem carbono."
+      erro: "O metano tem carbono (CH₄). Queimado, forma CO₂, só que menos por energia que o carvão."
+    - texto: "aumento das emissões de enxofre, porque o gás é mais puro."
+      erro: "Gás mais puro, com menos enxofre, emite menos óxidos de enxofre, não mais."
+    - texto: "passagem a um combustível renovável."
+      erro: "O gás natural é fóssil. A troca reduz emissões, mas não torna a fonte renovável."
+    - texto: "nenhuma mudança, porque os dois são queimados."
+      erro: "Os dois são queimados, mas têm composições diferentes. O metano tem mais hidrogênio por carbono."
+  explicacao: "No metano, boa parte da energia vem do hidrogênio, que vira água. Por isso sai menos CO₂ para a mesma energia. E o gás tem pouco enxofre. Mas segue fóssil, e vazamentos de metano agravam o efeito estufa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

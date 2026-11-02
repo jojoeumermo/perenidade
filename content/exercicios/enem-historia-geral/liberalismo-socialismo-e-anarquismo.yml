@@ -1,0 +1,246 @@
+# Exercícios da aula "Liberalismo, socialismo e anarquismo" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-ideologias-01
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-organizacao-social-ideologias
+  dificuldade: 1
+  enunciado: "Quem escreveu A riqueza das nações, de 1776, obra-base do liberalismo econômico?"
+  alternativas:
+    - texto: "Karl Marx"
+      erro: "Marx foi crítico do capitalismo e escreveu, com Engels, o Manifesto de 1848."
+    - texto: "Pierre-Joseph Proudhon"
+      erro: "Proudhon foi anarquista e escreveu O que é a propriedade?, de 1840."
+    - texto: "Robert Owen"
+      erro: "Owen foi um socialista utópico, que montou comunidades operárias-modelo."
+    - texto: "Mikhail Bakunin"
+      erro: "Bakunin foi anarquista e debateu com Marx sobre o Estado."
+    - texto: "Adam Smith"
+      certa: true
+  explicacao: "Adam Smith defendeu que o mercado livre, com a busca de cada um pelo próprio interesse, organiza a economia. O Estado deveria intervir o mínimo."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, capítulo 5"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-02
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-ideologias
+  dificuldade: 1
+  enunciado: "Para Marx e Engels, no Manifesto de 1848, qual é o motor da história?"
+  alternativas:
+    - texto: "A vontade dos reis"
+      erro: "O Manifesto não explica a história pelos governantes, mas pelas classes sociais."
+    - texto: "O clima de cada região"
+      erro: "O clima não é o centro da explicação de Marx e Engels."
+    - texto: "A luta de classes"
+      certa: true
+    - texto: "A religião"
+      erro: "Para Marx, a religião faz parte das ideias de uma época, mas não move a história."
+    - texto: "O mercado livre"
+      erro: "O mercado livre é a aposta do liberalismo, que Marx e Engels criticavam."
+  explicacao: "A frase de abertura do Manifesto diz que a história de toda sociedade até ali é a história da luta de classes. No capitalismo, a luta é entre burguesia e proletariado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-03
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-ideologias
+  dificuldade: 1
+  enunciado: "Que corrente defendia acabar com o Estado e organizar a sociedade por associações livres de trabalhadores?"
+  alternativas:
+    - texto: "O anarquismo"
+      certa: true
+    - texto: "O liberalismo"
+      erro: "O liberalismo quer um Estado pequeno, mas quer o Estado, para proteger a propriedade e os contratos."
+    - texto: "O absolutismo"
+      erro: "O absolutismo é o poder total do rei: o oposto de acabar com o Estado."
+    - texto: "O mercantilismo"
+      erro: "Mercantilismo é uma política econômica do Estado absolutista, não uma corrente contra o Estado."
+    - texto: "O socialismo utópico"
+      erro: "Os utópicos imaginavam comunidades ideais, mas não tinham como centro a abolição do Estado."
+  explicacao: "'Anarquia' quer dizer sem governo. Proudhon e Bakunin viam o Estado como forma de dominação, como a propriedade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-04
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 2
+  objeto: hum-organizacao-social-ideologias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "A festa do 1º de maio não nasceu do costume: foi decidida num congresso, em 1889. Os socialistas queriam
+    que, no mesmo dia, operários de cidades e países diferentes saíssem às ruas e se vissem como parte de
+    um mesmo grupo, com interesses comuns."
+    (Texto do Instituto Lúcia.)
+  enunciado: "Segundo o texto, a criação da data tinha como objetivo"
+  alternativas:
+    - texto: "valorizar a nação de cada operário acima de tudo."
+      erro: "A data foi pensada para vários países ao mesmo tempo. Fala de classe, não de nação."
+    - texto: "celebrar uma tradição popular antiga."
+      erro: "O texto diz que a festa não nasceu do costume: foi decidida num congresso."
+    - texto: "homenagear os donos das fábricas."
+      erro: "Os socialistas se opunham à burguesia. A festa era dos operários."
+    - texto: "construir uma identidade coletiva da classe operária."
+      certa: true
+    - texto: "comemorar a vitória de uma guerra."
+      erro: "O texto não fala de guerra. Fala de unir operários."
+  explicacao: "Fazer operários de vários lugares se manifestarem no mesmo dia era uma forma de construir a classe como sujeito político. A data também lembrava a greve de Chicago de 1886."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-05
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-ideologias
+  dificuldade: 2
+  enunciado: "Por que Marx e Engels chamaram Owen, Saint-Simon e Fourier de socialistas 'utópicos'?"
+  alternativas:
+    - texto: "Porque eles defendiam o capitalismo."
+      erro: "Eles criticavam o capitalismo. A diferença estava no caminho para mudá-lo."
+    - texto: "Porque imaginavam sociedades justas, mas apelavam à boa vontade e não explicavam como a mudança aconteceria."
+      certa: true
+    - texto: "Porque viviam numa ilha chamada Utopia."
+      erro: "Utopia é o nome de um livro de Thomas More, de 1516. A palavra passou a indicar um lugar ideal que não existe."
+    - texto: "Porque defendiam a monarquia absoluta."
+      erro: "Os utópicos queriam sociedades mais iguais, não o poder total do rei."
+    - texto: "Porque eram anarquistas."
+      erro: "Anarquismo é outra corrente, centrada na abolição do Estado."
+  explicacao: "Para Marx e Engels, a mudança viria da luta de classes, e não do convencimento dos ricos ou de comunidades-modelo. Por isso chamaram o próprio socialismo de 'científico'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-06
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-ideologias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "O contrato entre o dono da fábrica e o operário é livre. Se o operário aceita trabalhar por certo
+    salário, é porque lhe convém. Que a lei não se meta: fixar jornada ou salário seria ferir a liberdade
+    das duas partes e atrapalhar o progresso."
+    (Texto do Instituto Lúcia, escrito como a fala de um industrial do século XIX.)
+  enunciado: "O texto expressa uma posição"
+  alternativas:
+    - texto: "socialista, por defender os operários."
+      erro: "Falar de operários não é ser socialista. O texto defende que a lei não proteja o operário."
+    - texto: "anarquista, por rejeitar a lei."
+      erro: "O texto rejeita a lei trabalhista, não o Estado nem a propriedade. Defende o dono da fábrica."
+    - texto: "liberal, por defender a liberdade de contrato e o Estado fora da economia."
+      certa: true
+    - texto: "absolutista, por defender o poder do rei."
+      erro: "O texto não fala de rei. Fala de contrato e de mercado."
+    - texto: "medieval, por defender a servidão."
+      erro: "O operário do texto recebe salário e é 'livre' para aceitar. Servidão é outra relação."
+  explicacao: "Liberdade de contrato e Estado fora da economia são marcas do liberalismo econômico do século XIX. Socialistas e anarquistas diziam que esse contrato era desigual: o operário precisava aceitar para não passar fome."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-07
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-ideologias
+  dificuldade: 2
+  enunciado: "O Manifesto do Partido Comunista é de 1848, e O que é a propriedade?, de Proudhon, é de 1840. Quantos anos separam as duas obras?"
+  alternativas:
+    - texto: "18"
+      erro: "Você somou 8 a 10. Faça 1848 − 1840."
+    - texto: "4"
+      erro: "Conta errada. 1840 + 4 dá 1844, não 1848."
+    - texto: "88"
+      erro: "Você juntou os finais dos dois anos. Subtraia: 48 − 40."
+    - texto: "40"
+      erro: "40 é o final de um dos anos. A diferença é outra."
+    - texto: "8"
+      certa: true
+  explicacao: "1848 − 1840 = 8. As duas obras são da mesma época de crise e de crescimento do movimento operário."
+  conferir: "1848 - 1840"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-08
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-ideologias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: "O proletariado deve conquistar o poder político e usar o Estado para tirar da burguesia os meios
+    de produção."
+    Texto II: "Quem toma o Estado vira o novo senhor. É preciso destruir o Estado já, e não usá-lo."
+    (Textos do Instituto Lúcia, que resumem posições do debate entre socialistas no século XIX.)
+  enunciado: "Os textos expressam, respectivamente, posições"
+  alternativas:
+    - texto: "anarquista e marxista."
+      erro: "A ordem está trocada: quem quer usar o Estado é o marxista (Texto I); quem quer destruí-lo já é o anarquista (Texto II)."
+    - texto: "marxista e anarquista."
+      certa: true
+    - texto: "liberal e conservadora."
+      erro: "Nenhum dos textos defende o mercado nem a ordem tradicional. Os dois querem acabar com a dominação burguesa."
+    - texto: "utópica e liberal."
+      erro: "O Texto I fala de conquista do poder, não de comunidades-modelo. O Texto II não é liberal."
+    - texto: "absolutista e marxista."
+      erro: "O Texto I não fala de rei. E o Texto II recusa o Estado, o que o afasta do marxismo."
+  explicacao: "Marxistas e anarquistas criticavam a propriedade burguesa. A grande divergência era o Estado: usá-lo na transição (Marx) ou aboli-lo de imediato (Bakunin)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-09
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-ideologias
+  dificuldade: 3
+  enunciado: "Em 1886, operários de Chicago fizeram greve pela jornada de oito horas. Hoje, a Constituição brasileira fixa a jornada normal em oito horas diárias. O que a comparação permite concluir?"
+  alternativas:
+    - texto: "Direitos que hoje parecem normais foram, em muitos casos, fruto de lutas de trabalhadores."
+      certa: true
+    - texto: "A jornada de oito horas sempre existiu."
+      erro: "Em 1886 ela era uma reivindicação, não uma regra. Por isso houve greve."
+    - texto: "Os trabalhadores de Chicago escreveram a Constituição brasileira."
+      erro: "A comparação mostra uma ligação de lutas, não autoria da lei."
+    - texto: "A jornada de oito horas foi dada pelos patrões, sem conflito."
+      erro: "O caso de Chicago mostra greve, repressão e mortes. Não foi sem conflito."
+    - texto: "A greve de Chicago não teve importância para o movimento operário."
+      erro: "Ela virou a data do 1º de maio no mundo inteiro."
+  explicacao: "A Constituição de 1988 (art. 7º, XIII) fixa a duração normal do trabalho em até oito horas diárias e 44 semanais. Mais de um século antes, essa jornada ainda era bandeira de greve."
+  fonte: "Questão original do Instituto Lúcia, a partir da Constituição Federal de 1988, art. 7º (planalto.gov.br)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ideologias-10
+  tema: "Liberalismo, socialismo e anarquismo"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-ideologias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Os homens têm direitos naturais à vida, à liberdade e aos bens. O governo existe para protegê-los e só
+    é legítimo com o consentimento de quem é governado."
+    (Texto do Instituto Lúcia, que resume ideias de John Locke, 1690.)
+  enunciado: "As ideias resumidas no texto estão na base"
+  alternativas:
+    - texto: "do absolutismo, que defendia o poder sem limites do rei."
+      erro: "O texto limita o governo: ele só é legítimo com consentimento. É o contrário do absolutismo."
+    - texto: "do anarquismo, que recusava todo governo."
+      erro: "O texto aceita o governo, desde que proteja os direitos. Não recusa o Estado."
+    - texto: "do socialismo científico, que pregava o fim da propriedade."
+      erro: "O texto inclui os bens entre os direitos naturais. Defende a propriedade."
+    - texto: "do liberalismo político, que limita o governo pelos direitos individuais."
+      certa: true
+    - texto: "do feudalismo, que ligava o servo à terra."
+      erro: "O texto fala de direitos e consentimento, ideias modernas, não de laços feudais."
+  explicacao: "Direitos naturais e governo pelo consentimento são o centro do liberalismo político de Locke. Essas ideias aparecem depois nas revoluções inglesa, americana e francesa."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 7.1"
+  revisao: { status: em-revisao }

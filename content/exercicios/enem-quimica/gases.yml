@@ -1,0 +1,247 @@
+# Exercícios da aula "Estudo dos gases" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. R = 0,082 atm·L/(mol·K); T (K) = T (°C) + 273.
+
+- id: enem-qui-gases-01
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-transformacoes-gases
+  dificuldade: 1
+  enunciado: "Uma sala está a 27 °C. Essa temperatura, em kelvin, é"
+  alternativas:
+    - texto: "246 K"
+      erro: "Você subtraiu 27 de 273. Para passar de Celsius a kelvin, some 273."
+    - texto: "300 K"
+      certa: true
+    - texto: "27 K"
+      erro: "27 K seria um frio extremo, perto do zero absoluto. A escala kelvin começa 273 graus abaixo do zero Celsius."
+    - texto: "273 K"
+      erro: "273 K é 0 °C. Falta somar os 27 graus."
+    - texto: "-246 K"
+      erro: "Não existe temperatura negativa em kelvin. Some 27 + 273."
+  explicacao: "T = 27 + 273 = 300 K."
+  conferir: "27 + 273"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-02
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-transformacoes-gases
+  dificuldade: 1
+  enunciado: "Um gás ocupa 10 L. Sem mudar a temperatura, a pressão sobre ele dobra. O novo volume é"
+  alternativas:
+    - texto: "20 L"
+      erro: "Pressão e volume são inversos (lei de Boyle). Mais pressão espreme o gás."
+    - texto: "10 L"
+      erro: "O volume muda quando a pressão muda. P · V tem de ficar constante."
+    - texto: "40 L"
+      erro: "Você multiplicou por 4. Com o dobro da pressão, o volume cai pela metade."
+    - texto: "2,5 L"
+      erro: "Você dividiu por 4. A pressão só dobrou: o volume cai pela metade."
+    - texto: "5 L"
+      certa: true
+  explicacao: "Boyle: P₁ · V₁ = P₂ · V₂. Se P₂ = 2P₁, então V₂ = V₁ ÷ 2 = 5 L."
+  conferir: "10 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-03
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-transformacoes-gases
+  dificuldade: 1
+  enunciado: "Por que as leis dos gases usam a temperatura em kelvin, e não em graus Celsius?"
+  alternativas:
+    - texto: "Porque a escala kelvin começa no zero absoluto, e as proporções só valem a partir dele."
+      certa: true
+    - texto: "Porque o kelvin é mais preciso."
+      erro: "As duas escalas têm graus do mesmo tamanho. O problema é onde cada uma começa."
+    - texto: "Porque o Celsius só serve para água."
+      erro: "Celsius mede qualquer coisa. Mas o zero dele não é o zero da agitação das partículas."
+    - texto: "Porque o kelvin dá números menores."
+      erro: "É o contrário: em kelvin os números são maiores (300 K para 27 °C)."
+    - texto: "Por costume, sem motivo físico."
+      erro: "Há motivo: dobrar a temperatura em kelvin dobra a agitação. Em Celsius, não."
+  explicacao: "Volume e pressão são proporcionais à temperatura medida desde o zero absoluto. Só a escala kelvin começa ali."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-04
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-transformacoes-gases
+  dificuldade: 2
+  enunciado: "Um balão tem 3 L de ar a 300 K. Mantendo a pressão, ele é aquecido a 400 K. O novo volume é"
+  alternativas:
+    - texto: "2,25 L"
+      erro: "Você inverteu a fração (3 × 300 ÷ 400). Com pressão fixa, aquecer aumenta o volume."
+    - texto: "3 L"
+      erro: "O volume muda com a temperatura (lei de Charles)."
+    - texto: "103 L"
+      erro: "Você somou a variação de temperatura ao volume. A relação é uma proporção."
+    - texto: "4 L"
+      certa: true
+    - texto: "12 L"
+      erro: "Você multiplicou 3 por 400 ÷ 100. A conta é 3 × 400 ÷ 300."
+  explicacao: "Charles: V₁ ÷ T₁ = V₂ ÷ T₂. V₂ = 3 × 400 ÷ 300 = 4 L."
+  conferir: "3 * 400 / 300"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-05
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-transformacoes-gases
+  dificuldade: 2
+  enunciado: "Um recipiente de 24,6 L contém um gás a 1 atm e 300 K. Quantos mols de gás há nele? (R = 0,082 atm·L/(mol·K))"
+  alternativas:
+    - texto: "24,6 mol"
+      erro: "24,6 é o volume. A quantidade sai de n = P · V ÷ (R · T)."
+    - texto: "2 mol"
+      erro: "Confira a conta de baixo: 0,082 × 300 = 24,6, e não 12,3."
+    - texto: "1 mol"
+      certa: true
+    - texto: "605 mol"
+      erro: "Você multiplicou tudo em vez de dividir. n = P · V ÷ (R · T)."
+    - texto: "0,5 mol"
+      erro: "Você dobrou o denominador sem motivo. 24,6 ÷ 24,6 = 1."
+  explicacao: "n = P · V ÷ (R · T) = 1 × 24,6 ÷ (0,082 × 300) = 24,6 ÷ 24,6 = 1 mol."
+  conferir: "1 * 24.6 / (0.082 * 300)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-06
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-transformacoes-gases
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Para uma festa, uma família encheu balões de borracha à tarde, num dia quente, e guardou-os numa câmara fria de
+    um mercadinho até a noite. Ao tirá-los, os balões estavam visivelmente menores, mas voltaram ao tamanho depois de
+    algum tempo no salão.
+  enunciado: "O que explica o encolhimento dos balões?"
+  alternativas:
+    - texto: "O ar escapou pela borracha e voltou depois."
+      erro: "Se o ar tivesse escapado, os balões não voltariam ao tamanho sozinhos."
+    - texto: "O frio transformou parte do ar em líquido."
+      erro: "Uma câmara fria não chega perto da temperatura em que o ar vira líquido (cerca de −190 °C)."
+    - texto: "A borracha encolheu com o frio e espremeu o ar."
+      erro: "A borracha cede à pressão do gás. É o gás que ocupa menos espaço quando esfria."
+    - texto: "O frio aumentou a pressão dentro do balão."
+      erro: "Com menos agitação, as partículas batem menos nas paredes. A pressão não sobe."
+    - texto: "Com o frio, as partículas do ar se agitaram menos e o gás passou a ocupar menos volume."
+      certa: true
+  explicacao: "Com pressão quase constante, o volume é proporcional à temperatura em kelvin (lei de Charles). Esfriou, encolheu; esquentou de novo, voltou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-07
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-transformacoes-gases
+  dificuldade: 2
+  enunciado: "A 0 °C e 1 atm, 1 mol de gás ocupa 22,4 L. Qual é a massa de 11,2 L de gás oxigênio (O₂, 32 g/mol) nessas condições?"
+  alternativas:
+    - texto: "32 g"
+      erro: "32 g é a massa de 1 mol, que ocupa 22,4 L. Aqui o volume é a metade."
+    - texto: "8 g"
+      erro: "Você dividiu duas vezes. 11,2 L são 0,5 mol: 0,5 × 32 = 16."
+    - texto: "16 g"
+      certa: true
+    - texto: "11,2 g"
+      erro: "Volume em litros não é massa em gramas. Passe por mols."
+    - texto: "64 g"
+      erro: "Você dobrou em vez de dividir. 11,2 L é meio mol."
+  explicacao: "n = 11,2 ÷ 22,4 = 0,5 mol. Massa = 0,5 × 32 = 16 g."
+  conferir: "11.2 / 22.4 * 32"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-08
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-transformacoes-gases
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num laboratório de escola técnica, um cilindro de 4,1 L guarda 2 mol de gás nitrogênio a 27 °C.
+    Use R = 0,082 atm·L/(mol·K).
+  enunciado: "A pressão do gás dentro do cilindro é de"
+  alternativas:
+    - texto: "1,08 atm"
+      erro: "Você usou 27 °C sem passar para kelvin (2 × 0,082 × 27 ÷ 4,1). Some 273."
+    - texto: "12 atm"
+      certa: true
+    - texto: "6 atm"
+      erro: "Você usou 1 mol. O cilindro tem 2 mol: o dobro da pressão."
+    - texto: "0,083 atm"
+      erro: "Você inverteu a fração. P = n · R · T ÷ V."
+    - texto: "201,7 atm"
+      erro: "Você multiplicou pelo volume em vez de dividir. P = n · R · T ÷ V."
+  explicacao: "T = 300 K. P = n · R · T ÷ V = 2 × 0,082 × 300 ÷ 4,1 = 49,2 ÷ 4,1 = 12 atm."
+  conferir: "2 * 0.082 * 300 / 4.1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-09
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-transformacoes-gases
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um balão meteorológico sai do chão com 10 L de gás, a 2 atm e 300 K. Numa camada da atmosfera, a pressão do gás
+    dentro dele cai para 1 atm e, num modelo simplificado em que o gás é aquecido pelo sol, a temperatura sobe a 600 K.
+  enunciado: "Nesse modelo, o volume do balão passa a ser"
+  alternativas:
+    - texto: "40 L"
+      certa: true
+    - texto: "20 L"
+      erro: "Você considerou só uma das mudanças. A pressão caiu pela metade (dobra o volume) e a temperatura dobrou (dobra de novo)."
+    - texto: "10 L"
+      erro: "Pressão e temperatura mudaram. O volume não fica igual."
+    - texto: "5 L"
+      erro: "Você inverteu a relação com a pressão. Menos pressão, mais volume."
+    - texto: "2,5 L"
+      erro: "Você inverteu as duas relações. Menos pressão e mais temperatura aumentam o volume."
+  explicacao: "P₁V₁/T₁ = P₂V₂/T₂: V₂ = P₁ · V₁ · T₂ ÷ (T₁ · P₂) = 2 × 10 × 600 ÷ (300 × 1) = 40 L."
+  conferir: "2 * 10 * 600 / (300 * 1)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-gases-10
+  tema: "Estudo dos gases"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-transformacoes-gases
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um folheto de segurança de um condomínio orienta: em caso de vazamento do gás de cozinha, não acenda luz, feche o registro, abra
+    portas e janelas e evite ficar agachado. O gás de cozinha é formado principalmente por propano (44 g/mol) e butano
+    (58 g/mol). O ar tem massa molar média de cerca de 29 g/mol.
+  enunciado: "A orientação de não ficar agachado se explica porque o gás de cozinha"
+  alternativas:
+    - texto: "é mais leve que o ar e se acumula perto do teto."
+      erro: "É o contrário. Propano e butano têm massas molares maiores que a do ar."
+    - texto: "se transforma em líquido no chão."
+      erro: "Fora do botijão, à pressão do ambiente, o gás continua gasoso."
+    - texto: "tem a mesma densidade do ar e se espalha por igual."
+      erro: "As massas molares são diferentes. No mesmo volume, o gás de cozinha tem mais massa."
+    - texto: "é mais denso que o ar, por ter massa molar maior, e se acumula perto do chão."
+      certa: true
+    - texto: "reage com o oxigênio do chão."
+      erro: "Sem chama, o gás não reage. O problema é onde ele se acumula."
+  explicacao: "Volumes iguais de gases têm o mesmo número de partículas. Com massa molar maior (44 e 58 contra 29), o gás de cozinha é mais denso e desce. Por isso ele se acumula embaixo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

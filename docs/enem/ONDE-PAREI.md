@@ -1,23 +1,30 @@
-# Onde parei (01/11/2026)
+# Onde parei (02/11/2026)
 
-## No master (publicado até 9d78de94)
-Ondas 0, 1 e 2: matriz, edição 2026 conferida, 347 questões oficiais de 2022 e 2023 classificadas e resolvidas, reta final
-(18 aulas), estratégia de prova (8), páginas `/enem` (provas por ano e dia, prática, diagnóstico, plano, minissimulados,
-oficina de redação, TRI, Sisu, dia da prova), textos nos 6 idiomas. Liga com `enem-curso` em `NEXT_PUBLIC_RECURSOS`.
+## Pronto
+- Ondas 0, 1 e 2 (fundação, reta final, motor do curso): no master desde 30/10.
+- Onda 7 (redação), parcial: 27 temas oficiais (1998–2025, sem 2008; fonte: página "Provas e gabaritos" do Inep),
+  grade de autocorreção, 10 redações-modelo, 10 propostas, 30 itens de repertório, as 8 aulas de `enem-redacao` no modelo.
+- Onda 3 (Matemática): 5 trilhas, 45 aulas, 450 exercícios; revisão em `revisao-onda-3.md`.
+- Onda 4 (Linguagens): 7 trilhas (leitura e gêneros 12, língua em uso 10, literatura 17, artes e corpo 6,
+  tecnologias 4, inglês 4, espanhol 4), 57 aulas, 570 exercícios.
+- Onda 5 (Natureza), parcial: Física 10 aulas, Química 22, Biologia 9.
+- Onda 6 (Humanas), parcial: História do Brasil 8, História geral 8, Geografia 8, Filosofia 5, Sociologia 5.
+- Revisão independente das Ondas 4 a 6 (`revisao-ondas-4-a-6.md`, 14 correções).
+- Cobertura: 114/120 habilidades com aula, 67/120 com 10+ exercícios, 194/286 tópicos com aula, 1.948 exercícios com
+  etiquetas, 347 questões oficiais classificadas (2022 e 2023). Detalhes em `COBERTURA.md`; fila em `FILA-DE-REVISAO.md`.
 
-## Só no ramo enem-curso-completo (testes verdes, build NÃO rodado)
-- Onda 7 (parcial): `redacao/temas-oficiais.yml` (27 anos, 1998–2025 sem 2008), `grade.yml`, `modelos.yml`
-  (10 redações-modelo), as 8 aulas de `enem-redacao` no modelo; validadores da grade e dos modelos.
-- Onda 3 (parcial): 4 trilhas de Matemática com 6 aulas cada e 60 exercícios cada (proporcionalidade, geometria,
-  estatística e probabilidade, funções e álgebra) e o mapa curricular; questões oficiais ligadas por `npm run ligar:enem`.
-- Cobertura: 94/120 habilidades com aula, 8/120 com 10+ exercícios, 136/286 tópicos com aula, 338 exercícios com etiquetas.
+## Ponto exato onde parei
+Build local verde das Ondas 4 a 6 e da revisão; publicado no master (02/11). O curso parou aqui por decisão do dono.
 
-## Pela metade / pendente
-- `temas-oficiais.yml` usa link direto para o PDF da prova em 25 anos: trocar pela página "Provas e gabaritos" do Inep.
-- Matemática: falta `enem-matematica-fundamentos` e as aulas restantes de cada plano.json.
-- Ondas 4, 5, 6 (Linguagens, Natureza, Humanas), 8 e 9: não começadas. Molde de equipe:
-  `scratchpad/prompts/TAREFA-TRILHA-DE-AREA.md` (resumo em docs/ENEM.md, seção 10).
+## O que falta
+- Aulas restantes de cada `plano.json` (as trilhas listam todos os tópicos; `npm run proximo` mostra o que falta):
+  Física 18, Química 11, Biologia 22, História do Brasil 4, História geral 11, Geografia 10, Filosofia 6, Sociologia 8,
+  artes e corpo 7, Geometria 6.
+- Redação: mais aulas (meta 25), propostas (meta 100), modelos (meta 30), repertório (meta 300).
+- Classificar as provas de 2009 a 2021 (`docs/ENEM.md`, seção 6) e depois `npm run incidencia:enem` e `ligar:enem`.
+- Onda 8: trilha `enem-base`, Encceja, atendimento especializado, `enem-como-funciona` no modelo, teste de acessibilidade.
+- Onda 9: planos de aula ENEM em `content/professores/planos`, sequências do modo turma, apostila por área.
+  Lacunas novas (habilidade sem aula etc.) pedem mudança no banco (`regras` em `supabase/install.sql`): fica como
+  proposta para o dono, não foi feito.
+- Simulados fixos do instituto (6) e e2e no Playwright (sem navegadores nesta máquina).
 - `testar:curriculo` falha também no master (dicionários, `areas.cooperativismo`), fora do curso.
-
-## Próxima tarefa
-Rodar o build, revisão independente da Onda 3 e publicar o ramo no master; depois Linguagens (Onda 4).

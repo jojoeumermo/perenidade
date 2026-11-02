@@ -151,19 +151,19 @@
   habilidade: 27
   objeto: lin-lingua-portuguesa-norma-padrao
   dificuldade: 2
-  enunciado: "“Vou ___ Bahia nas férias e depois ___ Recife.” Na norma-padrão, as lacunas se completam com:"
+  enunciado: "“Vou ___ Bahia nas férias e depois ___ Curitiba.” Na norma-padrão, as lacunas se completam com:"
   alternativas:
     - texto: "à / a"
       certa: true
     - texto: "a / à"
-      erro: "Use o truque da volta: “volto da Bahia” (tem artigo, vai “à”) e “volto de Recife” (sem artigo, vai “a”)."
+      erro: "Use o truque da volta: “volto da Bahia” (tem artigo, vai “à”) e “volto de Curitiba” (sem artigo, vai “a”)."
     - texto: "à / à"
-      erro: "“Recife” não leva artigo: “volto de Recife”, não “da Recife”. Sem artigo, sem crase."
+      erro: "“Curitiba” não leva artigo: “volto de Curitiba”, não “da Curitiba”. Sem artigo, sem crase."
     - texto: "a / a"
       erro: "“Bahia” leva artigo (“volto da Bahia”). A preposição de “ir a” se junta a ele: “à Bahia”."
     - texto: "na / no"
       erro: "Na norma-padrão, “ir” pede “a”. “Vou na Bahia” é forma da fala."
-  explicacao: "Truque da volta: volto da Bahia, vou à Bahia; volto de Recife, vou a Recife."
+  explicacao: "Truque da volta: volto da Bahia, vou à Bahia; volto de Curitiba, vou a Curitiba."
   fonte: "Questão original do Instituto Lúcia, com base em Bechara, Moderna Gramática Portuguesa"
   revisao: { status: em-revisao }
 

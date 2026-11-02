@@ -1,0 +1,243 @@
+# Exercícios da aula "Ácidos, bases, sais e óxidos" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Massas molares arredondadas: H 1, C 12, O 16, Na 23, S 32, Cl 35,5, Ca 40.
+
+- id: enem-qui-funcoes-inorganicas-01
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  dificuldade: 1
+  enunciado: "O ácido nítrico (HNO₃) é usado na fabricação de fertilizantes. Dissolvido em água, ele libera íons H⁺. Ele é classificado como"
+  alternativas:
+    - texto: "base"
+      erro: "Base libera OH⁻ na água. O HNO₃ libera H⁺: o hidrogênio escrito no começo da fórmula é a pista de um ácido."
+    - texto: "sal"
+      erro: "Sal se forma quando um ácido reage com uma base. O HNO₃ ainda tem o H⁺ para entregar: é o próprio ácido."
+    - texto: "ácido"
+      certa: true
+    - texto: "óxido básico"
+      erro: "Óxido tem só dois elementos, um deles o oxigênio. O HNO₃ tem três elementos."
+    - texto: "óxido ácido"
+      erro: "Óxido ácido forma ácido com a água, mas tem só dois elementos (como CO₂). O HNO₃ já é o ácido."
+  explicacao: "Substância que libera H⁺ em água é ácido de Arrhenius. O ácido nítrico é um ácido forte: separa-se quase todo em H⁺ e NO₃⁻."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-02
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  dificuldade: 1
+  enunciado: "Na reação HCl + NaOH, os produtos são"
+  alternativas:
+    - texto: "NaCl e H₂O"
+      certa: true
+    - texto: "NaH e HClO"
+      erro: "O H⁺ do ácido se junta ao OH⁻ da base e forma água. Sobram Na⁺ e Cl⁻, que formam o sal NaCl."
+    - texto: "Na, Cl₂ e H₂"
+      erro: "A neutralização não separa os elementos. Ela junta H⁺ e OH⁻ em água; os íons que sobram formam o sal."
+    - texto: "NaOH e HCl"
+      erro: "Esses são os reagentes. A pergunta pede o que se forma depois da reação."
+    - texto: "só H₂O"
+      erro: "A água se forma, mas os íons Na⁺ e Cl⁻ continuam ali. Juntos, eles são o sal cloreto de sódio."
+  explicacao: "Ácido + base → sal + água: HCl + NaOH → NaCl + H₂O."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-03
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  dificuldade: 1
+  enunciado: "O leite de magnésia, usado contra azia, é uma suspensão de Mg(OH)₂. Essa substância é"
+  alternativas:
+    - texto: "um ácido, porque tem hidrogênio"
+      erro: "Ter hidrogênio não basta. No Mg(OH)₂ o hidrogênio está no grupo OH, que sai como hidroxila (OH⁻)."
+    - texto: "um óxido, porque tem oxigênio"
+      erro: "Óxido tem só dois elementos. O Mg(OH)₂ tem três: magnésio, oxigênio e hidrogênio."
+    - texto: "um sal, porque tem metal"
+      erro: "O sal não tem OH⁻ nem H⁺ para trocar. O Mg(OH)₂ tem dois grupos OH: é uma base."
+    - texto: "um ácido fraco, porque é suave"
+      erro: "Suave para o estômago não quer dizer ácido. Ele combate a azia justamente por ser o contrário de um ácido."
+    - texto: "uma base, que neutraliza o excesso de ácido do estômago"
+      certa: true
+  explicacao: "Hidróxido de metal libera OH⁻: é base. No estômago, o OH⁻ se junta ao H⁺ do ácido clorídrico e forma água, aliviando a azia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-04
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  dificuldade: 2
+  enunciado: "Na construção, a cal virgem (CaO) é misturada com água e forma a cal hidratada, Ca(OH)₂, que esquenta o balde. Por formar uma base com a água, o CaO é classificado como"
+  alternativas:
+    - texto: "óxido ácido"
+      erro: "Óxido ácido forma ácido com a água, como o CO₂. O CaO formou um hidróxido, que é base."
+    - texto: "óxido básico"
+      certa: true
+    - texto: "sal"
+      erro: "Sal vem de ácido com base. O CaO tem só dois elementos, cálcio e oxigênio: é um óxido."
+    - texto: "ácido forte"
+      erro: "O CaO não tem H⁺ para liberar. E o produto, Ca(OH)₂, é uma base."
+    - texto: "peróxido"
+      erro: "Peróxido tem dois oxigênios ligados entre si, como na água oxigenada (H₂O₂). O CaO tem um oxigênio só."
+  explicacao: "CaO + H₂O → Ca(OH)₂. Óxido de metal que forma base é óxido básico. O calor no balde vem da própria reação, que libera energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-05
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma trabalhadora da limpeza de um posto de saúde passou mal depois de lavar o banheiro. Ela tinha misturado, no
+    mesmo balde, água sanitária (solução de hipoclorito de sódio, NaClO) e um produto para tirar crostas, à base de ácido
+    clorídrico. Sentiu um cheiro forte, os olhos arderam e ela começou a tossir.
+  enunciado: "Os sintomas foram causados por"
+  alternativas:
+    - texto: "vapor de água quente, formado pela neutralização."
+      erro: "Hipoclorito e ácido não fazem uma neutralização simples que só esquenta. Eles formam um gás novo e tóxico."
+    - texto: "gás carbônico, que sai de todo ácido."
+      erro: "CO₂ sai quando o ácido encontra carbonato ou bicarbonato. Aqui não há carbonato; há hipoclorito."
+    - texto: "sal de cozinha, que irrita os olhos."
+      erro: "O NaCl se forma, mas fica dissolvido na água. Não sobe para o ar e não explica a tosse."
+    - texto: "gás cloro (Cl₂), formado pelo hipoclorito em meio ácido."
+      certa: true
+    - texto: "gás oxigênio, que é tóxico em excesso."
+      erro: "O oxigênio não tem cheiro forte nem faz os olhos arderem. O gás que irrita é o cloro."
+  explicacao: "NaClO + 2 HCl → NaCl + Cl₂ + H₂O. O cloro é um gás irritante para olhos e pulmões. Produto ácido e água sanitária nunca vão no mesmo balde."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-06
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  dificuldade: 2
+  enunciado: "Uma professora põe bicarbonato de sódio (NaHCO₃) num copo de vinagre, e a mistura borbulha. O gás que forma as bolhas é"
+  alternativas:
+    - texto: "hidrogênio (H₂)"
+      erro: "H₂ sai quando um ácido ataca certos metais, como o zinco. Com bicarbonato, o gás é outro."
+    - texto: "oxigênio (O₂)"
+      erro: "O oxigênio do bicarbonato não sai sozinho. Ele sai preso ao carbono, como CO₂."
+    - texto: "cloro (Cl₂)"
+      erro: "Não há cloro no vinagre nem no bicarbonato. O cloro aparece com hipoclorito em meio ácido."
+    - texto: "vapor de vinagre"
+      erro: "A reação forma uma substância nova. As bolhas são de um gás que não existia antes no copo."
+    - texto: "gás carbônico (CO₂)"
+      certa: true
+  explicacao: "O H⁺ do ácido acético se junta ao HCO₃⁻ e forma ácido carbônico, que se desfaz em água e CO₂. As bolhas são de gás carbônico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-07
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  dificuldade: 2
+  enunciado: "Na neutralização H₂SO₄ + 2 NaOH → Na₂SO₄ + 2 H₂O, quantos mols de NaOH são necessários para neutralizar 0,5 mol de ácido sulfúrico?"
+  alternativas:
+    - texto: "0,5 mol"
+      erro: "A proporção não é 1 para 1. Cada H₂SO₄ tem dois H⁺ e precisa de dois NaOH."
+    - texto: "1 mol"
+      certa: true
+    - texto: "2 mol"
+      erro: "2 é o coeficiente da equação, para 1 mol de ácido. Com 0,5 mol de ácido, a metade: 1 mol."
+    - texto: "0,25 mol"
+      erro: "Você dividiu pela proporção em vez de multiplicar. Para cada ácido são dois NaOH: 0,5 × 2."
+    - texto: "4 mol"
+      erro: "Você multiplicou além da conta. A proporção é 1 ácido para 2 bases: 0,5 × 2 = 1."
+  explicacao: "A equação diz 1 H₂SO₄ para 2 NaOH. Então 0,5 mol de ácido pede 0,5 × 2 = 1 mol de NaOH."
+  conferir: "0.5 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-08
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-agua-funcoes-inorganicas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Perto de uma refinaria que queima óleo com muito enxofre, as estátuas de mármore de uma praça começaram a perder o
+    contorno. A queima produz dióxido de enxofre (SO₂), que no ar vira trióxido de enxofre (SO₃). O mármore é formado
+    principalmente por carbonato de cálcio (CaCO₃).
+  enunciado: "O desgaste das estátuas se explica porque"
+  alternativas:
+    - texto: "o SO₃ é um óxido básico que dissolve o calcário."
+      erro: "O SO₃ é óxido de ametal (enxofre): forma ácido com a água, não base."
+    - texto: "o carbonato de cálcio é um ácido que reage com o ar."
+      erro: "O CaCO₃ é um sal. Ele é atacado, mas por um ácido que vem da chuva."
+    - texto: "o SO₂ transforma o mármore em enxofre puro."
+      erro: "O enxofre não substitui o mármore. O que acontece é uma reação de ácido com carbonato."
+    - texto: "o SO₃ forma ácido sulfúrico com a água da chuva, e esse ácido reage com o carbonato, liberando CO₂."
+      certa: true
+    - texto: "a chuva fica básica e amolece a pedra."
+      erro: "Óxidos de enxofre deixam a chuva ácida, não básica. É o ácido que ataca o carbonato."
+  explicacao: "SO₃ + H₂O → H₂SO₄. Depois, H₂SO₄ + CaCO₃ → CaSO₄ + H₂O + CO₂. O mármore vira sulfato de cálcio, que se desfaz com a chuva, e a estátua perde a forma."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-09
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um antiácido tem bicarbonato de sódio (NaHCO₃, massa molar 84 g/mol). No estômago, ele reage com o ácido clorídrico
+    na proporção de 1 para 1:
+    NaHCO₃ + HCl → NaCl + H₂O + CO₂
+  enunciado: "Para neutralizar 0,02 mol de HCl, a massa de bicarbonato necessária é"
+  alternativas:
+    - texto: "1,68 g"
+      certa: true
+    - texto: "0,84 g"
+      erro: "Essa massa neutraliza só 0,01 mol de HCl. Com 0,02 mol, é o dobro: 0,02 × 84."
+    - texto: "3,36 g"
+      erro: "Você usou proporção de 2 para 1. A equação mostra 1 NaHCO₃ para 1 HCl."
+    - texto: "84 g"
+      erro: "84 g é um mol inteiro de bicarbonato. São só 0,02 mol: multiplique 0,02 por 84."
+    - texto: "16,8 g"
+      erro: "A vírgula andou uma casa a mais. 0,02 × 84 = 1,68, não 16,8."
+  explicacao: "Proporção 1 : 1, então 0,02 mol de HCl pede 0,02 mol de NaHCO₃. Massa = 0,02 × 84 = 1,68 g."
+  conferir: "0.02 * 84"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-funcoes-inorganicas-10
+  tema: "Ácidos, bases, sais e óxidos"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-funcoes-inorganicas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa fábrica de refrigerantes, o gás carbônico (CO₂) é dissolvido na bebida sob pressão. Uma estudante mediu o pH de
+    uma amostra de água antes e depois de borbulhar CO₂ nela e viu o pH cair de 7 para perto de 4.
+  enunciado: "A queda do pH se explica porque o CO₂ é um"
+  alternativas:
+    - texto: "óxido básico, que forma hidróxido de carbono."
+      erro: "Se formasse base, o pH subiria. O CO₂ é óxido de ametal e forma ácido."
+    - texto: "sal, que se dissolve e libera OH⁻."
+      erro: "O CO₂ tem só dois elementos: é um óxido. E OH⁻ subiria o pH, não baixaria."
+    - texto: "óxido ácido, que forma ácido carbônico com a água e libera H⁺."
+      certa: true
+    - texto: "ácido forte, que se separa todo em íons."
+      erro: "O ácido carbônico é fraco: separa-se pouco. Mesmo assim, libera H⁺ suficiente para baixar o pH."
+    - texto: "gás inerte, e o pH caiu por causa da temperatura."
+      erro: "O CO₂ reage com a água: CO₂ + H₂O ⇌ H₂CO₃. Não é um gás que só fica de passagem."
+  explicacao: "CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻. O H⁺ liberado baixa o pH. É por isso que o refrigerante é ácido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

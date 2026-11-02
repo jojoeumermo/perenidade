@@ -1,0 +1,242 @@
+# Exercícios da aula "Calor sensível e latente, trocas de calor e mudanças de estado" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Constantes arredondadas como na prova (dadas em cada enunciado).
+
+- id: enem-fis-calor-01
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 1
+  enunciado: "Quanto calor é preciso para aquecer 500 g de água de 20 °C até 30 °C? Use c = 1 cal/(g · °C)."
+  alternativas:
+    - texto: "500 cal"
+      erro: "Você esqueceu a variação de temperatura. Cada grama pede 1 cal por grau, e são 10 graus."
+    - texto: "15.000 cal"
+      erro: "Você usou a temperatura final (30 °C) no lugar da variação. ΔT = 30 − 20 = 10 °C."
+    - texto: "5.000 cal"
+      certa: true
+    - texto: "25.000 cal"
+      erro: "Você somou as temperaturas (20 + 30). A conta usa a diferença entre elas."
+    - texto: "50 cal"
+      erro: "Você dividiu a massa pela variação de temperatura. A fórmula multiplica: Q = m · c · ΔT."
+  explicacao: "Q = m · c · ΔT = 500 × 1 × (30 − 20) = 500 × 10 = 5.000 cal."
+  conferir: "500 * 1 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-02
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 1
+  enunciado: "Na física, o que é calor?"
+  alternativas:
+    - texto: "Energia que passa de um corpo para outro por causa de uma diferença de temperatura"
+      certa: true
+    - texto: "A medida do grau de agitação das partículas de um corpo"
+      erro: "Essa é a definição de temperatura. Calor é a energia que passa entre corpos de temperaturas diferentes."
+    - texto: "Uma substância que fica guardada dentro dos corpos quentes"
+      erro: "Calor não é substância nem fica guardado. É energia em trânsito: só existe enquanto passa de um corpo para outro."
+    - texto: "A sensação de abafamento num dia úmido"
+      erro: "Essa é a ideia do dia a dia. Na física, calor é energia transferida pela diferença de temperatura."
+    - texto: "Energia que passa sempre do corpo maior para o menor"
+      erro: "O que decide o sentido é a temperatura, não o tamanho. O calor vai do mais quente para o mais frio."
+  explicacao: "Calor é energia em trânsito, que vai do corpo mais quente para o mais frio até os dois chegarem à mesma temperatura. Temperatura é outra grandeza: mede a agitação das partículas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-03
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 1
+  enunciado: "Um copo com gelo e água fica sobre a mesa. Enquanto ainda há gelo no copo, a mistura recebe calor do ambiente. O que acontece com a temperatura da mistura nesse tempo?"
+  alternativas:
+    - texto: "Sobe aos poucos, até a temperatura do ambiente"
+      erro: "Ela só sobe depois que o gelo derrete todo. Antes disso, o calor recebido é usado para derreter o gelo."
+    - texto: "Cai, porque o gelo esfria a água cada vez mais"
+      erro: "A mistura recebe calor do ambiente, não perde. Com gelo e água juntos, a temperatura fica parada em 0 °C."
+    - texto: "Oscila, subindo e descendo"
+      erro: "Não há oscilação. Durante a fusão, a temperatura fica constante."
+    - texto: "Sobe até 100 °C"
+      erro: "100 °C é o ponto de ebulição, ao nível do mar. A mistura de gelo e água fica em 0 °C enquanto houver gelo."
+    - texto: "Fica constante, em cerca de 0 °C"
+      certa: true
+  explicacao: "Durante uma mudança de estado, a temperatura fica constante. O calor que chega do ambiente vira calor latente: desfaz o gelo, sem esquentar a mistura. Só depois que o gelo acaba a água começa a esquentar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-04
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 2
+  enunciado: "Quanto calor é preciso para derreter 200 g de gelo que já está a 0 °C? Use o calor latente de fusão do gelo, 80 cal/g."
+  alternativas:
+    - texto: "280 cal"
+      erro: "Você somou a massa e o calor latente. A fórmula é de multiplicação: Q = m · L."
+    - texto: "16.000 cal"
+      certa: true
+    - texto: "0,4 cal"
+      erro: "Você dividiu o calor latente pela massa (80 ÷ 200). Multiplique: 200 × 80."
+    - texto: "2,5 cal"
+      erro: "Você dividiu a massa pelo calor latente (200 ÷ 80). Multiplique: 200 × 80."
+    - texto: "1.600 cal"
+      erro: "Faltou um zero. Confira: 200 × 80 = 16.000."
+  explicacao: "Na fusão, a temperatura não muda, e o calor é latente: Q = m · L = 200 × 80 = 16.000 cal."
+  conferir: "200 * 80"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-05
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em cidades do litoral, a diferença entre a temperatura mais alta do dia e a mais baixa da noite costuma ser menor do
+    que em cidades do interior, longe do mar e de grandes lagos. Perto da costa, o mar ajuda a segurar a temperatura.
+  enunciado: "A propriedade da água que melhor explica esse efeito do mar é"
+  alternativas:
+    - texto: "a baixa densidade da água do mar, que a faz boiar sobre o ar"
+      erro: "A água é muito mais densa que o ar e não boia sobre ele. O efeito vem de quanto calor a água pede para mudar de temperatura."
+    - texto: "o baixo calor específico da água, que esquenta e esfria depressa"
+      erro: "É o contrário. Se a água esquentasse e esfriasse depressa, ela acompanharia o dia e a noite e não seguraria a temperatura."
+    - texto: "a cor azul do mar, que reflete toda a luz do Sol"
+      erro: "O mar absorve boa parte da luz do Sol. E a cor não explica a demora para esquentar e esfriar."
+    - texto: "o alto calor específico da água, que precisa receber ou perder muito calor para mudar de temperatura"
+      certa: true
+    - texto: "o sal dissolvido, que impede a água de receber calor"
+      erro: "O sal não impede a troca de calor. Lagos de água doce têm o mesmo efeito: o que conta é o calor específico alto da água."
+  explicacao: "A água tem calor específico alto: cada grama pede muito calor para subir um grau e devolve muito calor para descer um grau. De dia, o mar absorve calor sem esquentar tanto; à noite, devolve calor ao ar. Assim, a variação entre dia e noite fica menor no litoral."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-06
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 2
+  enunciado: "Num balde que não troca calor com o ambiente, misturam-se 1 kg de água a 80 °C e 3 kg de água a 20 °C. Qual é a temperatura final?"
+  alternativas:
+    - texto: "50 °C"
+      erro: "50 °C é a média simples. Há mais água fria (3 kg), então a temperatura final fica mais perto de 20 °C."
+    - texto: "65 °C"
+      erro: "Você trocou as massas, dando peso 3 à água quente. Quem tem 3 kg é a água fria."
+    - texto: "35 °C"
+      certa: true
+    - texto: "100 °C"
+      erro: "Você somou as temperaturas. Na mistura, a temperatura final fica entre as duas iniciais."
+    - texto: "60 °C"
+      erro: "60 é a diferença entre as temperaturas (80 − 20), não a temperatura final."
+  explicacao: "Média ponderada pelas massas: (1 × 80 + 3 × 20) ÷ 4 = (80 + 60) ÷ 4 = 140 ÷ 4 = 35 °C. Confira: a água quente perde 45 °C × 1 kg; a fria ganha 15 °C × 3 kg. Os dois dão 45."
+  conferir: "(1*80 + 3*20) / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-07
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 2
+  enunciado: "Quanta energia é preciso para aquecer 2 kg de água de 25 °C até 100 °C? Use c = 4.200 J/(kg · °C)."
+  alternativas:
+    - texto: "840.000 J"
+      erro: "Você usou 100 °C como variação. A água começa em 25 °C: ΔT = 100 − 25 = 75 °C."
+    - texto: "8.400 J"
+      erro: "Você esqueceu a variação de temperatura. Multiplique também por 75 °C."
+    - texto: "315.000 J"
+      erro: "Essa é a energia para 1 kg. São 2 kg: multiplique por 2."
+    - texto: "1.050.000 J"
+      erro: "Você somou as temperaturas (25 + 100 = 125). Use a diferença: 75 °C."
+    - texto: "630.000 J"
+      certa: true
+  explicacao: "Q = m · c · ΔT = 2 × 4.200 × (100 − 25) = 2 × 4.200 × 75 = 630.000 J."
+  conferir: "2 * 4200 * 75"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-08
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-calor-trocas-de-calor
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um chuveiro elétrico de 4.200 W aquece a água que passa por ele com uma vazão de 3 litros por minuto. Considere que
+    toda a energia elétrica vira calor na água, que 1 litro de água tem massa de 1 kg e que o calor específico da água é
+    4.200 J/(kg · °C).
+  enunciado: "Em quantos graus Celsius a temperatura da água aumenta ao passar pelo chuveiro?"
+  alternativas:
+    - texto: "20 °C"
+      certa: true
+    - texto: "1 °C"
+      erro: "Você dividiu a potência pelo calor específico e esqueceu a vazão. Por segundo passam 0,05 kg de água."
+    - texto: "0,33 °C"
+      erro: "Você usou a vazão em litros por minuto (3) junto com a potência em joules por segundo. Passe a vazão para segundos: 3 kg ÷ 60 s = 0,05 kg/s."
+    - texto: "0,05 °C"
+      erro: "Você multiplicou pela vazão em vez de dividir. Use ΔT = P ÷ (vazão × c)."
+    - texto: "84.000 °C"
+      erro: "Você dividiu a potência pela vazão e esqueceu o calor específico. Nenhum chuveiro esquenta tanto."
+  explicacao: "Em 1 segundo, o chuveiro entrega 4.200 J e passam 3 ÷ 60 = 0,05 kg de água. De Q = m · c · ΔT: 4.200 = 0,05 × 4.200 × ΔT, então ΔT = 4.200 ÷ 210 = 20 °C."
+  conferir: "4200 / (0.05 * 4200)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-09
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 3
+  enunciado: "Quanto calor é preciso para transformar 100 g de gelo a 0 °C em água a 20 °C? Use o calor latente de fusão do gelo, 80 cal/g, e o calor específico da água, 1 cal/(g · °C)."
+  alternativas:
+    - texto: "8.000 cal"
+      erro: "Esse é só o calor para derreter o gelo. Depois, a água ainda precisa esquentar de 0 °C a 20 °C."
+    - texto: "2.000 cal"
+      erro: "Esse é só o calor para esquentar a água. Antes, o gelo precisa derreter, com calor latente."
+    - texto: "6.000 cal"
+      erro: "Você subtraiu as duas parcelas. As duas etapas pedem calor: some."
+    - texto: "10.000 cal"
+      certa: true
+    - texto: "2.080 cal"
+      erro: "Na fusão, você esqueceu a massa: usou 80 cal em vez de 100 × 80 = 8.000 cal."
+  explicacao: "Duas etapas. Derreter: Q₁ = m · L = 100 × 80 = 8.000 cal, a 0 °C. Esquentar a água: Q₂ = m · c · ΔT = 100 × 1 × 20 = 2.000 cal. Total: 10.000 cal."
+  conferir: "100 * 80 + 100 * 1 * 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-calor-10
+  tema: "Trocas de calor"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Depois de uma corrida, uma pessoa sente frio ao parar sob o vento com a camiseta molhada de suor. Em casa, a água de
+    uma moringa de barro fica mais fresca que a de uma jarra de vidro, porque um pouco de água atravessa os poros do
+    barro e evapora do lado de fora.
+  enunciado: "O que as duas situações têm em comum?"
+  alternativas:
+    - texto: "O vento e o barro produzem frio, que entra no corpo e na água"
+      erro: "Frio não é algo que entra. O que acontece é a saída de calor, levado pela água que evapora."
+    - texto: "A evaporação da água pede calor latente, e parte desse calor é retirada da pele e da água da moringa"
+      certa: true
+    - texto: "A condensação do vapor libera calor, que esfria a pele e a moringa"
+      erro: "Nas duas situações, a água passa de líquido para vapor: é evaporação, não condensação. E a condensação libera calor, o que esquentaria."
+    - texto: "O suor e o barro têm calor específico baixo e esfriam sozinhos"
+      erro: "O esfriamento vem da mudança de estado da água, não do calor específico. Sem evaporação, não haveria o efeito."
+    - texto: "A pele e o barro isolam o calor e impedem as trocas com o ambiente"
+      erro: "Se houvesse isolamento, a temperatura não cairia. Há troca: a água que evapora leva calor embora."
+  explicacao: "Para evaporar, a água precisa receber calor latente. Esse calor sai do que está em contato com ela: da pele, no caso do suor; da água de dentro, no caso da moringa. Por isso os dois esfriam. O vento ajuda, porque leva o vapor e acelera a evaporação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

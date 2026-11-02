@@ -1,0 +1,14 @@
+[
+  { "slug": "patrimonio-cultural", "titulo": "Patrimônio cultural, memória e identidade no Brasil" },
+  { "slug": "povos-indigenas", "titulo": "Povos indígenas e a formação do Brasil" },
+  { "slug": "economia-colonial", "titulo": "Açúcar, ouro, café e borracha" },
+  { "slug": "escravidao-e-resistencia", "titulo": "Escravidão, resistência e quilombos" },
+  { "slug": "colonia-e-independencia", "titulo": "Revoltas coloniais, família real e independência" },
+  { "slug": "imperio", "titulo": "Primeiro Reinado, Regências e Segundo Reinado" },
+  { "slug": "luta-negra-e-pos-abolicao", "titulo": "A luta negra no Brasil e o pós-abolição" },
+  { "slug": "primeira-republica", "titulo": "Primeira República: coronelismo, revoltas e greves" },
+  { "slug": "era-vargas", "titulo": "Era Vargas" },
+  { "slug": "republica-de-1946", "titulo": "República de 1946" },
+  { "slug": "ditadura", "titulo": "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia" },
+  { "slug": "redemocratizacao", "titulo": "Diretas Já, Constituição de 1988 e Nova República" }
+]

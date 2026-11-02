@@ -1,0 +1,248 @@
+# Exercícios da aula "Filosofia antiga" (trilha enem-filosofia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fil-antiga-01
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 1
+  objeto: hum-organizacao-social-filosofia-antiga
+  dificuldade: 1
+  enunciado: "Para Tales de Mileto, considerado o primeiro filósofo grego, o princípio (arché) de todas as coisas era"
+  alternativas:
+    - texto: "o fogo"
+      erro: "O fogo aparece em Heráclito, como sinal da ordem do mundo que muda. Tales falava de outro elemento."
+    - texto: "o átomo"
+      erro: "Átomos e vazio são de Leucipo e Demócrito, que vieram depois. Tales escolheu um elemento visível da natureza."
+    - texto: "a água"
+      certa: true
+    - texto: "a vontade de Zeus"
+      erro: "Explicar pela vontade dos deuses é o mito. A novidade de Tales foi justamente buscar o princípio na própria natureza."
+    - texto: "o número"
+      erro: "O número como princípio é ideia ligada aos pitagóricos. Tales ficou conhecido pela água."
+  explicacao: "Segundo Aristóteles, Tales disse que a água é a causa primeira de todas as coisas. O importante não é a resposta, mas o método: explicar a natureza pela natureza."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-02
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-filosofia-antiga
+  dificuldade: 1
+  enunciado: "Qual destes pares liga corretamente o filósofo à sua ideia?"
+  alternativas:
+    - texto: "Parmênides: o ser é, e o não-ser não é; a mudança é aparência."
+      certa: true
+    - texto: "Heráclito: nada muda; o movimento é ilusão dos sentidos."
+      erro: "Você trocou os dois. Heráclito é o filósofo da mudança e dos opostos; quem nega a mudança é Parmênides."
+    - texto: "Protágoras: a verdade é a mesma para todos e independe de quem julga."
+      erro: "Protágoras disse o contrário: o homem é a medida de todas as coisas. Cada um julga a partir de si."
+    - texto: "Epicuro: só a virtude é um bem, e o prazer é indiferente."
+      erro: "Essa é a posição estoica. Para Epicuro, o prazer, entendido como ausência de dor, é o bem."
+    - texto: "Empédocles: tudo é feito de átomos e de vazio."
+      erro: "Átomos e vazio são de Demócrito. Empédocles falava de quatro raízes: terra, água, ar e fogo."
+  explicacao: "Parmênides defende que o ser é e não pode deixar de ser. Por isso, a mudança que os sentidos mostram não seria real."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-03
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-antiga
+  dificuldade: 1
+  enunciado: "Sócrates foi condenado à morte em Atenas, em 399 a.C. Quais foram as acusações contra ele?"
+  alternativas:
+    - texto: "Traição durante a guerra e roubo de dinheiro público."
+      erro: "Não foram essas. As acusações tinham a ver com religião e com a influência dele sobre os jovens."
+    - texto: "Defender a tirania e atacar a assembleia."
+      erro: "Sócrates criticava a ignorância de quem governava, mas a acusação formal não foi de defender tirania."
+    - texto: "Cobrar caro pelas aulas de retórica."
+      erro: "Quem cobrava pelas aulas eram os sofistas. Sócrates conversava com qualquer um, na praça."
+    - texto: "Escrever livros contra os deuses."
+      erro: "Sócrates não escreveu nada. O que sabemos dele vem de Platão e de outros."
+    - texto: "Impiedade e corrupção da juventude."
+      certa: true
+  explicacao: "Sócrates foi acusado de não respeitar os deuses da cidade (impiedade) e de corromper os jovens. Foi julgado e condenado à morte em 399 a.C."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-04
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-filosofia-antiga
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na cidade grega, as decisões deixaram de ser segredo de um rei ou de um sacerdote. Passaram a ser discutidas em
+    praça pública, onde cada cidadão podia falar e devia apresentar razões para convencer os outros. Foi nesse ambiente
+    que surgiu um modo de pensar que exige argumentos e aceita a crítica. (Texto original do Instituto Lúcia.)
+  enunciado: "O texto relaciona o surgimento da filosofia grega à"
+  alternativas:
+    - texto: "revelação religiosa feita aos sacerdotes dos templos."
+      erro: "O texto diz o contrário: as decisões deixaram de ser segredo de sacerdotes. A filosofia nasce do debate aberto."
+    - texto: "prática do debate público na pólis, que exigia dar razões."
+      certa: true
+    - texto: "chegada de livros vindos do Egito, que já traziam a filosofia pronta."
+      erro: "O texto não fala de livros estrangeiros. Ele liga a filosofia a uma mudança dentro da própria cidade."
+    - texto: "proibição de qualquer discussão política nas cidades."
+      erro: "É o oposto: a discussão política em praça pública é justamente o que o texto destaca."
+    - texto: "vontade dos reis de controlar o pensamento dos súditos."
+      erro: "O texto diz que as decisões deixaram de ser do rei. Releia a primeira frase."
+  explicacao: "O texto liga a razão grega à pólis: onde se decide em público, é preciso argumentar. Essa ligação foi cobrada no ENEM de 2022, a partir de um historiador, Jean-Pierre Vernant."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-05
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-filosofia-antiga
+  dificuldade: 2
+  enunciado: "Na alegoria da caverna, de Platão, o prisioneiro que se solta e sai para a luz do Sol representa"
+  alternativas:
+    - texto: "o sofista, que aprende a convencer a multidão."
+      erro: "O sofista, para Platão, fica nas aparências. Quem sai da caverna busca a verdade, não a vitória no debate."
+    - texto: "o tirano, que domina os outros prisioneiros."
+      erro: "Quem sai não volta para dominar: volta para libertar, e é ameaçado de morte por isso."
+    - texto: "o artesão, que fabrica as sombras na parede."
+      erro: "As figuras que fazem as sombras fazem parte do cenário. O prisioneiro que sobe é outra figura."
+    - texto: "o filósofo, que passa das aparências ao conhecimento das Ideias."
+      certa: true
+    - texto: "o cidadão comum, satisfeito com o que vê."
+      erro: "O cidadão satisfeito com as sombras é o prisioneiro que fica. Quem sai é diferente."
+  explicacao: "A caverna é o mundo sensível, das aparências. O Sol é a Ideia do Bem. Quem sobe e vê o Sol é o filósofo, que conhece o que não muda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-06
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-antiga
+  dificuldade: 2
+  enunciado: "Uma pessoa gasta todo o salário em apostas, sem medir o risco. Outra não gasta nada nem com remédio, por medo de faltar. Para Aristóteles, a virtude da generosidade estaria"
+  alternativas:
+    - texto: "na primeira pessoa, porque ela não tem medo de gastar."
+      erro: "Gastar sem medida é excesso, um vício. A virtude não é o extremo oposto do medo."
+    - texto: "na segunda pessoa, porque ela é prudente."
+      erro: "Não gastar nem com o necessário é falta, também um vício. A prudência verdadeira mede o gasto."
+    - texto: "no meio-termo entre o esbanjamento e a avareza, achado pelo hábito e pelo juízo."
+      certa: true
+    - texto: "em nenhuma das duas, porque a virtude é um dom que se tem ou não ao nascer."
+      erro: "Para Aristóteles, a virtude ética não nasce pronta: forma-se pelo hábito."
+    - texto: "nas duas, porque cada um decide o que é virtude para si."
+      erro: "Isso é relativismo, mais perto de Protágoras. Aristóteles fala de um meio-termo entre dois vícios."
+  explicacao: "A virtude ética, para Aristóteles, é um meio-termo entre um vício por excesso (esbanjar) e um por falta (avareza). Acha-se o meio pelo hábito e pela sabedoria prática."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-07
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-filosofia-antiga
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um professor de oratória anuncia: "Em dez aulas, você aprende a defender qualquer causa e a ganhar qualquer
+    discussão, esteja certo ou errado. Na assembleia e no tribunal, vence quem fala melhor." (Texto original do
+    Instituto Lúcia, inspirado na Atenas do século V a.C.)
+  enunciado: "Na Atenas antiga, a proposta desse professor seria criticada por Sócrates e Platão porque"
+  alternativas:
+    - texto: "a retórica era proibida nas assembleias democráticas."
+      erro: "A retórica era usada o tempo todo na assembleia e nos tribunais. A crítica não era de proibição."
+    - texto: "ensinar a falar bem era tarefa exclusiva dos sacerdotes."
+      erro: "Não havia essa exclusividade. Os sofistas ensinavam abertamente, e a crítica era outra."
+    - texto: "o ensino deveria ser feito apenas por escrito."
+      erro: "Sócrates nem escrevia. A crítica não é sobre o meio, e sim sobre o objetivo do ensino."
+    - texto: "o ensino valoriza vencer o debate, e não buscar a verdade."
+      certa: true
+    - texto: "a democracia ateniense não tinha tribunais."
+      erro: "Atenas tinha tribunais, e Sócrates foi julgado num deles. Releia o que o professor promete."
+  explicacao: "O anúncio descreve um sofista. Sócrates e Platão criticavam os sofistas por ensinarem a convencer sem compromisso com a verdade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-08
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-antiga
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Não são as coisas que perturbam as pessoas, mas os juízos que elas fazem sobre as coisas. Algumas coisas dependem
+    de nós, como o que pensamos e o que escolhemos; outras não, como o corpo, a fama e os cargos. (Paráfrase do
+    Instituto Lúcia de ideias do *Manual* de Epicteto, filósofo estoico do século I-II d.C.)
+  enunciado: "De acordo com a escola filosófica do texto, a vida boa depende de"
+  alternativas:
+    - texto: "buscar o maior número possível de prazeres do corpo."
+      erro: "Buscar prazeres não é a proposta estoica. E nem Epicuro defendia o excesso: para ele, prazer é ausência de dor."
+    - texto: "aceitar que nada depende de nós e abandonar qualquer escolha."
+      erro: "O texto diz que algumas coisas dependem de nós: os juízos e as escolhas. Não é renunciar a escolher."
+    - texto: "conquistar fama e cargos, que garantem a tranquilidade."
+      erro: "Fama e cargos estão na lista do que não depende de nós. Pôr a felicidade neles é fonte de perturbação."
+    - texto: "seguir a opinião da maioria, que é a medida da verdade."
+      erro: "Isso lembra o relativismo dos sofistas. O estoico examina o próprio juízo, não segue a maioria."
+    - texto: "corrigir os próprios juízos e concentrar-se no que depende de nós."
+      certa: true
+  explicacao: "Para os estoicos, as paixões nascem de juízos errados. A vida boa está em corrigir o juízo e cuidar do que depende de nós, vivendo de acordo com a natureza e a virtude."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-09
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 1
+  objeto: hum-organizacao-social-filosofia-antiga
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: Tudo flui. Os opostos se transformam um no outro: o frio esquenta, o quente esfria, o úmido seca.
+    Texto II: O que é, é; e não pode não ser. Por isso o que é não nasce nem perece, e a mudança que os olhos veem
+    não passa de aparência.
+    (Paráfrases do Instituto Lúcia de ideias atribuídas a dois pensadores pré-socráticos.)
+  enunciado: "Os textos expressam, respectivamente, posições ligadas a"
+  alternativas:
+    - texto: "Heráclito e Parmênides, em torno do problema da mudança."
+      certa: true
+    - texto: "Parmênides e Heráclito, em torno do problema da justiça."
+      erro: "A ordem está trocada e o tema também: os textos falam de mudança e de ser, não de justiça."
+    - texto: "Sócrates e Platão, em torno do problema da definição das virtudes."
+      erro: "Sócrates e Platão vieram depois e discutiam as virtudes. Aqui o assunto é a natureza e a mudança."
+    - texto: "Epicuro e Zenão, em torno do problema do prazer."
+      erro: "Prazer e tranquilidade são temas helenísticos. Os textos tratam do ser e do devir, temas pré-socráticos."
+    - texto: "Tales e Demócrito, em torno do problema da matéria-prima do mundo."
+      erro: "Tales (água) e Demócrito (átomos) falam do que tudo é feito. Os textos discutem se a mudança é real."
+  explicacao: "O Texto I é Heráclito: tudo muda e os opostos se unem. O Texto II é Parmênides: o ser é e não muda; a mudança é aparência. O problema comum é o da mudança."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-antiga-10
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-antiga
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para este filósofo, o prazer é o começo e o fim da vida feliz. Mas ele avisa: não falamos dos prazeres dos
+    devassos, e sim de não sofrer no corpo e não se perturbar na alma. Pão, água e a conversa com os amigos bastam.
+    (Paráfrase do Instituto Lúcia de ideias de um filósofo helenístico.)
+  enunciado: "O texto apresenta a concepção de felicidade do"
+  alternativas:
+    - texto: "estoicismo, para o qual o prazer é o único bem."
+      erro: "Para os estoicos, só a virtude é um bem. Quem põe o prazer como bem é outra escola."
+    - texto: "ceticismo, para o qual nenhuma felicidade é possível."
+      erro: "O texto afirma uma felicidade possível e simples. O ceticismo suspende o juízo, não é isso."
+    - texto: "epicurismo, que identifica o prazer com a ausência de dor e de perturbação."
+      certa: true
+    - texto: "pensamento sofista, que liga o prazer ao sucesso na assembleia."
+      erro: "O texto não fala de política nem de convencer. Fala de uma vida simples, com amigos."
+    - texto: "hedonismo do excesso, que defende aproveitar todos os prazeres."
+      erro: "O próprio texto recusa os prazeres dos devassos. Prazer, aqui, é medida e tranquilidade."
+  explicacao: "É o epicurismo. Epicuro põe o prazer como bem, mas define prazer como ausência de dor no corpo (aponia) e de perturbação na alma (ataraxia)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
