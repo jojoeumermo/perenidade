@@ -1,0 +1,52 @@
+id: cartao-resposta-sem-rasura
+aula: enem-estrategia-de-prova/o-cartao-resposta
+titulo: O cartão-resposta não aceita rasura
+tipo: estrategia
+voz: voz-2
+duracao: 60
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: pergunta, texto: "Acertou no caderno e errou no cartão?", nota: "só o cartão conta" }
+    fala: >
+      Você pode acertar a questão no caderno e perder o ponto no cartão.
+      É o erro mais caro da prova, porque não tem nada a ver com saber o conteúdo.
+  - id: regras
+    visual:
+      tipo: folha
+      titulo: O que o edital diz
+      itens:
+        - { texto: "caneta preta, de corpo transparente", em: caneta }
+        - { texto: "rasura: a resposta não é corrigida", em: rasura, destaque: true }
+        - { texto: "rascunho e caderno não contam", em: rascunho }
+    fala: >
+      {{marca:caneta}}O edital pede {{enem:caneta}}.
+      {{marca:rasura}}Resposta com emenda ou rasura no cartão não é corrigida.
+      {{marca:rascunho}}E o que você marca no caderno ou na folha de rascunho também não é corrigido.
+  - id: como
+    visual:
+      tipo: lista
+      titulo: Passe aos poucos
+      itens:
+        - { texto: "marque no caderno enquanto resolve", em: caderno }
+        - { texto: "passe para o cartão a cada bloco de questões", em: bloco, destaque: true }
+        - { texto: "confira o número da questão antes de pintar", em: numero }
+    fala: >
+      {{marca:caderno}}Enquanto resolve, marque a resposta no próprio caderno.
+      {{marca:bloco}}A cada bloco de questões, passe as respostas para o cartão, sem deixar tudo para o fim.
+      {{marca:numero}}Antes de pintar a bolinha, confira se o número da questão é o mesmo.
+  - id: armadilha
+    visual: { tipo: carimbo, titulo: Atenção, texto: "Pular uma linha no cartão desloca todas as respostas seguintes." }
+    fala: >
+      Pular uma linha no cartão desloca todas as respostas que vêm depois.
+      Por isso a conferência do número vale mais do que a pressa.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "O cartão-resposta" }
+    fala: >
+      A aula sobre o cartão-resposta mostra um exemplo e quando dá para sair da sala.
+fontes:
+  - titulo: "Edital nº 64, de 21 de maio de 2026, itens 11.1.30, 14.1 e 14.2 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }
