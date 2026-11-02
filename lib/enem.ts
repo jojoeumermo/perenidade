@@ -592,6 +592,7 @@ export function validarTemasOficiais(bruto: unknown, arquivo = "content/enem/red
     if (!Number.isInteger(t.ano) || (t.ano as number) < 1998) falhar(arquivo, `${onde}: "ano" inválido`);
     const fonte = https(t, "fonte", onde, arquivo);
     if (!DOMINIO_OFICIAL.test(fonte)) falhar(arquivo, `${onde}: a fonte do tema deve ser oficial (Inep ou MEC)`);
+    if (/\.pdf($|\?)/i.test(fonte)) falhar(arquivo, `${onde}: nada de link direto para PDF; aponte a página "Provas e gabaritos" do Inep ou a página da cartilha`);
     return { ano: t.ano as number, aplicacao: texto(t, "aplicacao", onde, arquivo, 60), tema: texto(t, "tema", onde, arquivo, 300), fonte };
   });
 }
