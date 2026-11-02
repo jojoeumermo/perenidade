@@ -1,9 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { expect, test, type Page } from "@playwright/test";
 import { abrir } from "./ajuda";
+import { listaFalsa } from "./ajuda-vozes";
 
 // O "Ouvir a aula" com a escolha da voz. Sem os modelos baixados (o caso do CI), a lista de vozes é trocada por uma
 // voz falsa ("teste"), que baixa arquivos pequenos do próprio site e fala um zumbido: dá para testar o seletor, o
@@ -12,22 +12,6 @@ import { abrir } from "./ajuda";
 
 const AULA = "/pt/trilhas/alfabetizacao-de-jovens-e-adultos/fazer-contas-do-dia-a-dia";
 const raiz = path.resolve(__dirname, "..");
-
-function arquivo(publicado: string) {
-  const b = fs.readFileSync(path.join(raiz, "public", publicado));
-  return { url: publicado, bytes: b.length, sha256: createHash("sha256").update(b).digest("hex") };
-}
-
-function listaFalsa() {
-  const a = arquivo("/workers/voz-motor.js");
-  const b = arquivo("/workers/voz.js");
-  return {
-    formato: 1,
-    ort: { versao: "0", wasm: { js: "/x.js", pasta: "/", wasm: a }, webgpu: { js: "/x.js", pasta: "/", wasm: a } },
-    fonemas: { js: "/x.js", wasm: a, dados: b },
-    vozes: [{ id: "teste-f", motor: "teste", numero: 1, genero: "f", webgpu: false, espeak: "pt-br", modelo: "Voz de teste", licenca: "AGPL-3.0", amostra: null, bytes: a.bytes + b.bytes, arquivos: [{ ...a, papel: "modelo" }, { ...b, papel: "estilo" }] }],
-  };
-}
 
 /** Guarda os endereços de fora do site que a página tentar abrir (não pode haver nenhum). */
 function vigiarRede(page: Page) {
@@ -126,7 +110,6 @@ test("voz de verdade: baixa, começa a falar e mede o tempo", async ({ page }) =
   const id = process.env.VOZES_REAL === "1" ? "kokoro-f" : process.env.VOZES_REAL!;
   test.setTimeout(900_000);
   page.on("console", (m) => m.type() === "error" && console.log(`[console] ${m.text()}`));
-  page.on("worker", (w) => w.on("console", (m) => console.log(`[worker] ${m.text()}`)));
   const fora = vigiarRede(page);
   await abrirAula(page);
   await page.getByRole("button", { name: /^Voz/ }).click();
