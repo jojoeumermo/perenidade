@@ -2,9 +2,9 @@
   "exercicios": {
     "titulo": "Exercices expliqués",
     "lead": "Pour consolider ce que tu as appris. La correction est immédiate et, si tu te trompes, l'explication montre où et comment réussir. Tes réponses restent uniquement sur cet appareil.",
-    "avisoEmRevisao": "Ces exercices sont encore en relecture : l'équipe les a écrits et ils attendent la vérification d'un éducateur. Si tu trouves une erreur, signale-la ; cela aide tout le monde.",
+    "avisoEmRevisao": "Ces exercices sont encore en relecture : l'équipe les a écrits et ils attendent la vérification d'un relecteur. Si tu trouves une erreur, signale-la ; cela aide tout le monde.",
     "emRevisao": "En relecture",
-    "emRevisaoDica": "Pas encore vérifié par un éducateur. Si tu trouves une erreur, signale-la.",
+    "emRevisaoDica": "Pas encore vérifié par un relecteur. Si tu trouves une erreur, signale-la.",
     "revisado": "Relu par {por} le {data}",
     "filtrar": "Afficher",
     "todos": "Tous ({n})",
@@ -102,7 +102,7 @@
   },
   "revisao": {
     "emRevisao": "En relecture.",
-    "emRevisaoDetalhe": "Cette leçon n'a pas encore été vérifiée par un éducateur. Tu peux l'étudier normalement ; si quelque chose paraît étrange, signale-le.",
+    "emRevisaoDetalhe": "Cette leçon n'a pas encore été vérifiée par un relecteur. Tu peux l'étudier normalement ; si quelque chose paraît étrange, signale-le.",
     "aprovada": "Approuvée par l'équipe.",
     "aprovadaDetalhe": "Elle est passée par le panneau, avec l'avis d'un autre éducateur de la matière ; la relecture avec fonction et date n'a pas encore été enregistrée.",
     "revisadaPor": "Relue par {quem} le {data}.",
