@@ -11,6 +11,25 @@ Desde novembro de 2026 o site não fica mais na Vercel. Ele roda num servidor pr
 Tudo o que não é hospedagem continua onde estava: Supabase (contas, banco, funções), Resend (e-mails), o Worker
 `estudio-lucia` (estudio.institutolucia.org), as rotinas do GitHub.
 
+## Situação atual (2 de novembro de 2026): paliativo na Vercel
+
+Enquanto a máquina da Oracle não sai (a rotina `oracle.yml` tenta de hora em hora e abre uma issue quando conseguir),
+o site voltou para a Vercel, numa **conta nova** (time "Lúcia", plano Hobby). A conta antiga estourou os limites de uso
+em 1º de novembro e foi pausada.
+
+- **Domínio:** `institutolucia.org` é o principal e `www` redireciona para ele (308). O Cloudflare continua na frente
+  (A `76.76.21.21` e CNAME `cname.vercel-dns.com`, com proxy). Os TXT `_vercel` só serviram para verificar o domínio.
+- **Cache no Cloudflare (o que mais protege a cota):** regra "HTML do site na borda 4h" guarda as páginas por 4 horas e
+  ignora o `Cache-Control` do site (que pede um ano). Não guarda `/api/`, `/*/painel`, `/*/entrar`, `/sw.js` nem quem
+  tem cookie `sb-`. Para ver ao vivo uma página nova antes de 4 horas: Cloudflare → Caching → Configuração → Limpar cache.
+- **Robôs:** treinamento de IA bloqueado, Labirinto para IA e Bot Fight ligados, mais as regras de segurança e o limite
+  de chamadas da API que já existiam.
+- **Vercel:** o "Ignored Build Step" do projeto está em "Don't build anything" (previews não montam) e a produção segue
+  o `scripts/vercel-ignorar.mjs`, que só publica quando muda arquivo do site. Redeploy manual: desmarcar "Use project's
+  Ignore Build Step". Variáveis secretas ficam em Settings → Environment Variables do projeto.
+- **Limite da Vercel Hobby:** não existe teto de gasto nem alerta de uso (só no Pro). Olhe Usage de vez em quando.
+- **Ao migrar para a Oracle:** trocar o CNAME do `www`/apex pelo túnel e aposentar este projeto.
+
 ## Como uma mudança vai ao ar
 
 1. O commit chega no `master` (de quem programa ou das rotinas do próprio GitHub).
