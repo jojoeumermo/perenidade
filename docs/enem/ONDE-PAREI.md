@@ -14,8 +14,7 @@
   etiquetas, 347 questões oficiais classificadas (2022 e 2023). Detalhes em `COBERTURA.md`; fila em `FILA-DE-REVISAO.md`.
 
 ## Ponto exato onde parei
-Build local das Ondas 4 a 6 + revisão (commit "revisão independente das Ondas 4 a 6") rodando para publicar no master.
-Se o build tiver passado, já está no master; senão, está só no ramo `enem-curso-completo`.
+Build local verde das Ondas 4 a 6 e da revisão; publicado no master (02/11). O curso parou aqui por decisão do dono.
 
 ## O que falta
 - Aulas restantes de cada `plano.json` (as trilhas listam todos os tópicos; `npm run proximo` mostra o que falta):
