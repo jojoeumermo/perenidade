@@ -1,0 +1,249 @@
+# Exercícios da aula "Inequações" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+# As questões 01 e 04 têm resposta em forma de desigualdade (x < 8, x ≤ −3), e não um número só: por isso não levam
+# "conferir" (o roteiro compara o primeiro número de cada alternativa, que se repete entre elas). A conta está na explicação.
+
+- id: enem-mat-inequacoes-01
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  dificuldade: 1
+  enunciado: "Qual é a solução de x − 5 < 3?"
+  alternativas:
+    - texto: "x < −2"
+      erro: "Você subtraiu 5 do 3. Para desfazer a subtração de 5, some 5 dos dois lados: x < 3 + 5."
+    - texto: "x > 8"
+      erro: "O número 8 está certo, mas o sinal virou sem motivo. Somar o mesmo número dos dois lados não inverte a desigualdade."
+    - texto: "x < 8"
+      certa: true
+    - texto: "x < 15"
+      erro: "Você multiplicou 3 × 5. O 5 está sendo subtraído do x: some 5."
+    - texto: "x < 3/5"
+      erro: "Você dividiu 3 por 5. Para desfazer uma subtração, use a soma."
+  explicacao: "Some 5 dos dois lados: x < 8. Confira com x = 7: 7 − 5 = 2, menor que 3. Com x = 9: 9 − 5 = 4, que não é menor que 3."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-02
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  dificuldade: 1
+  enunciado: "Qual é o maior número inteiro que satisfaz 3x ≤ 20?"
+  alternativas:
+    - texto: "7"
+      erro: "3 × 7 = 21, que passa de 20. A conta dá x ≤ 6,67: o maior inteiro é o de baixo."
+    - texto: "6,67"
+      erro: "6,67 é o limite da conta, e nem é inteiro. A pergunta pede o maior inteiro dentro da faixa."
+    - texto: "17"
+      erro: "Você subtraiu 20 − 3. O 3 está multiplicando o x: divida por 3."
+    - texto: "60"
+      erro: "Você multiplicou 20 × 3. Para isolar o x, divida por 3."
+    - texto: "6"
+      certa: true
+  explicacao: "Divida por 3: x ≤ 20/3, que é 6 e dois terços. O maior inteiro que não passa disso é 6. Confira: 3 × 6 = 18 ≤ 20, mas 3 × 7 = 21 > 20."
+  conferir: "18 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-03
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  dificuldade: 1
+  enunciado: "Qual destes números satisfaz a inequação 2x − 1 > 7?"
+  alternativas:
+    - texto: "5"
+      certa: true
+    - texto: "4"
+      erro: "Com x = 4: 2 × 4 − 1 = 7, que é igual a 7, e não maior. O sinal é >, então o 4 não entra."
+    - texto: "3"
+      erro: "Com x = 3: 2 × 3 − 1 = 5, menor que 7. A solução é x > 4."
+    - texto: "0"
+      erro: "Com x = 0: 2 × 0 − 1 = −1, menor que 7. A solução é x > 4."
+    - texto: "−5"
+      erro: "Com x = −5: 2 × (−5) − 1 = −11, bem menor que 7. A solução é x > 4."
+  explicacao: "Some 1: 2x > 8. Divida por 2: x > 4. Entre as opções, só o 5 é maior que 4. Confira: 2 × 5 − 1 = 9 > 7."
+  conferir: "5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-04
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  dificuldade: 2
+  enunciado: "Qual é a solução de −2x + 4 ≥ 10?"
+  alternativas:
+    - texto: "x ≥ −3"
+      erro: "Você dividiu por −2 sem inverter o sinal. Dividir por negativo inverte a desigualdade: x ≤ −3."
+    - texto: "x ≤ 3"
+      erro: "O sinal foi invertido, mas o número perdeu o sinal. 6 ÷ (−2) = −3."
+    - texto: "x ≥ 3"
+      erro: "Dois enganos: o sinal da desigualdade não virou e o −3 virou 3. Confira com x = 3: −6 + 4 = −2, que não é ≥ 10."
+    - texto: "x ≤ −3"
+      certa: true
+    - texto: "x ≤ −7"
+      erro: "O 4 foi somado ao 10 (14 ÷ (−2)). Para desfazer a soma de 4, tire 4 dos dois lados: −2x ≥ 6."
+  explicacao: "Tire 4: −2x ≥ 6. Divida por −2 e inverta o sinal: x ≤ −3. Confira com x = −4: −2 × (−4) + 4 = 12 ≥ 10."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-05
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O elevador de carga de um depósito suporta no máximo 600 kg. O operador, que pesa 80 kg, precisa subir junto com
+    caixas de 25 kg cada.
+  enunciado: "O maior número de caixas que o operador pode levar numa viagem é"
+  alternativas:
+    - texto: "21."
+      erro: "Com 21 caixas, a carga é 80 + 525 = 605 kg, acima do limite. 'No máximo' pede o inteiro de baixo."
+    - texto: "20."
+      certa: true
+    - texto: "24."
+      erro: "Você esqueceu o operador (600 ÷ 25). Ele também ocupa a capacidade do elevador."
+    - texto: "27."
+      erro: "Os 80 kg do operador foram somados à capacidade (680 ÷ 25). Eles devem ser descontados."
+    - texto: "20,8."
+      erro: "20,8 é o limite da conta. Não se leva parte de uma caixa: a resposta é um número inteiro."
+  explicacao: "80 + 25x ≤ 600. Tire 80: 25x ≤ 520. Divida por 25: x ≤ 20,8. O maior inteiro é 20. Confira: 80 + 20 × 25 = 580 kg."
+  conferir: "500 / 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-06
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  dificuldade: 2
+  enunciado: "Quantos números inteiros satisfazem −2 ≤ x < 3?"
+  alternativas:
+    - texto: "4"
+      erro: "Você deixou o −2 de fora. O sinal ≤ quer dizer que o −2 entra."
+    - texto: "6"
+      erro: "Você incluiu o 3. O sinal < quer dizer que o 3 não entra."
+    - texto: "1"
+      erro: "Você fez 3 − 2. Conte os inteiros um por um: −2, −1, 0, 1, 2."
+    - texto: "3"
+      erro: "Você contou só 0, 1 e 2. Os negativos −2 e −1 também estão na faixa."
+    - texto: "5"
+      certa: true
+  explicacao: "Os inteiros da faixa são −2, −1, 0, 1 e 2. O −2 entra (≤) e o 3 não (<). São 5."
+  conferir: "3 - (-2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-07
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num curso técnico, a aprovação direta exige média pelo menos 6,5 nas quatro provas do semestre. Um estudante tirou
+    5,0, 7,0 e 6,0 nas três primeiras provas.
+  enunciado: "Para ser aprovado direto, a nota mínima que ele precisa tirar na quarta prova é"
+  alternativas:
+    - texto: "6,5."
+      erro: "Com 6,5 na quarta, a média fica (18 + 6,5) ÷ 4, perto de 6,1. As notas anteriores puxam a média para baixo: é preciso compensar."
+    - texto: "8,0."
+      certa: true
+    - texto: "1,5."
+      erro: "Você usou 3 provas em vez de 4 (6,5 × 3 − 18). A média é das quatro provas: a soma precisa chegar a 6,5 × 4 = 26."
+    - texto: "0,5."
+      erro: "0,5 é a diferença entre a média desejada e a média das três primeiras (6,5 − 6,0). A quarta nota precisa compensar as quatro provas."
+    - texto: "26,0."
+      erro: "26 é a soma necessária das quatro notas. Desconte as três que ele já tem: 26 − 18."
+  explicacao: "(5 + 7 + 6 + x) ÷ 4 ≥ 6,5. Multiplique por 4: 18 + x ≥ 26. Tire 18: x ≥ 8. Confira: (18 + 8) ÷ 4 = 6,5."
+  conferir: "4 * 6.5 - 18"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-08
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa estufa de mudas de uma horta comunitária, a temperatura durante a manhã segue, aproximadamente, a fórmula
+    T = 2h + 14, em que T é a temperatura em °C e h é o número de horas passadas desde as 6h. As mudas precisam de
+    temperatura entre 18 °C e 26 °C, incluindo esses dois valores.
+  enunciado: "Durante a manhã, a temperatura fica na faixa adequada às mudas por um período de"
+  alternativas:
+    - texto: "6 horas."
+      erro: "6 é o momento em que a temperatura chega a 26 °C (às 12h). O período começa antes, quando chega a 18 °C, em h = 2."
+    - texto: "2 horas."
+      erro: "2 é o momento em que a temperatura chega a 18 °C (às 8h). O período vai até h = 6."
+    - texto: "8 horas."
+      erro: "Você fez 26 − 18, a largura da faixa de temperatura. A pergunta é sobre o tempo: a temperatura sobe 2 °C por hora."
+    - texto: "4 horas."
+      certa: true
+    - texto: "5 horas."
+      erro: "Você contou as horas cheias 2, 3, 4, 5 e 6 como cinco horas. De h = 2 até h = 6 passam 6 − 2 = 4 horas."
+  explicacao: "18 ≤ 2h + 14 ≤ 26. Tire 14 das três partes: 4 ≤ 2h ≤ 12. Divida por 2: 2 ≤ h ≤ 6. A faixa vai das 8h ao meio-dia: 4 horas."
+  conferir: "6 - 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-09
+  tema: "Inequações"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-inequacoes
+  dificuldade: 3
+  enunciado: "Qual é o menor número inteiro x que satisfaz (x − 3)/2 > (x + 1)/5?"
+  alternativas:
+    - texto: "5"
+      erro: "A conta dá x > 17/3, um pouco mais que 5,6. O 5 está abaixo do limite. 'Menor inteiro acima de' é o de cima: 6."
+    - texto: "5,67"
+      erro: "Esse é o limite (17/3), e nem é inteiro. A pergunta pede o menor inteiro maior que ele."
+    - texto: "6"
+      certa: true
+    - texto: "2"
+      erro: "Ao multiplicar por 10, o −3 não foi multiplicado por 5 (5x − 3). Multiplique o parêntese inteiro: 5(x − 3) = 5x − 15."
+    - texto: "17"
+      erro: "17 é o valor de 3x, e não de x. Falta dividir por 3: x > 17/3."
+  explicacao: "Multiplique tudo por 10 (positivo, o sinal fica): 5(x − 3) > 2(x + 1). Então 5x − 15 > 2x + 2, 3x > 17 e x > 17/3 ≈ 5,67. O menor inteiro é 6. Confira: (6 − 3)/2 = 1,5 e (6 + 1)/5 = 1,4; 1,5 > 1,4."
+  conferir: "18 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inequacoes-10
+  tema: "Inequações"
+  area: matematica
+  habilidade: 23
+  objeto: mat-algebra-inequacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um coletivo de estudantes vai imprimir panfletos e recebeu dois orçamentos. A gráfica 1 cobra R$ 120,00 pela
+    preparação mais R$ 0,80 por panfleto. A gráfica 2 não cobra preparação, mas cobra R$ 2,00 por panfleto.
+  enunciado: "O orçamento da gráfica 1 passa a ser mais barato que o da gráfica 2 a partir de"
+  alternativas:
+    - texto: "101 panfletos."
+      certa: true
+    - texto: "100 panfletos."
+      erro: "Com 100 panfletos, as duas gráficas cobram R$ 200,00: é o empate. A gráfica 1 fica mais barata a partir do panfleto seguinte."
+    - texto: "150 panfletos."
+      erro: "Você dividiu 120 por 0,80. O que compensa a preparação é a diferença de preço por panfleto: 2,00 − 0,80 = 1,20."
+    - texto: "60 panfletos."
+      erro: "Você dividiu 120 por 2,00. A gráfica 1 também cobra por panfleto: a economia em cada um é de 1,20."
+    - texto: "43 panfletos."
+      erro: "Os preços por panfleto foram somados (120 ÷ 2,80). Na inequação, 0,8x é subtraído do lado da gráfica 2: 2x − 0,8x = 1,2x."
+  explicacao: "Gráfica 1: 120 + 0,8x. Gráfica 2: 2x. Mais barato: 120 + 0,8x < 2x, então 120 < 1,2x e x > 100. Com 100 há empate; a partir de 101, a gráfica 1 é mais barata. Confira: 101 panfletos custam 200,80 na gráfica 1 e 202,00 na gráfica 2."
+  conferir: "101"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

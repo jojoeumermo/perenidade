@@ -1,0 +1,253 @@
+# Exercícios da aula "Teorema de Pitágoras e relações métricas" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-pitagoras-01
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  dificuldade: 1
+  enunciado: "Os catetos de um triângulo retângulo medem 5 cm e 12 cm. Quanto mede a hipotenusa?"
+  alternativas:
+    - texto: "17 cm"
+      erro: "Você somou os catetos. Pitágoras soma os quadrados: 25 + 144 = 169, e depois tira a raiz."
+    - texto: "169 cm"
+      erro: "169 é o quadrado da hipotenusa. Falta tirar a raiz: √169 = 13."
+    - texto: "7 cm"
+      erro: "Você subtraiu os catetos. A hipotenusa é o maior lado: some os quadrados e tire a raiz."
+    - texto: "13 cm"
+      certa: true
+    - texto: "60 cm"
+      erro: "Você multiplicou os catetos. Pitágoras é a² = b² + c²."
+  explicacao: "a² = 5² + 12² = 25 + 144 = 169. a = √169 = 13 cm."
+  conferir: "sqrt(5^2 + 12^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-02
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  dificuldade: 1
+  enunciado: "Num triângulo retângulo, a hipotenusa mede 17 m e um dos catetos mede 8 m. Quanto mede o outro cateto?"
+  alternativas:
+    - texto: "15 m"
+      certa: true
+    - texto: "9 m"
+      erro: "Você subtraiu as medidas (17 − 8). Subtraia os quadrados: 289 − 64 = 225, e tire a raiz."
+    - texto: "25 m"
+      erro: "Você somou as medidas. O cateto é menor que a hipotenusa: subtraia os quadrados."
+    - texto: "Cerca de 18,8 m"
+      erro: "Você somou os quadrados (289 + 64). Isso seria certo se 17 e 8 fossem os catetos; aqui 17 é a hipotenusa."
+    - texto: "225 m"
+      erro: "225 é o quadrado do cateto. Falta a raiz: √225 = 15."
+  explicacao: "17² = 8² + c², então c² = 289 − 64 = 225 e c = 15 m (o trio 8, 15, 17)."
+  conferir: "sqrt(17^2 - 8^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-03
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-pitagoras
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    A tela retangular de uma televisão mede 80 cm de largura e 60 cm de altura. No comércio, o tamanho da tela é
+    dado pela medida da diagonal, o segmento que liga dois cantos opostos.
+  enunciado: "A diagonal dessa tela mede"
+  alternativas:
+    - texto: "140 cm"
+      erro: "Você somou largura e altura. A diagonal é a hipotenusa: √(80² + 60²)."
+    - texto: "70 cm"
+      erro: "Você fez a média de 80 e 60. A diagonal é maior que os dois lados: é a hipotenusa."
+    - texto: "100 cm"
+      certa: true
+    - texto: "10.000 cm"
+      erro: "10.000 é o quadrado da diagonal (6.400 + 3.600). Falta tirar a raiz."
+    - texto: "4.800 cm"
+      erro: "4.800 é a área da tela, em cm² (80 × 60). A pergunta é um comprimento, a diagonal."
+  explicacao: "A diagonal divide a tela em dois triângulos retângulos de catetos 80 e 60. d² = 6.400 + 3.600 = 10.000, então d = 100 cm."
+  conferir: "sqrt(80^2 + 60^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-04
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  dificuldade: 2
+  enunciado: "Uma escada de 6,5 m está apoiada numa parede vertical, com o pé a 2,5 m da parede, num chão plano. A que altura a ponta da escada toca a parede?"
+  alternativas:
+    - texto: "9 m"
+      erro: "Você somou as medidas. A escada é a hipotenusa; a altura é um cateto: subtraia os quadrados."
+    - texto: "4 m"
+      erro: "Você subtraiu as medidas (6,5 − 2,5). Subtraia os quadrados: 42,25 − 6,25."
+    - texto: "Cerca de 7 m"
+      erro: "Você somou os quadrados. A escada já é a hipotenusa: a altura sai de 6,5² − 2,5²."
+    - texto: "36 m"
+      erro: "36 é o quadrado da altura. Falta a raiz: √36 = 6."
+    - texto: "6 m"
+      certa: true
+  explicacao: "6,5² = 2,5² + h², então h² = 42,25 − 6,25 = 36 e h = 6 m."
+  conferir: "sqrt(6.5^2 - 2.5^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-05
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-pitagoras
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num mutirão de construção, para conferir se duas paredes formam um canto reto (90°), a equipe marca 60 cm numa
+    parede e 80 cm na outra, ambas a partir do canto, rente ao chão. Depois, mede a distância entre as duas marcas.
+  enunciado: "O canto está reto se a distância entre as marcas for de"
+  alternativas:
+    - texto: "140 cm"
+      erro: "Você somou as duas medidas. A distância entre as marcas é a hipotenusa, menor que a soma."
+    - texto: "100 cm"
+      certa: true
+    - texto: "20 cm"
+      erro: "Você subtraiu as medidas. A distância entre as marcas é o maior lado do triângulo."
+    - texto: "70 cm"
+      erro: "Você fez a média. A hipotenusa é maior que os dois catetos: √(60² + 80²)."
+    - texto: "10.000 cm"
+      erro: "10.000 é o quadrado da distância. Falta a raiz: √10.000 = 100."
+  explicacao: "Se o canto for reto, as marcas e o canto formam um triângulo retângulo: d² = 60² + 80² = 3.600 + 6.400 = 10.000, d = 100 cm. É o trio 3, 4 e 5 multiplicado por 20."
+  conferir: "sqrt(60^2 + 80^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-06
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  dificuldade: 2
+  enunciado: "Um terreno retangular mede 20 m por 21 m. Quem vai de um canto ao canto oposto andando na diagonal, em vez de seguir dois lados, anda quantos metros a menos?"
+  alternativas:
+    - texto: "29 m"
+      erro: "29 m é o comprimento da diagonal. A pergunta é quanto se economiza: 41 − 29."
+    - texto: "41 m"
+      erro: "41 m é o caminho pelos dois lados. Desconte a diagonal."
+    - texto: "12 m"
+      certa: true
+    - texto: "1 m"
+      erro: "Você subtraiu um lado do outro (21 − 20). Compare o caminho pelos lados com a diagonal."
+    - texto: "70 m"
+      erro: "Você somou os lados e a diagonal. A economia é a diferença entre os dois caminhos."
+  explicacao: "Diagonal: √(20² + 21²) = √(400 + 441) = √841 = 29 m. Pelos lados: 20 + 21 = 41 m. Economia: 41 − 29 = 12 m."
+  conferir: "20 + 21 - sqrt(20^2 + 21^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-07
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num campo plano, uma menina solta pipa segurando a linha a 1,5 m do chão. A linha está esticada, em linha reta,
+    e mede 50 m da mão até a pipa. A pipa está exatamente acima de um ponto do chão que fica a 30 m da menina.
+  enunciado: "A altura da pipa em relação ao chão é de"
+  alternativas:
+    - texto: "40 m"
+      erro: "40 m é a altura da pipa acima da mão. Falta somar o 1,5 m entre a mão e o chão."
+    - texto: "Cerca de 58,3 m"
+      erro: "Você somou os quadrados (50² + 30²). A linha de 50 m é a hipotenusa: a altura é um cateto."
+    - texto: "20 m"
+      erro: "Você subtraiu as medidas (50 − 30). Subtraia os quadrados: 2.500 − 900 = 1.600."
+    - texto: "81,5 m"
+      erro: "Você somou tudo. A linha e a distância no chão são lados de um triângulo retângulo: use Pitágoras."
+    - texto: "41,5 m"
+      certa: true
+  explicacao: "Acima da mão: √(50² − 30²) = √(2.500 − 900) = √1.600 = 40 m. Do chão: 40 + 1,5 = 41,5 m."
+  conferir: "sqrt(50^2 - 30^2) + 1.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-08
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma horta tem a forma de um triângulo retângulo. Os lados que formam o canto reto medem 15 m e 20 m, e o lado
+    maior, a cerca do fundo, mede 25 m. A torneira fica no canto reto. Será instalado um cano reto da torneira até
+    a cerca do fundo, pelo caminho mais curto, isto é, perpendicular à cerca.
+  enunciado: "O comprimento desse cano é de"
+  alternativas:
+    - texto: "12 m"
+      certa: true
+    - texto: "17,5 m"
+      erro: "Você fez a média dos catetos. O cano é a altura relativa à hipotenusa: catetos multiplicados, divididos pela hipotenusa."
+    - texto: "25 m"
+      erro: "25 m é a própria cerca do fundo, a hipotenusa. O cano vai do canto até ela."
+    - texto: "300 m"
+      erro: "300 é o produto dos catetos. Pela relação b · c = a · h, falta dividir pela hipotenusa: 300 ÷ 25."
+    - texto: "12,5 m"
+      erro: "12,5 m é a metade da hipotenusa, a medida do segmento que vai do canto ao ponto do meio da cerca. O caminho mais curto é a altura, que é menor."
+  explicacao: "Pela relação b · c = a · h: 15 × 20 = 25 × h, então h = 300 ÷ 25 = 12 m. É a altura relativa à hipotenusa."
+  conferir: "15 * 20 / 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-09
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-pitagoras
+  dificuldade: 3
+  enunciado: "Uma caixa em forma de bloco tem medidas internas de 12 cm, 4 cm e 3 cm. Qual é o comprimento da maior vareta reta que cabe dentro dela, de um canto ao canto oposto?"
+  alternativas:
+    - texto: "19 cm"
+      erro: "Você somou as três medidas. A vareta é uma diagonal: use Pitágoras duas vezes."
+    - texto: "Cerca de 12,6 cm"
+      erro: "Essa é a diagonal do fundo (√(144 + 16)). A vareta pode subir de um canto do fundo até o canto oposto da tampa."
+    - texto: "169 cm"
+      erro: "169 é o quadrado da diagonal. Falta a raiz: √169 = 13."
+    - texto: "13 cm"
+      certa: true
+    - texto: "12 cm"
+      erro: "12 cm é a maior aresta. A diagonal do bloco é maior que qualquer aresta."
+  explicacao: "Diagonal do fundo: d² = 12² + 4² = 160. Diagonal do bloco: D² = 160 + 3² = 169. D = 13 cm."
+  conferir: "sqrt(12^2 + 4^2 + 3^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-pitagoras-10
+  tema: "Teorema de Pitágoras e relações métricas"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-pitagoras
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Dois postes verticais, num terreno plano, têm 9 m e 4 m de altura e estão a 12 m de distância um do outro. Um
+    fio será esticado em linha reta do topo de um poste ao topo do outro.
+  enunciado: "O comprimento do fio é de"
+  alternativas:
+    - texto: "12 m"
+      erro: "12 m é a distância no chão. Os topos estão em alturas diferentes, então o fio é inclinado e mais longo."
+    - texto: "13 m"
+      certa: true
+    - texto: "17 m"
+      erro: "Você somou a diferença de altura (5 m) com a distância (12 m). O fio é a hipotenusa: √(5² + 12²)."
+    - texto: "15 m"
+      erro: "Você usou a altura do poste maior (9 m) como cateto. O cateto vertical é a diferença das alturas: 9 − 4 = 5 m."
+    - texto: "Cerca de 17,7 m"
+      erro: "Você usou a soma das alturas (13 m) como cateto. O cateto vertical é a diferença: 9 − 4 = 5 m."
+  explicacao: "Ligue o topo do poste menor a um ponto do poste maior na mesma altura: forma-se um triângulo retângulo de catetos 12 m e 9 − 4 = 5 m. Fio: √(144 + 25) = √169 = 13 m."
+  conferir: "sqrt((9 - 4)^2 + 12^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

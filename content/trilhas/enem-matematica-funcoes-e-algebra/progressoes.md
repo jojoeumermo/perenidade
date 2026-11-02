@@ -144,7 +144,7 @@ Confira com um caso pequeno: com 4 fileiras, a fórmula dá (1 + 4) × 4 ÷ 2 = 
 ## Como isso cai no ENEM
 
 - **Formatos:** figuras que crescem por etapas (palitos, quadradinhos), economias ou produções que aumentam o mesmo tanto a cada mês, pilhas e arquibancadas, contaminação ou divulgação que multiplica, valor de um bem que perde uma porcentagem por ano. A pergunta pede um termo distante, a soma de vários termos ou a etapa em que um valor é atingido.
-- **Habilidades:** H2 (identificar padrões numéricos ou princípios de contagem) e H3 (resolver problemas com conhecimentos numéricos). Nas provas de 2022 e 2023, classificadas pelo instituto, as progressões foram o tópico de 3 das 81 questões de Matemática (3,7%). Na área inteira, a H2 apareceu em 6 dessas 81 questões, somando progressões e contagem, e a H3 em 12. São só duas provas: é tendência, não promessa.
+- **Habilidades:** H2 (identificar padrões numéricos ou princípios de contagem) e H3 (resolver problemas com conhecimentos numéricos). Nas provas de 2022 e 2023, classificadas pelo instituto, as progressões foram o tópico de 3 das 81 questões de Matemática (3,7%). Na área inteira, a H2 apareceu em 6 dessas 81 questões, somando progressões, contagem e múltiplos e divisores, e a H3 em 12. São só duas provas: é tendência, não promessa.
 - **Armadilhas:**
   - Contar n saltos em vez de n − 1 no termo geral.
   - Esquecer de dividir por 2 na soma da PA.

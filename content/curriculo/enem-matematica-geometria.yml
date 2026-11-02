@@ -96,3 +96,129 @@ aulas:
         resumo: Identificar características de figuras planas e espaciais.
         situacao: a-confirmar
     objetos: [mat-geometria-vistas-e-projecoes]
+  plano-cartesiano:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 6
+        resumo: Interpretar posição e movimento no espaço e sua representação no plano (mapas, vistas, plantas).
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 22
+        resumo: Usar álgebra e geometria para construir argumentos.
+        situacao: a-confirmar
+    objetos: [mat-algebra-geometria-plano-cartesiano]
+  equacao-da-reta:
+    enem:
+      - area: matematica
+        competencia: 5
+        habilidade: 19
+        resumo: Identificar a expressão algébrica que traduz a relação entre grandezas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 20
+        resumo: Interpretar gráficos cartesianos que relacionam grandezas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 22
+        resumo: Usar álgebra e geometria para construir argumentos.
+        situacao: a-confirmar
+    objetos: [mat-algebra-geometria-reta]
+  volume-de-embalagens:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 12
+        resumo: Resolver problemas com medidas de grandezas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 14
+        resumo: Avaliar propostas de intervenção usando grandezas e medidas.
+        situacao: a-confirmar
+    objetos: [mat-geometria-volumes-e-embalagens]
+  pitagoras-e-relacoes-metricas:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 9
+        resumo: Usar a geometria para escolher argumentos que resolvem problemas do cotidiano.
+        situacao: a-confirmar
+    objetos: [mat-geometria-pitagoras]
+  semelhanca-e-tales:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 9
+        resumo: Usar a geometria para escolher argumentos que resolvem problemas do cotidiano.
+        situacao: a-confirmar
+    objetos: [mat-geometria-semelhanca-e-tales]
+  trigonometria-no-triangulo-retangulo:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 9
+        resumo: Usar a geometria para escolher argumentos que resolvem problemas do cotidiano.
+        situacao: a-confirmar
+    objetos: [mat-geometria-trigonometria]
+  planificacoes:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 6
+        resumo: Interpretar posição e movimento no espaço e sua representação no plano (mapas, vistas, plantas).
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar características de figuras planas e espaciais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+    objetos: [mat-geometria-planificacoes]

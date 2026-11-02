@@ -58,6 +58,8 @@ Além dos desvios gramaticais, conta a **estrutura das frases**:
 - evite frases truncadas, sem verbo principal;
 - uma ideia por frase, em geral.
 
+Isso não quer dizer escrever só frases curtas. Para a nota máxima, a Cartilha 2026 espera períodos com construção complexa, com orações subordinadas e intercaladas, desde que bem estruturados e completos.
+
 ## Registro formal
 
 Evite:

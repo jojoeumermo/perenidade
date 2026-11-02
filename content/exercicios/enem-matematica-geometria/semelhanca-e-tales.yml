@@ -1,0 +1,254 @@
+# Exercícios da aula "Semelhança e Teorema de Tales" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-semelhanca-01
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-semelhanca-e-tales
+  dificuldade: 1
+  enunciado: "Um triângulo tem lados de 4 cm, 6 cm e 8 cm. Um triângulo semelhante a ele tem o menor lado medindo 10 cm. Quanto mede o maior lado do segundo triângulo?"
+  alternativas:
+    - texto: "14 cm"
+      erro: "Você somou 6 (a diferença 10 − 4) ao lado de 8. Semelhança multiplica: a razão é 10 ÷ 4 = 2,5."
+    - texto: "16 cm"
+      erro: "Você dobrou o maior lado. A razão não é 2, é 10 ÷ 4 = 2,5."
+    - texto: "15 cm"
+      erro: "15 cm é o lado médio do segundo triângulo (6 × 2,5). O maior corresponde ao 8."
+    - texto: "32 cm"
+      erro: "Você multiplicou 8 por 4. A razão é o novo menor lado dividido pelo antigo: 10 ÷ 4."
+    - texto: "20 cm"
+      certa: true
+  explicacao: "Razão de semelhança: 10 ÷ 4 = 2,5. Maior lado: 8 × 2,5 = 20 cm."
+  conferir: "8 * 10 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-02
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-semelhanca-e-tales
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Para saber a altura de uma árvore da praça, um grupo de estudantes fincou no chão uma vara vertical de 1,5 m.
+    Num mesmo instante, a sombra da vara mediu 0,9 m e a sombra da árvore mediu 6 m, num chão plano.
+  enunciado: "A altura da árvore é de"
+  alternativas:
+    - texto: "3,6 m"
+      erro: "Você inverteu a razão (6 × 0,9 ÷ 1,5). A vara é mais alta que a própria sombra; a árvore também tem de ser."
+    - texto: "10 m"
+      certa: true
+    - texto: "6,6 m"
+      erro: "Você somou à sombra da árvore a diferença entre vara e sombra (0,6 m). Semelhança multiplica pela razão, não soma."
+    - texto: "9 m"
+      erro: "Você multiplicou 6 por 1,5 e esqueceu de dividir pela sombra da vara, 0,9 m."
+    - texto: "7,5 m"
+      erro: "Você somou a altura da vara à sombra da árvore. Monte a proporção: altura ÷ sombra é igual nos dois."
+  explicacao: "Altura ÷ sombra é igual nos dois: H ÷ 6 = 1,5 ÷ 0,9. Então H = 6 × 1,5 ÷ 0,9 = 9 ÷ 0,9 = 10 m."
+  conferir: "6 * 1.5 / 0.9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-03
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-semelhanca-e-tales
+  dificuldade: 1
+  enunciado: "Três retas paralelas cortam duas transversais. Numa transversal, os segmentos entre as paralelas medem 2 cm e 7 cm. Na outra, o segmento correspondente ao de 2 cm mede 3 cm. Quanto mede o segmento correspondente ao de 7 cm?"
+  alternativas:
+    - texto: "8 cm"
+      erro: "Você somou 1 cm (a diferença 3 − 2) ao 7. Pelo Teorema de Tales, os segmentos são proporcionais: multiplique pela razão 3 ÷ 2."
+    - texto: "Cerca de 0,86 cm"
+      erro: "A proporção ficou montada ao contrário (2 × 3 ÷ 7). Se 2 virou 3, o 7 também cresce."
+    - texto: "14 cm"
+      erro: "Você dobrou o 7. A razão entre as transversais não é 2, é 3 ÷ 2 = 1,5."
+    - texto: "10,5 cm"
+      certa: true
+    - texto: "21 cm"
+      erro: "Você multiplicou 7 por 3 e esqueceu de dividir por 2."
+  explicacao: "2 está para 7 assim como 3 está para x: 2x = 21 e x = 10,5 cm."
+  conferir: "3 * 7 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-04
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-semelhanca-e-tales
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma costureira faz toalhas de mesa sempre com a mesma forma, em dois tamanhos. Os lados da toalha grande são 1,5
+    vez os lados da toalha pequena. A toalha pequena gasta 2 m² de tecido.
+  enunciado: "Quantos metros quadrados de tecido gasta a toalha grande?"
+  alternativas:
+    - texto: "4,5 m²"
+      certa: true
+    - texto: "3 m²"
+      erro: "Você multiplicou a área por 1,5, o fator dos lados. A área tem duas medidas: o fator é 1,5 × 1,5 = 2,25."
+    - texto: "6,75 m²"
+      erro: "Você usou 1,5 ao cubo, que é o fator de volume. Tecido é área: 1,5²."
+    - texto: "3,5 m²"
+      erro: "Você somou 1,5 à área. Semelhança multiplica: 2 × 1,5²."
+    - texto: "2,25 m²"
+      erro: "2,25 é o fator pelo qual a área se multiplica. Falta aplicá-lo aos 2 m²: 2 × 2,25."
+  explicacao: "Lados × 1,5, então área × 1,5² = 2,25. Tecido: 2 × 2,25 = 4,5 m²."
+  conferir: "2 * 1.5^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-05
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-semelhanca-e-tales
+  dificuldade: 2
+  enunciado: "No triângulo ABC, o segmento DE é paralelo ao lado BC, com D no lado AB e E no lado AC. Sabe-se que AD = 3 cm, DB = 5 cm e DE = 4,5 cm. Quanto mede BC?"
+  alternativas:
+    - texto: "7,5 cm"
+      erro: "Você usou o pedaço DB (5 cm) como lado do triângulo grande. O lado correspondente a AD é o lado inteiro AB = 3 + 5 = 8 cm."
+    - texto: "9,5 cm"
+      erro: "Você somou DB a DE. Semelhança multiplica pela razão AB ÷ AD = 8 ÷ 3."
+    - texto: "12 cm"
+      certa: true
+    - texto: "8 cm"
+      erro: "8 cm é o lado AB. A pergunta é BC, o lado paralelo a DE."
+    - texto: "13,5 cm"
+      erro: "Você multiplicou DE por 3 (o AD). A razão é 8 ÷ 3, não 3."
+  explicacao: "ADE e ABC são semelhantes. AB = 3 + 5 = 8. BC ÷ DE = AB ÷ AD, então BC = 4,5 × 8 ÷ 3 = 12 cm."
+  conferir: "4.5 * (3 + 5) / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-06
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-semelhanca-e-tales
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A rampa de entrada de uma escola sobe, por igual, 1,2 m ao longo de 8 m medidos na horizontal. Uma faixa
+    antiderrapante será colada na rampa no ponto que fica a 3 m, na horizontal, do começo da subida.
+  enunciado: "A que altura do chão fica a faixa?"
+  alternativas:
+    - texto: "0,6 m"
+      erro: "0,6 m é a metade da altura, que fica no meio da rampa, a 4 m. A faixa está a 3 m do começo."
+    - texto: "0,4 m"
+      erro: "Você dividiu 1,2 por 3. A proporção é: altura ÷ 3 = 1,2 ÷ 8."
+    - texto: "0,75 m"
+      erro: "Você usou 5 m, a distância do fim da rampa até a faixa. Conte a partir do começo da subida: 3 m."
+    - texto: "0,45 m"
+      certa: true
+    - texto: "3,6 m"
+      erro: "Você multiplicou 3 por 1,2 e esqueceu de dividir por 8."
+  explicacao: "Os triângulos formados pela rampa até a faixa e pela rampa inteira são semelhantes: h ÷ 3 = 1,2 ÷ 8. Então h = 3 × 0,15 = 0,45 m."
+  conferir: "1.2 * 3 / 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-07
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-semelhanca-e-tales
+  dificuldade: 2
+  enunciado: "Uma foto de 10 cm por 15 cm é ampliada sem deformar, e o lado menor passa a medir 25 cm. Quanto passa a medir o lado maior?"
+  alternativas:
+    - texto: "30 cm"
+      erro: "Você somou 15 cm, o que o lado menor cresceu, ao lado maior. Ampliar sem deformar é multiplicar pela razão 25 ÷ 10."
+    - texto: "37,5 cm"
+      certa: true
+    - texto: "6 cm"
+      erro: "A proporção ficou ao contrário (15 × 10 ÷ 25). A foto foi ampliada: o lado maior tem de crescer."
+    - texto: "50 cm"
+      erro: "Você dobrou o lado menor novo. O lado maior é o antigo, 15 cm, vezes a razão 2,5."
+    - texto: "40 cm"
+      erro: "Você somou 25 + 15. Semelhança multiplica: 15 × 2,5."
+  explicacao: "Razão: 25 ÷ 10 = 2,5. Lado maior: 15 × 2,5 = 37,5 cm."
+  conferir: "15 * 25 / 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-08
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-semelhanca-e-tales
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Quatro ruas paralelas são cortadas por duas avenidas. Entre as ruas ficam três lotes de cada lado do quarteirão.
+    Na Avenida 1, as frentes dos três lotes medem 15 m, 20 m e 25 m, nessa ordem. Na Avenida 2, as frentes dos três
+    lotes somam 84 m.
+  enunciado: "Na Avenida 2, a frente do lote do meio mede"
+  alternativas:
+    - texto: "20 m"
+      erro: "20 m é a frente desse lote na Avenida 1. Na outra avenida o quarteirão é maior: 84 m contra 60 m."
+    - texto: "21 m"
+      erro: "21 m é a frente do primeiro lote na Avenida 2 (15 × 1,4). A pergunta é o lote do meio."
+    - texto: "35 m"
+      erro: "35 m é a frente do último lote na Avenida 2 (25 × 1,4). A pergunta é o lote do meio."
+    - texto: "44 m"
+      erro: "Você somou 24 m (84 − 60) à frente de 20 m. Pelo Teorema de Tales, a diferença se reparte na proporção: multiplique pela razão 84 ÷ 60."
+    - texto: "28 m"
+      certa: true
+  explicacao: "Na Avenida 1, o total é 15 + 20 + 25 = 60 m. A razão é 84 ÷ 60 = 1,4. Lote do meio: 20 × 1,4 = 28 m. Confira: 21 + 28 + 35 = 84."
+  conferir: "20 * 84 / 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-09
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-semelhanca-e-tales
+  dificuldade: 3
+  enunciado: "Dois triângulos semelhantes têm perímetros de 12 cm e 18 cm. A área do menor é 16 cm². Qual é a área do maior?"
+  alternativas:
+    - texto: "36 cm²"
+      certa: true
+    - texto: "24 cm²"
+      erro: "Você multiplicou a área pela razão dos perímetros (1,5). A área muda com o quadrado da razão: 1,5² = 2,25."
+    - texto: "54 cm²"
+      erro: "Você usou 1,5 ao cubo. Isso valeria para volume; área usa o quadrado."
+    - texto: "22 cm²"
+      erro: "Você somou a diferença dos perímetros (6) à área. Semelhança multiplica: 16 × 2,25."
+    - texto: "32 cm²"
+      erro: "Você dobrou a área. A razão entre os triângulos é 18 ÷ 12 = 1,5, e a área muda com 1,5²."
+  explicacao: "Perímetro é medida linear: razão 18 ÷ 12 = 1,5. Área: × 1,5² = 2,25. Área do maior: 16 × 2,25 = 36 cm²."
+  conferir: "16 * (18 / 12)^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-semelhanca-10
+  tema: "Semelhança e Teorema de Tales"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-semelhanca-e-tales
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa rua plana, à noite, uma pessoa de 1,5 m de altura está de pé a 4 m de um poste com uma lâmpada no alto. A
+    sombra da pessoa, no chão, mede 2 m, do pé dela até a ponta. A lâmpada, a cabeça da pessoa e a ponta da sombra
+    estão alinhadas.
+  enunciado: "A altura da lâmpada em relação ao chão é de"
+  alternativas:
+    - texto: "3 m"
+      erro: "Você usou 4 m como base do triângulo grande. A base vai do pé do poste até a ponta da sombra: 4 + 2 = 6 m."
+    - texto: "6 m"
+      erro: "6 m é a distância do pé do poste até a ponta da sombra. A altura sai da proporção H ÷ 6 = 1,5 ÷ 2."
+    - texto: "4,5 m"
+      certa: true
+    - texto: "3,5 m"
+      erro: "Você somou a altura da pessoa à sombra. Monte os dois triângulos semelhantes e use a proporção."
+    - texto: "5,5 m"
+      erro: "Você somou a altura da pessoa à distância até o poste. A altura da lâmpada sai da proporção entre os triângulos."
+  explicacao: "Triângulo pequeno: altura 1,5 m e base 2 m. Grande: altura H e base 4 + 2 = 6 m. H ÷ 6 = 1,5 ÷ 2, então H = 6 × 0,75 = 4,5 m."
+  conferir: "1.5 * (4 + 2) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

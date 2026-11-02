@@ -29,7 +29,7 @@ quiz:
     explicacao: "Propostas vagas ficam nos níveis mais baixos da competência."
 ---
 
-A competência 5 avalia a **proposta de intervenção**: a solução que você apresenta para o problema discutido no texto. É a competência em que mais gente perde pontos por descuido, e também a mais fácil de dominar com treino, porque tem uma receita clara.
+A competência 5 avalia a **proposta de intervenção**: a solução que você apresenta para o problema discutido no texto. É uma competência em que se perdem pontos por descuido, e que tem uma receita clara, o que ajuda no treino.
 
 ## O que você vai aprender
 
@@ -97,7 +97,7 @@ A cartilha de 2026 descreve seis níveis:
 | 40 | proposta vaga, precária ou relacionada apenas ao assunto geral |
 | 0 | sem proposta, ou proposta sem relação com o tema |
 
-Na prática, a correção conta os elementos presentes e válidos: uma proposta com os cinco, bem articulada ao texto, chega ao nível máximo.
+Na prática, a cartilha diz que o texto é avaliado pela composição da proposta: a proposta "muito bem elaborada" do nível máximo é a que traz os cinco elementos, bem articulada ao texto.
 
 ## Os direitos humanos
 
