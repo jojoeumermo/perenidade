@@ -11,6 +11,47 @@ O "Ouvir a aula" lê a aula frase a frase e destaca a frase lida. Tem pausar, vo
 Nada sai do aparelho: o texto não vai para servidor nenhum, e todo arquivo vem do próprio site (/vozes/ e
 /workers/voz.js). Os modelos **não** vão para o Git: o build da Vercel os baixa (`npm run vozes:baixar`, no prebuild).
 
+## Novidades de 02/11/2026 (tarde)
+
+- **Modo de leitura** (no seletor, guardado em "lucia:voz"): "Ler frase por frase", com respiro, destaque, voltar e
+  avançar; ou "Ler a aula toda direto", que emenda as frases sem pausa.
+- **Idioma por trecho**: cada frase sai no idioma dela (o `lang` da aula ou do trecho; o conteúdo ainda não traduzido
+  usa a marca `data-content-lang`). Um trecho em inglês de 3 palavras ou mais, numa aula em português, vira frase
+  própria e é lido pela voz inglesa. A voz em português é a que a pessoa escolhe. Nos outros idiomas, a voz é escolhida
+  sozinha, do mesmo gênero: inglês af_heart (f) e am_michael (m); espanhol ef_dora (f) e em_alex (m); francês ff_siwis
+  (só há voz feminina em francês no Kokoro v1.0). Todas são Apache-2.0, do mesmo modelo. Cada uma acrescenta 0,5 MB, e
+  o espeak passou a levar os dicionários de inglês, espanhol e francês (o pacote de dados foi de 0,9 para 1,2 MB).
+- **Outros idiomas sem regra brasileira**: só o português passa pelo normalizador. Em inglês, espanhol e francês, o
+  espeak do idioma lê números e siglas, e em inglês os anos saem em pares ("18 22"). Idioma sem voz natural (russo,
+  chinês) usa a voz do aparelho naquela frase.
+- **Espera menor**:
+  - ao passar o mouse no "Ouvir", focar o botão ou abrir o seletor, o modelo já abre e as duas primeiras frases
+    começam a ser geradas, se a voz já estiver baixada;
+  - a primeira frase longa é partida em 6 a 10 palavras;
+  - enquanto uma frase toca, as três seguintes são geradas, uma de cada vez;
+  - frases longas são partidas em até 180 caracteres;
+  - o modelo fica aberto entre as frases e entre as aulas;
+  - se a próxima frase ainda não estiver pronta, aparece "Preparando a próxima frase…".
+- **Troca de aula**: ao navegar para outra página (ou ao desmontar o leitor), o som para, a fila de frases prontas é
+  esvaziada e o Worker descarta o que estava gerando. Cada leitura tem um número de sessão. Teste em e2e/vozes.spec.ts
+  ("trocar de aula no meio da leitura…").
+- **Prévias da Vercel sem vozes**: o `vozes:baixar` só baixa quando `VERCEL_ENV` é `production` (ou fora da Vercel, no
+  build local). Cada deploy guardava uma cópia de cerca de 105 MB, e o armazenamento de deploys chegou a 35,6 GB de 10 GB.
+  Nas prévias não existe /vozes/vozes.json, e o seletor mostra só a voz do aparelho, sem erro.
+
+### Tempo até o primeiro som e pausas entre frases (Chrome, este notebook, voz já guardada, mesma aula)
+
+| | Antes | Depois |
+| --- | --- | --- |
+| Do clique em "Ouvir" ao primeiro som (página recém-aberta, modelo fechado) | 23,7 s | 27,5 s (sem mudança: o tempo é o de abrir o modelo, 92 MB, uma vez por página aberta) |
+| Pausas entre as frases 2 a 5 | 26,6 / 12,1 / 11,1 / 71,7 s | 0,3 / 0,2 / 1,9 / 23,5 s |
+
+Medido com `VOZES_REAL=kokoro-f npx playwright test e2e/vozes.spec.ts -g verdade`, com o servidor de desenvolvimento
+rodando ao lado, o que deixa a máquina mais lenta: na primeira medida da manhã, sem essa carga, o primeiro som saía em
+8 s. O primeiro som só fica rápido quando o modelo já está aberto, porque a pessoa passou o mouse no botão, abriu o
+seletor ou já ouviu outra aula na mesma visita. No CPU, o Kokoro gera menos de meio segundo de fala por segundo; por
+isso, numa frase longa, ainda pode haver espera, e aí aparece o aviso.
+
 ## Como funciona
 
 | Peça | Onde |

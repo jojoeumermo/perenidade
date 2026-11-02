@@ -1088,7 +1088,11 @@
       "semVoz": "Este navegador não tem voz própria para ler. Escolha uma voz natural.",
       "nenhumaNatural": "As vozes naturais ainda não estão disponíveis neste site.",
       "fechar": "Fechar",
-      "credito": "Voz sintética que roda no seu aparelho: {modelo} ({licenca})."
+      "credito": "Voz sintética que roda no seu aparelho: {modelo} ({licenca}).",
+      "modo": "Como ler",
+      "modoFrase": "Ler frase por frase (com destaque, voltar e avançar)",
+      "modoDireto": "Ler a aula toda direto, sem parar entre as frases",
+      "outrosIdiomas": "Trechos em inglês, espanhol e francês são lidos sozinhos pela voz natural do idioma, do mesmo gênero."
     },
     "leitor": {
       "regiao": "Leitura em voz alta",
@@ -1099,7 +1103,8 @@
       "parar": "Parar a leitura",
       "velocidade": "Velocidade",
       "frase": "Frase {n} de {total}",
-      "preparando": "Preparando a voz…"
+      "preparando": "Preparando a voz…",
+      "preparandoProxima": "Preparando a próxima frase…"
     }
   },
   "library": {

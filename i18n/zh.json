@@ -1081,7 +1081,11 @@
       "semVoz": "此浏览器没有自带朗读语音。请选择一个自然语音。",
       "nenhumaNatural": "本站暂时还没有自然语音。",
       "fechar": "关闭",
-      "credito": "在你的设备上运行的合成语音：{modelo}（{licenca}）。"
+      "credito": "在你的设备上运行的合成语音：{modelo}（{licenca}）。",
+      "modo": "朗读方式",
+      "modoFrase": "逐句朗读（高亮显示，可后退和前进）",
+      "modoDireto": "整课连续朗读，句子之间不停顿",
+      "outrosIdiomas": "英语、西班牙语和法语段落会自动使用该语言同性别的自然语音朗读。"
     },
     "leitor": {
       "regiao": "朗读",
@@ -1092,7 +1096,8 @@
       "parar": "停止朗读",
       "velocidade": "语速",
       "frase": "第 {n} 句，共 {total} 句",
-      "preparando": "正在准备语音…"
+      "preparando": "正在准备语音…",
+      "preparandoProxima": "正在准备下一句…"
     }
   },
   "library": {

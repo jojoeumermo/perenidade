@@ -23,7 +23,7 @@ export function TocadorDaVoz() {
   return (
     <section role="region" aria-label={s.regiao} className="tocador-da-voz no-print no-leitor z-40 flex flex-wrap items-center gap-2 border-2 border-ink bg-parchment p-2 font-sans text-ink shadow-[4px_4px_0_0_var(--color-ink,#1f1a14)]">
       <p className="min-w-0 flex-1 px-1 text-sm" aria-live="polite">
-        {e.carregando ? `${s.preparando}${pct ? ` ${pct}%` : ""}` : fill(s.frase, { n: new Intl.NumberFormat(lang).format(e.frase + 1), total: new Intl.NumberFormat(lang).format(e.total) })}
+        {e.carregando ? `${s.preparando}${pct ? ` ${pct}%` : ""}` : e.esperando && e.tocando ? s.preparandoProxima : fill(s.frase, { n: new Intl.NumberFormat(lang).format(e.frase + 1), total: new Intl.NumberFormat(lang).format(e.total) })}
       </p>
       <button type="button" className={claro} aria-label={s.anterior} title={s.anterior} disabled={e.carregando || e.frase === 0} onClick={anterior}>
         <svg aria-hidden viewBox="0 0 24 24" className="mx-auto h-5 w-5" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z" /></svg>
@@ -53,7 +53,7 @@ export function TocadorDaVoz() {
           ))}
         </select>
       </label>
-      <button type="button" className={claro} aria-label={s.parar} title={s.parar} onClick={parar}>
+      <button type="button" className={claro} aria-label={s.parar} title={s.parar} onClick={() => parar()}>
         <svg aria-hidden viewBox="0 0 24 24" className="mx-auto h-5 w-5" fill="currentColor"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6z" /></svg>
       </button>
     </section>

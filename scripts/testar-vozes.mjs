@@ -5,7 +5,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
-import { decimal, dividirEmFrases, fracao, lerSigla, lerTex, normalizar, ordinal, porExtenso, romano } from "../lib/vozes/normalizar.ts";
+import { decimal, dividirEmFrases, fracao, lerSigla, lerTex, normalizar, normalizarOutroIdioma, ordinal, porExtenso, romano } from "../lib/vozes/normalizar.ts";
 import { conferirLexico, lerLexico } from "../lib/vozes/lexico.ts";
 
 const raiz = path.resolve(import.meta.dirname, "..");
@@ -189,6 +189,15 @@ igual("tex fração", lerTex("\\frac{a}{b}"), "a sobre b");
 igual("tex potência", lerTex("x^2 + 1"), "x ao quadrado mais um");
 igual("tex raiz", lerTex("\\sqrt{16} = 4"), "raiz quadrada de dezesseis é igual a quatro");
 
+// ── Outros idiomas: nada de regra brasileira ──
+igual("inglês: ano em pares", normalizarOutroIdioma("In 1822, the price was 162 dollars.", "en"), "In 18 22, the price was 162 dollars.");
+igual("inglês: 1900", normalizarOutroIdioma("in 1900", "en"), "in 19 hundred");
+igual("inglês: 1905", normalizarOutroIdioma("in 1905", "en"), "in 19 oh 5");
+igual("inglês: 2024 fica", normalizarOutroIdioma("in 2024", "en"), "in 2024");
+igual("inglês: dinheiro fica", normalizarOutroIdioma("$1500 and 1.5%", "en"), "$1500 and 1.5%");
+igual("espanhol: números ficam", normalizarOutroIdioma("En 1822 costaba 162 pesos, el 19%.", "es"), "En 1822 costaba 162 pesos, el 19%.");
+igual("francês: sigla fica", normalizarOutroIdioma("La SNCF en 1938", "fr"), "La SNCF en 1938");
+
 // ── Frases ──
 const partes = (t) => dividirEmFrases(t).map((p) => t.slice(p.ini, p.fim));
 igual("duas frases", JSON.stringify(partes("Olá, mundo. Tudo bem?")), JSON.stringify(["Olá, mundo.", "Tudo bem?"]));
@@ -221,6 +230,8 @@ const { criarMotor, conferirSha256 } = require(path.join(raiz, "public/workers/v
 const motor = criarMotor({ ort: {}, buscar: async () => new ArrayBuffer(0), criarFonemas: async () => ({}), fonemas: {} });
 igual("kokoro: africadas viram um símbolo", motor.fonemasDoKokoro(["t", "ʃ", "ˈ", "i", "a", " ", "d", "ʒ", "ˈ", "i", "a"]), "ʧˈia ʤˈia");
 igual("kokoro: espaço depois do ponto", motor.fonemasDoKokoro(["a", ".", "b"]), "a. b");
+igual("kokoro inglês: r vira ɹ", motor.fonemasDoKokoro(["r", "ˈ", "ɛ", "d"], "en-us"), "ɹˈɛd");
+igual("kokoro português: r fica", motor.fonemasDoKokoro(["r", "ˈ", "ɛ", "d"], "pt-br"), "rˈɛd");
 const { webcrypto } = await import("node:crypto");
 conferir("sha256 confere", await conferirSha256(new TextEncoder().encode("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", webcrypto.subtle));
 conferir("sha256 recusa", !(await conferirSha256(new TextEncoder().encode("abd"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", webcrypto.subtle)));
@@ -230,6 +241,7 @@ const script = fs.readFileSync(path.join(raiz, "scripts/vozes-baixar.mjs"), "utf
 conferir("revisões fixas (commit inteiro)", (script.match(/rev: "[0-9a-f]{40}"/g) ?? []).length === 2);
 conferir("nada de 'main' nos endereços", !/resolve\/main\//.test(script));
 conferir("todo arquivo tem sha256", (script.match(/origem: hf\(/g) ?? []).length === (script.match(/sha256: "[0-9a-f]{64}"/g) ?? []).length);
+conferir("vozes de inglês, espanhol e francês", ["af_heart", "am_michael", "ef_dora", "em_alex", "ff_siwis"].every((v) => script.includes(`voices/${v}.bin`)));
 conferir("Piper fica bloqueada", /id: "piper-m"[\s\S]*?liberada: false/.test(script));
 const pacote = JSON.parse(fs.readFileSync(path.join(raiz, "package.json"), "utf8"));
 conferir("bibliotecas em versão exata", /^\d+\.\d+\.\d+$/.test(pacote.dependencies["onnxruntime-web"]) && /^\d+\.\d+\.\d+$/.test(pacote.dependencies["@diffusionstudio/piper-wasm"]));

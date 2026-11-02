@@ -98,8 +98,18 @@ async function abrir(voz) {
   return webgpu ? "webgpu" : "wasm";
 }
 
+// As falas são feitas uma de cada vez, na ordem (o modelo não ganha nada rodando duas juntas). Cada pedido leva o
+// número da sessão de leitura: quando a página troca de aula, a sessão antiga é cancelada e o que estava na fila dela
+// é descartado sem gerar som.
+var fila = Promise.resolve();
+var sessaoAtual = 0;
+
 self.onmessage = async function (evento) {
   var m = evento.data || {};
+  if (m.t === "cancelar") {
+    sessaoAtual = Math.max(sessaoAtual, m.sessao || 0);
+    return;
+  }
   if (m.t === "carregar") {
     if (vozAtual === m.voz.id && carregando) {
       await carregando;
@@ -118,12 +128,21 @@ self.onmessage = async function (evento) {
     return;
   }
   if (m.t === "falar") {
-    try {
-      await carregando;
-      var som = await motor.falar(m.texto, m.velocidade);
-      self.postMessage({ t: "audio", id: m.id, pcm: som.pcm, taxa: som.taxa }, [som.pcm.buffer]);
-    } catch (erro) {
-      self.postMessage({ t: "erro", id: m.id, mensagem: String((erro && erro.message) || erro) });
-    }
+    if ((m.sessao || 0) > sessaoAtual) sessaoAtual = m.sessao;
+    fila = fila.then(async function () {
+      if ((m.sessao || 0) < sessaoAtual) {
+        self.postMessage({ t: "erro", id: m.id, mensagem: "descartado" });
+        return;
+      }
+      try {
+        await carregando;
+        // Outra voz do mesmo modelo (o idioma do trecho): só troca o estilo e o espeak, sem abrir o modelo de novo.
+        if (m.voz && motor.carregar) await motor.carregar(m.voz);
+        var som = await motor.falar(m.texto, m.velocidade);
+        self.postMessage({ t: "audio", id: m.id, pcm: som.pcm, taxa: som.taxa }, [som.pcm.buffer]);
+      } catch (erro) {
+        self.postMessage({ t: "erro", id: m.id, mensagem: String((erro && erro.message) || erro) });
+      }
+    });
   }
 };

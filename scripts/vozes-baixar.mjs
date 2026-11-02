@@ -2,7 +2,7 @@
 //
 // Prepara as vozes naturais do "Ouvir a aula" em public/vozes/ (pasta fora do Git: os modelos têm dezenas de MB).
 //   1. Copia do node_modules, nas versões fixadas no package.json, o onnxruntime-web (roda o modelo) e o espeak-ng do
-//      piper_phonemize (texto → fonemas). Do espeak, só os dados do português entram (de 18 MB para cerca de 1 MB).
+//      piper_phonemize (texto → fonemas). Do espeak, só os dados do português, inglês, espanhol e francês entram (de 18 MB para cerca de 1,4 MB).
 //   2. Baixa os modelos do Hugging Face numa revisão (commit) FIXA e confere o sha256 de cada arquivo.
 //   3. Escreve public/vozes/vozes.json, a lista que o site lê. Sem ela, o site mostra só a voz do aparelho.
 // Arquivo que já está lá e confere não é baixado de novo. Detalhes, licenças e o passo do servidor: docs/VOZES.md.
@@ -38,6 +38,8 @@ const VOZES = [
   {
     id: "kokoro-f",
     motor: "kokoro",
+    idioma: "pt",
+    espeak: "pt-br",
     numero: 1,
     genero: "f",
     webgpu: false,
@@ -49,6 +51,8 @@ const VOZES = [
   {
     id: "kokoro-m",
     motor: "kokoro",
+    idioma: "pt",
+    espeak: "pt-br",
     numero: 2,
     genero: "m",
     webgpu: false,
@@ -58,10 +62,82 @@ const VOZES = [
     arquivos: [MODELO_KOKORO, VOCAB_KOKORO, { papel: "estilo", origem: hf(KOKORO, "voices/pm_alex.bin"), nome: "kokoro-1939ad2/pm_alex.bin", bytes: 522240, sha256: "0175c753f59c54e7fd5a995bedef0c5ff2fb67e0043dd3dcb2ae74ec2acbeb2a" }],
   },
   {
+    // Inglês, feminina: a voz natural das aulas e dos trechos em inglês. Mesmo modelo: só o arquivo da voz (0,5 MB) a mais.
+    id: "kokoro-en-f",
+    motor: "kokoro",
+    idioma: "en",
+    espeak: "en-us",
+    numero: 1,
+    genero: "f",
+    webgpu: false,
+    liberada: true,
+    modelo: "Kokoro-82M v1.0 (af_heart, 8 bits)",
+    licenca: "Apache-2.0",
+    arquivos: [MODELO_KOKORO, VOCAB_KOKORO, { papel: "estilo", origem: hf(KOKORO, "voices/af_heart.bin"), nome: "kokoro-1939ad2/af_heart.bin", bytes: 522240, sha256: "d583ccff3cdca2f7fae535cb998ac07e9fcb90f09737b9a41fa2734ec44a8f0b" }],
+  },
+  {
+    // Inglês, masculina: a voz natural das aulas e dos trechos em inglês. Mesmo modelo: só o arquivo da voz (0,5 MB) a mais.
+    id: "kokoro-en-m",
+    motor: "kokoro",
+    idioma: "en",
+    espeak: "en-us",
+    numero: 2,
+    genero: "m",
+    webgpu: false,
+    liberada: true,
+    modelo: "Kokoro-82M v1.0 (am_michael, 8 bits)",
+    licenca: "Apache-2.0",
+    arquivos: [MODELO_KOKORO, VOCAB_KOKORO, { papel: "estilo", origem: hf(KOKORO, "voices/am_michael.bin"), nome: "kokoro-1939ad2/am_michael.bin", bytes: 522240, sha256: "1d1f21dd8da39c30705cd4c75d039d265e9bc4a2a93ed09bc9e1b1225eb95ba1" }],
+  },
+  {
+    // Espanhol, feminina: a voz natural das aulas e dos trechos em espanhol. Mesmo modelo: só o arquivo da voz (0,5 MB) a mais.
+    id: "kokoro-es-f",
+    motor: "kokoro",
+    idioma: "es",
+    espeak: "es",
+    numero: 1,
+    genero: "f",
+    webgpu: false,
+    liberada: true,
+    modelo: "Kokoro-82M v1.0 (ef_dora, 8 bits)",
+    licenca: "Apache-2.0",
+    arquivos: [MODELO_KOKORO, VOCAB_KOKORO, { papel: "estilo", origem: hf(KOKORO, "voices/ef_dora.bin"), nome: "kokoro-1939ad2/ef_dora.bin", bytes: 522240, sha256: "f66ec66bd295acb18372e37008533a9a3228483ccd294e7538d5d9294ac9a532" }],
+  },
+  {
+    // Espanhol, masculina: a voz natural das aulas e dos trechos em espanhol. Mesmo modelo: só o arquivo da voz (0,5 MB) a mais.
+    id: "kokoro-es-m",
+    motor: "kokoro",
+    idioma: "es",
+    espeak: "es",
+    numero: 2,
+    genero: "m",
+    webgpu: false,
+    liberada: true,
+    modelo: "Kokoro-82M v1.0 (em_alex, 8 bits)",
+    licenca: "Apache-2.0",
+    arquivos: [MODELO_KOKORO, VOCAB_KOKORO, { papel: "estilo", origem: hf(KOKORO, "voices/em_alex.bin"), nome: "kokoro-1939ad2/em_alex.bin", bytes: 522240, sha256: "27809e9eafdcbcfff90a3016c697568676531de2a2c39cee29c96c7bd6b83e95" }],
+  },
+  {
+    // Francês, feminina (o Kokoro só tem esta em francês): a voz natural das aulas e dos trechos em francês. Mesmo modelo: só o arquivo da voz (0,5 MB) a mais.
+    id: "kokoro-fr-f",
+    motor: "kokoro",
+    idioma: "fr",
+    espeak: "fr",
+    numero: 1,
+    genero: "f",
+    webgpu: false,
+    liberada: true,
+    modelo: "Kokoro-82M v1.0 (ff_siwis, 8 bits)",
+    licenca: "Apache-2.0",
+    arquivos: [MODELO_KOKORO, VOCAB_KOKORO, { papel: "estilo", origem: hf(KOKORO, "voices/ff_siwis.bin"), nome: "kokoro-1939ad2/ff_siwis.bin", bytes: 522240, sha256: "a35f5675ad08948e326ae75fd0ea16ba5d0042e4f76b5f3d1df77d0a48c54861" }],
+  },
+  {
     // Os dados de treino em português são CC0, mas o modelo foi ajustado a partir da voz inglesa "lessac", cuja base
     // (Blizzard 2013) só permite pesquisa, sem uso comercial. Licença incerta: fora do site até o dono decidir.
     id: "piper-m",
     motor: "piper",
+    idioma: "pt",
+    espeak: "pt-br",
     numero: 3,
     genero: "m",
     webgpu: false,
@@ -121,7 +197,7 @@ function prepararEspeak() {
   if (!achado) throw new Error("piper_phonemize.js mudou: não achei a lista de arquivos do pacote de dados");
   const meta = JSON.parse(achado[1]);
   const dados = fs.readFileSync(path.join(build, "piper_phonemize.data"));
-  const fica = (nome) => !/_dict$/.test(nome) || /\/pt_dict$/.test(nome);
+  const fica = (nome) => !/_dict$/.test(nome) || /\/(pt|en|es|fr)_dict$/.test(nome);
   const partes = [];
   const files = [];
   let pos = 0;
@@ -195,6 +271,13 @@ export async function motorNoNode(manifesto) {
 }
 
 async function principal() {
+  // Na Vercel, só a produção leva as vozes: cada deploy guarda uma cópia dos arquivos (92 MB), e as prévias lotavam o
+  // armazenamento. Nas prévias não existe vozes.json, e o seletor mostra só a voz do aparelho, sem erro.
+  if (process.env.VERCEL && process.env.VERCEL_ENV !== "production") {
+    fs.rmSync(DESTINO, { recursive: true, force: true });
+    console.log(`[vozes] prévia da Vercel (${process.env.VERCEL_ENV ?? "?"}): sem vozes naturais, só a voz do aparelho.`);
+    return;
+  }
   fs.mkdirSync(DESTINO, { recursive: true });
   const ort = prepararOrt();
   const fonemas = prepararEspeak();
@@ -212,7 +295,8 @@ async function principal() {
       numero: v.numero,
       genero: v.genero,
       webgpu: v.webgpu,
-      espeak: "pt-br",
+      idioma: v.idioma,
+      espeak: v.espeak,
       modelo: v.modelo,
       licenca: v.licenca,
       ...(v.liberada ? {} : { bloqueada: true }),
@@ -227,7 +311,7 @@ async function principal() {
   if (args.has("--amostras")) {
     fs.mkdirSync(AMOSTRAS, { recursive: true });
     for (const v of manifesto.vozes) {
-      if (v.bloqueada) continue;
+      if (v.bloqueada || v.idioma !== "pt") continue;
       const motor = await motorNoNode(manifesto);
       await motor.carregar(v);
       const som = await motor.falar(FRASE_DA_AMOSTRA, 1);

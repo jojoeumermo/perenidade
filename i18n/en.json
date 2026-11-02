@@ -1088,7 +1088,11 @@
       "semVoz": "This browser has no voice of its own. Choose a natural voice.",
       "nenhumaNatural": "Natural voices are not available on this site yet.",
       "fechar": "Close",
-      "credito": "Synthetic voice running on your device: {modelo} ({licenca})."
+      "credito": "Synthetic voice running on your device: {modelo} ({licenca}).",
+      "modo": "How to read",
+      "modoFrase": "Read sentence by sentence (with highlight, back and forward)",
+      "modoDireto": "Read the whole lesson straight through, without pausing between sentences",
+      "outrosIdiomas": "Passages in English, Spanish and French are read automatically by that language's natural voice, of the same gender."
     },
     "leitor": {
       "regiao": "Reading aloud",
@@ -1099,7 +1103,8 @@
       "parar": "Stop reading",
       "velocidade": "Speed",
       "frase": "Sentence {n} of {total}",
-      "preparando": "Preparing the voice…"
+      "preparando": "Preparing the voice…",
+      "preparandoProxima": "Preparing the next sentence…"
     }
   },
   "library": {

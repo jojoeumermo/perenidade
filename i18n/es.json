@@ -1088,7 +1088,11 @@
       "semVoz": "Este navegador no tiene voz propia para leer. Elige una voz natural.",
       "nenhumaNatural": "Las voces naturales todavía no están disponibles en este sitio.",
       "fechar": "Cerrar",
-      "credito": "Voz sintética que funciona en tu dispositivo: {modelo} ({licenca})."
+      "credito": "Voz sintética que funciona en tu dispositivo: {modelo} ({licenca}).",
+      "modo": "Cómo leer",
+      "modoFrase": "Leer frase por frase (con resaltado, retroceder y avanzar)",
+      "modoDireto": "Leer toda la clase de corrido, sin pausas entre las frases",
+      "outrosIdiomas": "Los fragmentos en inglés, español y francés los lee sola la voz natural de ese idioma, del mismo género."
     },
     "leitor": {
       "regiao": "Lectura en voz alta",
@@ -1099,7 +1103,8 @@
       "parar": "Detener la lectura",
       "velocidade": "Velocidad",
       "frase": "Frase {n} de {total}",
-      "preparando": "Preparando la voz…"
+      "preparando": "Preparando la voz…",
+      "preparandoProxima": "Preparando la siguiente frase…"
     }
   },
   "library": {
