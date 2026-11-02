@@ -60,7 +60,7 @@ igual("sigla STF", lerSigla("STF"), "ésse tê éfe");
 igual("sigla IBGE", lerSigla("IBGE"), "i bê gê é");
 
 // ── Frases inteiras ──
-const lex = lerLexico(raiz);
+const lex = lerLexico();
 const CASOS = [
   // dinheiro
   ["R$ 162,00", "cento e sessenta e dois reais"],

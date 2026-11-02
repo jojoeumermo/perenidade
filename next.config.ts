@@ -163,6 +163,11 @@ const nextConfig: NextConfig = {
       { source: "/workers/:path*", headers: [{ key: "Content-Security-Policy", value: workers }, ...common] },
       // Os interpretadores são grandes e mudam raramente: o navegador pode guardá-los por uma semana.
       { source: "/(pyodide|php|typescript|lua|ruby|jscpp)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=604800" }] },
+      // Vozes naturais do "Ouvir a aula" (npm run vozes:baixar): a versão está no nome da pasta (kokoro-1939ad2/,
+      // ort-1.22.0/, espeak-<hash>/), então o arquivo nunca muda e o Cloudflare e o navegador guardam por um ano.
+      // A lista vozes.json e o motor (/workers/voz*.js) ficam fora: mudam a cada versão nova.
+      { source: "/vozes/:pasta/:arquivo", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+      { source: "/vozes-amostras/:arquivo", headers: [{ key: "Cache-Control", value: "public, max-age=604800" }] },
       // Imagens e arquivos publicados têm o nome derivado do próprio conteúdo: nunca mudam, podem ficar guardados por um ano.
       { source: "/(arquivos|imagens)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       // O arquivo que liga o modo sem internet é conferido a cada visita, para as correções chegarem logo.
