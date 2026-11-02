@@ -1,0 +1,21 @@
+[
+  { "slug": "angulos-e-retas", "titulo": "Ângulos, retas e paralelismo" },
+  { "slug": "poligonos", "titulo": "Polígonos" },
+  { "slug": "triangulos-e-congruencia", "titulo": "Triângulos e congruência" },
+  { "slug": "semelhanca-e-tales", "titulo": "Semelhança e Teorema de Tales" },
+  { "slug": "pitagoras-e-relacoes-metricas", "titulo": "Teorema de Pitágoras e relações métricas" },
+  { "slug": "trigonometria-no-triangulo-retangulo", "titulo": "Trigonometria no triângulo retângulo" },
+  { "slug": "areas-de-figuras-planas", "titulo": "Áreas de figuras planas" },
+  { "slug": "circunferencia-e-circulo", "titulo": "Circunferência e círculo" },
+  { "slug": "simetria-e-ladrilhamentos", "titulo": "Simetria, translação, rotação e ladrilhamentos" },
+  { "slug": "vistas-e-projecoes", "titulo": "Vistas e projeções ortogonais" },
+  { "slug": "planificacoes", "titulo": "Planificações" },
+  { "slug": "poliedros-e-euler", "titulo": "Poliedros e relação de Euler" },
+  { "slug": "prismas-e-cilindros", "titulo": "Prismas e cilindros" },
+  { "slug": "piramides-e-cones", "titulo": "Pirâmides e cones" },
+  { "slug": "esfera", "titulo": "Esfera" },
+  { "slug": "volume-de-embalagens", "titulo": "Volume e capacidade de embalagens" },
+  { "slug": "plano-cartesiano", "titulo": "Plano cartesiano e distância entre pontos" },
+  { "slug": "equacao-da-reta", "titulo": "Equação da reta, paralelismo e perpendicularidade" },
+  { "slug": "equacao-da-circunferencia", "titulo": "Equação da circunferência" }
+]

@@ -1,0 +1,247 @@
+# Exercícios da aula "Áreas de figuras planas" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-areas-01
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-areas
+  dificuldade: 1
+  enunciado: "Uma sala retangular mede 5 m de comprimento e 4 m de largura. Qual é a área do piso?"
+  alternativas:
+    - texto: "20 m²"
+      certa: true
+    - texto: "18 m²"
+      erro: "18 m é o perímetro da sala (5 + 4 + 5 + 4), a volta. O piso é a área: comprimento vezes largura."
+    - texto: "9 m²"
+      erro: "Você somou os dois lados. A área do retângulo é a multiplicação: 5 × 4."
+    - texto: "40 m²"
+      erro: "Você dobrou a área. O retângulo é base vezes altura, sem multiplicar por 2."
+    - texto: "10 m²"
+      erro: "Você dividiu por 2, como no triângulo. O retângulo não tem essa divisão: é 5 × 4."
+  explicacao: "Área do retângulo: 5 × 4 = 20 m²."
+  conferir: "5 * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-02
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-areas
+  dificuldade: 1
+  enunciado: "Uma lona tem a forma de um triângulo com 6 m de base e 4 m de altura. Qual é a área da lona?"
+  alternativas:
+    - texto: "24 m²"
+      erro: "Você esqueceu de dividir por 2. O triângulo é metade de um retângulo: 6 × 4 ÷ 2."
+    - texto: "12 m²"
+      certa: true
+    - texto: "10 m²"
+      erro: "Você somou base e altura. A área é a multiplicação, dividida por 2."
+    - texto: "6 m²"
+      erro: "Você dividiu por 4. A área do triângulo é base vezes altura dividido por 2: 24 ÷ 2 = 12."
+    - texto: "48 m²"
+      erro: "Você multiplicou por 2 em vez de dividir. O triângulo ocupa metade do retângulo de 6 por 4."
+  explicacao: "A = b · h ÷ 2 = 6 × 4 ÷ 2 = 24 ÷ 2 = 12 m²."
+  conferir: "6 * 4 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-03
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 10
+  objeto: mat-geometria-areas
+  dificuldade: 1
+  enunciado: "Um painel tem 25.000 cm² de área. Quanto é isso em metros quadrados?"
+  alternativas:
+    - texto: "250 m²"
+      erro: "Você dividiu por 100, como se fosse comprimento. Em área, 1 m² = 100 × 100 = 10.000 cm²."
+    - texto: "25 m²"
+      erro: "Você dividiu por 1.000. Em área, divida por 10.000."
+    - texto: "2,5 m²"
+      certa: true
+    - texto: "0,25 m²"
+      erro: "Você dividiu por 100.000. Um metro quadrado tem 10.000 cm²: 25.000 ÷ 10.000 = 2,5."
+    - texto: "2.500 m²"
+      erro: "Você dividiu por 10. Lembre: 1 m² é um quadrado de 100 cm por 100 cm, ou 10.000 cm²."
+  explicacao: "1 m² = 10.000 cm². Então 25.000 cm² = 25.000 ÷ 10.000 = 2,5 m²."
+  conferir: "25000 / 10000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-04
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-areas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma família recebeu, numa regularização de lotes, um terreno com a forma de um trapézio. A frente, voltada para a
+    rua, mede 12 m. O fundo, paralelo à frente, mede 18 m. A distância entre a frente e o fundo, medida em linha reta e
+    em ângulo reto com a rua, é de 25 m.
+  enunciado: "A área desse terreno, em metro quadrado, é"
+  alternativas:
+    - texto: "750"
+      erro: "Você esqueceu de dividir por 2. A área do trapézio é (B + b) · h ÷ 2."
+    - texto: "450"
+      erro: "Você usou só o fundo (18 × 25), como se o terreno fosse um retângulo. A frente é menor: use a soma das bases."
+    - texto: "300"
+      erro: "Você usou só a frente (12 × 25). O terreno se abre até 18 m no fundo: use a soma das bases."
+    - texto: "375"
+      certa: true
+    - texto: "55"
+      erro: "Você somou as três medidas. A área do trapézio multiplica a soma das bases pela altura e divide por 2."
+  explicacao: "Soma das bases: 12 + 18 = 30. Vezes a altura: 30 × 25 = 750. Dividido por 2: 375 m². É a média das bases (15 m) vezes 25 m."
+  conferir: "(12 + 18) * 25 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-05
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-areas
+  dificuldade: 2
+  enunciado: "Uma pipa tem a forma de um losango com diagonais de 60 cm e 40 cm. Quanto papel de seda cobre a pipa, sem sobras?"
+  alternativas:
+    - texto: "2.400 cm²"
+      erro: "2.400 é o retângulo que abraça a pipa (60 × 40). O losango ocupa metade dele."
+    - texto: "100 cm²"
+      erro: "Você somou as diagonais. A área do losango é D · d ÷ 2."
+    - texto: "600 cm²"
+      erro: "Você dividiu por 4. A área é a metade do produto das diagonais: 2.400 ÷ 2."
+    - texto: "4.800 cm²"
+      erro: "Você multiplicou por 2 em vez de dividir. O losango é metade do retângulo de 60 por 40."
+    - texto: "1.200 cm²"
+      certa: true
+  explicacao: "A = D · d ÷ 2 = 60 × 40 ÷ 2 = 2.400 ÷ 2 = 1.200 cm²."
+  conferir: "60 * 40 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-06
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-areas
+  dificuldade: 2
+  enunciado: "A parede de um banheiro tem 3 m por 2 m e vai ser coberta com azulejos quadrados de 20 cm de lado. Desprezando as juntas, quantos azulejos são necessários?"
+  alternativas:
+    - texto: "150"
+      certa: true
+    - texto: "15"
+      erro: "Você tomou o azulejo como 0,4 m². Um quadrado de 20 cm por 20 cm tem 0,2 × 0,2 = 0,04 m²."
+    - texto: "1.500"
+      erro: "Você tomou o azulejo como 0,004 m². Converta cada lado: 20 cm = 0,2 m, e 0,2 × 0,2 = 0,04 m²."
+    - texto: "30"
+      erro: "Você dividiu a área pelo lado do azulejo (6 ÷ 0,2). Divida pela área do azulejo, 0,04 m²."
+    - texto: "1,5"
+      erro: "Você usou 1 m² = 100 cm² (6 m² viraram 600 cm²). Em área, 1 m² = 10.000 cm²: são 60.000 cm²."
+  explicacao: "Parede: 3 × 2 = 6 m² = 60.000 cm². Azulejo: 20 × 20 = 400 cm². Azulejos: 60.000 ÷ 400 = 150. Pelas fileiras: 300 ÷ 20 = 15 por 200 ÷ 20 = 10, e 15 × 10 = 150."
+  conferir: "(3 * 2) / (0.2 * 0.2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-07
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-areas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A planta de um centro comunitário mostra um salão em forma de L. Ele pode ser visto como um retângulo de 10 m por
+    8 m do qual se retirou, num dos cantos, um retângulo de 4 m por 3 m, que é a cozinha. O piso do salão (sem a
+    cozinha) vai ser trocado.
+  enunciado: "A área do piso a ser trocado, em metro quadrado, é"
+  alternativas:
+    - texto: "80"
+      erro: "80 m² é o retângulo inteiro. Falta tirar a cozinha, 4 × 3 = 12 m²."
+    - texto: "68"
+      certa: true
+    - texto: "92"
+      erro: "Você somou a cozinha em vez de tirar. O salão é o retângulo grande menos o canto da cozinha."
+    - texto: "36"
+      erro: "36 m é o perímetro do L (igual ao do retângulo de 10 por 8). O piso é área."
+    - texto: "12"
+      erro: "12 m² é só a cozinha, o pedaço retirado. O piso a trocar é o resto: 80 − 12."
+  explicacao: "Retângulo inteiro: 10 × 8 = 80 m². Cozinha: 4 × 3 = 12 m². Salão: 80 − 12 = 68 m²."
+  conferir: "10 * 8 - 4 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-08
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-areas
+  dificuldade: 3
+  enunciado: "Uma gráfica cobra pela área impressa. Um cartaz de 3 m por 2 m custa R$ 360. Quanto custa, no mesmo preço por metro quadrado, um cartaz de 6 m por 4 m?"
+  alternativas:
+    - texto: "R$ 720"
+      erro: "Você dobrou o preço porque as medidas dobraram. Mas os dois lados dobraram: a área fica 2 × 2 = 4 vezes maior."
+    - texto: "R$ 2.880"
+      erro: "Você multiplicou por 8, como se fosse volume. O cartaz é plano: a área fica 4 vezes maior."
+    - texto: "R$ 1.440"
+      certa: true
+    - texto: "R$ 1.800"
+      erro: "Você somou as duas áreas (6 + 24 = 30 m²). O cartaz novo tem só 24 m²."
+    - texto: "R$ 1.080"
+      erro: "Você cobrou só a diferença de área (24 − 6 = 18 m², vezes R$ 60). O cartaz novo é cobrado inteiro: 24 m²."
+  explicacao: "Preço por m²: 360 ÷ (3 × 2) = R$ 60. Cartaz novo: 6 × 4 = 24 m². Preço: 24 × 60 = R$ 1.440. Ou: área 4 vezes maior, preço 4 × 360."
+  conferir: "(360 / (3 * 2)) * (6 * 4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-09
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-areas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa praça, há um terreno quadrado de 10 m de lado. No centro dele, foi feito um canteiro de flores circular que
+    encosta nos quatro lados do quadrado (o diâmetro do canteiro é igual ao lado do quadrado). O resto do terreno, nos
+    quatro cantos, vai receber grama. Use π = 3.
+  enunciado: "A área que vai receber grama, em metro quadrado, é"
+  alternativas:
+    - texto: "75"
+      erro: "75 m² é a área do canteiro (3 × 5²). A grama fica no que sobra do quadrado: 100 − 75."
+    - texto: "100"
+      erro: "100 m² é o quadrado inteiro. O canteiro ocupa a maior parte dele: tire a área do círculo."
+    - texto: "70"
+      erro: "Você tirou do quadrado o comprimento da borda do canteiro (2 × 3 × 5 = 30). Tire a área do círculo, π · r²."
+    - texto: "25"
+      certa: true
+    - texto: "300"
+      erro: "Você usou o lado do quadrado (10 m) como raio do canteiro. O canteiro tem 10 m de diâmetro, então o raio é 5 m."
+  explicacao: "Quadrado: 10 × 10 = 100 m². Canteiro: raio 5 m, área 3 × 25 = 75 m². Grama: 100 − 75 = 25 m²."
+  conferir: "10 * 10 - 3 * 5^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-areas-10
+  tema: "Áreas de figuras planas"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-areas
+  dificuldade: 3
+  enunciado: "Uma parede de 4 m de largura e 2,5 m de altura tem uma janela de 1 m por 1,5 m. Ela vai receber duas demãos de tinta, e cada litro pinta 5 m² por demão. Quantos litros de tinta são necessários?"
+  alternativas:
+    - texto: "4 L"
+      erro: "Você não descontou a janela. A área a pintar é 10 − 1,5 = 8,5 m²."
+    - texto: "1,7 L"
+      erro: "Essa é a tinta de uma demão só. São duas demãos: 2 × 1,7."
+    - texto: "4,6 L"
+      erro: "Você somou a janela em vez de tirar (10 + 1,5 = 11,5 m²). Vidro não se pinta: desconte a janela."
+    - texto: "17 L"
+      erro: "Você calculou a área total das duas demãos (17 m²) e parou. Falta dividir pelo rendimento: 17 ÷ 5."
+    - texto: "3,4 L"
+      certa: true
+  explicacao: "Parede: 4 × 2,5 = 10 m². Menos a janela: 10 − 1 × 1,5 = 8,5 m². Duas demãos: 17 m². Litros: 17 ÷ 5 = 3,4 L."
+  conferir: "2 * (4 * 2.5 - 1 * 1.5) / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

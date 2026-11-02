@@ -1,0 +1,242 @@
+# Exercícios da aula "Arte como linguagem e patrimônio" (trilha enem-linguagens-artes-e-corpo).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Nenhuma obra é reproduzida: as obras citadas vêm descritas.
+
+- id: enem-lin-artes-linguagem-01
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 13
+  objeto: lin-artes-arte-como-linguagem
+  dificuldade: 1
+  enunciado: "Qual destes é um elemento da linguagem visual?"
+  alternativas:
+    - texto: "A rima."
+      erro: "Rima é recurso da poesia, da linguagem verbal."
+    - texto: "A cor."
+      certa: true
+    - texto: "O refrão."
+      erro: "Refrão é parte de uma canção, da linguagem musical."
+    - texto: "O narrador."
+      erro: "Narrador é quem conta a história num texto narrativo."
+    - texto: "O compasso."
+      erro: "Compasso é medida do tempo na música."
+  explicacao: "Os elementos da linguagem visual incluem linha, forma, cor, textura, espaço, composição e proporção. Cada um produz sentido numa obra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-02
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-arte-como-linguagem
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre patrimônio material e patrimônio imaterial?"
+  alternativas:
+    - texto: "O material é brasileiro; o imaterial é estrangeiro."
+      erro: "Os dois podem ser brasileiros. A diferença é se o bem se toca ou se vive na prática."
+    - texto: "O material vale dinheiro; o imaterial não vale nada."
+      erro: "Valor de patrimônio não é preço. Os dois são protegidos pela Constituição."
+    - texto: "O material é antigo; o imaterial é recente."
+      erro: "Há saberes imateriais muito antigos e prédios recentes tombados. A idade não é o critério."
+    - texto: "O material é protegido pela lei; o imaterial não tem proteção."
+      erro: "O imaterial é protegido pelo registro (Decreto nº 3.551/2000)."
+    - texto: "O material se pode tocar, como um prédio; o imaterial vive na prática das pessoas, como uma festa ou um saber."
+      certa: true
+  explicacao: "Material é o que se pode tocar (igreja, quadro, centro histórico) e costuma ser tombado. Imaterial é o que vive nas práticas (dança, festa, ofício) e é registrado."
+  fonte: "Questão original do Instituto Lúcia, com base na Constituição (art. 216) e no Decreto nº 3.551/2000"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-03
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-arte-como-linguagem
+  dificuldade: 1
+  enunciado: "Uma pintura mostra uma família magra caminhando descalça numa paisagem seca, seguida por urubus. A função mais provável da obra é:"
+  alternativas:
+    - texto: "decorar uma sala com cores alegres."
+      erro: "A cena é de fome e seca. Não combina com decoração alegre."
+    - texto: "vender um produto."
+      erro: "Não há marca nem produto na cena. Isso seria publicidade."
+    - texto: "denunciar a miséria e a migração forçada."
+      certa: true
+    - texto: "ensinar regras de trânsito."
+      erro: "Nada na cena fala de trânsito."
+    - texto: "celebrar uma festa religiosa."
+      erro: "Não há festa nem ritual. Os urubus apontam para a morte, não para a celebração."
+  explicacao: "Corpos magros, pés descalços, seca e urubus compõem uma denúncia social. É a cena de *Retirantes* (1944), de Candido Portinari, do acervo do MASP."
+  fonte: "Questão original do Instituto Lúcia, com base na descrição do MASP"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-04
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 13
+  objeto: lin-artes-arte-como-linguagem
+  dificuldade: 2
+  enunciado: "Na pintura *Laocoonte*, de El Greco (por volta de 1610 a 1614), os corpos são compridos demais e retorcidos. O que essa escolha revela?"
+  alternativas:
+    - texto: "Um estilo, o Maneirismo, que deforma as figuras para criar tensão e emoção."
+      certa: true
+    - texto: "Que o pintor não conhecia a anatomia humana."
+      erro: "A deformação é escolha expressiva do estilo, não falta de conhecimento."
+    - texto: "Que a obra é uma fotografia antiga."
+      erro: "A fotografia só foi inventada no século 19, mais de duzentos anos depois."
+    - texto: "Que a pintura é um retrato fiel de pessoas reais."
+      erro: "Corpos esticados e torcidos não são retrato fiel. A obra se afasta do natural de propósito."
+    - texto: "Que o quadro foi feito para ensinar ginástica."
+      erro: "A cena é mitológica e dramática. Não tem função de ensino de exercício."
+  explicacao: "O Maneirismo, no fim do Renascimento, esticou e torceu os corpos para expressar inquietação. A prova de 2022 pediu justamente essa leitura (H13)."
+  fonte: "Questão original do Instituto Lúcia, com base na página da National Gallery of Art"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-05
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-arte-como-linguagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Pelo artigo 216 da Constituição, constituem patrimônio cultural brasileiro os bens de natureza material e
+    imaterial, portadores de referência à identidade, à ação e à memória dos diferentes grupos formadores da
+    sociedade brasileira, nos quais se incluem as formas de expressão e os modos de criar, fazer e viver.
+  enunciado: "De acordo com o texto, pode ser considerado patrimônio cultural"
+  alternativas:
+    - texto: "apenas um prédio construído antes do século 19."
+      erro: "O texto inclui bens imateriais e não fala de data. A idade não é o critério."
+    - texto: "só uma obra de arte de grande valor de mercado."
+      erro: "O texto não fala de preço. O critério é a identidade e a memória dos grupos."
+    - texto: "somente o que pertence ao governo federal."
+      erro: "O texto não fala de dono. Uma festa de bairro não pertence ao governo e pode ser patrimônio."
+    - texto: "o modo de fazer queijo de uma região, transmitido entre gerações de produtores."
+      certa: true
+    - texto: "qualquer objeto comprado numa loja de departamento."
+      erro: "Objeto comum, sem ligação com a identidade e a memória de um grupo, não entra no conceito."
+  explicacao: "O texto inclui \"modos de criar, fazer e viver\". Um saber transmitido entre gerações numa região carrega identidade e memória: é patrimônio imaterial."
+  fonte: "Questão original do Instituto Lúcia, com base na Constituição Federal, art. 216"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-06
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-arte-como-linguagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num povoado do sertão, as mulheres bordam toalhas e lençóis com flores, pássaros e cenas da colheita. As peças
+    são usadas em casa, dadas de presente em casamentos e, às vezes, vendidas na feira. "O bordado conta a nossa
+    vida", diz uma das bordadeiras.
+  enunciado: "O texto mostra que o bordado do povoado cumpre, ao mesmo tempo, funções"
+  alternativas:
+    - texto: "apenas comerciais, porque é vendido na feira."
+      erro: "A venda é \"às vezes\". O texto fala também de uso em casa, de presente e de memória."
+    - texto: "de uso cotidiano, de laço social e de registro da vida da comunidade."
+      certa: true
+    - texto: "de denúncia política contra o governo."
+      erro: "Flores, pássaros e colheita não são denúncia. O texto não fala de governo."
+    - texto: "religiosas, porque só aparece em igrejas."
+      erro: "O texto fala de casa, casamento e feira. Não há igreja."
+    - texto: "decorativas, sem nenhum sentido para quem borda."
+      erro: "A bordadeira diz que o bordado \"conta a nossa vida\". Há sentido, e muito."
+  explicacao: "A peça é usada (função utilitária), é presente de casamento (laço social) e conta a vida do povoado (memória). A arte popular costuma juntar várias funções (H12)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-07
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-arte-como-linguagem
+  dificuldade: 2
+  enunciado: "O Decreto nº 3.551/2000 criou livros de registro do patrimônio imaterial. Em qual deles seria inscrita uma festa de padroeiro que marca a vida religiosa e social de uma cidade?"
+  alternativas:
+    - texto: "Livro dos Saberes."
+      erro: "O Livro dos Saberes é para conhecimentos e modos de fazer, como um ofício artesanal."
+    - texto: "Livro dos Lugares."
+      erro: "O Livro dos Lugares é para mercados, feiras, praças e santuários, os espaços."
+    - texto: "Livro das Formas de Expressão."
+      erro: "Esse é para manifestações literárias, musicais, plásticas, cênicas e lúdicas."
+    - texto: "Livro do Tombo das Belas Artes."
+      erro: "O tombamento é para bens materiais. A festa é imaterial."
+    - texto: "Livro das Celebrações."
+      certa: true
+  explicacao: "O Livro das Celebrações registra rituais e festas que marcam a vivência coletiva do trabalho, da religiosidade e do entretenimento. A festa de padroeiro se encaixa ali."
+  fonte: "Questão original do Instituto Lúcia, com base no Decreto nº 3.551/2000"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-08
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 13
+  objeto: lin-artes-arte-como-linguagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em muitos quadros europeus dos séculos 17 e 18, as pessoas escravizadas aparecem nas bordas da tela, servindo,
+    carregando ou abanando, quase sempre sem nome no título. As figuras brancas ocupam o centro, iluminadas, com
+    roupas detalhadas. Uma pesquisadora escreveu: "A composição desses quadros é também uma hierarquia."
+  enunciado: "A frase da pesquisadora indica que a composição desses quadros"
+  alternativas:
+    - texto: "era escolhida ao acaso pelos pintores."
+      erro: "O texto mostra um padrão repetido em muitos quadros. Não é acaso."
+    - texto: "mostrava todas as pessoas como iguais."
+      erro: "Centro iluminado para uns, borda e anonimato para outros: é o oposto de igualdade."
+    - texto: "servia apenas para equilibrar as cores da tela."
+      erro: "A cor pode até ajudar, mas a pesquisadora fala de hierarquia, um sentido social."
+    - texto: "reproduzia, no espaço da tela, a desigualdade e o racismo da sociedade da época."
+      certa: true
+    - texto: "denunciava a escravidão de forma explícita."
+      erro: "Os quadros punham as pessoas escravizadas à margem. Isso reflete a escravidão, não a denuncia."
+  explicacao: "Quem fica no centro e iluminado, e quem fica na borda e sem nome, é uma escolha de composição. Ela reproduz a hierarquia racial do tempo. É a H13: a obra explica preconceitos de uma época."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-09
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-arte-como-linguagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma comunidade quilombola pediu o registro de uma dança de roda como patrimônio imaterial. No processo, os mais
+    velhos explicaram os cantos, os jovens filmaram as festas e a escola local passou a ensinar a dança às crianças.
+    Um morador comentou: "O registro não congela a dança. Ele dá força para ela continuar viva do nosso jeito."
+  enunciado: "Segundo o morador, o registro do patrimônio imaterial"
+  alternativas:
+    - texto: "obriga a dança a ficar igual para sempre."
+      erro: "Ele diz que o registro \"não congela a dança\". Contradição."
+    - texto: "transfere a dança para um museu."
+      erro: "Patrimônio imaterial não vai para museu. Ele continua na prática da comunidade."
+    - texto: "fortalece a continuidade da prática pela própria comunidade."
+      certa: true
+    - texto: "proíbe que outras pessoas aprendam a dança."
+      erro: "A escola passou a ensinar às crianças. O registro ampliou, não proibiu."
+    - texto: "transforma a dança em espetáculo para turistas."
+      erro: "Nada no texto fala de turistas. A fala é sobre continuar \"do nosso jeito\"."
+  explicacao: "O registro valoriza e apoia a transmissão (os velhos ensinam, os jovens registram, a escola ensina). A prática segue viva e nas mãos da comunidade (H14)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-linguagem-10
+  tema: "Arte como linguagem e patrimônio"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-arte-como-linguagem
+  dificuldade: 3
+  enunciado: "Uma pintora retrata a mãe, empregada doméstica, sentada no centro de uma tela grande, iluminada, com o uniforme de trabalho e um olhar firme para quem vê. Comparada aos quadros antigos em que trabalhadoras apareciam nas bordas, a obra:"
+  alternativas:
+    - texto: "inverte a hierarquia da composição e dá centralidade a quem costumava ficar à margem."
+      certa: true
+    - texto: "repete exatamente a composição dos quadros antigos."
+      erro: "Nos quadros antigos, a trabalhadora ficava na borda. Aqui está no centro. É o contrário."
+    - texto: "esconde a profissão da retratada."
+      erro: "O uniforme de trabalho está na tela. A profissão é mostrada."
+    - texto: "tem função apenas decorativa."
+      erro: "Pôr no centro quem ficava na margem é uma escolha com sentido social, não só decorativa."
+    - texto: "prova que a pintora não domina a técnica do retrato."
+      erro: "Nada no enunciado fala de técnica. A pergunta é sobre a composição e o sentido."
+  explicacao: "Tamanho, centro, luz e olhar firme dão à trabalhadora o lugar que a tradição reservava a patrões. A composição vira afirmação: a arte também disputa quem merece ser visto (H12)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

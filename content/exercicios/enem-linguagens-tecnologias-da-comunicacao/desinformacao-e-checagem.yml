@@ -1,0 +1,244 @@
+# Exercícios da aula "Desinformação e checagem" (trilha enem-linguagens-tecnologias-da-comunicacao).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-digitais-desinformacao-01
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-desinformacao
+  dificuldade: 1
+  enunciado: "Uma senhora repassa no grupo uma receita de chá dizendo que ele cura uma doença grave. Ela acredita nisso e quer ajudar. Pelo relatório de Wardle e Derakhshan (2017), esse caso é de:"
+  alternativas:
+    - texto: "informação errada: é falsa, mas quem repassa não quer enganar."
+      certa: true
+    - texto: "desinformação: é falsa e espalhada de propósito para causar dano."
+      erro: "Ela acredita e quer ajudar. Falta a intenção de enganar, que define a desinformação."
+    - texto: "informação maliciosa: é verdadeira e usada para ferir."
+      erro: "A informação é falsa. A maliciosa é verdadeira."
+    - texto: "checagem de fatos."
+      erro: "Checagem é conferir a informação, o oposto do que aconteceu."
+    - texto: "opinião pessoal, que não pode ser verdadeira nem falsa."
+      erro: "Dizer que um chá cura uma doença é afirmação sobre um fato, que pode ser conferida."
+  explicacao: "A informação é falsa, mas sem intenção de enganar: é informação errada (misinformation). Mesmo sem má-fé, pode causar dano se alguém trocar o tratamento pelo chá."
+  fonte: "Questão original do Instituto Lúcia, com base no relatório Information Disorder (Conselho da Europa, 2017)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-02
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-desinformacao
+  dificuldade: 1
+  enunciado: "Segundo o estudo publicado na revista Science em 2018, quem mais espalhou as notícias falsas analisadas foram:"
+  alternativas:
+    - texto: "apenas robôs automáticos."
+      erro: "Os robôs participaram, mas o estudo concluiu que as pessoas espalharam mais."
+    - texto: "apenas grandes jornais."
+      erro: "Os jornais não foram apontados como os principais espalhadores das falsas."
+    - texto: "pessoas comuns."
+      certa: true
+    - texto: "apenas políticos."
+      erro: "O estudo não restringe a políticos. Fala de pessoas em geral."
+    - texto: "ninguém, porque as falsas não se espalharam."
+      erro: "Elas se espalharam mais longe e mais depressa que as verdadeiras."
+  explicacao: "As notícias falsas foram mais longe e mais rápido, e quem mais as compartilhou foram pessoas. Por isso a checagem antes de repassar depende de cada um."
+  fonte: "Questão original do Instituto Lúcia, com base em Vosoughi, Roy e Aral (Science, 2018)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-03
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-desinformacao
+  dificuldade: 1
+  enunciado: "Qual destas atitudes é a \"leitura lateral\" usada por checadores?"
+  alternativas:
+    - texto: "Ler o texto inteiro várias vezes, sem sair da página."
+      erro: "Ficar só na página é o que historiadores e estudantes fizeram no estudo, e eles erraram mais."
+    - texto: "Confiar no site porque ele tem logotipo bonito."
+      erro: "Aparência profissional engana. É exatamente o que a leitura lateral evita."
+    - texto: "Compartilhar e depois perguntar se é verdade."
+      erro: "A checagem vem antes do repasse, não depois."
+    - texto: "Ler só os comentários do post."
+      erro: "Comentários podem ajudar, mas não substituem a busca pela fonte."
+    - texto: "Abrir outras abas e pesquisar quem está por trás da informação antes de confiar nela."
+      certa: true
+  explicacao: "Na leitura lateral, sai-se da página para checar a fonte em outros lugares. O estudo de Stanford, de 2017, mostrou que checadores profissionais faziam isso e acertavam mais."
+  fonte: "Questão original do Instituto Lúcia, com base em notícia da Stanford News (2017)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-04
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-generos-digitais-desinformacao
+  dificuldade: 2
+  enunciado: "Uma mensagem termina com: \"Repasse para 10 pessoas em até uma hora, ou será tarde demais!\". Esse trecho usa principalmente o recurso de:"
+  alternativas:
+    - texto: "citação de fonte confiável."
+      erro: "Não há fonte citada no trecho."
+    - texto: "apelo à urgência e ao medo, para levar à ação sem reflexão."
+      certa: true
+    - texto: "argumento com dados estatísticos."
+      erro: "O número 10 é ordem de repasse, não dado estatístico."
+    - texto: "humor, para descontrair o leitor."
+      erro: "\"Será tarde demais\" assusta, não diverte."
+    - texto: "linguagem neutra, típica de notícia."
+      erro: "Ordem, prazo e ameaça não são linguagem neutra."
+  explicacao: "Prazo curto e ameaça vaga empurram o leitor a repassar antes de pensar. É estratégia de convencimento por intimidação e comoção (H24)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-05
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-desinformacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Pesquisadores que estudam perfis falsos nas redes observaram padrões no comportamento dessas contas: muitas
+    publicam só em horário comercial, de segunda a sexta, e usam um vocabulário pobre e repetido. Para os
+    estudiosos, é sinal de que uma mesma equipe controla dezenas de perfis ao mesmo tempo, como num expediente.
+  enunciado: "A análise da linguagem desses perfis serve para"
+  alternativas:
+    - texto: "melhorar o vocabulário das pessoas nas redes."
+      erro: "O objetivo não é ensinar a escrever. É reconhecer a fraude."
+    - texto: "provar que todos os perfis da rede são falsos."
+      erro: "O texto fala de padrões de alguns perfis, não de todos. Generalização."
+    - texto: "aumentar o número de seguidores dos perfis analisados."
+      erro: "Nada no texto fala em ajudar os perfis. É o contrário."
+    - texto: "identificar sinais de que contas aparentemente independentes são operadas de forma coordenada."
+      certa: true
+    - texto: "mostrar que as redes funcionam só em horário comercial."
+      erro: "O horário é pista sobre os perfis falsos, não sobre a rede inteira."
+  explicacao: "Horário de expediente e vocabulário repetido indicam uma equipe por trás de muitas contas. Analisar a linguagem ajuda a desmontar a ilusão de que \"muita gente\" pensa aquilo (H28)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-06
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 30
+  objeto: lin-generos-digitais-desinformacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na Europa medieval, as notícias corriam por muitos caminhos: mensageiros a cavalo, frades que pediam esmola de
+    cidade em cidade, artistas de rua, peregrinos e cartas fechadas com selo de cera. Os boatos também viajavam
+    assim. Uma notícia podia levar semanas para chegar, e chegava mudada.
+  enunciado: "O texto permite relacionar a circulação de notícias na Idade Média à de hoje porque mostra que"
+  alternativas:
+    - texto: "a circulação de informações, e também de boatos, depende das tecnologias e das redes de cada época."
+      certa: true
+    - texto: "na Idade Média não existiam boatos."
+      erro: "O texto diz que os boatos também viajavam. Contradição."
+    - texto: "as cartas eram mais rápidas que a internet."
+      erro: "O texto fala em semanas de viagem. Não há comparação favorável às cartas."
+    - texto: "só os nobres recebiam notícias."
+      erro: "Frades, artistas de rua e peregrinos levavam notícias a muita gente. Não era só para nobres."
+    - texto: "a desinformação foi inventada pela internet."
+      erro: "O texto mostra boatos séculos antes da internet."
+  explicacao: "Cada época tem os seus meios, e os boatos viajam por eles. A internet mudou a velocidade e o alcance, não inventou o boato. Relacionar tecnologias ao desenvolvimento das sociedades é a H30."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-07
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-desinformacao
+  dificuldade: 2
+  enunciado: "Alguém publica, sem autorização, o endereço verdadeiro de uma jornalista, para que ela seja perseguida. Pelos tipos de Wardle e Derakhshan, isso é:"
+  alternativas:
+    - texto: "informação errada."
+      erro: "A informação não é errada: o endereço é verdadeiro."
+    - texto: "desinformação."
+      erro: "Desinformação é falsa. Aqui a informação é verdadeira."
+    - texto: "informação maliciosa: verdadeira, mas usada para causar dano."
+      certa: true
+    - texto: "jornalismo investigativo."
+      erro: "Jornalismo apura fatos de interesse público. Expor um endereço para perseguir alguém não é isso."
+    - texto: "liberdade de expressão sem consequências."
+      erro: "Usar dado verdadeiro para expor e perseguir alguém causa dano."
+  explicacao: "Informação maliciosa (malinformation) é a verdadeira usada para ferir: vazar endereço, conversa íntima ou dado pessoal. O problema não é a falsidade, é o uso."
+  fonte: "Questão original do Instituto Lúcia, com base no relatório Information Disorder (Conselho da Europa, 2017)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-08
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-generos-digitais-desinformacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Às vésperas de uma eleição municipal, circulou um vídeo em que um candidato parecia dizer que acabaria com o
+    transporte gratuito para idosos. O vídeo terminava com a frase: "Os jornais não vão mostrar isso. Só você pode
+    avisar." Dias depois, uma agência de checagem mostrou que a fala tinha sido cortada: no vídeo completo, o
+    candidato dizia o contrário.
+  enunciado: "A frase final do vídeo tem a função de"
+  alternativas:
+    - texto: "informar a data da eleição."
+      erro: "A frase não fala de data. Fala de jornais e de avisar."
+    - texto: "citar a fonte original do vídeo."
+      erro: "Nenhuma fonte é citada. A frase faz o contrário: desacredita fontes."
+    - texto: "pedir aos jornais que publiquem o vídeo."
+      erro: "A frase diz que os jornais \"não vão mostrar\". Não é pedido, é ataque."
+    - texto: "convidar o leitor a conferir a informação com calma."
+      erro: "\"Só você pode avisar\" empurra para repassar, não para conferir."
+    - texto: "desacreditar de antemão a imprensa e transferir ao espectador a tarefa de espalhar o conteúdo."
+      certa: true
+  explicacao: "A frase blinda a mentira (se o jornal desmentir, \"é porque esconde\") e faz o espectador se sentir responsável por espalhar. É estratégia de convencimento (H24) somada a corte de contexto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-09
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-desinformacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num bairro, um áudio dizia que o posto de saúde aplicava vacina vencida. Várias famílias deixaram de levar os
+    filhos. A enfermeira-chefe gravou um vídeo mostrando os frascos, a validade e o próprio crachá, e pediu às
+    lideranças da igreja e da associação de moradores que compartilhassem nos grupos. Em uma semana, a procura pela
+    vacina voltou ao normal.
+  enunciado: "A estratégia da enfermeira foi eficaz porque"
+  alternativas:
+    - texto: "proibiu a circulação de áudios no bairro."
+      erro: "Ela não proibiu nada. Respondeu com informação."
+    - texto: "usou provas concretas e os mesmos caminhos de confiança por onde o boato tinha circulado."
+      certa: true
+    - texto: "ameaçou processar quem tinha gravado o áudio."
+      erro: "Não há ameaça no texto."
+    - texto: "pediu que a televisão desmentisse o áudio."
+      erro: "Ela gravou o próprio vídeo e usou as lideranças locais, não a televisão."
+    - texto: "mostrou que todo áudio é falso."
+      erro: "Ela desmentiu um áudio específico. Generalizar seria outro erro."
+  explicacao: "Frascos, validade e crachá são provas. Igreja e associação são as pessoas em quem a comunidade confia. A correção chegou pelos mesmos caminhos do boato: é a função social da comunicação (H28)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-desinformacao-10
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 30
+  objeto: lin-generos-digitais-desinformacao
+  dificuldade: 3
+  enunciado: "Uma foto verdadeira de uma enchente, tirada em outro país anos atrás, circula com a legenda \"Nossa cidade hoje\". Que pergunta da checagem desmonta essa postagem mais rápido?"
+  alternativas:
+    - texto: "Quantas curtidas a postagem tem?"
+      erro: "Curtida mede alcance, não verdade. Postagem falsa pode ter milhões."
+    - texto: "A foto tem boa qualidade?"
+      erro: "Foto nítida pode ser de outro lugar. Qualidade não prova contexto."
+    - texto: "Quem enviou é da minha família?"
+      erro: "Confiança em quem mandou não garante a origem da foto."
+    - texto: "Quando e onde essa foto foi feita?"
+      certa: true
+    - texto: "A legenda está escrita sem erros de português?"
+      erro: "Texto bem escrito também pode mentir. A legenda é o que está errado aqui."
+  explicacao: "A foto é real; o falso é o lugar e a data. Perguntar quando e onde (por exemplo, com busca reversa de imagem) revela a descontextualização."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

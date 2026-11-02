@@ -1,0 +1,113 @@
+# Grade de autocorreção da redação do Enem.
+# Os níveis são os da Cartilha do Participante 2026 (Inep), descritos nas palavras da equipe do Instituto Lúcia.
+# Não é a grade oficial de correção: é um roteiro para a pessoa reler o próprio texto. Nota oficial só o Inep dá.
+fonte:
+  titulo: "A Redação do Enem 2026: Cartilha do Participante"
+  url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/acervo-linha-editorial/publicacoes-institucionais/avaliacoes-e-exames-da-educacao-basica/a-redacao-do-enem-2026-cartilha-do-a-participante"
+  conferido: "2026-11-01"
+competencias:
+  - numero: 1
+    nome: "Escrever na norma formal da língua portuguesa"
+    niveis:
+      - pontos: 200
+        descricao: "O texto usa a escrita formal com segurança do começo ao fim. As frases são completas e bem montadas, com períodos mais longos e orações encaixadas. Um erro de gramática ou de ortografia só passa se for caso isolado e não se repetir."
+        pergunta: "Se eu ler o texto em voz alta, algum erro de acento, concordância ou pontuação aparece mais de uma vez?"
+      - pontos: 160
+        descricao: "A escrita formal é boa e o registro está certo, mas aparecem poucos erros de gramática ou de convenções da escrita (acento, ortografia, hífen, maiúscula)."
+        pergunta: "Quantos erros eu consigo achar numa releitura com calma? São só uns poucos, ou já formam um padrão?"
+      - pontos: 120
+        descricao: "O domínio da escrita formal é mediano: há alguns erros de gramática e de convenções da escrita, que já chamam a atenção de quem lê."
+        pergunta: "Tenho frases cortadas por ponto no meio da ideia, ou duas frases coladas só por vírgula?"
+      - pontos: 80
+        descricao: "O domínio é insuficiente: muitos erros de gramática, de ortografia e também marcas de linguagem informal, como gíria ou jeito de falar."
+        pergunta: "Usei palavras ou expressões de conversa (tipo, aí, a gente) onde caberia uma forma mais formal?"
+      - pontos: 40
+        descricao: "O domínio é precário: os erros são variados, frequentes e espalhados pelo texto todo, de gramática, de registro e de convenções da escrita."
+        pergunta: "Há algum parágrafo em que eu não encontro erro? Se não há, por qual tipo de erro vou começar a estudar?"
+      - pontos: 0
+        descricao: "O texto mostra que a pessoa ainda não conhece a escrita formal da língua portuguesa."
+        pergunta: "Já li redações-modelo e textos formais (notícia, artigo) para perceber como essa escrita funciona?"
+  - numero: 2
+    nome: "Entender o tema e escrever um texto dissertativo-argumentativo com repertório"
+    niveis:
+      - pontos: 200
+        descricao: "O texto discute o tema completo, com argumentos sólidos e um repertório (informação, fato, citação ou experiência) que de fato ajuda a sustentar a ideia. A estrutura de texto dissertativo-argumentativo está muito bem feita."
+        pergunta: "O meu repertório está ligado ao tema e me ajuda a provar o ponto, ou só enfeita a frase?"
+      - pontos: 160
+        descricao: "O tema é tratado com argumentos sólidos e o texto tem as três partes bem feitas: a tese (proposição), a argumentação e a conclusão."
+        pergunta: "Se eu tirar o repertório, os meus argumentos continuam de pé? E se eu o mantiver, ele acrescenta algo ao debate?"
+      - pontos: 120
+        descricao: "O tema é tratado, mas com argumentos óbvios, que qualquer pessoa diria. As três partes existem, num domínio mediano do tipo de texto."
+        pergunta: "Meu argumento é o primeiro que vem à cabeça de todo mundo? Consigo explicar por que ele vale para este tema?"
+      - pontos: 80
+        descricao: "O texto copia trechos dos textos motivadores, ou não fecha a estrutura de tese, argumentação e conclusão."
+        pergunta: "Alguma frase minha repete quase igual uma frase da coletânea? O leitor sabe qual é a minha tese logo no começo?"
+      - pontos: 40
+        descricao: "O texto fala do assunto amplo e não do recorte que o tema pede (tangenciamento), ou mistura demais outros tipos de texto, como narração. Tangenciar o tema também limita as Competências 3 e 5 a no máximo 40 pontos."
+        pergunta: "Todas as palavras-chave do tema aparecem e são discutidas no meu texto, ou falei só do assunto geral?"
+      - pontos: 0
+        descricao: "O texto foge do tema ou não é dissertativo-argumentativo (por exemplo, é uma história ou um poema). Nesses casos a redação inteira fica com nota zero, e as outras competências nem são avaliadas."
+        pergunta: "Meu texto defende um ponto de vista sobre o tema pedido, ou conta uma história e fala de outra coisa?"
+  - numero: 3
+    nome: "Escolher, organizar e defender as ideias com autoria"
+    niveis:
+      - pontos: 200
+        descricao: "As informações, fatos e opiniões têm a ver com o tema, estão bem amarrados e seguem um plano claro. O texto tem a cara de quem escreveu (autoria) e defende um ponto de vista do começo ao fim."
+        pergunta: "Cada parágrafo ajuda a provar a minha tese, e eu explico por que cada informação está ali?"
+      - pontos: 160
+        descricao: "As ideias estão ligadas ao tema e bem organizadas, defendendo um ponto de vista, com sinais de autoria, mas ainda sem a força do nível mais alto."
+        pergunta: "Onde o meu texto só afirma e onde ele explica ou dá exemplo? Algum argumento ficou sem desenvolver?"
+      - pontos: 120
+        descricao: "As ideias têm a ver com o tema e defendem um ponto de vista, mas ficam presas aos argumentos dos textos motivadores e são pouco organizadas."
+        pergunta: "Trouxe algum argumento que não estava na coletânea? A ordem dos parágrafos tem um motivo?"
+      - pontos: 80
+        descricao: "As ideias até defendem um ponto de vista, mas estão bagunçadas ou se contradizem, e repetem os argumentos dos textos motivadores."
+        pergunta: "Em algum ponto eu digo uma coisa e, mais adiante, o contrário? Pulo de um assunto para outro sem aviso?"
+      - pontos: 40
+        descricao: "As ideias têm pouca ligação com o tema ou não fazem sentido juntas, e o texto não defende um ponto de vista."
+        pergunta: "Consigo resumir em uma frase o que o meu texto defende?"
+      - pontos: 0
+        descricao: "As informações não têm relação com o tema e não há ponto de vista defendido."
+        pergunta: "Antes de escrever, anotei a tese e os dois argumentos que eu ia usar?"
+  - numero: 4
+    nome: "Ligar as partes do texto com os recursos da coesão"
+    niveis:
+      - pontos: 200
+        descricao: "As partes do texto estão bem ligadas: dentro das frases, entre as frases e entre os parágrafos. Os conectivos e as retomadas (pronomes, sinônimos) são variados e usados com a relação de sentido certa."
+        pergunta: "Cada conectivo que usei (portanto, além disso, entretanto) diz a relação certa entre as ideias, ou só está ali para parecer bonito?"
+      - pontos: 160
+        descricao: "As partes estão ligadas, com poucas falhas, e os recursos de coesão são variados."
+        pergunta: "Há algum parágrafo que começa sem nenhuma ligação com o anterior?"
+      - pontos: 120
+        descricao: "A ligação entre as partes é mediana, com algumas falhas, e os recursos de coesão se repetem bastante."
+        pergunta: "Repeti a mesma palavra ou o mesmo conectivo várias vezes, quando podia trocar por um pronome ou um sinônimo?"
+      - pontos: 80
+        descricao: "A ligação entre as partes é insuficiente, com muitas falhas, e os recursos de coesão são poucos."
+        pergunta: "Se eu tirar os conectivos, o texto vira uma lista de frases soltas? Onde falta dizer se a ideia soma, opõe ou conclui?"
+      - pontos: 40
+        descricao: "A ligação entre as partes é precária: quem lê tem dificuldade de seguir como uma ideia leva à outra."
+        pergunta: "Uma pessoa que não me conhece entenderia como passo de uma ideia para a outra?"
+      - pontos: 0
+        descricao: "As informações aparecem soltas, sem nenhuma ligação entre elas."
+        pergunta: "Já treinei ligar duas frases curtas com um conectivo, mudando a relação (causa, oposição, conclusão)?"
+  - numero: 5
+    nome: "Propor uma intervenção para o problema, respeitando os direitos humanos"
+    niveis:
+      - pontos: 200
+        descricao: "A proposta é muito bem feita: ligada ao tema e ao que o texto discutiu, e detalhada. Diz a ação, quem faz (o agente), como faz (o meio), para quê (o efeito) e traz ainda mais um detalhe."
+        pergunta: "Minha proposta responde às perguntas: o que fazer, quem faz, como, para quê, e traz mais um detalhe de algum desses?"
+      - pontos: 160
+        descricao: "A proposta é bem feita, ligada ao tema e ao que o texto discutiu, mas com menos detalhes que no nível mais alto."
+        pergunta: "Qual dos elementos (ação, agente, meio, efeito, detalhamento) ficou faltando ou ficou genérico?"
+      - pontos: 120
+        descricao: "A proposta é mediana: está ligada ao tema e à discussão, mas é pouco desenvolvida."
+        pergunta: "O agente que escolhi tem mesmo o poder de fazer essa ação? Eu disse como ela vai acontecer?"
+      - pontos: 80
+        descricao: "A proposta é insuficiente, ou não conversa com o que o texto discutiu antes."
+        pergunta: "A minha proposta resolve os problemas que eu mesmo apontei nos parágrafos de desenvolvimento?"
+      - pontos: 40
+        descricao: "A proposta é vaga, precária ou trata só do assunto geral, e não do recorte do tema."
+        pergunta: "Escrevi uma ação clara, ou só constatei um problema, como em 'faltam investimentos'?"
+      - pontos: 0
+        descricao: "Não há proposta, ou a proposta não tem relação com o tema nem com o assunto. Uma proposta que desrespeita os direitos humanos (por exemplo, defender 'justiça com as próprias mãos') também recebe zero nesta competência."
+        pergunta: "Minha proposta respeita os direitos de todas as pessoas envolvidas, sem violência nem punição feita por conta própria?"

@@ -1,0 +1,11 @@
+[
+  { "slug": "operacoes-com-inteiros-e-racionais", "titulo": "Operações com inteiros e racionais" },
+  { "slug": "fracoes-e-decimais", "titulo": "Frações e decimais" },
+  { "slug": "potencias-raizes-e-notacao-cientifica", "titulo": "Potências, raízes e notação científica" },
+  { "slug": "multiplos-divisores-mmc-e-mdc", "titulo": "Múltiplos, divisores, MMC e MDC" },
+  { "slug": "expressoes-numericas", "titulo": "Expressões numéricas" },
+  { "slug": "arredondamento-e-estimativa", "titulo": "Arredondamento e estimativa" },
+  { "slug": "equacoes-do-1-grau", "titulo": "Equações do 1º grau" },
+  { "slug": "inequacoes", "titulo": "Inequações" },
+  { "slug": "sistemas-lineares", "titulo": "Sistemas lineares" }
+]

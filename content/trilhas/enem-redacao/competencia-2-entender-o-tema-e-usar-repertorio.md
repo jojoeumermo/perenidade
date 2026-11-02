@@ -16,7 +16,7 @@ quiz:
     resposta: 0
     explicacao: "Ele precisa ser legítimo e estar ligado ao argumento."
   - pergunta: "Copiar trechos dos textos motivadores ajuda a nota?"
-    opcoes: ["Não: as linhas copiadas são desconsideradas", "Sim, muito", "Só na introdução"]
+    opcoes: ["Não: pelo edital, as linhas copiadas {{enem:redacao-copia}}", "Sim, muito", "Só na introdução"]
     resposta: 0
     explicacao: "Os textos motivadores servem de ponto de partida, não de conteúdo a copiar."
   - pergunta: "Qual repertório é mais produtivo?"
@@ -24,6 +24,13 @@ quiz:
     resposta: 0
     explicacao: "Citações inventadas ou mal atribuídas prejudicam o texto."
 ---
+
+## O que você vai aprender
+
+- Como achar o recorte do tema, palavra por palavra.
+- A diferença entre tangenciar e fugir do tema, e o que cada um custa.
+- Para que servem os textos motivadores, e por que não copiar.
+- O que torna um repertório produtivo, e o que é o "repertório de bolso".
 
 ## Entender o tema
 
@@ -41,7 +48,7 @@ Escrever só sobre "o trabalho no Brasil" seria **tangenciar** o tema (perde-se 
 
 ## Os textos motivadores
 
-São **ponto de partida**: dados, trechos de leis, notícias, imagens. Ajudam a entender o tema. Mas **não** devem ser copiados: as linhas copiadas não contam.
+São **ponto de partida**: dados, trechos de leis, notícias, imagens. Ajudam a entender o tema. Mas **não** devem ser copiados: pelo edital, as linhas copiadas {{enem:redacao-copia}}.
 
 ## O tipo de texto
 
@@ -73,9 +80,51 @@ Tema: "Desafios para a valorização da herança africana no Brasil". Um texto q
 > O recorte é a herança africana, não a cultura em geral.
 ```
 
+## Exemplo resolvido
+
+Tema de treino do instituto: **"Os limites da inclusão digital feita só pelo celular no Brasil"**.
+
+**Passo 1: as palavras-chave.** "Limites" pede o que falta, o que não dá para fazer. "Inclusão digital" é o assunto geral. "Feita só pelo celular" é o recorte: o caso de quem não tem outro acesso. "No Brasil" é o lugar.
+
+**Passo 2: os riscos.** Um texto sobre vício em redes sociais ou notícias falsas **foge** do tema: não trata de inclusão digital. Um texto sobre a exclusão digital em geral, sem falar do acesso só pelo celular, **tangencia**: fica no assunto e perde o recorte.
+
+**Passo 3: a tese.** Ela usa as palavras do tema: "O acesso feito só pelo celular é uma inclusão incompleta, porque limita as tarefas que exigem mais do que trocar mensagens e porque depende de um pacote de dados que acaba."
+
+**Passo 4: o repertório.** Compare duas formas de usar a mesma lei:
+
+- Solto: "O Marco Civil da Internet diz que o acesso à internet é essencial à cidadania." O leitor pergunta: e daí?
+- Produtivo: "Se o Marco Civil da Internet afirma que o acesso à rede é essencial ao exercício da cidadania, um acesso que se interrompe quando o pacote acaba é também uma cidadania pela metade."
+
+No segundo, a lei serve de premissa e o argumento tira dela uma conclusão sobre o recorte. É isso que a Cartilha 2026 chama de repertório produtivo.
+
 ## Para praticar
 
 1. Sublinhe as palavras-chave do tema de 2022 e explique o recorte.
 2. Escreva dois repertórios produtivos para o tema de 2024, com a explicação de como se ligam ao argumento.
 3. Pesquise um dado oficial que poderia ser usado em uma redação sobre desigualdade.
 4. Monte o seu "banco de repertório": cinco referências que você domina e que servem para vários temas.
+
+## Como isso cai no ENEM
+
+- **Formato:** o tema vem em uma frase, com textos motivadores. A C2 é uma das cinco notas da redação. Pelo edital, {{enem:redacao-nota}}.
+- **Competência ligada:** C2, compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites do texto dissertativo-argumentativo em prosa.
+- **Armadilhas:** tangenciar o tema, o que, pela Cartilha 2026, deixa a C2 em no máximo 40 pontos e também limita a C3 e a C5; usar repertório de bolso, decorado e sem ligação com o tema; copiar os textos motivadores; contar uma história em vez de argumentar. A fuga total ao tema e o texto que não é dissertativo-argumentativo zeram a redação inteira.
+
+## Resumo
+
+- O tema tem um recorte: sublinhe cada palavra-chave e veja o que ela exige.
+- Tangenciar é ficar só no assunto geral; fugir é falar de outra coisa e zera a redação.
+- Os textos motivadores são ponto de partida, não conteúdo para copiar.
+- O texto tem de ser dissertativo-argumentativo: um caso curto pode entrar como exemplo, mas o texto não pode virar narração.
+- Repertório produtivo é legítimo, ligado ao argumento e explicado.
+- Nunca invente citação ou dado.
+
+## Para aprofundar
+
+- [O texto dissertativo-argumentativo](/trilhas/portugues-medio/o-texto-dissertativo-argumentativo)
+- [Gêneros textuais](/trilhas/portugues-medio/generos-textuais)
+- [O que diz a Constituição de 1988](/trilhas/direito-fundamental/o-que-diz-a-constituicao-de-1988)
+- [A escravidão no Brasil](/trilhas/historia-do-brasil/a-escravidao-no-brasil)
+- [Raça e racismo estrutural](/trilhas/sociologia-medio/raca-e-racismo-estrutural)
+- [Redação expressa: repertórios coringa](/trilhas/enem-reta-final/redacao-expressa-repertorios-coringa)
+- [O que zera a redação](/trilhas/enem-redacao/o-que-zera-a-redacao)

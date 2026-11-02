@@ -1,0 +1,248 @@
+# Exercícios da aula "Primeira geração modernista" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-modernismo1-01
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-primeira-geracao-modernista
+  dificuldade: 1
+  enunciado: "Qual destas marcas é típica da poesia da primeira geração modernista (1922 a 1930)?"
+  alternativas:
+    - texto: "Soneto com rima rica e vocabulário raro"
+      erro: "Essa é a marca do Parnasianismo, justamente o que os modernistas atacavam."
+    - texto: "Verso livre e linguagem do dia a dia"
+      certa: true
+    - texto: "Pastores, ovelhas e vida simples no campo"
+      erro: "Esse é o cenário do Arcadismo, do século 18."
+    - texto: "Poema desenhado na página, sem verso"
+      erro: "O poema visual, sem verso, é da poesia concreta, dos anos 1950."
+    - texto: "Idealização da mulher e morte por amor"
+      erro: "Isso lembra o Romantismo, do século 19."
+  explicacao: "A fase heroica do Modernismo trocou a métrica fixa pelo verso livre e o vocabulário difícil pela fala brasileira do cotidiano."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-02
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-primeira-geracao-modernista
+  dificuldade: 1
+  enunciado: "O quadro Abaporu, de Tarsila do Amaral, deu origem a qual manifesto?"
+  alternativas:
+    - texto: "Manifesto Futurista"
+      erro: "O Manifesto Futurista é do italiano Marinetti, de 1909, bem antes do quadro."
+    - texto: "Manifesto Surrealista"
+      erro: "O Manifesto Surrealista é do francês André Breton, de 1924."
+    - texto: "Manifesto da Poesia Pau-Brasil"
+      erro: "O Pau-Brasil é de 1924, quatro anos antes do Abaporu (1928)."
+    - texto: "Manifesto Antropófago"
+      certa: true
+    - texto: "Manifesto Neoconcreto"
+      erro: "O Manifesto Neoconcreto é de 1959, de Ferreira Gullar e outros."
+  explicacao: "Tarsila deu o Abaporu de presente a Oswald de Andrade em 1928. O nome, do tupi, quer dizer \"homem que come gente\", e inspirou o Manifesto Antropófago do mesmo ano."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-03
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-primeira-geracao-modernista
+  dificuldade: 1
+  enunciado: "Quem escreveu Macunaíma (1928), a rapsódia do herói que nasce na mata e vai a São Paulo?"
+  alternativas:
+    - texto: "Mário de Andrade"
+      certa: true
+    - texto: "Oswald de Andrade"
+      erro: "Oswald escreveu os manifestos Pau-Brasil e Antropófago e os romances Miramar e Serafim. Macunaíma é de Mário."
+    - texto: "Manuel Bandeira"
+      erro: "Bandeira foi poeta (Libertinagem, 1930). Não escreveu Macunaíma."
+    - texto: "Graciliano Ramos"
+      erro: "Graciliano é da geração de 30 (Vidas secas, 1938)."
+    - texto: "José de Alencar"
+      erro: "Alencar é romântico, do século 19 (Iracema, O guarani)."
+  explicacao: "Macunaíma é de Mário de Andrade, que juntou mitos indígenas, lendas e falas de várias regiões numa narrativa que ele chamou de rapsódia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-04
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-primeira-geracao-modernista
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    feira
+    o tomate grita
+    a laranja dá desconto
+    e a moça do pastel
+    fala português melhor que a gramática
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O último verso do poema revela um traço do projeto da primeira geração modernista, que é"
+  alternativas:
+    - texto: "a defesa da norma culta como única forma correta de falar."
+      erro: "É o contrário: o poema diz que a fala da moça é melhor que a gramática."
+    - texto: "a valorização da fala popular brasileira como língua literária."
+      certa: true
+    - texto: "o desprezo pelo trabalho dos feirantes."
+      erro: "Os feirantes aparecem com simpatia e vida. Não há desprezo."
+    - texto: "a busca da forma perfeita, com métrica e rima."
+      erro: "Os versos são livres e sem rima. Forma perfeita é ideal parnasiano."
+    - texto: "a fuga da cidade para um campo idealizado."
+      erro: "A cena é uma feira, no meio da cidade. A fuga para o campo é árcade."
+  explicacao: "Os modernistas queriam escrever na língua que o povo fala. Dizer que a moça do pastel fala \"melhor que a gramática\" é uma provocação contra a norma purista, com humor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-05
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-primeira-geracao-modernista
+  dificuldade: 2
+  enunciado: "Os grupos Pau-Brasil e Antropofagia, de um lado, e o Verde-amarelo, do outro, discordavam sobre"
+  alternativas:
+    - texto: "o uso do verso livre, que só os verde-amarelos aceitavam."
+      erro: "Os dois lados usavam verso livre. A briga era sobre nacionalismo e estrangeiro."
+    - texto: "a data da Semana de Arte Moderna."
+      erro: "A data não estava em disputa. A divergência era política e estética."
+    - texto: "a relação com a cultura estrangeira e o tipo de nacionalismo."
+      certa: true
+    - texto: "a existência da literatura brasileira."
+      erro: "Os dois grupos queriam uma literatura brasileira. Discordavam sobre como chegar a ela."
+    - texto: "a obrigação de escrever só sobre o sertão."
+      erro: "O sertão como tema central é mais da geração de 30. A discussão aqui era sobre o estrangeiro."
+  explicacao: "Oswald propunha devorar e transformar a cultura de fora. Os verde-amarelos defendiam um nacionalismo de exaltação, desconfiado do estrangeiro, que levou Plínio Salgado ao Integralismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-06
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-primeira-geracao-modernista
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Minha terra tem shopping
+    onde canta o segurança
+    as aves que aqui gorjeiam
+    pagam estacionamento
+    (Texto original do Instituto Lúcia, escrito para esta questão a partir da "Canção do exílio", de Gonçalves Dias, de 1843.)
+  enunciado: "O recurso central do texto, típico de poetas da primeira geração modernista como Oswald de Andrade, é a"
+  alternativas:
+    - texto: "paráfrase, que repete com outras palavras o sentido do poema de origem."
+      erro: "A paráfrase mantém o sentido. Aqui o sentido muda: a exaltação da pátria vira crítica ao consumo."
+    - texto: "citação literal, que copia o poema de origem sem mudança."
+      erro: "Só a estrutura e uma ou outra palavra lembram o original. O resto foi mudado de propósito."
+    - texto: "metáfora do sonho, que mergulha no inconsciente."
+      erro: "Não há imagem de sonho. Há ironia sobre a vida real."
+    - texto: "descrição objetiva, sem nenhuma intenção crítica."
+      erro: "Aves que pagam estacionamento não são descrição objetiva: são ironia."
+    - texto: "paródia, que retoma um texto conhecido e inverte o seu sentido com humor crítico."
+      certa: true
+  explicacao: "O texto retoma a \"Canção do exílio\", que exaltava a natureza do Brasil, e troca a palmeira e o sabiá por shopping e estacionamento. Retomar para inverter, com humor, é paródia. Oswald fez algo parecido em \"Canto de regresso à pátria\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-07
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-primeira-geracao-modernista
+  dificuldade: 2
+  enunciado: "Mário de Andrade chamou Macunaíma de rapsódia. O nome combina com o livro porque ele"
+  alternativas:
+    - texto: "segue com rigor as regras do romance realista do século 19."
+      erro: "O livro rompe com o romance realista: mistura mito, humor e falas de todo o país."
+    - texto: "junta mitos indígenas, lendas, ditados e falas de várias regiões numa só narrativa."
+      certa: true
+    - texto: "é escrito todo em versos metrificados e rimados."
+      erro: "Macunaíma é em prosa. A rapsódia, aqui, é a mistura de muitas fontes populares."
+    - texto: "conta a vida de um único herói histórico, com datas exatas."
+      erro: "Macunaíma é personagem de mito, que muda de forma e de lugar. Não é biografia histórica."
+    - texto: "foi escrito para ser cantado com acompanhamento de orquestra."
+      erro: "Rapsódia, na música, é peça feita de temas populares. Mário usou a palavra para a mistura do livro, não para música."
+  explicacao: "Rapsódia é uma composição que junta temas populares. Macunaíma junta mitos (recolhidos pelo etnólogo Theodor Koch-Grünberg), lendas e falas regionais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-08
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-primeira-geracao-modernista
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O manifesto dizia: nada de copiar o que vem de Paris, nada de fechar a porta para Paris. Vamos comer
+    Paris no almoço, com farinha e pimenta, e à tarde o que sair de nós será outra coisa, nossa.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "A imagem de \"comer Paris no almoço\" traduz a proposta"
+  alternativas:
+    - texto: "antropofágica, de absorver a cultura estrangeira e transformá-la em criação brasileira."
+      certa: true
+    - texto: "verde-amarela, de recusar qualquer influência europeia."
+      erro: "O texto diz \"nada de fechar a porta para Paris\". Recusar o estrangeiro era a posição verde-amarela, não esta."
+    - texto: "parnasiana, de imitar os modelos franceses com perfeição."
+      erro: "O texto diz \"nada de copiar o que vem de Paris\". A cópia fiel é o que ele recusa."
+    - texto: "regionalista, de trocar a cidade pelo sertão."
+      erro: "O texto não fala de sertão. Fala da relação entre a cultura de fora e a nossa."
+    - texto: "surrealista, de escrever o sonho sem controle da razão."
+      erro: "Comer Paris é metáfora clara de uma posição cultural, não imagem de sonho."
+  explicacao: "Nem cópia nem recusa: devorar, digerir e criar. É a metáfora da antropofagia, de Oswald de Andrade (1928)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-09
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-primeira-geracao-modernista
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Brás, Bexiga e Barra Funda, de Antônio de Alcântara Machado (1927), reúne contos sobre filhos de
+    imigrantes italianos em bairros operários de São Paulo. As frases são curtas, as cenas cortam rápido, e
+    as falas misturam português e italiano.
+    (Texto original do Instituto Lúcia, sobre a obra.)
+  enunciado: "Pela descrição, o livro relaciona a estética modernista ao seu tempo porque"
+  alternativas:
+    - texto: "idealiza a aristocracia rural do café, longe da cidade."
+      erro: "O livro está nos bairros operários da cidade, não na fazenda."
+    - texto: "evita a fala popular para preservar a pureza da língua."
+      erro: "É o contrário: as falas misturam português e italiano, como nas ruas."
+    - texto: "trata de temas medievais com linguagem rebuscada."
+      erro: "Nada de medieval: o tema é a São Paulo dos anos 1920."
+    - texto: "registra a São Paulo industrial e imigrante com uma linguagem rápida, de cortes, e a mistura de falas."
+      certa: true
+    - texto: "anuncia o fim da imigração e a volta dos italianos para a Europa."
+      erro: "A descrição fala da vida dos imigrantes aqui, não de volta à Europa."
+  explicacao: "A cidade crescia com fábricas e imigrantes. A frase curta, o corte rápido de cena e a fala misturada são a forma modernista dando conta desse mundo novo: H15, o texto ligado ao seu tempo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-modernismo1-10
+  tema: "Primeira geração modernista"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-primeira-geracao-modernista
+  dificuldade: 3
+  enunciado: "Macunaíma foi feito a partir de narrativas de povos indígenas recolhidas por um pesquisador alemão e recriadas por um escritor paulista. Que leitura atual do livro é mais equilibrada?"
+  alternativas:
+    - texto: "O livro deve ser proibido nas escolas por ser apropriação."
+      erro: "Proibir não ajuda a ler. A crítica pode conviver com o estudo do livro."
+    - texto: "O livro é só homenagem, sem nenhuma questão a discutir."
+      erro: "Há uma questão real: quem conta a história de quem. Ignorá-la é ler pela metade."
+    - texto: "O livro é um marco modernista, e também abre a pergunta sobre quem tem voz para contar as histórias indígenas."
+      certa: true
+    - texto: "O livro foi escrito por um autor indígena da Amazônia."
+      erro: "Mário de Andrade era paulista e não indígena. As narrativas vieram de um etnólogo, Theodor Koch-Grünberg."
+    - texto: "O livro não tem nenhuma ligação com culturas indígenas."
+      erro: "O herói e muitos episódios vêm de mitos de povos do norte da Amazônia."
+  explicacao: "Não há consenso sobre o peso da apropriação. Uma leitura equilibrada reconhece o valor do livro e discute a voz: hoje, autores indígenas contam as próprias histórias (H17, valores que continuam atuais)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

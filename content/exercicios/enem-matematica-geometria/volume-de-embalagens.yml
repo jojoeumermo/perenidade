@@ -1,0 +1,254 @@
+# Exercícios da aula "Volume e capacidade de embalagens" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-embalagens-01
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-volumes-e-embalagens
+  dificuldade: 1
+  enunciado: "Quantos copos de 300 mL é possível encher com uma garrafa de 1,5 L de suco?"
+  alternativas:
+    - texto: "50"
+      erro: "Você dividiu 1.500 por 30, como se o copo tivesse 30 mL. O copo tem 300 mL: 1.500 ÷ 300."
+    - texto: "5"
+      certa: true
+    - texto: "4,5"
+      erro: "Você multiplicou 1,5 por 3. Para saber quantos copos, divida o total pelo tamanho do copo."
+    - texto: "0,5"
+      erro: "Você dividiu 1,5 por 3 misturando litros e mililitros. Passe tudo para mL: 1,5 L = 1.500 mL."
+    - texto: "450"
+      erro: "Você multiplicou 1,5 por 300. A pergunta é quantos copos cabem: divida 1.500 mL por 300 mL."
+  explicacao: "1,5 L = 1.500 mL. 1.500 ÷ 300 = 5 copos."
+  conferir: "1500 / 300"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-02
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-volumes-e-embalagens
+  dificuldade: 1
+  enunciado: "Uma embalagem em forma de bloco guarda exatamente 1 L. A base interna mede 10 cm por 5 cm. Qual é a altura interna da embalagem?"
+  alternativas:
+    - texto: "2 cm"
+      erro: "Você usou 1 L = 100 cm³. Um litro tem 1.000 cm³: 1.000 ÷ 50."
+    - texto: "200 cm"
+      erro: "Você usou 1 L = 10.000 cm³. Um litro é um cubo de 10 cm de lado: 1.000 cm³."
+    - texto: "15 cm"
+      erro: "Você somou as medidas da base (10 + 5). A altura é o volume dividido pela área da base, 10 × 5 = 50 cm²."
+    - texto: "20 cm"
+      certa: true
+    - texto: "100 cm"
+      erro: "Você dividiu 1.000 só por 10. A área da base é 10 × 5 = 50 cm²."
+  explicacao: "1 L = 1.000 cm³. Área da base: 10 × 5 = 50 cm². Altura: 1.000 ÷ 50 = 20 cm."
+  conferir: "1000 / (10 * 5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-03
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-volumes-e-embalagens
+  dificuldade: 1
+  enunciado: "Uma caixa de presente é ampliada: comprimento, largura e altura ficam, cada um, 3 vezes maiores. A capacidade da caixa nova é quantas vezes a da antiga?"
+  alternativas:
+    - texto: "27"
+      certa: true
+    - texto: "3"
+      erro: "Se só uma medida triplicasse, seria 3. Aqui as três triplicam: 3 × 3 × 3."
+    - texto: "9"
+      erro: "9 é o fator da área (duas medidas, 3 × 3). O volume tem três medidas: 3 × 3 × 3 = 27."
+    - texto: "6"
+      erro: "Você somou os fatores. Fatores se multiplicam: 3 × 3 × 3."
+    - texto: "81"
+      erro: "Você multiplicou por 3 quatro vezes. O volume tem três medidas: 3³ = 27."
+  explicacao: "Volume é comprimento × largura × altura. Com as três 3 vezes maiores: 3 × 3 × 3 = 27 vezes."
+  conferir: "3^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-04
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-volumes-e-embalagens
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num mercado, o mesmo detergente é vendido em três embalagens: 500 mL por R$ 2,40; 750 mL por R$ 3,75; e 2 L
+    por R$ 8,80. Uma pessoa quer escolher a embalagem com o menor preço por litro.
+  enunciado: "O menor preço por litro, entre as três embalagens, é de"
+  alternativas:
+    - texto: "R$ 4,80"
+      erro: "R$ 4,80 é o preço por litro da embalagem de 500 mL (2,40 ÷ 0,5). Compare com as outras."
+    - texto: "R$ 5,00"
+      erro: "R$ 5,00 é o preço por litro da de 750 mL (3,75 ÷ 0,75), o maior dos três."
+    - texto: "R$ 4,40"
+      certa: true
+    - texto: "R$ 2,40"
+      erro: "R$ 2,40 é o preço da embalagem menor, não o preço por litro. Ela tem só meio litro."
+    - texto: "R$ 17,60"
+      erro: "Você multiplicou 8,80 por 2. Para o preço de 1 litro, divida o preço pelos litros: 8,80 ÷ 2."
+  explicacao: "Por litro: 2,40 ÷ 0,5 = 4,80; 3,75 ÷ 0,75 = 5,00; 8,80 ÷ 2 = 4,40. O menor é R$ 4,40, da embalagem de 2 L."
+  conferir: "8.80 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-05
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-volumes-e-embalagens
+  dificuldade: 2
+  enunciado: "Caixas cúbicas de 20 cm de aresta vão ser guardadas num baú de 90 cm de comprimento, 60 cm de largura e 50 cm de altura, todas na mesma posição. Quantas caixas cabem, no máximo?"
+  alternativas:
+    - texto: "33"
+      erro: "Você dividiu o volume do baú (270.000 cm³) pelo de uma caixa (8.000 cm³). As sobras de 10 cm não viram caixa: conte por medida."
+    - texto: "45"
+      erro: "Você arredondou para cima 4,5 e 2,5. Meia caixa não cabe: fique com a parte inteira, 4 e 2."
+    - texto: "12"
+      erro: "12 é só uma camada (4 × 3). Na altura de 50 cm cabem 2 camadas de 20 cm."
+    - texto: "36"
+      erro: "Você arredondou para cima a altura (2,5 virou 3). A terceira camada passaria da tampa do baú."
+    - texto: "24"
+      certa: true
+  explicacao: "Comprimento: 90 ÷ 20 = 4,5, então 4. Largura: 60 ÷ 20 = 3. Altura: 50 ÷ 20 = 2,5, então 2. Total: 4 × 3 × 2 = 24 caixas."
+  conferir: "4 * 3 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-06
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-volumes-e-embalagens
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma fábrica de conservas usa uma lata cilíndrica com 4 cm de raio da base e 10 cm de altura. Para caber num novo
+    expositor, ela quer uma lata mais fina, com 2 cm de raio, mas que guarde exatamente a mesma quantidade.
+  enunciado: "A altura da nova lata deve ser de"
+  alternativas:
+    - texto: "40 cm"
+      certa: true
+    - texto: "20 cm"
+      erro: "O raio caiu pela metade, mas no volume ele entra ao quadrado: a base fica 4 vezes menor, e a altura precisa ficar 4 vezes maior."
+    - texto: "10 cm"
+      erro: "Com a mesma altura e metade do raio, a lata guardaria só um quarto do que guardava."
+    - texto: "5 cm"
+      erro: "Você diminuiu a altura junto com o raio. Para manter o volume, se a base diminui, a altura tem de aumentar."
+    - texto: "80 cm"
+      erro: "Você usou o fator 8, como se as três medidas mudassem. Só o raio mudou, e ele entra ao quadrado: 2² = 4."
+  explicacao: "Volume antigo: π × 4² × 10 = 160π. Novo: π × 2² × h = 4π · h. Igualando: 4h = 160, h = 40 cm."
+  conferir: "10 * (4 / 2)^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-07
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-volumes-e-embalagens
+  dificuldade: 2
+  enunciado: "Uma lata cilíndrica de 5 cm de raio e 12 cm de altura vai dentro de uma caixa de 10 cm × 10 cm × 12 cm, bem justa. Usando π = 3, quantos centímetros cúbicos da caixa ficam vazios?"
+  alternativas:
+    - texto: "900 cm³"
+      erro: "900 cm³ é o volume da lata (3 × 25 × 12). O vazio é a caixa menos a lata."
+    - texto: "1.200 cm³"
+      erro: "1.200 cm³ é o volume da caixa inteira. Desconte o que a lata ocupa."
+    - texto: "2.100 cm³"
+      erro: "Você somou a caixa e a lata. O espaço vazio é a diferença: 1.200 − 900."
+    - texto: "300 cm³"
+      certa: true
+    - texto: "1.020 cm³"
+      erro: "Você calculou a lata sem elevar o raio ao quadrado (3 × 5 × 12 = 180). A base da lata é π · r² = 75 cm²."
+  explicacao: "Caixa: 10 × 10 × 12 = 1.200 cm³. Lata: 3 × 5² × 12 = 900 cm³. Vazio: 1.200 − 900 = 300 cm³, um quarto da caixa."
+  conferir: "10 * 10 * 12 - 3 * 5^2 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-08
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-volumes-e-embalagens
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma empresa vende sabão em pó numa caixa em forma de bloco que guarda 1 kg. Ela vai lançar uma caixa de 8 kg com
+    exatamente a mesma forma, isto é, todas as medidas multiplicadas pelo mesmo número. O sabão ocupa o mesmo espaço
+    por quilo nas duas caixas.
+  enunciado: "A quantidade de papelão da caixa nova, comparada com a da caixa antiga, será quantas vezes maior?"
+  alternativas:
+    - texto: "8"
+      erro: "8 é o fator do volume (o que cabe). O papelão é uma área: cresce com o quadrado do fator das medidas."
+    - texto: "4"
+      certa: true
+    - texto: "2"
+      erro: "2 é o fator das medidas (o comprimento de cada aresta). A área tem duas medidas: 2 × 2 = 4."
+    - texto: "16"
+      erro: "Você elevou o 2 à quarta potência. Área é medida ao quadrado: 2² = 4."
+    - texto: "64"
+      erro: "Você elevou o 8 ao quadrado. O 8 já é o fator do volume; o fator das medidas é o número que ao cubo dá 8, ou seja, 2."
+  explicacao: "O volume ficou 8 vezes maior: 8 = 2 × 2 × 2, então cada medida dobrou (k = 2). A área de papelão cresce com k²: 2² = 4 vezes."
+  conferir: "2^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-09
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-volumes-e-embalagens
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa casa com 5 moradores, a caixa-d'água é um cilindro com 1 m de raio da base e 1,5 m de altura, medidas
+    internas. Em média, cada morador gasta 100 L de água por dia. Use π = 3 e 1 m³ = 1.000 L.
+  enunciado: "Com a caixa cheia e sem reabastecimento, a água dura quantos dias?"
+  alternativas:
+    - texto: "90 dias"
+      erro: "Você usou 1 m³ = 10.000 L. A ponte é 1 m³ = 1.000 L: a caixa tem 4.500 L."
+    - texto: "45 dias"
+      erro: "Você dividiu 4.500 L pelo gasto de uma pessoa só. A casa tem 5 moradores: 500 L por dia."
+    - texto: "2,25 dias"
+      erro: "Você usou 0,5 m de raio, como se 1 m fosse o diâmetro. O raio já é 1 m."
+    - texto: "0,009 dia"
+      erro: "Você dividiu 4,5 m³ por 500 L sem converter. Passe o volume para litros: 4.500 L."
+    - texto: "9 dias"
+      certa: true
+  explicacao: "Volume: 3 × 1² × 1,5 = 4,5 m³ = 4.500 L. Gasto diário: 5 × 100 = 500 L. Duração: 4.500 ÷ 500 = 9 dias."
+  conferir: "3 * 1^2 * 1.5 * 1000 / (5 * 100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-embalagens-10
+  tema: "Volume e capacidade de embalagens"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-volumes-e-embalagens
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa vai embalar 1 L de polpa de fruta e estuda duas caixas fechadas, ambas com 1.000 cm³ de
+    capacidade. A caixa 1 é um cubo de 10 cm de aresta. A caixa 2 é um bloco de 20 cm × 10 cm × 5 cm. O papelão
+    gasto é a soma das áreas das seis faces (sem abas).
+  enunciado: "Quantos centímetros quadrados de papelão a caixa cúbica economiza, por embalagem, em relação à outra?"
+  alternativas:
+    - texto: "700 cm²"
+      erro: "700 cm² é o papelão inteiro da caixa 2. A economia é a diferença entre as duas caixas."
+    - texto: "600 cm²"
+      erro: "600 cm² é o papelão inteiro do cubo. A economia é 700 − 600."
+    - texto: "100 cm²"
+      certa: true
+    - texto: "0 cm²"
+      erro: "Mesma capacidade não quer dizer mesmo material. Calcule a área das faces de cada caixa."
+    - texto: "50 cm²"
+      erro: "Você contou só três faces de cada caixa (350 − 300). Cada caixa tem seis faces, iguais aos pares."
+  explicacao: "Cubo: 6 × 10² = 600 cm². Bloco: 2 × (20 × 10 + 20 × 5 + 10 × 5) = 2 × 350 = 700 cm². Economia: 700 − 600 = 100 cm²."
+  conferir: "2 * (20*10 + 20*5 + 10*5) - 6 * 10^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

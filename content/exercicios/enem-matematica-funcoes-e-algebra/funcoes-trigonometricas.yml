@@ -1,0 +1,261 @@
+# Exercícios da aula "Fenômenos periódicos e funções trigonométricas" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Os modelos de maré, temperatura, roda-gigante e pressão são
+# simplificados e com valores de exemplo. Nas questões com π, o "valor" e o "conferir" são o número que multiplica π.
+
+- id: enem-mat-func-trig-01
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-trigonometricas
+  dificuldade: 1
+  enunciado: "Qual é o valor máximo da função f(x) = 3 + 4 · sen x?"
+  alternativas:
+    - texto: "4"
+      erro: "4 é a amplitude, o quanto a função sobe acima da linha do meio. O máximo é a linha do meio mais a amplitude."
+    - texto: "3"
+      erro: "3 é a linha do meio, o valor quando sen x = 0. No máximo, sen x = 1."
+    - texto: "7"
+      certa: true
+    - texto: "12"
+      erro: "Você multiplicou 3 por 4. Na função, o 3 é somado a 4 · sen x."
+    - texto: "−1"
+      erro: "−1 é o valor mínimo, quando sen x = −1: 3 − 4."
+  explicacao: "O seno vai de −1 a 1. O máximo é quando sen x = 1: f = 3 + 4 · 1 = 7."
+  conferir: "3 + 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-02
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-trigonometricas
+  dificuldade: 1
+  enunciado: "Qual é o período da função f(t) = sen(4t)?"
+  alternativas:
+    - texto: "4π"
+      valor: "4"
+      erro: "Você multiplicou π pelo 4. O período é 2π dividido pelo número que multiplica o t."
+    - texto: "2π"
+      valor: "2"
+      erro: "2π é o período de sen t. O 4 faz a onda se repetir 4 vezes mais rápido."
+    - texto: "8π"
+      valor: "8"
+      erro: "Você multiplicou 2π por 4. Quanto maior o número que multiplica o t, menor o período: divida."
+    - texto: "π/4"
+      valor: "0.25"
+      erro: "Você dividiu π por 4. A volta inteira é 2π, e não π."
+    - texto: "π/2"
+      valor: "0.5"
+      certa: true
+  explicacao: "Período = 2π ÷ 4 = π/2. A onda completa um ciclo cada vez que 4t aumenta 2π."
+  conferir: "2 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-03
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcoes-trigonometricas
+  dificuldade: 1
+  enunciado: "Quanto mede um ângulo de 120° em radianos?"
+  alternativas:
+    - texto: "2π/3"
+      valor: "2/3"
+      certa: true
+    - texto: "π/3"
+      valor: "1/3"
+      erro: "π/3 são 60°. 120° é o dobro disso."
+    - texto: "3π/2"
+      valor: "1.5"
+      erro: "Você inverteu a fração. 120 ÷ 180 = 2/3, e 3π/2 são 270°."
+    - texto: "120π"
+      valor: "120"
+      erro: "Você só pôs o π ao lado do número. Para trocar, use π rad = 180°: divida por 180."
+    - texto: "π/120"
+      valor: "1/120"
+      erro: "Você dividiu π por 120. A conta é 120 × π ÷ 180."
+  explicacao: "π rad = 180°. Então 120° = 120 × π ÷ 180 = 2π/3 rad."
+  conferir: "120 / 180"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-04
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcoes-trigonometricas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num modelo simplificado, a altura da maré em um porto, em metros, é dada por h(t) = 1,5 + 1,2 · cos(πt/6), em que
+    t é o tempo, em horas, contado a partir da meia-noite. Uma colônia de pescadores quer saber a diferença de altura
+    entre a maré alta e a maré baixa.
+  enunciado: "Segundo o modelo, essa diferença é de"
+  alternativas:
+    - texto: "1,2 m."
+      erro: "1,2 m é a amplitude: quanto a maré sobe acima do meio. Ela também desce 1,2 m abaixo do meio."
+    - texto: "1,5 m."
+      erro: "1,5 m é a linha do meio, a altura quando o cosseno vale zero."
+    - texto: "2,7 m."
+      erro: "2,7 m é a altura da maré alta. A pergunta pede a diferença entre a alta e a baixa."
+    - texto: "2,4 m."
+      certa: true
+    - texto: "0,3 m."
+      erro: "0,3 m é a altura da maré baixa (1,5 − 1,2). Falta compará-la com a maré alta."
+  explicacao: "Maré alta: 1,5 + 1,2 = 2,7 m. Maré baixa: 1,5 − 1,2 = 0,3 m. Diferença: 2,7 − 0,3 = 2,4 m, que é o dobro da amplitude."
+  conferir: "2 * 1.2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-05
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-trigonometricas
+  dificuldade: 2
+  enunciado: "Um fenômeno é descrito por f(t) = 4 + 2 · sen(πt/3), com t em segundos. Qual é o período desse fenômeno?"
+  alternativas:
+    - texto: "3 segundos"
+      erro: "Você usou o 3 do denominador. O período é 2π dividido por π/3."
+    - texto: "6 segundos"
+      certa: true
+    - texto: "2 segundos"
+      erro: "2 é a amplitude, que não muda o período."
+    - texto: "12 segundos"
+      erro: "Você multiplicou por 2 a mais. 2π ÷ (π/3) = 2π × 3/π = 6."
+    - texto: "4 segundos"
+      erro: "4 é a linha do meio, que não muda o período."
+  explicacao: "Período = 2π ÷ (π/3) = 2π × 3/π = 6 segundos."
+  conferir: "2 / (1 / 3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-06
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-trigonometricas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num parque de diversões, a altura de uma cadeira da roda-gigante, em metros, é dada por h(t) = 12 − 10 · cos(πt/4),
+    em que t é o tempo, em minutos, desde que a cadeira passou pelo ponto mais baixo.
+  enunciado: "O tempo de uma volta completa e a altura máxima da cadeira são, respectivamente,"
+  alternativas:
+    - texto: "8 minutos e 22 metros."
+      certa: true
+    - texto: "4 minutos e 22 metros."
+      erro: "Em 4 minutos o ângulo πt/4 vale π: a cadeira está no alto, na metade da volta. A volta inteira leva 2π ÷ (π/4) = 8 minutos."
+    - texto: "8 minutos e 12 metros."
+      erro: "12 m é a altura do centro da roda, a linha do meio. No alto, soma-se o raio, 10 m."
+    - texto: "8 minutos e 10 metros."
+      erro: "10 m é o raio da roda, a amplitude. A altura máxima é o centro mais o raio."
+    - texto: "8 minutos e 2 metros."
+      erro: "2 m é a altura mínima (12 − 10), quando cos = 1. A máxima é quando cos = −1."
+  explicacao: "Período: 2π ÷ (π/4) = 8 minutos. Altura máxima: quando cos = −1, h = 12 − 10 · (−1) = 22 metros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-07
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-funcoes-trigonometricas
+  dificuldade: 2
+  enunciado: "Para f(t) = 20 + 5 · sen(πt/12), qual é o primeiro instante t, depois de t = 0, em que f atinge o valor máximo?"
+  alternativas:
+    - texto: "t = 12"
+      erro: "Em t = 12 o ângulo é π, e sen π = 0. Ali a função está na linha do meio, 20."
+    - texto: "t = 24"
+      erro: "24 é o período: em t = 24 a onda volta ao começo, com seno zero."
+    - texto: "t = 0"
+      erro: "Em t = 0, sen 0 = 0 e f vale 20, a linha do meio. Além disso, a pergunta pede um instante depois de zero."
+    - texto: "t = 18"
+      erro: "Em t = 18 o ângulo é 3π/2, e o seno vale −1. Esse é o mínimo, 15."
+    - texto: "t = 6"
+      certa: true
+  explicacao: "O máximo acontece quando sen(πt/12) = 1, ou seja, quando πt/12 = π/2. Então t/12 = 1/2, e t = 6."
+  conferir: "12 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-08
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-trigonometricas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num modelo simplificado, a pressão do sangue de uma pessoa em repouso, em milímetros de mercúrio, é dada por
+    P(t) = 100 − 20 · cos(8πt/3), em que t é o tempo, em segundos. Cada ciclo completo da função corresponde a um
+    batimento do coração.
+  enunciado: "Segundo o modelo, o coração dessa pessoa bate quantas vezes por minuto?"
+  alternativas:
+    - texto: "120"
+      erro: "120 é a pressão máxima do modelo (100 + 20), e não o número de batimentos."
+    - texto: "0,75"
+      erro: "0,75 segundo é o período, a duração de um batimento. Falta ver quantos períodos cabem em 60 segundos."
+    - texto: "80"
+      certa: true
+    - texto: "45"
+      erro: "Você multiplicou 60 pelo período. Para saber quantos batimentos cabem num minuto, divida 60 pelo período."
+    - texto: "cerca de 1,3"
+      valor: "4/3"
+      erro: "Esse é o número de batimentos por segundo (1 ÷ 0,75). A pergunta é por minuto: multiplique por 60."
+  explicacao: "Período: 2π ÷ (8π/3) = 2π × 3/(8π) = 6/8 = 0,75 segundo. Em 60 segundos: 60 ÷ 0,75 = 80 batimentos."
+  conferir: "60 / (2 / (8 / 3))"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-09
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-funcoes-trigonometricas
+  dificuldade: 3
+  enunciado: "Qual destas funções tem valor máximo 9, valor mínimo 1 e período π?"
+  alternativas:
+    - texto: "f(x) = 5 + 4 · sen x"
+      erro: "Máximo e mínimo estão certos, mas o período de sen x é 2π. Para período π, o x tem de vir multiplicado por 2."
+    - texto: "f(x) = 5 + 4 · sen(2x)"
+      certa: true
+    - texto: "f(x) = 4 + 5 · sen(2x)"
+      erro: "Aqui o máximo é 4 + 5 = 9, mas o mínimo é 4 − 5 = −1. A linha do meio tem de ser a média de 9 e 1, que é 5."
+    - texto: "f(x) = 9 · sen(2x)"
+      erro: "Essa função vai de −9 a 9. Falta levantar a onda e diminuir a amplitude."
+    - texto: "f(x) = 5 + 4 · sen(x/2)"
+      erro: "Dividir o x por 2 deixa a onda mais lenta: o período fica 2π ÷ (1/2) = 4π."
+  explicacao: "Linha do meio: (9 + 1) ÷ 2 = 5. Amplitude: (9 − 1) ÷ 2 = 4. Período π: 2π ÷ k = π, então k = 2. A função é 5 + 4 · sen(2x)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-func-trig-10
+  tema: "Fenômenos periódicos e funções trigonométricas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcoes-trigonometricas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa estufa de mudas, a temperatura, em graus Celsius, é descrita pelo modelo T(t) = 25 + 5 · sen(πt/12), em que
+    t é o tempo, em horas, de 0 a 24. As mudas sofrem quando a temperatura passa de 27,5 °C. Lembre que
+    sen(π/6) = sen(5π/6) = 1/2.
+  enunciado: "Durante quantas horas por dia a temperatura fica acima de 27,5 °C?"
+  alternativas:
+    - texto: "12 horas"
+      erro: "Em 12 horas a temperatura fica acima de 25 °C, a linha do meio. O limite pedido é 27,5 °C."
+    - texto: "10 horas"
+      erro: "Você contou de t = 0 até t = 10. Mas a temperatura só passa de 27,5 °C a partir de t = 2."
+    - texto: "6 horas"
+      erro: "Em t = 6 a temperatura chega ao máximo, mas continua acima de 27,5 °C por mais um tempo depois disso."
+    - texto: "8 horas"
+      certa: true
+    - texto: "2 horas"
+      erro: "t = 2 é o instante em que a temperatura passa de 27,5 °C. Falta ver até quando ela fica acima."
+  explicacao: "T > 27,5 quando 5 · sen(πt/12) > 2,5, ou seja, sen(πt/12) > 1/2. Isso vale para o ângulo entre π/6 e 5π/6, ou seja, t/12 entre 1/6 e 5/6: t entre 2 e 10. São 10 − 2 = 8 horas."
+  conferir: "10 - 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

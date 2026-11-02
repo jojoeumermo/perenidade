@@ -1,0 +1,245 @@
+# Exercícios da aula "Quinhentismo e literatura de informação" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-quinhentismo-01
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-quinhentismo
+  dificuldade: 1
+  enunciado: "A carta de Pero Vaz de Caminha, datada de 1º de maio de 1500, foi escrita para"
+  alternativas:
+    - texto: "os povos indígenas, para explicar quem eram os portugueses."
+      erro: "Os indígenas não liam português. A carta é um relatório para a Coroa."
+    - texto: "o rei D. Manuel, para contar o que a frota tinha encontrado."
+      certa: true
+    - texto: "um jornal de Lisboa, como notícia da semana."
+      erro: "Não havia jornal impresso como hoje, e a carta ficou guardada: só foi publicada em 1817."
+    - texto: "os jesuítas, para organizar a catequese."
+      erro: "Os jesuítas só chegaram em 1549. A carta é de 1500 e se dirige ao rei."
+    - texto: "o papa, para pedir terras na América."
+      erro: "O destinatário é o rei de Portugal, D. Manuel, como diz a própria carta."
+  explicacao: "Caminha era o escrivão da frota de Cabral. Escreveu ao rei D. Manuel para informar sobre a terra e a gente. Por isso o texto é chamado de literatura de informação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-02
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-quinhentismo
+  dificuldade: 1
+  enunciado: "Os autos, poemas e a gramática do tupi escritos por José de Anchieta fazem parte da"
+  alternativas:
+    - texto: "literatura de informação, que descreve a terra para o rei."
+      erro: "A informação descreve a terra. Os textos de Anchieta tinham outro fim: converter os indígenas."
+    - texto: "poesia árcade, que canta a vida de pastores."
+      erro: "O Arcadismo é do século 18. Anchieta escreveu no século 16."
+    - texto: "literatura indígena, escrita pelos próprios povos originários."
+      erro: "Anchieta era um padre jesuíta, nascido nas Ilhas Canárias. Não falava pelos povos indígenas, e sim a eles."
+    - texto: "literatura de catequese, feita para converter os povos indígenas."
+      certa: true
+    - texto: "prosa realista, que critica a elite do Império."
+      erro: "O Realismo é do fim do século 19. Não há Império no século 16."
+  explicacao: "Catequese é o ensino da fé cristã. Anchieta escreveu teatro, poemas e uma gramática do tupi (1595) para levar essa fé às aldeias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-03
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-quinhentismo
+  dificuldade: 1
+  enunciado: "A carta de Caminha ficou guardada em Portugal e só foi publicada em"
+  alternativas:
+    - texto: "1817, quase três séculos depois de escrita."
+      certa: true
+    - texto: "1500, no mesmo ano em que foi escrita."
+      erro: "Ela foi escrita em 1500, mas não foi publicada então. Ficou guardada por quase três séculos."
+    - texto: "1549, quando chegaram os jesuítas."
+      erro: "1549 é o ano da chegada dos jesuítas, não da publicação da carta."
+    - texto: "1922, na Semana de Arte Moderna."
+      erro: "Os modernistas releram a carta, mas ela já estava publicada havia mais de cem anos."
+    - texto: "1595, junto com a gramática de Anchieta."
+      erro: "1595 é o ano da gramática do tupi de Anchieta. A carta saiu só em 1817."
+  explicacao: "O historiador Manuel Aires de Casal publicou a carta em 1817, na Corografia Brasílica. Por isso ela quase não foi lida durante a colônia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-04
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-quinhentismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Contudo, o melhor fruto que dela se pode tirar parece-me que será salvar esta gente.
+    (Pero Vaz de Caminha, carta ao rei D. Manuel, 1500. Domínio público; ortografia atualizada.)
+  enunciado: "No contexto do século 16, a ideia de \"salvar esta gente\" expressa o projeto de"
+  alternativas:
+    - texto: "proteger os indígenas de outros povos europeus."
+      erro: "A carta não fala de ameaça de outros europeus. \"Salvar\" tem sentido religioso."
+    - texto: "dar aos indígenas atendimento médico."
+      erro: "A palavra não tem esse sentido ali. Na boca de um escrivão de reino católico, salvar é converter."
+    - texto: "devolver a terra aos povos que já viviam nela."
+      erro: "É o oposto: a carta trata a terra como posse da Coroa (\"Vossa Ilha da Vera Cruz\")."
+    - texto: "aprender a religião dos povos indígenas."
+      erro: "O movimento é o contrário: trocar a fé dos indígenas pela fé cristã."
+    - texto: "converter os indígenas ao cristianismo, que caminhava junto com a conquista."
+      certa: true
+  explicacao: "Para Portugal, a expansão unia comércio, conquista e fé. \"Salvar\" quer dizer batizar, tornar cristão. O trecho anuncia a catequese, que os jesuítas fariam a partir de 1549."
+  fonte: "Questão original do Instituto Lúcia; trecho da carta de Caminha (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-05
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-quinhentismo
+  dificuldade: 2
+  enunciado: "Gândavo publicou em 1576 a História da Província Santa Cruz, que elogia a fartura da terra. Esse elogio tinha a função de"
+  alternativas:
+    - texto: "criticar a colonização portuguesa."
+      erro: "O livro elogia a terra para atrair colonos: apoia a colonização, não a critica."
+    - texto: "defender a independência do Brasil."
+      erro: "A independência é de 1822. No século 16, ninguém escrevia por ela."
+    - texto: "animar portugueses a vir morar na colônia e explorá-la."
+      certa: true
+    - texto: "registrar mitos indígenas na língua deles."
+      erro: "O livro é em português, para leitores portugueses. Não é registro de mitos."
+    - texto: "ensinar técnicas de agricultura aos indígenas."
+      erro: "O leitor é europeu. O livro mostra o que a terra oferece a quem vier."
+  explicacao: "A literatura de informação também fazia propaganda. Mostrar a terra farta era um convite para colonos portugueses."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-06
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-quinhentismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A feição deles é serem pardos, um tanto avermelhados, de bons rostos e bons narizes, bem feitos.
+    (Pero Vaz de Caminha, carta ao rei D. Manuel, 1500. Domínio público; ortografia atualizada.)
+  enunciado: "Na descrição dos indígenas, o trecho revela um olhar"
+  alternativas:
+    - texto: "de quem observa de fora, compara com o padrão europeu e descreve o outro para o rei."
+      certa: true
+    - texto: "indígena, que descreve o próprio povo com orgulho."
+      erro: "Quem escreve é um escrivão português. O \"deles\" mostra que ele fala de outros, não de si."
+    - texto: "científico, de quem mede e classifica com instrumentos."
+      erro: "Não há medida nem instrumento. São impressões de quem vê pela primeira vez."
+    - texto: "hostil, que descreve os indígenas como monstros."
+      erro: "O tom é de curiosidade e até elogio (\"bons rostos\"). Hostil seria outra leitura."
+    - texto: "irônico, que zomba da aparência dos portugueses."
+      erro: "Os descritos são os indígenas, e não há ironia no trecho."
+  explicacao: "\"Bons rostos e bons narizes\" é um juízo de quem compara com o próprio padrão de beleza. A descrição é feita de fora, para o rei: é o olhar do colonizador, curioso, mas não neutro."
+  fonte: "Questão original do Instituto Lúcia; trecho da carta de Caminha (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-07
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-quinhentismo
+  dificuldade: 2
+  enunciado: "Por que textos como a carta de Caminha entram na história da literatura, se não foram escritos como arte?"
+  alternativas:
+    - texto: "Porque foram escritos em versos rimados."
+      erro: "A carta é em prosa. Não é a forma que a põe na história da literatura."
+    - texto: "Porque são ficção, com personagens inventadas."
+      erro: "A carta relata uma viagem real. Não é ficção."
+    - texto: "Porque eram lidos em voz alta nas aldeias."
+      erro: "A carta ficou guardada até 1817. Não circulou nas aldeias."
+    - texto: "Porque eram proibidos pela Coroa."
+      erro: "A carta foi escrita para a Coroa. Não há proibição envolvida."
+    - texto: "Porque são o começo da escrita sobre o Brasil e foram retomados por autores de séculos depois."
+      certa: true
+  explicacao: "Os cronistas abriram a escrita sobre o Brasil. Românticos buscaram neles o indígena e a natureza; modernistas, como Oswald de Andrade, recortaram suas frases com ironia. Por isso esses textos fazem parte da história literária."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-08
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-quinhentismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I
+    Em tal maneira é graciosa que, querendo-a aproveitar, dar-se-á nela tudo; por causa das águas que tem!
+    (Pero Vaz de Caminha, carta ao rei D. Manuel, 1500. Domínio público; ortografia atualizada.)
+
+    Texto II
+    nesta terra em se plantando
+    tudo dá
+    o boleto também
+    (Texto original do Instituto Lúcia, escrito para este exercício.)
+  enunciado: "O Texto II dialoga com o Texto I por meio de"
+  alternativas:
+    - texto: "paráfrase, que repete com outras palavras o elogio de Caminha à terra."
+      erro: "A paráfrase mantém o sentido. Aqui o último verso vira o sentido do avesso: o que \"dá\" é a conta."
+    - texto: "citação literal, que copia a frase de Caminha com crédito."
+      erro: "As palavras não são iguais às da carta. Há retomada da ideia, com mudança."
+    - texto: "paródia, que retoma a ideia de fartura para fazer uma crítica bem-humorada ao presente."
+      certa: true
+    - texto: "epígrafe, que abre o poema com versos de outro autor."
+      erro: "Não há trecho de outro autor posto no começo. O poema reescreve a ideia."
+    - texto: "linguagem técnica, que informa sobre agricultura."
+      erro: "O texto é curto, quebrado em versos e termina com humor: nada de técnico."
+  explicacao: "O Texto II retoma a ideia de que na terra \"tudo dá\" e a desvia no último verso: o que dá, hoje, é o boleto. Retomar um texto conhecido para mudar o sentido, com humor e crítica, é paródia."
+  fonte: "Questão original do Instituto Lúcia; trecho da carta de Caminha (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-09
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-quinhentismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Caminha batizou a terra de Vera Cruz. Os portugueses chamaram de descobrimento a chegada de 1500. Para os povos que já viviam aqui, porém, não havia nada a descobrir: havia rios com nome, caminhos abertos, roças plantadas e histórias contadas havia séculos, em línguas que a carta não registra.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "O texto propõe uma leitura crítica do Quinhentismo ao"
+  alternativas:
+    - texto: "negar que a carta de Caminha tenha existido."
+      erro: "O texto cita a carta como fato. Ele critica o ponto de vista dela, não a existência."
+    - texto: "defender que a palavra descobrimento é a mais exata para 1500."
+      erro: "É o contrário: o texto mostra que \"descobrimento\" apaga quem já estava aqui."
+    - texto: "afirmar que os povos indígenas não tinham língua própria."
+      erro: "O texto diz que havia \"línguas que a carta não registra\". Os povos tinham as suas."
+    - texto: "mostrar que o nome e a palavra do colonizador apagaram a presença e a cultura dos povos originários."
+      certa: true
+    - texto: "elogiar a carta como retrato completo do Brasil de 1500."
+      erro: "O texto aponta o que a carta deixa de fora. Não a vê como retrato completo."
+  explicacao: "O texto mostra que nomear (\"Vera Cruz\", \"descobrimento\") é também exercer poder. A terra já tinha nomes, caminhos e histórias. Reconhecer isso é um valor atual: o respeito aos povos originários e à sua memória."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-quinhentismo-10
+  tema: "Quinhentismo e literatura de informação"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-quinhentismo
+  dificuldade: 3
+  enunciado: "Na gramática do tupi (1595), Anchieta estudou a fundo a língua dos indígenas. A crítica atual vê nisso uma contradição porque"
+  alternativas:
+    - texto: "a gramática foi escrita em tupi e ninguém conseguia lê-la."
+      erro: "A gramática descreve o tupi, mas foi escrita para padres, em português. O problema é outro."
+    - texto: "o estudo da língua servia para levar uma fé que transformava por dentro a vida e a cultura dos indígenas."
+      certa: true
+    - texto: "Anchieta era contra a catequese."
+      erro: "Anchieta era jesuíta, e a catequese era a missão dele."
+    - texto: "o tupi não era falado no litoral."
+      erro: "Era uma das línguas mais faladas na costa, como diz o próprio título da gramática."
+    - texto: "a gramática foi proibida pelos jesuítas."
+      erro: "A gramática foi impressa em Coimbra, em 1595, e usada pelos próprios jesuítas."
+  explicacao: "Conhecer a língua do outro pode ser respeito. Mas, na catequese, o conhecimento servia para converter: mudar os costumes, as festas e a fé dos povos indígenas. É essa a contradição que a leitura crítica aponta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

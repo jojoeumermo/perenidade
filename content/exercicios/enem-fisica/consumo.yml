@@ -1,0 +1,247 @@
+# Exercícios da aula "Potência elétrica, consumo em kWh e conta de luz" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Tarifas são valores de exemplo, não tarifas reais.
+
+- id: enem-fis2-consumo-01
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  dificuldade: 1
+  enunciado: "Um ferro de passar de 1.000 W fica ligado por 2 horas. Quanto ele consome?"
+  alternativas:
+    - texto: "2 kWh"
+      certa: true
+    - texto: "2.000 kWh"
+      erro: "1.000 W × 2 h dá 2.000 Wh, em watt-hora. Divida por 1.000 para chegar a quilowatt-hora."
+    - texto: "500 kWh"
+      erro: "Você dividiu a potência pelo tempo. Energia é potência vezes tempo."
+    - texto: "0,5 kWh"
+      erro: "Você dividiu o tempo pela potência em kW. O certo é multiplicar: 1 kW × 2 h."
+    - texto: "1.002 kWh"
+      erro: "Você somou a potência e o tempo. Grandezas diferentes não se somam: energia é potência vezes tempo."
+  explicacao: "1.000 W = 1 kW. Energia = 1 kW × 2 h = 2 kWh."
+  conferir: "1000 * 2 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-02
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  dificuldade: 1
+  enunciado: "Na conta de luz, o consumo de energia do mês aparece em qual unidade?"
+  alternativas:
+    - texto: "Quilowatt (kW)"
+      erro: "Quilowatt é unidade de potência, a energia por segundo. A conta mede energia, que é potência vezes tempo."
+    - texto: "Quilowatt-hora (kWh)"
+      certa: true
+    - texto: "Volt (V)"
+      erro: "Volt é a unidade de tensão, o empurrão nas cargas. A tensão da casa não muda com o consumo."
+    - texto: "Ampère (A)"
+      erro: "Ampère é a unidade de corrente. Ela importa para escolher fio e disjuntor, mas não é o que se paga."
+    - texto: "Watt por hora (W/h)"
+      erro: "Energia é potência multiplicada pelo tempo, não dividida. Por isso a unidade é watt vezes hora."
+  explicacao: "A distribuidora cobra a energia gasta. Energia é potência vezes tempo; com a potência em kW e o tempo em horas, a unidade é o kWh."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-03
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  dificuldade: 1
+  enunciado: "Um chuveiro de 4.400 W é ligado em 220 V. Qual é a corrente que passa por ele?"
+  alternativas:
+    - texto: "968.000 A"
+      erro: "Você multiplicou potência e tensão. Como P = U · i, a corrente é a potência dividida pela tensão."
+    - texto: "0,05 A"
+      erro: "Você dividiu a tensão pela potência (220 ÷ 4.400). A divisão é ao contrário: i = P ÷ U."
+    - texto: "20 A"
+      certa: true
+    - texto: "4.180 A"
+      erro: "Você subtraiu a tensão da potência. Elas são grandezas diferentes: a ligação entre elas é P = U · i."
+    - texto: "2 A"
+      erro: "A vírgula andou uma casa. Confira: 220 × 20 = 4.400."
+  explicacao: "Da fórmula P = U · i, a corrente é i = P ÷ U = 4.400 ÷ 220 = 20 A."
+  conferir: "4400 / 220"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-04
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa conta de luz, a leitura anterior do medidor era 7.320 kWh e a leitura atual é 7.470 kWh. Considere uma tarifa
+    de R$ 0,80 por kWh (valor de exemplo) e despreze impostos e outros itens da conta.
+  enunciado: "O valor a pagar pela energia consumida no mês é"
+  alternativas:
+    - texto: "R$ 150,00"
+      erro: "150 é o consumo em kWh, não o valor. Falta multiplicar pela tarifa: 150 × 0,80."
+    - texto: "R$ 5.976,00"
+      erro: "Você multiplicou a leitura atual inteira pela tarifa. O medidor soma tudo desde a instalação: o consumo do mês é a diferença entre as leituras."
+    - texto: "R$ 187,50"
+      erro: "Você dividiu o consumo pela tarifa. O valor é o consumo vezes o preço de cada kWh."
+    - texto: "R$ 120,00"
+      certa: true
+    - texto: "R$ 12,00"
+      erro: "A vírgula andou uma casa. Estime: 150 kWh a quase R$ 1 cada dá perto de R$ 150, nunca R$ 12."
+  explicacao: "Consumo do mês: 7.470 − 7.320 = 150 kWh. Valor: 150 × 0,80 = R$ 120,00."
+  conferir: "(7470 - 7320) * 0.8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-05
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  dificuldade: 2
+  enunciado: "Numa casa com 4 pessoas, cada uma toma um banho de 10 minutos por dia num chuveiro de 5.400 W. Quanto o chuveiro consome em 30 dias?"
+  alternativas:
+    - texto: "27 kWh"
+      erro: "Esse é o consumo de uma pessoa só (5,4 × 1/6 × 30). São 4 pessoas: 40 minutos de chuveiro por dia."
+    - texto: "6.480 kWh"
+      erro: "Você usou os minutos como se fossem horas (5,4 × 40 × 30). Passe para horas: 40 minutos são 2/3 de hora."
+    - texto: "3,6 kWh"
+      erro: "Esse é o consumo de um dia (5,4 × 2/3). Falta multiplicar pelos 30 dias."
+    - texto: "108.000 kWh"
+      erro: "Você deixou a potência em watts. 5.400 W são 5,4 kW: divida por 1.000."
+    - texto: "108 kWh"
+      certa: true
+  explicacao: "Tempo por dia: 4 × 10 = 40 minutos = 2/3 h. Por dia: 5,4 kW × 2/3 h = 3,6 kWh. Em 30 dias: 3,6 × 30 = 108 kWh."
+  conferir: "5400 * 4 * 10 * 30 / 60 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-06
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um chuveiro elétrico ligado em 220 V tem uma chave de duas posições. Na posição verão, a resistência ligada é de
+    22 Ω. Na posição inverno, a chave liga só um pedaço do resistor, e a resistência passa a ser de 11 Ω.
+  enunciado: "Na posição inverno, a potência do chuveiro é de"
+  alternativas:
+    - texto: "4.400 W"
+      certa: true
+    - texto: "2.200 W"
+      erro: "Essa é a potência na posição verão (220² ÷ 22). Com 11 Ω, a resistência caiu pela metade e a potência dobra."
+    - texto: "20 W"
+      erro: "220 ÷ 11 = 20 é a corrente, em ampères, não a potência. Multiplique pela tensão: 220 × 20."
+    - texto: "2.420 W"
+      erro: "Você multiplicou tensão e resistência. A potência é a tensão ao quadrado dividida pela resistência."
+    - texto: "1.100 W"
+      erro: "Você achou que menos resistência dá menos potência. Com a mesma tensão é o contrário: P = U² ÷ R."
+  explicacao: "Com a tensão fixa, P = U² ÷ R = 220 × 220 ÷ 11 = 48.400 ÷ 11 = 4.400 W. Menos resistência deixa passar mais corrente (20 A) e esquenta mais a água."
+  conferir: "220 * 220 / 11"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-07
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  dificuldade: 2
+  enunciado: "Uma televisão desligada no controle, mas na tomada, gasta 5 W em modo de espera (stand-by). Quanto ela consome assim em 30 dias, 24 horas por dia?"
+  alternativas:
+    - texto: "0,12 kWh"
+      erro: "Esse é o gasto de um dia só (5 W × 24 h = 120 Wh). Falta multiplicar pelos 30 dias."
+    - texto: "3,6 kWh"
+      certa: true
+    - texto: "3.600 kWh"
+      erro: "5 × 24 × 30 = 3.600 está em watt-hora. Divida por 1.000 para chegar a kWh."
+    - texto: "0,15 kWh"
+      erro: "Você multiplicou a potência só pelos dias e esqueceu as 24 horas de cada dia."
+    - texto: "36 kWh"
+      erro: "A vírgula andou uma casa. 3.600 Wh divididos por 1.000 dão 3,6 kWh."
+  explicacao: "Horas no mês: 24 × 30 = 720 h. Energia: 5 W × 720 h = 3.600 Wh = 3,6 kWh."
+  conferir: "5 * 24 * 30 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-08
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-eletricidade-consumo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma família pensa em trocar a geladeira. Segundo os fabricantes, a geladeira antiga consome 60 kWh por mês e a nova,
+    de mesmo tamanho, 25 kWh por mês. Considere a tarifa de R$ 0,80 por kWh (valor de exemplo), sem outros itens.
+  enunciado: "Em 12 meses, a troca reduziria a conta de luz em"
+  alternativas:
+    - texto: "R$ 28,00"
+      erro: "Essa é a economia de um mês (35 × 0,80). A pergunta pede 12 meses."
+    - texto: "R$ 240,00"
+      erro: "Esse é o gasto da geladeira nova em um ano (25 × 0,80 × 12). A economia é a diferença entre as duas."
+    - texto: "R$ 336,00"
+      certa: true
+    - texto: "R$ 576,00"
+      erro: "Esse é o gasto da geladeira antiga em um ano. Desconte o que a nova continua gastando."
+    - texto: "R$ 816,00"
+      erro: "Você somou os consumos das duas (85 kWh). A economia vem da diferença: 60 − 25."
+  explicacao: "Economia por mês: 60 − 25 = 35 kWh, ou 35 × 0,80 = R$ 28,00. Em 12 meses: 28 × 12 = R$ 336,00."
+  conferir: "(60 - 25) * 0.8 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-09
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O circuito da cozinha de uma casa é de 127 V e está protegido por um disjuntor de 20 A, que desliga quando a corrente
+    passa desse valor. Neste momento estão ligados uma geladeira de 254 W e um micro-ondas de 1.270 W.
+  enunciado: "Sem desligar o disjuntor, ainda se pode ligar nesse circuito, ao mesmo tempo, um aparelho de até"
+  alternativas:
+    - texto: "2.540 W"
+      erro: "2.540 W é o limite total do circuito (127 × 20). A geladeira e o micro-ondas já usam parte dele."
+    - texto: "1.524 W"
+      erro: "1.524 W é a potência que já está ligada (254 + 1.270). O que sobra é o limite menos isso."
+    - texto: "2.286 W"
+      erro: "Você descontou só a geladeira. O micro-ondas também está ligado."
+    - texto: "1.016 W"
+      certa: true
+    - texto: "107 W"
+      erro: "Você subtraiu a corrente da tensão (127 − 20). A potência máxima é a tensão vezes a corrente."
+  explicacao: "Potência máxima do circuito: P = U · i = 127 × 20 = 2.540 W. Já ligados: 254 + 1.270 = 1.524 W. Sobram 2.540 − 1.524 = 1.016 W."
+  conferir: "127 * 20 - 254 - 1270"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis2-consumo-10
+  tema: "Potência elétrica, consumo em kWh e conta de luz"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-consumo
+  dificuldade: 3
+  enunciado: "Com a energia que um chuveiro de 6.000 W gasta num banho de 10 minutos, por quanto tempo uma lâmpada LED de 10 W ficaria acesa?"
+  alternativas:
+    - texto: "0,1 hora"
+      erro: "Você dividiu 1 kWh por 10 sem passar os 10 W para quilowatts. 10 W são 0,01 kW: 1 ÷ 0,01 = 100."
+    - texto: "6.000 horas"
+      erro: "Você usou os minutos do banho como se fossem horas. 10 minutos são 1/6 de hora."
+    - texto: "600 horas"
+      erro: "Você dividiu só as potências (6.000 ÷ 10) e esqueceu que o banho dura 1/6 de hora."
+    - texto: "1.000 horas"
+      erro: "1.000 é a energia do banho em watt-hora, não o tempo. Divida pela potência da lâmpada: 1.000 Wh ÷ 10 W."
+    - texto: "100 horas"
+      certa: true
+  explicacao: "Energia do banho: 6.000 W × 1/6 h = 1.000 Wh. Tempo da lâmpada: 1.000 Wh ÷ 10 W = 100 h. Um banho de 10 minutos gasta o mesmo que a lâmpada acesa por mais de quatro dias."
+  conferir: "6000 * 10 / 60 / 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

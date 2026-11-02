@@ -1,0 +1,245 @@
+# Exercícios da aula "Internet, hipertexto e redes sociais" (trilha enem-linguagens-tecnologias-da-comunicacao).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-digitais-hipertexto-01
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 1
+  enunciado: "Qual destas é uma marca do hipertexto?"
+  alternativas:
+    - texto: "Ser lido sempre da primeira à última linha, sem desvios."
+      erro: "Essa é a leitura linear, típica do livro impresso. O hipertexto permite outros caminhos."
+    - texto: "Ter só palavras, sem imagens nem sons."
+      erro: "O texto digital costuma ser multimodal: junta palavra, imagem, som e vídeo."
+    - texto: "Ter links que levam a outros textos, permitindo ao leitor escolher o caminho."
+      certa: true
+    - texto: "Ser escrito à mão."
+      erro: "Escrita à mão não tem links. O hipertexto é próprio dos meios digitais."
+    - texto: "Ter um único autor que o leitor não pode responder."
+      erro: "Na rede, o leitor comenta, compartilha e vira autor também. Isso é interatividade."
+  explicacao: "Hipertexto é o texto ligado a outros por links. O leitor clica, abre, volta e monta o próprio percurso de leitura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-02
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 1
+  enunciado: "Uma sequência de posts curtos e numerados, publicados um depois do outro para formar um texto maior, é chamada de:"
+  alternativas:
+    - texto: "thread, ou fio."
+      certa: true
+    - texto: "editorial."
+      erro: "Editorial é texto de opinião de um jornal, não uma sequência de posts."
+    - texto: "soneto."
+      erro: "Soneto é poema de forma fixa, com 14 versos."
+    - texto: "manchete."
+      erro: "Manchete é o título principal de uma notícia."
+    - texto: "verbete."
+      erro: "Verbete é o texto que explica uma palavra no dicionário ou na enciclopédia."
+  explicacao: "Thread (fio) é um gênero digital: posts curtos encadeados que, juntos, formam um texto mais longo, comum em redes com limite de caracteres."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-03
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 1
+  enunciado: "Num grupo de 50 usuários de internet, 60% acessam a rede só pelo celular. Quantas pessoas são?"
+  alternativas:
+    - texto: "20"
+      erro: "20 são os que não acessam só pelo celular (40% de 50). A pergunta pede os 60%."
+    - texto: "60"
+      erro: "Você usou a porcentagem como se fosse a quantidade. O grupo tem só 50 pessoas."
+    - texto: "6"
+      erro: "6 seria 60% de 10. O grupo tem 50 pessoas: 10% de 50 é 5, então 60% é 6 × 5."
+    - texto: "30"
+      certa: true
+    - texto: "35"
+      erro: "35 é 70% de 50. Confira: 10% de 50 é 5; 60% é 6 vezes isso."
+  explicacao: "10% de 50 é 5. Então 60% é 6 × 5 = 30 pessoas. Na pesquisa TIC Domicílios 2024, 60% dos usuários de internet do Brasil acessavam a rede só pelo celular."
+  conferir: "50 * 60 / 100"
+  fonte: "Questão original do Instituto Lúcia, com base na TIC Domicílios 2024 (Cetic.br)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-04
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 2
+  enunciado: "Na TIC Domicílios 2024, 18% dos usuários da classe A acessavam a internet só pelo celular; na classe DE, 86%. Que conclusão os dados sustentam?"
+  alternativas:
+    - texto: "A classe DE usa mais a internet que a classe A."
+      erro: "Os dados falam do aparelho de acesso, não de quanto cada classe usa."
+    - texto: "O modo de acesso à rede é desigual entre as classes, e os mais pobres dependem mais do celular."
+      certa: true
+    - texto: "O celular é melhor que o computador para estudar."
+      erro: "A pesquisa não compara qualidade. E depender só do celular costuma limitar tarefas longas."
+    - texto: "A classe A não usa celular."
+      erro: "18% usam só o celular; os outros usam celular e computador. Todos usam celular."
+    - texto: "A internet chega igual a todas as pessoas do país."
+      erro: "Os números mostram o contrário: o jeito de estar na rede muda com a renda."
+  explicacao: "Quanto menor a renda, maior a dependência do celular como único aparelho. Isso afeta o estudo, o trabalho e o acesso a serviços: a exclusão digital também é desigualdade social."
+  fonte: "Questão original do Instituto Lúcia, com base na TIC Domicílios 2024 (Cetic.br)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-05
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-hipertexto
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma moradora criou uma petição on-line pedindo um semáforo na frente da escola do bairro, onde três crianças
+    tinham sido atropeladas em um ano. Em uma semana, a petição teve doze mil assinaturas e foi compartilhada por
+    pais, professores e comerciantes. Um mês depois, a prefeitura instalou o semáforo. "Sozinha eu não seria
+    ouvida", disse ela.
+  enunciado: "O relato evidencia que a petição on-line"
+  alternativas:
+    - texto: "substitui o trabalho da prefeitura."
+      erro: "Quem instalou o semáforo foi a prefeitura. A petição pressionou, não substituiu."
+    - texto: "serve apenas para divulgar opiniões pessoais."
+      erro: "Ela teve efeito concreto: o semáforo. Não ficou só na opinião."
+    - texto: "é inútil, porque a prefeitura demorou a agir."
+      erro: "Um mês depois, o semáforo estava lá. O texto mostra resultado."
+    - texto: "dispensa a participação de outras pessoas."
+      erro: "Foram doze mil assinaturas. A força veio justamente da participação coletiva."
+    - texto: "funciona como instrumento de mobilização coletiva que amplia a voz de quem reivindica."
+      certa: true
+  explicacao: "A moradora sozinha \"não seria ouvida\". A petição juntou milhares de pessoas e pressionou o poder público. É a função social da tecnologia (H28)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-06
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 3
+  objeto: lin-generos-digitais-hipertexto
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um órgão público publicou numa rede social uma imagem que imita a tela de um aplicativo de entrega de comida.
+    No lugar dos pratos, aparecem os serviços da unidade de saúde do bairro: vacina, consulta, exame. No botão,
+    onde estaria "Pedir agora", está escrito "Vá até a sua UBS. É de graça."
+  enunciado: "Ao imitar a forma de outro gênero, a publicação pretende"
+  alternativas:
+    - texto: "vender comida pelo aplicativo."
+      erro: "A forma é de aplicativo de comida, mas o conteúdo é de saúde pública. Ninguém vende nada."
+    - texto: "criticar os aplicativos de entrega."
+      erro: "Não há crítica aos aplicativos. A forma é usada só como chamariz."
+    - texto: "aproveitar uma forma familiar ao público para chamar a atenção e divulgar um serviço gratuito."
+      certa: true
+    - texto: "mostrar que a unidade de saúde entrega vacina em casa."
+      erro: "O botão diz \"Vá até a sua UBS\". A pessoa precisa ir."
+    - texto: "substituir o atendimento presencial por atendimento on-line."
+      erro: "A mensagem manda ir à unidade, não atender pela internet."
+  explicacao: "A forma de aplicativo de entrega é conhecida e chama a atenção. O conteúdo é outro: divulgar serviços gratuitos. Relacionar a forma do meio à função social da mensagem é a H3."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-07
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 4
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 2
+  enunciado: "O artigo 7º do Marco Civil da Internet (Lei nº 12.965/2014) diz que o acesso à internet é essencial ao exercício da cidadania. Com base nessa ideia, a falta de acesso à rede pode ser lida como:"
+  alternativas:
+    - texto: "uma forma de exclusão que limita o exercício de direitos."
+      certa: true
+    - texto: "uma escolha individual sem consequências."
+      erro: "Se o acesso é essencial à cidadania, ficar sem ele tem consequência, e muitas vezes não é escolha."
+    - texto: "um problema que só afeta o lazer."
+      erro: "Hoje, inscrição em programas, matrícula, emprego e serviços públicos passam pela rede. Não é só lazer."
+    - texto: "uma vantagem, porque protege a pessoa das redes sociais."
+      erro: "A lei trata o acesso como direito. Ficar de fora não é tratado como proteção."
+    - texto: "um assunto que a lei deixa só para as empresas."
+      erro: "O próprio artigo mostra que a lei trata do tema como questão de cidadania."
+  explicacao: "Se a internet é essencial à cidadania, quem está fora tem menos acesso a serviços, informação e direitos. A crítica aos usos sociais da tecnologia é a H4."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 12.965/2014"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-08
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-hipertexto
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma ilustradora descobriu que um desenho seu, publicado numa rede social, estava estampado em camisetas
+    vendidas por uma loja on-line de outro país, sem crédito e sem pagamento. "A internet me deu leitores no mundo
+    inteiro", escreveu ela. "E, no mesmo clique, deu a qualquer um o poder de pegar o que é meu."
+  enunciado: "A fala da ilustradora aponta, como efeito ambíguo da internet para os artistas,"
+  alternativas:
+    - texto: "o fim da circulação internacional das obras."
+      erro: "Ela diz que ganhou leitores no mundo inteiro. A circulação aumentou."
+    - texto: "a proibição de publicar desenhos nas redes."
+      erro: "Nada no texto fala em proibição."
+    - texto: "a garantia automática de pagamento aos autores."
+      erro: "O caso mostra justamente falta de pagamento. Contradição."
+    - texto: "a preferência do público por camisetas em vez de desenhos."
+      erro: "O texto não compara preferências do público."
+    - texto: "a ampliação do público junto com o risco à autoria e aos direitos sobre a obra."
+      certa: true
+  explicacao: "O mesmo clique que leva a obra a muitos leitores facilita a cópia sem crédito e sem pagamento. A prova cobra esse duplo impacto: circulação maior, autoria em risco (H28)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-09
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 30
+  objeto: lin-generos-digitais-hipertexto
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Toda tecnologia nova chega com a promessa de que tudo ficará mais fácil e de que ninguém precisará aprender
+    mais nada. Aconteceu com a imprensa, com o rádio, com a televisão e acontece agora com a internet. Mas cada
+    técnica nova exige novas leituras: quem não aprende a usá-la fica para trás, e quem aprende passa a ter mais
+    poder sobre a informação.
+  enunciado: "Segundo o texto, a chegada de uma nova tecnologia da comunicação"
+  alternativas:
+    - texto: "dispensa qualquer aprendizagem, como prometido."
+      erro: "O texto desmonta essa promessa: \"cada técnica nova exige novas leituras\"."
+    - texto: "acaba com as desigualdades no acesso à informação."
+      erro: "O texto diz que quem não aprende fica para trás. A desigualdade pode até crescer."
+    - texto: "torna inúteis as tecnologias anteriores."
+      erro: "O texto cita imprensa, rádio e televisão como etapas, não como coisas inúteis."
+    - texto: "exige novas aprendizagens e pode redistribuir o poder sobre a informação."
+      certa: true
+    - texto: "interessa apenas às pessoas jovens."
+      erro: "O texto não fala de idade. É generalização sem base."
+  explicacao: "A promessa de facilidade é desmentida: cada tecnologia pede novas leituras, e quem as domina ganha poder. Relacionar as tecnologias ao desenvolvimento da sociedade e ao conhecimento é a H30."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-hipertexto-10
+  tema: "Internet, hipertexto e redes sociais"
+  area: linguagens
+  habilidade: 1
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 3
+  enunciado: "Um post mostra a foto de um prato de comida, o emoji de uma carinha chorando, a legenda \"Último dia antes do salário\" e uma música triste ao fundo. Como o sentido do post é construído?"
+  alternativas:
+    - texto: "Só pela legenda; a foto, o emoji e a música não importam."
+      erro: "Sem a foto e o emoji, o humor e o desabafo se perdem. O sentido vem da soma."
+    - texto: "Pela combinação de linguagens diferentes, verbal, visual e sonora, que juntas produzem o efeito."
+      certa: true
+    - texto: "Só pela música, porque ela é a parte mais longa."
+      erro: "Tamanho não decide sentido. A música reforça, mas não basta sozinha."
+    - texto: "Pela ordem alfabética das palavras da legenda."
+      erro: "Ordem alfabética não tem papel na construção do sentido aqui."
+    - texto: "Pela quantidade de curtidas que o post recebeu."
+      erro: "Curtidas medem alcance, não constroem o sentido do texto."
+  explicacao: "Prato, emoji, legenda e música formam um texto multimodal: o sentido (o aperto do fim do mês, dito com humor) nasce da combinação. Reconhecer os recursos de cada linguagem num meio é a H1."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

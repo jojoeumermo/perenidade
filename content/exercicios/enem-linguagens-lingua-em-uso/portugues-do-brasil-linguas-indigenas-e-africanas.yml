@@ -1,0 +1,240 @@
+# Exercícios da aula "O português do Brasil e as línguas indígenas e africanas" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-ptbrasil-01
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  dificuldade: 1
+  enunciado: "Qual destas palavras tem origem no tupi, segundo o Dicionário Priberam?"
+  alternativas:
+    - texto: "Quitanda."
+      erro: "“Quitanda” vem do quimbundo, língua banta de Angola. É herança africana, não indígena."
+    - texto: "Moleque."
+      erro: "“Moleque” vem do quimbundo “muleke”, menino. É herança africana."
+    - texto: "Caçula."
+      erro: "“Caçula” vem do quimbundo “kasule”, o último filho. É herança africana."
+    - texto: "Pipoca."
+      certa: true
+    - texto: "Farmácia."
+      erro: "“Farmácia” vem do grego, pelo latim. Não é de origem indígena."
+  explicacao: "O Priberam registra “pipoca” como vinda do tupi “pi'poka”. As outras três primeiras vêm do quimbundo."
+  fonte: "Questão original do Instituto Lúcia, com base no Dicionário Priberam (https://dicionario.priberam.org/)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-02
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  dificuldade: 1
+  enunciado: "O que era a língua geral no Brasil colonial?"
+  alternativas:
+    - texto: "Uma língua de base tupi, usada entre indígenas, colonos e missionários."
+      certa: true
+    - texto: "O português de Lisboa, ensinado nas escolas."
+      erro: "A língua geral não era o português. Era de base tupi e, em boa parte da colônia, mais falada que o português."
+    - texto: "Uma língua africana falada nos engenhos."
+      erro: "A língua geral tinha base indígena (tupi). As línguas africanas são outra parte da história."
+    - texto: "A Língua Brasileira de Sinais."
+      erro: "A Libras é a língua das comunidades surdas, reconhecida em 2002. Não tem relação com a língua geral colonial."
+    - texto: "Uma mistura de todas as línguas do mundo."
+      erro: "Exagero. A língua geral tinha uma base definida, o tupi, e servia de língua de contato."
+  explicacao: "A língua geral, de base tupi, era a língua de contato da colônia. Na Amazônia, a língua geral amazônica, o nheengatu, é falada até hoje."
+  fonte: "Questão original do Instituto Lúcia, com base em Paul Teyssier, História da língua portuguesa"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-03
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  dificuldade: 1
+  enunciado: "A Lei 10.436, de 2002, reconhece a Libras como"
+  alternativas:
+    - texto: "uma variedade regional do português."
+      erro: "A Libras não é português. A lei diz que ela tem estrutura gramatical própria: é outra língua."
+    - texto: "um conjunto de gestos sem gramática."
+      erro: "A lei diz o contrário: a Libras é um sistema linguístico com estrutura gramatical própria."
+    - texto: "meio legal de comunicação e expressão, com estrutura gramatical própria."
+      certa: true
+    - texto: "substituta da escrita do português."
+      erro: "A própria lei diz que a Libras não substitui a modalidade escrita da língua portuguesa."
+    - texto: "uma língua indígena do Amazonas."
+      erro: "A Libras é a língua das comunidades surdas do Brasil. Não é língua indígena."
+  explicacao: "O artigo 1º da Lei 10.436 reconhece a Libras como meio legal de comunicação e expressão, de natureza visual-motora e com estrutura gramatical própria."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei 10.436/2002 (https://www.planalto.gov.br/ccivil_03/leis/2002/l10436.htm)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-04
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num quilombo do interior, as crianças aprendem com os mais velhos uma cantiga de roda com palavras que ninguém sabe traduzir inteiras. “Minha bisavó cantava, a mãe dela cantava, e ninguém escreveu”, conta uma senhora de oitenta anos. Neste ano, a escola da comunidade gravou a cantiga e pediu ajuda a uma universidade para descobrir de que língua africana vêm as palavras.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A cantiga descrita no texto é um exemplo de"
+  alternativas:
+    - texto: "variação histórica do português, porque as palavras são antigas."
+      erro: "As palavras vêm de uma língua africana, não do português antigo. O texto trata de herança de outra língua."
+    - texto: "patrimônio linguístico transmitido pela tradição oral, de geração em geração."
+      certa: true
+    - texto: "uma língua africana ainda falada no dia a dia do quilombo."
+      erro: "O texto diz que ninguém sabe traduzir as palavras inteiras. Elas sobrevivem na cantiga, não como língua de conversa."
+    - texto: "uma gíria criada pelas crianças."
+      erro: "A cantiga veio da bisavó e de antes. Não é invenção das crianças."
+    - texto: "perda total da herança africana na comunidade."
+      erro: "A cantiga sobreviveu por gerações e agora foi gravada. O texto mostra preservação, não perda total."
+  explicacao: "A cantiga passa dos mais velhos para os mais novos, pela voz, sem escrita. Guarda palavras de uma língua africana e a memória da comunidade. É patrimônio linguístico preservado pela tradição oral."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-05
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  dificuldade: 2
+  enunciado: "O Diretório dos Índios, do governo de Pombal (1757), é lembrado na história da língua porque"
+  alternativas:
+    - texto: "criou a Língua Brasileira de Sinais."
+      erro: "A Libras foi reconhecida por lei em 2002. O Diretório é do século XVIII e tratava das povoações indígenas."
+    - texto: "tornou o tupi a língua oficial do Brasil."
+      erro: "Foi o contrário: proibiu a língua geral de base tupi e impôs o português."
+    - texto: "trouxe as primeiras palavras africanas para o português."
+      erro: "As palavras africanas chegaram com as pessoas escravizadas, desde o século XVI. O Diretório trata das línguas indígenas."
+    - texto: "garantiu às aldeias o ensino nas línguas maternas."
+      erro: "Essa garantia está na Constituição de 1988 (art. 210). O Diretório fez o oposto."
+    - texto: "proibiu a língua geral nas povoações e tornou obrigatório o uso do português."
+      certa: true
+  explicacao: "O Diretório foi uma política de língua: impôs o português e proibiu a língua geral, que era muito falada. A imposição ajudou o português a se tornar a língua majoritária."
+  fonte: "Questão original do Instituto Lúcia, com base em Paul Teyssier, História da língua portuguesa"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-06
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Placa na entrada de uma escola municipal de São Gabriel da Cachoeira, no Amazonas, escrita em quatro línguas:
+    “Bem-vindo” (português), seguido da mesma saudação em nheengatu, tukano e baniwa.
+    Desde 2002, uma lei municipal reconhece essas três línguas indígenas como cooficiais do município, ao lado do português.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A placa em quatro línguas mostra"
+  alternativas:
+    - texto: "que o português deixou de ser falado no município."
+      erro: "O português está na placa e continua oficial. As outras línguas são cooficiais, ao lado dele."
+    - texto: "que as línguas indígenas são variedades do português."
+      erro: "Nheengatu, tukano e baniwa são línguas próprias, não variedades do português."
+    - texto: "o reconhecimento público das línguas indígenas como parte da identidade local."
+      certa: true
+    - texto: "uma estratégia para atrair turistas estrangeiros."
+      erro: "O texto não fala de turismo. A placa está numa escola e segue uma lei que reconhece as línguas da população."
+    - texto: "que todas as línguas indígenas do Brasil são cooficiais."
+      erro: "A lei é de um município. Generalizar para o país inteiro não tem base no texto."
+  explicacao: "Pôr as línguas indígenas ao lado do português numa escola é reconhecer, em público, que elas fazem parte da vida e da identidade do lugar."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei municipal 145/2002 de São Gabriel da Cachoeira (https://www.axl.cefan.ulaval.ca/amsudant/bresil-loi-St-Gabriel-2002.htm)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-07
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  dificuldade: 2
+  enunciado: "Segundo o Censo Demográfico 2022, o IBGE registrou 295 línguas indígenas no Brasil. Esse dado contraria a ideia de que"
+  alternativas:
+    - texto: "o Brasil é um país de uma língua só."
+      certa: true
+    - texto: "o português é a língua oficial."
+      erro: "O português continua oficial (Constituição, art. 13). O dado mostra que, além dele, há muitas outras línguas."
+    - texto: "existem povos indígenas no Brasil."
+      erro: "O dado confirma que existem, e que falam muitas línguas. Não contraria isso."
+    - texto: "as línguas mudam com o tempo."
+      erro: "O dado é uma contagem de línguas, não trata de mudança no tempo."
+    - texto: "a Libras é uma língua."
+      erro: "A contagem é de línguas indígenas. Não diz nada sobre a Libras."
+  explicacao: "Muita gente acha que no Brasil só se fala português. O Censo mostra centenas de línguas indígenas em uso, além da Libras e das línguas de imigrantes."
+  fonte: "Questão original do Instituto Lúcia, com dado do IBGE Educa (https://educa.ibge.gov.br/criancas/voce-sabia/23084-linguas-indigenas.html)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-08
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Por muito tempo, os livros contaram que as palavras de origem africana no português do Brasil eram poucas e ficavam restritas à cozinha e à religião. Pesquisas sobre os falares africanos mostraram outra coisa: essas palavras estão no afeto (“caçula”), no comércio (“quitanda”), na infância (“moleque”). Estão, enfim, nos lugares mais íntimos da vida.
+    Texto do Instituto Lúcia, escrito para este exercício, com base em Yeda Pessoa de Castro, Falares africanos na Bahia (2001).
+  enunciado: "Ao citar “caçula”, “quitanda” e “moleque”, o texto pretende mostrar que"
+  alternativas:
+    - texto: "as palavras africanas são todas ligadas à religião."
+      erro: "O texto diz o contrário: as palavras citadas estão fora da religião e da cozinha."
+    - texto: "essas palavras são gírias recentes."
+      erro: "São palavras antigas, que vieram com as pessoas escravizadas. O texto trata de herança, não de gíria."
+    - texto: "o português de Portugal usa as mesmas palavras."
+      erro: "O texto fala do português do Brasil. Não compara com Portugal."
+    - texto: "a influência africana é pequena no vocabulário."
+      erro: "Essa é a ideia antiga que o texto contesta. Ele mostra a influência em muitos campos da vida."
+    - texto: "a herança africana está espalhada pelo vocabulário do dia a dia, e não só em campos restritos."
+      certa: true
+  explicacao: "O texto contesta a ideia de que a herança africana se limita à cozinha e à religião. Os exemplos vêm do afeto, do comércio e da infância: campos centrais da vida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-09
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Quando o último falante de uma língua morre, não se perde só um jeito de dizer as coisas. Perde-se um mapa: os nomes de cada planta do mato e o que ela cura, as histórias que explicam por que o rio corre para aquele lado, os cantos de colheita. Gravar, escrever e, sobretudo, ensinar às crianças é a forma de manter esse mapa aberto.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "No texto, a palavra “mapa” se refere"
+  alternativas:
+    - texto: "ao território físico onde o povo vive."
+      erro: "A palavra é usada em sentido figurado. O “mapa” são os saberes guardados na língua, não um desenho do território."
+    - texto: "ao conjunto de conhecimentos, histórias e memórias que a língua guarda."
+      certa: true
+    - texto: "à gramática da língua, com as suas regras."
+      erro: "O texto cita plantas, histórias e cantos, não regras gramaticais. O “mapa” é o saber do povo."
+    - texto: "aos documentos escritos sobre a língua."
+      erro: "Gravar e escrever aparecem como formas de preservar o mapa. O mapa em si é o que a língua carrega."
+    - texto: "à rota de migração do povo."
+      erro: "Nada no texto fala de migração. Leia os exemplos: plantas, histórias, cantos."
+  explicacao: "“Mapa” é metáfora. Os exemplos que o texto dá (plantas que curam, histórias, cantos) mostram que se trata do saber e da memória que só a língua guarda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ptbrasil-10
+  tema: "O português no Brasil e as línguas indígenas e africanas"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-lingua-portuguesa-portugues-no-brasil
+  dificuldade: 3
+  enunciado: "A Constituição diz que a língua portuguesa é o idioma oficial (art. 13) e assegura às comunidades indígenas o uso das suas línguas maternas no ensino fundamental (art. 210). Juntos, os dois artigos mostram que"
+  alternativas:
+    - texto: "as línguas indígenas são proibidas na escola."
+      erro: "O artigo 210 garante o uso delas no ensino fundamental das comunidades indígenas."
+    - texto: "o português deve ser abolido nas aldeias."
+      erro: "O ensino fundamental continua em português; as línguas indígenas entram também, não no lugar."
+    - texto: "o Brasil tem só uma língua."
+      erro: "A Constituição reconhece outras línguas ao garantir o uso das línguas maternas indígenas."
+    - texto: "a língua oficial convive com o direito dos povos indígenas às suas línguas."
+      certa: true
+    - texto: "as línguas indígenas são variedades do português."
+      erro: "A Constituição chama-as de “línguas maternas”: são línguas próprias, não variedades do português."
+  explicacao: "Ter uma língua oficial não apaga as outras. O artigo 210 garante às comunidades indígenas o ensino também nas suas línguas, ao lado do português."
+  fonte: "Questão original do Instituto Lúcia, com base na Constituição Federal (https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)"
+  revisao: { status: em-revisao }

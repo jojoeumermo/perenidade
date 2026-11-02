@@ -1,0 +1,191 @@
+# Mapa curricular da trilha enem-matematica-proporcionalidade: cada aula escrita ligada às habilidades da Matriz do Enem
+# e aos tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
+aulas:
+  razao-e-proporcao:
+    enem:
+      - area: matematica
+        competencia: 4
+        habilidade: 16
+        resumo: Resolver problemas com grandezas direta ou inversamente proporcionais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-razao-e-proporcao]
+  porcentagem:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 4
+        resumo: Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 16
+        resumo: Resolver problemas com grandezas direta ou inversamente proporcionais.
+        situacao: a-confirmar
+    objetos: [mat-numeros-porcentagem]
+  aumentos-e-descontos-sucessivos:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 4
+        resumo: Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números.
+        situacao: a-confirmar
+    objetos: [mat-numeros-aumentos-e-descontos]
+  contas-do-dia-a-dia:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 5
+        resumo: Avaliar propostas de intervenção na realidade usando conhecimentos numéricos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-contas-do-dia-a-dia]
+  unidades-de-medida:
+    enem:
+      - area: matematica
+        competencia: 3
+        habilidade: 12
+        resumo: Resolver problemas com medidas de grandezas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 10
+        resumo: Identificar relações entre grandezas e unidades de medida.
+        situacao: a-confirmar
+    objetos: [mat-geometria-unidades-de-medida]
+  escalas:
+    enem:
+      - area: matematica
+        competencia: 3
+        habilidade: 11
+        resumo: Usar escalas para ler representações do cotidiano.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 12
+        resumo: Resolver problemas com medidas de grandezas.
+        situacao: a-confirmar
+    objetos: [mat-geometria-escalas]
+  grandezas-direta-e-inversamente-proporcionais:
+    enem:
+      - area: matematica
+        competencia: 4
+        habilidade: 16
+        resumo: Resolver problemas com grandezas direta ou inversamente proporcionais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 15
+        resumo: Identificar quando uma grandeza depende de outra.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 17
+        resumo: Analisar a variação de grandezas para construir argumentos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-grandezas-proporcionais]
+  regra-de-tres-simples-e-composta:
+    enem:
+      - area: matematica
+        competencia: 4
+        habilidade: 16
+        resumo: Resolver problemas com grandezas direta ou inversamente proporcionais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-regra-de-tres]
+  juros-simples:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 4
+        resumo: Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 5
+        resumo: Avaliar propostas de intervenção na realidade usando conhecimentos numéricos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-juros-simples]
+  juros-compostos:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 4
+        resumo: Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 5
+        resumo: Avaliar propostas de intervenção na realidade usando conhecimentos numéricos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-juros-compostos]
+  inflacao-e-poder-de-compra:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 4
+        resumo: Julgar se um resultado numérico faz sentido ao discutir uma afirmação com números.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 5
+        resumo: Avaliar propostas de intervenção na realidade usando conhecimentos numéricos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-inflacao]
+  velocidade-vazao-densidade-e-outras-taxas:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 16
+        resumo: Resolver problemas com grandezas direta ou inversamente proporcionais.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 17
+        resumo: Analisar a variação de grandezas para construir argumentos.
+        situacao: a-confirmar
+    objetos: [mat-numeros-taxas]

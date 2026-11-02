@@ -297,7 +297,7 @@ questoes:
       B: "F está vertical, a normal está no centro de massa e o atrito aponta para a esquerda. A normal nasce no contato com o chão, e o atrito deve se opor ao escorregamento da ponta para a esquerda."
       C: "F está certa, mas o peso aparece na ponta da muleta. O peso age no centro de massa."
       D: "A normal está no centro de massa e o atrito aponta para a esquerda. A normal age no contato com o chão, e o atrito, ali, aponta para a direita."
-    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-medio/vetores, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-medio/vetores, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/leis-de-newton]
 
   - id: enem-2022-104
     area: natureza
@@ -500,7 +500,7 @@ questoes:
       B: "300 N sai de 240 N · 1,25: usou só o peso, sem a parte do movimento, e não dividiu pelas duas cordas."
       C: "360 N é a tensão máxima em cada corda. Faltou a margem de segurança: a corda precisa aguentar 25% a mais."
       E: "900 N sai de 720 N · 1,25: esqueceu de dividir a força entre os dois segmentos de corda."
-    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-medio/trabalho-energia-e-potencia, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-medio/trabalho-energia-e-potencia, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/leis-de-newton]
 
   - id: enem-2022-113
     area: natureza
@@ -589,7 +589,7 @@ questoes:
       C: "20 A sai do nível quente (4 200 W, cerca de 19 A). O disjuntor tem de proteger o nível de maior potência, o superquente."
       D: "10 A sai do nível morno (2 100 W, cerca de 9,5 A). É o nível mais fraco; o disjuntor desarmaria nos outros."
       E: "Não vemos um engano de conta que leve a 5 A. Até o nível morno já passa de 9 A."
-    aulas: [fisica-medio/circuitos-eletricos, fisica-fundamental/eletricidade-em-casa, fisica-fundamental/calor-e-temperatura]
+    aulas: [fisica-medio/circuitos-eletricos, fisica-fundamental/eletricidade-em-casa, fisica-fundamental/calor-e-temperatura, enem-fisica/consumo]
 
   - id: enem-2022-117
     area: natureza

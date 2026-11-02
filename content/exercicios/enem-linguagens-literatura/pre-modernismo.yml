@@ -1,0 +1,241 @@
+# Exercícios da aula "Pré-Modernismo" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-pre-modernismo-01
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-pre-modernismo
+  dificuldade: 1
+  enunciado: "O período chamado de Pré-Modernismo vai, nos livros de literatura, de"
+  alternativas:
+    - texto: "1500 a 1601, do descobrimento à Prosopopeia."
+      erro: "Esse é o Quinhentismo, o século 16."
+    - texto: "1768 a 1836, do Arcadismo ao Romantismo."
+      erro: "Esse é o período árcade."
+    - texto: "1836 a 1881, do Romantismo ao Realismo."
+      erro: "Esse é o período romântico."
+    - texto: "1902, ano de Os sertões, a 1922, ano da Semana de Arte Moderna."
+      certa: true
+    - texto: "1945 a 1964, da geração de 45 ao golpe militar."
+      erro: "Esse período é bem posterior, depois do Modernismo."
+  explicacao: "Os sertões e Canaã saíram em 1902. A Semana de Arte Moderna, em 1922, abre o Modernismo. Entre as duas datas fica o Pré-Modernismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-02
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-pre-modernismo
+  dificuldade: 1
+  enunciado: "O Jeca Tatu, personagem de Monteiro Lobato em Urupês (1918), ficou conhecido como"
+  alternativas:
+    - texto: "um herói indígena da pátria."
+      erro: "Herói indígena é marca do Romantismo, como o Peri de Alencar."
+    - texto: "o caipira do interior paulista, descrito como preguiçoso e atrasado."
+      certa: true
+    - texto: "um operário de fábrica em greve."
+      erro: "O Jeca é homem do campo, não operário."
+    - texto: "um pastor árcade apaixonado."
+      erro: "Pastores apaixonados são do Arcadismo, no século 18."
+    - texto: "um marinheiro negro do Rio de Janeiro."
+      erro: "Esse é o Bom-Crioulo, do romance de Adolfo Caminha (1895)."
+  explicacao: "O Jeca de Urupês reforçou um preconceito contra o caipira. Depois, em textos sobre saúde pública, o próprio Lobato passou a dizer que o Jeca estava doente e abandonado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-03
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-pre-modernismo
+  dificuldade: 1
+  enunciado: "Os sertões (1902), de Euclides da Cunha, é dividido em três partes:"
+  alternativas:
+    - texto: "A Terra, O Homem e A Luta."
+      certa: true
+    - texto: "Infância, Juventude e Velhice."
+      erro: "Essa divisão não existe no livro. Ele segue o método científico: meio, ser humano, fatos."
+    - texto: "Céu, Purgatório e Inferno."
+      erro: "Essa é a divisão da Divina Comédia, de Dante."
+    - texto: "Campo, Cidade e Sertão."
+      erro: "As partes são A Terra, O Homem e A Luta."
+    - texto: "Colônia, Império e República."
+      erro: "O livro não é uma história do Brasil por períodos. Trata da Guerra de Canudos."
+  explicacao: "Primeiro o meio (A Terra), depois o tipo humano (O Homem), depois a guerra (A Luta). É o método determinista da ciência da época."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-04
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-pre-modernismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O sertanejo é, antes de tudo, um forte. Não tem o raquitismo exaustivo dos mestiços neurastênicos do litoral.
+    (Euclides da Cunha, Os sertões, 1902. Domínio público.)
+  enunciado: "Lido no contexto das ideias do começo do século 20, o trecho revela"
+  alternativas:
+    - texto: "uma descrição neutra, sem nenhuma teoria por trás."
+      erro: "Falar em \"mestiços neurastênicos\" é usar uma teoria: o racismo científico da época."
+    - texto: "a defesa da igualdade entre todos os grupos humanos."
+      erro: "O trecho classifica grupos como mais fortes ou mais fracos. Não há igualdade."
+    - texto: "a admiração pelo sertanejo explicada por teorias deterministas e racistas, que comparam grupos humanos."
+      certa: true
+    - texto: "o desprezo total pelo sertanejo, visto como fraco."
+      erro: "É o contrário: o sertanejo é \"antes de tudo, um forte\"."
+    - texto: "a ironia de um narrador que zomba do leitor."
+      erro: "O tom é de afirmação científica, não de ironia."
+  explicacao: "Euclides elogia o sertanejo, mas o explica pela \"raça\" e pelo meio, comparando-o aos \"mestiços neurastênicos\". É o determinismo do fim do século 19, com o racismo científico que hoje sabemos falso."
+  fonte: "Questão original do Instituto Lúcia; trecho de Euclides da Cunha (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-05
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-pre-modernismo
+  dificuldade: 2
+  enunciado: "Lima Barreto (1881–1922) escreveu sobre o subúrbio do Rio, a burocracia e o racismo. A vida dele ajuda a entender a obra porque ele"
+  alternativas:
+    - texto: "era filho de um barão do café e viveu na corte."
+      erro: "Lima Barreto era pobre, funcionário público, morador do subúrbio."
+    - texto: "foi o primeiro presidente da Academia Brasileira de Letras."
+      erro: "Esse foi Machado de Assis. Lima Barreto tentou entrar na Academia e não foi eleito."
+    - texto: "morou toda a vida em Paris."
+      erro: "Ele viveu no Rio de Janeiro, sobretudo no subúrbio."
+    - texto: "escreveu só poesia parnasiana."
+      erro: "Lima Barreto é romancista, contista e cronista, de linguagem simples."
+    - texto: "era um homem negro e pobre, que viveu o racismo e a vida do subúrbio de que fala."
+      certa: true
+  explicacao: "Nascido em 13 de maio de 1881, sete anos antes da Abolição, Lima Barreto conheceu de perto o preconceito e o subúrbio. A obra dele fala do que viveu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-06
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-pre-modernismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Vês?! Ninguém assistiu ao formidável
+    Enterro de tua última quimera.
+    Somente a Ingratidão — esta pantera —
+    Foi tua companheira inseparável!
+    (Augusto dos Anjos, "Versos íntimos", Eu, 1912. Domínio público; grafia atualizada.)
+  enunciado: "Os versos expressam uma visão"
+  alternativas:
+    - texto: "otimista, de quem confia na amizade."
+      erro: "Ninguém foi ao \"enterro\" do sonho. A única companhia é a Ingratidão. Não há otimismo."
+    - texto: "amarga e pessimista, de quem perdeu o último sonho e só encontrou ingratidão."
+      certa: true
+    - texto: "patriótica, de exaltação da natureza."
+      erro: "A pantera é imagem da Ingratidão, não da natureza do país."
+    - texto: "religiosa, de quem espera o céu."
+      erro: "Não há fé nem céu nos versos. Há solidão e amargura."
+    - texto: "humorística, de quem ri da própria sorte."
+      erro: "O tom é sombrio, sem humor."
+  explicacao: "\"Quimera\" é um sonho impossível. O enterro dele não teve testemunhas; só a Ingratidão, comparada a uma pantera, ficou ao lado. É o pessimismo amargo de Augusto dos Anjos."
+  fonte: "Questão original do Instituto Lúcia; versos de Augusto dos Anjos (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-07
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-pre-modernismo
+  dificuldade: 2
+  enunciado: "O Pré-Modernismo não foi uma escola com manifesto. Por que, então, os livros agrupam autores tão diferentes nesse período?"
+  alternativas:
+    - texto: "Porque todos usavam verso livre."
+      erro: "Muitos ainda escreviam com linguagem tradicional. Augusto dos Anjos fazia sonetos."
+    - texto: "Porque todos eram do mesmo estado."
+      erro: "Euclides era fluminense, Lima Barreto carioca, Augusto dos Anjos paraibano, Lobato paulista."
+    - texto: "Porque todos defendiam o governo republicano."
+      erro: "Muitos criticaram a República, como Lima Barreto e Euclides."
+    - texto: "Porque imitavam os pastores do século 18."
+      erro: "Isso é o Arcadismo. Os pré-modernistas olhavam para o Brasil real."
+    - texto: "Porque voltaram os olhos para o Brasil esquecido: o sertão, o subúrbio, o caipira, o racismo."
+      certa: true
+  explicacao: "O que une esses autores é o tema: o país que a República não queria ver. A linguagem ainda é, muitas vezes, tradicional. Por isso o período é visto como passagem para o Modernismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-08
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-pre-modernismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    [...] usando do direito que lhe confere a constituição, vem pedir que o congresso nacional decrete o tupi-guarani como língua oficial e nacional do povo brasileiro.
+    (Lima Barreto, Triste fim de Policarpo Quaresma, Parte I, capítulo IV, 1915. Domínio público.)
+  enunciado: "A linguagem do trecho imita um documento oficial. No romance, esse recurso produz um efeito de"
+  alternativas:
+    - texto: "seriedade total, pois o pedido é aprovado pelo Congresso."
+      erro: "O pedido não é aprovado: vira motivo de riso no Congresso e nos jornais."
+    - texto: "suspense, pois o leitor não sabe quem escreveu o pedido."
+      erro: "O leitor sabe: é o major Quaresma, protagonista."
+    - texto: "linguagem técnica sem relação com a história."
+      erro: "O documento é peça central do enredo: é ele que faz Quaresma ser tomado por louco."
+    - texto: "humor crítico, pelo choque entre a forma solene do requerimento e a ideia desligada da realidade."
+      certa: true
+    - texto: "exaltação da língua portuguesa como a mais bela."
+      erro: "O pedido é para trocar o português pelo tupi. Não exalta o português."
+  explicacao: "A forma é solene (\"usando do direito que lhe confere a constituição\"), e a ideia é impossível. O choque cria o riso. Mas o romance também ri de quem ri: uma elite que não leva o país a sério."
+  fonte: "Questão original do Instituto Lúcia; trecho de Lima Barreto (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-09
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-pre-modernismo
+  dificuldade: 3
+  enunciado: "Na nota que abre Os sertões, Euclides diz que a campanha contra Canudos foi, \"na significação integral da palavra, um crime\". Essa afirmação mostra que o livro"
+  alternativas:
+    - texto: "denuncia a violência do Estado republicano contra os sertanejos, apesar das teorias deterministas que usa."
+      certa: true
+    - texto: "apoia sem reservas a ação do exército."
+      erro: "Chamar a campanha de crime é o contrário de apoiá-la."
+    - texto: "foi escrito por Antônio Conselheiro."
+      erro: "O autor é Euclides, jornalista que cobriu a guerra em 1897."
+    - texto: "é um romance de amor com a guerra ao fundo."
+      erro: "Os sertões não é romance de amor. É um livro sobre a terra, o sertanejo e a guerra."
+    - texto: "nega que a guerra tenha acontecido."
+      erro: "O livro descreve a guerra em detalhes, na parte \"A Luta\"."
+  explicacao: "Euclides foi a Canudos com as ideias da imprensa do litoral e voltou acusando a República. O livro junta o determinismo da época e uma denúncia forte. Ler as duas coisas juntas é ligar o texto ao seu tempo."
+  fonte: "Questão original do Instituto Lúcia; frase de Euclides da Cunha (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-pre-modernismo-10
+  tema: "Pré-Modernismo"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-pre-modernismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No começo do século 20, o Rio de Janeiro derrubou cortiços para abrir avenidas largas. Quem morava neles foi para os morros e para o subúrbio, longe do centro bonito das fotografias. Lima Barreto, morador do subúrbio, escreveu sobre essa cidade dividida.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "A leitura de Lima Barreto continua atual porque permite discutir"
+  alternativas:
+    - texto: "a ideia de que as cidades brasileiras nunca mudaram."
+      erro: "O texto fala justamente de mudanças: avenidas abertas, cortiços derrubados."
+    - texto: "a beleza das avenidas como única medida de progresso."
+      erro: "O texto questiona isso: o progresso das avenidas empurrou os pobres para longe."
+    - texto: "uma modernização urbana que expulsa os pobres para a periferia, problema que se repete hoje."
+      certa: true
+    - texto: "a vida dos fazendeiros de café no interior paulista."
+      erro: "O texto fala do Rio de Janeiro e do subúrbio, não do interior."
+    - texto: "a defesa dos cortiços como moradia ideal."
+      erro: "O texto não idealiza o cortiço. Critica quem foi expulso sem ter para onde ir."
+  explicacao: "A cidade que se moderniza para alguns e expulsa outros é a de Lima Barreto e é também a de hoje, quando o aluguel sobe e quem mora no bairro vai para mais longe. É um valor atual: o direito à cidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,250 @@
+# Exercícios da aula "Prismas e cilindros" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-prismas-01
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-prismas-e-cilindros
+  dificuldade: 1
+  enunciado: "Uma caixa-d'água em forma de bloco retangular mede, por dentro, 1,5 m de comprimento, 1 m de largura e 1,2 m de altura. Quantos litros ela comporta?"
+  alternativas:
+    - texto: "1.800 L"
+      certa: true
+    - texto: "180 L"
+      erro: "Você multiplicou os 1,8 m³ por 100. Cada metro cúbico tem 1.000 litros: 1,8 × 1.000."
+    - texto: "18.000 L"
+      erro: "Você multiplicou por 10.000. A ponte é 1 m³ = 1.000 L."
+    - texto: "3,7 L"
+      erro: "Você somou as medidas (1,5 + 1 + 1,2). Volume é comprimento vezes largura vezes altura."
+    - texto: "1,8 L"
+      erro: "O volume está certo, 1,8 m³, mas metro cúbico não é litro. Multiplique por 1.000."
+  explicacao: "V = 1,5 × 1 × 1,2 = 1,8 m³. Em litros: 1,8 × 1.000 = 1.800 L."
+  conferir: "1.5 * 1 * 1.2 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-02
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-prismas-e-cilindros
+  dificuldade: 1
+  enunciado: "Uma caixa de isopor em forma de cubo tem, por dentro, 30 cm de aresta. Quantos litros cabem nela?"
+  alternativas:
+    - texto: "90 L"
+      erro: "Você multiplicou a aresta por 3. O volume do cubo é aresta × aresta × aresta: 30 × 30 × 30."
+    - texto: "27 L"
+      certa: true
+    - texto: "2,7 L"
+      erro: "Você dividiu os 27.000 cm³ por 10.000. Um litro tem 1.000 cm³: 27.000 ÷ 1.000 = 27."
+    - texto: "270 L"
+      erro: "Você dividiu os 27.000 cm³ por 100. Um litro tem 1.000 cm³."
+    - texto: "900 L"
+      erro: "900 é a área de uma face, em cm² (30 × 30). Falta multiplicar pela terceira aresta e converter para litros."
+  explicacao: "V = 30 × 30 × 30 = 27.000 cm³. Como 1 L = 1.000 cm³, cabem 27 L. Em decímetros: 3 × 3 × 3 = 27 dm³ = 27 L."
+  conferir: "30^3 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-03
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-prismas-e-cilindros
+  dificuldade: 1
+  enunciado: "Um pote cilíndrico tem 10 cm de raio da base e 20 cm de altura. Usando π = 3,14, qual é o volume do pote?"
+  alternativas:
+    - texto: "1.256 cm³"
+      erro: "1.256 é a área lateral (2 × 3,14 × 10 × 20), em cm². O volume é π · r² · h."
+    - texto: "628 cm³"
+      erro: "Você esqueceu de elevar o raio ao quadrado (3,14 × 10 × 20). O volume é π · r² · h."
+    - texto: "6.280 cm³"
+      certa: true
+    - texto: "25.120 cm³"
+      erro: "Você usou o diâmetro (20 cm) no lugar do raio: 3,14 × 400 × 20. O raio é 10 cm."
+    - texto: "2.000 cm³"
+      erro: "Você fez r² · h (100 × 20) e esqueceu o π. A base é um círculo: π · r²."
+  explicacao: "Área da base: 3,14 × 10² = 314 cm². Volume: 314 × 20 = 6.280 cm³."
+  conferir: "3.14 * 10^2 * 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-04
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-prismas-e-cilindros
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Para dar acesso a cadeirantes, um posto de saúde vai construir uma rampa maciça de concreto. Vista de lado, a rampa é
+    um triângulo retângulo: um cateto fica no chão e mede 3 m, e o outro cateto é vertical, encostado no degrau, e mede
+    0,5 m. A rampa tem 2 m de largura. Ela é, portanto, um prisma de base triangular.
+  enunciado: "O volume de concreto da rampa, em metro cúbico, é"
+  alternativas:
+    - texto: "3"
+      erro: "Você fez 3 × 0,5 × 2 sem dividir por 2. A base é um triângulo: a área dele é base vezes altura dividido por 2."
+    - texto: "0,75"
+      erro: "0,75 m² é a área do triângulo da base. Falta multiplicar pela largura da rampa, 2 m."
+    - texto: "5,5"
+      erro: "Você somou as medidas (3 + 0,5 + 2). Volume do prisma é área da base vezes a altura (aqui, a largura)."
+    - texto: "1,5"
+      certa: true
+    - texto: "1.500"
+      erro: "Você multiplicou por 1.000, como na conversão para litros, mas manteve a unidade m³. A resposta em metro cúbico é 1,5."
+  explicacao: "Área do triângulo: 3 × 0,5 ÷ 2 = 0,75 m². Volume do prisma: 0,75 × 2 = 1,5 m³."
+  conferir: "(3 * 0.5 / 2) * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-05
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-prismas-e-cilindros
+  dificuldade: 2
+  enunciado: "Uma caixa de papelão sem tampa tem 40 cm de comprimento, 30 cm de largura e 20 cm de altura. Quantos centímetros quadrados de papelão são necessários para fazê-la, sem contar abas e sobras?"
+  alternativas:
+    - texto: "5.200 cm²"
+      erro: "Você contou a tampa. A caixa é sem tampa: só uma base de 40 × 30."
+    - texto: "24.000 cm²"
+      erro: "24.000 é o volume, em cm³ (40 × 30 × 20). O papelão é uma área: a soma das faces."
+    - texto: "2.600 cm²"
+      erro: "Você contou só uma face de cada tipo. Há duas faces de 40 × 20 e duas de 30 × 20."
+    - texto: "90 cm²"
+      erro: "Você somou as medidas. A área é a soma das áreas das faces: fundo e quatro laterais."
+    - texto: "4.000 cm²"
+      certa: true
+  explicacao: "Fundo: 40 × 30 = 1.200. Duas laterais de 40 × 20 = 1.600. Duas de 30 × 20 = 1.200. Total: 1.200 + 1.600 + 1.200 = 4.000 cm²."
+  conferir: "40*30 + 2*(40*20) + 2*(30*20)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-06
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-prismas-e-cilindros
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma comunidade rural vai construir um reservatório cilíndrico para guardar 24.000 litros de água da chuva. Por causa
+    do terreno, o raio da base tem de ser 2 m. Use π = 3 e lembre que 1 m³ = 1.000 L.
+  enunciado: "Para guardar exatamente esse volume, a altura interna do reservatório deve ser de"
+  alternativas:
+    - texto: "2 m"
+      certa: true
+    - texto: "4 m"
+      erro: "Você usou 3 × 2 como área da base, sem elevar o raio ao quadrado. A base é π · r² = 3 × 4 = 12 m²."
+    - texto: "0,5 m"
+      erro: "Você usou o diâmetro (4 m) como raio: 3 × 16 = 48 m² de base. O raio já é 2 m."
+    - texto: "8 m"
+      erro: "Você dividiu 24 só por π. Divida o volume pela área da base inteira, π · r² = 12."
+    - texto: "2.000 m"
+      erro: "Você não converteu os litros. 24.000 L são 24 m³; divida 24 por 12."
+  explicacao: "Volume: 24.000 L = 24 m³. Base: π · r² = 3 × 4 = 12 m². Altura: 24 ÷ 12 = 2 m."
+  conferir: "24 / (3 * 2^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-07
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 12
+  objeto: mat-geometria-prismas-e-cilindros
+  dificuldade: 2
+  enunciado: "Uma piscina pública em forma de bloco tem 8 m de comprimento, 4 m de largura e 1,5 m de profundidade. Uma bomba coloca 4.000 litros de água por hora. Em quantas horas a piscina fica cheia?"
+  alternativas:
+    - texto: "8 h"
+      erro: "Você usou só a área do fundo (8 × 4 = 32). Falta multiplicar pela profundidade para achar o volume."
+    - texto: "12 h"
+      certa: true
+    - texto: "1,2 h"
+      erro: "Você usou 1 m³ = 100 L. Cada metro cúbico tem 1.000 litros: são 48.000 L."
+    - texto: "120 h"
+      erro: "Você usou 1 m³ = 10.000 L. A ponte certa é 1 m³ = 1.000 L."
+    - texto: "192 h"
+      erro: "Você multiplicou 48 por 4 em vez de dividir. O tempo é o volume dividido pela vazão: 48.000 ÷ 4.000."
+  explicacao: "Volume: 8 × 4 × 1,5 = 48 m³ = 48.000 L. Tempo: 48.000 ÷ 4.000 = 12 horas."
+  conferir: "8 * 4 * 1.5 * 1000 / 4000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-08
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-prismas-e-cilindros
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um fabricante de molho de tomate vai mudar a lata, que é cilíndrica. A nova lata terá o raio da base 50% maior que o
+    da lata antiga, e a mesma altura.
+  enunciado: "Em relação à lata antiga, o volume da nova lata será maior em"
+  alternativas:
+    - texto: "50%"
+      erro: "O raio cresceu 50%, mas no volume ele entra ao quadrado. O fator é 1,5 × 1,5 = 2,25."
+    - texto: "100%"
+      erro: "Você somou 50% duas vezes (uma para cada r de r²). Fatores se multiplicam: 1,5 × 1,5 = 2,25, um aumento de 125%."
+    - texto: "125%"
+      certa: true
+    - texto: "225%"
+      erro: "225% é o novo volume comparado ao antigo (2,25 vezes). O aumento é o que passa de 100%: 225% − 100% = 125%."
+    - texto: "237,5%"
+      erro: "Você elevou 1,5 ao cubo (3,375), como se todas as medidas crescessem. A altura não mudou: só o raio, ao quadrado."
+  explicacao: "V = π · r² · h. Com raio 1,5 vez maior e mesma altura, o volume fica 1,5² = 2,25 vezes maior. Isso é 225% do antigo, um aumento de 125%."
+  conferir: "(1.5^2 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-09
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-prismas-e-cilindros
+  dificuldade: 3
+  enunciado: "De uma folha de papelão de 30 cm por 20 cm, recorta-se um quadrado de 5 cm de lado em cada um dos quatro cantos. Dobrando as abas para cima, forma-se uma caixa sem tampa. Qual é o volume dessa caixa?"
+  alternativas:
+    - texto: "3.000 cm³"
+      erro: "Você usou a folha inteira como fundo (30 × 20 × 5). Os recortes tiram 5 cm de cada ponta: o fundo fica 20 × 10."
+    - texto: "1.875 cm³"
+      erro: "Você tirou 5 cm só de uma ponta de cada lado (25 × 15 × 5). Há recorte nas duas pontas: tire 10 cm de cada medida."
+    - texto: "600 cm²"
+      erro: "600 é a área da folha (30 × 20). A pergunta é o volume da caixa montada."
+    - texto: "1.000 cm³"
+      certa: true
+    - texto: "2.000 cm³"
+      erro: "Você descontou os recortes só no comprimento (20 × 20 × 5). A largura também perde 10 cm: 20 − 10 = 10."
+  explicacao: "Comprimento do fundo: 30 − 2 × 5 = 20 cm. Largura: 20 − 2 × 5 = 10 cm. Altura: 5 cm (a aba dobrada). Volume: 20 × 10 × 5 = 1.000 cm³."
+  conferir: "(30 - 2*5) * (20 - 2*5) * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prismas-10
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 14
+  objeto: mat-geometria-prismas-e-cilindros
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No salão de uma associação, há uma coluna cilíndrica que vai do chão ao teto, com 0,5 m de raio e 4 m de altura.
+    Os voluntários vão pintar só a superfície lateral da coluna, com uma demão. Cada lata de tinta pinta 4 m².
+    Use π = 3.
+  enunciado: "Quantas latas de tinta serão necessárias?"
+  alternativas:
+    - texto: "6 latas"
+      erro: "Você usou o diâmetro (1 m) como raio: 2 × 3 × 1 × 4 = 24 m². O raio é 0,5 m."
+    - texto: "48 latas"
+      erro: "Você multiplicou a área (12 m²) pelo rendimento (4 m² por lata). Divida a área pelo que cada lata pinta."
+    - texto: "1 lata"
+      erro: "Você calculou o volume da coluna (3 × 0,25 × 4 = 3 m³). Tinta cobre área, não volume."
+    - texto: "4 latas"
+      erro: "Você somou as duas bases (13,5 m², arredondado para 4 latas). A coluna encosta no chão e no teto: as bases não se pintam."
+    - texto: "3 latas"
+      certa: true
+  explicacao: "Área lateral: 2 · π · r · h = 2 × 3 × 0,5 × 4 = 12 m². Latas: 12 ÷ 4 = 3."
+  conferir: "(2 * 3 * 0.5 * 4) / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

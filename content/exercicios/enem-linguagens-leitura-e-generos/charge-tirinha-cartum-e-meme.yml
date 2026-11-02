@@ -1,0 +1,246 @@
+# Exercícios da aula "Charge, tirinha, cartum e meme" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base (descrições de desenhos) originais do Instituto Lúcia.
+
+- id: enem-lin-humor-01
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-humor-grafico
+  dificuldade: 1
+  enunciado: "Um desenho publicado no jornal de hoje mostra o ministro da Economia, com o nariz enorme, cortando uma fatia de pão em pedaços cada vez menores. Que gênero é esse?"
+  alternativas:
+    - texto: "Cartum"
+      erro: "O cartum trata de tema geral. Aqui há uma pessoa e um fato da atualidade."
+    - texto: "Verbete"
+      erro: "Verbete define palavras."
+    - texto: "Charge"
+      certa: true
+    - texto: "Receita"
+      erro: "O pão é imagem da crítica, não receita."
+    - texto: "Notícia"
+      erro: "Notícia relata em texto objetivo; aqui há desenho, exagero e crítica."
+  explicacao: "Uma pessoa pública da atualidade, caricatura (o nariz enorme) e crítica a uma medida do momento: é charge."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-02
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-humor-grafico
+  dificuldade: 1
+  enunciado: "Nos quadrinhos, o balão com contorno em forma de nuvem, ligado à personagem por bolinhas, indica:"
+  alternativas:
+    - texto: "um grito."
+      erro: "O grito costuma vir em balão de contorno pontudo, com letras grandes."
+    - texto: "a fala do narrador."
+      erro: "O narrador costuma falar em caixa retangular, a legenda."
+    - texto: "um som de objeto."
+      erro: "Sons vêm como onomatopeias, fora do balão."
+    - texto: "um cochicho."
+      erro: "Cochicho costuma vir em balão de contorno tracejado."
+    - texto: "um pensamento da personagem."
+      certa: true
+  explicacao: "O balão em forma de nuvem, ligado por bolinhas, é a convenção do pensamento: o que a personagem pensa e não diz."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-03
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-humor-grafico
+  dificuldade: 1
+  enunciado: "Por que uma charge pode ficar difícil de entender alguns anos depois de publicada?"
+  alternativas:
+    - texto: "Porque depende de um fato da época que o leitor talvez já não conheça."
+      certa: true
+    - texto: "Porque as charges são escritas em outra língua."
+      erro: "Não há essa regra."
+    - texto: "Porque o desenho apaga com o tempo."
+      erro: "O problema não é físico; é de contexto."
+    - texto: "Porque charge não tem crítica."
+      erro: "Charge tem crítica; é isso que depende do contexto."
+    - texto: "Porque toda charge é um cartum."
+      erro: "Charge e cartum são gêneros diferentes."
+  explicacao: "A charge conversa com o noticiário. Quando o fato sai da memória, a crítica perde força. O cartum, que trata de temas gerais, envelhece menos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-04
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-humor-grafico
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Descrição de um cartum original do Instituto Lúcia.
+    Uma família está sentada à mesa de jantar. Os quatro olham para o celular. No centro da mesa, o prato de comida
+    também tem um celular, e a comida está fria, com uma teia de aranha.
+  enunciado: "O cartum critica"
+  alternativas:
+    - texto: "a falta de comida nas casas brasileiras."
+      erro: "Há comida na mesa. A teia mostra que ninguém tocou nela."
+    - texto: "o preço alto dos celulares."
+      erro: "O preço não aparece."
+    - texto: "a qualidade da comida servida."
+      erro: "O problema não é a comida, e sim a falta de atenção a ela e às pessoas."
+    - texto: "o uso excessivo do celular, que afasta as pessoas da convivência e do momento presente."
+      certa: true
+    - texto: "as aranhas que invadem as casas."
+      erro: "A teia é exagero simbólico: mostra quanto tempo passou."
+  explicacao: "O exagero (celular até no prato, teia de aranha na comida) mostra o tempo que a família passa sem se olhar. O tema é geral, por isso é cartum."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-05
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-humor-grafico
+  dificuldade: 2
+  enunciado: "Numa tirinha, o humor costuma depender da quebra de expectativa. Onde ela costuma estar?"
+  alternativas:
+    - texto: "No título da tirinha."
+      erro: "Muitas tirinhas nem têm título."
+    - texto: "No último quadrinho, que muda o sentido do que veio antes."
+      certa: true
+    - texto: "Na assinatura do autor."
+      erro: "A assinatura identifica, não produz humor."
+    - texto: "No primeiro quadrinho, que já conta a piada."
+      erro: "O primeiro quadro costuma montar a situação."
+    - texto: "Na cor do fundo."
+      erro: "A cor pode ajudar, mas a quebra de expectativa vem da história."
+  explicacao: "Os primeiros quadros criam uma expectativa; o último a quebra. A graça está nessa virada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-06
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-humor-grafico
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Descrição de uma charge original do Instituto Lúcia.
+    Um prefeito corta a fita de inauguração de uma praça novinha, com flores e bancos. Atrás dele, fora da foto
+    oficial, o desenho mostra o resto do bairro: rua de terra, esgoto a céu aberto e casas sem reboco. O fotógrafo diz:
+    "Sorri, prefeito, que aqui no cantinho ficou lindo!"
+  enunciado: "A crítica da charge se constrói pela relação entre"
+  alternativas:
+    - texto: "o enquadramento da foto oficial, que mostra só a praça, e o resto do bairro abandonado, que fica de fora."
+      certa: true
+    - texto: "as flores da praça e o tipo de banco escolhido."
+      erro: "Flores e bancos são da parte bonita; a crítica está no que fica fora."
+    - texto: "o nome do prefeito e o nome da praça."
+      erro: "Nenhum nome aparece."
+    - texto: "a profissão do fotógrafo e o horário da inauguração."
+      erro: "Não são esses os elementos da crítica."
+    - texto: "a cor da fita e o tamanho da tesoura."
+      erro: "Detalhes sem relação com a crítica."
+  explicacao: "A charge mostra o que a foto esconde. A fala do fotógrafo (“no cantinho ficou lindo”) é irônica: a obra é pequena perto do abandono. A crítica é à propaganda que mostra só o que convém."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-07
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-humor-grafico
+  dificuldade: 2
+  enunciado: "Um meme usa a imagem de um filme famoso e troca a legenda por uma situação do trabalho. Que recurso o meme usa?"
+  alternativas:
+    - texto: "Metalinguagem pura, porque define a palavra “filme”."
+      erro: "Nada é definido."
+    - texto: "Linguagem técnica de cinema."
+      erro: "O meme não fala de cinema; usa a cena para outra coisa."
+    - texto: "Descrição objetiva da cena do filme."
+      erro: "A legenda muda o sentido da cena; não a descreve."
+    - texto: "Intertextualidade, ao retomar uma obra conhecida e dar a ela um novo sentido."
+      certa: true
+    - texto: "Argumento de autoridade, ao citar o diretor."
+      erro: "Ninguém é citado."
+  explicacao: "O meme depende de o leitor reconhecer a cena original. Ao trocar a legenda, cria um sentido novo. É intertextualidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-08
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-humor-grafico
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Descrição de uma tirinha original do Instituto Lúcia.
+    Quadro 1: um menino diz ao avô: "Vô, na escola falaram que agora tudo é inteligência artificial."
+    Quadro 2: o avô, consertando um rádio com a chave de fenda: "É mesmo? E quem conserta a inteligência quando ela
+    quebra?"
+    Quadro 3: o menino pensa, de testa franzida.
+    Quadro 4: o menino, de chave de fenda na mão, ao lado do avô: "Me ensina?"
+  enunciado: "O desfecho da tirinha sugere"
+  alternativas:
+    - texto: "que o menino desistiu da escola."
+      erro: "Extrapolação. Nada indica que ele largou a escola."
+    - texto: "o valor do saber prático e do trabalho manual, transmitido entre gerações, diante do discurso de que a tecnologia resolve tudo."
+      certa: true
+    - texto: "que o avô é contra a escola."
+      erro: "O avô faz uma pergunta; não ataca a escola."
+    - texto: "que a inteligência artificial vai consertar rádios."
+      erro: "Inversão: a pergunta do avô mostra que alguém sempre precisa consertar."
+    - texto: "que o rádio estava funcionando perfeitamente."
+      erro: "O avô está consertando: o rádio tinha defeito."
+  explicacao: "O quadro 3, só com o pensamento do menino, prepara a virada. No quadro 4, ele quer aprender o ofício do avô. A imagem da chave de fenda nas duas mãos mostra a passagem do saber."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-09
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-humor-grafico
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Descrição de uma charge original do Instituto Lúcia.
+    Num ônibus lotado, as pessoas estão espremidas, uma com o pé no ar. Na lateral do ônibus, um adesivo diz: "Mais
+    conforto para você!". Um passageiro, com o rosto colado no vidro, lê o adesivo e responde: "Pra mim, quem?"
+  enunciado: "O efeito de humor e crítica resulta, sobretudo,"
+  alternativas:
+    - texto: "da descrição técnica do ônibus."
+      erro: "Não há descrição técnica."
+    - texto: "da defesa do aumento da passagem."
+      erro: "A passagem não aparece."
+    - texto: "da ausência de qualquer texto verbal."
+      erro: "Há texto: o adesivo e a fala. E eles são essenciais."
+    - texto: "da comparação entre ônibus e trem."
+      erro: "Não há trem."
+    - texto: "da ironia criada pelo contraste entre a promessa do adesivo e a lotação mostrada na imagem."
+      certa: true
+  explicacao: "A palavra (“Mais conforto”) é desmentida pela imagem (gente espremida). A pergunta do passageiro (“Pra mim, quem?”) explicita a ironia. Sem juntar imagem e texto, a crítica se perde."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-humor-10
+  tema: "Charge, tirinha, cartum e meme"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-humor-grafico
+  dificuldade: 3
+  enunciado: "Um meme com uma frase atribuída a um cientista famoso circula no grupo da família, sem fonte. O cientista nunca disse aquilo. O que essa situação mostra sobre o meme?"
+  alternativas:
+    - texto: "Que meme sempre traz informação verdadeira."
+      erro: "Inversão: o exemplo mostra o contrário."
+    - texto: "Que meme não pode ter texto."
+      erro: "Muitos memes têm texto."
+    - texto: "Que o formato do meme, rápido e compartilhável, também pode espalhar desinformação apoiada numa falsa autoridade."
+      certa: true
+    - texto: "Que memes só servem para humor."
+      erro: "Memes servem para humor, crítica, propaganda e, como aqui, desinformação."
+    - texto: "Que o cientista é o autor do meme."
+      erro: "O cientista nunca disse a frase; não é autor de nada."
+  explicacao: "O meme circula sem autor e sem fonte. Uma frase falsa com nome famoso usa a autoridade alheia para convencer. Checar a fonte vale também para o meme."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

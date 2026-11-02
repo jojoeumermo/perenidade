@@ -1,0 +1,246 @@
+# Exercícios da aula "Norma-padrão em uso" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-norma-01
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  dificuldade: 1
+  enunciado: "Qual frase segue a norma-padrão?"
+  alternativas:
+    - texto: "Havia muitas pessoas na fila do posto."
+      certa: true
+    - texto: "Haviam muitas pessoas na fila do posto."
+      erro: "“Haver” no sentido de existir é impessoal e fica no singular. Teste: “existiam muitas pessoas” vai para o plural; “havia”, não."
+    - texto: "Houveram muitas pessoas na fila do posto."
+      erro: "Mesmo caso: “haver” (existir) não tem sujeito e fica no singular: “houve”, “havia”."
+    - texto: "Existia muitas pessoas na fila do posto."
+      erro: "“Existir” tem sujeito (“muitas pessoas”) e concorda com ele: “existiam”."
+    - texto: "Tinham-se muitas pessoas na fila do posto."
+      erro: "A construção não existe na norma-padrão com esse sentido. Use “havia” ou “existiam”."
+  explicacao: "“Haver” com sentido de existir fica no singular: “havia muitas pessoas”."
+  fonte: "Questão original do Instituto Lúcia, com base em Bechara, Moderna Gramática Portuguesa"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-02
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  dificuldade: 1
+  enunciado: "Em qual frase o uso da crase está de acordo com a norma-padrão?"
+  alternativas:
+    - texto: "Vendemos à prazo."
+      erro: "“Prazo” é masculino: não aceita o artigo “a”. Teste: não se diz “ao prazo” nessa expressão. Fica “a prazo”."
+    - texto: "Começou à chover de tarde."
+      erro: "Antes de verbo não há artigo, então não há crase: “começou a chover”."
+    - texto: "A reunião começa às 19 horas."
+      certa: true
+    - texto: "Ficamos frente à frente."
+      erro: "Entre palavras repetidas não há crase: “frente a frente”, “cara a cara”."
+    - texto: "Mandei a mensagem à ela."
+      erro: "O pronome “ela” não aceita artigo. Fica “a ela”. Teste: “mandei a ele”, sem “ao”."
+  explicacao: "Hora exata leva crase: “às 19 horas”. Teste: “começa ao meio-dia”."
+  fonte: "Questão original do Instituto Lúcia, com base em Cunha e Cintra, Nova Gramática do Português Contemporâneo"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-03
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  dificuldade: 1
+  enunciado: "Qual frase segue a regência de “assistir” (no sentido de ver) da norma-padrão?"
+  alternativas:
+    - texto: "Assisti o jogo na casa do meu tio."
+      erro: "Na norma-padrão, “assistir” (ver) pede a preposição “a”. Na fala, “assisti o jogo” é comum; na redação, use “ao”."
+    - texto: "Assisti no jogo na casa do meu tio."
+      erro: "A preposição pedida é “a”, não “em”."
+    - texto: "Assisti do jogo na casa do meu tio."
+      erro: "“De” não é a preposição de “assistir”. O certo na norma é “assistir a”."
+    - texto: "Assisti com o jogo na casa do meu tio."
+      erro: "“Com” muda o sentido e não é a regência do verbo."
+    - texto: "Assisti ao jogo na casa do meu tio."
+      certa: true
+  explicacao: "“Assistir”, no sentido de ver, pede “a”: “assisti ao jogo”, “assisti à novela”."
+  fonte: "Questão original do Instituto Lúcia, com base em Bechara, Moderna Gramática Portuguesa"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-04
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Comunicado da Associação de Moradores:
+    “Os moradores que desejam participar do mutirão de limpeza do córrego, devem se inscrever até sexta-feira na sede da associação.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "Para adequar o comunicado à norma-padrão, é preciso"
+  alternativas:
+    - texto: "trocar “desejam” por “deseja”."
+      erro: "“Que” retoma “os moradores”, no plural. “Desejam” está certo."
+    - texto: "retirar a vírgula depois de “córrego”, que separa o sujeito do verbo."
+      certa: true
+    - texto: "pôr crase em “até sexta-feira”."
+      erro: "“Até” já é preposição. Não há crase nessa construção."
+    - texto: "trocar “devem” por “deve”."
+      erro: "O sujeito é “os moradores…”, no plural. O verbo fica “devem”."
+    - texto: "pôr vírgula depois de “Os moradores”."
+      erro: "Aí a vírgula cortaria a oração “que desejam participar”, que restringe quais moradores. Mudaria o sentido."
+  explicacao: "O sujeito é longo (“Os moradores que desejam participar do mutirão de limpeza do córrego”), mas continua sendo sujeito. Entre ele e o verbo “devem” não se usa vírgula."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-05
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  dificuldade: 2
+  enunciado: "Na norma-padrão, a frase “Prefiro mais trabalhar de dia do que de noite” fica:"
+  alternativas:
+    - texto: "“Prefiro mais trabalhar de dia que de noite.”"
+      erro: "Tirou o “do”, mas manteve o “mais” e o “que”. “Preferir” já indica a escolha e pede “a”."
+    - texto: "“Prefiro trabalhar de dia do que de noite.”"
+      erro: "Tirou o “mais”, mas o “do que” continua. Na norma-padrão, “preferir” pede “a”."
+    - texto: "“Prefiro muito mais trabalhar de dia.”"
+      erro: "Reforça o “mais” e apaga a comparação. Não corrige a regência."
+    - texto: "“Prefiro trabalhar de dia a trabalhar de noite.”"
+      certa: true
+    - texto: "“Prefiro de dia do que trabalhar de noite.”"
+      erro: "A frase perde o paralelismo e mantém o “do que”."
+  explicacao: "Na norma-padrão, prefere-se uma coisa a outra, sem “mais” e sem “do que”. Na fala, a outra forma é comum e se entende bem; a redação pede esta."
+  fonte: "Questão original do Instituto Lúcia, com base em Cunha e Cintra, Nova Gramática do Português Contemporâneo"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-06
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-norma-padrao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No ponto de ônibus:
+    — Me empresta um real pra completar a passagem?
+    — Empresta-me, você quer dizer. Não se começa frase com pronome.
+    — Moço, eu só quero um real.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O humor do diálogo vem do fato de que"
+  alternativas:
+    - texto: "o primeiro falante não sabe português."
+      erro: "Ele fez um pedido claro, entendido pelo outro. “Me empresta” é a forma corrente da fala brasileira."
+    - texto: "a regra citada pelo segundo falante não existe."
+      erro: "A regra existe na norma-padrão escrita. O problema é aplicá-la a uma conversa no ponto de ônibus."
+    - texto: "o segundo falante usa uma variedade regional."
+      erro: "A fala dele segue a norma-padrão, não uma variedade regional."
+    - texto: "o pedido foi feito em registro formal."
+      erro: "O pedido é informal (“me empresta”, “pra”), adequado à situação."
+    - texto: "a correção de uma regra da norma-padrão escrita é inadequada numa conversa informal e não ajuda em nada."
+      certa: true
+  explicacao: "A regra de não começar frase com pronome átono vale para a norma-padrão escrita. Num pedido rápido no ponto, “me empresta” é o adequado. A correção fora de lugar trava a conversa: daí o humor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-07
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  dificuldade: 2
+  enunciado: "“Vou ___ Bahia nas férias e depois ___ Recife.” Na norma-padrão, as lacunas se completam com:"
+  alternativas:
+    - texto: "à / a"
+      certa: true
+    - texto: "a / à"
+      erro: "Use o truque da volta: “volto da Bahia” (tem artigo, vai “à”) e “volto de Recife” (sem artigo, vai “a”)."
+    - texto: "à / à"
+      erro: "“Recife” não leva artigo: “volto de Recife”, não “da Recife”. Sem artigo, sem crase."
+    - texto: "a / a"
+      erro: "“Bahia” leva artigo (“volto da Bahia”). A preposição de “ir a” se junta a ele: “à Bahia”."
+    - texto: "na / no"
+      erro: "Na norma-padrão, “ir” pede “a”. “Vou na Bahia” é forma da fala."
+  explicacao: "Truque da volta: volto da Bahia, vou à Bahia; volto de Recife, vou a Recife."
+  fonte: "Questão original do Instituto Lúcia, com base em Bechara, Moderna Gramática Portuguesa"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-08
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Trecho de uma redação:
+    “Fazem anos que o problema da falta de creches é debatido. Contudo, ainda faltam vagas, e as mães que trabalham fora implicam em deixar os filhos com vizinhos.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "Para que o trecho siga a norma-padrão, os ajustes necessários são"
+  alternativas:
+    - texto: "trocar “faltam” por “falta” e “Contudo” por “Portanto”."
+      erro: "O sujeito de “faltam” é “vagas” (plural): está certo. E “contudo” indica a oposição correta."
+    - texto: "trocar “é debatido” por “são debatidos” e pôr vírgula depois de “mães”."
+      erro: "O sujeito de “é debatido” é “o problema”, singular. E a vírgula separaria o sujeito do verbo."
+    - texto: "pôr crase em “a falta” e trocar “filhos” por “filho”."
+      erro: "“Da falta” já tem a preposição “de”. E o plural “filhos” está certo."
+    - texto: "trocar “Fazem” por “Faz” e reescrever “implicam em deixar” (por exemplo, “são obrigadas a deixar”)."
+      certa: true
+    - texto: "trocar “Fazem” por “Faz” e “faltam” por “falta”."
+      erro: "O primeiro ajuste está certo. O segundo cria um erro: “vagas” é plural e pede “faltam”."
+  explicacao: "“Fazer” indicando tempo é impessoal: “Faz anos”. E “implicar” quer dizer acarretar, sem preposição; as mães não “implicam” nada. A ideia é que elas são obrigadas a deixar os filhos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-09
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Placa num restaurante popular:
+    PRATO FEITO R$ 18
+    SERVIMOS À PARTIR DAS 11H
+    ACEITAMOS CARTÃO
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "Na placa, o trecho que diverge da norma-padrão e a forma adequada são:"
+  alternativas:
+    - texto: "“DAS 11H”, que deveria ser “ÀS 11H”."
+      erro: "Com “a partir de”, usa-se “das”: a partir de + as = a partir das 11h. Está certo."
+    - texto: "“ACEITAMOS CARTÃO”, que deveria ser “ACEITA-SE CARTÃO”."
+      erro: "“Aceitamos cartão” segue a norma: sujeito “nós”, verbo concordando. Não há problema."
+    - texto: "“À PARTIR”, que deveria ser “A PARTIR”, porque antes de verbo não há crase."
+      certa: true
+    - texto: "“R$ 18”, que deveria ser “R$ 18,00”."
+      erro: "As duas formas indicam o mesmo valor. Escrever ou não os centavos não é questão de norma-padrão."
+    - texto: "“SERVIMOS”, que deveria ser “SERVE-SE”."
+      erro: "As duas formas são aceitas. “Servimos” não diverge da norma."
+  explicacao: "“Partir” é verbo. Antes de verbo não há artigo, então não há crase: “a partir das 11h”. É um dos desvios mais comuns em placas e avisos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-norma-10
+  tema: "Norma-padrão em uso"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-norma-padrao
+  dificuldade: 3
+  enunciado: "Qual frase segue a colocação pronominal da norma-padrão escrita?"
+  alternativas:
+    - texto: "“Me avisaram da reunião ontem.”"
+      erro: "Na norma-padrão escrita, não se começa a frase com pronome átono. Fica “Avisaram-me”."
+    - texto: "“Ninguém me avisou da reunião.”"
+      certa: true
+    - texto: "“Ninguém avisou-me da reunião.”"
+      erro: "“Ninguém” é palavra que puxa o pronome para antes do verbo: “ninguém me avisou”."
+    - texto: "“Não avisaram-me da reunião.”"
+      erro: "“Não” puxa o pronome para antes do verbo: “não me avisaram”."
+    - texto: "“Quem avisou-te da reunião?”"
+      erro: "“Quem” também puxa o pronome: “quem te avisou?”."
+  explicacao: "Palavras negativas (“não”, “ninguém”, “nunca”) e interrogativas (“quem”, “que”) puxam o pronome para antes do verbo. Por isso, “ninguém me avisou”."
+  fonte: "Questão original do Instituto Lúcia, com base em Cunha e Cintra, Nova Gramática do Português Contemporâneo"
+  revisao: { status: em-revisao }

@@ -1,0 +1,258 @@
+# Exercícios da aula "Grandezas direta e inversamente proporcionais" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Preços, prazos e quantidades são valores de exemplo.
+
+- id: enem-mat-grandezas-01
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 1
+  enunciado: "Três quilos de arroz custam R$ 18,00. Mantido o preço do quilo, quanto custam cinco quilos?"
+  alternativas:
+    - texto: "R$ 20,00"
+      erro: "Você somou ao preço a diferença de quilos (18 + 2). Preço e quantidade se multiplicam: ache primeiro o preço do quilo."
+    - texto: "R$ 36,00"
+      erro: "Você dobrou o preço. De 3 para 5 quilos a quantidade não dobra; ela é multiplicada por 5/3."
+    - texto: "R$ 30,00"
+      certa: true
+    - texto: "R$ 6,00"
+      erro: "R$ 6,00 é o preço de um quilo. Faltou multiplicar por 5."
+    - texto: "R$ 90,00"
+      erro: "Você multiplicou 18 por 5, que seria o preço de 15 quilos. Divida antes por 3."
+  explicacao: "O quilo custa 18 ÷ 3 = 6 reais. Cinco quilos custam 5 × 6 = 30 reais."
+  conferir: "18 / 3 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-02
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 15
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 1
+  enunciado: "Em qual destas situações as duas grandezas são inversamente proporcionais?"
+  alternativas:
+    - texto: "O número de pessoas que dividem igualmente uma pizza e o tamanho do pedaço de cada uma."
+      certa: true
+    - texto: "A quantidade de pães comprados e o valor pago, com preço fixo por pão."
+      erro: "Mais pães, mais dinheiro, na mesma razão: isso é proporção direta."
+    - texto: "A idade de uma criança e a altura dela."
+      erro: "As duas crescem, mas não na mesma razão: a altura não dobra quando a idade dobra. Não há proporção."
+    - texto: "A distância de uma corrida de táxi e o preço, com bandeirada fixa."
+      erro: "A bandeirada é uma parte fixa. Por causa dela, o preço não dobra quando a distância dobra: não há proporção."
+    - texto: "As horas trabalhadas e o salário, com valor fixo por hora."
+      erro: "Mais horas, mais salário, na mesma razão: isso é proporção direta."
+  explicacao: "Com o dobro de pessoas, cada pedaço fica com a metade do tamanho. O produto (pessoas × tamanho do pedaço) é sempre a pizza inteira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-03
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 1
+  enunciado: "Um ônibus faz um trajeto em 4 horas, a 60 km/h de velocidade média. Quanto tempo levaria o mesmo trajeto a 80 km/h?"
+  alternativas:
+    - texto: "5 horas e 20 minutos"
+      valor: "320"
+      erro: "Você tratou como proporção direta. Mais velocidade, menos tempo: as grandezas são inversas."
+    - texto: "2 horas"
+      valor: "120"
+      erro: "Você tirou 2 horas sem fazer a conta. Calcule a distância: 60 × 4 = 240 km."
+    - texto: "4 horas"
+      valor: "240"
+      erro: "Com velocidade maior, o mesmo trajeto leva menos tempo."
+    - texto: "1 hora e 20 minutos"
+      valor: "80"
+      erro: "Você dividiu as velocidades (80 ÷ 60). O tempo é a distância dividida pela velocidade: 240 ÷ 80."
+    - texto: "3 horas"
+      valor: "180"
+      certa: true
+  explicacao: "O trajeto tem 60 × 4 = 240 km. A 80 km/h: 240 ÷ 80 = 3 horas, ou 180 minutos."
+  conferir: "60 * 4 / 80 * 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-04
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-grandezas-proporcionais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma cooperativa de reciclagem vendeu um lote de papelão por R$ 4.800,00. O valor será dividido entre três
+    cooperadas em partes diretamente proporcionais às horas que cada uma trabalhou na triagem do lote: Ana trabalhou
+    20 horas, Bia trabalhou 30 horas e Célia trabalhou 50 horas.
+  enunciado: "Bia deve receber"
+  alternativas:
+    - texto: "R$ 1.600,00."
+      erro: "Esse é o valor de uma divisão em partes iguais (4.800 ÷ 3). A divisão combinada é pelas horas."
+    - texto: "R$ 1.440,00."
+      certa: true
+    - texto: "R$ 960,00."
+      erro: "Essa é a parte de Ana, que trabalhou 20 horas."
+    - texto: "R$ 2.400,00."
+      erro: "Essa é a parte de Célia, que trabalhou 50 horas."
+    - texto: "R$ 160,00."
+      erro: "Você dividiu 4.800 pelas 30 horas de Bia. Divida pelo total de horas, 100, para achar o valor de cada hora."
+  explicacao: "Total de horas: 20 + 30 + 50 = 100. Cada hora vale 4.800 ÷ 100 = 48 reais. Bia: 30 × 48 = 1.440 reais."
+  conferir: "4800 / (20 + 30 + 50) * 30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-05
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 2
+  enunciado: "Oito torneiras iguais enchem um tanque em 6 horas. Em quantas horas doze torneiras iguais a essas encheriam o mesmo tanque?"
+  alternativas:
+    - texto: "9 horas"
+      erro: "Você tratou como proporção direta. Com mais torneiras, o tanque enche mais rápido."
+    - texto: "2 horas"
+      erro: "Você tirou do tempo a diferença de torneiras (12 − 8 = 4, e 6 − 4 = 2). As grandezas se multiplicam, não se subtraem."
+    - texto: "10 horas"
+      erro: "Você somou ao tempo as 4 torneiras a mais. Mais torneiras diminuem o tempo."
+    - texto: "4 horas"
+      certa: true
+    - texto: "3 horas"
+      erro: "Você dividiu o tempo por 2, como se o número de torneiras tivesse dobrado. De 8 para 12 ele é multiplicado por 1,5."
+  explicacao: "Torneiras e tempo são inversamente proporcionais: 8 × 6 = 48. Com 12 torneiras, 48 ÷ 12 = 4 horas."
+  conferir: "8 * 6 / 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-06
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 17
+  objeto: mat-numeros-grandezas-proporcionais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa oficina de costura, todas as máquinas trabalham no mesmo ritmo. A dona anotou quanto tempo leva para fazer o
+    mesmo pedido, conforme o número de máquinas ligadas:
+
+    2 máquinas: 30 horas
+    3 máquinas: 20 horas
+    4 máquinas: 15 horas
+    6 máquinas: 10 horas
+  enunciado: "Pela tabela, o número de máquinas e o tempo do pedido são grandezas"
+  alternativas:
+    - texto: "inversamente proporcionais, porque o produto de máquinas por horas é sempre 60."
+      certa: true
+    - texto: "diretamente proporcionais, porque a razão entre horas e máquinas é sempre 15."
+      erro: "A razão muda: 30 ÷ 2 = 15, mas 20 ÷ 3 não é 15. Quando uma grandeza sobe e a outra desce, teste o produto."
+    - texto: "diretamente proporcionais, porque as duas mudam juntas."
+      erro: "Mudar junto não basta. Aqui, quando as máquinas aumentam, as horas diminuem."
+    - texto: "não proporcionais, porque as horas caem de forma irregular."
+      erro: "As horas caem de forma bem regular: 2 × 30 = 3 × 20 = 4 × 15 = 6 × 10 = 60."
+    - texto: "inversamente proporcionais, porque o produto de máquinas por horas é sempre 30."
+      erro: "Faça a conta numa linha: 2 × 30 = 60. O produto constante é 60."
+  explicacao: "Em todas as colunas, máquinas × horas = 60. Produto constante quer dizer grandezas inversamente proporcionais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-07
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 15
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 2
+  enunciado: "Uma corrida de táxi custa R$ 6,00 de bandeirada mais R$ 3,00 por quilômetro. Uma corrida de 4 km custa R$ 18,00. Quanto custa uma corrida de 8 km?"
+  alternativas:
+    - texto: "R$ 36,00"
+      erro: "Você dobrou o preço porque a distância dobrou. A bandeirada é fixa e não dobra: o preço não é proporcional à distância."
+    - texto: "R$ 24,00"
+      erro: "Você calculou só os quilômetros (8 × 3). Falta a bandeirada de R$ 6,00."
+    - texto: "R$ 30,00"
+      certa: true
+    - texto: "R$ 21,00"
+      erro: "Você somou o preço de um quilômetro só. De 4 para 8 km são 4 km a mais: 4 × 3 = 12 reais."
+    - texto: "R$ 12,00"
+      erro: "R$ 12,00 é o custo dos 4 km a mais. A corrida inteira é 18 + 12."
+  explicacao: "Corrida de 8 km: 6 + 8 × 3 = 6 + 24 = 30 reais. Não é o dobro de 18, porque a parte fixa não muda."
+  conferir: "6 + 8 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-08
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-grandezas-proporcionais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma horta comunitária vai doar 1.300 mudas a três escolas. Para compensar a dificuldade de transporte, as mudas
+    serão divididas em partes inversamente proporcionais à distância de cada escola até a horta. A escola A fica a
+    2 km, a escola B fica a 3 km e a escola C fica a 4 km.
+  enunciado: "A escola C vai receber"
+  alternativas:
+    - texto: "400 mudas."
+      erro: "Essa é a parte da escola B, que fica a 3 km."
+    - texto: "Cerca de 433 mudas."
+      erro: "Você dividiu em partes iguais (1.300 ÷ 3). A divisão combinada leva em conta a distância de cada escola."
+    - texto: "600 mudas."
+      erro: "Essa é a parte da escola A, a mais perto, que recebe mais."
+    - texto: "325 mudas."
+      erro: "Você dividiu 1.300 por 4. A parte de cada escola depende das três distâncias juntas."
+    - texto: "300 mudas."
+      certa: true
+  explicacao: "As partes são proporcionais a 1/2, 1/3 e 1/4. Multiplique tudo por 12: 6, 4 e 3. Somando, 13 partes. Cada parte vale 1.300 ÷ 13 = 100 mudas. A escola C fica com 3 × 100 = 300."
+  conferir: "1300 / (6 + 4 + 3) * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-09
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 17
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 3
+  enunciado: "A grandeza y é diretamente proporcional a x, e a grandeza z é inversamente proporcional a x. Se x for multiplicado por 3, a razão y ÷ z fica"
+  alternativas:
+    - texto: "multiplicada por 3."
+      erro: "Você olhou só o y, que triplica. Mas o z também muda: ele fica dividido por 3."
+    - texto: "multiplicada por 9."
+      certa: true
+    - texto: "multiplicada por 1, ou seja, não muda."
+      erro: "Os efeitos não se cancelam. Dividir por um z menor deixa a razão ainda maior."
+    - texto: "multiplicada por 6."
+      erro: "Você somou os efeitos (3 + 3). Numa divisão, os fatores se multiplicam: 3 ÷ (1/3) = 9."
+    - texto: "multiplicada por 1/9."
+      erro: "Você inverteu a razão. O y cresce e o z diminui, então y ÷ z cresce."
+  explicacao: "Com x triplicado, y fica 3 vezes maior e z fica 3 vezes menor. A razão y ÷ z fica multiplicada por 3 ÷ (1/3) = 9."
+  conferir: "3 / (1 / 3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-grandezas-10
+  tema: "Grandezas direta e inversamente proporcionais"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-grandezas-proporcionais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma família comprou ração suficiente para alimentar 12 galinhas durante 15 dias. Depois de 5 dias, ela recebeu de
+    presente mais 8 galinhas, que comem a mesma quantidade de ração por dia que as outras.
+  enunciado: "A ração que sobrou vai durar, a partir da chegada das galinhas novas,"
+  alternativas:
+    - texto: "9 dias."
+      erro: "Você dividiu a ração inteira entre 20 galinhas (12 × 15 ÷ 20). Mas 5 dias de ração já foram consumidos."
+    - texto: "10 dias."
+      erro: "Esses são os dias que restavam para as 12 galinhas. Com 20 galinhas, a ração acaba antes."
+    - texto: "4 dias."
+      erro: "Você fez a conta só para as 8 galinhas novas, como se fossem as únicas, e tratou a relação como direta."
+    - texto: "6 dias."
+      certa: true
+    - texto: "15 dias."
+      erro: "15 dias era o plano inicial, com 12 galinhas e a ração cheia."
+  explicacao: "Sobraram 10 dias de ração para 12 galinhas: 12 × 10 = 120 'porções de galinha por dia'. Com 20 galinhas: 120 ÷ 20 = 6 dias."
+  conferir: "12 * (15 - 5) / (12 + 8)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

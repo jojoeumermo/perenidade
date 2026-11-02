@@ -1,0 +1,261 @@
+# Exercícios da aula "Inflação e poder de compra" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Índices, salários e taxas de inflação são valores de exemplo,
+# não dados oficiais.
+
+- id: enem-mat-inflacao-01
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-inflacao
+  dificuldade: 1
+  enunciado: "Uma cesta de compras custava R$ 500,00. Num ano, os preços dela subiram 6%. Quanto ela custa agora?"
+  alternativas:
+    - texto: "R$ 506,00"
+      erro: "Você somou 6 reais. A alta é de 6%: 6% de 500 são 30 reais."
+    - texto: "R$ 530,00"
+      certa: true
+    - texto: "R$ 30,00"
+      erro: "R$ 30,00 é quanto a cesta subiu. A pergunta pede o preço novo."
+    - texto: "R$ 470,00"
+      erro: "Você tirou a alta. Com inflação, os preços sobem."
+    - texto: "R$ 503,00"
+      erro: "Você calculou 0,6%, e não 6%. 6% em decimal é 0,06."
+  explicacao: "6% de 500 = 30. Preço novo: 500 + 30 = 530 reais. Pelo fator: 500 × 1,06 = 530."
+  conferir: "500 * 1.06"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-02
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-inflacao
+  dificuldade: 1
+  enunciado: "A inflação foi de 2% em janeiro e de 3% em fevereiro. A inflação acumulada nos dois meses foi de"
+  alternativas:
+    - texto: "5%"
+      erro: "Você somou as taxas. A inflação de fevereiro incide sobre os preços que já tinham subido em janeiro."
+    - texto: "6%"
+      erro: "Você multiplicou as taxas (2 × 3). O que se multiplica são os fatores: 1,02 × 1,03."
+    - texto: "105,06%"
+      erro: "1,0506 é o fator: os preços estão 105,06% do que eram. A inflação é o que passa de 100%."
+    - texto: "1%"
+      erro: "Você subtraiu as taxas. Os preços subiram nos dois meses."
+    - texto: "5,06%"
+      certa: true
+  explicacao: "1,02 × 1,03 = 1,03 + 0,0206 = 1,0506. A inflação acumulada é de 5,06%."
+  conferir: "(1.02 * 1.03 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-03
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-inflacao
+  dificuldade: 1
+  enunciado: "Num período, os preços de tudo dobraram, e o salário de uma pessoa ficou igual. Com esse salário, ela passa a comprar"
+  alternativas:
+    - texto: "50% do que comprava."
+      certa: true
+    - texto: "0% do que comprava, ou seja, nada."
+      erro: "Uma alta de 100% não zera o salário. Com os preços em dobro, o mesmo dinheiro compra a metade."
+    - texto: "100% do que comprava."
+      erro: "O salário é o mesmo, mas os preços dobraram. O salário compra menos."
+    - texto: "25% do que comprava."
+      erro: "25% seria o caso de os preços ficarem 4 vezes maiores. Dobrar é dividir o poder de compra por 2."
+    - texto: "200% do que comprava."
+      erro: "Você multiplicou pelo fator dos preços. O poder de compra é o salário dividido pelos preços."
+  explicacao: "Poder de compra = salário ÷ preços. Com os preços multiplicados por 2, ele fica 1 ÷ 2 = 0,5, ou 50% do que era."
+  conferir: "1 / 2 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-04
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-inflacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num ano, o salário de uma categoria de trabalhadores teve reajuste de 5%. No mesmo ano, a inflação dos produtos
+    que essas famílias consomem foi de 8%. Considere 1,05 ÷ 1,08 ≈ 0,972.
+  enunciado: "Nesse ano, o poder de compra do salário dessa categoria"
+  alternativas:
+    - texto: "caiu exatamente 3%."
+      valor: "3"
+      erro: "Subtrair as taxas (8 − 5) dá uma aproximação, não a conta exata. Divida os fatores: 1,05 ÷ 1,08."
+    - texto: "subiu 5%."
+      valor: "-5"
+      erro: "O salário subiu 5%, mas os preços subiram mais. O poder de compra depende dos dois."
+    - texto: "caiu 8%."
+      valor: "8"
+      erro: "8% é a inflação. O salário também foi reajustado, o que compensa parte da alta."
+    - texto: "caiu cerca de 2,8%."
+      valor: "2.8"
+      certa: true
+    - texto: "caiu cerca de 97,2%."
+      valor: "97.2"
+      erro: "0,972 é o que sobrou do poder de compra (97,2%). A queda é o que falta para 100%."
+  explicacao: "O fator real é 1,05 ÷ 1,08 ≈ 0,972. O salário compra cerca de 97,2% do que comprava: uma queda de cerca de 2,8%."
+  conferir: "(1 - 0.972) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-05
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-inflacao
+  dificuldade: 2
+  enunciado: "A inflação de um ano foi de 10%. Para manter o mesmo poder de compra, um salário de R$ 1.800,00 deve passar a ser de"
+  alternativas:
+    - texto: "R$ 1.810,00"
+      erro: "Você somou 10 reais. A alta é de 10%: 10% de 1.800 são 180 reais."
+    - texto: "R$ 1.620,00"
+      erro: "Você tirou 10%. Para acompanhar a alta dos preços, o salário tem de subir."
+    - texto: "R$ 1.980,00"
+      certa: true
+    - texto: "R$ 180,00"
+      erro: "R$ 180,00 é o reajuste. O salário novo é 1.800 + 180."
+    - texto: "R$ 1.818,00"
+      erro: "Você calculou 1%, e não 10%. 10% em decimal é 0,1."
+  explicacao: "O salário tem de subir na mesma taxa dos preços: 1.800 × 1,1 = 1.980 reais."
+  conferir: "1800 * 1.1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-06
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-inflacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um sindicato acompanha um índice de preços dos produtos que os trabalhadores mais compram. No ano 1, o índice foi
+    fixado em 100. No ano 2, ele chegou a 110. No ano 3, chegou a 121.
+  enunciado: "Do ano 2 para o ano 3, a alta dos preços foi de"
+  alternativas:
+    - texto: "10%."
+      certa: true
+    - texto: "11%."
+      erro: "11 são os pontos que o índice subiu (121 − 110). Pontos só viram porcentagem quando se parte de 100."
+    - texto: "21%."
+      erro: "21% é a alta desde o ano 1, a base. A pergunta parte do ano 2."
+    - texto: "121%."
+      erro: "121 é o índice do ano 3. A alta do ano 2 para o ano 3 é a divisão 121 ÷ 110."
+    - texto: "1,1%."
+      erro: "1,1 é o fator. Ele quer dizer uma alta de 10%, e não de 1,1%."
+  explicacao: "Compare o ano 3 com o ano 2: 121 ÷ 110 = 1,1. A alta foi de 10%."
+  conferir: "(121 / 110 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-07
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 5
+  objeto: mat-numeros-inflacao
+  dificuldade: 2
+  enunciado: "Uma categoria teve inflação de 6% no ano. A empresa propôs um reajuste de 4% agora e mais 2% daqui a seis meses, sobre o salário já reajustado. Ao fim, o reajuste total será de"
+  alternativas:
+    - texto: "6%"
+      erro: "Você somou as duas parcelas. A segunda incide sobre o salário já reajustado: multiplique 1,04 × 1,02."
+    - texto: "8%"
+      erro: "Você multiplicou as taxas (4 × 2). O que se multiplica são os fatores."
+    - texto: "2%"
+      erro: "2% é só a segunda parcela. A primeira, de 4%, também conta."
+    - texto: "6,08%"
+      certa: true
+    - texto: "106,08%"
+      erro: "1,0608 é o fator: o salário fica em 106,08% do que era. O reajuste é o que passa de 100%."
+  explicacao: "1,04 × 1,02 = 1,04 + 0,0208 = 1,0608, um reajuste de 6,08%. Ele repõe a inflação de 6% e deixa um ganho bem pequeno, mas o salário só chega lá depois de seis meses."
+  conferir: "(1.04 * 1.02 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-08
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-inflacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O salário de uma auxiliar administrativa passou de R$ 1.500,00 para R$ 1.782,00 num ano em que a inflação foi de
+    8%. Ela quer saber se teve ganho real, isto é, se o salário passou a comprar mais que antes.
+  enunciado: "O ganho real do salário foi de"
+  alternativas:
+    - texto: "10,8%."
+      erro: "Você subtraiu as taxas (18,8 − 8). O ganho real é a divisão dos fatores: 1,188 ÷ 1,08."
+    - texto: "10%."
+      certa: true
+    - texto: "18,8%."
+      erro: "18,8% é o reajuste nominal. Falta descontar a inflação."
+    - texto: "8%."
+      erro: "8% é a inflação do ano, e não o ganho real."
+    - texto: "26,8%."
+      erro: "Você somou o reajuste e a inflação. A inflação diminui o ganho, não aumenta."
+  explicacao: "Reajuste nominal: 1.782 ÷ 1.500 = 1,188. Fator real: 1,188 ÷ 1,08 = 1,1, porque 1,08 × 1,1 = 1,188. Ganho real de 10%."
+  conferir: "(1782 / 1500 / 1.08 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-09
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-inflacao
+  dificuldade: 3
+  enunciado: "Num mês houve deflação: os preços da cesta de uma família caíram 2%, e a renda dela ficou igual. O poder de compra dessa família"
+  alternativas:
+    - texto: "caiu 2%."
+      valor: "-2"
+      erro: "Com deflação, os preços caem. A mesma renda compra mais, não menos."
+    - texto: "subiu exatamente 2%."
+      valor: "2"
+      erro: "Quase: o ganho é um pouco maior que 2%, porque a conta é 1 ÷ 0,98, e não 1 + 0,02."
+    - texto: "não mudou."
+      valor: "0"
+      erro: "A renda ficou igual, mas os preços mudaram. O poder de compra depende dos dois."
+    - texto: "subiu 98%."
+      valor: "98"
+      erro: "0,98 é o fator dos preços (98% do que eram). Ele não é o ganho de poder de compra."
+    - texto: "subiu cerca de 2,04%."
+      valor: "100/49"
+      certa: true
+  explicacao: "Poder de compra = renda ÷ preços = 1 ÷ 0,98 ≈ 1,0204. A família compra cerca de 2,04% a mais."
+  conferir: "(1 / 0.98 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-inflacao-10
+  tema: "Inflação e poder de compra"
+  area: matematica
+  habilidade: 5
+  objeto: mat-numeros-inflacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma família gasta R$ 1.000,00 por mês com três itens: R$ 500,00 com alimentação, R$ 300,00 com aluguel e
+    R$ 200,00 com transporte. Em um ano, a alimentação subiu 8%, o aluguel subiu 5% e o transporte subiu 10%.
+    Ela continua comprando as mesmas coisas.
+  enunciado: "A inflação dessa família, nesse ano, foi de"
+  alternativas:
+    - texto: "23%."
+      erro: "Você somou as três taxas. Cada item pesa conforme o quanto a família gasta com ele."
+    - texto: "cerca de 7,7%."
+      valor: "23/3"
+      erro: "Você fez a média simples das taxas. A alimentação pesa mais no orçamento: use a média ponderada pelos gastos."
+    - texto: "7,5%."
+      certa: true
+    - texto: "10%."
+      erro: "10% é a alta do transporte, o item que mais subiu, mas que pesa menos no orçamento."
+    - texto: "8%."
+      erro: "8% é a alta da alimentação, o maior gasto. Os outros itens também contam."
+  explicacao: "Alta em reais: 8% de 500 = 40; 5% de 300 = 15; 10% de 200 = 20. Total: 75 reais a mais sobre 1.000. A inflação da família foi de 75 ÷ 1.000 = 7,5%."
+  conferir: "(500 * 0.08 + 300 * 0.05 + 200 * 0.1) / 1000 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

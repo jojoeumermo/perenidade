@@ -1,0 +1,253 @@
+# Exercícios da aula "O texto literário e os gêneros literários" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-textolit-01
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  dificuldade: 1
+  enunciado: "Qual destas frases usa linguagem conotativa, isto é, com sentido figurado?"
+  alternativas:
+    - texto: "A temperatura mínima de hoje foi de 14 graus."
+      erro: "É uma informação medida, no sentido de dicionário. Linguagem denotativa: só há uma leitura."
+    - texto: "Tome um comprimido a cada oito horas."
+      erro: "É uma instrução de bula. Ela precisa ser entendida de um jeito só: é denotativa."
+    - texto: "A cidade acordou com o coração apertado."
+      certa: true
+    - texto: "O ônibus da linha 12 passa a cada 20 minutos."
+      erro: "É um horário, informação objetiva. Nada ali ganha sentido novo."
+    - texto: "O mercado abre às sete horas da manhã."
+      erro: "Frase informativa, no sentido literal. Procure a que dá à cidade algo que ela não tem de verdade."
+  explicacao: "Cidade não tem coração nem acorda. A frase dá a ela sentimentos de gente, para mostrar um clima de tristeza ou preocupação. Isso é linguagem conotativa (figurada)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-02
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  dificuldade: 1
+  enunciado: "No gênero lírico, a voz que fala no poema e expressa sentimentos é chamada de"
+  alternativas:
+    - texto: "eu lírico."
+      certa: true
+    - texto: "narrador."
+      erro: "O narrador conta uma história, no gênero narrativo. No poema lírico, quem fala é o eu lírico."
+    - texto: "rubrica."
+      erro: "Rubrica é a indicação de cena no texto de teatro, não uma voz."
+    - texto: "personagem-autor."
+      erro: "A voz do poema não é o autor em pessoa. O poema cria uma voz própria: o eu lírico."
+    - texto: "epígrafe."
+      erro: "Epígrafe é o trecho de outro autor posto no começo do texto. Não é a voz que fala."
+  explicacao: "Eu lírico é a voz criada pelo poema. Ela pode até se parecer com o autor, mas é uma construção do texto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-03
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  dificuldade: 1
+  enunciado: "Um soneto é um poema de forma fixa com"
+  alternativas:
+    - texto: "três estrofes de cinco versos."
+      erro: "Isso dá 15 versos e não é a forma do soneto. Lembre: 4, 4, 3, 3."
+    - texto: "versos livres, sem número certo."
+      erro: "Verso livre é o contrário de forma fixa. O soneto tem número certo de versos."
+    - texto: "uma estrofe longa de vinte versos."
+      erro: "O soneto é curto: 14 versos, divididos em quatro estrofes."
+    - texto: "duas estrofes de sete versos cada."
+      erro: "A conta dá 14, mas a divisão está errada. São dois quartetos e dois tercetos."
+    - texto: "14 versos: dois quartetos e dois tercetos."
+      certa: true
+  explicacao: "O soneto tem 14 versos: duas estrofes de quatro (quartetos) e duas de três (tercetos). A forma atravessa o Barroco, o Arcadismo e o Parnasianismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-04
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto I
+    "Pão francês: pão de massa leve, feito de farinha de trigo, água, sal e fermento, assado em pequenas porções."
+    (Definição escrita pelo Instituto Lúcia, no formato de verbete.)
+
+    Texto II
+    Pão francês, s.m.: o sol que a padaria acende às cinco da manhã. Cabe na mão do pedreiro e na merenda da filha. Quando falta, a casa inteira sente fome de conversa.
+    (Texto do Instituto Lúcia, no formato de verbete.)
+  enunciado: "Os dois textos têm a forma de verbete. O Texto II, porém, se aproxima do texto literário porque"
+  alternativas:
+    - texto: "dá a receita exata do pão, com ingredientes e modo de preparo."
+      erro: "Quem lista ingredientes é o Texto I. O Texto II não ensina a fazer o pão."
+    - texto: "usa metáforas que ligam o pão ao trabalho, à família e à convivência."
+      certa: true
+    - texto: "segue a ordem alfabética, como todo dicionário."
+      erro: "Ordem alfabética é coisa do dicionário inteiro, não de um verbete. E não é ela que torna o texto literário."
+    - texto: "informa com mais precisão do que o Texto I o que é o pão."
+      erro: "É o contrário: o Texto II troca a precisão por imagens. Informar com precisão é a função do Texto I."
+    - texto: "fala de comida, assunto que só aparece na literatura."
+      erro: "O assunto não faz o texto literário: os dois falam de pão. O que muda é o modo de dizer."
+  explicacao: "O pão vira \"o sol que a padaria acende\"; a falta dele dá \"fome de conversa\". São metáforas que abrem sentidos novos (trabalho, família, afeto). A forma de verbete continua, mas a linguagem é figurada: é isso que aproxima o Texto II da literatura."
+  fonte: "Questão original do Instituto Lúcia, no estilo das questões do Enem que comparam um verbete com um poema"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-05
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  dificuldade: 2
+  enunciado: "Quantas sílabas poéticas tem o verso \"Da aurora da minha vida\" (Casimiro de Abreu, 1859)?"
+  alternativas:
+    - texto: "Nove, contando todas as sílabas gramaticais."
+      erro: "Na contagem poética, vogais que se encontram entre palavras se juntam (\"da au\" vira uma sílaba) e se para na última sílaba forte."
+    - texto: "Oito, contando a última sílaba \"da\"."
+      erro: "A contagem para na última sílaba forte, \"vi\". O \"da\" final não entra."
+    - texto: "Seis, porque \"minha\" vale uma só sílaba."
+      erro: "\"Minha\" tem duas sílabas: mi-nha. Refaça a contagem como se fala."
+    - texto: "Sete, uma redondilha maior."
+      certa: true
+    - texto: "Dez, um decassílabo."
+      erro: "Dez sílabas é o verso do soneto clássico. Este é bem mais curto."
+  explicacao: "Da au / ro / ra / da / mi / nha / vi(da): sete sílabas poéticas. \"Da\" e \"au\" se juntam numa só, e a contagem para em \"vi\", a última sílaba forte. É a redondilha maior."
+  fonte: "Questão original do Instituto Lúcia; verso de \"Meus oito anos\", de Casimiro de Abreu (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-06
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    (Uma cozinha. DONA CIDA lava a louça. JÚNIOR entra com a mochila.)
+    JÚNIOR — Mãe, passei na prova do cursinho!
+    DONA CIDA — (largando o prato na pia) Repete, que a torneira está alta.
+    JÚNIOR — (mais alto) Passei!
+    (DONA CIDA enxuga as mãos no avental e abraça o filho, sem dizer nada.)
+    (Texto original do Instituto Lúcia.)
+  enunciado: "O trecho pertence ao gênero dramático. Isso se reconhece, principalmente, pela"
+  alternativas:
+    - texto: "presença de um narrador que conta o que a mãe sentiu."
+      erro: "Não há narrador. O texto dramático dispensa quem conta: as personagens falam direto."
+    - texto: "rima entre as falas das personagens."
+      erro: "Não há rima no trecho. E rima não define gênero: há teatro em prosa e poema sem rima."
+    - texto: "expressão dos sentimentos de um eu lírico em versos."
+      erro: "Isso é o gênero lírico. Aqui há personagens com nome, falas e ação."
+    - texto: "linguagem técnica de manual de instruções."
+      erro: "As falas são do dia a dia. O que parece instrução são as rubricas, que indicam a cena."
+    - texto: "fala direta das personagens e pelas rubricas que indicam cenário e gestos."
+      certa: true
+  explicacao: "O texto é feito para ser encenado: as personagens falam direto, sem narrador, e as rubricas entre parênteses dizem onde a cena acontece e o que os atores fazem. Essas são as marcas do gênero dramático."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-07
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  dificuldade: 2
+  enunciado: "Um texto retoma um poema famoso, mantém a estrutura dos versos, mas troca as palavras para criticar com humor a situação de hoje. Essa relação entre textos é a"
+  alternativas:
+    - texto: "paráfrase, que diz o mesmo com outras palavras."
+      erro: "A paráfrase mantém o sentido do original. Aqui o sentido muda e vira crítica."
+    - texto: "citação, que copia o trecho com crédito."
+      erro: "Na citação o trecho vem igual. Aqui as palavras foram trocadas."
+    - texto: "paródia, que retoma o texto para mudar o sentido."
+      certa: true
+    - texto: "epígrafe, que abre o texto com versos de outro autor."
+      erro: "A epígrafe é um trecho de outro texto posto no começo, sem mudança. Não é o caso."
+    - texto: "denotação, que usa a palavra no sentido de dicionário."
+      erro: "Denotação é um uso da linguagem, não uma relação entre textos."
+  explicacao: "A paródia retoma um texto conhecido e muda o sentido dele, quase sempre com humor ou crítica. Para reconhecê-la, é preciso conhecer o original e ver o que mudou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-08
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-texto-literario
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Oh! que saudades que tenho
+    Da aurora da minha vida,
+    Da minha infância querida
+    Que os anos não trazem mais!
+    (Casimiro de Abreu, "Meus oito anos", As primaveras, 1859. Domínio público; grafia atualizada.)
+  enunciado: "A escolha do verso de sete sílabas (redondilha maior) e da rima produz, nesses versos, um efeito de"
+  alternativas:
+    - texto: "musicalidade simples, que aproxima a lembrança das cantigas de infância."
+      certa: true
+    - texto: "solenidade, próprio dos discursos oficiais."
+      erro: "O verso longo e o vocabulário raro dariam solenidade. A redondilha é curta e soa como cantiga."
+    - texto: "frieza científica, que afasta a emoção."
+      erro: "Há exclamação (\"Oh!\") e saudade. A emoção está no centro, não afastada."
+    - texto: "confusão, pois as rimas quebram o sentido."
+      erro: "As rimas (\"vida\", \"querida\") reforçam o sentido, não o quebram."
+    - texto: "suspense, como num romance policial."
+      erro: "Nada fica por descobrir. O poema não conta um crime nem esconde informação."
+  explicacao: "A redondilha maior é o verso das cantigas populares e de roda. Com a rima, ela deixa o poema musical e fácil de decorar. A forma combina com o tema: a lembrança da infância vem no ritmo das cantigas de criança."
+  fonte: "Questão original do Instituto Lúcia; trecho de Casimiro de Abreu (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-09
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-texto-literario
+  dificuldade: 3
+  enunciado: "Na \"Canção do exílio\" (1843), Gonçalves Dias abre o poema com versos do escritor alemão Goethe. Ao escolher essa epígrafe, o poeta brasileiro"
+  alternativas:
+    - texto: "copia o poema alemão sem dar crédito."
+      erro: "A epígrafe traz o nome do autor citado: dá o crédito. Copiar sem crédito seria plágio, outra coisa."
+    - texto: "põe o próprio poema em diálogo com a tradição literária europeia que admirava."
+      certa: true
+    - texto: "mostra que o poema foi escrito em alemão."
+      erro: "O poema é em português. Só a epígrafe vem em alemão."
+    - texto: "anuncia que vai fazer uma paródia de Goethe, com humor."
+      erro: "Não há humor nem mudança do sentido de Goethe. A epígrafe é homenagem e diálogo, não paródia."
+    - texto: "nega a influência estrangeira na literatura brasileira."
+      erro: "É o contrário: ao citar Goethe, ele assume a conversa com a literatura de fora."
+  explicacao: "A epígrafe é uma forma de intertextualidade. Ela diz com quem o texto conversa. Os versos de Goethe também falam de uma terra distante e desejada: o poeta brasileiro se põe nessa tradição para falar da saudade do Brasil."
+  fonte: "Questão original do Instituto Lúcia; dados do poema na edição de 1846 (Wikisource, domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-textolit-10
+  tema: "O texto literário e os gêneros literários"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-texto-literario
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O mar é — lago sereno,
+    O céu — um manto azulado,
+    O mundo — um sonho dourado,
+    A vida — um hino d'amor!
+    (Casimiro de Abreu, "Meus oito anos", As primaveras, 1859. Domínio público; grafia atualizada.)
+  enunciado: "Lido hoje, o trecho permite discutir um valor humano que continua atual, porque"
+  alternativas:
+    - texto: "prova que a infância de todas as crianças do século 19 foi feliz."
+      erro: "Um poema não é prova histórica. Ele mostra uma visão da infância, idealizada, de um eu lírico."
+    - texto: "ensina a medir a profundidade do mar e a cor do céu."
+      erro: "As imagens são metáforas, não medidas. O poema não ensina geografia."
+    - texto: "condena a infância como uma fase sem importância."
+      erro: "É o oposto: a infância aparece como o tempo mais belo da vida."
+    - texto: "idealiza a infância como tempo de proteção e encanto, ideia que ainda move a defesa do direito de ser criança."
+      certa: true
+    - texto: "descreve com ironia a vida dura das crianças que trabalham."
+      erro: "Não há ironia nem trabalho infantil no trecho. O tom é de encanto."
+  explicacao: "O poema transforma a infância em tempo de paz e encanto. Essa ideia de que a criança merece proteção e alegria segue atual. A leitura crítica também nota o limite: é uma infância idealizada, que nem todas as crianças tiveram, ontem ou hoje."
+  fonte: "Questão original do Instituto Lúcia; trecho de Casimiro de Abreu (domínio público)"
+  revisao: { status: em-revisao }

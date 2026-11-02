@@ -1,0 +1,250 @@
+# Exercícios da aula "Expressões numéricas" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-expressoes-01
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  dificuldade: 1
+  enunciado: "Quanto é 10 − 2 × 3?"
+  alternativas:
+    - texto: "24"
+      erro: "Você fez 10 − 2 primeiro e multiplicou depois. A multiplicação vem antes da subtração."
+    - texto: "16"
+      erro: "Você trocou o sinal de menos por mais. A conta é 10 − 6."
+    - texto: "60"
+      erro: "Você multiplicou os três números. O sinal entre o 10 e o 2 é de subtração."
+    - texto: "5"
+      erro: "Você subtraiu o 2 e o 3 do 10. O sinal entre o 2 e o 3 é de multiplicação: 2 × 3 = 6."
+    - texto: "4"
+      certa: true
+  explicacao: "Primeiro a multiplicação: 2 × 3 = 6. Depois a subtração: 10 − 6 = 4."
+  conferir: "10 - 2 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-02
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  dificuldade: 1
+  enunciado: "Quanto é 3 + 4²?"
+  alternativas:
+    - texto: "49"
+      erro: "Você somou 3 + 4 e elevou ao quadrado. O expoente vale só para o 4, e a potência vem antes da soma."
+    - texto: "11"
+      erro: "Você fez 4² = 8, como se fosse 4 × 2. 4² = 4 × 4 = 16."
+    - texto: "19"
+      certa: true
+    - texto: "25"
+      erro: "Você elevou os dois números ao quadrado (9 + 16). O expoente está só no 4."
+    - texto: "7"
+      erro: "Você ignorou o expoente. 4² = 16."
+  explicacao: "Potência antes da soma: 4² = 16. Depois, 3 + 16 = 19."
+  conferir: "3 + 4^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-03
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  dificuldade: 1
+  enunciado: "Quanto é −(4 − 9) + 2?"
+  alternativas:
+    - texto: "7"
+      certa: true
+    - texto: "−3"
+      erro: "Você calculou 4 − 9 = −5, mas não trocou o sinal ao tirar o parêntese. −(−5) = 5."
+    - texto: "−11"
+      erro: "Você trocou o sinal só do 4. O menos antes do parêntese troca o sinal de tudo o que está dentro: −4 + 9."
+    - texto: "15"
+      erro: "Você somou todos os números sem olhar os sinais. Resolva o parêntese: 4 − 9 = −5."
+    - texto: "3"
+      erro: "O menos do parêntese foi aplicado também ao 2, que está fora. Fica −4 + 9 + 2."
+  explicacao: "4 − 9 = −5. Então −(−5) = 5, e 5 + 2 = 7."
+  conferir: "-(4 - 9) + 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-04
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa cidade, a conta de luz residencial é calculada assim: uma taxa fixa de R$ 12,00 por mês, mais R$ 0,80 por kWh
+    consumido. Num mês de bandeira tarifária, cobra-se ainda um adicional de R$ 0,05 por kWh. Os valores são de um
+    exemplo e não correspondem a uma distribuidora real.
+  enunciado: "Numa casa que consumiu 150 kWh num mês de bandeira, o valor da conta foi de"
+  alternativas:
+    - texto: "R$ 127,50."
+      erro: "R$ 127,50 é só a parte do consumo, 150 × 0,85. Falta somar a taxa fixa de R$ 12,00."
+    - texto: "R$ 132,00."
+      erro: "Faltou o adicional da bandeira: ele também é cobrado por kWh, nos 150 kWh."
+    - texto: "R$ 132,05."
+      erro: "O adicional foi somado uma vez só. Ele vale R$ 0,05 para cada kWh: 150 × 0,05 = 7,50."
+    - texto: "R$ 139,50."
+      certa: true
+    - texto: "R$ 1.927,50."
+      erro: "A taxa fixa foi multiplicada pelo consumo, como em (12 + 0,85) × 150. A taxa é cobrada uma vez por mês: 12 + 150 × 0,85."
+  explicacao: "Expressão: 12 + 150 × (0,80 + 0,05) = 12 + 150 × 0,85 = 12 + 127,50 = R$ 139,50."
+  conferir: "12 + 150 * (0.80 + 0.05)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-05
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  dificuldade: 2
+  enunciado: "Quanto é 2 × [15 − (3 + 2)² ÷ 5]?"
+  alternativas:
+    - texto: "−4"
+      erro: "Você fez 15 − 25 antes da divisão. Dentro do colchete, a divisão 25 ÷ 5 vem antes da subtração."
+    - texto: "20"
+      certa: true
+    - texto: "24,8"
+      erro: "Você calculou (3 + 2)² como 3² + 2² = 13. O parêntese vem primeiro: 3 + 2 = 5, e 5² = 25."
+    - texto: "25"
+      erro: "O 2 de fora multiplicou só o 15 (30 − 5). Ele multiplica o colchete inteiro, que vale 10."
+    - texto: "10"
+      erro: "10 é o valor do colchete. Falta multiplicar pelo 2 de fora."
+  explicacao: "3 + 2 = 5; 5² = 25; 25 ÷ 5 = 5; 15 − 5 = 10; 2 × 10 = 20."
+  conferir: "2 * (15 - (3 + 2)^2 / 5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-06
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  dificuldade: 2
+  enunciado: "Quanto é (1/2 + 1/3) × 6?"
+  alternativas:
+    - texto: "5/6"
+      erro: "5/6 é o valor do parêntese. Falta multiplicar por 6."
+    - texto: "12/5"
+      erro: "Você somou 1/2 + 1/3 em cima e embaixo (2/5). Iguale os denominadores: 3/6 + 2/6 = 5/6."
+    - texto: "5/2"
+      erro: "O 6 multiplicou só o 1/3 (1/2 + 2). O parêntese diz que o 6 multiplica a soma inteira."
+    - texto: "5"
+      certa: true
+    - texto: "5/36"
+      erro: "Você dividiu por 6 em vez de multiplicar."
+  explicacao: "Parêntese: 1/2 + 1/3 = 3/6 + 2/6 = 5/6. Depois 5/6 × 6 = 5. Outro caminho: 6 × 1/2 + 6 × 1/3 = 3 + 2 = 5."
+  conferir: "(1/2 + 1/3) * 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-07
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num mercado, uma pessoa comprou 3 kg de feijão a R$ 8,50 o quilo e 2 pacotes de arroz a R$ 24,00 cada. Pagou com
+    uma nota de R$ 100,00.
+  enunciado: "O troco recebido foi de"
+  alternativas:
+    - texto: "R$ 73,50."
+      erro: "R$ 73,50 é o total da compra. O troco é o que sobra dos R$ 100,00."
+    - texto: "R$ 26,50."
+      certa: true
+    - texto: "R$ 67,50."
+      erro: "Você descontou um quilo de feijão e um pacote de arroz (8,50 + 24). Multiplique cada preço pela quantidade."
+    - texto: "R$ 74,50."
+      erro: "Você descontou só o feijão (100 − 25,50). Falta descontar o arroz."
+    - texto: "R$ 122,50."
+      erro: "O arroz foi somado em vez de subtraído (100 − 25,50 + 48). O menos antes do parêntese vale para a compra inteira."
+  explicacao: "Expressão: 100 − (3 × 8,50 + 2 × 24) = 100 − (25,50 + 48) = 100 − 73,50 = R$ 26,50."
+  conferir: "100 - (3 * 8.50 + 2 * 24)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-08
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num mutirão de limpeza de um córrego, trabalharam 4 equipes de 6 pessoas e 3 equipes de 5 pessoas. A organização
+    comprou água para dar 2 garrafas a cada pessoa e, no fim do dia, ainda sobraram 12 garrafas fechadas.
+  enunciado: "O número de garrafas de água compradas foi de"
+  alternativas:
+    - texto: "66."
+      erro: "O 2 multiplicou só as pessoas das equipes de 5 (24 + 30 + 12). Ponha o total de pessoas entre parênteses: (24 + 15) × 2."
+    - texto: "78."
+      erro: "78 garrafas foram distribuídas. Faltou somar as 12 que sobraram."
+    - texto: "154."
+      erro: "Você somou as equipes (4 + 3) e as pessoas por equipe (6 + 5) e multiplicou. As equipes têm tamanhos diferentes: multiplique cada grupo separado."
+    - texto: "51."
+      erro: "Você somou as pessoas (39) com as sobras, sem multiplicar pelas 2 garrafas de cada um."
+    - texto: "90."
+      certa: true
+  explicacao: "Pessoas: 4 × 6 + 3 × 5 = 24 + 15 = 39. Garrafas distribuídas: 39 × 2 = 78. Compradas: 78 + 12 = 90."
+  conferir: "(4 * 6 + 3 * 5) * 2 + 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-09
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  dificuldade: 3
+  enunciado: "Quanto é 2³ − 3 × (−2)² + 12 ÷ (−4)?"
+  alternativas:
+    - texto: "−7"
+      certa: true
+    - texto: "17"
+      erro: "Você fez (−2)² = −4. O quadrado vale para o −2 inteiro: (−2) × (−2) = 4."
+    - texto: "−1"
+      erro: "12 ÷ (−4) deu 3, sem sinal. Sinais diferentes dão negativo: −3."
+    - texto: "−2"
+      erro: "Você fez toda a conta à esquerda e dividiu o resultado por −4. A divisão vale só para o 12."
+    - texto: "−9"
+      erro: "Você fez 2³ = 6, como se fosse 2 × 3. 2³ = 2 × 2 × 2 = 8."
+  explicacao: "Potências: 2³ = 8 e (−2)² = 4. Multiplicação e divisão: 3 × 4 = 12 e 12 ÷ (−4) = −3. Por fim: 8 − 12 − 3 = −7."
+  conferir: "2^3 - 3 * (-2)^2 + 12 / (-4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-expressoes-10
+  tema: "Expressões numéricas"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-expressoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um grupo de 12 pessoas alugou uma van para ir a um encontro estadual de estudantes. A locadora cobrou R$ 480,00
+    pelo aluguel, mais R$ 1,50 por quilômetro rodado. A viagem, ida e volta, teve 120 km. O total foi dividido
+    igualmente entre as 12 pessoas.
+  enunciado: "Cada pessoa pagou"
+  alternativas:
+    - texto: "R$ 40,00."
+      erro: "R$ 40,00 é só a parte do aluguel (480 ÷ 12). Faltou o valor dos quilômetros."
+    - texto: "R$ 495,00."
+      erro: "Só os quilômetros foram divididos (480 + 180 ÷ 12). O total inteiro é dividido: ponha a soma entre parênteses."
+    - texto: "R$ 55,00."
+      certa: true
+    - texto: "R$ 41,50."
+      erro: "Você somou o preço de um quilômetro só (40 + 1,50). Multiplique pelos 120 km."
+    - texto: "R$ 220,00."
+      erro: "Só o aluguel foi dividido (40 + 180). Os quilômetros também são divididos entre as 12 pessoas."
+  explicacao: "Expressão: (480 + 1,50 × 120) ÷ 12 = (480 + 180) ÷ 12 = 660 ÷ 12 = R$ 55,00."
+  conferir: "(480 + 1.5 * 120) / 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
