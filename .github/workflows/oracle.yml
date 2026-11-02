@@ -1,0 +1,114 @@
+name: Pegar a máquina grátis da Oracle
+
+# A Oracle só entrega a máquina grátis (Ampere A1, São Paulo) quando sobra vaga, e a vaga some em minutos. Esta rotina
+# tenta de minuto em minuto, o dia inteiro, até conseguir. Quando consegue, abre uma issue (que chega por e-mail) e
+# para de tentar. Passo a passo em docs/HOSPEDAGEM.md.
+#
+# A máquina nasce sem endereço público, na rede privada "rede-lucia", e se prepara sozinha (infra/servidor/preparar.sh).
+# O túnel dela é separado do túnel do site: a máquina nova não recebe visita nenhuma até a mudança ser feita à mão.
+#
+# Precisa de (Settings → Secrets and variables → Actions):
+#   segredos: OCI_CHAVE_PRIVADA (chave da API da Oracle, em PEM), OCI_TUNEL_TOKEN (token do túnel "lucia-oracle")
+#   variáveis: OCI_USUARIO, OCI_TENANCIA, OCI_DIGITAL (OCIDs e impressão digital da chave)
+on:
+  schedule:
+    # De hora em hora; cada rodada tenta por 50 minutos.
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: pegar-maquina-oracle
+  cancel-in-progress: false
+
+jobs:
+  tentar:
+    if: vars.OCI_USUARIO != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 58
+    env:
+      OCI_CLI_USER: ${{ vars.OCI_USUARIO }}
+      OCI_CLI_TENANCY: ${{ vars.OCI_TENANCIA }}
+      OCI_CLI_FINGERPRINT: ${{ vars.OCI_DIGITAL }}
+      OCI_CLI_REGION: sa-saopaulo-1
+      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CHAVE_PRIVADA }}
+      OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING: "True"
+      TUNEL: ${{ secrets.OCI_TUNEL_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+      NOME: lucia
+    steps:
+      - name: Instalar a linha de comando da Oracle
+        run: pipx install oci-cli > /dev/null && oci --version
+
+      - name: Tentar até conseguir (50 minutos)
+        run: |
+          set +e -uo pipefail  # o GitHub liga o "-e"; aqui cada erro é tratado à mão
+          trap 'echo "Fim do passo (código $?)."' EXIT
+          C="$OCI_CLI_TENANCY"
+          # Quantas máquinas "lucia" vivas existem. Lista vazia volta sem texto (= 0); erro da Oracle para a rotina.
+          existe() {
+            local r
+            if ! r=$(oci compute instance list -c "$C" --display-name "$NOME" --all \
+                  --query 'data[?"lifecycle-state"!=`TERMINATED`] | length(@)' --raw-output 2>&1); then
+              echo "::error::A Oracle recusou a consulta: $r" >&2; exit 1
+            fi
+            r=$(printf '%s' "$r" | tr -dc '0-9'); echo "${r:-0}"
+          }
+          vivas=$(existe) || exit 1
+          echo "Máquinas \"$NOME\" na conta: $vivas"
+          if [ "$vivas" != "0" ]; then echo "A máquina \"$NOME\" já existe. Nada a fazer."; exit 0; fi
+          if [ -z "$TUNEL" ]; then echo "::error::Falta o segredo OCI_TUNEL_TOKEN."; exit 1; fi
+          # Aceita o comando inteiro que o Cloudflare mostra ("cloudflared service install <token>"): fica só o token.
+          TUNEL=$(printf '%s' "$TUNEL" | tr -s '[:space:]' '\n' | grep -v '^$' | tail -n 1)
+
+          AD=$(oci iam availability-domain list -c "$C" --query 'data[0].name' --raw-output)
+          SUBREDE=$(oci network subnet list -c "$C" --all \
+            --query 'data[?contains("display-name", `rede-lucia`) && "prohibit-public-ip-on-vnic"].id | [0]' --raw-output)
+          IMAGEM=$(oci compute image list -c "$C" --operating-system "Canonical Ubuntu" --operating-system-version "24.04" \
+            --shape VM.Standard.A1.Flex --sort-by TIMECREATED --sort-order DESC --all \
+            --query 'data[?!contains("display-name", `Minimal`)].id | [0]' --raw-output)
+          echo "Zona: $AD"; echo "Sub-rede: $SUBREDE"; echo "Imagem: $IMAGEM"
+          if [ -z "$SUBREDE" ] || [ "$SUBREDE" = "null" ] || [ -z "$IMAGEM" ] || [ "$IMAGEM" = "null" ]; then
+            echo "::error::Não achei a sub-rede privada da rede-lucia ou a imagem do Ubuntu 24.04."; exit 1
+          fi
+
+          # Preparação da máquina: o túnel próprio dela e o script do repositório. Nenhum segredo fica no repositório.
+          printf '%s\n' '#!/bin/bash' \
+            'curl -fsSL -o /tmp/cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb && dpkg -i /tmp/cloudflared.deb' \
+            "cloudflared service install $TUNEL" \
+            'curl -fsSL -o /root/preparar.sh https://raw.githubusercontent.com/jojoeumermo/perenidade/master/infra/servidor/preparar.sh && bash /root/preparar.sh > /var/log/lucia-preparar.log 2>&1' \
+            > /tmp/cloud-init.sh
+
+          fim=$((SECONDS + 50 * 60)); n=0
+          while [ $SECONDS -lt $fim ]; do
+            for forma in '{"ocpus": 2, "memoryInGBs": 12}' '{"ocpus": 1, "memoryInGBs": 6}'; do
+              n=$((n + 1))
+              echo "Tentativa $n ($forma)..."
+              oci compute instance launch -c "$C" --availability-domain "$AD" --display-name "$NOME" \
+                --shape VM.Standard.A1.Flex --shape-config "$forma" --image-id "$IMAGEM" --subnet-id "$SUBREDE" \
+                --assign-public-ip false --boot-volume-size-in-gbs 100 --user-data-file /tmp/cloud-init.sh \
+                --instance-options '{"areLegacyImdsEndpointsDisabled": true}' \
+                --query 'data.id' --raw-output > /tmp/saida.txt 2>&1
+              codigo=$?
+              saida=$(cat /tmp/saida.txt)
+              id=$(grep -o 'ocid1\.instance\.[A-Za-z0-9._-]*' /tmp/saida.txt | head -n 1)
+              if [ "$codigo" = "0" ] && [ -n "$id" ]; then
+                echo "Conseguiu na tentativa $n ($forma): $id"
+                gh issue create -R "$GITHUB_REPOSITORY" --title "A máquina grátis da Oracle foi criada" \
+                  --body "A rotina conseguiu a vaga na tentativa $n, com $forma. Máquina: \`$id\`. Próximo passo: configurar o Coolify nela e fazer a mudança (docs/HOSPEDAGEM.md)." || true
+                exit 0
+              fi
+              echo "  resposta (código $codigo): $(grep -o '"message": "[^"]*"' /tmp/saida.txt | head -n 1)"
+              echo "  $(head -c 600 /tmp/saida.txt | tr '\n' ' ')"
+              case "$saida" in
+                *"Out of host capacity"*|*"Out of capacity"*|*TooManyRequests*|*InternalError*|*LimitExceeded*) ;;
+                *) echo "::error::Erro inesperado da Oracle (veja acima)."; exit 1 ;;
+              esac
+              sleep 30
+            done
+            if [ "$(existe)" != "0" ]; then echo "A máquina apareceu."; exit 0; fi
+          done
+          echo "Sem vaga nesta rodada. A próxima começa daqui a pouco."
