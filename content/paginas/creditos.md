@@ -22,6 +22,7 @@ resumo: "O instituto é feito com software livre e conteúdo aberto. Aqui está 
 | Traços dos caracteres chineses: [Make Me a Hanzi](https://github.com/skishore/makemeahanzi), pelo pacote [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data), a partir das fontes AR PL da Arphic (copiados sem alteração, com a licença ao lado) | Escrita chinesa | Arphic Public License |
 | [CC-CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict), de MDBG e colaboradores (convertido para JSON pelo instituto; a conversão segue a mesma licença) | Dicionário de chinês | CC BY-SA 4.0 |
 | [VERO](https://github.com/wooorm/dictionaries/tree/main/dictionaries/pt), dicionário de português do Brasil de Raimundo Moura e equipe, pelo pacote [dictionary-pt](https://github.com/wooorm/dictionaries) | Corretor ortográfico | LGPL-3.0 ou MPL-2.0 |
+| [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) (vozes pf_dora e pm_alex), rodando com [onnxruntime-web](https://github.com/microsoft/onnxruntime) e o [espeak-ng](https://github.com/rhasspy/espeak-ng) do [piper-phonemize](https://github.com/wide-video/piper-phonemize) | vozes naturais do "Ouvir a aula", no próprio aparelho | Apache-2.0 (Kokoro) · MIT (onnxruntime, piper-phonemize) · GPL-3.0 (espeak-ng) |
 | [Tailwind CSS](https://tailwindcss.com) | estilos | MIT |
 | EB Garamond, Inter, IBM Plex Mono e Anton | letras | OFL-1.1 |
 

@@ -4,7 +4,7 @@ sobretitulo: "Quién hizo las piezas libres que usa el sitio"
 resumo: "El instituto está hecho con software libre y contenido abierto. Aquí está cada pieza, con la licencia y dónde comprobarla."
 ---
 
-La tabla completa está en portugués en esta página: Next.js y React (MIT), Supabase (Apache-2.0/PostgreSQL), Pyodide (MPL-2.0), php-wasm (Apache-2.0), PGlite (Apache-2.0), KaTeX (MIT), math.js (Apache-2.0), MiniSearch (MIT), Jitsi Meet (Apache-2.0), LanguageTool (LGPL-2.1, como servicio), Tailwind CSS (MIT) y las letras EB Garamond, Inter, IBM Plex Mono y Anton (OFL-1.1). Las herramientas de chino usan además Hanzi Writer (MIT), los trazos de Make Me a Hanzi (Arphic Public License) y el diccionario CC-CEDICT (CC BY-SA 4.0); el corrector ortográfico usa el diccionario VERO de portugués de Brasil (LGPL-3.0 o MPL-2.0).
+La tabla completa está en portugués en esta página: Next.js y React (MIT), Supabase (Apache-2.0/PostgreSQL), Pyodide (MPL-2.0), php-wasm (Apache-2.0), PGlite (Apache-2.0), KaTeX (MIT), math.js (Apache-2.0), MiniSearch (MIT), Jitsi Meet (Apache-2.0), LanguageTool (LGPL-2.1, como servicio), Tailwind CSS (MIT) y las letras EB Garamond, Inter, IBM Plex Mono y Anton (OFL-1.1). Las herramientas de chino usan además Hanzi Writer (MIT), los trazos de Make Me a Hanzi (Arphic Public License) y el diccionario CC-CEDICT (CC BY-SA 4.0); el corrector ortográfico usa el diccionario VERO de portugués de Brasil (LGPL-3.0 o MPL-2.0). Las voces naturales de «Escuchar la clase» funcionan en el propio dispositivo: Kokoro-82M con las voces pf_dora y pm_alex (Apache-2.0), onnxruntime-web (MIT) y espeak-ng (GPL-3.0) de piper-phonemize (MIT).
 
 ## Simulaciones del PhET
 
