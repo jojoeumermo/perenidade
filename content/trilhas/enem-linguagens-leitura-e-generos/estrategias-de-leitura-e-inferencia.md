@@ -82,7 +82,7 @@ se não há pista no texto, não é inferência: é palpite
 
 ## As três armadilhas
 
-A maior parte das alternativas erradas de Linguagens cai em um destes três enganos:
+Muitas alternativas erradas de Linguagens caem em um destes três enganos:
 
 1. **Extrapolação.** A alternativa vai além do texto. Ela pode até ser verdadeira no mundo, mas o texto não diz nem sugere aquilo. Exemplo: o texto fala de uma enchente num bairro, e a alternativa diz que "o governo é o único culpado". O texto não disse isso.
 2. **Redução.** A alternativa pega uma parte do texto como se fosse o todo. Um texto que fala de três causas da evasão escolar não tem como tema só uma delas.
@@ -105,7 +105,7 @@ Um texto diz: "Ana desligou o despertador, olhou a chuva pela janela e mandou me
 
 ## O caminho de volta
 
-Escolheu uma alternativa? Volte ao texto. Ache a linha que a sustenta. Esse passo leva poucos segundos e evita a maior parte dos erros.
+Escolheu uma alternativa? Volte ao texto. Ache a linha que a sustenta. Esse passo leva poucos segundos e evita muitos erros.
 
 Quando duas alternativas parecem certas, compare as duas com o comando. Muitas vezes uma delas é verdadeira sobre o texto, mas não responde ao que foi perguntado. Se o comando pede o objetivo, uma alternativa que descreve só o assunto está incompleta.
 
@@ -126,7 +126,7 @@ Confira as armadilhas: dizer que "ele nunca tinha ido à escola" é extrapolaç�
 ## Como isso cai no ENEM
 
 - **Formatos:** texto curto de qualquer gênero (crônica, notícia, tirinha, poema, campanha) com um comando que pede o objetivo, o efeito de sentido, a crítica ou o que está implícito. É a habilidade que sustenta todas as outras questões de Linguagens.
-- **Habilidades:** H18 (identificar o que faz o tema de um texto avançar e como ele se organiza) e H23 (inferir o objetivo de quem escreveu e o público a quem o texto se dirige). Nas provas de 2022 e 2023, classificadas pelo instituto, a H18 apareceu em 8 das 88 questões de Linguagens e a H23 em 4. O tópico de estratégias de leitura e inferência, sozinho, teve 4 questões.
+- **Habilidades:** H18 (identificar o que faz o tema de um texto avançar e como ele se organiza) e H23 (inferir o objetivo de quem escreveu e o público a quem o texto se dirige). Nas provas de 2022 e 2023, classificadas pelo instituto, a H18 apareceu em 8 das 88 questões de Linguagens e a H23 em 4. O tópico de estratégias de leitura e inferência, sozinho, teve 4 questões, e as 4 foram classificadas na H22 (relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes).
 - **Armadilhas:**
   - Escolher a alternativa que você acha verdadeira no mundo, e não a que o texto sustenta (extrapolação).
   - Tomar um detalhe pelo tema (redução).

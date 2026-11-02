@@ -149,7 +149,7 @@ E) 15 vezes maior.
 - B) Você subtraiu os pH (5 − 3 = 2) e leu como "duas vezes". Cada unidade de pH é um fator de dez.
 - C) pH menor é mais H⁺, não menos. E a diferença não é de 2 vezes.
 - D) O sentido está trocado: o açude II, de pH menor, é o mais ácido.
-- E) Você dividiu 5 por 3 e multiplicou por 10, sem lógica de escala. O fator é 10 elevado à diferença de pH.
+- E) Você multiplicou os dois valores de pH (5 × 3 = 15), sem lógica de escala. O fator é 10 elevado à diferença de pH.
 
 ```realidade
 Ferva folhas de repolho roxo em um pouco de água, coe e use o caldo frio como indicador. Pingue em vinagre, água, sabão e bicarbonato. Anote a cor em cada um e coloque os quatro em ordem do mais ácido ao mais básico.
