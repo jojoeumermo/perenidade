@@ -89,7 +89,7 @@ vogais que se encontram entre palavras viram uma sílaba só
 7 sílabas = redondilha maior; 10 sílabas = decassílabo, o verso do soneto clássico
 ```
 
-Uma forma fixa que cai muito é o **soneto**: 14 versos, em duas estrofes de quatro (quartetos) e duas de três (tercetos). Ela atravessa séculos, do Barroco ao Parnasianismo.
+Uma forma fixa muito comum é o **soneto**: 14 versos, em duas estrofes de quatro (quartetos) e duas de três (tercetos). Ela atravessa séculos, do Barroco ao Parnasianismo.
 
 ## Os gêneros literários
 

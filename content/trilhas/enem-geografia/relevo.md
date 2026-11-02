@@ -53,7 +53,7 @@ Ao fim desta aula você vai saber explicar as forças internas e externas que fo
 
 ## Por que esta aula pesa
 
-Nas provas de 2022 e 2023, classificadas pelo instituto, o relevo apareceu em 3 das 89 questões de Humanas: as forças que formam o relevo, as rochas ígneas da Amazônia num mapa do IBGE e os dobramentos modernos do Himalaia. É o terceiro tópico de geografia que mais caiu, numa base de duas provas.
+Nas provas de 2022 e 2023, classificadas pelo instituto, o relevo apareceu em 3 das 89 questões de Humanas: as forças que formam o relevo, as rochas ígneas da Amazônia num mapa do IBGE e os dobramentos modernos do Himalaia. Empatado com a geopolítica, só fica atrás do espaço agrário e das questões ambientais (4 cada), numa base de duas provas.
 
 ## A Terra por dentro e as placas
 
