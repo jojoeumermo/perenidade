@@ -28,7 +28,7 @@ oficiais (detalhes em docs/VOZES.md).
 
 | O quê | Versão | Origem | Licença | Observação |
 | --- | --- | --- | --- | --- |
-| onnxruntime-web | 1.22.0 (npm) | https://github.com/microsoft/onnxruntime | MIT | Roda os modelos (WebAssembly; WebGPU onde houver). Copiado do node_modules sem alteração. |
+| onnxruntime-web | 1.22.0 (npm) | https://github.com/microsoft/onnxruntime | MIT | Roda os modelos (WebAssembly). Copiado do node_modules sem alteração. |
 | piper_phonemize em WebAssembly (pacote @diffusionstudio/piper-wasm) | 1.0.0 (npm) | https://github.com/diffusion-studio/piper-wasm, compilado de https://github.com/wide-video/piper-phonemize (MIT) e https://github.com/rhasspy/espeak-ng | MIT (piper-phonemize) + GPL-3.0-or-later (espeak-ng) | O binário junta os dois: vale a GPL-3.0, compatível com a AGPL-3.0 do site. Do pacote de dados do espeak-ng ficam só os arquivos do português (os outros saem; nenhum arquivo é mudado). Código-fonte correspondente: os dois repositórios acima e o roteiro de compilação no README do pacote. |
 | Kokoro-82M v1.0, em ONNX (model_quantized.onnx, tokenizer.json) | Hugging Face onnx-community/Kokoro-82M-v1.0-ONNX, revisão 1939ad2a8e416c0acfeecc08a694d14ef25f2231 | https://huggingface.co/hexgrad/Kokoro-82M | Apache-2.0 | Pesos treinados só com áudio de licença permissiva ou sem direitos, segundo o cartão do modelo. |
 | Vozes pf_dora e pm_alex do Kokoro | mesma revisão | idem | Apache-2.0 | Mostradas como "Voz 1" e "Voz 2". A pm_santa ficou de fora (nome de personagem). |
