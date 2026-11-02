@@ -1,0 +1,72 @@
+# Mapa curricular da trilha enem-ingles: cada aula escrita ligada às habilidades da Matriz do Enem
+# e aos tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
+aulas:
+  estrategias-de-leitura-cognatos-e-falsos-cognatos:
+    enem:
+      - area: linguagens
+        competencia: 2
+        habilidade: 5
+        resumo: Ligar palavras e expressões de um texto em língua estrangeira ao tema dele.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 6
+        resumo: Usar a língua estrangeira para ampliar o acesso a informações, tecnologias e culturas.
+        situacao: a-confirmar
+    objetos: [lin-lem-ingles-estrategias]
+  generos-e-vocabulario-em-contexto:
+    enem:
+      - area: linguagens
+        competencia: 2
+        habilidade: 7
+        resumo: Relacionar um texto em língua estrangeira às suas estruturas, à sua função e ao seu uso social.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 8
+        resumo: Reconhecer a produção cultural em língua estrangeira como parte da diversidade de culturas e línguas.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 5
+        resumo: Ligar palavras e expressões de um texto em língua estrangeira ao tema dele.
+        situacao: a-confirmar
+    objetos: [lin-lem-ingles-generos]
+  conectivos-e-marcadores:
+    enem:
+      - area: linguagens
+        competencia: 2
+        habilidade: 7
+        resumo: Relacionar um texto em língua estrangeira às suas estruturas, à sua função e ao seu uso social.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 5
+        resumo: Ligar palavras e expressões de um texto em língua estrangeira ao tema dele.
+        situacao: a-confirmar
+    objetos: [lin-lem-ingles-conectivos]
+  questoes-resolvidas-no-formato-da-prova:
+    enem:
+      - area: linguagens
+        competencia: 2
+        habilidade: 5
+        resumo: Ligar palavras e expressões de um texto em língua estrangeira ao tema dele.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 6
+        resumo: Usar a língua estrangeira para ampliar o acesso a informações, tecnologias e culturas.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 7
+        resumo: Relacionar um texto em língua estrangeira às suas estruturas, à sua função e ao seu uso social.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 8
+        resumo: Reconhecer a produção cultural em língua estrangeira como parte da diversidade de culturas e línguas.
+        situacao: a-confirmar
+    objetos: [lin-lem-ingles-estrategias, lin-lem-ingles-generos, lin-lem-ingles-conectivos]

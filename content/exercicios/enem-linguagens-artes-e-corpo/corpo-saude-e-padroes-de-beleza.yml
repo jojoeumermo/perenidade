@@ -1,0 +1,243 @@
+# Exercícios da aula "Corpo, saúde e padrões de beleza" (trilha enem-linguagens-artes-e-corpo).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-corpo-saude-01
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 10
+  objeto: lin-praticas-corporais-saude-e-beleza
+  dificuldade: 1
+  enunciado: "O que quer dizer \"visão ampliada de saúde\"?"
+  alternativas:
+    - texto: "Saúde é ter o corpo dentro do peso considerado ideal."
+      erro: "Peso é só um dado do corpo. A visão ampliada inclui a mente e as condições de vida."
+    - texto: "Saúde depende do corpo, da mente e das condições de vida, como renda, moradia, trabalho e lazer."
+      certa: true
+    - texto: "Saúde é a ausência de doença diagnosticada pelo médico."
+      erro: "A OMS diz justamente que saúde \"não é apenas a ausência de doença\". Essa é a visão estreita."
+    - texto: "Saúde é praticar esporte todos os dias."
+      erro: "Atividade física é um dos determinantes, não o único. Quem não tem moradia ou renda também tem a saúde afetada."
+    - texto: "Saúde é uma questão só de força de vontade de cada pessoa."
+      erro: "A Lei nº 8.080/1990 mostra que a saúde depende de condições sociais, que não se resolvem só com vontade."
+  explicacao: "A visão ampliada vem da OMS (bem-estar físico, mental e social) e da Lei nº 8.080/1990, que lista determinantes como alimentação, moradia, renda, educação, transporte e lazer."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-02
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 10
+  objeto: lin-praticas-corporais-saude-e-beleza
+  dificuldade: 1
+  enunciado: "Uma trabalhadora caminha 30 minutos em ritmo rápido, cinco dias por semana, no caminho para o trabalho. Quantos minutos de atividade moderada ela faz por semana?"
+  alternativas:
+    - texto: "35 minutos"
+      erro: "Você somou 30 + 5. São 30 minutos em cada um dos 5 dias: é uma multiplicação."
+    - texto: "300 minutos"
+      erro: "Você contou 10 dias, ou 60 minutos por dia. Ela caminha 30 minutos, 5 vezes."
+    - texto: "120 minutos"
+      erro: "Você contou só 4 dias. A semana dela tem 5 dias de caminhada."
+    - texto: "150 minutos"
+      certa: true
+    - texto: "180 minutos"
+      erro: "Você contou 6 dias. O enunciado fala de cinco dias por semana."
+  explicacao: "30 × 5 = 150 minutos por semana. É o mínimo que a OMS recomenda de atividade moderada para adultos (150 a 300 minutos)."
+  conferir: "30 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-03
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-saude-e-beleza
+  dificuldade: 1
+  enunciado: "O que é um padrão de beleza?"
+  alternativas:
+    - texto: "Uma ideia de como o corpo \"deve\" ser, que muda com a época e é divulgada pela mídia e pela publicidade."
+      certa: true
+    - texto: "Uma medida científica do corpo saudável."
+      erro: "O padrão não é medida de saúde. Ele muda com a moda, o que mostra que não é científico."
+    - texto: "O corpo natural de toda pessoa jovem."
+      erro: "Se fosse natural, não seria preciso vender produtos para alcançá-lo. O padrão é construído."
+    - texto: "Uma regra criada pela OMS."
+      erro: "A OMS fala de movimento e bem-estar, não de aparência."
+    - texto: "Um tipo de corpo que é igual em todas as culturas."
+      erro: "Cada época e cada cultura teve padrões diferentes. Não há um padrão universal."
+  explicacao: "Padrão de beleza é uma construção social: muda com o tempo, varia entre culturas e é espalhado por quem tem o poder de mostrar imagens, como a moda, a televisão, a publicidade e as redes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-04
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 10
+  objeto: lin-praticas-corporais-saude-e-beleza
+  dificuldade: 2
+  enunciado: "Na Pnad 2015, a falta de tempo foi o motivo mais citado por quem não praticou esporte ou atividade física. Que leitura combina com uma visão ampliada de saúde?"
+  alternativas:
+    - texto: "As pessoas sem tempo são preguiçosas."
+      erro: "Falta de tempo não é preguiça: muitas vezes é jornada longa e transporte demorado. A alternativa culpa a pessoa."
+    - texto: "O esporte não é importante para a saúde."
+      erro: "A pesquisa não diz isso. Ela mostra por que as pessoas não praticam, não que a prática não importa."
+    - texto: "Basta comprar equipamentos para praticar em casa."
+      erro: "Equipamento não cria tempo livre. A solução individual ignora a causa apontada."
+    - texto: "A prática depende só de academias perto de casa."
+      erro: "Academia perto ajuda, mas o motivo citado foi tempo, não distância."
+    - texto: "A rotina de trabalho e de transporte também decide quem consegue se exercitar."
+      certa: true
+  explicacao: "Se o motivo é falta de tempo, a causa está também nas condições de vida: jornada de trabalho, tempo no ônibus, cuidado da casa. É a visão ampliada: saúde depende de trabalho, transporte e lazer (Lei nº 8.080/1990)."
+  fonte: "Questão original do Instituto Lúcia, com base na Pnad 2015 (IBGE)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-05
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-saude-e-beleza
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Nos perfis de muitos influenciadores, a vida parece perfeita: corpo esbelto, viagens, café da manhã colorido
+    e sorriso em todas as fotos. Psicólogos chamam de "positividade tóxica" a pressão para mostrar só felicidade e
+    esconder qualquer tristeza ou cansaço. Quem assiste passa a comparar a própria vida comum com essa vitrine.
+  enunciado: "Segundo o texto, a positividade tóxica se apoia"
+  alternativas:
+    - texto: "na sinceridade dos influenciadores sobre os seus problemas."
+      erro: "O texto diz o contrário: a pressão é para esconder tristeza e cansaço. É inversão."
+    - texto: "na prática regular de atividade física."
+      erro: "O corpo esbelto aparece como parte da vitrine, não como prática de saúde. O texto não fala de exercício."
+    - texto: "na exibição de uma vida e de um corpo idealizados, que escondem o que é comum."
+      certa: true
+    - texto: "na proibição de fotos nas redes sociais."
+      erro: "Nada no texto fala de proibição. Ao contrário: há fotos demais."
+    - texto: "na ajuda que psicólogos oferecem nas redes."
+      erro: "Os psicólogos só dão nome ao fenômeno. Não são eles que o sustentam."
+  explicacao: "A positividade tóxica depende de uma vitrine: só alegria, só corpo esbelto, só vida perfeita. Isso faz quem assiste comparar a vida real com uma imagem montada. A prova liga corpo, mídia e saúde mental."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-06
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 10
+  objeto: lin-praticas-corporais-saude-e-beleza
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma pesquisa numa cidade mostrou que a maioria dos moradores de bairros com praça, ciclovia e iluminação
+    pública faz caminhada à noite. Nos bairros sem nada disso, a maioria dos moradores disse ter medo de sair
+    depois que escurece. A prefeitura respondeu lançando uma campanha: "Mexa-se! Só depende de você."
+  enunciado: "Considerando os dados da pesquisa, a campanha da prefeitura"
+  alternativas:
+    - texto: "acerta, porque a prática de atividade física é uma escolha individual."
+      erro: "A pesquisa mostra que a prática depende do bairro. Dizer que \"só depende de você\" ignora os dados."
+    - texto: "ignora que a prática depende de condições do lugar, como espaço público e segurança."
+      certa: true
+    - texto: "resolve o problema do medo nos bairros sem iluminação."
+      erro: "Uma frase de campanha não acende um poste. O medo continua."
+    - texto: "mostra que os moradores dos bairros sem praça não gostam de caminhar."
+      erro: "Eles disseram ter medo, não falta de gosto. É uma leitura que o texto não autoriza."
+    - texto: "está de acordo com a visão ampliada de saúde."
+      erro: "A visão ampliada olha para as condições de vida. A campanha olha só para a vontade da pessoa. É o contrário."
+  explicacao: "Os dados mostram que praça, ciclovia e iluminação fazem diferença. A campanha joga a responsabilidade só no indivíduo. Uma visão ampliada de saúde pediria mudar o espaço público."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-07
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-saude-e-beleza
+  dificuldade: 2
+  enunciado: "Uma atleta olímpica desistiu de uma prova final dizendo que não estava bem mentalmente. Parte do público a chamou de fraca. Que relação o caso ajuda a pensar?"
+  alternativas:
+    - texto: "Atletas de alto nível não podem ter problemas emocionais."
+      erro: "Essa é a ideia que o caso põe em questão. Atleta também é pessoa, e a mente faz parte da saúde."
+    - texto: "Desistir de uma prova é sempre falta de preparo físico."
+      erro: "Ela falou de saúde mental, não de preparo físico. A alternativa ignora o motivo."
+    - texto: "O esporte de alto rendimento não tem relação com a saúde."
+      erro: "Tem, e muito: o caso mostra justamente essa relação."
+    - texto: "A saúde mental faz parte da saúde e afeta o desempenho esportivo."
+      certa: true
+    - texto: "O público tem sempre razão ao avaliar um atleta."
+      erro: "A crítica do público é parte do problema. O caso convida a questionar, não a aceitar, o rótulo de \"fraca\"."
+  explicacao: "Saúde é bem-estar físico, mental e social. Um problema psicológico também impede de competir, como uma lesão no joelho. Chamar a atleta de fraca é tratar a mente como se não fosse corpo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-08
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 10
+  objeto: lin-praticas-corporais-saude-e-beleza
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num anúncio, uma academia oferece um "plano verão" com a frase: "Faltam 60 dias. Seu corpo vai estar pronto?".
+    Ao lado, a foto de uma pessoa de biquíni, com abdômen definido. No rodapé, em letras pequenas: "Resultados
+    variam de pessoa para pessoa. Consulte um profissional de saúde."
+  enunciado: "A relação entre a frase principal e o aviso do rodapé revela que o anúncio"
+  alternativas:
+    - texto: "promete um padrão de aparência e, ao mesmo tempo, admite que ele pode não ser alcançado."
+      certa: true
+    - texto: "informa que o abdômen definido é sinal garantido de saúde."
+      erro: "O rodapé diz que os resultados variam. Nada garante, e abdômen definido não é sinônimo de saúde."
+    - texto: "valoriza todos os tipos de corpo."
+      erro: "Só um tipo de corpo aparece na foto. A pergunta \"seu corpo vai estar pronto?\" sugere que os outros não estão."
+    - texto: "recomenda a atividade física como a OMS, sem prazo e sem meta de aparência."
+      erro: "O anúncio tem prazo (60 dias) e meta de aparência (o corpo da foto). É o contrário da recomendação da OMS."
+    - texto: "esconde totalmente que os resultados podem variar."
+      erro: "O rodapé diz que variam. O que o anúncio faz é deixar esse aviso pequeno, não escondê-lo de todo."
+  explicacao: "A frase grande vende a promessa (corpo pronto em 60 dias, como na foto). O rodapé pequeno admite que pode não acontecer. O tamanho de cada texto mostra o que o anúncio quer que se veja."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-09
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 10
+  objeto: lin-praticas-corporais-saude-e-beleza
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O artigo 3º da Lei nº 8.080, de 1990, afirma que os níveis de saúde expressam a organização social e econômica
+    do país. Entre os determinantes e condicionantes da saúde, a lei cita a alimentação, a moradia, o saneamento
+    básico, o meio ambiente, o trabalho, a renda, a educação, a atividade física, o transporte e o lazer.
+  enunciado: "Com base no texto, uma política pública coerente para ampliar a prática de atividade física deveria"
+  alternativas:
+    - texto: "distribuir folhetos com dietas para emagrecer."
+      erro: "Folheto de dieta foca na aparência e no indivíduo. Não mexe em nenhum dos determinantes citados."
+    - texto: "limitar-se a abrir academias particulares."
+      erro: "Academia particular depende de renda, que é justamente um dos determinantes. Ela não chega a todos."
+    - texto: "premiar as pessoas que perderem mais peso."
+      erro: "Prêmio por peso transforma saúde em competição de aparência. A lei fala de condições de vida."
+    - texto: "tratar a atividade física como responsabilidade só de cada pessoa."
+      erro: "A lei diz que a saúde expressa a organização social e econômica. Não é só responsabilidade individual."
+    - texto: "combinar espaços públicos de lazer com melhorias no transporte e no tempo livre dos trabalhadores."
+      certa: true
+  explicacao: "A lei liga a saúde ao lazer, ao transporte e ao trabalho. Uma política coerente mexe nessas condições, para que mais gente tenha onde e quando se mexer."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 8.080/1990"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-corpo-saude-10
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-saude-e-beleza
+  dificuldade: 3
+  enunciado: "Um coletivo de dança da periferia passou a chamar para as aulas pessoas gordas, idosas e com deficiência, com o lema \"aqui todo corpo dança\". Em relação ao padrão de beleza, a proposta do coletivo:"
+  alternativas:
+    - texto: "reforça a ideia de que só alguns corpos podem dançar."
+      erro: "O lema diz o contrário: todo corpo dança. É inversão."
+    - texto: "mostra que a dança deve servir para emagrecer."
+      erro: "Nada no enunciado fala de emagrecer. O foco é participação, não peso."
+    - texto: "rompe com a exclusão de corpos que fogem do padrão e amplia a participação."
+      certa: true
+    - texto: "é uma estratégia de marketing para vender roupas."
+      erro: "O enunciado não fala de produto. É informação de fora."
+    - texto: "torna a dança uma prática de alto rendimento."
+      erro: "Alto rendimento seleciona os melhores. O coletivo faz o contrário: abre para todos."
+  explicacao: "O padrão de beleza exclui quem é gordo, idoso ou tem deficiência. O coletivo inverte essa lógica e abre a prática a todos os corpos. É a H11: o corpo como meio de convivência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

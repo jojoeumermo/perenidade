@@ -1,0 +1,242 @@
+# Exercícios da aula "Música brasileira e as culturas que a criaram" (trilha enem-linguagens-artes-e-corpo).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Nenhuma letra de canção é reproduzida.
+
+- id: enem-lin-artes-musica-01
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  dificuldade: 1
+  enunciado: "O nome \"manguebeat\" junta duas ideias. Quais?"
+  alternativas:
+    - texto: "O mangue, ecossistema de Recife, e o \"beat\", a batida."
+      certa: true
+    - texto: "A manga, fruta do Nordeste, e o \"beat\", a batida."
+      erro: "Não é a fruta: é o mangue, a área alagada à beira dos rios e do mar, que marca a paisagem de Recife."
+    - texto: "O mangue e o \"bit\" da informática, sem relação com música."
+      erro: "Há quem escreva \"mangue bit\", mas a ideia central é a batida musical misturada ao lugar."
+    - texto: "O nome de um bairro de Salvador e um ritmo africano."
+      erro: "O manguebeat nasceu em Recife, Pernambuco, não em Salvador."
+    - texto: "Um instrumento indígena e um estilo de dança europeu."
+      erro: "O nome não fala de instrumento indígena nem de dança europeia."
+  explicacao: "O manguebeat surgiu em Recife no começo dos anos 1990. O nome une o mangue, que simboliza a cidade, à batida, que vem do rock, do hip-hop e da eletrônica misturados ao maracatu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-02
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  dificuldade: 1
+  enunciado: "Qual destes gêneros musicais foi registrado pelo Iphan como patrimônio cultural imaterial do Brasil em 2024?"
+  alternativas:
+    - texto: "Bossa nova."
+      erro: "A bossa nova não foi o bem registrado em 2024."
+    - texto: "Sertanejo universitário."
+      erro: "Não é o caso: o registro de 2024 foi de um gênero instrumental do século 19."
+    - texto: "Rock nacional."
+      erro: "O rock não foi registrado como patrimônio imaterial pelo Iphan."
+    - texto: "Choro."
+      certa: true
+    - texto: "Axé."
+      erro: "O registro de 2024 não foi do axé."
+  explicacao: "O choro, surgido no Rio de Janeiro no fim do século 19, foi registrado em 29 de fevereiro de 2024 no Livro das Formas de Expressão."
+  fonte: "Questão original do Instituto Lúcia, com base em notícia da Agência Gov (2024)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-03
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  dificuldade: 1
+  enunciado: "A Tropicália, no fim dos anos 1960, retomou uma ideia do Modernismo de 1920. Qual?"
+  alternativas:
+    - texto: "A recusa de toda influência estrangeira."
+      erro: "É o contrário: a Tropicália usou guitarra elétrica e cultura pop de fora, sem medo."
+    - texto: "A antropofagia: \"devorar\" o que vem de fora e recriar a partir da cultura brasileira."
+      certa: true
+    - texto: "O culto da forma perfeita, com rima rica."
+      erro: "Isso é o Parnasianismo, que o Modernismo combateu."
+    - texto: "A volta à música erudita europeia do século 18."
+      erro: "A Tropicália misturou o popular e o pop, não voltou ao erudito antigo."
+    - texto: "A proibição dos instrumentos elétricos."
+      erro: "Ao contrário: a guitarra elétrica foi uma das marcas da Tropicália."
+  explicacao: "A antropofagia, de Oswald de Andrade (1928), propunha digerir as influências de fora. A Tropicália fez isso com o rock, a guitarra e a cultura de massa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-04
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  dificuldade: 2
+  enunciado: "Os Brô MCs, jovens Guarani-Kaiowá de Dourados (MS), conheceram o rap pelo rádio e passaram a fazer letras em guarani e em português sobre a luta pela terra. O que essa trajetória mostra?"
+  alternativas:
+    - texto: "Que o rap só tem sentido nas periferias das grandes cidades."
+      erro: "A trajetória mostra o rap ganhando sentido também na aldeia."
+    - texto: "Que os jovens indígenas abandonaram a língua do seu povo."
+      erro: "Eles cantam em guarani. A língua do povo está dentro do rap."
+    - texto: "Que a música indígena tradicional deixou de existir."
+      erro: "Nada no enunciado diz isso. Fazer rap não apaga outras músicas."
+    - texto: "Que o rádio é o único meio de comunicação nas aldeias."
+      erro: "O rádio foi como eles conheceram o rap. O enunciado não diz que é o único meio."
+    - texto: "Que um gênero urbano foi apropriado por um povo originário para expressar a própria luta."
+      certa: true
+  explicacao: "Um gênero nascido na cidade vira, na aldeia, instrumento de expressão de outra luta, em outra língua. É a troca entre culturas que a H14 cobra."
+  fonte: "Questão original do Instituto Lúcia, com base em texto do Goethe-Institut sobre os Brô MCs"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-05
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No calçadão de uma cidade do litoral nordestino, um saxofonista toca todo fim de tarde. Começa com uma peça de
+    um compositor erudito francês e emenda com um baião de Luiz Gonzaga. Turistas e moradores aplaudem as duas.
+    "Para mim, é tudo música", diz ele. "O pôr do sol não pergunta de onde veio a melodia."
+  enunciado: "A apresentação do saxofonista se caracteriza pela"
+  alternativas:
+    - texto: "superioridade da música erudita sobre a popular."
+      erro: "Ele toca as duas e o público aplaude as duas. Ninguém hierarquiza no texto."
+    - texto: "rejeição da música nordestina pelos turistas."
+      erro: "Os turistas aplaudem as duas. Contradição."
+    - texto: "convivência entre tradições musicais de origens diferentes, sem hierarquia entre elas."
+      certa: true
+    - texto: "substituição do baião por músicas estrangeiras."
+      erro: "Ele toca o baião. Não há substituição."
+    - texto: "proibição de tocar música erudita em espaço público."
+      erro: "Nada no texto fala de proibição."
+  explicacao: "O erudito francês e o baião convivem no mesmo repertório e para o mesmo público. \"É tudo música\": é a diversidade e o diálogo entre tradições (H14)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-06
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No começo dos anos 1990, em Recife, um grupo de músicos juntou as alfaias, tambores grandes do maracatu, com
+    guitarras de rock, batidas de hip-hop e efeitos eletrônicos. O vocalista cantava com o sotaque da cidade e
+    falava dos caranguejos do mangue e da fome nas palafitas.
+  enunciado: "A proposta desses músicos renovou a música de Pernambuco ao"
+  alternativas:
+    - texto: "combinar uma tradição local com linguagens musicais de circulação internacional."
+      certa: true
+    - texto: "abandonar o maracatu e adotar só o rock estrangeiro."
+      erro: "As alfaias do maracatu estão no centro do som. Nada foi abandonado."
+    - texto: "proibir o uso de instrumentos eletrônicos."
+      erro: "Eles usavam efeitos eletrônicos. É o contrário."
+    - texto: "cantar com sotaque estrangeiro para vender mais."
+      erro: "O texto diz que o vocalista cantava com o sotaque da cidade."
+    - texto: "evitar temas sociais nas letras."
+      erro: "O texto cita a fome nas palafitas. Os temas sociais estão presentes."
+  explicacao: "O manguebeat juntou o maracatu e o sotaque recifense ao rock, ao hip-hop e à eletrônica. A tradição local se renova em contato com o mundo (H14)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-07
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-musica-brasileira
+  dificuldade: 2
+  enunciado: "No começo do século 20, no Rio de Janeiro, as casas das \"tias baianas\", como a de Tia Ciata, reuniam festa, religião e música. Que papel essas casas tiveram na história do samba?"
+  alternativas:
+    - texto: "Foram escolas oficiais de música, criadas pelo governo."
+      erro: "Eram casas de família, não escolas do governo."
+    - texto: "Serviram apenas como depósito de instrumentos."
+      erro: "Eram lugares vivos, de encontro e criação, não depósitos."
+    - texto: "Proibiam a música de origem africana."
+      erro: "Ao contrário: eram lugares onde a cultura de origem africana se mantinha viva."
+    - texto: "Foram espaços de convivência e criação coletiva da comunidade negra, de onde saíram sambas pioneiros."
+      certa: true
+    - texto: "Foram lugares de concertos de música erudita europeia."
+      erro: "O que se fazia ali era samba, partido-alto e festa religiosa, não concerto erudito."
+  explicacao: "Na Pequena África, as casas das tias baianas reuniam a comunidade negra. *Pelo telefone*, registrado por Donga em 1916, nasceu numa dessas rodas. A arte cumpre ali função social e comunitária (H12)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-08
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No começo do século 20, quem tocava samba no Rio de Janeiro podia ser levado pela polícia como "vadio". Décadas
+    depois, o samba virou símbolo do país. No começo do século 21, bailes funk passaram a ser fechados pela polícia,
+    e uma proposta chegou ao Congresso pedindo que o funk fosse tratado como crime.
+  enunciado: "A comparação feita no texto sugere que"
+  alternativas:
+    - texto: "o samba e o funk nunca tiveram relação com a polícia."
+      erro: "O texto mostra os dois perseguidos pela polícia. Contradição."
+    - texto: "manifestações musicais de origem negra e popular tendem a ser perseguidas antes de ser reconhecidas."
+      certa: true
+    - texto: "o funk já é reconhecido como símbolo nacional, como o samba."
+      erro: "O texto fala de perseguição ao funk, não de reconhecimento."
+    - texto: "o samba sempre foi aceito pelas elites."
+      erro: "O texto diz que quem tocava samba podia ser preso. Inversão."
+    - texto: "toda música popular deveria ser proibida."
+      erro: "O texto compara trajetórias, não defende proibição."
+  explicacao: "O samba foi tratado como vadiagem e depois virou símbolo nacional. O funk passa por perseguição parecida. O padrão: o que nasce entre negros e pobres é criminalizado antes de ser celebrado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-09
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 13
+  objeto: lin-artes-musica-brasileira
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A partir dos anos 1940, um sanfoneiro pernambucano levou ao rádio de todo o país canções sobre a seca, a
+    migração para o Sul e a saudade do sertão. Para muitos nordestinos que tinham partido para São Paulo e para o
+    Rio de Janeiro, ouvir aquela sanfona era ouvir a própria história.
+  enunciado: "O texto mostra que essas canções"
+  alternativas:
+    - texto: "eram ouvidas só no sertão, onde nasceram."
+      erro: "O texto diz que chegaram ao rádio de todo o país e aos migrantes no Sul."
+    - texto: "idealizavam o sertão como lugar sem problemas."
+      erro: "Elas falavam da seca e da migração forçada. Não há idealização."
+    - texto: "foram feitas para turistas estrangeiros."
+      erro: "O público citado são os nordestinos que migraram. Nada fala de turistas."
+    - texto: "tratavam só de temas amorosos, sem relação com a vida social."
+      erro: "Seca e migração são temas sociais. Contradição."
+    - texto: "expressavam a experiência de um grupo social e serviam de memória e identidade para quem migrou."
+      certa: true
+  explicacao: "As canções de Luiz Gonzaga contavam a seca e a partida. Para o migrante longe de casa, eram memória e identidade. A obra explica uma cultura e uma experiência coletiva (H13)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-musica-10
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  dificuldade: 3
+  enunciado: "Uma cantora de Belém mistura carimbó, ritmo tradicional do Pará, com guitarrada e batida eletrônica, e se apresenta em festivais de outros países. Um crítico diz que ela \"traiu a tradição\". Que contra-argumento combina com a habilidade H14?"
+  alternativas:
+    - texto: "A tradição deve ficar igual para sempre, sem contato com outras músicas."
+      erro: "Isso reforça o crítico, não o contradiz. E a história da música brasileira é feita de misturas."
+    - texto: "O carimbó é inferior à música eletrônica."
+      erro: "Hierarquizar é a armadilha. A H14 valoriza a diversidade, não uma escala de valor."
+    - texto: "Tradições vivas se transformam no contato com outras culturas, e a mistura pode renová-las e ampliar o seu alcance."
+      certa: true
+    - texto: "Quem faz sucesso fora do país deixa de ser brasileiro."
+      erro: "Fazer sucesso fora não muda a origem nem a identidade de ninguém."
+    - texto: "Só músicos estrangeiros podem usar batida eletrônica."
+      erro: "Não há regra assim. A eletrônica é linguagem que circula no mundo todo."
+  explicacao: "Gêneros como samba, choro e manguebeat nasceram de misturas. Misturar não é trair: é uma forma de a tradição continuar viva. É o que a H14 chama de trocas entre manifestações de grupos diferentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

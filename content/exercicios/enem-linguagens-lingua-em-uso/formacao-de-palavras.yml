@@ -1,0 +1,242 @@
+# Exercícios da aula "Formação de palavras" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-formacao-01
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  dificuldade: 1
+  enunciado: "A palavra “padaria” é formada por"
+  alternativas:
+    - texto: "composição de “pão” e “aria”."
+      erro: "“-aria” não é palavra que existe sozinha. É um sufixo que indica lugar onde se faz ou vende algo."
+    - texto: "derivação sufixal: o sufixo “-aria” (lugar) se junta ao radical de “pão”."
+      certa: true
+    - texto: "redução de uma palavra maior."
+      erro: "“Padaria” não é pedaço de outra palavra. Ela ganhou um sufixo."
+    - texto: "sigla."
+      erro: "Não há iniciais de outras palavras. É uma palavra derivada."
+    - texto: "empréstimo do inglês."
+      erro: "“Padaria” se formou no próprio português, a partir de “pão”."
+  explicacao: "O sufixo “-aria” indica lugar (como em “sapataria”, “livraria”). Somado ao radical de “pão” (pad-), forma “padaria”: derivação sufixal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-02
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  dificuldade: 1
+  enunciado: "“Foto”, “moto” e “cine” são exemplos de"
+  alternativas:
+    - texto: "composição por justaposição."
+      erro: "Não há duas palavras juntas. Cada uma é um pedaço de uma palavra maior."
+    - texto: "derivação prefixal."
+      erro: "Não há prefixo. As palavras ficaram mais curtas."
+    - texto: "onomatopeia."
+      erro: "Nenhuma imita som. Elas encurtam palavras longas."
+    - texto: "redução: a parte inicial passa a valer pela palavra inteira."
+      certa: true
+    - texto: "neologismo literário."
+      erro: "São formas do uso comum, não criação de um escritor. O processo é a redução."
+  explicacao: "“Fotografia” virou “foto”; “motocicleta”, “moto”; “cinema”, “cine”. É redução (abreviação)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-03
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  dificuldade: 1
+  enunciado: "Segundo o Acordo Ortográfico, qual grafia está correta?"
+  alternativas:
+    - texto: "micro-ondas"
+      certa: true
+    - texto: "microondas"
+      erro: "Quando o prefixo termina com a mesma vogal com que a palavra começa (o + o), usa-se hífen."
+    - texto: "auto-escola"
+      erro: "Prefixo terminado em vogal + palavra com outra vogal: escreve-se junto, “autoescola”."
+    - texto: "anti-racismo"
+      erro: "Prefixo terminado em vogal + palavra com “r”: junta-se e dobra-se o “r”: “antirracismo”."
+    - texto: "mini-saia"
+      erro: "Prefixo terminado em vogal + palavra com “s”: junta-se e dobra-se o “s”: “minissaia”."
+  explicacao: "Pela Base XVI do Acordo Ortográfico (Decreto 6.583/2008), vogal igual pede hífen: “micro-ondas”. Na dúvida, consulte o VOLP da Academia Brasileira de Letras."
+  fonte: "Questão original do Instituto Lúcia, com base no Decreto 6.583/2008 (https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/decreto/d6583.htm)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-04
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Anúncio de uma feira de troca de roupas no bairro:
+    “Desapegue do que não usa. Reapegue a uma peça nova. Ninguém paga, todo mundo leva.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A palavra “reapegue” chama atenção porque"
+  alternativas:
+    - texto: "é um erro de grafia de “desapegue”."
+      erro: "A troca do prefixo é proposital. O anúncio cria a palavra para fazer par com “desapegue”."
+    - texto: "é um empréstimo do espanhol."
+      erro: "A palavra foi formada no português, com prefixo do português."
+    - texto: "é uma sigla."
+      erro: "Não é formada por iniciais. É formada por prefixo e radical."
+    - texto: "repete exatamente o sentido de “desapegue”."
+      erro: "Os prefixos têm sentidos opostos: “des-” desfaz, “re-” refaz. O par é de contraste."
+    - texto: "é um neologismo criado com o prefixo “re-”, que faz par com “desapegue” e sugere criar um apego novo."
+      certa: true
+  explicacao: "O anúncio troca o prefixo “des-” por “re-” na mesma base (apegar). Cria uma palavra nova que brinca com a anterior: largar uma roupa e se apegar a outra. O neologismo dá graça e memória à mensagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-05
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  dificuldade: 2
+  enunciado: "Qual palavra foi formada por derivação parassintética (prefixo e sufixo entram juntos)?"
+  alternativas:
+    - texto: "Infelizmente"
+      erro: "Existe “infeliz” e existe “felizmente”: os pedaços podem entrar um de cada vez. É prefixal e sufixal, não parassintética."
+    - texto: "Girassol"
+      erro: "É composição: gira + sol."
+    - texto: "Envelhecer"
+      certa: true
+    - texto: "Desfazer"
+      erro: "Só tem prefixo (“des-”). É derivação prefixal."
+    - texto: "Padaria"
+      erro: "Só tem sufixo (“-aria”). É derivação sufixal."
+  explicacao: "“En-” + “velh(o)” + “-ecer”. Não existe “envelho” nem “velhecer”: prefixo e sufixo entram juntos. É parassíntese."
+  fonte: "Questão original do Instituto Lúcia, com base em Bechara, Moderna Gramática Portuguesa"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-06
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    — Arrumei um empreguinho de meio período.
+    — Que bom! E é longe?
+    — É pertinho, dá para ir a pé. Só o salarinho que podia ser maior.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "No diálogo, os diminutivos “empreguinho”, “pertinho” e “salarinho” expressam, respectivamente,"
+  alternativas:
+    - texto: "tamanho físico nos três casos."
+      erro: "Emprego e salário não têm tamanho físico. O “-inho” aqui carrega avaliação."
+    - texto: "modéstia em relação ao emprego, proximidade agradável e crítica ao valor baixo."
+      certa: true
+    - texto: "afeto nos três casos."
+      erro: "“Salarinho que podia ser maior” é reclamação, não afeto."
+    - texto: "erro de concordância nos três casos."
+      erro: "Diminutivo não tem relação com concordância. É sufixo com valor de sentido."
+    - texto: "ironia nos três casos."
+      erro: "“Pertinho” é dito com satisfação, sem ironia."
+  explicacao: "O mesmo sufixo muda de valor: “empreguinho” diminui com modéstia, “pertinho” reforça a vantagem, “salarinho” critica o valor. O contexto define o sentido do sufixo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-07
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  dificuldade: 2
+  enunciado: "Em “o choro da criança acordou a casa”, a palavra “choro” foi formada por"
+  alternativas:
+    - texto: "composição."
+      erro: "Há uma palavra só na base (chorar). Não há duas palavras juntas."
+    - texto: "derivação sufixal."
+      erro: "Não houve acréscimo de sufixo. A palavra ficou mais curta que o verbo."
+    - texto: "sigla."
+      erro: "Não há iniciais. É uma palavra comum."
+    - texto: "empréstimo."
+      erro: "“Choro” vem do próprio verbo português “chorar”."
+    - texto: "derivação regressiva: o substantivo nasce do verbo, com redução."
+      certa: true
+  explicacao: "De “chorar” sai “o choro”, mais curto. É derivação regressiva, como “pescar” → “a pesca” e “atacar” → “o ataque”."
+  fonte: "Questão original do Instituto Lúcia, com base em Bechara, Moderna Gramática Portuguesa"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-08
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Toda geração inventa palavras. Os avós diziam “broto” para a pessoa jovem e bonita; os pais, “gato”; os netos dizem “crush” e falam que a semana “sextou”. Os puristas reclamam, mas a língua não pede licença: ela cria, empresta, encurta e esquece. As palavras que servem ficam. As outras viram lembrança.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O texto defende a ideia de que a criação de palavras"
+  alternativas:
+    - texto: "é um processo normal da língua, ligado às gerações e ao uso."
+      certa: true
+    - texto: "ameaça a sobrevivência do português."
+      erro: "O texto cita essa posição (“os puristas reclamam”) para discordar dela."
+    - texto: "deve ser controlada por uma instituição."
+      erro: "O texto diz que a língua “não pede licença”. Não propõe controle."
+    - texto: "acontece só com palavras do inglês."
+      erro: "“Broto”, “gato” e “sextou” são do português. “Crush” é só um dos exemplos."
+    - texto: "faz as palavras antigas ficarem erradas."
+      erro: "As antigas “viram lembrança”, não erro. É variação histórica."
+  explicacao: "O texto mostra cada geração com suas palavras e conclui que as úteis ficam. A criação de palavras é apresentada como parte natural da vida da língua."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-09
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Manchete de um jornal de bairro:
+    “Com a chegada do metrô, aluguel dispara e moradores antigos denunciam a ‘gourmetização’ da Vila.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A palavra “gourmetização”, entre aspas, foi formada e usada para"
+  alternativas:
+    - texto: "elogiar a melhoria dos restaurantes do bairro."
+      erro: "Os moradores “denunciam”: o tom é de crítica, não de elogio."
+    - texto: "nomear a mudança do metrô de lugar."
+      erro: "O metrô chega; a palavra nomeia o que vem depois dele no bairro."
+    - texto: "nomear, com crítica, o processo de encarecimento que afasta os moradores antigos."
+      certa: true
+    - texto: "indicar um termo técnico da engenharia urbana."
+      erro: "As aspas mostram que é palavra de uso recente e avaliativo, não termo técnico."
+    - texto: "substituir o nome oficial do bairro."
+      erro: "O nome do bairro (“Vila”) continua. A palavra nomeia um processo."
+  explicacao: "Do francês “gourmet” (comida sofisticada) com o sufixo “-ização” (processo) nasce um neologismo. Na manchete, ele critica a transformação que encarece o bairro e expulsa quem morava lá. As aspas marcam a palavra como nova e carregada de avaliação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-formacao-10
+  tema: "Formação de palavras"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-lingua-portuguesa-formacao-de-palavras
+  dificuldade: 3
+  enunciado: "Qual par mostra, nessa ordem, composição por aglutinação e composição por justaposição?"
+  alternativas:
+    - texto: "“girassol” e “planalto”"
+      erro: "A ordem está trocada. “Girassol” junta sem perda de som (justaposição); “planalto” perde o “o” de “plano” (aglutinação)."
+    - texto: "“padaria” e “guarda-chuva”"
+      erro: "“Padaria” é derivação sufixal, não composição."
+    - texto: "“envelhecer” e “passatempo”"
+      erro: "“Envelhecer” é derivação parassintética, não composição."
+    - texto: "“aguardente” e “guarda-chuva”"
+      certa: true
+    - texto: "“moto” e “girassol”"
+      erro: "“Moto” é redução, não composição."
+  explicacao: "“Aguardente” funde “água” e “ardente” com perda de som: aglutinação. “Guarda-chuva” junta as duas palavras inteiras: justaposição."
+  fonte: "Questão original do Instituto Lúcia, com base em Bechara, Moderna Gramática Portuguesa"
+  revisao: { status: em-revisao }

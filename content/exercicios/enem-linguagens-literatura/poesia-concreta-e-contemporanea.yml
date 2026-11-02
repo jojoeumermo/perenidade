@@ -1,0 +1,252 @@
+# Exercícios da aula "Poesia concreta e produção contemporânea" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-contemporanea-01
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-contemporanea
+  dificuldade: 1
+  enunciado: "Na poesia concreta, o que passa a fazer parte do sentido do poema?"
+  alternativas:
+    - texto: "A disposição das palavras no espaço da página"
+      certa: true
+    - texto: "O número fixo de sílabas de cada verso"
+      erro: "Os concretos abandonaram o verso. A métrica fixa era ideal parnasiano."
+    - texto: "A rima rica entre as estrofes"
+      erro: "Não há estrofes nem rima obrigatória na poesia concreta."
+    - texto: "A narração da vida de um herói nacional"
+      erro: "O poema concreto não narra. Ele mostra a palavra como objeto."
+    - texto: "O tom de confissão amorosa"
+      erro: "A poesia concreta evita a confissão. O foco é a palavra e a forma."
+  explicacao: "Para os concretos, a palavra é verbivocovisual: vale pelo significado, pelo som e pela forma visual. A posição na página, o branco e a repetição fazem sentido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-02
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-contemporanea
+  dificuldade: 1
+  enunciado: "A poesia marginal dos anos 1970 circulava principalmente"
+  alternativas:
+    - texto: "em grandes editoras, com tiragens enormes."
+      erro: "Era o contrário: \"marginal\" quer dizer fora do mercado das grandes editoras."
+    - texto: "em revistas científicas das universidades."
+      erro: "Os poetas marginais vendiam os livros em bares, praias e filas de cinema."
+    - texto: "em livrinhos feitos em mimeógrafo e vendidos de mão em mão."
+      certa: true
+    - texto: "apenas no rádio, em programas oficiais do governo."
+      erro: "Em plena ditadura, a poesia marginal não tinha espaço oficial."
+    - texto: "em museus de arte moderna, ao lado de pinturas."
+      erro: "Isso lembra a Exposição Nacional de Arte Concreta, de 1956, não a poesia marginal."
+  explicacao: "Chacal, Cacaso, Ana Cristina Cesar e outros faziam os próprios livros em mimeógrafo, uma copiadora barata, e os vendiam pessoalmente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-03
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-contemporanea
+  dificuldade: 1
+  enunciado: "O livro de contos Feliz ano novo, de Rubem Fonseca (1975), foi proibido em 1976. Quem o proibiu?"
+  alternativas:
+    - texto: "A Academia Brasileira de Letras"
+      erro: "A Academia não tem poder de proibir livros. Foi a censura do governo."
+    - texto: "A editora, por falta de vendas"
+      erro: "O livro vendia bem quando foi proibido."
+    - texto: "O próprio autor, arrependido"
+      erro: "Rubem Fonseca processou a União por causa da proibição."
+    - texto: "A censura da ditadura militar, pelo Ministério da Justiça"
+      certa: true
+    - texto: "Os leitores, num abaixo-assinado"
+      erro: "Foi uma portaria do Ministério da Justiça, alegando ofensa à moral."
+  explicacao: "Em dezembro de 1976, o Ministério da Justiça proibiu o livro alegando \"ofensa à moral e aos bons costumes\". Os contos mostravam a violência da cidade grande sem disfarce."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-04
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-contemporanea
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    compre
+    compre
+    compre
+    compre
+    co   pre
+    c    pre
+         pre-
+         ço
+    (Texto original do Instituto Lúcia, escrito para esta questão à maneira da poesia concreta.)
+  enunciado: "O poema critica o consumo porque"
+  alternativas:
+    - texto: "repete a palavra \"compre\" até desmontá-la e fazer aparecer \"preço\", o custo escondido da ordem."
+      certa: true
+    - texto: "conta a história de uma pessoa endividada, com começo, meio e fim."
+      erro: "Não há personagem nem enredo. A crítica nasce da forma: a palavra se desmonta."
+    - texto: "elogia a publicidade como forma de arte popular."
+      erro: "A repetição imita a publicidade para expor o que ela esconde. Não é elogio."
+    - texto: "usa rima rica e métrica fixa."
+      erro: "Não há métrica nem rima. Há repetição e desmontagem visual."
+    - texto: "descreve a paisagem de um shopping."
+      erro: "Nenhum lugar é descrito. O poema trabalha só com a palavra."
+  explicacao: "A repetição imita o slogan. Quando a palavra se desfaz, sobra \"preço\": o custo do mandamento \"compre\". É o mesmo procedimento de poemas concretos que desmontam marcas e anúncios."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-05
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-contemporanea
+  dificuldade: 2
+  enunciado: "Uma diferença entre a poesia concreta (anos 1950) e a poesia marginal (anos 1970) é que"
+  alternativas:
+    - texto: "a concreta é coloquial e confessional; a marginal é rigorosa e visual."
+      erro: "Está invertido. A concreta é rigorosa e visual; a marginal, coloquial e quase um diário."
+    - texto: "a concreta trabalha a palavra no espaço com rigor; a marginal aposta no tom coloquial, irônico e do cotidiano."
+      certa: true
+    - texto: "as duas usam o soneto como forma principal."
+      erro: "Nenhuma das duas tem o soneto como forma principal."
+    - texto: "a marginal nasceu antes da Semana de 1922."
+      erro: "A poesia marginal é dos anos 1970, cinquenta anos depois da Semana."
+    - texto: "as duas eram vendidas só em grandes livrarias."
+      erro: "A marginal circulava fora das livrarias, de mão em mão."
+  explicacao: "São quase opostos. A concreta é projeto de vanguarda, com manifesto e rigor gráfico. A marginal é espontânea, curta, irônica, ligada à vida e ao corpo, e fora do mercado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-06
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-contemporanea
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Dona Zélia contava que o patrão a demitiu no dia do aniversário dela, por telefone, enquanto ela
+    tirava o bolo do forno. "Pelo menos o bolo não queimou", dizia, rindo, e servia mais um pedaço para
+    quem ouvia.
+    (Texto original do Instituto Lúcia, escrito para esta questão à maneira da crônica.)
+  enunciado: "O efeito expressivo do trecho vem principalmente"
+  alternativas:
+    - texto: "da descrição técnica de como se faz um bolo."
+      erro: "O bolo é detalhe. O efeito está no jeito de contar a demissão."
+    - texto: "da linguagem rebuscada, com palavras raras."
+      erro: "As palavras são simples, do dia a dia."
+    - texto: "da defesa explícita do patrão pelo narrador."
+      erro: "O narrador não defende ninguém. Ele mostra."
+    - texto: "da imagem de sonho, que mistura bolo e telefone sem lógica."
+      erro: "A cena é realista. Bolo e telefone estão lá de verdade."
+    - texto: "do contraste entre um fato duro, a demissão, e o tom leve, quase de piada, com que ele é contado."
+      certa: true
+  explicacao: "Contar algo duro em tom leve deixa a dureza mais visível. Na prova de 2022, uma crônica de Antonio Prata usava o mesmo contraste entre violência e tom de \"causo\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-07
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-contemporanea
+  dificuldade: 2
+  enunciado: "Torto arado (2019), de Itamar Vieira Junior, se liga a uma questão social antiga do Brasil, que é"
+  alternativas:
+    - texto: "a vida na corte imperial do Rio de Janeiro."
+      erro: "O romance se passa no sertão baiano, entre trabalhadores rurais."
+    - texto: "a industrialização de São Paulo nos anos 1920."
+      erro: "Esse é o cenário de Brás, Bexiga e Barra Funda, da primeira geração modernista."
+    - texto: "a luta pela terra de trabalhadores rurais negros, herdeiros da escravidão."
+      certa: true
+    - texto: "a corrida espacial entre Estados Unidos e União Soviética."
+      erro: "Não há relação. O romance trata da terra e do trabalho no campo."
+    - texto: "a imigração japonesa para o Paraná."
+      erro: "O romance trata de famílias negras do sertão da Bahia."
+  explicacao: "O romance acompanha famílias de trabalhadores rurais negros que vivem e trabalham numa fazenda sem ter direito à terra, uma herança direta da escravidão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-08
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-contemporanea
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    hoje acordei poeta
+    escovei os dentes com metáfora
+    paguei a luz com um soneto
+    a companhia não aceitou
+    (Texto original do Instituto Lúcia, escrito para esta questão à maneira da poesia marginal dos anos 1970.)
+  enunciado: "O poema se aproxima da poesia marginal dos anos 1970 porque"
+  alternativas:
+    - texto: "usa a forma do soneto com métrica e rima perfeitas."
+      erro: "O soneto só aparece como piada. São quatro versos livres."
+    - texto: "distribui letras soltas no espaço, como um cartaz."
+      erro: "Os versos estão em linha, sem trabalho visual. Isso é da poesia concreta."
+    - texto: "narra a saga de um herói do sertão."
+      erro: "Não há sertão nem herói. Há o cotidiano de uma conta de luz."
+    - texto: "trata do cotidiano em tom coloquial e irônico, rindo da própria ideia de \"ser poeta\"."
+      certa: true
+    - texto: "exalta a máquina e a velocidade da cidade moderna."
+      erro: "Isso é o Futurismo. O poema ri de si mesmo diante de uma conta."
+  explicacao: "Primeira pessoa, verso curto, cotidiano (dentes, conta de luz) e ironia contra a solenidade da poesia: é o tom da geração mimeógrafo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-09
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-contemporanea
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Nos anos 1950, a poesia concreta conversava com cartazes, letreiros e marcas. Nos anos 1970, a poesia
+    marginal conversava com o bar, a praia e a conversa de amigos. Hoje, muita poesia conversa com a tela
+    do celular, o vídeo curto e a legenda.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "O texto sugere que, em cada época, a poesia"
+  alternativas:
+    - texto: "dialoga com os meios e os espaços de circulação de linguagem do seu tempo."
+      certa: true
+    - texto: "permanece igual, sem ser afetada pelas mudanças da sociedade."
+      erro: "O texto mostra três épocas e três diálogos diferentes. A poesia muda."
+    - texto: "deixa de existir quando surgem meios novos."
+      erro: "O texto mostra a poesia se renovando, não desaparecendo."
+    - texto: "precisa da autorização das grandes editoras para circular."
+      erro: "A poesia marginal e a do celular circulam justamente fora das editoras."
+    - texto: "só tem valor quando segue regras de métrica fixa."
+      erro: "Nenhuma das três tendências citadas segue métrica fixa."
+  explicacao: "H15 pede ligar o texto ao seu tempo. Cartaz, mimeógrafo e celular: cada geração de poetas usa a linguagem e os meios que o seu tempo oferece."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-contemporanea-10
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-contemporanea
+  dificuldade: 3
+  enunciado: "Uma questão diz que um conto contemporâneo \"usa ironia\". A alternativa A diz só isso. A alternativa B diz que a ironia \"expõe a hipocrisia da personagem que se diz caridosa\". Qual tende a ser a certa, e por quê?"
+  alternativas:
+    - texto: "A, porque é mais curta e mais segura."
+      erro: "Ser curta não garante nada. Ela para no recurso e não diz o efeito."
+    - texto: "Nenhuma, porque ironia nunca cai no Enem."
+      erro: "Ironia cai muito, em textos de todas as épocas."
+    - texto: "A, porque o Enem não pergunta sobre efeito."
+      erro: "Pergunta, e muito: a H16 liga o recurso ao sentido do texto."
+    - texto: "As duas, porque dizem a mesma coisa."
+      erro: "Não dizem. Uma nomeia o recurso; a outra diz o recurso e para que ele serve."
+    - texto: "B, desde que o texto confirme, porque diz o recurso e o efeito que ele produz."
+      certa: true
+  explicacao: "A resposta completa liga o recurso ao efeito. Mas confira no texto: uma alternativa com efeito inventado também é errada. Recurso + efeito + confirmação no trecho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

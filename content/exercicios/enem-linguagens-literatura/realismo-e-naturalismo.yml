@@ -1,0 +1,238 @@
+# Exercícios da aula "Realismo e Naturalismo" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-realismo-01
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-realismo-naturalismo
+  dificuldade: 1
+  enunciado: "O Realismo no Brasil tem como marco a publicação, em 1881, de"
+  alternativas:
+    - texto: "Iracema, de José de Alencar."
+      erro: "Iracema é de 1865 e é um romance romântico, indianista."
+    - texto: "Memórias póstumas de Brás Cubas, de Machado de Assis."
+      certa: true
+    - texto: "Os sertões, de Euclides da Cunha."
+      erro: "Os sertões é de 1902 e abre o Pré-Modernismo."
+    - texto: "Marília de Dirceu, de Tomás Antônio Gonzaga."
+      erro: "Marília de Dirceu é de 1792, do Arcadismo."
+    - texto: "Broquéis, de Cruz e Sousa."
+      erro: "Broquéis é de 1893 e marca o início do Simbolismo."
+  explicacao: "Brás Cubas saiu em folhetim em 1880 e em livro em 1881. No mesmo ano, O mulato, de Aluísio Azevedo, abriu o Naturalismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-02
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-realismo-naturalismo
+  dificuldade: 1
+  enunciado: "Uma característica do Naturalismo é"
+  alternativas:
+    - texto: "a idealização do herói e da mulher amada."
+      erro: "Idealizar é do Romantismo. O Naturalismo faz o contrário: mostra o lado cru."
+    - texto: "o poeta que se imagina pastor."
+      erro: "O pastor é a máscara do Arcadismo, no século 18."
+    - texto: "o culto da forma perfeita do verso."
+      erro: "O culto da forma é o Parnasianismo, que é poesia."
+    - texto: "a fuga para o sonho e o mistério."
+      erro: "Sonho e mistério são marcas do Simbolismo."
+    - texto: "o determinismo: o meio, a herança e o instinto explicam o comportamento."
+      certa: true
+  explicacao: "O Naturalismo trata o romance como experimento científico: as personagens são produto do meio, da herança e do instinto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-03
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-realismo-naturalismo
+  dificuldade: 1
+  enunciado: "Brás Cubas diz que não é \"um autor defunto, mas um defunto autor\". Com isso, ele quer dizer que"
+  alternativas:
+    - texto: "foi um escritor famoso que já morreu."
+      erro: "Esse seria o \"autor defunto\", que ele diz não ser."
+    - texto: "escreve como fantasma para assustar o leitor."
+      erro: "O livro não é de terror. A morte serve de liberdade para a ironia."
+    - texto: "é um morto que resolveu escrever as memórias depois de morrer."
+      certa: true
+    - texto: "nunca existiu e é só uma invenção do jornal."
+      erro: "Dentro da ficção, Brás Cubas é o narrador que viveu e morreu. A brincadeira é com a ordem das palavras."
+    - texto: "vai contar a vida de outro homem já morto."
+      erro: "Ele conta a própria vida. São memórias dele."
+  explicacao: "Trocar a ordem das palavras muda o sentido: \"defunto autor\" é um morto que vira autor. Morto, Brás não deve nada a ninguém e pode confessar tudo, com ironia."
+  fonte: "Questão original do Instituto Lúcia; expressão de Machado de Assis (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-04
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-realismo-naturalismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    E naquela terra encharcada e fumegante, naquela umidade quente e lodosa, começou a minhocar, a esfervilhar, a crescer, um mundo, uma coisa viva, uma geração, que parecia brotar espontânea, ali mesmo, daquele lameiro, e multiplicar-se como larvas no esterco.
+    (Aluísio Azevedo, O cortiço, capítulo I, 1890. Domínio público.)
+  enunciado: "O trecho expressa a concepção naturalista do ser humano porque"
+  alternativas:
+    - texto: "descreve os moradores como um organismo animal que nasce do meio, como larvas no esterco."
+      certa: true
+    - texto: "analisa por dentro os pensamentos de uma personagem."
+      erro: "Não há personagem individual: há \"uma coisa viva\", coletiva."
+    - texto: "idealiza a vida dos pobres como pura e feliz."
+      erro: "Lodo, esterco e larvas não idealizam ninguém. A descrição é crua."
+    - texto: "usa ironia para zombar da elite do Império."
+      erro: "O alvo não é a elite. E o tom não é irônico: é de observação crua."
+    - texto: "exalta a natureza brasileira como símbolo da pátria."
+      erro: "A natureza aqui é lodo e umidade, não paisagem de pátria."
+  explicacao: "Verbos de bicho (\"minhocar\", \"esfervilhar\"), comparação com larvas e um meio que parece gerar as pessoas: é a animalização e o determinismo do Naturalismo."
+  fonte: "Questão original do Instituto Lúcia; trecho de Aluísio Azevedo (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-05
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-realismo-naturalismo
+  dificuldade: 2
+  enunciado: "Em Dom Casmurro (1899), Bento Santiago tenta convencer o leitor de que Capitu o traiu. A leitura atenta do romance ensina que"
+  alternativas:
+    - texto: "o romance prova a traição com documentos."
+      erro: "Não há documento. Tudo vem da memória e da interpretação de Bento."
+    - texto: "Capitu é a narradora e confessa a traição."
+      erro: "Quem narra é Bento, já velho. Capitu nunca tem voz própria no livro."
+    - texto: "o narrador é neutro e não tem interesse no caso."
+      erro: "Ele é o marido que acusa: tem todo o interesse."
+    - texto: "o narrador é também parte interessada, e as provas vêm só da memória dele."
+      certa: true
+    - texto: "a dúvida não importa, porque o livro é naturalista."
+      erro: "Dom Casmurro é realista, de análise psicológica. A dúvida é o centro do livro."
+  explicacao: "Bento é acusador, testemunha e juiz ao mesmo tempo. Desconfiar do narrador é a chave para ler Machado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-06
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-realismo-naturalismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Não tive filhos, não transmiti a nenhuma criatura o legado da nossa miséria.
+    (Machado de Assis, Memórias póstumas de Brás Cubas, capítulo CLX, 1881. Domínio público; grafia atualizada.)
+  enunciado: "A frase final das memórias revela, no narrador, uma visão"
+  alternativas:
+    - texto: "pessimista, que vê a condição humana como miséria e considera um ganho não tê-la passado adiante."
+      certa: true
+    - texto: "otimista, que celebra a vida e a família."
+      erro: "Chamar a herança humana de \"miséria\" não é otimismo."
+    - texto: "religiosa, que espera a recompensa do céu."
+      erro: "Não há céu nem recompensa no trecho. Há um balanço frio da vida."
+    - texto: "romântica, de amor idealizado pela mulher."
+      erro: "Não há amor nem mulher na frase. O tema é a vida humana em geral."
+    - texto: "científica, que descreve a herança genética com dados."
+      erro: "\"Legado da nossa miséria\" é imagem, não dado científico."
+  explicacao: "Brás termina com um \"pequeno saldo\": não ter tido filhos, não ter passado adiante a \"miséria\" humana. É o pessimismo irônico que fecha o livro."
+  fonte: "Questão original do Instituto Lúcia; frase de Machado de Assis (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-07
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-realismo-naturalismo
+  dificuldade: 2
+  enunciado: "Qual destas diferenças entre Realismo e Naturalismo está correta?"
+  alternativas:
+    - texto: "O Realismo é poesia; o Naturalismo é teatro."
+      erro: "Os dois são, sobretudo, prosa: romance e conto."
+    - texto: "O Realismo idealiza; o Naturalismo ironiza."
+      erro: "Nenhum dos dois idealiza. A ironia é mais marcante no Realismo de Machado."
+    - texto: "O Realismo é do século 18; o Naturalismo, do século 20."
+      erro: "Os dois são do fim do século 19, a partir de 1881."
+    - texto: "O Realismo foca o indivíduo e a psicologia; o Naturalismo, o grupo, o meio e o instinto."
+      certa: true
+    - texto: "O Realismo usa nomes de pastores; o Naturalismo, nomes indígenas."
+      erro: "Pastores são árcades; indígenas idealizados, românticos."
+  explicacao: "O Realismo olha por dentro de uma pessoa, com ironia. O Naturalismo olha o grupo e explica o comportamento pelo meio, pela herança e pelo instinto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-08
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-realismo-naturalismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Verdade é que, ao lado dessas faltas, coube-me a boa fortuna de não comprar o pão com o suor do meu rosto.
+    (Machado de Assis, Memórias póstumas de Brás Cubas, capítulo CLX, 1881. Domínio público; grafia atualizada.)
+  enunciado: "Lido no contexto do Brasil escravista do século 19, o trecho expõe criticamente"
+  alternativas:
+    - texto: "a defesa do trabalho como fonte de dignidade."
+      erro: "O narrador comemora não ter trabalhado. A crítica vem do texto, não dele."
+    - texto: "a naturalidade com que a elite tratava como sorte o privilégio de viver do trabalho alheio."
+      certa: true
+    - texto: "a miséria dos trabalhadores livres nas fábricas."
+      erro: "Não há fábrica nem trabalhador no trecho. O foco é o narrador rico."
+    - texto: "o arrependimento do narrador por nunca ter trabalhado."
+      erro: "Ele chama isso de \"boa fortuna\". Não há arrependimento."
+    - texto: "a vida do narrador como camponês pobre."
+      erro: "Brás Cubas é um homem rico da elite do Rio de Janeiro."
+  explicacao: "Brás diz \"boa fortuna\", como quem fala de sorte. Mas, num país escravista, não trabalhar era privilégio de quem vivia do suor de outros. A ironia faz o narrador se acusar sem perceber."
+  fonte: "Questão original do Instituto Lúcia; frase de Machado de Assis (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-09
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-realismo-naturalismo
+  dificuldade: 3
+  enunciado: "Muitos romances naturalistas explicavam o comportamento de personagens negras e mestiças pela \"raça\" e pelo \"instinto\". Uma leitura crítica atual desses livros deve"
+  alternativas:
+    - texto: "aceitar essas explicações, porque vinham da ciência da época."
+      erro: "Vir da ciência da época não torna a ideia verdadeira. Essa teoria racista foi derrubada."
+    - texto: "proibir a leitura dos romances naturalistas."
+      erro: "A leitura crítica não proíbe: lê, contextualiza e discute."
+    - texto: "dizer que o Naturalismo não fez nenhuma denúncia social."
+      erro: "O Naturalismo denunciou a miséria dos cortiços. A crítica reconhece isso e aponta o limite."
+    - texto: "achar que o racismo científico só existiu na Europa."
+      erro: "Ele circulou também no Brasil e marcou a literatura e as instituições daqui."
+    - texto: "reconhecer a denúncia da miséria e, ao mesmo tempo, recusar o racismo científico que ela carregava."
+      certa: true
+  explicacao: "O Naturalismo mostrou a miséria, mas usou a teoria do meio e da herança para dizer que certos grupos seriam inferiores. Separar a denúncia do preconceito é uma leitura que defende um valor atual: a igualdade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-realismo-10
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-realismo-naturalismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Acompanharam-me ao cemitério onze pessoas. Onze! Choveu, é certo, e havia jogo do campeonato na televisão; mas o número diz alguma coisa de mim, ainda que eu prefira não saber o quê.
+    (Texto original do Instituto Lúcia, escrito à maneira de Machado de Assis para este exercício.)
+  enunciado: "O texto imita o narrador machadiano principalmente por"
+  alternativas:
+    - texto: "descrever o enterro com dados objetivos, sem comentar."
+      erro: "O narrador comenta tudo: o \"Onze!\", as desculpas, o \"prefira não saber\"."
+    - texto: "idealizar a própria morte como heroica."
+      erro: "Onze pessoas e um jogo na TV não são morte heroica. É o contrário."
+    - texto: "comentar com ironia o próprio fracasso, inventando desculpas que o leitor percebe e que o narrador finge não perceber."
+      certa: true
+    - texto: "animalizar as pessoas do enterro, como no Naturalismo."
+      erro: "Ninguém é comparado a bicho. O recurso é a ironia do narrador."
+    - texto: "usar versos rimados e metrificados."
+      erro: "É prosa, sem métrica nem rima."
+  explicacao: "O narrador repete o número com espanto (\"Onze!\"), dá desculpas (a chuva, o jogo) e finge não querer entender. O leitor percebe o que ele evita dizer: pouca gente se importou. É a ironia de Brás Cubas, que também contou \"onze amigos\" no enterro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,245 @@
+# Exercícios da aula "Figuras de linguagem" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-figuras-01
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  dificuldade: 1
+  enunciado: "Em “o ônibus lotado era uma lata de sardinha”, a figura é"
+  alternativas:
+    - texto: "comparação, porque usa “como”."
+      erro: "Não há “como” nem outro conectivo. A aproximação é direta: o ônibus “era” uma lata."
+    - texto: "metonímia, porque troca o recipiente pelo conteúdo."
+      erro: "Ninguém está falando de uma lata de verdade ligada ao ônibus. A relação é de semelhança (aperto), não de ligação real."
+    - texto: "eufemismo, porque suaviza o aperto."
+      erro: "A imagem faz o contrário: realça o aperto. Eufemismo suaviza."
+    - texto: "metáfora, porque aproxima o ônibus e a lata por semelhança, sem conectivo."
+      certa: true
+    - texto: "onomatopeia, porque imita um som."
+      erro: "Nenhuma palavra imita som. A figura é de sentido."
+  explicacao: "O ônibus e a lata se parecem pelo aperto. A frase diz que um é o outro, sem “como”: metáfora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-02
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  dificuldade: 1
+  enunciado: "“Ela passou dessa para melhor” no lugar de “ela morreu” é um exemplo de"
+  alternativas:
+    - texto: "eufemismo."
+      certa: true
+    - texto: "hipérbole."
+      erro: "Não há exagero. A expressão suaviza uma notícia dura."
+    - texto: "ironia."
+      erro: "A expressão não diz o contrário do que se pensa. Ela diz a mesma coisa de forma mais branda."
+    - texto: "antítese."
+      erro: "Não há duas ideias opostas lado a lado. Há uma ideia dura dita com delicadeza."
+    - texto: "aliteração."
+      erro: "Não há repetição de sons de consoante. A figura é de sentido."
+  explicacao: "Suavizar uma ideia triste ou desagradável é o eufemismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-03
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  dificuldade: 1
+  enunciado: "Em “o bairro inteiro foi à rua pedir saneamento”, a expressão “o bairro inteiro” no lugar de “os moradores” é"
+  alternativas:
+    - texto: "personificação, porque o bairro ganha vida."
+      erro: "Não é o bairro, como lugar, que age. “Bairro” está no lugar de quem mora nele: o lugar pelos habitantes."
+    - texto: "metonímia: o lugar no lugar das pessoas que vivem nele."
+      certa: true
+    - texto: "paradoxo, porque um bairro não anda."
+      erro: "Paradoxo junta opostos numa afirmação impossível. Aqui há só uma troca por ligação real."
+    - texto: "comparação, porque compara bairro e moradores."
+      erro: "Não há conectivo nem comparação. Há substituição de uma palavra por outra ligada a ela."
+    - texto: "gradação, porque cresce em intensidade."
+      erro: "Não há sequência de ideias em ordem crescente."
+  explicacao: "Bairro e moradores têm ligação real: um é o lugar dos outros. Usar o lugar pelas pessoas é metonímia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-04
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na avenida, os prédios de vidro
+    olham do alto
+    os barracos do morro,
+    e fingem que não veem.
+    Poema do Instituto Lúcia, escrito para este exercício.
+  enunciado: "No poema, dar aos prédios as ações de “olhar” e “fingir” produz o efeito de"
+  alternativas:
+    - texto: "descrever com precisão a arquitetura da avenida."
+      erro: "O poema não descreve material, altura ou forma dos prédios. Ele dá a eles uma atitude humana."
+    - texto: "exagerar a altura dos prédios."
+      erro: "Não há exagero de medida. A figura é de atitude, não de tamanho."
+    - texto: "elogiar a modernidade da cidade."
+      erro: "“Fingem que não veem” é crítica, não elogio."
+    - texto: "suavizar a desigualdade entre a avenida e o morro."
+      erro: "É o contrário: a figura deixa a desigualdade mais visível e mais incômoda."
+    - texto: "criticar a indiferença de quem vive no alto diante da pobreza ao lado."
+      certa: true
+  explicacao: "A personificação faz os prédios agirem como pessoas que veem a pobreza e fingem não ver. O efeito é denunciar a indiferença de quem está “no alto”, na cidade dividida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-05
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  dificuldade: 2
+  enunciado: "Qual frase tem uma antítese?"
+  alternativas:
+    - texto: "“Chorei um oceano naquela despedida.”"
+      erro: "É exagero intencional: hipérbole."
+    - texto: "“O vento assobiava na janela.”"
+      erro: "O vento ganha ação humana (assobiar): personificação."
+    - texto: "“Na mesma rua, uns jogam comida fora e outros não têm o que comer.”"
+      certa: true
+    - texto: "“Li Carolina Maria de Jesus nas férias.”"
+      erro: "Autora no lugar da obra: metonímia."
+    - texto: "“Tic, tac, tic, tac, fazia o relógio.”"
+      erro: "Palavras que imitam o som: onomatopeia."
+  explicacao: "Jogar comida fora e não ter o que comer são ideias opostas, postas lado a lado para mostrar o contraste. É antítese."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-06
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Anúncio de um curso pré-vestibular comunitário:
+    “Aqui ninguém estuda sozinho. Aqui o cansaço vira força. Aqui a sua história vira matrícula.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A repetição de “Aqui” no começo de cada frase tem o efeito de"
+  alternativas:
+    - texto: "indicar erro de coesão, por repetir a mesma palavra."
+      erro: "A repetição é intencional e organiza o anúncio. Ela é recurso, não falha."
+    - texto: "suavizar a mensagem do anúncio."
+      erro: "A repetição faz o contrário: reforça e dá ritmo."
+    - texto: "mostrar ideias opostas."
+      erro: "As três frases dizem coisas da mesma direção, todas positivas. Não há oposição."
+    - texto: "insistir no lugar do curso como espaço de acolhimento e mudança, dando ritmo ao texto."
+      certa: true
+    - texto: "imitar um som do ambiente."
+      erro: "“Aqui” não imita som nenhum. É repetição no começo das frases."
+  explicacao: "A repetição no começo das frases é a anáfora. Ela dá ritmo e martela a ideia central: é neste lugar que as coisas mudam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-07
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  dificuldade: 2
+  enunciado: "“Ótimo atendimento: esperei só quatro horas na fila.” A figura e o efeito são"
+  alternativas:
+    - texto: "hipérbole, para exagerar o tempo da espera."
+      erro: "Quatro horas pode ser a espera real. O que produz o efeito é dizer “ótimo” e “só” para uma situação ruim."
+    - texto: "ironia, para criticar a demora dizendo o contrário do que se pensa."
+      certa: true
+    - texto: "eufemismo, para suavizar a crítica ao serviço."
+      erro: "A crítica não fica mais branda: fica mais afiada com o tom irônico."
+    - texto: "metáfora, para comparar a fila com outra coisa."
+      erro: "Não há aproximação entre duas coisas. Há uma avaliação ao contrário."
+    - texto: "personificação, para dar vida ao atendimento."
+      erro: "O atendimento não ganha ação humana na frase."
+  explicacao: "Chamar de “ótimo” um serviço com quatro horas de espera é dizer o oposto do que se pensa. A ironia torna a reclamação mais forte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-08
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-figuras
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Primeiro, faltou o pão.
+    Depois, faltou o gás.
+    Depois, faltou a luz.
+    No fim do mês, faltou a paciência.
+    Poema do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A sequência de faltas no poema constrói"
+  alternativas:
+    - texto: "uma antítese entre o pão e o gás."
+      erro: "Pão e gás não são opostos: são duas necessidades da casa. O poema enumera, não opõe."
+    - texto: "uma ironia, porque a família tem tudo o que precisa."
+      erro: "Nada no poema sugere fartura. As faltas são reais e se acumulam."
+    - texto: "uma gradação que vai das faltas materiais até o esgotamento emocional."
+      certa: true
+    - texto: "um eufemismo para suavizar a pobreza."
+      erro: "O poema não suaviza: mostra as faltas uma por uma, até o limite."
+    - texto: "uma personificação do mês."
+      erro: "O mês não age como pessoa. O que organiza o poema é a sequência crescente."
+  explicacao: "Cada verso traz uma falta, numa ordem que cresce: do alimento ao gás, à luz e, por fim, à paciência. A gradação mostra o aperto do orçamento chegando à saúde emocional da família."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-09
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No verso “Amor é fogo que arde sem se ver”, do poeta português Luís de Camões (século XVI, em domínio público), o amor é definido por uma imagem que contém uma contradição: um fogo que arde e, ao mesmo tempo, não é visto.
+    Comentário do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O recurso central do verso e o seu efeito são"
+  alternativas:
+    - texto: "metáfora com paradoxo, para mostrar que o amor é intenso e escapa da lógica comum."
+      certa: true
+    - texto: "comparação, para dizer que o amor é parecido com o fogo de uma fogueira."
+      erro: "Não há “como” no verso: “Amor é fogo”. E o ponto principal é a contradição de um fogo invisível."
+    - texto: "hipérbole, para exagerar a temperatura do amor."
+      erro: "O verso não fala de medida ou temperatura. Fala de algo que arde e não se vê."
+    - texto: "eufemismo, para suavizar o sofrimento amoroso."
+      erro: "A imagem do fogo não suaviza: intensifica."
+    - texto: "metonímia, porque o fogo está no lugar do coração."
+      erro: "Fogo e amor não têm ligação real de parte e todo ou de lugar. A relação é de semelhança (metáfora) com contradição (paradoxo)."
+  explicacao: "“Amor é fogo” é metáfora. “Que arde sem se ver” junta duas ideias que se negam: é paradoxo. Juntas, mostram o amor como algo que queima por dentro e não obedece à lógica."
+  fonte: "Questão original do Instituto Lúcia; verso de Luís de Camões, em domínio público"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-figuras-10
+  tema: "Figuras de linguagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-figuras
+  dificuldade: 3
+  enunciado: "Qual alternativa traz um caso de metonímia, e não de metáfora?"
+  alternativas:
+    - texto: "“Meu filho é a luz da casa.”"
+      erro: "O filho é comparado à luz por semelhança (alegria, claridade). É metáfora."
+    - texto: "“Aquela reunião foi um velório.”"
+      erro: "A reunião se parece com um velório (tristeza, silêncio). Semelhança: metáfora."
+    - texto: "“O professor é uma enciclopédia ambulante.”"
+      erro: "O professor se parece com a enciclopédia (sabe muito). Semelhança: metáfora."
+    - texto: "“A vida é uma estrada.”"
+      erro: "Aproximação por semelhança (caminho, percurso). Metáfora."
+    - texto: "“O Planalto anunciou novas medidas.”"
+      certa: true
+  explicacao: "“O Planalto” é o palácio onde trabalha a Presidência. O lugar está no lugar de quem trabalha nele: ligação real, metonímia. Nas outras, há semelhança, que é a marca da metáfora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

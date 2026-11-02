@@ -1,0 +1,287 @@
+# Exercícios da aula "Espanhol: gêneros mais frequentes e vocabulário em contexto" (trilha enem-espanhol).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-esp-generos-01
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    ¡NO TIRES TU ACEITE POR EL DESAGÜE!
+    Un litro de aceite contamina miles de litros de agua.
+    Llévalo en una botella al punto de reciclaje de tu barrio.
+    Municipalidad de San Miguel
+  enunciado: "O cartaz tem a função de"
+  alternativas:
+    - texto: "vender garrafas para guardar óleo."
+      erro: "A garrafa (botella) é só o jeito de levar o óleo. Nada é vendido."
+    - texto: "informar o preço do óleo de cozinha."
+      erro: "Não há preço. O cartaz fala de contaminação da água."
+    - texto: "ensinar a cozinhar com menos óleo."
+      erro: "Extrapolação: o cartaz não fala de cozinhar, e sim de descartar o óleo usado."
+    - texto: "anunciar a falta de água no bairro."
+      erro: "A água aparece como o que o óleo contamina, não como algo que falta."
+    - texto: "orientar os moradores a descartar o óleo usado no lugar certo."
+      certa: true
+  explicacao: "Imperativo (No tires, Llévalo), instituição que assina (Municipalidad) e motivo (contamina miles de litros de agua): é campanha. \"No tires tu aceite por el desagüe\": não jogue seu óleo no ralo. \"Llévalo... al punto de reciclaje\": leve-o ao ponto de reciclagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-02
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Hoy hace mal tiempo en la sierra: lluvia, viento y mucho frío. Se recomienda no viajar por la carretera de la
+    montaña hasta mañana.
+  enunciado: "No texto, a expressão \"mal tiempo\" se refere"
+  alternativas:
+    - texto: "à falta de tempo dos viajantes."
+      erro: "Tiempo também é o tempo que passa, mas aqui vem com lluvia, viento y frío: é o clima."
+    - texto: "a um tempo de crise econômica."
+      erro: "Nada no texto fala de economia. Fala de chuva, vento e frio."
+    - texto: "às más condições do clima na serra."
+      certa: true
+    - texto: "ao horário errado dos ônibus."
+      erro: "Não há ônibus nem horário. A recomendação é não viajar por causa do clima."
+    - texto: "a uma ferramenta de cortar madeira."
+      erro: "Sierra pode ser serra de cortar, mas aqui é cadeia de montanhas (la montaña)."
+  explicacao: "\"Hace mal tiempo\" é \"o tempo está ruim\", falando do clima. A lista lluvia, viento y frío (chuva, vento e frio) confirma. Sierra, aqui, é serra no sentido de montanha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-03
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    En La Habana tomo la guagua a las siete.
+    En Quito, mi prima duerme a su guagua a las siete.
+    La misma palabra, dos ciudades,
+    y las dos llegan a casa.
+  enunciado: "Os versos mostram que a palavra \"guagua\""
+  alternativas:
+    - texto: "tem sentidos diferentes conforme o país onde é usada."
+      certa: true
+    - texto: "é usada de forma errada em uma das cidades."
+      erro: "O poema não diz que um uso é errado. Mostra dois usos, os dois válidos."
+    - texto: "quer dizer ônibus nas duas cidades."
+      erro: "Em Quito, a prima \"duerme a su guagua\": faz o bebê dormir. Lá, guagua é bebê."
+    - texto: "só existe em Cuba."
+      erro: "O poema usa a palavra em Havana e em Quito, capital do Equador."
+    - texto: "é um nome de pessoa."
+      erro: "Em Havana a pessoa toma (tomo) a guagua: é um veículo, não uma pessoa."
+  explicacao: "Em Havana, \"tomo la guagua\" é pegar o ônibus. Em Quito, \"duerme a su guagua\" é fazer o bebê dormir. \"La misma palabra, dos ciudades\": a mesma palavra, duas cidades. A H8 pede reconhecer essa diversidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-04
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Sinopsis: Mateo, un chico de 15 años, deja la escuela para trabajar en el taller de su tío. Los profesores
+    intentan convencerlo de volver, sin éxito. Todo cambia cuando el tío, que nunca terminó la primaria, le pide
+    ayuda para leer un contrato.
+  enunciado: "Pela sinopse, a virada da história acontece quando"
+  alternativas:
+    - texto: "os professores conseguem convencer Mateo a voltar."
+      erro: "Inversão: os professores tentam, \"sin éxito\" (sem sucesso)."
+    - texto: "Mateo abre a sua própria oficina mecânica."
+      erro: "Extrapolação: ele trabalha na oficina do tio (el taller de su tío)."
+    - texto: "o tio decide voltar à escola com o sobrinho."
+      erro: "A sinopse não diz isso. O tio pede ajuda para ler um contrato."
+    - texto: "o tio, que não estudou, precisa da ajuda de Mateo para ler um contrato."
+      certa: true
+    - texto: "Mateo perde o emprego por não saber ler."
+      erro: "É o tio que nunca terminou o primário (nunca terminó la primaria), não Mateo."
+  explicacao: "Sinopse: personagem (Mateo, 15 anos), conflito (deixa a escola para trabalhar) e virada (\"Todo cambia cuando...\", tudo muda quando o tio, que nunca terminou o primário, pede ajuda para ler um contrato)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-05
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Me dicen que hable "normal",
+    que esconda mi acento del norte.
+    Pero mi acento es el camino
+    por donde llegaron mis padres.
+    No lo escondo: lo llevo puesto
+    como se lleva un nombre.
+  enunciado: "No poema, o eu lírico"
+  alternativas:
+    - texto: "aceita esconder o sotaque para ser aceito."
+      erro: "Inversão: \"No lo escondo\", não o escondo."
+    - texto: "afirma o sotaque como parte da sua história e da sua identidade."
+      certa: true
+    - texto: "critica os pais por terem vindo do norte."
+      erro: "Os pais aparecem com carinho: o sotaque é o caminho por onde eles chegaram."
+    - texto: "ensina a falar espanhol sem sotaque."
+      erro: "É o contrário: ele recusa o pedido de falar \"normal\"."
+    - texto: "descreve uma viagem de carro pelo norte."
+      erro: "\"El camino\" é uma metáfora: o sotaque é o caminho da família. Não é uma viagem real."
+  explicacao: "\"Me dicen que hable 'normal'\": me dizem para falar \"normal\". A resposta: \"mi acento es el camino por donde llegaron mis padres\" (meu sotaque é o caminho por onde meus pais chegaram) e \"lo llevo puesto como se lleva un nombre\" (eu o levo comigo como se leva um nome)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-06
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Doña Carmen vende empanadas en la esquina desde hace treinta años. No es rica, pero sus empanadas son las más
+    ricas del barrio.
+  enunciado: "O texto joga com dois sentidos da palavra \"rica\" para dizer que dona Carmen"
+  alternativas:
+    - texto: "ficou rica vendendo empanadas."
+      erro: "\"No es rica\": ela não é rica. Inversão."
+    - texto: "vende as empanadas mais caras do bairro."
+      erro: "Ricas, aqui, é gostosas. O texto não fala de preço."
+    - texto: "não tem dinheiro, mas faz as empanadas mais gostosas do bairro."
+      certa: true
+    - texto: "vende empanadas há pouco tempo."
+      erro: "\"Desde hace treinta años\": há trinta anos."
+    - texto: "quer abrir um restaurante na esquina."
+      erro: "Extrapolação: o texto não fala de planos de restaurante."
+  explicacao: "Primeiro sentido: \"No es rica\" (não tem dinheiro). Segundo: \"las más ricas del barrio\" (as mais gostosas do bairro). O contraste do pero (mas) junta os dois."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-07
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Ayer el celular me avisó que pasé seis horas mirando la pantalla. Seis horas. Ese mismo día no tuve tiempo de
+    llamar a mi madre. No culpo al aparato: él solo cuenta. Lo que me preocupa es lo que yo dejé de contar.
+  enunciado: "Nessa crônica, o narrador"
+  alternativas:
+    - texto: "culpa o celular por tê-lo deixado sem tempo."
+      erro: "Inversão: \"No culpo al aparato\", não culpo o aparelho."
+    - texto: "comemora ter usado o celular por seis horas."
+      erro: "A repetição \"Seis horas.\" mostra espanto, não comemoração."
+    - texto: "conta que ligou para a mãe pelo celular."
+      erro: "\"No tuve tiempo de llamar a mi madre\": ele não teve tempo de ligar para a mãe."
+    - texto: "pede que os celulares parem de mostrar o tempo de uso."
+      erro: "Extrapolação: o aviso do celular é o ponto de partida, não um alvo de crítica."
+    - texto: "reflete sobre o que deixou de viver enquanto olhava a tela."
+      certa: true
+  explicacao: "Crônica: caso pequeno (o aviso das seis horas de tela) e reflexão maior. O fecho joga com contar: o celular \"solo cuenta\" (só conta as horas); o que preocupa é \"lo que yo dejé de contar\" (o que eu deixei de contar, de viver)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-08
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No me pidas que elija
+    entre el maíz y el trigo,
+    entre la lengua de mi abuela
+    y la lengua del periódico.
+    Soy la tierra donde crecen juntos.
+  enunciado: "Os versos expressam a ideia de que o eu lírico"
+  alternativas:
+    - texto: "se recusa a escolher entre duas heranças e se vê como lugar de encontro delas."
+      certa: true
+    - texto: "prefere o milho ao trigo por ser mais barato."
+      erro: "Milho e trigo são símbolos de duas heranças. O poema não fala de preço nem de preferência."
+    - texto: "defende que os jornais sejam escritos na língua da avó."
+      erro: "Extrapolação: o jornal aparece só como símbolo de uma das línguas."
+    - texto: "trabalha no campo plantando milho e trigo."
+      erro: "Redução: a terra é metáfora (Soy la tierra), não uma descrição de trabalho."
+    - texto: "esqueceu a língua da avó."
+      erro: "Nada indica esquecimento. Ele recusa escolher uma língua e deixar a outra."
+  explicacao: "\"No me pidas que elija\": não me peça para escolher. Os pares (milho e trigo, língua da avó e língua do jornal) são duas heranças. O fecho \"Soy la tierra donde crecen juntos\" (sou a terra onde crescem juntos) mostra que o eu lírico guarda as duas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-09
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Cada verano, la ciudad celebra que llegan los turistas. Nadie celebra que, en el mismo verano, muchas familias
+    del centro tienen que irse porque el alquiler de un mes cuesta lo mismo que una semana de hotel. Una ciudad que
+    expulsa a sus vecinos para recibir visitantes se está vendiendo por partes.
+  enunciado: "Nesse texto de opinião, o autor critica"
+  alternativas:
+    - texto: "os turistas que não respeitam os moradores."
+      erro: "Os turistas não são o alvo. O autor critica a cidade, que expulsa os moradores pelo preço do aluguel."
+    - texto: "o preço alto dos hotéis no verão."
+      erro: "O hotel serve de comparação. O problema é o aluguel que expulsa as famílias."
+    - texto: "as famílias que se mudam do centro sem motivo."
+      erro: "Inversão: elas saem porque o aluguel (alquiler) ficou caro demais."
+    - texto: "a expulsão de moradores pelo encarecimento dos aluguéis ligado ao turismo."
+      certa: true
+    - texto: "a falta de festas no verão."
+      erro: "Palavra-isca: celebra. A cidade celebra a chegada dos turistas; o problema é outro."
+  explicacao: "O contraste está em \"la ciudad celebra\" e \"Nadie celebra\" (ninguém comemora) que as famílias saem porque o aluguel de um mês custa o mesmo que uma semana de hotel. O fecho resume a crítica: \"se está vendiendo por partes\" (está se vendendo aos pedaços)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-generos-10
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Vos sabés que te quiero, che,
+    aunque te vayas lejos.
+    En Buenos Aires la lluvia
+    también sabe hablar de vos.
+  enunciado: "As formas \"vos sabés\" e \"che\" indicam, nos versos,"
+  alternativas:
+    - texto: "erros de escrita que deveriam ser corrigidos."
+      erro: "Não são erros: é o voseo, uma variedade do espanhol usada na Argentina e no Uruguai."
+    - texto: "uma variedade do espanhol típica da região do Rio da Prata."
+      certa: true
+    - texto: "que o poema foi traduzido do português."
+      erro: "Extrapolação: nada indica tradução. Vos e che são marcas do espanhol rioplatense."
+    - texto: "que o eu lírico fala com várias pessoas ao mesmo tempo."
+      erro: "Vos, aqui, é \"você\" (tú), uma pessoa só. Para várias, seria ustedes."
+    - texto: "uma linguagem formal, de documento oficial."
+      erro: "Che e vos são marcas de fala íntima e informal."
+  explicacao: "\"Vos sabés\" no lugar de \"tú sabes\" é o voseo, comum na Argentina e no Uruguai, e \"che\" é um chamamento típico de lá. O verso \"En Buenos Aires\" confirma a região. Diferença não é erro (H8)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

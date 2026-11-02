@@ -1,0 +1,273 @@
+# Exercícios da aula "Espanhol: estratégias de leitura e falsos cognatos (heterosemánticos)" (trilha enem-espanhol).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-esp-estrategias-01
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    ¡Felicidades, Lucía! Supimos que estás embarazada. Toda la familia te espera el domingo para celebrarlo.
+  enunciado: "A mensagem foi escrita porque Lúcia"
+  alternativas:
+    - texto: "passou por uma situação de vergonha."
+      erro: "Embarazada parece \"embaraçada\", mas é heterosemántico: quer dizer grávida. Envergonhada é avergonzada."
+    - texto: "está grávida."
+      certa: true
+    - texto: "vai se casar no domingo."
+      erro: "O domingo é o dia da comemoração. O motivo é a gravidez, não um casamento."
+    - texto: "mudou de emprego."
+      erro: "Nada no texto fala de trabalho. A notícia é embarazada, grávida."
+    - texto: "está doente e precisa de visita."
+      erro: "¡Felicidades! (parabéns) e celebrarlo (comemorar) mostram notícia feliz, não doença."
+  explicacao: "Embarazada é grávida. A família dá parabéns (¡Felicidades!) e chama Lúcia para comemorar (celebrarlo) no domingo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-02
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Taller mecánico Don Ramón: arreglamos frenos y motores. La oficina de atención al cliente está en el segundo piso.
+  enunciado: "No texto, a palavra \"oficina\" se refere"
+  alternativas:
+    - texto: "à oficina onde os carros são consertados."
+      erro: "A oficina mecânica, em espanhol, é taller. Oficina é escritório."
+    - texto: "a uma loja de peças."
+      erro: "O texto não fala de venda de peças. Fala de atendimento ao cliente (atención al cliente)."
+    - texto: "ao estacionamento do prédio."
+      erro: "Estacionamento seria estacionamiento ou aparcamiento. Oficina é escritório."
+    - texto: "a uma sala de espera no térreo."
+      erro: "O texto diz segundo piso (segundo andar), não térreo."
+    - texto: "ao escritório de atendimento ao cliente."
+      certa: true
+  explicacao: "Oficina é escritório. A oficina mecânica aparece como taller (Taller mecánico). O escritório de atendimento ao cliente fica no segundo andar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-03
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Para inscribirse en el curso, escriba su nombre y su apellido en la lista y deje su número de teléfono.
+  enunciado: "Para se inscrever no curso, a pessoa deve escrever"
+  alternativas:
+    - texto: "o nome, o sobrenome e o telefone."
+      certa: true
+    - texto: "o nome, o apelido e o telefone."
+      erro: "Apellido é heterosemántico: quer dizer sobrenome. Apelido, em espanhol, é apodo."
+    - texto: "só o número de telefone."
+      erro: "O texto pede também nome e sobrenome (nombre y apellido)."
+    - texto: "o endereço completo e o telefone."
+      erro: "Endereço seria dirección. O texto não pede endereço."
+    - texto: "o nome do curso e o horário."
+      erro: "O nombre pedido é o da pessoa (su nombre), não o do curso."
+  explicacao: "\"Escriba su nombre y su apellido\": escreva seu nome e seu sobrenome. \"Deje su número de teléfono\": deixe seu número de telefone."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-04
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Llevo dos años en esta ciudad y todavía no conozco a mis vecinos. Salgo temprano, vuelvo tarde y los fines de
+    semana duermo.
+  enunciado: "O narrador conta que"
+  alternativas:
+    - texto: "já conhece todos os vizinhos depois de dois anos."
+      erro: "Todavía no é \"ainda não\". Ele ainda não conhece os vizinhos. Inversão."
+    - texto: "vai se mudar da cidade nos fins de semana."
+      erro: "Nos fins de semana ele dorme (duermo). Não há mudança."
+    - texto: "ainda não conhece os vizinhos, por causa da rotina."
+      certa: true
+    - texto: "não gosta dos vizinhos, todavia continua no prédio."
+      erro: "Todavía é heterosemántico: quer dizer ainda, não \"todavia\" (no entanto). E ele não diz que não gosta deles."
+    - texto: "chegou à cidade há dois dias."
+      erro: "Dos años são dois anos (llevo dos años, estou há dois anos)."
+  explicacao: "Todavía é \"ainda\". \"Todavía no conozco a mis vecinos\": ainda não conheço meus vizinhos. O motivo vem depois: sai cedo, volta tarde e dorme nos fins de semana."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-05
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Anoche fuimos a cenar a un restaurante peruano. El ceviche estaba exquisito y el camarero fue muy amable. Le
+    dejamos una buena propina.
+  enunciado: "Sobre a noite no restaurante, o texto informa que"
+  alternativas:
+    - texto: "o ceviche tinha um gosto estranho."
+      erro: "Exquisito é heterosemántico: quer dizer delicioso, não esquisito."
+    - texto: "o grupo assistiu a uma cena de briga."
+      erro: "Cenar é jantar (cena = jantar). Não houve briga."
+    - texto: "o garçom pediu propina aos clientes."
+      erro: "Propina é gorjeta, e foi dada pelos clientes por vontade própria (le dejamos)."
+    - texto: "a comida estava deliciosa e o grupo deixou uma boa gorjeta."
+      certa: true
+    - texto: "o restaurante estava fechado."
+      erro: "Eles jantaram lá (fuimos a cenar), então o restaurante estava aberto."
+  explicacao: "Três heterosemánticos: cenar (jantar), exquisito (delicioso) e propina (gorjeta). O grupo jantou, adorou o ceviche e deixou uma boa gorjeta para o garçom gentil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-06
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 6
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Biblioteca Popular del Barrio Sur
+    Préstamo de libros: de lunes a viernes, de 14 a 20 h.
+    Sábados: taller de lectura para niños, de 10 a 12 h.
+    Entrada libre y gratuita.
+  enunciado: "Uma mãe quer levar o filho a uma atividade de leitura no fim de semana. Pelo cartaz, ela deve ir"
+  alternativas:
+    - texto: "no sábado de manhã, sem pagar."
+      certa: true
+    - texto: "na segunda-feira à tarde, pagando a entrada."
+      erro: "Segunda a sexta (de lunes a viernes) é o horário do empréstimo, e a entrada é gratuita (gratuita)."
+    - texto: "no domingo, ao meio-dia."
+      erro: "O cartaz não fala de domingo. A oficina é no sábado (Sábados)."
+    - texto: "no sábado à noite, depois das 20 h."
+      erro: "A oficina vai das 10 às 12 h. As 20 h são o fim do horário de empréstimo nos dias de semana."
+    - texto: "à oficina mecânica do bairro."
+      erro: "Taller, aqui, é oficina de atividade (taller de lectura, oficina de leitura), não mecânica."
+  explicacao: "Scanning: \"Sábados: taller de lectura para niños, de 10 a 12 h\" (sábados, oficina de leitura para crianças, das 10 às 12 h) e \"Entrada libre y gratuita\" (entrada livre e gratuita)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-07
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Mi abuelo era zurdo, pero en la escuela lo obligaban a escribir con la mano derecha. Le ataban la mano
+    izquierda a la silla. Nunca se olvidó de eso.
+  enunciado: "O texto relata que o avô"
+  alternativas:
+    - texto: "era surdo e não ouvia a professora."
+      erro: "Zurdo parece \"surdo\", mas é canhoto. Surdo, em espanhol, é sordo."
+    - texto: "esqueceu logo o que viveu na escola."
+      erro: "\"Nunca se olvidó de eso\": nunca se esqueceu disso. Inversão."
+    - texto: "preferia escrever com a mão direita."
+      erro: "Ele era canhoto. A mão direita era imposta pela escola (lo obligaban)."
+    - texto: "era canhoto e foi forçado a escrever com a mão direita."
+      certa: true
+    - texto: "amarrava a cadeira para não cair."
+      erro: "Quem amarrava era a escola: amarravam a mão esquerda dele à cadeira (le ataban la mano izquierda)."
+  explicacao: "Zurdo é canhoto. \"Lo obligaban a escribir con la mano derecha\": obrigavam-no a escrever com a mão direita. \"Le ataban la mano izquierda a la silla\": amarravam a mão esquerda dele à cadeira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-08
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Cuando llegué de Bolivia, no entendía por qué mis compañeros se reían cuando yo pedía "un vaso de agua". Después
+    aprendí que en portugués vaso es otra cosa. Hoy enseño español a mis compañeros, y ellos me enseñan portugués.
+    Cada error se volvió una clase.
+  enunciado: "A narradora conta que os erros com as duas línguas"
+  alternativas:
+    - texto: "fizeram com que ela parasse de falar no trabalho."
+      erro: "Extrapolação: o texto não diz que ela parou de falar. Diz que hoje ela ensina espanhol."
+    - texto: "mostraram que o espanhol é mais difícil que o português."
+      erro: "O texto não compara a dificuldade das línguas. Mostra uma troca entre elas."
+    - texto: "aconteceram só com os colegas brasileiros."
+      erro: "O erro do texto foi dela (yo pedía \"un vaso de agua\"). E a troca vale para os dois lados."
+    - texto: "levaram os colegas a pedir que ela voltasse à Bolívia."
+      erro: "Nada no texto fala de pedir que ela fosse embora. Os colegas riam, mas hoje aprendem com ela."
+    - texto: "viraram aprendizado mútuo entre ela e os colegas."
+      certa: true
+  explicacao: "Vaso, em espanhol, é copo: ela pedia um copo d'água. Hoje, \"enseño español a mis compañeros, y ellos me enseñan portugués\" (ensino espanhol aos colegas e eles me ensinam português). \"Cada error se volvió una clase\": cada erro virou uma aula."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-09
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 6
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Antes de borrar una foto del celular para liberar espacio, guárdela en una nube o en un pendrive. Una vez borrada,
+    muchas veces no hay forma de recuperarla. Lo que parece basura digital puede ser, en un rato, el único recuerdo
+    que usted tenga.
+  enunciado: "O texto aconselha o leitor a"
+  alternativas:
+    - texto: "borrar as fotos antigas para que fiquem com aspecto artístico."
+      erro: "Borrar é heterosemántico: quer dizer apagar, não borrar."
+    - texto: "comprar um celular com mais memória."
+      erro: "Extrapolação: o texto não fala de comprar nada. Fala de guardar antes de apagar."
+    - texto: "guardar uma cópia das fotos antes de apagá-las do celular."
+      certa: true
+    - texto: "apagar as fotos logo, porque ocupam muito espaço."
+      erro: "Inversão: o conselho é guardar antes (Antes de borrar... guárdela)."
+    - texto: "esperar um rato aparecer para recuperar as fotos."
+      erro: "Rato é pouco tempo. \"En un rato\" é \"daqui a pouco\"."
+  explicacao: "\"Antes de borrar una foto... guárdela en una nube o en un pendrive\": antes de apagar uma foto, guarde-a numa nuvem ou num pen drive. \"Una vez borrada... no hay forma de recuperarla\": depois de apagada, muitas vezes não dá para recuperar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-estrategias-10
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    El camino hasta la escuela rural es largo: once kilómetros de tierra. Cuando llueve, el polvo se vuelve barro y
+    el autobús no pasa. Aun así, la maestra llega todos los días en su bicicleta.
+  enunciado: "O texto destaca"
+  alternativas:
+    - texto: "a largura da estrada de terra até a escola."
+      erro: "Largo é heterosemántico: quer dizer comprido. Largura seria anchura."
+    - texto: "a persistência da professora diante de um caminho comprido e difícil."
+      certa: true
+    - texto: "o polvo que vive no rio perto da escola."
+      erro: "Polvo é pó, poeira. Com a chuva, o pó vira barro."
+    - texto: "o ônibus que leva a professora todos os dias."
+      erro: "Inversão: o ônibus não passa quando chove. Ela vai de bicicleta."
+    - texto: "o fechamento da escola rural nos dias de chuva."
+      erro: "Extrapolação: o texto diz que a professora chega todos os dias, mesmo assim (aun así)."
+  explicacao: "Largo é comprido: o caminho tem onze quilômetros de terra. Polvo é poeira, que vira barro na chuva. \"Aun así\" (mesmo assim) mostra a persistência: a professora chega todo dia de bicicleta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

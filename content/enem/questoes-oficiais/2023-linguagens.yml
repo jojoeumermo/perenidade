@@ -24,7 +24,7 @@ questoes:
       C: "É o contrário. A sinopse diz que os pais o internam para que o disciplinem e que lá “las cosas no mejoran” (as coisas não melhoram). A disciplina não funcionou."
       D: "O texto diz que Ishaan sofre por ficar longe dos pais, não que o contato com eles atrapalhe. É uma inversão do que está escrito."
       E: "A sinopse compara os interesses da criança (cores, peixes, pipas) com os dos adultos (deveres, notas), mas ninguém passa de uma fase para a outra. Extrapolação."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-espanhol/generos-e-vocabulario-em-contexto, enem-espanhol/questoes-resolvidas-no-formato-da-prova]
 
   - id: enem-2023-2-espanhol
     area: linguagens
@@ -44,7 +44,7 @@ questoes:
       C: "Os adjetivos descrevem os traços (grande, bonita), mas, no poema, eles aparecem intensificados pelo advérbio que vem antes. Sozinhos, só descrevem."
       D: "Os substantivos nomeiam as partes do corpo e da identidade (sangue, pele). Nomear não é enfatizar. Redução."
       E: "Os possessivos marcam que aquilo pertence à eu lírica. Eles reforçam a posse, mas não a intensidade, que é o que o comando pede."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-espanhol/generos-e-vocabulario-em-contexto, enem-espanhol/questoes-resolvidas-no-formato-da-prova]
 
   - id: enem-2023-3-espanhol
     area: linguagens
@@ -64,7 +64,7 @@ questoes:
       B: "Mar, rios e serras aparecem como metáfora dos pratos (“son mar, ríos, sierras”). A paisagem serve para falar da comida, não é ela o objeto do elogio."
       C: "A lista de pratos existe, mas o poema diz que eles são “más que recetas”. Ficar só na variedade é parar no meio do caminho."
       D: "O olfato e o paladar são citados na estrofe do meio, como modo de reconhecer cada lugar. É um detalhe, não o centro do poema."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-espanhol/generos-e-vocabulario-em-contexto, enem-espanhol/questoes-resolvidas-no-formato-da-prova]
 
   - id: enem-2023-4-espanhol
     area: linguagens
@@ -84,7 +84,7 @@ questoes:
       C: "É verdade que o manipulador “no admite cuestionamientos” (não admite questionamentos), mas isso está em outra frase. O comando pergunta o que a expressão “cortina de humo” revela."
       D: "O texto diz que o manipulador precisa de cidadãos indefesos e desinformados, não que ele se aproxime deles. E isso não sai da expressão pedida."
       E: "A presença controladora está no texto, mas é outra ideia. A cortina de fumaça serve para esconder, não para controlar à vista de todos."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-superior/traduzir-do-espanhol-as-armadilhas, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-superior/traduzir-do-espanhol-as-armadilhas, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-espanhol/estrategias-de-leitura-e-falsos-cognatos, enem-espanhol/questoes-resolvidas-no-formato-da-prova]
 
   - id: enem-2023-5-espanhol
     area: linguagens
@@ -104,7 +104,7 @@ questoes:
       C: "A vítima é chamada de “ángel” (anjo) como imagem poética de inocência. Não há nada sobre misticismo. Palavra-isca."
       D: "O sonho que vira pesadelo é o da pessoa que migrou, e ele acaba por causa do racismo, não por descuido da população."
       E: "O metrô é só o lugar onde o fato aconteceu. A canção não fala de segurança no transporte, e sim de racismo e impunidade."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, espanhol-medio/cancao-e-poesia-violeta-parra-victor-jara-e-mercedes-sosa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-espanhol/generos-e-vocabulario-em-contexto, enem-espanhol/questoes-resolvidas-no-formato-da-prova]
 
   - id: enem-2023-6
     area: linguagens
@@ -124,7 +124,7 @@ questoes:
       B: "O COI aprovou a mudança, mas aproximar o lema do COI não foi o objetivo. Confunde quem decidiu com o porquê da decisão."
       C: "O lema já expressava os valores do esporte desde 1894, diz o texto. O que é novo é a solidariedade, e a alternativa não fala dela."
       E: "Os eventos atléticos não aparecem como motivo da mudança. Alternativa vaga, que não usa a pista dada (“solidariedade”)."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/praticas-corporais-cultura-e-sociedade]
 
   - id: enem-2023-7
     area: linguagens
@@ -144,7 +144,7 @@ questoes:
       C: "É o oposto. O corpo descrito é “cruel”, “violento”, “forte demais”: a narradora recusa o padrão de beleza, não o reproduz."
       D: "Não há clima de sonho nem busca espiritual. As imagens são concretas, de corpo e de história."
       E: "Inverte a relação. Quem é comparada à paisagem é a narradora (“animal da caatinga”). A paisagem não imita os corpos escravizados."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-literatura/literatura-afro-brasileira]
 
   - id: enem-2023-8
     area: linguagens
@@ -164,7 +164,7 @@ questoes:
       B: "Ninguém no texto fala de escolaridade. O preconceito é contra o português do Brasil como um todo, seja qual for o estudo de quem fala."
       D: "Intercâmbio cultural aproximaria os povos. O texto mostra o contrário: desdém e racismo."
       E: "A distância geográfica explica por que as variedades são diferentes, mas não explica por que uma é tratada como errada. Diferença não é causa de preconceito; a crença numa forma superior é."
-    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, linguistica/variacao-linguistica, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, linguistica/variacao-linguistica, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/preconceito-linguistico]
 
   - id: enem-2023-9
     area: linguagens
@@ -184,7 +184,7 @@ questoes:
       B: "O texto não fala de quanto a população sabia ler. Os andarilhos aparecem como quem levava notícias, não como pessoas mais ou menos letradas."
       C: "Não há censura no texto. Os selos serviam para tentar garantir que a carta era verdadeira, não para barrar notícias."
       D: "O rei que some e volta é o exemplo de boato, não a explicação da eficácia. A nobreza não aparece como fonte confiável."
-    aulas: [midia-fundamental/como-identificar-uma-noticia-falsa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [midia-fundamental/como-identificar-uma-noticia-falsa, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-tecnologias-da-comunicacao/desinformacao-e-checagem]
 
   - id: enem-2023-10
     area: linguagens
@@ -204,7 +204,7 @@ questoes:
       B: "Analisar a linguagem serve para detectar os “trolls”, não para desenvolvê-los. Inversão."
       C: "O horário de trabalho é uma pista para achar os perfis. O texto não propõe mudar turno de ninguém."
       D: "O texto descreve como identificar os perfis. Não fala em regras ou leis para os robôs. Extrapolação."
-    aulas: [midia-fundamental/como-identificar-uma-noticia-falsa, midia-fundamental/o-algoritmo-e-a-bolha, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [midia-fundamental/como-identificar-uma-noticia-falsa, midia-fundamental/o-algoritmo-e-a-bolha, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-tecnologias-da-comunicacao/desinformacao-e-checagem]
 
   - id: enem-2023-11
     area: linguagens
@@ -224,7 +224,7 @@ questoes:
       B: "A cor amarela é explicada como convenção mundial, mas isso é um detalhe do primeiro parágrafo, não o propósito do texto."
       C: "Há um único número no texto. Ele serve para chamar a atenção, não é o centro do texto."
       E: "O texto cita atitudes e valores, não só emoções, e fala também de limites. “Restringir” diz mais do que o texto diz."
-    aulas: [portugues-medio/o-texto-dissertativo-argumentativo, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/o-texto-dissertativo-argumentativo, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/estrategias-argumentativas]
 
   - id: enem-2023-12
     area: linguagens
@@ -263,7 +263,7 @@ questoes:
       B: "Não há dúvida no presente: o quarto amor é o interlocutor, e com ele vem o repouso. Contradição."
       D: "O eu lírico não quer voltar a nenhum amor antigo. A lembrança termina no presente, em paz."
       E: "Os amores são chamados de “eternos”, e o atual traz descanso. Prazer passageiro é o oposto disso."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-literatura/primeira-geracao-modernista]
 
   - id: enem-2023-14
     area: linguagens
@@ -283,7 +283,7 @@ questoes:
       B: "Zuz diz que a história é “estável de boa” (muito boa), mas comprida. Isso fala da história, não do motivo de ouvirem Soropita. Palavra-isca."
       C: "O texto diz que eles já tinham ouvido tudo na véspera. Não havia nada de inédito. Contradição."
       E: "Eles querem ouvir “por confirmação”, mas o trecho destaca o prazer de ouvir Soropita, não uma dificuldade de entender."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-literatura/geracao-de-45]
 
   - id: enem-2023-15
     area: linguagens
@@ -303,7 +303,7 @@ questoes:
       C: "Exagero. A própria linguista vai fazer novas viagens. A pesquisa continua; o que se perdeu foi o registro antigo."
       D: "As culturas indígenas continuam vivas. O que se perdeu foram registros, alguns de línguas que já estavam extintas antes do incêndio."
       E: "Os Tikuna são o povo com quem a linguista trabalha e a língua deles tem falantes. Ela pode recompor parte do material. Exagero."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/portugues-do-brasil-linguas-indigenas-e-africanas]
 
   - id: enem-2023-16
     area: linguagens
@@ -323,7 +323,7 @@ questoes:
       C: "Trocar o sinal de uma palavra é variação no vocabulário, não mudança na estrutura da língua. Exagero."
       D: "A Libras é uma só língua, com variações regionais, assim como o português. Não há uma língua diferente em cada região."
       E: "O texto não diz que as pessoas deixam de se entender. Variação não impede a comunicação."
-    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, linguistica/variacao-linguistica, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, linguistica/variacao-linguistica, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/variacao-linguistica]
 
   - id: enem-2023-17
     area: linguagens
@@ -343,7 +343,7 @@ questoes:
       B: "O uso dos colchetes é justamente fora da norma. Ligá-lo ao rigor normativo é contradição."
       C: "A lista de temas (literatura, sociologia, filosofia, artes) é ampla e o texto fala em “interesses ampliados”. Não há exclusividade."
       E: "O “outro visual” é citado, mas o editor explica os colchetes pela abertura às ideias, não pelo desenho dos artigos."
-    aulas: [portugues-fundamental/pontuacao-ponto-virgula-e-companhia, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-fundamental/pontuacao-ponto-virgula-e-companhia, enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/semantica-polissemia-ambiguidade-denotacao-e-conotacao]
 
   - id: enem-2023-18
     area: linguagens
@@ -363,7 +363,7 @@ questoes:
       C: "Vício e virtude aparecem só na segunda canção. O comando pede o que as duas têm em comum."
       D: "Nenhuma das duas trata de liberdade de expressão. “Por que não?” é a disposição de seguir andando, não um protesto por voz."
       E: "A segunda fala em vender, mas não em notícias. A primeira cita notícias, mas sem crítica ao comércio. Cada metade vem de uma canção."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/estrategias-de-leitura-e-inferencia]
 
   - id: enem-2023-19
     area: linguagens
@@ -383,7 +383,7 @@ questoes:
       B: "Não há dado sobre a quantidade de livros ou poemas sobre preconceito. Extrapolação."
       C: "O texto não mede o número de manifestações artísticas. Os dados são sobre homicídios."
       E: "O texto fala de “resistência crescente”, mas os números citados medem a violência, não a participação de jovens. Confunde a conclusão com o dado."
-    aulas: [portugues-medio/o-texto-dissertativo-argumentativo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/o-texto-dissertativo-argumentativo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/estrategias-argumentativas]
 
   - id: enem-2023-20
     area: linguagens
@@ -403,7 +403,7 @@ questoes:
       B: "O silenciamento no futuro aparece na conclusão. O comando pergunta como a autora mostra que o povo não entende a linguagem do poder."
       C: "A relação entre sociedade e linguagem é o tema geral. A estratégia pedida é uma crítica, não uma descrição. Alternativa vaga."
       D: "A destruição da linguagem é a pergunta do segundo parágrafo, outra ideia. A falta de compreensão vem dos usos especializados, não do esfacelamento."
-    aulas: [portugues-medio/o-texto-dissertativo-argumentativo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/o-texto-dissertativo-argumentativo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/estrategias-argumentativas]
 
   - id: enem-2023-21
     area: linguagens
@@ -423,7 +423,7 @@ questoes:
       B: "Os pesquisadores não explicaram problemas: criaram uma ferramenta para evitá-los. E ninguém é incapaz de se comunicar; as pessoas usam palavras diferentes."
       C: "Os sintomas já existiam. O que o dicionário faz é traduzir os nomes deles."
       E: "O dicionário traduz nomes de sintomas, não lista doenças novas da região."
-    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/variacao-linguistica-e-preconceito-linguistico, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/variacao-linguistica]
 
   - id: enem-2023-22
     area: linguagens
@@ -443,7 +443,7 @@ questoes:
       B: "A cantiga é de quem volta para casa e é ensinada pelos mais velhos. Não fala da rotina de jovens."
       D: "Luandi “não entendia as palavras do canto”. Elas não são inteligíveis para ele. Contradição."
       E: "O texto chama a cantiga de “alegre” e “vitoriosa”. Não há tristeza. Contradição."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/portugues-do-brasil-linguas-indigenas-e-africanas]
 
   - id: enem-2023-23
     area: linguagens
@@ -463,7 +463,7 @@ questoes:
       B: "Jane aparece dirigindo, e o Texto II diz que a separação entre público e privado valeu até o século 19. O desenho mostra estereótipo, não ausência."
       D: "O Texto II diz o contrário: as diferenças entre homens e mulheres são mínimas. Não há limitação “inerente” (natural)."
       E: "O Texto II diz que, até o século 19, a divisão de papéis era “clara”. Não havia dificuldade de atribuí-los."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/estrategias-de-leitura-e-inferencia]
 
   - id: enem-2023-24
     area: linguagens
@@ -483,7 +483,7 @@ questoes:
       B: "A Defensoria assina o anúncio, mas ele não descreve o que a entidade faz. Confunde quem fala com o que se quer."
       C: "“A Defensoria não para” é um selo pequeno no canto. O anúncio não detalha o trabalho do órgão."
       D: "O alerta sobre o aumento da violência existe, mas é a justificativa. O anúncio não para no alerta: pede a denúncia. E o aumento é ligado ao isolamento, não ao vírus em si."
-    aulas: [midia-fundamental/publicidade, violencia-domestica-sinais-e-ajuda/sinais-para-pedir-ajuda, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [midia-fundamental/publicidade, violencia-domestica-sinais-e-ajuda/sinais-para-pedir-ajuda, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/persuasao-na-publicidade-e-na-propaganda]
 
   - id: enem-2023-25
     area: linguagens
@@ -503,7 +503,7 @@ questoes:
       C: "Ela estava sozinha quando tentou, mas o texto não fala em medo da solidão. É uma circunstância, não o sentido."
       D: "A frustração é com o som que sai da boca. A terra estragada é imagem para falar da fala, não um problema real com a terra."
       E: "Não há nada sobre o tempo parado. A narrativa avança: ela tenta, falha e descreve o que sentiu."
-    aulas: [portugues-medio/figuras-de-linguagem, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [portugues-medio/figuras-de-linguagem, enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-literatura/poesia-concreta-e-contemporanea]
 
   - id: enem-2023-26
     area: linguagens
@@ -542,7 +542,7 @@ questoes:
       C: "“Isso” retoma os números de antes (duas horas, duas décadas). É uma retomada local, que não constrói a ideia de enredo comum."
       D: "O “mas” aparece uma vez e marca que haveria um fim. A progressão vem da lista com “todos”, que vem depois."
       E: "Há substantivação (“o Nunca Mais”), mas é pontual. Não é ela que faz o texto avançar."
-    aulas: [portugues-medio/coesao-e-coerencia, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/coesao-e-coerencia, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/coesao-e-coerencia]
 
   - id: enem-2023-28
     area: linguagens
@@ -562,7 +562,7 @@ questoes:
       B: "O silêncio vem de um conflito de dentro (o nó na garganta), não de alguém que proíbe o eu lírico de falar."
       D: "O que vem “de cima” e “de baixo” vem da mente e do coração, de dentro. Não são pressões de fora."
       E: "O poema não fala de escrever nem de criar. Fala de conseguir ou não dizer."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/funcoes-da-linguagem]
 
   - id: enem-2023-29
     area: linguagens
@@ -620,7 +620,7 @@ questoes:
       B: "O poema não discute se vale a pena amar. Trata de como o fim de um amor acontece."
       D: "O gesto de recolher migalhas mostra constrangimento e resignação, não paz. E o poema não resolve o conflito."
       E: "Os lugares idealizados são o que “seria necessário” para a despedida, e o poema os recusa. A alternativa inverte o sentido."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-literatura/poesia-concreta-e-contemporanea]
 
   - id: enem-2023-32
     area: linguagens
@@ -640,7 +640,7 @@ questoes:
       C: "O repertório mistura erudito e popular. Não há consagração de um sobre o outro. Contradição."
       D: "O turismo não aparece no texto. Extrapolação."
       E: "O texto mostra os gêneros juntos, sem hierarquia. A alternativa diz o contrário."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/musica-brasileira]
 
   - id: enem-2023-33
     area: linguagens
@@ -681,7 +681,7 @@ questoes:
       C: "O texto não fala de campanhas de marketing. Extrapolação."
       D: "As desenvolvedoras aparecem como parceiras das federações, não como beneficiadas. O texto não fala em favorecimento."
       E: "O texto fala de audiência, mas não de televisão, e não descreve mudança no modo de assistir."
-    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/esporte-midia-e-mercado]
 
   - id: enem-2023-36
     area: linguagens
@@ -721,7 +721,7 @@ questoes:
       B: "As capas de livro são resultado da exposição, não o objetivo de imitar uma estética."
       D: "A frase “ser diferente é uma potência” fala de quem tem projeto próprio, não de se opor às artes tradicionais. Palavra-isca."
       E: "O texto não diz que as colagens ganharam sentido tecnológico. A rede é o lugar de mostrar, não muda a obra."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/arte-contemporanea-e-arte-urbana]
 
   - id: enem-2023-38
     area: linguagens
@@ -741,7 +741,7 @@ questoes:
       C: "Foi pelo rádio que o grupo conheceu o rap. O texto não fala de rejeição. Contradição."
       D: "As letras falam da demarcação de terras, que é a realidade indígena. Contradição."
       E: "Kunumi gosta de poesia, mas o texto não fala em estudar poesia indígena. Extrapolação."
-    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/musica-brasileira]
 
   - id: enem-2023-39
     area: linguagens
@@ -761,7 +761,7 @@ questoes:
       B: "O texto não discute a importância do casamento. O motor da mudança foi a mobilização."
       D: "O que foi rápido foi a mudança (dois dias), não a circulação do verbete na internet."
       E: "O diretor fala bem da plataforma, mas a mudança veio do uso que o cidadão fez dela, não de propaganda do site."
-    aulas: [midia-fundamental/o-que-e-noticia, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [midia-fundamental/o-que-e-noticia, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-tecnologias-da-comunicacao/internet-hipertexto-e-redes-sociais]
 
   - id: enem-2023-40
     area: linguagens
@@ -781,7 +781,7 @@ questoes:
       C: "O texto não diz que falta uma categoria para pessoas trans. A regra é para competir na categoria feminina."
       D: "O afastamento de 2001 foi decisão dela, pela pressão que sentia. Não é regra do esporte."
       E: "A terapia hormonal é permitida e até exigida pela regra. A alternativa contradiz o texto."
-    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/praticas-corporais-cultura-e-sociedade]
 
   - id: enem-2023-41
     area: linguagens
@@ -801,7 +801,7 @@ questoes:
       C: "O Comitê Olímpico é acusado, mas a reflexão pedida não é sobre os comitês. Eles são parte do caso, não o tema."
       D: "O FBI aparece como alvo da investigação, mas o texto não propõe pensar o esporte e os órgãos de inteligência."
       E: "A federação é citada entre os responsáveis. O centro da reflexão é o atleta, não a entidade."
-    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/corpo-saude-e-padroes-de-beleza]
 
   - id: enem-2023-42
     area: linguagens
@@ -821,7 +821,7 @@ questoes:
       B: "O texto fala de pessoas que “desconhecem” os programas públicos. Então eles existem. Contradição."
       C: "A idade é um dos itens da lista, não o fator central."
       D: "Ser negro aparece na lista, mas o texto põe a condição econômica como explicação principal."
-    aulas: [educacao-fisica-fundamental/por-que-se-mexer-o-que-a-oms-recomenda, educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo]
+    aulas: [educacao-fisica-fundamental/por-que-se-mexer-o-que-a-oms-recomenda, educacao-fisica-superior/o-coletivo-de-autores-e-a-abordagem-critico-superadora, enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo, enem-linguagens-artes-e-corpo/praticas-corporais-cultura-e-sociedade]
 
   - id: enem-2023-43
     area: linguagens
@@ -841,7 +841,7 @@ questoes:
       C: "As frases são longas e cheias de imagens. Contradição."
       D: "Há oposições (a morte que não separa, mas aproxima), mas são do orador, não ideias tiradas da obra de Machado."
       E: "Rui Barbosa corrige a ideia de despedida: para ele, a morte transforma e renova. O tom é de glorificação, não de nostalgia."
-    aulas: [portugues-medio/figuras-de-linguagem, lendo-machado-de-assis/por-onde-comecar, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/figuras-de-linguagem, lendo-machado-de-assis/por-onde-comecar, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-lingua-em-uso/figuras-de-linguagem]
 
   - id: enem-2023-45
     area: linguagens
@@ -861,4 +861,4 @@ questoes:
       B: "O texto diz que espera a reflexão dos governantes, mas a carta é dirigida à população. Confunde um pedido do fim com o objetivo."
       C: "A sociedade assina a carta, mas não fala do próprio trabalho. Confunde autor com assunto."
       D: "O texto não fala de leis que pioraram. Ao contrário, reconhece “indiscutíveis avanços”."
-    aulas: [portugues-medio/generos-textuais, enem-reta-final/linguagens-o-essencial-leitura-e-lingua]
+    aulas: [portugues-medio/generos-textuais, enem-reta-final/linguagens-o-essencial-leitura-e-lingua, enem-linguagens-leitura-e-generos/artigo-de-opiniao-editorial-carta-aberta-e-resenha]

@@ -1,0 +1,243 @@
+# Exercícios da aula "Privacidade e dados" (trilha enem-linguagens-tecnologias-da-comunicacao).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-digitais-privacidade-01
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-privacidade
+  dificuldade: 1
+  enunciado: "Qual destas informações é um dado pessoal, pela LGPD?"
+  alternativas:
+    - texto: "A previsão do tempo da cidade."
+      erro: "A previsão não identifica ninguém. Não é dado pessoal."
+    - texto: "O preço do arroz no mercado."
+      erro: "Preço de produto não se relaciona a uma pessoa identificável."
+    - texto: "O número de habitantes do país."
+      erro: "É um dado coletivo, que não identifica uma pessoa."
+    - texto: "O número de telefone de uma pessoa."
+      certa: true
+    - texto: "O horário de funcionamento de uma loja."
+      erro: "É informação sobre a loja, não sobre uma pessoa natural."
+  explicacao: "Dado pessoal é informação relacionada a pessoa natural identificada ou identificável (LGPD, art. 5º, I). O telefone identifica alguém."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.709/2018"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-02
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-privacidade
+  dificuldade: 1
+  enunciado: "A digital usada para desbloquear o celular é, pela LGPD, um dado:"
+  alternativas:
+    - texto: "pessoal sensível, porque é biométrico."
+      certa: true
+    - texto: "público, que qualquer pessoa pode usar."
+      erro: "A digital identifica a pessoa e é protegida. Não é de uso livre."
+    - texto: "sem valor, porque não tem nome escrito."
+      erro: "A digital identifica alguém melhor que o nome. Tem muito valor."
+    - texto: "anônimo."
+      erro: "Anônimo é o dado que não permite identificar a pessoa. A digital permite."
+    - texto: "comercial, que pertence ao fabricante do celular."
+      erro: "O dado é do titular, a pessoa. A empresa só pode tratá-lo nas hipóteses da lei."
+  explicacao: "Dado biométrico (digital, rosto, íris) vinculado a uma pessoa é dado pessoal sensível (LGPD, art. 5º, II). Ele não pode ser trocado como uma senha."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.709/2018"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-03
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 4
+  objeto: lin-generos-digitais-privacidade
+  dificuldade: 1
+  enunciado: "Desde 2022, a proteção dos dados pessoais está na Constituição como:"
+  alternativas:
+    - texto: "uma obrigação só das escolas."
+      erro: "O texto constitucional vale para todos, não só para escolas."
+    - texto: "um tema exclusivo de leis municipais."
+      erro: "Está no artigo 5º da Constituição Federal."
+    - texto: "direito fundamental, no artigo 5º, inciso LXXIX."
+      certa: true
+    - texto: "uma proibição de usar a internet."
+      erro: "Proteger dados não é proibir a internet."
+    - texto: "uma sugestão sem força de lei."
+      erro: "Direito fundamental tem força constitucional."
+  explicacao: "A Emenda Constitucional nº 115, de 2022, incluiu no artigo 5º o inciso LXXIX: é assegurado, nos termos da lei, o direito à proteção dos dados pessoais, inclusive nos meios digitais."
+  fonte: "Questão original do Instituto Lúcia, com base na Constituição Federal, art. 5º, LXXIX"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-04
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-privacidade
+  dificuldade: 2
+  enunciado: "Um aplicativo de lanterna pede acesso aos contatos, à localização e ao microfone. Qual é a crítica mais adequada?"
+  alternativas:
+    - texto: "O aplicativo precisa de todos esses dados para acender a luz."
+      erro: "Para acender a luz, basta controlar o flash. Os outros acessos não servem à função."
+    - texto: "Quanto mais permissões, melhor o aplicativo funciona."
+      erro: "Permissão demais não melhora a lanterna. Só aumenta a coleta."
+    - texto: "Todo aplicativo gratuito pode pedir qualquer dado."
+      erro: "Ser gratuito não libera coleta sem limite. A lei protege o titular."
+    - texto: "O problema é só o gasto de bateria."
+      erro: "A bateria é detalhe. O ponto central é a coleta de dados."
+    - texto: "O pedido vai além do necessário para a função e pode servir para coletar dados com outros fins."
+      certa: true
+  explicacao: "Uma lanterna não precisa de contatos nem de microfone. Quando o pedido excede a função, os dados podem estar sendo coletados para outros usos, como publicidade ou venda a terceiros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-05
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-generos-digitais-privacidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na tela de cadastro de um aplicativo, a frase "Ganhe 20% de desconto agora!" aparece em letras grandes e
+    coloridas, acima de um botão verde enorme escrito "Aceitar tudo". Abaixo, em letra cinza e pequena: "Ao
+    aceitar, você autoriza o compartilhamento dos seus dados com empresas parceiras." O link "Personalizar"
+    aparece no canto, quase invisível.
+  enunciado: "A organização visual da tela tem o efeito de"
+  alternativas:
+    - texto: "informar o usuário de forma equilibrada sobre todas as opções."
+      erro: "Uma opção é enorme e colorida; a outra, quase invisível. Não há equilíbrio."
+    - texto: "conduzir o usuário a aceitar o compartilhamento de dados sem prestar atenção a ele."
+      certa: true
+    - texto: "proibir o usuário de personalizar as opções."
+      erro: "O link \"Personalizar\" existe. Não há proibição, há desestímulo."
+    - texto: "mostrar que o desconto depende de ler o termo inteiro."
+      erro: "A tela não pede leitura do termo. Ao contrário, empurra o \"Aceitar tudo\"."
+    - texto: "esconder totalmente o compartilhamento de dados."
+      erro: "O aviso está lá, só que pequeno. A tela não esconde de todo: diminui."
+  explicacao: "Tamanho, cor e posição dos elementos são recursos não verbais que empurram para o \"aceitar\". Reconhecer recursos verbais e não verbais usados para mudar comportamentos é a H21."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-06
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-privacidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No caixa da farmácia, a atendente pergunta: "CPF para o desconto?". A rede guarda a lista do que cada CPF
+    compra. Uma pesquisadora alerta: "Remédio para pressão, antidepressivo, teste de gravidez: o carrinho da
+    farmácia conta a sua saúde. E saúde é dado sensível."
+  enunciado: "O alerta da pesquisadora se apoia no fato de que"
+  alternativas:
+    - texto: "as farmácias não podem dar descontos."
+      erro: "O alerta não é contra o desconto. É sobre o que se entrega em troca dele."
+    - texto: "o CPF é um dado sem importância."
+      erro: "O CPF identifica a pessoa e liga a ela todo o histórico de compras."
+    - texto: "todo remédio é perigoso."
+      erro: "A pesquisadora fala de privacidade, não de perigo do remédio."
+    - texto: "o histórico de compras de remédios revela dados de saúde, protegidos como sensíveis."
+      certa: true
+    - texto: "a atendente comete crime ao pedir o CPF."
+      erro: "O texto não diz isso. Pedir o CPF não é crime; o ponto é o uso dos dados."
+  explicacao: "Ligado ao CPF, o carrinho da farmácia revela doenças e condições de saúde. Pela LGPD, dado de saúde é sensível e merece proteção maior, porque pode gerar discriminação."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.709/2018, art. 5º, II"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-07
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 4
+  objeto: lin-generos-digitais-privacidade
+  dificuldade: 2
+  enunciado: "Uma pessoa descobre que uma loja on-line tem o endereço dela errado no cadastro e que compartilhou os dados dela com outras empresas. Pelo artigo 18 da LGPD, ela pode:"
+  alternativas:
+    - texto: "pedir a correção do endereço e saber com quais empresas os dados foram compartilhados."
+      certa: true
+    - texto: "apenas aceitar, porque a empresa é dona dos dados."
+      erro: "O titular dos dados é a pessoa. A lei dá direitos a ela."
+    - texto: "exigir os dados de outros clientes da loja."
+      erro: "Os direitos valem sobre os próprios dados, não sobre os de outras pessoas."
+    - texto: "cobrar da loja um valor por cada dado usado."
+      erro: "O artigo 18 não prevê pagamento por dado. Prevê acesso, correção, informação e outros direitos."
+    - texto: "pedir a prisão imediata dos funcionários."
+      erro: "Não é o que o artigo 18 prevê. Ele lista direitos do titular sobre os dados."
+  explicacao: "O artigo 18 garante, entre outros, a correção de dados incompletos, inexatos ou desatualizados e a informação sobre com quem os dados foram compartilhados."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.709/2018, art. 18"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-08
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 30
+  objeto: lin-generos-digitais-privacidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Quando o serviço é de graça, o produto pode ser você." A frase circula há anos entre quem estuda a internet.
+    Ela resume um modelo de negócio em que plataformas gratuitas reúnem dados de milhões de usuários, montam perfis
+    detalhados e vendem a anunciantes a chance de mostrar o anúncio certo à pessoa certa, na hora certa.
+  enunciado: "A frase e a explicação que a acompanha indicam que, nesse modelo,"
+  alternativas:
+    - texto: "as plataformas não têm custos nem lucros."
+      erro: "Elas lucram vendendo acesso aos usuários. Há lucro, e grande."
+    - texto: "os anunciantes trabalham de graça para os usuários."
+      erro: "São os anunciantes que pagam. Inversão."
+    - texto: "a atenção e os dados dos usuários são a mercadoria que gera receita."
+      certa: true
+    - texto: "os usuários recebem dinheiro pelos seus dados."
+      erro: "O texto não fala em pagamento ao usuário. Ele paga com dados e atenção."
+    - texto: "os perfis dos usuários são apagados logo após o cadastro."
+      erro: "O texto diz que os perfis são montados e usados. Contradição."
+  explicacao: "O serviço é gratuito porque quem paga é o anunciante, e o que ele compra é o acesso dirigido às pessoas. A frase mostra a ligação entre tecnologia, economia e sociedade (H30)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-09
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 4
+  objeto: lin-generos-digitais-privacidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma escola passou a usar um aplicativo de jogos educativos com os alunos de 8 anos. O aplicativo pedia nome,
+    foto, localização e lista de amigos de cada criança. Uma mãe procurou a direção: "Ninguém me perguntou nada.
+    Meu filho aceitou os termos sozinho, tocando num botão."
+  enunciado: "Pela LGPD, a reclamação da mãe tem fundamento porque"
+  alternativas:
+    - texto: "aplicativos educativos são proibidos nas escolas."
+      erro: "A lei não proíbe aplicativos educativos. Ela regula o tratamento dos dados."
+    - texto: "crianças não podem usar celular."
+      erro: "A LGPD não trata de proibir o celular."
+    - texto: "a escola é obrigada a pagar pelos dados das crianças."
+      erro: "Não há pagamento previsto. O ponto é o consentimento."
+    - texto: "a foto de uma criança não é dado pessoal."
+      erro: "A foto identifica a criança: é dado pessoal."
+    - texto: "o tratamento de dados de crianças exige consentimento específico e em destaque de um dos pais ou do responsável."
+      certa: true
+  explicacao: "O artigo 14 da LGPD diz que dados de crianças devem ser tratados no melhor interesse delas, com consentimento específico e em destaque de pelo menos um dos pais ou do responsável. O \"aceite\" da criança não basta."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.709/2018, art. 14"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-privacidade-10
+  tema: "Privacidade e dados"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-privacidade
+  dificuldade: 3
+  enunciado: "Diante de uma discussão sobre vigilância, alguém diz: \"Quem não deve não teme. Eu não tenho nada a esconder.\" Qual contra-argumento é mais coerente com a ideia de privacidade como direito?"
+  alternativas:
+    - texto: "Só criminosos se preocupam com privacidade."
+      erro: "Isso repete o argumento que se quer rebater."
+    - texto: "Privacidade não é esconder crime: é poder decidir quem sabe o quê sobre a própria vida, e dados podem ser usados para discriminar."
+      certa: true
+    - texto: "Ninguém deve usar a internet."
+      erro: "Abandonar a rede não é a resposta da lei. A resposta é proteção de direitos."
+    - texto: "A privacidade só vale para pessoas famosas."
+      erro: "A Constituição e a LGPD protegem todas as pessoas."
+    - texto: "Dados pessoais não têm valor."
+      erro: "Têm, e muito: são a base de um modelo de negócios inteiro."
+  explicacao: "A Constituição garante a proteção dos dados como direito fundamental, de todos. Dados de saúde, religião ou opinião política podem levar a discriminação mesmo de quem não fez nada de errado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

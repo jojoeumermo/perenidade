@@ -4,10 +4,10 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 ## Números gerais
 
-- Aulas escritas no percurso (trilhas enem-*): **104** em 11 trilhas
-- Exercícios do instituto com as etiquetas do ENEM: **628** (meta: 2.000) · níveis 1/2/3: 187 / 259 / 182
-- Exercícios nas trilhas enem-* (todos): 640 · posição da certa (A–E): 128 / 129 / 127 / 129 / 127
-- Testes das aulas do percurso: 425 perguntas · posição da certa (1ª a 5ª opção): 137 / 123 / 85 / 80 / 0
+- Aulas escritas no percurso (trilhas enem-*): **161** em 18 trilhas
+- Exercícios do instituto com as etiquetas do ENEM: **1198** (meta: 2.000) · níveis 1/2/3: 358 / 487 / 353
+- Exercícios nas trilhas enem-* (todos): 1210 · posição da certa (A–E): 242 / 243 / 241 / 243 / 241
+- Testes das aulas do percurso: 653 perguntas · posição da certa (1ª a 5ª opção): 194 / 180 / 142 / 137 / 0
 - Questões oficiais classificadas e resolvidas: **347** de 2689 importadas (12.9%) · anos: 2022, 2023
 - Redação: 27 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
 - Fatos da edição 2026: 55 (3 a confirmar no edital)
@@ -18,36 +18,36 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 | C | H | Habilidade (resumo nosso) | Aulas | Exercícios | Questões oficiais |
 | --- | --- | --- | --- | --- | --- |
-| 1 | H1 | Reconhecer as diferentes linguagens e os recursos expressivos de cada meio de comunicação. | 0 | 0 | 0 |
+| 1 | H1 | Reconhecer as diferentes linguagens e os recursos expressivos de cada meio de comunicação. | 1 | 1 | 0 |
 | 1 | H2 | Usar o que se sabe sobre os meios de comunicação para resolver problemas sociais. | 0 | 0 | 0 |
-| 1 | H3 | Relacionar as informações dos meios de comunicação à função social que eles têm. | 0 | 0 | 2 |
-| 1 | H4 | Reconhecer críticas aos usos sociais das linguagens e dos meios de comunicação. | 0 | 0 | 0 |
-| 2 | H5 | Ligar palavras e expressões de um texto em língua estrangeira ao tema dele. | 1 | 2 | 5 |
-| 2 | H6 | Usar a língua estrangeira para ampliar o acesso a informações, tecnologias e culturas. | 0 | 0 | 0 |
-| 2 | H7 | Relacionar um texto em língua estrangeira às suas estruturas, à sua função e ao seu uso social. | 1 | 0 | 2 |
-| 2 | H8 | Reconhecer a produção cultural em língua estrangeira como parte da diversidade de culturas e línguas. | 0 | 0 | 3 |
-| 3 | H9 | Reconhecer que as práticas corporais nascem de necessidades do dia a dia de cada grupo social. | 1 | 0 | 3 |
-| 3 | H10 | Reconhecer quando é preciso mudar hábitos corporais por causa das necessidades do corpo em movimento. | 1 | 1 | 1 |
-| 3 | H11 | Reconhecer o corpo como meio de convivência, respeitando limites e adaptações para cada pessoa. | 1 | 1 | 5 |
-| 4 | H12 | Reconhecer as funções da arte e o trabalho dos artistas no meio em que vivem. | 1 | 1 | 4 |
-| 4 | H13 | Analisar obras de arte como forma de explicar culturas, padrões de beleza e preconceitos. | 1 | 0 | 2 |
-| 4 | H14 | Valorizar a diversidade artística e as trocas entre as manifestações de diferentes grupos sociais e étnicos. | 1 | 1 | 3 |
-| 5 | H15 | Relacionar o texto literário ao momento histórico, social e político em que foi escrito. | 1 | 2 | 4 |
-| 5 | H16 | Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído. | 1 | 2 | 14 |
-| 5 | H17 | Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais. | 1 | 0 | 1 |
-| 6 | H18 | Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos. | 1 | 2 | 8 |
-| 6 | H19 | Analisar a função da linguagem que predomina num texto, em cada situação de comunicação. | 1 | 0 | 2 |
-| 6 | H20 | Reconhecer o patrimônio linguístico como parte da memória e da identidade do país. | 0 | 0 | 3 |
-| 7 | H21 | Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos. | 1 | 0 | 2 |
-| 7 | H22 | Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes. | 1 | 1 | 5 |
-| 7 | H23 | Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados. | 1 | 0 | 4 |
-| 7 | H24 | Reconhecer estratégias para convencer o público, como intimidação, sedução, comoção ou chantagem. | 1 | 1 | 2 |
-| 8 | H25 | Identificar as marcas das variedades linguísticas sociais, regionais e de registro. | 1 | 0 | 2 |
-| 8 | H26 | Relacionar cada variedade linguística à situação de uso em que ela aparece. | 1 | 1 | 3 |
-| 8 | H27 | Reconhecer os usos da norma-padrão nas diferentes situações de comunicação. | 0 | 0 | 1 |
-| 9 | H28 | Reconhecer a função e o impacto social das tecnologias da comunicação e da informação. | 1 | 1 | 5 |
-| 9 | H29 | Identificar as tecnologias da comunicação pela análise das linguagens que elas usam. | 0 | 0 | 0 |
-| 9 | H30 | Relacionar as tecnologias da comunicação ao desenvolvimento das sociedades e ao conhecimento que elas produzem. | 1 | 0 | 2 |
+| 1 | H3 | Relacionar as informações dos meios de comunicação à função social que eles têm. | 1 | 1 | 2 |
+| 1 | H4 | Reconhecer críticas aos usos sociais das linguagens e dos meios de comunicação. | 2 | 7 | 0 |
+| 2 | H5 | Ligar palavras e expressões de um texto em língua estrangeira ao tema dele. | 9 | 35 | 5 |
+| 2 | H6 | Usar a língua estrangeira para ampliar o acesso a informações, tecnologias e culturas. | 4 | 7 | 0 |
+| 2 | H7 | Relacionar um texto em língua estrangeira às suas estruturas, à sua função e ao seu uso social. | 7 | 30 | 2 |
+| 2 | H8 | Reconhecer a produção cultural em língua estrangeira como parte da diversidade de culturas e línguas. | 4 | 10 | 3 |
+| 3 | H9 | Reconhecer que as práticas corporais nascem de necessidades do dia a dia de cada grupo social. | 3 | 11 | 3 |
+| 3 | H10 | Reconhecer quando é preciso mudar hábitos corporais por causa das necessidades do corpo em movimento. | 2 | 7 | 1 |
+| 3 | H11 | Reconhecer o corpo como meio de convivência, respeitando limites e adaptações para cada pessoa. | 4 | 14 | 5 |
+| 4 | H12 | Reconhecer as funções da arte e o trabalho dos artistas no meio em que vivem. | 4 | 13 | 4 |
+| 4 | H13 | Analisar obras de arte como forma de explicar culturas, padrões de beleza e preconceitos. | 2 | 5 | 2 |
+| 4 | H14 | Valorizar a diversidade artística e as trocas entre as manifestações de diferentes grupos sociais e étnicos. | 4 | 14 | 3 |
+| 5 | H15 | Relacionar o texto literário ao momento histórico, social e político em que foi escrito. | 18 | 67 | 4 |
+| 5 | H16 | Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído. | 17 | 84 | 14 |
+| 5 | H17 | Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais. | 15 | 17 | 1 |
+| 6 | H18 | Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos. | 13 | 85 | 8 |
+| 6 | H19 | Analisar a função da linguagem que predomina num texto, em cada situação de comunicação. | 2 | 10 | 2 |
+| 6 | H20 | Reconhecer o patrimônio linguístico como parte da memória e da identidade do país. | 3 | 15 | 3 |
+| 7 | H21 | Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos. | 6 | 20 | 2 |
+| 7 | H22 | Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes. | 8 | 31 | 5 |
+| 7 | H23 | Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados. | 5 | 20 | 4 |
+| 7 | H24 | Reconhecer estratégias para convencer o público, como intimidação, sedução, comoção ou chantagem. | 4 | 9 | 2 |
+| 8 | H25 | Identificar as marcas das variedades linguísticas sociais, regionais e de registro. | 6 | 11 | 2 |
+| 8 | H26 | Relacionar cada variedade linguística à situação de uso em que ela aparece. | 5 | 19 | 3 |
+| 8 | H27 | Reconhecer os usos da norma-padrão nas diferentes situações de comunicação. | 4 | 14 | 1 |
+| 9 | H28 | Reconhecer a função e o impacto social das tecnologias da comunicação e da informação. | 5 | 20 | 5 |
+| 9 | H29 | Identificar as tecnologias da comunicação pela análise das linguagens que elas usam. | 0 | 3 | 0 |
+| 9 | H30 | Relacionar as tecnologias da comunicação ao desenvolvimento das sociedades e ao conhecimento que elas produzem. | 3 | 6 | 2 |
 
 ### Ciências Humanas e suas Tecnologias
 
@@ -158,11 +158,11 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 | Área | Habilidades com aula | Com 10+ exercícios |
 | --- | --- | --- |
-| Linguagens, Códigos e suas Tecnologias | 21 de 30 | 0 de 30 |
+| Linguagens, Códigos e suas Tecnologias | 28 de 30 | 20 de 30 |
 | Ciências Humanas e suas Tecnologias | 29 de 30 | 0 de 30 |
 | Ciências da Natureza e suas Tecnologias | 19 de 30 | 0 de 30 |
 | Matemática e suas Tecnologias | 28 de 30 | 17 de 30 |
-| **Total** | **97 de 120 (81%)** | **17 de 120 (14%)** |
+| **Total** | **104 de 120 (87%)** | **37 de 120 (31%)** |
 
 ## Objetos de conhecimento e tópicos (meta: cada um com aula própria)
 
@@ -172,77 +172,77 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 
 | Objeto / tópico | Questões oficiais | Aulas | Exercícios |
 | --- | --- | --- | --- |
-| **Estudo do texto literário** (`lin-literatura`) | 19 | 1 | 4 |
-| ↳ Poesia concreta e produção contemporânea (`lin-literatura-contemporanea`) | 3 | 1 | 1 |
-| ↳ Realismo e Naturalismo (`lin-literatura-realismo-naturalismo`) | 2 | 1 | 1 |
-| ↳ Romance de 30 e poesia de 30 (`lin-literatura-geracao-de-30`) | 2 | 1 | 1 |
-| ↳ Literatura afro-brasileira (`lin-literatura-afro-brasileira`) | 2 | 1 | 1 |
-| ↳ O texto literário e os gêneros literários (`lin-literatura-texto-literario`) | 1 | 1 | 0 |
-| ↳ Romantismo (`lin-literatura-romantismo`) | 1 | 1 | 0 |
-| ↳ Pré-Modernismo (`lin-literatura-pre-modernismo`) | 1 | 1 | 0 |
-| ↳ Primeira geração modernista (`lin-literatura-primeira-geracao-modernista`) | 1 | 1 | 0 |
-| ↳ Geração de 45 (`lin-literatura-geracao-de-45`) | 1 | 1 | 0 |
-| ↳ Quinhentismo e literatura de informação (`lin-literatura-quinhentismo`) | 0 | 0 | 0 |
-| ↳ Barroco (`lin-literatura-barroco`) | 0 | 0 | 0 |
-| ↳ Arcadismo (`lin-literatura-arcadismo`) | 0 | 1 | 0 |
-| ↳ Parnasianismo e Simbolismo (`lin-literatura-parnasianismo-simbolismo`) | 0 | 0 | 0 |
-| ↳ Vanguardas europeias e Semana de 1922 (`lin-literatura-semana-de-22`) | 0 | 1 | 0 |
-| ↳ Literatura indígena (`lin-literatura-indigena`) | 0 | 0 | 0 |
-| ↳ Cordel e literatura oral (`lin-literatura-cordel-e-oralidade`) | 0 | 0 | 0 |
-| ↳ Literatura marginal e periférica (`lin-literatura-marginal-e-periferica`) | 0 | 1 | 0 |
-| **Estudo do texto** (`lin-texto`) | 12 | 1 | 2 |
-| ↳ Estratégias de leitura e inferência (`lin-texto-estrategias-de-leitura`) | 4 | 1 | 1 |
-| ↳ Funções da linguagem (`lin-texto-funcoes-da-linguagem`) | 2 | 1 | 0 |
-| ↳ Gêneros jornalísticos: notícia e reportagem (`lin-texto-generos-jornalisticos`) | 2 | 1 | 0 |
-| ↳ Artigo de opinião, editorial, carta aberta e resenha (`lin-texto-generos-opinativos`) | 2 | 1 | 1 |
-| ↳ Crônica e conto (`lin-texto-cronica-e-conto`) | 1 | 1 | 0 |
-| ↳ Verbete, manual, receita, anúncio e campanha (`lin-texto-generos-do-cotidiano`) | 1 | 1 | 0 |
-| ↳ Tipos textuais: narrar, descrever, expor, argumentar, instruir (`lin-texto-tipos-textuais`) | 0 | 0 | 0 |
-| ↳ Charge, tirinha, cartum e meme (`lin-texto-humor-grafico`) | 0 | 0 | 0 |
-| ↳ Infográfico e texto multimodal (`lin-texto-infografico`) | 0 | 0 | 0 |
-| **Leitura em língua estrangeira (inglês ou espanhol)** (`lin-lem`) | 10 | 1 | 2 |
-| ↳ Espanhol: gêneros mais frequentes e vocabulário em contexto (`lin-lem-espanhol-generos`) | 8 | 1 | 0 |
-| ↳ Espanhol: estratégias de leitura e falsos cognatos (heterosemánticos) (`lin-lem-espanhol-estrategias`) | 2 | 1 | 1 |
-| ↳ Inglês: estratégias de leitura (cognatos, skimming, scanning, inferência) (`lin-lem-ingles-estrategias`) | 0 | 1 | 1 |
-| ↳ Inglês: gêneros mais frequentes e vocabulário em contexto (`lin-lem-ingles-generos`) | 0 | 0 | 0 |
-| ↳ Inglês: conectivos e marcadores do texto (`lin-lem-ingles-conectivos`) | 0 | 0 | 0 |
-| ↳ Espanhol: conectivos e marcadores do texto (`lin-lem-espanhol-conectivos`) | 0 | 0 | 0 |
-| **Estudo das práticas corporais** (`lin-praticas-corporais`) | 9 | 1 | 2 |
-| ↳ Práticas corporais, cultura e sociedade (`lin-praticas-corporais-sociedade`) | 6 | 1 | 1 |
-| ↳ Corpo, saúde e padrões de beleza (`lin-praticas-corporais-saude-e-beleza`) | 2 | 1 | 1 |
-| ↳ Esporte, mídia e mercado (`lin-praticas-corporais-esporte-midia`) | 1 | 1 | 0 |
+| **Estudo do texto literário** (`lin-literatura`) | 19 | 18 | 174 |
+| ↳ Poesia concreta e produção contemporânea (`lin-literatura-contemporanea`) | 3 | 2 | 11 |
+| ↳ Realismo e Naturalismo (`lin-literatura-realismo-naturalismo`) | 2 | 2 | 11 |
+| ↳ Romance de 30 e poesia de 30 (`lin-literatura-geracao-de-30`) | 2 | 2 | 11 |
+| ↳ Literatura afro-brasileira (`lin-literatura-afro-brasileira`) | 2 | 2 | 11 |
+| ↳ O texto literário e os gêneros literários (`lin-literatura-texto-literario`) | 1 | 2 | 10 |
+| ↳ Romantismo (`lin-literatura-romantismo`) | 1 | 2 | 10 |
+| ↳ Pré-Modernismo (`lin-literatura-pre-modernismo`) | 1 | 2 | 10 |
+| ↳ Primeira geração modernista (`lin-literatura-primeira-geracao-modernista`) | 1 | 2 | 10 |
+| ↳ Geração de 45 (`lin-literatura-geracao-de-45`) | 1 | 2 | 10 |
+| ↳ Quinhentismo e literatura de informação (`lin-literatura-quinhentismo`) | 0 | 1 | 10 |
+| ↳ Barroco (`lin-literatura-barroco`) | 0 | 1 | 10 |
+| ↳ Arcadismo (`lin-literatura-arcadismo`) | 0 | 2 | 10 |
+| ↳ Parnasianismo e Simbolismo (`lin-literatura-parnasianismo-simbolismo`) | 0 | 1 | 10 |
+| ↳ Vanguardas europeias e Semana de 1922 (`lin-literatura-semana-de-22`) | 0 | 2 | 10 |
+| ↳ Literatura indígena (`lin-literatura-indigena`) | 0 | 1 | 10 |
+| ↳ Cordel e literatura oral (`lin-literatura-cordel-e-oralidade`) | 0 | 1 | 10 |
+| ↳ Literatura marginal e periférica (`lin-literatura-marginal-e-periferica`) | 0 | 2 | 10 |
+| **Estudo do texto** (`lin-texto`) | 12 | 10 | 92 |
+| ↳ Estratégias de leitura e inferência (`lin-texto-estrategias-de-leitura`) | 4 | 2 | 11 |
+| ↳ Funções da linguagem (`lin-texto-funcoes-da-linguagem`) | 2 | 2 | 10 |
+| ↳ Gêneros jornalísticos: notícia e reportagem (`lin-texto-generos-jornalisticos`) | 2 | 2 | 10 |
+| ↳ Artigo de opinião, editorial, carta aberta e resenha (`lin-texto-generos-opinativos`) | 2 | 2 | 11 |
+| ↳ Crônica e conto (`lin-texto-cronica-e-conto`) | 1 | 2 | 10 |
+| ↳ Verbete, manual, receita, anúncio e campanha (`lin-texto-generos-do-cotidiano`) | 1 | 2 | 10 |
+| ↳ Tipos textuais: narrar, descrever, expor, argumentar, instruir (`lin-texto-tipos-textuais`) | 0 | 1 | 10 |
+| ↳ Charge, tirinha, cartum e meme (`lin-texto-humor-grafico`) | 0 | 1 | 10 |
+| ↳ Infográfico e texto multimodal (`lin-texto-infografico`) | 0 | 1 | 10 |
+| **Leitura em língua estrangeira (inglês ou espanhol)** (`lin-lem`) | 10 | 9 | 82 |
+| ↳ Espanhol: gêneros mais frequentes e vocabulário em contexto (`lin-lem-espanhol-generos`) | 8 | 3 | 14 |
+| ↳ Espanhol: estratégias de leitura e falsos cognatos (heterosemánticos) (`lin-lem-espanhol-estrategias`) | 2 | 3 | 14 |
+| ↳ Inglês: estratégias de leitura (cognatos, skimming, scanning, inferência) (`lin-lem-ingles-estrategias`) | 0 | 3 | 14 |
+| ↳ Inglês: gêneros mais frequentes e vocabulário em contexto (`lin-lem-ingles-generos`) | 0 | 2 | 14 |
+| ↳ Inglês: conectivos e marcadores do texto (`lin-lem-ingles-conectivos`) | 0 | 2 | 13 |
+| ↳ Espanhol: conectivos e marcadores do texto (`lin-lem-espanhol-conectivos`) | 0 | 2 | 13 |
+| **Estudo das práticas corporais** (`lin-praticas-corporais`) | 9 | 4 | 32 |
+| ↳ Práticas corporais, cultura e sociedade (`lin-praticas-corporais-sociedade`) | 6 | 2 | 11 |
+| ↳ Corpo, saúde e padrões de beleza (`lin-praticas-corporais-saude-e-beleza`) | 2 | 2 | 11 |
+| ↳ Esporte, mídia e mercado (`lin-praticas-corporais-esporte-midia`) | 1 | 2 | 10 |
 | ↳ Lutas, danças e ginásticas (`lin-praticas-corporais-lutas-dancas-ginasticas`) | 0 | 0 | 0 |
 | ↳ Jogos e brincadeiras (`lin-praticas-corporais-jogos-e-brincadeiras`) | 0 | 0 | 0 |
-| **Produção e recepção de textos artísticos** (`lin-artes`) | 9 | 1 | 2 |
-| ↳ Arte contemporânea e arte urbana (`lin-artes-contemporanea-e-urbana`) | 3 | 1 | 1 |
-| ↳ Música brasileira e as culturas que a criaram (`lin-artes-musica-brasileira`) | 3 | 1 | 1 |
-| ↳ Arte como linguagem e patrimônio (`lin-artes-arte-como-linguagem`) | 1 | 1 | 0 |
+| **Produção e recepção de textos artísticos** (`lin-artes`) | 9 | 4 | 32 |
+| ↳ Arte contemporânea e arte urbana (`lin-artes-contemporanea-e-urbana`) | 3 | 2 | 11 |
+| ↳ Música brasileira e as culturas que a criaram (`lin-artes-musica-brasileira`) | 3 | 2 | 11 |
+| ↳ Arte como linguagem e patrimônio (`lin-artes-arte-como-linguagem`) | 1 | 2 | 10 |
 | ↳ Modernismo nas artes visuais (`lin-artes-modernismo`) | 1 | 1 | 0 |
 | ↳ Cultura popular e patrimônio imaterial (`lin-artes-cultura-popular`) | 1 | 1 | 0 |
 | ↳ Arte indígena e afro-brasileira (`lin-artes-indigena-e-afro`) | 0 | 0 | 0 |
 | ↳ Barroco mineiro (`lin-artes-barroco-mineiro`) | 0 | 0 | 0 |
 | ↳ Teatro, dança, cinema e fotografia (`lin-artes-teatro-danca-cinema-foto`) | 0 | 0 | 0 |
-| **Estudo dos aspectos linguísticos da língua portuguesa** (`lin-lingua-portuguesa`) | 9 | 1 | 1 |
-| ↳ Variação linguística (`lin-lingua-portuguesa-variacao`) | 4 | 1 | 1 |
-| ↳ O português no Brasil e as línguas indígenas e africanas (`lin-lingua-portuguesa-portugues-no-brasil`) | 3 | 1 | 0 |
-| ↳ Preconceito linguístico (`lin-lingua-portuguesa-preconceito-linguistico`) | 1 | 1 | 0 |
-| ↳ Norma-padrão em uso: concordância, regência, crase, pontuação, colocação (`lin-lingua-portuguesa-norma-padrao`) | 1 | 0 | 0 |
-| ↳ Formação de palavras (`lin-lingua-portuguesa-formacao-de-palavras`) | 0 | 0 | 0 |
-| ↳ Oralidade e escrita (`lin-lingua-portuguesa-oralidade-e-escrita`) | 0 | 0 | 0 |
-| **Estudo dos gêneros digitais** (`lin-generos-digitais`) | 8 | 1 | 1 |
-| ↳ Internet, hipertexto e redes sociais (`lin-generos-digitais-hipertexto`) | 4 | 1 | 0 |
-| ↳ Desinformação e checagem (`lin-generos-digitais-desinformacao`) | 2 | 1 | 1 |
-| ↳ Algoritmos e bolhas (`lin-generos-digitais-algoritmos`) | 0 | 1 | 0 |
-| ↳ Privacidade e dados (`lin-generos-digitais-privacidade`) | 0 | 0 | 0 |
-| **Estudo dos aspectos linguísticos em diferentes textos** (`lin-recursos-expressivos`) | 6 | 1 | 1 |
-| ↳ Coesão e coerência (`lin-recursos-expressivos-coesao-e-coerencia`) | 2 | 1 | 1 |
-| ↳ Figuras de linguagem (`lin-recursos-expressivos-figuras`) | 2 | 1 | 0 |
-| ↳ Semântica: polissemia, ambiguidade, denotação e conotação (`lin-recursos-expressivos-semantica`) | 2 | 1 | 0 |
-| ↳ Intertextualidade: paródia, paráfrase, citação, alusão (`lin-recursos-expressivos-intertextualidade`) | 0 | 0 | 0 |
-| **Estudo do texto argumentativo, seus gêneros e recursos linguísticos** (`lin-argumentacao`) | 6 | 1 | 1 |
-| ↳ Estratégias argumentativas (`lin-argumentacao-estrategias`) | 3 | 1 | 0 |
-| ↳ Persuasão na publicidade e na propaganda (`lin-argumentacao-publicidade`) | 3 | 1 | 1 |
-| ↳ Tema, tese e argumento (`lin-argumentacao-tema-tese-argumento`) | 0 | 1 | 0 |
+| **Estudo dos aspectos linguísticos da língua portuguesa** (`lin-lingua-portuguesa`) | 9 | 7 | 61 |
+| ↳ Variação linguística (`lin-lingua-portuguesa-variacao`) | 4 | 2 | 11 |
+| ↳ O português no Brasil e as línguas indígenas e africanas (`lin-lingua-portuguesa-portugues-no-brasil`) | 3 | 2 | 10 |
+| ↳ Preconceito linguístico (`lin-lingua-portuguesa-preconceito-linguistico`) | 1 | 2 | 10 |
+| ↳ Norma-padrão em uso: concordância, regência, crase, pontuação, colocação (`lin-lingua-portuguesa-norma-padrao`) | 1 | 1 | 10 |
+| ↳ Formação de palavras (`lin-lingua-portuguesa-formacao-de-palavras`) | 0 | 1 | 10 |
+| ↳ Oralidade e escrita (`lin-lingua-portuguesa-oralidade-e-escrita`) | 0 | 1 | 10 |
+| **Estudo dos gêneros digitais** (`lin-generos-digitais`) | 8 | 5 | 41 |
+| ↳ Internet, hipertexto e redes sociais (`lin-generos-digitais-hipertexto`) | 4 | 2 | 10 |
+| ↳ Desinformação e checagem (`lin-generos-digitais-desinformacao`) | 2 | 2 | 11 |
+| ↳ Algoritmos e bolhas (`lin-generos-digitais-algoritmos`) | 0 | 2 | 10 |
+| ↳ Privacidade e dados (`lin-generos-digitais-privacidade`) | 0 | 1 | 10 |
+| **Estudo dos aspectos linguísticos em diferentes textos** (`lin-recursos-expressivos`) | 6 | 5 | 41 |
+| ↳ Coesão e coerência (`lin-recursos-expressivos-coesao-e-coerencia`) | 2 | 2 | 11 |
+| ↳ Figuras de linguagem (`lin-recursos-expressivos-figuras`) | 2 | 2 | 10 |
+| ↳ Semântica: polissemia, ambiguidade, denotação e conotação (`lin-recursos-expressivos-semantica`) | 2 | 2 | 10 |
+| ↳ Intertextualidade: paródia, paráfrase, citação, alusão (`lin-recursos-expressivos-intertextualidade`) | 0 | 1 | 10 |
+| **Estudo do texto argumentativo, seus gêneros e recursos linguísticos** (`lin-argumentacao`) | 6 | 4 | 31 |
+| ↳ Estratégias argumentativas (`lin-argumentacao-estrategias`) | 3 | 2 | 10 |
+| ↳ Persuasão na publicidade e na propaganda (`lin-argumentacao-publicidade`) | 3 | 2 | 11 |
+| ↳ Tema, tese e argumento (`lin-argumentacao-tema-tese-argumento`) | 0 | 2 | 10 |
 
 ### Ciências Humanas e suas Tecnologias
 
@@ -516,11 +516,10 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Equação da reta, paralelismo e perpendicularidade (`mat-algebra-geometria-reta`) | 0 | 1 | 10 |
 | ↳ Equação da circunferência (`mat-algebra-geometria-circunferencia`) | 0 | 0 | 0 |
 
-Objetos com aula: **33 de 42** · tópicos com aula: **154 de 286**.
+Objetos com aula: **33 de 42** · tópicos com aula: **170 de 286**.
 
 ## As 40 lacunas mais urgentes (tópico sem aula, pela incidência)
 
-- Norma-padrão em uso: concordância, regência, crase, pontuação, colocação (`lin-lingua-portuguesa-norma-padrao`, linguagens): 1 questões oficiais classificadas
 - Idade Média, feudalismo e mundo islâmico (`hum-organizacao-social-idade-media`, humanas): 1 questões oficiais classificadas
 - Iluminismo (`hum-organizacao-social-iluminismo`, humanas): 1 questões oficiais classificadas
 - Primeira República: coronelismo, revoltas e greves (`hum-organizacao-social-primeira-republica`, humanas): 1 questões oficiais classificadas
@@ -560,3 +559,4 @@ Objetos com aula: **33 de 42** · tópicos com aula: **154 de 286**.
 - Energia nuclear e lixo atômico (`nat-qui-energias-nuclear`, natureza): 1 questões oficiais classificadas
 - Herança ligada ao sexo (`nat-bio-hereditariedade-ligada-ao-sexo`, natureza): 1 questões oficiais classificadas
 - Mutações (`nat-bio-hereditariedade-mutacoes`, natureza): 1 questões oficiais classificadas
+- Cinética química (`nat-qui-cinetica-velocidade`, natureza): 1 questões oficiais classificadas

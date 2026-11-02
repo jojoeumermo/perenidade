@@ -1,0 +1,151 @@
+# Mapa curricular da trilha enem-linguagens-leitura-e-generos: cada aula escrita ligada às habilidades da Matriz do Enem
+# e aos tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
+aulas:
+  estrategias-de-leitura-e-inferencia:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 23
+        resumo: Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados.
+        situacao: a-confirmar
+    objetos: [lin-texto-estrategias-de-leitura]
+  tipos-textuais:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+    objetos: [lin-texto-tipos-textuais]
+  funcoes-da-linguagem:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 19
+        resumo: Analisar a função da linguagem que predomina num texto, em cada situação de comunicação.
+        situacao: a-confirmar
+    objetos: [lin-texto-funcoes-da-linguagem]
+  noticia-e-reportagem:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+    objetos: [lin-texto-generos-jornalisticos]
+  artigo-de-opiniao-editorial-carta-aberta-e-resenha:
+    enem:
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 23
+        resumo: Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados.
+        situacao: a-confirmar
+    objetos: [lin-texto-generos-opinativos]
+  cronica-e-conto:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+    objetos: [lin-texto-cronica-e-conto]
+  charge-tirinha-cartum-e-meme:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 21
+        resumo: Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos.
+        situacao: a-confirmar
+    objetos: [lin-texto-humor-grafico]
+  verbete-manual-receita-anuncio-e-campanha:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 21
+        resumo: Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos.
+        situacao: a-confirmar
+    objetos: [lin-texto-generos-do-cotidiano]
+  infografico-e-texto-multimodal:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 21
+        resumo: Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos.
+        situacao: a-confirmar
+    objetos: [lin-texto-infografico]
+  tema-tese-e-argumento:
+    enem:
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 23
+        resumo: Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados.
+        situacao: a-confirmar
+    objetos: [lin-argumentacao-tema-tese-argumento]
+  estrategias-argumentativas:
+    enem:
+      - area: linguagens
+        competencia: 7
+        habilidade: 23
+        resumo: Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 24
+        resumo: Reconhecer estratégias para convencer o público, como intimidação, sedução, comoção ou chantagem.
+        situacao: a-confirmar
+    objetos: [lin-argumentacao-estrategias]
+  persuasao-na-publicidade-e-na-propaganda:
+    enem:
+      - area: linguagens
+        competencia: 7
+        habilidade: 21
+        resumo: Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 24
+        resumo: Reconhecer estratégias para convencer o público, como intimidação, sedução, comoção ou chantagem.
+        situacao: a-confirmar
+    objetos: [lin-argumentacao-publicidade]

@@ -1,0 +1,246 @@
+# Exercícios da aula "Barroco" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-barroco-01
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-barroco
+  dificuldade: 1
+  enunciado: "A figura que põe lado a lado ideias de sentido oposto, muito usada no Barroco, é a"
+  alternativas:
+    - texto: "onomatopeia."
+      erro: "Onomatopeia imita sons (\"tique-taque\"). Não opõe ideias."
+    - texto: "comparação com \"como\"."
+      erro: "A comparação aproxima coisas parecidas. O Barroco gosta de aproximar contrários."
+    - texto: "metonímia."
+      erro: "Metonímia troca um termo por outro próximo (\"ler Machado\" por ler a obra dele). Não é oposição."
+    - texto: "antítese."
+      certa: true
+    - texto: "aliteração."
+      erro: "Aliteração repete sons de consoantes. Não trata de sentido oposto."
+  explicacao: "Antítese é pôr opostos lado a lado: luz e sombra, pobre e rica, pecado e perdão. É a marca mais reconhecível do Barroco."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-02
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-barroco
+  dificuldade: 1
+  enunciado: "O Barroco é o estilo do século 17. Um fato da época que ajuda a entender os seus conflitos é"
+  alternativas:
+    - texto: "a Semana de Arte Moderna."
+      erro: "A Semana de Arte Moderna é de 1922, três séculos depois."
+    - texto: "a Contrarreforma, a reação da Igreja Católica à Reforma protestante."
+      certa: true
+    - texto: "a Proclamação da República."
+      erro: "A República é de 1889. O Barroco é do século 17."
+    - texto: "a Abolição da escravatura."
+      erro: "A Abolição é de 1888. No século 17, a escravidão era a base da economia do açúcar."
+    - texto: "a Independência do Brasil."
+      erro: "A Independência é de 1822. No século 17, o Brasil era colônia."
+  explicacao: "A Contrarreforma quis trazer as pessoas de volta à fé e ao medo do pecado, num mundo que o Renascimento tinha aberto ao prazer e à razão. Daí o conflito barroco entre o céu e a terra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-03
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-barroco
+  dificuldade: 1
+  enunciado: "Gregório de Matos ganhou o apelido de Boca do Inferno por causa"
+  alternativas:
+    - texto: "dos sermões em que ameaçava os fiéis com o inferno."
+      erro: "Quem pregava sermões era o padre Antônio Vieira. Gregório era advogado e poeta."
+    - texto: "da poesia de amor dedicada a uma pastora."
+      erro: "Poesia de pastores é marca do Arcadismo, no século 18."
+    - texto: "das peças de teatro religioso em tupi."
+      erro: "Quem escreveu autos em tupi foi Anchieta, no século 16."
+    - texto: "da defesa dos governadores da Bahia."
+      erro: "É o oposto: ele atacou os governadores, e por isso foi perseguido."
+    - texto: "da sátira contra governadores, padres, comerciantes e fidalgos da Bahia."
+      certa: true
+  explicacao: "A sátira de Gregório expôs os poderosos de Salvador. Perseguido, ele foi mandado para Angola em 1694."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-04
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-barroco
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Triste Bahia! ó quão dessemelhante
+    Estás e estou do nosso antigo estado!
+    Pobre te vejo a ti, tu a mi empenhado,
+    Rica te vi eu já, tu a mi abundante.
+    (Gregório de Matos, soneto "À cidade da Bahia", século 17. Domínio público.)
+  enunciado: "A construção desses versos é tipicamente barroca porque"
+  alternativas:
+    - texto: "opõe o passado rico ao presente pobre e cruza as palavras, aproximando a cidade e o eu lírico."
+      certa: true
+    - texto: "usa linguagem simples, sem figuras, como na fala do dia a dia."
+      erro: "Há antítese (\"pobre\" e \"rica\") e cruzamento de palavras: a linguagem é trabalhada, não simples."
+    - texto: "descreve a cidade com dados objetivos de comércio."
+      erro: "Não há dado nenhum. Há lamentação e imagens."
+    - texto: "canta a vida tranquila dos pastores no campo."
+      erro: "Pastores e campo são marcas do Arcadismo. O cenário aqui é a cidade da Bahia."
+    - texto: "abandona a métrica e a rima, como os modernistas."
+      erro: "É um soneto, com métrica e rima. O verso livre só se firma no século 20."
+  explicacao: "\"Pobre\" e \"rica\" são antítese. \"Te vejo a ti, tu a mi\" cruza as palavras, como num espelho: a cidade e o poeta empobrecem juntos. Contraste e jogo de palavras são o centro do Barroco."
+  fonte: "Questão original do Instituto Lúcia; versos de Gregório de Matos (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-05
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-barroco
+  dificuldade: 2
+  enunciado: "Os sermões do padre Antônio Vieira são o melhor exemplo, em português, do conceptismo. Isso quer dizer que eles"
+  alternativas:
+    - texto: "evitam qualquer argumento e só descrevem a natureza."
+      erro: "É o contrário: o conceptismo vive de argumento."
+    - texto: "são escritos em versos de sete sílabas."
+      erro: "Sermão é prosa, falada no púlpito. Não é verso."
+    - texto: "constroem raciocínios passo a passo, com perguntas, comparações e deduções, para convencer."
+      certa: true
+    - texto: "acumulam palavras raras só pelo som, sem ideia por trás."
+      erro: "O jogo com palavras e sons é o cultismo. No conceptismo, o jogo é com as ideias."
+    - texto: "imitam a fala das ruas, com gírias da época."
+      erro: "Vieira pregava com linguagem culta e método. Não é registro de gíria."
+  explicacao: "Conceptismo é o jogo com as ideias: o pregador pergunta, responde, levanta objeções e conclui. No Sermão da Sexagésima (1655), Vieira monta assim a pergunta sobre por que a pregação dava pouco fruto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-06
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-barroco
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Pequei, Senhor; mas não porque hei pecado,
+    (Gregório de Matos, primeiro verso do soneto "A Jesus Cristo Nosso Senhor", século 17. Domínio público.)
+  enunciado: "No verso, o eu lírico se dirige a Deus de um modo típico da poesia religiosa barroca, porque"
+  alternativas:
+    - texto: "nega ter pecado e acusa os outros."
+      erro: "Ele confessa: \"Pequei\". Não há negação do pecado."
+    - texto: "descreve a beleza da natureza criada por Deus."
+      erro: "Não há natureza no verso. O assunto é o pecado e a relação com Deus."
+    - texto: "conta uma história com personagens e narrador."
+      erro: "É um poema lírico: uma voz fala de si a Deus. Não há narração."
+    - texto: "fala de amor por uma mulher idealizada."
+      erro: "O \"Senhor\" é Deus, a quem o soneto é dirigido. Não é poesia amorosa."
+    - texto: "confessa o pecado e, no mesmo verso, já começa a argumentar, numa tensão entre culpa e raciocínio."
+      certa: true
+  explicacao: "O \"mas\" muda tudo: o pecador admite a culpa e logo passa a argumentar com Deus. Culpa e raciocínio no mesmo verso: é o conflito barroco, e também o jogo de ideias do conceptismo."
+  fonte: "Questão original do Instituto Lúcia; verso de Gregório de Matos (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-07
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-barroco
+  dificuldade: 2
+  enunciado: "A Prosopopeia, de Bento Teixeira, publicada em 1601, é lembrada como marco do Barroco no Brasil. É um poema que"
+  alternativas:
+    - texto: "imita a epopeia de Camões para elogiar o donatário da capitania de Pernambuco."
+      certa: true
+    - texto: "satiriza os governadores da Bahia."
+      erro: "Sátira contra a Bahia é marca de Gregório de Matos. A Prosopopeia elogia um poderoso."
+    - texto: "conta a vida de pastores em Minas Gerais."
+      erro: "Pastores em Minas são o Arcadismo, no século 18."
+    - texto: "defende a abolição da escravidão."
+      erro: "O abolicionismo literário é do século 19, com Castro Alves e Maria Firmina dos Reis."
+    - texto: "foi escrito em tupi para a catequese."
+      erro: "O poema é em português e não é texto de catequese."
+  explicacao: "A Prosopopeia canta Jorge de Albuquerque Coelho, donatário de Pernambuco, seguindo o modelo de Os Lusíadas, de Camões. Por ser de 1601, é usada como marco de início do Barroco nos livros de literatura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-08
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-barroco
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A ti trocou-te a máquina mercante,
+    Que em tua larga barra tem entrado,
+    A mim foi-me trocando e tem trocado
+    Tanto negócio e tanto negociante.
+    (Gregório de Matos, soneto "À cidade da Bahia", século 17. Domínio público.)
+  enunciado: "Considerando o contexto da Bahia colonial, a crítica desses versos se dirige"
+  alternativas:
+    - texto: "à chegada dos jesuítas, que tomaram as terras dos colonos."
+      erro: "Os jesuítas não aparecem nos versos. O culpado nomeado é a \"máquina mercante\"."
+    - texto: "às secas que destruíram os canaviais do sertão."
+      erro: "O cenário é a \"larga barra\", a entrada da baía. Não há seca nem sertão."
+    - texto: "aos indígenas, que atacavam os engenhos."
+      erro: "Ninguém ataca nada nos versos. O que há é troca, negócio, comércio."
+    - texto: "ao comércio dos navios que entravam no porto de Salvador e levavam a riqueza da terra."
+      certa: true
+    - texto: "à Igreja, que proibia o comércio com estrangeiros."
+      erro: "A Igreja não aparece. E os versos dizem que o comércio entrava, não que era proibido."
+  explicacao: "Salvador era a capital e o porto do açúcar. A \"máquina mercante\" é a frota de comércio que entra pela barra. O poema culpa esse comércio, com o martelar de \"negócio\" e \"negociante\", pela pobreza da cidade e do poeta."
+  fonte: "Questão original do Instituto Lúcia; versos de Gregório de Matos (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-09
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-barroco
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Acordo cedo para dormir tranquilo.
+    Corro tanto para ficar parado no ponto.
+    O ônibus cheio é a minha solidão.
+    (Texto original do Instituto Lúcia, escrito para este exercício.)
+  enunciado: "O texto, embora atual, retoma um recurso muito usado no Barroco. Trata-se do"
+  alternativas:
+    - texto: "verso de sete sílabas, típico das cantigas populares."
+      erro: "Os versos têm tamanhos diferentes e não seguem a redondilha. O recurso está no sentido."
+    - texto: "uso de palavras indígenas, como na literatura de catequese."
+      erro: "Não há palavra indígena no texto."
+    - texto: "paradoxo, que junta numa só ideia termos que parecem se excluir."
+      certa: true
+    - texto: "relato objetivo, sem figuras de linguagem."
+      erro: "\"O ônibus cheio é a minha solidão\" não é relato objetivo: junta cheio e sozinho."
+    - texto: "elogio da vida no campo, longe da cidade."
+      erro: "O cenário é a cidade (ônibus, ponto). Não há campo."
+  explicacao: "\"Ônibus cheio\" e \"solidão\" parecem se excluir, e o texto os funde numa ideia só: estar no meio de muita gente e se sentir sozinho. Isso é paradoxo. Os outros versos fazem o mesmo (correr para ficar parado). O Barroco usava muito esse recurso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-barroco-10
+  tema: "Barroco"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-barroco
+  dificuldade: 3
+  enunciado: "Vieira defendeu a liberdade dos povos indígenas no Maranhão e no Grão-Pará. Sobre a escravidão africana, a posição dele é discutida pelos estudiosos. Ler Vieira hoje, com essa informação, ajuda a pensar que"
+  alternativas:
+    - texto: "um grande texto não pode ter contradições."
+      erro: "Grandes textos podem ter contradições. Reconhecê-las faz parte da leitura crítica."
+    - texto: "um argumento brilhante pode defender uns grupos e silenciar ou aceitar a opressão de outros, e por isso a leitura deve perguntar a quem o texto serve."
+      certa: true
+    - texto: "a escravidão africana era aceita por todos no século 17, sem resistência."
+      erro: "Havia resistência: fugas, quilombos, revoltas. O de Palmares é do mesmo século."
+    - texto: "Vieira deve ser apagado da história da literatura."
+      erro: "A leitura crítica não apaga: ela lê com atenção ao contexto e às contradições."
+    - texto: "os sermões não têm relação com a sociedade da época."
+      erro: "Os sermões falavam diretamente à sociedade colonial: senhores, colonos, escravizados."
+  explicacao: "O valor que segue atual é a leitura crítica: admirar a força de um texto e, ao mesmo tempo, perguntar quem ele protege e quem deixa de fora. Sobre a escravidão africana em Vieira não há consenso, e a questão pede justamente esse olhar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

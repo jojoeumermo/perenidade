@@ -1,0 +1,247 @@
+# Exercícios da aula "Gêneros jornalísticos: notícia e reportagem" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-jornal-01
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-jornalisticos
+  dificuldade: 1
+  enunciado: "Qual é a principal finalidade da notícia?"
+  alternativas:
+    - texto: "Defender a opinião de quem escreve."
+      erro: "Isso é do artigo de opinião e do editorial. A notícia relata."
+    - texto: "Relatar um fato recente de interesse público."
+      certa: true
+    - texto: "Vender um produto."
+      erro: "Isso é do anúncio."
+    - texto: "Ensinar a fazer uma receita."
+      erro: "Isso é do texto instrucional."
+    - texto: "Contar uma história inventada."
+      erro: "A notícia trata de fatos reais. História inventada é ficção (conto, por exemplo)."
+  explicacao: "A notícia relata, de forma direta e objetiva, um fato recente que interessa a muita gente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-02
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-jornalisticos
+  dificuldade: 1
+  enunciado: "“A feira de troca de sementes acontece neste sábado (9), na praça da igreja, das 8h às 13h, organizada pela cooperativa de agricultores.” Que pergunta do lide esse trecho NÃO responde?"
+  alternativas:
+    - texto: "O quê?"
+      erro: "O fato está lá: a feira de troca de sementes."
+    - texto: "Quando?"
+      erro: "Sábado (9), das 8h às 13h."
+    - texto: "Onde?"
+      erro: "Na praça da igreja."
+    - texto: "Quem?"
+      erro: "A cooperativa de agricultores organiza."
+    - texto: "Por quê?"
+      certa: true
+  explicacao: "O trecho diz o quê, quando, onde e quem. Não diz por que a feira acontece (o motivo ou o objetivo dela)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-03
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-jornalisticos
+  dificuldade: 1
+  enunciado: "Na pirâmide invertida, como a notícia se organiza?"
+  alternativas:
+    - texto: "Dos detalhes para o fato principal."
+      erro: "Inversão: é o contrário."
+    - texto: "Em ordem alfabética dos nomes citados."
+      erro: "A ordem é de importância, não alfabética."
+    - texto: "Do mais importante para o menos importante."
+      certa: true
+    - texto: "Da opinião do jornalista para os fatos."
+      erro: "A notícia não traz a opinião de quem escreve."
+    - texto: "Sempre na ordem em que os fatos aconteceram."
+      erro: "A notícia começa pelo mais importante, mesmo que não tenha sido o primeiro a acontecer."
+  explicacao: "A notícia começa pelo essencial (o lide) e vai para os detalhes. Quem lê só o começo já sabe o principal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-04
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-jornalisticos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Texto I: "A prefeitura informou que a obra do posto de saúde será entregue em março."
+    Texto II: "A prefeitura prometeu, pela terceira vez, que a obra do posto de saúde será entregue em março."
+  enunciado: "Comparando os dois textos, a diferença de sentido se deve ao fato de o Texto II"
+  alternativas:
+    - texto: "usar um verbo e uma expressão que lembram os atrasos anteriores e põem em dúvida o novo prazo."
+      certa: true
+    - texto: "informar uma data diferente para a entrega da obra."
+      erro: "A data é a mesma nos dois: março."
+    - texto: "ser escrito numa variedade informal da língua."
+      erro: "Os dois estão na norma-padrão."
+    - texto: "apresentar a opinião de um morador."
+      erro: "Nenhum morador é citado."
+    - texto: "omitir quem é responsável pela obra."
+      erro: "Os dois citam a prefeitura."
+  explicacao: "“Prometeu” no lugar de “informou” e “pela terceira vez” lembram que o prazo já foi descumprido. O fato é o mesmo, mas o Texto II traz um juízo pelas escolhas de palavras."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-05
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-jornalisticos
+  dificuldade: 2
+  enunciado: "Um texto de jornal acompanha durante um mês a rotina de entregadores de aplicativo, ouve trabalhadores, empresas e pesquisadores e traz dados sobre jornada e renda. Que gênero é esse?"
+  alternativas:
+    - texto: "Notícia"
+      erro: "A notícia relata um fato do dia, de forma curta. Aqui há investigação longa e várias fontes."
+    - texto: "Editorial"
+      erro: "O editorial dá a opinião do jornal. Este texto investiga e informa."
+    - texto: "Anúncio"
+      erro: "Não vende nada."
+    - texto: "Reportagem"
+      certa: true
+    - texto: "Verbete"
+      erro: "Verbete define uma palavra ou um conceito."
+  explicacao: "Acompanhar a rotina, ouvir vários lados e trazer dados é aprofundar um assunto. É reportagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-06
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-jornalisticos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Manchete: "Greve dos garis entra no quinto dia e lixo se acumula nas ruas"
+    Linha fina: "Trabalhadores pedem reajuste e equipamentos de proteção; empresa diz que proposta já foi apresentada"
+  enunciado: "A linha fina contribui para a notícia porque"
+  alternativas:
+    - texto: "repete a manchete com outras palavras."
+      erro: "Ela não repete: acrescenta o motivo da greve e a resposta da empresa."
+    - texto: "dá a opinião do jornal contra a greve."
+      erro: "Não há opinião do jornal; há as falas das duas partes."
+    - texto: "conta o fim da greve."
+      erro: "A greve ainda não acabou: entra no quinto dia."
+    - texto: "completa a informação com as reivindicações e a posição das duas partes."
+      certa: true
+    - texto: "anuncia um produto de limpeza."
+      erro: "Não há anúncio nenhum."
+  explicacao: "A manchete dá o fato; a linha fina dá o porquê (o que os trabalhadores pedem) e ouve a empresa. As duas partes aparecem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-07
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-jornalisticos
+  dificuldade: 2
+  enunciado: "Por que manchetes costumam usar o verbo no presente (“Chuva deixa famílias desalojadas”), mesmo quando o fato foi ontem?"
+  alternativas:
+    - texto: "Porque o jornal não sabe quando foi o fato."
+      erro: "A data costuma estar no texto. O presente é uma escolha de estilo."
+    - texto: "Para dar ideia de atualidade e aproximar o fato do leitor."
+      certa: true
+    - texto: "Porque a norma-padrão proíbe o passado nas manchetes."
+      erro: "Não existe essa regra gramatical."
+    - texto: "Para mostrar a opinião do jornalista."
+      erro: "O tempo verbal, aqui, não expressa opinião."
+    - texto: "Para indicar que o fato ainda vai acontecer."
+      erro: "Para o futuro, usa-se o futuro ou “vai”."
+  explicacao: "O presente na manchete faz o fato parecer atual, próximo de quem lê. É uma convenção do gênero."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-08
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-jornalisticos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Uma notícia sobre o fechamento de uma escola rural ouviu apenas a secretaria de Educação, que disse que "a
+    medida otimiza recursos". Os pais, os professores e os alunos não foram ouvidos. A notícia não informa para onde os
+    alunos serão levados nem quanto tempo levarão no transporte.
+  enunciado: "Do ponto de vista da leitura crítica, o principal problema dessa notícia é"
+  alternativas:
+    - texto: "usar a norma-padrão, que afasta os leitores do campo."
+      erro: "A norma-padrão é esperada na notícia. O problema não é a variedade."
+    - texto: "ter manchete longa demais."
+      erro: "Nada se diz sobre a manchete."
+    - texto: "trazer a opinião do jornalista contra a escola."
+      erro: "Não há opinião do jornalista. O problema é a falta de vozes."
+    - texto: "ser uma reportagem, e não uma notícia."
+      erro: "O texto é curto e relata um fato: é notícia. O gênero não é o problema."
+    - texto: "ouvir só uma parte e omitir informações que interessam às famílias atingidas."
+      certa: true
+  explicacao: "A notícia só deu voz à secretaria e deixou de fora quem é atingido, além de omitir dados essenciais (destino e tempo de viagem). A escolha das vozes também é uma escolha de ângulo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-09
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-jornalisticos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Texto I (notícia): "A Câmara aprovou nesta quarta-feira (4) o projeto que cria hortas em escolas municipais. O texto
+    segue para sanção do prefeito."
+    Texto II (reportagem): "Na escola Maria Quitéria, a horta começou com três canteiros e uma enxada emprestada. Dois
+    anos depois, abastece a merenda duas vezes por semana. A experiência inspirou o projeto aprovado nesta quarta (4)
+    pela Câmara. Pesquisadores ouvidos pela reportagem apontam ganhos no aprendizado de ciências, mas alertam: sem
+    verba para manutenção, muitas hortas escolares morrem no primeiro ano."
+  enunciado: "Em relação ao Texto I, o Texto II"
+  alternativas:
+    - texto: "aprofunda o assunto com uma história concreta, várias fontes e um alerta sobre o futuro do projeto."
+      certa: true
+    - texto: "contradiz a informação de que o projeto foi aprovado."
+      erro: "Os dois dizem que o projeto foi aprovado."
+    - texto: "repete a mesma informação, só que com mais palavras."
+      erro: "O Texto II acrescenta história, fontes e um alerta. Não é repetição."
+    - texto: "defende a opinião pessoal do repórter contra as hortas."
+      erro: "O alerta vem dos pesquisadores ouvidos, não do repórter, e não é contra as hortas."
+    - texto: "é um texto instrucional que ensina a montar uma horta."
+      erro: "Não há passos nem instruções."
+  explicacao: "A notícia dá o fato. A reportagem conta uma experiência, ouve pesquisadores, mostra ganhos e riscos. É o aprofundamento típico do gênero."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-jornal-10
+  tema: "Gêneros jornalísticos: notícia e reportagem"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-jornalisticos
+  dificuldade: 3
+  enunciado: "Duas notícias falam do mesmo protesto. Uma diz “manifestantes fecharam a avenida”; a outra, “baderneiros travaram a avenida”. O que a segunda escolha faz?"
+  alternativas:
+    - texto: "Torna a notícia mais objetiva."
+      erro: "Inversão: “baderneiros” é um juízo, o contrário da objetividade."
+    - texto: "Corrige um erro de português da primeira."
+      erro: "As duas estão corretas na língua. A diferença é de valor."
+    - texto: "Desqualifica quem protesta, trazendo um juízo negativo para dentro da notícia."
+      certa: true
+    - texto: "Informa um número maior de pessoas no protesto."
+      erro: "Nenhuma das duas traz número."
+    - texto: "Dá voz aos manifestantes."
+      erro: "Pelo contrário: chama-os por um nome que eles não escolheriam."
+  explicacao: "“Manifestantes” descreve; “baderneiros” julga. A palavra escolhida para nomear as pessoas já traz um ponto de vista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

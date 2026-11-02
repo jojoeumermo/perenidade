@@ -1,0 +1,247 @@
+# Exercícios da aula "Geração de 45" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-geracao45-01
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-45
+  dificuldade: 1
+  enunciado: "Os poetas da geração de 45, no sentido estreito do nome, reagiram à liberdade de 1922 buscando"
+  alternativas:
+    - texto: "o poema-piada e a ironia."
+      erro: "O poema-piada é da primeira geração, justamente a que eles achavam solta demais."
+    - texto: "a escrita automática do sonho."
+      erro: "Isso é o Surrealismo. Os poetas de 45 queriam controle, não o contrário."
+    - texto: "o rigor formal e a volta de formas fixas, como o soneto."
+      certa: true
+    - texto: "o poema visual, sem verso."
+      erro: "O poema visual é da poesia concreta, a partir dos anos 1950."
+    - texto: "o fim da poesia escrita."
+      erro: "Eles escreviam muito, e com cuidado artesanal."
+  explicacao: "Lêdo Ivo, Péricles Eugênio da Silva Ramos e outros queriam disciplina: métrica, soneto e trabalho artesanal com o verso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-02
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-45
+  dificuldade: 1
+  enunciado: "Qual autor é conhecido pelos neologismos e pela recriação da fala sertaneja em Grande sertão: veredas (1956)?"
+  alternativas:
+    - texto: "Graciliano Ramos"
+      erro: "Graciliano escreveu sobre o sertão com linguagem seca e enxuta, sem palavras inventadas."
+    - texto: "João Guimarães Rosa"
+      certa: true
+    - texto: "Clarice Lispector"
+      erro: "Clarice escreve sobre a vida interior, sobretudo na cidade. Grande sertão é de Rosa."
+    - texto: "Manuel Bandeira"
+      erro: "Bandeira foi poeta da primeira geração modernista."
+    - texto: "José de Alencar"
+      erro: "Alencar é do Romantismo, século 19."
+  explicacao: "Guimarães Rosa inventa palavras, mistura arcaísmos e termos regionais e cria uma língua própria a partir da fala do sertão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-03
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-45
+  dificuldade: 1
+  enunciado: "Em A hora da estrela (1977), de Clarice Lispector, quem é Macabéa?"
+  alternativas:
+    - texto: "Uma fazendeira rica do interior de Minas"
+      erro: "Macabéa é pobre e vive no Rio de Janeiro."
+    - texto: "Uma jagunça que se disfarça de homem"
+      erro: "Essa descrição lembra Diadorim, de Grande sertão: veredas, de Guimarães Rosa."
+    - texto: "Uma retirante que vive num engenho da Paraíba"
+      erro: "Engenho é cenário de José Lins do Rego. Macabéa migrou para a cidade."
+    - texto: "Uma professora de piano em São Paulo"
+      erro: "Macabéa é datilógrafa, com pouca instrução, no Rio de Janeiro."
+    - texto: "Uma moça nordestina pobre que trabalha como datilógrafa no Rio de Janeiro"
+      certa: true
+  explicacao: "Macabéa migrou do Nordeste para o Rio. O narrador, Rodrigo S.M., conta a vida dela e se pergunta se tem o direito de contá-la."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-04
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-45
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    a cana não canta:
+    corta.
+    tem a fala da foice
+    e o peso de quem a carrega
+    no lombo, até a usina.
+    (Texto original do Instituto Lúcia, escrito para esta questão à maneira de João Cabral de Melo Neto.)
+  enunciado: "O poema se aproxima da poética de João Cabral de Melo Neto porque"
+  alternativas:
+    - texto: "constrói o sentido com palavras concretas e recusa a confissão sentimental."
+      certa: true
+    - texto: "derrama os sentimentos do eu lírico em tom de lamento."
+      erro: "Não há \"eu\" que chora. A emoção vem das coisas mostradas: cana, foice, lombo, usina."
+    - texto: "inventa palavras novas a partir de prefixos e sufixos."
+      erro: "Todas as palavras são comuns. A invenção de palavras é marca de Guimarães Rosa."
+    - texto: "segue a forma do soneto, com catorze versos rimados."
+      erro: "São cinco versos livres, sem rima."
+    - texto: "usa imagens de sonho sem ligação com a realidade."
+      erro: "As imagens são concretas e ligadas ao trabalho na cana."
+  explicacao: "Cabral queria uma poesia de substantivos, dura como faca. A crítica social está nas coisas (a cana que corta, o peso no lombo), não num desabafo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-05
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-45
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O senhor me pergunte, que eu conto: o rio é que nem a gente, vai e volta e nunca é o mesmo. Eu
+    vi muito, desvi outro tanto. Sertão é onde a pergunta fica maior que a resposta.
+    (Texto original do Instituto Lúcia, escrito para esta questão à maneira de Guimarães Rosa.)
+  enunciado: "Dois recursos que aproximam o trecho da prosa de Guimarães Rosa são"
+  alternativas:
+    - texto: "a rima rica e a métrica fixa."
+      erro: "É prosa, sem rima nem métrica."
+    - texto: "o narrador que se dirige a um ouvinte e a palavra inventada \"desvi\"."
+      certa: true
+    - texto: "o poema-piada e a paródia de um texto romântico."
+      erro: "Não há humor de piada nem texto parodiado."
+    - texto: "a descrição objetiva e a linguagem científica."
+      erro: "O tom é oral e reflexivo, não científico."
+    - texto: "a distribuição das palavras no espaço da página."
+      erro: "O trecho é prosa contínua, não poema visual."
+  explicacao: "\"O senhor me pergunte, que eu conto\" é a narração oral para um ouvinte, como a de Riobaldo. \"Desvi\" (des + vi) é um neologismo. E o sertão vira lugar de perguntas universais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-06
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-geracao-de-45
+  dificuldade: 2
+  enunciado: "Em Morte e vida severina, o retirante Severino desce do sertão até o Recife e encontra a morte por todo o caminho. Que realidade do seu tempo a obra transforma em poesia?"
+  alternativas:
+    - texto: "A vida da elite cafeeira de São Paulo"
+      erro: "A obra está em Pernambuco, no caminho do sertão até o Recife."
+    - texto: "A chegada da família real ao Rio"
+      erro: "Isso é de 1808. A obra é dos anos 1950."
+    - texto: "A guerra de independência de Portugal"
+      erro: "Não há guerra de independência na obra."
+    - texto: "A migração e a morte precoce dos pobres do sertão nordestino"
+      certa: true
+    - texto: "A industrialização de Porto Alegre"
+      erro: "A obra se passa em Pernambuco, não no Sul."
+  explicacao: "A obra de João Cabral, de meados dos anos 1950, mostra a seca, a fome e a morte que acompanham o retirante, e termina com o nascimento de uma criança, sinal de vida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-07
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-45
+  dificuldade: 2
+  enunciado: "O que é a epifania, recurso frequente nos contos de Clarice Lispector?"
+  alternativas:
+    - texto: "Um final feliz em que todos os problemas se resolvem."
+      erro: "A epifania não resolve nada: ela desmonta a rotina e deixa a personagem diante de uma pergunta."
+    - texto: "A repetição de uma mesma palavra no começo de cada verso."
+      erro: "Isso é a anáfora, figura de linguagem."
+    - texto: "Uma palavra inventada a partir de outras."
+      erro: "Isso é neologismo, marca de Guimarães Rosa."
+    - texto: "Uma descrição longa da paisagem do sertão."
+      erro: "A epifania acontece dentro da personagem, geralmente num cenário comum da cidade."
+    - texto: "Uma revelação súbita provocada por um fato banal do cotidiano."
+      certa: true
+  explicacao: "No conto \"Amor\", de Laços de família (1960), uma dona de casa vê um cego mascando chiclete e sente toda a sua vida organizada perder o sentido. É a epifania."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-08
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-45
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na roça, todo mundo já tinha ouvido a história do boi encantado no rádio da venda. Mas quando
+    seu Tonho chegava e começava "foi num tempo que...", as crianças largavam a janta, as mulheres
+    paravam o pilão, e a mesma história parecia outra.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O trecho sugere que os ouvintes preferem a história contada por seu Tonho porque"
+  alternativas:
+    - texto: "o rádio da venda estava quebrado."
+      erro: "O texto diz que todos já tinham ouvido a história no rádio. O aparelho funcionava."
+    - texto: "a versão dele trazia um final diferente e mais feliz."
+      erro: "O texto não fala em final diferente. A diferença está em como ele conta."
+    - texto: "o modo de contar dele transforma uma história conhecida em experiência nova."
+      certa: true
+    - texto: "ele era a única pessoa da roça que sabia ler."
+      erro: "Não há leitura no trecho: é narração oral."
+    - texto: "as crianças tinham medo de desobedecê-lo."
+      erro: "Não há medo. Elas largam a janta porque querem ouvir."
+  explicacao: "Os ouvintes já sabiam a história. O que muda é a voz que conta: a arte de narrar, tema caro a Guimarães Rosa e cobrado no Enem de 2023 num trecho de Corpo de baile."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-09
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-geracao-de-45
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em A hora da estrela (1977), o narrador Rodrigo S.M. interrompe várias vezes a história de Macabéa
+    para dizer que não sabe se tem o direito de contá-la, que escreve por obrigação e que a moça não
+    sabe que é infeliz.
+    (Texto original do Instituto Lúcia, sobre o romance de Clarice Lispector.)
+  enunciado: "Essas interrupções do narrador levantam uma questão que continua atual:"
+  alternativas:
+    - texto: "se a literatura deve tratar só de pessoas ricas."
+      erro: "O romance trata justamente de uma moça pobre. A pergunta é como contar, não se deve contar."
+    - texto: "quem tem o direito de contar a vida dos pobres, e como fazer isso sem apagar a voz deles."
+      certa: true
+    - texto: "se a migração nordestina foi ou não um fato histórico."
+      erro: "O romance não discute se a migração existiu. Ele parte dela."
+    - texto: "como escrever um soneto perfeito."
+      erro: "O livro é prosa e não discute forma de soneto."
+    - texto: "por que o rádio acabou no Brasil."
+      erro: "Macabéa ouve rádio, mas o livro não trata do fim do rádio."
+  explicacao: "Um narrador de classe média conta a vida de uma migrante pobre e expõe o próprio desconforto. A pergunta sobre quem fala por quem é um valor que continua atual (H17)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao45-10
+  tema: "Geração de 45"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-geracao-de-45
+  dificuldade: 3
+  enunciado: "Um livro didático põe Clarice Lispector, Guimarães Rosa e João Cabral na \"geração de 45\". Outro reserva esse nome a poetas como Lêdo Ivo. Qual é a atitude mais segura para a prova?"
+  alternativas:
+    - texto: "Decorar a classificação de um livro e ignorar a do outro."
+      erro: "A classificação não tem consenso. Decorar uma só pode confundir na prova."
+    - texto: "Concluir que um dos livros está errado e os autores não têm relação nenhuma."
+      erro: "Os autores partilham um tempo (1945 aos anos 1960). Os rótulos é que variam."
+    - texto: "Achar que Clarice e Rosa pertencem à geração de 30."
+      erro: "Os dois estrearam nos anos 1940 e têm projetos muito diferentes do romance de 30."
+    - texto: "Reconhecer cada autor pela marca da linguagem dele, sabendo que o rótulo da geração varia."
+      certa: true
+    - texto: "Evitar questões sobre esses autores."
+      erro: "Eles caem. Guimarães Rosa caiu em 2023."
+  explicacao: "Não há consenso sobre o que entra em \"geração de 45\". A prova cobra o recurso do texto (H16) e o contexto (H15), não o rótulo. Reconheça a epifania de Clarice, o neologismo de Rosa e a poesia de substantivos de Cabral."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

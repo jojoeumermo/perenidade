@@ -1,0 +1,247 @@
+# Exercícios da aula "Literatura marginal e periférica" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-periferica-01
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-marginal-e-periferica
+  dificuldade: 1
+  enunciado: "Na literatura marginal e periférica dos anos 1990 e 2000, \"marginal\" quer dizer sobretudo"
+  alternativas:
+    - texto: "escrita por criminosos."
+      erro: "Esse é o sentido do xingamento que os autores viraram ao contrário. Aqui, marginal é quem vive à margem da cidade e do poder."
+    - texto: "escrita a partir das periferias, por quem vive nelas."
+      certa: true
+    - texto: "escrita em mimeógrafo por jovens de classe média do Rio."
+      erro: "Esse é o sentido da poesia marginal dos anos 1970."
+    - texto: "escrita nas margens do livro, como anotação."
+      erro: "Não é sobre a margem da página, e sim a margem da cidade."
+    - texto: "escrita só em língua estrangeira."
+      erro: "É escrita em português, com a linguagem das periferias."
+  explicacao: "Autores das periferias, sobretudo de São Paulo, assumiram com orgulho a palavra \"marginal\" para nomear a literatura feita à margem da cidade e do poder."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-02
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-marginal-e-periferica
+  dificuldade: 1
+  enunciado: "O que é um sarau, como o da Cooperifa, criado por Sérgio Vaz na zona sul de São Paulo?"
+  alternativas:
+    - texto: "Uma prova escrita de literatura."
+      erro: "No sarau não há prova: as pessoas dizem poemas em voz alta."
+    - texto: "Um concurso de beleza."
+      erro: "O sarau é encontro de poesia, não de beleza."
+    - texto: "Um encontro em que pessoas dizem poemas em voz alta, num espaço aberto à comunidade."
+      certa: true
+    - texto: "Um tipo de folheto de cordel."
+      erro: "Folheto é o livrinho do cordel. Sarau é o encontro."
+    - texto: "Uma editora de livros caros."
+      erro: "O sarau acontece num bar, aberto e gratuito."
+  explicacao: "Na Cooperifa, toda semana, num bar, gente do bairro sobe ao microfone para dizer poemas. O sarau levou a literatura para onde ela não chegava."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-03
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-marginal-e-periferica
+  dificuldade: 1
+  enunciado: "Qual obra é de Paulo Lins, que cresceu no conjunto habitacional que dá nome ao livro?"
+  alternativas:
+    - texto: "Capão pecado"
+      erro: "Capão pecado (2000) é de Ferréz, sobre o Capão Redondo, em São Paulo."
+    - texto: "Sobrevivendo no inferno"
+      erro: "Sobrevivendo no inferno (1997) é um disco dos Racionais MC's."
+    - texto: "Quarto de despejo"
+      erro: "Quarto de despejo (1960) é de Carolina Maria de Jesus."
+    - texto: "Cidade de Deus"
+      certa: true
+    - texto: "Vidas secas"
+      erro: "Vidas secas (1938) é de Graciliano Ramos, sobre o sertão."
+  explicacao: "Cidade de Deus (1997) conta a formação da favela carioca e do tráfico. O romance de Paulo Lins virou filme."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-04
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-literatura-marginal-e-periferica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Mano, aqui ninguém nasceu pra ser estatística.
+    A gente acorda cedo, pega dois busão,
+    e ainda sobra fôlego pra rima.
+    Se o jornal só conta os corpos,
+    a gente conta os sonhos.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O uso de palavras como \"mano\" e \"busão\" no poema"
+  alternativas:
+    - texto: "mostra que o eu lírico não domina a língua portuguesa."
+      erro: "O poema tem construção cuidadosa (paralelismo em \"conta os corpos\" e \"conta os sonhos\"). A gíria é escolha."
+    - texto: "torna o texto incompreensível para qualquer leitor."
+      erro: "As palavras são conhecidas e o sentido é claro."
+    - texto: "é um erro que deveria ter sido corrigido antes da publicação."
+      erro: "Variedade linguística não é erro. Corrigir apagaria a voz do texto."
+    - texto: "serve só para fazer o leitor rir."
+      erro: "O tom é de afirmação e denúncia, não de piada."
+    - texto: "marca o lugar de fala da periferia e aproxima o texto de quem vive essa realidade."
+      certa: true
+  explicacao: "\"Mano\" e \"busão\" são marcas de uma variedade social e regional (H25). Elas dizem de onde o eu lírico fala e com quem conversa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-05
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-marginal-e-periferica
+  dificuldade: 2
+  enunciado: "No mesmo poema da questão anterior, os versos finais (\"Se o jornal só conta os corpos, / a gente conta os sonhos\") defendem"
+  alternativas:
+    - texto: "que a periferia não tem nenhum problema."
+      erro: "O poema reconhece a violência (\"os corpos\"). Ele não nega o problema; recusa ser reduzido a ele."
+    - texto: "o direito de a periferia contar a própria história, além da violência que o noticiário mostra."
+      certa: true
+    - texto: "que os jornais devem ser fechados."
+      erro: "O poema critica o enfoque do jornal, não pede o seu fechamento."
+    - texto: "que sonhar é inútil para quem trabalha."
+      erro: "É o contrário: mesmo cansado, o eu lírico tem fôlego para a rima e para o sonho."
+    - texto: "que só a polícia pode falar da periferia."
+      erro: "O poema reivindica que a periferia fale por si."
+  explicacao: "O paralelismo \"conta os corpos\" / \"conta os sonhos\" opõe duas narrativas. O valor defendido, a dignidade e a voz própria, continua atual (H17)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-06
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-marginal-e-periferica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma pesquisa leu 258 romances brasileiros publicados entre 1990 e 2004 pelas maiores editoras. Dos
+    165 autores, 72,7% eram homens e 93,9% eram brancos. Personagens negras apareciam sobretudo como
+    criminosos ou empregadas domésticas.
+    (Texto do Instituto Lúcia, com base em Regina Dalcastagnè, 2005.)
+  enunciado: "Os dados ajudam a explicar a importância da literatura periférica porque"
+  alternativas:
+    - texto: "mostram que já havia muitos autores negros e pobres nas grandes editoras."
+      erro: "Os dados mostram o contrário: 93,9% dos autores eram brancos."
+    - texto: "provam que os romances das grandes editoras não têm valor."
+      erro: "Os dados não falam de qualidade, e sim de quem escreve e de como representa."
+    - texto: "mostram que as mulheres eram a maioria dos autores."
+      erro: "72,7% eram homens."
+    - texto: "revelam um campo literário concentrado, em que grupos inteiros apareciam só como estereótipo, e não como autores."
+      certa: true
+    - texto: "indicam que a literatura não tem relação com a sociedade."
+      erro: "A pesquisa mostra justamente que a literatura reproduz exclusões da sociedade."
+  explicacao: "Se quase todos os autores são brancos e de classe média e as personagens negras aparecem como estereótipo, a periferia escrevendo de dentro muda o retrato. Ler o texto ligado ao seu contexto social é a H15."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-07
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-marginal-e-periferica
+  dificuldade: 2
+  enunciado: "O disco Sobrevivendo no inferno (1997), dos Racionais MC's, entrou na lista de leituras obrigatórias do vestibular de 2020 da Unicamp. Isso indica"
+  alternativas:
+    - texto: "o reconhecimento do rap como forma de poesia, digna de leitura e estudo."
+      certa: true
+    - texto: "que o vestibular deixou de cobrar literatura."
+      erro: "A lista continuou com outras obras, como sonetos de Camões. O rap entrou ao lado delas."
+    - texto: "que o rap passou a ser proibido nas escolas."
+      erro: "Entrar numa lista de vestibular é o oposto de proibição."
+    - texto: "que o disco foi escrito para o vestibular."
+      erro: "O disco é de 1997; a escolha da Unicamp foi anunciada em 2018."
+    - texto: "que só música estrangeira era estudada antes."
+      erro: "A lista não tratava de música estrangeira. A novidade foi um disco de rap brasileiro como poesia."
+  explicacao: "A inclusão, anunciada em 2018, junto com a publicação das letras em livro, reconheceu o rap da periferia como literatura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-08
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-marginal-e-periferica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Três minutos. Sem música, sem figurino. A poeta fecha os olhos, repete "eu fiquei" seis vezes, cada
+    vez mais alto, e conta tudo o que ficou para trás quando a mãe foi trabalhar em casa de família. No
+    fim, a plateia levanta.
+    (Texto original do Instituto Lúcia, descrevendo uma apresentação de slam.)
+  enunciado: "Na apresentação descrita, a repetição de \"eu fiquei\""
+  alternativas:
+    - texto: "mostra que a poeta esqueceu o texto."
+      erro: "A repetição cresce de propósito, \"cada vez mais alto\". É recurso, não esquecimento."
+    - texto: "segue a regra do soneto, que exige repetição."
+      erro: "O soneto não exige repetição, e a apresentação não é soneto."
+    - texto: "torna o poema mais difícil de entender."
+      erro: "A repetição facilita a escuta e reforça o sentido."
+    - texto: "é um recurso visual, para ser visto na página."
+      erro: "O slam é poesia falada. A repetição trabalha na voz, não na página."
+    - texto: "cria ritmo e intensidade na voz, acumulando a experiência da filha que ficava enquanto a mãe trabalhava."
+      certa: true
+  explicacao: "No slam, o texto vive na voz. A repetição (anáfora) que cresce em volume acumula a emoção e o sentido: a solidão da filha da trabalhadora doméstica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-09
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-marginal-e-periferica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No conto, um rapaz é parado pela polícia três vezes no mesmo dia, indo do trabalho para a faculdade.
+    Na terceira, ele já tira o documento antes de pedirem. O narrador não comenta nada. Só conta.
+    (Texto original do Instituto Lúcia, resumindo um conto imaginário.)
+  enunciado: "O fato de o narrador \"não comentar nada\" produz o efeito de"
+  alternativas:
+    - texto: "defender a ação policial como correta."
+      erro: "O narrador não defende ninguém. A repetição dos fatos é que expõe a injustiça."
+    - texto: "deixar o conto sem nenhuma crítica."
+      erro: "A crítica está na própria cena: três abordagens, o gesto automático do documento."
+    - texto: "deixar que os fatos, repetidos, revelem a violência cotidiana, e que o gesto automático do rapaz mostre o quanto ela já virou rotina."
+      certa: true
+    - texto: "mostrar que o rapaz é culpado de algo."
+      erro: "Nada no texto indica culpa. Ele vai do trabalho para a faculdade."
+    - texto: "transformar o conto em texto científico."
+      erro: "Não comentar não é fazer ciência. É escolha narrativa."
+  explicacao: "Mostrar sem comentar deixa o leitor tirar a conclusão. O rapaz que tira o documento antes de pedirem revela o racismo e a violência como rotina, um valor social em debate até hoje (H17)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-periferica-10
+  tema: "Literatura marginal e periférica"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-marginal-e-periferica
+  dificuldade: 3
+  enunciado: "Uma alternativa diz que a literatura periférica \"rejeita a cultura letrada\". Por que essa leitura é falha?"
+  alternativas:
+    - texto: "Porque a literatura periférica ocupa a cultura letrada: publica livros, faz saraus com bibliotecas e entra em listas de vestibular."
+      certa: true
+    - texto: "Porque a literatura periférica não existe."
+      erro: "Existe, com obras, autores e saraus conhecidos."
+    - texto: "Porque toda literatura periférica é escrita em latim."
+      erro: "É escrita em português, com a linguagem das periferias."
+    - texto: "Porque a cultura letrada só existe nas periferias."
+      erro: "A cultura letrada está em toda parte. A questão é quem tem acesso a ela."
+    - texto: "Porque a literatura periférica proíbe livros."
+      erro: "É o contrário: ela cria livros, selos e bibliotecas."
+  explicacao: "Ferréz criou um selo editorial, a Cooperifa monta saraus e distribui livros, e os Racionais entraram na lista da Unicamp. A periferia disputa a cultura letrada, não a rejeita."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
