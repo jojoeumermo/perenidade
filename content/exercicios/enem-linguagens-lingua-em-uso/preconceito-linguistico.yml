@@ -1,0 +1,239 @@
+# Exercícios da aula "Preconceito linguístico" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-preconceito-01
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  dificuldade: 1
+  enunciado: "Qual destas atitudes é um exemplo de preconceito linguístico?"
+  alternativas:
+    - texto: "Uma professora explicar a concordância da norma-padrão antes da redação."
+      erro: "Ensinar a norma-padrão não é preconceito. Preconceito é julgar a pessoa pela fala."
+    - texto: "Um colega imitar o sotaque de outro para fazer a turma rir dele."
+      certa: true
+    - texto: "Um jornalista escolher palavras formais num editorial."
+      erro: "Escolher o registro de um gênero é adequação. Não há ninguém sendo julgado."
+    - texto: "Uma pessoa perguntar o que quer dizer uma palavra regional."
+      erro: "Perguntar é curiosidade e respeito. Preconceito é ridicularizar ou desvalorizar."
+    - texto: "Um dicionário registrar “macaxeira” e “aipim”."
+      erro: "Registrar as variantes é reconhecer a variação. É o contrário do preconceito."
+  explicacao: "Imitar o sotaque de alguém para rir dele usa a fala para rebaixar a pessoa. Isso é preconceito linguístico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-02
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  dificuldade: 1
+  enunciado: "Segundo a sociolinguística, a frase “os menino chegou”"
+  alternativas:
+    - texto: "não tem regra nenhuma."
+      erro: "Tem: o plural vai sempre no primeiro termo. Ninguém que fala assim diz “o meninos chegaram”."
+    - texto: "só é dita por estrangeiros."
+      erro: "É forma comum em variedades populares do português brasileiro, faladas por milhões de pessoas nascidas aqui."
+    - texto: "deve ser usada na redação do ENEM."
+      erro: "A redação pede a norma-padrão: “os meninos chegaram”. Reconhecer a variedade não quer dizer usá-la em qualquer gênero."
+    - texto: "segue uma regra de variedades populares: o plural marcado no primeiro termo."
+      certa: true
+    - texto: "prova que o falante não sabe português."
+      erro: "Quem fala assim domina o português. A frase é de outra variedade, não de quem não sabe a língua."
+  explicacao: "A frase segue uma regra regular: o plural aparece no artigo (“os”) e não se repete. É regra de variedades populares, diferente da regra da norma-padrão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-03
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  dificuldade: 1
+  enunciado: "Combater o preconceito linguístico na escola significa"
+  alternativas:
+    - texto: "ensinar a norma-padrão sem desvalorizar a variedade que o aluno traz de casa."
+      certa: true
+    - texto: "parar de ensinar a norma-padrão."
+      erro: "A norma-padrão é usada em documentos, leis e na redação. Negá-la ao aluno também é excluir."
+    - texto: "proibir gírias na escola inteira."
+      erro: "Proibir a fala do dia a dia é desvalorizar a variedade do aluno. O caminho é mostrar onde cada uma cabe."
+    - texto: "corrigir o aluno sempre que ele falar."
+      erro: "Corrigir toda fala, na frente de todos, humilha. A correção cabe no gênero que pede a norma-padrão."
+    - texto: "ensinar só a variedade regional da escola."
+      erro: "Isso deixaria o aluno sem a norma-padrão. A escola ensina a norma e respeita as variedades."
+  explicacao: "A BNCC pede que a escola trabalhe as variedades, a norma-padrão e o preconceito linguístico. Ensinar a norma é dar mais uma ferramenta, sem tirar a que o aluno já tem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-04
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Meu pai chegou do interior da Paraíba com dezoito anos e foi trabalhar numa metalúrgica do ABC. Nos primeiros meses, quase não falava no refeitório. Contou depois que tinha medo de abrir a boca e virar piada. Um dia, um encarregado o chamou de “paraíba” na frente de todos, por causa de uma palavra que ele usou. Meu pai aprendeu a falar baixo. Levou anos para voltar a contar os casos que sabia contar tão bem.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O relato mostra que o preconceito linguístico"
+  alternativas:
+    - texto: "atinge apenas quem nunca foi à escola."
+      erro: "O texto não fala da escolaridade do pai. O alvo foi a origem regional, revelada pela fala."
+    - texto: "é uma brincadeira sem consequências."
+      erro: "O pai passou anos falando baixo e deixou de contar os seus casos. As consequências são o centro do relato."
+    - texto: "desaparece quando a pessoa muda de cidade."
+      erro: "Foi justamente ao mudar de cidade que ele passou a sofrer o preconceito."
+    - texto: "ajuda a pessoa a aprender a norma-padrão mais rápido."
+      erro: "O relato mostra silêncio e medo, não aprendizado. Humilhar não ensina."
+    - texto: "pode silenciar a pessoa e está ligado ao preconceito contra a sua origem."
+      certa: true
+  explicacao: "O apelido “paraíba”, dado por causa de uma palavra, liga a fala à origem. O efeito foi o silêncio: o pai deixou de falar. O relato mostra o preconceito linguístico como preconceito regional e social."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-05
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  dificuldade: 2
+  enunciado: "A ideia de que “o certo é falar exatamente como se escreve” é um mito porque"
+  alternativas:
+    - texto: "a escrita não tem regras."
+      erro: "A escrita tem regras, a ortografia. O mito está em achar que a fala deve copiá-la."
+    - texto: "ninguém escreve no Brasil."
+      erro: "Exagero. O ponto é outro: fala e escrita são modalidades diferentes, com regras próprias."
+    - texto: "a fala vem antes da escrita, e nenhum falante pronuncia as palavras letra por letra."
+      certa: true
+    - texto: "a escrita foi inventada em Portugal."
+      erro: "A escrita é muito mais antiga que o português. E isso não explica a diferença entre fala e escrita."
+    - texto: "as letras mudam de som conforme a renda de quem fala."
+      erro: "A pronúncia varia por região, idade e grupo, não pela renda de cada um. E isso vale para todos os falantes."
+  explicacao: "Aprendemos a falar antes de escrever. Em todo o país, pessoas de todas as escolaridades dizem “leiti” ou “leitchi” para “leite”. A escrita é uma convenção; a fala não a copia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-06
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Postagem numa rede social:
+    “Fui a Lisboa e ouvi de um garçom que no Brasil a gente ‘estraga a língua’. Respondi que o português dele também não é o de Camões. Ele riu. Eu também. Mas fiquei pensando: quem decidiu qual português é o original?”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A pergunta final da postagem questiona a crença de que"
+  alternativas:
+    - texto: "o português de Portugal não tem regras próprias."
+      erro: "A postagem não nega as regras do português europeu. Ela questiona a ideia de um português “original” que serviria de medida."
+    - texto: "existe uma variedade pura e superior, que serve de medida para as outras."
+      certa: true
+    - texto: "brasileiros e portugueses não se entendem."
+      erro: "O garçom e a autora conversaram e riram juntos. Eles se entenderam."
+    - texto: "Camões escrevia errado."
+      erro: "A autora cita Camões para mostrar que a língua mudou desde então, também em Portugal. Não diz que ele errava."
+    - texto: "a língua deve ser igual em todos os países."
+      erro: "A postagem vai no sentido contrário: as duas variedades mudaram, e nenhuma é a medida da outra."
+  explicacao: "Dizer que um grupo “estraga a língua” supõe que existe uma língua ideal. A postagem lembra que o português de Portugal também mudou desde Camões. As duas são variedades atuais da mesma língua."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-07
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  dificuldade: 2
+  enunciado: "Por que os linguistas dizem que o preconceito linguístico é também um preconceito social?"
+  alternativas:
+    - texto: "Porque as variedades mais desvalorizadas costumam ser as dos grupos com menos poder."
+      certa: true
+    - texto: "Porque só acontece nas redes sociais."
+      erro: "Acontece em escolas, empregos, serviços públicos. “Social” aqui quer dizer ligado aos grupos da sociedade."
+    - texto: "Porque todas as variedades são igualmente valorizadas."
+      erro: "Se fossem, não haveria preconceito. O problema é justamente a diferença de prestígio."
+    - texto: "Porque é proibido por lei falar de modo informal."
+      erro: "Não há lei que proíba a fala informal. A afirmação não tem base."
+    - texto: "Porque atinge apenas pessoas ricas."
+      erro: "É o contrário: atinge com mais força quem é pobre, do interior ou de regiões desvalorizadas."
+  explicacao: "A fala do grupo com poder vira “bonita”; a de quem tem menos poder vira “errada”. O julgamento da fala carrega o julgamento do grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-08
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na escola da minha filha, a professora fez um mural com as palavras que as crianças usam em casa: “arretado”, “trem”, “guri”, “bergamota”, “mangar”. Cada palavra tinha ao lado o nome de quem a trouxe e a cidade da família. No fim da semana, as crianças escreveram juntas uma carta ao prefeito pedindo uma praça no bairro. A carta foi escrita na norma-padrão, e cada criança assinou com orgulho.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A atividade descrita mostra uma prática de ensino que"
+  alternativas:
+    - texto: "substitui a norma-padrão pelas variedades regionais."
+      erro: "A carta ao prefeito foi escrita na norma-padrão. As variedades entraram no mural, não no lugar da norma."
+    - texto: "corrige as palavras de casa para que as crianças parem de usá-las."
+      erro: "As palavras de casa foram expostas com o nome de quem as trouxe, como valor. Nada foi corrigido."
+    - texto: "ensina apenas o vocabulário regional, sem uso prático."
+      erro: "A turma escreveu uma carta real, com um pedido concreto. O uso prático está no centro da atividade."
+    - texto: "valoriza as variedades dos alunos e também ensina a usar a norma-padrão onde ela é esperada."
+      certa: true
+    - texto: "mostra que as palavras regionais não cabem na escola."
+      erro: "Elas ganharam um mural na escola. O texto mostra o contrário."
+  explicacao: "O mural reconhece as variedades da família de cada criança. A carta mostra o uso da norma-padrão num gênero formal. As duas coisas juntas são o que a BNCC propõe: reconhecer as variedades e ensinar a norma, sem preconceito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-09
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num debate na televisão, um candidato a vereador disse “menas gente vai precisar de ônibus se o posto abrir no bairro”. No dia seguinte, o vídeo circulou com a legenda “olha o nível”. Poucos comentários discutiram a proposta. Quase todos falavam do “menas”.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A reação descrita no texto revela que"
+  alternativas:
+    - texto: "a proposta do candidato era ruim, por isso ninguém a discutiu."
+      erro: "O texto não avalia a proposta. Ele mostra que ela nem chegou a ser discutida, por causa da forma."
+    - texto: "o uso de “menas” é aceito pela norma-padrão em debates."
+      erro: "Na norma-padrão, “menos” não varia. Mas a questão não é a regra: é o que a reação fez com o debate."
+    - texto: "a forma da fala serviu para desqualificar o falante e desviar a atenção do conteúdo."
+      certa: true
+    - texto: "debates na televisão devem ser feitos em registro informal."
+      erro: "O texto não discute qual registro o debate pede. Ele mostra o efeito do julgamento da fala."
+    - texto: "a população se interessa mais por política do que por língua."
+      erro: "É o contrário: quase todos comentaram a palavra, não a política. Inversão."
+  explicacao: "A legenda “olha o nível” usa uma forma fora da norma-padrão para rebaixar o candidato. O efeito foi apagar a proposta. A crítica possível à forma virou desqualificação da pessoa, que é o mecanismo do preconceito linguístico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-preconceito-10
+  tema: "Preconceito linguístico"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-preconceito-linguistico
+  dificuldade: 3
+  enunciado: "Leia duas falas. Fala 1: “Na prova, escreva ‘fomos’; ‘fumo’ é da fala”. Fala 2: “Quem fala ‘fumo’ nunca vai ser ninguém”. Sobre elas, é correto dizer que"
+  alternativas:
+    - texto: "as duas são preconceito, porque falam de uma forma popular."
+      erro: "Falar de uma forma popular não é preconceito. A fala 1 só indica o lugar de cada forma, sem julgar ninguém."
+    - texto: "as duas ensinam a norma-padrão da mesma maneira."
+      erro: "Só a fala 1 ensina. A fala 2 não ensina nada; ela condena a pessoa."
+    - texto: "a fala 1 é preconceito, e a fala 2 é adequação."
+      erro: "É o contrário. A fala 1 trata de adequação ao gênero; a fala 2 julga o futuro da pessoa pela forma."
+    - texto: "nenhuma das duas trata da norma-padrão."
+      erro: "As duas tratam: “fomos” é a forma da norma-padrão. A diferença está no julgamento da pessoa."
+    - texto: "a fala 1 indica a forma adequada ao gênero; a fala 2 julga a pessoa pela forma, o que é preconceito."
+      certa: true
+  explicacao: "Indicar que a prova pede “fomos” é ensinar adequação. Dizer que quem fala “fumo” nunca vai ser ninguém transforma a forma de falar em sentença sobre a pessoa: é preconceito linguístico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

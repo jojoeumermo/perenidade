@@ -1,0 +1,249 @@
+# Exercícios da aula "Equações do 1º grau" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-equacoes-01
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  dificuldade: 1
+  enunciado: "Qual é o valor de x em x − 7 = 15?"
+  alternativas:
+    - texto: "8"
+      erro: "Você subtraiu 15 − 7. Para desfazer a subtração de 7, some 7 dos dois lados: x = 15 + 7."
+    - texto: "22"
+      certa: true
+    - texto: "−22"
+      erro: "O valor 22 está certo, mas o sinal não. Confira: −22 − 7 = −29, e não 15."
+    - texto: "105"
+      erro: "Você multiplicou 15 × 7. O 7 está sendo subtraído do x, e não multiplicando."
+    - texto: "15/7"
+      erro: "Você dividiu 15 por 7. Para desfazer uma subtração, use a soma."
+  explicacao: "Some 7 dos dois lados: x = 15 + 7 = 22. Confira: 22 − 7 = 15."
+  conferir: "15 + 7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-02
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  dificuldade: 1
+  enunciado: "Qual é o valor de x em 4x = 36?"
+  alternativas:
+    - texto: "9"
+      certa: true
+    - texto: "32"
+      erro: "Você subtraiu 36 − 4. O 4 está multiplicando o x: divida os dois lados por 4."
+    - texto: "40"
+      erro: "Você somou 36 + 4. Para desfazer uma multiplicação, divida."
+    - texto: "144"
+      erro: "Você multiplicou 36 × 4. O 4 já está multiplicando o x; para isolar o x, divida por 4."
+    - texto: "1/9"
+      erro: "A divisão foi feita ao contrário (4 ÷ 36). Divida os dois lados por 4: 36 ÷ 4."
+  explicacao: "Divida os dois lados por 4: x = 36 ÷ 4 = 9. Confira: 4 × 9 = 36."
+  conferir: "36 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-03
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  dificuldade: 1
+  enunciado: "Qual é o valor de x em 2x + 3 = 17?"
+  alternativas:
+    - texto: "10"
+      erro: "Você somou 3 em vez de subtrair: (17 + 3) ÷ 2. O 3 está sendo somado ao 2x; para desfazer, tire 3."
+    - texto: "14"
+      erro: "14 é o valor de 2x. Falta dividir por 2."
+    - texto: "8,5"
+      erro: "Você dividiu 17 por 2 e esqueceu o 3. Desfaça primeiro a soma, depois a multiplicação."
+    - texto: "7"
+      certa: true
+    - texto: "5,5"
+      erro: "Você dividiu antes de tirar o 3 (17 ÷ 2 − 3). A ordem é contrária à da conta: primeiro tire o 3, depois divida."
+  explicacao: "Tire 3 dos dois lados: 2x = 14. Divida por 2: x = 7. Confira: 2 × 7 + 3 = 17."
+  conferir: "(17 - 3) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-04
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa cidade, a corrida de táxi custa R$ 6,00 de bandeirada mais R$ 3,00 por quilômetro rodado. Uma moradora pagou
+    R$ 51,00 numa corrida. Os valores são de um exemplo.
+  enunciado: "A distância percorrida nessa corrida foi de"
+  alternativas:
+    - texto: "17 km."
+      erro: "Você dividiu 51 por 3 sem descontar a bandeirada. Os R$ 6,00 não dependem dos quilômetros."
+    - texto: "19 km."
+      erro: "A bandeirada foi somada (51 + 6). Ela já está dentro dos R$ 51,00: tire 6."
+    - texto: "15 km."
+      certa: true
+    - texto: "45 km."
+      erro: "45 é o valor pago pelos quilômetros (51 − 6). Falta dividir pelos R$ 3,00 de cada quilômetro."
+    - texto: "8,5 km."
+      erro: "Você dividiu 51 pela bandeirada. Quem multiplica os quilômetros é o 3."
+  explicacao: "x = quilômetros. 6 + 3x = 51. Tire 6: 3x = 45. Divida por 3: x = 15 km. Confira: 6 + 3 × 15 = 51."
+  conferir: "(51 - 6) / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-05
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  dificuldade: 2
+  enunciado: "Qual é o valor de x em 3(x + 2) = x + 14?"
+  alternativas:
+    - texto: "8"
+      erro: "8 é o valor de 2x. Falta dividir por 2."
+    - texto: "6"
+      erro: "Você distribuiu o 3 só para o x (3x + 2). Ele multiplica o parêntese inteiro: 3x + 6."
+    - texto: "2"
+      erro: "Ao passar o x da direita para a esquerda, ele foi somado (4x). Para tirar x de um lado, subtraia x do outro: 3x − x = 2x."
+    - texto: "10"
+      erro: "O 6 passou para a direita somando (2x = 14 + 6). Para tirar 6 de um lado, subtraia 6 do outro: 2x = 14 − 6."
+    - texto: "4"
+      certa: true
+  explicacao: "Distribua: 3x + 6 = x + 14. Tire x dos dois lados: 2x + 6 = 14. Tire 6: 2x = 8. Divida por 2: x = 4. Confira: 3 × 6 = 18 e 4 + 14 = 18."
+  conferir: "8 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-06
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  dificuldade: 2
+  enunciado: "Qual é o valor de x em x/4 − 1 = 5?"
+  alternativas:
+    - texto: "24"
+      certa: true
+    - texto: "16"
+      erro: "O 1 passou subtraindo (x/4 = 4). Para desfazer a subtração de 1, some 1 dos dois lados: x/4 = 6."
+    - texto: "6"
+      erro: "6 é o valor de x/4. Falta multiplicar por 4."
+    - texto: "1,5"
+      erro: "Você dividiu 6 por 4. O x está sendo dividido por 4; para desfazer, multiplique."
+    - texto: "19"
+      erro: "Você multiplicou só o 5 por 4 e depois tirou 1. Desfaça na ordem contrária: primeiro some 1, depois multiplique por 4."
+  explicacao: "Some 1 dos dois lados: x/4 = 6. Multiplique por 4: x = 24. Confira: 24 ÷ 4 − 1 = 5."
+  conferir: "(5 + 1) * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-07
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-equacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Três irmãos venderam um terreno de herança e vão dividir R$ 1.300,00 que sobraram depois de pagar as despesas. Eles
+    combinaram que o segundo irmão recebe R$ 100,00 a mais que o primeiro, e o terceiro recebe o dobro do primeiro, por
+    ter pago sozinho uma parte das despesas.
+  enunciado: "O terceiro irmão vai receber"
+  alternativas:
+    - texto: "R$ 300,00."
+      erro: "R$ 300,00 é a parte do primeiro irmão, o x. O terceiro recebe o dobro: 2x."
+    - texto: "R$ 400,00."
+      erro: "R$ 400,00 é a parte do segundo irmão (x + 100). A pergunta é sobre o terceiro."
+    - texto: "R$ 600,00."
+      certa: true
+    - texto: "R$ 433,33."
+      erro: "Você dividiu o valor em três partes iguais. As condições do acordo fazem as partes serem diferentes."
+    - texto: "R$ 650,00."
+      erro: "Você deu metade do total ao terceiro. Monte a equação com as três partes: x + (x + 100) + 2x = 1.300."
+  explicacao: "x = parte do primeiro. Partes: x, x + 100 e 2x. Soma: 4x + 100 = 1.300. Então 4x = 1.200 e x = 300. O terceiro recebe 2 × 300 = R$ 600,00. Confira: 300 + 400 + 600 = 1.300."
+  conferir: "2 * (1300 - 100) / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-08
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Hoje, a idade de uma mãe é o triplo da idade do filho. Daqui a 12 anos, a idade da mãe será o dobro da idade que o
+    filho terá nessa época.
+  enunciado: "A idade da mãe, hoje, é de"
+  alternativas:
+    - texto: "12 anos."
+      erro: "12 anos é a idade do filho hoje, o x. A pergunta é a idade da mãe: 3x."
+    - texto: "24 anos."
+      erro: "24 anos é a idade do filho daqui a 12 anos. A pergunta é a idade da mãe hoje."
+    - texto: "48 anos."
+      erro: "48 anos é a idade da mãe daqui a 12 anos. A pergunta é a idade dela hoje."
+    - texto: "36 anos."
+      certa: true
+    - texto: "72 anos."
+      erro: "Os 12 anos foram somados só ao filho: 3x = 2(x + 12). A mãe também envelhece: 3x + 12 = 2(x + 12)."
+  explicacao: "x = idade do filho hoje; mãe, 3x. Daqui a 12 anos: 3x + 12 = 2(x + 12). Então 3x + 12 = 2x + 24 e x = 12. A mãe tem 3 × 12 = 36 anos. Confira: daqui a 12 anos, 48 e 24; 48 é o dobro de 24."
+  conferir: "3 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-09
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  dificuldade: 3
+  enunciado: "Qual é o valor de x em (x + 1)/2 − (x − 2)/3 = 2?"
+  alternativas:
+    - texto: "13"
+      erro: "O sinal de menos antes do segundo termo não trocou o sinal do −2: −2(x − 2) = −2x + 4, e não −2x − 4."
+    - texto: "−5"
+      erro: "Você multiplicou só o lado esquerdo pelo MMC 6. O 2 do lado direito também é multiplicado: vira 12."
+    - texto: "−4"
+      erro: "Os numeradores foram multiplicados pelos números trocados (2(x + 1) − 3(x − 2)). Ao multiplicar por 6, (x + 1)/2 vira 3(x + 1) e (x − 2)/3 vira 2(x − 2)."
+    - texto: "11"
+      erro: "O −2 foi distribuído só para o x (−2x − 2). Ele multiplica o parêntese inteiro: −2x + 4."
+    - texto: "5"
+      certa: true
+  explicacao: "Multiplique tudo pelo MMC 6: 3(x + 1) − 2(x − 2) = 12. Distribua: 3x + 3 − 2x + 4 = 12. Junte: x + 7 = 12, então x = 5. Confira: 6/2 − 3/3 = 3 − 1 = 2."
+  conferir: "12 - 7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-equacoes-10
+  tema: "Equações do 1º grau"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-equacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa de artesãs produz bolsas de tecido. Ela tem um custo fixo de R$ 1.800,00 por mês e gasta mais
+    R$ 15,00 de material em cada bolsa. Cada bolsa é vendida por R$ 45,00.
+  enunciado: "Para ter um lucro de R$ 1.200,00 num mês, a cooperativa precisa vender"
+  alternativas:
+    - texto: "60 bolsas."
+      erro: "Com 60 bolsas, o lucro é zero: a venda só paga os custos (1.800 ÷ 30). Some o lucro desejado: 30x = 1.800 + 1.200."
+    - texto: "100 bolsas."
+      certa: true
+    - texto: "40 bolsas."
+      erro: "Você dividiu o custo fixo pelo preço de venda (1.800 ÷ 45). Cada bolsa também tem custo de material: o que sobra por bolsa é 45 − 15 = 30."
+    - texto: "67 bolsas."
+      erro: "Você dividiu 3.000 por 45, o preço de venda. O que cada bolsa deixa de dinheiro é 45 − 15 = 30."
+    - texto: "200 bolsas."
+      erro: "Você dividiu 3.000 por 15, o custo de material. Cada bolsa deixa 45 − 15 = 30 reais para pagar o custo fixo e formar o lucro."
+  explicacao: "x = bolsas. Lucro = venda − custos = 45x − (1.800 + 15x) = 30x − 1.800. Para lucro de 1.200: 30x − 1.800 = 1.200, então 30x = 3.000 e x = 100. Confira: venda 4.500; custos 1.800 + 1.500 = 3.300; lucro 1.200."
+  conferir: "(1200 + 1800) / (45 - 15)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,244 @@
+# Exercícios da aula "Algoritmos e bolhas" (trilha enem-linguagens-tecnologias-da-comunicacao).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-digitais-algoritmos-01
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-algoritmos
+  dificuldade: 1
+  enunciado: "O que é um algoritmo?"
+  alternativas:
+    - texto: "Um aparelho eletrônico, como o celular."
+      erro: "O celular roda algoritmos, mas o algoritmo não é o aparelho: é a sequência de instruções."
+    - texto: "Uma rede social."
+      erro: "A rede social usa algoritmos. Ela não é um algoritmo."
+    - texto: "Um tipo de vírus de computador."
+      erro: "Vírus é um programa malicioso. Algoritmo é qualquer sequência de instruções, boa ou ruim."
+    - texto: "Uma lei sobre a internet."
+      erro: "Lei é norma jurídica. Algoritmo é instrução para um programa."
+    - texto: "Um conjunto de instruções que um programa segue para tomar decisões."
+      certa: true
+  explicacao: "Algoritmo é uma sequência de passos para resolver um problema ou tomar uma decisão. Nas redes, um deles decide o que aparece na tela de cada pessoa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-02
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-algoritmos
+  dificuldade: 1
+  enunciado: "Qual destes dados um aplicativo de vídeos costuma usar para decidir o que recomendar?"
+  alternativas:
+    - texto: "A cor preferida dos seus vizinhos."
+      erro: "O aplicativo não tem esse dado nem o usaria. Ele usa o que você faz dentro dele."
+    - texto: "O tempo que você passa assistindo a cada vídeo."
+      certa: true
+    - texto: "O número do seu sapato, informado na escola."
+      erro: "A escola não manda esse dado para o aplicativo."
+    - texto: "O nome do seu primeiro professor."
+      erro: "Não é um dado de uso do aplicativo."
+    - texto: "O resultado da sua última prova de matemática."
+      erro: "O aplicativo não tem acesso a esse dado escolar."
+  explicacao: "Tempo de tela, cliques, curtidas, comentários, contatos e localização estão entre os dados usados para montar o perfil e escolher as recomendações."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-03
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 4
+  objeto: lin-generos-digitais-algoritmos
+  dificuldade: 1
+  enunciado: "Num grupo de mensagens, quem pensava diferente foi saindo, e as mesmas opiniões voltam repetidas e reforçadas toda semana. Esse ambiente é chamado de:"
+  alternativas:
+    - texto: "hipertexto."
+      erro: "Hipertexto é texto ligado a outros por links. Não descreve o grupo fechado."
+    - texto: "censura prévia."
+      erro: "Ninguém foi proibido de falar. As pessoas foram saindo. Não é censura."
+    - texto: "debate plural."
+      erro: "Plural é quando há opiniões diferentes. Aqui só sobrou uma."
+    - texto: "câmara de eco."
+      certa: true
+    - texto: "petição on-line."
+      erro: "Petição é abaixo-assinado digital. Não tem relação com o fenômeno descrito."
+  explicacao: "Na câmara de eco, o grupo só ouve quem pensa igual e cada opinião volta reforçada, como eco numa sala fechada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-04
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-algoritmos
+  dificuldade: 2
+  enunciado: "Por que muitas plataformas ajustam os algoritmos para aumentar o engajamento (cliques, curtidas, tempo de tela)?"
+  alternativas:
+    - texto: "Porque, quanto mais tempo as pessoas ficam, mais anúncios elas veem, e as plataformas ganham com publicidade."
+      certa: true
+    - texto: "Porque a lei obriga a mostrar sempre o conteúdo mais longo."
+      erro: "Não há lei assim. O motivo é econômico."
+    - texto: "Porque o engajamento garante que a informação é verdadeira."
+      erro: "Engajamento mede reação, não verdade. Notícia falsa também engaja, e muito."
+    - texto: "Porque os usuários pagam por cada curtida."
+      erro: "Na maioria das redes, o usuário não paga por curtir. Quem paga é o anunciante."
+    - texto: "Porque assim os aparelhos gastam menos bateria."
+      erro: "Mais tempo de tela gasta mais bateria, não menos."
+  explicacao: "O modelo de negócio de muitas plataformas é vender atenção para anunciantes. Por isso o algoritmo busca o que prende mais, o que nem sempre é o que informa melhor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-05
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-algoritmos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma estudante assistiu a um vídeo sobre ansiedade. Nas semanas seguintes, a tela inicial do aplicativo dela
+    passou a mostrar quase só vídeos de pessoas tristes, relatos de crise e anúncios de remédios. "Parecia que o
+    celular queria que eu ficasse pior", contou. Só quando começou a buscar outros assuntos a tela mudou.
+  enunciado: "O relato mostra que a recomendação automática de conteúdos"
+  alternativas:
+    - texto: "é sorteada ao acaso, sem relação com o que a usuária assiste."
+      erro: "A tela mudou depois do primeiro vídeo e depois das novas buscas. Há relação direta."
+    - texto: "protege sempre a saúde mental de quem usa o aplicativo."
+      erro: "A estudante sentiu o contrário: a tela parecia piorar o estado dela."
+    - texto: "pode reforçar um interesse e intensificar conteúdos de um mesmo tipo, com efeito sobre o bem-estar."
+      certa: true
+    - texto: "não pode ser alterada pelo comportamento da usuária."
+      erro: "A tela mudou quando ela buscou outros assuntos. Pode, sim."
+    - texto: "é proibida para assuntos de saúde."
+      erro: "Nada no texto fala de proibição. Os vídeos foram recomendados."
+  explicacao: "Um vídeo virou dado, o dado virou perfil e o perfil passou a encher a tela de conteúdos parecidos. Esse reforço tem impacto social e pessoal (H28)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-06
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 4
+  objeto: lin-generos-digitais-algoritmos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em 2011, o ativista Eli Pariser usou a expressão "bolha de filtro" para descrever o efeito dos algoritmos que
+    personalizam o que cada pessoa vê. Para ele, o problema não é só ver mais do que se gosta: é não saber o que
+    ficou de fora. Na palestra em que apresentou a ideia, ele lembrou que a pessoa não decide o que entra na sua
+    bolha e, sobretudo, não vê o que foi deixado de fora.
+  enunciado: "A crítica de Pariser aponta, sobretudo, para"
+  alternativas:
+    - texto: "o excesso de anúncios nas redes sociais."
+      erro: "Anúncios não são o centro da fala. O centro é a seleção invisível do que se vê."
+    - texto: "a lentidão da internet nos celulares."
+      erro: "Velocidade de conexão não aparece no texto."
+    - texto: "a proibição de certos sites pelo governo."
+      erro: "Pariser fala de personalização automática, não de proibição do governo."
+    - texto: "a preferência das pessoas por vídeos curtos."
+      erro: "O formato dos vídeos não é o tema."
+    - texto: "a falta de transparência da seleção, que esconde do usuário o que foi deixado de fora."
+      certa: true
+  explicacao: "O problema, para Pariser, é a invisibilidade: a pessoa não escolhe o filtro e não vê o que ele exclui. Reconhecer críticas aos usos sociais dos meios é a H4."
+  fonte: "Questão original do Instituto Lúcia, com base na palestra de Eli Pariser (TED, 2011)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-07
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 30
+  objeto: lin-generos-digitais-algoritmos
+  dificuldade: 2
+  enunciado: "Sobre o tamanho do efeito das bolhas de filtro na sociedade, qual afirmação é mais fiel ao estado das pesquisas?"
+  alternativas:
+    - texto: "Está provado que todas as pessoas vivem em bolhas totalmente fechadas."
+      erro: "Há estudos que mostram que muita gente vê opiniões diferentes na rede. \"Todas\" e \"totalmente\" exageram."
+    - texto: "Não há consenso: há estudos com efeitos fortes e outros com efeitos menores, e o resultado muda entre plataformas e países."
+      certa: true
+    - texto: "Está provado que as bolhas não existem."
+      erro: "Também é exagero. A personalização existe e tem efeitos; o debate é sobre o tamanho."
+    - texto: "Só existem bolhas em países muito ricos."
+      erro: "Não há base para essa afirmação. O fenômeno é estudado em muitos países."
+    - texto: "As bolhas só existem na televisão."
+      erro: "A expressão foi criada justamente para a personalização na internet."
+  explicacao: "É firme que as plataformas selecionam com dados pessoais. O tamanho do efeito ainda é debatido. Saber dizer onde não há consenso é parte de ler bem um texto sobre tecnologia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-08
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-algoritmos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma pesquisa acompanhou contas criadas do zero numa plataforma de vídeos. As contas que começaram assistindo a
+    vídeos sobre política passaram a receber, em poucos dias, recomendações com tom cada vez mais agressivo. Os
+    pesquisadores observaram que esses vídeos tinham mais comentários e mais tempo de exibição que os outros.
+  enunciado: "Os dados permitem inferir que o critério de recomendação"
+  alternativas:
+    - texto: "privilegia o conteúdo mais verdadeiro e mais bem apurado."
+      erro: "O texto não fala de verdade nem de apuração. Fala de comentários e tempo de exibição."
+    - texto: "é escolhido pelos próprios usuários, que pedem vídeos mais agressivos."
+      erro: "As contas eram novas e só assistiram. Ninguém pediu tom mais agressivo."
+    - texto: "afasta os usuários da política."
+      erro: "As contas continuaram recebendo política, só que mais agressiva."
+    - texto: "valoriza o engajamento, o que tende a favorecer conteúdos que provocam reações fortes."
+      certa: true
+    - texto: "é idêntico em todas as plataformas do mundo."
+      erro: "A pesquisa estudou uma plataforma. Generalizar para todas não tem base no texto."
+  explicacao: "Os vídeos recomendados tinham mais comentários e mais tempo de tela: são métricas de engajamento. Se o critério é engajamento, o que provoca reação forte tende a subir."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-09
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 4
+  objeto: lin-generos-digitais-algoritmos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O artigo 20 da Lei Geral de Proteção de Dados (Lei nº 13.709/2018) garante ao titular dos dados o direito de
+    solicitar a revisão de decisões tomadas unicamente com base em tratamento automatizado de dados pessoais que
+    afetem seus interesses, incluídas as decisões que definem o seu perfil pessoal, profissional, de consumo e de
+    crédito.
+  enunciado: "Esse direito responde a uma crítica frequente aos algoritmos, a de que eles"
+  alternativas:
+    - texto: "tomam decisões sobre as pessoas sem que elas saibam como nem possam contestar."
+      certa: true
+    - texto: "são lentos demais para decidir."
+      erro: "A lei não trata de velocidade. Trata do direito de contestar a decisão."
+    - texto: "só funcionam com internet rápida."
+      erro: "Conexão não é o assunto da lei."
+    - texto: "são sempre controlados por funcionários públicos."
+      erro: "O artigo trata de decisões \"unicamente\" automatizadas, sem pessoa decidindo."
+    - texto: "proíbem o uso de dados de crédito."
+      erro: "A lei não proíbe: permite pedir revisão quando a decisão afeta a pessoa."
+  explicacao: "Decisões automáticas (um crédito negado, um perfil montado) podem afetar a vida de alguém sem explicação. A lei dá o direito de pedir revisão. É uma resposta a uma crítica social aos usos da tecnologia (H4)."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.709/2018, art. 20"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-algoritmos-10
+  tema: "Algoritmos e bolhas"
+  area: linguagens
+  habilidade: 30
+  objeto: lin-generos-digitais-algoritmos
+  dificuldade: 3
+  enunciado: "Uma pessoa diz: \"Se a minha rede só mostra gente que concorda comigo, é porque o mundo inteiro pensa como eu.\" Qual é o erro de raciocínio dela?"
+  alternativas:
+    - texto: "Nenhum: a rede mostra exatamente a opinião de todo mundo."
+      erro: "A rede mostra uma seleção feita para ela, não um retrato de todas as opiniões."
+    - texto: "Ela confunde a rede social com a televisão."
+      erro: "O problema não é o meio, é tomar a parte pelo todo."
+    - texto: "Ela toma uma seleção personalizada de conteúdos como se fosse um retrato fiel da sociedade."
+      certa: true
+    - texto: "Ela deveria usar só aplicativos estrangeiros."
+      erro: "Trocar de aplicativo não resolve: todos selecionam o que mostram."
+    - texto: "Ela deveria parar de usar a internet."
+      erro: "Abandonar a rede não é a única saída. O ponto é saber que a tela é filtrada."
+  explicacao: "A tela é um recorte feito a partir dos dados e das escolhas da pessoa. Tomar o recorte pelo mundo é o efeito que a ideia de bolha descreve."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

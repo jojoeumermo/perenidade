@@ -1,0 +1,264 @@
+# Exercícios da aula "Eventos independentes" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-independentes-01
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  dificuldade: 1
+  enunciado: "Uma moeda honesta é lançada duas vezes. Qual é a probabilidade de sair cara nas duas?"
+  alternativas:
+    - texto: "50%"
+      erro: "50% é a chance de cara num lançamento só. Nos dois, multiplique: 0,5 × 0,5."
+    - texto: "100%"
+      erro: "Você somou 50% + 50%. Para \"e\" com eventos independentes, multiplique."
+    - texto: "75%"
+      erro: "75% é a chance de sair pelo menos uma cara. A pergunta pede cara nas duas."
+    - texto: "12,5%"
+      erro: "12,5% é a chance de três caras em três lançamentos. Aqui são só dois."
+    - texto: "25%"
+      certa: true
+  explicacao: "Os lançamentos são independentes: 0,5 × 0,5 = 0,25 = 25%. Contando: cara-cara é 1 dos 4 resultados (cara-cara, cara-coroa, coroa-cara, coroa-coroa)."
+  conferir: "0.5*0.5*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-02
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  dificuldade: 1
+  enunciado: "Uma moeda e um dado comum são lançados ao mesmo tempo. Qual é a probabilidade de sair cara na moeda e 3 no dado?"
+  alternativas:
+    - texto: "2/3"
+      erro: "Você somou 1/2 + 1/6. Para \"e\" com eventos independentes, multiplique."
+    - texto: "1/12"
+      certa: true
+    - texto: "1/6"
+      erro: "1/6 é só a chance de sair 3 no dado. Ainda é preciso sair cara."
+    - texto: "1/8"
+      erro: "Você somou as 2 faces da moeda e as 6 do dado. Os resultados juntos são 2 × 6 = 12."
+    - texto: "1/2"
+      erro: "1/2 é só a chance de sair cara. Ainda é preciso sair 3 no dado."
+  explicacao: "A moeda não influencia o dado. P = 1/2 × 1/6 = 1/12. Contando: há 2 × 6 = 12 resultados, e cara com 3 é um deles."
+  conferir: "1/2 * 1/6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-03
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 29
+  objeto: mat-estatistica-eventos-independentes
+  dificuldade: 1
+  enunciado: "Um dado comum foi lançado 4 vezes, e saiu 6 em todas. Qual é a probabilidade de sair 6 no quinto lançamento?"
+  alternativas:
+    - texto: "1/7776"
+      erro: "1/7.776 é a chance de cinco 6 seguidos, calculada antes de lançar. Os quatro primeiros já saíram; o quinto lançamento não sabe disso."
+    - texto: "0"
+      erro: "O dado não tem memória. O 6 continua possível como em qualquer lançamento."
+    - texto: "5/6"
+      erro: "5/6 é a chance de não sair 6. E ela também não muda por causa dos lançamentos anteriores."
+    - texto: "1/6"
+      certa: true
+    - texto: "1/1296"
+      erro: "1/1.296 é a chance dos quatro 6 que já saíram. A pergunta é só sobre o próximo lançamento."
+  explicacao: "Cada lançamento é independente dos anteriores. A chance de sair 6 continua 1/6. Achar que ela muda é a falácia do jogador."
+  conferir: "1/6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-04
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  dificuldade: 2
+  enunciado: "Uma urna tem 3 bolas azuis e 7 brancas. Tira-se uma bola, anota-se a cor, devolve-se a bola à urna e tira-se outra. Qual é a probabilidade de as duas serem azuis?"
+  alternativas:
+    - texto: "9%"
+      certa: true
+    - texto: "6,7%"
+      erro: "Perto de 6,7% é 3/10 × 2/9, a conta sem devolução. Como a bola volta, a urna é a mesma no segundo sorteio."
+    - texto: "60%"
+      erro: "Você somou 30% + 30%. Para \"e\" com sorteios independentes, multiplique."
+    - texto: "30%"
+      erro: "30% é a chance de azul num sorteio só. São dois sorteios."
+    - texto: "49%"
+      erro: "49% é 0,7 × 0,7: a chance de as duas serem brancas."
+  explicacao: "Com devolução, os sorteios são independentes. P(azul) = 3/10 = 0,3 em cada um. P(duas azuis) = 0,3 × 0,3 = 0,09 = 9%."
+  conferir: "0.3*0.3*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-05
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No trajeto de um ônibus até o terminal há 3 semáforos. Um levantamento feito pela associação de usuários mostrou
+    que cada semáforo está aberto, quando o ônibus chega, em 60% das vezes. Considere que a situação de um semáforo
+    não interfere na dos outros.
+  enunciado: "A probabilidade de o ônibus encontrar os três semáforos abertos é"
+  alternativas:
+    - texto: "180%"
+      erro: "Você somou 60% três vezes. Probabilidade não passa de 100%: para \"e\", multiplique."
+    - texto: "60%"
+      erro: "60% é a chance de um semáforo só estar aberto. São três."
+    - texto: "21,6%"
+      certa: true
+    - texto: "6,4%"
+      erro: "6,4% é 0,4 × 0,4 × 0,4: a chance de os três estarem fechados."
+    - texto: "93,6%"
+      erro: "93,6% é a chance de pelo menos um estar aberto (1 − 0,064). A pergunta pede os três abertos."
+  explicacao: "Os semáforos são independentes: 0,6 × 0,6 × 0,6 = 0,216 = 21,6%."
+  conferir: "0.6^3*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-06
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  dificuldade: 2
+  texto_base: |
+    Uma candidata participa de duas seleções de emprego, em empresas diferentes, que não influenciam uma à outra. A
+    chance de ela ser aprovada na primeira é de 70%, e na segunda, de 50%.
+  enunciado: "Qual é a probabilidade de ela ser aprovada em exatamente uma das duas seleções?"
+  alternativas:
+    - texto: "35%"
+      erro: "35% é 0,7 × 0,5: a chance de ser aprovada nas duas."
+    - texto: "85%"
+      erro: "85% é a chance de ser aprovada em pelo menos uma (1 − 0,3 × 0,5). Ela inclui o caso das duas aprovações."
+    - texto: "50%"
+      certa: true
+    - texto: "15%"
+      erro: "15% é 0,3 × 0,5: a chance de não ser aprovada em nenhuma."
+    - texto: "120%"
+      erro: "Você somou 70% + 50%. Probabilidade não passa de 100%."
+  explicacao: "Há dois jeitos. Aprovada só na primeira: 0,7 × 0,5 = 0,35. Aprovada só na segunda: 0,3 × 0,5 = 0,15. Somando: 0,50 = 50%. Confira: 35% (as duas) + 50% (exatamente uma) + 15% (nenhuma) = 100%."
+  conferir: "(0.7*0.5 + 0.3*0.5)*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-07
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa pequena cidade, a rede elétrica falha em 5% das noites. O hospital municipal tem um gerador de reserva,
+    que entra em funcionamento quando a rede cai, mas que também falha em 10% das vezes em que é acionado.
+    Considere que a falha do gerador não depende da falha da rede.
+  enunciado: "A probabilidade de, numa noite qualquer, o hospital ficar sem energia é"
+  alternativas:
+    - texto: "0,5%"
+      certa: true
+    - texto: "15%"
+      erro: "Você somou 5% + 10%. O hospital só fica sem energia se a rede e o gerador falharem: multiplique."
+    - texto: "5%"
+      erro: "5% é a chance de a rede falhar. Mesmo assim, o gerador funciona em 90% dessas noites."
+    - texto: "85,5%"
+      erro: "85,5% é 0,95 × 0,9. Essa conta não responde à pergunta: o hospital só fica sem energia quando a rede e o gerador falham juntos."
+    - texto: "10%"
+      erro: "10% é a chance de o gerador falhar quando é acionado. Ele só é acionado nas noites em que a rede cai."
+  explicacao: "Sem energia é rede falhar e gerador falhar: 0,05 × 0,1 = 0,005 = 0,5%. O gerador de reserva reduz a chance de 5% para 0,5%."
+  conferir: "0.05*0.1*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-08
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 30
+  objeto: mat-estatistica-eventos-independentes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma escola vai instalar um sistema de alarme de incêndio e recebeu duas propostas.
+    Proposta 1: um único sensor, que falha em 4% das vezes.
+    Proposta 2: dois sensores mais baratos, que funcionam de forma independente, cada um com falha em 20% das
+    vezes. O sistema só falha se os dois sensores falharem.
+  enunciado: "Comparando a probabilidade de o sistema falhar, conclui-se que"
+  alternativas:
+    - texto: "a proposta 1 é melhor, porque 4% é menor que 20%."
+      erro: "20% é a falha de cada sensor da proposta 2, não a do sistema. O sistema 2 só falha se os dois falharem juntos."
+    - texto: "a proposta 2 é melhor, porque o sistema falha em 0,4% das vezes."
+      erro: "0,2 × 0,2 = 0,04, que é 4%, e não 0,4%. Confira a passagem do decimal para a porcentagem."
+    - texto: "a proposta 1 é melhor, porque o sistema da proposta 2 falha em 40% das vezes."
+      erro: "Você somou 20% + 20%. Os dois sensores precisam falhar juntos: multiplique."
+    - texto: "as duas propostas falham com a mesma probabilidade, 4%."
+      certa: true
+    - texto: "a proposta 2 é melhor, porque o sistema falha em 16% das vezes."
+      erro: "16% é 0,2 × 0,8, a chance de um sensor falhar e o outro funcionar. Nesse caso, o sistema funciona."
+  explicacao: "Proposta 2: o sistema falha se os dois sensores falharem, 0,2 × 0,2 = 0,04 = 4%. É a mesma chance da proposta 1. A escolha terá de considerar outros critérios, como custo e manutenção."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-09
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa quadra comunitária, uma jogadora de basquete acerta 50% dos seus lances livres. Considere que o resultado de
+    um lance não interfere no dos outros. Ela vai cobrar 3 lances livres seguidos.
+  enunciado: "A probabilidade de ela acertar exatamente 2 dos 3 lances é"
+  alternativas:
+    - texto: "12,5%"
+      erro: "12,5% é a chance de um só jeito, como acertar, acertar e errar. Ela pode errar o 1º, o 2º ou o 3º: são 3 jeitos."
+    - texto: "37,5%"
+      certa: true
+    - texto: "50%"
+      erro: "50% é a chance de acertar um lance. A de acertar exatamente 2 de 3 pede contar os jeitos."
+    - texto: "25%"
+      erro: "25% é 0,5 × 0,5, só os dois acertos. Falta multiplicar pela chance do erro no outro lance e contar os 3 jeitos."
+    - texto: "87,5%"
+      erro: "87,5% é a chance de acertar pelo menos um lance (1 − 0,5 × 0,5 × 0,5)."
+  explicacao: "Cada jeito (por exemplo, acerta, acerta, erra) tem chance 0,5 × 0,5 × 0,5 = 0,125. O erro pode estar no 1º, no 2º ou no 3º lance: 3 jeitos. 3 × 0,125 = 0,375 = 37,5%."
+  conferir: "3 * 0.5^3 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-independentes-10
+  tema: "Eventos independentes"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  dificuldade: 3
+  enunciado: "Um dado comum é lançado 3 vezes. Qual é a probabilidade de sair 6 pelo menos uma vez?"
+  alternativas:
+    - texto: "1/2"
+      erro: "Você somou 1/6 três vezes. Assim, os casos com mais de um 6 ficam contados mais de uma vez. Use o contrário: nenhum 6."
+    - texto: "1/216"
+      erro: "1/216 é a chance de sair 6 nas três vezes."
+    - texto: "125/216"
+      erro: "125/216 é (5/6)³: a chance de não sair 6 nenhuma vez. Falta tirar de 1."
+    - texto: "75/216"
+      erro: "75/216 é a chance de sair 6 exatamente uma vez. \"Pelo menos uma\" inclui também duas e três."
+    - texto: "91/216"
+      certa: true
+  explicacao: "O contrário de \"pelo menos um 6\" é \"nenhum 6\": (5/6) × (5/6) × (5/6) = 125/216. Então P = 1 − 125/216 = 91/216, perto de 42%."
+  conferir: "1 - (5/6)^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

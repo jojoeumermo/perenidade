@@ -1,0 +1,250 @@
+# Exercícios da aula "Porcentagem" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-porcentagem-01
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  dificuldade: 1
+  enunciado: "Quanto é 25% de 84?"
+  alternativas:
+    - texto: "21"
+      certa: true
+    - texto: "25"
+      erro: "Você repetiu a taxa. 25% de 84 é um pedaço de 84: um quarto dele."
+    - texto: "8,4"
+      erro: "8,4 é 10% de 84. Para 25%, use a metade da metade: 84 ÷ 2 = 42 e 42 ÷ 2 = 21."
+    - texto: "63"
+      erro: "63 é 75% de 84, o que sobra depois de tirar um quarto. A pergunta pede o quarto em si."
+    - texto: "2,1"
+      erro: "A vírgula andou uma casa a mais. Estime: um quarto de 84 fica perto de 20, não de 2."
+  explicacao: "25% é um quarto. A metade de 84 é 42, e a metade de 42 é 21."
+  conferir: "84 * 25 / 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-02
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  dificuldade: 1
+  enunciado: "Numa turma de 40 estudantes, 6 faltaram à aula de sábado. Que porcentagem da turma faltou?"
+  alternativas:
+    - texto: "6%"
+      erro: "6 é a quantidade de pessoas, não a taxa. A turma tem 40, e não 100: divida 6 por 40."
+    - texto: "15%"
+      certa: true
+    - texto: "85%"
+      erro: "85% é a parte que veio à aula. A pergunta pede a parte que faltou."
+    - texto: "34%"
+      erro: "34 é 40 − 6, o número de presentes, e não uma porcentagem. A taxa é a parte dividida pelo total."
+    - texto: "24%"
+      erro: "Você multiplicou 6 × 4. Faça 6 ÷ 40: é o mesmo que 15 ÷ 100."
+  explicacao: "Taxa = parte ÷ total = 6 ÷ 40. Multiplique em cima e embaixo por 2,5 para chegar a 100: 15/100 = 15%."
+  conferir: "6 / 40 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-03
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  dificuldade: 1
+  enunciado: "O aluguel de uma família é de R$ 900 e corresponde a 30% da renda da casa. Qual é a renda da casa?"
+  alternativas:
+    - texto: "R$ 270"
+      erro: "Você calculou 30% de 900. Mas os 900 já são os 30%: a renda inteira é maior que o aluguel."
+    - texto: "R$ 1.170"
+      erro: "Você somou 900 com 30% de 900. A renda é o total do qual 900 é uma parte."
+    - texto: "R$ 3.000"
+      certa: true
+    - texto: "R$ 2.700"
+      erro: "Você fez 900 × 3, como se 900 fossem um terço. Mas 30% é um pouco menos que um terço: se 30% valem 900, 10% valem 300 e 100% valem 3.000."
+    - texto: "R$ 930"
+      erro: "Você somou 900 + 30. A taxa não se soma ao valor: ela diz que fração do total o aluguel ocupa."
+  explicacao: "Se 30% valem 900, então 10% valem 300. 100% são 10 vezes isso: 3.000 reais."
+  conferir: "900 / 0.3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-04
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma associação de moradores entrevistou 1.200 pessoas do bairro sobre transporte. Do total de entrevistados, 35%
+    disseram usar ônibus todos os dias. Entre os que usam ônibus todos os dias, 40% disseram pegar mais de uma condução
+    para chegar ao trabalho.
+  enunciado: "O número de entrevistados que usam ônibus todos os dias e pegam mais de uma condução é"
+  alternativas:
+    - texto: "480."
+      erro: "Você calculou 40% de todos os 1.200 entrevistados. Os 40% são só dos que usam ônibus todo dia."
+    - texto: "420."
+      erro: "420 são todos os que usam ônibus todo dia. Falta tirar os 40% deles que pegam mais de uma condução."
+    - texto: "900."
+      erro: "Você somou as taxas (35% + 40% = 75%) e aplicou ao total. As duas porcentagens são de grupos diferentes: aplique uma depois da outra."
+    - texto: "168."
+      certa: true
+    - texto: "252."
+      erro: "252 são os 60% que pegam uma condução só. A pergunta pede os que pegam mais de uma."
+  explicacao: "Primeiro, 35% de 1.200: 10% é 120, então 30% é 360 e 5% é 60; total 420. Depois, 40% de 420: 10% é 42, então 40% é 168."
+  conferir: "1200 * 0.35 * 0.4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-05
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-porcentagem
+  dificuldade: 2
+  enunciado: "A taxa de desemprego de uma cidade passou de 8% para 10%. Em relação à taxa de antes, a taxa de desemprego aumentou"
+  alternativas:
+    - texto: "2%"
+      erro: "2 é a diferença em pontos percentuais. A pergunta pede o aumento em relação à taxa de antes: 2 ÷ 8."
+    - texto: "10%"
+      erro: "10% é a taxa nova, não o aumento. Compare a diferença (2 pontos) com a taxa de partida (8%)."
+    - texto: "18%"
+      erro: "Você somou as duas taxas. Variação é (novo − antigo) ÷ antigo."
+    - texto: "20%"
+      erro: "Você dividiu a diferença pela taxa nova (2 ÷ 10). Divida sempre pelo valor de partida: 2 ÷ 8."
+    - texto: "25%"
+      certa: true
+  explicacao: "A diferença é de 10 − 8 = 2 pontos percentuais. Em relação aos 8% de antes: 2 ÷ 8 = 1/4 = 25%."
+  conferir: "(10 - 8) / 8 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-06
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Duas escolas públicas de um município divulgaram o resultado de um vestibular comunitário. Na escola X, 45 dos 60
+    estudantes inscritos foram aprovados. Na escola Y, foram aprovados 52 dos 80 inscritos.
+  enunciado: "A diferença entre as taxas de aprovação das duas escolas, em pontos percentuais, é de"
+  alternativas:
+    - texto: "10 pontos percentuais."
+      certa: true
+    - texto: "7 pontos percentuais."
+      erro: "Você subtraiu os aprovados (52 − 45). As escolas têm tamanhos diferentes: compare as taxas, não as quantidades."
+    - texto: "20 pontos percentuais."
+      erro: "Você subtraiu os inscritos (80 − 60). Calcule a taxa de cada escola: aprovados ÷ inscritos."
+    - texto: "25 pontos percentuais."
+      erro: "25% é a taxa de reprovação da escola X (100% − 75%). A pergunta compara as duas aprovações."
+    - texto: "65 pontos percentuais."
+      erro: "65% é a taxa de aprovação da escola Y sozinha. Falta compará-la com os 75% da escola X."
+  explicacao: "Escola X: 45 ÷ 60 = 3/4 = 75%. Escola Y: 52 ÷ 80; divida por 4 em cima e embaixo, 13 ÷ 20 = 65/100 = 65%. Diferença: 75 − 65 = 10 pontos percentuais."
+  conferir: "45 / 60 * 100 - 52 / 80 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-07
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  dificuldade: 2
+  enunciado: "Uma panela custa R$ 80. Desse preço, 15% correspondem a impostos embutidos. Quantos reais do preço são impostos?"
+  alternativas:
+    - texto: "R$ 15"
+      erro: "Você trocou a taxa pelo valor. 15% de 80 é um pedaço de 80: 10% mais 5%."
+    - texto: "R$ 12"
+      certa: true
+    - texto: "R$ 68"
+      erro: "68 é a parte do preço que não é imposto (80 − 12). A pergunta pede o imposto."
+    - texto: "R$ 92"
+      erro: "Você somou o imposto ao preço. O imposto está embutido: ele já faz parte dos R$ 80."
+    - texto: "R$ 1,20"
+      erro: "A vírgula andou uma casa a mais. 10% de 80 é 8, e não 0,8."
+  explicacao: "10% de 80 é 8. 5% é a metade, 4. Então 15% de 80 é 8 + 4 = 12 reais."
+  conferir: "80 * 0.15"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-08
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma feira de economia solidária tem 250 barracas, e 40% delas vendem alimentos. A organização decidiu que, na próxima
+    edição, metade das barracas deverá vender alimentos. Nenhuma barraca atual vai sair: a mudança será feita só com a
+    entrada de barracas novas, todas de alimentos.
+  enunciado: "O número de barracas novas de alimentos necessário para cumprir a decisão é"
+  alternativas:
+    - texto: "25."
+      erro: "Você calculou quantas faltam para 50% das 250 barracas de hoje (125 − 100). Mas cada barraca nova também aumenta o total."
+    - texto: "125."
+      erro: "125 é a metade das 250 barracas de hoje. Hoje já há 100 de alimentos, e o total vai crescer com as novas."
+    - texto: "50."
+      certa: true
+    - texto: "10."
+      erro: "10 é a diferença entre 50% e 40%, em pontos percentuais. A pergunta pede um número de barracas."
+    - texto: "100."
+      erro: "100 é o número de barracas de alimentos que já existem (40% de 250). A pergunta pede quantas entram."
+  explicacao: "Hoje: 40% de 250 = 100 barracas de alimentos e 150 de outros produtos. As 150 não mudam. Para os alimentos serem metade, eles têm de ser tantos quanto as outras: 150. Faltam 150 − 100 = 50. Confira: 150 de 300 é 50%."
+  conferir: "250 * 0.6 - 250 * 0.4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-09
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  dificuldade: 3
+  enunciado: "Uma conta de R$ 120 junta o valor da água e uma taxa de esgoto. A taxa de esgoto é 20% do valor da água. Qual é o valor só da água?"
+  alternativas:
+    - texto: "R$ 96"
+      erro: "Você tirou 20% de 120. Mas os 20% são do valor da água, não da conta inteira. A conta é 120% da água."
+    - texto: "R$ 24"
+      erro: "24 é 20% de 120. Os 20% incidem sobre a água, que é menor que a conta."
+    - texto: "R$ 144"
+      erro: "Você somou 20% aos 120. A conta já inclui o esgoto: o valor da água é menor que 120."
+    - texto: "R$ 100"
+      certa: true
+    - texto: "R$ 20"
+      erro: "R$ 20 é o valor da taxa de esgoto. A pergunta pede o valor da água."
+  explicacao: "A água vale 100%, e o esgoto mais 20%: a conta é 120% da água. Se 120% valem 120 reais, 1% vale 1 real, e 100% valem 100 reais. Confira: 20% de 100 é 20, e 100 + 20 = 120."
+  conferir: "120 / 1.2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-porcentagem-10
+  tema: "Porcentagem"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-porcentagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa escola estadual com 300 estudantes no ensino médio noturno, 60% são mulheres. Uma pesquisa mostrou que 25% das
+    mulheres e 40% dos homens dessa escola trabalham com carteira assinada.
+  enunciado: "A porcentagem de todos os estudantes do ensino médio noturno dessa escola que trabalham com carteira assinada é"
+  alternativas:
+    - texto: "32,5%."
+      erro: "Você fez a média simples de 25% e 40%. Os grupos têm tamanhos diferentes (180 mulheres e 120 homens): conte as pessoas de cada um."
+    - texto: "65%."
+      erro: "Você somou 25% e 40%. As taxas são de grupos diferentes e não se somam."
+    - texto: "93%."
+      erro: "93 é o número de estudantes que trabalham com carteira, não a taxa. Divida 93 pelos 300 estudantes."
+    - texto: "40%."
+      erro: "40% é a taxa só dos homens. A pergunta pede a taxa de toda a escola."
+    - texto: "31%."
+      certa: true
+  explicacao: "Mulheres: 60% de 300 = 180; 25% de 180 = 45. Homens: 300 − 180 = 120; 40% de 120 = 48. Trabalham com carteira: 45 + 48 = 93. Taxa: 93 ÷ 300 = 31 ÷ 100 = 31%."
+  conferir: "(300 * 0.6 * 0.25 + 300 * 0.4 * 0.4) / 300 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,258 @@
+# Exercícios da aula "Aumentos e descontos sucessivos" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Preços e reajustes são valores de exemplo.
+
+- id: enem-mat-aumentos-01
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  dificuldade: 1
+  enunciado: "Por qual número se multiplica um preço para aumentá-lo em 8%?"
+  alternativas:
+    - texto: "0,08"
+      erro: "0,08 dá só o valor do aumento, não o preço novo. Para o preço novo, some o 1: 1 + 0,08."
+    - texto: "0,92"
+      erro: "0,92 é o fator de um desconto de 8%. No aumento, o fator é maior que 1."
+    - texto: "1,8"
+      erro: "1,8 é um aumento de 80%. 8% em número decimal é 0,08, então o fator é 1,08."
+    - texto: "1,08"
+      certa: true
+    - texto: "8"
+      erro: "Multiplicar por 8 deixaria o preço oito vezes maior. A taxa tem de virar decimal: 8% = 0,08."
+  explicacao: "O preço novo é 100% + 8% = 108% do antigo. Em decimal, 1,08."
+  conferir: "1 + 8 / 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-02
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  dificuldade: 1
+  enunciado: "Uma mochila de R$ 60 está com 15% de desconto. Qual é o preço com desconto?"
+  alternativas:
+    - texto: "R$ 51"
+      certa: true
+    - texto: "R$ 45"
+      erro: "Você tirou 15 reais. O desconto é de 15%: 10% de 60 é 6, e 5% é 3; o desconto é 9 reais."
+    - texto: "R$ 9"
+      erro: "R$ 9 é o valor do desconto. A pergunta pede o preço que sobra: 60 − 9."
+    - texto: "R$ 69"
+      erro: "Você somou o desconto, como num aumento. Desconto diminui o preço."
+    - texto: "R$ 57"
+      erro: "Você tirou só 5% (3 reais). Faltaram os 10% (6 reais)."
+  explicacao: "15% de 60 = 6 + 3 = 9. Preço: 60 − 9 = 51 reais. Pelo fator: 60 × 0,85 = 51."
+  conferir: "60 * 0.85"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-03
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  dificuldade: 1
+  enunciado: "Um preço sofre dois aumentos seguidos de 20%. O aumento total foi de"
+  alternativas:
+    - texto: "40%"
+      erro: "Você somou as taxas. O segundo aumento incide sobre o preço já aumentado: multiplique 1,2 × 1,2."
+    - texto: "20%"
+      erro: "20% é só um dos aumentos. Foram dois, um depois do outro."
+    - texto: "4%"
+      erro: "4% é o aumento sobre o aumento (20% de 20%). Falta somar os 40% dos dois aumentos de base."
+    - texto: "1,44%"
+      erro: "1,44 é o fator, não a taxa. Fator 1,44 quer dizer 144% do preço: um aumento de 44%."
+    - texto: "44%"
+      certa: true
+  explicacao: "1,2 × 1,2 = 1,44. O preço final é 144% do inicial: um aumento total de 44%."
+  conferir: "(1.2 * 1.2 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-04
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num município, a passagem de ônibus custava R$ 4,00. Em janeiro, a tarifa foi reajustada em 10%. Em julho, a nova
+    tarifa teve outro reajuste, de 5%.
+  enunciado: "Depois dos dois reajustes, a passagem passou a custar"
+  alternativas:
+    - texto: "R$ 4,60."
+      erro: "Você somou as taxas (15%). O reajuste de julho incide sobre R$ 4,40, e não sobre R$ 4,00."
+    - texto: "R$ 4,62."
+      certa: true
+    - texto: "R$ 4,40."
+      erro: "Esse é o preço depois de janeiro. Falta o reajuste de julho: 5% de 4,40 é 0,22."
+    - texto: "R$ 4,20."
+      erro: "Você aplicou só o reajuste de 5%. O de 10% veio antes."
+    - texto: "R$ 0,62."
+      erro: "R$ 0,62 é quanto a passagem subiu no total. A pergunta pede o preço novo: 4,00 + 0,62."
+  explicacao: "Janeiro: 10% de 4,00 é 0,40; vai a 4,40. Julho: 5% de 4,40 é a metade de 0,44, ou seja, 0,22; vai a 4,62."
+  conferir: "4 * 1.1 * 1.05"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-05
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  dificuldade: 2
+  enunciado: "O salário de uma auxiliar de cozinha passou de R$ 1.500 para R$ 1.620. De quanto foi o reajuste?"
+  alternativas:
+    - texto: "120%"
+      erro: "120 é a diferença em reais, não a taxa. Divida a diferença pelo salário antigo."
+    - texto: "7,4%"
+      erro: "Você dividiu a diferença pelo salário novo (120 ÷ 1.620). Divida pelo valor de partida, 1.500."
+    - texto: "8%"
+      certa: true
+    - texto: "12%"
+      erro: "Você dividiu 120 por 1.000. O salário de partida é 1.500."
+    - texto: "108%"
+      erro: "108% é quanto o salário novo representa do antigo (o fator 1,08). O reajuste é o que passa de 100%: 8%."
+  explicacao: "Diferença: 1.620 − 1.500 = 120. Taxa: 120 ÷ 1.500. Divida os dois por 15: 8 ÷ 100 = 8%."
+  conferir: "(1620 - 1500) / 1500 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-06
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma loja de roupas fez uma promoção: 30% de desconto em todas as blusas. No caixa, quem pagava com pix ganhava mais
+    10% de desconto, calculado sobre o preço já com o desconto da promoção. Uma blusa custava R$ 80,00 antes da promoção.
+  enunciado: "Pagando com pix, o preço final da blusa foi de"
+  alternativas:
+    - texto: "R$ 48,00."
+      erro: "Você somou os descontos (40%). O desconto do pix é sobre R$ 56,00, não sobre R$ 80,00."
+    - texto: "R$ 56,00."
+      erro: "Esse é o preço só com a promoção. Falta o desconto do pix: 10% de 56 é 5,60."
+    - texto: "R$ 72,00."
+      erro: "Você aplicou só o desconto do pix. A promoção de 30% vem antes."
+    - texto: "R$ 50,40."
+      certa: true
+    - texto: "R$ 29,60."
+      erro: "R$ 29,60 é o desconto total, em reais. A pergunta pede o preço que se paga: 80 − 29,60."
+  explicacao: "Promoção: 30% de 80 é 24; vai a 56. Pix: 10% de 56 é 5,60; vai a 56 − 5,60 = 50,40. Pelos fatores: 80 × 0,7 × 0,9 = 50,40."
+  conferir: "80 * 0.7 * 0.9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-07
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-aumentos-e-descontos
+  dificuldade: 2
+  enunciado: "Um preço subiu 20% e, depois, caiu 20%. Em relação ao preço inicial, o preço final ficou"
+  alternativas:
+    - texto: "4% menor."
+      valor: "4"
+      certa: true
+    - texto: "igual."
+      valor: "0"
+      erro: "Os 20% da queda são calculados sobre um preço maior. Multiplique os fatores: 1,2 × 0,8."
+    - texto: "4% maior."
+      valor: "-4"
+      erro: "O fator final é 0,96, menor que 1. O preço caiu, não subiu."
+    - texto: "40% menor."
+      valor: "40"
+      erro: "Você somou as taxas como se fossem duas quedas. A primeira foi uma subida."
+    - texto: "20% menor."
+      valor: "20"
+      erro: "Você considerou só a queda. A subida veio antes e mudou a base."
+  explicacao: "1,2 × 0,8 = 0,96. O preço final é 96% do inicial: 4% menor."
+  conferir: "(1 - 1.2 * 0.8) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-08
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma associação de pais acompanhou o preço de um kit de material escolar. De um ano para o seguinte, o preço do kit
+    subiu 25%. No ano depois desse, subiu mais 20%.
+  enunciado: "Considerando os dois anos juntos, o preço do kit subiu"
+  alternativas:
+    - texto: "45%."
+      erro: "Você somou as taxas. O aumento de 20% incide sobre o preço que já tinha subido 25%."
+    - texto: "5%."
+      erro: "Você subtraiu as taxas. As duas foram aumentos: multiplique os fatores 1,25 × 1,2."
+    - texto: "150%."
+      erro: "1,5 é o fator: o preço final é 150% do inicial. O aumento é o que passa de 100%, ou seja, 50%."
+    - texto: "20%."
+      erro: "20% é só o aumento do segundo ano. O do primeiro ano também conta."
+    - texto: "50%."
+      certa: true
+  explicacao: "1,25 × 1,2: 1,25 + 20% de 1,25 = 1,25 + 0,25 = 1,5. O preço final é 150% do inicial: aumento de 50%."
+  conferir: "(1.25 * 1.2 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-09
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-aumentos-e-descontos
+  dificuldade: 3
+  enunciado: "Um produto teve um desconto de 20%. De quanto deve ser o aumento sobre o preço com desconto para ele voltar ao preço original?"
+  alternativas:
+    - texto: "20%"
+      erro: "20% de aumento sobre um preço menor não recupera os 20% perdidos: 0,8 × 1,2 = 0,96."
+    - texto: "25%"
+      certa: true
+    - texto: "80%"
+      erro: "80% é a parte do preço que sobrou depois do desconto (o fator 0,8), não o aumento que falta."
+    - texto: "120%"
+      erro: "120% seria mais que dobrar o preço. O fator da volta é 1 ÷ 0,8 = 1,25: um aumento de 25%."
+    - texto: "40%"
+      erro: "Você dobrou a taxa. Para desfazer o fator 0,8, divida 1 por 0,8."
+  explicacao: "O desconto multiplicou o preço por 0,8. Para voltar, multiplique por 1 ÷ 0,8 = 10/8 = 1,25. É um aumento de 25%. Confira: R$ 100 com desconto vira R$ 80; 25% de 80 é 20, e 80 + 20 = 100."
+  conferir: "(1 / 0.8 - 1) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-aumentos-10
+  tema: "Aumentos e descontos sucessivos"
+  area: matematica
+  habilidade: 4
+  objeto: mat-numeros-aumentos-e-descontos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num período, o salário de uma trabalhadora foi reajustado em 20%. No mesmo período, o preço dos produtos que ela
+    costuma comprar no mês subiu 50%. O poder de compra é a quantidade de produtos que o salário consegue comprar.
+  enunciado: "Nesse período, o poder de compra do salário dessa trabalhadora"
+  alternativas:
+    - texto: "caiu 30%."
+      valor: "30"
+      erro: "Você subtraiu as taxas (50 − 20). Compare os fatores: o salário foi multiplicado por 1,2 e os preços por 1,5."
+    - texto: "subiu 20%."
+      valor: "-20"
+      erro: "O salário subiu 20%, mas os preços subiram mais. O que importa é quanto o salário compra."
+    - texto: "caiu 20%."
+      valor: "20"
+      certa: true
+    - texto: "caiu 25%."
+      valor: "25"
+      erro: "Você dividiu 1,5 por 1,2 (o fator dos preços pelo do salário) e leu 1,25 como queda de 25%. O poder de compra é o salário dividido pelos preços: 1,2 ÷ 1,5."
+    - texto: "não mudou."
+      valor: "0"
+      erro: "Salário e preços subiram, mas não na mesma taxa. Divida os fatores: 1,2 ÷ 1,5."
+  explicacao: "O salário compra salário ÷ preço. O novo poder de compra é 1,2 ÷ 1,5 = 12 ÷ 15 = 4/5 = 0,8 do antigo. Caiu 20%."
+  conferir: "(1 - 1.2 / 1.5) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

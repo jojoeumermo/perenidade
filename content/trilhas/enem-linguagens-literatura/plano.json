@@ -1,0 +1,19 @@
+[
+  { "slug": "o-texto-literario", "titulo": "O texto literário e os gêneros literários" },
+  { "slug": "quinhentismo", "titulo": "Quinhentismo e literatura de informação" },
+  { "slug": "barroco", "titulo": "Barroco" },
+  { "slug": "arcadismo", "titulo": "Arcadismo" },
+  { "slug": "romantismo", "titulo": "Romantismo" },
+  { "slug": "realismo-e-naturalismo", "titulo": "Realismo e Naturalismo" },
+  { "slug": "parnasianismo-e-simbolismo", "titulo": "Parnasianismo e Simbolismo" },
+  { "slug": "pre-modernismo", "titulo": "Pré-Modernismo" },
+  { "slug": "vanguardas-e-semana-de-22", "titulo": "Vanguardas europeias e Semana de 1922" },
+  { "slug": "primeira-geracao-modernista", "titulo": "Primeira geração modernista" },
+  { "slug": "geracao-de-30", "titulo": "Romance de 30 e poesia de 30" },
+  { "slug": "geracao-de-45", "titulo": "Geração de 45" },
+  { "slug": "poesia-concreta-e-contemporanea", "titulo": "Poesia concreta e produção contemporânea" },
+  { "slug": "literatura-afro-brasileira", "titulo": "Literatura afro-brasileira" },
+  { "slug": "literatura-indigena", "titulo": "Literatura indígena" },
+  { "slug": "cordel-e-literatura-oral", "titulo": "Cordel e literatura oral" },
+  { "slug": "literatura-marginal-e-periferica", "titulo": "Literatura marginal e periférica" }
+]

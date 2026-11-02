@@ -1,0 +1,246 @@
+# Exercícios da aula "Vanguardas europeias e Semana de 1922" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-vanguardas-01
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-semana-de-22
+  dificuldade: 1
+  enunciado: "Qual vanguarda europeia mostrava um mesmo objeto visto de vários ângulos ao mesmo tempo, decomposto em formas geométricas?"
+  alternativas:
+    - texto: "Cubismo"
+      certa: true
+    - texto: "Futurismo"
+      erro: "O Futurismo exaltava a velocidade e a máquina. A decomposição em formas geométricas é do Cubismo de Picasso e Braque."
+    - texto: "Surrealismo"
+      erro: "O Surrealismo buscava o sonho e o inconsciente, não a geometria das formas."
+    - texto: "Dadaísmo"
+      erro: "O Dadaísmo apostava no absurdo e no acaso. Os vários ângulos ao mesmo tempo são do Cubismo."
+    - texto: "Expressionismo"
+      erro: "O Expressionismo deforma para mostrar a angústia interior. Decompor em geometria é outra coisa: Cubismo."
+  explicacao: "O Cubismo, de Pablo Picasso e Georges Braque (por volta de 1907), decompõe as figuras em formas geométricas e junta vários pontos de vista num só quadro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-02
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-semana-de-22
+  dificuldade: 1
+  enunciado: "A Semana de Arte Moderna aconteceu em fevereiro de 1922. Que data histórica do Brasil se comemorava naquele ano?"
+  alternativas:
+    - texto: "Os cem anos da Abolição da escravidão"
+      erro: "A Abolição é de 1888. Em 1922, ela fazia só 34 anos."
+    - texto: "Os cem anos da Independência"
+      certa: true
+    - texto: "Os cem anos da Proclamação da República"
+      erro: "A República foi proclamada em 1889. Em 1922, fazia 33 anos."
+    - texto: "Os cem anos da chegada da família real"
+      erro: "A família real portuguesa chegou em 1808. O centenário disso foi em 1908."
+    - texto: "Os cem anos da Revolução de 1930"
+      erro: "A Revolução de 1930 aconteceu oito anos depois da Semana. Não podia ser comemorada em 1922."
+  explicacao: "A Independência é de 1822. Os modernistas aproveitaram o centenário para discutir o que seria uma arte brasileira moderna."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-03
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-semana-de-22
+  dificuldade: 1
+  enunciado: "Qual destes artistas NÃO participou da Semana de Arte Moderna de 1922, porque estava em Paris?"
+  alternativas:
+    - texto: "Anita Malfatti"
+      erro: "Anita expôs 22 obras na Semana. Foi a exposição dela, em 1917, que reuniu o grupo."
+    - texto: "Mário de Andrade"
+      erro: "Mário de Andrade foi um dos organizadores e participou das noites da Semana."
+    - texto: "Heitor Villa-Lobos"
+      erro: "Villa-Lobos apresentou música na Semana."
+    - texto: "Tarsila do Amaral"
+      certa: true
+    - texto: "Di Cavalcanti"
+      erro: "Di Cavalcanti ajudou a idealizar a Semana e expôs nela."
+  explicacao: "Tarsila do Amaral estava em Paris em fevereiro de 1922. Ela se juntou ao grupo depois e virou um dos nomes centrais do Modernismo, mas não esteve na Semana."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-04
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-semana-de-22
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Receita para um poema de hoje: recorte um jornal velho. Jogue as palavras num chapéu. Tire uma por uma
+    e escreva na ordem em que saírem. O poema vai se parecer com você, e o mundo que fez a guerra não vai
+    entender nada.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "A proposta do texto se aproxima da vanguarda que"
+  alternativas:
+    - texto: "exaltava a velocidade e a máquina como símbolos da vida moderna."
+      erro: "Não há máquina nem velocidade no texto. O que ele propõe é o acaso: palavras sorteadas de um chapéu."
+    - texto: "decompunha as figuras em formas geométricas vistas de vários ângulos."
+      erro: "Isso é o Cubismo, que pensa em formas e pontos de vista. O texto fala de sorteio e de recusa da lógica."
+    - texto: "buscava no sonho e no inconsciente uma realidade acima da razão."
+      erro: "O Surrealismo também desconfia da razão, mas pelo sonho. Aqui o caminho é o acaso e a zombaria, marcas do Dadaísmo."
+    - texto: "usava o acaso e o absurdo para recusar a arte e a razão de um mundo em guerra."
+      certa: true
+    - texto: "deformava a realidade para expressar a angústia do artista."
+      erro: "Não há angústia nem deformação: há um jogo com palavras soltas. A angústia é marca do Expressionismo."
+  explicacao: "Sortear palavras de um chapéu e dizer que o mundo da guerra não vai entender é a atitude do Dadaísmo, nascido em Zurique em 1916: o acaso e o absurdo contra a razão que levou à guerra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-05
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-semana-de-22
+  dificuldade: 2
+  enunciado: "A exposição de Anita Malfatti em São Paulo, em dezembro de 1917, é lembrada como um passo rumo à Semana de 1922 porque"
+  alternativas:
+    - texto: "foi elogiada por toda a crítica e virou modelo oficial de pintura."
+      erro: "Foi o contrário: a exposição recebeu uma crítica muito dura de Monteiro Lobato."
+    - texto: "foi a primeira exposição de arte já feita no Brasil."
+      erro: "Havia exposições de arte no Brasil muito antes de 1917. O que era novo eram as cores e as formas de Anita."
+    - texto: "mostrou pinturas de influência moderna, foi atacada e reuniu em volta da pintora os jovens que queriam renovar a arte."
+      certa: true
+    - texto: "foi organizada pelo governo para comemorar o centenário da Independência."
+      erro: "O centenário foi em 1922, e a Semana foi paga por particulares ricos, não pelo governo. A exposição de 1917 foi individual."
+    - texto: "apresentou pela primeira vez os poemas concretos."
+      erro: "A poesia concreta é dos anos 1950. Em 1917 a exposição era de pintura."
+  explicacao: "Os quadros de Anita, de influência expressionista, foram atacados por Monteiro Lobato. A polêmica aproximou dela Mário de Andrade, Oswald de Andrade e outros jovens, que cinco anos depois fizeram a Semana."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-06
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-semana-de-22
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na tela, o rosto da costureira é verde e os olhos ocupam metade da face. As mãos, enormes, parecem
+    pesar mais que o corpo. Ao fundo, a parede da oficina se curva como se fosse cair sobre ela. Quem olha
+    não vê uma fotografia: vê o cansaço.
+    (Descrição de uma pintura imaginária, texto original do Instituto Lúcia.)
+  enunciado: "A pintura descrita se aproxima do Expressionismo porque"
+  alternativas:
+    - texto: "registra a cena com fidelidade, como uma fotografia da oficina."
+      erro: "O próprio texto diz que quem olha não vê uma fotografia. A pintura deforma de propósito."
+    - texto: "exalta a máquina de costura como símbolo do progresso."
+      erro: "A máquina nem aparece. O foco é o corpo cansado da trabalhadora, não o progresso."
+    - texto: "decompõe a figura em formas geométricas vistas de vários lados."
+      erro: "Há deformação, mas não geometria nem vários pontos de vista. A deformação aqui serve ao sentimento."
+    - texto: "segue a beleza ideal e as proporções clássicas do corpo humano."
+      erro: "As proporções foram quebradas de propósito: olhos enormes, mãos pesadas."
+    - texto: "deforma cores e proporções para expressar um estado interior, o cansaço."
+      certa: true
+  explicacao: "Rosto verde, olhos e mãos desproporcionais, parede que se curva: a realidade é deformada para mostrar o que se sente. É o princípio do Expressionismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-07
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-semana-de-22
+  dificuldade: 2
+  enunciado: "Na Semana de 1922, a leitura do poema \"Os sapos\", de Manuel Bandeira, provocou vaias. Por que o poema incomodava parte da plateia?"
+  alternativas:
+    - texto: "Porque zombava dos poetas parnasianos, presos à rima rica e à métrica rígida."
+      certa: true
+    - texto: "Porque defendia a volta do soneto clássico."
+      erro: "É o contrário: o poema ri justamente dos poetas apegados às formas fixas."
+    - texto: "Porque era escrito em língua estrangeira."
+      erro: "O poema é em português. O incômodo era com o alvo da sátira."
+    - texto: "Porque criticava a Independência do Brasil."
+      erro: "O poema não fala da Independência. Ele satiriza uma escola literária, o Parnasianismo."
+    - texto: "Porque era um poema concreto, feito para ser visto."
+      erro: "A poesia concreta só surge nos anos 1950. \"Os sapos\" é um poema satírico em versos."
+  explicacao: "\"Os sapos\" satiriza os parnasianos, a poesia oficial da época. Parte do público admirava esses poetas e reagiu com vaias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-08
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-semana-de-22
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A Semana de 1922 aconteceu no teatro mais elegante de São Paulo, paga por fazendeiros e industriais
+    ricos. Ao mesmo tempo, nas ruas do Rio e de São Paulo, sambistas, operários e jornais da imprensa negra
+    criavam uma cultura moderna que não passava pelo Theatro Municipal.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "O texto propõe ler a Semana de Arte Moderna"
+  alternativas:
+    - texto: "como um evento sem nenhuma importância para a arte brasileira."
+      erro: "O texto não diz que a Semana não importou. Ele a coloca ao lado de outras criações da época."
+    - texto: "como a única origem possível da cultura moderna no Brasil."
+      erro: "É o oposto: o texto mostra que havia cultura moderna sendo criada fora do teatro."
+    - texto: "como ruptura artística feita dentro da elite, ao lado de outras modernidades populares da mesma época."
+      certa: true
+    - texto: "como uma festa popular organizada pelos operários paulistas."
+      erro: "Quem pagou foram fazendeiros e industriais. Os operários aparecem do lado de fora."
+    - texto: "como um movimento que recusava tudo o que fosse brasileiro."
+      erro: "Os modernistas buscavam uma arte brasileira nova. E o texto nem fala disso: fala de quem fazia cultura e onde."
+  explicacao: "O texto não nega a Semana. Ele a situa: foi uma ruptura nascida do dinheiro da elite do café, enquanto outras modernidades, populares, surgiam nas ruas. Essa leitura crítica é uma das que não têm consenso, e por isso cai."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-09
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-semana-de-22
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Escrevo sem parar, a mão mais rápida que o medo.
+    Um peixe abre a porta do meu quarto e pede o relógio emprestado.
+    A lua, debaixo da cama, conta os meus dentes.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "Os versos dialogam com o Surrealismo, sobretudo pela"
+  alternativas:
+    - texto: "exaltação do progresso técnico e da velocidade."
+      erro: "O relógio aparece, mas como objeto de sonho, não como símbolo de progresso. Velocidade é tema do Futurismo."
+    - texto: "decomposição do quarto em formas geométricas."
+      erro: "Não há geometria. As imagens são absurdas como as de um sonho."
+    - texto: "crítica direta à guerra e aos governos europeus."
+      erro: "O poema não fala de guerra. A crítica política explícita não é o centro destes versos."
+    - texto: "volta à métrica fixa e à rima rica."
+      erro: "Os versos são livres e não rimam."
+    - texto: "escrita que finge não ser controlada pela razão e junta imagens de sonho."
+      certa: true
+  explicacao: "\"Escrevo sem parar, a mão mais rápida que o medo\" lembra a escrita automática. Peixe que pede relógio e lua que conta dentes são imagens de sonho. As duas marcas são do Surrealismo, de André Breton (1924)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-vanguardas-10
+  tema: "Vanguardas europeias e Semana de 1922"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-semana-de-22
+  dificuldade: 3
+  enunciado: "O Futurismo italiano, de 1909, exaltava a força, a máquina e até a guerra. Que leitura crítica dessa vanguarda é mais bem fundamentada?"
+  alternativas:
+    - texto: "Ela era só uma brincadeira de artistas, sem nenhuma ligação com a política."
+      erro: "Parte do grupo se aproximou do fascismo italiano. A exaltação da força teve consequência política."
+    - texto: "Ela foi a única vanguarda a influenciar os modernistas brasileiros."
+      erro: "Os modernistas brasileiros dialogaram com várias vanguardas: Cubismo, Expressionismo, Dadaísmo, Surrealismo."
+    - texto: "Ela defendia a preservação dos museus e da tradição clássica."
+      erro: "O Futurismo queria destruir os museus. Recusar o passado era o centro da proposta."
+    - texto: "Ela nasceu nos Estados Unidos, ligada ao cinema."
+      erro: "O manifesto é do italiano Marinetti, publicado num jornal de Paris."
+    - texto: "A exaltação da força e da guerra aproximou parte do grupo do fascismo, o que mostra que ruptura estética não é sempre emancipação."
+      certa: true
+  explicacao: "Romper com a tradição não garante uma posição justa. O Futurismo celebrava a guerra, e parte do grupo, a começar por Marinetti, se aliou ao fascismo. Ler a vanguarda no seu contexto (H15) é perceber isso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

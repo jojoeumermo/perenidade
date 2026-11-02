@@ -1,0 +1,240 @@
+# Exercícios da aula "Oralidade e escrita" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-oralidade-01
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  dificuldade: 1
+  enunciado: "Qual destes trechos tem mais marcas da fala espontânea?"
+  alternativas:
+    - texto: "“Informamos que o expediente será encerrado às 17 horas.”"
+      erro: "É um aviso escrito, formal e planejado. Não tem hesitação nem marcador conversacional."
+    - texto: "“Art. 1º Fica instituído o Dia do Agricultor Familiar.”"
+      erro: "É texto de lei, o extremo mais formal da escrita."
+    - texto: "“O estudo analisou 300 escolas públicas do estado.”"
+      erro: "Frase completa, impessoal, sem marcas de conversa. É típica da escrita de reportagem."
+    - texto: "“Prezado senhor, venho por meio desta solicitar.”"
+      erro: "Fórmula de carta formal escrita. Não tem as marcas da fala."
+    - texto: "“Aí, né, eu peguei e falei: ó, não dá, não dá mesmo.”"
+      certa: true
+  explicacao: "“Aí”, “né”, “peguei e falei”, “ó” e a repetição “não dá, não dá” são marcas de quem fala sem roteiro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-02
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  dificuldade: 1
+  enunciado: "Por que a escrita precisa deixar mais coisas explícitas que a fala?"
+  alternativas:
+    - texto: "Porque a escrita é sempre mais difícil."
+      erro: "Dificuldade não é o ponto. A diferença está na situação: o leitor não está presente."
+    - texto: "Porque o leitor, em geral, não está presente para perguntar ou ver a situação."
+      certa: true
+    - texto: "Porque a fala não tem regras."
+      erro: "A fala tem regras. A diferença é que ela se apoia na situação, que o leitor da escrita não vê."
+    - texto: "Porque a escrita é mais antiga que a fala."
+      erro: "É o contrário: a fala veio primeiro. A escrita é uma invenção mais recente."
+    - texto: "Porque quem escreve sabe menos que quem fala."
+      erro: "Não há relação. Qualquer pessoa precisa ser mais explícita ao escrever, pelo mesmo motivo."
+  explicacao: "Na conversa, “põe ali” funciona porque os dois veem o “ali”. No texto escrito, o leitor está longe e precisa de tudo dito com palavras."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-03
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  dificuldade: 1
+  enunciado: "Uma palestra preparada, lida em parte de um roteiro, fica no contínuo entre fala e escrita"
+  alternativas:
+    - texto: "no meio: é falada, mas planejada como um texto escrito."
+      certa: true
+    - texto: "no extremo da fala espontânea, como uma conversa de bar."
+      erro: "A palestra é planejada e tem roteiro. A conversa de bar não tem."
+    - texto: "no extremo da escrita, como uma lei."
+      erro: "A palestra é dita em voz alta para um público presente. Não é texto escrito para ser lido."
+    - texto: "fora do contínuo, porque não é nem fala nem escrita."
+      erro: "Ela é fala, com planejamento de escrita. O contínuo existe justamente para casos assim."
+    - texto: "no mesmo ponto de uma mensagem de celular entre amigos."
+      erro: "A mensagem entre amigos é informal e espontânea. A palestra é planejada e mais formal."
+  explicacao: "Marcuschi vê fala e escrita num contínuo. A palestra é oral, mas tem planejamento e formalidade próprios da escrita: fica no meio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-04
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Versão 1 (fala numa reunião): “Então, gente, a horta, né, a horta tá dando muito mais do que a gente consegue comer, aí eu pensei, por que não leva pra feira de sábado?”
+    Versão 2 (ata da reunião): “A moradora propôs que o excedente da horta comunitária seja vendido na feira de sábado.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "Na passagem da versão 1 para a versão 2,"
+  alternativas:
+    - texto: "o sentido da proposta foi alterado."
+      erro: "A proposta é a mesma: levar o que sobra da horta para a feira. Mudou a forma, não o sentido."
+    - texto: "a versão 2 ficou errada, porque tirou as palavras da moradora."
+      erro: "Ata registra o conteúdo, não cada palavra. Retextualizar assim é o esperado no gênero."
+    - texto: "a versão 1 foi corrigida porque estava errada."
+      erro: "A versão 1 está adequada à reunião. Ela não foi corrigida; foi adaptada a outro gênero."
+    - texto: "houve retextualização: os marcadores da fala saíram e a ideia foi condensada na escrita."
+      certa: true
+    - texto: "as duas versões têm o mesmo grau de formalidade."
+      erro: "A versão 1 é informal (“gente”, “né”, “aí”); a 2 é formal e impessoal."
+  explicacao: "A ata tira os marcadores (“então”, “né”, “aí”), a repetição (“a horta, a horta”) e transforma a pergunta numa proposta. É retextualização: muda o gênero e a modalidade, mantém o sentido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-05
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  dificuldade: 2
+  enunciado: "Na frase falada “Eu ia… não, espera, primeiro eu passei no mercado”, o trecho “não, espera” mostra"
+  alternativas:
+    - texto: "um erro de concordância."
+      erro: "Não há problema de concordância. O trecho mostra a pessoa corrigindo a própria fala."
+    - texto: "uma variação regional."
+      erro: "Corrigir-se no meio da frase acontece em qualquer região. É marca da fala espontânea."
+    - texto: "a fala sendo planejada enquanto acontece, com correção no meio da frase."
+      certa: true
+    - texto: "o registro formal da conversa."
+      erro: "Autocorreção no meio da frase é marca de fala espontânea, não de formalidade."
+    - texto: "que a pessoa está mentindo."
+      erro: "Nada indica isso. Na fala, é normal começar de um jeito e reorganizar."
+  explicacao: "Quem fala pensa enquanto fala. Começar uma frase, parar e recomeçar é uma das marcas da fala espontânea."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-06
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 25
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Mensagem num grupo de mães da escola:
+    “Gente, amanhã NÃO tem aula!!! Reunião dos professores. Kkkk meu filho já tá comemorando. Alguém sabe se tem merenda de manhã? Bjs”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "A mensagem, embora escrita, se aproxima da fala porque"
+  alternativas:
+    - texto: "usa recursos que imitam a voz e a conversa, como letras maiúsculas para ênfase, risada escrita e saudação informal."
+      certa: true
+    - texto: "segue a norma-padrão rigorosamente."
+      erro: "A mensagem usa “tá”, “kkkk” e “bjs”, formas da conversa informal. Não segue a norma-padrão rígida."
+    - texto: "foi escrita por uma pessoa sem estudo."
+      erro: "Nada no texto diz isso. Mensagem de celular informal é escrita por pessoas de todas as escolaridades."
+    - texto: "não tem pontuação nenhuma."
+      erro: "Tem: pontos, exclamações, interrogação. A pontuação, inclusive, imita a entonação."
+    - texto: "é uma transcrição de áudio."
+      erro: "A mensagem foi digitada. Ela usa recursos da escrita para imitar a fala."
+  explicacao: "O “NÃO” em maiúsculas imita a voz mais alta; os “!!!”, a entonação; o “kkkk”, a risada; o “bjs”, a despedida de conversa. É escrita perto do polo da fala."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-07
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  dificuldade: 2
+  enunciado: "Ao transformar a fala “aí eu cheguei lá e tava fechado, né” numa frase de reportagem, a melhor opção é:"
+  alternativas:
+    - texto: "“Aí ele chegou lá e tava fechado, né.”"
+      erro: "Mantém os marcadores da fala (“aí”, “né”) e o “lá” sem referência. Não foi retextualizado."
+    - texto: "“Ele chegou, né, e estava fechado.”"
+      erro: "Ainda sobra o “né”, marcador de conversa. E falta dizer o que estava fechado."
+    - texto: "“Fechado.”"
+      erro: "Perde a informação de quem chegou e de onde. Retextualizar não é apagar o conteúdo."
+    - texto: "“Tava fechado lá quando ele chegou aí.”"
+      erro: "Troca a ordem, mas mantém “tava”, “lá” e “aí” sem referência."
+    - texto: "“Quando chegou ao posto de saúde, ele o encontrou fechado.”"
+      certa: true
+  explicacao: "Na reportagem, saem os marcadores (“aí”, “né”), o “lá” vira o lugar dito com todas as letras e o verbo vai para a forma da escrita (“estava”, “encontrou”)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-08
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na crônica, o narrador conta o almoço de domingo: “Tio Zé chegou, sentou, e começou: — Pois é, minha gente, é como eu sempre digo, né, quem planta colhe, quem planta colhe. E o feijão, cadê o feijão?”. A família ri. Ninguém responde à filosofia. Todo mundo passa o feijão.
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "Na crônica, a fala de Tio Zé, com repetições e marcadores, serve para"
+  alternativas:
+    - texto: "mostrar que o narrador despreza o tio."
+      erro: "O narrador registra a cena com humor e carinho; a família ri junto. Não há desprezo."
+    - texto: "ensinar ao leitor um provérbio novo."
+      erro: "“Quem planta colhe” é provérbio conhecido. A graça está em como o tio o repete, não no provérbio em si."
+    - texto: "caracterizar o personagem pela fala e criar humor, imitando uma conversa real de família."
+      certa: true
+    - texto: "indicar que o almoço era um evento formal."
+      erro: "Marcadores, repetição e pergunta pelo feijão mostram um ambiente informal e familiar."
+    - texto: "corrigir o modo de falar do tio."
+      erro: "O cronista não corrige ninguém. Ele usa a fala para dar vida ao personagem."
+  explicacao: "As marcas de oralidade (“pois é”, “né”, a repetição do provérbio) fazem o leitor ouvir o tio. O humor vem da mudança brusca da filosofia para o feijão. É recurso literário, não erro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-09
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para muita gente, quem escreve bem é quem escreve “difícil”, longe do jeito de falar. Mas a escrita não é o contrário da fala. Entre uma conversa no ponto de ônibus e um artigo de revista científica, há uma linha cheia de pontos intermediários: o bilhete na geladeira, o áudio para o grupo, a carta para a avó, a notícia de jornal. Escrever bem é saber em que ponto dessa linha o texto precisa estar.
+    Texto do Instituto Lúcia, escrito para este exercício, com base na ideia de contínuo de Luiz Antônio Marcuschi.
+  enunciado: "De acordo com o texto, escrever bem é"
+  alternativas:
+    - texto: "usar sempre as palavras mais difíceis."
+      erro: "É a crença que o texto contesta logo no começo."
+    - texto: "adequar o texto ao gênero e à situação, no ponto certo entre fala e escrita."
+      certa: true
+    - texto: "escrever exatamente como se fala."
+      erro: "O texto não propõe copiar a fala. Ele propõe escolher o ponto adequado, que pode ser bem formal."
+    - texto: "evitar qualquer gênero próximo da fala."
+      erro: "O texto inclui o bilhete e o áudio como gêneros legítimos da linha."
+    - texto: "escrever apenas artigos científicos."
+      erro: "O artigo é só uma das pontas. O texto valoriza saber se mover pela linha toda."
+  explicacao: "A última frase resume: escrever bem é saber em que ponto da linha o texto precisa estar. É o critério da adequação, aplicado ao contínuo entre fala e escrita."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-oralidade-10
+  tema: "Oralidade e escrita"
+  area: linguagens
+  habilidade: 27
+  objeto: lin-lingua-portuguesa-oralidade-e-escrita
+  dificuldade: 3
+  enunciado: "Um candidato escreve na redação do ENEM: “Aí, tipo, o governo tem que agir, né?”. Qual é o problema desse trecho para esse gênero?"
+  alternativas:
+    - texto: "Nenhum: a redação aceita qualquer registro."
+      erro: "A redação do ENEM é um texto dissertativo-argumentativo que pede a norma-padrão e o registro formal."
+    - texto: "O tema do governo é proibido na redação."
+      erro: "Falar do papel do governo é comum, inclusive na proposta de intervenção. O problema é a forma."
+    - texto: "A frase é curta demais."
+      erro: "Frases curtas são bem-vindas. O que não cabe são os marcadores da fala."
+    - texto: "Usa marcas da fala espontânea (“aí”, “tipo”, “né”) num gênero escrito formal."
+      certa: true
+    - texto: "Usa um ponto de interrogação."
+      erro: "Pergunta retórica pode aparecer. O problema está nos marcadores conversacionais."
+  explicacao: "“Aí”, “tipo” e “né” são marcadores da conversa. Na redação, gênero formal e escrito, eles ficam inadequados. Uma versão adequada: “Cabe ao poder público agir”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

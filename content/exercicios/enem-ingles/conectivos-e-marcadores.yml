@@ -1,0 +1,267 @@
+# Exercícios da aula "Inglês: conectivos e marcadores do texto" (trilha enem-ingles).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-ing-conectivos-01
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    The new health center is modern and clean. However, it is far from the bus station.
+  enunciado: "A palavra \"However\" estabelece entre as duas frases uma relação de"
+  alternativas:
+    - texto: "causa."
+      erro: "Causa seria because (porque). A distância não é causa de o posto ser moderno."
+    - texto: "adição."
+      erro: "Adição seria also ou in addition. However não soma: opõe um ponto negativo aos positivos."
+    - texto: "contraste."
+      certa: true
+    - texto: "exemplo."
+      erro: "Exemplo seria for example. A segunda frase não exemplifica a primeira."
+    - texto: "conclusão."
+      erro: "Conclusão seria therefore (portanto). However quer dizer \"no entanto\"."
+  explicacao: "However quer dizer \"no entanto\". A primeira frase traz qualidades (moderno e limpo); a segunda, um problema (longe da rodoviária)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-02
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    The school canceled the trip because of the heavy rain.
+  enunciado: "A expressão \"because of\" introduz"
+  alternativas:
+    - texto: "o motivo do cancelamento."
+      certa: true
+    - texto: "a consequência da chuva para a cidade."
+      erro: "A frase não fala da cidade. Because of (por causa de) traz o motivo: a chuva forte."
+    - texto: "uma condição para a viagem acontecer."
+      erro: "Condição seria if (se) ou unless (a menos que). Aqui a viagem já foi cancelada."
+    - texto: "uma oposição ao cancelamento."
+      erro: "Oposição seria but ou however. Because of explica, não opõe."
+    - texto: "o lugar para onde a turma iria."
+      erro: "O destino não aparece. O trecho depois de because of é the heavy rain, a chuva forte."
+  explicacao: "Because of quer dizer \"por causa de\". A escola cancelou o passeio por causa da chuva forte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-03
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Although the course is online, students meet once a month at the community center.
+  enunciado: "De acordo com a frase, os estudantes"
+  alternativas:
+    - texto: "só estudam pela internet e nunca se encontram."
+      erro: "Although (embora) admite que o curso é online, mas a segunda parte diz que eles se encontram uma vez por mês."
+    - texto: "estudam no centro comunitário todos os dias."
+      erro: "Once a month quer dizer uma vez por mês, não todo dia."
+    - texto: "deixaram o curso porque ele é online."
+      erro: "Although não é because. A frase não fala de desistência."
+    - texto: "se encontram uma vez por mês, mesmo o curso sendo online."
+      certa: true
+    - texto: "só podem se inscrever no centro comunitário."
+      erro: "O centro é o lugar dos encontros. A frase não fala de inscrição."
+  explicacao: "Although introduz uma concessão: \"embora o curso seja online\". A ideia principal vem depois: os estudantes se encontram uma vez por mês (once a month) no centro comunitário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-04
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    The bridge has not been repaired since the flood. As a result, children walk an extra hour to get to school.
+  enunciado: "No texto, a expressão \"As a result\" apresenta"
+  alternativas:
+    - texto: "a causa da enchente."
+      erro: "A enchente (flood) aparece antes, como marco de tempo. As a result traz o efeito da ponte quebrada."
+    - texto: "uma consequência da falta de conserto da ponte."
+      certa: true
+    - texto: "uma solução para o problema da ponte."
+      erro: "Andar uma hora a mais não resolve nada: é o prejuízo que as crianças sofrem."
+    - texto: "um exemplo de obra pública bem-feita."
+      erro: "A ponte não foi consertada (has not been repaired). Não há elogio."
+    - texto: "o resultado de uma prova escolar."
+      erro: "Result, aqui, não é nota. As a result quer dizer \"como resultado, por isso\"."
+  explicacao: "\"Since the flood\" é \"desde a enchente\" (since de tempo). \"As a result\" é \"como resultado\": por causa da ponte sem conserto, as crianças andam uma hora a mais (an extra hour)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-05
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    You will not get the discount unless you show your student card at the entrance.
+  enunciado: "Segundo o aviso, para ter desconto é preciso"
+  alternativas:
+    - texto: "chegar cedo à entrada."
+      erro: "O aviso não fala de horário. Fala de mostrar a carteirinha (show your student card)."
+    - texto: "comprar dois ingressos."
+      erro: "Não há quantidade de ingressos no aviso."
+    - texto: "não mostrar a carteirinha de estudante."
+      erro: "Unless já tem sentido negativo (a menos que). \"Not... unless you show\" quer dizer que é preciso mostrar."
+    - texto: "pedir o desconto depois da entrada."
+      erro: "O lugar é a própria entrada (at the entrance), não depois."
+    - texto: "mostrar a carteirinha de estudante na entrada."
+      certa: true
+  explicacao: "Unless quer dizer \"a menos que\". \"Você não terá o desconto a menos que mostre a carteirinha na entrada\": mostrar a carteirinha é a condição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-06
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Some families spend half of their income on rent, while others pay nothing because they inherited a house.
+  enunciado: "No texto, a palavra \"while\" é usada para"
+  alternativas:
+    - texto: "indicar que as duas situações acontecem ao mesmo tempo, por acaso."
+      erro: "While pode ser \"enquanto\" de tempo, mas aqui compara dois grupos de famílias. É contraste."
+    - texto: "explicar por que as famílias pagam aluguel."
+      erro: "A explicação de quem não paga vem com because (porque herdaram). While não explica."
+    - texto: "somar dois exemplos de famílias que pagam aluguel."
+      erro: "O segundo grupo não paga nada (pay nothing). Não é soma de casos iguais."
+    - texto: "contrastar a situação de dois grupos de famílias."
+      certa: true
+    - texto: "concluir que todas as famílias herdaram uma casa."
+      erro: "Só as do segundo grupo herdaram (others... inherited). Não há conclusão geral."
+  explicacao: "While, aqui, marca contraste: umas famílias gastam metade da renda com aluguel (half of their income), enquanto outras não pagam nada porque herdaram a casa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-07
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Public libraries do more than lend books. For instance, many offer free internet, help with job applications and
+    reading groups for older people.
+  enunciado: "A expressão \"For instance\" introduz"
+  alternativas:
+    - texto: "exemplos do que as bibliotecas fazem além de emprestar livros."
+      certa: true
+    - texto: "uma crítica às bibliotecas que cobram pela internet."
+      erro: "A internet é gratuita (free internet). For instance não critica: exemplifica."
+    - texto: "uma oposição à ideia de que as bibliotecas emprestam livros."
+      erro: "\"Do more than lend books\" (fazem mais que emprestar livros) não nega o empréstimo. Soma outras funções."
+    - texto: "a causa de as pessoas mais velhas lerem pouco."
+      erro: "Os grupos de leitura são um serviço oferecido, não uma causa de algo."
+    - texto: "uma instrução para preencher pedidos de emprego."
+      erro: "A ajuda com pedidos de emprego é um dos exemplos, não uma instrução ao leitor."
+  explicacao: "For instance quer dizer \"por exemplo\". A primeira frase diz que as bibliotecas fazem mais do que emprestar livros; a segunda dá os exemplos: internet grátis, ajuda com pedidos de emprego e grupos de leitura para idosos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-08
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Many believe that video games only isolate teenagers. Yet researchers have observed groups of players who
+    organize themselves, divide tasks and solve problems together. Games are not good or bad in themselves; what
+    matters is how and how long they are played.
+  enunciado: "O autor do texto"
+  alternativas:
+    - texto: "afirma que os jogos isolam todos os adolescentes."
+      erro: "Essa é a crença de \"many\" (muitos). O yet (contudo) marca a virada contra essa ideia."
+    - texto: "proíbe os adolescentes de jogar videogame."
+      erro: "Não há proibição. O autor diz que o que importa é como e por quanto tempo se joga."
+    - texto: "relativiza a visão negativa dos jogos e destaca o modo de uso."
+      certa: true
+    - texto: "afirma que os jogos são sempre bons para a escola."
+      erro: "O autor diz que os jogos não são bons nem ruins em si (not good or bad in themselves)."
+    - texto: "pede que os pesquisadores parem de estudar os jogos."
+      erro: "As pesquisas aparecem como argumento a favor da ideia do autor, não como algo a parar."
+  explicacao: "Yet, aqui, é \"contudo\", não \"ainda\". Depois dele vêm as observações dos pesquisadores (jogadores que se organizam e resolvem problemas juntos). A conclusão: os jogos não são bons nem ruins em si; o que importa é como e quanto se joga."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-09
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Since the factory opened, the river has changed color. Fishermen say the fish are gone. The company, however,
+    denies any responsibility and says the water is tested every week.
+  enunciado: "Sobre o rio, o texto apresenta"
+  alternativas:
+    - texto: "a explicação da empresa como verdade comprovada."
+      erro: "O texto só relata o que a empresa diz (denies, says). Não afirma que é verdade."
+    - texto: "a causa da abertura da fábrica."
+      erro: "Since, aqui, é \"desde\" (marco de tempo), não \"já que\". O texto não explica por que a fábrica abriu."
+    - texto: "a concordância entre pescadores e empresa."
+      erro: "However marca que a empresa discorda dos pescadores: ela nega a responsabilidade."
+    - texto: "uma solução já adotada para trazer os peixes de volta."
+      erro: "Não há solução. Os testes semanais são o argumento da empresa, não uma medida contra o problema."
+    - texto: "duas versões em conflito: a dos pescadores e a da empresa."
+      certa: true
+  explicacao: "\"Since the factory opened\": desde que a fábrica abriu. Os pescadores dizem que os peixes sumiram. \"The company, however, denies\": a empresa, no entanto, nega. O however põe as duas versões em oposição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-conectivos-10
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Instead of building a new parking lot, the city decided to plant trees and open a market for local farmers.
+    Moreover, the space will host free concerts on Sundays.
+  enunciado: "As expressões \"Instead of\" e \"Moreover\" indicam, respectivamente,"
+  alternativas:
+    - texto: "adição e causa."
+      erro: "Instead of não soma: troca uma coisa por outra. E moreover não é causa."
+    - texto: "substituição e adição."
+      certa: true
+    - texto: "condição e contraste."
+      erro: "Condição seria if ou unless. Moreover acrescenta, não opõe."
+    - texto: "conclusão e exemplo."
+      erro: "Conclusão seria therefore; exemplo, for example. Nenhum dos dois aparece."
+    - texto: "causa e consequência."
+      erro: "Causa seria because; consequência, so ou as a result."
+  explicacao: "Instead of é \"em vez de\": a praça com árvores e feira substitui o estacionamento. Moreover é \"além disso\": soma os shows gratuitos de domingo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

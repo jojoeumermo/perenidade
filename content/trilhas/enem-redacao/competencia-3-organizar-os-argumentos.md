@@ -22,8 +22,15 @@ quiz:
   - pergunta: "Quantos argumentos costumam ser suficientes?"
     opcoes: ["Dois argumentos bem desenvolvidos", "Dez argumentos superficiais", "Nenhum"]
     resposta: 0
-    explicacao: "Em 30 linhas, aprofundar vale mais que acumular."
+    explicacao: "Em {{enem:redacao-linhas}} linhas, aprofundar vale mais que acumular."
 ---
+
+## O que você vai aprender
+
+- O que a Competência 3 avalia: a seleção, a relação, a organização e a interpretação dos argumentos.
+- Como montar o projeto de texto antes de escrever.
+- As partes de um parágrafo de desenvolvimento.
+- O que é autoria e por que ela separa os textos medianos dos melhores.
 
 ## Argumentar é escolher
 
@@ -81,3 +88,26 @@ As redações mais bem avaliadas mostram **autoria**: um ponto de vista próprio
 2. Escreva um parágrafo de desenvolvimento com as quatro partes.
 3. Pegue uma redação sua e verifique: cada parágrafo sustenta a tese?
 4. Troque redações com um colega e aponte, na do outro, o argumento mais forte e o mais fraco.
+
+## Como isso cai no ENEM
+
+- **Formato:** a C3 é uma das cinco notas da redação. Pelo edital, {{enem:redacao-nota}}.
+- **Competência ligada:** C3, selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. A Cartilha 2026 liga essa competência ao projeto de texto: o planejamento que aparece na leitura.
+- **Armadilhas:** argumentos só citados, sem explicação; um parágrafo que contradiz a tese; ideias soltas que não se ligam a nada; ficar limitado aos argumentos dos textos motivadores, o que a Cartilha 2026 põe nos níveis mais baixos; o tangenciamento, que também limita esta competência.
+
+## Resumo
+
+- A C3 avalia se as ideias formam um caminho até a conclusão.
+- Planeje: tese, dois argumentos e proposta, antes de escrever.
+- Cada parágrafo de desenvolvimento tem frase-tópico, fundamentação, explicação e fechamento.
+- Dois argumentos bem desenvolvidos valem mais que cinco só mencionados.
+- Autoria é ponto de vista próprio e bem sustentado, além dos textos motivadores.
+- Os argumentos sustentam a tese, e a conclusão decorre deles.
+
+## Para aprofundar
+
+- [O texto dissertativo-argumentativo](/trilhas/portugues-medio/o-texto-dissertativo-argumentativo)
+- [Coesão e coerência](/trilhas/portugues-medio/coesao-e-coerencia)
+- [A estrutura da redação do ENEM](/trilhas/enem-redacao/a-estrutura-da-redacao-do-enem)
+- [Competência 2: entender o tema e usar repertório](/trilhas/enem-redacao/competencia-2-entender-o-tema-e-usar-repertorio)
+- [Redação expressa: a estrutura em 30 linhas](/trilhas/enem-reta-final/redacao-expressa-a-estrutura-em-30-linhas)

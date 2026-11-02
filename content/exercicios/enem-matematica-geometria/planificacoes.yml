@@ -1,0 +1,251 @@
+# Exercícios da aula "Planificações" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-planificacoes-01
+  tema: "Planificações"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-planificacoes
+  dificuldade: 1
+  enunciado: "Uma planificação é formada por um círculo e por um setor circular (uma figura com a forma de uma fatia de pizza). Que sólido ela monta?"
+  alternativas:
+    - texto: "Cone"
+      certa: true
+    - texto: "Cilindro"
+      erro: "O cilindro tem dois círculos e um retângulo. O setor circular, enrolado, forma a parte inclinada de um cone."
+    - texto: "Pirâmide"
+      erro: "A pirâmide tem faces planas: a base é um polígono e as laterais são triângulos. Não há círculo."
+    - texto: "Esfera"
+      erro: "A esfera não tem planificação exata: não dá para abrir uma bola sem rasgar ou esticar."
+    - texto: "Prisma"
+      erro: "O prisma tem duas bases poligonais e faces laterais retangulares. Não há parte curva."
+  explicacao: "O círculo é a base e o setor circular, enrolado, é a superfície lateral. É o molde do cone."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-02
+  tema: "Planificações"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-planificacoes
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Uma fábrica de chocolates vende barras numa caixa em forma de prisma reto de base triangular, como um pequeno
+    telhado deitado. A caixa é feita de uma única folha de papelão recortada e dobrada.
+  enunciado: "Sem contar as abas de colagem, a folha recortada é formada por"
+  alternativas:
+    - texto: "3 triângulos e 2 retângulos."
+      erro: "Os números ficaram trocados. As bases são 2 (os triângulos das pontas) e os lados da base são 3, então há 3 retângulos."
+    - texto: "2 triângulos e 2 retângulos."
+      erro: "Falta uma face lateral. O triângulo da base tem 3 lados, e cada lado dá um retângulo."
+    - texto: "1 triângulo e 3 retângulos."
+      erro: "Falta uma das bases. Um prisma tem duas bases iguais, uma em cada ponta."
+    - texto: "2 triângulos e 3 retângulos."
+      certa: true
+    - texto: "5 retângulos."
+      erro: "As duas pontas da caixa são triângulos, as bases do prisma. Só as laterais são retângulos."
+  explicacao: "Prisma triangular: 2 bases triangulares e 1 face lateral retangular para cada lado do triângulo, ou seja, 3 retângulos. São 5 faces."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-03
+  tema: "Planificações"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-planificacoes
+  dificuldade: 1
+  enunciado: "O rótulo de uma lata cilíndrica de 4 cm de raio e 10 cm de altura cobre toda a lateral. Aberto, ele é um retângulo. Usando π = 3,14, quanto mede o lado do retângulo que dava a volta na lata?"
+  alternativas:
+    - texto: "12,56 cm"
+      erro: "Você fez π · r, que é só metade da volta. O comprimento da circunferência é 2 · π · r."
+    - texto: "25,12 cm"
+      certa: true
+    - texto: "50,24 cm"
+      erro: "50,24 é π · r², a área da tampa, em cm². O lado do rótulo é a volta: 2 · π · r."
+    - texto: "10 cm"
+      erro: "10 cm é a altura da lata, o outro lado do retângulo. O lado que dava a volta é 2 · π · r."
+    - texto: "251,2 cm"
+      erro: "251,2 é a área do rótulo, em cm² (25,12 × 10). A pergunta é um comprimento."
+  explicacao: "O lado que dava a volta é o comprimento da circunferência da base: 2 × 3,14 × 4 = 25,12 cm."
+  conferir: "2 * 3.14 * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-04
+  tema: "Planificações"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-planificacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma artesã faz dados de madeira a partir de um molde em cruz. Figura descrita em palavras: há uma fileira em pé
+    de quatro quadrados, com os números 1, 2, 6 e 5, de cima para baixo. Grudado à esquerda do quadrado 2 está o
+    quadrado 3, e grudado à direita do quadrado 2 está o quadrado 4.
+  enunciado: "Depois de o dado ser montado, o número que fica na face oposta à face 2 é"
+  alternativas:
+    - texto: "1"
+      erro: "O 1 encosta no 2 no molde. Faces que se encostam no molde ficam vizinhas no cubo, nunca opostas."
+    - texto: "6"
+      erro: "O 6 encosta no 2 no molde (logo abaixo). No cubo, ele vira uma face vizinha."
+    - texto: "3"
+      erro: "O 3 está grudado no 2. Ele vira uma face lateral, vizinha do 2. O 3 é oposto ao 4."
+    - texto: "4"
+      erro: "O 4 está grudado no 2. Ele vira uma face lateral, vizinha do 2. O 4 é oposto ao 3."
+    - texto: "5"
+      certa: true
+  explicacao: "Na fileira reta, as opostas ficam pulando uma: 1 com 6, e 2 com 5. Os dois dos lados, 3 e 4, são opostos entre si. Como num dado comum, cada par de opostas soma 7."
+  conferir: "7 - 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-05
+  tema: "Planificações"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-planificacoes
+  dificuldade: 2
+  enunciado: "Qual é a área do molde de uma caixa cúbica fechada de 15 cm de aresta, sem contar abas?"
+  alternativas:
+    - texto: "225 cm²"
+      erro: "225 cm² é a área de uma face só. O molde do cubo tem 6 faces."
+    - texto: "900 cm²"
+      erro: "Você contou só 4 faces, as da fileira. Falta somar as duas faces dos lados."
+    - texto: "1.350 cm²"
+      certa: true
+    - texto: "3.375 cm²"
+      erro: "3.375 é o volume da caixa, em cm³ (15³). O molde é uma área: 6 faces de 15 × 15."
+    - texto: "90 cm²"
+      erro: "Você multiplicou a aresta por 6. Cada face é um quadrado: área 15 × 15 = 225."
+  explicacao: "Cada face: 15 × 15 = 225 cm². O molde tem 6 faces: 6 × 225 = 1.350 cm²."
+  conferir: "6 * 15^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-06
+  tema: "Planificações"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-planificacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma professora desenhou cinco moldes, cada um com seis quadrados iguais, e perguntou à turma qual deles não
+    pode ser dobrado para formar um cubo.
+  enunciado: "O molde que NÃO forma um cubo é o que tem"
+  alternativas:
+    - texto: "uma fileira de quatro quadrados, com um quadrado grudado à esquerda e outro à direita do segundo quadrado da fileira (a cruz)."
+      erro: "A cruz é o molde mais conhecido do cubo: os dois quadrados dos lados viram as faces esquerda e direita."
+    - texto: "uma fileira de quatro quadrados, com os dois quadrados restantes do mesmo lado da fileira, grudados no primeiro e no segundo quadrados."
+      certa: true
+    - texto: "uma fileira de quatro quadrados, com um quadrado grudado de um lado do primeiro e outro grudado do lado oposto do quarto."
+      erro: "Este fecha: a fileira dá a volta e os dois de fora, um de cada lado, viram as faces esquerda e direita."
+    - texto: "uma fileira de quatro quadrados, com um quadrado grudado de um lado do segundo e outro grudado do lado oposto do terceiro."
+      erro: "Este fecha: os dois extras estão em lados opostos da fileira, como pede a regra."
+    - texto: "duas fileiras de três quadrados, em degrau: o primeiro quadrado da fileira de baixo fica logo abaixo do terceiro da fileira de cima."
+      erro: "Este é um dos 11 moldes do cubo, o da escada de três e três. Ele fecha."
+  explicacao: "A fileira de quatro dá a volta no cubo. Os dois quadrados que sobram são as faces esquerda e direita, por isso têm de ficar um de cada lado da fileira. Do mesmo lado, os dois iriam para a mesma face e um lado do cubo ficaria aberto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-07
+  tema: "Planificações"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-planificacoes
+  dificuldade: 2
+  enunciado: "O molde da lateral de um cone é um setor circular. O cone tem 4 cm de raio da base e 10 cm de geratriz. Usando π = 3,14, qual é a área desse setor?"
+  alternativas:
+    - texto: "314 cm²"
+      erro: "314 é a área do círculo inteiro de raio 10 (π · g²). O setor é só uma parte dele: π · r · g."
+    - texto: "50,24 cm²"
+      erro: "50,24 é a área da base do cone (π · r²). A pergunta é a lateral."
+    - texto: "251,2 cm²"
+      erro: "Você usou 2 · π · r · g, que é a lateral do cilindro. A do cone é a metade: π · r · g."
+    - texto: "175,84 cm²"
+      erro: "Você somou a base (50,24) à lateral. A pergunta é só o setor, a parte lateral."
+    - texto: "125,6 cm²"
+      certa: true
+  explicacao: "Área lateral do cone: π · r · g = 3,14 × 4 × 10 = 125,6 cm²."
+  conferir: "3.14 * 4 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-08
+  tema: "Planificações"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-planificacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para uma festa na escola, as crianças vão fazer chapéus em forma de cone (sem a base). Cada chapéu é feito com
+    um setor circular de 18 cm de raio e ângulo de 120°, colando as duas bordas retas uma na outra.
+  enunciado: "O raio da abertura do chapéu, depois de montado, é de"
+  alternativas:
+    - texto: "18 cm"
+      erro: "18 cm é o raio do setor, que vira a geratriz do cone, a distância da ponta até a borda."
+    - texto: "12 cm"
+      erro: "O arco do setor mede 12π cm. Esse é o comprimento da volta da abertura, 2 · π · r, e não o raio."
+    - texto: "9 cm"
+      erro: "Você tomou a metade de 18. O raio sai da fração do círculo usada: 120° é um terço de 360°."
+    - texto: "6 cm"
+      certa: true
+    - texto: "36 cm"
+      erro: "36 cm é o diâmetro do círculo de papel de onde o setor foi recortado."
+  explicacao: "O arco do setor é 120 ÷ 360 = 1/3 da volta de raio 18: (1/3) × 2 · π · 18 = 12π cm. Esse arco vira a volta da abertura: 2 · π · r = 12π, então r = 6 cm. Pela fórmula: r = g × ângulo ÷ 360 = 18 × 120 ÷ 360 = 6."
+  conferir: "18 * 120 / 360"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-09
+  tema: "Planificações"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-planificacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma luminária de papel tem a forma de uma pirâmide de base quadrada, com 16 cm de lado da base. Cada face
+    triangular tem 10 cm de altura, medida na própria face, do meio do lado da base até a ponta (o apótema). A
+    altura da pirâmide, medida por dentro, é de 6 cm. O molde tem a base e as quatro faces, sem abas.
+  enunciado: "A área de papel do molde é de"
+  alternativas:
+    - texto: "576 cm²"
+      certa: true
+    - texto: "320 cm²"
+      erro: "320 cm² são só as quatro faces triangulares. O molde também tem a base, 16 × 16 = 256 cm²."
+    - texto: "896 cm²"
+      erro: "Você calculou os triângulos sem dividir por 2 (16 × 10 = 160 cada). Área do triângulo é base vezes altura dividido por 2."
+    - texto: "512 cm²"
+      erro: "512 é o volume da pirâmide, em cm³ (256 × 6 ÷ 3). O molde é área."
+    - texto: "448 cm²"
+      erro: "Você usou a altura da pirâmide (6 cm) na área dos triângulos. A altura de cada face é o apótema, 10 cm."
+  explicacao: "Base: 16 × 16 = 256 cm². Cada triângulo: 16 × 10 ÷ 2 = 80 cm²; os quatro, 320 cm². Molde: 256 + 320 = 576 cm²."
+  conferir: "16^2 + 4 * (16 * 10 / 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-planificacoes-10
+  tema: "Planificações"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-planificacoes
+  dificuldade: 3
+  enunciado: "A lateral de um cilindro, planificada, é um retângulo de 31,4 cm por 20 cm. O lado de 31,4 cm é o que dava a volta no cilindro, e o de 20 cm é a altura. Usando π = 3,14, qual é o volume do cilindro?"
+  alternativas:
+    - texto: "628 cm³"
+      erro: "628 é a área do retângulo (31,4 × 20), em cm². O volume pede a área da base vezes a altura."
+    - texto: "6.280 cm³"
+      erro: "Você usou 10 cm como raio. A volta 31,4 é 2 · π · r: o raio é 31,4 ÷ 6,28 = 5 cm, e 10 é o diâmetro."
+    - texto: "1.570 cm³"
+      certa: true
+    - texto: "78,5 cm³"
+      erro: "78,5 é a área da base, em cm² (3,14 × 25). Falta multiplicar pela altura de 20 cm."
+    - texto: "3.140 cm³"
+      erro: "Você multiplicou a volta pelo raio e pela altura (31,4 × 5 × 20). A base é π · r², não 2 · π · r · r."
+  explicacao: "A volta é 2 · π · r = 31,4, então r = 31,4 ÷ 6,28 = 5 cm. Base: 3,14 × 5² = 78,5 cm². Volume: 78,5 × 20 = 1.570 cm³."
+  conferir: "3.14 * 5^2 * 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

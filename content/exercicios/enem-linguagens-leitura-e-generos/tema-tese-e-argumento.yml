@@ -1,0 +1,246 @@
+# Exercícios da aula "Tema, tese e argumento" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-tese-01
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-argumentacao-tema-tese-argumento
+  dificuldade: 1
+  enunciado: "Qual destas frases é uma tese?"
+  alternativas:
+    - texto: "“A feira livre do bairro.”"
+      erro: "Isso é só o assunto. Não afirma nada."
+    - texto: "“A feira acontece aos domingos.”"
+      erro: "Isso é um fato que se confere. Não há o que discordar."
+    - texto: "“Feiras, mercados e sacolões.”"
+      erro: "É uma lista de assuntos, sem afirmação."
+    - texto: "“O preço da verdura na feira.”"
+      erro: "É um tema, um recorte, mas ainda sem posição."
+    - texto: "“A prefeitura deveria levar a feira também para os bairros afastados.”"
+      certa: true
+  explicacao: "Tese é a afirmação com que se pode concordar ou discordar. Só a última opção toma posição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-02
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-argumentacao-tema-tese-argumento
+  dificuldade: 1
+  enunciado: "Na tese “O posto deveria abrir aos sábados”, qual opção é um argumento que a sustenta?"
+  alternativas:
+    - texto: "“O posto fica na rua principal.”"
+      erro: "É uma informação sobre o lugar, mas não explica por que abrir aos sábados."
+    - texto: "“Muita gente do bairro só tem folga no sábado.”"
+      certa: true
+    - texto: "“O posto deveria abrir aos sábados, sim.”"
+      erro: "Isso só repete a tese. Repetir não é argumentar."
+    - texto: "“O posto foi pintado de azul.”"
+      erro: "Não tem relação com a tese."
+    - texto: "“Sábado vem depois da sexta.”"
+      erro: "É verdade, mas não sustenta a tese."
+  explicacao: "Pergunte “por quê?” à tese. A resposta “porque muita gente só tem folga no sábado” é um argumento: uma razão que dá apoio à posição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-03
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-argumentacao-tema-tese-argumento
+  dificuldade: 1
+  enunciado: "Assunto: trabalho. Qual opção é um TEMA (um recorte) desse assunto?"
+  alternativas:
+    - texto: "“Trabalho e emprego.”"
+      erro: "Continua amplo, quase o mesmo assunto."
+    - texto: "“O trabalho deveria ter jornada de quatro dias.”"
+      erro: "Isso já é uma tese: toma posição."
+    - texto: "“Concordo com tudo.”"
+      erro: "Não é tema nem tese sobre trabalho."
+    - texto: "“A jornada de trabalho das empregadas domésticas no Brasil.”"
+      certa: true
+    - texto: "“Trabalho.”"
+      erro: "É o próprio assunto, sem recorte."
+  explicacao: "O tema recorta o assunto com um foco (a jornada das empregadas domésticas no Brasil), sem ainda tomar posição. A posição seria a tese."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-04
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-tema-tese-argumento
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    A biblioteca da escola tem três mil livros e fica trancada metade do dia, porque não há quem cuide dela. Os alunos
+    do noturno nunca a viram aberta. Livro trancado não forma leitor. Contratar um bibliotecário custa menos do que
+    manter um acervo inteiro sem uso.
+  enunciado: "O ponto de vista defendido no texto é o de que"
+  alternativas:
+    - texto: "a escola deve contratar alguém para manter a biblioteca aberta."
+      certa: true
+    - texto: "a biblioteca tem livros demais."
+      erro: "O número de livros aparece como argumento (há acervo), não como problema."
+    - texto: "os alunos do noturno não gostam de ler."
+      erro: "Eles nunca viram a biblioteca aberta. O texto não fala de gosto."
+    - texto: "a biblioteca deveria ser fechada de vez."
+      erro: "Inversão: o texto quer a biblioteca aberta."
+    - texto: "livros são caros demais para as escolas."
+      erro: "O texto não discute o preço dos livros."
+  explicacao: "A tese está implícita na comparação final: contratar um bibliotecário custa menos que manter os livros sem uso. Os argumentos são a biblioteca fechada, os alunos do noturno sem acesso e “livro trancado não forma leitor”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-05
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-argumentacao-tema-tese-argumento
+  dificuldade: 2
+  enunciado: "“A cidade cresceu, portanto o transporte precisa crescer junto.” O conectivo “portanto” introduz:"
+  alternativas:
+    - texto: "uma oposição."
+      erro: "Oposição é marcada por “mas”, “porém”, “embora”."
+    - texto: "um exemplo."
+      erro: "Exemplo costuma vir com “por exemplo”, “como”."
+    - texto: "uma conclusão tirada do que foi dito antes."
+      certa: true
+    - texto: "uma dúvida."
+      erro: "Dúvida viria com “talvez”."
+    - texto: "uma comparação."
+      erro: "Comparação viria com “como”, “assim como”."
+  explicacao: "“Portanto” conclui: do fato (a cidade cresceu) tira-se a posição (o transporte precisa crescer). A ordem é argumento, depois tese."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-06
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-tema-tese-argumento
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Quem mora longe acorda às quatro. Pega dois ônibus, um trem e, se tiver sorte, chega na hora. Volta à noite, quando a
+    escola dos filhos já fechou e o posto de saúde também. A distância não é só de quilômetros: é de tempo, de
+    descanso, de convivência. Por isso, morar perto do trabalho deveria ser um direito, e não um privilégio.
+  enunciado: "No texto, a descrição da rotina de quem mora longe funciona como"
+  alternativas:
+    - texto: "a tese principal, apresentada logo no começo."
+      erro: "O começo descreve. A tese vem no fim, depois de “Por isso”."
+    - texto: "argumento que prepara e sustenta a tese apresentada no fim."
+      certa: true
+    - texto: "trecho de notícia sem relação com o ponto de vista."
+      erro: "A rotina está ligada à tese pelo “Por isso”."
+    - texto: "instrução para o leitor pegar menos ônibus."
+      erro: "Não há instrução."
+    - texto: "contra-argumento que o autor rejeita."
+      erro: "O autor não rejeita a descrição: usa-a a favor da tese."
+  explicacao: "A rotina descrita mostra o custo da distância. “Por isso” liga essa razão à tese: morar perto do trabalho deveria ser direito. A tese está no fim, e não no começo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-07
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-argumentacao-tema-tese-argumento
+  dificuldade: 2
+  enunciado: "Por que “O rio da cidade recebe esgoto sem tratamento” NÃO é uma tese?"
+  alternativas:
+    - texto: "Porque está escrita em terceira pessoa."
+      erro: "Tese pode estar em terceira pessoa."
+    - texto: "Porque é curta demais."
+      erro: "O tamanho não define tese."
+    - texto: "Porque fala de meio ambiente."
+      erro: "O assunto não importa. Há teses sobre meio ambiente."
+    - texto: "Porque não tem verbo."
+      erro: "Tem verbo: “recebe”."
+    - texto: "Porque é um fato que se pode conferir, e não uma posição que se defende."
+      certa: true
+  explicacao: "A frase afirma um fato, que se confere medindo a água. Tese é uma posição sobre o fato, por exemplo: “a cidade deve investir em tratamento de esgoto antes de qualquer outra obra”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-08
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-argumentacao-tema-tese-argumento
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Textos originais do Instituto Lúcia.
+    Texto I: "A merenda escolar é, para muitas crianças, a principal refeição do dia. Cortar a verba da merenda é cortar
+    comida do prato de quem mais precisa."
+    Texto II: "A merenda escolar é, para muitas crianças, a principal refeição do dia. Isso mostra que o problema não está
+    na escola: está nos salários das famílias. A merenda é remédio; a cura é emprego e renda."
+  enunciado: "Os dois textos partem do mesmo fato e"
+  alternativas:
+    - texto: "defendem exatamente a mesma tese."
+      erro: "O I defende a verba da merenda; o II desloca o foco para salário e renda."
+    - texto: "negam que a merenda seja importante."
+      erro: "Os dois reconhecem a importância da merenda."
+    - texto: "apresentam dados de pesquisa diferentes."
+      erro: "Os dois usam o mesmo fato, sem números."
+    - texto: "usam esse fato para chegar a teses com focos diferentes: um defende a verba da merenda, o outro aponta a renda das famílias como causa."
+      certa: true
+    - texto: "são notícias sem ponto de vista."
+      erro: "Os dois têm tese."
+  explicacao: "O mesmo fato serve a teses diferentes. O Texto I conclui que não se deve cortar a merenda. O II conclui que a solução de fundo é emprego e renda. Comparar como textos diferentes usam a mesma informação é a H22."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-09
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-tema-tese-argumento
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    A placa na praça diz "Proibido jogar bola". Do lado, a quadra tem o alambrado rasgado e o chão cheio de buraco desde
+    a última eleição. As crianças, obedientes, jogam na rua. Os carros, obedientes ao velocímetro, passam a sessenta.
+  enunciado: "O texto não diz a sua tese com todas as letras, mas permite inferir que o autor defende"
+  alternativas:
+    - texto: "a reforma da quadra, para que as crianças tenham onde brincar com segurança."
+      certa: true
+    - texto: "a retirada das crianças da rua com multa para os pais."
+      erro: "O texto não culpa as famílias. A crítica é à quadra abandonada."
+    - texto: "o aumento do limite de velocidade."
+      erro: "Inversão: os carros a sessenta mostram o perigo."
+    - texto: "a proibição de todo esporte na cidade."
+      erro: "Extrapolação. O texto critica a proibição, não a amplia."
+    - texto: "a instalação de mais placas na praça."
+      erro: "A placa é o problema que o texto ironiza, não a solução."
+  explicacao: "A tese está implícita. A quadra destruída, a placa que proíbe e as crianças na rua com carros em velocidade compõem o argumento. A conclusão que o texto deixa para o leitor é: reformar a quadra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tese-10
+  tema: "Tema, tese e argumento"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-argumentacao-tema-tese-argumento
+  dificuldade: 3
+  enunciado: "Um aluno marca como tese a primeira frase de um texto: “Todo verão, o bairro alaga.” O texto termina com “É preciso limpar os bueiros antes das chuvas, não depois”. Qual foi o engano?"
+  alternativas:
+    - texto: "Nenhum: a tese sempre está na primeira frase."
+      erro: "A tese pode estar no fim, como aqui."
+    - texto: "Ele confundiu tese com título."
+      erro: "A frase não é título; é a abertura do texto."
+    - texto: "Ele tomou um fato de abertura pela tese, que só aparece no fim."
+      certa: true
+    - texto: "Ele leu o texto inteiro antes de responder."
+      erro: "Ler o texto inteiro é o certo; o engano foi o contrário."
+    - texto: "Ele confundiu tese com argumento de autoridade."
+      erro: "Não há autoridade citada."
+  explicacao: "“Todo verão, o bairro alaga” é um fato que abre o texto. A posição defendida vem no fim: limpar os bueiros antes. Por isso é preciso ler tudo antes de apontar a tese."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

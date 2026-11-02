@@ -1,0 +1,244 @@
+# Exercícios da aula "Funções da linguagem" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-funcoes-01
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  dificuldade: 1
+  enunciado: "“Hoje acordei com o peito apertado. Não sei explicar, só sei que dói.” Que função da linguagem predomina?"
+  alternativas:
+    - texto: "Referencial"
+      erro: "A referencial informa sobre o mundo de forma objetiva. Aqui o foco é o sentimento de quem fala."
+    - texto: "Apelativa"
+      erro: "Não há pedido ao leitor nem imperativo."
+    - texto: "Fática"
+      erro: "Não há teste de contato (“alô”, “tá me ouvindo?”)."
+    - texto: "Metalinguística"
+      erro: "O texto não fala da língua."
+    - texto: "Emotiva"
+      certa: true
+  explicacao: "Primeira pessoa (“acordei”, “sei”) e sentimentos (“peito apertado”, “dói”): o foco está no emissor. É a função emotiva."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-02
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  dificuldade: 1
+  enunciado: "“Mutirão: trabalho coletivo e gratuito feito por vizinhos para ajudar alguém ou a comunidade.” Que função predomina?"
+  alternativas:
+    - texto: "Emotiva"
+      erro: "Não há sentimento de quem fala. É uma definição."
+    - texto: "Poética"
+      erro: "A forma não chama a atenção (sem rima, ritmo ou jogo de palavras)."
+    - texto: "Metalinguística"
+      certa: true
+    - texto: "Apelativa"
+      erro: "Não há pedido ao leitor."
+    - texto: "Fática"
+      erro: "Não há teste do canal."
+  explicacao: "O texto explica o sentido de uma palavra: a língua falando da própria língua. É a função metalinguística, típica do verbete."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-03
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  dificuldade: 1
+  enunciado: "“Oi, gente, tá dando para ouvir aí no fundo? Levanta a mão quem não está escutando.” Que função predomina?"
+  alternativas:
+    - texto: "Fática"
+      certa: true
+    - texto: "Referencial"
+      erro: "A frase não informa nada sobre um assunto. Ela testa o contato."
+    - texto: "Poética"
+      erro: "Não há trabalho com a forma."
+    - texto: "Metalinguística"
+      erro: "Não se fala da língua."
+    - texto: "Emotiva"
+      erro: "Quem fala não expressa sentimento; verifica se o som chega."
+  explicacao: "O foco é o canal: saber se a voz está chegando ao fundo da sala. É a função fática. O imperativo “levanta a mão” está a serviço desse teste."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-04
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    A Unidade Básica de Saúde da Vila Nova passa a funcionar das 7h às 19h, de segunda a sexta-feira, a partir do dia 3.
+    O atendimento de vacinas segue no mesmo horário. Moradores devem levar documento com foto e o cartão do SUS.
+  enunciado: "No aviso, predomina a função referencial, porque o texto"
+  alternativas:
+    - texto: "expressa a opinião de quem escreveu sobre o novo horário."
+      erro: "Não há opinião nem primeira pessoa. O aviso só informa."
+    - texto: "trabalha a forma das palavras para chamar a atenção."
+      erro: "Não há rima, ritmo ou jogo de palavras."
+    - texto: "explica o sentido da sigla SUS."
+      erro: "A sigla aparece, mas não é explicada. Não há metalinguagem."
+    - texto: "transmite informações objetivas sobre horário e documentos, centradas no assunto."
+      certa: true
+    - texto: "testa se os moradores receberam a mensagem."
+      erro: "Não há teste do canal."
+  explicacao: "O foco é o referente: o novo horário e o que levar. A linguagem é objetiva, em terceira pessoa. O “devem levar” orienta, mas o texto existe para informar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-05
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  dificuldade: 2
+  enunciado: "Um slogan diz: “Quem planta, colhe. Quem recicla, respira.” Além da função apelativa, que outra função se destaca?"
+  alternativas:
+    - texto: "Fática"
+      erro: "Não há teste do canal."
+    - texto: "Poética, pelo paralelismo e pelo ritmo das duas frases"
+      certa: true
+    - texto: "Metalinguística, por definir a palavra reciclar"
+      erro: "O slogan não define nenhuma palavra."
+    - texto: "Referencial, por apresentar dados de reciclagem"
+      erro: "Não há dado nenhum."
+    - texto: "Emotiva, por expressar a tristeza do autor"
+      erro: "Não há primeira pessoa nem sentimento de quem fala."
+  explicacao: "As duas frases têm a mesma estrutura (“Quem…, …”), ritmo parecido e retomam um provérbio. A forma chama a atenção: é a função poética, a serviço do convencimento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-06
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Você, que pega o último ônibus e chega em casa com o pé doendo: esta escola foi feita para você. Matrícula aberta no
+    supletivo noturno. Venha conversar com a gente.
+  enunciado: "Os recursos “Você, que pega o último ônibus” e “Venha” indicam o predomínio da função"
+  alternativas:
+    - texto: "apelativa, centrada no receptor, que é chamado e convidado a agir."
+      certa: true
+    - texto: "emotiva, centrada nos sentimentos de quem escreve."
+      erro: "O pé doendo é do leitor, não de quem escreve. O foco é quem recebe."
+    - texto: "metalinguística, centrada na explicação do código."
+      erro: "O texto não fala da língua."
+    - texto: "fática, centrada no teste do canal."
+      erro: "Não há verificação de contato."
+    - texto: "referencial, centrada em dados objetivos."
+      erro: "Há uma informação (matrícula aberta), mas o texto existe para convencer o leitor a vir."
+  explicacao: "O vocativo (“Você, que…”) chama o receptor e o descreve; o imperativo (“Venha”) pede uma ação. É a função apelativa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-07
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  dificuldade: 2
+  enunciado: "Numa tirinha, a personagem olha para fora do quadrinho e diz: “Ei, desenhista, me dá um guarda-chuva, que você desenhou chuva demais!”. Que função se destaca?"
+  alternativas:
+    - texto: "Referencial, porque informa o tempo."
+      erro: "A tirinha não está informando a previsão do tempo; ela brinca com a própria criação."
+    - texto: "Fática, porque a personagem diz “Ei”."
+      erro: "O “Ei” chama alguém, mas o efeito do texto vem de falar com o próprio desenhista."
+    - texto: "Emotiva, porque a personagem está irritada."
+      erro: "Há irritação, mas o que faz a graça é a personagem saber que é desenho."
+    - texto: "Metalinguística, porque a tirinha fala da própria criação da tirinha."
+      certa: true
+    - texto: "Poética, porque tem rima."
+      erro: "Não há rima."
+  explicacao: "A personagem conversa com quem a desenha: a obra fala do próprio processo de ser feita. Isso é metalinguagem, que vai além do dicionário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-08
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Minha terra tem palmeiras,
+    Onde canta o Sabiá;
+    As aves, que aqui gorjeiam,
+    Não gorjeiam como lá.
+    (Gonçalves Dias, Canção do exílio, 1846; domínio público.)
+  enunciado: "Nesses versos, a função poética se destaca porque"
+  alternativas:
+    - texto: "o texto informa a quantidade de palmeiras do país."
+      erro: "Não há dado. Ler o poema como informação objetiva é perder o efeito dele."
+    - texto: "a forma da mensagem chama a atenção, com ritmo regular, rima e repetição de palavras."
+      certa: true
+    - texto: "o eu lírico pede ao leitor que visite a sua terra."
+      erro: "Não há pedido nem imperativo."
+    - texto: "o poema explica o sentido da palavra “gorjear”."
+      erro: "“Gorjear” é usado, não explicado."
+    - texto: "o texto testa se o leitor está acompanhando a leitura."
+      erro: "Não há teste de contato."
+  explicacao: "Versos de sete sílabas, rima de “Sabiá” com “lá” e a repetição de “gorjeiam” chamam a atenção para a forma. A saudade (função emotiva) também está presente, mas é a forma que salta aos olhos."
+  fonte: "Questão original do Instituto Lúcia, sobre texto em domínio público"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-09
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Rima de feirante, gritada na barraca: "Olha a laranja, freguesa, doce que nem rapadura! Leva três, paga dois, que
+    hoje a feira tá na fartura!"
+  enunciado: "No grito do feirante, a função poética está a serviço da função apelativa, pois"
+  alternativas:
+    - texto: "a rima serve só para mostrar a emoção do feirante."
+      erro: "A rima não expressa sentimento de quem fala: ela chama o freguês."
+    - texto: "a fala informa o preço exato de cada laranja."
+      erro: "O grito não dá preço; dá uma oferta para atrair."
+    - texto: "o feirante explica o sentido da palavra “fartura”."
+      erro: "A palavra é usada, não explicada."
+    - texto: "o feirante verifica se a freguesa está ouvindo."
+      erro: "Não há verificação do canal. O vocativo chama, e a oferta convence."
+    - texto: "a rima e a comparação tornam a oferta memorável e ajudam a convencer a freguesa a comprar."
+      certa: true
+  explicacao: "Rima (“rapadura”/“fartura”) e comparação chamam a atenção (poética). O vocativo “freguesa” e os imperativos “olha” e “leva” pedem a compra (apelativa). A forma serve ao objetivo de vender."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-funcoes-10
+  tema: "Funções da linguagem"
+  area: linguagens
+  habilidade: 19
+  objeto: lin-texto-funcoes-da-linguagem
+  dificuldade: 3
+  enunciado: "Uma carta começa com “Querido filho” e segue só contando a saudade e a solidão de quem escreve, sem pedir nada. Por que a função predominante não é a apelativa?"
+  alternativas:
+    - texto: "Porque toda carta é referencial."
+      erro: "Não existe essa regra. A função depende do foco de cada texto."
+    - texto: "Porque o vocativo nunca indica função apelativa."
+      erro: "O vocativo é marca da apelativa, sim. Mas sozinho não basta: é preciso ver para que o texto existe."
+    - texto: "Porque o vocativo chama o receptor, mas o foco do texto está nos sentimentos do emissor."
+      certa: true
+    - texto: "Porque a carta é metalinguística."
+      erro: "A carta não fala da língua."
+    - texto: "Porque a carta não tem emissor."
+      erro: "Toda carta tem emissor: quem escreve."
+  explicacao: "A função que predomina é a do foco do texto. O vocativo abre a carta, mas o resto expressa saudade e solidão de quem escreve. Predomina a emotiva."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

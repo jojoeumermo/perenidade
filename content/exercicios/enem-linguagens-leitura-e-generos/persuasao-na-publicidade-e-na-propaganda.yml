@@ -1,0 +1,241 @@
+# Exercícios da aula "Persuasão na publicidade e na propaganda" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-publicidade-01
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-argumentacao-publicidade
+  dificuldade: 1
+  enunciado: "Num anúncio, a frase “Experimente hoje mesmo!” usa o verbo no imperativo. Para quê?"
+  alternativas:
+    - texto: "Para chamar o leitor a agir."
+      certa: true
+    - texto: "Para contar uma história do passado."
+      erro: "O imperativo não narra; ele pede uma ação agora."
+    - texto: "Para dar uma informação científica."
+      erro: "Não há informação técnica. É um pedido direto ao leitor."
+    - texto: "Para mostrar a emoção do fabricante."
+      erro: "O foco não é quem fala, e sim quem lê. É a função apelativa."
+    - texto: "Para explicar como o produto é feito."
+      erro: "A frase não explica nada sobre o produto. Ela convida."
+  explicacao: "O imperativo (“experimente”) fala diretamente com o leitor e pede uma ação. É a marca da função apelativa, a mais comum nos anúncios."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-02
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-argumentacao-publicidade
+  dificuldade: 1
+  enunciado: "Qual destes textos é uma campanha de interesse público, e não um anúncio comercial?"
+  alternativas:
+    - texto: "“Novo sabor morango: peça já o seu!”"
+      erro: "Esse texto vende um produto. É anúncio comercial."
+    - texto: "“Promoção de fim de mês: tudo com 30% de desconto.”"
+      erro: "É oferta de loja: anúncio comercial."
+    - texto: "“Violência contra a mulher tem nome: crime. Denuncie.”"
+      certa: true
+    - texto: "“O plano de celular que cabe no seu bolso.”"
+      erro: "Vende um serviço. É comercial."
+    - texto: "“Conheça o novo modelo, agora em seis cores.”"
+      erro: "Apresenta um produto à venda."
+  explicacao: "A campanha certa não vende nada. Quer mudar um comportamento pelo bem coletivo (denunciar a violência). As outras vendem produto ou serviço."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-03
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-argumentacao-publicidade
+  dificuldade: 1
+  enunciado: "“Pele de quem não tem idade.” A frase, num anúncio de creme, usa principalmente:"
+  alternativas:
+    - texto: "dados técnicos sobre o produto."
+      erro: "Não há número nem informação técnica."
+    - texto: "intimidação, com ameaça ao leitor."
+      erro: "Não há ameaça explícita. A frase promete, não ameaça."
+    - texto: "argumento de autoridade."
+      erro: "Ninguém com saber reconhecido é citado."
+    - texto: "comparação de preços."
+      erro: "Preço não aparece."
+    - texto: "sedução, prometendo juventude."
+      certa: true
+  explicacao: "A frase liga o creme a um desejo: parecer sem idade. É sedução. O anúncio promete, não explica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-04
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-argumentacao-publicidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Descrição de um cartaz: a foto mostra um prato de comida pela metade, com o garfo largado ao lado. A frase diz: "Um
+    terço da comida produzida vira lixo. Na sua casa, quanto?" Embaixo: "Compre o que vai usar. Congele o que sobrar."
+  enunciado: "No cartaz, a pergunta “Na sua casa, quanto?” tem a função de"
+  alternativas:
+    - texto: "anunciar a venda de pratos e talheres."
+      erro: "Não há produto à venda. Pratos e garfo são só a imagem do desperdício."
+    - texto: "levar o leitor a pensar no próprio desperdício, aproximando o problema da vida dele."
+      certa: true
+    - texto: "mostrar que o desperdício só acontece nos restaurantes."
+      erro: "Inversão: a pergunta leva o problema para dentro de casa."
+    - texto: "provar, com uma pesquisa, quanto cada família desperdiça."
+      erro: "A pergunta não traz dado; ela pede que o leitor reflita."
+    - texto: "criticar quem não sabe cozinhar."
+      erro: "O cartaz não fala de saber cozinhar. É extrapolação."
+  explicacao: "A primeira frase dá um dado geral; a pergunta, com “sua casa”, traz o problema para o leitor. Depois vêm os imperativos com a solução. É a passagem do geral para a vida de quem lê."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-05
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-argumentacao-publicidade
+  dificuldade: 2
+  enunciado: "Um anúncio de alarme residencial mostra uma porta arrombada e diz: “Amanhã pode ser a sua.” Qual estratégia predomina?"
+  alternativas:
+    - texto: "Sedução"
+      erro: "Sedução promete algo bom. Aqui a imagem e a frase mostram algo ruim que pode acontecer."
+    - texto: "Comoção"
+      erro: "Comoção desperta pena por outra pessoa. Aqui o alvo é o medo do próprio leitor."
+    - texto: "Dados"
+      erro: "Não há número."
+    - texto: "Intimidação"
+      certa: true
+    - texto: "Concessão"
+      erro: "Não há reconhecimento de ponto contrário."
+  explicacao: "A porta arrombada e “amanhã pode ser a sua” ameaçam o leitor com uma consequência ruim para levá-lo a comprar. É intimidação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-06
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-argumentacao-publicidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Anúncio de uma cooperativa de costureiras: "Roupa feita por gente que tem nome. Aqui, cada peça leva a etiqueta de
+    quem costurou. Vista essa história."
+  enunciado: "Ao dizer que cada peça leva a etiqueta de quem costurou, o anúncio busca"
+  alternativas:
+    - texto: "esconder a origem da roupa."
+      erro: "Inversão: o anúncio mostra justamente quem fez a roupa."
+    - texto: "provar que a roupa é a mais barata do mercado."
+      erro: "Preço não aparece no anúncio."
+    - texto: "valorizar o trabalho de quem produz, diferenciando a roupa das feitas sem rosto."
+      certa: true
+    - texto: "ameaçar quem compra roupa de outras marcas."
+      erro: "Não há ameaça. O anúncio destaca um valor."
+    - texto: "ensinar o leitor a costurar."
+      erro: "Não há instrução de costura. “Vista essa história” é um convite à compra."
+  explicacao: "“Gente que tem nome” e a etiqueta com quem costurou dão rosto ao trabalho. O anúncio vende também um valor: saber quem fez e em que condições."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-07
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-argumentacao-publicidade
+  dificuldade: 2
+  enunciado: "Pelo Código de Defesa do Consumidor (art. 37), um anúncio de brinquedo que diz às crianças “peça para a sua mãe comprar agora, senão você fica de fora” tende a ser considerado:"
+  alternativas:
+    - texto: "abusivo, por se aproveitar da falta de experiência da criança."
+      certa: true
+    - texto: "enganoso, por mentir sobre o preço."
+      erro: "O anúncio não fala de preço. O problema é a pressão sobre a criança, o que a lei chama de abusivo."
+    - texto: "permitido, porque toda publicidade pode falar com crianças assim."
+      erro: "O CDC proíbe a publicidade que se aproveita da deficiência de julgamento e experiência da criança."
+    - texto: "comparativo, por citar outras marcas."
+      erro: "Nenhuma marca é citada."
+    - texto: "institucional, por falar de uma empresa."
+      erro: "O anúncio vende um brinquedo. E a questão é sobre o que a lei proíbe."
+  explicacao: "O art. 37, § 2º, do CDC considera abusiva a publicidade que se aproveita da deficiência de julgamento e experiência da criança. Pressionar a criança a pedir a compra, com medo de ficar de fora, é esse caso."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 8.078/1990, art. 37"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-08
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-argumentacao-publicidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Campanha de uma rede de farmácias: a foto mostra uma senhora sorrindo com a neta no colo. A frase diz: "Remédio
+    a gente encontra. Tempo com quem a gente ama, não." Embaixo, em letra pequena: "Entrega em até 1 hora."
+  enunciado: "A relação entre a imagem e as frases revela que a campanha"
+  alternativas:
+    - texto: "critica o uso de remédios pelos idosos."
+      erro: "A campanha é de farmácia: não critica remédio. É extrapolação."
+    - texto: "informa a composição dos remédios vendidos."
+      erro: "Nada sobre composição aparece."
+    - texto: "ameaça quem não compra na farmácia."
+      erro: "Não há ameaça. O tom é afetivo."
+    - texto: "compara o preço da farmácia com o de outras redes."
+      erro: "Preço não aparece."
+    - texto: "vende a rapidez da entrega associando-a ao tempo com a família, um valor afetivo."
+      certa: true
+  explicacao: "A imagem (avó e neta) e a frase (“tempo com quem a gente ama”) criam o valor afetivo. A letra pequena revela o serviço vendido: entrega rápida. O anúncio liga o serviço à emoção (comoção e sedução)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-09
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-argumentacao-publicidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Slogan de uma campanha de vacinação nas escolas: "Vacina em dia, recreio garantido."
+  enunciado: "O slogan convence sobretudo porque"
+  alternativas:
+    - texto: "ameaça os pais com multa caso não vacinem os filhos."
+      erro: "O slogan não fala de multa. É extrapolação."
+    - texto: "liga a vacina a algo que a criança valoriza, o recreio, com uma frase curta e ritmada."
+      certa: true
+    - texto: "apresenta dados de cobertura vacinal no país."
+      erro: "Não há número no slogan."
+    - texto: "cita a opinião de um médico conhecido."
+      erro: "Não há autoridade citada."
+    - texto: "proíbe a entrada de crianças sem vacina na escola."
+      erro: "O slogan promete um benefício; não proíbe nada."
+  explicacao: "O slogan tem duas partes paralelas e curtas, fáceis de lembrar. E liga a vacina ao recreio: estar vacinado é poder brincar, sem ficar doente. É sedução pelo benefício, adequada ao público infantil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-publicidade-10
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-argumentacao-publicidade
+  dificuldade: 3
+  enunciado: "Um anúncio de empréstimo diz em letras enormes “Dinheiro na hora, sem burocracia!” e, em letras miúdas no rodapé, informa juros de 15% ao mês. O que a diferença no tamanho das letras revela?"
+  alternativas:
+    - texto: "Que o anúncio quer que o leitor leia primeiro os juros."
+      erro: "Inversão: as letras miúdas são as que menos chamam a atenção."
+    - texto: "Que os juros são baixos e por isso ficam escondidos."
+      erro: "15% ao mês é uma taxa alta. Esconder um dado não o torna pequeno."
+    - texto: "Que o anúncio é uma campanha de interesse público."
+      erro: "O anúncio vende um serviço financeiro. É comercial."
+    - texto: "Que o anúncio destaca a vantagem e diminui a informação que pesa contra o produto."
+      certa: true
+    - texto: "Que o tamanho das letras não tem efeito de sentido."
+      erro: "Na publicidade, tamanho, cor e posição argumentam. O destaque escolhe o que o leitor vai ver."
+  explicacao: "O recurso não verbal (tamanho da letra) hierarquiza a informação: a promessa vem grande e o custo vem pequeno. Ler o anúncio inteiro, inclusive o rodapé, é parte da leitura crítica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

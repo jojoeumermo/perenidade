@@ -1,0 +1,248 @@
+# Exercícios da aula "Sistemas lineares" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+# A questão 09 pede o número de soluções em palavras ("nenhuma", "uma", "infinitas"): não é numérica e não leva "conferir".
+
+- id: enem-mat-sistemas-01
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  dificuldade: 1
+  enunciado: "No sistema x + y = 12 e x − y = 2, quanto vale x?"
+  alternativas:
+    - texto: "5"
+      erro: "5 é o valor de y. A pergunta é o x: some as equações, 2x = 14."
+    - texto: "6"
+      erro: "Você dividiu 12 por 2, como se x e y fossem iguais. A segunda equação diz que x é 2 a mais que y."
+    - texto: "10"
+      erro: "Você subtraiu 12 − 2. Some as duas equações: o y some e fica 2x = 14."
+    - texto: "14"
+      erro: "14 é o valor de 2x. Falta dividir por 2."
+    - texto: "7"
+      certa: true
+  explicacao: "Somando: 2x = 14, x = 7. Na primeira: 7 + y = 12, y = 5. Confira na segunda: 7 − 5 = 2."
+  conferir: "(12 + 2) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-02
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  dificuldade: 1
+  enunciado: "No sistema y = 3x e x + y = 20, quanto vale y?"
+  alternativas:
+    - texto: "5"
+      erro: "5 é o valor de x. Volte para a primeira equação: y = 3 × 5."
+    - texto: "15"
+      certa: true
+    - texto: "60"
+      erro: "Você multiplicou 20 por 3. Troque y por 3x na segunda equação: x + 3x = 20."
+    - texto: "10"
+      erro: "Você dividiu 20 em duas partes iguais. A primeira equação diz que y é o triplo de x."
+    - texto: "6,67"
+      erro: "Você dividiu 20 por 3. Na substituição, x + 3x = 4x: divida por 4."
+  explicacao: "Substitua: x + 3x = 20, 4x = 20, x = 5. Então y = 3 × 5 = 15. Confira: 5 + 15 = 20."
+  conferir: "3 * 20 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-03
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  dificuldade: 1
+  enunciado: "No sistema 2x + y = 9 e x = 3, quanto vale y?"
+  alternativas:
+    - texto: "6"
+      erro: "6 é o valor de 2x. Falta tirar do 9: y = 9 − 6."
+    - texto: "4,5"
+      erro: "Você dividiu 9 por 2 e ignorou o x. Troque x por 3 antes: 2 × 3 + y = 9."
+    - texto: "3"
+      certa: true
+    - texto: "15"
+      erro: "Você somou 9 + 6. Para isolar o y, tire 6 dos dois lados."
+    - texto: "12"
+      erro: "Você somou 9 + 3. Troque o x por 3 e multiplique pelo 2: 2 × 3 = 6."
+  explicacao: "Troque x por 3: 2 × 3 + y = 9, 6 + y = 9, y = 3."
+  conferir: "9 - 2 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-04
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No estacionamento de uma unidade de saúde, só há carros e motos. Um funcionário contou 40 veículos e 130 rodas.
+  enunciado: "O número de motos no estacionamento é"
+  alternativas:
+    - texto: "15."
+      certa: true
+    - texto: "25."
+      erro: "25 é o número de carros. A pergunta é sobre as motos: 40 − 25."
+    - texto: "20."
+      erro: "Você dividiu os veículos meio a meio. Com 20 carros e 20 motos haveria 120 rodas, e não 130."
+    - texto: "65."
+      erro: "Você dividiu as rodas por 2, como se todos fossem motos. Use as duas informações: veículos e rodas."
+    - texto: "32,5."
+      erro: "Você dividiu as rodas por 4, como se todos fossem carros. Nem é um número inteiro de veículos."
+  explicacao: "c = carros, m = motos. c + m = 40 e 4c + 2m = 130. Divida a segunda por 2: 2c + m = 65. Subtraia a primeira: c = 25. Então m = 40 − 25 = 15. Confira: 25 × 4 + 15 × 2 = 100 + 30 = 130."
+  conferir: "40 - 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-05
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  dificuldade: 2
+  enunciado: "No sistema 3x + 2y = 16 e x − 2y = 0, quanto vale x + y?"
+  alternativas:
+    - texto: "4"
+      erro: "4 é o valor de x. Falta achar o y e somar."
+    - texto: "2"
+      erro: "2 é o valor de y. A pergunta pede x + y."
+    - texto: "16"
+      erro: "16 é o resultado da soma das equações (4x = 16). Divida por 4 para achar x."
+    - texto: "6"
+      certa: true
+    - texto: "8"
+      erro: "Você usou y = x = 4. Troque x = 4 na segunda equação: 4 − 2y = 0, então y = 2."
+  explicacao: "Some as equações: o 2y e o −2y se anulam e fica 4x = 16, x = 4. Na segunda: 4 − 2y = 0, y = 2. Então x + y = 6. Confira na primeira: 12 + 4 = 16."
+  conferir: "4 + 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-06
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-geometria-sistemas
+  dificuldade: 2
+  enunciado: "Dois números somam 50, e um deles é 8 a mais que o outro. Qual é o maior?"
+  alternativas:
+    - texto: "21"
+      erro: "21 é o menor número. O maior é 21 + 8."
+    - texto: "25"
+      erro: "25 é a metade de 50. Os números não são iguais: um é 8 a mais."
+    - texto: "29"
+      certa: true
+    - texto: "42"
+      erro: "Você subtraiu 50 − 8. Isso dá o dobro do menor: 2x = 42."
+    - texto: "58"
+      erro: "Você somou 50 + 8. Isso dá o dobro do maior; falta dividir por 2."
+  explicacao: "x = maior, y = menor. x + y = 50 e x − y = 8. Somando: 2x = 58, x = 29. O menor é 21. Confira: 29 + 21 = 50 e 29 − 21 = 8."
+  conferir: "(50 + 8) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-07
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa padaria do bairro, 3 pães de queijo e 2 cafés custam R$ 11,50. Já 2 pães de queijo e 1 café custam R$ 7,00.
+    Os preços são de um exemplo.
+  enunciado: "O preço de um café nessa padaria é"
+  alternativas:
+    - texto: "R$ 2,00."
+      certa: true
+    - texto: "R$ 2,50."
+      erro: "R$ 2,50 é o preço do pão de queijo. Volte a uma das equações para achar o café."
+    - texto: "R$ 4,50."
+      erro: "Você subtraiu os dois totais (11,50 − 7,00). Isso dá o preço de 1 pão e 1 café juntos, e não do café sozinho."
+    - texto: "R$ 3,50."
+      erro: "Você dividiu R$ 7,00 por 2. Na segunda compra há 2 pães e 1 café, que não custam o mesmo."
+    - texto: "R$ 2,30."
+      erro: "Você dividiu R$ 11,50 por 5 itens, como se todos tivessem o mesmo preço."
+  explicacao: "p = pão, c = café. 3p + 2c = 11,50 e 2p + c = 7. Da segunda: c = 7 − 2p. Na primeira: 3p + 14 − 4p = 11,50, então p = 2,50. O café: c = 7 − 5 = 2,00. Confira: 7,50 + 4,00 = 11,50."
+  conferir: "7 - 2 * 2.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-08
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa de pequenos produtores vende dois tipos de café em grão: o tipo A, a R$ 30,00 o quilo, e o tipo B,
+    a R$ 18,00 o quilo. Para uma feira, ela vai preparar 60 kg de uma mistura dos dois, para vender a R$ 22,00 o quilo,
+    de modo que o valor da mistura seja igual ao valor dos cafés usados.
+  enunciado: "A quantidade de café do tipo A na mistura deve ser de"
+  alternativas:
+    - texto: "40 kg."
+      erro: "40 kg é a quantidade do tipo B. Como o preço da mistura (22) fica mais perto do B (18), entra mais B do que A."
+    - texto: "30 kg."
+      erro: "Meio a meio, o quilo da mistura sairia a (30 + 18) ÷ 2 = 24 reais, e não 22. É preciso usar a equação do valor."
+    - texto: "44 kg."
+      erro: "Você dividiu o valor total (60 × 22 = 1.320) pelo preço do tipo A, como se a mistura fosse só de A."
+    - texto: "73,3 kg."
+      erro: "Você dividiu o valor total pelo preço do tipo B. Isso dá mais que os 60 kg da mistura: algo saiu errado."
+    - texto: "20 kg."
+      certa: true
+  explicacao: "a + b = 60 e 30a + 18b = 60 × 22 = 1.320. Troque b = 60 − a: 30a + 1.080 − 18a = 1.320, então 12a = 240 e a = 20 kg. O tipo B fica com 40 kg. Confira: 600 + 720 = 1.320."
+  conferir: "(22 * 60 - 18 * 60) / (30 - 18)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-09
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-geometria-sistemas
+  dificuldade: 3
+  enunciado: "Quantas soluções tem o sistema 2x + 3y = 12 e 4x + 6y = 20?"
+  alternativas:
+    - texto: "Uma só."
+      erro: "Tente resolver: multiplicando a primeira por 2, fica 4x + 6y = 24. A segunda diz que a mesma soma vale 20. As duas não podem ser verdade juntas."
+    - texto: "Nenhuma."
+      certa: true
+    - texto: "Infinitas."
+      erro: "Haveria infinitas se a segunda fosse a primeira multiplicada por 2 dos dois lados (4x + 6y = 24). Com 20 do lado direito, as retas são paralelas e distintas."
+    - texto: "Duas."
+      erro: "Duas retas do 1º grau se cruzam em um ponto no máximo, nunca em dois. As possibilidades são uma, nenhuma ou infinitas soluções."
+    - texto: "Depende do valor de x."
+      erro: "O número de soluções de um sistema não depende de x: é uma propriedade das duas equações juntas."
+  explicacao: "Multiplicando a primeira equação por 2: 4x + 6y = 24. A segunda diz 4x + 6y = 20. A mesma expressão não pode valer 24 e 20 ao mesmo tempo. No gráfico, as retas são paralelas: o sistema não tem solução."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-sistemas-10
+  tema: "Sistemas lineares"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-geometria-sistemas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa prova de seleção com 30 questões, cada questão certa soma 4 pontos e cada questão errada desconta 1 ponto.
+    Um candidato respondeu todas as questões e terminou com 70 pontos.
+  enunciado: "O número de questões que esse candidato acertou foi"
+  alternativas:
+    - texto: "10."
+      erro: "10 é o número de questões erradas. A pergunta é sobre as certas: 30 − 10."
+    - texto: "17,5."
+      erro: "Você dividiu 70 por 4, como se não houvesse desconto. Os erros tiram pontos: use as duas equações."
+    - texto: "14."
+      erro: "Você dividiu 70 por 5 sem somar o 30. Ao somar as equações, os lados direitos também se somam: 70 + 30 = 100."
+    - texto: "20."
+      certa: true
+    - texto: "25."
+      erro: "Você fez (70 + 30) ÷ 4. Ao somar as equações, o c da segunda também entra: 4c + c = 5c."
+  explicacao: "c = certas, e = erradas. c + e = 30 e 4c − e = 70. Somando: 5c = 100, c = 20. Então e = 10. Confira: 20 × 4 − 10 = 70."
+  conferir: "(70 + 30) / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

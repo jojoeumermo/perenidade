@@ -1,0 +1,248 @@
+# Exercícios da aula "Intertextualidade" (trilha enem-linguagens-lingua-em-uso).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-intertexto-01
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre paráfrase e paródia?"
+  alternativas:
+    - texto: "A paráfrase mantém o sentido do texto de origem; a paródia o muda."
+      certa: true
+    - texto: "A paráfrase é sempre engraçada; a paródia, séria."
+      erro: "Humor não define nenhuma das duas. O que as separa é manter ou mudar o sentido."
+    - texto: "A paráfrase copia as palavras exatas; a paródia, não."
+      erro: "Copiar as palavras exatas é citação. A paráfrase usa outras palavras."
+    - texto: "Não há diferença: são nomes para a mesma coisa."
+      erro: "Uma concorda com o original (paráfrase); a outra desvia dele (paródia)."
+    - texto: "A paródia só existe na música."
+      erro: "Há paródias em poemas, anúncios, memes, filmes. Não é exclusiva da música."
+  explicacao: "Paráfrase: outras palavras, mesmo sentido. Paródia: forma parecida, sentido mudado, muitas vezes com crítica ou humor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-02
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  dificuldade: 1
+  enunciado: "“Meu vizinho é um verdadeiro Dom Quixote: briga com a prefeitura sozinho, contra tudo e contra todos.” A frase faz"
+  alternativas:
+    - texto: "uma citação do livro Dom Quixote."
+      erro: "Nenhum trecho do livro é reproduzido. Há só uma referência ao personagem."
+    - texto: "uma paráfrase do livro inteiro."
+      erro: "A frase não reconta a obra. Usa o personagem como imagem."
+    - texto: "uma alusão ao personagem que enfrenta lutas impossíveis."
+      certa: true
+    - texto: "um plágio."
+      erro: "A referência é assumida e reconhecível. Plágio esconde a origem."
+    - texto: "uma epígrafe."
+      erro: "Epígrafe é uma frase de outro autor no começo de um texto. Aqui há uma comparação no meio da fala."
+  explicacao: "Dom Quixote é o personagem que luta contra moinhos achando que são gigantes. A frase faz uma referência indireta a ele: alusão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-03
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  dificuldade: 1
+  enunciado: "Para que a intertextualidade produza o efeito esperado, é preciso que o leitor"
+  alternativas:
+    - texto: "conheça pessoalmente o autor do segundo texto."
+      erro: "Não é preciso conhecer o autor. É preciso reconhecer o texto retomado."
+    - texto: "decore o texto de origem inteiro."
+      erro: "Basta reconhecer o texto de origem, não decorá-lo."
+    - texto: "leia o texto em voz alta."
+      erro: "A leitura em voz alta não muda nada. O que pesa é o repertório do leitor."
+    - texto: "ignore o texto de origem."
+      erro: "Ignorar o original apaga o diálogo. O efeito some."
+    - texto: "reconheça o texto de origem e perceba o que mudou."
+      certa: true
+  explicacao: "O sentido nasce da comparação entre o original e a retomada. Sem reconhecer o original, o leitor não vê o diálogo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-04
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Cartaz de uma campanha de vacinação numa unidade de saúde:
+    “Era uma vez um sarampo que voltou. E só foi embora porque todo mundo se vacinou. Fim.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O cartaz dialoga com os contos de fadas para"
+  alternativas:
+    - texto: "mostrar que o sarampo é uma doença imaginária."
+      erro: "O cartaz trata o sarampo como real (“voltou”). A forma de conto não torna a doença inventada."
+    - texto: "dirigir-se apenas às crianças."
+      erro: "O cartaz está numa unidade de saúde e fala a todos. A forma de conto é atraente para qualquer idade."
+    - texto: "citar um conto de fadas conhecido."
+      erro: "Nenhum conto específico é citado. O cartaz usa a fórmula geral dos contos (“era uma vez”, “fim”)."
+    - texto: "contar a vacinação como uma história simples, com final feliz que depende de todos."
+      certa: true
+    - texto: "criticar a vacinação."
+      erro: "O final feliz vem da vacinação. O cartaz a defende."
+  explicacao: "“Era uma vez” e “Fim” são fórmulas dos contos. Elas transformam a mensagem numa história curta, fácil de lembrar, com o final feliz garantido pela vacinação coletiva."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-05
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  dificuldade: 2
+  enunciado: "Na letra do Hino Nacional, publicada na Lei 5.700/1971, os trechos “Nossa vida” e “mais amores” aparecem entre aspas porque"
+  alternativas:
+    - texto: "são palavras estrangeiras."
+      erro: "São palavras do português. As aspas indicam outra coisa."
+    - texto: "citam versos da “Canção do exílio”, de Gonçalves Dias."
+      certa: true
+    - texto: "marcam ironia."
+      erro: "O hino não é irônico. As aspas mostram que as palavras vêm de outro texto."
+    - texto: "indicam erro de grafia."
+      erro: "Aspas não marcam erro aqui. Marcam a origem das palavras."
+    - texto: "são parte de uma paródia."
+      erro: "O hino mantém o sentido de exaltação dos versos. É citação, não paródia."
+  explicacao: "Os versos “Nossos bosques têm mais vida, / Nossa vida mais amores” são da “Canção do exílio” (1843). O hino os retoma com aspas: é citação."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei 5.700/1971 (https://www.planalto.gov.br/ccivil_03/leis/l5700.htm)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-06
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto I (ditado popular)
+    “Água mole em pedra dura tanto bate até que fura.”
+    Texto II (faixa numa manifestação por saneamento)
+    “Esgoto a céu aberto em rua de pobre tanto fede até que alguém escuta.”
+    Texto do Instituto Lúcia, escrito para este exercício.
+  enunciado: "O Texto II retoma o Texto I"
+  alternativas:
+    - texto: "como paráfrase, porque mantém o sentido de persistência sem crítica nenhuma."
+      erro: "O Texto II mantém a ideia de insistência, mas acrescenta uma crítica: só depois de muito tempo “alguém escuta”. O sentido foi mudado."
+    - texto: "como citação, porque repete as palavras do ditado."
+      erro: "Quase todas as palavras foram trocadas. Só a estrutura “tanto… até que…” permanece."
+    - texto: "como paródia, mantendo a estrutura do ditado para denunciar o descaso com os bairros pobres."
+      certa: true
+    - texto: "sem relação, porque trata de outro assunto."
+      erro: "A estrutura “… em … tanto … até que …” é a do ditado. O diálogo é claro."
+    - texto: "como epígrafe da manifestação."
+      erro: "Epígrafe repete a frase de outro autor no começo de um texto. Aqui o ditado foi transformado."
+  explicacao: "A faixa conserva a forma do ditado e troca o conteúdo: a água vira esgoto, a pedra vira o descaso. A paródia usa a força do ditado conhecido para fazer uma denúncia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-07
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  dificuldade: 2
+  enunciado: "Na redação, um candidato escreve: “Para o educador Paulo Freire, ensinar não é transferir conhecimento”, e cita a obra em que a ideia aparece. Esse uso é"
+  alternativas:
+    - texto: "repertório legítimo, com o diálogo assumido e a fonte indicada."
+      certa: true
+    - texto: "plágio, porque usa a ideia de outro."
+      erro: "Plágio é esconder a origem. O candidato diz de quem é a ideia: é repertório."
+    - texto: "paródia, porque muda o sentido da ideia de Freire."
+      erro: "O candidato reproduz a ideia sem desviar dela. Não há paródia."
+    - texto: "proibido na redação do ENEM."
+      erro: "Usar repertório com fonte é valorizado na redação, quando se liga ao tema."
+    - texto: "alusão, porque não diz o nome do autor."
+      erro: "O nome do autor está na frase. A referência é explícita."
+  explicacao: "Trazer a ideia de um autor com o nome dele e a obra é paráfrase ou citação assumida. Na redação, é repertório, desde que ligado ao argumento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-08
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I
+    Minha terra tem palmeiras,
+    Onde canta o Sabiá;
+    Gonçalves Dias, “Canção do exílio”, 1843 (domínio público).
+    Texto II
+    Minha terra tem palmares
+    Onde gorjeia o mar
+    Oswald de Andrade, “Canto de regresso à pátria”, em Pau-Brasil, 1925 (domínio público desde 2025).
+  enunciado: "O Texto II se relaciona com o Texto I porque"
+  alternativas:
+    - texto: "repete as mesmas palavras, como homenagem."
+      erro: "As palavras mudam: palmeiras viram palmares, o sabiá vira o mar. Não é repetição."
+    - texto: "mantém a estrutura dos versos e troca palavras-chave, deslocando o sentido de exaltação romântica."
+      certa: true
+    - texto: "traduz o Texto I para outra língua."
+      erro: "Os dois estão em português. O Texto II transforma o original."
+    - texto: "foi escrito antes do Texto I."
+      erro: "O Texto I é de 1843; o Texto II, de 1925. O segundo retoma o primeiro."
+    - texto: "não tem relação com o Texto I."
+      erro: "“Minha terra tem…” e “Onde…” mostram a retomada direta."
+  explicacao: "Oswald mantém a forma (“Minha terra tem… / Onde…”) e troca palmeiras por palmares e o sabiá pelo mar que “gorjeia”. O desvio, típico da paródia modernista, desmonta a imagem idealizada do Romantismo."
+  fonte: "Questão original do Instituto Lúcia; versos de Gonçalves Dias e de Oswald de Andrade, em domínio público"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-09
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-recursos-expressivos-intertextualidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Meme que circula nas redes: a imagem de uma pintura antiga, em que um homem de barba olha para cima com ar desesperado, ganha a legenda “eu no dia 25 olhando o saldo da conta”.
+    Descrição do Instituto Lúcia, escrita para este exercício.
+  enunciado: "O humor do meme depende principalmente"
+  alternativas:
+    - texto: "de o leitor saber o nome do pintor."
+      erro: "Não é preciso saber o nome. Basta perceber o contraste entre a imagem solene e a legenda."
+    - texto: "de a pintura ser engraçada por si mesma."
+      erro: "A pintura, no original, é séria. O humor nasce da legenda que muda o sentido dela."
+    - texto: "de uma citação literal de um livro."
+      erro: "Não há livro citado. O diálogo é entre a pintura e a legenda."
+    - texto: "da qualidade da imagem."
+      erro: "A qualidade da imagem não cria o humor. O diálogo entre imagem e legenda é que cria."
+    - texto: "do contraste entre a expressão grave da pintura e a situação do dia a dia na legenda."
+      certa: true
+  explicacao: "O meme é uma paródia: retoma uma imagem séria e lhe dá um sentido banal e próximo (o salário acabando antes do mês). O desvio do sentido original é a graça."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-intertexto-10
+  tema: "Intertextualidade"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-intertextualidade
+  dificuldade: 3
+  enunciado: "Qual destes casos é plágio, e não intertextualidade?"
+  alternativas:
+    - texto: "Uma charge que mostra um político com o nariz de Pinóquio."
+      erro: "A referência é reconhecível e assumida. É alusão."
+    - texto: "Um poema que começa com “Minha terra tem…” para criticar a cidade."
+      erro: "A retomada é visível e conta com o leitor. É paródia."
+    - texto: "Uma redação que cita um artigo da Constituição com o número do artigo."
+      erro: "A fonte está indicada. É citação."
+    - texto: "Um trabalho escolar que copia parágrafos de um site sem dizer de onde vieram."
+      certa: true
+    - texto: "Um anúncio que começa com “Era uma vez”."
+      erro: "A fórmula dos contos é reconhecível. É intertextualidade assumida."
+  explicacao: "Na intertextualidade, o diálogo é assumido ou reconhecível. Copiar sem indicar a fonte, apresentando como próprio, é plágio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

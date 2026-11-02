@@ -1,0 +1,280 @@
+# Exercícios da aula "Inglês: questões resolvidas no formato da prova" (trilha enem-ingles).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+# Simulado das três outras aulas: cada questão aponta o tópico que ela exercita.
+
+- id: enem-lin-ing-prova-01
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 6
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Free Wi-Fi available in this bus.
+    Network: CityBus · No password needed · Please do not watch videos without headphones.
+  enunciado: "Segundo o aviso, os passageiros"
+  alternativas:
+    - texto: "precisam pedir a senha ao motorista."
+      erro: "\"No password needed\": não é preciso senha. Inversão."
+    - texto: "pagam para usar a internet."
+      erro: "Free, aqui, é gratuito. O aviso não fala de pagamento."
+    - texto: "não podem usar o celular no ônibus."
+      erro: "Extrapolação: o aviso só pede fones de ouvido para assistir a vídeos (without headphones)."
+    - texto: "podem usar a internet de graça, sem senha."
+      certa: true
+    - texto: "devem comprar fones de ouvido no ônibus."
+      erro: "O aviso pede para usar fones ao ver vídeos, não para comprá-los. Palavra-isca: headphones."
+  explicacao: "\"Free Wi-Fi available\": internet grátis disponível. \"No password needed\": não precisa de senha. O pedido final é só para não ver vídeos sem fone de ouvido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-02
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Actually, most of the food wasted in big cities is thrown away at home, not in restaurants or markets.
+  enunciado: "A frase informa que, nas grandes cidades,"
+  alternativas:
+    - texto: "atualmente os restaurantes desperdiçam mais comida que as casas."
+      erro: "Actually não é \"atualmente\": é \"na verdade\". E a frase diz que o desperdício maior é em casa. Falso cognato e inversão."
+    - texto: "a maior parte do desperdício de comida acontece em casa."
+      certa: true
+    - texto: "os mercados não jogam comida fora."
+      erro: "A frase compara onde se desperdiça mais. Não diz que os mercados não desperdiçam nada. Extrapolação."
+    - texto: "as pessoas comem mais em restaurantes do que em casa."
+      erro: "A frase fala de comida jogada fora (wasted, thrown away), não de onde se come mais."
+    - texto: "o desperdício acabou nas grandes cidades."
+      erro: "Nada indica fim do desperdício. A frase descreve onde ele acontece."
+  explicacao: "\"Most of the food wasted... is thrown away at home, not in restaurants or markets\": a maior parte da comida desperdiçada é jogada fora em casa, não em restaurantes ou mercados. Actually (na verdade) corrige uma ideia comum."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-03
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    JOIN THE CLEAN BEACH DAY!
+    Saturday, 8 a.m. · Bring gloves and a bottle of water · Bags will be provided
+    Organized by the Fishermen's Association
+  enunciado: "O texto tem a função de"
+  alternativas:
+    - texto: "proibir a pesca aos sábados."
+      erro: "A associação de pescadores só organiza o evento. Não há proibição. Extrapolação."
+    - texto: "vender garrafas de água na praia."
+      erro: "Bring a bottle of water: traga uma garrafa de água. Ninguém vende nada."
+    - texto: "informar que a praia está fechada."
+      erro: "O texto chama as pessoas para a praia, não diz que ela está fechada. Inversão."
+    - texto: "anunciar um campeonato de pesca."
+      erro: "Palavra-isca: Fishermen. O evento é um dia de limpeza (Clean Beach Day)."
+    - texto: "convidar as pessoas para um mutirão de limpeza da praia."
+      certa: true
+  explicacao: "\"Join\" (participe) no imperativo, data, hora e o que levar: é convite. \"Clean Beach Day\" é o Dia da Praia Limpa, e \"Bags will be provided\" diz que os sacos serão fornecidos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-04
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    My grandfather spoke Hindi to the cows, English to the bank
+    and Punjabi to the stars.
+    I asked him which one was his real language.
+    He laughed: "All of them. A man is a house with many doors."
+  enunciado: "Nesses versos, a fala do avô expressa a ideia de que"
+  alternativas:
+    - texto: "uma pessoa pode ter várias línguas como parte de quem ela é."
+      certa: true
+    - texto: "o inglês é a única língua séria, por ser a do banco."
+      erro: "Redução: o banco é só um dos lugares. O avô diz que todas são línguas dele (All of them)."
+    - texto: "o avô não sabia falar bem nenhuma língua."
+      erro: "Inversão: ele fala três línguas, cada uma num lugar da vida."
+    - texto: "o neto quer que o avô escolha uma língua só."
+      erro: "O neto só pergunta. A resposta do avô é o centro do poema, e ela recusa a escolha."
+    - texto: "as casas da região têm muitas portas."
+      erro: "\"A man is a house with many doors\" é uma comparação (metáfora), não uma descrição de casas."
+  explicacao: "O avô usa uma língua para cada parte da vida. Quando o neto pergunta qual é a \"verdadeira\", ele responde \"todas\" e compara: \"um homem é uma casa com muitas portas\". O poema valoriza a convivência de línguas (H8)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-05
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Electric scooters reduce traffic in city centers. However, when they are left on sidewalks, they block the way
+    for wheelchair users and blind people. Cities need parking areas for them, not a ban.
+  enunciado: "A posição do autor sobre os patinetes elétricos é a de que eles"
+  alternativas:
+    - texto: "devem ser proibidos nas cidades."
+      erro: "O texto diz o contrário no fim: \"not a ban\", não uma proibição. Inversão."
+    - texto: "não trazem nenhuma vantagem para o trânsito."
+      erro: "A primeira frase diz que eles reduzem o trânsito (reduce traffic)."
+    - texto: "são úteis, mas precisam de lugares próprios para estacionar."
+      certa: true
+    - texto: "só atrapalham motoristas de carro."
+      erro: "Quem é atrapalhado, no texto, são cadeirantes e pessoas cegas nas calçadas."
+    - texto: "devem circular só nas calçadas."
+      erro: "É nas calçadas que eles causam problema (left on sidewalks)."
+  explicacao: "Antes do However, a vantagem: reduzem o trânsito. Depois, o problema: largados nas calçadas, bloqueiam cadeirantes e pessoas cegas. Conclusão: \"parking areas for them, not a ban\" (vagas para eles, não proibição)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-06
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Even though the minimum wage increased last year, food prices rose even faster. Therefore, many families can
+    buy less today than before.
+  enunciado: "O texto conclui que muitas famílias"
+  alternativas:
+    - texto: "compram mais hoje, porque o salário mínimo subiu."
+      erro: "Even though (mesmo que) mostra que o aumento do salário não bastou. Inversão."
+    - texto: "não tiveram aumento de salário no ano passado."
+      erro: "O texto diz que o salário mínimo subiu (increased)."
+    - texto: "gastam menos com comida porque os preços caíram."
+      erro: "Os preços subiram (rose), e mais rápido que o salário."
+    - texto: "trocaram a comida por outros produtos."
+      erro: "Extrapolação: o texto não fala de troca de produtos."
+    - texto: "podem comprar menos hoje, pois os preços subiram mais que o salário."
+      certa: true
+  explicacao: "Even though é concessão: mesmo que o salário tenha subido, a comida subiu ainda mais rápido (even faster). Therefore (portanto) traz a conclusão: muitas famílias compram menos hoje do que antes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-07
+  tema: "Inglês: estratégias de leitura"
+  area: linguagens
+  competencia: 2
+  habilidade: 6
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    How to report a broken streetlight:
+    1. Open the city app and choose "Public lighting".
+    2. Take a photo of the pole number.
+    3. Send it. You will get a protocol number by text message.
+  enunciado: "Depois de enviar a foto, a pessoa"
+  alternativas:
+    - texto: "precisa ir pessoalmente à prefeitura."
+      erro: "Extrapolação: tudo é feito pelo aplicativo. Não há ida à prefeitura."
+    - texto: "deve consertar o poste por conta própria."
+      erro: "O texto ensina a avisar (report) o problema, não a consertar."
+    - texto: "recebe um número de protocolo por mensagem de texto."
+      certa: true
+    - texto: "ganha um desconto na conta de luz."
+      erro: "Não há desconto no texto. Palavra-isca: lighting."
+    - texto: "tem de fotografar a lâmpada queimada."
+      erro: "A foto é do número do poste (pole number), e ela vem antes do envio, não depois."
+  explicacao: "Scanning no passo 3: \"You will get a protocol number by text message\" (você vai receber um número de protocolo por mensagem de texto)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-08
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Tirinha em dois quadros.
+    Quadro 1: uma chefe diz ao funcionário: "Great news! You can now work from anywhere!"
+    Quadro 2: o funcionário, na praia, de férias, com o notebook aberto no colo e cara cansada.
+  enunciado: "A tirinha critica"
+  alternativas:
+    - texto: "o funcionário que viaja sem pedir permissão."
+      erro: "A chefe autorizou trabalhar de qualquer lugar. A crítica não é ao funcionário."
+    - texto: "a ideia de que o trabalho remoto pode invadir até o descanso."
+      certa: true
+    - texto: "as praias lotadas nas férias."
+      erro: "A praia é cenário. O que importa é o notebook no colo e a cara cansada."
+    - texto: "a falta de internet nas praias."
+      erro: "Extrapolação: nada indica falta de internet. Ele está trabalhando, então há conexão."
+    - texto: "a chefe que proíbe o trabalho fora do escritório."
+      erro: "Inversão: ela diz que ele pode trabalhar de qualquer lugar (from anywhere)."
+  explicacao: "\"Great news! You can now work from anywhere!\": ótima notícia, agora você pode trabalhar de qualquer lugar. No último quadro, \"qualquer lugar\" virou a praia das férias. O humor mostra o lado ruim: o trabalho não tem mais limite."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-09
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    In some Indigenous communities of Canada, elders tell stories in the winter, when families stay inside. The
+    stories are not only entertainment: they teach where to hunt, how to share and why the land must be respected.
+    Today, some schools invite elders to tell these stories in class, in the community's own language.
+  enunciado: "O texto destaca que as histórias contadas pelos mais velhos"
+  alternativas:
+    - texto: "transmitem conhecimentos e valores e hoje chegam também às escolas."
+      certa: true
+    - texto: "servem apenas para divertir as crianças no inverno."
+      erro: "\"Not only entertainment\": não são só diversão. Redução."
+    - texto: "foram proibidas nas escolas do Canadá."
+      erro: "Inversão: algumas escolas convidam os mais velhos para contar as histórias."
+    - texto: "são contadas em inglês para todos entenderem."
+      erro: "O texto diz \"in the community's own language\": na própria língua da comunidade."
+    - texto: "ensinam técnicas modernas de caça."
+      erro: "Ensinam onde caçar, como dividir e por que respeitar a terra. \"Modernas\" é extrapolação."
+  explicacao: "\"Not only entertainment: they teach...\": não são só diversão, ensinam onde caçar, como dividir e por que a terra deve ser respeitada. \"Today, some schools invite elders\": hoje algumas escolas convidam os mais velhos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-prova-10
+  tema: "Inglês: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    It is often said that young people do not read. In fact, they read all day: messages, captions, comments. What
+    they read less is long text. Schools, therefore, should not fight the phone, but teach how to move from short
+    reading to long reading.
+  enunciado: "O autor defende que as escolas"
+  alternativas:
+    - texto: "proíbam o celular para que os jovens voltem a ler."
+      erro: "Inversão: \"should not fight the phone\", não devem lutar contra o celular."
+    - texto: "aceitem que os jovens não leem nada."
+      erro: "Essa é a ideia comum (It is often said), que o autor corrige com In fact."
+    - texto: "troquem os livros por mensagens curtas."
+      erro: "Extrapolação: o autor quer levar da leitura curta para a longa, não abandonar a longa."
+    - texto: "ensinem a passar da leitura curta para a leitura de textos longos."
+      certa: true
+    - texto: "ensinem os jovens a escrever comentários."
+      erro: "Palavra-isca: comments. Os comentários são exemplo do que os jovens já leem."
+  explicacao: "\"In fact\" (na verdade) corrige a ideia de que jovens não leem: eles leem o dia todo, mas pouco texto longo. \"Therefore\" (portanto) traz a proposta: ensinar a passar da leitura curta para a longa (move from short reading to long reading)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -25,6 +25,13 @@ quiz:
     explicacao: "'Portanto' indica conclusão; usá-lo antes de uma oposição confunde o leitor."
 ---
 
+## O que você vai aprender
+
+- O que é coesão e o que a Competência 4 avalia.
+- Os conectivos e a relação de sentido que cada um expressa.
+- Como ligar um parágrafo ao outro.
+- Como retomar uma palavra sem repeti-la, com pronomes, sinônimos e expressões.
+
 ## O que é coesão
 
 **Coesão** é a ligação entre as partes do texto: palavras, frases, parágrafos. Um texto coeso se lê com fluidez, e o leitor entende como cada ideia se relaciona com a anterior.
@@ -86,4 +93,26 @@ Qual conectivo completa melhor: "A Constituição garante o direito à moradia. 
 1. Reescreva o trecho repetitivo de um texto seu usando retomadas.
 2. Classifique: contudo, visto que, ademais, a fim de, em suma.
 3. Escreva dois parágrafos ligados por um conectivo de oposição.
-4. Circule todos os conectivos de uma redação nota 1 000 da cartilha do Inep.
+4. Circule todos os conectivos de uma das redações comentadas da cartilha do Inep.
+
+## Como isso cai no ENEM
+
+- **Formato:** a C4 é uma das cinco notas da redação. Pelo edital, {{enem:redacao-nota}}. A coesão também cai nas questões de Linguagens, quando a prova pergunta a que se refere um pronome ou que relação um conectivo estabelece.
+- **Competência ligada:** C4, demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação.
+- **Armadilhas:** conectivo com sentido errado ("portanto" antes de uma oposição); o mesmo conectivo em todo parágrafo; "isso" ou "ele" sem referência clara; parágrafo que começa sem nenhuma ligação com o anterior; conectivo em excesso, em todas as frases.
+
+## Resumo
+
+- Coesão é a ligação entre palavras, frases e parágrafos.
+- Cada conectivo expressa uma relação: adição, oposição, concessão, causa, consequência, finalidade, conclusão.
+- O conectivo precisa combinar com a relação lógica entre as ideias.
+- Cada parágrafo de desenvolvimento começa ligado ao anterior.
+- Retome com pronomes, sinônimos, expressões e elipse, para não repetir.
+- Varie os conectivos e confira a que se refere cada pronome.
+
+## Para aprofundar
+
+- [Coesão e coerência](/trilhas/portugues-medio/coesao-e-coerencia)
+- [Orações coordenadas e subordinadas](/trilhas/portugues-medio/oracoes-coordenadas-e-subordinadas)
+- [Colocação pronominal](/trilhas/portugues-medio/colocacao-pronominal)
+- [Competência 3: organizar os argumentos](/trilhas/enem-redacao/competencia-3-organizar-os-argumentos)

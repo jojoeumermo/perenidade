@@ -1,0 +1,247 @@
+# Exercícios da aula "Infográfico e texto multimodal" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia, com dados fictícios.
+
+- id: enem-lin-infografico-01
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-infografico
+  dificuldade: 1
+  enunciado: "Qual destes é um texto multimodal?"
+  alternativas:
+    - texto: "Um bilhete escrito só com palavras, a lápis."
+      erro: "Só há uma linguagem: a escrita."
+    - texto: "Um cartaz com foto, título em letra grande, cores e um número de telefone."
+      certa: true
+    - texto: "Um áudio de voz sem música."
+      erro: "Só há a fala."
+    - texto: "Uma lista de compras."
+      erro: "Só palavras, sem outra linguagem."
+    - texto: "Um parágrafo de livro sem ilustração."
+      erro: "Só texto verbal."
+  explicacao: "O cartaz combina imagem, palavra, cor e tamanho de letra. Juntar linguagens é o que define o texto multimodal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-02
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-infografico
+  dificuldade: 1
+  enunciado: "Um infográfico informa que 1 em cada 4 casas da rua não tem esgoto. Isso corresponde a quanto por cento?"
+  alternativas:
+    - texto: "4%"
+      erro: "Você usou o 4 como porcentagem. 1 em cada 4 é a fração 1/4."
+    - texto: "40%"
+      erro: "Isso seria 4 em cada 10. Aqui é 1 em cada 4."
+    - texto: "14%"
+      erro: "Você juntou os algarismos. Calcule 1 ÷ 4."
+    - texto: "25%"
+      certa: true
+    - texto: "75%"
+      erro: "75% são as casas que têm esgoto (3 em cada 4)."
+  explicacao: "1 em cada 4 é 1/4. Um quarto de 100 é 25. Então são 25% das casas."
+  conferir: "1 / 4 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-03
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-infografico
+  dificuldade: 1
+  enunciado: "Antes de tirar uma conclusão de um infográfico, o que se deve conferir?"
+  alternativas:
+    - texto: "O título, a unidade de medida e a fonte dos dados."
+      certa: true
+    - texto: "Só a cor mais forte."
+      erro: "A cor chama a atenção, mas não diz o que foi medido."
+    - texto: "Só o desenho maior."
+      erro: "O tamanho do desenho pode enganar."
+    - texto: "O tipo de letra usado."
+      erro: "A letra não muda o dado."
+    - texto: "Quantas pessoas curtiram a postagem."
+      erro: "Curtidas não confirmam que o dado é verdadeiro."
+  explicacao: "O título diz o que se mede; a unidade diz como; a fonte diz de onde vem. Sem os três, o número pode ser mal lido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-04
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-infografico
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Descrição de um gráfico original do Instituto Lúcia, com dados fictícios.
+    Um gráfico de barras compara a nota média de duas escolas: Escola A, 92; Escola B, 95. O eixo vertical começa em 90,
+    e a barra da Escola B aparece mais de duas vezes maior que a da Escola A. O título diz: "Escola B dá um banho na A!"
+  enunciado: "A forma como o gráfico foi feito"
+  alternativas:
+    - texto: "mostra com fidelidade que a Escola B é muito superior."
+      erro: "A diferença real é de 3 pontos em 95. O eixo cortado é que faz parecer enorme."
+    - texto: "prova que a Escola A tem nota menor que 90."
+      erro: "A Escola A tem 92, segundo o próprio gráfico."
+    - texto: "não tem nenhum efeito sobre a leitura."
+      erro: "O eixo cortado muda muito a impressão visual."
+    - texto: "esconde as notas das escolas."
+      erro: "As notas aparecem: 92 e 95."
+    - texto: "exagera visualmente uma diferença pequena, ao começar o eixo em 90, reforçando o título."
+      certa: true
+  explicacao: "Com o eixo em 90, a barra de 92 tem 2 unidades de altura e a de 95 tem 5: mais que o dobro. Com o eixo em 0, as barras seriam quase iguais. O título reforça o exagero."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-05
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-infografico
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Descrição de um infográfico original do Instituto Lúcia, com dados fictícios.
+    Título: "Quem cuida da casa na Vila Nova". Pesquisa com 200 famílias. Lavar roupa: mulheres 80%, homens 20%.
+    Cozinhar: mulheres 75%, homens 25%. Consertos: mulheres 30%, homens 70%. Fonte: associação de moradores, 2026.
+  enunciado: "Pelos dados, é correto concluir que, nas famílias pesquisadas,"
+  alternativas:
+    - texto: "os homens fazem a maior parte de todas as tarefas."
+      erro: "Só nos consertos os homens são maioria."
+    - texto: "as tarefas são divididas igualmente."
+      erro: "Os números mostram divisão desigual em todas."
+    - texto: "as mulheres fazem a maior parte das tarefas de lavar e cozinhar, e os homens, a dos consertos."
+      certa: true
+    - texto: "as mulheres de todo o Brasil cozinham 75% das vezes."
+      erro: "Generalização: a pesquisa é de 200 famílias da Vila Nova."
+    - texto: "ninguém conserta nada nas casas."
+      erro: "Os consertos aparecem com 30% e 70%."
+  explicacao: "Lendo cada tarefa: lavar (80% mulheres), cozinhar (75% mulheres), consertos (70% homens). A conclusão vale só para as famílias pesquisadas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-06
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-infografico
+  dificuldade: 2
+  enunciado: "Num infográfico sobre uma turma de 40 estudantes, 15% vão de bicicleta à escola. Quantos estudantes são?"
+  alternativas:
+    - texto: "6"
+      certa: true
+    - texto: "15"
+      erro: "Você usou a porcentagem como se fosse a quantidade. 15% de 40 é menos que 15."
+    - texto: "4"
+      erro: "4 é só 10% de 40. Falta somar os 5% (2)."
+    - texto: "34"
+      erro: "Isso é 40 − 6: os que não vão de bicicleta."
+    - texto: "25"
+      erro: "Você somou 15 + 10 sem relação com a conta. Calcule 15% de 40."
+  explicacao: "10% de 40 é 4; 5% é 2. Então 15% é 6 estudantes."
+  conferir: "40 * 15 / 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-07
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-infografico
+  dificuldade: 2
+  enunciado: "Numa página de loja virtual, “Frete grátis!” aparece em letra grande e colorida no topo; “válido só para compras acima de R$ 300” aparece em letra miúda e cinza no rodapé. O que essa disposição revela?"
+  alternativas:
+    - texto: "Que a loja quer que o leitor veja primeiro a condição."
+      erro: "Inversão: a condição está escondida no rodapé."
+    - texto: "Que o tamanho e a cor das letras não têm sentido."
+      erro: "Em texto multimodal, tamanho e cor hierarquizam a informação."
+    - texto: "Que a página destaca a vantagem e diminui a restrição, guiando a leitura a favor da venda."
+      certa: true
+    - texto: "Que o frete é grátis em qualquer compra."
+      erro: "O rodapé diz que só acima de R$ 300."
+    - texto: "Que a loja é uma campanha de interesse público."
+      erro: "É uma loja: anúncio comercial."
+  explicacao: "Topo, letra grande e cor chamam a atenção para a vantagem. Rodapé, letra miúda e cinza escondem a condição. A disposição na página também argumenta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-08
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-infografico
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Descrição de um infográfico original do Instituto Lúcia, com dados fictícios.
+    Título: "O lixo do bairro". Um saco de lixo desenhado dividido em partes: restos de comida 50%, plástico 20%,
+    papel 15%, vidro e metal 10%, outros 5%. Ao lado, uma composteira desenhada com uma seta saindo da parte de
+    restos de comida. Frase: "Metade do que você joga fora pode virar adubo."
+  enunciado: "A seta que liga os restos de comida à composteira, junto com a frase, tem a função de"
+  alternativas:
+    - texto: "mostrar que o plástico é o maior problema do bairro."
+      erro: "O plástico tem 20%. A maior parte é de restos de comida."
+    - texto: "informar o preço de uma composteira."
+      erro: "Não há preço."
+    - texto: "provar que o bairro não produz lixo."
+      erro: "O infográfico mostra justamente o lixo produzido."
+    - texto: "ensinar a separar vidro e metal."
+      erro: "A seta sai dos restos de comida, não do vidro e do metal."
+    - texto: "ligar o maior dado do gráfico a uma ação possível, sugerindo que a compostagem reduz a metade do lixo."
+      certa: true
+  explicacao: "Restos de comida são 50%: “metade”. A seta (não verbal) e a frase (verbal) transformam o dado em proposta. É a combinação das linguagens que convence."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-09
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-infografico
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Descrição de um infográfico original do Instituto Lúcia, com dados fictícios.
+    Título: "Ônibus da linha 210 em março". Passageiros por dia: semana 1, 1.200; semana 2, 1.150; semana 3, 900;
+    semana 4, 600. Nota: "Na semana 3, a tarifa subiu de R$ 4,50 para R$ 5,40."
+  enunciado: "De acordo com o infográfico, da semana 1 para a semana 4, o número de passageiros por dia caiu"
+  alternativas:
+    - texto: "um quarto, sem relação com a tarifa."
+      erro: "De 1.200 para 600 é queda de metade, não de um quarto. E a nota liga a queda ao período do aumento."
+    - texto: "pela metade, e a queda coincide com o aumento da tarifa."
+      valor: "50"
+      certa: true
+    - texto: "600 passageiros por semana inteira."
+      erro: "Os números são por dia, não por semana. Confira a unidade."
+    - texto: "20%, como o aumento da tarifa."
+      erro: "A tarifa subiu 20% (0,90 sobre 4,50), mas os passageiros caíram 50%."
+    - texto: "nada, porque os números são parecidos."
+      erro: "De 1.200 para 600 há uma queda grande."
+  explicacao: "1.200 − 600 = 600, que é a metade de 1.200. A queda forte começa na semana 3, a mesma do aumento. O infográfico mostra a coincidência; a nota ajuda a ligar os fatos, mas uma pesquisa precisaria confirmar a causa."
+  conferir: "(1200 - 600) / 1200 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-infografico-10
+  tema: "Infográfico e texto multimodal"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-infografico
+  dificuldade: 3
+  enunciado: "Um panfleto mostra duas barras, “Antes” (pequena) e “Depois” (enorme), e a frase “A segurança melhorou!”, sem números, unidade, período nem fonte. Qual é a leitura mais crítica?"
+  alternativas:
+    - texto: "A segurança dobrou, porque a barra é o dobro."
+      erro: "Sem números nem unidade, não dá para saber quanto mudou, nem o que foi medido."
+    - texto: "O panfleto é um gráfico científico confiável."
+      erro: "Gráfico sem fonte e sem dado não pode ser conferido."
+    - texto: "A barra pequena mostra que antes não havia segurança nenhuma."
+      erro: "Extrapolação: não há número que diga isso."
+    - texto: "Sem dados, unidade e fonte, o gráfico funciona como propaganda com aparência de informação."
+      certa: true
+    - texto: "O panfleto informa o número de crimes no bairro."
+      erro: "Não há número nenhum."
+  explicacao: "O formato de gráfico dá ar de dado, mas não há o que conferir. Sem número, unidade, período e fonte, o desenho só reforça a frase. É persuasão com roupa de informação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
