@@ -1,0 +1,79 @@
+{
+ "hash": "901d6719c6604a16278fc9312d3fbdec5bd9bf407619106fee3af57c1c7def17",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-f",
+ "nome": "Voz 1",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 54808,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 2665,
+   "texto": "Um texto bem escrito ainda pode tirar zero."
+  },
+  {
+   "cena": "gancho",
+   "ini": 3025,
+   "fim": 7668,
+   "texto": "Quase sempre o motivo não está na escrita, está numa regra que a pessoa não conhecia."
+  },
+  {
+   "cena": "motivos",
+   "ini": 8368,
+   "fim": 13287,
+   "texto": "Zera a redação quem foge do tema ou não escreve um texto dissertativo-argumentativo."
+  },
+  {
+   "cena": "motivos",
+   "ini": 13647,
+   "fim": 18282,
+   "texto": "Zera também o texto de até 7 linhas, que o edital chama de texto insuficiente."
+  },
+  {
+   "cena": "motivos",
+   "ini": 18642,
+   "fim": 22624,
+   "texto": "Nome, assinatura ou rubrica no espaço do texto também levam a zero."
+  },
+  {
+   "cena": "motivos",
+   "ini": 22984,
+   "fim": 28078,
+   "texto": "O mesmo vale para um trecho desligado do tema de propósito, como uma receita ou um recado."
+  },
+  {
+   "cena": "copia",
+   "ini": 28778,
+   "fim": 33832,
+   "texto": "Um cuidado a mais: linhas copiadas dos textos da prova não contam para o mínimo de linhas."
+  },
+  {
+   "cena": "copia",
+   "ini": 34192,
+   "fim": 37595,
+   "texto": "Quem copia muito pode acabar abaixo do mínimo sem perceber."
+  },
+  {
+   "cena": "dica",
+   "ini": 38295,
+   "fim": 42790,
+   "texto": "Antes de passar a limpo, leia de novo o tema da proposta e compare com a sua tese."
+  },
+  {
+   "cena": "dica",
+   "ini": 43150,
+   "fim": 47943,
+   "texto": "Depois confira se o texto passa bem das sete linhas e se não tem nenhum nome escrito."
+  },
+  {
+   "cena": "final",
+   "ini": 48643,
+   "fim": 53608,
+   "texto": "A aula sobre o que zera a redação traz a lista completa do edital e casos para treinar."
+  }
+ ]
+}

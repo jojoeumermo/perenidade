@@ -1,0 +1,8 @@
+# Voz dos vídeos curtos. Trocar a voz aqui não exige refazer os roteiros: rode npm run video:narrar --todos.
+# Nenhuma voz imita pessoa real; os nomes na tela são neutros. Licenças em docs/enem/voz/COMPARATIVO.md.
+motor: kokoro
+modelo: Kokoro-82M v1.0
+licenca: Apache-2.0
+vozes:
+  voz-1: { id: kokoro-f, nome: "Voz 1", velocidade: 1.0 }
+  voz-2: { id: kokoro-m, nome: "Voz 2", velocidade: 1.0 }

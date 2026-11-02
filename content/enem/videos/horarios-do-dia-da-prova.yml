@@ -1,0 +1,50 @@
+id: horarios-do-dia-da-prova
+aula: enem-reta-final/a-vespera-e-o-dia-da-prova
+titulo: Os horários do dia da prova
+tipo: reta-final
+voz: voz-2
+duracao: 60
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: cartaz, texto: "Horário de Brasília", titulo: "O portão não espera", nota: "nem um minuto" }
+    fala: >
+      Todo ano tem gente que chega correndo e encontra o portão fechado.
+      Os horários do ENEM são fixos, e valem para o país inteiro no horário de Brasília.
+  - id: horarios
+    visual:
+      tipo: folha
+      titulo: No dia da prova
+      itens:
+        - { texto: "{{enem:portoes-abertura}}  portões abrem", em: abre }
+        - { texto: "{{enem:portoes-fechamento}}  portões fecham", em: fecha, destaque: true }
+        - { texto: "{{enem:prova-inicio}}  a prova começa", em: comeca }
+    fala: >
+      {{marca:abre}}Os portões abrem às {{enem:portoes-abertura}}.
+      {{marca:fecha}}Eles fecham às {{enem:portoes-fechamento}}, e até essa hora você precisa estar na porta da sala para a identificação.
+      {{marca:comeca}}A prova começa às {{enem:prova-inicio}}.
+  - id: fim
+    visual:
+      tipo: folha
+      titulo: Até quando
+      itens:
+        - { texto: "1º dia: até {{enem:prova-fim-dia-1}}", em: fim1 }
+        - { texto: "2º dia: até {{enem:prova-fim-dia-2}}", em: fim2 }
+    fala: >
+      {{marca:fim1}}No primeiro dia, a prova vai até as {{enem:prova-fim-dia-1}}.
+      {{marca:fim2}}No segundo, até as {{enem:prova-fim-dia-2}}.
+  - id: fuso
+    visual: { tipo: carimbo, titulo: Atenção, texto: "Mora em outro fuso? Faça a conta do seu relógio na véspera." }
+    fala: >
+      Se o seu estado tem outro fuso horário, faça a conta do relógio local na véspera.
+      Planeje chegar perto da abertura, com o documento e a caneta na mão.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "A véspera e o dia da prova" }
+    fala: >
+      A aula sobre a véspera e o dia da prova tem a lista do que levar e o que deixar em casa.
+fontes:
+  - titulo: "Edital nº 64, de 21 de maio de 2026, itens 9.1, 9.4 e 11.1.8 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }

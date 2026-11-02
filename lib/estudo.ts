@@ -192,6 +192,8 @@ const CHAVES_DA_COPIA = new Set([
   // A voz escolhida no "Ouvir a aula" e a velocidade (lib/vozes/catalogo.ts). Os arquivos da voz baixada não entram na
   // cópia (são grandes e vêm do site); o "apagar" de Meus dados apaga os dois.
   "lucia:voz",
+  // Vídeos curtos (components/videos/Tocador.tsx): onde a pessoa parou em cada vídeo e a velocidade escolhida.
+  "lucia:video-curto",
 ]);
 /** Chaves que guardam um objeto por item (aula ou exercício): na restauração, cada item fica com a versão mais nova. */
 const REGISTROS = ["lucia:testes", "lucia:exercicios", "lucia:concluidas-em", "lucia:nivelamento", "lucia:ajudou"];

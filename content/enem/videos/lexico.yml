@@ -1,0 +1,6 @@
+# Léxico extra dos vídeos curtos, por cima de content/vozes/lexico.yml (o do "Ouvir a aula").
+# Mesmo formato: siglas exatas em maiúsculas; palavras inteiras, sem diferença de maiúsculas.
+siglas:
+  CIN: cê i êne
+  CNH: cê êne agá
+palavras: {}

@@ -1,0 +1,61 @@
+id: proposta-de-intervencao
+aula: enem-redacao/competencia-5-a-proposta-de-intervencao
+titulo: "Proposta de intervenção: os elementos que a Cartilha pede"
+tipo: redacao
+voz: voz-1
+duracao: 80
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: pergunta, texto: "“O governo deve investir em educação.” Basta?", nota: "quase sempre falta muito" }
+    fala: >
+      Muita redação termina com uma frase assim: o governo deve investir em educação.
+      Parece uma proposta, mas para a Competência 5 ela está pela metade.
+  - id: elementos
+    visual:
+      tipo: lista
+      titulo: Os elementos da Cartilha 2026
+      itens:
+        - { texto: "agente: quem faz", em: agente }
+        - { texto: "ação: o que faz", em: acao }
+        - { texto: "modo ou meio: como faz", em: modo }
+        - { texto: "finalidade: para quê", em: finalidade }
+        - { texto: "detalhamento: um elemento explicado melhor", em: detalhe, destaque: true }
+    fala: >
+      A Cartilha do Participante de 2026 lista o que a proposta precisa ter.
+      {{marca:agente}}O agente, que é quem vai agir.
+      {{marca:acao}}A ação, que é o que será feito.
+      {{marca:modo}}O modo ou meio, que diz como.
+      {{marca:finalidade}}A finalidade, que diz para que serve.
+      {{marca:detalhe}}E o detalhamento, que explica melhor um desses elementos.
+  - id: exemplo
+    visual:
+      tipo: folha
+      titulo: A mesma ideia, completa
+      itens:
+        - { texto: "O Ministério da Educação", em: e1 }
+        - { texto: "deve ampliar as vagas no ensino noturno", em: e2 }
+        - { texto: "por meio de verba para as escolas estaduais,", em: e3 }
+        - { texto: "a fim de que quem trabalha volte a estudar.", em: e4, destaque: true }
+    fala: >
+      Veja a mesma ideia completa.
+      {{marca:e1}}O Ministério da Educação, que é o agente,
+      {{marca:e2}}deve ampliar as vagas no ensino noturno, que é a ação.
+      {{marca:e3}}Isso se faz por meio de verba para as escolas estaduais, que é o meio.
+      {{marca:e4}}E a finalidade é que quem trabalha volte a estudar.
+  - id: direitos
+    visual: { tipo: carimbo, titulo: Atenção, texto: "Proposta que desrespeita os direitos humanos tira zero na Competência 5." }
+    fala: >
+      Um cuidado que pesa muito: segundo a Cartilha, a proposta que desrespeita os direitos humanos {{enem:redacao-direitos-humanos}}.
+      Proposta de punir sem lei, de humilhar ou de excluir um grupo cai nesse caso.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "Competência 5: a proposta de intervenção" }
+    fala: >
+      Antes da prova, escreva três propostas completas para temas diferentes e marque cada elemento com uma cor.
+      A aula da Competência 5 tem modelos e exercícios para treinar.
+fontes:
+  - titulo: "A Redação do Enem 2026: Cartilha do Participante (Inep)"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/acervo-linha-editorial/publicacoes-institucionais/avaliacoes-e-exames-da-educacao-basica/a-redacao-do-enem-2026-cartilha-do-a-participante"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }

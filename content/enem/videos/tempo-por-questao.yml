@@ -1,0 +1,56 @@
+id: tempo-por-questao
+aula: enem-estrategia-de-prova/tempo-por-questao-e-ordem-de-resolucao
+titulo: Quanto tempo cabe em cada questão
+tipo: estrategia
+voz: voz-1
+duracao: 65
+contas:
+  questoes: { expr: "2 * {{enem:questoes-por-area}}", valor: 90, formato: numero }
+  segundos: { expr: "{{enem:duracao-dia-2}} * 60 / (2 * {{enem:questoes-por-area}})", valor: 200, formato: numero }
+  minutos: { expr: "floor({{enem:duracao-dia-2}} / (2 * {{enem:questoes-por-area}}))", valor: 3, formato: numero }
+  resto: { expr: "{{enem:duracao-dia-2}} * 60 / (2 * {{enem:questoes-por-area}}) - 60 * floor({{enem:duracao-dia-2}} / (2 * {{enem:questoes-por-area}}))", valor: 20, formato: numero }
+cenas:
+  - id: gancho
+    visual: { tipo: pergunta, texto: "Quanto tempo você tem por questão?", nota: "faça a conta antes do domingo" }
+    fala: >
+      Você já ficou vinte minutos numa questão e depois correu para marcar as últimas no chute?
+      Dá para evitar isso com uma conta feita antes da prova.
+  - id: conta
+    visual:
+      tipo: folha
+      titulo: O segundo dia
+      itens:
+        - { texto: "{{enem:duracao-dia-2}} de prova", em: tempo }
+        - { texto: "{{conta:questoes}} questões", em: questoes }
+        - { texto: "≈ {{conta:minutos}} min {{conta:resto}} s cada", em: cada, destaque: true }
+    fala: >
+      {{marca:tempo}}No segundo dia, você tem {{enem:duracao-dia-2}} de prova.
+      {{marca:questoes}}São {{conta:questoes}} questões, de Natureza e de Matemática.
+      {{marca:cada}}Dividindo, dá cerca de {{conta:minutos}} minutos e {{conta:resto}} segundos por questão, sem contar o tempo de marcar o cartão.
+  - id: duas-voltas
+    visual:
+      tipo: lista
+      titulo: Duas voltas no caderno
+      itens:
+        - { texto: "1ª volta: o que você sabe fazer, rápido", em: volta1 }
+        - { texto: "a questão travou? marque e pule", em: pule, destaque: true }
+        - { texto: "2ª volta: as que ficaram para trás", em: volta2 }
+    fala: >
+      {{marca:volta1}}Na primeira volta, resolva o que você sabe fazer sem demora.
+      {{marca:pule}}Se a questão travou, faça uma marca no caderno e passe para a próxima.
+      {{marca:volta2}}Na segunda volta, volte às marcadas com o tempo que sobrou.
+  - id: armadilha
+    visual: { tipo: carimbo, titulo: Atenção, texto: "Questão difícil vale o mesmo tempo que três fáceis que você deixou de fazer." }
+    fala: >
+      O erro mais caro é teimar com uma questão difícil enquanto as fáceis esperam no fim do caderno.
+      Reserve também os últimos minutos para passar as respostas para o cartão com calma.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "Tempo por questão e ordem de resolução" }
+    fala: >
+      A aula sobre tempo por questão faz a mesma conta para o primeiro dia, que tem a redação.
+fontes:
+  - titulo: "Edital nº 64, de 21 de maio de 2026, itens 3.2 e 3.3 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }
