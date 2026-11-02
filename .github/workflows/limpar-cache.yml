@@ -1,0 +1,39 @@
+name: Limpar o cache do Cloudflare
+
+# O Cloudflare guarda as páginas do site por 4 horas (regra "HTML do site na borda 4h"), para os robôs não gastarem a
+# cota da Vercel. Esta rotina limpa essa cópia assim que a Vercel termina uma publicação de produção, para a versão nova
+# aparecer na hora. Também dá para rodar à mão (Actions → Limpar o cache do Cloudflare → Run workflow).
+# Precisa do segredo CF_TOKEN_CACHE (token do Cloudflare só com a permissão "Cache Purge") e da variável CF_ZONE_ID
+# (o ID da zona institutolucia.org). Sem o segredo, a rotina só avisa e termina sem erro.
+# Atenção: o evento deployment_status vem da Vercel. Quando o site migrar para o servidor próprio (producao.yml), a
+# limpeza deve ser chamada no fim daquela rotina.
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: limpar-cache
+  cancel-in-progress: true
+
+jobs:
+  limpar:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Limpar o cache de todas as páginas
+        env:
+          TOKEN: ${{ secrets.CF_TOKEN_CACHE }}
+          ZONA: ${{ vars.CF_ZONE_ID }}
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$ZONA" ]; then
+            echo "Falta o segredo CF_TOKEN_CACHE ou a variável CF_ZONE_ID: cache não limpo (expira sozinho em até 4 horas)."
+            exit 0
+          fi
+          resposta=$(curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/${ZONA}/purge_cache" \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+          echo "$resposta" | grep -q '"success":true' && echo "Cache limpo." || { echo "O Cloudflare recusou a limpeza: $resposta"; exit 1; }
