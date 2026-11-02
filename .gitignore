@@ -77,3 +77,6 @@ next-env.d.ts
 # Resultados dos testes de ponta a ponta (Playwright)
 /test-results/
 /playwright-report/
+
+# Modelos das vozes naturais, baixados por npm run vozes:baixar (dezenas de MB; nunca no Git). As amostras ficam.
+/public/vozes/

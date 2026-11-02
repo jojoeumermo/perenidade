@@ -58,9 +58,12 @@
     "cobertura:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/cobertura-enem.mjs",
     "fila:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/fila-enem.mjs",
     "incidencia:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/incidencia-enem.mjs",
-    "ligar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/ligar-questoes-enem.mjs"
+    "ligar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/ligar-questoes-enem.mjs",
+    "vozes:baixar": "node scripts/vozes-baixar.mjs",
+    "testar:vozes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vozes.mjs"
   },
   "dependencies": {
+    "@diffusionstudio/piper-wasm": "1.0.0",
     "@electric-sql/pglite": "^0.5.8",
     "@ruby/3.4-wasm-wasi": "^2.10.1",
     "@supabase/supabase-js": "^2.117.3",
@@ -80,6 +83,7 @@
     "mermaid": "^11.17.2",
     "minisearch": "^7.2.0",
     "next": "16.4.3",
+    "onnxruntime-web": "1.22.0",
     "opentype.js": "1.3.4",
     "php-wasm": "^0.2.0",
     "pyodide": "^314.0.7",

@@ -1062,7 +1062,45 @@
       "rodaLink": "Ouvrir le salon de cette matière dans la communauté",
       "ouvirTrecho": "Écouter ce passage"
     },
-    "quickCheck": "Question rapide"
+    "quickCheck": "Question rapide",
+    "voz": {
+      "escolher": "Voix",
+      "titulo": "Choisissez la voix",
+      "aparelho": "Voix de l’appareil · légère",
+      "aparelhoNota": "Déjà présente sur votre téléphone ou ordinateur. Rien à télécharger.",
+      "natural": "Voix {n}",
+      "feminina": "féminine",
+      "masculina": "masculine",
+      "naturalNota": "Plus naturelle. Télécharge {tamanho} une fois ; ensuite, elle reste dans ce navigateur et fonctionne sans internet.",
+      "jaBaixada": "Déjà sur cet appareil.",
+      "amostra": "Écouter un extrait",
+      "pararAmostra": "Arrêter l’extrait",
+      "baixar": "Télécharger et utiliser",
+      "usar": "Utiliser cette voix",
+      "usando": "Utilisée",
+      "baixando": "Téléchargement : {feito} sur {total}",
+      "cancelar": "Annuler",
+      "economia": "Votre appareil économise les données. Préférez la voix de l’appareil ou téléchargez la voix naturelle en wifi.",
+      "fraco": "Cet appareil a peu de mémoire : la voix de l’appareil est la plus légère et ne bloque pas.",
+      "pesada": "Lourde pour les appareils simples",
+      "lenta": "Sur un ordinateur sans carte graphique, elle peut faire des pauses entre les phrases.",
+      "erro": "Impossible d’ouvrir cette voix. On continue avec la voix de l’appareil.",
+      "semVoz": "Ce navigateur n’a pas de voix propre. Choisissez une voix naturelle.",
+      "nenhumaNatural": "Les voix naturelles ne sont pas encore disponibles sur ce site.",
+      "fechar": "Fermer",
+      "credito": "Voix de synthèse qui tourne sur votre appareil : {modelo} ({licenca})."
+    },
+    "leitor": {
+      "regiao": "Lecture à voix haute",
+      "anterior": "Phrase précédente",
+      "proxima": "Phrase suivante",
+      "pausar": "Pause",
+      "continuar": "Reprendre",
+      "parar": "Arrêter la lecture",
+      "velocidade": "Vitesse",
+      "frase": "Phrase {n} sur {total}",
+      "preparando": "Préparation de la voix…"
+    }
   },
   "library": {
     "areasTitle": "Domaines",
