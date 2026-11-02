@@ -2,9 +2,9 @@
   "exercicios": {
     "titulo": "Exercícios com explicação",
     "lead": "Para firmar o que você aprendeu. A correção sai na hora e, se escorregar, a explicação mostra onde foi e como acertar. O que você responde fica só neste aparelho.",
-    "avisoEmRevisao": "Estes exercícios ainda estão em revisão: foram escritos pela equipe e esperam a conferência de um educador. Se achar um erro, avise; isso ajuda todo mundo.",
+    "avisoEmRevisao": "Estes exercícios ainda estão em revisão: foram escritos pela equipe e esperam a conferência de um revisor. Se achar um erro, avise; isso ajuda todo mundo.",
     "emRevisao": "Em revisão",
-    "emRevisaoDica": "Ainda não foi conferido por um educador. Se achar um erro, avise.",
+    "emRevisaoDica": "Ainda não foi conferido por um revisor. Se achar um erro, avise.",
     "revisado": "Revisado por {por} em {data}",
     "filtrar": "Mostrar",
     "todos": "Todos ({n})",
@@ -102,7 +102,7 @@
   },
   "revisao": {
     "emRevisao": "Em revisão.",
-    "emRevisaoDetalhe": "Esta aula ainda não foi conferida por um educador. Pode estudar normalmente; se algo parecer estranho, avise.",
+    "emRevisaoDetalhe": "Esta aula ainda não foi conferida por um revisor. Pode estudar normalmente; se algo parecer estranho, avise.",
     "aprovada": "Aprovada pela equipe.",
     "aprovadaDetalhe": "Passou pelo painel, com o parecer de outro educador da disciplina; a revisão com função e data ainda não foi registrada.",
     "revisadaPor": "Revisada por {quem} em {data}.",
