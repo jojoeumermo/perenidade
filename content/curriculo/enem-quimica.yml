@@ -1,0 +1,342 @@
+# Mapa curricular da trilha enem-quimica (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+fontes:
+  - "Matriz de Referência do Enem, Inep: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos"
+aulas:
+  funcoes-inorganicas:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 10
+        resumo: Analisar perturbações ambientais, a origem e o destino dos poluentes e seus efeitos.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-agua-funcoes-inorganicas
+  solucoes:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-agua-solucoes
+  tratamento:
+    enem:
+      - area: natureza
+        competencia: 3
+        habilidade: 8
+        resumo: Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 19
+        resumo: Avaliar métodos das ciências que ajudam a diagnosticar ou resolver problemas sociais, econômicos ou ambientais.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 10
+        resumo: Analisar perturbações ambientais, a origem e o destino dos poluentes e seus efeitos.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-agua-tratamento
+  cadeias:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 18
+        resumo: Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-carbono-cadeias
+  eletroquimica:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 18
+        resumo: Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-energia-eletroquimica
+  le-chatelier:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 9
+        resumo: Entender a importância dos ciclos biogeoquímicos e do fluxo de energia, e o que os perturba.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-equilibrio-le-chatelier
+  cotidiano:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 27
+        resumo: Avaliar propostas de intervenção no ambiente usando a química, pesando riscos e benefícios.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 2
+        habilidade: 7
+        resumo: Escolher testes ou critérios para comparar materiais e produtos, defendendo consumidor, trabalhador e saúde.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-sociedade-cotidiano
+  estequiometria:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 25
+        resumo: Caracterizar materiais e substâncias, com as etapas, os rendimentos e os impactos de sua produção.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-representacao-estequiometria
+  mol:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-representacao-mol
+  gases:
+    enem:
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-transformacoes-gases
+  ph:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-equilibrio-ph
+  velocidade:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-cinetica-velocidade
+  radioatividade:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 22
+        resumo: Entender a interação entre radiação e matéria e suas consequências.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-energia-radioatividade
+  nuclear:
+    enem:
+      - area: natureza
+        competencia: 6
+        habilidade: 23
+        resumo: Avaliar formas de gerar, usar ou transformar energia, com suas implicações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 26
+        resumo: Avaliar impactos da produção e do consumo de recursos energéticos ou minerais.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-energias-nuclear
+  combustiveis:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 8
+        resumo: Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 26
+        resumo: Avaliar impactos da produção e do consumo de recursos energéticos ou minerais.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-energias-combustiveis
+  ligacoes:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 18
+        resumo: Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-materiais-ligacoes
+  forcas-intermoleculares:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 18
+        resumo: Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-materiais-forcas-intermoleculares
+  separacao:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 25
+        resumo: Caracterizar materiais e substâncias, com as etapas, os rendimentos e os impactos de sua produção.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 8
+        resumo: Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-materiais-separacao
+  isomeria:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-carbono-isomeria
+  reacoes-organicas:
+    enem:
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 25
+        resumo: Caracterizar materiais e substâncias, com as etapas, os rendimentos e os impactos de sua produção.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-carbono-reacoes
+  ambiental:
+    enem:
+      - area: natureza
+        competencia: 3
+        habilidade: 10
+        resumo: Analisar perturbações ambientais, a origem e o destino dos poluentes e seus efeitos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 12
+        resumo: Avaliar impactos de atividades sociais ou econômicas no ambiente, com interesses em conflito.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 27
+        resumo: Avaliar propostas de intervenção no ambiente usando a química, pesando riscos e benefícios.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-sociedade-ambiental
+  lixo-e-reciclagem:
+    enem:
+      - area: natureza
+        competencia: 5
+        habilidade: 18
+        resumo: Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 8
+        resumo: Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 27
+        resumo: Avaliar propostas de intervenção no ambiente usando a química, pesando riscos e benefícios.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-sociedade-lixo-e-reciclagem

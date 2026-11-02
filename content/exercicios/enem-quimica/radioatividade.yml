@@ -1,0 +1,245 @@
+# Exercícios da aula "Radioatividade" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Meias-vidas aproximadas: iodo-131, 8 dias; carbono-14, 5.730 anos.
+# Nas questões com isótopo "hipotético", a meia-vida é um valor de exemplo.
+
+- id: enem-qui-radioatividade-01
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 22
+  objeto: nat-qui-energia-radioatividade
+  dificuldade: 1
+  enunciado: "Qual destas emissões é uma onda eletromagnética, sem massa e sem carga?"
+  alternativas:
+    - texto: "Alfa"
+      erro: "A alfa é uma partícula: 2 prótons e 2 nêutrons. Tem massa e carga +2."
+    - texto: "Beta"
+      erro: "A beta é um elétron que sai do núcleo. Tem massa (pequena) e carga −1."
+    - texto: "Nêutron"
+      erro: "O nêutron tem massa. Só não tem carga."
+    - texto: "Próton"
+      erro: "O próton tem massa e carga positiva."
+    - texto: "Gama"
+      certa: true
+  explicacao: "A radiação gama é eletromagnética, como a luz, só que com muito mais energia. Não tem massa nem carga."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-02
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 22
+  objeto: nat-qui-energia-radioatividade
+  dificuldade: 1
+  enunciado: "A meia-vida de um radioisótopo é o tempo para"
+  alternativas:
+    - texto: "todo o material deixar de ser radioativo."
+      erro: "Depois de uma meia-vida, ainda sobra metade. O material não acaba de uma vez."
+    - texto: "metade dos núcleos radioativos da amostra se transformar."
+      certa: true
+    - texto: "a radiação perder metade da velocidade."
+      erro: "Meia-vida fala da quantidade de núcleos, não da velocidade da radiação."
+    - texto: "o material esquentar até a metade da temperatura."
+      erro: "A meia-vida não tem a ver com temperatura. E ela nem muda com o calor."
+    - texto: "a massa total do objeto cair a zero."
+      erro: "O núcleo vira outro elemento, que continua ali. A massa total quase não muda."
+  explicacao: "Meia-vida é o tempo para metade dos núcleos instáveis de uma amostra se desfazer. A cada meia-vida, sobra metade do que havia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-03
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 22
+  objeto: nat-qui-energia-radioatividade
+  dificuldade: 1
+  enunciado: "Uma fonte emite só partículas alfa. Uma folha de papel posta na frente dela"
+  alternativas:
+    - texto: "deixa passar tudo."
+      erro: "A alfa é pesada e penetra pouco. Uma folha de papel já a segura."
+    - texto: "fica radioativa para sempre."
+      erro: "Ser atingido por alfa não torna o papel radioativo. Ele só barra a partícula."
+    - texto: "transforma a alfa em gama."
+      erro: "O papel não transforma uma radiação em outra. Ele apenas a barra."
+    - texto: "barra a radiação."
+      certa: true
+    - texto: "acelera a radiação."
+      erro: "Barreiras freiam ou barram a radiação. Não aceleram."
+  explicacao: "Partículas alfa são grandes e têm carga +2. Perdem energia depressa e são barradas por papel ou pela pele."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-04
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-radioatividade
+  dificuldade: 2
+  enunciado: "O urânio-238 (Z = 92) emite uma partícula alfa. O número atômico do núcleo formado é"
+  alternativas:
+    - texto: "90"
+      certa: true
+    - texto: "88"
+      erro: "Você tirou 4 do número atômico. Na alfa, o número de massa cai 4 e o atômico cai 2."
+    - texto: "93"
+      erro: "Z sobe 1 na emissão beta. Na alfa, ele cai 2."
+    - texto: "92"
+      erro: "Na emissão alfa, o núcleo perde 2 prótons. O número atômico muda."
+    - texto: "234"
+      erro: "234 é o novo número de massa (238 − 4). A pergunta é o número atômico."
+  explicacao: "A alfa leva 2 prótons e 2 nêutrons. Z = 92 − 2 = 90 (tório); A = 238 − 4 = 234."
+  conferir: "92 - 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-05
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-radioatividade
+  dificuldade: 2
+  enunciado: "O carbono-14 (Z = 6) emite uma partícula beta. Que núcleo se forma?"
+  alternativas:
+    - texto: "Carbono-12"
+      erro: "Na emissão beta o número de massa não muda. E o número atômico sobe, mudando o elemento."
+    - texto: "Boro-14 (Z = 5)"
+      erro: "O número atômico sobe 1 na beta, não cai. Um nêutron vira próton."
+    - texto: "Nitrogênio-14 (Z = 7)"
+      certa: true
+    - texto: "Berílio-10 (Z = 4)"
+      erro: "Esse seria um caminho de emissão alfa (A − 4, Z − 2). Na beta, A fica igual e Z sobe 1."
+    - texto: "Carbono-14 de novo, só com menos energia"
+      erro: "Isso seria uma emissão gama. Na beta, o núcleo muda de elemento."
+  explicacao: "Na beta, um nêutron vira próton: Z = 6 + 1 = 7 (nitrogênio) e A continua 14."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-06
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energia-radioatividade
+  dificuldade: 2
+  enunciado: "Uma amostra tem 100 g de um radioisótopo. Quanto sobra dele depois de 3 meias-vidas?"
+  alternativas:
+    - texto: "12,5 g"
+      certa: true
+    - texto: "33,3 g"
+      erro: "Você dividiu por 3. A cada meia-vida, divide-se por 2: três vezes seguidas."
+    - texto: "50 g"
+      erro: "50 g sobra depois de uma meia-vida só."
+    - texto: "0 g"
+      erro: "Depois de 3 meias-vidas ainda sobra um oitavo. O material não acaba."
+    - texto: "25 g"
+      erro: "25 g sobra depois de 2 meias-vidas. Falta mais uma: 12,5 g."
+  explicacao: "100 → 50 → 25 → 12,5 g. Ou 100 ÷ 2³ = 100 ÷ 8 = 12,5 g."
+  conferir: "100 / 2^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-07
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energia-radioatividade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No tratamento de uma doença da tireoide, um paciente recebe iodo-131, que tem meia-vida de cerca de 8 dias. A
+    equipe explica que a atividade no corpo cai com o tempo (além do que o corpo elimina pela urina).
+  enunciado: "Considerando só o decaimento, depois de 32 dias resta da quantidade inicial de iodo-131 a fração de"
+  alternativas:
+    - texto: "1/4"
+      erro: "1/4 resta depois de 2 meias-vidas (16 dias). Em 32 dias são 4."
+    - texto: "1/8"
+      erro: "1/8 resta depois de 3 meias-vidas (24 dias). Falta mais uma."
+    - texto: "1/16"
+      certa: true
+    - texto: "1/32"
+      erro: "Você confundiu o número de dias com o denominador. 32 dias são 4 meias-vidas: (1/2)⁴."
+    - texto: "0, porque tudo acabou"
+      erro: "O material nunca acaba de uma vez. A cada meia-vida, sobra metade do que havia."
+  explicacao: "32 ÷ 8 = 4 meias-vidas. Fração restante: (1/2)⁴ = 1/16."
+  conferir: "1 / 2^4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-08
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energia-radioatividade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num sítio arqueológico, pesquisadores encontraram restos de carvão de uma fogueira antiga. A proporção de carbono-14
+    no carvão era 25% da encontrada em plantas vivas hoje. A meia-vida do carbono-14 é de cerca de 5.730 anos.
+  enunciado: "A idade estimada da fogueira é de cerca de"
+  alternativas:
+    - texto: "1.432 anos"
+      erro: "Você dividiu 5.730 por 4. Os 25% indicam quantas meias-vidas passaram, não um quarto da meia-vida."
+    - texto: "5.730 anos"
+      erro: "Depois de uma meia-vida, sobram 50%. Com 25%, passaram duas."
+    - texto: "22.920 anos"
+      erro: "Você usou 4 meias-vidas. 25% é (1/2)², ou seja, 2 meias-vidas."
+    - texto: "2.865 anos"
+      erro: "Você dividiu a meia-vida por 2. Passaram duas meias-vidas inteiras."
+    - texto: "11.460 anos"
+      certa: true
+  explicacao: "100% → 50% → 25%: duas meias-vidas. Idade = 2 × 5.730 = 11.460 anos."
+  conferir: "2 * 5730"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-09
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 22
+  objeto: nat-qui-energia-radioatividade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa de produtores de manga quer exportar a fruta, e o país comprador exige um tratamento contra
+    insetos. Uma das opções é a irradiação com raios gama, numa instalação licenciada. Alguns cooperados ficaram com
+    medo de que a fruta "virasse radioativa".
+  enunciado: "A preocupação dos cooperados"
+  alternativas:
+    - texto: "procede, porque toda radiação deixa o objeto radioativo."
+      erro: "Ser atingido por radiação gama não torna o alimento emissor de radiação. Ele não ganha núcleos instáveis."
+    - texto: "procede, porque a manga absorve o material radioativo da fonte."
+      erro: "A fonte fica blindada e não encosta na fruta. Só a radiação gama passa por ela."
+    - texto: "procede só se a manga for consumida no mesmo dia."
+      erro: "Não há radioatividade na fruta para esperar passar. O alimento irradiado não emite radiação."
+    - texto: "não procede, porque a radiação gama mata os insetos e micróbios sem tornar a fruta radioativa."
+      certa: true
+    - texto: "não procede, porque raios gama não têm energia."
+      erro: "Os raios gama têm muita energia. É por isso que matam insetos e micróbios."
+  explicacao: "Os raios gama atravessam a fruta e danificam o DNA de insetos e micróbios. A fruta não recebe material radioativo nem passa a emitir radiação, como uma pessoa não fica radioativa depois de um raio X."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-radioatividade-10
+  tema: "Radioatividade"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energia-radioatividade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um laboratório recebeu 64 mg de um radioisótopo hipotético com meia-vida de 2 dias. Ele só pode ser descartado
+    como lixo comum quando restarem 4 mg ou menos.
+  enunciado: "O tempo mínimo de espera é de"
+  alternativas:
+    - texto: "4 dias"
+      erro: "4 é o número de meias-vidas. Cada uma dura 2 dias."
+    - texto: "8 dias"
+      certa: true
+    - texto: "16 dias"
+      erro: "16 é por quanto se divide a massa (64 ÷ 4). O tempo é 4 meias-vidas × 2 dias."
+    - texto: "30 dias"
+      erro: "Você subtraiu as massas e dividiu por 2 ((64 − 4) ÷ 2). A massa cai pela metade, não em parcelas iguais."
+    - texto: "2 dias"
+      erro: "Em 2 dias, sobram 32 mg. Ainda falta muito."
+  explicacao: "64 → 32 → 16 → 8 → 4 mg: 4 meias-vidas. Tempo: 4 × 2 = 8 dias."
+  conferir: "4 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

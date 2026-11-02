@@ -1,0 +1,242 @@
+# Exercícios da aula "Potência e rendimento" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Em todos, g = 10 m/s². Potências são valores de exemplo.
+
+- id: enem-fis-rend-01
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  dificuldade: 1
+  enunciado: "Um aparelho transforma 6.000 J de energia em 30 s. Qual é a potência dele?"
+  alternativas:
+    - texto: "200 W"
+      certa: true
+    - texto: "180.000 W"
+      erro: "Você multiplicou energia e tempo. Potência é energia dividida pelo tempo."
+    - texto: "0,005 W"
+      erro: "Você dividiu o tempo pela energia. A conta é P = E ÷ Δt."
+    - texto: "6.030 W"
+      erro: "Você somou energia e tempo. Divida: 6.000 ÷ 30."
+    - texto: "5.970 W"
+      erro: "Você subtraiu o tempo da energia. Divida: 6.000 ÷ 30."
+  explicacao: "P = E ÷ Δt = 6.000 J ÷ 30 s = 200 W, isto é, 200 joules por segundo."
+  conferir: "6000 / 30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-02
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  dificuldade: 1
+  enunciado: "Um motor recebe 500 W de potência elétrica e entrega 400 W de potência mecânica útil. Qual é o rendimento dele?"
+  alternativas:
+    - texto: "125%"
+      erro: "Você dividiu o total pelo útil. Rendimento é o útil sobre o total, e nunca passa de 100%."
+    - texto: "20%"
+      erro: "20% é a parte perdida (100 W de 500 W), não o rendimento."
+    - texto: "0,8%"
+      erro: "0,8 é o rendimento em forma de número decimal. Em porcentagem, multiplique por 100: 80%."
+    - texto: "80%"
+      certa: true
+    - texto: "1,25%"
+      erro: "Você inverteu a divisão (500 ÷ 400) e ainda esqueceu de multiplicar por 100. Rendimento é útil ÷ total."
+  explicacao: "η = P útil ÷ P total = 400 ÷ 500 = 0,8, ou 80%. Os outros 100 W se dissipam, sobretudo como calor."
+  conferir: "400 / 500 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-03
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  dificuldade: 1
+  enunciado: "Um vendedor afirma que o motor que ele vende tem rendimento de 100%, porque não perde nenhuma energia. Do ponto de vista da física, essa afirmação é"
+  alternativas:
+    - texto: "correta, se o motor for novo"
+      erro: "Mesmo um motor novo tem atrito entre as peças e resistência nos fios. Sempre há alguma perda."
+    - texto: "impossível para um motor real, porque parte da energia sempre se dissipa, por exemplo como calor"
+      certa: true
+    - texto: "correta, porque a energia se conserva"
+      erro: "A energia se conserva, mas não toda na forma útil. Uma parte vira calor, que não serve ao serviço."
+    - texto: "correta só para motores elétricos"
+      erro: "Motores elétricos também têm perdas: o enrolamento esquenta e há atrito no eixo."
+    - texto: "impossível, porque o rendimento de todo motor é sempre de 50%"
+      erro: "O rendimento varia de máquina para máquina. O que vale para todas é que fica abaixo de 100%."
+  explicacao: "A energia se conserva, mas nenhuma máquina real a aproveita toda no serviço. Atrito, resistência elétrica e outras perdas transformam uma parte em calor. Por isso o rendimento real é sempre menor que 100%."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-04
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-energia-potencia-e-rendimento
+  dificuldade: 2
+  enunciado: "Um elevador de carga ergue 800 kg a uma altura de 15 m em 20 s, com velocidade constante. Qual é a potência útil do motor?"
+  alternativas:
+    - texto: "120.000 W"
+      erro: "120.000 é a energia, em joules (800 × 10 × 15). Falta dividir pelo tempo."
+    - texto: "600 W"
+      erro: "Você esqueceu a gravidade. O peso da carga é m · g = 8.000 N."
+    - texto: "2.400.000 W"
+      erro: "Você multiplicou pelo tempo em vez de dividir. Potência é energia por segundo."
+    - texto: "12.000 W"
+      erro: "Você multiplicou massa e altura e esqueceu a gravidade e o tempo. Use P = m · g · h ÷ Δt."
+    - texto: "6.000 W"
+      certa: true
+  explicacao: "Energia útil: m · g · h = 800 × 10 × 15 = 120.000 J. Potência: 120.000 ÷ 20 = 6.000 W."
+  conferir: "800 * 10 * 15 / 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-05
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma escola troca as lâmpadas incandescentes das salas por lâmpadas LED. As novas iluminam as salas do mesmo jeito,
+    consomem uma potência elétrica bem menor e quase não esquentam. As antigas ficavam muito quentes depois de acesas.
+  enunciado: "Em termos de rendimento, a troca é vantajosa porque as lâmpadas LED"
+  alternativas:
+    - texto: "produzem mais luz do que a energia elétrica que recebem"
+      erro: "Nenhum aparelho entrega mais energia do que recebe. O rendimento é sempre menor que 100%."
+    - texto: "consomem mais energia, mas duram mais"
+      erro: "O texto diz que elas consomem menos. E a durabilidade não é o que o rendimento mede."
+    - texto: "transformam em luz uma parte maior da energia elétrica que recebem, perdendo menos em calor"
+      certa: true
+    - texto: "transformam toda a energia elétrica em calor"
+      erro: "Isso descreve melhor as incandescentes, que esquentam muito. As LED quase não esquentam."
+    - texto: "não consomem energia elétrica, só a luz do dia"
+      erro: "As lâmpadas LED são ligadas na rede elétrica e consomem energia, só que menos."
+  explicacao: "Rendimento é a parte útil sobre o total. Numa lâmpada, a parte útil é a luz. A LED ilumina igual recebendo menos energia, porque desperdiça bem menos em calor. Rendimento maior, conta de luz menor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-06
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  dificuldade: 2
+  enunciado: "Um motor consome 1.500 W de potência elétrica e tem rendimento de 60%. Qual potência ele dissipa?"
+  alternativas:
+    - texto: "600 W"
+      certa: true
+    - texto: "900 W"
+      erro: "900 W é a potência útil (1.500 × 0,6). A dissipada é o que sobra: 1.500 − 900."
+    - texto: "2.500 W"
+      erro: "Você dividiu pelo rendimento. A potência total já é 1.500 W; o útil é 60% dela."
+    - texto: "1.440 W"
+      erro: "Você tirou 60 W em vez de 60%. 60% de 1.500 W são 900 W."
+    - texto: "90.000 W"
+      erro: "Você multiplicou por 60 em vez de 0,6. Porcentagem é uma fração de 100."
+  explicacao: "Potência útil: 1.500 × 0,6 = 900 W. Dissipada: 1.500 − 900 = 600 W, ou 40% do total."
+  conferir: "1500 * (1 - 0.6)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-07
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-energia-potencia-e-rendimento
+  dificuldade: 2
+  enunciado: "Um carro anda em linha reta a 20 m/s constantes. A força motriz que o impulsiona para a frente é de 2.000 N. Qual é a potência dessa força?"
+  alternativas:
+    - texto: "100 W"
+      erro: "Você dividiu a força pela velocidade. A potência é força vezes velocidade."
+    - texto: "0,01 W"
+      erro: "Você dividiu a velocidade pela força. Multiplique: P = F · v."
+    - texto: "2.020 W"
+      erro: "Você somou força e velocidade. Multiplique: 2.000 × 20."
+    - texto: "40.000 W"
+      certa: true
+    - texto: "1.980 W"
+      erro: "Você subtraiu a velocidade da força. Use P = F · v."
+  explicacao: "Com a força na direção do movimento, P = F · v = 2.000 × 20 = 40.000 W."
+  conferir: "2000 * 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-08
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa usina hidrelétrica, a água gira uma turbina, e a turbina gira um gerador. Considere que a turbina transforma em
+    energia de rotação 90% da energia que recebe da água e que o gerador transforma em energia elétrica 90% da energia de
+    rotação que recebe da turbina.
+  enunciado: "O rendimento do conjunto turbina e gerador é de"
+  alternativas:
+    - texto: "90%"
+      erro: "90% é o rendimento de cada parte. O gerador só recebe os 90% que a turbina entregou, e aproveita 90% disso."
+    - texto: "81%"
+      certa: true
+    - texto: "180%"
+      erro: "Rendimentos em sequência não se somam. E nenhum rendimento passa de 100%."
+    - texto: "80%"
+      erro: "Você tirou 10% e mais 10% dos 100%. A segunda perda é sobre o que sobrou da primeira: os rendimentos se multiplicam."
+    - texto: "45%"
+      erro: "Você dividiu 90 por 2. Rendimentos em sequência se multiplicam: 0,9 × 0,9."
+  explicacao: "De cada 100 J da água, a turbina entrega 90 J. O gerador transforma 90% desses 90 J: 0,9 × 90 = 81 J. Rendimento do conjunto: 0,9 × 0,9 = 0,81, ou 81%."
+  conferir: "0.9 * 0.9 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-09
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  dificuldade: 3
+  enunciado: "Uma bomba sobe 1.000 kg de água até uma caixa a 10 m de altura em 200 s. O rendimento da bomba é de 50%. Qual é a potência elétrica que ela consome?"
+  alternativas:
+    - texto: "500 W"
+      erro: "500 W é a potência útil (100.000 J ÷ 200 s). A bomba consome mais, porque só aproveita metade."
+    - texto: "250 W"
+      erro: "Você multiplicou a potência útil pelo rendimento. O total é o útil dividido pelo rendimento."
+    - texto: "100.000 W"
+      erro: "100.000 é a energia útil, em joules. Falta dividir pelo tempo e pelo rendimento."
+    - texto: "200.000 W"
+      erro: "200.000 é a energia elétrica consumida, em joules. Potência é essa energia dividida pelos 200 s."
+    - texto: "1.000 W"
+      certa: true
+  explicacao: "Energia útil: 1.000 × 10 × 10 = 100.000 J. Potência útil: 100.000 ÷ 200 = 500 W. Potência consumida: P útil ÷ η = 500 ÷ 0,5 = 1.000 W."
+  conferir: "1000 * 10 * 10 / 200 / 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-rend-10
+  tema: "Potência e rendimento"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-energia-potencia-e-rendimento
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma oficina compara dois motores. O motor A consome 2.000 W e entrega 1.500 W de potência mecânica. O motor B consome
+    1.200 W e entrega 1.020 W de potência mecânica.
+  enunciado: "Comparando os dois motores, é correto afirmar que"
+  alternativas:
+    - texto: "o motor A é mais eficiente, porque entrega mais potência útil"
+      erro: "Entregar mais potência não é ser mais eficiente. Eficiência é a fração aproveitada: A aproveita 75%; B, 85%."
+    - texto: "os dois têm o mesmo rendimento, porque dissipam potências parecidas"
+      erro: "A dissipa 500 W e B, 180 W. E o rendimento é a fração útil, que é diferente nos dois."
+    - texto: "o motor B tem rendimento maior, de 85%, embora entregue menos potência útil que o A"
+      certa: true
+    - texto: "o motor B tem rendimento de 118%, porque consome menos"
+      erro: "Você dividiu o total pelo útil. Nenhum rendimento passa de 100%: 1.020 ÷ 1.200 = 0,85."
+    - texto: "o motor A tem rendimento de 133%"
+      erro: "Você dividiu o total pelo útil. O rendimento de A é 1.500 ÷ 2.000 = 0,75."
+  explicacao: "Rendimento de A: 1.500 ÷ 2.000 = 0,75 (75%). Rendimento de B: 1.020 ÷ 1.200 = 0,85 (85%). B aproveita uma fração maior da energia que recebe, mesmo sendo menos potente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

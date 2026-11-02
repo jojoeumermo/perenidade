@@ -1,0 +1,241 @@
+# Exercícios da aula "Respiração, fermentação e fotossíntese" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-metabolismo-01
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-celulas-metabolismo
+  dificuldade: 1
+  enunciado: "Quais são os produtos da respiração celular aeróbica?"
+  alternativas:
+    - texto: "Glicose e oxigênio."
+      erro: "Glicose e oxigênio são o que entra na respiração. Os produtos são o que sai."
+    - texto: "Gás carbônico, água e energia (ATP)."
+      certa: true
+    - texto: "Álcool e gás carbônico."
+      erro: "Esses são os produtos da fermentação alcoólica, que acontece sem oxigênio."
+    - texto: "Ácido lático e ATP."
+      erro: "O ácido lático é produto da fermentação lática, sem oxigênio. Na respiração aeróbica a glicose vai até gás carbônico e água."
+    - texto: "Glicose e água."
+      erro: "Glicose é produto da fotossíntese, o processo contrário. A respiração quebra a glicose."
+  explicacao: "Na respiração aeróbica, glicose e oxigênio viram gás carbônico e água, e a energia da glicose passa para o ATP."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-02
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-celulas-metabolismo
+  dificuldade: 1
+  enunciado: "Em que organela da célula vegetal acontece a fotossíntese?"
+  alternativas:
+    - texto: "Na mitocôndria."
+      erro: "A mitocôndria é a organela da respiração aeróbica. A planta também tem mitocôndrias, mas a fotossíntese é em outra organela."
+    - texto: "No núcleo."
+      erro: "O núcleo guarda o DNA e comanda a célula. Ele não captura luz."
+    - texto: "No vacúolo."
+      erro: "O vacúolo guarda água e substâncias. A fotossíntese precisa de clorofila, que fica em outra organela."
+    - texto: "No cloroplasto."
+      certa: true
+    - texto: "Na parede celular."
+      erro: "A parede dá forma e proteção à célula vegetal. Ela não faz reações de energia."
+  explicacao: "O cloroplasto tem clorofila, o pigmento verde que captura a luz. É nele que gás carbônico e água viram glicose."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-03
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-celulas-metabolismo
+  dificuldade: 1
+  enunciado: "Quantos ATP a fermentação rende por molécula de glicose?"
+  alternativas:
+    - texto: "2"
+      certa: true
+    - texto: "0"
+      erro: "A fermentação rende pouco, mas rende: a glicólise faz 2 ATP. É por isso que a célula recorre a ela quando falta oxigênio."
+    - texto: "6"
+      erro: "6 é o número de moléculas de gás carbônico na equação da respiração, não o rendimento da fermentação."
+    - texto: "12"
+      erro: "Seria o dobro do dobro do certo. A fermentação faz só a glicólise, que rende 2 ATP."
+    - texto: "90"
+      erro: "90 é a porcentagem do ATP da respiração aeróbica que vem da cadeia respiratória, não um número de moléculas da fermentação."
+  explicacao: "Na fermentação, a célula faz só a glicólise, que rende 2 ATP por glicose. A respiração aeróbica continua na mitocôndria e tira muito mais."
+  conferir: "2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-04
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-metabolismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um professor monta dois frascos fechados e transparentes, com uma planta aquática em cada um, e um indicador que
+    muda de cor conforme o gás carbônico dissolvido na água. O frasco 1 fica sob uma lâmpada; o frasco 2, coberto por
+    papel-alumínio. Depois de algumas horas, o indicador mostra que o gás carbônico caiu no frasco 1 e subiu no frasco 2.
+  enunciado: "A diferença entre os frascos se explica porque"
+  alternativas:
+    - texto: "a planta do frasco 2 morreu no escuro e se decompôs em poucas horas."
+      erro: "Em poucas horas a planta não morre nem se decompõe. Ela continua viva e respirando."
+    - texto: "a planta do frasco 1 parou de respirar sob a luz."
+      erro: "A planta respira o tempo todo, com luz ou sem luz. O que muda é a fotossíntese."
+    - texto: "a lâmpada esquentou a água e expulsou o gás carbônico do frasco fechado."
+      erro: "O frasco estava fechado, e o experimento compara luz e escuro, não temperatura. A explicação é biológica."
+    - texto: "o papel-alumínio produz gás carbônico."
+      erro: "O papel-alumínio só bloqueia a luz. Ele não solta gás nenhum."
+    - texto: "com luz, a fotossíntese consumiu mais gás carbônico do que a respiração liberou; no escuro, só houve respiração."
+      certa: true
+  explicacao: "As duas plantas respiram e soltam gás carbônico. Só a do frasco iluminado faz fotossíntese, que consome gás carbônico em quantidade maior. No escuro, só a respiração age, e o gás sobe."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-05
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-celulas-metabolismo
+  dificuldade: 2
+  enunciado: "Num experimento, uma planta recebe água feita com um tipo marcado de oxigênio, que pode ser rastreado. Onde esse oxigênio marcado vai aparecer depois da fotossíntese?"
+  alternativas:
+    - texto: "Na glicose produzida."
+      erro: "Os átomos da glicose vêm sobretudo do gás carbônico. O oxigênio da água é o que sai como gás."
+    - texto: "No gás carbônico liberado."
+      erro: "A fotossíntese consome gás carbônico, não libera. O oxigênio da água sai de outro jeito."
+    - texto: "No gás oxigênio liberado pela planta."
+      certa: true
+    - texto: "Na clorofila, que fica mais verde."
+      erro: "A clorofila captura a luz, mas não guarda o oxigênio da água."
+    - texto: "Em lugar nenhum, porque a água não participa da fotossíntese."
+      erro: "A água é um dos reagentes. Ela é quebrada na etapa que depende da luz."
+  explicacao: "Na etapa que depende da luz, a água é quebrada. Os hidrogênios e elétrons seguem para a fabricação da glicose, e o oxigênio da água sai como gás. Por isso o oxigênio marcado aparece no ar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-06
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-celulas-metabolismo
+  dificuldade: 2
+  enunciado: "O cianeto é um veneno que trava uma proteína da cadeia respiratória, na mitocôndria. Por que ele pode matar em pouco tempo?"
+  alternativas:
+    - texto: "Porque destrói a glicose do sangue."
+      erro: "O cianeto não age sobre a glicose. A glicose continua lá; o que para é o aproveitamento dela."
+    - texto: "Porque os elétrons não chegam ao oxigênio, e a célula deixa de produzir quase todo o ATP."
+      certa: true
+    - texto: "Porque faz as células produzirem oxigênio demais."
+      erro: "Célula animal não produz oxigênio. O problema é o contrário: o oxigênio deixa de ser usado."
+    - texto: "Porque impede a fotossíntese nas células humanas."
+      erro: "Células humanas não fazem fotossíntese. O cianeto age na respiração."
+    - texto: "Porque obriga a célula a fazer mais respiração aeróbica."
+      erro: "Com a cadeia travada, a respiração aeróbica para. A célula fica só com a fermentação, que rende pouco."
+  explicacao: "A cadeia respiratória é uma fila de proteínas que passa elétrons até o oxigênio. Travada uma delas, a fila para, e a cadeia, que faz a maior parte do ATP, deixa de funcionar. Órgãos que gastam muita energia, como cérebro e coração, falham primeiro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-07
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-celulas-metabolismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na produção artesanal de iogurte, o leite é aquecido, esfria até ficar morno e recebe um pouco de iogurte pronto,
+    que tem bactérias vivas. Depois de algumas horas num lugar morno, o leite engrossa e fica azedo.
+  enunciado: "O leite fica azedo porque as bactérias"
+  alternativas:
+    - texto: "fazem fotossíntese e liberam oxigênio no leite."
+      erro: "As bactérias do iogurte não fazem fotossíntese. E oxigênio não deixa o leite azedo."
+    - texto: "fazem fermentação alcoólica e liberam álcool."
+      erro: "A fermentação alcoólica é a das leveduras, no pão e na cerveja. No iogurte, o produto é outro."
+    - texto: "morrem com o calor e soltam o que tinham dentro."
+      erro: "O leite foi esfriado até morno justamente para as bactérias sobreviverem e trabalharem."
+    - texto: "fazem respiração aeróbica e liberam gás carbônico, que engrossa o leite."
+      erro: "O gás carbônico não engrossa o leite. O azedo e o engrossamento vêm de um ácido."
+    - texto: "fermentam o açúcar do leite e produzem ácido lático."
+      certa: true
+  explicacao: "As bactérias do iogurte fazem fermentação lática: transformam o açúcar do leite em ácido lático. O ácido deixa o leite azedo e faz as proteínas do leite engrossarem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-08
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-metabolismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Dois tubos recebem o mesmo caldo de cana e a mesma quantidade de leveduras. O tubo 1 é bem fechado, sem ar. O tubo 2
+    recebe ar o tempo todo, por uma bombinha de aquário. Depois de um dia, o tubo 1 tem bastante álcool e poucas
+    leveduras novas. O tubo 2 tem pouco álcool e muito mais leveduras.
+  enunciado: "A diferença entre os tubos indica que as leveduras"
+  alternativas:
+    - texto: "fazem respiração aeróbica quando há oxigênio, o que rende mais energia para se multiplicarem."
+      certa: true
+    - texto: "só fazem fermentação, e o ar atrapalha a produção de álcool porque o evapora."
+      erro: "Se só fermentassem, não haveria motivo para se multiplicarem mais com ar. O ar muda o processo, não só evapora o álcool."
+    - texto: "fazem fotossíntese quando recebem ar e por isso crescem mais."
+      erro: "Leveduras são fungos, sem clorofila. Ar não é luz: elas não fazem fotossíntese."
+    - texto: "morrem quando falta oxigênio, por isso o tubo 1 tem poucas."
+      erro: "As leveduras do tubo 1 estão vivas: foram elas que produziram o álcool. Elas só se multiplicaram menos."
+    - texto: "transformam o álcool em açúcar quando há oxigênio."
+      erro: "O caminho não volta assim. Com oxigênio, as leveduras quebram o açúcar até gás carbônico e água, em vez de parar no álcool."
+  explicacao: "As leveduras conseguem os dois caminhos. Sem oxigênio, fermentam: rendem pouco ATP e soltam álcool. Com oxigênio, respiram: tiram muito mais energia de cada glicose e têm mais energia para crescer e se dividir. Por isso o tubo com ar tem mais leveduras e menos álcool."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-09
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-celulas-metabolismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em lagos muito poluídos por esgoto, a água fica turva e verde, cheia de algas na superfície. A luz quase não chega
+    ao fundo. Pescadores relatam que, nesses lagos, os peixes morrem em maior número de madrugada, e não à tarde.
+  enunciado: "A morte dos peixes ser maior de madrugada se explica porque"
+  alternativas:
+    - texto: "a água fica mais quente de madrugada e o peixe não aguenta o calor."
+      erro: "De madrugada a água costuma estar mais fria, não mais quente. A explicação está no oxigênio."
+    - texto: "as algas produzem gás tóxico só durante a noite."
+      erro: "O texto não fala de gás tóxico. À noite, as algas simplesmente deixam de produzir oxigênio e passam só a gastá-lo."
+    - texto: "os peixes fazem fotossíntese de dia e ficam sem energia à noite."
+      erro: "Peixes não fazem fotossíntese. Eles dependem do oxigênio dissolvido na água, que vem do ar e das algas."
+    - texto: "à noite não há fotossíntese, mas algas, peixes e micróbios continuam respirando, e o oxigênio da água chega ao mínimo no fim da noite."
+      certa: true
+    - texto: "de madrugada os pescadores tiram mais peixes do lago."
+      erro: "O texto fala de peixes que morrem, não de pesca. A causa é biológica."
+  explicacao: "De dia, as algas fazem fotossíntese e soltam oxigênio na água. À noite, param, mas todos os seres do lago continuam respirando e gastando oxigênio. Com muitas algas e muitos micróbios, o oxigênio cai a noite inteira e chega ao mínimo de madrugada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-metabolismo-10
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-metabolismo
+  dificuldade: 3
+  enunciado: "Um maratonista e um velocista de 100 metros treinam de jeitos diferentes. Na corrida de 100 metros, que dura poucos segundos, muitas fibras musculares trabalham com pouco oxigênio. Na maratona, o esforço é longo e moderado. Qual afirmação compara corretamente o que acontece nos músculos?"
+  alternativas:
+    - texto: "Na maratona predomina a fermentação lática, porque o esforço é longo."
+      erro: "Esforço longo e moderado dá tempo de o oxigênio chegar. Por isso predomina a respiração aeróbica, que rende mais e cansa menos."
+    - texto: "Nas duas provas os músculos só fazem fotossíntese."
+      erro: "Músculo é tecido animal. Ele não tem cloroplasto e não faz fotossíntese."
+    - texto: "Nos 100 metros, a fermentação lática ajuda a fazer ATP depressa; na maratona, predomina a respiração aeróbica."
+      certa: true
+    - texto: "Nos 100 metros, os músculos param de usar glicose."
+      erro: "A glicose é usada nas duas provas. Nos 100 metros, ela é quebrada pela glicólise e fermentada."
+    - texto: "Na maratona, o músculo produz oxigênio para se manter."
+      erro: "Músculo não produz oxigênio. Ele recebe oxigênio do sangue."
+  explicacao: "Num esforço curto e forte, o oxigênio não chega a tempo, e parte das fibras faz fermentação lática, que rende pouco, mas é rápida. Num esforço longo e moderado, o oxigênio chega, e a respiração aeróbica, que rende muito mais ATP, sustenta o trabalho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

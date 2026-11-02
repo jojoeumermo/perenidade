@@ -1,0 +1,242 @@
+# Exercícios da aula "Impactos ambientais e sustentabilidade" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-impactos-01
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 10
+  objeto: nat-bio-ecologia-impactos
+  dificuldade: 1
+  enunciado: "O que é eutrofização?"
+  alternativas:
+    - texto: "O aumento da temperatura da água por causa do sol."
+      erro: "O calor pode piorar a situação, mas eutrofização é outra coisa: o excesso de nutrientes na água."
+    - texto: "A contaminação da água por metais pesados."
+      erro: "Metais pesados causam bioacumulação, um problema diferente. Eutrofização tem a ver com adubo em excesso."
+    - texto: "A falta de chuva que seca os rios."
+      erro: "Seca é falta de água. Eutrofização é excesso de nutrientes numa água que continua lá."
+    - texto: "O excesso de nutrientes na água, que faz algas e microrganismos se multiplicarem demais."
+      certa: true
+    - texto: "O plantio de árvores na beira dos rios."
+      erro: "Isso é recompor a mata ciliar, uma medida que protege o rio. Não é eutrofização."
+  explicacao: "Eutrofização é o enriquecimento da água com nutrientes, sobretudo nitrogênio e fósforo, vindos do esgoto e do adubo. As algas explodem, morrem, são decompostas, e o oxigênio da água cai."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-02
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 10
+  objeto: nat-bio-ecologia-impactos
+  dificuldade: 1
+  enunciado: "O mercúrio lançado num rio aparece em concentração maior nos peixes carnívoros do que nas algas. Como se chama esse fenômeno?"
+  alternativas:
+    - texto: "Biomagnificação."
+      certa: true
+    - texto: "Eutrofização."
+      erro: "Eutrofização é o excesso de nutrientes na água. O aumento do poluente ao longo da cadeia tem outro nome."
+    - texto: "Fotossíntese."
+      erro: "Fotossíntese é a produção de glicose com luz. Não tem a ver com o acúmulo de metal."
+    - texto: "Sucessão ecológica."
+      erro: "Sucessão é a troca de espécies num lugar ao longo do tempo. O caso é o de um poluente que sobe na cadeia."
+    - texto: "Efeito estufa."
+      erro: "Efeito estufa é a retenção de calor por gases da atmosfera. Não explica a concentração de mercúrio nos peixes."
+  explicacao: "Biomagnificação é o aumento da concentração de um poluente que não se quebra a cada nível da cadeia alimentar. Quem está no topo junta o poluente de tudo o que comeu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-03
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 12
+  objeto: nat-bio-ecologia-impactos
+  dificuldade: 1
+  enunciado: "Qual destas consequências do desmatamento da mata da beira de um rio (mata ciliar) é a mais direta?"
+  alternativas:
+    - texto: "O rio passa a ter mais oxigênio."
+      erro: "Sem a mata, entra mais terra e matéria na água, o que não melhora o oxigênio. A consequência direta é outra."
+    - texto: "O rio deixa de ter peixes de água doce."
+      erro: "Os peixes podem diminuir, mas não deixam de ser de água doce. Pense no que acontece com o solo."
+    - texto: "O solo da margem é levado pela chuva e o rio fica mais raso, por assoreamento."
+      certa: true
+    - texto: "A água do rio fica salgada."
+      erro: "Desmatar a margem não traz sal para o rio. O efeito direto é a terra que desce."
+    - texto: "O rio passa a correr no sentido contrário."
+      erro: "O sentido do rio depende do relevo, não da mata. A mata protege as margens."
+  explicacao: "As raízes da mata ciliar seguram o solo da margem. Sem elas, a chuva leva a terra para dentro do rio, que fica raso e barrento. Isso é o assoreamento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-04
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 4
+  objeto: nat-bio-ecologia-impactos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa área de mata atlântica em recuperação, uma árvore trazida de outro continente se espalhou sozinha. Ela cresce
+    rápido, faz sombra densa e suas sementes germinam em grande número. Mudas de árvores nativas quase não aparecem onde
+    ela domina. Um grupo de moradores quer recuperar a mata.
+  enunciado: "A medida mais adequada para o grupo é"
+  alternativas:
+    - texto: "plantar mais árvores da espécie de fora, porque ela já se adaptou."
+      erro: "Plantar mais da invasora aumenta o problema: é justamente ela que impede as nativas de crescer."
+    - texto: "controlar a espécie de fora aos poucos e plantar espécies nativas no lugar."
+      certa: true
+    - texto: "queimar a área inteira para começar do zero."
+      erro: "O fogo mata também as nativas, empobrece o solo e solta gás carbônico. E a invasora pode voltar das sementes."
+    - texto: "trazer um animal de outro continente que coma as sementes dela."
+      erro: "Soltar outro ser exótico pode criar uma nova invasão. A solução não deve criar um problema novo."
+    - texto: "não fazer nada, porque a mata volta sozinha."
+      erro: "O texto mostra que, onde a invasora domina, as nativas não crescem. Sem ação, ela continua tomando o espaço."
+  explicacao: "A espécie de fora virou invasora: se espalha sozinha e tira o espaço das nativas. A solução que ataca a causa é controlá-la e ocupar o espaço com espécies nativas, sem criar outro problema."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-05
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 10
+  objeto: nat-bio-ecologia-impactos
+  dificuldade: 2
+  enunciado: "Numa lagoa eutrofizada, qual é a ordem certa dos acontecimentos?"
+  alternativas:
+    - texto: "Peixes morrem, algas crescem, nutrientes chegam, oxigênio sobe."
+      erro: "A ordem começa pela causa: a chegada de nutrientes. E o oxigênio cai, não sobe."
+    - texto: "Oxigênio sobe, algas morrem, peixes crescem, nutrientes somem."
+      erro: "Na eutrofização o oxigênio cai e os peixes morrem. Essa sequência é o contrário do que acontece."
+    - texto: "Algas morrem, nutrientes chegam, peixes crescem, oxigênio cai."
+      erro: "As algas só morrem em massa depois de crescer com os nutrientes. E os peixes não crescem: morrem."
+    - texto: "Peixes crescem, algas somem, oxigênio cai, nutrientes sobem."
+      erro: "Os peixes não crescem nesse processo. A sequência começa pela chegada de nutrientes."
+    - texto: "Nutrientes chegam, algas crescem e morrem, bactérias decompõem e gastam oxigênio, peixes morrem."
+      certa: true
+  explicacao: "Origem: nutrientes do esgoto ou do adubo. Caminho: as algas se multiplicam e morrem; as bactérias decompõem a matéria morta e gastam o oxigênio. Efeito: os peixes morrem por falta de oxigênio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-06
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 12
+  objeto: nat-bio-ecologia-impactos
+  dificuldade: 2
+  enunciado: "Sobre o efeito estufa, qual afirmação está correta?"
+  alternativas:
+    - texto: "Ele é causado apenas pelas pessoas e não existia antes da indústria."
+      erro: "O efeito estufa é natural e existe há muito tempo. O que as pessoas fazem é intensificá-lo."
+    - texto: "Ele é o mesmo que o buraco na camada de ozônio."
+      erro: "São problemas diferentes. O ozônio filtra raios ultravioleta; o efeito estufa é a retenção de calor por gases."
+    - texto: "Ele é natural e mantém a Terra aquecida; o problema é a sua intensificação pelo aumento de gases como o gás carbônico."
+      certa: true
+    - texto: "Ele esfria o planeta, porque os gases bloqueiam a luz do Sol."
+      erro: "Os gases do efeito estufa seguram o calor que a Terra devolveria ao espaço. Eles aquecem, não esfriam."
+    - texto: "Ele é causado pelo oxigênio que as plantas soltam."
+      erro: "O oxigênio não é um gás de efeito estufa importante. Os principais são gás carbônico, metano e vapor de água."
+  explicacao: "Sem efeito estufa, a Terra seria fria demais para a vida que conhecemos. O problema atual é o aumento dos gases, pela queima de combustíveis fósseis e pelo desmatamento, que intensifica o efeito e aquece o planeta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-07
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 10
+  objeto: nat-bio-ecologia-impactos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um projeto de pesquisa avalia o uso de uma planta aquática flutuante para limpar um tanque com água contaminada por
+    chumbo. A planta cresce rápido e, depois de algumas semanas, a análise mostra menos chumbo na água e muito chumbo
+    nas raízes e folhas da planta.
+  enunciado: "Para o método funcionar de verdade, depois de algumas semanas é preciso"
+  alternativas:
+    - texto: "retirar as plantas do tanque e dar a elas um destino seguro, porque o chumbo ficou guardado nelas."
+      certa: true
+    - texto: "deixar as plantas morrerem no tanque, porque a decomposição destrói o chumbo."
+      erro: "O chumbo é um elemento químico: nenhum ser vivo o destrói. Se a planta apodrecer ali, o metal volta para a água."
+    - texto: "dar as plantas como alimento para o gado, aproveitando o que cresceu."
+      erro: "O gado acumularia o chumbo, e ele subiria na cadeia alimentar até as pessoas. É a biomagnificação."
+    - texto: "adubar o tanque, para a planta transformar o chumbo em outro metal."
+      erro: "Planta não transforma um elemento em outro. E adubo em excesso causaria eutrofização."
+    - texto: "trocar as plantas por peixes, que comem o chumbo."
+      erro: "Os peixes acumulariam o metal e ficariam contaminados. O chumbo continuaria no ambiente."
+  explicacao: "A planta não destrói o chumbo: ela o tira da água e o guarda nos tecidos. Se ficar no tanque, apodrece e devolve o metal. Retirá-la e dar a ela um destino seguro é o que tira o chumbo do sistema."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-08
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 10
+  objeto: nat-bio-ecologia-impactos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num rio que recebe resíduos de um garimpo, técnicos mediram o mercúrio em quatro grupos: algas, pequenos crustáceos
+    que comem algas, peixes que comem crustáceos e peixes grandes que comem outros peixes. A água do rio tinha
+    pouquíssimo mercúrio. Moradores da beira do rio, que comem peixe quase todo dia, também foram examinados.
+  enunciado: "Espera-se que os resultados mostrem"
+  alternativas:
+    - texto: "mais mercúrio nas algas, que estão em contato direto com a água."
+      erro: "As algas estão na base da cadeia e têm a menor concentração entre os seres vivos. O metal se concentra a cada degrau acima."
+    - texto: "o mesmo nível de mercúrio em todos os grupos, porque o rio é um só."
+      erro: "Se fosse assim, não haveria biomagnificação. O mercúrio se acumula e aumenta ao longo da cadeia."
+    - texto: "nenhum mercúrio nos moradores, porque eles não bebem a água do garimpo."
+      erro: "O mercúrio chega às pessoas pela comida, não só pela água. Quem come muito peixe carnívoro recebe a dose maior."
+    - texto: "concentração crescente das algas aos peixes grandes, e moradores expostos pelo consumo de peixe."
+      certa: true
+    - texto: "mais mercúrio nos crustáceos do que nos peixes grandes."
+      erro: "Os peixes grandes comem muitos peixes que comeram muitos crustáceos. Eles juntam mais metal."
+  explicacao: "O mercúrio não se quebra e se acumula. A cada nível, cada animal come muitos do nível de baixo. A concentração cresce das algas aos peixes grandes, e as pessoas que comem esses peixes ficam no topo da cadeia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-09
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 4
+  objeto: nat-bio-ecologia-impactos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cooperativa de agricultores quer reduzir o adubo químico que escorre das lavouras para um córrego que abastece a
+    comunidade. Nos últimos verões, a água do córrego ficou verde e com gosto ruim. Cinco propostas foram discutidas na
+    assembleia.
+  enunciado: "A proposta que reduz o problema na origem, sem criar outro, é"
+  alternativas:
+    - texto: "pôr cloro em excesso no córrego para matar as algas."
+      erro: "Cloro em excesso mata também outros seres e não impede a chegada do adubo. E as algas mortas gastam oxigênio ao serem decompostas."
+    - texto: "tirar a água de outro córrego, mais longe."
+      erro: "Isso muda o lugar do problema, mas o córrego continua poluído. Não ataca a origem."
+    - texto: "aumentar o adubo para as plantas da lavoura crescerem mais e absorverem tudo."
+      erro: "Mais adubo é mais nutriente sobrando para escorrer. Isso piora a eutrofização."
+    - texto: "drenar o córrego todo verão para limpar o fundo."
+      erro: "Drenar destrói a vida do córrego e não impede que o adubo volte a chegar."
+    - texto: "aplicar o adubo na quantidade certa e manter uma faixa de mata na beira do córrego."
+      certa: true
+  explicacao: "O problema começa no adubo que sobra e escorre. Usar a dose certa reduz o que sobra. A faixa de mata na beira do córrego segura terra e nutrientes antes que cheguem à água. É ação na origem e no caminho, sem criar problema novo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-impactos-10
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 12
+  objeto: nat-bio-ecologia-impactos
+  dificuldade: 3
+  enunciado: "Uma empresa quer construir uma represa num rio para gerar energia. Pela Lei nº 6.938/1981, que instrumento deve ser usado antes da obra para avaliar os efeitos sobre os peixes, a mata e as comunidades da região?"
+  alternativas:
+    - texto: "A concessão de uma bolsa de estudos."
+      erro: "Bolsa de estudos não tem relação com a política ambiental. Pense no que a lei chama de instrumento."
+    - texto: "A avaliação de impactos ambientais e o licenciamento."
+      certa: true
+    - texto: "Uma pesquisa de preço da energia."
+      erro: "O preço importa para a empresa, mas a lei ambiental pede o estudo dos efeitos no ambiente."
+    - texto: "A contagem dos eleitores da cidade."
+      erro: "Contar eleitores não avalia efeitos ambientais. A lei lista outros instrumentos."
+    - texto: "Nenhum, porque energia elétrica é sempre limpa."
+      erro: "Represas mudam o rio, alagam matas, bloqueiam a passagem de peixes e afetam quem vive ali. Por isso precisam de avaliação."
+  explicacao: "O artigo 9º da Lei nº 6.938/1981 lista entre os instrumentos da Política Nacional do Meio Ambiente a avaliação de impactos ambientais e o licenciamento de atividades que poluem ou podem poluir. É ali que interesses em conflito (energia, pesca, moradia, mata) são postos na mesa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

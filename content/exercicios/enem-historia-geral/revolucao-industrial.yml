@@ -1,0 +1,247 @@
+# Exercícios da aula "Revolução Industrial" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-revolucao-industrial-01
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-revolucao-industrial
+  dificuldade: 1
+  enunciado: "Em que país começou a Revolução Industrial, no século XVIII?"
+  alternativas:
+    - texto: "Estados Unidos"
+      erro: "Os Estados Unidos se industrializaram depois, sobretudo no século XIX."
+    - texto: "França"
+      erro: "A França se industrializou mais tarde e mais devagar que a pioneira."
+    - texto: "Inglaterra"
+      certa: true
+    - texto: "Brasil"
+      erro: "O Brasil era colônia no século XVIII. A industrialização brasileira é do século XX."
+    - texto: "Japão"
+      erro: "O Japão se industrializou a partir do fim do século XIX."
+  explicacao: "A Inglaterra saiu na frente com a revolução agrícola, gente sobrando no campo, carvão, capital do comércio e apoio do governo aos donos de negócios."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-02
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-revolucao-industrial
+  dificuldade: 1
+  enunciado: "Qual fonte de energia moveu as máquinas da Primeira Revolução Industrial?"
+  alternativas:
+    - texto: "A eletricidade"
+      erro: "A eletricidade marca a Segunda Revolução Industrial, no fim do século XIX."
+    - texto: "O petróleo"
+      erro: "O petróleo também é da Segunda Revolução Industrial."
+    - texto: "A energia solar"
+      erro: "A energia solar em larga escala é do século XXI."
+    - texto: "A energia nuclear"
+      erro: "A energia nuclear é do século XX."
+    - texto: "O vapor, produzido com a queima do carvão"
+      certa: true
+  explicacao: "Thomas Savery usou a primeira máquina a vapor comercial em 1698, nas minas. James Watt aperfeiçoou a máquina, e por volta de 1776 fábricas britânicas já a usavam."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 6.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-03
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 20
+  objeto: hum-producao-revolucao-industrial
+  dificuldade: 1
+  enunciado: "O que faziam os ludistas, na Inglaterra de 1811 a 1816?"
+  alternativas:
+    - texto: "Quebravam máquinas de tecer, em protesto contra a perda de emprego e de condições de vida"
+      certa: true
+    - texto: "Inventavam máquinas novas para as fábricas"
+      erro: "Os ludistas eram trabalhadores que atacavam as máquinas, não inventores."
+    - texto: "Dirigiam as fábricas em nome do governo"
+      erro: "Eles eram perseguidos pelo governo, que puniu a sabotagem com a morte."
+    - texto: "Defendiam a volta da monarquia absoluta"
+      erro: "O movimento era sobre trabalho e máquinas, não sobre a forma de governo."
+    - texto: "Organizavam a exportação de algodão"
+      erro: "Exportar algodão era negócio de comerciantes. Os ludistas eram tecelões."
+  explicacao: "Os ludistas destruíam teares, faziam motins e incendiavam fábricas. Foram reprimidos com a forca e a deportação, e o movimento acabou derrotado em 1816."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 6.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-04
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-revolucao-industrial
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Art. 1º O portão será fechado às seis horas da manhã. Quem chegar depois perderá o dia.
+    Art. 2º É proibido conversar, cantar ou sair do posto sem licença do contramestre.
+    Art. 3º Quem quebrar uma peça pagará o conserto com o seu salário."
+    (Texto do Instituto Lúcia, inspirado em regulamentos de fábricas inglesas do século XIX.)
+  enunciado: "O regulamento revela que a fábrica"
+  alternativas:
+    - texto: "deu aos operários controle sobre o próprio horário."
+      erro: "O portão fecha numa hora fixa e quem chega depois perde o dia. O controle é do patrão."
+    - texto: "proibia o trabalho de adultos."
+      erro: "O regulamento organiza o trabalho de quem está lá. Não proíbe adultos."
+    - texto: "era uma oficina artesanal, como as da Idade Média."
+      erro: "Contramestre, portão com hora e punição no salário são marcas da fábrica moderna."
+    - texto: "impôs uma disciplina rígida do tempo e do corpo, sob controle do patrão."
+      certa: true
+    - texto: "garantia o conserto gratuito das máquinas."
+      erro: "O artigo 3º diz o contrário: o operário paga o conserto com o salário."
+  explicacao: "Hora fixa, silêncio, vigilância e multas: a fábrica impôs uma nova disciplina, muito diferente do trabalho em casa, em que se controlava parte do próprio tempo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-05
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 19
+  objeto: hum-producao-revolucao-industrial
+  dificuldade: 2
+  enunciado: "Por que a máquina a vapor mudou a localização das fábricas?"
+  alternativas:
+    - texto: "Porque obrigou as fábricas a ficar junto aos rios."
+      erro: "É o contrário: antes do vapor, era a força da água que prendia as fábricas aos rios."
+    - texto: "Porque as fábricas deixaram de depender da força da água e puderam ficar perto das cidades, das minas e dos portos."
+      certa: true
+    - texto: "Porque levou as fábricas para dentro das casas."
+      erro: "O vapor ajudou a tirar a produção das casas e a levá-la para grandes fábricas."
+    - texto: "Porque proibiu as fábricas nas cidades."
+      erro: "As cidades industriais cresceram muito justamente com o vapor."
+    - texto: "Porque só funcionava no campo."
+      erro: "O vapor funcionava onde houvesse carvão. As fábricas foram para as cidades."
+  explicacao: "Com o vapor, a energia vinha do carvão, e não mais do rio. As fábricas se concentraram nas cidades, que cresceram depressa e sem planejamento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-06
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-revolucao-industrial
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "O comerciante trazia a lã na segunda-feira e voltava no sábado para buscar o pano. Pagava pelo peso,
+    pouco, e vendia na cidade por muito mais. Nós fiávamos e tecíamos em casa, entre uma tarefa e outra
+    da roça."
+    (Texto do Instituto Lúcia, escrito como a voz de uma camponesa inglesa do século XVIII.)
+  enunciado: "O texto descreve uma forma de produção que"
+  alternativas:
+    - texto: "já usava máquinas a vapor em grandes fábricas."
+      erro: "O trabalho é feito em casa, entre as tarefas da roça. Não há fábrica nem vapor."
+    - texto: "era controlada pelos próprios trabalhadores, que vendiam o pano na cidade."
+      erro: "Quem vende na cidade e fica com o lucro é o comerciante, não a família."
+    - texto: "era típica da servidão feudal."
+      erro: "Há pagamento pelo peso do pano. É uma relação de mercado, não de servidão."
+    - texto: "antecedeu a fábrica: o comerciante fornecia a matéria-prima e ficava com o lucro, e a família trabalhava em casa."
+      certa: true
+    - texto: "foi criada depois da Segunda Revolução Industrial."
+      erro: "O texto é do século XVIII, antes até da Primeira Revolução Industrial se espalhar."
+  explicacao: "É o trabalho doméstico (cottage labor): o comerciante entrega a matéria-prima, a família produz em casa e recebe pouco. Foi uma etapa antes da fábrica."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 6.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-07
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-revolucao-industrial
+  dificuldade: 2
+  enunciado: "Thomas Savery usou a primeira máquina a vapor comercial em 1698. Por volta de 1776, fábricas britânicas usavam as máquinas de James Watt. Quantos anos separam as duas datas?"
+  alternativas:
+    - texto: "78"
+      certa: true
+    - texto: "68"
+      erro: "Erro na casa das dezenas. 1776 − 1698: de 1698 a 1700 são 2 anos, e de 1700 a 1776 são 76."
+    - texto: "88"
+      erro: "Passou 10. Some 2 (até 1700) e 76 (até 1776)."
+    - texto: "122"
+      erro: "122 passa de um século. A diferença entre 1698 e 1776 é menor que 100 anos."
+    - texto: "7"
+      erro: "Você olhou só parte dos números. A diferença é de quase oito décadas."
+  explicacao: "1776 − 1698 = 78 anos. A técnica levou quase oito décadas para sair das minas e chegar às fábricas."
+  conferir: "1776 - 1698"
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 6.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-08
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 22
+  objeto: hum-producao-revolucao-industrial
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em 1802 e em 1819, o Parlamento inglês aprovou leis para limitar o trabalho de crianças nas fábricas.
+    Elas quase não foram cumpridas. A lei de 1833, além de proibir menores de 9 anos nas fábricas têxteis,
+    criou inspetores pagos para fiscalizar.
+    (Texto do Instituto Lúcia, baseado em UK Parliament, Living Heritage.)
+  enunciado: "A comparação entre as leis indica que a novidade decisiva de 1833 foi"
+  alternativas:
+    - texto: "a proibição de todas as máquinas."
+      erro: "Nenhuma das leis proibiu máquinas. Elas regulavam o trabalho."
+    - texto: "o fim de todo trabalho nas fábricas."
+      erro: "As fábricas continuaram funcionando. A lei limitou o trabalho infantil."
+    - texto: "a criação de meios para fiscalizar o cumprimento da lei."
+      certa: true
+    - texto: "a liberação do trabalho infantil sem limites."
+      erro: "A lei de 1833 restringiu o trabalho infantil, não o liberou."
+    - texto: "a transferência das fábricas para as colônias."
+      erro: "O texto não fala de colônias. Fala de fiscalização na própria Inglaterra."
+  explicacao: "As leis anteriores existiam no papel, sem ninguém para cobrar. Os inspetores de 1833 deram à lei um meio de ser cumprida. Lei sem fiscal fica no papel."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-09
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 20
+  objeto: hum-producao-revolucao-industrial
+  dificuldade: 3
+  enunciado: "Muitos livros chamam os ludistas de 'inimigos do progresso'. Qual é a crítica mais forte a essa leitura?"
+  alternativas:
+    - texto: "Os ludistas eram donos de fábricas."
+      erro: "Os ludistas eram trabalhadores, tecelões em sua maioria."
+    - texto: "Os ludistas nunca quebraram máquinas."
+      erro: "Eles quebraram máquinas, sim. A crítica não nega isso: discute o porquê."
+    - texto: "As máquinas daquela época não aumentavam a produção."
+      erro: "As máquinas aumentavam muito a produção. A questão é quem ficava com os ganhos."
+    - texto: "O progresso técnico daquela época não teve consequências para ninguém."
+      erro: "Teve consequências enormes, como desemprego e jornadas duras. É por isso que houve revolta."
+    - texto: "Ela esconde que eles defendiam o emprego e as condições de vida, ameaçados pelo uso que os donos faziam das máquinas."
+      certa: true
+  explicacao: "Os ludistas não atacavam a técnica em abstrato: atacavam o modo como ela era usada contra eles. A prova pede para ver quem ganhou e quem perdeu com a mudança técnica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucao-industrial-10
+  tema: "Revolução Industrial"
+  area: humanas
+  habilidade: 20
+  objeto: hum-producao-revolucao-industrial
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: "O sino toca, o portão fecha e a máquina não espera." (Voz de uma tecelã, por volta de 1830.)
+    Texto II: "O aplicativo manda a próxima entrega e marca o tempo. Se recuso muitas, sou bloqueado."
+    (Voz de um entregador, hoje.)
+    (Textos do Instituto Lúcia.)
+  enunciado: "A comparação entre os textos permite concluir que"
+  alternativas:
+    - texto: "o trabalho de hoje não tem nenhuma relação com o da fábrica do século XIX."
+      erro: "Os dois textos falam de controle do tempo de quem trabalha. Há uma relação clara."
+    - texto: "em épocas e técnicas diferentes, quem trabalha continua submetido a mecanismos de controle do tempo e do ritmo."
+      certa: true
+    - texto: "o entregador de hoje controla totalmente o próprio trabalho."
+      erro: "O texto diz que o aplicativo marca o tempo e bloqueia. O controle não é dele."
+    - texto: "a tecelã de 1830 tinha mais liberdade que qualquer trabalhador de hoje."
+      erro: "O texto I mostra que ela também era controlada. A comparação não sustenta esse exagero."
+    - texto: "a tecnologia acabou com a disciplina no trabalho."
+      erro: "O texto II mostra que a tecnologia também disciplina: marca o tempo e bloqueia."
+  explicacao: "Do sino da fábrica ao algoritmo, mudou a técnica, mas continua a pergunta: quem controla o tempo de quem trabalha? É o tipo de comparação entre épocas que a prova pede."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

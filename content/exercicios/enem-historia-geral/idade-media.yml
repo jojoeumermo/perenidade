@@ -1,0 +1,242 @@
+# Exercícios da aula "Idade Média, feudalismo e mundo islâmico" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-idade-media-01
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 16
+  objeto: hum-organizacao-social-idade-media
+  dificuldade: 1
+  enunciado: "Na sociedade feudal, qual era a principal fonte de riqueza e de poder?"
+  alternativas:
+    - texto: "As fábricas"
+      erro: "Fábricas são da Revolução Industrial, a partir do século XVIII. No feudalismo quase não havia indústria."
+    - texto: "A terra"
+      certa: true
+    - texto: "As ações na bolsa de valores"
+      erro: "Bolsa de valores é coisa do capitalismo moderno. Pôr na Idade Média é anacronismo."
+    - texto: "O petróleo"
+      erro: "O petróleo só virou riqueza central no século XX."
+    - texto: "O salário dos trabalhadores"
+      erro: "O servo não recebia salário: devia trabalho e parte da colheita ao senhor."
+  explicacao: "Com pouco comércio e pouca moeda, a riqueza era a terra. Quem tinha terra tinha servos para trabalhá-la e vassalos para defendê-la."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-02
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-idade-media
+  dificuldade: 1
+  enunciado: "Que nome se dá à visão de mundo medieval centrada em Deus?"
+  alternativas:
+    - texto: "Antropocentrismo"
+      erro: "Antropocentrismo põe o ser humano no centro. É a marca do Renascimento, que veio depois."
+    - texto: "Iluminismo"
+      erro: "O Iluminismo é do século XVIII e põe a razão no centro."
+    - texto: "Positivismo"
+      erro: "O positivismo é do século XIX e valoriza a ciência."
+    - texto: "Liberalismo"
+      erro: "Liberalismo é uma doutrina política e econômica moderna, não uma visão religiosa do mundo."
+    - texto: "Teocentrismo"
+      certa: true
+  explicacao: "'Teo' quer dizer Deus. No teocentrismo, Deus explica o mundo e dá sentido à vida. A Igreja era a grande intérprete dessa visão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-03
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-idade-media
+  dificuldade: 1
+  enunciado: "O que era a relação de suserania e vassalagem?"
+  alternativas:
+    - texto: "Um laço entre senhores: um dava terras, o outro jurava fidelidade e ajuda militar."
+      certa: true
+    - texto: "O contrato de trabalho entre o servo e o patrão."
+      erro: "O servo não tinha contrato nem patrão. Suserania e vassalagem ligavam nobres entre si."
+    - texto: "A eleição do rei pelo povo."
+      erro: "Não havia eleição popular de reis no feudalismo."
+    - texto: "A compra de escravos no mercado."
+      erro: "Vassalo não era escravo. Era um nobre que recebia terra e devia lealdade."
+    - texto: "Um tratado de paz entre cristãos e muçulmanos."
+      erro: "Era uma relação interna da nobreza cristã, não um tratado entre religiões."
+  explicacao: "O suserano entregava terras (o feudo) ao vassalo. O vassalo jurava fidelidade e lutava ao lado do suserano. Um mesmo nobre podia ser vassalo de um e suserano de outro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-04
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 18
+  objeto: hum-organizacao-social-idade-media
+  dificuldade: 2
+  enunciado: "Um servo devia ao senhor três dias por semana de trabalho nas terras senhoriais. Que parte da semana de sete dias isso representa?"
+  alternativas:
+    - texto: "3/4"
+      erro: "Você dividiu por 4. A semana tem 7 dias."
+    - texto: "4/7"
+      erro: "4/7 são os dias que sobravam para o servo. A pergunta pede os dias devidos ao senhor."
+    - texto: "3/7"
+      certa: true
+    - texto: "1/3"
+      erro: "Você inverteu a fração: 3 dias de 7, não 1 de 3."
+    - texto: "7/3"
+      erro: "Fração maior que 1 seria mais que a semana inteira. Ponha a parte em cima e o todo embaixo."
+  explicacao: "São 3 dias de um total de 7: 3/7, um pouco menos da metade da semana. É um exemplo de conta; o número de dias variava de lugar para lugar."
+  conferir: "3/7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-05
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 12
+  objeto: hum-organizacao-social-idade-media
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Nos anos de fome, os celeiros do rei se abriam. As crônicas falam da bondade do soberano, mas socorrer
+    os famintos era parte do que se esperava de quem governava: um rei que deixasse o povo morrer de fome
+    não cumpria o seu papel."
+    (Texto do Instituto Lúcia, sobre os reinos cristãos do começo da Idade Média.)
+  enunciado: "Segundo o texto, o socorro aos famintos era"
+  alternativas:
+    - texto: "tarefa das corporações de ofício."
+      erro: "Corporações de ofício são das cidades medievais de séculos depois. E o texto fala do rei."
+    - texto: "uma bondade pessoal sem relação com o governo."
+      erro: "É a aparência que o texto desmonta: as crônicas falam de bondade, mas era dever de governo."
+    - texto: "proibido pela Igreja."
+      erro: "Nada no texto fala de proibição. A caridade, ao contrário, era valorizada."
+    - texto: "um dever ligado ao exercício do poder real."
+      certa: true
+    - texto: "organizado pelos camponeses em assembleias."
+      erro: "O texto fala dos celeiros do rei, não de assembleias camponesas."
+  explicacao: "O texto opõe a aparência (bondade) à função (dever de quem governava). A prova cobra essa leitura: fique com a tese do autor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-06
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 1
+  objeto: hum-organizacao-social-idade-media
+  dificuldade: 2
+  enunciado: "Qual destas afirmações sobre o mundo islâmico medieval está correta?"
+  alternativas:
+    - texto: "Ficou isolado, sem comércio com outras regiões."
+      erro: "O mundo islâmico ligava rotas de comércio da Ásia, da África e da Europa."
+    - texto: "Bagdá, fundada em 762, foi um centro de comércio, ciência e tradução de obras gregas, persas e indianas."
+      certa: true
+    - texto: "Os muçulmanos destruíram toda a filosofia grega."
+      erro: "É o contrário: muitas obras gregas foram traduzidas para o árabe e chegaram depois à Europa cristã."
+    - texto: "O islã surgiu na Europa, no século XII."
+      erro: "O islã surgiu na Arábia, no começo do século VII, com a pregação de Maomé."
+    - texto: "O califado omíada era um pequeno reino na Arábia."
+      erro: "Por volta de 750, o califado omíada era o maior império do mundo."
+  explicacao: "Enquanto as cidades do ocidente europeu encolhiam, Bagdá e outras cidades islâmicas cresciam e guardavam e ampliavam saberes de várias civilizações."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 1, capítulo 11"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-07
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 15
+  objeto: hum-organizacao-social-idade-media
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Em 1095, o papa pediu aos cavaleiros que deixassem de lutar entre si e marchassem para o Oriente, para
+    tomar Jerusalém. Muitos partiram com a cruz costurada na roupa. Além da fé, alguns buscavam terras,
+    fortuna ou perdão para os seus pecados."
+    (Texto do Instituto Lúcia.)
+  enunciado: "O texto mostra que as Cruzadas"
+  alternativas:
+    - texto: "foram uma viagem de comércio sem violência."
+      erro: "O texto fala em 'tomar Jerusalém': foi uma expedição militar."
+    - texto: "foram convocadas pelo califa de Bagdá."
+      erro: "Quem convocou foi o papa, no Concílio de Clermont."
+    - texto: "aconteceram depois da descoberta da América."
+      erro: "1095 é quase quatro séculos antes de 1492."
+    - texto: "uniram cristãos e muçulmanos contra Bizâncio."
+      erro: "O alvo era Jerusalém, sob governo muçulmano. Os cruzados eram cristãos do ocidente."
+    - texto: "tiveram motivos religiosos misturados a interesses materiais."
+      certa: true
+  explicacao: "O texto lista fé, terras, fortuna e perdão. A prova costuma pedir para ver os vários motivos juntos, sem reduzir a um só."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 1, capítulo 13"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-08
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 16
+  objeto: hum-organizacao-social-idade-media
+  dificuldade: 3
+  enunciado: "A Peste Negra matou talvez 24 milhões de europeus, cerca de 30% da população. Segundo essa estimativa, quantas pessoas, aproximadamente, viviam na Europa antes da peste?"
+  alternativas:
+    - texto: "80 milhões"
+      certa: true
+    - texto: "24 milhões"
+      erro: "24 milhões são os mortos, não a população inteira."
+    - texto: "54 milhões"
+      erro: "Você somou 30 a 24. A porcentagem não se soma ao número de pessoas: 30% de quanto dá 24 milhões?"
+    - texto: "7,2 milhões"
+      erro: "Você calculou 30% de 24 milhões. A pergunta é ao contrário: 24 milhões são 30% de quanto?"
+    - texto: "720 milhões"
+      erro: "Você multiplicou 24 por 30. Divida: 24 ÷ 0,3."
+  explicacao: "Se 24 milhões são 30%, a população inteira é 24 ÷ 0,3 = 80 milhões. É uma estimativa; os números da época são incertos."
+  conferir: "24 / 0.3"
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 1, seção 16.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-09
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 18
+  objeto: hum-organizacao-social-idade-media
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Depois da grande mortandade, os senhores procuravam braços para as colheitas e não achavam. Os
+    trabalhadores pediam o dobro do que recebiam antes, e muitos senhores, para não perder a safra,
+    pagavam."
+    (Texto do Instituto Lúcia, escrito como a voz de um cronista inglês do século XIV.)
+  enunciado: "A situação descrita mostra uma consequência da Peste Negra que"
+  alternativas:
+    - texto: "reforçou a servidão, pois os camponeses ficaram mais presos à terra."
+      erro: "O texto mostra trabalhadores negociando pagamento, o que é o oposto de ficar mais preso."
+    - texto: "acabou de imediato com a nobreza na Europa."
+      erro: "A nobreza continuou existindo por séculos. O texto mostra perda de força, não fim."
+    - texto: "não alterou a relação entre senhores e trabalhadores."
+      erro: "O texto descreve uma mudança clara: quem trabalha passa a ditar o preço."
+    - texto: "aumentou o poder de negociação dos trabalhadores, pela falta de mão de obra."
+      certa: true
+    - texto: "levou os senhores a contratar máquinas para substituir os camponeses."
+      erro: "Anacronismo: não havia máquinas agrícolas modernas no século XIV."
+  explicacao: "A peste matou muita gente, sobretudo pobres. Com menos braços, quem sobrou podia exigir mais. Isso enfraqueceu os laços da servidão em várias regiões."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-idade-media-10
+  tema: "Idade Média"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-idade-media
+  dificuldade: 3
+  enunciado: "Muitos historiadores criticam a expressão 'Idade das Trevas' para a Idade Média. Qual é a crítica mais forte?"
+  alternativas:
+    - texto: "A expressão é recente, do século XXI."
+      erro: "A expressão é antiga, criada por europeus de séculos depois da Idade Média."
+    - texto: "Na Idade Média não havia noite."
+      erro: "A crítica não é literal. 'Trevas' quer dizer atraso, e é essa ideia que se critica."
+    - texto: "Ela apaga o que se produziu na época, como o saber do mundo islâmico, Bizâncio e as universidades."
+      certa: true
+    - texto: "Ela exagera a importância da Igreja, que não tinha poder nenhum."
+      erro: "A Igreja tinha muito poder na Idade Média. A crítica à expressão é outra."
+    - texto: "A Idade Média foi uma época sem guerras nem fomes."
+      erro: "Houve guerras, fomes e a Peste Negra. A crítica não nega isso: nega a ideia de atraso total."
+  explicacao: "A expressão foi criada para valorizar épocas posteriores. Ela ignora Bagdá, Bizâncio, as traduções, as universidades e as técnicas da época."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

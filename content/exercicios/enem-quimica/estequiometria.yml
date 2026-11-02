@@ -1,0 +1,249 @@
+# Exercícios da aula "Estequiometria" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Massas molares arredondadas: H 1, C 12, N 14, O 16, Na 23, Ca 40, Fe 56.
+
+- id: enem-qui-estequiometria-01
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-estequiometria
+  dificuldade: 1
+  enunciado: "Na reação 2 H₂ + O₂ → 2 H₂O, quantos mols de água se formam a partir de 4 mol de H₂, com oxigênio suficiente?"
+  alternativas:
+    - texto: "4 mol"
+      certa: true
+    - texto: "2 mol"
+      erro: "Você dividiu por 2. A proporção é 2 H₂ para 2 H₂O, ou seja, 1 para 1."
+    - texto: "8 mol"
+      erro: "Você multiplicou pelo coeficiente da água. Como os coeficientes de H₂ e H₂O são iguais, a quantidade é a mesma."
+    - texto: "1 mol"
+      erro: "1 é o coeficiente do O₂. A pergunta é sobre a água, que sai na proporção 1 : 1 com o H₂."
+    - texto: "6 mol"
+      erro: "Você somou 4 + 2. A proporção é uma multiplicação: 4 × 2 ÷ 2."
+  explicacao: "2 H₂ formam 2 H₂O. Com 4 mol de H₂: 4 × 2 ÷ 2 = 4 mol de água."
+  conferir: "4 * 2 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-02
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-estequiometria
+  dificuldade: 1
+  enunciado: "Na queima do metano, CH₄ + 2 O₂ → CO₂ + 2 H₂O, quantos mols de O₂ são necessários para queimar 3 mol de CH₄?"
+  alternativas:
+    - texto: "3 mol"
+      erro: "A proporção não é 1 : 1. Cada CH₄ pede 2 O₂."
+    - texto: "1,5 mol"
+      erro: "Você dividiu por 2. Para cada metano são dois oxigênios: multiplique."
+    - texto: "5 mol"
+      erro: "Você somou 3 + 2. A proporção pede 3 × 2."
+    - texto: "6 mol"
+      certa: true
+    - texto: "2 mol"
+      erro: "2 mol de O₂ queimam só 1 mol de metano. Com 3 mol, é o triplo."
+  explicacao: "1 CH₄ : 2 O₂. Com 3 mol de metano: 3 × 2 = 6 mol de O₂."
+  conferir: "3 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-03
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-estequiometria
+  dificuldade: 1
+  enunciado: "Em CH₄ + 2 O₂ → CO₂ + 2 H₂O, quantos gramas de CO₂ se formam na queima de 32 g de metano? (CH₄ = 16 g/mol; CO₂ = 44 g/mol)"
+  alternativas:
+    - texto: "44 g"
+      erro: "44 g sai de 16 g de metano (1 mol). Com 32 g são 2 mol: o dobro."
+    - texto: "88 g"
+      certa: true
+    - texto: "32 g"
+      erro: "A massa não passa igual de um para o outro. Converta para mol: 32 ÷ 16 = 2 mol."
+    - texto: "64 g"
+      erro: "Você multiplicou 32 por 2, o coeficiente do O₂. A proporção de CH₄ para CO₂ é 1 : 1, em mols."
+    - texto: "176 g"
+      erro: "Você dobrou duas vezes. 2 mol de metano dão 2 mol de CO₂: 2 × 44 = 88 g."
+  explicacao: "32 g ÷ 16 g/mol = 2 mol de CH₄ → 2 mol de CO₂ → 2 × 44 = 88 g."
+  conferir: "32 / 16 * 44"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-04
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-representacao-estequiometria
+  dificuldade: 2
+  enunciado: "No alto-forno, Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂. Quantos quilogramas de ferro se obtêm de 320 kg de Fe₂O₃ puro? (Fe₂O₃ = 160 g/mol; Fe = 56 g/mol)"
+  alternativas:
+    - texto: "112 kg"
+      erro: "112 kg sai de 160 kg de óxido. São 320 kg: o dobro."
+    - texto: "320 kg"
+      erro: "A massa do óxido inclui o oxigênio, que sai como CO₂. Só uma parte vira ferro."
+    - texto: "56 kg"
+      erro: "Você usou 1 Fe por Fe₂O₃. A fórmula tem dois ferros: 1 mol de óxido dá 2 mol de ferro."
+    - texto: "448 kg"
+      erro: "Você dobrou duas vezes. 160 kg de óxido dão 112 kg de ferro; 320 kg dão 224 kg."
+    - texto: "224 kg"
+      certa: true
+  explicacao: "1 mol de Fe₂O₃ (160 g) dá 2 mol de Fe (2 × 56 = 112 g). Em massa: 320 × 112 ÷ 160 = 224 kg."
+  conferir: "320 * 112 / 160"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-05
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-estequiometria
+  dificuldade: 2
+  enunciado: "Na reação 2 H₂ + O₂ → 2 H₂O, misturam-se 3 mol de H₂ e 2 mol de O₂. Quantos mols de água se formam?"
+  alternativas:
+    - texto: "4 mol"
+      erro: "4 mol de água pediriam 4 mol de H₂. Só há 3: o H₂ acaba antes."
+    - texto: "5 mol"
+      erro: "Você somou os reagentes. A água depende do reagente que acaba primeiro."
+    - texto: "3 mol"
+      certa: true
+    - texto: "2 mol"
+      erro: "Você usou o O₂ como limitante. Mas 2 mol de O₂ pediriam 4 mol de H₂, e só há 3: o O₂ sobra."
+    - texto: "6 mol"
+      erro: "Você dobrou o H₂. A proporção de H₂ para H₂O é 1 : 1."
+  explicacao: "3 mol de H₂ pedem 1,5 mol de O₂; há 2, então o O₂ sobra e o H₂ é o limitante. 3 mol de H₂ formam 3 mol de água."
+  conferir: "3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-06
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-representacao-estequiometria
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma fábrica de fertilizantes produz amônia pela reação N₂ + 3 H₂ → 2 NH₃. Num lote, foram usados 280 kg de
+    nitrogênio, com hidrogênio em excesso, e o rendimento foi de 50%. Massas molares: N₂ = 28 g/mol; NH₃ = 17 g/mol.
+  enunciado: "A massa de amônia obtida nesse lote foi"
+  alternativas:
+    - texto: "340 kg"
+      erro: "340 kg é o que se formaria com rendimento de 100%. Falta aplicar os 50%."
+    - texto: "85 kg"
+      erro: "Você usou 1 NH₃ por N₂. Cada N₂ forma 2 NH₃: 28 kg dão 34 kg."
+    - texto: "170 kg"
+      certa: true
+    - texto: "140 kg"
+      erro: "Você aplicou os 50% sobre o nitrogênio e parou. A pergunta é a massa de amônia."
+    - texto: "280 kg"
+      erro: "A massa de amônia não é igual à de nitrogênio. Faça a proporção em mols e aplique o rendimento."
+  explicacao: "1 mol de N₂ (28 g) forma 2 mol de NH₃ (34 g). Teórico: 280 × 34 ÷ 28 = 340 kg. Com 50%: 340 × 0,5 = 170 kg."
+  conferir: "280 * 34 / 28 * 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-07
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-estequiometria
+  dificuldade: 2
+  enunciado: "Considere que 1 mol de gás ocupa 22,4 L a 0 °C e 1 atm. Que volume ocupam 2 mol de CO₂ nessas condições?"
+  alternativas:
+    - texto: "11,2 L"
+      erro: "Você dividiu por 2. Mais mols de gás ocupam mais volume: multiplique."
+    - texto: "22,4 L"
+      erro: "Esse é o volume de 1 mol. Com 2 mol, o dobro."
+    - texto: "88 L"
+      erro: "88 é a massa de 2 mol de CO₂, em gramas. Volume se calcula com o volume molar."
+    - texto: "24,4 L"
+      erro: "Você somou 22,4 + 2. A conta é 2 × 22,4."
+    - texto: "44,8 L"
+      certa: true
+  explicacao: "V = n × 22,4 L = 2 × 22,4 = 44,8 L."
+  conferir: "2 * 22.4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-08
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-estequiometria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um caminhão de uma cooperativa roda com etanol. Na queima completa, C₂H₆O + 3 O₂ → 2 CO₂ + 3 H₂O. Num dia, o
+    motor queimou 23 kg de etanol. Massas molares: C₂H₆O = 46 g/mol; CO₂ = 44 g/mol.
+  enunciado: "A massa de gás carbônico lançada nesse dia foi de"
+  alternativas:
+    - texto: "44 kg"
+      certa: true
+    - texto: "22 kg"
+      erro: "Você usou 1 CO₂ por etanol. A equação mostra 2 CO₂ para cada C₂H₆O."
+    - texto: "23 kg"
+      erro: "A massa de CO₂ não é igual à do combustível: o carbono se junta ao oxigênio do ar."
+    - texto: "88 kg"
+      erro: "88 g de CO₂ saem de 46 g de etanol. Com 23 kg (metade de 46), é a metade de 88: 44 kg."
+    - texto: "66 kg"
+      erro: "Você usou 3 CO₂, o coeficiente da água. O CO₂ tem coeficiente 2."
+  explicacao: "23 kg = 23.000 g; 23.000 ÷ 46 = 500 mol de etanol → 1.000 mol de CO₂ → 1.000 × 44 g = 44 kg."
+  conferir: "23 * 88 / 46"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-09
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-representacao-estequiometria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para corrigir a acidez do solo de um assentamento, produz-se cal virgem aquecendo calcário: CaCO₃ → CaO + CO₂. O
+    calcário disponível tem 90% de CaCO₃ em massa, e foram aquecidos 500 kg dele. Massas molares: CaCO₃ = 100 g/mol;
+    CaO = 56 g/mol.
+  enunciado: "Se todo o carbonato reagir, a massa de cal virgem obtida será"
+  alternativas:
+    - texto: "280 kg"
+      erro: "280 kg sairia de 500 kg de carbonato puro. Desconte antes os 10% de impureza."
+    - texto: "450 kg"
+      erro: "450 kg é a massa de carbonato puro. Parte dela sai como CO₂."
+    - texto: "198 kg"
+      erro: "198 kg é a massa de CO₂ (450 × 44 ÷ 100). A pergunta é sobre a cal."
+    - texto: "252 kg"
+      certa: true
+    - texto: "504 kg"
+      erro: "Você usou 112 (2 × 56), como se cada CaCO₃ formasse 2 CaO: 450 × 112 ÷ 100 = 504. A proporção é 1 : 1: 450 × 56 ÷ 100."
+  explicacao: "Carbonato puro: 500 × 0,9 = 450 kg. 100 g de CaCO₃ dão 56 g de CaO: 450 × 56 ÷ 100 = 252 kg."
+  conferir: "500 * 0.9 * 56 / 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-estequiometria-10
+  tema: "Estequiometria"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-representacao-estequiometria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para tratar um resíduo de laboratório, uma técnica misturou 4 g de hidróxido de sódio (NaOH, 40 g/mol) com uma
+    solução que tinha 0,15 mol de ácido clorídrico. A reação é NaOH + HCl → NaCl + H₂O.
+  enunciado: "Depois da reação, sobra em excesso"
+  alternativas:
+    - texto: "nada, porque ácido e base reagem na proporção 1 : 1"
+      erro: "A proporção é 1 : 1, mas as quantidades não são iguais. Converta o NaOH em mol (4 ÷ 40 = 0,1) e compare com 0,15."
+    - texto: "0,05 mol de HCl"
+      certa: true
+    - texto: "0,1 mol de HCl"
+      erro: "0,1 mol de HCl reage com os 0,1 mol de NaOH. Sobra o que passa disso: 0,15 − 0,1."
+    - texto: "3,85 mol de HCl"
+      erro: "Você subtraiu gramas de mols (4 − 0,15). Primeiro converta o NaOH em mol: 4 ÷ 40."
+    - texto: "0,25 mol de NaCl"
+      erro: "Você somou os reagentes. O sal formado é 0,1 mol, igual ao limitante, e não está em excesso."
+  explicacao: "NaOH: 4 ÷ 40 = 0,1 mol. Proporção 1 : 1, então 0,1 mol de HCl reage. Sobram 0,15 − 0,1 = 0,05 mol de HCl."
+  conferir: "0.15 - 4 / 40"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

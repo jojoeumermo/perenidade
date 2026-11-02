@@ -1,0 +1,241 @@
+# Exercícios da aula "Ligações químicas" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Eletronegatividades (escala de Pauling), arredondadas:
+# F 3,98; O 3,44; Cl 3,16; C 2,55; H 2,20; Mg 1,31; Na 0,93; K 0,82.
+
+- id: enem-qui-ligacoes-01
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-ligacoes
+  dificuldade: 1
+  enunciado: "No cloreto de sódio (NaCl), o sódio entrega um elétron ao cloro. Esse tipo de ligação é"
+  alternativas:
+    - texto: "covalente"
+      erro: "Na covalente os átomos compartilham pares de elétrons. Aqui um entrega o elétron ao outro."
+    - texto: "iônica"
+      certa: true
+    - texto: "metálica"
+      erro: "Ligação metálica é entre átomos de metal. O cloro é um ametal."
+    - texto: "de hidrogênio"
+      erro: "Ligação de hidrogênio é uma força entre moléculas, com H ligado a F, O ou N. Não há H no NaCl."
+    - texto: "nuclear"
+      erro: "As ligações químicas envolvem elétrons, não o núcleo."
+  explicacao: "Metal (Na) entrega elétron a ametal (Cl). Formam-se Na⁺ e Cl⁻, que se atraem: ligação iônica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-02
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-materiais-ligacoes
+  dificuldade: 1
+  enunciado: "Os fios elétricos de casa são de cobre porque os metais"
+  alternativas:
+    - texto: "são sempre os materiais mais baratos."
+      erro: "O cobre nem é barato. Ele é escolhido por uma propriedade."
+    - texto: "são formados por íons negativos que andam."
+      erro: "Num metal, quem anda são os elétrons, não íons negativos."
+    - texto: "não esquentam nunca."
+      erro: "Metais esquentam quando passa corrente. A escolha é pela condução."
+    - texto: "têm elétrons livres que se movem com facilidade entre os átomos."
+      certa: true
+    - texto: "têm ligação iônica."
+      erro: "Os metais têm ligação metálica. Composto iônico sólido não conduz."
+  explicacao: "Na ligação metálica, os elétrons de fora formam um \"mar\" que se move entre os cátions. É ele que leva a corrente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-03
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-ligacoes
+  dificuldade: 1
+  enunciado: "Na molécula de água, o oxigênio se liga a dois hidrogênios por ligações"
+  alternativas:
+    - texto: "iônicas, com troca de elétrons"
+      erro: "Os dois são ametais. Nenhum entrega elétrons de vez: eles compartilham."
+    - texto: "metálicas"
+      erro: "Não há metal na água."
+    - texto: "nucleares"
+      erro: "Ligações químicas são de elétrons, não do núcleo."
+    - texto: "de hidrogênio, dentro da molécula"
+      erro: "Ligação de hidrogênio é a atração entre moléculas diferentes. Dentro da molécula, as ligações são covalentes."
+    - texto: "covalentes, compartilhando pares de elétrons"
+      certa: true
+  explicacao: "Oxigênio e hidrogênio são ametais e compartilham pares de elétrons: duas ligações covalentes simples."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-04
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-ligacoes
+  dificuldade: 2
+  enunciado: "O cálcio forma Ca²⁺ e o cloro forma Cl⁻. A fórmula do composto entre eles é"
+  alternativas:
+    - texto: "CaCl₂"
+      certa: true
+    - texto: "CaCl"
+      erro: "+2 − 1 = +1: a fórmula não ficaria neutra. São necessários dois Cl⁻."
+    - texto: "Ca₂Cl"
+      erro: "2 × (+2) − 1 = +3. Está ao contrário: o cálcio é que fica com um só."
+    - texto: "Ca₂Cl₂"
+      erro: "A soma dá zero, mas a fórmula se escreve na menor proporção: CaCl₂."
+    - texto: "CaCl₃"
+      erro: "+2 − 3 = −1. São dois cloros, não três."
+  explicacao: "Um Ca²⁺ (+2) e dois Cl⁻ (−2): soma zero. CaCl₂."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-05
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-materiais-ligacoes
+  dificuldade: 2
+  enunciado: "Com eletronegatividades O = 3,44 e Na = 0,93, a diferença de eletronegatividade na ligação Na–O é"
+  alternativas:
+    - texto: "4,37"
+      erro: "Você somou os valores. O caráter da ligação vem da diferença."
+    - texto: "3,44"
+      erro: "Esse é só o valor do oxigênio. Falta subtrair o do sódio."
+    - texto: "2,51"
+      certa: true
+    - texto: "0,93"
+      erro: "Esse é só o valor do sódio."
+    - texto: "3,70"
+      erro: "Você dividiu 3,44 por 0,93. A comparação é pela diferença: 3,44 − 0,93."
+  explicacao: "Diferença = 3,44 − 0,93 = 2,51. Diferença grande: a ligação tem caráter iônico."
+  conferir: "3.44 - 0.93"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-06
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-materiais-ligacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa feira de ciências, estudantes montaram um circuito com uma pilha, uma lâmpada pequena e dois fios mergulhados
+    num copo. Testaram três copos: água com sal de cozinha, água com açúcar e água destilada. A lâmpada só acendeu no
+    primeiro.
+  enunciado: "A lâmpada acendeu apenas com o sal porque"
+  alternativas:
+    - texto: "o sal deixa a água mais quente."
+      erro: "A temperatura quase não muda. O que importa são as cargas livres na água."
+    - texto: "o açúcar absorve a corrente."
+      erro: "O açúcar não absorve corrente. Ele simplesmente não forma íons."
+    - texto: "o sal, iônico, solta íons livres na água, e o açúcar, molecular, dissolve sem formar íons."
+      certa: true
+    - texto: "o sal é um metal."
+      erro: "O sal é um composto iônico. Não há metal livre no copo."
+    - texto: "a água destilada tem íons demais."
+      erro: "É o contrário: a água destilada quase não tem íons, por isso não acende."
+  explicacao: "Corrente em solução precisa de íons livres. O NaCl se separa em Na⁺ e Cl⁻; o açúcar se espalha em moléculas sem carga."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-07
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-ligacoes
+  dificuldade: 2
+  enunciado: "O gás nitrogênio (N₂), que forma a maior parte do ar, tem os dois átomos unidos por uma ligação"
+  alternativas:
+    - texto: "tripla, com três pares de elétrons compartilhados"
+      certa: true
+    - texto: "simples, com um par compartilhado"
+      erro: "O nitrogênio faz três ligações. Com um par só, cada N ficaria longe do octeto."
+    - texto: "dupla, com dois pares compartilhados"
+      erro: "A dupla é a do O₂. O nitrogênio precisa de três pares para completar o octeto."
+    - texto: "iônica, entre N⁺ e N⁻"
+      erro: "Dois átomos iguais têm a mesma eletronegatividade: não há quem entregue o elétron."
+    - texto: "metálica"
+      erro: "O nitrogênio é um ametal. Não há mar de elétrons."
+  explicacao: "Cada N tem 5 elétrons de fora e precisa de 3 para o octeto. Compartilham três pares: N≡N. Essa ligação forte explica por que o N₂ reage pouco."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-08
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-ligacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A bauxita, minério explorado no Pará e em Minas Gerais, é a fonte do alumínio. O principal componente dela é o
+    óxido de alumínio, formado pelos íons Al³⁺ e O²⁻.
+  enunciado: "A fórmula do óxido de alumínio é"
+  alternativas:
+    - texto: "AlO"
+      erro: "+3 − 2 = +1. A fórmula não fica neutra."
+    - texto: "Al₃O₂"
+      erro: "Os índices foram trocados: 3 × (+3) + 2 × (−2) = +5."
+    - texto: "AlO₃"
+      erro: "+3 + 3 × (−2) = −3. Faltou mais alumínio."
+    - texto: "Al₂O₃"
+      certa: true
+    - texto: "Al₂O"
+      erro: "2 × (+3) − 2 = +4. Faltam oxigênios."
+  explicacao: "Menor múltiplo de 3 e 2: 6. Dois Al³⁺ (+6) e três O²⁻ (−6): Al₂O₃."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-09
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-ligacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma professora deu aos estudantes as eletronegatividades de alguns elementos (escala de Pauling): F 3,98; O 3,44;
+    Cl 3,16; C 2,55; H 2,20; Mg 1,31; Na 0,93; K 0,82.
+  enunciado: "Entre as ligações abaixo, a de maior caráter iônico é"
+  alternativas:
+    - texto: "H–Cl"
+      erro: "A diferença é 3,16 − 2,20 = 0,96: covalente polar."
+    - texto: "K–F"
+      certa: true
+    - texto: "C–H"
+      erro: "A diferença é só 0,35: praticamente apolar."
+    - texto: "Na–Cl"
+      erro: "A diferença é 2,23, grande. Mas K–F tem diferença ainda maior."
+    - texto: "Mg–O"
+      erro: "A diferença é 2,13. Grande, mas menor que a de K–F."
+  explicacao: "K–F: 3,98 − 0,82 = 3,16, a maior diferença da lista. Quanto maior a diferença, mais iônica a ligação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ligacoes-10
+  tema: "Ligações químicas"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-materiais-ligacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um ferreiro de um assentamento explica que o ferro em brasa pode ser martelado até virar uma enxada sem quebrar,
+    enquanto um pedaço de sal-gema (NaCl) se despedaça na primeira martelada.
+  enunciado: "A diferença de comportamento se explica porque"
+  alternativas:
+    - texto: "o ferro tem ligação iônica mais forte que a do sal."
+      erro: "O ferro tem ligação metálica, não iônica."
+    - texto: "o sal tem ligação metálica, que é frágil."
+      erro: "O sal é iônico. A ligação metálica é a do ferro."
+    - texto: "o ferro é mais leve que o sal."
+      erro: "O ferro é bem mais denso que o sal. A diferença está no tipo de ligação."
+    - texto: "o sal está mais quente que o ferro."
+      erro: "Quem está em brasa é o ferro. A temperatura não explica o sal quebrar."
+    - texto: "no metal, o mar de elétrons deixa as camadas de átomos deslizarem; no sal, deslocar uma camada põe íons de mesma carga lado a lado, e eles se repelem."
+      certa: true
+  explicacao: "Na ligação metálica, os cátions deslizam sem perder a \"cola\" de elétrons. No retículo iônico, um deslocamento põe + com + e − com −, e o cristal se parte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

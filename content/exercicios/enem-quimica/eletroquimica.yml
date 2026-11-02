@@ -1,0 +1,244 @@
+# Exercícios da aula "Pilhas, baterias, eletrólise e corrosão" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Potenciais padrão de redução (25 °C), em volts:
+# Mg −2,37; Zn −0,76; Fe −0,44; Pb −0,13; Cu +0,34; Ag +0,80.
+
+- id: enem-qui-eletroquimica-01
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-eletroquimica
+  dificuldade: 1
+  enunciado: "Na reação Zn → Zn²⁺ + 2 e⁻, o zinco"
+  alternativas:
+    - texto: "ganha elétrons e sofre redução"
+      erro: "Os elétrons aparecem do lado dos produtos: o zinco os entregou. Quem perde elétrons se oxida."
+    - texto: "perde elétrons e sofre oxidação"
+      certa: true
+    - texto: "não muda, porque continua sendo zinco"
+      erro: "O zinco metálico (nox 0) virou íon Zn²⁺ (nox +2). Mudou, sim: perdeu dois elétrons."
+    - texto: "ganha prótons e vira outro elemento"
+      erro: "Reação química não muda prótons do núcleo. O que mudou foi o número de elétrons."
+    - texto: "perde elétrons e sofre redução"
+      erro: "Perder elétrons é oxidação. Redução é ganhar elétrons."
+  explicacao: "O nox do zinco foi de 0 para +2: ele perdeu 2 elétrons. Perda de elétrons é oxidação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-02
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-energia-eletroquimica
+  dificuldade: 1
+  enunciado: "Numa pilha, o ânodo é o eletrodo onde"
+  alternativas:
+    - texto: "ocorre a redução e o metal se deposita"
+      erro: "Isso acontece no cátodo. No ânodo o metal perde elétrons."
+    - texto: "a ponte salina fica presa"
+      erro: "A ponte salina liga as duas soluções. Ela não é um eletrodo."
+    - texto: "chegam os elétrons do fio"
+      erro: "Os elétrons chegam ao cátodo. Do ânodo, eles saem."
+    - texto: "a corrente para"
+      erro: "A corrente passa pelo circuito inteiro. O ânodo é onde os elétrons nascem."
+    - texto: "ocorre a oxidação, e os elétrons saem para o fio"
+      certa: true
+  explicacao: "Ânodo: oxidação, polo negativo, de onde saem os elétrons. Cátodo: redução, polo positivo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-03
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-eletroquimica
+  dificuldade: 1
+  enunciado: "Um prego de ferro enferruja mais depressa quando fica"
+  alternativas:
+    - texto: "úmido e exposto ao ar"
+      certa: true
+    - texto: "seco, dentro de um pote fechado"
+      erro: "Sem água, a corrosão quase não acontece. A ferrugem precisa de oxigênio e água juntos."
+    - texto: "mergulhado em óleo"
+      erro: "O óleo é uma barreira: impede o oxigênio e a água de chegarem ao ferro."
+    - texto: "pintado com tinta inteira"
+      erro: "A tinta inteira isola o ferro. A ferrugem começa onde ela descasca."
+    - texto: "no vácuo"
+      erro: "Sem ar não há oxigênio para oxidar o ferro."
+  explicacao: "A ferrugem é a oxidação do ferro pelo oxigênio com água no meio. Úmido e no ar, ele tem os dois."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-04
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-energia-eletroquimica
+  dificuldade: 2
+  enunciado: "Na pilha de zinco e cobre, com E°(Cu²⁺/Cu) = +0,34 V e E°(Zn²⁺/Zn) = −0,76 V, a diferença de potencial é"
+  alternativas:
+    - texto: "0,42 V"
+      erro: "Você subtraiu sem levar o sinal: 0,76 − 0,34. O certo é 0,34 − (−0,76), e menos com menos dá mais."
+    - texto: "−1,10 V"
+      erro: "Você fez o menor menos o maior. A ddp de uma pilha é positiva: E° maior − E° menor."
+    - texto: "1,10 V"
+      certa: true
+    - texto: "0,34 V"
+      erro: "Esse é só o potencial do cobre. A ddp compara os dois eletrodos."
+    - texto: "−0,42 V"
+      erro: "Você somou os potenciais com os sinais (0,34 + (−0,76)). A ddp é a diferença: 0,34 − (−0,76)."
+  explicacao: "ddp = E°maior − E°menor = 0,34 − (−0,76) = 0,34 + 0,76 = 1,10 V."
+  conferir: "0.34 - (-0.76)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-05
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-eletroquimica
+  dificuldade: 2
+  enunciado: "Na ferrugem, o ferro aparece como Fe₂O₃. Se o oxigênio tem nox −2, qual é o nox de cada ferro?"
+  alternativas:
+    - texto: "+2"
+      erro: "Com +2, dois ferros dariam +4, e três oxigênios dão −6. A soma não zeraria."
+    - texto: "+6"
+      erro: "+6 é a soma dos dois ferros. Divida por 2 para ter o de cada um."
+    - texto: "−3"
+      erro: "O ferro está ligado ao oxigênio, que é mais eletronegativo: o nox do ferro é positivo."
+    - texto: "+3"
+      certa: true
+    - texto: "0"
+      erro: "Nox 0 é do ferro metálico, antes de enferrujar. Na ferrugem ele já perdeu elétrons."
+  explicacao: "Três oxigênios: 3 × (−2) = −6. Para a molécula ficar neutra, os dois ferros somam +6: cada um tem 6 ÷ 2 = +3."
+  conferir: "6 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-06
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-energia-eletroquimica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Telhas e postes de aço galvanizado são cobertos por uma camada de zinco. Um eletricista notou que, num poste
+    arranhado por um caminhão, o ferro exposto no risco não enferrujou, mas o zinco em volta ficou esbranquiçado.
+  enunciado: "O ferro exposto não enferrujou porque"
+  alternativas:
+    - texto: "o zinco, de menor potencial de redução, oxidou-se no lugar do ferro."
+      certa: true
+    - texto: "o zinco é uma barreira que cobriu de novo o risco."
+      erro: "No risco, o ferro ficou exposto: a barreira se rompeu ali. A proteção que sobrou é outra."
+    - texto: "o ferro tem menor potencial de redução que o zinco."
+      erro: "É o contrário: o ferro (−0,44 V) tem potencial maior que o zinco (−0,76 V). Por isso o zinco se oxida primeiro."
+    - texto: "o ferro do poste é um metal nobre, que não se oxida."
+      erro: "O ferro se oxida com facilidade. Sozinho, num lugar úmido, ele enferrujaria."
+    - texto: "o zinco reduziu o oxigênio do ar a ozônio."
+      erro: "O oxigênio é reduzido, mas a óxido e hidróxido, não a ozônio. E isso só acontece porque o zinco entrega elétrons."
+  explicacao: "O zinco tem menor E° que o ferro: perde elétrons com mais facilidade. Ele se oxida (o pó branco é composto de zinco) e protege o ferro. É o metal de sacrifício."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-07
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-eletroquimica
+  dificuldade: 2
+  enunciado: "A principal diferença entre uma pilha e uma eletrólise é que"
+  alternativas:
+    - texto: "na pilha não há troca de elétrons."
+      erro: "Há, sim: a corrente da pilha é feita dos elétrons trocados na reação."
+    - texto: "a eletrólise só acontece com metais nobres."
+      erro: "A eletrólise serve para obter metais muito reativos, como o alumínio e o sódio."
+    - texto: "na pilha a reação é espontânea e gera energia elétrica; na eletrólise, a energia elétrica força uma reação não espontânea."
+      certa: true
+    - texto: "a pilha consome energia elétrica e a eletrólise produz."
+      erro: "Está invertido. A pilha produz corrente; a eletrólise consome."
+    - texto: "não há diferença: são o mesmo processo."
+      erro: "Os dois usam oxidação e redução, mas em sentidos opostos de energia."
+  explicacao: "Pilha: química vira eletricidade (espontânea). Eletrólise: eletricidade força a química (não espontânea)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-08
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 21
+  objeto: nat-qui-energia-eletroquimica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa aula de ciências, estudantes montaram uma pilha com uma placa de zinco numa solução de íons Zn²⁺ e um fio de
+    prata numa solução de íons Ag⁺, ligados por um fio e por uma ponte salina.
+    Potenciais padrão de redução: Ag⁺/Ag = +0,80 V; Zn²⁺/Zn = −0,76 V.
+  enunciado: "A diferença de potencial esperada para essa pilha é"
+  alternativas:
+    - texto: "0,04 V"
+      erro: "Você somou os potenciais com os sinais (0,80 + (−0,76)). A ddp é a diferença: 0,80 − (−0,76)."
+    - texto: "0,80 V"
+      erro: "Esse é só o potencial da prata. Falta descontar o do zinco, que é negativo."
+    - texto: "−1,56 V"
+      erro: "Você fez o menor menos o maior. Numa pilha que funciona, a ddp é positiva."
+    - texto: "2,36 V"
+      erro: "Você multiplicou algo por dois, talvez pelos dois elétrons do zinco. O potencial não depende da quantidade de elétrons."
+    - texto: "1,56 V"
+      certa: true
+  explicacao: "A prata tem o maior E°: reduz-se no cátodo. O zinco se oxida no ânodo. ddp = 0,80 − (−0,76) = 1,56 V."
+  conferir: "0.80 + 0.76"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-09
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-energia-eletroquimica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O casco de aço de um barco de pesca enferruja muito na água do mar. Um mecânico naval propôs parafusar no casco
+    placas de outro metal, que se desgastam e são trocadas.
+    Potenciais padrão de redução (V): Mg −2,37; Fe −0,44; Pb −0,13; Cu +0,34; Ag +0,80.
+  enunciado: "Para servir de metal de sacrifício, as placas devem ser de"
+  alternativas:
+    - texto: "cobre, que tem o potencial mais alto."
+      erro: "Metal de potencial maior que o do ferro se reduz no lugar de se oxidar. Ele acelera a corrosão do casco."
+    - texto: "magnésio, que tem potencial menor que o ferro."
+      certa: true
+    - texto: "chumbo, que tem potencial próximo ao do ferro."
+      erro: "−0,13 é maior que −0,44. O chumbo se oxida com menos facilidade que o ferro e não o protege."
+    - texto: "prata, que não enferruja."
+      erro: "A prata quase não se oxida, e é por isso que não serve: quem se oxidaria seria o ferro."
+    - texto: "ferro mais grosso, que dura mais."
+      erro: "Ferro novo enferruja do mesmo jeito. Metal de sacrifício tem de se oxidar antes do ferro."
+  explicacao: "O metal de sacrifício precisa de potencial de redução menor que o do ferro (−0,44 V). Só o magnésio (−2,37 V) atende."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-eletroquimica-10
+  tema: "Pilhas, baterias, eletrólise e corrosão"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-energia-eletroquimica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa oficina de bijuterias, peças de cobre são prateadas por eletrólise. A peça é ligada ao polo negativo de uma
+    fonte e mergulhada numa solução com íons Ag⁺. Um fio de prata é ligado ao polo positivo, na mesma solução.
+  enunciado: "Sobre a peça de cobre, a prata se deposita porque ali ocorre a"
+  alternativas:
+    - texto: "oxidação da prata metálica a Ag⁺."
+      erro: "Essa reação acontece no fio de prata, ligado ao polo positivo (ânodo). Lá a prata se desgasta."
+    - texto: "oxidação do cobre, que vira prata."
+      erro: "Um elemento não vira outro numa reação química. A prata vem dos íons da solução."
+    - texto: "neutralização dos íons Ag⁺ pelo OH⁻."
+      erro: "Não há base nessa etapa. Os íons Ag⁺ recebem elétrons, não hidroxila."
+    - texto: "redução dos íons Ag⁺, que recebem elétrons e viram prata metálica."
+      certa: true
+    - texto: "evaporação da solução, que deixa a prata no fundo."
+      erro: "A prata se prende à peça porque recebe elétrons nela. Não é evaporação."
+  explicacao: "A peça está no polo negativo: chegam elétrons nela. Os íons Ag⁺ recebem esses elétrons (Ag⁺ + e⁻ → Ag) e a prata se deposita. É a galvanoplastia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

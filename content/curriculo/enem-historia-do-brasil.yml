@@ -1,0 +1,60 @@
+# Mapa curricular da trilha enem-historia-do-brasil (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+fontes:
+  - "Matriz de Referência do Enem, Inep: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos"
+aulas:
+  patrimonio-cultural:
+    enem:
+      - { area: humanas, competencia: 1, habilidade: 1, resumo: "Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.", situacao: a-confirmar }
+      - { area: humanas, competencia: 1, habilidade: 2, resumo: "Analisar como as sociedades produzem a memória.", situacao: a-confirmar }
+      - { area: humanas, competencia: 1, habilidade: 3, resumo: "Ligar manifestações culturais de hoje aos seus processos históricos.", situacao: a-confirmar }
+      - { area: humanas, competencia: 1, habilidade: 5, resumo: "Identificar manifestações da diversidade do patrimônio cultural e artístico.", situacao: a-confirmar }
+    objetos: [hum-cultura-patrimonio]
+  povos-indigenas:
+    enem:
+      - { area: humanas, competencia: 1, habilidade: 1, resumo: "Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.", situacao: a-confirmar }
+      - { area: humanas, competencia: 1, habilidade: 5, resumo: "Identificar manifestações da diversidade do patrimônio cultural e artístico.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 11, resumo: "Identificar registros das práticas de grupos sociais no tempo e no espaço.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 15, resumo: "Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história.", situacao: a-confirmar }
+    objetos: [hum-cultura-povos-indigenas]
+  economia-colonial:
+    enem:
+      - { area: humanas, competencia: 4, habilidade: 16, resumo: "Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social.", situacao: a-confirmar }
+      - { area: humanas, competencia: 4, habilidade: 18, resumo: "Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade.", situacao: a-confirmar }
+      - { area: humanas, competencia: 4, habilidade: 19, resumo: "Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano.", situacao: a-confirmar }
+    objetos: [hum-producao-economia-colonial]
+  escravidao-e-resistencia:
+    enem:
+      - { area: humanas, competencia: 1, habilidade: 1, resumo: "Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 11, resumo: "Identificar registros das práticas de grupos sociais no tempo e no espaço.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 13, resumo: "Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 15, resumo: "Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história.", situacao: a-confirmar }
+    objetos: [hum-cultura-escravidao-e-resistencia]
+  imperio:
+    enem:
+      - { area: humanas, competencia: 1, habilidade: 1, resumo: "Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 13, resumo: "Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 14, resumo: "Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 24, resumo: "Relacionar cidadania e democracia na organização das sociedades.", situacao: a-confirmar }
+    objetos: [hum-organizacao-social-imperio]
+  primeira-republica:
+    enem:
+      - { area: humanas, competencia: 2, habilidade: 10, resumo: "Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 13, resumo: "Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 24, resumo: "Relacionar cidadania e democracia na organização das sociedades.", situacao: a-confirmar }
+    objetos: [hum-organizacao-social-primeira-republica]
+  era-vargas:
+    enem:
+      - { area: humanas, competencia: 2, habilidade: 8, resumo: "Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 14, resumo: "Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 21, resumo: "Identificar o papel dos meios de comunicação na vida social.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 22, resumo: "Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 24, resumo: "Relacionar cidadania e democracia na organização das sociedades.", situacao: a-confirmar }
+    objetos: [hum-organizacao-social-era-vargas]
+  ditadura:
+    enem:
+      - { area: humanas, competencia: 3, habilidade: 13, resumo: "Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder.", situacao: a-confirmar }
+      - { area: humanas, competencia: 3, habilidade: 14, resumo: "Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 21, resumo: "Identificar o papel dos meios de comunicação na vida social.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 22, resumo: "Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas.", situacao: a-confirmar }
+      - { area: humanas, competencia: 5, habilidade: 24, resumo: "Relacionar cidadania e democracia na organização das sociedades.", situacao: a-confirmar }
+    objetos: [hum-organizacao-social-ditadura]

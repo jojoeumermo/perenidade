@@ -1,0 +1,241 @@
+# Exercícios da aula "Corrente, tensão, resistência e Lei de Ohm" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fis-ohm-01
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 1
+  enunciado: "Um resistor de 50 Ω é atravessado por uma corrente de 2 A. Qual é a tensão entre os seus terminais?"
+  alternativas:
+    - texto: "25 V"
+      erro: "Você dividiu a resistência pela corrente. Pela Lei de Ohm, a tensão é a resistência vezes a corrente."
+    - texto: "100 V"
+      certa: true
+    - texto: "0,04 V"
+      erro: "Você dividiu a corrente pela resistência. Multiplique: U = R · i."
+    - texto: "52 V"
+      erro: "Você somou resistência e corrente. A Lei de Ohm multiplica: U = R · i."
+    - texto: "48 V"
+      erro: "Você subtraiu a corrente da resistência. Use U = R · i."
+  explicacao: "U = R · i = 50 × 2 = 100 V."
+  conferir: "50 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-02
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 1
+  enunciado: "Pela seção de um fio passam 30 C de carga em 10 s. Qual é a corrente elétrica?"
+  alternativas:
+    - texto: "300 A"
+      erro: "Você multiplicou carga e tempo. Corrente é carga dividida pelo tempo."
+    - texto: "0,33 A"
+      erro: "Você dividiu o tempo pela carga. A conta é i = Q ÷ Δt = 30 ÷ 10."
+    - texto: "40 A"
+      erro: "Você somou carga e tempo. Corrente é a carga que passa por segundo."
+    - texto: "3 A"
+      certa: true
+    - texto: "20 A"
+      erro: "Você subtraiu o tempo da carga. Divida: 30 C ÷ 10 s."
+  explicacao: "i = Q ÷ Δt = 30 C ÷ 10 s = 3 A. Passam 3 coulombs por segundo."
+  conferir: "30 / 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-03
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 1
+  enunciado: "Dois aparelhos são ligados na mesma tomada de 127 V. O aparelho X tem resistência maior que o aparelho Y. Qual afirmação é correta?"
+  alternativas:
+    - texto: "A corrente em X é menor que em Y"
+      certa: true
+    - texto: "A corrente em X é maior que em Y"
+      erro: "Com a mesma tensão, mais resistência quer dizer mais dificuldade: passa menos corrente (i = U ÷ R)."
+    - texto: "As correntes são iguais, porque a tomada é a mesma"
+      erro: "A tomada fixa a tensão, não a corrente. A corrente depende também da resistência de cada aparelho."
+    - texto: "A tensão em X é maior que em Y"
+      erro: "Os dois estão na mesma tomada, então têm a mesma tensão, 127 V."
+    - texto: "Não passa corrente em X, porque a resistência é maior"
+      erro: "Resistência maior diminui a corrente, mas não a zera. Corrente zero só com o circuito aberto."
+  explicacao: "Na mesma tomada, a tensão é igual para os dois. De i = U ÷ R, quem tem resistência maior recebe corrente menor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-04
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 2
+  enunciado: "Um ferro de passar ligado em 220 V é atravessado por uma corrente de 5 A. Qual é a resistência dele?"
+  alternativas:
+    - texto: "1.100 Ω"
+      erro: "220 × 5 = 1.100 é a potência, em watts. A resistência é a tensão dividida pela corrente."
+    - texto: "0,023 Ω"
+      erro: "Você dividiu a corrente pela tensão. A resistência é R = U ÷ i = 220 ÷ 5."
+    - texto: "225 Ω"
+      erro: "Você somou tensão e corrente. Divida: R = U ÷ i."
+    - texto: "215 Ω"
+      erro: "Você subtraiu a corrente da tensão. Divida: R = U ÷ i."
+    - texto: "44 Ω"
+      certa: true
+  explicacao: "De U = R · i, temos R = U ÷ i = 220 ÷ 5 = 44 Ω."
+  conferir: "220 / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-05
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num laboratório de escola, estudantes aplicam tensões diferentes num resistor e medem a corrente. Com 10 V, a
+    corrente é de 0,5 A. Com 20 V, é de 1,0 A. O resistor é ôhmico: a sua resistência não muda durante o experimento.
+  enunciado: "Se a tensão aplicada for de 30 V, a corrente medida será de"
+  alternativas:
+    - texto: "0,5 A"
+      erro: "A corrente não fica parada: num resistor ôhmico, ela cresce na mesma proporção da tensão."
+    - texto: "3 A"
+      erro: "Você dividiu a tensão por 10. A resistência é 10 ÷ 0,5 = 20 Ω, então a corrente é 30 ÷ 20."
+    - texto: "1,5 A"
+      certa: true
+    - texto: "15 A"
+      erro: "Você dividiu a tensão por 2. A resistência é 20 Ω, não 2 Ω: confira 10 ÷ 0,5."
+    - texto: "600 A"
+      erro: "Você multiplicou a tensão pela resistência. Pela Lei de Ohm, i = U ÷ R."
+  explicacao: "A resistência é R = U ÷ i = 10 ÷ 0,5 = 20 Ω (e 20 ÷ 1,0 = 20 Ω, confirma). Com 30 V: i = 30 ÷ 20 = 1,5 A. Tensão três vezes maior que 10 V, corrente três vezes maior que 0,5 A."
+  conferir: "30 / 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-06
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 2
+  enunciado: "Um fio de cobre tem resistência de 4 Ω. Outro fio, do mesmo cobre e com a mesma grossura, tem o dobro do comprimento. Qual é a resistência do segundo fio?"
+  alternativas:
+    - texto: "2 Ω"
+      erro: "Você dividiu por 2. Fio mais comprido tem mais resistência, não menos."
+    - texto: "8 Ω"
+      certa: true
+    - texto: "16 Ω"
+      erro: "Você elevou ao quadrado. A resistência é proporcional ao comprimento: dobra junto com ele."
+    - texto: "4 Ω"
+      erro: "O material é o mesmo, mas o comprimento mudou. Pela segunda Lei de Ohm, R = ρ · L ÷ A: L dobrou, R dobra."
+    - texto: "6 Ω"
+      erro: "Você somou 2 à resistência. Dobrar o comprimento multiplica a resistência por 2."
+  explicacao: "Pela segunda Lei de Ohm, R = ρ · L ÷ A. Com o mesmo material e a mesma área, a resistência é proporcional ao comprimento: 4 × 2 = 8 Ω."
+  conferir: "4 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-07
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 2
+  enunciado: "Por que o resistor de um chuveiro elétrico esquenta a água?"
+  alternativas:
+    - texto: "Porque a tomada envia calor pelo fio até o chuveiro"
+      erro: "A tomada fornece energia elétrica, não calor. A transformação em calor acontece no resistor."
+    - texto: "Porque o resistor guarda as cargas elétricas e elas esquentam paradas"
+      erro: "As cargas não ficam guardadas: elas atravessam o resistor. É no caminho que passam energia aos átomos."
+    - texto: "Porque a água conduz a corrente e se aquece sozinha"
+      erro: "No chuveiro, a corrente passa pelo resistor. A água esquenta em contato com ele."
+    - texto: "Porque a corrente, ao atravessar o resistor, transforma energia elétrica em energia térmica (efeito Joule)"
+      certa: true
+    - texto: "Porque o resistor tem resistência zero e deixa passar toda a corrente"
+      erro: "Com resistência zero não haveria aquecimento. O resistor esquenta justamente porque oferece resistência."
+  explicacao: "Ao atravessar o resistor, as cargas trombam com os átomos do material e lhes passam energia. O resistor esquenta, e a água que passa em contato com ele também. É o efeito Joule."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-08
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 6
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O manual de uma sanduicheira traz o aviso: "Este aparelho foi fabricado para 127 V. Não o ligue em tomadas de 220 V."
+    O aparelho funciona por meio de um resistor, cuja resistência não muda com a tomada em que ele é ligado.
+  enunciado: "Se o aviso for desobedecido, o que acontece com o aparelho?"
+  alternativas:
+    - texto: "A corrente e a potência aumentam muito, e o resistor pode superaquecer e queimar"
+      certa: true
+    - texto: "A corrente diminui, porque a tensão maior encontra mais resistência"
+      erro: "A resistência é a mesma nas duas tomadas. Com a mesma resistência e mais tensão, a corrente aumenta (i = U ÷ R)."
+    - texto: "Nada muda, porque a potência do aparelho é fixa e vem escrita na etiqueta"
+      erro: "A potência da etiqueta vale para a tensão indicada. Em outra tensão, a potência muda: P = U² ÷ R."
+    - texto: "A potência cai pela metade, e o aparelho esquenta menos"
+      erro: "É o contrário. Com a mesma resistência, a potência vai com a tensão ao quadrado: fica cerca de 3 vezes maior."
+    - texto: "O aparelho passa a funcionar com corrente zero, por segurança"
+      erro: "O aparelho não tem como se proteger sozinho assim. A corrente cresce, e é isso que o danifica."
+  explicacao: "A resistência é fixa. Em 220 V, a corrente fica cerca de 220 ÷ 127 ≈ 1,7 vez maior, e a potência, que vai com a tensão ao quadrado, cerca de 3 vezes maior. O resistor recebe energia demais e pode queimar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-09
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 3
+  enunciado: "Um fio tem resistência de 8 Ω. Outro fio, do mesmo material e com o mesmo comprimento, tem o dobro do diâmetro. Qual é a resistência do segundo fio?"
+  alternativas:
+    - texto: "4 Ω"
+      erro: "Você dividiu por 2, pensando no diâmetro. A resistência depende da área, e a área do círculo vai com o quadrado do diâmetro: fica 4 vezes maior."
+    - texto: "16 Ω"
+      erro: "Fio mais grosso tem menos resistência, não mais. A área está no denominador de R = ρ · L ÷ A."
+    - texto: "32 Ω"
+      erro: "Você multiplicou por 4. A área fica 4 vezes maior, mas ela divide a resistência."
+    - texto: "8 Ω"
+      erro: "O material e o comprimento são os mesmos, mas a grossura mudou. A resistência também muda."
+    - texto: "2 Ω"
+      certa: true
+  explicacao: "Com o dobro do diâmetro, a área da seção fica 2 × 2 = 4 vezes maior. Pela segunda Lei de Ohm, R = ρ · L ÷ A, a resistência fica 4 vezes menor: 8 ÷ 4 = 2 Ω."
+  conferir: "8 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-ohm-10
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um chuveiro tem, na embalagem, a indicação "5.500 W, 220 V". Um técnico quer saber a resistência do resistor quando o
+    chuveiro funciona nessas condições, para comparar com a medida feita num chuveiro usado.
+  enunciado: "A resistência do resistor, nessas condições, é de"
+  alternativas:
+    - texto: "25 Ω"
+      erro: "25 é a corrente, em ampères (5.500 ÷ 220). A resistência é a tensão dividida pela corrente: 220 ÷ 25."
+    - texto: "0,11 Ω"
+      erro: "Você dividiu a potência pela tensão ao quadrado. A conta é ao contrário: R = U² ÷ P."
+    - texto: "8,8 Ω"
+      certa: true
+    - texto: "48.400 Ω"
+      erro: "48.400 é a tensão ao quadrado. Falta dividir pela potência: R = U² ÷ P."
+    - texto: "1.210.000 Ω"
+      erro: "Você multiplicou a tensão pela potência. Use R = U² ÷ P."
+  explicacao: "De P = U² ÷ R, temos R = U² ÷ P = 220 × 220 ÷ 5.500 = 48.400 ÷ 5.500 = 8,8 Ω. Pelo outro caminho: i = P ÷ U = 25 A e R = U ÷ i = 220 ÷ 25 = 8,8 Ω."
+  conferir: "220 * 220 / 5500"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

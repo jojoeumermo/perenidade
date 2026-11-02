@@ -1,0 +1,241 @@
+# Exercícios da aula "Isomeria" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-qui-isomeria-01
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  dificuldade: 1
+  enunciado: "Duas substâncias são isômeras quando têm"
+  alternativas:
+    - texto: "o mesmo nome"
+      erro: "Isômeros têm nomes diferentes, porque são substâncias diferentes."
+    - texto: "a mesma estrutura"
+      erro: "Mesma estrutura seria a mesma substância. Isômeros diferem na estrutura."
+    - texto: "o mesmo cheiro"
+      erro: "Isômeros costumam ter propriedades diferentes, inclusive o cheiro."
+    - texto: "a mesma fórmula molecular e estruturas diferentes"
+      certa: true
+    - texto: "a mesma massa e fórmulas diferentes"
+      erro: "Fórmulas diferentes já não são isômeros. É preciso a mesma fórmula molecular."
+  explicacao: "Isômeros têm os mesmos átomos, nas mesmas quantidades, arrumados de outro jeito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-02
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  dificuldade: 1
+  enunciado: "Um carbono quiral (assimétrico) é aquele que"
+  alternativas:
+    - texto: "está ligado a quatro grupos diferentes"
+      certa: true
+    - texto: "faz uma ligação dupla"
+      erro: "Carbono de dupla está ligado a só três vizinhos. Não pode ter quatro grupos diferentes."
+    - texto: "está ligado a três hidrogênios"
+      erro: "Com três hidrogênios iguais, o carbono não é quiral."
+    - texto: "está num anel aromático"
+      erro: "Os carbonos do anel benzênico fazem duplas e não são quirais."
+    - texto: "está ligado a dois oxigênios"
+      erro: "Ter oxigênio não basta. Os quatro grupos precisam ser todos diferentes."
+  explicacao: "Com quatro grupos diferentes, o carbono tem duas formas que são imagem no espelho e não se sobrepõem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-03
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  dificuldade: 1
+  enunciado: "O etanol (CH₃–CH₂–OH) e o éter dimetílico (CH₃–O–CH₃) têm fórmula C₂H₆O. Eles são isômeros de"
+  alternativas:
+    - texto: "cadeia"
+      erro: "Na isomeria de cadeia, a função é a mesma e muda o esqueleto. Aqui as funções são diferentes."
+    - texto: "posição"
+      erro: "Na de posição, a função é a mesma e um grupo muda de lugar. Aqui um é álcool e o outro, éter."
+    - texto: "função"
+      certa: true
+    - texto: "geometria (cis-trans)"
+      erro: "Não há ligação dupla entre carbonos. Não há cis nem trans."
+    - texto: "óptica"
+      erro: "Nenhum dos dois tem carbono quiral."
+  explicacao: "Álcool e éter são funções diferentes. Mesma fórmula, funções diferentes: isomeria de função."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-04
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  dificuldade: 2
+  enunciado: "But-1-eno (CH₂=CH–CH₂–CH₃) e but-2-eno (CH₃–CH=CH–CH₃) são isômeros de"
+  alternativas:
+    - texto: "função"
+      erro: "Os dois são alcenos, da mesma função."
+    - texto: "cadeia"
+      erro: "Os dois têm cadeia normal de 4 carbonos. O esqueleto é o mesmo."
+    - texto: "óptica"
+      erro: "Nenhum deles tem carbono com quatro grupos diferentes."
+    - texto: "metameria"
+      erro: "Metameria é a posição de um heteroátomo. Aqui não há heteroátomo."
+    - texto: "posição"
+      certa: true
+  explicacao: "Mesma cadeia e mesma função; só a dupla mudou de lugar (carbono 1 ou 2). Isomeria de posição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-05
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  dificuldade: 2
+  enunciado: "Qual destas substâncias apresenta isomeria cis-trans?"
+  alternativas:
+    - texto: "Eteno, CH₂=CH₂"
+      erro: "Cada carbono da dupla tem dois hidrogênios iguais. Trocar de lado não muda nada."
+    - texto: "But-2-eno, CH₃–CH=CH–CH₃"
+      certa: true
+    - texto: "But-1-eno, CH₂=CH–CH₂–CH₃"
+      erro: "O primeiro carbono da dupla tem dois hidrogênios. Sem dois grupos diferentes em cada carbono, não há cis e trans."
+    - texto: "Butano, CH₃–CH₂–CH₂–CH₃"
+      erro: "O butano não tem dupla. As ligações simples giram livremente."
+    - texto: "Propeno, CH₂=CH–CH₃"
+      erro: "Um carbono da dupla tem dois hidrogênios iguais. Não há cis-trans."
+  explicacao: "No but-2-eno, cada carbono da dupla tem um H e um CH₃. Os CH₃ podem ficar do mesmo lado (cis) ou em lados opostos (trans)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-06
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  dificuldade: 2
+  enunciado: "Quantos alcanos diferentes têm a fórmula C₄H₁₀?"
+  alternativas:
+    - texto: "1"
+      erro: "Há mais de um jeito de ligar 4 carbonos: em fileira ou com um galho."
+    - texto: "4"
+      erro: "Você contou cada carbono como um isômero. Os arranjos possíveis são só dois."
+    - texto: "3"
+      erro: "Com 4 carbonos só há dois esqueletos: a fileira e o T. Outros desenhos são o mesmo esqueleto girado."
+    - texto: "10"
+      erro: "10 é o número de hidrogênios, não de isômeros."
+    - texto: "2"
+      certa: true
+  explicacao: "Butano (cadeia normal) e metilpropano (com um galho). São isômeros de cadeia."
+  conferir: "2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-07
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O gás de isqueiro e o de algumas latas de spray contêm butano (CH₃–CH₂–CH₂–CH₃) e isobutano, ou metilpropano
+    (CH₃–CH(CH₃)–CH₃). Os dois têm fórmula C₄H₁₀, mas o isobutano ferve a uma temperatura mais baixa.
+  enunciado: "Butano e isobutano são isômeros de"
+  alternativas:
+    - texto: "função"
+      erro: "Os dois são alcanos: mesma função."
+    - texto: "posição"
+      erro: "Não há grupo funcional mudando de lugar. Muda a forma do esqueleto."
+    - texto: "cadeia"
+      certa: true
+    - texto: "geometria"
+      erro: "Não há dupla ligação. Não há cis e trans."
+    - texto: "óptica"
+      erro: "Nenhum carbono tem quatro grupos diferentes."
+  explicacao: "Um é cadeia normal; o outro, ramificada. Mesmo número de átomos, esqueletos diferentes: isomeria de cadeia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-08
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A talidomida, lançada em 1957 como calmante, tem um carbono quiral. Uma de suas formas foi ligada ao efeito calmante
+    e a outra, a malformações em bebês de gestantes que a tomaram. No organismo, uma forma se converte na outra.
+  enunciado: "Com base no texto, é correto afirmar que"
+  alternativas:
+    - texto: "as duas formas são a mesma substância, porque têm a mesma fórmula."
+      erro: "Mesma fórmula não quer dizer mesma substância. As formas são enantiômeros, com efeitos diferentes no corpo."
+    - texto: "as duas formas são enantiômeros e, como se convertem no corpo, vender só a forma calmante não evitaria o risco."
+      certa: true
+    - texto: "as duas formas são isômeros de função."
+      erro: "As duas têm as mesmas funções. Diferem só na arrumação espacial em torno do carbono quiral."
+    - texto: "isômeros ópticos sempre têm o mesmo efeito no corpo."
+      erro: "O caso mostra o contrário: enzimas e receptores do corpo distinguem as duas \"mãos\"."
+    - texto: "o problema seria evitado separando as formas por destilação."
+      erro: "Enantiômeros fervem na mesma temperatura. E, mesmo separadas, as formas se converteriam no corpo."
+  explicacao: "Enantiômeros são imagens no espelho. O corpo distingue as duas formas. Mas, como a talidomida se converte de uma forma na outra no organismo, nenhuma das duas é segura na gravidez."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-09
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O número máximo de isômeros ópticos de uma molécula é 2ⁿ, em que n é o número de carbonos quirais diferentes. Um
+    açúcar simples estudado numa aula de bioquímica tem dois carbonos quirais diferentes.
+  enunciado: "O número máximo de isômeros ópticos desse açúcar é"
+  alternativas:
+    - texto: "2"
+      erro: "2 isômeros seriam para um carbono quiral só. Com dois, 2²."
+    - texto: "8"
+      erro: "8 é 2³, para três carbonos quirais."
+    - texto: "6"
+      erro: "Você multiplicou 2 × 3. A regra é 2 elevado ao número de carbonos quirais."
+    - texto: "4"
+      certa: true
+    - texto: "1"
+      erro: "Com carbono quiral há sempre pelo menos dois isômeros ópticos."
+  explicacao: "2ⁿ com n = 2: 2² = 4 isômeros ópticos."
+  conferir: "2^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-isomeria-10
+  tema: "Isomeria"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-isomeria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Óleos vegetais têm ácidos graxos insaturados em que os dois grupos ligados aos carbonos da dupla ficam do mesmo
+    lado. Em alguns processos industriais, parte dessas duplas passa a ter os grupos em lados opostos, formando as
+    chamadas gorduras trans, associadas a maior risco de doenças do coração.
+  enunciado: "A relação entre as gorduras naturais e as gorduras trans é de isomeria"
+  alternativas:
+    - texto: "geométrica: os ácidos graxos naturais são cis e os industriais, trans."
+      certa: true
+    - texto: "de função: a gordura trans é um álcool."
+      erro: "As duas continuam sendo ácidos graxos (ou ésteres deles). A função é a mesma."
+    - texto: "óptica: a gordura trans tem carbono quiral."
+      erro: "O texto fala da posição dos grupos em torno de uma dupla, não de carbono quiral."
+    - texto: "de cadeia: a gordura trans é ramificada."
+      erro: "A cadeia continua normal. O que muda é o lado dos grupos na dupla."
+    - texto: "de posição: a dupla muda de carbono."
+      erro: "A dupla fica no mesmo lugar. Mudam os lados dos grupos."
+  explicacao: "Grupos do mesmo lado da dupla: cis. Em lados opostos: trans. É isomeria geométrica, e as formas têm efeitos diferentes no corpo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
