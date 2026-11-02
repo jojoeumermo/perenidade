@@ -58,31 +58,47 @@
       return { ids: ids, simbolos: simbolos };
     }
 
-    /** Baixa (ou lê do armazenamento) tudo o que a voz precisa e abre o modelo. */
+    var sessoes = {}; // um modelo aberto por endereço: as vozes do Kokoro dividem o mesmo
+    var guardados = {}; // estilos, vocabulários e configurações já lidos
+
+    async function ler(arquivo, aoProgresso, como) {
+      if (!guardados[arquivo.url]) {
+        var bruto = await buscar(arquivo, aoProgresso);
+        guardados[arquivo.url] = como === "json" ? JSON.parse(new TextDecoder().decode(bruto)) : new Float32Array(bruto);
+      }
+      return guardados[arquivo.url];
+    }
+
+    /**
+     * Baixa (ou lê do armazenamento) tudo o que a voz precisa e abre o modelo. Trocar para outra voz do mesmo modelo
+     * (outro idioma ou outro estilo) só lê o arquivo pequeno da voz: o modelo continua aberto.
+     */
     async function carregar(novaVoz, aoProgresso) {
       if (voz && voz.id === novaVoz.id && sessao) return;
-      voz = novaVoz;
-      sessao = null;
-      extra = null;
       var arquivos = novaVoz.arquivos;
-      var modelo = arquivos.find(function (a) { return a.papel === "modelo"; });
+      var papel = function (p) { return arquivos.find(function (a) { return a.papel === p; }); };
+      var modelo = papel("modelo");
       await prepararFonemas(aoProgresso);
-      var dados = await buscar(modelo, aoProgresso);
+      var novoExtra;
       if (novaVoz.motor === "kokoro") {
-        var vocab = JSON.parse(new TextDecoder().decode(await buscar(arquivos.find(function (a) { return a.papel === "vocabulario"; }), aoProgresso)));
-        var estilo = new Float32Array(await buscar(arquivos.find(function (a) { return a.papel === "estilo"; }), aoProgresso));
-        extra = { vocab: (vocab.model && vocab.model.vocab) || vocab, estilo: estilo };
+        var vocab = await ler(papel("vocabulario"), aoProgresso, "json");
+        novoExtra = { vocab: (vocab.model && vocab.model.vocab) || vocab, estilo: await ler(papel("estilo"), aoProgresso) };
       } else if (novaVoz.motor === "piper") {
-        var config = JSON.parse(new TextDecoder().decode(await buscar(arquivos.find(function (a) { return a.papel === "configuracao"; }), aoProgresso)));
-        extra = { config: config };
+        novoExtra = { config: await ler(papel("configuracao"), aoProgresso, "json") };
       }
-      var provedores = opcoes.provedores || ["wasm"];
-      try {
-        sessao = await ort.InferenceSession.create(new Uint8Array(dados), { executionProviders: provedores, graphOptimizationLevel: "all" });
-      } catch (erro) {
-        if (provedores.length === 1 && provedores[0] === "wasm") throw erro;
-        sessao = await ort.InferenceSession.create(new Uint8Array(dados), { executionProviders: ["wasm"], graphOptimizationLevel: "all" });
+      if (!sessoes[modelo.url]) {
+        var dados = await buscar(modelo, aoProgresso);
+        var provedores = opcoes.provedores || ["wasm"];
+        sessoes[modelo.url] = ort.InferenceSession.create(new Uint8Array(dados), { executionProviders: provedores, graphOptimizationLevel: "all" }).catch(function (erro) {
+          if (provedores.length === 1 && provedores[0] === "wasm") throw erro;
+          return ort.InferenceSession.create(new Uint8Array(dados), { executionProviders: ["wasm"], graphOptimizationLevel: "all" });
+        });
+        sessoes[modelo.url].catch(function () { delete sessoes[modelo.url]; });
       }
+      var aberta = await sessoes[modelo.url];
+      voz = novaVoz;
+      extra = novoExtra;
+      sessao = aberta;
     }
 
     function bigints(lista) {
@@ -91,8 +107,13 @@
       return b;
     }
 
-    function fonemasDoKokoro(simbolos) {
+    function fonemasDoKokoro(simbolos, idioma) {
       var texto = simbolos.join("");
+      if (/^en/.test(idioma || "")) {
+        // Os mesmos ajustes do kokoro-js (Apache-2.0) para o espeak em inglês.
+        texto = texto.replace(/ʲ/g, "j").replace(/r/g, "ɹ").replace(/x/g, "k").replace(/ɬ/g, "l").replace(/(?<=[a-zɹː])(?=hˈʌndɹɪd)/g, " ");
+        if (idioma === "en-us") texto = texto.replace(/(?<=nˈaɪn)ti(?!ː)/g, "di");
+      }
       // O espeak junta as frases sem espaço depois do ponto ("bem.tudo"): o Kokoro precisa da pausa.
       texto = texto.replace(/([.!?;:,])(?=\S)/g, "$1 ");
       JUNCOES.forEach(function (par) { texto = texto.split(par[0]).join(par[1]); });
@@ -117,7 +138,7 @@
         resultado = await sessao.run(entrada);
         return { pcm: new Float32Array(resultado[sessao.outputNames[0]].data), taxa: extra.config.audio.sample_rate };
       }
-      var ipa = fonemasDoKokoro(f.simbolos);
+      var ipa = fonemasDoKokoro(f.simbolos, voz.espeak);
       var ids = [];
       for (var c of ipa) if (extra.vocab[c] != null) ids.push(extra.vocab[c]);
       ids = ids.slice(0, 510);

@@ -131,5 +131,46 @@ test("voz de verdade: baixa, começa a falar e mede o tempo", async ({ page }) =
   const t2 = await page.evaluate(() => performance.now());
   await page.locator(".folha-da-aula").getByRole("button", { name: /Ouvir a aula/ }).click();
   console.log(`[vozes] ${id}: já guardada, do clique até a primeira frase ${(((await falou2) - t2) / 1000).toFixed(1)} s`);
+  // Pausas entre as frases: do fim do som de uma até o começo da seguinte, nas 5 primeiras.
+  const pausas = await page.evaluate(() => new Promise<number[]>((ok) => {
+    const marcas: { t: number; d: number }[] = [];
+    document.addEventListener("lucia:voz-falou", (e) => {
+      marcas.push({ t: performance.now() / 1000, d: (e as CustomEvent).detail.duracao });
+      if (marcas.length === 5) ok(marcas.slice(1).map((m, i) => m.t - marcas[i].t - marcas[i].d));
+    });
+  }));
+  console.log(`[vozes] ${id}: pausas entre frases ${pausas.map((p) => p.toFixed(1)).join(" / ")} s`);
   expect(fora).toEqual([]);
+});
+
+type ComFaladas = { faladas: string[] };
+
+test("trocar de aula no meio da leitura não mistura as frases das duas aulas", async ({ page }) => {
+  await page.route("**/vozes/vozes.json", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(listaFalsa()) }));
+  await page.addInitScript(() => localStorage.setItem("lucia:voz", JSON.stringify({ voz: "teste-f", velocidade: 1, numero: 1, modo: "direto" })));
+  await abrirAula(page);
+  // Guarda, na página, tudo o que soar (a navegação no próprio site não recarrega a página, e o registro continua).
+  await page.evaluate(() => {
+    (window as unknown as ComFaladas).faladas = [];
+    document.addEventListener("lucia:voz-falou", (e) => (window as unknown as ComFaladas).faladas.push((e as CustomEvent).detail.texto));
+  });
+  const quantas = () => page.evaluate(() => (window as unknown as ComFaladas).faladas.length);
+  await page.locator(".folha-da-aula").getByRole("button", { name: /Ouvir a aula/ }).click();
+  await expect.poll(quantas, { timeout: 30_000 }).toBeGreaterThan(1);
+  const titulo = (await page.getByRole("heading", { level: 1 }).textContent()) ?? "";
+
+  // Vai para a próxima aula pelo link do próprio site (navegação do Next, sem recarregar a página).
+  await page.locator("nav[data-vizinhas] a").last().click();
+  await expect(page.getByRole("heading", { level: 1 })).not.toHaveText(titulo, { timeout: 60_000 });
+  await expect(page.getByRole("region", { name: "Leitura em voz alta" })).toBeHidden();
+  await page.evaluate(() => ((window as unknown as ComFaladas).faladas = []));
+  await page.waitForTimeout(3000);
+  expect(await page.evaluate(() => (window as unknown as ComFaladas).faladas)).toEqual([]);
+
+  // Ouve a nova: tudo o que soa está no texto da aula nova.
+  await page.locator(".folha-da-aula").getByRole("button", { name: /Ouvir a aula/ }).click();
+  await expect.poll(quantas, { timeout: 30_000 }).toBeGreaterThan(3);
+  const faladas = await page.evaluate(() => (window as unknown as ComFaladas).faladas);
+  const textoNovo = (await page.locator(".folha-da-aula").innerText()).replace(/\s+/g, " ");
+  for (const frase of faladas) expect(textoNovo).toContain(frase.slice(0, 40));
 });

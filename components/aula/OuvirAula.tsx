@@ -3,7 +3,8 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
-import { definirLexico } from "@/lib/vozes/leitor";
+import { usePathname } from "next/navigation";
+import { aquecer, definirLexico, encerrarLeitura } from "@/lib/vozes/leitor";
 import type { Lexico } from "@/lib/vozes/normalizar";
 import { lerEscolha, VOZ_DO_APARELHO } from "@/lib/vozes/catalogo";
 import { fill } from "@/i18n/config";
@@ -27,7 +28,11 @@ export function OuvirAula({ minutos, lexico }: { minutos: string; lexico: Lexico
   const [aberto, setAberto] = useState(false);
   const [nomeDaVoz, setNomeDaVoz] = useState(l.voz.aparelho);
 
+  const caminho = usePathname();
   useEffect(() => definirLexico(lexico), [lexico]);
+  // Trocou de aula (navegação no próprio site) ou o leitor saiu da tela: para o som, esvazia a fila e cancela no
+  // Worker o que ainda era da aula anterior. Sem isto, frases da aula velha tocavam no meio da nova.
+  useEffect(() => () => encerrarLeitura(), [caminho]);
   useEffect(() => {
     const e = lerEscolha();
     // eslint-disable-next-line react-hooks/set-state-in-effect -- a escolha só existe no aparelho
@@ -41,6 +46,8 @@ export function OuvirAula({ minutos, lexico }: { minutos: string; lexico: Lexico
         type="button"
         aria-pressed={falando}
         onClick={() => (falando ? stopReading() : startReading(TRECHOS_DA_AULA))}
+        onPointerEnter={() => void aquecer(TRECHOS_DA_AULA)}
+        onFocus={() => void aquecer(TRECHOS_DA_AULA)}
         className="inline-flex min-h-12 cursor-pointer items-center gap-3 border-2 border-ink bg-ink px-5 py-2 text-left font-sans text-parchment hover:bg-oxblood"
       >
         <svg viewBox="0 0 24 24" aria-hidden className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

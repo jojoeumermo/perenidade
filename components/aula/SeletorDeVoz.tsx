@@ -4,7 +4,8 @@
 import { useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import { carregarLista, comoEstaOAparelho, faltaBaixar, gravarEscolha, lerEscolha, VOZ_DO_APARELHO, type Aparelho, type Lista } from "@/lib/vozes/catalogo";
-import { baixarVoz, cancelarDownload, trocarVoz, useLeitor } from "@/lib/vozes/leitor";
+import { aquecer, baixarVoz, cancelarDownload, definirModo, trocarVoz, useLeitor } from "@/lib/vozes/leitor";
+import { TRECHOS_DA_AULA } from "./BarraDaAula";
 import { useI18n } from "../I18n";
 
 const FRASE_DA_AMOSTRA = "Olá! Esta é a voz que vai ler as aulas para você. Ela roda no seu aparelho, sem internet.";
@@ -22,6 +23,7 @@ export function SeletorDeVoz({ fechar }: { fechar: () => void }) {
   const [lista, setLista] = useState<Lista | null | undefined>(undefined);
   const [faltam, setFaltam] = useState<Record<string, number>>({});
   const [escolhida, setEscolhida] = useState(() => lerEscolha().voz);
+  const [modo, setModo] = useState(() => lerEscolha().modo);
   const [baixando, setBaixando] = useState<string | null>(null);
   const [erro, setErro] = useState(false);
   const [tocandoAmostra, setTocandoAmostra] = useState<string | null>(null);
@@ -31,6 +33,7 @@ export function SeletorDeVoz({ fechar }: { fechar: () => void }) {
 
   useEffect(() => {
     janela.current?.showModal();
+    void aquecer(TRECHOS_DA_AULA);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- memória e rede só existem no aparelho
     setAparelho(comoEstaOAparelho());
     let vivo = true;
@@ -138,7 +141,7 @@ export function SeletorDeVoz({ fechar }: { fechar: () => void }) {
           </li>
 
           {lista === null && <li className="text-sm text-ink-soft">{s.nenhumaNatural}</li>}
-          {lista?.vozes.map((v) => {
+          {lista?.vozes.filter((v) => (v.idioma ?? "pt") === "pt").map((v) => {
             const falta = faltam[v.id];
             const pronta = falta === 0;
             const nome = `${fill(s.natural, { n: v.numero })} · ${v.genero === "f" ? s.feminina : s.masculina}`;
@@ -178,6 +181,33 @@ export function SeletorDeVoz({ fechar }: { fechar: () => void }) {
             );
           })}
         </ul>
+        {lista && lista.vozes.some((v) => v.idioma && v.idioma !== "pt") && <p className="mt-3 text-sm text-ink-soft">{s.outrosIdiomas}</p>}
+
+        <fieldset className="mt-5 border-t border-rule pt-4">
+          <legend className="sr-only">{s.modo}</legend>
+          <p aria-hidden className="font-semibold">
+            {s.modo}
+          </p>
+          <div className="mt-2 grid gap-2">
+            {(["frase", "direto"] as const).map((m) => (
+              <label key={m} className="flex min-h-11 cursor-pointer items-center gap-3 border border-rule bg-parchment-deep px-3 py-2 text-sm">
+                <input
+                  type="radio"
+                  name="modo-de-leitura"
+                  value={m}
+                  checked={modo === m}
+                  onChange={() => {
+                    setModo(m);
+                    gravarEscolha({ modo: m });
+                    definirModo(m);
+                  }}
+                  className="h-4 w-4 accent-[#c21f16]"
+                />
+                <span>{m === "frase" ? s.modoFrase : s.modoDireto}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
       </div>
     </dialog>
   );
