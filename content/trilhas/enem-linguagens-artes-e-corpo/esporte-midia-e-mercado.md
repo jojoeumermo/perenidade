@@ -84,7 +84,7 @@ na questão, pergunte: quem decide, quem paga e quem fica de fora
 
 A mídia não mostra todos os esportes nem todas as pessoas do mesmo jeito. Ela escolhe. E essa escolha tem história.
 
-O caso mais cobrado é o das mulheres. O artigo 54 do Decreto-Lei nº 3.199, de 1941, proibia às mulheres os esportes "incompatíveis com as condições de sua natureza". O futebol estava entre eles. A proibição só caiu em 1979. Por quase quarenta anos, as mulheres que jogavam o faziam à margem da lei, sem campeonato oficial, sem patrocínio e sem transmissão. A pouca visibilidade que veio depois não é "falta de interesse natural": é efeito dessa exclusão.
+Um caso exemplar é o das mulheres. O artigo 54 do Decreto-Lei nº 3.199, de 1941, proibia às mulheres os esportes "incompatíveis com as condições de sua natureza". O futebol estava entre eles. A proibição só caiu em 1979. Por quase quarenta anos, as mulheres que jogavam o faziam à margem da lei, sem campeonato oficial, sem patrocínio e sem transmissão. A pouca visibilidade que veio depois não é "falta de interesse natural": é efeito dessa exclusão.
 
 A situação muda devagar. Em maio de 2024, a Fifa escolheu o Brasil para sediar a Copa do Mundo de futebol feminino de 2027, a primeira na América do Sul.
 

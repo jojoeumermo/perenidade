@@ -1,0 +1,13 @@
+[
+  { "slug": "filosofia-antiga", "titulo": "Filosofia antiga: pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos" },
+  { "slug": "filosofia-medieval", "titulo": "Filosofia medieval: fé e razão" },
+  { "slug": "maquiavel-e-contratualistas", "titulo": "Maquiavel e os contratualistas: Hobbes, Locke e Rousseau" },
+  { "slug": "racionalismo-empirismo-e-kant", "titulo": "Racionalismo, empirismo e Kant" },
+  { "slug": "hegel-marx-e-nietzsche", "titulo": "Hegel, Marx e Nietzsche" },
+  { "slug": "existencialismo-arendt-e-foucault", "titulo": "Existencialismo, Hannah Arendt e Foucault" },
+  { "slug": "etica-e-moral", "titulo": "Ética e moral" },
+  { "slug": "logica-e-argumentacao", "titulo": "Lógica, argumentação e falácias" },
+  { "slug": "filosofia-da-ciencia", "titulo": "Filosofia da ciência" },
+  { "slug": "estetica", "titulo": "Estética" },
+  { "slug": "industria-cultural", "titulo": "Indústria cultural e Escola de Frankfurt" }
+]

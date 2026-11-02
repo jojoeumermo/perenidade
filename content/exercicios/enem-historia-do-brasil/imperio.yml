@@ -1,0 +1,244 @@
+# Exercícios da aula "Primeiro Reinado, Regências e Segundo Reinado" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-imperio-01
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-imperio
+  dificuldade: 1
+  enunciado: "Como a Constituição de 1824 foi feita?"
+  alternativas:
+    - texto: "Foi outorgada, ou seja, imposta pelo imperador depois de dissolver a Assembleia"
+      certa: true
+    - texto: "Foi votada por uma Assembleia eleita pelo voto universal"
+      erro: "A Assembleia de 1823 foi dissolvida antes de terminar o trabalho, e o voto não era universal."
+    - texto: "Foi escrita pelo rei de Portugal"
+      erro: "Em 1824 o Brasil já era independente. O texto foi preparado a mando de Dom Pedro I."
+    - texto: "Foi aprovada em plebiscito popular"
+      erro: "Não houve consulta ao povo. Outorgar é justamente impor sem votação."
+    - texto: "Foi escrita pelos líderes da Confederação do Equador"
+      erro: "A Confederação do Equador foi uma revolta contra essa Constituição imposta."
+  explicacao: "Dom Pedro I dissolveu a Assembleia em novembro de 1823 e outorgou a Constituição em 25 de março de 1824. Outorgar é conceder de cima para baixo, sem votação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-02
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-imperio
+  dificuldade: 1
+  enunciado: "O voto censitário, previsto na Constituição de 1824, era o voto"
+  alternativas:
+    - texto: "de todos os homens e mulheres adultos."
+      erro: "Mulheres não votavam, e muitos homens também ficavam de fora."
+    - texto: "decidido por sorteio."
+      erro: "Não havia sorteio. A palavra censitário vem de censo, contagem de bens."
+    - texto: "que dependia de uma renda mínima."
+      certa: true
+    - texto: "só de quem sabia ler."
+      erro: "A exigência de saber ler veio depois, com a Lei Saraiva (1881) e a República. Em 1824 o critério era a renda."
+    - texto: "reservado aos padres."
+      erro: "Religiosos regulares, aliás, estavam entre os excluídos. O critério geral era a renda."
+  explicacao: "Censitário quer dizer ligado à renda. Pela Constituição de 1824, era preciso renda líquida anual de cem mil réis para votar nas assembleias de paróquia, e mais para ser eleitor e deputado."
+  fonte: "Questão original do Instituto Lúcia, a partir dos artigos 92 a 95 da Constituição de 1824"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-03
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-imperio
+  dificuldade: 1
+  enunciado: "Qual destas revoltas aconteceu no Rio Grande do Sul e durou dez anos, de 1835 a 1845?"
+  alternativas:
+    - texto: "Cabanagem"
+      erro: "A Cabanagem foi no Grão-Pará, no Norte, de 1835 a 1840."
+    - texto: "Sabinada"
+      erro: "A Sabinada foi na Bahia, entre 1837 e 1838."
+    - texto: "Balaiada"
+      erro: "A Balaiada foi no Maranhão, de 1838 a 1841."
+    - texto: "Revolta dos Malês"
+      erro: "A Revolta dos Malês foi em Salvador, em janeiro de 1835, e durou um dia."
+    - texto: "Farroupilha"
+      certa: true
+  explicacao: "A Farroupilha, liderada por estancieiros (criadores de gado), durou de 1835 a 1845. Foi a mais longa das revoltas do período."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-04
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-imperio
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Art. 98. O Poder Moderador é a chave de toda a organização política, e é delegado privativamente ao
+    Imperador, como Chefe Supremo da Nação [...]."
+    (Constituição Política do Império do Brasil, 1824, em grafia atualizada. Texto em domínio público.)
+  enunciado: "O artigo mostra que, no Império, o poder político"
+  alternativas:
+    - texto: "era dividido igualmente entre as províncias."
+      erro: "O artigo concentra o poder no imperador, não nas províncias."
+    - texto: "estava concentrado na figura do imperador, acima dos outros poderes."
+      certa: true
+    - texto: "pertencia ao povo, que o exercia pelo voto direto."
+      erro: "O artigo fala do imperador, e o voto da época era indireto e por renda."
+    - texto: "era exercido pelos juízes, que podiam afastar o imperador."
+      erro: "Nada disso está no artigo. O Poder Moderador era do imperador."
+    - texto: "era controlado pela Igreja, por ser o catolicismo a religião oficial."
+      erro: "A religião oficial existia, mas o artigo trata de outro assunto: o poder do imperador."
+  explicacao: "\"Chave de toda a organização política\" e \"privativamente ao Imperador\": o Poder Moderador permitia ao imperador interferir nos outros poderes, como dissolver a Câmara e nomear ministros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-05
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-imperio
+  dificuldade: 2
+  enunciado: "Por que o Período Regencial (1831–1840) teve tantas revoltas?"
+  alternativas:
+    - texto: "Porque o imperador governava com mão de ferro"
+      erro: "No Período Regencial não havia imperador governando: o herdeiro era criança."
+    - texto: "Porque o Brasil ainda era colônia de Portugal"
+      erro: "O Brasil era independente desde 1822."
+    - texto: "Porque a escravidão tinha acabado"
+      erro: "A escravidão só acabou em 1888. Muitas revoltas, aliás, envolveram escravizados."
+    - texto: "Porque grupos locais e populares disputavam o poder com o governo central, num momento sem imperador adulto"
+      certa: true
+    - texto: "Porque o Brasil estava em guerra com o Paraguai"
+      erro: "A Guerra do Paraguai foi de 1864 a 1870, no Segundo Reinado."
+  explicacao: "Sem imperador adulto, as elites das províncias disputavam poder com o Rio de Janeiro, e pobres livres, indígenas e escravizados também se levantaram. Daí a variedade das revoltas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-06
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-imperio
+  dificuldade: 2
+  enunciado: "Qual alternativa compara corretamente a Farroupilha e a Revolta dos Malês?"
+  alternativas:
+    - texto: "As duas foram lideradas por africanos escravizados"
+      erro: "A Farroupilha foi liderada por estancieiros, grandes proprietários de gado."
+    - texto: "As duas pediam o fim da monarquia em todo o Brasil"
+      erro: "Os malês lutavam contra a escravidão. A comparação precisa olhar quem lutava e por quê."
+    - texto: "A Farroupilha foi liderada por grandes proprietários; a dos Malês, por africanos que lutavam contra a escravidão"
+      certa: true
+    - texto: "As duas aconteceram no Rio Grande do Sul"
+      erro: "A Revolta dos Malês foi em Salvador, na Bahia."
+    - texto: "A dos Malês durou dez anos; a Farroupilha, um dia"
+      erro: "É o contrário: a Farroupilha durou dez anos (1835–1845); a dos Malês, um dia."
+  explicacao: "As revoltas regenciais não eram iguais. Quem lidera muda o sentido da luta: na Farroupilha, estancieiros contra impostos e centralismo; na dos Malês, africanos muçulmanos contra a escravidão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-07
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-imperio
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em setembro de 1850, duas leis foram aprovadas com duas semanas de diferença. A primeira proibiu a entrada de
+    africanos escravizados no país. A segunda determinou que as terras públicas só poderiam ser obtidas por compra.
+    (Texto do Instituto Lúcia, a partir das Leis nº 581 e nº 601, de 1850.)
+  enunciado: "A combinação das duas leis contribuiu para"
+  alternativas:
+    - texto: "dar terra aos africanos que chegassem ao país."
+      erro: "A primeira lei proibiu a chegada de africanos escravizados; a segunda fechou a terra a quem não podia comprar."
+    - texto: "acabar com a escravidão em 1850."
+      erro: "Proibir o tráfico não libertou quem já era escravizado. A abolição só veio em 1888."
+    - texto: "realizar uma reforma agrária no Império."
+      erro: "Exigir compra é o contrário de reforma agrária: a terra fica com quem tem dinheiro."
+    - texto: "proibir o plantio de café."
+      erro: "Nenhuma das leis fala de café. Ele seguiu crescendo."
+    - texto: "manter a terra nas mãos de quem tinha dinheiro, enquanto se preparava o fim do trabalho escravizado."
+      certa: true
+  explicacao: "Com o fim do tráfico, a escravidão tinha os dias contados. A Lei de Terras garantiu que os futuros libertos, e muitos imigrantes pobres, não teriam acesso fácil à terra e precisariam vender seu trabalho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-08
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-imperio
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Nos anos 1880, nas fazendas de café de São Paulo, grupos inteiros de escravizados abandonavam as plantações,
+    muitas vezes à noite, e seguiam para cidades e quilombos. Abolicionistas ajudavam com abrigo e transporte.
+    A polícia e o Exército tinham dificuldade para conter as fugas.
+    (Texto do Instituto Lúcia.)
+  enunciado: "A situação descrita contribui para explicar a Lei Áurea, de 1888, como"
+  alternativas:
+    - texto: "um presente da princesa, sem relação com a luta dos escravizados."
+      erro: "O texto mostra a ação dos escravizados pressionando o fim da escravidão. A alternativa apaga essa luta."
+    - texto: "o resultado também da ação dos escravizados e dos abolicionistas, que tornaram a escravidão insustentável."
+      certa: true
+    - texto: "uma exigência dos fazendeiros de café, satisfeitos com a escravidão."
+      erro: "Fazendeiros que dependiam da escravidão resistiram à abolição. E o texto fala de fugas, não de pedidos de senhores."
+    - texto: "uma decisão tomada por causa da Guerra do Paraguai, que acabara naquele ano."
+      erro: "A Guerra do Paraguai terminou em 1870, dezoito anos antes."
+    - texto: "uma lei que deu terras e indenização aos libertos."
+      erro: "A Lei Áurea tem dois artigos e não deu terra nem indenização a ninguém."
+  explicacao: "As fugas em massa, apoiadas por abolicionistas, desorganizaram a produção e mostraram que a escravidão não se sustentava. A abolição foi também conquista de quem lutou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-09
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-imperio
+  dificuldade: 3
+  enunciado: "Na queda do Império, em 1889, vários grupos tinham se afastado da monarquia. Qual alternativa reúne esses grupos?"
+  alternativas:
+    - texto: "Fazendeiros contrariados com a abolição, militares, setores da Igreja e republicanos das cidades"
+      certa: true
+    - texto: "Apenas os escravizados libertos"
+      erro: "Os libertos não lideraram a proclamação. Ela foi um movimento militar com apoio de elites."
+    - texto: "Apenas o rei de Portugal"
+      erro: "Portugal não teve papel na queda. As causas foram internas."
+    - texto: "Apenas os imigrantes italianos"
+      erro: "Imigrantes não lideraram a mudança de regime."
+    - texto: "Apenas os indígenas do Norte"
+      erro: "Os povos indígenas não estavam entre os grupos que derrubaram o Império."
+  explicacao: "Fazendeiros que perderam escravizados sem indenização, militares fortalecidos desde a Guerra do Paraguai, a Igreja em conflito com o imperador e o movimento republicano: juntos, deixaram a monarquia sem sustentação. A República foi proclamada por militares em 15 de novembro de 1889."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-imperio-10
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 1
+  objeto: hum-organizacao-social-imperio
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No Rio de Janeiro do Segundo Reinado, muitos jornais publicavam romances em capítulos, no rodapé da página: os
+    folhetins. Senhoras de famílias com dinheiro esperavam o jornal do dia para saber o que acontecia com as
+    personagens, e os romances eram lidos em voz alta em casa.
+    (Texto do Instituto Lúcia.)
+  enunciado: "O hábito descrito indica"
+  alternativas:
+    - texto: "que todas as mulheres do Império sabiam ler."
+      erro: "O texto fala de senhoras de famílias com dinheiro. A maioria da população, inclusive das mulheres, não era alfabetizada."
+    - texto: "o fim da censura à imprensa no Brasil."
+      erro: "O texto não fala de censura. Fala de um hábito de leitura."
+    - texto: "que os jornais eram proibidos para mulheres."
+      erro: "O texto mostra mulheres lendo jornais. A alternativa contradiz a fonte."
+    - texto: "a formação de um público leitor feminino nas camadas urbanas mais ricas, ligado à imprensa."
+      certa: true
+    - texto: "que a literatura brasileira só nasceu na República."
+      erro: "Os folhetins do Segundo Reinado mostram literatura brasileira circulando antes de 1889."
+  explicacao: "O folhetim aproximou o romance do jornal e criou um público leitor, com muitas mulheres das camadas urbanas ricas. A alternativa precisa respeitar o recorte do texto: não eram todas as mulheres."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

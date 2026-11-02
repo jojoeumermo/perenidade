@@ -69,7 +69,7 @@ Ao fim desta aula você vai saber o que define a literatura afro-brasileira, con
 
 A literatura feita por pessoas negras no Brasil não começou ontem. Ela existe desde o século 19, mas por muito tempo ficou fora dos livros didáticos, das listas de vestibular e das grandes editoras.
 
-Isso começou a mudar com a luta do movimento negro. Desde a **Lei nº 10.639, de 2003**, o ensino de história e cultura afro-brasileira é obrigatório nas escolas. A prova acompanha essa mudança: nas provas de 2022 e 2023, a literatura afro-brasileira foi o segundo tópico de literatura que mais caiu.
+Isso começou a mudar com a luta do movimento negro. Desde a **Lei nº 10.639, de 2003**, o ensino de história e cultura afro-brasileira é obrigatório nas escolas. A prova acompanha essa mudança: nas provas de 2022 e 2023, a literatura afro-brasileira empatou em segundo lugar entre os tópicos de literatura que mais caíram.
 
 ## O que define o campo
 

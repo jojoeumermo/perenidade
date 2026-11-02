@@ -1,0 +1,247 @@
+# Exercícios da aula "Sistemas do corpo humano" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-corpo-01
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  dificuldade: 1
+  enunciado: "Em que órgão do sistema digestório acontece a maior parte da absorção dos nutrientes para o sangue?"
+  alternativas:
+    - texto: "No estômago."
+      erro: "O estômago começa a digestão das proteínas, mas absorve pouco. A absorção acontece quase toda mais à frente."
+    - texto: "No intestino grosso."
+      erro: "O intestino grosso reabsorve água e forma as fezes. Os nutrientes já foram absorvidos antes dele."
+    - texto: "No intestino delgado."
+      certa: true
+    - texto: "No fígado."
+      erro: "O fígado faz a bile e guarda glicose, mas a comida não passa por dentro dele. A absorção é na parede do intestino."
+    - texto: "Na boca."
+      erro: "Na boca começa a digestão do amido, pela saliva. Mas a comida fica pouco tempo ali e quase nada é absorvido."
+  explicacao: "No intestino delgado, as enzimas terminam a quebra dos alimentos, e os pedaços pequenos (glicose, aminoácidos, ácidos graxos) atravessam a parede e caem no sangue."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-02
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  dificuldade: 1
+  enunciado: "A anemia por falta de ferro deixa a pessoa pálida e cansada. Por que falta de ferro causa cansaço?"
+  alternativas:
+    - texto: "Porque o ferro faz parte da hemoglobina, que leva oxigênio às células."
+      certa: true
+    - texto: "Porque o ferro é a principal fonte de energia das células."
+      erro: "O ferro não é combustível. A energia vem da glicose e da gordura; o ferro ajuda a levar o oxigênio que queima esse combustível."
+    - texto: "Porque o ferro forma as plaquetas do sangue."
+      erro: "As plaquetas cuidam da coagulação. O ferro está na hemoglobina, dentro das hemácias."
+    - texto: "Porque sem ferro os músculos não têm proteína."
+      erro: "As proteínas dos músculos são feitas de aminoácidos, não de ferro. O problema é o transporte de oxigênio."
+    - texto: "Porque o ferro produz os glóbulos brancos."
+      erro: "Glóbulos brancos defendem o corpo. A falta de ferro afeta as hemácias e a hemoglobina."
+  explicacao: "A hemoglobina tem ferro no centro da molécula, e é ali que o oxigênio se prende. Com pouco ferro, há pouca hemoglobina, chega menos oxigênio às células, e elas tiram menos energia da glicose."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-03
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  dificuldade: 1
+  enunciado: "Qual destas situações é um exemplo de recado do sistema nervoso, e não de um hormônio?"
+  alternativas:
+    - texto: "O pâncreas libera insulina depois do almoço."
+      erro: "A insulina é um hormônio: recado químico que viaja pelo sangue."
+    - texto: "O corpo lúteo produz progesterona."
+      erro: "A progesterona é um hormônio do ovário, levado pelo sangue até o útero."
+    - texto: "Os rins liberam eritropoietina quando falta oxigênio."
+      erro: "A eritropoietina é um hormônio: sai dos rins e chega à medula óssea pelo sangue."
+    - texto: "O crescimento do corpo na adolescência."
+      erro: "O crescimento depende de hormônios, que agem devagar e por muito tempo."
+    - texto: "Tirar a mão da panela quente antes de sentir a dor."
+      certa: true
+  explicacao: "Tirar a mão da panela é um reflexo: um recado elétrico que vai da pele à medula espinal e volta ao músculo em fração de segundo. Hormônios são mais lentos, porque dependem do sangue."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-04
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um agente de saúde explica, numa roda de conversa, que a urina de uma pessoa saudável não tem glicose, embora o rim
+    filtre o sangue o tempo todo e a glicose passe por esse filtro. Quando a glicose aparece na urina, diz ele, é sinal
+    de que algo está fora do equilíbrio.
+  enunciado: "A urina de uma pessoa saudável não tem glicose porque, nos rins, a glicose filtrada"
+  alternativas:
+    - texto: "é transformada em ureia."
+      erro: "A ureia vem da quebra das proteínas, no fígado. A glicose não vira ureia."
+    - texto: "é toda reabsorvida e volta para o sangue."
+      certa: true
+    - texto: "é guardada na bexiga até ser usada."
+      erro: "A bexiga só guarda urina até a hora de sair. Ela não armazena nutriente."
+    - texto: "é queimada pelas células do rim até acabar."
+      erro: "O rim usa um pouco de glicose, como toda célula, mas não toda a filtrada. A maior parte simplesmente volta ao sangue."
+    - texto: "não passa pelo filtro, porque é uma molécula grande."
+      erro: "O texto diz que ela passa pelo filtro. A glicose é pequena; o que não passa são as células e as proteínas grandes."
+  explicacao: "O rim filtra e depois reabsorve o que é útil. Em condições normais, toda a glicose filtrada volta ao sangue. Ela só sobra na urina quando a glicemia está tão alta que passa da capacidade de reabsorção, como no diabetes sem controle."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-05
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  dificuldade: 2
+  enunciado: "Uma pessoa sem vesícula biliar, que guarda a bile, pode ter dificuldade para digerir comidas muito gordurosas. Qual é o papel da bile?"
+  alternativas:
+    - texto: "Quebrar as proteínas em aminoácidos."
+      erro: "Quem quebra as proteínas são enzimas do estômago e do pâncreas. A bile age sobre a gordura."
+    - texto: "Absorver a gordura para o sangue."
+      erro: "A absorção é feita pela parede do intestino. A bile prepara a gordura antes."
+    - texto: "Quebrar o amido em glicose."
+      erro: "O amido é quebrado por enzimas da saliva e do pâncreas. A bile não age sobre ele."
+    - texto: "Separar a gordura em gotinhas, facilitando a ação das enzimas."
+      certa: true
+    - texto: "Matar os micróbios que chegam com a comida."
+      erro: "Quem mais ajuda nisso é a acidez do estômago. A bile trabalha com a gordura."
+  explicacao: "A bile não é enzima. Ela age como um detergente: separa a gordura em gotinhas, e as enzimas do pâncreas, as lipases, conseguem quebrá-la mais depressa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-06
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  dificuldade: 2
+  enunciado: "No coração humano, o sangue do lado direito não se mistura com o do lado esquerdo. Para onde o lado direito manda o sangue?"
+  alternativas:
+    - texto: "Para os pulmões, onde o sangue pega oxigênio."
+      certa: true
+    - texto: "Para o corpo todo, levando oxigênio."
+      erro: "Esse é o caminho do lado esquerdo. O direito recebe o sangue pobre em oxigênio que voltou do corpo."
+    - texto: "Para o fígado, onde o sangue é filtrado."
+      erro: "O fígado recebe sangue, mas não é o destino do lado direito do coração. Quem filtra o sangue para fazer urina são os rins."
+    - texto: "Para o lado esquerdo, por um furo na parede do meio."
+      erro: "Num coração sem defeito, os dois lados são separados. É isso que impede a mistura."
+    - texto: "Para os rins, onde o gás carbônico é eliminado."
+      erro: "O gás carbônico sai pelos pulmões, na troca de gases. Os rins eliminam ureia e excesso de água e sais."
+  explicacao: "O lado direito recebe o sangue que voltou do corpo, pobre em oxigênio, e o manda aos pulmões. Ali o sangue solta gás carbônico e pega oxigênio. Depois volta ao lado esquerdo, que o manda ao corpo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-07
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma atleta de corrida passa um mês treinando numa cidade de grande altitude, onde o ar tem menos oxigênio. Ao
+    voltar para a sua cidade, no litoral, um exame mostra que ela tem mais hemácias por volume de sangue do que antes da
+    viagem. Nas semanas seguintes, esse número volta, aos poucos, ao valor de antes.
+  enunciado: "A mudança no número de hemácias da atleta é explicada pela"
+  alternativas:
+    - texto: "ação do pâncreas, que libera insulina e faz a medula produzir células."
+      erro: "A insulina controla a glicose do sangue. Quem manda a medula fazer hemácias é a eritropoietina, liberada pelos rins."
+    - texto: "transformação de glóbulos brancos em hemácias quando falta oxigênio."
+      erro: "Um tipo de célula do sangue não vira outro. As hemácias novas são feitas na medula óssea."
+    - texto: "liberação de eritropoietina pelos rins, que estimula a medula óssea, numa resposta que desliga quando o oxigênio volta ao normal."
+      certa: true
+    - texto: "produção de hemácias pelos pulmões, que crescem com o esforço."
+      erro: "Os pulmões fazem a troca de gases, mas não fabricam células do sangue. Isso é trabalho da medula óssea."
+    - texto: "mutação nas células da medula, que passa para os filhos."
+      erro: "A mudança foi temporária e voltou ao normal. Mutação é mudança no DNA e não some em semanas."
+  explicacao: "Com menos oxigênio, os rins liberam eritropoietina, e a medula óssea faz mais hemácias. De volta ao litoral, a falta de oxigênio acaba, o estímulo cai e o número volta ao de antes. É retroalimentação negativa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-08
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A pílula anticoncepcional combinada tem versões sintéticas de estrógeno e progesterona. Tomada todos os dias, ela
+    mantém esses hormônios altos no sangue. Com esses hormônios sempre altos, o cérebro reduz a liberação dos hormônios
+    que fariam um folículo do ovário amadurecer.
+  enunciado: "O efeito principal da pílula, descrito no texto, é impedir"
+  alternativas:
+    - texto: "a produção de espermatozoides pelo parceiro."
+      erro: "A pílula age no corpo de quem a toma. Ela não muda a produção de espermatozoides de outra pessoa."
+    - texto: "a menstruação, porque destrói o útero."
+      erro: "A pílula não destrói órgão nenhum. Ela mexe no ciclo de hormônios, e o efeito some quando se para de tomar."
+    - texto: "a entrada do espermatozoide no útero, como uma barreira física."
+      erro: "Barreira física é o que faz a camisinha. A pílula age por hormônios, no ciclo do ovário."
+    - texto: "a ação das enzimas do acrossomo sobre o ovócito."
+      erro: "O texto fala do cérebro e do folículo, não da fecundação. O ponto é que não há ovócito liberado."
+    - texto: "a ovulação, pelo controle que o cérebro faz sobre o ovário."
+      certa: true
+  explicacao: "Com estrógeno e progesterona sempre altos, o cérebro entende que não precisa amadurecer um novo folículo. É a retroalimentação negativa usada a favor: sem folículo maduro, não há ovulação e não há ovócito para ser fecundado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-09
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 29
+  objeto: nat-bio-seres-vivos-corpo-humano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num experimento escolar, três tubos receberam a mesma quantidade de clara de ovo cozida, que é rica em proteína.
+    Tubo 1: água e uma enzima do estômago, a 37 °C, em meio ácido. Tubo 2: a mesma enzima, a 37 °C, em meio neutro.
+    Tubo 3: só água, a 37 °C, em meio ácido. Depois de algumas horas, a clara só ficou bem dissolvida no tubo 1.
+  enunciado: "Os resultados indicam que a digestão dessa proteína"
+  alternativas:
+    - texto: "depende só da acidez, porque a clara se dissolveu no meio ácido."
+      erro: "O tubo 3 também era ácido e a clara não se dissolveu. A acidez sozinha não basta: falta a enzima."
+    - texto: "depende da enzima e do meio ácido, as duas coisas juntas."
+      certa: true
+    - texto: "depende só da enzima, em qualquer meio."
+      erro: "O tubo 2 tinha a enzima e não funcionou. Essa enzima precisa do meio ácido, como o do estômago."
+    - texto: "depende da temperatura, que foi diferente em cada tubo."
+      erro: "A temperatura foi a mesma nos três tubos (37 °C). Por isso ela não explica a diferença."
+    - texto: "acontece igual nos três tubos, só que mais devagar nos tubos 2 e 3."
+      erro: "Os resultados mostram diferença clara: só o tubo 1 digeriu. O experimento compara os tubos para achar a causa."
+  explicacao: "Compare os tubos dois a dois. 1 e 3 diferem só na enzima: sem ela, nada. 1 e 2 diferem só na acidez: sem ela, nada. Logo, a enzima do estômago precisa do meio ácido para quebrar a proteína. O tubo 3 é o controle."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-corpo-10
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em dias muito quentes, trabalhadores ao ar livre suam bastante. O suor que evapora da pele leva calor embora e
+    ajuda a manter a temperatura do corpo. Um técnico de segurança do trabalho alerta que quem sua muito e não bebe
+    água pode ter tontura e queda de pressão.
+  enunciado: "A tontura e a queda de pressão citadas acontecem porque"
+  alternativas:
+    - texto: "o suor leva embora o oxigênio do sangue."
+      erro: "O suor é água com sais. O oxigênio do sangue fica preso na hemoglobina e não sai pela pele."
+    - texto: "o calor destrói as hemácias, e o sangue fica sem cor."
+      erro: "O calor do dia não destrói as hemácias. O problema é a perda de água."
+    - texto: "o corpo para de suar e a temperatura sobe sem limite."
+      erro: "O texto fala de quem sua muito. A tontura vem da água perdida no suor, não da falta de suor."
+    - texto: "a perda de água no suor diminui o volume de sangue, e o coração tem menos sangue para bombear."
+      certa: true
+    - texto: "os rins passam a produzir mais urina para esfriar o corpo."
+      erro: "É o contrário: com pouca água, os rins economizam e a urina diminui. A urina não serve para esfriar o corpo."
+  explicacao: "O suor é feito com água tirada do sangue. Sem reposição, o volume de sangue cai, a pressão cai e chega menos sangue ao cérebro: vem a tontura. Os rins tentam economizar água, mas isso não repõe o que se perdeu. Por isso a regra é beber água durante o trabalho no calor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

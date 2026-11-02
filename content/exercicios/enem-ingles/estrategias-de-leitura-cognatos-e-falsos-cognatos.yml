@@ -101,7 +101,7 @@
     - texto: "uma conclusão de que o trabalho é fácil."
       erro: "É o contrário: a última frase diz que o trabalho pede paciência a cada minuto (asks for patience every minute)."
     - texto: "um exemplo de discussão entre passageiros."
-      erro: "A discussão aparece na lista do que o motorista faz (keep the peace, manter a calma). Actually não introduz esse exemplo."
+      erro: "A discussão aparece na lista do que o motorista faz (keep the peace, manter a paz). Actually não introduz esse exemplo."
     - texto: "uma crítica aos turistas da cidade."
       erro: "Os turistas só aparecem como quem recebe informação do motorista (give directions, dar direções). Não há crítica."
   explicacao: "A primeira frase traz o que \"muita gente pensa\": que motorista só dirige. \"Actually\" (na verdade) corrige essa ideia e mostra o resto do trabalho."

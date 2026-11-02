@@ -1,0 +1,240 @@
+# Exercícios da aula "Reações orgânicas" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Massas molares: ácido acético 60 g/mol; acetato de etila 88 g/mol.
+
+- id: enem-qui-reacoes-organicas-01
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-reacoes
+  dificuldade: 1
+  enunciado: "Uma garrafa de vinho esquecida aberta virou vinagre. O etanol do vinho sofreu"
+  alternativas:
+    - texto: "adição de água"
+      erro: "A adição de água transforma um alceno em álcool. Aqui o álcool virou ácido."
+    - texto: "oxidação, formando ácido acético"
+      certa: true
+    - texto: "esterificação"
+      erro: "Esterificação forma éster a partir de ácido e álcool. O vinagre é ácido acético."
+    - texto: "eliminação, formando eteno"
+      erro: "A desidratação a eteno exige ácido forte e aquecimento. No vinagre não há eteno."
+    - texto: "combustão"
+      erro: "Na combustão se formariam CO₂ e água. O vinho não pegou fogo."
+  explicacao: "Bactérias usam o oxigênio do ar para oxidar o etanol, um álcool primário, a ácido acético."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-02
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-reacoes
+  dificuldade: 1
+  enunciado: "O aroma artificial de banana é um éster. Ésteres são obtidos pela reação de"
+  alternativas:
+    - texto: "alcano com cloro"
+      erro: "Essa é uma substituição, que forma derivados clorados."
+    - texto: "alceno com hidrogênio"
+      erro: "Essa é uma hidrogenação, que forma alcano."
+    - texto: "álcool com oxigênio"
+      erro: "Álcool com oxidante forma aldeído, ácido ou cetona, não éster."
+    - texto: "gordura com soda cáustica"
+      erro: "Essa é a saponificação, que forma sabão e glicerol."
+    - texto: "ácido carboxílico com álcool"
+      certa: true
+  explicacao: "Ácido carboxílico + álcool ⇌ éster + água: é a esterificação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-03
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-carbono-reacoes
+  dificuldade: 1
+  enunciado: "Na fabricação de margarina, um óleo vegetal reage com gás hidrogênio, com catalisador, e fica mais sólido. Essa reação é uma"
+  alternativas:
+    - texto: "substituição"
+      erro: "Na substituição, um átomo sai e outro entra. Aqui nada sai."
+    - texto: "eliminação"
+      erro: "Na eliminação, sai um pedaço e forma-se dupla. Aqui as duplas somem."
+    - texto: "adição"
+      certa: true
+    - texto: "esterificação"
+      erro: "O óleo já é um éster. A reação com H₂ age nas duplas da cadeia."
+    - texto: "combustão"
+      erro: "Não há queima com oxigênio. O óleo recebe hidrogênio."
+  explicacao: "O H₂ se junta aos carbonos das duplas, que viram simples. É uma hidrogenação, um tipo de adição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-04
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-reacoes
+  dificuldade: 2
+  enunciado: "Uma solução de bromo, de cor castanho-avermelhada, perde a cor quando misturada a um líquido. Isso indica que o líquido tem"
+  alternativas:
+    - texto: "ligações duplas entre carbonos, que sofrem adição de bromo"
+      certa: true
+    - texto: "só ligações simples entre carbonos"
+      erro: "Alcanos não descoram o bromo rápido no escuro. A descoloração indica duplas."
+    - texto: "água em excesso"
+      erro: "Água só dilui o bromo, sem tirar a cor por completo."
+    - texto: "um ácido forte"
+      erro: "Ácido não reage com o bromo dessa forma. O teste é de insaturação."
+    - texto: "um sal dissolvido"
+      erro: "Sal não consome o bromo. O teste aponta duplas na cadeia."
+  explicacao: "O Br₂ se adiciona à dupla e forma um composto incolor. Por isso a cor some: é um teste de insaturação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-05
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-reacoes
+  dificuldade: 2
+  enunciado: "Aquecido com ácido sulfúrico concentrado, o etanol perde uma molécula de água e forma eteno. Essa reação é uma"
+  alternativas:
+    - texto: "adição"
+      erro: "Na adição, uma dupla se abre e nada sai. Aqui sai água e forma-se a dupla."
+    - texto: "substituição"
+      erro: "Na substituição, um grupo é trocado por outro. Aqui um pedaço sai sem nada entrar."
+    - texto: "oxidação"
+      erro: "Oxidação do etanol forma aldeído ou ácido. Aqui o produto é um alceno."
+    - texto: "eliminação"
+      certa: true
+    - texto: "esterificação"
+      erro: "Não há ácido carboxílico reagindo. O produto é eteno, não éster."
+  explicacao: "Saem um H e um OH de carbonos vizinhos (uma água) e forma-se a dupla: CH₃CH₂OH → CH₂=CH₂ + H₂O. É uma eliminação (desidratação)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-06
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-reacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O bafômetro de tubo tinha cristais laranja de dicromato de potássio em meio ácido. Quando uma pessoa que bebeu
+    soprava, os cristais ficavam verdes, porque o cromo passava a um composto de cor verde.
+  enunciado: "A mudança de cor indica que o etanol do hálito foi"
+  alternativas:
+    - texto: "oxidado, e o dicromato foi reduzido."
+      certa: true
+    - texto: "reduzido, e o dicromato foi oxidado."
+      erro: "Está invertido. O etanol perde elétrons (vira aldeído ou ácido) e o cromo os recebe."
+    - texto: "esterificado pelo dicromato."
+      erro: "Dicromato não é ácido carboxílico. A reação é de oxirredução."
+    - texto: "hidrogenado pelo ar."
+      erro: "Não há hidrogênio adicionado. O etanol perde hidrogênios ao ser oxidado."
+    - texto: "evaporado, sem reação."
+      erro: "Se só evaporasse, a cor não mudaria. A mudança mostra uma reação."
+  explicacao: "O etanol se oxida (a etanal ou ácido acético) e entrega elétrons ao cromo do dicromato, que se reduz e muda de laranja para verde."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-07
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-carbono-reacoes
+  dificuldade: 2
+  enunciado: "Na esterificação CH₃COOH + CH₃CH₂OH ⇌ CH₃COOCH₂CH₃ + H₂O, com etanol em excesso e rendimento total, que massa de acetato de etila (88 g/mol) se forma a partir de 120 g de ácido acético (60 g/mol)?"
+  alternativas:
+    - texto: "88 g"
+      erro: "88 g sai de 60 g de ácido (1 mol). Com 120 g são 2 mol."
+    - texto: "120 g"
+      erro: "A massa do éster não é igual à do ácido. Converta para mols e use a proporção 1 : 1."
+    - texto: "60 g"
+      erro: "60 é a massa molar do ácido. A pergunta é a massa de éster."
+    - texto: "352 g"
+      erro: "Você dobrou duas vezes. 2 mol de ácido dão 2 mol de éster: 2 × 88."
+    - texto: "176 g"
+      certa: true
+  explicacao: "120 ÷ 60 = 2 mol de ácido → 2 mol de éster → 2 × 88 = 176 g."
+  conferir: "120 / 60 * 88"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-08
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-reacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num laboratório escolar, três álcoois foram postos com o mesmo oxidante brando: etanol, propan-2-ol e
+    metilpropan-2-ol, (CH₃)₃C–OH. Em dois tubos a cor do oxidante mudou; num deles, não.
+  enunciado: "O tubo em que a cor não mudou é o do"
+  alternativas:
+    - texto: "etanol, porque é o menor."
+      erro: "O etanol é primário e se oxida bem. O tamanho não decide."
+    - texto: "metilpropan-2-ol, porque é terciário e não tem hidrogênio no carbono do –OH."
+      certa: true
+    - texto: "propan-2-ol, porque é secundário."
+      erro: "Álcool secundário se oxida a cetona. A cor muda."
+    - texto: "etanol, porque já é um ácido."
+      erro: "O etanol é um álcool. Oxidado, ele forma aldeído e ácido."
+    - texto: "propan-2-ol, porque não tem carbono."
+      erro: "O propan-2-ol tem três carbonos. E se oxida a propanona."
+  explicacao: "Primário e secundário têm H no carbono do –OH e se oxidam. O terciário não tem esse H e resiste à oxidação branda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-09
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-carbono-reacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Sob luz, o metano reage com o gás cloro: CH₄ + Cl₂ → CH₃Cl + HCl. Reações desse tipo, repetidas, formaram no passado
+    solventes clorados usados na indústria.
+  enunciado: "Essa reação é classificada como"
+  alternativas:
+    - texto: "adição, porque o cloro se junta ao metano."
+      erro: "Na adição nada sai, e é preciso uma dupla. O metano não tem dupla, e sai HCl."
+    - texto: "eliminação, porque sai HCl."
+      erro: "Na eliminação forma-se uma dupla. O produto CH₃Cl não tem dupla."
+    - texto: "substituição, porque um hidrogênio do metano é trocado por um cloro."
+      certa: true
+    - texto: "esterificação, porque forma um sal."
+      erro: "Não há ácido carboxílico nem álcool. E CH₃Cl não é sal."
+    - texto: "combustão, porque precisa de luz."
+      erro: "Não há oxigênio nem formação de CO₂. A luz só ajuda a iniciar a troca."
+  explicacao: "Um H do metano sai (com um Cl, como HCl) e outro Cl entra no lugar. É uma substituição, típica dos alcanos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-reacoes-organicas-10
+  tema: "Reações orgânicas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-carbono-reacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A trioleína, uma gordura presente no azeite, tem três cadeias de ácido oleico, cada uma com uma ligação dupla entre
+    carbonos. Na hidrogenação completa, cada dupla recebe uma molécula de H₂.
+  enunciado: "Quantos mols de H₂ são necessários para hidrogenar completamente 2 mol de trioleína?"
+  alternativas:
+    - texto: "2 mol"
+      erro: "Cada molécula de trioleína tem 3 duplas, não 1."
+    - texto: "3 mol"
+      erro: "3 mol de H₂ hidrogenam só 1 mol de trioleína. São 2 mol."
+    - texto: "1,5 mol"
+      erro: "Você dividiu 3 por 2. São 3 duplas por molécula, vezes 2 mol."
+    - texto: "6 mol"
+      certa: true
+    - texto: "5 mol"
+      erro: "Você somou 3 + 2. A conta é 2 × 3."
+  explicacao: "Cada mol de trioleína tem 3 mol de duplas e pede 3 mol de H₂. Para 2 mol: 2 × 3 = 6 mol de H₂."
+  conferir: "2 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

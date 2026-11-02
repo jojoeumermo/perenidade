@@ -1,0 +1,240 @@
+# Exercícios da aula "Energia nuclear e lixo atômico" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Meia-vida do césio-137: cerca de 30 anos.
+
+- id: enem-qui-nuclear-01
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 23
+  objeto: nat-qui-energias-nuclear
+  dificuldade: 1
+  enunciado: "O que acontece na fissão nuclear?"
+  alternativas:
+    - texto: "Dois núcleos pequenos se juntam num maior."
+      erro: "Isso é fusão, a reação do Sol. Fissão é o contrário: partir."
+    - texto: "O urânio queima com o oxigênio."
+      erro: "Não há combustão. A fissão acontece no núcleo, sem oxigênio."
+    - texto: "Elétrons saltam de um átomo para outro."
+      erro: "Troca de elétrons é reação química. A fissão mexe no núcleo."
+    - texto: "Um núcleo grande se parte em núcleos menores, liberando nêutrons e energia."
+      certa: true
+    - texto: "O átomo perde só a radiação gama."
+      erro: "A emissão gama só tira energia do núcleo. Na fissão, o núcleo se parte."
+  explicacao: "Na fissão, um núcleo pesado como o urânio-235, atingido por um nêutron, divide-se em dois menores, solta 2 ou 3 nêutrons e muita energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-02
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 23
+  objeto: nat-qui-energias-nuclear
+  dificuldade: 1
+  enunciado: "Numa usina nuclear, o calor liberado pela fissão é usado para"
+  alternativas:
+    - texto: "acender lâmpadas diretamente."
+      erro: "O calor não vira luz direto na rede. Ele passa por vapor, turbina e gerador."
+    - texto: "ferver água; o vapor gira uma turbina ligada a um gerador."
+      certa: true
+    - texto: "carregar baterias gigantes."
+      erro: "A usina não guarda a energia em baterias. Ela gera eletricidade com turbina e gerador."
+    - texto: "derreter o urânio para vender."
+      erro: "O urânio fica em pastilhas sólidas. O calor vai para a água."
+    - texto: "queimar carvão mais depressa."
+      erro: "Não há carvão numa usina nuclear. A fonte de calor é a fissão."
+  explicacao: "A usina nuclear é uma termelétrica: calor → vapor → turbina → gerador. Muda só a fonte do calor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-03
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 23
+  objeto: nat-qui-energias-nuclear
+  dificuldade: 1
+  enunciado: "Uma vantagem da geração nuclear sobre a termelétrica a carvão é"
+  alternativas:
+    - texto: "não emitir gás carbônico de combustão durante a geração."
+      certa: true
+    - texto: "não ter risco de acidente."
+      erro: "Há risco, sim: Chernobyl e Fukushima são exemplos. A vantagem está em outro ponto."
+    - texto: "não gerar nenhum resíduo."
+      erro: "Gera rejeito radioativo, que precisa ficar isolado por muito tempo."
+    - texto: "ser barata e rápida de construir."
+      erro: "Usinas nucleares costumam ser caras e demoradas para construir."
+    - texto: "funcionar sem água."
+      erro: "Ela precisa de muita água para fazer vapor e para resfriar o sistema."
+  explicacao: "O calor vem da fissão, não da queima. Por isso não saem CO₂ de combustão nem óxidos de enxofre ao gerar eletricidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-04
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 23
+  objeto: nat-qui-energias-nuclear
+  dificuldade: 2
+  enunciado: "No reator, o papel das barras de controle é"
+  alternativas:
+    - texto: "fornecer urânio novo ao reator."
+      erro: "O combustível vem nas pastilhas de urânio. As barras têm outra função."
+    - texto: "aquecer a água."
+      erro: "Quem aquece a água é o calor da fissão."
+    - texto: "produzir nêutrons para acelerar a reação."
+      erro: "É o contrário: as barras retiram nêutrons."
+    - texto: "transformar o lixo radioativo em material comum."
+      erro: "Nenhuma barra elimina a radioatividade do rejeito."
+    - texto: "absorver nêutrons e assim controlar o ritmo das fissões."
+      certa: true
+  explicacao: "Materiais como boro e cádmio absorvem nêutrons. Com menos nêutrons livres, há menos fissões: é assim que se controla a potência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-05
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-energias-nuclear
+  dificuldade: 2
+  enunciado: "Enriquecer o urânio é"
+  alternativas:
+    - texto: "torná-lo mais puro em urânio-238."
+      erro: "O urânio-238 já é quase todo o urânio natural. O que se quer aumentar é o outro isótopo."
+    - texto: "misturá-lo com outro metal."
+      erro: "Enriquecer não é fazer liga. É mudar a proporção dos isótopos do próprio urânio."
+    - texto: "aumentar a proporção de urânio-235, o isótopo que sofre fissão com facilidade."
+      certa: true
+    - texto: "deixá-lo mais radioativo com calor."
+      erro: "Calor não muda a radioatividade de um núcleo. O enriquecimento separa isótopos."
+    - texto: "transformar urânio em plutônio."
+      erro: "O plutônio pode se formar dentro do reator, mas isso não é o enriquecimento."
+  explicacao: "O urânio natural tem menos de 1% de urânio-235. Separando os isótopos pela diferença de massa, aumenta-se essa proporção para manter a reação em cadeia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-06
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energias-nuclear
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No acidente de Goiânia, em 1987, o material espalhado era o césio-137, que tem meia-vida de cerca de 30 anos. Os
+    rejeitos foram guardados num depósito em Abadia de Goiás.
+  enunciado: "Considere uma amostra com 100 g de césio-137. Depois de 60 anos, resta cerca de"
+  alternativas:
+    - texto: "50 g"
+      erro: "50 g resta depois de uma meia-vida, 30 anos. Em 60 anos passaram duas."
+    - texto: "25 g"
+      certa: true
+    - texto: "0 g"
+      erro: "O material não acaba em duas meias-vidas: sobra um quarto."
+    - texto: "40 g"
+      erro: "Você tirou 30% duas vezes, em parcelas iguais. O decaimento divide por 2 a cada meia-vida."
+    - texto: "12,5 g"
+      erro: "12,5 g resta depois de três meias-vidas, 90 anos."
+  explicacao: "60 ÷ 30 = 2 meias-vidas. 100 → 50 → 25 g. Por isso os rejeitos ainda precisam de isolamento décadas depois."
+  conferir: "100 / 2^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-07
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 26
+  objeto: nat-qui-energias-nuclear
+  dificuldade: 2
+  enunciado: "Por que o combustível usado de um reator precisa ficar isolado por muito tempo?"
+  alternativas:
+    - texto: "Porque pode pegar fogo com o ar."
+      erro: "O risco não é de combustão. É a radiação emitida pelos isótopos formados."
+    - texto: "Porque é muito pesado."
+      erro: "O peso não é o problema. O perigo é a radioatividade."
+    - texto: "Porque ainda tem valor de venda."
+      erro: "O motivo do isolamento é a segurança, não o valor."
+    - texto: "Porque vira gás carbônico."
+      erro: "Fissão não forma CO₂. Forma núcleos radioativos."
+    - texto: "Porque contém isótopos radioativos, alguns com meias-vidas de milhares de anos."
+      certa: true
+  explicacao: "A fissão forma muitos isótopos radioativos. Alguns decaem depressa; outros levam milhares de anos. O rejeito de alta atividade fica em piscinas e depósitos blindados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-08
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-energias-nuclear
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num modelo simplificado de reação em cadeia, cada fissão libera 2 nêutrons, e cada nêutron provoca uma nova fissão.
+    A primeira geração tem 1 fissão; a segunda, 2; a terceira, 4; e assim por diante.
+  enunciado: "O número de fissões na sexta geração é"
+  alternativas:
+    - texto: "12"
+      erro: "Você multiplicou 6 por 2. A cada geração o número dobra: é uma potência de 2."
+    - texto: "64"
+      erro: "64 é 2⁶, que seria a sétima geração. Na primeira há 1 fissão (2⁰)."
+    - texto: "32"
+      certa: true
+    - texto: "16"
+      erro: "16 é a quinta geração. Falta dobrar mais uma vez."
+    - texto: "36"
+      erro: "Você fez 6 × 6. O crescimento é por dobra: 1, 2, 4, 8, 16, 32."
+  explicacao: "Na geração n há 2ⁿ⁻¹ fissões. Na sexta: 2⁵ = 32."
+  conferir: "2^5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-09
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 23
+  objeto: nat-qui-energias-nuclear
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num debate na associação de moradores, uma pessoa afirmou que a usina nuclear e a termelétrica a carvão "funcionam
+    do mesmo jeito". Outra respondeu que "não têm nada a ver uma com a outra".
+  enunciado: "Do ponto de vista da física e da química, a comparação mais correta é que as duas"
+  alternativas:
+    - texto: "usam calor para gerar vapor e girar turbinas, mas a nuclear obtém o calor da fissão e a termelétrica, da queima do carvão."
+      certa: true
+    - texto: "queimam combustível com oxigênio, mas a nuclear queima urânio."
+      erro: "O urânio não é queimado. Não há combustão no reator."
+    - texto: "não têm nada em comum, porque a nuclear gera eletricidade direto do núcleo."
+      erro: "A nuclear também usa vapor, turbina e gerador. A diferença é a fonte do calor."
+    - texto: "lançam a mesma quantidade de CO₂ por energia gerada."
+      erro: "A nuclear não lança CO₂ de combustão ao gerar. O carvão lança muito."
+    - texto: "geram os mesmos resíduos, porque os dois combustíveis são minerais."
+      erro: "O carvão deixa cinzas e gases; a nuclear, rejeito radioativo. São resíduos de natureza diferente."
+  explicacao: "As duas são usinas térmicas: calor → vapor → turbina → gerador. A diferença está na fonte de calor e, por isso, nos resíduos e nos riscos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-nuclear-10
+  tema: "Energia nuclear e lixo atômico"
+  area: natureza
+  habilidade: 22
+  objeto: nat-qui-energias-nuclear
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No núcleo do Sol, núcleos de hidrogênio se unem e formam hélio, liberando a energia que chega à Terra como luz e
+    calor. Nas usinas de Angra dos Reis, núcleos de urânio se partem e liberam energia.
+  enunciado: "As reações nucleares do Sol e das usinas de Angra são, respectivamente,"
+  alternativas:
+    - texto: "fissão e fusão."
+      erro: "Está invertido. Unir núcleos é fusão; partir é fissão."
+    - texto: "combustão e fissão."
+      erro: "O Sol não queima hidrogênio com oxigênio. É uma reação nuclear de união de núcleos."
+    - texto: "fusão e combustão."
+      erro: "Em Angra não há combustão: o urânio se parte, não queima."
+    - texto: "fusão e fissão."
+      certa: true
+    - texto: "fissão e fissão."
+      erro: "No Sol, os núcleos se juntam. Isso é fusão."
+  explicacao: "No Sol, núcleos leves se fundem (fusão). Nos reatores, núcleos pesados se partem (fissão). As duas liberam energia por uma pequena perda de massa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

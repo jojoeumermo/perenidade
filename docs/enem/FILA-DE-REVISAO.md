@@ -6,8 +6,8 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 | --- | --- |
 | coordenação pedagógica (orientação de estudo e fatos da prova) | 23 |
 | curadoria | 1 |
-| educador de ciências da natureza | 17 |
-| educador de ciências humanas | 9 |
+| educador de ciências da natureza | 95 |
+| educador de ciências humanas | 77 |
 | educador de linguagens | 123 |
 | educador de matemática | 117 |
 | revisor de redação | 17 |
@@ -44,15 +44,93 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 ## educador de ciências da natureza
 
+- [ ] aula `content/trilhas/enem-biologia/animais.md` (Animais: invertebrados e vertebrados): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/biotecnologia.md` (Biotecnologia: transgênicos, clonagem, PCR, vacinas e edição gênica): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/celula.md` (Célula, membrana e organelas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/corpo-humano.md` (Sistemas do corpo humano): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/doencas.md` (Doenças infecciosas e parasitárias): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/impactos.md` (Impactos ambientais e sustentabilidade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/metabolismo.md` (Respiração, fermentação e fotossíntese): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/plantas.md` (Plantas e fisiologia vegetal): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-biologia/vacinacao.md` (Vacinação e imunidade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/circuitos.md` (Circuitos em série e em paralelo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-fisica/consumo.md` (Potência elétrica, consumo em kWh e conta de luz): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/espectro.md` (Espectro eletromagnético): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/lei-de-ohm.md` (Corrente, tensão, resistência e Lei de Ohm): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-fisica/leis-de-newton.md` (Leis de Newton, atrito e plano inclinado): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/magnetismo.md` (Magnetismo, motores, geradores e transformadores): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/ondas-e-som.md` (Ondas e som: altura, intensidade, timbre, ressonância, Doppler): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/potencia-e-rendimento.md` (Potência e rendimento): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/queda-e-lancamentos.md` (Queda livre e lançamentos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/trocas-de-calor.md` (Calor sensível e latente, trocas de calor e mudanças de estado): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/ambiental.md` (Química ambiental: chuva ácida, efeito estufa, ozônio, metais pesados): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/cadeias.md` (Cadeias carbônicas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/combustiveis.md` (Petróleo, gás e biocombustíveis): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/cotidiano.md` (Química do cotidiano: sabões, alimentos, medicamentos, cosméticos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/eletroquimica.md` (Pilhas, baterias, eletrólise e corrosão): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/estequiometria.md` (Estequiometria): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/forcas-intermoleculares.md` (Forças intermoleculares): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/funcoes-inorganicas.md` (Ácidos, bases, sais e óxidos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/gases.md` (Estudo dos gases): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/isomeria.md` (Isomeria): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/le-chatelier.md` (Equilíbrio químico e Le Chatelier): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/ligacoes.md` (Ligações químicas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/lixo-e-reciclagem.md` (Lixo e reciclagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/mol.md` (Mol, massa molar e constante de Avogadro): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/nuclear.md` (Energia nuclear e lixo atômico): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/ph.md` (pH e indicadores): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/radioatividade.md` (Radioatividade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/reacoes-organicas.md` (Reações orgânicas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/separacao.md` (Separação de misturas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/solucoes.md` (Soluções, concentração e diluição): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/tratamento.md` (Tratamento de água e esgoto): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-quimica/velocidade.md` (Cinética química): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-fisica.md` (Formulário de física): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-quimica.md` (Formulário de química): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-biologia.md` (Natureza, o essencial: biologia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-fisica.md` (Natureza, o essencial: física): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-quimica.md` (Natureza, o essencial: química): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/animais.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/biotecnologia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/celula.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/corpo-humano.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/doencas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/impactos.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/metabolismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/plantas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-biologia/vacinacao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/circuitos.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 10 exercícios em `content/exercicios/enem-fisica/consumo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/espectro.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/lei-de-ohm.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 10 exercícios em `content/exercicios/enem-fisica/leis-de-newton.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/magnetismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/ondas-e-som.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/potencia-e-rendimento.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/queda-e-lancamentos.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/trocas-de-calor.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/ambiental.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/cadeias.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/combustiveis.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/cotidiano.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/eletroquimica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/estequiometria.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/forcas-intermoleculares.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/funcoes-inorganicas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/gases.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/isomeria.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/le-chatelier.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/ligacoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/lixo-e-reciclagem.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/mol.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/nuclear.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/ph.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/radioatividade.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/reacoes-organicas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/separacao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/solucoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/tratamento.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-quimica/velocidade.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-fisica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-quimica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/natureza-o-essencial-biologia.yml`: conferir gabarito, contas, enganos e etiquetas
@@ -64,12 +142,80 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 ## educador de ciências humanas
 
+- [ ] aula `content/trilhas/enem-filosofia/etica-e-moral.md` (Ética e moral): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/existencialismo-arendt-e-foucault.md` (Existencialismo, Hannah Arendt e Foucault): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/filosofia-antiga.md` (Filosofia antiga: pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/industria-cultural.md` (Indústria cultural e Escola de Frankfurt): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/racionalismo-empirismo-e-kant.md` (Racionalismo, empirismo e Kant): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/clima.md` (Clima, fenômenos atmosféricos e mudanças climáticas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/espaco-agrario.md` (Espaço agrário: agronegócio, agricultura familiar e conflitos no campo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/geopolitica.md` (Geopolítica e blocos econômicos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/hidrografia.md` (Hidrografia e crise hídrica): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/migracoes.md` (Migrações, refúgio e apatridia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/questoes-ambientais.md` (Questões ambientais: desmatamento, solo, cidade e poluição): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/relevo.md` (Estrutura geológica e relevo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/urbanizacao.md` (Urbanização, segregação e mobilidade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/ditadura.md` (Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/economia-colonial.md` (Açúcar, ouro, café e borracha): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/era-vargas.md` (Era Vargas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/escravidao-e-resistencia.md` (Escravidão, resistência e quilombos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/imperio.md` (Primeiro Reinado, Regências e Segundo Reinado): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/patrimonio-cultural.md` (Patrimônio cultural, memória e identidade no Brasil): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/povos-indigenas.md` (Povos indígenas e a formação do Brasil): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/primeira-republica.md` (Primeira República: coronelismo, revoltas e greves): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/conquista-da-america.md` (Conquista da América e conflitos com os indígenas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/guerra-fria.md` (Guerra Fria, descolonização e fim da URSS): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/idade-media.md` (Idade Média, feudalismo e mundo islâmico): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/iluminismo.md` (Iluminismo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/liberalismo-socialismo-e-anarquismo.md` (Liberalismo, socialismo e anarquismo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/mundo-atual.md` (Conflitos contemporâneos e organismos internacionais): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/revolucao-industrial.md` (Revolução Industrial): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-geral/revolucoes-burguesas.md` (Revolução Inglesa, independência dos EUA e Revolução Francesa): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-filosofia-e-sociologia.md` (Humanas, o essencial: filosofia e sociologia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-geografia.md` (Humanas, o essencial: geografia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-historia.md` (Humanas, o essencial: história): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/desigualdade-e-estratificacao.md` (Desigualdade e estratificação): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/genero.md` (Gênero): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/raca-e-racismo.md` (Raça, racismo e o mito da democracia racial): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/religiao-e-sociedade.md` (Religião e sociedade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/trabalho.md` (Trabalho: taylorismo, fordismo, toyotismo, precarização e plataformas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/etica-e-moral.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/existencialismo-arendt-e-foucault.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/filosofia-antiga.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/industria-cultural.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/racionalismo-empirismo-e-kant.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/clima.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/espaco-agrario.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/geopolitica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/hidrografia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/migracoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/questoes-ambientais.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/relevo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/urbanizacao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/ditadura.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/economia-colonial.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/era-vargas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/escravidao-e-resistencia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/imperio.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/patrimonio-cultural.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/povos-indigenas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/primeira-republica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/conquista-da-america.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/guerra-fria.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/idade-media.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/iluminismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/liberalismo-socialismo-e-anarquismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/mundo-atual.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/revolucao-industrial.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-geral/revolucoes-burguesas.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-filosofia-e-sociologia.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-geografia.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-historia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/desigualdade-e-estratificacao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/genero.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/raca-e-racismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/religiao-e-sociedade.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/trabalho.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 45 questões oficiais de 2022 (`content/enem/questoes-oficiais/2022-humanas.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 44 questões oficiais de 2023 (`content/enem/questoes-oficiais/2023-humanas.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 5 objetos de conhecimento de humanas em `content/enem/matriz.yml`: confirmar a lista de habilidades de cada um
