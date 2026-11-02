@@ -15,7 +15,7 @@ quiz:
     opcoes: ["Regularmente, por exemplo, uma redação por semana", "Uma vez por ano", "Só na véspera"]
     resposta: 0
     explicacao: "A regularidade dá ritmo e segurança."
-  - pergunta: "Para que serve ler redações nota 1 000?"
+  - pergunta: "Para que serve ler redações bem avaliadas?"
     opcoes: ["Para entender o que os avaliadores esperam, sem copiar fórmulas", "Para decorar e copiar", "Para nada"]
     resposta: 0
     explicacao: "A cartilha do Inep traz redações comentadas."
@@ -75,7 +75,7 @@ Veja um ciclo de reescrita com a conclusão de um texto de treino sobre o tema "
 
 ## Ler bons textos
 
-A cartilha do participante do Inep traz **redações nota máxima comentadas**. Leia-as para entender o que se espera, sem copiar fórmulas ("frases prontas" decoradas, repetidas em qualquer tema, empobrecem o texto e podem não se encaixar no tema).
+A cartilha do participante do Inep traz **redações comentadas** que receberam boas notas na edição anterior. Leia-as para entender o que se espera, sem copiar fórmulas ("frases prontas" decoradas, repetidas em qualquer tema, empobrecem o texto e podem não se encaixar no tema).
 
 Também ajuda ler **artigos de opinião** em jornais e revistas: são textos argumentativos.
 

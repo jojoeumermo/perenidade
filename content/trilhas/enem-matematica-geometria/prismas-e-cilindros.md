@@ -56,7 +56,7 @@ O nome de cada prisma vem da base: prisma triangular, quadrangular, pentagonal, 
 
 ## O volume: área da base vezes a altura
 
-Volta à pilha de folhas. Se cada folha tem uma área e você empilha até uma certa altura, o espaço ocupado é a área de uma folha vezes a altura da pilha. Vale para qualquer prisma e para qualquer cilindro.
+Volte à pilha de folhas. Se cada folha tem uma área e você empilha até uma certa altura, o espaço ocupado é a área de uma folha vezes a altura da pilha. Vale para qualquer prisma e para qualquer cilindro.
 
 ```formula
 V = A da base · h
@@ -128,7 +128,7 @@ Confira com uma estimativa: um bloco de base quadrada com 2 m de lado e 1,5 m de
 ## Como isso cai no ENEM
 
 - **Formatos:** caixas-d'água, cisternas e piscinas (quantos litros, quanto tempo para encher), comparação de embalagens (lata contra caixa), quantidade de material para fabricar uma caixa ou rótulo, tinta para pintar colunas, caixas montadas recortando os cantos de uma folha, mudanças de medida e o efeito no volume.
-- **Habilidades:** H8 (resolver problemas de geometria de espaço e forma), H12 (resolver problemas com medidas de grandezas) e H14 (avaliar propostas de intervenção usando grandezas e medidas). Nas provas de 2022 e 2023, classificadas pelo instituto, o tópico prismas e cilindros teve 3 das 81 questões de Matemática (3,7%), empatado com circunferência entre os de geometria que mais apareceram. A geometria inteira teve 24 questões (29,6%). São só duas provas: tendência, não promessa.
+- **Habilidades:** H8 (resolver problemas de geometria de espaço e forma), H12 (resolver problemas com medidas de grandezas) e H14 (avaliar propostas de intervenção usando grandezas e medidas). Nas provas de 2022 e 2023, classificadas pelo instituto, o tópico prismas e cilindros teve 3 das 81 questões de Matemática (3,7%), empatado com circunferência, escalas e unidades de medida entre os de geometria que mais apareceram. A geometria inteira teve 24 questões (29,6%). São só duas provas: tendência, não promessa.
 - **Armadilhas:**
   - Esquecer de converter: 1 m³ = 1.000 L e 1 cm³ = 1 mL.
   - No prisma triangular, esquecer o "dividido por 2" da área do triângulo.

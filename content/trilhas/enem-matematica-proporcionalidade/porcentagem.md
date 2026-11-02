@@ -120,7 +120,7 @@ Confira: 9 pessoas a mais, de 60, são 15 pontos percentuais (9 ÷ 60 = 0,15). D
 ## Como isso cai no ENEM
 
 - **Formatos:** pesquisa com gráfico ou tabela em porcentagem, anúncio de loja, divulgação em rede social, conta de consumo. A questão pede a parte, a taxa ou o total, compara grupos de tamanhos diferentes ou encadeia duas porcentagens (uma porcentagem de uma porcentagem).
-- **O que mais cai:** nas provas de 2022 e 2023, classificadas pelo instituto, porcentagem foi um dos dois tópicos de Matemática que mais apareceram: 5 das 81 questões classificadas da área (6,2%), empatada com operações. São só duas edições: é tendência, não promessa.
+- **O que mais cai:** nas provas de 2022 e 2023, classificadas pelo instituto, porcentagem foi um dos tópicos de Matemática que mais apareceram: 5 das 81 questões classificadas da área (6,2%), empatada com operações e atrás só de média, mediana e moda (6). São só duas edições: é tendência, não promessa.
 - **Habilidades:** H3 (resolver problemas com conhecimentos numéricos), que foi a habilidade de Matemática mais frequente nessa mesma base (12 das 81 questões), e H16 (resolver problemas com grandezas direta ou inversamente proporcionais), quando a porcentagem entra numa proporção.
 - **Armadilhas:**
   - Multiplicar pela taxa quando a questão pede o total. Se a parte é dada, divida pela taxa.

@@ -1,0 +1,258 @@
+# Exercícios da aula "Trigonometria no triângulo retângulo" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-trigonometria-01
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-trigonometria
+  dificuldade: 1
+  enunciado: "Um triângulo retângulo tem catetos de 8 cm e 15 cm e hipotenusa de 17 cm. Qual é o cosseno do ângulo agudo que encosta no cateto de 8 cm?"
+  alternativas:
+    - texto: "15/17"
+      erro: "15/17 é o seno desse ângulo: o cateto de 15 cm fica em frente a ele. O cosseno usa o cateto que encosta: 8."
+    - texto: "8/15"
+      erro: "8/15 divide um cateto pelo outro: é a tangente do outro ângulo agudo. O cosseno divide o cateto adjacente pela hipotenusa."
+    - texto: "8/17"
+      certa: true
+    - texto: "17/8"
+      erro: "A divisão ficou de cabeça para baixo. Cosseno é adjacente ÷ hipotenusa, sempre menor que 1."
+    - texto: "15/8"
+      erro: "15/8 é a tangente desse ângulo (oposto ÷ adjacente). O cosseno é adjacente ÷ hipotenusa."
+  explicacao: "O cateto que encosta no ângulo é o de 8 cm (adjacente). cos = adjacente ÷ hipotenusa = 8/17."
+  conferir: "8 / 17"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-02
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-trigonometria
+  dificuldade: 1
+  enunciado: "Num triângulo retângulo, a hipotenusa mede 12 m e um dos ângulos agudos mede 30°. Quanto mede o cateto oposto a esse ângulo? Use sen 30° = 0,5, cos 30° ≈ 0,87 e tg 30° ≈ 0,58."
+  alternativas:
+    - texto: "Cerca de 10,4 m"
+      erro: "Você usou o cosseno, que dá o cateto adjacente. Para o oposto, com a hipotenusa conhecida, use o seno."
+    - texto: "24 m"
+      erro: "Você dividiu 12 por 0,5. O cateto é menor que a hipotenusa: oposto = hipotenusa × seno."
+    - texto: "Cerca de 7 m"
+      erro: "Você usou a tangente (12 × 0,58). A tangente liga os dois catetos; aqui se sabe a hipotenusa."
+    - texto: "12 m"
+      erro: "12 m é a hipotenusa. O cateto oposto a 30° é a metade dela."
+    - texto: "6 m"
+      certa: true
+  explicacao: "sen 30° = oposto ÷ hipotenusa, então oposto = 12 × 0,5 = 6 m."
+  conferir: "12 * 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-03
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-trigonometria
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Para estimar a altura de uma árvore num terreno plano, uma pessoa deita no chão a 15 m da base dela e mede o
+    ângulo entre o chão e a linha que vai até o topo: 45°. Considere tg 45° = 1 e sen 45° = cos 45° ≈ 0,71.
+  enunciado: "A altura estimada da árvore é de"
+  alternativas:
+    - texto: "15 m"
+      certa: true
+    - texto: "7,5 m"
+      erro: "Você tomou a metade da distância. Com 45°, a tangente é 1: altura e distância são iguais."
+    - texto: "Cerca de 21,1 m"
+      erro: "Você dividiu 15 por 0,71. Isso dá a linha até o topo (a hipotenusa), não a altura."
+    - texto: "Cerca de 10,6 m"
+      erro: "Você usou o seno (15 × 0,71). Mas 15 m é um cateto, não a hipotenusa: use a tangente."
+    - texto: "30 m"
+      erro: "Você dobrou a distância. Altura = distância × tg 45° = 15 × 1."
+  explicacao: "Sei o cateto adjacente (15 m) e quero o oposto (a altura): tg 45° = altura ÷ 15. Altura = 15 × 1 = 15 m."
+  conferir: "15 * 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-04
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-trigonometria
+  dificuldade: 2
+  enunciado: "Uma rampa reta precisa vencer uma altura de 1 m e vai fazer um ângulo de 30° com o chão. Qual deve ser o comprimento da rampa? Use sen 30° = 0,5, cos 30° ≈ 0,87 e tg 30° ≈ 0,58."
+  alternativas:
+    - texto: "0,5 m"
+      erro: "Você multiplicou 1 por 0,5. A rampa é a hipotenusa, que fica embaixo na divisão: comprimento = altura ÷ seno."
+    - texto: "Cerca de 1,15 m"
+      erro: "Você dividiu pelo cosseno. A altura é o cateto oposto ao ângulo de 30°: use o seno."
+    - texto: "Cerca de 1,7 m"
+      erro: "Você dividiu pela tangente. Isso dá o avanço na horizontal, não o comprimento da rampa."
+    - texto: "2 m"
+      certa: true
+    - texto: "1 m"
+      erro: "1 m é a altura. A rampa inclinada é sempre mais comprida que a altura que ela vence."
+  explicacao: "sen 30° = altura ÷ rampa, então rampa = 1 ÷ 0,5 = 2 m."
+  conferir: "1 / 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-05
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-trigonometria
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num campo plano, um menino solta pipa segurando a linha a 1,2 m do chão. A linha está esticada, em linha reta,
+    mede 40 m e faz um ângulo de 60° com a horizontal. Considere sen 60° ≈ 0,87 e cos 60° = 0,5.
+  enunciado: "A altura da pipa em relação ao chão é de, aproximadamente,"
+  alternativas:
+    - texto: "34,8 m"
+      erro: "34,8 m é a altura da pipa acima da mão. Falta somar o 1,2 m entre a mão e o chão."
+    - texto: "36 m"
+      certa: true
+    - texto: "21,2 m"
+      erro: "Você usou o cosseno (40 × 0,5 + 1,2). O cosseno dá a distância na horizontal; a altura é o cateto oposto."
+    - texto: "20 m"
+      erro: "Você usou o cosseno e esqueceu a altura da mão. A altura é oposta ao ângulo de 60°: use o seno."
+    - texto: "Cerca de 47,2 m"
+      erro: "Você dividiu 40 pelo seno. A linha é a hipotenusa: altura = 40 × sen 60°."
+  explicacao: "Acima da mão: 40 × sen 60° = 40 × 0,87 = 34,8 m. Do chão: 34,8 + 1,2 = 36 m."
+  conferir: "40 * 0.87 + 1.2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-06
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-trigonometria
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um ponto A, no chão plano, fica a 300 m, na horizontal, do ponto exatamente abaixo do topo de um morro. De A, o
+    topo do morro é visto sob um ângulo de 30° com a horizontal. Considere sen 30° = 0,5, cos 30° ≈ 0,87 e
+    tg 30° ≈ 0,58.
+  enunciado: "A altura do morro em relação ao ponto A é de, aproximadamente,"
+  alternativas:
+    - texto: "174 m"
+      certa: true
+    - texto: "150 m"
+      erro: "Você usou o seno (300 × 0,5). Mas 300 m é um cateto, a distância horizontal, não a linha até o topo."
+    - texto: "261 m"
+      erro: "Você usou o cosseno. Com os dois catetos envolvidos (distância e altura), a razão é a tangente."
+    - texto: "Cerca de 517 m"
+      erro: "Você dividiu 300 pela tangente. A altura é o oposto: altura = adjacente × tangente."
+    - texto: "300 m"
+      erro: "Altura igual à distância só com 45°. Com 30°, o morro é mais baixo: 300 × 0,58."
+  explicacao: "Sei o adjacente (300 m) e quero o oposto (a altura): tg 30° = altura ÷ 300. Altura = 300 × 0,58 = 174 m."
+  conferir: "300 * 0.58"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-07
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-trigonometria
+  dificuldade: 2
+  enunciado: "Num triângulo retângulo, o cateto oposto ao ângulo α mede 5 cm e a hipotenusa mede 10 cm. Quanto mede o ângulo α?"
+  alternativas:
+    - texto: "60°"
+      erro: "60° é o outro ângulo agudo. Para ele, o lado de 5 cm é o adjacente: cos 60° = 0,5."
+    - texto: "45°"
+      erro: "Com 45°, os catetos seriam iguais e o seno seria cerca de 0,71. Aqui o seno é 5 ÷ 10 = 0,5."
+    - texto: "30°"
+      certa: true
+    - texto: "90°"
+      erro: "90° é o ângulo reto, em frente à hipotenusa. α é um ângulo agudo."
+    - texto: "0,5°"
+      erro: "0,5 é o seno de α, não o ângulo. Procure na tabela o ângulo cujo seno é 0,5."
+  explicacao: "sen α = oposto ÷ hipotenusa = 5 ÷ 10 = 0,5. O ângulo cujo seno é 0,5 é 30°."
+  conferir: "asin(5 / 10) * 180 / pi"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-08
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-trigonometria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para medir a altura de uma caixa-d'água sem subir nela, uma equipe usou um aparelho de mira encostado no chão
+    plano. De um primeiro ponto, o topo foi visto sob um ângulo de 30° com a horizontal. A equipe andou 20 m em
+    direção à base da caixa, em linha reta, e, desse segundo ponto, viu o topo sob 60°. Considere tg 30° = √3/3,
+    tg 60° = √3 e √3 ≈ 1,73.
+  enunciado: "A altura da caixa-d'água é de, aproximadamente,"
+  alternativas:
+    - texto: "10 m"
+      erro: "10 m é a distância do segundo ponto até a base. A altura é essa distância vezes tg 60°: 10 × 1,73."
+    - texto: "20 m"
+      erro: "20 m é a distância do segundo ponto até o topo, pela linha inclinada (o triângulo entre os dois pontos e o topo tem dois lados iguais). A altura é menor."
+    - texto: "34,6 m"
+      erro: "Você multiplicou os 20 m andados por √3. O cateto que vai com tg 60° é a distância do segundo ponto à base, não os 20 m."
+    - texto: "Cerca de 11,6 m"
+      erro: "Você dividiu 20 por √3. Monte as duas tangentes: h = √3 · d e h = (√3/3) · (d + 20)."
+    - texto: "Cerca de 17,3 m"
+      valor: "17.3"
+      certa: true
+  explicacao: "Seja d a distância do segundo ponto à base. Do segundo ponto: h = √3 · d. Do primeiro: h = (√3/3)(d + 20). Igualando: 3d = d + 20, d = 10 m. Altura: h = 10 × 1,73 = 17,3 m."
+  conferir: "10 * 1.73"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-09
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-trigonometria
+  dificuldade: 3
+  enunciado: "O cabo de um teleférico sobe em linha reta do ponto A ao ponto B, com inclinação de 30° em relação à horizontal. B fica 450 m mais alto que A. Qual é a distância horizontal entre A e B? Considere tg 30° = √3/3 e √3 ≈ 1,73."
+  alternativas:
+    - texto: "900 m"
+      erro: "900 m é o comprimento do cabo (450 ÷ sen 30°), a hipotenusa. A pergunta é o cateto horizontal."
+    - texto: "778,5 m"
+      certa: true
+    - texto: "261 m"
+      erro: "Você multiplicou 450 pela tangente. A altura é o oposto: horizontal = altura ÷ tg 30°."
+    - texto: "225 m"
+      erro: "Você multiplicou 450 por sen 30° (0,5). A horizontal é maior que a altura, porque o ângulo é menor que 45°."
+    - texto: "1.678,5 m"
+      erro: "Você somou o cabo e a distância horizontal. A pergunta é só a distância horizontal."
+  explicacao: "tg 30° = altura ÷ horizontal, então horizontal = 450 ÷ (√3/3) = 450 × 3 ÷ √3 = 450 × √3 ≈ 450 × 1,73 = 778,5 m."
+  conferir: "450 * 1.73"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-trigonometria-10
+  tema: "Trigonometria no triângulo retângulo"
+  area: matematica
+  habilidade: 9
+  objeto: mat-geometria-trigonometria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma topógrafa quer medir a largura de um rio de margens retas e paralelas. Ela fica no ponto A, numa margem, bem
+    em frente a uma árvore B, na outra margem. Depois anda 50 m pela margem, em linha reta e formando ângulo reto
+    com a linha AB, até o ponto C. De C, ela mede o ângulo entre a margem (a linha CA) e a linha que vai até a
+    árvore: 60°. Considere tg 60° = √3, cos 60° = 0,5, sen 60° ≈ 0,87 e √3 ≈ 1,73.
+  enunciado: "A largura do rio é de, aproximadamente,"
+  alternativas:
+    - texto: "25 m"
+      erro: "Você multiplicou 50 por cos 60°. A largura é o cateto oposto ao ângulo em C, e 50 m é o adjacente: use a tangente."
+    - texto: "43,5 m"
+      erro: "Você usou o seno (50 × 0,87). Mas 50 m é um cateto, não a hipotenusa."
+    - texto: "Cerca de 28,9 m"
+      erro: "Você dividiu 50 pela tangente. A largura é o oposto: largura = 50 × tg 60°."
+    - texto: "86,5 m"
+      certa: true
+    - texto: "100 m"
+      erro: "100 m é a distância de C até a árvore (50 ÷ cos 60°), a hipotenusa. A largura do rio é o cateto AB."
+  explicacao: "No triângulo retângulo em A, o lado CA = 50 m é adjacente ao ângulo de 60° em C, e a largura AB é oposta. tg 60° = AB ÷ 50, então AB = 50 × 1,73 = 86,5 m."
+  conferir: "50 * 1.73"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

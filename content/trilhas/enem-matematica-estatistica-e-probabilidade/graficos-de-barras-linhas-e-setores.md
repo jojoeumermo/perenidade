@@ -54,7 +54,7 @@ Um gráfico é uma tabela desenhada. Cada tipo serve para uma pergunta. Mas qual
 4. **Legenda:** o que cada cor ou cada linha representa.
 5. **Fonte:** quem levantou os dados.
 
-Na prova, metade dos erros em gráfico vem de pular esses passos. A conta costuma ser simples. O difícil é ler o número certo.
+Na prova, muitos erros em gráfico vêm de pular esses passos. A conta costuma ser simples. O difícil é ler o número certo.
 
 ## Barras e colunas: comparar categorias
 

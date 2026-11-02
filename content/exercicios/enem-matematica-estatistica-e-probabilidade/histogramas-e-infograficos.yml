@@ -1,0 +1,269 @@
+# Exercícios da aula "Histogramas e infográficos" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-histogramas-01
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-histogramas
+  dificuldade: 1
+  texto_base: |
+    Um curso noturno organizou a idade dos seus 40 participantes em classes: 15 ⊢ 25 anos, 12 pessoas;
+    25 ⊢ 35 anos, 14 pessoas; 35 ⊢ 45 anos, 8 pessoas; 45 ⊢ 55 anos, 6 pessoas.
+  enunciado: "Quantos participantes têm menos de 35 anos?"
+  alternativas:
+    - texto: "26"
+      certa: true
+    - texto: "14"
+      erro: "14 é só a classe 25 ⊢ 35. \"Menos de 35\" junta também a classe 15 ⊢ 25."
+    - texto: "34"
+      erro: "Você somou também a classe 35 ⊢ 45. Quem tem 35 anos ou mais já não tem menos de 35."
+    - texto: "12"
+      erro: "12 é só a primeira classe. Falta somar a classe 25 ⊢ 35."
+    - texto: "22"
+      erro: "22 é 14 + 8, as duas classes do meio. As que ficam abaixo de 35 são as duas primeiras."
+  explicacao: "Abaixo de 35 anos estão as classes 15 ⊢ 25 e 25 ⊢ 35. Pela regra do ⊢, quem tem 35 fica na classe seguinte. 12 + 14 = 26."
+  conferir: "12 + 14"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-02
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-histogramas
+  dificuldade: 1
+  enunciado: "Num histograma de alturas, uma das classes é 1,60 ⊢ 1,70 m. Qual é o ponto médio dessa classe?"
+  alternativas:
+    - texto: "1,60 m"
+      erro: "1,60 m é o começo da classe. O ponto médio é o meio entre o começo e o fim."
+    - texto: "1,70 m"
+      erro: "1,70 m é o fim da classe, e nem entra nela. O ponto médio fica no meio."
+    - texto: "1,65 m"
+      certa: true
+    - texto: "0,10 m"
+      erro: "0,10 m é a largura da classe (1,70 − 1,60). O ponto médio é a média entre os dois limites."
+    - texto: "3,30 m"
+      erro: "Você somou os limites e não dividiu por 2."
+  explicacao: "O ponto médio é a média dos limites: (1,60 + 1,70) ÷ 2 = 3,30 ÷ 2 = 1,65 m."
+  conferir: "(1.60 + 1.70) / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-03
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-histogramas
+  dificuldade: 1
+  enunciado: "Num infográfico sobre o uso de água numa escola, cada ícone de garrafão vale 500 litros. O consumo de uma semana aparece com quatro ícones e meio. Qual foi o consumo dessa semana?"
+  alternativas:
+    - texto: "4,5 litros"
+      erro: "4,5 é o número de ícones. Cada ícone vale 500 litros: multiplique."
+    - texto: "2.000 litros"
+      erro: "Você contou só os quatro ícones inteiros. O meio ícone vale mais 250 litros."
+    - texto: "2.500 litros"
+      erro: "Você arredondou para cinco ícones inteiros. O último é só meio ícone."
+    - texto: "450 litros"
+      erro: "Você multiplicou 4,5 por 100. Na legenda, cada ícone vale 500 litros."
+    - texto: "2.250 litros"
+      certa: true
+  explicacao: "Quatro ícones valem 4 × 500 = 2.000 litros. Meio ícone vale 250. Ao todo: 4,5 × 500 = 2.250 litros."
+  conferir: "4.5 * 500"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-04
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-histogramas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma associação de moradores levantou o consumo mensal de água de 50 casas do bairro. O resultado foi apresentado
+    num histograma, descrito a seguir: 0 ⊢ 10 m³, 6 casas; 10 ⊢ 20 m³, 18 casas; 20 ⊢ 30 m³, 14 casas;
+    30 ⊢ 40 m³, 8 casas; 40 ⊢ 50 m³, 4 casas.
+  enunciado: "A porcentagem dessas casas que consomem pelo menos 20 m³ por mês é"
+  alternativas:
+    - texto: "48%"
+      erro: "48% é (6 + 18) ÷ 50: as casas abaixo de 20 m³, o contrário do que se pede."
+    - texto: "52%"
+      certa: true
+    - texto: "28%"
+      erro: "28% é 14 ÷ 50, só a classe 20 ⊢ 30. \"Pelo menos 20\" junta também as classes acima."
+    - texto: "24%"
+      erro: "24% é (8 + 4) ÷ 50: você deixou de fora a classe 20 ⊢ 30. Pela regra do ⊢, o 20 entra nela."
+    - texto: "36%"
+      erro: "36% é 18 ÷ 50, a classe mais alta do gráfico. Ela fica abaixo de 20 m³."
+  explicacao: "Consomem pelo menos 20 m³ as classes 20 ⊢ 30, 30 ⊢ 40 e 40 ⊢ 50: 14 + 8 + 4 = 26 casas. 26 ÷ 50 = 0,52 = 52%."
+  conferir: "(14 + 8 + 4) / 50 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-05
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-histogramas
+  dificuldade: 2
+  texto_base: |
+    Vinte estudantes disseram quantas horas estudam por semana. Os dados foram agrupados assim:
+    0 ⊢ 4 horas, 5 estudantes; 4 ⊢ 8 horas, 10 estudantes; 8 ⊢ 12 horas, 5 estudantes.
+  enunciado: "Usando o ponto médio de cada classe, qual é a média estimada de horas de estudo por semana?"
+  alternativas:
+    - texto: "18 horas"
+      erro: "18 é a soma dos pontos médios (2 + 6 + 10). Cada ponto médio tem de pesar pela sua frequência, e o total se divide por 20."
+    - texto: "8 horas"
+      erro: "Você usou o limite de cima de cada classe (4, 8 e 12). Use o meio da classe: 2, 6 e 10."
+    - texto: "40 horas"
+      erro: "Você dividiu 120 pelas 3 classes. A média se divide pelo número de estudantes, 20."
+    - texto: "6 horas"
+      certa: true
+    - texto: "120 horas"
+      erro: "120 é a soma de ponto médio × frequência. Falta dividir pelos 20 estudantes."
+  explicacao: "Pontos médios: 2, 6 e 10. Some ponto médio × frequência: 2 × 5 + 6 × 10 + 10 × 5 = 10 + 60 + 50 = 120. Divida pelo total: 120 ÷ 20 = 6 horas."
+  conferir: "(2*5 + 6*10 + 10*5) / 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-06
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-histogramas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um posto de atendimento anotou, num dia, o tempo de espera de 30 pessoas na fila. O histograma tinha estas
+    classes: 0 ⊢ 10 minutos, 10 pessoas; 10 ⊢ 20 minutos, 4 pessoas; 20 ⊢ 30 minutos, 5 pessoas;
+    30 ⊢ 40 minutos, 11 pessoas.
+  enunciado: "A classe que contém a mediana dos tempos de espera é"
+  alternativas:
+    - texto: "0 ⊢ 10 minutos."
+      erro: "Essa classe tem só os 10 primeiros valores. A mediana de 30 dados está entre o 15º e o 16º."
+    - texto: "10 ⊢ 20 minutos."
+      erro: "Até o fim dessa classe a acumulada chega a 14. O 15º e o 16º valores ainda estão na classe seguinte."
+    - texto: "30 ⊢ 40 minutos."
+      erro: "Essa é a classe de maior frequência, a classe modal. A mediana é o valor do meio, que pede a frequência acumulada."
+    - texto: "20 ⊢ 30 minutos."
+      certa: true
+    - texto: "10 ⊢ 30 minutos."
+      erro: "Essa faixa não é uma das classes do histograma. A mediana cai dentro de uma classe só."
+  explicacao: "Com 30 dados, a mediana fica entre o 15º e o 16º valor, em ordem. Frequência acumulada: 10, depois 14, depois 19, depois 30. Os valores do 15º ao 19º estão em 20 ⊢ 30 minutos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-07
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-histogramas
+  dificuldade: 2
+  enunciado: "Uma pesquisa ouviu 200 famílias. Num histograma de renda, a classe de 2 ⊢ 4 salários mínimos tem frequência relativa de 25%. Quantas famílias estão nessa classe?"
+  alternativas:
+    - texto: "25"
+      erro: "25 é a porcentagem, não a quantidade. Calcule 25% de 200."
+    - texto: "50"
+      certa: true
+    - texto: "150"
+      erro: "150 é a quantidade de famílias fora dessa classe (75% de 200)."
+    - texto: "8"
+      erro: "Você dividiu 200 por 25. Porcentagem de um total se calcula multiplicando: 200 × 0,25."
+    - texto: "100"
+      erro: "100 seria a metade, 50%. A classe tem um quarto das famílias."
+  explicacao: "Frequência relativa é a parte do total. 25% de 200 = 0,25 × 200 = 50 famílias."
+  conferir: "200 * 0.25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-08
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-histogramas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um infográfico da prefeitura mostra a coleta seletiva de um mês em três regiões da cidade. Na legenda, cada
+    ícone de saco de recicláveis vale 2 toneladas. A região Norte aparece com 6 ícones, a região Sul com 4 ícones e
+    meio, e o Centro com 3 ícones. A meta para o mesmo mês do ano seguinte é coletar, nas três regiões juntas,
+    25% a mais.
+  enunciado: "A meta de coleta, em toneladas, para as três regiões juntas é"
+  alternativas:
+    - texto: "16,875"
+      erro: "Você aplicou os 25% sobre o número de ícones (13,5). Cada ícone vale 2 toneladas: converta antes."
+    - texto: "27"
+      erro: "27 toneladas é a coleta atual. A meta pede 25% a mais."
+    - texto: "6,75"
+      erro: "6,75 toneladas é só o aumento (25% de 27). A meta é a coleta atual mais esse aumento."
+    - texto: "32,5"
+      erro: "Você deixou de fora o meio ícone da região Sul: contou 13 ícones, e não 13,5."
+    - texto: "33,75"
+      certa: true
+  explicacao: "Ícones: 6 + 4,5 + 3 = 13,5. Coleta atual: 13,5 × 2 = 27 toneladas. Com 25% a mais: 27 × 1,25 = 33,75 toneladas."
+  conferir: "(6 + 4.5 + 3) * 2 * 1.25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-09
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 7
+  habilidade: 27
+  objeto: mat-estatistica-histogramas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um coral comunitário tem 25 integrantes. As idades foram agrupadas num histograma com estas classes:
+    10 ⊢ 30 anos, 5 pessoas; 30 ⊢ 50 anos, 10 pessoas; 50 ⊢ 70 anos, 8 pessoas; 70 ⊢ 90 anos, 2 pessoas.
+  enunciado: "Usando o ponto médio de cada classe, a idade média estimada dos integrantes do coral, em anos, é"
+  alternativas:
+    - texto: "50"
+      erro: "50 é a média dos quatro pontos médios (20, 40, 60 e 80), sem levar em conta quantas pessoas há em cada classe."
+    - texto: "285"
+      erro: "Você dividiu 1.140 pelas 4 classes. A média se divide pelo número de pessoas, 25."
+    - texto: "45,6"
+      certa: true
+    - texto: "40"
+      erro: "40 é o ponto médio da classe com mais pessoas. Essa é a classe modal, não a média."
+    - texto: "55,6"
+      erro: "Você usou o limite de cima de cada classe (30, 50, 70 e 90). Use o meio: 20, 40, 60 e 80."
+  explicacao: "Pontos médios: 20, 40, 60 e 80. Soma de ponto médio × frequência: 20 × 5 + 40 × 10 + 60 × 8 + 80 × 2 = 100 + 400 + 480 + 160 = 1.140. Dividindo por 25: 45,6 anos."
+  conferir: "(20*5 + 40*10 + 60*8 + 80*2) / 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-histogramas-10
+  tema: "Histogramas e infográficos"
+  area: matematica
+  competencia: 6
+  habilidade: 26
+  objeto: mat-estatistica-histogramas
+  dificuldade: 3
+  texto_base: |
+    Um histograma mostra o tempo que 40 pessoas gastam para chegar ao trabalho: 0 ⊢ 30 minutos, 12 pessoas;
+    30 ⊢ 60 minutos, 20 pessoas; 60 ⊢ 90 minutos, 8 pessoas.
+  enunciado: "Qual destas afirmações o histograma garante?"
+  alternativas:
+    - texto: "Exatamente 32 pessoas gastam menos de 60 minutos."
+      certa: true
+    - texto: "Metade das pessoas gasta exatamente 45 minutos."
+      erro: "O histograma diz que 20 pessoas estão entre 30 e 60 minutos, mas não mostra o valor de cada uma dentro da faixa."
+    - texto: "Ninguém gasta exatamente 30 minutos."
+      erro: "Quem gasta 30 minutos existe e entra na classe 30 ⊢ 60. O ⊢ só decide em qual classe a pessoa fica."
+    - texto: "A média do tempo é exatamente 42 minutos."
+      erro: "42 minutos é a média estimada pelos pontos médios. Como os valores exatos se perderam no agrupamento, ela não é garantida."
+    - texto: "20 pessoas gastam exatamente 45 minutos."
+      erro: "45 é o ponto médio da classe 30 ⊢ 60. Usá-lo é uma aproximação, não o tempo real das 20 pessoas."
+  explicacao: "Menos de 60 minutos são as duas primeiras classes: 12 + 20 = 32 pessoas. Isso o gráfico garante. Valores exatos dentro de cada classe ele não mostra, e a média pelos pontos médios é só uma estimativa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

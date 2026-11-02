@@ -1,0 +1,259 @@
+# Exercícios da aula "Matrizes e tabelas" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Vendas, preços, distâncias e tempos são valores de exemplo.
+# As matrizes vêm escritas linha a linha, porque o texto-base não mostra tabelas.
+
+- id: enem-mat-matrizes-01
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-matrizes
+  dificuldade: 1
+  enunciado: "Quantos elementos tem uma matriz do tipo 4 × 2?"
+  alternativas:
+    - texto: "6"
+      erro: "Você somou linhas e colunas. Cada uma das 4 linhas tem 2 elementos: multiplique."
+    - texto: "8"
+      certa: true
+    - texto: "16"
+      erro: "Você fez 4 × 4. A matriz tem 4 linhas e só 2 colunas."
+    - texto: "4"
+      erro: "4 é o número de linhas. Cada linha tem 2 elementos."
+    - texto: "2"
+      erro: "2 é o número de colunas. Cada coluna tem 4 elementos."
+  explicacao: "4 linhas com 2 elementos cada: 4 × 2 = 8 elementos."
+  conferir: "4 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-02
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-matrizes
+  dificuldade: 1
+  enunciado: "Os elementos de uma matriz A seguem a lei aᵢⱼ = 2i − j, em que i é a linha e j é a coluna. Quanto vale a₃₂?"
+  alternativas:
+    - texto: "1"
+      erro: "Você trocou linha e coluna (2 · 2 − 3). Em a₃₂, a linha é i = 3 e a coluna é j = 2."
+    - texto: "6"
+      erro: "Você calculou só o 2i. Falta subtrair o j."
+    - texto: "8"
+      erro: "Você somou o j em vez de subtrair. A lei é 2i − j."
+    - texto: "4"
+      certa: true
+    - texto: "32"
+      erro: "Os números pequenos de a₃₂ são dois índices, linha 3 e coluna 2, e não o número 32."
+  explicacao: "Em a₃₂, i = 3 e j = 2. Então a₃₂ = 2 · 3 − 2 = 6 − 2 = 4."
+  conferir: "2 * 3 - 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-03
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-matrizes
+  dificuldade: 1
+  enunciado: "A matriz A tem linha 1 igual a (1, 2) e linha 2 igual a (3, 4). A matriz B tem linha 1 igual a (5, 0) e linha 2 igual a (1, 2). Qual é o elemento da linha 2, coluna 1, da matriz A + B?"
+  alternativas:
+    - texto: "4"
+      certa: true
+    - texto: "6"
+      erro: "Esse é o elemento da linha 2, coluna 2 (4 + 2). A pergunta é a coluna 1."
+    - texto: "2"
+      erro: "Esse é o elemento da linha 1, coluna 2 (2 + 0). A pergunta é a linha 2, coluna 1."
+    - texto: "3"
+      erro: "3 é o elemento de A sozinha. Na soma, junte com o elemento de B no mesmo lugar."
+    - texto: "7"
+      erro: "Você somou a linha 2 de A (3 + 4). Na soma de matrizes, juntam-se os elementos do mesmo lugar de A e de B."
+  explicacao: "Na linha 2, coluna 1, A tem 3 e B tem 1. Na soma, 3 + 1 = 4."
+  conferir: "3 + 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-04
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-matrizes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma feira de agricultura familiar anotou as vendas de um fim de semana numa matriz. Cada linha é um dia, e cada
+    coluna é um produto, em quilos:
+    Sábado: 10 kg de tomate e 6 kg de feijão.
+    Domingo: 8 kg de tomate e 12 kg de feijão.
+    O quilo do tomate custa R$ 5,00 e o quilo do feijão custa R$ 8,00.
+  enunciado: "O valor arrecadado no domingo foi de"
+  alternativas:
+    - texto: "R$ 98,00."
+      erro: "Esse é o valor do sábado (10 · 5 + 6 · 8). A pergunta é sobre o domingo."
+    - texto: "R$ 234,00."
+      erro: "Esse é o total dos dois dias. A pergunta é só sobre o domingo."
+    - texto: "R$ 260,00."
+      erro: "Você somou as quantidades (20 kg) e os preços (13 reais) e multiplicou. Cada produto tem o seu preço: multiplique par a par e some."
+    - texto: "R$ 124,00."
+      erro: "Você trocou os preços (tomate a 8 e feijão a 5). Combine na ordem: o 1º da linha com o 1º preço."
+    - texto: "R$ 136,00."
+      certa: true
+  explicacao: "Linha do domingo vezes a coluna dos preços: 8 · 5 + 12 · 8 = 40 + 96 = 136 reais."
+  conferir: "8 * 5 + 12 * 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-05
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-matrizes
+  dificuldade: 2
+  enunciado: "Uma matriz guarda os salários, em reais, dos trabalhadores de uma cooperativa. Todos terão reajuste de 10%, e a nova matriz é a antiga multiplicada por 1,1. Se o elemento a₂₃ da matriz antiga é 2.000, quanto ele vale na nova?"
+  alternativas:
+    - texto: "R$ 2.010,00"
+      erro: "Você somou 10 reais. O reajuste é de 10%: multiplique por 1,1."
+    - texto: "R$ 1.800,00"
+      erro: "Você aplicou um desconto de 10%. Reajuste aumenta o salário."
+    - texto: "R$ 2.200,00"
+      certa: true
+    - texto: "R$ 200,00"
+      erro: "R$ 200,00 é o valor do reajuste. O novo elemento é 2.000 + 200."
+    - texto: "R$ 22.000,00"
+      erro: "Você multiplicou por 11. O fator de um aumento de 10% é 1,1."
+  explicacao: "Multiplicar a matriz por 1,1 multiplica cada elemento: 2.000 × 1,1 = 2.200 reais."
+  conferir: "2000 * 1.1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-06
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-matrizes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa matriz de distâncias, o elemento aᵢⱼ é a distância, em quilômetros, entre a cidade i e a cidade j, pela
+    estrada. Para três cidades, a₁₂ = 40, a₁₃ = 70 e a₂₃ = 50. A distância de uma cidade a outra é a mesma nos dois
+    sentidos, ou seja, aᵢⱼ = aⱼᵢ. Um caminhão de entregas sai da cidade 1, vai até a cidade 3, depois até a cidade 2
+    e volta para a cidade 1.
+  enunciado: "O caminhão percorre, no total,"
+  alternativas:
+    - texto: "120 km."
+      erro: "Você somou a ida até a cidade 3 e o trecho até a cidade 2 (70 + 50), mas esqueceu a volta para a cidade 1."
+    - texto: "160 km."
+      certa: true
+    - texto: "90 km."
+      erro: "Você fez o caminho 1 → 2 → 3 (40 + 50), na ordem errada e sem a volta."
+    - texto: "140 km."
+      erro: "Você contou só ir da cidade 1 à 3 e voltar (70 + 70). O caminhão passa também pela cidade 2."
+    - texto: "110 km."
+      erro: "Você somou só as distâncias que saem da cidade 1 (40 + 70). Falta o trecho entre as cidades 3 e 2."
+  explicacao: "Trechos: 1 → 3 é a₁₃ = 70; 3 → 2 é a₃₂ = a₂₃ = 50; 2 → 1 é a₂₁ = a₁₂ = 40. Total: 70 + 50 + 40 = 160 km."
+  conferir: "70 + 50 + 40"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-07
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-matrizes
+  dificuldade: 2
+  enunciado: "A matriz A é do tipo 2 × 3 e a matriz B é do tipo 3 × 4. O produto A · B"
+  alternativas:
+    - texto: "é do tipo 3 × 3."
+      erro: "O 3 é o número que tem de combinar (colunas de A e linhas de B). Ele some no resultado."
+    - texto: "é do tipo 2 × 3."
+      erro: "Esse é o tipo de A. O resultado tem as linhas de A e as colunas de B."
+    - texto: "é do tipo 4 × 2."
+      erro: "A ordem está trocada. O resultado tem primeiro as linhas de A (2) e depois as colunas de B (4)."
+    - texto: "é do tipo 2 × 4."
+      certa: true
+    - texto: "não existe."
+      erro: "Ele existe: A tem 3 colunas e B tem 3 linhas, e esses números são iguais."
+  explicacao: "A (2 × 3) · B (3 × 4): as 3 colunas de A combinam com as 3 linhas de B. O resultado tem as 2 linhas de A e as 4 colunas de B: 2 × 4."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-08
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-matrizes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma cozinha comunitária faz dois tipos de marmita. A quantidade de cada ingrediente, por marmita, está nesta
+    matriz, em que cada linha é um ingrediente e cada coluna é um tipo:
+    Arroz: 200 g no tipo 1 e 150 g no tipo 2.
+    Feijão: 100 g no tipo 1 e 150 g no tipo 2.
+    Para um mutirão, foram pedidas 30 marmitas do tipo 1 e 40 do tipo 2.
+  enunciado: "A quantidade de feijão necessária para esse pedido é de"
+  alternativas:
+    - texto: "9 kg."
+      certa: true
+    - texto: "12 kg."
+      erro: "Essa é a quantidade de arroz (30 · 200 + 40 · 150 = 12.000 g). A pergunta é sobre o feijão."
+    - texto: "9.000 kg."
+      erro: "A conta dá 9.000 gramas, e não quilos. 1.000 g = 1 kg."
+    - texto: "17,5 kg."
+      erro: "Você somou o feijão dos dois tipos (250 g) e multiplicou pelas 70 marmitas. Cada tipo tem a sua quantidade: combine linha por coluna."
+    - texto: "21 kg."
+      erro: "Esse é o total de arroz e feijão juntos (12 + 9). A pergunta é só sobre o feijão."
+  explicacao: "Linha do feijão vezes a coluna do pedido: 100 · 30 + 150 · 40 = 3.000 + 6.000 = 9.000 g = 9 kg."
+  conferir: "(30 * 100 + 40 * 150) / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-09
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-matrizes
+  dificuldade: 3
+  enunciado: "A matriz A tem linha 1 igual a (1, 2) e linha 2 igual a (3, 0). A matriz B tem linha 1 igual a (2, 1) e linha 2 igual a (4, 5). Qual é o elemento da linha 1, coluna 2, do produto A · B?"
+  alternativas:
+    - texto: "2"
+      erro: "Você multiplicou só os elementos do mesmo lugar (2 · 1). No produto, combine a linha 1 de A com a coluna 2 de B."
+    - texto: "10"
+      erro: "Esse é o elemento da linha 1, coluna 1 (1 · 2 + 2 · 4). A pergunta é a coluna 2."
+    - texto: "3"
+      erro: "Você somou os elementos do mesmo lugar (2 + 1). Isso seria a soma A + B, não o produto."
+    - texto: "7"
+      erro: "Você cruzou os pares na ordem errada (1 · 5 + 2 · 1). O 1º da linha vai com o 1º da coluna: 1 · 1 + 2 · 5."
+    - texto: "11"
+      certa: true
+  explicacao: "Linha 1 de A: (1, 2). Coluna 2 de B: 1 e 5. Produto: 1 · 1 + 2 · 5 = 1 + 10 = 11."
+  conferir: "1 * 1 + 2 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-matrizes-10
+  tema: "Matrizes e tabelas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-matrizes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma oficina de costura organizou numa matriz o tempo de trabalho de cada peça, em minutos. Cada linha é uma peça
+    e cada coluna é uma etapa:
+    Camisa: 20 minutos de corte e 30 minutos de costura.
+    Calça: 30 minutos de corte e 60 minutos de costura.
+    A oficina recebeu um pedido de 12 camisas e 8 calças.
+  enunciado: "O tempo total de costura desse pedido é de"
+  alternativas:
+    - texto: "8 horas."
+      erro: "Esse é o tempo de corte (12 · 20 + 8 · 30 = 480 minutos). A pergunta é sobre a costura."
+    - texto: "22 horas."
+      erro: "Esse é o tempo de corte e costura juntos. A pergunta é só sobre a costura."
+    - texto: "14 horas."
+      certa: true
+    - texto: "840 horas."
+      erro: "840 é o tempo em minutos. Divida por 60 para passar a horas."
+    - texto: "30 horas."
+      erro: "Você somou os tempos de costura (90 minutos) e multiplicou pelo total de peças (20). Cada peça tem o seu tempo: combine par a par."
+  explicacao: "Costura: 12 · 30 + 8 · 60 = 360 + 480 = 840 minutos. Em horas: 840 ÷ 60 = 14 horas."
+  conferir: "(12 * 30 + 8 * 60) / 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

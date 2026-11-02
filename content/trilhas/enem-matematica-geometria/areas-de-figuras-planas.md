@@ -81,7 +81,7 @@ a área do trapézio é a soma das duas bases, vezes a altura, dividido por dois
 é como fazer a média das bases e multiplicar pela altura
 ```
 
-O **losango** tem os quatro lados iguais, como uma pipa simétrica. As duas diagonais (D e d) se cruzam no meio, em ângulo reto. O losango cabe exatamente num retângulo de lados D e d e ocupa metade dele. A área é D · d ÷ 2.
+O **losango** tem os quatro lados iguais, como uma pipa com os quatro lados do mesmo tamanho. As duas diagonais (D e d) se cruzam no meio, em ângulo reto. O losango cabe exatamente num retângulo de lados D e d e ocupa metade dele. A área é D · d ÷ 2.
 
 ```verificar
 Um terreno tem a forma de um trapézio: frente de 10 m, fundo de 14 m (paralelo à frente) e 20 m de profundidade. Qual é a área?

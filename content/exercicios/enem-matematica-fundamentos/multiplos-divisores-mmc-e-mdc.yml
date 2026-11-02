@@ -1,0 +1,250 @@
+# Exercícios da aula "Múltiplos, divisores, MMC e MDC" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-divisores-01
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-multiplos-e-divisores
+  dificuldade: 1
+  enunciado: "Qual é o MMC de 4 e 10?"
+  alternativas:
+    - texto: "2"
+      erro: "2 é o MDC, o maior número que divide os dois. O MMC é o menor número que os dois dividem."
+    - texto: "40"
+      erro: "40 é o produto 4 × 10. É múltiplo dos dois, mas não o menor: 20 também é."
+    - texto: "14"
+      erro: "Você somou os números. 14 não é múltiplo de 4 nem de 10."
+    - texto: "20"
+      certa: true
+    - texto: "10"
+      erro: "10 é o maior dos dois, mas não é múltiplo de 4."
+  explicacao: "Múltiplos de 10: 10, 20, 30. O 20 é o primeiro que também é múltiplo de 4. Pela fatoração: 4 = 2² e 10 = 2 × 5, então MMC = 2² × 5 = 20."
+  conferir: "2^2 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-02
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-multiplos-e-divisores
+  dificuldade: 1
+  enunciado: "Qual é o MDC de 18 e 30?"
+  alternativas:
+    - texto: "3"
+      erro: "3 divide os dois, mas não é o maior divisor comum. O 2 também é comum: 2 × 3 = 6."
+    - texto: "6"
+      certa: true
+    - texto: "90"
+      erro: "90 é o MMC. O MDC é o maior número que divide os dois, e não pode passar de 18."
+    - texto: "2"
+      erro: "2 divide os dois, mas faltou o fator 3, que também é comum."
+    - texto: "540"
+      erro: "540 é o produto 18 × 30. O MDC é um divisor, menor ou igual aos números."
+  explicacao: "18 = 2 × 3² e 30 = 2 × 3 × 5. Comuns, com o menor expoente: 2 × 3 = 6."
+  conferir: "2 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-03
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-multiplos-e-divisores
+  dificuldade: 1
+  enunciado: "Quantos divisores positivos tem o número 12?"
+  alternativas:
+    - texto: "4"
+      erro: "Você esqueceu o 1 e o próprio 12. Todo número é divisível por 1 e por ele mesmo."
+    - texto: "2"
+      erro: "Você contou só os divisores primos (2 e 3). A pergunta pede todos os divisores."
+    - texto: "12"
+      erro: "Você contou de 1 a 12. Nem todo número até 12 divide o 12: 5, 7, 8, 9, 10 e 11 deixam resto."
+    - texto: "3"
+      erro: "Você contou os fatores da fatoração (2, 2 e 3). Os divisores são 1, 2, 3, 4, 6 e 12."
+    - texto: "6"
+      certa: true
+  explicacao: "Os divisores de 12 vêm em pares: 1 × 12, 2 × 6, 3 × 4. São 1, 2, 3, 4, 6 e 12: seis divisores."
+  conferir: "(2 + 1) * (1 + 1)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-04
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-multiplos-e-divisores
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um cursinho popular tem 48 alunas e 60 alunos inscritos para uma oficina. A coordenação quer formar grupos, todos
+    com o mesmo número de pessoas, cada grupo só de alunas ou só de alunos, e com o maior número possível de pessoas por
+    grupo. Ninguém pode ficar de fora.
+  enunciado: "O número de grupos formados será de"
+  alternativas:
+    - texto: "9."
+      certa: true
+    - texto: "12."
+      erro: "12 é o número de pessoas em cada grupo (o MDC). A pergunta é quantos grupos: 48 ÷ 12 mais 60 ÷ 12."
+    - texto: "240."
+      erro: "240 é o MMC de 48 e 60. Repartir no maior tamanho sem sobra pede o MDC."
+    - texto: "108."
+      erro: "108 é o total de pessoas. Divida cada turma pelo tamanho do grupo."
+    - texto: "18."
+      erro: "Você usou grupos de 6 pessoas. O 6 divide os dois, mas não é o maior divisor comum: 12 também divide."
+  explicacao: "MDC de 48 e 60: 48 = 2⁴ × 3 e 60 = 2² × 3 × 5, então MDC = 2² × 3 = 12. Grupos: 48 ÷ 12 = 4 de alunas e 60 ÷ 12 = 5 de alunos. Total: 9."
+  conferir: "48 / 12 + 60 / 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-05
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-multiplos-e-divisores
+  dificuldade: 2
+  enunciado: "Qual é o menor número inteiro positivo que é divisível ao mesmo tempo por 6, por 8 e por 9?"
+  alternativas:
+    - texto: "432"
+      erro: "432 é o produto 6 × 8 × 9. Ele é divisível pelos três, mas não é o menor."
+    - texto: "23"
+      erro: "Você somou os números. 23 é primo: não é divisível por nenhum deles."
+    - texto: "72"
+      certa: true
+    - texto: "1"
+      erro: "1 é o MDC de 6, 8 e 9. A pergunta pede um número que os três dividem: o MMC."
+    - texto: "24"
+      erro: "24 é o MMC de 6 e 8. Mas 24 não é divisível por 9: falta o fator 3²."
+  explicacao: "6 = 2 × 3; 8 = 2³; 9 = 3². MMC: 2³ × 3² = 8 × 9 = 72."
+  conferir: "2^3 * 3^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-06
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-multiplos-e-divisores
+  dificuldade: 2
+  enunciado: "Qual destes números é primo?"
+  alternativas:
+    - texto: "97"
+      certa: true
+    - texto: "91"
+      erro: "91 parece primo, mas 91 = 7 × 13. Teste os primos até a raiz: 2, 3, 5 e 7."
+    - texto: "87"
+      erro: "8 + 7 = 15, divisível por 3. Então 87 é divisível por 3: 87 = 3 × 29."
+    - texto: "51"
+      erro: "5 + 1 = 6, divisível por 3. Então 51 = 3 × 17."
+    - texto: "57"
+      erro: "5 + 7 = 12, divisível por 3. Então 57 = 3 × 19."
+  explicacao: "Para 97, teste 2, 3, 5 e 7 (10² = 100 já passa de 97). É ímpar, 9 + 7 = 16 não é divisível por 3, não termina em 0 ou 5, e 7 × 13 = 91, 7 × 14 = 98. Nenhum divide: 97 é primo."
+  conferir: "97"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-07
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-multiplos-e-divisores
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na fachada de um centro cultural há duas luzes de enfeite. A luz azul pisca a cada 15 segundos, e a luz amarela
+    pisca a cada 25 segundos. Às 20h, as duas piscaram ao mesmo tempo.
+  enunciado: "Nos 10 minutos seguintes, sem contar a piscada das 20h, as duas luzes piscam juntas"
+  alternativas:
+    - texto: "24 vezes."
+      erro: "24 é quantas vezes a luz amarela pisca em 600 segundos. A pergunta é quando as duas piscam juntas."
+    - texto: "40 vezes."
+      erro: "40 é quantas vezes a luz azul pisca em 600 segundos. Juntas, elas piscam a cada MMC de 15 e 25."
+    - texto: "1 vez."
+      erro: "Você usou 15 × 25 = 375 segundos como intervalo. O produto é um múltiplo comum, mas não o menor: o MMC é 75."
+    - texto: "8 vezes."
+      certa: true
+    - texto: "64 vezes."
+      erro: "Você somou as piscadas das duas luzes (40 + 24). A pergunta pede as piscadas ao mesmo tempo."
+  explicacao: "15 = 3 × 5 e 25 = 5². MMC = 3 × 5² = 75 segundos. Em 10 minutos há 600 segundos: 600 ÷ 75 = 8 vezes."
+  conferir: "600 / 75"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-08
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-multiplos-e-divisores
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O piso retangular da sala de uma associação mede 3,6 m por 4,8 m. A diretoria quer cobri-lo com lajotas quadradas,
+    todas do mesmo tamanho, sem cortar nenhuma, usando lajotas com o maior lado possível. As medidas das lajotas são
+    sempre um número inteiro de centímetros.
+  enunciado: "O número de lajotas necessário é"
+  alternativas:
+    - texto: "120."
+      erro: "120 é o lado da lajota em centímetros (o MDC de 360 e 480). A pergunta pede quantas lajotas."
+    - texto: "48."
+      erro: "Você usou lajotas de 60 cm. O 60 divide 360 e 480, mas não é o maior divisor comum: o MDC é 120."
+    - texto: "12."
+      certa: true
+    - texto: "1.440."
+      erro: "1.440 é o MMC de 360 e 480. Para cobrir sem cortar, o lado tem de dividir as duas medidas: é o MDC."
+    - texto: "192."
+      erro: "Você usou lajotas de 30 cm. Elas cabem, mas não são as maiores possíveis."
+  explicacao: "Em centímetros: 360 e 480. 360 = 2³ × 3² × 5 e 480 = 2⁵ × 3 × 5. MDC = 2³ × 3 × 5 = 120 cm. Cabem 360 ÷ 120 = 3 lajotas num lado e 480 ÷ 120 = 4 no outro: 3 × 4 = 12."
+  conferir: "(360 / 120) * (480 / 120)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-09
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-multiplos-e-divisores
+  dificuldade: 3
+  enunciado: "Qual é o número divisível ao mesmo tempo por 2, por 3 e por 5 que fica mais perto de 500?"
+  alternativas:
+    - texto: "500"
+      erro: "500 é divisível por 2 e por 5, mas 5 + 0 + 0 = 5 não é divisível por 3."
+    - texto: "480"
+      erro: "480 é divisível por 2, 3 e 5, mas fica a 20 de 500. Há outro a 10 de distância."
+    - texto: "495"
+      erro: "495 é divisível por 3 e por 5, mas é ímpar: não é divisível por 2."
+    - texto: "505"
+      erro: "505 é divisível por 5, mas é ímpar e 5 + 0 + 5 = 10 não é divisível por 3."
+    - texto: "510"
+      certa: true
+  explicacao: "Divisível por 2, 3 e 5 é o mesmo que divisível por 30. Múltiplos de 30 perto de 500: 480 (20 abaixo) e 510 (10 acima). O mais perto é 510."
+  conferir: "30 * 17"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-divisores-10
+  tema: "Múltiplos, divisores, MMC e MDC"
+  area: matematica
+  habilidade: 2
+  objeto: mat-numeros-multiplos-e-divisores
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa feira de bairro, três bancas não vêm todo dia: a banca de peixe vem a cada 4 dias, a de queijo a cada 6 dias e
+    a de mel a cada 10 dias. Hoje, as três estão na feira.
+  enunciado: "As três bancas voltarão a estar juntas na feira, pela primeira vez, daqui a"
+  alternativas:
+    - texto: "240 dias."
+      erro: "240 é o produto 4 × 6 × 10. Os três coincidem nesse dia, mas antes disso já coincidiram."
+    - texto: "60 dias."
+      certa: true
+    - texto: "20 dias."
+      erro: "Você somou os intervalos. Em 20 dias a banca de queijo não está: 20 não é múltiplo de 6."
+    - texto: "12 dias."
+      erro: "12 é o MMC de 4 e 6. Falta a banca de mel: 12 não é múltiplo de 10."
+    - texto: "120 dias."
+      erro: "Na fatoração, o 2 entrou com expoente 3 (2³ × 3 × 5). O 2 aparece no máximo com expoente 2, em 4 = 2²."
+  explicacao: "4 = 2²; 6 = 2 × 3; 10 = 2 × 5. MMC = 2² × 3 × 5 = 60 dias."
+  conferir: "2^2 * 3 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -57,7 +57,7 @@ Há também um erro menos grave, o **tangenciamento**: tratar só do assunto ger
 
 ## Não ser dissertativo-argumentativo
 
-Uma redação que é, na maior parte, uma **história** (narração), uma **carta**, um **poema** ou uma lista de opiniões soltas recebe zero. Contar um caso curto como exemplo dentro de um argumento é permitido; o problema é o texto inteiro, ou quase todo, ser de outro tipo.
+Uma redação que é, na maior parte, uma **história** (narração), uma **carta**, um **poema** ou uma **descrição** recebe zero. Contar um caso curto como exemplo dentro de um argumento é permitido; o problema é o texto inteiro, ou quase todo, ser de outro tipo.
 
 **Como evitar:** siga a estrutura de tese, argumentos e proposta que você viu na aula sobre a estrutura da redação.
 
@@ -91,7 +91,7 @@ Desenhos, palavrões, ofensas e qualquer forma proposital de anular o texto leva
 
 ## Língua estrangeira e letra ilegível
 
-O texto tem de estar em **português**. Uma palavra estrangeira usada como exemplo não é problema; o texto inteiro em outra língua, sim.
+O texto tem de estar em **português**. Uma palavra estrangeira usada como exemplo não é problema; o texto todo, ou quase todo, em outra língua, sim.
 
 E a **letra** precisa ser legível para dois corretores. Se você tem letra difícil, treine escrever com letra de forma ou com mais espaço entre as palavras.
 

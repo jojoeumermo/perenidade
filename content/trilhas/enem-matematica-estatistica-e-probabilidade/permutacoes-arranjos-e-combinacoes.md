@@ -123,7 +123,7 @@ Confira: 56 é menor que 336, como toda combinação em relação ao arranjo cor
 
 - **Formatos:** senhas e placas, filas e lugares, cardápios, escolha de comissões e equipes, anagramas, apostas de loteria. Muitas vezes há uma condição ("Ana tem de estar", "as irmãs ficam juntas", "pelo menos uma mulher") que muda a conta.
 - **Habilidades:** H2 (identificar padrões numéricos ou princípios de contagem) e H3 (resolver problemas com conhecimentos numéricos).
-- **O que mais caiu:** nas provas de 2022 e 2023, classificadas pelo instituto, de 81 questões de Matemática, 2 (2,5%) foram de permutações, arranjos e combinações, e mais 1 (1,2%) foi do princípio fundamental da contagem. A H2 teve 6 questões (7,4%), somando contagem e progressões. São só duas provas: é uma tendência, não uma promessa.
+- **O que mais caiu:** nas provas de 2022 e 2023, classificadas pelo instituto, de 81 questões de Matemática, 2 (2,5%) foram de permutações, arranjos e combinações, e mais 1 (1,2%) foi do princípio fundamental da contagem. A H2 teve 6 questões (7,4%), somando contagem, progressões e múltiplos e divisores. São só duas provas: é uma tendência, não uma promessa.
 - **Armadilhas:**
   - Usar arranjo quando a ordem não importa (ou combinação quando importa). Faça sempre a pergunta antes.
   - Esquecer de dividir pelas letras repetidas nos anagramas.
