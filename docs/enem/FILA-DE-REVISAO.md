@@ -6,7 +6,7 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 | --- | --- |
 | coordenação pedagógica (orientação de estudo e fatos da prova) | 23 |
 | curadoria | 1 |
-| educador de ciências da natureza | 13 |
+| educador de ciências da natureza | 17 |
 | educador de ciências humanas | 9 |
 | educador de linguagens | 123 |
 | educador de matemática | 117 |
@@ -44,11 +44,15 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 ## educador de ciências da natureza
 
+- [ ] aula `content/trilhas/enem-fisica/consumo.md` (Potência elétrica, consumo em kWh e conta de luz): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-fisica/leis-de-newton.md` (Leis de Newton, atrito e plano inclinado): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-fisica.md` (Formulário de física): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-quimica.md` (Formulário de química): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-biologia.md` (Natureza, o essencial: biologia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-fisica.md` (Natureza, o essencial: física): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-quimica.md` (Natureza, o essencial: química): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/consumo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-fisica/leis-de-newton.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-fisica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-quimica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/natureza-o-essencial-biologia.yml`: conferir gabarito, contas, enganos e etiquetas

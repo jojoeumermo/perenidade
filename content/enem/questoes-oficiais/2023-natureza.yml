@@ -409,7 +409,7 @@ questoes:
       B: "1/2 inverte a razão. A polia móvel divide a força por dois, então com a mesma força se ergue o dobro: M₂ = 2M₁."
       C: "Polias fixas só mudam a direção, mas a polia móvel do tipo 2 divide o peso entre dois trechos de corda. As cargas não são iguais."
       E: "4 corresponderia a duas polias móveis. Na figura, só a polia presa em M₂ se move; as outras são fixas."
-    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-fundamental/maquinas-simples, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, fisica-fundamental/maquinas-simples, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/leis-de-newton]
 
   - id: enem-2023-110
     area: natureza
@@ -522,7 +522,7 @@ questoes:
       C: "No arquivo importado, o texto desta alternativa veio igual ao da A, o que é erro de cópia. Pelas contas, os valores certos são aceleração T2 = 200 N e freada T1 = 600 N; confira a sua prova com eles."
       D: "560 e 960 saem de 600 − 40 e 1 000 − 40, com o atrito calculado como 0,2 · 200 = 40, sem a gravidade. Além disso, as cordas estão trocadas: na arrancada quem segura é a da frente (2)."
       E: "640 e 1 040 somam um atrito de 40 N (calculado sem g) em vez de subtrair 400 N. E as cordas estão trocadas: na freada a caixa vai para frente e quem segura é a corda de trás (1)."
-    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/dinamica-aplicacoes-das-leis-de-newton, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/leis-de-newton]
 
   - id: enem-2023-115
     area: natureza
