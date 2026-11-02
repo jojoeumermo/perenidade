@@ -46,6 +46,8 @@ import { revisoesDaAula } from "@/lib/revisoes-conteudo";
 import { HabilidadesDaAula } from "@/components/estudo/Habilidades";
 import { mapaDaAula } from "@/lib/curriculo-conteudo";
 import { questoesOficiaisDaAula } from "@/lib/enem-conteudo";
+import { VideoCurto } from "@/components/videos/VideoCurto";
+import { videosDaAula } from "@/lib/videos/indice";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -201,6 +203,8 @@ export default async function LessonPage({ params }: Props) {
         )}
 
         <div {...originalLang(lesson.translated)}>
+          {/* Vídeos curtos da aula (recurso enem-video): o tocador só baixa depois do clique. */}
+          {ligado("enem-video") && videosDaAula(track.slug, lesson.slug).filter((v) => !lesson.body.includes(v)).map((v) => <VideoCurto key={v} id={v} />)}
           <div id="texto-da-aula" className="mt-8">
             <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area}>{lesson.body}</Markdown>
           </div>

@@ -1100,6 +1100,31 @@
       "velocidade": "Velocidad",
       "frase": "Frase {n} de {total}",
       "preparando": "Preparando la voz…"
+    },
+    "videoCurto": {
+      "selo": "Video corto",
+      "rotulo": "Video corto: {titulo}",
+      "tocar": "Reproducir el video ({tempo})",
+      "aviso": "Narrado, con subtítulos y transcripción, en portugués. El audio solo se carga después del clic.",
+      "carregando": "Cargando el video…",
+      "erro": "No se pudo cargar el audio. Los subtítulos y la transcripción siguen aquí.",
+      "vozDoAparelho": "Escuchar con la voz del dispositivo (más robótica)",
+      "tocarAgora": "Reproducir",
+      "pausar": "Pausar",
+      "voltar": "Retroceder 5 segundos",
+      "avancar": "Avanzar 5 segundos",
+      "posicao": "Posición en el video",
+      "velocidade": "Velocidad",
+      "legendas": "Subtítulos",
+      "soAudio": "Solo audio",
+      "telaCheia": "Pantalla completa",
+      "capitulos": "Partes del video",
+      "transcricao": "Transcripción",
+      "tocando": "Reproduciendo",
+      "pausado": "En pausa",
+      "legendasLigadas": "Subtítulos activados",
+      "legendasDesligadas": "Subtítulos desactivados",
+      "emRevisao": "Contenido en revisión."
     }
   },
   "library": {

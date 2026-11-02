@@ -32,6 +32,7 @@ O valor é lido na **montagem** do site (é uma variável `NEXT_PUBLIC_`, gravad
 | `ajudou` | "Isso ajudou?" no fim da aula, guardado só no aparelho | fim de cada aula |
 | `guia-contribuir` | guia de contribuição: funções, passo a passo, modelo de aula e checklist | `/contribuir/guia` |
 | `enem-curso` | o curso ENEM: a porta do curso, diagnóstico, plano de estudos, prática por habilidade e por área, provas oficiais por ano e por dia com o relógio oficial, oficina de redação, reta final e as questões oficiais no fim das aulas (veja `docs/ENEM.md`) | `/enem` e as páginas abaixo dela; "Questões oficiais para treinar" no fim das aulas do percurso |
+| `enem-video` | vídeos curtos do curso ENEM: narração pré-gravada (voz sintética), legendas, transcrição, capítulos e velocidade; nada carrega antes do clique (veja `docs/enem/video/RELATORIO.md`) | no topo das aulas que têm vídeo e no bloco `videocurto` |
 | `pratica-sem-placar` | esconde os pontos e a sequência de dias da prática das aulas de idioma | aulas de idioma |
 
 Alguns dependem de outros para fazer sentido: `exercicios` e `metas` aparecem melhor com `meu-estudo`; `mapa-curricular` usa as páginas de `professores`.
@@ -46,4 +47,4 @@ Alguns dependem de outros para fazer sentido: `exercicios` e `metas` aparecem me
 
 ## O que fica guardado
 
-Tudo o que estes recursos guardam fica no navegador de quem estuda (`localStorage`), nas chaves `lucia:testes`, `lucia:exercicios`, `lucia:concluidas-em`, `lucia:metas`, `lucia:nivelamento`, `lucia:ajudou`, `lucia:turmas` e `lucia:enem` (o curso ENEM: provas e simulados feitos, diagnóstico, plano e tempo por questão). Elas entram na cópia de segurança (Caderno e Meus dados) e saem no "Apagar". Nada vai para o servidor nem para o Supabase; nenhum cookie novo. O único recurso que fala com um serviço de fora é o `vlibras`, e só depois do clique de quem quer usar (veja `docs/privacidade-vlibras.md`).
+Tudo o que estes recursos guardam fica no navegador de quem estuda (`localStorage`), nas chaves `lucia:testes`, `lucia:exercicios`, `lucia:concluidas-em`, `lucia:metas`, `lucia:nivelamento`, `lucia:ajudou`, `lucia:turmas`, `lucia:enem` e `lucia:video-curto` (onde parou em cada vídeo curto e a velocidade) (o curso ENEM: provas e simulados feitos, diagnóstico, plano e tempo por questão). Elas entram na cópia de segurança (Caderno e Meus dados) e saem no "Apagar". Nada vai para o servidor nem para o Supabase; nenhum cookie novo. O único recurso que fala com um serviço de fora é o `vlibras`, e só depois do clique de quem quer usar (veja `docs/privacidade-vlibras.md`).

@@ -1,0 +1,61 @@
+{
+ "hash": "c9eb597971b04eff38991a83f286ab7702b067b862757986ff2d4f116c231293",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-m",
+ "nome": "Voz 2",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 43510,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 2815,
+   "texto": "Terminou a prova antes da hora e quer ir para casa?"
+  },
+  {
+   "cena": "gancho",
+   "ini": 3295,
+   "fim": 8423,
+   "texto": "O edital tem regras para isso, e uma delas decide se o caderno de questões vai com você."
+  },
+  {
+   "cena": "regras",
+   "ini": 9123,
+   "fim": 13369,
+   "texto": "Ninguém sai da sala em definitivo antes de 2 horas do início da prova."
+  },
+  {
+   "cena": "regras",
+   "ini": 13729,
+   "fim": 18767,
+   "texto": "Para levar o caderno de questões, é preciso sair nos últimos 30 minutos antes do fim."
+  },
+  {
+   "cena": "regras",
+   "ini": 19127,
+   "fim": 26953,
+   "texto": "E os três últimos participantes da sala saem juntos, depois de assinar a Ata de Sala (menos nas salas de atendimento especializado)."
+  },
+  {
+   "cena": "dica",
+   "ini": 27653,
+   "fim": 32647,
+   "texto": "Se sobrou tempo, use para revisar as questões que você achou fáceis e conferir o cartão."
+  },
+  {
+   "cena": "dica",
+   "ini": 33007,
+   "fim": 36759,
+   "texto": "Um erro de atenção numa questão fácil pesa mais do que parece."
+  },
+  {
+   "cena": "final",
+   "ini": 37459,
+   "fim": 42310,
+   "texto": "A aula sobre o dia da prova explica também como administrar o tempo em cada domingo."
+  }
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "hash": "37981d1d49b07d80239a8f61487bdab6291204bc514278c4ee1adb8de9304ed6",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-m",
+ "nome": "Voz 2",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 50824,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 3720,
+   "texto": "Você pode acertar a questão no caderno e perder o ponto no cartão."
+  },
+  {
+   "cena": "gancho",
+   "ini": 4080,
+   "fim": 8446,
+   "texto": "É o erro mais caro da prova, porque não tem nada a ver com saber o conteúdo."
+  },
+  {
+   "cena": "regras",
+   "ini": 9146,
+   "fim": 14491,
+   "texto": "O edital pede caneta esferográfica de tinta preta, fabricada em material transparente."
+  },
+  {
+   "cena": "regras",
+   "ini": 14851,
+   "fim": 18218,
+   "texto": "Resposta com emenda ou rasura no cartão não é corrigida."
+  },
+  {
+   "cena": "regras",
+   "ini": 18578,
+   "fim": 23030,
+   "texto": "E o que você marca no caderno ou na folha de rascunho também não é corrigido."
+  },
+  {
+   "cena": "como",
+   "ini": 23730,
+   "fim": 26875,
+   "texto": "Enquanto resolve, marque a resposta no próprio caderno."
+  },
+  {
+   "cena": "como",
+   "ini": 27235,
+   "fim": 31898,
+   "texto": "A cada bloco de questões, passe as respostas para o cartão, sem deixar tudo para o fim."
+  },
+  {
+   "cena": "como",
+   "ini": 32258,
+   "fim": 35949,
+   "texto": "Antes de pintar a bolinha, confira se o número da questão é o mesmo."
+  },
+  {
+   "cena": "armadilha",
+   "ini": 36649,
+   "fim": 40672,
+   "texto": "Pular uma linha no cartão desloca todas as respostas que vêm depois."
+  },
+  {
+   "cena": "armadilha",
+   "ini": 41032,
+   "fim": 44254,
+   "texto": "Por isso a conferência do número vale mais do que a pressa."
+  },
+  {
+   "cena": "final",
+   "ini": 44954,
+   "fim": 49624,
+   "texto": "A aula sobre o cartão-resposta mostra um exemplo e quando dá para sair da sala."
+  }
+ ]
+}

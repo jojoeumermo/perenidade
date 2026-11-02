@@ -1,0 +1,85 @@
+{
+ "hash": "de669686e7337a45307bbfc8bc56a891c9e910e9924d25b34cb95716e98fdf79",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-f",
+ "nome": "Voz 1",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 67513,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 6169,
+   "texto": "A loja anuncia um desconto de 10% e, no caixa, dá mais 10% em cima do preço já baixado."
+  },
+  {
+   "cena": "gancho",
+   "ini": 6529,
+   "fim": 9723,
+   "texto": "Dá para dizer que você ganhou 20% de desconto?"
+  },
+  {
+   "cena": "conta",
+   "ini": 10423,
+   "fim": 13074,
+   "texto": "Faça a conta com um tênis de R$ 200,00."
+  },
+  {
+   "cena": "conta",
+   "ini": 13434,
+   "fim": 18347,
+   "texto": "O primeiro desconto tira 10%, e o preço vai para R$ 180,00."
+  },
+  {
+   "cena": "conta",
+   "ini": 18707,
+   "fim": 23991,
+   "texto": "O segundo desconto tira 10% de R$ 180,00, e não de R$ 200,00."
+  },
+  {
+   "cena": "conta",
+   "ini": 24351,
+   "fim": 30118,
+   "texto": "No fim, você paga R$ 162,00, e não os cento e sessenta reais que muita gente espera."
+  },
+  {
+   "cena": "regra",
+   "ini": 30818,
+   "fim": 34684,
+   "texto": "A regra é esta: descontos seguidos se multiplicam, eles não se somam."
+  },
+  {
+   "cena": "regra",
+   "ini": 35044,
+   "fim": 43622,
+   "texto": "Cada desconto de 10% é multiplicar por 0,9, e 0,9 vezes 0,9 dá 0,81."
+  },
+  {
+   "cena": "regra",
+   "ini": 43982,
+   "fim": 49145,
+   "texto": "Quem paga 81% do preço teve 19% de desconto no total."
+  },
+  {
+   "cena": "armadilha",
+   "ini": 49845,
+   "fim": 54133,
+   "texto": "No ENEM, a resposta errada que mais atrai é justamente a soma das taxas."
+  },
+  {
+   "cena": "armadilha",
+   "ini": 54493,
+   "fim": 59843,
+   "texto": "Quando aparecer aumento e desconto, um depois do outro, transforme cada um em fator e multiplique."
+  },
+  {
+   "cena": "final",
+   "ini": 60543,
+   "fim": 66313,
+   "texto": "Na aula de aumentos e descontos sucessivos, há mais exemplos e exercícios com a resolução de cada um."
+  }
+ ]
+}

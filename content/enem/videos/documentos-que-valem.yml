@@ -1,0 +1,53 @@
+id: documentos-que-valem
+aula: enem-como-funciona/o-dia-da-prova-o-que-levar-e-como-administrar-o-tempo
+titulo: O documento que deixa você entrar
+tipo: reta-final
+voz: voz-1
+duracao: 60
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: pergunta, texto: "Carteira de estudante serve?", nota: "não serve" }
+    fala: >
+      Imagine chegar no horário, achar a sala e ser barrada por causa do documento.
+      Isso acontece, e quase sempre por um documento que a pessoa achava que valia.
+  - id: valem
+    visual:
+      tipo: lista
+      titulo: Valem, sempre originais e com foto
+      itens:
+        - { texto: "RG ou Carteira de Identidade Nacional", em: rg }
+        - { texto: "CNH no modelo atual e passaporte", em: cnh }
+        - { texto: "documento digital no aplicativo oficial", em: digital, destaque: true }
+    fala: >
+      O edital pede um documento oficial, original e com foto.
+      {{marca:rg}}Valem a carteira de identidade e a nova Carteira de Identidade Nacional.
+      {{marca:cnh}}Valem também a carteira de motorista no modelo atual e o passaporte.
+      {{marca:digital}}E valem os documentos digitais com foto, abertos no aplicativo oficial ou no gov.br.
+  - id: nao-valem
+    visual:
+      tipo: lista
+      titulo: Não valem
+      itens:
+        - { texto: "carteira de estudante", em: estudante, destaque: true }
+        - { texto: "certidão de nascimento e título impresso", em: certidao }
+        - { texto: "cópia, mesmo autenticada, e boletim de ocorrência", em: copia }
+    fala: >
+      {{marca:estudante}}A carteira de estudante não vale.
+      {{marca:certidao}}A certidão de nascimento e o título de eleitor impresso também não.
+      {{marca:copia}}Cópia, mesmo autenticada, e boletim de ocorrência ficam de fora.
+  - id: dica
+    visual: { tipo: carimbo, titulo: Na véspera, texto: "Separe o documento junto da caneta preta transparente." }
+    fala: >
+      Na véspera, separe o documento e confira a foto e a validade.
+      Se for usar o digital, deixe o aplicativo aberto e o celular carregado antes de entrar.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "O dia da prova: o que levar" }
+    fala: >
+      A aula sobre o dia da prova tem a lista completa, com o número de cada item do edital.
+fontes:
+  - titulo: "Edital nº 64, de 21 de maio de 2026, itens 10.1 e 10.4 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }

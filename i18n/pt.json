@@ -1100,6 +1100,31 @@
       "velocidade": "Velocidade",
       "frase": "Frase {n} de {total}",
       "preparando": "Preparando a voz…"
+    },
+    "videoCurto": {
+      "selo": "Vídeo curto",
+      "rotulo": "Vídeo curto: {titulo}",
+      "tocar": "Tocar o vídeo ({tempo})",
+      "aviso": "Com narração, legendas e transcrição. O áudio só carrega depois do clique.",
+      "carregando": "Carregando o vídeo…",
+      "erro": "Não foi possível carregar o áudio. A legenda e a transcrição continuam aqui.",
+      "vozDoAparelho": "Ouvir com a voz do aparelho (mais robótica)",
+      "tocarAgora": "Tocar",
+      "pausar": "Pausar",
+      "voltar": "Voltar 5 segundos",
+      "avancar": "Avançar 5 segundos",
+      "posicao": "Posição no vídeo",
+      "velocidade": "Velocidade",
+      "legendas": "Legendas",
+      "soAudio": "Só o áudio",
+      "telaCheia": "Tela cheia",
+      "capitulos": "Partes do vídeo",
+      "transcricao": "Transcrição",
+      "tocando": "Tocando",
+      "pausado": "Pausado",
+      "legendasLigadas": "Legendas ligadas",
+      "legendasDesligadas": "Legendas desligadas",
+      "emRevisao": "Conteúdo em revisão."
     }
   },
   "library": {

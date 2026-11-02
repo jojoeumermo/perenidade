@@ -1,0 +1,51 @@
+id: o-que-zera-a-redacao
+aula: enem-redacao/o-que-zera-a-redacao
+titulo: O que zera a redação
+tipo: redacao
+voz: voz-1
+duracao: 70
+contas: {}
+cenas:
+  - id: gancho
+    visual: { tipo: carimbo, titulo: Nota zero, texto: "Um texto bom pode tirar zero por um motivo fora da escrita." }
+    fala: >
+      Um texto bem escrito ainda pode tirar zero.
+      Quase sempre o motivo não está na escrita, está numa regra que a pessoa não conhecia.
+  - id: motivos
+    visual:
+      tipo: lista
+      titulo: Zera a redação
+      itens:
+        - { texto: "fugir do tema ou não fazer texto dissertativo-argumentativo", em: tema, destaque: true }
+        - { texto: "escrever até {{enem:redacao-minimo}} linhas", em: linhas }
+        - { texto: "nome, assinatura ou rubrica no texto", em: nome }
+        - { texto: "parte do texto desligada do tema de propósito", em: proposito }
+    fala: >
+      {{marca:tema}}Zera a redação quem foge do tema ou não escreve um texto dissertativo-argumentativo.
+      {{marca:linhas}}Zera também o texto de até {{enem:redacao-minimo}} linhas, que o edital chama de texto insuficiente.
+      {{marca:nome}}Nome, assinatura ou rubrica no espaço do texto também levam a zero.
+      {{marca:proposito}}O mesmo vale para um trecho desligado do tema de propósito, como uma receita ou um recado.
+  - id: copia
+    visual:
+      tipo: folha
+      titulo: Linhas copiadas
+      itens:
+        - { texto: "copiou da prova? não conta", em: copia, destaque: true }
+    fala: >
+      {{marca:copia}}Um cuidado a mais: linhas copiadas dos textos da prova {{enem:redacao-copia}}.
+      Quem copia muito pode acabar abaixo do mínimo sem perceber.
+  - id: dica
+    visual: { tipo: pergunta, texto: "Antes de passar a limpo, confira três coisas", nota: "tema, tamanho, nada de nome" }
+    fala: >
+      Antes de passar a limpo, leia de novo o tema da proposta e compare com a sua tese.
+      Depois confira se o texto passa bem das sete linhas e se não tem nenhum nome escrito.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "O que zera a redação" }
+    fala: >
+      A aula sobre o que zera a redação traz a lista completa do edital e casos para treinar.
+fontes:
+  - titulo: "Edital nº 64, de 21 de maio de 2026, itens 14.7 e 14.8 (Inep)"
+    url: "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }
