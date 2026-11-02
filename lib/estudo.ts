@@ -189,6 +189,9 @@ const CHAVES_DA_COPIA = new Set([
   "lucia:vlibras",
   // O progresso entre partidas do jogo Rumos (lib/rumos.ts): quantas partidas e que desfechos já se viu em cada baralho.
   "lucia:jogos",
+  // A voz escolhida no "Ouvir a aula" e a velocidade (lib/vozes/catalogo.ts). Os arquivos da voz baixada não entram na
+  // cópia (são grandes e vêm do site); o "apagar" de Meus dados apaga os dois.
+  "lucia:voz",
 ]);
 /** Chaves que guardam um objeto por item (aula ou exercício): na restauração, cada item fica com a versão mais nova. */
 const REGISTROS = ["lucia:testes", "lucia:exercicios", "lucia:concluidas-em", "lucia:nivelamento", "lucia:ajudou"];

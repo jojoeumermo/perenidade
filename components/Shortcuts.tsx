@@ -56,6 +56,8 @@ function purgeIfIdle() {
       void import("@/lib/estudo")
         .then(({ chavesDeEstudo }) => {
           for (const key of chavesDeEstudo(localStorage)) localStorage.removeItem(key);
+          // As vozes naturais baixadas (lib/vozes/catalogo.ts) vão junto.
+          void caches?.delete("lucia-vozes").catch(() => undefined);
           notifyStored();
         })
         .catch(() => undefined);

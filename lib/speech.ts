@@ -1,79 +1,28 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { vozesNaturaisPossiveis } from "./vozes/catalogo";
+import { iniciar, parar, useLeitor } from "./vozes/leitor";
 
-// Leitura em voz alta com a voz do próprio navegador: nada sai do aparelho.
+// Leitura em voz alta: nada sai do aparelho. A voz é a escolhida no "Ouvir a aula" (a do aparelho ou uma natural, que
+// também roda no aparelho); o leitor de verdade está em lib/vozes/leitor.ts. Aqui ficam os nomes que o resto do site usa.
 
-const listeners = new Set<() => void>();
-let speaking = false;
-
-function setSpeaking(value: boolean) {
-  speaking = value;
-  listeners.forEach((listener) => listener());
-}
-
+/** Há como ler em voz alta aqui? No modo leitor (Kindle e tinta eletrônica) nunca aparece. */
 export function speechSupported(): boolean {
-  return typeof window !== "undefined" && "speechSynthesis" in window;
+  if (typeof window === "undefined" || document.documentElement.hasAttribute("data-leitor")) return false;
+  return "speechSynthesis" in window || vozesNaturaisPossiveis();
 }
 
 export function useSpeaking(): boolean {
-  return useSyncExternalStore(
-    (callback) => {
-      listeners.add(callback);
-      return () => listeners.delete(callback);
-    },
-    () => speaking,
-    () => false,
-  );
+  return useLeitor().ativo;
 }
 
-/** Frases curtas: alguns navegadores cortam falas longas no meio. */
-function chunks(text: string): string[] {
-  const sentences = text.replace(/\s+/g, " ").match(/[^.!?。！？\n]+[.!?。！？]*/g) ?? [];
-  const out: string[] = [];
-  let current = "";
-  for (const sentence of sentences) {
-    if ((current + sentence).length > 220 && current) {
-      out.push(current.trim());
-      current = "";
-    }
-    current += sentence;
-  }
-  if (current.trim()) out.push(current.trim());
-  return out;
-}
-
-/** Lê o trecho selecionado ou, sem seleção, o conteúdo principal da página. */
 /** Lê o trecho selecionado ou, sem seleção, o texto dos `alvos` (seletores CSS, na ordem); sem alvos, a página inteira. */
 export function startReading(alvos?: string[]) {
   if (!speechSupported()) return;
-  const synth = window.speechSynthesis;
-  synth.cancel();
-
-  const selection = window.getSelection()?.toString().trim() ?? "";
-  const main = document.getElementById("conteudo");
-  const trechos = alvos?.map((alvo) => document.querySelector<HTMLElement>(alvo)?.innerText.trim() ?? "").filter(Boolean) ?? [];
-  const text = selection || (trechos.length > 0 ? trechos.join(". ") : main?.innerText || "");
-  // Conteúdo ainda não traduzido fica marcado com o idioma original, para a voz certa ser usada.
-  const lang = main?.querySelector<HTMLElement>("[data-content-lang]")?.dataset.contentLang ?? document.documentElement.lang;
-  const voice = synth.getVoices().find((v) => v.lang.toLowerCase().startsWith(lang.toLowerCase().split("-")[0]));
-
-  const parts = chunks(text);
-  if (parts.length === 0) return;
-  setSpeaking(true);
-  parts.forEach((part, i) => {
-    const utterance = new SpeechSynthesisUtterance(part);
-    utterance.lang = lang;
-    if (voice) utterance.voice = voice;
-    if (i === parts.length - 1) utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-    synth.speak(utterance);
-  });
+  void iniciar(alvos);
 }
 
 export function stopReading() {
-  if (!speechSupported()) return;
-  window.speechSynthesis.cancel();
-  setSpeaking(false);
+  parar();
 }
