@@ -2,9 +2,9 @@
   "exercicios": {
     "titulo": "Exercises with explanations",
     "lead": "To lock in what you learned. Answers are checked right away and, if you slip, the explanation shows where and how to get it right. Your answers stay on this device only.",
-    "avisoEmRevisao": "These exercises are still under review: the team wrote them and they are waiting for an educator to check them. If you find a mistake, let us know; it helps everyone.",
+    "avisoEmRevisao": "These exercises are still under review: the team wrote them and they are waiting for a reviewer to check them. If you find a mistake, let us know; it helps everyone.",
     "emRevisao": "Under review",
-    "emRevisaoDica": "Not yet checked by an educator. If you find a mistake, let us know.",
+    "emRevisaoDica": "Not yet checked by a reviewer. If you find a mistake, let us know.",
     "revisado": "Reviewed by {por} on {data}",
     "filtrar": "Show",
     "todos": "All ({n})",
@@ -102,7 +102,7 @@
   },
   "revisao": {
     "emRevisao": "Under review.",
-    "emRevisaoDetalhe": "This lesson has not been checked by an educator yet. You can study normally; if something looks odd, let us know.",
+    "emRevisaoDetalhe": "This lesson has not been checked by a reviewer yet. You can study normally; if something looks odd, let us know.",
     "aprovada": "Approved by the team.",
     "aprovadaDetalhe": "It went through the panel with the opinion of another educator in the subject; the review with role and date has not been recorded yet.",
     "revisadaPor": "Reviewed by {quem} on {data}.",
