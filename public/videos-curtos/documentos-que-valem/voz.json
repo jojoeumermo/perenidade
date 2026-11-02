@@ -1,0 +1,85 @@
+{
+ "hash": "6b4b8f5390edd50afaed767ce31f4683c39fb365a6f6d88f90a7b54f891bbd61",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-f",
+ "nome": "Voz 1",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 55721,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 4369,
+   "texto": "Imagine chegar no horário, achar a sala e ser barrada por causa do documento."
+  },
+  {
+   "cena": "gancho",
+   "ini": 4729,
+   "fim": 8934,
+   "texto": "Isso acontece, e quase sempre por um documento que a pessoa achava que valia."
+  },
+  {
+   "cena": "valem",
+   "ini": 9634,
+   "fim": 12903,
+   "texto": "O edital pede um documento oficial, original e com foto."
+  },
+  {
+   "cena": "valem",
+   "ini": 13263,
+   "fim": 17708,
+   "texto": "Valem a carteira de identidade e a nova Carteira de Identidade Nacional."
+  },
+  {
+   "cena": "valem",
+   "ini": 18068,
+   "fim": 22196,
+   "texto": "Valem também a carteira de motorista no modelo atual e o passaporte."
+  },
+  {
+   "cena": "valem",
+   "ini": 22556,
+   "fim": 28274,
+   "texto": "E valem os documentos digitais com foto, abertos no aplicativo oficial ou no gov.br."
+  },
+  {
+   "cena": "nao-valem",
+   "ini": 28974,
+   "fim": 30904,
+   "texto": "A carteira de estudante não vale."
+  },
+  {
+   "cena": "nao-valem",
+   "ini": 31264,
+   "fim": 35035,
+   "texto": "A certidão de nascimento e o título de eleitor impresso também não."
+  },
+  {
+   "cena": "nao-valem",
+   "ini": 35395,
+   "fim": 39213,
+   "texto": "Cópia, mesmo autenticada, e boletim de ocorrência ficam de fora."
+  },
+  {
+   "cena": "dica",
+   "ini": 39913,
+   "fim": 43463,
+   "texto": "Na véspera, separe o documento e confira a foto e a validade."
+  },
+  {
+   "cena": "dica",
+   "ini": 43823,
+   "fim": 48895,
+   "texto": "Se for usar o digital, deixe o aplicativo aberto e o celular carregado antes de entrar."
+  },
+  {
+   "cena": "final",
+   "ini": 49595,
+   "fim": 54521,
+   "texto": "A aula sobre o dia da prova tem a lista completa, com o número de cada item do edital."
+  }
+ ]
+}

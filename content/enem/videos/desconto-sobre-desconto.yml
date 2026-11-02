@@ -1,0 +1,59 @@
+id: desconto-sobre-desconto
+aula: enem-matematica-proporcionalidade/aumentos-e-descontos-sucessivos
+titulo: Desconto sobre desconto
+tipo: aula-curta
+voz: voz-1
+duracao: 60
+contas:
+  preco: { expr: "200", formato: moeda }
+  dez: { expr: "10", formato: porcento }
+  vinte: { expr: "20", formato: porcento }
+  depois1: { expr: "200 * 0.9", valor: 180, formato: moeda }
+  final: { expr: "200 * 0.9 * 0.9", valor: 162, formato: moeda }
+  fator: { expr: "0.9 * 0.9", valor: 0.81, formato: decimal }
+  paga: { expr: "0.81 * 100", valor: 81, formato: porcento }
+  desconto: { expr: "(1 - 0.9 * 0.9) * 100", valor: 19, formato: porcento }
+cenas:
+  - id: gancho
+    visual: { tipo: pergunta, texto: "Dois descontos de {{conta:dez}} dão {{conta:vinte}}?", nota: "a loja diz que sim" }
+    fala: >
+      A loja anuncia um desconto de {{conta:dez}} e, no caixa, dá mais {{conta:dez}} em cima do preço já baixado.
+      Dá para dizer que você ganhou {{conta:vinte}} de desconto?
+  - id: conta
+    visual:
+      tipo: folha
+      titulo: Um tênis de {{conta:preco}}
+      itens:
+        - { texto: "{{conta:preco}} × 0,9 = {{conta:depois1}}", em: primeiro }
+        - { texto: "{{conta:depois1}} × 0,9 = {{conta:final}}", em: segundo }
+        - { texto: "você pagou {{conta:final}}", em: final, destaque: true }
+    fala: >
+      Faça a conta com um tênis de {{conta:preco}}.
+      {{marca:primeiro}}O primeiro desconto tira {{conta:dez}}, e o preço vai para {{conta:depois1}}.
+      {{marca:segundo}}O segundo desconto tira {{conta:dez}} de {{conta:depois1}}, e não de {{conta:preco}}.
+      {{marca:final}}No fim, você paga {{conta:final}}, e não os cento e sessenta reais que muita gente espera.
+  - id: regra
+    visual:
+      tipo: folha
+      titulo: Seguidos se multiplicam
+      itens:
+        - { texto: "0,9 × 0,9 = {{conta:fator}}", em: fator }
+        - { texto: "paga {{conta:paga}}: desconto de {{conta:desconto}}", em: total, destaque: true }
+    fala: >
+      A regra é esta: descontos seguidos se multiplicam, eles não se somam.
+      {{marca:fator}}Cada desconto de {{conta:dez}} é multiplicar por 0,9, e 0,9 vezes 0,9 dá {{conta:fator}}.
+      {{marca:total}}Quem paga {{conta:paga}} do preço teve {{conta:desconto}} de desconto no total.
+  - id: armadilha
+    visual: { tipo: carimbo, titulo: Atenção, texto: "Na prova, a alternativa de {{conta:vinte}} espera quem somou as taxas." }
+    fala: >
+      No ENEM, a resposta errada que mais atrai é justamente a soma das taxas.
+      Quando aparecer aumento e desconto, um depois do outro, transforme cada um em fator e multiplique.
+  - id: final
+    visual: { tipo: final, titulo: "Agora, os exercícios desta aula.", texto: "Aumentos e descontos sucessivos" }
+    fala: >
+      Na aula de aumentos e descontos sucessivos, há mais exemplos e exercícios com a resolução de cada um.
+fontes:
+  - titulo: "Aula: aumentos e descontos sucessivos (Instituto Lúcia)"
+conferido: "2026-11-02"
+autores: ["Instituto Lúcia"]
+revisao: { status: em-revisao }

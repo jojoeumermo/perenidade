@@ -60,7 +60,11 @@
     "incidencia:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/incidencia-enem.mjs",
     "ligar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/ligar-questoes-enem.mjs",
     "vozes:baixar": "node scripts/vozes-baixar.mjs",
-    "testar:vozes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vozes.mjs"
+    "testar:vozes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vozes.mjs",
+    "video:conferir": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/video.mjs conferir",
+    "video:narrar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/video.mjs narrar",
+    "video:legendar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/video.mjs legendar",
+    "testar:video": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-video.mjs"
   },
   "dependencies": {
     "@diffusionstudio/piper-wasm": "1.0.0",

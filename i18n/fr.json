@@ -1105,6 +1105,31 @@
       "frase": "Phrase {n} sur {total}",
       "preparando": "Préparation de la voix…",
       "preparandoProxima": "Préparation de la phrase suivante…"
+    },
+    "videoCurto": {
+      "selo": "Vidéo courte",
+      "rotulo": "Vidéo courte : {titulo}",
+      "tocar": "Lire la vidéo ({tempo})",
+      "aviso": "Narrée, avec sous-titres et transcription, en portugais. L’audio ne se charge qu’après le clic.",
+      "carregando": "Chargement de la vidéo…",
+      "erro": "Impossible de charger l’audio. Les sous-titres et la transcription restent ici.",
+      "vozDoAparelho": "Écouter avec la voix de l’appareil (plus robotique)",
+      "tocarAgora": "Lire",
+      "pausar": "Pause",
+      "voltar": "Reculer de 5 secondes",
+      "avancar": "Avancer de 5 secondes",
+      "posicao": "Position dans la vidéo",
+      "velocidade": "Vitesse",
+      "legendas": "Sous-titres",
+      "soAudio": "Audio seul",
+      "telaCheia": "Plein écran",
+      "capitulos": "Parties de la vidéo",
+      "transcricao": "Transcription",
+      "tocando": "Lecture",
+      "pausado": "En pause",
+      "legendasLigadas": "Sous-titres activés",
+      "legendasDesligadas": "Sous-titres désactivés",
+      "emRevisao": "Contenu en cours de révision."
     }
   },
   "library": {

@@ -1,0 +1,79 @@
+{
+ "hash": "89c99fdf5d4248ea3c3e72241ad915dba03fa54010f1a09da2ae4399df8b328e",
+ "motor": "kokoro",
+ "modelo": "Kokoro-82M v1.0",
+ "licenca": "Apache-2.0",
+ "voz": "kokoro-m",
+ "nome": "Voz 2",
+ "velocidade": 1,
+ "data": "2026-11-02",
+ "duracao": 53843,
+ "frases": [
+  {
+   "cena": "gancho",
+   "ini": 0,
+   "fim": 2008,
+   "texto": "O ENEM não acontece num dia só."
+  },
+  {
+   "cena": "gancho",
+   "ini": 2368,
+   "fim": 5988,
+   "texto": "São dois domingos de prova, e cada um pede um ritmo diferente."
+  },
+  {
+   "cena": "dia1",
+   "ini": 6688,
+   "fim": 12464,
+   "texto": "No primeiro dia, 8 de novembro de 2026, caem Linguagens e Ciências Humanas."
+  },
+  {
+   "cena": "dia1",
+   "ini": 12824,
+   "fim": 16165,
+   "texto": "A redação também é nesse dia, e por isso ele é mais longo."
+  },
+  {
+   "cena": "dia1",
+   "ini": 16525,
+   "fim": 19180,
+   "texto": "São 5h30 de prova."
+  },
+  {
+   "cena": "dia2",
+   "ini": 19880,
+   "fim": 25768,
+   "texto": "No segundo dia, 15 de novembro de 2026, caem Ciências da Natureza e Matemática."
+  },
+  {
+   "cena": "dia2",
+   "ini": 26128,
+   "fim": 30294,
+   "texto": "O tempo é de 5 horas, sem redação, só com questões de múltipla escolha."
+  },
+  {
+   "cena": "estrutura",
+   "ini": 30994,
+   "fim": 39210,
+   "texto": "Ao todo, o edital fala em quatro provas objetivas, de 45 questões de múltipla escolha cada, e uma redação em língua portuguesa."
+  },
+  {
+   "cena": "estrutura",
+   "ini": 39570,
+   "fim": 43190,
+   "texto": "Saber disso ajuda a dividir o tempo antes de abrir o caderno."
+  },
+  {
+   "cena": "final",
+   "ini": 43890,
+   "fim": 47530,
+   "texto": "Os horários de cada dia estão no edital e no site do Instituto."
+  },
+  {
+   "cena": "final",
+   "ini": 47890,
+   "fim": 52643,
+   "texto": "A aula sobre como a prova é montada mostra a ordem das áreas e tem exercícios."
+  }
+ ]
+}

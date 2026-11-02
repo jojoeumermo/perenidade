@@ -20,6 +20,8 @@ Nada do que você faz ao estudar sai do seu aparelho. O progresso nas aulas, os 
 
 No "Ouvir a aula", a leitura é feita no seu aparelho. Com a voz do aparelho, quem fala é o próprio celular ou computador; em alguns navegadores essa voz é gerada pela empresa do navegador, que recebe o texto da aula a ser lido. Se você escolher uma voz natural (Voz 1 ou Voz 2), o navegador baixa o modelo de voz do próprio site uma vez (cerca de 100 MB) e o guarda no aparelho; a partir daí a voz roda nele, sem enviar o texto para ninguém, nem para o instituto. O navegador guarda também a voz escolhida e a velocidade. A escolha entra na cópia de [Meus dados](/meus-dados), e o "apagar" de lá apaga a escolha e a voz baixada.
 
+Nos vídeos curtos das aulas, o áudio, as legendas e as cenas vêm do próprio site, e só depois que você clica em tocar. Nenhum serviço de fora é chamado. O navegador guarda, só no seu aparelho, onde você parou em cada vídeo e a velocidade escolhida. Isso entra na cópia de [Meus dados](/meus-dados) e sai no "apagar".
+
 O site não usa cookies de publicidade, não tem pixel de rede social e não carrega anúncios.
 
 ## Os serviços que mantêm o site no ar
