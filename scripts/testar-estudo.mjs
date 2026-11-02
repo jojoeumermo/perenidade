@@ -2,7 +2,7 @@
 // Confere o estudo guardado no navegador: a conta da repetição espaçada, o caderno de erros e a cópia de segurança
 // (que nunca pode levar chave de aparelho, de sala ou de sessão).
 import { avaliarSenha } from "../lib/forca-senha.ts";
-import { agendar, apagarErro, guardarCartoes, idDaQuestao, lerCartoes, lerCopia, lerErros, montarCopia, paraHoje, refazerErro, registrarErro, responderCartao, restaurarCopia, somarDias } from "../lib/estudo.ts";
+import { agendar, apagarErro, chavesDeEstudo, entraNaCopia, guardarCartoes, idDaQuestao, lerCartoes, lerCopia, lerErros, montarCopia, paraHoje, refazerErro, registrarErro, responderCartao, restaurarCopia, somarDias } from "../lib/estudo.ts";
 
 let ok = 0;
 const falhas = [];
@@ -63,6 +63,7 @@ const origem = new Memoria({
 const copia = montarCopia(origem, new Date("2026-10-18T10:00:00Z"));
 const chaves = Object.keys(copia.dados).sort();
 conferir("só estudo entra na cópia", JSON.stringify(chaves) === JSON.stringify(["lucia:caderno", "lucia:lab:python:ex1", "lucia:ouvido:ep1", "lucia:revisao"]), JSON.stringify(chaves));
+conferir("a voz escolhida entra na cópia e no apagar", entraNaCopia("lucia:voz") && chavesDeEstudo(new Memoria({ "lucia:voz": "{}", "lucia:sessao": "x" })).join() === "lucia:voz");
 conferir("arquivo inválido é recusado", lerCopia("{}") === null && lerCopia("não é json") === null && lerCopia(JSON.stringify({ formato: "outro", versao: 1, dados: {} })) === null);
 const forjada = lerCopia(JSON.stringify({ formato: "lucia-copia", versao: 1, dados: { "lucia:sala-chave": "X", "lucia:aparelho:1:2": "Y", "lucia:erros": "[]", "lucia:caderno": 5 } }));
 conferir("cópia forjada não grava chave proibida", forjada && JSON.stringify(Object.keys(forjada.dados)) === JSON.stringify(["lucia:erros"]));
