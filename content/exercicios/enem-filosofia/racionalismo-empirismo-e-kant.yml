@@ -1,0 +1,248 @@
+# Exercícios da aula "Racionalismo, empirismo e Kant" (trilha enem-filosofia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fil-racionalismo-01
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  dificuldade: 1
+  enunciado: "Qual destas frases expressa o empirismo?"
+  alternativas:
+    - texto: "A razão tem ideias claras que não dependem dos sentidos."
+      erro: "Isso é o racionalismo, de Descartes. O empirismo põe a experiência como fonte."
+    - texto: "As Ideias eternas existem num mundo separado."
+      erro: "Essa é a teoria das Ideias de Platão, bem anterior ao debate moderno."
+    - texto: "Todas as ideias vêm da experiência, pelos sentidos ou pela reflexão."
+      certa: true
+    - texto: "Nada pode ser conhecido, nem pela razão nem pelos sentidos."
+      erro: "Isso é ceticismo radical. O empirismo afirma que conhecemos, a partir da experiência."
+    - texto: "O conhecimento vem de uma revelação divina."
+      erro: "O debate moderno deixa a revelação de lado. Os empiristas falam de sentidos e reflexão."
+  explicacao: "O empirismo (Locke, Hume) defende que todo conhecimento vem da experiência. Locke fala de sensação e reflexão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-02
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  dificuldade: 1
+  enunciado: "A dúvida metódica de Descartes tinha como objetivo"
+  alternativas:
+    - texto: "mostrar que nada pode ser conhecido."
+      erro: "Descartes não é cético. Ele duvida para chegar a uma certeza que resista a toda dúvida."
+    - texto: "encontrar uma primeira certeza indubitável para apoiar o conhecimento."
+      certa: true
+    - texto: "provar que os sentidos nunca erram."
+      erro: "É o contrário: os sentidos às vezes enganam, e por isso Descartes duvida deles."
+    - texto: "defender que o conhecimento vem do hábito."
+      erro: "Hábito é Hume. Descartes busca a certeza pela razão."
+    - texto: "negar a existência da mente."
+      erro: "A primeira certeza de Descartes é justamente a existência do eu que pensa."
+  explicacao: "Descartes duvida de tudo o que pode ser posto em dúvida para achar uma base firme. Encontra o \"penso, logo existo\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-03
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  dificuldade: 1
+  enunciado: "No dualismo de Descartes, a realidade se divide em"
+  alternativas:
+    - texto: "mundo sensível e mundo das Ideias."
+      erro: "Essa divisão é de Platão. Descartes fala de duas substâncias."
+    - texto: "fenômenos e coisas em si."
+      erro: "Essa distinção é de Kant, mais de um século depois."
+    - texto: "impressões e ideias."
+      erro: "Essa é a divisão das percepções em Hume."
+    - texto: "coisa pensante (a mente) e coisa extensa (o corpo e a matéria)."
+      certa: true
+    - texto: "sagrado e profano."
+      erro: "Sagrado e profano é uma distinção de Durkheim, sobre religião."
+  explicacao: "Descartes separa a mente, cuja essência é pensar, do corpo, cuja essência é ocupar espaço. É o dualismo cartesiano."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-04
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  dificuldade: 2
+  enunciado: "Um agricultor diz: \"Sempre que as formigas sobem, chove em dois dias; então amanhã vai chover\". Para Hume, essa previsão se apoia em"
+  alternativas:
+    - texto: "uma ideia inata de causa."
+      erro: "Hume recusa ideias que não venham da experiência. A previsão nasce da repetição."
+    - texto: "uma prova lógica de que o futuro repete o passado."
+      erro: "Hume diz justamente que não há essa prova. É o problema da indução."
+    - texto: "uma forma da mente que organiza a experiência."
+      erro: "Formas da mente são de Kant. Hume explica pela repetição e pelo hábito."
+    - texto: "uma revelação da natureza."
+      erro: "Nada de revelação: é a experiência repetida que cria a expectativa."
+    - texto: "o hábito criado pela repetição de casos observados."
+      certa: true
+  explicacao: "A previsão vem do costume: viu-se muitas vezes uma coisa seguida de outra. Para Hume, isso não é prova, mas é como de fato esperamos o futuro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-05
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Se houvesse ideias gravadas na mente desde o nascimento, todos as teriam, inclusive as crianças pequenas e as
+    pessoas que nunca estudaram. Não é o que vemos. As ideias chegam aos poucos, conforme vivemos, sentimos e
+    refletimos sobre o que se passa em nós. (Paráfrase do Instituto Lúcia de ideias de John Locke.)
+  enunciado: "O argumento do texto é dirigido contra a tese de que"
+  alternativas:
+    - texto: "existem ideias inatas, presentes na mente antes de qualquer experiência."
+      certa: true
+    - texto: "o conhecimento começa com a experiência."
+      erro: "Locke defende isso. O texto ataca a posição contrária."
+    - texto: "a reflexão é uma fonte de ideias."
+      erro: "O próprio texto cita a reflexão (\"refletimos sobre o que se passa em nós\") como fonte."
+    - texto: "as crianças aprendem com o tempo."
+      erro: "O texto usa as crianças como exemplo a favor da sua tese, não contra."
+    - texto: "o costume orienta as expectativas sobre o futuro."
+      erro: "Costume e expectativa são o tema de Hume. Locke, aqui, discute a origem das ideias."
+  explicacao: "Locke argumenta contra as ideias inatas (defendidas, por exemplo, por Descartes). Para ele, a mente começa como folha em branco e se enche pela sensação e pela reflexão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-06
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  dificuldade: 2
+  enunciado: "Para Kant, só conhecemos as coisas"
+  alternativas:
+    - texto: "como elas são em si mesmas, fora da nossa forma de conhecer."
+      erro: "É o contrário: a coisa em si fica fora do nosso alcance."
+    - texto: "pela revelação dos sentidos, sem participação da mente."
+      erro: "Para Kant, a mente participa, com as formas do espaço, do tempo e dos conceitos."
+    - texto: "como aparecem para nós, organizadas pelas formas da nossa sensibilidade e do nosso entendimento."
+      certa: true
+    - texto: "quando lembramos das Ideias que a alma viu antes de nascer."
+      erro: "Essa é a reminiscência de Platão, não Kant."
+    - texto: "pelo hábito, sem nenhuma forma da razão."
+      erro: "Kant respondeu a Hume justamente dizendo que há formas da mente que não vêm do hábito."
+  explicacao: "Kant separa fenômeno (a coisa como aparece para nós) e coisa em si. Conhecemos fenômenos, organizados pelas formas da mente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-07
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Esclarecimento é a saída da pessoa da menoridade, que é a incapacidade de usar o próprio entendimento sem a
+    direção de outro. A culpa é da própria pessoa quando a causa não é falta de entendimento, mas falta de coragem
+    para usá-lo. (Paráfrase do Instituto Lúcia de ideias de Kant, em texto de 1784.)
+  enunciado: "Transportada para os dias de hoje, a ideia do texto sugere que uma pessoa esclarecida"
+  alternativas:
+    - texto: "repassa as mensagens que recebe de pessoas de confiança, sem conferir."
+      erro: "Repassar sem conferir é deixar que outro pense por você: é a menoridade do texto."
+    - texto: "aceita a opinião da maioria para evitar conflitos."
+      erro: "Seguir a maioria por comodidade também é falta de coragem de usar o próprio entendimento."
+    - texto: "evita qualquer informação para não ser enganada."
+      erro: "Kant não manda fugir da informação. Manda usar o próprio entendimento sobre ela."
+    - texto: "examina por conta própria as informações antes de aceitá-las."
+      certa: true
+    - texto: "confia apenas em especialistas, sem nunca pensar por si."
+      erro: "Ouvir especialistas pode ser razoável, mas \"nunca pensar por si\" é exatamente a menoridade."
+  explicacao: "Para Kant, esclarecimento é ter a coragem de pensar por si. Hoje, isso significa examinar o que se lê antes de aceitar ou compartilhar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-08
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Posso supor que os sentidos me enganam, que estou sonhando e até que um gênio enganador me faz errar nas contas
+    mais simples. Mas, enquanto penso que tudo é falso, é necessário que eu, que penso, seja alguma coisa.
+    (Paráfrase do Instituto Lúcia de ideias de René Descartes.)
+  enunciado: "No raciocínio do texto, a primeira certeza é alcançada porque"
+  alternativas:
+    - texto: "os sentidos confirmam, pela repetição, que o eu existe."
+      erro: "O texto põe os sentidos em dúvida. A certeza não vem deles."
+    - texto: "a própria dúvida pressupõe um sujeito que pensa."
+      certa: true
+    - texto: "o gênio enganador revela a verdade ao final."
+      erro: "O gênio é uma hipótese para levar a dúvida ao máximo. Ele não revela nada."
+    - texto: "a tradição garante a existência da alma."
+      erro: "Descartes deixa de lado a autoridade da tradição. A certeza vem do próprio ato de pensar."
+    - texto: "o costume torna a existência do eu provável."
+      erro: "Costume e probabilidade são Hume. Descartes busca uma certeza que resista a toda dúvida."
+  explicacao: "Mesmo duvidando de tudo, não posso duvidar de que duvido. Duvidar é pensar; logo, o eu que pensa existe. É o cogito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-09
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Quando vejo uma bola de bilhar bater em outra e a segunda se mover, vejo apenas um acontecimento seguido de outro.
+    Não vejo nenhuma força ou ligação necessária entre eles. Depois de muitas repetições, minha mente passa a esperar o
+    segundo quando vê o primeiro. (Paráfrase do Instituto Lúcia de ideias de David Hume.)
+  enunciado: "A consequência filosófica do texto é que"
+  alternativas:
+    - texto: "a ideia de causa é inata e anterior a toda experiência."
+      erro: "Hume diz o contrário: a ideia vem da repetição da experiência."
+    - texto: "a ciência é impossível e deve ser abandonada."
+      erro: "Hume não manda abandonar a ciência. Ele mostra o limite: a certeza sobre o futuro não é demonstrável."
+    - texto: "o movimento das bolas é uma ilusão dos sentidos."
+      erro: "O texto não nega o movimento. Nega que vejamos uma ligação necessária entre os eventos."
+    - texto: "a razão demonstra que a segunda bola sempre se moverá."
+      erro: "Se a razão demonstrasse, não seria preciso esperar pela repetição. Hume nega essa demonstração."
+    - texto: "nossa crença na ligação entre causa e efeito vem do hábito, e não de uma prova racional."
+      certa: true
+  explicacao: "Para Hume, não observamos a conexão necessária; observamos a sequência repetida. O costume gera a expectativa. Daí o problema da indução."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-racionalismo-10
+  tema: "Racionalismo, empirismo e Kant"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-racionalismo-e-empirismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: Os sentidos às vezes nos enganam. Só o que a razão concebe com clareza e distinção merece ser aceito como
+    verdadeiro.
+    Texto II: A mente, ao nascer, não traz conteúdo algum. Tudo o que ela pensa foi recebido da experiência.
+    (Paráfrases do Instituto Lúcia de ideias de dois filósofos do século XVII.)
+  enunciado: "Os textos representam, respectivamente,"
+  alternativas:
+    - texto: "o empirismo e o racionalismo."
+      erro: "A ordem está trocada. Razão e clareza vêm primeiro (racionalismo); experiência, depois (empirismo)."
+    - texto: "o ceticismo e o dogmatismo."
+      erro: "Nenhum dos textos diz que nada pode ser conhecido. Os dois indicam uma fonte do conhecimento."
+    - texto: "o racionalismo de Descartes e o empirismo de Locke."
+      certa: true
+    - texto: "o idealismo de Kant e o estoicismo."
+      erro: "Kant é do século XVIII e junta as duas posições. Os textos opõem as duas."
+    - texto: "a teoria das Ideias de Platão e a ética de Aristóteles."
+      erro: "Os textos são do debate moderno sobre a origem do conhecimento, não da Grécia antiga."
+  explicacao: "O Texto I é o critério de Descartes (ideias claras e distintas). O Texto II é a folha em branco de Locke. Kant, depois, tentará juntar as duas posições."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -45,7 +45,7 @@ questoes:
       B: "Criatividade não aparece no trecho. A linguagem é tratada como meio de viver junto, não de inventar algo novo. Não escolha a alternativa que só soa positiva."
       C: "O texto até diz que pode haver verdades para o homem “no singular”, mas o centro do argumento são os homens no plural. Escolher a individualidade é uma leitura parcial que inverte o foco."
       D: "Técnica é o fazer de objetos e ferramentas. O trecho fala de discurso e de vida política. Separe o mundo do fazer do mundo do agir e falar."
-    aulas: [enem-por-area/ciencias-humanas-filosofia-e-sociologia, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [enem-por-area/ciencias-humanas-filosofia-e-sociologia, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/existencialismo-arendt-e-foucault]
 
   - id: enem-2022-48
     area: humanas
@@ -65,7 +65,7 @@ questoes:
       C: "A desigualdade de renda existe no Brasil, mas o texto não fala de dinheiro. Fala de cor da pele e castigo físico. Responda pelo que a fonte mostra."
       D: "O homem do texto está lendo um jornal. O problema não é falta de informação, e sim a violência racial. Leia os detalhes da cena."
       E: "A escola não aparece no trecho. A autora escreve com a grafia dela, mas isso não é o tema da questão. Não confunda a forma do texto com o seu conteúdo."
-    aulas: [sociologia-medio/raca-e-racismo-estrutural, luta-negra-fundamental/o-que-e-racismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [sociologia-medio/raca-e-racismo-estrutural, luta-negra-fundamental/o-que-e-racismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/raca-e-racismo]
 
   - id: enem-2022-49
     area: humanas
@@ -86,7 +86,7 @@ questoes:
       C: "O clima é um padrão de décadas e de grandes áreas. A imagem mostra a mudança imediata no destino da água da chuva. Não confunda o efeito local e imediato com uma mudança de clima."
       D: "Placas tectônicas se movem por forças internas da Terra, em escala de milhões de anos. Cidades não as alteram. Separe forças internas de ação humana na superfície."
       E: "As rochas não mudam com o asfalto em cima. O que muda é quanto de água chega ao subsolo. Leia os rótulos da imagem."
-    aulas: [meio-ambiente-fundamental/o-ciclo-da-agua, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [meio-ambiente-fundamental/o-ciclo-da-agua, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/hidrografia]
 
   - id: enem-2022-50
     area: humanas
@@ -106,7 +106,7 @@ questoes:
       B: "Máquinas e controle da floresta não são o foco. O texto fala de hospital, doenças e vítimas sem nome. Não escolha a alternativa pela palavra “floresta”, que combina com Amazônia."
       C: "O texto não fala em investimento do Estado nem em povos indígenas. As vítimas citadas são os trabalhadores da obra. Não troque o grupo social da fonte por outro."
       D: "O quinino aparece como remédio usado, não como disputa entre indústria e plantas medicinais. Cuidado com detalhes do texto transformados em tema central."
-    aulas: [historia-do-brasil/a-primeira-republica]
+    aulas: [historia-do-brasil/a-primeira-republica, enem-historia-do-brasil/primeira-republica]
 
   - id: enem-2022-51
     area: humanas
@@ -146,7 +146,7 @@ questoes:
       B: "Não há máquina nem tecnologia na letra. O trabalho descrito é manual: levar semente, pisar no cacau. Não traga para a leitura o agronegócio moderno que a fonte não mostra."
       C: "A canção não fala de proteger espécies ou ecossistemas. Fala de comida na mesa. Diferencie a função ambiental da função produtiva do campo."
       E: "Moradia não aparece como tema. O “tijolo e cimento” é a imagem da cidade que cresce, não uma função do campo."
-    aulas: [geografia-fundamental/cidade-e-campo, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/cidade-e-campo, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/espaco-agrario]
 
   - id: enem-2022-53
     area: humanas
@@ -166,7 +166,7 @@ questoes:
       C: "O público citado é de mulheres, não de jovens leitores em especial. Confira quem é o sujeito do texto."
       D: "Manuais pedagógicos não aparecem. O texto fala de romances, folhetins e imprensa feminina. Diferencie leitura de lazer e de ficção de material escolar."
       E: "Editoras comerciais não são citadas como causa. O texto liga a mudança ao novo público leitor e às escritoras. Não escolha um fator externo que o texto não traz."
-    aulas: [historia-do-brasil/imperio-e-abolicao, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [historia-do-brasil/imperio-e-abolicao, enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/imperio]
 
   - id: enem-2022-54
     area: humanas
@@ -186,7 +186,7 @@ questoes:
       B: "Republicanos e abolicionistas usavam ideias liberais de liberdade e cidadania. Os caixeiros se aproximaram delas, não se afastaram. A alternativa inverte a relação."
       C: "O texto fala de luta por direitos, não de contratos já fortalecidos. Não confunda reivindicação com conquista."
       D: "Sindicatos consolidados são posteriores. Nos anos 1880 havia associações em formação. Chamar isso de estrutura sindical consolidada é anacronismo."
-    aulas: [historia-do-brasil/imperio-e-abolicao, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [historia-do-brasil/imperio-e-abolicao, enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/imperio]
 
   - id: enem-2022-55
     area: humanas
@@ -206,7 +206,7 @@ questoes:
       C: "Açudes guardam água e são comuns no semiárido, mas a alternativa fala de vazão de rios, não de sal no solo. Ela não explica o processo descrito."
       D: "Desmatar e assorear são problemas reais, mas assoreamento é terra que entope rios. O problema do texto é sal na superfície do solo. Não troque um impacto por outro."
       E: "O texto não cita adubos. E a salinização descrita vem de sais trazidos pela água, não de adubo orgânico. Cuidado com a alternativa que parece técnica, mas não tem apoio na fonte."
-    aulas: [geografia-fundamental/recursos-naturais, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/recursos-naturais, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/questoes-ambientais]
 
   - id: enem-2022-56
     area: humanas
@@ -227,7 +227,7 @@ questoes:
       C: "Não há manifestação cultural na cena. O menino está tentando estudar. Leia a situação da charge, não só o cenário."
       D: "As casas amontoadas mostram onde o menino mora, mas a crítica é sobre acesso à educação, não sobre o desenho da cidade. Separe o cenário da mensagem."
       E: "Os textos não falam de valorizar intelectuais. Falam de quem fica de fora das aulas. Procure a crítica, não um tema ligado à escola."
-    aulas: [sociologia-fundamental/desigualdade-social, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [sociologia-fundamental/desigualdade-social, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/desigualdade-e-estratificacao]
 
   - id: enem-2022-57
     area: humanas
@@ -247,7 +247,7 @@ questoes:
       C: "O poder não é banido. Ele se espalha e fica mais minucioso. Leia os verbos que o texto usa para o poder: multiplica, articula, subdivide."
       D: "O texto não condena nem defende nada. Descreve como o poder funciona. Não confunda análise com julgamento moral."
       E: "Foucault fala de um poder espalhado pela sociedade, não só da hierarquia dos órgãos do Estado. Escolher burocracia estatal é generalizar a partir de uma parte."
-    aulas: [enem-por-area/ciencias-humanas-filosofia-e-sociologia, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [enem-por-area/ciencias-humanas-filosofia-e-sociologia, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/existencialismo-arendt-e-foucault]
 
   - id: enem-2022-58
     area: humanas
@@ -266,7 +266,7 @@ questoes:
       B: "Nada no texto é judaico. Os elementos são católicos: hóstia, beata, capela, bispo. Não escolha uma palavra difícil sem conferir seu sentido."
       C: "Juazeiro vira centro religioso, mas não há expansão de fronteiras regionais. E o caso se passa em 1889, não na Idade Média. Escolher “cristianismo medieval” é anacronismo."
       D: "Ecumênico quer dizer reunir religiões diferentes. Os textos tratam só do catolicismo. Confira o sentido de cada termo antes de escolher."
-    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/religiao-e-sociedade]
 
   - id: enem-2022-59
     area: humanas
@@ -286,7 +286,7 @@ questoes:
       B: "Reestruturação fundiária é mudar quem é dono da terra, como na reforma agrária. O PAA não distribui terra: compra o que já é produzido. Assentados podem vender, mas o programa não os assenta."
       D: "O texto não fala de frete. Não acrescente vantagens que a fonte não cita."
       E: "Bolsa de valores é mercado de ações de grandes empresas. O PAA é compra pública direta. Não confunda mercado institucional com mercado financeiro."
-    aulas: [geografia-fundamental/cidade-e-campo, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/cidade-e-campo, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/espaco-agrario]
 
   - id: enem-2022-60
     area: humanas
@@ -325,7 +325,7 @@ questoes:
       B: "Nada no texto valoriza tradição. A novidade substitui um trabalho artístico. Leia o efeito descrito: menos oportunidades."
       C: "O texto não fala de escola ou faculdade. O efeito é sobre o emprego, não sobre a formação. Separe trabalho de estudo."
       D: "A dublagem continua existindo, feita por máquina. O que diminui é o trabalho humano. “Estagnação da manifestação artística” generaliza demais."
-    aulas: [ia-fundamental/inteligencia-artificial-e-o-seu-trabalho, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [ia-fundamental/inteligencia-artificial-e-o-seu-trabalho, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/trabalho]
 
   - id: enem-2022-62
     area: humanas
@@ -345,7 +345,7 @@ questoes:
       B: "O Mercosul não tem moeda única nem política monetária igual. Isso seria próprio de uma união monetária, etapa que o bloco não alcançou."
       D: "A exportação agrícola é forte nos países do bloco, mas o texto discute a tarifa de importação e a indústria argentina. Ela não explica a necessidade de negociar."
       E: "Leis trabalhistas iguais não são exigência do bloco nem tema do texto. Cada país mantém a sua legislação."
-    aulas: [ciencia-politica-superior/integracao-latino-americana-mercosul-alba-e-celac, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [ciencia-politica-superior/integracao-latino-americana-mercosul-alba-e-celac, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/geopolitica]
 
   - id: enem-2022-63
     area: humanas
@@ -385,7 +385,7 @@ questoes:
       C: "Relevos escarpados (encostas íngremes) dificultam a ocupação, com risco de deslizamento. A alternativa vai contra o “favorece” do comando."
       D: "Superfícies lateríticas são camadas endurecidas, pobres para a agricultura. Elas não favorecem a ocupação."
       E: "Dobramentos modernos são cadeias de montanhas altas, formadas sobretudo por força interna. O relevo acidentado e frio dificulta a ocupação."
-    aulas: [geografia-fundamental/relevo-clima-e-vegetacao, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/relevo-clima-e-vegetacao, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/relevo]
 
   - id: enem-2022-65
     area: humanas
@@ -406,7 +406,7 @@ questoes:
       C: "Negacionismo é negar fatos comprovados, como na ciência. A espiral não fala disso. Leia o rótulo do topo: morte."
       D: "A espiral mostra violência que se repete e cresce, com controle e ameaça. Isso não é involuntário. Cuidado com a alternativa que tira a responsabilidade do agressor."
       E: "“Defesa da honra” foi um argumento usado para desculpar quem matava mulheres. A imagem não o defende; mostra o fim do ciclo. Não confunda a desculpa do agressor com o nome do crime."
-    aulas: [historia-das-lutas-das-mulheres/feminicidio, feminismo-fundamental/a-lei-maria-da-penha, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [historia-das-lutas-das-mulheres/feminicidio, feminismo-fundamental/a-lei-maria-da-penha, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/genero]
 
   - id: enem-2022-66
     area: humanas
@@ -426,7 +426,7 @@ questoes:
       B: "Nenhum dos dois fala de escolha das meninas. Santo Amaro defende acesso igual ao conhecimento, não liberdade de escolha. Leia o argumento de cada senador."
       D: "O debate é sobre o que se ensina nas escolas de primeiras letras, não sobre profissão. Não leve a questão para o mercado de trabalho."
       E: "Os textos não falam de participação política das mulheres. E a ordem ficaria invertida. Confira o tema e a ordem."
-    aulas: [historia-do-brasil/imperio-e-abolicao, feminismo-fundamental/o-que-e-feminismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [historia-do-brasil/imperio-e-abolicao, feminismo-fundamental/o-que-e-feminismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/genero]
 
   - id: enem-2022-67
     area: humanas
@@ -467,7 +467,7 @@ questoes:
       B: "A estratégia é trazer essas regiões para as regras do FMI e do Banco Mundial, o que é o contrário de independência financeira. A alternativa inverte o objetivo."
       C: "Cultura não aparece no texto nem no mapa. O mapa marca recursos naturais. Use a legenda."
       E: "O mapa marca recursos, mas o interesse descrito é controlar e usar, não preservar. Cuidado com a alternativa que lê a legenda e esquece a intenção."
-    aulas: [capitalismo-contemporaneo/imperialismo-hoje, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [capitalismo-contemporaneo/imperialismo-hoje, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/geopolitica]
 
   - id: enem-2022-69
     area: humanas
@@ -508,7 +508,7 @@ questoes:
       C: "Idade aparece só na idade dos filhos, e estado civil não é o foco: o recorte decisivo é mulher, e mulher preta ou parda. Leia qual comparação o gráfico destaca."
       D: "O gráfico não traz profissão nem sexualidade. Não escolha fatores reais de discriminação que os dados não mostram."
       E: "Escolaridade não aparece. Ter filhos aparece, mas o gráfico destaca a diferença entre mulheres brancas e negras. Use a comparação que o próprio gráfico faz."
-    aulas: [historia-das-lutas-das-mulheres/feminismo-negro, sociologia-fundamental/desigualdade-social, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [historia-das-lutas-das-mulheres/feminismo-negro, sociologia-fundamental/desigualdade-social, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/desigualdade-e-estratificacao]
 
   - id: enem-2022-71
     area: humanas
@@ -548,7 +548,7 @@ questoes:
       B: "Migração interna é mudar de residência dentro do país. Aqui ninguém se muda. Separe migração (mudar de casa) de deslocamento diário."
       C: "Mudança sazonal acontece em certas épocas do ano, como na colheita. O trajeto de Marcelo é diário."
       E: "Deslocamento forçado é sair de casa por guerra, desastre ou despejo. O texto fala do caminho de todo dia para o trabalho."
-    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, geografia-medio/demografia, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, geografia-medio/demografia, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/urbanizacao]
 
   - id: enem-2022-73
     area: humanas
@@ -589,7 +589,7 @@ questoes:
       B: "Extensão leste-oeste não explica o padrão. O mapa mostra valores diferentes em regiões de mesma longitude. Use o mapa para testar a alternativa."
       D: "Chuva irregular é marca do semiárido, mas o que deixa a luz do Sol passar é a falta de nuvens. A alternativa troca a causa por uma característica vizinha."
       E: "A continentalidade (distância do mar) afeta a temperatura, e o interior do Nordeste não está sob influência reduzida dela. Não explica a radiação."
-    aulas: [geografia-fundamental/como-ler-mapas-tematicos, geografia-fundamental/relevo-clima-e-vegetacao, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/como-ler-mapas-tematicos, geografia-fundamental/relevo-clima-e-vegetacao, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/clima]
 
   - id: enem-2022-75
     area: humanas
@@ -609,7 +609,7 @@ questoes:
       B: "Há uma narrativa de origem, mas o texto fala de saber, convivência e afeto, não de culto religioso. “Sacralizada” estreita demais a relação descrita."
       C: "Cenário bucólico é paisagem bonita para olhar. Para os Kambeba, o rio ensina e faz parte da identidade. Não reduza a relação à aparência."
       D: "O rio é coletivo e passado entre gerações. Isso é o contrário de “individual e efêmero” (passageiro)."
-    aulas: [os-primeiros-povos/quem-sao-os-povos-indigenas-do-brasil]
+    aulas: [os-primeiros-povos/quem-sao-os-povos-indigenas-do-brasil, enem-historia-do-brasil/povos-indigenas]
 
   - id: enem-2022-76
     area: humanas
@@ -629,7 +629,7 @@ questoes:
       B: "Coronéis e fazendas não aparecem. O texto fala de uma obra coletiva e de um povoado novo. Não traga um tema do sertão que a fonte não menciona."
       C: "O texto mostra trabalhadores construindo o açude, não distribuindo água. Separe construir a obra de gerir o recurso."
       E: "Comércio e negociantes não aparecem. Não acrescente personagens ao texto."
-    aulas: [enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [enem-reta-final/humanas-o-essencial-geografia, enem-geografia/hidrografia]
 
   - id: enem-2022-77
     area: humanas
@@ -649,7 +649,7 @@ questoes:
       C: "Cuidar da saúde dos escravizados para manter a produção não é lutar pelo fim da escravidão. A alternativa inverte o sentido."
       D: "O texto fala de medicina ligada ao Iluminismo, não de saberes tradicionais dos povos nativos. Leia de onde vem o saber médico citado."
       E: "As metrópoles queriam desenvolver as colônias para si, não emancipá-las. Escolher “emancipadores” é anacronismo e inverte o interesse colonial."
-    aulas: [historia-do-brasil/a-escravidao-no-brasil]
+    aulas: [historia-do-brasil/a-escravidao-no-brasil, enem-historia-do-brasil/economia-colonial]
 
   - id: enem-2022-78
     area: humanas
@@ -691,7 +691,7 @@ questoes:
       C: "O tamborete fala de quem o fez e usou, não de quem o expõe no museu. Separe os criadores dos expositores."
       D: "O texto diz que a história do objeto vai além da preservação e dos estilos. Escolher conservação lê o oposto do que ele afirma."
       E: "Venda aparece, mas como uma das práticas sociais, não como competência financeira. O foco são os dons e o saber fazer das pessoas."
-    aulas: [enem-reta-final/humanas-o-essencial-historia]
+    aulas: [enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/patrimonio-cultural]
 
   - id: enem-2022-80
     area: humanas
@@ -711,7 +711,7 @@ questoes:
       B: "Os estoicos também são posteriores e tratam de suportar os males da vida. O texto pede o grupo ligado ao nascimento da razão na cidade."
       D: "Peripatéticos são os seguidores de Aristóteles, que veio depois dos sofistas. Ensinar não basta: a questão pede o grupo ligado à vida pública da pólis."
       E: "Os rapsodos recitavam os mitos. O texto trata da passagem do mito para a razão, então eles representam o que veio antes, não o que fortaleceu a razão."
-    aulas: [filosofia-medio/os-pre-socraticos, filosofia-fundamental/mito-e-razao, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [filosofia-medio/os-pre-socraticos, filosofia-fundamental/mito-e-razao, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/filosofia-antiga]
 
   - id: enem-2022-81
     area: humanas
@@ -731,7 +731,7 @@ questoes:
       B: "O decreto fala de imprensa e propaganda, não de vender cultura popular. Não traga outro tema da Era Vargas."
       C: "Vargas também controlou os sindicatos, mas não por este decreto. Os trechos tratam de jornais. Responda pelo documento dado."
       E: "O DIP aumentou o controle do Estado sobre a imprensa. Privatizar seria passar meios do Estado para empresas, o que o texto não descreve."
-    aulas: [historia-do-brasil/a-era-vargas, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [historia-do-brasil/a-era-vargas, enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/era-vargas]
 
   - id: enem-2022-82
     area: humanas
@@ -752,7 +752,7 @@ questoes:
       C: "Petróleo e gás se formam em bacias sedimentares, a partir de restos de seres vivos, não em rocha ígnea. Lembre: combustível fóssil é rocha sedimentar."
       D: "Aquíferos grandes ficam em rochas sedimentares porosas, que guardam água. Rochas ígneas são pouco porosas. A alternativa troca o tipo de rocha."
       E: "Rochas metamórficas se formam pela transformação de outras rochas sob calor e pressão. O mapa mostra rochas ígneas. Não confunda as três famílias de rochas."
-    aulas: [geografia-fundamental/recursos-naturais, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/recursos-naturais, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/relevo]
 
   - id: enem-2022-83
     area: humanas
@@ -772,7 +772,7 @@ questoes:
       C: "Foragido é quem foge da justiça. Bebês recém-nascidos não estão nessa condição. Não confunda falta de documento com crime."
       D: "Refugiado tem nacionalidade, mas fugiu do país por guerra ou perseguição. O problema do texto é a falta de nacionalidade. Separe as duas condições."
       E: "Clandestino é quem entra ou fica num país sem autorização. As meninas nasceram no Líbano; o problema é que não foram registradas por nenhum Estado."
-    aulas: [politica-medio/direitos-humanos, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [politica-medio/direitos-humanos, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/migracoes]
 
   - id: enem-2022-84
     area: humanas
@@ -812,7 +812,7 @@ questoes:
       B: "A ordem proíbe atirar pedras e frutas nos réus. A Igreja controla a violência do público, não a estimula. Leia as proibições do texto."
       C: "A Inquisição não critica a disciplina: ela a impõe. A alternativa inverte o papel da instituição."
       E: "Heresia é o que a Inquisição perseguia, não o que organizava como culto. Cuidado com a alternativa que usa a palavra certa no sentido errado."
-    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/religiao-e-sociedade]
 
   - id: enem-2022-86
     area: humanas
@@ -832,7 +832,7 @@ questoes:
       B: "Os quatro elementos são coisas do mundo que vemos e tocamos. Empédocles explica a natureza por ela mesma, sem sair do mundo sensível."
       D: "Amor e Ódio aqui são forças da natureza que unem e separam elementos, não sentimentos humanos. Não leia as palavras no sentido do dia a dia."
       E: "Os pré-socráticos são justamente a passagem da explicação pelo mito para a explicação racional. Amor e Ódio não são deuses de uma narrativa, mas princípios do cosmo."
-    aulas: [filosofia-medio/os-pre-socraticos, filosofia-fundamental/mito-e-razao, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [filosofia-medio/os-pre-socraticos, filosofia-fundamental/mito-e-razao, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/filosofia-antiga]
 
   - id: enem-2022-87
     area: humanas
@@ -852,7 +852,7 @@ questoes:
       C: "O risco de morar em áreas inseguras é efeito da ocupação desordenada, não a causa da concentração. Cuidado com a inversão de causa e consequência."
       D: "Falta de transporte é um problema da cidade grande, não o que leva pessoas para ela. Separe os problemas urbanos da causa do crescimento."
       E: "O texto fala de “fluxos migratórios” como motor do processo. O crescimento veio da chegada de migrantes, não principalmente de mais filhos por mulher."
-    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, geografia-fundamental/cidade-e-campo, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, geografia-fundamental/cidade-e-campo, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/urbanizacao]
 
   - id: enem-2022-88
     area: humanas
@@ -872,7 +872,7 @@ questoes:
       B: "Sêneca não manda rejeitar a vida social. Ele fala de domínio sobre si diante da dor. A alternativa troca uma virtude interior por uma atitude contra a sociedade."
       C: "A força de Basso vem da filosofia, diz o texto, não da religião. Leia a palavra exata da fonte."
       D: "Sêneca elogia quem fica forte e alegre apesar do sofrimento, não quem o exalta. Exaltar a dor inverte a ideia estoica."
-    aulas: [filosofia-fundamental/etica-no-dia-a-dia, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [filosofia-fundamental/etica-no-dia-a-dia, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/filosofia-antiga]
 
   - id: enem-2022-89
     area: humanas

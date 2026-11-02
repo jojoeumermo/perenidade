@@ -1,0 +1,248 @@
+# Exercícios da aula "Ética e moral" (trilha enem-filosofia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fil-etica-01
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  dificuldade: 1
+  enunciado: "Qual frase descreve melhor a ética, no sentido usado na filosofia escolar?"
+  alternativas:
+    - texto: "O conjunto de costumes que uma família segue sem discutir."
+      erro: "Isso é a moral: as regras e costumes de um grupo. A ética é o passo seguinte."
+    - texto: "O código de leis escrito pelo Estado."
+      erro: "Lei e ética podem coincidir, mas não são a mesma coisa. Há leis injustas que a ética critica."
+    - texto: "A opinião de cada um sobre o que gosta ou não gosta."
+      erro: "Gosto pessoal não é ética. A ética procura razões que possam valer para outros."
+    - texto: "A reflexão crítica sobre as regras e os valores que orientam a conduta."
+      certa: true
+    - texto: "A obediência às ordens de quem tem autoridade."
+      erro: "Obedecer sem pensar é o que a ética questiona. Ela pergunta se a ordem é justa."
+  explicacao: "A moral é o conjunto de normas de um grupo; a ética é a reflexão que examina, justifica ou critica essas normas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-02
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  dificuldade: 1
+  enunciado: "\"Se você quer emagrecer, faça exercício.\" Na linguagem de Kant, essa frase é um imperativo"
+  alternativas:
+    - texto: "categórico, porque vale para todos sem condição."
+      erro: "A frase tem um \"se\": só vale para quem quer emagrecer. O categórico não depende de querer um fim."
+    - texto: "hipotético, porque só vale para quem quer aquele fim."
+      certa: true
+    - texto: "utilitarista, porque busca o prazer."
+      erro: "\"Imperativo utilitarista\" não é um termo de Kant. Kant separa hipotético e categórico."
+    - texto: "estoico, porque fala da natureza."
+      erro: "A classificação pedida é a de Kant. O \"se\" na frase é a pista."
+    - texto: "moral, porque toda ordem é moral."
+      erro: "Para Kant, uma ordem condicional não tem valor moral por si. Só o categórico é a lei moral."
+  explicacao: "O imperativo hipotético é condicional: se você quer X, faça Y. O categórico manda sem condição, para qualquer ser racional."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-03
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  dificuldade: 1
+  enunciado: "Para o utilitarismo de Bentham e Mill, uma ação é certa quando"
+  alternativas:
+    - texto: "produz a maior felicidade para o conjunto dos afetados."
+      certa: true
+    - texto: "é feita por dever, sem pensar no resultado."
+      erro: "Isso é Kant. O utilitarismo julga justamente pelo resultado."
+    - texto: "segue a tradição religiosa da comunidade."
+      erro: "O utilitarismo não se apoia na tradição, e sim no cálculo de bem-estar."
+    - texto: "beneficia apenas quem a pratica."
+      erro: "Isso seria egoísmo. O utilitarismo conta todos os afetados, não só quem age."
+    - texto: "fica no meio-termo entre dois vícios."
+      erro: "Meio-termo é a virtude de Aristóteles, não o critério utilitarista."
+  explicacao: "O princípio da maior felicidade: a ação certa é a que aumenta o bem-estar e diminui o sofrimento de todos os afetados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-04
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  dificuldade: 2
+  enunciado: "Um patrão contrata uma diarista, não registra, paga menos do que o combinado e diz: \"Ela precisa do dinheiro, então aceita\". Pela fórmula da humanidade, de Kant, a conduta é condenável porque"
+  alternativas:
+    - texto: "produz pouco prazer para o patrão."
+      erro: "O critério de Kant não é o prazer de quem age. É o respeito à pessoa."
+    - texto: "foge do meio-termo entre generosidade e avareza."
+      erro: "A leitura pelo meio-termo é de Aristóteles. A fórmula da humanidade fala de fim e meio."
+    - texto: "trata a trabalhadora apenas como meio para o próprio interesse, e não como fim."
+      certa: true
+    - texto: "contraria o costume do bairro."
+      erro: "Kant não julga pelo costume. Mesmo que fosse costume, a conduta continuaria imoral."
+    - texto: "deixa o patrão ansioso."
+      erro: "O estado de ânimo de quem age não decide a moralidade, para Kant."
+  explicacao: "Kant manda tratar a humanidade sempre como fim, nunca apenas como meio. Aproveitar a necessidade do outro só para ganhar fere a dignidade dele."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-05
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  dificuldade: 2
+  enunciado: "Qual é a crítica mais conhecida ao utilitarismo?"
+  alternativas:
+    - texto: "Ele ignora completamente as consequências das ações."
+      erro: "É o contrário: o utilitarismo é justamente a ética das consequências."
+    - texto: "Ele só serve para pessoas religiosas."
+      erro: "O utilitarismo não depende de religião. A crítica é outra."
+    - texto: "Ele proíbe qualquer prazer."
+      erro: "O utilitarismo valoriza o prazer e a felicidade. A crítica não é essa."
+    - texto: "Ele é igual à ética de Kant."
+      erro: "São opostos em muitos pontos: um olha o resultado, o outro olha o dever."
+    - texto: "Se só o total importa, ele poderia justificar sacrificar uma minoria pelo bem da maioria."
+      certa: true
+  explicacao: "Somando só o total de bem-estar, uma maioria poderia passar por cima dos direitos de poucos. É a objeção que se faz a partir de Kant: ninguém pode ser usado apenas como meio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-06
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Somos seres condicionados, mas não determinados. A família, a classe, a cultura pesam sobre o que somos. Mas, se
+    fôssemos apenas produto delas, não poderíamos responder pelo que fazemos, e não haveria sentido falar em ética.
+    (Paráfrase do Instituto Lúcia de ideias de Paulo Freire.)
+  enunciado: "Segundo o texto, a ética é possível porque"
+  alternativas:
+    - texto: "a cultura determina todas as escolhas humanas."
+      erro: "O texto diz que a cultura condiciona, mas não determina. Se determinasse, não haveria ética."
+    - texto: "as pessoas, embora condicionadas, conservam a capacidade de escolher e de responder por suas ações."
+      certa: true
+    - texto: "a classe social não exerce nenhuma influência sobre as pessoas."
+      erro: "O texto reconhece que a classe pesa. Não diz que ela não influencia."
+    - texto: "a genética explica o caráter de cada pessoa."
+      erro: "O texto recusa justamente a ideia de que somos só produto de algo, inclusive da biologia."
+    - texto: "as leis do Estado definem o que é certo e errado."
+      erro: "O texto não fala de leis. Fala da liberdade como condição da responsabilidade."
+  explicacao: "Freire sustenta que somos condicionados, mas não determinados. É essa margem de liberdade que torna possível a responsabilidade e, portanto, a ética. A ideia caiu no ENEM de 2023."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-07
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Por muito tempo, castigar fisicamente os filhos foi visto como parte da boa educação, defendido por famílias,
+    escolas e igrejas. Aos poucos, estudos sobre a infância e o debate público mostraram o dano que isso causa. Hoje, a
+    lei brasileira garante à criança o direito de ser educada sem castigo físico. (Texto original do Instituto Lúcia.)
+  enunciado: "O texto exemplifica a relação entre moral e ética, na medida em que"
+  alternativas:
+    - texto: "a moral de uma época é sempre a correta e não pode mudar."
+      erro: "O texto mostra uma moral que mudou. A ideia de uma moral fixa contradiz o próprio caso."
+    - texto: "a ética depende apenas da opinião individual de cada família."
+      erro: "O texto fala de estudos e de debate público, não de opinião isolada."
+    - texto: "a lei surgiu antes de qualquer reflexão sobre o tema."
+      erro: "O texto conta o contrário: a reflexão e o debate vieram antes da lei."
+    - texto: "a reflexão crítica pode questionar costumes aceitos e transformá-los."
+      certa: true
+    - texto: "os costumes religiosos nunca mudam."
+      erro: "O texto cita igrejas entre os que defendiam o castigo, mas não diz que nada muda. A moral mudou."
+  explicacao: "Um costume aceito (a moral de uma época) foi examinado criticamente (a ética) e mudou, chegando à lei. A ética pode criticar a moral do seu tempo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-08
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Quem pede perdão precisa estar disposto a ouvir um não. O perdão não é uma dívida que o ofendido tem com o
+    ofensor. Ele é um gesto livre de quem foi ferido, que pode concedê-lo ou recusá-lo. (Paráfrase do Instituto Lúcia
+    de ideias do filósofo francês Paul Ricoeur.)
+  enunciado: "De acordo com o texto, o perdão"
+  alternativas:
+    - texto: "é uma decisão livre da vítima, e não um direito de quem ofendeu."
+      certa: true
+    - texto: "é obrigatório sempre que o ofensor se arrepende."
+      erro: "O texto diz que quem pede deve estar pronto para ouvir um não. Logo, não é obrigatório."
+    - texto: "deve ser imposto por lei para garantir a paz social."
+      erro: "O texto fala de um gesto livre. Um perdão imposto deixaria de ser perdão."
+    - texto: "só tem valor quando é pedido em público."
+      erro: "O texto não fala de público ou privado. O ponto é a liberdade de quem perdoa."
+    - texto: "apaga automaticamente a responsabilidade do ofensor."
+      erro: "Nada no texto diz isso. E, se o perdão pode ser recusado, ele não é automático."
+  explicacao: "Para Ricoeur, o perdão não é algo a que se tem direito: é uma decisão livre de quem foi ferido. O ENEM de 2023 cobrou essa ideia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-09
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-etica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A secretaria de saúde tem vacinas para metade da população de uma cidade. Uma técnica propõe vacinar primeiro os
+    grupos com maior risco de morrer, porque assim se evita o maior número de mortes. Outra técnica lembra que, seja
+    qual for a ordem, ninguém pode ser excluído por ser pobre ou morar longe, porque todos têm a mesma dignidade.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "Os argumentos das duas técnicas aproximam-se, respectivamente, do"
+  alternativas:
+    - texto: "estoicismo e do epicurismo."
+      erro: "Nenhuma das técnicas fala de tranquilidade da alma ou de prazer simples. O debate é sobre consequências e dignidade."
+    - texto: "relativismo e do dogmatismo religioso."
+      erro: "Nenhuma das duas diz que cada um tem sua verdade, nem apela à religião."
+    - texto: "pensamento de Kant e do utilitarismo."
+      erro: "A ordem está trocada: evitar o maior número de mortes é cálculo de consequências; a dignidade igual é Kant."
+    - texto: "utilitarismo e da ética kantiana do respeito à pessoa."
+      certa: true
+    - texto: "ética das virtudes e do ceticismo."
+      erro: "As técnicas não discutem caráter nem duvidam de tudo. Uma calcula resultados; a outra defende um limite."
+  explicacao: "A primeira técnica olha as consequências (menos mortes no total): utilitarismo. A segunda põe um limite que vale para todos (a mesma dignidade, ninguém excluído): Kant. As duas podem se completar numa política pública."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-etica-10
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Ninguém se torna justo por ler sobre a justiça, assim como ninguém aprende a tocar violão só olhando. Tornamo-nos
+    justos praticando atos justos, corajosos praticando atos corajosos, até que isso se torne parte de quem somos.
+    (Paráfrase do Instituto Lúcia de ideias da Ética a Nicômaco, de Aristóteles.)
+  enunciado: "O texto expressa a ideia de que a virtude"
+  alternativas:
+    - texto: "é um dom natural, presente desde o nascimento."
+      erro: "O texto diz que nos tornamos justos praticando. Se fosse dom de nascença, não precisaria de prática."
+    - texto: "depende exclusivamente do estudo teórico."
+      erro: "O texto nega isso: ninguém fica justo só lendo sobre a justiça."
+    - texto: "é o cálculo do maior prazer para o maior número."
+      erro: "Esse é o critério utilitarista, muitos séculos depois. O texto fala de hábito e caráter."
+    - texto: "é obediência a uma lei universal da razão, sem relação com o hábito."
+      erro: "Lei universal da razão é Kant. O texto põe o hábito no centro."
+    - texto: "se forma pelo hábito, pela prática repetida de ações."
+      certa: true
+  explicacao: "Para Aristóteles, a virtude ética se forma pelo hábito: praticando atos justos, a pessoa se torna justa. A virtude vira parte do caráter."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

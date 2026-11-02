@@ -7,7 +7,7 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 | coordenação pedagógica (orientação de estudo e fatos da prova) | 23 |
 | curadoria | 1 |
 | educador de ciências da natureza | 17 |
-| educador de ciências humanas | 9 |
+| educador de ciências humanas | 61 |
 | educador de linguagens | 123 |
 | educador de matemática | 117 |
 | revisor de redação | 17 |
@@ -64,12 +64,64 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 ## educador de ciências humanas
 
+- [ ] aula `content/trilhas/enem-filosofia/etica-e-moral.md` (Ética e moral): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/existencialismo-arendt-e-foucault.md` (Existencialismo, Hannah Arendt e Foucault): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/filosofia-antiga.md` (Filosofia antiga: pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/industria-cultural.md` (Indústria cultural e Escola de Frankfurt): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-filosofia/racionalismo-empirismo-e-kant.md` (Racionalismo, empirismo e Kant): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/clima.md` (Clima, fenômenos atmosféricos e mudanças climáticas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/espaco-agrario.md` (Espaço agrário: agronegócio, agricultura familiar e conflitos no campo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/geopolitica.md` (Geopolítica e blocos econômicos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/hidrografia.md` (Hidrografia e crise hídrica): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/migracoes.md` (Migrações, refúgio e apatridia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/questoes-ambientais.md` (Questões ambientais: desmatamento, solo, cidade e poluição): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/relevo.md` (Estrutura geológica e relevo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-geografia/urbanizacao.md` (Urbanização, segregação e mobilidade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/ditadura.md` (Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/economia-colonial.md` (Açúcar, ouro, café e borracha): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/era-vargas.md` (Era Vargas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/escravidao-e-resistencia.md` (Escravidão, resistência e quilombos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/imperio.md` (Primeiro Reinado, Regências e Segundo Reinado): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/patrimonio-cultural.md` (Patrimônio cultural, memória e identidade no Brasil): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/povos-indigenas.md` (Povos indígenas e a formação do Brasil): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-historia-do-brasil/primeira-republica.md` (Primeira República: coronelismo, revoltas e greves): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-filosofia-e-sociologia.md` (Humanas, o essencial: filosofia e sociologia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-geografia.md` (Humanas, o essencial: geografia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-historia.md` (Humanas, o essencial: história): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/desigualdade-e-estratificacao.md` (Desigualdade e estratificação): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/genero.md` (Gênero): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/raca-e-racismo.md` (Raça, racismo e o mito da democracia racial): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/religiao-e-sociedade.md` (Religião e sociedade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-sociologia/trabalho.md` (Trabalho: taylorismo, fordismo, toyotismo, precarização e plataformas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/etica-e-moral.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/existencialismo-arendt-e-foucault.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/filosofia-antiga.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/industria-cultural.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-filosofia/racionalismo-empirismo-e-kant.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/clima.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/espaco-agrario.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/geopolitica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/hidrografia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/migracoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/questoes-ambientais.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/relevo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-geografia/urbanizacao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/ditadura.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/economia-colonial.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/era-vargas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/escravidao-e-resistencia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/imperio.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/patrimonio-cultural.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/povos-indigenas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-historia-do-brasil/primeira-republica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-filosofia-e-sociologia.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-geografia.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-historia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/desigualdade-e-estratificacao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/genero.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/raca-e-racismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/religiao-e-sociedade.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-sociologia/trabalho.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 45 questões oficiais de 2022 (`content/enem/questoes-oficiais/2022-humanas.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 44 questões oficiais de 2023 (`content/enem/questoes-oficiais/2023-humanas.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 5 objetos de conhecimento de humanas em `content/enem/matriz.yml`: confirmar a lista de habilidades de cada um

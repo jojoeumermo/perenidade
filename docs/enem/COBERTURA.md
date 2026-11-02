@@ -4,10 +4,10 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 ## Números gerais
 
-- Aulas escritas no percurso (trilhas enem-*): **163** em 19 trilhas
-- Exercícios do instituto com as etiquetas do ENEM: **1218** (meta: 2.000) · níveis 1/2/3: 364 / 495 / 359
-- Exercícios nas trilhas enem-* (todos): 1230 · posição da certa (A–E): 246 / 247 / 245 / 247 / 245
-- Testes das aulas do percurso: 661 perguntas · posição da certa (1ª a 5ª opção): 196 / 182 / 144 / 139 / 0
+- Aulas escritas no percurso (trilhas enem-*): **189** em 23 trilhas
+- Exercícios do instituto com as etiquetas do ENEM: **1478** (meta: 2.000) · níveis 1/2/3: 442 / 599 / 437
+- Exercícios nas trilhas enem-* (todos): 1490 · posição da certa (A–E): 298 / 297 / 299 / 302 / 294
+- Testes das aulas do percurso: 765 perguntas · posição da certa (1ª a 5ª opção): 222 / 208 / 170 / 165 / 0
 - Questões oficiais classificadas e resolvidas: **347** de 2689 importadas (12.9%) · anos: 2022, 2023
 - Redação: 27 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
 - Fatos da edição 2026: 55 (3 a confirmar no edital)
@@ -53,36 +53,36 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 | C | H | Habilidade (resumo nosso) | Aulas | Exercícios | Questões oficiais |
 | --- | --- | --- | --- | --- | --- |
-| 1 | H1 | Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura. | 2 | 3 | 7 |
-| 1 | H2 | Analisar como as sociedades produzem a memória. | 0 | 0 | 2 |
-| 1 | H3 | Ligar manifestações culturais de hoje aos seus processos históricos. | 2 | 1 | 2 |
-| 1 | H4 | Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura. | 1 | 0 | 4 |
-| 1 | H5 | Identificar manifestações da diversidade do patrimônio cultural e artístico. | 1 | 1 | 3 |
-| 2 | H6 | Interpretar mapas, gráficos e outras representações do espaço. | 1 | 0 | 4 |
-| 2 | H7 | Identificar o sentido histórico e geográfico das relações de poder entre nações. | 2 | 1 | 4 |
-| 2 | H8 | Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais. | 2 | 1 | 3 |
-| 2 | H9 | Comparar organizações políticas e econômicas em escala local, regional ou mundial. | 1 | 1 | 2 |
-| 2 | H10 | Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade. | 1 | 0 | 2 |
-| 3 | H11 | Identificar registros das práticas de grupos sociais no tempo e no espaço. | 1 | 1 | 7 |
-| 3 | H12 | Analisar o papel da justiça como instituição na organização das sociedades. | 1 | 0 | 2 |
-| 3 | H13 | Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder. | 1 | 2 | 2 |
-| 3 | H14 | Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas. | 1 | 0 | 2 |
-| 3 | H15 | Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história. | 1 | 1 | 3 |
-| 4 | H16 | Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social. | 1 | 1 | 4 |
+| 1 | H1 | Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura. | 8 | 14 | 7 |
+| 1 | H2 | Analisar como as sociedades produzem a memória. | 1 | 4 | 2 |
+| 1 | H3 | Ligar manifestações culturais de hoje aos seus processos históricos. | 4 | 4 | 2 |
+| 1 | H4 | Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura. | 4 | 17 | 4 |
+| 1 | H5 | Identificar manifestações da diversidade do patrimônio cultural e artístico. | 3 | 8 | 3 |
+| 2 | H6 | Interpretar mapas, gráficos e outras representações do espaço. | 3 | 7 | 4 |
+| 2 | H7 | Identificar o sentido histórico e geográfico das relações de poder entre nações. | 4 | 5 | 4 |
+| 2 | H8 | Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais. | 4 | 10 | 3 |
+| 2 | H9 | Comparar organizações políticas e econômicas em escala local, regional ou mundial. | 2 | 8 | 2 |
+| 2 | H10 | Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade. | 3 | 4 | 2 |
+| 3 | H11 | Identificar registros das práticas de grupos sociais no tempo e no espaço. | 7 | 23 | 7 |
+| 3 | H12 | Analisar o papel da justiça como instituição na organização das sociedades. | 2 | 1 | 2 |
+| 3 | H13 | Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder. | 5 | 13 | 2 |
+| 3 | H14 | Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas. | 7 | 12 | 2 |
+| 3 | H15 | Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história. | 3 | 6 | 3 |
+| 4 | H16 | Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social. | 4 | 13 | 4 |
 | 4 | H17 | Analisar o impacto das novas tecnologias na localização da produção. | 1 | 0 | 1 |
-| 4 | H18 | Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade. | 1 | 1 | 4 |
-| 4 | H19 | Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano. | 1 | 0 | 3 |
-| 4 | H20 | Escolher argumentos a favor ou contra as mudanças que as novas tecnologias impõem à vida e ao trabalho. | 1 | 0 | 2 |
-| 5 | H21 | Identificar o papel dos meios de comunicação na vida social. | 1 | 1 | 1 |
-| 5 | H22 | Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas. | 1 | 1 | 1 |
-| 5 | H23 | Analisar a importância dos valores éticos na organização política das sociedades. | 1 | 2 | 5 |
-| 5 | H24 | Relacionar cidadania e democracia na organização das sociedades. | 1 | 0 | 3 |
-| 5 | H25 | Identificar estratégias de inclusão social. | 1 | 1 | 1 |
-| 6 | H26 | Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem. | 2 | 1 | 5 |
-| 6 | H27 | Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia. | 1 | 1 | 3 |
-| 6 | H28 | Relacionar o uso de tecnologias aos impactos sociais e ambientais. | 1 | 1 | 1 |
-| 6 | H29 | Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana. | 2 | 1 | 4 |
-| 6 | H30 | Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas. | 1 | 1 | 2 |
+| 4 | H18 | Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade. | 4 | 16 | 4 |
+| 4 | H19 | Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano. | 4 | 8 | 3 |
+| 4 | H20 | Escolher argumentos a favor ou contra as mudanças que as novas tecnologias impõem à vida e ao trabalho. | 2 | 3 | 2 |
+| 5 | H21 | Identificar o papel dos meios de comunicação na vida social. | 5 | 11 | 1 |
+| 5 | H22 | Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas. | 5 | 10 | 1 |
+| 5 | H23 | Analisar a importância dos valores éticos na organização política das sociedades. | 4 | 18 | 5 |
+| 5 | H24 | Relacionar cidadania e democracia na organização das sociedades. | 10 | 19 | 3 |
+| 5 | H25 | Identificar estratégias de inclusão social. | 3 | 5 | 1 |
+| 6 | H26 | Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem. | 5 | 9 | 5 |
+| 6 | H27 | Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia. | 4 | 16 | 3 |
+| 6 | H28 | Relacionar o uso de tecnologias aos impactos sociais e ambientais. | 2 | 3 | 1 |
+| 6 | H29 | Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana. | 4 | 11 | 4 |
+| 6 | H30 | Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas. | 3 | 6 | 2 |
 
 ### Ciências da Natureza e suas Tecnologias
 
@@ -159,10 +159,10 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | Área | Habilidades com aula | Com 10+ exercícios |
 | --- | --- | --- |
 | Linguagens, Códigos e suas Tecnologias | 28 de 30 | 20 de 30 |
-| Ciências Humanas e suas Tecnologias | 29 de 30 | 0 de 30 |
+| Ciências Humanas e suas Tecnologias | 30 de 30 | 14 de 30 |
 | Ciências da Natureza e suas Tecnologias | 19 de 30 | 2 de 30 |
 | Matemática e suas Tecnologias | 28 de 30 | 17 de 30 |
-| **Total** | **104 de 120 (87%)** | **39 de 120 (33%)** |
+| **Total** | **105 de 120 (88%)** | **53 de 120 (44%)** |
 
 ## Objetos de conhecimento e tópicos (meta: cada um com aula própria)
 
@@ -248,28 +248,28 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 
 | Objeto / tópico | Questões oficiais | Aulas | Exercícios |
 | --- | --- | --- | --- |
-| **Formas de organização social, movimentos sociais, pensamento político e ação do Estado** (`hum-organizacao-social`) | 45 | 3 | 15 |
-| ↳ Gênero (`hum-organizacao-social-genero`) | 6 | 1 | 1 |
-| ↳ Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos (`hum-organizacao-social-filosofia-antiga`) | 4 | 1 | 1 |
-| ↳ Existencialismo, Hannah Arendt e Foucault (`hum-organizacao-social-filosofia-contemporanea`) | 4 | 1 | 1 |
-| ↳ Desigualdade e estratificação (`hum-organizacao-social-desigualdade`) | 3 | 1 | 1 |
-| ↳ Geopolítica e blocos econômicos (`hum-organizacao-social-geopolitica`) | 3 | 1 | 1 |
-| ↳ Primeiro Reinado, Regências e Segundo Reinado (`hum-organizacao-social-imperio`) | 2 | 1 | 2 |
-| ↳ Era Vargas (`hum-organizacao-social-era-vargas`) | 2 | 1 | 1 |
-| ↳ Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia (`hum-organizacao-social-ditadura`) | 2 | 1 | 2 |
+| **Formas de organização social, movimentos sociais, pensamento político e ação do Estado** (`hum-organizacao-social`) | 45 | 17 | 155 |
+| ↳ Gênero (`hum-organizacao-social-genero`) | 6 | 2 | 11 |
+| ↳ Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos (`hum-organizacao-social-filosofia-antiga`) | 4 | 2 | 11 |
+| ↳ Existencialismo, Hannah Arendt e Foucault (`hum-organizacao-social-filosofia-contemporanea`) | 4 | 2 | 11 |
+| ↳ Desigualdade e estratificação (`hum-organizacao-social-desigualdade`) | 3 | 2 | 11 |
+| ↳ Geopolítica e blocos econômicos (`hum-organizacao-social-geopolitica`) | 3 | 2 | 11 |
+| ↳ Primeiro Reinado, Regências e Segundo Reinado (`hum-organizacao-social-imperio`) | 2 | 2 | 12 |
+| ↳ Era Vargas (`hum-organizacao-social-era-vargas`) | 2 | 2 | 11 |
+| ↳ Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia (`hum-organizacao-social-ditadura`) | 2 | 2 | 12 |
 | ↳ Conflitos contemporâneos e organismos internacionais (`hum-organizacao-social-mundo-atual`) | 2 | 1 | 1 |
-| ↳ Raça, racismo e o mito da democracia racial (`hum-organizacao-social-racismo`) | 2 | 1 | 1 |
-| ↳ Ética e moral (`hum-organizacao-social-etica`) | 2 | 1 | 1 |
-| ↳ Migrações (`hum-organizacao-social-migracoes`) | 2 | 1 | 1 |
-| ↳ Urbanização, segregação e mobilidade (`hum-organizacao-social-urbanizacao`) | 2 | 1 | 1 |
+| ↳ Raça, racismo e o mito da democracia racial (`hum-organizacao-social-racismo`) | 2 | 2 | 11 |
+| ↳ Ética e moral (`hum-organizacao-social-etica`) | 2 | 2 | 11 |
+| ↳ Migrações (`hum-organizacao-social-migracoes`) | 2 | 2 | 11 |
+| ↳ Urbanização, segregação e mobilidade (`hum-organizacao-social-urbanizacao`) | 2 | 2 | 11 |
 | ↳ Idade Média, feudalismo e mundo islâmico (`hum-organizacao-social-idade-media`) | 1 | 0 | 0 |
 | ↳ Iluminismo (`hum-organizacao-social-iluminismo`) | 1 | 0 | 0 |
-| ↳ Primeira República: coronelismo, revoltas e greves (`hum-organizacao-social-primeira-republica`) | 1 | 0 | 0 |
+| ↳ Primeira República: coronelismo, revoltas e greves (`hum-organizacao-social-primeira-republica`) | 1 | 1 | 10 |
 | ↳ Liberalismo, socialismo e anarquismo (`hum-organizacao-social-ideologias`) | 1 | 0 | 0 |
 | ↳ Guerra Fria, descolonização e fim da URSS (`hum-organizacao-social-guerra-fria`) | 1 | 0 | 0 |
 | ↳ Movimentos sociais no Brasil (`hum-organizacao-social-movimentos-sociais`) | 1 | 0 | 0 |
 | ↳ Estado, democracia e participação (`hum-organizacao-social-estado-e-democracia`) | 1 | 0 | 0 |
-| ↳ Racionalismo, empirismo e Kant (`hum-organizacao-social-racionalismo-e-empirismo`) | 1 | 0 | 0 |
+| ↳ Racionalismo, empirismo e Kant (`hum-organizacao-social-racionalismo-e-empirismo`) | 1 | 1 | 10 |
 | ↳ População, demografia e pirâmides etárias (`hum-organizacao-social-populacao`) | 1 | 0 | 0 |
 | ↳ Antiguidade: Mesopotâmia, Egito, Grécia e Roma (`hum-organizacao-social-antiguidade`) | 0 | 0 | 0 |
 | ↳ Absolutismo e mercantilismo (`hum-organizacao-social-absolutismo`) | 0 | 0 | 0 |
@@ -293,31 +293,31 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Lógica, argumentação e falácias (`hum-organizacao-social-logica`) | 0 | 0 | 0 |
 | ↳ Filosofia da ciência (`hum-organizacao-social-filosofia-da-ciencia`) | 0 | 0 | 0 |
 | ↳ Formação territorial e regionalização do Brasil (`hum-organizacao-social-regionalizacao`) | 0 | 0 | 0 |
-| **Diversidade cultural, conflitos e vida em sociedade** (`hum-cultura`) | 15 | 2 | 3 |
-| ↳ Cultura material e imaterial e patrimônio no Brasil (`hum-cultura-patrimonio`) | 3 | 1 | 2 |
-| ↳ Religião e sociedade (`hum-cultura-religiao`) | 2 | 1 | 1 |
-| ↳ Povos indígenas e a formação do Brasil (`hum-cultura-povos-indigenas`) | 1 | 0 | 0 |
+| **Diversidade cultural, conflitos e vida em sociedade** (`hum-cultura`) | 15 | 7 | 53 |
+| ↳ Cultura material e imaterial e patrimônio no Brasil (`hum-cultura-patrimonio`) | 3 | 2 | 12 |
+| ↳ Religião e sociedade (`hum-cultura-religiao`) | 2 | 2 | 11 |
+| ↳ Povos indígenas e a formação do Brasil (`hum-cultura-povos-indigenas`) | 1 | 1 | 10 |
 | ↳ Conquista da América e conflitos com os indígenas (`hum-cultura-conquista-da-america`) | 1 | 0 | 0 |
 | ↳ Cultura, identidade, etnocentrismo e relativismo (`hum-cultura-identidade-e-etnocentrismo`) | 1 | 0 | 0 |
-| ↳ Mídia, indústria cultural e Escola de Frankfurt (`hum-cultura-industria-cultural`) | 1 | 0 | 0 |
+| ↳ Mídia, indústria cultural e Escola de Frankfurt (`hum-cultura-industria-cultural`) | 1 | 1 | 10 |
 | ↳ Estética (`hum-cultura-estetica`) | 1 | 0 | 0 |
-| ↳ Escravidão, resistência e quilombos (`hum-cultura-escravidao-e-resistencia`) | 0 | 0 | 0 |
+| ↳ Escravidão, resistência e quilombos (`hum-cultura-escravidao-e-resistencia`) | 0 | 1 | 10 |
 | ↳ Reinos africanos e história dos povos africanos (`hum-cultura-reinos-africanos`) | 0 | 0 | 0 |
 | ↳ A luta negra no Brasil e o pós-abolição (`hum-cultura-luta-negra`) | 0 | 0 | 0 |
 | ↳ Renascimento e Reformas (`hum-cultura-renascimento-e-reformas`) | 0 | 0 | 0 |
-| **Os domínios naturais e a relação do ser humano com o ambiente** (`hum-ambiente`) | 15 | 2 | 4 |
-| ↳ Desmatamento, queimadas, ilha de calor, inversão térmica e poluição (`hum-ambiente-questoes-ambientais`) | 4 | 1 | 1 |
-| ↳ Estrutura geológica e relevo (`hum-ambiente-relevo`) | 3 | 1 | 1 |
-| ↳ Clima, fenômenos atmosféricos e mudanças climáticas (`hum-ambiente-clima`) | 2 | 1 | 1 |
-| ↳ Hidrografia e crise hídrica (`hum-ambiente-hidrografia`) | 2 | 1 | 1 |
+| **Os domínios naturais e a relação do ser humano com o ambiente** (`hum-ambiente`) | 15 | 6 | 44 |
+| ↳ Desmatamento, queimadas, ilha de calor, inversão térmica e poluição (`hum-ambiente-questoes-ambientais`) | 4 | 2 | 11 |
+| ↳ Estrutura geológica e relevo (`hum-ambiente-relevo`) | 3 | 2 | 11 |
+| ↳ Clima, fenômenos atmosféricos e mudanças climáticas (`hum-ambiente-clima`) | 2 | 2 | 11 |
+| ↳ Hidrografia e crise hídrica (`hum-ambiente-hidrografia`) | 2 | 2 | 11 |
 | ↳ Meio ambiente e sociedade (`hum-ambiente-sociedade-e-natureza`) | 2 | 1 | 0 |
 | ↳ Biomas e domínios morfoclimáticos (`hum-ambiente-dominios`) | 1 | 0 | 0 |
 | ↳ Territórios indígenas e quilombolas (`hum-ambiente-territorios-tradicionais`) | 0 | 0 | 0 |
-| **Características e transformações das estruturas produtivas** (`hum-producao`) | 13 | 2 | 2 |
-| ↳ Espaço agrário, agronegócio, agricultura familiar e conflitos no campo (`hum-producao-espaco-agrario`) | 4 | 1 | 1 |
-| ↳ Taylorismo, fordismo, toyotismo, precarização e plataformas (`hum-producao-trabalho`) | 3 | 1 | 1 |
+| **Características e transformações das estruturas produtivas** (`hum-producao`) | 13 | 5 | 32 |
+| ↳ Espaço agrário, agronegócio, agricultura familiar e conflitos no campo (`hum-producao-espaco-agrario`) | 4 | 2 | 11 |
+| ↳ Taylorismo, fordismo, toyotismo, precarização e plataformas (`hum-producao-trabalho`) | 3 | 2 | 11 |
 | ↳ Globalização e divisão internacional do trabalho (`hum-producao-globalizacao`) | 2 | 1 | 0 |
-| ↳ Açúcar, mineração, café e borracha (`hum-producao-economia-colonial`) | 1 | 0 | 0 |
+| ↳ Açúcar, mineração, café e borracha (`hum-producao-economia-colonial`) | 1 | 1 | 10 |
 | ↳ Escravismo antigo, feudalismo, capitalismo e socialismo (`hum-producao-modos-de-producao`) | 0 | 0 | 0 |
 | ↳ Revolução Industrial (`hum-producao-revolucao-industrial`) | 0 | 0 | 0 |
 | ↳ Industrialização brasileira (`hum-producao-industrializacao-brasileira`) | 0 | 0 | 0 |
@@ -516,26 +516,21 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Equação da reta, paralelismo e perpendicularidade (`mat-algebra-geometria-reta`) | 0 | 1 | 10 |
 | ↳ Equação da circunferência (`mat-algebra-geometria-circunferencia`) | 0 | 0 | 0 |
 
-Objetos com aula: **33 de 42** · tópicos com aula: **170 de 286**.
+Objetos com aula: **33 de 42** · tópicos com aula: **176 de 286**.
 
 ## As 40 lacunas mais urgentes (tópico sem aula, pela incidência)
 
 - Idade Média, feudalismo e mundo islâmico (`hum-organizacao-social-idade-media`, humanas): 1 questões oficiais classificadas
 - Iluminismo (`hum-organizacao-social-iluminismo`, humanas): 1 questões oficiais classificadas
-- Primeira República: coronelismo, revoltas e greves (`hum-organizacao-social-primeira-republica`, humanas): 1 questões oficiais classificadas
 - Liberalismo, socialismo e anarquismo (`hum-organizacao-social-ideologias`, humanas): 1 questões oficiais classificadas
 - Guerra Fria, descolonização e fim da URSS (`hum-organizacao-social-guerra-fria`, humanas): 1 questões oficiais classificadas
 - Movimentos sociais no Brasil (`hum-organizacao-social-movimentos-sociais`, humanas): 1 questões oficiais classificadas
 - Estado, democracia e participação (`hum-organizacao-social-estado-e-democracia`, humanas): 1 questões oficiais classificadas
-- Racionalismo, empirismo e Kant (`hum-organizacao-social-racionalismo-e-empirismo`, humanas): 1 questões oficiais classificadas
 - População, demografia e pirâmides etárias (`hum-organizacao-social-populacao`, humanas): 1 questões oficiais classificadas
-- Povos indígenas e a formação do Brasil (`hum-cultura-povos-indigenas`, humanas): 1 questões oficiais classificadas
 - Conquista da América e conflitos com os indígenas (`hum-cultura-conquista-da-america`, humanas): 1 questões oficiais classificadas
 - Cultura, identidade, etnocentrismo e relativismo (`hum-cultura-identidade-e-etnocentrismo`, humanas): 1 questões oficiais classificadas
-- Mídia, indústria cultural e Escola de Frankfurt (`hum-cultura-industria-cultural`, humanas): 1 questões oficiais classificadas
 - Estética (`hum-cultura-estetica`, humanas): 1 questões oficiais classificadas
 - Biomas e domínios morfoclimáticos (`hum-ambiente-dominios`, humanas): 1 questões oficiais classificadas
-- Açúcar, mineração, café e borracha (`hum-producao-economia-colonial`, humanas): 1 questões oficiais classificadas
 - Escalas e projeções cartográficas (`hum-cartografia-escalas-e-projecoes`, humanas): 1 questões oficiais classificadas
 - Água, sais e moléculas orgânicas (`nat-bio-celulas-moleculas`, natureza): 1 questões oficiais classificadas
 - Enzimas (`nat-bio-celulas-enzimas`, natureza): 1 questões oficiais classificadas
@@ -560,3 +555,8 @@ Objetos com aula: **33 de 42** · tópicos com aula: **170 de 286**.
 - Herança ligada ao sexo (`nat-bio-hereditariedade-ligada-ao-sexo`, natureza): 1 questões oficiais classificadas
 - Mutações (`nat-bio-hereditariedade-mutacoes`, natureza): 1 questões oficiais classificadas
 - Cinética química (`nat-qui-cinetica-velocidade`, natureza): 1 questões oficiais classificadas
+- Evolução e especiação (`nat-bio-evolucao-teorias`, natureza): 1 questões oficiais classificadas
+- Simetria, translação, rotação e ladrilhamentos (`mat-geometria-simetria`, matematica): 1 questões oficiais classificadas
+- Lutas, danças e ginásticas (`lin-praticas-corporais-lutas-dancas-ginasticas`, linguagens): 0 questões oficiais classificadas
+- Jogos e brincadeiras (`lin-praticas-corporais-jogos-e-brincadeiras`, linguagens): 0 questões oficiais classificadas
+- Arte indígena e afro-brasileira (`lin-artes-indigena-e-afro`, linguagens): 0 questões oficiais classificadas

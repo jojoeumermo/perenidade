@@ -1,0 +1,232 @@
+# Exercícios da aula "Questões ambientais: desmatamento, solo, cidade e poluição" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-ambientais-01
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-questoes-ambientais
+  dificuldade: 1
+  enunciado: "Numa encosta onde a mata foi retirada, a chuva forte abre sulcos na terra e leva a camada de cima do solo morro abaixo. Esse processo se chama:"
+  alternativas:
+    - texto: "inversão térmica"
+      erro: "Inversão térmica é um fenômeno do ar: uma camada fria presa embaixo de uma quente. Aqui o que se move é a terra, levada pela chuva."
+    - texto: "erosão"
+      certa: true
+    - texto: "salinização"
+      erro: "Salinização é o acúmulo de sal no solo, em área seca irrigada. O texto fala de terra arrastada pela chuva numa encosta."
+    - texto: "ilha de calor"
+      erro: "Ilha de calor é a diferença de temperatura entre o centro da cidade e áreas verdes. Não tem relação com terra levada pela chuva."
+  explicacao: "Sem a vegetação, a chuva bate direto no chão e arrasta a camada fértil. Isso é erosão; nas encostas, ela pode abrir grandes buracos, as voçorocas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-02
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-questoes-ambientais
+  dificuldade: 1
+  enunciado: "Em São Paulo, numa manhã fria de julho e sem vento, a fumaça dos carros fica parada perto do chão e muita gente sente os olhos arderem. O fenômeno que prende a poluição é:"
+  alternativas:
+    - texto: "a ilha de calor, que esquenta o centro da cidade"
+      erro: "A ilha de calor é diferença de temperatura entre lugares. O que prende a fumaça embaixo é uma diferença entre camadas do ar, típica do inverno."
+    - texto: "o efeito estufa, que aquece o planeta"
+      erro: "O efeito estufa é planetário e atua o ano todo. A fumaça parada numa manhã fria é um fenômeno local, de camadas do ar."
+    - texto: "a chuva ácida, que cai sobre a cidade"
+      erro: "Na chuva ácida, os poluentes descem com a água da chuva. O texto descreve um dia sem chuva e com a fumaça parada."
+    - texto: "a inversão térmica, em que uma camada de ar frio fica presa embaixo de uma mais quente"
+      certa: true
+  explicacao: "No inverno, o ar perto do chão esfria mais que o de cima. A camada fria, mais pesada, não sobe; a poluição fica presa perto do chão até o sol esquentar o ar ou o vento chegar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-03
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 30
+  objeto: hum-ambiente-questoes-ambientais
+  dificuldade: 1
+  enunciado: "Pelo INPE, o desmatamento na Amazônia Legal foi de 6.518 km² em 2024 e de 5.731 km² em 2025. De quantos quilômetros quadrados foi a queda da taxa?"
+  alternativas:
+    - texto: "787 km²"
+      certa: true
+    - texto: "12.249 km²"
+      erro: "Você somou as duas taxas. A queda é a diferença entre elas: 6.518 − 5.731."
+    - texto: "5.731 km²"
+      erro: "Esse é o desmatamento de 2025, não a queda. A queda é quanto a taxa diminuiu de um ano para o outro."
+    - texto: "887 km²"
+      erro: "Erro na subtração. Faça por partes: 6.518 − 5.700 = 818; depois 818 − 31 = 787."
+  explicacao: "6.518 − 5.731 = 787 km². Atenção: em 2025 ainda se derrubaram 5.731 km² de floresta. A taxa caiu, mas a floresta não voltou."
+  conferir: "6518 - 5731"
+  fonte: "Questão original do Instituto Lúcia, com dados do INPE (PRODES)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-04
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 28
+  objeto: hum-ambiente-questoes-ambientais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em perímetros irrigados do semiárido nordestino, técnicos agrícolas observam manchas esbranquiçadas na superfície de
+    lotes que eram muito produtivos. Os agricultores contam que, para garantir a colheita no calor, aumentaram a
+    quantidade de água jogada nas lavouras ano após ano, sem sistema de drenagem. (Texto do Instituto Lúcia.)
+  enunciado: "O problema descrito resulta da"
+  alternativas:
+    - texto: "chuva ácida, causada pela queima de combustíveis nas cidades próximas."
+      erro: "Chuva ácida exige poluição do ar e chuva. O texto fala de irrigação no calor e manchas brancas no solo, sem citar indústria ou chuva."
+    - texto: "erosão eólica, que retira a camada fértil e expõe a rocha."
+      erro: "O vento pode levar o solo, mas não deixa manchas brancas. As manchas são de sal que sobrou da água evaporada."
+    - texto: "inversão térmica, que impede a dispersão de poluentes sobre a lavoura."
+      erro: "Inversão térmica é um fenômeno do ar, ligado à poluição urbana no inverno. Não muda a química do solo."
+    - texto: "laterização, provocada pelo excesso de chuvas na região."
+      erro: "O semiárido tem pouca chuva. O excesso de água ali veio da irrigação, não do céu."
+    - texto: "salinização do solo, pela evaporação da água de irrigação que deixa os sais na superfície."
+      certa: true
+  explicacao: "No calor, a água de irrigação evapora antes de infiltrar e deixa os sais dissolvidos na camada de cima. Sem drenagem, o sal se acumula e o solo perde a fertilidade. A causa é humana: o manejo da irrigação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-05
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-questoes-ambientais
+  dificuldade: 2
+  enunciado: "Pela Convenção da ONU de Combate à Desertificação, promulgada no Brasil em 1998, desertificação é:"
+  alternativas:
+    - texto: "a transformação de qualquer floresta em deserto de areia"
+      erro: "A Convenção não fala em areia nem em floresta. Fala da terra das zonas secas perdendo a capacidade de produzir."
+    - texto: "um fenômeno só natural, sem relação com a ação humana"
+      erro: "A definição cita expressamente as atividades humanas, ao lado das variações do clima."
+    - texto: "a degradação da terra nas zonas áridas, semiáridas e subúmidas secas, por fatores que incluem o clima e as atividades humanas"
+      certa: true
+    - texto: "o avanço das dunas sobre as cidades do litoral"
+      erro: "Dunas no litoral são outro processo. A Convenção trata das zonas secas do interior, como boa parte do semiárido brasileiro."
+  explicacao: "O artigo 1º da Convenção (Decreto nº 2.741, de 1998) define desertificação como degradação da terra em zonas áridas, semiáridas e subúmidas secas, resultante de vários fatores, incluindo as variações climáticas e as atividades humanas."
+  fonte: "Questão original do Instituto Lúcia, com base no Decreto nº 2.741, de 1998"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-06
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 26
+  objeto: hum-ambiente-questoes-ambientais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num bairro à beira de um canal, as casas foram erguidas sobre aterro de entulho, em cima de um antigo manguezal.
+    Quando a maré sobe, a água entra nas cozinhas. Uma fábrica rio acima despeja resíduos, e os moradores dizem que já
+    não conseguem pescar ali. No mesmo município, os bairros ricos ficam em áreas altas, com rede de esgoto e coleta de
+    lixo diária. (Texto do Instituto Lúcia.)
+  enunciado: "A situação descrita é um exemplo de"
+  alternativas:
+    - texto: "injustiça ambiental, pois os danos da degradação recaem com mais força sobre a população pobre."
+      certa: true
+    - texto: "catástrofe natural, pois a maré alta é um fenômeno que ninguém controla."
+      erro: "A maré é natural, mas morar sobre o mangue aterrado e receber resíduos da fábrica não é. A causa do dano é social."
+    - texto: "desenvolvimento sustentável, pois o aterro aproveitou uma área sem uso."
+      erro: "O mangue não era área sem uso: é berçário de peixes e protege a costa. Aterrá-lo e poluí-lo é o contrário de sustentável."
+    - texto: "ilha de calor, pois a ocupação densa aqueceu o bairro."
+      erro: "O texto não fala de temperatura. Fala de maré, resíduos e da diferença entre bairros pobres e ricos."
+    - texto: "êxodo rural, pois os moradores vieram do campo para a cidade."
+      erro: "O texto não diz de onde os moradores vieram. Ele descreve o lugar onde moram e quem sofre com a poluição."
+  explicacao: "O bairro pobre ocupa o pior terreno (mangue aterrado), recebe a poluição da fábrica e perde a pesca; o bairro rico tem saneamento e fica no alto. O dano ambiental não se divide por igual: é injustiça ambiental."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-07
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 28
+  objeto: hum-ambiente-questoes-ambientais
+  dificuldade: 2
+  enunciado: "Uma prefeitura quer reduzir a ilha de calor no centro da cidade. Qual medida ataca a causa do problema?"
+  alternativas:
+    - texto: "Asfaltar as ruas de terra que ainda restam"
+      erro: "O asfalto guarda calor e aumenta a ilha de calor. A medida faria o contrário do que a prefeitura quer."
+    - texto: "Plantar árvores, criar praças e usar telhados claros ou verdes"
+      certa: true
+    - texto: "Construir mais viadutos para o trânsito andar mais rápido"
+      erro: "Viaduto é mais concreto. Trânsito mais rápido não tira o calor guardado pelas superfícies duras do centro."
+    - texto: "Proibir a circulação de carros só aos domingos"
+      erro: "Os carros soltam calor, mas a causa principal é a falta de verde e o excesso de asfalto e concreto, que esquentam todos os dias."
+  explicacao: "A ilha de calor nasce do excesso de asfalto e concreto e da falta de vegetação. Árvores fazem sombra e evaporam água; telhados claros refletem a luz do Sol. É a medida que ataca a causa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-08
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 30
+  objeto: hum-ambiente-questoes-ambientais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Pelos dados do sistema PRODES, do INPE, a taxa de desmatamento na Amazônia Legal foi de 9.064 km² em 2023,
+    6.518 km² em 2024 e 5.731 km² em 2025. Cada taxa mede a área de floresta derrubada entre agosto de um ano e julho
+    do ano seguinte.
+  enunciado: "A leitura correta desses dados é que, entre 2023 e 2025,"
+  alternativas:
+    - texto: "a área de floresta da Amazônia aumentou, já que a taxa caiu."
+      erro: "A taxa é a área derrubada em cada ano. Mesmo caindo, ela continua positiva: a cada ano, mais floresta foi perdida."
+    - texto: "o desmatamento acabou em 2025."
+      erro: "Em 2025 ainda se derrubaram 5.731 km². A taxa caiu, mas não chegou a zero."
+    - texto: "a taxa caiu pela metade a cada ano."
+      erro: "Faça a conta aproximada: de 9.064 para 6.518 a queda foi de cerca de um quarto, e de 6.518 para 5.731, de cerca de um oitavo. Não houve queda pela metade."
+    - texto: "a taxa anual caiu, mas a floresta continuou a ser derrubada, e a área desmatada acumulada aumentou."
+      certa: true
+    - texto: "a taxa de desmatamento dobrou."
+      erro: "Leia a direção dos números: de 9.064 para 5.731, a taxa diminuiu. Dobrar seria ir para perto de 18.000."
+  explicacao: "Taxa anual é fluxo: o que se derrubou naquele ano. Ela caiu de 9.064 para 5.731 km². Mas cada ano soma floresta perdida ao total acumulado, que só aumenta enquanto a taxa for maior que zero."
+  fonte: "Questão original do Instituto Lúcia, com dados do INPE (PRODES)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-09
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-questoes-ambientais
+  dificuldade: 3
+  enunciado: "Uma bacia hidrográfica perdeu boa parte da mata ciliar (a vegetação da beira dos rios). Qual sequência de efeitos é a mais provável?"
+  alternativas:
+    - texto: "Mais infiltração da chuva, lençol freático mais alto e rios mais fundos"
+      erro: "É o contrário. Sem vegetação, a água infiltra menos e corre mais pela superfície, levando terra para o rio."
+    - texto: "Menos chuva na região, seca total e fim do rio no mesmo ano"
+      erro: "Tirar a mata ciliar não acaba com a chuva de imediato. O efeito direto é a terra das margens descer para o rio."
+    - texto: "Margens desprotegidas, terra levada para o rio, leito raso e cheias mais frequentes"
+      certa: true
+    - texto: "Formação de dunas nas margens e avanço do mar sobre o rio"
+      erro: "Dunas e avanço do mar não dependem da mata ciliar de um rio do interior. O processo é erosão e assoreamento."
+  explicacao: "A mata ciliar segura as margens e filtra a enxurrada. Sem ela, a terra desce para o rio (erosão), o leito fica raso (assoreamento) e a água transborda mais fácil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-ambientais-10
+  tema: "Desmatamento, queimadas, ilha de calor, inversão térmica e poluição"
+  area: humanas
+  habilidade: 30
+  objeto: hum-ambiente-questoes-ambientais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O relatório de síntese do Painel Intergovernamental sobre Mudanças Climáticas (IPCC), de 2023, afirma que as
+    comunidades vulneráveis, que historicamente menos contribuíram para a mudança do clima atual, são atingidas de modo
+    desproporcional por ela.
+  enunciado: "Essa afirmação ajuda a sustentar a ideia de que"
+  alternativas:
+    - texto: "a mudança do clima é um problema só dos países ricos, que mais emitiram."
+      erro: "O relatório diz o contrário: quem menos emitiu é quem mais sofre. O problema atinge todos, mas não por igual."
+    - texto: "a responsabilidade pelo problema e o peso dos seus efeitos não estão distribuídos de forma igual."
+      certa: true
+    - texto: "as comunidades vulneráveis devem reduzir primeiro as suas emissões."
+      erro: "Se essas comunidades foram as que menos contribuíram, cobrar delas primeiro inverte a responsabilidade."
+    - texto: "o clima muda de forma igual em todos os lugares do planeta."
+      erro: "O trecho fala de efeitos desproporcionais. Se tudo fosse igual, não haveria quem fosse atingido mais."
+    - texto: "a mudança do clima não tem relação com a ação humana."
+      erro: "O trecho fala de quem contribuiu para a mudança: logo, ela tem causa humana. O IPCC afirma isso no mesmo relatório."
+  explicacao: "Quem emitiu pouco sofre mais; quem emitiu muito sofre menos. É a mesma lógica da injustiça ambiental, em escala do planeta: responsabilidade e dano não coincidem."
+  fonte: "Questão original do Instituto Lúcia, com base no relatório de síntese do IPCC (AR6, 2023)"
+  revisao: { status: em-revisao }

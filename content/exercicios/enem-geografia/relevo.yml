@@ -1,0 +1,232 @@
+# Exercícios da aula "Estrutura geológica e relevo" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-relevo-01
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  dificuldade: 1
+  enunciado: "O granito é uma rocha formada pelo magma que esfriou devagar, no interior da crosta. Ele é uma rocha:"
+  alternativas:
+    - texto: "sedimentar"
+      erro: "Sedimentar é feita de camadas de pedacinhos de outras rochas. O granito vem do magma."
+    - texto: "metamórfica"
+      erro: "Metamórfica é uma rocha que já existia e foi transformada por calor e pressão, sem derreter. O granito nasceu do magma."
+    - texto: "orgânica"
+      erro: "Não existe esse grupo entre os três tipos de rocha. Os três são ígnea, sedimentar e metamórfica."
+    - texto: "ígnea (magmática)"
+      certa: true
+  explicacao: "Rocha que nasce do magma resfriado é ígnea. Se esfria dentro da crosta, devagar, é intrusiva (granito); se esfria na superfície, rápido, é extrusiva (basalto)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-02
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  dificuldade: 1
+  enunciado: "Qual destas formas de relevo é um dobramento moderno?"
+  alternativas:
+    - texto: "A Serra do Mar, no litoral do Sudeste"
+      erro: "A Serra do Mar é muito antiga e fica no interior da placa Sul-Americana. O Brasil não tem dobramentos modernos."
+    - texto: "A Cordilheira dos Andes"
+      certa: true
+    - texto: "O Pantanal"
+      erro: "O Pantanal é uma planície, terreno baixo de deposição. Dobramento é montanha jovem nascida do choque de placas."
+    - texto: "A depressão sertaneja"
+      erro: "Depressão é área rebaixada pela erosão. É o contrário de uma cordilheira que sobe."
+  explicacao: "Os Andes nascem do choque da placa de Nazca com a Sul-Americana e ainda estão em formação. São um dobramento moderno, como o Himalaia e os Alpes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-03
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  dificuldade: 1
+  enunciado: "Na classificação do relevo brasileiro de Jurandyr Ross, a planície é a forma em que:"
+  alternativas:
+    - texto: "a deposição de sedimentos predomina sobre o desgaste"
+      certa: true
+    - texto: "o desgaste predomina e o terreno é sempre o mais alto"
+      erro: "Essa é a ideia do planalto: o desgaste (erosão) é maior que a deposição."
+    - texto: "o terreno foi rebaixado pela erosão em relação ao entorno"
+      erro: "Essa é a depressão. Na planície, o material chega e se acumula."
+    - texto: "as placas se chocam e erguem montanhas"
+      erro: "Isso é dobramento, um processo interno. A planície é obra das forças externas que depositam."
+  explicacao: "Planalto: desgaste predomina. Planície: deposição predomina. Depressão: área rebaixada pela erosão. A planície do Pantanal e a do rio Amazonas são exemplos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-04
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-relevo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Nas bacias do litoral brasileiro, camadas de areia, argila e restos de microrganismos marinhos se acumularam por
+    milhões de anos. Soterrada, essa matéria orgânica foi transformada pelo calor e pela pressão. Hoje, a maior parte do
+    petróleo extraído no país vem dessas áreas, inclusive da camada chamada pré-sal. (Texto do Instituto Lúcia.)
+  enunciado: "O texto relaciona a ocorrência do petróleo a"
+  alternativas:
+    - texto: "escudos cristalinos, formados por rochas ígneas antigas."
+      erro: "Escudos cristalinos guardam minérios metálicos, como ferro e ouro. O petróleo vem de camadas de sedimentos."
+    - texto: "dobramentos modernos, formados pelo choque de placas."
+      erro: "O texto não fala de montanhas nem de choque de placas. Fala de camadas acumuladas no fundo do mar."
+    - texto: "bacias sedimentares, onde a matéria orgânica foi soterrada em camadas."
+      certa: true
+    - texto: "rochas metamórficas, formadas pelo derretimento do magma."
+      erro: "Rocha metamórfica não nasce do derretimento; ela é transformada sem derreter. E o texto fala de sedimentos, não de metamorfismo."
+    - texto: "derrames vulcânicos recentes no litoral."
+      erro: "O Brasil não tem vulcões ativos, e o texto descreve acúmulo lento de sedimentos, não lava."
+  explicacao: "Petróleo e gás nascem de matéria orgânica soterrada entre camadas de sedimentos, transformada por calor e pressão ao longo de milhões de anos. É por isso que aparecem nas bacias sedimentares."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-05
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  dificuldade: 2
+  enunciado: "Qual frase diferencia corretamente intemperismo e erosão?"
+  alternativas:
+    - texto: "Os dois são forças internas da Terra"
+      erro: "Os dois são forças externas, movidas pelo Sol, pela água, pelo vento e pela gravidade."
+    - texto: "Intemperismo leva os pedaços embora; erosão decompõe a rocha no lugar"
+      erro: "Está invertido. Intemperismo decompõe no lugar; erosão transporta."
+    - texto: "Intemperismo só acontece no deserto; erosão só nas cidades"
+      erro: "Os dois acontecem em toda parte. Em clima quente e úmido, o intemperismo químico é até mais forte."
+    - texto: "Intemperismo e erosão são nomes diferentes para o mesmo processo"
+      erro: "São etapas diferentes: primeiro a rocha é decomposta, depois o material é levado."
+    - texto: "Intemperismo decompõe a rocha no lugar; erosão transporta o material para outro lugar"
+      certa: true
+  explicacao: "Primeiro o intemperismo quebra e dissolve a rocha onde ela está (pela água, pelo calor, pelos seres vivos). Depois a erosão leva os pedaços, que se depositam mais adiante."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-06
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No Chile, terremotos fortes acontecem com frequência e há dezenas de vulcões ativos. No Brasil, os tremores são raros
+    e quase sempre fracos, e não há vulcões em atividade. (Texto do Instituto Lúcia.)
+  enunciado: "A diferença entre os dois países se explica pela"
+  alternativas:
+    - texto: "posição em relação às placas tectônicas: o Chile fica na borda onde duas placas se chocam; o Brasil, no interior da placa."
+      certa: true
+    - texto: "diferença de clima: o clima seco do Chile favorece os terremotos."
+      erro: "Clima é força externa e não causa terremoto. Terremotos vêm do movimento das placas."
+    - texto: "maior altitude do relevo brasileiro, que protege contra tremores."
+      erro: "O relevo brasileiro é mais baixo que o chileno. E altitude não protege contra tremores."
+    - texto: "presença de grandes rios no Brasil, que absorvem a energia dos tremores."
+      erro: "Rios são agentes externos. Eles não absorvem a energia das placas."
+    - texto: "idade do território: o Brasil seria geologicamente mais novo que o Chile."
+      erro: "É o contrário: o Brasil tem rochas muito antigas e desgastadas. Os Andes é que são jovens."
+  explicacao: "A placa de Nazca mergulha sob a placa Sul-Americana bem na costa do Chile: daí terremotos e vulcões. O Brasil fica no meio da placa Sul-Americana, longe dessa borda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-07
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-relevo
+  dificuldade: 2
+  enunciado: "A Serra dos Carajás, no Pará, é uma grande área de mineração de ferro. Em que tipo de estrutura geológica esse minério costuma estar?"
+  alternativas:
+    - texto: "Bacia sedimentar recente"
+      erro: "Bacias sedimentares guardam petróleo, gás e carvão. Minérios metálicos como o ferro ficam em rochas antigas, ígneas e metamórficas."
+    - texto: "Dobramento moderno"
+      erro: "O Brasil não tem dobramentos modernos. Carajás fica em terrenos muito antigos."
+    - texto: "Escudo cristalino, de rochas antigas ígneas e metamórficas"
+      certa: true
+    - texto: "Planície de deposição fluvial"
+      erro: "Planície é forma de relevo feita de sedimentos recentes. O ferro de Carajás está em rochas antigas."
+  explicacao: "Escudos cristalinos são as estruturas mais antigas da crosta. No resfriamento do magma e no metamorfismo, metais se concentram. Por isso guardam ferro, manganês, ouro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-08
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No norte do Paraná e no oeste de São Paulo, há milhões de anos, enormes derrames de lava cobriram a região. A rocha
+    que se formou, o basalto, foi decomposta por milhões de anos de chuva e calor. Dela nasceu um solo avermelhado e
+    fértil, chamado terra roxa, que atraiu lavouras de café no século XX. (Texto do Instituto Lúcia.)
+  enunciado: "A formação da terra roxa resulta da"
+  alternativas:
+    - texto: "ação exclusiva das forças internas, que criaram o solo pronto junto com a lava."
+      erro: "A lava formou a rocha, não o solo. O solo veio depois, pela ação da chuva e do calor sobre o basalto."
+    - texto: "combinação de uma força interna, que formou a rocha, com forças externas, que a decompuseram."
+      certa: true
+    - texto: "deposição de sedimentos marinhos sobre o planalto."
+      erro: "O texto não fala de mar. A origem é lava resfriada, uma rocha ígnea."
+    - texto: "ação do gelo das geleiras, que moeu o basalto."
+      erro: "O texto fala de chuva e calor, num clima quente. Não há geleiras na região."
+    - texto: "erosão causada pelo café, que deixou o solo vermelho."
+      erro: "O café chegou depois, atraído pelo solo já formado. Ele não criou a terra roxa."
+  explicacao: "O vulcanismo (força interna) deu o basalto. O intemperismo pela chuva e pelo calor (forças externas) o decompôs em solo fértil. É a interação das duas forças que a prova de 2022 cobrou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-09
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 26
+  objeto: hum-ambiente-relevo
+  dificuldade: 3
+  enunciado: "Numa capital, os deslizamentos de terra nas chuvas atingem quase sempre os mesmos bairros, em morros íngremes ocupados por famílias de baixa renda. Qual explicação é a mais completa?"
+  alternativas:
+    - texto: "O problema é só natural: morros íngremes deslizam com chuva forte"
+      erro: "A declividade conta, mas não explica por que os atingidos são sempre os mais pobres. Falta o lado social."
+    - texto: "O problema é só social: o relevo não tem nenhum papel"
+      erro: "O relevo tem papel: encosta íngreme é área de risco. A explicação completa junta os dois lados."
+    - texto: "Os morros são dobramentos modernos em atividade"
+      erro: "O Brasil não tem dobramentos modernos. O deslizamento é um processo externo, de gravidade e chuva."
+    - texto: "A encosta íngreme, desmatada e cortada para construir, é ocupada por quem não pode pagar terrenos seguros"
+      certa: true
+    - texto: "Os moradores escolheram morar em área de risco por gosto"
+      erro: "Quem mora na encosta quase sempre não teve escolha: a terra segura e bem localizada é cara."
+  explicacao: "Relevo e sociedade juntos: a encosta é frágil, o corte e o desmatamento a deixam mais frágil, e o preço da terra empurra os mais pobres para lá. O desastre é socioambiental."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-relevo-10
+  tema: "Estrutura geológica e relevo"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-relevo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O ponto mais alto do Brasil, o Pico da Neblina, no Amazonas, tem 2.995,30 metros, segundo o IBGE. Nos Andes, vários
+    picos passam de 6.000 metros. (IBGE, 2016, e Instituto Lúcia.)
+  enunciado: "A diferença de altitude entre os dois relevos se explica porque o relevo brasileiro"
+  alternativas:
+    - texto: "foi formado recentemente e ainda não teve tempo de crescer."
+      erro: "É o contrário: o relevo brasileiro é muito antigo. Os Andes é que são jovens."
+    - texto: "fica numa zona de choque de placas mais fraca que a andina."
+      erro: "O Brasil não fica em zona de choque de placas. Fica no interior da placa Sul-Americana."
+    - texto: "foi rebaixado pelo gelo que cobriu todo o país na última glaciação."
+      erro: "O gelo da última glaciação não cobriu o Brasil. O desgaste daqui veio sobretudo da água e do calor."
+    - texto: "tem rochas mais duras, que impedem a formação de montanhas."
+      erro: "A dureza da rocha não impede montanhas. O que falta aqui é a força interna que ergue: o choque de placas."
+    - texto: "é antigo, está longe das bordas das placas e foi desgastado por milhões de anos de intemperismo e erosão."
+      certa: true
+  explicacao: "Sem choque de placas para erguer, e com muito tempo de chuva, calor e rios para desgastar, o relevo brasileiro ficou baixo. Os Andes continuam sendo erguidos pelo choque das placas de Nazca e Sul-Americana."
+  fonte: "Questão original do Instituto Lúcia, com dado do IBGE"
+  revisao: { status: em-revisao }

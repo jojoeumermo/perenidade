@@ -64,7 +64,7 @@ questoes:
       C: "O texto fala de camponeses, não de assalariados nem de sindicatos. Não troque o grupo social que o texto descreve por outro."
       D: "Governantes não aparecem no trecho, e a questão não é a criação de empregos. O texto trata de terra, água e sementes tomadas da população do campo."
       E: "O empresariado é quem investe e se expande no texto. Dizer que ele sofre assédio inverte a relação descrita pelos autores."
-    aulas: [geografia-fundamental/cidade-e-campo, a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/cidade-e-campo, a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/espaco-agrario]
 
   - id: enem-2023-49
     area: humanas
@@ -84,7 +84,7 @@ questoes:
       B: "Aumentar a proporção de han diante de minorias muçulmanas não amplia a liberdade religiosa delas. Leia o efeito da política sobre o grupo que já vivia lá."
       C: "A política é decidida e paga pelo governo central. Isso é o contrário de descentralizar. Veja quem decide e quem executa."
       D: "Mudar a proporção a favor da etnia majoritária tende a diminuir o peso das culturas locais, não a incentivar a pluralidade. Compare a intenção declarada com o efeito descrito."
-    aulas: [geografia-medio/globalizacao, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-medio/globalizacao, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/migracoes]
 
   - id: enem-2023-50
     area: humanas
@@ -144,7 +144,7 @@ questoes:
       C: "Freire critica as estruturas de opressão; competir no mercado não é o objetivo da sua pedagogia. Fique com o que o texto propõe: transformar a realidade."
       D: "Manter o sistema escolar como está é o oposto de transformar. O Texto II diz que as estruturas são construídas e podem ser mudadas."
       E: "Subir na vida sozinho é um projeto individual. Freire fala de consciência e transformação coletiva. Leia o sujeito da ação: os educandos, juntos, diante da realidade."
-    aulas: [educacao-popular-fundamental/quem-foi-paulo-freire, filosofia-fundamental/liberdade-e-responsabilidade, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [educacao-popular-fundamental/quem-foi-paulo-freire, filosofia-fundamental/liberdade-e-responsabilidade, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/etica-e-moral]
 
   - id: enem-2023-53
     area: humanas
@@ -164,7 +164,7 @@ questoes:
       C: "Intemperismo químico desgasta as rochas. Ele rebaixa o relevo, não o faz crescer. Separe forças que constroem o relevo (internas) das que o desgastam (externas)."
       D: "Erosão pelo vento também desgasta. Sedimentação forma planícies e bacias, não cordilheiras de 8 mil metros."
       E: "Geleiras derretendo mudam a paisagem e esculpem vales, mas não erguem montanhas. O texto fala de altitude que cresce, e isso vem de dentro da Terra."
-    aulas: [geografia-fundamental/relevo-clima-e-vegetacao, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/relevo-clima-e-vegetacao, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/relevo]
 
   - id: enem-2023-54
     area: humanas
@@ -184,7 +184,7 @@ questoes:
       C: "Descartes buscava verdades certas e indubitáveis, não relativas. A premissa dele sobre mente e corpo é apresentada como certeza."
       D: "Descartes valoriza o pensamento, mas o ponto que o texto contesta é a separação entre mente e corpo. O nome desse ponto é dualismo. Responda ao problema que o comando aponta: o do corpo."
       E: "Intencionalidade é um conceito da fenomenologia, a corrente do próprio Merleau-Ponty. Atribuí-la a Descartes troca os autores de lugar."
-    aulas: [filosofia-medio/descartes-e-o-racionalismo]
+    aulas: [filosofia-medio/descartes-e-o-racionalismo, enem-filosofia/racionalismo-empirismo-e-kant]
 
   - id: enem-2023-55
     area: humanas
@@ -204,7 +204,7 @@ questoes:
       C: "O texto até diz que a pessoa busca escapar do trabalho, mas conclui que ela só encontra cópias do trabalho. Ficar só com a primeira parte é leitura parcial."
       D: "Necessidades artificiais é um tema próximo, mas o texto fala da produção da diversão no mesmo molde do trabalho. Escolha o que o trecho afirma, não o que parece com a teoria."
       E: "“Organização do ócio e do prazer” é vago e neutro. O texto é uma crítica: o lazer é capturado pela lógica do trabalho mecanizado."
-    aulas: [sociologia-medio/industria-cultural-e-consumo]
+    aulas: [sociologia-medio/industria-cultural-e-consumo, enem-filosofia/industria-cultural]
 
   - id: enem-2023-57
     area: humanas
@@ -224,7 +224,7 @@ questoes:
       B: "Ricoeur não diz que a decisão vem da vontade de Deus. Ela vem da pessoa. Não leia religião onde o texto fala de liberdade humana."
       C: "Predestinação tira a liberdade. O texto afirma a liberdade de perdoar ou não."
       D: "O perdão não é definido por observação nem por experiência medida. É uma escolha ética entre pessoas."
-    aulas: [filosofia-fundamental/etica-no-dia-a-dia, filosofia-fundamental/liberdade-e-responsabilidade, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [filosofia-fundamental/etica-no-dia-a-dia, filosofia-fundamental/liberdade-e-responsabilidade, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/etica-e-moral]
 
   - id: enem-2023-58
     area: humanas
@@ -243,7 +243,7 @@ questoes:
       C: "O texto não fala de fundamentos estéticos nem de etnografia. E a festa é organizada por moradores, não por uma cerimônia do clero."
       D: "Não houve imposição da Igreja. A prática acabou por causa do transporte e voltou por iniciativa local."
       E: "Não há discurso filosófico nem decisão da paróquia no texto. Os sujeitos da mudança são os moradores, os vaqueiros e o automóvel."
-    aulas: [sociologia-fundamental/cultura-e-diversidade, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [sociologia-fundamental/cultura-e-diversidade, enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/patrimonio-cultural]
 
   - id: enem-2023-59
     area: humanas
@@ -282,7 +282,7 @@ questoes:
       B: "“Desvio comportamental” trata o abuso como problema de conduta individual e não usa o nome que a lei dá. A lei define essas condutas como violência."
       C: "Preconceito é atitude ou fala que discrimina. O texto descreve controle de dinheiro e de bens, não expressão."
       E: "Chamar de “desentendimento” é justamente o que esconde o abuso. O texto diz que essas condutas são previstas na lei como forma de violência."
-    aulas: [feminismo-fundamental/a-lei-maria-da-penha, violencia-domestica-sinais-e-ajuda/sinais-para-pedir-ajuda, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [feminismo-fundamental/a-lei-maria-da-penha, violencia-domestica-sinais-e-ajuda/sinais-para-pedir-ajuda, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/genero]
 
   - id: enem-2023-61
     area: humanas
@@ -302,7 +302,7 @@ questoes:
       B: "Os trabalhadores estão distribuídos pelo mundo, mas o texto não critica deslocamento de população. A crítica é ao trabalho escondido e mal pago."
       C: "Subcontratação, salário baixo e hora extra não paga são o oposto de autonomia. Não confunda trabalho fora da empresa com trabalho livre."
       D: "O texto fala de trabalho espalhado globalmente e subcontratado, não de produção concentrada num lugar."
-    aulas: [sociologia-medio/trabalho-e-alienacao, uberizacao-e-cooperativismo/o-breque-dos-apps, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [sociologia-medio/trabalho-e-alienacao, uberizacao-e-cooperativismo/o-breque-dos-apps, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/trabalho]
 
   - id: enem-2023-62
     area: humanas
@@ -342,7 +342,7 @@ questoes:
       C: "A colônia dependia de Portugal, mas o texto explica a arte pelo contato com objetos asiáticos, e não pela dependência. Responda à pergunta do texto."
       D: "O texto diz que os objetos “circulavam livremente” numa sociedade rica. Não fala de ação do Estado para criar essa arte."
       E: "Padrão estético é o resultado (o estilo), não o que o tornou possível. Distinga a causa do efeito."
-    aulas: [enem-reta-final/humanas-o-essencial-historia]
+    aulas: [enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/patrimonio-cultural]
 
   - id: enem-2023-64
     area: humanas
@@ -362,7 +362,7 @@ questoes:
       B: "Reciclagem é uma resposta ao lixo. O discurso fala de clima, animais e rios, efeitos de uma exploração em grande escala."
       C: "Consumo consciente é uma proposta para reduzir danos, não o problema que o discurso denuncia."
       E: "Reaproveitar energia também é proposta, não problema. Pergunte: o comando pede causa ou solução?"
-    aulas: [crise-climatica/o-que-e-o-aquecimento-global, meio-ambiente-fundamental/o-que-e-a-mudanca-do-clima, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [crise-climatica/o-que-e-o-aquecimento-global, meio-ambiente-fundamental/o-que-e-a-mudanca-do-clima, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/questoes-ambientais]
 
   - id: enem-2023-65
     area: humanas
@@ -382,7 +382,7 @@ questoes:
       C: "O voto feminino foi uma conquista anterior e não explica o reconhecimento do trabalho de uma arquiteta. Leia o problema que o texto mostra: o apagamento da mulher na profissão."
       D: "Igualdade de oportunidade é próxima, mas genérica. O texto aponta uma diferença de tratamento por gênero (ela e o marido). A alternativa que nomeia isso é a de gênero."
       E: "“Reciprocidade de tratamento” não nomeia nenhuma mobilização social conhecida. Prefira a alternativa que corresponde a um movimento real."
-    aulas: [feminismo-fundamental/o-que-e-feminismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [feminismo-fundamental/o-que-e-feminismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/genero]
 
   - id: enem-2023-66
     area: humanas
@@ -402,7 +402,7 @@ questoes:
       C: "Os textos mostram que a escassez não foi superada: ela volta em 2021. Essa alternativa diz o contrário."
       D: "O Texto II mostra perda de trabalho e de auxílio, ou seja, instabilidade. Não há constância econômica a celebrar."
       E: "Romantizar seria apresentar a pobreza como bonita. Os dois textos fazem o oposto: mostram a dor da fome sem enfeite."
-    aulas: [sociologia-fundamental/desigualdade-social, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [sociologia-fundamental/desigualdade-social, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/desigualdade-e-estratificacao]
 
   - id: enem-2023-67
     area: humanas
@@ -442,7 +442,7 @@ questoes:
       B: "A vegetação nativa sofre com a ocupação: há lama, peixe morto e resíduos. Não há crescimento de mata."
       D: "O cenário descrito é de desequilíbrio: maré dentro de casa, mau cheiro, envenenamento. A alternativa diz o contrário."
       E: "Os urubus e os insetos se multiplicam com o lixo. Não há controle de animais; há proliferação."
-    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/questoes-ambientais]
 
   - id: enem-2023-69
     area: humanas
@@ -462,7 +462,7 @@ questoes:
       B: "O texto não diz que as juízas desprezam a religião. Elas aplicavam a lei contra crimes. Não confunda a cultura de um país com a ação de um grupo armado."
       C: "Falar em “transgressão às normas morais” põe a culpa nas mulheres. O texto denuncia a violência contra elas."
       E: "As juízas não se opõem à hierarquia por si. Elas sofrem ameaça por ter feito o trabalho delas. O tema é violação de direitos."
-    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/genero]
 
   - id: enem-2023-70
     area: humanas
@@ -482,7 +482,7 @@ questoes:
       B: "A ditadura fez propaganda, mas o trecho descreve repressão, não campanha cívica. Responda ao que o acontecimento mostra."
       D: "O enterro não foi uma cerimônia do governo para controlar opositores. Foi um funeral feito sob medo, e os discursos foram de protesto."
       E: "Houve censura, mas a imprensa não foi estatizada. E o trecho trata de violência física, não de controle da notícia."
-    aulas: [ditadura-de-1964/censura-tortura-e-desaparecimentos, historia-do-brasil/o-golpe-de-1964-e-a-ditadura, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [ditadura-de-1964/censura-tortura-e-desaparecimentos, historia-do-brasil/o-golpe-de-1964-e-a-ditadura, enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/ditadura]
 
   - id: enem-2023-71
     area: humanas
@@ -502,7 +502,7 @@ questoes:
       C: "Exportação ilegal não é o tema. O texto fala de quem toma a terra e desmata, antes da produção."
       D: "Desoneração é redução de impostos para setores. O texto não fala de política tributária."
       E: "Leis mais frouxas podem ajudar o desmatamento, mas o autor aponta outra causa: a ação de grileiros, madeireiros e pecuaristas. Fique com a causa que o texto nomeia."
-    aulas: [historia-da-luta-pela-terra/chico-mendes-e-os-povos-da-floresta, a-terra-e-quem-nela-trabalha/a-funcao-social-da-terra-na-constituicao, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [historia-da-luta-pela-terra/chico-mendes-e-os-povos-da-floresta, a-terra-e-quem-nela-trabalha/a-funcao-social-da-terra-na-constituicao, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/espaco-agrario]
 
   - id: enem-2023-72
     area: humanas
@@ -579,7 +579,7 @@ questoes:
       B: "Misoginia é ódio às mulheres. A origem do termo, segundo o texto, é racial."
       D: "Não há relação com orientação sexual no texto. E a proposta é de torcedores, não uma lei que crie crime."
       E: "Machismo não é o tema. O termo ligado à escravidão é o centro da proposta."
-    aulas: [sociologia-medio/raca-e-racismo-estrutural, sociologia-fundamental/preconceito-e-discriminacao, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [sociologia-medio/raca-e-racismo-estrutural, sociologia-fundamental/preconceito-e-discriminacao, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/raca-e-racismo]
 
   - id: enem-2023-76
     area: humanas
@@ -659,7 +659,7 @@ questoes:
       C: "“Conhecimento difuso” não tem apoio em nenhum dos textos. O contraste está entre determinismo e liberdade."
       D: "O conto não trata de a vida ser passageira. Trata de um homem que acha tudo previsível."
       E: "Nenhum dos textos fala de evolução biológica. O determinismo de Gerineldo é sobre o cotidiano, não sobre a natureza das espécies."
-    aulas: [filosofia-medio/existencialismo-sartre-e-beauvoir, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [filosofia-medio/existencialismo-sartre-e-beauvoir, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/existencialismo-arendt-e-foucault]
 
   - id: enem-2023-80
     area: humanas
@@ -679,7 +679,7 @@ questoes:
       C: "O programa que costuma ser chamado de populista era o do governo derrubado em 1964. O regime não ia usar os sindicatos para divulgar o programa do adversário."
       D: "Regularizar a terra era o que as Ligas pediam, e elas foram reprimidas. O tratamento dos sindicatos visava controle, não reforma."
       E: "Oferta de mão de obra é tema econômico e não aparece no trecho. O tema é o controle da organização dos trabalhadores rurais."
-    aulas: [historia-da-luta-pela-terra/as-ligas-camponesas-e-francisco-juliao, ditadura-de-1964/o-golpe-de-1-de-abril-de-1964, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [historia-da-luta-pela-terra/as-ligas-camponesas-e-francisco-juliao, ditadura-de-1964/o-golpe-de-1-de-abril-de-1964, enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/ditadura]
 
   - id: enem-2023-81
     area: humanas
@@ -699,7 +699,7 @@ questoes:
       C: "O texto não diz que a pena severa acaba com o crime. Diz que a punição é distribuída de forma desigual, com multas leves para alguns."
       D: "Não há justiça social no trecho. A divisão favorece a burguesia, o que é o oposto de justiça social."
       E: "A divisão descrita é de classe e de tribunal, não de hierarquia cultural."
-    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/existencialismo-arendt-e-foucault]
 
   - id: enem-2023-82
     area: humanas
@@ -738,7 +738,7 @@ questoes:
       B: "A irrigação excessiva tende a aumentar a salinização, não a reduzir. A alternativa inverte o efeito."
       D: "A microfauna do solo diminui com queimadas e poluição. Ampliá-la ajudaria a recuperar, não impediria."
       E: "A decomposição de matéria orgânica forma solo fértil. Ela é parte da recuperação, não o que a impede."
-    aulas: [geografia-fundamental/recursos-naturais, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-fundamental/recursos-naturais, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/questoes-ambientais]
 
   - id: enem-2023-84
     area: humanas
@@ -758,7 +758,7 @@ questoes:
       B: "Nada no texto liga a nova cozinha à religião. Não traga um tema que o trecho não menciona."
       C: "Participação política das mulheres é outro tema. O texto trata da organização do trabalho dentro de casa."
       E: "A racionalização especializa e organiza as tarefas; não afasta ninguém delas. A alternativa inverte o sentido da mudança."
-    aulas: [uberizacao-e-cooperativismo/do-fordismo-ao-toyotismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [uberizacao-e-cooperativismo/do-fordismo-ao-toyotismo, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/trabalho]
 
   - id: enem-2023-85
     area: humanas
@@ -778,7 +778,7 @@ questoes:
       B: "O texto não fala de leis trabalhistas. E a indústria europeia quer exportar manufaturados, não importá-los."
       C: "Proteger florestas não é a pauta dos produtores europeus no trecho, que falam de concorrência. E a indústria quer vender, não transferir tecnologia."
       E: "Remover entraves alfandegários é o que a indústria quer, não os produtores rurais. A ordem está trocada e a segunda parte não tem apoio no texto."
-    aulas: [geografia-medio/globalizacao, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [geografia-medio/globalizacao, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/geopolitica]
 
   - id: enem-2023-86
     area: humanas
@@ -798,7 +798,7 @@ questoes:
       B: "Ela afirma a própria subjetividade, com opiniões e julgamento próprios. Negar a subjetividade seria o contrário."
       C: "O narrador mostra que ela não aceitou o papel que se esperava da mulher. A alternativa inverte o sentido."
       D: "O tema é o papel da mulher, não a divisão entre classes sociais. E a postura dela rompe, não consolida."
-    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-sociologia/genero]
 
   - id: enem-2023-87
     area: humanas
@@ -818,7 +818,7 @@ questoes:
       C: "Os textos não falam de território nem de alfândega. Falam de imagem negativa construída na imprensa e na política."
       D: "Nenhum dos textos cita a Constituição ou estatutos. Eles tratam de ideias e desconfianças."
       E: "Os textos não mencionam decretos nem acordos internacionais. Responda com o que está nos textos."
-    aulas: [historia-do-brasil/a-era-vargas, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [historia-do-brasil/a-era-vargas, enem-reta-final/humanas-o-essencial-historia, enem-historia-do-brasil/era-vargas]
 
   - id: enem-2023-88
     area: humanas
@@ -859,7 +859,7 @@ questoes:
       B: "Migração é uma consequência possível da crise do clima, não uma forma de reduzi-la."
       C: "Vulcões não são a causa do aquecimento atual, e monitorá-los não reduz a temperatura. A causa principal está nas atividades humanas."
       E: "Termoelétricas a carvão, óleo ou gás emitem muito gás carbônico. Priorizá-las pioraria o cenário."
-    aulas: [crise-climatica/o-ipcc-e-os-relatorios, crise-climatica/o-efeito-estufa, enem-reta-final/humanas-o-essencial-geografia]
+    aulas: [crise-climatica/o-ipcc-e-os-relatorios, crise-climatica/o-efeito-estufa, enem-reta-final/humanas-o-essencial-geografia, enem-geografia/clima]
 
   - id: enem-2023-90
     area: humanas
@@ -879,4 +879,4 @@ questoes:
       C: "Rapsodos recitavam poemas épicos, como os de Homero. Não é com eles que o texto compara o personagem."
       D: "Investigar a physis (a natureza) era a busca dos pré-socráticos. Brás Cubas não investigou nada; decorou fórmulas."
       E: "Nem os sofistas nem o personagem se expressam por desenhos. A alternativa não tem apoio no texto."
-    aulas: [filosofia-medio/platao, filosofia-fundamental/socrates-e-a-arte-de-perguntar, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia]
+    aulas: [filosofia-medio/platao, filosofia-fundamental/socrates-e-a-arte-de-perguntar, enem-reta-final/humanas-o-essencial-filosofia-e-sociologia, enem-filosofia/filosofia-antiga]

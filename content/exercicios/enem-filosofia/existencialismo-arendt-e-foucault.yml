@@ -1,0 +1,250 @@
+# Exercícios da aula "Existencialismo, Hannah Arendt e Foucault" (trilha enem-filosofia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fil-contemporanea-01
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  dificuldade: 1
+  enunciado: "A frase \"a existência precede a essência\" resume o pensamento de"
+  alternativas:
+    - texto: "Platão"
+      erro: "Platão diz quase o contrário: as Ideias, eternas, vêm antes das coisas. A frase é do século XX."
+    - texto: "Jean-Paul Sartre"
+      certa: true
+    - texto: "Michel Foucault"
+      erro: "Foucault estudou o poder nas instituições. A frase sobre existência e essência é do existencialismo."
+    - texto: "Aristóteles"
+      erro: "Aristóteles falava de uma natureza humana: o ser humano é animal político. O existencialismo nega uma natureza pronta."
+    - texto: "Hannah Arendt"
+      erro: "Arendt pensou a ação e a pluralidade. A fórmula é de Sartre, na conferência O existencialismo é um humanismo."
+  explicacao: "A fórmula é de Sartre. Primeiro a pessoa existe; depois, pelas escolhas, se define. Não há natureza humana dada de antemão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-02
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  dificuldade: 1
+  enunciado: "Em A condição humana (1958), Hannah Arendt chama de \"ação\" a atividade de"
+  alternativas:
+    - texto: "manter a vida do corpo, como comer e limpar."
+      erro: "Isso é o labor, que recomeça todo dia. A ação é outra coisa."
+    - texto: "fabricar objetos duráveis, como uma mesa ou uma casa."
+      erro: "Isso é o trabalho, que constrói o mundo das coisas. A ação acontece entre as pessoas."
+    - texto: "pensar sozinho, longe dos outros."
+      erro: "A ação depende dos outros: só existe porque somos muitos e diferentes."
+    - texto: "agir e falar com os outros na esfera pública, a atividade política."
+      certa: true
+    - texto: "obedecer às ordens de um superior."
+      erro: "Obedecer sem pensar é o que Arendt critica em Eichmann. A ação é iniciativa, não obediência."
+  explicacao: "Arendt separa labor (manter a vida), trabalho (fabricar o mundo) e ação (agir e falar entre muitos). A ação tem como condição a pluralidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-03
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  dificuldade: 1
+  enunciado: "O panóptico, analisado por Foucault em Vigiar e punir, é"
+  alternativas:
+    - texto: "um projeto de prisão em que uma torre central pode ver todas as celas, sem que o preso saiba quando é observado."
+      certa: true
+    - texto: "uma praça onde os condenados eram torturados em público."
+      erro: "Isso é o suplício, a forma de punir que a prisão moderna substituiu. O panóptico é um projeto de prisão."
+    - texto: "uma assembleia em que os cidadãos decidiam as penas."
+      erro: "O panóptico não é um lugar de decisão coletiva. É uma arquitetura de vigilância."
+    - texto: "um livro de Foucault sobre a sexualidade."
+      erro: "O livro sobre sexualidade é a História da sexualidade. O panóptico é um projeto do inglês Jeremy Bentham."
+    - texto: "uma prisão sem guardas, onde os presos se governam sozinhos."
+      erro: "Há vigilância; o ponto é que o preso nunca sabe quando está sendo visto e passa a se vigiar."
+  explicacao: "O panóptico é o projeto de prisão de Bentham. Como o preso pode estar sendo visto a qualquer momento, passa a se comportar como se fosse sempre. Para Foucault, é o modelo do poder disciplinar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-04
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  dificuldade: 2
+  enunciado: "Um trabalhador diz: \"Eu sou garçom e pronto; não tenho escolha sobre o que penso ou faço\". Para Sartre, essa atitude é um exemplo de"
+  alternativas:
+    - texto: "angústia, porque ele sente o peso da liberdade."
+      erro: "A angústia aparece quando a pessoa percebe que é livre. Aqui ele nega a própria liberdade."
+    - texto: "transcendência, porque ele vai além da situação."
+      erro: "Ele faz o contrário: reduz-se à situação (à função de garçom). Transcendência seria dar outro sentido a ela."
+    - texto: "má-fé, porque ele foge da liberdade fingindo ser só a sua função."
+      certa: true
+    - texto: "banalidade do mal, porque ele pratica um crime sem pensar."
+      erro: "Banalidade do mal é conceito de Arendt, sobre crimes políticos. Aqui o tema é a fuga da liberdade."
+    - texto: "pluralidade, porque ele convive com muitas pessoas."
+      erro: "Pluralidade é conceito de Arendt, sobre a vida em comum. A frase fala de alguém que se reduz a um papel."
+  explicacao: "Sartre usa o garçom como exemplo de má-fé: a pessoa se agarra à facticidade (a função) para não assumir que é livre e responsável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-05
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Ao acompanhar o julgamento de um dos organizadores das deportações de judeus durante a Segunda Guerra, a
+    pensadora esperava encontrar um monstro. Encontrou um homem comum, que falava por frases feitas, dizia ter apenas
+    cumprido ordens e parecia incapaz de imaginar o que suas ações significavam para as vítimas. (Texto original do
+    Instituto Lúcia, sobre Hannah Arendt e o julgamento de Adolf Eichmann.)
+  enunciado: "A partir desse caso, Arendt formulou a ideia de que"
+  alternativas:
+    - texto: "os crimes do nazismo foram pequenos e sem importância."
+      erro: "\"Banal\" não quer dizer pequeno. Arendt fala de um mal imenso, praticado por quem não pensa."
+    - texto: "quem cumpre ordens não tem responsabilidade pelo que faz."
+      erro: "Arendt considerou Eichmann responsável. Cumprir ordens não apaga a culpa."
+    - texto: "o mal só é praticado por pessoas com doenças mentais."
+      erro: "O espanto de Arendt foi justamente o contrário: Eichmann era um homem comum, não um doente."
+    - texto: "o mal pode nascer da ausência de pensamento, a incapacidade de ver do ponto de vista do outro."
+      certa: true
+    - texto: "o totalitarismo foi uma criação de um único homem."
+      erro: "Arendt estudou o totalitarismo como sistema. O caso mostra justamente que ele dependia de muitas pessoas comuns."
+  explicacao: "É a banalidade do mal: o mal extremo feito por alguém que não pensa, incapaz de olhar do lugar do outro. Arendt não desculpou Eichmann; considerou-o responsável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-06
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A mulher não é definida pela natureza. Ela é definida em relação ao homem, que se pôs como o sujeito e a medida do
+    humano. A ela coube o lugar do Outro. Esse lugar não é destino: foi produzido pela história e pode ser
+    transformado. (Paráfrase do Instituto Lúcia de ideias de O segundo sexo, de Simone de Beauvoir, 1949.)
+  enunciado: "A ideia central do texto é que"
+  alternativas:
+    - texto: "as diferenças biológicas determinam o lugar social das mulheres."
+      erro: "O texto diz o contrário: a mulher não é definida pela natureza. Cuidado com a alternativa que inverte a tese."
+    - texto: "o lugar social da mulher é uma construção histórica e, por isso, pode mudar."
+      certa: true
+    - texto: "homens e mulheres sempre tiveram os mesmos direitos."
+      erro: "O texto mostra uma desigualdade: o homem como sujeito e a mulher como o Outro."
+    - texto: "a mulher deve aceitar o papel que a tradição lhe deu."
+      erro: "O texto diz que esse lugar não é destino. A conclusão é de transformação, não de aceitação."
+    - texto: "o feminino é igual em todas as épocas e culturas."
+      erro: "Se o lugar foi produzido pela história, ele varia. O texto não fala de um feminino eterno."
+  explicacao: "É a tese de Beauvoir: ninguém nasce mulher, torna-se. O lugar da mulher como o Outro foi construído socialmente e pode ser mudado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-07
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 12
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  dificuldade: 2
+  enunciado: "Para Foucault, a passagem do suplício (tortura em praça pública) para a prisão moderna significou que"
+  alternativas:
+    - texto: "o poder de punir deixou de existir."
+      erro: "O poder de punir continuou, só mudou de forma. Foucault estuda justamente essa nova forma."
+    - texto: "as penas passaram a ser iguais para ricos e pobres."
+      erro: "Foucault mostra o contrário: as ilegalidades são tratadas de modo diferente conforme a classe."
+    - texto: "a tortura em público era mais justa que a prisão."
+      erro: "Foucault não defende o suplício. Ele mostra que a prisão, mais branda na aparência, é outra técnica de controle."
+    - texto: "o Estado passou a punir só por meio da religião."
+      erro: "A religião não é o centro da análise. A prisão moderna é uma instituição disciplinar laica."
+    - texto: "a punição passou a controlar o comportamento de forma contínua e detalhada, mais do que a ferir o corpo."
+      certa: true
+  explicacao: "A prisão moderna pune menos o corpo e controla mais a conduta: vigia, classifica e corrige. É o poder disciplinar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-08
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um aplicativo de entregas mostra ao trabalhador sua nota média, o tempo de cada corrida e um aviso: "Entregadores
+    com nota abaixo de 4,5 podem receber menos pedidos". Ninguém da empresa fala com ele. Mesmo assim, ele corre, evita
+    recusar pedidos e sorri para o cliente. (Texto original do Instituto Lúcia.)
+  enunciado: "Na perspectiva de Michel Foucault, a situação descrita mostra um poder que"
+  alternativas:
+    - texto: "se exerce pela violência física direta sobre o corpo."
+      erro: "Ninguém encosta no trabalhador. O poder aqui é vigilância e norma, não castigo físico."
+    - texto: "depende de um chefe presente que dá ordens a todo momento."
+      erro: "O texto diz que ninguém da empresa fala com ele. É justamente o poder que funciona sem um chefe à vista."
+    - texto: "funciona pela vigilância e pela norma, levando o trabalhador a se controlar sozinho."
+      certa: true
+    - texto: "nasce da livre escolha do trabalhador, sem relação com a empresa."
+      erro: "Ele se ajusta por causa da nota e do aviso da empresa. A conduta é produzida por um dispositivo."
+    - texto: "é exercido apenas pelo Estado, por meio das leis."
+      erro: "Para Foucault, o poder está espalhado nas instituições e práticas, não só no Estado. Aqui ele vem de uma empresa."
+  explicacao: "A nota funciona como o panóptico: o trabalhador pode ser avaliado a qualquer momento e se ajusta à norma por conta própria. É o poder disciplinar, que produz comportamentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-09
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A política nasce entre as pessoas, não dentro de uma pessoa sozinha. Se todos fossem iguais, bastaria um para
+    falar por todos. É porque somos muitos e diferentes que precisamos conversar, discutir e agir juntos, e é pelo
+    discurso que cada um se mostra aos outros. (Paráfrase do Instituto Lúcia de ideias de Hannah Arendt.)
+  enunciado: "O conceito que sustenta o texto é o de"
+  alternativas:
+    - texto: "pluralidade, condição da ação e da vida política."
+      certa: true
+    - texto: "labor, atividade de manter a vida do corpo."
+      erro: "O labor é o cuidado com a vida biológica. O texto fala de falar e agir entre muitos, que é a ação."
+    - texto: "individualismo, a ideia de que cada um basta a si."
+      erro: "O texto diz que um sozinho não faz política. É o contrário do individualismo."
+    - texto: "disciplina, o controle dos corpos nas instituições."
+      erro: "Disciplina é conceito de Foucault. O texto é de Arendt e trata da vida em comum."
+    - texto: "má-fé, a fuga da própria liberdade."
+      erro: "Má-fé é conceito de Sartre. O texto não fala de mentir para si, e sim da diferença entre as pessoas."
+  explicacao: "Para Arendt, a pluralidade (sermos muitos e diferentes) é a condição da ação e do discurso. O ENEM de 2022 cobrou essa ideia num trecho de A condição humana."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-contemporanea-10
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 4
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: Cada pessoa nasce num corpo, num lugar e num tempo que não escolheu. Mas é ela quem dá sentido a essa
+    situação, e por isso responde pelo que se torna.
+    Texto II: As instituições observam, comparam e registram as pessoas desde a infância. Assim produzem os modos de
+    ser que cada um acredita ter escolhido.
+    (Paráfrases do Instituto Lúcia de ideias de dois filósofos franceses do século XX.)
+  enunciado: "Comparando os textos, percebe-se que"
+  alternativas:
+    - texto: "os dois negam qualquer forma de liberdade humana."
+      erro: "O Texto I afirma a liberdade com força. Só o Texto II desconfia das escolhas."
+    - texto: "os dois defendem que a natureza humana é fixa desde o nascimento."
+      erro: "Nenhum dos dois fala de natureza fixa. O I fala de escolha; o II, de produção social."
+    - texto: "o Texto I é de Foucault e o Texto II é de Sartre."
+      erro: "Trocou os autores. Situação e responsabilidade são Sartre; instituições que registram são Foucault."
+    - texto: "o Texto II defende o retorno aos castigos em praça pública."
+      erro: "Nada no texto defende o suplício. Ele descreve como o poder moderno funciona."
+    - texto: "o Texto I põe a liberdade do sujeito no centro, e o Texto II mostra como as instituições produzem o sujeito."
+      certa: true
+  explicacao: "O Texto I é Sartre: facticidade e liberdade, com responsabilidade. O Texto II é Foucault: o poder disciplinar produz os modos de ser. A comparação mostra duas formas de pensar o sujeito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
