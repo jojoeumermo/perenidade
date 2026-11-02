@@ -1,5 +1,5 @@
 # Temas oficiais da redação do Enem, aplicação regular.
-# Cada tema foi lido na própria prova (caderno impresso da aplicação regular), no PDF que o Inep publica na página
+# Cada tema foi lido na própria prova (caderno impresso da aplicação regular) que o Inep publica na página
 # "Provas e gabaritos" (https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos),
 # ou na Cartilha do Participante do ano seguinte, na página gov.br do Inep. Grafia como está na fonte.
 # Conferido em 2026-11-01. 2008 fica de fora: a proposta daquele ano não traz uma frase-tema (pede para escolher
@@ -11,15 +11,15 @@
 - ano: 2024
   aplicacao: "regular"
   tema: "Desafios para a valorização da herança africana no Brasil"
-  fonte: "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2023
   aplicacao: "regular"
   tema: "Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil"
-  fonte: "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2022
   aplicacao: "regular"
   tema: "Desafios para a valorização de comunidades e povos tradicionais no Brasil"
-  fonte: "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2021
   aplicacao: "regular"
   tema: "Invisibilidade e registro civil: garantia de acesso à cidadania no Brasil"
@@ -27,88 +27,88 @@
 - ano: 2020
   aplicacao: "regular"
   tema: "O estigma associado às doenças mentais na sociedade brasileira"
-  fonte: "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2019
   aplicacao: "regular"
   tema: "Democratização do acesso ao cinema no Brasil"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2018
   aplicacao: "regular"
   tema: "Manipulação do comportamento do usuário pelo controle de dados na internet"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2017
   aplicacao: "regular"
   tema: "Desafios para a formação educacional de surdos no Brasil"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2016
   aplicacao: "regular"
   tema: "Caminhos para combater a intolerância religiosa no Brasil"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2015
   aplicacao: "regular"
   tema: "A persistência da violência contra a mulher na sociedade brasileira"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2014
   aplicacao: "regular"
   tema: "Publicidade infantil em questão no Brasil"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2013
   aplicacao: "regular"
   tema: "Efeitos da implantação da Lei Seca no Brasil"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2012
   aplicacao: "regular"
   tema: "O MOVIMENTO IMIGRATÓRIO PARA O BRASIL NO SÉCULO XXI"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2011
   aplicacao: "regular"
   tema: "viver em rede no século XXI: os limites entre o público e o privado"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2010
   aplicacao: "regular"
   tema: "O Trabalho na Construção da Dignidade Humana"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2009
   aplicacao: "regular"
   tema: "O indivíduo frente à ética nacional"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2009/dia2_caderno5_amarelo.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2007
   aplicacao: "regular"
   tema: "O desafio de se conviver com a diferença"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2007/2007_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2006
   aplicacao: "regular"
   tema: "O PODER DE TRANSFORMAÇÃO DA LEITURA"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2006/2006_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2005
   aplicacao: "regular"
   tema: "O trabalho infantil na realidade brasileira"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2005/2005_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2004
   aplicacao: "regular"
   tema: "Como garantir a liberdade de informação e evitar abusos nos meios de comunicação?"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2004/2004_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2003
   aplicacao: "regular"
   tema: "A violência na sociedade brasileira: como mudar as regras desse jogo?"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2003/2003_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2002
   aplicacao: "regular"
   tema: "O direito de votar: como fazer dessa conquista um meio para promover as transformações sociais de que o Brasil necessita?"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2002/2002_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2001
   aplicacao: "regular"
   tema: "Desenvolvimento e preservação ambiental: como conciliar os interesses em conflito?"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2001/2001_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 2000
   aplicacao: "regular"
   tema: "Direitos da criança e do adolescente: como enfrentar esse desafio nacional?"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/2000/2000_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 1999
   aplicacao: "regular"
   tema: "Cidadania e participação social"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/1999/1999_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
 - ano: 1998
   aplicacao: "regular"
   tema: "Viver e Aprender"
-  fonte: "https://download.inep.gov.br/educacao_basica/enem/provas/1998/1998_amarela.pdf"
+  fonte: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
