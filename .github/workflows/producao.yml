@@ -1,0 +1,159 @@
+name: Publicar no servidor
+
+# Põe no ar a versão nova do site, no servidor próprio (Oracle + Coolify + Cloudflare). Passo a passo em docs/HOSPEDAGEM.md.
+# 1. Monta a imagem numa máquina ARM do GitHub, igual ao processador do servidor (o servidor não monta nada).
+# 2. Guarda a imagem no GitHub Container Registry, com o nome do commit (dá para voltar a qualquer versão).
+# 3. Pede ao Coolify a troca: ele sobe a versão nova, confere a saúde e só então desliga a antiga, sem tirar o site do ar.
+on:
+  push:
+    branches: [master]
+    # O mesmo critério do antigo filtro da Vercel: commit que só mexe em documentação, rotinas, SQL do banco, testes ou
+    # nos arquivos do servidor não muda o site e não vira publicação. O guia de contribuição lê dois arquivos de docs/:
+    # esses contam.
+    paths:
+      - "**"
+      - "!docs/**"
+      - "docs/MODELO-DE-AULA.md"
+      - "docs/CHECKLIST-DE-REVISAO.md"
+      - "!.github/**"
+      - ".github/workflows/producao.yml"
+      - "!.claude/**"
+      - "!infra/**"
+      - "!supabase/*.sql"
+      - "!supabase/functions/**"
+      - "supabase/functions/_shared/**"
+      - "!scripts/testar-*"
+      - "!*.md"
+  # O que as rotinas do próprio GitHub gravam (contribuições aprovadas, banco de questões) não dispara outras rotinas
+  # sozinho: por isso a publicação também roda quando elas terminam bem. Se nada mudou, ela percebe e não troca nada.
+  workflow_run:
+    workflows: ["Publicar contribuições aprovadas", "Atualizar o banco de questões"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      forcar:
+        description: "Montar e publicar de novo mesmo que esta versão já esteja no ar"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  packages: write
+
+# Um envio atrás do outro: a publicação em andamento termina e a próxima já pega o commit mais novo.
+concurrency:
+  group: publicar-no-servidor
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    # A imagem sai no processador da máquina do GitHub, que precisa ser igual ao do servidor: ARM na Oracle
+    # (ubuntu-24.04-arm, o padrão), x86 num servidor comum (variável MAQUINA_DE_MONTAGEM = ubuntu-24.04).
+    runs-on: ${{ vars.MAQUINA_DE_MONTAGEM || 'ubuntu-24.04-arm' }}
+    timeout-minutes: 90
+    env:
+      IMAGEM: ghcr.io/${{ github.repository }}
+      FORCAR: ${{ inputs.forcar && 'sim' || 'nao' }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          # O histórico inteiro: a página de histórico do acervo sai do Git.
+          fetch-depth: 0
+          # Sempre o master mais novo (inclusive quando a rotina parte do fim de outra).
+          ref: master
+
+      - name: Entrar no GitHub Container Registry
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: echo "$GITHUB_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Ver se esta versão já foi montada
+        id: versao
+        run: |
+          set -euo pipefail
+          COMMIT=$(git rev-parse HEAD)
+          echo "COMMIT=$COMMIT" >> "$GITHUB_ENV"
+          if [ "$FORCAR" != "sim" ] && docker manifest inspect "$IMAGEM:$COMMIT" > /dev/null 2>&1; then
+            echo "A imagem do commit $COMMIT já existe: a montagem fica pulada."
+            echo "montar=nao" >> "$GITHUB_OUTPUT"
+          else
+            echo "montar=sim" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Montar a imagem
+        if: steps.versao.outputs.montar == 'sim'
+        env:
+          # Valores públicos por natureza (vão para o navegador). Ficam em Settings → Secrets and variables → Actions →
+          # Variables. Variável vazia não entra: o código usa o valor padrão, como na Vercel.
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+          NEXT_PUBLIC_ESTUDIO_URL: ${{ vars.NEXT_PUBLIC_ESTUDIO_URL }}
+          NEXT_PUBLIC_RECURSOS: ${{ vars.NEXT_PUBLIC_RECURSOS }}
+          NEXT_PUBLIC_JITSI_DOMAIN: ${{ vars.NEXT_PUBLIC_JITSI_DOMAIN }}
+          NEXT_PUBLIC_VIDEO_HOSTS: ${{ vars.NEXT_PUBLIC_VIDEO_HOSTS }}
+          CSP_REPORT_URL: ${{ vars.CSP_REPORT_URL }}
+        run: |
+          set -euo pipefail
+          # Sem o serviço de contas o site sairia sem painel, comunidade e rádio: melhor parar aqui do que publicar assim.
+          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ] || [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then
+            echo "::error::Faltam as variáveis NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_ANON_KEY (Settings → Secrets and variables → Actions → Variables)."
+            exit 1
+          fi
+          : > .env.production.local
+          for nome in NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY NEXT_PUBLIC_TURNSTILE_SITE_KEY \
+                      NEXT_PUBLIC_ESTUDIO_URL NEXT_PUBLIC_RECURSOS NEXT_PUBLIC_JITSI_DOMAIN NEXT_PUBLIC_VIDEO_HOSTS CSP_REPORT_URL; do
+            valor="${!nome:-}"
+            if [ -n "$valor" ]; then printf '%s=%s\n' "$nome" "$valor" >> .env.production.local; fi
+          done
+          echo "Variáveis públicas da montagem: $(cut -d= -f1 .env.production.local | tr '\n' ' ')"
+          docker build --pull \
+            --label "org.opencontainers.image.revision=$COMMIT" \
+            -t "$IMAGEM:$COMMIT" -t "$IMAGEM:producao" .
+          docker push "$IMAGEM:$COMMIT"
+          docker push "$IMAGEM:producao"
+
+      - name: Trocar a versão no ar (Coolify)
+        # Enquanto o servidor não estiver configurado (variáveis COOLIFY_*), a rotina só monta e guarda a imagem.
+        if: vars.COOLIFY_URL != '' && vars.COOLIFY_APP_UUID != ''
+        env:
+          COOLIFY_URL: ${{ vars.COOLIFY_URL }}
+          APP: ${{ vars.COOLIFY_APP_UUID }}
+          TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+          CF_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_SEGREDO: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          # O painel do Coolify fica atrás do Cloudflare Access: a rotina entra com a credencial de serviço dela.
+          chamar() {
+            curl --fail-with-body -sS --max-time 60 \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "CF-Access-Client-Id: $CF_ID" \
+              -H "CF-Access-Client-Secret: $CF_SEGREDO" \
+              -H "Content-Type: application/json" "$@"
+          }
+          atual=$(chamar "$COOLIFY_URL/api/v1/applications/$APP" | jq -r '.docker_registry_image_tag // empty')
+          if [ "$atual" = "$COMMIT" ] && [ "$FORCAR" != "sim" ]; then
+            echo "A versão $COMMIT já está no ar: nada a trocar."
+            exit 0
+          fi
+          echo "No ar: ${atual:-nenhuma}. Publicando: $COMMIT"
+          chamar -X PATCH "$COOLIFY_URL/api/v1/applications/$APP" -d "{\"docker_registry_image_tag\":\"$COMMIT\"}" > /dev/null
+          resposta=$(chamar -X POST "$COOLIFY_URL/api/v1/deploy?uuid=$APP&force=false")
+          id=$(echo "$resposta" | jq -r '.deployments[0].deployment_uuid // empty')
+          if [ -z "$id" ]; then echo "::error::O Coolify não aceitou a publicação: $resposta"; exit 1; fi
+          # Espera o Coolify terminar (até 20 minutos), para esta rotina mostrar se a troca deu certo.
+          for _ in $(seq 1 120); do
+            sleep 10
+            estado=$(chamar "$COOLIFY_URL/api/v1/deployments/$id" | jq -r '.status // empty')
+            echo "Coolify: ${estado:-?}"
+            case "$estado" in
+              finished) echo "Versão $COMMIT no ar."; exit 0 ;;
+              failed|cancelled*|error) echo "::error::A troca falhou no Coolify (veja a publicação $id no painel). O site continua na versão anterior."; exit 1 ;;
+            esac
+          done
+          echo "::error::O Coolify não terminou a troca em 20 minutos (publicação $id)."
+          exit 1
