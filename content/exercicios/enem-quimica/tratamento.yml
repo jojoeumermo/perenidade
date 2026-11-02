@@ -1,0 +1,235 @@
+# Exercícios da aula "Tratamento de água e esgoto" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Vazões e doses são valores de exemplo, não de uma estação real.
+
+- id: enem-qui-tratamento-01
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-agua-tratamento
+  dificuldade: 1
+  enunciado: "Na estação de tratamento de água, a etapa que mata bactérias e outros micro-organismos é a"
+  alternativas:
+    - texto: "decantação"
+      erro: "Na decantação os flocos afundam. Micróbios são leves e muitos não vão junto."
+    - texto: "floculação"
+      erro: "Na floculação as partículas se juntam em flocos. Ela não mata micróbios."
+    - texto: "fluoretação"
+      erro: "O flúor serve para prevenir a cárie, não para desinfetar."
+    - texto: "desinfecção com cloro"
+      certa: true
+    - texto: "filtração"
+      erro: "O filtro segura partículas. Bactérias e vírus podem passar por ele; quem os mata é o cloro."
+  explicacao: "O cloro é o desinfetante: mata micro-organismos que as etapas físicas não retiram."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-02
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-agua-tratamento
+  dificuldade: 1
+  enunciado: "Na decantação, a água fica parada em tanques grandes. O que acontece com os flocos de sujeira?"
+  alternativas:
+    - texto: "Evaporam com o sol."
+      erro: "Flocos são sólidos. Não evaporam: afundam."
+    - texto: "Afundam, porque são mais densos que a água."
+      certa: true
+    - texto: "Dissolvem-se na água."
+      erro: "Se dissolvessem, a água continuaria suja de substância dissolvida. Os flocos se separam e vão ao fundo."
+    - texto: "Viram cloro."
+      erro: "O cloro é posto depois, na desinfecção. Os flocos não se transformam nele."
+    - texto: "Flutuam e são recolhidos por cima."
+      erro: "Os flocos formados com o coagulante são mais pesados que a água. Eles descem."
+  explicacao: "Os flocos são mais densos que a água. Em repouso, afundam e formam o lodo no fundo do tanque."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-03
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-agua-tratamento
+  dificuldade: 1
+  enunciado: "Por que a estação de tratamento acrescenta flúor à água?"
+  alternativas:
+    - texto: "Para matar bactérias."
+      erro: "Quem mata bactérias é o cloro. O flúor tem outro papel."
+    - texto: "Para tirar o barro."
+      erro: "O barro sai na coagulação, decantação e filtração."
+    - texto: "Para corrigir o cheiro."
+      erro: "Cheiro e gosto são tratados com carvão ativado, em algumas estações."
+    - texto: "Para deixar a água dura."
+      erro: "Dureza vem do cálcio e do magnésio, não do flúor. E não é algo que se queira acrescentar."
+    - texto: "Para ajudar a prevenir a cárie."
+      certa: true
+  explicacao: "O flúor na água de abastecimento é uma medida de saúde pública para prevenir a cárie dentária."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-04
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-tratamento
+  dificuldade: 2
+  enunciado: "Na coagulação, a estação põe sulfato de alumínio na água. O papel dele é"
+  alternativas:
+    - texto: "formar hidróxido de alumínio, gelatinoso, onde as partículas finas grudam."
+      certa: true
+    - texto: "matar as bactérias da água."
+      erro: "O sulfato de alumínio não é desinfetante. Ele ajuda a juntar as partículas; o cloro desinfeta."
+    - texto: "deixar a água mais ácida para beber."
+      erro: "O objetivo não é acidificar. O pH até é corrigido depois, para a água não corroer os canos."
+    - texto: "dissolver o barro."
+      erro: "O barro não se dissolve. Ele gruda nos flocos e depois afunda."
+    - texto: "acrescentar alumínio, que faz bem à saúde."
+      erro: "O alumínio sai junto com o lodo. A função dele é juntar as partículas, não ficar na água."
+  explicacao: "O sal de alumínio forma hidróxido de alumínio, uma substância gelatinosa que prende as partículas finas e forma flocos que depois afundam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-05
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 19
+  objeto: nat-qui-agua-tratamento
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa padaria comunitária, a chaleira elétrica e a caldeira do forno a vapor ficam cheias de crostas brancas em
+    poucos meses. A água vem de um poço aberto numa região de rochas calcárias. Um técnico vai mandar analisar a água.
+  enunciado: "O teste que mais ajuda a confirmar a causa das crostas é a medida de"
+  alternativas:
+    - texto: "turbidez, que mede o barro em suspensão."
+      erro: "Turbidez mede partículas que deixam a água turva. As crostas vêm de íons dissolvidos, que não turvam a água."
+    - texto: "coliformes, que indicam contaminação por fezes."
+      erro: "Coliformes indicam risco de doença, não crostas. É outro problema."
+    - texto: "íons cálcio e magnésio, que indicam água dura."
+      certa: true
+    - texto: "cloro residual, que mostra se a água foi desinfetada."
+      erro: "O cloro residual mede a desinfecção. Não forma crostas brancas."
+    - texto: "temperatura da água, que mostra se ela é fervida."
+      erro: "Esquentar ajuda a crosta a se formar, mas a causa é o que está dissolvido: cálcio e magnésio."
+  explicacao: "Água que passa por calcário dissolve Ca²⁺ e Mg²⁺. Ao esquentar, o cálcio se junta ao carbonato e forma crostas de CaCO₃. Medir esses íons confirma a dureza."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-06
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-agua-tratamento
+  dificuldade: 2
+  enunciado: "Qual é a ordem correta das etapas numa estação de tratamento de água?"
+  alternativas:
+    - texto: "Filtração, coagulação, desinfecção, decantação."
+      erro: "Filtrar primeiro entupiria o filtro com todo o barro. Antes, é preciso juntar e afundar as partículas."
+    - texto: "Desinfecção, decantação, floculação, filtração."
+      erro: "Desinfetar no começo gasta muito cloro com a sujeira. O cloro vem no fim, com a água já limpa."
+    - texto: "Coagulação, floculação, decantação, filtração, desinfecção."
+      certa: true
+    - texto: "Decantação, coagulação, desinfecção, filtração."
+      erro: "Sem coagulação antes, o barro fino não afunda na decantação."
+    - texto: "Floculação, filtração, coagulação, decantação."
+      erro: "Coagulação vem antes da floculação: primeiro se põe o coagulante, depois se mexe para formar os flocos."
+  explicacao: "Juntar (coagulação e floculação), afundar (decantação), filtrar e, por fim, desinfetar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-07
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-agua-tratamento
+  dificuldade: 2
+  enunciado: "Uma estação trata 500.000 L de água por hora e põe 2 mg de cloro em cada litro. Quantos quilogramas de cloro ela usa por hora? (1 kg = 1.000.000 mg)"
+  alternativas:
+    - texto: "1 kg"
+      certa: true
+    - texto: "10 kg"
+      erro: "Sobrou um zero. 2 × 500.000 = 1.000.000 mg, que é 1 kg."
+    - texto: "250 kg"
+      erro: "Você dividiu o volume pela dose (500.000 ÷ 2) e depois por 1.000. A conta é dose × volume."
+    - texto: "0,1 kg"
+      erro: "Faltou um zero. 1.000.000 mg é exatamente 1 kg."
+    - texto: "1.000 kg"
+      erro: "Você converteu miligrama em grama, não em quilograma. 1.000.000 mg = 1.000 g = 1 kg."
+  explicacao: "2 mg/L × 500.000 L = 1.000.000 mg. Como 1 kg = 1.000.000 mg, são 1 kg por hora."
+  conferir: "2 * 500000 / 1000000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-08
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 19
+  objeto: nat-qui-agua-tratamento
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa estação de tratamento de esgoto, depois de retirar a areia e parte dos sólidos, o esgoto vai para tanques
+    onde motores bombeiam ar sem parar. Ali, uma grande quantidade de micro-organismos se mantém em suspensão no líquido.
+  enunciado: "O ar é bombeado nesses tanques porque"
+  alternativas:
+    - texto: "o oxigênio do ar mata as bactérias do esgoto."
+      erro: "O objetivo é o contrário: manter as bactérias vivas e ativas. Elas fazem o tratamento."
+    - texto: "o ar evapora a água e deixa só o lodo."
+      erro: "Bombear ar não seca o esgoto. Ele leva oxigênio para dentro do líquido."
+    - texto: "o ar empurra a sujeira para fora do tanque."
+      erro: "O ar mistura e oxigena; não é ele que separa a sujeira."
+    - texto: "o oxigênio reage com o cloro e forma um desinfetante."
+      erro: "Não há cloro nessa etapa. O ar serve aos micro-organismos."
+    - texto: "as bactérias que consomem a matéria orgânica precisam de oxigênio para trabalhar depressa."
+      certa: true
+  explicacao: "É o tratamento secundário, biológico. Bactérias aeróbias, que usam oxigênio, se alimentam da matéria orgânica e a transformam em gás carbônico, água e mais bactérias, que depois afundam como lodo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-09
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-agua-tratamento
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Moradores de um bairro denunciaram que, desde que uma galeria passou a despejar esgoto sem tratamento num córrego,
+    os peixes começaram a aparecer mortos rio abaixo, principalmente nos dias quentes e de pouca correnteza.
+  enunciado: "A principal causa da morte dos peixes é"
+  alternativas:
+    - texto: "o aumento da temperatura causado pelo esgoto quente."
+      erro: "O esgoto não é quente o bastante para isso. O calor do dia piora o problema, mas a causa é outra."
+    - texto: "o excesso de oxigênio trazido pelo esgoto."
+      erro: "É o contrário. O esgoto faz o oxigênio da água diminuir."
+    - texto: "a ação do cloro presente no esgoto doméstico."
+      erro: "Esgoto sem tratamento não leva cloro em quantidade que mate peixes. O problema é a matéria orgânica."
+    - texto: "a queda do oxigênio dissolvido, gasto pelas bactérias que decompõem a matéria orgânica."
+      certa: true
+    - texto: "a falta de luz, que impede os peixes de enxergar."
+      erro: "A água fica turva, mas peixes não morrem por não enxergar. Morrem por falta de oxigênio."
+  explicacao: "A matéria orgânica do esgoto alimenta bactérias, que se multiplicam e consomem o oxigênio dissolvido. Em dia quente, a água guarda menos oxigênio, e com pouca correnteza ele se renova devagar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-tratamento-10
+  tema: "Tratamento de água e esgoto"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-agua-tratamento
+  dificuldade: 3
+  enunciado: "Numa época de seca, a água da represa ficou com cheiro e gosto de terra, causados por substâncias dissolvidas liberadas por algas. A coagulação, a decantação e a filtração em areia não resolveram. Qual medida ajuda?"
+  alternativas:
+    - texto: "Pôr mais flúor."
+      erro: "O flúor previne cárie. Não retira substâncias de cheiro."
+    - texto: "Usar carvão ativado, que retém essas substâncias na sua superfície."
+      certa: true
+    - texto: "Deixar a água mais tempo decantando."
+      erro: "Decantar tira partículas. Substâncias dissolvidas não afundam."
+    - texto: "Passar a água por uma grade mais fina."
+      erro: "Grade segura pedaços grandes. Substância dissolvida passa por qualquer grade."
+    - texto: "Tirar o cloro da água."
+      erro: "O cheiro de terra não vem do cloro. E tirar o cloro deixaria a água sem desinfecção."
+  explicacao: "O carvão ativado tem uma superfície enorme, cheia de poros, onde moléculas de cheiro e gosto ficam presas. É a adsorção, e por isso ele é usado quando a água tem esse problema."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

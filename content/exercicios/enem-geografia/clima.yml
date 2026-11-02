@@ -1,0 +1,235 @@
+# Exercícios da aula "Clima, fenômenos atmosféricos e mudanças climáticas" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-clima-01
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-clima
+  dificuldade: 1
+  enunciado: "Qual frase fala de clima, e não de tempo?"
+  alternativas:
+    - texto: "Hoje à tarde caiu uma pancada de chuva no centro"
+      erro: "Isso é tempo: o que aconteceu num momento e lugar."
+    - texto: "Amanhã a temperatura deve chegar a 30 °C"
+      erro: "Previsão para amanhã é tempo. Clima é o padrão de muitos anos."
+    - texto: "O sertão nordestino tem chuvas escassas e irregulares ao longo dos anos"
+      certa: true
+    - texto: "Nesta semana uma frente fria vai derrubar a temperatura"
+      erro: "Uma frente fria passando nesta semana é tempo, um evento do momento."
+  explicacao: "Clima é o comportamento da atmosfera observado por décadas, em geral 30 anos. 'Chuvas escassas e irregulares ao longo dos anos' descreve um padrão: é clima."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-02
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-clima
+  dificuldade: 1
+  enunciado: "O efeito estufa natural é:"
+  alternativas:
+    - texto: "a retenção de parte do calor da Terra por alguns gases da atmosfera, que torna o planeta habitável"
+      certa: true
+    - texto: "o buraco na camada de ozônio sobre a Antártida"
+      erro: "O buraco no ozônio é outro problema: deixa passar mais radiação ultravioleta. Não é o efeito estufa."
+    - texto: "um fenômeno criado pelas fábricas no século XIX"
+      erro: "O efeito estufa natural existe há bilhões de anos. A ação humana intensificou o efeito, não o criou."
+    - texto: "o calor guardado pelas estufas de plantas"
+      erro: "O nome vem da comparação com a estufa, mas o fenômeno é da atmosfera inteira."
+  explicacao: "Gases como o gás carbônico e o metano seguram parte do calor que a Terra devolve ao espaço. Sem esse efeito, o planeta seria frio demais. O problema é a intensificação pela ação humana."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-03
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 6
+  objeto: hum-ambiente-clima
+  dificuldade: 1
+  enunciado: "Num climograma, a média do mês mais quente de uma cidade é 29 °C e a do mês mais frio é 13 °C. Qual é a amplitude térmica anual?"
+  alternativas:
+    - texto: "42 °C"
+      erro: "Você somou as duas temperaturas. Amplitude é a diferença: máxima menos mínima."
+    - texto: "21 °C"
+      erro: "Essa é a média entre as duas (42 ÷ 2). A amplitude é a diferença entre elas."
+    - texto: "13 °C"
+      erro: "Essa é a média do mês mais frio. Falta subtrair: 29 − 13."
+    - texto: "16 °C"
+      certa: true
+  explicacao: "Amplitude térmica = máxima − mínima = 29 − 13 = 16 °C. Uma amplitude assim, com inverno bem frio, é típica do clima subtropical."
+  conferir: "29 - 13"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-04
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 6
+  objeto: hum-ambiente-clima
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um climograma mostra uma cidade com temperatura média mensal entre 22 °C e 27 °C. As barras de chuva passam de
+    250 mm de dezembro a março e ficam abaixo de 20 mm de junho a agosto. (Texto do Instituto Lúcia.)
+  enunciado: "O clima representado é o"
+  alternativas:
+    - texto: "equatorial, quente e chuvoso o ano inteiro."
+      erro: "No equatorial não há estação seca. Aqui, de junho a agosto chove menos de 20 mm por mês."
+    - texto: "tropical, quente, com verão chuvoso e inverno seco."
+      certa: true
+    - texto: "subtropical, com inverno frio e chuva bem distribuída."
+      erro: "O subtropical tem inverno frio, com médias bem abaixo de 22 °C, e chuva o ano todo. Aqui o inverno é seco e quente."
+    - texto: "semiárido, com pouca chuva o ano todo."
+      erro: "Mais de 250 mm por mês no verão é muita chuva. O semiárido tem pouca chuva mesmo no período chuvoso."
+    - texto: "temperado, com quatro estações bem marcadas."
+      erro: "O clima temperado tem inverno frio. Aqui a temperatura fica sempre acima de 22 °C."
+  explicacao: "Quente o ano todo e chuva concentrada no verão, com inverno seco: é o tropical típico do Brasil central. O que separa do equatorial é a estação seca."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-05
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-clima
+  dificuldade: 2
+  enunciado: "No litoral de São Paulo chove muito; do outro lado da Serra do Mar, no planalto, chove menos. Qual fenômeno explica a diferença?"
+  alternativas:
+    - texto: "Inversão térmica"
+      erro: "Inversão térmica prende poluição no inverno. Não explica a diferença de chuva entre os dois lados da serra."
+    - texto: "El Niño"
+      erro: "O El Niño muda a chuva em escala de regiões e anos. A diferença entre os lados da serra existe todo ano."
+    - texto: "Ilha de calor"
+      erro: "Ilha de calor é diferença de temperatura entre o centro da cidade e áreas verdes. Não depende da serra."
+    - texto: "Continentalidade"
+      erro: "A continentalidade explica a amplitude térmica maior no interior, mas a chuva maior no litoral vem do ar úmido barrado pela serra."
+    - texto: "Chuva orográfica: o ar úmido do mar sobe a serra, esfria e despeja a chuva antes de passar"
+      certa: true
+  explicacao: "Ao subir a serra, o ar úmido esfria, o vapor vira gota e chove no lado do mar. O ar que chega ao planalto já perdeu boa parte da umidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-06
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 30
+  objeto: hum-ambiente-clima
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Segundo o relatório de síntese do IPCC, de 2023, as atividades humanas, sobretudo pelas emissões de gases de efeito
+    estufa, causaram de modo inequívoco o aquecimento global. A temperatura média da superfície em 2011–2020 estava
+    1,1 °C acima da média de 1850–1900.
+  enunciado: "De acordo com o texto, a principal causa do aquecimento observado é"
+  alternativas:
+    - texto: "a variação natural da energia do Sol."
+      erro: "O texto atribui a causa às atividades humanas, de modo inequívoco. Não fala do Sol."
+    - texto: "o buraco na camada de ozônio."
+      erro: "O ozônio é outro problema. O texto fala de gases de efeito estufa."
+    - texto: "o efeito estufa natural, que sempre existiu."
+      erro: "O efeito natural existe, mas não explica o aumento desde 1850–1900. O que mudou foi a emissão humana."
+    - texto: "a emissão de gases de efeito estufa pelas atividades humanas."
+      certa: true
+    - texto: "o fenômeno El Niño, que aquece o Pacífico."
+      erro: "O El Niño varia de ano a ano e vai e volta. Não explica um aquecimento contínuo de mais de um século."
+  explicacao: "O IPCC afirma que a influência humana é inequívoca. A queima de carvão, petróleo e gás e o desmatamento aumentaram os gases que seguram calor, e a superfície aqueceu 1,1 °C."
+  fonte: "Questão original do Instituto Lúcia, com base no relatório de síntese do IPCC (AR6, 2023)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-07
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-clima
+  dificuldade: 2
+  enunciado: "Em junho, uma massa de ar polar avança pelo Sul do Brasil e encontra o ar quente e úmido que estava sobre a região. O que se espera?"
+  alternativas:
+    - texto: "Tempo firme e calor intenso"
+      erro: "O encontro do ar frio com o quente forma nuvens e chuva, e depois a temperatura cai. Não é calor."
+    - texto: "Formação de uma frente fria, com chuva e depois queda da temperatura"
+      certa: true
+    - texto: "Seca prolongada por vários meses"
+      erro: "A frente fria é um evento de dias, e traz chuva, não seca."
+    - texto: "Furacão vindo do Pacífico"
+      erro: "O encontro de massas de ar no Sul forma frentes. Não tem relação com furacões do Pacífico."
+  explicacao: "O ar frio, mais pesado, entra por baixo e empurra o quente para cima. O ar quente esfria ao subir, forma nuvens e chove. Depois que a frente passa, fica o ar frio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-08
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 6
+  objeto: hum-ambiente-clima
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Duas fileiras de mapas-múndi, feitas a partir de simulações do IPCC, mostram a mudança da temperatura média anual em
+    três cenários de aquecimento global: 1,5 °C, 2 °C e 4 °C acima do período pré-industrial. Nos três, as cores mais
+    fortes aparecem sobre os continentes do hemisfério norte e sobre o Ártico, e são mais fracas sobre os oceanos.
+    De um cenário para o outro, as manchas fortes crescem. (Texto do Instituto Lúcia.)
+  enunciado: "A leitura correta dos mapas é que"
+  alternativas:
+    - texto: "o aquecimento será igual em todos os lugares do planeta."
+      erro: "Os mapas mostram cores diferentes: o aquecimento é mais forte sobre continentes e Ártico."
+    - texto: "os oceanos aquecem mais que os continentes."
+      erro: "É o contrário: as cores são mais fracas sobre os oceanos. A água esquenta mais devagar."
+    - texto: "o cenário de 4 °C tem menos áreas atingidas que o de 1,5 °C."
+      erro: "As manchas crescem de um cenário para o outro. Mais aquecimento, mais área atingida."
+    - texto: "o aquecimento só afeta o hemisfério norte."
+      erro: "O mapa mostra aquecimento mais forte no norte, mas não só lá. Os cenários são de aquecimento global."
+    - texto: "o aquecimento não é uniforme, é maior sobre os continentes e o Ártico, e se agrava a cada grau a mais."
+      certa: true
+  explicacao: "Leia pela legenda: cor forte = mais aquecimento. Ela se concentra sobre terra e Ártico, e se espalha conforme o aquecimento global sobe. Cada fração de grau importa."
+  fonte: "Questão original do Instituto Lúcia, com base no tipo de mapa do IPCC usado na prova de 2023"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-09
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 27
+  objeto: hum-ambiente-clima
+  dificuldade: 3
+  enunciado: "Em um ano de El Niño forte, o que o INPE indica como tendência para o Brasil?"
+  alternativas:
+    - texto: "Mais risco de seca no norte da Amazônia e no norte do Nordeste e chuva acima da média no Sul"
+      certa: true
+    - texto: "Chuvas fortes no sertão nordestino e seca no Sul"
+      erro: "Isso se parece mais com o padrão de La Niña. O El Niño tende a secar o norte do Nordeste e molhar o Sul."
+    - texto: "Nenhum efeito, porque o fenômeno acontece no Pacífico"
+      erro: "O fenômeno é no Pacífico, mas muda a circulação do ar no mundo todo, inclusive sobre o Brasil."
+    - texto: "Neve em todo o Sudeste"
+      erro: "O El Niño não traz neve ao Sudeste. Ele tende a trazer calor acima da média."
+    - texto: "Fim das chuvas na Amazônia para sempre"
+      erro: "O efeito é temporário, de meses. O El Niño vai e volta."
+  explicacao: "O aquecimento anormal do Pacífico equatorial muda os ventos e a formação de nuvens. Pelo INPE, a tendência é seca no norte e leste da Amazônia e no norte do Nordeste, e chuva acima da média no Sul."
+  fonte: "Questão original do Instituto Lúcia, com base em informação do INPE"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-clima-10
+  tema: "Clima, fenômenos atmosféricos e mudanças climáticas"
+  area: humanas
+  habilidade: 30
+  objeto: hum-ambiente-clima
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O Acordo de Paris, de 2015, tem como meta manter o aumento da temperatura média global bem abaixo de 2 °C acima dos
+    níveis pré-industriais e seguir com esforços para limitá-lo a 1,5 °C. Cada país apresenta as próprias metas de
+    redução de emissões, chamadas contribuições nacionalmente determinadas.
+  enunciado: "Uma crítica coerente com o funcionamento descrito é que"
+  alternativas:
+    - texto: "o acordo proíbe os países de usar qualquer combustível fóssil desde 2015."
+      erro: "O acordo não proíbe combustíveis; cada país define as próprias metas. A crítica precisa partir do que o texto diz."
+    - texto: "o acordo não tem meta de temperatura."
+      erro: "O texto mostra que tem: bem abaixo de 2 °C, com esforços para 1,5 °C."
+    - texto: "como as metas são definidas por cada país, a soma delas pode não bastar para cumprir o limite de temperatura."
+      certa: true
+    - texto: "o acordo vale só para os países pobres."
+      erro: "Todos os países que aderem apresentam metas. O acordo não vale só para os pobres."
+    - texto: "o limite de 1,5 °C já foi atingido em 2015, por isso o acordo não tem sentido."
+      erro: "O texto fala de meta futura. E o IPCC registra 1,1 °C de aquecimento em 2011–2020, abaixo de 1,5 °C."
+  explicacao: "O acordo combina uma meta global com metas nacionais voluntárias. Se a soma das contribuições ficar curta, a meta de temperatura não se cumpre. Essa é a crítica central ao modelo."
+  fonte: "Questão original do Instituto Lúcia, com base no Acordo de Paris (UNFCCC)"
+  revisao: { status: em-revisao }

@@ -1,0 +1,20 @@
+[
+  { "slug": "escalas-e-projecoes", "titulo": "Escalas e projeções cartográficas" },
+  { "slug": "coordenadas-e-fusos", "titulo": "Coordenadas geográficas e fusos horários" },
+  { "slug": "mapas-tematicos", "titulo": "Mapas temáticos e curvas de nível" },
+  { "slug": "relevo", "titulo": "Estrutura geológica e relevo" },
+  { "slug": "clima", "titulo": "Clima, fenômenos atmosféricos e mudanças climáticas" },
+  { "slug": "hidrografia", "titulo": "Hidrografia e crise hídrica" },
+  { "slug": "biomas", "titulo": "Biomas e domínios morfoclimáticos" },
+  { "slug": "questoes-ambientais", "titulo": "Questões ambientais: desmatamento, solo, cidade e poluição" },
+  { "slug": "territorios-tradicionais", "titulo": "Territórios indígenas e quilombolas" },
+  { "slug": "regionalizacao", "titulo": "Formação territorial e regionalização do Brasil" },
+  { "slug": "populacao", "titulo": "População, demografia e pirâmides etárias" },
+  { "slug": "migracoes", "titulo": "Migrações, refúgio e apatridia" },
+  { "slug": "urbanizacao", "titulo": "Urbanização, segregação e mobilidade" },
+  { "slug": "industrializacao", "titulo": "Industrialização brasileira" },
+  { "slug": "espaco-agrario", "titulo": "Espaço agrário: agronegócio, agricultura familiar e conflitos no campo" },
+  { "slug": "energia-e-transportes", "titulo": "Energia e transportes" },
+  { "slug": "globalizacao", "titulo": "Globalização e divisão internacional do trabalho" },
+  { "slug": "geopolitica", "titulo": "Geopolítica e blocos econômicos" }
+]

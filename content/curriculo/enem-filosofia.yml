@@ -1,0 +1,96 @@
+# Mapa curricular da trilha enem-filosofia (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+fontes:
+  - >-
+    Matriz de Referência do Enem, Inep:
+    https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos
+aulas:
+  filosofia-antiga:
+    enem:
+      - area: humanas
+        competencia: 1
+        habilidade: 1
+        resumo: Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 1
+        habilidade: 4
+        resumo: Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 23
+        resumo: Analisar a importância dos valores éticos na organização política das sociedades.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 24
+        resumo: Relacionar cidadania e democracia na organização das sociedades.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-filosofia-antiga
+  existencialismo-arendt-e-foucault:
+    enem:
+      - area: humanas
+        competencia: 1
+        habilidade: 4
+        resumo: Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 12
+        resumo: Analisar o papel da justiça como instituição na organização das sociedades.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 14
+        resumo: Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 23
+        resumo: Analisar a importância dos valores éticos na organização política das sociedades.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-filosofia-contemporanea
+  etica-e-moral:
+    enem:
+      - area: humanas
+        competencia: 5
+        habilidade: 23
+        resumo: Analisar a importância dos valores éticos na organização política das sociedades.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 24
+        resumo: Relacionar cidadania e democracia na organização das sociedades.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-etica
+  racionalismo-empirismo-e-kant:
+    enem:
+      - area: humanas
+        competencia: 1
+        habilidade: 4
+        resumo: Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 21
+        resumo: Identificar o papel dos meios de comunicação na vida social.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-racionalismo-e-empirismo
+  industria-cultural:
+    enem:
+      - area: humanas
+        competencia: 4
+        habilidade: 16
+        resumo: Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 21
+        resumo: Identificar o papel dos meios de comunicação na vida social.
+        situacao: a-confirmar
+    objetos:
+      - hum-cultura-industria-cultural

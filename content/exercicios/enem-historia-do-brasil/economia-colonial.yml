@@ -1,0 +1,245 @@
+# Exercícios da aula "Açúcar, ouro, café e borracha" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-economia-colonial-01
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-economia-colonial
+  dificuldade: 1
+  enunciado: "Em que região se concentrou a produção de açúcar nos séculos XVI e XVII?"
+  alternativas:
+    - texto: "No Sul, nos pampas"
+      erro: "O Sul se ligou mais tarde à criação de gado. O açúcar ficou no litoral nordestino."
+    - texto: "Na Amazônia"
+      erro: "A Amazônia entrou na economia de exportação sobretudo com a borracha, no fim do século XIX."
+    - texto: "No interior de Minas Gerais"
+      erro: "Minas foi o centro da mineração, no século XVIII."
+    - texto: "No oeste paulista"
+      erro: "O oeste paulista foi terra do café, no século XIX."
+    - texto: "No litoral do Nordeste, sobretudo em Pernambuco e na Bahia"
+      certa: true
+  explicacao: "Os engenhos se concentraram no litoral nordestino, com solo de massapê, clima quente e portos próximos para levar o açúcar à Europa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-02
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-economia-colonial
+  dificuldade: 1
+  enunciado: "O quinto era um imposto cobrado pela Coroa portuguesa sobre o ouro. Que parte do ouro ele levava?"
+  alternativas:
+    - texto: "5%"
+      erro: "Quinto não é cinco por cento. É a quinta parte: 1 de cada 5."
+    - texto: "20%"
+      certa: true
+    - texto: "50%"
+      erro: "50% é a metade. O quinto é a quinta parte, bem menos."
+    - texto: "15%"
+      erro: "Divida 100 por 5: a quinta parte é 20%."
+    - texto: "25%"
+      erro: "25% é a quarta parte. O quinto é a quinta parte."
+  explicacao: "A quinta parte de 100 é 100 ÷ 5 = 20. O quinto levava 20% do ouro extraído."
+  conferir: "100 / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-03
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-economia-colonial
+  dificuldade: 1
+  enunciado: "O que era o aviamento nos seringais da Amazônia?"
+  alternativas:
+    - texto: "Um avião que levava a borracha para a Europa"
+      erro: "Apesar do nome, aviamento não tem a ver com avião. Vem de aviar, fornecer mercadoria."
+    - texto: "Um salário fixo pago ao seringueiro"
+      erro: "O seringueiro não recebia salário fixo. Recebia mercadoria a crédito."
+    - texto: "Uma lei que dava terra aos seringueiros"
+      erro: "Não havia lei assim. O aviamento era uma relação entre patrão e trabalhador."
+    - texto: "Um sistema em que o seringueiro recebia mercadorias a crédito e pagava com borracha, ficando preso por dívida"
+      certa: true
+    - texto: "Uma técnica de plantar seringueiras em fila"
+      erro: "Plantação em fila foi o que se fez na Ásia. Na Amazônia, o látex era extraído de árvores espalhadas na floresta."
+  explicacao: "O patrão fornecia (aviava) comida e ferramentas a preços altos; o seringueiro pagava com borracha e quase sempre continuava devendo. A dívida o prendia ao seringal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-04
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-economia-colonial
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Os escravos são as mãos e os pés do senhor do engenho, porque sem eles no Brasil não é possível fazer,
+    conservar e aumentar fazenda, nem ter engenho corrente."
+    (ANTONIL, André João. Cultura e opulência do Brasil por suas drogas e minas, 1711. Grafia atualizada. Domínio público.)
+  enunciado: "O trecho revela que, na economia açucareira,"
+  alternativas:
+    - texto: "toda a produção dependia do trabalho escravizado."
+      certa: true
+    - texto: "o senhor de engenho fazia o trabalho pesado com as próprias mãos."
+      erro: "\"Mãos e pés\" é metáfora: quem trabalhava eram os escravizados, não o senhor."
+    - texto: "os escravizados eram donos dos engenhos."
+      erro: "O texto fala de escravizados a serviço do senhor do engenho. Não eram donos."
+    - texto: "o trabalho assalariado era a base da produção."
+      erro: "O texto fala de escravos, não de assalariados."
+    - texto: "o açúcar era produzido sem trabalho humano."
+      erro: "O texto diz justamente que sem os escravizados não havia engenho."
+  explicacao: "Antonil, jesuíta que escreveu sobre a economia colonial, reconhece que sem os escravizados não havia engenho. A frase mostra a escravidão como base da riqueza do açúcar."
+  fonte: "Questão original do Instituto Lúcia, com trecho de obra em domínio público"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-05
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 19
+  objeto: hum-producao-economia-colonial
+  dificuldade: 2
+  enunciado: "Qual foi uma consequência da mineração do século XVIII para o território da colônia?"
+  alternativas:
+    - texto: "O fim de toda a produção de açúcar no Nordeste"
+      erro: "O açúcar continuou a ser produzido. As atividades conviviam."
+    - texto: "O despovoamento do interior"
+      erro: "Foi o contrário: a mineração levou gente para o interior."
+    - texto: "O surgimento de vilas no interior e o deslocamento do centro da colônia para o Sudeste"
+      certa: true
+    - texto: "A independência imediata de Minas Gerais"
+      erro: "Houve revoltas, mas Minas não se tornou independente."
+    - texto: "A mudança da capital para Brasília"
+      erro: "Brasília é de 1960. No século XVIII, a capital passou de Salvador para o Rio de Janeiro, em 1763."
+  explicacao: "Vilas como Vila Rica nasceram no interior, um mercado interno se formou e o eixo da colônia foi para o Sudeste. A capital foi transferida para o Rio de Janeiro em 1763."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-06
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-economia-colonial
+  dificuldade: 2
+  enunciado: "Depois da abolição, em 1888, quem passou a trabalhar em grande número nas fazendas de café de São Paulo?"
+  alternativas:
+    - texto: "Seringueiros vindos da Amazônia"
+      erro: "O movimento foi o contrário: nordestinos iam para os seringais da Amazônia."
+    - texto: "Operários de fábricas inglesas"
+      erro: "Não houve vinda de operários ingleses para a lavoura de café."
+    - texto: "Indígenas escravizados por lei"
+      erro: "A escravização de indígenas não voltou a ser legal."
+    - texto: "Soldados do Exército"
+      erro: "O Exército não fazia a colheita do café."
+    - texto: "Imigrantes europeus, sobretudo italianos"
+      certa: true
+  explicacao: "Os fazendeiros paulistas trouxeram imigrantes europeus, em especial italianos, muitas vezes com viagem paga pelo governo. Chegavam sem terra, por causa da Lei de Terras, e trabalhavam para o fazendeiro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-07
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-economia-colonial
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em 1720, em Vila Rica, moradores e mineradores pegaram em armas quando a Coroa anunciou as casas de fundição,
+    onde todo o ouro em pó teria de ser fundido em barras, com a retirada do quinto. O governador primeiro aceitou as
+    exigências e depois reprimiu o movimento com tropas. Um dos líderes foi executado em praça pública.
+    (Texto do Instituto Lúcia, a partir de Impressões Rebeldes, UFF.)
+  enunciado: "A revolta descrita foi motivada principalmente"
+  alternativas:
+    - texto: "pelo fim da escravidão nas minas."
+      erro: "O texto não fala de escravidão. Fala de imposto e controle do ouro."
+    - texto: "pelo controle mais rígido da Coroa sobre a cobrança do imposto do ouro."
+      certa: true
+    - texto: "pela proibição de plantar cana em Minas."
+      erro: "O motivo citado são as casas de fundição, não a cana."
+    - texto: "pela independência do Brasil."
+      erro: "O texto não fala em independência. O conflito é contra uma forma de cobrança."
+    - texto: "pela chegada dos holandeses a Minas."
+      erro: "Os holandeses ocuparam Pernambuco no século XVII. Não estiveram em Minas."
+  explicacao: "As casas de fundição tornavam mais difícil fugir do quinto. A Revolta de Vila Rica, de 1720, foi contra esse controle fiscal; Filipe dos Santos foi enforcado e esquartejado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-08
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-economia-colonial
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Entre o fim do século XIX e o começo do século XX, Manaus ganhou teatro, bondes elétricos e avenidas largas. Nos
+    seringais, a muitos dias de barco, os seringueiros viviam em barracos, devendo ao patrão a comida do mês."
+    (Texto do Instituto Lúcia.)
+  enunciado: "O contraste descrito mostra que a riqueza da borracha"
+  alternativas:
+    - texto: "foi dividida igualmente entre a cidade e os seringais."
+      erro: "O texto mostra o contrário: luxo na cidade, dívida no seringal."
+    - texto: "foi toda investida na saúde dos seringueiros."
+      erro: "O texto fala de teatro e avenidas na cidade, e de barracos no seringal."
+    - texto: "não existiu, porque a borracha nunca foi exportada."
+      erro: "A borracha era exportada para a indústria mundial. O texto descreve justamente a riqueza que ela trouxe."
+    - texto: "se concentrou nas cidades e nas mãos de comerciantes e patrões, enquanto os trabalhadores ficavam presos à dívida."
+      certa: true
+    - texto: "acabou com o trabalho na floresta."
+      erro: "Os seringueiros seguiam trabalhando na floresta, como diz o texto."
+  explicacao: "A riqueza da borracha ficou concentrada: cidades modernizadas e casas comerciais de um lado, seringueiros endividados pelo aviamento do outro. É o padrão da economia de exportação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-09
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-economia-colonial
+  dificuldade: 3
+  enunciado: "Qual alternativa põe em ordem, do mais antigo para o mais recente, o auge destas atividades: café, borracha, açúcar, ouro?"
+  alternativas:
+    - texto: "Ouro, açúcar, café, borracha"
+      erro: "O açúcar (séculos XVI e XVII) vem antes do ouro (século XVIII)."
+    - texto: "Açúcar, café, ouro, borracha"
+      erro: "O ouro (século XVIII) vem antes do café (século XIX)."
+    - texto: "Açúcar, ouro, café, borracha"
+      certa: true
+    - texto: "Café, açúcar, ouro, borracha"
+      erro: "O café é do século XIX, depois do açúcar e do ouro."
+    - texto: "Açúcar, ouro, borracha, café"
+      erro: "O café se expandiu na primeira metade do século XIX; o auge da borracha veio no fim do século e no começo do XX."
+  explicacao: "Açúcar (XVI–XVII), ouro (XVIII), café (XIX) e borracha (fim do XIX e começo do XX). Lembre que as atividades conviviam: a ordem é do auge de cada uma."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-economia-colonial-10
+  tema: "Açúcar, mineração, café e borracha"
+  area: humanas
+  habilidade: 19
+  objeto: hum-producao-economia-colonial
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Falar em ciclos dá a impressão de que o Brasil colonial produziu uma coisa de cada vez. Mas, enquanto o ouro saía
+    de Minas, os engenhos do Nordeste seguiam funcionando, o gado era criado no sertão e no Sul, e roças de mandioca e
+    milho alimentavam vilas e fazendas."
+    (Texto do Instituto Lúcia.)
+  enunciado: "O texto critica a ideia de ciclos econômicos porque ela"
+  alternativas:
+    - texto: "esconde a convivência das atividades e a produção para o mercado interno."
+      certa: true
+    - texto: "exagera a importância do açúcar no século XVIII."
+      erro: "O texto não diz que o açúcar era o mais importante no século XVIII; diz que ele continuava existindo."
+    - texto: "nega que houvesse mineração em Minas Gerais."
+      erro: "O texto confirma a mineração (\"o ouro saía de Minas\")."
+    - texto: "prova que a colônia não exportava nada."
+      erro: "O texto não nega a exportação. Ele acrescenta o que ficava de fora da ideia de ciclos."
+    - texto: "mostra que o gado era o principal produto de exportação."
+      erro: "O texto cita o gado como atividade que convivia com as outras, não como a principal exportação."
+  explicacao: "Os ciclos sugerem uma fila: um produto termina e outro começa. O texto mostra atividades ao mesmo tempo e produção de alimentos para dentro da colônia, que a ideia de ciclo deixa invisível."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

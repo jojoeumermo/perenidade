@@ -71,7 +71,7 @@ pero junta duas ideias que se opõem: "es caro, pero bueno" (é caro, mas é bom
 sino corrige uma negação: "no es caro, sino barato" (não é caro, mas sim barato)
 ```
 
-## Pero e sino: a dupla mais cobrada
+## Pero e sino: uma dupla que confunde
 
 Em português, as duas viram "mas". Em espanhol, são diferentes. O dicionário da RAE (nas fontes) registra *sino* como a conjunção que contrapõe uma ideia afirmativa a outra negada.
 

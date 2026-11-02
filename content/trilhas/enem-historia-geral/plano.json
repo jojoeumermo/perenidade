@@ -1,0 +1,21 @@
+[
+  { "slug": "antiguidade", "titulo": "Antiguidade: Mesopotâmia, Egito, Grécia e Roma" },
+  { "slug": "idade-media", "titulo": "Idade Média, feudalismo e mundo islâmico" },
+  { "slug": "reinos-africanos", "titulo": "Reinos africanos e história dos povos africanos" },
+  { "slug": "renascimento-e-reformas", "titulo": "Renascimento e Reformas" },
+  { "slug": "conquista-da-america", "titulo": "Conquista da América e conflitos com os indígenas" },
+  { "slug": "absolutismo-e-mercantilismo", "titulo": "Absolutismo e mercantilismo" },
+  { "slug": "iluminismo", "titulo": "Iluminismo" },
+  { "slug": "revolucoes-burguesas", "titulo": "Revolução Inglesa, independência dos EUA e Revolução Francesa" },
+  { "slug": "revolucao-industrial", "titulo": "Revolução Industrial" },
+  { "slug": "independencias-na-america-latina", "titulo": "Independências na América Latina" },
+  { "slug": "liberalismo-socialismo-e-anarquismo", "titulo": "Liberalismo, socialismo e anarquismo" },
+  { "slug": "imperialismo", "titulo": "Imperialismo e partilha da África e da Ásia" },
+  { "slug": "guerras-mundiais", "titulo": "Primeira e Segunda Guerras e o Holocausto" },
+  { "slug": "revolucao-russa", "titulo": "Revolução Russa e revoluções do século XX" },
+  { "slug": "crise-de-1929-fascismo-e-nazismo", "titulo": "Crise de 1929, fascismo e nazismo" },
+  { "slug": "guerra-fria", "titulo": "Guerra Fria, descolonização e fim da URSS" },
+  { "slug": "ditaduras-na-america-latina", "titulo": "Ditaduras na América Latina" },
+  { "slug": "mundo-atual", "titulo": "Conflitos contemporâneos e organismos internacionais" },
+  { "slug": "modos-de-producao", "titulo": "Escravismo antigo, feudalismo, capitalismo e socialismo" }
+]

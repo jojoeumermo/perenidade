@@ -1,0 +1,243 @@
+# Exercícios da aula "Equilíbrio químico e Le Chatelier" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-qui-le-chatelier-01
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-le-chatelier
+  dificuldade: 1
+  enunciado: "Uma reação chegou ao equilíbrio químico. Isso quer dizer que"
+  alternativas:
+    - texto: "a reação parou de acontecer."
+      erro: "O equilíbrio é dinâmico: as reações continuam. O que para é a mudança das quantidades."
+    - texto: "todo o reagente virou produto."
+      erro: "No equilíbrio sobram reagentes e produtos juntos. A reação não vai até o fim."
+    - texto: "reagentes e produtos têm sempre a mesma concentração."
+      erro: "As concentrações ficam constantes, não necessariamente iguais. Pode haver muito mais de um lado."
+    - texto: "só a reação inversa continua."
+      erro: "As duas continuam. Se só a inversa seguisse, os produtos acabariam."
+    - texto: "as reações direta e inversa ocorrem com a mesma velocidade."
+      certa: true
+  explicacao: "No equilíbrio, as velocidades direta e inversa se igualam. Uma desfaz o que a outra faz, e as concentrações ficam constantes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-02
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-le-chatelier
+  dificuldade: 1
+  enunciado: "No equilíbrio A + B ⇌ C, retira-se continuamente a substância C. O equilíbrio se desloca"
+  alternativas:
+    - texto: "para a direita, formando mais C."
+      certa: true
+    - texto: "para a esquerda, formando mais A e B."
+      erro: "Quando se tira um produto, o sistema anda para repô-lo. Isso é para a direita."
+    - texto: "para nenhum lado."
+      erro: "Retirar uma substância é uma perturbação. Pelo princípio de Le Chatelier, o equilíbrio responde."
+    - texto: "para a esquerda, e Kc aumenta."
+      erro: "O sentido está trocado. E Kc não muda com a concentração: só com a temperatura."
+    - texto: "para a direita, e Kc diminui."
+      erro: "O sentido está certo, mas Kc não muda ao tirar produto. Só a temperatura muda Kc."
+  explicacao: "O sistema anda para repor o que saiu. Tirar C faz mais A e B reagirem, formando mais C."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-03
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-le-chatelier
+  dificuldade: 1
+  enunciado: "Acrescentar um catalisador a uma reação em equilíbrio"
+  alternativas:
+    - texto: "desloca o equilíbrio para os produtos."
+      erro: "O catalisador acelera as duas reações igualmente. Não favorece um lado."
+    - texto: "desloca o equilíbrio para os reagentes."
+      erro: "O catalisador não favorece nenhum lado: acelera ida e volta na mesma proporção."
+    - texto: "aumenta o valor de Kc."
+      erro: "Kc só muda com a temperatura. O catalisador não altera Kc."
+    - texto: "não desloca o equilíbrio."
+      certa: true
+    - texto: "faz a reação parar."
+      erro: "O catalisador acelera, não para. E num equilíbrio as reações nunca param."
+  explicacao: "O catalisador abaixa a energia de ativação das reações direta e inversa. O equilíbrio chega mais depressa, mas no mesmo lugar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-04
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-le-chatelier
+  dificuldade: 2
+  enunciado: "No equilíbrio 2 SO₂(g) + O₂(g) ⇌ 2 SO₃(g), o que acontece ao aumentar a pressão?"
+  alternativas:
+    - texto: "Desloca para os reagentes, que têm mais mols de gás."
+      erro: "Mais pressão favorece o lado com menos mols de gás, não com mais."
+    - texto: "Desloca para os produtos, que têm menos mols de gás."
+      certa: true
+    - texto: "Não desloca, porque todos são gases."
+      erro: "Ser gás é justamente o que faz a pressão importar. Conte os mols: 3 à esquerda, 2 à direita."
+    - texto: "Desloca para os reagentes, porque a pressão quebra o SO₃."
+      erro: "A pressão não quebra moléculas. Ela favorece o lado que ocupa menos espaço."
+    - texto: "Muda o valor de Kc."
+      erro: "Pressão desloca o equilíbrio, mas Kc continua o mesmo. Só a temperatura muda Kc."
+  explicacao: "Mols de gás: 2 + 1 = 3 à esquerda e 2 à direita. Mais pressão desloca para o lado com menos mols: o do SO₃."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-05
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-le-chatelier
+  dificuldade: 2
+  enunciado: "Uma reação em equilíbrio é exotérmica no sentido direto. Se o sistema for aquecido, o equilíbrio"
+  alternativas:
+    - texto: "vai para os produtos, porque calor acelera tudo."
+      erro: "Calor acelera as duas reações, mas desloca o equilíbrio. Na exotérmica, o calor é \"produto\"."
+    - texto: "não muda, porque temperatura não afeta equilíbrio."
+      erro: "A temperatura é a perturbação que mais afeta: ela muda até o valor de Kc."
+    - texto: "vai para os reagentes, para consumir o calor posto."
+      certa: true
+    - texto: "vai para os produtos, e Kc aumenta."
+      erro: "Na exotérmica, aquecer desloca para os reagentes, e Kc diminui."
+    - texto: "para de reagir."
+      erro: "Aquecer não para a reação. O equilíbrio se desloca e se refaz noutro ponto."
+  explicacao: "Na reação exotérmica, o calor sai como produto. Pôr calor faz o equilíbrio andar para o lado que o consome: o dos reagentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-06
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-le-chatelier
+  dificuldade: 2
+  enunciado: "No equilíbrio N₂O₄(g) ⇌ 2 NO₂(g), [NO₂] = 0,2 mol/L e [N₂O₄] = 0,1 mol/L. O valor de Kc é"
+  alternativas:
+    - texto: "2"
+      erro: "Você esqueceu o expoente. O coeficiente do NO₂ é 2, então ele vai ao quadrado: 0,2² = 0,04."
+    - texto: "0,5"
+      erro: "Você inverteu a fração. Em Kc, os produtos ficam em cima: [NO₂]² ÷ [N₂O₄]."
+    - texto: "4"
+      erro: "Você elevou ao quadrado só o resultado de 0,2 ÷ 0,1. O expoente vai só no [NO₂]."
+    - texto: "0,4"
+      certa: true
+    - texto: "0,04"
+      erro: "0,04 é só o [NO₂]². Falta dividir pelo [N₂O₄] = 0,1."
+  explicacao: "Kc = [NO₂]² ÷ [N₂O₄] = 0,2² ÷ 0,1 = 0,04 ÷ 0,1 = 0,4."
+  conferir: "0.2^2 / 0.1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-07
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-le-chatelier
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num refrigerante fechado existe o equilíbrio CO₂(g) ⇌ CO₂(aq), em que (aq) indica o gás dissolvido. Uma garrafa foi
+    aberta e esquecida sobre a mesa por uma tarde quente.
+  enunciado: "Depois da tarde, o refrigerante está \"sem gás\" porque"
+  alternativas:
+    - texto: "o açúcar consumiu o gás carbônico."
+      erro: "O açúcar não reage com o CO₂ na garrafa. O gás saiu para o ar."
+    - texto: "com a garrafa aberta, o CO₂ gasoso escapou, e o equilíbrio se deslocou para repô-lo, tirando gás do líquido."
+      certa: true
+    - texto: "o calor aumentou a pressão e empurrou o gás para dentro do líquido."
+      erro: "Com a garrafa aberta, a pressão não fica alta. E o calor diminui a quantidade de gás que fica dissolvida."
+    - texto: "o CO₂ dissolvido virou oxigênio."
+      erro: "CO₂ não vira oxigênio sozinho. Ele continua sendo CO₂ e sai para o ar."
+    - texto: "o equilíbrio parou de existir assim que a tampa saiu."
+      erro: "O equilíbrio continua tentando se refazer. É justamente o deslocamento dele que tira o gás do líquido."
+  explicacao: "Sem a tampa, o CO₂(g) escapa sem parar. O equilíbrio anda para o lado do gás para repor o que saiu, e o dissolvido vai embora. O calor piora, porque gases se dissolvem menos em líquido quente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-08
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-le-chatelier
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa aula prática, uma solução amarela de cromato de potássio foi usada para mostrar um equilíbrio:
+    2 CrO₄²⁻ (amarelo) + 2 H⁺ ⇌ Cr₂O₇²⁻ (laranja) + H₂O
+    A professora pingou algumas gotas de ácido na solução.
+  enunciado: "O que os estudantes devem observar?"
+  alternativas:
+    - texto: "A solução fica laranja, porque o H⁺ acrescentado desloca o equilíbrio para o dicromato."
+      certa: true
+    - texto: "A solução fica mais amarela, porque o ácido destrói o dicromato."
+      erro: "O H⁺ está do lado dos reagentes. Acrescentá-lo desloca para os produtos, o lado laranja."
+    - texto: "A solução fica incolor, porque o ácido neutraliza tudo."
+      erro: "Não há neutralização que apague a cor. O equilíbrio só troca o íon amarelo pelo laranja."
+    - texto: "Nada muda, porque o equilíbrio não depende do H⁺."
+      erro: "O H⁺ aparece na equação. Mudar a quantidade dele perturba o equilíbrio."
+    - texto: "A solução fica laranja, porque o ácido é laranja."
+      erro: "Poucas gotas de ácido incolor não mudam a cor sozinhas. A cor vem do dicromato formado."
+  explicacao: "Acrescentar H⁺ (reagente) desloca o equilíbrio para os produtos. Forma-se mais dicromato, Cr₂O₇²⁻, e a cor passa de amarela para laranja."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-09
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-le-chatelier
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num experimento, hidrogênio e iodo, ambos gasosos, reagiram num recipiente fechado até o equilíbrio:
+    H₂(g) + I₂(g) ⇌ 2 HI(g)
+    No equilíbrio, mediu-se [H₂] = 0,1 mol/L, [I₂] = 0,1 mol/L e [HI] = 0,8 mol/L.
+  enunciado: "A constante de equilíbrio Kc, nessa temperatura, é"
+  alternativas:
+    - texto: "8"
+      erro: "Você fez 0,8 ÷ 0,1 e esqueceu o expoente do HI e o [I₂]. Kc = [HI]² ÷ ([H₂] · [I₂])."
+    - texto: "0,64"
+      erro: "Esse é só o [HI]². Falta dividir por [H₂] · [I₂] = 0,01."
+    - texto: "0,016"
+      erro: "Você inverteu a fração. Produtos em cima, reagentes embaixo."
+    - texto: "80"
+      erro: "Você não elevou o [HI] ao quadrado: 0,8 ÷ 0,01 = 80. O coeficiente 2 vira expoente."
+    - texto: "64"
+      certa: true
+  explicacao: "Kc = [HI]² ÷ ([H₂] · [I₂]) = 0,64 ÷ (0,1 × 0,1) = 0,64 ÷ 0,01 = 64. Kc maior que 1: o equilíbrio favorece o HI."
+  conferir: "0.8^2 / (0.1 * 0.1)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-le-chatelier-10
+  tema: "Equilíbrio químico e Le Chatelier"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-le-chatelier
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No sangue, a hemoglobina (Hb) transporta oxigênio num equilíbrio simplificado: Hb + O₂ ⇌ HbO₂. Uma atleta que
+    mora no litoral foi treinar numa cidade a mais de 3.000 m de altitude, onde o ar tem pressão menor e, por isso,
+    menos oxigênio em cada respiração. Nos primeiros dias ela se cansou muito; semanas depois, o cansaço diminuiu.
+  enunciado: "O cansaço inicial se explica porque"
+  alternativas:
+    - texto: "o excesso de oxigênio deslocou o equilíbrio para a hemoglobina livre."
+      erro: "Na altitude há menos oxigênio, não mais."
+    - texto: "a altitude aumentou a temperatura do corpo e quebrou a hemoglobina."
+      erro: "Não é a temperatura. É a menor quantidade de O₂ que muda o equilíbrio."
+    - texto: "com menos O₂, o equilíbrio se deslocou para a esquerda e formou-se menos HbO₂ para levar oxigênio aos músculos."
+      certa: true
+    - texto: "o equilíbrio parou de funcionar na altitude."
+      erro: "O equilíbrio continua; só se desloca. É o deslocamento que explica o cansaço."
+    - texto: "a hemoglobina virou um catalisador e acelerou o cansaço."
+      erro: "A hemoglobina é reagente do equilíbrio, não catalisador. E catalisador não desloca equilíbrios."
+  explicacao: "Menos O₂ (um reagente) desloca o equilíbrio para a esquerda: menos HbO₂, menos oxigênio entregue. Com o tempo, o corpo produz mais hemoglobina, o que ajuda a deslocar de volta para a direita."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

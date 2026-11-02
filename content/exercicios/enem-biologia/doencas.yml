@@ -1,0 +1,242 @@
+# Exercícios da aula "Doenças infecciosas e parasitárias" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+# Fatos de saúde conferidos nas páginas do Ministério da Saúde citadas na aula.
+
+- id: enem-bio-doencas-01
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  dificuldade: 1
+  enunciado: "Na dengue, o mosquito Aedes aegypti é"
+  alternativas:
+    - texto: "o agente causador da doença."
+      erro: "O agente causador é o vírus. O mosquito só o carrega."
+    - texto: "o hospedeiro intermediário, como o caramujo."
+      erro: "Hospedeiro intermediário é onde o parasita passa uma fase da vida, como o caramujo na esquistossomose. Na dengue, o papel do mosquito é levar o vírus."
+    - texto: "o vetor, que transmite o vírus pela picada."
+      certa: true
+    - texto: "uma bactéria que vive na água parada."
+      erro: "O Aedes é um inseto. Bactéria é outra coisa: um ser de uma célula, sem núcleo."
+    - texto: "um remédio natural contra o vírus."
+      erro: "O mosquito transmite a doença. Não tem papel de remédio."
+  explicacao: "O vírus da dengue é o agente; a fêmea do Aedes aegypti é o vetor, que leva o vírus de uma pessoa para outra pela picada. Por isso combater o mosquito corta a transmissão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-02
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  dificuldade: 1
+  enunciado: "Qual destas doenças é transmitida pelo ar, quando a pessoa doente tosse, fala ou espirra?"
+  alternativas:
+    - texto: "Esquistossomose."
+      erro: "A esquistossomose passa pela água doce com larvas que saem do caramujo, não pelo ar."
+    - texto: "Doença de Chagas."
+      erro: "Chagas passa pelo barbeiro, por alimentos contaminados, da mãe para o bebê ou por transfusão. Não pelo ar."
+    - texto: "Leptospirose."
+      erro: "Leptospirose passa pelo contato com água ou lama contaminadas pela urina de ratos."
+    - texto: "Dengue."
+      erro: "Dengue passa pela picada do mosquito, não de pessoa a pessoa pelo ar."
+    - texto: "Tuberculose."
+      certa: true
+  explicacao: "Segundo o Ministério da Saúde, a tuberculose passa pelo ar: a pessoa com a doença ativa no pulmão, sem tratamento, solta partículas ao tossir, falar ou espirrar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-03
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  dificuldade: 1
+  enunciado: "Qual é a principal medida de prevenção da dengue que cada família pode fazer em casa?"
+  alternativas:
+    - texto: "Eliminar recipientes com água parada, onde o mosquito põe ovos."
+      certa: true
+    - texto: "Tomar antibiótico ao primeiro sinal de febre."
+      erro: "A dengue é causada por vírus, e antibiótico só age em bactérias. Além disso, remédio sem orientação pode ser perigoso na dengue."
+    - texto: "Ferver a água de beber."
+      erro: "Ferver a água previne doenças que passam pela água. A dengue passa pela picada do mosquito."
+    - texto: "Usar máscara dentro de casa."
+      erro: "Máscara ajuda contra doenças que passam pelo ar. A dengue não passa assim."
+    - texto: "Evitar contato com cães."
+      erro: "O cão é reservatório da leishmaniose, não da dengue."
+  explicacao: "O Ministério da Saúde orienta eliminar os criadouros do mosquito: recipientes que acumulam água, caixas-d'água destampadas, calhas e ralos entupidos. Sem criadouro, menos mosquito e menos transmissão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-04
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num povoado às margens de um rio, muitas pessoas têm esquistossomose. O esgoto das casas vai direto para o rio, onde
+    as crianças nadam e as mulheres lavam roupa. Técnicos encontraram caramujos infectados perto das margens.
+  enunciado: "A medida que quebra o ciclo da doença de forma mais duradoura é"
+  alternativas:
+    - texto: "distribuir repelente para as crianças que nadam no rio."
+      erro: "Repelente afasta insetos. Na esquistossomose não há inseto: a larva sai do caramujo e entra pela pele na água."
+    - texto: "construir rede de esgoto ou fossas adequadas, para que as fezes não cheguem ao rio."
+      certa: true
+    - texto: "vacinar toda a população contra a doença."
+      erro: "Não há vacina contra a esquistossomose na rotina do SUS. A prevenção passa pelo saneamento."
+    - texto: "isolar as pessoas doentes em casa, porque a doença passa pelo contato."
+      erro: "O Ministério da Saúde informa que a doença não passa por contato direto com a pessoa doente."
+    - texto: "matar os mosquitos do povoado com fumacê."
+      erro: "Mosquito não participa desse ciclo. O caminho é fezes, água, caramujo, água, pele."
+  explicacao: "Os ovos do verme saem nas fezes humanas e, na água doce, infectam os caramujos. Sem fezes no rio, o caramujo não se infecta e o ciclo para. O Ministério da Saúde cita o saneamento básico entre as medidas de prevenção."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-05
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-doencas
+  dificuldade: 2
+  enunciado: "Na doença de Chagas transmitida pelo barbeiro, como o parasita chega ao corpo da pessoa?"
+  alternativas:
+    - texto: "Pela saliva do inseto, injetada na picada."
+      erro: "No caso do barbeiro, o parasita não vem na saliva. Ele sai nas fezes do inseto, perto da picada."
+    - texto: "Pelo ar que o inseto solta ao voar."
+      erro: "Chagas não passa pelo ar."
+    - texto: "Pelo contato com a urina de ratos."
+      erro: "Urina de rato é o caminho da leptospirose, não de Chagas."
+    - texto: "Pelas fezes do inseto infectado, que entram pela ferida da picada ou pela mucosa."
+      certa: true
+    - texto: "Pela água do rio onde o inseto põe ovos."
+      erro: "O barbeiro vive em frestas de casas e em matas, não na água. A transmissão pelo inseto acontece pelas fezes dele."
+  explicacao: "O Ministério da Saúde descreve a transmissão vetorial assim: as fezes do barbeiro infectado entram em feridas ou mucosas depois da picada. Por isso não se deve esmagar o barbeiro com a mão: ele deve ser levado a um posto de informação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-06
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  dificuldade: 2
+  enunciado: "Uma pessoa com tuberculose pergunta se precisa separar pratos, copos e talheres em casa. Segundo o Ministério da Saúde, a resposta é que"
+  alternativas:
+    - texto: "não é preciso, porque objetos compartilhados não transmitem a doença; o cuidado é com o ar, enquanto ela não começar o tratamento."
+      certa: true
+    - texto: "é preciso, porque a bactéria vive nos talheres por meses."
+      erro: "O Ministério da Saúde informa que objetos compartilhados não transmitem a tuberculose."
+    - texto: "é preciso jogar fora tudo o que a pessoa usou."
+      erro: "Não há essa necessidade. A transmissão é pelo ar."
+    - texto: "não é preciso, porque a tuberculose passa só pela picada de mosquito."
+      erro: "Tuberculose não tem vetor. Ela passa pelo ar, de pessoa a pessoa."
+    - texto: "é preciso, porque a doença passa pela água de lavar louça."
+      erro: "A tuberculose não passa pela água. Passa pelo ar."
+  explicacao: "A tuberculose passa por partículas no ar, soltas pela pessoa com a doença ativa no pulmão. Objetos não transmitem. Ambiente arejado e o começo do tratamento são as medidas que importam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-07
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa cidade do interior, a vigilância em saúde encontrou cães com leishmaniose visceral em vários bairros. Ao mesmo
+    tempo, apareceram casos da doença em pessoas. Os agentes de saúde explicaram que a doença é causada por um
+    protozoário e passa pela picada de um inseto pequeno, o mosquito-palha.
+  enunciado: "Nesse contexto, os cães infectados são importantes porque"
+  alternativas:
+    - texto: "transmitem a doença às pessoas pela mordida."
+      erro: "A transmissão descrita é pela picada do mosquito-palha, não pela mordida do cão."
+    - texto: "são o agente causador da doença."
+      erro: "O agente é o protozoário. O cão é um animal que o abriga."
+    - texto: "são o vetor da doença."
+      erro: "O vetor é o mosquito-palha, que leva o parasita pela picada."
+    - texto: "produzem a vacina natural contra o protozoário."
+      erro: "Cães infectados não protegem ninguém. Eles mantêm o parasita circulando."
+    - texto: "são o principal reservatório urbano: o mosquito pica o cão infectado e depois pode picar uma pessoa."
+      certa: true
+  explicacao: "O Ministério da Saúde aponta o cão como o principal reservatório da leishmaniose visceral nas cidades. O mosquito-palha se infecta ao picar o cão doente e pode passar o protozoário a uma pessoa. Por isso a vigilância examina os cães."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-08
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma campanha de saúde distribuiu cinco cartazes, cada um com uma doença e uma medida de prevenção:
+    (1) dengue: eliminar água parada; (2) leptospirose: evitar água e lama de enchentes; (3) tuberculose: tomar o
+    antibiótico só até a tosse passar; (4) esquistossomose: saneamento básico; (5) doença de Chagas: lavar bem frutas e
+    verduras e manter barbeiros longe de casa.
+  enunciado: "O cartaz com orientação errada, que deve ser corrigido, é o"
+  alternativas:
+    - texto: "1."
+      erro: "Eliminar água parada é a principal medida contra o mosquito da dengue. A orientação está certa."
+    - texto: "2."
+      erro: "Evitar água e lama de enchentes é orientação do Ministério da Saúde contra a leptospirose."
+    - texto: "3."
+      certa: true
+    - texto: "4."
+      erro: "O saneamento básico impede que as fezes cheguem à água e quebra o ciclo da esquistossomose."
+    - texto: "5."
+      erro: "Chagas passa também pela boca, por alimentos contaminados, e pelo barbeiro. As duas medidas estão certas."
+  explicacao: "O tratamento da tuberculose dura no mínimo seis meses, segundo o Ministério da Saúde. Parar quando a tosse passa deixa bactérias vivas, que podem voltar e ficar resistentes. O cartaz 3 deve dizer: tome o remédio até o fim, como a equipe de saúde orientar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-09
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Depois de uma enchente, uma família limpou a casa descalça e sem luvas. Dez dias depois, o pai teve febre alta, dor de
+    cabeça e dor forte nas panturrilhas. No posto, a médica perguntou sobre a enchente antes de qualquer outra coisa.
+  enunciado: "A pergunta da médica faz sentido porque"
+  alternativas:
+    - texto: "a enchente traz o mosquito da dengue, que pica dentro da água."
+      erro: "O mosquito põe ovos em água parada, mas não pica dentro da enchente. E os sinais e o contato com a lama apontam para outra doença."
+    - texto: "a água da enchente transmite tuberculose pela pele."
+      erro: "Tuberculose passa pelo ar, de pessoa a pessoa. Não passa pela água."
+    - texto: "a enchente traz caramujos que transmitem Chagas."
+      erro: "Chagas tem o barbeiro como vetor. Caramujo é o hospedeiro da esquistossomose."
+    - texto: "o contato com água e lama contaminadas pela urina de ratos pode transmitir a leptospirose, cujos sintomas costumam aparecer de 7 a 14 dias depois."
+      certa: true
+    - texto: "a água fria da enchente causa febre por resfriamento do corpo."
+      erro: "Febre é resposta a uma infecção, não ao frio da água. A pergunta busca a exposição a um agente."
+  explicacao: "A leptospirose é causada por uma bactéria eliminada na urina de ratos e espalhada pelas enchentes. Ela entra por feridas, mucosas ou pela pele que fica muito tempo molhada. O Ministério da Saúde descreve dor muscular principalmente na panturrilha e sintomas que costumam surgir de 7 a 14 dias depois da exposição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-doencas-10
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-doencas
+  dificuldade: 3
+  enunciado: "Um estudante monta uma tabela com o tipo de agente de cada doença. Qual linha está toda correta?"
+  alternativas:
+    - texto: "Dengue: bactéria. Tuberculose: vírus. Chagas: verme."
+      erro: "Dengue é vírus, tuberculose é bactéria e Chagas é protozoário. Os três estão trocados."
+    - texto: "Dengue: vírus. Tuberculose: bactéria. Chagas: protozoário. Esquistossomose: verme."
+      certa: true
+    - texto: "Leptospirose: vírus. Esquistossomose: bactéria. Leishmaniose: fungo."
+      erro: "Leptospirose é bactéria, esquistossomose é verme e leishmaniose é protozoário."
+    - texto: "Dengue: protozoário. Leptospirose: verme. Tuberculose: fungo."
+      erro: "Dengue é vírus, leptospirose é bactéria e tuberculose é bactéria."
+    - texto: "Chagas: vírus. Leishmaniose: bactéria. Dengue: verme."
+      erro: "Chagas e leishmaniose são protozoários; dengue é vírus."
+  explicacao: "Segundo o Ministério da Saúde: dengue, vírus; tuberculose, bactéria (Mycobacterium tuberculosis); doença de Chagas, protozoário (Trypanosoma cruzi); esquistossomose, verme (Schistosoma mansoni). Saber o tipo de agente ajuda a escolher o tratamento: antibiótico só serve para bactéria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
