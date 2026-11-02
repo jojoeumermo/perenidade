@@ -1,0 +1,283 @@
+# Exercícios da aula "Gráficos de barras, colunas, linhas e setores" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Cada gráfico vem com a tabela dos valores ou a descrição em texto.
+
+- id: enem-mat-graficos-01
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-graficos
+  dificuldade: 1
+  texto_base: |
+    Um gráfico de colunas mostra quantas toneladas de material reciclável uma cooperativa recolheu em cada bairro
+    num mês. Os topos das colunas marcam: Vila Esperança, 12; Vila Nova, 18; Centro, 9; Jardim das Flores, 15.
+  enunciado: "Quantas toneladas a mais o bairro com a maior coleta recolheu em relação ao bairro com a menor?"
+  alternativas:
+    - texto: "9 toneladas"
+      certa: true
+    - texto: "27 toneladas"
+      erro: "Você somou as duas colunas (18 + 9). A pergunta é quanto um recolheu a mais que o outro: é uma subtração."
+    - texto: "18 toneladas"
+      erro: "18 é a coleta da Vila Nova, a maior. Falta comparar com a menor, a do Centro: 18 − 9."
+    - texto: "6 toneladas"
+      erro: "Você comparou a Vila Nova com a Vila Esperança (18 − 12). A menor coleta é a do Centro, 9."
+    - texto: "2 toneladas"
+      erro: "Você dividiu 18 por 9: a Vila Nova recolheu o dobro do Centro. A pergunta pede quantas toneladas a mais, que é a diferença."
+  explicacao: "A coluna mais alta é a da Vila Nova (18 t) e a mais baixa, a do Centro (9 t). A diferença é 18 − 9 = 9 toneladas."
+  conferir: "18 - 9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-02
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-graficos
+  dificuldade: 1
+  enunciado: "Num gráfico de setores sobre como os estudantes de uma escola chegam até ela, a fatia do ônibus representa 45% do total. Qual é o ângulo dessa fatia?"
+  alternativas:
+    - texto: "45°"
+      erro: "Você usou a porcentagem como se fosse o ângulo. O círculo tem 360°, não 100°: calcule 45% de 360."
+    - texto: "162°"
+      certa: true
+    - texto: "81°"
+      erro: "Você calculou 45% de 180°, que é meio círculo. O círculo inteiro tem 360°."
+    - texto: "16,2°"
+      erro: "Sobrou uma divisão por 10. 10% de 360 é 36; 45% é 4,5 × 36 = 162."
+    - texto: "315°"
+      erro: "Você subtraiu 45 de 360. O ângulo é a fração do círculo: 0,45 × 360."
+  explicacao: "O ângulo é a mesma fração do círculo que a parte é do total: 0,45 × 360° = 162°. De cabeça: 10% é 36°, 40% é 144°, 5% é 18°; 144 + 18 = 162."
+  conferir: "0.45 * 360"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-03
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-graficos
+  dificuldade: 1
+  texto_base: |
+    Um gráfico de linha mostra o preço do botijão de gás numa revenda, de janeiro a maio. Os pontos marcam:
+    janeiro, R$ 105; fevereiro, R$ 110; março, R$ 118; abril, R$ 116; maio, R$ 125.
+  enunciado: "Em que mês o preço caiu em relação ao mês anterior?"
+  alternativas:
+    - texto: "Fevereiro"
+      erro: "Em fevereiro o preço foi de 105 para 110: subiu. Procure o trecho em que a linha desce."
+    - texto: "Março"
+      erro: "Em março o preço foi de 110 para 118: foi a subida mais forte até ali, não uma queda."
+    - texto: "Abril"
+      certa: true
+    - texto: "Maio"
+      erro: "Em maio o preço foi de 116 para 125: subiu. Compare cada mês com o anterior, não com o primeiro."
+    - texto: "Em nenhum mês"
+      erro: "De março (118) para abril (116) a linha desce 2 reais. É a única queda do período."
+  explicacao: "Compare cada mês com o anterior: fevereiro +5, março +8, abril −2, maio +9. Só em abril a linha desce."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-04
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-graficos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um gráfico de colunas agrupadas mostra as matrículas numa escola de jovens e adultos, por turno, em dois anos.
+    Os valores das colunas são estes:
+
+    Manhã: 40 em 2023 e 30 em 2024.
+    Tarde: 25 em 2023 e 20 em 2024.
+    Noite: 135 em 2023 e 150 em 2024.
+  enunciado: "Em 2024, que porcentagem das matrículas da escola foi no turno da noite?"
+  alternativas:
+    - texto: "67,5%"
+      erro: "67,5% é a parte da noite em 2023 (135 de 200). Leia a coluna de 2024: 150 de 200."
+    - texto: "150%"
+      erro: "150 é o número de matrículas da noite em 2024, não a porcentagem. Divida pelo total do ano."
+    - texto: "11,1%"
+      erro: "Esse é o crescimento da noite de um ano para o outro ((150 − 135) ÷ 135). A pergunta é a parte da noite no total de 2024."
+    - texto: "75%"
+      certa: true
+    - texto: "37,5%"
+      erro: "Você dividiu 150 pelo total dos dois anos juntos (400). A pergunta é só sobre 2024: o total é 30 + 20 + 150 = 200."
+  explicacao: "Total de 2024: 30 + 20 + 150 = 200 matrículas. A noite teve 150. 150 ÷ 200 = 0,75 = 75%."
+  conferir: "150 / (30 + 20 + 150) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-05
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-graficos
+  dificuldade: 2
+  enunciado: "Num gráfico de linha, uma cozinha solidária mostrou que atendeu 80 famílias em março e 100 famílias em abril. De quanto foi o aumento percentual de março para abril?"
+  alternativas:
+    - texto: "20%"
+      erro: "Você dividiu o aumento (20) pelo valor novo (100). A variação se calcula sobre o valor de partida: 20 ÷ 80."
+    - texto: "20 famílias"
+      erro: "20 famílias é o aumento absoluto. A pergunta pede o aumento em porcentagem: divida por 80."
+    - texto: "125%"
+      erro: "125% é a razão entre abril e março (100 ÷ 80): abril é 125% de março. O aumento é o que passa de 100%, ou seja, 25%."
+    - texto: "80%"
+      erro: "80% é quanto março representa de abril (80 ÷ 100). A variação é (novo − antigo) ÷ antigo."
+    - texto: "25%"
+      certa: true
+  explicacao: "A variação percentual é (novo − antigo) ÷ antigo: (100 − 80) ÷ 80 = 20 ÷ 80 = 0,25 = 25%."
+  conferir: "(100 - 80) / 80 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-06
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 26
+  objeto: mat-estatistica-graficos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um panfleto mostra um gráfico de colunas com o número de leitos de um hospital público: 92 leitos em 2023 e
+    96 leitos em 2024. O eixo vertical do gráfico começa em 90 e vai até 100. Por isso, a coluna de 2023 sobe 2
+    marcas e a de 2024 sobe 6 marcas. O panfleto diz: "Triplicamos os leitos!".
+  enunciado: "Com base nos números do gráfico, a conclusão correta é que"
+  alternativas:
+    - texto: "o número de leitos cresceu 4, menos de 5% em relação a 2023, e o eixo começando em 90 exagera a diferença no desenho."
+      certa: true
+    - texto: "o número de leitos triplicou, porque a coluna de 2024 é três vezes mais alta."
+      erro: "A altura da coluna só mede a partir de 90. Com o eixo começando em zero, as colunas de 92 e 96 ficariam quase iguais."
+    - texto: "o número de leitos dobrou, porque passou de 2 para 6 marcas, que é mais que o dobro."
+      erro: "As marcas contam a partir de 90, não de zero. Leia os números: 92 e 96."
+    - texto: "o número de leitos cresceu 40%, porque o eixo vai de 90 a 100."
+      erro: "A escala do eixo não é o crescimento. O aumento foi de 4 leitos sobre 92: cerca de 4,3%."
+    - texto: "não é possível saber o número de leitos, porque o eixo não começa em zero."
+      erro: "Os valores podem ser lidos no eixo: 92 e 96. Eixo cortado não esconde o valor, só muda o tamanho do desenho."
+  explicacao: "O aumento foi de 96 − 92 = 4 leitos. Em relação a 92, isso é 4 ÷ 92, perto de 0,043, ou 4,3%. As colunas parecem triplicar só porque o eixo começa em 90."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-07
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-graficos
+  dificuldade: 2
+  enunciado: "Uma associação de moradores ouviu 240 pessoas e mostrou as respostas num gráfico de setores. A fatia das pessoas que pedem mais linhas de ônibus tem 75°. Quantas pessoas deram essa resposta?"
+  alternativas:
+    - texto: "75"
+      erro: "Você usou o ângulo como se fosse o número de pessoas. Primeiro ache a fração do círculo: 75 ÷ 360."
+    - texto: "20,8"
+      erro: "Perto de 20,8% é a porcentagem da fatia (75 ÷ 360). A pergunta pede o número de pessoas: aplique essa fração a 240."
+    - texto: "50"
+      certa: true
+    - texto: "120"
+      erro: "120 é a metade das 240 pessoas, que seria uma fatia de 180°. A fatia tem 75°."
+    - texto: "165"
+      erro: "Você subtraiu 75 de 240. Graus e pessoas são coisas diferentes: use a fração do círculo."
+  explicacao: "A fatia ocupa 75 ÷ 360 do círculo. Simplifique: 75/360 = 5/24. Então são 5/24 de 240 = 240 ÷ 24 × 5 = 10 × 5 = 50 pessoas."
+  conferir: "75 / 360 * 240"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-08
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 24
+  objeto: mat-estatistica-graficos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um gráfico com duas linhas mostra a receita e a despesa de uma cooperativa de costureiras, em milhares de
+    reais, de janeiro a junho. Os pontos são os da lista abaixo. A linha da receita começa abaixo da linha da despesa,
+    cruza-a em março, volta a ficar abaixo em abril e fica acima em maio e junho.
+
+    Receita: jan 12; fev 13; mar 15; abr 14; mai 17; jun 18.
+    Despesa: jan 14; fev 14; mar 14; abr 15; mai 15; jun 16.
+  enunciado: "Em quantos desses meses a receita foi maior que a despesa?"
+  alternativas:
+    - texto: "2"
+      erro: "Você contou só maio e junho. Em março a receita (15) também passou da despesa (14), mesmo que em abril tenha voltado a ficar abaixo."
+    - texto: "4"
+      erro: "4 é o número de meses em que a receita subiu em relação ao mês anterior. A pergunta compara receita com despesa no mesmo mês."
+    - texto: "1"
+      erro: "1 é só o mês em que as linhas se cruzaram pela primeira vez. Olhe todos os meses em que a linha da receita está acima."
+    - texto: "3"
+      certa: true
+    - texto: "0"
+      erro: "Compare as duas linhas mês a mês: em março, maio e junho a receita está acima da despesa."
+  explicacao: "Compare mês a mês: janeiro 12 < 14; fevereiro 13 < 14; março 15 > 14; abril 14 < 15; maio 17 > 15; junho 18 > 16. São 3 meses: março, maio e junho."
+  conferir: "1 + 1 + 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-09
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 25
+  objeto: mat-estatistica-graficos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma pesquisa ouviu moradores de dois bairros sobre o transporte que usam para trabalhar. O resultado foi
+    mostrado em dois gráficos de setores, um por bairro.
+
+    Bairro X: pessoas ouvidas 300; usam ônibus 40%.
+    Bairro Y: pessoas ouvidas 200; usam ônibus 65%.
+  enunciado: "Juntando os dois bairros, a porcentagem das pessoas ouvidas que usam ônibus é"
+  alternativas:
+    - texto: "52,5%"
+      erro: "Você fez a média simples das duas porcentagens ((40 + 65) ÷ 2). Os bairros têm tamanhos diferentes: transforme cada porcentagem em pessoas."
+    - texto: "250%"
+      erro: "250 é o número de pessoas que usam ônibus, não a porcentagem. Divida pelo total de 500."
+    - texto: "105%"
+      erro: "Você somou as porcentagens. Uma parte de um todo não passa de 100%: some as pessoas, não as porcentagens."
+    - texto: "40%"
+      erro: "40% vale só para o Bairro X. O Bairro Y tem uma parte maior de quem usa ônibus e puxa o total para cima."
+    - texto: "50%"
+      certa: true
+  explicacao: "Bairro X: 40% de 300 = 120 pessoas. Bairro Y: 65% de 200 = 130 pessoas. Juntos: 250 de 500 pessoas, ou 250 ÷ 500 = 50%."
+  conferir: "(300 * 0.40 + 200 * 0.65) / 500 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-graficos-10
+  tema: "Gráficos de barras, colunas, linhas e setores"
+  area: matematica
+  competencia: 6
+  habilidade: 26
+  objeto: mat-estatistica-graficos
+  dificuldade: 3
+  texto_base: |
+    Um gráfico de colunas agrupadas compara, em quatro bairros, as vagas de creche pedidas pelas famílias e as
+    vagas oferecidas pela prefeitura.
+
+    Bairro 1: vagas pedidas 100; vagas oferecidas 60.
+    Bairro 2: vagas pedidas 80; vagas oferecidas 72.
+    Bairro 3: vagas pedidas 200; vagas oferecidas 150.
+    Bairro 4: vagas pedidas 60; vagas oferecidas 54.
+  enunciado: "O movimento de mães quer mostrar o bairro em que a menor parte dos pedidos foi atendida. Que bairro é esse?"
+  alternativas:
+    - texto: "Bairro 3, onde faltam mais vagas"
+      erro: "No Bairro 3 faltam 50 vagas, o maior número. Mas 150 de 200 é 75% atendido. A pergunta é sobre a parte atendida: divida oferecidas por pedidas."
+    - texto: "Bairro 1"
+      certa: true
+      valor: "60"
+    - texto: "Bairro 2"
+      erro: "No Bairro 2, 72 de 80 vagas foram oferecidas: 90%. É um dos mais bem atendidos."
+    - texto: "Bairro 4, onde há menos vagas"
+      erro: "O Bairro 4 tem menos vagas porque pede menos. 54 de 60 é 90% atendido."
+    - texto: "Bairros 2 e 4, empatados"
+      erro: "Os Bairros 2 e 4 empatam com 90%, mas é a maior parte atendida, não a menor. Você leu a comparação ao contrário."
+  explicacao: "Divida as vagas oferecidas pelas pedidas: Bairro 1, 60 ÷ 100 = 60%; Bairro 2, 72 ÷ 80 = 90%; Bairro 3, 150 ÷ 200 = 75%; Bairro 4, 54 ÷ 60 = 90%. A menor parte atendida é a do Bairro 1, com 60%."
+  conferir: "60 / 100 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

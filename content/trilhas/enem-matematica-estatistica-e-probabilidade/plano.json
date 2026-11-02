@@ -1,0 +1,13 @@
+[
+  { "slug": "leitura-de-tabelas", "titulo": "Leitura de tabelas" },
+  { "slug": "graficos-de-barras-linhas-e-setores", "titulo": "Gráficos de barras, colunas, linhas e setores" },
+  { "slug": "histogramas-e-infograficos", "titulo": "Histogramas e infográficos" },
+  { "slug": "media-mediana-e-moda", "titulo": "Média, mediana e moda" },
+  { "slug": "media-ponderada", "titulo": "Média ponderada" },
+  { "slug": "amplitude-variancia-e-desvio-padrao", "titulo": "Amplitude, variância e desvio padrão" },
+  { "slug": "principio-fundamental-da-contagem", "titulo": "Princípio fundamental da contagem" },
+  { "slug": "permutacoes-arranjos-e-combinacoes", "titulo": "Permutações, arranjos e combinações" },
+  { "slug": "probabilidade-simples", "titulo": "Probabilidade simples" },
+  { "slug": "uniao-complementar-e-probabilidade-condicional", "titulo": "União, complementar e probabilidade condicional" },
+  { "slug": "eventos-independentes", "titulo": "Eventos independentes" }
+]

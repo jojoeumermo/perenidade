@@ -1,0 +1,263 @@
+# Exercícios da aula "União, complementar e probabilidade condicional" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-prob-condicional-01
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  dificuldade: 1
+  enunciado: "Uma rifa para ajudar a reformar a quadra do bairro tem 200 números, e só um será sorteado. Você comprou 8 números. Qual é a probabilidade de você não ganhar?"
+  alternativas:
+    - texto: "96%"
+      certa: true
+    - texto: "4%"
+      erro: "4% é a chance de ganhar (8 em 200). A pergunta é a de não ganhar: o complementar, 100% − 4%."
+    - texto: "8%"
+      erro: "8 é a quantidade de números que você tem, não a porcentagem. Divida pelos 200 números da rifa."
+    - texto: "92%"
+      erro: "Você fez 100 − 8. Mas os 8 números são de 200, não de 100: a chance de ganhar é 8 ÷ 200 = 4%."
+    - texto: "192%"
+      erro: "192 é a quantidade de números que não são seus. Divida por 200: probabilidade nunca passa de 100%."
+  explicacao: "Não ganhar é o complementar de ganhar. P(ganhar) = 8 ÷ 200 = 4%. P(não ganhar) = 100% − 4% = 96%. Contando: 192 números não são seus, e 192 ÷ 200 = 96%."
+  conferir: "(200 - 8) / 200 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-02
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  dificuldade: 1
+  enunciado: "Numa caixa há 5 bolas vermelhas, 3 azuis e 2 verdes. Uma bola é tirada ao acaso. Qual é a probabilidade de ela ser vermelha ou verde?"
+  alternativas:
+    - texto: "1/2"
+      erro: "1/2 é só a chance da vermelha (5 em 10). \"Vermelha ou verde\" junta as duas cores."
+    - texto: "7/10"
+      certa: true
+    - texto: "1/5"
+      erro: "1/5 é só a chance da verde (2 em 10). Falta juntar as vermelhas."
+    - texto: "3/10"
+      erro: "3/10 é a chance da azul, o complementar do que se pede. Você chegou lá pelo caminho certo, mas parou um passo antes: 1 − 3/10."
+    - texto: "1/10"
+      erro: "Você multiplicou 5/10 por 2/10. Multiplicar serve para \"e\" (uma coisa e depois outra). Para \"ou\" com eventos sem nada em comum, some."
+  explicacao: "Uma bola não pode ser vermelha e verde ao mesmo tempo, então basta somar: 5/10 + 2/10 = 7/10. Pelo complementar: só a azul fica de fora, 1 − 3/10 = 7/10."
+  conferir: "(5 + 2) / 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-03
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  dificuldade: 1
+  enunciado: "Um dado comum foi lançado e alguém conta que saiu um número par. Sabendo disso, qual é a probabilidade de o número ser maior que 3?"
+  alternativas:
+    - texto: "1/2"
+      erro: "1/2 é a chance de sair maior que 3 sem nenhuma informação (4, 5 ou 6 em 6). Sabendo que saiu par, o grupo encolhe para 2, 4 e 6."
+    - texto: "1/3"
+      erro: "1/3 é a chance de sair par e maior que 3 entre os 6 números (4 e 6). Mas já se sabe que saiu par: divida pelos 3 pares."
+    - texto: "2/3"
+      certa: true
+    - texto: "1/6"
+      erro: "Você contou só o 6. O 4 também é par e maior que 3."
+    - texto: "1/4"
+      erro: "Você multiplicou 1/2 por 1/2. A informação \"saiu par\" não se multiplica: ela troca o grupo de casos possíveis."
+  explicacao: "Sabendo que saiu par, os casos possíveis são 2, 4 e 6. Desses, maiores que 3 são 4 e 6. P = 2/3."
+  conferir: "2 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-04
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma pesquisa ouviu 120 moradores de uma comunidade sobre os serviços públicos de saúde que eles usam. Do total,
+    70 usam o posto de saúde, 50 usam a farmácia popular e 30 usam os dois serviços.
+  enunciado: "Escolhendo ao acaso um dos moradores ouvidos, a probabilidade de ele usar pelo menos um desses dois serviços é"
+  alternativas:
+    - texto: "100%"
+      erro: "Você somou 70 + 50 = 120 e esqueceu que 30 pessoas foram contadas duas vezes, uma em cada serviço. Tire esses 30 uma vez."
+    - texto: "25%"
+      erro: "25% é a chance de não usar nenhum dos dois (30 de 120). A pergunta é o contrário: pelo menos um."
+    - texto: "58,3%"
+      erro: "Perto de 58,3% é só a chance de usar o posto (70 de 120). \"Pelo menos um\" inclui também quem usa só a farmácia."
+    - texto: "75%"
+      certa: true
+    - texto: "41,7%"
+      erro: "Perto de 41,7% é só a chance de usar a farmácia (50 de 120). Falta juntar quem usa o posto."
+  explicacao: "Usam pelo menos um: 70 + 50 − 30 = 90 moradores (os 30 que usam os dois foram contados duas vezes). P = 90 ÷ 120 = 0,75 = 75%."
+  conferir: "(70 + 50 - 30) / 120 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-05
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  dificuldade: 2
+  texto_base: |
+    Numa turma de 60 estudantes há 25 meninas e 35 meninos. Usam óculos 10 meninas e 5 meninos.
+  enunciado: "Escolhendo ao acaso um estudante que usa óculos, qual é a probabilidade de ser uma menina?"
+  alternativas:
+    - texto: "2/5"
+      erro: "2/5 é 10 ÷ 25: a chance de usar óculos entre as meninas. A pergunta é ao contrário: entre quem usa óculos, quantas são meninas."
+    - texto: "1/6"
+      erro: "1/6 é 10 ÷ 60: você dividiu pela turma toda. A informação \"usa óculos\" encolhe o grupo para 15."
+    - texto: "1/4"
+      erro: "1/4 é 15 ÷ 60, a chance de alguém da turma usar óculos. Falta olhar só para esse grupo e contar as meninas."
+    - texto: "5/12"
+      erro: "5/12 é 25 ÷ 60, a parte de meninas na turma toda, sem olhar os óculos."
+    - texto: "2/3"
+      certa: true
+  explicacao: "Usam óculos 10 + 5 = 15 estudantes. Desses, 10 são meninas. P = 10/15 = 2/3."
+  conferir: "10 / 15"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-06
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um levantamento feito por moradores mostrou que o ônibus de uma linha atrasa em 20% das viagens. Considere que o
+    atraso de uma viagem não influencia o de outra. Uma trabalhadora pega esse ônibus duas vezes por dia, na ida e
+    na volta.
+  enunciado: "A probabilidade de ela pegar pelo menos um ônibus atrasado num dia é"
+  alternativas:
+    - texto: "36%"
+      certa: true
+    - texto: "40%"
+      erro: "Você somou 20% + 20%. Assim, o caso de atrasar nas duas viagens fica contado duas vezes. Use o complementar: 1 menos nenhum atraso."
+    - texto: "4%"
+      erro: "4% é a chance de atrasar nas duas viagens (0,2 × 0,2). \"Pelo menos um\" inclui também atrasar só na ida ou só na volta."
+    - texto: "64%"
+      erro: "64% é a chance de nenhum atraso (0,8 × 0,8). A pergunta é o complementar disso."
+    - texto: "32%"
+      erro: "32% é a chance de exatamente um atraso (só na ida ou só na volta). Falta somar o caso dos dois atrasos, 4%."
+  explicacao: "O contrário de \"pelo menos um atraso\" é \"nenhum atraso\": 0,8 × 0,8 = 0,64. Então P = 1 − 0,64 = 0,36 = 36%."
+  conferir: "(1 - 0.8 * 0.8) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-07
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  dificuldade: 2
+  enunciado: "Num bingo da associação, as fichas vão de 1 a 30. Uma ficha é sorteada. Qual é a probabilidade de sair um múltiplo de 3 ou um múltiplo de 5?"
+  alternativas:
+    - texto: "8/15"
+      erro: "Você somou 10 múltiplos de 3 e 6 múltiplos de 5 (16 em 30). O 15 e o 30 são múltiplos dos dois e foram contados duas vezes."
+    - texto: "1/15"
+      erro: "1/15 é a chance de sair um múltiplo de 3 e de 5 ao mesmo tempo (15 ou 30). A pergunta é \"ou\": um, outro ou os dois."
+    - texto: "7/15"
+      certa: true
+    - texto: "1/3"
+      erro: "1/3 é só a chance de um múltiplo de 3 (10 em 30). Falta juntar os múltiplos de 5 que não são múltiplos de 3."
+    - texto: "1/5"
+      erro: "1/5 é só a chance de um múltiplo de 5 (6 em 30). Falta juntar os múltiplos de 3."
+  explicacao: "Múltiplos de 3 de 1 a 30: 10. Múltiplos de 5: 6. Múltiplos dos dois (de 15): 15 e 30, ou seja, 2. União: 10 + 6 − 2 = 14. P = 14/30 = 7/15."
+  conferir: "(10 + 6 - 2) / 30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-08
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 29
+  objeto: mat-estatistica-probabilidade-condicional
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um teste rápido para uma doença tem estas características (valores de exemplo): ele dá positivo em 90% das
+    pessoas doentes e, por engano, em 5% das pessoas saudáveis. Numa cidade, 2% da população tem essa doença.
+    Considere um grupo de 1.000 pessoas dessa cidade, todas testadas.
+  enunciado: "Uma pessoa desse grupo teve resultado positivo. A probabilidade de ela estar de fato doente é"
+  alternativas:
+    - texto: "90%"
+      erro: "90% é a chance de dar positivo entre os doentes. A pergunta é ao contrário: entre os positivos, quantos estão doentes."
+    - texto: "95%"
+      erro: "95% é a chance de o teste dar negativo numa pessoa saudável. A pergunta é sobre quem teve positivo."
+    - texto: "2%"
+      erro: "2% é a parte de doentes na cidade inteira, antes do teste. O resultado positivo muda o grupo que se olha."
+    - texto: "Cerca de 27%"
+      certa: true
+      valor: "1800/67"
+    - texto: "Cerca de 6,7%"
+      erro: "Perto de 6,7% é a parte do grupo que teve positivo (67 de 1.000). Falta ver, entre esses 67, quantos estão doentes."
+  explicacao: "Doentes: 2% de 1.000 = 20; positivos entre eles: 90% de 20 = 18. Saudáveis: 980; positivos por engano: 5% de 980 = 49. Positivos ao todo: 18 + 49 = 67. P(doente, sabendo que deu positivo) = 18 ÷ 67, perto de 0,27, ou 27%."
+  conferir: "18 / (18 + 49) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-09
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma comissão de moradores tem 5 mulheres e 3 homens. Para representar a comissão numa reunião com a prefeitura,
+    serão sorteadas duas pessoas, uma depois da outra, e quem é sorteado não volta para o sorteio.
+  enunciado: "A probabilidade de as duas pessoas sorteadas serem mulheres é"
+  alternativas:
+    - texto: "25/64"
+      erro: "25/64 é (5/8) × (5/8), como se a primeira mulher sorteada voltasse para o sorteio. Sem reposição, no segundo sorteio sobram 4 mulheres em 7 pessoas."
+    - texto: "5/8"
+      erro: "5/8 é só a chance de a primeira ser mulher. Falta o segundo sorteio, que depende do primeiro."
+    - texto: "4/7"
+      erro: "4/7 é a chance de a segunda ser mulher, sabendo que a primeira foi. Falta multiplicar pela chance da primeira, 5/8."
+    - texto: "9/14"
+      erro: "9/14 é o complementar: a chance de não serem as duas mulheres. A pergunta é a de serem as duas."
+    - texto: "5/14"
+      certa: true
+  explicacao: "Primeira mulher: 5/8. Sabendo que saiu uma mulher, sobram 4 mulheres em 7 pessoas: 4/7. As duas: 5/8 × 4/7 = 20/56 = 5/14."
+  conferir: "5/8 * 4/7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-prob-condicional-10
+  tema: "União, complementar e probabilidade condicional"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade-condicional
+  dificuldade: 3
+  enunciado: "Numa escola, 40% dos estudantes praticam algum esporte, 30% tocam algum instrumento e 45% não fazem nenhuma das duas coisas. Que porcentagem dos estudantes faz as duas coisas?"
+  alternativas:
+    - texto: "12%"
+      erro: "12% é 40% × 30%, como se uma coisa não tivesse nada a ver com a outra. O enunciado dá outra informação: 45% não fazem nenhuma. Use-a."
+    - texto: "15%"
+      certa: true
+    - texto: "25%"
+      erro: "Você fez 70 − 45. Primeiro ache quem faz pelo menos uma das coisas: 100 − 45 = 55%."
+    - texto: "55%"
+      erro: "55% é quem faz pelo menos uma das duas coisas. A pergunta é quem faz as duas: 40 + 30 − 55."
+    - texto: "70%"
+      erro: "70% é a soma de 40% e 30%. Essa soma conta duas vezes quem faz as duas coisas."
+  explicacao: "Fazem pelo menos uma: 100% − 45% = 55%. Pela união: 40% + 30% − (as duas) = 55%. Então as duas = 70% − 55% = 15%."
+  conferir: "40 + 30 - (100 - 45)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

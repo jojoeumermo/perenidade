@@ -1,0 +1,248 @@
+# Exercícios da aula "Cordel e literatura oral" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-cordel-01
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-cordel-e-oralidade
+  dificuldade: 1
+  enunciado: "A sextilha, estrofe mais usada no cordel, tem"
+  alternativas:
+    - texto: "catorze versos, com rima rica."
+      erro: "Catorze versos é o soneto. A sextilha tem seis."
+    - texto: "seis versos de sete sílabas, com rima no 2º, no 4º e no 6º versos."
+      certa: true
+    - texto: "três versos curtos, sem rima."
+      erro: "Três versos curtos lembram o haicai japonês."
+    - texto: "versos livres, sem medida nem rima."
+      erro: "O cordel tem medida (sete sílabas) e rima. Verso livre é marca modernista."
+    - texto: "dez versos de dez sílabas, sempre."
+      erro: "Essa é a medida do martelo agalopado, outra modalidade. A sextilha tem seis versos de sete sílabas."
+  explicacao: "Seis versos em redondilha maior (sete sílabas poéticas), com rima nos versos pares: esquema ABCBDB."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-02
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-literatura-cordel-e-oralidade
+  dificuldade: 1
+  enunciado: "Em 2018, o Iphan registrou a literatura de cordel como"
+  alternativas:
+    - texto: "gênero proibido de circular nas feiras."
+      erro: "Foi o contrário: o registro protege o cordel como patrimônio."
+    - texto: "patrimônio cultural imaterial do Brasil."
+      certa: true
+    - texto: "monumento de pedra e cal tombado."
+      erro: "Tombamento é para bens materiais, como prédios. O cordel é forma de expressão, bem imaterial."
+    - texto: "marca registrada de uma editora."
+      erro: "O cordel não pertence a uma empresa. É patrimônio coletivo."
+    - texto: "literatura estrangeira traduzida."
+      erro: "O cordel brasileiro, embora tenha raízes ibéricas, é criação daqui."
+  explicacao: "O cordel entrou no Livro das Formas de Expressão do Iphan em 2018, a pedido da Academia Brasileira de Literatura de Cordel."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-03
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-cordel-e-oralidade
+  dificuldade: 1
+  enunciado: "Qual técnica é tradicionalmente usada para ilustrar a capa dos folhetos de cordel?"
+  alternativas:
+    - texto: "Pintura a óleo"
+      erro: "Pintura a óleo seria cara e não se reproduz como carimbo. A capa do cordel é xilogravura."
+    - texto: "Fotografia em cores"
+      erro: "Houve capas com fotos e policromia, mas a tradição mais marcante é a gravura em madeira."
+    - texto: "Mosaico de azulejos"
+      erro: "Mosaico não se imprime em papel barato."
+    - texto: "Grafite com spray"
+      erro: "Grafite é arte de rua, em muro."
+    - texto: "Xilogravura, gravura entalhada em madeira"
+      certa: true
+  explicacao: "A xilogravura é entalhada em madeira e impressa como um carimbo: barata, forte e reproduzível. J. Borges, de Pernambuco, é um dos gravuristas mais conhecidos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-04
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-cordel-e-oralidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Meu leitor, preste atenção
+    no que eu venho lhe contar:
+    a conta de luz subiu
+    e o salário quer chorar,
+    mas quem junta a vizinhança
+    tem mais força pra lutar.
+    (Texto original do Instituto Lúcia, escrito para esta questão à maneira do cordel.)
+  enunciado: "O primeiro verso, \"Meu leitor, preste atenção\", revela uma marca do cordel, que é"
+  alternativas:
+    - texto: "a conversa direta com quem lê ou ouve, herança da leitura em voz alta."
+      certa: true
+    - texto: "a recusa de qualquer público."
+      erro: "O verso chama o público. O cordel é feito para ser ouvido."
+    - texto: "o mergulho no inconsciente do poeta."
+      erro: "Não há sonho nem inconsciente. Há um chamado ao leitor."
+    - texto: "a imitação do soneto parnasiano."
+      erro: "A estrofe é uma sextilha popular, não um soneto."
+    - texto: "a escrita só para especialistas."
+      erro: "Chamar \"meu leitor\" é aproximar, não restringir."
+  explicacao: "O poeta de cordel conversa com quem ouve, como na feira. A abertura com chamado ao leitor e o tom de quem conta são marcas da oralidade que o folheto guarda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-05
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-cordel-e-oralidade
+  dificuldade: 2
+  enunciado: "Por que se diz que o cordel foi \"o jornal\" de muita gente no Nordeste?"
+  alternativas:
+    - texto: "Porque era impresso em papel de jornal reciclado."
+      erro: "O papel pode até ser barato, mas a comparação é com a função de informar."
+    - texto: "Porque só falava de esportes."
+      erro: "Os temas são muitos: política, crimes, enchentes, religião, humor."
+    - texto: "Porque contava em versos notícias, crimes, eleições e acontecimentos, lido em voz alta para quem não sabia ler."
+      certa: true
+    - texto: "Porque era financiado pelos grandes jornais das capitais."
+      erro: "O cordel era produção independente de poetas e pequenas gráficas."
+    - texto: "Porque não tinha rima nem métrica."
+      erro: "Tem rima e métrica, justamente para ajudar a memória."
+  explicacao: "Os \"folhetos de época\" levavam as notícias a quem não tinha acesso à imprensa, e a leitura em voz alta alcançava também quem não lia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-06
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-literatura-cordel-e-oralidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Minha mãe contava a história da moça que virou estrela, mas cada vez com um detalhe novo: num dia a
+    moça tinha um irmão, no outro tinha uma cabra. A gente reclamava, e ela dizia: "História viva muda.
+    Morta é que fica igual."
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "A fala da mãe expressa um traço da literatura oral, que é"
+  alternativas:
+    - texto: "a existência de uma única versão correta, que não pode mudar."
+      erro: "Ela diz o contrário: história viva muda."
+    - texto: "a proibição de contar histórias para crianças."
+      erro: "Ela conta para os filhos. Não há proibição."
+    - texto: "a dependência total do livro impresso."
+      erro: "A história vive na voz da mãe, não num livro."
+    - texto: "a variação, já que cada vez que se conta a história é recriada."
+      certa: true
+    - texto: "o desprezo pela memória da família."
+      erro: "Contar e recontar é guardar a memória."
+  explicacao: "Na literatura oral não há versão fixa. Cada contador recria. Essa variação é sinal de vida, e esse saber faz parte do patrimônio cultural (H20)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-07
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-cordel-e-oralidade
+  dificuldade: 2
+  enunciado: "No repente, o que o poeta faz de diferente do autor de cordel impresso?"
+  alternativas:
+    - texto: "Escreve em prosa, sem verso."
+      erro: "O repente é em verso, com medida e rima."
+    - texto: "Improvisa os versos na hora, cantando, muitas vezes em desafio com outro poeta."
+      certa: true
+    - texto: "Copia folhetos antigos palavra por palavra."
+      erro: "Repentista inventa na hora. Cópia é o oposto de improviso."
+    - texto: "Só escreve poemas visuais."
+      erro: "Poesia visual é da poesia concreta, não do repente."
+    - texto: "Recusa qualquer instrumento musical."
+      erro: "A cantoria usa viola; a embolada, pandeiro."
+  explicacao: "No repente, o poeta cria os versos de improviso, na viola ou no pandeiro, em modalidades como a sextilha e o martelo agalopado, muitas vezes em peleja com outro repentista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-08
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-literatura-cordel-e-oralidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um professor corrigiu um folheto de cordel com caneta vermelha: trocou "pra" por "para", "oxente"
+    por "nossa" e "mode" por "para". No fim, os versos perderam a rima, a medida e a graça.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O episódio mostra que a \"correção\" do professor"
+  alternativas:
+    - texto: "melhorou o poema, porque o cordel deve seguir a norma-padrão."
+      erro: "Os versos perderam rima, medida e graça. Não melhorou."
+    - texto: "foi necessária, porque palavras regionais são erros."
+      erro: "Palavras regionais são variedade linguística, não erro."
+    - texto: "não mudou nada no poema."
+      erro: "Mudou muito: tirou a rima, a medida e a voz."
+    - texto: "provou que o cordel não é literatura."
+      erro: "O episódio mostra o contrário: a forma do cordel depende das suas escolhas de linguagem."
+    - texto: "desconsiderou que a variedade regional é escolha poética e parte da forma e da identidade do texto."
+      certa: true
+  explicacao: "A fala regional sustenta a rima, a métrica e a voz do cordel. Tratar isso como erro é preconceito linguístico e apaga um patrimônio (H20, H25)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-09
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-cordel-e-oralidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Por décadas, folhetos de cordel foram vistos por autoridades e por parte da elite intelectual como
+    coisa nociva, e houve proibição de venda. Em 2018, o mesmo cordel virou patrimônio cultural imaterial
+    do Brasil.
+    (Texto original do Instituto Lúcia, com base em Rosilene Alves de Melo, "Do rapa ao registro", 2019.)
+  enunciado: "A mudança descrita mostra que"
+  alternativas:
+    - texto: "o valor dado a uma forma de arte depende também de disputas sociais sobre quem tem a cultura reconhecida."
+      certa: true
+    - texto: "o cordel mudou totalmente de forma para ser aceito."
+      erro: "A sextilha, o folheto e a xilogravura continuam. O que mudou foi o olhar das instituições."
+    - texto: "a proibição de venda nunca existiu."
+      erro: "O texto diz que houve proibição."
+    - texto: "o registro de patrimônio proíbe que o cordel mude."
+      erro: "Patrimônio imaterial protege uma prática viva, que continua se transformando."
+    - texto: "só a elite intelectual produz cultura de valor."
+      erro: "O texto mostra o contrário: uma arte popular, desprezada, passou a ser reconhecida."
+  explicacao: "A arte do povo foi reprimida e depois reconhecida. Ligar essa mudança às disputas do seu tempo é ler o texto no contexto histórico e social (H15)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-cordel-10
+  tema: "Cordel e literatura oral"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-cordel-e-oralidade
+  dificuldade: 3
+  enunciado: "O verso \"que o rio subiu sem dó\" tem sete sílabas poéticas. Qual explicação para essa contagem está certa?"
+  alternativas:
+    - texto: "Contam-se as sílabas da gramática, uma a uma, até o fim: são oito."
+      erro: "Na métrica, a contagem para na última sílaba forte e junta vogais vizinhas. Pela gramática dá outra conta, mas não é a poética."
+    - texto: "Conta-se só a primeira palavra de cada verso."
+      erro: "Contam-se todas as sílabas do verso até a última tônica."
+    - texto: "Contam-se as letras, e não as sílabas."
+      erro: "Métrica é contagem de sílabas poéticas, não de letras."
+    - texto: "\"que\" e \"o\" se juntam numa só sílaba (elisão), e a contagem vai até a última tônica, \"dó\": que-o/ri/o/su/biu/sem/dó."
+      certa: true
+    - texto: "Todo verso de cordel tem sete sílabas, então não é preciso contar."
+      erro: "Há modalidades com outras medidas, como o martelo agalopado. E conferir a conta é o que a questão pede."
+  explicacao: "Na contagem poética, vogais vizinhas entre palavras se juntam (\"que o\" vira uma sílaba) e se conta até a última sílaba tônica. O verso fica com sete: redondilha maior."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

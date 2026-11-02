@@ -1,0 +1,255 @@
+# Exercícios da aula "Logaritmos e escalas logarítmicas" (trilha enem-matematica-funcoes-e-algebra).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-logaritmos-01
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  dificuldade: 1
+  enunciado: "Quanto vale log 10.000 (na base 10)?"
+  alternativas:
+    - texto: "1.000"
+      erro: "Você dividiu 10.000 por 10. O logaritmo pergunta o expoente: 10 elevado a quanto dá 10.000?"
+    - texto: "4"
+      certa: true
+    - texto: "10"
+      erro: "10 é a base. A resposta é o expoente que se põe no 10 para chegar a 10.000."
+    - texto: "40"
+      erro: "Você multiplicou o expoente pela base. O logaritmo é só o expoente: 10⁴ = 10.000, então a resposta é 4."
+    - texto: "5"
+      erro: "Você contou os algarismos de 10.000, que são 5. Conte só os zeros: são 4, porque 10⁴ = 10.000."
+  explicacao: "10⁴ = 10.000, então log 10.000 = 4. Na base 10, o logaritmo de uma potência de 10 é o número de zeros."
+  conferir: "log(10000)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-02
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  dificuldade: 1
+  enunciado: "Quanto vale log₂ 16?"
+  alternativas:
+    - texto: "8"
+      erro: "Você dividiu 16 por 2. O logaritmo pergunta quantas vezes o 2 se multiplica para dar 16."
+    - texto: "2"
+      erro: "2 é a base. A resposta é o expoente: 2 elevado a quanto dá 16?"
+    - texto: "32"
+      erro: "Você multiplicou 16 por 2. O logaritmo desfaz a potência: procure o expoente."
+    - texto: "14"
+      erro: "Você subtraiu 16 − 2. Escreva 16 como potência de 2: 2 × 2 × 2 × 2."
+    - texto: "4"
+      certa: true
+  explicacao: "2⁴ = 16 (2, 4, 8, 16), então log₂ 16 = 4."
+  conferir: "log(16, 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-03
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-logaritmos
+  dificuldade: 1
+  enunciado: "Se log₅ x = 3, quanto vale x?"
+  alternativas:
+    - texto: "125"
+      certa: true
+    - texto: "15"
+      erro: "Você multiplicou 5 × 3. O 3 é expoente: x = 5³ = 5 × 5 × 5."
+    - texto: "243"
+      erro: "Você fez 3⁵, trocando base e expoente. A base é 5 e o expoente é 3: 5³."
+    - texto: "8"
+      erro: "Você somou 5 + 3. Pela definição, log₅ x = 3 quer dizer 5³ = x."
+    - texto: "0,6"
+      erro: "Você dividiu 3 por 5. Pela definição, x = 5³."
+  explicacao: "log₅ x = 3 quer dizer 5³ = x. Então x = 5 × 5 × 5 = 125."
+  conferir: "5^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-04
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  dificuldade: 2
+  enunciado: "Use log 2 ≈ 0,30 e log 3 ≈ 0,48. Quanto vale, aproximadamente, log 6?"
+  alternativas:
+    - texto: "0,144"
+      erro: "Você multiplicou os logaritmos (0,30 × 0,48). O logaritmo de um produto é a soma dos logaritmos."
+    - texto: "0,18"
+      erro: "Você subtraiu (0,48 − 0,30). Isso daria log (3 ÷ 2). Como 6 = 2 × 3, some."
+    - texto: "1,6"
+      erro: "Você dividiu 0,48 por 0,30. Para 6 = 2 × 3, use log (m · n) = log m + log n."
+    - texto: "0,78"
+      certa: true
+    - texto: "0,60"
+      erro: "0,60 é 2 × log 2, que é log 4. Escreva 6 como 2 × 3."
+  explicacao: "6 = 2 × 3. Pela propriedade do produto, log 6 = log 2 + log 3 ≈ 0,30 + 0,48 = 0,78."
+  conferir: "0.30 + 0.48"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-05
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-logaritmos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O pH de uma solução é dado por pH = −log [H⁺], em que [H⁺] é a concentração de íons de hidrogênio, em mol por litro.
+    Numa aula de química, um grupo mediu duas amostras: a amostra 1 tem pH 2 e a amostra 2 tem pH 5.
+  enunciado: "A concentração de íons H⁺ da amostra 1, comparada à da amostra 2, é"
+  alternativas:
+    - texto: "3 vezes maior."
+      erro: "3 é a diferença de pH. Mas o pH é uma escala logarítmica: cada ponto é um fator 10. A diferença vira expoente: 10³."
+    - texto: "2,5 vezes maior."
+      erro: "Você dividiu os pHs (5 ÷ 2). Numa escala logarítmica, o que conta é a diferença, que vira expoente de 10."
+    - texto: "1.000 vezes maior."
+      certa: true
+    - texto: "100 vezes maior."
+      erro: "Você contou 2 pontos. De pH 5 para pH 2 são 3 pontos: 10 × 10 × 10."
+    - texto: "30 vezes maior."
+      erro: "Você multiplicou 3 por 10. Cada ponto multiplica por 10 de novo: 10 × 10 × 10."
+  explicacao: "Amostra 1: [H⁺] = 10⁻² mol/L. Amostra 2: [H⁺] = 10⁻⁵ mol/L. A razão é 10⁻² ÷ 10⁻⁵ = 10³ = 1.000. Menor pH, mais ácido."
+  conferir: "10^(5 - 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-06
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  dificuldade: 2
+  enunciado: "A escala de magnitude de terremotos (escala Richter) é logarítmica de base 10: cada ponto a mais quer dizer uma medida 10 vezes maior no sismógrafo. Comparada a um terremoto de magnitude 5, a medida de um de magnitude 7 é"
+  alternativas:
+    - texto: "2 vezes maior."
+      erro: "2 é a diferença de magnitude. Cada ponto é um fator 10, então a diferença vira expoente: 10²."
+    - texto: "1,4 vez maior."
+      erro: "Você dividiu 7 por 5. Numa escala logarítmica, a diferença é que conta, como expoente de 10."
+    - texto: "20 vezes maior."
+      erro: "Você multiplicou 2 por 10. São dois fatores 10: 10 × 10."
+    - texto: "35 vezes maior."
+      erro: "Você multiplicou as magnitudes (7 × 5). Use a diferença, 7 − 5 = 2, como expoente de 10."
+    - texto: "100 vezes maior."
+      certa: true
+  explicacao: "A diferença é de 7 − 5 = 2 pontos. Cada ponto multiplica por 10: 10² = 100 vezes."
+  conferir: "10^(7 - 5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-07
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O nível sonoro, em decibéis (dB), é dado por β = 10 · log (I ÷ I₀), em que I é a intensidade do som e I₀ é uma
+    intensidade de referência. Numa biblioteca, o nível medido foi de 50 dB. Durante uma reforma no prédio, a intensidade
+    do som dentro da biblioteca ficou 100 vezes maior.
+  enunciado: "Durante a reforma, o nível sonoro na biblioteca passou a ser de"
+  alternativas:
+    - texto: "5.000 dB"
+      erro: "Você multiplicou o nível por 100. É a intensidade que multiplica; o nível em dB soma 10 · log 100 = 20."
+    - texto: "70 dB"
+      certa: true
+    - texto: "150 dB"
+      erro: "Você somou 100 ao nível. O que se soma é 10 · log 100 = 10 × 2 = 20 dB."
+    - texto: "52 dB"
+      erro: "Você somou só log 100 = 2. A fórmula tem um 10 na frente: 10 × 2 = 20 dB."
+    - texto: "100 dB"
+      erro: "Você dobrou o nível. Intensidade 100 vezes maior soma 20 dB, não dobra os decibéis."
+  explicacao: "Intensidade 100 vezes maior acrescenta 10 · log 100 = 10 × 2 = 20 dB. O novo nível é 50 + 20 = 70 dB. Regra prática: cada 10 dB é 10 vezes; 100 vezes são 20 dB."
+  conferir: "50 + 10 * log(100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-08
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num viveiro comunitário, o número de mudas de uma espécie cresce 20% ao mês, sempre sobre o total do mês anterior.
+    Depois de t meses, o número é N(t) = N₀ · 1,2ᵗ, em que N₀ é o número inicial. Use log 2 ≈ 0,30 e log 1,2 ≈ 0,08.
+  enunciado: "O tempo para o número de mudas dobrar é de, aproximadamente,"
+  alternativas:
+    - texto: "3,75 meses."
+      certa: true
+    - texto: "5 meses."
+      erro: "Você somou 20% por mês até dar 100% (5 × 20%). Mas o crescimento é sobre o total do mês anterior: 1,2⁵ ≈ 2,49, mais que o dobro."
+    - texto: "0,024 mês."
+      erro: "Você multiplicou os logaritmos (0,30 × 0,08). De 1,2ᵗ = 2 vem t · log 1,2 = log 2: divida."
+    - texto: "0,27 mês."
+      erro: "Você dividiu ao contrário (0,08 ÷ 0,30). O tempo é log 2 ÷ log 1,2."
+    - texto: "10 meses."
+      erro: "Você dividiu 2 por 0,2, sem logaritmo. Com crescimento percentual, aplique log dos dois lados de 1,2ᵗ = 2."
+  explicacao: "Dobrar: 1,2ᵗ = 2. Aplique log: t · log 1,2 = log 2. Então t = 0,30 ÷ 0,08 = 3,75 meses. Confira: 1,2³ ≈ 1,73 e 1,2⁴ ≈ 2,07; o dobro chega entre o 3º e o 4º mês."
+  conferir: "0.30 / 0.08"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-09
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O pH de uma solução é dado por pH = −log [H⁺], em que [H⁺] é a concentração de íons de hidrogênio, em mol por litro.
+    Uma equipe que monitora um córrego mediu pH 6 numa amostra. Semanas depois, depois de um despejo irregular, a
+    concentração de íons H⁺ no mesmo ponto ficou 100 vezes maior.
+  enunciado: "O pH da água nesse ponto, depois do despejo, passou a ser"
+  alternativas:
+    - texto: "8"
+      erro: "Você somou 2 ao pH. Mais H⁺ é mais ácido, e mais ácido é pH menor: por causa do sinal de menos, o pH cai."
+    - texto: "600"
+      erro: "Você multiplicou o pH por 100. É a concentração que multiplica; o pH muda pelo logaritmo de 100, que é 2."
+    - texto: "4"
+      certa: true
+    - texto: "5,98"
+      erro: "Você tirou 0,02 do pH. O que muda o pH é log 100 = 2, não 100 dividido por algo."
+    - texto: "3"
+      erro: "Você usou log 100 = 3, contando os algarismos. 100 = 10², então log 100 = 2."
+  explicacao: "Antes: [H⁺] = 10⁻⁶. Depois: 100 × 10⁻⁶ = 10² × 10⁻⁶ = 10⁻⁴. pH = −log 10⁻⁴ = 4. Pela regra: concentração 100 vezes maior baixa o pH em log 100 = 2 pontos: 6 − 2 = 4."
+  conferir: "6 - log(100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-logaritmos-10
+  tema: "Logaritmos e escalas logarítmicas"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-logaritmos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa represa com excesso de nutrientes, a área coberta por algas dobra a cada dia, enquanto as condições não mudam.
+    Uma equipe ambiental quer saber em quanto tempo a área chega a 1.000 vezes a área observada hoje, para planejar a
+    limpeza antes disso. Use log 2 ≈ 0,30.
+  enunciado: "A área coberta chegará a 1.000 vezes a área de hoje em, aproximadamente,"
+  alternativas:
+    - texto: "500 dias."
+      erro: "Você dividiu 1.000 por 2. Dobrar é multiplicar por 2 a cada dia: o tempo é o expoente de 2ᵗ = 1.000."
+    - texto: "3 dias."
+      erro: "3 é log 1.000. Ainda falta dividir por log 2: t = 3 ÷ 0,30."
+    - texto: "0,9 dia."
+      erro: "Você multiplicou 3 por 0,30. De t · log 2 = log 1.000 vem t = 3 ÷ 0,30."
+    - texto: "10 dias."
+      certa: true
+    - texto: "1.000 dias."
+      erro: "1.000 é o fator de crescimento, não o tempo. O tempo é o expoente: 2ᵗ = 1.000."
+  explicacao: "2ᵗ = 1.000. Aplique log: t · log 2 = log 1.000 = 3. Então t = 3 ÷ 0,30 = 10 dias. Confira: 2¹⁰ = 1.024, perto de 1.000."
+  conferir: "3 / 0.30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

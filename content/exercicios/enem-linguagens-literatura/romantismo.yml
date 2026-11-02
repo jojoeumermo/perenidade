@@ -1,0 +1,247 @@
+# Exercícios da aula "Romantismo" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-romantismo-01
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-romantismo
+  dificuldade: 1
+  enunciado: "O Romantismo brasileiro é marcado pelo nacionalismo porque surgiu"
+  alternativas:
+    - texto: "pouco depois da Independência, quando o país buscava uma identidade própria."
+      certa: true
+    - texto: "logo depois da Semana de Arte Moderna de 1922."
+      erro: "O Romantismo é do século 19. A Semana de 1922 abre o Modernismo."
+    - texto: "durante a ditadura militar, como forma de protesto."
+      erro: "A ditadura é de 1964 a 1985, mais de cem anos depois."
+    - texto: "na época do ouro em Minas, com os inconfidentes."
+      erro: "Ouro e Inconfidência são o contexto do Arcadismo, no século 18."
+    - texto: "como cópia fiel da literatura portuguesa."
+      erro: "É o contrário: os românticos queriam marcar a diferença do Brasil em relação a Portugal."
+  explicacao: "Independente desde 1822, o Brasil queria dizer quem era. Os românticos cantaram a natureza, o indígena, a história e os costumes como marcas da nação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-02
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-romantismo
+  dificuldade: 1
+  enunciado: "A segunda geração da poesia romântica, chamada de ultrarromântica ou do \"mal do século\", é marcada por"
+  alternativas:
+    - texto: "denúncia da escravidão em tom grandioso."
+      erro: "Essa é a terceira geração, a condoreira, de Castro Alves."
+    - texto: "exaltação do indígena como herói da pátria."
+      erro: "O indianismo é a marca da primeira geração, de Gonçalves Dias."
+    - texto: "culto da forma perfeita e da rima rica."
+      erro: "O culto da forma é o Parnasianismo, no fim do século 19."
+    - texto: "tédio, melancolia, amor impossível e desejo de morte."
+      certa: true
+    - texto: "humor e fala das ruas, sem métrica."
+      erro: "Humor e verso livre são marcas modernistas, no século 20."
+  explicacao: "O \"mal do século\" é o pessimismo de jovens poetas como Álvares de Azevedo (1831–1852), que morreu aos 20 anos. Tédio, sonho, amor impossível e morte são os temas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-03
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-romantismo
+  dificuldade: 1
+  enunciado: "No século 19, muitos romances chegavam ao público pelo folhetim, que era"
+  alternativas:
+    - texto: "um livro de bolso vendido nas feiras."
+      erro: "Livreto vendido em feira lembra o cordel. O folhetim saía no jornal."
+    - texto: "a publicação do romance em capítulos, no rodapé dos jornais."
+      certa: true
+    - texto: "uma peça de teatro encenada nas praças."
+      erro: "O folhetim era lido, não encenado. Saía em partes no jornal."
+    - texto: "um programa de rádio com novelas."
+      erro: "O rádio só chega ao Brasil no século 20."
+    - texto: "uma carta enviada ao imperador."
+      erro: "O folhetim era para o público leitor dos jornais, não para o imperador."
+  explicacao: "O romance saía em capítulos nos jornais, como uma novela que se acompanha dia a dia. A Moreninha, de Joaquim Manuel de Macedo (1844), fez sucesso assim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-04
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-romantismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Minha terra tem palmeiras,
+    Onde canta o Sabiá;
+    As aves, que aqui gorjeiam,
+    Não gorjeiam como lá.
+    (Gonçalves Dias, "Canção do exílio", Primeiros cantos, 1846. Domínio público; grafia atualizada.)
+  enunciado: "Na estrofe, o sentimento nacionalista é construído principalmente pela"
+  alternativas:
+    - texto: "descrição científica das espécies de aves do Brasil."
+      erro: "Não há descrição científica. \"Palmeiras\" e \"Sabiá\" são símbolos, não dados."
+    - texto: "crítica à natureza brasileira, comparada à europeia."
+      erro: "É o contrário: a natureza do Brasil (\"lá\") vence a de Portugal (\"aqui\")."
+    - texto: "linguagem irônica, que zomba do amor à pátria."
+      erro: "Não há ironia. O tom é de saudade sincera."
+    - texto: "narração de uma viagem com personagens e diálogos."
+      erro: "É um poema lírico: uma voz fala da sua terra. Não há personagens nem diálogo."
+    - texto: "oposição entre \"lá\" e \"aqui\", em que tudo da terra natal é melhor."
+      certa: true
+  explicacao: "O poeta está em Portugal (\"aqui\") e lembra o Brasil (\"lá\"). As aves daqui \"não gorjeiam como lá\": a terra natal vence sempre. A oposição \"lá\" e \"aqui\" é o motor do nacionalismo do poema."
+  fonte: "Questão original do Instituto Lúcia; estrofe de Gonçalves Dias (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-05
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-romantismo
+  dificuldade: 2
+  enunciado: "Em O Guarani (1857), de José de Alencar, o herói indígena Peri dedica a vida a servir uma família portuguesa. Uma leitura crítica desse indianismo aponta que ele"
+  alternativas:
+    - texto: "registra com fidelidade a cultura dos povos guaranis."
+      erro: "Alencar idealiza: o indígena dele é nobre e puro, mais símbolo que retrato."
+    - texto: "foi escrito por um autor indígena para o seu povo."
+      erro: "Alencar não era indígena e escrevia para a elite leitora da corte."
+    - texto: "idealiza o indígena e faz da nação um encontro harmonioso com o colonizador, apagando a violência da conquista."
+      certa: true
+    - texto: "denuncia a escravidão africana no Império."
+      erro: "O Guarani não trata da escravidão africana. O tema é o indígena e a família colonial."
+    - texto: "recusa o nacionalismo e imita os pastores árcades."
+      erro: "O indianismo é justamente a forma romântica de nacionalismo."
+  explicacao: "O indígena de Alencar é herói, mas herói que serve. A nação nasce de um encontro sem conflito, quando na história real os povos indígenas eram expulsos e mortos. Ler isso é ligar o texto ao seu momento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-06
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-romantismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Senhor Deus dos desgraçados!
+    Dizei-me vós, Senhor Deus!
+    Se é loucura... se é verdade
+    Tanto horror perante os céus?!
+    (Castro Alves, "O navio negreiro", 1868. Domínio público.)
+  enunciado: "Os recursos usados na estrofe são típicos da poesia condoreira porque"
+  alternativas:
+    - texto: "evitam a emoção, para descrever o navio com objetividade."
+      erro: "A estrofe é pura emoção: exclamação, pergunta, reticências."
+    - texto: "usam a linguagem de pastores, típica do campo."
+      erro: "Não há pastor nem campo. O cenário é o navio negreiro."
+    - texto: "o chamado a Deus, as exclamações e as perguntas dão tom grandioso de denúncia, feito para ser declamado."
+      certa: true
+    - texto: "seguem a forma fixa do soneto, com rima rica."
+      erro: "É uma estrofe de quatro versos curtos de um poema longo, não um soneto."
+    - texto: "mostram o tédio e o desejo de morte do eu lírico."
+      erro: "Tédio e desejo de morte são da segunda geração. Aqui o eu lírico se indigna com o horror alheio."
+  explicacao: "Chamar Deus diretamente (apóstrofe), exclamar e perguntar: o poeta fala como um orador diante de multidões. O tom elevado, a serviço da denúncia da escravidão, é a marca condoreira."
+  fonte: "Questão original do Instituto Lúcia; estrofe de Castro Alves (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-07
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-romantismo
+  dificuldade: 2
+  enunciado: "\"O navio negreiro\" é datado de 1868. O tráfico de pessoas escravizadas pelo Atlântico tinha sido proibido em 1850. Por que o poema ainda fazia sentido?"
+  alternativas:
+    - texto: "Porque a escravidão continuava no Brasil e só seria abolida em 1888."
+      certa: true
+    - texto: "Porque a proibição de 1850 tinha sido revogada."
+      erro: "A Lei Eusébio de Queirós não foi revogada. O que continuava era a escravidão em si."
+    - texto: "Porque o poema fala de um navio do século 16."
+      erro: "O poema não data o navio no século 16. Ele ataca a escravidão do seu próprio tempo."
+    - texto: "Porque Castro Alves queria defender o tráfico."
+      erro: "É o oposto: o poema é uma das maiores denúncias da escravidão na literatura brasileira."
+    - texto: "Porque a Abolição já tinha acontecido e o poema celebrava o fim dela."
+      erro: "A Abolição é de 1888, vinte anos depois do poema."
+  explicacao: "O tráfico atlântico estava proibido, mas milhares de pessoas seguiam escravizadas. Lembrar o horror do navio era um jeito de atacar a instituição que ainda existia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-08
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-romantismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Maria Firmina dos Reis nasceu em São Luís do Maranhão, em 1822. Foi professora e, em 1859, publicou o romance Úrsula. No livro, personagens escravizados falam da própria vida e da saudade da África. No mesmo ano, Luiz Gama, que tinha sido escravizado e depois se tornou advogado de pessoas escravizadas, publicou poemas satíricos contra o racismo.
+    (Texto do Instituto Lúcia, com base em dados biográficos públicos.)
+  enunciado: "As informações do texto ajudam a rever a imagem do Romantismo brasileiro porque mostram que"
+  alternativas:
+    - texto: "todos os autores românticos eram abolicionistas."
+      erro: "Generalização. Muitos românticos não tocaram no tema da escravidão."
+    - texto: "a literatura negra só surgiu no século 20."
+      erro: "O texto mostra dois autores negros publicando já em 1859."
+    - texto: "o indianismo foi o único tema do período."
+      erro: "Úrsula e os poemas de Gama tratam da escravidão e do racismo. Havia outros temas."
+    - texto: "o Romantismo foi um movimento só de Portugal."
+      erro: "O texto fala de autores brasileiros, do Maranhão e de São Paulo."
+    - texto: "houve vozes negras no período, que deram à escravidão o ponto de vista de quem a sofria."
+      certa: true
+  explicacao: "Por muito tempo, a história do Romantismo foi contada só com autores brancos da elite. Maria Firmina dos Reis e Luiz Gama mostram outra parte: a escravidão vista e contada por quem estava do lado oprimido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-09
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-romantismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Minha terra tem palmeiras
+    e tem fila no posto às seis.
+    O sabiá ainda canta,
+    mas ninguém ouve: é a vez do freguês.
+    (Texto original do Instituto Lúcia, que retoma a "Canção do exílio", de Gonçalves Dias.)
+  enunciado: "O efeito crítico do texto depende, sobretudo,"
+  alternativas:
+    - texto: "da troca total do vocabulário do poema de Gonçalves Dias."
+      erro: "Ele mantém \"Minha terra tem palmeiras\" e o sabiá. Sem isso, o leitor não reconheceria a referência."
+    - texto: "de o leitor reconhecer o poema romântico e perceber o contraste entre a terra idealizada e o cotidiano."
+      certa: true
+    - texto: "da descrição objetiva de um serviço público."
+      erro: "Não há descrição objetiva. Há ironia e rima."
+    - texto: "de o leitor desconhecer a \"Canção do exílio\"."
+      erro: "Quem não conhece o original perde a graça. A paródia vive do reconhecimento."
+    - texto: "da exaltação da natureza, igual à do poema original."
+      erro: "A natureza fica em segundo plano: \"ninguém ouve\" o sabiá. O texto critica, não exalta."
+  explicacao: "Paródia funciona por contraste. O leitor reconhece o verso famoso e, logo depois, tropeça na fila do posto. A distância entre a pátria idealizada e a rotina real produz o humor e a crítica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-romantismo-10
+  tema: "Romantismo"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-romantismo
+  dificuldade: 3
+  enunciado: "Senhora (1875), de José de Alencar, conta a história de uma moça que, depois de enriquecer, \"compra\" o marido que a tinha trocado por um dote maior. Que valor dessa obra ainda conversa com o presente?"
+  alternativas:
+    - texto: "A defesa do casamento arranjado pelos pais."
+      erro: "O romance critica o casamento como negócio, não o defende."
+    - texto: "A ideia de que dinheiro não interfere nas relações."
+      erro: "É o contrário: o romance mostra o dinheiro mandando no casamento."
+    - texto: "A exaltação do indígena como herói da pátria."
+      erro: "Senhora é um romance urbano, da corte, sem indígenas."
+    - texto: "A crítica a relações amorosas tratadas como negócio, em que o dinheiro compra pessoas."
+      certa: true
+    - texto: "A recusa de qualquer tema social."
+      erro: "Casamento e dinheiro são temas sociais, centrais no romance."
+  explicacao: "Ao mostrar um marido comprado, Alencar expõe o casamento por interesse da sociedade da corte. Discutir quando o dinheiro decide relações é um tema que segue atual."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

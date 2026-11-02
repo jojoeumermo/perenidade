@@ -1,0 +1,259 @@
+# Exercícios da aula "Equação da reta, paralelismo e perpendicularidade" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-reta-01
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-geometria-reta
+  dificuldade: 1
+  enunciado: "Qual é o coeficiente angular (a inclinação) da reta que passa pelos pontos (2, 1) e (4, 7)?"
+  alternativas:
+    - texto: "1/3"
+      erro: "Você dividiu a variação do x pela do y. A inclinação é a variação do y dividida pela do x: 6 ÷ 2."
+    - texto: "6"
+      erro: "6 é só a variação do y (7 − 1). Falta dividir pela variação do x (4 − 2 = 2)."
+    - texto: "3"
+      certa: true
+    - texto: "2"
+      erro: "2 é a variação do x. A inclinação é quanto o y anda para cada 1 de x: 6 ÷ 2."
+    - texto: "−3"
+      erro: "Você subtraiu em ordens diferentes: (7 − 1) em cima e (2 − 4) embaixo. Use a mesma ordem nos dois."
+  explicacao: "m = (7 − 1) ÷ (4 − 2) = 6 ÷ 2 = 3. A cada 1 de x, o y sobe 3."
+  conferir: "(7 - 1) / (4 - 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-02
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-geometria-reta
+  dificuldade: 1
+  enunciado: "A reta y = −2x + 8 corta o eixo x num ponto (x, 0). Qual é esse valor de x?"
+  alternativas:
+    - texto: "4"
+      certa: true
+    - texto: "8"
+      erro: "8 é onde a reta corta o eixo y (quando x = 0). No eixo x, quem vale zero é o y: 0 = −2x + 8."
+    - texto: "−4"
+      erro: "O sinal se perdeu. De 0 = −2x + 8 vem 2x = 8, então x = 4, positivo."
+    - texto: "−2"
+      erro: "−2 é a inclinação da reta. O corte no eixo x sai de fazer y = 0 e resolver."
+    - texto: "16"
+      erro: "Você multiplicou 8 por 2. De 2x = 8, divida: x = 8 ÷ 2."
+  explicacao: "No eixo x, y = 0. Então 0 = −2x + 8, 2x = 8 e x = 4. O ponto é (4, 0)."
+  conferir: "8 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-03
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-geometria-reta
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Numa cidade, a corrida de táxi custa R$ 6,00 de bandeirada (o valor cobrado ao entrar no carro) mais R$ 2,50 por
+    quilômetro rodado.
+  enunciado: "A expressão que dá o preço y, em reais, de uma corrida de x quilômetros é"
+  alternativas:
+    - texto: "y = 6x + 2,5"
+      erro: "Os números ficaram trocados. O que multiplica o x é o que cresce com a distância: R$ 2,50 por quilômetro."
+    - texto: "y = 8,5x"
+      erro: "Você somou a bandeirada ao preço por quilômetro. A bandeirada é paga uma vez só, não a cada quilômetro."
+    - texto: "y = 2,5x − 6"
+      erro: "A bandeirada se soma ao preço, não se desconta. Com 0 km, a corrida já custa R$ 6,00."
+    - texto: "y = 2,5x + 6"
+      certa: true
+    - texto: "y = 8,5 + x"
+      erro: "Você juntou os dois valores num número fixo. Só a bandeirada é fixa; os R$ 2,50 multiplicam os quilômetros."
+  explicacao: "A parte que cresce com a distância é 2,5 · x. A parte fixa é a bandeirada, 6. Então y = 2,5x + 6."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-04
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-geometria-reta
+  dificuldade: 2
+  enunciado: "Uma reta é paralela à reta y = 3x − 1 e passa pelo ponto (2, 9). Qual é o coeficiente linear (o n, onde ela corta o eixo y)?"
+  alternativas:
+    - texto: "−1"
+      erro: "−1 é o coeficiente linear da reta dada. A paralela tem a mesma inclinação, mas corta o eixo y em outro ponto."
+    - texto: "9"
+      erro: "9 é o y do ponto, que tem x = 2. O corte no eixo y é quando x = 0."
+    - texto: "15"
+      erro: "Você somou 3 × 2 ao 9. Na equação 9 = 3 × 2 + n, o 6 passa para o outro lado subtraindo."
+    - texto: "7"
+      erro: "Você fez 9 − 2, sem multiplicar o x pela inclinação. É 9 − 3 × 2."
+    - texto: "3"
+      certa: true
+  explicacao: "Paralela: mesma inclinação, m = 3. Então y = 3x + n. Pelo ponto (2, 9): 9 = 6 + n, n = 3. A reta é y = 3x + 3."
+  conferir: "9 - 3 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-05
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-geometria-reta
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O gráfico do volume de água de uma caixa-d'água em função do tempo é uma reta. Figura descrita em palavras: no
+    eixo x está o tempo, em horas; no eixo y, o volume, em litros. A reta passa pelo ponto (0; 1.200), quando a
+    torneira de saída foi aberta, e pelo ponto (4; 400). A vazão de saída é sempre a mesma.
+  enunciado: "Mantida a mesma vazão, a caixa ficará vazia quantas horas depois de a torneira ser aberta?"
+  alternativas:
+    - texto: "4 h"
+      erro: "Às 4 h ainda há 400 L na caixa. Ela só fica vazia quando o volume chega a zero."
+    - texto: "6 h"
+      certa: true
+    - texto: "2 h"
+      erro: "2 h é o tempo que falta depois das 4 h. A pergunta conta desde a abertura da torneira: 4 + 2."
+    - texto: "3 h"
+      erro: "Você dividiu 1.200 por 400. A conta é o volume inicial dividido pela vazão (quanto sai por hora)."
+    - texto: "12 h"
+      erro: "Você usou 100 L por hora (400 ÷ 4). A vazão é o que saiu, 800 L, dividido pelo tempo: 200 L por hora."
+  explicacao: "Em 4 h saíram 1.200 − 400 = 800 L: são 200 L por hora (a reta é y = −200x + 1.200). Vazia quando y = 0: 200x = 1.200, x = 6 h."
+  conferir: "1200 / ((1200 - 400) / 4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-06
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-geometria-reta
+  dificuldade: 2
+  enunciado: "A reta s é perpendicular à reta y = 2x + 1 e passa pelo ponto (4, 0). Em que valor de y a reta s corta o eixo y?"
+  alternativas:
+    - texto: "−8"
+      erro: "Você usou a mesma inclinação, 2. Essa seria a paralela. A perpendicular tem inclinação −1/2."
+    - texto: "8"
+      erro: "Você só trocou o sinal (usou −2). Além de trocar o sinal, inverta: a inclinação é −1/2."
+    - texto: "−2"
+      erro: "Você só inverteu (usou 1/2). Além de inverter, troque o sinal: −1/2."
+    - texto: "1"
+      erro: "1 é o corte da reta dada. A reta s é outra: ache a inclinação dela e use o ponto (4, 0)."
+    - texto: "2"
+      certa: true
+  explicacao: "Perpendicular: m = −1/2, pois 2 × (−1/2) = −1. Então y = −x/2 + n. Pelo ponto (4, 0): 0 = −2 + n, n = 2."
+  conferir: "0 - (-1/2) * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-07
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-geometria-reta
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num plano de telefone, o valor da conta é uma função afim dos minutos usados: o gráfico é uma reta. Quem usa
+    100 minutos paga R$ 40,00. Quem usa 300 minutos paga R$ 70,00.
+  enunciado: "Qual é o valor fixo da conta, isto é, quanto paga quem não usa nenhum minuto?"
+  alternativas:
+    - texto: "R$ 40,00"
+      erro: "R$ 40,00 é o preço com 100 minutos, não com zero. Desconte o que os 100 minutos custam."
+    - texto: "R$ 0,15"
+      erro: "R$ 0,15 é o preço de cada minuto, a inclinação da reta. O valor fixo é o corte no eixo y."
+    - texto: "R$ 25,00"
+      certa: true
+    - texto: "R$ 30,00"
+      erro: "R$ 30,00 é a diferença entre as duas contas. Ela serve para achar o preço por minuto: 30 ÷ 200."
+    - texto: "R$ 55,00"
+      erro: "Você misturou os pontos: fez 70 − 0,15 × 100. Use o mesmo ponto nas duas partes: 40 − 0,15 × 100."
+  explicacao: "Preço por minuto: (70 − 40) ÷ (300 − 100) = 30 ÷ 200 = 0,15. Valor fixo: 40 − 0,15 × 100 = 40 − 15 = 25."
+  conferir: "40 - (70 - 40) / (300 - 100) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-08
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 22
+  objeto: mat-algebra-geometria-reta
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No mapa de um loteamento, com coordenadas em dezenas de metros e a praça na origem (0, 0), a Rua das Flores segue
+    a reta y = x + 1 e a Rua do Sol segue a reta y = −x + 7. Um poste de iluminação será instalado no cruzamento das
+    duas ruas.
+  enunciado: "A distância, em linha reta, da praça até o poste é de quantas dezenas de metros?"
+  alternativas:
+    - texto: "5"
+      certa: true
+    - texto: "7"
+      erro: "Você somou as coordenadas do cruzamento (3 + 4). Isso é o caminho pelas linhas da malha; em linha reta, use Pitágoras."
+    - texto: "3"
+      erro: "3 é só o x do cruzamento. A distância usa as duas coordenadas: √(3² + 4²)."
+    - texto: "4"
+      erro: "4 é só o y do cruzamento. A distância usa as duas coordenadas: √(3² + 4²)."
+    - texto: "25"
+      erro: "25 é a soma dos quadrados. Falta tirar a raiz: √25 = 5."
+  explicacao: "Cruzamento: x + 1 = −x + 7, então 2x = 6, x = 3 e y = 4. Distância à origem: √(3² + 4²) = √25 = 5 dezenas de metros (50 m)."
+  conferir: "sqrt(3^2 + 4^2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-09
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 19
+  objeto: mat-algebra-geometria-reta
+  dificuldade: 3
+  enunciado: "Os pontos (1, 2), (3, 6) e (5, k) estão na mesma reta. Qual é o valor de k?"
+  alternativas:
+    - texto: "8"
+      erro: "Você somou a inclinação (2) uma vez só. De x = 3 para x = 5, o x anda 2, e o y sobe 2 × 2 = 4."
+    - texto: "10"
+      certa: true
+    - texto: "12"
+      erro: "Você usou y = 2x + 2, tomando o y do primeiro ponto como corte no eixo y. Pelo ponto (1, 2): 2 = 2 + n, n = 0."
+    - texto: "6"
+      erro: "Pontos alinhados não precisam ter o mesmo y. Só uma reta horizontal tem y constante."
+    - texto: "15"
+      erro: "Você usou inclinação 3, fazendo 6 ÷ 2 sem subtrair. A inclinação é (6 − 2) ÷ (3 − 1) = 2."
+  explicacao: "Inclinação: (6 − 2) ÷ (3 − 1) = 2. A reta é y = 2x (pelo ponto (1, 2), n = 0). Para x = 5: k = 10."
+  conferir: "6 + (6 - 2) / (3 - 1) * (5 - 3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-reta-10
+  tema: "Equação da reta, paralelismo e perpendicularidade"
+  area: matematica
+  habilidade: 20
+  objeto: mat-algebra-geometria-reta
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma estrada sobe a serra em linha reta, com subida constante. No começo dela (quilômetro 0), a altitude é de
+    600 m. No quilômetro 8, a altitude é de 1.000 m. Uma placa de aviso de neblina será posta no ponto da estrada em
+    que a altitude é de 850 m.
+  enunciado: "Em que quilômetro da estrada ficará a placa?"
+  alternativas:
+    - texto: "Quilômetro 3"
+      valor: "3"
+      erro: "3 km é a distância contada do fim da estrada (150 m abaixo dos 1.000 m). Conte a partir do quilômetro 0."
+    - texto: "Quilômetro 17"
+      valor: "17"
+      erro: "Você dividiu 850 por 50, sem descontar a altitude do começo. A subida até a placa é 850 − 600 = 250 m."
+    - texto: "Quilômetro 4"
+      valor: "4"
+      erro: "Você pôs a placa no meio da estrada. No meio, a altitude seria 800 m, não 850 m."
+    - texto: "Quilômetro 5"
+      valor: "5"
+      certa: true
+    - texto: "Quilômetro 6,8"
+      valor: "6.8"
+      erro: "Você fez a proporção 8 × 850 ÷ 1.000, como se a estrada começasse na altitude zero. Ela começa em 600 m."
+  explicacao: "Subida: (1.000 − 600) ÷ 8 = 50 m por quilômetro. Até 850 m, faltam 850 − 600 = 250 m. Distância: 250 ÷ 50 = 5 km."
+  conferir: "(850 - 600) / ((1000 - 600) / 8)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

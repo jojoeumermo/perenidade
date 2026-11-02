@@ -7,7 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CORE_SCHEMA, dump, load } from "js-yaml";
-import { acharNaMatriz, calcularIncidencia, validarClassificacoes, validarSimulados, validarEdicao, validarMatriz, validarPropostas, validarRepertorio, validarTemasOficiais } from "../lib/enem.ts";
+import { acharNaMatriz, calcularIncidencia, validarClassificacoes, validarGrade, validarModelos, validarSimulados, validarEdicao, validarMatriz, validarPropostas, validarRepertorio, validarTemasOficiais } from "../lib/enem.ts";
 import { validarExercicios } from "../lib/exercicios.ts";
 import { parseFrontmatter } from "../lib/frontmatter.ts";
 import { validarMapa } from "../lib/mapa-curricular.ts";
@@ -105,6 +105,8 @@ export function carregarRedacao() {
     temas: existe(`${r}/temas-oficiais.yml`) ? validarTemasOficiais(yaml(`${r}/temas-oficiais.yml`)) : [],
     propostas: existe(`${r}/propostas.yml`) ? validarPropostas(yaml(`${r}/propostas.yml`)) : [],
     repertorio: existe(`${r}/repertorio.yml`) ? validarRepertorio(yaml(`${r}/repertorio.yml`)) : [],
+    grade: existe(`${r}/grade.yml`) ? validarGrade(yaml(`${r}/grade.yml`)) : null,
+    modelos: existe(`${r}/modelos.yml`) ? validarModelos(yaml(`${r}/modelos.yml`), new Set((existe(`${r}/propostas.yml`) ? validarPropostas(yaml(`${r}/propostas.yml`)) : []).map((p) => p.id))) : [],
   };
 }
 

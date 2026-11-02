@@ -1,0 +1,259 @@
+# Exercícios da aula "Potências, raízes e notação científica" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-potencias-01
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  dificuldade: 1
+  enunciado: "Quanto é 3⁴?"
+  alternativas:
+    - texto: "12"
+      erro: "Você multiplicou a base pelo expoente (3 × 4). O expoente diz quantas vezes o 3 aparece: 3 × 3 × 3 × 3."
+    - texto: "7"
+      erro: "Você somou a base e o expoente. Potência é multiplicação repetida."
+    - texto: "81"
+      certa: true
+    - texto: "64"
+      erro: "64 é 4³: base e expoente trocaram de lugar. Aqui a base é 3."
+    - texto: "27"
+      erro: "27 é 3³: faltou um fator 3. Conte quatro vezes: 3 × 3 = 9, 9 × 3 = 27, 27 × 3 = 81."
+  explicacao: "3⁴ = 3 × 3 × 3 × 3 = 9 × 9 = 81."
+  conferir: "3^4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-02
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  dificuldade: 1
+  enunciado: "Quanto é √144 + √25?"
+  alternativas:
+    - texto: "17"
+      certa: true
+    - texto: "13"
+      erro: "Você somou dentro da raiz (144 + 25 = 169 e √169 = 13). A raiz da soma não é a soma das raízes: calcule cada raiz antes."
+    - texto: "169"
+      erro: "Você somou 144 + 25 e não tirou raiz nenhuma."
+    - texto: "84,5"
+      erro: "Você dividiu cada número por 2. Raiz quadrada é o número que, multiplicado por ele mesmo, dá o valor de dentro."
+    - texto: "60"
+      erro: "Você multiplicou as raízes (12 × 5). A conta pede uma soma."
+  explicacao: "√144 = 12, porque 12 × 12 = 144. √25 = 5. Soma: 12 + 5 = 17."
+  conferir: "12 + 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-03
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  dificuldade: 1
+  enunciado: "Como se escreve 72.000.000 em notação científica?"
+  alternativas:
+    - texto: "7,2 × 10⁶"
+      erro: "A vírgula andou 7 casas, não 6. Conte os algarismos depois do 7: são 7."
+    - texto: "72 × 10⁶"
+      erro: "O valor está certo, mas 72 passa de 10. Na notação científica, o primeiro fator fica entre 1 e 10."
+    - texto: "7,2 × 10⁻⁷"
+      erro: "O sinal do expoente está trocado. Número grande tem expoente positivo; o negativo é para números menores que 1."
+    - texto: "7,2 × 10⁷"
+      certa: true
+      valor: "72000000"
+    - texto: "0,72 × 10⁸"
+      erro: "O valor está certo, mas 0,72 é menor que 1. O primeiro fator precisa ficar entre 1 e 10."
+  explicacao: "O primeiro fator é 7,2. Para ir de 7,2 a 72.000.000, a vírgula anda 7 casas para a direita: 7,2 × 10⁷."
+  conferir: "7.2 * 10^7"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-04
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma gráfica comunitária compra papel em resmas de 500 folhas. O fabricante informa que cada folha tem espessura de
+    1 × 10⁻⁴ m.
+  enunciado: "A altura de uma resma, em centímetros, é de"
+  alternativas:
+    - texto: "0,5 cm."
+      erro: "Faltou uma casa na conversão. 500 × 10⁻⁴ m = 5 × 10⁻² m = 0,05 m. Como 1 m = 100 cm, isso é 5 cm."
+    - texto: "5 cm."
+      certa: true
+    - texto: "50 cm."
+      erro: "Sobrou uma casa. Meio metro de papel seria uma pilha alta demais para 500 folhas. Refaça: 500 × 10⁻⁴ = 0,05 m."
+    - texto: "500 cm."
+      erro: "Você multiplicou 500 por 1 e esqueceu o 10⁻⁴. Cada folha é muito fina: 0,0001 m."
+    - texto: "0,05 cm."
+      erro: "0,05 é a altura em metros. A pergunta pede centímetros: multiplique por 100."
+  explicacao: "500 × 1 × 10⁻⁴ m = 5 × 10² × 10⁻⁴ = 5 × 10⁻² m = 0,05 m. Em centímetros: 0,05 × 100 = 5 cm."
+  conferir: "500 * 10^(-4) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-05
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  dificuldade: 2
+  enunciado: "Qual é o valor de 2³ · 2⁵ ÷ 2⁴, escrito como uma só potência?"
+  alternativas:
+    - texto: "2¹¹"
+      valor: "2048"
+      erro: "Você multiplicou os expoentes no produto (3 × 5 = 15) e depois subtraiu 4. Na multiplicação de mesma base, os expoentes se somam."
+    - texto: "2⁸"
+      valor: "256"
+      erro: "2³ · 2⁵ = 2⁸ está certo, mas faltou a divisão por 2⁴. Subtraia: 8 − 4."
+    - texto: "2¹²"
+      valor: "4096"
+      erro: "Você somou os três expoentes. Na divisão, o expoente se subtrai."
+    - texto: "4⁴"
+      valor: "256"
+      erro: "Você multiplicou as bases (2 · 2 = 4). A base fica a mesma; só os expoentes mudam."
+    - texto: "2⁴"
+      certa: true
+      valor: "16"
+  explicacao: "Multiplicação de mesma base: 3 + 5 = 8. Divisão: 8 − 4 = 4. Resultado: 2⁴ = 16."
+  conferir: "2^3 * 2^5 / 2^4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-06
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  dificuldade: 2
+  enunciado: "Qual é o valor de 10⁻³ em número decimal?"
+  alternativas:
+    - texto: "0,001"
+      certa: true
+    - texto: "−1.000"
+      erro: "O sinal do expoente não vira sinal do número. 10⁻³ é positivo: quer dizer 1 dividido por 10³."
+    - texto: "0,0001"
+      erro: "Há um zero a mais. 10⁻³ = 1/1.000 = 0,001: o 1 fica na terceira casa depois da vírgula."
+    - texto: "−30"
+      erro: "Você multiplicou 10 × (−3). Potência não é multiplicação da base pelo expoente."
+    - texto: "1.000"
+      erro: "1.000 é 10³. O expoente negativo quer dizer o inverso: 1/1.000."
+  explicacao: "10⁻³ = 1/10³ = 1/1.000 = 0,001."
+  conferir: "10^(-3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-07
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num laboratório de uma escola técnica, uma peça mede 3 mm de comprimento. Segundo o Sistema Internacional de
+    Unidades, o prefixo mili vale 10⁻³ e o prefixo nano vale 10⁻⁹. Um professor pede que a medida seja escrita em
+    nanômetros.
+  enunciado: "O comprimento da peça, em nanômetros, é de"
+  alternativas:
+    - texto: "3 × 10³ nm."
+      valor: "3000"
+      erro: "3 × 10³ seriam micrômetros, que valem 10⁻⁶ m. O nanômetro é mil vezes menor ainda: 10⁻³ ÷ 10⁻⁹ = 10⁶."
+    - texto: "3 × 10⁹ nm."
+      valor: "3000000000"
+      erro: "Você converteu como se a peça medisse 3 metros. Ela mede 3 milímetros, isto é, 3 × 10⁻³ m."
+    - texto: "3 × 10⁶ nm."
+      certa: true
+      valor: "3000000"
+    - texto: "3 × 10⁻⁶ nm."
+      valor: "0.000003"
+      erro: "A conversão foi feita ao contrário. A unidade nova é menor, então o número tem de ficar maior."
+    - texto: "3 × 10¹² nm."
+      valor: "3000000000000"
+      erro: "Os expoentes foram multiplicados ou somados a mais. De mm para nm: 10⁻³ ÷ 10⁻⁹ = 10⁻³⁺⁹ = 10⁶."
+  explicacao: "3 mm = 3 × 10⁻³ m. Cada nanômetro é 10⁻⁹ m. Quantos cabem: 3 × 10⁻³ ÷ 10⁻⁹ = 3 × 10⁶ nm."
+  conferir: "3 * 10^6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-08
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um programa estadual vai distribuir 1,8 × 10⁹ reais, em partes iguais, entre 6 × 10⁵ famílias cadastradas.
+  enunciado: "O valor que cada família vai receber é de"
+  alternativas:
+    - texto: "R$ 300,00."
+      erro: "A vírgula andou uma casa a menos. 0,3 × 10⁴ = 3 × 10³ = 3.000."
+    - texto: "R$ 30.000,00."
+      erro: "Você dividiu os expoentes certo (9 − 5 = 4), mas tomou 1,8 ÷ 6 como 3. O certo é 0,3: 0,3 × 10⁴ = 3.000."
+    - texto: "R$ 1,08 × 10¹⁵."
+      erro: "Você multiplicou os dois números. Dividir em partes iguais é uma divisão."
+    - texto: "R$ 78.000,00."
+      erro: "Você somou 1,8 + 6 = 7,8. Na divisão, os primeiros fatores se dividem: 1,8 ÷ 6."
+    - texto: "R$ 3.000,00."
+      certa: true
+  explicacao: "Divida os primeiros fatores: 1,8 ÷ 6 = 0,3. Subtraia os expoentes: 9 − 5 = 4. Fica 0,3 × 10⁴ = 3 × 10³ = 3.000 reais."
+  conferir: "1.8 * 10^9 / (6 * 10^5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-09
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  dificuldade: 3
+  enunciado: "Quanto é √0,09 + (0,2)²?"
+  alternativas:
+    - texto: "0,43"
+      erro: "Dois enganos: √0,09 virou 0,03 e (0,2)² virou 0,4. Confira cada um multiplicando: 0,3 × 0,3 = 0,09 e 0,2 × 0,2 = 0,04."
+    - texto: "0,7"
+      erro: "√0,09 = 0,3 está certo, mas (0,2)² não é 0,4. 0,2 × 0,2 = 0,04: duas casas decimais."
+    - texto: "0,07"
+      erro: "(0,2)² = 0,04 está certo, mas √0,09 não é 0,03. Confira: 0,03 × 0,03 = 0,0009."
+    - texto: "0,34"
+      certa: true
+    - texto: "0,13"
+      erro: "Você esqueceu a raiz e somou 0,09 + 0,04. √0,09 = 0,3."
+  explicacao: "√0,09 = √(9/100) = 3/10 = 0,3. (0,2)² = 0,2 × 0,2 = 0,04. Soma: 0,3 + 0,04 = 0,34."
+  conferir: "0.3 + 0.2^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-potencias-10
+  tema: "Potências, raízes e notação científica"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-potencias-e-notacao-cientifica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num experimento de uma aula de Biologia, uma cultura começa com 1 bactéria. Nas condições do experimento, cada
+    bactéria se divide em duas a cada 20 minutos, e nenhuma morre.
+  enunciado: "Depois de 2 horas, o número de bactérias na cultura é de"
+  alternativas:
+    - texto: "12."
+      erro: "Você multiplicou 2 × 6. A cada divisão o número dobra: é uma potência, 2⁶."
+    - texto: "64."
+      certa: true
+    - texto: "32."
+      erro: "32 é 2⁵: faltou uma divisão. Em 120 minutos cabem 120 ÷ 20 = 6 intervalos."
+    - texto: "128."
+      erro: "128 é 2⁷: sobrou uma divisão. Começando com 1, depois de 6 intervalos são 2⁶."
+    - texto: "36."
+      erro: "36 é 6²: base e expoente trocaram de lugar. A base é o 2 (dobra) e o expoente é o número de intervalos."
+  explicacao: "2 horas = 120 minutos = 6 intervalos de 20 minutos. O número dobra 6 vezes: 2⁶ = 64."
+  conferir: "2^6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

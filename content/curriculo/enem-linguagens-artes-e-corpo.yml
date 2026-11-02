@@ -1,0 +1,88 @@
+# Mapa curricular da trilha enem-linguagens-artes-e-corpo: cada aula escrita ligada às habilidades da Matriz do Enem e
+# aos tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
+aulas:
+  praticas-corporais-cultura-e-sociedade:
+    enem:
+      - area: linguagens
+        competencia: 3
+        habilidade: 9
+        resumo: Reconhecer que as práticas corporais nascem de necessidades do dia a dia de cada grupo social.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 3
+        habilidade: 11
+        resumo: Reconhecer o corpo como meio de convivência, respeitando limites e adaptações para cada pessoa.
+        situacao: a-confirmar
+    objetos: [lin-praticas-corporais-sociedade]
+  corpo-saude-e-padroes-de-beleza:
+    enem:
+      - area: linguagens
+        competencia: 3
+        habilidade: 10
+        resumo: Reconhecer quando é preciso mudar hábitos corporais por causa das necessidades do corpo em movimento.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 3
+        habilidade: 11
+        resumo: Reconhecer o corpo como meio de convivência, respeitando limites e adaptações para cada pessoa.
+        situacao: a-confirmar
+    objetos: [lin-praticas-corporais-saude-e-beleza]
+  esporte-midia-e-mercado:
+    enem:
+      - area: linguagens
+        competencia: 3
+        habilidade: 9
+        resumo: Reconhecer que as práticas corporais nascem de necessidades do dia a dia de cada grupo social.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 3
+        habilidade: 11
+        resumo: Reconhecer o corpo como meio de convivência, respeitando limites e adaptações para cada pessoa.
+        situacao: a-confirmar
+    objetos: [lin-praticas-corporais-esporte-midia]
+  arte-contemporanea-e-arte-urbana:
+    enem:
+      - area: linguagens
+        competencia: 4
+        habilidade: 12
+        resumo: Reconhecer as funções da arte e o trabalho dos artistas no meio em que vivem.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 4
+        habilidade: 14
+        resumo: Valorizar a diversidade artística e as trocas entre as manifestações de diferentes grupos sociais e étnicos.
+        situacao: a-confirmar
+    objetos: [lin-artes-contemporanea-e-urbana]
+  musica-brasileira:
+    enem:
+      - area: linguagens
+        competencia: 4
+        habilidade: 14
+        resumo: Valorizar a diversidade artística e as trocas entre as manifestações de diferentes grupos sociais e étnicos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 4
+        habilidade: 12
+        resumo: Reconhecer as funções da arte e o trabalho dos artistas no meio em que vivem.
+        situacao: a-confirmar
+    objetos: [lin-artes-musica-brasileira]
+  arte-como-linguagem-e-patrimonio:
+    enem:
+      - area: linguagens
+        competencia: 4
+        habilidade: 12
+        resumo: Reconhecer as funções da arte e o trabalho dos artistas no meio em que vivem.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 4
+        habilidade: 13
+        resumo: Analisar obras de arte como forma de explicar culturas, padrões de beleza e preconceitos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 4
+        habilidade: 14
+        resumo: Valorizar a diversidade artística e as trocas entre as manifestações de diferentes grupos sociais e étnicos.
+        situacao: a-confirmar
+    objetos: [lin-artes-arte-como-linguagem]

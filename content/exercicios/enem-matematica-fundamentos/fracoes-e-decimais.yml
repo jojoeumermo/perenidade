@@ -1,0 +1,248 @@
+# Exercícios da aula "Frações e decimais" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-fracoes-01
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-fracoes-e-decimais
+  dificuldade: 1
+  enunciado: "Qual é a forma mais simples da fração 18/24?"
+  alternativas:
+    - texto: "3/6"
+      erro: "Você dividiu o 18 por 6 e o 24 por 4. Para não mudar o valor, divida em cima e embaixo pelo mesmo número."
+    - texto: "3/4"
+      certa: true
+    - texto: "4/3"
+      erro: "A conta está certa, mas a fração foi invertida. O 18 estava em cima: ele vira o 3."
+    - texto: "6/24"
+      erro: "Você dividiu só o de cima por 3. Divida os dois pelo mesmo número."
+    - texto: "1/6"
+      erro: "Você subtraiu 24 − 18 = 6. Simplificar é dividir em cima e embaixo, não subtrair."
+  explicacao: "18 e 24 são divisíveis por 6: 18 ÷ 6 = 3 e 24 ÷ 6 = 4. Fica 3/4, que não simplifica mais."
+  conferir: "18 / 24"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-02
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  dificuldade: 1
+  enunciado: "Quanto é 2/5 + 1/10?"
+  alternativas:
+    - texto: "3/15"
+      erro: "Você somou em cima e embaixo. Os pedaços têm tamanhos diferentes: primeiro troque 2/5 por décimos."
+    - texto: "3/10"
+      erro: "Você somou os de cima sem igualar os de baixo. 2/5 não é 2/10: é 4/10."
+    - texto: "2/50"
+      erro: "Você multiplicou as frações. A conta pede uma soma."
+    - texto: "1/2"
+      certa: true
+    - texto: "9/10"
+      erro: "2/5 virou 8/10, mas o certo é 4/10: multiplique em cima e embaixo pelo mesmo número, 2."
+  explicacao: "2/5 = 4/10. Então 4/10 + 1/10 = 5/10, que simplifica para 1/2."
+  conferir: "2/5 + 1/10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-03
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  dificuldade: 1
+  enunciado: "Quanto é 3/5 de 40?"
+  alternativas:
+    - texto: "24"
+      certa: true
+    - texto: "8"
+      erro: "8 é 1/5 de 40. Falta multiplicar pelo de cima: 8 × 3."
+    - texto: "120"
+      erro: "Você multiplicou 40 por 3 e não dividiu por 5. Divida pelo de baixo e multiplique pelo de cima."
+    - texto: "16"
+      erro: "16 é a parte que sobra, 2/5 de 40. A pergunta pede os 3/5."
+    - texto: "43"
+      erro: "Você somou 40 + 3. Fração de uma quantidade é uma multiplicação."
+  explicacao: "40 ÷ 5 = 8 e 8 × 3 = 24."
+  conferir: "40 * 3 / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-04
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A caixa-d'água de uma creche comunitária tem capacidade para 1.000 litros. Numa manhã, o marcador indicava que ela
+    estava com 3/8 da capacidade. A coordenação pediu que a caixa fosse abastecida até chegar a 3/4 da capacidade.
+  enunciado: "A quantidade de água que precisa entrar na caixa é de"
+  alternativas:
+    - texto: "750 litros."
+      erro: "750 litros são 3/4 da caixa, o ponto de chegada. Desconte o que já havia: 3/8."
+    - texto: "625 litros."
+      erro: "625 litros são os 5/8 que faltam para encher a caixa toda. A meta é 3/4, não a caixa cheia."
+    - texto: "250 litros."
+      erro: "250 litros é 1/4 da caixa, o que falta depois de chegar a 3/4. A pergunta é quanto entra de 3/8 até 3/4."
+    - texto: "1.125 litros."
+      erro: "Você somou 3/4 + 3/8. O que precisa entrar é a diferença entre a meta e o que havia."
+    - texto: "375 litros."
+      certa: true
+  explicacao: "3/4 = 6/8. Falta 6/8 − 3/8 = 3/8 da caixa. 1.000 ÷ 8 = 125, e 125 × 3 = 375 litros."
+  conferir: "1000 * (3/4 - 3/8)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-05
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  dificuldade: 2
+  enunciado: "Quanto é 2/3 ÷ 4/9?"
+  alternativas:
+    - texto: "2/9"
+      erro: "Você subtraiu as frações. A conta pede uma divisão: multiplique pelo inverso da segunda."
+    - texto: "8/27"
+      erro: "Você multiplicou as frações como estão. Na divisão, a segunda fração é invertida antes: 2/3 × 9/4."
+    - texto: "3/2"
+      certa: true
+    - texto: "2/3"
+      erro: "Você inverteu a primeira fração em vez da segunda (3/2 × 4/9). Mantenha a primeira e inverta a segunda."
+    - texto: "27/8"
+      erro: "Você inverteu as duas frações e multiplicou. Só a segunda é invertida."
+  explicacao: "2/3 ÷ 4/9 = 2/3 × 9/4 = 18/12, que simplifica para 3/2."
+  conferir: "(2/3) / (4/9)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-06
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  dificuldade: 2
+  enunciado: "Quanto é 1,2 ÷ 0,04?"
+  alternativas:
+    - texto: "3"
+      erro: "Você andou a vírgula uma casa a menos no 1,2. Multiplique os dois por 100: 120 ÷ 4."
+    - texto: "0,3"
+      erro: "Você dividiu 1,2 por 4 sem mexer no 1,2. Ao multiplicar o divisor por 100, multiplique o dividendo também."
+    - texto: "300"
+      erro: "Você andou casas demais no 1,2. Multiplicando os dois por 100: 120 ÷ 4."
+    - texto: "0,048"
+      erro: "Você multiplicou os números. A conta é uma divisão."
+    - texto: "30"
+      certa: true
+  explicacao: "Multiplique os dois por 100 para o divisor ficar inteiro: 1,2 ÷ 0,04 = 120 ÷ 4 = 30."
+  conferir: "1.2 / 0.04"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-07
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num mercado do bairro, o mesmo café é vendido em duas embalagens: um pacote de 400 g por R$ 9,60 e um pacote de
+    0,75 kg por R$ 17,25.
+  enunciado: "O preço por quilograma do café na embalagem mais vantajosa é de"
+  alternativas:
+    - texto: "R$ 23,00."
+      certa: true
+    - texto: "R$ 24,00."
+      erro: "R$ 24,00 é o preço do quilo no pacote de 400 g. O de 0,75 kg sai mais barato por quilo."
+    - texto: "R$ 2,40."
+      erro: "Você dividiu 9,60 por 4, como se 400 g fossem 4 kg. 400 g são 0,4 kg: 9,60 ÷ 0,4 = 96 ÷ 4 = 24."
+    - texto: "R$ 7,65."
+      erro: "Você subtraiu os preços. Para comparar, ache o preço de um quilo em cada embalagem."
+    - texto: "R$ 12,94."
+      erro: "Você multiplicou 17,25 por 0,75. Preço por quilo é preço dividido pela massa em quilos."
+  explicacao: "400 g = 0,4 kg: 9,60 ÷ 0,4 = 96 ÷ 4 = R$ 24,00 o quilo. 0,75 kg = 3/4 kg: 17,25 ÷ 3/4 = 17,25 × 4 ÷ 3 = 69 ÷ 3 = R$ 23,00 o quilo. O pacote maior é mais vantajoso."
+  conferir: "17.25 / 0.75"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-08
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um terreno coletivo foi dividido assim: 2/5 da área ficaram para a horta; 1/4 do que sobrou ficou para o galinheiro;
+    e o restante ficou para a área de convivência, que mede 180 m².
+  enunciado: "A área total do terreno é de"
+  alternativas:
+    - texto: "240 m²."
+      erro: "240 m² é o que sobrou depois da horta: os 180 m² são 3/4 desse resto. Falta voltar mais um passo, porque o resto é só 3/5 do terreno."
+    - texto: "300 m²."
+      erro: "Você dividiu 180 por 3/5, como se a convivência fosse todo o resto depois da horta. O galinheiro também sai desse resto."
+    - texto: "400 m²."
+      certa: true
+    - texto: "1.200 m²."
+      erro: "Você dividiu 180 por 3/20, a fração do galinheiro. Os 180 m² são da área de convivência, que é 9/20 do terreno."
+    - texto: "720 m²."
+      erro: "Você tomou os 180 m² como 1/4 do terreno. O 1/4 é do galinheiro, e é 1/4 do resto, não do total."
+  explicacao: "Depois da horta sobram 3/5. O galinheiro fica com 1/4 de 3/5 = 3/20. A convivência fica com 3/5 − 3/20 = 12/20 − 3/20 = 9/20 do terreno. Se 9/20 valem 180, 1/20 vale 20, e o terreno tem 20 × 20 = 400 m²."
+  conferir: "180 / (9/20)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-09
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-fracoes-e-decimais
+  dificuldade: 3
+  enunciado: "Quanto é 0,333… + 0,5, em forma de fração? (Em 0,333…, o 3 se repete sem fim.)"
+  alternativas:
+    - texto: "4/5"
+      erro: "Você cortou a dízima em 0,3 e somou 0,3 + 0,5 = 0,8. A dízima vale exatamente 1/3: some as frações."
+    - texto: "5/6"
+      certa: true
+    - texto: "2/5"
+      erro: "Você somou 1/3 + 1/2 em cima e embaixo. Iguale os denominadores: 2/6 + 3/6."
+    - texto: "1/6"
+      erro: "Você multiplicou 1/3 × 1/2. A conta pede uma soma."
+    - texto: "833/1000"
+      erro: "Você cortou o resultado em três casas (0,833). A soma exata é uma dízima: 0,8333…, que é 5/6."
+  explicacao: "0,333… = 1/3 e 0,5 = 1/2. Com denominador 6: 2/6 + 3/6 = 5/6."
+  conferir: "1/3 + 1/2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-fracoes-10
+  tema: "Frações e decimais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-fracoes-e-decimais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um eletricista tem um rolo com 5 m de fita de LED. Para iluminar as prateleiras de uma biblioteca comunitária, ele
+    precisa de pedaços de 3/4 de metro cada. Ele corta o maior número possível de pedaços inteiros desse tamanho.
+  enunciado: "Depois dos cortes, sobra no rolo um pedaço de"
+  alternativas:
+    - texto: "0,67 m."
+      erro: "5 ÷ 0,75 dá cerca de 6,67 pedaços. O 0,67 é uma fração de pedaço, e não metros. Multiplique: 6 pedaços usam 4,5 m."
+    - texto: "0,25 m."
+      erro: "0,25 m é quanto faltaria para cortar um 7º pedaço (7 × 0,75 = 5,25). A pergunta é quanto sobra com 6 pedaços."
+    - texto: "1,25 m."
+      erro: "Você contou só 5 pedaços (5 × 0,75 = 3,75). Ainda cabe mais um: 6 × 0,75 = 4,5."
+    - texto: "0,5 m."
+      certa: true
+    - texto: "3,75 m."
+      erro: "Você multiplicou 5 × 3/4. Isso mede 5 pedaços juntos, não a sobra."
+  explicacao: "Quantos pedaços de 3/4 cabem em 5? 5 ÷ 3/4 = 20/3 ≈ 6,67: cabem 6 inteiros. Eles usam 6 × 0,75 = 4,5 m. Sobra 5 − 4,5 = 0,5 m."
+  conferir: "5 - 6 * 0.75"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

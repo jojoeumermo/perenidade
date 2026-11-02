@@ -1,0 +1,262 @@
+# Exercícios da aula "Operações com inteiros e racionais" (trilha enem-matematica-fundamentos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-operacoes-01
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  dificuldade: 1
+  enunciado: "Quanto é −9 + 4?"
+  alternativas:
+    - texto: "−5"
+      certa: true
+    - texto: "5"
+      erro: "A subtração 9 − 4 está certa, mas o sinal ficou errado. Com sinais diferentes, fica o sinal do número mais longe do zero, que é o −9."
+    - texto: "−13"
+      erro: "Você somou 9 + 4 e pôs o sinal de menos. Isso vale quando os dois são negativos. Aqui um é positivo: subtraia."
+    - texto: "13"
+      erro: "Você somou os dois como se fossem positivos. Na reta, saia do −9 e ande 4 para a direita: você para no −5."
+    - texto: "−36"
+      erro: "Você multiplicou. O sinal + entre os números pede uma soma."
+  explicacao: "Sinais diferentes: subtraia (9 − 4 = 5) e fique com o sinal do maior em distância do zero, o −9. Resultado: −5."
+  conferir: "-9 + 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-02
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  dificuldade: 1
+  enunciado: "Quanto é 7 − (−3)?"
+  alternativas:
+    - texto: "4"
+      erro: "Você fez 7 − 3 e ignorou o sinal do 3. Subtrair um negativo é somar o oposto: 7 + 3."
+    - texto: "−10"
+      erro: "O resultado é positivo: você parte do 7 e, ao tirar uma dívida de 3, ganha 3."
+    - texto: "10"
+      certa: true
+    - texto: "−4"
+      erro: "Dois enganos juntos: o sinal do 3 foi ignorado e o resultado ficou negativo. Troque a subtração do negativo por uma soma: 7 + 3."
+    - texto: "21"
+      erro: "Você multiplicou 7 × 3. A conta é uma subtração."
+  explicacao: "Subtrair é somar o oposto: 7 − (−3) = 7 + 3 = 10."
+  conferir: "7 - (-3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-03
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  dificuldade: 1
+  enunciado: "Quanto é (−48) ÷ (−6)?"
+  alternativas:
+    - texto: "−8"
+      erro: "48 ÷ 6 = 8 está certo, mas o sinal não. Na divisão, sinais iguais dão resultado positivo."
+    - texto: "42"
+      erro: "Você subtraiu 48 − 6. A conta pede uma divisão."
+    - texto: "−54"
+      erro: "Você somou os dois negativos. A conta pede uma divisão."
+    - texto: "288"
+      erro: "Você multiplicou 48 × 6. A conta pede uma divisão."
+    - texto: "8"
+      certa: true
+  explicacao: "Divida sem sinal: 48 ÷ 6 = 8. Os dois números são negativos, sinais iguais: o resultado é positivo, 8."
+  conferir: "(-48) / (-6)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-04
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A amplitude térmica de um dia é a diferença entre a temperatura máxima e a temperatura mínima. Num dia de inverno,
+    quatro cidades registraram as temperaturas abaixo.
+
+    | Cidade | Mínima | Máxima |
+    | --- | --- | --- |
+    | P | −2 °C | 11 °C |
+    | Q | −6 °C | 12 °C |
+    | R | 1 °C | 17 °C |
+    | S | −4 °C | 8 °C |
+  enunciado: "A maior amplitude térmica registrada nesse dia, entre as quatro cidades, foi de"
+  alternativas:
+    - texto: "16 graus."
+      erro: "16 graus é a amplitude da cidade R. Ela parece a maior quando a conta da cidade Q é feita como 12 − 6. Mas a mínima de Q é negativa: 12 − (−6) = 18."
+    - texto: "18 graus."
+      certa: true
+    - texto: "6 graus."
+      erro: "Você fez 12 − 6 na cidade Q, ignorando o sinal da mínima. Do −6 até o zero são 6 graus e do zero até 12 são mais 12."
+    - texto: "23 graus."
+      erro: "Você misturou cidades: pegou a maior máxima (17 °C, de R) e a menor mínima (−6 °C, de Q). A amplitude é de cada cidade, num mesmo lugar."
+    - texto: "12 graus."
+      erro: "12 °C é a máxima da cidade Q. Falta descontar a mínima: 12 − (−6)."
+  explicacao: "Amplitudes: P, 11 − (−2) = 13; Q, 12 − (−6) = 18; R, 17 − 1 = 16; S, 8 − (−4) = 12. A maior é a de Q, 18 graus."
+  conferir: "12 - (-6)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-05
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  dificuldade: 2
+  enunciado: "Um mergulhador está 18 m abaixo do nível do mar (posição −18 m). Ele sobe 7 m e depois desce 12 m. Qual é a posição final dele?"
+  alternativas:
+    - texto: "−13 m"
+      erro: "Os movimentos foram trocados: subir 7 m é somar 7, e descer 12 m é subtrair 12. Faça −18 + 7 − 12."
+    - texto: "23 m"
+      erro: "A conta 18 − 7 + 12 = 23 está certa em tamanho, mas o mergulhador continua abaixo do nível do mar: a posição é negativa."
+    - texto: "−37 m"
+      erro: "Você tratou os três números como descidas. Subir 7 m aproxima do nível do mar."
+    - texto: "−23 m"
+      certa: true
+    - texto: "−11 m"
+      erro: "Você parou depois da subida (−18 + 7 = −11). Falta a descida de 12 m."
+  explicacao: "−18 + 7 = −11; depois −11 − 12 = −23. Ele termina 23 m abaixo do nível do mar."
+  conferir: "-18 + 7 - 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-06
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  dificuldade: 2
+  enunciado: "Quanto é 0,4 × (−2,5)?"
+  alternativas:
+    - texto: "1"
+      erro: "O valor 1 está certo, mas o sinal não. Um fator positivo e um negativo dão resultado negativo."
+    - texto: "−1"
+      certa: true
+    - texto: "−10"
+      erro: "Você devolveu só uma casa decimal. 4 × 25 = 100, e os fatores têm duas casas ao todo (uma em 0,4 e uma em 2,5): 1,00."
+    - texto: "−2,1"
+      erro: "Você somou 0,4 com −2,5. A conta é uma multiplicação."
+    - texto: "−0,1"
+      erro: "Você andou a vírgula três casas. Conte as casas dos fatores: uma em 0,4 e uma em 2,5, duas ao todo."
+  explicacao: "Sem vírgula: 4 × 25 = 100. Duas casas decimais nos fatores: 1,00 = 1. Sinais diferentes: −1."
+  conferir: "0.4 * (-2.5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-07
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um banco de alimentos comunitário começou o mês com 120 cestas básicas no estoque. O quadro mostra a variação do
+    estoque em cada semana (cestas recebidas menos cestas entregues).
+
+    | Semana | Variação |
+    | --- | --- |
+    | 1ª | −45 |
+    | 2ª | +30 |
+    | 3ª | −80 |
+    | 4ª | +60 |
+  enunciado: "O menor estoque registrado ao fim de uma semana, nesse mês, foi de"
+  alternativas:
+    - texto: "80 cestas."
+      erro: "80 é a maior saída, a da 3ª semana, e não o estoque. Calcule o estoque ao fim de cada semana."
+    - texto: "75 cestas."
+      erro: "75 é o estoque ao fim da 1ª semana. Na 3ª semana ele caiu mais."
+    - texto: "85 cestas."
+      erro: "85 é o estoque ao fim do mês, depois da entrada da 4ª semana. A pergunta pede o menor estoque."
+    - texto: "105 cestas."
+      erro: "105 é o estoque ao fim da 2ª semana. Depois vem a saída de 80 cestas."
+    - texto: "25 cestas."
+      certa: true
+  explicacao: "Ao fim de cada semana: 120 − 45 = 75; 75 + 30 = 105; 105 − 80 = 25; 25 + 60 = 85. O menor é 25."
+  conferir: "120 - 45 + 30 - 80"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-08
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num entreposto de pescado, a temperatura de uma câmara fria é medida cinco vezes por dia. Num certo dia, as
+    medições foram: −18 °C, −21 °C, −15 °C, −22 °C e −19 °C. O responsável anota no relatório a média dessas medições.
+  enunciado: "A média anotada no relatório foi de"
+  alternativas:
+    - texto: "−19 °C."
+      certa: true
+    - texto: "19 °C."
+      erro: "A conta 95 ÷ 5 = 19 está certa, mas a soma de cinco negativos é negativa, e a divisão por 5 mantém o sinal."
+    - texto: "−95 °C."
+      erro: "−95 é a soma das medições. A média pede dividir essa soma pela quantidade de medições, 5."
+    - texto: "−18,5 °C."
+      erro: "Você fez a média só da maior e da menor medição. A média usa todas as cinco."
+    - texto: "−23,75 °C."
+      erro: "Você dividiu a soma por 4. São cinco medições."
+  explicacao: "Soma: 18 + 21 + 15 + 22 + 19 = 95, com sinal negativo: −95. Média: −95 ÷ 5 = −19 °C."
+  conferir: "(-18 - 21 - 15 - 22 - 19) / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-09
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 1
+  objeto: mat-numeros-operacoes
+  dificuldade: 3
+  enunciado: "Entre os números −0,6; −2/3; −5/8 e −0,65, qual é o menor?"
+  alternativas:
+    - texto: "−0,6"
+      erro: "−0,6 é o maior dos quatro: é o que está mais perto do zero. Entre negativos, o menor é o mais longe do zero."
+    - texto: "−5/8"
+      erro: "−5/8 = −0,625. Ele fica mais perto do zero que −0,65 e −2/3."
+    - texto: "−0,65"
+      erro: "−0,65 é menor que −0,6 e −0,625, mas −2/3 vale cerca de −0,667, ainda mais longe do zero."
+    - texto: "−2/3"
+      certa: true
+    - texto: "Os quatro são iguais."
+      erro: "Eles são parecidos, mas não iguais. Passe tudo para decimal e compare casa por casa."
+  explicacao: "Em decimal: −0,6; −2/3 ≈ −0,667; −5/8 = −0,625; −0,65. O mais longe do zero é −2/3, então ele é o menor."
+  conferir: "-2/3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-operacoes-10
+  tema: "Operações com inteiros e racionais"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-operacoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa prova de seleção de uma escola técnica, cada questão certa soma 3 pontos, cada questão errada desconta 2 pontos
+    e cada questão em branco vale zero. Uma candidata acertou 14 questões, errou 9 e deixou 2 em branco.
+  enunciado: "A pontuação final da candidata foi de"
+  alternativas:
+    - texto: "60 pontos."
+      erro: "Os pontos das erradas foram somados (42 + 18). Cada erro desconta: some 9 vezes −2."
+    - texto: "42 pontos."
+      erro: "42 são só os pontos das certas. Falta descontar os 9 erros."
+    - texto: "24 pontos."
+      certa: true
+    - texto: "20 pontos."
+      erro: "As questões em branco foram descontadas como erros (11 × 2 = 22). Em branco vale zero."
+    - texto: "5 pontos."
+      erro: "Você subtraiu as quantidades (14 − 9). Cada certa vale 3 e cada errada desconta 2: multiplique antes."
+  explicacao: "Certas: 14 × 3 = 42. Erradas: 9 × (−2) = −18. Em branco: 0. Total: 42 − 18 = 24 pontos."
+  conferir: "14 * 3 + 9 * (-2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

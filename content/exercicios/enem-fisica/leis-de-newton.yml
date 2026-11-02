@@ -1,0 +1,247 @@
+# Exercícios da aula "Leis de Newton, atrito e plano inclinado" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fis-newton-01
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  dificuldade: 1
+  enunciado: "Um carrinho de feira com 50 kg de carga e carrinho recebe uma força resultante de 100 N. Qual é a aceleração dele?"
+  alternativas:
+    - texto: "5.000 m/s²"
+      erro: "Você multiplicou força por massa. Pela segunda lei, a aceleração é a força dividida pela massa: a = F ÷ m."
+    - texto: "0,5 m/s²"
+      erro: "Você dividiu a massa pela força (50 ÷ 100). É o contrário: a = F ÷ m = 100 ÷ 50."
+    - texto: "2 m/s²"
+      certa: true
+    - texto: "150 m/s²"
+      erro: "Você somou força e massa. Grandezas de unidades diferentes não se somam; a segunda lei divide a força pela massa."
+    - texto: "10 m/s²"
+      erro: "10 m/s² é o valor usado para a gravidade. Aqui a aceleração vem da força resultante dada: 100 ÷ 50."
+  explicacao: "Segunda lei de Newton: a = F ÷ m = 100 ÷ 50 = 2 m/s²."
+  conferir: "100 / 50"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-02
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  dificuldade: 1
+  enunciado: "Uma pessoa tem massa de 70 kg. Qual é o peso dela na Terra? Use g = 10 m/s²."
+  alternativas:
+    - texto: "700 N"
+      certa: true
+    - texto: "70 N"
+      erro: "Você tratou massa e peso como a mesma coisa. A massa é 70 kg; o peso é a força com que a Terra puxa: P = m · g."
+    - texto: "7 N"
+      erro: "Você dividiu a massa pela gravidade. O peso é a massa multiplicada pela gravidade: 70 × 10."
+    - texto: "80 N"
+      erro: "Você somou 70 + 10. O peso é um produto: P = m · g."
+    - texto: "7.000 N"
+      erro: "Sobrou um zero: 70 × 10 = 700. Estime: uma pessoa de 70 kg pesa algumas centenas de newtons, não milhares."
+  explicacao: "P = m · g = 70 × 10 = 700 N. A massa (70 kg) não muda de lugar para lugar; o peso muda com a gravidade."
+  conferir: "70 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-03
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  dificuldade: 1
+  enunciado: "Numa festa, alguém puxa a toalha da mesa com um movimento muito rápido, e os copos ficam quase no mesmo lugar. Qual ideia da física explica isso?"
+  alternativas:
+    - texto: "A terceira lei: os copos empurram a toalha de volta."
+      erro: "A terceira lei fala do par de forças entre dois corpos, mas não explica por que os copos ficam. O que explica é a tendência deles de continuar parados."
+    - texto: "O peso dos copos fica maior quando a toalha se move."
+      erro: "O peso é m · g e não muda com o movimento da toalha. O que segura os copos é a inércia."
+    - texto: "O atrito entre toalha e copos empurra os copos para trás."
+      erro: "O atrito, na verdade, puxa os copos junto com a toalha. Como age por um tempo muito curto, quase não muda o movimento deles."
+    - texto: "A força normal da mesa prende os copos no lugar."
+      erro: "A normal é vertical e equilibra o peso. Ela não segura nada na horizontal."
+    - texto: "A inércia: os copos parados tendem a continuar parados."
+      certa: true
+  explicacao: "Pela primeira lei de Newton, um corpo parado tende a ficar parado. O atrito da toalha age por um tempo tão curto que quase não muda a velocidade dos copos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-04
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um caminhão de mudança, parado num semáforo, arranca e acelera para a frente. Na carroceria, uma caixa solta,
+    sem cordas, sai junto com o caminhão, sem escorregar.
+  enunciado: "Durante a arrancada, a força de atrito que a carroceria faz sobre a caixa"
+  alternativas:
+    - texto: "é nula, porque a caixa não escorrega."
+      erro: "Se não houvesse força horizontal, a caixa ficaria para trás, por inércia. Para acelerar junto com o caminhão, ela precisa de uma força para a frente: o atrito estático."
+    - texto: "aponta para trás, contra o movimento do caminhão."
+      erro: "O atrito se opõe ao escorregamento entre as superfícies, não ao movimento do veículo. A caixa tende a escorregar para trás; o atrito aponta para a frente."
+    - texto: "aponta para cima, equilibrando o peso."
+      erro: "Quem equilibra o peso é a força normal, perpendicular à carroceria. O atrito é paralelo à superfície de contato."
+    - texto: "aponta para a frente e é a força que acelera a caixa."
+      certa: true
+    - texto: "é igual ao peso da caixa."
+      erro: "O atrito não tem de ser igual ao peso. Ele vale o necessário para a caixa acompanhar o caminhão: massa da caixa vezes a aceleração."
+  explicacao: "Por inércia, a caixa tende a ficar para trás quando o caminhão arranca. O atrito estático se opõe a esse escorregamento e aponta para a frente. É a única força horizontal na caixa, e por isso é ela que a acelera junto com o caminhão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-05
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  dificuldade: 2
+  enunciado: "Um armário de 50 kg está parado num chão plano. O coeficiente de atrito estático entre o armário e o chão é 0,4. Qual é a menor força horizontal que faz o armário começar a se mover? Use g = 10 m/s²."
+  alternativas:
+    - texto: "20 N"
+      erro: "Você multiplicou o coeficiente pela massa (0,4 × 50). O atrito usa a força normal, em newtons: N = 50 × 10 = 500 N."
+    - texto: "200 N"
+      certa: true
+    - texto: "500 N"
+      erro: "500 N é o peso, que aqui é igual à normal. O atrito máximo é só uma fração disso: 0,4 × 500."
+    - texto: "700 N"
+      erro: "Você somou o peso e o atrito. Para empurrar na horizontal, só o atrito resiste: 0,4 × 500 = 200 N."
+    - texto: "1.250 N"
+      erro: "Você dividiu a normal pelo coeficiente. O atrito máximo é o coeficiente vezes a normal: 0,4 × 500."
+  explicacao: "Chão plano: N = P = 50 × 10 = 500 N. Atrito estático máximo: 0,4 × 500 = 200 N. Com uma força um pouco acima de 200 N, o armário começa a escorregar."
+  conferir: "0.4 * 50 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-06
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num canteiro de obras, um saco de cimento com peso de 600 N fica pendurado numa polia móvel. A polia é
+    sustentada por dois trechos da mesma corda: um preso numa viga e outro que passa por uma polia fixa e chega à mão
+    do servente. Despreze as massas das polias e da corda e os atritos.
+  enunciado: "Para subir o saco com velocidade constante, o servente deve puxar a corda com uma força de"
+  alternativas:
+    - texto: "600 N"
+      erro: "Essa seria a força com uma polia fixa só, que muda a direção mas não divide a carga. Na polia móvel, dois trechos de corda seguram o saco."
+    - texto: "1.200 N"
+      erro: "Você multiplicou por 2 em vez de dividir. Os dois trechos de corda ajudam a segurar: cada um faz metade do peso."
+    - texto: "300 N"
+      certa: true
+    - texto: "150 N"
+      erro: "Esse seria o caso com duas polias móveis em sequência. Aqui há uma só: a força cai para a metade, não para um quarto."
+    - texto: "200 N"
+      erro: "Você dividiu por 3, contando também o trecho que sai da polia fixa. Só os trechos que seguram a polia móvel contam: são dois."
+  explicacao: "Velocidade constante: resultante zero. Dois trechos de corda seguram a polia móvel, cada um com a mesma força F: 2F = 600, então F = 300 N. A polia fixa só muda a direção da força."
+  conferir: "600 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-07
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  dificuldade: 2
+  enunciado: "Numa pista de patinação, um adulto de 80 kg e uma criança de 40 kg, parados, se empurram com as mãos. Despreze o atrito. O que acontece?"
+  alternativas:
+    - texto: "Os dois recebem forças do mesmo tamanho, e a criança sai com aceleração maior."
+      certa: true
+    - texto: "O adulto faz mais força, por isso a criança se afasta e o adulto fica parado."
+      erro: "Pela terceira lei, as forças do par ação e reação têm o mesmo tamanho. O adulto também é empurrado e também se move."
+    - texto: "As forças se anulam, e nenhum dos dois se move."
+      erro: "Ação e reação agem em corpos diferentes: uma no adulto, outra na criança. Por isso não se anulam, e os dois se movem."
+    - texto: "Os dois saem com a mesma aceleração, porque as forças são iguais."
+      erro: "As forças são iguais, mas as massas não. Pela segunda lei, a = F ÷ m: quem tem menos massa acelera mais."
+    - texto: "A criança faz mais força, por ser mais leve."
+      erro: "A massa não muda o tamanho do par de forças. Pela terceira lei, as duas forças são sempre iguais em tamanho."
+  explicacao: "Pela terceira lei, a força do adulto sobre a criança e a da criança sobre o adulto têm o mesmo tamanho e sentidos opostos. Pela segunda, a = F ÷ m: com metade da massa, a criança sai com o dobro da aceleração."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-08
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma caixa de 100 kg vai na carroceria de uma caminhonete, amarrada por uma corda à parede de trás da carroceria.
+    O coeficiente de atrito estático entre a caixa e a carroceria é 0,3. Numa freada, a caminhonete perde velocidade
+    com aceleração de 4 m/s², e a caixa não se move em relação à carroceria. Considere g = 10 m/s².
+  enunciado: "Durante a freada, a tensão na corda é de, no mínimo,"
+  alternativas:
+    - texto: "400 N"
+      erro: "400 N é toda a força para frear a caixa (100 × 4). Mas o atrito ajuda com até 300 N. A corda só completa o que falta."
+    - texto: "700 N"
+      erro: "Você somou o atrito à força necessária. Atrito e corda trabalham juntos, os dois para trás: a corda faz 400 − 300."
+    - texto: "300 N"
+      erro: "300 N é o atrito estático máximo. É a parte que o atrito resolve; a corda faz o restante."
+    - texto: "0 N"
+      erro: "O atrito sozinho não basta: ele chega a 300 N, e a caixa precisa de 400 N para frear junto. Sem corda, ela escorregaria para a frente."
+    - texto: "100 N"
+      certa: true
+  explicacao: "Para frear junto com a caminhonete, a caixa precisa de uma força resultante para trás de m · a = 100 × 4 = 400 N. O atrito estático, para trás, chega no máximo a 0,3 × 100 × 10 = 300 N. A corda de trás completa: 400 − 300 = 100 N."
+  conferir: "100 * 4 - 0.3 * 100 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-09
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  dificuldade: 3
+  enunciado: "Uma caixa desce escorregando por uma rampa com sen θ = 0,6 e cos θ = 0,8. O coeficiente de atrito cinético entre a caixa e a rampa é 0,25. Qual é a aceleração da caixa? Use g = 10 m/s²."
+  alternativas:
+    - texto: "6 m/s²"
+      erro: "Essa seria a aceleração sem atrito (g · sen θ). O atrito, rampa acima, tira μ · g · cos θ = 2 m/s²."
+    - texto: "8 m/s²"
+      erro: "Você somou o atrito à parte do peso ao longo da rampa. Na descida, o atrito aponta rampa acima e se subtrai."
+    - texto: "2,5 m/s²"
+      erro: "Você calculou μ · g, como se a rampa fosse plana. Na rampa, a normal é P · cos θ, e falta a parte do peso que puxa rampa abaixo."
+    - texto: "4 m/s²"
+      certa: true
+    - texto: "10 m/s²"
+      erro: "10 m/s² é a queda livre na vertical. Na rampa, só a parte do peso paralela a ela acelera a caixa, e o atrito ainda freia."
+  explicacao: "Por quilo de caixa: a parte do peso rampa abaixo dá g · sen θ = 10 × 0,6 = 6 m/s². O atrito, rampa acima, dá μ · g · cos θ = 0,25 × 10 × 0,8 = 2 m/s². Resultante: 6 − 2 = 4 m/s². A massa se cancela."
+  conferir: "10 * (0.6 - 0.25 * 0.8)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-newton-10
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma pessoa de 60 kg está de pé sobre uma balança de banheiro, dentro de um elevador. A balança mostra a força
+    normal que faz sobre a pessoa. Na partida, o elevador sobe com aceleração de 2 m/s². Considere g = 10 m/s².
+  enunciado: "Durante essa partida, a força normal mostrada pela balança é de"
+  alternativas:
+    - texto: "600 N"
+      erro: "600 N é o peso, a leitura com o elevador parado ou em velocidade constante. Acelerando para cima, a balança precisa empurrar mais."
+    - texto: "720 N"
+      certa: true
+    - texto: "480 N"
+      erro: "Você subtraiu a aceleração da gravidade (10 − 2). Isso vale quando o elevador acelera para baixo. Para cima, a normal é maior que o peso."
+    - texto: "120 N"
+      erro: "120 N é só a força resultante (60 × 2). A balança faz essa força mais a que equilibra o peso."
+    - texto: "62 N"
+      erro: "Você somou a massa e a aceleração. Comece pelas forças: N − P = m · a."
+  explicacao: "Forças na pessoa: a normal para cima e o peso (600 N) para baixo. A resultante é para cima: N − 600 = 60 × 2 = 120. Então N = 720 N. A pessoa se sente mais pesada na partida."
+  conferir: "60 * (10 + 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

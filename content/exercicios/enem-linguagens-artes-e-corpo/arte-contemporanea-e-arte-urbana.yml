@@ -1,0 +1,242 @@
+# Exercícios da aula "Arte contemporânea e arte urbana" (trilha enem-linguagens-artes-e-corpo).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Nenhuma obra é reproduzida: as obras citadas vêm descritas.
+
+- id: enem-lin-artes-contemporanea-01
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  dificuldade: 1
+  enunciado: "O que é um ready-made?"
+  alternativas:
+    - texto: "Uma pintura feita rapidamente, em uma só sessão."
+      erro: "Rapidez não define o ready-made. O que define é usar um objeto que já existe pronto."
+    - texto: "Uma escultura de mármore feita à mão."
+      erro: "É o oposto: no ready-made, o artista não fabrica o objeto."
+    - texto: "Um grafite feito com autorização do dono do muro."
+      erro: "Isso é grafite consentido, arte urbana. Não é ready-made."
+    - texto: "Uma fotografia de um objeto industrial."
+      erro: "No ready-made, é o próprio objeto que vai para a exposição, não uma foto dele."
+    - texto: "Um objeto comum, já pronto, que o artista escolhe e leva para o espaço da arte."
+      certa: true
+  explicacao: "Ready-made é o objeto pronto deslocado para o museu ou a galeria. O exemplo mais famoso é *Fonte*, de Marcel Duchamp (1917), um mictório de porcelana assinado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-02
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  dificuldade: 1
+  enunciado: "Pela Lei nº 12.408/2011, qual destas situações NÃO é crime?"
+  alternativas:
+    - texto: "Pichar o muro de uma casa sem a permissão do dono."
+      erro: "Pichar continua sendo crime pelo artigo 65 da Lei nº 9.605/1998."
+    - texto: "Grafitar um monumento tombado sem autorização."
+      erro: "Sem autorização, e num bem tombado, não se cumpre a condição da lei."
+    - texto: "Grafitar o muro de um comércio, com manifestação artística e consentimento do dono."
+      certa: true
+    - texto: "Pintar o muro de uma escola pública sem autorização do órgão responsável."
+      erro: "Em bem público, a lei exige autorização do órgão competente."
+    - texto: "Escrever o próprio nome num ônibus."
+      erro: "Sem consentimento e sem intenção artística de valorizar o bem, não entra na exceção da lei."
+  explicacao: "A lei diz que não é crime o grafite feito para valorizar o patrimônio por manifestação artística, consentido pelo dono (ou autorizado pelo órgão público, se o bem for público)."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 12.408/2011"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-03
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  dificuldade: 1
+  enunciado: "Uma obra em que o público entra, caminha e vive a experiência de um espaço criado pelo artista chama-se:"
+  alternativas:
+    - texto: "instalação."
+      certa: true
+    - texto: "retrato."
+      erro: "Retrato representa uma pessoa, geralmente numa superfície. Não é um espaço para entrar."
+    - texto: "natureza-morta."
+      erro: "Natureza-morta é pintura de objetos parados, como frutas e vasos."
+    - texto: "xilogravura."
+      erro: "Xilogravura é técnica de gravura em madeira, impressa em papel."
+    - texto: "soneto."
+      erro: "Soneto é forma de poema, da literatura."
+  explicacao: "Instalação é a obra que ocupa um espaço e convida o público a entrar e circular. *Tropicália* (1967), de Hélio Oiticica, é um exemplo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-04
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  dificuldade: 2
+  enunciado: "Os Parangolés de Hélio Oiticica são capas e estandartes de tecido. Por que se diz que eles só existem plenamente com a participação do público?"
+  alternativas:
+    - texto: "Porque o público paga para vê-los."
+      erro: "Pagar ingresso não completa a obra. O que a completa é o corpo em movimento."
+    - texto: "Porque foram feitos para ficar guardados em caixas."
+      erro: "Guardados, eles perdem o sentido. Foram feitos para vestir e dançar."
+    - texto: "Porque o público escolhe as cores do tecido na loja."
+      erro: "As cores foram escolhidas pelo artista. A participação está em vestir e mover."
+    - texto: "Porque a obra se completa quando alguém os veste e se move com eles."
+      certa: true
+    - texto: "Porque só podem ser vistos por fotografia."
+      erro: "A foto registra, mas não completa a obra. A experiência é a de vestir e dançar."
+  explicacao: "O Parangolé parado é um pano. Vestido por alguém que dança, vira obra. A arte depende do corpo de quem participa: é uma das marcas da arte contemporânea brasileira dos anos 1960."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-05
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num bairro da periferia, um coletivo de grafiteiros pintou, com autorização dos moradores, o muro de uma
+    quadra esportiva. O mural mostra o rosto de uma merendeira que trabalhou trinta anos na escola do bairro e
+    os nomes dos times de várzea que treinam ali. "A gente pinta o que a cidade não mostra", disse um dos artistas.
+  enunciado: "A fala do artista indica que o mural tem a função de"
+  alternativas:
+    - texto: "decorar a quadra para valorizar o preço dos imóveis."
+      erro: "O artista fala de mostrar o que a cidade não mostra, não de valor de mercado."
+    - texto: "dar visibilidade a pessoas e histórias do bairro que não aparecem em outros espaços."
+      certa: true
+    - texto: "substituir as aulas de arte da escola do bairro."
+      erro: "Nada no texto fala de substituir aulas. Extrapolação."
+    - texto: "competir com os museus do centro da cidade."
+      erro: "O texto não compara com museus. A função está ligada ao próprio bairro."
+    - texto: "esconder o muro, que estava sujo."
+      erro: "O texto não diz que o muro estava sujo. E a fala aponta para mostrar, não para esconder."
+  explicacao: "A merendeira e os times de várzea são pessoas e histórias que a cidade costuma ignorar. O mural as torna visíveis para quem passa. É a função social da arte urbana (H12)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-06
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um artista de uma cidade pequena do interior conta que, por muitos anos, não teve onde expor: a galeria mais
+    próxima ficava a 400 quilômetros. Começou a publicar as colagens dele numa rede social. Hoje, recebe convites
+    de exposições em outros estados e diz que a rede foi "a galeria que a minha cidade não tinha".
+  enunciado: "No relato, as plataformas digitais aparecem como meio para"
+  alternativas:
+    - texto: "substituir a produção manual das colagens."
+      erro: "As colagens continuam sendo feitas por ele. A rede só as mostra."
+    - texto: "provar que as galerias são desnecessárias."
+      erro: "Ele passou a receber convites de exposições. As galerias continuam importando."
+    - texto: "ampliar a circulação de um artista distante dos centros culturais."
+      certa: true
+    - texto: "vender as obras sem intermediários."
+      erro: "O relato fala de mostrar, não de vender."
+    - texto: "esconder a origem do artista."
+      erro: "Ele fala da cidade com orgulho, como ponto de partida. Nada indica que a esconde."
+  explicacao: "A rede social funcionou como galeria para quem estava longe dos centros. É a função de circulação: a tecnologia muda onde e como a arte chega ao público."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-07
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 13
+  objeto: lin-artes-contemporanea-e-urbana
+  dificuldade: 2
+  enunciado: "Diante de *Fonte*, de Duchamp (um mictório assinado, de 1917), um visitante diz: \"Isso não é arte, qualquer um compra na loja\". Que ideia da obra a fala do visitante deixa de considerar?"
+  alternativas:
+    - texto: "A dificuldade técnica de fabricar porcelana."
+      erro: "Duchamp não fabricou o mictório. A técnica não é o centro da obra."
+    - texto: "A beleza das formas curvas do objeto."
+      erro: "Beleza não era o propósito. A obra quer provocar uma pergunta."
+    - texto: "O alto preço do objeto na época."
+      erro: "O mictório era comum e barato. O preço não é a questão."
+    - texto: "O uso higiênico do objeto."
+      erro: "Fora do banheiro e virado de lado, o objeto perde a função de uso. É isso que a obra explora."
+    - texto: "A proposta de discutir o que transforma um objeto em arte."
+      certa: true
+  explicacao: "O visitante tem razão de que qualquer um compraria o objeto. É justamente esse o ponto: Duchamp pergunta se é a mão, a ideia ou a instituição que faz a arte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-08
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa galeria, uma artista expôs apenas a sombra de uma cadeira, pintada no chão e na parede, longa e
+    deformada, como a de fim de tarde. A cadeira não estava lá. O texto da curadoria lembrava que, um século
+    antes, um artista havia levado uma cadeira comum para uma exposição e a chamado de obra.
+  enunciado: "Ao mostrar só a sombra, a obra estabelece com a obra de um século antes uma relação de"
+  alternativas:
+    - texto: "cópia, porque repete a mesma cadeira."
+      erro: "A cadeira não está lá. A obra nova mostra a ausência, não repete o objeto."
+    - texto: "diálogo, porque retoma o objeto comum e o transforma em ausência, em imagem."
+      certa: true
+    - texto: "negação total, porque recusa qualquer ligação com o passado."
+      erro: "A própria curadoria lembra a obra antiga. A ligação é declarada."
+    - texto: "ilustração, porque desenha a cadeira para explicá-la."
+      erro: "Ela não desenha a cadeira: desenha a sombra deformada. Não é explicação, é comentário."
+    - texto: "propaganda, porque anuncia uma marca de móveis."
+      erro: "Nada no texto fala de marca ou venda."
+  explicacao: "A obra conversa com a anterior: lá havia o objeto comum, aqui só a sombra. É arte comentando arte, um diálogo entre obras (intertextualidade nas artes visuais)."
+  fonte: "Questão original do Instituto Lúcia (obra imaginária)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-09
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-contemporanea-e-urbana
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em 1965, na abertura de uma exposição num museu do Rio de Janeiro, um artista chegou acompanhado de passistas
+    e músicos de uma escola de samba, todos vestindo capas de tecido criadas por ele. A direção do museu impediu a
+    entrada do grupo. A apresentação aconteceu do lado de fora, nos jardins.
+  enunciado: "O episódio permite discutir"
+  alternativas:
+    - texto: "quem era considerado bem-vindo no espaço do museu e a separação entre arte erudita e cultura popular."
+      certa: true
+    - texto: "a falta de qualidade técnica das capas de tecido."
+      erro: "O texto não avalia a técnica. O conflito foi sobre quem podia entrar."
+    - texto: "a regra de que obras de arte não podem ser vestidas."
+      erro: "Não há regra assim no texto. A questão é a recusa ao grupo."
+    - texto: "o desinteresse dos passistas pela arte moderna."
+      erro: "Eles foram ao museu vestindo as obras. É o contrário de desinteresse."
+    - texto: "a preferência do público pelos jardins."
+      erro: "A apresentação foi para fora porque o grupo foi barrado, não por preferência."
+  explicacao: "O artista levou o samba do morro para dentro da instituição, e a instituição recusou. O episódio mostra tensões entre arte de museu e cultura popular, e sobre quem pode ocupar cada espaço (H14)."
+  fonte: "Questão original do Instituto Lúcia, com base no episódio de Hélio Oiticica em Opinião 65 (MAM Rio, 1965)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-artes-contemporanea-10
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  dificuldade: 3
+  enunciado: "Uma obra é formada por dez caixas de metal idênticas, presas na parede, uma acima da outra, com o mesmo espaço entre elas. O artista diz que ela \"não representa nada\". A leitura mais adequada é que a obra:"
+  alternativas:
+    - texto: "esconde um retrato da vida operária que o público deve decifrar."
+      erro: "O artista diz que ela não representa nada. Procurar um tema escondido contraria o próprio texto."
+    - texto: "falhou, porque toda obra de arte precisa representar algo."
+      erro: "Essa ideia é justamente o que a arte do século 20 questionou. Não é critério da prova."
+    - texto: "é um objeto industrial sem relação com a arte."
+      erro: "Ela foi pensada e exposta como obra. O fato de usar material industrial é parte da proposta."
+    - texto: "propõe uma experiência de percepção da forma, do material, da repetição e do espaço."
+      certa: true
+    - texto: "foi feita para ser usada como estante."
+      erro: "Nada no enunciado indica uso prático. É leitura literal demais."
+  explicacao: "Sem representar nada, a obra chama atenção para o que ela é: forma, material, repetição e espaço. É o tipo de proposta do Minimalismo, dos anos 1960."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

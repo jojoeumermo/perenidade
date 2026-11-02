@@ -1,0 +1,247 @@
+# Exercícios da aula "Vistas e projeções ortogonais" (trilha enem-matematica-geometria).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. As figuras vêm descritas em texto.
+
+- id: enem-mat-vistas-01
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-vistas-e-projecoes
+  dificuldade: 1
+  enunciado: "Uma lata de óleo está em pé sobre a mesa. Qual é a vista superior dela (olhando de cima, em linha reta)?"
+  alternativas:
+    - texto: "Um círculo"
+      certa: true
+    - texto: "Um retângulo"
+      erro: "O retângulo é a vista de frente ou de lado. De cima, você vê a tampa redonda."
+    - texto: "Um triângulo"
+      erro: "O triângulo aparece de frente num cone ou numa pirâmide. A lata é um cilindro."
+    - texto: "Um quadrado"
+      erro: "O quadrado seria a tampa de uma caixa. A lata tem a tampa redonda."
+    - texto: "Uma elipse (um círculo achatado)"
+      erro: "A elipse aparece quando se olha a tampa de viés, em perspectiva. Na vista, olha-se em linha reta, bem de cima."
+  explicacao: "A lata é um cilindro em pé. De cima, só aparece a tampa: um círculo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-02
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-vistas-e-projecoes
+  dificuldade: 1
+  enunciado: "Uma pirâmide de base quadrada está apoiada na base. Olhando bem de frente para uma das faces, em linha reta, que figura se vê?"
+  alternativas:
+    - texto: "Um quadrado"
+      erro: "O quadrado é o contorno da vista de cima. De frente, a base vira um segmento no chão."
+    - texto: "Um triângulo"
+      certa: true
+    - texto: "Um círculo"
+      erro: "O círculo aparece de cima num cone ou num cilindro. A pirâmide não tem partes redondas."
+    - texto: "Um retângulo"
+      erro: "O retângulo é a vista de frente de um prisma ou de um cilindro, que não afinam para cima."
+    - texto: "Um trapézio"
+      erro: "O trapézio seria a vista de uma pirâmide com o bico cortado (um tronco). Esta pirâmide termina num ponto."
+  explicacao: "De frente, a base aparece como um segmento e as faces sobem até o vértice. O contorno é um triângulo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-03
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-vistas-e-projecoes
+  dificuldade: 1
+  enunciado: "A mesma pirâmide de base quadrada, apoiada na base, é vista agora bem de cima. Qual desenho representa essa vista?"
+  alternativas:
+    - texto: "Um triângulo"
+      erro: "O triângulo é a vista de frente. De cima, o contorno é o da base, que é quadrada."
+    - texto: "Um quadrado vazio, sem nenhuma linha dentro"
+      erro: "Faltaram as arestas laterais. Elas sobem dos cantos até o vértice, que fica bem no centro, e aparecem de cima."
+    - texto: "Um quadrado com as duas diagonais desenhadas, cruzando no centro"
+      certa: true
+    - texto: "Um círculo com um ponto no centro"
+      erro: "Essa é a vista de cima de um cone. A pirâmide tem base quadrada."
+    - texto: "Dois triângulos lado a lado"
+      erro: "De cima, aparecem quatro triângulos, não dois: um para cada face, separados pelas duas diagonais."
+  explicacao: "O contorno é a base quadrada. As quatro arestas laterais vão dos cantos ao vértice, no centro: de cima, elas formam as duas diagonais do quadrado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-04
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-vistas-e-projecoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma pilha de cubos iguais está sobre uma mesa. As vistas dela são descritas assim:
+    Vista de cima: um quadrado formado por quatro quadradinhos (duas fileiras de dois).
+    Vista frontal: duas colunas; a da esquerda tem três quadradinhos de altura e a da direita, um.
+    Vista lateral (olhando pelo lado direito): duas colunas; a da fileira da frente tem um quadradinho de altura e a da
+    fileira de trás, três.
+    Não há cubos soltos no ar: todo cubo está na mesa ou em cima de outro.
+  enunciado: "Quantos cubos tem essa pilha?"
+  alternativas:
+    - texto: "4"
+      erro: "4 é o número de casas ocupadas na vista de cima. Falta somar as alturas de cada casa."
+    - texto: "8"
+      erro: "Você somou os quadradinhos de duas vistas (4 de cima e 4 de frente). Monte o tabuleiro com a altura de cada casa."
+    - texto: "12"
+      erro: "Você somou as três vistas, ou imaginou a caixa toda cheia (2 × 2 × 3). Só uma casa chega a três cubos."
+    - texto: "6"
+      certa: true
+    - texto: "5"
+      erro: "Você contou a torre como dois cubos. As vistas frontal e lateral mostram altura 3."
+  explicacao: "Tabuleiro: frente-esquerda, frente-direita e trás-direita só podem ter 1 cubo, porque a fileira da frente e a coluna da direita têm altura 1. A torre de 3 está atrás, à esquerda. Total: 1 + 1 + 1 + 3 = 6."
+  conferir: "1 + 1 + 1 + 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-05
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-vistas-e-projecoes
+  dificuldade: 2
+  enunciado: "Uma rampa plana e retangular tem 5 m de comprimento (ao longo da subida) e 2 m de largura, e sobe 3 m de altura. Qual é a área da projeção ortogonal da rampa no chão (a sombra com o sol a pino)?"
+  alternativas:
+    - texto: "10 m²"
+      erro: "10 m² é a área da própria rampa (5 × 2). A sombra no chão é mais curta: a projeção apaga a subida."
+    - texto: "6 m²"
+      erro: "Você usou a altura (3 m) como comprimento da sombra. A sombra é o cateto do chão: 5² − 3² = 16, e a raiz é 4."
+    - texto: "12 m²"
+      erro: "12 m é o perímetro da sombra (4 + 2 + 4 + 2). A pergunta pede área."
+    - texto: "7 m²"
+      erro: "Você somou o comprimento e a largura da rampa. Área é multiplicação: 4 × 2."
+    - texto: "8 m²"
+      certa: true
+  explicacao: "Vista de lado, a rampa é a hipotenusa (5 m) de um triângulo retângulo com altura 3 m. O cateto no chão mede 4 m (3² + 4² = 5²). A sombra é um retângulo de 4 m por 2 m: 8 m²."
+  conferir: "(5^2 - 3^2)^(1/2) * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-06
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-vistas-e-projecoes
+  dificuldade: 2
+  enunciado: "Um cano cilíndrico está deitado no chão de uma obra. Visto bem de cima, que figura aparece?"
+  alternativas:
+    - texto: "Um retângulo comprido"
+      certa: true
+    - texto: "Um círculo"
+      erro: "O círculo aparece quando se olha o cano pela ponta. De cima, deitado, ele mostra o comprimento inteiro."
+    - texto: "Uma elipse"
+      erro: "A elipse é o que se vê da ponta em perspectiva, de viés. A vista é em linha reta, bem de cima."
+    - texto: "Um triângulo"
+      erro: "O cano não afina em nenhuma ponta. Triângulo é a vista de frente de um cone ou de uma pirâmide."
+    - texto: "Um quadrado"
+      erro: "Só seria um quadrado se o comprimento do cano fosse igual ao diâmetro. Um cano de obra é bem mais comprido que largo."
+  explicacao: "Deitado, o cilindro mostra de cima o comprimento e o diâmetro: um retângulo comprido. A vista da ponta é que é um círculo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-07
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-vistas-e-projecoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num parque de diversões, uma roda-gigante gira num plano vertical, perpendicular ao chão. Uma criança dá uma volta
+    completa sentada numa das cadeiras. Um engenheiro desenha a projeção ortogonal do caminho da cadeira no plano do
+    chão, como a sombra que o sol a pino faria.
+  enunciado: "A projeção desenhada pelo engenheiro é"
+  alternativas:
+    - texto: "uma circunferência"
+      erro: "A circunferência é o que se vê olhando a roda de frente, numa parede paralela a ela. No chão, a altura some."
+    - texto: "um segmento de reta"
+      certa: true
+    - texto: "um ponto"
+      erro: "Seria um ponto se a cadeira só subisse e descesse na mesma vertical. Ela também vai para um lado e para o outro."
+    - texto: "uma elipse"
+      erro: "A elipse apareceria se a roda estivesse inclinada em relação ao chão. Ela está em pé, perpendicular ao chão."
+    - texto: "um arco de parábola"
+      erro: "A parábola é a trajetória de algo lançado, vista de lado. A projeção no chão apaga a altura."
+  explicacao: "A roda fica num plano em pé. Projetar no chão apaga a altura e deixa só o vaivém horizontal da cadeira, que vai de um lado da roda ao outro e volta, sempre na mesma linha: um segmento com o comprimento do diâmetro da roda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-08
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-vistas-e-projecoes
+  dificuldade: 3
+  enunciado: "Uma escada maciça foi montada com cubos iguais, sem buracos. A vista lateral é uma escadinha de 4 degraus: quatro colunas com 1, 2, 3 e 4 quadradinhos de altura. A vista frontal é um retângulo de 2 quadradinhos de largura e 4 de altura. Quantos cubos tem a escada?"
+  alternativas:
+    - texto: "10"
+      erro: "10 é o número de quadradinhos da vista lateral (1 + 2 + 3 + 4). A vista frontal mostra que a escada tem 2 cubos de largura."
+    - texto: "8"
+      erro: "8 é o número de quadradinhos da vista frontal (2 × 4). Ela esconde os degraus: some a lateral em cada fileira da largura."
+    - texto: "20"
+      certa: true
+    - texto: "16"
+      erro: "Você imaginou uma caixa de 4 por 4, com um cubo de largura. A escada tem degraus e 2 cubos de largura."
+    - texto: "40"
+      erro: "Você multiplicou a lateral (10) pela altura da frontal (4). A largura da escada é 2, não 4."
+  explicacao: "A vista lateral mostra o perfil da escada: 1 + 2 + 3 + 4 = 10 cubos em cada camada. A vista frontal mostra 2 cubos de largura. Total: 2 × 10 = 20."
+  conferir: "2 * (1 + 2 + 3 + 4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-09
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 7
+  objeto: mat-geometria-vistas-e-projecoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um lápis sem ponta tem a forma de um prisma hexagonal regular (as seis faces laterais são retângulos iguais). Ele
+    está em pé sobre a mesa, e uma pessoa olha bem de frente para uma das faces laterais, em linha reta, sem perspectiva.
+  enunciado: "A vista frontal desse lápis é"
+  alternativas:
+    - texto: "um hexágono."
+      erro: "O hexágono é a vista de cima, a da ponta do lápis. De frente, aparecem as faces laterais."
+    - texto: "um retângulo dividido em três faixas verticais de mesma largura."
+      erro: "As três faces aparecem, mas as duas dos lados estão inclinadas e aparecem mais estreitas que a do meio."
+    - texto: "um retângulo sem divisões."
+      erro: "As arestas entre as faces aparecem como linhas verticais. De frente, veem-se três faces, separadas por duas linhas."
+    - texto: "um retângulo dividido em três faixas verticais, com a do meio duas vezes mais larga que cada uma das outras."
+      certa: true
+    - texto: "um retângulo dividido em seis faixas verticais iguais."
+      erro: "Só metade das faces fica voltada para a frente. As outras três ficam atrás e não aparecem."
+  explicacao: "De frente, vê-se a face do meio inteira e as duas faces vizinhas, inclinadas. No hexágono regular de lado L, a face do meio aparece com largura L e cada vizinha com largura L/2. A vista é um retângulo com três faixas: a do meio com o dobro da largura das laterais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-vistas-10
+  tema: "Vistas e projeções ortogonais"
+  area: matematica
+  habilidade: 6
+  objeto: mat-geometria-vistas-e-projecoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma casa térrea tem planta retangular e telhado de duas águas: dois planos inclinados iguais que se encontram numa
+    linha horizontal no alto, a cumeeira. A cumeeira fica exatamente no meio da casa e é paralela à fachada da frente.
+    Um arquiteto desenha a vista superior da casa, mostrando as arestas do telhado.
+  enunciado: "A vista superior desenhada é"
+  alternativas:
+    - texto: "um triângulo apoiado sobre um retângulo."
+      erro: "Esse é o desenho da fachada lateral, vista de lado. De cima, a altura do telhado não aparece."
+    - texto: "um retângulo sem nenhuma linha dentro."
+      erro: "A cumeeira é uma aresta do telhado e aparece de cima, como uma linha dividindo as duas águas."
+    - texto: "dois triângulos lado a lado."
+      erro: "As águas do telhado são retângulos inclinados, não triângulos. De cima, cada uma aparece como um retângulo."
+    - texto: "um retângulo dividido ao meio por uma linha perpendicular à fachada da frente."
+      erro: "A cumeeira é paralela à fachada da frente. A linha do meio tem de seguir a mesma direção."
+    - texto: "um retângulo dividido ao meio por uma linha paralela à fachada da frente."
+      certa: true
+  explicacao: "De cima, o contorno é o retângulo da casa. A cumeeira, no meio e paralela à frente, aparece como uma linha que divide o retângulo em duas metades: as duas águas do telhado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

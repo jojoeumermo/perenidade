@@ -1,0 +1,259 @@
+# Exercícios da aula "Probabilidade simples" (trilha enem-matematica-estatistica-e-probabilidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-probabilidade-01
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  dificuldade: 1
+  enunciado: "Ao lançar um dado comum, qual é a probabilidade de sair um múltiplo de 3?"
+  alternativas:
+    - texto: "1/2"
+      erro: "Você contou 3 casos. Os múltiplos de 3 entre 1 e 6 são só o 3 e o 6."
+    - texto: "1/6"
+      erro: "1/6 é a chance de um número só. O 3 e o 6 são múltiplos de 3: são 2 casos."
+    - texto: "2/3"
+      erro: "2/3 é a chance de não sair múltiplo de 3 (1, 2, 4 e 5). A pergunta é o contrário."
+    - texto: "1/3"
+      certa: true
+    - texto: "3"
+      erro: "Você dividiu 6 por 2, os possíveis pelos favoráveis. A conta é favoráveis ÷ possíveis, e o resultado nunca passa de 1."
+  explicacao: "Casos favoráveis: 3 e 6. Casos possíveis: 6. P = 2/6 = 1/3."
+  conferir: "2/6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-02
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  dificuldade: 1
+  enunciado: "Uma rifa tem 300 números, e um só será sorteado. Uma pessoa comprou 6 números. Qual é a probabilidade de ela ganhar?"
+  alternativas:
+    - texto: "2%"
+      certa: true
+    - texto: "6%"
+      erro: "6 é a quantidade de números comprados, de 300, e não de 100. Divida: 6 ÷ 300."
+    - texto: "98%"
+      erro: "98% é a chance de não ganhar. A pergunta é a de ganhar."
+    - texto: "0,02%"
+      erro: "6 ÷ 300 = 0,02. Para virar porcentagem, ainda falta multiplicar por 100: 2%."
+    - texto: "50%"
+      erro: "Ganhar ou não ganhar são dois resultados, mas não têm a mesma chance. Conte os números: 6 de 300."
+  explicacao: "Favoráveis: 6. Possíveis: 300. P = 6 ÷ 300 = 0,02 = 2%."
+  conferir: "6/300*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-03
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  dificuldade: 1
+  enunciado: "Uma caixa tem 4 fichas vermelhas e 6 azuis. Tirando uma ficha ao acaso, qual é a probabilidade de ela ser azul?"
+  alternativas:
+    - texto: "40%"
+      erro: "40% é a chance da vermelha (4 de 10)."
+    - texto: "6%"
+      erro: "6 é o número de fichas azuis. Divida pelo total de fichas, 10."
+    - texto: "60%"
+      certa: true
+    - texto: "50%"
+      erro: "Há duas cores, mas não a mesma quantidade de cada. Conte as fichas, não as cores."
+    - texto: "150%"
+      erro: "Você dividiu 6 por 4, azuis por vermelhas. Divida pelo total, 10. Probabilidade nunca passa de 100%."
+  explicacao: "Total: 4 + 6 = 10 fichas. Azuis: 6. P = 6/10 = 60%."
+  conferir: "6/10*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-04
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  dificuldade: 2
+  enunciado: "Duas moedas são lançadas. Qual é a probabilidade de sair uma cara e uma coroa?"
+  alternativas:
+    - texto: "1/3"
+      erro: "Você contou 3 resultados (duas caras, duas coroas, uma de cada). Eles não têm a mesma chance: \"uma de cada\" sai de dois jeitos."
+    - texto: "1/2"
+      certa: true
+    - texto: "1/4"
+      erro: "1/4 é só cara na primeira e coroa na segunda. Coroa na primeira e cara na segunda também serve."
+    - texto: "3/4"
+      erro: "3/4 é a chance de sair pelo menos uma cara. A pergunta pede exatamente uma cara e uma coroa."
+    - texto: "1"
+      erro: "Não é certo: podem sair duas caras ou duas coroas."
+  explicacao: "Os resultados com a mesma chance são cara-cara, cara-coroa, coroa-cara e coroa-coroa. Uma cara e uma coroa: 2 deles. P = 2/4 = 1/2."
+  conferir: "2/4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-05
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 29
+  objeto: mat-estatistica-probabilidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O controle de qualidade de uma fábrica de lâmpadas testou 800 lâmpadas de um mesmo lote e encontrou 24 com
+    defeito. A fábrica usa a frequência observada no teste como estimativa da probabilidade de uma lâmpada do lote
+    ter defeito.
+  enunciado: "A probabilidade estimada de uma lâmpada desse lote ter defeito é"
+  alternativas:
+    - texto: "24%"
+      erro: "24 é a quantidade de lâmpadas com defeito, de 800, e não de 100. Divida: 24 ÷ 800."
+    - texto: "97%"
+      erro: "97% é a estimativa de a lâmpada não ter defeito. A pergunta é o contrário."
+    - texto: "0,3%"
+      erro: "24 ÷ 800 = 0,03, que é 3%, e não 0,3%. Multiplique por 100 para chegar à porcentagem."
+    - texto: "33,3%"
+      erro: "Perto de 33,3 é 800 ÷ 24: a divisão ficou invertida. Favoráveis (com defeito) vão em cima."
+    - texto: "3%"
+      certa: true
+  explicacao: "Frequência observada: 24 ÷ 800 = 0,03 = 3%. Ela serve como estimativa da probabilidade."
+  conferir: "24/800*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-06
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  dificuldade: 2
+  enunciado: "Um número de 1 a 30 é sorteado. Qual é a probabilidade de ele ser primo?"
+  alternativas:
+    - texto: "1/2"
+      erro: "1/2 é a chance de sair ímpar. Nem todo ímpar é primo (9, 15, 21...), e o 2 é primo e par."
+    - texto: "9/30"
+      erro: "Você esqueceu o 2, que é primo. Ele é o único primo par."
+    - texto: "11/30"
+      erro: "Você contou o 1 como primo. Primo tem exatamente dois divisores, e o 1 só tem um."
+    - texto: "1/30"
+      erro: "1/30 é a chance de um número só. Há vários primos entre 1 e 30."
+    - texto: "1/3"
+      certa: true
+  explicacao: "Primos de 1 a 30: 2, 3, 5, 7, 11, 13, 17, 19, 23 e 29. São 10 casos de 30. P = 10/30 = 1/3."
+  conferir: "10/30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-07
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma ONG vai sortear uma bolsa de estudos entre 40 inscritos de três comunidades. A comunidade A tem 14 inscritos,
+    a comunidade B tem 10, e a comunidade C tem 16. Todos os inscritos têm a mesma chance.
+  enunciado: "A probabilidade de a bolsa não ficar com um inscrito da comunidade C é"
+  alternativas:
+    - texto: "40%"
+      erro: "40% é a chance de a bolsa ficar com a comunidade C (16 de 40). A pergunta é o contrário."
+    - texto: "60%"
+      certa: true
+    - texto: "35%"
+      erro: "35% é só a comunidade A (14 de 40). \"Não ficar com C\" inclui também a comunidade B."
+    - texto: "25%"
+      erro: "25% é só a comunidade B (10 de 40). Falta juntar a comunidade A."
+    - texto: "24%"
+      erro: "24 é a quantidade de inscritos fora da comunidade C. Divida pelo total de 40."
+  explicacao: "Fora da comunidade C há 14 + 10 = 24 inscritos. P = 24 ÷ 40 = 0,6 = 60%. Pelo complementar: 100% − 40% = 60%."
+  conferir: "(14+10)/40*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-08
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A diretoria de uma associação de moradores tem 7 pessoas: 4 mulheres e 3 homens. Duas delas serão sorteadas
+    para representar a associação numa audiência pública. Todas as duplas têm a mesma chance de ser sorteadas.
+  enunciado: "A probabilidade de as duas pessoas sorteadas serem mulheres é"
+  alternativas:
+    - texto: "4/7"
+      erro: "4/7 é a chance de uma pessoa sorteada ser mulher. São duas pessoas: conte as duplas."
+    - texto: "16/49"
+      erro: "16/49 é 4/7 × 4/7, como se a mesma pessoa pudesse sair duas vezes. Quem sai no primeiro sorteio não volta."
+    - texto: "2/7"
+      certa: true
+    - texto: "6/7"
+      erro: "6/7 é a chance de sair pelo menos uma mulher (1 menos a chance de dois homens). A pergunta pede as duas mulheres."
+    - texto: "1/7"
+      erro: "1/7 é a chance de saírem dois homens (3 duplas de 21)."
+  explicacao: "Duplas possíveis: C(7, 2) = (7 × 6) ÷ 2 = 21. Duplas de mulheres: C(4, 2) = (4 × 3) ÷ 2 = 6. P = 6/21 = 2/7."
+  conferir: "6/21"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-09
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O sistema de um aplicativo de transporte gera, ao acaso, um código de confirmação de 3 algarismos, de 000 a 999.
+    Todos os códigos têm a mesma chance de ser gerados.
+  enunciado: "A probabilidade de o código gerado ter os três algarismos iguais, como 444, é"
+  alternativas:
+    - texto: "1%"
+      certa: true
+    - texto: "0,1%"
+      erro: "0,1% é 1 ÷ 1.000: você contou só um código, como 444. Há 10 códigos com algarismos iguais, de 000 a 999."
+    - texto: "10%"
+      erro: "Você dividiu os 10 casos por 100. São 1.000 códigos possíveis (10 × 10 × 10)."
+    - texto: "72%"
+      erro: "72% é a chance de os três algarismos serem todos diferentes (720 de 1.000)."
+    - texto: "28%"
+      erro: "28% é a chance de haver pelo menos dois algarismos iguais. A pergunta pede os três iguais."
+  explicacao: "Possíveis: 10 × 10 × 10 = 1.000. Favoráveis: 000, 111, 222, ..., 999, que são 10. P = 10 ÷ 1.000 = 0,01 = 1%."
+  conferir: "10/1000*100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-probabilidade-10
+  tema: "Probabilidade simples"
+  area: matematica
+  competencia: 7
+  habilidade: 28
+  objeto: mat-estatistica-probabilidade
+  dificuldade: 3
+  enunciado: "Escreve-se num papel cada um dos anagramas da palavra AMOR, e um papel é sorteado. Qual é a probabilidade de o anagrama sorteado começar e terminar por vogal?"
+  alternativas:
+    - texto: "1/2"
+      erro: "1/2 é só a chance de começar por vogal. Ainda é preciso terminar por vogal."
+    - texto: "1/4"
+      erro: "Você multiplicou 1/2 × 1/2. Mas, depois que uma vogal ocupa o começo, sobra só uma vogal entre 3 letras para o fim."
+    - texto: "1/12"
+      erro: "1/12 é 2/24: você esqueceu que as duas vogais podem trocar de ponta (A...O e O...A)."
+    - texto: "1/6"
+      certa: true
+    - texto: "1/3"
+      erro: "1/3 é a chance de terminar por vogal sabendo que já começou por vogal. Falta multiplicar pela chance de começar por vogal, 1/2."
+  explicacao: "Anagramas de AMOR: 4! = 24. Com vogal nas pontas: 2 jeitos para as vogais (A...O ou O...A) e 2 para M e R no meio: 2 × 2 = 4. P = 4/24 = 1/6."
+  conferir: "4/24"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

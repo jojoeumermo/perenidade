@@ -1,0 +1,251 @@
+# Exercícios da aula "Regra de três simples e composta" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Quantidades, prazos e consumos são valores de exemplo.
+
+- id: enem-mat-regra-tres-01
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-regra-de-tres
+  dificuldade: 1
+  enunciado: "Uma receita usa 3 xícaras de farinha para fazer 12 bolinhos. Quantas xícaras são necessárias para fazer 20 bolinhos?"
+  alternativas:
+    - texto: "11 xícaras"
+      erro: "Você somou à farinha os 8 bolinhos a mais. As grandezas se multiplicam: veja quanto de farinha vai em cada bolinho."
+    - texto: "5 xícaras"
+      certa: true
+    - texto: "80 xícaras"
+      erro: "Você multiplicou 12 por 20 e dividiu por 3, trocando as posições. Monte a proporção: 12 está para 3 assim como 20 está para x."
+    - texto: "1,8 xícara"
+      erro: "Você tratou a regra como inversa. Mais bolinhos pedem mais farinha, não menos."
+    - texto: "6 xícaras"
+      erro: "Você dobrou a farinha. De 12 para 20 bolinhos a quantidade não dobra; ela é multiplicada por 20/12 = 5/3."
+  explicacao: "De 12 para 20 bolinhos, multiplica-se por 20/12 = 5/3. A farinha também: 3 × 5/3 = 5 xícaras."
+  conferir: "3 * 20 / 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-02
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-regra-de-tres
+  dificuldade: 1
+  enunciado: "Com 4 caminhões iguais, a entrega de cestas de alimentos de um bairro leva 9 horas. Quanto tempo levaria com 6 caminhões iguais a esses?"
+  alternativas:
+    - texto: "13,5 horas"
+      erro: "Você montou a regra como direta. Mais caminhões, menos tempo: a regra é inversa."
+    - texto: "7 horas"
+      erro: "Você tirou do tempo os 2 caminhões a mais. As grandezas se multiplicam, não se subtraem."
+    - texto: "4,5 horas"
+      erro: "Você cortou o tempo pela metade, como se os caminhões dobrassem. De 4 para 6 eles são multiplicados por 1,5."
+    - texto: "6 horas"
+      certa: true
+    - texto: "11 horas"
+      erro: "Você somou ao tempo os 2 caminhões a mais. Mais caminhões diminuem o tempo."
+  explicacao: "Regra inversa: 4 × 9 = 36 'horas de caminhão'. Com 6 caminhões, 36 ÷ 6 = 6 horas."
+  conferir: "4 * 9 / 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-03
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-regra-de-tres
+  dificuldade: 1
+  enunciado: "Uma impressora imprime 45 páginas em 3 minutos. No mesmo ritmo, quantas páginas ela imprime em 10 minutos?"
+  alternativas:
+    - texto: "150 páginas"
+      certa: true
+    - texto: "52 páginas"
+      erro: "Você somou os 7 minutos a mais às páginas. Ache primeiro quantas páginas saem por minuto."
+    - texto: "135 páginas"
+      erro: "Você multiplicou 45 por 3. O 3 são os minutos de partida: divida por ele."
+    - texto: "450 páginas"
+      erro: "Você multiplicou 45 por 10, mas 45 páginas saem em 3 minutos, não em 1. Divida por 3."
+    - texto: "15 páginas"
+      erro: "15 é o número de páginas por minuto. Faltou multiplicar pelos 10 minutos."
+  explicacao: "Por minuto: 45 ÷ 3 = 15 páginas. Em 10 minutos: 10 × 15 = 150 páginas."
+  conferir: "45 / 3 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-04
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-regra-de-tres
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma família de cinco pessoas consome, em média, 600 litros de água a cada 4 dias. A caixa-d'água da casa guarda
+    1.500 litros. Num período sem abastecimento, a família vai usar só a água da caixa, mantendo o mesmo consumo.
+  enunciado: "A água da caixa cheia vai durar"
+  alternativas:
+    - texto: "1,6 dia."
+      erro: "Você montou a regra como inversa. Mais água guardada dura mais dias, não menos."
+    - texto: "2,5 dias."
+      erro: "2,5 é quantas vezes 1.500 litros cabem em 600 litros. Falta multiplicar pelos 4 dias."
+    - texto: "4 dias."
+      erro: "Esse é o tempo de 600 litros. A caixa guarda mais que isso."
+    - texto: "150 dias."
+      erro: "150 é o consumo por dia, em litros, e não o número de dias. Divida 1.500 por 150."
+    - texto: "10 dias."
+      certa: true
+  explicacao: "A família usa 600 ÷ 4 = 150 litros por dia. A caixa dura 1.500 ÷ 150 = 10 dias."
+  conferir: "1500 / (600 / 4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-05
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-regra-de-tres
+  dificuldade: 2
+  enunciado: "Cinco máquinas iguais produzem 400 peças em 4 horas. Quantas peças 10 dessas máquinas produzem em 6 horas?"
+  alternativas:
+    - texto: "800 peças"
+      erro: "Você considerou só as máquinas a mais. As horas também aumentaram."
+    - texto: "600 peças"
+      erro: "Você considerou só as horas a mais. As máquinas também dobraram."
+    - texto: "1.200 peças"
+      certa: true
+    - texto: "1.000 peças"
+      erro: "Você somou os aumentos (400 do dobro de máquinas e 200 das horas a mais). Os efeitos se multiplicam: 400 × 2 × 1,5."
+    - texto: "2.400 peças"
+      erro: "Você multiplicou 400 pelas 6 horas sem dividir pelas 4 horas de partida, e esqueceu as máquinas."
+  explicacao: "Máquinas: direta, fração 10/5 = 2. Horas: direta, fração 6/4 = 1,5. Peças: 400 × 2 × 1,5 = 1.200."
+  conferir: "400 * 10 / 5 * 6 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-06
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-regra-de-tres
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num mutirão de limpeza, 12 voluntários limpam uma praça em 5 horas, todos no mesmo ritmo. Para a próxima vez, a
+    associação de moradores quer terminar a limpeza da mesma praça em 3 horas.
+  enunciado: "Para isso, o número de voluntários, trabalhando no mesmo ritmo, deverá ser"
+  alternativas:
+    - texto: "cerca de 7."
+      valor: "7.2"
+      erro: "Você montou a regra como direta (12 × 3 ÷ 5). Para terminar em menos tempo é preciso mais gente, não menos."
+    - texto: "20."
+      certa: true
+    - texto: "14."
+      erro: "Você somou 2 voluntários porque o tempo caiu 2 horas. As grandezas se multiplicam."
+    - texto: "10."
+      erro: "Você tirou 2 voluntários. Menos tempo pede mais voluntários."
+    - texto: "60."
+      erro: "60 é o trabalho em 'horas de voluntário' (12 × 5). Falta dividir pelas 3 horas."
+  explicacao: "O trabalho vale 12 × 5 = 60 horas de voluntário. Em 3 horas: 60 ÷ 3 = 20 voluntários."
+  conferir: "12 * 5 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-07
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-regra-de-tres
+  dificuldade: 2
+  enunciado: "Um carro percorre 240 km com 20 litros de combustível. No mesmo ritmo de consumo, quantos litros ele gasta para percorrer 420 km?"
+  alternativas:
+    - texto: "12 litros"
+      erro: "12 é o rendimento do carro, em quilômetros por litro (240 ÷ 20). Use esse número para dividir os 420 km."
+    - texto: "40 litros"
+      erro: "Você dobrou o combustível. De 240 para 420 km a distância não dobra."
+    - texto: "Cerca de 11 litros"
+      valor: "11.43"
+      erro: "Você montou a regra como inversa. Mais quilômetros gastam mais combustível."
+    - texto: "21 litros"
+      erro: "Você dividiu 420 km por 20 litros. Isso mistura a distância nova com o combustível antigo."
+    - texto: "35 litros"
+      certa: true
+  explicacao: "O carro faz 240 ÷ 20 = 12 km por litro. Para 420 km: 420 ÷ 12 = 35 litros."
+  conferir: "420 / (240 / 20)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-08
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-regra-de-tres
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma gráfica imprime as apostilas de uma escola em 5 dias, usando 6 impressoras iguais, ligadas 8 horas por dia.
+    Neste ano, duas impressoras quebraram. Para compensar, a gráfica vai deixar as impressoras que sobraram ligadas
+    10 horas por dia.
+  enunciado: "Com essa mudança, a mesma quantidade de apostilas será impressa em"
+  alternativas:
+    - texto: "6 dias."
+      certa: true
+    - texto: "7,5 dias."
+      erro: "Você considerou só as impressoras a menos (5 × 6/4). As horas a mais por dia também contam e encurtam o prazo."
+    - texto: "4 dias."
+      erro: "Você considerou só as horas a mais (5 × 8/10). Faltaram as duas impressoras quebradas."
+    - texto: "9,375 dias."
+      erro: "Você tratou as horas por dia como grandeza direta. Mais horas por dia diminuem o número de dias: use 8/10."
+    - texto: "5 dias."
+      erro: "As duas mudanças não se anulam. Perder um terço das impressoras pesa mais do que ganhar 2 horas por dia."
+  explicacao: "Impressoras: de 6 para 4, inversa, fração 6/4 = 1,5. Horas por dia: de 8 para 10, inversa, fração 8/10 = 0,8. Dias: 5 × 1,5 × 0,8 = 6."
+  conferir: "5 * 6 / 4 * 8 / 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-09
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 16
+  objeto: mat-numeros-regra-de-tres
+  dificuldade: 3
+  enunciado: "Dois pintores pintam 30 m² de muro em 3 horas. Trabalhando no mesmo ritmo, em quanto tempo três pintores pintam 75 m²?"
+  alternativas:
+    - texto: "11,25 horas"
+      erro: "Você tratou os pintores como grandeza direta. Mais pintores terminam mais rápido: use a fração 2/3."
+    - texto: "7,5 horas"
+      erro: "Você considerou só a área maior. O pintor a mais encurta o tempo."
+    - texto: "2 horas"
+      erro: "Você considerou só o pintor a mais. A área também aumentou."
+    - texto: "5 horas"
+      certa: true
+    - texto: "3 horas"
+      erro: "As mudanças não se anulam. A área cresce 2,5 vezes, e os pintores só 1,5 vez."
+  explicacao: "Área: direta, 75/30 = 2,5. Pintores: inversa, 2/3. Tempo: 3 × 2,5 × 2/3 = 7,5 × 2/3 = 5 horas."
+  conferir: "3 * 75 / 30 * 2 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-regra-tres-10
+  tema: "Regra de três simples e composta"
+  area: matematica
+  habilidade: 3
+  objeto: mat-numeros-regra-de-tres
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa padaria comunitária, 3 padeiros, trabalhando 6 horas por dia, fazem 900 pães em 2 dias. Para a semana da
+    festa da padroeira, a padaria vai ter 4 padeiros trabalhando 8 horas por dia, durante 3 dias, todos no mesmo ritmo.
+  enunciado: "Nesse período, a padaria vai fazer"
+  alternativas:
+    - texto: "1.800 pães."
+      erro: "Você considerou os padeiros e os dias, mas esqueceu as horas por dia, que também aumentaram."
+    - texto: "1.600 pães."
+      erro: "Você considerou os padeiros e as horas, mas esqueceu que serão 3 dias, e não 2."
+    - texto: "2.400 pães."
+      certa: true
+    - texto: "1.350 pães."
+      erro: "Você considerou só os dias a mais (900 × 3/2). Padeiros e horas também aumentaram."
+    - texto: "1.200 pães."
+      erro: "Você considerou só uma das mudanças (os padeiros, ou as horas por dia). As três grandezas mudaram."
+  explicacao: "Todas são diretas. Padeiros: 4/3. Horas: 8/6 = 4/3. Dias: 3/2. Pães: 900 × 4/3 × 4/3 × 3/2 = 1.200 × 4/3 × 3/2 = 1.600 × 3/2 = 2.400."
+  conferir: "900 * 4 / 3 * 8 / 6 * 3 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,268 @@
+# Exercícios da aula "Espanhol: conectivos e marcadores do texto" (trilha enem-espanhol).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-esp-conectivos-01
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    El hospital nuevo es grande y moderno; sin embargo, todavía no tiene médicos suficientes.
+  enunciado: "A expressão \"sin embargo\" estabelece entre as ideias uma relação de"
+  alternativas:
+    - texto: "contraste."
+      certa: true
+    - texto: "causa."
+      erro: "Causa seria porque ou ya que. Ser moderno não é causa de faltar médico."
+    - texto: "adição."
+      erro: "Adição seria además. Sin embargo opõe um problema às qualidades."
+    - texto: "exemplo."
+      erro: "Exemplo seria por ejemplo. A segunda parte não exemplifica a primeira."
+    - texto: "tempo."
+      erro: "Todavía (ainda) indica tempo, mas a relação entre as partes, dada por sin embargo, é de contraste."
+  explicacao: "Sin embargo é \"no entanto\". O hospital é grande e moderno, no entanto ainda não tem médicos suficientes (todavía no tiene)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-02
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    No me mudé por el trabajo, sino por mis hijos: quería que crecieran cerca de sus abuelos.
+  enunciado: "O motivo da mudança foi"
+  alternativas:
+    - texto: "o trabalho."
+      erro: "Sino corrige a negação: \"no... por el trabajo\" diz que não foi o trabalho."
+    - texto: "o trabalho e os filhos, igualmente."
+      erro: "Sino não soma: troca uma ideia negada por outra. Só os filhos foram o motivo."
+    - texto: "a vontade dos avós de se mudarem."
+      erro: "Quem se mudou foi o narrador, para que os filhos crescessem perto dos avós."
+    - texto: "os filhos, para que crescessem perto dos avós."
+      certa: true
+    - texto: "um pedido dos filhos."
+      erro: "Extrapolação: o texto diz que ele queria (quería) os filhos perto dos avós, não que eles pediram."
+  explicacao: "Sino é \"mas sim\" e vem depois de uma negação. \"No me mudé por el trabajo, sino por mis hijos\": não me mudei por causa do trabalho, mas sim pelos meus filhos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-03
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Aunque el museo es gratuito, pocas personas del barrio lo visitan.
+  enunciado: "A frase informa que"
+  alternativas:
+    - texto: "o museu é caro e por isso recebe poucos visitantes."
+      erro: "O museu é gratuito (gratuito). Aunque não é causa: é concessão."
+    - texto: "poucas pessoas do bairro visitam o museu, mesmo ele sendo gratuito."
+      certa: true
+    - texto: "o museu passou a ser gratuito para atrair o bairro."
+      erro: "Extrapolação: a frase não diz quando nem por que ficou gratuito."
+    - texto: "muitas pessoas do bairro visitam o museu."
+      erro: "Inversão: pocas personas é poucas pessoas."
+    - texto: "o museu fica longe do bairro."
+      erro: "A distância não aparece na frase. Isso seria um motivo inventado."
+  explicacao: "Aunque é \"embora\". \"Embora o museu seja gratuito, poucas pessoas do bairro o visitam\": a gratuidade não bastou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-04
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    En cuanto termine el turno, voy a buscar a mi hija a la escuela. Luego pasamos por el mercado.
+  enunciado: "Segundo a frase, a pessoa vai"
+  alternativas:
+    - texto: "buscar a filha enquanto trabalha."
+      erro: "En cuanto parece \"enquanto\", mas quer dizer \"assim que\". Ela vai depois do turno."
+    - texto: "passar no mercado logo, antes de buscar a filha."
+      erro: "Luego é \"depois\", não \"logo\". O mercado vem depois da escola."
+    - texto: "pedir que a filha vá sozinha ao mercado."
+      erro: "Elas vão juntas (pasamos, nós passamos)."
+    - texto: "trabalhar mais um turno antes de ir à escola."
+      erro: "\"En cuanto termine el turno\": assim que terminar o turno. Não há turno extra."
+    - texto: "buscar a filha assim que terminar o turno e, depois, ir ao mercado."
+      certa: true
+  explicacao: "Dois heterosemánticos: en cuanto (assim que) e luego (depois). Ordem dos fatos: termina o turno, busca a filha, depois passam no mercado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-05
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    El precio del pasaje subió un 20 % en enero. Por lo tanto, muchos trabajadores empezaron a ir en bicicleta o a pie.
+  enunciado: "A expressão \"Por lo tanto\" introduz"
+  alternativas:
+    - texto: "a causa do aumento da passagem."
+      erro: "A causa não aparece. Por lo tanto (portanto) traz o efeito do aumento."
+    - texto: "um contraste com o aumento."
+      erro: "Contraste seria pero ou sin embargo."
+    - texto: "uma consequência do aumento da passagem."
+      certa: true
+    - texto: "um exemplo de transporte público."
+      erro: "Bicicleta e caminhada não são transporte público, e o conectivo não é por ejemplo."
+    - texto: "uma condição para o preço baixar."
+      erro: "Condição seria si (se). O texto não fala de o preço baixar."
+  explicacao: "Por lo tanto é \"portanto\". A passagem subiu 20% em janeiro; portanto, muitos trabalhadores passaram a ir de bicicleta ou a pé (a pie)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-06
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Mi vecino apenas habla con nadie. Sale temprano, saluda con la cabeza y cierra la puerta.
+  enunciado: "O texto descreve um vizinho que"
+  alternativas:
+    - texto: "só fala com uma pessoa do prédio."
+      erro: "Apenas parece \"só\", mas aqui quer dizer \"quase não\". E não há uma pessoa específica."
+    - texto: "quase não conversa com ninguém."
+      certa: true
+    - texto: "fala muito com todos os vizinhos."
+      erro: "Inversão: ele só cumprimenta com a cabeça e fecha a porta."
+    - texto: "não sai de casa."
+      erro: "Ele sai cedo (Sale temprano)."
+    - texto: "briga com os vizinhos todo dia."
+      erro: "Extrapolação: cumprimentar com a cabeça (saluda con la cabeza) não é briga."
+  explicacao: "\"Apenas habla con nadie\": quase não fala com ninguém. Os detalhes confirmam: cumprimenta só com a cabeça e fecha a porta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-07
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    La feria orgánica no solo vende verduras sin agrotóxicos. Además, ofrece talleres gratuitos de huerta y una
+    biblioteca de semillas, es decir, un lugar donde se prestan semillas para plantar y devolver después de la cosecha.
+  enunciado: "No texto, as expressões \"Además\" e \"es decir\" servem, respectivamente, para"
+  alternativas:
+    - texto: "acrescentar informações e explicar o que é a biblioteca de sementes."
+      certa: true
+    - texto: "opor ideias e dar um exemplo de verdura."
+      erro: "Além disso (Además) não opõe: soma. E es decir explica a biblioteca, não dá exemplo de verdura."
+    - texto: "concluir o texto e indicar uma causa."
+      erro: "Conclusão seria por lo tanto; causa seria porque."
+    - texto: "indicar tempo e condição."
+      erro: "Tempo seria cuando; condição, si. Nenhum dos dois aparece."
+    - texto: "corrigir uma informação e fazer uma crítica."
+      erro: "Correção seria sino. O texto não critica: apresenta a feira."
+  explicacao: "Además é \"além disso\": soma as oficinas e a biblioteca de sementes à venda de verduras. Es decir é \"isto é\": explica que a biblioteca empresta sementes para plantar e devolver depois da colheita (cosecha)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-08
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Se dice que el teletrabajo da libertad. Es cierto que ahorra horas de ómnibus. No obstante, muchos trabajadores
+    cuentan que ahora contestan mensajes a medianoche. La libertad no está en el lugar, sino en el horario.
+  enunciado: "O autor do texto defende que"
+  alternativas:
+    - texto: "o trabalho remoto não traz nenhuma vantagem."
+      erro: "O autor reconhece uma vantagem: \"Es cierto que ahorra horas de ómnibus\" (é verdade que economiza horas de ônibus)."
+    - texto: "trabalhar de casa garante liberdade."
+      erro: "Essa é a ideia de \"Se dice\" (diz-se), que o autor limita com No obstante."
+    - texto: "os trabalhadores devem voltar ao escritório."
+      erro: "Extrapolação: o autor não propõe voltar ao escritório."
+    - texto: "as mensagens à meia-noite são raras."
+      erro: "Inversão: muitos trabalhadores contam que respondem mensagens à meia-noite."
+    - texto: "a liberdade depende do controle do horário, não do lugar de trabalho."
+      certa: true
+  explicacao: "\"Es cierto que...\" reconhece a vantagem; \"No obstante\" (no entanto) traz o problema das mensagens à meia-noite. O fecho com sino decide: a liberdade não está no lugar, mas sim no horário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-09
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    El río se desbordó por tercera vez este año. Las autoridades dicen que fue la lluvia. Los vecinos, en cambio,
+    recuerdan que antes había árboles en la orilla y que el agua tardaba más en llegar a las casas. Encima, la obra
+    de drenaje prometida hace cinco años nunca empezó.
+  enunciado: "No texto, os vizinhos atribuem as enchentes"
+  alternativas:
+    - texto: "apenas à chuva, como as autoridades."
+      erro: "En cambio (por outro lado) marca que os vizinhos pensam diferente das autoridades."
+    - texto: "aos próprios moradores, que construíram perto do rio."
+      erro: "Extrapolação: o texto não culpa os moradores."
+    - texto: "a uma obra de drenagem malfeita."
+      erro: "A obra nunca começou (nunca empezó). O problema é a falta dela, não a qualidade."
+    - texto: "à retirada das árvores da margem e à falta da obra prometida."
+      certa: true
+    - texto: "à chuva, mas consideram as enchentes raras."
+      erro: "É a terceira vez no ano (por tercera vez este año). Não são raras."
+  explicacao: "\"En cambio\" opõe a versão dos vizinhos à das autoridades: antes havia árvores na margem (orilla) e a água demorava a chegar. \"Encima\" é heterosemántico: quer dizer \"além disso, ainda por cima\", e soma a obra de drenagem que nunca começou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-conectivos-10
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A pesar de que la ley garantiza la educación pública, muchos chicos del campo dejan la escuela a los 14 años.
+    No es que no quieran estudiar, sino que la escuela secundaria más cercana queda a dos horas de caminata. O sea,
+    el derecho existe en el papel, pero no en el camino.
+  enunciado: "O texto conclui que"
+  alternativas:
+    - texto: "os jovens do campo não querem estudar."
+      erro: "Inversão: \"No es que no quieran estudiar\" nega essa ideia, e o sino traz a razão real."
+    - texto: "a lei não garante a educação pública."
+      erro: "O texto diz que a lei garante (A pesar de que la ley garantiza). O problema é o acesso."
+    - texto: "o direito à educação existe na lei, mas a distância impede o acesso."
+      certa: true
+    - texto: "as escolas do campo deveriam fechar."
+      erro: "Extrapolação: o texto não propõe fechar escolas."
+    - texto: "caminhar duas horas é um bom exercício para os jovens."
+      erro: "As duas horas de caminhada são o obstáculo, não uma vantagem."
+  explicacao: "Três conectivos montam o raciocínio. A pesar de que (apesar de) admite que a lei garante a educação. No es que... sino que corrige o motivo: a escola mais perto fica a duas horas a pé. O sea (ou seja) conclui: o direito existe no papel, mas não no caminho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

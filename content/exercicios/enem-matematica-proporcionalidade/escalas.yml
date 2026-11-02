@@ -1,0 +1,253 @@
+# Exercícios da aula "Escalas em mapas, plantas e maquetes" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-escalas-01
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  dificuldade: 1
+  enunciado: "Numa planta na escala 1 : 100, a largura de uma porta aparece com 0,9 cm. Qual é a largura real da porta?"
+  alternativas:
+    - texto: "9 cm"
+      erro: "Você multiplicou por 10. Na escala 1 : 100, cada centímetro da planta vale 100 cm."
+    - texto: "900 cm"
+      erro: "Você multiplicou por 1.000. Uma porta de 9 metros não passaria em casa nenhuma: confira o tamanho."
+    - texto: "0,9 cm"
+      erro: "Essa é a medida na planta. Falta usar a escala: multiplique por 100."
+    - texto: "100,9 cm"
+      erro: "Você somou 100 à medida. A escala multiplica: 0,9 × 100."
+    - texto: "90 cm"
+      certa: true
+  explicacao: "Cada centímetro da planta vale 100 cm. 0,9 × 100 = 90 cm."
+  conferir: "0.9 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-02
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  dificuldade: 1
+  enunciado: "Num mapa na escala 1 : 100.000, quanto vale, na realidade, 1 cm do mapa?"
+  alternativas:
+    - texto: "100 m"
+      erro: "Faltaram zeros na conversão. 100.000 cm são 1.000 m, porque cada metro tem 100 cm."
+    - texto: "10 km"
+      erro: "Sobrou um zero. 1 km tem 100.000 cm, então 100.000 cm são exatamente 1 km."
+    - texto: "100 km"
+      erro: "Você contou 1 km como 1.000 cm. Um quilômetro tem 1.000 m, e cada metro tem 100 cm: 100.000 cm."
+    - texto: "1 km"
+      certa: true
+    - texto: "100.000 km"
+      erro: "Você trocou a unidade sem converter. A escala diz 100.000 centímetros, e não quilômetros."
+  explicacao: "1 cm do mapa vale 100.000 cm de verdade. Corte cinco zeros para passar de centímetro a quilômetro: 1 km."
+  conferir: "100000 / 100000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-03
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  dificuldade: 1
+  enunciado: "Num mapa na escala 1 : 50.000, quantos centímetros deve medir um trecho de estrada que tem 2 km na realidade?"
+  alternativas:
+    - texto: "40 cm"
+      erro: "Na conversão, 2 km viraram 2.000.000 cm. São 200.000 cm, porque 1 km tem 100.000 cm."
+    - texto: "0,4 cm"
+      erro: "Na conversão, 2 km viraram 20.000 cm. São 200.000 cm."
+    - texto: "4 cm"
+      certa: true
+    - texto: "100.000 cm"
+      erro: "Você multiplicou 2 por 50.000. Do real para o mapa, divida pela escala."
+    - texto: "2 cm"
+      erro: "Você tratou 1 cm do mapa como 1 km. Isso vale na escala 1 : 100.000; aqui, 1 cm vale meio quilômetro."
+  explicacao: "2 km = 200.000 cm. Do real para o mapa, divida: 200.000 ÷ 50.000 = 4 cm."
+  conferir: "2 * 100000 / 50000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-04
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Moradores de um conjunto habitacional vão cercar com alambrado a quadra de esportes do bairro. Na planta, feita na
+    escala 1 : 200, a quadra é um retângulo de 14 cm por 8 cm. O alambrado vai contornar a quadra inteira.
+  enunciado: "O comprimento de alambrado necessário é de"
+  alternativas:
+    - texto: "44 m."
+      erro: "Você somou só um comprimento e uma largura (28 + 16). O contorno tem quatro lados: dois de 28 m e dois de 16 m."
+    - texto: "88 m."
+      certa: true
+    - texto: "448 m."
+      erro: "448 é a área da quadra, em metros quadrados (28 × 16). Alambrado contorna: some os lados."
+    - texto: "8,8 m."
+      erro: "Sobrou um zero cortado na conversão. 2.800 cm são 28 m, e não 2,8 m."
+    - texto: "880 m."
+      erro: "Faltou cortar um zero. 2.800 cm são 28 m, porque cada metro tem 100 cm."
+  explicacao: "Lados reais: 14 × 200 = 2.800 cm = 28 m e 8 × 200 = 1.600 cm = 16 m. Contorno: 2 × 28 + 2 × 16 = 56 + 32 = 88 m."
+  conferir: "2 * (14 * 200 / 100 + 8 * 200 / 100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-05
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  dificuldade: 2
+  enunciado: "Num mapa, a escala gráfica mostra que um trecho de 2 cm corresponde a 500 m. Duas escolas estão a 7 cm uma da outra nesse mapa. Qual é a distância real entre elas?"
+  alternativas:
+    - texto: "1.750 m"
+      certa: true
+    - texto: "3.500 m"
+      erro: "Você fez 7 × 500, como se cada centímetro valesse 500 m. São 2 cm para 500 m: cada centímetro vale 250 m."
+    - texto: "250 m"
+      erro: "250 m é quanto vale 1 cm. Falta multiplicar pelos 7 cm do mapa."
+    - texto: "1.000 m"
+      erro: "Você dobrou os 500 m. A distância no mapa é de 7 cm, não de 4 cm."
+    - texto: "175 m"
+      erro: "Faltou um zero. Estime: 7 cm são mais de três vezes os 2 cm da barra, então a distância passa de 1.500 m."
+  explicacao: "2 cm valem 500 m, então 1 cm vale 250 m. 7 cm valem 7 × 250 = 1.750 m."
+  conferir: "7 / 2 * 500"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-06
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um grupo de estudantes vai percorrer uma trilha num parque estadual. No mapa do parque, na escala 1 : 25.000, a
+    trilha mede 12 cm. O grupo costuma caminhar a uma velocidade média de 4 km por hora.
+  enunciado: "Mantendo essa velocidade, o grupo vai percorrer a trilha inteira em"
+  alternativas:
+    - texto: "3 horas."
+      erro: "3 é a distância em quilômetros, não o tempo. Divida a distância pela velocidade: 3 ÷ 4."
+    - texto: "1 hora e 20 minutos."
+      erro: "Você dividiu a velocidade pela distância (4 ÷ 3). O tempo é a distância dividida pela velocidade."
+    - texto: "12 minutos."
+      erro: "12 é a medida da trilha no mapa, em centímetros. Primeiro use a escala para achar a distância real."
+    - texto: "7 horas e 30 minutos."
+      erro: "Na conversão, 300.000 cm viraram 30 km. São 3 km, porque 1 km tem 100.000 cm."
+    - texto: "45 minutos."
+      certa: true
+  explicacao: "Trilha real: 12 × 25.000 = 300.000 cm = 3 km. Tempo: 3 ÷ 4 = 3/4 de hora. Três quartos de 60 minutos são 45 minutos."
+  conferir: "12 * 25000 / 100000 / 4 * 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-07
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  dificuldade: 2
+  enunciado: "A maquete de uma casa foi feita na escala 1 : 50. Na maquete, a casa tem 12 cm de altura. Qual é a altura real da casa?"
+  alternativas:
+    - texto: "60 m"
+      erro: "Na conversão, 600 cm viraram 60 m. Cada metro tem 100 cm: 600 cm são 6 m."
+    - texto: "0,6 m"
+      erro: "Sobrou um zero cortado. 600 cm são 6 m."
+    - texto: "62 cm"
+      erro: "Você somou 12 + 50. A escala multiplica: 12 × 50."
+    - texto: "6 m"
+      certa: true
+    - texto: "600 m"
+      erro: "Você esqueceu de converter: 600 é o resultado em centímetros, não em metros."
+  explicacao: "12 × 50 = 600 cm. Como 100 cm são 1 m, a casa tem 6 m de altura."
+  conferir: "12 * 50 / 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-08
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma associação de agricultoras urbanas recebeu um terreno para fazer uma horta comunitária. No mapa do loteamento,
+    feito na escala 1 : 500, o terreno é um retângulo de 6 cm por 4 cm.
+  enunciado: "A área real do terreno é de"
+  alternativas:
+    - texto: "12.000 m²."
+      erro: "Você multiplicou a área do mapa (24 cm²) por 500 e chamou de metro quadrado. A área cresce 500 × 500, e a unidade tem de ser convertida: converta cada lado antes."
+    - texto: "100 m²."
+      erro: "100 m é o perímetro do terreno (30 + 20 + 30 + 20). A pergunta pede a área: comprimento vezes largura."
+    - texto: "600 m²."
+      certa: true
+    - texto: "6.000 m²."
+      erro: "Sobrou um zero na conversão de algum lado. 3.000 cm são 30 m, e 2.000 cm são 20 m."
+    - texto: "60 m²."
+      erro: "Faltou um zero na conversão de algum lado. Os lados reais são 30 m e 20 m."
+  explicacao: "Lados reais: 6 × 500 = 3.000 cm = 30 m e 4 × 500 = 2.000 cm = 20 m. Área: 30 × 20 = 600 m²."
+  conferir: "(6 * 500 / 100) * (4 * 500 / 100)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-09
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  dificuldade: 3
+  enunciado: "Numa planta, uma sala de 5 m de comprimento aparece com 2 cm. Em que escala a planta foi feita?"
+  alternativas:
+    - texto: "1 : 2,5"
+      valor: "2.5"
+      erro: "Você dividiu 5 por 2 sem converter. A escala compara medidas na mesma unidade: 5 m são 500 cm."
+    - texto: "1 : 250"
+      valor: "250"
+      certa: true
+    - texto: "1 : 2.500"
+      valor: "2500"
+      erro: "Sobrou um zero: 5 m são 500 cm, e não 5.000 cm."
+    - texto: "1 : 10"
+      valor: "10"
+      erro: "Você multiplicou 5 × 2. A escala é a medida real dividida pela do desenho, na mesma unidade."
+    - texto: "1 : 25"
+      valor: "25"
+      erro: "Faltou um zero: 5 m são 500 cm, e 500 ÷ 2 = 250."
+  explicacao: "5 m = 500 cm. Cada centímetro da planta vale 500 ÷ 2 = 250 cm. A escala é 1 : 250."
+  conferir: "500 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-escalas-10
+  tema: "Escalas"
+  area: matematica
+  habilidade: 11
+  objeto: mat-geometria-escalas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para uma feira de ciências, uma turma construiu a maquete de uma caixa-d'água em forma de cubo, na escala 1 : 20. Na
+    maquete, cada aresta do cubo mede 5 cm. Lembre que 1 m³ corresponde a 1.000 litros.
+  enunciado: "A capacidade da caixa-d'água real é de"
+  alternativas:
+    - texto: "1.000 litros."
+      certa: true
+    - texto: "50 litros."
+      erro: "Você multiplicou o volume da maquete (125 cm³) por 20 × 20, como numa área. Volume tem três medidas: converta a aresta para o real (100 cm) antes."
+    - texto: "2,5 litros."
+      erro: "Você aplicou a escala uma vez só ao volume (125 cm³ × 20 = 2.500 cm³). Converta a aresta: 5 × 20 = 100 cm = 1 m."
+    - texto: "10.000 litros."
+      erro: "A aresta real (1 m) está certa, mas a conversão não: 1 m³ tem 1.000 litros, não 10.000."
+    - texto: "125 litros."
+      erro: "125 é o volume da maquete em centímetros cúbicos (5 × 5 × 5). Falta passar para a caixa real."
+  explicacao: "Aresta real: 5 × 20 = 100 cm = 1 m. Volume: 1 × 1 × 1 = 1 m³ = 1.000 litros."
+  conferir: "(5 * 20 / 100) ^ 3 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

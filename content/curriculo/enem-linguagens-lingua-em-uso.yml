@@ -1,0 +1,140 @@
+# Mapa curricular da trilha enem-linguagens-lingua-em-uso: cada aula escrita ligada às habilidades da Matriz do Enem
+# e aos tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
+aulas:
+  variacao-linguistica:
+    enem:
+      - area: linguagens
+        competencia: 8
+        habilidade: 25
+        resumo: Identificar as marcas das variedades linguísticas sociais, regionais e de registro.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 26
+        resumo: Relacionar cada variedade linguística à situação de uso em que ela aparece.
+        situacao: a-confirmar
+    objetos: [lin-lingua-portuguesa-variacao]
+  preconceito-linguistico:
+    enem:
+      - area: linguagens
+        competencia: 8
+        habilidade: 26
+        resumo: Relacionar cada variedade linguística à situação de uso em que ela aparece.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 25
+        resumo: Identificar as marcas das variedades linguísticas sociais, regionais e de registro.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 27
+        resumo: Reconhecer os usos da norma-padrão nas diferentes situações de comunicação.
+        situacao: a-confirmar
+    objetos: [lin-lingua-portuguesa-preconceito-linguistico]
+  portugues-do-brasil-linguas-indigenas-e-africanas:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 20
+        resumo: Reconhecer o patrimônio linguístico como parte da memória e da identidade do país.
+        situacao: a-confirmar
+    objetos: [lin-lingua-portuguesa-portugues-no-brasil]
+  oralidade-e-escrita:
+    enem:
+      - area: linguagens
+        competencia: 8
+        habilidade: 26
+        resumo: Relacionar cada variedade linguística à situação de uso em que ela aparece.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 25
+        resumo: Identificar as marcas das variedades linguísticas sociais, regionais e de registro.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 27
+        resumo: Reconhecer os usos da norma-padrão nas diferentes situações de comunicação.
+        situacao: a-confirmar
+    objetos: [lin-lingua-portuguesa-oralidade-e-escrita]
+  norma-padrao-em-uso:
+    enem:
+      - area: linguagens
+        competencia: 8
+        habilidade: 27
+        resumo: Reconhecer os usos da norma-padrão nas diferentes situações de comunicação.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 26
+        resumo: Relacionar cada variedade linguística à situação de uso em que ela aparece.
+        situacao: a-confirmar
+    objetos: [lin-lingua-portuguesa-norma-padrao]
+  formacao-de-palavras:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 25
+        resumo: Identificar as marcas das variedades linguísticas sociais, regionais e de registro.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 27
+        resumo: Reconhecer os usos da norma-padrão nas diferentes situações de comunicação.
+        situacao: a-confirmar
+    objetos: [lin-lingua-portuguesa-formacao-de-palavras]
+  semantica-polissemia-ambiguidade-denotacao-e-conotacao:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+    objetos: [lin-recursos-expressivos-semantica]
+  figuras-de-linguagem:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+    objetos: [lin-recursos-expressivos-figuras]
+  coesao-e-coerencia:
+    enem:
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+    objetos: [lin-recursos-expressivos-coesao-e-coerencia]
+  intertextualidade:
+    enem:
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+    objetos: [lin-recursos-expressivos-intertextualidade]

@@ -1,0 +1,10 @@
+[
+  { "slug": "funcoes-e-graficos", "titulo": "Função e leitura de gráficos" },
+  { "slug": "funcao-afim", "titulo": "Função afim" },
+  { "slug": "funcao-quadratica", "titulo": "Função quadrática: vértice, máximo e mínimo" },
+  { "slug": "progressoes", "titulo": "Progressões aritméticas e geométricas" },
+  { "slug": "funcao-exponencial", "titulo": "Função exponencial" },
+  { "slug": "logaritmos", "titulo": "Logaritmos e escalas logarítmicas" },
+  { "slug": "funcoes-trigonometricas", "titulo": "Fenômenos periódicos e funções trigonométricas" },
+  { "slug": "matrizes", "titulo": "Matrizes e tabelas" }
+]

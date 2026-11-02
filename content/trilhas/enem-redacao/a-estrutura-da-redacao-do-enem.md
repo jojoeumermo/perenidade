@@ -1,6 +1,6 @@
 ---
 titulo: "A estrutura da redação do ENEM"
-resumo: "O que é um texto dissertativo-argumentativo, como montar introdução, desenvolvimento e conclusão em 30 linhas e como a nota é dada."
+resumo: "O que é um texto dissertativo-argumentativo, como montar introdução, desenvolvimento e conclusão na folha de redação e como a nota é dada."
 autores: ["Instituto Lúcia"]
 fontes:
   - titulo: "A redação do Enem 2026: cartilha do(a) participante"
@@ -25,7 +25,7 @@ quiz:
     resposta: 1
     explicacao: "Fugir do tipo dissertativo-argumentativo zera a redação."
   - pergunta: "Como a nota final da redação é calculada?"
-    opcoes: ["Um corretor dá a nota sozinho", "Dois corretores dão de 0 a 200 em cada uma das cinco competências, e a nota final é a média das duas notas totais", "Pela TRI"]
+    opcoes: ["Um corretor dá a nota sozinho", "Pelo edital: {{enem:redacao-nota}}", "Pela TRI"]
     resposta: 1
     explicacao: "Se as notas dos dois forem muito diferentes, entra um terceiro corretor."
   - pergunta: "O título é obrigatório?"
@@ -38,7 +38,14 @@ quiz:
     explicacao: "Ela pode aparecer em qualquer parte, mas o lugar mais natural é a conclusão, depois que o problema foi discutido."
 ---
 
-A redação vale até **1.000 pontos** e entra na nota de todos os programas que usam o ENEM. É também a parte da prova em que o treino aparece mais rápido na nota. Esta aula mostra o tipo de texto pedido, a estrutura que funciona e como ele é corrigido. As próximas aulas da trilha detalham cada competência.
+Pelo edital, o ENEM é formado por {{enem:estrutura}}. A redação é, portanto, uma das cinco notas do exame, e se treina em casa, texto a texto. Esta aula mostra o tipo de texto pedido, a estrutura que funciona e como ele é corrigido. As próximas aulas da trilha detalham cada competência.
+
+## O que você vai aprender
+
+- O que é o texto dissertativo-argumentativo que a prova pede, e o que ele não é.
+- Uma estrutura em quatro parágrafos que cabe na folha de redação.
+- Como os corretores dão a nota.
+- A ordem de trabalho no dia da prova, do tema ao texto passado a limpo.
 
 ## O que é pedido
 
@@ -50,7 +57,7 @@ Você deve escrever um **texto dissertativo-argumentativo** em prosa, na norma-p
 - sustenta esse ponto de vista com **argumentos** organizados;
 - e termina com uma **proposta de intervenção**: uma solução para o problema, que respeite os direitos humanos.
 
-A folha de redação tem **30 linhas**. Textos de até 7 linhas recebem nota zero, e as linhas copiadas dos textos motivadores não contam.
+O texto pode ter até **{{enem:redacao-linhas}} linhas**. Texto com até {{enem:redacao-minimo}} linhas manuscritas recebe nota zero (é o "texto insuficiente"), e as linhas copiadas da prova {{enem:redacao-copia}}.
 
 **O que não é:** não é uma história (narrativa), não é uma carta, não é um poema e não é um desabafo. Fugir do tipo de texto pedido zera a redação.
 
@@ -58,7 +65,7 @@ Em 2025, por exemplo, o tema foi **"Perspectivas acerca do envelhecimento na soc
 
 ## A estrutura em quatro parágrafos
 
-Não existe uma forma obrigatória, mas a estrutura em quatro parágrafos é a mais usada, porque cabe bem em 30 linhas e organiza o raciocínio:
+Não existe uma forma obrigatória, mas a estrutura em quatro parágrafos é a mais usada, porque cabe bem em {{enem:redacao-linhas}} linhas e organiza o raciocínio:
 
 | Parágrafo | Função | Linhas (aprox.) |
 | --- | --- | --- |
@@ -101,7 +108,7 @@ Planejar assim antes de escrever economiza tempo e evita fugir do tema no meio d
 
 ## Como a redação é corrigida
 
-Dois corretores leem o seu texto, sem saber quem você é, e cada um dá de **0 a 200 pontos** em cada uma das **cinco competências**:
+Os corretores leem o seu texto sem saber quem você é. Pelo edital, a correção é assim: {{enem:redacao-nota}}. As cinco competências avaliam:
 
 | Competência | O que avalia |
 | --- | --- |
@@ -114,11 +121,11 @@ Dois corretores leem o seu texto, sem saber quem você é, e cada um dá de **0 
 Em cada competência há seis níveis: **0, 40, 80, 120, 160 e 200** pontos.
 
 ```conta
-nota de cada corretor = soma das 5 competências (máximo 1.000)
+nota de cada corretor = soma das 5 competências
 nota final = média das notas dos dois corretores
 ```
 
-Se os dois corretores discordarem muito (mais de **100 pontos** no total, ou mais de **80 pontos** em alguma competência), um **terceiro corretor** avalia o texto, e a nota final é a média das duas notas mais próximas. Se a discordância continuar, uma banca de três corretores decide.
+Se os dois corretores discordarem muito, um **terceiro corretor** avalia o texto. Pelo edital, isso acontece {{enem:redacao-discrepancia}}. Nesse caso, a nota final é a média das duas notas mais próximas. Se a discordância continuar, uma banca de três corretores decide.
 
 ## O título
 
@@ -132,10 +139,36 @@ O título é **opcional**. Ele conta como linha escrita, mas não vale ponto em 
 4. Faça o esqueleto dos quatro parágrafos, como o do exemplo.
 5. Escreva o rascunho.
 6. Revise: tema, tese, conectivos, proposta e erros de português.
-7. Passe a limpo, com letra legível e caneta preta.
+7. Passe a limpo, com letra legível e {{enem:caneta}}. Os rascunhos {{enem:rascunho-nao-conta}}.
 
 ## Para praticar
 
 1. Pegue o tema de uma edição anterior do ENEM, no site do Inep, e faça só o esqueleto em tópicos, em 15 minutos.
 2. Escreva a introdução com contextualização, tese e anúncio dos argumentos.
 3. Use a [folha de redação](/ferramentas/redacao) do site para escrever um texto completo no formato do ENEM e contar as linhas.
+
+## Como isso cai no ENEM
+
+- **Formato:** um tema em forma de frase, sobre um problema da sociedade brasileira, e alguns textos motivadores. Você escreve um texto dissertativo-argumentativo em prosa, com até {{enem:redacao-linhas}} linhas. O 1º dia tem: {{enem:provas-dia-1}}. Ele dura {{enem:duracao-dia-1}}, e a redação divide esse tempo com as questões.
+- **Competências ligadas:** a redação é corrigida pelas cinco competências. A estrutura pesa mais na C2 (dominar o tipo de texto, com proposição, argumentação e conclusão) e na C3 (o projeto de texto, que organiza os argumentos em defesa de um ponto de vista).
+- **Armadilhas:** contar uma história em vez de argumentar; deixar a conclusão para os últimos minutos e ficar sem proposta; copiar os textos motivadores para encher linhas; pôr no título desenho ou sinais.
+
+## Resumo
+
+- A prova pede um texto dissertativo-argumentativo: tese, argumentos e proposta de intervenção.
+- Quatro parágrafos funcionam bem: introdução, dois desenvolvimentos e conclusão.
+- Cada desenvolvimento tem um argumento, explicado e sustentado por repertório ligado a ele.
+- A conclusão retoma a tese e traz a proposta, com agente, ação, meio, finalidade e detalhamento.
+- Dois corretores dão a nota pelas cinco competências; se discordarem muito, entra um terceiro.
+- Planeje antes de escrever: o esqueleto evita fugir do tema no meio do texto.
+
+## Para aprofundar
+
+- [O texto dissertativo-argumentativo](/trilhas/portugues-medio/o-texto-dissertativo-argumentativo)
+- [Competência 1: a norma-padrão](/trilhas/enem-redacao/competencia-1-a-norma-padrao)
+- [Competência 2: entender o tema e usar repertório](/trilhas/enem-redacao/competencia-2-entender-o-tema-e-usar-repertorio)
+- [Competência 3: organizar os argumentos](/trilhas/enem-redacao/competencia-3-organizar-os-argumentos)
+- [Competência 4: coesão](/trilhas/enem-redacao/competencia-4-coesao)
+- [Competência 5: a proposta de intervenção](/trilhas/enem-redacao/competencia-5-a-proposta-de-intervencao)
+- [O que zera a redação](/trilhas/enem-redacao/o-que-zera-a-redacao)
+- [Redação expressa: a estrutura em 30 linhas](/trilhas/enem-reta-final/redacao-expressa-a-estrutura-em-30-linhas)

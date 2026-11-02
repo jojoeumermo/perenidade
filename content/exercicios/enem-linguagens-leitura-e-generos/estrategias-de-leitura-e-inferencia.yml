@@ -1,0 +1,243 @@
+# Exercícios da aula "Estratégias de leitura e inferência" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-leitura-01
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-estrategias-de-leitura
+  dificuldade: 1
+  enunciado: "Numa questão, o comando diz: “O texto critica…”. O que você deve procurar primeiro no texto?"
+  alternativas:
+    - texto: "A palavra mais difícil, para entender o vocabulário."
+      erro: "Palavra difícil quase nunca decide a questão. O verbo “critica” pede outra coisa: um alvo e um juízo negativo."
+    - texto: "O nome de quem escreveu, para saber a opinião dele."
+      erro: "A autoria pode ajudar, mas a resposta está no texto. Procure o que ele critica e como mostra isso."
+    - texto: "O alvo da crítica e as marcas de juízo, como ironia, adjetivos e contrastes."
+      certa: true
+    - texto: "O assunto geral, mesmo que o texto não dê opinião."
+      erro: "Assunto não é crítica. Um texto pode falar de transporte sem criticar nada. O comando pede o juízo."
+    - texto: "A data de publicação, porque toda crítica é sobre o passado."
+      erro: "A data ajuda a situar, mas não diz o que é criticado. E crítica pode ser sobre o presente."
+  explicacao: "O verbo do comando diz o que caçar. “Critica” pede um alvo (o que é criticado) e as marcas de juízo negativo (ironia, adjetivos, contraste entre o que deveria ser e o que é)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-02
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-estrategias-de-leitura
+  dificuldade: 1
+  enunciado: "“Choveu a noite toda. De manhã, a rua do mercado amanheceu com as cadeiras dos vizinhos em cima das mesas.” O que se pode inferir?"
+  alternativas:
+    - texto: "A água entrou nas casas ou ameaçou entrar."
+      certa: true
+    - texto: "Os vizinhos fizeram uma festa durante a noite."
+      erro: "Cadeiras em cima da mesa podem lembrar fim de festa, mas a pista do texto é a chuva da noite inteira."
+    - texto: "O mercado fechou para sempre."
+      erro: "Nada no texto fala do mercado fechar. Isso é extrapolação."
+    - texto: "Os vizinhos estavam de mudança."
+      erro: "Não há pista de mudança. A chuva é o que explica as cadeiras no alto."
+    - texto: "A prefeitura limpou a rua de madrugada."
+      erro: "O texto não fala da prefeitura. Isso é ir além do que está escrito."
+  explicacao: "Pista do texto (chuva a noite toda) mais conhecimento do mundo (quem tem medo de alagamento põe as coisas no alto) dá a inferência: a água entrou ou ameaçou entrar nas casas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-03
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-estrategias-de-leitura
+  dificuldade: 1
+  enunciado: "Uma alternativa repete quase as mesmas palavras do texto, mas troca “embora” por “porque”. Que armadilha é essa?"
+  alternativas:
+    - texto: "Extrapolação"
+      erro: "Extrapolar é ir além do texto. Aqui as palavras são do texto; o que muda é a relação entre as ideias."
+    - texto: "Redução"
+      erro: "Redução é tomar uma parte pelo todo. Aqui a alternativa muda o sentido, não o tamanho."
+    - texto: "Paráfrase fiel"
+      erro: "Paráfrase fiel diz o mesmo com outras palavras. Trocar “embora” (oposição) por “porque” (causa) muda o sentido."
+    - texto: "Resumo"
+      erro: "Resumo encurta sem mudar o sentido. Aqui o sentido mudou."
+    - texto: "Inversão"
+      certa: true
+  explicacao: "“Embora” marca oposição; “porque” marca causa. A alternativa parece familiar, mas diz outra coisa. É a inversão, a armadilha mais perigosa, porque usa as palavras do próprio texto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-04
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-estrategias-de-leitura
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Aviso na porta da biblioteca comunitária: "A partir deste mês, a biblioteca abre também aos sábados, das 8h às 12h.
+    Pensamos em quem trabalha a semana inteira e só tem o fim de semana para ler, estudar ou trazer os filhos."
+  enunciado: "Pelo aviso, infere-se que a mudança de horário pretende"
+  alternativas:
+    - texto: "reduzir o número de visitas durante a semana."
+      erro: "O aviso acrescenta um horário; não fala em tirar gente da semana. É extrapolação."
+    - texto: "atender pessoas que não conseguem ir à biblioteca nos dias úteis."
+      certa: true
+    - texto: "fechar a biblioteca nos dias de semana."
+      erro: "O aviso diz que abre “também” aos sábados. O “também” mostra que os outros dias continuam."
+    - texto: "cobrar uma taxa de quem vai no sábado."
+      erro: "Não há nenhuma pista de cobrança. A alternativa inventa uma informação."
+    - texto: "atender apenas as crianças da comunidade."
+      erro: "O aviso fala em quem trabalha e também nos filhos. Ficar só nas crianças é redução."
+  explicacao: "A pista é a segunda frase: o novo horário pensa em quem trabalha a semana toda. O objetivo é incluir quem não pode ir nos dias úteis."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-05
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-estrategias-de-leitura
+  dificuldade: 2
+  enunciado: "Um texto apresenta três causas para a falta de médicos em cidades pequenas: salário, distância e falta de estrutura. Uma alternativa diz que “o tema do texto é o salário dos médicos”. O problema dessa alternativa é:"
+  alternativas:
+    - texto: "inverter o que o texto diz."
+      erro: "O texto fala mesmo do salário. A alternativa não diz o contrário; ela só fica com um pedaço."
+    - texto: "inventar uma causa que o texto não cita."
+      erro: "O salário está no texto. O problema não é invenção."
+    - texto: "trocar a opinião do autor pela do leitor."
+      erro: "Não há troca de opinião aqui. O problema é o tamanho: um detalhe tomado como tema."
+    - texto: "tomar uma das causas como se fosse o tema inteiro."
+      certa: true
+    - texto: "usar uma palavra absoluta, como “sempre”."
+      erro: "A alternativa não usa palavra absoluta. O engano é outro: redução."
+  explicacao: "O tema é a falta de médicos em cidades pequenas, com três causas. Ficar só com o salário é redução: tomar a parte pelo todo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-06
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-estrategias-de-leitura
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Mensagem no grupo da escola: "Mães, pais e responsáveis: a reunião de quinta foi remarcada para as 19h, depois do
+    horário de trabalho da maioria. Quem não puder vir, mande pelo grupo a sua dúvida, que a gente leva e traz a resposta."
+  enunciado: "A mensagem se dirige a um público que, segundo o texto,"
+  alternativas:
+    - texto: "não tem interesse pela escola dos filhos."
+      erro: "Nada no texto diz isso. Pelo contrário: a escola muda o horário para que mais gente participe."
+    - texto: "tem dificuldade de comparecer em horário comercial."
+      certa: true
+    - texto: "trabalha na própria escola."
+      erro: "O público são os responsáveis pelos alunos. Não há pista de que trabalhem na escola."
+    - texto: "prefere resolver tudo por mensagem."
+      erro: "A mensagem oferece o grupo só para quem não puder ir. Não diz que todos preferem."
+    - texto: "sempre falta às reuniões."
+      erro: "“Sempre” é uma palavra absoluta que o texto não sustenta. A escola só quer facilitar a presença."
+  explicacao: "A pista está em “depois do horário de trabalho da maioria”. O texto supõe um público que trabalha durante o dia e por isso muda o horário e oferece outro canal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-07
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-estrategias-de-leitura
+  dificuldade: 2
+  enunciado: "Qual destas é uma inferência bem apoiada na frase “Ele chegou ao trabalho com a camisa molhada e o guarda-chuva quebrado na mão”?"
+  alternativas:
+    - texto: "Ele odeia o emprego."
+      erro: "Não há pista sobre o que ele sente pelo emprego. Isso é palpite."
+    - texto: "Ele vai pedir demissão."
+      erro: "Nada no texto fala de demissão. É extrapolação."
+    - texto: "Ele mora muito longe."
+      erro: "A frase não fala da distância. A pista é outra: a chuva."
+    - texto: "Ele perdeu o ônibus."
+      erro: "Pode ter acontecido, mas o texto não dá pista disso."
+    - texto: "Ele pegou chuva e vento no caminho."
+      certa: true
+  explicacao: "Camisa molhada e guarda-chuva quebrado são pistas de chuva com vento. Essa é a conclusão que o texto sustenta; as outras exigem informações que ele não dá."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-08
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-estrategias-de-leitura
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Dona Cida vende marmita há vinte anos na porta da fábrica. Este mês, trocou o cardápio da quinta-feira: no lugar da
+    feijoada, pôs arroz, feijão e ovo. "O pessoal anda contando moeda", disse ela, enquanto fazia a conta do troco no
+    caderninho.
+  enunciado: "A troca do cardápio e a fala de Dona Cida permitem inferir que"
+  alternativas:
+    - texto: "os fregueses estão com menos dinheiro, e ela baixou o custo da marmita para não perder a venda."
+      certa: true
+    - texto: "os fregueses deixaram de gostar de feijoada."
+      erro: "A fala dela não fala de gosto, e sim de dinheiro (“contando moeda”). A causa é outra."
+    - texto: "Dona Cida vai fechar o negócio no mês que vem."
+      erro: "Nada no texto fala em fechar. É extrapolação."
+    - texto: "a fábrica proibiu a venda de feijoada na porta."
+      erro: "O texto não cita proibição. A troca parte dela, pela situação dos fregueses."
+    - texto: "o preço do ovo subiu mais que o da carne."
+      erro: "Inversão: o texto sugere o contrário, que a marmita com ovo ficou mais barata de fazer."
+  explicacao: "Duas pistas se juntam: a troca de um prato mais caro por um mais barato e “o pessoal anda contando moeda”, que quer dizer que as pessoas estão com pouco dinheiro. A inferência junta as duas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-09
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-estrategias-de-leitura
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    O ônibus da linha 312 passou a circular de meia em meia hora depois das 21h. A empresa disse que a medida "otimiza a
+    frota". Na mesma semana, o restaurante do centro trocou o fim do expediente da cozinha de 22h para 21h30.
+  enunciado: "A ligação entre as duas informações permite inferir que o restaurante"
+  alternativas:
+    - texto: "passou a ter menos fregueses à noite por causa do ônibus."
+      erro: "O texto não fala de fregueses. A pista é o fim do expediente da cozinha, que tem a ver com quem trabalha."
+    - texto: "decidiu fechar mais cedo para economizar luz."
+      erro: "A economia de luz não aparece. A coincidência com a mudança do ônibus é a pista."
+    - texto: "foi multado pela empresa de ônibus."
+      erro: "Não existe essa relação no texto. É invenção."
+    - texto: "ajustou o horário para que os funcionários consigam pegar o ônibus."
+      certa: true
+    - texto: "aprovou a medida da empresa, que melhorou o transporte."
+      erro: "Inversão. Menos ônibus à noite piora o transporte de quem sai tarde, tanto que o restaurante teve de se ajustar."
+  explicacao: "As duas mudanças são da mesma semana e ambas mexem com a noite. Com ônibus mais raros, sair às 22h ficou arriscado para quem depende da linha. A conclusão junta as pistas e o conhecimento da vida de quem trabalha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-leitura-10
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-estrategias-de-leitura
+  dificuldade: 3
+  enunciado: "Duas alternativas parecem certas. Uma descreve o assunto do texto; a outra diz para que o texto foi escrito. O comando pede “o objetivo do texto”. O que fazer?"
+  alternativas:
+    - texto: "Escolher a que descreve o assunto, porque é mais segura."
+      erro: "Assunto e objetivo são coisas diferentes. Responder ao assunto quando o comando pede o objetivo deixa a resposta incompleta."
+    - texto: "Escolher a mais longa, porque explica mais."
+      erro: "Tamanho não é critério. O que decide é responder ao comando."
+    - texto: "Escolher a que diz para que o texto foi escrito, conferindo uma linha que a sustente."
+      certa: true
+    - texto: "Marcar qualquer uma, porque as duas estão no texto."
+      erro: "Estar no texto não basta: a alternativa tem de responder ao que foi perguntado."
+    - texto: "Pular a questão, porque ela tem duas respostas."
+      erro: "A questão tem uma resposta só. Compare as duas com o comando."
+  explicacao: "Quando duas alternativas parecem certas, compare com o comando. Se ele pede o objetivo, a que diz para que o texto existe é a resposta, desde que uma linha do texto a sustente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
