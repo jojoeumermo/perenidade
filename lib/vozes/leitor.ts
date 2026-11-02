@@ -162,7 +162,27 @@ function montarFrases(alvos?: string[]): Frase[] {
 type ComDestaque = typeof CSS & { highlights?: Map<string, unknown> };
 declare const Highlight: { new (...ranges: Range[]): unknown } | undefined;
 
+/**
+ * A cor do destaque. Fica aqui, e não em app/globals.css, porque o otimizador de CSS do build ainda não conhece o
+ * ::highlight e o descartaria. Entra uma vez, na primeira leitura.
+ */
+const ESTILO_DO_DESTAQUE = [
+  "::highlight(lucia-frase){background-color:rgb(194 31 22/.16);color:inherit}",
+  ':root[data-theme="dark"] ::highlight(lucia-frase){background-color:rgb(255 140 110/.28)}',
+  '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) ::highlight(lucia-frase){background-color:rgb(255 140 110/.28)}}',
+  ":root:is([data-contrast],[data-eink]) ::highlight(lucia-frase){background-color:Highlight;color:HighlightText}",
+].join("\n");
+
+function estiloDoDestaque() {
+  if (document.getElementById("estilo-lucia-frase")) return;
+  const estilo = document.createElement("style");
+  estilo.id = "estilo-lucia-frase";
+  estilo.textContent = ESTILO_DO_DESTAQUE;
+  document.head.append(estilo);
+}
+
 function destacar(i: number) {
+  estiloDoDestaque();
   const css = CSS as ComDestaque;
   const range = frases[i]?.range;
   if (css.highlights && typeof Highlight !== "undefined") {

@@ -1,0 +1,238 @@
+# Exercícios da aula "Ondas e som: altura, intensidade, timbre, ressonância, Doppler" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Velocidades dadas no enunciado são valores de referência.
+
+- id: enem-fis-som-01
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  dificuldade: 1
+  enunciado: "Numa corda esticada, uma onda tem frequência de 5 Hz e comprimento de onda de 2 m. Qual é a velocidade da onda?"
+  alternativas:
+    - texto: "10 m/s"
+      certa: true
+    - texto: "2,5 m/s"
+      erro: "Você dividiu a frequência pelo comprimento de onda. A relação é de multiplicação: v = λ · f."
+    - texto: "0,4 m/s"
+      erro: "Você dividiu o comprimento de onda pela frequência. Multiplique: 2 × 5."
+    - texto: "7 m/s"
+      erro: "Você somou as duas medidas. A velocidade é o comprimento de onda vezes a frequência."
+    - texto: "3 m/s"
+      erro: "Você subtraiu as duas medidas. Grandezas diferentes se combinam pela fórmula v = λ · f."
+  explicacao: "v = λ · f = 2 m × 5 Hz = 10 m/s. A cada segundo passam 5 ondas de 2 m: a onda anda 10 m."
+  conferir: "2 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-02
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  dificuldade: 1
+  enunciado: "Um contrabaixo toca uma nota grave e um violino, uma nota aguda. O que diferencia, na física, o som grave do agudo?"
+  alternativas:
+    - texto: "A amplitude da onda"
+      erro: "A amplitude está ligada à intensidade, ao som forte ou fraco. Um som grave pode ser forte ou fraco."
+    - texto: "A frequência da onda"
+      certa: true
+    - texto: "A velocidade da onda no ar"
+      erro: "No mesmo ar, os sons graves e agudos andam com a mesma velocidade. Senão, numa orquestra, as notas chegariam fora de hora."
+    - texto: "O timbre do instrumento"
+      erro: "O timbre distingue um instrumento de outro na mesma nota. Grave e agudo é questão de frequência."
+    - texto: "A distância até quem ouve"
+      erro: "A distância muda a intensidade que chega, não a altura da nota."
+  explicacao: "Altura é a qualidade que separa o grave do agudo. Ela depende da frequência: som agudo tem frequência alta; som grave, frequência baixa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-03
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  dificuldade: 1
+  enunciado: "Dois astronautas na superfície da Lua, onde não há atmosfera, não conseguem conversar sem rádio, mesmo a poucos metros um do outro. Por quê?"
+  alternativas:
+    - texto: "Porque o som na Lua fica agudo demais para o ouvido"
+      erro: "A falta de ar não muda a frequência da voz. O problema é que o som não tem por onde viajar."
+    - texto: "Porque a gravidade da Lua é menor"
+      erro: "A gravidade não impede o som. O que falta é o meio material para a vibração passar."
+    - texto: "Porque o som é uma onda mecânica e precisa de um meio material para se propagar"
+      certa: true
+    - texto: "Porque o som é uma onda eletromagnética e é absorvido pelo solo"
+      erro: "O som não é onda eletromagnética. As ondas eletromagnéticas, como as do rádio, andam até no vácuo; por isso o rádio funciona."
+    - texto: "Porque a temperatura da Lua congela o som"
+      erro: "O som não congela. Ele é a vibração de um meio, e no vácuo não há meio para vibrar."
+  explicacao: "O som passa de partícula em partícula do meio. Sem ar, não há o que vibrar entre os dois. O rádio funciona porque usa ondas eletromagnéticas, que atravessam o vácuo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-04
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 2
+  objeto: nat-fis-ondas-ondas-e-som
+  dificuldade: 2
+  enunciado: "O sonar de um barco de pesca emite um pulso de ultrassom para baixo e recebe o eco do fundo 0,4 s depois. Considere a velocidade do som na água igual a 1.500 m/s. Qual é a profundidade do local?"
+  alternativas:
+    - texto: "600 m"
+      erro: "600 m é o caminho de ida e volta (1.500 × 0,4). O fundo está na metade desse caminho."
+    - texto: "3.750 m"
+      erro: "Você dividiu a velocidade pelo tempo. A distância é a velocidade vezes o tempo."
+    - texto: "750 m"
+      erro: "Você dividiu a velocidade por 2 e esqueceu o tempo. A distância é v · t ÷ 2."
+    - texto: "300 m"
+      certa: true
+    - texto: "1.500,4 m"
+      erro: "Você somou a velocidade e o tempo. Grandezas diferentes não se somam: d = v · t ÷ 2."
+  explicacao: "Em 0,4 s o som anda 1.500 × 0,4 = 600 m, indo e voltando. A profundidade é a metade: 600 ÷ 2 = 300 m."
+  conferir: "1500 * 0.4 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-05
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma pessoa espera o ônibus num ponto quando passa uma ambulância com a sirene ligada. A sirene emite sempre o mesmo
+    som. Mesmo assim, a pessoa percebe que a nota muda enquanto a ambulância vem, passa por ela e segue adiante.
+  enunciado: "O que a pessoa no ponto ouve, e por quê?"
+  alternativas:
+    - texto: "Um som mais grave enquanto a ambulância se aproxima e mais agudo enquanto se afasta, porque o som cansa no caminho"
+      erro: "O som não cansa. E a ordem é a contrária: na aproximação, as ondas chegam mais juntas e o som fica mais agudo."
+    - texto: "O mesmo som o tempo todo, porque a sirene não muda de nota"
+      erro: "A sirene não muda, mas o que chega à pessoa muda. É o efeito Doppler: o movimento da fonte altera a frequência percebida."
+    - texto: "Um som mais forte na aproximação e mais fraco no afastamento, sem mudança de nota"
+      erro: "O volume muda com a distância, mas o texto fala da nota, que é a altura. A altura também muda, pelo efeito Doppler."
+    - texto: "Um som mais agudo o tempo todo, porque a ambulância está em movimento"
+      erro: "Só a aproximação deixa o som mais agudo. No afastamento, as ondas chegam mais espaçadas e o som fica mais grave."
+    - texto: "Um som mais agudo enquanto a ambulância se aproxima e mais grave enquanto se afasta, porque a frequência percebida muda com o movimento da fonte"
+      certa: true
+  explicacao: "É o efeito Doppler. Na aproximação, a sirene encurta a distância entre as frentes de onda à sua frente: chegam mais ondas por segundo, a frequência percebida sobe e o som fica mais agudo. No afastamento, acontece o contrário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-06
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  dificuldade: 2
+  enunciado: "Uma pessoa aumenta o volume do rádio sem mudar a música. Na onda sonora que sai do alto-falante, o que aumentou?"
+  alternativas:
+    - texto: "A amplitude, e com ela a intensidade do som"
+      certa: true
+    - texto: "A frequência, e com ela a altura do som"
+      erro: "Se a frequência mudasse, as notas mudariam: a música ficaria mais aguda. O volume mexe na intensidade."
+    - texto: "A velocidade do som no ar"
+      erro: "A velocidade depende do meio, o ar da sala, que não mudou. O som forte e o fraco andam igual."
+    - texto: "O comprimento de onda"
+      erro: "Com a mesma frequência e a mesma velocidade, o comprimento de onda fica igual (λ = v ÷ f)."
+    - texto: "O timbre do som"
+      erro: "O timbre vem da forma da onda, que é a mesma: a música e o rádio são os mesmos. Só a vibração ficou maior."
+  explicacao: "Volume é intensidade. O alto-falante vibra com mais amplitude e leva mais energia por segundo ao ouvido. As notas (frequências) e a velocidade no ar continuam as mesmas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-07
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa roda de samba, um cavaquinho e uma flauta tocam juntos a mesma nota, com o mesmo volume. Uma pessoa de olhos
+    vendados consegue dizer qual instrumento tocou primeiro quando eles se revezam.
+  enunciado: "A qualidade do som que permite distinguir os dois instrumentos é o(a)"
+  alternativas:
+    - texto: "altura, porque a flauta toca a nota numa frequência maior"
+      erro: "Os dois tocam a mesma nota, então a frequência principal é a mesma. A altura é igual."
+    - texto: "timbre, porque cada instrumento produz uma forma de onda própria"
+      certa: true
+    - texto: "intensidade, porque o cavaquinho é mais forte"
+      erro: "O texto diz que o volume é o mesmo. A intensidade não serve para distinguir os dois aqui."
+    - texto: "velocidade, porque o som da flauta anda mais rápido no ar"
+      erro: "No mesmo ar, sons de qualquer instrumento andam com a mesma velocidade."
+    - texto: "ressonância, porque só a flauta tem tubo"
+      erro: "A ressonância ajuda a produzir o som nos dois instrumentos, mas o que o ouvido usa para distingui-los é o timbre."
+  explicacao: "Timbre é a qualidade que distingue fontes diferentes com a mesma altura e a mesma intensidade. Cada instrumento soma à nota principal outras frequências (os harmônicos) numa mistura própria, e a forma da onda fica diferente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-08
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num programa de televisão, uma cantora sustenta uma nota forte diante de uma taça de cristal. Depois de alguns
+    segundos, a taça vibra cada vez mais e trinca. Com outra nota, de mesmo volume, a taça quase não vibra.
+  enunciado: "A taça trincou com aquela nota porque"
+  alternativas:
+    - texto: "o som daquela nota andava mais rápido que o das outras"
+      erro: "No mesmo ar, todas as notas andam com a mesma velocidade. O que importa é a frequência da nota."
+    - texto: "a voz da cantora levou matéria até a taça"
+      erro: "Uma onda leva energia, não matéria. O ar só vibra no lugar."
+    - texto: "a frequência da nota era igual à frequência natural de vibração da taça, e houve ressonância"
+      certa: true
+    - texto: "aquela nota tinha comprimento de onda igual ao diâmetro da boca da taça"
+      erro: "O texto compara notas de mesmo volume, e a que trinca é a que bate com a frequência natural da taça. O nome disso é ressonância."
+    - texto: "a nota era mais grave, e sons graves são sempre mais fortes"
+      erro: "Grave e forte são qualidades diferentes (altura e intensidade). E o texto diz que as notas tinham o mesmo volume."
+  explicacao: "Todo objeto tem uma frequência natural. Quando é sacudido nessa frequência, recebe energia a cada vibração, no ritmo certo, e a amplitude cresce: é a ressonância. Com outra frequência, os empurrões do ar ficam fora de ritmo e a taça quase não vibra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-09
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  dificuldade: 3
+  enunciado: "Uma conversa tem nível sonoro de cerca de 60 dB e o trânsito numa avenida, de 80 dB. Sabendo que cada 10 dB a mais multiplicam a intensidade por 10, a intensidade do trânsito é quantas vezes a da conversa?"
+  alternativas:
+    - texto: "20 vezes"
+      erro: "20 é a diferença em decibéis, não a razão entre as intensidades."
+    - texto: "1,33 vez"
+      erro: "Você dividiu 80 por 60. A escala de decibéis não é proporcional assim: cada 10 dB multiplicam por 10."
+    - texto: "2 vezes"
+      erro: "2 é o número de degraus de 10 dB. Cada degrau multiplica por 10."
+    - texto: "100 vezes"
+      certa: true
+    - texto: "1.000 vezes"
+      erro: "Seriam 30 dB de diferença. Aqui são 20 dB, dois degraus de 10."
+  explicacao: "Diferença: 80 − 60 = 20 dB, dois degraus de 10 dB. Intensidade: 10 × 10 = 100 vezes maior."
+  conferir: "10 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-som-10
+  tema: "Ondas e som"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  dificuldade: 3
+  enunciado: "Um som de 500 Hz passa do ar para a água. No ar, ele anda a 340 m/s; na água, considere 1.500 m/s. Qual é o comprimento de onda desse som na água?"
+  alternativas:
+    - texto: "0,68 m"
+      erro: "Esse é o comprimento de onda no ar (340 ÷ 500). Na água a velocidade é outra, e o comprimento de onda muda."
+    - texto: "0,33 m"
+      erro: "Você dividiu a frequência pela velocidade (500 ÷ 1.500). O certo é λ = v ÷ f."
+    - texto: "750.000 m"
+      erro: "Você multiplicou a velocidade pela frequência. De v = λ · f, o comprimento de onda é a velocidade dividida pela frequência."
+    - texto: "1.000 m"
+      erro: "Você subtraiu a frequência da velocidade. Use λ = v ÷ f."
+    - texto: "3 m"
+      certa: true
+  explicacao: "Ao mudar de meio, a frequência não muda: continua 500 Hz, porque é dada pela fonte. Muda a velocidade, e com ela o comprimento de onda: λ = v ÷ f = 1.500 ÷ 500 = 3 m."
+  conferir: "1500 / 500"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

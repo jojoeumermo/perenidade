@@ -1,0 +1,247 @@
+# Exercícios da aula "Conflitos contemporâneos e organismos internacionais" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-mundo-atual-01
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-mundo-atual
+  dificuldade: 1
+  enunciado: "Em que ano foi assinada a Carta das Nações Unidas, em São Francisco?"
+  alternativas:
+    - texto: "1945"
+      certa: true
+    - texto: "1919"
+      erro: "1919 é o ano do Tratado de Versalhes, depois da Primeira Guerra, que criou a Liga das Nações, a antecessora da ONU."
+    - texto: "1948"
+      erro: "Em 1948 a ONU já existia e aprovou a Declaração Universal dos Direitos Humanos. A Carta é de três anos antes."
+    - texto: "1939"
+      erro: "1939 é o começo da Segunda Guerra. A ONU nasce no fim dela, não no começo."
+    - texto: "1991"
+      erro: "1991 é o fim da União Soviética. A ONU já tinha quase meio século."
+  explicacao: "Delegados de 50 países assinaram a Carta em 26 de junho de 1945. A ONU passou a existir em 24 de outubro de 1945, no fim da Segunda Guerra."
+  conferir: "1945"
+  fonte: "Questão original do Instituto Lúcia, a partir da página History of the United Nations (ONU)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-02
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-mundo-atual
+  dificuldade: 1
+  enunciado: "O que é o poder de veto no Conselho de Segurança da ONU?"
+  alternativas:
+    - texto: "O direito de qualquer país-membro de sair da ONU"
+      erro: "Veto não é saída. É barrar uma decisão, e só cinco países têm esse poder."
+    - texto: "O direito de cada um dos cinco membros permanentes de barrar sozinho uma decisão de fundo"
+      certa: true
+    - texto: "O voto da maioria da Assembleia Geral"
+      erro: "Na Assembleia Geral cada país tem um voto e não há veto. O veto é do Conselho de Segurança."
+    - texto: "A proibição de que países em guerra votem"
+      erro: "Não existe essa regra. Um membro permanente pode vetar até decisões sobre um conflito de que participa."
+    - texto: "A decisão de um tribunal internacional"
+      erro: "Tribunais julgam. O veto é um voto contrário de um membro permanente, que derruba a decisão."
+  explicacao: "China, França, Rússia, Reino Unido e Estados Unidos são os membros permanentes. Basta um deles votar contra para uma decisão de fundo do Conselho cair."
+  fonte: "Questão original do Instituto Lúcia, a partir da Carta das Nações Unidas"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-03
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-mundo-atual
+  dificuldade: 1
+  enunciado: "Que país fez a Declaração Balfour, de 1917, sobre a Palestina?"
+  alternativas:
+    - texto: "Estados Unidos"
+      erro: "Os Estados Unidos não administravam a região. A carta foi do governo que depois ganhou o mandato sobre a Palestina."
+    - texto: "França"
+      erro: "A França ficou com o mandato sobre a Síria e o Líbano. A Palestina coube a outro país."
+    - texto: "Reino Unido"
+      certa: true
+    - texto: "Império Otomano"
+      erro: "O Império Otomano governava a região, mas era inimigo de quem escreveu a carta na Primeira Guerra."
+    - texto: "União Soviética"
+      erro: "A União Soviética só foi criada em 1922. A carta de 1917 foi britânica."
+  explicacao: "Em 2 de novembro de 1917, o ministro britânico Arthur Balfour escreveu a Lord Rothschild declarando o apoio do governo a um lar nacional judeu na Palestina. Depois da guerra, a Palestina ficou sob mandato britânico."
+  fonte: "Questão original do Instituto Lúcia, a partir do texto da Declaração (Avalon Project, Yale)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-04
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-mundo-atual
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "O governo vê com bons olhos o estabelecimento, na Palestina, de um lar nacional para o povo judeu,
+    e fará o possível para facilitar esse objetivo, ficando claro que nada será feito que possa prejudicar
+    os direitos civis e religiosos das comunidades não judaicas existentes na Palestina."
+    (Tradução do Instituto Lúcia de um trecho da Declaração Balfour, 1917, documento em domínio público.)
+  enunciado: "A dificuldade de cumprir o compromisso expresso no texto, nas décadas seguintes, deveu-se ao fato de que ele"
+  alternativas:
+    - texto: "proibia a imigração judaica para a região."
+      erro: "O texto apoia um lar nacional judeu, o que supõe imigração. Ele não proíbe nada disso."
+    - texto: "entregava a Palestina ao controle da França."
+      erro: "O texto é do governo britânico e não fala em França. A Palestina ficou sob mandato britânico."
+    - texto: "previa a independência imediata dos árabes."
+      erro: "Não há promessa de independência. Há a promessa de não prejudicar direitos civis e religiosos."
+    - texto: "foi escrito depois da criação do Estado de Israel."
+      erro: "A carta é de 1917; Israel foi proclamado em 1948. Cuidado com a ordem das datas."
+    - texto: "fazia promessas a dois povos sobre o mesmo território, sem dizer como conciliá-las."
+      certa: true
+  explicacao: "A carta apoia um lar nacional judeu e, na mesma frase, promete proteger os direitos da maioria árabe. Com a imigração e a disputa pela terra, as duas promessas entraram em choque, e o Reino Unido levou a questão à ONU em 1947."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-05
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-mundo-atual
+  dificuldade: 2
+  enunciado: "Em 2014, a Assembleia Geral da ONU aprovou uma resolução reafirmando a integridade territorial da Ucrânia, mas a Crimeia continuou sob controle russo. O que explica isso?"
+  alternativas:
+    - texto: "A resolução foi rejeitada pela maioria dos países."
+      erro: "Ela foi aprovada: 100 votos a favor, 11 contra e 58 abstenções."
+    - texto: "Resoluções da Assembleia Geral são recomendações e não obrigam, e no Conselho de Segurança a Rússia tem veto."
+      certa: true
+    - texto: "A ONU reconheceu a anexação logo depois."
+      erro: "A resolução pediu justamente o contrário: que os países não reconhecessem a mudança."
+    - texto: "A Ucrânia não era membro da ONU."
+      erro: "A Ucrânia é membro da ONU desde 1945, quando ainda fazia parte da União Soviética."
+    - texto: "A Assembleia Geral só decide sobre temas econômicos."
+      erro: "A Assembleia debate qualquer tema, inclusive guerra e fronteiras. O limite é que ela não obriga."
+  explicacao: "A resolução 68/262, de 27 de março de 2014, mostrou a opinião da maioria, mas não tinha força obrigatória. Medidas obrigatórias dependem do Conselho de Segurança, onde a Rússia, membro permanente, pode vetar."
+  fonte: "Questão original do Instituto Lúcia, a partir da Biblioteca Digital da ONU (A/RES/68/262)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-06
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-mundo-atual
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num discurso, o chefe de um Estado afirma que uma península do país vizinho "sempre foi nossa, na mente
+    e no coração do povo", pois ali se fala a nossa língua e se guardam as nossas tradições. Ele não cita
+    tratados nem fronteiras reconhecidas.
+    (Texto do Instituto Lúcia, inspirado em discursos sobre anexações de território.)
+  enunciado: "O argumento usado no discurso apoia-se na ideia de que"
+  alternativas:
+    - texto: "as fronteiras reconhecidas pela ONU não podem mudar."
+      erro: "Esse é o argumento de quem se opõe à anexação. O discurso não cita fronteiras reconhecidas."
+    - texto: "a região deve ficar neutra entre os dois países."
+      erro: "O orador reivindica a região para o seu Estado. Não há proposta de neutralidade."
+    - texto: "a livre circulação de mercadorias justifica a união."
+      erro: "O discurso não fala de comércio. Integração econômica é outra coisa que anexação."
+    - texto: "quem partilha língua e tradições deve viver sob o mesmo Estado."
+      certa: true
+    - texto: "um tribunal internacional já decidiu a questão."
+      erro: "O texto diz que o orador não cita nenhuma decisão jurídica. Não leve para o texto o que ele não tem."
+  explicacao: "Língua, tradição e 'povo' são marcas de identidade nacional. O discurso usa o nacionalismo, não o direito internacional."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-07
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 15
+  objeto: hum-organizacao-social-mundo-atual
+  dificuldade: 2
+  enunciado: "Qual é a ordem certa destes fatos da questão da Palestina?"
+  alternativas:
+    - texto: "Criação de Israel, Declaração Balfour, plano de partilha da ONU"
+      erro: "A Declaração Balfour é de 1917, a mais antiga das três. Israel foi proclamado só em 1948."
+    - texto: "Plano de partilha da ONU, Declaração Balfour, criação de Israel"
+      erro: "A ONU só foi criada em 1945. A Declaração Balfour é de 1917, antes dela."
+    - texto: "Declaração Balfour, plano de partilha da ONU, criação de Israel"
+      certa: true
+    - texto: "Declaração Balfour, criação de Israel, plano de partilha da ONU"
+      erro: "O plano de partilha (29 de novembro de 1947) veio antes da proclamação de Israel (1948)."
+    - texto: "Criação de Israel, plano de partilha da ONU, Declaração Balfour"
+      erro: "A ordem está invertida. Comece pela Primeira Guerra, em 1917."
+  explicacao: "1917: Declaração Balfour. Depois da Primeira Guerra: mandato britânico. 1947: plano de partilha aprovado pela Assembleia Geral. 1948: saída britânica, proclamação de Israel e guerra com os vizinhos árabes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-08
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-mundo-atual
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: "Os povos têm direito de decidir livremente o seu estatuto político."
+    Texto II: "Os Estados devem abster-se de usar a força contra a integridade territorial de outro Estado."
+    (Textos do Instituto Lúcia, que resumem dois princípios presentes na Carta das Nações Unidas.)
+  enunciado: "Num conflito em que um país anexa a região de um vizinho alegando a vontade dos moradores, os dois princípios"
+  alternativas:
+    - texto: "são usados por lados opostos: o anexador invoca o primeiro, e o país que perde a região invoca o segundo."
+      certa: true
+    - texto: "levam à mesma conclusão: a anexação é sempre legítima."
+      erro: "O Texto II proíbe usar a força contra a integridade territorial. Ele não apoia a anexação."
+    - texto: "não têm relação com conflitos territoriais."
+      erro: "Os dois falam de território e de poder político. São justamente os princípios em disputa."
+    - texto: "só valem para países que não são membros da ONU."
+      erro: "Os princípios estão na Carta e valem para os membros. Não há essa exceção."
+    - texto: "foram abolidos com o fim da Guerra Fria."
+      erro: "Os princípios continuam na Carta. A discussão sobre eles aparece em conflitos de hoje."
+  explicacao: "Autodeterminação e integridade territorial convivem na Carta, mas podem se chocar. Num caso de anexação, cada lado se agarra ao princípio que o favorece. A questão pede para ver essa tensão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-09
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-mundo-atual
+  dificuldade: 3
+  enunciado: "Em 2 de março de 2022, a Assembleia Geral exigiu a retirada das tropas russas da Ucrânia com 141 votos a favor e 5 contra. Quantos votos a mais teve o lado a favor?"
+  alternativas:
+    - texto: "146"
+      erro: "Você somou os votos. A pergunta pede a diferença: quantos a mais."
+    - texto: "131"
+      erro: "Conta errada na subtração. 141 menos 5 dá 136."
+    - texto: "141"
+      erro: "Esse é o total a favor, não a diferença entre os dois lados."
+    - texto: "28"
+      erro: "Você dividiu. A pergunta é quantos a mais: subtraia."
+    - texto: "136"
+      certa: true
+  explicacao: "141 − 5 = 136. Mesmo com essa maioria, a resolução não obriga: decisões obrigatórias são do Conselho de Segurança, onde a Rússia tem veto."
+  conferir: "141 - 5"
+  fonte: "Questão original do Instituto Lúcia, a partir de UN News (2 de março de 2022)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-mundo-atual-10
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 15
+  objeto: hum-organizacao-social-mundo-atual
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A península foi dividida em 1945 entre duas zonas de influência. Hoje, os dois países têm a mesma língua
+    e a mesma história antiga, mas mantêm alto-falantes na fronteira, trocam acusações e disputam até a
+    altura dos mastros das bandeiras.
+    (Texto do Instituto Lúcia sobre as duas Coreias.)
+  enunciado: "A rivalidade descrita tem origem"
+  alternativas:
+    - texto: "numa diferença étnica entre os dois povos."
+      erro: "O texto diz que os dois países têm a mesma língua e a mesma história antiga. A divisão não é étnica."
+    - texto: "numa disputa religiosa iniciada no século XX."
+      erro: "Não há tema religioso no texto. Cuidado com o reflexo de chamar todo conflito de religioso."
+    - texto: "numa crise ambiental na fronteira."
+      erro: "O texto não fala de ambiente. Fala de disputa entre dois governos."
+    - texto: "na divisão político-ideológica herdada da Guerra Fria."
+      certa: true
+    - texto: "numa decisão da ONU de criar dois países."
+      erro: "A divisão nasceu das zonas de influência soviética e americana em 1945, não de uma decisão de criar dois países."
+  explicacao: "Em 1945 a Coreia foi dividida no paralelo 38: o norte sob influência soviética e o sul sob influência americana. Formaram-se um Estado socialista e um capitalista. A guerra de 1950 a 1953 terminou sem tratado de paz."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -39,7 +39,7 @@ quiz:
   - pergunta: "Na norma-padrão, “Prefiro estudar de manhã ___ estudar à noite” se completa com:"
     opcoes: ["do que", "mais do que", "que", "a"]
     resposta: 3
-    explicacao: "Na norma-padrão, “preferir” pede a preposição “a”: prefere-se uma coisa a outra. Na fala, “prefiro mais… do que…” é muito comum; na redação, use “prefiro isto a aquilo”."
+    explicacao: "Na norma-padrão, “preferir” pede a preposição “a”: prefere-se uma coisa a outra. Na fala, “prefiro mais… do que…” é muito comum; na redação, use “prefiro isto àquilo”."
   - pergunta: "Qual destas frases tem uma vírgula que a norma-padrão não aceita?"
     opcoes: ["Os moradores da rua de baixo, reclamaram do barulho", "Maria, feche a porta", "Ontem, choveu muito", "Recife, a capital, alagou"]
     resposta: 0
@@ -98,7 +98,7 @@ Exemplos: “Fui à feira” (fui ao mercado). “Entreguei à diretora” (entr
 
 Não há crase antes de palavra masculina (“a pé”), antes de verbo (“começou a chover”), entre palavras repetidas (“cara a cara”) e antes de pronomes que não aceitam artigo, como “ela” e “esta”.
 
-Para nomes de lugar, use o truque da volta: se você **volta da**, vai **à** (“vou à Bahia, volto da Bahia”). Se volta **de**, vai **a** (“vou a Recife, volto de Recife”).
+Para nomes de lugar, use o truque da volta: se você **volta da**, vai **à** (“vou à Bahia, volto da Bahia”). Se volta **de**, vai **a** (“vou a Curitiba, volto de Curitiba”).
 
 Com horas exatas, há crase: “a reunião é às 19 horas”.
 

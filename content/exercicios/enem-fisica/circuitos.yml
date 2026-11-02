@@ -1,0 +1,241 @@
+# Exercícios da aula "Circuitos em série e em paralelo" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Potências e disjuntores são valores de exemplo.
+
+- id: enem-fis-circ-01
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  dificuldade: 1
+  enunciado: "Três resistores, de 3 Ω, 5 Ω e 2 Ω, são ligados em série. Qual é a resistência equivalente?"
+  alternativas:
+    - texto: "30 Ω"
+      erro: "Você multiplicou as resistências. Em série, elas se somam."
+    - texto: "0,97 Ω"
+      erro: "Esse seria o valor em paralelo (soma dos inversos). Em série, some as resistências."
+    - texto: "5 Ω"
+      erro: "5 Ω é só o maior resistor. Em série, todos contam: some os três."
+    - texto: "3,33 Ω"
+      erro: "Você fez a média. A resistência equivalente em série é a soma."
+    - texto: "10 Ω"
+      certa: true
+  explicacao: "Em série, Req = R₁ + R₂ + R₃ = 3 + 5 + 2 = 10 Ω."
+  conferir: "3 + 5 + 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-02
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  dificuldade: 1
+  enunciado: "Num pisca-pisca antigo, todas as lâmpadas estão ligadas em série. O que acontece quando uma delas queima?"
+  alternativas:
+    - texto: "Só ela apaga; as outras continuam acesas"
+      erro: "Isso aconteceria em paralelo. Em série há um caminho só: se ele abre num ponto, abre para todas."
+    - texto: "Todas apagam, porque o único caminho da corrente foi interrompido"
+      certa: true
+    - texto: "As outras brilham mais, porque sobra mais corrente"
+      erro: "Com o caminho aberto, a corrente vira zero em todo o fio. Não sobra corrente para ninguém."
+    - texto: "As outras brilham menos, mas continuam acesas"
+      erro: "Em série, o caminho aberto zera a corrente. Todas apagam."
+    - texto: "Nada muda, porque a tensão da tomada é a mesma"
+      erro: "A tensão da tomada continua, mas sem caminho fechado não há corrente."
+  explicacao: "Em série, a corrente passa por uma lâmpada depois da outra, num caminho só. Quando uma queima, o filamento se rompe, o circuito abre e a corrente para em todas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-03
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  dificuldade: 1
+  enunciado: "Uma lâmpada e um ventilador estão ligados em paralelo na mesma tomada de 220 V. Qual afirmação é correta?"
+  alternativas:
+    - texto: "A corrente é a mesma nos dois aparelhos"
+      erro: "Em paralelo, a corrente se divide e depende de cada aparelho. Igual é a tensão."
+    - texto: "A tensão de 220 V se divide entre os dois"
+      erro: "A tensão se divide em série. Em paralelo, cada aparelho recebe a tensão inteira."
+    - texto: "Se a lâmpada queimar, o ventilador desliga"
+      erro: "Em paralelo, os ramos são independentes. O ventilador continua."
+    - texto: "Os dois aparelhos ficam submetidos à mesma tensão, 220 V"
+      certa: true
+    - texto: "A resistência equivalente é a soma das duas"
+      erro: "A soma vale em série. Em paralelo, a equivalente é menor que a menor das resistências."
+  explicacao: "Em paralelo, cada aparelho fica ligado diretamente aos dois pontos da tomada e recebe a tensão inteira, 220 V. As correntes dependem de cada um e se somam no fio comum."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-04
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  dificuldade: 2
+  enunciado: "Dois resistores de 20 Ω cada são ligados em paralelo. Qual é a resistência equivalente?"
+  alternativas:
+    - texto: "10 Ω"
+      certa: true
+    - texto: "40 Ω"
+      erro: "40 Ω seria em série. Em paralelo, a equivalente é menor que cada resistor."
+    - texto: "400 Ω"
+      erro: "400 é só o produto. Falta dividir pela soma: 400 ÷ 40."
+    - texto: "20 Ω"
+      erro: "Com dois caminhos, a corrente passa com mais facilidade. A equivalente fica menor que 20 Ω."
+    - texto: "0,1 Ω"
+      erro: "0,1 é a soma dos inversos (1/20 + 1/20). Falta inverter o resultado: 1 ÷ 0,1 = 10."
+  explicacao: "Para dois resistores em paralelo, Req = (R₁ × R₂) ÷ (R₁ + R₂) = 400 ÷ 40 = 10 Ω. Atalho: dois iguais em paralelo dão a metade de um."
+  conferir: "20 * 20 / (20 + 20)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-05
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 6
+  objeto: nat-fis-eletricidade-circuitos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um eletricista explica a um morador que, na instalação da casa, todas as tomadas e lâmpadas são ligadas em paralelo
+    entre os dois fios que vêm da rede. Já cada interruptor é ligado em série com a lâmpada que comanda.
+  enunciado: "A principal vantagem de ligar tomadas e lâmpadas em paralelo é que"
+  alternativas:
+    - texto: "a corrente fica a mesma em todos os aparelhos, o que protege os fios"
+      erro: "Em paralelo, a corrente de cada aparelho depende da sua potência. O que fica igual é a tensão."
+    - texto: "a resistência total aumenta e a conta de luz diminui"
+      erro: "Em paralelo, a resistência equivalente diminui a cada aparelho ligado. E a conta depende da energia que cada aparelho gasta."
+    - texto: "cada aparelho recebe a tensão da rede e funciona independentemente dos outros"
+      certa: true
+    - texto: "a tensão se divide entre os aparelhos, e nenhum recebe tensão demais"
+      erro: "A divisão da tensão acontece em série. Em paralelo, todos recebem a tensão inteira da rede."
+    - texto: "basta um interruptor para desligar a casa toda"
+      erro: "Em paralelo, cada ramo tem o seu interruptor. Quem desliga a casa toda é o disjuntor geral, em série no começo."
+  explicacao: "Em paralelo, cada aparelho fica entre os dois fios da rede e recebe a tensão para a qual foi feito, 127 V ou 220 V. Ligar ou desligar um não muda os outros. O interruptor em série abre só o ramo da sua lâmpada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-06
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  dificuldade: 2
+  enunciado: "Uma bateria de 12 V alimenta dois resistores ligados em série, de 2 Ω e de 4 Ω. Qual é a corrente no circuito?"
+  alternativas:
+    - texto: "6 A"
+      erro: "Você usou só o resistor de 2 Ω. Em série, a corrente passa pelos dois: Req = 6 Ω."
+    - texto: "3 A"
+      erro: "Você usou só o resistor de 4 Ω. Some os dois: Req = 2 + 4 = 6 Ω."
+    - texto: "72 A"
+      erro: "Você multiplicou a tensão pela resistência. Pela Lei de Ohm, i = U ÷ R."
+    - texto: "9 A"
+      erro: "9 A seria a corrente total com os resistores em paralelo. Em série, a resistência é maior e a corrente, menor."
+    - texto: "2 A"
+      certa: true
+  explicacao: "Em série, Req = 2 + 4 = 6 Ω. A corrente é i = U ÷ Req = 12 ÷ 6 = 2 A, a mesma nos dois resistores."
+  conferir: "12 / (2 + 4)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-07
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  dificuldade: 2
+  enunciado: "Uma bateria de 12 V alimenta dois resistores ligados em paralelo, de 3 Ω e de 6 Ω. Qual é a corrente total fornecida pela bateria?"
+  alternativas:
+    - texto: "1,33 A"
+      erro: "Você somou as resistências como se estivessem em série (9 Ω). Em paralelo, cada uma recebe 12 V."
+    - texto: "6 A"
+      certa: true
+    - texto: "2 A"
+      erro: "2 A é só a corrente no resistor de 6 Ω. Some a do outro ramo."
+    - texto: "4 A"
+      erro: "4 A é só a corrente no resistor de 3 Ω. Some a do outro ramo."
+    - texto: "108 A"
+      erro: "Você multiplicou a tensão pela soma das resistências. Divida a tensão por cada resistência e some."
+  explicacao: "Em paralelo, cada resistor recebe 12 V. Correntes: 12 ÷ 3 = 4 A e 12 ÷ 6 = 2 A. Total: 6 A. Confira: Req = 3 × 6 ÷ 9 = 2 Ω, e 12 ÷ 2 = 6 A."
+  conferir: "12 / 3 + 12 / 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-08
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O circuito da cozinha de uma casa é de 127 V e tem um disjuntor de 25 A, que desliga quando a corrente total passa
+    desse valor. Uma pessoa liga ao mesmo tempo, nesse circuito, um micro-ondas de 1.270 W, uma fritadeira elétrica de
+    1.524 W e uma cafeteira de 762 W. Os aparelhos ficam ligados em paralelo.
+  enunciado: "A corrente total no circuito e o que acontece com o disjuntor são"
+  alternativas:
+    - texto: "22 A, e o disjuntor não desarma"
+      erro: "22 A é a soma do micro-ondas (10 A) e da fritadeira (12 A). Falta a cafeteira, com 6 A."
+    - texto: "3.556 A, e o disjuntor desarma"
+      erro: "3.556 é a soma das potências, em watts. Para chegar à corrente, divida pela tensão."
+    - texto: "25 A, e o disjuntor fica no limite"
+      erro: "Some as correntes de cada aparelho: 10 + 12 + 6. O total não é 25 A."
+    - texto: "28 A, e o disjuntor desarma"
+      certa: true
+    - texto: "9,3 A, e o disjuntor não desarma"
+      erro: "Você fez a média das correntes. Em paralelo, as correntes se somam no fio comum."
+  explicacao: "Correntes, por i = P ÷ U: micro-ondas 1.270 ÷ 127 = 10 A; fritadeira 1.524 ÷ 127 = 12 A; cafeteira 762 ÷ 127 = 6 A. Em paralelo, somam-se: 28 A. Passa de 25 A, e o disjuntor desarma."
+  conferir: "1270 / 127 + 1524 / 127 + 762 / 127"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-09
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  dificuldade: 3
+  enunciado: "Uma bateria de 12 V alimenta um resistor de 2 Ω ligado em série com um conjunto de dois resistores em paralelo, de 6 Ω e de 3 Ω. Qual é a corrente fornecida pela bateria?"
+  alternativas:
+    - texto: "3 A"
+      certa: true
+    - texto: "1,09 A"
+      erro: "Você somou tudo como se estivesse em série (2 + 6 + 3 = 11 Ω). Os resistores de 6 Ω e 3 Ω estão em paralelo."
+    - texto: "6 A"
+      erro: "Você usou só o conjunto em paralelo (2 Ω) e esqueceu o resistor de 2 Ω em série."
+    - texto: "1,5 A"
+      erro: "Você tratou o paralelo como se valesse 6 Ω. Em paralelo, 6 Ω e 3 Ω dão 18 ÷ 9 = 2 Ω."
+    - texto: "36 A"
+      erro: "Você multiplicou a tensão por 3. Pela Lei de Ohm, a corrente é a tensão dividida pela resistência."
+  explicacao: "Primeiro o paralelo: 6 × 3 ÷ (6 + 3) = 18 ÷ 9 = 2 Ω. Depois a série: 2 + 2 = 4 Ω. Corrente: 12 ÷ 4 = 3 A."
+  conferir: "12 / (2 + 6 * 3 / (6 + 3))"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-circ-10
+  tema: "Circuitos em série e em paralelo"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-circuitos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma pessoa tem duas lâmpadas incandescentes iguais, feitas para 127 V. Primeiro, liga uma só na tomada de 127 V. Depois,
+    liga as duas em série, nessa mesma tomada. Considere que a resistência de cada lâmpada não muda.
+  enunciado: "Com as duas lâmpadas em série, comparada com uma lâmpada sozinha, cada uma"
+  alternativas:
+    - texto: "brilha igual, porque a tomada é a mesma"
+      erro: "Em série, a tensão da tomada se divide entre as duas. Cada uma recebe menos que a lâmpada sozinha."
+    - texto: "brilha o dobro, porque há duas lâmpadas"
+      erro: "Ter duas lâmpadas não aumenta a energia de cada uma. Em série, elas dividem a tensão e a corrente cai."
+    - texto: "recebe metade da tensão e brilha bem menos, com um quarto da potência"
+      certa: true
+    - texto: "recebe a tensão inteira, mas a corrente dobra"
+      erro: "Com a resistência total dobrada e a mesma tensão, a corrente cai pela metade, não dobra."
+    - texto: "apaga, porque lâmpadas não funcionam em série"
+      erro: "Funcionam, desde que o caminho esteja fechado. Só brilham menos."
+  explicacao: "Em série, a resistência total dobra e a corrente cai pela metade. Cada lâmpada, igual à outra, fica com metade da tensão. A potência de cada uma é U · i = (1/2) × (1/2) = 1/4 da potência da lâmpada sozinha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

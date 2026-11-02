@@ -1,0 +1,241 @@
+# Exercícios da aula "Guerra Fria, descolonização e fim da URSS" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-guerra-fria-01
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-guerra-fria
+  dificuldade: 1
+  enunciado: "Quais eram as duas superpotências rivais da Guerra Fria?"
+  alternativas:
+    - texto: "Alemanha e Japão"
+      erro: "Alemanha e Japão foram derrotados na Segunda Guerra. A disputa seguinte foi entre os vencedores."
+    - texto: "Reino Unido e França"
+      erro: "Os dois eram aliados, do mesmo lado. E já não eram as maiores potências depois de 1945."
+    - texto: "China e Índia"
+      erro: "A China teve papel importante, mas o centro da disputa eram outros dois países."
+    - texto: "Estados Unidos e União Soviética"
+      certa: true
+    - texto: "Brasil e Argentina"
+      erro: "A disputa da Guerra Fria era mundial, entre as duas maiores potências militares."
+  explicacao: "Os Estados Unidos (capitalismo) e a União Soviética (socialismo) saíram da Segunda Guerra como superpotências e disputaram o mundo até 1991."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-02
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-guerra-fria
+  dificuldade: 1
+  enunciado: "Qual foi o maior símbolo da divisão da Europa na Guerra Fria, erguido em 1961?"
+  alternativas:
+    - texto: "A Grande Muralha"
+      erro: "A Grande Muralha fica na China e tem mais de dois mil anos."
+    - texto: "O Muro de Berlim"
+      certa: true
+    - texto: "O Canal de Suez"
+      erro: "Suez é um canal no Egito. Foi nacionalizado em 1956, mas não dividia a Europa."
+    - texto: "A Torre Eiffel"
+      erro: "A Torre Eiffel é de 1889, em Paris, e não tem relação com a Guerra Fria."
+    - texto: "O paralelo 38"
+      erro: "O paralelo 38 divide a Coreia, na Ásia. A pergunta fala da Europa."
+  explicacao: "O Muro de Berlim separou a parte ocidental da parte oriental da cidade de 1961 a 1989. A sua queda virou o símbolo do fim da Guerra Fria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-03
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-guerra-fria
+  dificuldade: 1
+  enunciado: "A OTAN, criada em 1949, é"
+  alternativas:
+    - texto: "uma aliança militar de defesa mútua entre os Estados Unidos, o Canadá e países da Europa Ocidental."
+      certa: true
+    - texto: "a aliança militar da União Soviética e dos seus aliados."
+      erro: "Essa é o Pacto de Varsóvia, de 1955. A OTAN é a aliança do bloco ocidental."
+    - texto: "um banco para reconstruir a Europa."
+      erro: "A ajuda econômica foi o Plano Marshall. A OTAN é militar."
+    - texto: "um órgão da ONU."
+      erro: "A OTAN não faz parte da ONU. É uma aliança militar entre alguns países."
+    - texto: "um bloco econômico da América do Sul."
+      erro: "Bloco econômico da América do Sul é o Mercosul. A OTAN é militar e do Atlântico Norte."
+  explicacao: "OTAN quer dizer Organização do Tratado do Atlântico Norte. Um ataque a um membro é tratado como ataque a todos."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 14.1"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-04
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-guerra-fria
+  dificuldade: 2
+  enunciado: "Por que as duas superpotências nunca entraram em guerra direta uma contra a outra?"
+  alternativas:
+    - texto: "Porque eram aliadas durante toda a Guerra Fria."
+      erro: "Foram aliadas contra o nazismo, até 1945. Depois viraram rivais."
+    - texto: "Porque a ONU proibiu as duas de terem exércitos."
+      erro: "As duas tinham exércitos enormes e eram membros permanentes do Conselho de Segurança, com veto."
+    - texto: "Porque ficavam longe demais uma da outra."
+      erro: "A distância não impedia: havia mísseis e bombardeiros. O freio era outro."
+    - texto: "Porque nenhuma das duas tinha armas modernas."
+      erro: "É o contrário: as duas tinham as armas mais destrutivas do mundo."
+    - texto: "Porque as duas tinham armas nucleares, e um confronto direto poderia destruir as duas e o mundo."
+      certa: true
+  explicacao: "A União Soviética testou a sua primeira bomba atômica em 1949, acabando com o monopólio americano. O medo da destruição mútua levou a disputa para outros meios e outros países."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-05
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-guerra-fria
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na fronteira entre as duas Coreias, os governos instalaram alto-falantes que tocam música pop e leem
+    boletins contra o vizinho. Dos dois lados, foram erguidos mastros cada vez mais altos, para que a
+    bandeira de um país se veja de longe no outro.
+    (Texto do Instituto Lúcia.)
+  enunciado: "A competição simbólica descrita tem como origem histórica"
+  alternativas:
+    - texto: "o sucesso internacional da música pop coreana."
+      erro: "A música é o instrumento da disputa, não a sua origem. Separe o meio da causa."
+    - texto: "uma diferença étnica entre os moradores do norte e do sul."
+      erro: "Norte e Sul têm o mesmo povo e a mesma língua. A divisão não é étnica."
+    - texto: "a divisão político-ideológica da península em 1945, consolidada pela guerra de 1950 a 1953."
+      certa: true
+    - texto: "uma disputa entre empresas de telecomunicações."
+      erro: "Quem instala alto-falantes e mastros são os governos. Não é disputa comercial."
+    - texto: "um conflito ambiental sobre o uso de rios."
+      erro: "O texto não fala de ambiente. É rivalidade entre dois Estados."
+  explicacao: "Em 1945 a Coreia foi dividida no paralelo 38 entre as influências soviética e americana. A guerra terminou em armistício, sem tratado de paz, e a rivalidade continua."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-06
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-guerra-fria
+  dificuldade: 2
+  enunciado: "O Plano Marshall tinha, além do objetivo de reconstruir a Europa, um objetivo político. Qual?"
+  alternativas:
+    - texto: "Entregar a Europa Ocidental à influência soviética."
+      erro: "É o contrário: o plano queria afastar a Europa Ocidental do socialismo."
+    - texto: "Acabar com a OTAN."
+      erro: "A OTAN foi criada em 1949, depois do plano, e no mesmo campo político dele."
+    - texto: "Financiar a independência das colônias africanas."
+      erro: "O plano foi dirigido à Europa. A descolonização é outro processo."
+    - texto: "Reunificar a Alemanha em 1948."
+      erro: "A Alemanha só se reunificou em 1990. Em 1948 a divisão estava se aprofundando."
+    - texto: "Diminuir a atração do socialismo, com uma Europa Ocidental próspera e ligada aos Estados Unidos."
+      certa: true
+  explicacao: "Pobreza e destruição podiam fortalecer partidos comunistas. A ajuda americana, de cerca de 12 bilhões de dólares aprovados em 1948, fazia parte da política de contenção. A União Soviética recusou o plano."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 14.1"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-07
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-guerra-fria
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Não queremos ser peças no tabuleiro de ninguém. Saímos de séculos de domínio colonial e não vamos trocar
+    um senhor por outro. Nossa política é a da paz, da cooperação entre nós e da independência diante dos
+    dois blocos."
+    (Texto do Instituto Lúcia, escrito como a fala de um delegado asiático em 1955.)
+  enunciado: "A posição expressa no texto está ligada"
+  alternativas:
+    - texto: "à Conferência de Bandung e à origem do Movimento dos Não Alinhados."
+      certa: true
+    - texto: "à criação do Pacto de Varsóvia."
+      erro: "O Pacto de Varsóvia era o bloco soviético. O texto recusa os dois blocos."
+    - texto: "à entrada desses países na OTAN."
+      erro: "Entrar na OTAN seria alinhar-se ao bloco ocidental, o que o texto recusa."
+    - texto: "à volta ao domínio colonial europeu."
+      erro: "O texto rejeita 'trocar um senhor por outro'. Não quer domínio de ninguém."
+    - texto: "à Doutrina Truman."
+      erro: "A Doutrina Truman pedia que os povos se unissem aos Estados Unidos contra o comunismo. O texto não quer escolher lado."
+  explicacao: "Em abril de 1955, em Bandung, na Indonésia, 29 países da Ásia e da África se reuniram e lançaram a base dos Não Alinhados: independência diante dos dois blocos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-08
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-guerra-fria
+  dificuldade: 3
+  enunciado: "A Guerra Fria durou de 1945 a 1991. O Muro de Berlim ficou de pé de 1961 a 1989. Por quantos anos da Guerra Fria o Muro NÃO existiu?"
+  alternativas:
+    - texto: "28"
+      erro: "28 anos é o tempo em que o Muro existiu (1989 − 1961). A pergunta é o contrário."
+    - texto: "46"
+      erro: "46 é a duração inteira da Guerra Fria. Falta tirar os anos do Muro."
+    - texto: "16"
+      erro: "16 é só o tempo antes do Muro (1961 − 1945). Faltam os anos depois da queda."
+    - texto: "18"
+      certa: true
+    - texto: "2"
+      erro: "2 é só o tempo depois da queda (1991 − 1989). Faltam os anos antes de 1961."
+  explicacao: "A Guerra Fria durou 1991 − 1945 = 46 anos. O Muro durou 1989 − 1961 = 28 anos. Sem o Muro: 46 − 28 = 18 anos (16 antes dele e 2 depois)."
+  conferir: "(1991 - 1945) - (1989 - 1961)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-09
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-guerra-fria
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "A economia não aguentava ao mesmo tempo a corrida armamentista e uma vida digna para a população. O
+    novo dirigente propôs reestruturar a produção e permitir que as pessoas criticassem o governo. As
+    reformas abriram espaço para movimentos que acabaram indo além do que ele queria."
+    (Texto do Instituto Lúcia, sobre a União Soviética nos anos 1980.)
+  enunciado: "O texto refere-se a reformas que"
+  alternativas:
+    - texto: "fortaleceram o Pacto de Varsóvia e prolongaram a Guerra Fria."
+      erro: "O Pacto de Varsóvia se desfez em seguida, e a Guerra Fria acabou em 1991. O texto diz que as reformas foram 'além do que ele queria'."
+    - texto: "foram impostas à União Soviética pela ONU."
+      erro: "As reformas foram decididas pelo próprio dirigente soviético. A ONU não governa países."
+    - texto: "levaram, em poucos anos, à dissolução da União Soviética."
+      certa: true
+    - texto: "aumentaram os gastos militares soviéticos."
+      erro: "O texto diz que a corrida armamentista pesava demais. Gorbachev cortou gastos militares."
+    - texto: "acabaram com a liberdade de crítica."
+      erro: "É o contrário: a glasnost permitiu criticar o governo."
+  explicacao: "Gorbachev, no poder desde 1985, lançou a perestroika (reestruturação) e a glasnost (abertura). As reformas ajudaram a abrir o caminho para 1989, a reunificação alemã em 1990 e o fim da URSS em dezembro de 1991."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 14.5"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-guerra-fria-10
+  tema: "Guerra Fria"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-guerra-fria
+  dificuldade: 3
+  enunciado: "Nos anos 1950, filmes americanos mostravam famílias felizes com carro e geladeira, e cartazes soviéticos mostravam operários fortes construindo fábricas. Essas imagens mostram que, na Guerra Fria,"
+  alternativas:
+    - texto: "o cinema não tinha relação com a política."
+      erro: "As duas imagens fazem propaganda de um modelo de sociedade. O cinema era parte da disputa."
+    - texto: "a disputa também se fazia pela propaganda dos modos de vida, nos meios de comunicação."
+      certa: true
+    - texto: "os dois blocos tinham a mesma economia."
+      erro: "As imagens mostram dois modelos diferentes: consumo privado e planejamento estatal."
+    - texto: "a corrida espacial era o único campo de rivalidade."
+      erro: "A corrida espacial foi um campo, mas não o único. As imagens mostram a disputa cultural."
+    - texto: "as superpotências se enfrentaram diretamente em guerra."
+      erro: "Elas nunca se enfrentaram diretamente. A disputa usava outros meios, como a propaganda."
+  explicacao: "Cada lado vendia o seu modo de vida: o consumo e a 'liberdade de escolher' de um lado; o trabalho coletivo e a indústria planejada do outro. A propaganda era uma arma da Guerra Fria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

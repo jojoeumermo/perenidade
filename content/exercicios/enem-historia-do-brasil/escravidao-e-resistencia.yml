@@ -1,0 +1,248 @@
+# Exercícios da aula "Escravidão, resistência e quilombos" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-escravidao-01
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-escravidao-e-resistencia
+  dificuldade: 1
+  enunciado: "O que era um quilombo?"
+  alternativas:
+    - texto: "Um navio do tráfico atlântico"
+      erro: "Os navios do tráfico eram chamados de tumbeiros. O quilombo era em terra, e era de liberdade."
+    - texto: "Uma comunidade formada por pessoas que fugiram da escravidão, com roças, comércio e defesa próprios"
+      certa: true
+    - texto: "Uma fazenda de café"
+      erro: "A fazenda era lugar de trabalho escravizado. O quilombo era o contrário: lugar de quem fugiu."
+    - texto: "Um imposto sobre o ouro"
+      erro: "O imposto sobre o ouro era o quinto."
+    - texto: "Uma prisão para escravizados fugidos"
+      erro: "Quilombo era lugar de liberdade, não de prisão."
+  explicacao: "Quilombos (ou mocambos) eram comunidades de pessoas que escaparam da escravidão. Existiram em todas as regiões, e muitos deram origem a comunidades quilombolas de hoje."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-02
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 13
+  objeto: hum-cultura-escravidao-e-resistencia
+  dificuldade: 1
+  enunciado: "Onde ficava o centro do Quilombo dos Palmares?"
+  alternativas:
+    - texto: "No Recôncavo Baiano"
+      erro: "O Recôncavo teve muitos engenhos e quilombos, mas Palmares ficava mais ao norte."
+    - texto: "Em Vila Rica, Minas Gerais"
+      erro: "Minas teve muitos quilombos no século XVIII, mas Palmares é do século XVII, em outra região."
+    - texto: "No Rio de Janeiro"
+      erro: "No Rio ficava o Cais do Valongo, porto de desembarque de africanos escravizados."
+    - texto: "Na Serra da Barriga, onde hoje é União dos Palmares, em Alagoas"
+      certa: true
+    - texto: "Em Salvador, no centro da cidade"
+      erro: "Em Salvador aconteceu a Revolta dos Malês, em 1835."
+  explicacao: "O centro de Palmares ficava na Serra da Barriga, então parte da capitania de Pernambuco e hoje no município de União dos Palmares, em Alagoas. A serra foi tombada em 1985."
+  fonte: "Questão original do Instituto Lúcia, a partir da Fundação Cultural Palmares"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-03
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-escravidao-e-resistencia
+  dificuldade: 1
+  enunciado: "O que era a carta de alforria?"
+  alternativas:
+    - texto: "O documento que dava a liberdade a uma pessoa escravizada"
+      certa: true
+    - texto: "A carta que o senhor mandava para comprar escravizados na África"
+      erro: "A alforria era o oposto da compra: era a saída da escravidão."
+    - texto: "O registro de nascimento dos filhos de senhores"
+      erro: "Não tinha a ver com os filhos dos senhores. Era um documento de liberdade."
+    - texto: "Uma lei de 1888"
+      erro: "A lei de 1888 é a Lei Áurea. A alforria era individual e existia muito antes."
+    - texto: "Um contrato de trabalho assalariado"
+      erro: "A alforria não era contrato de trabalho. Era o reconhecimento da liberdade."
+  explicacao: "Pela alforria, a pessoa deixava de ser escravizada. Podia ser comprada com dinheiro juntado com muito esforço, concedida pelo senhor ou obtida na Justiça."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-04
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-escravidao-e-resistencia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num engenho do século XVIII, os escravizados tinham um dia por semana para cultivar a própria roça. Vendiam parte
+    do que colhiam na feira da vila. Um viajante estrangeiro anotou que eles "cuidam daquele pedaço de terra com um
+    zelo que nunca mostram no canavial".
+    (Situação criada pelo Instituto Lúcia.)
+  enunciado: "A observação do viajante sugere que a roça própria"
+  alternativas:
+    - texto: "era uma imposição do senhor para aumentar o lucro do engenho."
+      erro: "A roça era dos escravizados, e o que se vendia era deles. O zelo diferente mostra que ali o trabalho tinha outro sentido."
+    - texto: "provava que os escravizados gostavam do trabalho no canavial."
+      erro: "O viajante diz o contrário: o zelo aparece na roça, não no canavial."
+    - texto: "era um espaço de autonomia, onde o trabalho servia aos próprios escravizados."
+      certa: true
+    - texto: "acabou com a escravidão no engenho."
+      erro: "A roça convivia com a escravidão. Era um espaço dentro dela, não o fim dela."
+    - texto: "era proibida pelos senhores em todo o Brasil."
+      erro: "O texto mostra uma roça permitida. Não generalize uma proibição."
+  explicacao: "Trabalhar para si, vender na feira e guardar dinheiro eram formas de conquistar margens de autonomia. Essa é a resistência do cotidiano."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-05
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 13
+  objeto: hum-cultura-escravidao-e-resistencia
+  dificuldade: 2
+  enunciado: "Em 1677, Ganga Zumba negociou um acordo com as autoridades coloniais. Por que Zumbi o recusou?"
+  alternativas:
+    - texto: "Porque o acordo dava terra demais aos palmarinos"
+      erro: "O problema não era o tamanho da terra. Era o que Palmares teria de entregar."
+    - texto: "Porque Zumbi queria se tornar senhor de engenho"
+      erro: "Nada indica isso. Zumbi seguiu a luta contra a escravidão."
+    - texto: "Porque o acordo transformava Palmares em capital da colônia"
+      erro: "O acordo não tinha nada disso."
+    - texto: "Porque o acordo libertava todos os escravizados do Brasil"
+      erro: "Se libertasse todos, não haveria motivo para recusar. O acordo era bem mais limitado."
+    - texto: "Porque o acordo libertava só os nascidos em Palmares e exigia a devolução de novos fugidos"
+      certa: true
+  explicacao: "Pelo acordo, os nascidos em Palmares ficariam livres, em troca de devolver quem fugisse depois. Para Zumbi, isso traía a razão de ser do quilombo. Ele seguiu na luta até ser morto em 1695."
+  fonte: "Questão original do Instituto Lúcia, a partir de Impressões Rebeldes (UFF)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-06
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-escravidao-e-resistencia
+  dificuldade: 2
+  enunciado: "Por que o movimento negro escolheu o 20 de novembro, e não o 13 de maio, como dia de luta?"
+  alternativas:
+    - texto: "Porque o 13 de maio é feriado religioso"
+      erro: "O 13 de maio lembra a Lei Áurea, de 1888. A escolha tem outro motivo."
+    - texto: "Porque o 20 de novembro lembra Zumbi e a luta dos próprios negros, enquanto o 13 de maio celebra uma lei vista como abolição sem reparação"
+      certa: true
+    - texto: "Porque a Lei Áurea foi assinada em 20 de novembro"
+      erro: "A Lei Áurea é de 13 de maio de 1888. O 20 de novembro é a data da morte de Zumbi, em 1695."
+    - texto: "Porque Zumbi nasceu em 20 de novembro"
+      erro: "A data lembra a morte de Zumbi, em 1695."
+    - texto: "Porque o governo proibiu comemorar o 13 de maio"
+      erro: "Não houve proibição. Foi uma escolha política do movimento negro."
+  explicacao: "O 20 de novembro põe o protagonismo na luta negra (Palmares, Zumbi). O 13 de maio é criticado por lembrar uma lei que não trouxe terra, escola nem reparação. Desde 2023, o 20 de novembro é feriado nacional."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-07
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-escravidao-e-resistencia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na madrugada de 25 de janeiro de 1835, cerca de 600 africanos, muitos deles muçulmanos de origem iorubá, saíram
+    às ruas de Salvador. Derrotados, dezenas foram condenados a
+    açoite, prisão, degredo e morte.
+    (Texto do Instituto Lúcia, a partir de Impressões Rebeldes, UFF.)
+  enunciado: "O episódio, conhecido como Revolta dos Malês, mostra que"
+  alternativas:
+    - texto: "os africanos escravizados não tinham organização própria."
+      erro: "Planejar uma revolta para uma data e reunir centenas de pessoas exige muita organização."
+    - texto: "a revolta foi organizada por senhores de engenho contra o Império."
+      erro: "Quem se levantou foram africanos escravizados e libertos, não senhores."
+    - texto: "a religião era usada só para justificar a escravidão."
+      erro: "Aqui é o contrário: a fé islâmica uniu os rebeldes contra a escravidão."
+    - texto: "a fé e a origem comum ajudaram a organizar a resistência à escravidão."
+      certa: true
+    - texto: "a revolta foi vitoriosa e acabou com a escravidão na Bahia."
+      erro: "A revolta foi derrotada, e a escravidão durou até 1888."
+  explicacao: "Malê vem de imale, muçulmano em iorubá. A religião e os laços de origem uniram os rebeldes. A Revolta dos Malês mostra organização africana no Brasil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-08
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-escravidao-e-resistencia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I. "Aos remanescentes das comunidades dos quilombos que estejam ocupando suas terras é reconhecida a
+    propriedade definitiva, devendo o Estado emitir-lhes os títulos respectivos."
+    (Constituição de 1988, Ato das Disposições Constitucionais Transitórias, artigo 68.)
+    Texto II. Em 2022, o IBGE contou 1.327.802 quilombolas. Pouco mais de 12% viviam em territórios oficialmente
+    reconhecidos.
+    (Texto do Instituto Lúcia, a partir do IBGE.)
+  enunciado: "A comparação entre os textos indica que"
+  alternativas:
+    - texto: "o direito garantido em 1988 ainda não se realizou para a maior parte da população quilombola."
+      certa: true
+    - texto: "todos os quilombolas já receberam os títulos de suas terras."
+      erro: "O texto II diz que só pouco mais de 12% viviam em território reconhecido."
+    - texto: "a Constituição proibiu a existência de quilombos."
+      erro: "O texto I faz o contrário: reconhece a propriedade das terras quilombolas."
+    - texto: "os quilombos deixaram de existir depois da abolição."
+      erro: "O censo contou mais de 1,3 milhão de quilombolas em 2022."
+    - texto: "o IBGE é o órgão que emite os títulos das terras."
+      erro: "O IBGE faz pesquisas e censos. A titulação é feita por outros órgãos do Estado."
+  explicacao: "A lei garante; a realidade mostra a distância. Comparar a norma com o dado é uma operação que a prova cobra muito: o direito existe, mas a titulação segue sendo uma luta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-09
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-escravidao-e-resistencia
+  dificuldade: 3
+  enunciado: "Qual alternativa descreve corretamente a origem das pessoas trazidas à força para o Brasil pelo tráfico?"
+  alternativas:
+    - texto: "Vieram de um único povo africano, que falava uma só língua"
+      erro: "Vieram de muitos povos, com línguas e religiões diferentes."
+    - texto: "Vieram só do norte da África, do Egito"
+      erro: "O tráfico para o Brasil saiu sobretudo da costa atlântica da África, não do Egito."
+    - texto: "Vieram da Ásia, pelo oceano Índico"
+      erro: "A grande maioria veio da África, pelo Atlântico."
+    - texto: "Vieram de povos sem organização política nem saberes técnicos"
+      erro: "Vieram de sociedades com reinos, cidades e técnicas de mineração, cultivo e metalurgia."
+    - texto: "Vieram de muitos povos, sobretudo da África Centro-Ocidental e da África Ocidental"
+      certa: true
+  explicacao: "Da África Centro-Ocidental (Angola e Congo) vieram muitos povos de língua banto; da África Ocidental (Costa da Mina), iorubás, jejes, haussás e outros. Eram sociedades organizadas, com saberes que os senhores exploraram."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-escravidao-10
+  tema: "Escravidão, resistência e quilombos"
+  area: humanas
+  habilidade: 13
+  objeto: hum-cultura-escravidao-e-resistencia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Muitos livros escolares diziam que os escravizados eram passivos. Pesquisas feitas a partir dos anos 1980, em
+    processos judiciais, testamentos e cartas de alforria, mostraram pessoas que negociavam, fugiam, iam à Justiça,
+    formavam famílias e irmandades."
+    (Texto do Instituto Lúcia.)
+  enunciado: "A mudança descrita na interpretação da escravidão se deve"
+  alternativas:
+    - texto: "à descoberta de que a escravidão nunca existiu no Brasil."
+      erro: "As fontes citadas confirmam a escravidão. O que mudou foi a forma de ver os escravizados."
+    - texto: "à decisão de ignorar os documentos e usar só a imaginação."
+      erro: "O texto diz o contrário: a mudança veio de pesquisa em documentos."
+    - texto: "ao uso de novas fontes, que mostraram os escravizados como sujeitos que agiam."
+      certa: true
+    - texto: "à volta da escravidão nos anos 1980."
+      erro: "A escravidão legal acabou em 1888. O texto fala de pesquisa histórica."
+    - texto: "ao fim dos arquivos públicos."
+      erro: "As pesquisas usaram justamente arquivos: processos, testamentos, cartas."
+  explicacao: "Novas fontes e novas perguntas mudam a história. Os processos de liberdade e as cartas de alforria mostraram que os escravizados agiam: a prova cobra essa leitura de sujeitos históricos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

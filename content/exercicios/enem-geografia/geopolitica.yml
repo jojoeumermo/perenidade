@@ -1,0 +1,236 @@
+# Exercícios da aula "Geopolítica e blocos econômicos" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-geopolitica-01
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  dificuldade: 1
+  enunciado: "O que define uma união aduaneira?"
+  alternativas:
+    - texto: "Moeda comum entre os países do bloco"
+      erro: "Moeda comum é o grau da união monetária, bem mais profundo. A união aduaneira não exige moeda única."
+    - texto: "Livre comércio entre os sócios e uma tarifa externa comum para quem é de fora"
+      certa: true
+    - texto: "Livre circulação de trabalhadores entre os países"
+      erro: "Livre circulação de pessoas é o grau do mercado comum, um passo além da união aduaneira."
+    - texto: "Um parlamento único que faz as leis de todos os países"
+      erro: "Isso seria uma união política. Nenhum grau econômico exige isso."
+  explicacao: "União aduaneira = zona de livre comércio + tarifa externa comum (TEC). O Mercosul funciona assim desde 1995."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-02
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-geopolitica
+  dificuldade: 1
+  enunciado: "Durante a Guerra Fria (1945 a 1991), a ordem mundial era:"
+  alternativas:
+    - texto: "multipolar, com vários centros de poder equilibrados"
+      erro: "Multipolar é a ordem de hoje. Na Guerra Fria, o mundo se dividia em dois blocos."
+    - texto: "unipolar, com os Estados Unidos sozinhos no topo"
+      erro: "A ordem unipolar veio depois de 1991, com o fim da União Soviética."
+    - texto: "sem nenhuma potência dominante"
+      erro: "Havia duas superpotências disputando o mundo: Estados Unidos e União Soviética."
+    - texto: "bipolar, disputada por Estados Unidos e União Soviética"
+      certa: true
+  explicacao: "Dois polos, dois sistemas: capitalismo (Estados Unidos) e socialismo (União Soviética). Eles disputavam aliados no mundo todo, sem guerra direta entre si."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-03
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  dificuldade: 1
+  enunciado: "O Tratado de Assunção, que criou o Mercosul, é de 26 de março de 1991. Quantos anos o bloco completou em março de 2026?"
+  alternativas:
+    - texto: "35 anos"
+      certa: true
+    - texto: "25 anos"
+      erro: "Você contou uma dezena a menos. De 1991 a 2001 são 10 anos; a 2011, 20; a 2021, 30; a 2026, 35."
+    - texto: "31 anos"
+      erro: "Você confundiu o ano de criação (1991) com o tempo passado. Faça 2026 − 1991."
+    - texto: "45 anos"
+      erro: "Sobrou uma dezena. 2026 − 1991 = 35."
+  explicacao: "2026 − 1991 = 35. Em março de 2026, o Mercosul completou 35 anos."
+  conferir: "2026 - 1991"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-04
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O governo de um país do Mercosul anunciou que vai reduzir sozinho, a zero, o imposto de importação de máquinas
+    agrícolas vindas da Ásia. Os outros sócios protestaram: disseram que a medida fere uma regra central do bloco e que
+    as máquinas asiáticas passariam a entrar no mercado de todos por aquele país. (Texto do Instituto Lúcia.)
+  enunciado: "A regra que os sócios defendem é a"
+  alternativas:
+    - texto: "moeda comum, que impede cada país de mudar seus preços."
+      erro: "O Mercosul não tem moeda comum. A regra em jogo é sobre imposto de importação de quem é de fora."
+    - texto: "livre circulação de trabalhadores entre os países."
+      erro: "O texto fala de máquinas importadas, não de pessoas."
+    - texto: "proibição de importar qualquer produto de fora do bloco."
+      erro: "O bloco não proíbe importar de fora. Ele combina cobrar o mesmo imposto sobre essas importações."
+    - texto: "isenção total de impostos para produtos de qualquer origem."
+      erro: "É o contrário: a regra fixa um imposto comum para o que vem de fora. O país quer zerá-lo sozinho."
+    - texto: "tarifa externa comum, que fixa o mesmo imposto sobre produtos de fora do bloco."
+      certa: true
+  explicacao: "Na união aduaneira, todos cobram a mesma tarifa de quem é de fora. Se um país baixa sozinho, o produto de fora entra por ele e circula pelo bloco sem pagar a tarifa dos outros. A TEC impede isso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-05
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  dificuldade: 2
+  enunciado: "Qual frase sobre os BRICS está correta?"
+  alternativas:
+    - texto: "São uma união aduaneira com tarifa comum"
+      erro: "Os BRICS não têm tarifa comum nem livre comércio entre si. São um grupo de articulação política e econômica."
+    - texto: "Reúnem só países da América do Sul"
+      erro: "Começaram com Brasil, Rússia, Índia e China, depois África do Sul, e se ampliaram para países da África, da Ásia e do Oriente Médio."
+    - texto: "Criaram o Novo Banco de Desenvolvimento e se ampliaram em 2024 e 2025"
+      certa: true
+    - texto: "Têm moeda própria usada no comércio entre os membros"
+      erro: "Os BRICS não têm moeda comum."
+    - texto: "São uma aliança militar com obrigação de defesa mútua"
+      erro: "Não são aliança militar. Não há tratado de defesa mútua entre os membros."
+  explicacao: "Os BRICS criaram o Novo Banco de Desenvolvimento. Em 2024 entraram Egito, Etiópia, Irã e Emirados Árabes Unidos; em 2025, a Indonésia. Não formam bloco com tarifa comum."
+  fonte: "Questão original do Instituto Lúcia, com base em informação do Planalto"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-06
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Com o acordo entre Mercosul e União Europeia, assinado em 2026, as tarifas sobre muitos produtos vão cair aos poucos.
+    Na Europa, associações de criadores de gado fizeram protestos com tratores nas capitais. Já associações da
+    indústria automobilística europeia elogiaram o acordo. (Texto do Instituto Lúcia.)
+  enunciado: "As reações diferentes ao acordo se explicam porque"
+  alternativas:
+    - texto: "os criadores europeus querem exportar mais carne para o Mercosul."
+      erro: "Se quisessem exportar, gostariam do acordo. Eles temem a carne do Mercosul, mais barata, no mercado europeu."
+    - texto: "cada setor avalia o acordo pelo efeito sobre o que produz: a carne do Mercosul concorre com a europeia, e os carros europeus ganham mercado."
+      certa: true
+    - texto: "o acordo proíbe a venda de carros europeus no Mercosul."
+      erro: "É o contrário: a queda das tarifas facilita a venda de carros europeus. Por isso a indústria elogiou."
+    - texto: "todos os europeus perdem com o acordo, mas só os criadores perceberam."
+      erro: "A indústria automobilística europeia espera ganhar. O acordo distribui ganhos e perdas de modo desigual."
+    - texto: "o acordo cria uma moeda única entre os dois blocos."
+      erro: "Acordo de livre comércio não cria moeda única. Ele reduz tarifas."
+  explicacao: "Abrir o comércio entre dois blocos favorece quem é mais competitivo de cada lado: o agronegócio do Mercosul e a indústria europeia. Quem enfrenta concorrência mais barata reage contra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-07
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-geopolitica
+  dificuldade: 2
+  enunciado: "Pela Carta das Nações Unidas, por que muitos países, inclusive o Brasil, defendem a reforma do Conselho de Segurança?"
+  alternativas:
+    - texto: "Porque o Conselho não tem nenhum poder de decisão"
+      erro: "O Conselho tem muito poder: pode aprovar sanções e o uso da força. É justamente por isso que sua composição é disputada."
+    - texto: "Porque o Brasil já é membro permanente e quer sair"
+      erro: "O Brasil não é membro permanente. Ele pleiteia uma vaga."
+    - texto: "Porque o Conselho tem membros permanentes de todos os continentes"
+      erro: "Não tem. Os cinco permanentes são China, Estados Unidos, França, Reino Unido e Rússia: nenhum da América Latina ou da África."
+    - texto: "Porque os cinco membros permanentes com veto refletem as potências de 1945, não o mundo de hoje"
+      certa: true
+  explicacao: "Os cinco permanentes são os vencedores da Segunda Guerra, e cada um pode barrar sozinho uma decisão. A América Latina, a África e potências como Índia e Brasil ficam sem assento fixo."
+  fonte: "Questão original do Instituto Lúcia, com base na Carta das Nações Unidas (Decreto nº 19.841, de 1945)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-08
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-geopolitica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um estrategista militar de uma grande potência publicou um mapa-múndi em que pinta de uma cor os países
+    "integrados" às regras do comércio global e das instituições financeiras internacionais, e de outra cor uma faixa
+    de países da América Latina, da África, do Oriente Médio e da Ásia Central, que ele chama de "brecha". Para ele, é na
+    brecha que as forças armadas da potência terão de agir nas próximas décadas. (Texto do Instituto Lúcia.)
+  enunciado: "O mapa descrito revela"
+  alternativas:
+    - texto: "uma visão geopolítica que associa os países periféricos à instabilidade e justifica intervenções da potência."
+      certa: true
+    - texto: "uma divisão neutra, feita só com dados de clima e relevo."
+      erro: "O critério é político e econômico (aceitar ou não as regras globais), e o objetivo é militar. Não é neutro."
+    - texto: "a defesa da autonomia dos países da brecha para escolher seus caminhos."
+      erro: "O texto diz o contrário: a brecha é vista como área de ação militar da potência."
+    - texto: "a ordem bipolar da Guerra Fria, com dois blocos socialistas."
+      erro: "O mapa não divide o mundo entre capitalismo e socialismo, nem é da Guerra Fria. Divide entre integrados e não integrados."
+    - texto: "o fim das desigualdades entre centro e periferia do mundo."
+      erro: "O mapa reforça a divisão entre centro e periferia, não a supera."
+  explicacao: "Mapa também é discurso. Quem o fez define quem está dentro e quem está fora das regras e prepara a justificativa para agir sobre a brecha. É a leitura que a questão de 2022 pedia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-09
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  dificuldade: 3
+  enunciado: "O Tratado de Assunção, de 1991, previa um mercado comum. Por que se diz que o Mercosul funciona, na prática, como união aduaneira incompleta?"
+  alternativas:
+    - texto: "Porque o bloco já tem moeda única, mas ainda não tem livre comércio"
+      erro: "O Mercosul não tem moeda única. E o livre comércio interno existe, com exceções."
+    - texto: "Porque o bloco foi dissolvido em 1995"
+      erro: "O bloco não foi dissolvido. Em 1995, ele adotou a tarifa externa comum."
+    - texto: "Porque só o Brasil cobra imposto de produtos de fora"
+      erro: "Todos cobram. A ideia da TEC é justamente que todos cobrem a mesma tarifa."
+    - texto: "Porque o Tratado de Assunção proibia a tarifa externa comum"
+      erro: "O tratado não proibia a TEC: previa ir além dela, até o mercado comum. A TEC entrou em vigor em 1995."
+    - texto: "Porque tem livre comércio e tarifa externa comum, mas com exceções, e ainda não tem a livre circulação plena de pessoas e capitais"
+      certa: true
+  explicacao: "O Mercosul chegou à união aduaneira em 1995 (livre comércio + TEC), mas com listas de exceções. A livre circulação de pessoas, serviços e capitais, que faria dele um mercado comum, ainda é incompleta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-geopolitica-10
+  tema: "Geopolítica e blocos econômicos"
+  area: humanas
+  habilidade: 9
+  objeto: hum-organizacao-social-geopolitica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na União Europeia, parte dos países usa o euro e segue regras comuns sobre o tamanho do déficit público. Quando uma
+    crise atinge um desses países, ele não pode desvalorizar a própria moeda para vender mais barato ao exterior, porque
+    não tem mais moeda própria. (Texto do Instituto Lúcia.)
+  enunciado: "O texto mostra que, no grau de integração da união monetária,"
+  alternativas:
+    - texto: "cada país mantém total liberdade sobre a política econômica."
+      erro: "O texto mostra o contrário: o país perdeu a moeda própria e segue regras comuns de déficit."
+    - texto: "o país não pode cobrar imposto dos produtos de fora."
+      erro: "O texto não fala de imposto de importação. Fala de moeda e de déficit público."
+    - texto: "os países dividem decisões econômicas e perdem instrumentos que antes eram nacionais."
+      certa: true
+    - texto: "a integração termina na zona de livre comércio."
+      erro: "A união monetária é o grau mais profundo, bem além da zona de livre comércio."
+    - texto: "a moeda comum impede qualquer crise econômica."
+      erro: "O texto fala justamente de crise num país do euro. A moeda comum muda as ferramentas, não elimina crises."
+  explicacao: "Quanto mais fundo o grau de integração, mais decisões o país divide com os sócios. Na união monetária, a política de câmbio passa para o bloco; o país perde a desvalorização como saída na crise."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

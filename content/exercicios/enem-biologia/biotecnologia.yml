@@ -1,0 +1,244 @@
+# Exercícios da aula "Biotecnologia: transgênicos, clonagem, PCR, vacinas e edição gênica" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-biotec-01
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 11
+  objeto: nat-bio-celulas-biotecnologia
+  dificuldade: 1
+  enunciado: "Por que uma bactéria consegue fabricar insulina humana quando recebe o gene humano da insulina?"
+  alternativas:
+    - texto: "Porque o código genético é o mesmo em todos os seres vivos, e a bactéria lê o gene humano."
+      certa: true
+    - texto: "Porque a bactéria vira uma célula humana."
+      erro: "A bactéria continua bactéria. Ela só ganhou um gene a mais, que consegue ler."
+    - texto: "Porque toda bactéria já fabrica insulina."
+      erro: "Bactérias comuns não fazem insulina. Elas passam a fazer depois de receber o gene."
+    - texto: "Porque a insulina é feita de açúcar, que a bactéria come."
+      erro: "Insulina é uma proteína, feita a partir da receita de um gene. Não é açúcar."
+    - texto: "Porque a bactéria copia a insulina do sangue humano."
+      erro: "A bactéria cresce em tanques, longe do sangue. Ela fabrica a insulina a partir do gene."
+  explicacao: "O código do DNA é universal: a mesma sequência dá a mesma proteína numa célula humana ou numa bactéria. Por isso o gene humano posto num plasmídeo é lido pela bactéria, que fabrica insulina humana."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-02
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 29
+  objeto: nat-bio-celulas-biotecnologia
+  dificuldade: 1
+  enunciado: "Qual enzima é usada para cortar o DNA em pontos certos na técnica do DNA recombinante?"
+  alternativas:
+    - texto: "A DNA ligase."
+      erro: "A ligase cola os pedaços. Quem corta é outra enzima."
+    - texto: "A insulina."
+      erro: "A insulina é um hormônio, o produto que se quer fabricar. Ela não corta DNA."
+    - texto: "A amilase da saliva."
+      erro: "A amilase quebra amido na digestão. Não age sobre o DNA."
+    - texto: "A DNA polimerase."
+      erro: "A polimerase copia DNA, como na PCR. O corte é feito por outra enzima."
+    - texto: "A enzima de restrição."
+      certa: true
+  explicacao: "A enzima de restrição corta o DNA em sequências específicas. Assim, o gene e o plasmídeo ficam com pontas que se encaixam, e a DNA ligase cola os dois."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-03
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 29
+  objeto: nat-bio-celulas-biotecnologia
+  dificuldade: 1
+  enunciado: "Uma PCR começa com 1 molécula de um trecho de DNA. Se cada ciclo dobra o número de cópias, quantas haverá depois de 5 ciclos?"
+  alternativas:
+    - texto: "5"
+      erro: "Você somou 1 a cada ciclo. Na PCR o número dobra a cada ciclo: 2, 4, 8, 16, 32."
+    - texto: "10"
+      erro: "Você multiplicou 5 por 2 uma vez só. É preciso dobrar cinco vezes seguidas: 2⁵."
+    - texto: "32"
+      certa: true
+    - texto: "25"
+      erro: "Você fez 5 × 5. A conta é 2 multiplicado por ele mesmo cinco vezes: 2⁵ = 32."
+    - texto: "64"
+      erro: "Você dobrou uma vez a mais. Depois de 5 ciclos são 2⁵ = 32; 64 seria depois de 6."
+  explicacao: "Cada ciclo dobra: 1, 2, 4, 8, 16, 32. Depois de 5 ciclos, 2⁵ = 32 cópias."
+  conferir: "2^5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-04
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 29
+  objeto: nat-bio-celulas-biotecnologia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Para produzir um clone de uma vaca leiteira, um laboratório retirou o núcleo de um óvulo da vaca A. No lugar,
+    colocou o núcleo de uma célula da pele da vaca B. O embrião formado foi posto no útero da vaca C, que gestou e pariu
+    a bezerra.
+  enunciado: "O DNA do núcleo das células da bezerra é igual ao"
+  alternativas:
+    - texto: "da vaca A, que doou o óvulo."
+      erro: "O núcleo do óvulo da vaca A foi retirado. O que ficou dela foi o citoplasma, não o DNA do núcleo."
+    - texto: "da vaca C, que gestou a bezerra."
+      erro: "A vaca C deu o útero e o alimento durante a gestação, mas não deu DNA."
+    - texto: "de uma mistura das vacas A e B."
+      erro: "Não houve fecundação nem mistura. O núcleo inteiro veio de um só animal."
+    - texto: "da vaca B, que doou o núcleo da célula da pele."
+      certa: true
+    - texto: "de uma mistura das três vacas."
+      erro: "Só um núcleo foi posto no óvulo. O DNA do núcleo é de um só animal."
+  explicacao: "Na clonagem reprodutiva, o núcleo da célula do doador traz todo o DNA do núcleo. O óvulo sem núcleo só oferece o ambiente para o embrião começar, e a vaca C oferece o útero. A bezerra é clone da vaca B."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-05
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 11
+  objeto: nat-bio-celulas-biotecnologia
+  dificuldade: 2
+  enunciado: "Sobre as vacinas de RNA mensageiro, qual afirmação está correta?"
+  alternativas:
+    - texto: "Elas mudam o DNA da pessoa vacinada."
+      erro: "O RNA mensageiro da vacina fica no citoplasma e não entra no núcleo. Ele não muda o DNA."
+    - texto: "Elas levam a receita de uma proteína do vírus, que as células fabricam para o sistema de defesa reconhecer."
+      certa: true
+    - texto: "Elas contêm o vírus inteiro, vivo e capaz de se multiplicar."
+      erro: "Essas vacinas não têm vírus inteiro. Têm só a receita de uma proteína dele."
+    - texto: "Elas funcionam como antibiótico, matando bactérias."
+      erro: "Vacina ensina o sistema de defesa; antibiótico mata bactérias. São coisas diferentes."
+    - texto: "Elas dão anticorpos prontos, que somem em poucos dias."
+      erro: "Anticorpos prontos são o soro. A vacina faz o próprio corpo produzir defesa e memória."
+  explicacao: "A vacina leva RNA mensageiro com a receita de uma proteína do vírus. Os ribossomos da célula fabricam a proteína, e o sistema imune aprende a reconhecê-la. O RNA mensageiro é desfeito depois e não muda o DNA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-06
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 11
+  objeto: nat-bio-celulas-biotecnologia
+  dificuldade: 2
+  enunciado: "Na terapia gênica, por que muitas vezes se usa um vírus modificado?"
+  alternativas:
+    - texto: "Para causar uma infecção leve que fortalece o paciente."
+      erro: "O vírus modificado perdeu a capacidade de causar doença. Ele não está ali para infectar."
+    - texto: "Para matar as células com o gene defeituoso."
+      erro: "A ideia não é matar as células, e sim dar a elas uma cópia normal do gene."
+    - texto: "Para produzir anticorpos contra a doença genética."
+      erro: "Doença genética não é infecção. Anticorpos não consertam um gene defeituoso."
+    - texto: "Para trocar o sangue do paciente."
+      erro: "Terapia gênica age nas células, levando um gene. Não é troca de sangue."
+    - texto: "Para servir de transporte (vetor) e levar a cópia normal do gene para dentro das células."
+      certa: true
+  explicacao: "Vírus sabem entrar em células e levar material genético. Na terapia gênica, um vírus sem a parte que causa doença é usado como transporte para entregar uma cópia normal do gene às células do paciente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-07
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 29
+  objeto: nat-bio-celulas-biotecnologia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um laboratório público recebe amostras de pessoas com suspeita de uma doença causada por um vírus cujo material
+    genético é RNA. O protocolo do teste tem três etapas: (1) extrair o material genético da amostra; (2) etapa X;
+    (3) fazer a PCR com moléculas que reconhecem um trecho do vírus e detectar as cópias.
+  enunciado: "A etapa X é necessária para"
+  alternativas:
+    - texto: "transformar o RNA do vírus em DNA, porque a enzima da PCR só copia DNA."
+      certa: true
+    - texto: "transformar o DNA da pessoa em RNA, para ser comparado com o vírus."
+      erro: "O teste não precisa transformar o DNA da pessoa. Ele procura o material do vírus."
+    - texto: "matar o vírus com antibiótico antes da cópia."
+      erro: "Antibiótico age em bactérias, não em vírus. E o teste não depende de matar nada."
+    - texto: "clonar o vírus inteiro numa ovelha."
+      erro: "Clonagem de animal não tem lugar num teste de diagnóstico. O teste copia só um trecho do material genético."
+    - texto: "transformar o RNA em proteína, para ser vista ao microscópio."
+      erro: "A PCR trabalha com ácido nucleico, não com proteína. A etapa X prepara o material para ser copiado."
+  explicacao: "A DNA polimerase, que faz as cópias na PCR, só usa DNA como molde. Como o vírus tem RNA, a etapa X usa uma enzima que transforma RNA em DNA. Só então a PCR multiplica o trecho do vírus."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-08
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 11
+  objeto: nat-bio-celulas-biotecnologia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma empresa desenvolveu uma soja transgênica tolerante a um herbicida. O agricultor pode aplicar o herbicida na
+    lavoura, e as plantas daninhas morrem, mas a soja não. Anos depois do uso repetido do mesmo herbicida, agrônomos
+    passaram a encontrar plantas daninhas que sobrevivem a ele.
+  enunciado: "O surgimento das daninhas que sobrevivem ao herbicida é explicado por"
+  alternativas:
+    - texto: "transferência do gene da soja para as daninhas pela água da chuva."
+      erro: "Genes não viajam pela água da chuva de uma planta para outra. A explicação mais simples é a seleção."
+    - texto: "o herbicida ter provocado de propósito mutações que protegem as daninhas."
+      erro: "O herbicida não cria a resistência sob encomenda. Ele elimina as sensíveis e deixa as resistentes que já existiam."
+    - texto: "seleção natural: daninhas que já tinham alguma resistência sobreviveram e se reproduziram com o uso repetido do herbicida."
+      certa: true
+    - texto: "as daninhas terem aprendido a evitar o herbicida."
+      erro: "Plantas não aprendem. A mudança está na população: as sensíveis morreram, as resistentes ficaram."
+    - texto: "a soja transgênica ter deixado de funcionar."
+      erro: "O texto fala das daninhas, não da soja. A soja continua tolerante; o que mudou foi a população de daninhas."
+  explicacao: "Numa população grande, algumas plantas já podem ter variações que as tornam mais resistentes. O herbicida aplicado sempre mata as sensíveis, e as resistentes sobrevivem e deixam sementes. Com o tempo, a população fica resistente. É um limite da tecnologia, não um defeito da soja."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-09
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 11
+  objeto: nat-bio-celulas-biotecnologia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa audiência pública sobre a liberação de uma planta transgênica, cinco pessoas falaram. Um agricultor familiar
+    lembrou que as sementes são patenteadas e precisam ser compradas todo ano. Uma pesquisadora mostrou que a planta
+    reduziu o uso de inseticida em testes de campo. Um representante da vigilância sanitária pediu estudos de segurança
+    alimentar. Uma apicultora perguntou sobre efeitos nas abelhas. Um empresário falou do aumento da produção.
+  enunciado: "Pela Lei de Biossegurança (Lei nº 11.105/2005), a avaliação técnica de segurança da planta cabe a uma comissão chamada"
+  alternativas:
+    - texto: "Conselho Nacional de Saúde."
+      erro: "O Conselho Nacional de Saúde atua no controle social do SUS. Os organismos geneticamente modificados têm uma comissão própria, criada pela Lei de Biossegurança."
+    - texto: "CTNBio."
+      certa: true
+    - texto: "Anvisa, sozinha, sem nenhuma comissão."
+      erro: "A vigilância sanitária participa da fiscalização, mas a lei cria uma comissão técnica para avaliar os organismos modificados."
+    - texto: "Inep."
+      erro: "O Inep cuida de avaliações da educação, como o próprio Enem. Não avalia plantas."
+    - texto: "Câmara de Vereadores do município."
+      erro: "A avaliação técnica de organismos modificados é federal, feita por uma comissão definida na Lei de Biossegurança."
+  explicacao: "A Lei nº 11.105/2005 define a CTNBio como instância colegiada multidisciplinar, consultiva e deliberativa, que apoia o governo federal na política de biossegurança dos organismos geneticamente modificados. A audiência mostra por que a avaliação precisa ouvir saúde, ambiente e economia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-biotec-10
+  tema: "Biotecnologia"
+  area: natureza
+  habilidade: 29
+  objeto: nat-bio-celulas-biotecnologia
+  dificuldade: 3
+  enunciado: "Num teste de paternidade, compara-se o DNA da criança, da mãe e do suposto pai. Por que trechos do DNA da criança que não vieram da mãe devem estar presentes no pai biológico?"
+  alternativas:
+    - texto: "Porque a criança recebe todo o DNA do pai e nada da mãe."
+      erro: "A criança recebe metade dos cromossomos de cada um. Por isso os trechos se dividem entre mãe e pai."
+    - texto: "Porque o DNA da criança é um clone do DNA do pai."
+      erro: "Clone é cópia igual. A criança é mistura do material da mãe e do pai."
+    - texto: "Porque o DNA muda conforme a criança convive com o pai."
+      erro: "O DNA não muda com a convivência. Ele foi herdado na fecundação."
+    - texto: "Porque a criança herda metade dos cromossomos da mãe e metade do pai, pelos gametas."
+      certa: true
+    - texto: "Porque a PCR cria trechos novos de DNA iguais aos do pai."
+      erro: "A PCR copia o que já existe na amostra; ela não cria trechos novos."
+  explicacao: "Cada pessoa recebe um conjunto de cromossomos do óvulo e outro do espermatozoide. O que a criança tem e a mãe não tem veio do pai biológico. A PCR multiplica esses trechos para que possam ser comparados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

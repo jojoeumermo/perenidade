@@ -1,0 +1,245 @@
+# Exercícios da aula "Iluminismo" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-iluminismo-01
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-iluminismo
+  dificuldade: 1
+  enunciado: "Que pensador propôs a separação dos poderes em executivo, legislativo e judiciário?"
+  alternativas:
+    - texto: "Voltaire"
+      erro: "Voltaire é lembrado pela defesa da tolerância e da liberdade de pensamento."
+    - texto: "Montesquieu"
+      certa: true
+    - texto: "Adam Smith"
+      erro: "Smith escreveu sobre economia e defendeu o mercado livre."
+    - texto: "Diderot"
+      erro: "Diderot dirigiu, com d'Alembert, a Enciclopédia."
+    - texto: "Luís XIV"
+      erro: "Luís XIV foi rei absoluto da França, o oposto de dividir o poder."
+  explicacao: "Em O espírito das leis, de 1748, Montesquieu defendeu que o poder deve frear o poder, dividindo as funções do Estado."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 7.1"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-02
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-iluminismo
+  dificuldade: 1
+  enunciado: "Para John Locke, quais são os direitos naturais das pessoas?"
+  alternativas:
+    - texto: "Obediência, fé e trabalho"
+      erro: "Obediência não é direito: é dever. Locke falava do que o governo deve proteger."
+    - texto: "Voto, salário e férias"
+      erro: "Esses são direitos conquistados muito depois, nos séculos XIX e XX."
+    - texto: "Nobreza, terra e servos"
+      erro: "Isso descreve privilégios feudais, não direitos de todas as pessoas."
+    - texto: "Vida, liberdade e propriedade"
+      certa: true
+    - texto: "Moradia, saúde e educação"
+      erro: "Esses são direitos sociais, das constituições do século XX, como a brasileira de 1988."
+  explicacao: "No Segundo tratado sobre o governo, de 1690, Locke disse que o governo existe para proteger a vida, a liberdade e a propriedade, e depende do consentimento dos governados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-03
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-iluminismo
+  dificuldade: 1
+  enunciado: "O que era a Enciclopédia de Diderot e d'Alembert?"
+  alternativas:
+    - texto: "Uma obra que queria reunir o saber da época, organizado pela razão"
+      certa: true
+    - texto: "O livro sagrado da Igreja católica"
+      erro: "A Enciclopédia foi perseguida pela censura, inclusive religiosa. Não era livro sagrado."
+    - texto: "A constituição da França"
+      erro: "A primeira constituição francesa é de 1791. A Enciclopédia é uma obra de saber."
+    - texto: "Um jornal diário de Paris"
+      erro: "A Enciclopédia saiu em volumes, de 1751 a 1772, não todo dia."
+    - texto: "Um tratado de paz entre França e Inglaterra"
+      erro: "Não era tratado. Era uma obra de referência, com artigos e ilustrações."
+  explicacao: "Publicada entre 1751 e 1772, em 17 volumes de texto e 11 de ilustrações, tratava de ciência, artes e ofícios. Espalhou as ideias iluministas."
+  fonte: "Questão original do Instituto Lúcia, a partir do ARTFL Encyclopédie (University of Chicago)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-04
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-iluminismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "A vacina já curava as bexigas na Europa havia anos, e o governo não se dignou a mandá-la para cá.
+    Morreram aos milhares os nossos, porque os que mandavam estavam mais ocupados do ouro que da saúde dos
+    habitantes."
+    (Texto do Instituto Lúcia, escrito como a voz de um autor brasileiro do começo do século XIX.)
+  enunciado: "A crítica do texto se apoia na ideia iluminista de que"
+  alternativas:
+    - texto: "a terra é a única fonte de riqueza."
+      erro: "Essa é a ideia dos fisiocratas, e o texto não fala de agricultura. Fala de saúde."
+    - texto: "o rei governa por vontade divina."
+      erro: "Essa é a ideia do absolutismo, que o Iluminismo criticava. O texto acusa o governo."
+    - texto: "cabe aos governantes cuidar da saúde e do bem-estar da população."
+      certa: true
+    - texto: "a natureza é regida por leis físicas."
+      erro: "É uma ideia iluminista verdadeira, mas não é a do texto. O texto discute o dever do governo."
+    - texto: "as pessoas escravizadas devem ser libertadas."
+      erro: "O texto não fala de escravidão. Não leia nele o que ele não diz."
+  explicacao: "O texto acusa o governo de cuidar do ouro e não do povo. A ideia por trás é iluminista: o governo existe para o bem dos governados, inclusive a saúde."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-05
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-iluminismo
+  dificuldade: 2
+  enunciado: "Em que o despotismo esclarecido se diferenciava de uma democracia?"
+  alternativas:
+    - texto: "Nele, o povo elegia o rei."
+      erro: "Não havia eleição do rei. O monarca era absoluto."
+    - texto: "Nele, não havia nenhuma reforma."
+      erro: "Havia reformas na educação, na administração e na economia. O ponto é outro."
+    - texto: "Nele, o rei dividia o poder com um parlamento eleito."
+      erro: "Dividir o poder com parlamento eleito seria monarquia constitucional. O déspota esclarecido não dividia."
+    - texto: "Nele, a Igreja governava sozinha."
+      erro: "O poder estava com o rei, que muitas vezes até reduziu o poder da Igreja."
+    - texto: "Nele, o rei fazia reformas inspiradas na razão, mas mantinha o poder absoluto."
+      certa: true
+  explicacao: "Frederico II, Catarina II e o Marquês de Pombal usaram ideias iluministas para fortalecer o Estado, sem abrir mão do poder absoluto. Reformar não é democratizar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-06
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-iluminismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "O povo não é dono do governo por favor do rei: é o governo que existe por vontade do povo. A lei
+    legítima é aquela que o povo, reunido, quer para todos."
+    (Texto do Instituto Lúcia, que resume ideias de Rousseau.)
+  enunciado: "O texto expressa a ideia de"
+  alternativas:
+    - texto: "soberania popular, expressa na vontade geral."
+      certa: true
+    - texto: "direito divino dos reis."
+      erro: "O texto diz que o governo existe por vontade do povo, não de Deus."
+    - texto: "separação dos poderes."
+      erro: "A separação dos poderes é de Montesquieu. O texto fala de quem é o soberano: o povo."
+    - texto: "liberdade total do mercado."
+      erro: "O texto não fala de economia. Fala de lei e de soberania."
+    - texto: "fim de toda lei."
+      erro: "O texto defende a lei legítima, feita pela vontade do povo. Não defende o fim da lei."
+  explicacao: "Para Rousseau, em O contrato social, a soberania é do povo, e a lei legítima expressa a vontade geral. A ideia inspirou os revolucionários franceses."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-07
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-iluminismo
+  dificuldade: 2
+  enunciado: "A Enciclopédia começou a sair em 1751 e terminou em 1772. Quantos anos levou a publicação?"
+  alternativas:
+    - texto: "11"
+      erro: "11 é o número de volumes de ilustrações. A pergunta é sobre o tempo."
+    - texto: "17"
+      erro: "17 é o número de volumes de texto. Faça 1772 − 1751."
+    - texto: "31"
+      erro: "Você somou ou subtraiu errado as dezenas. 72 − 51 = 21."
+    - texto: "21"
+      certa: true
+    - texto: "28"
+      erro: "28 é o total de volumes (17 + 11). A pergunta é sobre os anos."
+  explicacao: "1772 − 1751 = 21 anos, num total de 28 volumes. Foi uma obra longa, feita apesar da censura."
+  conferir: "1772 - 1751"
+  fonte: "Questão original do Instituto Lúcia, a partir do ARTFL Encyclopédie (University of Chicago)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-08
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-organizacao-social-iluminismo
+  dificuldade: 3
+  enunciado: "Fisiocratas e Adam Smith tinham ideias diferentes sobre a origem da riqueza, mas concordavam em criticar"
+  alternativas:
+    - texto: "a agricultura."
+      erro: "Os fisiocratas valorizavam a agricultura como fonte de riqueza. Não a criticavam."
+    - texto: "o controle do Estado absolutista sobre a economia, típico do mercantilismo."
+      certa: true
+    - texto: "o comércio entre países."
+      erro: "Smith defendia o comércio livre entre países. O alvo era o controle do Estado."
+    - texto: "a propriedade privada."
+      erro: "Os dois defendiam a propriedade. Quem a criticava eram os socialistas, depois."
+    - texto: "a razão como guia."
+      erro: "Os dois eram iluministas e confiavam na razão."
+  explicacao: "Os fisiocratas diziam que a riqueza vem da terra; Smith, que vem do trabalho e da troca. Os dois se opunham ao mercantilismo, em que o rei controlava comércio e produção para acumular metais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-09
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 15
+  objeto: hum-organizacao-social-iluminismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Os homens nascem e permanecem livres e iguais em direitos." (Artigo 1º da Declaração dos Direitos do
+    Homem e do Cidadão, França, 1789, tradução do Instituto Lúcia, documento em domínio público.)
+    Em 1791, pessoas escravizadas na colônia francesa de São Domingos se rebelaram. Em 1804, fundaram o
+    Haiti, país independente.
+  enunciado: "A relação entre os dois fatos mostra que"
+  alternativas:
+    - texto: "a Declaração já tinha abolido a escravidão em todas as colônias em 1789."
+      erro: "A França só aboliu a escravidão em 1794, depois da revolta. A Declaração não fez isso sozinha."
+    - texto: "os escravizados de São Domingos não conheciam as ideias de igualdade."
+      erro: "A revolta mostra o contrário: a linguagem dos direitos foi usada contra os senhores."
+    - texto: "o Iluminismo só teve efeito na Europa."
+      erro: "O Haiti, nas Américas, é exemplo direto do alcance dessas ideias."
+    - texto: "a revolta do Haiti não teve relação com a Revolução Francesa."
+      erro: "As datas e as ideias se cruzam: a revolta começa dois anos depois da Declaração."
+    - texto: "a promessa de igualdade foi levada mais longe por quem estava excluído dela."
+      certa: true
+  explicacao: "A Declaração falava de igualdade, mas a França mantinha a escravidão nas colônias. Os escravizados de São Domingos exigiram que a igualdade valesse para eles. A França aboliu a escravidão em 1794, e o Haiti se tornou independente em 1º de janeiro de 1804."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 7.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-iluminismo-10
+  tema: "Iluminismo"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-iluminismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Ninguém deve ser perseguido por suas opiniões, nem mesmo religiosas. Pode-se discordar de um homem e,
+    ainda assim, defender que ele tenha o direito de falar."
+    (Texto do Instituto Lúcia, inspirado nas ideias de Voltaire sobre tolerância.)
+  enunciado: "O valor defendido no texto opõe-se diretamente"
+  alternativas:
+    - texto: "à liberdade de imprensa."
+      erro: "O texto defende o direito de falar, que é parente da liberdade de imprensa. Não se opõe a ela."
+    - texto: "à separação dos poderes."
+      erro: "O texto não trata da organização do Estado. Trata de opinião e religião."
+    - texto: "à perseguição religiosa e à censura de opiniões."
+      certa: true
+    - texto: "à razão como guia do pensamento."
+      erro: "A tolerância é uma conclusão da razão iluminista, não o contrário dela."
+    - texto: "à igualdade entre os cidadãos."
+      erro: "A tolerância combina com a igualdade: todos podem falar. Não há oposição."
+  explicacao: "A tolerância religiosa e a liberdade de pensamento eram bandeiras de Voltaire contra o fanatismo e a censura da época."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:local": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/dev-local.mjs",
-    "prebuild": "node scripts/gerar-epub.mjs",
+    "prebuild": "node scripts/gerar-epub.mjs && node scripts/vozes-baixar.mjs",
     "build": "next build",
     "epub": "node scripts/gerar-epub.mjs",
     "start": "next start",

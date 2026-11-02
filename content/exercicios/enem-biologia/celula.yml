@@ -1,0 +1,242 @@
+# Exercícios da aula "Célula, membrana e organelas" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-celula-01
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  dificuldade: 1
+  enunciado: "Qual organela produz a maior parte do ATP numa célula animal?"
+  alternativas:
+    - texto: "O núcleo."
+      erro: "O núcleo guarda o DNA e comanda a célula, mas não produz a energia."
+    - texto: "O cloroplasto."
+      erro: "Células animais não têm cloroplasto. Ele é das plantas e das algas."
+    - texto: "O lisossomo."
+      erro: "O lisossomo digere partes velhas e materiais engolidos. Não é a usina."
+    - texto: "A mitocôndria."
+      certa: true
+    - texto: "A parede celular."
+      erro: "Células animais não têm parede celular. E parede não produz energia."
+  explicacao: "A mitocôndria faz o ciclo de Krebs e a cadeia respiratória, as etapas da respiração aeróbica que produzem a maior parte do ATP."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-02
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  dificuldade: 1
+  enunciado: "Qual estrutura existe na célula vegetal e NÃO existe na célula animal?"
+  alternativas:
+    - texto: "A parede celular de celulose."
+      certa: true
+    - texto: "A membrana plasmática."
+      erro: "Toda célula tem membrana plasmática, de planta ou de animal."
+    - texto: "A mitocôndria."
+      erro: "Plantas também têm mitocôndrias: elas respiram o tempo todo."
+    - texto: "O ribossomo."
+      erro: "Ribossomos estão em todas as células, até nas bactérias."
+    - texto: "O núcleo."
+      erro: "Células animais e vegetais são eucariontes: as duas têm núcleo."
+  explicacao: "A célula vegetal tem parede de celulose, cloroplastos e, em geral, um vacúolo grande. A célula animal não tem nenhum dos três. Membrana, mitocôndria, ribossomo e núcleo existem nas duas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-03
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  dificuldade: 1
+  enunciado: "Na osmose, a água atravessa a membrana"
+  alternativas:
+    - texto: "sempre de dentro para fora da célula."
+      erro: "O sentido depende das concentrações. Em meio diluído, a água entra."
+    - texto: "do lado com mais soluto para o lado com menos soluto."
+      erro: "É o contrário: a água vai para o lado com mais soluto, como se fosse diluí-lo."
+    - texto: "do lado com menos soluto para o lado com mais soluto."
+      certa: true
+    - texto: "só quando a célula gasta ATP."
+      erro: "Osmose é transporte passivo: não gasta energia."
+    - texto: "só nas células das plantas."
+      erro: "A osmose acontece em toda célula, de planta, de animal, de bactéria."
+  explicacao: "Osmose é a difusão da água pela membrana. Ela vai do lado mais diluído para o mais concentrado, sem gasto de energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-04
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num laboratório de escola, gotas de sangue foram colocadas em três tubos. Tubo 1: água destilada (pura). Tubo 2:
+    soro fisiológico, com a mesma concentração de sais do sangue. Tubo 3: água com muito sal. Ao microscópio, as hemácias
+    de um dos tubos tinham estourado; as de outro estavam enrugadas; as do terceiro estavam normais.
+  enunciado: "As hemácias estouradas, enrugadas e normais estavam, nessa ordem, nos tubos"
+  alternativas:
+    - texto: "1, 2 e 3."
+      erro: "No tubo 2 a concentração é igual à do sangue: as hemácias ficam normais, não enrugadas."
+    - texto: "3, 1 e 2."
+      erro: "Na água muito salgada a água sai da hemácia: ela enruga, não estoura."
+    - texto: "2, 3 e 1."
+      erro: "No soro fisiológico não há entrada nem saída líquida de água. As hemácias não estouram ali."
+    - texto: "1, 3 e 2."
+      certa: true
+    - texto: "3, 2 e 1."
+      erro: "Na água pura a água entra e a hemácia estoura; ela não fica normal ali."
+  explicacao: "Tubo 1, hipotônico: a água entra e a hemácia, sem parede, estoura. Tubo 3, hipertônico: a água sai e ela enruga. Tubo 2, isotônico: fica normal. É por isso que o soro aplicado na veia tem a mesma concentração do sangue."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-05
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  dificuldade: 2
+  enunciado: "Uma planta murcha volta a ficar de pé algumas horas depois de regada. Qual é a explicação, no nível das células?"
+  alternativas:
+    - texto: "As células fazem mais fotossíntese e crescem na hora."
+      erro: "Crescer leva dias. Ficar firme em horas é efeito da água entrando nas células."
+    - texto: "A água entra nas células por osmose, enche o vacúolo e empurra a parede, deixando a célula firme."
+      certa: true
+    - texto: "A água dissolve a parede celular e a célula fica mais leve."
+      erro: "A parede não se dissolve na água. É ela que segura a célula cheia e firme."
+    - texto: "As raízes bombeiam ar para dentro das folhas."
+      erro: "As raízes absorvem água e sais, não bombeiam ar. A firmeza vem da água nas células."
+    - texto: "As células estouram e liberam água nas folhas."
+      erro: "Células vegetais não estouram em água: a parede impede. Elas ficam cheias e firmes."
+  explicacao: "Com água no solo, a água entra nas células por osmose e enche o vacúolo. A célula empurra a parede de celulose, como um balão dentro de uma caixa, e fica firme. Milhares de células firmes deixam a planta de pé."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-06
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  dificuldade: 2
+  enunciado: "A célula do nervo mantém muito mais potássio dentro do que fora dela, usando proteínas da membrana que gastam ATP. Que tipo de transporte é esse?"
+  alternativas:
+    - texto: "Osmose."
+      erro: "Osmose é a passagem de água, sem gasto de energia. Aqui o que se move é o potássio, com gasto de ATP."
+    - texto: "Difusão simples."
+      erro: "Difusão vai a favor da diferença de concentração e não gasta energia. Aqui a célula gasta ATP para ir contra."
+    - texto: "Fagocitose."
+      erro: "Fagocitose é a célula engolir partículas grandes. Não é o caso de íons como o potássio."
+    - texto: "Fotossíntese."
+      erro: "Fotossíntese é a fabricação de glicose com luz. Não é transporte pela membrana."
+    - texto: "Transporte ativo."
+      certa: true
+  explicacao: "Levar uma substância do lado onde ela está menos concentrada para o lado onde está mais concentrada exige energia. Proteínas da membrana gastam ATP para isso. É o transporte ativo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-07
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-celulas-celula
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A penicilina impede a bactéria de montar a sua parede celular. Sem parede, a bactéria fica frágil e acaba
+    estourando. Uma pessoa pergunta ao farmacêutico do posto de saúde se a penicilina serve também para tratar a gripe,
+    que é causada por um vírus.
+  enunciado: "A resposta correta do farmacêutico é que a penicilina"
+  alternativas:
+    - texto: "não serve, porque o vírus não tem parede celular nem é uma célula; o antibiótico não tem onde agir."
+      certa: true
+    - texto: "serve, porque todo micróbio tem parede celular."
+      erro: "Vírus não são células e não têm parede. O alvo da penicilina não existe neles."
+    - texto: "serve, porque destrói as células humanas infectadas pelo vírus."
+      erro: "A penicilina mira a parede da bactéria, que as nossas células não têm. Ela não destrói células humanas infectadas."
+    - texto: "não serve, porque só funciona em fungos."
+      erro: "A penicilina age em bactérias, não em fungos. O motivo de não servir para a gripe é que o vírus não tem o alvo."
+    - texto: "serve, desde que se tome o dobro da dose."
+      erro: "Aumentar a dose não cria o alvo que falta. E tomar antibiótico sem necessidade ajuda a selecionar bactérias resistentes."
+  explicacao: "Um remédio funciona quando atinge algo que o micróbio tem e nós não. A penicilina atinge a parede da bactéria. O vírus não é célula e não tem parede: o antibiótico não age nele. Tomar antibiótico sem necessidade ainda ajuda a selecionar bactérias resistentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-08
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em algumas regiões, para conservar doce de goiaba ou de leite fora da geladeira, as famílias cozinham a fruta ou o
+    leite com muito açúcar até formar uma massa firme. Um doce feito com pouco açúcar, no mesmo calor, embolora em
+    poucos dias.
+  enunciado: "O doce com muito açúcar dura mais porque"
+  alternativas:
+    - texto: "o açúcar é tóxico para os fungos e os mata na hora."
+      erro: "Açúcar é alimento para muitos fungos. O que impede o crescimento é a falta de água disponível."
+    - texto: "o açúcar fecha os poros da massa e impede a entrada de ar."
+      erro: "O doce não fica sem ar. O efeito principal é sobre a água das células dos micróbios."
+    - texto: "o açúcar faz a fotossíntese parar dentro do doce."
+      erro: "Ninguém faz fotossíntese no doce. A explicação é osmose."
+    - texto: "o açúcar faz a água entrar nos fungos até eles estourarem."
+      erro: "É o contrário: o meio muito concentrado puxa água para fora das células."
+    - texto: "o meio muito concentrado em açúcar puxa a água das células dos micróbios por osmose, e eles não conseguem crescer."
+      certa: true
+  explicacao: "Com muito açúcar, o doce é um meio hipertônico. A água das células de fungos e bactérias sai por osmose. Sem água, eles não se multiplicam. É o mesmo princípio da carne-seca, com açúcar no lugar do sal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-09
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-celulas-celula
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um pesquisador procura um remédio contra um fungo que causa doença em pessoas. Ele tem quatro substâncias. A
+    substância 1 ataca os ribossomos das bactérias, que são diferentes dos ribossomos dos eucariontes. A 2 ataca uma
+    molécula que só a membrana dos fungos tem. A 3 destrói a parede de bactérias. A 4 ataca o DNA de qualquer célula.
+  enunciado: "A substância mais indicada para tratar a pessoa é a"
+  alternativas:
+    - texto: "1, porque fungos são parecidos com bactérias."
+      erro: "Fungos são eucariontes, com ribossomos do tipo dos nossos. Um remédio feito para ribossomos de bactéria não serve."
+    - texto: "3, porque todo fungo tem parede igual à das bactérias."
+      erro: "Fungos têm parede, mas de outro material. Um remédio contra a parede das bactérias não age nela."
+    - texto: "2, porque atinge algo que o fungo tem e as células humanas não têm."
+      certa: true
+    - texto: "4, porque atacar o DNA mata o fungo com certeza."
+      erro: "Ela mataria o fungo, mas também as células da pessoa, porque todas têm DNA. Um bom remédio tem alvo exclusivo do micróbio."
+    - texto: "1 e 3 juntas, para garantir."
+      erro: "Juntar duas substâncias que não atingem o fungo não resolve. O alvo tem de existir no fungo e não na pessoa."
+  explicacao: "O remédio ideal atinge uma parte exclusiva do micróbio. Os fungos são eucariontes, como nós, então os alvos de bactéria (ribossomo bacteriano, parede bacteriana) não servem. Atacar o DNA de qualquer célula faria mal à pessoa. Sobra a substância 2."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-celula-10
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  dificuldade: 3
+  enunciado: "Células do pâncreas produzem e exportam muitas enzimas digestivas, que são proteínas. Que organelas devem ser especialmente abundantes nessas células?"
+  alternativas:
+    - texto: "Cloroplastos e vacúolos grandes."
+      erro: "Cloroplastos são das plantas, e vacúolos grandes guardam água. Não ajudam a fabricar e exportar proteínas."
+    - texto: "Ribossomos, retículo endoplasmático com ribossomos e complexo de Golgi."
+      certa: true
+    - texto: "Lisossomos, para destruir as enzimas logo depois de feitas."
+      erro: "A célula quer exportar as enzimas, não destruí-las. Lisossomos digerem material velho."
+    - texto: "Paredes celulares grossas, para segurar as enzimas."
+      erro: "Células animais não têm parede celular."
+    - texto: "Nenhuma organela especial, porque proteínas se formam sozinhas."
+      erro: "Proteínas são montadas pelos ribossomos, e quem exporta precisa de retículo e Golgi."
+  explicacao: "Os ribossomos montam as proteínas; os presos ao retículo fazem as que vão para fora. O retículo leva essas proteínas ao Golgi, que as embala e despacha. Uma célula que exporta muita proteína tem muito de cada um."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,242 @@
+# Exercícios da aula "Plantas e fisiologia vegetal" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-plantas-01
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 16
+  objeto: nat-bio-seres-vivos-plantas
+  dificuldade: 1
+  enunciado: "Qual destas plantas tem semente, mas não tem fruto?"
+  alternativas:
+    - texto: "O musgo."
+      erro: "O musgo é uma briófita: não tem semente nem fruto. Ele se espalha por esporos."
+    - texto: "A samambaia."
+      erro: "A samambaia tem vasos, mas não tem semente. Os pontinhos sob as folhas guardam esporos."
+    - texto: "A mangueira."
+      erro: "A mangueira é angiosperma: tem flor e fruto, a manga, que envolve a semente."
+    - texto: "O feijão."
+      erro: "O feijão é angiosperma. A vagem é o fruto, e o grão é a semente."
+    - texto: "A araucária, que dá o pinhão."
+      certa: true
+  explicacao: "A araucária é gimnosperma: tem semente, o pinhão, mas sem fruto em volta. Fruto é exclusivo das angiospermas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-02
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-plantas
+  dificuldade: 1
+  enunciado: "O que a seiva elaborada leva das folhas para o resto da planta?"
+  alternativas:
+    - texto: "Açúcar feito na fotossíntese."
+      certa: true
+    - texto: "Água e sais minerais tirados do solo."
+      erro: "Essa é a seiva bruta, que sobe pelo xilema. A elaborada leva o que a folha fabricou."
+    - texto: "Gás oxigênio para as raízes."
+      erro: "Gases não são o conteúdo principal da seiva. A seiva elaborada leva açúcar."
+    - texto: "Clorofila para colorir as flores."
+      erro: "A clorofila fica nos cloroplastos das células verdes; ela não viaja pela seiva."
+    - texto: "Pólen até as flores."
+      erro: "O pólen é levado pelo vento ou por animais, por fora da planta. A seiva elaborada leva açúcar."
+  explicacao: "A seiva elaborada é a água com o açúcar fabricado nas folhas. Ela anda pelo floema até raízes, frutos, sementes e brotos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-03
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-plantas
+  dificuldade: 1
+  enunciado: "Qual hormônio vegetal é um gás e faz os frutos amadurecerem?"
+  alternativas:
+    - texto: "A auxina."
+      erro: "A auxina alonga as células do caule e explica o crescimento para a luz. O amadurecimento é outro hormônio."
+    - texto: "A insulina."
+      erro: "A insulina é um hormônio humano, que controla a glicose do sangue. Plantas não a usam."
+    - texto: "O etileno."
+      certa: true
+    - texto: "O ácido abscísico."
+      erro: "O ácido abscísico fecha os estômatos na seca. Não é ele que amadurece os frutos."
+    - texto: "A clorofila."
+      erro: "A clorofila é o pigmento da fotossíntese, não um hormônio."
+  explicacao: "O etileno é um hormônio vegetal em forma de gás. Ele faz o amido virar açúcar, a casca mudar de cor e a polpa amolecer."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-04
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 16
+  objeto: nat-bio-seres-vivos-plantas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa trilha de mata úmida, um guia mostra musgos cobrindo pedras perto de uma cachoeira e samambaias à sombra.
+    Mais acima, num campo aberto e seco, só aparecem gramíneas e arbustos com flores. Ele comenta que musgos e
+    samambaias são raros longe da umidade.
+  enunciado: "A distribuição descrita pelo guia se relaciona com o fato de musgos e samambaias"
+  alternativas:
+    - texto: "não fazerem fotossíntese e dependerem da sombra."
+      erro: "Musgos e samambaias fazem fotossíntese, como toda planta. A questão é a água."
+    - texto: "precisarem de água para que o gameta masculino nade até o feminino."
+      certa: true
+    - texto: "terem flores que só abrem com umidade."
+      erro: "Musgos e samambaias não têm flores. Flor é só das angiospermas."
+    - texto: "terem frutos que apodrecem no sol."
+      erro: "Eles não têm frutos nem sementes."
+    - texto: "terem raízes muito profundas, que só funcionam em solo de cachoeira."
+      erro: "Musgos nem têm raízes verdadeiras. A dependência da umidade tem a ver com a reprodução."
+  explicacao: "Em musgos e samambaias, o gameta masculino precisa nadar numa película de água até o feminino. Por isso se reproduzem bem em lugar úmido. As plantas com semente usam o pólen e se livram dessa dependência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-05
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-plantas
+  dificuldade: 2
+  enunciado: "Qual processo é o principal responsável por puxar a água da raiz até as folhas de uma árvore alta?"
+  alternativas:
+    - texto: "O bombeamento feito por um coração vegetal no tronco."
+      erro: "Plantas não têm coração nem bomba. A força vem de cima."
+    - texto: "A gravidade, que leva a água para cima."
+      erro: "A gravidade puxa para baixo. A água sobe apesar dela."
+    - texto: "A fotossíntese, que fabrica água nas folhas."
+      erro: "A fotossíntese consome água, não fabrica. E ela não explica a subida pelo tronco."
+    - texto: "A transpiração das folhas, que puxa a coluna de água pelo xilema."
+      certa: true
+    - texto: "O floema, que empurra a seiva bruta."
+      erro: "A seiva bruta sobe pelo xilema, não pelo floema. E quem a puxa é a transpiração."
+  explicacao: "Pelos estômatos sai vapor de água. Como as moléculas de água se grudam umas nas outras, cada uma que sai puxa a de trás, e a coluna de água sobe pelo xilema. É como beber de canudinho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-06
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-seres-vivos-plantas
+  dificuldade: 2
+  enunciado: "No cacto, as folhas são transformadas em espinhos e o caule verde faz a fotossíntese. Qual vantagem isso traz num lugar seco como a caatinga?"
+  alternativas:
+    - texto: "Mais flores para atrair polinizadores."
+      erro: "Os espinhos não são flores. A adaptação tem a ver com a água."
+    - texto: "Mais sementes para se espalhar com o vento."
+      erro: "Espinhos não produzem sementes. A vantagem é outra."
+    - texto: "Mais transpiração, para resfriar a planta."
+      erro: "É o contrário: menos folha, menos transpiração, menos água perdida."
+    - texto: "Mais luz, porque os espinhos refletem o sol para dentro."
+      erro: "Espinhos não concentram luz. O caule verde é que faz a fotossíntese."
+    - texto: "Menos superfície para perder água por transpiração."
+      certa: true
+  explicacao: "Folhas largas perdem muita água pelos estômatos. Com folhas reduzidas a espinhos, o cacto perde menos água. O caule verde, grosso, assume a fotossíntese e guarda água. Os espinhos ainda afastam animais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-07
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-plantas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num experimento, sementes de feijão germinaram em três caixas. Caixa 1: luz vinda de cima. Caixa 2: luz vinda só
+    pela janela da direita. Caixa 3: escuro total. Depois de uma semana, os caules da caixa 1 cresceram retos; os da
+    caixa 2, curvados para a direita; os da caixa 3, compridos, finos e amarelados.
+  enunciado: "O resultado da caixa 2 se explica porque"
+  alternativas:
+    - texto: "a luz atrai fisicamente o caule, como um ímã."
+      erro: "A luz não puxa o caule. A curvatura vem de um crescimento desigual dos dois lados."
+    - texto: "o lado direito do caule, mais iluminado, cresceu mais."
+      erro: "Se o lado iluminado crescesse mais, o caule se curvaria para longe da luz. É o lado da sombra que cresce mais."
+    - texto: "a auxina se acumulou no lado esquerdo, sombreado, que cresceu mais e curvou o caule para a luz."
+      certa: true
+    - texto: "o etileno amadureceu o caule do lado direito."
+      erro: "O etileno amadurece frutos. A curvatura para a luz é obra da auxina."
+    - texto: "as plantas da caixa 2 fizeram mais fermentação."
+      erro: "Fermentação não explica a direção do crescimento. O experimento testa a direção da luz."
+  explicacao: "Com luz de um lado só, a auxina vai para o lado sombreado. As células desse lado se alongam mais, e o caule se curva para a luz. É o fototropismo. A caixa 1 serve de comparação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-08
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-plantas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para atrasar o amadurecimento de bananas durante o transporte até outra cidade, uma cooperativa testou três
+    maneiras de guardar as caixas no caminhão: (1) caixas fechadas, com bananas verdes junto de algumas maduras;
+    (2) caixas abertas, só com bananas verdes, em lugar ventilado e fresco; (3) caixas fechadas, só com bananas verdes,
+    em lugar quente.
+  enunciado: "A maneira que mais atrasa o amadurecimento é a"
+  alternativas:
+    - texto: "1, porque as bananas maduras protegem as verdes."
+      erro: "As bananas maduras soltam etileno, e a caixa fechada o segura. É a pior escolha para atrasar."
+    - texto: "3, porque a caixa fechada impede a entrada de ar."
+      erro: "Fechada, a caixa segura o etileno que as próprias bananas soltam. E o calor acelera as reações do amadurecimento."
+    - texto: "1 ou 3, tanto faz, porque as duas são fechadas."
+      erro: "As duas caixas fechadas seguram o etileno e, por isso, aceleram o amadurecimento. Quem quer atrasar precisa do contrário."
+    - texto: "2, porque a ventilação leva o etileno embora, não há fruta madura e o frio desacelera o processo."
+      certa: true
+    - texto: "nenhuma, porque o amadurecimento só depende do tempo."
+      erro: "O amadurecimento depende do etileno e da temperatura. O jeito de guardar muda a velocidade."
+  explicacao: "O etileno é um gás que dispara o amadurecimento, e a fruta que amadurece solta mais etileno. Ventilar tira o gás de perto, separar das maduras evita a fonte e o frio deixa as reações mais lentas. A maneira 2 junta as três coisas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-09
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-plantas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa praça, alguém arrancou um anel completo de casca em volta do tronco de uma árvore, sem cortar a madeira. Nas
+    primeiras semanas, as folhas continuaram verdes. Meses depois, a árvore começou a secar e acabou morrendo.
+  enunciado: "A sequência descrita se explica porque o anel retirou"
+  alternativas:
+    - texto: "o floema, que levava açúcar das folhas até as raízes; a água ainda subia pelo xilema, mas as raízes, sem açúcar, morreram."
+      certa: true
+    - texto: "o xilema, e as folhas pararam de receber água no mesmo dia."
+      erro: "Se o xilema tivesse sido cortado, as folhas murchariam logo. Elas ficaram verdes por semanas: a água ainda subia."
+    - texto: "os estômatos, que ficam no tronco."
+      erro: "Os estômatos ficam sobretudo nas folhas, não na casca do tronco."
+    - texto: "a clorofila do tronco, e a árvore parou de fazer fotossíntese."
+      erro: "Quem faz quase toda a fotossíntese são as folhas, que continuaram verdes. O problema é o transporte do açúcar."
+    - texto: "as sementes, e a árvore não conseguiu mais se reproduzir."
+      erro: "Sementes não ficam na casca. E não se reproduzir não mata uma árvore."
+  explicacao: "O floema fica junto da casca; o xilema, na madeira. O anel leva o floema e deixa o xilema. A água continua subindo, por isso as folhas ficam verdes por um tempo. Mas o açúcar das folhas não chega mais às raízes. Sem energia, as raízes morrem, deixam de absorver água, e a árvore seca."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-plantas-10
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 16
+  objeto: nat-bio-seres-vivos-plantas
+  dificuldade: 3
+  enunciado: "Uma abelha visita flores de maracujá e leva pólen de uma flor para outra. Depois, um sabiá come o fruto e solta as sementes longe dali. Que vantagem as angiospermas têm, nesse caso, sobre as gimnospermas?"
+  alternativas:
+    - texto: "Elas não precisam de pólen para se reproduzir."
+      erro: "As angiospermas precisam de pólen, como as gimnospermas. A diferença está em quem leva o pólen e no fruto."
+    - texto: "Elas usam a flor para atrair polinizadores e o fruto para espalhar as sementes por meio de animais."
+      certa: true
+    - texto: "Elas fazem fotossíntese e as gimnospermas não."
+      erro: "As duas fazem fotossíntese. A vantagem está na reprodução."
+    - texto: "Elas não têm sementes, o que poupa energia."
+      erro: "Angiospermas têm sementes, protegidas dentro do fruto."
+    - texto: "Elas dependem de água para a fecundação, como os musgos."
+      erro: "Com o pólen, as angiospermas não precisam de água para a fecundação. Essa é a dependência dos musgos e samambaias."
+  explicacao: "As gimnospermas também têm pólen e sementes, mas sem flor e sem fruto. As angiospermas ganharam a flor, que atrai animais para levar o pólen com mais precisão, e o fruto, que faz animais levarem as sementes para longe."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

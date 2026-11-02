@@ -1,0 +1,247 @@
+# Exercícios da aula "Povos indígenas e a formação do Brasil" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-indigenas-01
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-povos-indigenas
+  dificuldade: 1
+  enunciado: "Segundo o Censo 2022 do IBGE, quantas etnias indígenas existem no Brasil?"
+  alternativas:
+    - texto: "1"
+      erro: "Não existe um povo indígena só. Falar de \"o índio\" no singular esconde essa diversidade."
+    - texto: "5"
+      erro: "São muito mais. Só de línguas, o IBGE contou 295."
+    - texto: "50"
+      erro: "O número é bem maior. O censo identificou centenas de etnias."
+    - texto: "391"
+      certa: true
+    - texto: "5.000"
+      erro: "Esse número passa muito do contado. O IBGE identificou 391 etnias em 2022."
+  explicacao: "O Censo 2022 identificou 391 etnias e 295 línguas indígenas. Em 2010 eram 305 etnias e 274 línguas; parte do aumento vem de mudanças na forma de coletar os dados."
+  conferir: "391"
+  fonte: "Questão original do Instituto Lúcia, a partir do IBGE Educa"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-02
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-povos-indigenas
+  dificuldade: 1
+  enunciado: "Qual destas foi uma das principais causas da morte de indígenas nos primeiros séculos da colonização?"
+  alternativas:
+    - texto: "Doenças trazidas da Europa, como varíola e sarampo, contra as quais os povos daqui não tinham defesa"
+      certa: true
+    - texto: "A falta de alimentos nas florestas"
+      erro: "Os povos indígenas conheciam bem os alimentos da terra. As mortes vieram da colonização."
+    - texto: "O frio intenso do litoral"
+      erro: "O clima não foi a causa. Foram doenças, guerras e escravização trazidas pelos colonizadores."
+    - texto: "Guerras contra os africanos"
+      erro: "Não houve guerra geral entre indígenas e africanos. Os dois grupos foram explorados pela colonização."
+    - texto: "A chegada de imigrantes italianos"
+      erro: "Os imigrantes italianos vieram em massa só no fim do século XIX."
+  explicacao: "Epidemias de doenças europeias, junto com a escravização, as guerras e os aldeamentos, provocaram enorme mortalidade entre os povos indígenas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-03
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-povos-indigenas
+  dificuldade: 1
+  enunciado: "Onde vivia a maior parte das pessoas indígenas contadas no Censo 2022?"
+  alternativas:
+    - texto: "Só em aldeias isoladas na floresta"
+      erro: "Há povos em aldeias e até povos isolados, mas a maioria dos indígenas contados vivia em cidades."
+    - texto: "Fora do Brasil"
+      erro: "O censo conta quem mora no Brasil. Os povos indígenas brasileiros vivem aqui."
+    - texto: "Em áreas urbanas, nas cidades"
+      certa: true
+    - texto: "Só em terras indígenas do Sul"
+      erro: "Há indígenas em todas as regiões. E a maioria estava em cidades."
+    - texto: "Em navios, como povos nômades do mar"
+      erro: "Não há base para isso. A maioria vivia em áreas urbanas."
+  explicacao: "Em 2022, mais da metade dos indígenas vivia em áreas urbanas. Ser indígena não depende do lugar de moradia."
+  fonte: "Questão original do Instituto Lúcia, a partir do IBGE"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-04
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-povos-indigenas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Entre 1554 e 1567, povos tupinambás do litoral entre São Vicente e o Rio de Janeiro se uniram contra os
+    portugueses, que escravizavam indígenas para o trabalho nas lavouras. Aliaram-se aos franceses instalados na
+    baía de Guanabara. Os portugueses, por sua vez, contavam com indígenas temiminós como aliados.
+    (Texto do Instituto Lúcia, a partir de Impressões Rebeldes, UFF.)
+  enunciado: "O episódio descrito, conhecido como Confederação dos Tamoios, mostra que os povos indígenas"
+  alternativas:
+    - texto: "aceitaram a colonização sem reagir."
+      erro: "O texto descreve uma guerra de mais de dez anos. Não houve aceitação passiva."
+    - texto: "eram todos aliados entre si contra os europeus."
+      erro: "Os temiminós se aliaram aos portugueses. Os povos tinham interesses e rivalidades próprias."
+    - texto: "lutavam apenas com armas trazidas da França."
+      erro: "Nada no texto fala de armas. A aliança com os franceses foi política e militar."
+    - texto: "foram escravizados pelos franceses."
+      erro: "O texto aponta os portugueses como escravizadores e os franceses como aliados dos tamoios."
+    - texto: "agiram politicamente, formando alianças e usando as rivalidades entre europeus para resistir à escravização."
+      certa: true
+  explicacao: "Os tupinambás fizeram aliança entre si e com os franceses; os temiminós escolheram o lado português. A resistência indígena teve estratégia política."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-05
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-povos-indigenas
+  dificuldade: 2
+  enunciado: "Na história da política indigenista do século XX, o que significava a tutela?"
+  alternativas:
+    - texto: "O direito dos indígenas de escolher seus próprios representantes"
+      erro: "A tutela era o contrário: o Estado decidia pelos indígenas."
+    - texto: "A ideia de que o Estado devia decidir pelos indígenas, tratados como incapazes"
+      certa: true
+    - texto: "A demarcação de todas as terras indígenas até 1910"
+      erro: "Não houve demarcação geral. A tutela era uma ideia sobre quem decidia."
+    - texto: "O ensino obrigatório de línguas indígenas em todas as escolas"
+      erro: "Nada disso. A tutela buscava que os indígenas deixassem de ser indígenas."
+    - texto: "A proibição de o Estado se envolver com os povos indígenas"
+      erro: "Na tutela, o Estado se envolvia, e muito: decidia em nome dos povos."
+  explicacao: "SPI (1910) e Funai (1967) agiram, por décadas, sob a ideia de tutela. A Constituição de 1988 rompeu com ela ao reconhecer que os povos podem ir à Justiça defender seus direitos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-06
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-povos-indigenas
+  dificuldade: 2
+  enunciado: "Em 2022, uma lei trocou o nome do 19 de abril de \"Dia do Índio\" para \"Dia dos Povos Indígenas\". Qual é o sentido dessa mudança?"
+  alternativas:
+    - texto: "Mudar a data da comemoração"
+      erro: "A data continuou 19 de abril. Mudou o nome."
+    - texto: "Acabar com a comemoração"
+      erro: "A lei manteve a comemoração e criou o novo nome."
+    - texto: "Homenagear apenas um povo, o tupi"
+      erro: "É o contrário: o plural valoriza a diversidade de povos."
+    - texto: "Valorizar a diversidade, mostrando que existem muitos povos e não um \"índio\" genérico"
+      certa: true
+    - texto: "Transformar o dia em feriado nacional"
+      erro: "A lei criou a data comemorativa com o novo nome; não falou em feriado."
+  explicacao: "A Lei nº 14.402, de 2022, criou o Dia dos Povos Indígenas. O plural combate a imagem de um índio único e genérico."
+  fonte: "Questão original do Instituto Lúcia, a partir da Lei nº 14.402/2022"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-07
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-povos-indigenas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Para nós, a terra não é coisa que se compra. É onde estão enterrados os nossos avós, é de onde vem a comida, é
+    onde as crianças aprendem o nome das plantas. Tirar a gente da terra é tirar a nossa história."
+    (Fala criada pelo Instituto Lúcia, a partir de depoimentos de lideranças indígenas.)
+  enunciado: "A fala expressa uma relação com a terra baseada"
+  alternativas:
+    - texto: "na memória, na subsistência e na identidade coletiva do povo."
+      certa: true
+    - texto: "na compra e venda de lotes para lucro."
+      erro: "A fala diz o contrário: \"a terra não é coisa que se compra\"."
+    - texto: "na exploração de minérios para exportação."
+      erro: "Não há menção a minério. A fala fala de avós, comida e aprendizado."
+    - texto: "no abandono da terra para morar na cidade."
+      erro: "A fala defende ficar na terra, não deixá-la."
+    - texto: "na posse individual de cada família, registrada em cartório."
+      erro: "A fala é coletiva (\"nós\", \"a gente\") e não fala de cartório."
+  explicacao: "Avós enterrados (memória), comida (subsistência) e aprendizado das crianças (identidade). É a terra como vida, que a Constituição reconhece como direito originário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-08
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-povos-indigenas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I. No século XVI, um cronista português escreve que os indígenas "não têm fé, nem lei, nem rei" e precisam ser
+    reunidos em aldeias para aprender a doutrina cristã.
+    Texto II. Pesquisas atuais mostram que os povos tinham formas próprias de organização política, de crença e de
+    regras de convivência, diferentes das europeias.
+    (Textos do Instituto Lúcia, a partir de cronistas coloniais e da historiografia indígena.)
+  enunciado: "A comparação entre os textos revela que o texto I"
+  alternativas:
+    - texto: "descreve com neutralidade a organização dos povos indígenas."
+      erro: "O texto II mostra que havia organização. O texto I nega o que existia: não é neutro."
+    - texto: "foi escrito por um líder indígena."
+      erro: "O autor é um cronista europeu do século XVI."
+    - texto: "defende o direito dos indígenas às suas crenças."
+      erro: "O autor defende a catequese, isto é, trocar as crenças indígenas pela fé cristã."
+    - texto: "mostra que os indígenas não tinham regras de convivência."
+      erro: "Essa é a opinião do autor do texto I, desmentida pelo texto II. Não confunda opinião da fonte com fato."
+    - texto: "expressa um olhar etnocêntrico, que mede os outros povos pelos padrões europeus e justifica a catequese."
+      certa: true
+  explicacao: "Etnocentrismo é julgar outros povos pelos padrões do próprio grupo. O cronista não vê fé, lei nem rei porque procura as formas europeias, e usa isso para justificar os aldeamentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-09
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-povos-indigenas
+  dificuldade: 3
+  enunciado: "O artigo 231 da Constituição de 1988 fala em direitos \"originários\" dos indígenas sobre as terras que tradicionalmente ocupam. O que isso implica?"
+  alternativas:
+    - texto: "Que os indígenas só têm direito à terra que compraram"
+      erro: "Originário não tem a ver com compra. Tem a ver com quem estava antes."
+    - texto: "Que a terra pertence a quem chegou primeiro depois de 1988"
+      erro: "Originário se refere à ocupação tradicional anterior ao Estado, não a uma corrida depois de 1988."
+    - texto: "Que o direito vem da ocupação tradicional anterior ao próprio Estado, e não de uma doação do governo"
+      certa: true
+    - texto: "Que os indígenas podem vender as terras a mineradoras"
+      erro: "As terras indígenas são bens da União, de usufruto dos povos. Não são vendidas como propriedade privada."
+    - texto: "Que a Funai é dona das terras indígenas"
+      erro: "As terras são bens da União, e os povos têm o usufruto. A Funai é um órgão do governo."
+  explicacao: "Direito originário é o que vem antes: o Estado não dá a terra, reconhece um direito que já existia. Por isso a demarcação é um ato de reconhecimento."
+  fonte: "Questão original do Instituto Lúcia, a partir do artigo 231 da Constituição de 1988"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-indigenas-10
+  tema: "Povos indígenas e a formação do Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-povos-indigenas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa escola de uma cidade do interior, professores e lideranças de um povo indígena da região montaram juntos
+    uma semana de aulas: os alunos aprenderam palavras da língua do povo, ouviram histórias dos mais velhos e
+    visitaram a aldeia. A atividade cumpria uma lei de 2008.
+    (Situação criada pelo Instituto Lúcia.)
+  enunciado: "A atividade descrita atende ao objetivo da Lei nº 11.645, de 2008, que é"
+  alternativas:
+    - texto: "proibir o ensino de história da Europa nas escolas."
+      erro: "A lei acrescenta conteúdo; não proíbe outros."
+    - texto: "tornar obrigatório o estudo da história e da cultura afro-brasileira e indígena."
+      certa: true
+    - texto: "transferir as escolas da cidade para as aldeias."
+      erro: "A lei trata do que se estuda, não de onde a escola fica."
+    - texto: "ensinar somente a língua tupi em todo o país."
+      erro: "A lei não escolhe uma língua. E há 295 línguas indígenas no Brasil."
+    - texto: "criar escolas só para estudantes indígenas."
+      erro: "A lei vale para todas as escolas de ensino fundamental e médio, para todos os estudantes."
+  explicacao: "A lei incluiu o artigo 26-A na Lei de Diretrizes e Bases: o estudo da história e da cultura afro-brasileira e indígena é obrigatório nas escolas públicas e privadas."
+  fonte: "Questão original do Instituto Lúcia, a partir da Lei nº 11.645/2008"
+  revisao: { status: em-revisao }

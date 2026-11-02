@@ -1,0 +1,246 @@
+# Exercícios da aula "Era Vargas" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-vargas-01
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-era-vargas
+  dificuldade: 1
+  enunciado: "Qual é a ordem das três fases da Era Vargas?"
+  alternativas:
+    - texto: "Estado Novo, Governo Provisório, Governo Constitucional"
+      erro: "O Estado Novo foi a última fase, de 1937 a 1945. Ele fechou o período."
+    - texto: "Governo Provisório, Governo Constitucional, Estado Novo"
+      certa: true
+    - texto: "Governo Constitucional, Estado Novo, Governo Provisório"
+      erro: "O Governo Provisório veio primeiro, logo depois da Revolução de 1930, quando ainda não havia Constituição."
+    - texto: "Governo Provisório, Estado Novo, Governo Constitucional"
+      erro: "A Constituição de 1934 veio antes do golpe de 1937, que criou o Estado Novo."
+    - texto: "Estado Novo, Governo Constitucional, Governo Provisório"
+      erro: "A ordem está invertida. Pense no nome: provisório é o que vem antes do definitivo."
+  explicacao: "Governo Provisório (1930–1934), sem Constituição; Governo Constitucional (1934–1937), com a Constituição de 1934; Estado Novo (1937–1945), ditadura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-02
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-era-vargas
+  dificuldade: 1
+  enunciado: "Em que ano as mulheres conquistaram o direito de votar no Brasil, pelo Código Eleitoral?"
+  alternativas:
+    - texto: "1889"
+      erro: "1889 é o ano da proclamação da República. A Constituição de 1891 não deu o voto às mulheres."
+    - texto: "1945"
+      erro: "1945 é o fim do Estado Novo. O voto feminino veio antes, no Governo Provisório."
+    - texto: "1988"
+      erro: "Em 1988 veio a Constituição atual. As mulheres votavam havia mais de 50 anos."
+    - texto: "1965"
+      erro: "Em 1965 o voto feminino passou a ser obrigatório, como o dos homens. O direito de votar é anterior."
+    - texto: "1932"
+      certa: true
+  explicacao: "O Código Eleitoral, Decreto nº 21.076, de 24 de fevereiro de 1932, garantiu às mulheres o direito de votar, de forma facultativa. Foi conquista de décadas de luta do movimento de mulheres."
+  conferir: "1932"
+  fonte: "Questão original do Instituto Lúcia, a partir da Câmara dos Deputados"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-03
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-era-vargas
+  dificuldade: 1
+  enunciado: "O que foi a CLT, assinada em 1º de maio de 1943?"
+  alternativas:
+    - texto: "A reunião, num só texto, das leis do trabalho criadas desde 1930"
+      certa: true
+    - texto: "A lei que acabou com a escravidão"
+      erro: "Essa foi a Lei Áurea, de 1888, no Império."
+    - texto: "A Constituição do Estado Novo"
+      erro: "A Constituição do Estado Novo é de 1937. A CLT é uma lei do trabalho."
+    - texto: "A lei que proibiu os sindicatos"
+      erro: "A CLT não proibiu sindicatos: regulou-os, sob controle do Ministério do Trabalho."
+    - texto: "O código que criou o voto secreto"
+      erro: "O voto secreto veio com o Código Eleitoral de 1932."
+  explicacao: "CLT quer dizer Consolidação das Leis do Trabalho. Consolidar é juntar num só texto. Ela reuniu as leis sobre jornada, férias, carteira de trabalho e sindicatos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-04
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-era-vargas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num cinejornal de 1941, exibido antes dos filmes nas salas de cinema, o presidente aparece inaugurando uma
+    fábrica, cumprimentando operários e recebendo flores de crianças. O narrador diz que o Brasil vive "uma era de
+    ordem e trabalho". Nenhuma imagem mostra greves ou protestos.
+    (Situação criada pelo Instituto Lúcia, inspirada nos cinejornais do Estado Novo.)
+  enunciado: "Esse material deve ser lido pelo historiador como"
+  alternativas:
+    - texto: "retrato fiel e completo da vida dos trabalhadores em 1941."
+      erro: "O cinejornal mostra só o que o governo queria mostrar. Não é retrato completo."
+    - texto: "prova de que não havia oposição ao governo."
+      erro: "Não aparecer protesto não quer dizer que não existia. Havia censura."
+    - texto: "documento de uma emissora de oposição."
+      erro: "O material elogia o governo. Não é de oposição."
+    - texto: "fonte que revela a propaganda oficial e o modo como o regime queria ser visto."
+      certa: true
+    - texto: "material sem valor histórico, porque é propaganda."
+      erro: "Propaganda é ótima fonte: mostra como o poder queria aparecer. O que não se pode é tomá-la como verdade completa."
+  explicacao: "No Estado Novo, o DIP controlava a produção de cinejornais. O material serve para estudar a propaganda: o que se mostra e o que se esconde."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-05
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-era-vargas
+  dificuldade: 2
+  enunciado: "O voto secreto, criado em 1932, atacava uma prática comum na Primeira República. Qual?"
+  alternativas:
+    - texto: "O voto dos analfabetos"
+      erro: "Os analfabetos não votavam na Primeira República. O voto secreto mirava outra coisa."
+    - texto: "O voto obrigatório das mulheres"
+      erro: "As mulheres nem votavam antes de 1932."
+    - texto: "O voto de cabresto, em que o eleitor votava às vistas do coronel"
+      certa: true
+    - texto: "A eleição de deputados pelo povo"
+      erro: "Os deputados continuaram sendo eleitos. O voto secreto mudou a forma de votar, não quem era eleito."
+    - texto: "O Poder Moderador do imperador"
+      erro: "O Poder Moderador era do Império e acabou em 1889."
+  explicacao: "Com o voto aberto, o coronel sabia em quem cada um votava e podia punir quem desobedecesse. O voto secreto protegia o eleitor dessa pressão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-06
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-era-vargas
+  dificuldade: 2
+  enunciado: "Que grupo de trabalhadores ficou de fora da maior parte das leis trabalhistas da Era Vargas?"
+  alternativas:
+    - texto: "Os operários das fábricas"
+      erro: "Os operários urbanos foram os principais alvos das leis do trabalho."
+    - texto: "Os comerciários das cidades"
+      erro: "Os empregados do comércio urbano entraram na legislação."
+    - texto: "Os bancários"
+      erro: "Bancários, trabalhadores urbanos, tiveram leis próprias já nos anos 1930."
+    - texto: "Os funcionários das indústrias de base"
+      erro: "A indústria era o centro do projeto do governo. Seus trabalhadores estavam incluídos."
+    - texto: "Os trabalhadores rurais"
+      certa: true
+  explicacao: "As leis da Era Vargas pensavam no trabalhador urbano. O trabalhador do campo, então a maioria da população, ficou de fora da maior parte delas, o que agradava aos grandes proprietários."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-07
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-era-vargas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto I. "Vargas deu ao trabalhador brasileiro a carteira assinada, o salário mínimo e as férias."
+    Texto II. "As leis do trabalho vieram junto com o sindicato reconhecido pelo Ministério, a perseguição aos
+    militantes independentes e a censura."
+    (Textos do Instituto Lúcia.)
+  enunciado: "Os dois textos, lidos juntos, permitem concluir que a política trabalhista da Era Vargas"
+  alternativas:
+    - texto: "combinou a concessão de direitos com o controle do Estado sobre a organização dos trabalhadores."
+      certa: true
+    - texto: "foi apenas uma farsa, sem nenhum direito real."
+      erro: "O texto I cita direitos que existem até hoje. Negá-los ignora uma das fontes."
+    - texto: "deu total liberdade aos sindicatos."
+      erro: "O texto II fala em sindicato reconhecido pelo Ministério e perseguição. Não havia liberdade total."
+    - texto: "foi criada pelos trabalhadores rurais."
+      erro: "Nenhum dos textos fala de trabalhadores rurais, que ficaram de fora da maior parte das leis."
+    - texto: "acabou com o salário mínimo."
+      erro: "O texto I diz o contrário: o salário mínimo veio nessa época."
+  explicacao: "A prova pede a ambiguidade: direitos (texto I) e controle (texto II) no mesmo projeto. Uma alternativa que fique com um lado só está incompleta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-08
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-era-vargas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em 10 de novembro de 1937, o presidente anunciou pelo rádio uma nova Constituição. O Congresso foi fechado, os
+    partidos foram dissolvidos e as eleições marcadas para 1938 não aconteceram. O governo justificou a medida com
+    a existência de um suposto plano comunista para tomar o poder.
+    (Texto do Instituto Lúcia.)
+  enunciado: "O episódio descrito marca"
+  alternativas:
+    - texto: "a volta da democracia depois de uma ditadura."
+      erro: "Fechar o Congresso e acabar com partidos e eleições é o contrário de democracia."
+    - texto: "a Revolução de 1930, que encerrou a Primeira República."
+      erro: "A Revolução de 1930 é sete anos anterior. Em 1937 Vargas já estava no poder."
+    - texto: "o início do Estado Novo, uma ditadura justificada pelo medo do comunismo."
+      certa: true
+    - texto: "a aprovação da CLT pelo Congresso."
+      erro: "A CLT é de 1943, e o Congresso estava fechado. Foi um decreto-lei."
+    - texto: "a convocação das eleições diretas para presidente."
+      erro: "O texto diz que as eleições marcadas não aconteceram."
+  explicacao: "Em 10 de novembro de 1937 começou o Estado Novo. O suposto plano comunista, usado como justificativa, foi depois reconhecido como uma farsa. A ditadura durou até 1945."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-09
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-era-vargas
+  dificuldade: 3
+  enunciado: "Nos anos 1930, o governo Vargas adotou um nacionalismo forte. Qual destas medidas combina com essa política em relação aos estrangeiros?"
+  alternativas:
+    - texto: "Incentivar escolas em língua estrangeira sem nenhuma regra"
+      erro: "O nacionalismo da época foi na direção contrária: exigiu o ensino em português."
+    - texto: "Vigiar e restringir a entrada e a vida de imigrantes vistos como ameaça"
+      certa: true
+    - texto: "Abrir as fronteiras a qualquer imigrante, sem controle"
+      erro: "O período foi de controle, com cotas e restrições. A fronteira não ficou aberta."
+    - texto: "Dar aos estrangeiros o direito de votar antes dos brasileiros"
+      erro: "Nada disso aconteceu. O nacionalismo valorizava o brasileiro."
+    - texto: "Proibir os brasileiros de emigrar"
+      erro: "A política discutida é sobre a entrada e a vida de estrangeiros no Brasil."
+  explicacao: "O nacionalismo do período levou a cotas de imigração, restrições e vigilância, inclusive sobre refugiados judeus que fugiam da perseguição na Europa. É o que a H8 cobra: a ação do Estado sobre migrações."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-vargas-10
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-era-vargas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Em 1917, operários de São Paulo pararam as fábricas pedindo jornada de oito horas, aumento de salário e fim
+    do trabalho de crianças. Décadas depois, a Consolidação das Leis do Trabalho trazia vários desses pontos."
+    (Texto do Instituto Lúcia.)
+  enunciado: "A relação entre os dois momentos permite afirmar que os direitos da CLT"
+  alternativas:
+    - texto: "foram uma invenção de Vargas, sem relação com lutas anteriores."
+      erro: "O texto mostra que os trabalhadores já pediam esses direitos em 1917."
+    - texto: "nasceram de uma exigência dos donos das fábricas."
+      erro: "Quem pedia jornada menor e aumento eram os operários em greve, não os patrões."
+    - texto: "chegaram primeiro aos trabalhadores rurais."
+      erro: "O texto fala de operários de fábrica. E os rurais ficaram de fora da maior parte da CLT."
+    - texto: "tiveram raízes nas reivindicações e nas greves dos trabalhadores."
+      certa: true
+    - texto: "foram impostos por um tratado internacional, sem debate no país."
+      erro: "Nada no texto fala de tratado. A ligação apontada é com a greve de 1917."
+  explicacao: "Ler a CLT só como presente do governo apaga as lutas que a antecederam. A greve geral de 1917 já pedia vários dos direitos que a lei consolidou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
