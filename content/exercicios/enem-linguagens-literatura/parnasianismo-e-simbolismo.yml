@@ -1,0 +1,247 @@
+# Exercícios da aula "Parnasianismo e Simbolismo" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Trechos de terceiros só em domínio público, com crédito.
+
+- id: enem-lin-parnasianismo-01
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-parnasianismo-simbolismo
+  dificuldade: 1
+  enunciado: "A expressão \"arte pela arte\", ligada ao Parnasianismo, quer dizer que"
+  alternativas:
+    - texto: "a arte deve servir à pátria e à religião."
+      erro: "Servir a uma causa é o contrário da arte pela arte."
+    - texto: "a poesia deve imitar a fala do povo."
+      erro: "Os parnasianos preferiam palavra rara e frase invertida, longe da fala comum."
+    - texto: "a poesia vale por si mesma, pela beleza da forma, sem precisar servir a uma causa."
+      certa: true
+    - texto: "o poeta deve vender a sua arte."
+      erro: "A expressão não fala de comércio, e sim do valor da arte em si."
+    - texto: "a arte deve denunciar a escravidão."
+      erro: "Denúncia é marca da poesia condoreira de Castro Alves, no Romantismo."
+  explicacao: "Para o parnasiano, o poema não precisa ensinar nem defender nada: vale pela perfeição da forma."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-02
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-parnasianismo-simbolismo
+  dificuldade: 1
+  enunciado: "Qual destas expressões é um exemplo de sinestesia?"
+  alternativas:
+    - texto: "\"voz macia\""
+      certa: true
+    - texto: "\"chorei um rio de lágrimas\""
+      erro: "Isso é hipérbole, o exagero proposital. Não mistura sentidos."
+    - texto: "\"li Machado inteiro\""
+      erro: "Isso é metonímia: o autor no lugar da obra."
+    - texto: "\"o vento entrou, o vento saiu\""
+      erro: "Isso é repetição. Não há mistura de sentidos."
+    - texto: "\"a cidade dorme\""
+      erro: "Isso é personificação: dar à cidade uma ação de gente."
+  explicacao: "Voz é coisa da audição; macia é coisa do tato. Juntar sensações de sentidos diferentes é sinestesia, recurso preferido dos simbolistas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-03
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-parnasianismo-simbolismo
+  dificuldade: 1
+  enunciado: "Cruz e Sousa, o maior nome do Simbolismo no Brasil, nasceu em 1861 em Desterro (hoje Florianópolis). Sobre a vida dele, é correto dizer que"
+  alternativas:
+    - texto: "era filho de um senador do Império."
+      erro: "Os pais dele tinham sido escravizados e alforriados. Não eram da elite."
+    - texto: "foi presidente da Academia Brasileira de Letras."
+      erro: "O primeiro presidente da Academia foi Machado de Assis. Cruz e Sousa morreu pobre, em 1898."
+    - texto: "viveu em Portugal e escreveu sobre Coimbra."
+      erro: "Quem escreveu em Coimbra foi Gonçalves Dias. Cruz e Sousa viveu em Santa Catarina e no Rio."
+    - texto: "era filho de pais alforriados e combateu a escravidão e o racismo na imprensa."
+      certa: true
+    - texto: "foi o fundador do Parnasianismo."
+      erro: "O marco do Parnasianismo é Fanfarras, de Teófilo Dias (1882). Cruz e Sousa abriu o Simbolismo."
+  explicacao: "Filho de pessoas que tinham sido escravizadas, Cruz e Sousa estudou, foi jornalista, combateu a escravidão e enfrentou o racismo. Morreu de tuberculose em 1898, aos 36 anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-04
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-parnasianismo-simbolismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Invejo o ourives quando escrevo:
+    Imito o amor
+    Com que ele, em ouro, o alto relevo
+    Faz de uma flor.
+    (Olavo Bilac, "Profissão de fé", Poesias, 1888. Domínio público.)
+  enunciado: "Ao se comparar ao ourives, o eu lírico expressa uma concepção de poesia baseada"
+  alternativas:
+    - texto: "na inspiração espontânea, sem revisão."
+      erro: "O ourives trabalha devagar e com cuidado. É o oposto do improviso."
+    - texto: "na denúncia dos problemas sociais."
+      erro: "Não há tema social no trecho. O assunto é o próprio fazer poético."
+    - texto: "na fala do povo e na linguagem coloquial."
+      erro: "\"Em ouro, o alto relevo\" é linguagem trabalhada, com frase invertida."
+    - texto: "na música vaga e no mistério espiritual."
+      erro: "Isso é o Simbolismo. O ourives quer contorno firme, não névoa."
+    - texto: "no trabalho paciente e exato com a forma, como o de quem lapida uma joia."
+      certa: true
+  explicacao: "O ourives faz em ouro o relevo de uma flor: precisão, paciência, acabamento. É o culto da forma do Parnasianismo."
+  fonte: "Questão original do Instituto Lúcia; estrofe de Olavo Bilac (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-05
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-parnasianismo-simbolismo
+  dificuldade: 2
+  enunciado: "Nos poemas simbolistas, palavras comuns aparecem com letra maiúscula, como \"Formas\", \"Dor\" e \"Luz\". Esse recurso serve para"
+  alternativas:
+    - texto: "indicar nomes de pessoas reais."
+      erro: "\"Formas\" e \"Dor\" não são nomes de gente. São ideias."
+    - texto: "transformar a palavra em ideia quase sagrada, abstrata, maior que a coisa comum."
+      certa: true
+    - texto: "marcar o começo de cada verso."
+      erro: "As maiúsculas aparecem no meio dos versos também. É um recurso de sentido."
+    - texto: "corrigir erros de digitação."
+      erro: "É uma escolha do poeta, não um erro."
+    - texto: "imitar a linguagem dos jornais."
+      erro: "Os jornais não escrevem assim. O efeito é espiritual, não informativo."
+  explicacao: "Com maiúscula, \"Formas\" deixa de ser uma forma qualquer e vira a Forma, uma ideia. É o jeito simbolista de tornar o mundo espiritual."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-06
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-parnasianismo-simbolismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Ó Formas alvas, brancas, Formas claras
+    De luares, de neves, de neblinas!...
+    Ó Formas vagas, fluidas, cristalinas...
+    Incensos dos turíbulos das aras...
+    (Cruz e Sousa, "Antífona", Broquéis, 1893. Domínio público; grafia atualizada.)
+  enunciado: "A musicalidade da estrofe resulta, sobretudo,"
+  alternativas:
+    - texto: "da ausência de qualquer repetição."
+      erro: "A estrofe é feita de repetições: \"Ó Formas\", \"de... de... de...\"."
+    - texto: "do uso de diálogo entre personagens."
+      erro: "Não há personagens. Há uma voz que invoca as \"Formas\"."
+    - texto: "da linguagem técnica e precisa."
+      erro: "\"Vagas\", \"fluidas\", \"neblinas\": é o vago, não o preciso."
+    - texto: "da repetição de sons, como o a aberto e o n e o l, e da enumeração de palavras."
+      certa: true
+    - texto: "da quebra do verso em pedaços, como na poesia concreta."
+      erro: "Os versos têm medida regular. A poesia concreta é dos anos 1950."
+  explicacao: "\"Formas\", \"alvas\", \"claras\", \"aras\" repetem o a; \"luares\", \"neves\", \"neblinas\" repetem o l e o n. Somada à enumeração, essa repetição de sons cria a música simbolista."
+  fonte: "Questão original do Instituto Lúcia; estrofe de Cruz e Sousa (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-07
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-parnasianismo-simbolismo
+  dificuldade: 2
+  enunciado: "Qual destes temas é mais típico do Parnasianismo do que do Simbolismo?"
+  alternativas:
+    - texto: "Um vaso grego descrito com precisão, nos detalhes da forma e do material."
+      certa: true
+    - texto: "A alma que sobe ao céu numa noite de luar."
+      erro: "Alma, céu e luar são o mundo espiritual e vago do Simbolismo."
+    - texto: "A loucura de uma moça que sonha numa torre."
+      erro: "Esse é o tema de \"Ismália\", de Alphonsus de Guimaraens, simbolista."
+    - texto: "O mistério de sons e perfumes que se misturam."
+      erro: "Mistura de sentidos (sinestesia) e mistério são marcas simbolistas."
+    - texto: "A Dor com maiúscula, como ideia sagrada."
+      erro: "A maiúscula que transforma a palavra em ideia é recurso simbolista."
+  explicacao: "O parnasiano gosta de objetos concretos, de preferência da Antiguidade, descritos com contorno firme, como uma escultura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-08
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-parnasianismo-simbolismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Quando Ismália enlouqueceu,
+    Pôs-se na torre a sonhar...
+    Viu uma lua no céu,
+    Viu outra lua no mar.
+    (Alphonsus de Guimaraens, "Ismália", 1923. Domínio público; grafia atualizada.)
+  enunciado: "As duas luas, uma no céu e outra no mar, podem ser lidas como símbolos"
+  alternativas:
+    - texto: "de um fenômeno astronômico raro, descrito com precisão."
+      erro: "A segunda lua é reflexo, visto por quem enlouqueceu. Não é astronomia."
+    - texto: "da pátria e da natureza brasileira."
+      erro: "Nada no trecho fala de pátria. O tema é o sonho e a loucura."
+    - texto: "da divisão entre o espiritual e o terreno, entre o desejo de subir e a atração de descer."
+      certa: true
+    - texto: "do trabalho no campo, à moda árcade."
+      erro: "Não há campo nem pastores. Há uma torre, a lua e o mar."
+    - texto: "da crítica social à pobreza de Mariana."
+      erro: "O trecho não fala de pobreza nem de cidade."
+  explicacao: "A lua do céu e o reflexo no mar dividem Ismália entre o alto e o baixo, o espírito e a matéria. No poema, ela quer subir ao céu e descer ao mar. Imagem que sugere em vez de explicar: é o Simbolismo."
+  fonte: "Questão original do Instituto Lúcia; estrofe de Alphonsus de Guimaraens (domínio público)"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-09
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-parnasianismo-simbolismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na Semana de Arte Moderna, em 1922, foi lido em público o poema "Os sapos", de Manuel Bandeira, que zomba dos poetas que contam sílabas e caçam rimas raras. Parte da plateia vaiou.
+    (Texto do Instituto Lúcia, com base na história da Semana de Arte Moderna.)
+  enunciado: "O episódio mostra que, para os modernistas de 1922, o Parnasianismo representava"
+  alternativas:
+    - texto: "o modelo que deveriam seguir à risca."
+      erro: "Ler um poema que zomba dos parnasianos é atacar o modelo, não segui-lo."
+    - texto: "a poesia oficial e acadêmica, presa às regras da forma, que era preciso romper."
+      certa: true
+    - texto: "uma poesia popular, feita para o povo."
+      erro: "O Parnasianismo era culto, de vocabulário raro. Não era poesia popular."
+    - texto: "um movimento que ainda não tinha surgido."
+      erro: "O Parnasianismo começou em 1882, quarenta anos antes da Semana."
+    - texto: "a denúncia social que eles admiravam."
+      erro: "O Parnasianismo não era poesia de denúncia: era arte pela arte."
+  explicacao: "Os modernistas queriam o verso livre e a fala brasileira. O Parnasianismo, com metro exato e rima rica, era a poesia de prestígio, das academias. Zombar dele era anunciar a ruptura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-parnasianismo-10
+  tema: "Parnasianismo e Simbolismo"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-parnasianismo-simbolismo
+  dificuldade: 3
+  enunciado: "Olavo Bilac teve prestígio e cargos públicos; Cruz e Sousa, poeta negro, morreu pobre e só foi reconhecido muito depois. Pensar nessa diferença hoje ajuda a perceber que"
+  alternativas:
+    - texto: "a qualidade de uma obra sempre é reconhecida no seu tempo."
+      erro: "O caso de Cruz e Sousa mostra o contrário: o reconhecimento demorou."
+    - texto: "o Parnasianismo é melhor que o Simbolismo."
+      erro: "A questão não compara a qualidade dos movimentos, e sim o reconhecimento dos poetas."
+    - texto: "o racismo não teve papel na vida literária brasileira."
+      erro: "O próprio Cruz e Sousa escreveu sobre o muro de preconceito que o cercava."
+    - texto: "Bilac não deveria ser lido."
+      erro: "Ler criticamente não é apagar. É entender por que uns foram lidos e outros não."
+    - texto: "o lugar de um autor na história da literatura também depende de quem tinha poder para consagrá-lo, e o racismo pesou nisso."
+      certa: true
+  explicacao: "A consagração não depende só do texto: depende de jornais, academias e críticos. Cruz e Sousa enfrentou o racismo dessa sociedade. Rever esse lugar é um valor atual: dar à obra o reconhecimento que lhe foi negado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,246 @@
+# Exercícios da aula "Romance de 30 e poesia de 30" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-geracao30-01
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-geracao-de-30
+  dificuldade: 1
+  enunciado: "Qual tema está no centro do romance regionalista de 30?"
+  alternativas:
+    - texto: "A vida da corte no Rio de Janeiro do século 19"
+      erro: "A corte do século 19 é cenário do Romantismo e do Realismo. O romance de 30 vai para o sertão e o engenho."
+    - texto: "O amor impossível entre um indígena idealizado e uma moça branca"
+      erro: "Isso lembra o indianismo romântico de José de Alencar."
+    - texto: "A seca, a miséria e o poder dos fazendeiros, sobretudo no Nordeste"
+      certa: true
+    - texto: "O sonho e o inconsciente, longe de qualquer realidade social"
+      erro: "Esse é o programa do Surrealismo. O romance de 30 olha para a realidade social."
+    - texto: "A forma perfeita do verso e o culto à arte pela arte"
+      erro: "Isso é o Parnasianismo, e de poesia. O romance de 30 é prosa de denúncia."
+  explicacao: "O romance de 30 pôs a seca, a fome, a migração e o latifúndio no centro da prosa, mostrados sem enfeite."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-02
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-30
+  dificuldade: 1
+  enunciado: "Fabiano, Sinhá Vitória, os dois meninos e a cachorra Baleia são personagens de qual romance?"
+  alternativas:
+    - texto: "O quinze, de Rachel de Queiroz"
+      erro: "O quinze também trata da seca, mas no Ceará de 1915, com outras personagens."
+    - texto: "Capitães da Areia, de Jorge Amado"
+      erro: "Capitães da Areia trata de meninos de rua em Salvador."
+    - texto: "Menino de engenho, de José Lins do Rego"
+      erro: "Menino de engenho se passa num engenho de açúcar da Paraíba."
+    - texto: "Vidas secas, de Graciliano Ramos"
+      certa: true
+    - texto: "Macunaíma, de Mário de Andrade"
+      erro: "Macunaíma é da primeira geração modernista (1928)."
+  explicacao: "Vidas secas (1938), de Graciliano Ramos, acompanha essa família de retirantes no sertão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-03
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-geracao-de-30
+  dificuldade: 1
+  enunciado: "Em 1936, um romancista da geração de 30 foi preso em Maceió, sem processo, e mais tarde escreveu Memórias do cárcere. Quem foi?"
+  alternativas:
+    - texto: "Graciliano Ramos"
+      certa: true
+    - texto: "Jorge Amado"
+      erro: "Jorge Amado teve livros queimados em 1937, mas quem escreveu Memórias do cárcere foi Graciliano."
+    - texto: "Rachel de Queiroz"
+      erro: "Rachel escreveu O quinze. Memórias do cárcere é de Graciliano Ramos."
+    - texto: "Carlos Drummond de Andrade"
+      erro: "Drummond era poeta e não foi o autor de Memórias do cárcere."
+    - texto: "Érico Veríssimo"
+      erro: "Érico, gaúcho, escreveu O tempo e o vento. Não foi ele."
+  explicacao: "Graciliano Ramos foi preso em março de 1936, acusado de ligação com a Intentona Comunista, e ficou cerca de onze meses detido. Memórias do cárcere saiu em 1953, depois da sua morte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-04
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-30
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O coronel contou as cabeças de gado, contou os moradores, contou as cercas. Depois contou a mulher,
+    sem perceber que tinha contado. Tudo o que estava dentro da porteira era dele, e o que estava fora
+    ainda ia ser.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O recurso que dá força crítica ao trecho é"
+  alternativas:
+    - texto: "a descrição da paisagem do sertão como lugar de beleza."
+      erro: "A paisagem não aparece como beleza. O que aparece é a posse."
+    - texto: "o uso de imagens de sonho para revelar o inconsciente do coronel."
+      erro: "As imagens são concretas: gado, cercas, porteira. Não há sonho."
+    - texto: "o diálogo entre o coronel e a mulher, que discutem o casamento."
+      erro: "Não há diálogo. O narrador conta o que o coronel faz."
+    - texto: "a rima entre as frases, que dá musicalidade ao texto."
+      erro: "O texto é prosa, sem rima. A força vem da repetição do verbo."
+    - texto: "a repetição de \"contou\", que põe a mulher na mesma lista que o gado e as cercas."
+      certa: true
+  explicacao: "A repetição de \"contou\" coloca pessoas e coisas na mesma lista de posses. É a crítica ao latifundiário que tudo transforma em propriedade, tema de São Bernardo (1934), de Graciliano Ramos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-05
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-geracao-de-30
+  dificuldade: 2
+  enunciado: "Em novembro de 1937, livros de Jorge Amado foram queimados em praça pública em Salvador. Esse fato se liga a qual contexto?"
+  alternativas:
+    - texto: "À ditadura militar iniciada em 1964"
+      erro: "A queima foi em 1937, quase trinta anos antes de 1964."
+    - texto: "À Proclamação da República"
+      erro: "A República é de 1889. A queima aconteceu na Era Vargas."
+    - texto: "Ao golpe do Estado Novo, ditadura de Getúlio Vargas, que censurava livros vistos como comunistas"
+      certa: true
+    - texto: "À Semana de Arte Moderna, que queimava livros antigos"
+      erro: "A Semana, de 1922, não queimou livros. A queima de 1937 foi ato de censura do governo."
+    - texto: "À Independência, que proibiu livros portugueses"
+      erro: "A Independência é de 1822 e não tem ligação com este fato."
+  explicacao: "O Estado Novo começou em novembro de 1937. Em Salvador, 808 exemplares de Jorge Amado e de outros autores foram queimados como \"propaganda comunista\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-06
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-30
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    A casa tinha muitos quartos e em cada um morava uma lembrança. A moça andava pelo corredor e os
+    retratos dos avós pareciam segui-la, e a culpa que ninguém tinha nomeado ia descendo com ela a escada,
+    degrau por degrau, até a sala onde a mãe rezava sem levantar os olhos.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O trecho se aproxima da linha intimista do romance de 30 porque"
+  alternativas:
+    - texto: "denuncia diretamente a seca e a fome dos retirantes."
+      erro: "Não há seca nem retirantes. O foco é a casa, a memória e a culpa."
+    - texto: "explora a vida interior, a memória e a culpa num ambiente familiar fechado."
+      certa: true
+    - texto: "usa humor e paródia contra a tradição parnasiana."
+      erro: "O tom é grave, sem humor nem paródia."
+    - texto: "exalta a cidade moderna, a máquina e a velocidade."
+      erro: "Não há cidade nem máquina. É um casarão parado no tempo."
+    - texto: "distribui as palavras no espaço da página, como poema visual."
+      erro: "É prosa contínua, não poema visual."
+  explicacao: "Casarão, retratos dos avós, culpa sem nome e religiosidade: são as marcas da linha intimista de Cornélio Penna e Lúcio Cardoso. A frase longa, que vai encadeando imagens, imita o movimento da memória."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-07
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-30
+  dificuldade: 2
+  enunciado: "A linguagem de Vidas secas é seca, com frases curtas e poucos adjetivos. Que efeito isso produz?"
+  alternativas:
+    - texto: "Deixa o livro difícil de propósito, para afastar o leitor popular."
+      erro: "Frases curtas não afastam. A escolha serve ao sentido do livro."
+    - texto: "Mostra que o autor não dominava a língua culta."
+      erro: "Graciliano era conhecido pelo rigor com a língua. A secura é escolha estética."
+    - texto: "Imita o estilo parnasiano, de vocabulário raro."
+      erro: "O parnasiano é rebuscado. Graciliano corta tudo o que sobra."
+    - texto: "Combina com a aridez do sertão e com a dificuldade das personagens de se expressar."
+      certa: true
+    - texto: "Cria um clima de festa e alegria."
+      erro: "O clima é de dureza e silêncio, não de festa."
+  explicacao: "A forma acompanha o conteúdo: paisagem seca, vida sem sobra e personagens a quem faltam as palavras. É um bom exemplo de H16: a construção do texto revela a proposta do autor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-08
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-geracao-de-30
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num romance dos anos 1930, um vaqueiro é preso e espancado por um soldado e não consegue explicar o que
+    aconteceu, porque não tem as palavras para se defender. Noventa anos depois, uma trabalhadora que estuda
+    à noite para o Enem lê o capítulo e escreve no caderno: "isso ainda acontece".
+    (Texto original do Instituto Lúcia.)
+  enunciado: "A reação da estudante mostra que o romance"
+  alternativas:
+    - texto: "trata de valores humanos e sociais que continuam atuais, como o acesso à palavra e à justiça."
+      certa: true
+    - texto: "perdeu o sentido, porque a seca já foi resolvida no Brasil."
+      erro: "A estudante diz o contrário: \"isso ainda acontece\". E o tema central do trecho nem é a seca, é a falta de voz."
+    - texto: "só pode ser lido por quem viveu nos anos 1930."
+      erro: "A leitora vive noventa anos depois e entendeu o capítulo."
+    - texto: "é uma obra de entretenimento sem ligação com a realidade."
+      erro: "O trecho mostra violência e falta de direitos reais. Não é só entretenimento."
+    - texto: "defende que o vaqueiro mereceu a punição do soldado."
+      erro: "O romance expõe a injustiça. Ninguém ali merece o que sofre."
+  explicacao: "H17 pede reconhecer na literatura valores que continuam atuais. A falta de escola e de voz diante da autoridade, mostrada em Vidas secas, ainda faz sentido para quem lê hoje."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-09
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-geracao-de-30
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Dois romances falam do sertão. No primeiro, do século 19, o vaqueiro é um herói nobre, a paisagem é
+    grandiosa e o amor vence tudo. No segundo, dos anos 1930, o vaqueiro não tem terra nem palavras, a
+    paisagem é ameaça e a família segue andando para não morrer.
+    (Texto original do Instituto Lúcia, comparando duas tradições.)
+  enunciado: "A comparação mostra a diferença entre"
+  alternativas:
+    - texto: "o Arcadismo, que idealiza o campo, e o Barroco, que fala de culpa."
+      erro: "Os dois romances são do século 19 e dos anos 1930. Arcadismo e Barroco são de séculos anteriores."
+    - texto: "a poesia concreta e a poesia marginal."
+      erro: "A comparação é entre romances, não entre correntes de poesia dos anos 1950 a 1970."
+    - texto: "dois romances do mesmo movimento, que pensam igual."
+      erro: "Os romances têm visões opostas do sertão. Não pensam igual."
+    - texto: "o Realismo urbano e o Naturalismo científico."
+      erro: "Os dois romances se passam no sertão, não na cidade. E a diferença está em idealizar ou denunciar."
+    - texto: "o regionalismo romântico, que idealiza, e o regionalismo de 30, que denuncia."
+      certa: true
+  explicacao: "O sertão já era tema no Romantismo (O sertanejo, de José de Alencar, 1875), mas idealizado. O romance de 30 mostra o mesmo espaço como lugar de miséria e injustiça. Comparar as duas visões é uma armadilha clássica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-geracao30-10
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-geracao-de-30
+  dificuldade: 3
+  enunciado: "A rosa do povo (1945), de Carlos Drummond de Andrade, foi escrito durante a Segunda Guerra Mundial. Como esse contexto aparece no livro?"
+  alternativas:
+    - texto: "O poeta ignora o mundo e fala só da forma do verso."
+      erro: "Ignorar o mundo seria uma atitude próxima do Parnasianismo. A rosa do povo faz o oposto."
+    - texto: "A poesia se abre para a dor coletiva, a guerra e a política, além do eu individual."
+      certa: true
+    - texto: "O livro exalta a guerra como higiene do mundo, como os futuristas."
+      erro: "Drummond não exalta a guerra. Sofre com ela e com a injustiça."
+    - texto: "O livro conta, em versos, a história da Inconfidência Mineira."
+      erro: "Isso é o Romanceiro da Inconfidência, de Cecília Meireles (1953)."
+    - texto: "O livro é feito só de poemas visuais, sem verso."
+      erro: "A poesia visual é do Concretismo, dos anos 1950."
+  explicacao: "Depois de Alguma poesia (1930), mais individual e irônico, Drummond passa, em Sentimento do mundo (1940) e A rosa do povo (1945), a uma poesia que encara o sofrimento coletivo do seu tempo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

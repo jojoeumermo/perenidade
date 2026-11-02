@@ -1,0 +1,315 @@
+# Mapa curricular da trilha enem-linguagens-literatura: cada aula escrita ligada às habilidades da Matriz do Enem e aos
+# tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
+fontes:
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
+aulas:
+  o-texto-literario:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-texto-literario]
+  quinhentismo:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-quinhentismo]
+  barroco:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-barroco]
+  arcadismo:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-arcadismo]
+  romantismo:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-romantismo]
+  realismo-e-naturalismo:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-realismo-naturalismo]
+  parnasianismo-e-simbolismo:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-parnasianismo-simbolismo]
+  pre-modernismo:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos: [lin-literatura-pre-modernismo]
+  vanguardas-e-semana-de-22:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-semana-de-22
+  primeira-geracao-modernista:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-primeira-geracao-modernista
+  geracao-de-30:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-geracao-de-30
+  geracao-de-45:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-geracao-de-45
+  poesia-concreta-e-contemporanea:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-contemporanea
+  literatura-afro-brasileira:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-afro-brasileira
+  literatura-indigena:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 6
+        habilidade: 20
+        resumo: Reconhecer o patrimônio linguístico como parte da memória e da identidade do país.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-indigena
+  cordel-e-literatura-oral:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 6
+        habilidade: 20
+        resumo: Reconhecer o patrimônio linguístico como parte da memória e da identidade do país.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-cordel-e-oralidade
+  literatura-marginal-e-periferica:
+    enem:
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 25
+        resumo: Identificar as marcas das variedades linguísticas sociais, regionais e de registro.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-marginal-e-periferica

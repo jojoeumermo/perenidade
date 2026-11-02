@@ -8,7 +8,7 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 | curadoria | 1 |
 | educador de ciências da natureza | 13 |
 | educador de ciências humanas | 9 |
-| educador de linguagens | 9 |
+| educador de linguagens | 123 |
 | educador de matemática | 117 |
 | revisor de redação | 17 |
 
@@ -72,10 +72,124 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 ## educador de linguagens
 
+- [ ] aula `content/trilhas/enem-espanhol/conectivos-e-marcadores.md` (Espanhol: conectivos e marcadores do texto): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-espanhol/estrategias-de-leitura-e-falsos-cognatos.md` (Espanhol: estratégias de leitura e falsos cognatos (heterosemánticos)): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-espanhol/generos-e-vocabulario-em-contexto.md` (Espanhol: gêneros mais frequentes e vocabulário em contexto): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-espanhol/questoes-resolvidas-no-formato-da-prova.md` (Espanhol: questões resolvidas no formato da prova): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-ingles/conectivos-e-marcadores.md` (Inglês: conectivos e marcadores do texto): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-ingles/estrategias-de-leitura-cognatos-e-falsos-cognatos.md` (Inglês: estratégias de leitura, cognatos e falsos cognatos): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-ingles/generos-e-vocabulario-em-contexto.md` (Inglês: gêneros mais frequentes e vocabulário em contexto): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-ingles/questoes-resolvidas-no-formato-da-prova.md` (Inglês: questões resolvidas no formato da prova): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-artes-e-corpo/arte-como-linguagem-e-patrimonio.md` (Arte como linguagem e patrimônio): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-artes-e-corpo/arte-contemporanea-e-arte-urbana.md` (Arte contemporânea e arte urbana): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-artes-e-corpo/corpo-saude-e-padroes-de-beleza.md` (Corpo, saúde e padrões de beleza): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-artes-e-corpo/esporte-midia-e-mercado.md` (Esporte, mídia e mercado): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-artes-e-corpo/musica-brasileira.md` (Música brasileira e as culturas que a criaram): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-artes-e-corpo/praticas-corporais-cultura-e-sociedade.md` (Práticas corporais, cultura e sociedade): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/artigo-de-opiniao-editorial-carta-aberta-e-resenha.md` (Artigo de opinião, editorial, carta aberta e resenha): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/charge-tirinha-cartum-e-meme.md` (Charge, tirinha, cartum e meme): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/cronica-e-conto.md` (Crônica e conto): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/estrategias-argumentativas.md` (Estratégias argumentativas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/estrategias-de-leitura-e-inferencia.md` (Estratégias de leitura e inferência): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/funcoes-da-linguagem.md` (Funções da linguagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/infografico-e-texto-multimodal.md` (Infográfico e texto multimodal): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/noticia-e-reportagem.md` (Gêneros jornalísticos: notícia e reportagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/persuasao-na-publicidade-e-na-propaganda.md` (Persuasão na publicidade e na propaganda): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/tema-tese-e-argumento.md` (Tema, tese e argumento): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/tipos-textuais.md` (Tipos textuais: narrar, descrever, expor, argumentar, instruir): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-leitura-e-generos/verbete-manual-receita-anuncio-e-campanha.md` (Verbete, manual, receita, anúncio e campanha): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/coesao-e-coerencia.md` (Coesão e coerência): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/figuras-de-linguagem.md` (Figuras de linguagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/formacao-de-palavras.md` (Formação de palavras): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/intertextualidade.md` (Intertextualidade: paródia, paráfrase, citação e alusão): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/norma-padrao-em-uso.md` (Norma-padrão em uso: concordância, regência, crase, pontuação e colocação): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/oralidade-e-escrita.md` (Oralidade e escrita): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/portugues-do-brasil-linguas-indigenas-e-africanas.md` (O português do Brasil e as línguas indígenas e africanas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/preconceito-linguistico.md` (Preconceito linguístico): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/semantica-polissemia-ambiguidade-denotacao-e-conotacao.md` (Semântica: polissemia, ambiguidade, denotação e conotação): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-lingua-em-uso/variacao-linguistica.md` (Variação linguística): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/arcadismo.md` (Arcadismo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/barroco.md` (Barroco): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/cordel-e-literatura-oral.md` (Cordel e literatura oral): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/geracao-de-30.md` (Romance de 30 e poesia de 30): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/geracao-de-45.md` (Geração de 45): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/literatura-afro-brasileira.md` (Literatura afro-brasileira): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/literatura-indigena.md` (Literatura indígena): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/literatura-marginal-e-periferica.md` (Literatura marginal e periférica): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/o-texto-literario.md` (O texto literário e os gêneros literários): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/parnasianismo-e-simbolismo.md` (Parnasianismo e Simbolismo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/poesia-concreta-e-contemporanea.md` (Poesia concreta e produção contemporânea): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/pre-modernismo.md` (Pré-Modernismo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/primeira-geracao-modernista.md` (Primeira geração modernista): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/quinhentismo.md` (Quinhentismo e literatura de informação): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/realismo-e-naturalismo.md` (Realismo e Naturalismo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/romantismo.md` (Romantismo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-literatura/vanguardas-e-semana-de-22.md` (Vanguardas europeias e Semana de 1922): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-tecnologias-da-comunicacao/algoritmos-e-bolhas.md` (Algoritmos e bolhas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-tecnologias-da-comunicacao/desinformacao-e-checagem.md` (Desinformação e checagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-tecnologias-da-comunicacao/internet-hipertexto-e-redes-sociais.md` (Internet, hipertexto e redes sociais): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-linguagens-tecnologias-da-comunicacao/privacidade-e-dados.md` (Privacidade e dados): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo.md` (Linguagens: interpretação de texto acima de tudo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira.md` (Linguagens: literatura, artes e língua estrangeira): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/linguagens-o-essencial-leitura-e-lingua.md` (Linguagens, o essencial: leitura, gêneros e língua): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo.md` (Linguagens, o essencial: literatura, artes e práticas corporais): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 10 exercícios em `content/exercicios/enem-espanhol/conectivos-e-marcadores.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-espanhol/estrategias-de-leitura-e-falsos-cognatos.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-espanhol/generos-e-vocabulario-em-contexto.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-espanhol/questoes-resolvidas-no-formato-da-prova.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-ingles/conectivos-e-marcadores.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-ingles/estrategias-de-leitura-cognatos-e-falsos-cognatos.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-ingles/generos-e-vocabulario-em-contexto.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-ingles/questoes-resolvidas-no-formato-da-prova.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-artes-e-corpo/arte-como-linguagem-e-patrimonio.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-artes-e-corpo/arte-contemporanea-e-arte-urbana.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-artes-e-corpo/corpo-saude-e-padroes-de-beleza.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-artes-e-corpo/esporte-midia-e-mercado.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-artes-e-corpo/musica-brasileira.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-artes-e-corpo/praticas-corporais-cultura-e-sociedade.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/artigo-de-opiniao-editorial-carta-aberta-e-resenha.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/charge-tirinha-cartum-e-meme.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/cronica-e-conto.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/estrategias-argumentativas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/estrategias-de-leitura-e-inferencia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/funcoes-da-linguagem.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/infografico-e-texto-multimodal.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/noticia-e-reportagem.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/persuasao-na-publicidade-e-na-propaganda.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/tema-tese-e-argumento.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/tipos-textuais.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-leitura-e-generos/verbete-manual-receita-anuncio-e-campanha.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/coesao-e-coerencia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/figuras-de-linguagem.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/formacao-de-palavras.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/intertextualidade.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/norma-padrao-em-uso.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/oralidade-e-escrita.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/portugues-do-brasil-linguas-indigenas-e-africanas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/preconceito-linguistico.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/semantica-polissemia-ambiguidade-denotacao-e-conotacao.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-lingua-em-uso/variacao-linguistica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/arcadismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/barroco.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/cordel-e-literatura-oral.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/geracao-de-30.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/geracao-de-45.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/literatura-afro-brasileira.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/literatura-indigena.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/literatura-marginal-e-periferica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/o-texto-literario.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/parnasianismo-e-simbolismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/poesia-concreta-e-contemporanea.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/pre-modernismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/primeira-geracao-modernista.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/quinhentismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/realismo-e-naturalismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/romantismo.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-literatura/vanguardas-e-semana-de-22.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-tecnologias-da-comunicacao/algoritmos-e-bolhas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-tecnologias-da-comunicacao/desinformacao-e-checagem.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-tecnologias-da-comunicacao/internet-hipertexto-e-redes-sociais.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 exercícios em `content/exercicios/enem-linguagens-tecnologias-da-comunicacao/privacidade-e-dados.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/linguagens-o-essencial-leitura-e-lingua.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 8 exercícios em `content/exercicios/enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 45 questões oficiais de 2022 (`content/enem/questoes-oficiais/2022-linguagens.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos

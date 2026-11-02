@@ -1,0 +1,246 @@
+# Exercícios da aula "Literatura indígena" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-indigena-01
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-indigena
+  dificuldade: 1
+  enunciado: "O que diferencia a literatura indígena contemporânea do indianismo romântico do século 19?"
+  alternativas:
+    - texto: "A literatura indígena é escrita por autores indígenas, que falam de si e do seu povo."
+      certa: true
+    - texto: "O indianismo foi escrito por autores indígenas; a literatura contemporânea, por europeus."
+      erro: "Está invertido. Alencar e Gonçalves Dias não eram indígenas."
+    - texto: "O indianismo não tinha personagens indígenas."
+      erro: "Tinha, e muitos: Peri, Iracema, o guerreiro de I-Juca-Pirama. Mas eram idealizados de fora."
+    - texto: "A literatura indígena só existe em línguas indígenas, sem português."
+      erro: "Muitos autores escrevem em português, às vezes com palavras e trechos na língua do povo."
+    - texto: "Não há diferença, porque as duas falam de indígenas."
+      erro: "Falar de alguém não é o mesmo que falar por si. A diferença está no ponto de vista."
+  explicacao: "No indianismo, o indígena é personagem idealizado por autores não indígenas. Na literatura indígena, pessoas de povos concretos contam a própria história."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-02
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-indigena
+  dificuldade: 1
+  enunciado: "Ailton Krenak, autor de Ideias para adiar o fim do mundo (2019), entrou para a história da Academia Brasileira de Letras em 2023 porque"
+  alternativas:
+    - texto: "foi o primeiro escritor a recusar a eleição."
+      erro: "Ele aceitou: foi eleito e tomou posse em 2024."
+    - texto: "foi o primeiro indígena eleito para a Academia."
+      certa: true
+    - texto: "fundou a Academia naquele ano."
+      erro: "A Academia é de 1897. Krenak foi eleito para a cadeira 5."
+    - texto: "foi o primeiro escritor de Minas Gerais na Academia."
+      erro: "Houve muitos mineiros antes dele, como Guimarães Rosa."
+    - texto: "foi o escritor mais jovem já eleito."
+      erro: "Ele nasceu em 1953. O fato histórico é outro: ser o primeiro indígena."
+  explicacao: "Krenak foi eleito em 5 de outubro de 2023 para a cadeira 5, a primeira vez que a Academia recebeu um indígena."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-03
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-literatura-indigena
+  dificuldade: 1
+  enunciado: "Pelo Censo de 2022 do IBGE, quantas línguas indígenas são faladas no Brasil?"
+  alternativas:
+    - texto: "Uma só, o tupi-guarani"
+      erro: "Não existe \"a língua dos índios\". São centenas, de troncos e famílias diferentes."
+    - texto: "Cerca de dez"
+      erro: "São muito mais: o IBGE registrou 295."
+    - texto: "295"
+      certa: true
+    - texto: "391"
+      erro: "391 é o número de etnias registradas. As línguas são 295."
+    - texto: "Nenhuma: todas desapareceram"
+      erro: "Quase 300 línguas indígenas continuam vivas, embora muitas estejam ameaçadas."
+  explicacao: "O Censo de 2022 registrou 391 etnias e 295 línguas indígenas. Esse patrimônio linguístico é parte da memória e da identidade do país (H20)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-04
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-indigena
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Senta aqui, que eu vou contar como meu avô me contou, e ele ouviu do avô dele. Não tenho pressa.
+    História boa não se conta correndo. No tempo em que os bichos ainda falavam com a gente, o rio
+    resolveu mudar de lugar...
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O início do texto revela uma marca da literatura indígena, que é"
+  alternativas:
+    - texto: "a descrição científica do curso de um rio."
+      erro: "O rio que \"resolveu mudar de lugar\" é personagem de narrativa, não objeto de ciência."
+    - texto: "a recusa de qualquer relação com o passado."
+      erro: "É o contrário: a história vem do avô e do avô do avô."
+    - texto: "a forma fixa do soneto, com rima e métrica."
+      erro: "É prosa, em tom de conversa."
+    - texto: "a presença da oralidade e da transmissão da memória entre gerações."
+      certa: true
+    - texto: "a idealização do indígena como herói nacional."
+      erro: "Não há herói idealizado. Há alguém contando uma história herdada."
+  explicacao: "\"Senta aqui\", \"como meu avô me contou\", \"não tenho pressa\": a escrita guarda a voz de quem conta em roda e a corrente de gerações que transmite a história."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-05
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-indigena
+  dificuldade: 2
+  enunciado: "Na literatura indígena contemporânea, rios, montanhas e animais aparecem muitas vezes como parentes. Essa escolha"
+  alternativas:
+    - texto: "é só enfeite poético, sem relação com a vida real."
+      erro: "Não é enfeite: expressa um modo de conhecer o mundo e tem consequência política, na defesa dos territórios."
+    - texto: "prova que os autores desconhecem a ciência."
+      erro: "Muitos desses autores têm formação universitária. A escolha é outra forma de pensar a relação com a natureza."
+    - texto: "critica a ideia de natureza como simples recurso a ser explorado."
+      certa: true
+    - texto: "defende a mineração em terras indígenas."
+      erro: "Tratar o rio como parente vai contra envenená-lo com mercúrio."
+    - texto: "repete o indianismo de José de Alencar."
+      erro: "Alencar idealizava o indígena de fora. Aqui, a visão vem de dentro dos povos."
+  explicacao: "Ver a terra como parente é recusar a lógica que a transforma em mercadoria. É um valor que pesa nos debates atuais sobre clima, garimpo e direitos (H17)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-06
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-indigena
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Este livro não é só meu. Quem fala aqui é minha avó, que não escreveu; é meu povo, que foi tirado
+    da terra; são as mulheres que cantavam enquanto plantavam. Eu só segurei a caneta.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "A apresentação revela uma concepção de autoria"
+  alternativas:
+    - texto: "individual, em que o escritor se vê como gênio solitário."
+      erro: "A autora diz o contrário: \"este livro não é só meu\"."
+    - texto: "comercial, voltada só para vender livros."
+      erro: "O texto fala de memória e de povo, não de mercado."
+    - texto: "coletiva, em que quem escreve se vê como porta-voz da família, do povo e dos ancestrais."
+      certa: true
+    - texto: "anônima, em que o nome da autora é escondido por medo."
+      erro: "Não há medo nem anonimato. Ela assume a escrita como tarefa coletiva."
+    - texto: "científica, baseada em pesquisa de laboratório."
+      erro: "A fonte é a memória da avó e do povo, não o laboratório."
+  explicacao: "\"Eu só segurei a caneta\": a autoria é compartilhada com a avó, o povo e as mulheres que cantavam. É uma das marcas mais fortes da literatura indígena."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-07
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-indigena
+  dificuldade: 2
+  enunciado: "Em 1987, na Assembleia Constituinte, Ailton Krenak pintou o rosto com tinta preta de jenipapo enquanto discursava. O gesto se ligava"
+  alternativas:
+    - texto: "a uma festa de comemoração do fim da ditadura."
+      erro: "O gesto era de luto e de protesto, não de festa."
+    - texto: "a uma campanha publicitária de cosméticos."
+      erro: "Não havia nenhuma relação comercial. Era protesto político."
+    - texto: "à defesa da mineração em terras indígenas."
+      erro: "Era o oposto: a defesa dos direitos dos povos às suas terras."
+    - texto: "à recusa de qualquer Constituição."
+      erro: "O movimento indígena queria direitos garantidos na Constituição, e conseguiu no artigo 231."
+    - texto: "ao protesto contra o recuo nos direitos indígenas, na luta pelas terras tradicionais."
+      certa: true
+  explicacao: "A tinta de jenipapo é sinal de luto e de luta para muitos povos. A Constituição de 1988 reconheceu, no artigo 231, os direitos originários sobre as terras tradicionalmente ocupadas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-08
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-indigena
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto 1: A virgem morena saiu da mata como a manhã sai da noite. Nenhuma flor era mais pura, nenhum
+    rio mais sereno que o seu olhar.
+    Texto 2: Minha prima trabalha no posto de saúde da aldeia e estuda enfermagem à noite pelo celular.
+    Ela diz que a gente não é do passado: a gente é de agora, e de antes também.
+    (Textos originais do Instituto Lúcia, escritos para esta questão.)
+  enunciado: "Comparando os dois textos, conclui-se que"
+  alternativas:
+    - texto: "o texto 2 rompe com a imagem idealizada do texto 1, mostrando uma indígena do presente, que liga tradição e vida atual."
+      certa: true
+    - texto: "os dois idealizam a mulher indígena da mesma maneira."
+      erro: "O texto 1 idealiza; o texto 2 mostra uma pessoa concreta, que trabalha e estuda."
+    - texto: "o texto 1 é escrito em primeira pessoa por uma autora indígena."
+      erro: "O texto 1 tem narrador de fora, que descreve a \"virgem morena\". A primeira pessoa está no texto 2."
+    - texto: "o texto 2 nega qualquer ligação com a tradição."
+      erro: "Ela diz \"a gente é de agora, e de antes também\": une presente e tradição."
+    - texto: "os dois tratam o celular como ameaça à cultura indígena."
+      erro: "O celular só aparece no texto 2, e como ferramenta de estudo, não como ameaça."
+  explicacao: "O texto 1 tem o tom do indianismo romântico (pureza, natureza, idealização). O texto 2 tem a voz de dentro e recusa a ideia do indígena como \"do passado\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-09
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 20
+  objeto: lin-literatura-indigena
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num livro bilíngue, cada página traz o mito na língua do povo e, ao lado, em português. A autora
+    explica no prefácio: "Se eu escrever só em português, meus netos vão ler a história, mas não vão
+    ouvir a voz dos avós."
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "A escolha de publicar o livro nas duas línguas"
+  alternativas:
+    - texto: "mostra que o português é uma língua mais completa."
+      erro: "A autora não compara as línguas em valor. Ela quer guardar as duas."
+    - texto: "é só um recurso para deixar o livro mais caro."
+      erro: "O prefácio diz o motivo: preservar a voz dos avós."
+    - texto: "revela desconfiança da escrita."
+      erro: "Ela usa a escrita, nas duas línguas, para guardar a memória."
+    - texto: "trata a língua do povo como parte da memória e da identidade, que a tradução sozinha não guarda."
+      certa: true
+    - texto: "prova que a língua indígena já não tem falantes."
+      erro: "Se os netos podem ouvir a voz dos avós na língua do povo, a língua está viva."
+  explicacao: "A tradução leva o conteúdo, mas a língua carrega a voz, o som e a memória. Valorizar esse patrimônio linguístico é a habilidade H20."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-indigena-10
+  tema: "Literatura indígena"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-indigena
+  dificuldade: 3
+  enunciado: "Uma alternativa de prova diz que um texto indígena sobre a floresta \"mostra uma visão ingênua e romântica da natureza\". Por que essa leitura costuma ser armadilha?"
+  alternativas:
+    - texto: "Porque textos indígenas nunca falam de natureza."
+      erro: "Falam muito. A armadilha está em como a alternativa interpreta isso."
+    - texto: "Porque o Enem só cobra textos do século 19."
+      erro: "O Enem cobra textos de todas as épocas, inclusive contemporâneos."
+    - texto: "Porque a palavra \"floresta\" não pode aparecer em alternativa certa."
+      erro: "Não existe essa regra. A questão é o sentido atribuído ao texto."
+    - texto: "Porque a natureza é sempre tema do Arcadismo."
+      erro: "Natureza aparece em muitas escolas. A questão é como ela aparece aqui."
+    - texto: "Porque trata como ingenuidade um modo de conhecimento e uma posição política sobre a terra."
+      certa: true
+  explicacao: "Chamar de \"ingênua\" a relação de parentesco com a floresta é ler com preconceito. Esses textos defendem um saber e uma posição diante do garimpo, do desmatamento e da crise do clima."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

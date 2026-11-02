@@ -1,0 +1,246 @@
+# Exercícios da aula "Crônica e conto" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-cronica-01
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  dificuldade: 1
+  enunciado: "Onde a crônica brasileira nasceu e cresceu?"
+  alternativas:
+    - texto: "Nos manuais de instrução."
+      erro: "Manuais ensinam a fazer algo. A crônica é literária e nasceu em outro lugar."
+    - texto: "Nos dicionários."
+      erro: "Dicionário traz verbetes, não crônicas."
+    - texto: "Nas bulas de remédio."
+      erro: "Bula é texto instrucional e informativo."
+    - texto: "Nos jornais e revistas."
+      certa: true
+    - texto: "Só nos livros didáticos."
+      erro: "Os livros didáticos publicam crônicas, mas o gênero nasceu na imprensa."
+  explicacao: "A crônica nasceu no jornal, no espaço do folhetim do século XIX, e seguiu em jornais e revistas. Por isso é curta e ligada ao dia a dia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-02
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  dificuldade: 1
+  enunciado: "“Ela abriu a carta devagar, já sabendo, no fundo, o que ia ler.” Que tipo de narrador conta essa frase?"
+  alternativas:
+    - texto: "Narrador em terceira pessoa que conhece o pensamento da personagem."
+      certa: true
+    - texto: "Narrador em primeira pessoa, que participa da história."
+      erro: "Não há “eu”. A personagem é “ela”."
+    - texto: "Narrador que só descreve objetos, sem personagens."
+      erro: "Há personagem e ação."
+    - texto: "Não há narrador, porque o texto é um diálogo."
+      erro: "Não há diálogo; há narração."
+    - texto: "Narrador que é o próprio leitor."
+      erro: "Leitor não narra. Quem conta é uma voz dentro do texto."
+  explicacao: "O narrador fala de “ela” (terceira pessoa) e sabe o que ela sente “no fundo”. Isso é narrador onisciente: conhece o interior da personagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-03
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  dificuldade: 1
+  enunciado: "Qual é a ordem do enredo clássico de um conto?"
+  alternativas:
+    - texto: "Desfecho, clímax, conflito, situação inicial."
+      erro: "Essa é a ordem invertida."
+    - texto: "Clímax, situação inicial, desfecho, conflito."
+      erro: "O clímax vem perto do fim, não no começo."
+    - texto: "Conflito, desfecho, situação inicial, clímax."
+      erro: "Antes do conflito vem a situação inicial."
+    - texto: "Título, autor, data, editora."
+      erro: "Esses são dados da publicação, não partes do enredo."
+    - texto: "Situação inicial, conflito, clímax, desfecho."
+      certa: true
+  explicacao: "O mundo começa em equilíbrio (situação inicial), algo o perturba (conflito), a tensão chega ao máximo (clímax) e a história se resolve (desfecho)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-04
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Descobri que o bairro estava ficando velho quando a padaria trocou o banco de madeira por um de ferro, "para durar
+    mais". Durar mais para quem? O banco de madeira tinha as marcas dos cotovelos de três gerações de aposentados que
+    liam o jornal ali. O novo é frio, limpo e ninguém senta. Às vezes, o que dura mais é o que menos acompanha a gente.
+  enunciado: "O trecho “Durar mais para quem?” contribui para o texto ao"
+  alternativas:
+    - texto: "pedir uma informação técnica ao dono da padaria."
+      erro: "A pergunta não espera resposta técnica: é retórica."
+    - texto: "provar que o banco de ferro é mais barato."
+      erro: "Não há dado de preço. É extrapolação."
+    - texto: "questionar a justificativa da troca e abrir a reflexão sobre o que se perde."
+      certa: true
+    - texto: "anunciar a venda do banco de madeira."
+      erro: "Não há anúncio nenhum."
+    - texto: "mudar o narrador da primeira para a terceira pessoa."
+      erro: "O narrador continua em primeira pessoa (“Descobri”)."
+  explicacao: "A pergunta retórica põe em dúvida o “para durar mais” e leva à reflexão final: o novo dura, mas não acolhe. É o movimento típico da crônica, do fato à reflexão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-05
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  dificuldade: 2
+  enunciado: "Num conto, a casa da personagem é descrita com “paredes descascadas, uma única janela que não abria e o relógio parado nas três horas”. Que função esse espaço tem?"
+  alternativas:
+    - texto: "Nenhuma: o espaço é só enfeite."
+      erro: "No conto, quase nada é enfeite. O espaço diz algo sobre quem vive nele."
+    - texto: "Sugere o estado da personagem: isolamento e uma vida que parou."
+      certa: true
+    - texto: "Informa o endereço exato da personagem."
+      erro: "Não há endereço."
+    - texto: "Mostra que o conto é uma notícia."
+      erro: "Descrição simbólica é recurso literário, não jornalístico."
+    - texto: "Indica que a história se passa no futuro."
+      erro: "Não há pista de futuro."
+  explicacao: "Janela que não abre e relógio parado sugerem prisão e tempo congelado. O espaço ajuda a construir a personagem por dentro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-06
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-cronica-e-conto
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    O novo shopping anuncia "um pedaço do paraíso no coração da cidade". Fui conferir. O paraíso tem ar-condicionado,
+    catraca e segurança que olha torto para quem chega de chinelo. Deve ser um paraíso com lista de convidados.
+  enunciado: "O efeito de humor e crítica do texto vem principalmente da"
+  alternativas:
+    - texto: "descrição técnica do sistema de ar-condicionado."
+      erro: "O ar-condicionado aparece como detalhe irônico, não técnico."
+    - texto: "citação de dados sobre o público do shopping."
+      erro: "Não há dado nenhum."
+    - texto: "narração de um conflito que termina em tragédia."
+      erro: "Não há tragédia; há humor."
+    - texto: "linguagem informal que torna o texto incorreto."
+      erro: "O texto está correto; informalidade não é erro."
+    - texto: "ironia, ao confrontar a promessa de “paraíso” com a exclusão que o narrador observa."
+      certa: true
+  explicacao: "O anúncio promete paraíso; o narrador mostra catraca e segurança que discrimina. A frase final (“paraíso com lista de convidados”) diz, com ironia, que o lugar não é para todos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-07
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  dificuldade: 2
+  enunciado: "Num conto narrado em primeira pessoa, o narrador diz: “Eu era o melhor amigo dele; nunca desconfiei de nada.” O que o leitor deve lembrar ao ler esse narrador?"
+  alternativas:
+    - texto: "Que ele sabe tudo o que todas as personagens pensam."
+      erro: "Narrador em primeira pessoa só sabe o que viveu e viu."
+    - texto: "Que ele é sempre o próprio autor do livro."
+      erro: "Narrador e autor são diferentes. O “eu” do conto é uma personagem."
+    - texto: "Que ele só conhece a sua parte da história e pode estar enganado."
+      certa: true
+    - texto: "Que ele não participa da história."
+      erro: "O “eu” e “melhor amigo” mostram que participa."
+    - texto: "Que ele está mentindo de propósito, sempre."
+      erro: "Pode estar enganado, mas não há regra de que sempre mente."
+  explicacao: "O narrador-personagem tem visão limitada. “Nunca desconfiei de nada” já avisa que havia algo que ele não viu. O leitor atento desconfia do que ele conta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-08
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    A diarista chegou às sete, como sempre. A patroa tinha deixado um bilhete na geladeira: "Hoje a casa está mais
+    suja, teve festa. Capricha!" Ela leu, dobrou o papel e guardou no bolso do avental, junto com o outro bilhete, o da
+    escola do filho, que pedia a presença dos pais na reunião das oito. Pegou a vassoura.
+  enunciado: "No desfecho, o gesto de guardar os dois bilhetes juntos sugere"
+  alternativas:
+    - texto: "o conflito da personagem entre a obrigação do trabalho e a vida do filho, sem que ela possa atender às duas."
+      certa: true
+    - texto: "que a diarista vai faltar ao trabalho para ir à reunião."
+      erro: "Ela pega a vassoura: o texto sugere o contrário. É inversão."
+    - texto: "que a patroa também vai à reunião da escola."
+      erro: "Não há pista disso. É extrapolação."
+    - texto: "que a diarista não sabe ler os bilhetes."
+      erro: "Ela “leu” o bilhete: o texto diz que sabe."
+    - texto: "que a festa foi na escola do filho."
+      erro: "A festa foi na casa da patroa."
+  explicacao: "Os dois bilhetes, lado a lado no bolso, juntam duas exigências na mesma hora (casa suja e reunião às oito). “Pegou a vassoura” mostra que o trabalho venceu. O conto diz o conflito sem dizer."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-09
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-cronica-e-conto
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Textos originais do Instituto Lúcia.
+    Texto I (notícia): "A linha 507 terá a frequência reduzida a partir de segunda. A empresa alega queda no número de
+    passageiros."
+    Texto II (crônica): "A 507 vai passar menos. Dizem que tem menos gente. Eu, que pego a 507 lotada todo dia, fico
+    pensando onde a empresa contou esses passageiros que faltam. Talvez tenham contado os que desistiram de esperar."
+  enunciado: "Comparando os textos, percebe-se que a crônica, diferentemente da notícia,"
+  alternativas:
+    - texto: "informa com mais precisão a data da mudança."
+      erro: "A crônica nem cita a data. A notícia é mais precisa nisso."
+    - texto: "concorda com a explicação da empresa."
+      erro: "A crônica duvida da explicação. É inversão."
+    - texto: "apresenta números sobre os passageiros."
+      erro: "Nenhum dos textos traz números."
+    - texto: "parte da experiência do narrador para questionar, com ironia, a justificativa da empresa."
+      certa: true
+    - texto: "é escrita em terceira pessoa, com linguagem objetiva."
+      erro: "A crônica está em primeira pessoa (“Eu, que pego…”)."
+  explicacao: "A notícia relata e registra a alegação. A crônica fala em primeira pessoa, confronta a alegação com o ônibus lotado e fecha com ironia: os passageiros “que faltam” podem ser os que desistiram."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cronica-10
+  tema: "Crônica e conto"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-cronica-e-conto
+  dificuldade: 3
+  enunciado: "Num conto, a personagem lembra a infância no meio de uma frase sobre o presente, volta ao presente e depois lembra de novo. Que tempo predomina?"
+  alternativas:
+    - texto: "Cronológico, na ordem exata dos fatos."
+      erro: "As idas e voltas da memória quebram a ordem dos fatos."
+    - texto: "Psicológico, que segue a memória e o sentimento da personagem."
+      certa: true
+    - texto: "Futuro, porque o conto fala do que vai acontecer."
+      erro: "As lembranças são do passado."
+    - texto: "Não há tempo nenhum no conto."
+      erro: "Toda narrativa tem tempo."
+    - texto: "O tempo do relógio, marcado em horas."
+      erro: "Não há marcação de horas; a ordem é a da memória."
+  explicacao: "Quando a narrativa segue o fluxo da memória, indo e voltando, o tempo é psicológico. O cronológico segue a ordem dos acontecimentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

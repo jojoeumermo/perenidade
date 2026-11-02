@@ -1,0 +1,280 @@
+# Exercícios da aula "Espanhol: questões resolvidas no formato da prova" (trilha enem-espanhol).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+# Simulado das três outras aulas: cada questão aponta o tópico que ela exercita.
+
+- id: enem-lin-esp-prova-01
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 6
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Vacunación contra la gripe
+    Gratis para mayores de 60 años, embarazadas y niños de 6 meses a 5 años.
+    Centro de Salud n.º 4 · De lunes a sábado, de 8 a 17 h.
+  enunciado: "Segundo o cartaz, a vacina é gratuita para"
+  alternativas:
+    - texto: "todas as pessoas, em qualquer dia."
+      erro: "Extrapolação: o cartaz lista três grupos e os dias de segunda a sábado."
+    - texto: "pessoas envergonhadas de ir ao posto."
+      erro: "Embarazadas é heterosemántico: quer dizer grávidas, não envergonhadas."
+    - texto: "idosos acima de 60 anos, grávidas e crianças pequenas."
+      certa: true
+    - texto: "só crianças de até 5 anos."
+      erro: "Redução: as crianças são um dos três grupos."
+    - texto: "quem for ao posto aos domingos."
+      erro: "O horário é de segunda a sábado (de lunes a sábado). Domingo não aparece."
+  explicacao: "Scanning nos grupos: \"mayores de 60 años\" (maiores de 60 anos), \"embarazadas\" (grávidas) e \"niños de 6 meses a 5 años\" (crianças de 6 meses a 5 anos)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-02
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Perdón por la demora. Estoy en la oficina y salgo en un rato. Te veo en la cena.
+  enunciado: "Na mensagem, a pessoa avisa que"
+  alternativas:
+    - texto: "está numa oficina mecânica e vai demorar muito."
+      erro: "Oficina é escritório, e \"en un rato\" é daqui a pouco."
+    - texto: "viu um rato no escritório."
+      erro: "Rato é pouco tempo. \"Salgo en un rato\": saio daqui a pouco."
+    - texto: "não vai ao jantar."
+      erro: "Inversão: \"Te veo en la cena\", te vejo no jantar."
+    - texto: "vai assistir a uma cena de teatro."
+      erro: "Cena é jantar, não cena de teatro."
+    - texto: "está no escritório, sai daqui a pouco e vai ao jantar."
+      certa: true
+  explicacao: "Três heterosemánticos numa mensagem curta: oficina (escritório), rato (pouco tempo) e cena (jantar)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-03
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    ¿TU HIJO NO VA A LA ESCUELA?
+    Si tu hijo o hija de 4 a 17 años está fuera de la escuela, llamá al 0800 de la Secretaría de Educación.
+    Te ayudamos a encontrar una vacante cerca de tu casa.
+  enunciado: "A campanha tem a função de"
+  alternativas:
+    - texto: "punir as famílias que tiram os filhos da escola."
+      erro: "Extrapolação: o tom é de ajuda (Te ayudamos), não de punição."
+    - texto: "ajudar famílias a matricular na escola crianças e jovens que estão fora dela."
+      certa: true
+    - texto: "anunciar o fechamento de escolas perto de casa."
+      erro: "Inversão: a campanha oferece vaga perto de casa (una vacante cerca de tu casa)."
+    - texto: "oferecer emprego a jovens de 17 anos."
+      erro: "Vacante, aqui, é vaga na escola, não emprego."
+    - texto: "vender material escolar por telefone."
+      erro: "O telefone é para pedir ajuda com a vaga. Nada é vendido."
+  explicacao: "Pergunta ao leitor, instituição que assina (Secretaría de Educación) e oferta de ajuda: é campanha. \"Llamá\" é o imperativo com vos (ligue), típico do espanhol rioplatense."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-04
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Somos de maíz, decía mi abuela,
+    y lo decía en serio.
+    En la tortilla de la mañana
+    estaba la milpa, la lluvia, el abuelo,
+    y estábamos nosotros, todavía.
+  enunciado: "Nos versos, a tortilha de milho representa"
+  alternativas:
+    - texto: "um alimento barato, comido só pelos pobres."
+      erro: "Extrapolação: o poema não fala de preço nem de classe social."
+    - texto: "uma receita que a avó queria ensinar."
+      erro: "Redução: a tortilha não é tratada como receita, e sim como algo que carrega a família e a terra."
+    - texto: "uma comida que a família deixou de comer."
+      erro: "Todavía é \"ainda\": \"estábamos nosotros, todavía\", ainda estávamos ali."
+    - texto: "a ligação da família com a terra, os antepassados e a própria identidade."
+      certa: true
+    - texto: "uma crítica à plantação de milho."
+      erro: "Milpa (a roça de milho) aparece com carinho, como parte da família, não como alvo de crítica."
+  explicacao: "\"Somos de maíz\": somos de milho. Na tortilha estão a milpa (a roça de milho), a chuva, o avô e \"nós, ainda\" (todavía). O alimento representa a terra, os antepassados e a identidade da família (H8)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-05
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Las aplicaciones de reparto prometen ingresos rápidos. Sin embargo, el repartidor paga la moto, la gasolina y el
+    celular, y no tiene seguro si sufre un accidente. Lo que parece libertad es, muchas veces, riesgo sin protección.
+  enunciado: "O autor do texto"
+  alternativas:
+    - texto: "aponta que o trabalho nos aplicativos transfere custos e riscos para o entregador."
+      certa: true
+    - texto: "elogia os aplicativos pela renda rápida e pela liberdade."
+      erro: "Essa é a promessa que o autor rebate com Sin embargo."
+    - texto: "afirma que os aplicativos pagam a moto e a gasolina."
+      erro: "Inversão: quem paga é o entregador (el repartidor paga)."
+    - texto: "defende que os entregadores trabalhem sem celular."
+      erro: "O celular aparece como um custo do entregador, não como algo a dispensar."
+    - texto: "informa que todos os entregadores sofrem acidentes."
+      erro: "Extrapolação: o texto diz que ele não tem seguro \"se\" (si) sofrer um acidente."
+  explicacao: "Antes do Sin embargo, a promessa (renda rápida). Depois, a crítica: o entregador paga moto, gasolina e celular e não tem seguro. O fecho resume: o que parece liberdade é, muitas vezes, risco sem proteção."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-06
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No faltan médicos en el país, sino médicos dispuestos a trabajar lejos de las grandes ciudades. Por eso algunas
+    regiones esperan meses por una consulta.
+  enunciado: "Segundo o texto, a demora nas consultas de algumas regiões se deve"
+  alternativas:
+    - texto: "à falta de médicos no país inteiro."
+      erro: "Inversão: \"No faltan médicos en el país\" nega essa ideia."
+    - texto: "ao excesso de pacientes nas grandes cidades."
+      erro: "Extrapolação: o texto não fala de excesso de pacientes."
+    - texto: "ao fechamento dos hospitais regionais."
+      erro: "Nenhum fechamento é citado."
+    - texto: "à falta de médicos dispostos a trabalhar longe das grandes cidades."
+      certa: true
+    - texto: "à preferência dos pacientes por consultas na capital."
+      erro: "O texto fala da escolha dos médicos, não dos pacientes."
+  explicacao: "\"No faltan médicos..., sino médicos dispuestos a trabajar lejos\": não faltam médicos, mas sim médicos dispostos a trabalhar longe. \"Por eso\" (por isso) liga essa causa à espera de meses."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-07
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Dejé el taller de mi padre para estudiar Derecho. Hoy trabajo en un estudio de abogados, pero los sábados vuelvo
+    al taller. Allí aprendí que todo lo que se rompe se puede arreglar, si uno tiene paciencia.
+  enunciado: "O narrador conta que"
+  alternativas:
+    - texto: "continua indo à oficina do pai aos sábados, onde aprendeu a ter paciência."
+      certa: true
+    - texto: "abandonou de vez a oficina do pai."
+      erro: "Inversão: \"los sábados vuelvo al taller\", aos sábados volto à oficina."
+    - texto: "trabalha num estúdio de gravação."
+      erro: "\"Estudio de abogados\" é escritório de advocacia, não estúdio de gravação."
+    - texto: "estuda para ser mecânico."
+      erro: "Ele estudou Direito (Derecho). A oficina é do pai."
+    - texto: "acha que nem tudo que quebra pode ser consertado."
+      erro: "Inversão: \"todo lo que se rompe se puede arreglar\", tudo o que quebra pode ser consertado."
+  explicacao: "Taller é oficina (aqui, a do pai). Estudio de abogados é escritório de advocacia. \"Los sábados vuelvo al taller\": aos sábados volto à oficina. A lição: tudo o que quebra se conserta, com paciência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-08
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Sinopsis: En un pueblo de pescadores, una empresa promete empleo para todos si se construye un puerto. Rosa,
+    la única pescadora del lugar, descubre que el puerto va a destruir los manglares donde se crían los peces. El
+    pueblo se divide entre el trabajo de hoy y la pesca de mañana.
+  enunciado: "Relacionando os fatos da sinopse, o conflito central do filme está"
+  alternativas:
+    - texto: "na briga entre Rosa e os outros pescadores pela liderança."
+      erro: "Extrapolação: não há disputa por liderança. A divisão é sobre o porto."
+    - texto: "na falta de peixes desde o começo da história."
+      erro: "Os peixes ainda existem: o risco é o porto destruir o manguezal onde eles se criam."
+    - texto: "na decisão da empresa de desistir do porto."
+      erro: "Nada indica desistência. A empresa promete emprego se o porto for construído."
+    - texto: "no desemprego causado pela pesca."
+      erro: "Inversão: o emprego é a promessa do porto; a pesca é o que está ameaçado."
+    - texto: "na escolha entre o emprego prometido pelo porto e a preservação do manguezal que sustenta a pesca."
+      certa: true
+  explicacao: "A sinopse apresenta a promessa (empleo para todos), a descoberta de Rosa (o porto vai destruir os manguezais, manglares, onde os peixes se criam) e o conflito: \"el trabajo de hoy y la pesca de mañana\" (o trabalho de hoje e a pesca de amanhã)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-09
+  tema: "Espanhol: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-espanhol-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    En mi escuela de Cochabamba, el himno se cantaba en castellano. En la casa, mi madre me cantaba en quechua.
+    Durante años creí que una lengua era para estudiar y la otra para querer. Ahora doy clases en las dos, y mis
+    alumnos aprenden matemáticas también en la lengua de sus abuelos.
+  enunciado: "O texto mostra que o narrador"
+  alternativas:
+    - texto: "considera o quéchua uma língua apenas para a vida doméstica."
+      erro: "Essa era a crença antiga (Durante años creí). Hoje ele ensina nas duas línguas."
+    - texto: "proibiu o castelhano nas suas aulas."
+      erro: "Inversão: ele dá aulas nas duas (doy clases en las dos)."
+    - texto: "superou a separação entre as línguas e leva o quéchua também para o ensino."
+      certa: true
+    - texto: "esqueceu as canções que a mãe cantava."
+      erro: "Extrapolação: nada indica esquecimento."
+    - texto: "acha que matemática só pode ser ensinada em castelhano."
+      erro: "É o contrário: os alunos aprendem matemática também em quéchua (la lengua de sus abuelos)."
+  explicacao: "\"Durante años creí que una lengua era para estudiar y la otra para querer\" (durante anos acreditei que uma língua era para estudar e a outra para amar). \"Ahora doy clases en las dos\" (agora dou aulas nas duas): a separação ficou para trás."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-esp-prova-10
+  tema: "Espanhol: conectivos e marcadores"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-espanhol-conectivos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Aunque la ciudad tiene cada vez más ciclovías, apenas hay estacionamientos para bicicletas en las estaciones de
+    tren. Así que quien vive lejos no puede combinar los dos transportes. Una ciclovía que termina en la nada no es
+    una solución, sino una foto.
+  enunciado: "O autor critica"
+  alternativas:
+    - texto: "a construção de ciclovias na cidade."
+      erro: "Redução: ele não é contra as ciclovias. Critica que elas não se ligam ao trem."
+    - texto: "a falta de integração entre as ciclovias e as estações de trem."
+      certa: true
+    - texto: "o excesso de bicicletários nas estações."
+      erro: "Apenas é \"quase não\": quase não há bicicletários. Inversão."
+    - texto: "quem prefere o trem à bicicleta."
+      erro: "Extrapolação: o autor não critica a escolha das pessoas."
+    - texto: "as fotos de ciclistas nas redes sociais."
+      erro: "Palavra-isca: foto. \"Una foto\" é metáfora de obra feita só para aparecer."
+  explicacao: "Aunque (embora) admite o avanço das ciclovias. \"Apenas hay estacionamientos\" (quase não há bicicletários) nas estações. Así que (então) traz a consequência: quem mora longe não combina bicicleta e trem. O sino fecha: uma ciclovia que não leva a lugar nenhum não é solução, mas sim uma foto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

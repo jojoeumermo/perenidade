@@ -1,0 +1,250 @@
+# Exercícios da aula "Verbete, manual, receita, anúncio e campanha" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-cotidiano-01
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-do-cotidiano
+  dificuldade: 1
+  enunciado: "“Alugo quarto p/ moça que trabalha. Perto do metrô. R. das Flores, 12.” Que gênero é esse?"
+  alternativas:
+    - texto: "Verbete"
+      erro: "Verbete define uma palavra ou explica um assunto."
+    - texto: "Anúncio classificado"
+      certa: true
+    - texto: "Receita"
+      erro: "Não há ingredientes nem modo de preparo."
+    - texto: "Notícia"
+      erro: "Não relata um fato; oferece um quarto."
+    - texto: "Resenha"
+      erro: "Não avalia obra nenhuma."
+  explicacao: "Texto curto, abreviado (“p/”, “R.”), que oferece algo e dá o endereço: é o classificado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-02
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-do-cotidiano
+  dificuldade: 1
+  enunciado: "Numa bula de remédio, a parte “Contraindicações” informa:"
+  alternativas:
+    - texto: "o preço do remédio."
+      erro: "A bula não traz preço."
+    - texto: "a história do laboratório."
+      erro: "A bula não conta a história da empresa."
+    - texto: "o sabor do remédio."
+      erro: "Não é disso que trata essa parte."
+    - texto: "em que situações o remédio não deve ser usado."
+      certa: true
+    - texto: "a opinião do médico sobre o remédio."
+      erro: "A bula não traz opinião pessoal."
+  explicacao: "Contraindicação é a situação em que o remédio não deve ser usado (por exemplo, por alergia ou gravidez). É informação essencial de segurança."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-03
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-do-cotidiano
+  dificuldade: 1
+  enunciado: "“Banco (ban.co) s.m. 1. Assento comprido para várias pessoas. 2. Instituição que guarda e empresta dinheiro.” O que os números 1 e 2 mostram?"
+  alternativas:
+    - texto: "Dois sentidos diferentes da mesma palavra."
+      certa: true
+    - texto: "Duas palavras diferentes, escritas de jeitos diferentes."
+      erro: "A palavra é uma só: “banco”, escrita igual."
+    - texto: "O número de sílabas da palavra."
+      erro: "As sílabas aparecem em “ban.co”, não nos números."
+    - texto: "Dois passos de uma instrução."
+      erro: "Verbete não dá instruções; define."
+    - texto: "A ordem em que a palavra foi inventada."
+      erro: "A numeração indica sentidos (acepções), não datas."
+  explicacao: "No verbete, cada número é uma acepção: um sentido da palavra. “Banco” pode ser assento ou instituição financeira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-04
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-generos-do-cotidiano
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Cartaz na porta da cozinha comunitária:
+    ANTES DE ENTRAR
+    1. Prenda o cabelo.
+    2. Lave as mãos até o punho.
+    3. Tire anel e pulseira.
+    Comida segura é cuidado com quem vai comer.
+  enunciado: "A organização do cartaz em passos numerados e com verbos no imperativo tem a função de"
+  alternativas:
+    - texto: "contar a história da cozinha comunitária."
+      erro: "Não há narrativa."
+    - texto: "avaliar a comida servida."
+      erro: "Não há avaliação."
+    - texto: "definir o sentido da palavra “higiene”."
+      erro: "Nenhuma palavra é definida."
+    - texto: "vender produtos de limpeza."
+      erro: "Não há produto à venda."
+    - texto: "orientar, de forma rápida e clara, os cuidados que todos devem tomar antes de entrar."
+      certa: true
+  explicacao: "Passos numerados e imperativos são marcas do texto instrucional. No cartaz, servem para ser lidos depressa e seguidos. A frase final dá a razão dos cuidados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-05
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-do-cotidiano
+  dificuldade: 2
+  enunciado: "Por que, num manual de instruções, a ordem dos passos é importante?"
+  alternativas:
+    - texto: "Porque o manual é um texto literário."
+      erro: "Manual é texto instrucional, não literário."
+    - texto: "Porque os passos estão em ordem alfabética."
+      erro: "A ordem é a da ação, não a do alfabeto."
+    - texto: "Porque trocar a ordem pode levar a um resultado errado ou a um acidente."
+      certa: true
+    - texto: "Porque o manual precisa rimar."
+      erro: "Manual não tem rima."
+    - texto: "Porque a lei proíbe numerar textos."
+      erro: "Não existe essa lei."
+  explicacao: "No texto instrucional, a sequência é a do fazer. Ligar antes de encaixar, por exemplo, pode estragar o aparelho ou machucar alguém."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-06
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-do-cotidiano
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Mutirão (mu.ti.rão) s.m. 1. Trabalho coletivo e gratuito, em que vizinhos se juntam para ajudar alguém ou o lugar
+    onde vivem. 2. No Jardim Esperança: a laje do Seu Zé, batida num sábado, com feijoada no fim e música até tarde.
+  enunciado: "A segunda acepção do verbete se diferencia da primeira porque"
+  alternativas:
+    - texto: "corrige um erro de ortografia da primeira."
+      erro: "Não há erro a corrigir."
+    - texto: "repete a mesma definição com outras palavras."
+      erro: "Ela não define em geral: dá um caso concreto e afetivo."
+    - texto: "define a palavra “laje”."
+      erro: "“Laje” aparece, mas não é definida."
+    - texto: "troca a definição geral por uma cena concreta e afetiva da comunidade, aproximando o verbete da crônica."
+      certa: true
+    - texto: "ensina a fazer uma feijoada."
+      erro: "Não há receita nem passos."
+  explicacao: "A primeira acepção é objetiva, como em qualquer dicionário. A segunda usa a forma do verbete para contar uma cena do bairro, com lugar, pessoa e festa. A forma é de verbete; o efeito é literário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-07
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-generos-do-cotidiano
+  dificuldade: 2
+  enunciado: "Um cartaz de festa junina tem letras grandes, uma fogueira desenhada e só três informações: o quê, quando e onde. Por que tão pouco texto?"
+  alternativas:
+    - texto: "Porque quem fez o cartaz não sabia escrever."
+      erro: "Pouco texto é escolha do gênero, não falta de saber."
+    - texto: "Porque o cartaz é feito para ser lido de longe e depressa, com o essencial."
+      certa: true
+    - texto: "Porque a festa não vai acontecer."
+      erro: "Nada indica isso."
+    - texto: "Porque cartaz não pode ter imagem."
+      erro: "Cartaz costuma ter imagem forte."
+    - texto: "Porque o cartaz é um verbete."
+      erro: "Verbete define palavras; cartaz divulga."
+  explicacao: "O cartaz fica na parede e é visto por quem passa. Letra grande, imagem e o essencial (o quê, quando, onde) cumprem essa finalidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-08
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 21
+  objeto: lin-texto-generos-do-cotidiano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    MANUAL DE USO DO TRABALHADOR (versão da empresa)
+    1. Chegue antes do horário. Saia depois.
+    2. Não reclame do calor: ele é passageiro, como você.
+    3. Em caso de defeito, procure o RH para substituição.
+  enunciado: "O texto imita um manual de instruções para"
+  alternativas:
+    - texto: "ensinar, de fato, o funcionamento de uma máquina."
+      erro: "Não há máquina. O “aparelho” do manual é o trabalhador."
+    - texto: "anunciar vagas de emprego."
+      erro: "Não há vaga nem contato."
+    - texto: "criticar, com ironia, o tratamento do trabalhador como peça que pode ser trocada."
+      certa: true
+    - texto: "defender que a empresa cuide melhor das máquinas."
+      erro: "A crítica é ao modo como as pessoas são tratadas, não as máquinas."
+    - texto: "explicar o sentido da palavra “trabalhador” num dicionário."
+      erro: "Não há verbete."
+  explicacao: "A forma do manual (título, passos, imperativos) é usada para falar de gente. “Defeito” e “substituição” tratam o trabalhador como peça. A distância entre a forma e o assunto cria a ironia e a crítica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-09
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-do-cotidiano
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Bolo de fubá da Vó Nena
+    Ingredientes: 2 xícaras de fubá, 1 xícara de açúcar, 3 ovos, 1 copo de leite, meio copo de óleo, 1 colher de fermento.
+    Modo de preparo: bata tudo no liquidificador, menos o fermento. Misture o fermento com a colher, devagar. Asse em forno
+    médio. A Vó dizia: "Não abra o forno antes dos trinta minutos, que bolo também tem vergonha."
+  enunciado: "A frase atribuída à Vó Nena, no fim da receita,"
+  alternativas:
+    - texto: "substitui as quantidades dos ingredientes."
+      erro: "As quantidades já foram dadas na lista."
+    - texto: "transforma a receita num texto de opinião sobre culinária."
+      erro: "A frase dá um conselho com graça, mas a receita continua instrucional."
+    - texto: "contradiz o modo de preparo anterior."
+      erro: "Ela completa: diz quando não abrir o forno."
+    - texto: "mostra que a receita é um anúncio de padaria."
+      erro: "Não há venda nem contato."
+    - texto: "acrescenta uma instrução com humor e afeto, marcando a origem familiar da receita."
+      certa: true
+  explicacao: "A frase dá uma instrução real (não abrir o forno antes de 30 minutos), com uma personificação engraçada (“bolo tem vergonha”) e a voz da avó. O gênero continua sendo receita, com marca de memória familiar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-cotidiano-10
+  tema: "Verbete, manual, receita, anúncio e campanha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-do-cotidiano
+  dificuldade: 3
+  enunciado: "O classificado de jornal virou o anúncio no grupo de mensagens e no aplicativo de vendas. O que isso mostra sobre os gêneros?"
+  alternativas:
+    - texto: "Que os gêneros mudam com o tempo e com o meio, mas mantêm uma forma reconhecível."
+      certa: true
+    - texto: "Que os gêneros nunca mudam."
+      erro: "Inversão: o exemplo mostra justamente uma mudança."
+    - texto: "Que o classificado deixou de existir."
+      erro: "Ele mudou de suporte, mas continua: curto, direto, oferecendo algo."
+    - texto: "Que só os gêneros literários mudam."
+      erro: "O classificado não é literário e mudou."
+    - texto: "Que a internet não tem gêneros."
+      erro: "A internet tem muitos gêneros: postagem, comentário, meme, anúncio."
+  explicacao: "Bakhtin chamou os gêneros de formas “relativamente estáveis”. O classificado mudou de suporte (do jornal para o celular), mas ainda é reconhecível: curto, com o que se oferece e um contato."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

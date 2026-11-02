@@ -1,0 +1,247 @@
+# Exercícios da aula "Artigo de opinião, editorial, carta aberta e resenha" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-opiniao-01
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-generos-opinativos
+  dificuldade: 1
+  enunciado: "Qual é a diferença principal entre o artigo de opinião e o editorial?"
+  alternativas:
+    - texto: "O artigo é sempre mais curto."
+      erro: "O tamanho varia nos dois. A diferença está em quem fala."
+    - texto: "O editorial não tem opinião."
+      erro: "O editorial é opinativo: é a posição do veículo."
+    - texto: "O artigo tem um autor com nome; o editorial é a voz do próprio veículo."
+      certa: true
+    - texto: "O artigo só fala de cultura."
+      erro: "Artigo de opinião trata de qualquer tema atual."
+    - texto: "O editorial é escrito pelos leitores."
+      erro: "O que os leitores escrevem é a carta do leitor."
+  explicacao: "Os dois defendem uma tese. O artigo é assinado por uma pessoa, que responde pelo texto. O editorial expressa a posição da empresa e costuma vir sem assinatura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-02
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-opinativos
+  dificuldade: 1
+  enunciado: "Em “Talvez o novo horário do posto ajude quem trabalha”, a palavra “talvez” indica:"
+  alternativas:
+    - texto: "um grau de dúvida de quem escreve."
+      certa: true
+    - texto: "uma certeza absoluta."
+      erro: "Inversão: “talvez” marca o contrário da certeza."
+    - texto: "uma ordem ao leitor."
+      erro: "Não há imperativo nem ordem."
+    - texto: "o lugar onde fica o posto."
+      erro: "“Talvez” não indica lugar."
+    - texto: "o tempo em que o fato aconteceu."
+      erro: "“Talvez” não indica tempo; indica o grau de certeza."
+  explicacao: "“Talvez” é um modalizador: mostra o grau de certeza de quem escreve. Modalizadores são marcas de ponto de vista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-03
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-generos-opinativos
+  dificuldade: 1
+  enunciado: "Um texto apresenta um disco novo, comenta as músicas e conclui que “é o melhor trabalho da cantora, apesar de duas faixas fracas”. Que gênero é esse?"
+  alternativas:
+    - texto: "Notícia"
+      erro: "A notícia relata, sem avaliar. Aqui há juízo sobre a obra."
+    - texto: "Editorial"
+      erro: "Editorial é a posição do veículo sobre um tema público."
+    - texto: "Anúncio"
+      erro: "O anúncio só elogia para vender; não aponta faixas fracas."
+    - texto: "Resenha"
+      certa: true
+    - texto: "Verbete"
+      erro: "Verbete define um termo."
+  explicacao: "Apresentar a obra e avaliá-la, com pontos fortes e fracos, é o que define a resenha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-04
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-generos-opinativos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Senhor Governador,
+    Nós, trabalhadoras e trabalhadores das cozinhas das escolas estaduais, vimos a público pedir a revisão do valor da
+    merenda por aluno. Com o preço do feijão e do óleo, o dinheiro de hoje compra menos do que comprava há dois anos.
+    Criança com fome não aprende. Pedimos uma reunião ainda este mês.
+    Assinam: sindicato da categoria e doze associações de pais.
+  enunciado: "As marcas do texto permitem identificá-lo como uma carta aberta porque ele"
+  alternativas:
+    - texto: "narra uma história inventada sobre uma escola."
+      erro: "Não há narrativa ficcional. É um pedido real."
+    - texto: "informa a receita da merenda escolar."
+      erro: "Não há receita nem instruções."
+    - texto: "expressa só a opinião do jornal que o publicou."
+      erro: "Quem fala são os trabalhadores e associações, não um jornal."
+    - texto: "avalia uma obra artística."
+      erro: "Avaliar obra é da resenha."
+    - texto: "se dirige a uma autoridade, mas é tornado público, com reivindicação clara e assinatura coletiva."
+      certa: true
+  explicacao: "Vocativo para uma autoridade (“Senhor Governador”), “vimos a público”, argumento, pedido e assinatura de várias entidades: são as marcas da carta aberta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-05
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-opinativos
+  dificuldade: 2
+  enunciado: "“Até quando os moradores vão esperar pelo asfalto prometido em três eleições?” Num artigo de opinião, essa pergunta funciona como:"
+  alternativas:
+    - texto: "pedido de informação a um especialista."
+      erro: "Quem escreve não espera resposta; já tem posição."
+    - texto: "pergunta retórica, que reforça a crítica sem esperar resposta."
+      certa: true
+    - texto: "dado estatístico sobre o bairro."
+      erro: "A pergunta não traz dado medido; “três eleições” serve à crítica."
+    - texto: "trecho neutro de notícia."
+      erro: "A pergunta tem juízo: “prometido” e “até quando” mostram crítica."
+    - texto: "instrução para o leitor."
+      erro: "Não há passo nem ordem."
+  explicacao: "A pergunta retórica não espera resposta. Ela reforça a tese (a espera é longa demais) e chama o leitor a concordar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-06
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-opinativos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Carta do leitor: "A reportagem de domingo sobre o novo terminal de ônibus esqueceu um detalhe: ele foi construído
+    longe dos bairros que mais usam o transporte. Quem mora no Jardim Primavera vai andar vinte minutos a mais até o
+    terminal. Faltou ouvir quem pega o ônibus."
+  enunciado: "Em relação à reportagem que comenta, o leitor"
+  alternativas:
+    - texto: "aponta uma falha e acrescenta um ponto de vista que, segundo ele, ficou de fora."
+      certa: true
+    - texto: "concorda inteiramente com a reportagem e a elogia."
+      erro: "Ele diz que a reportagem “esqueceu um detalhe” e que “faltou ouvir”: é crítica."
+    - texto: "corrige a data da inauguração do terminal."
+      erro: "Ele não fala de data."
+    - texto: "anuncia a construção de outro terminal."
+      erro: "Nenhum novo terminal é anunciado."
+    - texto: "pede que o jornal deixe de publicar reportagens."
+      erro: "Ele pede mais vozes, não menos reportagem. É extrapolação."
+  explicacao: "A carta do leitor responde a um texto publicado. Aqui, aponta o que faltou (a distância para os bairros e a voz de quem usa o ônibus)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-07
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-generos-opinativos
+  dificuldade: 2
+  enunciado: "Saber que um texto é um editorial ajuda o leitor a:"
+  alternativas:
+    - texto: "ter certeza de que o texto é neutro."
+      erro: "Editorial é opinativo por definição. Não é neutro."
+    - texto: "saber o nome do autor."
+      erro: "O editorial costuma vir sem assinatura."
+    - texto: "descobrir a receita de um prato."
+      erro: "Isso é texto instrucional."
+    - texto: "confirmar que se trata de uma notícia."
+      erro: "Editorial não é notícia: tem tese."
+    - texto: "perceber que lê a posição de uma empresa de comunicação, que tem interesses próprios."
+      certa: true
+  explicacao: "O editorial é a voz do veículo. Saber disso ajuda a ler criticamente: a posição de uma empresa tem interesses, como qualquer outra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-08
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-opinativos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Textos originais do Instituto Lúcia.
+    Texto I: "O aplicativo trouxe renda a quem estava desempregado. É uma porta de entrada, não um destino."
+    Texto II: "O aplicativo virou o destino de quem não acha outra porta. Renda sem direito é só sobrevivência."
+  enunciado: "Os dois textos tratam do mesmo tema e"
+  alternativas:
+    - texto: "concordam que o aplicativo é a melhor forma de trabalho."
+      erro: "Nenhum dos dois diz isso. O II é claramente crítico."
+    - texto: "usam a mesma imagem para dizer exatamente a mesma coisa."
+      erro: "Usam a mesma imagem (porta, destino) para dizer coisas opostas."
+    - texto: "retomam a mesma imagem (porta e destino) para sustentar avaliações diferentes do trabalho por aplicativo."
+      certa: true
+    - texto: "apresentam dados de pesquisa sobre a renda dos trabalhadores."
+      erro: "Nenhum dos dois traz número."
+    - texto: "são notícias, pois relatam fatos sem opinião."
+      erro: "Os dois têm tese: são opinativos."
+  explicacao: "O Texto I vê o aplicativo como passagem (“porta de entrada”). O II responde invertendo a imagem: virou “destino” de quem não tem outra porta. Mesmo tema, mesma imagem, avaliações opostas: é a comparação de pontos de vista da H22."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-09
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 23
+  objeto: lin-texto-generos-opinativos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Sou merendeira há dezoito anos. Já cozinhei com fogão quebrado, com gás no fim e com feijão faltando. Por isso digo,
+    com a autoridade de quem mexe a panela: o cardápio escolar não pode ser decidido só no escritório. Quem cozinha
+    precisa estar na mesa onde se decide.
+  enunciado: "Para dar força à sua tese, a autora se apoia principalmente"
+  alternativas:
+    - texto: "em dados de uma pesquisa nacional sobre merenda."
+      erro: "Não há pesquisa nem número de pesquisa; “dezoito anos” é a experiência dela."
+    - texto: "na própria experiência de trabalho, que lhe dá credibilidade para falar do tema."
+      certa: true
+    - texto: "na opinião do diretor da escola."
+      erro: "Nenhum diretor é citado."
+    - texto: "na ameaça de greve das merendeiras."
+      erro: "Não há ameaça no texto."
+    - texto: "na comparação com escolas de outros países."
+      erro: "Não há comparação com outros lugares."
+  explicacao: "Primeira pessoa, tempo de serviço e situações vividas constroem a credibilidade de quem fala (o ethos). Ela mesma diz: “com a autoridade de quem mexe a panela”."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-opiniao-10
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-generos-opinativos
+  dificuldade: 3
+  enunciado: "Um texto resume em dez linhas toda a história de um romance, sem dizer se ele é bom ou ruim. Por que ele não é uma resenha?"
+  alternativas:
+    - texto: "Porque resenha não pode falar da história."
+      erro: "A resenha fala da obra, sim. O que falta aqui é outra coisa."
+    - texto: "Porque resenha tem de ter mais de dez linhas."
+      erro: "Não há tamanho mínimo. O que define a resenha é avaliar."
+    - texto: "Porque resenha só trata de filmes."
+      erro: "Há resenha de livro, filme, disco, peça, exposição."
+    - texto: "Porque falta a avaliação da obra, com razões; sem ela, o texto é um resumo."
+      certa: true
+    - texto: "Porque o texto está em terceira pessoa."
+      erro: "Resenha pode estar em terceira pessoa. O que falta é o juízo."
+  explicacao: "Resumo condensa o conteúdo. Resenha descreve e avalia. Sem o juízo de valor sustentado, o texto é resumo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

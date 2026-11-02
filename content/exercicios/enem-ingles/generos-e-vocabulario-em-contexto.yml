@@ -1,0 +1,279 @@
+# Exercícios da aula "Inglês: gêneros mais frequentes e vocabulário em contexto" (trilha enem-ingles).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-ing-generos-01
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    SAVE WATER. EVERY DROP COUNTS.
+    Close the tap while you brush your teeth.
+    City Water Department
+  enunciado: "O texto tem a função de"
+  alternativas:
+    - texto: "informar o preço da conta de água."
+      erro: "Não há preço nem conta no texto. O verbo de ordem (save, close) mostra um pedido, não uma informação de cobrança."
+    - texto: "convencer o leitor a economizar água."
+      certa: true
+    - texto: "anunciar a falta de água na cidade."
+      erro: "O texto não fala de falta (shortage). Pede economia: \"Every drop counts\", cada gota conta."
+    - texto: "ensinar a escovar os dentes corretamente."
+      erro: "Escovar os dentes é só o momento do exemplo. O pedido é fechar a torneira (close the tap)."
+    - texto: "vender produtos de higiene."
+      erro: "Quem assina é um departamento público de água, não uma loja. Nada é vendido."
+  explicacao: "É uma campanha: frase de efeito, verbo no imperativo (Save, Close) e um órgão público que assina. \"Save water\" é economize água; \"Close the tap\" é feche a torneira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-02
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Mrs. Silva runs a small sewing shop in her garage. She fixes uniforms for the whole neighborhood.
+  enunciado: "No texto, o verbo \"runs\" indica que a senhora Silva"
+  alternativas:
+    - texto: "corre todos os dias até a garagem."
+      erro: "Run quer dizer correr em outros contextos. Aqui o objeto é um negócio (a sewing shop, uma oficina de costura)."
+    - texto: "foge do bairro com os uniformes."
+      erro: "Nada no texto fala de fuga. Ela conserta (fixes) os uniformes do bairro."
+    - texto: "compra uniformes para revender."
+      erro: "Fixes quer dizer conserta. Não há compra nem revenda."
+    - texto: "administra uma pequena oficina de costura."
+      certa: true
+    - texto: "aluga a garagem para uma costureira."
+      erro: "Quem conserta os uniformes é ela mesma (She fixes). Ela não aluga o espaço para outra pessoa."
+  explicacao: "Com um negócio como objeto, run quer dizer administrar, tocar. \"Runs a small sewing shop\": toca uma pequena oficina de costura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-03
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 1
+  texto_base: |
+    Learning a new language is hard for adults who work all day. Some nights you will be tired. Don't give up:
+    ten minutes a day is better than nothing.
+  enunciado: "A expressão \"Don't give up\" é um conselho para o leitor"
+  alternativas:
+    - texto: "não desistir de estudar."
+      certa: true
+    - texto: "não dar aulas à noite."
+      erro: "Give up não é \"dar\". É um phrasal verb com sentido próprio: desistir."
+    - texto: "não trabalhar o dia todo."
+      erro: "O trabalho aparece como motivo do cansaço, não como algo a evitar."
+    - texto: "não estudar mais de dez minutos."
+      erro: "Dez minutos é o mínimo sugerido (better than nothing, melhor que nada), não um limite."
+    - texto: "não subir de nível tão rápido."
+      erro: "Up parece \"para cima\", mas em give up a partícula muda o verbo inteiro. Não se fala em nível."
+  explicacao: "Give up é desistir. O texto reconhece o cansaço de quem trabalha e aconselha: não desista, dez minutos por dia é melhor do que nada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-04
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Tirinha em três quadros.
+    Quadro 1: um homem diz ao filho: "Tonight, no phones at dinner. Family time!"
+    Quadro 2: a família janta em silêncio, todos olhando para os pratos.
+    Quadro 3: o pai cochicha: "Can someone send me a message? I don't know how to start a conversation."
+  enunciado: "O humor da tirinha nasce do fato de que"
+  alternativas:
+    - texto: "o filho desobedece à regra e usa o celular."
+      erro: "No segundo quadro todos estão sem celular, olhando para os pratos. Quem quebra a expectativa é o pai."
+    - texto: "a família não gosta da comida servida."
+      erro: "O silêncio não é por causa da comida. O pai explica no fim: ele não sabe começar uma conversa."
+    - texto: "o celular do pai está sem bateria."
+      erro: "Não há bateria no texto. O pai pede uma mensagem porque não sabe puxar assunto."
+    - texto: "a família decide jantar fora de casa."
+      erro: "O jantar acontece em casa, à mesa. Nada indica mudança de lugar."
+    - texto: "o próprio pai, autor da regra, só sabe conversar pelo celular."
+      certa: true
+  explicacao: "A tirinha monta a regra no primeiro quadro (Tonight, no phones: hoje à noite, nada de celular) e a quebra no último: o pai pede \"alguém pode me mandar uma mensagem? Eu não sei começar uma conversa\". A crítica é à dependência do celular."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-05
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    LOCAL BUS STRIKE ENDS AFTER THREE DAYS
+    Drivers and the transport company reached an agreement on Monday night. Buses return to the streets today, with
+    a 6% salary increase for workers and new rest breaks between trips.
+  enunciado: "Pelo gênero e pelo conteúdo, o texto"
+  alternativas:
+    - texto: "convoca os motoristas para uma nova greve."
+      erro: "Ends quer dizer termina. A manchete anuncia o fim da greve, não uma nova."
+    - texto: "critica os trabalhadores por pararem os ônibus."
+      erro: "A notícia relata o acordo sem opinar. Não há adjetivos de julgamento sobre os motoristas."
+    - texto: "noticia o fim de uma greve e o acordo alcançado."
+      certa: true
+    - texto: "anuncia o aumento do preço da passagem."
+      erro: "Os 6% são aumento de salário dos trabalhadores (salary increase), não da passagem."
+    - texto: "ensina como se organizar uma greve."
+      erro: "O texto relata um fato com data (Monday night) e resultado. Não é um manual."
+  explicacao: "Manchete em maiúsculas, fato recente, data e números: é notícia. \"Strike ends\" é \"greve termina\"; \"reached an agreement\" é \"chegaram a um acordo\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-06
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 5
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    The book fair in the main square will have stands from small publishers and a free reading corner for children.
+    Writers from the region will sign books on Saturday afternoon.
+  enunciado: "No texto, a palavra \"fair\" se refere a"
+  alternativas:
+    - texto: "um evento com bancas de livros na praça."
+      certa: true
+    - texto: "um preço justo cobrado pelos livros."
+      erro: "Fair também quer dizer justo, mas em \"book fair\", com stands (bancas), quer dizer feira."
+    - texto: "uma biblioteca nova da cidade."
+      erro: "O texto fala de bancas de editoras (stands from small publishers) numa praça. Biblioteca seria library."
+    - texto: "um concurso de escritores da região."
+      erro: "Os escritores vão autografar livros (sign books). Não há concurso."
+    - texto: "uma loja que fica aberta só no sábado."
+      erro: "O sábado é só o dia dos autógrafos. E o lugar é a praça, com várias bancas."
+  explicacao: "Fair tem mais de um sentido. Em \"book fair\", com bancas de editoras na praça, é feira do livro. Em \"a fair price\", seria preço justo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-07
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    In my grandmother's kitchen in Lagos, jollof rice was never just rice.
+    It was Sunday, it was music, it was the neighbors at the door.
+    When I cook it in a cold apartment far away,
+    the smell opens the door again.
+  enunciado: "Nesses versos, o prato jollof rice representa para o eu lírico"
+  alternativas:
+    - texto: "uma receita difícil de preparar fora da Nigéria."
+      erro: "O texto não fala de dificuldade. Ele cozinha o prato longe de casa e isso traz lembranças."
+    - texto: "um costume que ele quer esquecer."
+      erro: "É o contrário: o cheiro \"abre a porta de novo\" (opens the door again), traz a memória de volta."
+    - texto: "a memória afetiva e cultural da família e da comunidade."
+      certa: true
+    - texto: "uma crítica à comida dos vizinhos."
+      erro: "Os vizinhos aparecem na porta, como parte da festa de domingo. Não há crítica."
+    - texto: "a vontade de abrir um restaurante em outro país."
+      erro: "Não há restaurante no texto. Ele cozinha num apartamento frio, longe (far away)."
+  explicacao: "\"Was never just rice\": nunca foi só arroz. O prato é domingo, música e vizinhos. Longe de casa, \"the smell opens the door again\": o cheiro abre a porta de novo. É a memória de uma cultura (H8)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-08
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    I think schools should open their sports courts on weekends. In many neighborhoods there is no park, no club and
+    no safe place to play. The courts are already there, closed and empty. Opening them costs little and gives young
+    people a reason to stay together and stay safe.
+  enunciado: "O texto pertence a um gênero de opinião porque o autor"
+  alternativas:
+    - texto: "relata um fato ocorrido numa data precisa."
+      erro: "Não há data nem fato único. Relatar fato com data é marca de notícia."
+    - texto: "descreve as regras de um esporte."
+      erro: "O esporte é só o uso das quadras. Não há regras de jogo no texto."
+    - texto: "apresenta instruções passo a passo para abrir uma quadra."
+      erro: "Não há passos numerados nem ordens ao leitor. Há argumentos."
+    - texto: "conta uma história com personagens e conflito."
+      erro: "Não há personagens nem enredo. O texto argumenta sobre uma proposta."
+    - texto: "defende uma proposta com argumentos, a partir de \"I think\"."
+      certa: true
+  explicacao: "\"I think schools should open...\": eu acho que as escolas deveriam abrir. Primeira pessoa, verbo de opinião, proposta (should, deveriam) e argumentos (não há parque, as quadras já existem, custa pouco). É texto de opinião."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-09
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 8
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    In Jamaica, people speak English at school and in the news, but at home and in the market many speak Patois,
+    a language born from English and from West African languages. For a long time Patois was seen as "bad English".
+    Today, poets and musicians write in it with pride.
+  enunciado: "O texto mostra que o Patois jamaicano"
+  alternativas:
+    - texto: "é um inglês errado que deve ser corrigido na escola."
+      erro: "Essa era a visão antiga (\"for a long time\", por muito tempo). O texto mostra que ela mudou."
+    - texto: "passou de língua desvalorizada a expressão artística com orgulho."
+      certa: true
+    - texto: "é falado só por poetas e músicos."
+      erro: "O texto diz que muitos falam Patois em casa e no mercado. Poetas e músicos também escrevem nele."
+    - texto: "substituiu o inglês nas escolas e no noticiário."
+      erro: "O texto diz o contrário: na escola e no noticiário se fala inglês."
+    - texto: "não tem relação com as línguas da África."
+      erro: "O texto diz que o Patois nasceu do inglês e de línguas da África Ocidental (West African languages)."
+  explicacao: "O contraste está em \"For a long time... was seen as 'bad English'\" (por muito tempo foi visto como \"inglês ruim\") e \"Today, poets and musicians write in it with pride\" (hoje poetas e músicos escrevem nele com orgulho). A H8 pede justamente reconhecer essa diversidade de línguas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-ing-generos-10
+  tema: "Inglês: gêneros e vocabulário em contexto"
+  area: linguagens
+  competencia: 2
+  habilidade: 7
+  objeto: lin-lem-ingles-generos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Cartum: um homem de terno, num escritório vazio, fala ao telefone olhando pela janela uma cidade coberta de
+    fumaça. Legenda: "Good news: our profits are higher than ever. Bad news: we can't see them."
+  enunciado: "A crítica do cartum está no contraste entre"
+  alternativas:
+    - texto: "o terno do homem e o escritório vazio."
+      erro: "O escritório vazio é cenário. O contraste da legenda é entre good news (lucro) e bad news (fumaça)."
+    - texto: "o telefone e a janela."
+      erro: "São objetos da cena. A crítica está no que a legenda liga: lucro alto e cidade poluída."
+    - texto: "as notícias boas e as ruins sobre o mercado de trabalho."
+      erro: "Não se fala de emprego. Profits são lucros, e a notícia ruim é a fumaça que encobre tudo."
+    - texto: "o lucro recorde e a poluição que vem junto com ele."
+      certa: true
+    - texto: "o lucro da empresa e o crescimento da cidade."
+      erro: "A cidade não cresce no desenho: está coberta de fumaça. O contraste é com a poluição."
+  explicacao: "\"Our profits are higher than ever\": nossos lucros estão maiores do que nunca. \"We can't see them\": não conseguimos vê-los, por causa da fumaça. O humor liga as duas notícias: o lucro veio junto com a poluição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,246 @@
+# Exercícios da aula "Literatura afro-brasileira" (trilha enem-linguagens-literatura).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lit-afro-01
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-afro-brasileira
+  dificuldade: 1
+  enunciado: "Quem escreveu Quarto de despejo (1960), diário da vida na favela do Canindé, em São Paulo?"
+  alternativas:
+    - texto: "Conceição Evaristo"
+      erro: "Conceição Evaristo é de outra geração; estreou em livro nos anos 2000. Quarto de despejo é de Carolina."
+    - texto: "Maria Firmina dos Reis"
+      erro: "Maria Firmina escreveu Úrsula, em 1859, no Maranhão."
+    - texto: "Rachel de Queiroz"
+      erro: "Rachel escreveu O quinze, sobre a seca no Ceará."
+    - texto: "Carolina Maria de Jesus"
+      certa: true
+    - texto: "Clarice Lispector"
+      erro: "Clarice escreveu A hora da estrela, um romance, não um diário."
+  explicacao: "Carolina Maria de Jesus, catadora de papel, escreveu em cadernos o dia a dia na favela entre 1955 e 1960. O livro saiu em agosto de 1960."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-02
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-afro-brasileira
+  dificuldade: 1
+  enunciado: "O conceito de \"escrevivência\", de Conceição Evaristo, significa"
+  alternativas:
+    - texto: "a escrita que nasce da vivência, sobretudo de mulheres negras."
+      certa: true
+    - texto: "a escrita feita para sobreviver no mercado editorial."
+      erro: "A palavra junta escrever e vivência, não sobrevivência no mercado."
+    - texto: "a escrita que imita autores europeus."
+      erro: "É o oposto: a escrita parte da experiência própria e coletiva."
+    - texto: "a escrita sem nenhuma ligação com a realidade."
+      erro: "A escrevivência nasce justamente da realidade vivida."
+    - texto: "a escrita automática, sem controle da razão."
+      erro: "Isso é o Surrealismo. Escrevivência é escrita consciente da experiência."
+  explicacao: "Escrevivência junta escrever e vivência. A experiência de mulheres negras, delas e das ancestrais, vira matéria e ponto de vista da escrita."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-03
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-afro-brasileira
+  dificuldade: 1
+  enunciado: "Que lei, de 2003, tornou obrigatório o ensino de história e cultura afro-brasileira nas escolas?"
+  alternativas:
+    - texto: "Lei Áurea"
+      erro: "A Lei Áurea é de 1888 e aboliu a escravidão."
+    - texto: "Lei do Ventre Livre"
+      erro: "A Lei do Ventre Livre é de 1871."
+    - texto: "Lei nº 10.639"
+      certa: true
+    - texto: "Lei de Terras"
+      erro: "A Lei de Terras é de 1850 e tratava da propriedade da terra."
+    - texto: "Lei nº 12.408"
+      erro: "A Lei nº 12.408, de 2011, trata de grafite e pichação."
+  explicacao: "A Lei nº 10.639/2003 mudou a LDB e tornou obrigatório o ensino de história e cultura afro-brasileira. Em 2008, a Lei nº 11.645 acrescentou a cultura indígena."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-04
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-afro-brasileira
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O moço da prefeitura veio dizer que a gente precisava ter mais higiene. Achei bonito ele falar.
+    Depois pensei: se ele sabe tanto de higiene, por que não manda a água encanada? Quem nunca
+    carregou lata d'água na cabeça fala de limpeza com muita facilidade.
+    (Texto original do Instituto Lúcia, escrito para esta questão à maneira de um diário.)
+  enunciado: "Na reflexão da narradora, o elogio inicial ao funcionário"
+  alternativas:
+    - texto: "mostra que ela concorda com tudo o que ele diz."
+      erro: "Ela elogia e logo depois questiona. O elogio é o começo da crítica."
+    - texto: "é sincero e encerra a reflexão."
+      erro: "A reflexão continua depois do elogio e muda de direção."
+    - texto: "revela que ela não entendeu a conversa."
+      erro: "Ela entendeu bem: tanto que devolve a pergunta ao poder público."
+    - texto: "se vira contra ele, porque ela expõe a distância entre o discurso da autoridade e a falta de água encanada."
+      certa: true
+    - texto: "serve para pedir desculpas pela sujeira da favela."
+      erro: "Ela não pede desculpas. Ela mostra quem é responsável pela falta de água."
+  explicacao: "Ela começa elogiando e termina invertendo o discurso: quem cobra higiene não garante água. É o mesmo movimento irônico do trecho de Quarto de despejo que caiu em 2022 (H17: valores que continuam atuais)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-05
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-afro-brasileira
+  dificuldade: 2
+  enunciado: "Pelo critério de Eduardo de Assis Duarte, por que um poema abolicionista escrito por um poeta branco do século 19, cheio de pena dos \"pobres escravos\", não é, sozinho, um exemplo de literatura afro-brasileira?"
+  alternativas:
+    - texto: "Porque não fala da escravidão."
+      erro: "O tema está presente. O que falta é outra coisa."
+    - texto: "Porque foi escrito em português."
+      erro: "A língua não é o problema. A literatura afro-brasileira também é escrita em português."
+    - texto: "Porque é um poema, e a literatura afro-brasileira só tem prosa."
+      erro: "Há muita poesia afro-brasileira, como a de Cadernos Negros."
+    - texto: "Porque é antigo demais."
+      erro: "Úrsula, de Maria Firmina dos Reis, é de 1859 e é literatura afro-brasileira."
+    - texto: "Porque o tema sozinho não basta: falta o ponto de vista de dentro da experiência negra."
+      certa: true
+  explicacao: "Para Duarte, tema, autoria, ponto de vista, linguagem e público funcionam juntos. Olhar de fora, com pena, não é o mesmo que olhar de dentro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-06
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-afro-brasileira
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Meu cabelo não pede licença.
+    Sobe como a fumaça do fogão da minha avó,
+    abre caminho como o facão do meu avô no canavial,
+    e quando o vento passa, ele dança.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "No poema, as comparações com a avó e o avô"
+  alternativas:
+    - texto: "ligam o corpo da eu lírica à história e ao trabalho da família, afirmando uma identidade com orgulho."
+      certa: true
+    - texto: "mostram vergonha do próprio cabelo."
+      erro: "\"Não pede licença\" e \"ele dança\" são afirmações de orgulho, não de vergonha."
+    - texto: "descrevem um padrão de beleza europeu."
+      erro: "O poema afirma o cabelo crespo que sobe e dança, longe do padrão europeu de cabelo liso."
+    - texto: "criticam o trabalho dos avós como atraso."
+      erro: "O trabalho dos avós aparece como força, não como atraso."
+    - texto: "criam imagens de sonho sem ligação com a realidade."
+      erro: "Fogão, facão e canavial são imagens concretas da vida da família."
+  explicacao: "O cabelo é comparado à fumaça do fogão e ao facão no canavial: o corpo carrega a história da família e do trabalho. A identidade negra é afirmada com orgulho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-07
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-afro-brasileira
+  dificuldade: 2
+  enunciado: "Cadernos Negros, lançado em 1978 em São Paulo, é importante porque"
+  alternativas:
+    - texto: "foi a primeira revista da poesia concreta."
+      erro: "A revista da poesia concreta foi a Noigandres, dos anos 1950."
+    - texto: "é uma antologia de autores negros que sai até hoje, alternando poemas e contos."
+      certa: true
+    - texto: "foi um jornal oficial do governo militar."
+      erro: "É uma publicação independente, organizada por escritores negros."
+    - texto: "publicou apenas autores europeus traduzidos."
+      erro: "Publica autoras e autores negros brasileiros."
+    - texto: "foi escrito por um único autor ao longo da vida."
+      erro: "É uma antologia coletiva, com muitos autores a cada volume."
+  explicacao: "Idealizado por Cuti e Hugo Ferreira e depois organizado pelo grupo Quilombhoje, Cadernos Negros abriu espaço para gerações de escritores negros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-08
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-afro-brasileira
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Dizem que minha bisavó desceu do navio sem nome. Deram-lhe um, no porto, como quem marca um saco.
+    Eu tenho o nome que ela não teve. E escrevo, toda noite, os nomes que ela poderia ter tido.
+    (Texto original do Instituto Lúcia, escrito para esta questão.)
+  enunciado: "O trecho constrói uma relação entre passado e presente por meio"
+  alternativas:
+    - texto: "da negação de que a escravidão tenha existido."
+      erro: "O trecho fala do navio e do porto: a escravidão está lá, afirmada."
+    - texto: "da descrição de uma viagem de turismo."
+      erro: "O navio e o porto lembram o tráfico de pessoas escravizadas, não turismo."
+    - texto: "do gesto de escrever nomes, que responde à violência de ter o nome apagado e transforma a escrita em reparação simbólica."
+      certa: true
+    - texto: "da comparação entre a bisavó e um saco, que a narradora aceita como verdade."
+      erro: "A comparação mostra a violência de quem deu o nome. A narradora reage a ela, não a aceita."
+    - texto: "do esquecimento completo da história da família."
+      erro: "É o contrário: a narradora lembra e escreve."
+  explicacao: "Ser nomeada \"como quem marca um saco\" é a violência da escravidão. Escrever os nomes possíveis é responder a ela. A escrita aparece como memória e reparação, ideia central da escrevivência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-09
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 17
+  objeto: lin-literatura-afro-brasileira
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em 1859, uma professora do Maranhão publicou um romance em que uma mulher escravizada, a velha
+    Susana, conta como foi arrancada da família na África e trazida num navio, e diz que nunca deixou de
+    se sentir livre por dentro. O livro ficou quase esquecido por mais de um século.
+    (Texto original do Instituto Lúcia, sobre Úrsula, de Maria Firmina dos Reis.)
+  enunciado: "O esquecimento do livro e a sua redescoberta recente permitem afirmar que"
+  alternativas:
+    - texto: "a obra não tinha qualidade, por isso foi esquecida."
+      erro: "O esquecimento tem a ver com quem escreveu (uma mulher negra, no Maranhão) e com o que contou, não com falta de valor."
+    - texto: "o cânone literário, o conjunto de obras consagradas, também foi formado por exclusões de raça, gênero e região."
+      certa: true
+    - texto: "a escravidão não era tema de nenhum livro no século 19."
+      erro: "Havia outros livros sobre o tema, como os poemas de Castro Alves. O que era raro era o ponto de vista de dentro."
+    - texto: "os leitores de hoje não se interessam por livros antigos."
+      erro: "A redescoberta mostra o contrário: há interesse."
+    - texto: "o livro foi proibido por lei durante cem anos."
+      erro: "O texto fala em esquecimento, não em proibição por lei."
+  explicacao: "Uma mulher negra, longe dos grandes centros, deu voz a uma pessoa escravizada em 1859, e mesmo assim o livro sumiu das histórias da literatura. Perceber isso é ver, na literatura, valores e exclusões que continuam atuais (H17)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lit-afro-10
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-afro-brasileira
+  dificuldade: 3
+  enunciado: "Numa questão, a narradora descreve o próprio corpo como forte, \"violento\", e o liga aos corpos de pessoas escravizadas que chegavam ao porto. Uma alternativa diz que ela \"reproduz um padrão de beleza\". Por que essa alternativa é armadilha?"
+  alternativas:
+    - texto: "Porque o texto não fala de corpo."
+      erro: "O texto fala de corpo o tempo todo. A armadilha é outra."
+    - texto: "Porque toda descrição de corpo é sempre crítica à beleza."
+      erro: "Generalizar não ajuda. É preciso olhar o que este texto faz."
+    - texto: "Porque descrever corpo é proibido no Enem."
+      erro: "Não há essa proibição. Corpo e identidade caem com frequência."
+    - texto: "Porque a narradora fala de outra pessoa, não de si."
+      erro: "A narradora fala do próprio corpo, em primeira pessoa."
+    - texto: "Porque o corpo descrito recusa o padrão e se afirma ligado à memória da escravidão, o oposto de reproduzi-lo."
+      certa: true
+  explicacao: "Força, violência e memória do porto não são o padrão de beleza dominante. O texto afirma uma identidade feita dessas marcas. A alternativa inverte o sentido, uma armadilha comum."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

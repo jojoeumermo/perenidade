@@ -1,0 +1,243 @@
+# Exercícios da aula "Tipos textuais: narrar, descrever, expor, argumentar, instruir" (trilha enem-linguagens-leitura-e-generos).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-lin-tipos-01
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  dificuldade: 1
+  enunciado: "“Ele desceu do ônibus, atravessou a rua correndo e entrou na fábrica um minuto antes do apito.” Que tipo predomina?"
+  alternativas:
+    - texto: "Narração"
+      certa: true
+    - texto: "Descrição"
+      erro: "Descrição mostra como algo é, com o tempo parado. Aqui há ações em sequência."
+    - texto: "Exposição"
+      erro: "Não há explicação de um conhecimento."
+    - texto: "Argumentação"
+      erro: "Não há tese nem razões."
+    - texto: "Instrução"
+      erro: "Não há imperativo nem passos para o leitor."
+  explicacao: "Ações em sequência no pretérito perfeito (“desceu”, “atravessou”, “entrou”) com marca de tempo (“um minuto antes”): é narração."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-02
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  dificuldade: 1
+  enunciado: "Qual destas opções é um GÊNERO textual, e não um tipo?"
+  alternativas:
+    - texto: "Narração"
+      erro: "Narração é tipo: um modo de organizar a sequência."
+    - texto: "Descrição"
+      erro: "Descrição é tipo."
+    - texto: "Bula de remédio"
+      certa: true
+    - texto: "Argumentação"
+      erro: "Argumentação é tipo."
+    - texto: "Injunção"
+      erro: "Injunção (instrução) é tipo."
+  explicacao: "Bula é um texto da vida social, com lugar e função próprios: é gênero. Os tipos são poucos: narração, descrição, exposição, argumentação e injunção."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-03
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  dificuldade: 1
+  enunciado: "“A vacina ensina o sistema de defesa do corpo a reconhecer um vírus antes do contato com a doença.” Que tipo predomina?"
+  alternativas:
+    - texto: "Narração"
+      erro: "Não há personagens nem ações em sequência no tempo."
+    - texto: "Instrução"
+      erro: "Não há imperativo; o texto não manda fazer nada."
+    - texto: "Argumentação"
+      erro: "O texto não defende posição; explica como algo funciona."
+    - texto: "Descrição"
+      erro: "Não mostra como algo é por fora; explica um processo."
+    - texto: "Exposição"
+      certa: true
+  explicacao: "O texto explica um conhecimento, no presente que vale sempre (“ensina”). É exposição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-04
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    A casa de farinha ficava no fim da estrada de terra. Era um galpão de pau a pique, com o forno de barro no meio e o
+    rodo de madeira encostado na parede. O cheiro da mandioca torrada chegava antes da gente.
+  enunciado: "O trecho é predominantemente descritivo porque"
+  alternativas:
+    - texto: "conta uma sequência de ações das personagens."
+      erro: "Não há ações em sequência. O tempo está parado."
+    - texto: "mostra como era o lugar, com detalhes e verbos de estado."
+      certa: true
+    - texto: "defende a preservação das casas de farinha."
+      erro: "Não há tese no trecho."
+    - texto: "ensina a fazer farinha de mandioca."
+      erro: "Não há passos nem imperativo."
+    - texto: "explica cientificamente a torra da mandioca."
+      erro: "Não há explicação técnica."
+  explicacao: "“Ficava”, “era”, adjetivos e detalhes de espaço e cheiro mostram o lugar. É descrição, mesmo no passado: não há ação acontecendo, só o estado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-05
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  dificuldade: 2
+  enunciado: "Uma reportagem descreve um hospital lotado, conta a história de uma paciente e termina defendendo mais verba para a saúde. O que isso mostra?"
+  alternativas:
+    - texto: "Que a reportagem é mal escrita, porque mistura tipos."
+      erro: "Misturar tipos é o normal. Quase todo gênero faz isso."
+    - texto: "Que reportagem é um tipo textual."
+      erro: "Reportagem é gênero; descrição, narração e argumentação são tipos."
+    - texto: "Que o texto não tem tipo nenhum."
+      erro: "Ele tem vários."
+    - texto: "Que um mesmo gênero pode combinar vários tipos a serviço do seu objetivo."
+      certa: true
+    - texto: "Que só a literatura usa narração."
+      erro: "A reportagem também narra."
+  explicacao: "O gênero (reportagem) usa descrição, narração e argumentação. Cada tipo cumpre uma parte do trabalho: mostrar, contar, defender."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-06
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    Em caso de enchente: desligue a chave geral de energia. Coloque documentos e remédios em saco plástico, no alto. Não
+    atravesse ruas alagadas a pé ou de carro. Ligue para a Defesa Civil.
+  enunciado: "O tipo textual que predomina e a sua marca principal são, respectivamente,"
+  alternativas:
+    - texto: "narrativo, pela sequência de fatos passados."
+      erro: "Não há fatos passados; há orientações para o futuro."
+    - texto: "descritivo, pelos adjetivos que caracterizam a enchente."
+      erro: "Quase não há adjetivos; há ordens."
+    - texto: "argumentativo, pela tese sobre as causas das enchentes."
+      erro: "O texto não discute causas."
+    - texto: "expositivo, pela explicação científica das chuvas."
+      erro: "Não explica as chuvas."
+    - texto: "injuntivo, pelos verbos no imperativo que orientam o que fazer."
+      certa: true
+  explicacao: "“Desligue”, “coloque”, “não atravesse”, “ligue”: ordens em sequência para o leitor agir. É o tipo injuntivo (instrucional)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-07
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre um trecho expositivo e um argumentativo?"
+  alternativas:
+    - texto: "O expositivo explica sem tomar posição; o argumentativo defende uma posição com razões."
+      certa: true
+    - texto: "O expositivo é sempre maior."
+      erro: "O tamanho não define o tipo."
+    - texto: "O argumentativo não pode ter dados."
+      erro: "O argumentativo usa dados como prova."
+    - texto: "O expositivo só existe em livros de ciência."
+      erro: "Exposição aparece em notícias, verbetes, cartazes, aulas."
+    - texto: "Não há diferença."
+      erro: "Há: explicar não é defender."
+  explicacao: "Explicar como funciona o SUS é expor. Dizer que o SUS deve receber mais verba, com razões, é argumentar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-08
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    (1) Em 2019, Dona Rosa abriu um brechó na garagem de casa. (2) Hoje, a garagem tem araras de ferro, um espelho
+    grande e um tapete feito de retalhos. (3) Brechó é uma loja que vende roupas e objetos usados, a preço menor.
+    (4) Comprar em brechó, portanto, é bom para o bolso e para o planeta.
+  enunciado: "As frases 1, 2, 3 e 4 são, respectivamente, de tipo"
+  alternativas:
+    - texto: "descritivo, narrativo, argumentativo e expositivo."
+      erro: "A frase 1 conta uma ação (narração) e a 2 mostra o espaço (descrição). A ordem está trocada."
+    - texto: "narrativo, narrativo, expositivo e injuntivo."
+      erro: "A frase 2 não tem ação; descreve. E a 4 não manda fazer: conclui uma tese."
+    - texto: "narrativo, descritivo, expositivo e argumentativo."
+      certa: true
+    - texto: "expositivo, descritivo, narrativo e argumentativo."
+      erro: "A frase 1 é ação no passado (narração), e a 3 define (exposição)."
+    - texto: "argumentativo, descritivo, expositivo e narrativo."
+      erro: "A tese está na frase 4, com “portanto”, não na 1."
+  explicacao: "1 conta uma ação datada (narração). 2 mostra como a garagem é (descrição). 3 define o que é brechó (exposição). 4 tira uma conclusão com “portanto” (argumentação)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-09
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto original do Instituto Lúcia.
+    O galpão era escuro e quente. As máquinas de costura, enfileiradas, quase encostavam umas nas outras. Não havia
+    janela. No fundo, um ventilador velho girava devagar, sem dar conta do calor de quarenta pessoas.
+  enunciado: "Num texto sobre condições de trabalho, essa descrição tem a função de"
+  alternativas:
+    - texto: "ensinar a montar uma oficina de costura."
+      erro: "Não há passos nem imperativo."
+    - texto: "narrar a história de vida de uma costureira."
+      erro: "Não há personagem individual nem ações em sequência."
+    - texto: "definir, de modo técnico, o que é uma máquina de costura."
+      erro: "Não há definição."
+    - texto: "fazer o leitor perceber, pelos detalhes, as condições precárias do trabalho, sem precisar dizê-lo diretamente."
+      certa: true
+    - texto: "anunciar a venda de máquinas usadas."
+      erro: "Não há anúncio."
+  explicacao: "Escuro, quente, sem janela, máquinas apertadas, um ventilador fraco para quarenta pessoas. A descrição monta a cena e deixa o leitor concluir: a descrição pode argumentar sem dizer a tese."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-tipos-10
+  tema: "Tipos textuais"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-tipos-textuais
+  dificuldade: 3
+  enunciado: "“Antigamente, o rio era limpo e a gente pescava ali.” Por que esse trecho tende mais à descrição do que à narração, mesmo estando no passado?"
+  alternativas:
+    - texto: "Porque está no passado, e todo passado é descrição."
+      erro: "A narração também está no passado. O que importa é se há ação em sequência."
+    - texto: "Porque mostra um estado e um costume repetido, sem uma sequência de ações únicas que avancem no tempo."
+      certa: true
+    - texto: "Porque tem a palavra “rio”."
+      erro: "O assunto não define o tipo."
+    - texto: "Porque defende a limpeza do rio."
+      erro: "O trecho não defende nada explicitamente."
+    - texto: "Porque é uma instrução para pescar."
+      erro: "Não há imperativo."
+  explicacao: "O pretérito imperfeito (“era”, “pescava”) mostra estado e hábito, não ações únicas em sequência. É a marca da descrição de um tempo passado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
