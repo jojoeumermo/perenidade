@@ -1,0 +1,248 @@
+# Exercícios da aula "Cinética química" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-qui-velocidade-01
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-cinetica-velocidade
+  dificuldade: 1
+  enunciado: "A energia de ativação de uma reação é"
+  alternativas:
+    - texto: "a energia mínima que os choques entre as partículas precisam ter para a reação acontecer."
+      certa: true
+    - texto: "a energia total liberada pela reação."
+      erro: "A energia liberada é a variação de entalpia. A de ativação é a barreira que vem antes."
+    - texto: "a energia que o catalisador acrescenta."
+      erro: "O catalisador não acrescenta energia. Ele abre um caminho com barreira menor."
+    - texto: "a energia dos produtos."
+      erro: "A energia dos produtos fica do outro lado da montanha. A de ativação é a altura da montanha."
+    - texto: "a energia que a reação perde para o ambiente."
+      erro: "Isso é calor liberado. A de ativação é o que é preciso para começar."
+  explicacao: "Só choques com energia igual ou maior que a de ativação, e com orientação certa, quebram as ligações e formam produtos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-02
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-cinetica-velocidade
+  dificuldade: 1
+  enunciado: "Guardar o leite aberto na geladeira faz ele durar mais porque"
+  alternativas:
+    - texto: "o frio mata todos os micro-organismos."
+      erro: "A geladeira não mata os micróbios. Ela deixa as reações deles mais lentas."
+    - texto: "o frio aumenta a superfície de contato."
+      erro: "A superfície do leite não muda. O fator aqui é a temperatura."
+    - texto: "a temperatura baixa deixa mais lentas as reações que estragam o leite."
+      certa: true
+    - texto: "o frio funciona como catalisador."
+      erro: "Catalisador acelera. O frio desacelera, e não é uma substância."
+    - texto: "o frio aumenta a energia de ativação."
+      erro: "A energia de ativação é da reação e não muda com a temperatura. O que muda é quantos choques a alcançam."
+  explicacao: "Com menos temperatura, menos choques têm energia suficiente. As reações dos micróbios e da própria matéria ficam mais lentas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-03
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-cinetica-velocidade
+  dificuldade: 1
+  enunciado: "Para acender o fogão a lenha, a cozinheira começa com gravetos finos em vez de toras. O fator que acelera a combustão é"
+  alternativas:
+    - texto: "a concentração do oxigênio"
+      erro: "O ar da cozinha é o mesmo para gravetos e toras. O que muda é a madeira."
+    - texto: "o catalisador da madeira"
+      erro: "Não há catalisador envolvido. A diferença está na forma da madeira."
+    - texto: "a pressão do ar"
+      erro: "A pressão é a mesma. O que muda é quanto da madeira está exposto ao ar."
+    - texto: "a energia de ativação menor dos gravetos"
+      erro: "A substância é a mesma, então a energia de ativação é a mesma. Muda a área exposta."
+    - texto: "a maior superfície de contato"
+      certa: true
+  explicacao: "Gravetos finos expõem muito mais superfície ao oxigênio. Mais choques ao mesmo tempo: a combustão pega mais depressa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-04
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-cinetica-velocidade
+  dificuldade: 2
+  enunciado: "Num gráfico de energia ao longo da reação, o efeito de um catalisador é"
+  alternativas:
+    - texto: "subir a energia dos produtos."
+      erro: "O catalisador não muda a energia dos produtos nem a dos reagentes."
+    - texto: "baixar a altura da montanha, a energia de ativação."
+      certa: true
+    - texto: "baixar a energia dos reagentes."
+      erro: "Os reagentes continuam com a mesma energia. Só o caminho entre eles e os produtos muda."
+    - texto: "mudar a energia liberada pela reação."
+      erro: "A diferença de energia entre reagentes e produtos fica igual. Só a barreira diminui."
+    - texto: "subir a energia de ativação."
+      erro: "Subir a barreira deixaria a reação mais lenta. O catalisador faz o contrário."
+  explicacao: "O catalisador abre outro caminho, com montanha mais baixa. Reagentes, produtos e a energia liberada continuam iguais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-05
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-cinetica-velocidade
+  dificuldade: 2
+  enunciado: "A concentração de um reagente caiu de 0,8 mol/L para 0,2 mol/L em 3 minutos. A velocidade média de consumo foi"
+  alternativas:
+    - texto: "0,6 mol/(L·min)"
+      erro: "0,6 mol/L é a variação. Falta dividir pelos 3 minutos."
+    - texto: "1,8 mol/(L·min)"
+      erro: "Você multiplicou pelo tempo. Velocidade é variação dividida pelo tempo."
+    - texto: "0,33 mol/(L·min)"
+      erro: "Você dividiu 1 por 3 sem usar a variação. A variação é 0,8 − 0,2 = 0,6."
+    - texto: "0,2 mol/(L·min)"
+      certa: true
+    - texto: "0,067 mol/(L·min)"
+      erro: "Você dividiu 0,2 por 3. Use a variação inteira: 0,6 ÷ 3."
+  explicacao: "v = (0,8 − 0,2) ÷ 3 = 0,6 ÷ 3 = 0,2 mol/(L·min)."
+  conferir: "(0.8 - 0.2) / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-06
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-cinetica-velocidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No escapamento de muitos carros há um conversor catalítico: uma peça de cerâmica coberta por metais como platina,
+    paládio e ródio. Ali, o monóxido de carbono (CO), tóxico, reage com o oxigênio e vira gás carbônico (CO₂) muito
+    mais depressa do que reagiria no ar.
+  enunciado: "Os metais do conversor"
+  alternativas:
+    - texto: "são consumidos na reação e precisam ser repostos a cada abastecimento."
+      erro: "Catalisador não é consumido. Ele aparece no começo e volta inteiro no fim de cada ciclo."
+    - texto: "aceleram a reação por oferecer um caminho com energia de ativação menor, sem serem consumidos."
+      certa: true
+    - texto: "transformam o CO em oxigênio puro."
+      erro: "O CO vira CO₂, não oxigênio. O catalisador não muda os produtos da reação."
+    - texto: "aumentam a temperatura do motor."
+      erro: "O calor do escapamento ajuda, mas o papel dos metais é baixar a barreira de energia."
+    - texto: "deslocam o equilíbrio da combustão para os reagentes."
+      erro: "Catalisador não desloca equilíbrio. Ele só acelera a chegada a ele."
+  explicacao: "Platina, paládio e ródio são catalisadores: oferecem uma superfície onde a reação tem energia de ativação menor. Saem intactos e continuam funcionando."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-07
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-cinetica-velocidade
+  dificuldade: 2
+  enunciado: "A lei de velocidade de uma reação é v = k · [A]². Se a concentração de A dobrar, a velocidade fica multiplicada por"
+  alternativas:
+    - texto: "2"
+      erro: "Isso valeria para ordem 1. Com expoente 2, o fator também vai ao quadrado: 2²."
+    - texto: "1"
+      erro: "A velocidade depende de [A]. Mudar [A] muda v."
+    - texto: "8"
+      erro: "8 é 2³. O expoente da lei é 2."
+    - texto: "4"
+      certa: true
+    - texto: "0,5"
+      erro: "Mais reagente acelera. A velocidade não cai pela metade."
+  explicacao: "v novo = k · (2[A])² = 4 · k · [A]². A velocidade quadruplica."
+  conferir: "2^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-08
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-cinetica-velocidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num laboratório, uma equipe mediu a velocidade inicial da reação A + B → produtos em três experimentos, na mesma
+    temperatura:
+    Experimento 1: [A] = 0,1 mol/L; [B] = 0,1 mol/L; v = 2,0 × 10⁻³ mol/(L·s)
+    Experimento 2: [A] = 0,2 mol/L; [B] = 0,1 mol/L; v = 4,0 × 10⁻³ mol/(L·s)
+    Experimento 3: [A] = 0,1 mol/L; [B] = 0,2 mol/L; v = 2,0 × 10⁻³ mol/(L·s)
+  enunciado: "Se [A] triplicar, mantendo [B], a velocidade inicial fica multiplicada por"
+  alternativas:
+    - texto: "3"
+      certa: true
+    - texto: "9"
+      erro: "9 valeria para ordem 2 em A. Do experimento 1 para o 2, dobrar A só dobrou v: ordem 1."
+    - texto: "6"
+      erro: "Você multiplicou 3 por 2. Com ordem 1, o fator é o próprio 3."
+    - texto: "1"
+      erro: "Quem não muda v é o B (experimentos 1 e 3). O A muda."
+    - texto: "27"
+      erro: "27 é 3³. Os experimentos mostram ordem 1 em A."
+  explicacao: "Dobrar A dobrou v: ordem 1 em A. Dobrar B não mudou v: ordem zero em B. Lei: v = k · [A]. Triplicando [A], v triplica."
+  conferir: "3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-09
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-cinetica-velocidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma enzima do suco digestivo foi testada em várias temperaturas. A velocidade da reação subiu de 10 °C a cerca de
+    37 °C e caiu muito acima de 50 °C. A 70 °C, a reação quase parou, e ao esfriar a mistura de novo ela não voltou a
+    acelerar.
+  enunciado: "A queda da velocidade acima de 50 °C se explica porque"
+  alternativas:
+    - texto: "o calor aumentou a energia de ativação da reação."
+      erro: "A energia de ativação não sobe com a temperatura. O que mudou foi a enzima."
+    - texto: "o calor esgotou o substrato."
+      erro: "Se fosse falta de substrato, ao esfriar a reação não teria por que parar de vez. O dano foi na enzima."
+    - texto: "acima de 50 °C as partículas param de se chocar."
+      erro: "Mais calor é mais choque, não menos. O problema é a enzima perder a forma."
+    - texto: "a enzima foi consumida como um reagente."
+      erro: "Enzimas são catalisadores: não são consumidas. Elas podem, sim, ser danificadas."
+    - texto: "a enzima, uma proteína, desnaturou: perdeu a forma e deixou de catalisar."
+      certa: true
+  explicacao: "Enzimas são proteínas com forma precisa. Calor demais desfaz essa forma (desnaturação), e ela não volta ao esfriar. Sem a enzima, a reação fica lenta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-velocidade-10
+  tema: "Cinética química"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-cinetica-velocidade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para mostrar a ação de um catalisador, uma professora pôs uma pitada de dióxido de manganês em água oxigenada. O
+    oxigênio liberado foi recolhido numa proveta: 120 mL em 2 minutos. No fim, o dióxido de manganês foi pesado e tinha
+    a mesma massa do começo.
+  enunciado: "A velocidade média de produção de oxigênio, em mL por segundo, foi de"
+  alternativas:
+    - texto: "60"
+      erro: "60 mL por minuto é a velocidade por minuto. Em segundos, 2 minutos são 120 s."
+    - texto: "240"
+      erro: "Você multiplicou volume e tempo. Velocidade é volume dividido pelo tempo."
+    - texto: "1"
+      certa: true
+    - texto: "0,5"
+      erro: "Você dividiu 60 por 120. A conta é 120 mL ÷ 120 s."
+    - texto: "2"
+      erro: "Você dividiu 120 mL por 60 s. O tempo foi de 2 minutos, 120 s."
+  explicacao: "2 minutos = 120 s. v = 120 mL ÷ 120 s = 1 mL/s. O dióxido de manganês não perdeu massa: agiu como catalisador."
+  conferir: "120 / 120"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

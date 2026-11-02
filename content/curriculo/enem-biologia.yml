@@ -1,0 +1,150 @@
+# Mapa curricular da trilha enem-biologia (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+fontes:
+  - "Matriz de Referência do Enem, Inep: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos"
+aulas:
+  corpo-humano:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 14
+        resumo: "Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 29
+        resumo: Interpretar experimentos e técnicas com seres vivos e suas consequências.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-seres-vivos-corpo-humano
+  metabolismo:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 14
+        resumo: "Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 4
+        habilidade: 15
+        resumo: Interpretar modelos e experimentos que explicam processos biológicos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 28
+        resumo: Ligar adaptações dos organismos ao modo de vida e ao lugar onde vivem, em especial no Brasil.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-celulas-metabolismo
+  impactos:
+    enem:
+      - area: natureza
+        competencia: 1
+        habilidade: 4
+        resumo: Avaliar propostas de intervenção no ambiente, pensando na vida humana e na biodiversidade.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 10
+        resumo: "Analisar perturbações ambientais: origem, caminho e destino dos poluentes e seus efeitos."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 12
+        resumo: Avaliar impactos de atividades sociais ou econômicas no ambiente, com interesses em conflito.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-ecologia-impactos
+  plantas:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 15
+        resumo: Interpretar modelos e experimentos que explicam processos biológicos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 4
+        habilidade: 16
+        resumo: Entender o papel da evolução nos padrões biológicos e na classificação dos seres vivos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 28
+        resumo: Ligar adaptações dos organismos ao modo de vida e ao lugar onde vivem, em especial no Brasil.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-seres-vivos-plantas
+  biotecnologia:
+    enem:
+      - area: natureza
+        competencia: 3
+        habilidade: 11
+        resumo: Reconhecer benefícios, limites e questões éticas da biotecnologia.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 29
+        resumo: Interpretar experimentos e técnicas com seres vivos e suas consequências.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-celulas-biotecnologia
+  celula:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 15
+        resumo: Interpretar modelos e experimentos que explicam processos biológicos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 30
+        resumo: Avaliar propostas individuais ou coletivas de cuidado com a saúde e com o ambiente.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-celulas-celula
+  doencas:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 14
+        resumo: "Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 30
+        resumo: Avaliar propostas individuais ou coletivas de cuidado com a saúde e com o ambiente.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-saude-doencas
+  vacinacao:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 14
+        resumo: "Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 30
+        resumo: Avaliar propostas individuais ou coletivas de cuidado com a saúde e com o ambiente.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-saude-vacinacao
+  animais:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 15
+        resumo: Interpretar modelos e experimentos que explicam processos biológicos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 4
+        habilidade: 16
+        resumo: Entender o papel da evolução nos padrões biológicos e na classificação dos seres vivos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 28
+        resumo: Ligar adaptações dos organismos ao modo de vida e ao lugar onde vivem, em especial no Brasil.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-seres-vivos-animais

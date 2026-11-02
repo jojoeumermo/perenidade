@@ -1,0 +1,239 @@
+# Exercícios da aula "Forças intermoleculares" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Volumes do teste da proveta são valores de exemplo.
+
+- id: enem-qui-forcas-intermoleculares-01
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  dificuldade: 1
+  enunciado: "Para haver ligação de hidrogênio entre moléculas, o hidrogênio precisa estar ligado a"
+  alternativas:
+    - texto: "carbono"
+      erro: "O carbono não é eletronegativo o bastante. O H ligado a C fica quase sem carga."
+    - texto: "qualquer metal"
+      erro: "Metais têm eletronegatividade baixa. O H precisa de um vizinho que puxe muito os elétrons."
+    - texto: "outro hidrogênio"
+      erro: "No H₂, os dois átomos são iguais e não há polaridade."
+    - texto: "enxofre"
+      erro: "O enxofre é maior e menos eletronegativo que o oxigênio. Por isso o H₂S quase não faz essas ligações."
+    - texto: "flúor, oxigênio ou nitrogênio"
+      certa: true
+  explicacao: "F, O e N são pequenos e muito eletronegativos. O H ligado a eles fica bem positivo e é atraído pelo par de elétrons de outro F, O ou N."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-02
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  dificuldade: 1
+  enunciado: "Uma mancha de óleo de cozinha na roupa não sai só com água porque"
+  alternativas:
+    - texto: "a água é apolar e o óleo é polar"
+      erro: "Está invertido: a água é polar e o óleo é apolar."
+    - texto: "o óleo é um sal"
+      erro: "O óleo é uma substância orgânica apolar, não um sal."
+    - texto: "a água é polar e o óleo é apolar, e eles não se misturam"
+      certa: true
+    - texto: "o óleo é mais quente que a água"
+      erro: "A temperatura não é o motivo. É a diferença de polaridade."
+    - texto: "o óleo reage com o tecido"
+      erro: "O óleo não reage com o tecido; ele só não se dissolve na água."
+  explicacao: "Semelhante dissolve semelhante. A água polar não dissolve o óleo apolar. Sabão ou detergente fazem a ponte entre os dois."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-03
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  dificuldade: 1
+  enunciado: "Entre moléculas apolares, como as da gasolina, a força intermolecular que atua é a de"
+  alternativas:
+    - texto: "dipolo induzido"
+      certa: true
+    - texto: "ligação de hidrogênio"
+      erro: "Os hidrocarbonetos não têm H ligado a F, O ou N."
+    - texto: "íon-dipolo"
+      erro: "Não há íons na gasolina."
+    - texto: "ligação iônica"
+      erro: "Ligação iônica é entre íons, dentro de um composto. Não é força entre moléculas apolares."
+    - texto: "dipolo permanente"
+      erro: "Moléculas apolares não têm dipolo permanente. O dipolo delas é momentâneo, induzido."
+  explicacao: "Nas moléculas apolares, os elétrons se deslocam por instantes e criam dipolos momentâneos que induzem os vizinhos: forças de dipolo induzido (London)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-04
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  dificuldade: 2
+  enunciado: "A água (H₂O) ferve a 100 °C, e o sulfeto de hidrogênio (H₂S), de molécula maior, é gás em temperatura ambiente. A explicação é que"
+  alternativas:
+    - texto: "o H₂S é iônico."
+      erro: "O H₂S é molecular, como a água."
+    - texto: "a água é apolar."
+      erro: "A água é polar. É justamente isso, e mais, que segura as moléculas."
+    - texto: "a molécula de água é mais pesada."
+      erro: "A água (18 g/mol) é mais leve que o H₂S (34 g/mol). Mesmo assim ferve mais alto."
+    - texto: "entre as moléculas de água há ligações de hidrogênio, mais fortes que as forças entre as de H₂S."
+      certa: true
+    - texto: "ferver quebra as moléculas de água, o que exige muita energia."
+      erro: "Ferver não quebra a molécula. Só separa uma molécula da outra."
+  explicacao: "Na água, o H está ligado ao O e forma ligações de hidrogênio. No H₂S, o enxofre não permite ligações tão fortes. Separar as moléculas de água exige mais energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-05
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  dificuldade: 2
+  enunciado: "Quando o sal de cozinha se dissolve na água, a interação principal entre os íons e as moléculas de água é"
+  alternativas:
+    - texto: "dipolo induzido"
+      erro: "Há íons com carga inteira. A atração é bem mais forte que a de dipolos momentâneos."
+    - texto: "íon-dipolo"
+      certa: true
+    - texto: "ligação covalente"
+      erro: "A água não compartilha elétrons com os íons. Ela os cerca pela atração de cargas."
+    - texto: "ligação metálica"
+      erro: "Não há metal livre. O sódio está como íon."
+    - texto: "ligação de hidrogênio com o sódio"
+      erro: "O sódio é um cátion, não um F, O ou N. A atração é de íon com dipolo."
+  explicacao: "O oxigênio da água (lado negativo) cerca o Na⁺, e os hidrogênios (lado positivo) cercam o Cl⁻: interação íon-dipolo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-06
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num teste da proveta, um técnico misturou 50 mL de gasolina com 50 mL de solução aquosa de sal, agitou e esperou.
+    A camada aquosa passou a ter 61 mL, porque o etanol da gasolina passou para a água.
+  enunciado: "A porcentagem de etanol, em volume, na gasolina testada era de"
+  alternativas:
+    - texto: "22%"
+      certa: true
+    - texto: "11%"
+      erro: "11 mL é o volume de etanol. Divida pelos 50 mL de gasolina e multiplique por 100."
+    - texto: "61%"
+      erro: "61 mL é o volume final da camada aquosa, com água e etanol."
+    - texto: "18%"
+      erro: "Você dividiu 11 por 61. A base é a gasolina, 50 mL."
+    - texto: "50%"
+      erro: "50 mL é o volume de gasolina posto na proveta. O etanol é só o que passou para a água."
+  explicacao: "Etanol = 61 − 50 = 11 mL. Em 50 mL de gasolina: 11 ÷ 50 × 100 = 22%."
+  conferir: "(61 - 50) / 50 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-07
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  dificuldade: 2
+  enunciado: "Metano (CH₄), propano (C₃H₈) e octano (C₈H₁₈) são hidrocarbonetos apolares. Quem tem a maior temperatura de ebulição?"
+  alternativas:
+    - texto: "Metano, porque é o menor."
+      erro: "Molécula menor tem menos superfície de contato e forças de dipolo induzido mais fracas: ferve mais baixo."
+    - texto: "Os três fervem na mesma temperatura."
+      erro: "As forças de dipolo induzido crescem com o tamanho da molécula. As temperaturas são diferentes."
+    - texto: "Propano, porque está no meio."
+      erro: "Estar no meio da lista não explica nada. Compare os tamanhos."
+    - texto: "Octano, porque a cadeia maior tem forças de dipolo induzido mais fortes."
+      certa: true
+    - texto: "Metano, porque tem mais hidrogênio por carbono."
+      erro: "Proporção de H não decide aqui. O que conta é o tamanho total da molécula."
+  explicacao: "Entre apolares, quanto maior a molécula, mais contato e mais força de dipolo induzido. O octano é líquido; metano e propano são gases."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-08
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 18
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma agente comunitária de saúde explicou que as vitaminas A, D, E e K, de moléculas pouco polares, podem se acumular
+    no corpo quando tomadas em excesso, enquanto o excesso da vitamina C, muito polar, sai com mais facilidade pela urina.
+  enunciado: "A diferença se explica porque"
+  alternativas:
+    - texto: "as vitaminas A, D, E e K são iônicas e se prendem aos ossos."
+      erro: "Essas vitaminas são moleculares e pouco polares, não iônicas."
+    - texto: "a vitamina C é apolar e se dissolve na gordura."
+      erro: "É o contrário: a vitamina C é polar e se dissolve na água."
+    - texto: "as vitaminas pouco polares se dissolvem melhor na gordura do corpo, e a polar, na água da urina."
+      certa: true
+    - texto: "a urina é apolar e dissolve a vitamina C."
+      erro: "A urina é principalmente água, polar."
+    - texto: "todas as vitaminas se acumulam do mesmo jeito."
+      erro: "A polaridade muda onde cada uma se dissolve. Por isso o destino é diferente."
+  explicacao: "Semelhante dissolve semelhante. Moléculas pouco polares ficam na gordura (tecido adiposo, fígado); moléculas polares ficam na água e saem pelos rins."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-09
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num açude, insetos como o alfaiate andam sobre a água sem afundar. Quando alguém joga detergente na água, eles
+    afundam.
+  enunciado: "O fenômeno se explica porque"
+  alternativas:
+    - texto: "o detergente aumenta a densidade da água."
+      erro: "Um pouco de detergente quase não muda a densidade. O que muda é a superfície."
+    - texto: "o detergente é tóxico e mata os insetos na hora."
+      erro: "O inseto afunda por perder o apoio na superfície, não por intoxicação imediata."
+    - texto: "a água sem detergente é sólida na superfície."
+      erro: "A água continua líquida. A superfície só fica \"tensa\" pelas atrações entre as moléculas."
+    - texto: "o inseto fica mais pesado com o detergente."
+      erro: "O peso do inseto não muda. O que muda é a resistência da superfície."
+    - texto: "as ligações de hidrogênio criam uma tensão superficial alta, e o detergente se põe entre as moléculas e a diminui."
+      certa: true
+  explicacao: "Na superfície, as moléculas de água se puxam umas às outras por ligações de hidrogênio, formando uma espécie de película. O detergente se mete entre elas, e a película perde a força."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-forcas-intermoleculares-10
+  tema: "Forças intermoleculares"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-materiais-forcas-intermoleculares
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O pentano normal (CH₃–CH₂–CH₂–CH₂–CH₃) e o dimetilpropano, C(CH₃)₄, têm a mesma fórmula, C₅H₁₂. O dimetilpropano,
+    de forma quase esférica, ferve a uma temperatura mais baixa que o pentano normal, de cadeia alongada.
+  enunciado: "A diferença se explica porque"
+  alternativas:
+    - texto: "o dimetilpropano tem ligações de hidrogênio."
+      erro: "Nenhum dos dois tem H ligado a F, O ou N."
+    - texto: "a forma compacta do dimetilpropano dá menos superfície de contato entre as moléculas, e as forças de dipolo induzido ficam mais fracas."
+      certa: true
+    - texto: "o dimetilpropano tem massa molar menor."
+      erro: "Os dois têm a mesma fórmula, C₅H₁₂, e portanto a mesma massa molar."
+    - texto: "o pentano normal é polar."
+      erro: "Os dois são hidrocarbonetos apolares."
+    - texto: "o dimetilpropano é iônico."
+      erro: "Hidrocarbonetos não são iônicos."
+  explicacao: "Mesma massa, formas diferentes. A cadeia alongada encosta mais nas vizinhas; a esférica, menos. Menos contato, menos força de dipolo induzido, ebulição mais baixa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

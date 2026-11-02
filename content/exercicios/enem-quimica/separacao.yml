@@ -1,0 +1,240 @@
+# Exercícios da aula "Separação de misturas" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-qui-separacao-01
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  dificuldade: 1
+  enunciado: "Antes de cozinhar o feijão, muita gente tira à mão as pedrinhas e os grãos estragados. Esse método se chama"
+  alternativas:
+    - texto: "catação"
+      certa: true
+    - texto: "filtração"
+      erro: "Filtração separa sólido de líquido com um filtro. Aqui a separação é feita com a mão."
+    - texto: "destilação"
+      erro: "Destilação usa fervura e condensação. Não serve para grãos."
+    - texto: "decantação"
+      erro: "Decantação usa o repouso e a densidade. Aqui se escolhe com a mão."
+    - texto: "centrifugação"
+      erro: "Centrifugação gira a mistura muito depressa. Não é o caso."
+  explicacao: "Catação é separar com a mão ou pinça, quando os componentes são fáceis de ver e pegar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-02
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  dificuldade: 1
+  enunciado: "Para separar o óleo de cozinha usado da água em que ele foi misturado, o melhor é"
+  alternativas:
+    - texto: "filtrar em papel"
+      erro: "O óleo é líquido e passa pelo papel junto com a água. Filtro segura sólidos."
+    - texto: "usar um ímã"
+      erro: "Nem água nem óleo são atraídos por ímã."
+    - texto: "ferver até sobrar só o óleo"
+      erro: "Gastaria muita energia e o óleo quente poderia queimar. Há um jeito mais simples, pela densidade."
+    - texto: "peneirar"
+      erro: "A peneira separa grãos de tamanhos diferentes, não líquidos."
+    - texto: "deixar em repouso num funil de separação e abrir a torneira para sair a água de baixo"
+      certa: true
+  explicacao: "Água e óleo não se misturam. Em repouso, o óleo, menos denso, fica por cima. No funil de separação, a água sai por baixo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-03
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  dificuldade: 1
+  enunciado: "Num ferro-velho, para separar pedaços de ferro de pedaços de alumínio, usa-se"
+  alternativas:
+    - texto: "destilação fracionada"
+      erro: "Destilação separa líquidos pela temperatura de ebulição. Aqui são sólidos."
+    - texto: "filtração"
+      erro: "Não há líquido para filtrar."
+    - texto: "um eletroímã, que atrai o ferro e não o alumínio"
+      certa: true
+    - texto: "evaporação"
+      erro: "Não há nada para evaporar."
+    - texto: "dissolução em água"
+      erro: "Nenhum dos dois metais se dissolve em água."
+  explicacao: "O ferro é atraído por ímã; o alumínio não. A separação magnética usa essa diferença."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-04
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  dificuldade: 2
+  enunciado: "Num barco de pesca, um equipamento transforma água do mar em água de beber, recuperando a água. O processo é"
+  alternativas:
+    - texto: "filtração em areia"
+      erro: "O sal está dissolvido e passa pela areia. Filtro não tira sal."
+    - texto: "destilação simples"
+      certa: true
+    - texto: "decantação"
+      erro: "O sal dissolvido não afunda. A água continua salgada."
+    - texto: "catação"
+      erro: "Não dá para catar sal dissolvido."
+    - texto: "evaporação ao sol"
+      erro: "A evaporação ao sol perde a água para o ar e deixa só o sal. Aqui se quer a água."
+  explicacao: "Na destilação simples, a água ferve, o vapor se condensa num tubo frio e é recolhido. O sal fica para trás."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-05
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-materiais-separacao
+  dificuldade: 2
+  enunciado: "Nas salinas do Rio Grande do Norte, a água do mar fica em tanques rasos, ao sol e ao vento, até sobrar o sal. O método é"
+  alternativas:
+    - texto: "destilação fracionada"
+      erro: "Na destilação a água é recolhida. Nas salinas, ela se perde para o ar."
+    - texto: "filtração"
+      erro: "O sal dissolvido passa por qualquer filtro."
+    - texto: "centrifugação"
+      erro: "Não há rotação. O sol e o vento fazem o trabalho."
+    - texto: "evaporação"
+      certa: true
+    - texto: "flotação"
+      erro: "Flotação faz um sólido boiar num líquido. Nas salinas, o líquido vai embora."
+  explicacao: "A água evapora com o calor do sol e o vento, e o sal, que não evapora, se cristaliza no fundo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-06
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No laboratório de um hemocentro, os tubos com sangue doado são postos num aparelho que gira muito depressa. Depois
+    de alguns minutos, as células vermelhas ficam no fundo do tubo e um líquido amarelado, o plasma, fica em cima.
+  enunciado: "O processo usado e a propriedade que ele aproveita são"
+  alternativas:
+    - texto: "filtração e tamanho das partículas."
+      erro: "Não há filtro no tubo. O aparelho gira."
+    - texto: "destilação e temperatura de ebulição."
+      erro: "Ferver o sangue destruiria as células. Aqui não há aquecimento."
+    - texto: "imantação e magnetismo."
+      erro: "As células do sangue não são separadas por ímã nesse processo."
+    - texto: "centrifugação e densidade."
+      certa: true
+    - texto: "evaporação e volatilidade."
+      erro: "Nada evapora. Os componentes mudam de lugar dentro do tubo."
+  explicacao: "Na centrifugação, a rotação lança as partes mais densas para o fundo do tubo. As células vermelhas são mais densas que o plasma."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-07
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  dificuldade: 2
+  enunciado: "Na usina, depois da fermentação, o etanol é separado da água por"
+  alternativas:
+    - texto: "filtração"
+      erro: "Etanol e água são líquidos misturados: passam juntos pelo filtro."
+    - texto: "destilação fracionada, pelas diferentes temperaturas de ebulição"
+      certa: true
+    - texto: "decantação"
+      erro: "Etanol e água se misturam por completo. Não formam camadas."
+    - texto: "catação"
+      erro: "Não dá para catar um líquido dissolvido em outro."
+    - texto: "separação magnética"
+      erro: "Nenhum dos dois é atraído por ímã."
+  explicacao: "O etanol ferve a uma temperatura mais baixa que a água. A coluna de destilação fracionada concentra o etanol no vapor que sai pelo topo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-08
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O urânio-235 e o urânio-238 são isótopos: têm o mesmo número de prótons e de elétrons e, por isso, o mesmo
+    comportamento químico. Para enriquecer o urânio, ele é transformado num composto gasoso, o hexafluoreto de urânio
+    (UF₆).
+  enunciado: "O método capaz de separar os dois isótopos nesse gás é a"
+  alternativas:
+    - texto: "centrifugação, que separa pela pequena diferença de massa."
+      certa: true
+    - texto: "filtração, que separa pelo tamanho dos átomos."
+      erro: "Os dois isótopos têm praticamente o mesmo tamanho. Nenhum filtro os distingue."
+    - texto: "reação com ácido, que dissolve só um deles."
+      erro: "Isótopos têm a mesma química. Um ácido reage com os dois do mesmo jeito."
+    - texto: "separação magnética, que atrai só o urânio-238."
+      erro: "O ímã não distingue isótopos do urânio dessa forma."
+    - texto: "decantação em repouso, que separa pela cor."
+      erro: "Num gás, os isótopos não se separam em repouso, e não diferem pela cor."
+  explicacao: "A única diferença entre os isótopos é a massa (3 nêutrons). Girando muito depressa, as moléculas com urânio-238 vão um pouco mais para fora. Repetindo muitas vezes, enriquece-se o urânio-235."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-09
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 25
+  objeto: nat-qui-materiais-separacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Depois de uma enchente, a água da caixa de uma escola ficou turva, com areia, e ainda recebeu sal de uma saca que
+    se rompeu. Um professor propôs, para uma aula, recuperar a areia e o sal, sem precisar guardar a água.
+  enunciado: "A sequência mais simples de métodos é"
+  alternativas:
+    - texto: "evaporação e, depois, filtração."
+      erro: "Evaporar primeiro deixa sal e areia misturados no fundo. Fica mais difícil separar."
+    - texto: "destilação e, depois, decantação."
+      erro: "A destilação recupera a água, que não é necessária. E deixaria sal e areia juntos."
+    - texto: "filtração e, depois, evaporação do líquido filtrado."
+      certa: true
+    - texto: "catação e, depois, centrifugação."
+      erro: "Catar areia fina é inviável, e a centrifugação não separa sal dissolvido."
+    - texto: "imantação e, depois, filtração."
+      erro: "Nem areia nem sal são atraídos por ímã."
+  explicacao: "A filtração segura a areia, que não dissolve. O filtrado tem sal dissolvido: evaporando a água, sobra o sal. Como a água não precisa ser guardada, a evaporação basta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-separacao-10
+  tema: "Separação de misturas"
+  area: natureza
+  habilidade: 8
+  objeto: nat-qui-materiais-separacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa cooperativa de catadores, plásticos picados são jogados num tanque com água. Os pedaços de garrafa PET
+    (densidade cerca de 1,4 g/cm³) afundam; os de tampinha de polipropileno (cerca de 0,9 g/cm³) boiam. A água tem
+    densidade de cerca de 1,0 g/cm³.
+  enunciado: "O processo usado pela cooperativa é a"
+  alternativas:
+    - texto: "destilação, porque os plásticos fervem em temperaturas diferentes."
+      erro: "Ninguém ferve nada. A separação acontece no tanque, em temperatura ambiente."
+    - texto: "filtração, porque a água segura um dos plásticos."
+      erro: "Os dois plásticos são sólidos. A água não os filtra: um afunda e o outro boia."
+    - texto: "dissolução fracionada, porque um dos plásticos se dissolve."
+      erro: "Nenhum dos plásticos se dissolve na água."
+    - texto: "evaporação, porque a água sai e sobra um plástico."
+      erro: "A água continua no tanque. Os plásticos se separam pela posição."
+    - texto: "flotação, porque o líquido tem densidade entre as dos dois plásticos."
+      certa: true
+  explicacao: "Material menos denso que o líquido boia; mais denso, afunda. Com a água no meio (1,0), o PP (0,9) boia e o PET (1,4) afunda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,244 @@
+# Exercícios da aula "pH e indicadores" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Tudo a 25 °C: pH + pOH = 14.
+
+- id: enem-qui-ph-01
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-ph
+  dificuldade: 1
+  enunciado: "O vinagre tem pH perto de 3. Ele é"
+  alternativas:
+    - texto: "básico, porque o número é baixo"
+      erro: "Na escala de pH, número baixo é ácido. Básico é acima de 7."
+    - texto: "neutro"
+      erro: "Neutro é pH 7. O vinagre está bem abaixo disso."
+    - texto: "ácido, porque o pH é menor que 7"
+      certa: true
+    - texto: "básico, porque é usado na limpeza"
+      erro: "Há produtos de limpeza ácidos e básicos. O que decide é o pH: 3 é ácido."
+    - texto: "ácido, porque o pH é maior que 1"
+      erro: "O motivo está errado: pH 8 também é maior que 1 e é básico. O limite é o 7."
+  explicacao: "A 25 °C, pH menor que 7 é ácido. O vinagre tem ácido acético e pH perto de 3."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-02
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-ph
+  dificuldade: 1
+  enunciado: "Uma solução tem [H⁺] = 10⁻⁴ mol/L. O pH dela é"
+  alternativas:
+    - texto: "4"
+      certa: true
+    - texto: "10"
+      erro: "10 é a base da potência. O pH é o expoente com o sinal trocado."
+    - texto: "-4"
+      erro: "O sinal de menos da fórmula pH = −log [H⁺] cancela o do expoente. O pH fica positivo."
+    - texto: "0,0001"
+      erro: "Essa é a própria concentração (10⁻⁴). O pH é o expoente: 4."
+    - texto: "14"
+      erro: "14 é a soma de pH e pOH a 25 °C. O pH desta solução é o expoente de 10⁻⁴, com o sinal trocado: 4."
+  explicacao: "pH = −log 10⁻⁴ = 4."
+  conferir: "4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-03
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-ph
+  dificuldade: 1
+  enunciado: "Pingam-se gotas de fenolftaleína numa solução de soda cáustica. A solução fica"
+  alternativas:
+    - texto: "incolor"
+      erro: "A fenolftaleína fica incolor em meio ácido ou neutro. A soda cáustica é básica."
+    - texto: "vermelha, como o tornassol em ácido"
+      erro: "Vermelho é a cor do tornassol em ácido. Aqui o indicador é outro e o meio é básico."
+    - texto: "azul-escura"
+      erro: "Azul é a cor do tornassol em base. A fenolftaleína tem outra cor."
+    - texto: "verde"
+      erro: "Verde aparece no repolho roxo em base. A fenolftaleína fica rosa."
+    - texto: "rosa"
+      certa: true
+  explicacao: "A fenolftaleína é incolor em ácido e neutro e fica rosa em meio básico. A soda cáustica (NaOH) é uma base forte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-04
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-ph
+  dificuldade: 2
+  enunciado: "Um suco tem pH 4 e uma água mineral tem pH 6. A concentração de H⁺ no suco é quantas vezes maior?"
+  alternativas:
+    - texto: "2"
+      erro: "Você subtraiu os pH. Cada unidade vale um fator de 10: duas unidades são 10 × 10."
+    - texto: "100"
+      certa: true
+    - texto: "1,5"
+      erro: "Você dividiu 6 por 4. A escala de pH é de potências de 10."
+    - texto: "20"
+      erro: "Você multiplicou a diferença por 10. São duas vezes o fator 10: 10²."
+    - texto: "1.000"
+      erro: "1.000 seria uma diferença de 3 unidades de pH. Aqui são 2."
+  explicacao: "[H⁺] do suco = 10⁻⁴; da água = 10⁻⁶. 10⁻⁴ ÷ 10⁻⁶ = 10² = 100."
+  conferir: "10^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-05
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-ph
+  dificuldade: 2
+  enunciado: "Um limpador de forno tem pH 11. O pOH dele é"
+  alternativas:
+    - texto: "11"
+      erro: "11 é o pH. O pOH é o que falta para 14."
+    - texto: "25"
+      erro: "Você somou 14 + 11. pH + pOH = 14, então pOH = 14 − 11."
+    - texto: "-3"
+      erro: "pOH negativo não cabe aqui. 14 − 11 = 3."
+    - texto: "3"
+      certa: true
+    - texto: "7"
+      erro: "7 é o neutro. Para pH 11, o pOH é 14 − 11."
+  explicacao: "pH + pOH = 14 → pOH = 14 − 11 = 3."
+  conferir: "14 - 11"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-06
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-ph
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa oficina de ciências numa escola do campo, estudantes fizeram um indicador com caldo de repolho roxo. Ele fica
+    avermelhado em meio ácido, roxo perto do neutro e verde em meio básico. Testaram quatro líquidos: suco de limão,
+    água de poço, leite de magnésia e um limpador com amônia.
+  enunciado: "Os líquidos que devem deixar o caldo verde são"
+  alternativas:
+    - texto: "suco de limão e água de poço."
+      erro: "O limão é ácido (vermelho) e a água de poço costuma ficar perto do neutro (roxo)."
+    - texto: "só o suco de limão."
+      erro: "O limão é ácido. No caldo de repolho, ele dá cor avermelhada."
+    - texto: "água de poço e suco de limão."
+      erro: "Nenhum dos dois é básico. O verde aparece com as bases."
+    - texto: "leite de magnésia e limpador com amônia."
+      certa: true
+    - texto: "todos os quatro."
+      erro: "O indicador muda de cor conforme o pH. Ácidos e bases dão cores diferentes."
+  explicacao: "Leite de magnésia (Mg(OH)₂) e amônia são bases. Em meio básico, o caldo de repolho fica verde."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-07
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-ph
+  dificuldade: 2
+  enunciado: "Uma solução de ácido clorídrico de pH 2 é diluída dez vezes com água. O novo pH é"
+  alternativas:
+    - texto: "1"
+      erro: "Diluir diminui o H⁺. Menos H⁺ é pH maior, não menor."
+    - texto: "3"
+      certa: true
+    - texto: "20"
+      erro: "Você multiplicou o pH por 10. Diluir dez vezes soma 1 ao pH."
+    - texto: "12"
+      erro: "Você somou 10. Diluir não vira base: o pH sobe só uma unidade."
+    - texto: "0,2"
+      erro: "Você dividiu o pH por 10. É o [H⁺] que se divide por 10; o pH sobe 1."
+  explicacao: "Diluir dez vezes divide o [H⁺] por 10: de 10⁻² para 10⁻³. O pH vai de 2 para 3."
+  conferir: "2 + 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-08
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-ph
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma professora dissolveu, em copos separados com água pura, três sais: cloreto de sódio (NaCl), cloreto de amônio
+    (NH₄Cl) e bicarbonato de sódio (NaHCO₃). Depois mediu o pH de cada copo.
+  enunciado: "O copo de bicarbonato de sódio deve apresentar pH"
+  alternativas:
+    - texto: "igual a 7, porque todo sal é neutro."
+      erro: "Nem todo sal é neutro. Depende da força do ácido e da base de onde ele vem."
+    - texto: "menor que 7, porque tem hidrogênio na fórmula."
+      erro: "O hidrogênio do bicarbonato quase não sai como H⁺. O que domina é o íon pegar H⁺ da água."
+    - texto: "menor que 7, como o cloreto de amônio."
+      erro: "O cloreto de amônio fica ácido porque vem de base fraca. O bicarbonato vem de ácido fraco: o efeito é o oposto."
+    - texto: "igual ao do NaCl."
+      erro: "O NaCl vem de ácido forte e base forte e fica neutro. O bicarbonato não."
+    - texto: "maior que 7, porque vem de ácido fraco e base forte e o ânion pega H⁺ da água, sobrando OH⁻."
+      certa: true
+  explicacao: "O HCO₃⁻ é o ânion de um ácido fraco. Ele pega H⁺ da água (hidrólise) e deixa OH⁻ sobrando: a solução fica básica. É por isso que o bicarbonato funciona como antiácido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-09
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-equilibrio-ph
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um técnico de laboratório preparou uma solução de ácido clorídrico de concentração 0,001 mol/L. O HCl é um ácido
+    forte: em água, praticamente todo ele se separa em H⁺ e Cl⁻.
+  enunciado: "O pH dessa solução é"
+  alternativas:
+    - texto: "1"
+      erro: "pH 1 seria [H⁺] = 0,1 mol/L, cem vezes mais concentrado."
+    - texto: "0,001"
+      erro: "Essa é a concentração. O pH é o expoente de 10⁻³, com o sinal trocado."
+    - texto: "3"
+      certa: true
+    - texto: "11"
+      erro: "11 seria o pH de uma base. 3 é o pH; 11 seria o pOH."
+    - texto: "7"
+      erro: "Ácido forte em água não fica neutro. Há H⁺ demais."
+  explicacao: "Ácido forte: [H⁺] = 0,001 = 10⁻³ mol/L. pH = −log 10⁻³ = 3."
+  conferir: "3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ph-10
+  tema: "pH e indicadores"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-equilibrio-ph
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    O ácido acético (CH₃COOH) tem pKa perto de 4,8. Num grupo ácido, se o pH do meio é menor que o pKa, o grupo fica
+    principalmente com o H⁺; se é maior, perde o H⁺. Uma amostra de ácido acético é posta num meio tamponado de pH 7.
+  enunciado: "Nesse meio, a forma que predomina é"
+  alternativas:
+    - texto: "o íon acetato, CH₃COO⁻, porque o pH é maior que o pKa."
+      certa: true
+    - texto: "o ácido acético, CH₃COOH, porque o pH é maior que o pKa."
+      erro: "pH maior que o pKa faz o grupo perder o H⁺. A forma com H⁺ predomina quando o pH é menor."
+    - texto: "o ácido acético, porque pH 7 é neutro."
+      erro: "Neutro não quer dizer que o ácido fica inteiro. O que decide é comparar pH e pKa."
+    - texto: "as duas formas em quantidades iguais, sempre."
+      erro: "Quantidades iguais só quando o pH é igual ao pKa (4,8). Em pH 7, uma forma domina."
+    - texto: "o íon acetato, porque o pH é menor que o pKa."
+      erro: "A forma está certa, mas a comparação está trocada: 7 é maior que 4,8."
+  explicacao: "pH 7 é maior que o pKa 4,8: o grupo carboxila perde o H⁺ e predomina o acetato, CH₃COO⁻."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

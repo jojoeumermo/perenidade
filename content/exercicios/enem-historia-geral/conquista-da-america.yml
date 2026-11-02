@@ -1,0 +1,246 @@
+# Exercícios da aula "Conquista da América e conflitos com os indígenas" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-conquista-01
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-conquista-da-america
+  dificuldade: 1
+  enunciado: "Qual era a capital dos mexicas (astecas), tomada pelos espanhóis em 1521?"
+  alternativas:
+    - texto: "Cuzco"
+      erro: "Cuzco era a capital dos incas, nos Andes. Os mexicas ficavam no vale do México."
+    - texto: "Potosí"
+      erro: "Potosí foi uma cidade mineira dos Andes, do período colonial. Não era capital mexica."
+    - texto: "Tenochtitlán"
+      certa: true
+    - texto: "Lima"
+      erro: "Lima foi fundada pelos espanhóis no Peru. Não existia antes da conquista."
+    - texto: "Santo Domingo"
+      erro: "Santo Domingo é uma cidade espanhola nas Antilhas, no Caribe."
+  explicacao: "Tenochtitlán ficava sobre um lago, no vale do México. Caiu em 1521, depois de um cerco de cerca de três meses, e sobre ela foi construída a Cidade do México."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 5.2"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-02
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 7
+  objeto: hum-cultura-conquista-da-america
+  dificuldade: 1
+  enunciado: "O que o Tratado de Tordesilhas, de 1494, decidiu?"
+  alternativas:
+    - texto: "A divisão, entre Espanha e Portugal, das terras encontradas e a encontrar fora da Europa"
+      certa: true
+    - texto: "O fim da escravização dos indígenas"
+      erro: "Tordesilhas não tratou dos indígenas. As Leis Novas, de 1542, é que proibiram escravizá-los."
+    - texto: "A independência das colônias espanholas"
+      erro: "As independências são do século XIX. Tordesilhas é do fim do século XV."
+    - texto: "A paz entre incas e espanhóis"
+      erro: "Em 1494 os espanhóis nem tinham chegado aos Andes. Pizarro só capturou Atahualpa em 1532."
+    - texto: "A entrega da América à Inglaterra"
+      erro: "A Inglaterra não participou. O tratado foi entre Espanha e Portugal."
+  explicacao: "Espanha e Portugal dividiram o mundo fora da Europa por uma linha imaginária. Os povos que viviam nessas terras não foram consultados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-03
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-conquista-da-america
+  dificuldade: 1
+  enunciado: "O que era a encomienda na América espanhola?"
+  alternativas:
+    - texto: "Uma igreja construída pelos indígenas"
+      erro: "A cristianização fazia parte da encomienda, mas ela não era um prédio: era uma concessão de trabalho."
+    - texto: "Um imposto pago pelos colonos ao rei de Portugal"
+      erro: "A encomienda era espanhola, e quem pagava tributo ou trabalhava eram os indígenas."
+    - texto: "Um tratado de paz com os incas"
+      erro: "Não era tratado. Era um sistema de exploração do trabalho indígena."
+    - texto: "Uma escola para os filhos dos colonos"
+      erro: "Não era escola. O encomendero devia 'ensinar a fé' aos indígenas, mas o centro era o trabalho."
+    - texto: "O direito, dado a um colono, ao trabalho ou ao tributo de um grupo de indígenas"
+      certa: true
+  explicacao: "O encomendero recebia da Coroa o trabalho ou o tributo de certo número de indígenas, em troca de protegê-los e cristianizá-los. Na prática, o sistema permitiu abusos enormes."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 5.2"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-04
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-conquista-da-america
+  dificuldade: 2
+  enunciado: "Qual explicação da queda de Tenochtitlán é a mais completa?"
+  alternativas:
+    - texto: "Os mexicas não tinham exército nem armas."
+      erro: "Os mexicas tinham um exército poderoso e expulsaram os espanhóis em 1520. A queda veio depois, com outros fatores."
+    - texto: "Armas de ferro e cavalos, alianças com povos inimigos dos mexicas e a epidemia de varíola."
+      certa: true
+    - texto: "Uma decisão do papa obrigou os mexicas a se renderem."
+      erro: "Nenhuma decisão do papa rendeu Tenochtitlán. A cidade caiu depois de um cerco militar."
+    - texto: "Só a superioridade das armas de fogo."
+      erro: "As armas pesaram, mas sozinhas não explicam como poucas centenas de homens venceram. Faltam as alianças e as epidemias."
+    - texto: "Os próprios mexicas entregaram a cidade sem lutar."
+      erro: "Houve guerra: em 1520 os espanhóis fugiram, e em 1521 a cidade só caiu depois de um cerco de cerca de três meses."
+  explicacao: "Cortés voltou em 1521 com aliados indígenas, como os de Tlaxcala, que pagavam tributo aos mexicas. A varíola matava muitos defensores. As armas e os cavalos completaram o quadro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-05
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-conquista-da-america
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um códice do século XVI, pintado por indígenas, mostra um colono espanhol batendo num homem amarrado.
+    Ao lado, desenhos de mantas, milho e moedas indicam o que os moradores do povoado entregavam ao colono.
+    O documento foi apresentado num tribunal colonial.
+    (Texto do Instituto Lúcia, baseado na descrição do Códice Tepetlaoztoc em OpenStax, World History Volume 2.)
+  enunciado: "O uso desse documento num tribunal revela que os indígenas"
+  alternativas:
+    - texto: "aceitavam a encomienda sem nenhuma queixa."
+      erro: "Se aceitassem sem queixa, não haveria processo. O documento é uma denúncia."
+    - texto: "tinham sido todos escravizados legalmente pela Coroa."
+      erro: "A Coroa proibia oficialmente escravizar indígenas. O abuso acontecia apesar disso, e era denunciado."
+    - texto: "não tinham nenhuma forma de registro antes da conquista."
+      erro: "O próprio códice mostra uma tradição de registro em imagens. A alternativa vai contra a fonte."
+    - texto: "usaram a justiça colonial para denunciar os abusos do sistema de trabalho."
+      certa: true
+    - texto: "pediam para ser levados à Europa."
+      erro: "Nada no texto fala de viagem à Europa. Fique no que a fonte mostra: tributo, violência e processo."
+  explicacao: "O códice registra o tributo e a violência e serve de prova num processo. Os indígenas resistiram também pela via da justiça, não só pelas armas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-06
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 4
+  objeto: hum-cultura-conquista-da-america
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Texto I: "É justo fazer guerra a esses povos, pois vivem sem a verdadeira fé e precisam ser governados."
+    Texto II: "Esses povos são livres, têm reis, leis e cidades, e nenhuma guerra feita contra eles é justa."
+    (Textos do Instituto Lúcia que resumem as posições defendidas em Valladolid, em 1550.)
+  enunciado: "Os textos resumem as posições de"
+  alternativas:
+    - texto: "Sepúlveda (Texto I) e Las Casas (Texto II), no debate sobre a conquista dos indígenas."
+      certa: true
+    - texto: "Las Casas (Texto I) e Sepúlveda (Texto II), no debate sobre o comércio de açúcar."
+      erro: "As posições estão trocadas: Las Casas denunciava a guerra. E o debate não era sobre açúcar."
+    - texto: "Colombo e Cortés, sobre a rota para as Índias."
+      erro: "Os textos discutem a guerra contra povos indígenas, não rotas marítimas."
+    - texto: "dois reis portugueses, sobre o Tratado de Tordesilhas."
+      erro: "Tordesilhas dividiu terras entre Espanha e Portugal. Os textos discutem se a guerra aos indígenas era justa."
+    - texto: "dois líderes incas, sobre a sucessão do império."
+      erro: "Os textos falam 'desses povos' de fora, do ponto de vista europeu. São vozes espanholas."
+  explicacao: "No debate de Valladolid, Juan Ginés de Sepúlveda defendeu a guerra contra os indígenas, e o frade Bartolomé de las Casas defendeu que eram povos livres."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-07
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 11
+  objeto: hum-cultura-conquista-da-america
+  dificuldade: 2
+  enunciado: "As Leis Novas foram assinadas em 1542, e a Brevíssima relação de Las Casas foi publicada em 1552. Quantos anos separam os dois fatos?"
+  alternativas:
+    - texto: "20 anos"
+      erro: "Faça a conta de novo: 1552 − 1542."
+    - texto: "8 anos"
+      erro: "Faltaram dois. 1542 + 8 dá 1550, o ano do debate de Valladolid."
+    - texto: "12 anos"
+      erro: "Você subtraiu errado a casa das dezenas. 52 − 42 = 10."
+    - texto: "1 ano"
+      erro: "Você olhou só a casa das unidades. Os anos terminam ambos em 2, mas as dezenas mudam."
+    - texto: "10 anos"
+      certa: true
+  explicacao: "1552 − 1542 = 10. Entre as duas datas fica o debate de Valladolid, de 1550."
+  conferir: "1552 - 1542"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-08
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-conquista-da-america
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Os maias acompanhavam o movimento do planeta Vênus e mediam o ano com grande precisão. Usavam um sinal
+    para o zero. Nos Andes, médicos incas faziam cirurgias no crânio, e muitos pacientes sobreviviam, como
+    mostram os ossos cicatrizados.
+    (Texto do Instituto Lúcia.)
+  enunciado: "As informações do texto permitem reconhecer, nessas sociedades,"
+  alternativas:
+    - texto: "conhecimentos aprendidos com os navegadores europeus."
+      erro: "Esses saberes são anteriores à chegada dos europeus. A alternativa inverte a direção da influência."
+    - texto: "uma ciência no sentido moderno, com laboratórios e universidades."
+      erro: "Anacronismo: chamar esses saberes de ciência moderna é pôr uma ideia de outra época. Eram saberes próprios, com outra organização."
+    - texto: "heranças culturais formadas por saberes próprios, anteriores à conquista."
+      certa: true
+    - texto: "uma religião de base cristã."
+      erro: "O cristianismo chegou com os espanhóis. Os maias e os incas tinham religiões próprias."
+    - texto: "a ausência de qualquer registro escrito."
+      erro: "O texto fala de um sinal para o zero, que é registro. E os maias tinham escrita."
+  explicacao: "Astronomia, contagem do tempo, o zero e a cirurgia são saberes criados na América, sem influência europeia. A prova pede para reconhecê-los como herança cultural, sem anacronismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-09
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-conquista-da-america
+  dificuldade: 3
+  enunciado: "Muitos historiadores evitam a palavra 'descobrimento' para 1492. Qual é o motivo principal?"
+  alternativas:
+    - texto: "Porque Colombo chegou à Ásia, e não à América."
+      erro: "Colombo achou que estava na Ásia, mas chegou às Bahamas. O problema da palavra é outro."
+    - texto: "Porque a palavra põe o europeu como sujeito e apaga os povos que já viviam aqui."
+      certa: true
+    - texto: "Porque os portugueses chegaram antes dos espanhóis."
+      erro: "A crítica não é sobre qual europeu chegou primeiro. É sobre quem a palavra deixa de fora."
+    - texto: "Porque a América foi descoberta pelos vikings."
+      erro: "Houve viagens vikings à América do Norte, mas trocar um 'descobridor' por outro mantém o mesmo problema."
+    - texto: "Porque não havia ninguém na América em 1492."
+      erro: "É o contrário: a América tinha milhões de habitantes. É exatamente por isso que a palavra incomoda."
+  explicacao: "Só se descobre o que ninguém conhecia. Os povos indígenas conheciam a sua terra. Por isso há quem prefira 'conquista', 'invasão' ou 'encontro'; não há uma palavra aceita por todos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-conquista-10
+  tema: "Conquista da América"
+  area: humanas
+  habilidade: 15
+  objeto: hum-cultura-conquista-da-america
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Em 1536, um exército de dezenas de milhares de indígenas cercou Cuzco, ocupada pelos espanhóis. O cerco
+    durou meses. Derrotados, os rebeldes recuaram para as montanhas, onde mantiveram um Estado inca
+    independente por mais de três décadas."
+    (Texto do Instituto Lúcia.)
+  enunciado: "O episódio contraria a ideia de que"
+  alternativas:
+    - texto: "os espanhóis chegaram aos Andes no século XVI."
+      erro: "O episódio confirma que os espanhóis estavam nos Andes no século XVI. Não contraria isso."
+    - texto: "Cuzco era uma cidade importante do império inca."
+      erro: "O cerco mostra justamente a importância da cidade. Não há contradição."
+    - texto: "houve guerras na conquista da América."
+      erro: "O texto descreve uma guerra. Ele confirma, não contraria."
+    - texto: "os povos indígenas aceitaram a conquista sem resistir."
+      certa: true
+    - texto: "os incas viviam nos Andes."
+      erro: "O texto confirma que os incas viviam nos Andes e recuaram para as montanhas."
+  explicacao: "O cerco de Cuzco, liderado por Manco Inca, e a resistência nas montanhas mostram que a conquista enfrentou luta indígena por décadas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

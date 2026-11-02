@@ -1,0 +1,241 @@
+# Exercícios da aula "Queda livre e lançamentos" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Em todos, g = 10 m/s² e sem resistência do ar, salvo aviso.
+
+- id: enem-fis-queda-01
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  dificuldade: 1
+  enunciado: "Uma fruta se solta de um galho e cai em queda livre. Com g = 10 m/s², qual é a velocidade dela 3 s depois de se soltar, se ainda não chegou ao chão?"
+  alternativas:
+    - texto: "3,3 m/s"
+      erro: "Você dividiu g pelo tempo. A velocidade cresce 10 m/s a cada segundo: multiplique."
+    - texto: "0,3 m/s"
+      erro: "Você dividiu o tempo por g. A conta é v = g · t."
+    - texto: "13 m/s"
+      erro: "Você somou g e o tempo. A velocidade é g vezes o tempo."
+    - texto: "30 m/s"
+      certa: true
+    - texto: "45 m/s"
+      erro: "45 é a distância que a fruta caiu em 3 s (em metros), não a velocidade."
+  explicacao: "Partindo do repouso, v = g · t = 10 × 3 = 30 m/s."
+  conferir: "10 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-02
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  dificuldade: 1
+  enunciado: "Num tubo de onde se retirou o ar, uma pena e uma moeda são soltas ao mesmo tempo, da mesma altura. O que acontece?"
+  alternativas:
+    - texto: "As duas chegam juntas ao fundo do tubo"
+      certa: true
+    - texto: "A moeda chega primeiro, porque é mais pesada"
+      erro: "No ar, a moeda chega antes porque a pena é freada pelo ar. Sem ar, as duas caem com a mesma aceleração."
+    - texto: "A pena chega primeiro, porque é mais leve"
+      erro: "Ser leve não faz cair mais depressa. Sem ar, as duas caem com a mesma aceleração g."
+    - texto: "Nenhuma das duas cai, porque sem ar não há gravidade"
+      erro: "O ar não tem nada a ver com a gravidade. A Terra atrai os corpos com ou sem ar em volta."
+    - texto: "A pena flutua no meio do tubo"
+      erro: "A pena só flutua no ar porque o ar a segura. Sem ar, ela cai como a moeda."
+  explicacao: "Sem resistência do ar, todos os corpos caem com a mesma aceleração, qualquer que seja a massa. A pena e a moeda chegam juntas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-03
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  dificuldade: 1
+  enunciado: "Uma bola é jogada verticalmente para cima. Sem resistência do ar, como é a aceleração da bola enquanto ela sobe?"
+  alternativas:
+    - texto: "Para cima, porque a bola está subindo"
+      erro: "A bola sobe porque foi lançada, mas está ficando mais lenta. Quem freia é a gravidade, que aponta para baixo."
+    - texto: "Zero, porque nenhuma força age na bola"
+      erro: "O peso age na bola o tempo todo. Por isso ela freia, para e volta."
+    - texto: "Igual a g, apontando para baixo"
+      certa: true
+    - texto: "Maior que g, porque a mão deu um impulso"
+      erro: "Depois que a bola sai da mão, a mão não age mais. Só sobra o peso, e a aceleração é g."
+    - texto: "Para cima na subida e para baixo só na descida"
+      erro: "A aceleração é a mesma do começo ao fim: g, para baixo. O que muda de sentido é a velocidade."
+  explicacao: "Depois de solta, a única força na bola é o peso. A aceleração é g, para baixo, na subida, no topo e na descida. Na subida, ela freia a bola; na descida, a acelera."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-04
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  dificuldade: 2
+  enunciado: "Uma chave cai da mão de uma pessoa numa janela e leva 2 s para chegar ao chão, a partir do repouso. Com g = 10 m/s², de que altura ela caiu?"
+  alternativas:
+    - texto: "10 m"
+      erro: "Você esqueceu de elevar o tempo ao quadrado: fez 10 × 2 ÷ 2. O certo é 10 × 2² ÷ 2."
+    - texto: "40 m"
+      erro: "Você esqueceu de dividir por 2: h = g · t² ÷ 2."
+    - texto: "4 m"
+      erro: "Você só elevou o tempo ao quadrado e esqueceu a gravidade."
+    - texto: "80 m"
+      erro: "Você multiplicou por 2 em vez de dividir. A fórmula é h = g · t² ÷ 2."
+    - texto: "20 m"
+      certa: true
+  explicacao: "h = g · t² ÷ 2 = 10 × 2 × 2 ÷ 2 = 40 ÷ 2 = 20 m."
+  conferir: "10 * 2 * 2 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-05
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  dificuldade: 2
+  enunciado: "Um jogador de vôlei lança a bola verticalmente para cima com velocidade de 30 m/s. Desprezando o ar e com g = 10 m/s², qual é a altura máxima que a bola atinge acima do ponto de lançamento?"
+  alternativas:
+    - texto: "90 m"
+      erro: "Você esqueceu o 2 do denominador: h = v₀² ÷ (2 · g) = 900 ÷ 20."
+    - texto: "45 m"
+      certa: true
+    - texto: "3 m"
+      erro: "3 é o tempo de subida, em segundos (30 ÷ 10), não a altura."
+    - texto: "900 m"
+      erro: "900 é a velocidade ao quadrado. Falta dividir por 2 · g = 20."
+    - texto: "300 m"
+      erro: "Você multiplicou a velocidade pela gravidade. A altura máxima é v₀² ÷ (2 · g)."
+  explicacao: "No topo, a velocidade é zero. h = v₀² ÷ (2 · g) = 30 × 30 ÷ 20 = 900 ÷ 20 = 45 m. Pelo tempo: sobe por 30 ÷ 10 = 3 s, e cair 3 s dá 10 × 9 ÷ 2 = 45 m."
+  conferir: "30 * 30 / (2 * 10)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-06
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa aula prática, uma estudante empurra uma bolinha de gude para fora da borda de uma mesa, na horizontal. No mesmo
+    instante, um colega solta outra bolinha igual, parada, da mesma altura, ao lado da borda. Considere desprezível a
+    resistência do ar.
+  enunciado: "Sobre a chegada das bolinhas ao chão, é correto afirmar que"
+  alternativas:
+    - texto: "a bolinha empurrada chega primeiro, porque tem mais velocidade"
+      erro: "Ela tem mais velocidade na horizontal, mas isso não acelera a queda. O tempo de queda depende só da altura."
+    - texto: "a bolinha solta chega primeiro, porque faz o caminho mais curto"
+      erro: "O caminho é mais curto, mas o tempo de queda é igual: na vertical, as duas fazem o mesmo movimento."
+    - texto: "a bolinha empurrada demora mais, porque a velocidade horizontal segura a queda"
+      erro: "Os dois movimentos são independentes. A velocidade horizontal não segura nem acelera a queda."
+    - texto: "as duas chegam ao mesmo tempo, porque o movimento vertical das duas é igual"
+      certa: true
+    - texto: "não dá para saber sem a massa das bolinhas"
+      erro: "Sem ar, a massa não muda a queda. E as bolinhas são iguais."
+  explicacao: "No lançamento horizontal, o movimento se divide em dois. Na vertical, as duas bolinhas partem com velocidade vertical zero e caem com aceleração g: levam o mesmo tempo. A empurrada só cai mais longe da mesa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-07
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  dificuldade: 2
+  enunciado: "Um vaso cai de uma janela, a partir do repouso, e chega ao chão com velocidade de 20 m/s. Com g = 10 m/s² e sem resistência do ar, quanto tempo durou a queda?"
+  alternativas:
+    - texto: "2 s"
+      certa: true
+    - texto: "200 s"
+      erro: "Você multiplicou a velocidade pela gravidade. De v = g · t, o tempo é t = v ÷ g."
+    - texto: "0,5 s"
+      erro: "Você dividiu g pela velocidade. A conta é t = v ÷ g = 20 ÷ 10."
+    - texto: "10 s"
+      erro: "Você dividiu a velocidade por 2. O tempo é a velocidade dividida pela gravidade, 10 m/s²."
+    - texto: "30 s"
+      erro: "Você somou a velocidade e a gravidade. Divida: t = v ÷ g."
+  explicacao: "Na queda livre, v = g · t. Então t = v ÷ g = 20 ÷ 10 = 2 s. Em 2 s, o vaso caiu 10 × 4 ÷ 2 = 20 m."
+  conferir: "20 / 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-08
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num treino, um goleiro chuta a bola duas vezes do mesmo ponto do gramado, com a mesma velocidade inicial. No primeiro
+    chute, a bola sai a 30° com o chão; no segundo, a 60°. Considere desprezível a resistência do ar e o gramado plano.
+  enunciado: "Comparando os dois chutes, é correto afirmar que"
+  alternativas:
+    - texto: "o chute a 60° vai mais longe, porque a bola sobe mais"
+      erro: "Subir mais não basta: a 60° a bola tem menos velocidade horizontal. O alcance é igual nos dois chutes."
+    - texto: "o chute a 30° vai mais longe, porque a bola tem mais velocidade horizontal"
+      erro: "A 30° a bola anda mais depressa na horizontal, mas fica menos tempo no ar. As duas coisas se compensam."
+    - texto: "o chute a 30° fica mais tempo no ar"
+      erro: "O tempo no ar depende da parte vertical da velocidade, que é maior a 60°."
+    - texto: "os dois chutes têm a mesma altura máxima"
+      erro: "A altura depende da parte vertical da velocidade. A 60° ela é maior, e a bola sobe mais."
+    - texto: "os dois chutes têm o mesmo alcance, mas a 60° a bola sobe mais e fica mais tempo no ar"
+      certa: true
+  explicacao: "O alcance é R = v₀² · sen(2θ) ÷ g. Para 30°, sen 60°; para 60°, sen 120°, que tem o mesmo valor. Ângulos que somam 90° dão o mesmo alcance. A 60°, a parte vertical da velocidade é maior: a bola sobe mais e demora mais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-09
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  dificuldade: 3
+  enunciado: "Uma bola é chutada do chão com velocidade de 25 m/s: a parte horizontal da velocidade é de 15 m/s e a parte vertical, de 20 m/s. Com g = 10 m/s² e sem resistência do ar, a que distância do ponto de chute a bola volta ao chão?"
+  alternativas:
+    - texto: "30 m"
+      erro: "Você usou só o tempo de subida (2 s). A bola também precisa descer: são 4 s no ar."
+    - texto: "100 m"
+      erro: "Você usou a velocidade total, 25 m/s. Na horizontal, só conta a parte horizontal, 15 m/s."
+    - texto: "60 m"
+      certa: true
+    - texto: "80 m"
+      erro: "Você multiplicou o tempo pela parte vertical da velocidade. O alcance vem da parte horizontal."
+    - texto: "20 m"
+      erro: "20 m é a altura máxima (20² ÷ 20), não o alcance."
+  explicacao: "Vertical: a bola sobe por 20 ÷ 10 = 2 s e desce por mais 2 s, 4 s no ar. Horizontal: velocidade constante de 15 m/s. Alcance: 15 × 4 = 60 m."
+  conferir: "15 * 2 * 20 / 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-queda-10
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um paraquedista salta de um avião. No começo da queda, a velocidade dele aumenta. Depois de algum tempo, mesmo sem
+    abrir o paraquedas, ele passa a cair com velocidade constante. Ao abrir o paraquedas, a velocidade diminui até um novo
+    valor constante, bem menor.
+  enunciado: "O paraquedista passa a cair com velocidade constante quando"
+  alternativas:
+    - texto: "a gravidade deixa de agir sobre ele"
+      erro: "O peso age o tempo todo. A velocidade fica constante porque outra força passa a equilibrá-lo."
+    - texto: "a força de resistência do ar fica igual ao peso, e a força resultante sobre ele é zero"
+      certa: true
+    - texto: "a força de resistência do ar fica maior que o peso, e ele para de acelerar"
+      erro: "Se a resistência fosse maior que o peso, a resultante apontaria para cima e ele frearia. Velocidade constante pede resultante zero."
+    - texto: "ele atinge a aceleração máxima, que é g"
+      erro: "Com velocidade constante a aceleração é zero, não g. A aceleração g só vale no começo, quando o ar quase não freia."
+    - texto: "a massa dele diminui por causa do ar"
+      erro: "A massa não muda. O que muda é a resistência do ar, que cresce com a velocidade."
+  explicacao: "A resistência do ar cresce com a velocidade. Quando ela fica igual ao peso, a força resultante é zero e, pela primeira lei de Newton, a velocidade fica constante: é a velocidade terminal. Com o paraquedas aberto, o ar freia mais, e o equilíbrio acontece numa velocidade menor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
