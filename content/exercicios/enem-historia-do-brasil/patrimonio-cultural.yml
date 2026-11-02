@@ -1,0 +1,246 @@
+# Exercícios da aula "Patrimônio cultural, memória e identidade no Brasil" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-patrimonio-01
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-patrimonio
+  dificuldade: 1
+  enunciado: "Qual destes bens é um exemplo de patrimônio imaterial?"
+  alternativas:
+    - texto: "Uma igreja construída no século XVIII"
+      erro: "A igreja é uma edificação: dá para tocar. É patrimônio material, protegido por tombamento."
+    - texto: "Um conjunto de casarões numa rua antiga"
+      erro: "Casarões são construções. Conjuntos urbanos entram no patrimônio material."
+    - texto: "O saber de fazer uma panela de barro, ensinado de geração em geração"
+      certa: true
+    - texto: "Um documento guardado num arquivo público"
+      erro: "O documento é um objeto. Mesmo guardando memória, é patrimônio material."
+    - texto: "Uma estátua numa praça"
+      erro: "A estátua é um objeto que se toca. É material. Imaterial é o que só existe quando alguém pratica."
+  explicacao: "Patrimônio imaterial é o que vive nas pessoas: saberes, celebrações, formas de expressão e lugares de prática coletiva. O saber de fazer a panela só existe enquanto alguém sabe e ensina."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-02
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-patrimonio
+  dificuldade: 1
+  enunciado: "O Decreto nº 3.551, de 2000, criou o registro dos bens imateriais em quatro livros. Quais são eles?"
+  alternativas:
+    - texto: "Saberes, Celebrações, Formas de Expressão e Lugares"
+      certa: true
+    - texto: "Arqueológico, Histórico, Belas Artes e Artes Aplicadas"
+      erro: "Esses nomes lembram os livros do tombo, que guardam bens materiais. O registro do imaterial tem outros quatro livros."
+    - texto: "Igrejas, Palácios, Fortes e Museus"
+      erro: "São tipos de construção, ou seja, patrimônio material. O decreto de 2000 trata do que se pratica."
+    - texto: "Indígena, Africano, Europeu e Asiático"
+      erro: "O registro não separa os bens pela origem dos povos, e sim pelo tipo de prática."
+    - texto: "Federal, Estadual, Municipal e Mundial"
+      erro: "Essas são esferas de proteção, não os livros do registro."
+  explicacao: "Os quatro livros do registro são: Saberes (modos de fazer), Celebrações (festas e rituais), Formas de Expressão (músicas, danças, artes) e Lugares (espaços de práticas coletivas)."
+  fonte: "Questão original do Instituto Lúcia, a partir do Decreto nº 3.551/2000"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-03
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 2
+  objeto: hum-cultura-patrimonio
+  dificuldade: 1
+  enunciado: "O que acontece com um imóvel depois de tombado?"
+  alternativas:
+    - texto: "Passa automaticamente a ser propriedade do governo"
+      erro: "O tombamento não tira a propriedade. O dono continua dono, mas ganha deveres de conservação."
+    - texto: "Pode ser demolido se o dono quiser"
+      erro: "É o contrário: o bem tombado não pode ser destruído. É a principal consequência do tombamento."
+    - texto: "Vira obrigatoriamente um museu aberto ao público"
+      erro: "Tombar não muda o uso do imóvel. Uma casa tombada pode continuar sendo moradia."
+    - texto: "Fica livre de qualquer regra"
+      erro: "O tombamento cria regras, não as tira. Reformas passam a depender de autorização."
+    - texto: "Não pode ser destruído, e reformas dependem de autorização"
+      certa: true
+  explicacao: "Pelo Decreto-Lei nº 25, de 1937, o bem tombado não pode ser destruído, demolido ou mutilado, e só pode ser reparado ou restaurado com autorização do órgão de patrimônio."
+  fonte: "Questão original do Instituto Lúcia, a partir do Decreto-Lei nº 25/1937"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-04
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 3
+  objeto: hum-cultura-patrimonio
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa cidade do interior, a festa do padroeiro levava as famílias da zona rural em carros de boi até a praça da
+    igreja. Com as estradas e os carros, os carros de boi sumiram do caminho. A festa continuou, com a missa, a
+    procissão, as barracas de comida e a banda. Os moradores mais velhos dizem que "a festa é outra, mas é a mesma".
+    (Texto do Instituto Lúcia.)
+  enunciado: "A fala dos moradores mais velhos expressa que a festa"
+  alternativas:
+    - texto: "acabou, porque perdeu um elemento antigo."
+      erro: "Os moradores dizem que a festa continua: missa, procissão e banda seguem. Perder um elemento não é acabar."
+    - texto: "é um bem cultural vivo, que se transforma junto com a vida de quem a faz."
+      certa: true
+    - texto: "deveria ser proibida, por ter abandonado a tradição."
+      erro: "Nada no texto sugere proibição. A mudança é tratada como parte da vida da festa."
+    - texto: "foi substituída por uma festa estrangeira."
+      erro: "O texto não fala de influência estrangeira. Mudou o transporte, não a origem da festa."
+    - texto: "só existe hoje dentro de um museu."
+      erro: "A festa acontece na praça, com a comunidade. Não foi para o museu."
+  explicacao: "O patrimônio imaterial é vivo: muda porque quem o pratica muda. A frase \"é outra, mas é a mesma\" mostra a permanência da festa apesar da troca do transporte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-05
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 2
+  objeto: hum-cultura-patrimonio
+  dificuldade: 2
+  enunciado: "A Constituição de 1988 declarou tombados os documentos e os sítios com reminiscências históricas dos antigos quilombos. Essa decisão mostra que"
+  alternativas:
+    - texto: "o patrimônio passou a valer só para construções de pedra."
+      erro: "Quilombos raramente deixaram construções de pedra. A decisão amplia, e não estreita, o que conta como patrimônio."
+    - texto: "a memória dos quilombos deixou de interessar ao Estado."
+      erro: "É o oposto: a Constituição protege essa memória diretamente."
+    - texto: "a escravidão foi apagada da história oficial."
+      erro: "Proteger os sítios dos quilombos é guardar a memória da resistência à escravidão, não apagá-la."
+    - texto: "a memória de grupos antes deixados de fora passou a ser reconhecida como patrimônio nacional."
+      certa: true
+    - texto: "só a Unesco pode proteger lugares ligados à escravidão."
+      erro: "Quem tombou foi a própria Constituição brasileira. A Unesco é outra esfera."
+  explicacao: "O artigo 216 da Constituição incluiu a memória dos diferentes grupos formadores da sociedade e, no parágrafo 5º, tombou os sítios dos antigos quilombos. Foi fruto da luta do movimento negro."
+  fonte: "Questão original do Instituto Lúcia, a partir do artigo 216 da Constituição de 1988"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-06
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 2
+  objeto: hum-cultura-patrimonio
+  dificuldade: 2
+  enunciado: "O Cais do Valongo, no Rio de Janeiro, entrou em 2017 na Lista do Patrimônio Mundial. Por que guardar um lugar ligado a uma violência?"
+  alternativas:
+    - texto: "Para lembrar o crime da escravidão e a história de quem chegou ali à força"
+      certa: true
+    - texto: "Para celebrar o comércio do porto"
+      erro: "O cais é reconhecido como lugar de chegada de africanos escravizados. Não se trata de celebrar."
+    - texto: "Porque só lugares bonitos viram patrimônio"
+      erro: "Beleza não é o critério. Memórias dolorosas também são patrimônio."
+    - texto: "Para atrair apenas turistas estrangeiros"
+      erro: "O turismo pode existir, mas o motivo do reconhecimento é a memória da escravidão."
+    - texto: "Porque o cais foi construído pela Unesco"
+      erro: "A Unesco reconhece bens; ela não os constrói. O cais é do século XIX."
+  explicacao: "A Unesco reconheceu o Valongo como o vestígio físico mais importante de um local de desembarque de africanos escravizados nas Américas. Lugares de dor são guardados para que se lembre e não se repita."
+  fonte: "Questão original do Instituto Lúcia, a partir da página do sítio nº 1548 na Lista do Patrimônio Mundial (Unesco)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-07
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-patrimonio
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num museu, uma vitrine expõe a gamela de madeira em que uma quituteira vendia cocadas nas ruas de uma capital do
+    Nordeste. A etiqueta diz apenas: "Gamela. Madeira. Século XX". Uma pesquisadora propôs trocar a etiqueta por um
+    texto que conte quem era a quituteira, como era o seu trabalho e por que a peça chegou ao museu.
+    (Situação criada pelo Instituto Lúcia.)
+  enunciado: "A proposta da pesquisadora valoriza a gamela como"
+  alternativas:
+    - texto: "obra de arte de valor apenas estético."
+      erro: "A proposta fala da dona, do trabalho e do caminho da peça, não da beleza dela."
+    - texto: "objeto sem importância, que deveria sair do museu."
+      erro: "A pesquisadora quer contar mais sobre a peça, não retirá-la."
+    - texto: "registro do trabalho e da memória de um grupo social."
+      certa: true
+    - texto: "prova de que só os objetos antigos guardam memória."
+      erro: "A gamela é do século XX, recente. A proposta não depende da idade do objeto."
+    - texto: "mercadoria que deve voltar a ser vendida."
+      erro: "Nada no texto fala de venda. O foco é o que o objeto conta."
+  explicacao: "Um objeto de trabalho conta a história de quem o usou. A nova etiqueta transforma a peça de vitrine num documento da vida de trabalhadoras negras e pobres, quase sempre esquecidas pela memória oficial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-08
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 4
+  objeto: hum-cultura-patrimonio
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I. Durante décadas, a lista de bens protegidos no país foi formada sobretudo por igrejas, palácios e
+    casarões do período colonial, ligados à Igreja e às famílias de proprietários.
+    Texto II. Em 1985, a Serra da Barriga, em Alagoas, onde ficava o centro do Quilombo dos Palmares, foi tombada.
+    Em 2000, um decreto passou a permitir o registro de saberes, festas e formas de expressão.
+    (Textos do Instituto Lúcia, a partir da Fundação Cultural Palmares e do Decreto nº 3.551/2000.)
+  enunciado: "Comparando os dois textos, conclui-se que a política de patrimônio no Brasil"
+  alternativas:
+    - texto: "manteve sempre os mesmos critérios desde a sua criação."
+      erro: "Os textos mostram justamente uma mudança: novos lugares e novos tipos de bem entram na proteção."
+    - texto: "deixou de proteger igrejas e casarões."
+      erro: "O texto II acrescenta bens novos; não diz que os antigos perderam a proteção."
+    - texto: "passou a ser decidida só por organismos estrangeiros."
+      erro: "Tombamento e registro citados são brasileiros. Nada fala em decisão estrangeira."
+    - texto: "abandonou os bens materiais em favor dos imateriais."
+      erro: "A Serra da Barriga é bem material, tombado em 1985. As duas formas convivem."
+    - texto: "ampliou o que é reconhecido como memória, incluindo a resistência negra e as práticas populares."
+      certa: true
+  explicacao: "O texto I mostra uma memória centrada nas elites coloniais. O texto II mostra a entrada de um lugar da resistência negra e de saberes e festas populares. A política ampliou quem e o que é lembrado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-09
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 2
+  objeto: hum-cultura-patrimonio
+  dificuldade: 3
+  enunciado: "Uma prefeitura quer pôr abaixo um galpão antigo onde funcionou uma fábrica e onde houve uma greve importante. Moradores pedem o tombamento. O que esse conflito revela sobre o patrimônio?"
+  alternativas:
+    - texto: "Que só prédios bonitos podem ser tombados"
+      erro: "O critério do patrimônio é a memória que o bem guarda, não a beleza."
+    - texto: "Que decidir o que guardar é uma disputa sobre qual memória a cidade quer manter"
+      certa: true
+    - texto: "Que o tombamento proíbe a cidade de crescer"
+      erro: "O tombamento protege um bem específico. A disputa é sobre memória, não sobre impedir obras em geral."
+    - texto: "Que a memória dos trabalhadores não é assunto de patrimônio"
+      erro: "A Constituição fala da memória dos diferentes grupos formadores. Trabalhadores estão entre eles."
+    - texto: "Que a decisão cabe apenas ao dono do terreno"
+      erro: "A proteção é feita pelo poder público com a colaboração da comunidade. Não é decisão só do dono."
+  explicacao: "Patrimônio é escolha. Guardar o galpão é manter viva a memória operária da cidade; derrubá-lo é apagá-la. Por isso a prova pergunta quem decide e qual memória fica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-patrimonio-10
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-patrimonio
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "O patrimônio cultural brasileiro é formado por bens de natureza material e imaterial que fazem referência à
+    identidade, à ação e à memória dos diferentes grupos formadores da sociedade brasileira."
+    (Paráfrase do Instituto Lúcia para o caput do artigo 216 da Constituição de 1988.)
+  enunciado: "De acordo com essa definição, seria reconhecido como patrimônio cultural"
+  alternativas:
+    - texto: "apenas o que foi construído pelos colonizadores portugueses."
+      erro: "A definição fala dos diferentes grupos formadores, não de um só."
+    - texto: "apenas o que tem mais de cem anos."
+      erro: "A definição não fixa idade. O critério é a referência à identidade e à memória."
+    - texto: "apenas os bens que têm valor de mercado."
+      erro: "Preço não é critério. Um saber popular não se vende e pode ser patrimônio."
+    - texto: "o modo de fazer de uma comunidade indígena e a casa de um antigo engenho."
+      certa: true
+    - texto: "apenas os bens declarados pela Unesco."
+      erro: "A definição é da Constituição brasileira; a Unesco tem a sua própria lista, à parte."
+  explicacao: "A definição inclui o material (a casa do engenho) e o imaterial (o modo de fazer), e a memória de diferentes grupos (indígenas, africanos, europeus e outros). As duas coisas da alternativa D se encaixam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

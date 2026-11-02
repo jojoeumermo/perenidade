@@ -1,0 +1,236 @@
+# Exercícios da aula "Urbanização, segregação e mobilidade" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-urbanizacao-01
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 26
+  objeto: hum-organizacao-social-urbanizacao
+  dificuldade: 1
+  enunciado: "Urbanização é:"
+  alternativas:
+    - texto: "o aumento da parte da população que vive nas cidades em relação à que vive no campo"
+      certa: true
+    - texto: "a construção de prédios altos no centro das cidades"
+      erro: "Verticalização é o nome disso. Urbanização fala da população: quanto dela mora nas cidades."
+    - texto: "a saída de moradores da cidade para o campo"
+      erro: "Isso seria o contrário, um movimento de volta ao campo."
+    - texto: "o crescimento de qualquer cidade, mesmo que o campo cresça mais"
+      erro: "Se o campo cresce mais, a parte urbana da população cai. Urbanização é a parte urbana aumentar."
+  explicacao: "Urbanização é um processo de proporção: a população urbana cresce mais que a rural. No Brasil, a taxa passou de 36,2% em 1950 para 84,4% em 2010, pelos Censos do IBGE."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-02
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 26
+  objeto: hum-organizacao-social-urbanizacao
+  dificuldade: 1
+  enunciado: "Quem atravessa uma avenida entre São Paulo e Guarulhos muda de município sem perceber, porque as duas manchas urbanas se juntaram. Esse processo é:"
+  alternativas:
+    - texto: "gentrificação"
+      erro: "Gentrificação é a expulsão de moradores de um bairro que se valoriza. Aqui o assunto é cidades vizinhas que se juntaram."
+    - texto: "êxodo rural"
+      erro: "Êxodo rural é a saída de gente do campo. O texto fala do encontro de duas cidades."
+    - texto: "conurbação"
+      certa: true
+    - texto: "macrocefalia"
+      erro: "Macrocefalia é a concentração excessiva de gente e atividades em poucas metrópoles. O texto descreve manchas que se encontram."
+  explicacao: "Conurbação é o encontro das manchas urbanas de cidades vizinhas, que passam a funcionar como uma só, mesmo com prefeituras diferentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-03
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 6
+  objeto: hum-organizacao-social-urbanizacao
+  dificuldade: 1
+  enunciado: "Pelos Censos do IBGE, a taxa de urbanização do Brasil foi de 36,2% em 1950 e de 84,4% em 2010. Quantos pontos percentuais ela subiu?"
+  alternativas:
+    - texto: "120,6"
+      erro: "Você somou as duas taxas. O aumento é a diferença: 84,4 − 36,2."
+    - texto: "58,2"
+      erro: "Erro na subtração. Faça por partes: 84,4 − 36 = 48,4; depois 48,4 − 0,2 = 48,2."
+    - texto: "84,4"
+      erro: "Essa é a taxa de 2010. A pergunta pede quanto ela subiu desde 1950."
+    - texto: "48,2"
+      certa: true
+  explicacao: "84,4 − 36,2 = 48,2 pontos percentuais em sessenta anos. Quase metade da população passou do campo para a cidade nesse período."
+  conferir: "84.4 - 36.2"
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-04
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 26
+  objeto: hum-organizacao-social-urbanizacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Marta é auxiliar de cozinha num restaurante do centro. Ela mora num bairro na borda da região metropolitana, onde o
+    aluguel cabe no salário. Sai de casa às 4h40, pega um ônibus até a estação, um trem e outro ônibus, e chega ao
+    trabalho às 7h. Volta para casa depois das 20h. (Texto do Instituto Lúcia.)
+  enunciado: "A rotina de Marta expressa um efeito da"
+  alternativas:
+    - texto: "conurbação, que aproximou as cidades e encurtou as viagens."
+      erro: "A conurbação junta manchas urbanas, mas não aproxima a moradia do emprego. A viagem de Marta é longa."
+    - texto: "segregação socioespacial, que afasta os trabalhadores de baixa renda das áreas com emprego."
+      certa: true
+    - texto: "gentrificação do bairro de Marta, que ficou caro."
+      erro: "O texto diz o contrário: Marta mora lá porque o aluguel cabe no salário."
+    - texto: "êxodo urbano, com a volta de trabalhadores para o campo."
+      erro: "Marta mora e trabalha na região metropolitana. Não há volta ao campo."
+    - texto: "macrocefalia da cidade onde Marta mora, que tem mais empregos que o centro."
+      erro: "O texto mostra que o emprego está no centro, não no bairro de Marta."
+  explicacao: "Emprego no centro, moradia barata na borda. O preço da terra separa os grupos sociais no espaço, e quem mora longe paga em tempo e passagem. É a segregação socioespacial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-05
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 19
+  objeto: hum-organizacao-social-urbanizacao
+  dificuldade: 2
+  enunciado: "Qual par de fatores ajuda a explicar a urbanização rápida do Brasil entre 1950 e 1980?"
+  alternativas:
+    - texto: "Reforma agrária ampla e fim das indústrias"
+      erro: "Não houve reforma agrária ampla, e a indústria cresceu nesse período."
+    - texto: "Aumento das chuvas no campo e queda dos preços nas cidades"
+      erro: "Clima e preços não explicam um movimento dessa escala. A causa está na estrutura do campo e da indústria."
+    - texto: "Proibição de morar no campo e mudança da capital"
+      erro: "Nunca houve proibição de morar no campo. A mudança da capital para Brasília não explica a urbanização do país inteiro."
+    - texto: "Crescimento do turismo e fim da agricultura"
+      erro: "A agricultura não acabou: ela se mecanizou e passou a empregar menos gente."
+    - texto: "Mecanização e concentração da terra no campo e industrialização nas cidades"
+      certa: true
+  explicacao: "Repulsão e atração: a modernização conservadora expulsou trabalhadores do campo, e a indústria, sobretudo no Sudeste, atraiu com emprego e serviços."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-06
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-urbanizacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Art. 182. A política de desenvolvimento urbano, executada pelo Poder Público municipal, conforme diretrizes gerais
+    fixadas em lei, tem por objetivo ordenar o pleno desenvolvimento das funções sociais da cidade e garantir o bem-estar
+    de seus habitantes. (Constituição da República Federativa do Brasil de 1988.)
+  enunciado: "Uma medida coerente com esse artigo é"
+  alternativas:
+    - texto: "manter terrenos vazios no centro à espera de valorização, sem nenhuma cobrança extra."
+      erro: "Terra parada à espera de valorização vai contra a função social. O Estatuto da Cidade prevê IPTU progressivo para isso."
+    - texto: "remover favelas para longe do centro sem oferecer moradia."
+      erro: "Remover sem alternativa piora o bem-estar dos moradores, que o artigo manda garantir."
+    - texto: "usar instrumentos como o IPTU progressivo para levar imóveis ociosos a cumprirem uma função social."
+      certa: true
+    - texto: "proibir o transporte coletivo nos bairros centrais."
+      erro: "Tirar transporte coletivo dificulta o acesso à cidade, o oposto do pleno desenvolvimento das funções sociais."
+    - texto: "deixar o crescimento da cidade só a cargo do mercado imobiliário."
+      erro: "O artigo dá ao poder público municipal o dever de ordenar o desenvolvimento urbano."
+  explicacao: "A cidade tem função social: moradia, trabalho, circulação, lazer para quem nela vive. O IPTU progressivo no tempo, do Estatuto da Cidade (2001), pesa sobre o imóvel ocioso e empurra o dono a dar uso a ele."
+  fonte: "Questão original do Instituto Lúcia, com base na Constituição de 1988 e no Estatuto da Cidade"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-07
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 26
+  objeto: hum-organizacao-social-urbanizacao
+  dificuldade: 2
+  enunciado: "Pelo Censo 2022, o IBGE contou 16.390.790 pessoas morando em favelas e comunidades urbanas. Qual leitura está correta?"
+  alternativas:
+    - texto: "É um número pequeno, menos de 1% da população"
+      erro: "16,4 milhões são 8,1% da população: mais de uma pessoa em cada treze."
+    - texto: "São 8,1% da população, em 12.348 favelas e comunidades de 656 municípios"
+      certa: true
+    - texto: "Todas essas pessoas moram nas capitais do Sudeste"
+      erro: "As favelas e comunidades estão em 656 municípios de todas as regiões, não só nas capitais do Sudeste."
+    - texto: "Esse número mostra que não há falta de moradia no país"
+      erro: "É o contrário: milhões em moradias sem infraestrutura garantida mostram a falta de política de moradia."
+  explicacao: "O Censo 2022 encontrou 12.348 favelas e comunidades urbanas, em 656 municípios, com 16.390.790 moradores, 8,1% da população do país."
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE (Censo 2022)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-08
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 19
+  objeto: hum-organizacao-social-urbanizacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um bairro operário antigo, perto do porto, recebe um projeto de revitalização: museu, calçadão, bares e prédios novos.
+    Em cinco anos, o preço do metro quadrado triplica. Muitas famílias que moravam de aluguel se mudam para bairros
+    distantes, e o pequeno comércio antigo dá lugar a lojas de grife. (Texto do Instituto Lúcia.)
+  enunciado: "O processo descrito é a"
+  alternativas:
+    - texto: "conurbação, pois o bairro se juntou a uma cidade vizinha."
+      erro: "Nada no texto fala de cidade vizinha. O bairro mudou por dentro."
+    - texto: "periferização, pois o bairro passou a ficar na borda da cidade."
+      erro: "O bairro continua perto do porto e do centro. Quem foi para a periferia foram os moradores antigos."
+    - texto: "autossegregação, pois os moradores antigos se fecharam em condomínios."
+      erro: "Autossegregação é dos mais ricos que se fecham em condomínios. Aqui, os antigos moradores saíram por não poder pagar."
+    - texto: "favelização, pois o bairro perdeu infraestrutura."
+      erro: "O bairro ganhou infraestrutura e ficou mais caro, o oposto de perder serviços."
+    - texto: "gentrificação, pois a valorização do bairro expulsa a população de menor renda."
+      certa: true
+  explicacao: "Investimento, valorização, aluguel alto, saída dos moradores antigos, chegada de quem pode pagar. É a gentrificação. Note que ela empurra os pobres para a periferia: alimenta a segregação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-09
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 19
+  objeto: hum-organizacao-social-urbanizacao
+  dificuldade: 3
+  enunciado: "Uma prefeitura quer reduzir o tempo que os trabalhadores da periferia gastam para chegar ao emprego. Qual política ataca a causa do problema, e não só o sintoma?"
+  alternativas:
+    - texto: "Produzir moradia popular em áreas centrais com infraestrutura e investir em transporte coletivo"
+      certa: true
+    - texto: "Construir mais viadutos para os carros"
+      erro: "Mais vias para carros costumam atrair mais carros. E quem vem da periferia anda sobretudo de ônibus e trem."
+    - texto: "Aumentar o preço da passagem para financiar o sistema"
+      erro: "Passagem mais cara pesa mais sobre quem mora longe e ganha menos. Não muda a distância."
+    - texto: "Proibir novas construções na periferia"
+      erro: "Proibir sem oferecer moradia em outro lugar não resolve o déficit; só empurra para ocupações ainda mais distantes."
+    - texto: "Mudar o horário de entrada no trabalho para as 9 horas"
+      erro: "Mudar o horário desloca o pico, mas a viagem continua longa. A causa é a distância entre casa e emprego."
+  explicacao: "A causa é a distância entre moradia e emprego, criada pelo preço da terra. Moradia popular perto do emprego encurta a distância; transporte coletivo de qualidade encurta o tempo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-urbanizacao-10
+  tema: "Urbanização, segregação e mobilidade"
+  area: humanas
+  habilidade: 19
+  objeto: hum-organizacao-social-urbanizacao
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num estado brasileiro, a capital reúne a maior parte dos hospitais especializados, das universidades, das sedes de
+    empresas e dos empregos com carteira assinada. Todos os anos, chegam a ela migrantes do interior. Muitos não
+    encontram trabalho formal nem moradia e ocupam áreas sem infraestrutura nas bordas da cidade. (Texto do Instituto
+    Lúcia.)
+  enunciado: "O texto descreve um caso de"
+  alternativas:
+    - texto: "rede urbana equilibrada, com serviços espalhados pelo interior."
+      erro: "O texto diz o contrário: os serviços estão concentrados na capital."
+    - texto: "desmetropolização, com a saída de gente da capital."
+      erro: "Gente está chegando à capital, não saindo."
+    - texto: "gentrificação do interior, com a valorização das cidades pequenas."
+      erro: "O texto não fala de valorização do interior. Fala de concentração na capital."
+    - texto: "macrocefalia urbana, com concentração excessiva na capital e crescimento desordenado da periferia."
+      certa: true
+    - texto: "êxodo urbano, com a volta dos moradores ao campo."
+      erro: "O fluxo do texto vai do interior para a capital, não da cidade para o campo."
+  explicacao: "Uma cabeça grande demais para o corpo: a capital concentra serviços e empregos, atrai migrantes além do que absorve, e a periferia cresce sem infraestrutura. É a macrocefalia que a prova de 2022 cobrou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

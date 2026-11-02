@@ -1,0 +1,116 @@
+# Mapa curricular da trilha enem-sociologia (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+fontes:
+  - >-
+    Matriz de Referência do Enem, Inep:
+    https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos
+aulas:
+  genero:
+    enem:
+      - area: humanas
+        competencia: 2
+        habilidade: 10
+        resumo: Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 11
+        resumo: Identificar registros das práticas de grupos sociais no tempo e no espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 14
+        resumo: Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 22
+        resumo: Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 24
+        resumo: Relacionar cidadania e democracia na organização das sociedades.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-genero
+  desigualdade-e-estratificacao:
+    enem:
+      - area: humanas
+        competencia: 2
+        habilidade: 6
+        resumo: Interpretar mapas, gráficos e outras representações do espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 11
+        resumo: Identificar registros das práticas de grupos sociais no tempo e no espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 25
+        resumo: Identificar estratégias de inclusão social.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-desigualdade
+  trabalho:
+    enem:
+      - area: humanas
+        competencia: 4
+        habilidade: 16
+        resumo: Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 18
+        resumo: Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 20
+        resumo: Escolher argumentos a favor ou contra as mudanças que as novas tecnologias impõem à vida e ao trabalho.
+        situacao: a-confirmar
+    objetos:
+      - hum-producao-trabalho
+  raca-e-racismo:
+    enem:
+      - area: humanas
+        competencia: 1
+        habilidade: 3
+        resumo: Ligar manifestações culturais de hoje aos seus processos históricos.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 11
+        resumo: Identificar registros das práticas de grupos sociais no tempo e no espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 14
+        resumo: Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 22
+        resumo: Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-racismo
+  religiao-e-sociedade:
+    enem:
+      - area: humanas
+        competencia: 1
+        habilidade: 1
+        resumo: Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 11
+        resumo: Identificar registros das práticas de grupos sociais no tempo e no espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 24
+        resumo: Relacionar cidadania e democracia na organização das sociedades.
+        situacao: a-confirmar
+    objetos:
+      - hum-cultura-religiao

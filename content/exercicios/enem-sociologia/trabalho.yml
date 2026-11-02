@@ -1,0 +1,248 @@
+# Exercícios da aula "Trabalho" (trilha enem-sociologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-soc-trabalho-01
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-trabalho
+  dificuldade: 1
+  enunciado: "A linha de montagem móvel, em que cada operário repete uma ou duas operações enquanto o produto passa pela esteira, é marca do"
+  alternativas:
+    - texto: "toyotismo"
+      erro: "O toyotismo valoriza o trabalhador que faz várias tarefas e produz sem estoque. A esteira com tarefa única é outro modelo."
+    - texto: "artesanato medieval"
+      erro: "No artesanato, o mesmo trabalhador fazia o produto inteiro. É o oposto da esteira."
+    - texto: "cooperativismo"
+      erro: "Cooperativismo é forma de propriedade e decisão coletiva, não um método de linha de montagem."
+    - texto: "fordismo"
+      certa: true
+    - texto: "uberização"
+      erro: "A uberização é o trabalho sob demanda por aplicativo. Não há esteira de fábrica."
+  explicacao: "Henry Ford pôs a linha de montagem móvel em funcionamento em 1913. É a base da produção em massa do fordismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-02
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-trabalho
+  dificuldade: 1
+  enunciado: "O just-in-time, princípio do toyotismo, significa"
+  alternativas:
+    - texto: "produzir o máximo possível e guardar em grandes estoques."
+      erro: "Isso é o fordismo. O just-in-time quer justamente eliminar o estoque."
+    - texto: "produzir só o que foi pedido, na hora em que foi pedido."
+      certa: true
+    - texto: "trabalhar só no horário noturno."
+      erro: "Just-in-time não fala de turno. Fala de produzir na hora certa, conforme a demanda."
+    - texto: "pagar o trabalhador por hora trabalhada."
+      erro: "A forma de pagamento não é o princípio. O princípio é produzir sem desperdício e sem estoque."
+    - texto: "cronometrar cada movimento do operário."
+      erro: "Cronometrar é o taylorismo, mais antigo."
+  explicacao: "Just-in-time é produzir conforme a demanda, sem estoque nem desperdício. Foi desenvolvido na Toyota, no Japão, depois da Segunda Guerra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-03
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-trabalho
+  dificuldade: 1
+  enunciado: "Precarização do trabalho é"
+  alternativas:
+    - texto: "o aumento dos salários e dos direitos dos trabalhadores."
+      erro: "É o contrário: precarizar é tornar o trabalho mais frágil."
+    - texto: "a substituição de todos os trabalhadores por robôs."
+      erro: "A automação pode contribuir, mas precarização é a perda de proteção de quem continua trabalhando."
+    - texto: "a perda de proteção e de direitos, com contratos frágeis e renda instável."
+      certa: true
+    - texto: "a criação de sindicatos fortes."
+      erro: "Sindicatos fortes costumam resistir à precarização, não causá-la."
+    - texto: "o trabalho feito em equipe."
+      erro: "Trabalhar em equipe não é, por si, precarização. O conceito fala de direitos e estabilidade."
+  explicacao: "Precarizar é tirar proteção do trabalho: menos carteira assinada, menos direitos, contratos temporários, terceirização, renda instável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-04
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-trabalho
+  dificuldade: 2
+  enunciado: "Num armazém, um leitor no pulso do trabalhador mede quantos pacotes ele separa por hora, e a gerência define o caminho exato que ele deve fazer entre as prateleiras. Isso retoma, com nova tecnologia, princípios do"
+  alternativas:
+    - texto: "taylorismo, que mede o tempo das tarefas e separa quem planeja de quem executa."
+      certa: true
+    - texto: "cooperativismo, que dá aos trabalhadores o controle da produção."
+      erro: "Quem decide tudo aqui é a gerência. No cooperativismo, decidem os trabalhadores."
+    - texto: "artesanato, que deixa o trabalhador escolher como trabalhar."
+      erro: "O trabalhador não escolhe nada: o caminho é definido pela gerência."
+    - texto: "feudalismo, em que o servo deve parte da produção ao senhor."
+      erro: "Não há servo nem senhor feudal. É controle moderno do tempo de trabalho."
+    - texto: "estoicismo, que ensina a aceitar o que não depende de nós."
+      erro: "Estoicismo é filosofia antiga, não modelo de organização do trabalho."
+  explicacao: "Medir cada tarefa e impor o jeito \"certo\" de fazê-la é o núcleo do taylorismo. O sensor no pulso é o cronômetro de hoje."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-05
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-trabalho
+  dificuldade: 2
+  enunciado: "Para Marx, o trabalhador de uma fábrica capitalista é alienado porque"
+  alternativas:
+    - texto: "trabalha pouco e ganha muito."
+      erro: "A alienação não tem a ver com trabalhar pouco. Tem a ver com quem controla o trabalho."
+    - texto: "decide sozinho o que vai produzir."
+      erro: "É o contrário: ele não decide. Quem decide é o dono."
+    - texto: "conhece todas as etapas do produto."
+      erro: "Na fábrica, ele costuma conhecer só a sua parte. Essa separação faz parte da alienação."
+    - texto: "não tem direito de votar."
+      erro: "Alienação, em Marx, é sobre o trabalho, não sobre o voto."
+    - texto: "o produto e o processo do seu trabalho pertencem a outro, e o trabalho vira só meio de sobreviver."
+      certa: true
+  explicacao: "O operário vende a força de trabalho. Fica separado do produto (que é do dono), do processo (o ritmo é imposto) e de si mesmo. É a alienação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-06
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 20
+  objeto: hum-producao-trabalho
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma rede de supermercados instalou caixas de autoatendimento em todas as lojas. Agora, o cliente passa o código
+    de barras e embala as compras sozinho. Um único funcionário acompanha oito máquinas ao mesmo tempo. A empresa diz
+    que o objetivo é "dar mais autonomia ao consumidor". (Texto original do Instituto Lúcia.)
+  enunciado: "Um argumento crítico a essa mudança tecnológica é o de que ela"
+  alternativas:
+    - texto: "eliminou todo trabalho humano nas lojas."
+      erro: "O texto mostra que ainda há trabalho: o do funcionário que vigia as máquinas e o do próprio cliente."
+    - texto: "reduziu postos de trabalho e transferiu tarefas ao cliente, sem pagamento."
+      certa: true
+    - texto: "aumentou o número de caixas contratados."
+      erro: "Um funcionário para oito máquinas significa menos caixas, não mais."
+    - texto: "acabou com a vigilância sobre os trabalhadores."
+      erro: "O funcionário continua vigiando, agora várias máquinas. Nada indica fim da vigilância."
+    - texto: "foi pedida pelos sindicatos dos comerciários."
+      erro: "O texto diz que a decisão foi da empresa. Não há menção a sindicato."
+  explicacao: "A tecnologia reduz vagas (um funcionário para oito caixas) e passa trabalho para o cliente, que não recebe por isso. É um argumento contra a mudança, tema da H20."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-07
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-trabalho
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Para responder bem às perguntas dos usuários, um assistente de voz precisa de milhões de exemplos de fala
+    corrigidos à mão. Esse trabalho é feito por pessoas contratadas por empresas terceirizadas, que recebem por tarefa,
+    trabalham de casa e muitas vezes não sabem para qual empresa estão trabalhando. (Texto original do Instituto Lúcia.)
+  enunciado: "O texto revela que a inteligência artificial"
+  alternativas:
+    - texto: "dispensa completamente o trabalho humano."
+      erro: "O texto mostra o contrário: a IA depende de muito trabalho humano."
+    - texto: "garante empregos estáveis e bem pagos a quem a desenvolve."
+      erro: "Quem rotula os dados recebe por tarefa, terceirizado. Não é emprego estável."
+    - texto: "depende de trabalho humano terceirizado e precário, que fica escondido do usuário."
+      certa: true
+    - texto: "foi criada por cooperativas de trabalhadores."
+      erro: "O texto fala de empresas terceirizadas, não de cooperativas."
+    - texto: "acabou com a terceirização no setor de tecnologia."
+      erro: "O texto descreve justamente trabalho terceirizado."
+  explicacao: "Por trás da IA há pessoas que leem, ouvem e rotulam dados, muitas vezes em condições precárias. O ENEM de 2023 cobrou essa ideia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-08
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-trabalho
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma montadora deixou de produzir milhares de carros iguais para guardar no pátio. Agora, só monta depois do pedido,
+    muda o modelo conforme a procura e contrata empresas menores para fazer bancos, vidros e peças elétricas. Os
+    operários foram treinados para trabalhar em células, cuidando de várias máquinas e da qualidade do que produzem.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "A mudança descrita corresponde à passagem do"
+  alternativas:
+    - texto: "toyotismo para o fordismo."
+      erro: "A ordem está invertida. A empresa saiu da produção em massa com estoque (fordismo) para a flexível (toyotismo)."
+    - texto: "artesanato para o taylorismo."
+      erro: "A empresa já era uma montadora industrial. A mudança é de um modelo industrial para outro."
+    - texto: "capitalismo para o socialismo."
+      erro: "A propriedade continua privada. O que muda é o modo de organizar a produção."
+    - texto: "fordismo para o toyotismo."
+      certa: true
+    - texto: "trabalho assalariado para o trabalho escravo."
+      erro: "Nada no texto indica trabalho forçado. Os operários são treinados e contratados."
+  explicacao: "Antes: produção em massa e estoque (fordismo). Depois: produção sob demanda, flexível, com terceirização e trabalhador polivalente (toyotismo)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-09
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 20
+  objeto: hum-producao-trabalho
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A uberização não se resume ao uso de aplicativos. Ela consolida a passagem do trabalhador para alguém disponível
+    sob demanda, sem direitos e garantias, gerenciado e controlado de forma centralizada, com custos e riscos
+    transferidos para ele. (Paráfrase do Instituto Lúcia de ideias da socióloga Ludmila Costhek Abílio, 2021.)
+  enunciado: "De acordo com o texto, a ideia de que o trabalhador de aplicativo é um \"empreendedor de si mesmo\""
+  alternativas:
+    - texto: "é confirmada, porque ele não tem patrão nem controle externo."
+      erro: "O texto diz que ele é gerenciado e controlado de forma centralizada. Há controle, sim."
+    - texto: "é verdadeira, porque ele recebe todos os direitos de um empregado."
+      erro: "O texto fala de alguém \"sem direitos e garantias\"."
+    - texto: "não tem relação com o tema do texto."
+      erro: "Tem relação direta: o texto descreve quem é, de fato, esse trabalhador."
+    - texto: "esconde uma relação de subordinação, em que a plataforma controla e o trabalhador assume custos e riscos."
+      certa: true
+    - texto: "mostra que o trabalho por aplicativo é um tipo de cooperativa."
+      erro: "Na cooperativa, os trabalhadores são donos e decidem. O texto descreve controle centralizado."
+  explicacao: "Abílio mostra que o discurso do empreendedorismo encobre uma subordinação: a plataforma controla, e o trabalhador fica sem direitos, com os custos e os riscos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-trabalho-10
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 20
+  objeto: hum-producao-trabalho
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um estúdio de dublagem passou a usar um programa de inteligência artificial que copia a voz de atores e a leva para
+    outras línguas. O dono do estúdio diz que o custo caiu pela metade. Um dublador com vinte anos de carreira conta
+    que, neste ano, recebeu um terço dos convites que costumava receber. (Texto original do Instituto Lúcia.)
+  enunciado: "Uma consequência social da mudança tecnológica descrita é"
+  alternativas:
+    - texto: "a redução de oportunidades de trabalho para os profissionais substituídos pela automação."
+      certa: true
+    - texto: "o aumento da procura por dubladores humanos."
+      erro: "O dublador do texto recebeu menos convites, não mais."
+    - texto: "a proibição do uso de vozes humanas nos estúdios."
+      erro: "Ninguém proibiu vozes humanas. A tecnologia passou a ocupar parte do trabalho."
+    - texto: "o fim do lucro das empresas de dublagem."
+      erro: "O dono diz que o custo caiu pela metade: o ganho da empresa aumenta."
+    - texto: "a valorização salarial de todos os trabalhadores do setor."
+      erro: "Com menos convites, o dublador perde renda. Não há valorização."
+  explicacao: "A automação baixou o custo da empresa e reduziu as chances do dublador. O ENEM de 2022 cobrou essa consequência da IA na dublagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

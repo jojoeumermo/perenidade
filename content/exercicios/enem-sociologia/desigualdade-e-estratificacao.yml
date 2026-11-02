@@ -1,0 +1,248 @@
+# Exercícios da aula "Desigualdade e estratificação" (trilha enem-sociologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-soc-desigualdade-01
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-desigualdade
+  dificuldade: 1
+  enunciado: "Qual sistema de estratificação é o mais fechado, com a posição definida pelo nascimento?"
+  alternativas:
+    - texto: "O sistema de classes."
+      erro: "O sistema de classes é mais aberto: permite subir ou descer. O mais fechado é outro."
+    - texto: "O sistema de castas."
+      certa: true
+    - texto: "A democracia."
+      erro: "Democracia é forma de governo, não um sistema de estratificação."
+    - texto: "A meritocracia."
+      erro: "Meritocracia é o ideal de posição pelo mérito, o contrário do nascimento."
+    - texto: "O cooperativismo."
+      erro: "Cooperativismo é forma de organizar o trabalho e a produção, não de estratificar."
+  explicacao: "Na casta, o nascimento define o lugar social, a profissão e o casamento, com quase nenhuma mobilidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-02
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 6
+  objeto: hum-organizacao-social-desigualdade
+  dificuldade: 1
+  enunciado: "O índice de Gini mede a desigualdade de renda numa escala de 0 a 1. Um país com Gini 0,30 comparado a outro com Gini 0,55 é"
+  alternativas:
+    - texto: "mais desigual"
+      erro: "Leitura ao contrário. No Gini, quanto maior o número, mais desigual."
+    - texto: "igualmente desigual"
+      erro: "Os números são diferentes. 0,30 e 0,55 indicam graus diferentes de desigualdade."
+    - texto: "mais rico"
+      erro: "O Gini não mede riqueza, mede como a renda se distribui. Um país pobre pode ter Gini baixo."
+    - texto: "menos desigual"
+      certa: true
+    - texto: "impossível de comparar"
+      erro: "O Gini serve justamente para comparar países e épocas."
+  explicacao: "Gini 0 é igualdade total; 1 é desigualdade máxima. Por isso 0,30 é menos desigual que 0,55."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-03
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-desigualdade
+  dificuldade: 1
+  enunciado: "Para Karl Marx, o que define a classe social de uma pessoa?"
+  alternativas:
+    - texto: "O prestígio que ela tem na comunidade."
+      erro: "Prestígio (status) é uma dimensão que Weber destaca. Marx olha outra coisa."
+    - texto: "A religião que ela segue."
+      erro: "Para Marx, a religião não define a classe. A base é a economia."
+    - texto: "A posição na produção: ser ou não dono dos meios de produção."
+      certa: true
+    - texto: "O lugar onde ela nasceu."
+      erro: "O nascimento define a casta. Na sociedade capitalista, Marx olha a relação com a produção."
+    - texto: "O partido político em que ela vota."
+      erro: "O voto não define a classe para Marx. A classe vem da posição econômica."
+  explicacao: "Marx define a classe pela relação com os meios de produção: a burguesia é dona; o proletariado vende a força de trabalho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-04
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-desigualdade
+  dificuldade: 2
+  enunciado: "Uma liderança religiosa de um bairro pobre é muito respeitada e influente, mas tem renda baixa. Para Weber, esse caso mostra que"
+  alternativas:
+    - texto: "a renda é a única dimensão da estratificação."
+      erro: "O caso mostra o contrário: a pessoa tem prestígio e influência sem ter renda alta."
+    - texto: "a religião acabou com a desigualdade no bairro."
+      erro: "O caso fala de uma pessoa com prestígio, não do fim da desigualdade."
+    - texto: "a classe é definida apenas pela propriedade."
+      erro: "Essa é a ênfase de Marx. Weber amplia a análise para além da economia."
+    - texto: "status e poder podem não coincidir com a posição econômica."
+      certa: true
+    - texto: "o prestígio é sempre consequência da riqueza."
+      erro: "O exemplo é justamente de prestígio sem riqueza."
+  explicacao: "Weber separa classe (economia), status (prestígio) e poder. Elas se ligam, mas podem não andar juntas, como no caso da liderança respeitada e pobre."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-05
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 25
+  objeto: hum-organizacao-social-desigualdade
+  dificuldade: 2
+  enunciado: "A meritocracia, na análise sociológica, é"
+  alternativas:
+    - texto: "um ideal, porque a origem social e as condições desiguais sempre influenciam a posição das pessoas."
+      certa: true
+    - texto: "a descrição exata de como funciona toda sociedade de classes."
+      erro: "Nenhuma sociedade é totalmente meritocrática. A origem e as condições pesam."
+    - texto: "o mesmo que sistema de castas."
+      erro: "São opostos: na casta, o nascimento decide; na meritocracia ideal, o mérito decide."
+    - texto: "um conceito que nega qualquer valor ao esforço."
+      erro: "A sociologia não nega o esforço. Ela mostra que ele não é o único fator."
+    - texto: "uma lei da Constituição brasileira."
+      erro: "Meritocracia não é lei. É uma ideia sobre como as posições deveriam ser distribuídas."
+  explicacao: "A meritocracia pura é um ideal. Na prática, a família, a escola, a renda e a discriminação influenciam as oportunidades."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-06
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 25
+  objeto: hum-organizacao-social-desigualdade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma prefeitura passou a oferecer internet gratuita em praças de bairros periféricos e a emprestar notebooks a
+    estudantes de escolas públicas que se preparam para o vestibular. A medida foi pensada depois que uma pesquisa
+    mostrou que muitos alunos estudavam só pelo celular, com pacote de dados limitado. (Texto original do Instituto
+    Lúcia.)
+  enunciado: "A medida descrita pode ser entendida como uma estratégia para"
+  alternativas:
+    - texto: "aumentar a concorrência entre escolas públicas e particulares."
+      erro: "O objetivo não é competição entre escolas, e sim reduzir uma desvantagem dos alunos."
+    - texto: "substituir o ensino presencial pelo ensino remoto."
+      erro: "Nada no texto fala em acabar com a escola presencial. A medida apoia o estudo fora dela."
+    - texto: "reduzir desigualdades de acesso às condições de estudo."
+      certa: true
+    - texto: "premiar os alunos com melhores notas."
+      erro: "A medida atende quem estuda só pelo celular, não quem tem as melhores notas."
+    - texto: "privatizar o acesso à internet nos bairros."
+      erro: "A internet é gratuita e pública. É o contrário de privatizar."
+  explicacao: "A medida enfrenta uma desigualdade concreta (falta de internet e equipamento). É uma estratégia de inclusão social, tema da H25."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-07
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 6
+  objeto: hum-organizacao-social-desigualdade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Segundo o IBGE, o índice de Gini do rendimento domiciliar por pessoa no Brasil foi de 0,545 em 2018 e de 0,506 em
+    2024, o menor valor da série da PNAD Contínua. O índice vai de 0 (igualdade total) a 1 (desigualdade máxima).
+  enunciado: "A partir das informações, é correto afirmar que, entre 2018 e 2024,"
+  alternativas:
+    - texto: "a desigualdade de renda acabou no Brasil."
+      erro: "Um Gini de 0,506 ainda indica desigualdade alta. Caiu, mas não acabou."
+    - texto: "a desigualdade de renda aumentou."
+      erro: "O índice diminuiu (de 0,545 para 0,506). Gini menor é menos desigual."
+    - texto: "a renda de todas as pessoas passou a ser a mesma."
+      erro: "Isso seria Gini 0. O valor de 2024 está longe disso."
+    - texto: "o Brasil ficou mais rico, porque o Gini mede a riqueza."
+      erro: "O Gini mede a distribuição da renda, não o tamanho da riqueza do país."
+    - texto: "a desigualdade de renda diminuiu, embora continue elevada."
+      certa: true
+  explicacao: "O Gini caiu de 0,545 para 0,506: a renda ficou um pouco menos concentrada. Mas um valor perto de 0,5 ainda põe o Brasil entre os países mais desiguais."
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-08
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-desigualdade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma trabalhadora negra, mãe sozinha de dois filhos, conta que foi recusada numa vaga de recepcionista "porque não
+    tinha boa aparência" e, em outra, porque "mãe de criança pequena falta muito". Hoje, faz faxinas sem carteira
+    assinada. (Texto original do Instituto Lúcia.)
+  enunciado: "O conceito sociológico mais adequado para analisar o caso é o de"
+  alternativas:
+    - texto: "interseccionalidade, porque discriminações de raça, gênero e classe se cruzam e se reforçam."
+      certa: true
+    - texto: "meritocracia, porque ela não se esforçou o bastante."
+      erro: "O texto mostra recusas por cor e por ser mãe, não por falta de esforço. A meritocracia não explica o caso."
+    - texto: "sistema de castas, porque a lei brasileira a impede de trabalhar."
+      erro: "Não há lei que a impeça. A barreira vem de discriminação, não de casta legal."
+    - texto: "mobilidade social ascendente, porque ela trabalha."
+      erro: "Ela foi de uma busca por emprego formal para trabalho informal. Não houve ascensão."
+    - texto: "indústria cultural, porque a aparência é definida pela mídia."
+      erro: "A mídia pode influenciar padrões, mas o centro do caso é a discriminação no emprego."
+  explicacao: "\"Boa aparência\" esconde racismo; \"mãe falta muito\" é discriminação de gênero; o resultado é a informalidade (classe). As três se cruzam: é a interseccionalidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-09
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-desigualdade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Na sociedade medieval europeia, o clero rezava, a nobreza guerreava e governava, e os servos trabalhavam a terra.
+    Cada grupo tinha direitos e deveres próprios, fixados pela tradição e pelo costume, e era muito raro alguém passar
+    de um grupo para outro. (Texto original do Instituto Lúcia.)
+  enunciado: "O tipo de estratificação descrito e a diferença dele em relação à sociedade de classes são, respectivamente,"
+  alternativas:
+    - texto: "castas; na sociedade de classes, a religião define o lugar de cada um."
+      erro: "O texto descreve estamentos, típicos do feudalismo. E na sociedade de classes a religião não define a posição."
+    - texto: "classes; na sociedade de classes, ninguém pode mudar de posição."
+      erro: "Trocou os dois. O texto descreve estamentos, e a sociedade de classes é justamente mais aberta."
+    - texto: "estamentos; na sociedade de classes, todos são iguais perante a lei e a mobilidade é mais possível."
+      certa: true
+    - texto: "estamentos; na sociedade de classes, não há desigualdade."
+      erro: "O tipo está certo, mas a sociedade de classes também é desigual. A diferença é a igualdade formal e a mobilidade."
+    - texto: "meritocracia; na sociedade de classes, o nascimento decide tudo."
+      erro: "O texto não descreve meritocracia. E na sociedade de classes o nascimento pesa, mas não decide tudo por lei."
+  explicacao: "Clero, nobreza e servos são estamentos, com direitos diferentes fixados pela tradição. Na sociedade de classes, a lei iguala formalmente as pessoas e a mobilidade é mais possível, embora a desigualdade continue."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-desigualdade-10
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 25
+  objeto: hum-organizacao-social-desigualdade
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: "Quem estuda e trabalha duro chega lá. O resto é desculpa."
+    Texto II: Numa cidade, uma pesquisa acompanhou estudantes com notas parecidas no ensino médio. Entre os filhos de
+    pais com diploma, a maioria concluiu o ensino superior; entre os filhos de pais com pouca escolaridade, a minoria.
+    (Textos originais do Instituto Lúcia, com situação fictícia.)
+  enunciado: "O Texto II questiona o Texto I ao indicar que"
+  alternativas:
+    - texto: "o esforço individual não tem nenhum valor."
+      erro: "O Texto II não diz isso. Diz que, mesmo com notas parecidas, a origem pesa."
+    - texto: "a escolaridade dos pais não influencia os filhos."
+      erro: "É o contrário: o Texto II mostra que influencia."
+    - texto: "o ensino superior é proibido para filhos de pais sem diploma."
+      erro: "Não há proibição. O que há é chance menor, por condições sociais."
+    - texto: "todos os estudantes têm as mesmas oportunidades."
+      erro: "O Texto II mostra justamente oportunidades desiguais."
+    - texto: "a origem social influencia as trajetórias, para além do esforço individual."
+      certa: true
+  explicacao: "O Texto I expressa a crença na meritocracia. O Texto II mostra que, com desempenho parecido, a origem familiar muda as chances. A trajetória depende também das condições."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
