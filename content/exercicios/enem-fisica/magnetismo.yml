@@ -1,0 +1,237 @@
+# Exercícios da aula "Magnetismo, motores, geradores e transformadores" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Tensões e espiras são valores de exemplo.
+
+- id: enem-fis-magn-01
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  dificuldade: 1
+  enunciado: "Dois ímãs em barra são aproximados, com o polo norte de um de frente para o polo norte do outro. O que acontece?"
+  alternativas:
+    - texto: "Eles se atraem"
+      erro: "Atração acontece entre polos diferentes (norte com sul). Polos iguais se repelem."
+    - texto: "Nada, porque ímãs só agem sobre o ferro"
+      erro: "Ímãs agem também sobre outros ímãs. É assim que a bússola funciona."
+    - texto: "Eles trocam de polo e passam a se atrair"
+      erro: "Os polos não trocam de lugar só por aproximação. Polos iguais se repelem."
+    - texto: "Eles se atraem e depois se repelem, sem parar"
+      erro: "A força entre dois polos norte é sempre de repulsão. Não há alternância."
+    - texto: "Eles se repelem"
+      certa: true
+  explicacao: "A regra dos ímãs: polos iguais se repelem, polos diferentes se atraem. Dois polos norte se empurram."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-02
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-eletricidade-magnetismo
+  dificuldade: 1
+  enunciado: "O motor elétrico de um ventilador transforma principalmente"
+  alternativas:
+    - texto: "energia mecânica em energia elétrica"
+      erro: "Esse é o gerador. O ventilador recebe eletricidade da tomada e produz movimento."
+    - texto: "energia térmica em energia elétrica"
+      erro: "O ventilador não usa calor para funcionar. Ele recebe energia elétrica."
+    - texto: "energia elétrica em energia mecânica"
+      certa: true
+    - texto: "energia química em energia térmica"
+      erro: "Essa transformação acontece, por exemplo, numa fogueira. O ventilador é ligado na tomada."
+    - texto: "energia magnética em energia luminosa"
+      erro: "O ventilador não produz luz como função principal. O motor gira as pás: energia de movimento."
+  explicacao: "No motor, a corrente passa por bobinas dentro de um campo magnético, e a força magnética gira o eixo. Energia elétrica vira energia mecânica (com um pouco de calor perdido)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-03
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  dificuldade: 1
+  enunciado: "Uma bússola é posta ao lado de um fio. Quando se liga uma corrente no fio, a agulha da bússola se mexe. O que essa experiência mostra?"
+  alternativas:
+    - texto: "Que a corrente elétrica cria um campo magnético em volta do fio"
+      certa: true
+    - texto: "Que a bússola produz corrente elétrica no fio"
+      erro: "A agulha se mexe depois que a corrente é ligada. A corrente é a causa, e o campo dela move a agulha."
+    - texto: "Que o fio virou um ímã permanente"
+      erro: "Ao desligar a corrente, a agulha volta. O campo existe só enquanto há corrente."
+    - texto: "Que o calor do fio empurrou a agulha"
+      erro: "O efeito é magnético, não térmico. Ele aparece mesmo com o fio quase frio."
+    - texto: "Que a Terra deixou de ter campo magnético"
+      erro: "O campo da Terra continua. Perto do fio, o campo da corrente se soma a ele e desvia a agulha."
+  explicacao: "É a experiência de Ørsted, de 1820: a corrente elétrica cria um campo magnético em volta do fio. Esse campo age sobre a agulha, que é um pequeno ímã."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-04
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  dificuldade: 2
+  enunciado: "Um transformador tem 400 espiras no primário, ligado em 220 V, e 20 espiras no secundário. Qual é a tensão no secundário?"
+  alternativas:
+    - texto: "4.400 V"
+      erro: "Você inverteu a razão. O secundário tem menos espiras, então tem menos tensão: multiplique por 20/400."
+    - texto: "0,55 V"
+      erro: "Você dividiu 220 por 400 e parou. Falta multiplicar pelas 20 espiras do secundário."
+    - texto: "200 V"
+      erro: "Você tirou 20 da tensão. O transformador não subtrai: a tensão segue a razão entre as espiras."
+    - texto: "11 V"
+      certa: true
+    - texto: "1.760.000 V"
+      erro: "Você multiplicou tudo. A tensão segue a razão: Us = Up × Ns ÷ Np."
+  explicacao: "Us ÷ Up = Ns ÷ Np. Então Us = 220 × 20 ÷ 400 = 4.400 ÷ 400 = 11 V. O secundário tem 20 vezes menos espiras, e a tensão fica 20 vezes menor."
+  conferir: "220 * 20 / 400"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-05
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Algumas lanternas de emergência não usam pilha. Basta girar uma manivela: lá dentro, um ímã gira perto de uma bobina
+    de fio, e a lâmpada acende. Se a manivela para, a lâmpada apaga.
+  enunciado: "O fenômeno que faz a lâmpada acender é"
+  alternativas:
+    - texto: "a atração entre o ímã e o fio de cobre, que é feito de ferro"
+      erro: "O cobre não é atraído por ímãs. E atração não gera corrente; o que gera é a variação do campo."
+    - texto: "a indução eletromagnética: o campo do ímã, variando dentro da bobina, cria corrente nela"
+      certa: true
+    - texto: "o efeito Joule, que transforma o calor da mão em eletricidade"
+      erro: "O efeito Joule é o contrário: transforma energia elétrica em calor. Aqui, movimento vira eletricidade."
+    - texto: "a eletrização por atrito entre a manivela e a mão"
+      erro: "Atrito pode carregar objetos, mas não mantém uma corrente na bobina. O que acende a lâmpada é a indução."
+    - texto: "a energia guardada no ímã, que se gasta enquanto a manivela gira"
+      erro: "O ímã não se gasta. A energia vem do trabalho de quem gira a manivela."
+  explicacao: "Girando, o ímã muda o campo magnético que atravessa a bobina. Campo que varia induz corrente (Faraday). Parou de girar, parou de variar, e a corrente some. A energia vem do braço de quem gira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-06
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  dificuldade: 2
+  enunciado: "Uma pessoa liga o primário de um transformador a uma bateria de 12 V, que fornece corrente contínua. O que se mede no secundário, depois que a corrente se estabiliza?"
+  alternativas:
+    - texto: "Uma tensão maior que 12 V, se o secundário tiver mais espiras"
+      erro: "Isso valeria com corrente alternada. Com corrente contínua constante, o campo não varia e nada é induzido."
+    - texto: "Exatamente 12 V, qualquer que seja o número de espiras"
+      erro: "O transformador não passa tensão diretamente de uma bobina para a outra. Ele depende da indução, que pede variação."
+    - texto: "Uma tensão menor que 12 V, se o secundário tiver menos espiras"
+      erro: "Com corrente contínua constante não há indução. A razão entre as espiras só vale com corrente alternada."
+    - texto: "Uma corrente maior que a da bateria, porque o transformador multiplica a energia"
+      erro: "O transformador nunca multiplica energia. E com corrente contínua ele nem funciona."
+    - texto: "Tensão nula, porque o campo magnético não varia"
+      certa: true
+  explicacao: "O transformador funciona por indução: precisa de um campo magnético que mude o tempo todo. A corrente contínua da bateria, depois de estabilizada, cria um campo constante, e no secundário não aparece tensão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-07
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  dificuldade: 2
+  enunciado: "O polo norte da agulha de uma bússola aponta para perto do polo norte geográfico da Terra. Isso quer dizer que, perto do polo norte geográfico, existe"
+  alternativas:
+    - texto: "um polo norte magnético, que atrai o polo norte da agulha"
+      erro: "Polos iguais se repelem. Se lá houvesse um polo norte magnético, ele empurraria o norte da agulha para longe."
+    - texto: "uma grande jazida de ferro, que atrai qualquer metal"
+      erro: "A agulha responde ao campo magnético da Terra inteira, que se comporta como um grande ímã."
+    - texto: "um polo sul magnético da Terra"
+      certa: true
+    - texto: "nenhum polo magnético; a agulha segue as estrelas"
+      erro: "A bússola funciona de dia, debaixo de teto e nas nuvens. Ela segue o campo magnético da Terra."
+    - texto: "um campo elétrico forte, criado pelo gelo"
+      erro: "A agulha é um ímã: responde a campo magnético, não a campo elétrico."
+  explicacao: "A agulha é um ímã. O seu polo norte é atraído por um polo sul. Então, perto do norte geográfico, fica um polo sul magnético da Terra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-08
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-eletricidade-magnetismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Perto das usinas, transformadores elevam a tensão da energia elétrica a centenas de milhares de volts antes de
+    enviá-la por linhas de transmissão. Perto das cidades, outros transformadores abaixam a tensão. A potência enviada é
+    a mesma com ou sem a elevação.
+  enunciado: "A vantagem de transmitir a energia em alta tensão é que"
+  alternativas:
+    - texto: "a corrente nos fios fica menor, e a perda de energia por aquecimento (efeito Joule) cai muito"
+      certa: true
+    - texto: "a alta tensão cria mais energia ao longo do caminho"
+      erro: "Nenhum transformador cria energia. Ele troca tensão por corrente, mantendo a potência."
+    - texto: "a corrente nos fios fica maior, e a energia chega mais depressa"
+      erro: "Para a mesma potência (P = U · i), tensão maior quer dizer corrente menor, não maior."
+    - texto: "a resistência dos fios desaparece em alta tensão"
+      erro: "A resistência depende do material, do comprimento e da grossura do fio, não da tensão."
+    - texto: "a alta tensão impede que a energia seja usada em casa"
+      erro: "Por isso mesmo há transformadores abaixadores perto das cidades. A alta tensão serve ao transporte."
+  explicacao: "Com a mesma potência, P = U · i: elevando a tensão, a corrente cai na mesma proporção. A perda nos fios é R · i²: corrente 10 vezes menor dá perda 100 vezes menor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-09
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  dificuldade: 3
+  enunciado: "Um transformador ideal recebe 12.000 V no primário e entrega 240 V no secundário, que fornece uma corrente de 50 A. Qual é a corrente no primário?"
+  alternativas:
+    - texto: "2.500 A"
+      erro: "Você inverteu a razão. No lado de tensão maior, a corrente é menor: a potência é a mesma dos dois lados."
+    - texto: "1 A"
+      certa: true
+    - texto: "50 A"
+      erro: "A corrente não é igual nos dois lados. O que se conserva no transformador ideal é a potência, U · i."
+    - texto: "0,02 A"
+      erro: "0,02 é só a razão entre as tensões (240 ÷ 12.000). Falta multiplicar pela corrente de 50 A."
+    - texto: "10 A"
+      erro: "Confira a conta: 240 × 50 = 12.000 W. Dividindo por 12.000 V, dá 1 A."
+  explicacao: "No transformador ideal, Up · ip = Us · is. Potência no secundário: 240 × 50 = 12.000 W. No primário: 12.000 × ip = 12.000, então ip = 1 A."
+  conferir: "240 * 50 / 12000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-magn-10
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 23
+  objeto: nat-fis-eletricidade-magnetismo
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Numa usina hidrelétrica, a água represada desce por tubulações, gira uma turbina e sai pelo rio abaixo. O eixo da
+    turbina está ligado a um gerador, onde eletroímãs giram dentro de bobinas fixas.
+  enunciado: "A sequência de transformações de energia, da represa até a saída do gerador, é"
+  alternativas:
+    - texto: "elétrica, mecânica e potencial gravitacional"
+      erro: "Essa é a ordem contrária. A usina começa com a água no alto e termina com eletricidade."
+    - texto: "térmica, cinética e elétrica"
+      erro: "Numa hidrelétrica não se queima nada para gerar calor. Isso descreve uma usina térmica."
+    - texto: "química, térmica e elétrica"
+      erro: "Energia química aparece nos combustíveis. Na hidrelétrica, a energia vem da altura da água."
+    - texto: "potencial gravitacional, cinética e elétrica"
+      certa: true
+    - texto: "potencial gravitacional, elétrica e cinética"
+      erro: "A eletricidade só aparece no gerador, que é girado pela turbina. O movimento vem antes da eletricidade."
+  explicacao: "A água no alto tem energia potencial gravitacional. Ao descer, ela ganha velocidade (energia cinética) e gira a turbina. No gerador, o giro dos eletroímãs faz o campo variar nas bobinas e induz corrente: energia elétrica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

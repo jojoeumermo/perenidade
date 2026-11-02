@@ -26,7 +26,7 @@ questoes:
       B: "O método não muda a quantidade de veneno usada nas lavouras. Pesticida é uma das causas do declínio, mas as bolinhas de sementes não agem sobre ela."
       C: "Abelhas não usam as flores como abrigo; a colmeia fica em ocos, frestas ou caixas. A planta entra na vida da abelha como fonte de alimento."
       E: "A reprodução da abelha acontece dentro da colmeia, não nas plantas. Quem se reproduz com ajuda da flor é a planta, pela polinização."
-    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, biologia-fundamental/cadeias-alimentares, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, biologia-fundamental/cadeias-alimentares, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/impactos]
 
   - id: enem-2023-92
     area: natureza
@@ -68,7 +68,7 @@ questoes:
       B: "Uma usina nuclear ocupa pouca área para a energia que gera. Desmatamento grande está ligado, por exemplo, a lagos de hidrelétricas e à lenha, não à fissão."
       C: "A chuva ácida vem de óxidos de enxofre e de nitrogênio soltos na queima de combustíveis fósseis. A fissão não queima nada."
       D: "A fumaça branca das torres de resfriamento é vapor de água. A fissão não libera gás tóxico de combustão; o risco dela está na radiação e nos resíduos."
-    aulas: [fisica-medio/fisica-moderna-relatividade-e-quantica, enem-por-area/ciencias-da-natureza-fisica]
+    aulas: [fisica-medio/fisica-moderna-relatividade-e-quantica, enem-por-area/ciencias-da-natureza-fisica, enem-quimica/nuclear]
 
   - id: enem-2023-94
     area: natureza
@@ -90,7 +90,7 @@ questoes:
       C: "Turbidez mede partículas em suspensão que deixam a água turva. As crostas vêm de íons dissolvidos, que não turvam a água."
       D: "Coliformes medem contaminação por micróbios, importante para a água de beber. Não têm relação com sais que se depositam em caldeira."
       E: "Sólidos sedimentáveis são partículas que já estão na água e descem no fundo, removíveis por decantação. As crostas nascem de íons dissolvidos que precipitam com o calor."
-    aulas: [quimica-fundamental/agua-tratamento-e-qualidade, quimica-medio/funcoes-inorganicas, enem-reta-final/natureza-o-essencial-quimica]
+    aulas: [quimica-fundamental/agua-tratamento-e-qualidade, quimica-medio/funcoes-inorganicas, enem-reta-final/natureza-o-essencial-quimica, enem-quimica/tratamento]
 
   - id: enem-2023-95
     area: natureza
@@ -111,7 +111,7 @@ questoes:
       C: "Aerodinâmica depende da forma do corpo e das penas, não do tipo de fibra muscular."
       D: "Velocidade máxima em pouco tempo é tarefa do músculo branco. O vermelho garante que a ave voe por muitas horas, não que voe mais rápido."
       E: "Voar alto depende sobretudo do sistema respiratório e do sangue captarem oxigênio do ar rarefeito. O texto liga o músculo vermelho às longas distâncias."
-    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/animais]
 
   - id: enem-2023-96
     area: natureza
@@ -133,7 +133,7 @@ questoes:
       B: "16% sai de 18 ÷ 111: dividiu certo pela massa inicial, mas contou uma água só. O 2 antes de H₂O dobra a massa ganha: 36 g."
       C: "24% sai de 36 ÷ 147: dividiu pela massa do sal já hidratado. O ganho é sobre o que se tinha antes, 111 g."
       E: "75% sai de 111 ÷ 147: é a parte do sal anidro dentro do sal hidratado, não o ganho. O ganho é a água que entrou (36 g) sobre a massa inicial."
-    aulas: [quimica-medio/mol-e-estequiometria]
+    aulas: [quimica-medio/mol-e-estequiometria, enem-quimica/mol]
 
   - id: enem-2023-97
     area: natureza
@@ -154,7 +154,7 @@ questoes:
       C: "O gás carbônico também se acumula, mas em concentração alta ele atrasa o amadurecimento; por isso se usa CO₂ para conservar frutas. Quem acelera é o etileno."
       D: "Fruto colhido não depende de luz para amadurecer. A diferença entre os dois grupos está no gás que fica preso, não na claridade."
       E: "Com menos oxigênio, a respiração do fruto ficaria mais lenta e o amadurecimento também. Além disso, o recipiente ainda tem ar dentro."
-    aulas: [biologia-fundamental/plantas-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-fundamental/plantas-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/plantas]
 
   - id: enem-2023-98
     area: natureza
@@ -175,7 +175,7 @@ questoes:
       C: "Proteínas precisam de nitrogênio, que não sai da fotossíntese. O cloroplasto fabrica açúcar a partir de CO₂ e água."
       D: "Vitaminas não são o produto da fotossíntese. O que o cloroplasto entrega é glicose, um carboidrato."
       E: "Lipídios podem até ser feitos depois, a partir do açúcar, mas não são o produto primário. A pergunta pede o que a fotossíntese fornece diretamente."
-    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, biologia-medio/citologia, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, biologia-medio/citologia, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/metabolismo]
 
   - id: enem-2023-99
     area: natureza
@@ -196,7 +196,7 @@ questoes:
       B: "A transmissão não é por mordida nem por lambida. Ela depende do inseto que suga sangue."
       C: "A diarreia é sintoma, mas o protozoário não sai nas fezes como os vermes intestinais. Ele vive em células do sangue e de órgãos internos."
       E: "A conjuntivite é um dos sintomas, mas não é por aí que a doença se transmite nem onde o parasita se concentra. O vetor pega o parasita ao sugar sangue."
-    aulas: [biologia-medio/saude-publica-e-epidemias, biologia-fundamental/doencas-transmissiveis-e-saneamento, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/saude-publica-e-epidemias, biologia-fundamental/doencas-transmissiveis-e-saneamento, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/doencas]
 
   - id: enem-2023-100
     area: natureza
@@ -218,7 +218,7 @@ questoes:
       B: "No topo a esfera para por um instante, então v = 0. E a aceleração nunca é zero: o peso continua agindo."
       D: "Velocidade para cima vale para a subida, não para o topo. E a aceleração da gravidade aponta para baixo o tempo todo."
       E: "Velocidade para baixo vale para a descida, depois do topo. No instante mais alto, a velocidade é zero."
-    aulas: [fisica-medio/cinematica-movimento-uniforme-e-variado, fisica-fundamental/peso-massa-e-gravidade, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/cinematica-movimento-uniforme-e-variado, fisica-fundamental/peso-massa-e-gravidade, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/queda-e-lancamentos]
 
   - id: enem-2023-101
     area: natureza
@@ -239,7 +239,7 @@ questoes:
       C: "A ovulação acontece no meio do ciclo, e depois dela os hormônios sobem, porque o corpo lúteo começa a trabalhar. A queda vem no fim do ciclo."
       D: "LH e FSH estimulam o ovário. Se subissem, a produção ovariana tenderia a aumentar. Na fase antes da menstruação eles estão baixos."
       E: "A adrenalina vem das glândulas suprarrenais e responde a estresse. Ela não explica a queda dos hormônios do ovário."
-    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/reproducao-e-sexualidade, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/reproducao-e-sexualidade, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/corpo-humano]
 
   - id: enem-2023-102
     area: natureza
@@ -260,7 +260,7 @@ questoes:
       B: "Hexan-1-ol é álcool primário (OH na ponta). Oxidado, dá hexanal e depois ácido hexanoico. A carbonila nunca vai parar no carbono 3."
       D: "Em hex-1-en-1-ol o oxigênio está no carbono 1, e a dupla ligação fica na ponta. Nenhuma oxidação comum leva a carbonila para o carbono 3."
       E: "Ácido hexanoico já está no grau máximo de oxidação da ponta da cadeia. Ele não vira cetona por oxidação."
-    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes]
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, enem-quimica/reacoes-organicas]
 
   - id: enem-2023-103
     area: natureza
@@ -280,7 +280,7 @@ questoes:
       B: "Musgos e samambaias têm esporos e continuam precisando de água para o gameta masculino nadar. Esporo não resolve a fecundação."
       C: "A semente protege e espalha o embrião, que já é resultado da fecundação. A pergunta é sobre o que leva o gameta até o óvulo."
       E: "Samambaias já têm vasos condutores e mesmo assim dependem de água para fecundar. Os vasos levam água e seiva, não gametas."
-    aulas: [biologia-medio/classificacao-dos-seres-vivos, biologia-medio/evolucao-darwin-e-a-selecao-natural, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/classificacao-dos-seres-vivos, biologia-medio/evolucao-darwin-e-a-selecao-natural, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/plantas]
 
   - id: enem-2023-104
     area: natureza
@@ -301,7 +301,7 @@ questoes:
       C: "A dissolução acontece na superfície que toca o líquido. Um vidro mais grosso não aumenta essa superfície."
       D: "A esterilização é feita antes, sem o suplemento dentro, e o texto diz que esse vidro aguenta o calor. O problema surge no contato com o gluconato."
       E: "Ser endotérmica só pesaria se a temperatura subisse. O texto aponta outra causa: a ligação forte do gluconato ao íon, que depende da concentração."
-    aulas: [quimica-medio/cinetica-e-equilibrio-quimico, enem-reta-final/natureza-o-essencial-quimica]
+    aulas: [quimica-medio/cinetica-e-equilibrio-quimico, enem-reta-final/natureza-o-essencial-quimica, enem-quimica/le-chatelier]
 
   - id: enem-2023-105
     area: natureza
@@ -322,7 +322,7 @@ questoes:
       B: "A transpiração acontece nas folhas, com água que sobe pelo xilema. O xilema não foi cortado."
       C: "A troca de gases ocorre pelos estômatos das folhas, que não foram atingidos."
       D: "Os brotos ficam acima ou abaixo do corte e podem até aparecer. A causa da morte é a raiz sem alimento."
-    aulas: [biologia-fundamental/plantas-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-fundamental/plantas-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/plantas]
 
   - id: enem-2023-106
     area: natureza
@@ -343,7 +343,7 @@ questoes:
       B: "O RNAm não captura vírus nem age fora da célula. Ele atua dentro, no citoplasma, como molde para fabricar proteína."
       D: "A vacina não foi feita para disputar ribossomos com o vírus. O objetivo é produzir a proteína viral e ensinar o corpo a reconhecê-la."
       E: "O RNAm da vacina não entra no núcleo nem se junta ao DNA; ele é lido no citoplasma e depois degradado. O texto diz que ele age no compartimento de sempre."
-    aulas: [biologia-fundamental/vacinas-como-funcionam, biologia-medio/dna-rna-e-sintese-de-proteinas, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-fundamental/vacinas-como-funcionam, biologia-medio/dna-rna-e-sintese-de-proteinas, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/vacinacao]
 
   - id: enem-2023-107
     area: natureza
@@ -364,7 +364,7 @@ questoes:
       B: "A divisão do zigoto exige fecundação, que nem começou. As enzimas do acrossomo não agem na divisão celular."
       C: "O fim da segunda meiose do ovócito é disparado pela entrada do espermatozoide. O bloqueio aconteceu num passo anterior."
       E: "A fusão das membranas depende de proteínas da superfície das duas células, e só ocorre depois de atravessar a zona pelúcida. O acrossomo age antes disso."
-    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/reproducao-e-sexualidade, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/fisiologia-humana, biologia-fundamental/reproducao-e-sexualidade, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/corpo-humano]
 
   - id: enem-2023-108
     area: natureza
@@ -385,7 +385,7 @@ questoes:
       B: "Condução é a passagem de calor por contato, como na chama do fogão comum. Aqui o calor nasce dentro da própria panela."
       C: "O campo elétrico que empurra os elétrons existe, mas ele é consequência da variação do campo magnético da bobina. A causa, segundo Faraday, é o campo magnético variável."
       E: "O fogão não depende de sintonizar uma frequência de ressonância. Basta o campo magnético variar perto do metal."
-    aulas: [fisica-medio/eletromagnetismo, fisica-fundamental/imas-e-magnetismo, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/eletromagnetismo, fisica-fundamental/imas-e-magnetismo, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/magnetismo]
 
   - id: enem-2023-109
     area: natureza
@@ -434,7 +434,7 @@ questoes:
       C: "Uma reta que nunca para ignora o reagente limitante. Quando o mercúrio acaba, mais NaCl não forma mais precipitado."
       D: "O gráfico D começa em cerca de 2,5 g com zero de NaCl. Sem cloreto não se forma Hg₂Cl₂, então a curva tem de partir da origem."
       E: "O gráfico E começa perto de 5,25 g, a massa do nitrato dissolvido, e passa de 4,72 g. Sem NaCl não há precipitado, e o máximo possível é 4,72 g."
-    aulas: [quimica-medio/mol-e-estequiometria, quimica-medio/reacoes-quimicas-e-balanceamento]
+    aulas: [quimica-medio/mol-e-estequiometria, quimica-medio/reacoes-quimicas-e-balanceamento, enem-quimica/estequiometria]
 
   - id: enem-2023-111
     area: natureza
@@ -456,7 +456,7 @@ questoes:
       B: "O período é o inverso da frequência e também é fixado pela fonte. Ele não muda no caminho."
       D: "A velocidade depende do meio: material e tensão do barbante. O texto diz que as demais condições ficaram iguais, então a velocidade não muda."
       E: "Comprimento de onda = velocidade ÷ frequência. Como as duas não mudam, ele também não muda."
-    aulas: [fisica-medio/ondas, fisica-fundamental/som, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/ondas, fisica-fundamental/som, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/ondas-e-som]
 
   - id: enem-2023-112
     area: natureza
@@ -476,7 +476,7 @@ questoes:
       C: "O verde fica no meio do espectro visível. Azul e violeta têm comprimentos menores."
       D: "O vermelho tem o maior comprimento de onda da luz visível. Ele pede cavidades maiores, o contrário do que se quer."
       E: "O infravermelho tem comprimento de onda ainda maior que o vermelho. É a pior escolha para cavidades pequenas."
-    aulas: [fisica-medio/ondas, fisica-medio/optica-geometrica, fisica-fundamental/luz-sombra-e-cores, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/ondas, fisica-medio/optica-geometrica, fisica-fundamental/luz-sombra-e-cores, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/espectro]
 
   - id: enem-2023-113
     area: natureza
@@ -543,7 +543,7 @@ questoes:
       C: "Estômatos trocam gases e vapor de água. Metais absorvidos não saem por eles."
       D: "Plantas não têm glândulas que eliminem metais. E o metal não se transforma em outra coisa menos tóxica dentro do corpo."
       E: "A energia da planta vem da fotossíntese. Metais tóxicos não servem de combustível; ao contrário, fazem mal às células."
-    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, quimica-medio/quimica-ambiental, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/ecologia-populacoes-e-ecossistemas, quimica-medio/quimica-ambiental, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/impactos]
 
   - id: enem-2023-116
     area: natureza
@@ -612,7 +612,7 @@ questoes:
       B: "O n-heptano tem só 7 carbonos, fora da faixa de 8 a 12, e a cadeia é reta."
       D: "O sufixo -eno indica dupla ligação: a cadeia é insaturada. O texto pede hidrocarboneto saturado."
       E: "O sufixo -ol indica álcool. A gasolina descrita é mistura de hidrocarbonetos, só carbono e hidrogênio."
-    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, quimica-fundamental/combustiveis-e-combustao, enem-reta-final/natureza-o-essencial-quimica]
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, quimica-fundamental/combustiveis-e-combustao, enem-reta-final/natureza-o-essencial-quimica, enem-quimica/cadeias]
 
   - id: enem-2023-119
     area: natureza
@@ -636,7 +636,7 @@ questoes:
       B: "533 junta dois enganos: temperatura em Celsius (650) e volume como 0,01 L. A conta de gases pede kelvin e o volume certo, 0,1 L."
       D: "53 sai de usar 650 °C direto na fórmula (0,082 · 650 ≈ 53). A equação dos gases só funciona com a temperatura em kelvin: 923 K."
       E: "13 atm não sai de uma conta com os dados convertidos certo. Refaça com V = 0,1 L e T = 923 K."
-    aulas: [fisica-medio/termodinamica, quimica-medio/mol-e-estequiometria]
+    aulas: [fisica-medio/termodinamica, quimica-medio/mol-e-estequiometria, enem-quimica/gases]
 
   - id: enem-2023-120
     area: natureza
@@ -660,7 +660,7 @@ questoes:
       B: "A ideia de que a energia da lâmpada queimada sobra para as outras não vale aqui. Com resistência total maior, a corrente cai para todos."
       D: "L1 e L3 estão em conjuntos iguais e são atravessadas pela mesma corrente, porque os conjuntos estão em série. O que acontece com uma acontece com a outra."
       E: "A posição em relação aos polos da fonte não muda nada num circuito em série: a corrente é a mesma em todos os conjuntos. L1 e L3 mudam igual."
-    aulas: [fisica-medio/circuitos-eletricos, fisica-fundamental/eletricidade-em-casa]
+    aulas: [fisica-medio/circuitos-eletricos, fisica-fundamental/eletricidade-em-casa, enem-fisica/circuitos]
 
   - id: enem-2023-121
     area: natureza
@@ -682,7 +682,7 @@ questoes:
       C: "O magnésio dá 2,13, menor que a do potássio. Quanto mais perto do oxigênio for a eletronegatividade do metal, menos iônica a ligação."
       D: "O zinco dá só 1,79. Ser micronutriente não tem relação com o caráter iônico; o que conta é a diferença de eletronegatividade."
       E: "O ferro tem a maior eletronegatividade da tabela (1,83), então a menor diferença (1,61): é a ligação menos iônica das cinco."
-    aulas: [quimica-medio/ligacoes-quimicas]
+    aulas: [quimica-medio/ligacoes-quimicas, enem-quimica/ligacoes]
 
   - id: enem-2023-122
     area: natureza
@@ -704,7 +704,7 @@ questoes:
       B: "Falta o calor sensível: antes de condensar, o vapor esfria de 120 °C para 100 °C e também cede energia."
       C: "O calor sensível está certo, mas a vaporização consome energia. Quem libera é a condensação do vapor na parede."
       E: "A condensação fornece energia, mas a vaporização a consome. E o resfriamento de 120 °C para 100 °C (calor sensível) ficou de fora."
-    aulas: [quimica-fundamental/estados-fisicos-e-mudancas-de-estado, fisica-fundamental/calor-e-temperatura, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [quimica-fundamental/estados-fisicos-e-mudancas-de-estado, fisica-fundamental/calor-e-temperatura, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/trocas-de-calor]
 
   - id: enem-2023-123
     area: natureza
@@ -730,7 +730,7 @@ questoes:
       B: "O paracetamol é parecido com a fenacetina e também não tem carbono assimétrico. Sem esse carbono, não há isomeria óptica."
       C: "Na dipirona, os carbonos fora dos anéis são CH₃ ou CH₂, com hidrogênios repetidos. Nenhum é ligado a quatro grupos diferentes."
       D: "No diclofenaco, o carbono vizinho ao carboxilato é um CH₂: tem dois hidrogênios iguais. Não é carbono quiral."
-    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes]
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, enem-quimica/isomeria]
 
   - id: enem-2023-124
     area: natureza
@@ -798,7 +798,7 @@ questoes:
       B: "Lipofilicidade é afinidade por gordura. Ao virar íon, a molécula fica mais afim de água e menos de gordura."
       D: "A cadeia carbônica não muda na reação: só o nitrogênio recebe um H⁺."
       E: "Não há oxidação nem redução: o nitrogênio só recebe um próton. O número de oxidação dele continua o mesmo."
-    aulas: [quimica-medio/ligacoes-quimicas, quimica-medio/funcoes-inorganicas]
+    aulas: [quimica-medio/ligacoes-quimicas, quimica-medio/funcoes-inorganicas, enem-quimica/forcas-intermoleculares]
 
   - id: enem-2023-127
     area: natureza
@@ -820,7 +820,7 @@ questoes:
       B: "A água se forma quando o oxigênio recebe os elétrons no fim da cadeia. Com a cadeia travada, forma-se menos água."
       D: "O CO₂ sai das reações que precisam de NAD⁺. Como o NAD⁺ não é regenerado, essas reações ficam lentas e sai menos CO₂."
       E: "A citocromo c oxidase é uma enzima da membrana. O cianeto não faz a célula fabricar mais dela; só bloqueia a que existe."
-    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia]
+    aulas: [biologia-medio/metabolismo-respiracao-e-fotossintese, enem-reta-final/natureza-o-essencial-biologia, enem-biologia/metabolismo]
 
   - id: enem-2023-128
     area: natureza
@@ -840,7 +840,7 @@ questoes:
       B: "Potência sozinha não basta: um sinal forte numa frequência diferente é rejeitado pelo filtro do rádio."
       D: "Intensidade alta numa frequência diferente também é filtrada. O que importa para interferir é a frequência coincidir."
       E: "No ar, todas as ondas eletromagnéticas andam praticamente à mesma velocidade, a da luz. Essa diferença não existe."
-    aulas: [fisica-medio/ondas, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/ondas, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/espectro]
 
   - id: enem-2023-129
     area: natureza
@@ -861,7 +861,7 @@ questoes:
       B: "O plasma do sangue é aquoso, e hemácias e leucócitos não armazenam gordura. O sangue transporta o Aldrin, mas não o concentra."
       C: "Sais são iônicos e polares. Eles não atraem uma molécula de baixa polaridade."
       D: "A urina elimina substâncias solúveis em água, como a ureia, que é polar. Uma molécula apolar fica retida na gordura do corpo."
-    aulas: [quimica-medio/quimica-ambiental, quimica-medio/ligacoes-quimicas]
+    aulas: [quimica-medio/quimica-ambiental, quimica-medio/ligacoes-quimicas, enem-quimica/ambiental]
 
   - id: enem-2023-130
     area: natureza
@@ -882,7 +882,7 @@ questoes:
       B: "Se a condutividade fosse alta, o calor do café passaria para fora e o copo esquentaria na mão. O texto diz o contrário."
       C: "Mau condutor está certo, mas a vantagem não é aumentar resíduo. O ganho é reduzir lixo, porque o copo é reutilizado."
       E: "Condutividade alta contradiz o texto, e metade do material é plástico que não se degrada."
-    aulas: [quimica-medio/polimeros-e-plasticos, fisica-fundamental/calor-e-temperatura]
+    aulas: [quimica-medio/polimeros-e-plasticos, fisica-fundamental/calor-e-temperatura, enem-quimica/lixo-e-reciclagem]
 
   - id: enem-2023-131
     area: natureza
@@ -903,7 +903,7 @@ questoes:
       C: "O texto diz que os dois têm água carbonatada e a mesma quantidade de aditivos. Nada indica que o comum tenha mais gás."
       D: "O comum tem mais soluto: todo aquele açúcar. Os adoçantes do diet têm massa muito pequena."
       E: "Soluto dissolvido baixa a temperatura de congelamento (efeito crioscópico). Com mais açúcar, o comum congela a uma temperatura menor."
-    aulas: [quimica-medio/solucoes-e-concentracao, fisica-medio/hidrostatica, enem-reta-final/natureza-o-essencial-quimica]
+    aulas: [quimica-medio/solucoes-e-concentracao, fisica-medio/hidrostatica, enem-reta-final/natureza-o-essencial-quimica, enem-quimica/solucoes]
 
   - id: enem-2023-133
     area: natureza
@@ -925,7 +925,7 @@ questoes:
       B: "O texto liga a não biodegradabilidade às ramificações, não ao anel. Detergentes com anel e cadeia reta são degradados."
       C: "Trocar a carga da cabeça muda o tipo de detergente, mas a cauda continuaria ramificada e difícil de quebrar."
       D: "Uma cabeça catiônica ainda deixa a cauda ramificada. O que impede a degradação é a ramificação da cadeia."
-    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, quimica-medio/quimica-ambiental, enem-reta-final/natureza-o-essencial-quimica]
+    aulas: [quimica-medio/quimica-organica-cadeias-e-funcoes, quimica-medio/quimica-ambiental, enem-reta-final/natureza-o-essencial-quimica, enem-quimica/cotidiano]
 
   - id: enem-2023-134
     area: natureza
@@ -970,4 +970,4 @@ questoes:
       B: "540 sai de 900 · 0,6: de novo multiplicou em vez de dividir. Faça 900 ÷ 0,6."
       C: "818 sai de 900 ÷ 1,1: usou o tempo total do segundo eco, que inclui a ida e a volta pela rocha. Só os 0,6 s de diferença são passados no líquido."
       E: "1 800 sai de 900 ÷ 0,5: usou o tempo do primeiro eco, que é o percurso na rocha. O tempo no líquido é 1,1 − 0,5 = 0,6 s."
-    aulas: [fisica-medio/ondas, enem-reta-final/natureza-o-essencial-fisica]
+    aulas: [fisica-medio/ondas, enem-reta-final/natureza-o-essencial-fisica, enem-fisica/ondas-e-som]

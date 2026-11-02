@@ -1,0 +1,246 @@
+# Exercícios da aula "Soluções, concentração e diluição" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Massa molar do NaCl arredondada: 58,5 g/mol.
+
+- id: enem-qui-solucoes-01
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  dificuldade: 1
+  enunciado: "Uma pessoa dissolve 20 g de açúcar em água e completa 0,5 L de limonada. A concentração de açúcar é"
+  alternativas:
+    - texto: "10 g/L"
+      erro: "Você multiplicou 20 por 0,5. Concentração é massa dividida pelo volume: 20 ÷ 0,5."
+    - texto: "40 g/L"
+      certa: true
+    - texto: "20 g/L"
+      erro: "20 g estão em meio litro, não em um litro. Em um litro caberia o dobro."
+    - texto: "0,025 g/L"
+      erro: "Você dividiu o volume pela massa. A conta é massa ÷ volume."
+    - texto: "20,5 g/L"
+      erro: "Massa e volume não se somam: são grandezas diferentes. Divida a massa pelo volume."
+  explicacao: "C = m ÷ V = 20 g ÷ 0,5 L = 40 g/L."
+  conferir: "20 / 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-02
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-solucoes
+  dificuldade: 1
+  enunciado: "Na salmoura usada para conservar azeitonas, o sal está dissolvido em água. Nessa solução, o solvente é"
+  alternativas:
+    - texto: "o sal"
+      erro: "O sal é quem se dissolve: é o soluto. O solvente é quem dissolve."
+    - texto: "a azeitona"
+      erro: "A azeitona fica mergulhada, mas não faz parte da solução. A solução é só o sal na água."
+    - texto: "o vidro"
+      erro: "O vidro é o recipiente. Ele não dissolve nada."
+    - texto: "a água"
+      certa: true
+    - texto: "o ar do pote"
+      erro: "O ar fica por cima e não dissolve o sal. Quem dissolve o sal é a água."
+  explicacao: "Soluto é o que se dissolve (o sal); solvente é o que dissolve (a água)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-03
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  dificuldade: 1
+  enunciado: "O soro fisiológico tem 0,9 g de cloreto de sódio em cada 100 mL. Quantos gramas de cloreto de sódio há em 1 L de soro?"
+  alternativas:
+    - texto: "9 g"
+      certa: true
+    - texto: "0,9 g"
+      erro: "0,9 g é o que há em 100 mL. Um litro tem 1.000 mL, dez vezes mais."
+    - texto: "90 g"
+      erro: "Você multiplicou por 100. De 100 mL para 1.000 mL, o volume cresce só 10 vezes."
+    - texto: "0,09 g"
+      erro: "Você dividiu por 10. Em um volume maior há mais sal, não menos."
+    - texto: "900 g"
+      erro: "Sobraram zeros. 0,9 × 10 = 9."
+  explicacao: "1 L = 1.000 mL = 10 × 100 mL. Então a massa é 0,9 × 10 = 9 g."
+  conferir: "0.9 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-04
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  dificuldade: 2
+  enunciado: "200 mL de uma solução a 30 g/L recebem água até completar 600 mL. A nova concentração é"
+  alternativas:
+    - texto: "90 g/L"
+      erro: "A concentração não sobe ao pôr água. O volume triplicou: a concentração cai para um terço."
+    - texto: "30 g/L"
+      erro: "Ao pôr água, o soluto se espalha num volume maior. A concentração muda."
+    - texto: "15 g/L"
+      erro: "Você dividiu por 2, como se o volume tivesse dobrado. Ele triplicou: de 200 para 600 mL."
+    - texto: "20 g/L"
+      erro: "Você subtraiu os volumes ou as concentrações. Use C₁ · V₁ = C₂ · V₂."
+    - texto: "10 g/L"
+      certa: true
+  explicacao: "C₁ · V₁ = C₂ · V₂: 30 × 200 = C₂ × 600. C₂ = 6.000 ÷ 600 = 10 g/L."
+  conferir: "30 * 200 / 600"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-05
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  dificuldade: 2
+  enunciado: "Uma técnica dissolve 0,5 mol de NaCl em água e completa 250 mL de solução. A concentração é"
+  alternativas:
+    - texto: "0,125 mol/L"
+      erro: "Você multiplicou 0,5 por 0,25. A concentração é a quantidade dividida pelo volume."
+    - texto: "125 mol/L"
+      erro: "Você multiplicou 0,5 por 250 mL sem converter. Passe para litro e divida: 0,5 ÷ 0,25."
+    - texto: "2 mol/L"
+      certa: true
+    - texto: "0,002 mol/L"
+      erro: "Você dividiu por 250 sem converter mL em L. 250 mL = 0,25 L."
+    - texto: "0,5 mol/L"
+      erro: "Esse seria o valor em 1 L. Em 0,25 L, a mesma quantidade fica quatro vezes mais concentrada."
+  explicacao: "250 mL = 0,25 L. M = n ÷ V = 0,5 ÷ 0,25 = 2 mol/L."
+  conferir: "0.5 / 0.25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-06
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 24
+  objeto: nat-qui-agua-solucoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa feira de ciências, estudantes puseram num tanque com água duas garrafas fechadas, iguais, de 500 mL: uma com
+    água pura e outra com água e 100 g de sal dissolvido. A garrafa com sal afundou mais.
+  enunciado: "A garrafa com sal afundou mais porque a solução tem"
+  alternativas:
+    - texto: "maior densidade, pois tem mais massa no mesmo volume."
+      certa: true
+    - texto: "menor concentração de água, que é o que faz boiar."
+      erro: "Quem decide boiar ou afundar é a densidade do conjunto: massa dividida pelo volume. O sal acrescentou massa."
+    - texto: "maior volume, pois o sal ocupa espaço."
+      erro: "As garrafas são iguais e cheias até o mesmo ponto: o volume é o mesmo. O que mudou foi a massa."
+    - texto: "temperatura mais baixa, pois o sal esfria a água."
+      erro: "Dissolver sal quase não muda a temperatura. A diferença está na massa dentro do mesmo volume."
+    - texto: "menor massa, pois o sal se dissolve e some."
+      erro: "Dissolver não faz o sal sumir. A massa dele continua lá, e por isso a solução pesa mais."
+  explicacao: "Densidade = massa ÷ volume. As duas garrafas têm o mesmo volume, mas a de sal tem 100 g a mais. Ela é mais densa e afunda mais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-07
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  dificuldade: 2
+  enunciado: "Uma salmoura tem 117 g/L de cloreto de sódio (massa molar 58,5 g/mol). A concentração em mol/L é"
+  alternativas:
+    - texto: "117 mol/L"
+      erro: "117 está em gramas por litro. Para mol/L, divida pela massa molar."
+    - texto: "0,5 mol/L"
+      erro: "Você dividiu a massa molar pela concentração (58,5 ÷ 117). A conta é 117 ÷ 58,5."
+    - texto: "6.844,5 mol/L"
+      erro: "Você multiplicou pela massa molar. De g/L para mol/L se divide."
+    - texto: "2 mol/L"
+      certa: true
+    - texto: "58,5 mol/L"
+      erro: "58,5 g é a massa de 1 mol. Em 117 g cabem dois desses."
+  explicacao: "117 g ÷ 58,5 g/mol = 2 mol em cada litro: 2 mol/L."
+  conferir: "117 / 58.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-08
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um laboratório de escola pública tem 1 L de solução de ácido clorídrico a 2 mol/L. Para uma aula prática, a
+    professora precisa da solução a 0,5 mol/L e vai diluir todo o frasco.
+  enunciado: "O volume de água que ela deve acrescentar é"
+  alternativas:
+    - texto: "4 L"
+      erro: "4 L é o volume final da solução. Já havia 1 L no frasco: a água acrescentada é 4 − 1."
+    - texto: "1,5 L"
+      erro: "Você subtraiu as concentrações (2 − 0,5). Use C₁ · V₁ = C₂ · V₂ para achar o volume final."
+    - texto: "0,25 L"
+      erro: "Você dividiu ao contrário. Para baixar a concentração, o volume tem de crescer."
+    - texto: "2 L"
+      erro: "Com 2 L de água, o volume final seria 3 L e a concentração, 2 ÷ 3 mol/L, maior que 0,5."
+    - texto: "3 L"
+      certa: true
+  explicacao: "C₁ · V₁ = C₂ · V₂: 2 × 1 = 0,5 × V₂, então V₂ = 4 L. Como já havia 1 L, acrescentam-se 4 − 1 = 3 L de água."
+  conferir: "2 * 1 / 0.5 - 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-09
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para desinfetar a água de uma caixa d'água comunitária de 2.000 L, um agente de saúde dissolveu nela 3 g de um
+    produto. Em soluções aquosas diluídas, 1 mg/L corresponde a cerca de 1 ppm (parte por milhão).
+  enunciado: "A concentração do produto na caixa d'água ficou em torno de"
+  alternativas:
+    - texto: "0,0015 mg/L"
+      erro: "Você dividiu 3 g por 2.000 sem passar gramas para miligramas. 3 g = 3.000 mg."
+    - texto: "6.000 mg/L"
+      erro: "Você multiplicou massa e volume. Concentração é massa dividida pelo volume."
+    - texto: "1,5 mg/L"
+      certa: true
+    - texto: "15 mg/L"
+      erro: "Sobrou um zero na conversão. 3.000 mg ÷ 2.000 L = 1,5 mg/L."
+    - texto: "666 mg/L"
+      erro: "Você dividiu o volume pela massa (2.000 ÷ 3). A conta é massa ÷ volume."
+  explicacao: "3 g = 3.000 mg. C = 3.000 mg ÷ 2.000 L = 1,5 mg/L, cerca de 1,5 ppm."
+  conferir: "3000 / 2000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-solucoes-10
+  tema: "Soluções, concentração e diluição"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-agua-solucoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para conferir um ácido de limpeza, um técnico titulou 20 mL da solução de HCl com NaOH a 0,1 mol/L. Foram gastos
+    30 mL da base até o indicador mudar de cor. A reação é HCl + NaOH → NaCl + H₂O.
+  enunciado: "A concentração do ácido, em mol/L, é"
+  alternativas:
+    - texto: "0,067"
+      erro: "Você inverteu os volumes (0,1 × 20 ÷ 30). O volume gasto da base vai em cima: 0,1 × 30 ÷ 20."
+    - texto: "0,15"
+      certa: true
+    - texto: "0,1"
+      erro: "Essa é a concentração da base. Como se gastou mais base que o volume de ácido, o ácido é mais concentrado."
+    - texto: "0,3"
+      erro: "Você usou proporção de 2 para 1. A equação mostra 1 HCl para 1 NaOH."
+    - texto: "0,003"
+      erro: "0,003 mol é a quantidade de base gasta. Falta dividir pelo volume do ácido, 0,020 L."
+  explicacao: "Mols de NaOH: 0,1 × 0,030 = 0,003 mol. Proporção 1 : 1, então 0,003 mol de HCl em 0,020 L: 0,003 ÷ 0,020 = 0,15 mol/L."
+  conferir: "0.1 * 30 / 20"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

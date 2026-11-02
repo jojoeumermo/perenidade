@@ -124,7 +124,7 @@ questoes:
       B: "Os britânicos buscaram apoio árabe na guerra, mas o comando pede o resultado do processo aberto pela declaração. Esse resultado foi o conflito pelo território, que eles não conseguiram mediar."
       D: "A cooperação regional não é o objetivo expresso na carta. A carta faz duas promessas a dois grupos; o fracasso foi não conseguir conciliar as duas."
       E: "Combater governos autocráticos não aparece na declaração nem no mandato. Não traga para 1917 um objetivo de outra época."
-    aulas: [geopolitica-contemporanea/palestina-ocupacao-colonizacao-e-direito-internacional, historia-superior/colonialismo-e-imperialismo, enem-reta-final/humanas-o-essencial-historia]
+    aulas: [geopolitica-contemporanea/palestina-ocupacao-colonizacao-e-direito-internacional, historia-superior/colonialismo-e-imperialismo, enem-reta-final/humanas-o-essencial-historia, enem-historia-geral/mundo-atual]
 
   - id: enem-2023-52
     area: humanas
@@ -322,7 +322,7 @@ questoes:
       B: "Norte e Sul têm o mesmo povo e a mesma língua. A divisão não é étnica; é política."
       D: "Quem instala alto-falantes e mastros são os governos, não empresas. O conflito não nasceu de imposição financeira."
       E: "Não há tema ambiental no texto. A disputa é entre dois Estados rivais."
-    aulas: [historia-superior/a-guerra-fria]
+    aulas: [historia-superior/a-guerra-fria, enem-historia-geral/guerra-fria]
 
   - id: enem-2023-63
     area: humanas
@@ -620,7 +620,7 @@ questoes:
       B: "O texto critica o governo português, não elogia um rei racional. Uma ideia iluminista verdadeira, mas fora do texto, não é a resposta."
       C: "O texto cita escravizados só como perda econômica pela doença. Não defende a liberdade deles. Não leia no texto o que ele não diz."
       D: "A ideia de que a terra gera a riqueza é dos fisiocratas. O texto fala de ouro e de saúde, não de agricultura."
-    aulas: []
+    aulas: [enem-historia-geral/iluminismo]
 
   - id: enem-2023-78
     area: humanas

@@ -1,0 +1,241 @@
+# Exercícios da aula "Química ambiental: chuva ácida, efeito estufa, ozônio, metais pesados" (trilha enem-quimica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Concentrações de mercúrio na cadeia são valores de exemplo.
+
+- id: enem-qui-ambiental-01
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-ambiental
+  dificuldade: 1
+  enunciado: "A chuva ácida é causada principalmente por"
+  alternativas:
+    - texto: "oxigênio e nitrogênio do ar puro"
+      erro: "O ar puro deixa a chuva só levemente ácida, pelo CO₂. A chuva ácida vem de poluentes."
+    - texto: "CFCs de geladeiras antigas"
+      erro: "Os CFCs destroem a camada de ozônio. Não são a causa da chuva ácida."
+    - texto: "óxidos de enxofre e de nitrogênio lançados por queimas e indústrias"
+      certa: true
+    - texto: "vapor de água das nuvens"
+      erro: "O vapor de água é o que forma a chuva, mas não a torna ácida sozinho."
+    - texto: "metano dos lixões"
+      erro: "O metano é gás de efeito estufa. Não forma ácido forte na chuva."
+  explicacao: "SO₂ e NOₓ reagem no ar e formam ácido sulfúrico e ácido nítrico, que caem com a chuva."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-02
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-ambiental
+  dificuldade: 1
+  enunciado: "O ozônio da estratosfera é importante para a vida porque"
+  alternativas:
+    - texto: "absorve grande parte da radiação ultravioleta do Sol"
+      certa: true
+    - texto: "é o oxigênio que respiramos"
+      erro: "Respiramos O₂. O ozônio é O₃, e lá no alto ele filtra radiação."
+    - texto: "esquenta a Terra no inverno"
+      erro: "Quem segura o calor são os gases de efeito estufa. O papel do ozônio é outro."
+    - texto: "faz chover"
+      erro: "A chuva vem do vapor de água. O ozônio não forma nuvens."
+    - texto: "limpa a poluição das cidades"
+      erro: "Perto do chão o ozônio é poluente. A camada útil fica muito acima."
+  explicacao: "O O₃ da estratosfera absorve boa parte do ultravioleta, que causa queimaduras, câncer de pele e catarata."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-03
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-ambiental
+  dificuldade: 1
+  enunciado: "As substâncias que mais destruíram a camada de ozônio, controladas pelo Protocolo de Montreal, são os"
+  alternativas:
+    - texto: "óxidos de enxofre"
+      erro: "Os óxidos de enxofre causam chuva ácida, não o buraco na camada de ozônio."
+    - texto: "gases nobres"
+      erro: "Gases nobres quase não reagem."
+    - texto: "sais de cozinha"
+      erro: "Sal não sobe à estratosfera nem destrói ozônio."
+    - texto: "clorofluorcarbonetos (CFCs)"
+      certa: true
+    - texto: "vapores de etanol"
+      erro: "O etanol não é o vilão da camada de ozônio."
+  explicacao: "Os CFCs sobem à estratosfera; a radiação ultravioleta solta cloro, que destrói muitas moléculas de ozônio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-04
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 12
+  objeto: nat-qui-sociedade-ambiental
+  dificuldade: 2
+  enunciado: "Sobre o efeito estufa, é correto afirmar que"
+  alternativas:
+    - texto: "é causado pelo buraco na camada de ozônio."
+      erro: "São problemas diferentes. O efeito estufa envolve gases que seguram calor; o buraco, a perda de ozônio."
+    - texto: "não existiria sem a poluição humana."
+      erro: "O efeito estufa natural existe sem os seres humanos e mantém a Terra habitável."
+    - texto: "é intensificado só pelo vapor de água."
+      erro: "As atividades humanas aumentam sobretudo CO₂, metano e óxido nitroso."
+    - texto: "esfria a Terra."
+      erro: "Os gases de efeito estufa seguram calor: aquecem."
+    - texto: "é natural e necessário, mas vem sendo intensificado pelo excesso de CO₂, metano e óxido nitroso."
+      certa: true
+  explicacao: "O efeito estufa natural mantém a temperatura da Terra. Queimar combustíveis fósseis e desmatar aumentam esses gases e intensificam o aquecimento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-05
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-ambiental
+  dificuldade: 2
+  enunciado: "O aumento da concentração de um poluente a cada nível da cadeia alimentar chama-se"
+  alternativas:
+    - texto: "eutrofização"
+      erro: "Eutrofização é o excesso de nutrientes na água, que faz as algas crescerem demais."
+    - texto: "biomagnificação"
+      certa: true
+    - texto: "fotossíntese"
+      erro: "Fotossíntese é a produção de açúcar pelas plantas com luz."
+    - texto: "decantação"
+      erro: "Decantação é um método de separar misturas."
+    - texto: "neutralização"
+      erro: "Neutralização é a reação de ácido com base."
+  explicacao: "Quem come muitos organismos contaminados acumula o que eles tinham. A concentração cresce de nível em nível."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-06
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-ambiental
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma lagoa perto de uma área de lavouras e de um bairro sem rede de esgoto ficou verde, coberta de algas. Semanas
+    depois, apareceram peixes mortos e a água passou a cheirar mal.
+  enunciado: "O fenômeno descrito é a"
+  alternativas:
+    - texto: "chuva ácida, que mata as algas."
+      erro: "As algas cresceram, não morreram de início. E o texto não fala de chuva ácida."
+    - texto: "eutrofização: nutrientes do adubo e do esgoto fazem as algas crescerem demais, e a decomposição delas consome o oxigênio."
+      certa: true
+    - texto: "biomagnificação de mercúrio nas algas."
+      erro: "Não há menção a mercúrio. O que fez as algas crescerem foram nutrientes."
+    - texto: "destruição da camada de ozônio sobre a lagoa."
+      erro: "A camada de ozônio fica na estratosfera. Não explica algas numa lagoa."
+    - texto: "evaporação da água, que deixa os peixes sem espaço."
+      erro: "O problema não é a falta de água, é a falta de oxigênio nela."
+  explicacao: "Fosfatos e nitratos do adubo e do esgoto alimentam as algas. Quando elas morrem, bactérias as decompõem gastando o oxigênio da água, e os peixes morrem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-07
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-sociedade-ambiental
+  dificuldade: 2
+  enunciado: "Numa cidade industrial, uma chuva teve pH 4. Uma água de nascente tinha pH 6. A concentração de H⁺ da chuva é quantas vezes a da nascente?"
+  alternativas:
+    - texto: "2"
+      erro: "Você subtraiu os pH. Cada unidade é um fator de 10."
+    - texto: "1,5"
+      erro: "Você dividiu 6 por 4. O pH é uma escala de potências de 10."
+    - texto: "20"
+      erro: "Você multiplicou a diferença por 10. Duas unidades são 10 × 10."
+    - texto: "1.000"
+      erro: "1.000 seria uma diferença de 3 unidades de pH."
+    - texto: "100"
+      certa: true
+  explicacao: "10⁻⁴ ÷ 10⁻⁶ = 10² = 100. A chuva é cem vezes mais ácida."
+  conferir: "10^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-08
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 10
+  objeto: nat-qui-sociedade-ambiental
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Um pesticida organoclorado, de baixa polaridade e muito persistente, foi usado durante anos numa região. Anos
+    depois, pesquisadores procuraram resíduos dele em amostras de pessoas da região: urina, saliva, sangue, suor e
+    tecido gorduroso.
+  enunciado: "A maior concentração do pesticida deve estar no"
+  alternativas:
+    - texto: "tecido gorduroso, porque substâncias apolares se dissolvem melhor em gordura."
+      certa: true
+    - texto: "suor, porque o corpo elimina o veneno pela pele."
+      erro: "O suor é principalmente água. Substância apolar se dissolve mal nele."
+    - texto: "urina, porque os rins filtram tudo."
+      erro: "Os rins eliminam bem substâncias que se dissolvem em água. A apolar fica retida na gordura."
+    - texto: "saliva, porque é a primeira a ter contato com o alimento."
+      erro: "A saliva é aquosa. Não é onde a substância apolar se acumula."
+    - texto: "sangue, porque circula por todo o corpo."
+      erro: "O sangue é principalmente água. A substância apolar sai dele e vai para a gordura."
+  explicacao: "Semelhante dissolve semelhante. O pesticida apolar se acumula na gordura, onde fica guardado por muito tempo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-09
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 17
+  objeto: nat-qui-sociedade-ambiental
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num estudo de um rio com garimpo, o plâncton tinha 0,01 mg de mercúrio por kg. No modelo usado, a concentração fica
+    10 vezes maior a cada nível da cadeia alimentar.
+  enunciado: "Um peixe que está três níveis acima do plâncton teria, nesse modelo,"
+  alternativas:
+    - texto: "0,03 mg/kg"
+      erro: "Você somou 0,01 três vezes. A concentração se multiplica por 10 a cada nível."
+    - texto: "0,3 mg/kg"
+      erro: "Você multiplicou por 30. São três multiplicações por 10: 10³."
+    - texto: "1 mg/kg"
+      erro: "1 mg/kg é dois níveis acima. Falta mais um."
+    - texto: "10 mg/kg"
+      certa: true
+    - texto: "100 mg/kg"
+      erro: "100 mg/kg seria quatro níveis acima."
+  explicacao: "0,01 × 10 × 10 × 10 = 0,01 × 1.000 = 10 mg/kg. Mil vezes a concentração do plâncton."
+  conferir: "0.01 * 10^3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-qui-ambiental-10
+  tema: "Química ambiental"
+  area: natureza
+  habilidade: 27
+  objeto: nat-qui-sociedade-ambiental
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num boletim de qualidade do ar de uma grande cidade, o ozônio aparece como poluente, com alertas nos dias quentes e
+    ensolarados. Uma estudante estranhou: "Mas o ozônio não protege a Terra?".
+  enunciado: "A dúvida se resolve porque"
+  alternativas:
+    - texto: "o ozônio da cidade é outra substância, com outra fórmula."
+      erro: "É a mesma substância, O₃. O que muda é o lugar onde ela está."
+    - texto: "o boletim está errado: ozônio nunca é poluente."
+      erro: "Perto do chão, o ozônio irrita olhos e pulmões. É um poluente de verdade."
+    - texto: "o ozônio protege na estratosfera, filtrando ultravioleta, e é poluente perto do chão, formado pela luz do sol sobre gases dos escapamentos."
+      certa: true
+    - texto: "o ozônio da cidade sobe e tapa o buraco da camada."
+      erro: "O ozônio formado perto do chão reage e se desfaz antes de chegar à estratosfera."
+    - texto: "o ozônio só é poluente à noite."
+      erro: "É o contrário: o sol forte ajuda a formar o ozônio da cidade."
+  explicacao: "Mesma molécula, papéis opostos. Na estratosfera, filtra ultravioleta. Na troposfera, forma-se no smog e faz mal à respiração. Menos carros e motores mais limpos reduzem esse ozônio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
