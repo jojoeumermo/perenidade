@@ -365,7 +365,7 @@ questoes:
       C: "Os mosteiros praticavam caridade, mas o texto diz que a ajuda estava no domínio da gestão pública. Fique com a tese do autor, não com o que você imagina da época."
       D: "Bispos participavam da vida comunitária, mas o texto fala de agentes públicos. Escolher os bispados é levar a sério a aparência de caridade que o texto desmonta."
       E: "Corporações de ofício com estatutos são típicas das cidades medievais de séculos posteriores. Situá-las no século VI é anacronismo."
-    aulas: [historia-antiga/a-idade-media]
+    aulas: [historia-antiga/a-idade-media, enem-historia-geral/idade-media]
 
   - id: enem-2022-64
     area: humanas
@@ -487,7 +487,7 @@ questoes:
       C: "Putin não discute a ONU nem outros organismos. O argumento é de identidade do povo. Escolher isso é deduzir algo que o texto não diz."
       D: "Livre circulação é tema de integração econômica, como em blocos regionais. Anexar território é outra coisa. Não confunda integração com anexação."
       E: "O trecho não fala de forças navais. A questão pede a justificativa apresentada no discurso, não interesses militares que você conheça por fora."
-    aulas: [enem-reta-final/humanas-o-essencial-historia]
+    aulas: [enem-reta-final/humanas-o-essencial-historia, enem-historia-geral/mundo-atual]
 
   - id: enem-2022-70
     area: humanas
@@ -568,7 +568,7 @@ questoes:
       C: "O texto fala de uma classe, não de uma nação. A manifestação foi pensada para vários países ao mesmo tempo. Não confunda identidade de classe com identidade nacional."
       D: "Comunidade cívica lembra cidadãos de um mesmo Estado. O texto fala de construir a classe operária. A Revolução Francesa aparece só como exemplo do uso da festa."
       E: "A data foi criada de propósito por um ato político, não nasceu do costume popular. O texto destaca o lado “voluntário” da construção. Leia essa palavra."
-    aulas: [historia-do-sindicalismo/a-revolucao-industrial-e-os-primeiros-sindicatos]
+    aulas: [historia-do-sindicalismo/a-revolucao-industrial-e-os-primeiros-sindicatos, enem-historia-geral/liberalismo-socialismo-e-anarquismo]
 
   - id: enem-2022-74
     area: humanas
@@ -892,7 +892,7 @@ questoes:
       B: "O texto não fala de armas tomadas em batalha. Fala de saberes. Não troque o legado por um episódio da conquista."
       D: "O texto destaca o que esses povos criaram por si. Dizer que seus costumes foram moldados por estrangeiros inverte o sentido."
       E: "A cirurgia inca aparece, mas chamá-la de “conhecimento científico” no sentido moderno é anacronismo. E a alternativa deixa de fora a astronomia e a matemática."
-    aulas: [historia-antiga/os-povos-originarios-das-americas]
+    aulas: [historia-antiga/os-povos-originarios-das-americas, enem-historia-geral/conquista-da-america]
 
   - id: enem-2022-90
     area: humanas

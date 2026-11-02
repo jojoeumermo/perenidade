@@ -1,0 +1,239 @@
+# Exercícios da aula "Espectro eletromagnético" (trilha enem-fisica).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Em todos, c = 3 × 10⁸ m/s.
+
+- id: enem-fis-espectro-01
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 1
+  enunciado: "No vácuo, como se comparam as velocidades da luz vermelha e da luz azul?"
+  alternativas:
+    - texto: "A luz azul é mais rápida, porque tem frequência maior"
+      erro: "Frequência maior não quer dizer velocidade maior. No vácuo, toda onda eletromagnética anda a c."
+    - texto: "A luz vermelha é mais rápida, porque tem comprimento de onda maior"
+      erro: "Comprimento de onda maior vem junto com frequência menor; o produto dos dois é sempre c."
+    - texto: "São iguais: as duas andam à velocidade da luz"
+      certa: true
+    - texto: "Depende da intensidade de cada luz"
+      erro: "A intensidade muda a energia que chega por segundo, não a velocidade da onda."
+    - texto: "A luz azul não se propaga no vácuo"
+      erro: "Toda onda eletromagnética, de qualquer cor, anda no vácuo. É assim que a luz do Sol chega até nós."
+  explicacao: "No vácuo, todas as ondas eletromagnéticas andam com a mesma velocidade, c ≈ 3 × 10⁸ m/s. As cores diferem na frequência e no comprimento de onda, não na velocidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-02
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 1
+  enunciado: "O controle remoto comum de uma televisão envia o comando por um feixe invisível que sai de uma pequena lâmpada na ponta. Esse feixe é de"
+  alternativas:
+    - texto: "raios X"
+      erro: "Raios X são radiação ionizante, usada em radiografias. Um controle remoto não poderia usá-los com segurança."
+    - texto: "ultravioleta"
+      erro: "O ultravioleta é a radiação que queima a pele no sol. O controle remoto usa a faixa logo abaixo do vermelho."
+    - texto: "ondas sonoras"
+      erro: "O feixe sai de uma lâmpada (um LED), e som não sai de lâmpada. É radiação eletromagnética."
+    - texto: "raios gama"
+      erro: "Raios gama vêm de núcleos atômicos e são muito perigosos. Não são usados em aparelhos domésticos."
+    - texto: "infravermelho"
+      certa: true
+  explicacao: "O controle remoto usa um LED de infravermelho, radiação de frequência um pouco menor que a do vermelho. O olho não a enxerga, mas o sensor da televisão, sim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-03
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 1
+  enunciado: "Qual destas radiações tem a maior frequência?"
+  alternativas:
+    - texto: "Ondas de rádio"
+      erro: "As ondas de rádio estão na ponta de menor frequência do espectro."
+    - texto: "Raios gama"
+      certa: true
+    - texto: "Luz visível"
+      erro: "A luz visível fica no meio do espectro. Ultravioleta, raios X e gama têm frequência maior."
+    - texto: "Micro-ondas"
+      erro: "Micro-ondas fazem parte da faixa de rádio, de baixa frequência."
+    - texto: "Ultravioleta"
+      erro: "O ultravioleta tem frequência maior que a da luz visível, mas menor que a dos raios X e gama."
+  explicacao: "Em ordem crescente de frequência: rádio (com micro-ondas), infravermelho, visível, ultravioleta, raios X, raios gama. Os raios gama ficam no topo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-04
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 2
+  enunciado: "Uma rádio FM transmite na frequência de 100 MHz, isto é, 100.000.000 Hz. Qual é o comprimento de onda dessa transmissão?"
+  alternativas:
+    - texto: "3 m"
+      certa: true
+    - texto: "0,33 m"
+      erro: "Você dividiu a frequência pela velocidade. O comprimento de onda é λ = c ÷ f."
+    - texto: "300 m"
+      erro: "Esse seria o comprimento de onda de 1 MHz, como numa rádio AM. Confira os zeros: 100 MHz são 10⁸ Hz."
+    - texto: "30 m"
+      erro: "Sobrou um zero. 300.000.000 ÷ 100.000.000 = 3."
+    - texto: "0,03 m"
+      erro: "Faltaram dois zeros. 300.000.000 ÷ 100.000.000 = 3."
+  explicacao: "λ = c ÷ f = 300.000.000 ÷ 100.000.000 = 3 m."
+  conferir: "300000000 / 100000000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-05
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 22
+  objeto: nat-fis-ondas-espectro
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No forno de micro-ondas, um prato de vidro seco quase não esquenta quando é aquecido sozinho. Com comida úmida em
+    cima, a comida esquenta depressa, e o prato só fica quente onde encosta nela.
+  enunciado: "Essa diferença acontece porque"
+  alternativas:
+    - texto: "as micro-ondas são ondas sonoras muito agudas que só fazem a comida vibrar"
+      erro: "Micro-ondas são ondas eletromagnéticas, da faixa de rádio, não ondas sonoras."
+    - texto: "as micro-ondas são radiação ionizante, que quebra as moléculas da comida"
+      erro: "As micro-ondas têm frequência baixa e não são ionizantes. Elas aquecem, sem arrancar elétrons."
+    - texto: "o vidro reflete todo o calor de volta para o forno"
+      erro: "O forno não manda calor pronto: manda ondas. O ponto é quem absorve essas ondas."
+    - texto: "as moléculas de água da comida absorvem a energia das micro-ondas e se agitam, aquecendo a comida"
+      certa: true
+    - texto: "o prato de vidro é transparente à luz e por isso não recebe energia nenhuma"
+      erro: "Transparência à luz visível não explica o que acontece com as micro-ondas. O que conta é a presença de água."
+  explicacao: "O campo elétrico das micro-ondas muda de sentido bilhões de vezes por segundo. As moléculas de água, que têm um lado mais positivo e outro mais negativo, giram tentando acompanhar, e esse vaivém vira calor. O prato seco, sem água, quase não absorve essa energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-06
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 2
+  enunciado: "Uma luz verde tem comprimento de onda de 500 nm, isto é, 5 × 10⁻⁷ m. Qual é a frequência dela?"
+  alternativas:
+    - texto: "1,67 × 10⁻¹⁵ Hz"
+      erro: "Você dividiu o comprimento de onda pela velocidade. A frequência é f = c ÷ λ."
+    - texto: "1,5 × 10¹¹ Hz"
+      erro: "Você multiplicou c por 500 e esqueceu que 500 nm são 5 × 10⁻⁷ m. Além disso, a conta é de divisão."
+    - texto: "6 × 10¹⁴ Hz"
+      valor: "600000000000000"
+      certa: true
+    - texto: "6 × 10⁵ Hz"
+      erro: "Você dividiu c por 500, sem passar os nanômetros para metros. 500 nm = 5 × 10⁻⁷ m."
+    - texto: "1,5 × 10² Hz"
+      erro: "Você multiplicou c pelo comprimento de onda. De c = λ · f, a frequência é c ÷ λ."
+  explicacao: "f = c ÷ λ = 3 × 10⁸ ÷ (5 × 10⁻⁷). Divida os números (3 ÷ 5 = 0,6) e as potências (10⁸ ÷ 10⁻⁷ = 10¹⁵): f = 0,6 × 10¹⁵ = 6 × 10¹⁴ Hz."
+  conferir: "300000000 / 0.0000005"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-07
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 2
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 2
+  enunciado: "Numa radiografia do braço, os ossos aparecem claros e a carne, escura. Por que os raios X permitem ver os ossos?"
+  alternativas:
+    - texto: "Porque os raios X são refletidos pela pele e desenham o contorno do braço"
+      erro: "A radiografia não é uma foto da pele. Os raios X atravessam o braço, e o que importa é o quanto cada parte absorve."
+    - texto: "Porque os ossos emitem raios X próprios"
+      erro: "Os ossos não emitem raios X. Eles absorvem parte dos raios que vêm do aparelho."
+    - texto: "Porque os raios X são ondas sonoras que ecoam nos ossos"
+      erro: "Quem usa eco é a ultrassonografia, com som. Os raios X são ondas eletromagnéticas."
+    - texto: "Porque os raios X só atravessam os ossos e são barrados pela carne"
+      erro: "É o contrário: a carne deixa passar mais raios X, e os ossos barram mais."
+    - texto: "Porque os ossos absorvem mais raios X que os tecidos moles, e menos radiação chega ao filme atrás deles"
+      certa: true
+  explicacao: "Os raios X atravessam o corpo com facilidade, mas os ossos, mais densos e ricos em cálcio, absorvem mais. Atrás dos ossos chega menos radiação ao filme ou ao sensor, e essa parte aparece clara na imagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-08
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 22
+  objeto: nat-fis-ondas-espectro
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Campanhas de saúde recomendam usar protetor solar e evitar o sol forte do meio do dia. O principal motivo é o risco
+    de câncer de pele causado por uma parte da radiação do Sol. A luz visível e o infravermelho do Sol, por si, não trazem
+    esse mesmo risco.
+  enunciado: "A radiação do Sol ligada ao câncer de pele e a razão física do seu efeito são"
+  alternativas:
+    - texto: "o infravermelho, porque esquenta a pele"
+      erro: "O infravermelho esquenta, mas tem frequência baixa demais para danificar o DNA. O texto diz que ele não traz esse risco."
+    - texto: "o ultravioleta, porque tem frequência maior que a da luz visível, e cada fóton leva energia capaz de danificar o DNA das células da pele"
+      certa: true
+    - texto: "o ultravioleta, porque tem frequência menor que a do infravermelho"
+      erro: "O ultravioleta tem frequência maior que a do infravermelho e que a da luz visível. É por isso que é mais perigoso."
+    - texto: "as ondas de rádio do Sol, porque atravessam a pele"
+      erro: "Ondas de rádio têm a menor frequência do espectro e não danificam o DNA."
+    - texto: "a luz visível, porque é a mais intensa"
+      erro: "O texto diz que a luz visível não traz esse risco. O dano vem da energia de cada fóton, que é maior no ultravioleta."
+  explicacao: "O ultravioleta fica logo acima do violeta no espectro. Frequência maior quer dizer mais energia por fóton. Essa energia é suficiente para danificar o DNA das células da pele, o que pode levar a mutações e ao câncer. O protetor solar absorve ou reflete boa parte desse UV."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-09
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 3
+  enunciado: "Uma rádio AM transmite em 600 kHz, isto é, 600.000 Hz. Qual é o comprimento de onda dessa transmissão?"
+  alternativas:
+    - texto: "500 m"
+      certa: true
+    - texto: "0,002 m"
+      erro: "Você dividiu a frequência pela velocidade. O comprimento de onda é λ = c ÷ f."
+    - texto: "5.000 m"
+      erro: "Sobrou um zero. 300.000.000 ÷ 600.000 = 3.000 ÷ 6 = 500."
+    - texto: "50 m"
+      erro: "Faltou um zero. 300.000.000 ÷ 600.000 = 500."
+    - texto: "1,8 × 10¹⁴ m"
+      erro: "Você multiplicou c pela frequência. De c = λ · f, λ = c ÷ f."
+  explicacao: "λ = c ÷ f = 300.000.000 ÷ 600.000 = 3.000 ÷ 6 = 500 m. Ondas de rádio AM são as mais compridas do dia a dia: centenas de metros."
+  conferir: "300000000 / 600000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fis-espectro-10
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em resgates noturnos, equipes usam câmeras térmicas, que formam imagens mesmo no escuro total. Na tela, as pessoas
+    aparecem destacadas do mato frio em volta, sem que nenhuma luz seja acesa.
+  enunciado: "Essas câmeras funcionam porque detectam"
+  alternativas:
+    - texto: "raios X emitidos pelos ossos das pessoas"
+      erro: "O corpo humano não emite raios X. Ele emite, por estar morno, radiação infravermelha."
+    - texto: "o som do coração e da respiração"
+      erro: "A câmera forma imagem de radiação eletromagnética, não de som."
+    - texto: "a luz visível refletida pela pele, ampliada muitas vezes"
+      erro: "No escuro total não há luz visível para refletir. A câmera capta a radiação que o próprio corpo emite."
+    - texto: "a radiação infravermelha emitida pelos corpos, que é mais intensa nos corpos mais quentes"
+      certa: true
+    - texto: "o ultravioleta que a pele produz no escuro"
+      erro: "A pele não emite ultravioleta. Corpos mornos emitem principalmente infravermelho."
+  explicacao: "Todo corpo emite radiação conforme a sua temperatura. Na temperatura do corpo humano, essa radiação é principalmente infravermelha. Mais quente, mais infravermelho: a pessoa se destaca do mato frio, mesmo sem luz."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,242 @@
+# Exercícios da aula "Animais: invertebrados e vertebrados" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-animais-01
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-seres-vivos-animais
+  dificuldade: 1
+  enunciado: "Qual destes animais é um artrópode?"
+  alternativas:
+    - texto: "A minhoca."
+      erro: "A minhoca é um anelídeo: corpo mole, em anéis, sem patas articuladas."
+    - texto: "O caramujo."
+      erro: "O caramujo é um molusco: corpo mole, com concha."
+    - texto: "O sapo."
+      erro: "O sapo é um vertebrado, um anfíbio."
+    - texto: "A lombriga."
+      erro: "A lombriga é um nematódeo, verme cilíndrico sem patas."
+    - texto: "O camarão."
+      certa: true
+  explicacao: "O camarão tem patas articuladas e exoesqueleto de quitina, como insetos, aranhas e caranguejos. É um artrópode."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-02
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-seres-vivos-animais
+  dificuldade: 1
+  enunciado: "Os peixes respiram o oxigênio"
+  alternativas:
+    - texto: "dissolvido na água, pelas brânquias."
+      certa: true
+    - texto: "da própria água, quebrando a molécula de H₂O."
+      erro: "Peixes não quebram a água. Eles tiram das brânquias o oxigênio que está dissolvido nela."
+    - texto: "do ar, que engolem na superfície, em todas as espécies."
+      erro: "Há peixes que engolem ar, mas a regra dos peixes é a respiração pelas brânquias, com o oxigênio dissolvido."
+    - texto: "produzido pelas escamas, que fazem fotossíntese."
+      erro: "Escamas protegem o corpo. Peixes não fazem fotossíntese."
+    - texto: "do alimento que comem."
+      erro: "O alimento dá a glicose. O oxigênio vem da água, pelas brânquias."
+  explicacao: "As brânquias são finas e cheias de vasos de sangue. A água passa por elas, e o oxigênio dissolvido entra no sangue por difusão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-03
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-seres-vivos-animais
+  dificuldade: 1
+  enunciado: "Uma lagartixa fica parada ao sol de manhã antes de sair para caçar. Por quê?"
+  alternativas:
+    - texto: "Para fazer fotossíntese na pele."
+      erro: "Lagartixas são animais e não fazem fotossíntese."
+    - texto: "Para secar a pele, que é úmida como a do sapo."
+      erro: "A pele dos répteis é seca, com escamas. O sol não serve para secá-la."
+    - texto: "Para aquecer o corpo, porque a temperatura dela depende do calor do ambiente."
+      certa: true
+    - texto: "Para produzir leite."
+      erro: "Leite é dos mamíferos. A lagartixa é um réptil."
+    - texto: "Porque é endotérmica e precisa gastar calor."
+      erro: "Répteis não são endotérmicos. Eles dependem do calor de fora."
+  explicacao: "Répteis dependem do calor do ambiente para aquecer o corpo. De manhã, com o corpo frio, ficam lentos. O sol esquenta o corpo e acelera o metabolismo, e aí a caça fica possível."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-04
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-seres-vivos-animais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Na caatinga, há lagartos e cobras ativos mesmo nos meses mais secos, enquanto sapos e rãs quase desaparecem da
+    vista, enterrados ou escondidos em lugares úmidos, e voltam a cantar quando chegam as chuvas.
+  enunciado: "A diferença entre os dois grupos se relaciona sobretudo"
+  alternativas:
+    - texto: "ao fato de os répteis serem endotérmicos e os anfíbios não."
+      erro: "Nem répteis nem anfíbios são endotérmicos. A diferença está na pele e nos ovos."
+    - texto: "à pele seca e aos ovos com casca dos répteis, que perdem pouca água, e à pele úmida e aos ovos sem casca dos anfíbios."
+      certa: true
+    - texto: "ao tamanho: animais pequenos não aguentam a seca."
+      erro: "Há lagartos pequenos ativos na seca. O tamanho não é o ponto."
+    - texto: "à alimentação: anfíbios comem só plantas."
+      erro: "Sapos e rãs adultos comem sobretudo insetos. A dependência deles é da água."
+    - texto: "às brânquias dos répteis adultos."
+      erro: "Répteis respiram por pulmões, não por brânquias."
+  explicacao: "Os répteis têm pele seca com escamas e ovo amniótico, com casca: perdem pouca água e se reproduzem longe dela. Os anfíbios respiram também pela pele úmida e põem ovos sem casca na água. Na seca, precisam se esconder e esperar a chuva para se reproduzir."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-05
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-animais
+  dificuldade: 2
+  enunciado: "Um besouro recém-saído do exoesqueleto velho fica mole e se esconde por algumas horas. Por que esse período é perigoso para ele?"
+  alternativas:
+    - texto: "Porque ele perde as asas para sempre."
+      erro: "A muda não arranca as asas do adulto. O risco é outro."
+    - texto: "Porque ele vira larva de novo."
+      erro: "A muda não faz o animal voltar no ciclo de vida. Ele só troca a armadura."
+    - texto: "Porque ele passa a respirar por brânquias."
+      erro: "Insetos não ganham brânquias na muda. O risco é a falta de proteção."
+    - texto: "Porque o novo exoesqueleto ainda não endureceu, e ele fica sem proteção contra predadores."
+      certa: true
+    - texto: "Porque ele precisa comer o exoesqueleto velho ou morre."
+      erro: "Alguns artrópodes comem o exoesqueleto velho, mas isso não é obrigatório nem explica o perigo."
+  explicacao: "O exoesqueleto de quitina protege, mas não cresce. Na muda, o artrópode troca o velho por um novo, que demora a endurecer. Nesse tempo, ele fica mole e vulnerável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-06
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 16
+  objeto: nat-bio-seres-vivos-animais
+  dificuldade: 2
+  enunciado: "Qual novidade dos répteis permitiu que os vertebrados se reproduzissem longe da água?"
+  alternativas:
+    - texto: "As penas."
+      erro: "Penas são das aves e servem para voo e isolamento térmico."
+    - texto: "As brânquias."
+      erro: "Brânquias servem para respirar na água. Não ajudam a viver longe dela."
+    - texto: "O ovo amniótico, com casca e membranas que guardam água e alimento."
+      certa: true
+    - texto: "As glândulas mamárias."
+      erro: "Glândulas mamárias são dos mamíferos, para alimentar o filhote depois do nascimento."
+    - texto: "A pele úmida."
+      erro: "Pele úmida é dos anfíbios e prende o animal aos lugares úmidos."
+  explicacao: "O ovo amniótico protege o embrião do ressecamento e traz a água e o alimento de que ele precisa. Com ele, répteis, aves e mamíferos que põem ovos se livraram de pôr ovos na água."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-07
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-seres-vivos-animais
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O beija-flor bate as asas muitas vezes por segundo e passa o dia visitando flores para tomar néctar, rico em
+    açúcar. Numa noite fria, alguns beija-flores entram num estado de economia: o corpo esfria e o metabolismo cai muito,
+    até a manhã seguinte.
+  enunciado: "O comportamento noturno do beija-flor se explica porque"
+  alternativas:
+    - texto: "ele é endotérmico, e manter o corpo quente gasta muita energia; sem comer à noite, economizar evita esgotar as reservas."
+      certa: true
+    - texto: "ele é um réptil e depende do calor do sol."
+      erro: "O beija-flor é uma ave. Aves produzem o próprio calor; o que ele faz à noite é uma economia."
+    - texto: "ele faz fotossíntese de dia e não à noite."
+      erro: "Aves não fazem fotossíntese. A energia vem do néctar que ele come."
+    - texto: "o néctar é tóxico à noite."
+      erro: "O néctar não muda de noite. O problema é que ele não come durante a noite."
+    - texto: "ele precisa esfriar para digerir o açúcar."
+      erro: "Digestão não exige esfriar o corpo. A queda do metabolismo é para poupar energia."
+  explicacao: "Aves são endotérmicas: queimam alimento para manter o corpo quente. Um animal pequeno, de voo muito ativo, gasta muita energia. À noite, sem néctar, esfriar o corpo e baixar o metabolismo evita gastar todas as reservas antes do amanhecer."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-08
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 28
+  objeto: nat-bio-seres-vivos-animais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Em aves que voam por horas seguidas, como as que migram, o músculo do peito é escuro. Na galinha, que quase não voa e
+    só bate as asas em fugas curtas, o músculo do peito é claro. Ao microscópio, o músculo escuro tem muitas
+    mitocôndrias e muitos vasos de sangue.
+  enunciado: "A cor escura do músculo do peito das aves migratórias está ligada"
+  alternativas:
+    - texto: "à gordura acumulada para a viagem, que deixa a carne escura."
+      erro: "A cor vem de uma proteína que guarda oxigênio, a mioglobina, e do sangue, não da gordura."
+    - texto: "à falta de oxigênio no músculo durante o voo."
+      erro: "O músculo escuro é justamente o que recebe muito oxigênio, pelos muitos vasos."
+    - texto: "à fermentação lática, que escurece a carne."
+      erro: "O músculo de voo longo depende sobretudo da respiração aeróbica. A fermentação predomina no esforço curto."
+    - texto: "ao sol forte que as aves pegam durante a migração."
+      erro: "O sol não muda a cor do músculo por dentro. A cor vem da composição das fibras."
+    - texto: "à mioglobina e às mitocôndrias de fibras feitas para esforço longo com respiração aeróbica."
+      certa: true
+  explicacao: "Voar por horas é um esforço longo. As fibras de esforço longo têm muita mioglobina, que guarda oxigênio e dá a cor escura, muitas mitocôndrias e muitos vasos: fazem respiração aeróbica e cansam pouco. A galinha usa o peito em explosões curtas, com fibras claras que cansam logo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-09
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-animais
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num experimento, girinos de uma mesma espécie foram criados em dois tanques iguais. No tanque A, água limpa. No
+    tanque B, água com pequena quantidade de um agrotóxico. Ao virarem adultos, os machos do tanque B tinham muito menos
+    de um hormônio sexual masculino no sangue do que os do tanque A, e alguns tinham órgãos sexuais com características
+    femininas.
+  enunciado: "A conclusão mais adequada a partir do experimento é que o agrotóxico"
+  alternativas:
+    - texto: "matou todos os machos do tanque B."
+      erro: "O texto fala de machos adultos do tanque B, com hormônio baixo. Eles sobreviveram."
+    - texto: "interferiu no sistema hormonal dos machos e alterou o desenvolvimento sexual."
+      certa: true
+    - texto: "não teve efeito, porque a quantidade era pequena."
+      erro: "Houve diferença clara entre os tanques, que só diferiam no agrotóxico. Mesmo em pouca quantidade, ele teve efeito."
+    - texto: "transformou os girinos em outra espécie."
+      erro: "Continuam sendo a mesma espécie. O que mudou foi o desenvolvimento de alguns indivíduos."
+    - texto: "aumentou o hormônio masculino nos machos."
+      erro: "O texto diz o contrário: o hormônio caiu no tanque B."
+  explicacao: "Os tanques eram iguais, menos no agrotóxico, e o tanque A serve de controle. Os machos expostos tiveram menos hormônio masculino e mudanças nos órgãos sexuais. Logo, o agrotóxico interferiu no sistema hormonal. A pele fina e o desenvolvimento na água deixam os anfíbios muito expostos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-animais-10
+  tema: "Animais: invertebrados e vertebrados"
+  area: natureza
+  habilidade: 16
+  objeto: nat-bio-seres-vivos-animais
+  dificuldade: 3
+  enunciado: "Uma baleia vive no mar, tem nadadeiras e corpo em forma de peixe, mas respira por pulmões, sobe à superfície para pegar ar e amamenta os filhotes. Em que grupo ela está, e o que explica o corpo parecido com o de um peixe?"
+  alternativas:
+    - texto: "Peixe; o corpo é igual porque tem a mesma origem que os tubarões."
+      erro: "Pulmões e amamentação são marcas dos mamíferos. A baleia não é peixe."
+    - texto: "Anfíbio; o corpo mudou na metamorfose."
+      erro: "Baleias não passam por metamorfose nem têm fase de girino. São mamíferos."
+    - texto: "Réptil; o corpo vem das escamas."
+      erro: "Baleias não têm escamas nem ovo amniótico com casca. Amamentam: são mamíferos."
+    - texto: "Mamífero; viver na água favoreceu formas de corpo parecidas com a dos peixes, por seleção natural."
+      certa: true
+    - texto: "Ave; as nadadeiras vieram das asas."
+      erro: "Aves têm penas e bico. A baleia amamenta: é mamífero."
+  explicacao: "Pulmões e glândulas mamárias põem a baleia entre os mamíferos. O corpo alongado e as nadadeiras são parecidos com os dos peixes porque nadar bem na água favorece essa forma: grupos diferentes, vivendo no mesmo tipo de ambiente, podem ficar parecidos por seleção natural."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

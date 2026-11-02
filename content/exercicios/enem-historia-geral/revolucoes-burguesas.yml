@@ -1,0 +1,246 @@
+# Exercícios da aula "Revolução Inglesa, independência dos EUA e Revolução Francesa" (trilha enem-historia-geral).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-revolucoes-burguesas-01
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  dificuldade: 1
+  enunciado: "Em que data o povo de Paris tomou a Bastilha, marco da Revolução Francesa?"
+  alternativas:
+    - texto: "14 de julho de 1789"
+      certa: true
+    - texto: "4 de julho de 1776"
+      erro: "Essa é a data da Declaração de Independência dos Estados Unidos."
+    - texto: "26 de agosto de 1789"
+      erro: "Nessa data foi aprovada a Declaração dos Direitos do Homem e do Cidadão, um mês e meio depois."
+    - texto: "30 de janeiro de 1649"
+      erro: "Essa é a data da execução do rei Carlos I, na Inglaterra."
+    - texto: "1º de janeiro de 1804"
+      erro: "Essa é a data da independência do Haiti."
+  explicacao: "Em 14 de julho de 1789, os parisienses tomaram a Bastilha, prisão que simbolizava o poder do rei. A data é hoje a festa nacional da França."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 7.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-02
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  dificuldade: 1
+  enunciado: "Que tipo de governo resultou da Revolução Gloriosa inglesa (1688–1689)?"
+  alternativas:
+    - texto: "Uma república sem rei"
+      erro: "A república inglesa foi antes, depois de 1649, e acabou em 1660. Em 1689 o rei continuou."
+    - texto: "Uma monarquia absoluta"
+      erro: "É o contrário: a Revolução Gloriosa limitou o poder do rei."
+    - texto: "Uma ditadura militar"
+      erro: "O resultado foi um rei abaixo do Parlamento, não um governo de generais."
+    - texto: "Uma monarquia parlamentar, com o rei abaixo da lei e do Parlamento"
+      certa: true
+    - texto: "Um governo da Igreja"
+      erro: "A Igreja não passou a governar. O poder foi para o Parlamento."
+  explicacao: "Com o Bill of Rights de 1689, impostos e exército em tempo de paz passaram a depender do Parlamento. O rei continuou, mas com poder limitado."
+  fonte: "Questão original do Instituto Lúcia, a partir do Bill of Rights (Avalon Project, Yale)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-03
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  dificuldade: 1
+  enunciado: "Na França antes de 1789, quem formava o Primeiro e o Segundo Estados?"
+  alternativas:
+    - texto: "Burgueses e camponeses"
+      erro: "Burgueses e camponeses faziam parte do Terceiro Estado, sem privilégios."
+    - texto: "Clero e nobreza"
+      certa: true
+    - texto: "Operários e soldados"
+      erro: "Operários e soldados também estavam no Terceiro Estado."
+    - texto: "O rei e a rainha"
+      erro: "O rei estava acima dos estados. Os dois primeiros eram grupos sociais inteiros."
+    - texto: "Comerciantes e banqueiros"
+      erro: "Comerciantes e banqueiros eram a burguesia, parte do Terceiro Estado."
+  explicacao: "Primeiro Estado: clero. Segundo: nobreza. Os dois tinham privilégios. O Terceiro reunia todo o resto, a grande maioria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-04
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "Consideramos estas verdades evidentes por si mesmas: que todos os homens são criados iguais, que são
+    dotados de certos direitos inalienáveis, entre os quais a vida, a liberdade e a busca da felicidade."
+    (Trecho da Declaração de Independência dos Estados Unidos, 1776, em tradução do Instituto Lúcia;
+    documento em domínio público.)
+  enunciado: "Uma crítica histórica ao alcance desse trecho, no seu tempo, é que"
+  alternativas:
+    - texto: "ele defendia a monarquia britânica."
+      erro: "O documento rompe com a monarquia britânica. A crítica ao alcance é outra."
+    - texto: "ele proibia a busca da felicidade."
+      erro: "O trecho põe a busca da felicidade entre os direitos. Não a proíbe."
+    - texto: "ele foi escrito depois da Revolução Francesa."
+      erro: "1776 é antes de 1789. A Declaração americana veio primeiro."
+    - texto: "ele aboliu a escravidão, o que provocou a guerra."
+      erro: "A escravidão só foi abolida nos Estados Unidos em 1865, quase um século depois."
+    - texto: "a igualdade proclamada não incluía as pessoas escravizadas, que continuaram sem liberdade."
+      certa: true
+  explicacao: "O texto diz que todos os homens são iguais, mas a escravidão continuou nos Estados Unidos até a 13ª Emenda, de 1865. Mulheres e indígenas também ficaram de fora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-05
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  dificuldade: 2
+  enunciado: "O que o lema 'nenhum imposto sem representação' reivindicava?"
+  alternativas:
+    - texto: "O fim de todos os impostos"
+      erro: "O lema não recusa impostos em geral: recusa impostos votados por quem não representa quem paga."
+    - texto: "Que a Igreja cobrasse os impostos"
+      erro: "O lema não fala de Igreja. Fala de representação política."
+    - texto: "Que só pudesse taxar quem tivesse representantes eleitos pelos taxados"
+      certa: true
+    - texto: "Que o rei da França governasse as colônias"
+      erro: "O conflito era entre os colonos e o Reino Unido."
+    - texto: "Que os impostos fossem pagos em ouro"
+      erro: "O lema é sobre quem decide o imposto, não sobre a forma de pagar."
+  explicacao: "Os colonos americanos eram taxados pelo Parlamento britânico, onde não tinham deputados. Para eles, isso era ilegítimo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-06
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "É ilegal cobrar dinheiro para a Coroa, a pretexto de prerrogativa, sem concessão do Parlamento. É
+    ilegal manter um exército permanente no reino, em tempo de paz, sem o consentimento do Parlamento."
+    (Trechos do Bill of Rights inglês, 1689, em tradução do Instituto Lúcia; documento em domínio público.)
+  enunciado: "Os trechos mostram que, a partir de 1689, na Inglaterra,"
+  alternativas:
+    - texto: "o rei passou a ter poder absoluto sobre os impostos."
+      erro: "Os trechos dizem que cobrar sem o Parlamento é ilegal. É o oposto do poder absoluto."
+    - texto: "o poder do rei ficou limitado pelo Parlamento em temas como impostos e exército."
+      certa: true
+    - texto: "o exército foi extinto."
+      erro: "O texto não extingue o exército: exige consentimento do Parlamento para mantê-lo em tempo de paz."
+    - texto: "a Igreja passou a cobrar os impostos."
+      erro: "O texto não fala da Igreja. Fala da Coroa e do Parlamento."
+    - texto: "a monarquia foi abolida."
+      erro: "A Coroa continua no texto. Ela só ficou abaixo do Parlamento."
+  explicacao: "O Bill of Rights pôs impostos e exército nas mãos do Parlamento. É a base da monarquia parlamentar inglesa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-07
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  dificuldade: 2
+  enunciado: "A Revolução Francesa costuma ser datada de 1789 a 1799. Quantos anos depois do começo dela o Haiti se tornou independente, em 1804?"
+  alternativas:
+    - texto: "5"
+      erro: "5 anos é a distância entre o fim da revolução (1799) e 1804. A pergunta é a partir do começo."
+    - texto: "10"
+      erro: "10 anos é a duração da revolução (1789 a 1799)."
+    - texto: "28"
+      erro: "28 é a distância de 1776, a independência americana, até 1804."
+    - texto: "15"
+      certa: true
+    - texto: "13"
+      erro: "Conta errada: 1789 + 13 dá 1802, o ano em que Louverture foi preso."
+  explicacao: "1804 − 1789 = 15 anos. A revolta dos escravizados de São Domingos começou em 1791, dois anos depois da tomada da Bastilha."
+  conferir: "1804 - 1789"
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 7.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-08
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 15
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Artigo 1º: "Os homens nascem e permanecem livres e iguais em direitos."
+    Artigo 17: "Sendo a propriedade um direito inviolável e sagrado, ninguém pode ser dela privado, a não ser
+    por necessidade pública legalmente comprovada, e mediante justa e prévia indenização."
+    (Declaração dos Direitos do Homem e do Cidadão, França, 1789, em tradução do Instituto Lúcia; documento
+    em domínio público.)
+  enunciado: "Lidos juntos, os dois artigos mostram que a igualdade proclamada em 1789 era"
+  alternativas:
+    - texto: "uma igualdade de direitos perante a lei, que convivia com a proteção da propriedade e das diferenças de riqueza."
+      certa: true
+    - texto: "uma igualdade de renda, com a divisão das propriedades entre todos."
+      erro: "O artigo 17 protege a propriedade como 'sagrada'. Não há divisão de bens."
+    - texto: "uma volta aos privilégios do clero e da nobreza."
+      erro: "O artigo 1º nega que alguém nasça com mais direitos. É o fim dos privilégios de nascimento."
+    - texto: "uma defesa do poder absoluto do rei."
+      erro: "Nenhum artigo fala do rei. A Declaração limita o poder ao pôr direitos acima dele."
+    - texto: "uma proibição de toda indenização."
+      erro: "O artigo 17 exige 'justa e prévia indenização' quando a propriedade é tomada."
+  explicacao: "A Declaração acabou com os privilégios de nascimento (igualdade jurídica), mas protegeu a propriedade. Por isso é chamada de burguesa: igualdade de direitos não é igualdade de riqueza."
+  fonte: "Questão original do Instituto Lúcia, a partir da Declaração de 1789 (Avalon Project, Yale)"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-09
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  dificuldade: 3
+  enunciado: "Em 1791, Olympe de Gouges publicou a Declaração dos Direitos da Mulher e da Cidadã. O gesto pode ser lido como"
+  alternativas:
+    - texto: "uma defesa do Antigo Regime e dos privilégios da nobreza."
+      erro: "Ela usou a linguagem da revolução, dos direitos, e não a dos privilégios."
+    - texto: "uma recusa total das ideias da Revolução Francesa."
+      erro: "Ela não recusou a ideia de direitos: cobrou que valessem também para as mulheres."
+    - texto: "uma cobrança de que a igualdade proclamada em 1789 incluísse as mulheres."
+      certa: true
+    - texto: "uma lei aprovada pela Assembleia Nacional."
+      erro: "Foi um texto dela, de crítica, não uma lei votada pela Assembleia."
+    - texto: "um documento da independência dos Estados Unidos."
+      erro: "Olympe de Gouges era francesa, e o texto responde à Declaração francesa de 1789."
+  explicacao: "Ao trocar 'homem' por 'mulher' e 'cidadão' por 'cidadã', ela mostrou o limite da Declaração de 1789: as mulheres ficaram sem direitos políticos."
+  fonte: "Questão original do Instituto Lúcia, a partir de OpenStax, World History Volume 2, seção 7.3"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-revolucoes-burguesas-10
+  tema: "Revoluções burguesas"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-revolucoes-burguesas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: Em 1649, o Parlamento inglês julgou e mandou executar o rei Carlos I.
+    Texto II: Em 1793, a Convenção francesa julgou e mandou executar o rei Luís XVI.
+    (Textos do Instituto Lúcia.)
+  enunciado: "Os dois episódios têm em comum"
+  alternativas:
+    - texto: "a restauração imediata do poder absoluto."
+      erro: "Os dois episódios fazem o contrário: tiram o rei do poder."
+    - texto: "a independência de uma colônia na América."
+      erro: "Nenhum dos dois é independência colonial. São revoluções dentro da Inglaterra e da França."
+    - texto: "o fim da propriedade privada."
+      erro: "As duas revoluções protegeram a propriedade. Executar o rei não aboliu a propriedade."
+    - texto: "a vitória da Igreja sobre o Parlamento."
+      erro: "Quem julgou os reis foram assembleias políticas, não a Igreja."
+    - texto: "a ideia de que o rei está sujeito à lei e pode ser julgado por uma assembleia em nome da nação."
+      certa: true
+  explicacao: "No absolutismo, o rei estava acima da lei. Julgar um rei é afirmar que ele responde a ela. As duas revoluções romperam com o direito divino dos reis."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
