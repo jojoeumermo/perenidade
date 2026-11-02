@@ -1,0 +1,239 @@
+# Exercícios da aula "Migrações, refúgio e apatridia" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-migracoes-01
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  dificuldade: 1
+  enunciado: "Um cortador de cana sai do Maranhão todo ano para trabalhar na safra em São Paulo e volta para casa quando ela acaba. Essa migração é:"
+  alternativas:
+    - texto: "pendular"
+      erro: "Pendular é o vaivém no mesmo dia, entre a casa e o trabalho. Aqui o deslocamento dura meses e segue a safra."
+    - texto: "internacional"
+      erro: "Maranhão e São Paulo ficam no mesmo país. É uma migração interna."
+    - texto: "sazonal"
+      certa: true
+    - texto: "um caso de refúgio"
+      erro: "Refúgio exige sair do país por perseguição ou violação grave de direitos. O trabalhador se desloca pela safra, dentro do Brasil."
+  explicacao: "Sazonal vem de estação (temporada): o deslocamento acompanha um período do ano, como a safra, e depois a pessoa volta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-02
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  dificuldade: 1
+  enunciado: "Qual destes é um fator de repulsão, isto é, algo que empurra a pessoa a sair do lugar onde vive?"
+  alternativas:
+    - texto: "Uma seca prolongada que acaba com a lavoura da família"
+      certa: true
+    - texto: "Uma fábrica que abre vagas em outra cidade"
+      erro: "Vagas em outra cidade puxam a pessoa para lá. É um fator de atração."
+    - texto: "Um parente que oferece casa no destino"
+      erro: "A rede de parentes no destino ajuda e atrai. É fator de atração."
+    - texto: "Uma universidade gratuita em outro estado"
+      erro: "Estudo em outro lugar é um motivo para ir: fator de atração."
+  explicacao: "Repulsão é o que empurra para fora: seca, falta de terra e de emprego, violência, guerra. Atração é o que puxa para outro lugar: emprego, escola, parentes, segurança."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-03
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  dificuldade: 1
+  enunciado: "Uma família foge das enchentes que destruíram sua cidade e vai morar em outra cidade do mesmo país. Ela é:"
+  alternativas:
+    - texto: "refugiada"
+      erro: "Refugiado está fora do próprio país. A família ficou dentro dele."
+    - texto: "deslocada interna"
+      certa: true
+    - texto: "apátrida"
+      erro: "Apátrida é quem nenhum país reconhece como cidadão. A família continua cidadã do seu país."
+    - texto: "emigrante"
+      erro: "Emigrante é quem sai do país. A família mudou de cidade sem cruzar a fronteira."
+  explicacao: "Quem é forçado a sair de casa por guerra ou desastre, mas continua no próprio país, é deslocado interno. Não cruzou fronteira, por isso não é refugiado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-04
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Art. 3º A política migratória brasileira rege-se pelos seguintes princípios e diretrizes: [...]
+    II - repúdio e prevenção à xenofobia, ao racismo e a quaisquer formas de discriminação;
+    III - não criminalização da migração; [...]
+    VI - acolhida humanitária; [...]
+    (Lei nº 13.445, de 2017, Lei de Migração.)
+  enunciado: "Uma medida coerente com os princípios citados é"
+  alternativas:
+    - texto: "prender quem atravessa a fronteira sem documento."
+      erro: "Isso criminaliza a migração, o contrário do inciso III."
+    - texto: "proibir a matrícula de filhos de imigrantes nas escolas públicas."
+      erro: "Excluir crianças da escola pela origem é discriminação, que o inciso II manda prevenir."
+    - texto: "pagar salário menor a trabalhadores estrangeiros."
+      erro: "Diferença de salário pela nacionalidade é discriminação, contrária à lei."
+    - texto: "oferecer documento, abrigo e acesso a serviços a quem chega fugindo de uma crise humanitária."
+      certa: true
+    - texto: "fechar todas as fronteiras a pessoas de países em crise."
+      erro: "Fechar a porta a quem foge de crise contraria a acolhida humanitária do inciso VI."
+  explicacao: "A lei trata o migrante como sujeito de direitos. Documentar, abrigar e garantir serviços é acolhida humanitária; não prender quem chega sem papel é não criminalizar a migração."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.445, de 2017"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-05
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  dificuldade: 2
+  enunciado: "Pela Lei nº 9.474, de 1997, o Brasil reconhece como refugiado quem deixa o país por perseguição e também quem foge de:"
+  alternativas:
+    - texto: "desemprego no país de origem"
+      erro: "Desemprego pode levar alguém a migrar, mas não é, sozinho, motivo de refúgio pela lei."
+    - texto: "vontade de conhecer outros países"
+      erro: "Turismo ou curiosidade não são motivo de refúgio."
+    - texto: "impostos altos no país de origem"
+      erro: "Imposto alto não é perseguição nem violação grave de direitos humanos."
+    - texto: "estudos no exterior"
+      erro: "Estudar fora é migração por escolha, com visto de estudante, não refúgio."
+    - texto: "grave e generalizada violação de direitos humanos"
+      certa: true
+  explicacao: "O artigo 1º, inciso III, amplia a Convenção de 1951: também é refugiado quem é obrigado a deixar o país por grave e generalizada violação de direitos humanos."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 9.474, de 1997"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-06
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Entre as décadas de 1950 e 1980, milhões de pessoas saíram do sertão nordestino rumo a São Paulo. Viajavam dias em
+    caminhões e, depois, em ônibus. Na cidade, muitos homens foram trabalhar na construção civil e na indústria, e muitas
+    mulheres no trabalho doméstico. Moravam em cortiços e em bairros que nasciam nas bordas da metrópole. (Texto do
+    Instituto Lúcia.)
+  enunciado: "O fluxo descrito se explica pela combinação de"
+  alternativas:
+    - texto: "perseguição religiosa no Nordeste e acolhida humanitária em São Paulo."
+      erro: "O texto não fala de perseguição. Fala de trabalho, de seca e de cidade em crescimento."
+    - texto: "seca e concentração da terra no Nordeste com a oferta de empregos da industrialização no Sudeste."
+      certa: true
+    - texto: "proibição de morar no campo e obrigação de trabalhar na indústria."
+      erro: "Nunca houve essa proibição. A migração foi empurrada por condições de vida, não por lei."
+    - texto: "aumento das terras disponíveis no sertão e falta de trabalhadores lá."
+      erro: "Se sobrasse terra e faltasse gente no sertão, as pessoas ficariam. O texto mostra o contrário."
+    - texto: "refúgio internacional, pois os migrantes cruzaram fronteiras."
+      erro: "Nordeste e São Paulo ficam no mesmo país. É migração interna."
+  explicacao: "Repulsão no sertão (seca, terra concentrada, pouco emprego) e atração em São Paulo (indústria, construção civil, serviços). Esses migrantes construíram boa parte da metrópole e moraram onde a terra era barata."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-07
+  tema: "Migrações"
+  area: humanas
+  habilidade: 25
+  objeto: hum-organizacao-social-migracoes
+  dificuldade: 2
+  enunciado: "Uma haitiana que trabalha numa padaria ouve de um cliente: 'Volta para o seu país'. Pela Lei de Migração, de 2017, essa atitude:"
+  alternativas:
+    - texto: "está protegida pela lei, porque é só opinião"
+      erro: "A lei manda prevenir a xenofobia e o racismo. Ofender alguém pela origem não é protegido por ela."
+    - texto: "é um direito de quem nasceu no país"
+      erro: "Nascer no país não dá direito de discriminar quem veio de fora."
+    - texto: "só é problema se a trabalhadora estiver sem documento"
+      erro: "Com ou sem documento, a pessoa tem direito de não ser discriminada. E a lei não criminaliza a migração."
+    - texto: "é xenofobia, que a política migratória brasileira manda repudiar e prevenir"
+      certa: true
+  explicacao: "Xenofobia é aversão a estrangeiros. O artigo 3º, inciso II, põe o repúdio e a prevenção à xenofobia, ao racismo e a qualquer discriminação entre os princípios da política migratória."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.445, de 2017"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-08
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Duas irmãs nasceram no país A, filhas de pais do país B. O país A só registra como cidadãos os filhos de pai e mãe
+    nacionais. O país B só registra filhos de pais casados oficialmente, o que não era o caso. Na adolescência, as irmãs
+    descobriram que não podiam tirar passaporte nem se matricular em cursos técnicos. (Texto do Instituto Lúcia, com base
+    no tema de questão do Enem de 2022.)
+  enunciado: "A situação das irmãs resulta de"
+  alternativas:
+    - texto: "regras de nacionalidade dos dois Estados que, combinadas, as deixaram sem nenhuma nacionalidade."
+      certa: true
+    - texto: "uma decisão das irmãs de renunciar à cidadania."
+      erro: "Elas não escolheram nada: as regras dos dois países as deixaram de fora."
+    - texto: "perseguição religiosa, que as torna refugiadas."
+      erro: "O texto não fala de perseguição nem de fuga. O problema é o registro civil nos dois países."
+    - texto: "migração pendular entre os dois países."
+      erro: "O texto não fala de vaivém diário. Fala de falta de nacionalidade."
+    - texto: "excesso de nacionalidades, já que têm direito a duas."
+      erro: "É o contrário: nenhum dos dois países as reconhece. Elas não têm nenhuma."
+  explicacao: "O país A exige pais nacionais; o país B exige casamento oficial. As irmãs não se encaixam em nenhuma regra: são apátridas. É o Estado, pelas suas leis, que produz a apatridia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-09
+  tema: "Migrações"
+  area: humanas
+  habilidade: 8
+  objeto: hum-organizacao-social-migracoes
+  dificuldade: 3
+  enunciado: "A Lei de Migração, de 2017, substituiu o Estatuto do Estrangeiro, de 1980. Qual mudança de visão ela representa?"
+  alternativas:
+    - texto: "Passou a proibir a entrada de imigrantes"
+      erro: "A lei nova não proíbe a imigração. Ela regula a entrada com base em direitos."
+    - texto: "Tirou do Brasil o dever de receber refugiados"
+      erro: "O refúgio continua regulado pela Lei nº 9.474, de 1997. A lei de 2017 não acabou com ele."
+    - texto: "Tornou crime a migração sem documento"
+      erro: "É o contrário: um dos princípios da lei nova é a não criminalização da migração."
+    - texto: "Manteve a mesma lógica da lei de 1980"
+      erro: "A lei de 1980, feita na ditadura, via o estrangeiro como questão de segurança nacional. A de 2017 mudou essa lógica."
+    - texto: "Deixou de tratar o estrangeiro como ameaça à segurança nacional e passou a tratar o migrante como sujeito de direitos"
+      certa: true
+  explicacao: "O Estatuto do Estrangeiro nasceu na ditadura, com foco em segurança nacional. A Lei de Migração parte dos direitos humanos: repúdio à xenofobia, acolhida humanitária, não criminalização."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 13.445, de 2017"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-migracoes-10
+  tema: "Migrações"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-migracoes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Xinjiang, no extremo oeste da China, faz fronteira com oito países, é rota de grandes obras de infraestrutura que
+    ligam a China à Ásia Central e à Europa e guarda grandes reservas de carvão e gás. A maior parte da população é de
+    minorias muçulmanas, sobretudo uigures. Organizações de direitos humanos denunciam vigilância intensa e restrições
+    à religião e à circulação dessa população. (Texto do Instituto Lúcia, com base no tema de questão do Enem de 2023.)
+  enunciado: "O controle do Estado chinês sobre a região se relaciona ao fato de que ela"
+  alternativas:
+    - texto: "não tem nenhum valor econômico para a China."
+      erro: "O texto mostra o contrário: carvão, gás e rotas de infraestrutura."
+    - texto: "é uma ilha isolada, sem fronteiras."
+      erro: "Xinjiang faz fronteira com oito países. Está longe de ser isolada."
+    - texto: "tem posição estratégica e recursos, e abriga uma minoria que o Estado vê como ameaça à integração do território."
+      certa: true
+    - texto: "foi abandonada pela população, que migrou toda para a costa."
+      erro: "O texto fala da população uigur que vive na região, não de abandono."
+    - texto: "pertence a outro país, e a China só administra o comércio."
+      erro: "Xinjiang é uma região da China. O controle é do próprio Estado chinês sobre o seu território."
+  explicacao: "Fronteira, rota de obras e recursos energéticos fazem de Xinjiang uma região estratégica. O Estado controla a minoria uigur em nome da integração territorial, e a questão liga geopolítica, minoria e ação estatal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

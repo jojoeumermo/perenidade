@@ -1,0 +1,141 @@
+# Mapa curricular da trilha enem-geografia (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
+fontes:
+  - "Matriz de Referência do Enem, Inep: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos"
+aulas:
+  questoes-ambientais:
+    enem:
+      - area: humanas
+        competencia: 6
+        habilidade: 26
+        resumo: Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 27
+        resumo: Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 28
+        resumo: Relacionar o uso de tecnologias aos impactos sociais e ambientais.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 30
+        resumo: Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas.
+        situacao: a-confirmar
+    objetos:
+      - hum-ambiente-questoes-ambientais
+  espaco-agrario:
+    enem:
+      - area: humanas
+        competencia: 4
+        habilidade: 18
+        resumo: Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 19
+        resumo: Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano.
+        situacao: a-confirmar
+    objetos:
+      - hum-producao-espaco-agrario
+  relevo:
+    enem:
+      - area: humanas
+        competencia: 6
+        habilidade: 27
+        resumo: Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 29
+        resumo: Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana.
+        situacao: a-confirmar
+    objetos:
+      - hum-ambiente-relevo
+  geopolitica:
+    enem:
+      - area: humanas
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar o sentido histórico e geográfico das relações de poder entre nações.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 9
+        resumo: Comparar organizações políticas e econômicas em escala local, regional ou mundial.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-geopolitica
+  clima:
+    enem:
+      - area: humanas
+        competencia: 2
+        habilidade: 6
+        resumo: Interpretar mapas, gráficos e outras representações do espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 27
+        resumo: Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 30
+        resumo: Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas.
+        situacao: a-confirmar
+    objetos:
+      - hum-ambiente-clima
+  hidrografia:
+    enem:
+      - area: humanas
+        competencia: 6
+        habilidade: 26
+        resumo: Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 29
+        resumo: Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana.
+        situacao: a-confirmar
+    objetos:
+      - hum-ambiente-hidrografia
+  urbanizacao:
+    enem:
+      - area: humanas
+        competencia: 6
+        habilidade: 26
+        resumo: Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 19
+        resumo: Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 24
+        resumo: Relacionar cidadania e democracia na organização das sociedades.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-urbanizacao
+  migracoes:
+    enem:
+      - area: humanas
+        competencia: 2
+        habilidade: 8
+        resumo: Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar o sentido histórico e geográfico das relações de poder entre nações.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 25
+        resumo: Identificar estratégias de inclusão social.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-migracoes

@@ -1,0 +1,236 @@
+# Exercícios da aula "Espaço agrário: agronegócio, agricultura familiar e conflitos no campo" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-agrario-01
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  dificuldade: 1
+  enunciado: "Pela Lei nº 11.326, de 2006, qual destes é um dos critérios para ser agricultor familiar?"
+  alternativas:
+    - texto: "Exportar a maior parte da produção"
+      erro: "A lei não fala de exportação. Os critérios são tamanho da área, trabalho e renda da família e gestão familiar."
+    - texto: "Ter pelo menos mil hectares"
+      erro: "É o contrário: a lei põe um teto, não um piso. A área vai até 4 módulos fiscais."
+    - texto: "Usar principalmente a mão de obra da própria família"
+      certa: true
+    - texto: "Contratar só trabalhadores assalariados"
+      erro: "Se o trabalho fosse todo assalariado, não seria agricultura familiar. A lei pede que a família seja a mão de obra principal."
+  explicacao: "A lei lista quatro critérios ao mesmo tempo: área de até 4 módulos fiscais, mão de obra predominantemente da família, uma parte mínima da renda vinda do estabelecimento e direção pela família."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 11.326, de 2006"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-02
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  dificuldade: 1
+  enunciado: "Concentração fundiária quer dizer:"
+  alternativas:
+    - texto: "que poucos proprietários detêm grande parte da terra"
+      certa: true
+    - texto: "que a terra está dividida em partes iguais"
+      erro: "Isso seria uma distribuição igualitária, o oposto da concentração."
+    - texto: "que as fazendas ficam todas perto das cidades"
+      erro: "Concentração fundiária não é sobre localização. É sobre quantas pessoas têm quanta terra."
+    - texto: "que a produção agrícola é feita só com máquinas"
+      erro: "A mecanização é outra coisa (técnica). A concentração fala da posse da terra."
+  explicacao: "Fundiário vem de fundo, terra. Concentração fundiária é a terra nas mãos de poucos: no Censo Agro 2017, 1% dos estabelecimentos tinha 47,6% da área."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-03
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  dificuldade: 1
+  enunciado: "No Censo Agro 2017, os estabelecimentos com 1.000 hectares ou mais ocupavam 47,6% da área dos estabelecimentos. Que parte da área sobrava para todos os outros?"
+  alternativas:
+    - texto: "99%"
+      erro: "99% é a parte dos estabelecimentos que tinham menos de 1.000 ha, não a parte da área. Não confunda número de estabelecimentos com área."
+    - texto: "47,6%"
+      erro: "Essa é a parte dos grandes. A pergunta pede o que sobra: 100% − 47,6%."
+    - texto: "62,4%"
+      erro: "Erro na subtração. 100 − 47,6: tire 47 e depois 0,6. Dá 53 − 0,6 = 52,4."
+    - texto: "52,4%"
+      certa: true
+  explicacao: "100% − 47,6% = 52,4%. Ou seja: 1% dos estabelecimentos ficava com quase metade da área, e os outros 99% dividiam a outra metade."
+  conferir: "100 - 47.6"
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE (Censo Agropecuário 2017)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-04
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 19
+  objeto: hum-producao-espaco-agrario
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Entre as décadas de 1960 e 1980, o crédito rural subsidiado financiou tratores, colheitadeiras, adubos e
+    agrotóxicos. A produtividade das grandes lavouras subiu. Ao mesmo tempo, parceiros, meeiros e moradores de fazenda
+    foram dispensados, e milhões de pessoas deixaram o campo rumo às periferias das grandes cidades. (Texto do
+    Instituto Lúcia.)
+  enunciado: "O processo descrito é conhecido como modernização conservadora porque"
+  alternativas:
+    - texto: "conservou a vegetação nativa ao aumentar a produtividade."
+      erro: "Conservadora aqui não fala de ambiente. A expansão das lavouras, aliás, avançou sobre a vegetação nativa."
+    - texto: "transformou as técnicas de produção sem alterar a concentração da terra."
+      certa: true
+    - texto: "manteve as técnicas tradicionais e recusou as máquinas."
+      erro: "O texto diz o contrário: tratores, colheitadeiras e adubos entraram no campo. A técnica mudou muito."
+    - texto: "distribuiu terras aos trabalhadores dispensados."
+      erro: "Os trabalhadores dispensados foram para as cidades. Não houve distribuição de terra."
+    - texto: "foi financiada só pelos camponeses, sem participação do Estado."
+      erro: "O texto fala de crédito rural subsidiado: dinheiro do Estado, que foi sobretudo para os grandes."
+  explicacao: "Moderniza a técnica, conserva a estrutura: a terra seguiu concentrada, e a mecanização expulsou trabalhadores. O êxodo rural é a outra face desse processo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-05
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  dificuldade: 2
+  enunciado: "Pela Constituição de 1988 (artigo 186), a propriedade rural cumpre a função social quando atende, ao mesmo tempo, a quatro exigências. Qual destas NÃO está entre elas?"
+  alternativas:
+    - texto: "Aproveitamento racional e adequado da terra"
+      erro: "Está no artigo 186: é a primeira exigência."
+    - texto: "Uso adequado dos recursos naturais e preservação do meio ambiente"
+      erro: "Está no artigo 186. A função social tem também uma exigência ambiental."
+    - texto: "Respeito às leis que regulam as relações de trabalho"
+      erro: "Está no artigo 186. Terra com trabalho escravo, por exemplo, não cumpre a função social."
+    - texto: "Exploração que favoreça o bem-estar dos proprietários e dos trabalhadores"
+      erro: "Está no artigo 186: é a quarta exigência."
+    - texto: "Produção destinada principalmente à exportação"
+      certa: true
+  explicacao: "O artigo 186 exige aproveitamento racional, uso adequado dos recursos naturais e preservação ambiental, respeito às leis do trabalho e bem-estar de proprietários e trabalhadores. Não diz nada sobre exportar."
+  fonte: "Questão original do Instituto Lúcia, com base na Constituição de 1988, artigo 186"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-06
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Pelo Programa de Aquisição de Alimentos (PAA), criado em 2003, o poder público compra alimentos produzidos por
+    agricultores familiares, assentados da reforma agrária, quilombolas, indígenas e outros povos do campo. Os alimentos
+    vão para pessoas em situação de insegurança alimentar, escolas e entidades de assistência.
+  enunciado: "Ao mesmo tempo, o programa busca"
+  alternativas:
+    - texto: "ampliar as exportações de grãos e substituir a produção familiar."
+      erro: "O programa compra de quem produz para o mercado interno e quer fortalecer a produção familiar, não substituí-la."
+    - texto: "concentrar a compra de alimentos em poucas grandes empresas."
+      erro: "O público do programa é o contrário: agricultores familiares e povos do campo, muitos e pequenos."
+    - texto: "reduzir a área plantada pela agricultura familiar."
+      erro: "Comprar a produção dá renda e estímulo para plantar mais, não menos."
+    - texto: "garantir renda à agricultura familiar e levar alimento a quem passa fome."
+      certa: true
+    - texto: "acabar com a necessidade de reforma agrária."
+      erro: "O PAA compra de quem já produz. Ele não muda quem tem a terra, que é a questão da reforma agrária."
+  explicacao: "O PAA liga as duas pontas: a compra pública dá mercado e renda a quem produz pouco, e o alimento chega a quem precisa. Foi tema de questão do Enem em 2022."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 10.696, de 2003, artigo 19"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-07
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  dificuldade: 2
+  enunciado: "No Censo Agro 2017, a agricultura familiar reunia 77% dos estabelecimentos e 23% da área. Qual leitura está correta?"
+  alternativas:
+    - texto: "A agricultura familiar ocupa a maior parte da terra do país"
+      erro: "Ela é a maior parte dos estabelecimentos, não da área. 23% da área é menos de um quarto."
+    - texto: "Muitos estabelecimentos familiares dividem uma parte pequena da terra"
+      certa: true
+    - texto: "A agricultura familiar está desaparecendo do Brasil"
+      erro: "77% dos estabelecimentos é a grande maioria. Os dados mostram pouca terra, não desaparecimento."
+    - texto: "A terra está bem distribuída entre familiares e não familiares"
+      erro: "Se estivesse, as duas porcentagens seriam parecidas. 77% contra 23% mostra o contrário."
+  explicacao: "Três de cada quatro estabelecimentos são familiares, mas ficam com menos de um quarto da área. É a concentração fundiária vista pelo lado de quem tem pouca terra."
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE (Censo Agropecuário 2017)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-08
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No sul do Piauí e do Maranhão, as chapadas do Cerrado viraram lavouras de soja e milho com máquinas e irrigação.
+    Comunidades que há gerações criavam gado solto e coletavam frutos nas áreas comuns relatam cercas novas, nascentes
+    secando e documentos de propriedade que não conheciam. (Texto do Instituto Lúcia.)
+  enunciado: "A situação descrita expressa"
+  alternativas:
+    - texto: "a territorialização do agronegócio, que passa a controlar terra e água e pressiona comunidades tradicionais."
+      certa: true
+    - texto: "uma reforma agrária, que distribui as terras das chapadas às comunidades."
+      erro: "Reforma agrária distribui terra. Aqui, as comunidades estão perdendo as áreas comuns para grandes lavouras."
+    - texto: "o êxodo urbano, com a volta de moradores da cidade para o campo."
+      erro: "O texto não fala de gente vindo da cidade. Fala de lavouras empresariais avançando sobre terras de uso comum."
+    - texto: "a agricultura familiar se expandindo sobre o Cerrado."
+      erro: "Lavouras mecanizadas e irrigadas de soja e milho, com cercas e títulos novos, são marcas do agronegócio, não da produção familiar."
+    - texto: "um processo natural de seca, sem relação com o uso da terra."
+      erro: "As nascentes secam junto com a chegada da irrigação e do desmatamento das chapadas. O texto liga o problema ao novo uso da terra."
+  explicacao: "O capital do agronegócio se apropria das chapadas, da água e da terra de uso comum. Documentos estranhos às comunidades sugerem grilagem. É o tema de questão do Enem de 2023 sobre o Cerrado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-09
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 19
+  objeto: hum-producao-espaco-agrario
+  dificuldade: 3
+  enunciado: "Um estudante afirma: 'Como o Brasil modernizou o campo, os conflitos por terra acabaram'. Qual é o melhor argumento contra essa frase?"
+  alternativas:
+    - texto: "O campo brasileiro nunca foi modernizado"
+      erro: "Foi modernizado, sim: máquinas, adubos, sementes. O erro da frase está em outro ponto."
+    - texto: "Os conflitos no campo só existem em outros países"
+      erro: "O Brasil tem uma longa história de conflitos por terra, como o massacre de Eldorado do Carajás, em 1996."
+    - texto: "Modernizar sempre resolve os conflitos, mas leva mais tempo"
+      erro: "Essa frase concorda com o estudante. A modernização brasileira, aliás, aumentou a expulsão de trabalhadores."
+    - texto: "A tecnologia não tem relação nenhuma com o campo"
+      erro: "Tem muita relação: a técnica mudou o trabalho e o uso da terra. O problema é outro."
+    - texto: "A modernização mudou a técnica, mas manteve a terra concentrada, que é a raiz dos conflitos"
+      certa: true
+  explicacao: "Conflito por terra nasce da disputa pela posse, não da técnica. A modernização foi conservadora: concentrou ainda mais e expulsou trabalhadores. A concentração continua (47,6% da área com 1% dos estabelecimentos, em 2017)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-agrario-10
+  tema: "Espaço agrário, agronegócio, agricultura familiar e conflitos no campo"
+  area: humanas
+  habilidade: 18
+  objeto: hum-producao-espaco-agrario
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Art. 184. Compete à União desapropriar por interesse social, para fins de reforma agrária, o imóvel rural que não
+    esteja cumprindo sua função social, mediante prévia e justa indenização em títulos da dívida agrária [...].
+    (Constituição da República Federativa do Brasil de 1988.)
+  enunciado: "Pelo artigo, a desapropriação para reforma agrária"
+  alternativas:
+    - texto: "pode atingir qualquer imóvel rural, mesmo o que cumpre a função social."
+      erro: "O artigo limita a desapropriação ao imóvel que NÃO cumpre a função social."
+    - texto: "é feita sem nenhuma indenização ao proprietário."
+      erro: "O artigo fala em prévia e justa indenização, paga em títulos da dívida agrária."
+    - texto: "condiciona o direito de propriedade rural ao cumprimento da sua função social."
+      certa: true
+    - texto: "é competência dos municípios onde fica o imóvel."
+      erro: "O artigo diz que a competência é da União, não dos municípios."
+    - texto: "proíbe os movimentos sociais de reivindicar terras."
+      erro: "O artigo não fala de movimentos sociais. Ele cria o caminho legal que esses movimentos reivindicam."
+  explicacao: "A propriedade rural é garantida, mas com uma condição: cumprir a função social. Quem não cumpre pode ter o imóvel desapropriado pela União, com indenização. A propriedade não é absoluta."
+  fonte: "Questão original do Instituto Lúcia, com base na Constituição de 1988, artigo 184"
+  revisao: { status: em-revisao }

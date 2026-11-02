@@ -1,0 +1,251 @@
+# Exercícios da aula "Gênero" (trilha enem-sociologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-soc-genero-01
+  tema: "Gênero"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-genero
+  dificuldade: 1
+  enunciado: "Na sociologia, o termo \"gênero\" se refere"
+  alternativas:
+    - texto: "apenas às diferenças dos órgãos reprodutivos."
+      erro: "Isso é o sexo, no sentido biológico. Gênero é o que a sociedade atribui a cada sexo."
+    - texto: "aos comportamentos, traços e posições que a sociedade atribui a ser homem ou mulher."
+      certa: true
+    - texto: "à orientação sexual de cada pessoa."
+      erro: "Orientação sexual é outro conceito: diz respeito a por quem a pessoa sente atração."
+    - texto: "a uma característica fixa, igual em todas as culturas."
+      erro: "O gênero varia muito de uma cultura e de uma época para outra. Por isso é social."
+    - texto: "ao tipo de trabalho que cada pessoa escolhe sozinha."
+      erro: "O trabalho é influenciado pelo gênero, mas gênero não é sinônimo de profissão."
+  explicacao: "Gênero são os comportamentos, traços e posições sociais que a sociedade associa a ser homem ou mulher. O sexo são as diferenças físicas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-02
+  tema: "Gênero"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-genero
+  dificuldade: 1
+  enunciado: "Pela Lei Maria da Penha (Lei nº 11.340/2006), xingar a companheira, humilhá-la na frente dos outros e controlar com quem ela fala é violência"
+  alternativas:
+    - texto: "patrimonial"
+      erro: "A violência patrimonial envolve bens, documentos e dinheiro. Aqui o dano é emocional."
+    - texto: "física"
+      erro: "A física fere o corpo. O caso descrito não tem agressão ao corpo."
+    - texto: "sexual"
+      erro: "A sexual envolve forçar práticas sexuais ou impedir direitos reprodutivos. Não é o caso."
+    - texto: "psicológica"
+      certa: true
+    - texto: "nenhuma, porque não deixa marcas"
+      erro: "A lei reconhece violências que não deixam marca no corpo. Humilhar e controlar é violência."
+  explicacao: "A violência psicológica causa dano emocional e busca controlar a mulher por humilhação, ameaça, isolamento ou vigilância (art. 7º, II)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-03
+  tema: "Gênero"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-genero
+  dificuldade: 1
+  enunciado: "A expressão \"dupla jornada\" se refere"
+  alternativas:
+    - texto: "a quem tem dois empregos pagos."
+      erro: "Pode haver dois empregos, mas o termo, na sociologia de gênero, fala de outra coisa."
+    - texto: "ao trabalho em turno de dia e de noite numa fábrica."
+      erro: "Isso é trabalho em turnos. A dupla jornada junta o emprego e o trabalho de casa."
+    - texto: "à soma do trabalho pago fora de casa com o trabalho doméstico e de cuidado, que recai sobretudo sobre as mulheres."
+      certa: true
+    - texto: "às horas extras pagas pela empresa."
+      erro: "Hora extra é trabalho pago. A dupla jornada inclui um trabalho sem salário: o de casa."
+    - texto: "ao trabalho dos estudantes que fazem dois cursos."
+      erro: "O termo não fala de estudo. Fala da divisão do trabalho entre homens e mulheres."
+  explicacao: "A dupla jornada é o emprego somado ao trabalho de casa e de cuidado, não pago. Ela pesa mais sobre as mulheres, por causa da divisão sexual do trabalho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-04
+  tema: "Gênero"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-genero
+  dificuldade: 2
+  enunciado: "Segundo o IBGE, em 2022 as mulheres dedicaram em média 21,3 horas por semana a afazeres domésticos e cuidado de pessoas, e os homens, 11,7 horas. Quantas horas a mais por semana as mulheres dedicaram?"
+  alternativas:
+    - texto: "9,6 horas"
+      certa: true
+    - texto: "33 horas"
+      erro: "Você somou as duas médias. A pergunta pede a diferença: subtraia."
+    - texto: "10,6 horas"
+      erro: "Erro na subtração. Faça por partes: 21,3 − 11 = 10,3; 10,3 − 0,7 = 9,6."
+    - texto: "11,7 horas"
+      erro: "Essa é a média dos homens. A pergunta pede quanto as mulheres fizeram a mais."
+    - texto: "8,6 horas"
+      erro: "Erro na subtração. Confira: 11,7 + 9,6 = 21,3."
+  explicacao: "21,3 − 11,7 = 9,6 horas por semana. É quase um dia inteiro de trabalho a mais, sem salário."
+  conferir: "21.3 - 11.7"
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE (PNAD Contínua, Outras formas de trabalho 2022)"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-05
+  tema: "Gênero"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-genero
+  dificuldade: 2
+  enunciado: "A frase de Simone de Beauvoir \"Ninguém nasce mulher: torna-se mulher\" é usada na sociologia para sustentar que"
+  alternativas:
+    - texto: "o corpo feminino não existe."
+      erro: "Beauvoir não nega o corpo. Ela diz que o lugar social construído sobre ele não é natural."
+    - texto: "as mulheres devem imitar os homens."
+      erro: "A frase não propõe imitação. Ela mostra que o papel feminino foi construído pela sociedade."
+    - texto: "o papel da mulher é igual em todas as culturas."
+      erro: "Se o papel é construído, ele muda conforme a cultura. A frase leva à conclusão contrária."
+    - texto: "a biologia decide o que cada mulher pode ser."
+      erro: "É justamente o que a frase recusa."
+    - texto: "o lugar social da mulher é aprendido e construído, e por isso pode ser transformado."
+      certa: true
+  explicacao: "Para Beauvoir, ser mulher, como papel social, é resultado da história e da socialização, e não destino biológico. Logo, pode mudar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-06
+  tema: "Gênero"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-genero
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma loja de brinquedos organiza as prateleiras assim: no corredor azul, carrinhos, ferramentas e kits de ciência;
+    no corredor rosa, bonecas, fogõezinhos e kits de maquiagem. Uma mãe pergunta por que o kit de ciência não está
+    também no corredor rosa. (Texto original do Instituto Lúcia.)
+  enunciado: "A organização da loja exemplifica o processo sociológico de"
+  alternativas:
+    - texto: "mobilidade social, porque as crianças sobem de classe ao brincar."
+      erro: "Mobilidade social é mudar de posição na estratificação. O texto fala de papéis de gênero."
+    - texto: "aculturação, porque uma cultura estrangeira é imposta."
+      erro: "Não há encontro entre culturas diferentes. Há a reprodução de papéis dentro da mesma cultura."
+    - texto: "socialização de gênero, que associa meninos à ação e à técnica e meninas ao cuidado."
+      certa: true
+    - texto: "laicidade, porque separa religião e Estado."
+      erro: "Nada no texto envolve religião ou Estado."
+    - texto: "seleção natural, porque cada sexo nasce com seus gostos."
+      erro: "A separação é feita pela loja, não pela natureza. A mãe percebe que é uma escolha social."
+  explicacao: "Os brinquedos ensinam desde cedo o que se espera de cada gênero: técnica e ação para meninos, cuidado e aparência para meninas. É a socialização de gênero."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-07
+  tema: "Gênero"
+  area: humanas
+  habilidade: 10
+  objeto: hum-organizacao-social-genero
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Uma cientista brasileira descobriu, nos anos 1950, um método que depois foi usado em vários países. Os artigos da
+    época citavam apenas o nome do chefe do laboratório. Décadas depois, pesquisadoras organizadas em grupos de
+    estudo levantaram documentos e conseguiram que o nome dela fosse incluído nos livros de história da ciência.
+    (Texto original do Instituto Lúcia, com caso fictício.)
+  enunciado: "O caso ilustra"
+  alternativas:
+    - texto: "a ausência de mulheres na ciência ao longo da história."
+      erro: "O texto mostra o contrário: a mulher estava lá, mas foi apagada. Ausência é diferente de apagamento."
+    - texto: "o apagamento das mulheres na memória e a ação coletiva para corrigir esse registro."
+      certa: true
+    - texto: "a igualdade plena entre homens e mulheres nos laboratórios da época."
+      erro: "Se só o nome do chefe aparecia, não havia igualdade no reconhecimento."
+    - texto: "a falta de interesse das mulheres pela pesquisa científica."
+      erro: "A cientista do texto fez a descoberta. O problema foi o reconhecimento, não o interesse."
+    - texto: "a ação do Estado para proibir mulheres de publicar."
+      erro: "O texto não fala de proibição legal. Fala de um costume de não dar crédito."
+  explicacao: "O texto mostra a invisibilidade da mulher no registro da história e a ação de grupos organizados para mudá-lo. O ENEM de 2023 cobrou um caso real parecido: o de Lina Bo Bardi, apagada nas reportagens sobre o MASP."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-08
+  tema: "Gênero"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-genero
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Ela conta que, no começo, ele só reclamava do jeito dela se vestir. Depois, começou a ler as mensagens do celular
+    dela e a dizer que ela não servia para nada. Um dia, empurrou-a contra a parede. No dia seguinte, chegou com flores
+    e jurou que nunca mais faria isso. Duas semanas depois, as reclamações voltaram, mais fortes. (Texto original do
+    Instituto Lúcia.)
+  enunciado: "O relato descreve"
+  alternativas:
+    - texto: "um conflito comum de casal, sem relação com violência."
+      erro: "Há controle, humilhação e agressão física. A lei chama isso de violência doméstica."
+    - texto: "apenas violência física, já que só houve um empurrão."
+      erro: "Antes do empurrão já havia controle e humilhação: violência psicológica. São formas que se somam."
+    - texto: "um caso que a lei brasileira não reconhece, por não deixar marcas."
+      erro: "A Lei Maria da Penha prevê violências que não deixam marcas, como a psicológica e a moral."
+    - texto: "violência patrimonial, porque ele leu as mensagens."
+      erro: "Ler mensagens e vigiar é controle (violência psicológica). Patrimonial envolve bens e dinheiro."
+    - texto: "o ciclo da violência, com fases de tensão, agressão e reconciliação que tendem a se repetir e agravar."
+      certa: true
+  explicacao: "O relato tem tensão (críticas, controle), agressão (o empurrão) e \"lua de mel\" (flores, promessa). Depois, a tensão volta mais forte. É o ciclo da violência, cobrado numa ilustração do ENEM de 2022."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-09
+  tema: "Gênero"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-genero
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: Homens e mulheres são iguais em direitos e obrigações, nos termos desta Constituição. (Constituição Federal
+    de 1988, art. 5º, inciso I.)
+    Texto II: Em 2022, as mulheres dedicaram em média 21,3 horas semanais a afazeres domésticos e cuidado de pessoas;
+    os homens, 11,7 horas. (Dados do IBGE, PNAD Contínua, Outras formas de trabalho 2022.)
+  enunciado: "A comparação entre os textos permite concluir que"
+  alternativas:
+    - texto: "a igualdade formal na lei ainda convive com uma desigualdade concreta na divisão do trabalho doméstico."
+      certa: true
+    - texto: "a lei brasileira determina que as mulheres façam o trabalho de casa."
+      erro: "A Constituição diz o contrário: igualdade de direitos e obrigações. A desigualdade está nos costumes."
+    - texto: "a desigualdade do Texto II prova que a Constituição foi revogada."
+      erro: "A Constituição continua valendo. O ponto é que a lei não basta para mudar costumes sozinha."
+    - texto: "homens e mulheres já dividem igualmente as tarefas de casa."
+      erro: "Os números mostram quase o dobro de horas para as mulheres. Não há divisão igual."
+    - texto: "a diferença de horas se explica pela biologia feminina."
+      erro: "Nenhum dos textos fala de biologia. A sociologia explica pela divisão sexual do trabalho."
+  explicacao: "A lei garante igualdade (igualdade formal), mas os dados mostram desigualdade na vida (igualdade material ainda distante). A distância entre os dois é o que a sociologia estuda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-soc-genero-10
+  tema: "Gênero"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-genero
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No século XIX, manuais de etiqueta diziam que a moça de boa família devia ser delicada, falar pouco, tocar piano e
+    preparar-se para o casamento. Opinião firme e estudo sério eram vistos como "coisa de homem". (Texto original do
+    Instituto Lúcia.)
+  enunciado: "O texto permite identificar"
+  alternativas:
+    - texto: "uma característica natural das mulheres, observada em todas as épocas."
+      erro: "O texto fala de um século e de uma classe específicos. Isso mostra que é histórico, não natural."
+    - texto: "a livre escolha das moças, que preferiam não estudar."
+      erro: "Os manuais diziam o que elas deviam ser. É uma norma social, não uma preferência livre."
+    - texto: "o fim das desigualdades de gênero no século XIX."
+      erro: "O texto mostra uma desigualdade forte: estudo e opinião reservados aos homens."
+    - texto: "papéis de gênero historicamente construídos, que limitavam a participação das mulheres."
+      certa: true
+    - texto: "uma lei que proibia as mulheres de tocar piano."
+      erro: "O texto fala de manuais de etiqueta, não de lei. E tocar piano era o que se esperava delas."
+  explicacao: "Os manuais mostram normas de uma época e de uma classe: o que se esperava de uma mulher. São papéis de gênero construídos historicamente. O ENEM de 2023 cobrou ideia parecida com um trecho de Balzac."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

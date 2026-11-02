@@ -1,0 +1,236 @@
+# Exercícios da aula "Hidrografia e crise hídrica" (trilha enem-geografia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-geo-hidrografia-01
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  dificuldade: 1
+  enunciado: "Rios que secam numa parte do ano, comuns no sertão nordestino, são chamados de:"
+  alternativas:
+    - texto: "perenes"
+      erro: "Perene é o rio que corre o ano todo, como o São Francisco. O que seca numa parte do ano é o contrário."
+    - texto: "intermitentes"
+      certa: true
+    - texto: "de planalto"
+      erro: "Rio de planalto fala do relevo por onde ele corre, não de secar ou não."
+    - texto: "glaciais"
+      erro: "Rio glacial é alimentado por gelo derretido. Não há rios assim no sertão."
+  explicacao: "No semiárido chove pouco e de modo concentrado; com a evaporação alta, muitos rios cortam (secam) na estiagem. São intermitentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-02
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  dificuldade: 1
+  enunciado: "Pela Lei nº 9.433, de 1997, qual é a unidade territorial para a gestão da água no Brasil?"
+  alternativas:
+    - texto: "O município"
+      erro: "Rios atravessam vários municípios. Por isso a lei escolheu outra unidade, que segue o caminho da água."
+    - texto: "O estado"
+      erro: "Um rio pode passar por vários estados. A lei usa a unidade natural da água."
+    - texto: "A região geográfica do IBGE"
+      erro: "As regiões do IBGE seguem limites de estados. A lei usa um recorte definido pelos rios."
+    - texto: "A bacia hidrográfica"
+      certa: true
+  explicacao: "O artigo 1º da Lei das Águas diz que a bacia hidrográfica é a unidade territorial da política de recursos hídricos. Tudo que acontece na bacia chega ao rio."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 9.433, de 1997"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-03
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 6
+  objeto: hum-ambiente-hidrografia
+  dificuldade: 1
+  enunciado: "Pelo Censo 2022, a rede geral era a principal forma de abastecimento de água para 91,0% da população do Sudeste e 55,7% da população do Norte. Qual é a diferença, em pontos percentuais?"
+  alternativas:
+    - texto: "35,3"
+      certa: true
+    - texto: "146,7"
+      erro: "Você somou as duas porcentagens. A diferença é uma subtração: 91,0 − 55,7."
+    - texto: "45,3"
+      erro: "Erro na subtração. Faça por partes: 91,0 − 55 = 36; depois 36 − 0,7 = 35,3."
+    - texto: "55,7"
+      erro: "Esse é o dado do Norte. Falta subtraí-lo do dado do Sudeste."
+  explicacao: "91,0 − 55,7 = 35,3 pontos percentuais. A região com mais água nos rios é a que tem menos gente abastecida pela rede."
+  conferir: "91.0 - 55.7"
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE (Censo 2022)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-04
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em vinte anos, um bairro de encosta perdeu quase todas as árvores e ganhou ruas asfaltadas, calçadas de concreto e
+    casas sem quintal. Os moradores notam duas mudanças: nas chuvas fortes, a rua de baixo alaga em minutos; nas secas,
+    a nascente que abastecia uma bica comunitária deixou de correr. (Texto do Instituto Lúcia.)
+  enunciado: "As duas mudanças têm em comum a"
+  alternativas:
+    - texto: "elevação do nível do mar provocada pelo aquecimento global."
+      erro: "O texto fala de um bairro de encosta e não cita mar. As mudanças vêm do que aconteceu com o solo do bairro."
+    - texto: "aumento das chuvas no período de seca."
+      erro: "Se chovesse mais na seca, a nascente correria. O problema é que a água da chuva não entra mais no solo."
+    - texto: "impermeabilização do solo, que aumenta o escoamento e reduz a infiltração."
+      certa: true
+    - texto: "salinização do solo pela irrigação dos quintais."
+      erro: "Salinização é problema de irrigação em clima seco. O texto descreve asfalto e concreto no lugar das árvores."
+    - texto: "construção de uma hidrelétrica no rio do bairro."
+      erro: "O texto não fala de barragem. As mudanças vêm da troca de árvores e terra por asfalto e concreto."
+  explicacao: "A mesma causa produz os dois efeitos: com o solo coberto, a chuva corre de uma vez (enchente) e não infiltra (a nascente, que dependia da água do subsolo, seca)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-05
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  dificuldade: 2
+  enunciado: "Um rio corre numa planície, com pouco desnível, por milhares de quilômetros. Para que uso ele é mais indicado?"
+  alternativas:
+    - texto: "Geração de muita energia hidrelétrica com pequenas barragens"
+      erro: "Hidrelétrica precisa de desnível. Em planície, a barragem teria de alagar áreas enormes para ganhar pouca queda."
+    - texto: "Esportes de corredeira"
+      erro: "Corredeira é coisa de rio de planalto, com desnível. Rio de planície corre manso."
+    - texto: "Abastecimento por gravidade de cidades nas serras"
+      erro: "Gravidade leva água para baixo. Uma planície fica abaixo das serras, não acima."
+    - texto: "Nenhum, porque rios de planície não têm água"
+      erro: "Rios de planície podem ter muita água, como o Amazonas. O que eles não têm é desnível."
+    - texto: "Navegação, pelo pouco desnível e pela ausência de quedas"
+      certa: true
+  explicacao: "Sem cachoeiras nem corredeiras, barcos sobem e descem o rio com facilidade. Boa parte do Amazonas e o rio Paraguai são usados assim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-06
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 26
+  objeto: hum-ambiente-hidrografia
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Por muito tempo, a resposta oficial à seca no sertão foi construir grandes açudes, muitas vezes dentro de fazendas,
+    e mandar carros-pipa, cuja distribuição ficava nas mãos de chefes políticos locais. Organizações do semiárido
+    passaram a defender que cada família tivesse uma cisterna ao lado de casa, para guardar a água da chuva do telhado.
+    (Texto do Instituto Lúcia.)
+  enunciado: "A proposta das cisternas familiares se apoia na ideia de que o problema da seca é também"
+  alternativas:
+    - texto: "social e político, porque envolve quem controla o acesso à água guardada."
+      certa: true
+    - texto: "apenas natural, porque não chove no sertão."
+      erro: "Chove no sertão, de modo irregular. A proposta é guardar essa chuva, o que mostra que o problema não é só a falta dela."
+    - texto: "causado pelo excesso de chuvas no semiárido."
+      erro: "O semiárido tem chuva escassa e irregular. O problema não é excesso."
+    - texto: "resolvido de vez pelos grandes açudes particulares."
+      erro: "O texto mostra o limite dos açudes dentro de fazendas: a água guardada não chegava a todos."
+    - texto: "consequência do relevo de dobramentos modernos."
+      erro: "O Brasil não tem dobramentos modernos, e o texto não fala de relevo. Fala de quem tem acesso à água."
+  explicacao: "Se a água guardada fica em terra de poucos e o carro-pipa depende do chefe político, a seca vira instrumento de poder. A cisterna ao lado de casa muda quem controla a água. É a ideia de convivência com o semiárido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-07
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  dificuldade: 2
+  enunciado: "Pela Lei nº 9.433, de 1997, numa situação de escassez de água, qual uso tem prioridade?"
+  alternativas:
+    - texto: "A irrigação das lavouras de exportação"
+      erro: "A irrigação é um uso importante, mas não é a prioridade da lei na escassez."
+    - texto: "A geração de energia elétrica"
+      erro: "Energia é um dos usos múltiplos. Na escassez, a lei põe outro uso na frente."
+    - texto: "O consumo humano e a dessedentação de animais"
+      certa: true
+    - texto: "O uso industrial"
+      erro: "A indústria não tem prioridade na escassez pela lei."
+  explicacao: "O artigo 1º, inciso III, diz que, em situações de escassez, o uso prioritário é o consumo humano e a dessedentação de animais (matar a sede dos animais)."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 9.433, de 1997"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-08
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Pelo Censo 2022, do IBGE, 62,5% da população brasileira morava em domicílios ligados à rede de coleta de esgoto. Na
+    região Norte, essa parte era de 22,8%. Boa parte do esgoto restante vai para fossas rudimentares ou direto para
+    córregos e rios.
+  enunciado: "Uma consequência direta da situação descrita para os recursos hídricos é a"
+  alternativas:
+    - texto: "redução da evaporação nos rios amazônicos."
+      erro: "Esgoto não muda a evaporação de forma relevante. O efeito direto é sobre a qualidade da água."
+    - texto: "formação de chuva ácida nas cidades do Norte."
+      erro: "Chuva ácida vem de poluentes no ar. O texto fala de esgoto jogado nos rios."
+    - texto: "aumento da vazão dos rios, que deixam de secar."
+      erro: "O esgoto não muda a vazão a ponto de impedir a seca. Ele piora a qualidade da água que existe."
+    - texto: "transformação dos rios de planície em rios de planalto."
+      erro: "O tipo de rio depende do relevo, não do esgoto."
+    - texto: "contaminação da água de rios e lençóis, mesmo em regiões com muita água, que pode faltar para o consumo seguro."
+      certa: true
+  explicacao: "Esgoto sem coleta e tratamento contamina rios, igarapés e o subsolo. A água continua lá, mas não serve para beber sem tratamento caro. É a falta de água de qualidade, não de quantidade."
+  fonte: "Questão original do Instituto Lúcia, com dados do IBGE (Censo 2022)"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-09
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 29
+  objeto: hum-ambiente-hidrografia
+  dificuldade: 3
+  enunciado: "A Lei das Águas, de 1997, diz que a água é um bem de domínio público e que a gestão deve contar com a participação do poder público, dos usuários e das comunidades. Qual situação contraria esses princípios?"
+  alternativas:
+    - texto: "Um comitê de bacia, com moradores e usuários, debate as regras de uso de um rio"
+      erro: "Isso segue a lei: gestão descentralizada e participativa, nos comitês de bacia."
+    - texto: "Uma empresa cerca a única nascente de uma comunidade e proíbe os moradores de buscar água"
+      certa: true
+    - texto: "O governo cobra pelo uso da água de quem capta grandes volumes"
+      erro: "A lei diz que a água tem valor econômico e prevê a cobrança pelo uso. Isso segue a lei."
+    - texto: "Na seca, a prefeitura garante primeiro a água para beber"
+      erro: "É o que a lei manda: na escassez, prioridade ao consumo humano."
+    - texto: "Um plano de bacia prevê vários usos para o mesmo rio"
+      erro: "A lei pede o uso múltiplo das águas. Isso segue a lei."
+  explicacao: "Se a água é bem de domínio público, ninguém pode se apropriar dela e excluir os outros. Cercar a nascente e impedir o acesso trata a água como propriedade privada."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 9.433, de 1997"
+  revisao: { status: em-revisao }
+
+- id: enem-geo-hidrografia-10
+  tema: "Hidrografia e crise hídrica"
+  area: humanas
+  habilidade: 26
+  objeto: hum-ambiente-hidrografia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    No sertão do Rio Grande do Norte, milhares de trabalhadores cavam a terra e carregam pedras para levantar a parede de
+    um grande açude. Em volta da obra, crescem casas de taipa, uma feira e uma capela. Um cronista chama o acampamento de
+    "embrião de cidade". (Texto do Instituto Lúcia, inspirado no tema de questão do Enem de 2022.)
+  enunciado: "O texto mostra que a obra hídrica"
+  alternativas:
+    - texto: "acabou com a seca no sertão em pouco tempo."
+      erro: "O texto não diz que a seca acabou. Fala da obra e do povoado que nasce em volta dela."
+    - texto: "foi feita por máquinas, sem trabalho humano."
+      erro: "O texto fala de milhares de trabalhadores cavando e carregando pedras."
+    - texto: "afastou a população da região do açude."
+      erro: "É o contrário: gente chega, constrói casas, feira e capela em volta da obra."
+    - texto: "organizou o trabalho coletivo e atraiu a ocupação humana, dando origem a um núcleo urbano."
+      certa: true
+    - texto: "não teve nenhuma relação com a ocupação do espaço."
+      erro: "O povoado que nasce em volta da obra é justamente a ocupação do espaço provocada por ela."
+  explicacao: "A água guardada atrai gente, e a obra junta trabalhadores e comércio. O acampamento vira povoado. A questão liga um recurso natural (a água) à produção do espaço (a cidade que nasce)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

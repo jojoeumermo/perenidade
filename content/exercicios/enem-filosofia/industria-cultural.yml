@@ -1,0 +1,249 @@
+# Exercícios da aula "Indústria cultural e Escola de Frankfurt" (trilha enem-filosofia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-fil-industria-cultural-01
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 21
+  objeto: hum-cultura-industria-cultural
+  dificuldade: 1
+  enunciado: "O conceito de indústria cultural foi criado por"
+  alternativas:
+    - texto: "Durkheim e Weber, fundadores da sociologia."
+      erro: "Durkheim e Weber são do fim do século XIX e começo do XX. O conceito é dos anos 1940."
+    - texto: "Sartre e Beauvoir, no existencialismo francês."
+      erro: "O existencialismo trata da liberdade. O conceito de indústria cultural vem da Escola de Frankfurt."
+    - texto: "Locke e Hume, no empirismo."
+      erro: "O empirismo discute a origem do conhecimento, séculos antes do cinema e do rádio."
+    - texto: "Adorno e Horkheimer, da Escola de Frankfurt."
+      certa: true
+    - texto: "Platão e Aristóteles, na Grécia antiga."
+      erro: "Na Grécia antiga não havia produção de cultura em série. O conceito nasce com a mídia de massa."
+  explicacao: "Adorno e Horkheimer criaram o conceito na Dialética do esclarecimento, publicada em 1947."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-02
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 21
+  objeto: hum-cultura-industria-cultural
+  dificuldade: 1
+  enunciado: "Qual é a principal diferença entre indústria cultural e cultura popular?"
+  alternativas:
+    - texto: "A indústria cultural é feita por empresas para as massas, visando o lucro; a cultura popular nasce das próprias comunidades."
+      certa: true
+    - texto: "A cultura popular é sempre comercial; a indústria cultural nunca é."
+      erro: "É o contrário: o lucro é o centro da indústria cultural."
+    - texto: "Não há diferença: as duas expressões querem dizer a mesma coisa."
+      erro: "Adorno escolheu \"indústria cultural\" justamente para não dar a ideia de algo que nasce do povo."
+    - texto: "A cultura popular só existe nos museus."
+      erro: "A cultura popular está nas festas, nos ritmos e nos saberes das comunidades, não só nos museus."
+    - texto: "A indústria cultural só produz arte erudita."
+      erro: "Ela produz de tudo, mas em série e com fórmulas. Ser erudito ou popular não é o critério."
+  explicacao: "Indústria cultural é cultura produzida como mercadoria, por grandes empresas, para as massas. Cultura popular é a que brota das comunidades."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-03
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 21
+  objeto: hum-cultura-industria-cultural
+  dificuldade: 1
+  enunciado: "Para Walter Benjamin, a aura de uma obra de arte é"
+  alternativas:
+    - texto: "o preço que ela alcança num leilão."
+      erro: "Aura não é valor de mercado. É a presença única da obra."
+    - texto: "a cópia da obra feita pela fotografia."
+      erro: "A cópia é justamente o que faz a aura desaparecer."
+    - texto: "a presença única da obra original, aqui e agora, com a sua história."
+      certa: true
+    - texto: "a mensagem política que o artista quis passar."
+      erro: "A aura não é o conteúdo da obra; é o seu caráter de coisa única."
+    - texto: "a música de fundo de um filme."
+      erro: "Nada a ver: aura é um conceito sobre a obra única, não um elemento do filme."
+  explicacao: "A aura é a existência única da obra num lugar e num tempo. A reprodução técnica (fotografia, cinema) desfaz essa unicidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-04
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 16
+  objeto: hum-cultura-industria-cultural
+  dificuldade: 2
+  enunciado: "Um serviço de streaming oferece \"milhares de opções\", mas os filmes mais recomendados seguem quase sempre a mesma estrutura de roteiro. Na crítica de Adorno e Horkheimer, isso é exemplo de"
+  alternativas:
+    - texto: "esclarecimento, porque o público aprende a pensar por si."
+      erro: "A crítica diz que a fórmula repetida dispensa o pensamento próprio, o contrário do esclarecimento."
+    - texto: "aura, porque cada filme é uma obra única."
+      erro: "Filmes em série, com a mesma estrutura, são o oposto da obra única."
+    - texto: "cultura popular, porque nasce do gosto do povo."
+      erro: "É produzido por empresas, com fórmulas testadas. Isso é indústria cultural."
+    - texto: "democracia cultural plena, porque todos escolhem livremente."
+      erro: "A crítica é exatamente que a escolha é entre variações do mesmo."
+    - texto: "padronização com falsa variedade de escolha."
+      certa: true
+  explicacao: "As opções parecem muitas, mas seguem o mesmo molde. É a padronização disfarçada por diferenças de superfície (pseudoindividualização)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-05
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 16
+  objeto: hum-cultura-industria-cultural
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Depois de dez horas no trabalho, a pessoa chega em casa e liga a televisão. Quer algo que não exija esforço. O
+    programa repete piadas que ela já conhece e termina na hora certa para dormir e acordar cedo. (Texto original do
+    Instituto Lúcia, inspirado na Dialética do esclarecimento, de Adorno e Horkheimer.)
+  enunciado: "Na perspectiva dos autores que inspiram o texto, esse lazer"
+  alternativas:
+    - texto: "liberta o trabalhador da lógica da produção."
+      erro: "Os autores dizem o contrário: esse lazer repete a lógica da produção."
+    - texto: "funciona como prolongamento do trabalho, repondo as forças sem estimular a reflexão."
+      certa: true
+    - texto: "é uma forma de resistência política organizada."
+      erro: "Nada no texto aponta para organização ou resistência. Aponta para descanso sem pensamento."
+    - texto: "recupera a aura das obras de arte."
+      erro: "Programas em série não têm aura. E aura é conceito de Benjamin, não o centro deste texto."
+    - texto: "é uma manifestação da cultura popular tradicional."
+      erro: "O programa é produto de uma emissora, feito em série. Não é cultura das comunidades."
+  explicacao: "Para Adorno e Horkheimer, a diversão padronizada é prolongamento do trabalho: repõe as forças para o dia seguinte e repete as fórmulas da produção. A ideia caiu no ENEM de 2023."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-06
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 21
+  objeto: hum-cultura-industria-cultural
+  dificuldade: 2
+  enunciado: "A Escola de Frankfurt, à qual pertenciam Adorno e Horkheimer, partia principalmente do pensamento de"
+  alternativas:
+    - texto: "Marx, buscando entender por que as pessoas aceitavam a dominação, inclusive pela cultura."
+      certa: true
+    - texto: "Adam Smith, defendendo o livre mercado na cultura."
+      erro: "A Escola de Frankfurt critica a cultura feita como mercadoria. Não é uma defesa do mercado."
+    - texto: "Santo Agostinho, unindo fé e razão."
+      erro: "A filosofia medieval não é a base do grupo. Ele parte da crítica da sociedade capitalista."
+    - texto: "Descartes, buscando a certeza pela dúvida."
+      erro: "O problema da Escola de Frankfurt é social e político, não a certeza do conhecimento."
+    - texto: "Epicuro, buscando o prazer simples."
+      erro: "O grupo não discute a vida feliz individual, e sim a dominação na sociedade moderna."
+  explicacao: "A Escola de Frankfurt (Instituto de Pesquisa Social, 1923) partiu de Marx para entender, entre outras coisas, o papel da cultura e da mídia na aceitação da dominação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-07
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 21
+  objeto: hum-cultura-industria-cultural
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Antes, para ver um quadro famoso, era preciso viajar até o museu onde ele estava, e diante dele se sentia a
+    presença de algo único. Hoje, a mesma imagem está em camisetas, canecas e telas de celular, em milhões de cópias.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "O fenômeno descrito corresponde ao que Walter Benjamin chamou de"
+  alternativas:
+    - texto: "indústria cultural, que recupera a obra única."
+      erro: "Indústria cultural é conceito de Adorno e Horkheimer. E nada aqui recupera a obra única."
+    - texto: "esclarecimento, a saída da menoridade."
+      erro: "Esclarecimento é conceito de Kant. O texto fala de cópia e de obra única."
+    - texto: "aura reforçada pela fama do quadro."
+      erro: "As cópias em massa não reforçam a aura: elas a desfazem."
+    - texto: "perda da aura pela reprodução técnica."
+      certa: true
+    - texto: "má-fé, a fuga da liberdade."
+      erro: "Má-fé é Sartre, sobre a liberdade individual. Não tem relação com cópias de obras."
+  explicacao: "Com a reprodução técnica, a obra deixa de ser única, aqui e agora. Benjamin chamou isso de declínio da aura, e viu nisso também a chance de a arte chegar a mais gente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-08
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 16
+  objeto: hum-cultura-industria-cultural
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma plataforma de vídeos curtos mede, segundo a segundo, quanto tempo cada pessoa fica em cada vídeo. Os vídeos que
+    prendem mais são mostrados a mais gente, e os criadores passam a copiar o formato deles: mesma duração, mesma
+    música, mesmo gancho nos primeiros três segundos. (Texto original do Instituto Lúcia.)
+  enunciado: "À luz da crítica de Adorno e Horkheimer, a situação mostra que"
+  alternativas:
+    - texto: "a tecnologia digital acabou com a padronização da cultura."
+      erro: "O texto mostra o contrário: os criadores copiam o formato que funciona. A padronização continua."
+    - texto: "os criadores produzem com total independência do mercado."
+      erro: "Eles copiam o que o sistema premia. A produção está presa à lógica da audiência."
+    - texto: "a lógica da mercadoria e da audiência molda a forma dos produtos culturais, que tendem a se repetir."
+      certa: true
+    - texto: "o público decide sozinho e de forma consciente o que será produzido."
+      erro: "O público reage ao que lhe é mostrado; quem organiza o que circula é a plataforma."
+    - texto: "a obra de arte única recupera seu valor nas redes."
+      erro: "Milhões de vídeos parecidos são o oposto da obra única."
+  explicacao: "A medição da audiência premia o formato que mais prende, e todos passam a copiá-lo. É a padronização movida pela lógica da mercadoria, agora com um algoritmo no lugar do estúdio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-09
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 21
+  objeto: hum-cultura-industria-cultural
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: Os produtos culturais feitos em série acomodam o público. Tudo é previsível, e a pessoa se acostuma a
+    receber sem pensar.
+    Texto II: O cinema tirou a arte do altar. A obra perdeu o seu brilho único, mas passou a ser vista e discutida por
+    multidões, o que abre possibilidades novas.
+    (Paráfrases do Instituto Lúcia de ideias de autores ligados à Escola de Frankfurt.)
+  enunciado: "Os textos expressam, respectivamente,"
+  alternativas:
+    - texto: "o otimismo de Adorno e o pessimismo de Benjamin."
+      erro: "Trocou os papéis: o Texto I (pessimista) é Adorno; o Texto II (mais esperançoso) é Benjamin."
+    - texto: "a defesa da aura por Adorno e a defesa do mercado por Benjamin."
+      erro: "Nenhum dos dois defende o mercado. E o Texto I não fala de aura."
+    - texto: "uma mesma posição, sem diferenças entre os autores."
+      erro: "Os textos tiram conclusões diferentes da cultura de massa. Há uma diferença clara de tom."
+    - texto: "a visão crítica de Adorno e Horkheimer e a visão mais aberta de Benjamin sobre a reprodução técnica."
+      certa: true
+    - texto: "o racionalismo e o empirismo diante da arte."
+      erro: "Racionalismo e empirismo discutem a origem do conhecimento, não a cultura de massa."
+  explicacao: "O Texto I é a crítica da indústria cultural (padronização, passividade). O Texto II é Benjamin: a perda da aura também abre possibilidades. Adorno discordou de Benjamin em cartas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-fil-industria-cultural-10
+  tema: "Mídia, indústria cultural e Escola de Frankfurt"
+  area: humanas
+  habilidade: 16
+  objeto: hum-cultura-industria-cultural
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A propaganda de um carro mostra uma família feliz numa estrada vazia, ao pôr do sol. O carro quase não aparece.
+    O que se vende é a sensação de liberdade e de sucesso, como se ela viesse junto com a compra. (Texto original do
+    Instituto Lúcia.)
+  enunciado: "Na perspectiva da teoria crítica, a estratégia da propaganda"
+  alternativas:
+    - texto: "associa desejos humanos ao consumo de mercadorias, reforçando a lógica do mercado."
+      certa: true
+    - texto: "informa de modo neutro as características técnicas do produto."
+      erro: "O texto diz que o carro quase não aparece. Não há informação técnica, há emoção associada."
+    - texto: "estimula o público a questionar o próprio consumo."
+      erro: "A propaganda quer o contrário: que a pessoa compre sem pensar."
+    - texto: "representa a cultura popular da comunidade."
+      erro: "É uma peça feita por uma empresa para vender. Não é expressão de uma comunidade."
+    - texto: "recupera a aura do objeto único e artesanal."
+      erro: "Carros são produzidos em série. A propaganda vende uma sensação, não uma obra única."
+  explicacao: "A propaganda vende uma promessa (liberdade, sucesso) colada à mercadoria. Para a teoria crítica, a indústria cultural transforma desejos em consumo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

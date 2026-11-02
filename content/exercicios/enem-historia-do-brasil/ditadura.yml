@@ -1,0 +1,247 @@
+# Exercícios da aula "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia" (trilha enem-historia-do-brasil).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-hum-ditadura-01
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-ditadura
+  dificuldade: 1
+  enunciado: "Quanto tempo durou a ditadura iniciada com o golpe de 1964?"
+  alternativas:
+    - texto: "4 anos, de 1964 a 1968"
+      erro: "1968 é o ano do AI-5, quando a repressão endureceu. O regime continuou por muitos anos depois."
+    - texto: "15 anos, de 1964 a 1979"
+      erro: "1979 é o ano da Lei da Anistia. Ela foi um passo da abertura, mas os militares ainda governavam."
+    - texto: "10 anos, de 1964 a 1974"
+      erro: "Em 1974 começou o governo Geisel e a abertura lenta. O regime ainda durou mais de dez anos."
+    - texto: "21 anos, de 1964 a 1985"
+      certa: true
+    - texto: "30 anos, de 1964 a 1994"
+      erro: "Em 1985 um civil já assumiu a presidência, e em 1988 veio a nova Constituição."
+  explicacao: "O golpe foi em 1964 e o último presidente militar deixou o cargo em 1985, quando assumiu um governo civil eleito indiretamente. São 21 anos."
+  conferir: "1985 - 1964"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-02
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-ditadura
+  dificuldade: 1
+  enunciado: "O que o AI-5, de 13 de dezembro de 1968, suspendeu nos crimes políticos?"
+  alternativas:
+    - texto: "O voto dos analfabetos"
+      erro: "Os analfabetos já não votavam antes do golpe. O AI-5 mexeu em outra garantia."
+    - texto: "O habeas corpus, a garantia contra a prisão ilegal"
+      certa: true
+    - texto: "A censura à imprensa"
+      erro: "O AI-5 não suspendeu a censura; ele a fortaleceu."
+    - texto: "O direito dos militares de governar"
+      erro: "O AI-5 deu mais poder ao governo militar, não menos."
+    - texto: "A eleição indireta para presidente"
+      erro: "A eleição indireta continuou. Ela tinha sido criada pelo AI-2, em 1965."
+  explicacao: "O AI-5 suspendeu o habeas corpus nos crimes políticos e permitiu fechar o Congresso e cassar mandatos. Sem habeas corpus, o preso político não tinha como pedir à Justiça que examinasse a prisão."
+  fonte: "Questão original do Instituto Lúcia, a partir do texto do AI-5"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-03
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 24
+  objeto: hum-organizacao-social-ditadura
+  dificuldade: 1
+  enunciado: "Depois do AI-2, de 1965, quais partidos podiam funcionar legalmente?"
+  alternativas:
+    - texto: "Só a Arena, do governo, e o MDB, da oposição consentida"
+      certa: true
+    - texto: "Todos os partidos que existiam antes de 1964"
+      erro: "O AI-2 extinguiu justamente os partidos que existiam. Foi o fim do pluripartidarismo."
+    - texto: "Nenhum partido, nem do governo"
+      erro: "O regime manteve um Congresso e eleições controladas. Para isso, criou dois partidos."
+    - texto: "Apenas o Partido Comunista"
+      erro: "O Partido Comunista era perseguido e seguia na ilegalidade."
+    - texto: "Apenas partidos ligados aos sindicatos"
+      erro: "Sindicatos combativos foram reprimidos. Os partidos permitidos eram dois, criados sob controle do regime."
+  explicacao: "O artigo 18 do AI-2 extinguiu os partidos e cancelou os seus registros. A partir daí, funcionaram a Arena (Aliança Renovadora Nacional), base do governo, e o MDB (Movimento Democrático Brasileiro), oposição vigiada."
+  fonte: "Questão original do Instituto Lúcia, a partir do texto do AI-2"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-04
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-ditadura
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num jornal de 1974, a primeira página traz um título sobre o Congresso e, logo abaixo, versos de um poema
+    português do século XVI ocupando o espaço onde deveria estar a reportagem. Nenhuma nota explica a escolha.
+    (Situação criada pelo Instituto Lúcia, inspirada em recursos usados por jornais da época.)
+  enunciado: "O uso dos versos no lugar da reportagem indica"
+  alternativas:
+    - texto: "o desinteresse dos leitores por política."
+      erro: "Nada no texto fala dos leitores. O recurso diz algo sobre o que o jornal podia publicar."
+    - texto: "o apoio do jornal à política cultural do governo."
+      erro: "Pôr um poema no lugar da notícia é um aviso de corte, não uma homenagem ao governo."
+    - texto: "a falta de jornalistas na redação."
+      erro: "Faltar jornalista não explicaria versos sem nota. O espaço vazio foi preenchido de propósito."
+    - texto: "a liberdade de imprensa garantida pelo AI-5."
+      erro: "O AI-5 reforçou a censura. A alternativa inverte o efeito do ato."
+    - texto: "a ação da censura prévia e um modo indireto de o jornal denunciá-la."
+      certa: true
+  explicacao: "Em 1974 havia censura prévia. Alguns jornais preenchiam o espaço da matéria cortada com poemas ou receitas, sinal de que algo fora proibido. Era uma denúncia sem desobediência aberta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-05
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-ditadura
+  dificuldade: 2
+  enunciado: "Por que se usa a expressão ditadura civil-militar para o regime de 1964?"
+  alternativas:
+    - texto: "Porque civis e militares se revezaram na presidência a cada quatro anos"
+      erro: "Todos os presidentes do regime foram generais. O civil está no apoio, não no revezamento."
+    - texto: "Porque o regime foi escolhido em eleição direta"
+      erro: "Não houve eleição direta para presidente durante o regime."
+    - texto: "Porque o golpe e o regime tiveram apoio e participação de setores civis, como empresários e parte da imprensa"
+      certa: true
+    - texto: "Porque os militares só cuidaram da segurança, e os civis governaram"
+      erro: "Os militares governaram de fato: ocuparam a presidência e os órgãos de repressão."
+    - texto: "Porque não houve repressão a civis"
+      erro: "Houve repressão a civis em grande escala: prisões, tortura, mortes e desaparecimentos."
+  explicacao: "A expressão destaca que o golpe e a ditadura contaram com apoio de empresários, de parte da imprensa, de políticos e de setores da classe média. Os generais governaram, mas não sozinhos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-06
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 14
+  objeto: hum-organizacao-social-ditadura
+  dificuldade: 2
+  enunciado: "A Lei da Anistia, de 1979, recebe avaliações opostas. Qual alternativa resume esse debate?"
+  alternativas:
+    - texto: "Todos concordam que ela puniu os torturadores"
+      erro: "A lei não puniu ninguém. O debate é justamente sobre o perdão estendido aos agentes do Estado."
+    - texto: "Ela permitiu a volta dos exilados, mas também deixou sem julgamento os agentes da repressão"
+      certa: true
+    - texto: "Ela impediu a volta dos exilados e manteve todos os presos"
+      erro: "A lei permitiu a volta de exilados e a soltura de presos. Esse é o lado visto como conquista."
+    - texto: "Ela criou a Comissão Nacional da Verdade"
+      erro: "A Comissão foi criada por outra lei, em 2011, mais de 30 anos depois."
+    - texto: "Ela foi aprovada depois da Constituição de 1988"
+      erro: "A anistia é de 1979, nove anos antes da Constituição."
+  explicacao: "Para os movimentos que lutaram por ela, a anistia libertou presos e trouxe os exilados. Mas a leitura de que valia também para os torturadores deixou crimes sem julgamento. Em 2010, o STF manteve essa leitura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-07
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-ditadura
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Em 1975, mães, esposas e irmãs de presos políticos e de desaparecidos começaram a se reunir em São Paulo.
+    Levavam fotos, procuravam informações em quartéis e delegacias e pediam anistia. O movimento se espalhou pelo
+    país e ajudou a pôr a anistia no centro do debate político.
+    (Texto do Instituto Lúcia.)
+  enunciado: "A ação descrita no texto mostra que, durante a ditadura,"
+  alternativas:
+    - texto: "as mulheres não tiveram participação política."
+      erro: "O texto mostra o contrário: mulheres organizadas puseram a anistia em debate."
+    - texto: "a busca por desaparecidos era incentivada pelo governo."
+      erro: "As famílias procuravam respostas que o Estado escondia. Não havia incentivo oficial."
+    - texto: "a resistência foi feita apenas por grupos armados."
+      erro: "O texto descreve uma resistência sem armas, de famílias. A resistência teve muitas formas."
+    - texto: "familiares das vítimas se organizaram e pressionaram pela anistia."
+      certa: true
+    - texto: "a anistia foi concedida antes de qualquer pressão social."
+      erro: "O texto mostra a pressão vindo antes. A lei só saiu em 1979."
+  explicacao: "Mulheres, sobretudo familiares de presos e desaparecidos, criaram movimentos pela anistia. Foi uma forma de resistência civil que pesou na aprovação da lei de 1979."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-08
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-ditadura
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I. Nota oficial de 1975: o preso foi encontrado morto na cela, e a morte foi registrada como suicídio.
+    Texto II. Colegas e familiares contestaram a versão desde o primeiro dia. Anos depois, a Justiça mandou
+    corrigir o atestado de óbito, que passou a registrar morte decorrente de maus-tratos sofridos sob custódia do
+    Estado.
+    (Textos do Instituto Lúcia, a partir do caso Vladimir Herzog, Instituto Vladimir Herzog.)
+  enunciado: "A comparação entre os textos mostra que, para estudar a ditadura, o historiador precisa"
+  alternativas:
+    - texto: "confrontar a versão oficial com outras fontes, perguntando quem produziu cada documento e com que interesse."
+      certa: true
+    - texto: "aceitar a nota oficial, porque documentos do Estado são sempre neutros."
+      erro: "O próprio caso mostra uma versão oficial desmentida. Documento oficial também é fonte a ser criticada."
+    - texto: "descartar todos os documentos oficiais, que não servem para nada."
+      erro: "Documentos oficiais servem, inclusive para mostrar como o regime mentia. O que se faz é confrontá-los."
+    - texto: "considerar só a memória dos familiares, sem outras provas."
+      erro: "Os depoimentos são importantes, mas a correção veio com outras provas e decisão judicial. A história cruza fontes."
+    - texto: "evitar o tema, porque não há documentos sobre a época."
+      erro: "Há muitos documentos, inclusive o relatório da Comissão Nacional da Verdade."
+  explicacao: "O caso Herzog é exemplo de versão oficial falsa, desmontada pelo cruzamento de depoimentos, provas e decisão judicial. Toda fonte tem autor e interesse: é isso que a H21 e a H14 cobram."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-09
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-ditadura
+  dificuldade: 3
+  enunciado: "Coloque em ordem: (1) Lei da Anistia; (2) AI-5; (3) campanha das Diretas Já; (4) AI-2; (5) relatório da Comissão Nacional da Verdade."
+  alternativas:
+    - texto: "2, 4, 1, 3, 5"
+      erro: "O AI-2 (1965) vem antes do AI-5 (1968). Os números dos atos seguem a ordem do tempo."
+    - texto: "4, 2, 3, 1, 5"
+      erro: "A anistia (1979) vem antes das Diretas Já (1984)."
+    - texto: "1, 4, 2, 3, 5"
+      erro: "A anistia é de 1979, depois dos dois atos institucionais."
+    - texto: "4, 1, 2, 3, 5"
+      erro: "O AI-5 (1968) vem antes da anistia (1979)."
+    - texto: "4, 2, 1, 3, 5"
+      certa: true
+  explicacao: "AI-2 (1965), AI-5 (1968), Lei da Anistia (1979), Diretas Já (1984) e relatório da Comissão Nacional da Verdade (2014)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-hum-ditadura-10
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-ditadura
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "Antes de 1964, trabalhadores rurais do Nordeste se organizavam em associações que pediam terra, fim do cambão
+    (dias de trabalho de graça para o dono da terra) e direitos. Depois do golpe, lideranças foram presas,
+    associações fechadas, e alguns militantes desapareceram."
+    (Texto do Instituto Lúcia, a partir da história das Ligas Camponesas.)
+  enunciado: "A repressão descrita revela que o golpe de 1964 também"
+  alternativas:
+    - texto: "realizou a reforma agrária pedida pelas associações."
+      erro: "O texto mostra o contrário: as associações que pediam terra foram fechadas."
+    - texto: "atingiu apenas estudantes das grandes cidades."
+      erro: "O texto fala de trabalhadores rurais do Nordeste. A repressão chegou ao campo."
+    - texto: "atendeu a interesses de grandes proprietários de terra, ao desmontar a organização camponesa."
+      certa: true
+    - texto: "acabou com o cambão por lei."
+      erro: "O texto não fala de lei contra o cambão. Fala de prisão de lideranças."
+    - texto: "foi apoiado pelas associações de trabalhadores rurais."
+      erro: "As associações foram vítimas, não apoiadoras. Leia quem sofre a ação."
+  explicacao: "A reforma agrária era uma das reformas de base. Os grandes proprietários estavam entre os apoiadores do golpe. Desmontar as Ligas Camponesas foi atender a esse interesse."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
