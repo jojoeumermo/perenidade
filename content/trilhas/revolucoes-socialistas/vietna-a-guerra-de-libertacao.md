@@ -23,7 +23,7 @@ quiz:
     resposta: 0
     explicacao: "Saigon foi rebatizada Cidade de Ho Chi Minh, e o país foi formalmente reunificado em 1976."
   - pergunta: "Qual foi o papel dos protestos contra a guerra nos Estados Unidos e no mundo?"
-    opcoes: ["Aumentaram a pressão política para a retirada americana", "Não tiveram nenhuma importância", "Pediam mais bombardeios"]
+    opcoes: ["Aumentaram a pressão política para a retirada americana", "Foram feitos só por estudantes e não influenciaram o governo", "Fortaleceram o apoio do governo americano à guerra"]
     resposta: 0
     explicacao: "Estudantes, soldados veteranos, o movimento negro e intelectuais tornaram a guerra cada vez mais impopular."
 ---

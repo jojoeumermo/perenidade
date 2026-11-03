@@ -18,7 +18,7 @@ glossario:
     definicao: "O equilíbrio de poder entre as classes em luta num dado momento."
 quiz:
   - pergunta: "Que duas visões de Estado Poulantzas rejeitou?"
-    opcoes: ["A do Estado como simples ferramenta da classe dominante e a do Estado neutro, representante da vontade geral", "A do Estado como igreja e como empresa", "Nenhuma"]
+    opcoes: ["A do Estado como simples ferramenta da classe dominante e a do Estado neutro, representante da vontade geral", "A de que o Estado desaparece sozinho e a de que ele é eterno", "A de que o Estado é só a polícia e a de que é só a economia"]
     resposta: 0
     explicacao: "Ele buscou uma terceira posição."
   - pergunta: "O que é a 'autonomia relativa' do Estado?"

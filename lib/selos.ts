@@ -110,6 +110,11 @@ export const SELOS_DAS_FERRAMENTAS: Record<ToolId, SelosDeUmItem> = {
   "escrita-chinesa": comVoz,
   // O dicionário de ortografia é baixado do próprio site e a conferência roda no aparelho.
   "corretor-ortografico": aparelho,
+  "quanto-cobrar": aparelho,
+  "gerador-de-curriculo": aparelho,
+  "orcamento-e-contrato": aparelho,
+  "dividas-e-renegociacao": aparelho,
+  "modelos-de-documentos": aparelho,
 };
 
 /** Os selos fora da caixa de ferramentas. */

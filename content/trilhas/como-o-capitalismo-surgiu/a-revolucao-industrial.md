@@ -29,11 +29,11 @@ quiz:
     resposta: 0
     explicacao: "O processo ganha força na Inglaterra a partir de cerca de 1760, começando pela indústria têxtil."
   - pergunta: "O que mudou na relação do trabalhador com o instrumento de trabalho na fábrica, segundo Marx?"
-    opcoes: ["Nada mudou", "Na oficina o trabalhador usava a ferramenta; na fábrica, ele passa a servir à máquina", "O trabalhador passou a ser dono da máquina"]
+    opcoes: ["O trabalhador ganhou ferramentas melhores e passou a decidir o ritmo do trabalho", "Na oficina o trabalhador usava a ferramenta; na fábrica, ele passa a servir à máquina", "O trabalhador passou a ser dono da máquina"]
     resposta: 1
     explicacao: "O ritmo deixa de ser do artesão e passa a ser da máquina, que dita a velocidade e a duração do trabalho."
   - pergunta: "Qual foi uma das primeiras conquistas legais dos operários ingleses?"
-    opcoes: ["A limitação da jornada de trabalho, como a lei das dez horas de 1847", "O voto das mulheres em 1800", "A abolição do salário"]
+    opcoes: ["A limitação da jornada de trabalho, como a lei das dez horas de 1847", "O direito de greve garantido em lei em 1800", "A proibição do uso de máquinas nas fábricas"]
     resposta: 0
     explicacao: "Marx dedica o capítulo 8 do Capital à luta pela limitação legal da jornada e, na Mensagem Inaugural da Internacional (1864), chamou a lei das dez horas de vitória da economia política da classe operária."
 ---

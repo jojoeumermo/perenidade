@@ -25,6 +25,7 @@ import { Sudoku } from "@/components/tools/novas/Jogos";
 import { Alfabetos, TonsDoMandarim } from "@/components/tools/novas/Linguas";
 import { ContasDoDia, Solidos } from "@/components/tools/novas/Matematica";
 import { DireitosDoTrabalhador } from "@/components/tools/novas/Trabalho";
+import { GeradorDeCurriculo, ModelosDeDocumentos, OrcamentoEContrato, QuantoCobrar, SimuladorDeDivida } from "@/components/tools/novas/VidaReal";
 import { FisicaSimulada, Reacoes } from "@/components/tools/Simulacoes";
 import { Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
 import { loadLang } from "@/i18n";
@@ -43,7 +44,7 @@ export function generateStaticParams() {
 
 const isTool = (value: string): value is ToolId => (tools as readonly string[]).includes(value);
 /** As ferramentas da rodada nova: a interface e os exercícios estão em português por enquanto. */
-const NOVAS_EM_PT = new Set<string>(["algoritmos", "criptografia", "grafos", "sudoku", "referencias-abnt", "palavras-geradoras", "solidos", "contas-do-dia-a-dia", "tons-do-mandarim", "alfabetos", "ceu", "calculadoras-de-eletronica", "direitos-trabalhistas", "dicionario-chines", "escrita-chinesa", "corretor-ortografico"]);
+const NOVAS_EM_PT = new Set<string>(["algoritmos", "criptografia", "grafos", "sudoku", "referencias-abnt", "palavras-geradoras", "solidos", "contas-do-dia-a-dia", "tons-do-mandarim", "alfabetos", "ceu", "calculadoras-de-eletronica", "direitos-trabalhistas", "dicionario-chines", "escrita-chinesa", "corretor-ortografico", "quanto-cobrar", "gerador-de-curriculo", "orcamento-e-contrato", "dividas-e-renegociacao", "modelos-de-documentos"]);
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ferramentas/[tool]">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -114,6 +115,11 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     "dicionario-chines": <div lang="pt-BR"><DicionarioChines /></div>,
     "escrita-chinesa": <div lang="pt-BR"><EscritaChinesa /></div>,
     "corretor-ortografico": <div lang="pt-BR"><CorretorOrtografico /></div>,
+    "quanto-cobrar": <div lang="pt-BR"><QuantoCobrar /></div>,
+    "gerador-de-curriculo": <div lang="pt-BR"><GeradorDeCurriculo /></div>,
+    "orcamento-e-contrato": <div lang="pt-BR"><OrcamentoEContrato /></div>,
+    "dividas-e-renegociacao": <div lang="pt-BR"><SimuladorDeDivida /></div>,
+    "modelos-de-documentos": <div lang="pt-BR"><ModelosDeDocumentos /></div>,
   };
 
   // O que mais serve a quem está aqui: ferramentas das mesmas matérias e os laboratórios dessas matérias.

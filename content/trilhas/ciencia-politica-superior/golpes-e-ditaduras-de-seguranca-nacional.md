@@ -30,7 +30,7 @@ quiz:
     resposta: 0
     explicacao: "Depois Equador e Peru se juntaram com funções periféricas."
   - pergunta: "Qual é uma das estimativas de vítimas atribuídas à Condor?"
-    opcoes: ["Pelo menos 50 mil mortes, 30 mil desaparecidos e 400 mil presos", "Nenhuma vítima", "Cem pessoas"]
+    opcoes: ["Pelo menos 50 mil mortes, 30 mil desaparecidos e 400 mil presos", "Cerca de mil mortes e mil presos", "Cerca de 5 mil mortes e 10 mil presos"]
     resposta: 0
     explicacao: "O número exato é contestado, pela natureza clandestina da operação."
 ---

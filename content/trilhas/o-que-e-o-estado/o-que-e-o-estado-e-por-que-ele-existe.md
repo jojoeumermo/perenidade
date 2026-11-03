@@ -29,7 +29,7 @@ quiz:
     resposta: 0
     explicacao: "Polícia, exército e prisões são do Estado."
   - pergunta: "Para Engels, por que o Estado surge?"
-    opcoes: ["Porque a sociedade se divide em classes com interesses inconciliáveis, e é preciso um poder que abafe o conflito", "Por vontade divina", "Por acaso"]
+    opcoes: ["Porque a sociedade se divide em classes com interesses inconciliáveis, e é preciso um poder que abafe o conflito", "Por vontade divina", "Porque as pessoas precisam de alguém que mande, mesmo sem classes"]
     resposta: 0
     explicacao: "Lenin retomou essa ideia em O Estado e a Revolução."
 ---

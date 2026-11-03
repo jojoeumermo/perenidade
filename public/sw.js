@@ -8,9 +8,22 @@ const PAGINAS = `lucia-paginas-${VERSAO}`;
 const FIXOS = `lucia-fixos-${VERSAO}`;
 const LIMITE_DE_PAGINAS = 300;
 
-const SEM_REDE = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sem conexão — Instituto Lúcia</title>
+// A página "sem conexão" no idioma do endereço (Etapa 3: offline em todos os idiomas). Sem prefixo, português.
+const TEXTOS_SEM_REDE = {
+  pt: ["pt-BR", "Sem conexão", "Você está sem conexão", "Esta página ainda não foi guardada neste aparelho. As aulas que você já abriu, e os cursos que mandou guardar, continuam disponíveis.", "Ir para as disciplinas"],
+  en: ["en", "Offline", "You are offline", "This page has not been saved on this device yet. The lessons you have already opened, and the courses you saved, are still available.", "Go to the subjects"],
+  es: ["es", "Sin conexión", "Estás sin conexión", "Esta página todavía no se guardó en este aparato. Las clases que ya abriste, y los cursos que guardaste, siguen disponibles.", "Ir a las disciplinas"],
+  fr: ["fr", "Hors ligne", "Vous êtes hors ligne", "Cette page n'a pas encore été enregistrée sur cet appareil. Les leçons déjà ouvertes, et les cours enregistrés, restent disponibles.", "Aller aux disciplines"],
+  ru: ["ru", "Нет связи", "Нет подключения к интернету", "Эта страница ещё не сохранена на этом устройстве. Уроки, которые вы уже открывали, и сохранённые курсы по-прежнему доступны.", "К дисциплинам"],
+  zh: ["zh", "离线", "你目前处于离线状态", "此页面尚未保存在本设备上。你已打开过的课程和已保存的课程仍可使用。", "前往学科"],
+};
+function semRede(caminho) {
+  const lang = /^\/(en|es|fr|ru|zh)(\/|$)/.exec(caminho)?.[1] ?? "pt";
+  const [html, titulo, h1, texto, link] = TEXTOS_SEM_REDE[lang];
+  return `<!doctype html><html lang="${html}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${titulo} — Instituto Lúcia</title>
 <style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4ecd8;color:#1f1a14;font-family:Georgia,serif;padding:1.5rem}main{max-width:32rem}h1{font-size:2rem;margin:0 0 .75rem}p{font-size:1.15rem;line-height:1.5}a{color:#6e1f1a}@media(prefers-color-scheme:dark){body{background:#17130e;color:#efe4c8}a{color:#e0837a}}</style></head>
-<body><main><h1>Você está sem conexão</h1><p>Esta página ainda não foi guardada neste aparelho. As aulas que você já abriu, e as trilhas que mandou guardar, continuam disponíveis.</p><p><a href="/pt/trilhas">Ir para as disciplinas</a></p></main></body></html>`;
+<body><main><h1>${h1}</h1><p>${texto}</p><p><a href="/${lang}/trilhas">${link}</a></p></main></body></html>`;
+}
 
 self.addEventListener("install", (evento) => {
   evento.waitUntil(self.skipWaiting());
@@ -49,7 +62,7 @@ async function primeiroARede(pedido) {
     return resposta;
   } catch {
     const guardada = await cache.match(pedido.url, { ignoreSearch: true });
-    return guardada ?? new Response(SEM_REDE, { status: 503, headers: { "Content-Type": "text/html; charset=utf-8" } });
+    return guardada ?? new Response(semRede(new URL(pedido.url).pathname), { status: 503, headers: { "Content-Type": "text/html; charset=utf-8" } });
   }
 }
 

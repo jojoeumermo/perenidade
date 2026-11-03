@@ -20,7 +20,7 @@ quiz:
     resposta: 0
     explicacao: "A lei foi aprovada em outubro de 2023 e prevê educação patriótica nas escolas e na sociedade."
   - pergunta: "Na tradição oficial chinesa, a quem se associa o amor ao país?"
-    opcoes: ["Ao amor ao povo, ao Partido Comunista e ao socialismo", "Apenas ao imperador", "A nenhuma instituição"]
+    opcoes: ["Ao amor ao povo, ao Partido Comunista e ao socialismo", "Apenas à cultura tradicional e à família", "Apenas ao exército e às empresas estatais"]
     resposta: 0
     explicacao: "O discurso oficial apresenta esses elementos como unidos."
   - pergunta: "Qual é a diferença entre patriotismo e nacionalismo agressivo, no sentido usado nesta aula?"

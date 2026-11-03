@@ -875,6 +875,16 @@
     "summaryTitle": "目录",
     "underConstruction": "建设中",
     "helpWrite": "帮助编写这条学习路线",
+    "notifyMe": "新课发布时提醒我",
+    "notifyOn": "✓ 将在此设备上提醒你",
+    "notifyOff": "停止提醒",
+    "notifyHint": "提醒只保存在此设备上：网站不记录是谁设置的。有新课时会显示在这里和学科页面。",
+    "notifyNews": "你标记的学习路线有新课了",
+    "notifyNewsItem": "{n} 节新课",
+    "notifySeen": "知道了",
+    "emptyHelp": "这条路线还没有写好的课：帮忙编写 →",
+    "saveCourse": "保存课程以离线阅读",
+    "saveSize": "约 {n} MB",
     "planned": "筹备中",
     "plannedHelp": "标有“筹备中”的课程属于本学习路径的大纲，尚未写成。",
     "plannedLink": "想来写其中一节吗？",
@@ -1054,7 +1064,29 @@
       "leve": "带回你的社区",
       "roda": "在讨论室里讨论",
       "rodaLink": "打开社区里本学科的讨论室",
-      "ouvirTrecho": "收听这一段"
+      "ouvirTrecho": "收听这一段",
+      "suarealidade": "在你的现实中",
+      "suarealidadePrompt": "想想你的工作或你所在的社区，然后写下来。只保存在你的设备上。",
+      "outrolado": "另一方",
+      "outroladoForte": "不同意者最有力的论点",
+      "outroladoTreino": "练习你的回应",
+      "outroladoPrompt": "写下你会如何回应，要尊重对方并依据事实。只保存在你的设备上。",
+      "outroladoResposta": "查看一个可能的回答",
+      "agir": "行动",
+      "agirVou": "我要去做",
+      "agirFeito": "已记在这台设备上。下一课会问你进展如何。",
+      "agirAviso": "一个小任务。你的回答只保存在你的设备上。",
+      "comoFoiTitulo": "进展如何？",
+      "comoFoiIntro": "在“{aula}”这一课，任务是：",
+      "comoFoiFiz": "做了",
+      "comoFoiParte": "做了一部分",
+      "comoFoiNao": "还没做",
+      "comoFoiNota": "想记下进展吗？只保存在你的设备上。",
+      "comoFoiRespFiz": "很好。已记在这台设备上。",
+      "comoFoiRespParte": "这已经是个开始。有空时可以继续完成。",
+      "comoFoiRespNao": "没关系。任务还留在上一课，等你有空再做。",
+      "comoFoiMudar": "修改回答",
+      "comoFoiVer": "回到任务"
     },
     "quickCheck": "小测验",
     "voz": {
@@ -2079,6 +2111,26 @@
     "corretor-ortografico": [
       "拼写检查（葡萄牙语）",
       "检查巴西葡萄牙语拼写并给出建议，文本不离开你的设备。"
+    ],
+    "quanto-cobrar": [
+      "该收多少钱（巴西）",
+      "自由职业的最低时薪和日薪，含社保、假期和第13个月工资。"
+    ],
+    "gerador-de-curriculo": [
+      "简历生成器",
+      "在本机生成简历和简短求职信，也适合只做过零工的人；可打印或复制。"
+    ],
+    "orcamento-e-contrato": [
+      "报价单与简易合同",
+      "服务报价单和简易合同，含材料、人工、工期和付款方式。"
+    ],
+    "dividas-e-renegociacao": [
+      "债务与重新协商",
+      "一笔债务要还多久、总共还多少，对比协商方案，并介绍巴西的过度负债法。"
+    ],
+    "modelos-de-documentos": [
+      "常用文书模板（巴西）",
+      "向 Procon 投诉、辞职信、向 INSS 申诉和致房东的通知。"
     ]
   },
   "tools": {
@@ -5507,6 +5559,12 @@
   },
   "compartilhar": {
     "titulo": "分享",
+    "baixarHtml": "将课程下载为单个文件（可通过 WhatsApp 发送）",
+    "baixarHtmlDica": "一个小的 .html 文件，在任何手机上都能离线打开，旧手机也可以。",
+    "baixarHtmlPronto": "文件已准备好：请查看下载。",
+    "baixarHtmlFalhou": "无法在此浏览器中生成文件。",
+    "baixarHtmlFonte": "下载自",
+    "baixarHtmlRodape": "可离线使用。要做测验和保存进度，请在网站上打开课程。",
     "whatsapp": "通过 WhatsApp 发送",
     "telegram": "通过 Telegram 发送",
     "copiar": "复制链接",

@@ -1057,7 +1057,8 @@ body {
 .prose-lesson .bloco-numerada {
   list-style: decimal;
 }
-.prose-lesson .bloco-campo {
+.prose-lesson .bloco-campo,
+.bloco-comofoi .bloco-campo {
   margin-top: 0.4rem;
   display: block;
   width: 100%;
@@ -1149,6 +1150,26 @@ body {
 .prose-lesson .bloco-roda {
   background: var(--folha);
   box-shadow: 4px 4px 0 var(--sombra);
+}
+/* As 3 partes novas: Na sua realidade (antes da explicação), O outro lado (com treino) e Agir (a tarefa). */
+.prose-lesson .bloco-suarealidade {
+  background: var(--folha);
+  border-style: dashed;
+  box-shadow: 6px 6px 0 var(--prelo);
+}
+.prose-lesson .bloco-outrolado {
+  background: var(--parchment-deep);
+  box-shadow: 6px 6px 0 var(--sombra);
+}
+.prose-lesson .bloco-treino {
+  margin-top: 1.2rem;
+  border-top: 2px dashed var(--ink);
+  padding-top: 0.9rem;
+}
+.prose-lesson .bloco-agir {
+  background: var(--folha);
+  border-width: 3px;
+  box-shadow: 6px 6px 0 var(--prelo);
 }
 .prose-lesson .bloco-formula {
   margin: 2rem 0;

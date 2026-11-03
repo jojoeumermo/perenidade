@@ -21,7 +21,7 @@ quiz:
     resposta: 0
     explicacao: "Cabral foi assassinado em 1973, meses antes da declaração de independência da Guiné-Bissau."
   - pergunta: "Qual é a relação entre as guerras coloniais africanas e a Revolução dos Cravos em Portugal, em 1974?"
-    opcoes: ["O desgaste das guerras coloniais levou militares portugueses a derrubar a ditadura salazarista", "Nenhuma", "A Revolução dos Cravos começou na África do Sul"]
+    opcoes: ["O desgaste das guerras coloniais levou militares portugueses a derrubar a ditadura salazarista", "A Revolução dos Cravos foi a causa do início das guerras coloniais", "As guerras coloniais terminaram antes e não tiveram relação com o golpe"]
     resposta: 0
     explicacao: "A luta dos povos africanos ajudou a libertar também o povo português da ditadura."
   - pergunta: "Qual destas foi uma medida do governo de Thomas Sankara em Burkina Faso?"

@@ -19,7 +19,7 @@ As funções, o que cada uma vê no painel e como pedir a sua estão em [Volunta
 
 1. **Escolha o que fazer.** Sem conta, use [Contribuir](/contribuir). Para entrar na equipe, preencha a [candidatura](/voluntarios#candidatura): a coordenação responde por e-mail.
 2. **Escreva com as suas palavras.** Nada copiado. Toda aula cita pelo menos uma fonte. Questão adaptada de prova pública diz de onde veio.
-3. **Siga o modelo.** Objetivo, explicação, exemplo resolvido, exercício, resumo e fontes (detalhes abaixo).
+3. **Siga o modelo.** Objetivo, explicação, exemplo resolvido, exercício, resumo e fontes, mais "Na sua realidade", "O outro lado" e "Agir" nas aulas novas das trilhas de entrada e de formação militante (detalhes abaixo).
 4. **Envie.** Tudo passa pela leitura da equipe antes de ir ao ar: a triagem, o parecer de outro educador da disciplina e a aprovação.
 5. **Revisão.** Depois de publicada, a aula aparece como "Em revisão" até alguém seguir o checklist e registrar a revisão. Nada recebe "revisada" sozinho.
 6. **Crédito.** O seu nome aparece na aula, e o de quem revisou também. Tudo fica sob a licença CC BY-SA 4.0.

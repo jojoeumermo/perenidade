@@ -108,7 +108,7 @@ export const caixaPorDisciplina: Record<AreaSlug, readonly ToolId[]> = {
   arquivologia: ["referencias-abnt", ...LEITURA],
 
   // ── Lutas ──
-  trabalho: ["direitos-trabalhistas", "mais-valia", "juros-compostos", "contas-do-dia-a-dia", ...LEITURA],
+  trabalho: ["direitos-trabalhistas", "mais-valia", "juros-compostos", "contas-do-dia-a-dia", "quanto-cobrar", "gerador-de-curriculo", "orcamento-e-contrato", "dividas-e-renegociacao", "modelos-de-documentos", ...LEITURA],
   sindicalismo: ["direitos-trabalhistas", "mais-valia", ...LEITURA],
   "luta-negra": ["estatistica", ...LEITURA],
   feminismo: ["estatistica", ...LEITURA],

@@ -20,11 +20,11 @@ quiz:
     resposta: 1
     explicacao: "São os recursos sem os quais não se produz nada. Objetos de uso pessoal não são meios de produção."
   - pergunta: "No socialismo, o que acontece com a casa, as roupas e os objetos de cada pessoa?"
-    opcoes: ["São tomados pelo governo", "Continuam sendo da pessoa: o que se torna coletivo são os grandes meios de produção", "São sorteados"]
+    opcoes: ["São tomados pelo governo", "Continuam sendo da pessoa: o que se torna coletivo são os grandes meios de produção", "São divididos igualmente entre todos os moradores do bairro"]
     resposta: 1
     explicacao: "A proposta socialista trata da propriedade que serve para explorar o trabalho alheio, não dos bens de uso pessoal."
   - pergunta: "Qual é a ideia central do socialismo?"
-    opcoes: ["Que os grandes meios de produção pertençam à sociedade e sejam usados para atender às necessidades de todos", "Que todos recebam exatamente o mesmo salário", "Que ninguém precise trabalhar"]
+    opcoes: ["Que os grandes meios de produção pertençam à sociedade e sejam usados para atender às necessidades de todos", "Que todos recebam exatamente o mesmo salário", "Que não exista mais nenhuma forma de propriedade, nem a pessoal"]
     resposta: 0
     explicacao: "As outras duas alternativas são confusões comuns, tratadas em outras aulas desta trilha."
 ---

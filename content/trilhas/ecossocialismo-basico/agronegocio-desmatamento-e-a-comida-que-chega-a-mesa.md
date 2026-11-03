@@ -21,7 +21,7 @@ fontes:
     url: "https://www.cptnacional.org.br/"
 quiz:
   - pergunta: "Segundo o Censo Agropecuário de 2017, a agricultura familiar reúne que parcela dos estabelecimentos rurais do país?"
-    opcoes: ["Cerca de 10%", "Cerca de 77%", "Nenhuma"]
+    opcoes: ["Cerca de 10%", "Cerca de 77%", "Cerca de 35%"]
     resposta: 1
     explicacao: "E ocupa apenas cerca de 23% da área."
   - pergunta: "No que se transforma a maior parte da área desmatada na Amazônia?"

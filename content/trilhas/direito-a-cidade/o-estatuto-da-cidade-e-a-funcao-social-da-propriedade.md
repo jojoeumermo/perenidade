@@ -22,7 +22,7 @@ quiz:
     resposta: 0
     explicacao: "É a Lei nº 10.257, que regulamenta os artigos 182 e 183 da Constituição."
   - pergunta: "Para quais cidades a Constituição torna o plano diretor obrigatório?"
-    opcoes: ["Para cidades com mais de vinte mil habitantes", "Só para capitais", "Para nenhuma"]
+    opcoes: ["Para cidades com mais de vinte mil habitantes", "Para cidades com mais de cem mil habitantes", "Para cidades com mais de quinhentos mil habitantes"]
     resposta: 0
     explicacao: "O plano diretor é aprovado pela Câmara Municipal."
   - pergunta: "Quem pode adquirir um imóvel pela usucapião especial urbana da Constituição?"

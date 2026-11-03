@@ -16,7 +16,7 @@ glossario:
     definicao: "Direito dos povos de decidir o que produzir e comer, com alimento saudável e acessível."
 quiz:
   - pergunta: "Quem foi Margarida Maria Alves?"
-    opcoes: ["Trabalhadora rural e sindicalista da Paraíba, assassinada em 1983", "Uma cantora", "Uma deputada de São Paulo"]
+    opcoes: ["Trabalhadora rural e sindicalista da Paraíba, assassinada em 1983", "Líder do movimento estudantil, morta em 1968", "Professora rural e dirigente do MST, assassinada em 1996"]
     resposta: 0
     explicacao: "Foi uma das primeiras mulheres a dirigir um sindicato no país."
   - pergunta: "De quanto em quanto tempo acontece a Marcha das Margaridas?"
@@ -24,7 +24,7 @@ quiz:
     resposta: 0
     explicacao: "Sempre em agosto, na Esplanada dos Ministérios, em Brasília."
   - pergunta: "Por que a marcha acontece em agosto?"
-    opcoes: ["Em memória de Margarida, assassinada em 12 de agosto de 1983", "Por causa das férias", "Por causa do carnaval"]
+    opcoes: ["Em memória de Margarida, assassinada em 12 de agosto de 1983", "Para coincidir com o Dia Internacional da Mulher", "Porque é o mês da colheita no semiárido"]
     resposta: 0
     explicacao: "Ela foi morta por defender os direitos dos trabalhadores rurais."
   - pergunta: "Qual destes é um objetivo da marcha?"

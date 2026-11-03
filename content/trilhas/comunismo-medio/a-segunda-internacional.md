@@ -16,7 +16,7 @@ fontes:
     ano: "1987"
 quiz:
   - pergunta: "O que a Segunda Internacional decidiu em seu congresso de fundação, em 1889?"
-    opcoes: ["Fazer do 1º de Maio um dia internacional de luta pela jornada de oito horas", "Apoiar o colonialismo", "Dissolver os sindicatos"]
+    opcoes: ["Fazer do 1º de Maio um dia internacional de luta pela jornada de oito horas", "Aceitar que cada partido apoiasse a guerra do seu país", "Criar um partido único para todos os países"]
     resposta: 0
     explicacao: "A data lembrava a greve de Chicago de 1886."
   - pergunta: "O que aconteceu em 4 de agosto de 1914?"

@@ -17,7 +17,7 @@ quiz:
     resposta: 1
     explicacao: "O que transforma dinheiro em capital é o uso: comprar meios de produção e força de trabalho para vender com lucro."
   - pergunta: "O que significa a fórmula D – M – D'?"
-    opcoes: ["Dinheiro compra mercadorias para voltar como mais dinheiro", "Dinheiro, Moeda, Dólar", "Dívida, Multa, Desconto"]
+    opcoes: ["Dinheiro compra mercadorias para voltar como mais dinheiro", "Dinheiro, Moeda, Dólar", "Dinheiro guardado, Poupança, Juros"]
     resposta: 0
     explicacao: "O capitalista não compra para usar; compra para vender e ganhar mais do que gastou."
   - pergunta: "Marx diz que o capital é uma relação social. O que isso quer dizer?"

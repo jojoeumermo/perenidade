@@ -59,4 +59,9 @@ export const secaoDaFerramenta = {
   "dicionario-chines": "eyebrow",
   "escrita-chinesa": "eyebrow",
   "corretor-ortografico": "eyebrow",
+  "quanto-cobrar": "eyebrow",
+  "gerador-de-curriculo": "eyebrow",
+  "orcamento-e-contrato": "eyebrow",
+  "dividas-e-renegociacao": "eyebrow",
+  "modelos-de-documentos": "eyebrow",
 } as const satisfies Record<ToolId, string>;

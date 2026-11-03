@@ -3,6 +3,8 @@
 
 import { usePathname } from "next/navigation";
 import { Fragment, type ReactNode, useEffect, useState } from "react";
+import { aulaDoEndereco, guardarAgir, lerAgir } from "@/lib/agir";
+import { partesDoOutroLado } from "@/lib/modelo-de-aula";
 import { L, useI18n } from "../I18n";
 
 // Os blocos da aula-experiência: pedaços da aula que não são texto corrido. Quem escreve abre um bloco de código com o
@@ -228,4 +230,97 @@ export function Roda({ spec, sala }: { spec: string; sala?: string }) {
   );
 }
 
-export const BLOCOS_DA_AULA = ["provocacao", "navidareal", "escondido", "formula", "historia", "realidade", "leve", "roda"] as const;
+// ───────────── As 3 partes novas do modelo de 9 partes (lib/modelo-de-aula.ts) ─────────────
+
+/** "Na sua realidade": a pergunta sobre o trabalho ou o bairro, ANTES da explicação, com espaço para responder (só no aparelho). */
+export function SuaRealidade({ spec }: { spec: string }) {
+  const { t } = useI18n();
+  const pathname = usePathname();
+  const [resposta, setResposta] = useGuardado(chaveDe(pathname, "suarealidade", spec));
+  const { titulo, corpo } = titulado(spec);
+  return (
+    <aside className="bloco bloco-suarealidade">
+      <p className="bloco-rotulo">{t.lesson.blocks.suarealidade}</p>
+      <TextoSimples texto={titulo || corpo} className="bloco-pergunta" />
+      {titulo && corpo && <TextoSimples texto={corpo} className="bloco-texto" />}
+      <label className="no-print mt-4 block font-sans text-sm text-ink-soft">
+        {t.lesson.blocks.suarealidadePrompt}
+        <textarea value={resposta} onChange={(e) => setResposta(e.target.value)} rows={3} maxLength={4000} className="bloco-campo" />
+      </label>
+    </aside>
+  );
+}
+
+/** "O outro lado": o argumento mais forte de quem discorda, a pergunta do treino e, se houver, uma resposta possível. */
+export function OutroLado({ spec }: { spec: string }) {
+  const { t } = useI18n();
+  const pathname = usePathname();
+  const [resposta, setResposta] = useGuardado(chaveDe(pathname, "outrolado", spec));
+  const { argumento, treino, resposta: possivel } = partesDoOutroLado(spec);
+  const { titulo, corpo } = titulado(argumento);
+  return (
+    <aside className="bloco bloco-outrolado">
+      <p className="bloco-rotulo">{t.lesson.blocks.outrolado}</p>
+      <p className="bloco-titulo">{titulo || t.lesson.blocks.outroladoForte}</p>
+      <TextoSimples texto={corpo} className="bloco-texto" />
+      {treino && (
+        <div className="bloco-treino">
+          <p className="bloco-rotulo">{t.lesson.blocks.outroladoTreino}</p>
+          <TextoSimples texto={treino} className="bloco-texto" />
+          <label className="no-print mt-3 block font-sans text-sm text-ink-soft">
+            {t.lesson.blocks.outroladoPrompt}
+            <textarea value={resposta} onChange={(e) => setResposta(e.target.value)} rows={4} maxLength={4000} className="bloco-campo" />
+          </label>
+          {possivel && (
+            <details className="no-print mt-3 font-sans text-sm">
+              <summary className="cursor-pointer font-bold hover:text-oxblood">{t.lesson.blocks.outroladoResposta}</summary>
+              <TextoSimples texto={possivel} className="bloco-texto mt-2" />
+            </details>
+          )}
+        </div>
+      )}
+    </aside>
+  );
+}
+
+/** "Agir": uma tarefa pequena e concreta. "Vou fazer isto" fica só no aparelho; a aula seguinte da trilha pergunta como foi. */
+export function Agir({ spec }: { spec: string }) {
+  const { t } = useI18n();
+  const pathname = usePathname();
+  const aula = aulaDoEndereco(pathname);
+  const [vai, setVai] = useState(false);
+  useEffect(() => {
+    if (!aula) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- o registro só existe no navegador
+    setVai(lerAgir(aula) !== null);
+  }, [aula]);
+  const { titulo, corpo } = titulado(spec);
+  return (
+    <aside className="bloco bloco-agir">
+      <p className="bloco-rotulo">{t.lesson.blocks.agir}</p>
+      {titulo && <p className="bloco-titulo">{titulo}</p>}
+      <TextoSimples texto={corpo} className="bloco-texto" />
+      <p className="no-print mt-3 font-sans text-sm">{t.lesson.blocks.agirAviso}</p>
+      {aula && (
+        <div className="no-print mt-3 font-sans text-sm">
+          {vai ? (
+            <p role="status" className="font-bold">{t.lesson.blocks.agirFeito}</p>
+          ) : (
+            <button
+              type="button"
+              className="cursor-pointer border-2 border-ink bg-parchment px-3 py-2 font-bold text-ink hover:border-oxblood hover:text-oxblood"
+              onClick={() => {
+                guardarAgir(aula, { estado: "vou" });
+                setVai(true);
+              }}
+            >
+              {t.lesson.blocks.agirVou}
+            </button>
+          )}
+        </div>
+      )}
+    </aside>
+  );
+}
+
+export const BLOCOS_DA_AULA = ["provocacao", "suarealidade", "navidareal", "escondido", "formula", "historia", "outrolado", "realidade", "agir", "leve", "roda"] as const;

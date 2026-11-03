@@ -17,7 +17,7 @@ quiz:
     resposta: 0
     explicacao: "A UNE estava na ilegalidade desde a Lei Suplicy de Lacerda."
   - pergunta: "Quantas pessoas foram presas em Ibiúna?"
-    opcoes: ["Mais de 700", "Cerca de 10", "Nenhuma"]
+    opcoes: ["Mais de 700", "Cerca de 200", "Cerca de 50"]
     resposta: 0
     explicacao: "Entre elas, Luís Travassos, Vladimir Palmeira, José Dirceu, Franklin Martins e Jean Marc von der Weid."
   - pergunta: "O que aconteceu com Honestino Guimarães, que assumiu a presidência da UNE depois?"

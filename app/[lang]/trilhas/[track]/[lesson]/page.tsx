@@ -36,6 +36,7 @@ import { nosIdiomasDoTexto } from "@/lib/params";
 import { linguaDe } from "@/lib/pratica";
 import { ogDe, paginaMeta } from "@/lib/seo";
 import { Compartilhar } from "@/components/Compartilhar";
+import { BaixarArquivoUnico } from "@/components/BaixarArquivoUnico";
 import { aulaEmUmMinuto } from "@/lib/compartilhar";
 import { site } from "@/lib/site";
 import { ExerciciosComExplicacaoSobDemanda as ExerciciosComExplicacao, IssoAjudouSobDemanda as IssoAjudou, RegistroDeConclusaoSobDemanda as RegistroDeConclusao } from "@/components/estudo/NaAula";
@@ -63,7 +64,9 @@ import {
   ProximoPassoSobDemanda as ProximoPasso,
   RetomarAquiSobDemanda as RetomarAqui,
   VersaoFacilSobDemanda as VersaoFacil,
+  ComoFoiSobDemanda as ComoFoi,
 } from "@/components/aula/AulaVivaSobDemanda";
+import { tarefaDoAgir } from "@/lib/modelo-de-aula";
 import { FaixaDoCursoSobDemanda as FaixaDoCurso } from "@/components/escola/cursos/FaixaDoCursoSobDemanda";
 import { textosDosCursos } from "@/i18n/escola/cursos";
 import { aulaDoSite, cursosDaAula } from "@/lib/escola/cursos-vista";
@@ -125,6 +128,7 @@ export default async function LessonPage({ params }: Props) {
   const prev = track.lessons[index - 1];
   const next = track.lessons[index + 1];
   const id = lessonId(track.slug, lesson.slug);
+  const tarefaAnterior = prev ? tarefaDoAgir(prev.body) : null;
   // As simulações do PhET desta aula: as da área da disciplina que mais têm a ver com o título, o resumo e os termos da
   // aula (por palavra em comum), até três; sem nenhuma em comum, as três primeiras da área. A lista inteira fica nos
   // laboratórios, para a aula não virar um catálogo.
@@ -295,6 +299,8 @@ export default async function LessonPage({ params }: Props) {
 
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
         <AntesDaAula aula={id} requisitos={requisitos} />
+        {/* Modelo de 9 partes: a aula anterior da trilha deixou uma tarefa em "Agir"; esta pergunta como foi (resposta só no aparelho). */}
+        {prev && tarefaAnterior && <ComoFoi anterior={lessonId(track.slug, prev.slug)} titulo={prev.title} tarefa={tarefaAnterior} href={to(path(prev.slug))} />}
         {ligado("revisoes") && <EtiquetaDeRevisao revisoes={revisoes} aprovada={lesson.reviewed} lang={lang} s={estudo.revisao} corrigir={fix} como={ligado("guia-contribuir") ? to("/contribuir/guia#revisar") : undefined} />}
         {!ligado("revisoes") && !lesson.reviewed && (
           <p className="no-print mt-6 border-l-2 border-gold pl-4 font-sans text-sm text-ink-soft">
@@ -368,6 +374,8 @@ export default async function LessonPage({ params }: Props) {
           mensagem={aulaEmUmMinuto({ titulo: lesson.title, trilha: `${track.title} · ${t.areas[track.area][0]}`, resumo: lesson.summary, termos: lesson.terms, pergunta: lesson.quiz[0]?.question, url: `${site.url}${to(path(lesson.slug))}`, s: t.compartilhar })}
           s={t.compartilhar}
         />
+        {/* Etapa 3 (B17): a aula num .html único, sem internet, para mandar no WhatsApp. */}
+        <BaixarArquivoUnico titulo={lesson.title} url={`${site.url}${to(path(lesson.slug))}`} lang={lang} seletor="article.folha-da-aula" s={t.compartilhar} />
 
         <nav aria-label={t.lesson.neighbors} data-vizinhas className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
           {prev ? (

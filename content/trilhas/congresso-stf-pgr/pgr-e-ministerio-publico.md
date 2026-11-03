@@ -19,7 +19,7 @@ quiz:
     resposta: 0
     explicacao: "Está no artigo 127."
   - pergunta: "Como é escolhido o procurador-geral da República?"
-    opcoes: ["Nomeado pelo presidente entre membros da carreira com mais de 35 anos, após aprovação da maioria absoluta do Senado", "Eleito pelo povo", "Sorteado"]
+    opcoes: ["Nomeado pelo presidente entre membros da carreira com mais de 35 anos, após aprovação da maioria absoluta do Senado", "Eleito pelo povo", "Escolhido por concurso entre os promotores"]
     resposta: 0
     explicacao: "O mandato é de dois anos, com recondução permitida."
   - pergunta: "Quais ramos fazem parte do Ministério Público da União?"

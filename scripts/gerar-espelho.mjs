@@ -37,7 +37,7 @@ function simplificar(corpo) {
       const endereco = linhas.find((linha) => /^https:\/\//.test(linha));
       return endereco ? `*Vídeo indicado nesta aula:* <${endereco}>` : "";
     }
-    if (["provocacao", "navidareal", "escondido", "historia", "realidade", "formula"].includes(tipo)) return linhas.map((linha) => `> ${linha}`).join("\n");
+    if (["provocacao", "navidareal", "escondido", "historia", "realidade", "formula", "suarealidade", "outrolado", "agir"].includes(tipo)) return linhas.map((linha) => (linha === "---" ? ">" : `> ${linha}`)).join("\n");
     if (tipo === "leve" || tipo === "roda") return linhas.join("\n");
     if (tipo === "conta") return "```\n" + miolo + "```";
     return "";

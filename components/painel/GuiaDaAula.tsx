@@ -5,6 +5,45 @@ import { useState } from "react";
 import type { TrackOption } from "../useTrackOptions";
 import { botaoClaro, rotulo } from "./comum";
 
+/**
+ * Etapa 3 (R3): quantas vezes o teste de cada aula foi terminado e quantas com 70% ou mais, nos últimos 90 dias. Só
+ * totais anônimos (função aula_acertos, supabase/migracoes/2026-11-acertos.sql); só a equipe lê. Aula com muitos testes
+ * e poucos acertos pede uma segunda explicação ou perguntas mais claras.
+ */
+function AcertosDaTrilha({ trilha, plano }: { trilha: string; plano: { slug: string; title: string; ready: boolean }[] }) {
+  const [linhas, setLinhas] = useState<{ alvo: string; testes: number; acertos: number }[] | null>(null);
+  const [erro, setErro] = useState(false);
+  const carregar = () =>
+    void import("@/lib/backend")
+      .then(({ rpc }) => rpc<{ alvo: string; testes: number | string | null; acertos: number | string | null }[]>("aula_acertos", { p_trilha: trilha, p_dias: 90 }))
+      .then((r) => setLinhas((r ?? []).map((l) => ({ alvo: l.alvo, testes: Number(l.testes ?? 0), acertos: Number(l.acertos ?? 0) }))))
+      .catch(() => setErro(true));
+  if (!linhas)
+    return (
+      <p>
+        <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={carregar}>Ver acertos por aula (90 dias, somas anônimas)</button>
+        {erro && <span className="ml-2 text-oxblood">Não deu para ler as somas agora.</span>}
+      </p>
+    );
+  const porAula = new Map(linhas.map((l) => [l.alvo.slice(trilha.length + 1), l]));
+  return (
+    <div>
+      <p className="font-bold text-ink">Acertos por aula, últimos 90 dias</p>
+      <ul className="mt-1 space-y-0.5">
+        {plano.filter((item) => item.ready).map((item) => {
+          const l = porAula.get(item.slug);
+          const pct = l && l.testes > 0 ? Math.round((100 * l.acertos) / l.testes) : null;
+          return (
+            <li key={item.slug}>
+              {item.title}: {l && l.testes > 0 ? `${l.testes} testes, ${pct}% com 70% ou mais${pct !== null && l.testes >= 10 && pct < 40 ? " (difícil: vale uma segunda explicação)" : ""}` : "sem testes ainda"}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 /** As disciplinas de idioma, em que a aula ganha a prática lúdica. */
 export const IDIOMAS = ["ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo"];
 
@@ -135,6 +174,7 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
                     )}
                   </p>
                 )}
+                {trilha && plano.some((item) => item.ready) && <AcertosDaTrilha trilha={trilha.slug} plano={plano} />}
                 {nivel && <p>Tom para o {nivel}.</p>}
                 {tipo === "avulso" && <p>Material avulso: fica na aba própria da disciplina, fora da ordem das trilhas. Diga para que serve e para quem é.</p>}
               </>

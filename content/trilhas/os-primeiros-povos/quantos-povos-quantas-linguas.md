@@ -32,7 +32,7 @@ quiz:
     resposta: 0
     explicacao: "Em 2010 eram 305 povos e 274 línguas; parte da diferença vem de mudanças de método do IBGE."
   - pergunta: "Quantas línguas nativas se estima que eram faladas antes de 1500?"
-    opcoes: ["Cerca de 1.300", "Cerca de 10", "Nenhuma"]
+    opcoes: ["Cerca de 1.300", "Cerca de 100", "Cerca de 50"]
     resposta: 0
     explicacao: "Hoje são muito menos, e muitas estão em perigo."
   - pergunta: "Quais são os dois grandes troncos linguísticos indígenas do Brasil?"

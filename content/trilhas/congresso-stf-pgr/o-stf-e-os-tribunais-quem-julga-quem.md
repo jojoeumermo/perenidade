@@ -19,7 +19,7 @@ quiz:
     resposta: 0
     explicacao: "Está no artigo 101 da Constituição."
   - pergunta: "Como são escolhidos os ministros do STF?"
-    opcoes: ["Nomeados pelo presidente, depois de aprovados pela maioria absoluta do Senado", "Eleitos pelo povo", "Sorteados"]
+    opcoes: ["Nomeados pelo presidente, depois de aprovados pela maioria absoluta do Senado", "Eleitos pelo povo", "Escolhidos por concurso público"]
     resposta: 0
     explicacao: "Precisam ter notável saber jurídico e reputação ilibada."
   - pergunta: "Qual é a principal função do STF?"

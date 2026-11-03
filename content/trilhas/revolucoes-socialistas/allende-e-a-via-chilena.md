@@ -25,7 +25,7 @@ quiz:
     resposta: 0
     explicacao: "O cobre era a maior riqueza do país e estava nas mãos de empresas norte-americanas."
   - pergunta: "O que documentos oficiais dos Estados Unidos, tornados públicos depois, revelaram sobre o Chile?"
-    opcoes: ["Que o governo norte-americano agiu para desestabilizar o governo Allende", "Que os Estados Unidos apoiaram Allende", "Que não houve nenhuma ação estrangeira"]
+    opcoes: ["Que o governo norte-americano agiu para desestabilizar o governo Allende", "Que os Estados Unidos ofereceram ajuda econômica ao governo Allende", "Que os Estados Unidos só agiram depois do golpe, ao reconhecer o novo governo"]
     resposta: 0
     explicacao: "Investigações do próprio Senado americano (Comissão Church, 1975) documentaram ações encobertas no Chile."
 ---

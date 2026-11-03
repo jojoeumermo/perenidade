@@ -23,7 +23,7 @@ quiz:
     resposta: 1
     explicacao: "Na colônia, a metrópole governa, cobra impostos e decide o que se produz."
   - pergunta: "Por que se diz que a América Latina continuou dominada depois das independências do século XIX?"
-    opcoes: ["Porque as dívidas, o comércio e os investimentos ficaram sob controle de potências estrangeiras", "Porque os reis de Portugal e Espanha continuaram governando", "Porque não houve independência nenhuma"]
+    opcoes: ["Porque as dívidas, o comércio e os investimentos ficaram sob controle de potências estrangeiras", "Porque os reis de Portugal e Espanha continuaram governando", "Porque os países latino-americanos se recusaram a comerciar com a Europa"]
     resposta: 0
     explicacao: "A bandeira mudou, mas o que se produzia, para quem se vendia e a quem se devia continuou decidido de fora."
   - pergunta: "Quem deu nome ao 'neocolonialismo' em um livro de 1965?"

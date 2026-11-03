@@ -17,7 +17,7 @@ fontes:
     url: "https://www.bcb.gov.br/"
 quiz:
   - pergunta: "O que é transferência de valor?"
-    opcoes: ["O envio de mercadorias pelo correio", "A troca de moedas em casas de câmbio", "A apropriação, por uma economia, de parte do valor produzido em outra"]
+    opcoes: ["O envio de dinheiro dos trabalhadores migrantes às famílias", "A doação de recursos dos países ricos aos países pobres", "A apropriação, por uma economia, de parte do valor produzido em outra"]
     resposta: 2
     explicacao: "O trabalho é feito em um lugar e a riqueza se acumula em outro."
   - pergunta: "Qual era o centro do argumento de Arghiri Emmanuel?"

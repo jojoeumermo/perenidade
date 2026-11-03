@@ -13,7 +13,7 @@ fontes:
     url: "https://www.marxists.org/portugues/marx/1849/04/05.htm"
 quiz:
   - pergunta: "Na conta da lanchonete desta aula, de onde vem o lucro da dona?"
-    opcoes: ["Dos R$ 300 de valor que as funcionárias produzem e que não recebem como salário", "Do preço do pão", "Da sorte"]
+    opcoes: ["Dos R$ 300 de valor que as funcionárias produzem e que não recebem como salário", "Do preço do pão", "Da esperteza de vender mais caro que o custo"]
     resposta: 0
     explicacao: "As funcionárias produzem mais valor do que recebem. A diferença fica com a dona."
   - pergunta: "Se as funcionárias pararem de trabalhar, o que acontece com o lucro?"

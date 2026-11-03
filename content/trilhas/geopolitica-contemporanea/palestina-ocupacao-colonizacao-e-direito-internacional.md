@@ -30,7 +30,7 @@ quiz:
     resposta: 0
     explicacao: "Previa dois Estados, um judeu e outro árabe, com Jerusalém sob controle internacional."
   - pergunta: "Quantas pessoas foram expulsas ou forçadas a fugir na Nakba de 1948?"
-    opcoes: ["Cerca de 750 mil, metade da população árabe da Palestina", "Cerca de mil", "Ninguém"]
+    opcoes: ["Cerca de 750 mil, metade da população árabe da Palestina", "Cerca de 50 mil", "Cerca de 100 mil"]
     resposta: 0
     explicacao: "Mais de 500 cidades, vilas e bairros foram despovoados."
   - pergunta: "O que a Resolução 2334 do Conselho de Segurança (2016) diz sobre os assentamentos?"

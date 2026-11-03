@@ -83,7 +83,8 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
       {/* As trilhas seguem a ordem do currículo comum: fundamental, médio e superior. */}
       <span id="trilhas" className="block scroll-mt-6" />
       {stages.map((stage) => {
-        const inStage = tracks.filter((track) => track.stage === stage);
+        // Catálogo honesto (Etapa 3): as trilhas com aula pronta vêm antes; as ainda vazias ficam no fim, "em construção".
+        const inStage = tracks.filter((track) => track.stage === stage).sort((a, b) => Number(a.lessons.length === 0) - Number(b.lessons.length === 0));
         return (
           <section key={stage} id={stage} className="scroll-mt-6">
             <h2 className={heading}>{t.stages[stage]}</h2>

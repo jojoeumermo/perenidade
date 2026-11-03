@@ -27,7 +27,7 @@ quiz:
     resposta: 0
     explicacao: "Ela tinha se transformado em partido político em 1936."
   - pergunta: "Por que a orientação política da Frente Negra é polêmica até hoje?"
-    opcoes: ["Porque a direção predominante se aproximou do integralismo e do fascismo, embora houvesse grupos de esquerda", "Porque ela não tinha nenhuma ideia política", "Porque era um clube de futebol"]
+    opcoes: ["Porque a direção predominante se aproximou do integralismo e do fascismo, embora houvesse grupos de esquerda", "Porque se recusava a lutar contra o racismo", "Porque era ligada ao Partido Comunista desde a fundação"]
     resposta: 0
     explicacao: "Isso gerou muitos atritos internos e ainda divide os movimentos negros."
 ---

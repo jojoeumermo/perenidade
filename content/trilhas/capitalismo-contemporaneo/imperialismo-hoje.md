@@ -21,7 +21,7 @@ glossario:
     definicao: "Organização da produção em etapas espalhadas por vários países, coordenadas por grandes empresas que concentram a maior parte do lucro nas pontas de marca, tecnologia e finança."
 quiz:
   - pergunta: "Por que o controle do dólar dá poder aos Estados Unidos?"
-    opcoes: ["Porque o dólar é a principal moeda do comércio e das reservas mundiais, e o sistema de pagamentos em dólar permite aplicar sanções a outros países", "Porque o dólar é feito de ouro", "Porque todos os países usam o dólar como moeda interna"]
+    opcoes: ["Porque o dólar é a principal moeda do comércio e das reservas mundiais, e o sistema de pagamentos em dólar permite aplicar sanções a outros países", "Porque os Estados Unidos têm o maior estoque de ouro do mundo e emitem dólares com lastro nele", "Porque todos os países usam o dólar como moeda interna"]
     resposta: 0
     explicacao: "Quem emite a moeda mundial pode se endividar na própria moeda e excluir adversários do sistema financeiro internacional."
   - pergunta: "O que o economista John Smith mostra com o exemplo de produtos fabricados no Sul global e vendidos no Norte?"

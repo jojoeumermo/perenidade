@@ -16,10 +16,12 @@ export const licenseName = (t: CoreDict, license: string) => (t.library.licenseN
 
 export function TrackCard({ track, lang, t }: Props & { track: Track }) {
   const ready = track.plan.filter((item) => item.ready).length;
+  // Catálogo honesto (Etapa 3): trilha sem nenhuma aula pronta aparece tracejada, "em construção", com o convite para escrever.
+  const vazia = ready === 0;
   return (
-    <article className="flex flex-col border border-rule bg-parchment-deep p-6">
+    <article className={`flex flex-col border bg-parchment-deep p-6 ${vazia ? "border-dashed border-ink-soft" : "border-rule"}`} data-trilha-vazia={vazia || undefined}>
       <p className="font-mono text-xs text-gold">
-        {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.tracks.ready, { a: ready, b: track.plan.length })}
+        {t.areas[track.area][0]} · {t.stages[track.stage]} · {vazia ? t.tracks.underConstruction : fill(t.tracks.ready, { a: ready, b: track.plan.length })}
       </p>
       <h3 className="mt-2 text-2xl font-semibold" {...originalLang(track.translated)}>
         <Link href={localePath(lang, `/trilhas/${track.slug}`)} className="hover:text-oxblood">
@@ -31,6 +33,11 @@ export function TrackCard({ track, lang, t }: Props & { track: Track }) {
         <div className="mt-5">
           <TrackProgress ids={track.lessons.map((l) => lessonId(track.slug, l.slug))} />
         </div>
+      )}
+      {vazia && (
+        <Link href={`${localePath(lang, "/contribuir")}?trilha=${encodeURIComponent(track.slug)}`} className="mt-4 font-sans text-sm font-semibold underline decoration-[#c21f16] underline-offset-4 hover:text-oxblood">
+          {t.tracks.emptyHelp}
+        </Link>
       )}
     </article>
   );

@@ -28,7 +28,7 @@ quiz:
     resposta: 0
     explicacao: "Quando o problema é comum, a saída mais forte também é comum: negociar juntos, pressionar juntos."
   - pergunta: "Qual destes direitos foi conquistado com organização e luta dos trabalhadores?"
-    opcoes: ["Férias remuneradas e jornada limitada", "O horário de verão", "A previsão do tempo"]
+    opcoes: ["Férias remuneradas e jornada limitada", "O preço fixo da cesta básica, concedido pelo mercado", "A criação do feriado de Natal pelas igrejas"]
     resposta: 0
     explicacao: "Jornada de trabalho, férias e descanso semanal foram arrancados por greves e movimentos ao longo de mais de um século."
   - pergunta: "O que uma pessoa ganha ao entrar numa organização, além da força do número?"

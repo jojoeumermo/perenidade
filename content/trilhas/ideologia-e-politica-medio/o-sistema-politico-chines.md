@@ -23,7 +23,7 @@ quiz:
     resposta: 0
     explicacao: "Ela não tem poder legislativo, mas participa da discussão de políticas."
   - pergunta: "Como são eleitas as assembleias populares nos níveis superiores?"
-    opcoes: ["De forma indireta: cada nível elege os delegados do nível acima", "Por voto direto de todos os cidadãos em todos os níveis", "Por sorteio"]
+    opcoes: ["De forma indireta: cada nível elege os delegados do nível acima", "Por voto direto de todos os cidadãos em todos os níveis", "Por indicação direta do presidente"]
     resposta: 0
     explicacao: "Só as assembleias de condado e de município são eleitas diretamente."
 ---

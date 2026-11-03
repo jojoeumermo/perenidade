@@ -28,7 +28,7 @@ quiz:
     resposta: 1
     explicacao: "O parágrafo 2º diz que a organização, o funcionamento e as atividades são estabelecidos nos estatutos, aprovados em assembleia geral."
   - pergunta: "Como a lei manda escolher os dirigentes?"
-    opcoes: ["Por indicação dos professores", "Por sorteio", "Pelo voto direto e secreto de cada estudante"]
+    opcoes: ["Por indicação dos professores", "Por indicação da direção da escola", "Pelo voto direto e secreto de cada estudante"]
     resposta: 2
     explicacao: "É o parágrafo 3º. Ele manda ainda observar, no que couber, as normas da legislação eleitoral."
   - pergunta: "A escola impede a criação do grêmio. Qual é um caminho correto?"

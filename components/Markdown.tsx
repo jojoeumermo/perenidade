@@ -9,7 +9,7 @@ import "katex/dist/katex.min.css";
 import { localePath } from "@/i18n/config";
 import { eInterativo } from "@/lib/interativos";
 import { Interativo } from "./blocos/Interativo";
-import { Escondido, Formula, Historia, Leve, NaVidaReal, Provocacao, Realidade, Roda } from "./aula/Blocos";
+import { Agir, Escondido, Formula, Historia, Leve, NaVidaReal, OutroLado, Provocacao, Realidade, Roda, SuaRealidade } from "./aula/Blocos";
 import { InlineCheck } from "./InlineCheck";
 import { AnexoPendente, PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
@@ -162,6 +162,9 @@ export function Markdown({ children, lang, terms, tryCode, sala }: { children: s
             if (language === "realidade") return <Realidade spec={source} />;
             if (language === "leve") return <Leve spec={source} />;
             if (language === "roda") return <Roda spec={source} sala={sala} />;
+            if (language === "suarealidade") return <SuaRealidade spec={source} />;
+            if (language === "outrolado") return <OutroLado spec={source} />;
+            if (language === "agir") return <Agir spec={source} />;
             if (eInterativo(language)) return <Interativo tipo={language} spec={source} />;
             const runnable = (language === "python" || language === "php") && tryCode;
             return (

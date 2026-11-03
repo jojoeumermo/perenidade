@@ -25,7 +25,7 @@ quiz:
     resposta: 0
     explicacao: "Está no primeiro capítulo do Manifesto (1848)."
   - pergunta: "Segundo Engels, de onde nasce o Estado?"
-    opcoes: ["Das contradições inconciliáveis entre classes com interesses econômicos em conflito", "Da vontade de um rei", "Do acaso"]
+    opcoes: ["Das contradições inconciliáveis entre classes com interesses econômicos em conflito", "Da vontade de um rei", "Do contrato entre todos, para garantir a paz"]
     resposta: 0
     explicacao: "É um poder que nasce da sociedade e se coloca acima dela."
   - pergunta: "Em que ano Engels publicou A Origem da Família, da Propriedade Privada e do Estado?"

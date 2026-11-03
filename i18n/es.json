@@ -880,6 +880,16 @@
     "summaryTitle": "Índice",
     "underConstruction": "En construcción",
     "helpWrite": "Ayuda a escribir esta ruta",
+    "notifyMe": "Avísame cuando salga una clase nueva",
+    "notifyOn": "✓ Te avisaremos en este aparato",
+    "notifyOff": "dejar de avisar",
+    "notifyHint": "El aviso queda solo en este aparato: el sitio no guarda quién lo pidió. Aparece aquí y en la página de las disciplinas cuando sale una clase nueva.",
+    "notifyNews": "Hay clases nuevas en las rutas que marcaste",
+    "notifyNewsItem": "{n} clase(s) nueva(s)",
+    "notifySeen": "ya lo vi",
+    "emptyHelp": "Ruta aún sin clases listas: ayuda a escribirla →",
+    "saveCourse": "Guardar curso para leer sin internet",
+    "saveSize": "unos {n} MB",
     "planned": "en preparación",
     "plannedHelp": "Las lecciones marcadas como «en preparación» forman parte del plan de esta ruta y todavía no se han escrito.",
     "plannedLink": "¿Quieres escribir una?",
@@ -1061,7 +1071,29 @@
       "leve": "Llévalo a tu comunidad",
       "roda": "Debátelo en la sala",
       "rodaLink": "Abrir la sala de esta materia en la comunidad",
-      "ouvirTrecho": "Escuchar este fragmento"
+      "ouvirTrecho": "Escuchar este fragmento",
+      "suarealidade": "En tu realidad",
+      "suarealidadePrompt": "Piensa en tu trabajo o en tu barrio y escribe. Se queda solo en tu aparato.",
+      "outrolado": "El otro lado",
+      "outroladoForte": "El argumento más fuerte de quienes no están de acuerdo",
+      "outroladoTreino": "Practica tu respuesta",
+      "outroladoPrompt": "Escribe cómo responderías, con respeto y con hechos. Se queda solo en tu aparato.",
+      "outroladoResposta": "Ver una respuesta posible",
+      "agir": "Actuar",
+      "agirVou": "Voy a hacerlo",
+      "agirFeito": "Anotado en este aparato. La próxima clase preguntará cómo te fue.",
+      "agirAviso": "Una tarea pequeña. Tu respuesta se queda solo en tu aparato.",
+      "comoFoiTitulo": "¿Cómo te fue?",
+      "comoFoiIntro": "En la clase “{aula}”, la tarea era:",
+      "comoFoiFiz": "Lo hice",
+      "comoFoiParte": "Lo hice en parte",
+      "comoFoiNao": "Todavía no",
+      "comoFoiNota": "¿Quieres anotar cómo te fue? Se queda solo en tu aparato.",
+      "comoFoiRespFiz": "Qué bien. Anotado en este aparato.",
+      "comoFoiRespParte": "Ya es un comienzo. Puedes terminar cuando puedas.",
+      "comoFoiRespNao": "No pasa nada. La tarea sigue en la clase anterior, para cuando puedas.",
+      "comoFoiMudar": "Cambiar la respuesta",
+      "comoFoiVer": "Volver a la tarea"
     },
     "quickCheck": "Pregunta rápida",
     "voz": {
@@ -2150,6 +2182,26 @@
     "corretor-ortografico": [
       "Corrector ortográfico (portugués)",
       "Revisa la ortografía del portugués de Brasil con sugerencias, sin que el texto salga del dispositivo."
+    ],
+    "quanto-cobrar": [
+      "Cuánto cobrar (Brasil)",
+      "Tu valor mínimo por hora y por día de trabajo por cuenta propia, con seguridad social, vacaciones y aguinaldo."
+    ],
+    "gerador-de-curriculo": [
+      "Generador de currículum",
+      "Currículum y carta breve hechos en tu dispositivo, también para quien solo hizo changas; imprimir o copiar."
+    ],
+    "orcamento-e-contrato": [
+      "Presupuesto y contrato",
+      "Presupuesto y contrato simple de servicio, con material, mano de obra, plazo y pago."
+    ],
+    "dividas-e-renegociacao": [
+      "Deuda y renegociación",
+      "Cuánto tiempo y cuánto pagas por una deuda, la propuesta de acuerdo y la ley brasileña de sobreendeudamiento."
+    ],
+    "modelos-de-documentos": [
+      "Modelos de documentos (Brasil)",
+      "Reclamación al Procon, renuncia al empleo, recurso al INSS y notificación al arrendador."
     ]
   },
   "tools": {
@@ -5584,6 +5636,12 @@
   },
   "compartilhar": {
     "titulo": "Compartir",
+    "baixarHtml": "Descargar la clase en un solo archivo (para mandar por WhatsApp)",
+    "baixarHtmlDica": "Un archivo .html pequeño que abre sin internet en cualquier celular, incluso los viejos.",
+    "baixarHtmlPronto": "Archivo listo: míralo en tus descargas.",
+    "baixarHtmlFalhou": "No se pudo armar el archivo en este navegador.",
+    "baixarHtmlFonte": "Descargado de",
+    "baixarHtmlRodape": "Funciona sin internet. Para hacer las pruebas y guardar el progreso, abre la clase en el sitio.",
     "whatsapp": "Mandar por WhatsApp",
     "telegram": "Mandar por Telegram",
     "copiar": "Copiar el enlace",

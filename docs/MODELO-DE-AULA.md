@@ -1,6 +1,6 @@
 # Modelo de aula
 
-Toda aula nova segue o mesmo caminho, em seis partes. Quem estuda sabe o que esperar; quem revisa sabe o que conferir. O modelo é um guia: as aulas que já existem continuam publicadas e vão sendo trazidas para ele aos poucos, na revisão.
+Toda aula nova segue o mesmo caminho, em nove partes: as seis de sempre (objetivo, explicação, exemplo resolvido, exercício, resumo e fontes) e três que ligam a aula à vida de quem estuda (**Na sua realidade**, **O outro lado** e **Agir**). Quem estuda sabe o que esperar; quem revisa sabe o que conferir. O modelo é um guia: as aulas que já existem continuam publicadas e vão sendo trazidas para ele aos poucos, na revisão. As três partes novas são opcionais nelas e obrigatórias nas aulas novas das trilhas de entrada (etapa fundamental e alfabetização) e de formação militante, que declaram `modelo: 9` no cabeçalho (veja "As três partes novas", mais abaixo).
 
 | Parte | Onde fica | Para quê |
 | --- | --- | --- |
@@ -10,6 +10,9 @@ Toda aula nova segue o mesmo caminho, em seis partes. Quem estuda sabe o que esp
 | **Exercício** | `quiz` no cabeçalho (ao menos 3 questões), bloco `verificar` no meio do texto e, se houver, `content/exercicios/` | a pessoa conferir sozinha o que aprendeu |
 | **Resumo** | seção `## Resumo` (ou `## Para lembrar`), no fim | o essencial em poucas linhas, para revisar depois |
 | **Fontes** | `fontes` no cabeçalho (obrigatório) | de onde vem o que a aula afirma |
+| **Na sua realidade** | bloco `suarealidade`, **antes** da explicação (pode ficar dentro da seção do objetivo) | uma pergunta sobre o trabalho ou o bairro de quem estuda, para pensar antes de ler |
+| **O outro lado** | bloco `outrolado`, depois da explicação | o argumento mais forte de quem discorda, dito sem caricatura, e um treino de resposta |
+| **Agir** | bloco `agir`, perto do fim | uma tarefa pequena e concreta; a aula seguinte da trilha pergunta "como foi?" |
 
 `npm run pendencias -- <trilha>` mostra, aula por aula, o que falta. Os títulos aceitos para cada seção estão em `lib/modelo-de-aula.ts`.
 
@@ -64,11 +67,60 @@ Confira: 7/12 é um pouco mais que a metade, e 1/3 + 1/4 também é.
 - Para somar, primeiro iguale os denominadores.
 ````
 
+## As três partes novas
+
+São três blocos de código, escritos em texto simples como os da aula-experiência (no painel › Escrever, o menu **Bloco da aula** põe o esqueleto de cada um). No cabeçalho, a aula que adota as nove partes declara `modelo: 9`; `npm run pendencias` passa a exigir as três nela.
+
+````markdown
+---
+titulo: "Título da aula"
+modelo: 9
+---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber [o que a pessoa vai saber fazer].
+
+```suarealidade
+Uma pergunta sobre o trabalho ou o bairro de quem estuda: onde isso aparece na sua semana?
+```
+
+## Primeira ideia
+
+(a explicação, com os blocos de sempre)
+
+```outrolado
+# O argumento mais forte de quem discorda
+[O argumento de quem discorda, como essa pessoa o diria, com a fonte. Sem caricatura.]
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+[Uma resposta possível, com a fonte dos fatos. Aparece quando a pessoa pede.]
+```
+
+```agir
+# Esta semana
+Uma tarefa pequena, concreta, que dá para fazer num papel, em poucos minutos por dia.
+```
+
+## Resumo
+
+- ...
+````
+
+Como cada parte funciona:
+
+- **Na sua realidade** vem antes da explicação. Uma pergunta só, sobre o trabalho ou o bairro de quem estuda ("na sua rua", "no seu serviço"), sem pedir nome, endereço nem dado de ninguém. A pessoa pode escrever a resposta; ela fica só no aparelho dela.
+- **O outro lado** tem até três partes, separadas por uma linha com `---`: (1) o argumento mais forte de quem discorda, como essa pessoa o diria, com fonte e sem caricatura; (2) a pergunta do treino ("como você responderia?"); (3) opcional, uma resposta possível, que aparece quando a pessoa pede. Sem a segunda parte, o treino conta como faltando. Opinião política e religiosa de pessoas vivas ou de partidos: só fatos documentados, em linguagem sóbria.
+- **Agir** é uma tarefa pequena, concreta, que cabe numa semana, que dá para fazer sem computador e sem se expor a risco (nada de confrontar chefe, polícia ou vizinho sozinho; nada de fotografar ou gravar outras pessoas; nada de pedir dado pessoal). Na página, a pessoa pode marcar "Vou fazer isto". Na aula seguinte da trilha, o site pergunta "Como foi?": fiz, fiz em parte ou ainda não, com um campo de nota se a pessoa quiser. Tudo isso fica só no aparelho (`lucia:agir:<trilha>/<aula>`); o site não recebe a resposta, não conta quem fez e não cobra. A resposta "ainda não fiz" é tratada com respeito.
+
+Escreva a tarefa de modo que a aula seguinte possa citá-la sozinha: a pergunta "como foi?" mostra o texto do bloco `agir` da aula anterior, e só ele. Sem aula anterior com `agir`, nada aparece. A primeira aula de uma trilha não tem pergunta de "como foi?".
+
 ## A aula-experiência
 
 O instituto não é um site de aulas: é uma escola da vida. Uma aula boa não é um texto para decorar, é uma experiência que parte da vida de quem trabalha, mostra a quem serve o que costuma ficar escondido e termina com algo para levar ao bairro. Não há ponto, ranking nem sequência de dias: a pessoa estuda porque quer entender e mudar a própria realidade.
 
-Além das seis partes acima, a aula pode (e deve, sempre que couber) usar os **blocos da aula-experiência**. Cada um é um bloco de código com o nome dele, escrito em texto simples. No painel › Escrever, o menu **Bloco da aula** põe o esqueleto de cada um no texto.
+Além das partes acima, a aula pode (e deve, sempre que couber) usar os **blocos da aula-experiência**. Cada um é um bloco de código com o nome dele, escrito em texto simples. No painel › Escrever, o menu **Bloco da aula** põe o esqueleto de cada um no texto.
 
 | Bloco | Para quê | Onde costuma ficar |
 | --- | --- | --- |
@@ -77,7 +129,7 @@ Além das seis partes acima, a aula pode (e deve, sempre que couber) usar os **b
 | `formula` | A fórmula ou a regra em destaque. A primeira linha vai grande, numa caixa; as outras viram a legenda, em palavras. | No meio da explicação |
 | `historia` | Uma história de luta ligada ao conteúdo, com lugar e ano no título (`# A greve de 1917, São Paulo`). | Onde ajudar a dar sentido |
 | `escondido` | Por que isso te foi escondido: o que a escola e a mídia deixam de fora, e a quem isso serve. Sempre com fonte. | Perto do fim |
-| `realidade` | Um exercício sobre a vida de quem estuda, com espaço para responder (fica só no aparelho). | Antes do resumo |
+| `realidade` | Um exercício sobre a vida de quem estuda, com espaço para responder (fica só no aparelho). Não é a parte "Na sua realidade", que vem antes da explicação e usa `suarealidade`. | Antes do resumo |
 | `leve` | Leve para a sua comunidade: como ensinar isso a outra pessoa, em passos curtos. | No fim |
 | `roda` | Perguntas para discutir na sala da disciplina, com o link direto para ela. | No fim |
 

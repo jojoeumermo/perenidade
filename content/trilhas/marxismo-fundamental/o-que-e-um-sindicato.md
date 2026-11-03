@@ -20,7 +20,7 @@ quiz:
     resposta: 0
     explicacao: "O patrão pode esperar; o trabalhador, com contas para pagar, não. A união equilibra um pouco essa balança."
   - pergunta: "O que a Constituição brasileira diz sobre a associação sindical?"
-    opcoes: ["Que é livre, e que ninguém é obrigado a se filiar ou a se manter filiado", "Que é proibida", "Que só patrões podem se associar"]
+    opcoes: ["Que é livre, e que ninguém é obrigado a se filiar ou a se manter filiado", "Que depende de autorização do governo", "Que só pode haver um sindicato obrigatório por empresa"]
     resposta: 0
     explicacao: "O art. 8º garante a liberdade sindical e proíbe o Estado de interferir na organização dos sindicatos."
   - pergunta: "Para Marx, qual era o limite da luta apenas por salários?"

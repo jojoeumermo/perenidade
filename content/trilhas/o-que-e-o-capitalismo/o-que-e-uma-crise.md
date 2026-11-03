@@ -28,7 +28,7 @@ quiz:
     resposta: 0
     explicacao: "O que é bom para cada patrão isolado (pagar menos) é ruim para todos juntos (menos gente com dinheiro para comprar)."
   - pergunta: "Em uma crise, quem costuma pagar a conta primeiro?"
-    opcoes: ["Os grandes acionistas", "Os trabalhadores, com demissões, cortes de salário e de serviços públicos", "Ninguém"]
+    opcoes: ["Os grandes acionistas", "Os trabalhadores, com demissões, cortes de salário e de serviços públicos", "Os bancos, que quebram primeiro"]
     resposta: 1
     explicacao: "As empresas cortam custos, e o custo mais fácil de cortar é o trabalho. Governos costumam cortar gastos sociais."
 ---

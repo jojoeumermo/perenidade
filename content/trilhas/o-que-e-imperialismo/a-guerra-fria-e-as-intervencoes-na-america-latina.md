@@ -20,7 +20,7 @@ fontes:
     url: "https://www.marxists.org/portugues/castro/1962/02/04.htm"
 quiz:
   - pergunta: "O que aconteceu na Guatemala em 1954?"
-    opcoes: ["O presidente eleito Jacobo Árbenz, que fazia uma reforma agrária, foi derrubado por uma operação organizada pela CIA", "O país invadiu os Estados Unidos", "Foi assinada a independência da Espanha"]
+    opcoes: ["O presidente eleito Jacobo Árbenz, que fazia uma reforma agrária, foi derrubado por uma operação organizada pela CIA", "Houve uma guerra entre a Guatemala e o México por terras", "A reforma agrária foi cancelada pelo Congresso, sem intervenção externa"]
     resposta: 0
     explicacao: "A reforma agrária atingia terras da empresa norte-americana United Fruit."
   - pergunta: "O que foi a Operação Condor?"

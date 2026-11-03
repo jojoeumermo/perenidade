@@ -29,7 +29,7 @@ quiz:
     resposta: 1
     explicacao: "O produto já pertence ao patrão. O que o trabalhador vende é o uso da sua capacidade de trabalhar durante a jornada."
   - pergunta: "De onde vem o lucro, na explicação de Marx?"
-    opcoes: ["Da esperteza de vender caro", "Da diferença entre o valor que o trabalhador produz e o salário que ele recebe", "Da sorte"]
+    opcoes: ["Da esperteza de vender caro", "Da diferença entre o valor que o trabalhador produz e o salário que ele recebe", "Do trabalho do dono, que dirige a empresa"]
     resposta: 1
     explicacao: "Essa diferença é a mais-valia: trabalho que o trabalhador faz e que não lhe é pago."
   - pergunta: "O capitalismo sempre existiu?"

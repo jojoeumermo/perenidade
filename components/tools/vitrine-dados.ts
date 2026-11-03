@@ -12,6 +12,7 @@ export const ICONES: Record<string, string> = {
   cores: "paleta", "escala-cartografica": "mapa", "fusos-horarios": "fuso", "juros-compostos": "moedas", "mais-valia": "fabrica", rcp: "coracao", "frequencia-cardiaca": "pulso",
   ide: "terminal", simulacoes: "microscopio", "fisica-simulada": "alvo", reacoes: "reacao",
   algoritmos: "fluxo", criptografia: "cadeado", grafos: "grafo", sudoku: "quebracabeca", "referencias-abnt": "livros", "palavras-geradoras": "tijolos", solidos: "cubo", "contas-do-dia-a-dia": "recibo", "tons-do-mandarim": "onda", alfabetos: "letras", ceu: "lua", "calculadoras-de-eletronica": "tomada", "direitos-trabalhistas": "balanca", "dicionario-chines": "hanzi", "escrita-chinesa": "pincel", "corretor-ortografico": "lapis",
+  "quanto-cobrar": "moedas", "gerador-de-curriculo": "caneta", "orcamento-e-contrato": "recibo", "dividas-e-renegociacao": "moedas", "modelos-de-documentos": "livro",
 };
 
 export interface ItemDaVitrine {

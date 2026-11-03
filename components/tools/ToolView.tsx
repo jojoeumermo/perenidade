@@ -62,6 +62,11 @@ const DicionarioChines = dynamic(() => import("./novas/Chines").then((m) => m.Di
 const EscritaChinesa = dynamic(() => import("./novas/Chines").then((m) => m.EscritaChinesa), { ssr: false, loading: espera });
 const CorretorOrtografico = dynamic(() => import("./novas/Ortografia").then((m) => m.CorretorOrtografico), { ssr: false, loading: espera });
 const DireitosDoTrabalhador = dynamic(() => import("./novas/Trabalho").then((m) => m.DireitosDoTrabalhador), { ssr: false, loading: espera });
+const QuantoCobrar = dynamic(() => import("./novas/VidaReal").then((m) => m.QuantoCobrar), { ssr: false, loading: espera });
+const GeradorDeCurriculo = dynamic(() => import("./novas/VidaReal").then((m) => m.GeradorDeCurriculo), { ssr: false, loading: espera });
+const OrcamentoEContrato = dynamic(() => import("./novas/VidaReal").then((m) => m.OrcamentoEContrato), { ssr: false, loading: espera });
+const SimuladorDeDivida = dynamic(() => import("./novas/VidaReal").then((m) => m.SimuladorDeDivida), { ssr: false, loading: espera });
+const ModelosDeDocumentos = dynamic(() => import("./novas/VidaReal").then((m) => m.ModelosDeDocumentos), { ssr: false, loading: espera });
 
 /** Mostra uma ferramenta pelo nome, com os textos que a página da aula mandou (só os das ferramentas daquela disciplina). */
 const PhetLista = dynamic(() => import("../labs/Phet").then((m) => m.PhetLista), { ssr: false, loading: espera });
@@ -187,6 +192,16 @@ function Ferramenta({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>; lang
       return <div lang="pt-BR"><EscritaChinesa /></div>;
     case "corretor-ortografico":
       return <div lang="pt-BR"><CorretorOrtografico /></div>;
+    case "quanto-cobrar":
+      return <div lang="pt-BR"><QuantoCobrar /></div>;
+    case "gerador-de-curriculo":
+      return <div lang="pt-BR"><GeradorDeCurriculo /></div>;
+    case "orcamento-e-contrato":
+      return <div lang="pt-BR"><OrcamentoEContrato /></div>;
+    case "dividas-e-renegociacao":
+      return <div lang="pt-BR"><SimuladorDeDivida /></div>;
+    case "modelos-de-documentos":
+      return <div lang="pt-BR"><ModelosDeDocumentos /></div>;
   }
 }
 

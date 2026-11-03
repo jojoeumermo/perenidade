@@ -27,7 +27,7 @@ quiz:
     resposta: 0
     explicacao: "Está no artigo 34."
   - pergunta: "Quem tem atendimento prioritário, segundo a lei alterada pela LBI?"
-    opcoes: ["Pessoas com deficiência, idosos com 60 anos ou mais, gestantes, lactantes, pessoas com crianças de colo e obesos", "Só autoridades", "Ninguém"]
+    opcoes: ["Pessoas com deficiência, idosos com 60 anos ou mais, gestantes, lactantes, pessoas com crianças de colo e obesos", "Só pessoas com deficiência e idosos com mais de 80 anos", "Só gestantes e pessoas com crianças de colo"]
     resposta: 0
     explicacao: "A LBI alterou a Lei nº 10.048, de 2000."
 ---

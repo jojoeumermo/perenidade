@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
+import { AvisosDeTrilhas } from "@/components/AviseQuandoSair";
 import { GuiaDasDisciplinas } from "@/components/GuiaDasDisciplinas";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 import { ligado } from "@/lib/recursos";
@@ -41,6 +42,8 @@ export default async function Disciplinas({ params }: PageProps<"/[lang]/trilhas
         {t.tracks.lead}
       </PageHeading>
       <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><GuiaDasDisciplinas caminhos={caminhosDoGuia(tracks, stages)} s={t.tracks.guide} etapas={stages} cursoEnem={ligado("enem-curso") ? textosDoEstudo(lang).s.enem.irParaCurso : undefined} /></I18nProvider>
+      {/* Etapa 3: as trilhas marcadas com "me avise quando sair" que ganharam aula (comparação feita só no aparelho). */}
+      <AvisosDeTrilhas prontas={Object.fromEntries(tracks.map((tr) => [tr.slug, tr.lessons.length]))} titulos={Object.fromEntries(tracks.map((tr) => [tr.slug, tr.title]))} lang={lang} s={t.tracks} />
       <DisciplineBrowser groups={data} s={t.tracks} stageNames={t.stages} />
     </div>
   );

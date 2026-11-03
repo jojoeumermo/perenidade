@@ -15,7 +15,7 @@ glossario:
     definicao: "Período de quatro anos de trabalho do Congresso."
 quiz:
   - pergunta: "Por que sistema são eleitos os deputados federais?"
-    opcoes: ["Proporcional", "Majoritário", "Sorteio"]
+    opcoes: ["Proporcional", "Majoritário", "Voto distrital misto"]
     resposta: 0
     explicacao: "Está no artigo 45 da Constituição."
   - pergunta: "Por que sistema são eleitos os senadores?"

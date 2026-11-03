@@ -16,7 +16,7 @@ fontes:
     url: "https://www.marxists.org/portugues/marx/1848/ManifestoDoPartidoComunista/index.htm"
 quiz:
   - pergunta: "O que aconteceu com muitos partidos comunistas da Europa Ocidental depois de 1991?"
-    opcoes: ["Mudaram de nome e de programa, dividiram-se ou perderam força eleitoral", "Todos chegaram ao poder", "Nada mudou"]
+    opcoes: ["Mudaram de nome e de programa, dividiram-se ou perderam força eleitoral", "Todos ficaram mais fortes e ampliaram o número de filiados", "Passaram a ser os maiores partidos de seus países"]
     resposta: 0
     explicacao: "O Partido Comunista Italiano, por exemplo, transformou-se em 1991 num partido de centro-esquerda, e uma minoria fundou outro partido comunista."
   - pergunta: "Em qual estado da Índia partidos comunistas venceram eleições e governaram por vários mandatos?"
