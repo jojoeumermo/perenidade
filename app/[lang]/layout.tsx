@@ -30,7 +30,7 @@ import { pickBase } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
 import { organizacao, siteWeb } from "@/lib/dados-estruturados";
 import { campusDoSite, textosDoCampus } from "@/lib/escola/campus-servidor";
-import { textosDaBusca } from "@/lib/escola/indice";
+import { textosDaBusca } from "@/lib/escola/textos-da-busca";
 import { ligado } from "@/lib/recursos";
 import { secoesDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
