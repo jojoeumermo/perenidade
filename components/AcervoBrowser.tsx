@@ -10,6 +10,7 @@ import { normalize } from "@/lib/text";
 import { licenseName } from "./Cards";
 import { CapaDoLivro, tomDe } from "./acervo/CapaDoLivro";
 import { CartaoDaObra } from "./acervo/CartaoDaObra";
+import { Carrossel, Tarja } from "./acervo/Carrossel";
 import { Selo } from "./Selo";
 import { useHydrated } from "@/lib/storage";
 import { L, useI18n } from "./I18n";
@@ -27,74 +28,6 @@ function lerEstante(): Estante {
   } catch {
     return {};
   }
-}
-
-/** O título de uma fileira, no desenho das seções: a etiqueta com a estrela, o fio e, no fim, a contagem e os botões. */
-function Tarja({ titulo, conta, vermelha = false, children }: { titulo: string; conta?: number; vermelha?: boolean; children?: React.ReactNode }) {
-  return (
-    <div className="flex flex-wrap items-center gap-x-3.5 gap-y-3">
-      <h2 className={`shrink-0 px-3 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.2em] ${vermelha ? "bg-[#c21f16] text-white" : "bg-ink text-parchment"}`}>
-        ★ {titulo}
-        {conta !== undefined && <span className="ml-2 font-normal opacity-80">{conta}</span>}
-      </h2>
-      <span aria-hidden className={`min-w-8 flex-1 border-t-2 ${vermelha ? "border-[#c21f16]" : "border-ink"}`} />
-      {children && <span className="flex shrink-0 flex-wrap items-center gap-3">{children}</span>}
-    </div>
-  );
-}
-
-/** Pausar e continuar, desenhados em traço (nada de símbolo de teclado). */
-const Pausa = ({ tocando }: { tocando: boolean }) => (
-  <svg viewBox="0 0 16 16" aria-hidden className="h-3.5 w-3.5" fill="currentColor">
-    {tocando ? <path d="M4 2h3v12H4zM9 2h3v12H9z" /> : <path d="M4 2l10 6-10 6z" />}
-  </svg>
-);
-
-/**
- * A vitrine do acervo: uma fileira de livros que anda sozinha, em loop, e para quando o mouse passa por cima, quando
- * um livro recebe o foco do teclado ou quando a pessoa aperta "Pausar". Com movimento reduzido no aparelho, não anda:
- * vira uma fileira para rolar com o dedo.
- */
-function Carrossel({ titulo, obras, verTodas, rotulo, vermelha = false }: { titulo: string; obras: Book[]; verTodas?: () => void; rotulo: { pause: string; play: string; all: string }; vermelha?: boolean }) {
-  const [pausado, setPausado] = useState(false);
-  if (obras.length === 0) return null;
-  const loop = obras.length >= 6;
-  const lista = loop ? [...obras, ...obras] : obras;
-  return (
-    <section className="carrossel" data-pausado={pausado ? "1" : undefined} aria-roledescription="carrossel" aria-label={titulo}>
-      <Tarja titulo={titulo} conta={obras.length} vermelha={vermelha}>
-        {loop && (
-          <button type="button" aria-pressed={pausado} onClick={() => setPausado((p) => !p)} className="botao botao-papel botao-menor min-h-11">
-            <Pausa tocando={!pausado} />
-            {pausado ? rotulo.play : rotulo.pause}
-          </button>
-        )}
-        {verTodas && (
-          <button type="button" className="botao botao-papel botao-menor min-h-11" onClick={verTodas}>
-            {rotulo.all} →
-          </button>
-        )}
-      </Tarja>
-      <div className="carrossel-janela mt-5">
-        <ul className={`flex w-max pb-3 ${loop ? "carrossel-trilho" : ""}`} style={loop ? { animationDuration: `${Math.max(30, obras.length * 3.2)}s` } : undefined}>
-          {lista.map((b, i) => {
-            const copia = i >= obras.length;
-            return (
-              <li key={`${b.id}-${i}`} className="w-[9.5rem] shrink-0 pt-1 pr-6" aria-hidden={copia || undefined}>
-                <L href={`/acervo/${b.id}`} className="group block text-ink hover:text-ink" tabIndex={copia ? -1 : undefined}>
-                  <span className="block transition-transform duration-150 group-hover:-translate-y-1 group-hover:-rotate-1">
-                    <CapaDoLivro book={b} />
-                  </span>
-                  <span className="mt-3 block line-clamp-2 font-serif text-[0.95rem] font-semibold leading-tight group-hover:underline group-hover:decoration-[#c21f16]">{b.title}</span>
-                  <span className="mt-0.5 block truncate font-mono text-[0.65rem] uppercase tracking-[0.08em] text-ink-soft">{b.author}</span>
-                </L>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
-  );
 }
 
 /** Uma ordem que muda a cada dia (a mesma para todo mundo naquele dia): a vitrine não mostra sempre os mesmos livros. */
@@ -214,7 +147,7 @@ export function AcervoBrowser({ books, novidades }: { books: Book[]; /** Ids das
     </li>
   );
   const aba = (ativa: boolean) => `min-h-11 cursor-pointer border-2 border-ink px-4 font-sans text-sm font-semibold ${ativa ? "bg-ink text-parchment" : "bg-folha text-ink hover:text-prelo-texto"}`;
-  const rotulos = { pause: s.carouselPause, play: s.carouselPlay, all: s.allWorks };
+  const rotulos = { pause: s.carouselPause, play: s.carouselPlay, all: s.allWorks, back: s.carouselBack, forward: s.carouselForward };
 
   return (
     <div className="flex flex-col gap-14 max-md:gap-10">
@@ -239,7 +172,7 @@ export function AcervoBrowser({ books, novidades }: { books: Book[]; /** Ids das
 
       {!lista ? (
         <>
-          {/* A vitrine fica no alto: os livros passam sozinhos e param com o mouse em cima. */}
+          {/* A vitrine fica no alto: os livros passam sozinhos, param com o mouse em cima e têm pausa, setas e arrastar. */}
           <Carrossel titulo={s.newTitle} vermelha obras={novidades.map((id) => porId.get(id)).filter((b): b is Book => Boolean(b))} rotulo={rotulos} />
           <Carrossel titulo={s.startTitle} obras={books.filter((b) => (essential as readonly string[]).includes(b.area) && b.license === "Domínio público")} rotulo={rotulos} />
           <Carrossel titulo={s.pdTitle} vermelha obras={hidratado ? doDia(books.filter((b) => b.license === "Domínio público"), 240) : books.filter((b) => b.license === "Domínio público").slice(0, 240)} verTodas={() => abrirLista({ license: "Domínio público" })} rotulo={rotulos} />

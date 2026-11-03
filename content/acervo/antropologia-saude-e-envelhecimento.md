@@ -5,6 +5,7 @@ area: pessoas-idosas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/d2frp"
+pdf: "https://books.scielo.org/id/d2frp/pdf/minayo-9788575413043.pdf"
 idioma: "Português"
 ano: "2002"
 ---

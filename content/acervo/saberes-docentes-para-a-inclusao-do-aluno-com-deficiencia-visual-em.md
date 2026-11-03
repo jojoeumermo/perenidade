@@ -5,6 +5,7 @@ area: deficiencia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/zq8t6"
+pdf: "https://books.scielo.org/id/zq8t6/pdf/camargo-9788539303533.pdf"
 idioma: "Português"
 ano: "2012"
 ---

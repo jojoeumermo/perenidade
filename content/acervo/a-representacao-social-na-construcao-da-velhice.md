@@ -5,6 +5,7 @@ area: pessoas-idosas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/qrbn3"
+pdf: "https://books.scielo.org/id/qrbn3/pdf/d-9788574554860.pdf"
 idioma: "Português"
 ano: "2017"
 ---

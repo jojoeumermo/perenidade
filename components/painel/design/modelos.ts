@@ -45,7 +45,7 @@ function carrosselCapa(): Documento {
     marca({ x: 88, y: 72, w: 64, variante: "nome", cor: COR.Tinta }),
     numeracao(1080, 92),
     texto({ x: 88, y: 330, w: 904, texto: "O que é o\nInstituto\n_Lúcia_?", fonte: "serifa", tamanho: 170, peso: 600, entrelinha: 0.94, espacamento: -0.02, destaque: COR["Bordô"], nome: "Título", estilo: "titulo" }),
-    texto({ x: 88, y: 900, w: 800, texto: "Uma biblioteca comunitária, gratuita e sem anúncios.", fonte: "serifa", tamanho: 46, peso: 400, entrelinha: 1.22, cor: COR["Tinta suave"], nome: "Texto", estilo: "subtitulo" }),
+    texto({ x: 88, y: 900, w: 800, texto: "A escola da classe trabalhadora, gratuita e sem anúncios.", fonte: "serifa", tamanho: 46, peso: 400, entrelinha: 1.22, cor: COR["Tinta suave"], nome: "Texto", estilo: "subtitulo" }),
     rodapeSite(1080, 1214),
     texto({ x: 540, y: 1210, w: 452, texto: "Arraste para o lado →", fonte: "sans", tamanho: 20, peso: 800, alinhar: "right", espacamento: 0.08, maiusculas: true }),
   ];
@@ -520,7 +520,7 @@ const MODELOS_DA_MARCA: Modelo[] = [
       d.camadas = [
         marca({ x: 64, y: 60, w: 56, variante: "nome", cor: COR.Tinta }),
         texto({ x: 64, y: 200, w: 1072, texto: "Todo o conhecimento,\npara todos, para sempre.", fonte: "serifa", tamanho: 86, peso: 600, entrelinha: 1, espacamento: -0.02, nome: "Título" }),
-        texto({ x: 64, y: 430, w: 900, texto: "Escola e biblioteca comunitária, gratuita e sem anúncios.", fonte: "serifa", tamanho: 32, peso: 400, cor: COR["Tinta suave"] }),
+        texto({ x: 64, y: 430, w: 900, texto: "A escola da classe trabalhadora, gratuita e sem anúncios.", fonte: "serifa", tamanho: 32, peso: 400, cor: COR["Tinta suave"] }),
         texto({ x: 64, y: 540, w: 600, texto: "{link}", fonte: "mono", tamanho: 22, peso: 500, cor: COR["Bordô"], espacamento: 0.14, maiusculas: true }),
       ];
       return d;
@@ -586,7 +586,7 @@ const MODELOS_DA_MARCA: Modelo[] = [
       d.camadas = [
         marca({ x: 120, y: 182, w: 260, variante: "simbolo", cor: COR.Pergaminho }),
         texto({ x: 440, y: 190, w: 1100, texto: "Instituto Lúcia", fonte: "serifa", tamanho: 120, peso: 700, cor: COR.Pergaminho, espacamento: -0.02 }),
-        texto({ x: 444, y: 350, w: 1100, texto: "Escola e biblioteca comunitária · gratuita · sem anúncios", fonte: "mono", tamanho: 28, peso: 500, cor: COR["Ouro claro"], espacamento: 0.08, maiusculas: true }),
+        texto({ x: 444, y: 350, w: 1100, texto: "A escola da classe trabalhadora · gratuita · sem anúncios", fonte: "mono", tamanho: 28, peso: 500, cor: COR["Ouro claro"], espacamento: 0.08, maiusculas: true }),
       ];
       return d;
     },

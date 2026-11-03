@@ -5,6 +5,7 @@ area: servico-social
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/zw25x"
+pdf: "https://books.scielo.org/id/zw25x/pdf/davi-9788578791933.pdf"
 idioma: "Português"
 ano: "2011"
 ---

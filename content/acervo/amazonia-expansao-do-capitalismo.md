@@ -5,6 +5,7 @@ area: capitalismo
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/mnx6g"
+pdf: "https://books.scielo.org/id/mnx6g/pdf/cardoso-9788599662731.pdf"
 idioma: "Português"
 ano: "2008"
 ---

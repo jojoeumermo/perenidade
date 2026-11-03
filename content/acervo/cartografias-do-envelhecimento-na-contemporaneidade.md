@@ -5,6 +5,7 @@ area: pessoas-idosas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/4v5z9"
+pdf: "https://books.scielo.org/id/4v5z9/pdf/correa-9788579830037.pdf"
 idioma: "Português"
 ano: "2009"
 ---

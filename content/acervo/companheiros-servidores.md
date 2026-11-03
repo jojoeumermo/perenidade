@@ -5,6 +5,7 @@ area: sindicalismo
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/jnrq6"
+pdf: "https://books.scielo.org/id/jnrq6/pdf/silva-9788568576830.pdf"
 idioma: "Português"
 ano: "2015"
 ---

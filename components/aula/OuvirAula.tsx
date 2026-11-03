@@ -4,7 +4,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { usePathname } from "next/navigation";
-import { aquecer, definirLexico, encerrarLeitura } from "@/lib/vozes/leitor";
+import { aquecer, definirLexico, encerrarLeitura, useLeitor } from "@/lib/vozes/leitor";
 import type { Lexico } from "@/lib/vozes/normalizar";
 import { lerEscolha, VOZ_DO_APARELHO } from "@/lib/vozes/catalogo";
 import { fill } from "@/i18n/config";
@@ -24,6 +24,7 @@ export function OuvirAula({ minutos, lexico }: { minutos: string; lexico: Lexico
   const { t } = useI18n();
   const l = t.lesson;
   const falando = useSpeaking();
+  const { erro } = useLeitor();
   const pode = useSyncExternalStore(nada, speechSupported, () => false);
   const [aberto, setAberto] = useState(false);
   const [nomeDaVoz, setNomeDaVoz] = useState(l.voz.aparelho);
@@ -75,6 +76,11 @@ export function OuvirAula({ minutos, lexico }: { minutos: string; lexico: Lexico
         <span className="font-semibold">{nomeDaVoz}</span>
         <span aria-hidden>▾</span>
       </button>
+      {erro === "sem-voz" && !falando && (
+        <p role="alert" className="basis-full border-l-4 border-oxblood bg-parchment-deep px-3 py-2 font-sans text-sm text-ink">
+          {l.leitor.semVoz}
+        </p>
+      )}
       {aberto && <SeletorDeVoz fechar={() => setAberto(false)} />}
       <TocadorDaVoz />
     </div>

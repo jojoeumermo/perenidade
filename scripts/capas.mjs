@@ -8,6 +8,9 @@
 // content/capas.json. Baixa devagar (uma por segundo) e pula as que já existem. A capa que o Gutenberg gera sozinho
 // (desenho geométrico colorido, sem relação com a obra; scripts/capa-gerada.mjs) não é guardada: fica marcada como
 // "gerada" e a obra usa a capa tipográfica do site.
+// Capas escolhidas à mão (Wikimedia Commons: folha de rosto ou capa de edição antiga em domínio público; Open Library:
+// capa de livro de acesso aberto com licença Creative Commons) ficam em content/capas.json com o endereço de origem.
+// Elas foram conferidas uma a uma; o script só as baixa de novo quando o arquivo falta, e nunca as troca pela do Gutenberg.
 //
 // Uso: node scripts/capas.mjs            (baixa o que falta)
 //      node scripts/capas.mjs --refazer  (baixa tudo de novo)
@@ -64,8 +67,25 @@ if (obras.some((o) => String(o.url).includes("openstax.org"))) {
 
 let novas = 0;
 let bytes = 0;
+const escolhidaAMao = (origem) => /^https:\/\/(commons\.wikimedia\.org\/wiki\/File:|covers\.openlibrary\.org\/)/.test(origem ?? "");
+// Primeiro as escolhidas à mão que faltam no disco. Do Commons vem a miniatura de 480 px que o próprio Commons gera.
+for (const [id, credito] of Object.entries(creditos)) {
+  const destino = path.join(pastaCapas, `${id}.webp`);
+  if (!escolhidaAMao(credito.origem) || (!refazer && fs.existsSync(destino))) continue;
+  const endereco = credito.origem.startsWith("https://commons.wikimedia.org/wiki/File:")
+    ? `https://commons.wikimedia.org/wiki/Special:FilePath/${credito.origem.slice("https://commons.wikimedia.org/wiki/File:".length)}?width=480`
+    : credito.origem;
+  try {
+    bytes += await gravar(id, await baixar(endereco));
+    novas++;
+  } catch (erro) {
+    console.log(`${id}: sem capa (${erro.message})`);
+  }
+  await espera(1000);
+}
 for (const obra of obras) {
   const destino = path.join(pastaCapas, `${obra.id}.webp`);
+  if (escolhidaAMao(creditos[obra.id]?.origem)) continue;
   if (!refazer && (fs.existsSync(destino) || creditos[obra.id]?.gerada)) continue;
   let origem = null;
   let fonte = "";

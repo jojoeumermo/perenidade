@@ -5,6 +5,7 @@ area: teatro
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/qn56j"
+pdf: "https://books.scielo.org/id/qn56j/pdf/mate-9786557145364.pdf"
 idioma: "Português"
 ---
 

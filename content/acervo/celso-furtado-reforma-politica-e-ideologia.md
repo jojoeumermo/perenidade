@@ -5,6 +5,7 @@ area: dependencia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/6k7h8"
+pdf: "https://books.scielo.org/id/6k7h8/pdf/vieira-9786589992271.pdf"
 idioma: "Português"
 ano: "2019"
 ---

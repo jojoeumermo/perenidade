@@ -5,6 +5,7 @@ area: design
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/yjxnr"
+pdf: "https://books.scielo.org/id/yjxnr/pdf/paschoarelli-9788579830013.pdf"
 idioma: "Português"
 ano: "2009"
 ---

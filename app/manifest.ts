@@ -7,9 +7,10 @@ import { site } from "@/lib/site";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/pt",
-    name: site.name,
+    // Nome completo na lista de aplicativos; o nome curto cabe embaixo do ícone (até uns 12 caracteres).
+    name: pt.meta.title,
     short_name: "Lúcia",
-    description: pt.meta.description,
+    description: `${site.name}, ${site.lema}. ${pt.meta.description}`,
     lang: "pt-BR",
     start_url: "/pt",
     scope: "/",

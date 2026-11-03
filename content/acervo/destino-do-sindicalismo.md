@@ -5,6 +5,7 @@ area: sindicalismo
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/46xvm"
+pdf: "https://books.scielo.org/id/46xvm/pdf/rodrigues-9788579820007.pdf"
 idioma: "Português"
 ano: "2009"
 ---

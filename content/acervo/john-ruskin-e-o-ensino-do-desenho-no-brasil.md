@@ -5,6 +5,7 @@ area: desenho
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/pcn2d"
+pdf: "https://books.scielo.org/id/pcn2d/pdf/amaral-9786557145296.pdf"
 idioma: "Português"
 ano: "2011"
 ---

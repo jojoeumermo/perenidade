@@ -5,6 +5,7 @@ area: povos-indigenas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/qdgqt"
+pdf: "https://books.scielo.org/id/qdgqt/pdf/pagliaro-9788575412541.pdf"
 idioma: "Português"
 ano: "2005"
 ---

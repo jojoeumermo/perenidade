@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Instituto Lúcia — 社区图书馆",
+    "title": "Instituto Lúcia — 工人阶级的学校",
     "description": "自由、免费、得到保存的知识。课程、学习路径和公有领域作品馆藏，由社区共同维护。"
   },
   "common": {
@@ -1097,7 +1097,11 @@
       "velocidade": "语速",
       "frase": "第 {n} 句，共 {total} 句",
       "preparando": "正在准备语音（第一次可能需要半分钟左右）…",
-      "preparandoProxima": "正在准备下一句…"
+      "preparandoProxima": "正在准备下一句…",
+      "trecho": "第 {n} 段，共 {total} 段",
+      "vozProvisoria": "自然语音加载期间，先用设备自带的语音朗读{pct}。",
+      "naturalNoProximo": "下一段起改用自然语音。",
+      "semVoz": "这台设备无法朗读。请换一个浏览器，或在设备设置中安装语音。"
     },
     "videoCurto": {
       "selo": "短视频",
@@ -1122,7 +1126,19 @@
       "pausado": "已暂停",
       "legendasLigadas": "字幕已开启",
       "legendasDesligadas": "字幕已关闭",
-      "emRevisao": "内容审核中。"
+      "emRevisao": "内容审核中。",
+      "semSom": "静音",
+      "comSom": "取消静音",
+      "somDesligado": "声音已关闭",
+      "somLigado": "声音已开启",
+      "volume": "音量",
+      "sairTelaCheia": "退出全屏",
+      "parteAnterior": "上一部分",
+      "proximaParte": "下一部分",
+      "parte": "第 {n} 部分，共 {total} 部分",
+      "tempoDe": "{atual} / {total}",
+      "velocidadeAgora": "速度 {vel}",
+      "atalhos": "快捷键：空格或 K 播放和暂停；方向键前后移动 5 秒；J 和 L 移动 10 秒；N 和 P 切换部分；< 和 > 调整速度；M 静音；C 开关字幕；F 全屏。"
     }
   },
   "library": {
@@ -1184,6 +1200,9 @@
     "catalogLead": "从开放目录中汇集的作品，附有直达来源的链接。这些条目比编审人员精选的作品更简略。收录某部作品并不代表认同其内容。",
     "seeAt": "在 {source} 查看",
     "mecNote": "可在巴西教育部数字图书馆 MEC Livros 免费借阅电子版：只需使用 gov.br 账号登录。",
+    "pdfDownload": "下载整本书（PDF）",
+    "carouselBack": "后退：查看已经滚过的书",
+    "carouselForward": "前进：查看后面的书",
     "carouselPause": "暂停",
     "carouselPlay": "继续"
   },
@@ -1720,7 +1739,8 @@
     "sizes": [
       "默认",
       "大",
-      "更大"
+      "更大",
+      "特大"
     ],
     "contrast": "高对比度",
     "contrastHint": "黑底配黄色和白色文字，边框更明显。",
@@ -1741,7 +1761,43 @@
     "black": "纯黑",
     "blackHint": "深色主题使用纯黑背景：在 AMOLED 屏幕上更省电。",
     "light": "省流量（轻量模式）",
-    "lightHint": "隐藏图片、视频和电台播放器，去掉动画，使用设备自带字体。手机开启省流量模式时会自动打开。"
+    "lightHint": "隐藏图片、视频和电台播放器，去掉动画，使用设备自带字体。手机开启省流量模式时会自动打开。",
+    "intro": "你在这里的选择会保存在这台设备上。",
+    "groupText": "文字",
+    "groupColor": "颜色与对比度",
+    "groupReading": "阅读与动画",
+    "groupListen": "朗读",
+    "lineHeight": "行距",
+    "letterSpacing": "字距",
+    "spacingLevels": [
+      "正常",
+      "较大",
+      "很大"
+    ],
+    "dyslexia": "更易读的字体",
+    "dyslexiaHint": "把网站字体换成 Atkinson Hyperlegible，这款字体为低视力人士设计，也可能帮助有阅读障碍的人。",
+    "links": "突出显示链接",
+    "linksHint": "给所有链接加下划线和标记，方便看清哪里可以点击。",
+    "guide": "阅读辅助线",
+    "guideHint": "跟随鼠标、手指或键盘，帮你不看错行。",
+    "guideModes": [
+      "关闭",
+      "横线",
+      "遮罩"
+    ],
+    "motion": "暂停动画",
+    "motionHint": "停止移动效果、过渡效果和自动播放的视频。",
+    "cursor": "大号光标",
+    "cursorHint": "更大、带描边的鼠标指针，在屏幕上容易找到。",
+    "color": "屏幕颜色",
+    "colorHint": "去掉或加强整个网站的颜色。",
+    "colorModes": [
+      "正常",
+      "灰度",
+      "降低饱和度",
+      "提高饱和度"
+    ],
+    "resetDone": "已全部恢复默认设置。"
   },
   "data": {
     "eyebrow": "你的数据属于你",
@@ -2220,7 +2276,7 @@
       "derivative": "导数",
       "hint": "像计算器一样输入：3x^2 + 2x - 1、sqrt(x)、sin(x)、log(x)、e。小数可用点或逗号。"
     },
-    "universal": "适用于任何课程的工具：它总在课程的工具箱里。",
+    "universal": "适用于任何课程的工具：需要时随时打开。每节课的工具箱显示该学科的工具。",
     "box": {
       "open": "工具",
       "openLabel": "打开本课的工具箱",
@@ -4113,7 +4169,7 @@
   "start": {
     "eyebrow": "阅读书单",
     "title": "从哪里开始",
-    "lead": "给初来者的七个步骤：从劳动中的切身经历，到篇幅更长的著作。这里的一切都是免费的，都在本站。",
+    "lead": "给初来者的六个步骤：从劳动中的切身经历，到篇幅更长的著作。这里的一切都是免费的，都在本站。",
     "lessons": "课程",
     "readings": "读物",
     "reference": "仅为书目信息，请到图书馆查找",
@@ -5247,6 +5303,8 @@
     "endKicker": "路径的终点",
     "certTitle": "社区证书",
     "certText": "由学院认可、由你的小组签署，而不是国家。它的价值在于你学到了什么、用它做了什么。",
+    "certModelLabel": "“阶级意识”路径社区证书的样本",
+    "certModelNote": "证书样本。真正的证书由你的小组填写并签署，始终使用葡萄牙语。",
     "groupKicker": "一起更好",
     "groupTitle": "在小组里完成这门课程",
     "groupText": "每个阶段都有一小时的聚会指南和讨论问题。召集三个人就能开始。",

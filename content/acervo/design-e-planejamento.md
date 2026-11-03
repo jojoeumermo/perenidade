@@ -5,6 +5,7 @@ area: design
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/mw22b"
+pdf: "https://books.scielo.org/id/mw22b/pdf/menezes-9788579830426.pdf"
 idioma: "Português"
 ano: "2009"
 ---

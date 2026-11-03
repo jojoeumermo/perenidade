@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Instituto Lúcia — the community library",
+    "title": "Instituto Lúcia — the working-class school",
     "description": "Free, open and preserved knowledge. Lessons, learning tracks and a library of public-domain works, maintained by the community."
   },
   "common": {
@@ -1104,7 +1104,11 @@
       "velocidade": "Speed",
       "frase": "Sentence {n} of {total}",
       "preparando": "Preparing the voice (at first it can take up to half a minute)…",
-      "preparandoProxima": "Preparing the next sentence…"
+      "preparandoProxima": "Preparing the next sentence…",
+      "trecho": "Passage {n} of {total}",
+      "vozProvisoria": "Reading with the device voice while the natural voice loads{pct}.",
+      "naturalNoProximo": "The natural voice takes over at the next passage.",
+      "semVoz": "This device could not read aloud. Try another browser or install a voice in your device settings."
     },
     "videoCurto": {
       "selo": "Short video",
@@ -1129,7 +1133,19 @@
       "pausado": "Paused",
       "legendasLigadas": "Captions on",
       "legendasDesligadas": "Captions off",
-      "emRevisao": "Content under review."
+      "emRevisao": "Content under review.",
+      "semSom": "Mute",
+      "comSom": "Unmute",
+      "somDesligado": "Sound off",
+      "somLigado": "Sound on",
+      "volume": "Volume",
+      "sairTelaCheia": "Exit full screen",
+      "parteAnterior": "Previous part",
+      "proximaParte": "Next part",
+      "parte": "Part {n} of {total}",
+      "tempoDe": "{atual} of {total}",
+      "velocidadeAgora": "Speed {vel}",
+      "atalhos": "Shortcuts: space or K plays and pauses; arrows move 5 seconds; J and L move 10; N and P change part; < and > change speed; M mutes; C turns captions on; F full screen."
     }
   },
   "library": {
@@ -1191,6 +1207,9 @@
     "catalogLead": "Works gathered from open catalogues, with a direct link to the source. These entries are simpler than those selected by the curators. A work being listed here does not mean agreement with what it says.",
     "seeAt": "See at {source}",
     "mecNote": "Free digital loan from MEC Livros, the digital library of Brazil's Ministry of Education: just sign in with a gov.br account.",
+    "pdfDownload": "Download the whole book (PDF)",
+    "carouselBack": "Back: see the books that went by",
+    "carouselForward": "Forward: see the next books",
     "carouselPause": "Pause",
     "carouselPlay": "Play"
   },
@@ -1791,7 +1810,8 @@
     "sizes": [
       "Default",
       "Large",
-      "Larger"
+      "Larger",
+      "Huge"
     ],
     "contrast": "High contrast",
     "contrastHint": "Yellow and white on black, with strong borders.",
@@ -1812,7 +1832,43 @@
     "black": "Pure black",
     "blackHint": "A fully black background in the dark theme: uses less battery on AMOLED screens.",
     "light": "Data saver (light mode)",
-    "lightHint": "Hides images, videos and the radio player, removes animations and uses your device's own fonts. Turns on by itself when your phone is in data saver mode."
+    "lightHint": "Hides images, videos and the radio player, removes animations and uses your device's own fonts. Turns on by itself when your phone is in data saver mode.",
+    "intro": "Whatever you choose here is saved on this device.",
+    "groupText": "Text",
+    "groupColor": "Colors and contrast",
+    "groupReading": "Reading and motion",
+    "groupListen": "Listen",
+    "lineHeight": "Line spacing",
+    "letterSpacing": "Letter spacing",
+    "spacingLevels": [
+      "Normal",
+      "Wider",
+      "Much wider"
+    ],
+    "dyslexia": "Easier-to-read font",
+    "dyslexiaHint": "Switches the site's font to Atkinson Hyperlegible, made for people with low vision. It may help people with dyslexia.",
+    "links": "Highlight links",
+    "linksHint": "Underlines and marks every link, so it is easy to see where to click.",
+    "guide": "Reading guide",
+    "guideHint": "Follows the mouse, your finger or the keyboard so you don't lose your line.",
+    "guideModes": [
+      "Off",
+      "Line",
+      "Mask"
+    ],
+    "motion": "Pause animations",
+    "motionHint": "Stops movement, transitions and videos that play by themselves.",
+    "cursor": "Large cursor",
+    "cursorHint": "A bigger mouse pointer with an outline, easy to find on screen.",
+    "color": "Screen colors",
+    "colorHint": "Removes or boosts the colors of the whole site.",
+    "colorModes": [
+      "Normal",
+      "Grayscale",
+      "Less color",
+      "More color"
+    ],
+    "resetDone": "Everything is back to default."
   },
   "data": {
     "eyebrow": "Your data is yours",
@@ -2291,7 +2347,7 @@
       "derivative": "Derivative",
       "hint": "Type as on a calculator: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Use a dot or comma for decimals."
     },
-    "universal": "A tool for any lesson: it is always in the lessons' toolbox.",
+    "universal": "A tool for any lesson: open it whenever you need. Each lesson's toolbox shows the tools of its subject.",
     "box": {
       "open": "Tools",
       "openLabel": "Open the toolbox for this lesson",
@@ -4187,7 +4243,7 @@
   "start": {
     "eyebrow": "Reading list",
     "title": "Where to start",
-    "lead": "Seven steps for newcomers, from what you live at work to the longer texts. Everything here is free and on this site.",
+    "lead": "Six steps for newcomers, from what you live at work to the longer texts. Everything here is free and on this site.",
     "lessons": "Lessons",
     "readings": "Readings",
     "reference": "reference entry, look for it in a library",
@@ -5324,6 +5380,8 @@
     "endKicker": "At the end of the path",
     "certTitle": "Community certificate",
     "certText": "Recognized by the institute and signed by your study group, not by the state. It is worth what you learned and what you did with it.",
+    "certModelLabel": "Sample of the community certificate for the Class consciousness path",
+    "certModelNote": "Sample certificate. The real one is filled in and signed by your study group, always in Portuguese.",
     "groupKicker": "Better together",
     "groupTitle": "Do the course in a study group",
     "groupText": "Each stage has a one-hour meeting guide and questions for the circle. Gather three people and start.",

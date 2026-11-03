@@ -5,6 +5,7 @@ area: capitalismo
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/brq52"
+pdf: "https://books.scielo.org/id/brq52/pdf/souza-9788523220020.pdf"
 idioma: "Português"
 ano: "2018"
 ---

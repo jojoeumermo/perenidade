@@ -5,6 +5,7 @@ area: trabalho
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/5y76v"
+pdf: "https://books.scielo.org/id/5y76v/pdf/rodrigues-9788599662991.pdf"
 idioma: "Português"
 ano: "2009"
 ---

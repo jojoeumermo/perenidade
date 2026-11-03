@@ -5,6 +5,7 @@ area: servico-social
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/vwc8g"
+pdf: "https://books.scielo.org/id/vwc8g/pdf/piana-9788579830389.pdf"
 idioma: "Português"
 ano: "2009"
 ---

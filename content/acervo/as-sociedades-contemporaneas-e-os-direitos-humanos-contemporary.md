@@ -5,6 +5,7 @@ area: direito
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/fj5qc"
+pdf: "https://books.scielo.org/id/fj5qc/pdf/martins-9788574555256.pdf"
 idioma: "Português"
 ano: "2018"
 ---

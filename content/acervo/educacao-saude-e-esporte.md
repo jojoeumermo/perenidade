@@ -5,6 +5,7 @@ area: educacao-fisica
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/23pcw"
+pdf: "https://books.scielo.org/id/23pcw/pdf/farias-9788574554907.pdf"
 idioma: "Português"
 ano: "2016"
 ---

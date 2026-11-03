@@ -69,9 +69,10 @@ const POSITIVOS: Record<string, Pesos> = {
     [/мандел|гевар|кастро|альенде|лула|мартин лютер кинг|сенкар|лумумб|боливар|марти|сандино|сапат/, 4],
   ],
   zh: [
-    [/罢工/, 4], [/工会/, 3], [/工人|无产|农民/, 3], [/革命|起义|暴动|叛乱/, 3], [/巴黎公社|苏维埃|布尔什维克/, 4], [/废除奴隶|奴隶制|废奴/, 4],
-    [/独立|解放|主权|去殖民/, 3], [/选举权|投票权|民权|人权|妇女权利/, 4], [/女性主义|妇女|性少数|同性恋/, 2], [/原住民|土著/, 3], [/种族隔离|种族主义/, 3],
-    [/土地改革|国有化/, 3], [/社会主义|共产|马克思/, 2], [/反法西斯|大赦|宪法|德国投降/, 3], [/抗议|示威|游行|抵制/, 2], [/学生|扫盲|公立学校/, 2],
+    // A Wikipédia em chinês mistura a escrita simplificada e a tradicional: as raízes vêm nas duas.
+    [/罢工|罷工/, 4], [/工会|工會/, 3], [/工人|无产|無產|农民|農民/, 3], [/革命|起义|起義|暴动|暴動|叛乱|叛亂/, 3], [/巴黎公社|苏维埃|蘇維埃|布尔什维克|布爾什維克/, 4], [/废除奴隶|廢除奴隸|奴隶制|奴隸制|废奴|廢奴/, 4],
+    [/独立|獨立|解放|主权|主權|去殖民/, 3], [/选举权|選舉權|投票权|投票權|民权|民權|人权|人權|妇女权利|婦女權利/, 4], [/女性主义|女性主義|妇女|婦女|性少数|性少數|同性恋|同性戀/, 2], [/原住民|土著/, 3], [/种族隔离|種族隔離|种族主义|種族主義/, 3],
+    [/土地改革|国有化|國有化/, 3], [/社会主义|社會主義|共产|共產|马克思|馬克思/, 2], [/反法西斯|大赦|宪法|憲法|德国投降|德國投降/, 3], [/抗议|抗議|示威|游行|遊行|抵制/, 2], [/学生|學生|扫盲|掃盲|公立学校|公立學校/, 2],
     [/最低工资|八小时|养老金|公共卫生|疫苗/, 3], [/诺贝尔和平奖|世界人权宣言/, 2], [/曼德拉|格瓦拉|卡斯特罗|阿连德|卢拉|马丁·路德·金|桑卡拉|卢蒙巴|玻利瓦尔/, 4],
   ],
 };
@@ -194,10 +195,11 @@ function linkDe(evento: Evento, lingua: string): string {
 
 /**
  * Escolhe até `quantos` fatos de luta para a data: primeiro os da lista da equipe (só em português), depois os da
- * Wikipédia com nota boa, depois nascimentos e mortes de quem lutou. Fato sem nota boa não entra: melhor dois fatos
- * certeiros do que três aleatórios.
+ * Wikipédia com nota boa (`minimo`), depois nascimentos e mortes de quem lutou. Fato sem nota boa não entra: quando a
+ * data tem menos de três, a rota completa com os dias mais próximos do mesmo mês (juntarComVizinhos), em vez de
+ * aceitar fatos aleatórios.
  */
-export function escolherFatos(feed: Feed | null, lingua: string, curados: FatoDoDia[], quantos = 3): FatoDoDia[] {
+export function escolherFatos(feed: Feed | null, lingua: string, curados: FatoDoDia[], quantos = 3, minimo = 4): FatoDoDia[] {
   const vistos = new Set<string>();
   const saida: (FatoDoDia & { n: number })[] = [];
   // Palavras de quatro letras ou mais: dois textos do mesmo ano que dividem três delas contam o mesmo fato.
@@ -220,7 +222,7 @@ export function escolherFatos(feed: Feed | null, lingua: string, curados: FatoDo
     const texto = limpar(evento.text!);
     if (contraRevolucao(texto, evento.year!)) continue;
     const n = nota(texto, lingua);
-    if (n >= 4) somar({ ano: evento.year!, texto, link: linkDe(evento, lingua) }, n);
+    if (n >= minimo) somar({ ano: evento.year!, texto, link: linkDe(evento, lingua) }, n);
   }
   const pessoas = (lista: Evento[] | undefined, verbo: string) => {
     for (const evento of lista ?? []) {
@@ -238,4 +240,44 @@ export function escolherFatos(feed: Feed | null, lingua: string, curados: FatoDo
     .slice(0, quantos)
     .sort((a, b) => b.ano - a.ano)
     .map(({ ano, texto, link }) => ({ ano, texto, link }));
+}
+
+/** Um fato com a data dele ("DD/MM") quando não é do dia de hoje. */
+export interface FatoComData extends FatoDoDia {
+  dia?: string;
+}
+
+/**
+ * Os outros dias do mesmo mês, do mais perto para o mais longe (o de antes primeiro em caso de empate). Serve para
+ * completar o quadro quando a data de hoje tem menos de três fatos de luta. `mes` vai de 1 a 12.
+ */
+export function diasVizinhos(dia: number, mes: number, ano: number, alcance = 6): number[] {
+  const ultimo = new Date(Date.UTC(ano, mes, 0)).getUTCDate();
+  const saida: number[] = [];
+  for (let distancia = 1; distancia <= alcance; distancia++) {
+    if (dia - distancia >= 1) saida.push(dia - distancia);
+    if (dia + distancia <= ultimo) saida.push(dia + distancia);
+  }
+  return saida;
+}
+
+const chaveDoFato = (fato: FatoDoDia) => (/\/wiki\/./.test(fato.link) ? `${fato.ano}:${fato.link}` : `${fato.ano}:${simples(fato.texto).slice(0, 40)}`);
+
+/**
+ * Junta os fatos de hoje com os de outros dias do mês (já em ordem de proximidade) até chegar a `quantos`. Os de hoje
+ * vêm primeiro e sem data; os de outros dias levam a data, para a página dizer de quando é cada um. Fato repetido
+ * (mesmo ano e mesmo link) entra uma vez só.
+ */
+export function juntarComVizinhos(hoje: FatoDoDia[], vizinhos: { dia: string; fatos: FatoDoDia[] }[], quantos = 3): FatoComData[] {
+  const saida: FatoComData[] = [];
+  const vistos = new Set<string>();
+  const por = (fato: FatoDoDia, dia?: string) => {
+    const chave = chaveDoFato(fato);
+    if (saida.length >= quantos || vistos.has(chave)) return;
+    vistos.add(chave);
+    saida.push(dia ? { ...fato, dia } : { ...fato });
+  };
+  for (const fato of hoje) por(fato);
+  for (const vizinho of vizinhos) for (const fato of vizinho.fatos) por(fato, vizinho.dia);
+  return saida;
 }
