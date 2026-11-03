@@ -26,7 +26,6 @@ if (ambiente === "preview" && !ramo.startsWith("preview/")) {
 const ignorado = (arquivo) =>
   arquivo.startsWith("docs/") ||
   arquivo.startsWith(".github/") ||
-  arquivo.startsWith(".claude/") ||
   /^supabase\/[^/]+\.sql$/.test(arquivo) ||
   (arquivo.startsWith("supabase/functions/") && !arquivo.startsWith("supabase/functions/_shared/")) ||
   /^scripts\/testar-[^/]+$/.test(arquivo) ||
