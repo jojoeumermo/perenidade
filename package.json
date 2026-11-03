@@ -9,6 +9,7 @@
     "prebuild": "node scripts/gerar-epub.mjs && node scripts/vozes-baixar.mjs",
     "build": "next build",
     "orcamento:peso": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/orcamento-peso.mjs",
+    "conferir:rastreio": "node scripts/conferir-rastreio.mjs",
     "epub": "node scripts/gerar-epub.mjs",
     "start": "next start",
     "lint": "eslint",

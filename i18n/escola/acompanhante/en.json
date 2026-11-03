@@ -22,7 +22,12 @@
       "trabalho": "the job you tell us",
       "redacao": "the essay and the topic",
       "foto": "the reduced photo, with your black bars",
-      "idioma": "the practice language"
+      "idioma": "the practice language",
+      "vaga": "the job you write",
+      "fala": "the text of your speech",
+      "formulario": "the form text you paste",
+      "resumo": "the lesson title and summary",
+      "tema": "the topic you write"
     },
     "comoFunciona": "How it works",
     "historicoAqui": "This conversation is kept only on this device (up to 20 conversations, for 30 days).",
@@ -65,7 +70,12 @@
       "outro-jeito": "Another way",
       "redacao": "Essay",
       "documento": "Document",
-      "conversa": "Language practice"
+      "conversa": "Language practice",
+      "entrevista": "Interview practice",
+      "oratoria": "Public-speaking practice",
+      "papelada": "Paperwork helper",
+      "turma": "Class debate",
+      "educador": "Educator draft"
     }
   },
   "duvida": {

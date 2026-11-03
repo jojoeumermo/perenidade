@@ -111,3 +111,7 @@ jobs:
       # O peso do que o navegador baixa nas páginas principais, contra o orçamento combinado (lê a saída do build acima).
       - name: Orçamento de peso
         run: npm run orcamento:peso
+      # Quantos arquivos cada função do servidor leva junto: o projeto inteiro em quase toda função fez o envio do deploy
+      # passar de 45 min na Vercel (scripts/conferir-rastreio.mjs).
+      - name: Rastreio de arquivos das funções
+        run: npm run conferir:rastreio

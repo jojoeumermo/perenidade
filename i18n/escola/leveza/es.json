@@ -1,0 +1,58 @@
+{
+  "convite": {
+    "rotulo": "Invitación: modo ahorro de datos",
+    "titulo": "¿Tu paquete de datos se acaba rápido?",
+    "textoPacoteAcaba": "Dijiste que el paquete se acaba. El modo ahorro de datos deja el sitio más liviano y avisa antes de descargar algo grande.",
+    "textoEconomia": "Tu dispositivo está en ahorro de datos. El modo ahorro de datos deja el sitio más liviano.",
+    "textoRedeLenta": "Tu conexión está lenta. El modo ahorro de datos deja el sitio más liviano.",
+    "ligar": "Activar el modo ahorro de datos",
+    "agora": "Ahora no",
+    "nunca": "No preguntar más",
+    "aviso": "La elección queda solo en este dispositivo."
+  },
+  "libras": {
+    "botao": "Ver esta clase en Libras",
+    "titulo": "Traductor de Libras del gobierno federal",
+    "aviso": "El traductor es un servicio externo, del gobierno federal. Al cargarlo, tu dispositivo descarga programas de su sitio. La traducción es automática, puede equivocarse y no sustituye a un intérprete de Libras.",
+    "avisoPacote": "Con el modo ahorro de datos activado, esto puede gastar parte de tu paquete de datos.",
+    "carregar": "Cargar el traductor",
+    "cancelar": "Ahora no",
+    "carregando": "Cargando el traductor…",
+    "ligado": "Traductor activado. Toca el icono de las manos y luego el texto que quieres ver en Libras.",
+    "ligadoCurto": "Traductor de Libras activado",
+    "erro": "No pude cargar el traductor ahora. Inténtalo de nuevo más tarde.",
+    "soPortugues": "El traductor de Libras entiende solo portugués.",
+    "abrirEmPortugues": "Abrir esta clase en portugués",
+    "humano": "Ver esta clase en Libras, con intérprete",
+    "humanoFonte": "Fuente: {fonte}. Intérprete: {interprete}. En revisión."
+  },
+  "leve": {
+    "resumo": "Estudiar más liviano",
+    "pacote": "Modo ahorro de datos",
+    "pacoteDica": "También activa el modo liviano: sin imágenes pesadas, sin animaciones, con las fuentes del dispositivo, y oculta las simulaciones.",
+    "desligarLeve": "Desactivar también el modo liviano",
+    "soTexto": "Solo el texto",
+    "soTextoDica": "Oculta el margen, las clases parecidas y los educadores. El texto de la clase sigue completo.",
+    "ligou": "{nome} activado",
+    "desligou": "{nome} desactivado",
+    "nota": "Esto cambia lo que se muestra, no lo que ya se descargó. Para gastar menos de verdad, descarga solo el texto o guarda la ruta con Wi-Fi."
+  },
+  "levar": {
+    "titulo": "Llevar esta clase",
+    "texto": "Descargar solo el texto (unos {tamanho})",
+    "livro": "Descargar la ruta como libro (EPUB)",
+    "livroDica": "Se abre en lectores de libros y en celulares antiguos.",
+    "espelhoTitulo": "Si el sitio se cae, lee aquí",
+    "espelhoDica": "Versión de solo lectura, sin JavaScript, que se abre en un celular antiguo."
+  },
+  "telaApagada": {
+    "titulo": "Escuchar con la pantalla apagada",
+    "texto": "Toca Escuchar la clase, elige la voz natural y apaga la pantalla: la lectura continúa y los controles aparecen en la pantalla de bloqueo. La voz del dispositivo puede detenerse cuando la pantalla se apaga."
+  },
+  "medidor": {
+    "botao": "Ver cuánto gastó esta página",
+    "resultado": "Hasta ahora, esta página gastó cerca de {tamanho} de la red.",
+    "ressalva": "No incluye lo que vino de fuera, como el traductor de Libras, ni lo que ya estaba guardado en el dispositivo.",
+    "semInfo": "El navegador no lo informó."
+  }
+}

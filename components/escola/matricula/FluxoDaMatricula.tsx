@@ -31,6 +31,7 @@ import {
 } from "@/lib/escola/estudante";
 import { type CursoDoAparelho, editarMatricula, limparApelido, PADROES_AO_PULAR, sugerirCursos, trilhasDoNivelamento } from "@/lib/escola/matricula";
 import { lerNivelamentos } from "@/lib/meu-estudo";
+import { setPrefs } from "@/lib/prefs";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { PerguntaDeVida, type TextosDoFluxo, VoltarEPular } from "./PerguntaDeVida";
 import { SugestaoDeCursos } from "./SugestaoDeCursos";
@@ -135,6 +136,7 @@ const dataLonga = (dia: string, lang: string) => new Intl.DateTimeFormat(lang, {
 
 /** O convite da economia de dados (o modo leve que já existe, no painel de acessibilidade), para quem disse que o pacote acaba. */
 function ConviteLeve({ s }: { s: TextosDoFluxo["leve"] }) {
+  const [pacoteLigado, setPacoteLigado] = useState(false);
   return (
     <div className="mt-6 border-l-4 border-gold bg-parchment-deep p-4 font-sans" data-convite-leve="">
       <p className="font-semibold">{s.titulo}</p>
@@ -142,6 +144,21 @@ function ConviteLeve({ s }: { s: TextosDoFluxo["leve"] }) {
       <button type="button" className="mt-3 min-h-11 cursor-pointer underline hover:text-oxblood" onClick={() => window.dispatchEvent(new Event(ABRIR_ACESSIBILIDADE))}>
         {s.botao}
       </button>
+      {/* E4-17: o modo pacote de dados (lib/prefs.ts), que também liga o modo leve; fica só no aparelho. */}
+      <p className="mt-3 text-sm text-ink-soft">{s.pacoteTexto}</p>
+      <button
+        type="button"
+        className="mt-2 min-h-11 cursor-pointer underline hover:text-oxblood"
+        onClick={() => {
+          setPrefs({ pacote: true });
+          setPacoteLigado(true);
+        }}
+      >
+        {s.pacoteBotao}
+      </button>
+      <p className="mt-1 text-sm font-semibold" role="status">
+        {pacoteLigado ? s.pacoteLigado : ""}
+      </p>
     </div>
   );
 }

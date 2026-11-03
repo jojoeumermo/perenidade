@@ -54,6 +54,14 @@ O "apagar" também chama `apagarEscola()` e tenta `indexedDB.deleteDatabase("luc
 
 Na onda 1 entram na cópia, além do prefixo da Escola, `lucia:posicao-da-aula`, `lucia:aula-em-partes` e `lucia:uma-mao` (E4-03).
 
+Chaves novas da onda 4 (todas dentro dos dois prefixos, sem editar `estudante.ts`):
+
+- E4-17 ([leveza](escola/leveza.md)): `lucia:escola:aula-leve` (entra na cópia, sai no apagar) e `lucia:modo-pacote-convite` (fora da cópia, em `SO_APAGAR`); a preferência `pacote` vive dentro de `lucia:acessibilidade`.
+- E4-11 ([vida](escola/vida.md)): `lucia:escola:tarefas` e `lucia:escola:missoes` (entram na cópia); `lucia:escola-privado:vozes` e `lucia:escola-privado:caso-do-bairro` (fora da cópia); IndexedDB `lucia-explicacoes` (áudios, apagada no "apagar meus dados").
+- E4-12 ([organização](escola/organizacao.md)): `lucia:escola:assembleia`, `lucia:escola:roda-do-semestre` e `lucia:escola:ouvidoria-protocolos` (entram na cópia).
+- E4-14 ([formatura](escola/formatura.md)): `lucia:escola:caderneta` e `lucia:escola:projeto` (entram na cópia, e `restaurarCopia` junta por id e por curso, sem substituir) e `lucia:escola-privado:mural-rascunho` (fora da cópia).
+- E4-16 ([agentes](escola/agentes.md)): `lucia:escola-privado:ensaios` (só números), `lucia:escola-privado:conversas` (o histórico do acompanhante, compartilhado) e, em `sessionStorage`, `lucia:escola-privado:rascunho-para-revisao` (lido uma vez e apagado).
+
 ## Formato do curso
 
 Explicado em `content/escola/cursos/LEIA-ME.md`. Em resumo: um `<slug>.json` por curso; só aulas que existem (`trilha/aula`, o slug do endereço); pelo menos 6 aulas e nenhuma repetida; patrono só do Memorial; leituras só do Acervo; requisitos sem ciclo. As horas são **estimativa** (leitura + 2 min por questão + 3 min por exercício, arredondadas para meia hora). `npm run testar:escola` valida todos os arquivos da pasta.

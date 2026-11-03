@@ -4,6 +4,7 @@
 import dynamic from "next/dynamic";
 import { Component, type ReactNode } from "react";
 import type { Interativo as Tipo } from "@/lib/interativos";
+import { ligado } from "@/lib/recursos";
 
 // Cada bloco interativo baixa o próprio código só quando aparece na aula: aula sem blocos não carrega nada a mais.
 // O next/dynamic só aceita as opções escritas em cada chamada.
@@ -32,6 +33,7 @@ const Cena = dynamic(() => import("./Montar").then((m) => m.Cena), { ssr: false,
 const Arrastar = dynamic(() => import("./Montar").then((m) => m.Arrastar), { ssr: false, loading: espera });
 const Frase = dynamic(() => import("./Montar").then((m) => m.Frase), { ssr: false, loading: espera });
 const VideoCurto = dynamic(() => import("../videos/VideoCurto").then((m) => m.VideoCurtoDoBloco), { ssr: false, loading: espera });
+const DocumentoReal = dynamic(() => import("./DocumentoReal").then((m) => m.DocumentoReal), { ssr: false, loading: espera });
 const Recurso = dynamic(() => import("./Recurso").then((m) => m.Recurso), { ssr: false, loading: espera });
 
 const COMPONENTES: Record<Tipo, React.ComponentType<{ spec: string }>> = {
@@ -60,6 +62,7 @@ const COMPONENTES: Record<Tipo, React.ComponentType<{ spec: string }>> = {
   ferramenta: Ferramenta,
   recurso: Recurso,
   videocurto: VideoCurto,
+  documento: DocumentoReal,
 };
 
 /** Se o bloco quebrar (dado mal escrito, navegador antigo), a aula continua e mostra o conteúdo em texto. */
@@ -78,6 +81,11 @@ export function Interativo({ tipo, spec }: { tipo: Tipo; spec: string }) {
   return (
     <Reserva spec={spec}>
       <Bloco spec={spec} />
+      {tipo === "documento" && ligado("escola") && (
+        <noscript>
+          <pre className="my-6 whitespace-pre-wrap font-sans text-sm">{spec}</pre>
+        </noscript>
+      )}
     </Reserva>
   );
 }

@@ -11,12 +11,6 @@ import fr from "@/i18n/escola/matricula/fr.json";
 import pt from "@/i18n/escola/matricula/pt.json";
 import ru from "@/i18n/escola/matricula/ru.json";
 import zh from "@/i18n/escola/matricula/zh.json";
-import presencaEn from "@/i18n/escola/presenca/en.json";
-import presencaEs from "@/i18n/escola/presenca/es.json";
-import presencaFr from "@/i18n/escola/presenca/fr.json";
-import presencaPt from "@/i18n/escola/presenca/pt.json";
-import presencaRu from "@/i18n/escola/presenca/ru.json";
-import presencaZh from "@/i18n/escola/presenca/zh.json";
 import type { Locale } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
 import type { ExercicioNovo } from "@/lib/exercicios";
@@ -29,8 +23,8 @@ import { escolher } from "./textos";
 /** Os textos da matrícula, da carteirinha, do plano e do "quem volta" (i18n/escola/matricula), no idioma. */
 export type TextosDaMatricula = typeof pt;
 export const textosDaMatricula = (lang: string): TextosDaMatricula => escolher({ pt, en, es, fr, ru, zh }, lang);
-/** Os textos da presença somada (E4-02), que o "quem volta" mostra. */
-export const textosDaPresenca = (lang: string): typeof presencaPt => escolher({ pt: presencaPt, en: presencaEn, es: presencaEs, fr: presencaFr, ru: presencaRu, zh: presencaZh }, lang);
+/** Os textos da presença somada (E4-02), que o "quem volta" mostra. Moram em ./textos-da-presenca (sem disco). */
+export { textosDaPresenca } from "./textos-da-presenca";
 
 /** Os cursos válidos, só com o que o aparelho usa. */
 export function cursosDoAparelho(): CursoDoAparelho[] {

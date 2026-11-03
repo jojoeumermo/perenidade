@@ -1,0 +1,308 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Caderneta do trabalhador, projeto final e formatura da Escola Lúcia Maria (Etapa 4, pacote E4-14). Mesmo visual do
+ * Caderno do Povo: papel, tinta e fio fino. Celular de entrada primeiro: nada passa de 360 px de largura. Carregado só
+ * nas páginas do pacote.
+ */
+
+.formatura-pilha {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+.formatura-cartao {
+  border: 1px solid var(--ink-soft);
+  border-left: 4px solid var(--ink);
+  padding: 1rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.formatura-cartao > * + * {
+  margin-top: 0.6rem;
+}
+.formatura-h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.formatura-h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.formatura-fraco {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.formatura-erro {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--prelo-texto, #7a1f1f);
+}
+.formatura-aviso {
+  border: 2px solid var(--ink);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+.formatura-selo,
+.formatura-selo-aparelho {
+  display: inline-block;
+  margin-left: 0.4rem;
+  border: 1px solid currentColor;
+  padding: 0 0.4rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.formatura-selo-aparelho {
+  margin-left: 0;
+  justify-self: start;
+}
+.formatura-lista {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.formatura-registros,
+.formatura-etapas {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.formatura-titulo-do-registro {
+  font-weight: 600;
+}
+.formatura-detalhe {
+  white-space: pre-wrap;
+}
+.formatura-barra,
+.formatura-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  list-style: none;
+  padding: 0;
+}
+.formatura-botao,
+.formatura-botao-fraco {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  border: 2px solid var(--ink);
+  padding: 0.4rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+.formatura-botao {
+  background: var(--ink);
+  color: var(--paper);
+}
+.formatura-botao:hover:not(:disabled) {
+  border-color: var(--oxblood, var(--ink));
+  background: var(--oxblood, var(--ink));
+}
+.formatura-botao-fraco {
+  background: transparent;
+  color: var(--ink);
+}
+.formatura-botao-fraco:hover:not(:disabled) {
+  border-color: var(--oxblood, var(--ink));
+  color: var(--oxblood, var(--ink));
+}
+.formatura-botao:disabled,
+.formatura-botao-fraco:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.formatura-link {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.formatura-link:hover {
+  color: var(--oxblood, inherit);
+}
+.formatura-form {
+  display: grid;
+  gap: 0.75rem;
+}
+.formatura-form label,
+.formatura-campo-em-linha {
+  display: grid;
+  gap: 0.25rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+.formatura-campo-em-linha {
+  max-width: 28rem;
+}
+.formatura-form input[type="text"],
+.formatura-form input[type="date"],
+.formatura-form select,
+.formatura-form textarea,
+.formatura-campo-em-linha select {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  background: transparent;
+  padding: 0.4rem 0.6rem;
+  font: inherit;
+  color: inherit;
+}
+.formatura-form fieldset {
+  display: grid;
+  gap: 0.4rem;
+  border: 1px solid var(--ink-soft);
+  padding: 0.75rem;
+  min-width: 0;
+}
+label.formatura-marca {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+.formatura-marca input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  flex: none;
+}
+.formatura-bloco {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  border: 1px dashed var(--ink-soft);
+  padding: 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+.formatura-etapas [data-feita] {
+  border-left-color: var(--oxblood, var(--ink));
+}
+
+/* ── Tela de parabéns: sem confete e sem som; só um brilho suave ── */
+.formatura-parabens {
+  border: 3px solid var(--ink);
+  padding: 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+  animation: formatura-surge 0.5s ease both;
+}
+@keyframes formatura-surge {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .formatura-parabens {
+    animation: none;
+  }
+  .formatura-botao,
+  .formatura-botao-fraco {
+    transition: none;
+  }
+}
+
+/* ── Folhas (caderneta e registro): na tela é uma prévia; no papel só ela sai ── */
+.caderneta-folha,
+.registro-folha {
+  border: 1px solid var(--ink-soft);
+  padding: 1rem;
+  background: #fff;
+  color: #111;
+  overflow-wrap: anywhere;
+}
+.caderneta-folha h1,
+.registro-folha h1 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.caderneta-folha h2 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.caderneta-folha li {
+  margin-top: 0.4rem;
+}
+.caderneta-folha footer,
+.registro-aviso {
+  margin-top: 1.5rem;
+  border-top: 1px solid #111;
+  padding-top: 0.6rem;
+  font-size: 0.8rem;
+}
+.registro-folha {
+  min-height: 12rem;
+  text-align: center;
+}
+.registro-folha > * + * {
+  margin-top: 0.75rem;
+}
+.registro-escola {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.registro-quem {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.registro-folha dl {
+  display: grid;
+  gap: 0.4rem;
+  text-align: left;
+}
+.registro-folha dl div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  border-bottom: 1px dotted #111;
+}
+.registro-folha dt {
+  font-weight: 600;
+}
+
+/* O bloco da folha impressa fica escondido na tela (mesmo padrão da carteirinha). */
+.caderneta-impressao {
+  display: none;
+}
+@media print {
+  body:has(> .caderneta-impressao) > :not(.caderneta-impressao) {
+    display: none !important;
+  }
+  body:has(> .caderneta-impressao) {
+    background: #fff !important;
+  }
+  .caderneta-impressao {
+    display: block;
+  }
+  .caderneta-impressao .caderneta-folha,
+  .caderneta-impressao .registro-folha {
+    border: 0;
+    padding: 0;
+  }
+}

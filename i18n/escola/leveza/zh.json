@@ -1,0 +1,58 @@
+{
+  "convite": {
+    "rotulo": "邀请：流量节省模式",
+    "titulo": "您的流量套餐很快就用完吗？",
+    "textoPacoteAcaba": "您说过流量套餐很快就会用完。流量节省模式会让网站更轻，并在下载较大内容之前提醒您。",
+    "textoEconomia": "您的设备正在节省流量。流量节省模式会让网站更轻。",
+    "textoRedeLenta": "您的网络很慢。流量节省模式会让网站更轻。",
+    "ligar": "开启流量节省模式",
+    "agora": "暂时不要",
+    "nunca": "不再询问",
+    "aviso": "这个选择只保存在这台设备上。"
+  },
+  "libras": {
+    "botao": "用 Libras 观看这节课",
+    "titulo": "联邦政府的 Libras 翻译器",
+    "aviso": "翻译器是联邦政府提供的外部服务。加载时，您的设备会从它的网站下载程序。翻译是自动的，可能出错，不能替代 Libras 手语翻译员。",
+    "avisoPacote": "开启流量节省模式后，这可能会消耗您的一部分流量。",
+    "carregar": "加载翻译器",
+    "cancelar": "暂时不要",
+    "carregando": "正在加载翻译器…",
+    "ligado": "翻译器已开启。点按双手图标，再点按您想用 Libras 观看的文字。",
+    "ligadoCurto": "Libras 翻译器已开启",
+    "erro": "现在无法加载翻译器。请稍后再试。",
+    "soPortugues": "Libras 翻译器只能理解葡萄牙语。",
+    "abrirEmPortugues": "用葡萄牙语打开这节课",
+    "humano": "用 Libras 观看这节课（有手语翻译员）",
+    "humanoFonte": "来源：{fonte}。手语翻译员：{interprete}。审核中。"
+  },
+  "leve": {
+    "resumo": "更轻地学习",
+    "pacote": "流量节省模式",
+    "pacoteDica": "同时开启轻量模式：没有大图、没有动画、使用设备字体，并隐藏模拟实验。",
+    "desligarLeve": "同时关闭轻量模式",
+    "soTexto": "仅文字",
+    "soTextoDica": "隐藏边栏、相似的课程和教育工作者。课程正文保持完整。",
+    "ligou": "{nome}已开启",
+    "desligou": "{nome}已关闭",
+    "nota": "这只改变显示的内容，不改变已经下载的内容。要真正省流量，请只下载文字，或在 Wi-Fi 下保存课程路线。"
+  },
+  "levar": {
+    "titulo": "带走这节课",
+    "texto": "只下载文字（约 {tamanho}）",
+    "livro": "把课程路线下载为电子书（EPUB）",
+    "livroDica": "可在电子书阅读器和旧手机上打开。",
+    "espelhoTitulo": "如果网站打不开，请在这里阅读",
+    "espelhoDica": "只读版本，不含 JavaScript，旧手机也能打开。"
+  },
+  "telaApagada": {
+    "titulo": "息屏收听",
+    "texto": "点按“收听这节课”，选择自然语音，然后关闭屏幕：朗读会继续，控制按钮会显示在锁屏界面。屏幕熄灭时，设备自带的语音可能会停止。"
+  },
+  "medidor": {
+    "botao": "查看这个页面用了多少流量",
+    "resultado": "到目前为止，这个页面使用了约 {tamanho} 的网络流量。",
+    "ressalva": "不包括来自外部的内容（例如 Libras 翻译器），也不包括设备上已经保存的内容。",
+    "semInfo": "浏览器没有提供。"
+  }
+}

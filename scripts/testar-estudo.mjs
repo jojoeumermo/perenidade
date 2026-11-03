@@ -2,7 +2,7 @@
 // Confere o estudo guardado no navegador: a conta da repetição espaçada, o caderno de erros e a cópia de segurança
 // (que nunca pode levar chave de aparelho, de sala ou de sessão).
 import { avaliarSenha } from "../lib/forca-senha.ts";
-import { agendar, apagarErro, chavesDeEstudo, entraNaCopia, guardarCartoes, idDaQuestao, lerCartoes, lerCopia, lerErros, montarCopia, paraHoje, refazerErro, registrarErro, responderCartao, restaurarCopia, somarDias } from "../lib/estudo.ts";
+import { agendar, apagarErro, chavesDeEstudo, chavesSoApagar, entraNaCopia, guardarCartoes, idDaQuestao, lerCartoes, lerCopia, lerErros, montarCopia, paraHoje, refazerErro, registrarErro, responderCartao, restaurarCopia, somarDias } from "../lib/estudo.ts";
 
 let ok = 0;
 const falhas = [];
@@ -72,6 +72,46 @@ const n = restaurarCopia(lerCopia(JSON.stringify(copia)), destino);
 const cadernos = JSON.parse(destino.getItem("lucia:caderno"));
 conferir("restaura e junta por id", n === 4 && cadernos.length === 2 && cadernos.find((x) => x.id === "k1").titulo === "Novo", JSON.stringify(cadernos));
 conferir("restaurar não toca em chave de sala", destino.getItem("lucia:sala-chave") === "MEU");
+
+// Caderneta, projeto e rascunho do Mural (E4-14): os dois primeiros entram na cópia; o rascunho privado fica fora da
+// cópia, mas sai no "apagar meus dados" (chavesSoApagar e apagarEscola).
+{
+  const caderneta = JSON.stringify([{ id: "formatura-costura", tipo: "outro", data: "2026-11-01", titulo: "Formatura: Costura", detalhe: "" }]);
+  const projeto = JSON.stringify({ versao: 1, cursos: { costura: { etapas: { plano: "2026-10-01" } } } });
+  const rascunho = JSON.stringify({ curso: "costura", oficio: "Costureira", descricao: "Ajustes e consertos" });
+  const mem = new Memoria({ "lucia:escola:caderneta": caderneta, "lucia:escola:projeto": projeto, "lucia:escola-privado:mural-rascunho": rascunho });
+  conferir("a caderneta e o projeto entram na cópia", entraNaCopia("lucia:escola:caderneta") && entraNaCopia("lucia:escola:projeto"));
+  const feita = montarCopia(mem);
+  conferir("a cópia leva caderneta e projeto, e não leva o rascunho do Mural", "lucia:escola:caderneta" in feita.dados && "lucia:escola:projeto" in feita.dados && !("lucia:escola-privado:mural-rascunho" in feita.dados), JSON.stringify(Object.keys(feita.dados)));
+  conferir("o rascunho do Mural fica fora da cópia mas sai no apagar", !entraNaCopia("lucia:escola-privado:mural-rascunho") && chavesSoApagar(mem).join() === "lucia:escola-privado:mural-rascunho");
+  const forjadaDoMural = lerCopia(JSON.stringify({ formato: "lucia-copia", versao: 1, dados: { "lucia:escola-privado:mural-rascunho": rascunho, "lucia:escola:caderneta": caderneta } }));
+  conferir("cópia forjada não grava o rascunho privado", forjadaDoMural && !("lucia:escola-privado:mural-rascunho" in forjadaDoMural.dados));
+  // Restaurar com a mesma caderneta de novo nunca duplica o registro nem perde o que já estava no aparelho.
+  const local = new Memoria({ "lucia:escola:caderneta": JSON.stringify([{ id: "r-local", tipo: "outro", data: "2026-11-02", titulo: "Local", detalhe: "" }]) });
+  restaurarCopia(lerCopia(JSON.stringify(feita)), local);
+  restaurarCopia(lerCopia(JSON.stringify(feita)), local);
+  const depois = JSON.parse(local.getItem("lucia:escola:caderneta"));
+  conferir("restaurar a caderneta duas vezes não duplica o registro", depois.filter((r) => r.id === "formatura-costura").length === 1, JSON.stringify(depois));
+  conferir("restaurar a caderneta junta por id e não perde o registro local", depois.length === 2 && depois.some((r) => r.id === "r-local"), JSON.stringify(depois));
+  // Projeto final: junta por curso; etapas se unem, a data mais recente vence e nada local se perde.
+  const projLocal = new Memoria({
+    "lucia:escola:projeto": JSON.stringify({ versao: 1, cursos: { trancas: { tema: "Local", etapas: { tema: "2026-09-01" } }, costura: { tema: "Antigo", notas: "minhas notas", etapas: { plano: "2026-09-10", rascunho: "2026-10-20" } } } }),
+  });
+  restaurarCopia(lerCopia(JSON.stringify(feita)), projLocal);
+  restaurarCopia(lerCopia(JSON.stringify(feita)), projLocal);
+  const proj = JSON.parse(projLocal.getItem("lucia:escola:projeto"));
+  conferir("restaurar o projeto mantém o curso que só existe no aparelho", proj.cursos.trancas?.tema === "Local", JSON.stringify(proj));
+  conferir("restaurar o projeto junta as etapas do mesmo curso sem perder nada local", proj.cursos.costura.etapas.rascunho === "2026-10-20" && proj.cursos.costura.etapas.plano === "2026-10-01" && proj.cursos.costura.notas === "minhas notas", JSON.stringify(proj));
+  const projVazio = new Memoria();
+  restaurarCopia(lerCopia(JSON.stringify(feita)), projVazio);
+  conferir("restaurar o projeto num aparelho vazio traz o projeto da cópia", JSON.parse(projVazio.getItem("lucia:escola:projeto")).cursos.costura.etapas.plano === "2026-10-01");
+  // "Apagar meus dados" da Escola: as três chaves saem.
+  globalThis.localStorage = mem;
+  const { apagarEscola } = await import("../lib/escola/estudante.ts");
+  apagarEscola();
+  conferir("apagar tira caderneta, projeto e rascunho do Mural", mem.length === 0, JSON.stringify(Object.keys(mem.d)));
+  globalThis.localStorage = new Memoria();
+}
 
 // Senha nova: 12 ou mais, nada comum, nada de nome com número, nada de repetição; frase longa sem símbolo é forte.
 conferir("curta não passa", !avaliarSenha("Ab1!xyz").aceita);

@@ -22,7 +22,12 @@
       "trabalho": "le métier que vous indiquez",
       "redacao": "la rédaction et le sujet",
       "foto": "la photo réduite, avec vos bandes noires",
-      "idioma": "la langue pratiquée"
+      "idioma": "la langue pratiquée",
+      "vaga": "le poste que vous écrivez",
+      "fala": "le texte de votre discours",
+      "formulario": "le texte du formulaire que vous collez",
+      "resumo": "le titre et le résumé du cours",
+      "tema": "le thème que vous écrivez"
     },
     "comoFunciona": "Comment ça marche",
     "historicoAqui": "Cette conversation est gardée uniquement sur cet appareil (jusqu'à 20 conversations, pendant 30 jours).",
@@ -65,7 +70,12 @@
       "outro-jeito": "Autrement",
       "redacao": "Rédaction",
       "documento": "Document",
-      "conversa": "Pratique de langue"
+      "conversa": "Pratique de langue",
+      "entrevista": "Entraînement à l'entretien",
+      "oratoria": "Entraînement à la prise de parole",
+      "papelada": "Aide pour les papiers",
+      "turma": "Débat de la classe",
+      "educador": "Brouillon de l'éducateur"
     }
   },
   "duvida": {

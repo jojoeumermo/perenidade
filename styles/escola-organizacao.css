@@ -1,0 +1,272 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Organização estudantil da Escola Lúcia Maria (Etapa 4, pacote E4-12): assembleia, resultado, Roda do semestre, roteiro
+ * do núcleo, ouvidoria e educador do mês. Mesmo visual do Caderno do Povo: papel, tinta, fio fino e o vermelho da
+ * margem. Celular de entrada primeiro: nada passa de 360 px de largura. As barras do resultado trazem o número escrito.
+ */
+
+.org-bloco {
+  margin-top: 2.5rem;
+  border-top: 3px solid var(--ink);
+  padding-top: 1rem;
+  min-width: 0;
+}
+.org-bloco-titulo {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.org-subtitulo {
+  margin-top: 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 700;
+}
+.org-nota {
+  margin-top: 0.6rem;
+  max-width: 65ch;
+  overflow-wrap: anywhere;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.org-nota:empty {
+  display: none;
+}
+.org-estado {
+  margin-top: 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 700;
+}
+.org-aviso,
+.org-aviso-forte,
+.org-erro {
+  margin-top: 0.75rem;
+  border-left: 4px solid #c21f16;
+  background: var(--parchment);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+.org-aviso-forte {
+  border: 2px solid var(--ink);
+  border-left-width: 6px;
+}
+.org-erro {
+  font-weight: 600;
+  color: var(--prelo-texto);
+}
+.org-caixa {
+  margin-top: 0.6rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.org-caixa input {
+  margin-top: 0.2rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+.org-botoes {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.org-botoes > .botao,
+.org-candidata .botao,
+.org-campo .botao,
+.org-protocolos .botao {
+  min-height: 2.75rem;
+}
+.org-botoes + .org-nota {
+  margin-top: 0.75rem;
+}
+
+/* Campos */
+.org-campo {
+  margin-top: 1rem;
+}
+.org-campo > label {
+  display: block;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+}
+.org-input {
+  margin-top: 0.25rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  color: var(--ink);
+}
+textarea.org-input {
+  resize: vertical;
+}
+.org-isca {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Foco sempre visível */
+:is(.org-input, .org-caixa input, [data-assembleia-votacao] .botao, [data-roda] .botao, [data-ouvidoria-form] .botao, [data-meus-protocolos] .botao):focus-visible {
+  outline: 3px solid #c21f16;
+  outline-offset: 2px;
+}
+
+/* Pauta */
+.org-pauta,
+.org-territorios,
+.org-protocolos,
+.org-barras,
+.org-roteiro {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+.org-candidata,
+.org-territorios > li,
+.org-protocolos > li,
+.org-educador {
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 0.75rem 1rem;
+  min-width: 0;
+}
+.org-candidata-nome {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.org-candidata[data-votado="sim"] {
+  border-color: var(--prelo-texto);
+}
+.org-votado {
+  margin-top: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 700;
+  color: var(--prelo-texto);
+}
+.org-candidata .botao:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Resultado: barra + número escrito (nunca só cor) */
+.org-barras > li {
+  display: grid;
+  gap: 0.25rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.org-barra {
+  display: block;
+  height: 0.9rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+}
+.org-barra-cheia {
+  display: block;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, var(--ink) 0 4px, var(--ink-soft) 4px 8px);
+}
+.org-barra-numero {
+  font-weight: 700;
+}
+
+/* Roteiro do núcleo */
+.org-roteiro {
+  counter-reset: passo;
+}
+.org-roteiro > li {
+  counter-increment: passo;
+  display: flex;
+  gap: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.org-roteiro > li::before {
+  content: counter(passo);
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 2px solid var(--ink);
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.45rem;
+}
+
+/* Ouvidoria */
+.org-sucesso {
+  margin-top: 1rem;
+  border: 3px solid var(--ink);
+  background: var(--parchment);
+  padding: 1rem;
+}
+.org-protocolo {
+  margin-top: 0.5rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  overflow-wrap: anywhere;
+}
+.org-protocolo-codigo {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  overflow-wrap: anywhere;
+}
+.org-resposta {
+  margin-top: 0.6rem;
+  border-left: 4px solid var(--ink);
+  padding-left: 0.75rem;
+}
+
+/* Educador do mês */
+.org-educador-nome {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* A folha da Roda: só aparece no papel */
+.roda-folha {
+  display: none;
+  white-space: pre-wrap;
+  font-family: var(--font-serif), Georgia, serif;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .roda-folha,
+  .roda-folha * {
+    visibility: visible;
+  }
+  .roda-folha {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 12pt;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .org-barra-cheia {
+    transition: width 0.4s ease;
+  }
+}

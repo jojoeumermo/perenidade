@@ -6,6 +6,7 @@ import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { textosDoAcompanhante } from "@/i18n/escola/acompanhante";
+import { textosDosAgentes } from "@/i18n/escola/agentes";
 import { textosDaBase } from "@/lib/escola/textos";
 import { paginaMeta } from "@/lib/seo";
 
@@ -30,6 +31,11 @@ export default async function Acompanhante({ params }: PageProps<"/[lang]/escola
       <p className="mt-2 text-sm">
         <Link href={localePath(lang, "/escola/acompanhante/como-funciona")} className="underline hover:text-oxblood">
           {s.comum.comoFunciona}
+        </Link>
+      </p>
+      <p className="mt-2 text-sm">
+        <Link href={localePath(lang, "/escola/agentes")} className="underline hover:text-oxblood">
+          {textosDosAgentes(lang).hub.linkDoAcompanhante}
         </Link>
       </p>
       <div className="mt-8">

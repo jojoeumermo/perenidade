@@ -15,26 +15,28 @@ import { calendarioProposto } from "@/lib/escola/tempo";
 import { textosDaBase, trechoDoQuemSomos } from "@/lib/escola/textos";
 import { paginaMeta } from "@/lib/seo";
 
-const ler = (...partes: string[]) => {
+// Cada leitura escreve a pasta no próprio caminho: um caminho montado só com partes soltas faz o rastreio de arquivos da
+// Vercel levar o projeto inteiro nesta função (scripts/conferir-rastreio.mjs).
+const ler = (leitura: () => string) => {
   try {
-    return fs.readFileSync(path.join(process.cwd(), ...partes), "utf8");
+    return leitura();
   } catch {
     return null;
   }
 };
 
 /** O marcador (ou, quando chegar, o texto) de content/escola/quem-foi-lucia-maria.md, para o 2º quadro da abertura. */
-const textoDeLucia = () => parseFrontmatter(ler("content", "escola", "quem-foi-lucia-maria.md") ?? "").content.trim();
+const textoDeLucia = () => parseFrontmatter(ler(() => fs.readFileSync(path.join(process.cwd(), "content", "escola", "quem-foi-lucia-maria.md"), "utf8")) ?? "").content.trim();
 
 /**
  * "Por que a escola existe": trecho copiado do "Quem somos" já publicado no idioma da página. Sem versão publicada
  * neste idioma, o original em português, com o aviso "(texto em português)". Nada é traduzido por conta própria.
  */
 function trechoPublicado(lang: Locale): TrechoPublicado | null {
-  const traduzido = lang === "pt" ? null : ler("content", "paginas", `quem-somos.${lang}.md`);
+  const traduzido = lang === "pt" ? null : ler(() => fs.readFileSync(path.join(process.cwd(), "content", "paginas", `quem-somos.${lang}.md`), "utf8"));
   const noIdioma = traduzido ? trechoDoQuemSomos(traduzido) : null;
   if (noIdioma) return { texto: noIdioma, idioma: lang, emPortugues: false };
-  const original = trechoDoQuemSomos(ler("content", "paginas", "quem-somos.md") ?? "");
+  const original = trechoDoQuemSomos(ler(() => fs.readFileSync(path.join(process.cwd(), "content", "paginas", "quem-somos.md"), "utf8")) ?? "");
   return original ? { texto: original, idioma: "pt", emPortugues: lang !== "pt" } : null;
 }
 

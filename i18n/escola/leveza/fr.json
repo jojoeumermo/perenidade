@@ -1,0 +1,58 @@
+{
+  "convite": {
+    "rotulo": "Invitation : mode économie de données",
+    "titulo": "Votre forfait de données s'épuise vite ?",
+    "textoPacoteAcaba": "Vous avez dit que le forfait s'épuise. Le mode économie de données allège le site et prévient avant de télécharger quelque chose de gros.",
+    "textoEconomia": "Votre appareil est en économie de données. Le mode économie de données allège le site.",
+    "textoRedeLenta": "Votre connexion est lente. Le mode économie de données allège le site.",
+    "ligar": "Activer le mode économie de données",
+    "agora": "Pas maintenant",
+    "nunca": "Ne plus demander",
+    "aviso": "Le choix reste uniquement sur cet appareil."
+  },
+  "libras": {
+    "botao": "Voir ce cours en Libras",
+    "titulo": "Traducteur de Libras du gouvernement fédéral",
+    "aviso": "Le traducteur est un service externe, du gouvernement fédéral. En le chargeant, votre appareil télécharge des programmes de son site. La traduction est automatique, peut se tromper et ne remplace pas un interprète de Libras.",
+    "avisoPacote": "Avec le mode économie de données activé, cela peut consommer une partie de votre forfait.",
+    "carregar": "Charger le traducteur",
+    "cancelar": "Pas maintenant",
+    "carregando": "Chargement du traducteur…",
+    "ligado": "Traducteur activé. Touchez l'icône des mains, puis le texte que vous voulez voir en Libras.",
+    "ligadoCurto": "Traducteur de Libras activé",
+    "erro": "Je n'ai pas pu charger le traducteur maintenant. Réessayez plus tard.",
+    "soPortugues": "Le traducteur de Libras ne comprend que le portugais.",
+    "abrirEmPortugues": "Ouvrir ce cours en portugais",
+    "humano": "Voir ce cours en Libras, avec interprète",
+    "humanoFonte": "Source : {fonte}. Interprète : {interprete}. En révision."
+  },
+  "leve": {
+    "resumo": "Étudier plus léger",
+    "pacote": "Mode économie de données",
+    "pacoteDica": "Active aussi le mode léger : sans images lourdes, sans animations, avec les polices de l'appareil, et masque les simulations.",
+    "desligarLeve": "Désactiver aussi le mode léger",
+    "soTexto": "Texte seulement",
+    "soTextoDica": "Masque la marge, les cours similaires et les éducateurs. Le texte du cours reste entier.",
+    "ligou": "{nome} activé",
+    "desligou": "{nome} désactivé",
+    "nota": "Cela change ce qui s'affiche, pas ce qui a déjà été téléchargé. Pour vraiment consommer moins, téléchargez seulement le texte ou enregistrez le parcours en Wi-Fi."
+  },
+  "levar": {
+    "titulo": "Emporter ce cours",
+    "texto": "Télécharger seulement le texte (environ {tamanho})",
+    "livro": "Télécharger le parcours en livre (EPUB)",
+    "livroDica": "S'ouvre dans les liseuses et sur les anciens téléphones.",
+    "espelhoTitulo": "Si le site tombe, lisez ici",
+    "espelhoDica": "Version en lecture seule, sans JavaScript, qui s'ouvre sur un ancien téléphone."
+  },
+  "telaApagada": {
+    "titulo": "Écouter avec l'écran éteint",
+    "texto": "Touchez Écouter le cours, choisissez la voix naturelle et éteignez l'écran : la lecture continue et les commandes apparaissent sur l'écran de verrouillage. La voix de l'appareil peut s'arrêter quand l'écran s'éteint."
+  },
+  "medidor": {
+    "botao": "Voir ce que cette page a consommé",
+    "resultado": "Jusqu'ici, cette page a consommé environ {tamanho} du réseau.",
+    "ressalva": "Cela n'inclut pas ce qui vient de l'extérieur, comme le traducteur de Libras, ni ce qui était déjà enregistré sur l'appareil.",
+    "semInfo": "Le navigateur ne l'a pas indiqué."
+  }
+}

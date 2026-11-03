@@ -54,7 +54,10 @@
     "leve": {
       "titulo": "Para gastar menos datos",
       "texto": "El sitio tiene un ahorro de datos (modo ligero): oculta imágenes y videos y usa las letras del propio dispositivo. Está en el botón de accesibilidad.",
-      "botao": "Abrir el ahorro de datos"
+      "botao": "Abrir el ahorro de datos",
+      "pacoteTexto": "Si tu plan de datos es corto, el modo paquete oculta las simulaciones, activa el modo ligero y avisa antes de descargar algo grande. Queda solo en este dispositivo.",
+      "pacoteBotao": "Activar el modo paquete de datos",
+      "pacoteLigado": "Listo: el modo paquete de datos está activado en este dispositivo."
     },
     "nivelamento": {
       "pergunta": "¿Quieres descubrir por dónde empezar?",

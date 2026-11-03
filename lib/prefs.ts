@@ -41,6 +41,8 @@ export interface Prefs {
   black: boolean;
   /** Sem imagens, sem animações e com as fontes do aparelho. */
   light: boolean;
+  /** Modo pacote de dados (E4-17): liga também o modo leve e avisa antes de baixar algo grande. */
+  pacote: boolean;
 }
 
 export const defaultPrefs: Prefs = {
@@ -59,6 +61,7 @@ export const defaultPrefs: Prefs = {
   focus: false,
   black: false,
   light: false,
+  pacote: false,
 };
 
 /** Interruptores que viram data-<nome> em <html>, com o nome que o CSS usa. */
@@ -68,6 +71,7 @@ const flags = [
   ["focus", "focus"],
   ["black", "black"],
   ["light", "light"],
+  ["pacote", "pacote"],
   ["dyslexia", "dislexia"],
   ["links", "links"],
   ["motion", "parado"],
@@ -117,7 +121,7 @@ export const isApp = () =>
     navigator.userAgent.indexOf("; wv)") > -1 ||
     (navigator as { standalone?: boolean }).standalone === true);
 
-export const prefsScript = `(function(){try{var d=document.documentElement;if(matchMedia("(display-mode: standalone), (display-mode: minimal-ui)").matches||navigator.userAgent.indexOf("; wv)")>-1||navigator.standalone===true){d.setAttribute("data-app","");var c=function(){var m=document.querySelector('meta[name="viewport"]');if(m&&m.content.indexOf("viewport-fit")<0)m.content+=", viewport-fit=cover, interactive-widget=resizes-content";return m};if(!c())document.addEventListener("DOMContentLoaded",c)}}catch(e){}try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";if(p.spacing&&p.lines===undefined&&p.letters===undefined){p.lines=2;p.letters=1}[["contrast","contrast"],["eink","eink"],["focus","focus"],["black","black"],["light","light"],["dyslexia","dislexia"],["links","links"],["motion","parado"],["cursor","cursor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],"")});[["lines","linhas"],["letters","letras"],["guide","guia"],["color","cor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],String(p[k[0]]))});if(p.lines||p.letters)d.setAttribute("data-spacing","");if(p.light===undefined&&((navigator.connection&&navigator.connection.saveData)||matchMedia("(prefers-reduced-data: reduce)").matches))d.setAttribute("data-light","")}catch(e){}})()`;
+export const prefsScript = `(function(){try{var d=document.documentElement;if(matchMedia("(display-mode: standalone), (display-mode: minimal-ui)").matches||navigator.userAgent.indexOf("; wv)")>-1||navigator.standalone===true){d.setAttribute("data-app","");var c=function(){var m=document.querySelector('meta[name="viewport"]');if(m&&m.content.indexOf("viewport-fit")<0)m.content+=", viewport-fit=cover, interactive-widget=resizes-content";return m};if(!c())document.addEventListener("DOMContentLoaded",c)}}catch(e){}try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";if(p.spacing&&p.lines===undefined&&p.letters===undefined){p.lines=2;p.letters=1}[["contrast","contrast"],["eink","eink"],["focus","focus"],["black","black"],["light","light"],["pacote","pacote"],["dyslexia","dislexia"],["links","links"],["motion","parado"],["cursor","cursor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],"")});[["lines","linhas"],["letters","letras"],["guide","guia"],["color","cor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],String(p[k[0]]))});if(p.lines||p.letters)d.setAttribute("data-spacing","");if(p.light===undefined&&((navigator.connection&&navigator.connection.saveData)||matchMedia("(prefers-reduced-data: reduce)").matches))d.setAttribute("data-light","")}catch(e){}})()`;
 
 /**
  * O aparelho pede economia de dados: o modo "Economizar dados" do Android e do Chrome (navigator.connection.saveData,
@@ -153,6 +157,8 @@ export function setPrefs(patch: Partial<Prefs>) {
   // Alto contraste e e-ink são paletas diferentes: ligar um desliga o outro.
   if (patch.contrast) next.eink = false;
   if (patch.eink) next.contrast = false;
+  // Modo pacote de dados (E4-17) implica o modo leve; desligar o pacote não desliga o leve (a tela oferece).
+  if (patch.pacote) next.light = true;
   // Mexeu no espaço das linhas ou das letras: o interruptor antigo deixa de valer.
   if (patch.lines !== undefined || patch.letters !== undefined) next.spacing = false;
   setItem(KEYS.a11y, JSON.stringify(next));

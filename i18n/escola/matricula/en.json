@@ -54,7 +54,10 @@
     "leve": {
       "titulo": "To use less data",
       "texto": "The site has a data saver (light mode): it hides images and videos and uses the device's own fonts. It is in the accessibility button.",
-      "botao": "Open the data saver"
+      "botao": "Open the data saver",
+      "pacoteTexto": "If your data plan is short, data plan mode hides simulations, turns on light mode and warns you before something big is downloaded. It stays only on this device.",
+      "pacoteBotao": "Turn on data plan mode",
+      "pacoteLigado": "Done: data plan mode is on for this device."
     },
     "nivelamento": {
       "pergunta": "Want to find out where to start?",

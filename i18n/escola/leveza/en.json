@@ -1,0 +1,58 @@
+{
+  "convite": {
+    "rotulo": "Invitation: data saver mode",
+    "titulo": "Does your data plan run out fast?",
+    "textoPacoteAcaba": "You said your data plan runs out. Data saver mode makes the site lighter and warns you before downloading something big.",
+    "textoEconomia": "Your device is in data saving mode. Data saver mode makes the site lighter.",
+    "textoRedeLenta": "Your connection is slow. Data saver mode makes the site lighter.",
+    "ligar": "Turn on data saver mode",
+    "agora": "Not now",
+    "nunca": "Do not ask again",
+    "aviso": "Your choice stays only on this device."
+  },
+  "libras": {
+    "botao": "See this lesson in Libras",
+    "titulo": "Libras translator from the federal government",
+    "aviso": "The translator is an outside service, run by the federal government. When it loads, your device downloads programs from its site. The translation is automatic, can be wrong and does not replace a Libras interpreter.",
+    "avisoPacote": "With data saver mode on, this may use part of your data plan.",
+    "carregar": "Load the translator",
+    "cancelar": "Not now",
+    "carregando": "Loading the translator…",
+    "ligado": "Translator on. Tap the hands icon, then the text you want to see in Libras.",
+    "ligadoCurto": "Libras translator on",
+    "erro": "I could not load the translator right now. Try again later.",
+    "soPortugues": "The Libras translator understands only Portuguese.",
+    "abrirEmPortugues": "Open this lesson in Portuguese",
+    "humano": "See this lesson in Libras, with an interpreter",
+    "humanoFonte": "Source: {fonte}. Interpreter: {interprete}. Under review."
+  },
+  "leve": {
+    "resumo": "Study lighter",
+    "pacote": "Data saver mode",
+    "pacoteDica": "Also turns on light mode: no heavy images, no animations, device fonts, and it hides the simulations.",
+    "desligarLeve": "Also turn off light mode",
+    "soTexto": "Text only",
+    "soTextoDica": "Hides the margin, similar lessons and educators. The lesson text stays whole.",
+    "ligou": "{nome} on",
+    "desligou": "{nome} off",
+    "nota": "This changes what is shown, not what was already downloaded. To really use less, download only the text or save the track on Wi-Fi."
+  },
+  "levar": {
+    "titulo": "Take this lesson with you",
+    "texto": "Download only the text (about {tamanho})",
+    "livro": "Download the track as a book (EPUB)",
+    "livroDica": "Opens in book readers and on old phones.",
+    "espelhoTitulo": "If the site goes down, read here",
+    "espelhoDica": "Read-only version, without JavaScript, that opens on an old phone."
+  },
+  "telaApagada": {
+    "titulo": "Listen with the screen off",
+    "texto": "Tap Listen to the lesson, choose the natural voice and turn the screen off: the reading goes on and the controls show on the lock screen. The device voice may stop when the screen turns off."
+  },
+  "medidor": {
+    "botao": "See how much this page used",
+    "resultado": "So far, this page has used about {tamanho} from the network.",
+    "ressalva": "It does not include what came from outside, like the Libras translator, or what was already stored on the device.",
+    "semInfo": "The browser did not report it."
+  }
+}

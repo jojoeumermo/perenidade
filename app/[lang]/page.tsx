@@ -11,7 +11,7 @@ import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
 import { QuadroDeAvisos } from "@/components/escola/QuadroDeAvisos";
-import { quadroDaInicial } from "@/lib/escola/campus-servidor";
+import { quadroDaInicial } from "@/lib/escola/quadro-servidor";
 import { ligado } from "@/lib/recursos";
 import { type EstanteDoCelular, InicioDoCelular } from "@/components/celular/InicioDoCelular";
 import { corDaCapa } from "@/lib/capas";

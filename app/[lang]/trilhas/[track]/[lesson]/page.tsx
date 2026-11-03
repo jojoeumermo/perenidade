@@ -69,6 +69,11 @@ import { textosDosCursos } from "@/i18n/escola/cursos";
 import { aulaDoSite, cursosDaAula } from "@/lib/escola/cursos-vista";
 import { ExpliqueComSuasPalavrasSobDemanda as ExpliqueComSuasPalavras, LembraDaAnteriorSobDemanda as LembraDaAnterior } from "@/components/aula/AprenderAtivoSobDemanda";
 import { textosDaAvaliacao } from "@/i18n/escola/avaliacao";
+import { LevezaDaAulaSobDemanda as LevezaDaAula } from "@/components/escola/leveza/LevezaDaAulaSobDemanda";
+import { espelhosDoSite } from "@/components/EspelhosDoSite";
+import { textosDaLeveza } from "@/i18n/escola/leveza";
+import { caminhosDeLevar, librasDaAula, tamanhoDoTexto } from "@/lib/escola/leveza";
+import "@/styles/escola-leveza.css";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -256,7 +261,21 @@ export default async function LessonPage({ params }: Props) {
           <h1 className="mt-2.5 text-[2.5rem] font-semibold leading-[1.05] text-balance app:max-md:text-[2rem] app:max-md:leading-[1.15] sm:text-[3.4rem]">{lesson.title}</h1>
           <p className="mt-3 text-[1.4rem] italic leading-snug text-ink-soft app:max-md:text-lg">{lesson.summary}</p>
         </div>
-        {/* E4-17: Libras */}
+        {/* E4-17: Libras, convite do modo pacote e "estudar mais leve" (docs/escola/leveza.md). Só com o recurso escola ligado; as contas usam o que a página já tem na memória. */}
+        {sa && (
+          <LevezaDaAula
+            lang={lang}
+            libras={librasDaAula(id)}
+            vlibrasLigado={ligado("vlibras")}
+            hrefEmPortugues={localePath(defaultLocale, path(lesson.slug))}
+            textoBytes={tamanhoDoTexto(lesson.title, lesson.summary, lesson.body)}
+            caminhos={caminhosDeLevar(lang, track.slug, lesson.slug)}
+            paginasDaTrilha={[to(`/trilhas/${track.slug}`), ...track.lessons.map((l) => to(path(l.slug)))]}
+            trilhas={t.tracks}
+            espelhos={espelhosDoSite()}
+            s={textosDaLeveza(lang)}
+          />
+        )}
         <OuvirAula minutos={fill(t.tracks.minutes, { n: lesson.minutes })} lexico={lerLexico()} avisoTelaApagada={sa?.voz.telaApagada} />
         {sa && (
           <>
@@ -315,7 +334,7 @@ export default async function LessonPage({ params }: Props) {
           )}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
           {outras.length > 0 && (
-            <aside aria-label={t.lesson.alsoInTitle} className="no-print mt-10 border-t-4 border-[#c21f16] bg-parchment-deep p-4 font-sans text-sm">
+            <aside aria-label={t.lesson.alsoInTitle} className="no-print no-leve mt-10 border-t-4 border-[#c21f16] bg-parchment-deep p-4 font-sans text-sm">
               <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-oxblood">{t.lesson.alsoInTitle}</p>
               <ul className="mt-2 space-y-2">
                 {outras.map((o) => (
@@ -378,7 +397,7 @@ export default async function LessonPage({ params }: Props) {
         <ExerciciosDaAula aula={path(lesson.slug)} s={t.practiceStudio.exercises} />
 
         {simsDaAula.length > 0 && (
-          <section className="no-print mt-10">
+          <section className="no-print no-leve no-pacote mt-10">
             <h2 className="font-serif text-2xl font-semibold">{t.labs.simulacoes}</h2>
             <PhetLista ids={simsDaAula} compacto />
             <p className="mt-3 font-sans text-sm">
@@ -386,7 +405,7 @@ export default async function LessonPage({ params }: Props) {
             </p>
           </section>
         )}
-        <div className="xl:hidden">
+        <div className="no-leve xl:hidden">
           <EducadoresDaDisciplina area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
         </div>
 

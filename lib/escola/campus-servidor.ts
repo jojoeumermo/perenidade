@@ -16,9 +16,7 @@ import type { Dict } from "@/i18n/types";
 import { FERIADOS, eventosDoSemestre, type Evento, janelaDoSemestre, semestrePorId, semestresDoCalendario } from "@/lib/escola/calendario";
 import { montarCampus, type PredioDoMapa } from "@/lib/escola/campus";
 import { type Dicionarios, escolher, preencher } from "@/lib/escola/textos";
-import { textosDaPresenca } from "@/lib/escola/matricula-servidor";
 import { hojeEmBrasilia, type Semestre } from "@/lib/escola/tempo";
-import { mesesDaTurma, turmaDoMes } from "@/lib/turma-do-mes";
 import { secoesDoSite } from "@/lib/secoes-do-site";
 import avisosPadrao from "@/content/escola/avisos.json";
 
@@ -118,15 +116,5 @@ export const AVISOS: Aviso[] = ((avisosPadrao as { avisos: unknown[] }).avisos ?
 
 export { FERIADOS };
 
-/**
- * O que o quadro de avisos da página inicial recebe do servidor (E4-09, D1-4): os avisos da coordenação, os eventos do
- * calendário, a turma do mês deste mês e do seguinte e os textos do idioma. O navegador escolhe o que vale hoje.
- */
-export function quadroDaInicial(lang: Locale) {
-  const c = textosDoCampus(lang);
-  const turmas = mesesDaTurma()
-    .map((mes) => turmaDoMes(lang, mes))
-    .filter((t): t is NonNullable<typeof t> => Boolean(t))
-    .map((t) => ({ mes: t.mes, titulo: t.titulo }));
-  return { avisos: AVISOS, eventos: eventosParaOQuadro(lang), turmas, s: c.quadro, sCal: c.calendario, sPresenca: textosDaPresenca(lang), lang };
-}
+// O quadro de avisos da página inicial (quadroDaInicial) mora em lib/escola/quadro-servidor.ts: ele usa a turma do mês,
+// que lê o disco, e este arquivo entra no layout raiz.

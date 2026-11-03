@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "hub": { "titulo": "Real life", "descricao": "Voices of work, map of struggles, task in the world, lab missions, neighborhood case study and real documents: the School tied to the life of those who study." },
+    "vozes": { "titulo": "Voices of work", "descricao": "Listen to workers who told about their trade and record, only on your device, an audio of up to 2 minutes with a set of questions." },
+    "lutas": { "titulo": "Map of struggles", "descricao": "The campus dates of struggle and the facts of each day, by month, with source, lesson on the topic and calendar. A map in time." },
+    "tarefas": { "titulo": "Tasks in the world", "descricao": "The practical task of each course, to do away from the screen: mark it done, write a note and record it in the notebook." },
+    "missoes": { "titulo": "Lab missions", "descricao": "Work problems to solve in the site's labs, with the care each situation needs. You mark it when you are done." },
+    "caso": { "titulo": "Neighborhood case study", "descricao": "Look, listen, note, compare with the lesson and propose: a 5-step guide with a private draft." },
+    "documentos": { "titulo": "Real documents in lessons", "descricao": "How lessons show a real document, with the areas explained, the source and the license." }
+  },
+  "comum": {
+    "emRevisao": "under review",
+    "revisar": "[TO BE REVIEWED BY THE COORDINATION]",
+    "voltarVida": "Back to real life",
+    "voltarEscola": "Back to the School entrance",
+    "soNoAparelho": "It stays only on this device. Nothing goes to the Institute."
+  },
+  "hub": {
+    "olho": "Lúcia Maria School",
+    "titulo": "Real life",
+    "lead": "Studying does not end on the screen. Here the School goes to work, to the neighborhood and to the struggle of those who study. Everything works on your device, with no sign-up and no tracking.",
+    "resumoTarefas": "{n} of {m} tasks done",
+    "resumoMissoes": "{n} of {m} missions",
+    "abrir": "Open",
+    "nota": "The texts in this part were written by the package and are under review. What depends on the coordination is marked.",
+    "cartoes": {
+      "vozes": { "titulo": "Voices of work", "texto": "Listen to people telling their trade and rehearse your own 2-minute audio." },
+      "lutas": { "titulo": "Map of struggles", "texto": "The dates of struggle, month by month, with source and lesson on the topic." },
+      "tarefas": { "titulo": "Tasks in the world", "texto": "The practical task of each course, with a note and a record in the notebook." },
+      "missoes": { "titulo": "Lab missions", "texto": "A work problem to solve in the right lab." },
+      "caso": { "titulo": "Neighborhood case study", "texto": "Five steps to look at your neighborhood with what the lesson teaches." },
+      "documentos": { "titulo": "Real documents", "texto": "How lessons show a real document, with its source and license." },
+      "circulo": { "titulo": "Digital culture circle", "texto": "For those who lead a meeting: from the group's words to a sequence of lessons." }
+    }
+  },
+  "vozes": {
+    "olho": "Real life",
+    "titulo": "Voices of work",
+    "lead": "People who work know things books do not say. Here you can hear voices published with permission and rehearse your own.",
+    "publicadas": {
+      "titulo": "Published voices",
+      "vazio": "There is no published voice yet. A voice only goes up with the permission of the person who spoke and with the transcript beside it.",
+      "transcricao": "Transcript",
+      "autorizada": "Published with permission. The person who spoke can ask to take it down at any time, with no explanation.",
+      "retirar": "To take a voice down, write through the volunteering page."
+    },
+    "ensinam": {
+      "titulo": "Workers who teach",
+      "lead": "People from the Memorial whose working life connects to a lesson. The text of each card is under review.",
+      "memorial": "See in the Memorial",
+      "aula": "See the lesson",
+      "fonte": "Source"
+    },
+    "gravador": {
+      "titulo": "Record your voice",
+      "avisoTitulo": "Before recording",
+      "aviso": [
+        "Record only your own voice and your own experience.",
+        "Do not say names of other people, or of a boss or client, or any third-party data.",
+        "Do not record a child or a teenager.",
+        "The recording stays only on your device. Nothing is sent.",
+        "You can delete it whenever you want."
+      ],
+      "menores": "People under 18 can record for themselves, but publication is only possible with a guardian's permission. The coordination does not publish audio of children or teenagers.",
+      "semGravacao": "Your device cannot record audio. Use the written guide below: it works the same for rehearsing out loud.",
+      "semMicrofone": "The microphone could not be used. Check the browser permission or use the written guide.",
+      "gravar": "Record",
+      "parar": "Stop",
+      "restam": "{s} s left",
+      "gravando": "Recording",
+      "fimAos120": "The recording stops by itself at 120 seconds.",
+      "perguntaEscolhida": "Question you are answering",
+      "tituloLabel": "Recording title (up to 60 characters)",
+      "limite": "You already have 10 recordings. Delete one to record another.",
+      "suas": "Your recordings (only on this device)",
+      "nenhuma": "You have not recorded anything yet.",
+      "ouvir": "Listen",
+      "baixar": "Download",
+      "apagar": "Delete",
+      "apagada": "Recording deleted.",
+      "segundos": "{s} s",
+      "semTitulo": "Untitled recording",
+      "falhou": "The recording could not be saved on this device."
+    },
+    "roteiro": {
+      "titulo": "Set of questions",
+      "emRevisao": "Under review: the questions were written by the package.",
+      "lead": "Pick a question and answer in up to 2 minutes. Or just read and think: the guide works without recording.",
+      "perguntas": [
+        "What do I do in my work?",
+        "What did I learn in practice that is not in books?",
+        "What is a risk of my work?",
+        "What right do I wish I had known about earlier?",
+        "What advice would I give to someone starting out?",
+        "What could the School teach about this?"
+      ]
+    },
+    "enviar": {
+      "titulo": "Want your voice to be heard?",
+      "texto": "Nothing goes by itself. If you want to tell the Institute about your work, copy the text below and use the volunteering page. The coordination asks for your written permission, reviews the transcript and only then publishes. Only people over 18.",
+      "pronto": "I want to tell about my work in a 2-minute audio.",
+      "copiar": "Copy the text",
+      "link": "Go to the volunteering page"
+    }
+  },
+  "lutas": {
+    "olho": "Real life",
+    "titulo": "Map of struggles",
+    "lead": "A map in time: the dates of the people's struggles, month by month. There is no map of places because the site does not yet have coordinates with a source.",
+    "filtroFeriados": "Campus holidays",
+    "filtroTodas": "All dates",
+    "feriado": "Campus holiday",
+    "memoria": "Date of remembrance",
+    "hoje": "Today",
+    "proxima": "Next date",
+    "aula": "Lesson on the topic",
+    "fonte": "Source",
+    "fatos": "What happened on this day",
+    "agenda": "Add to calendar",
+    "ver": "See",
+    "vazio": "No dates in this filter.",
+    "avisoMemoria": "Dates of remembrance come from the facts of the \"On this day\" panel, each with its link. Only campus holidays are part of the School calendar.",
+    "mais": "and {n} more facts in the \"On this day\" panel"
+  },
+  "tarefas": {
+    "olho": "Real life",
+    "titulo": "Tasks in the world",
+    "lead": "Each course has a task to do away from the screen: at work, at home, in the neighborhood. Mark it when you do it and, if you want, write a short note.",
+    "cartao": {
+      "titulo": "Your mark",
+      "marcar": "Mark as done",
+      "feita": "Done on {data}",
+      "desfazer": "Undo",
+      "nota": "Short note (up to 500 characters)",
+      "notaAviso": "No names of other people.",
+      "salvarNota": "Save the note",
+      "registrar": "Record in the notebook",
+      "registrada": "Recorded in the notebook.",
+      "avisoCaderneta": "The notebook can be exported and seen by other people. Do not put anyone's name.",
+      "falhou": "Could not save on this device.",
+      "soNoAparelho": "The mark stays only on this device."
+    },
+    "contador": "{n} of {m} tasks done",
+    "abrirCurso": "Open the course",
+    "estadoFeita": "Done on {data}",
+    "estadoAFazer": "To do"
+  },
+  "missoes": {
+    "olho": "Real life",
+    "titulo": "Lab missions",
+    "lead": "A work problem, a lab on the site and a care to take. You solve it and mark that you did it.",
+    "emRevisao": "Under review: the missions were written by the package.",
+    "situacao": "Situation",
+    "tarefa": "Task",
+    "cuidado": "Care",
+    "abrir": "Open the lab",
+    "cumpri": "I completed the mission",
+    "cumprida": "Completed on {data}",
+    "desfazer": "Undo",
+    "contador": "{n} of {m} missions",
+    "nota": "The lab sends no result to anyone: the mark is yours, only on this device.",
+    "semCurso": "No specific course",
+    "falhou": "Could not save on this device."
+  },
+  "caso": {
+    "olho": "Real life",
+    "titulo": "Neighborhood case study",
+    "lead": "A 5-step guide to look at a problem in your neighborhood with what the lesson teaches. The draft is yours and stays only on the device.",
+    "aviso": "Do not identify anyone, nor the exact place. Write about the situation, not about the people.",
+    "curso": "Course of the case",
+    "livre": "Free case (no course)",
+    "tituloLabel": "Case title (up to 160 characters)",
+    "tituloPadrao": "Neighborhood case study",
+    "limite": "Up to {n} characters per step.",
+    "passos": [
+      { "titulo": "1. What I saw", "ajuda": "Describe what you saw, without judging." },
+      { "titulo": "2. Who I heard", "ajuda": "What people said, without saying who they are." },
+      { "titulo": "3. What the lesson says about it", "ajuda": "Connect what you saw to a lesson or a course." },
+      { "titulo": "4. What the case shows", "ajuda": "What this case teaches about life in the neighborhood." },
+      { "titulo": "5. What can be proposed", "ajuda": "One possible action, small and collective." }
+    ],
+    "guardar": "Save the draft",
+    "guardado": "Draft saved on this device.",
+    "privado": "The draft is private: it stays only on this device and is not part of the backup.",
+    "registrar": "Record in the notebook",
+    "avisoCaderneta": "Only the summary goes to the notebook, and the notebook can be exported and seen by other people. Check there is no name or address.",
+    "registrado": "Recorded in the notebook.",
+    "apagar": "Delete the draft",
+    "cancelar": "Cancel",
+    "apagado": "Draft deleted.",
+    "falhou": "Could not save on this device."
+  },
+  "documentos": {
+    "olho": "Real life",
+    "titulo": "Real documents in lessons",
+    "lead": "Some lessons show a real document, with areas you tap to understand what each field means and what to check.",
+    "regrasTitulo": "The rules",
+    "regras": [
+      "Only documents without personal data: official blank form, official act, public domain or a document made by the team itself.",
+      "Every image has its source (official address) and its license. Without both, the block does not appear.",
+      "No payslip, bill or document of a real person.",
+      "The explanation of each area is under review until the coordination checks it.",
+      "Reading your own document by photo is another part of the School, not this one."
+    ],
+    "listaTitulo": "Lessons with a document",
+    "vazio": "There is no lesson with a document yet. [TO BE REVIEWED BY THE COORDINATION]: choose the first documents and check image rights before publishing.",
+    "comoTitulo": "How to put a document in a lesson",
+    "como": "In the lesson editor, add the \"Real document with areas\" block, with the site image, the source, the license and one line per area. The format is in content/escola/vida/LEIA-ME.md.",
+    "abrirAula": "Open the lesson"
+  },
+  "documento": {
+    "selo": "Explanation under review",
+    "verOriginal": "See the original",
+    "fonte": "Source",
+    "licenca": "License",
+    "semDados": "Document without personal data",
+    "toque": "Tap an area of the document to read what it means.",
+    "areas": "Areas of the document",
+    "significa": "What it means",
+    "conferir": "What to check",
+    "fechar": "Close"
+  }
+}

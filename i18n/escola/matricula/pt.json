@@ -54,7 +54,10 @@
     "leve": {
       "titulo": "Para gastar menos dados",
       "texto": "O site tem uma economia de dados (modo leve): esconde imagens e vídeos e usa as letras do próprio aparelho. Ela fica no botão de acessibilidade.",
-      "botao": "Abrir a economia de dados"
+      "botao": "Abrir a economia de dados",
+      "pacoteTexto": "Se o seu pacote de dados é curto, o modo pacote esconde as simulações, liga o modo leve e avisa antes de baixar algo grande. Fica só neste aparelho.",
+      "pacoteBotao": "Ligar o modo pacote de dados",
+      "pacoteLigado": "Pronto: o modo pacote de dados está ligado neste aparelho."
     },
     "nivelamento": {
       "pergunta": "Quer descobrir por onde começar?",

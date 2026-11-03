@@ -9,7 +9,7 @@ import { fill } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import type { TextosDoAcompanhante } from "@/i18n/escola/acompanhante";
 import { askAssistant, hasBackend, rpc, useMe } from "@/lib/backend";
-import { type Contexto, type Conversa as ConversaGuardada, type Fala, gravarConversa, type ModoDoAcompanhante, montarPedido, novoId, tituloDe } from "@/lib/escola/acompanhante";
+import { type Contexto, type Conversa as ConversaGuardada, type Fala, gravarConversa, type ModoDeConversa, montarPedido, novoId, tituloDe } from "@/lib/escola/acompanhante";
 import { estaLigado } from "@/lib/modo-seguro";
 import { SELOS_DE_FORA } from "@/lib/selos";
 import { type MotivoSemServidor, RespostaSemServidor } from "./RespostaSemServidor";
@@ -101,7 +101,7 @@ export function AvisoDoQueVai({ s, itens, lang, id }: { s: Textos["comum"]; iten
 
 export interface PropsDaConversa {
   s: Textos;
-  modo: ModoDoAcompanhante;
+  modo: ModoDeConversa;
   /** O que vai junto com a pergunta (trecho, aula, exercício, trabalho, idioma…). */
   contexto?: Contexto;
   imagem?: { tipo: string; dados: string } | null;
@@ -119,8 +119,12 @@ export interface PropsDaConversa {
   avisoDaResposta?: string;
   /** Um botão a mais em cada resposta (o "Ouvir" da conversa de idioma). */
   acaoNaResposta?: (texto: string) => ReactNode;
-  /** Um controle a mais junto do campo (o microfone): recebe a função que preenche o campo. */
-  extraNoCampo?: (preencher: (texto: string) => void) => ReactNode;
+  /** Um controle a mais junto do campo (o microfone): recebe a função que preenche o campo e o texto de agora. */
+  extraNoCampo?: (preencher: (texto: string) => void, texto: string) => ReactNode;
+  /** A conversa acabou (a entrevista, ao concluir as 5 respostas): some o formulário e fica só "Começar outra". */
+  encerrarQuando?: (falas: readonly Fala[]) => boolean;
+  /** Confere o texto do campo antes do envio (dado pessoal): mostra o aviso e, se bloqueia, desliga o botão. */
+  conferirTexto?: (texto: string) => { aviso: string; bloqueia: boolean } | null;
   /** Valor inicial do campo (a redação que veio da Oficina). */
   inicial?: string;
   /** Pode mandar sem escrever nada (o trecho ou a foto já bastam)? */
@@ -153,13 +157,14 @@ export function Conversa(p: PropsDaConversa) {
 
   const pergunta = texto.trim();
   const temBase = Boolean(p.semTextoBasta && (p.contexto?.trecho || p.contexto?.enunciado || p.imagem));
-  const pronto = (pergunta.length >= p.campo.min || (temBase && pergunta.length === 0)) && pergunta.length <= p.campo.max && (p.imagem !== null || p.semServidor !== "aviso") && !p.bloqueado;
-  const terminou = Boolean(p.umaVez) && falas.some((f) => f.de === "assistente");
+  const conferido = p.conferirTexto?.(texto) ?? null;
+  const pronto = (pergunta.length >= p.campo.min || (temBase && pergunta.length === 0)) && pergunta.length <= p.campo.max && (p.imagem !== null || p.semServidor !== "aviso") && !p.bloqueado && !conferido?.bloqueia;
+  const terminou = (Boolean(p.umaVez) && falas.some((f) => f.de === "assistente")) || Boolean(p.encerrarQuando?.(falas));
   const itens: ItemQueVai[] = [...p.itens, ...(falas.length && !p.umaVez ? (["historico"] as const) : [])];
 
   function guardar(lista: Fala[]) {
     if (!id.current) id.current = { id: novoId(), criada: Date.now() };
-    const primeira = lista.find((f) => f.de === "pessoa")?.texto || p.contexto?.trecho || p.contexto?.enunciado || s.hub.nomesDosModos[modo];
+    const primeira = (modo === "entrevista" ? p.contexto?.vaga : "") || lista.find((f) => f.de === "pessoa")?.texto || p.contexto?.trecho || p.contexto?.enunciado || s.hub.nomesDosModos[modo];
     const conversa: ConversaGuardada = {
       id: id.current.id,
       modo,
@@ -278,7 +283,12 @@ export function Conversa(p: PropsDaConversa) {
             <span>{s.comum.naoEscreva}</span>
             {p.campo.max > 400 && <span aria-live="off">{fill(s.comum.caracteres, { n: texto.length, max: p.campo.max })}</span>}
           </p>
-          {p.extraNoCampo?.((novo) => setTexto(novo.slice(0, p.campo.max)))}
+          {conferido && (
+            <p role="status" className={`mt-1 text-sm font-semibold ${conferido.bloqueia ? "text-oxblood" : "text-ink"}`} data-dado-pessoal={conferido.bloqueia ? "bloqueia" : "avisa"}>
+              {conferido.aviso}
+            </p>
+          )}
+          {p.extraNoCampo?.((novo) => setTexto(novo.slice(0, p.campo.max)), texto)}
           {disponivel === "pronto" || disponivel === "carregando" ? (
             <AvisoDoQueVai s={s.comum} itens={itens} lang={lang} id={avisoId} />
           ) : (
