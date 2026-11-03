@@ -12,7 +12,8 @@ import { AcoesDaAula } from "@/components/celular/AcoesDaAula";
 import { MargemDaAula } from "@/components/aula/MargemDaAula";
 import { OuvirAula } from "@/components/aula/OuvirAula";
 import { lerLexico } from "@/lib/vozes/lexico";
-import { areaLabs, areaTools, universalTools } from "@/lib/areas";
+import { areaLabs } from "@/lib/areas";
+import { ferramentasDaCaixa } from "@/lib/ferramentas/caixa";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { CartaoDoEducador, EducadoresDaDisciplina } from "@/components/Educadores";
 import { PhetLista } from "@/components/labs/Phet";
@@ -135,7 +136,7 @@ export default async function LessonPage({ params }: Props) {
     terms.find((g) => new RegExp(`(?<![\\p{L}])${g.term.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}])`, "u").test(corpo));
   // O cartão preto do laboratório: o da disciplina ou, sem laboratório, a primeira ferramenta da caixa.
   const labDaArea = (areaLabs[track.area] ?? [])[0];
-  const ferramenta = [...lesson.tools, ...((areaTools[track.area] ?? []) as string[]), ...universalTools][0];
+  const ferramenta = ferramentasDaCaixa(track.area, lesson.tools)[0];
   const laboratorio = labDaArea
     ? { id: `lab:${labDaArea}`, nome: (t.labs as unknown as Record<string, string>)[labDaArea] ?? labDaArea }
     : ferramenta

@@ -5,6 +5,7 @@ area: deficiencia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/5twcy"
+pdf: "https://books.scielo.org/id/5twcy/pdf/pagni-9788595463332.pdf"
 idioma: "Português"
 ano: "2019"
 ---

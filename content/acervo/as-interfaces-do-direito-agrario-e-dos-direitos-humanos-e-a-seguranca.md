@@ -5,6 +5,7 @@ area: direito
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/s3vn9"
+pdf: "https://books.scielo.org/id/s3vn9/pdf/maniglia-9788579830143.pdf"
 idioma: "Português"
 ano: "2009"
 ---

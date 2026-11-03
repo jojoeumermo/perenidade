@@ -5,6 +5,7 @@ area: midia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/dx9pp"
+pdf: "https://books.scielo.org/id/dx9pp/pdf/conceicao-9786556309422.pdf"
 idioma: "Português"
 ano: "2025"
 ---

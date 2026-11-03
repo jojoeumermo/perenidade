@@ -5,6 +5,7 @@ area: luta-pela-terra
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/49yt7"
+pdf: "https://books.scielo.org/id/49yt7/pdf/firmiano-9788579830433.pdf"
 idioma: "Português"
 ano: "2009"
 ---

@@ -7,6 +7,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import { decimal, dividirEmFrases, fracao, lerSigla, lerTex, normalizar, normalizarOutroIdioma, ordinal, porExtenso, romano } from "../lib/vozes/normalizar.ts";
 import { conferirLexico, lerLexico } from "../lib/vozes/lexico.ts";
+import { escolherVoz, marcarTrechos, proximoTrecho } from "../lib/vozes/trechos.ts";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 let ok = 0;
@@ -256,6 +257,24 @@ if (fs.existsSync(manifestoArq)) {
   const urls = [m.fonemas.js, m.fonemas.wasm.url, m.fonemas.dados.url, m.ort.wasm.js, m.ort.wasm.wasm.url, m.ort.webgpu.js, ...m.vozes.flatMap((v) => v.arquivos.map((a) => a.url))];
   conferir("lista de vozes só aponta para /vozes/", urls.every((u) => u.startsWith("/vozes/")), urls.filter((u) => !u.startsWith("/vozes/")).join(", "));
   conferir("arquivos da lista existem", urls.every((u) => fs.existsSync(path.join(raiz, "public", u))));
+}
+
+// ── Trechos e a troca de voz (lib/vozes/trechos.ts): começa na hora com o aparelho, a natural entra no próximo trecho ──
+{
+  const texto = "Título da aula\nPrimeira frase. Segunda frase.\nItem um\nItem dois. Mais.";
+  const pedacos = dividirEmFrases(texto);
+  igual("trechos por bloco", JSON.stringify(marcarTrechos(texto, pedacos)), JSON.stringify([0, 1, 1, 2, 3, 3]));
+  igual("trechos vazios", JSON.stringify(marcarTrechos("", [])), "[]");
+  igual("próximo trecho", proximoTrecho([0, 1, 1, 2], 1), 3);
+  igual("próximo trecho no fim", proximoTrecho([0, 1, 1], 2), -1);
+  const base = { naturalPronta: false, somPronto: false, abreTrecho: true, vozAtual: null, aparelhoFala: true };
+  igual("sem natural: aparelho na hora", escolherVoz(base), "aparelho");
+  igual("sem natural nem aparelho: espera", escolherVoz({ ...base, aparelhoFala: false }), "esperar");
+  igual("natural pronta, som pronto, começo de trecho: natural", escolherVoz({ ...base, naturalPronta: true, somPronto: true }), "natural");
+  igual("natural pronta, som ainda não: aparelho começa", escolherVoz({ ...base, naturalPronta: true }), "aparelho");
+  igual("natural pronta no meio do trecho: aparelho termina o trecho", escolherVoz({ ...base, naturalPronta: true, somPronto: true, abreTrecho: false, vozAtual: "aparelho" }), "aparelho");
+  igual("natural já lendo: continua", escolherVoz({ ...base, naturalPronta: true, abreTrecho: false, vozAtual: "natural" }), "natural");
+  igual("aparelho falhou: natural mesmo esperando o som", escolherVoz({ ...base, naturalPronta: true, abreTrecho: false, vozAtual: "aparelho", aparelhoFala: false }), "natural");
 }
 
 if (falhas.length) {

@@ -5,6 +5,7 @@ area: trabalho
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/xvx85"
+pdf: "https://books.scielo.org/id/xvx85/pdf/oliveira-9788578793333.pdf"
 idioma: "Português"
 ano: "2015"
 ---

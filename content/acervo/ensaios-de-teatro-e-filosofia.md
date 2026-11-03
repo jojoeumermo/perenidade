@@ -5,6 +5,7 @@ area: teatro
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/nn5mf"
+pdf: "https://books.scielo.org/id/nn5mf/pdf/portich-9786557140536.pdf"
 idioma: "Português"
 ---
 

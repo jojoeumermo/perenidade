@@ -5,6 +5,7 @@ area: pessoas-idosas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/n8k9y"
+pdf: "https://books.scielo.org/id/n8k9y/pdf/costa-9788579837630.pdf"
 idioma: "Português"
 ano: "2016"
 ---

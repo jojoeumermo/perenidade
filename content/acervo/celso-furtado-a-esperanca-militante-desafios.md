@@ -5,6 +5,7 @@ area: dependencia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/swr8b"
+pdf: "https://books.scielo.org/id/swr8b/pdf/sousa-9786586221688.pdf"
 idioma: "Português"
 ano: "2020"
 ---

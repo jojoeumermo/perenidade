@@ -15,17 +15,17 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/saude/neut
 export default async function NeutralidadeDoMural({ params }: PageProps<"/[lang]/saude/neutralidade">) {
   const { lang } = await loadLang(params);
   return (
-    <div className="mural-de-saude bg-parchment-deep text-ink">
+    <div className="mural-de-saude bg-parchment font-sans text-ink">
       <article className="mx-auto max-w-3xl px-4 py-12" lang="pt-BR">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">{NOME_VITRINE}</p>
-        <h1 className="mt-2 font-serif text-4xl font-semibold leading-tight">{TEXTOS.neutralidade.titulo}</h1>
+        <p className="text-sm font-medium text-ink-soft">{NOME_VITRINE}</p>
+        <h1 className="mt-2 text-[2.1rem] font-semibold leading-tight tracking-tight sm:text-4xl">{TEXTOS.neutralidade.titulo}</h1>
         <div className="mt-6 space-y-4 text-lg leading-relaxed">
           {TEXTOS.neutralidade.paragrafos.map((p) => <p key={p}>{p}</p>)}
         </div>
-        <p className="mt-10 font-sans">
-          <Link href={localePath(lang, "/saude")} className="underline hover:no-underline">← Voltar ao mural</Link>
+        <p className="mt-10 border-t border-rule pt-5 text-sm">
+          <Link href={localePath(lang, "/saude")} className="underline decoration-ink/40 underline-offset-2 hover:decoration-ink">← Voltar ao mural</Link>
           {" · "}
-          <Link href={localePath(lang, "/saude/termo")} className="underline hover:no-underline">Termo do mural</Link>
+          <Link href={localePath(lang, "/saude/termo")} className="underline decoration-ink/40 underline-offset-2 hover:decoration-ink">Termo do mural</Link>
         </p>
       </article>
     </div>

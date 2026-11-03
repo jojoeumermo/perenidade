@@ -5,6 +5,7 @@ area: inteligencia-artificial
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/79zyr"
+pdf: "https://books.scielo.org/id/79zyr/pdf/iasulaitis-9786552210234.pdf"
 idioma: "Português"
 ano: "2025"
 ---

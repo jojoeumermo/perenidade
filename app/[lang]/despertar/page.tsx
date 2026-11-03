@@ -1,6 +1,7 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
+import { CertificadoComunitario } from "@/components/CertificadoComunitario";
 import despertar from "@/content/despertar.json";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -57,7 +58,7 @@ export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]
         <div className="relative mx-auto grid max-w-[78rem] items-end gap-10 px-4 py-14 sm:px-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:px-8 lg:py-16">
           <div className="min-w-0">
             <p className="rotulo text-[#e0837a]!">{s.eyebrow}</p>
-            <h1 className="lambe mt-4 text-[5rem] leading-[0.85] sm:text-[7rem]">{s.title}</h1>
+            <h1 className="lambe mt-4 text-[clamp(2.6rem,12.5vw,5rem)] leading-[0.95] sm:text-[7rem] sm:leading-[0.9]">{s.title}</h1>
             <p className="mt-6 max-w-[38rem] font-serif text-[1.6rem] leading-snug max-md:text-xl">{s.lead}</p>
             <div className="mt-8 flex flex-wrap gap-3.5">
               <a href="#olhar" className="botao botao-prelo">{s.start}</a>
@@ -125,13 +126,16 @@ export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]
           ))}
         </ol>
 
-        <div className="grid gap-7 py-14 md:grid-cols-2">
+        <div className="grid gap-7 py-14 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <section className="cartao p-7">
             <p className="rotulo">{s.endKicker}</p>
             <h2 className="mt-2 text-[2rem] font-semibold leading-tight">{s.certTitle}</h2>
             <p className="mt-3 text-lg leading-relaxed text-ink-soft">{s.certText}</p>
+            <div className="mt-6">
+              <CertificadoComunitario etapas={etapas.length} rotulo={s.certModelLabel} nota={s.certModelNote} />
+            </div>
           </section>
-          <section className="border-2 border-ink bg-[#c21f16] p-7 text-white shadow-[6px_6px_0_var(--sombra)]">
+          <section className="border-2 border-ink bg-[#c21f16] p-7 text-white shadow-[6px_6px_0_var(--sombra)] md:self-start">
             <p className="font-mono text-xs uppercase tracking-[0.2em]">{s.groupKicker}</p>
             <h2 className="mt-2 text-[2rem] font-semibold leading-tight">{s.groupTitle}</h2>
             <p className="mt-3 text-lg leading-relaxed">{s.groupText}</p>

@@ -5,6 +5,7 @@ area: informatica
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/r3xgc"
+pdf: "https://books.scielo.org/id/r3xgc/pdf/porto-9788523220204.pdf"
 idioma: "Português"
 ano: "2017"
 ---

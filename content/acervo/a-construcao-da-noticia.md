@@ -5,6 +5,7 @@ area: midia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/4pshm"
+pdf: "https://books.scielo.org/id/4pshm/pdf/carvalho-9786556301808.pdf"
 idioma: "Português"
 ano: "2019"
 ---

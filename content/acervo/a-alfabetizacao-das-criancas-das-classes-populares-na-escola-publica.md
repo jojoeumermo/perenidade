@@ -5,6 +5,7 @@ area: alfabetizacao
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/yk7gk"
+pdf: "https://books.scielo.org/id/yk7gk/pdf/todero-9786550190361.pdf"
 idioma: "Português"
 ano: "2022"
 ---

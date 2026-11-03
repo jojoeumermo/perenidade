@@ -5,6 +5,7 @@ area: informatica
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/6pdyn"
+pdf: "https://books.scielo.org/id/6pdyn/pdf/sousa-9788578791247.pdf"
 idioma: "Português"
 ano: "2011"
 ---

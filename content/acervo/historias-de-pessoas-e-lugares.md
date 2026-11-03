@@ -5,6 +5,7 @@ area: favelas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/kprj8"
+pdf: "https://books.scielo.org/id/kprj8/pdf/fernandes-9788575416020.pdf"
 idioma: "Português"
 ano: "2009"
 ---

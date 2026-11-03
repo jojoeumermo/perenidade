@@ -5,6 +5,7 @@ area: educacao-fisica
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/ggfcb"
+pdf: "https://books.scielo.org/id/ggfcb/pdf/lemos-9788578791223.pdf"
 idioma: "Português"
 ano: "2009"
 ---

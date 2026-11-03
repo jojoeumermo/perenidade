@@ -5,6 +5,7 @@ area: midia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/22zbb"
+pdf: "https://books.scielo.org/id/22zbb/pdf/varjão-9788523209193.pdf"
 idioma: "Português"
 ano: "2008"
 ---

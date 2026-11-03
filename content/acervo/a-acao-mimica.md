@@ -5,6 +5,7 @@ area: teatro
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/rzt8g"
+pdf: "https://books.scielo.org/id/rzt8g/pdf/mascarenhas-9786556303727.pdf"
 idioma: "Português"
 ---
 

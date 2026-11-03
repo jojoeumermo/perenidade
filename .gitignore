@@ -83,3 +83,6 @@ next-env.d.ts
 
 # Plano interno do coordenador (repositório público: não publicar)
 docs/plano-2026-11/
+
+# Cache local de análise do código
+graphify-out/

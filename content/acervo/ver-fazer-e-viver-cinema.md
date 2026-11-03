@@ -5,6 +5,7 @@ area: cinema
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/k53tv"
+pdf: "https://books.scielo.org/id/k53tv/pdf/perinelli-9788579837586.pdf"
 idioma: "Português"
 ano: "2016"
 ---

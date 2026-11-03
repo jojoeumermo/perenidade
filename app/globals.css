@@ -1627,13 +1627,112 @@ body {
   animation: none !important;
 }
 
-/* Texto espaçado. */
-:root[data-spacing] body {
-  letter-spacing: 0.04em;
-  word-spacing: 0.14em;
+/* Espaço entre as linhas (data-linhas) e entre as letras e palavras (data-letras). O nível 2 segue o critério 1.4.12
+   da WCAG (letras 0,12em, palavras 0,16em). Vai com !important porque a escolha da pessoa passa por cima das entrelinhas
+   e do espaçamento que cada bloco do site define (as classes text-* e tracking-* trazem os seus). data-spacing continua
+   marcado quando há espaço extra, e as regras de letra grande da aula e do aplicativo se afastam por ele. */
+:root[data-linhas="1"] body,
+:root[data-linhas="1"] body :is(p, li, dd, dt, blockquote, td, th, label, figcaption, .prose-lesson) {
+  line-height: 1.85 !important;
 }
-:root[data-spacing] .prose-lesson {
-  line-height: 2;
+:root[data-linhas="2"] body,
+:root[data-linhas="2"] body :is(p, li, dd, dt, blockquote, td, th, label, figcaption, .prose-lesson) {
+  line-height: 2.25 !important;
+}
+:root[data-linhas] .prose-lesson > * + * {
+  margin-top: 1.4em;
+}
+:root[data-letras="1"] body,
+:root[data-letras="1"] body * {
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.08em !important;
+}
+:root[data-letras="2"] body,
+:root[data-letras="2"] body * {
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+}
+
+/* Letra mais legível: Atkinson Hyperlegible (Braille Institute, licença SIL OFL-1.1), servida pelo próprio site
+   (next/font, components/A11yWidget.tsx define --font-legivel). Só é baixada quando este modo está ligado. O código
+   continua na letra de máquina, que separa 0 de O e 1 de l. */
+:root[data-dislexia] {
+  --font-serif-display: var(--font-legivel, system-ui), sans-serif;
+  --font-ui: var(--font-legivel, system-ui), sans-serif;
+  --font-cartaz: var(--font-legivel, system-ui), sans-serif;
+  --font-hand: var(--font-legivel, system-ui), sans-serif;
+}
+:root[data-dislexia] body,
+:root[data-dislexia] .territorio-play {
+  font-family: var(--font-legivel, system-ui), sans-serif;
+}
+:root[data-dislexia] :is(em, i, .italic) {
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Destacar links: todos sublinhados e com um fundo leve; com o mouse ou o teclado em cima, um contorno forte. */
+:root[data-links] a {
+  text-decoration-line: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 0.2em !important;
+  background-color: color-mix(in srgb, var(--gold) 28%, transparent);
+}
+:root[data-links] a:is(:hover, :focus-visible) {
+  outline: 3px solid var(--gold) !important;
+  outline-offset: 2px;
+}
+
+/* Pausar animações: nada se mexe, nada desliza, nada pisca (o mesmo que o modo e-ink faz, sem mudar as cores). */
+:root[data-parado] {
+  scroll-behavior: auto !important;
+}
+:root[data-parado] *,
+:root[data-parado] *::before,
+:root[data-parado] *::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Cursor grande: seta preta com contorno branco (vermelha nos links e botões) e barra de texto nos campos. */
+:root[data-cursor],
+:root[data-cursor] * {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M6 3v35l9-8 6 14 7-3-6-14h12z' fill='%23111' stroke='%23fff' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+      6 3,
+    auto !important;
+}
+:root[data-cursor] :is(a, button, summary, select, label, [role="button"], [role="switch"], [role="tab"], [role="link"], input[type="checkbox"], input[type="radio"]),
+:root[data-cursor] :is(a, button, summary, label, [role="button"], [role="switch"], [role="tab"], [role="link"]) * {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M6 3v35l9-8 6 14 7-3-6-14h12z' fill='%23c21f16' stroke='%23fff' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+      6 3,
+    pointer !important;
+}
+:root[data-cursor] :is(textarea, [contenteditable="true"], input:not([type="checkbox"], [type="radio"], [type="range"], [type="button"], [type="submit"], [type="reset"], [type="color"], [type="file"])) {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M16 6h16M24 6v36M16 42h16' stroke='%23fff' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M16 6h16M24 6v36M16 42h16' stroke='%23111' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E")
+      24 24,
+    text !important;
+}
+
+/* Cores da tela. O filtro vai em <html>: na raiz ele não muda a posição do que é fixo na tela (barra, botões). */
+:root[data-cor="cinza"] {
+  filter: grayscale(1);
+}
+:root[data-cor="pouca"] {
+  filter: saturate(0.45);
+}
+:root[data-cor="muita"] {
+  filter: saturate(1.7);
+}
+
+/* Guia de leitura (components/A11yWidget.tsx): a linha e a máscara não aparecem no papel. */
+@media print {
+  .guia-de-leitura {
+    display: none !important;
+  }
 }
 
 /* Modo foco: só o texto. */
@@ -2596,26 +2695,27 @@ html[data-escrita-foco="1"] .painel {
   }
 }
 /* ───────────── Acervo: a vitrine que anda ───────────── */
-@keyframes carrossel-andar {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
+/* Quem anda é a rolagem da própria fileira (components/acervo/Carrossel.tsx): por isso dá para voltar, arrastar e usar as setas. */
 .carrossel-janela {
-  overflow: hidden;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  cursor: grab;
   /* As pontas somem no papel, como vitrine. */
   mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
 }
-.carrossel-trilho {
-  animation: carrossel-andar linear infinite;
+.carrossel-janela::-webkit-scrollbar {
+  display: none;
 }
-.carrossel:hover .carrossel-trilho,
-.carrossel:focus-within .carrossel-trilho,
-.carrossel[data-pausado="1"] .carrossel-trilho {
-  animation-play-state: paused;
+.carrossel-janela:active {
+  cursor: grabbing;
+}
+.carrossel-janela img {
+  -webkit-user-drag: none;
+  user-select: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .carrossel-trilho { animation: none; }
-  .carrossel-janela { overflow-x: auto; mask-image: none; }
+  .carrossel-janela { mask-image: none; }
 }
 
 /* ───────────── Faixa do topo presa ao rolar ───────────── */
@@ -3648,7 +3748,7 @@ a.busca-campo:focus-visible {
 }
 
 /* O lambe-lambe da inicial (components/inicio/LambeDoDia.tsx), no desenho do cartaz de gráfica popular (30/10/2026):
-   reto, sem fita nem carimbo, duas cores por cartaz. O papel muda com o tom do dia: vermelho, anil, mata, ipê e tinta.
+   reto, sem carimbo, duas cores por cartaz. O papel muda com o tom do dia: vermelho, anil, mata, ipê e tinta.
    A letra do grito é medida pela largura do cartaz (cqw). */
 .lambe-cartaz {
   container-type: inline-size;
@@ -3677,6 +3777,34 @@ a.busca-campo:focus-visible {
 .lambe-destaque {
   color: var(--lambe-destaque);
 }
+/* Colado na parede (devolvido em 03/11/2026): a projeção dura atrás do papel, como no desenho de antes de 30/10, e
+   as duas tiras de fita crepe. No escuro a projeção vira vermelho do prelo (ipê no cartaz vermelho). */
+.lambe-papel {
+  border: 2px solid #1f1a14;
+  box-shadow: 8px 8px 0 var(--lambe-sombra, #1f1a14);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lambe-cartaz { --lambe-sombra: #c21f16; }
+  :root:not([data-theme="light"]) .lambe-vermelho { --lambe-sombra: #f0b323; }
+}
+:root[data-theme="dark"] .lambe-cartaz { --lambe-sombra: #c21f16; }
+:root[data-theme="dark"] .lambe-vermelho { --lambe-sombra: #f0b323; }
+.lambe-crepe {
+  z-index: 1;
+  background:
+    repeating-linear-gradient(90deg, rgba(120, 100, 60, 0.07) 0 1px, transparent 1px 4px),
+    rgba(233, 220, 188, 0.88);
+  box-shadow: 0 1px 2px rgba(31, 26, 20, 0.25);
+  /* As pontas rasgadas na mão, em zigue-zague. */
+  clip-path: polygon(0 8%, 4% 0, 8% 10%, 12% 2%, 88% 2%, 92% 10%, 96% 0, 100% 8%, 100% 92%, 96% 100%, 92% 90%, 88% 98%, 12% 98%, 8% 90%, 4% 100%, 0 92%);
+}
+/* O título grande: a Anton tem maiúscula de 0,86 em, mas o acento do Ã e do É sobe até 1,1 em e o Ç desce 0,3 em; com a
+   entrelinha de 0,92 da classe .lambe, as linhas se encavalavam. Aqui a entrelinha dá conta do acento e a palavra
+   só quebra se não couber inteira. */
+.lambe-papel .lambe-grito {
+  line-height: 1.12;
+  overflow-wrap: break-word;
+}
 .lambe-tiragem {
   border-top: 2px solid currentColor;
   padding-top: 0.75rem;
@@ -3702,6 +3830,12 @@ a.busca-campo:focus-visible {
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel .lambe {
   font-size: 2rem !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel {
+  box-shadow: none;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-crepe {
+  display: none;
 }
 .lambe-sep {
   display: none;

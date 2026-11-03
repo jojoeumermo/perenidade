@@ -5,6 +5,7 @@ area: arquivologia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/bvc3g"
+pdf: "https://books.scielo.org/id/bvc3g/pdf/cotta-9788523208844.pdf"
 idioma: "Português"
 ano: "2006"
 ---

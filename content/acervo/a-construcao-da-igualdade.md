@@ -5,6 +5,7 @@ area: lgbtqia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/yn5sj"
+pdf: "https://books.scielo.org/id/yn5sj/pdf/macrae-9788523219987.pdf"
 idioma: "Português"
 ano: "2018"
 ---

@@ -5,6 +5,7 @@ area: alfabetizacao
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/q7zxz"
+pdf: "https://books.scielo.org/id/q7zxz/pdf/barreiro-9788579831300.pdf"
 idioma: "Português"
 ano: "2010"
 ---

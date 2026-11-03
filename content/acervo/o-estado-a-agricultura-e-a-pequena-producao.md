@@ -5,6 +5,7 @@ area: luta-pela-terra
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/jfjjq"
+pdf: "https://books.scielo.org/id/jfjjq/pdf/wilkinson-9788599662717.pdf"
 idioma: "Português"
 ano: "2008"
 ---

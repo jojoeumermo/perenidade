@@ -5,6 +5,7 @@ area: povos-indigenas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/7c8m7"
+pdf: "https://books.scielo.org/id/7c8m7/pdf/santos-9786557080139.pdf"
 idioma: "Português"
 ano: "2019"
 ---

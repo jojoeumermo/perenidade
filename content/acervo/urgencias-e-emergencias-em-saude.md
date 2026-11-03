@@ -5,6 +5,7 @@ area: primeiros-socorros
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/zt4fg"
+pdf: "https://books.scielo.org/id/zt4fg/pdf/giglio-9788575413784.pdf"
 idioma: "Português"
 ano: "2005"
 ---

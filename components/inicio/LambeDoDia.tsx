@@ -32,9 +32,10 @@ const PAPEL: Record<Formato, "vermelho" | "anil" | "mata" | "ipe" | "tinta"> = {
 };
 
 /**
- * O lambe-lambe do dia, o mesmo para todo mundo na mesma data, no desenho do cartaz de gráfica popular: reto, sem fita,
- * sem carimbo e sem inclinação, a letra de madeira condensada (Anton) e duas cores por cartaz. O papel muda com o tom do
- * texto. No pé, como em cartaz de poste, o endereço e a tiragem (os números do acervo).
+ * O lambe-lambe do dia, o mesmo para todo mundo na mesma data, no desenho do cartaz de gráfica popular: reto, sem
+ * carimbo, a letra de madeira condensada (Anton) e duas cores por cartaz. O papel muda com o tom do texto. Colado na
+ * parede: a projeção dura atrás do papel e duas tiras de fita crepe no alto. No pé, como em cartaz de poste, o endereço
+ * e a tiragem (os números do acervo).
  */
 export function LambeDoDia({ dias, rotulo, tiragem, reserva }: { dias: Dia[]; rotulo: string; tiragem: string; reserva: string[] }) {
   const { lang } = useI18n();
@@ -44,19 +45,20 @@ export function LambeDoDia({ dias, rotulo, tiragem, reserva }: { dias: Dia[]; ro
   const tema = escolhido.lambe.carimbo?.[0] ?? reserva[0];
   // A data do cartaz: o número do dia já é o de Brasília, então basta lê-lo como data em UTC.
   const data = new Intl.DateTimeFormat(lang, { day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(escolhido.dia * 86_400_000));
-  // A letra do grito cabe na largura do papel: a linha mais comprida decide o tamanho (a Anton tem cerca de 0,47 em por
-  // letra). Medido pela largura do próprio cartaz (cqw), vale igual no computador e no celular.
+  // A letra do grito cabe na largura do papel: a linha mais comprida decide o tamanho. A Anton tem cerca de 0,47 em por
+  // maiúscula; a conta usa 0,5 para sobrar folga (M, W e a letra que espaça um pouco), senão a linha quebra no meio da
+  // palavra. Medido pela largura do próprio cartaz (cqw), vale igual no computador e no celular.
   const comprido = Math.max(...linhas.map((linha) => linha.length), 4);
-  const largura = Math.min(19, 86 / (0.47 * comprido));
+  const largura = Math.min(19, 86 / (0.5 * comprido));
   return (
     <figure className={`lambe-cartaz lambe-${PAPEL[escolhido.formato]} relative mx-auto w-full max-w-[25rem]`}>
-      <div className="lambe-papel flex flex-col gap-4 px-[1.75rem] pt-7 pb-5">
+      <div className="lambe-papel relative flex flex-col gap-4 px-[1.75rem] pt-7 pb-5">
         <p className="lambe-numero flex items-baseline justify-between gap-3 font-mono text-[0.68rem] uppercase tracking-[0.16em]">
           <span>{rotulo.replace("{n}", String(escolhido.numero))}</span>
           {tema && <span className="lambe-sep"> · </span>}
           {tema && <span className="lambe-tema text-right">{tema}</span>}
         </p>
-        <p className="lambe" style={{ fontSize: `min(${(largura * 0.24).toFixed(2)}rem, ${largura.toFixed(2)}cqw)` }}>
+        <p className="lambe lambe-grito" style={{ fontSize: `min(${(largura * 0.24).toFixed(2)}rem, ${largura.toFixed(2)}cqw)` }}>
           {linhas[0]}
           <br />
           {linhas[1]}
@@ -73,6 +75,9 @@ export function LambeDoDia({ dias, rotulo, tiragem, reserva }: { dias: Dia[]; ro
           <span className="mt-1 block">{tiragem}</span>
         </p>
       </div>
+      {/* As duas tiras de fita crepe que seguram o cartaz na parede, tortas como quem colou com pressa. */}
+      <span aria-hidden className="lambe-crepe absolute -top-3 left-6 h-6 w-[4.5rem] -rotate-[7deg]" />
+      <span aria-hidden className="lambe-crepe absolute -top-3 right-6 h-6 w-[4.5rem] rotate-[5deg]" />
     </figure>
   );
 }

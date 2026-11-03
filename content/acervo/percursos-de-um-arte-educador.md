@@ -5,6 +5,7 @@ area: teatro
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/nrd7d"
+pdf: "https://books.scielo.org/id/nrd7d/pdf/silva-9786559542475.pdf"
 idioma: "Português"
 ---
 

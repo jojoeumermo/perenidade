@@ -5,6 +5,7 @@ area: teologia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/pdkdq"
+pdf: "https://books.scielo.org/id/pdkdq/pdf/ferraz-9788578791186.pdf"
 idioma: "Português"
 ano: "2008"
 ---

@@ -73,6 +73,12 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
       >
         {fill(reserved ? t.library.seeAt : t.common.readAt, { source: book.source })} ↗
       </a>
+      {/* Livro de acesso aberto com o arquivo inteiro publicado pela editora: o link vai direto ao PDF. */}
+      {book.pdf && (
+        <a href={book.pdf} target="_blank" rel="noopener noreferrer" className="mt-3 ml-0 inline-flex min-h-11 items-center gap-2 border-2 border-ink bg-folha px-6 py-2.5 font-sans text-sm font-semibold text-ink hover:bg-ink hover:text-parchment sm:ml-3 app:max-md:flex app:max-md:justify-center">
+          {t.library.pdfDownload} ↓
+        </a>
+      )}
       {/* Livros da biblioteca digital do MEC: quem lê precisa da conta gov.br, e é bom saber disso antes de clicar. */}
       {book.source === "MEC Livros" && <p className="mt-3 max-w-xl font-sans text-sm text-ink-soft">{t.library.mecNote}</p>}
 

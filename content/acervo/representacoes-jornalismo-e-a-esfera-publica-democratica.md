@@ -5,6 +5,7 @@ area: midia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/kgsw8"
+pdf: "https://books.scielo.org/id/kgsw8/pdf/soares-9788579830181.pdf"
 idioma: "Português"
 ano: "2009"
 ---

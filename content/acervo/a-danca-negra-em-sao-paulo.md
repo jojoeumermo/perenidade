@@ -5,6 +5,7 @@ area: danca
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/qfk22"
+pdf: "https://books.scielo.org/id/qfk22/pdf/rocha-9786559544455.pdf"
 idioma: "Português"
 ---
 

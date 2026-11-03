@@ -5,6 +5,7 @@ area: arquitetura
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/zhjcx"
+pdf: "https://books.scielo.org/id/zhjcx/pdf/sampaio-9788523211516.pdf"
 idioma: "Português"
 ano: "2010"
 ---

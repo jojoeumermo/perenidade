@@ -5,6 +5,7 @@ area: psicologia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/xg9wp"
+pdf: "https://books.scielo.org/id/xg9wp/pdf/spink-9788579820571.pdf"
 idioma: "Português"
 ano: "2011"
 ---

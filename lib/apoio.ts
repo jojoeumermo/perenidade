@@ -128,7 +128,7 @@ export function textoParaBenfeitoria(numeros: NumerosDoSite & { voluntarios: num
   if (config.metas.meta2) metas.push(`Meta 2: ${r(config.metas.meta2.alvo)} por mês${config.metas.meta2.texto ? ` (${config.metas.meta2.texto.toLowerCase()})` : ""}.`);
   const faixas = config.faixas.map((f) => `${f.nome}: ${r(f.valor)} por mês`).join("; ");
   const descricao = [
-    "O Instituto Lúcia é uma escola e biblioteca comunitária, gratuita e sem anúncios, mantida por trabalho voluntário (institutolucia.org).",
+    "O Instituto Lúcia é a escola da classe trabalhadora: gratuita, sem anúncios e mantida por trabalho voluntário (institutolucia.org).",
     `Hoje o site tem ${numeros.obras.toLocaleString("pt-BR")} obras no acervo, ${numeros.aulas.toLocaleString("pt-BR")} aulas publicadas e ${numeros.traducoes.toLocaleString("pt-BR")} traduções de aulas, em ${numeros.idiomas} idiomas, com ${numeros.voluntarios.toLocaleString("pt-BR")} voluntários ativos.`,
     "O acervo continua gratuito para todo mundo, com ou sem apoio, e não há conteúdo exclusivo para quem apoia.",
     `O apoio é mensal: ${faixas}.`,

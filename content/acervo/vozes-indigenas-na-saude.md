@@ -5,6 +5,7 @@ area: povos-indigenas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/stqxp"
+pdf: "https://books.scielo.org/id/stqxp/pdf/pontes-9786557081709.pdf"
 idioma: "Português"
 ano: "2022"
 ---

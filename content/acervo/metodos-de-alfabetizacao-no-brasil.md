@@ -5,6 +5,7 @@ area: alfabetizacao
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/fqrmr"
+pdf: "https://books.scielo.org/id/fqrmr/pdf/mortatti-9788595463394.pdf"
 idioma: "Português"
 ano: "2019"
 ---

@@ -5,6 +5,7 @@ area: danca
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/h95n9"
+pdf: "https://books.scielo.org/id/h95n9/pdf/ramos-9786556309910.pdf"
 idioma: "Português"
 ano: "2025"
 ---

@@ -5,6 +5,7 @@ area: deficiencia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/4kx2t"
+pdf: "https://books.scielo.org/id/4kx2t/pdf/cavalcante-9788575416082.pdf"
 idioma: "Português"
 ano: "2003"
 ---

@@ -5,6 +5,7 @@ area: danca
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/cqndd"
+pdf: "https://books.scielo.org/id/cqndd/pdf/matos-9788523218164.pdf"
 idioma: "Português"
 ---
 
