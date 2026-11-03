@@ -2652,6 +2652,15 @@ html[data-escrita-foco="1"] .painel {
 :root[data-contrast] .festa {
   display: none;
 }
+/* O Sankofa é traço de tinta: no escuro, vira traço claro para não sumir no fundo. */
+:root[data-theme="dark"] .festa[data-festa="consciencia"] {
+  filter: invert(0.9);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .festa[data-festa="consciencia"] {
+    filter: invert(0.9);
+  }
+}
 /* A onda do calçadão: a pedra portuguesa do chão, só no pé do site. */
 .onda-do-calcadao {
   height: 16px;
