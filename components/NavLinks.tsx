@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { fill, localeNames, localePath, locales } from "@/i18n/config";
 import { hasBackend, rpc, signOut, useMe } from "@/lib/backend";
+import { ligado } from "@/lib/recursos";
 import { AVATARES } from "./painel/Avatar";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
@@ -16,7 +17,7 @@ export const SAIR_MAIS = "lucia:sair-mais";
 export const abrirMais = (mouse = false) => window.dispatchEvent(new CustomEvent(ABRIR_MAIS, { detail: { mouse } }));
 
 /** O que já está no menu do topo do computador: a janela do "Mais" não repete. */
-export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/saude", "/dedicatoria", "/apoie"];
+export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/saude", "/dedicatoria", "/apoie", ...(ligado("escola") ? ["/escola"] : [])];
 
 export function NavLinks() {
   const pathname = usePathname();
@@ -25,6 +26,8 @@ export function NavLinks() {
   // No menu, o que se usa todo dia, o Mural de Saúde e a Dedicatória (Lúcia é quem inspirou tudo isto); o resto mora
   // no "Mais" (MAIS_NO_MENU diz quais não repetem lá).
   const links: [string, string][] = [
+    // A Escola Lúcia Maria (recurso "escola") abre o menu quando está ligada.
+    ...(ligado("escola") ? ([[t.celular.escola, "/escola"]] as [string, string][]) : []),
     [t.nav.disciplines, "/trilhas"],
     [t.nav.library, "/acervo"],
     [t.nav.journal, "/jornal"],

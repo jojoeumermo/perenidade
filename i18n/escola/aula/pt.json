@@ -1,0 +1,91 @@
+{
+  "proximo": {
+    "proximaAula": "Próxima aula: {titulo}",
+    "revisar": "Revisar esta aula",
+    "prova": "Fazer a prova da trilha",
+    "outraTrilha": "Escolher a próxima trilha",
+    "barra": "Próxima",
+    "barraRotulo": "Ir para a próxima aula: {titulo}",
+    "esconder": "Esconder"
+  },
+  "fatias": {
+    "indice": "Esta aula em {n} partes",
+    "marca": "Parte {i} de {n} · {min} min",
+    "minutos": "{min} min",
+    "semTitulo": "Parte {i}",
+    "pararAqui": "Parar aqui",
+    "parado": "Guardado neste aparelho. Quando você voltar, a aula oferece continuar daqui.",
+    "umaPorVez": "Uma parte por vez",
+    "continuar": "Continuar: parte {i}",
+    "fim": "Fim das partes desta aula."
+  },
+  "retomar": {
+    "aviso": "Voltar para onde parou (parte {parte}, parágrafo {paragrafo})",
+    "avisoSemParte": "Voltar para onde parou (parágrafo {paragrafo})",
+    "dispensar": "Agora não"
+  },
+  "letra": {
+    "rotulo": "Tamanho da letra",
+    "menor": "Letra menor",
+    "normal": "Letra normal",
+    "maior": "Letra maior",
+    "agora": "Letra em {n}%"
+  },
+  "selecao": {
+    "rotulo": "O que fazer com o trecho escolhido",
+    "oQueE": "O que é?",
+    "compartilhar": "Compartilhar trecho",
+    "procurando": "Procurando…",
+    "doGlossario": "Glossário do Instituto",
+    "verGlossario": "Ver no glossário",
+    "naoAchou": "Não achamos esta palavra no glossário nem no dicionário.",
+    "indisponivel": "O dicionário não respondeu agora. Tente de novo mais tarde.",
+    "fonte": "Fonte",
+    "licenca": "Licença",
+    "aviso": "Consulta feita pelo servidor do Instituto a um dicionário aberto.",
+    "fechar": "Fechar"
+  },
+  "cartao": {
+    "titulo": "Cartão do trecho",
+    "gerando": "Montando a imagem…",
+    "compartilhar": "Compartilhar imagem",
+    "baixar": "Baixar imagem",
+    "baixado": "Imagem baixada e link da aula copiado.",
+    "soBaixado": "Imagem baixada.",
+    "privado": "A imagem é feita neste aparelho. Nada é enviado ao Instituto.",
+    "alt": "Imagem com o trecho escolhido da aula",
+    "fechar": "Fechar"
+  },
+  "umaMao": {
+    "rotulo": "Modo uma mão",
+    "dica": "Os botões da aula descem para perto do polegar.",
+    "voltar": "Voltar à trilha",
+    "ouvir": "Ouvir",
+    "parar": "Parar"
+  },
+  "ouvir": {
+    "ouvir": "Ouvir",
+    "parar": "Parar",
+    "rotulo": "Ouvir este parágrafo"
+  },
+  "facil": {
+    "ler": "Ler versão fácil",
+    "voltar": "Voltar ao texto completo",
+    "aviso": "Versão em linguagem simples desta aula."
+  },
+  "nivel": {
+    "rotulo": "Leitura: {nivel}",
+    "facil": "fácil",
+    "media": "média",
+    "dificil": "difícil",
+    "como": "Como medimos",
+    "explicacao": "A conta usa o tamanho das frases e das palavras (o índice de Flesch adaptado ao português, de 0 a 100). Não mede se o assunto é fácil. Aulas com índice abaixo de 50 entram na lista para ganhar uma versão fácil, escrita por educadores.",
+    "fonteDaConta": "Fórmula: adaptação ao português citada em Martins et al. (1996), não conferida."
+  },
+  "voz": {
+    "telaApagada": "Com a voz do aparelho, a leitura pode parar quando a tela apaga. A voz natural continua tocando."
+  },
+  "cordel": {
+    "ouvir": "Ouvir em cordel"
+  }
+}

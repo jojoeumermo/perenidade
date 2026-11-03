@@ -4,7 +4,10 @@
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { ligado, type Recurso } from "@/lib/recursos";
+import { SELOS_DE_FORA } from "@/lib/selos";
 import { cartaoVencido, confere, embaralhar, type Exercicio, falar, juntar, lerProgresso, palavrasDe, parecido, type Progresso, registrarSessao, revisarCartao, temVoz, guardarProgresso } from "@/lib/pratica";
+import { SelosDePrivacidade } from "./SeloDePrivacidade";
 
 export type PraticaStrings = Dict["practice"];
 
@@ -314,6 +317,8 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
             </button>
           )}
         </div>
+        {/* Selo de privacidade (E4-04): o reconhecimento de fala é do navegador. "escola" entra em lib/recursos.ts pelo E4-01. */}
+        {Reconhecedor && ligado("escola" as Recurso) && <SelosDePrivacidade item={SELOS_DE_FORA.reconhecimentoDeFala} className="mt-2" />}
         {Reconhecedor ? (
           <>
             {ouvido !== null && (

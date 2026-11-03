@@ -151,27 +151,89 @@ export function Sumario({ lessons }: { lessons: LessonLink[] }) {
   );
 }
 
-export function CompleteButton({ id, next }: { id: string; next?: { path: string; title: string } }) {
+/** O próximo passo no fim da aula (Etapa 4, R1-13). Sem ele (recurso "escola" desligado), o fim da aula fica como era. */
+export interface PassoSeguinte {
+  s: { proximaAula: string; revisar: string; prova: string; outraTrilha: string };
+  /** A próxima aula; num curso (E4-07), a próxima do curso. */
+  proxima?: { path: string; title: string };
+  /** Última aula da trilha: a prova (trilha com 10 questões ou mais) ou a lista de trilhas. */
+  prova?: string;
+  trilhas: string;
+  /** Ícones ao lado do texto e rótulos para leitor de tela (aulas de alfabetização, R1-87). */
+  icones?: boolean;
+}
+
+/** Seta em traço, para os botões de seguir (no estilo de components/celular/Atalhos.tsx). */
+const Seta = () => (
+  <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 12h13M13 6l6 6-6 6" />
+  </svg>
+);
+
+export function CompleteButton({ id, next, passo }: { id: string; next?: { path: string; title: string }; passo?: PassoSeguinte }) {
   const done = useCompleted().has(id);
   const { t } = useI18n();
+  const marcar = done ? `✓ ${t.lesson.done}` : t.lesson.markDone;
   return (
-    <div className="concluir-da-aula no-print mt-12 flex flex-wrap items-center gap-4 font-sans text-sm">
-      <button
-        type="button"
-        aria-pressed={done}
-        onClick={() => setCompleted(id, !done)}
-        className={`cursor-pointer border-2 px-6 py-3 font-medium ${
-          done ? "border-ok text-ok" : "border-ink bg-ink text-parchment hover:border-oxblood hover:bg-oxblood"
-        }`}
-      >
-        {done ? `✓ ${t.lesson.done}` : t.lesson.markDone}
-      </button>
-      {done && next && (
-        <L href={next.path} className="underline hover:text-oxblood">
-          {t.lesson.next} {next.title} →
-        </L>
+    <>
+      <div className="concluir-da-aula no-print mt-12 flex flex-wrap items-center gap-4 font-sans text-sm">
+        <button
+          type="button"
+          aria-pressed={done}
+          aria-label={passo?.icones ? marcar.replace(/^✓ /, "") : undefined}
+          onClick={() => setCompleted(id, !done)}
+          className={`cursor-pointer border-2 px-6 py-3 font-medium ${passo?.icones ? "inline-flex items-center gap-2" : ""} ${
+            done ? "border-ok text-ok" : "border-ink bg-ink text-parchment hover:border-oxblood hover:bg-oxblood"
+          }`}
+        >
+          {passo?.icones && (
+            <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              {done && <path d="M8 12.5l3 3 5-6" />}
+            </svg>
+          )}
+          {marcar}
+        </button>
+        {!passo && done && next && (
+          <L href={next.path} className="underline hover:text-oxblood">
+            {t.lesson.next} {next.title} →
+          </L>
+        )}
+      </div>
+      {/* Fora do bloco de concluir: no celular aquele bloco sai (o concluir mora na barra de baixo), este fica. */}
+      {passo && (
+        <div className="passo-seguinte no-print font-sans">
+          {passo.proxima ? (
+            <L href={passo.proxima.path} className="passo-seguinte-grande">
+              <span className="min-w-0 flex-1">{fill(passo.s.proximaAula, { titulo: passo.proxima.title })}</span>
+              <Seta />
+            </L>
+          ) : (
+            <L href={passo.prova ?? passo.trilhas} className="passo-seguinte-grande">
+              <span className="min-w-0 flex-1">{passo.prova ? passo.s.prova : passo.s.outraTrilha}</span>
+              <Seta />
+            </L>
+          )}
+          <L
+            href="/meu-estudo/praticar"
+            className="passo-seguinte-revisar"
+            onClick={() => {
+              // O Praticar (E4-05) lê a aula desta chave: nada vai na URL além do caminho.
+              try {
+                sessionStorage.setItem("lucia:praticar-aula", JSON.stringify({ aula: id }));
+              } catch {
+                // sem armazenamento: o Praticar abre com a revisão de sempre
+              }
+            }}
+          >
+            <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4" />
+            </svg>
+            {passo.s.revisar}
+          </L>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

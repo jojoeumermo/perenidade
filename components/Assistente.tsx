@@ -7,8 +7,11 @@ import { fill } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
 import { askAssistant, type AssistantRequest, useMe } from "@/lib/backend";
+import { ligado, type Recurso } from "@/lib/recursos";
+import { SELOS_DE_FORA } from "@/lib/selos";
 import { imageForAssistant } from "@/lib/upload";
 import { L, useI18n } from "./I18n";
+import { SelosDePrivacidade } from "./SeloDePrivacidade";
 
 // O Markdown (com fórmulas) só é baixado quando chega a primeira resposta.
 const Markdown = dynamic(() => import("./Markdown").then((m) => m.Markdown), { ssr: false });
@@ -63,6 +66,8 @@ export function Assistente({ s, disciplina, pergunta, aulas }: { s: S; disciplin
       <h2 id="assistente-titulo" className="font-serif text-2xl font-semibold">{s.title}</h2>
       <p className="mt-1">{s.lead}</p>
       <p className="mt-3 border-l-4 border-oxblood pl-3 text-ink-soft">{s.warning}</p>
+      {/* Selo de privacidade (E4-04). "escola" entra em lib/recursos.ts pelo E4-01. */}
+      {ligado("escola" as Recurso) && <SelosDePrivacidade item={SELOS_DE_FORA.assistente} lang={lang} className="mt-3" />}
       {me.status !== "in" ? (
         <p className="mt-3">
           {s.login}{" "}

@@ -21,6 +21,10 @@ import { defaultLocale, fill, localePath, plural } from "@/i18n/config";
 import { getTrack, getTracks, idiomasDe } from "@/lib/content";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
+import { ligado } from "@/lib/recursos";
+import "@/styles/escola-aula.css";
+import { textosDaAula } from "@/i18n/escola/aula";
+import { OuvirParagrafoSobDemanda as OuvirParagrafo } from "@/components/aula/AulaVivaSobDemanda";
 
 export const dynamicParams = false;
 
@@ -51,6 +55,9 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
   const questionCount = track.lessons.reduce((sum, lesson) => sum + lesson.quiz.length, 0);
 
   const cor = capaDaTrilha(track.area);
+  // Ouvir antes de ler (Etapa 4, R1-87): nas trilhas de alfabetização (a mesma regra do data-letra-grande da aula),
+  // com o recurso "escola" ligado, o resumo e cada parágrafo da apresentação ganham o botão "Ouvir".
+  const ouvir = ligado("escola") && track.area === "alfabetizacao" && track.stage !== "superior" ? textosDaAula(lang).ouvir : null;
   const emConstrucao = ready.length < items.length;
 
   return (
@@ -91,8 +98,11 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
               </p>
               <div {...originalLang(track.translated)}>
                 <h1 className="mt-3 text-[2.6rem] font-medium leading-none text-balance sm:text-6xl lg:text-[4.25rem]">{track.title}</h1>
-                <p className="mt-4 max-w-[40rem] text-[1.35rem] leading-snug text-ink-soft">{track.summary}</p>
+                <div id="resumo-da-trilha">
+                  <p data-p={ouvir ? 0 : undefined} className="mt-4 max-w-[40rem] text-[1.35rem] leading-snug text-ink-soft">{track.summary}</p>
+                </div>
               </div>
+              {ouvir && <OuvirParagrafo raiz="#resumo-da-trilha" s={ouvir} />}
               <Untranslated lang={lang} t={t} show={!track.translated} />
               <p className="mt-7 flex flex-wrap gap-2.5 font-mono text-xs uppercase">
                 <span className="border-[1.5px] border-ink bg-folha px-3 py-2">{fill(t.tracks.ready, { a: ready.length, b: items.length })}</span>
@@ -117,10 +127,11 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
       <div className="mx-auto grid max-w-[78rem] items-start gap-12 px-4 pt-14 pb-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_21rem] lg:px-8 max-md:pt-9">
         <div className="min-w-0">
           {track.intro && (
-            <div className="mb-10 max-w-3xl" {...originalLang(track.translated)}>
+            <div id="intro-da-trilha" className="mb-10 max-w-3xl" {...originalLang(track.translated)}>
               <Markdown lang={lang}>{track.intro}</Markdown>
             </div>
           )}
+          {ouvir && track.intro && <OuvirParagrafo raiz="#intro-da-trilha" s={ouvir} />}
           <h2 className="tarja">
             <span className="tarja-nome">{t.tracks.summaryTitle}</span>
             <span className="tarja-conta">{plural(lang, items.length, t.common.lessons)}</span>

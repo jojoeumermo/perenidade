@@ -1,0 +1,45 @@
+{
+  "selo": {
+    "rotulo": "Privacidade",
+    "aparelho": "Fica no seu aparelho",
+    "instituto": "Passa pelo servidor do Instituto",
+    "institutoNaoGuarda": "Passa pelo servidor do Instituto; o Instituto não guarda o que você mandou",
+    "institutoConsulta": "Passa pelo servidor do Instituto, que consulta {servico}; quem é consultado não fica sabendo quem você é",
+    "externo": "Usa um serviço de fora: {servico}",
+    "privacidade": "Ver na privacidade"
+  },
+  "servicos": {
+    "dicionarios": "o Wikcionário, o Dicionário Aberto e o Free Dictionary API",
+    "tatoeba": "o Tatoeba",
+    "phet": "o PhET (phet.colorado.edu), que abre dentro da página",
+    "vozDoNavegador": "a voz do navegador; em alguns navegadores, ela é gerada pela empresa do navegador, que recebe o texto lido",
+    "reconhecimentoDeFala": "o serviço de voz do navegador; em alguns navegadores, o que você fala é enviado à empresa do navegador",
+    "ia": "provedor de IA, com servidores fora do Brasil",
+    "vlibras": "governo federal (VLibras)"
+  },
+  "partes": {
+    "foto": "A foto do exercício",
+    "voz": "A voz"
+  },
+  "qualidade": {
+    "titulo": "Qualidade do conteúdo",
+    "lead": "Contado nos arquivos das aulas quando o site é montado. Mostra o estado do conteúdo, nunca um ranking de pessoas.",
+    "aulas": "Aulas publicadas",
+    "revisadas": "Revisadas por alguém da equipe",
+    "emRevisaoProntas": "Em revisão, com o modelo de aula completo",
+    "emRevisaoFaltam": "Em revisão, ainda faltam partes do modelo de aula",
+    "comFontes": "Com fontes",
+    "comTeste": "Com teste no fim",
+    "comExercicio": "Com exercícios corrigidos, que explicam cada erro",
+    "trilhas": "Trilhas",
+    "trilhasComAula": "Com pelo menos uma aula",
+    "trilhasSemAula": "Ainda sem aula",
+    "deTotal": "{n} de {total}",
+    "calculadoEm": "Calculado em {data}.",
+    "guia": "Como uma aula é revisada (guia de revisão)"
+  },
+  "espelhos": {
+    "titulo": "Se o site cair, leia aqui",
+    "texto": "Cópias só de leitura das aulas e do acervo, em outro endereço:"
+  }
+}

@@ -7,12 +7,24 @@ import { useEffect, useRef, useState } from "react";
 import { setCompleted, useCompleted } from "@/lib/progress";
 import { setPrefs, TEXT_SCALES, usePrefs } from "@/lib/prefs";
 import { localePath } from "@/i18n/config";
-import { ANOTAR } from "../aula/BarraDaAula";
+import { ANOTAR, TRECHOS_DA_AULA } from "../aula/BarraDaAula";
+import { TamanhoDaLetraSobDemanda as TamanhoDaLetra } from "../aula/AulaVivaSobDemanda";
+import type { TextosDaAula } from "@/i18n/escola/aula";
+import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { ABRIR_CAIXA } from "../aula/MargemDaAula";
 import { useI18n } from "../I18n";
 
 /** A barra de cima (o "Aa") abre a folha da aula por este aviso. */
 export const ABRIR_FOLHA_DA_AULA = "lucia:folha-da-aula";
+const CHAVE_UMA_MAO = "lucia:uma-mao";
+
+/** Os controles da Etapa 4 no celular (recurso "escola"): modo uma mão e a letra em cinco passos. */
+export interface EscolaNaAula {
+  umaMao: TextosDaAula["umaMao"];
+  letra: TextosDaAula["letra"];
+  /** A página da trilha, para o "voltar" da faixa de uma mão. */
+  trilha: string;
+}
 
 interface AulaDaLista {
   id: string;
@@ -31,7 +43,7 @@ interface Secao {
  * "Concluir e seguir", que marca a aula como feita neste aparelho e já abre a próxima. Enquanto ela está na tela, as
  * abas do site saem (a barra de cima tem o voltar). Só no celular; no computador e no leitor de tinta não aparece.
  */
-export function AcoesDaAula({ id, anterior, proxima, aulas }: { id: string; anterior?: AulaDaLista; proxima?: AulaDaLista; aulas: AulaDaLista[] }) {
+export function AcoesDaAula({ id, anterior, proxima, aulas, escola }: { id: string; anterior?: AulaDaLista; proxima?: AulaDaLista; aulas: AulaDaLista[]; escola?: EscolaNaAula }) {
   const { lang, t } = useI18n();
   const c = t.celular;
   const router = useRouter();
@@ -43,6 +55,35 @@ export function AcoesDaAula({ id, anterior, proxima, aulas }: { id: string; ante
   const [foco, setFoco] = useState(false);
   const fechar = useRef<HTMLButtonElement>(null);
   const antes = useRef<HTMLElement | null>(null);
+  const [umaMao, setUmaMao] = useState(false);
+  const falando = useSpeaking();
+
+  // Modo uma mão (Etapa 4, R1-23): lembrado no aparelho; vira data-uma-mao no <html>, que o CSS lê (styles/escola-aula.css).
+  useEffect(() => {
+    if (!escola) return;
+    let guardado = false;
+    try {
+      guardado = localStorage.getItem(CHAVE_UMA_MAO) === "1";
+    } catch {
+      // sem armazenamento
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- a escolha só existe no aparelho
+    setUmaMao(guardado);
+    document.documentElement.toggleAttribute("data-uma-mao", guardado);
+    return () => document.documentElement.removeAttribute("data-uma-mao");
+  }, [escola]);
+
+  const alternarUmaMao = () => {
+    const novo = !umaMao;
+    setUmaMao(novo);
+    document.documentElement.toggleAttribute("data-uma-mao", novo);
+    try {
+      if (novo) localStorage.setItem(CHAVE_UMA_MAO, "1");
+      else localStorage.removeItem(CHAVE_UMA_MAO);
+    } catch {
+      // sem armazenamento: vale até fechar a página
+    }
+  };
 
   useEffect(() => {
     const abrir = () => {
@@ -91,6 +132,24 @@ export function AcoesDaAula({ id, anterior, proxima, aulas }: { id: string; ante
 
   return (
     <>
+      {escola && umaMao && (
+        <div className="faixa-uma-mao no-leitor no-print md:hidden" role="toolbar" aria-label={escola.umaMao.rotulo}>
+          <L href={escola.trilha} className="faixa-uma-mao-botao" aria-label={escola.umaMao.voltar}>
+            <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 5l-7 7 7 7" />
+            </svg>
+          </L>
+          {speechSupported() && (
+            <button type="button" className="faixa-uma-mao-botao" aria-pressed={falando} onClick={() => (falando ? stopReading() : startReading(TRECHOS_DA_AULA))}>
+              <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7" />
+              </svg>
+              <span>{falando ? escola.umaMao.parar : escola.umaMao.ouvir}</span>
+            </button>
+          )}
+          <TamanhoDaLetra s={escola.letra} variante="faixa" />
+        </div>
+      )}
       <div className="acoes-da-aula no-leitor no-print md:hidden" role="toolbar" aria-label={c.folhaDaAula}>
         <button type="button" className="acao-icone" aria-haspopup="dialog" aria-label={c.folhaDaAula} onClick={() => window.dispatchEvent(new Event(ABRIR_FOLHA_DA_AULA))}>
           <svg aria-hidden viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round">
@@ -195,7 +254,22 @@ export function AcoesDaAula({ id, anterior, proxima, aulas }: { id: string; ante
                 </button>
               </div>
 
-              <div className="mt-5 flex items-center gap-2.5 rounded-[1rem] border-[1.5px] border-ink bg-folha px-3 py-2.5 font-sans">
+              {escola && (
+                <>
+                  <div className="mt-5 flex items-center gap-2.5 rounded-[1rem] border-[1.5px] border-ink bg-folha px-3 py-2.5 font-sans">
+                    <span className="flex-1 text-sm font-bold">{c.letra}</span>
+                    <TamanhoDaLetra s={escola.letra} variante="folha" />
+                  </div>
+                  <button type="button" aria-pressed={umaMao} onClick={alternarUmaMao} className="interruptor-uma-mao mt-3 flex w-full cursor-pointer items-center gap-3 rounded-[1rem] border-[1.5px] border-ink bg-folha px-3 py-2.5 text-left font-sans">
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-bold">{escola.umaMao.rotulo}</span>
+                      <span className="block text-xs text-ink-soft">{escola.umaMao.dica}</span>
+                    </span>
+                    <span aria-hidden className="fatias-chave" />
+                  </button>
+                </>
+              )}
+              <div className={`mt-5 flex items-center gap-2.5 rounded-[1rem] border-[1.5px] border-ink bg-folha px-3 py-2.5 font-sans ${escola ? "hidden" : ""}`}>
                 <span className="flex-1 text-sm font-bold">{c.letra}</span>
                 <button type="button" disabled={escala <= 0} onClick={() => setPrefs({ scale: TEXT_SCALES[Math.max(0, escala - 1)] })} aria-label={c.letraMenor} className="h-[2.4rem] w-[2.6rem] cursor-pointer rounded-[0.75rem] border-[1.5px] border-ink bg-parchment font-serif text-base font-semibold disabled:opacity-40">
                   A−

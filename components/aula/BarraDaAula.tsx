@@ -7,14 +7,17 @@ import { hasBackend, rpc } from "@/lib/backend";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { useI18n } from "../I18n";
 import { ABRIR_CAIXA } from "./MargemDaAula";
+import type { TextosDaAula } from "@/i18n/escola/aula";
+import { TamanhoDaLetraSobDemanda as TamanhoDaLetra } from "./AulaVivaSobDemanda";
 
 const LARGURA = "lucia:aula-largura";
 export const ANOTAR = "lucia:anotar";
 
 type Modo = "normal" | "larga" | "foco";
 
-// O "Ouvir" lê só a aula: título, resumo e texto (sem menus, margem, exercícios nem rodapé).
-export const TRECHOS_DA_AULA = [".folha-da-aula h1", ".folha-da-aula h1 + p", "#texto-da-aula"];
+// O "Ouvir" lê só a aula: título, resumo e texto (sem menus, margem, exercícios nem rodapé). Com a versão fácil na tela
+// (Etapa 4, components/aula/VersaoFacil.tsx), o texto completo fica escondido e o leitor lê o fácil: o escondido é pulado.
+export const TRECHOS_DA_AULA = [".folha-da-aula h1", ".folha-da-aula h1 + p", "#texto-da-aula", "#texto-facil"];
 
 function aplicar(modo: Modo) {
   const raiz = document.documentElement;
@@ -41,7 +44,7 @@ function contarUmaVez(tipo: "aula_abriu" | "aula_terminou", alvo: string) {
  * com a rolagem do texto) e os botões de ouvir, anotar, alargar o texto e o modo foco, que tira da tela tudo o que não
  * é a aula. A escolha da largura fica guardada no aparelho.
  */
-export function BarraDaAula({ voltar, trilha, posicao, minutos, aula, ferramentas }: { voltar: string; trilha: string; posicao: string; minutos: string; aula: string; ferramentas: string }) {
+export function BarraDaAula({ voltar, trilha, posicao, minutos, aula, ferramentas, letra }: { voltar: string; trilha: string; posicao: string; minutos: string; aula: string; ferramentas: string; letra?: TextosDaAula["letra"] }) {
   const { t } = useI18n();
   const l = t.lesson;
   const falando = useSpeaking();
@@ -124,6 +127,8 @@ export function BarraDaAula({ voltar, trilha, posicao, minutos, aula, ferramenta
               {falando ? l.stopListening : l.listen}
             </button>
           )}
+          {/* Letra de verdade (Etapa 4, R1-19): só com o recurso "escola" ligado, quando a página manda os textos. */}
+          {letra && <TamanhoDaLetra s={letra} />}
           <button type="button" className={`${botao} max-xl:hidden`} onClick={() => window.dispatchEvent(new CustomEvent(ABRIR_CAIXA, { detail: "" }))}>
             {ferramentas}
           </button>

@@ -1,0 +1,108 @@
+/* Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* Base da Escola Lúcia Maria (E4-01): a faixa de navegação e a abertura. Só tokens que já existem: nenhuma cor nova. */
+
+/* A faixa rola na horizontal dentro de si: em 360 px ela não empurra a página. */
+.faixa-da-escola {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.faixa-da-escola ul {
+  display: flex;
+  gap: 0.25rem;
+  width: max-content;
+  min-width: 100%;
+}
+.faixa-da-escola a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem; /* 44 px de toque */
+  padding-inline: 0.75rem;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+.faixa-da-escola a[aria-current="page"] {
+  border-bottom-color: var(--oxblood);
+  font-weight: 700;
+}
+
+/* A abertura: uma camada por cima da página, que não bloqueia (Pular sempre à vista). */
+.abertura-da-escola {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  padding-bottom: calc(1rem + var(--recuo-baixo));
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+@media (min-width: 640px) {
+  .abertura-da-escola {
+    align-items: center;
+  }
+}
+.abertura-da-escola .abertura-folha {
+  width: 100%;
+  max-width: 34rem;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  background: var(--parchment);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+.abertura-da-escola button {
+  min-height: 2.75rem;
+}
+.abertura-da-escola .abertura-quadro {
+  animation: abertura-entra 0.4s ease-out;
+}
+@keyframes abertura-entra {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+/* A barra do tempo do quadro (só quando avança sozinho). */
+.abertura-da-escola .abertura-tempo {
+  height: 3px;
+  background: var(--rule);
+}
+.abertura-da-escola .abertura-tempo > span {
+  display: block;
+  height: 100%;
+  background: var(--oxblood);
+  transform-origin: left;
+  animation: abertura-tempo linear forwards;
+}
+@keyframes abertura-tempo {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Sem animação: com movimento reduzido (do aparelho ou do site), no leitor de tinta e no modo leve. */
+@media (prefers-reduced-motion: reduce) {
+  .abertura-da-escola .abertura-quadro,
+  .abertura-da-escola .abertura-tempo > span {
+    animation: none;
+  }
+}
+:root:is([data-eink], [data-light], [data-parado]) .abertura-da-escola .abertura-quadro,
+:root:is([data-eink], [data-light], [data-parado]) .abertura-da-escola .abertura-tempo {
+  animation: none;
+}
+:root:is([data-eink], [data-light], [data-parado]) .abertura-da-escola .abertura-tempo {
+  display: none;
+}
+/* No leitor de tinta, sem véu cinza: fundo do papel e contorno preto. */
+:root[data-eink] .abertura-da-escola {
+  background: var(--parchment);
+}

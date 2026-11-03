@@ -1,0 +1,45 @@
+{
+  "selo": {
+    "rotulo": "隐私",
+    "aparelho": "只留在你的设备上",
+    "instituto": "经过学院的服务器",
+    "institutoNaoGuarda": "经过学院的服务器；学院不保存你发送的内容",
+    "institutoConsulta": "经过学院的服务器，由它查询{servico}；被查询的服务不会知道你是谁",
+    "externo": "使用外部服务：{servico}",
+    "privacidade": "查看隐私说明"
+  },
+  "servicos": {
+    "dicionarios": "葡萄牙语维基词典、Dicionário Aberto 和 Free Dictionary API",
+    "tatoeba": "Tatoeba",
+    "phet": "PhET（phet.colorado.edu），在页面内打开",
+    "vozDoNavegador": "浏览器的语音；在某些浏览器中，语音由浏览器公司生成，该公司会收到朗读的文字",
+    "reconhecimentoDeFala": "浏览器的语音服务；在某些浏览器中，你说的话会发送给浏览器公司",
+    "ia": "人工智能服务商，服务器在巴西境外",
+    "vlibras": "巴西联邦政府（VLibras）"
+  },
+  "partes": {
+    "foto": "练习的照片",
+    "voz": "语音"
+  },
+  "qualidade": {
+    "titulo": "内容质量",
+    "lead": "在网站构建时根据课程文件统计。这里显示的是内容的状态，绝不是对人的排名。",
+    "aulas": "已发布的课程",
+    "revisadas": "已由团队成员审阅",
+    "emRevisaoProntas": "审阅中，课程模板已完整",
+    "emRevisaoFaltam": "审阅中，课程模板仍缺部分内容",
+    "comFontes": "附有来源",
+    "comTeste": "结尾有测验",
+    "comExercicio": "有可批改的练习，并解释每个错误",
+    "trilhas": "学习路径",
+    "trilhasComAula": "至少有一节课",
+    "trilhasSemAula": "还没有课程",
+    "deTotal": "{total} 中的 {n}",
+    "calculadoEm": "统计日期：{data}。",
+    "guia": "课程如何审阅（审阅指南）"
+  },
+  "espelhos": {
+    "titulo": "如果网站无法访问，请在这里阅读",
+    "texto": "课程和藏书的只读副本，位于另一个地址："
+  }
+}

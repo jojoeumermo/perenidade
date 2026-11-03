@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import type { Dict } from "@/i18n/types";
 import type { ToolId } from "@/lib/areas";
+import { selosDaFerramenta } from "@/lib/selos";
+import { SelosDePrivacidade } from "../SeloDePrivacidade";
 
 type Tools = Dict["tools"];
 
@@ -65,6 +67,17 @@ const DireitosDoTrabalhador = dynamic(() => import("./novas/Trabalho").then((m) 
 const PhetLista = dynamic(() => import("../labs/Phet").then((m) => m.PhetLista), { ssr: false, loading: espera });
 
 export function ToolView({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>; lang: string; area?: string }) {
+  // O selo de privacidade no cabeçalho de toda ferramenta (lib/selos.ts, conferido em scripts/testar-acesso.mjs).
+  const selos = selosDaFerramenta(id);
+  return (
+    <>
+      {selos && <SelosDePrivacidade item={selos} lang={lang} className="mt-4" />}
+      <Ferramenta id={id} s={s} lang={lang} area={area} />
+    </>
+  );
+}
+
+function Ferramenta({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>; lang: string; area?: string }) {
   const t = s as Tools;
   switch (id) {
     case "resolvedor":

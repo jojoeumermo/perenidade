@@ -1,0 +1,45 @@
+{
+  "selo": {
+    "rotulo": "Privacidad",
+    "aparelho": "Se queda en tu dispositivo",
+    "instituto": "Pasa por el servidor del Instituto",
+    "institutoNaoGuarda": "Pasa por el servidor del Instituto; el Instituto no guarda lo que enviaste",
+    "institutoConsulta": "Pasa por el servidor del Instituto, que consulta {servico}; el servicio consultado no sabe quién eres",
+    "externo": "Usa un servicio externo: {servico}",
+    "privacidade": "Ver en la privacidad"
+  },
+  "servicos": {
+    "dicionarios": "el Wikcionario en portugués, el Dicionário Aberto y la Free Dictionary API",
+    "tatoeba": "Tatoeba",
+    "phet": "PhET (phet.colorado.edu), que se abre dentro de la página",
+    "vozDoNavegador": "la voz del navegador; en algunos navegadores la genera la empresa del navegador, que recibe el texto leído",
+    "reconhecimentoDeFala": "el servicio de voz del navegador; en algunos navegadores, lo que dices se envía a la empresa del navegador",
+    "ia": "proveedor de IA, con servidores fuera de Brasil",
+    "vlibras": "gobierno federal de Brasil (VLibras)"
+  },
+  "partes": {
+    "foto": "La foto del ejercicio",
+    "voz": "La voz"
+  },
+  "qualidade": {
+    "titulo": "Calidad del contenido",
+    "lead": "Contado en los archivos de las clases cuando se monta el sitio. Muestra el estado del contenido, nunca un ranking de personas.",
+    "aulas": "Clases publicadas",
+    "revisadas": "Revisadas por alguien del equipo",
+    "emRevisaoProntas": "En revisión, con el modelo de clase completo",
+    "emRevisaoFaltam": "En revisión, todavía faltan partes del modelo de clase",
+    "comFontes": "Con fuentes",
+    "comTeste": "Con prueba al final",
+    "comExercicio": "Con ejercicios corregidos que explican cada error",
+    "trilhas": "Rutas",
+    "trilhasComAula": "Con al menos una clase",
+    "trilhasSemAula": "Todavía sin clases",
+    "deTotal": "{n} de {total}",
+    "calculadoEm": "Calculado el {data}.",
+    "guia": "Cómo se revisa una clase (guía de revisión)"
+  },
+  "espelhos": {
+    "titulo": "Si el sitio se cae, lee aquí",
+    "texto": "Copias de solo lectura de las clases y del acervo, en otra dirección:"
+  }
+}

@@ -3,7 +3,8 @@ import MiniSearch from "minisearch";
 import { normalize } from "./text";
 
 export interface SearchEntry {
-  kind: "aula" | "obra" | "trilha" | "autor" | "memorial" | "verbete" | "materia" | "checagem" | "debate" | "falacia" | "pergunta";
+  /** "pagina": páginas do site que entram na busca por si (as da Escola e o modo seguro, lib/escola/indice.ts). */
+  kind: "aula" | "obra" | "trilha" | "autor" | "memorial" | "verbete" | "materia" | "checagem" | "debate" | "falacia" | "pergunta" | "pagina";
   title: string;
   href: string;
   area: string;

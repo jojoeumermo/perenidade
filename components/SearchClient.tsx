@@ -6,10 +6,15 @@ import { useEffect, useMemo, useState } from "react";
 import { fill, localePath, plural } from "@/i18n/config";
 import synonyms from "@/content/busca.json";
 import { buildSearch, type SearchEntry } from "@/lib/search";
+import { BuscaPorVoz } from "./busca/BuscaPorVoz";
+import { MelhorCaminho } from "./busca/MelhorCaminho";
+import { useTextosDaBusca } from "./busca/TextosDaBusca";
 import { L, useI18n } from "./I18n";
+import { ConviteDoHistorico, VistasHoje } from "./PorOndeAndei";
 
 export function SearchClient() {
   const { lang, t } = useI18n();
+  const textosDaBusca = useTextosDaBusca();
   const params = useSearchParams();
   const [query, setQuery] = useState(params.get("q") ?? "");
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
@@ -36,7 +41,8 @@ export function SearchClient() {
   const search = useMemo(() => (entries ? buildSearch(entries, synonyms) : null), [entries]);
   const hits = search ? search(query) : [];
   const typed = query.trim().length > 0;
-  const kinds = t.search.kinds as Record<string, string>;
+  // "pagina" (E4-05) não tem nome no núcleo do i18n: usa o dos textos da busca.
+  const kinds: Record<string, string> = { pagina: textosDaBusca?.textos.indice.grupo ?? "", ...(t.search.kinds as Record<string, string>) };
 
   return (
     <>
@@ -50,6 +56,8 @@ export function SearchClient() {
           placeholder={t.search.placeholder}
           className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft"
         />
+        {/* Etapa 4 (E4-05): o microfone. A busca do celular chega a esta página, então ele fica aqui também. */}
+        <BuscaPorVoz aoOuvir={(texto) => setQuery(texto)} className="self-center pr-1" />
       </div>
 
       <p role="status" className="mt-6 font-mono text-xs text-ink-soft">
@@ -61,6 +69,14 @@ export function SearchClient() {
               ? plural(lang, hits.length, t.search.results)
               : fill(t.search.indexSize, { n: entries.length })}
       </p>
+
+      {entries && typed && <MelhorCaminho consulta={query} entradas={entries} />}
+      {!typed && (
+        <>
+          <VistasHoje className="mt-6" />
+          <ConviteDoHistorico className="mt-6" />
+        </>
+      )}
 
       <ul className="mt-4 divide-y divide-rule border-y border-rule">
         {hits.map(({ entry, snippet }) => (

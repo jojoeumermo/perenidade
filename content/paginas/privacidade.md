@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 20 de outubro de 2026.
+Atualizada em 3 de novembro de 2026.
 
 ## Em uma frase
 
@@ -16,11 +16,13 @@ O Instituto Lúcia é um projeto educacional gratuito, sem fins lucrativos e sem
 
 ## Se você só estuda
 
-Nada do que você faz ao estudar sai do seu aparelho. O progresso nas aulas, os rascunhos, o fichamento, o tema claro ou escuro e as preferências de acessibilidade ficam guardados no seu navegador. No jogo Rumos (em [Jogos de formação](/laboratorios/jogos)), o navegador guarda só quantas partidas você jogou em cada baralho e que desfechos já viu, para abrir cartas novas nas partidas seguintes; não há pontos nem placar, e nada disso sai do aparelho. Você pode baixar uma cópia ou apagar tudo na página [Meus dados](/meus-dados). Lá também dá para mandar o navegador apagar tudo sozinho depois de um tempo sem uso. No curso ENEM, o navegador guarda também as provas e simulados que você fez (acertos por área e habilidade e o tempo em cada questão), o resultado do diagnóstico e o seu plano de estudos, com as horas e os pesos que você digitar; nada disso sai do aparelho, e tudo entra na cópia e no "apagar" de [Meus dados](/meus-dados).
+O que você faz ao estudar fica no seu aparelho. O que sai são só somas anônimas: quando uma aula é aberta, lida até o fim ou tem o teste terminado, ou quando uma matéria do jornal é lida, o site soma +1 ao total daquele dia, sem conta, sem nome e sem identificador do aparelho (os detalhes estão em "Escola Lúcia Maria", abaixo). O progresso nas aulas, os rascunhos, o fichamento, o tema claro ou escuro e as preferências de acessibilidade ficam guardados no seu navegador. No jogo Rumos (em [Jogos de formação](/laboratorios/jogos)), o navegador guarda só quantas partidas você jogou em cada baralho e que desfechos já viu, para abrir cartas novas nas partidas seguintes; não há pontos nem placar, e nada disso sai do aparelho. Você pode baixar uma cópia ou apagar tudo na página [Meus dados](/meus-dados). Lá também dá para mandar o navegador apagar tudo sozinho depois de um tempo sem uso. No curso ENEM, o navegador guarda também as provas e simulados que você fez (acertos por área e habilidade e o tempo em cada questão), o resultado do diagnóstico e o seu plano de estudos, com as horas e os pesos que você digitar; nada disso sai do aparelho, e tudo entra na cópia e no "apagar" de [Meus dados](/meus-dados).
 
 No "Ouvir a aula", a leitura é feita no seu aparelho. Com a voz do aparelho, quem fala é o próprio celular ou computador; em alguns navegadores essa voz é gerada pela empresa do navegador, que recebe o texto da aula a ser lido. Se você escolher uma voz natural (Voz 1 ou Voz 2), o navegador baixa o modelo de voz do próprio site uma vez (cerca de 100 MB) e o guarda no aparelho; a partir daí a voz roda nele, sem enviar o texto para ninguém, nem para o instituto. O navegador guarda também a voz escolhida e a velocidade. A escolha entra na cópia de [Meus dados](/meus-dados), e o "apagar" de lá apaga a escolha e a voz baixada.
 
 Nos vídeos curtos das aulas, o áudio, as legendas e as cenas vêm do próprio site, e só depois que você clica em tocar. Nenhum serviço de fora é chamado. O navegador guarda, só no seu aparelho, onde você parou em cada vídeo e a velocidade escolhida. Isso entra na cópia de [Meus dados](/meus-dados) e sai no "apagar".
+
+Se outra pessoa usa ou vigia o seu aparelho, a página [Modo seguro](/modo-seguro) explica o que o site consegue fazer para não deixar rastro de estudo nele, e o que não consegue.
 
 O site não usa cookies de publicidade, não tem pixel de rede social e não carrega anúncios.
 
@@ -89,6 +91,26 @@ PDFs costumam guardar o nome de quem escreveu e outros dados nos metadados. Conf
 ## Se você relata um erro do site
 
 Na página [Achei um erro](/relatar-erro) você conta o que deu errado. Fica guardado o que você escrever (a página, o que aconteceu, como chegar no erro e, se quiser, um contato) e, só se você marcar, qual navegador e qual tamanho de tela você usa. O endereço de rede não é guardado. Quem lê é só quem cuida do código e a coordenação. O relato é apagado um ano depois.
+
+## Escola Lúcia Maria
+
+A Escola Lúcia Maria é a parte do site que organiza as aulas em cursos. A matrícula, o plano de estudos e o que você já fez ficam no seu aparelho, como o resto do estudo. Para a equipe saber se a Escola está sendo usada, sem vigiar ninguém, o site manda ao banco só somas anônimas:
+
+| O que é somado | Quando |
+|---|---|
+| Aula aberta e aula lida até o fim | Uma vez por aula e dia, em cada aparelho |
+| Teste da aula terminado (e, à parte, se a maior parte foi acertada) | A cada teste terminado |
+| Presença na Escola, matrícula, formatura e entrada numa turma de curso | Uma vez por período (dia, mês ou semestre), em cada aparelho |
+| Voto na assembleia estudantil | Uma vez por pauta e semestre, em cada aparelho |
+| Resposta ao "Isso ajudou?" no fim da aula | Uma vez por aula, em cada aparelho: +1 em "ajudou" ou +1 em "precisa melhorar" |
+
+Cada linha guardada é só um total por dia (por exemplo, "aula X, 3 de novembro, 12"). Não leva conta, nome, cookie nem identificador do aparelho. Os totais aparecem em público sem nomes e sem ranking. Quem impede o aparelho de somar duas vezes é uma marca guardada no próprio navegador, que entra na cópia e sai no "apagar" de [Meus dados](/meus-dados).
+
+Para barrar quem tenta inflar os números, o banco guarda por até dois dias, numa tabela de limites, um código embaralhado da origem do pedido (ou da conta, se você estiver nela) e o tipo da soma. Nas somas da Escola (presença, matrícula, formatura, turma e voto), essa tabela nunca leva o curso nem a pauta votada: ela pode dizer que uma origem somou um voto num minuto, mas não em quê. Nas somas de aula, do "Isso ajudou?" e de matéria do jornal, ela leva também qual aula ou matéria foi somada, pelos mesmos dois dias.
+
+**Turma por curso.** Entrar na turma de um curso, para estudar junto com outras pessoas num mês, exige conta, como a Turma do mês. Fica guardado que a sua conta está na turma daquele curso e mês; a sala do encontro só é mostrada a quem entrou, e os outros veem só quantas pessoas estão na turma. Alguns cursos tratam de política, como o Ano de formação política, e estar na turma deles pode revelar opinião política, que a lei trata como dado pessoal sensível (Lei nº 13.709/2018, art. 5º, II). Nesses cursos, você só entra marcando um consentimento específico, num quadro destacado (art. 11, I). Sair da turma apaga o registro na hora, e os registros de turma saem sozinhos depois de 13 meses.
+
+**Ouvidoria.** A ouvidoria do estudante recebe mensagens sem conta. Fica guardado o assunto, a página (se você indicar), o que você escrever e, se quiser resposta particular, um contato. O endereço de rede não é guardado na mensagem. Quem lê é a mediação e a coordenação. O texto e o contato são apagados um ano depois do envio. Quando uma resposta é publicada, aparece em público só um resumo escrito pela mediação, sem nomes, e a resposta, nunca o texto que você mandou nem o seu contato. Não escreva nomes de outras pessoas na mensagem.
 
 ## Saúde Solidária
 

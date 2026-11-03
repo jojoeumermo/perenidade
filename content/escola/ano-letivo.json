@@ -1,0 +1,11 @@
+{
+  "_sobre": "Ano letivo da Escola Lúcia Maria. As datas são PROPOSTA do plano da Etapa 4, sem decisão da coordenação: enquanto 'confirmado' for false, a interface mostra 'calendário proposto, a confirmar pela coordenação'. Datas no formato MM-DD, no fuso de Brasília. 'provas.regra' diz como achar a semana de provas de cada semestre (lib/escola/tempo.ts). Recessos: lista de {inicio:'AAAA-MM-DD', fim:'AAAA-MM-DD', motivo}, só com decisão da coordenação.",
+  "confirmado": false,
+  "fuso": "America/Sao_Paulo",
+  "semestres": {
+    "1": { "inicio": "02-01", "fim": "06-30" },
+    "2": { "inicio": "08-01", "fim": "12-15" }
+  },
+  "provas": { "regra": "duas-ultimas-semanas" },
+  "recessos": []
+}

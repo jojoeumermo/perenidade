@@ -4,9 +4,11 @@
 import { fill, localePath } from "@/i18n/config";
 import { esquecerTurma, lerTurmas, type TurmaGuardada } from "@/lib/meu-estudo";
 import { useCompleted } from "@/lib/progress";
+import { ligado } from "@/lib/recursos";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { useI18n } from "../I18n";
 import { Barra } from "./Barra";
+import { ComecoEmTresPassos } from "./ComecoEmTresPassos";
 import { useGuardado } from "./guardado";
 
 /** As turmas abertas por link neste aparelho (recurso "turma"), dentro do "Meu estudo", com o progresso de cada uma. */
@@ -14,7 +16,21 @@ export function MinhasTurmas({ s }: { s: TextosDoEstudo["turma"] }) {
   const { lang } = useI18n();
   const feitas = useCompleted();
   const [turmas, recarregar] = useGuardado<TurmaGuardada[]>(lerTurmas, []);
-  if (turmas.length === 0) return null;
+  if (turmas.length === 0) {
+    // Etapa 4 (E4-05): com a Escola ligada, a falta de turma explica de onde a turma vem. Os três passos só aparecem
+    // para quem já estudou alguma coisa: para quem não estudou nada, o Meu estudo já mostra os mesmos passos logo acima.
+    if (!ligado("escola")) return null;
+    return (
+      <section aria-labelledby="me-turmas" className="border border-rule bg-parchment-deep p-5">
+        <h2 id="me-turmas" className="font-serif text-2xl font-semibold">
+          {s.minhasTurmas}
+        </h2>
+        <div className="mt-3">
+          <ComecoEmTresPassos caso="turmas" comPassos={feitas.size > 0} />
+        </div>
+      </section>
+    );
+  }
   return (
     <section aria-labelledby="me-turmas" className="border border-rule bg-parchment-deep p-5">
       <h2 id="me-turmas" className="font-serif text-2xl font-semibold">

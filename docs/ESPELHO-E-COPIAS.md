@@ -26,6 +26,33 @@ Qualquer uma destas, com o `espelho.zip` em mãos:
 O espelho não tem a Comunidade, o painel nem o que depende do banco. Quando o site principal voltar, basta tirar o
 espelho do ar.
 
+### Publicar sozinho noutro endereço (opcional, desligado de fábrica)
+
+O workflow **Espelho de leitura** tem um último passo, "Publicar o espelho", que sobe a pasta `espelho/` para um
+projeto do Cloudflare Pages a cada execução. Ele **fica inerte** (o GitHub mostra o passo como pulado) enquanto faltar
+qualquer um destes três valores, que só a coordenação pode criar, na conta dela:
+
+- `CLOUDFLARE_API_TOKEN` (GitHub › Settings › Secrets and variables › Actions › *Secrets*): um token de API da
+  Cloudflare personalizado, só com a permissão de editar o Cloudflare Pages da conta (nada de DNS nem de outras áreas).
+- `CLOUDFLARE_ACCOUNT_ID` (*Secrets*): o identificador da conta, que aparece na lateral do painel da Cloudflare.
+- `ESPELHO_PROJETO` (*Variables*, não é segredo): o nome do projeto do Pages, criado uma vez em Workers & Pages ›
+  Create › Pages › "Direct Upload" (por exemplo `espelho-lucia`). O endereço fica `https://<nome>.pages.dev`.
+
+Com os três no lugar, rodar *Run workflow* uma vez e conferir o endereço. O passo usa uma versão fixa do `wrangler`
+(a ferramenta oficial da Cloudflare) e não muda nada no site principal. Para desligar, basta apagar a variável
+`ESPELHO_PROJETO`.
+
+### Mostrar os endereços no site (NEXT_PUBLIC_ESPELHOS)
+
+Quando houver um espelho no ar, a coordenação põe o endereço na Vercel, na variável `NEXT_PUBLIC_ESPELHOS` (vários
+endereços separados por vírgula, só `https://`; no máximo cinco). A partir da próxima publicação, a página
+[/status](/status) e a página "fora do ar" (a que aparece quando a coordenação fecha o site ou uma área) mostram o
+bloco "Se o site cair, leia aqui" com esses endereços. Sem a variável, o bloco não aparece. Ele também fica atrás do
+recurso `escola` (lib/recursos.ts), como o resto da Etapa 4.
+
+A página "fora do ar" só serve enquanto o próprio site responde. Se a Vercel cair de vez, o caminho é o do item 3 da
+lista acima: apontar o domínio para o espelho e avisar nas redes.
+
 ## 2. Cópias do banco (Supabase)
 
 O banco guarda a Comunidade, a Rede, o painel, as horas e os termos. Sem cópia, um erro ou um ataque pode apagar tudo.

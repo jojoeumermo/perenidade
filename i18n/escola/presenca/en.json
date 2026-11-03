@@ -1,0 +1,10 @@
+{
+  "rotulo": "Presence at the School, counted without names",
+  "abertas": "Today, {n} lessons were opened at the School",
+  "abertasUma": "Today, {n} lesson was opened at the School",
+  "terminadas": "In the last 7 days, {n} lessons were finished",
+  "terminadasUma": "In the last 7 days, {n} lesson was finished",
+  "matriculas": "This month, {n} enrollments",
+  "matriculasUma": "This month, {n} enrollment",
+  "nota": "Anonymous totals: no names and no ranking."
+}

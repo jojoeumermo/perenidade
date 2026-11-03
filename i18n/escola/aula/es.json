@@ -1,0 +1,91 @@
+{
+  "proximo": {
+    "proximaAula": "Próxima clase: {titulo}",
+    "revisar": "Repasar esta clase",
+    "prova": "Hacer la prueba del recorrido",
+    "outraTrilha": "Elegir el próximo recorrido",
+    "barra": "Siguiente",
+    "barraRotulo": "Ir a la próxima clase: {titulo}",
+    "esconder": "Ocultar"
+  },
+  "fatias": {
+    "indice": "Esta clase en {n} partes",
+    "marca": "Parte {i} de {n} · {min} min",
+    "minutos": "{min} min",
+    "semTitulo": "Parte {i}",
+    "pararAqui": "Parar aquí",
+    "parado": "Guardado en este dispositivo. Cuando vuelvas, la clase te ofrecerá seguir desde aquí.",
+    "umaPorVez": "Una parte a la vez",
+    "continuar": "Seguir: parte {i}",
+    "fim": "Fin de las partes de esta clase."
+  },
+  "retomar": {
+    "aviso": "Volver a donde paraste (parte {parte}, párrafo {paragrafo})",
+    "avisoSemParte": "Volver a donde paraste (párrafo {paragrafo})",
+    "dispensar": "Ahora no"
+  },
+  "letra": {
+    "rotulo": "Tamaño de la letra",
+    "menor": "Letra más pequeña",
+    "normal": "Letra normal",
+    "maior": "Letra más grande",
+    "agora": "Letra al {n}%"
+  },
+  "selecao": {
+    "rotulo": "Qué hacer con el fragmento elegido",
+    "oQueE": "¿Qué es?",
+    "compartilhar": "Compartir fragmento",
+    "procurando": "Buscando…",
+    "doGlossario": "Glosario del Instituto",
+    "verGlossario": "Ver en el glosario",
+    "naoAchou": "No encontramos esta palabra en el glosario ni en el diccionario.",
+    "indisponivel": "El diccionario no respondió ahora. Inténtalo de nuevo más tarde.",
+    "fonte": "Fuente",
+    "licenca": "Licencia",
+    "aviso": "Consulta hecha por el servidor del Instituto a un diccionario abierto.",
+    "fechar": "Cerrar"
+  },
+  "cartao": {
+    "titulo": "Tarjeta del fragmento",
+    "gerando": "Armando la imagen…",
+    "compartilhar": "Compartir imagen",
+    "baixar": "Descargar imagen",
+    "baixado": "Imagen descargada y enlace de la clase copiado.",
+    "soBaixado": "Imagen descargada.",
+    "privado": "La imagen se hace en este dispositivo. No se envía nada al Instituto.",
+    "alt": "Imagen con el fragmento elegido de la clase",
+    "fechar": "Cerrar"
+  },
+  "umaMao": {
+    "rotulo": "Modo una mano",
+    "dica": "Los botones de la clase bajan cerca del pulgar.",
+    "voltar": "Volver al recorrido",
+    "ouvir": "Escuchar",
+    "parar": "Parar"
+  },
+  "ouvir": {
+    "ouvir": "Escuchar",
+    "parar": "Parar",
+    "rotulo": "Escuchar este párrafo"
+  },
+  "facil": {
+    "ler": "Leer la versión fácil",
+    "voltar": "Volver al texto completo",
+    "aviso": "Versión en lenguaje sencillo de esta clase."
+  },
+  "nivel": {
+    "rotulo": "Lectura: {nivel}",
+    "facil": "fácil",
+    "media": "media",
+    "dificil": "difícil",
+    "como": "Cómo lo medimos",
+    "explicacao": "La cuenta usa el largo de las frases y de las palabras (el índice de Flesch adaptado al portugués, de 0 a 100). No mide si el tema es fácil. Las clases con índice menor que 50 entran en la lista para tener una versión fácil, escrita por educadores.",
+    "fonteDaConta": "Fórmula: adaptación al portugués citada en Martins et al. (1996), no verificada."
+  },
+  "voz": {
+    "telaApagada": "Con la voz del dispositivo, la lectura puede detenerse cuando se apaga la pantalla. La voz natural sigue sonando."
+  },
+  "cordel": {
+    "ouvir": "Escuchar en cordel"
+  }
+}

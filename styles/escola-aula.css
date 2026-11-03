@@ -1,0 +1,599 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A aula por dentro (Etapa 4, pacote E4-03): o próximo passo, as partes, o retomar, a letra, a barra de seleção, o
+ * cartão do trecho, o modo uma mão, o ouvir do parágrafo, a versão fácil e o nível de leitura. Só os controles novos:
+ * o texto da aula não muda. Mesmo visual do Caderno do Povo (papel, tinta, fio e o vermelho da margem). No leitor de
+ * tinta (data-leitor, data-eink) nada se move e nada flutua por cima do texto.
+ */
+
+/* ── Próximo passo no fim da aula (R1-13) ── */
+.passo-seguinte {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.passo-seguinte-grande {
+  display: flex;
+  width: 100%;
+  min-height: 3.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  border: 2px solid var(--ink);
+  background: #c21f16;
+  color: #fff;
+  padding: 0.75rem 1.1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.passo-seguinte-grande:hover {
+  background: var(--oxblood);
+  color: #fff;
+}
+.passo-seguinte-revisar {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+}
+.passo-seguinte-revisar:hover {
+  border-color: var(--oxblood);
+  color: var(--oxblood);
+}
+
+/* A barra compacta "Próxima", que aparece depois de 85% do texto. */
+.proximo-passo {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(1rem + var(--recuo-baixo, 0px));
+  z-index: 36;
+  display: flex;
+  max-width: min(26rem, calc(100vw - 2rem));
+  align-items: stretch;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  color: var(--ink);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.proximo-passo-ir {
+  display: flex;
+  min-height: 3rem;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.8rem;
+}
+.proximo-passo-rotulo {
+  flex-shrink: 0;
+  background: #c21f16;
+  color: #fff;
+  padding: 0.15rem 0.45rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.proximo-passo-titulo {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
+.proximo-passo-fechar {
+  display: flex;
+  width: 3rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-left: 1.5px solid var(--rule);
+}
+@media (max-width: 767.98px) {
+  /* No celular, acima da barra de ações da aula (e da faixa de uma mão, quando ligada). */
+  .proximo-passo {
+    right: 0.75rem;
+    left: 0.75rem;
+    max-width: none;
+    bottom: calc(var(--altura-abas, 0px) + var(--recuo-baixo, 0px) + 0.6rem);
+  }
+  :root[data-uma-mao] .proximo-passo {
+    bottom: calc(var(--altura-abas, 0px) + var(--recuo-baixo, 0px) + 4.4rem);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-leitor], [data-eink], [data-parado]) .proximo-passo {
+    animation: proximo-sobe 0.18s ease-out;
+  }
+}
+@keyframes proximo-sobe {
+  from {
+    transform: translateY(0.75rem);
+    opacity: 0;
+  }
+}
+
+/* ── Partes da aula (R1-17) ── */
+.fatias-indice {
+  margin-top: 1.5rem;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 0.9rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.fatias-indice ol {
+  margin-top: 0.5rem;
+}
+.fatias-indice li a {
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 600;
+}
+.fatias-indice li:last-child a {
+  border-bottom: 0;
+}
+.fatias-indice li a:hover,
+.fatias-indice li a[aria-current] {
+  color: var(--oxblood);
+}
+.fatias-numero {
+  display: flex;
+  height: 1.6rem;
+  width: 1.6rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--ink);
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.75rem;
+}
+.fatias-indice li a[aria-current] .fatias-numero {
+  border-color: #c21f16;
+  background: #c21f16;
+  color: #fff;
+}
+.fatias-minutos {
+  flex-shrink: 0;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+.fatias-modo {
+  margin-top: 0.6rem;
+  display: inline-flex;
+  min-height: 3rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+/* O interruptor (também o do modo uma mão): um trilho com a bolinha, que vai para a direita e fica vermelho ligado. */
+.fatias-chave {
+  position: relative;
+  display: inline-block;
+  height: 1.5rem;
+  width: 2.6rem;
+  flex-shrink: 0;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--parchment-deep);
+}
+.fatias-chave::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  height: calc(1.5rem - 7px);
+  width: calc(1.5rem - 7px);
+  border-radius: 999px;
+  background: var(--ink);
+}
+[aria-pressed="true"] > .fatias-chave {
+  background: #c21f16;
+  border-color: #c21f16;
+}
+[aria-pressed="true"] > .fatias-chave::after {
+  left: auto;
+  right: 2px;
+  background: #fff;
+}
+.fatia-marca {
+  margin: 2.25rem 0 0.75rem;
+}
+.fatia-marca:first-child {
+  margin-top: 0;
+}
+.fatia-marca-texto {
+  display: inline-block;
+  margin: 0 !important;
+  border-left: 4px solid #c21f16;
+  padding-left: 0.6rem;
+  font-family: var(--font-mono, ui-monospace), monospace !important;
+  font-size: 0.75rem !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+.fatia-fim {
+  margin: 1.5rem 0 0;
+}
+.fatia-fim-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px dashed var(--rule);
+  padding-top: 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+.fatia-parar,
+.fatia-continuar {
+  display: inline-flex;
+  min-height: 3rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--ink);
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+}
+.fatia-parar {
+  background: var(--folha);
+}
+.fatia-continuar {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.fatia-parar:hover {
+  border-color: var(--oxblood);
+  color: var(--oxblood);
+}
+.fatia-continuar:hover {
+  background: var(--oxblood);
+}
+.fatia-guardado,
+.fatia-ultima {
+  flex-basis: 100%;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+/* Uma parte por vez: as outras saem da tela. */
+#texto-da-aula [data-parte-fora],
+#texto-da-aula [data-ouvir]:has(+ [data-parte-fora]) {
+  display: none !important;
+}
+
+/* ── Retomar exatamente (R1-18) ── */
+.retomar-aqui {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  border-left: 4px solid #c21f16;
+  background: var(--parchment-deep);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.retomar-ir {
+  display: inline-flex;
+  min-height: 3rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.retomar-ir:hover {
+  color: var(--oxblood);
+}
+.retomar-dispensar {
+  min-height: 3rem;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
+/* ── Letra de verdade (R1-19): A−, A, A+ com alvo de 48 px ── */
+.tamanho-da-letra {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.tamanho-da-letra button {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+.tamanho-da-letra button:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+/* Na faixa preta do computador: botões do tamanho dos outros, com a área de toque estendida até 48 px. */
+.tamanho-escuro button {
+  height: 2rem;
+  min-width: 2rem;
+  border: 1px solid transparent;
+  padding: 0 0.35rem;
+  color: #e9dcbc;
+  font-size: 0.95rem;
+  text-transform: none;
+}
+.tamanho-escuro button::after {
+  content: "";
+  position: absolute;
+  inset: -0.5rem;
+}
+.tamanho-escuro button:hover:not(:disabled),
+.tamanho-escuro button[aria-pressed="true"] {
+  border-color: #e9dcbc;
+  color: #fff;
+}
+.tamanho-folha button,
+.tamanho-faixa button {
+  height: 3rem;
+  min-width: 3rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 0.75rem;
+  background: var(--parchment);
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+.tamanho-folha button[aria-pressed="true"],
+.tamanho-faixa button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+
+/* ── Barra de seleção (R1-20, R1-25) ── */
+.barra-de-selecao {
+  position: fixed;
+  top: var(--sel-topo, 1rem);
+  left: var(--sel-esquerda, 1rem);
+  z-index: 45;
+  display: flex;
+  gap: 0.25rem;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  padding: 0.2rem;
+  box-shadow: 3px 3px 0 var(--sombra);
+}
+.barra-de-selecao button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.75rem;
+  color: var(--parchment);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.barra-de-selecao button:hover {
+  background: #c21f16;
+  color: #fff;
+}
+@media (max-width: 767.98px), (pointer: coarse) {
+  /* No celular o menu do sistema fica em cima da seleção: a barra vai para uma faixa acima da barra de baixo. */
+  .barra-de-selecao {
+    top: auto;
+    right: 0.75rem;
+    left: 0.75rem;
+    bottom: calc(var(--altura-abas, 0px) + var(--recuo-baixo, 0px) + 0.6rem);
+    justify-content: center;
+  }
+  .barra-de-selecao button {
+    min-height: 3rem;
+    flex: 1;
+    justify-content: center;
+  }
+}
+.folha-da-palavra-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgb(31 26 20 / 0.48);
+}
+.folha-da-palavra {
+  max-height: calc(100dvh - 3.5rem);
+  width: 100%;
+  max-width: 40rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 2px solid var(--ink);
+  border-bottom: 0;
+  background: var(--parchment);
+  color: var(--ink);
+  padding: 1.1rem 1.1rem calc(1.25rem + var(--recuo-baixo, 0px));
+  font-family: var(--font-ui), system-ui, sans-serif;
+  box-shadow: 0 -4px 0 var(--sombra);
+}
+.folha-da-palavra-fechar {
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--folha);
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-leitor], [data-eink], [data-parado]) .folha-da-palavra {
+    animation: proximo-sobe 0.2s ease-out;
+  }
+}
+
+/* ── Ouvir antes de ler (R1-87) ── */
+.ouvir-paragrafo {
+  display: flex;
+  justify-content: flex-start;
+  margin: 1rem 0 -0.5rem;
+}
+.ouvir-paragrafo-botao {
+  display: inline-flex;
+  min-height: 3rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--folha);
+  padding: 0 0.95rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.ouvir-paragrafo-botao:hover,
+.ouvir-paragrafo-botao[aria-pressed="true"] {
+  border-color: #c21f16;
+  background: #c21f16;
+  color: #fff;
+}
+
+/* ── Versão fácil e nível de leitura (R1-88) ── */
+.versao-facil {
+  margin-top: 1.25rem;
+}
+.versao-facil button {
+  display: inline-flex;
+  min-height: 3rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 0.4rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 700;
+}
+.versao-facil button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.nivel-de-leitura {
+  margin-top: 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+.nivel-de-leitura summary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.6rem;
+  font-weight: 600;
+}
+.nivel-de-leitura-marca {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: #c21f16;
+}
+.nivel-de-leitura-como {
+  color: var(--ink-soft);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.nivel-de-leitura p {
+  margin-top: 0.4rem;
+  max-width: 40rem;
+  color: var(--ink-soft);
+}
+
+/* ── Modo uma mão (R1-23): só no celular e nunca no leitor de tinta ── */
+.faixa-uma-mao {
+  display: none;
+}
+@media (max-width: 767.98px) {
+  :root[data-uma-mao]:not([data-leitor]) .faixa-uma-mao {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: calc(var(--altura-abas, 4.6rem) + var(--recuo-baixo, 0px));
+    z-index: 35;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-top: 1px solid var(--rule);
+    background: var(--parchment);
+    padding: 0.45rem 0.75rem;
+  }
+  :root[data-uma-mao]:not([data-leitor]) .faixa-uma-mao-botao {
+    display: inline-flex;
+    height: 3rem;
+    min-width: 3rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 1rem;
+    background: var(--folha);
+    padding: 0 0.8rem;
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-weight: 800;
+  }
+  :root[data-uma-mao]:not([data-leitor]) .faixa-uma-mao .tamanho-da-letra {
+    margin-left: auto;
+  }
+  /* A barra de cima fica só com o voltar e o título: os botões dela descem para a faixa. */
+  :root[data-uma-mao]:not([data-leitor]) .barra-do-celular .barra-acoes {
+    display: none;
+  }
+  /* O fim do texto não fica escondido atrás das duas faixas de baixo. */
+  :root[data-uma-mao]:not([data-leitor]) .folha-da-aula {
+    padding-bottom: 4.5rem;
+  }
+  /* A faixa não some ao rolar para baixo, como a barra de ações: o polegar precisa achar os botões. */
+  :root[data-uma-mao][data-lendo]:not([data-leitor]) .acoes-da-aula {
+    transform: none;
+  }
+}
+
+/* No leitor de tinta nada flutua e nada se mexe; a impressão não leva os controles. */
+:root[data-leitor] :is(.proximo-passo, .barra-de-selecao, .faixa-uma-mao, .ouvir-paragrafo) {
+  display: none !important;
+}
+:root:is([data-leitor], [data-eink]) :is(.proximo-passo, .folha-da-palavra) {
+  animation: none !important;
+  transition: none !important;
+}
+@media print {
+  :is(.proximo-passo, .barra-de-selecao, .fatias-indice, .fatia-marca, .fatia-fim, .retomar-aqui, .ouvir-paragrafo, .passo-seguinte, .faixa-uma-mao) {
+    display: none !important;
+  }
+  #texto-da-aula [data-parte-fora] {
+    display: revert !important;
+  }
+}

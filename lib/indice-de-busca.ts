@@ -2,6 +2,8 @@
 import type { Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { getArticles, getAuthors, getBooks, getDebates, getFactChecks, getFallacies, getGlossaryIndex, getQuestions, getTracks, getTributes } from "@/lib/content";
+import { entradaDoModoSeguro, entradasDaEscola, textosDaBusca } from "@/lib/escola/indice";
+import { ligado } from "@/lib/recursos";
 import type { SearchEntry } from "@/lib/search";
 import { plainText } from "@/lib/text";
 import en from "@/i18n/en.json";
@@ -58,5 +60,8 @@ export function entradasDaBusca(lang: Locale, t: Dict): SearchEntry[] {
   getQuestions().forEach((question, i) => {
     entries.push({ kind: "pergunta", title: question.pergunta, href: `/perguntas#p${i + 1}`, area: "", context: "", text: question.resposta });
   });
+  // A Escola Lúcia Maria (Etapa 4) só com a flag; o modo seguro sempre, porque ele existe com ou sem a Escola.
+  const tb = textosDaBusca(lang);
+  entries.push(...(ligado("escola") ? entradasDaEscola(lang, tb) : [entradaDoModoSeguro(tb)]));
   return entries;
 }
