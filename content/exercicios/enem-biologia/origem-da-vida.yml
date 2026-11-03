@@ -1,0 +1,112 @@
+# Exercícios da aula "Origem da vida: ciência e senso comum" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-origem-01
+  tema: "Origem da vida: ciência e senso comum"
+  area: natureza
+  habilidade: 3
+  objeto: nat-bio-evolucao-origem-da-vida
+  dificuldade: 1
+  enunciado: "A biogênese afirma que:"
+  alternativas:
+    - texto: "seres vivos surgem da matéria sem vida, como a lama."
+      erro: "Essa é a abiogênese, ou geração espontânea."
+    - texto: "todo ser vivo se origina de outro ser vivo."
+      certa: true
+    - texto: "a vida veio de outros planetas."
+      erro: "Essa é a ideia da panspermia, outra hipótese."
+    - texto: "os seres vivos nunca mudam."
+      erro: "Isso trata de evolução, não de origem dos seres."
+    - texto: "micróbios surgem do ar fervido."
+      erro: "Pasteur mostrou o contrário."
+  explicacao: "Biogênese: vida vem de vida. Foi a conclusão firmada pelos experimentos de Redi e de Pasteur."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-origem-02
+  tema: "Origem da vida: ciência e senso comum"
+  area: natureza
+  habilidade: 3
+  objeto: nat-bio-evolucao-origem-da-vida
+  dificuldade: 1
+  enunciado: "No experimento de Redi, a carne em frascos cobertos com gaze não teve larvas. Isso indica que as larvas:"
+  alternativas:
+    - texto: "nascem da carne quando falta ar."
+      erro: "A gaze deixava o ar passar."
+    - texto: "vêm de ovos postos pelas moscas."
+      certa: true
+    - texto: "precisam de luz para nascer."
+      erro: "A luz chegava aos dois tipos de frasco."
+    - texto: "são destruídas pela gaze."
+      erro: "Nenhuma larva surgiu na carne coberta para ser destruída."
+    - texto: "nascem do vidro do frasco."
+      erro: "Os frascos eram iguais; só mudava o acesso das moscas."
+  explicacao: "A única diferença entre os frascos era o acesso das moscas à carne. Sem moscas, sem larvas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-origem-03
+  tema: "Origem da vida: ciência e senso comum"
+  area: natureza
+  habilidade: 3
+  objeto: nat-bio-evolucao-origem-da-vida
+  dificuldade: 2
+  enunciado: "O frasco de pescoço de cisne de Pasteur foi decisivo porque:"
+  alternativas:
+    - texto: "impedia totalmente a entrada de ar."
+      erro: "O ar entrava; essa era justamente a vantagem."
+    - texto: "deixava o ar entrar, mas retinha os micróbios na curva do gargalo."
+      certa: true
+    - texto: "mantinha o caldo fervendo o tempo todo."
+      erro: "O caldo era fervido antes e depois esfriava."
+    - texto: "aumentava a quantidade de micróbios."
+      erro: "O caldo seguia sem micróbios enquanto o gargalo estava inteiro."
+    - texto: "provava como surgiu a primeira célula."
+      erro: "Pasteur mostrou que micróbios vêm de micróbios; a primeira vida é outra pergunta."
+  explicacao: "Com o ar entrando, caiu a objeção da \"força vital\" do ar. A única diferença era a chegada dos micróbios."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-origem-04
+  tema: "Origem da vida: ciência e senso comum"
+  area: natureza
+  habilidade: 3
+  objeto: nat-bio-evolucao-origem-da-vida
+  dificuldade: 2
+  enunciado: "O que distingue uma explicação científica de uma explicação do senso comum?"
+  alternativas:
+    - texto: "A ciência nunca erra; o senso comum sempre erra."
+      erro: "A ciência se corrige, e o senso comum às vezes acerta."
+    - texto: "A explicação científica se apoia em hipóteses testáveis, experimentos com controle e resultados que se repetem."
+      certa: true
+    - texto: "O senso comum não usa a observação."
+      erro: "O senso comum também parte do que se observa."
+    - texto: "A ciência só é feita por pessoas mais inteligentes."
+      erro: "A diferença está no método, não na inteligência."
+    - texto: "A explicação científica é sempre a mais antiga."
+      erro: "A idade da explicação não decide nada."
+  explicacao: "O método é a diferença: hipótese testável, controle e repetição por outras pessoas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-origem-05
+  tema: "Origem da vida: ciência e senso comum"
+  area: natureza
+  habilidade: 3
+  objeto: nat-bio-evolucao-origem-da-vida
+  dificuldade: 3
+  enunciado: "A hipótese de Oparin e Haldane sobre a origem da vida difere da antiga geração espontânea porque:"
+  alternativas:
+    - texto: "afirma que ratos podem nascer de grãos de trigo."
+      erro: "Essa era a crença da geração espontânea."
+    - texto: "propõe uma evolução química lenta, de moléculas simples a moléculas orgânicas, numa Terra primitiva diferente da atual."
+      certa: true
+    - texto: "foi provada de forma definitiva, sem nenhum ponto em debate."
+      erro: "É hipótese, e detalhes como a atmosfera primitiva ainda são discutidos."
+    - texto: "diz que a vida surge todos os dias da matéria em decomposição."
+      erro: "Isso é geração espontânea, que a ciência abandonou."
+    - texto: "nega que a vida tenha surgido na Terra."
+      erro: "A hipótese trata justamente da origem da vida na Terra."
+  explicacao: "A geração espontânea falava de seres prontos surgindo em dias; a hipótese de Oparin e Haldane fala de química ao longo de milhões de anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

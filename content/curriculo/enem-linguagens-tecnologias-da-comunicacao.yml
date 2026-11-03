@@ -76,3 +76,29 @@ aulas:
         resumo: Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos.
         situacao: a-confirmar
     objetos: [lin-generos-digitais-privacidade]
+  comunicacao-para-resolver-problemas-sociais:
+    enem:
+      - area: linguagens
+        competencia: 1
+        habilidade: 2
+        resumo: "Usar o que se sabe sobre os meios de comunicação para resolver problemas sociais."
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 1
+        habilidade: 3
+        resumo: "Relacionar as informações dos meios de comunicação à função social que eles têm."
+        situacao: a-confirmar
+    objetos: [lin-generos-digitais-hipertexto]
+  cada-tecnologia-tem-sua-linguagem:
+    enem:
+      - area: linguagens
+        competencia: 9
+        habilidade: 29
+        resumo: "Identificar as tecnologias da comunicação pela análise das linguagens que elas usam."
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 9
+        habilidade: 28
+        resumo: "Reconhecer a função e o impacto social das tecnologias da comunicação e da informação."
+        situacao: a-confirmar
+    objetos: [lin-generos-digitais-hipertexto]

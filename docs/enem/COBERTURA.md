@@ -4,13 +4,13 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 ## Números gerais
 
-- Aulas escritas no percurso (trilhas enem-*): **236** em 26 trilhas
-- Exercícios do instituto com as etiquetas do ENEM: **1948** (meta: 2.000) · níveis 1/2/3: 583 / 787 / 578
-- Exercícios nas trilhas enem-* (todos): 1960 · posição da certa (A–E): 392 / 391 / 393 / 396 / 388
-- Testes das aulas do percurso: 953 perguntas · posição da certa (1ª a 5ª opção): 269 / 256 / 216 / 212 / 0
+- Aulas escritas no percurso (trilhas enem-*): **242** em 26 trilhas
+- Exercícios do instituto com as etiquetas do ENEM: **1978** (meta: 2.000) · níveis 1/2/3: 594 / 800 / 584
+- Exercícios nas trilhas enem-* (todos): 1990 · posição da certa (A–E): 393 / 411 / 402 / 396 / 388
+- Testes das aulas do percurso: 971 perguntas · posição da certa (1ª a 5ª opção): 273 / 266 / 219 / 213 / 0
 - Questões oficiais classificadas e resolvidas: **347** de 2689 importadas (12.9%) · anos: 2022, 2023
 - Redação: 27 temas oficiais · 10 propostas de treino · 30 itens de repertório (21 coringa)
-- Fatos da edição 2026: 55 (3 a confirmar no edital)
+- Fatos da edição 2026: 59 (3 a confirmar no edital)
 
 ## Habilidades (meta: cada uma com 1 aula do percurso e 10 exercícios)
 
@@ -19,8 +19,8 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | C | H | Habilidade (resumo nosso) | Aulas | Exercícios | Questões oficiais |
 | --- | --- | --- | --- | --- | --- |
 | 1 | H1 | Reconhecer as diferentes linguagens e os recursos expressivos de cada meio de comunicação. | 1 | 1 | 0 |
-| 1 | H2 | Usar o que se sabe sobre os meios de comunicação para resolver problemas sociais. | 0 | 0 | 0 |
-| 1 | H3 | Relacionar as informações dos meios de comunicação à função social que eles têm. | 1 | 1 | 2 |
+| 1 | H2 | Usar o que se sabe sobre os meios de comunicação para resolver problemas sociais. | 1 | 5 | 0 |
+| 1 | H3 | Relacionar as informações dos meios de comunicação à função social que eles têm. | 2 | 1 | 2 |
 | 1 | H4 | Reconhecer críticas aos usos sociais das linguagens e dos meios de comunicação. | 2 | 7 | 0 |
 | 2 | H5 | Ligar palavras e expressões de um texto em língua estrangeira ao tema dele. | 9 | 35 | 5 |
 | 2 | H6 | Usar a língua estrangeira para ampliar o acesso a informações, tecnologias e culturas. | 4 | 7 | 0 |
@@ -45,8 +45,8 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | 8 | H25 | Identificar as marcas das variedades linguísticas sociais, regionais e de registro. | 6 | 11 | 2 |
 | 8 | H26 | Relacionar cada variedade linguística à situação de uso em que ela aparece. | 5 | 19 | 3 |
 | 8 | H27 | Reconhecer os usos da norma-padrão nas diferentes situações de comunicação. | 4 | 14 | 1 |
-| 9 | H28 | Reconhecer a função e o impacto social das tecnologias da comunicação e da informação. | 5 | 20 | 5 |
-| 9 | H29 | Identificar as tecnologias da comunicação pela análise das linguagens que elas usam. | 0 | 3 | 0 |
+| 9 | H28 | Reconhecer a função e o impacto social das tecnologias da comunicação e da informação. | 6 | 20 | 5 |
+| 9 | H29 | Identificar as tecnologias da comunicação pela análise das linguagens que elas usam. | 1 | 8 | 0 |
 | 9 | H30 | Relacionar as tecnologias da comunicação ao desenvolvimento das sociedades e ao conhecimento que elas produzem. | 3 | 6 | 2 |
 
 ### Ciências Humanas e suas Tecnologias
@@ -90,7 +90,7 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | --- | --- | --- | --- | --- | --- |
 | 1 | H1 | Reconhecer propriedades de ondas e oscilações e seus usos. | 4 | 19 | 7 |
 | 1 | H2 | Ligar soluções de problemas (comunicação, transporte, saúde) ao avanço científico e tecnológico. | 2 | 2 | 0 |
-| 1 | H3 | Comparar explicações científicas com as do senso comum, em épocas ou culturas diferentes. | 0 | 0 | 0 |
+| 1 | H3 | Comparar explicações científicas com as do senso comum, em épocas ou culturas diferentes. | 1 | 5 | 0 |
 | 1 | H4 | Avaliar propostas de intervenção no ambiente, pensando na vida humana e na biodiversidade. | 2 | 2 | 1 |
 | 2 | H5 | Dimensionar circuitos e aparelhos elétricos do dia a dia. | 5 | 27 | 4 |
 | 2 | H6 | Entender manuais de instalação ou de uso de aparelhos e sistemas técnicos comuns. | 2 | 2 | 0 |
@@ -100,9 +100,9 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | 3 | H10 | Analisar perturbações ambientais: origem, caminho e destino dos poluentes e seus efeitos. | 4 | 15 | 2 |
 | 3 | H11 | Reconhecer benefícios, limites e questões éticas da biotecnologia. | 2 | 6 | 2 |
 | 3 | H12 | Avaliar impactos de atividades sociais ou econômicas no ambiente, com interesses em conflito. | 3 | 5 | 1 |
-| 4 | H13 | Reconhecer como a vida se transmite e prever ou explicar características dos seres vivos. | 0 | 0 | 2 |
+| 4 | H13 | Reconhecer como a vida se transmite e prever ou explicar características dos seres vivos. | 1 | 5 | 2 |
 | 4 | H14 | Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade. | 5 | 25 | 5 |
-| 4 | H15 | Interpretar modelos e experimentos que explicam processos biológicos. | 5 | 22 | 7 |
+| 4 | H15 | Interpretar modelos e experimentos que explicam processos biológicos. | 6 | 22 | 7 |
 | 4 | H16 | Entender o papel da evolução nos padrões biológicos e na classificação dos seres vivos. | 2 | 5 | 2 |
 | 5 | H17 | Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências. | 14 | 62 | 6 |
 | 5 | H18 | Relacionar propriedades de produtos e sistemas técnicos às finalidades a que servem. | 5 | 8 | 4 |
@@ -135,12 +135,12 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 | 3 | H10 | Identificar relações entre grandezas e unidades de medida. | 1 | 2 | 1 |
 | 3 | H11 | Usar escalas para ler representações do cotidiano. | 3 | 11 | 3 |
 | 3 | H12 | Resolver problemas com medidas de grandezas. | 7 | 30 | 3 |
-| 3 | H13 | Avaliar o resultado de uma medição ao construir um argumento. | 0 | 0 | 0 |
+| 3 | H13 | Avaliar o resultado de uma medição ao construir um argumento. | 1 | 5 | 0 |
 | 3 | H14 | Avaliar propostas de intervenção usando grandezas e medidas. | 2 | 9 | 0 |
 | 4 | H15 | Identificar quando uma grandeza depende de outra. | 1 | 2 | 0 |
 | 4 | H16 | Resolver problemas com grandezas direta ou inversamente proporcionais. | 7 | 24 | 2 |
-| 4 | H17 | Analisar a variação de grandezas para construir argumentos. | 2 | 4 | 1 |
-| 4 | H18 | Avaliar propostas de intervenção que envolvem variação de grandezas. | 0 | 0 | 0 |
+| 4 | H17 | Analisar a variação de grandezas para construir argumentos. | 3 | 4 | 1 |
+| 4 | H18 | Avaliar propostas de intervenção que envolvem variação de grandezas. | 1 | 5 | 0 |
 | 5 | H19 | Identificar a expressão algébrica que traduz a relação entre grandezas. | 9 | 17 | 2 |
 | 5 | H20 | Interpretar gráficos cartesianos que relacionam grandezas. | 7 | 15 | 5 |
 | 5 | H21 | Resolver problemas cuja modelagem pede álgebra. | 12 | 68 | 7 |
@@ -158,11 +158,11 @@ Gerado por `npm run cobertura:enem` (não edite à mão). Método e metas: `docs
 
 | Área | Habilidades com aula | Com 10+ exercícios |
 | --- | --- | --- |
-| Linguagens, Códigos e suas Tecnologias | 28 de 30 | 20 de 30 |
+| Linguagens, Códigos e suas Tecnologias | 30 de 30 | 20 de 30 |
 | Ciências Humanas e suas Tecnologias | 30 de 30 | 17 de 30 |
-| Ciências da Natureza e suas Tecnologias | 28 de 30 | 13 de 30 |
-| Matemática e suas Tecnologias | 28 de 30 | 17 de 30 |
-| **Total** | **114 de 120 (95%)** | **67 de 120 (56%)** |
+| Ciências da Natureza e suas Tecnologias | 30 de 30 | 13 de 30 |
+| Matemática e suas Tecnologias | 30 de 30 | 17 de 30 |
+| **Total** | **120 de 120 (100%)** | **67 de 120 (56%)** |
 
 ## Objetos de conhecimento e tópicos (meta: cada um com aula própria)
 
@@ -229,8 +229,8 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Norma-padrão em uso: concordância, regência, crase, pontuação, colocação (`lin-lingua-portuguesa-norma-padrao`) | 1 | 1 | 10 |
 | ↳ Formação de palavras (`lin-lingua-portuguesa-formacao-de-palavras`) | 0 | 1 | 10 |
 | ↳ Oralidade e escrita (`lin-lingua-portuguesa-oralidade-e-escrita`) | 0 | 1 | 10 |
-| **Estudo dos gêneros digitais** (`lin-generos-digitais`) | 8 | 5 | 41 |
-| ↳ Internet, hipertexto e redes sociais (`lin-generos-digitais-hipertexto`) | 4 | 2 | 10 |
+| **Estudo dos gêneros digitais** (`lin-generos-digitais`) | 8 | 7 | 51 |
+| ↳ Internet, hipertexto e redes sociais (`lin-generos-digitais-hipertexto`) | 4 | 4 | 20 |
 | ↳ Desinformação e checagem (`lin-generos-digitais-desinformacao`) | 2 | 2 | 11 |
 | ↳ Algoritmos e bolhas (`lin-generos-digitais-algoritmos`) | 0 | 2 | 10 |
 | ↳ Privacidade e dados (`lin-generos-digitais-privacidade`) | 0 | 1 | 10 |
@@ -423,10 +423,10 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | **Energias químicas no cotidiano** (`nat-qui-energias`) | 2 | 2 | 20 |
 | ↳ Petróleo, gás e biocombustíveis (`nat-qui-energias-combustiveis`) | 1 | 1 | 10 |
 | ↳ Energia nuclear e lixo atômico (`nat-qui-energias-nuclear`) | 1 | 1 | 10 |
-| **Hereditariedade e diversidade da vida** (`nat-bio-hereditariedade`) | 2 | 0 | 0 |
+| **Hereditariedade e diversidade da vida** (`nat-bio-hereditariedade`) | 2 | 1 | 5 |
 | ↳ Herança ligada ao sexo (`nat-bio-hereditariedade-ligada-ao-sexo`) | 1 | 0 | 0 |
 | ↳ Mutações (`nat-bio-hereditariedade-mutacoes`) | 1 | 0 | 0 |
-| ↳ Genética mendeliana e heredogramas (`nat-bio-hereditariedade-mendel`) | 0 | 0 | 0 |
+| ↳ Genética mendeliana e heredogramas (`nat-bio-hereditariedade-mendel`) | 0 | 1 | 5 |
 | ↳ Grupos sanguíneos (`nat-bio-hereditariedade-grupos-sanguineos`) | 0 | 0 | 0 |
 | **Energia, trabalho e potência** (`nat-fis-energia`) | 1 | 2 | 10 |
 | ↳ Potência e rendimento (`nat-fis-energia-potencia-e-rendimento`) | 1 | 2 | 10 |
@@ -439,10 +439,10 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Reações químicas e suas evidências (`nat-qui-transformacoes-reacoes`) | 0 | 0 | 0 |
 | **Dinâmica das transformações químicas** (`nat-qui-cinetica`) | 1 | 1 | 10 |
 | ↳ Cinética química (`nat-qui-cinetica-velocidade`) | 1 | 1 | 10 |
-| **Origem e evolução da vida** (`nat-bio-evolucao`) | 1 | 0 | 0 |
+| **Origem e evolução da vida** (`nat-bio-evolucao`) | 1 | 1 | 5 |
 | ↳ Evolução e especiação (`nat-bio-evolucao-teorias`) | 1 | 0 | 0 |
 | ↳ Método científico (`nat-bio-evolucao-metodo-cientifico`) | 0 | 0 | 0 |
-| ↳ Origem da vida (`nat-bio-evolucao-origem-da-vida`) | 0 | 0 | 0 |
+| ↳ Origem da vida (`nat-bio-evolucao-origem-da-vida`) | 0 | 1 | 5 |
 | **Conhecimentos básicos e fundamentais** (`nat-fis-fundamentos`) | 0 | 0 | 0 |
 | ↳ Grandezas, unidades e notação científica (`nat-fis-fundamentos-grandezas-e-unidades`) | 0 | 0 | 0 |
 | ↳ Vetores (`nat-fis-fundamentos-vetores`) | 0 | 0 | 0 |
@@ -451,7 +451,7 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 
 | Objeto / tópico | Questões oficiais | Aulas | Exercícios |
 | --- | --- | --- | --- |
-| **Conhecimentos numéricos** (`mat-numeros`) | 24 | 21 | 199 |
+| **Conhecimentos numéricos** (`mat-numeros`) | 24 | 23 | 206 |
 | ↳ Operações com inteiros e racionais (`mat-numeros-operacoes`) | 5 | 2 | 11 |
 | ↳ Porcentagem (`mat-numeros-porcentagem`) | 5 | 3 | 12 |
 | ↳ Progressões aritméticas e geométricas (`mat-numeros-progressoes`) | 3 | 3 | 11 |
@@ -460,19 +460,19 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Permutações, arranjos e combinações (`mat-numeros-arranjos-e-combinacoes`) | 2 | 2 | 11 |
 | ↳ Múltiplos, divisores, MMC e MDC (`mat-numeros-multiplos-e-divisores`) | 1 | 1 | 10 |
 | ↳ Razão e proporção (`mat-numeros-razao-e-proporcao`) | 1 | 3 | 10 |
-| ↳ Aumentos e descontos sucessivos (`mat-numeros-aumentos-e-descontos`) | 1 | 3 | 11 |
+| ↳ Aumentos e descontos sucessivos (`mat-numeros-aumentos-e-descontos`) | 1 | 3 | 12 |
 | ↳ Juros compostos (`mat-numeros-juros-compostos`) | 1 | 2 | 11 |
 | ↳ Princípio fundamental da contagem (`mat-numeros-contagem`) | 1 | 2 | 10 |
 | ↳ Frações e decimais (`mat-numeros-fracoes-e-decimais`) | 0 | 1 | 10 |
 | ↳ Expressões numéricas (`mat-numeros-expressoes`) | 0 | 1 | 10 |
-| ↳ Arredondamento e estimativa (`mat-numeros-estimativa`) | 0 | 1 | 10 |
-| ↳ Grandezas direta e inversamente proporcionais (`mat-numeros-grandezas-proporcionais`) | 0 | 2 | 11 |
+| ↳ Arredondamento e estimativa (`mat-numeros-estimativa`) | 0 | 2 | 12 |
+| ↳ Grandezas direta e inversamente proporcionais (`mat-numeros-grandezas-proporcionais`) | 0 | 3 | 15 |
 | ↳ Regra de três simples e composta (`mat-numeros-regra-de-tres`) | 0 | 2 | 10 |
 | ↳ Juros simples (`mat-numeros-juros-simples`) | 0 | 2 | 10 |
 | ↳ Inflação e poder de compra (`mat-numeros-inflacao`) | 0 | 1 | 10 |
 | ↳ Velocidade, vazão, densidade e outras taxas (`mat-numeros-taxas`) | 0 | 1 | 10 |
-| **Conhecimentos geométricos** (`mat-geometria`) | 24 | 16 | 135 |
-| ↳ Unidades de comprimento, área, volume, capacidade, massa e tempo (`mat-geometria-unidades-de-medida`) | 3 | 2 | 11 |
+| **Conhecimentos geométricos** (`mat-geometria`) | 24 | 17 | 138 |
+| ↳ Unidades de comprimento, área, volume, capacidade, massa e tempo (`mat-geometria-unidades-de-medida`) | 3 | 3 | 14 |
 | ↳ Escalas em mapas, plantas e maquetes (`mat-geometria-escalas`) | 3 | 3 | 11 |
 | ↳ Circunferência e círculo (`mat-geometria-circunferencia`) | 3 | 3 | 11 |
 | ↳ Prismas e cilindros (`mat-geometria-prismas-e-cilindros`) | 3 | 3 | 11 |
@@ -516,7 +516,7 @@ Ordem: do que mais caiu nas provas classificadas para o que menos caiu (a lacuna
 | ↳ Equação da reta, paralelismo e perpendicularidade (`mat-algebra-geometria-reta`) | 0 | 1 | 10 |
 | ↳ Equação da circunferência (`mat-algebra-geometria-circunferencia`) | 0 | 0 | 0 |
 
-Objetos com aula: **36 de 42** · tópicos com aula: **194 de 286**.
+Objetos com aula: **38 de 42** · tópicos com aula: **196 de 286**.
 
 ## As 40 lacunas mais urgentes (tópico sem aula, pela incidência)
 

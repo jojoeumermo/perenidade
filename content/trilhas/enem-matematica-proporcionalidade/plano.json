@@ -10,5 +10,7 @@
   { "slug": "contas-do-dia-a-dia", "titulo": "Contas do dia a dia: luz, água, salário, parcelamento e impostos" },
   { "slug": "unidades-de-medida", "titulo": "Unidades de medida: comprimento, área, volume, massa e tempo" },
   { "slug": "velocidade-vazao-densidade-e-outras-taxas", "titulo": "Velocidade, vazão, densidade e outras taxas" },
-  { "slug": "escalas", "titulo": "Escalas em mapas, plantas e maquetes" }
+  { "slug": "escalas", "titulo": "Escalas em mapas, plantas e maquetes" },
+  { "slug": "avaliar-uma-medicao", "titulo": "Avaliar uma medição: precisão, erro e arredondamento" },
+  { "slug": "comparar-propostas-com-grandezas", "titulo": "Comparar propostas: quando a variação das grandezas decide" }
 ]
