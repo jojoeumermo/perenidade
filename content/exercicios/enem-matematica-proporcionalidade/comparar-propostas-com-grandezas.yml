@@ -1,0 +1,112 @@
+# Exercícios da aula "Comparar propostas: quando a variação das grandezas decide" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-propostas-01
+  tema: "Comparar propostas"
+  area: matematica
+  habilidade: 18
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 1
+  enunciado: "Um táxi cobra R$ 6 de bandeirada mais R$ 3 por quilômetro. Quanto custa uma corrida de 8 km?"
+  alternativas:
+    - texto: "R$ 24"
+      erro: "Esqueceu a bandeirada."
+    - texto: "R$ 30"
+      certa: true
+    - texto: "R$ 48"
+      erro: "Multiplicou a bandeirada pelos quilômetros."
+    - texto: "R$ 72"
+      erro: "Somou 6 + 3 e multiplicou por 8."
+    - texto: "R$ 17"
+      erro: "Somou os três números."
+  explicacao: "6 + 3 × 8 = 6 + 24 = R$ 30."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-propostas-02
+  tema: "Comparar propostas"
+  area: matematica
+  habilidade: 18
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 2
+  enunciado: "Uma academia cobra R$ 10 por aula avulsa. Outra cobra R$ 90 por mês, com aulas à vontade. A partir de quantas aulas por mês a segunda é mais barata?"
+  alternativas:
+    - texto: "A partir de 9 aulas."
+      erro: "Com 9 aulas as duas custam R$ 90: empatam."
+    - texto: "A partir de 10 aulas."
+      certa: true
+    - texto: "A partir de 5 aulas."
+      erro: "Com 5 aulas a avulsa custa R$ 50, menos que R$ 90."
+    - texto: "A partir de 90 aulas."
+      erro: "Confundiu o preço com o número de aulas."
+    - texto: "A segunda nunca é mais barata."
+      erro: "Acima de 9 aulas, a avulsa passa de R$ 90."
+  explicacao: "Empate: 10n = 90, n = 9. Acima disso, a partir de 10 aulas, o plano mensal sai mais barato."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-propostas-03
+  tema: "Comparar propostas"
+  area: matematica
+  habilidade: 18
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 2
+  enunciado: "Uma cidade consome 500 mil m³ de água por mês e quer reduzir o consumo em 10%. Qual proposta atinge a meta?"
+  alternativas:
+    - texto: "Uma campanha que reduz 30 mil m³."
+      erro: "30 mil m³ são 6% de 500 mil."
+    - texto: "Um conserto de vazamentos que reduz 60 mil m³."
+      certa: true
+    - texto: "Uma troca de torneiras que reduz 4% do consumo."
+      erro: "4% é menos que a meta de 10%."
+    - texto: "Uma regra que reduz 45 mil m³."
+      erro: "45 mil m³ são 9% de 500 mil."
+    - texto: "Uma ação que reduz 1 mil m³ por dia útil, em 20 dias úteis."
+      erro: "Dá 20 mil m³, ou 4%."
+  explicacao: "A meta é 10% de 500 mil = 50 mil m³. Só o conserto de vazamentos, com 60 mil m³, passa da meta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-propostas-04
+  tema: "Comparar propostas"
+  area: matematica
+  habilidade: 18
+  objeto: mat-numeros-aumentos-e-descontos
+  dificuldade: 2
+  enunciado: "Uma proposta reduz o lixo de uma escola em 20% no primeiro semestre e mais 20%, sobre o que restou, no segundo. A redução total no ano é de:"
+  alternativas:
+    - texto: "40%"
+      erro: "Somou porcentagens de bases diferentes."
+    - texto: "36%"
+      certa: true
+    - texto: "20%"
+      erro: "Ignorou a segunda redução."
+    - texto: "44%"
+      erro: "Essa seria a conta de dois aumentos de 20% (1,2 × 1,2 = 1,44)."
+    - texto: "4%"
+      erro: "Calculou 20% de 20%."
+  explicacao: "Restam 0,8 × 0,8 = 0,64 do lixo inicial. A redução total é 1 − 0,64 = 0,36, ou 36%."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-propostas-05
+  tema: "Comparar propostas"
+  area: matematica
+  habilidade: 18
+  objeto: mat-numeros-grandezas-proporcionais
+  dificuldade: 3
+  enunciado: "Para levar 120 estudantes a uma feira, a escola pode alugar ônibus de 40 lugares por R$ 900 cada, ou vans de 15 lugares por R$ 300 cada. Todos precisam ir. Qual opção é mais barata, e por quanto?"
+  alternativas:
+    - texto: "Ônibus, por R$ 300."
+      erro: "O ônibus custa mais por veículo e, no total, sai R$ 2.700 contra R$ 2.400 das vans."
+    - texto: "Vans, por R$ 300."
+      certa: true
+    - texto: "Custam o mesmo."
+      erro: "As contas dão R$ 2.700 e R$ 2.400."
+    - texto: "Ônibus, por R$ 600."
+      erro: "Errou o número de veículos de uma das opções."
+    - texto: "Vans, por R$ 900."
+      erro: "A diferença é de R$ 300, não de R$ 900. Confira o número de veículos de cada opção."
+  explicacao: "Ônibus: 120 ÷ 40 = 3 ônibus, R$ 2.700. Vans: 120 ÷ 15 = 8 vans, R$ 2.400. As vans saem R$ 300 mais baratas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

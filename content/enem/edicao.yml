@@ -108,7 +108,7 @@ fatos:
     valor: "2026-06-12"
     fonte: noticia-prazo-12-6
     trecho: "Agora, os interessados têm até 12 de junho para se inscrever na Página do Participante."
-    conferido: "2026-10-30"
+    conferido: "2026-11-02"
   taxa-valor:
     afirmacao: "Valor da taxa de inscrição"
     tipo: dinheiro
@@ -123,7 +123,7 @@ fatos:
     valor: "2026-06-22"
     fonte: noticia-taxa-22-6
     trecho: "O prazo foi ampliado até 22 de junho. O valor é de R$ 85"
-    conferido: "2026-10-30"
+    conferido: "2026-11-02"
   lingua-automatica-prazo:
     afirmacao: "Prazo para quem foi inscrito de forma automática escolher a língua estrangeira (depois disso, vale inglês)"
     tipo: data
@@ -550,7 +550,7 @@ fatos:
     valor: "quem é concluinte de 2026 no programa e faz os dois dias de prova recebe R$ 200 a mais, depois de confirmada a conclusão"
     fonte: noticia-inscricoes
     trecho: "Os participantes do Pé-de-Meia que concluírem o ensino médio em 2026 e participarem dos dois dias de prova do Enem receberão um incentivo adicional de R$ 200."
-    conferido: "2026-10-30"
+    conferido: "2026-11-02"
 
   # ── Como a nota é calculada (TRI): guia do Inep. Não muda de edição para edição; conferir se o Inep publicar guia novo. ──
   tri-coerencia:

@@ -10,7 +10,7 @@
 - Onda 5 (Natureza), parcial: Física 10 aulas, Química 22, Biologia 9.
 - Onda 6 (Humanas), parcial: História do Brasil 8, História geral 8, Geografia 8, Filosofia 5, Sociologia 5.
 - Revisão independente das Ondas 4 a 6 (`revisao-ondas-4-a-6.md`, 14 correções).
-- Cobertura: 114/120 habilidades com aula, 67/120 com 10+ exercícios, 194/286 tópicos com aula, 1.948 exercícios com
+- Cobertura (02/11): 120/120 habilidades com aula (6 aulas novas de fechamento), 67/120 com 10+ exercícios, 196/286 tópicos com aula, 1.978 exercícios com
   etiquetas, 347 questões oficiais classificadas (2022 e 2023). Detalhes em `COBERTURA.md`; fila em `FILA-DE-REVISAO.md`.
 
 ## Ponto exato onde parei

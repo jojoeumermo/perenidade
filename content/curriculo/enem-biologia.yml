@@ -148,3 +148,24 @@ aulas:
         situacao: a-confirmar
     objetos:
       - nat-bio-seres-vivos-animais
+  origem-da-vida:
+    enem:
+      - area: natureza
+        competencia: 1
+        habilidade: 3
+        resumo: "Comparar explicações científicas com as do senso comum, em épocas ou culturas diferentes."
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 4
+        habilidade: 15
+        resumo: "Interpretar modelos e experimentos que explicam processos biológicos."
+        situacao: a-confirmar
+    objetos: [nat-bio-evolucao-origem-da-vida]
+  mendel:
+    enem:
+      - area: natureza
+        competencia: 4
+        habilidade: 13
+        resumo: "Reconhecer como a vida se transmite e prever ou explicar características dos seres vivos."
+        situacao: a-confirmar
+    objetos: [nat-bio-hereditariedade-mendel]

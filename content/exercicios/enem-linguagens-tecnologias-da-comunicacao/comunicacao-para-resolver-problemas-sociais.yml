@@ -1,0 +1,112 @@
+# Exercícios da aula "Comunicação para resolver problemas da comunidade" (trilha enem-linguagens-tecnologias-da-comunicacao).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-digitais-comunidade-01
+  tema: "Comunicação para resolver problemas da comunidade"
+  area: linguagens
+  habilidade: 2
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 1
+  enunciado: "Uma associação de moradores quer avisar sobre um mutirão de limpeza pessoas que, em geral, não usam internet. Qual meio é o mais adequado?"
+  alternativas:
+    - texto: "Um post numa rede social de vídeos curtos."
+      erro: "Quem não usa internet não verá o post."
+    - texto: "Cartazes na padaria e no posto de saúde e um aviso na rádio comunitária."
+      certa: true
+    - texto: "Um e-mail para a lista da associação."
+      erro: "E-mail também depende de internet."
+    - texto: "Uma mensagem num aplicativo de conversa."
+      erro: "Depende de celular com internet, que esse público não usa."
+    - texto: "Um anúncio num site de notícias nacional."
+      erro: "Além de depender de internet, não é dirigido ao bairro."
+  explicacao: "O público decide o meio. Cartaz onde as pessoas passam e rádio chegam a quem não está na rede."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-comunidade-02
+  tema: "Comunicação para resolver problemas da comunidade"
+  area: linguagens
+  habilidade: 2
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 1
+  enunciado: "Qual destas mensagens de utilidade pública é mais eficaz para levar as pessoas a agir?"
+  alternativas:
+    - texto: "\"Considerando a relevância da imunização para a saúde coletiva, solicita-se a gentileza do comparecimento.\""
+      erro: "Linguagem formal demais e sem lugar nem data. Dificulta a ação."
+    - texto: "\"A vacina é importante.\""
+      erro: "Informa, mas não diz o que fazer, onde nem quando."
+    - texto: "\"Vacine seu filho: sábado, das 8h às 17h, no posto da Rua B. Leve a caderneta.\""
+      certa: true
+    - texto: "\"Muita gente não se vacina, infelizmente.\""
+      erro: "Lamenta o problema, mas não faz nenhum pedido."
+    - texto: "\"Quem não vacina é irresponsável!\""
+      erro: "O tom de bronca afasta e não dá o caminho da ação."
+  explicacao: "Mensagem que leva à ação usa imperativo e traz o essencial: o quê, quando, onde e o que levar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-comunidade-03
+  tema: "Comunicação para resolver problemas da comunidade"
+  area: linguagens
+  habilidade: 2
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 2
+  enunciado: "Moradores querem que a prefeitura conserte a iluminação de uma praça. Que ação transforma a reclamação num pedido que o poder público precisa registrar?"
+  alternativas:
+    - texto: "Reclamar em voz alta na fila do ônibus."
+      erro: "Ninguém do poder público registra a reclamação."
+    - texto: "Protocolar na prefeitura um ofício com as assinaturas dos moradores."
+      certa: true
+    - texto: "Publicar uma foto da praça escura sem marcar ninguém."
+      erro: "Pode chamar atenção, mas não chega a quem decide nem gera registro."
+    - texto: "Esperar que alguém da prefeitura passe pela praça à noite."
+      erro: "Não usa nenhum meio de comunicação. É só esperar."
+    - texto: "Pintar a palavra \"escuro\" no chão da praça."
+      erro: "Não diz o que se pede nem a quem."
+  explicacao: "O protocolo gera número e prazo: faz o pedido existir nos papéis do órgão público."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-comunidade-04
+  tema: "Comunicação para resolver problemas da comunidade"
+  area: linguagens
+  habilidade: 2
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 2
+  enunciado: "Pela Lei nº 9.612, de 1998, a rádio comunitária é uma emissora:"
+  alternativas:
+    - texto: "comercial, de alcance nacional, mantida por anúncios."
+      erro: "A rádio comunitária não tem fins lucrativos e tem cobertura restrita."
+    - texto: "de baixa potência e cobertura restrita, sem fins lucrativos, operada por associação ou fundação comunitária."
+      certa: true
+    - texto: "estatal, dirigida pelo governo federal."
+      erro: "É operada pela própria comunidade, por associações e fundações."
+    - texto: "que só transmite pela internet."
+      erro: "É um serviço de radiodifusão, com transmissão de rádio."
+    - texto: "de televisão a cabo."
+      erro: "É rádio, não televisão."
+  explicacao: "A lei define a radiodifusão comunitária como de baixa potência e cobertura restrita, prestada por fundações e associações comunitárias sem fins lucrativos."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 9.612/1998"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-comunidade-05
+  tema: "Comunicação para resolver problemas da comunidade"
+  area: linguagens
+  habilidade: 2
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 3
+  enunciado: "Um grupo de estudantes fez um vídeo muito compartilhado sobre a falta de merenda na escola, mas nada mudou. Que mudança na estratégia tem mais chance de resolver o problema?"
+  alternativas:
+    - texto: "Fazer outro vídeo, mais engraçado, para ter mais visualizações."
+      erro: "Mais alcance não resolve se a mensagem não chega a quem decide nem faz um pedido."
+    - texto: "Apagar o vídeo para evitar conflito."
+      erro: "Desiste do problema."
+    - texto: "Levar o pedido, por escrito e com as assinaturas da comunidade escolar, à secretaria de educação e ao conselho escolar, usando o vídeo como registro."
+      certa: true
+    - texto: "Trocar a rede social por outra mais nova."
+      erro: "Troca o meio sem mudar o destinatário nem o pedido."
+    - texto: "Escrever comentários com críticas a quem não compartilhou."
+      erro: "Não se dirige a quem pode resolver."
+  explicacao: "O vídeo deu visibilidade; faltou o pedido formal a quem decide. Combinar os dois usa os meios a favor da solução."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
