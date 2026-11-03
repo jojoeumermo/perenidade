@@ -5,6 +5,8 @@ import { Markdown } from "@/components/Markdown";
 import { Capa, Corpo } from "@/components/pagina/Capa";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { GlossaryList } from "@/components/GlossaryList";
@@ -39,6 +41,7 @@ export default async function Glossario({ params }: PageProps<"/[lang]/glossario
       <Untranslated lang={lang} t={t} show={terms.some((term) => !term.translated)} />
       {/* O dicionário da língua: qualquer palavra, além dos termos do instituto (fontes livres; veja components/glossario/Dicionario.tsx). */}
       <Dicionario s={t.glossary.dict} termos={Object.fromEntries(terms.map((term) => [normalize(term.term), { slug: term.slug, term: term.term }]))} />
+      <I18nProvider lang={lang} t={pickSections(t, ["areas"])}>
       <GlossaryList
         s={t.glossary}
         items={terms.map((term) => ({
@@ -51,6 +54,7 @@ export default async function Glossario({ params }: PageProps<"/[lang]/glossario
           body: term.body ? <Markdown lang={lang}>{term.body}</Markdown> : null,
         }))}
       />
+      </I18nProvider>
       <p className="no-print mt-10 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
         {t.glossary.missing}{" "}
         <Link href={localePath(lang, "/contribuir")} className="underline hover:text-oxblood">{t.nav.contribute}</Link>.

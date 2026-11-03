@@ -13,6 +13,8 @@
 //   TRANSCRICAO_MODELO  opcional; o padrão é whisper-large-v3-turbo (na OpenAI, use whisper-1).
 // SUPABASE_URL e SUPABASE_ANON_KEY já vêm prontos. Nenhum segredo aparece em resposta nem em registro.
 
+import { comCors } from "../_shared/cors.mjs";
+
 declare const Deno: { env: { get(nome: string): string | undefined }; serve(tratar: (pedido: Request) => Response | Promise<Response>): void };
 
 const base = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
@@ -23,8 +25,8 @@ const modelo = Deno.env.get("TRANSCRICAO_MODELO") ?? "whisper-large-v3-turbo";
 // O limite de envio dos serviços com cota gratuita (Groq: 25 MB no plano gratuito).
 const LIMITE = 25 * 1024 * 1024;
 
+// Sem "Access-Control-Allow-Origin" aqui: quem põe é comCors (../_shared/cors.mjs), só para as origens do site.
 const cabecalhos = {
-  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Cache-Control": "no-store",
@@ -45,8 +47,7 @@ const tempo = (s: number) => {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(seg).padStart(2, "0")}.${String(ms % 1000).padStart(3, "0")}`;
 };
 
-Deno.serve(async (pedido) => {
-  if (pedido.method === "OPTIONS") return new Response(null, { status: 204, headers: cabecalhos });
+Deno.serve(comCors(async (pedido) => {
   if (pedido.method !== "POST") return responder({ erro: "metodo" }, 405);
   if (!base || !anonima) return responder({ erro: "servico" });
   if (!chave) return responder({ erro: "desligada" });
@@ -109,4 +110,4 @@ Deno.serve(async (pedido) => {
   });
   const vtt = trechos.length ? ["WEBVTT", "", ...trechos.map((t) => `${tempo(t.start)} --> ${tempo(t.end)}\n${t.text.trim()}\n`)].join("\n") : "";
   return responder({ texto: paragrafos.length ? paragrafos.join("\n\n") : (resultado.text ?? "").trim(), vtt });
-});
+}));

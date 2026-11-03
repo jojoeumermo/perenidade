@@ -15,6 +15,7 @@
 import Anthropic from "npm:@anthropic-ai/sdk@0.133.0";
 import { lerResposta, montarPedido, pedidoDeTeste, tipoDeFalha, validarEntrada, type Entrada } from "./assistente.ts";
 import { FalhaDoProvedor, IDS, modeloDe, perguntar, PROVEDORES, verificar } from "./provedores.ts";
+import { comCors } from "../_shared/cors.mjs";
 
 declare const Deno: { env: { get(nome: string): string | undefined }; serve(tratar: (pedido: Request) => Response | Promise<Response>): void };
 
@@ -23,8 +24,8 @@ const servico = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 /** Uma foto reduzida no navegador cabe com folga; acima disso, nem se lê o pedido. */
 const TAMANHO_MAXIMO = 3_000_000;
 
+// Sem "Access-Control-Allow-Origin" aqui: quem põe é comCors (../_shared/cors.mjs), só para as origens do site.
 const cabecalhos = {
-  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Cache-Control": "no-store",
@@ -49,8 +50,7 @@ async function banco(funcao: string, argumentos: Record<string, unknown>, sessao
   }
 }
 
-Deno.serve(async (pedido) => {
-  if (pedido.method === "OPTIONS") return new Response(null, { status: 204, headers: cabecalhos });
+Deno.serve(comCors(async (pedido) => {
   if (pedido.method !== "POST") return responder({ erro: "metodo" }, 405);
   if (!base || !servico) return responder({ erro: "assistente_indisponivel" }, 503);
   const sessao = pedido.headers.get("Authorization") ?? "";
@@ -122,4 +122,4 @@ Deno.serve(async (pedido) => {
     return responder({ erro: r.tentativas.every((t) => t.falha === "sem_chave") ? "assistente_indisponivel" : "assistente_falhou" }, r.tentativas.every((t) => t.falha === "sem_chave") ? 503 : 502);
   }
   return responder({ ...r.lido, restantes, provedor: PROVEDORES.find((p) => p.id === r.provedor)?.nome ?? r.provedor });
-});
+}));

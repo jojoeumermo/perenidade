@@ -4,7 +4,7 @@
 // palavra não está lá, pelo Dicionário Aberto (dicionario-aberto.net, verbetes do Novo Diccionário da Língua
 // Portuguesa, 1913, com a grafia da época); inglês pelo Free Dictionary API (dictionaryapi.dev, dados do Wiktionary).
 // Os dicionários comerciais (Aurélio, Houaiss, Michaelis) têm direitos reservados e não podem ser copiados.
-import { buscarJson, buscarTexto, responder, semHtml, termo } from "@/lib/externo";
+import { buscarJson, buscarTexto, canonica, responder, semHtml, termo } from "@/lib/externo";
 
 interface Aberto {
   word?: string;
@@ -100,6 +100,9 @@ export async function GET(pedido: Request) {
   const parametros = new URL(pedido.url).searchParams;
   const palavra = termo(parametros.get("palavra"), 1, 40).toLowerCase();
   const lingua = parametros.get("lingua") === "en" ? "en" : "pt";
+  // A mesma palavra escrita de outro jeito ("Casa", "casa ") vai para o endereço normalizado: uma entrada só na borda.
+  const normal = canonica(pedido, "palavra", palavra);
+  if (normal) return normal;
   if (!palavra || !/^[\p{L}' -]+$/u.test(palavra)) return responder({ palavra, sentidos: [] }, 86400);
 
   if (lingua === "pt") {

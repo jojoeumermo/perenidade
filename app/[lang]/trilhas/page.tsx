@@ -6,6 +6,8 @@ import { textosDoEstudo } from "@/lib/textos-estudo";
 import { ligado } from "@/lib/recursos";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
 import { essential, groups, stages, type Stage } from "@/lib/areas";
 import { getTracks } from "@/lib/content";
@@ -38,7 +40,7 @@ export default async function Disciplinas({ params }: PageProps<"/[lang]/trilhas
       <PageHeading eyebrow={t.tracks.eyebrow} title={t.tracks.title}>
         {t.tracks.lead}
       </PageHeading>
-      <GuiaDasDisciplinas caminhos={caminhosDoGuia(tracks, stages)} s={t.tracks.guide} etapas={stages} cursoEnem={ligado("enem-curso") ? textosDoEstudo(lang).s.enem.irParaCurso : undefined} />
+      <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><GuiaDasDisciplinas caminhos={caminhosDoGuia(tracks, stages)} s={t.tracks.guide} etapas={stages} cursoEnem={ligado("enem-curso") ? textosDoEstudo(lang).s.enem.irParaCurso : undefined} /></I18nProvider>
       <DisciplineBrowser groups={data} s={t.tracks} stageNames={t.stages} />
     </div>
   );

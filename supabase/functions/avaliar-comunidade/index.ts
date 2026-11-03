@@ -10,14 +10,15 @@
 // mensagens; sem ela, mensagem com link vai para a fila). SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY já vêm prontos.
 // Nenhum deles aparece em resposta nem em registro; o texto das mensagens também não é registrado.
 import { comLinks, linksPerigosos, moderar } from "./moderacao.mjs";
+import { comCors } from "../_shared/cors.mjs";
 
 declare const Deno: { env: { get(nome: string): string | undefined }; serve(tratar: (pedido: Request) => Response | Promise<Response>): void };
 
 const base = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const servico = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 
+// Sem "Access-Control-Allow-Origin" aqui: quem põe é comCors (../_shared/cors.mjs), só para as origens do site.
 const cabecalhos = {
-  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Cache-Control": "no-store",
@@ -35,8 +36,7 @@ async function chamar(funcao: string, argumentos: Record<string, unknown>): Prom
   return resposta.json();
 }
 
-Deno.serve(async (pedido) => {
-  if (pedido.method === "OPTIONS") return new Response(null, { status: 204, headers: cabecalhos });
+Deno.serve(comCors(async (pedido) => {
   if (pedido.method !== "POST") return responder({ erro: "metodo" }, 405);
   if (!base || !servico) return responder({ veredito: "revisar" });
 
@@ -73,7 +73,14 @@ Deno.serve(async (pedido) => {
       return responder({ chave: Boolean(chave), ok: !falha, falha });
     }
     // Recuperação: passa de novo pelo que ficou esperando (navegador fechado, serviço fora do ar). O banco limita a três tentativas por mensagem.
+    // Só para quem vê a fila de revisão no painel (curadoria, educação, mediação): o banco confere com a sessão de quem
+    // pediu, pela mesma função que mostra a fila. Sem isso, a chave pública bastava para disparar uma reavaliação inteira
+    // (e o custo dos serviços de moderação).
     if (recuperar === true) {
+      const sessao = pedido.headers.get("Authorization") ?? "";
+      if (!/^Bearer \S+$/.test(sessao)) return responder({ erro: "entre_primeiro" }, 401);
+      const pode = await fetch(`${base}/rest/v1/rpc/comunidade_retidos`, { method: "POST", headers: { apikey: servico, Authorization: sessao, "Content-Type": "application/json" }, body: "{}", signal: AbortSignal.timeout(8000) }).catch(() => null);
+      if (!pode?.ok) return responder({ erro: "sem_permissao" }, 403);
       const lista = (await chamar("comunidade_pendentes", {})) as { tipo: string; id: string }[] | null;
       const contagem: Record<string, number> = {};
       for (const item of Array.isArray(lista) ? lista : []) {
@@ -89,4 +96,4 @@ Deno.serve(async (pedido) => {
     console.error(`avaliar-comunidade: ${falha instanceof Error ? falha.message : "falha"}`);
     return responder({ veredito: "revisar" });
   }
-});
+}));

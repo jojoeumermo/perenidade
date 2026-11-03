@@ -1,6 +1,7 @@
 # Hospedagem: onde o site mora e como ele vai ao ar
 
-Desde novembro de 2026 o site não fica mais na Vercel. Ele roda num servidor próprio, com três peças:
+**Hoje (2 de novembro de 2026) o site está na Vercel**, numa conta nova, como paliativo: veja "Situação atual" logo
+abaixo. O destino planejado é um servidor próprio, que ainda não existe; quando ele sair, terá três peças:
 
 | Peça | O que faz | Onde se mexe |
 |---|---|---|
@@ -24,13 +25,43 @@ em 1º de novembro e foi pausada.
   tem cookie `sb-`. Para ver ao vivo uma página nova antes de 4 horas: Cloudflare → Caching → Configuração → Limpar cache.
 - **Robôs:** treinamento de IA bloqueado, Labirinto para IA e Bot Fight ligados, mais as regras de segurança e o limite
   de chamadas da API que já existiam.
-- **Vercel:** o "Ignored Build Step" do projeto está em "Don't build anything" (previews não montam) e a produção segue
-  o `scripts/vercel-ignorar.mjs`, que só publica quando muda arquivo do site. Redeploy manual: desmarcar "Use project's
-  Ignore Build Step". Variáveis secretas ficam em Settings → Environment Variables do projeto.
+- **Vercel:** quem decide se um commit monta é o `scripts/vercel-ignorar.mjs` (o `ignoreCommand` do `vercel.json`).
+  Produção (`master`) só publica quando muda arquivo do site; preview só monta em branch `preview/…` (veja
+  "Pré-visualização" abaixo). Se o painel ainda mostrar "Don't build anything" em Settings → Git → Ignored Build Step,
+  troque para "Automatic", senão nenhum preview monta. Redeploy manual: desmarcar "Use project's Ignore Build Step".
+  Variáveis secretas ficam em Settings → Environment Variables do projeto.
 - **Limite da Vercel Hobby:** não existe teto de gasto nem alerta de uso (só no Pro). Olhe Usage de vez em quando.
 - **Ao migrar para a Oracle:** trocar o CNAME do `www`/apex pelo túnel e aposentar este projeto.
 
-## Como uma mudança vai ao ar
+## Pré-visualização (ver uma mudança grande antes de ir ao ar)
+
+Preview só sob pedido, para não gastar build da Vercel Hobby (um por vez, e cada um entra na fila na frente da
+produção). A regra está em `scripts/vercel-ignorar.mjs`: **só monta preview o branch que começa com `preview/`**. Os
+outros branches aparecem na Vercel como cancelados pelo Ignored Build Step. Dentro de `preview/`, commit que só mexe em
+documentação, rotinas, SQL ou testes também não monta.
+
+1. Com a mudança pronta num branch, mande para um nome com o prefixo: `git push origin HEAD:preview/<nome>`
+   (ex.: `preview/alumia-feed`).
+2. Espere a Vercel montar (Deployments, ambiente Preview; num pull request ela comenta o endereço). Os previews ficam
+   atrás da proteção da Vercel (Settings → Deployment Protection) e levam `noindex`: não aparecem em busca.
+3. Confira o que mudou no endereço do preview, no computador e no celular. Os testes de ponta a ponta do pull request
+   (`.github/workflows/ponta-a-ponta.yml`) rodam a fumaça das telas principais no computador e no Galaxy S24.
+4. Tudo certo: junte ao `master` (merge do pull request ou push). A produção monta pelo caminho de sempre.
+5. Apague o branch `preview/<nome>` depois de juntar: `git push origin --delete preview/<nome>`.
+
+Cuidado: o preview usa as variáveis do ambiente **Preview** do projeto na Vercel. Se forem as mesmas da produção, ele
+lê e grava no Supabase de produção (contas, posts, e-mails de verdade). Teste ali só o que pode acontecer em produção,
+ou aponte o escopo Preview para um projeto Supabase de teste.
+
+**Pré-visualização na VPS:** uma porta ou subdomínio separado para previews (por exemplo `preview.institutolucia.org`,
+atrás do Cloudflare Access, com um segundo app no Coolify e uma imagem com a tag `preview`) fica para quando o servidor
+existir. Hoje não há servidor nenhum configurado e nada no repositório trata de outra VPS (como a da Contabo).
+
+## Como uma mudança vai ao ar (quando o servidor próprio existir)
+
+Enquanto a variável `COOLIFY_URL` não existir no GitHub (Settings → Secrets and variables → Actions → Variables), a
+rotina **Publicar no servidor** fica pulada: não monta imagem, porque não há para onde mandar. O site vai ao ar pela
+Vercel (veja "Situação atual").
 
 1. O commit chega no `master` (de quem programa ou das rotinas do próprio GitHub).
 2. A rotina **Publicar no servidor** (`.github/workflows/producao.yml`) monta a imagem do site numa máquina ARM do

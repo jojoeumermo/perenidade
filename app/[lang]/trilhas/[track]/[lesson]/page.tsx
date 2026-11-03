@@ -5,7 +5,7 @@ import { ExerciciosDaAula } from "@/components/ExerciciosDaAula";
 import Link from "@/components/Link";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { migalhas, recursoDeAula } from "@/lib/dados-estruturados";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { AntesDaAula } from "@/components/AntesDaAula";
 import { BarraDaAula } from "@/components/aula/BarraDaAula";
 import { AcoesDaAula } from "@/components/celular/AcoesDaAula";
@@ -51,8 +51,8 @@ import { videosDaAula } from "@/lib/videos/indice";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
-// O build monta cada aula só nos idiomas em que o texto dela existe; as outras versões saem na primeira visita (veja
-// lib/params.ts). Aula que não existe continua dando 404 (notFound abaixo).
+// O build monta cada aula só nos idiomas em que o texto dela existe. Nos outros idiomas a aula redireciona (308) para a
+// versão em português, em vez de gerar uma cópia por idioma (veja lib/params.ts). Aula que não existe dá 404.
 export const dynamicParams = true;
 
 export function generateStaticParams() {
@@ -94,6 +94,8 @@ export default async function LessonPage({ params }: Props) {
   const to = (path: string) => localePath(lang, path);
   const path = (slug: string) => `/trilhas/${track.slug}/${slug}`;
   const lesson = track.lessons[index];
+  // Sem tradução do texto neste idioma: vai para a aula em português (veja lib/params.ts).
+  if (lang !== defaultLocale && !lesson.translated) permanentRedirect(localePath(defaultLocale, path(lesson.slug)));
   const prev = track.lessons[index - 1];
   const next = track.lessons[index + 1];
   const id = lessonId(track.slug, lesson.slug);

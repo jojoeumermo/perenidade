@@ -6,6 +6,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { ProvasPublicas } from "@/components/ProvasPublicas";
 import { QuestoesAbas } from "@/components/QuestoesAbas";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { localePath } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
 import { ligado } from "@/lib/recursos";
@@ -38,7 +40,7 @@ export default async function Page({ params }: PageProps<"/[lang]/questoes">) {
           {textosDoEstudo(lang).s.enem.irParaCurso} →
         </Link>
       )}
-      <QuestoesAbas totalInstituto={questoes.length} instituto={<BancoDeQuestoes questoes={questoes} />} publicas={<ProvasPublicas s={t.lists} />} />
+      <QuestoesAbas totalInstituto={questoes.length} instituto={<I18nProvider lang={lang} t={pickSections(t, ["areas"])}><BancoDeQuestoes questoes={questoes} /></I18nProvider>} publicas={<ProvasPublicas s={t.lists} />} />
     </div>
   );
 }

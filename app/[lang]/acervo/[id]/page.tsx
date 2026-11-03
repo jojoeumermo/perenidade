@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { livro, migalhas } from "@/lib/dados-estruturados";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { CapaDoLivro as Capa } from "@/components/acervo/CapaDoLivro";
 import { licenseName } from "@/components/Cards";
 import { originalLang, Untranslated } from "@/components/Untranslated";
@@ -13,8 +13,8 @@ import { defaultLocale, fill, localePath } from "@/i18n/config";
 import { getAuthors, getBook, getBooks, idiomasDe } from "@/lib/content";
 import { nosIdiomasDoTexto } from "@/lib/params";
 
-// O build monta cada obra só nos idiomas em que o texto dela existe; as outras versões saem na primeira visita (veja
-// lib/params.ts). Obra que não existe continua dando 404 (notFound abaixo).
+// O build monta cada obra só nos idiomas em que o texto dela existe. Nos outros idiomas a ficha redireciona (308) para a
+// versão em português, em vez de gerar uma cópia por idioma (veja lib/params.ts). Obra que não existe dá 404.
 export const dynamicParams = true;
 
 export function generateStaticParams() {
@@ -31,6 +31,8 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
   const { lang, t } = await loadLang(params);
   const book = getBook((await params).id, lang);
   if (!book) notFound();
+  // Sem tradução da ficha neste idioma: vai para a versão em português (veja lib/params.ts).
+  if (lang !== defaultLocale && !book.translated) permanentRedirect(localePath(defaultLocale, `/acervo/${book.id}`));
 
   const to = (path: string) => localePath(lang, path);
   const authors = getAuthors(lang).filter((author) => book.authorSlugs.includes(author.slug));
