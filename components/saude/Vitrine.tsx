@@ -68,20 +68,20 @@ export function Vitrine({ estaticos }: { estaticos: Profissional[] }) {
   const areas = useMemo(() => [...new Set(todos.flatMap((p) => p.areas))].sort((a, b) => a.localeCompare(b, "pt-BR")), [todos]);
   const vistos = area ? todos.filter((p) => p.areas.includes(area)) : todos;
 
-  if (desligada) return <p className="mt-10 border-2 border-ink p-6 text-center font-sans">O mural está pausado no momento. Em emergência: SAMU 192 · Bombeiros 193 · CVV 188.</p>;
-  if (todos.length === 0) return <p className="mt-10 border border-dashed border-ink/40 p-10 text-center font-sans text-ink/75">Ainda não há profissionais no mural.</p>;
+  if (desligada) return <p className="mt-10 border-y border-rule py-8 text-center font-sans">O mural está pausado no momento. Em emergência: SAMU 192 · Bombeiros 193 · CVV 188.</p>;
+  if (todos.length === 0) return <p className="mt-10 border-y border-rule py-10 text-center font-sans text-ink-soft">Ainda não há profissionais no mural.</p>;
 
   return (
     <div className="mt-10">
       {areas.length > 1 && todos.length > 1 && (
         <div role="group" aria-label="Filtrar por área" className="mb-6 flex flex-wrap gap-2 font-sans text-sm">
-          <button type="button" aria-pressed={!area} onClick={() => setArea("")} className={`cursor-pointer border px-3 py-1 ${!area ? "border-ink bg-ink text-parchment" : "border-ink/30 hover:border-ink"}`}>Todas as áreas</button>
+          <button type="button" aria-pressed={!area} onClick={() => setArea("")} className={`cursor-pointer rounded-full border px-3.5 py-1 ${!area ? "border-ink bg-ink text-parchment" : "border-rule bg-folha hover:border-ink/60"}`}>Todas as áreas</button>
           {areas.map((a) => (
-            <button key={a} type="button" aria-pressed={area === a} onClick={() => setArea(a)} className={`cursor-pointer border px-3 py-1 ${area === a ? "border-ink bg-ink text-parchment" : "border-ink/30 hover:border-ink"}`}>{a}</button>
+            <button key={a} type="button" aria-pressed={area === a} onClick={() => setArea(a)} className={`cursor-pointer rounded-full border px-3.5 py-1 ${area === a ? "border-ink bg-ink text-parchment" : "border-rule bg-folha hover:border-ink/60"}`}>{a}</button>
           ))}
         </div>
       )}
-      <ul className={vistos.length === 1 ? "mx-auto max-w-4xl" : "grid gap-8 sm:grid-cols-2 lg:grid-cols-3"}>
+      <ul className={vistos.length === 1 ? "mx-auto max-w-4xl" : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"}>
         {vistos.map((p) => (
           <li key={p.id}>
             <CartaoDoProfissional p={p} unico={vistos.length === 1} abrir={() => setContato(p)} />
@@ -102,22 +102,22 @@ export function CartaoDoProfissional({ p, unico = false, abrir }: { p: Profissio
   const consulta = CONSULTA_DO_CONSELHO[p.conselho.toUpperCase()];
   const publico = (p.publico ?? []).map((x) => nomeDoPublico[x]).filter(Boolean);
   const lugar = [p.cidade, p.estado].filter(Boolean).join(" / ");
-  const rotulo = "text-xs uppercase tracking-wider text-ink/70";
+  const rotulo = "text-xs font-medium text-ink-soft";
   return (
-    <article className={`saude-cartao relative border border-ink/40 bg-folha text-ink ${unico ? "grid md:grid-cols-[minmax(0,20rem)_1fr]" : "flex h-full flex-col"}`}>
+    <article className={`saude-cartao relative overflow-hidden rounded-md border border-rule bg-folha font-sans text-ink ${unico ? "grid md:grid-cols-[minmax(0,20rem)_1fr]" : "flex h-full flex-col"}`}>
       {p.foto ? (
-        <div className={`relative overflow-hidden border-b border-ink/20 ${unico ? "md:border-b-0 md:border-r" : ""}`}>
+        <div className={`relative overflow-hidden border-b border-rule ${unico ? "md:border-b-0 md:border-r" : ""}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={p.foto} alt={`Foto de ${p.nome}`} className={`w-full object-cover ${unico ? "aspect-[4/5] h-full" : "aspect-[4/5]"}`} loading="lazy" />
         </div>
       ) : (
-        <div aria-hidden className={`flex aspect-[4/5] items-center justify-center border-b border-ink/20 bg-parchment-deep font-serif text-6xl text-ink/60 ${unico ? "md:border-b-0 md:border-r" : ""}`}>{p.nome.split(/\s+/).map((x) => x[0]).slice(0, 2).join("")}</div>
+        <div aria-hidden className={`flex aspect-[4/5] items-center justify-center border-b border-rule bg-parchment-deep text-5xl font-semibold text-ink/45 ${unico ? "md:border-b-0 md:border-r" : ""}`}>{p.nome.split(/\s+/).map((x) => x[0]).slice(0, 2).join("")}</div>
       )}
       <div className={`flex flex-1 flex-col p-5 ${unico ? "md:p-8" : ""}`}>
-        <h3 className={`font-serif font-semibold leading-tight ${unico ? "text-4xl md:text-[2.6rem]" : "text-3xl"}`}>{p.nome}</h3>
-        <p className="mt-1 font-sans text-lg">{profissaoValida(p)} · <span className="font-mono">{registroCompleto(p)}</span></p>
-        {consulta && <p className="mt-1 font-sans text-sm"><a href={consulta} target="_blank" rel="noopener noreferrer nofollow" className="underline hover:no-underline">Conferir registro no site do conselho ↗</a></p>}
-        <dl className="mt-4 space-y-2 font-sans text-[0.95rem]">
+        <h3 className={`font-semibold leading-tight tracking-tight ${unico ? "text-3xl md:text-[2.2rem]" : "text-2xl"}`}>{p.nome}</h3>
+        <p className="mt-1 text-base text-ink-soft">{profissaoValida(p)} · <span className="tabular-nums">{registroCompleto(p)}</span></p>
+        {consulta && <p className="mt-1 font-sans text-sm"><a href={consulta} target="_blank" rel="noopener noreferrer nofollow" className="underline decoration-ink/40 underline-offset-2 hover:decoration-ink">Conferir registro no site do conselho ↗</a></p>}
+        <dl className="mt-4 space-y-2.5 border-t border-rule pt-4 text-[0.95rem]">
           {p.abordagem && <div><dt className={rotulo}>Abordagem</dt><dd>{p.abordagem}</dd></div>}
           {p.areas.length > 0 && <div><dt className={rotulo}>Áreas de atuação</dt><dd>{p.areas.join(" · ")}</dd></div>}
           {publico.length > 0 && <div><dt className={rotulo}>Público</dt><dd>{publico.join(" · ")}</dd></div>}
@@ -126,17 +126,17 @@ export function CartaoDoProfissional({ p, unico = false, abrir }: { p: Profissio
         </dl>
         {p.bio && (
           <div className="mt-4">
-            <p className={`font-sans ${rotulo}`}>Sobre meu trabalho</p>
-            <p className="mt-1 whitespace-pre-line font-serif text-lg leading-relaxed">{p.bio}</p>
+            <p className={rotulo}>Sobre meu trabalho</p>
+            <p className="mt-1 whitespace-pre-line text-[0.95rem] leading-relaxed">{p.bio}</p>
           </div>
         )}
         <div className="mt-auto pt-5">
           {abrir && (
-            <button type="button" onClick={abrir} className="w-full cursor-pointer border border-ink bg-ink px-5 py-3 font-sans font-semibold text-parchment hover:bg-ink-soft focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-ink">
+            <button type="button" onClick={abrir} className="w-full cursor-pointer rounded border border-ink bg-ink px-5 py-3 font-semibold text-parchment hover:bg-ink-soft focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-ink">
               Ver contato
             </button>
           )}
-          <p className="mt-3 font-sans text-xs leading-snug text-ink/75">
+          <p className="mt-3 text-xs leading-snug text-ink-soft">
             {p.verificado_em ? `Registro conferido pela coordenação do mural em ${new Date(`${p.verificado_em}T12:00:00`).toLocaleDateString("pt-BR")}. ` : "Registro informado no perfil. "}
             O Instituto não indica nem responde pelo atendimento. Dúvida ou denúncia: <a href={`mailto:${EMAIL_DE_CONTATO}`} className="underline">{EMAIL_DE_CONTATO}</a>.
           </p>
@@ -214,7 +214,7 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
         </div>
         {passo === 1 ? (
           <div className="p-5 sm:p-7">
-            <h2 className="font-serif text-2xl font-semibold">Antes de entrar em contato</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">Antes de entrar em contato</h2>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-[0.95rem]">
               {AVISO_COMPLETO.map((a) => <li key={a}>{a}</li>)}
             </ul>
@@ -233,7 +233,7 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
           </div>
         ) : (
           <div className="p-5 sm:p-7">
-            <h2 className="font-serif text-2xl font-semibold">Seu cartão de encaminhamento</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">Seu cartão de encaminhamento</h2>
             <p className="mt-1 text-ink/80">Baixe e mande junto com a primeira mensagem: assim {primeiroNome(p.nome)} sabe que você encontrou o contato no mural. O código é sorteado aqui e não fica guardado em lugar nenhum.</p>
             {erro && <p role="status" className="mt-3 font-semibold">{erro}</p>}
             {imagem && (

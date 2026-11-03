@@ -5,6 +5,7 @@ area: educacao-fisica
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/nfxby"
+pdf: "https://books.scielo.org/id/nfxby/pdf/vago-9786586383829.pdf"
 idioma: "Português"
 ano: "2021"
 ---

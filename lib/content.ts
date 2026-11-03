@@ -114,6 +114,8 @@ export interface Book extends Localized {
   cover?: string;
   /** De onde veio a capa e a licença dela (content/capas.json). */
   coverCredit?: string;
+  /** Link direto para o livro inteiro em PDF, quando a fonte é de acesso aberto (ex.: SciELO Livros). */
+  pdf?: string;
 }
 
 /** Obra vinda dos catálogos abertos (content/catalogo): só os dados que a fonte publica. */
@@ -563,6 +565,7 @@ export const getBooks = cache((lang: Locale): Book[] =>
       language: text(data, "idioma", file),
       year: optional(data, "ano"),
       synopsis: body,
+      ...(data.pdf === undefined ? {} : { pdf: httpsUrl(data, "pdf", file) }),
       ...(capasDoSite().ids.has(slug) ? { cover: `/capas/${slug}.webp`, coverCredit: capasDoSite().creditos[slug]?.fonte } : {}),
       translated,
       file,

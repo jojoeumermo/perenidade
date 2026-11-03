@@ -5,6 +5,7 @@ area: teatro
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/54nrh"
+pdf: "https://books.scielo.org/id/54nrh/pdf/lacerda-9786559543786.pdf"
 idioma: "Português"
 ---
 

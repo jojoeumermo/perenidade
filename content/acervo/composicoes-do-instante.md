@@ -5,6 +5,7 @@ area: danca
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/9pcr2"
+pdf: "https://books.scielo.org/id/9pcr2/pdf/prado-9786559543748.pdf"
 idioma: "Português"
 ano: "2023"
 ---

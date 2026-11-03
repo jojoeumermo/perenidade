@@ -4,13 +4,19 @@
 import { useSyncExternalStore } from "react";
 import { carregarLista, faltaBaixar, lerEscolha, MotorNatural, VOZ_DO_APARELHO, type Lista, type VozNatural } from "./catalogo";
 import { dividirEmFrases, lerTex, normalizar, normalizarOutroIdioma, type Lexico } from "./normalizar";
+import { escolherVoz, marcarTrechos, proximoTrecho } from "./trechos";
 
 // O leitor do "Ouvir a aula": divide o texto em frases, destaca a frase que está sendo lida (sem mexer no texto: CSS
 // Custom Highlight API) e fala com a voz escolhida, a do aparelho (speechSynthesis) ou uma natural (Kokoro), que roda
 // no próprio aparelho. Cada frase sai no idioma dela (o lang da aula ou do trecho): trecho em inglês numa aula em
 // português usa a voz inglesa. Pausar, voltar e avançar frase, e a velocidade, valem para todas.
 //
-// Para a voz natural começar logo: o modelo abre e a primeira frase começa a ser gerada assim que a pessoa passa o
+// A leitura começa NA HORA: enquanto a voz natural abre (ou baixa), a voz do aparelho já vai lendo. As frases são
+// agrupadas em trechos (parágrafo, item de lista, título) e a voz natural entra no começo do próximo trecho, quando o
+// som dela já está pronto (as regras estão em ./trechos.ts). Se a voz do aparelho não fala (aparelho sem voz, aviso
+// que não chega), o leitor percebe sozinho e passa para a voz natural ou avisa; não fica parado em silêncio.
+//
+// Para a voz natural soar logo: o modelo abre e a primeira frase começa a ser gerada assim que a pessoa passa o
 // mouse no "Ouvir" ou abre o seletor (aquecer); a primeira frase longa é partida num pedaço curto; e enquanto uma
 // frase toca, as três seguintes vão sendo geradas. Cada leitura tem um número de sessão: ao trocar de aula, o que
 // estava na fila da aula anterior é descartado no Worker e nada dela chega a tocar.
@@ -23,6 +29,13 @@ export type EstadoDoLeitor = {
   esperando: boolean;
   frase: number;
   total: number;
+  /** O trecho (parágrafo, item, título) da frase lida, e quantos trechos há. */
+  trecho: number;
+  trechos: number;
+  /** A voz que está lendo agora: a escolhida pode ser a natural e, enquanto ela abre, ler a do aparelho. */
+  vozAgora: "natural" | "aparelho" | null;
+  /** A voz natural escolhida já está aberta (entra no próximo trecho). */
+  naturalPronta: boolean;
   velocidade: number;
   voz: string;
   modo: "frase" | "direto";
@@ -31,7 +44,7 @@ export type EstadoDoLeitor = {
   erro: string | null;
 };
 
-const INICIAL: EstadoDoLeitor = { ativo: false, tocando: false, carregando: false, esperando: false, frase: 0, total: 0, velocidade: 1, voz: VOZ_DO_APARELHO, modo: "frase", baixado: 0, aBaixar: 0, erro: null };
+const INICIAL: EstadoDoLeitor = { ativo: false, tocando: false, carregando: false, esperando: false, frase: 0, total: 0, trecho: 0, trechos: 0, vozAgora: null, naturalPronta: false, velocidade: 1, voz: VOZ_DO_APARELHO, modo: "frase", baixado: 0, aBaixar: 0, erro: null };
 let estado = INICIAL;
 const ouvintes = new Set<() => void>();
 
@@ -58,10 +71,18 @@ export function definirLexico(l: Lexico) {
   lexico = l;
 }
 
-type Frase = { texto: string; fala: string; idioma: string; range: Range | null };
+/** `fala` é o texto preparado para a voz; só é montado quando a frase vai soar (aula longa começa sem esperar). */
+type Frase = { texto: string; fala: string | null; idioma: string; range: Range | null; trecho: number; abre: boolean };
 let frases: Frase[] = [];
 let vez = 0; // muda a cada parada, pulo ou troca: falas antigas que chegam atrasadas são ignoradas
 let sessao = 1; // muda a cada leitura nova (outra aula): o Worker descarta o que era da anterior
+let leitura = 0; // muda a cada começo e parada: a voz natural que termina de abrir depois disso não mexe em nada
+
+function falaDe(i: number): string {
+  const f = frases[i];
+  f.fala ??= f.idioma === "pt" ? normalizar(f.texto, lexico) : normalizarOutroIdioma(f.texto, f.idioma);
+  return f.fala;
+}
 
 // ───────────── Texto e frases ─────────────
 
@@ -171,28 +192,39 @@ function montarFrases(alvos: string[] | undefined, padrao: string): Frase[] {
       ? alvos.map((a) => document.querySelector(a)).filter((e): e is Element => Boolean(e))
       : [document.getElementById("conteudo") ?? document.body];
   const saida: Frase[] = [];
+  let trechoBase = 0;
   for (const raiz of raizes) {
     const { texto, pedacos } = coletar(raiz, padrao, recorte ?? undefined);
-    for (const inteira of dividirEmFrases(texto, 180)) {
-      for (const { ini, fim } of saida.length === 0 ? partirPrimeira(texto, inteira.ini, inteira.fim) : [inteira]) {
-        const pedacoDoTexto = texto.slice(ini, fim).replace(/\s+/g, " ").trim();
-        if (!pedacoDoTexto) continue;
-        let range: Range | null = null;
-        const a = ponto(pedacos, ini, false);
-        const b = ponto(pedacos, fim, true);
-        if (a && b) {
-          try {
-            range = document.createRange();
-            range.setStart(a[0], a[1]);
-            range.setEnd(b[0], b[1]);
-          } catch {
-            range = null;
-          }
+    const partes = dividirEmFrases(texto, 180).flatMap((inteira, k) => (saida.length === 0 && k === 0 ? partirPrimeira(texto, inteira.ini, inteira.fim) : [inteira]));
+    const trechos = marcarTrechos(texto, partes);
+    for (const [k, { ini, fim }] of partes.entries()) {
+      const pedacoDoTexto = texto.slice(ini, fim).replace(/\s+/g, " ").trim();
+      if (!pedacoDoTexto) continue;
+      let range: Range | null = null;
+      const a = ponto(pedacos, ini, false);
+      const b = ponto(pedacos, fim, true);
+      if (a && b) {
+        try {
+          range = document.createRange();
+          range.setStart(a[0], a[1]);
+          range.setEnd(b[0], b[1]);
+        } catch {
+          range = null;
         }
-        const idioma = pedacos.find((p) => p.fim > ini)?.idioma ?? padrao;
-        saida.push({ texto: pedacoDoTexto, fala: idioma === "pt" ? normalizar(pedacoDoTexto, lexico) : normalizarOutroIdioma(pedacoDoTexto, idioma), idioma, range });
       }
+      const idioma = pedacos.find((p) => p.fim > ini)?.idioma ?? padrao;
+      const trecho = trechoBase + trechos[k];
+      saida.push({ texto: pedacoDoTexto, fala: null, idioma, range, trecho, abre: saida.length === 0 || saida[saida.length - 1].trecho !== trecho });
     }
+    if (trechos.length) trechoBase += trechos[trechos.length - 1] + 1;
+  }
+  // Os trechos numerados de 0 em diante, sem buracos (um bloco que não rendeu frase não conta).
+  let n = -1;
+  let anterior = -1;
+  for (const f of saida) {
+    if (f.trecho !== anterior) n++;
+    anterior = f.trecho;
+    f.trecho = n;
   }
   return saida;
 }
@@ -244,7 +276,7 @@ function apagarDestaque() {
 
 /** Avisa a página (e os testes) que a frase começou a soar. */
 function avisarQueFalou(i: number, duracao = 0) {
-  document.dispatchEvent(new CustomEvent("lucia:voz-falou", { detail: { frase: i, voz: estado.voz, duracao, texto: frases[i]?.texto ?? "", idioma: frases[i]?.idioma } }));
+  document.dispatchEvent(new CustomEvent("lucia:voz-falou", { detail: { frase: i, trecho: frases[i]?.trecho, voz: estado.voz, motor: estado.vozAgora, duracao, texto: frases[i]?.texto ?? "", idioma: frases[i]?.idioma } }));
 }
 
 // ───────────── Voz do aparelho ─────────────
@@ -254,23 +286,108 @@ function vozDoAparelho(idioma: string): SpeechSynthesisVoice | undefined {
   return vozes.find((v) => v.lang.toLowerCase() === (idioma === "pt" ? "pt-br" : idioma)) ?? vozes.find((v) => v.lang.toLowerCase().startsWith(idioma));
 }
 
-function falarNoAparelho(i: number, minhaVez: number) {
+// A fala em curso fica guardada aqui: sem isso, o Chrome pode recolher a fala da memória no meio e o aviso de fim
+// nunca chega (a leitura parava sozinha depois de algumas frases).
+let falaDoAparelho: SpeechSynthesisUtterance | null = null;
+let vigia: number | undefined;
+let aparelhoFalhou = false;
+
+function limparVigia() {
+  if (vigia !== undefined) window.clearInterval(vigia);
+  vigia = undefined;
+}
+
+/**
+ * Fala a frase com a voz do aparelho. Um vigia confere a cada meio segundo: se a fala não começou em 4 s, tenta mais
+ * uma vez e depois desiste do aparelho (aparelhoNaoFala); se ela parou de soar e o aviso de fim não chegou (acontece
+ * no Chrome e no Safari), segue para a próxima frase.
+ */
+function falarNoAparelho(i: number, minhaVez: number, atrasar = false, tentativa = 0) {
   const synth = window.speechSynthesis;
-  synth.cancel();
   const frase = frases[i];
-  const u = new SpeechSynthesisUtterance(frase.fala);
+  const u = new SpeechSynthesisUtterance(falaDe(i));
   u.lang = frase.idioma === "pt" ? "pt-BR" : frase.idioma;
   const v = vozDoAparelho(frase.idioma);
   if (v) u.voice = v;
   u.rate = estado.velocidade;
-  u.onend = () => {
-    if (minhaVez === vez && estado.tocando) avancarSozinho(i);
+  let comecou = false;
+  let acabou = false;
+  const minha = () => minhaVez === vez && falaDoAparelho === u;
+  const terminar = () => {
+    if (acabou || !minha()) return;
+    acabou = true;
+    limparVigia();
+    if (estado.tocando) avancarSozinho(i);
   };
+  u.onstart = () => {
+    if (!minha() || comecou) return;
+    comecou = true;
+    avisarQueFalou(i);
+  };
+  u.onend = terminar;
   u.onerror = (e) => {
-    if (minhaVez === vez && e.error !== "interrupted" && e.error !== "canceled") parar();
+    if (!minha() || acabou || e.error === "interrupted" || e.error === "canceled") return;
+    acabou = true;
+    limparVigia();
+    aparelhoNaoFala(i, minhaVez);
   };
-  u.onstart = () => avisarQueFalou(i);
-  synth.speak(u);
+  falaDoAparelho = u;
+  const soltar = () => {
+    if (!minha()) return;
+    synth.speak(u);
+    const inicio = Date.now();
+    let comecouEm = 0;
+    let calado = 0;
+    // Uma fala não acaba antes disto (25 letras por segundo é bem mais rápido que qualquer voz): o vigia não pula
+    // frase num navegador que diz "não está falando" por engano.
+    const minimo = ((u.text.length / 25) * 1000) / estado.velocidade;
+    limparVigia();
+    vigia = window.setInterval(() => {
+      if (!minha() || acabou) return limparVigia();
+      if (!comecou) {
+        if (synth.speaking && !synth.paused) {
+          // Falando sem ter avisado o começo: conta como começo.
+          comecou = true;
+          avisarQueFalou(i);
+        } else if (Date.now() - inicio > (synth.pending ? 10000 : 5000)) {
+          limparVigia();
+          if (tentativa === 0) {
+            synth.cancel();
+            falarNoAparelho(i, minhaVez, true, 1);
+          } else {
+            acabou = true;
+            aparelhoNaoFala(i, minhaVez);
+          }
+        }
+        return;
+      }
+      comecouEm ||= Date.now();
+      if (!synth.speaking && !synth.pending && Date.now() - comecouEm >= minimo) {
+        if (++calado >= 2) terminar();
+      } else calado = 0;
+    }, 500);
+  };
+  // Logo depois de um cancel(), o Chrome às vezes ignora a fala nova: um respiro curto resolve. Na primeira frase
+  // não há o que cancelar e a fala sai ainda dentro do clique (o Safari do iPhone exige).
+  if (atrasar) window.setTimeout(soltar, 60);
+  else soltar();
+}
+
+/** A voz do aparelho não falou: a natural assume (se já abriu ou está abrindo) ou a leitura para com um aviso. */
+function aparelhoNaoFala(i: number, minhaVez: number) {
+  aparelhoFalhou = true;
+  if (minhaVez !== vez) return;
+  if (naturalPronta) return falar(i, true);
+  if (naturalACaminho) {
+    mudar({ esperando: true });
+    return;
+  }
+  semVoz();
+}
+
+function semVoz() {
+  parar();
+  mudar({ erro: "sem-voz" });
 }
 
 // ───────────── Voz natural ─────────────
@@ -279,10 +396,18 @@ let motor: MotorNatural | null = null;
 let lista: Lista | null = null;
 let contexto: AudioContext | null = null;
 let fonte: AudioBufferSourceNode | null = null;
+let motorCarregado = false;
+/** A voz natural escolhida está aberta e pode entrar nesta leitura. */
+let naturalPronta = false;
+/** A voz natural está abrindo (ou baixando) para esta leitura. */
+let naturalACaminho = false;
+/** A voz que está lendo o trecho atual. */
+let vozAtual: "natural" | "aparelho" | null = null;
 type Som = { pcm: Float32Array; taxa: number };
 // A fila de frases prontas (ou sendo geradas), pela voz, velocidade e texto: a mesma frase não é gerada duas vezes,
 // e uma frase de outra aula nunca é confundida com a desta (a chave é o texto, não a posição).
 const sons = new Map<string, Promise<Som>>();
+const prontos = new Set<string>();
 const ADIANTADAS = 3;
 
 function vozEscolhida(): VozNatural | null {
@@ -300,34 +425,70 @@ function vozDaFrase(i: number): VozNatural | null {
   return doIdioma.find((v) => v.genero === escolhida.genero) ?? doIdioma[0] ?? null;
 }
 
+function chaveDoSom(i: number): string | null {
+  const voz = vozDaFrase(i);
+  if (!voz || !frases[i]) return null;
+  return `${voz.id}|${estado.velocidade}|${falaDe(i)}`;
+}
+
 function som(i: number): Promise<Som> | undefined {
   const voz = vozDaFrase(i);
-  if (!voz || !motor || !frases[i]) return undefined;
-  const chave = `${voz.id}|${estado.velocidade}|${frases[i].fala}`;
+  const chave = chaveDoSom(i);
+  if (!voz || !motor || !chave) return undefined;
   let p = sons.get(chave);
   if (!p) {
-    p = motor.falar(frases[i].fala, estado.velocidade, voz, sessao);
-    p.catch(() => sons.delete(chave));
+    p = motor.falar(falaDe(i), estado.velocidade, voz, sessao);
+    p.then(
+      () => prontos.add(chave),
+      () => sons.delete(chave),
+    );
     sons.set(chave, p);
   }
   return p;
 }
 
+function somPronto(i: number) {
+  const chave = chaveDoSom(i);
+  return Boolean(chave && prontos.has(chave));
+}
+
+/** Enquanto a voz do aparelho lê, a natural já gera o começo do próximo trecho, para entrar sem silêncio. */
+function adiantarNatural(i: number) {
+  if (!naturalPronta || !motor) return;
+  const j = proximoTrecho(
+    frases.map((f) => f.trecho),
+    i,
+  );
+  if (j < 0) return;
+  som(j);
+  if (j + 1 < frases.length) som(j + 1);
+}
+
 async function prepararNatural(voz: VozNatural): Promise<boolean> {
   if (motor) {
     // Outra voz do mesmo modelo: o motor (e o modelo aberto) continua; só o arquivo da voz muda, por frase.
-    await motor.carregado();
-    return true;
+    const atual = motor;
+    try {
+      await atual.carregado();
+      return motor === atual;
+    } catch {
+      return false;
+    }
   }
   mudar({ carregando: true, baixado: 0, aBaixar: 0 });
-  motor = new MotorNatural(lista!, voz, (feito, total) => mudar({ baixado: feito, aBaixar: total }));
+  const novo = new MotorNatural(lista!, voz, (feito, total) => mudar({ baixado: feito, aBaixar: total }));
+  motor = novo;
   try {
-    await motor.carregado();
+    await novo.carregado();
+    if (motor !== novo) return false; // download cancelado no meio
+    motorCarregado = true;
     mudar({ carregando: false });
     return true;
   } catch (erro) {
-    motor?.encerrar();
+    if (motor !== novo) return false;
+    motor.encerrar();
     motor = null;
+    motorCarregado = false;
     mudar({ carregando: false, erro: String((erro as Error).message ?? erro) });
     return false;
   }
@@ -335,7 +496,7 @@ async function prepararNatural(voz: VozNatural): Promise<boolean> {
 
 async function falarNatural(i: number, minhaVez: number) {
   const pedido = som(i);
-  if (!pedido) return falarNoAparelho(i, minhaVez);
+  if (!pedido) return "speechSynthesis" in window && !aparelhoFalhou ? falarNoAparelho(i, minhaVez) : semVoz();
   // Enquanto esta toca, as próximas vão sendo geradas: uma fila de três frases prontas.
   for (let k = 1; k <= ADIANTADAS && i + k < frases.length; k++) som(i + k);
   let pronto = false;
@@ -345,7 +506,13 @@ async function falarNatural(i: number, minhaVez: number) {
     s = await pedido;
   } catch {
     window.clearTimeout(aviso);
-    if (minhaVez === vez) parar();
+    if (minhaVez !== vez) return;
+    // A voz natural falhou nesta frase (memória, motor fechado): a do aparelho segue a leitura, sem travar.
+    naturalPronta = false;
+    vozAtual = null;
+    mudar({ esperando: false, naturalPronta: false });
+    if ("speechSynthesis" in window && !aparelhoFalhou) falar(i, true);
+    else semVoz();
     return;
   } finally {
     pronto = true;
@@ -370,17 +537,36 @@ async function falarNatural(i: number, minhaVez: number) {
 
 // ───────────── Comandos ─────────────
 
-function falar(i: number) {
+/**
+ * Fala a frase `i`. `pulo`: a pessoa foi até ela (voltar, avançar, trocar a voz, começar), então a voz natural já
+ * pronta pode entrar aqui mesmo, sem esperar o próximo trecho.
+ */
+function falar(i: number, pulo = false) {
   vez++;
   const minhaVez = vez;
-  window.speechSynthesis?.cancel();
+  const synth = "speechSynthesis" in window ? window.speechSynthesis : null;
+  const ocupado = Boolean(synth && (synth.speaking || synth.pending));
+  synth?.cancel();
+  limparVigia();
+  falaDoAparelho = null;
   fonte?.stop();
   fonte = null;
-  mudar({ frase: i, tocando: true });
+  const natural = naturalPronta && Boolean(motor) && Boolean(vozDaFrase(i));
+  const qual = escolherVoz({ naturalPronta: natural, somPronto: natural && somPronto(i), abreTrecho: frases[i].abre || pulo, vozAtual, aparelhoFala: Boolean(synth) && !aparelhoFalhou });
+  mudar({ frase: i, trecho: frases[i].trecho, tocando: true, esperando: qual === "esperar" });
   destacar(i);
-  if (vozEscolhida() && motor && vozDaFrase(i)) void falarNatural(i, minhaVez);
-  else if ("speechSynthesis" in window) falarNoAparelho(i, minhaVez);
-  else avancarSozinho(i);
+  if (qual === "natural") {
+    vozAtual = "natural";
+    mudar({ vozAgora: "natural" });
+    void falarNatural(i, minhaVez);
+  } else if (qual === "aparelho") {
+    // Frase num idioma sem voz natural: o aparelho lê só ela, e a natural continua na seguinte.
+    if (!(naturalPronta && !vozDaFrase(i))) vozAtual = "aparelho";
+    mudar({ vozAgora: "aparelho" });
+    falarNoAparelho(i, minhaVez, ocupado);
+    adiantarNatural(i);
+  }
+  // "esperar": nenhuma voz ainda; quando a natural abrir, prepararAoFundo() chama falar() de novo.
 }
 
 function avancarSozinho(i: number) {
@@ -427,31 +613,74 @@ export async function iniciar(alvos?: string[]) {
   const escolha = lerEscolha();
   frases = montarFrases(alvos, idiomaDaPagina());
   if (!frases.length) return;
-  mudar({ ativo: true, total: frases.length, frase: 0, velocidade: escolha.velocidade, voz: escolha.voz, modo: escolha.modo, erro: null });
-  if (escolha.voz !== VOZ_DO_APARELHO) {
-    lista ??= await carregarLista();
-    const voz = vozEscolhida();
-    if (voz) {
-      contexto ??= new AudioContext();
-      void contexto.resume();
-      if (!(await prepararNatural(voz))) {
-        // Sem a voz natural (arquivo fora do ar, memória): segue com a do aparelho.
-        mudar({ voz: VOZ_DO_APARELHO });
-      }
-    } else mudar({ voz: VOZ_DO_APARELHO });
-  }
-  if (!estado.ativo) return;
-  if (!(vozEscolhida() && motor) && !("speechSynthesis" in window)) {
-    // Sem voz do aparelho e sem voz natural pronta: não há com que ler.
+  mudar({ ativo: true, total: frases.length, trechos: frases[frases.length - 1].trecho + 1, frase: 0, trecho: 0, velocidade: escolha.velocidade, voz: escolha.voz, modo: escolha.modo, erro: null });
+  comecar(0);
+}
+
+/**
+ * Começa (ou recomeça) a leitura na frase `i`, sem esperar nada: tudo aqui roda ainda dentro do clique. Com a voz
+ * natural já aberta, ela lê; senão, a do aparelho lê enquanto a natural abre ao fundo.
+ */
+function comecar(i: number) {
+  leitura++;
+  const minhaLeitura = leitura;
+  vozAtual = null;
+  aparelhoFalhou = false;
+  naturalACaminho = false;
+  const querNatural = estado.voz !== VOZ_DO_APARELHO;
+  const temAparelho = "speechSynthesis" in window;
+  naturalPronta = querNatural && motorCarregado && Boolean(vozEscolhida());
+  mudar({ naturalPronta, vozAgora: null });
+  if (!querNatural && !temAparelho) {
     mudar({ ativo: false, erro: "sem-voz" });
     return;
   }
-  falar(0);
+  if (querNatural && typeof AudioContext !== "undefined") {
+    // O som precisa ser liberado dentro do clique; depois, a voz natural pode tocar a qualquer momento.
+    contexto ??= new AudioContext();
+    void contexto.resume();
+  }
+  if (querNatural && !naturalPronta) void prepararAoFundo(minhaLeitura);
+  falar(Math.min(i, frases.length - 1), true);
+}
+
+/** Abre a voz natural enquanto a leitura já anda; quando ela fica pronta, entra no próximo trecho. */
+async function prepararAoFundo(minhaLeitura: number) {
+  naturalACaminho = true;
+  let ok = false;
+  try {
+    lista ??= await carregarLista();
+    if (minhaLeitura !== leitura) return;
+    const voz = vozEscolhida();
+    if (!voz) {
+      // Sem a lista ou sem esta voz no site: fica a do aparelho.
+      mudar({ voz: VOZ_DO_APARELHO });
+      return;
+    }
+    ok = await prepararNatural(voz);
+    if (minhaLeitura !== leitura || !estado.ativo) return;
+    if (!ok) {
+      // Sem a voz natural (arquivo fora do ar, memória): segue com a do aparelho.
+      mudar({ voz: VOZ_DO_APARELHO });
+      return;
+    }
+    naturalPronta = true;
+    mudar({ naturalPronta: true });
+    if (estado.tocando && estado.esperando) falar(estado.frase, true); // nada soava: a natural começa já
+    else if (estado.tocando) adiantarNatural(estado.frase);
+  } finally {
+    if (minhaLeitura === leitura) {
+      naturalACaminho = false;
+      // Nem o aparelho nem a voz natural: não há com que ler.
+      if (!ok && estado.ativo && (aparelhoFalhou || !("speechSynthesis" in window))) semVoz();
+    }
+  }
 }
 
 export function pausar() {
   if (!estado.ativo || !estado.tocando) return;
   vez++;
+  limparVigia();
   if (fonte && contexto) void contexto.suspend();
   else window.speechSynthesis?.cancel();
   mudar({ tocando: false, esperando: false });
@@ -480,14 +709,14 @@ export const alternarPausa = () => (estado.tocando ? pausar() : continuar());
 export function anterior() {
   if (!estado.ativo) return;
   if (contexto?.state === "suspended") void contexto.resume();
-  falar(Math.max(0, estado.frase - 1));
+  falar(Math.max(0, estado.frase - 1), true);
 }
 
 export function proxima() {
   if (!estado.ativo) return;
   if (estado.frase + 1 >= frases.length) return parar();
   if (contexto?.state === "suspended") void contexto.resume();
-  falar(estado.frase + 1);
+  falar(estado.frase + 1, true);
 }
 
 export function definirVelocidade(v: number) {
@@ -507,6 +736,12 @@ export function definirModo(modo: "frase" | "direto") {
  */
 export function parar(limpar = true) {
   vez++;
+  leitura++;
+  limparVigia();
+  falaDoAparelho = null;
+  naturalPronta = false;
+  naturalACaminho = false;
+  vozAtual = null;
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   fonte?.stop();
   fonte = null;
@@ -516,16 +751,18 @@ export function parar(limpar = true) {
     sessao++;
     motor?.cancelar(sessao);
     sons.clear();
+    prontos.clear();
     aquecidoPara = "";
   }
-  mudar({ ativo: false, tocando: false, carregando: false, esperando: false, frase: 0 });
+  // A voz natural que estava baixando continua ao fundo (o progresso segue no seletor); só sai do tocador.
+  mudar({ ativo: false, tocando: false, esperando: false, frase: 0, trecho: 0, vozAgora: null, naturalPronta: false, carregando: Boolean(motor) && !motorCarregado });
 }
 
 /** Ao sair da aula (troca de página no próprio site ou o leitor desmontado): para tudo e zera a fila. */
 export function encerrarLeitura() {
   parar(true);
   frases = [];
-  mudar({ total: 0, erro: null });
+  mudar({ total: 0, trechos: 0, erro: null });
 }
 
 /** Troca a voz no meio da leitura (ou antes de começar). */
@@ -536,20 +773,14 @@ export function trocarVoz(id: string) {
   mudar({ voz: id });
   if (tocava) {
     parar(false);
-    void iniciarDe(frase);
+    iniciarDe(frase);
   }
 }
 
-async function iniciarDe(frase: number) {
+function iniciarDe(frase: number) {
   if (!frases.length) return;
-  mudar({ ativo: true, total: frases.length, erro: null });
-  const voz = estado.voz !== VOZ_DO_APARELHO ? ((lista ??= await carregarLista()), vozEscolhida()) : null;
-  if (voz) {
-    contexto ??= new AudioContext();
-    void contexto.resume();
-    if (!(await prepararNatural(voz))) mudar({ voz: VOZ_DO_APARELHO });
-  }
-  if (estado.ativo) falar(Math.min(frase, frases.length - 1));
+  mudar({ ativo: true, total: frases.length, trechos: frases[frases.length - 1].trecho + 1, erro: null });
+  comecar(frase);
 }
 
 /** Baixa a voz agora (o botão "Baixar" do seletor), sem começar a ler. */
@@ -564,5 +795,12 @@ export async function baixarVoz(id: string): Promise<boolean> {
 export function cancelarDownload() {
   motor?.encerrar();
   motor = null;
+  motorCarregado = false;
   mudar({ carregando: false, baixado: 0, aBaixar: 0 });
+  if (estado.ativo && naturalACaminho) {
+    // A leitura esperava esta voz: segue com a do aparelho ou, sem ela, para com o aviso.
+    naturalACaminho = false;
+    mudar({ voz: VOZ_DO_APARELHO });
+    if (aparelhoFalhou || !("speechSynthesis" in window)) semVoz();
+  }
 }

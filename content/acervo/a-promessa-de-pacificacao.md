@@ -5,6 +5,7 @@ area: favelas
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/6bw3d"
+pdf: "https://books.scielo.org/id/6bw3d/pdf/anjos-9786557145579.pdf"
 idioma: "Português"
 ano: "2024"
 ---

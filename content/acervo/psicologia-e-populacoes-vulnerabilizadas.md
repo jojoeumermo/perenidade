@@ -5,6 +5,7 @@ area: psicologia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/9d22x"
+pdf: "https://books.scielo.org/id/9d22x/pdf/veras-9786556308937.pdf"
 idioma: "Português"
 ano: "2024"
 ---

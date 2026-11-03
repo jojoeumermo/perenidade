@@ -5,6 +5,7 @@ area: servico-social
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/8vr6k"
+pdf: "https://books.scielo.org/id/8vr6k/pdf/correa-9788579830839.pdf"
 idioma: "Português"
 ano: "2010"
 ---

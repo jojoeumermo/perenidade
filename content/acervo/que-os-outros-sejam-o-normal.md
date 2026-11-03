@@ -5,6 +5,7 @@ area: lgbtqia
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/yj2qf"
+pdf: "https://books.scielo.org/id/yj2qf/pdf/colling-9788523220136.pdf"
 idioma: "Português"
 ano: "2015"
 ---

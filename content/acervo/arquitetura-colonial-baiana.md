@@ -5,6 +5,7 @@ area: arquitetura
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/6z5r3"
+pdf: "https://books.scielo.org/id/6z5r3/pdf/smith-9788523211585.pdf"
 idioma: "Português"
 ano: "2010"
 ---

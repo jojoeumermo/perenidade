@@ -5,6 +5,7 @@ area: capitalismo
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/qc38p"
+pdf: "https://books.scielo.org/id/qc38p/pdf/lopes-9788599662748.pdf"
 idioma: "Português"
 ano: "2008"
 ---

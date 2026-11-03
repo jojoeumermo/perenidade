@@ -206,7 +206,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <Experimente rotulo={h.tryLabel} sugestoes={sugestoes} />
           </div>
 
-          {/* O lambe-lambe colado torto, com a fita, a xilogravura e o carimbo do dia; os números do acervo vão na tiragem. */}
+          {/* O lambe-lambe do dia colado na parede, com a projeção e as fitas crepe; os números do acervo vão na tiragem. */}
           <div className="relative px-2 pt-6 pb-10 max-md:hidden">
             <LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />
           </div>

@@ -5,6 +5,7 @@ area: design
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/h8sn8"
+pdf: "https://books.scielo.org/id/h8sn8/pdf/moura-9786557142967.pdf"
 idioma: "Português"
 ano: "2022"
 ---

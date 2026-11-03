@@ -6,13 +6,36 @@ import { getItem, KEYS, parse, setItem, useStored } from "./storage";
 
 // Preferências de acessibilidade. Viram atributos em <html>, que o CSS (globals.css) lê.
 
-export const TEXT_SCALES = [100, 115, 130] as const;
+export const TEXT_SCALES = [100, 115, 130, 150] as const;
+/** Espaço entre linhas e entre letras: 0 normal, 1 maior, 2 bem maior. */
+export const SPACING_LEVELS = [0, 1, 2] as const;
+export const GUIDE_MODES = ["", "linha", "mascara"] as const;
+export const COLOR_MODES = ["", "cinza", "pouca", "muita"] as const;
+export type GuideMode = (typeof GUIDE_MODES)[number];
+export type ColorMode = (typeof COLOR_MODES)[number];
 
 export interface Prefs {
   scale: number;
   contrast: boolean;
   eink: boolean;
+  /** Antigo "Texto espaçado" (um interruptor só). Quem tinha ligado passa a ter linhas 2 e letras 1 (comEconomia). */
   spacing: boolean;
+  /** Espaço entre as linhas (0, 1 ou 2). */
+  lines: number;
+  /** Espaço entre as letras e as palavras (0, 1 ou 2). */
+  letters: number;
+  /** Letra mais legível (Atkinson Hyperlegible, OFL-1.1). */
+  dyslexia: boolean;
+  /** Links sublinhados e marcados. */
+  links: boolean;
+  /** Guia de leitura: uma linha ou uma máscara que acompanha o ponteiro e o foco. */
+  guide: GuideMode;
+  /** Pausar animações e transições. */
+  motion: boolean;
+  /** Cursor grande. */
+  cursor: boolean;
+  /** Cores da tela: cinza, menos cor ou mais cor. */
+  color: ColorMode;
   focus: boolean;
   /** Fundo totalmente preto no tema escuro (telas AMOLED gastam menos bateria). */
   black: boolean;
@@ -20,19 +43,62 @@ export interface Prefs {
   light: boolean;
 }
 
-export const defaultPrefs: Prefs = { scale: 100, contrast: false, eink: false, spacing: false, focus: false, black: false, light: false };
+export const defaultPrefs: Prefs = {
+  scale: 100,
+  contrast: false,
+  eink: false,
+  spacing: false,
+  lines: 0,
+  letters: 0,
+  dyslexia: false,
+  links: false,
+  guide: "",
+  motion: false,
+  cursor: false,
+  color: "",
+  focus: false,
+  black: false,
+  light: false,
+};
 
-const flags = ["contrast", "eink", "spacing", "focus", "black", "light"] as const;
+/** Interruptores que viram data-<nome> em <html>, com o nome que o CSS usa. */
+const flags = [
+  ["contrast", "contrast"],
+  ["eink", "eink"],
+  ["focus", "focus"],
+  ["black", "black"],
+  ["light", "light"],
+  ["dyslexia", "dislexia"],
+  ["links", "links"],
+  ["motion", "parado"],
+  ["cursor", "cursor"],
+] as const;
 
-/** Aplica as preferências em <html>. A mesma lógica roda no script inline, antes da primeira pintura. */
+/** Escolhas com valor, que viram data-<nome>="valor" (sem valor, o atributo sai). */
+const valores = [
+  ["lines", "linhas"],
+  ["letters", "letras"],
+  ["guide", "guia"],
+  ["color", "cor"],
+] as const;
+
+/** Aplica as preferências em <html>. A mesma lógica roda no script inline (prefsScript), antes da primeira pintura. */
 export function applyPrefs(prefs: Prefs) {
   const root = document.documentElement;
   root.style.fontSize = prefs.scale === 100 ? "" : `${prefs.scale}%`;
   const reader = isReader();
-  for (const key of flags) {
-    if (prefs[key] || (reader && key === "eink")) root.setAttribute(`data-${key}`, "");
-    else root.removeAttribute(`data-${key}`);
+  for (const [key, attr] of flags) {
+    if (prefs[key] || (reader && key === "eink")) root.setAttribute(`data-${attr}`, "");
+    else root.removeAttribute(`data-${attr}`);
   }
+  for (const [key, attr] of valores) {
+    const valor = prefs[key];
+    if (valor) root.setAttribute(`data-${attr}`, String(valor));
+    else root.removeAttribute(`data-${attr}`);
+  }
+  // data-spacing continua dizendo "a pessoa pediu mais espaço": outras regras do CSS respeitam a escolha por ele.
+  if (prefs.lines || prefs.letters) root.setAttribute("data-spacing", "");
+  else root.removeAttribute("data-spacing");
   if (reader) root.setAttribute("data-leitor", "");
   if (isApp()) root.setAttribute("data-app", "");
 }
@@ -51,7 +117,7 @@ export const isApp = () =>
     navigator.userAgent.indexOf("; wv)") > -1 ||
     (navigator as { standalone?: boolean }).standalone === true);
 
-export const prefsScript = `(function(){try{var d=document.documentElement;if(matchMedia("(display-mode: standalone), (display-mode: minimal-ui)").matches||navigator.userAgent.indexOf("; wv)")>-1||navigator.standalone===true){d.setAttribute("data-app","");var c=function(){var m=document.querySelector('meta[name="viewport"]');if(m&&m.content.indexOf("viewport-fit")<0)m.content+=", viewport-fit=cover, interactive-widget=resizes-content";return m};if(!c())document.addEventListener("DOMContentLoaded",c)}}catch(e){}try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";["contrast","eink","spacing","focus","black","light"].forEach(function(k){if(p[k])d.setAttribute("data-"+k,"")});if(p.light===undefined&&((navigator.connection&&navigator.connection.saveData)||matchMedia("(prefers-reduced-data: reduce)").matches))d.setAttribute("data-light","")}catch(e){}})()`;
+export const prefsScript = `(function(){try{var d=document.documentElement;if(matchMedia("(display-mode: standalone), (display-mode: minimal-ui)").matches||navigator.userAgent.indexOf("; wv)")>-1||navigator.standalone===true){d.setAttribute("data-app","");var c=function(){var m=document.querySelector('meta[name="viewport"]');if(m&&m.content.indexOf("viewport-fit")<0)m.content+=", viewport-fit=cover, interactive-widget=resizes-content";return m};if(!c())document.addEventListener("DOMContentLoaded",c)}}catch(e){}try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";if(p.spacing&&p.lines===undefined&&p.letters===undefined){p.lines=2;p.letters=1}[["contrast","contrast"],["eink","eink"],["focus","focus"],["black","black"],["light","light"],["dyslexia","dislexia"],["links","links"],["motion","parado"],["cursor","cursor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],"")});[["lines","linhas"],["letters","letras"],["guide","guia"],["color","cor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],String(p[k[0]]))});if(p.lines||p.letters)d.setAttribute("data-spacing","");if(p.light===undefined&&((navigator.connection&&navigator.connection.saveData)||matchMedia("(prefers-reduced-data: reduce)").matches))d.setAttribute("data-light","")}catch(e){}})()`;
 
 /**
  * O aparelho pede economia de dados: o modo "Economizar dados" do Android e do Chrome (navigator.connection.saveData,
@@ -64,7 +130,13 @@ export function pedeEconomia(): boolean {
 }
 
 function comEconomia(guardado: Partial<Prefs>): Prefs {
-  return { ...defaultPrefs, light: guardado.light ?? pedeEconomia(), ...guardado };
+  const prefs: Prefs = { ...defaultPrefs, light: guardado.light ?? pedeEconomia(), ...guardado };
+  // O antigo "Texto espaçado" vira as duas escolhas novas, com valores parecidos com os de antes.
+  if (guardado.spacing && guardado.lines === undefined && guardado.letters === undefined) {
+    prefs.lines = 2;
+    prefs.letters = 1;
+  }
+  return prefs;
 }
 
 export function readPrefs(): Prefs {
@@ -81,6 +153,8 @@ export function setPrefs(patch: Partial<Prefs>) {
   // Alto contraste e e-ink são paletas diferentes: ligar um desliga o outro.
   if (patch.contrast) next.eink = false;
   if (patch.eink) next.contrast = false;
+  // Mexeu no espaço das linhas ou das letras: o interruptor antigo deixa de valer.
+  if (patch.lines !== undefined || patch.letters !== undefined) next.spacing = false;
   setItem(KEYS.a11y, JSON.stringify(next));
   applyPrefs(next);
 }

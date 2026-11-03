@@ -72,9 +72,8 @@
     "gerada": true
   },
   "a-conquista-do-pao": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/23428/pg23428.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:La_conqu%C3%AAte_du_pain.jpg"
   },
   "a-consolacao-da-filosofia": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -104,9 +103,8 @@
     "origem": "https://www.gutenberg.org/cache/epub/815/pg815.cover.medium.jpg"
   },
   "a-democracia-na-america-volume-2": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/816/pg816.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Democracy_in_America_by_Alexis_de_Tocqueville_title_page.jpg"
   },
   "a-descendencia-do-homem-e-a-selecao-em-relacao": {
     "fonte": "Wikimedia Commons (edição antiga, domínio público)",
@@ -216,9 +214,8 @@
     "gerada": true
   },
   "a-historia-quimica-de-uma-vela": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/14474/pg14474.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Faraday_title_page.jpg"
   },
   "a-humanidade-em-formacao": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -270,9 +267,8 @@
     "origem": "https://www.gutenberg.org/cache/epub/53101/pg53101.cover.medium.jpg"
   },
   "a-margem-da-agua": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/23863/pg23863.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Shuihu_zhuan_-_juan_15-19_-_page_1.jpg"
   },
   "a-medida-do-valor-exposta-e-ilustrada": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -352,6 +348,11 @@
     "fonte": "Project Gutenberg (domínio público)",
     "origem": "https://www.gutenberg.org/cache/epub/17515/pg17515.cover.medium.jpg",
     "gerada": true
+  },
+  "a-representacao-social-na-construcao-da-velhice": {
+    "fonte": "SciELO Livros (capa do livro de acesso aberto, licença CC BY-NC-SA 4.0, a mais restrita entre as registradas; arquivo da Open Library)",
+    "origem": "https://covers.openlibrary.org/b/isbn/9788574554860-L.jpg?default=false",
+    "licenca": "CC BY-NC-SA 4.0 no OpenAlex; CC BY 4.0 no DOAB"
   },
   "a-republica": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -450,9 +451,8 @@
     "gerada": true
   },
   "a-vida-da-aranha": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/1887/pg1887.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:The_Life_of_the_Spider_cover.jpg"
   },
   "a-vida-da-mosca": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -469,9 +469,8 @@
     "gerada": true
   },
   "ajuda-mutua": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/4341/pg4341.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Mutual_Aid_cover.png"
   },
   "alem-do-bem-e-do-mal": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -763,6 +762,11 @@
     "origem": "https://www.gutenberg.org/cache/epub/28281/pg28281.cover.medium.jpg",
     "gerada": true
   },
+  "celso-furtado-reforma-politica-e-ideologia": {
+    "fonte": "SciELO Livros (capa do livro de acesso aberto, licença CC BY-NC-SA 4.0, a mais restrita entre as registradas; arquivo da Open Library)",
+    "origem": "https://covers.openlibrary.org/b/isbn/9786589992271-L.jpg?default=false",
+    "licenca": "CC BY-NC-SA 4.0 no OpenAlex; CC BY 4.0 no DOAB"
+  },
   "chemistry-atoms-first-2e": {
     "fonte": "OpenStax (CC BY 4.0)",
     "origem": "https://assets.openstax.org/oscms-prodcms/media/documents/chemistry_atoms_first_2e_book_card.svg"
@@ -932,6 +936,11 @@
     "fonte": "Project Gutenberg (domínio público)",
     "origem": "https://www.gutenberg.org/cache/epub/79584/pg79584.cover.medium.jpg"
   },
+  "danca-e-diferenca": {
+    "fonte": "SciELO Livros (capa do livro de acesso aberto, licença CC BY-NC-SA 4.0, a mais restrita entre as registradas; arquivo da Open Library)",
+    "origem": "https://covers.openlibrary.org/b/isbn/9788523218164-L.jpg?default=false",
+    "licenca": "CC BY-NC-SA 4.0 no OpenAlex; CC BY 4.0 no DOAB"
+  },
   "darwiniana-ensaios-volume-2": {
     "fonte": "Project Gutenberg (domínio público)",
     "origem": "https://www.gutenberg.org/cache/epub/6919/pg6919.cover.medium.jpg",
@@ -946,9 +955,8 @@
     "origem": "https://www.gutenberg.org/cache/epub/61483/pg61483.cover.medium.jpg"
   },
   "democracia-e-educacao": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/852/pg852.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Democracy_and_Education_title_page.jpg"
   },
   "democracia-e-etica-social": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -970,10 +978,14 @@
     "origem": "https://www.gutenberg.org/cache/epub/17502/pg17502.cover.medium.jpg",
     "gerada": true
   },
+  "design-coletivo": {
+    "fonte": "SciELO Livros (capa do livro de acesso aberto, licença CC BY-NC-SA 4.0, a mais restrita entre as registradas; arquivo da Open Library)",
+    "origem": "https://covers.openlibrary.org/b/isbn/9786557142967-L.jpg?default=false",
+    "licenca": "CC BY-NC-SA 4.0 no OpenAlex"
+  },
   "dez-dias-que-abalaram-o-mundo": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/3076/pg3076.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Ten_Days_That_Shook_The_World_Cover.jpg"
   },
   "dezenove-poemas-antigos": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -995,9 +1007,8 @@
     "gerada": true
   },
   "discurso-do-metodo": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/59/pg59.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Page_de_titre_de_la_premi%C3%A8re_%C3%A9dition_du_discours_de_la_m%C3%A9thode.jpg"
   },
   "discurso-sobre-a-origem-e-os-fundamentos-da-desigualdade": {
     "fonte": "Wikimedia Commons (edição antiga, domínio público)",
@@ -1209,6 +1220,10 @@
     "origem": "https://www.gutenberg.org/cache/epub/3773/pg3773.cover.medium.jpg",
     "gerada": true
   },
+  "esquerdismo-doenca-infantil-do-comunismo": {
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:%D0%94%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F_%D0%B1%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D1%8C_%C2%AB%D0%BB%D0%B5%D0%B2%D0%B8%D0%B7%D0%BD%D1%8B%C2%BB_%D0%B2_%D0%BA%D0%BE%D0%BC%D0%BC%D1%83%D0%BD%D0%B8%D0%B7%D0%BC%D0%B5_(%D0%BE%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0,_1920).jpg"
+  },
   "estatistica-introdutoria-2e": {
     "fonte": "OpenStax (CC BY 4.0)",
     "origem": "https://assets.openstax.org/oscms-prodcms/media/documents/introductory_statistics_2e_web_card.svg"
@@ -1231,9 +1246,8 @@
     "gerada": true
   },
   "etica": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/3800/pg3800.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Spinoza_Ethica.jpg"
   },
   "eucaliptos-e-acacias": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1279,9 +1293,8 @@
     "gerada": true
   },
   "fatos-e-argumentos-a-favor-de-darwin": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/6475/pg6475.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Frontpage_of_Facts_and_arguments_for_Darwin_(IA_b29338426)_(page_5_crop).jpg"
   },
   "filipinas-dentro-de-cien-anos": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1361,9 +1374,8 @@
     "gerada": true
   },
   "hamlet-drama-em-cinco-actos": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/25667/pg25667.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Hamlet_Q2_TP_1604.jpg"
   },
   "harmonias-da-economia-politica": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1424,6 +1436,10 @@
     "fonte": "Project Gutenberg (domínio público)",
     "origem": "https://www.gutenberg.org/cache/epub/39041/pg39041.cover.medium.jpg",
     "gerada": true
+  },
+  "imperialismo-fase-superior-do-capitalismo": {
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD_%D0%92._%D0%98._%D0%98%D0%BC%D0%BF%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%BC,_%D0%BA%D0%B0%D0%BA_%D0%B2%D1%8B%D1%81%D1%88%D0%B0%D1%8F_%D1%81%D1%82%D0%B0%D0%B4%D0%B8%D1%8F_%D0%BA%D0%B0%D0%BF%D0%B8%D1%82%D0%B0%D0%BB%D0%B8%D0%B7%D0%BC%D0%B0_(1917).jpg"
   },
   "impressao-com-blocos-de-madeira": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1576,9 +1592,8 @@
     "origem": "https://commons.wikimedia.org/wiki/File:Portada-La_Fontana_de_Oro.jpg"
   },
   "la-regenta": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/17073/pg17073.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Portada_de_La_Regenta_(1884-1885).jpg"
   },
   "la-tierra-de-todos": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1590,9 +1605,8 @@
     "origem": "https://commons.wikimedia.org/wiki/File:Emilia_Pardo_Baz%C3%A1n,_obras_completas_tomo_08,_La_Tribuna.jpg"
   },
   "lazarillo-de-tormes": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/320/pg320.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Lazarillo_de_Tormes.png"
   },
   "leitura-como-ensinar": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1618,9 +1632,8 @@
     "origem": "https://www.gutenberg.org/cache/epub/3207/pg3207.cover.medium.jpg"
   },
   "libro-de-buen-amor": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/16625/pg16625.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (manuscrito, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Libro_de_buen_amor_f._3r.jpg"
   },
   "licoes-de-forma-musical": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1670,9 +1683,9 @@
     "gerada": true
   },
   "los-pazos-de-ulloa": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/18005/pg18005.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga em domínio público; foto da Biblioteca Nacional de España, licença CC BY-SA 4.0)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Los_pazos_de_Ulloa_1886_Pardo_Baz%C3%A1n_T1.jpg",
+    "licenca": "CC BY-SA 4.0"
   },
   "louis-agassiz-vida-e-correspondencia": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -1906,6 +1919,10 @@
     "origem": "https://www.gutenberg.org/cache/epub/11299/pg11299.cover.medium.jpg",
     "gerada": true
   },
+  "o-capital": {
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Zentralbibliothek_Z%C3%BCrich_Das_Kapital_Marx_1867.jpg"
+  },
   "o-caso-wagner-nietzsche-contra-wagner-e-aforismos-selecionados": {
     "fonte": "Project Gutenberg (domínio público)",
     "origem": "https://www.gutenberg.org/cache/epub/25012/pg25012.cover.medium.jpg",
@@ -1998,9 +2015,8 @@
     "origem": "https://www.gutenberg.org/cache/epub/67724/pg67724.cover.medium.jpg"
   },
   "o-homem-e-a-natureza-marsh": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/37957/pg37957.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Title_page_Man_and_Nature.jpg"
   },
   "o-indagador": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -2027,9 +2043,9 @@
     "gerada": true
   },
   "o-livro-de-cesario-verde": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/8698/pg8698.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga em domínio público; foto de Pmms2005, licença CC BY-SA 4.0)",
+    "origem": "https://commons.wikimedia.org/wiki/File:O_Livro_de_Ces%C3%A1rio_Verde.jpg",
+    "licenca": "CC BY-SA 4.0"
   },
   "o-livro-dos-alfabetos-ornamentais": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -2083,9 +2099,8 @@
     "gerada": true
   },
   "o-pavilhao-das-peonias": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/23849/pg23849.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:The_Peony_Pavilion_WDL7112.jpg"
   },
   "o-perfeito-wagneriano": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -2365,9 +2380,8 @@
     "gerada": true
   },
   "panfletos-dos-ultimos-dias": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/1140/pg1140.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Title_page_of_Latter-Day_Pamphlets.jpg"
   },
   "papeis-avulsos": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -2398,9 +2412,14 @@
     "gerada": true
   },
   "pepita-jimenez": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/17223/pg17223.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga em domínio público; foto da Biblioteca Nacional de España, licença CC BY-SA 4.0)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Pepita_Jim%C3%A9nez_1875_Juan_Valera.jpg",
+    "licenca": "CC BY-SA 4.0"
+  },
+  "percursos-de-um-arte-educador": {
+    "fonte": "SciELO Livros (capa do livro de acesso aberto, licença CC BY-NC-SA 4.0, a mais restrita entre as registradas; arquivo da Open Library)",
+    "origem": "https://covers.openlibrary.org/b/isbn/9786559542475-L.jpg?default=false",
+    "licenca": "CC BY-NC-SA 4.0 no OpenAlex"
   },
   "pesquisas-experimentais-em-eletricidade-volume-1": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -2459,9 +2478,9 @@
     "gerada": true
   },
   "pranto-de-maria-parda": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/21287/pg21287.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga em domínio público; foto de Pmms2005, licença CC BY-SA 4.0)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Pranto_Maria_Parda.jpg",
+    "licenca": "CC BY-SA 4.0"
   },
   "pre-calculo-2e": {
     "fonte": "OpenStax (CC BY 4.0)",
@@ -2787,9 +2806,8 @@
     "origem": "https://commons.wikimedia.org/wiki/File:Web_Huygens690.jpg"
   },
   "tratado-da-natureza-humana": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/4705/pg4705.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:A_Treatise_of_Human_Nature_by_David_Hume.jpg"
   },
   "tratado-da-reforma-do-entendimento": {
     "fonte": "Wikimedia Commons (edição antiga, domínio público)",
@@ -2926,9 +2944,9 @@
     "origem": "https://commons.wikimedia.org/wiki/File:Utilitarism.jpg"
   },
   "utopia": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/2130/pg2130.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga em domínio público; foto da Bibliothèque Mazarine, licença CC BY-SA 4.0)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Thomas_More_Utopia_1516_Libellus_vere_aureus_nec_minus_salutaris_quam_festivus._De_Optimo_reipublicae_Statu,_deque_nova_Insula_Utopia_(Biblioth%C3%A8que_Mazarine).jpg",
+    "licenca": "CC BY-SA 4.0"
   },
   "valerius-terminus-da-interpretacao-da-natureza": {
     "fonte": "Project Gutenberg (domínio público)",
@@ -3012,8 +3030,7 @@
     "gerada": true
   },
   "zoonomia-ou-as-leis-da-vida-organica-volume-i": {
-    "fonte": "Project Gutenberg (domínio público)",
-    "origem": "https://www.gutenberg.org/cache/epub/15707/pg15707.cover.medium.jpg",
-    "gerada": true
+    "fonte": "Wikimedia Commons (edição antiga, domínio público)",
+    "origem": "https://commons.wikimedia.org/wiki/File:Zoonomia_1794_-_Titlepage.png"
   }
 }

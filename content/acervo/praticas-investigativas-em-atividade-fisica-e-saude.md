@@ -5,6 +5,7 @@ area: educacao-fisica
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/tb94w"
+pdf: "https://books.scielo.org/id/tb94w/pdf/campos-9788523212209.pdf"
 idioma: "Português"
 ano: "2013"
 ---

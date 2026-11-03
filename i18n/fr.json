@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Instituto Lúcia — la bibliothèque communautaire",
+    "title": "Instituto Lúcia — l'école de la classe ouvrière",
     "description": "Un savoir libre, ouvert et préservé. Cours, parcours d'apprentissage et une bibliothèque d'œuvres du domaine public, entretenus par la communauté."
   },
   "common": {
@@ -1104,7 +1104,11 @@
       "velocidade": "Vitesse",
       "frase": "Phrase {n} sur {total}",
       "preparando": "Préparation de la voix (au début, cela peut prendre jusqu'à une demi-minute)…",
-      "preparandoProxima": "Préparation de la phrase suivante…"
+      "preparandoProxima": "Préparation de la phrase suivante…",
+      "trecho": "Passage {n} sur {total}",
+      "vozProvisoria": "Lecture avec la voix de l’appareil pendant le chargement de la voix naturelle{pct}.",
+      "naturalNoProximo": "La voix naturelle prend le relais au prochain passage.",
+      "semVoz": "Impossible de lire à voix haute sur cet appareil. Essayez un autre navigateur ou installez une voix dans les réglages de l’appareil."
     },
     "videoCurto": {
       "selo": "Vidéo courte",
@@ -1129,7 +1133,19 @@
       "pausado": "En pause",
       "legendasLigadas": "Sous-titres activés",
       "legendasDesligadas": "Sous-titres désactivés",
-      "emRevisao": "Contenu en cours de révision."
+      "emRevisao": "Contenu en cours de révision.",
+      "semSom": "Couper le son",
+      "comSom": "Remettre le son",
+      "somDesligado": "Son coupé",
+      "somLigado": "Son activé",
+      "volume": "Volume",
+      "sairTelaCheia": "Quitter le plein écran",
+      "parteAnterior": "Partie précédente",
+      "proximaParte": "Partie suivante",
+      "parte": "Partie {n} sur {total}",
+      "tempoDe": "{atual} sur {total}",
+      "velocidadeAgora": "Vitesse {vel}",
+      "atalhos": "Raccourcis : espace ou K lance et met en pause ; les flèches avancent de 5 secondes ; J et L de 10 ; N et P changent de partie ; < et > changent la vitesse ; M coupe le son ; C active les sous-titres ; F plein écran."
     }
   },
   "library": {
@@ -1191,6 +1207,9 @@
     "catalogLead": "Des œuvres réunies à partir de catalogues ouverts, avec un lien direct vers la source. Ces fiches sont plus simples que celles choisies par la curation. Qu'une œuvre figure ici ne veut pas dire que nous sommes d'accord avec ce qu'elle dit.",
     "seeAt": "Voir sur {source}",
     "mecNote": "Prêt numérique gratuit de MEC Livros, la bibliothèque numérique du ministère de l'Éducation du Brésil : il suffit de se connecter avec un compte gov.br.",
+    "pdfDownload": "Télécharger le livre entier (PDF)",
+    "carouselBack": "Reculer : voir les livres déjà passés",
+    "carouselForward": "Avancer : voir les livres suivants",
     "carouselPause": "Pause",
     "carouselPlay": "Reprendre"
   },
@@ -1791,7 +1810,8 @@
     "sizes": [
       "Normale",
       "Grande",
-      "Plus grande"
+      "Plus grande",
+      "Très grande"
     ],
     "contrast": "Contraste élevé",
     "contrastHint": "Jaune et blanc sur noir, avec des bordures marquées.",
@@ -1812,7 +1832,43 @@
     "black": "Noir pur",
     "blackHint": "Un fond entièrement noir dans le thème sombre : consomme moins de batterie sur les écrans AMOLED.",
     "light": "Économie de données (mode léger)",
-    "lightHint": "Cache les images, les vidéos et le lecteur de radio, retire les animations et utilise les polices de votre appareil. S'active tout seul quand le téléphone est en mode économie de données."
+    "lightHint": "Cache les images, les vidéos et le lecteur de radio, retire les animations et utilise les polices de votre appareil. S'active tout seul quand le téléphone est en mode économie de données.",
+    "intro": "Ce que vous choisissez ici reste enregistré sur cet appareil.",
+    "groupText": "Texte",
+    "groupColor": "Couleurs et contraste",
+    "groupReading": "Lecture et mouvement",
+    "groupListen": "Écouter",
+    "lineHeight": "Espace entre les lignes",
+    "letterSpacing": "Espace entre les lettres",
+    "spacingLevels": [
+      "Normal",
+      "Plus grand",
+      "Beaucoup plus grand"
+    ],
+    "dyslexia": "Police plus facile à lire",
+    "dyslexiaHint": "Remplace la police du site par Atkinson Hyperlegible, conçue pour les personnes malvoyantes. Elle peut aider les personnes dyslexiques.",
+    "links": "Mettre les liens en évidence",
+    "linksHint": "Souligne et marque tous les liens, pour voir facilement où cliquer.",
+    "guide": "Guide de lecture",
+    "guideHint": "Suit la souris, le doigt ou le clavier pour ne pas perdre la ligne.",
+    "guideModes": [
+      "Désactivé",
+      "Ligne",
+      "Masque"
+    ],
+    "motion": "Mettre les animations en pause",
+    "motionHint": "Arrête les mouvements, les transitions et les vidéos qui se lancent toutes seules.",
+    "cursor": "Grand curseur",
+    "cursorHint": "Pointeur de souris plus grand et bordé, facile à repérer.",
+    "color": "Couleurs de l'écran",
+    "colorHint": "Retire ou renforce les couleurs de tout le site.",
+    "colorModes": [
+      "Normales",
+      "Gris",
+      "Moins de couleur",
+      "Plus de couleur"
+    ],
+    "resetDone": "Tout est revenu aux réglages d'origine."
   },
   "data": {
     "eyebrow": "Vos données sont à vous",
@@ -2291,7 +2347,7 @@
       "derivative": "Dérivée",
       "hint": "Tapez comme sur une calculatrice : 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Utilisez un point ou une virgule pour les décimales."
     },
-    "universal": "Un outil pour n'importe quel cours : il est toujours dans la boîte à outils des cours.",
+    "universal": "Un outil pour n'importe quel cours : ouvrez-le quand vous en avez besoin. La boîte de chaque cours montre les outils de sa matière.",
     "box": {
       "open": "Outils",
       "openLabel": "Ouvrir la boîte à outils de ce cours",
@@ -4187,7 +4243,7 @@
   "start": {
     "eyebrow": "Liste de lecture",
     "title": "Par où commencer",
-    "lead": "Sept étapes pour qui arrive, de ce que vous vivez au travail jusqu'aux textes plus longs. Tout ici est gratuit et sur ce site.",
+    "lead": "Six étapes pour qui arrive, de ce que vous vivez au travail jusqu'aux textes plus longs. Tout ici est gratuit et sur ce site.",
     "lessons": "Cours",
     "readings": "Lectures",
     "reference": "fiche de référence, cherchez-la dans une bibliothèque",
@@ -5324,6 +5380,8 @@
     "endKicker": "À la fin du parcours",
     "certTitle": "Certificat communautaire",
     "certText": "Reconnu par l'institut et signé par votre groupe, pas par l'État. Il vaut ce que vous avez appris et ce que vous en avez fait.",
+    "certModelLabel": "Modèle du certificat communautaire du parcours Conscience de classe",
+    "certModelNote": "Modèle du certificat. Le vrai est rempli et signé par votre groupe, toujours en portugais.",
     "groupKicker": "Mieux à plusieurs",
     "groupTitle": "Faites le parcours en groupe",
     "groupText": "Chaque étape a un guide de rencontre d'une heure et des questions pour le cercle. Réunissez trois personnes et commencez.",

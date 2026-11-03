@@ -5,6 +5,7 @@ area: servico-social
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/rfv9p"
+pdf: "https://books.scielo.org/id/rfv9p/pdf/costa-9788577982318.pdf"
 idioma: "Português"
 ano: "2013"
 ---

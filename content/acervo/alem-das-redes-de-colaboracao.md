@@ -5,6 +5,7 @@ area: informatica
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/22qtc"
+pdf: "https://books.scielo.org/id/22qtc/pdf/pretto-9788523208899.pdf"
 idioma: "Português"
 ano: "2008"
 ---

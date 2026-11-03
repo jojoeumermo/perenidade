@@ -5,6 +5,7 @@ area: design
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/vtxgm"
+pdf: "https://books.scielo.org/id/vtxgm/pdf/landim-9788579830938.pdf"
 idioma: "Português"
 ano: "2010"
 ---

@@ -5,6 +5,7 @@ area: portugues
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/gp99j"
+pdf: "https://books.scielo.org/id/gp99j/pdf/duran-9786557144909.pdf"
 idioma: "Português"
 ano: "2013"
 ---

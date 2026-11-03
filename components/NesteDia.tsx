@@ -8,11 +8,14 @@ interface Fato {
   ano: number;
   texto: string;
   link: string;
+  /** "DD/MM" quando o fato é de outro dia do mês (a data de hoje teve menos de três). */
+  dia?: string;
 }
 
 /**
  * "Neste dia": três fatos que a Wikipédia destaca para a data de hoje. Vem do nosso próprio servidor
- * (/api/neste-dia), que consulta a Wikipédia por conta dele; se não houver resposta, o quadro não aparece.
+ * (/api/neste-dia), que consulta a Wikipédia por conta dele; se não houver resposta, o quadro não aparece. Quando a
+ * data tem menos de três, o servidor completa com os dias mais próximos do mesmo mês e cada fato mostra a sua data.
  */
 export function NesteDia({ s, lang }: { s: Dict["home"]; lang: string }) {
   const [fatos, setFatos] = useState<Fato[] | null>(null);
@@ -34,6 +37,13 @@ export function NesteDia({ s, lang }: { s: Dict["home"]; lang: string }) {
   }, [lang]);
 
   if (!fatos) return null;
+  // Com fatos de outros dias, cada fato diz a sua data (dia e mês por extenso, no idioma da página).
+  const misturado = fatos.some((fato) => fato.dia && fato.dia !== dia);
+  const formato = new Intl.DateTimeFormat(lang === "pt" ? "pt-BR" : lang, { day: "numeric", month: "long", timeZone: "UTC" });
+  const porExtenso = (ddmm: string) => {
+    const [d, m] = ddmm.split("/").map(Number);
+    return d && m ? formato.format(new Date(Date.UTC(2000, m - 1, d))) : ddmm;
+  };
   return (
     <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8" aria-labelledby="neste-dia">
       <div className="cartao p-6 sm:p-8">
@@ -44,6 +54,7 @@ export function NesteDia({ s, lang }: { s: Dict["home"]; lang: string }) {
           {fatos.map((fato) => (
             <li key={`${fato.ano}${fato.texto.slice(0, 20)}`} className="border-t-[3px] border-[#c21f16] pt-3">
               <p className="lambe text-2xl text-prelo-texto">{fato.ano}</p>
+              {misturado && <p className="mt-0.5 font-mono text-xs uppercase tracking-[0.12em] text-ink-soft">{porExtenso(fato.dia ?? dia)}</p>}
               <p className="mt-1.5 text-lg leading-snug">
                 <a href={fato.link} target="_blank" rel="noopener noreferrer nofollow" className="hover:text-prelo-texto hover:underline">
                   {fato.texto}

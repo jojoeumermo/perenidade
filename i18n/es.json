@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Instituto Lúcia — la biblioteca comunitaria",
+    "title": "Instituto Lúcia — la escuela de la clase trabajadora",
     "description": "Conocimiento libre, gratuito y preservado. Lecciones, rutas de estudio y un acervo de obras de dominio público, mantenidos por la comunidad."
   },
   "common": {
@@ -1104,7 +1104,11 @@
       "velocidade": "Velocidad",
       "frase": "Frase {n} de {total}",
       "preparando": "Preparando la voz (al principio puede tardar hasta medio minuto)…",
-      "preparandoProxima": "Preparando la siguiente frase…"
+      "preparandoProxima": "Preparando la siguiente frase…",
+      "trecho": "Fragmento {n} de {total}",
+      "vozProvisoria": "Leyendo con la voz del dispositivo mientras carga la voz natural{pct}.",
+      "naturalNoProximo": "La voz natural entra en el próximo fragmento.",
+      "semVoz": "No se pudo leer en voz alta en este dispositivo. Prueba otro navegador o instala una voz en los ajustes del dispositivo."
     },
     "videoCurto": {
       "selo": "Video corto",
@@ -1129,7 +1133,19 @@
       "pausado": "En pausa",
       "legendasLigadas": "Subtítulos activados",
       "legendasDesligadas": "Subtítulos desactivados",
-      "emRevisao": "Contenido en revisión."
+      "emRevisao": "Contenido en revisión.",
+      "semSom": "Silenciar",
+      "comSom": "Activar el sonido",
+      "somDesligado": "Sonido desactivado",
+      "somLigado": "Sonido activado",
+      "volume": "Volumen",
+      "sairTelaCheia": "Salir de pantalla completa",
+      "parteAnterior": "Parte anterior",
+      "proximaParte": "Parte siguiente",
+      "parte": "Parte {n} de {total}",
+      "tempoDe": "{atual} de {total}",
+      "velocidadeAgora": "Velocidad {vel}",
+      "atalhos": "Atajos: espacio o K reproduce y pausa; las flechas avanzan 5 segundos; J y L avanzan 10; N y P cambian de parte; < y > cambian la velocidad; M silencia; C activa los subtítulos; F pantalla completa."
     }
   },
   "library": {
@@ -1191,6 +1207,9 @@
     "catalogLead": "Obras reunidas a partir de catálogos abiertos, con enlace directo a la fuente. La ficha es más sencilla que la de las obras seleccionadas por la curaduría. Que una obra figure aquí no significa que se comparta lo que dice.",
     "seeAt": "Ver en {source}",
     "mecNote": "Préstamo digital gratuito en MEC Livros, la biblioteca digital del Ministerio de Educación de Brasil: basta con entrar con una cuenta gov.br.",
+    "pdfDownload": "Descargar el libro completo (PDF)",
+    "carouselBack": "Atrás: ver los libros que pasaron",
+    "carouselForward": "Adelante: ver los próximos libros",
     "carouselPause": "Pausar",
     "carouselPlay": "Continuar"
   },
@@ -1791,7 +1810,8 @@
     "sizes": [
       "Normal",
       "Grande",
-      "Más grande"
+      "Más grande",
+      "Enorme"
     ],
     "contrast": "Alto contraste",
     "contrastHint": "Amarillo y blanco sobre negro, con bordes marcados.",
@@ -1812,7 +1832,43 @@
     "black": "Negro absoluto",
     "blackHint": "Fondo totalmente negro en el tema oscuro: gasta menos batería en pantallas AMOLED.",
     "light": "Ahorro de datos (modo ligero)",
-    "lightHint": "Oculta imágenes, videos y el reproductor de radio, quita las animaciones y usa las fuentes del propio dispositivo. Se activa solo cuando el celular está en ahorro de datos."
+    "lightHint": "Oculta imágenes, videos y el reproductor de radio, quita las animaciones y usa las fuentes del propio dispositivo. Se activa solo cuando el celular está en ahorro de datos.",
+    "intro": "Lo que elijas aquí queda guardado en este dispositivo.",
+    "groupText": "Texto",
+    "groupColor": "Colores y contraste",
+    "groupReading": "Lectura y movimiento",
+    "groupListen": "Escuchar",
+    "lineHeight": "Espacio entre líneas",
+    "letterSpacing": "Espacio entre letras",
+    "spacingLevels": [
+      "Normal",
+      "Mayor",
+      "Mucho mayor"
+    ],
+    "dyslexia": "Letra más fácil de leer",
+    "dyslexiaHint": "Cambia la letra del sitio por Atkinson Hyperlegible, hecha para personas con baja visión. Puede ayudar a quien tiene dislexia.",
+    "links": "Destacar enlaces",
+    "linksHint": "Subraya y marca todos los enlaces, para ver fácil dónde hacer clic.",
+    "guide": "Guía de lectura",
+    "guideHint": "Sigue el ratón, el dedo o el teclado para que no pierdas la línea.",
+    "guideModes": [
+      "Apagada",
+      "Línea",
+      "Máscara"
+    ],
+    "motion": "Pausar animaciones",
+    "motionHint": "Detiene los movimientos, las transiciones y los videos que se reproducen solos.",
+    "cursor": "Cursor grande",
+    "cursorHint": "Flecha del ratón más grande y con contorno, fácil de encontrar.",
+    "color": "Colores de la pantalla",
+    "colorHint": "Quita o refuerza los colores de todo el sitio.",
+    "colorModes": [
+      "Normales",
+      "Gris",
+      "Menos color",
+      "Más color"
+    ],
+    "resetDone": "Todo volvió a los valores por defecto."
   },
   "data": {
     "eyebrow": "Tus datos son tuyos",
@@ -2291,7 +2347,7 @@
       "derivative": "Derivada",
       "hint": "Escribe como en la calculadora: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Sirven punto o coma para decimales."
     },
-    "universal": "Herramienta para cualquier clase: siempre está en la caja de herramientas de las clases.",
+    "universal": "Herramienta para cualquier clase: ábrela cuando la necesites. La caja de cada clase muestra las herramientas de su materia.",
     "box": {
       "open": "Herramientas",
       "openLabel": "Abrir la caja de herramientas de esta clase",
@@ -4187,7 +4243,7 @@
   "start": {
     "eyebrow": "Lista de lectura",
     "title": "Por dónde empezar",
-    "lead": "Siete pasos para quien llega, desde lo que se vive en el trabajo hasta los textos más largos. Todo aquí es gratuito y está en el propio sitio.",
+    "lead": "Seis pasos para quien llega, desde lo que se vive en el trabajo hasta los textos más largos. Todo aquí es gratuito y está en el propio sitio.",
     "lessons": "Clases",
     "readings": "Lecturas",
     "reference": "ficha de referencia, búscalo en una biblioteca",
@@ -5324,6 +5380,8 @@
     "endKicker": "Al final del recorrido",
     "certTitle": "Certificado comunitario",
     "certText": "Reconocido por el instituto y firmado por tu núcleo, no por el Estado. Vale por lo que aprendiste y por lo que hiciste con eso.",
+    "certModelLabel": "Modelo del certificado comunitario del recorrido Conciencia de clase",
+    "certModelNote": "Modelo del certificado. El verdadero lo completa y lo firma tu núcleo, siempre en portugués.",
     "groupKicker": "Mejor en grupo",
     "groupTitle": "Haz el recorrido en un núcleo",
     "groupText": "Cada etapa tiene una guía de encuentro de una hora y preguntas para la ronda. Junta a tres personas y empieza.",

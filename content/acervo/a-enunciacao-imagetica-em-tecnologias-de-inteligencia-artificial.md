@@ -5,6 +5,7 @@ area: inteligencia-artificial
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/2h3sk"
+pdf: "https://books.scielo.org/id/2h3sk/pdf/pereira-9786559544493.pdf"
 idioma: "Português"
 ano: "2024"
 ---

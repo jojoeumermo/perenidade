@@ -5,6 +5,7 @@ area: luta-dos-professores
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/8xxn2"
+pdf: "https://books.scielo.org/id/8xxn2/pdf/silva-9788598605975.pdf"
 idioma: "Português"
 ano: "2009"
 ---

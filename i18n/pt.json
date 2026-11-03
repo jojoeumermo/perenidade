@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Instituto Lúcia — a biblioteca comunitária",
+    "title": "Instituto Lúcia — a escola da classe trabalhadora",
     "description": "Conhecimento livre, gratuito e preservado. Aulas, trilhas e um acervo de obras de domínio público, mantidos pela comunidade."
   },
   "common": {
@@ -1104,7 +1104,11 @@
       "velocidade": "Velocidade",
       "frase": "Frase {n} de {total}",
       "preparando": "Preparando a voz (no começo pode levar até meio minuto)…",
-      "preparandoProxima": "Preparando a próxima frase…"
+      "preparandoProxima": "Preparando a próxima frase…",
+      "trecho": "Trecho {n} de {total}",
+      "vozProvisoria": "Lendo com a voz do aparelho enquanto a voz natural carrega{pct}.",
+      "naturalNoProximo": "A voz natural entra no próximo trecho.",
+      "semVoz": "Não deu para ler em voz alta neste aparelho. Tente outro navegador ou instale uma voz em português nas configurações do aparelho."
     },
     "videoCurto": {
       "selo": "Vídeo curto",
@@ -1129,7 +1133,19 @@
       "pausado": "Pausado",
       "legendasLigadas": "Legendas ligadas",
       "legendasDesligadas": "Legendas desligadas",
-      "emRevisao": "Conteúdo em revisão."
+      "emRevisao": "Conteúdo em revisão.",
+      "semSom": "Tirar o som",
+      "comSom": "Ligar o som",
+      "somDesligado": "Som desligado",
+      "somLigado": "Som ligado",
+      "volume": "Volume",
+      "sairTelaCheia": "Sair da tela cheia",
+      "parteAnterior": "Parte anterior",
+      "proximaParte": "Próxima parte",
+      "parte": "Parte {n} de {total}",
+      "tempoDe": "{atual} de {total}",
+      "velocidadeAgora": "Velocidade {vel}",
+      "atalhos": "Atalhos: espaço ou K toca e pausa; setas andam 5 segundos; J e L andam 10; N e P trocam de parte; < e > mudam a velocidade; M tira o som; C liga as legendas; F tela cheia."
     }
   },
   "library": {
@@ -1191,6 +1207,9 @@
     "catalogLead": "Obras reunidas a partir de catálogos abertos, com link direto para a fonte. A ficha é mais simples que a das obras selecionadas pela curadoria. A presença de uma obra aqui não significa concordância com o que ela diz.",
     "seeAt": "Ver em {source}",
     "mecNote": "Empréstimo digital gratuito pela biblioteca MEC Livros, do Ministério da Educação: basta entrar com a conta gov.br.",
+    "pdfDownload": "Baixar o livro inteiro (PDF)",
+    "carouselBack": "Voltar: ver os livros que passaram",
+    "carouselForward": "Avançar: ver os próximos livros",
     "carouselPause": "Pausar",
     "carouselPlay": "Continuar"
   },
@@ -1791,7 +1810,8 @@
     "sizes": [
       "Padrão",
       "Grande",
-      "Maior"
+      "Maior",
+      "Enorme"
     ],
     "contrast": "Alto contraste",
     "contrastHint": "Amarelo e branco sobre preto, com bordas fortes.",
@@ -1812,7 +1832,43 @@
     "black": "Preto absoluto",
     "blackHint": "Fundo totalmente preto no tema escuro: gasta menos bateria em telas AMOLED.",
     "light": "Economia de dados (modo leve)",
-    "lightHint": "Esconde imagens, vídeos e o tocador da rádio, tira as animações e usa as fontes do próprio aparelho. Liga sozinho quando o celular está em economia de dados."
+    "lightHint": "Esconde imagens, vídeos e o tocador da rádio, tira as animações e usa as fontes do próprio aparelho. Liga sozinho quando o celular está em economia de dados.",
+    "intro": "O que você escolher aqui fica guardado neste aparelho.",
+    "groupText": "Texto",
+    "groupColor": "Cores e contraste",
+    "groupReading": "Leitura e movimento",
+    "groupListen": "Ouvir",
+    "lineHeight": "Espaço entre as linhas",
+    "letterSpacing": "Espaço entre as letras",
+    "spacingLevels": [
+      "Normal",
+      "Maior",
+      "Bem maior"
+    ],
+    "dyslexia": "Letra mais fácil de ler",
+    "dyslexiaHint": "Troca a letra do site pela Atkinson Hyperlegible, feita para quem enxerga pouco. Pode ajudar quem tem dislexia.",
+    "links": "Destacar links",
+    "linksHint": "Sublinha e marca todos os links, para achar fácil onde clicar.",
+    "guide": "Guia de leitura",
+    "guideHint": "Acompanha o mouse, o dedo ou o teclado para você não perder a linha.",
+    "guideModes": [
+      "Desligado",
+      "Linha",
+      "Máscara"
+    ],
+    "motion": "Pausar animações",
+    "motionHint": "Para os movimentos, as transições e os vídeos que tocam sozinhos.",
+    "cursor": "Cursor grande",
+    "cursorHint": "Seta do mouse maior e com contorno, fácil de achar na tela.",
+    "color": "Cores da tela",
+    "colorHint": "Tira ou reforça as cores do site inteiro.",
+    "colorModes": [
+      "Normais",
+      "Cinza",
+      "Menos cor",
+      "Mais cor"
+    ],
+    "resetDone": "Tudo voltou ao padrão."
   },
   "data": {
     "eyebrow": "Seus dados são seus",
@@ -2291,7 +2347,7 @@
       "derivative": "Derivada",
       "hint": "Escreva como na calculadora: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Vírgula ou ponto servem para decimais."
     },
-    "universal": "Ferramenta para qualquer aula: está sempre na caixa de ferramentas das aulas.",
+    "universal": "Ferramenta para qualquer aula: abra quando precisar. Na caixa de cada aula entram as ferramentas da disciplina.",
     "box": {
       "open": "Ferramentas",
       "openLabel": "Abrir a caixa de ferramentas desta aula",
@@ -4187,7 +4243,7 @@
   "start": {
     "eyebrow": "Lista de leitura",
     "title": "Por onde começar",
-    "lead": "Sete passos para quem está chegando, do que se vive no trabalho até os textos mais longos. Tudo aqui é gratuito e está no próprio site.",
+    "lead": "Seis passos para quem está chegando, do que se vive no trabalho até os textos mais longos. Tudo aqui é gratuito e está no próprio site.",
     "lessons": "Aulas",
     "readings": "Leituras",
     "reference": "ficha de referência, procure em biblioteca",
@@ -5324,6 +5380,8 @@
     "endKicker": "No fim do percurso",
     "certTitle": "Certificado comunitário",
     "certText": "Reconhecido pelo instituto e assinado pelo seu núcleo, não pelo Estado. Vale pelo que você aprendeu e pelo que fez com isso.",
+    "certModelLabel": "Modelo do certificado comunitário do percurso Consciência de classe",
+    "certModelNote": "Modelo do certificado. O de verdade é preenchido e assinado no núcleo, sempre em português.",
     "groupKicker": "Melhor em grupo",
     "groupTitle": "Faça o percurso num núcleo",
     "groupText": "Cada etapa tem um roteiro de encontro de uma hora e perguntas para a roda. Junte três pessoas e comece.",

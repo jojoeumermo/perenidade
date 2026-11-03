@@ -7,7 +7,7 @@
 //
 // Não usa a função "eu" de propósito: ela grava no perfil a origem de quem chama, e daqui quem chama é o servidor, não a
 // pessoa (a origem gravada seria a do servidor, e o banimento por origem pegaria o endereço errado). "equipe_sessao" só lê.
-// Sem a função no banco (antes de rodar a migração), ninguém passa: a checagem falha fechada.
+// Sem a função no banco (antes de rodar a migração), vale o comportamento antigo; com a função, a checagem falha fechada.
 // Nada daqui guarda o token nem registra quem pediu. Só as rotas do servidor importam este arquivo.
 import { rpcNoBanco } from "@/lib/instagram";
 
@@ -31,6 +31,10 @@ export async function quemPede(pedido: Request): Promise<QuemPede> {
   const token = tokenDoPedido(pedido);
   if (!token) return NINGUEM;
   const resposta = await rpcNoBanco<{ conta?: unknown; equipe?: unknown } | null>("equipe_sessao", {}, token);
+  // Banco ainda sem a migração (o PostgREST não acha a função): vale o comportamento de antes, em que estas rotas não
+  // pediam sessão, para a equipe não perder as fontes e as rádios entre a publicação e a migração. Rodada a migração, a
+  // checagem passa a valer sozinha.
+  if (!resposta.ok && /could not find the function/i.test(resposta.erro)) return { conta: true, equipe: true };
   if (!resposta.ok || !resposta.dados || typeof resposta.dados !== "object") return NINGUEM;
   const conta = resposta.dados.conta === true;
   return { conta, equipe: conta && resposta.dados.equipe === true };

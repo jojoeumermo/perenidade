@@ -5,6 +5,7 @@ area: teatro
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/qkjhh"
+pdf: "https://books.scielo.org/id/qkjhh/pdf/romano-9786557145517.pdf"
 idioma: "Português"
 ---
 

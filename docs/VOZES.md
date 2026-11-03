@@ -11,6 +11,20 @@ O "Ouvir a aula" lê a aula frase a frase e destaca a frase lida. Tem pausar, vo
 Nada sai do aparelho: o texto não vai para servidor nenhum, e todo arquivo vem do próprio site (/vozes/ e
 /workers/voz.js). Os modelos **não** vão para o Git: o build da Vercel os baixa (`npm run vozes:baixar`, no prebuild).
 
+## Começa na hora (03/11/2026)
+
+- **Sem espera no clique**: com a voz natural escolhida mas ainda abrindo (ou baixando), a voz do aparelho já começa
+  a ler. A natural abre ao fundo e entra **no começo do próximo trecho** (parágrafo, item de lista, título), quando o
+  som dela já está pronto; nunca troca no meio de um parágrafo. O tocador mostra "Trecho X de Y · Frase N de M" e avisa
+  que a voz do aparelho lê enquanto a natural carrega. As regras estão em `lib/vozes/trechos.ts` (testadas em
+  `npm run testar:vozes`).
+- **Não trava**: a fala do aparelho fica guardada (o Chrome recolhia a fala da memória e o fim nunca chegava); um vigia
+  confere se a fala começou (senão tenta de novo e, depois, passa para a voz natural ou avisa "não deu para ler em voz
+  alta neste aparelho") e se ela acabou sem avisar (segue para a próxima frase). Se a voz natural falha numa frase, a do
+  aparelho continua a leitura.
+- O texto preparado para a voz (números, siglas, léxico) é montado frase a frase, na hora de falar: aula longa não
+  atrasa o começo.
+
 ## Novidades de 02/11/2026 (tarde)
 
 - **Modo de leitura** (no seletor, guardado em "lucia:voz"): "Ler frase por frase", com respiro, destaque, voltar e

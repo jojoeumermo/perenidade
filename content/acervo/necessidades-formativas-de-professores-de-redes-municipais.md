@@ -5,6 +5,7 @@ area: luta-dos-professores
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/f8pnb"
+pdf: "https://books.scielo.org/id/f8pnb/pdf/di-9788579831065.pdf"
 idioma: "Português"
 ano: "2010"
 ---

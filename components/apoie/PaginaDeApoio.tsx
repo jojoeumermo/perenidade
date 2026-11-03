@@ -192,13 +192,12 @@ export function PaginaDeApoio({ lang, numeros, s, slogan }: { lang: Locale; nume
   const n = escolhida ? apoiosParaAMeta(meta1.alvo, escolhida.valor) : 0;
   const frase = escolhida ? (n <= 1 ? fill(p.worthOne, { valor: r(escolhida.valor) }) : `${fill(p.worth, { n, valor: r(escolhida.valor) })} ${p.yourBrick}`) : "";
   const temDolar = v.custos.some((c) => c.dolar);
+  // "O que já fizemos" mostra só o acervo: as contagens de pessoas (voluntários, contribuições) saíram por privacidade.
   const contadores: [number, string][] = [
     [numeros.obras, p.counters.works],
     [numeros.aulas, p.counters.lessons],
     [numeros.traducoes, p.counters.translations],
     [numeros.idiomas, p.counters.languages],
-    [v.voluntarios, p.counters.volunteers],
-    [v.contribuicoes_publicadas, p.counters.contributions],
   ];
   const fmt = (x: number) => x.toLocaleString(lang === "pt" ? "pt-BR" : lang);
   const faq: { q: string; a: string; lang?: string }[] = [
@@ -392,7 +391,7 @@ export function PaginaDeApoio({ lang, numeros, s, slogan }: { lang: Locale; nume
       <section className={secao} aria-labelledby="apoie-feito">
         <Titulo id="apoie-feito">{p.doneTitle}</Titulo>
         <div className="overflow-hidden border-2 border-ink bg-folha">
-          <ul className="-mr-px -mb-px grid grid-cols-2 md:grid-cols-3">
+          <ul className="-mr-px -mb-px grid grid-cols-2 md:grid-cols-4">
             {contadores.filter(([valor]) => valor > 0).map(([valor, rotulo]) => (
               <li key={rotulo} className="border-r border-b border-rule px-5 py-4">
                 <p className="font-sans text-4xl font-black italic">{fmt(valor)}</p>

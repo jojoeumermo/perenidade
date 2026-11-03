@@ -1,4 +1,200 @@
 {
-  "_sobre": "Obras do acervo escondidas sem apagar: por pedido de retirada (veja /direitos-autorais) ou por dúvida de direitos. Cada uma com o id (nome do arquivo em content/acervo, sem .md), o motivo e a data. Escondida, a obra sai das fichas, das estantes, da busca e do sitemap. Para voltar, apague a entrada.",
-  "ocultas": []
+  "_sobre": "Obras do acervo escondidas sem apagar: por pedido de retirada (veja /direitos-autorais), por dúvida de direitos ou por não terem leitura aberta (só resumo ou ficha). Cada uma com o id (nome do arquivo em content/acervo, sem .md), o motivo e a data. Escondida, a obra sai das fichas, das estantes, da busca e do sitemap. Para voltar, apague a entrada.",
+  "ocultas": [
+    {
+      "id": "acesso-as-urgencias-e-atencao-hospitalar",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "agricultura-urbana",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "as-comissoes-da-verdade-e-os-arquivos-da-ditadura-militar-brasileira",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "direitos-humanos-e-saude",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "ecologia-politica",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "entre-o-belo-e-o-util",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "frageis-e-invisiveis",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "framing-a-teoria-do-enquadramento",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "manuais-para-educacao-do-corpo",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "maringa-de-todos-os-santos-orixas-voduns-inquices-e-guias",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "mulheres-dos-cabelos-brancos",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "o-encontro-da-antropologia-com-a-favela",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "os-direitos-humanos-a-agua-e-ao-saneamento",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "populacao-lgbt",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "por-inflexoes-decoloniais-de-corpos-e-identidades-de-genero",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "trajetorias-e-historias-insurgentes",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "velhice-sexualidade",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "violencia-e-saude-na-vida-de-pessoas-lgbti",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "walter-da-silveira-e-o-cinema-moderno-no-brasil",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "feminismo-no-cinema-brasileiro",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "suma-de-teologia",
+      "motivo": "Livro comercial no SciELO Livros: a página só mostra o resumo, sem leitura aberta (conferido no OpenAlex e no LA Referencia). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "a-ditadura-e-assim",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "a-eleicao-dos-bichos",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "a-queda-do-ceu",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "amoras",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "arquivos-modernos-schellenberg",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "comunismo-para-criancas",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "era-dos-extremos",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "grande-sertao-veredas",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "ideias-para-adiar-o-fim-do-mundo",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "mulheres-raca-e-classe",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "o-capital-para-criancas",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "o-homem-e-seus-simbolos",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "o-homem-que-calculava",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "o-que-sao-classes-sociais",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "os-jacobinos-negros",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "pedagogia-do-oprimido",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "pra-quem-ja-mordeu-um-cachorro-por-comida",
+      "motivo": "Só ficha de referência de livro com direitos reservados, sem lugar legal para ler de graça. Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    },
+    {
+      "id": "o-capital-para-criancas-2",
+      "motivo": "Cópia sem autorização da editora (PDF de site de compartilhamento postado no Archive.org). Plano de novembro, item B18.",
+      "data": "2026-11-03"
+    }
+  ]
 }

@@ -5,6 +5,7 @@ area: ecossocialismo
 licenca: "Conforme a fonte"
 fonte: "SciELO Livros"
 url: "https://books.scielo.org/id/xktw6"
+pdf: "https://books.scielo.org/id/xktw6/pdf/motta-9786557082980.pdf"
 idioma: "Português"
 ano: "2018"
 ---

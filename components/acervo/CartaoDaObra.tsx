@@ -38,6 +38,11 @@ export function CartaoDaObra({ book, t, href, acao, vermelho = false }: { book: 
           <a href={book.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto">
             {fill(t.common.readAt, { source: book.source })} ↗
           </a>
+          {book.pdf && (
+            <a href={book.pdf} target="_blank" rel="noopener noreferrer" aria-label={t.library.pdfDownload} title={t.library.pdfDownload} className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 hover:text-prelo-texto">
+              PDF ↓
+            </a>
+          )}
           {acao}
         </p>
       </div>
