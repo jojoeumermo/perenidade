@@ -1,13 +1,16 @@
 name: Publicar contribuições aprovadas
 
-# De três em três horas, leva para o acervo o que a coordenação aprovou no painel (cada rodada que publica gera uma
-# publicação nova na Vercel, e cada publicação esvazia o cache das bordas: de hora em hora, isso estourava a cota).
+# Uma vez por dia (06:17 em Brasília), leva para o acervo o que a coordenação aprovou no painel. Cada rodada que publica
+# gera uma publicação nova na Vercel, e cada publicação esvazia o cache das bordas: de hora em hora, e depois de três em
+# três, isso gastava a cota com robôs refazendo páginas. Só publica com mudança relevante (conteúdo, arquivos, disciplinas
+# ou dicionários); o resumo do histórico sozinho não conta. Para urgências, o botão "Publicar agora" do painel dispara
+# esta mesma rotina na hora.
 # Cada rodada vira um registro no histórico: para desfazer uma publicação, basta reverter esse registro.
 # A rotina só roda depois de criada a variável PUBLICAR com o valor "sim" (Settings → Secrets and variables →
 # Actions → Variables). Antes disso ela é pulada e não consome minutos. Para pausar as publicações, apague a variável.
 on:
   schedule:
-    - cron: "17 */3 * * *"
+    - cron: "17 9 * * *"
   workflow_dispatch:
 
 permissions:
@@ -40,6 +43,11 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      # A lista de alvos que o contador anônimo aceita (aulas e edições que existem), para o contar recusar o resto.
+      - run: node scripts/alvos-de-contagem.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       # As fichas aprovadas nas tarefas do painel (ano, sinopse, licença, link) entram no acervo junto com o resto.
       - run: node scripts/tarefas.mjs aplicar
         env:
@@ -53,7 +61,9 @@ jobs:
           node scripts/historico.mjs
           # lib/areas.ts e os dicionários: as disciplinas criadas, editadas ou removidas em Disciplinas e trilhas.
           git add -A -- content public/arquivos historico lib/areas.ts i18n
-          if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
+          # Mudança relevante é a do conteúdo: historico/ sozinho (o resumo regravado do git log) não publica, mas vai junto
+          # quando há conteúdo novo.
+          if git diff --cached --quiet -- content public/arquivos lib/areas.ts i18n; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
       # O build gera mais de vinte mil páginas e enchia o disco da máquina do GitHub ("No space left on device"): antes
       # dele saem as ferramentas pré-instaladas que o projeto não usa (Android, .NET, Haskell, CodeQL), uns 25 GB.
       - if: steps.novo.outputs.sim == 'sim'

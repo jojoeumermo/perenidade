@@ -3,7 +3,7 @@
 // Busca nas checagens publicadas por agências (Lupa, Aos Fatos e outras) pelo Google Fact Check Tools.
 // Precisa da chave gratuita na variável GOOGLE_FACTCHECK_KEY do servidor (Vercel → Settings → Environment
 // Variables). Sem ela, responde { ativo: false } e a página esconde a busca. A chave nunca vai para o navegador.
-import { buscarJson, responder, termo } from "@/lib/externo";
+import { buscarJson, canonica, responder, termo } from "@/lib/externo";
 
 interface Resposta {
   claims?: {
@@ -18,6 +18,9 @@ export async function GET(pedido: Request) {
   const chave = process.env.GOOGLE_FACTCHECK_KEY ?? "";
   if (!chave) return responder({ ativo: false, checagens: [] }, 300);
   const busca = termo(new URL(pedido.url).searchParams.get("q"), 3, 100);
+  // A mesma busca escrita de outro jeito vai para o endereço normalizado: uma entrada só no cache da borda.
+  const normal = canonica(pedido, "q", busca);
+  if (normal) return normal;
   if (!busca) return responder({ ativo: true, checagens: [] }, 3600);
   const dados = await buscarJson<Resposta>(
     `https://factchecktools.googleapis.com/v1alpha1/claims:search?query=${encodeURIComponent(busca)}&languageCode=pt-BR&pageSize=10&key=${encodeURIComponent(chave)}`,

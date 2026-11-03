@@ -13,13 +13,34 @@ const bloqueadosDeIA = site.robosDeIA === "permitir-todos" ? [] : site.robosDeIA
 
 // O que nem os buscadores precisam ver: o painel, a entrada, a busca interna e as páginas que só fazem
 // sentido para quem está usando o site naquele momento. A rádio (diretório de emissoras) é pública.
-const fechado = ["/*/painel", "/*/entrar", "/*/certificado", "/*/meus-dados", "/*/busca", "/*/denunciar", "/*/reforco", "/*/fora-do-ar", "/api/"];
+// Também as cópias que só gastam a cota quando um robô as percorre: o texto puro e a zine de cada aula (a aula já está
+// liberada), os arquivos .json (índices de busca e dados que as páginas carregam sob pedido) e o original das trilhas
+// usado pelo painel de traduções. O "$" casa com o fim do endereço.
+const fechado = [
+  "/*/painel",
+  "/*/entrar",
+  "/*/certificado",
+  "/*/meus-dados",
+  "/*/busca",
+  "/*/denunciar",
+  "/*/reforco",
+  "/*/fora-do-ar",
+  "/api/",
+  "/*/trilhas/*/*/texto$",
+  "/*/trilhas/*/*/zine$",
+  "/*.json$",
+  "/*/original/",
+];
+// O /.well-known/ continua aberto (o assetlinks.json do aplicativo Android é .json): pela regra do Google, a regra mais
+// longa vence, e "/.well-known/" é mais longa que "/*.json$". O obras.json e o indice-leve.json também ficam abertos: as
+// páginas públicas os buscam no navegador, e o renderizador do Google precisa deles para ver a página como ela é.
+const aberto = ["/", "/.well-known/", "/*/obras.json$", "/*/indice-leve.json$"];
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", allow: "/", disallow: fechado },
-      { userAgent: ["Baiduspider", "YandexBot"], allow: "/", disallow: fechado },
+      { userAgent: "*", allow: aberto, disallow: fechado },
+      { userAgent: ["Baiduspider", "YandexBot"], allow: aberto, disallow: fechado },
       ...(bloqueadosDeIA.length ? [{ userAgent: bloqueadosDeIA, disallow: "/" }] : []),
     ],
     sitemap: `${site.url}/sitemap.xml`,

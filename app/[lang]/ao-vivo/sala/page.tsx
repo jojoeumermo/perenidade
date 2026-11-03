@@ -4,6 +4,8 @@ import Link from "@/components/Link";
 import { Suspense } from "react";
 import { SalaDeAula } from "@/components/aovivo/Sala";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { localePath } from "@/i18n/config";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ao-vivo/sala">): Promise<Metadata> {
@@ -18,7 +20,7 @@ export default async function Sala({ params }: PageProps<"/[lang]/ao-vivo/sala">
     <div className="mx-auto max-w-6xl px-4 py-8">
       <Link href={localePath(lang, "/ao-vivo")} className="voltar-da-pagina font-sans text-sm text-ink-soft hover:text-oxblood">← {t.live.title}</Link>
       <Suspense>
-        <SalaDeAula s={t.live} />
+        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><SalaDeAula s={t.live} /></I18nProvider>
       </Suspense>
     </div>
   );

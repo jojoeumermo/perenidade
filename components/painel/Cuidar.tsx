@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { can, type Me, recoverPending } from "@/lib/backend";
+import { can, getClient, type Me, recoverPending } from "@/lib/backend";
 import { Abas, Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
 import { RespostasProntas } from "./RespostasProntas";
 
@@ -452,7 +452,15 @@ export function SugerirEmissora() {
     if (procura.texto.trim().length < 2) return;
     setBuscando(true);
     try {
-      const dados = await (await fetch(`/api/radios?por=${procura.por}&q=${encodeURIComponent(procura.texto.trim())}`)).json();
+      // A busca é só da equipe: vai com o token da sessão, que o servidor confere no banco.
+      const { data } = await (await getClient()).auth.getSession();
+      const token = data.session?.access_token;
+      const resposta = await fetch(`/api/radios?por=${procura.por}&q=${encodeURIComponent(procura.texto.trim())}`, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+      if (resposta.status === 401) {
+        acao.setAviso("A busca de emissoras é só para quem tem função no painel. Saia e entre de novo se acabou de receber a função.");
+        return;
+      }
+      const dados = await resposta.json();
       setAchadas(dados.emissoras ?? []);
       if (dados.erro) acao.setAviso("O diretório de rádios não respondeu agora. Tente de novo em instantes.");
     } catch {

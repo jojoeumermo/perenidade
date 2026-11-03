@@ -5,6 +5,8 @@ import { ComoFunciona } from "@/components/ComoFunciona";
 import { Gaveta } from "@/components/Gaveta";
 import { Markdown } from "@/components/Markdown";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
 
@@ -25,7 +27,7 @@ export default async function GavetaPage({ params }: PageProps<"/[lang]/gaveta">
         {s.lead}
       </Cartaz>
       <ComoFunciona s={s.howItWorks} href="#publicar" />
-      <Gaveta s={s} termo={<Markdown lang={lang}>{termo.body}</Markdown>} />
+      <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><Gaveta s={s} termo={<Markdown lang={lang}>{termo.body}</Markdown>} /></I18nProvider>
     </div>
   );
 }

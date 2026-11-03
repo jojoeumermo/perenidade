@@ -22,6 +22,8 @@
 // SITE_URL (o endereço do site, para o link na descrição). SUPABASE_URL, SUPABASE_ANON_KEY e SUPABASE_SERVICE_ROLE_KEY o
 // serviço já põe sozinho.
 
+import { comCors } from "../_shared/cors.mjs";
+
 declare const Deno: { env: { get(nome: string): string | undefined }; serve(tratar: (pedido: Request) => Response | Promise<Response>): void };
 
 const base = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
@@ -34,8 +36,8 @@ const privacidade = ["unlisted", "public", "private"].includes(Deno.env.get("YOU
 const site = (Deno.env.get("SITE_URL") ?? "https://institutolucia.org").replace(/\/$/, "");
 const ligado = Boolean(cliente && segredo && renovacao);
 
+// Sem "Access-Control-Allow-Origin" aqui: quem põe é comCors (../_shared/cors.mjs), só para as origens do site.
 const cabecalhos = {
-  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Cache-Control": "no-store",
@@ -261,8 +263,7 @@ async function encerrar(id: string, sessao: string) {
 
 const uuid = (x: unknown): x is string => typeof x === "string" && /^[0-9a-f-]{36}$/.test(x);
 
-Deno.serve(async (pedido) => {
-  if (pedido.method === "OPTIONS") return new Response(null, { status: 204, headers: cabecalhos });
+Deno.serve(comCors(async (pedido) => {
   if (pedido.method !== "POST") return responder({ erro: "metodo" }, 405);
   if (!base || !anonima || !servico) return responder({ erro: "servico" });
   const corpo = (await pedido.json().catch(() => ({}))) as { acao?: string; id?: unknown; aula?: unknown };
@@ -281,4 +282,4 @@ Deno.serve(async (pedido) => {
     console.error(`youtube: ${corpo.acao} falhou (${motivo})`);
     return responder({ erro: motivo.includes("liveStreamingNotEnabled") ? "lives_desligadas" : motivo.includes("quotaExceeded") ? "cota" : "servico", motivo });
   }
-});
+}));

@@ -208,7 +208,7 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
       const { data, error } = await supabase.functions.invoke<{ texto?: string; vtt?: string; erro?: string }>("transcrever-audio", { body: corpo });
       if (error || !data || data.erro || !data.texto) {
         const e = data?.erro;
-        setAviso(e === "desligada" ? "A transcrição automática ainda não foi ligada: a coordenação precisa guardar a chave do serviço de Whisper (gratuita, na Groq) como segredo GROQ_API_KEY no Supabase. Até lá, escreva a transcrição à mão ou importe um .vtt." : e === "sem_permissao" ? "A transcrição é só para quem tem função no painel. Saia e entre de novo se acabou de receber a função." : e === "cota" ? "O serviço de transcrição atingiu a cota de agora. Tente mais tarde." : "A transcrição não respondeu. Tente de novo ou escreva à mão.");
+        setAviso(e === "desligada" ? "A transcrição automática ainda não foi ligada: a coordenação precisa guardar a chave do serviço de Whisper (gratuita, na Groq) como segredo GROQ_API_KEY no Supabase. Até lá, escreva a transcrição à mão ou importe um .vtt." : e === "sem_permissao" ? "A transcrição é só para quem tem função no painel. Saia e entre de novo se acabou de receber a função." : e === "cota" ? "O serviço de transcrição atingiu a cota de agora. Tente mais tarde." : e === "limite" ? "Você já transcreveu muitas vezes agora; tente mais tarde ou escreva à mão." : "A transcrição não respondeu. Tente de novo ou escreva à mão.");
         return;
       }
       setForm((f) => ({ ...f, transcricao: data.texto ?? "", legenda: data.vtt || f.legenda }));

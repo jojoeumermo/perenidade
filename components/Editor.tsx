@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { hasBackend, rpc } from "@/lib/backend";
+import { getClient, hasBackend, rpc } from "@/lib/backend";
 import { htmlLang } from "@/i18n/config";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { EditorPorBlocos } from "./EditorPorBlocos";
@@ -248,7 +248,9 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
       const text = value.slice(0, 20000);
       lastChecked.current = value;
       // Pelo próprio site (app/api/gramatica), que fala com o LanguageTool do instituto ou, sem ele, com o serviço público.
-      const response = await fetch("/api/gramatica", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, language: lang === "pt" ? "pt-BR" : "auto" }) });
+      // Com sessão, a equipe vai no nível dela (mais pedidos e textos mais longos); sem sessão, no de visitante.
+      const sessao = hasBackend ? (await (await getClient()).auth.getSession()).data.session : null;
+      const response = await fetch("/api/gramatica", { method: "POST", headers: { "Content-Type": "application/json", ...(sessao ? { Authorization: `Bearer ${sessao.access_token}` } : {}) }, body: JSON.stringify({ text, language: lang === "pt" ? "pt-BR" : "auto" }) });
       if (!response.ok) throw new Error("conferencia");
       const data = (await response.json()) as CheckResponse;
       setReserva(Boolean(data.reserva));

@@ -80,3 +80,6 @@ next-env.d.ts
 
 # Modelos das vozes naturais, baixados por npm run vozes:baixar (dezenas de MB; nunca no Git). As amostras ficam.
 /public/vozes/
+
+# Plano interno do coordenador (repositório público: não publicar)
+docs/plano-2026-11/

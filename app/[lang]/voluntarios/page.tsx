@@ -8,6 +8,8 @@ import { originalLang, Untranslated } from "@/components/Untranslated";
 import { VolunteerForm } from "@/components/VolunteerForm";
 import voluntariado from "@/content/voluntariado.json";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { localePath } from "@/i18n/config";
 import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
@@ -138,7 +140,7 @@ export default async function Voluntarios({ params }: PageProps<"/[lang]/volunta
 
       <TarefasDeVoluntariado />
       <div className="mx-auto max-w-3xl">
-        <VolunteerForm s={s} tarefas={voluntariado.tarefas.map(({ id, titulo }) => ({ id, titulo }))} />
+        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><VolunteerForm s={s} tarefas={voluntariado.tarefas.map(({ id, titulo }) => ({ id, titulo }))} /></I18nProvider>
       </div>
       <p className="no-print mx-auto mt-10 max-w-3xl border-t border-rule pt-6 font-sans text-sm text-ink-soft">
         <Link href={`${localePath(lang, "/contribuir")}?corrigir=${encodeURIComponent("/voluntarios")}`} className="underline hover:text-oxblood">

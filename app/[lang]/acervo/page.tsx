@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { AcervoBrowser } from "@/components/AcervoBrowser";
 import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
 import { getBooks } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
@@ -32,7 +34,7 @@ export default async function Acervo({ params }: PageProps<"/[lang]/acervo">) {
         {t.library.lead}
       </Cartaz>
       <Suspense>
-        <AcervoBrowser books={books} novidades={novidades} />
+        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><AcervoBrowser books={books} novidades={novidades} /></I18nProvider>
       </Suspense>
     </div>
   );

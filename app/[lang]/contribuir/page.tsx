@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { ContributeForm } from "@/components/ContributeForm";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { textosDoEstudo } from "@/lib/textos-estudo";
@@ -53,7 +55,7 @@ export default async function Contribuir({ params }: PageProps<"/[lang]/contribu
             {regras}
           </details>
           <Suspense>
-            <ContributeForm s={c} />
+            <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><ContributeForm s={c} /></I18nProvider>
           </Suspense>
         </div>
 

@@ -1,10 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { ImageResponse } from "next/og";
+import { isLocale } from "@/i18n/config";
+import { assinaturaOgConfere, OG_LIMITES, tamanhoOg } from "@/lib/seo";
 
 /**
  * A imagem de compartilhamento de cada página (1200 por 630): o título, uma linha de contexto e a marca, no desenho
  * dos cartazes do instituto. As letras vêm do Google Fonts já recortadas só com os caracteres do texto (o que permite
  * chinês e russo sem baixar a família inteira) e ficam em memória enquanto o processo dura.
+ * Só desenha os cartões que o próprio site monta (lib/seo.ts, ogDe): com o segredo OG_SEGREDO configurado, o endereço
+ * precisa da assinatura "h"; sem assinatura válida, ou com campo maior do que o site manda, vai para o cartão genérico.
  */
 export const runtime = "nodejs";
 
@@ -54,12 +58,20 @@ function marcaDe(origem: string) {
   return marca;
 }
 
+/** O cartão genérico, para pedido que não veio do site. Guardado na borda: o robô que insiste não chega aqui de novo. */
+const generico = (request: Request) =>
+  new Response(null, { status: 302, headers: { Location: new URL("/cartao-lucia.png", request.url).toString(), "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const lang = limpar(searchParams.get("l"), 2) || "pt";
-  const titulo = limpar(searchParams.get("t"), 120) || "Instituto Lúcia";
-  const sub = limpar(searchParams.get("s"), 160);
-  const kicker = limpar(searchParams.get("k"), 60);
+  const campos = { l: searchParams.get("l") ?? "", t: searchParams.get("t") ?? "", s: searchParams.get("s") ?? "", k: searchParams.get("k") ?? "" };
+  // O site nunca manda campo maior do que estes limites (ogDe corta antes): maior que isso não é pedido do site.
+  if (tamanhoOg(campos.t) > OG_LIMITES.t || tamanhoOg(campos.s) > OG_LIMITES.s || tamanhoOg(campos.k) > OG_LIMITES.k) return generico(request);
+  if (!assinaturaOgConfere(campos, searchParams.get("h") ?? "")) return generico(request);
+  const lang = isLocale(campos.l) ? campos.l : "pt";
+  const titulo = limpar(campos.t, OG_LIMITES.t) || "Instituto Lúcia";
+  const sub = limpar(campos.s, OG_LIMITES.s);
+  const kicker = limpar(campos.k, OG_LIMITES.k);
   const arroba = "@institutoluciaorg";
   const texto = [...new Set((titulo + sub + "Instituto Lúcia").split(""))].join("");
   const textoMono = [...new Set((kicker.toUpperCase() + arroba + "institutolucia.org").split(""))].join("");
