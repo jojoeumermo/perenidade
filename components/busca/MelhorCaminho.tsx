@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
-import type { TextosDaBusca } from "@/lib/escola/indice";
+import type { TextosDaBusca } from "@/lib/escola/textos-da-busca";
 import { casar, type Destino, hrefDe, type Intencao } from "@/lib/intencoes";
 import { ligado } from "@/lib/recursos";
 import type { SearchEntry } from "@/lib/search";

@@ -2,7 +2,7 @@
 "use client";
 
 import { createContext, type ReactNode, useContext } from "react";
-import type { TextosDaBusca } from "@/lib/escola/indice";
+import type { TextosDaBusca } from "@/lib/escola/textos-da-busca";
 
 // Os textos da busca viva, do "Por onde andei", dos três passos e do modo seguro (i18n/escola/busca), só no idioma da
 // página. O layout escolhe no servidor e passa por aqui, para os componentes de cliente espalhados pelo site (a busca do
