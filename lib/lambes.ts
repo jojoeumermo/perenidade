@@ -41,17 +41,22 @@ function todos(): Entrada[] {
 const mesEDia = (dia: number) => new Date(dia * 86_400_000).toISOString().slice(5, 10);
 
 /**
- * Os lambe-lambes dos próximos dias, a partir do dia da montagem da página. Cada dia do ano tem o seu (as datas de luta
- * caem no próprio dia), com o carimbo e a xilogravura do mesmo tema. A página inicial é estática: o navegador escolhe
- * entre estes o do dia de hoje, e assim todo mundo vê o mesmo cartaz no mesmo dia (passado o fim da lista, fica o último).
+ * Os lambe-lambes dos próximos dias, a partir do dia da montagem da página. As datas de festa e de luta (formato
+ * "festa") caem no próprio dia; nos outros dias o cartaz sai embaralhado do resto do estoque, sem repetir até o estoque
+ * acabar, para não andar em ordem. A página inicial é estática: o navegador escolhe entre estes o do dia de hoje, e
+ * assim todo mundo vê o mesmo cartaz no mesmo dia (passado o fim da lista, fica o último).
  */
 export function lambesDaSemana(lang: Locale, dias = 40): LambeDoDia[] {
   const lista = todos();
-  const porDia = new Map(lista.map((item, i) => [item.dia, { item, numero: i + 1 }]));
+  const numerados = lista.map((item, i) => ({ item, numero: i + 1 }));
+  const datas = new Map(numerados.filter((n) => n.item.formato === "festa").map((n) => [n.item.dia, n]));
+  const soltos = numerados.filter((n) => n.item.formato !== "festa");
+  // Passo primo com o tamanho do estoque: percorre todos antes de repetir, fora de ordem.
+  const passo = soltos.length % 137 === 0 ? 139 : 137;
   const hoje = diaDe(new Date());
   return Array.from({ length: dias }, (_, i) => {
     const dia = hoje + i;
-    const achado = porDia.get(mesEDia(dia)) ?? { item: lista[0], numero: 1 };
+    const achado = datas.get(mesEDia(dia)) ?? soltos[(((dia * passo + 71) % soltos.length) + soltos.length) % soltos.length] ?? numerados[0];
     const traduzido = achado.item[lang];
     const lambe = typeof traduzido === "object" && traduzido ? traduzido : achado.item.pt;
     return { dia, numero: achado.numero, lambe: { ...lambe, carimbo: lambe.carimbo ?? achado.item.pt.carimbo }, xilo: achado.item.xilo, formato: achado.item.formato ?? "grito" };
