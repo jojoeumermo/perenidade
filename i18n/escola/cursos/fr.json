@@ -80,6 +80,7 @@
     "titulo": "Plan du cours",
     "modulo": "Module {n}",
     "tempoEscola": "Temps école",
+    "retornoDoModulo": "Bilan du module",
     "tempoTrabalho": "Temps travail",
     "tempoTrabalhoAviso": "Faites les tâches avec les précautions enseignées dans les leçons. Rien sur une installation électrique sous tension, rien sans hygiène et rien sans l'accord des personnes concernées.",
     "feita": "faite",

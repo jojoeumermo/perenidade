@@ -1,0 +1,537 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Turmas por curso da Escola Lúcia Maria (Etapa 4, pacote E4-15): lista de turmas, página da turma (cronograma,
+ * consentimento do curso sensível, monitoria, seminário, orientação), círculo de cultura digital, banca popular e
+ * cartaz da turma. Mesmo visual do Caderno do Povo: papel, tinta, fio fino e o vermelho da margem. Celular de entrada
+ * primeiro: nada passa de 360 px de largura.
+ */
+
+/* ── Blocos e textos comuns ── */
+.turma-bloco {
+  margin-top: 2.5rem;
+  border-top: 3px solid var(--ink);
+  padding-top: 1rem;
+  min-width: 0;
+}
+.turma-bloco-titulo {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.turma-bloco-texto {
+  margin-top: 0.5rem;
+  max-width: 65ch;
+  color: var(--ink-soft);
+}
+.turma-nota {
+  margin-top: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.turma-aviso {
+  margin-top: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--prelo-texto);
+}
+.turma-aviso:empty,
+.turma-nota:empty {
+  display: none;
+}
+.turma-modulo {
+  margin-top: 0.25rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+}
+.turma-botoes {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.turma-lista {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.turma-lista > li {
+  min-width: 0;
+  border-left: 3px solid #c21f16;
+  padding-left: 0.75rem;
+  overflow-wrap: anywhere;
+}
+.turma-roteiro {
+  margin-top: 0.6rem;
+  display: grid;
+  gap: 0.4rem;
+  padding-left: 1.4rem;
+  list-style: decimal;
+  max-width: 65ch;
+}
+ul.turma-roteiro {
+  list-style: disc;
+}
+.turma-convite {
+  margin-top: 1rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment-deep);
+  padding: 0.9rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.turma-fonte {
+  margin-top: 1.25rem;
+  border-left: 4px solid var(--rule);
+  padding-left: 0.9rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* ── Campos ── */
+.turma-rotulo-campo {
+  display: block;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.turma-input {
+  margin-top: 0.25rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  color: var(--ink);
+}
+.turma-concordo {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+.turma-concordo input {
+  margin-top: 0.2rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  accent-color: var(--ink);
+}
+
+/* ── Lista de turmas ── */
+.turmas-lista {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+.turmas-cartao {
+  min-width: 0;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 1.1rem;
+}
+.turmas-meses {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  .turmas-cartao {
+    padding: 1.5rem;
+  }
+  .turmas-meses {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.links-da-turma {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .links-da-turma {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.link-da-turma {
+  display: block;
+  height: 100%;
+  border: 1px solid var(--rule);
+  padding: 1rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.link-da-turma:hover {
+  border-color: var(--ink);
+}
+
+/* ── Entrar, consentimento e sair ── */
+.turma-entrar {
+  margin-top: 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.turma-inscritos {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.turma-sem-conta p {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.turma-sem-conta .botao {
+  margin-top: 0.6rem;
+}
+/* O quadro do consentimento: destacado das demais informações (LGPD, art. 8º, § 1º, e art. 11, I). */
+.turma-consentimento {
+  margin-top: 0.9rem;
+  border: 3px solid var(--ink);
+  border-left: 10px solid #c21f16;
+  background: var(--parchment-deep);
+  padding: 0.9rem 1rem;
+}
+.turma-consentimento-titulo {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.turma-consentimento-texto {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.turma-consentimento-lei {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+/* ── Cronograma ── */
+.turma-cronograma {
+  margin-top: 1.25rem;
+}
+.turma-progresso {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.turma-semanas {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  .turma-semanas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.turma-semana {
+  min-width: 0;
+  border-top: 3px solid var(--ink);
+  padding-top: 0.6rem;
+}
+.turma-semana-rotulo {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--prelo-texto);
+}
+.turma-aulas {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.turma-aulas > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.turma-caixa {
+  margin-top: 0.25rem;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border: 2px solid var(--ink);
+}
+.turma-caixa-feita {
+  background: var(--ink);
+}
+.turma-aula-link {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: #c21f16;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+.turma-aula-link:hover {
+  color: var(--prelo-texto);
+}
+.turma-aula-dados {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.turma-encontro {
+  margin-top: 0.5rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.turma-encontro-seminario {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ── Seminário: cronômetro ── */
+.turma-cronometro {
+  margin-top: 1.25rem;
+  border: 2px solid var(--ink);
+  padding: 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.turma-cronometro-numero {
+  margin-top: 0.25rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(2.6rem, 14vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.turma-cronometro--aviso {
+  border-color: var(--gold);
+  border-width: 4px;
+}
+.turma-cronometro--fim {
+  border-color: #c21f16;
+  border-width: 4px;
+}
+.turma-cronometro--fim .turma-cronometro-numero {
+  color: var(--prelo-texto);
+}
+.turma-cronometro-aviso {
+  margin-top: 0.6rem;
+  min-height: 1.5rem;
+  font-weight: 700;
+}
+
+/* ── Círculo de cultura digital ── */
+.circulo-passo {
+  margin-top: 2.25rem;
+  border-top: 3px solid var(--ink);
+  padding-top: 0.9rem;
+  min-width: 0;
+}
+.circulo-campo {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+.circulo-campo > label {
+  flex: 1 1 14rem;
+}
+.circulo-palavras,
+.circulo-sugestoes {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.circulo-palavras > li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+  border: 2px solid var(--ink);
+  background: var(--parchment-deep);
+  padding: 0.2rem 0.25rem 0.2rem 0.6rem;
+  overflow-wrap: anywhere;
+}
+.circulo-chip {
+  min-height: 2.5rem;
+  border: 1px solid var(--ink);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+}
+.circulo-chip:hover {
+  border-color: #c21f16;
+  color: var(--prelo-texto);
+}
+.circulo-tirar {
+  min-width: 2rem;
+  min-height: 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+.circulo-tirar:hover {
+  color: var(--prelo-texto);
+}
+.circulo-achadas {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.circulo-achadas > li,
+.circulo-guardado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.6rem;
+}
+.circulo-sequencia,
+.circulo-link {
+  margin-top: 1.1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.circulo-pedido {
+  margin-top: 0.75rem;
+  border-left: 4px solid #c21f16;
+  background: var(--parchment-deep);
+  padding: 0.6rem 0.9rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  overflow-wrap: anywhere;
+}
+
+/* ── Banca popular ── */
+.banca-roteiro {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.banca-roteiro > li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+}
+.banca-tempo {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--prelo-texto);
+}
+.banca-ficha {
+  margin-top: 2.5rem;
+  border: 2px solid var(--ink);
+  padding: 1rem;
+}
+.banca-campos {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.9rem;
+}
+@media (min-width: 640px) {
+  .banca-ficha {
+    padding: 1.5rem;
+  }
+  .banca-campos {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+.banca-competencias {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 1.1rem;
+}
+.banca-texto {
+  min-height: 5.5rem;
+}
+.banca-pessoas {
+  margin-top: 1.25rem;
+  border: 1px solid var(--rule);
+  padding: 0.75rem 1rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+
+/* ── Cartaz da turma ── */
+.cartaz-folha {
+  margin-top: 1.5rem;
+  border: 1px solid var(--rule);
+  background: var(--parchment);
+  padding: 1rem;
+  min-width: 0;
+}
+.cartaz-frases {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.9rem;
+}
+@media (min-width: 640px) {
+  .cartaz-frases {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.cartaz-frase {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.25rem 0.5rem;
+  border-left: 5px solid #c21f16;
+  padding-left: 0.75rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.cartaz-frase > span:first-child {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.cartaz-aviso-nome {
+  flex-basis: 100%;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--prelo-texto);
+}
+.cartaz-rodape {
+  margin-top: 1.5rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* Imprimir o cartaz: só a folha, sem a moldura do site (o PDF sai da caixa de impressão do navegador). */
+@media print {
+  body:has([data-cartaz-folha])
+    :is(header, nav, footer, aside):not([data-cartaz-folha] *) {
+    display: none !important;
+  }
+  [data-cartaz-folha] {
+    margin: 0;
+    border: 0;
+    background: #fff;
+    padding: 0;
+  }
+  .banca-ficha {
+    border: 0;
+    padding: 0;
+  }
+  .banca-ficha textarea,
+  .banca-ficha input,
+  .banca-ficha select {
+    border-width: 1px;
+  }
+}

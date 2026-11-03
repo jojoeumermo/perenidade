@@ -3,10 +3,22 @@
 
 import { useEffect, useState } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
+import { linkDoPonto, pontoDaAula } from "@/lib/posicao-da-aula";
+import type { LastLesson } from "@/lib/progress";
+import { ligado } from "@/lib/recursos";
 import type { Catalogo, Episodio } from "@/lib/podcast";
 import { useCompleted, useLastLesson } from "@/lib/progress";
 import { useHydrated } from "@/lib/storage";
 import { L } from "../I18n";
+
+/**
+ * O endereço do "continue de onde parou": com a Escola ligada (E4-09), vai direto ao parágrafo onde a pessoa parou
+ * (linkDoPonto, só a âncora; nada vai para o servidor). Sem ela, o caminho da aula, como sempre. Só depois da hidratação.
+ */
+export function enderecoDeContinuar(ultima: LastLesson): string {
+  if (!ligado("escola") || !ultima.path.startsWith("/trilhas/")) return ultima.path;
+  return linkDoPonto(ultima.path, pontoDaAula(ultima.path.slice("/trilhas/".length).split("#")[0]));
+}
 
 /**
  * A primeira janela da inicial: a última aula aberta neste aparelho, com o botão de retomar. Quem ainda não abriu
@@ -31,7 +43,7 @@ export function JanelaContinue({ textos }: { textos: { continuar: string; retoma
               ))}
             </p>
           )}
-          <L href={ultima.path} className="botao botao-tinta mt-auto self-start">
+          <L href={enderecoDeContinuar(ultima)} className="botao botao-tinta mt-auto self-start">
             {textos.retomar} →
           </L>
         </>

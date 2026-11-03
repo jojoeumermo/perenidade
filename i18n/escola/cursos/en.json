@@ -80,6 +80,7 @@
     "titulo": "Course plan",
     "modulo": "Module {n}",
     "tempoEscola": "School time",
+    "retornoDoModulo": "Module feedback",
     "tempoTrabalho": "Work time",
     "tempoTrabalhoAviso": "Do the tasks with the care taught in the lessons. Nothing on a live electrical installation, nothing without hygiene and nothing without the permission of the people involved.",
     "feita": "done",

@@ -1,0 +1,269 @@
+{
+  "meta": {
+    "turmas": {
+      "titulo": "Classes by course",
+      "descricao": "Study a School course together with other people: one module per month, two lessons per week and a video meeting on Wednesdays."
+    },
+    "curso": {
+      "titulo": "{curso} class",
+      "descricao": "The month's schedule, the weekly meeting, peer tutoring, the seminar and final project mentoring for the course {curso}."
+    },
+    "circulo": {
+      "titulo": "Digital culture circle",
+      "descricao": "A tool for whoever facilitates a meeting: from the group's words to a sequence of lessons, all on your device."
+    },
+    "banca": {
+      "titulo": "Online community panel",
+      "descricao": "A 30-minute video script to present the final project and an ungraded feedback sheet."
+    },
+    "cartaz": {
+      "titulo": "Class poster",
+      "descricao": "Build the collective poster of the graduating class, with one sentence from each person, and download it as an image or PDF."
+    }
+  },
+  "lista": {
+    "olho": "Lúcia Maria School",
+    "titulo": "Classes by course",
+    "lead": "Each course has one class per month: one module, two lessons per week and a video meeting every Wednesday at 7:30 pm Brasília time. You keep studying at your own pace and your progress stays on your device.",
+    "agora": "This month's class",
+    "proxima": "Next month's class",
+    "modulo": "Module of the month: {modulo}",
+    "verTurma": "See the class schedule",
+    "semCursos": "No course has a class yet.",
+    "ferramentasTitulo": "For facilitators and graduates",
+    "circulo": "Digital culture circle",
+    "circuloTexto": "From the group's words and problems to a sequence of lessons, with a link and QR code.",
+    "banca": "Online community panel",
+    "bancaTexto": "A 30-minute script and a feedback sheet to present the final project.",
+    "cartaz": "Class poster",
+    "cartazTexto": "One sentence from each person on the graduating class's collective poster.",
+    "comoTitulo": "How it works",
+    "como": [
+      "Join the class with your account. The site only stores that this account is in the course's class for that month.",
+      "Study the two lessons of the week when you can. What you have done is marked, read from your device.",
+      "Every Wednesday at 7:30 pm Brasília time, the class meets by video in the room, which only appears to those who joined.",
+      "The last meeting of the month is the seminar: someone presents a topic in 10 minutes.",
+      "Leave whenever you want: leaving deletes the record."
+    ],
+    "turmaDoMes": "The site's Class of the month stays open to everyone, without a course:",
+    "turmaDoMesLink": "see the Class of the month"
+  },
+  "turma": {
+    "agoraRotulo": "This month",
+    "proximaRotulo": "Next month",
+    "inscritos": "{n} people in the class",
+    "inscritaUma": "1 person in the class",
+    "entrar": "Join the class",
+    "avisar": "Join next month's class",
+    "sair": "Leave the class",
+    "abrirSala": "Open the meeting room",
+    "semConta": "To join a class you need an account on the site: it is what stores that you are in the class.",
+    "entrarNaConta": "Sign in to my account",
+    "semServico": "Classes need the site's service, which is not turned on at this address. The lessons remain open.",
+    "erro": "Could not change the class right now. Try again in a moment.",
+    "dentro": "You are in this class. The meeting is every Wednesday at 7:30 pm Brasília time, in the room.",
+    "dentroProxima": "You are in next month's class. The room appears when the month begins.",
+    "saiu": "You left the class and the record was deleted.",
+    "sensivelTitulo": "Before joining: this course is about politics",
+    "sensivelTexto": "To join the class, the Institute stores that this account is in the class of this course, which is about politics. Only your account sees it; you can leave whenever you want, and leaving deletes the record.",
+    "sensivelLei": "Taking part in a class about politics may reveal political opinion, which Brazil's General Data Protection Law (Law 13,709/2018, art. 5, II) treats as sensitive personal data. That is why the record is only made with your specific and highlighted consent (art. 11, I), and you can withdraw it at any time by leaving the class (art. 8, § 5).",
+    "concordo": "I agree",
+    "marqueConcordo": "To join, tick “I agree”. Without it, nothing is sent.",
+    "consentimento": "This class's record needs your consent: tick “I agree” and try again.",
+    "progresso": "{feitas} of {total} lessons of the month done on this device",
+    "continua": "The module continues next month: this month has the first {n} lessons.",
+    "semana": "Week {n} · from {data}",
+    "encontro": "Meeting: Wednesday, {data}, at 7:30 pm Brasília time",
+    "seminario": "Seminar: Wednesday, {data}, at 7:30 pm Brasília time",
+    "semAulaNaSemana": "A week to catch up and review the lessons.",
+    "minutos": "{n} min",
+    "feita": "done",
+    "baixarIcs": "Add the meetings to my calendar (.ics)",
+    "icsDescricao": "Course class meeting at the Lúcia Maria School. The room appears on the class page for those who joined.",
+    "nomeDoIcs": "class-meetings"
+  },
+  "curso": {
+    "olho": "Course class",
+    "voltar": "Classes by course",
+    "paginaDoCurso": "Course page",
+    "cronogramaTitulo": "Schedule of the month",
+    "conteudoEmPortugues": "The course content is in Portuguese."
+  },
+  "monitoria": {
+    "titulo": "Peer tutoring",
+    "texto": "Tutors are people who have already graduated from this course and help in the class room at the agreed time. The coordination checks each name before adding it to the list.",
+    "nenhum": "There is no tutoring for this course this month yet.",
+    "horario": "In the room: {horario}",
+    "querSer": "I want to be a tutor",
+    "querSerTexto": "You graduated from this course on this device. To be a tutor, send a message through the volunteer page writing “monitoria do curso {curso}”. Nothing is sent automatically: you write it and send it.",
+    "voluntarieSe": "Go to the volunteer page"
+  },
+  "seminario": {
+    "titulo": "Class seminar",
+    "texto": "The last meeting of the month is the seminar: one person presents a topic in 10 minutes, by video, in the room. Who will present is agreed in the room itself; none of this goes to the server.",
+    "data": "This month, the seminar is on Wednesday, {data}, at 7:30 pm Brasília time.",
+    "roteiroTitulo": "Presentation outline",
+    "roteiro": [
+      "The question: what did you want to understand?",
+      "What I studied: the lessons and readings that helped.",
+      "An example from the neighbourhood: where this shows up in the lives of people nearby.",
+      "A question for the class: to keep the conversation going."
+    ],
+    "cronometro": "10-minute timer",
+    "comecar": "Start",
+    "pausar": "Pause",
+    "continuar": "Resume",
+    "zerar": "Reset",
+    "aviso": "2 minutes left: time to move to the question for the class.",
+    "fim": "The 10 minutes are over."
+  },
+  "orientacao": {
+    "titulo": "Final project mentoring",
+    "texto": "Mentors follow the final project of people studying the course. There are few places per semester and the coordination manages the list.",
+    "nenhum": "There is no mentor with a free place in this course yet.",
+    "vagas": "{n} places this semester",
+    "vagaUma": "1 place this semester",
+    "pelaRede": "Send a message on the Lúcia Network to the profile {perfil}, saying the course and the idea for the project.",
+    "abrirRede": "Open the Lúcia Network",
+    "peloEmail": "Write to the Institute's email, {email}, with the subject “orientação do curso {curso}” and the name of the person you want as your mentor.",
+    "mentoria": "The mentoring role in the dashboard stays as it is."
+  },
+  "circulo": {
+    "olho": "Lúcia Maria School · for facilitators",
+    "titulo": "Digital culture circle",
+    "lead": "A tool for whoever facilitates a class meeting, in 5 steps inspired by Paulo Freire's culture circles. Everything stays only on this device: nothing goes to the server.",
+    "fonte": "Reference:",
+    "fonteTexto": "GUIMARÃES, Alessandro et al. A palavra é... Paulo Freire. Pró-Discente, Vitória (ES), v. 23, n. 1, p. 61-78, Jan./Jun. 2017.",
+    "fonteNota": "The article works through Freire's thought using generative words, in an exercise inspired by the culture circle. The 5 steps below are the Institute's adaptation for a video meeting.",
+    "passo": "Step {n} of 5",
+    "p1Titulo": "Gather the vocabulary universe",
+    "p1Texto": "Write down the words and problems the group brings, the way people say them. Do not write people's names.",
+    "p1Campo": "Word or problem",
+    "p1Acrescentar": "Add",
+    "p1Tirar": "Remove “{palavra}”",
+    "p1Vazio": "No words yet.",
+    "p2Titulo": "Choose a generative theme",
+    "p2Texto": "With the group, choose a word or combine a few into a theme that sparks the conversation.",
+    "p2Campo": "Generative theme",
+    "p2Usar": "Use “{palavra}” as the theme",
+    "p3Titulo": "Problematize",
+    "p3Texto": "Guiding questions for the conversation. Use the ones that help and write others.",
+    "p3Guias": [
+      "Where does this show up in our daily lives?",
+      "Why is it like this? Has it always been like this?",
+      "Who wins and who loses with this?",
+      "What have we, or other people, already done about it?",
+      "What can we do together from here?"
+    ],
+    "p3Campo": "Another question",
+    "p3Acrescentar": "Add question",
+    "p4Titulo": "Look for lessons on the theme",
+    "p4Texto": "The search runs on this device, in the site's lesson index. Choose the lessons and build a class-mode sequence, with a link and QR code for the group to open.",
+    "p4Buscar": "Search lessons on the theme",
+    "p4Carregando": "Loading the lesson index…",
+    "p4Falhou": "Could not load the lesson index. Check the connection and try again.",
+    "p4Nada": "No lesson on the site about this theme.",
+    "p4Escolher": "Add to the sequence",
+    "p4Tirar": "Remove from the sequence",
+    "p4Escolhidas": "{n} lessons in the sequence (up to {max})",
+    "p4Gerar": "Create the class link",
+    "p4Link": "Sequence link for the class",
+    "p4Qr": "QR code of the sequence link",
+    "p4Abrir": "Open the sequence",
+    "p5Titulo": "If there is no lesson, request one",
+    "p5Texto": "If the site has no lesson on the theme, ask through the contribute page: choose “An idea” and write the request. Nothing is sent automatically.",
+    "p5Modelo": "Lesson request about: {tema}",
+    "p5Pedir": "Request a lesson on this theme",
+    "semTema": "Choose a theme in step 2.",
+    "guardado": "Saved on this device.",
+    "guardadosTitulo": "Circles saved on this device",
+    "guardadosTexto": "Up to {max} circles. The oldest are removed beyond that.",
+    "abrir": "Open",
+    "apagar": "Delete",
+    "apagarTudo": "Delete all circles on this device",
+    "novo": "Start a new circle",
+    "semTitulo": "Circle without a theme",
+    "copiar": "Copy",
+    "copiado": "Copied"
+  },
+  "banca": {
+    "olho": "Lúcia Maria School · final project",
+    "titulo": "Online community panel",
+    "lead": "A 30-minute video conversation to present the course's final project. The in-person panel comes later.",
+    "quemTitulo": "Who is on the panel",
+    "quem": ["An educator", "A classmate", "Someone from the community"],
+    "roteiroTitulo": "30-minute script",
+    "roteiro": [
+      [
+        "10 min",
+        "Presentation: the person explains the project, what they did and what they learned."
+      ],
+      [
+        "15 min",
+        "Conversation: questions from the panel and from the person, no exam and no trick questions."
+      ],
+      [
+        "5 min",
+        "Feedback: each skill on the sheet, with what went well and the next step."
+      ]
+    ],
+    "sala": "The room is the course class room, for those who joined it, or another one agreed between the people.",
+    "fichaTitulo": "Feedback sheet",
+    "fichaTexto": "No grade. Print it or fill it in on this device. What you write stays only here.",
+    "competencias": {
+      "clareza": "Clarity",
+      "curso": "Connection with the course",
+      "vida": "Connection with life",
+      "proximo": "Next step"
+    },
+    "perguntas": {
+      "clareza": "Was it possible to understand the project and what was done?",
+      "curso": "Does the project use what the course taught?",
+      "vida": "Does the project speak to the lives of people in the community?",
+      "proximo": "What can be done next?"
+    },
+    "curso": "Course",
+    "escolhaCurso": "Choose the course",
+    "data": "Date of the panel",
+    "pessoasTitulo": "People on the panel (optional)",
+    "pessoasTexto": "Write only the names of people who agreed: each person must have given permission. It stays only in your record book.",
+    "pessoa": "Person {n}",
+    "permissao": "Each person whose name I wrote agreed to have it in my record book.",
+    "imprimir": "Print the sheet",
+    "registrar": "Save in my record book",
+    "registrado": "Saved in your record book, on this device.",
+    "falta": "Choose the course, the date and write at least one piece of feedback.",
+    "faltaPermissao": "Confirm the permission of the people whose names are written, or delete the names.",
+    "tituloDoRegistro": "Project presented to a panel",
+    "caderneta": "See the record book"
+  },
+  "cartaz": {
+    "olho": "Lúcia Maria School · the class's living archive",
+    "titulo": "Class poster",
+    "lead": "The collective poster of the graduating class. The facilitator types one sentence from each person. The course and the semester go on it; no full names. Everything is put together on this device.",
+    "curso": "Course",
+    "escolhaCurso": "Choose the course",
+    "semestre": "Semester",
+    "frase": "One person's sentence",
+    "acrescentar": "Add sentence",
+    "tirar": "Remove sentence {n}",
+    "vazio": "No sentences yet.",
+    "avisoNome": "This sentence seems to contain a full name. Check it: the poster has no full names.",
+    "slogan": "The class's living archive",
+    "formatura": "Class graduating in {semestre}",
+    "baixarPng": "Download image (PNG)",
+    "imprimir": "Print or save as PDF",
+    "imprimirDica": "For a PDF, choose “Save as PDF” in the print dialog.",
+    "gerando": "Generating…",
+    "falhou": "Could not generate the image on this device.",
+    "nomeDoArquivo": "class-poster",
+    "galeriaTitulo": "To take the poster to the Gallery",
+    "galeriaTexto": "Nothing is published automatically. With the class's agreement, send the PNG through the Open Drawer, using the existing form: type “other” and the CC BY-SA 4.0 licence. The coordination checks it and adds the poster to the Gallery.",
+    "gaveta": "Go to the Open Drawer",
+    "limite": "{n} of {max} sentences"
+  },
+  "linkTurmas": {
+    "titulo": "Classes by course",
+    "texto": "At the Lúcia Maria School, each course has its own class of the month."
+  }
+}

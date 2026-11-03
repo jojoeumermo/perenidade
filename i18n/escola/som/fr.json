@@ -1,0 +1,71 @@
+{
+  "player": {
+    "continuar": "Reprendre",
+    "continuarRotulo": "Reprendre là où vous vous êtes arrêté : {titulo}",
+    "descartar": "Écarter et ne plus afficher",
+    "regiao": "Reprendre la radio",
+    "estudo": "Pour étudier",
+    "estudoRegiao": "Son pour étudier",
+    "pararEstudo": "Arrêter le son pour étudier",
+    "volume": "Volume"
+  },
+  "som": {
+    "rotulo": "Chaîne",
+    "titulo": "Pour étudier (sans paroles)",
+    "lead": "Un fond sonore continu, sans voix et sans musique, pour aider à se concentrer. Choisissez-en un et réglez le volume.",
+    "honesto": "Des sons produits sur votre appareil. Les musiques libres arriveront quand l’équipe aura vérifié leur licence.",
+    "tipos": {
+      "marrom": { "nome": "Bruit brun", "descricao": "Grave et étouffé, comme un grondement lointain." },
+      "rosa": { "nome": "Bruit rose", "descricao": "Équilibré, comme un vent régulier." },
+      "chuva": { "nome": "Pluie", "descricao": "Un bruit filtré qui monte et descend, comme la pluie sur le toit." }
+    },
+    "tocar": "Lire : {nome}",
+    "parar": "Arrêter",
+    "volume": "Volume",
+    "tocando": "En cours : {nome}",
+    "parado": "Rien en cours pour l’instant.",
+    "voz": "Quand la voix d’une leçon commence à lire, le son descend à 30 % puis revient ensuite.",
+    "semAudio": "Ce navigateur ne peut pas produire de son."
+  },
+  "hoje": {
+    "rotulo": "Radio de l’École",
+    "titulo": "Aujourd’hui sur le campus",
+    "lead": "Un texte d’environ deux minutes à écouter ou à lire : ce qui s’est passé ce jour-là et la leçon de la semaine.",
+    "montando": "Préparation du texte du jour…",
+    "fontes": "Sources",
+    "duracao": "{n} mots · environ {min} min",
+    "abrirAula": "Ouvrir la leçon de la semaine",
+    "vozDoAparelho": "Lu par la voix de votre appareil : le texte n’est envoyé à personne.",
+    "roteiro": {
+      "saudacao": "Bonjour ! Nous sommes le {data}. Ici Aujourd’hui sur le campus, de l’École Lúcia Maria.",
+      "fatosAbre": "Ce jour-là, dans l’histoire des luttes populaires :",
+      "fato": "{ano}. {texto} Selon {fonte}.",
+      "wikipedia": "Wikipédia",
+      "site": "le site {site}",
+      "aula": "La leçon de la semaine est « {titulo} », du parcours {trilha}. {resumo} Elle dure environ {minutos} minutes.",
+      "fechamento": "C’est tout pour aujourd’hui. Bonne étude et à demain."
+    }
+  },
+  "ouvir": {
+    "ouvir": "Écouter",
+    "parar": "Arrêter",
+    "baixarVoz": "La voix choisie n’est pas encore sur cet appareil : {tamanho} à télécharger. Télécharger maintenant ?",
+    "baixarSim": "Télécharger et écouter",
+    "baixarNao": "Pas maintenant",
+    "semVoz": "Cet appareil n’a pas de voix pour lire à haute voix."
+  },
+  "cordel": {
+    "rotulo": "La leçon en cordel",
+    "lead": "La leçon en vers de cordel : des sizains de sept syllabes, à lire à voix haute, à imprimer et à faire circuler.",
+    "rascunho": "Brouillon en relecture : vérifiez dans la leçon",
+    "rascunhoTexto": "Ces vers résument la leçon et n’ont pas encore été relus par un éducateur. C’est le texte de la leçon qui fait foi.",
+    "abrirAula": "Ouvrir la leçon",
+    "voltar": "Retour à la leçon",
+    "autoria": "Auteur : {autoria}",
+    "revisadoPor": "Relu par {nome}",
+    "baseado": "D’après la leçon « {titulo} », du parcours {trilha}.",
+    "estrofes": "{n} strophes",
+    "imprimir": "Imprimer le livret (A5)",
+    "imprimirDica": "À l’impression, choisissez le papier A5 (ou A4 avec « deux pages par feuille »)."
+  }
+}

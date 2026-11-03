@@ -1,0 +1,71 @@
+{
+  "player": {
+    "continuar": "Continue",
+    "continuarRotulo": "Continue where you left off: {titulo}",
+    "descartar": "Dismiss and stop showing",
+    "regiao": "Continue the radio",
+    "estudo": "For studying",
+    "estudoRegiao": "Study sound",
+    "pararEstudo": "Stop the study sound",
+    "volume": "Volume"
+  },
+  "som": {
+    "rotulo": "Channel",
+    "titulo": "For studying (no talking)",
+    "lead": "A steady background sound, with no voice and no music, to help you concentrate. Pick one and set the volume.",
+    "honesto": "Sounds made on your device. Free music will come in once the curators have checked its licence.",
+    "tipos": {
+      "marrom": { "nome": "Brown noise", "descricao": "Deep and muffled, like a distant rumble." },
+      "rosa": { "nome": "Pink noise", "descricao": "Balanced, like a steady wind." },
+      "chuva": { "nome": "Rain", "descricao": "Filtered noise that rises and falls, like rain on the roof." }
+    },
+    "tocar": "Play: {nome}",
+    "parar": "Stop",
+    "volume": "Volume",
+    "tocando": "Playing: {nome}",
+    "parado": "Nothing playing right now.",
+    "voz": "When a lesson's voice starts reading, the sound drops to 30% and comes back afterwards.",
+    "semAudio": "This browser cannot generate sound."
+  },
+  "hoje": {
+    "rotulo": "School radio",
+    "titulo": "Today on campus",
+    "lead": "A script of about two minutes to listen to or read: what happened on this day and the lesson of the week.",
+    "montando": "Putting together today's script…",
+    "fontes": "Sources",
+    "duracao": "{n} words · about {min} min",
+    "abrirAula": "Open the lesson of the week",
+    "vozDoAparelho": "Read by your device's voice: the text is not sent to anyone.",
+    "roteiro": {
+      "saudacao": "Hello! Today is {data}. This is Today on campus, from the Lúcia Maria School.",
+      "fatosAbre": "On this day, in the history of the people's struggle:",
+      "fato": "{ano}. {texto} According to {fonte}.",
+      "wikipedia": "Wikipedia",
+      "site": "the website {site}",
+      "aula": "The lesson of the week is “{titulo}”, from the track {trilha}. {resumo} It takes about {minutos} minutes.",
+      "fechamento": "That's all for today. Happy studying, and see you tomorrow."
+    }
+  },
+  "ouvir": {
+    "ouvir": "Listen",
+    "parar": "Stop",
+    "baixarVoz": "The chosen voice is not on this device yet: {tamanho} to download. Download now?",
+    "baixarSim": "Download and listen",
+    "baixarNao": "Not now",
+    "semVoz": "This device has no voice to read aloud."
+  },
+  "cordel": {
+    "rotulo": "Lesson in cordel",
+    "lead": "The lesson in cordel verse: six-line stanzas of seven syllables, to read aloud, print and pass on.",
+    "rascunho": "Draft under review: check it against the lesson",
+    "rascunhoTexto": "These verses summarise the lesson and have not yet been reviewed by an educator. The lesson text is what counts.",
+    "abrirAula": "Open the lesson",
+    "voltar": "Back to the lesson",
+    "autoria": "Authorship: {autoria}",
+    "revisadoPor": "Reviewed by {nome}",
+    "baseado": "Based on the lesson “{titulo}”, from the track {trilha}.",
+    "estrofes": "{n} stanzas",
+    "imprimir": "Print the booklet (A5)",
+    "imprimirDica": "When printing, choose A5 paper (or A4 with “two pages per sheet”)."
+  }
+}

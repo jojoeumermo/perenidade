@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "campus": { "titulo": "Mapa del campus", "descricao": "Los edificios de la Escuela Lúcia Maria y lo que hay dentro de cada uno: aulas, biblioteca, radio, memorial, talleres, plaza, territorio y secretaría." },
+    "calendario": { "titulo": "Calendario de la Escuela", "descricao": "El año lectivo de la Escuela Lúcia Maria: inicio y fin del semestre, semana de exámenes, clase magistral, feriados del campus y exámenes externos, con la fuente de cada fecha." }
+  },
+  "comum": {
+    "olho": "Escuela Lúcia Maria",
+    "proposto": "Propuesto, a confirmar por la coordinación",
+    "voltar": "Escuela"
+  },
+  "predios": {
+    "escola": { "nome": "Escuela", "frase": "Las aulas: rutas, grupos, clases en vivo y tu estudio." },
+    "biblioteca": { "nome": "Biblioteca", "frase": "El acervo, los estantes, el glosario y las fuentes." },
+    "radio": { "nome": "Radio", "frase": "La radio, los pódcasts y los videos." },
+    "memorial": { "nome": "Memorial", "frase": "La memoria de quienes lucharon antes que nosotros." },
+    "oficinas": { "nome": "Talleres", "frase": "Laboratorios, herramientas y el cuaderno: manos a la obra." },
+    "praca": { "nome": "Plaza", "frase": "Donde nos encontramos: periódico, debates, verificaciones y mural." },
+    "territorio": { "nome": "Territorio", "frase": "Los núcleos, los territorios y los servicios cerca de ti." },
+    "secretaria": { "nome": "Secretaría", "frase": "Tus datos, la privacidad, quiénes somos y cómo ayudar." }
+  },
+  "mapa": {
+    "titulo": "Mapa del campus",
+    "rotulo": "Edificios del campus",
+    "busca": "Buscar en el campus",
+    "nenhum": "No hay nada en el campus con ese nombre.",
+    "convite": "Conoce el campus: {n} de {total} edificios",
+    "carimbo": "Ya pasaste por aquí",
+    "nota": "El sello de cada edificio queda solo en este aparato. No vale puntos ni entra en ningún ranking.",
+    "secoes": "{n} lugares",
+    "abrir": "Ver lo que hay en el edificio {nome}"
+  },
+  "calendario": {
+    "atual": "Este semestre",
+    "proximo": "Próximo semestre",
+    "semestre1": "1.er semestre de {ano}",
+    "semestre2": "2.º semestre de {ano}",
+    "inicio": "Inicio del semestre",
+    "fim": "Fin del semestre",
+    "provas": "Semana de exámenes",
+    "ate": "hasta el {data}",
+    "agenda": "Agregar a mi agenda",
+    "agendaDe": "Agregar a mi agenda: {titulo}",
+    "semAulaMagna": "La clase magistral del semestre todavía no tiene fecha.",
+    "aMarcar": "fecha por definir",
+    "fonte": "Fuente",
+    "fonteExame": "Fuente: {orgao}, consultado el {data}",
+    "cursoEnem": "Curso ENEM",
+    "aoVivo": "Ver en las clases en vivo",
+    "aulaDoTema": "Clase sobre el tema",
+    "tipos": {
+      "inicio": "Inicio",
+      "fim": "Fin",
+      "aula-magna": "Clase magistral",
+      "feriado": "Feriado del campus",
+      "provas": "Exámenes",
+      "exame": "Examen externo"
+    },
+    "sobreFeriados": "Los feriados del campus son fechas de lucha. No quitan clases del plan: ese día eliges descansar o estudiar la clase sobre el tema.",
+    "sobreExames": "Los exámenes externos entran solo con fecha publicada en una página oficial. El ENCCEJA todavía no tiene fecha publicada por el Inep para su próxima edición.",
+    "vazio": "Nada programado este semestre."
+  },
+  "feriado": {
+    "faixa": "Hoy es feriado en el campus: {nome}",
+    "fonte": "Fuente",
+    "aula": "Clase sobre el tema",
+    "descanso": "El feriado no quita clases del plan: descansa, o estudia la clase sobre el tema."
+  },
+  "quadro": {
+    "titulo": "Tablón de avisos",
+    "aviso": "Aviso",
+    "calendario": "En el calendario",
+    "turma": "Grupo del mes",
+    "turmaTexto": "{titulo}: empieza el día 1, para quien quiera estudiar en grupo.",
+    "novidade": "Novedad",
+    "lido": "Ya lo leí",
+    "lidoDe": "Ya lo leí: {titulo}",
+    "abrir": "Abrir",
+    "hoje": "hoy",
+    "nota": "Los avisos leídos se guardan solo en este aparato."
+  },
+  "estacao": {
+    "rotulo": "Tiempo de la Escuela",
+    "ferias": "Vacaciones · vuelve en el {semestre}",
+    "feriado": "Feriado del campus: {nome}"
+  }
+}

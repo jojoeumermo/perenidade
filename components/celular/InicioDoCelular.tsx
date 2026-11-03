@@ -3,6 +3,7 @@
 
 import { useCompleted, useLastLesson } from "@/lib/progress";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
+import { enderecoDeContinuar } from "../inicio/Janelas";
 import { L, useI18n } from "../I18n";
 import { Ladrilhos } from "./Atalhos";
 
@@ -26,6 +27,7 @@ export function InicioDoCelular({
   lambe,
   aulaDaSemana,
   extras,
+  quadro,
 }: {
   textos: { busca: string; buscaRotulo: string; buscar: string; continuar: string; retomar: string; comecar: string; comecarTexto: string; estantes: string; verTodas: string; muro: string };
   estantes: EstanteDoCelular[];
@@ -37,6 +39,8 @@ export function InicioDoCelular({
   aulaDaSemana: React.ReactNode;
   /** O que vem no fim (jornal, formação militante, mural de saúde). */
   extras: React.ReactNode;
+  /** O quadro de avisos da Escola (E4-09), só com a Escola ligada; aparece só para quem volta. */
+  quadro?: React.ReactNode;
 }) {
   const { t } = useI18n();
   const c = t.celular;
@@ -76,7 +80,7 @@ export function InicioDoCelular({
 
       <div className="px-4 pt-5">
         {tem ? (
-          <L href={ultima.path} className="block rounded-[1.25rem] border-[1.5px] border-[#1f1a14] bg-[#1f1a14] p-4 text-[#f4ecd8] shadow-[4px_4px_0_#c21f16] hover:text-[#f4ecd8]">
+          <L href={enderecoDeContinuar(ultima)} className="block rounded-[1.25rem] border-[1.5px] border-[#1f1a14] bg-[#1f1a14] p-4 text-[#f4ecd8] shadow-[4px_4px_0_#c21f16] hover:text-[#f4ecd8]">
             <span className="block font-mono text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[#e0837a]">{textos.continuar}</span>
             <span className="mt-1.5 block font-serif text-[1.55rem] font-semibold leading-tight">{ultima.title}</span>
             <span className="mt-0.5 block text-[0.92rem] text-[#d9ccac]">{ultima.track}</span>
@@ -98,6 +102,9 @@ export function InicioDoCelular({
           </L>
         )}
       </div>
+
+      {/* Quem monta passa o espaço (px-4 pt-6) no próprio quadro: quem chega não ganha um vão vazio. */}
+      {quadro}
 
       <div className="px-4 pt-6">
         <Ladrilhos chaves={["radio", "podcasts", "journal", "news", "glossary", "labs", "questionBank", "live"]} rotulo={c.atalhos} />

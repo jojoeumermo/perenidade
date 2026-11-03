@@ -987,6 +987,7 @@
     }
   },
   "lesson": {
+    "yourExplanation": "Ce que vous avez expliqué la dernière fois",
     "position": "cours {i} sur {n}",
     "awaitingReview": "Ce cours attend encore la relecture de la communauté. Vous avez trouvé une erreur ?",
     "suggestOne": "Proposer une correction",
@@ -5217,6 +5218,7 @@
     }
   },
   "blocks": {
+    "almost": "Presque ! Ça s’écrit {w}",
     "graph": "Graphique",
     "invalid": "Impossible de calculer avec ces valeurs.",
     "chart": "Graphique de données",

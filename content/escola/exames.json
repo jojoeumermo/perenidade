@@ -1,0 +1,82 @@
+{
+  "_sobre": "Exames externos que aparecem no calendário da Escola (E4-09, R1-46; docs/escola/campus.md). O ENEM vem de content/enem/edicao.yml, que já tem a fonte oficial de cada data: este arquivo é gerado de lá (npm run testar:escola-campus confere que ficou igual; ao atualizar a edição, gere de novo com o comando de docs/escola/campus.md). O ENCCEJA só entra com a data conferida na página oficial do Inep, com url e consultadoEm; em 03/11/2026 a página do Inep não trazia a data da próxima edição, então ele ficou de fora. Concursos e vestibulinhos não entram (lista fora do plano da Etapa 4).",
+  "exames": [
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Início das inscrições",
+      "data": "2026-05-25",
+      "fonte": "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396",
+      "orgao": "Inep",
+      "consultadoEm": "2026-10-30",
+      "curso": "enem",
+      "fato": "inscricao-inicio"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Fim das inscrições (prazo ampliado)",
+      "data": "2026-06-12",
+      "fonte": "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/enem-2026-prazo-de-inscricao-e-ampliado-ate-12-6",
+      "orgao": "Inep",
+      "consultadoEm": "2026-11-02",
+      "curso": "enem",
+      "fato": "inscricao-fim"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Último dia para pagar a taxa (prazo ampliado)",
+      "data": "2026-06-22",
+      "fonte": "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/participantes-tem-mais-tempo-para-pagar-a-taxa-de-inscricao-ate-22-6",
+      "orgao": "Inep",
+      "consultadoEm": "2026-11-02",
+      "curso": "enem",
+      "fato": "taxa-fim"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Prazo para quem foi inscrito de forma automática escolher a língua estrangeira (depois disso, vale inglês)",
+      "data": "2026-10-18",
+      "fonte": "https://www.in.gov.br/web/dou/-/retificacao-737098769",
+      "orgao": "Inep",
+      "consultadoEm": "2026-10-30",
+      "curso": "enem",
+      "fato": "lingua-automatica-prazo"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Data em que os locais de prova foram publicados no Cartão de Confirmação",
+      "data": "2026-10-27",
+      "fonte": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/candidatos-ja-podem-conferir-o-local-de-prova-do-enem-2026",
+      "orgao": "MEC",
+      "consultadoEm": "2026-10-30",
+      "curso": "enem",
+      "fato": "locais-de-prova"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Primeiro dia de provas",
+      "data": "2026-11-08",
+      "fonte": "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396",
+      "orgao": "Inep",
+      "consultadoEm": "2026-10-30",
+      "curso": "enem",
+      "fato": "aplicacao-dia-1"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Segundo dia de provas",
+      "data": "2026-11-15",
+      "fonte": "https://www.in.gov.br/web/dou/-/edital-n-64-de-21-de-maio-de-2026-707325396",
+      "orgao": "Inep",
+      "consultadoEm": "2026-10-30",
+      "curso": "enem",
+      "fato": "aplicacao-dia-2"
+    }
+  ]
+}

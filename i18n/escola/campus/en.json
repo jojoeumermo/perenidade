@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "campus": { "titulo": "Campus map", "descricao": "The buildings of the Lúcia Maria School and what is inside each one: classrooms, library, radio, memorial, workshops, square, territory and front office." },
+    "calendario": { "titulo": "School calendar", "descricao": "The school year of the Lúcia Maria School: start and end of the term, exam week, opening lecture, campus holidays and external exams, with the source of each date." }
+  },
+  "comum": {
+    "olho": "Lúcia Maria School",
+    "proposto": "Proposed, to be confirmed by the coordination",
+    "voltar": "School"
+  },
+  "predios": {
+    "escola": { "nome": "School", "frase": "The classrooms: tracks, classes, live lessons and your studies." },
+    "biblioteca": { "nome": "Library", "frase": "The collection, the shelves, the glossary and the sources." },
+    "radio": { "nome": "Radio", "frase": "The radio, the podcasts and the videos." },
+    "memorial": { "nome": "Memorial", "frase": "The memory of those who fought before us." },
+    "oficinas": { "nome": "Workshops", "frase": "Labs, tools and the notebook: hands on." },
+    "praca": { "nome": "Square", "frase": "Where we meet: newspaper, debates, fact-checks and the board." },
+    "territorio": { "nome": "Territory", "frase": "The hubs, the territories and the services near you." },
+    "secretaria": { "nome": "Front office", "frase": "Your data, privacy, who we are and how to help." }
+  },
+  "mapa": {
+    "titulo": "Campus map",
+    "rotulo": "Campus buildings",
+    "busca": "Search the campus",
+    "nenhum": "Nothing on campus by that name.",
+    "convite": "Get to know the campus: {n} of {total} buildings",
+    "carimbo": "You have been here",
+    "nota": "Each building's stamp stays on this device only. It is not worth points and there is no ranking.",
+    "secoes": "{n} places",
+    "abrir": "See what is in the {nome} building"
+  },
+  "calendario": {
+    "atual": "This term",
+    "proximo": "Next term",
+    "semestre1": "1st term of {ano}",
+    "semestre2": "2nd term of {ano}",
+    "inicio": "Start of the term",
+    "fim": "End of the term",
+    "provas": "Exam week",
+    "ate": "until {data}",
+    "agenda": "Add to my calendar",
+    "agendaDe": "Add to my calendar: {titulo}",
+    "semAulaMagna": "The opening lecture of the term has not been scheduled yet.",
+    "aMarcar": "date to be set",
+    "fonte": "Source",
+    "fonteExame": "Source: {orgao}, checked on {data}",
+    "cursoEnem": "ENEM course",
+    "aoVivo": "See it in live lessons",
+    "aulaDoTema": "Lesson on the topic",
+    "tipos": {
+      "inicio": "Start",
+      "fim": "End",
+      "aula-magna": "Opening lecture",
+      "feriado": "Campus holiday",
+      "provas": "Exams",
+      "exame": "External exam"
+    },
+    "sobreFeriados": "Campus holidays are days of struggle. They do not take lessons out of your plan: on the day, you choose to rest or to study the lesson on the topic.",
+    "sobreExames": "External exams are listed only with a date published on an official page. ENCCEJA does not yet have a date published by Inep for its next edition.",
+    "vazio": "Nothing scheduled this term."
+  },
+  "feriado": {
+    "faixa": "Today is a campus holiday: {nome}",
+    "fonte": "Source",
+    "aula": "Lesson on the topic",
+    "descanso": "A holiday does not take lessons out of your plan: rest, or study the lesson on the topic."
+  },
+  "quadro": {
+    "titulo": "Notice board",
+    "aviso": "Notice",
+    "calendario": "On the calendar",
+    "turma": "Class of the month",
+    "turmaTexto": "{titulo}: starts on the 1st, for anyone who wants to study together.",
+    "novidade": "New",
+    "lido": "Read it",
+    "lidoDe": "Read it: {titulo}",
+    "abrir": "Open",
+    "hoje": "today",
+    "nota": "Read notices are remembered on this device only."
+  },
+  "estacao": {
+    "rotulo": "School time",
+    "ferias": "Holidays · back in the {semestre}",
+    "feriado": "Campus holiday: {nome}"
+  }
+}

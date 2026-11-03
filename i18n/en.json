@@ -987,6 +987,7 @@
     }
   },
   "lesson": {
+    "yourExplanation": "What you explained last time",
     "position": "lesson {i} of {n}",
     "awaitingReview": "This lesson is still awaiting community review. Found a mistake?",
     "suggestOne": "Suggest a correction",
@@ -5217,6 +5218,7 @@
     }
   },
   "blocks": {
+    "almost": "Almost! It is spelled {w}",
     "graph": "Graph",
     "invalid": "Could not calculate with these values.",
     "chart": "Data chart",

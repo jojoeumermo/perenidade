@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "turmas": {
+      "titulo": "Groupes par cours",
+      "descricao": "Étudiez un cours de l’École avec d’autres personnes : un module par mois, deux leçons par semaine et une rencontre en vidéo le mercredi."
+    },
+    "curso": {
+      "titulo": "Groupe de {curso}",
+      "descricao": "Le calendrier du mois, la rencontre hebdomadaire, le tutorat, le séminaire et l’accompagnement du projet final du cours {curso}."
+    },
+    "circulo": {
+      "titulo": "Cercle de culture numérique",
+      "descricao": "Un outil pour la personne qui anime une rencontre : des mots du groupe à une séquence de leçons, le tout sur votre appareil."
+    },
+    "banca": {
+      "titulo": "Jury populaire en ligne",
+      "descricao": "Déroulé de 30 minutes en vidéo pour présenter le projet final et fiche de retour sans note."
+    },
+    "cartaz": {
+      "titulo": "Affiche du groupe",
+      "descricao": "Composez l’affiche collective du groupe qui termine, avec une phrase de chaque personne, et téléchargez-la en image ou en PDF."
+    }
+  },
+  "lista": {
+    "olho": "École Lúcia Maria",
+    "titulo": "Groupes par cours",
+    "lead": "Chaque cours a un groupe par mois : un module, deux leçons par semaine et une rencontre en vidéo chaque mercredi à 19 h 30, heure de Brasília. Vous continuez à votre rythme et la progression reste sur votre appareil.",
+    "agora": "Groupe de ce mois",
+    "proxima": "Groupe du mois prochain",
+    "modulo": "Module du mois : {modulo}",
+    "verTurma": "Voir le calendrier du groupe",
+    "semCursos": "Aucun cours n’a encore de groupe.",
+    "ferramentasTitulo": "Pour qui anime et pour qui termine",
+    "circulo": "Cercle de culture numérique",
+    "circuloTexto": "Des mots et des problèmes du groupe à une séquence de leçons, avec lien et QR code.",
+    "banca": "Jury populaire en ligne",
+    "bancaTexto": "Déroulé de 30 minutes et fiche de retour pour présenter le projet final.",
+    "cartaz": "Affiche du groupe",
+    "cartazTexto": "Une phrase de chaque personne sur l’affiche collective de celles et ceux qui terminent.",
+    "comoTitulo": "Comment ça marche",
+    "como": [
+      "Rejoignez le groupe avec votre compte. Le site garde seulement que ce compte est dans le groupe du cours ce mois-là.",
+      "Étudiez les deux leçons de la semaine quand vous pouvez. Ce que vous avez fait est coché, lu sur votre appareil.",
+      "Chaque mercredi à 19 h 30, heure de Brasília, le groupe se retrouve en vidéo dans la salle, qui n’apparaît qu’aux membres.",
+      "La dernière rencontre du mois est le séminaire : quelqu’un présente un sujet en 10 minutes.",
+      "Partez quand vous voulez : partir efface l’enregistrement."
+    ],
+    "turmaDoMes": "Le Groupe du mois du site reste ouvert à tout le monde, sans cours :",
+    "turmaDoMesLink": "voir le Groupe du mois"
+  },
+  "turma": {
+    "agoraRotulo": "Ce mois-ci",
+    "proximaRotulo": "Le mois prochain",
+    "inscritos": "{n} personnes dans le groupe",
+    "inscritaUma": "1 personne dans le groupe",
+    "entrar": "Rejoindre le groupe",
+    "avisar": "Rejoindre le groupe du mois prochain",
+    "sair": "Quitter le groupe",
+    "abrirSala": "Ouvrir la salle de la rencontre",
+    "semConta": "Pour rejoindre un groupe, il faut un compte sur le site : c’est lui qui garde que vous êtes dans le groupe.",
+    "entrarNaConta": "Me connecter à mon compte",
+    "semServico": "Les groupes ont besoin du service du site, qui n’est pas activé à cette adresse. Les leçons restent ouvertes.",
+    "erro": "Impossible de changer de groupe pour l’instant. Réessayez dans un moment.",
+    "dentro": "Vous êtes dans ce groupe. La rencontre a lieu chaque mercredi à 19 h 30, heure de Brasília, dans la salle.",
+    "dentroProxima": "Vous êtes dans le groupe du mois prochain. La salle apparaîtra au début du mois.",
+    "saiu": "Vous avez quitté le groupe et l’enregistrement a été effacé.",
+    "sensivelTitulo": "Avant de rejoindre : ce cours parle de politique",
+    "sensivelTexto": "Pour rejoindre le groupe, l’Institut garde que ce compte est dans le groupe de ce cours, qui parle de politique. Seul votre compte le voit ; vous pouvez partir quand vous voulez, et partir efface l’enregistrement.",
+    "sensivelLei": "Participer à un groupe sur la politique peut révéler une opinion politique, que la loi générale brésilienne sur la protection des données (loi 13.709/2018, art. 5, II) traite comme donnée personnelle sensible. C’est pourquoi l’enregistrement n’est fait qu’avec votre consentement spécifique et mis en évidence (art. 11, I), et vous pouvez le retirer à tout moment en quittant le groupe (art. 8, § 5).",
+    "concordo": "J’accepte",
+    "marqueConcordo": "Pour rejoindre, cochez « J’accepte ». Sans cela, rien n’est envoyé.",
+    "consentimento": "L’enregistrement dans ce groupe demande votre consentement : cochez « J’accepte » et réessayez.",
+    "progresso": "{feitas} leçons du mois sur {total} faites sur cet appareil",
+    "continua": "Le module continue le mois prochain : ce mois-ci compte les {n} premières leçons.",
+    "semana": "Semaine {n} · à partir du {data}",
+    "encontro": "Rencontre : mercredi {data}, à 19 h 30, heure de Brasília",
+    "seminario": "Séminaire : mercredi {data}, à 19 h 30, heure de Brasília",
+    "semAulaNaSemana": "Semaine pour rattraper et revoir les leçons.",
+    "minutos": "{n} min",
+    "feita": "faite",
+    "baixarIcs": "Ajouter les rencontres à mon agenda (.ics)",
+    "icsDescricao": "Rencontre du groupe du cours à l’École Lúcia Maria. La salle apparaît sur la page du groupe pour ses membres.",
+    "nomeDoIcs": "rencontres-du-groupe"
+  },
+  "curso": {
+    "olho": "Groupe du cours",
+    "voltar": "Groupes par cours",
+    "paginaDoCurso": "Page du cours",
+    "cronogramaTitulo": "Calendrier du mois",
+    "conteudoEmPortugues": "Le contenu des cours est en portugais."
+  },
+  "monitoria": {
+    "titulo": "Tutorat",
+    "texto": "Les tuteurs sont des personnes qui ont déjà terminé ce cours et accueillent le groupe dans la salle, à l’horaire convenu. La coordination vérifie chaque nom avant de l’ajouter à la liste.",
+    "nenhum": "Pas encore de tutorat dans ce cours ce mois-ci.",
+    "horario": "Dans la salle : {horario}",
+    "querSer": "Je veux être tuteur ou tutrice",
+    "querSerTexto": "Vous avez terminé ce cours sur cet appareil. Pour devenir tuteur ou tutrice, envoyez un message par la page du bénévolat en écrivant « monitoria do curso {curso} ». Rien n’est envoyé tout seul : c’est vous qui écrivez et envoyez.",
+    "voluntarieSe": "Aller à la page du bénévolat"
+  },
+  "seminario": {
+    "titulo": "Séminaire du groupe",
+    "texto": "La dernière rencontre du mois est le séminaire : une personne présente un sujet en 10 minutes, en vidéo, dans la salle. Qui présente se décide dans la salle elle-même ; rien de cela ne va au serveur.",
+    "data": "Ce mois-ci, le séminaire a lieu le mercredi {data}, à 19 h 30, heure de Brasília.",
+    "roteiroTitulo": "Déroulé de la présentation",
+    "roteiro": [
+      "La question : qu’avez-vous voulu comprendre ?",
+      "Ce que j’ai étudié : les leçons et les lectures qui ont aidé.",
+      "Un exemple du quartier : où cela apparaît dans la vie des gens d’à côté.",
+      "Une question pour le groupe : pour que la conversation continue."
+    ],
+    "cronometro": "Chronomètre de 10 minutes",
+    "comecar": "Démarrer",
+    "pausar": "Pause",
+    "continuar": "Reprendre",
+    "zerar": "Remettre à zéro",
+    "aviso": "Plus que 2 minutes : passez à la question pour le groupe.",
+    "fim": "Les 10 minutes sont écoulées."
+  },
+  "orientacao": {
+    "titulo": "Accompagnement du projet final",
+    "texto": "Les accompagnateurs suivent le projet final des personnes qui étudient le cours. Les places par semestre sont peu nombreuses et la coordination gère la liste.",
+    "nenhum": "Pas encore d’accompagnateur avec une place dans ce cours.",
+    "vagas": "{n} places ce semestre",
+    "vagaUma": "1 place ce semestre",
+    "pelaRede": "Envoyez un message sur le Réseau Lúcia au profil {perfil}, en indiquant le cours et l’idée du projet.",
+    "abrirRede": "Ouvrir le Réseau Lúcia",
+    "peloEmail": "Écrivez à l’adresse de l’Institut, {email}, avec l’objet « orientação do curso {curso} » et le nom de la personne que vous souhaitez comme accompagnatrice.",
+    "mentoria": "Le rôle de mentorat du tableau de bord reste le même."
+  },
+  "circulo": {
+    "olho": "École Lúcia Maria · pour qui anime",
+    "titulo": "Cercle de culture numérique",
+    "lead": "Un outil pour la personne qui anime une rencontre du groupe, en 5 étapes inspirées des cercles de culture de Paulo Freire. Tout reste sur cet appareil : rien ne va au serveur.",
+    "fonte": "Référence :",
+    "fonteTexto": "GUIMARÃES, Alessandro et al. A palavra é... Paulo Freire. Pró-Discente, Vitória (ES), v. 23, n. 1, p. 61-78, janv./juin 2017.",
+    "fonteNota": "L’article travaille la pensée de Freire à partir de mots générateurs, dans un exercice inspiré du cercle de culture. Les 5 étapes ci-dessous sont une adaptation de l’Institut pour la rencontre en vidéo.",
+    "passo": "Étape {n} sur 5",
+    "p1Titulo": "Relever l’univers vocabulaire",
+    "p1Texto": "Notez les mots et les problèmes que le groupe apporte, comme les gens les disent. N’écrivez pas de noms de personnes.",
+    "p1Campo": "Mot ou problème",
+    "p1Acrescentar": "Ajouter",
+    "p1Tirar": "Retirer « {palavra} »",
+    "p1Vazio": "Aucun mot pour l’instant.",
+    "p2Titulo": "Choisir un thème générateur",
+    "p2Texto": "Avec le groupe, choisissez un mot ou réunissez-en quelques-uns dans un thème qui lance la conversation.",
+    "p2Campo": "Thème générateur",
+    "p2Usar": "Prendre « {palavra} » comme thème",
+    "p3Titulo": "Problématiser",
+    "p3Texto": "Questions-guides pour la conversation. Utilisez celles qui servent et écrivez-en d’autres.",
+    "p3Guias": [
+      "Où cela apparaît-il dans notre quotidien ?",
+      "Pourquoi est-ce ainsi ? En a-t-il toujours été ainsi ?",
+      "Qui y gagne et qui y perd ?",
+      "Qu’avons-nous déjà fait, ou d’autres ont-ils fait, à ce sujet ?",
+      "Que pouvons-nous faire ensemble à partir d’ici ?"
+    ],
+    "p3Campo": "Autre question",
+    "p3Acrescentar": "Ajouter la question",
+    "p4Titulo": "Chercher des leçons sur le thème",
+    "p4Texto": "La recherche se fait sur cet appareil, dans l’index des leçons du site. Choisissez les leçons et composez une séquence du mode groupe, avec lien et QR code à ouvrir par le groupe.",
+    "p4Buscar": "Chercher des leçons sur le thème",
+    "p4Carregando": "Chargement de l’index des leçons…",
+    "p4Falhou": "Impossible de charger l’index des leçons. Vérifiez la connexion et réessayez.",
+    "p4Nada": "Aucune leçon du site sur ce thème.",
+    "p4Escolher": "Mettre dans la séquence",
+    "p4Tirar": "Retirer de la séquence",
+    "p4Escolhidas": "{n} leçons dans la séquence (jusqu’à {max})",
+    "p4Gerar": "Créer le lien du groupe",
+    "p4Link": "Lien de la séquence pour le groupe",
+    "p4Qr": "QR code du lien de la séquence",
+    "p4Abrir": "Ouvrir la séquence",
+    "p5Titulo": "S’il n’y a pas de leçon, en demander une",
+    "p5Texto": "Si le site n’a pas de leçon sur le thème, demandez-la par la page Contribuer : choisissez « Une idée » et écrivez la demande. Rien n’est envoyé tout seul.",
+    "p5Modelo": "Demande de leçon sur : {tema}",
+    "p5Pedir": "Demander une leçon sur ce thème",
+    "semTema": "Choisissez un thème à l’étape 2.",
+    "guardado": "Enregistré sur cet appareil.",
+    "guardadosTitulo": "Cercles enregistrés sur cet appareil",
+    "guardadosTexto": "Jusqu’à {max} cercles. Au-delà, les plus anciens sont retirés.",
+    "abrir": "Ouvrir",
+    "apagar": "Effacer",
+    "apagarTudo": "Effacer tous les cercles de cet appareil",
+    "novo": "Commencer un nouveau cercle",
+    "semTitulo": "Cercle sans thème",
+    "copiar": "Copier",
+    "copiado": "Copié"
+  },
+  "banca": {
+    "olho": "École Lúcia Maria · projet final",
+    "titulo": "Jury populaire en ligne",
+    "lead": "Une conversation de 30 minutes en vidéo pour présenter le projet final du cours. Le jury en présentiel viendra plus tard.",
+    "quemTitulo": "Qui compose le jury",
+    "quem": [
+      "Un éducateur ou une éducatrice",
+      "Un ou une camarade du groupe",
+      "Quelqu’un du territoire"
+    ],
+    "roteiroTitulo": "Déroulé de 30 minutes",
+    "roteiro": [
+      [
+        "10 min",
+        "Présentation : la personne raconte le projet, ce qu’elle a fait et ce qu’elle a appris."
+      ],
+      [
+        "15 min",
+        "Conversation : questions du jury et de la personne, sans examen et sans piège."
+      ],
+      [
+        "5 min",
+        "Retour : chaque compétence de la fiche, avec ce qui a bien marché et la prochaine étape."
+      ]
+    ],
+    "sala": "La salle est celle du groupe du cours, pour ses membres, ou une autre convenue entre les personnes.",
+    "fichaTitulo": "Fiche de retour",
+    "fichaTexto": "Sans note. À imprimer ou à remplir sur cet appareil. Ce que vous écrivez reste ici.",
+    "competencias": {
+      "clareza": "Clarté",
+      "curso": "Lien avec le cours",
+      "vida": "Lien avec la vie",
+      "proximo": "Prochaine étape"
+    },
+    "perguntas": {
+      "clareza": "A-t-on pu comprendre le projet et ce qui a été fait ?",
+      "curso": "Le projet utilise-t-il ce que le cours a enseigné ?",
+      "vida": "Le projet parle-t-il de la vie des gens du territoire ?",
+      "proximo": "Que peut-on faire ensuite ?"
+    },
+    "curso": "Cours",
+    "escolhaCurso": "Choisissez le cours",
+    "data": "Date du jury",
+    "pessoasTitulo": "Personnes du jury (facultatif)",
+    "pessoasTexto": "N’écrivez que le nom des personnes qui l’ont permis : chacune doit avoir donné son accord. Cela reste dans votre carnet.",
+    "pessoa": "Personne {n}",
+    "permissao": "Chaque personne dont j’ai écrit le nom a accepté qu’il figure dans mon carnet.",
+    "imprimir": "Imprimer la fiche",
+    "registrar": "Enregistrer dans mon carnet",
+    "registrado": "Enregistré dans votre carnet, sur cet appareil.",
+    "falta": "Choisissez le cours, la date et écrivez au moins un retour.",
+    "faltaPermissao": "Confirmez l’accord des personnes dont le nom est écrit, ou effacez les noms.",
+    "tituloDoRegistro": "Projet présenté devant un jury",
+    "caderneta": "Voir le carnet"
+  },
+  "cartaz": {
+    "olho": "École Lúcia Maria · archive vivante du groupe",
+    "titulo": "Affiche du groupe",
+    "lead": "L’affiche collective du groupe qui termine. La personne qui anime tape une phrase de chaque personne. Le cours et le semestre y figurent ; aucun nom complet. Tout est composé sur cet appareil.",
+    "curso": "Cours",
+    "escolhaCurso": "Choisissez le cours",
+    "semestre": "Semestre",
+    "frase": "Phrase d’une personne",
+    "acrescentar": "Ajouter la phrase",
+    "tirar": "Retirer la phrase {n}",
+    "vazio": "Aucune phrase pour l’instant.",
+    "avisoNome": "Cette phrase semble contenir un nom complet. Vérifiez : l’affiche ne porte pas de nom complet.",
+    "slogan": "Archive vivante du groupe",
+    "formatura": "Groupe qui termine en {semestre}",
+    "baixarPng": "Télécharger l’image (PNG)",
+    "imprimir": "Imprimer ou enregistrer en PDF",
+    "imprimirDica": "Pour un PDF, choisissez « Enregistrer au format PDF » dans la fenêtre d’impression.",
+    "gerando": "Génération…",
+    "falhou": "Impossible de générer l’image sur cet appareil.",
+    "nomeDoArquivo": "affiche-du-groupe",
+    "galeriaTitulo": "Pour que l’affiche aille à la Galerie",
+    "galeriaTexto": "Rien n’est publié tout seul. Avec l’accord du groupe, envoyez le PNG par le Tiroir ouvert, avec le formulaire qui existe déjà : type « autre » et licence CC BY-SA 4.0. La coordination vérifie et ajoute l’affiche à la Galerie.",
+    "gaveta": "Aller au Tiroir ouvert",
+    "limite": "{n} phrases sur {max}"
+  },
+  "linkTurmas": {
+    "titulo": "Groupes par cours",
+    "texto": "À l’École Lúcia Maria, chaque cours a son groupe du mois."
+  }
+}

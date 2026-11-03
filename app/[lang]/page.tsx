@@ -10,6 +10,9 @@ import { JanelaAulaDaSemana } from "@/components/inicio/AulaDaSemana";
 import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
+import { QuadroDeAvisos } from "@/components/escola/QuadroDeAvisos";
+import { quadroDaInicial } from "@/lib/escola/campus-servidor";
+import { ligado } from "@/lib/recursos";
 import { type EstanteDoCelular, InicioDoCelular } from "@/components/celular/InicioDoCelular";
 import { corDaCapa } from "@/lib/capas";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
@@ -102,6 +105,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
     .slice(0, 12)
     .map((estante) => ({ slug: estante.slug, nome: t.areas[estante.slug][0], etapa: estante.grupo, aulas: `${numero(lang, estante.n)} ${estante.n === 1 ? t.common.lessons.one : t.common.lessons.other}`, cor: corDaCapa(estante.slug) }));
   const territorio = territorios.at(-1);
+  // E4-09: o quadro de avisos da Escola, só com ela ligada (e, dentro dele, só para quem volta).
+  const quadro = ligado("escola") ? quadroDaInicial(lang) : null;
 
   return (
     <>
@@ -122,6 +127,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           verTodas: fill(h.seeAllShelves, { n: areas }),
           muro: t.celular.muro,
         }}
+        quadro={quadro ? <QuadroDeAvisos {...quadro} className="block px-4 pt-6" /> : undefined}
         lambe={<LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />}
         aulaDaSemana={<JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />}
         extras={
@@ -234,6 +240,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
       {/* ── As quatro janelas: onde parou, a aula da semana, o jornal e o que está no ar ── */}
       <section>
+        {quadro && <QuadroDeAvisos {...quadro} className="mx-auto block max-w-[78rem] px-4 pt-14 sm:px-6 lg:px-8 max-md:pt-8" />}
         <div className="mx-auto grid max-w-[78rem] gap-8 px-4 py-14 sm:px-6 md:grid-cols-2 lg:px-8 xl:grid-cols-4 max-md:py-8">
           <JanelaContinue textos={{ continuar: t.tracks.continue, retomar: t.tracks.resume, comecar: t.nav.start, comecarTexto: h.startText }} />
 

@@ -3,12 +3,16 @@
 
 import Link from "@/components/Link";
 import { useEffect, useRef, useState } from "react";
+import type { TextosDoSom } from "@/i18n/escola/som";
 import { localePath } from "@/i18n/config";
 import { hasBackend, rpc, storageUrl } from "@/lib/backend";
 import { arquivoPublico, relogio } from "@/lib/podcast";
-import { positions, radio, usePlayer } from "@/lib/radio";
+import { positions, radio, retomada, usePlayer } from "@/lib/radio";
+import type { Retomada } from "@/lib/radio-retomar";
 import { site } from "@/lib/site";
+import { somDeEstudo, useSomDeEstudo } from "@/lib/som-de-estudo";
 import { useI18n } from "./I18n";
+import { carregarTextosDoSom } from "./radio/textos-do-som";
 
 const RATES = [1, 1.25, 1.5, 1.75, 2, 0.75];
 
@@ -82,6 +86,13 @@ export function RadioPlayer() {
   const [cheio, setCheio] = useState(false);
   // O desenho das frequências só é possível para arquivos do nosso próprio depósito (que liberam a leitura do som).
   const own = Boolean(track && track.url.startsWith(storageUrl("")) && !episode);
+  // Som do campus (Etapa 4, E4-06; docs/escola/som.md), só com o recurso "escola": o "Continuar" da visita anterior e
+  // o som para estudar. Os textos vêm sob demanda, só do idioma da página (components/radio/textos-do-som.ts).
+  const [aRetomar, setARetomar] = useState<Retomada | null>(null);
+  const [textosDoSom, setTextosDoSom] = useState<{ lang: string; textos: TextosDoSom } | null>(null);
+  const estudo = useSomDeEstudo();
+  const precisaDosTextos = Boolean((aRetomar && !track) || estudo.tipo);
+  const tx = textosDoSom?.lang === lang ? textosDoSom.textos : null;
 
   // Troca de faixa: carrega e retoma de onde a pessoa parou.
   useEffect(() => {
@@ -141,6 +152,58 @@ export function RadioPlayer() {
       el.pause();
     }
   }, [playing, track, own]);
+
+  // Ao abrir o site: a gravação da visita anterior (menos de 24 h) vira o aviso recolhido "Continuar". Nunca toca sozinho.
+  useEffect(() => {
+    if (!retomada.ligada) return;
+    const id = window.setTimeout(() => setARetomar(retomada.ler()), 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  // Começou outra faixa (ou a mesma, retomada): o aviso sai e não volta nesta visita.
+  useEffect(() => {
+    if (!track) return;
+    const id = window.setTimeout(() => setARetomar(null), 0);
+    return () => window.clearTimeout(id);
+  }, [track]);
+
+  // Os textos do Som do campus, só quando há o que mostrar, e de novo se o idioma da página mudar.
+  useEffect(() => {
+    if (!precisaDosTextos || tx) return;
+    let vivo = true;
+    carregarTextosDoSom(lang)
+      .then((textos) => {
+        if (vivo) setTextosDoSom({ lang, textos });
+      })
+      .catch(() => {});
+    return () => {
+      vivo = false;
+    };
+  }, [precisaDosTextos, tx, lang]);
+
+  // Grava o "Continuar" (lucia:radio-retomar): logo ao tocar, a cada 10 segundos tocando, ao pausar ou trocar de faixa
+  // (a limpeza do efeito) e quando a página sai (pagehide). Com o tocador fechado, retomada.gravar não grava nada.
+  useEffect(() => {
+    const el = audio.current;
+    if (!el || !track || !retomada.ligada) return;
+    const gravar = () => retomada.gravar(track, el.currentTime);
+    window.addEventListener("pagehide", gravar);
+    let timer = 0;
+    if (playing) {
+      gravar();
+      timer = window.setInterval(gravar, 10000);
+    }
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("pagehide", gravar);
+      if (playing) gravar();
+    };
+  }, [track, playing]);
+
+  // A rádio voltou a tocar: o som para estudar sai (um canal de cada vez).
+  useEffect(() => {
+    if (playing && somDeEstudo.atual().tipo) somDeEstudo.desligar();
+  }, [playing]);
 
   // Guarda a posição a cada 10 segundos (e ao pausar), para retomar depois, até em outro aparelho.
   useEffect(() => {
@@ -306,6 +369,67 @@ export function RadioPlayer() {
                 <path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01" />
               </svg>
             </Link>
+          </div>
+        </div>
+      )}
+      {!track && estudo.tipo && tx && (
+        <div role="region" aria-label={tx.player.estudoRegiao} data-radio-estudo={estudo.tipo} className="radio-player radio-estudo no-print sticky bottom-[calc(3.5rem+var(--recuo-baixo))] z-30 border-t-2 border-gold bg-ink font-sans text-sm text-parchment md:bottom-0">
+          <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-1.5">
+            <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5 shrink-0 text-gold" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M2 12 Q4 8 6 12 T10 12 T14 12 T18 12 T22 12" />
+            </svg>
+            <p className="min-w-0 flex-1 truncate">
+              <strong>{tx.player.estudo}</strong> · {tx.som.tipos[estudo.tipo].nome}
+              {estudo.comVoz && <span className="ml-2 font-mono text-xs opacity-80">30%</span>}
+            </p>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={Math.round(estudo.volume * 100)}
+              onChange={(e) => somDeEstudo.definirVolume(Number(e.target.value) / 100)}
+              aria-label={tx.player.volume}
+              aria-valuetext={`${Math.round(estudo.volume * 100)}%`}
+              className="hidden h-11 w-28 cursor-pointer accent-[#d4a24c] sm:block"
+            />
+            <button type="button" className={`${button} min-h-11 min-w-11`} onClick={() => somDeEstudo.desligar()} aria-label={tx.player.pararEstudo} title={tx.player.pararEstudo}>
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+      {!track && !estudo.tipo && aRetomar && tx && (
+        <div role="region" aria-label={tx.player.regiao} data-radio-retomar="" className="radio-player radio-retomar no-print sticky bottom-[calc(3.5rem+var(--recuo-baixo))] z-30 border-t-2 border-gold bg-ink font-sans text-sm text-parchment md:bottom-0">
+          <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-1 sm:px-4">
+            <button
+              type="button"
+              className="flex min-h-11 min-w-0 flex-1 cursor-pointer items-center gap-2.5 text-left hover:text-gold"
+              title={tx.player.continuarRotulo.replace("{titulo}", aRetomar.titulo)}
+              onClick={() => {
+                const r = aRetomar;
+                setARetomar(null);
+                retomada.retomar(r);
+              }}
+            >
+              <span aria-hidden className="text-base">▶</span>
+              <span className="truncate">
+                <strong>{tx.player.continuar}:</strong> <span lang="pt-BR">{aRetomar.titulo}</span>
+                {!aRetomar.aoVivo && aRetomar.posicao > 0 && <span className="font-mono text-xs opacity-80"> · {relogio(aRetomar.posicao)}</span>}
+              </span>
+            </button>
+            <button
+              type="button"
+              className={`${button} min-h-11 min-w-11`}
+              onClick={() => {
+                retomada.descartar();
+                setARetomar(null);
+              }}
+              aria-label={tx.player.descartar}
+              title={tx.player.descartar}
+            >
+              ✕
+            </button>
           </div>
         </div>
       )}

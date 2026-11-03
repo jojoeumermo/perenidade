@@ -1,0 +1,71 @@
+{
+  "player": {
+    "continuar": "继续",
+    "continuarRotulo": "从上次停下的地方继续：{titulo}",
+    "descartar": "忽略，不再显示",
+    "regiao": "继续收听电台",
+    "estudo": "学习用",
+    "estudoRegiao": "学习背景声",
+    "pararEstudo": "停止学习背景声",
+    "volume": "音量"
+  },
+  "som": {
+    "rotulo": "频道",
+    "titulo": "学习用（无人声）",
+    "lead": "持续的背景声，没有人声也没有音乐，帮助集中注意力。选一种，再调好音量。",
+    "honesto": "这些声音在你的设备上生成。自由音乐要等策展人核实授权后才会加入。",
+    "tipos": {
+      "marrom": { "nome": "棕色噪声", "descricao": "低沉而闷，像远处的轰鸣。" },
+      "rosa": { "nome": "粉红噪声", "descricao": "均衡，像持续的风声。" },
+      "chuva": { "nome": "雨声", "descricao": "经过滤波、时强时弱的噪声，像雨打屋顶。" }
+    },
+    "tocar": "播放：{nome}",
+    "parar": "停止",
+    "volume": "音量",
+    "tocando": "正在播放：{nome}",
+    "parado": "现在没有播放。",
+    "voz": "课程的朗读声音开始时，背景声会降到 30%，之后再恢复。",
+    "semAudio": "此浏览器无法生成声音。"
+  },
+  "hoje": {
+    "rotulo": "学校电台",
+    "titulo": "今日校园",
+    "lead": "约两分钟的稿子，可以听也可以读：这一天发生过什么，以及本周的课程。",
+    "montando": "正在准备今天的稿子……",
+    "fontes": "来源",
+    "duracao": "约 {n} 词 · 约 {min} 分钟",
+    "abrirAula": "打开本周课程",
+    "vozDoAparelho": "由你设备上的声音朗读：文字不会发送给任何人。",
+    "roteiro": {
+      "saudacao": "你好！今天是{data}。这里是露西亚·玛丽亚学校的《今日校园》。",
+      "fatosAbre": "在人民斗争的历史上，这一天：",
+      "fato": "{ano}年。{texto}据{fonte}。",
+      "wikipedia": "维基百科",
+      "site": "网站 {site}",
+      "aula": "本周课程是《{titulo}》，属于学习路线“{trilha}”。{resumo}大约需要 {minutos} 分钟。",
+      "fechamento": "今天就到这里。祝学习顺利，明天见。"
+    }
+  },
+  "ouvir": {
+    "ouvir": "收听",
+    "parar": "停止",
+    "baixarVoz": "所选的声音还不在这台设备上：需要下载 {tamanho}。现在下载吗？",
+    "baixarSim": "下载并收听",
+    "baixarNao": "暂不",
+    "semVoz": "这台设备没有可以朗读的声音。"
+  },
+  "cordel": {
+    "rotulo": "科尔德尔诗版课程",
+    "lead": "用科尔德尔（cordel）诗体写的课程：每节六行、每行七个音节，适合朗读、打印和传阅。",
+    "rascunho": "审核中的草稿：请对照课程原文",
+    "rascunhoTexto": "这些诗句概括了课程内容，还没有经过教育工作者审核。以课程原文为准。",
+    "abrirAula": "打开课程",
+    "voltar": "返回课程",
+    "autoria": "作者：{autoria}",
+    "revisadoPor": "审核人：{nome}",
+    "baseado": "依据学习路线“{trilha}”中的课程《{titulo}》。",
+    "estrofes": "{n} 节",
+    "imprimir": "打印小册子（A5）",
+    "imprimirDica": "打印时选择 A5 纸（或 A4 纸并选“每张两页”）。"
+  }
+}

@@ -24,9 +24,9 @@ export const ROTAS_DA_ESCOLA: readonly RotaDaEscola[] = [
   { chave: "quemFoi", caminho: "/escola/quem-foi-lucia-maria", pacote: "E4-01", naFaixa: true },
   { chave: "cursos", caminho: "/escola/cursos", pacote: "E4-07", naFaixa: true },
   { chave: "matricula", caminho: "/escola/matricula", pacote: "E4-08", naFaixa: true },
-  { chave: "calendario", caminho: "/escola/calendario", pacote: "E4-09", naFaixa: true, provisoria: true },
-  { chave: "campus", caminho: "/escola/campus", pacote: "E4-09", naFaixa: true, provisoria: true },
-  { chave: "turmas", caminho: "/escola/turmas", pacote: "E4-15", naFaixa: true, provisoria: true },
+  { chave: "calendario", caminho: "/escola/calendario", pacote: "E4-09", naFaixa: true },
+  { chave: "campus", caminho: "/escola/campus", pacote: "E4-09", naFaixa: true },
+  { chave: "turmas", caminho: "/escola/turmas", pacote: "E4-15", naFaixa: true },
   { chave: "acompanhante", caminho: "/escola/acompanhante", pacote: "E4-10", naFaixa: true },
   { chave: "caderneta", caminho: "/escola/caderneta", pacote: "E4-14", naFaixa: true, provisoria: true },
   { chave: "carteirinha", caminho: "/escola/carteirinha", pacote: "E4-08" },
@@ -36,8 +36,8 @@ export const ROTAS_DA_ESCOLA: readonly RotaDaEscola[] = [
   { chave: "assembleia", caminho: "/escola/assembleia", pacote: "E4-12", provisoria: true },
   { chave: "ouvidoria", caminho: "/escola/ouvidoria", pacote: "E4-12", provisoria: true },
   { chave: "educador-do-mes", caminho: "/escola/educador-do-mes", pacote: "E4-12", provisoria: true },
-  { chave: "provas", caminho: "/escola/provas", pacote: "E4-13", provisoria: true },
-  { chave: "saberes", caminho: "/escola/saberes", pacote: "E4-13", provisoria: true },
+  { chave: "provas", caminho: "/escola/provas", pacote: "E4-13" },
+  { chave: "saberes", caminho: "/escola/saberes", pacote: "E4-13" },
   { chave: "formatura", caminho: "/escola/formatura", pacote: "E4-14", provisoria: true },
 ];
 

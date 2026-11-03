@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "turmas": {
+      "titulo": "Turmas por curso",
+      "descricao": "Estude um curso da Escola junto com outras pessoas: um módulo por mês, duas aulas por semana e um encontro por vídeo às quartas."
+    },
+    "curso": {
+      "titulo": "Turma de {curso}",
+      "descricao": "O cronograma do mês, o encontro semanal, a monitoria, o seminário e a orientação do projeto final do curso {curso}."
+    },
+    "circulo": {
+      "titulo": "Círculo de cultura digital",
+      "descricao": "Ferramenta de quem facilita um encontro: das palavras da turma a uma sequência de aulas, tudo no seu aparelho."
+    },
+    "banca": {
+      "titulo": "Banca popular online",
+      "descricao": "Roteiro de 30 minutos por vídeo para apresentar o projeto final e ficha de devolutiva sem nota."
+    },
+    "cartaz": {
+      "titulo": "Cartaz da turma",
+      "descricao": "Monte o cartaz coletivo da turma que se forma, com uma frase de cada pessoa, e baixe em imagem ou PDF."
+    }
+  },
+  "lista": {
+    "olho": "Escola Lúcia Maria",
+    "titulo": "Turmas por curso",
+    "lead": "Cada curso tem uma turma por mês: um módulo, duas aulas por semana e um encontro por vídeo toda quarta, às 19h30 de Brasília. O estudo continua no seu ritmo e o progresso fica no seu aparelho.",
+    "agora": "Turma deste mês",
+    "proxima": "Turma do mês que vem",
+    "modulo": "Módulo do mês: {modulo}",
+    "verTurma": "Ver o cronograma da turma",
+    "semCursos": "Ainda não há curso com turma.",
+    "ferramentasTitulo": "Para quem facilita e para quem se forma",
+    "circulo": "Círculo de cultura digital",
+    "circuloTexto": "Das palavras e dos problemas da turma a uma sequência de aulas, com link e QR.",
+    "banca": "Banca popular online",
+    "bancaTexto": "Roteiro de 30 minutos e ficha de devolutiva para apresentar o projeto final.",
+    "cartaz": "Cartaz da turma",
+    "cartazTexto": "Uma frase de cada pessoa no cartaz coletivo de quem se forma.",
+    "comoTitulo": "Como funciona",
+    "como": [
+      "Entre na turma com a sua conta. O site guarda só que esta conta está na turma do curso naquele mês.",
+      "Estude as duas aulas da semana quando puder. O que você já fez aparece marcado, lido do seu aparelho.",
+      "Toda quarta, às 19h30 de Brasília, a turma se encontra por vídeo na sala, que só aparece para quem entrou.",
+      "O último encontro do mês é o seminário: alguém apresenta um tema em 10 minutos.",
+      "Saia quando quiser: sair apaga o registro."
+    ],
+    "turmaDoMes": "A Turma do mês do site continua aberta a todo mundo, sem curso:",
+    "turmaDoMesLink": "ver a Turma do mês"
+  },
+  "turma": {
+    "agoraRotulo": "Este mês",
+    "proximaRotulo": "Mês que vem",
+    "inscritos": "{n} pessoas na turma",
+    "inscritaUma": "1 pessoa na turma",
+    "entrar": "Entrar na turma",
+    "avisar": "Entrar na turma do mês que vem",
+    "sair": "Sair da turma",
+    "abrirSala": "Abrir a sala do encontro",
+    "semConta": "Para entrar numa turma, é preciso ter conta no site: é ela que guarda que você está na turma.",
+    "entrarNaConta": "Entrar na minha conta",
+    "semServico": "As turmas precisam do serviço do site, que não está ligado neste endereço. As aulas continuam abertas.",
+    "erro": "Não deu para mudar a turma agora. Tente de novo daqui a pouco.",
+    "dentro": "Você está nesta turma. O encontro é toda quarta, às 19h30 de Brasília, na sala.",
+    "dentroProxima": "Você está na turma do mês que vem. A sala aparece quando o mês começar.",
+    "saiu": "Você saiu da turma e o registro foi apagado.",
+    "sensivelTitulo": "Antes de entrar: este curso trata de política",
+    "sensivelTexto": "Para entrar na turma, o Instituto guarda que esta conta está na turma deste curso, que trata de política. Só a sua conta vê; você pode sair quando quiser, e sair apaga o registro.",
+    "sensivelLei": "Participar de uma turma sobre política pode revelar opinião política, que a Lei Geral de Proteção de Dados (Lei 13.709/2018, art. 5º, II) trata como dado pessoal sensível. Por isso o registro só é feito com o seu consentimento específico e destacado (art. 11, I), e você pode revogá-lo a qualquer momento saindo da turma (art. 8º, § 5º).",
+    "concordo": "Concordo",
+    "marqueConcordo": "Para entrar, marque “Concordo”. Sem isso, nada é enviado.",
+    "consentimento": "O registro desta turma precisa do seu consentimento: marque “Concordo” e tente de novo.",
+    "progresso": "{feitas} de {total} aulas do mês feitas neste aparelho",
+    "continua": "O módulo continua no mês que vem: este mês tem as {n} primeiras aulas.",
+    "semana": "Semana {n} · a partir de {data}",
+    "encontro": "Encontro: quarta, {data}, às 19h30 de Brasília",
+    "seminario": "Seminário: quarta, {data}, às 19h30 de Brasília",
+    "semAulaNaSemana": "Semana para pôr em dia e rever as aulas.",
+    "minutos": "{n} min",
+    "feita": "feita",
+    "baixarIcs": "Pôr os encontros na minha agenda (.ics)",
+    "icsDescricao": "Encontro da turma do curso na Escola Lúcia Maria. A sala aparece na página da turma para quem entrou.",
+    "nomeDoIcs": "encontros-da-turma"
+  },
+  "curso": {
+    "olho": "Turma do curso",
+    "voltar": "Turmas por curso",
+    "paginaDoCurso": "Página do curso",
+    "cronogramaTitulo": "Cronograma do mês",
+    "conteudoEmPortugues": "O conteúdo dos cursos está em português."
+  },
+  "monitoria": {
+    "titulo": "Monitoria",
+    "texto": "Monitores são pessoas que já se formaram neste curso e atendem na sala da turma, no horário combinado. A coordenação confere cada nome antes de pôr na lista.",
+    "nenhum": "Ainda não há monitoria neste curso este mês.",
+    "horario": "Na sala: {horario}",
+    "querSer": "Quero ser monitor(a)",
+    "querSerTexto": "Você se formou neste curso neste aparelho. Para ser monitor(a), mande uma mensagem pela página de voluntariado escrevendo “monitoria do curso {curso}”. Nada é enviado sozinho: é você quem escreve e manda.",
+    "voluntarieSe": "Ir para a página de voluntariado"
+  },
+  "seminario": {
+    "titulo": "Seminário da turma",
+    "texto": "O último encontro do mês é o seminário: uma pessoa apresenta um tema em 10 minutos, por vídeo, na sala. Quem vai apresentar é combinado na própria sala; nada disso vai para o servidor.",
+    "data": "Este mês, o seminário é na quarta, {data}, às 19h30 de Brasília.",
+    "roteiroTitulo": "Roteiro da apresentação",
+    "roteiro": [
+      "A pergunta: o que você quis entender?",
+      "O que estudei: as aulas e as leituras que ajudaram.",
+      "Um exemplo do bairro: onde isso aparece na vida de quem mora perto.",
+      "Uma pergunta para a turma: para a conversa continuar."
+    ],
+    "cronometro": "Cronômetro de 10 minutos",
+    "comecar": "Começar",
+    "pausar": "Pausar",
+    "continuar": "Continuar",
+    "zerar": "Zerar",
+    "aviso": "Faltam 2 minutos: hora de ir para a pergunta à turma.",
+    "fim": "Os 10 minutos acabaram."
+  },
+  "orientacao": {
+    "titulo": "Orientação do projeto final",
+    "texto": "Orientadores acompanham o projeto final de quem estuda o curso. As vagas por semestre são poucas e a coordenação controla a lista.",
+    "nenhum": "Ainda não há orientador com vaga neste curso.",
+    "vagas": "{n} vagas neste semestre",
+    "vagaUma": "1 vaga neste semestre",
+    "pelaRede": "Mande uma mensagem pela Rede Lúcia para o perfil {perfil}, dizendo o curso e a ideia do projeto.",
+    "abrirRede": "Abrir a Rede Lúcia",
+    "peloEmail": "Escreva para o e-mail do Instituto, {email}, com o assunto “orientação do curso {curso}” e o nome de quem você quer como orientador(a).",
+    "mentoria": "O papel de mentoria do painel continua como está."
+  },
+  "circulo": {
+    "olho": "Escola Lúcia Maria · para quem facilita",
+    "titulo": "Círculo de cultura digital",
+    "lead": "Uma ferramenta para quem facilita um encontro da turma, em 5 passos inspirados nos círculos de cultura de Paulo Freire. Tudo fica só neste aparelho: nada vai para o servidor.",
+    "fonte": "Referência:",
+    "fonteTexto": "GUIMARÃES, Alessandro et al. A palavra é... Paulo Freire. Pró-Discente, Vitória (ES), v. 23, n. 1, p. 61-78, jan./jun. 2017.",
+    "fonteNota": "O artigo trabalha o pensamento de Freire por palavras geradoras, num exercício inspirado no círculo de cultura. Os 5 passos abaixo são uma adaptação do Instituto para o encontro por vídeo.",
+    "passo": "Passo {n} de 5",
+    "p1Titulo": "Levantar o universo vocabular",
+    "p1Texto": "Escreva as palavras e os problemas que a turma traz, do jeito que as pessoas falam. Não escreva nomes de pessoas.",
+    "p1Campo": "Palavra ou problema",
+    "p1Acrescentar": "Acrescentar",
+    "p1Tirar": "Tirar “{palavra}”",
+    "p1Vazio": "Nenhuma palavra ainda.",
+    "p2Titulo": "Escolher um tema gerador",
+    "p2Texto": "Com a turma, escolha uma palavra ou junte algumas num tema que puxe a conversa.",
+    "p2Campo": "Tema gerador",
+    "p2Usar": "Usar “{palavra}” como tema",
+    "p3Titulo": "Problematizar",
+    "p3Texto": "Perguntas-guia para a conversa. Use as que servirem e escreva outras.",
+    "p3Guias": [
+      "Onde isso aparece no nosso dia a dia?",
+      "Por que é assim? Sempre foi assim?",
+      "Quem ganha e quem perde com isso?",
+      "O que já fizemos, ou outras pessoas fizeram, sobre isso?",
+      "O que dá para fazer juntos a partir daqui?"
+    ],
+    "p3Campo": "Outra pergunta",
+    "p3Acrescentar": "Acrescentar pergunta",
+    "p4Titulo": "Procurar aulas sobre o tema",
+    "p4Texto": "A busca é feita neste aparelho, no índice de aulas do site. Escolha as aulas e monte uma sequência do modo turma, com link e QR para a turma abrir.",
+    "p4Buscar": "Buscar aulas sobre o tema",
+    "p4Carregando": "Carregando o índice de aulas…",
+    "p4Falhou": "Não deu para carregar o índice de aulas. Confira a conexão e tente de novo.",
+    "p4Nada": "Nenhuma aula do site sobre este tema.",
+    "p4Escolher": "Pôr na sequência",
+    "p4Tirar": "Tirar da sequência",
+    "p4Escolhidas": "{n} aulas na sequência (até {max})",
+    "p4Gerar": "Gerar o link da turma",
+    "p4Link": "Link da sequência para a turma",
+    "p4Qr": "QR Code do link da sequência",
+    "p4Abrir": "Abrir a sequência",
+    "p5Titulo": "Se não houver aula, pedir uma",
+    "p5Texto": "Se o site não tem aula sobre o tema, peça pela página de contribuir: escolha “Uma ideia” e escreva o pedido. Nada é enviado sozinho.",
+    "p5Modelo": "Pedido de aula sobre: {tema}",
+    "p5Pedir": "Pedir aula sobre este tema",
+    "semTema": "Escolha um tema no passo 2.",
+    "guardado": "Guardado neste aparelho.",
+    "guardadosTitulo": "Círculos guardados neste aparelho",
+    "guardadosTexto": "Até {max} círculos. Os mais velhos saem quando passa disso.",
+    "abrir": "Abrir",
+    "apagar": "Apagar",
+    "apagarTudo": "Apagar todos os círculos deste aparelho",
+    "novo": "Começar um círculo novo",
+    "semTitulo": "Círculo sem tema",
+    "copiar": "Copiar",
+    "copiado": "Copiado"
+  },
+  "banca": {
+    "olho": "Escola Lúcia Maria · projeto final",
+    "titulo": "Banca popular online",
+    "lead": "Uma conversa de 30 minutos por vídeo para apresentar o projeto final do curso. A banca presencial fica para depois.",
+    "quemTitulo": "Quem está na banca",
+    "quem": [
+      "Um educador ou uma educadora",
+      "Um colega de turma",
+      "Alguém do território"
+    ],
+    "roteiroTitulo": "Roteiro de 30 minutos",
+    "roteiro": [
+      [
+        "10 min",
+        "Apresentação: a pessoa conta o projeto, o que fez e o que aprendeu."
+      ],
+      [
+        "15 min",
+        "Conversa: perguntas da banca e da pessoa, sem prova e sem pegadinha."
+      ],
+      [
+        "5 min",
+        "Devolutiva: cada competência da ficha, com o que foi bem e o próximo passo."
+      ]
+    ],
+    "sala": "A sala é a da turma do curso, para quem entrou nela, ou outra combinada entre as pessoas.",
+    "fichaTitulo": "Ficha de devolutiva",
+    "fichaTexto": "Sem nota. Para imprimir ou preencher neste aparelho. O que você escreve fica só aqui.",
+    "competencias": {
+      "clareza": "Clareza",
+      "curso": "Ligação com o curso",
+      "vida": "Ligação com a vida",
+      "proximo": "Próximo passo"
+    },
+    "perguntas": {
+      "clareza": "Deu para entender o projeto e o que foi feito?",
+      "curso": "O projeto usa o que o curso ensinou?",
+      "vida": "O projeto conversa com a vida de quem mora no território?",
+      "proximo": "O que dá para fazer a seguir?"
+    },
+    "curso": "Curso",
+    "escolhaCurso": "Escolha o curso",
+    "data": "Data da banca",
+    "pessoasTitulo": "Pessoas da banca (opcional)",
+    "pessoasTexto": "Escreva o nome só de quem deixou: cada pessoa precisa ter dado permissão. Fica só na sua caderneta.",
+    "pessoa": "Pessoa {n}",
+    "permissao": "Cada pessoa cujo nome escrevi deixou que ele fique na minha caderneta.",
+    "imprimir": "Imprimir a ficha",
+    "registrar": "Registrar na minha caderneta",
+    "registrado": "Registrado na sua caderneta, neste aparelho.",
+    "falta": "Escolha o curso, a data e escreva ao menos uma devolutiva.",
+    "faltaPermissao": "Confirme a permissão de quem tem o nome escrito, ou apague os nomes.",
+    "tituloDoRegistro": "Projeto apresentado em banca",
+    "caderneta": "Ver a caderneta"
+  },
+  "cartaz": {
+    "olho": "Escola Lúcia Maria · arquivo vivo da turma",
+    "titulo": "Cartaz da turma",
+    "lead": "O cartaz coletivo da turma que se forma. Quem facilita digita uma frase de cada pessoa. Entram o curso e o semestre; nenhum nome completo. Tudo é montado neste aparelho.",
+    "curso": "Curso",
+    "escolhaCurso": "Escolha o curso",
+    "semestre": "Semestre",
+    "frase": "Frase de uma pessoa",
+    "acrescentar": "Acrescentar frase",
+    "tirar": "Tirar a frase {n}",
+    "vazio": "Nenhuma frase ainda.",
+    "avisoNome": "Esta frase parece ter um nome completo. Confira: o cartaz não leva nome completo.",
+    "slogan": "Arquivo vivo da turma",
+    "formatura": "Turma que se forma em {semestre}",
+    "baixarPng": "Baixar imagem (PNG)",
+    "imprimir": "Imprimir ou salvar em PDF",
+    "imprimirDica": "Para PDF, escolha “Salvar como PDF” na caixa de impressão.",
+    "gerando": "Gerando…",
+    "falhou": "Não deu para gerar a imagem neste aparelho.",
+    "nomeDoArquivo": "cartaz-da-turma",
+    "galeriaTitulo": "Para o cartaz ir à Galeria",
+    "galeriaTexto": "Nada é publicado sozinho. Com a turma de acordo, envie o PNG pela Gaveta Aberta, no formulário que já existe: tipo “outro” e licença CC BY-SA 4.0. A coordenação confere e acrescenta o cartaz à Galeria.",
+    "gaveta": "Ir para a Gaveta Aberta",
+    "limite": "{n} de {max} frases"
+  },
+  "linkTurmas": {
+    "titulo": "Turmas por curso",
+    "texto": "Na Escola Lúcia Maria, cada curso tem a sua turma do mês."
+  }
+}

@@ -981,6 +981,7 @@
     }
   },
   "lesson": {
+    "yourExplanation": "你上次的解释",
     "position": "第 {i} 课，共 {n} 课",
     "awaitingReview": "这节课仍在等待社区审阅。发现错误了吗？",
     "suggestOne": "建议修改",
@@ -5140,6 +5141,7 @@
     }
   },
   "blocks": {
+    "almost": "差一点！正确写法是 {w}",
     "graph": "图表",
     "invalid": "用这些数值无法计算。",
     "chart": "数据图表",

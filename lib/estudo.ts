@@ -130,6 +130,37 @@ export function agendar(c: Pick<CartaoDeRevisao, "caixa">, nota: Nota, dia = hoj
 export const lerCartoes = () => ler<CartaoDeRevisao>(CHAVE_REVISAO);
 export const paraHoje = (lista = lerCartoes(), dia = hoje()) => lista.filter((c) => c.proxima <= dia);
 
+/**
+ * A revisão que mistura matérias (Etapa 4, E4-13, R1-32; docs/escola/avaliacao.md): um rodízio determinístico por
+ * trilha. Agrupa os itens pela trilha (`grupoDe`; o padrão é o campo `trilha` e, sem ele, a `origem` do cartão, que é a
+ * aula ou a fonte de onde ele veio) e pega um de cada grupo por vez, mantendo dentro de cada grupo a ordem de vencimento
+ * (`proxima`, quando existe; empate fica na ordem recebida). Os grupos entram na ordem do primeiro item de cada um.
+ * `depoisDe`: o grupo do último item mostrado; o rodízio começa no grupo seguinte (a tela que recalcula a fila a cada
+ * resposta não volta à mesma matéria). Não tira nem acrescenta item: o conjunto é o mesmo que entrou.
+ */
+export function intercalar<T>(itens: readonly T[], grupoDe: (item: T) => string = grupoPadrao, depoisDe?: string): T[] {
+  const vence = (x: T) => {
+    const p = (x as { proxima?: unknown }).proxima;
+    return typeof p === "string" ? p : "";
+  };
+  const ordenados = itens.map((item, i) => ({ item, i })).sort((a, b) => vence(a.item).localeCompare(vence(b.item)) || a.i - b.i);
+  const grupos = new Map<string, T[]>();
+  for (const { item } of ordenados) {
+    const g = grupoDe(item);
+    grupos.set(g, [...(grupos.get(g) ?? []), item]);
+  }
+  const filas = [...grupos.entries()];
+  const ultimo = depoisDe === undefined ? -1 : filas.findIndex(([g]) => g === depoisDe);
+  if (ultimo >= 0) filas.push(...filas.splice(0, ultimo + 1));
+  const saida: T[] = [];
+  for (let rodada = 0; saida.length < ordenados.length; rodada++) for (const [, fila] of filas) if (rodada < fila.length) saida.push(fila[rodada]);
+  return saida;
+}
+function grupoPadrao(item: unknown): string {
+  const x = item as { trilha?: unknown; origem?: unknown };
+  return typeof x.trilha === "string" ? x.trilha : typeof x.origem === "string" ? x.origem : "";
+}
+
 /** Guarda cartões novos no baralho (o mesmo par frente/verso não entra duas vezes). Devolve quantos entraram. */
 export function guardarCartoes(novos: { frente: string; verso: string; origem: string }[]): number {
   const lista = lerCartoes();

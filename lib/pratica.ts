@@ -4,6 +4,8 @@
 // a comparação de respostas e o progresso (pontos, sequência de dias e cartões de memória), guardado só no navegador.
 // Serve ao site (lib/content.ts valida; components/Pratica.tsx joga) e ao painel (o educador monta).
 
+import { confere as conferirResposta, type Conferido } from "./resposta-confere";
+
 export interface Escolha {
   tipo: "escolha";
   pergunta: string;
@@ -131,10 +133,15 @@ export function normalizar(valor: string, semAcentos = false): string {
     .trim();
   return semAcentos ? base.normalize("NFD").replace(/\p{M}/gu, "") : base;
 }
-export const confere = (dado: string, esperado: string | string[]) => {
-  const aceitas = Array.isArray(esperado) ? esperado : [esperado];
-  return aceitas.some((certa) => normalizar(certa) === normalizar(dado)) || aceitas.some((certa) => normalizar(certa, true) === normalizar(dado, true));
-};
+/**
+ * Sim ou não, sem perdoar digitação (o comportamento de antes). A tela da prática usa `conferirDigitada`, que com a
+ * Escola ligada perdoa o erro de digitação e trata o acento como "quase" (E4-13, lib/resposta-confere.ts).
+ */
+export const confere = (dado: string, esperado: string | string[]) => conferirResposta(dado, esperado, { tolerante: false }).certo;
+
+/** A conferência da resposta digitada na prática de idiomas: com `perdoar`, aceita o erro de digitação e o acento como "quase". */
+export const conferirDigitada = (dado: string, esperado: string | string[], perdoar: boolean): Conferido =>
+  perdoar ? conferirResposta(dado, esperado, { acento: "quase" }) : { certo: confere(dado, esperado), quase: false, grafia: null };
 /** Quantas palavras da frase esperada apareceram no que foi dito (de 0 a 1), para a fala. */
 export function parecido(dito: string, esperado: string): number {
   const alvo = normalizar(esperado, true).split(" ").filter(Boolean);
