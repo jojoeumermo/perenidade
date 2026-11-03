@@ -987,6 +987,7 @@
     }
   },
   "lesson": {
+    "yourExplanation": "Lo que explicaste la otra vez",
     "position": "lección {i} de {n}",
     "awaitingReview": "Esta lección aún espera la revisión de la comunidad. ¿Encontraste un error?",
     "suggestOne": "Sugiere una corrección",
@@ -5217,6 +5218,7 @@
     }
   },
   "blocks": {
+    "almost": "¡Casi! Se escribe {w}",
     "graph": "Gráfico",
     "invalid": "No se pudo calcular con estos valores.",
     "chart": "Gráfico de datos",

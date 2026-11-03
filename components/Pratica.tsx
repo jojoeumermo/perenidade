@@ -6,7 +6,8 @@ import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { ligado, type Recurso } from "@/lib/recursos";
 import { SELOS_DE_FORA } from "@/lib/selos";
-import { cartaoVencido, confere, embaralhar, type Exercicio, falar, juntar, lerProgresso, palavrasDe, parecido, type Progresso, registrarSessao, revisarCartao, temVoz, guardarProgresso } from "@/lib/pratica";
+import { cartaoVencido, conferirDigitada, embaralhar, type Exercicio, falar, juntar, lerProgresso, palavrasDe, parecido, type Progresso, registrarSessao, revisarCartao, temVoz, guardarProgresso } from "@/lib/pratica";
+import { useI18n } from "./I18n";
 import { SelosDePrivacidade } from "./SeloDePrivacidade";
 
 export type PraticaStrings = Dict["practice"];
@@ -108,7 +109,13 @@ function Ouvir({ frase, lingua, s, devagar = true, autoFalar = false }: { frase:
 }
 
 /** Cada tipo de exercício devolve ao jogo se a resposta ficou certa, errada ou (nos cartões e na fala) concluída. */
-function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio; lingua: string; s: PraticaStrings; responder: (r: Resultado, certa?: string) => void; chaveDoCartao: string }) {
+function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio; lingua: string; s: PraticaStrings; responder: (r: Resultado, certa?: string, grafia?: string | null) => void; chaveDoCartao: string }) {
+  // A resposta digitada (E4-13, R1-26): com a Escola ligada, o erro de digitação e o acento esquecido contam como
+  // "quase" (aceita, com a grafia certa ao lado). Desligada, a comparação é a de antes.
+  const conferirTexto = (dado: string, esperado: string | string[]) => {
+    const r = conferirDigitada(dado, esperado, ligado("escola"));
+    responder(r.certo ? "certo" : "errado", Array.isArray(esperado) ? esperado[0] : esperado, r.quase ? r.grafia : null);
+  };
   const [texto, setTexto] = useState("");
   const [escolhido, setEscolhido] = useState<number | null>(null);
   const [montado, setMontado] = useState<string[]>([]);
@@ -184,10 +191,10 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
             </div>
           </>
         ) : (
-          <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={naLingua ? undefined : lingua} className={`${campo} mt-4`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) responder(confere(texto, certas) ? "certo" : "errado", certas[0]); }} />
+          <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={naLingua ? undefined : lingua} className={`${campo} mt-4`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) conferirTexto(texto, certas); }} />
         )}
         <p className="mt-4">
-          <button type="button" className={botao} disabled={!resposta.trim()} onClick={() => responder(confere(resposta, certas) ? "certo" : "errado", certas[0])}>{s.check}</button>
+          <button type="button" className={botao} disabled={!resposta.trim()} onClick={() => conferirTexto(resposta, certas)}>{s.check}</button>
         </p>
       </div>
     );
@@ -212,10 +219,10 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
             ))}
           </div>
         ) : (
-          <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={lingua} className={`${campo} mt-4 max-w-sm`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) responder(confere(texto, ex.resposta) ? "certo" : "errado", ex.resposta); }} />
+          <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={lingua} className={`${campo} mt-4 max-w-sm`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) conferirTexto(texto, ex.resposta); }} />
         )}
         <p className="mt-4">
-          <button type="button" className={botao} disabled={!resposta} onClick={() => responder(confere(resposta, ex.resposta) ? "certo" : "errado", ex.resposta)}>{s.check}</button>
+          <button type="button" className={botao} disabled={!resposta} onClick={() => conferirTexto(resposta, ex.resposta)}>{s.check}</button>
         </p>
         {ex.dica && <p className="mt-2 text-sm text-ink-soft">{ex.dica}</p>}
       </div>
@@ -271,9 +278,9 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
         <p className="font-sans text-xs uppercase tracking-widest text-gold">{s.typeHeard}</p>
         <div className="mt-3"><Ouvir frase={ex.frase} lingua={lingua} s={s} autoFalar /></div>
         {!temVoz() && <p className="mt-2 text-sm text-oxblood">{s.noSpeech} <span className="font-serif text-lg text-ink">{ex.frase}</span></p>}
-        <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={lingua} className={`${campo} mt-4`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) responder(confere(texto, ex.frase) ? "certo" : "errado", ex.frase); }} />
+        <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={lingua} className={`${campo} mt-4`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) conferirTexto(texto, ex.frase); }} />
         <p className="mt-4">
-          <button type="button" className={botao} disabled={!texto.trim()} onClick={() => responder(confere(texto, ex.frase) ? "certo" : "errado", ex.frase)}>{s.check}</button>
+          <button type="button" className={botao} disabled={!texto.trim()} onClick={() => conferirTexto(texto, ex.frase)}>{s.check}</button>
         </p>
       </div>
     );
@@ -387,12 +394,13 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
 /** `semPlacar` e `lead` (opcionais, recurso "pratica-sem-placar"): escondem os pontos e a sequência de dias e trocam o texto de abertura. */
 export function Pratica({ id, exercicios, lingua, s, previa = false, semPlacar = false, lead }: { id: string; exercicios: Exercicio[]; lingua: string; s: PraticaStrings; previa?: boolean; semPlacar?: boolean; lead?: string }) {
   const progresso = useProgresso();
+  const { t } = useI18n();
   const [fase, setFase] = useState<"inicio" | "jogando" | "fim">("inicio");
   const [fila, setFila] = useState<number[]>([]);
   const [posicao, setPosicao] = useState(0);
   const [rodada, setRodada] = useState(0);
   const [resultados, setResultados] = useState<Record<number, Resultado>>({});
-  const [feedback, setFeedback] = useState<{ r: Resultado; certa?: string } | null>(null);
+  const [feedback, setFeedback] = useState<{ r: Resultado; certa?: string; grafia?: string | null } | null>(null);
   const [resumo, setResumo] = useState<{ acertos: number; total: number; xp: number } | null>(null);
   const daAula = progresso.porAula[id];
 
@@ -405,9 +413,9 @@ export function Pratica({ id, exercicios, lingua, s, previa = false, semPlacar =
     setFase("jogando");
   }
 
-  function responder(r: Resultado, certa?: string) {
+  function responder(r: Resultado, certa?: string, grafia?: string | null) {
     if (progresso.som && r !== "pulado") tocar(r === "certo");
-    setFeedback({ r, certa });
+    setFeedback({ r, certa, grafia });
     setResultados((antes) => ({ ...antes, [fila[posicao]]: r }));
   }
 
@@ -472,6 +480,11 @@ export function Pratica({ id, exercicios, lingua, s, previa = false, semPlacar =
                 <p className={`font-sans text-xl font-black uppercase italic ${feedback.r === "certo" ? "text-ok" : feedback.r === "errado" ? "text-oxblood" : "text-gold"}`}>
                   {feedback.r === "certo" ? s.correct : feedback.r === "errado" ? s.wrong : s.skipped}
                 </p>
+                {feedback.r === "certo" && feedback.grafia && (
+                  <p className="mt-2 font-serif text-lg" data-quase="" lang={lingua}>
+                    {fill(t.blocks.almost, { w: feedback.grafia })}
+                  </p>
+                )}
                 {feedback.certa && feedback.r !== "certo" && (
                   <p className="mt-2 font-serif text-lg" lang={lingua}>
                     <span className="font-sans text-sm text-ink-soft">{s.answerWas} </span>

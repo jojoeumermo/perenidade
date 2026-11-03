@@ -3,14 +3,15 @@
 
 import { useEffect, useState } from "react";
 import { fill } from "@/i18n/config";
-import { lerCartoes } from "@/lib/estudo";
+import { intercalar, lerCartoes } from "@/lib/estudo";
+import { explicacaoDe } from "@/lib/escola/avaliacao";
 import type { ExercicioNovo } from "@/lib/exercicios";
 import { lerRespostas, paraRevisar, type RespostaGuardada } from "@/lib/meu-estudo";
 import { ligado } from "@/lib/recursos";
 import { useHydrated } from "@/lib/storage";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { useTextosDaBusca } from "../busca/TextosDaBusca";
-import { L } from "../I18n";
+import { L, useI18n } from "../I18n";
 import { ComecoEmTresPassos } from "./ComecoEmTresPassos";
 import { CartaoDeExercicio } from "./Exercicio";
 import { useGuardado } from "./guardado";
@@ -66,6 +67,7 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
   const [resultados, setResultados] = useState<Record<string, boolean>>({});
   const [aulaPedida, setAulaPedida] = useState<string | null>(null);
   const busca = useTextosDaBusca();
+  const { t } = useI18n();
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("modo") === "revisar") void Promise.resolve().then(() => setModo("revisar"));
@@ -96,6 +98,8 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
   const tituloPedido = aulaPedida ? (todos.find((x) => x.aula === aulaPedida)?.tituloDaAula ?? aulaPedida) : "";
   const temExerciciosDaAula = Boolean(aulaPedida && todos.some((x) => x.aula === aulaPedida));
   const cartoesDaAula = aulaPedida ? lerCartoes().filter((c) => c.origem === tituloPedido).length : 0;
+  // Etapa 4 (E4-13): o que a pessoa explicou desta aula com as próprias palavras volta na revisão dela (só do aparelho).
+  const explicada = aulaPedida && ligado("escola") ? explicacaoDe(aulaPedida) : null;
   const avisoDaAula =
     aulaPedida && busca ? (
       <div className="mt-6 border-l-2 border-gold pl-3 font-sans text-sm" data-praticar-aula={aulaPedida}>
@@ -110,6 +114,12 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
             {busca.textos.praticarAula.fechar}
           </button>
         </p>
+        {explicada && (
+          <figure className="mt-3 border-l-2 border-rule pl-3" data-explicacao-anterior="">
+            <figcaption className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-soft">{t.lesson.yourExplanation}</figcaption>
+            <blockquote className="mt-1 whitespace-pre-line font-serif text-base">{explicada.texto}</blockquote>
+          </figure>
+        )}
       </div>
     ) : null;
 
@@ -133,7 +143,9 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
 
   function comecar() {
     // À vontade: dos mais fáceis para os mais difíceis, sorteando dentro de cada nível; na revisão, os mais atrasados primeiro.
-    const ordem = modo === "revisar" ? escolhidos : [...escolhidos].sort((a, b) => a.ex.dificuldade - b.ex.dificuldade || Math.random() - 0.5);
+    // Na revisão (E4-13), as matérias se misturam: um exercício de cada trilha por vez, os mais atrasados primeiro em cada uma.
+    const atrasados = paraRevisar(respostas).flatMap((id) => porId.get(id) ?? []);
+    const ordem = modo === "revisar" ? intercalar(atrasados, (x) => x.trilha) : [...escolhidos].sort((a, b) => a.ex.dificuldade - b.ex.dificuldade || Math.random() - 0.5);
     setSessao(ordem.slice(0, TAMANHO).map((x) => x.ex.id));
     setPosicao(0);
     setResultados({});

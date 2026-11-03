@@ -1,12 +1,16 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import type { DesenhoDoPredio } from "@/lib/escola/campus";
 import { L, useI18n } from "../I18n";
 
-type Chave = "radio" | "podcasts" | "journal" | "news" | "glossary" | "labs" | "questionBank" | "live" | "health";
+type ChaveDoDia = "radio" | "podcasts" | "journal" | "news" | "glossary" | "labs" | "questionBank" | "live" | "health";
+/** Os atalhos do dia e, desde o E4-09, os prédios do mapa do campus (lib/escola/campus.ts), no mesmo traço. */
+export type Chave = ChaveDoDia | DesenhoDoPredio;
+type Atalho = { path: string; fundo: string; tinta: string; desenho: React.ReactNode };
 
 /** As seções que se abrem todo dia, cada uma com a sua cor da paleta dos panos e o seu desenho em traço. */
-export const ATALHOS: Record<Chave, { path: string; fundo: string; tinta: string; desenho: React.ReactNode }> = {
+const DO_DIA: Record<ChaveDoDia, Atalho> = {
   radio: {
     path: "/radio",
     fundo: "#c21f16",
@@ -109,8 +113,94 @@ export const ATALHOS: Record<Chave, { path: string; fundo: string; tinta: string
   },
 };
 
+/** O prédio do campus empresta a cor de um atalho do dia (nenhuma cor nova) e ganha o seu desenho, no mesmo traço. */
+const predio = (tom: ChaveDoDia, path: string, desenho: React.ReactNode): Atalho => ({ path, fundo: DO_DIA[tom].fundo, tinta: DO_DIA[tom].tinta, desenho });
+
+export const ATALHOS: Record<Chave, Atalho> = {
+  ...DO_DIA,
+  // A Escola: o frontão e as colunas.
+  "predio-escola": predio(
+    "journal",
+    "/escola",
+    <>
+      <path d="M3 9.5 12 4l9 5.5" />
+      <path d="M5.5 10.5v8M10 10.5v8M14 10.5v8M18.5 10.5v8" />
+      <path d="M3 20h18" />
+    </>,
+  ),
+  // A Biblioteca: livros em pé na estante.
+  "predio-biblioteca": predio(
+    "glossary",
+    "/acervo",
+    <>
+      <rect x="4" y="4" width="4" height="16" rx="1" />
+      <rect x="9.5" y="6" width="4" height="14" rx="1" />
+      <path d="m15.2 7.2 3.6-1 3 13.3-3.6 1z" />
+    </>,
+  ),
+  // A Rádio: a torre com as ondas.
+  "predio-radio": predio(
+    "radio",
+    "/radio",
+    <>
+      <circle cx="12" cy="8" r="1.8" />
+      <path d="M12 10v10M8 21l4-11 4 11" />
+      <path d="M7.8 4.6a6 6 0 0 0 0 6.8M16.2 4.6a6 6 0 0 1 0 6.8" />
+    </>,
+  ),
+  // O Memorial: o marco de pedra.
+  "predio-memorial": predio(
+    "podcasts",
+    "/memorial",
+    <>
+      <path d="M10 18V7.5L12 3l2 4.5V18" />
+      <path d="M7.5 18h9v3h-9z" />
+      <path d="M5 21h14" />
+    </>,
+  ),
+  // As Oficinas: o martelo.
+  "predio-oficinas": predio(
+    "labs",
+    "/laboratorios",
+    <>
+      <path d="m13 6 5 5" />
+      <path d="M9.5 4.5 15 3l4.5 4.5-1.5 5.5z" />
+      <path d="m12.5 9.5-8 8a1.8 1.8 0 0 0 2.5 2.5l8-8" />
+    </>,
+  ),
+  // A Praça: a árvore e o banco.
+  "predio-praca": predio(
+    "news",
+    "/comunidade",
+    <>
+      <circle cx="9" cy="8" r="4.5" />
+      <path d="M9 12.5V20M3 20h18" />
+      <path d="M14 16.5h6M15 16.5V20M19 16.5V20" />
+    </>,
+  ),
+  // O Território: o marcador com a casa dentro.
+  "predio-territorio": predio(
+    "questionBank",
+    "/territorios",
+    <>
+      <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" />
+      <path d="M9.5 11.5 12 9.3l2.5 2.2v2.5h-5z" />
+    </>,
+  ),
+  // A Secretaria: a ficha com a dobra.
+  "predio-secretaria": predio(
+    "live",
+    "/meus-dados",
+    <>
+      <path d="M6 3h8.5L19 7.5V21H6z" />
+      <path d="M14.5 3v4.5H19" />
+      <path d="M9 12h7M9 15.5h7M9 19h4" />
+    </>,
+  ),
+};
+
 /** Uma fileira de ladrilhos coloridos (quatro por linha), como a tela inicial de um aparelho. */
-export function Ladrilhos({ chaves, rotulo, aoAbrir }: { chaves: Chave[]; rotulo: string; aoAbrir?: (path: string) => void }) {
+export function Ladrilhos({ chaves, rotulo, aoAbrir }: { chaves: ChaveDoDia[]; rotulo: string; aoAbrir?: (path: string) => void }) {
   const { t } = useI18n();
   return (
     <nav aria-label={rotulo} className="grid grid-cols-4 gap-x-1.5 gap-y-4">

@@ -8,6 +8,11 @@ import { loadLang } from "@/i18n";
 import { defaultLocale, localePath } from "@/i18n/config";
 import { getTrack, getTracks } from "@/lib/content";
 import { withLangs } from "@/lib/params";
+import { textosDaAvaliacao } from "@/i18n/escola/avaliacao";
+import { aulasDoCurso, trilhaDe } from "@/lib/escola/cursos";
+import { carregarCursos } from "@/lib/escola/cursos-servidor";
+import { ligado } from "@/lib/recursos";
+import "@/styles/escola-avaliacao.css";
 
 export const dynamicParams = false;
 
@@ -36,6 +41,20 @@ export default async function ExamPage({ params }: PageProps<"/[lang]/trilhas/[t
   if (!track) notFound();
   const questions = questionsOf(track);
   if (questions.length < MINIMUM) notFound();
+  // Com a Escola ligada (E4-13; docs/escola/avaliacao.md): os modos em dupla e de proficiência, a prova guardada no
+  // aparelho e o retorno por competência. Desligada, a prova fica como sempre foi.
+  const sa = ligado("escola") ? textosDaAvaliacao(lang) : null;
+  const escola = sa
+    ? {
+        trilha: track.slug,
+        titulos: Object.fromEntries(track.lessons.map((l) => [`${track.slug}/${l.slug}`, l.title])),
+        disponiveis: Object.fromEntries(track.lessons.filter((l) => l.quiz.length > 0).map((l) => [`${track.slug}/${l.slug}`, l.quiz.length])),
+        cursos: carregarCursos()
+          .filter((c) => aulasDoCurso(c).some((a) => trilhaDe(a) === track.slug))
+          .map((c) => ({ slug: c.slug, titulo: c.titulo })),
+        s: { retorno: sa.retorno, prova: sa.prova, dupla: sa.dupla, proficiencia: sa.proficiencia },
+      }
+    : undefined;
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <Link href={localePath(lang, `/trilhas/${track.slug}`)} className="font-sans text-sm text-ink-soft hover:text-oxblood" {...originalLang(track.translated)}>
@@ -48,7 +67,7 @@ export default async function ExamPage({ params }: PageProps<"/[lang]/trilhas/[t
       <p className="mt-3 text-xl text-ink-soft">{t.tracks.examLead}</p>
       <Untranslated lang={lang} t={t} show={!track.translated} />
       <div {...originalLang(track.translated)}>
-        <Exam questions={questions} s={t.tracks} />
+        <Exam questions={questions} s={t.tracks} escola={escola} />
       </div>
     </div>
   );

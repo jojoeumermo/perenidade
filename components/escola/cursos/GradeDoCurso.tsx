@@ -54,6 +54,9 @@ export function GradeDoCurso({ slug, modulos, alternancia, s, emRevisao }: { slu
                 {m.titulo}
               </span>
             </h3>
+            <L href={`/escola/cursos/${slug}/modulo/${i + 1}`} className="font-sans text-sm underline">
+              {s.retornoDoModulo}
+            </L>
             {alternancia && <p className="grade-tempo">{s.tempoEscola}</p>}
             <ol className="grade-aulas">
               {m.aulas.map((a) => {

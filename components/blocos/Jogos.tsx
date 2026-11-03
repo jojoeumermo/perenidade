@@ -7,6 +7,8 @@ import { fill } from "@/i18n/config";
 import { idDaQuestao, registrarErro } from "@/lib/estudo";
 import { lacunaCerta, lerCacaPalavras, lerForca, lerPares, lerTeste, montarGrade, numeroCerto, type Questao } from "@/lib/interativos";
 import { imagemDoSite } from "@/lib/interativos-mais";
+import { ligado } from "@/lib/recursos";
+import { confere } from "@/lib/resposta-confere";
 import { useI18n } from "../I18n";
 
 // Testes autocorrigíveis e jogos (cartões, memória, forca, caça-palavras). Tudo no aparelho; quem erra um teste
@@ -66,6 +68,16 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
   const [ordem, setOrdem] = useState<string[]>(() => (q.tipo === "ordenar" ? embaralhar(q.itens) : []));
   const [conferida, setConferida] = useState<boolean | null>(null);
   const [escolhida, setEscolhida] = useState<number | null>(null);
+  const [grafias, setGrafias] = useState<string[]>([]);
+
+  // As lacunas digitadas (E4-13, R1-26): com a Escola ligada, o erro de digitação conta como "quase" (aceita, com a
+  // grafia certa ao lado); desligada, a comparação é a de antes (lib/interativos.ts).
+  function conferirLacunas(respostas: string[][]) {
+    if (!ligado("escola")) return conferir(respostas.every((aceitas, k) => lacunaCerta(aceitas, resposta[k] ?? "")));
+    const r = respostas.map((aceitas, k) => confere(resposta[k] ?? "", aceitas));
+    setGrafias(r.flatMap((x) => (x.certo && x.quase && x.grafia ? [x.grafia] : [])));
+    conferir(r.every((x) => x.certo));
+  }
 
   function conferir(certa: boolean, escolha = -1) {
     setConferida(certa);
@@ -80,6 +92,7 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
   const retorno = conferida !== null && (
     <div role="status" className="mt-2">
       <p className={conferida ? "font-semibold text-ok" : "font-semibold text-oxblood"}>{conferida ? t.blocks.right : t.blocks.wrong}</p>
+      {conferida && grafias.length > 0 && <p data-quase="">{fill(t.blocks.almost, { w: grafias.join(", ") })}</p>}
       {!conferida && q.tipo === "escolha" && escolhida !== null && q.opcoes[escolhida]?.retorno && <p>{q.opcoes[escolhida].retorno}</p>}
       {!conferida && q.tipo !== "escolha" && <p>{t.blocks.answer} {respostaCerta(q)}</p>}
       {q.explicacao && <p className="text-ink-soft">{q.explicacao}</p>}
@@ -131,7 +144,7 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
   if (q.tipo === "lacunas") {
     const partes = q.enunciado.split("___");
     return (
-      <div onKeyDown={(e) => { if (e.key === "Enter" && conferida === null) { e.preventDefault(); conferir(q.respostas.every((aceitas, k) => lacunaCerta(aceitas, resposta[k] ?? ""))); } }}>
+      <div onKeyDown={(e) => { if (e.key === "Enter" && conferida === null) { e.preventDefault(); conferirLacunas(q.respostas); } }}>
         <p className="font-medium leading-9">
           {partes.map((parte, k) => (
             <span key={k}>
@@ -142,7 +155,7 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
             </span>
           ))}
         </p>
-        <button type="button" className={`mt-2 ${botao}`} disabled={conferida !== null} onClick={() => conferir(q.respostas.every((aceitas, k) => lacunaCerta(aceitas, resposta[k] ?? "")))}>{t.blocks.check}</button>
+        <button type="button" className={`mt-2 ${botao}`} disabled={conferida !== null} onClick={() => conferirLacunas(q.respostas)}>{t.blocks.check}</button>
         {retorno}
       </div>
     );

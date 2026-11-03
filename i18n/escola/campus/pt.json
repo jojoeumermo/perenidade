@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "campus": { "titulo": "Mapa do campus", "descricao": "Os prédios da Escola Lúcia Maria e o que tem dentro de cada um: salas de aula, biblioteca, rádio, memorial, oficinas, praça, território e secretaria." },
+    "calendario": { "titulo": "Calendário da Escola", "descricao": "O ano letivo da Escola Lúcia Maria: começo e fim do semestre, semana de provas, aula magna, feriados do campus e exames externos, com a fonte de cada data." }
+  },
+  "comum": {
+    "olho": "Escola Lúcia Maria",
+    "proposto": "Proposto, a confirmar pela coordenação",
+    "voltar": "Escola"
+  },
+  "predios": {
+    "escola": { "nome": "Escola", "frase": "As salas de aula: trilhas, turmas, aulas ao vivo e o seu estudo." },
+    "biblioteca": { "nome": "Biblioteca", "frase": "O acervo, as estantes, o glossário e as fontes." },
+    "radio": { "nome": "Rádio", "frase": "A rádio, os podcasts e os vídeos." },
+    "memorial": { "nome": "Memorial", "frase": "A memória de quem lutou antes de nós." },
+    "oficinas": { "nome": "Oficinas", "frase": "Laboratórios, ferramentas e o caderno: mão na massa." },
+    "praca": { "nome": "Praça", "frase": "Onde a gente se encontra: jornal, debates, checagens e mural." },
+    "territorio": { "nome": "Território", "frase": "Os núcleos, os territórios e os serviços perto de você." },
+    "secretaria": { "nome": "Secretaria", "frase": "Seus dados, a privacidade, quem somos e como ajudar." }
+  },
+  "mapa": {
+    "titulo": "Mapa do campus",
+    "rotulo": "Prédios do campus",
+    "busca": "Procurar no campus",
+    "nenhum": "Nada no campus com esse nome.",
+    "convite": "Conheça o campus: {n} de {total} prédios",
+    "carimbo": "Você já passou por aqui",
+    "nota": "O carimbo de cada prédio fica só neste aparelho. Não vale ponto nem entra em ranking.",
+    "secoes": "{n} lugares",
+    "abrir": "Ver o que tem no prédio {nome}"
+  },
+  "calendario": {
+    "atual": "Este semestre",
+    "proximo": "Próximo semestre",
+    "semestre1": "1º semestre de {ano}",
+    "semestre2": "2º semestre de {ano}",
+    "inicio": "Começo do semestre",
+    "fim": "Fim do semestre",
+    "provas": "Semana de provas",
+    "ate": "até {data}",
+    "agenda": "Pôr na minha agenda",
+    "agendaDe": "Pôr na minha agenda: {titulo}",
+    "semAulaMagna": "A aula magna do semestre ainda não foi marcada.",
+    "aMarcar": "data a marcar",
+    "fonte": "Fonte",
+    "fonteExame": "Fonte: {orgao}, consultado em {data}",
+    "cursoEnem": "Curso ENEM",
+    "aoVivo": "Ver nas aulas ao vivo",
+    "aulaDoTema": "Aula do tema",
+    "tipos": {
+      "inicio": "Começo",
+      "fim": "Fim",
+      "aula-magna": "Aula magna",
+      "feriado": "Feriado do campus",
+      "provas": "Provas",
+      "exame": "Exame externo"
+    },
+    "sobreFeriados": "Feriados do campus são datas de luta. Não tiram aula do plano: no dia, você escolhe descansar ou estudar a aula do tema.",
+    "sobreExames": "Exames externos entram só com data publicada em página oficial. O ENCCEJA ainda não tem data publicada pelo Inep para a próxima edição.",
+    "vazio": "Nada marcado neste semestre."
+  },
+  "feriado": {
+    "faixa": "Hoje é feriado no campus: {nome}",
+    "fonte": "Fonte",
+    "aula": "Aula do tema",
+    "descanso": "Feriado não tira aula do plano: descanse, ou estude a aula do tema."
+  },
+  "quadro": {
+    "titulo": "Quadro de avisos",
+    "aviso": "Aviso",
+    "calendario": "No calendário",
+    "turma": "Turma do mês",
+    "turmaTexto": "{titulo}: começa no dia 1, para quem quiser estudar junto.",
+    "novidade": "Novidade",
+    "lido": "Já li",
+    "lidoDe": "Já li: {titulo}",
+    "abrir": "Abrir",
+    "hoje": "hoje",
+    "nota": "Os avisos lidos ficam só neste aparelho."
+  },
+  "estacao": {
+    "rotulo": "Tempo da Escola",
+    "ferias": "Férias · volta no {semestre}",
+    "feriado": "Feriado do campus: {nome}"
+  }
+}

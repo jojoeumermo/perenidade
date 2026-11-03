@@ -1,0 +1,13 @@
+{
+  "_sobre": "Feriados do campus da Escola Lúcia Maria (E4-09, D1-7; docs/escola/campus.md): datas de luta que JÁ estão no site com fonte, e só elas. origem 'neste-dia': o dia e o link são os de um fato de content/neste-dia.json. origem 'festa': o dia é o de festaDe em components/Festa.tsx (campo 'festa') e o link é uma fonte da aula ligada. 'aula' é trilha/aula de content/trilhas. npm run testar:escola-campus confere cada um contra a origem. Feriado do campus não tira aula do plano: a faixa só sugere descanso ou a aula do tema. Data nova só com fonte já existente no repositório e decisão da coordenação.",
+  "feriados": [
+    { "dia": "03-08", "nome": "Dia Internacional da Mulher", "fonte": "https://pt.wikipedia.org/wiki/Revolu%C3%A7%C3%A3o_de_Fevereiro", "origem": "neste-dia", "aula": "feminismo-fundamental/o-8-de-marco" },
+    { "dia": "03-21", "nome": "Dia Internacional contra a Discriminação Racial", "fonte": "https://pt.wikipedia.org/wiki/Massacre_de_Sharpeville", "origem": "neste-dia" },
+    { "dia": "04-17", "nome": "Dia Internacional da Luta Camponesa", "fonte": "https://pt.wikipedia.org/wiki/Massacre_de_Eldorado_dos_Caraj%C3%A1s", "origem": "neste-dia", "aula": "historia-da-luta-pela-terra/eldorado-do-carajas" },
+    { "dia": "04-19", "nome": "Dia dos Povos Indígenas", "fonte": "https://pt.wikipedia.org/wiki/Dia_dos_Povos_Ind%C3%ADgenas", "origem": "festa", "festa": "indigena", "aula": "os-primeiros-povos/o-19-de-abril" },
+    { "dia": "05-01", "nome": "Dia Internacional dos Trabalhadores", "fonte": "https://pt.wikipedia.org/wiki/Dia_do_Trabalhador", "origem": "neste-dia" },
+    { "dia": "06-28", "nome": "Dia Internacional do Orgulho LGBT", "fonte": "https://pt.wikipedia.org/wiki/Rebeli%C3%A3o_de_Stonewall", "origem": "neste-dia", "aula": "lgbtqia-fundamental/o-dia-do-orgulho" },
+    { "dia": "10-12", "nome": "Dia da Resistência Indígena", "fonte": "https://pt.wikipedia.org/wiki/Resist%C3%AAncia_ind%C3%ADgena_ao_colonialismo", "origem": "neste-dia" },
+    { "dia": "11-20", "nome": "Dia de Zumbi e da Consciência Negra", "fonte": "https://pt.wikipedia.org/wiki/Zumbi_dos_Palmares", "origem": "neste-dia", "aula": "luta-negra-fundamental/o-20-de-novembro" }
+  ]
+}

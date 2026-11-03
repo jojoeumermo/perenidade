@@ -12,6 +12,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { I18nProvider } from "@/components/I18n";
 import { MaisGaveta } from "@/components/MaisGaveta";
+import { RegistroDoPassaporte } from "@/components/escola/campus/RegistroDoPassaporte";
 import { OfflineSupport } from "@/components/Offline";
 import { OpeningNotice } from "@/components/OpeningNotice";
 import { OutsidePanel } from "@/components/OutsidePanel";
@@ -28,7 +29,9 @@ import { loadLang } from "@/i18n";
 import { pickBase } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
 import { organizacao, siteWeb } from "@/lib/dados-estruturados";
+import { campusDoSite, textosDoCampus } from "@/lib/escola/campus-servidor";
 import { textosDaBusca } from "@/lib/escola/indice";
+import { ligado } from "@/lib/recursos";
 import { secoesDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 
@@ -129,6 +132,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <OpeningNotice initial={abertura.ativo ? abertura : null} close={t.a11y.close} />
             <MaisGaveta
               secoes={secoesDoSite(lang, t)}
+              // E4-09: com a Escola ligada, o "Mais" vira o mapa do campus. Sem ela, nada muda.
+              campus={ligado("escola") ? { predios: campusDoSite(lang, t), s: textosDoCampus(lang).mapa } : undefined}
               textos={{
                 titulo: t.more.title,
                 busca: t.more.searchPlaceholder,
@@ -151,6 +156,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <OfflineSupport />
           {/* O histórico local (só grava quando a pessoa ligou) e a saída rápida do modo seguro (sempre disponível). */}
           <RegistroDeVisita />
+          {/* E4-09: o passaporte do campus (primeira visita a cada prédio, só no aparelho), só com a Escola ligada. */}
+          {ligado("escola") && <RegistroDoPassaporte />}
           <SaidaRapida />
           </TextosDaBuscaProvider>
         </I18nProvider>

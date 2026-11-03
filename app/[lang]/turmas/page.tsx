@@ -5,6 +5,8 @@ import { Capa, Corpo, Secao } from "@/components/pagina/Capa";
 import { TurmaDoMes } from "@/components/TurmaDoMes";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
+import { textosDaTurma } from "@/i18n/escola/turma";
+import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { mesesDaTurma, turmaDoMes } from "@/lib/turma-do-mes";
 
@@ -43,6 +45,13 @@ export default async function Turmas({ params }: PageProps<"/[lang]/turmas">) {
             <Link href={localePath(lang, "/nucleos")} className="botao">{s.nucleos}</Link>
             <Link href={localePath(lang, "/conduta")} className="botao">{s.conduta}</Link>
           </p>
+          {/* Recurso "escola" (lib/recursos.ts): ligado, a Escola tem turmas por curso (E4-15). Desligado, nada muda aqui. */}
+          {ligado("escola") && (
+            <p className="mt-6 font-sans" data-link-turmas-por-curso="">
+              {textosDaTurma(lang).linkTurmas.texto}{" "}
+              <Link href={localePath(lang, "/escola/turmas")} className="font-semibold underline hover:text-oxblood">{textosDaTurma(lang).linkTurmas.titulo} →</Link>
+            </p>
+          )}
         </Secao>
       </Corpo>
     </>

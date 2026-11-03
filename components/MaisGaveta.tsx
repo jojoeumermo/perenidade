@@ -2,9 +2,12 @@
 "use client";
 
 import Link from "@/components/Link";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { localePath } from "@/i18n/config";
+import { filtrarCampus, type PredioDoMapa } from "@/lib/escola/campus";
+import type { TextosDoCampus } from "@/lib/escola/campus-servidor";
 import type { SecaoDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 import { normalize } from "@/lib/text";
@@ -15,6 +18,9 @@ import { Ladrilhos } from "./celular/Atalhos";
 import { ABRIR_MAIS, LanguageSwitcher, MAIS_NO_MENU, SAIR_MAIS } from "./NavLinks";
 
 const USADOS = "lucia:mais-usados";
+
+// O mapa do campus (E4-09) só é baixado quando a Escola está ligada e a janela abre: sem a flag, o "Mais" não pesa nada a mais.
+const MapaDoCampus = dynamic(() => import("@/components/escola/campus/MapaDoCampus").then((m) => m.MapaDoCampus));
 
 /** Quem somos, as regras e os dados da pessoa: no computador vão para a linha miúda do pé da janela, não para as colunas. */
 const NO_RODAPE = ["/sobre", "/quem-somos", "/dedicatoria", "/conduta", "/uso", "/direitos-autorais", "/privacidade", "/termos", "/meus-dados"];
@@ -104,7 +110,13 @@ function TemaNoMais() {
   );
 }
 
-export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: TextosDoMais }) {
+/** O mapa do campus (E4-09): só vem com a Escola ligada; sem ele, o "Mais" é o de sempre. */
+export interface CampusDoMais {
+  predios: PredioDoMapa[];
+  s: TextosDoCampus["mapa"];
+}
+
+export function MaisGaveta({ secoes, textos, campus }: { secoes: SecaoDoSite[]; textos: TextosDoMais; campus?: CampusDoMais }) {
   const { lang, t } = useI18n();
   const pathname = usePathname();
   // A janela guarda em que página foi aberta: trocou de página, ela some sozinha (sem efeito que feche).
@@ -199,6 +211,8 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
     () => filtradas.map((s) => ({ ...s, items: termo ? s.items : s.items.filter((i) => !MAIS_NO_MENU.includes(i.path) && !NO_RODAPE.includes(i.path)) })).filter((s) => s.items.length > 0),
     [filtradas, termo],
   );
+  // Com a Escola ligada, os prédios no lugar das colunas e dos grupos; a busca filtra os prédios e o que tem dentro.
+  const mapa = useMemo(() => (campus ? filtrarCampus(campus.predios, termo, normalize) : null), [campus, termo]);
   const rodape = useMemo(() => secoes.flatMap((s) => s.items).filter((i) => NO_RODAPE.includes(i.path)), [secoes]);
   const todas = useMemo(() => secoes.flatMap((s) => s.items), [secoes]);
   const preferidas = Object.entries(usados)
@@ -253,7 +267,7 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] md:px-7 md:pt-5">
-          {filtradas.length === 0 && <p className="py-6 text-lg text-ink-soft">{t.lists.none}</p>}
+          {(mapa ? mapa.length === 0 : filtradas.length === 0) && <p className="py-6 text-lg text-ink-soft">{t.lists.none}</p>}
 
           {/* No computador: uma linha de atalhos (o que a pessoa mais abre, ou por onde começar) e as seções em quatro
               colunas, só com os nomes; a descrição fica na dica. Nada que já esteja no menu do topo se repete aqui. */}
@@ -268,6 +282,9 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
                 ))}
               </p>
             )}
+            {campus && mapa ? (
+              mapa.length > 0 && <MapaDoCampus predios={mapa} s={campus.s} termo={termo} aoAbrir={ir} />
+            ) : (
             <div className="gap-x-9 md:columns-3 lg:columns-4">
               {colunas.map((secao, i) => (
                 <nav key={secao.title} aria-label={secao.title} className="mb-6">
@@ -289,6 +306,7 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
                 </nav>
               ))}
             </div>
+            )}
           </div>
 
           {/* No celular: a conta, os ladrilhos do dia a dia, o que a pessoa mais abre e cada grupo numa lista de aplicativo
@@ -306,7 +324,9 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
                 ))}
               </p>
             )}
-            {filtradas.map((secao, i) => (
+            {campus && mapa
+              ? mapa.length > 0 && <MapaDoCampus predios={mapa} s={campus.s} termo={termo} aoAbrir={ir} />
+              : filtradas.map((secao, i) => (
               <details key={secao.title} open={Boolean(termo) || i === 0} className="lista-de-app group">
                 <summary className="linha-de-app cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                   <span className="flex-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.16em] text-prelo-texto">{secao.title}</span>

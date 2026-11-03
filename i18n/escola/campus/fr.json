@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "campus": { "titulo": "Plan du campus", "descricao": "Les bâtiments de l’École Lúcia Maria et ce qu’il y a dans chacun : salles de classe, bibliothèque, radio, mémorial, ateliers, place, territoire et secrétariat." },
+    "calendario": { "titulo": "Calendrier de l’École", "descricao": "L’année scolaire de l’École Lúcia Maria : début et fin du semestre, semaine d’examens, leçon inaugurale, jours fériés du campus et examens externes, avec la source de chaque date." }
+  },
+  "comum": {
+    "olho": "École Lúcia Maria",
+    "proposto": "Proposé, à confirmer par la coordination",
+    "voltar": "École"
+  },
+  "predios": {
+    "escola": { "nome": "École", "frase": "Les salles de classe : parcours, groupes, cours en direct et ton étude." },
+    "biblioteca": { "nome": "Bibliothèque", "frase": "Le fonds, les étagères, le glossaire et les sources." },
+    "radio": { "nome": "Radio", "frase": "La radio, les podcasts et les vidéos." },
+    "memorial": { "nome": "Mémorial", "frase": "La mémoire de celles et ceux qui ont lutté avant nous." },
+    "oficinas": { "nome": "Ateliers", "frase": "Laboratoires, outils et le cahier : on met la main à la pâte." },
+    "praca": { "nome": "Place", "frase": "Là où l’on se retrouve : journal, débats, vérifications et mur." },
+    "territorio": { "nome": "Territoire", "frase": "Les noyaux, les territoires et les services près de chez toi." },
+    "secretaria": { "nome": "Secrétariat", "frase": "Tes données, la vie privée, qui nous sommes et comment aider." }
+  },
+  "mapa": {
+    "titulo": "Plan du campus",
+    "rotulo": "Bâtiments du campus",
+    "busca": "Chercher sur le campus",
+    "nenhum": "Rien sur le campus avec ce nom.",
+    "convite": "Découvre le campus : {n} bâtiments sur {total}",
+    "carimbo": "Tu es déjà passé par ici",
+    "nota": "Le tampon de chaque bâtiment reste seulement sur cet appareil. Il ne donne pas de points et il n’y a pas de classement.",
+    "secoes": "{n} lieux",
+    "abrir": "Voir ce qu’il y a dans le bâtiment {nome}"
+  },
+  "calendario": {
+    "atual": "Ce semestre",
+    "proximo": "Semestre suivant",
+    "semestre1": "1er semestre {ano}",
+    "semestre2": "2e semestre {ano}",
+    "inicio": "Début du semestre",
+    "fim": "Fin du semestre",
+    "provas": "Semaine d’examens",
+    "ate": "jusqu’au {data}",
+    "agenda": "Ajouter à mon agenda",
+    "agendaDe": "Ajouter à mon agenda : {titulo}",
+    "semAulaMagna": "La leçon inaugurale du semestre n’a pas encore de date.",
+    "aMarcar": "date à fixer",
+    "fonte": "Source",
+    "fonteExame": "Source : {orgao}, consulté le {data}",
+    "cursoEnem": "Cours ENEM",
+    "aoVivo": "Voir dans les cours en direct",
+    "aulaDoTema": "Leçon sur le thème",
+    "tipos": {
+      "inicio": "Début",
+      "fim": "Fin",
+      "aula-magna": "Leçon inaugurale",
+      "feriado": "Jour férié du campus",
+      "provas": "Examens",
+      "exame": "Examen externe"
+    },
+    "sobreFeriados": "Les jours fériés du campus sont des dates de lutte. Ils n’enlèvent aucune leçon du plan : ce jour-là, tu choisis de te reposer ou d’étudier la leçon sur le thème.",
+    "sobreExames": "Les examens externes n’apparaissent qu’avec une date publiée sur une page officielle. L’ENCCEJA n’a pas encore de date publiée par l’Inep pour sa prochaine édition.",
+    "vazio": "Rien de prévu ce semestre."
+  },
+  "feriado": {
+    "faixa": "Aujourd’hui, c’est férié sur le campus : {nome}",
+    "fonte": "Source",
+    "aula": "Leçon sur le thème",
+    "descanso": "Un jour férié n’enlève aucune leçon du plan : repose-toi, ou étudie la leçon sur le thème."
+  },
+  "quadro": {
+    "titulo": "Tableau d’affichage",
+    "aviso": "Avis",
+    "calendario": "Au calendrier",
+    "turma": "Groupe du mois",
+    "turmaTexto": "{titulo} : commence le 1er, pour qui veut étudier ensemble.",
+    "novidade": "Nouveauté",
+    "lido": "C’est lu",
+    "lidoDe": "C’est lu : {titulo}",
+    "abrir": "Ouvrir",
+    "hoje": "aujourd’hui",
+    "nota": "Les avis lus sont retenus seulement sur cet appareil."
+  },
+  "estacao": {
+    "rotulo": "Temps de l’École",
+    "ferias": "Vacances · reprise au {semestre}",
+    "feriado": "Jour férié du campus : {nome}"
+  }
+}

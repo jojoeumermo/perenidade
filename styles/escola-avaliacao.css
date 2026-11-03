@@ -1,0 +1,305 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Avaliação e aprender ativo da Escola Lúcia Maria (Etapa 4, pacote E4-13; docs/escola/avaliacao.md): o retorno por
+ * competência (sem número), a prova em dupla e a de proficiência, a semana de provas, o reconhecimento de saberes, o
+ * cartão "lembra?" e o "explique com suas palavras". Mesmo visual do Caderno do Povo: papel, tinta, fio fino, a sombra
+ * dura dos cartões e o vermelho da margem. Celular de entrada primeiro: nada passa de 360 px de largura.
+ */
+
+/* ── Retorno por competência ── */
+.retorno-competencia {
+  margin-top: 2rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 1.25rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.retorno-competencia h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.retorno-grupo {
+  margin-top: 1rem;
+  border-left: 4px solid var(--rule);
+  padding-left: 0.75rem;
+}
+.retorno-grupo[data-competencia="ja-sabe"] {
+  border-color: var(--ok);
+}
+.retorno-grupo[data-competencia="quase"] {
+  border-color: var(--gold);
+}
+.retorno-grupo[data-competencia="rever"] {
+  border-color: var(--prelo-texto);
+}
+.retorno-grupo h3 {
+  font-weight: 700;
+}
+.retorno-grupo ul {
+  margin-top: 0.35rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.retorno-grupo li {
+  overflow-wrap: anywhere;
+}
+
+/* ── Modos da prova ── */
+.modos-da-prova {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.875rem;
+}
+.modos-da-prova ul {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+.aviso-do-modo {
+  margin-top: 2rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment-deep);
+  padding: 1.25rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.aviso-do-modo h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.aviso-do-modo p + p {
+  margin-top: 0.5rem;
+}
+.vez-da-dupla {
+  margin-top: 0.75rem;
+  border-left: 4px solid var(--prelo-texto);
+  background: var(--parchment-deep);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.vez-da-dupla strong {
+  display: block;
+  font-size: 1.05rem;
+}
+.opcao-escolhida {
+  background: var(--parchment-deep);
+  box-shadow: inset 0 0 0 2px var(--ink);
+  font-weight: 600;
+}
+.oferta-de-dispensa {
+  margin-top: 1.5rem;
+  border-top: 2px solid var(--ink);
+  padding-top: 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.oferta-de-dispensa ul {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* ── Semana de provas ── */
+.semana-de-provas-data {
+  margin-top: 2rem;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 1rem 1.25rem;
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.semana-de-provas-data[data-quando="durante"] {
+  border-color: var(--prelo-texto);
+}
+.semana-de-provas-data p:first-child {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+.lista-solidaria {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.provas-do-curso {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.75rem;
+}
+.provas-do-curso ul {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.prova-da-trilha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+}
+.prova-da-trilha > span:first-child {
+  flex: 1 1 12rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* ── Módulo do curso ── */
+.navegacao-do-modulo {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+
+/* ── Reconhecimento de saberes ── */
+.passo-dos-saberes {
+  margin-top: 2rem;
+  border-top: 2px solid var(--ink);
+  padding-top: 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.passo-dos-saberes h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.passo-dos-saberes ul {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.aviso-honesto {
+  margin-top: 1.25rem;
+  border-left: 4px solid #c21f16;
+  background: var(--parchment-deep);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.campo-dos-saberes {
+  margin-top: 0.35rem;
+  width: 100%;
+  max-width: 32rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 0.5rem 0.75rem;
+}
+
+/* ── Na aula: "lembra?" e "explique com suas palavras" ── */
+.cartao-lembra {
+  margin-top: 1.5rem;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 1rem 1.1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.cartao-lembra-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.cartao-lembra-topo h2 {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--prelo-texto);
+}
+.cartao-lembra .pergunta-lembra {
+  margin-top: 0.75rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+.opcoes-lembra {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.opcoes-lembra button {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  cursor: pointer;
+}
+.opcoes-lembra button:disabled {
+  cursor: default;
+}
+.opcoes-lembra button[data-certa] {
+  background: #2f5d34;
+  color: #fff;
+}
+.opcoes-lembra button[data-errada] {
+  text-decoration: line-through;
+  text-decoration-color: #c21f16;
+  text-decoration-thickness: 2px;
+}
+.explique-com-suas-palavras {
+  margin-top: 2.5rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 1.25rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.explique-com-suas-palavras h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.explique-com-suas-palavras textarea {
+  margin-top: 0.35rem;
+  display: block;
+  width: 100%;
+  min-height: 8rem;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+.explique-com-suas-palavras audio {
+  margin-top: 0.5rem;
+  width: 100%;
+  max-width: 28rem;
+}
+.acoes-da-explicacao {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+}
+.gravando {
+  color: var(--prelo-texto);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cartao-lembra {
+    animation: lembra-entra 160ms ease-out;
+  }
+  @keyframes lembra-entra {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+}

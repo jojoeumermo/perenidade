@@ -1,0 +1,4 @@
+{
+  "_sobre": "Avisos do quadro da Escola Lúcia Maria (E4-09, D1-4; docs/escola/campus.md), curados pela coordenação. Cada um: {id: texto curto e único, texto: em português, link?: caminho sem idioma ('/escola/calendario') ou https://, desde: 'AAAA-MM-DD', ate: 'AAAA-MM-DD'}. Fora de desde..ate o aviso não aparece. Começa vazio. Sem notificação: o quadro mostra no máximo 3 cartões, só para quem volta, e os lidos ficam só no aparelho.",
+  "avisos": []
+}

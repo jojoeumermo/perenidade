@@ -4,6 +4,8 @@
 import { useSyncExternalStore } from "react";
 import { hasBackend, hasSession, rpc } from "./backend";
 import type { Capitulo } from "./podcast";
+import { CHAVE_RETOMAR, faixaDaRetomada, lerRetomada, montarRetomada, type Retomada } from "./radio-retomar";
+import { ligado } from "./recursos";
 import { getItem, KEYS, parse, setItem } from "./storage";
 
 export interface Track {
@@ -127,8 +129,58 @@ export const radio = {
   previous() {
     if (player.index > 0) emit({ index: player.index - 1, playing: true });
   },
+  /** Tira a faixa do tocador sem apagar o "Continuar" (a pessoa trocou de canal: o som para estudar, por exemplo). */
+  soltar() {
+    const atual = player.queue[player.index];
+    if (atual) retomada.gravar(atual, player.time);
+    emit({ queue: [], index: 0, playing: false });
+  },
   close() {
     emit({ queue: [], index: 0, playing: false });
+    // Fechou de propósito (✕): o "Continuar" não aparece na próxima visita.
+    retomada.descartar();
+  },
+};
+
+// A rádio que continua depois de recarregar (Etapa 4, E4-06; docs/escola/som.md), só com o recurso "escola" ligado.
+const retomarLigado = ligado("escola");
+
+/**
+ * O "Continuar" da próxima visita: o tocador grava a faixa ao pausar, a cada 10 s tocando e quando a página sai
+ * (pagehide). Fica só neste navegador, sob "lucia:radio-retomar", com o que já é público (endereço, título, posição,
+ * hora). Ao abrir o site, com menos de 24 h, o tocador mostra o aviso recolhido; retomar é sempre um toque da pessoa.
+ */
+export const retomada = {
+  ligada: retomarLigado,
+  ler(): Retomada | null {
+    if (!retomarLigado) return null;
+    try {
+      return lerRetomada(localStorage.getItem(CHAVE_RETOMAR), Date.now());
+    } catch {
+      return null;
+    }
+  },
+  /** Grava a faixa que está no tocador. Com o tocador fechado não grava nada. */
+  gravar(track: Track, posicao: number) {
+    if (!retomarLigado || player.queue.length === 0 || player.queue[player.index]?.id !== track.id) return;
+    const r = montarRetomada(track, posicao, Date.now());
+    if (!r) return;
+    try {
+      localStorage.setItem(CHAVE_RETOMAR, JSON.stringify(r));
+    } catch {
+      // sem armazenamento: não haverá "Continuar"
+    }
+  },
+  descartar() {
+    try {
+      localStorage.removeItem(CHAVE_RETOMAR);
+    } catch {
+      // sem armazenamento: nada guardado
+    }
+  },
+  /** Toca de novo a faixa guardada. A posição volta pelo positions (lucia:radio), como em qualquer faixa. */
+  retomar(r: Retomada) {
+    radio.play([faixaDaRetomada(r) as Track], 0);
   },
 };
 

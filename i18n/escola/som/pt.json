@@ -1,0 +1,71 @@
+{
+  "player": {
+    "continuar": "Continuar",
+    "continuarRotulo": "Continuar de onde parou: {titulo}",
+    "descartar": "Descartar e não mostrar mais",
+    "regiao": "Continuar a rádio",
+    "estudo": "Para estudar",
+    "estudoRegiao": "Som para estudar",
+    "pararEstudo": "Parar o som para estudar",
+    "volume": "Volume"
+  },
+  "som": {
+    "rotulo": "Canal",
+    "titulo": "Para estudar (sem fala)",
+    "lead": "Um fundo de som contínuo, sem voz e sem música, para ajudar a concentrar. Escolha um e ajuste o volume.",
+    "honesto": "Sons feitos no seu aparelho. Músicas livres entram quando a curadoria conferir a licença.",
+    "tipos": {
+      "marrom": { "nome": "Ruído marrom", "descricao": "Grave e abafado, como um ronco distante." },
+      "rosa": { "nome": "Ruído rosa", "descricao": "Equilibrado, como vento constante." },
+      "chuva": { "nome": "Chuva", "descricao": "Ruído filtrado que sobe e desce, como chuva no telhado." }
+    },
+    "tocar": "Tocar: {nome}",
+    "parar": "Parar",
+    "volume": "Volume",
+    "tocando": "Tocando: {nome}",
+    "parado": "Nada tocando agora.",
+    "voz": "Quando a voz de uma aula começa a ler, o som baixa para 30% e volta depois.",
+    "semAudio": "Este navegador não consegue gerar som."
+  },
+  "hoje": {
+    "rotulo": "Rádio da Escola",
+    "titulo": "Hoje no campus",
+    "lead": "Um roteiro de uns dois minutos para ouvir ou ler: o que aconteceu neste dia e a aula da semana.",
+    "montando": "Montando o roteiro de hoje…",
+    "fontes": "Fontes",
+    "duracao": "{n} palavras · cerca de {min} min",
+    "abrirAula": "Abrir a aula da semana",
+    "vozDoAparelho": "Lido pela voz do seu aparelho: o texto não é enviado a ninguém.",
+    "roteiro": {
+      "saudacao": "Olá! Hoje é {data}. Aqui é o Hoje no campus, da Escola Lúcia Maria.",
+      "fatosAbre": "Neste dia, na história da luta do povo:",
+      "fato": "{ano}. {texto} Segundo {fonte}.",
+      "wikipedia": "a Wikipédia",
+      "site": "o site {site}",
+      "aula": "A aula da semana é “{titulo}”, da trilha {trilha}. {resumo} Leva cerca de {minutos} minutos.",
+      "fechamento": "Por hoje é isso. Bons estudos e até amanhã."
+    }
+  },
+  "ouvir": {
+    "ouvir": "Ouvir",
+    "parar": "Parar",
+    "baixarVoz": "A voz escolhida ainda não está neste aparelho: são {tamanho} para baixar. Baixar agora?",
+    "baixarSim": "Baixar e ouvir",
+    "baixarNao": "Agora não",
+    "semVoz": "Este aparelho não tem voz para ler em voz alta."
+  },
+  "cordel": {
+    "rotulo": "Cordel da aula",
+    "lead": "A aula em versos de cordel: sextilhas de sete sílabas, para ler em voz alta, imprimir e passar adiante.",
+    "rascunho": "Rascunho em revisão: confira na aula",
+    "rascunhoTexto": "Estes versos resumem a aula e ainda não foram revisados por um educador. O que vale é o texto da aula.",
+    "abrirAula": "Abrir a aula",
+    "voltar": "Voltar para a aula",
+    "autoria": "Autoria: {autoria}",
+    "revisadoPor": "Revisado por {nome}",
+    "baseado": "Baseado na aula “{titulo}”, da trilha {trilha}.",
+    "estrofes": "{n} estrofes",
+    "imprimir": "Imprimir o folheto (A5)",
+    "imprimirDica": "Na impressão, escolha papel A5 (ou A4 com “duas páginas por folha”)."
+  }
+}

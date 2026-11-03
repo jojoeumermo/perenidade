@@ -274,7 +274,7 @@ console.log(`cursos em content/escola/cursos: ${lidos.length}`);
 // ───────────── Rotas, interdição e textos ─────────────
 for (const r of ROTAS_DA_ESCOLA) conferir(`página de ${r.caminho}`, fs.existsSync(path.join(raiz, "app", "[lang]", ...r.caminho.split("/").filter(Boolean), "page.tsx")));
 // Cada pacote que entrega a sua página tira dela a marca de provisória.
-conferir("páginas ainda provisórias", ROTAS_DA_ESCOLA.filter((r) => r.provisoria).length === 12);
+conferir("páginas ainda provisórias", ROTAS_DA_ESCOLA.filter((r) => r.provisoria).length === 7);
 conferir("faixa da Escola", FAIXA_DA_ESCOLA.map((r) => r.chave).join() === "entrada,quemFoi,cursos,matricula,calendario,campus,turmas,acompanhante,caderneta");
 conferir("link aberto na faixa", abertaNaFaixa("/escola") === "entrada" && abertaNaFaixa("/escola/cursos/eja") === "cursos" && abertaNaFaixa("/escola/plano") === null && abertaNaFaixa("/escolar") === null);
 conferir("rotas da etapa na interdição (área estudo)", ["/escola", "/escola/cursos", "/libras", "/aula-do-dia"].every((c) => areaDoCaminho(c) === "estudo"));

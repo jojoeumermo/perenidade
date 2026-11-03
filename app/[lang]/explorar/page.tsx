@@ -1,10 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { ExplorarCartoes, type SecaoDoExplorar } from "@/components/ExplorarCartoes";
+import { MapaDoCampus } from "@/components/escola/campus/MapaDoCampus";
 import { InstagramIcon } from "@/components/Footer";
 import { LanguageSwitcher } from "@/components/NavLinks";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { campusDoSite, textosDoCampus } from "@/lib/escola/campus-servidor";
+import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { secoesDoSite } from "@/lib/secoes-do-site";
@@ -29,7 +32,14 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         {t.common.language}
         <LanguageSwitcher wide />
       </label>
-      <ExplorarCartoes sections={sections} />
+      {/* E4-09: com a Escola ligada, o mesmo mapa do campus do "Mais" (os links funcionam sem JavaScript). */}
+      {ligado("escola") ? (
+        <div className="mt-8">
+          <MapaDoCampus predios={campusDoSite(lang, t)} s={textosDoCampus(lang).mapa} comBusca />
+        </div>
+      ) : (
+        <ExplorarCartoes sections={sections} />
+      )}
       {/* O perfil do instituto fora do site: no aplicativo o rodapé some, então ele também mora aqui. */}
       <a
         href={site.instagram}

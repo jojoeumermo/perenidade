@@ -1,0 +1,97 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Som do campus (Etapa 4, pacote E4-06; docs/escola/som.md): Hoje no campus, o canal "Para estudar" e o folheto de
+ * cordel da aula. Mesmo visual do Caderno do Povo (papel, tinta, fio e o vermelho da margem). O "Continuar" e a barra
+ * do som para estudar usam as classes do tocador (components/RadioPlayer.tsx) e não precisam de nada daqui.
+ */
+
+/* ── Hoje no campus ── */
+.hoje-roteiro .hoje-fato {
+  border-left: 4px solid #c21f16;
+  padding-left: 0.85rem;
+}
+
+/* ── Para estudar ── */
+.som-tipo {
+  box-shadow: 3px 3px 0 var(--sombra);
+}
+.som-tipo[aria-pressed="true"] {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.som-tipo:focus-visible,
+.som-botao:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ── O folheto de cordel ── */
+.folheto-capa {
+  box-shadow: 6px 6px 0 var(--sombra);
+}
+.folheto-xilo {
+  height: auto;
+  aspect-ratio: 3 / 1;
+}
+.cordel-versos {
+  /* No celular as estrofes ficam numa coluna só; com espaço, em duas, como no folheto de feira. */
+  columns: 1;
+  column-gap: 2.5rem;
+}
+@media (min-width: 40rem) {
+  .cordel-versos {
+    columns: 2;
+  }
+}
+.cordel-estrofe {
+  break-inside: avoid;
+  margin: 0 0 1.2em;
+}
+.cordel-verso {
+  /* Verso comprido quebra com recuo, para se ver que é o mesmo verso. */
+  display: inline-block;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+
+/* Impressão: o folheto em A5 (ou A4 com duas páginas por folha). A página nomeada só vale para o folheto. */
+@page folheto-cordel {
+  size: A5;
+  margin: 12mm 13mm;
+}
+@media print {
+  .cordel-pagina {
+    max-width: none;
+    padding: 0;
+  }
+  .folheto-cordel {
+    page: folheto-cordel;
+    margin: 0;
+    color: #000;
+  }
+  .folheto-capa {
+    box-shadow: none;
+    background: #fff;
+    break-after: avoid;
+  }
+  .cordel-versos {
+    columns: 1;
+    font-size: 11pt;
+    line-height: 1.45;
+    margin-top: 6mm;
+  }
+  .cordel-estrofe {
+    margin-bottom: 4mm;
+  }
+  .cordel-rascunho {
+    border: 1.5px solid #000;
+    background: #fff;
+    padding: 2mm 3mm;
+  }
+  .cordel-rascunho a {
+    display: none;
+  }
+  .folheto-pe {
+    border-color: #000;
+    color: #000;
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "campus": { "titulo": "校园地图", "descricao": "露西娅·玛丽亚学校的各栋楼以及每栋楼里有什么：教室、图书馆、电台、纪念馆、工坊、广场、社区和办公室。" },
+    "calendario": { "titulo": "学校日历", "descricao": "露西娅·玛丽亚学校的学年：学期开始和结束、考试周、开学第一课、校园节日和校外考试，每个日期都注明来源。" }
+  },
+  "comum": {
+    "olho": "露西娅·玛丽亚学校",
+    "proposto": "拟定日期，待协调组确认",
+    "voltar": "学校"
+  },
+  "predios": {
+    "escola": { "nome": "教学楼", "frase": "教室：学习路线、班级、直播课和你的学习。" },
+    "biblioteca": { "nome": "图书馆", "frase": "馆藏、书架、词汇表和资料来源。" },
+    "radio": { "nome": "电台", "frase": "电台、播客和视频。" },
+    "memorial": { "nome": "纪念馆", "frase": "铭记在我们之前奋斗过的人。" },
+    "oficinas": { "nome": "工坊", "frase": "实验室、工具和笔记本：动手做。" },
+    "praca": { "nome": "广场", "frase": "我们相聚的地方：报纸、辩论、事实核查和留言墙。" },
+    "territorio": { "nome": "社区", "frase": "据点、地区和你身边的服务。" },
+    "secretaria": { "nome": "办公室", "frase": "你的数据、隐私、我们是谁以及如何帮忙。" }
+  },
+  "mapa": {
+    "titulo": "校园地图",
+    "rotulo": "校园里的楼",
+    "busca": "在校园里查找",
+    "nenhum": "校园里没有这个名字的地方。",
+    "convite": "认识校园：已到过 {total} 栋楼中的 {n} 栋",
+    "carimbo": "你来过这里",
+    "nota": "每栋楼的印章只保存在这台设备上。不计分，也没有排行。",
+    "secoes": "{n} 个地方",
+    "abrir": "看看{nome}里有什么"
+  },
+  "calendario": {
+    "atual": "本学期",
+    "proximo": "下学期",
+    "semestre1": "{ano}年第一学期",
+    "semestre2": "{ano}年第二学期",
+    "inicio": "学期开始",
+    "fim": "学期结束",
+    "provas": "考试周",
+    "ate": "至{data}",
+    "agenda": "加入我的日历",
+    "agendaDe": "加入我的日历：{titulo}",
+    "semAulaMagna": "本学期的开学第一课还没有定日期。",
+    "aMarcar": "日期待定",
+    "fonte": "来源",
+    "fonteExame": "来源：{orgao}，查阅于{data}",
+    "cursoEnem": "ENEM 课程",
+    "aoVivo": "在直播课中查看",
+    "aulaDoTema": "相关主题的课",
+    "tipos": {
+      "inicio": "开始",
+      "fim": "结束",
+      "aula-magna": "开学第一课",
+      "feriado": "校园节日",
+      "provas": "考试",
+      "exame": "校外考试"
+    },
+    "sobreFeriados": "校园节日是斗争纪念日。它不会从计划里拿掉课程：那一天，你可以选择休息，或者学习相关主题的课。",
+    "sobreExames": "校外考试只有在官方网页公布日期后才会列出。Inep 还没有公布下一届 ENCCEJA 的日期。",
+    "vazio": "本学期还没有安排。"
+  },
+  "feriado": {
+    "faixa": "今天是校园节日：{nome}",
+    "fonte": "来源",
+    "aula": "相关主题的课",
+    "descanso": "节日不会从计划里拿掉课程：休息一下，或者学习相关主题的课。"
+  },
+  "quadro": {
+    "titulo": "公告栏",
+    "aviso": "公告",
+    "calendario": "日历上",
+    "turma": "本月班级",
+    "turmaTexto": "{titulo}：1日开始，欢迎想一起学习的人。",
+    "novidade": "新内容",
+    "lido": "已读",
+    "lidoDe": "已读：{titulo}",
+    "abrir": "打开",
+    "hoje": "今天",
+    "nota": "已读的公告只记在这台设备上。"
+  },
+  "estacao": {
+    "rotulo": "学校时间",
+    "ferias": "假期 · {semestre}开学",
+    "feriado": "校园节日：{nome}"
+  }
+}

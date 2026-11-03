@@ -1,0 +1,87 @@
+/* Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* Campus e calendário da Escola Lúcia Maria (E4-09). Só tokens que já existem: nenhuma cor, textura ou fonte nova. */
+
+/* O mapa: no celular cada prédio é uma gaveta (duas por linha; a aberta ocupa a linha toda); no computador, um cartão
+   com tudo à vista. Uma das duas formas aparece, pela largura (sem JavaScript). */
+.mapa-do-campus .campus-computador {
+  display: none;
+}
+@media (min-width: 768px) {
+  .mapa-do-campus .campus-celular {
+    display: none;
+  }
+  .mapa-do-campus .campus-computador {
+    display: flex;
+  }
+}
+.mapa-do-campus .predio {
+  min-width: 0;
+}
+.mapa-do-campus .predio:has(> details[open]) {
+  grid-column: 1 / -1;
+}
+@media (min-width: 768px) {
+  .mapa-do-campus .predio:has(> details[open]) {
+    grid-column: auto;
+  }
+}
+.mapa-do-campus summary {
+  list-style: none;
+  min-height: 2.75rem;
+}
+.mapa-do-campus summary::-webkit-details-marker {
+  display: none;
+}
+.mapa-do-campus .predio-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem; /* 44 px de toque */
+  overflow-wrap: anywhere;
+}
+.mapa-do-campus .predio-frase {
+  overflow-wrap: anywhere;
+}
+
+/* O tom do prédio é o de um atalho do celular; com alto contraste e no leitor de tinta, vira tinta no papel. */
+:root:is([data-contrast], [data-eink]) .predio-tom {
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+  border-color: var(--ink) !important;
+}
+
+/* O carimbo do passaporte: a marca de tinta do jornal, de leve torta. */
+.carimbo-do-predio {
+  transform: rotate(-8deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .carimbo-do-predio {
+    transform: none;
+  }
+}
+
+/* O calendário: lista por mês (nunca grade), uma linha por evento, quebrando bem em 360 px. */
+.calendario-da-escola li {
+  overflow-wrap: anywhere;
+}
+.calendario-da-escola .agenda-ics {
+  min-height: 2.75rem;
+}
+
+/* A estação do ano: um enfeite pequeno. Nunca no leitor de tinta, no modo leve nem na impressão. */
+:root:is([data-eink], [data-light], [data-leitor]) .estacao-do-ano {
+  display: none !important;
+}
+@media print {
+  .estacao-do-ano {
+    display: none !important;
+  }
+}
+
+/* O quadro de avisos: até 3 cartões; no celular, um embaixo do outro. */
+.quadro-de-avisos li {
+  overflow-wrap: anywhere;
+}
+.quadro-de-avisos button,
+.quadro-de-avisos a {
+  min-height: 2.75rem;
+}

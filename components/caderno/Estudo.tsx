@@ -4,7 +4,7 @@
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import { type Fonte, limpar, type Marca, novoId } from "@/lib/caderno";
-import { agendar, apagarCartao, apagarErro, type CartaoDeRevisao, type Erro, filaDeErros, guardarCartoes, hoje, lerCartoes, lerCopia, lerErros, montarCopia, type Nota, paraHoje, refazerErro, responderCartao, restaurarCopia } from "@/lib/estudo";
+import { agendar, apagarCartao, apagarErro, type CartaoDeRevisao, type Erro, filaDeErros, guardarCartoes, hoje, intercalar, lerCartoes, lerCopia, lerErros, montarCopia, type Nota, paraHoje, refazerErro, responderCartao, restaurarCopia } from "@/lib/estudo";
 import { ligado } from "@/lib/recursos";
 import { ComecoEmTresPassos } from "../estudo/ComecoEmTresPassos";
 import { L } from "../I18n";
@@ -141,7 +141,9 @@ export function Revisao({ s }: { s: NotebookStrings }) {
   const [virado, setVirado] = useState(false);
   const [frente, setFrente] = useState("");
   const [verso, setVerso] = useState("");
-  const fila = paraHoje(cartoes);
+  // A revisão mistura as matérias (E4-13): um cartão de cada origem por vez, começando depois da do último respondido.
+  const [ultimaOrigem, setUltimaOrigem] = useState<string | undefined>(undefined);
+  const fila = intercalar(paraHoje(cartoes), (x) => x.origem, ultimaOrigem);
   const c = fila[0];
   const notas: [Nota, string][] = [["errei", s.gradeAgain], ["dificil", s.gradeHard], ["bom", s.gradeGood], ["facil", s.gradeEasy]];
   const quando = (n: Nota) => (c ? diasAte(agendar(c, n).proxima) : 0);
@@ -160,7 +162,7 @@ export function Revisao({ s }: { s: NotebookStrings }) {
           {virado && (
             <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {notas.map(([n, nome]) => (
-                <button key={n} type="button" className={n === "errei" ? claro : botao} onClick={() => { responderCartao(c.id, n); setVirado(false); recarregar(); }}>
+                <button key={n} type="button" className={n === "errei" ? claro : botao} onClick={() => { responderCartao(c.id, n); setUltimaOrigem(c.origem); setVirado(false); recarregar(); }}>
                   {nome}
                   <span className="block text-[0.65rem] font-normal opacity-80">{quando(n) <= 0 ? s.nextToday : quando(n) === 1 ? s.nextTomorrow : fill(s.nextIn, { n: quando(n) })}</span>
                 </button>

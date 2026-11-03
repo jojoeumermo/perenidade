@@ -66,7 +66,9 @@ import {
 } from "@/components/aula/AulaVivaSobDemanda";
 import { FaixaDoCursoSobDemanda as FaixaDoCurso } from "@/components/escola/cursos/FaixaDoCursoSobDemanda";
 import { textosDosCursos } from "@/i18n/escola/cursos";
-import { cursosDaAula } from "@/lib/escola/cursos-vista";
+import { aulaDoSite, cursosDaAula } from "@/lib/escola/cursos-vista";
+import { ExpliqueComSuasPalavrasSobDemanda as ExpliqueComSuasPalavras, LembraDaAnteriorSobDemanda as LembraDaAnterior } from "@/components/aula/AprenderAtivoSobDemanda";
+import { textosDaAvaliacao } from "@/i18n/escola/avaliacao";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -187,6 +189,20 @@ export default async function LessonPage({ params }: Props) {
   // Os cursos da Escola de que esta aula faz parte (E4-07; docs/escola/cursos.md). Com algum, a faixa do curso (só para
   // quem está inscrito, lida no aparelho) assume o próximo passo; sem nenhum, a aula fica como era.
   const cursosDestaAula = sa ? cursosDaAula(id) : [];
+  // O aprender ativo (E4-13; docs/escola/avaliacao.md): o "lembra?" do começo usa as questões da aula anterior da
+  // trilha e, para quem está num curso com esta aula, as da aula anterior do curso (lidas em português).
+  const avaliacao = sa ? textosDaAvaliacao(lang) : null;
+  const anteriores = sa
+    ? [
+        ...cursosDestaAula.flatMap((c) => {
+          const i = c.aulas.indexOf(id);
+          const anterior = i > 0 ? c.aulas[i - 1] : null;
+          const quiz = anterior ? (aulaDoSite(anterior)?.lesson.quiz ?? []) : [];
+          return anterior && quiz.length > 0 ? [{ aula: anterior, titulo: c.titulos[i - 1], curso: c.slug, emPortugues: true, questoes: quiz }] : [];
+        }),
+        ...(prev && prev.quiz.length > 0 ? [{ aula: lessonId(track.slug, prev.slug), titulo: prev.title, questoes: prev.quiz }] : []),
+      ]
+    : [];
 
   return (
     <div className="pagina-da-aula pont">
@@ -254,6 +270,7 @@ export default async function LessonPage({ params }: Props) {
             )}
             <RetomarAqui aula={id} partes={fatias.length > 1} s={sa.retomar} />
             <Fatias aula={id} fatias={fatias} s={sa.fatias} />
+            {avaliacao && anteriores.length > 0 && <LembraDaAnterior aula={id} candidatas={anteriores} s={avaliacao.lembra} />}
           </>
         )}
 
@@ -314,6 +331,7 @@ export default async function LessonPage({ params }: Props) {
           {habilidades && <HabilidadesDaAula mapa={habilidades} s={estudo.mapa} />}
         </div>
 
+        {avaliacao && <ExpliqueComSuasPalavras aula={id} s={avaliacao.explique} />}
         {sa && cursosDestaAula.length > 0 && (
           <FaixaDoCurso aula={id} cursos={cursosDestaAula} proximaDaTrilha={next && { caminho: path(next.slug), titulo: next.title }} s={textosDosCursos(lang).faixa} sProximo={sa.proximo} />
         )}
