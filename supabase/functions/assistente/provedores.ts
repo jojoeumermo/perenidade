@@ -5,7 +5,7 @@
 // pago por pergunta; Groq, Cerebras, Gemini e OpenRouter têm plano gratuito com limites e falam o formato aberto de chat
 // (o mesmo da OpenAI). As chaves moram só nos segredos da função; nada aqui as guarda, registra ou devolve.
 // Sem rede e sem Deno de propósito: quem chama passa o fetch, e scripts/testar-assistente.mjs prova tudo sem chave.
-import { type Entrada, LIMITES, type Lido, lerResposta, MODELO_PADRAO, SISTEMA, textoDaMensagem } from "./assistente.ts";
+import { type Entrada, LIMITES, type Lido, lerResposta, MODELO_PADRAO, sistemaDe, textoDaMensagem } from "./assistente.ts";
 
 export interface Provedor {
   id: string;
@@ -45,7 +45,7 @@ export function pedidoAberto(entrada: Entrada, modelo: string, visao: boolean) {
   const conteudo = entrada.imagem && visao ? [{ type: "text", text: texto }, { type: "image_url", image_url: { url: `data:${entrada.imagem.tipo};base64,${entrada.imagem.dados}` } }] : texto;
   return {
     model: modelo,
-    messages: [{ role: "system", content: SISTEMA }, { role: "user", content: conteudo }],
+    messages: [{ role: "system", content: sistemaDe(entrada) }, { role: "user", content: conteudo }],
     max_tokens: 4096,
     temperature: 0.3,
     ...(entrada.modo === "foto" ? { response_format: { type: "json_object" } } : {}),

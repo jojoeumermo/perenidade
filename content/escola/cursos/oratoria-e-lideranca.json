@@ -1,0 +1,66 @@
+{
+  "slug": "oratoria-e-lideranca",
+  "titulo": "Oratória e liderança",
+  "ciclo": "profissional",
+  "formato": "alternancia",
+  "area": "oratoria-e-lideranca",
+  "resumo": "Em alternância: perder o medo de falar, preparar uma fala, conduzir reuniões e assembleias, mediar conflitos e formar novas lideranças, com tarefas práticas nos espaços de que você participa.",
+  "objetivo": "Preparar e fazer uma fala clara, conduzir uma reunião com pauta e ata e ajudar o grupo a decidir junto.",
+  "objetivos": [
+    "trabalho-e-renda",
+    "entender-o-mundo"
+  ],
+  "modulos": [
+    {
+      "titulo": "Falar em público",
+      "aulas": [
+        "oratoria-e-lideranca/por-que-falar-em-publico-da-medo",
+        "oratoria-e-lideranca/respiracao-voz-e-postura",
+        "oratoria-e-lideranca/preparar-uma-fala-objetivo-publico-e-roteiro",
+        "oratoria-e-lideranca/comeco-meio-e-fim",
+        "oratoria-e-lideranca/falar-com-clareza-e-simplicidade",
+        "oratoria-e-lideranca/usar-exemplos-e-historias"
+      ],
+      "pratica": [
+        "Preparar uma fala de dois minutos com objetivo, público e roteiro (começo, meio e fim) e gravar no celular só para você ouvir.",
+        "Ouvir a gravação e anotar uma coisa para melhorar na respiração, na voz ou na clareza."
+      ]
+    },
+    {
+      "titulo": "Reunião e assembleia",
+      "aulas": [
+        "oratoria-e-lideranca/ouvir-antes-de-falar",
+        "oratoria-e-lideranca/falar-em-uma-assembleia",
+        "oratoria-e-lideranca/conduzir-uma-reuniao",
+        "oratoria-e-lideranca/pauta-ata-e-encaminhamentos",
+        "oratoria-e-lideranca/mediar-conflitos"
+      ],
+      "pratica": [
+        "Participar de uma reunião ou assembleia (do trabalho, da escola, da associação ou do grupo de que você faz parte) e anotar a pauta e os encaminhamentos, como na aula.",
+        "Oferecer-se para fazer a ata de uma reunião, seguindo o modelo da aula."
+      ]
+    },
+    {
+      "titulo": "Liderar junto",
+      "aulas": [
+        "oratoria-e-lideranca/lideranca-coletiva-e-democracia-interna",
+        "oratoria-e-lideranca/falar-em-entrevistas-e-videos",
+        "oratoria-e-lideranca/analisar-discursos-que-marcaram-a-historia",
+        "oratoria-e-lideranca/formar-novas-liderancas"
+      ],
+      "pratica": [
+        "Analisar por escrito um discurso com o roteiro da aula de análise de discursos.",
+        "Ensinar a alguém do seu grupo uma técnica que você aprendeu no curso, como propõe a aula de formar novas lideranças."
+      ]
+    }
+  ],
+  "requisitos": [],
+  "patrono": {
+    "memorial": "martin-luther-king",
+    "motivo": "Pastor batista e principal liderança do movimento pelos direitos civis da população negra nos Estados Unidos.",
+    "confirmado": false
+  },
+  "tarefaNoMundo": "Fazer uma fala preparada como no curso numa reunião ou assembleia de verdade.",
+  "projetoFinal": "Conduzir uma reunião do começo ao fim, com pauta, ata e encaminhamentos, e apresentar a ata.",
+  "semanas": 1
+}

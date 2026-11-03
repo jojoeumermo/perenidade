@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "matricula": { "titulo": "Matrícula", "descricao": "Matrícula na Escola Lúcia Maria sem cadastro: três perguntas, sem nome, e-mail ou documento. Tudo fica no seu aparelho." },
+    "carteirinha": { "titulo": "Carteirinha", "descricao": "A carteirinha da Escola Lúcia Maria, feita no seu aparelho. Não é documento oficial." },
+    "plano": { "titulo": "Plano da semana", "descricao": "Um plano de estudo da semana, montado no seu aparelho por regras simples, sem culpa." }
+  },
+  "comum": {
+    "olho": "Escola Lúcia Maria",
+    "carregando": "Abrindo o que está guardado neste aparelho…",
+    "minutos": "{n} min",
+    "semGuardar": "Este aparelho não deixou guardar (pode ser o modo anônimo do navegador). Tente fora dele."
+  },
+  "fluxo": {
+    "lead": "Três perguntas, sem nome, e-mail nem documento. A matrícula fica neste aparelho.",
+    "passo": "Pergunta {i} de {n}",
+    "voltar": "Voltar",
+    "pular": "Pular",
+    "ouvir": "Ouvir a pergunta",
+    "pararDeOuvir": "Parar de ouvir",
+    "semVoz": "Este aparelho não tem voz para ler em voz alta.",
+    "baixarVoz": "A voz escolhida ainda precisa baixar {tamanho}. Baixar agora?",
+    "baixarSim": "Baixar e ouvir",
+    "baixarNao": "Agora não",
+    "objetivo": {
+      "pergunta": "O que te traz aqui?",
+      "opcoes": {
+        "terminar-a-escola": { "titulo": "Terminar a escola", "frase": "Voltar a estudar o que ficou para trás." },
+        "trabalho-e-renda": { "titulo": "Trabalho e renda", "frase": "Aprender algo que ajude no trabalho ou no bolso." },
+        "entender-o-mundo": { "titulo": "Entender o mundo", "frase": "Saber por que as coisas são como são." },
+        "enem": { "titulo": "ENEM", "frase": "Me preparar para a prova." },
+        "ajudar-em-casa": { "titulo": "Ajudar em casa", "frase": "Acompanhar os estudos de quem mora comigo." },
+        "outro": { "titulo": "Outro motivo", "frase": "Vim conhecer, ou é outra coisa." }
+      }
+    },
+    "tempo": {
+      "pergunta": "Quanto tempo por semana você tem para estudar?",
+      "dica": "Qualquer resposta vale. Dá para mudar depois.",
+      "opcoes": {
+        "ate-1h": { "titulo": "Até 1 hora", "frase": "Uns minutos de vez em quando." },
+        "1-3h": { "titulo": "De 1 a 3 horas", "frase": "Um pouco, alguns dias da semana." },
+        "3-6h": { "titulo": "De 3 a 6 horas", "frase": "Quase todo dia, um pouco." },
+        "mais-6h": { "titulo": "Mais de 6 horas", "frase": "Tenho tempo para me dedicar." }
+      }
+    },
+    "acesso": {
+      "pergunta": "Como é a sua internet?",
+      "dica": "Para a Escola gastar menos dos seus dados, se for o caso.",
+      "opcoes": {
+        "pacote-acaba": { "titulo": "O pacote acaba", "frase": "Uso os dados do celular e eles acabam antes do mês." },
+        "wifi-em-casa": { "titulo": "Tenho wi-fi em casa", "frase": "Em casa a internet dá conta." },
+        "computador-ou-nucleo": { "titulo": "Estudo no computador ou no Núcleo", "frase": "Uso um computador, meu ou de um Núcleo." }
+      }
+    },
+    "leve": {
+      "titulo": "Para gastar menos dados",
+      "texto": "O site tem uma economia de dados (modo leve): esconde imagens e vídeos e usa as letras do próprio aparelho. Ela fica no botão de acessibilidade.",
+      "botao": "Abrir a economia de dados"
+    },
+    "nivelamento": {
+      "pergunta": "Quer descobrir por onde começar?",
+      "texto": "Umas perguntas curtas, sem nota e sem certo ou errado na tela. Só servem para sugerir por onde começar. Pode pular.",
+      "sim": "Sim, quero descobrir",
+      "nao": "Agora não",
+      "seguir": "Continuar a matrícula",
+      "semTeste": "Ainda não há perguntas de nivelamento para os cursos da Escola. Se quiser, faça depois o nivelamento das disciplinas.",
+      "linkGeral": "Nivelamento das disciplinas"
+    },
+    "sugestao": {
+      "pergunta": "Cursos para começar",
+      "texto": "Sugeridos pelas suas respostas. Marque os que quiser; dá para trocar depois.",
+      "semCursos": "Os cursos da Escola ainda estão sendo montados. A matrícula vale mesmo assim: quando eles chegarem, você escolhe.",
+      "nenhumMarcado": "Nenhum curso marcado: a matrícula vale assim mesmo.",
+      "motivo": {
+        "pedido": "O curso que você escolheu no catálogo",
+        "objetivo": "Combina com o que te traz aqui",
+        "comeco": "Bom para começar: ciclo básico, sem pré-requisito"
+      },
+      "modulo1": "Curso longo (cerca de {horas} h). Com até 1 hora por semana, comece pelo módulo 1.",
+      "horas": "Cerca de {horas} h (estimativa)",
+      "nivelado": "Tem aulas da disciplina que o nivelamento sugeriu.",
+      "antes": "Antes de um curso longo, se quiser",
+      "verCurso": "Ver o curso",
+      "marcar": "Entrar neste curso"
+    },
+    "apelido": {
+      "pergunta": "Como você quer ser chamado na carteirinha?",
+      "dica": "Opcional. Um apelido basta: não use nome completo. Até 40 letras. Fica só neste aparelho.",
+      "rotulo": "Apelido (opcional)",
+      "fazer": "Fazer minha matrícula",
+      "guardar": "Guardar as respostas"
+    },
+    "feito": {
+      "titulo": "Matrícula feita neste aparelho",
+      "numero": "Seu número: {numero}",
+      "contagem": "A Escola somou +1 anônimo na contagem de matrículas, sem o seu número e sem nada que diga quem você é.",
+      "carteirinha": "Carteirinha",
+      "plano": "Plano da semana",
+      "copia": "Trocou de celular? Faça a cópia de segurança em Meus dados.",
+      "meusDados": "Meus dados"
+    },
+    "gerir": {
+      "titulo": "Sua matrícula",
+      "numero": "Número {numero}",
+      "desde": "Feita em {data}, neste aparelho.",
+      "respostas": "Suas respostas",
+      "rotuloObjetivo": "O que te traz aqui",
+      "rotuloTempo": "Tempo por semana",
+      "rotuloAcesso": "Internet",
+      "rotuloApelido": "Apelido",
+      "semApelido": "Sem apelido",
+      "editar": "Editar as respostas",
+      "salvo": "Respostas guardadas.",
+      "cancelar": "Cancelar",
+      "refazer": "Refazer a matrícula",
+      "refazerDica": "Responde as perguntas de novo e escolhe cursos. O número e os cursos que você já tem continuam.",
+      "cursos": "Seus cursos",
+      "semCursos": "Nenhum curso por enquanto.",
+      "verCursos": "Ver os cursos",
+      "emAndamento": "Em andamento desde {data}",
+      "trancar": "Trancar",
+      "trancarDica": "Trancar é dar uma pausa. Dá para voltar quando quiser.",
+      "trancado": "Trancado em {data}",
+      "destrancar": "Voltar ao curso",
+      "formado": "Formatura em {data}",
+      "apagar": "Apagar a matrícula",
+      "apagarPergunta": "Apagar a matrícula, os cursos, o plano da semana e tudo o que a Escola guardou neste aparelho? Não tem volta. As aulas que você marcou como feitas continuam marcadas.",
+      "apagarSim": "Sim, apagar",
+      "apagarNao": "Cancelar",
+      "apagada": "Matrícula apagada deste aparelho."
+    }
+  },
+  "carteirinha": {
+    "lead": "Feita neste aparelho, sem servidor. Para guardar de lembrança, imprimir ou mostrar na sua turma.",
+    "escola": "Escola Lúcia Maria",
+    "casa": "Instituto Lúcia",
+    "popular": "Escola popular e gratuita",
+    "estudante": "Estudante",
+    "rotuloNumero": "Nº",
+    "rotuloCurso": "Curso",
+    "semCurso": "Ainda escolhendo",
+    "rotuloSemestre": "Semestre",
+    "desde": "Desde {ano}",
+    "frente": "Frente da carteirinha",
+    "verso": "Verso da carteirinha",
+    "avisoNaoDocumento": "Esta carteirinha não é documento oficial e não vale como carteira de estudante para meia-entrada. Foi feita neste aparelho; nada foi enviado.",
+    "leiNaoVale": "A meia-entrada pede a Carteira de Identificação Estudantil (CIE), emitida pelas entidades estudantis indicadas na Lei nº 12.933/2013 (art. 1º, § 2º).",
+    "qr": "Aponte a câmera para conhecer a Escola",
+    "qrAlt": "QR code com o endereço da Escola Lúcia Maria",
+    "usarFoto": "Mostrar a foto da minha conta",
+    "usarFotoDica": "Só aparece se a sua conta tiver foto guardada neste aparelho. Sem ela, vão as iniciais.",
+    "imprimir": "Imprimir",
+    "imprimirDica": "Na impressão, escolha tamanho real (100%) e sem margens. Saem duas páginas do tamanho de um cartão: frente e verso.",
+    "baixar": "Baixar imagem",
+    "gerando": "Gerando a imagem…",
+    "falhou": "Não deu para gerar a imagem neste aparelho. Imprimir ainda funciona.",
+    "nomeDoArquivo": "carteirinha-escola-lucia-maria",
+    "convite": {
+      "titulo": "Você ainda não tem matrícula neste aparelho",
+      "texto": "A matrícula leva três perguntas, sem nome, e-mail nem documento. Depois, a carteirinha aparece aqui.",
+      "botao": "Fazer a matrícula"
+    }
+  },
+  "plano": {
+    "lead": "As próximas aulas dos seus cursos, dentro do tempo que você disse ter. Montado neste aparelho.",
+    "regra": "Feito por regras simples, sem inteligência artificial: as aulas seguem a ordem de cada curso, as trilhas dispensadas ficam de fora e o tempo é dividido pelos dias que você escolher.",
+    "semana": "Semana de {inicio} a {fim}",
+    "hoje": "Hoje",
+    "dias": ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"],
+    "diasCurtos": ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"],
+    "escolherDias": "Dias de estudo",
+    "tempoDaSemana": "Até {n} minutos nesta semana",
+    "metaDaSemana": "{n} aulas nesta semana, pela sua meta do Meu estudo",
+    "feito": "feito",
+    "aFazer": "a fazer",
+    "diaLivre": "Nada marcado para este dia.",
+    "hojeLivre": "Hoje é dia livre. Se der vontade, adiante uma aula de outro dia.",
+    "acolhimento": ["Semana corrida? Tudo bem, a gente ajusta.", "O que não deu hoje vai para o próximo dia de estudo.", "Uma aula de cada vez já é caminho."],
+    "paraDepois": "Fica para a semana que vem: {n} aula(s).",
+    "calma": {
+      "titulo": "Recomeçar com calma",
+      "texto": "Faz duas semanas sem aula feita. Acontece com todo mundo. Que tal um plano com metade do tempo?",
+      "botao": "Recomeçar com calma",
+      "ativo": "Plano com calma: metade do tempo.",
+      "voltar": "Voltar ao tempo normal"
+    },
+    "lembrete": "Lembrete no calendário",
+    "lembreteHora": "Hora do lembrete",
+    "lembreteDica": "Baixa um arquivo de agenda que avisa nos dias de estudo, mesmo com o site fechado. Nada é enviado.",
+    "lembreteTitulo": "Estudar na Escola Lúcia Maria",
+    "lembreteDescricao": "Hora do plano da semana.",
+    "remontar": "Montar o plano de novo",
+    "acabou": "Você fez todas as aulas dos seus cursos. Que tal escolher outro?",
+    "semCursos": "Para montar o plano, entre num curso.",
+    "verCursos": "Ver os cursos",
+    "abrirAula": "Abrir a aula"
+  },
+  "quemVolta": {
+    "rotulo": "Quem volta",
+    "titulo": "Bom te ver de novo",
+    "carteirinha": "Ver a carteirinha",
+    "hoje": "Hoje no seu plano",
+    "hojeLivre": "Nada marcado para hoje.",
+    "verPlano": "Ver o plano da semana",
+    "continuar": "Continuar o curso",
+    "continuarAula": "Continuar de onde parou",
+    "verCursos": "Ver os cursos",
+    "convite": {
+      "titulo": "Primeira vez por aqui?",
+      "texto": "Faça a matrícula: três perguntas, sem nome, e-mail nem documento.",
+      "botao": "Fazer a matrícula"
+    }
+  }
+}

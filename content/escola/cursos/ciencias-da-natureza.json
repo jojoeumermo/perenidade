@@ -1,0 +1,75 @@
+{
+  "slug": "ciencias-da-natureza",
+  "titulo": "Ciências da natureza",
+  "ciclo": "basico",
+  "formato": "regular",
+  "area": "biologia",
+  "resumo": "Biologia, física e química do ensino fundamental: o corpo, a saúde e o SUS, a energia e a eletricidade de casa, a água, os alimentos e as transformações do dia a dia.",
+  "objetivo": "Explicar com as ciências o que acontece no corpo, em casa e no bairro: saúde, alimentação, energia e água.",
+  "objetivos": [
+    "terminar-a-escola",
+    "enem",
+    "ajudar-em-casa"
+  ],
+  "modulos": [
+    {
+      "titulo": "Biologia: a vida e a saúde",
+      "aulas": [
+        "biologia-fundamental/o-que-e-vida",
+        "biologia-fundamental/a-celula",
+        "biologia-fundamental/os-reinos-dos-seres-vivos-e-os-virus",
+        "biologia-fundamental/o-corpo-humano-e-seus-sistemas",
+        "biologia-fundamental/alimentacao-e-nutricao",
+        "biologia-fundamental/vacinas-como-funcionam",
+        "biologia-fundamental/doencas-transmissiveis-e-saneamento",
+        "biologia-fundamental/reproducao-e-sexualidade",
+        "biologia-fundamental/plantas-e-fotossintese",
+        "biologia-fundamental/cadeias-alimentares",
+        "biologia-fundamental/o-sus-saude-como-direito"
+      ]
+    },
+    {
+      "titulo": "Física: movimento, energia e eletricidade",
+      "aulas": [
+        "fisica-fundamental/o-que-a-fisica-estuda",
+        "fisica-fundamental/medidas-e-unidades",
+        "fisica-fundamental/movimento-e-velocidade-media",
+        "fisica-fundamental/forca-e-as-leis-de-newton",
+        "fisica-fundamental/peso-massa-e-gravidade",
+        "fisica-fundamental/energia-e-suas-transformacoes",
+        "fisica-fundamental/calor-e-temperatura",
+        "fisica-fundamental/som",
+        "fisica-fundamental/luz-sombra-e-cores",
+        "fisica-fundamental/eletricidade-em-casa",
+        "fisica-fundamental/imas-e-magnetismo",
+        "fisica-fundamental/maquinas-simples"
+      ]
+    },
+    {
+      "titulo": "Química: matéria e transformações",
+      "aulas": [
+        "quimica-fundamental/o-que-a-quimica-estuda",
+        "quimica-fundamental/materia-substancia-e-mistura",
+        "quimica-fundamental/estados-fisicos-e-mudancas-de-estado",
+        "quimica-fundamental/separacao-de-misturas",
+        "quimica-fundamental/o-atomo-e-a-tabela-periodica",
+        "quimica-fundamental/transformacoes-quimicas-no-dia-a-dia",
+        "quimica-fundamental/acidos-e-bases-em-casa",
+        "quimica-fundamental/agua-tratamento-e-qualidade",
+        "quimica-fundamental/quimica-dos-alimentos",
+        "quimica-fundamental/combustiveis-e-combustao"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "leituras": [
+    {
+      "obra": "constituicao-federal-de-1988",
+      "ordem": 1,
+      "porque": "O texto atualizado da Constituição."
+    }
+  ],
+  "tarefaNoMundo": "Escolher um tema do curso que aparece na sua casa (água, alimentação, energia ou vacinas) e anotar, durante uma semana, onde ele aparece e o que você observou.",
+  "projetoFinal": "Preparar uma explicação de cinco minutos, com cartaz ou desenho, sobre um tema do curso, para pessoas do seu bairro ou da sua turma.",
+  "semanas": 3
+}

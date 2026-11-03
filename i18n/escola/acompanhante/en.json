@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "titulo": "Study companion",
+    "descricao": "Ask about a lesson, get hints for an exercise, feedback on an essay, help to understand a document, and practise English or Spanish. The history stays only on your device."
+  },
+  "comum": {
+    "enviar": "Ask",
+    "enviando": "The companion is thinking…",
+    "rotuloResposta": "Companion's answer",
+    "voce": "You",
+    "avisoAutomatico": "Automatic answer: it can be wrong. Check it against the lesson and, if you still have doubts, ask a volunteer for tutoring.",
+    "cortada": "The answer was too long and was cut.",
+    "recusa": "The assistant chose not to answer this request. Try writing it another way or ask a volunteer for tutoring.",
+    "restantes": "You can still ask {n} questions today.",
+    "oQueVai": "When you press the button, this goes to the assistant: {itens}. The request passes through the Institute's server and goes on to an artificial intelligence provider with servers outside Brazil. The Institute does not keep what was sent.",
+    "itens": {
+      "pergunta": "what you write",
+      "trecho": "the lesson excerpt",
+      "aula": "the lesson address",
+      "historico": "the last messages of this conversation",
+      "enunciado": "the exercise statement and options",
+      "trabalho": "the job you tell us",
+      "redacao": "the essay and the topic",
+      "foto": "the reduced photo, with your black bars",
+      "idioma": "the practice language"
+    },
+    "comoFunciona": "How it works",
+    "historicoAqui": "This conversation is kept only on this device (up to 20 conversations, for 30 days).",
+    "modoSeguro": "Safe mode is on: this conversation is not kept on this device.",
+    "naoEscreva": "Do not write your name, ID numbers, address or other personal data.",
+    "entrar": "To ask the assistant, sign in to your account.",
+    "entrarLink": "Sign in",
+    "apagarConversa": "Delete this conversation",
+    "novaConversa": "Start another conversation",
+    "caracteres": "{n} of {max} characters"
+  },
+  "hub": {
+    "titulo": "Study companion",
+    "lead": "Support for studying on your own when no volunteer is around. It helps you think; it does not think for you.",
+    "escolha": "What do you need right now?",
+    "abrir": "Open",
+    "modos": {
+      "duvida": { "titulo": "Ask about a lesson", "texto": "Paste the part where you got stuck. The companion asks a question before explaining. Inside a lesson, use the “I don't get it” button on the top bar." },
+      "pista": { "titulo": "Exercise hint", "texto": "Got an exercise wrong? Right below it, “I want a hint” appears, in three levels, without giving the answer away." },
+      "outroJeito": { "titulo": "Explain it another way", "texto": "The same excerpt, explained with an example from your job, without changing the facts." },
+      "redacao": { "titulo": "Essay feedback", "texto": "Feedback on the 5 skills of the Enem essay, with no grade." },
+      "documento": { "titulo": "Understand a document", "texto": "A contract, a bill, a letter from the INSS: explained in plain words, after you cover your personal data." },
+      "idioma": { "titulo": "Practise English or Spanish", "texto": "A short conversation, with gentle corrections. You can speak or write." }
+    },
+    "irParaPraticar": "Go to Practice",
+    "historico": {
+      "titulo": "Conversations kept on this device",
+      "vazio": "No conversation kept on this device.",
+      "apagarTudo": "Delete all",
+      "confirmar": "Delete all conversations on this device? This cannot be undone.",
+      "apagadas": "Conversations deleted.",
+      "apagar": "Delete",
+      "continuar": "Continue",
+      "em": "Last message on {data}",
+      "nenhumaNoModoSeguro": "Safe mode is on: nothing is kept while it is on."
+    },
+    "nomesDosModos": {
+      "socratico": "Lesson question",
+      "pistas": "Exercise hint",
+      "outro-jeito": "Another way",
+      "redacao": "Essay",
+      "documento": "Document",
+      "conversa": "Language practice"
+    }
+  },
+  "duvida": {
+    "trecho": "Lesson excerpt you did not understand",
+    "trechoDica": "Copy and paste it from the lesson. Up to 1,200 characters.",
+    "pergunta": "Your question",
+    "perguntaDica": "E.g.: I don't get why the result changes sign.",
+    "precisa": "Write your question or paste an excerpt."
+  },
+  "naoEntendi": {
+    "botao": "I don't get it",
+    "titulo": "I don't get this part",
+    "fechar": "Close",
+    "selecionado": "The part you marked:",
+    "parteAtual": "The part of the lesson on the screen:",
+    "semTrecho": "We could not find the excerpt. Mark the part of the lesson where you got stuck with your finger or the mouse and tap “I don't get it” again.",
+    "perguntaOpcional": "What got you stuck? (optional)",
+    "perguntar": "Ask about this part"
+  },
+  "outroJeito": {
+    "titulo": "Explain it with an example from my job",
+    "trabalho": "Your job",
+    "trabalhoDica": "E.g.: cook, bricklayer, ride-hailing driver. Kept only on this device.",
+    "botao": "Explain it with an example from my job",
+    "precisa": "Write your job and paste the excerpt."
+  },
+  "pistas": {
+    "botao": "I want a hint",
+    "titulo": "Hint {n} of 3",
+    "outra": "I want another hint",
+    "solucao": "I want the full solution",
+    "lead": "Hints come in three levels: first the concept, then the next step, and only at the end, if you ask, the solution."
+  },
+  "redacao": {
+    "titulo": "Essay feedback",
+    "lead": "Paste your essay. The companion comments on each of the 5 Enem skills: up to 2 strengths and up to 2 things to improve. It does not rewrite the text.",
+    "tema": "Essay topic (optional)",
+    "texto": "Your essay",
+    "minimo": "Write at least 100 characters.",
+    "botao": "Ask for feedback",
+    "aviso": "Automatic feedback, not a correction or a grade.",
+    "notaSoInep": "Only the Inep examiners give Enem essay grades.",
+    "veioDaOficina": "The essay came from the Essay Workshop on this device.",
+    "tirouNota": "A line with a grade or score was removed from this feedback.",
+    "oficina": "Write in the Essay Workshop"
+  },
+  "documento": {
+    "titulo": "Understand a document",
+    "lead": "Take a photo of a contract, a bill or a letter (from the INSS, for example). The companion explains it in plain words and points out deadlines and amounts.",
+    "avisoTitulo": "Before sending",
+    "aviso": "Cover CPF, RG, account numbers and other people's data before sending.",
+    "outrasPessoas": "Do not send other people's documents, including children's, unless you really need to.",
+    "entendi": "I read the warning and will cover what is needed",
+    "escolher": "Choose the photo of the document",
+    "trocar": "Choose another photo",
+    "pergunta": "What do you want to know? (optional)",
+    "botao": "Send the covered image",
+    "semTarja": "You did not cover anything. If the photo has no personal data, you can send it as it is.",
+    "naoJuridica": "This is not legal advice. For your own case, look for the Public Defender's Office (Defensoria Pública), Procon or the INSS (phone 135), depending on the subject.",
+    "preparando": "Preparing the photo on your device…"
+  },
+  "tarja": {
+    "titulo": "Cover personal data",
+    "instrucao": "Drag your finger or the mouse over what you want to cover. The black bar is burned into the image: what is underneath does not leave the device.",
+    "teclado": "With the keyboard: arrows move the red box, Shift with the arrows changes its size and Enter draws the bar.",
+    "rotulo": "Photo of the document. Drag to cover a part.",
+    "desfazer": "Undo the last bar",
+    "limpar": "Remove all bars",
+    "contagem": "Bars: {n}"
+  },
+  "idioma": {
+    "titulo": "Practise English or Spanish",
+    "lead": "A short conversation in the language you are learning. The companion answers in few words and corrects you gently, in square brackets.",
+    "escolha": "Practice language",
+    "ingles": "English",
+    "espanhol": "Spanish",
+    "fala": "What you say",
+    "falaDica": "Write it or use the microphone.",
+    "microfone": "Speak into the microphone",
+    "parar": "Stop listening",
+    "ouvir": "Listen to the answer",
+    "semPermissao": "The browser did not allow the microphone.",
+    "naoOuviu": "We could not hear you. Try again, closer to the microphone.",
+    "erroVoz": "Speech recognition failed. Please type what you want to say.",
+    "trilhas": "To study calmly:",
+    "trilhaIngles": "English from scratch",
+    "trilhaEspanhol": "Spanish from scratch",
+    "comecar": "Hello! / ¡Hola! Write a sentence to start."
+  },
+  "semServidor": {
+    "titulo": "Answers taken from the site's lessons (no AI, no server)",
+    "semConta": "Without an account, the assistant does not answer. Meanwhile, we search the site's lessons, here on your device.",
+    "desligado": "The assistant is off right now. We search the site's lessons, here on your device.",
+    "semInternet": "Without internet, the assistant does not answer. We search the lessons this device has already downloaded.",
+    "falhou": "The assistant did not answer. We search the site's lessons, here on your device.",
+    "buscar": "Search the lessons",
+    "carregando": "Searching the lessons…",
+    "nada": "We found no lesson excerpt about this. Try other words or ask a volunteer for tutoring.",
+    "semIndice": "We could not open the list of lessons now. Try again later.",
+    "abrirAula": "Open the lesson",
+    "copiado": "Excerpt copied from the lesson, unchanged (lessons are written in Portuguese)."
+  },
+  "como": {
+    "titulo": "How the study companion works",
+    "lead": "What happens to what you send, who answers and what is kept.",
+    "provedoresTitulo": "Who can answer",
+    "provedoresTexto": "Answers come from one of these artificial intelligence services, all run by outside companies, with servers outside Brazil:",
+    "visao": "understands photos",
+    "semVisao": "text only (skipped when there is a photo)",
+    "ordem": "Which ones are on, and in what order they are called, is set by the coordination in the panel. If one fails, the request goes to the next.",
+    "oQueVaiTitulo": "What leaves your device",
+    "oQueVai": [
+      "the question you wrote;",
+      "a short context: the lesson excerpt (up to 1,200 characters), the exercise, your job or the practice language;",
+      "the photo of the document, reduced, without the hidden camera data and with your black bars burned into the pixels;",
+      "the last messages of the conversation (at most 8, up to 6,000 characters)."
+    ],
+    "oQueVaiFim": "This only leaves when you press the button, and the screen tells you beforehand what goes. The request passes through the Institute's server, which does not add your name, e-mail or network address, and goes on to the provider.",
+    "lei": "Sending data to servers outside Brazil is what the General Data Protection Law calls an international transfer (Law No. 13,709/2018, art. 33).",
+    "oQueFicaTitulo": "What stays on your device",
+    "oQueFica": "The conversation history stays only in your browser: up to 20 conversations, for 30 days. It is not part of the backup, it is erased by “delete” in My data and it is not kept in safe mode.",
+    "guardaTitulo": "What the Institute keeps",
+    "guarda": "Only the count of how many questions each account asked each day, to apply the limit. This count is erased after 90 days. The question, the photo and the answer are not kept.",
+    "provedorGuarda": "The provider handles what it receives under its own rules and may keep the content for a while for its own operation; the Institute does not control that period.",
+    "limiteTitulo": "Daily limit",
+    "limiteBanco": "Today, each account can ask {n} questions per day.",
+    "limitePadrao": "The default is {n} questions per account per day, and {total} on the whole site. The coordination can change this number.",
+    "contaTitulo": "An account is needed",
+    "conta": "Without an account, with the assistant off or without internet, the companion looks for the answer in the site's own lessons, on your device, with no AI and no server.",
+    "modeloTitulo": "What about a model on the device itself?",
+    "modelo": "We checked whether a small open-licence model, served by the site itself, could run on a phone just to summarise the lesson excerpts found in the no-server mode. The criteria were: up to about 150 MB, working in Portuguese and answering in acceptable time on an entry-level phone with 4 GB of memory.",
+    "modeloNumeros": [
+      "SmolLM2-135M-Instruct (Apache 2.0): 117 MB in its most compact version, but declared for English only.",
+      "Qwen2.5-0.5B-Instruct (Apache 2.0, several languages): 483 MB in its most compact version.",
+      "Gemma 3 270M: 273 MB in its most compact version, under Google's own licence, which is not open."
+    ],
+    "modeloFonte": "Sizes of the ONNX files checked on Hugging Face on 3 November 2026.",
+    "modeloDecisao": "None passed: the only one within the size was not made for Portuguese, and a wrong summary would be making things up. So there is no model on the device. The timing test on the entry-level phone was not even run. If a model that passes appears, it will come switched off, with its size shown and a confirmation before downloading.",
+    "papel": "The Lúcia Maria School is a popular school: the companion supports your study; it does not replace an educator or give certificates."
+  }
+}

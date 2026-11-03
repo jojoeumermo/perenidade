@@ -1,0 +1,58 @@
+{
+  "slug": "aprender-a-estudar",
+  "titulo": "Aprender a estudar",
+  "ciclo": "basico",
+  "formato": "percurso",
+  "area": "educacao-popular",
+  "resumo": "Um percurso curto sobre como a gente aprende: técnicas de estudo que funcionam, resumo e fichamento, plano que cabe na vida, leitura atenta e a hora da prova. Recomendado antes de qualquer curso longo.",
+  "objetivo": "Organizar o próprio estudo com técnicas que funcionam, num plano que cabe na sua semana, e ler e responder com atenção.",
+  "objetivos": [
+    "terminar-a-escola",
+    "trabalho-e-renda",
+    "entender-o-mundo",
+    "enem",
+    "ajudar-em-casa",
+    "outro"
+  ],
+  "modulos": [
+    {
+      "titulo": "Como a gente aprende",
+      "aulas": [
+        "enem-estrategia-de-prova/estudar-do-jeito-que-funciona",
+        "portugues-medio/como-fazer-um-resumo-e-um-fichamento"
+      ]
+    },
+    {
+      "titulo": "Estudar na vida real",
+      "aulas": [
+        "enem-estrategia-de-prova/estudar-trabalhando-ou-cuidando-de-alguem",
+        "enem-como-funciona/como-montar-um-plano-de-estudos-realista"
+      ]
+    },
+    {
+      "titulo": "Ler para entender",
+      "aulas": [
+        "enem-linguagens-leitura-e-generos/estrategias-de-leitura-e-inferencia",
+        "enem-linguagens-leitura-e-generos/tema-tese-e-argumento"
+      ]
+    },
+    {
+      "titulo": "Na hora da prova",
+      "aulas": [
+        "enem-estrategia-de-prova/ler-o-comando-da-questao",
+        "enem-estrategia-de-prova/ansiedade-e-sono-antes-da-prova"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "leituras": [
+    {
+      "obra": "enem-provas-e-gabaritos",
+      "ordem": 1,
+      "porque": "Arquivo oficial com as provas e os gabaritos das edições anteriores do Enem."
+    }
+  ],
+  "tarefaNoMundo": "Montar um plano de estudos para a semana com o tempo que você tem de verdade, seguir o plano por duas semanas e anotar na caderneta o que deu certo e o que mudou.",
+  "projetoFinal": "Fazer o resumo e o fichamento de um texto à sua escolha e apresentá-los, explicando qual técnica de estudo do curso mais ajudou e por quê.",
+  "semanas": 1
+}

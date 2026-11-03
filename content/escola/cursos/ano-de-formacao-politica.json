@@ -1,0 +1,227 @@
+{
+  "slug": "ano-de-formacao-politica",
+  "titulo": "Ano de formação política",
+  "ciclo": "avancado",
+  "formato": "regular",
+  "area": "marxismo",
+  "resumo": "Um ano, em dois semestres, com quatro eixos: consciência de classe, teoria, história e prática. Do que é o capitalismo à teoria marxista da dependência, das revoluções socialistas ao antifascismo, ao pensamento negro e ao ecossocialismo.",
+  "objetivo": "Analisar a sociedade com os conceitos do marxismo, conhecer a história das lutas socialistas e levar o estudo para a organização coletiva.",
+  "objetivos": [
+    "entender-o-mundo"
+  ],
+  "modulos": [
+    {
+      "titulo": "1º semestre · Consciência de classe",
+      "aulas": [
+        "o-que-e-o-capitalismo/o-que-e-o-capitalismo",
+        "o-que-e-o-capitalismo/de-onde-vem-o-lucro",
+        "o-que-e-o-capitalismo/salario-o-preco-da-forca-de-trabalho",
+        "o-que-e-o-capitalismo/por-que-existe-desemprego",
+        "o-que-e-o-capitalismo/dinheiro-credito-e-divida",
+        "o-que-e-o-capitalismo/o-que-e-uma-crise",
+        "o-que-e-o-capitalismo/quem-sao-os-donos-concentracao-e-monopolio",
+        "o-que-e-o-capitalismo/estado-impostos-e-orcamento-publico",
+        "socialismo-fundamental/o-que-e-socialismo",
+        "socialismo-fundamental/propriedade-privada-e-propriedade-coletiva",
+        "socialismo-fundamental/saude-e-educacao-para-todos",
+        "socialismo-fundamental/cooperacao-e-competicao",
+        "socialismo-fundamental/quem-decide-o-que-produzir",
+        "socialismo-fundamental/socialismo-e-todo-mundo-ganhar-igual",
+        "socialismo-fundamental/paises-que-seguiram-esse-caminho-um-panorama",
+        "socialismo-fundamental/perguntas-frequentes-sobre-o-socialismo"
+      ]
+    },
+    {
+      "titulo": "1º semestre · Teoria",
+      "aulas": [
+        "introducao-ao-marxismo/quem-foram-marx-e-engels",
+        "introducao-ao-marxismo/classes-sociais-e-capitalismo",
+        "introducao-ao-marxismo/mercadoria-e-valor",
+        "introducao-ao-marxismo/mais-valia",
+        "introducao-ao-marxismo/materialismo-historico",
+        "introducao-ao-marxismo/alienacao",
+        "introducao-ao-marxismo/ideologia",
+        "introducao-ao-marxismo/o-estado",
+        "introducao-ao-marxismo/luta-de-classes",
+        "introducao-ao-marxismo/como-ler-o-manifesto-comunista",
+        "introducao-ao-marxismo/imperialismo",
+        "introducao-ao-marxismo/dialetica-uma-introducao",
+        "capitalismo-contemporaneo/capital-ficticio-e-financeirizacao",
+        "capitalismo-contemporaneo/divida-publica-e-rentismo",
+        "capitalismo-contemporaneo/teoria-marxista-da-dependencia-ruy-mauro-marini",
+        "capitalismo-contemporaneo/a-superexploracao-da-forca-de-trabalho",
+        "capitalismo-contemporaneo/imperialismo-hoje",
+        "capitalismo-contemporaneo/capitalismo-de-plataforma-e-uberizacao",
+        "capitalismo-contemporaneo/capitalismo-de-vigilancia",
+        "capitalismo-contemporaneo/crise-ecologica-e-limites-do-capital",
+        "capitalismo-contemporaneo/formacao-economica-do-brasil-caio-prado-junior-e-celso-furtado",
+        "capitalismo-contemporaneo/renda-urbana-e-especulacao-imobiliaria",
+        "capitalismo-contemporaneo/teoria-da-reproducao-social-trabalho-domestico-e-capital"
+      ]
+    },
+    {
+      "titulo": "1º semestre · História",
+      "aulas": [
+        "como-o-capitalismo-surgiu/a-acumulacao-primitiva-cercamentos-e-expropriacao",
+        "como-o-capitalismo-surgiu/escravidao-e-capitalismo",
+        "como-o-capitalismo-surgiu/a-revolucao-industrial",
+        "como-o-capitalismo-surgiu/imperialismo-a-partilha-do-mundo",
+        "como-o-capitalismo-surgiu/a-crise-de-1929",
+        "como-o-capitalismo-surgiu/o-estado-de-bem-estar-e-os-trinta-anos-do-pos-guerra",
+        "como-o-capitalismo-surgiu/neoliberalismo-chile-thatcher-e-reagan",
+        "como-o-capitalismo-surgiu/a-crise-de-2008",
+        "como-o-capitalismo-surgiu/o-capitalismo-no-brasil-da-colonia-a-industrializacao",
+        "comunismo-medio/a-liga-dos-comunistas-e-o-manifesto",
+        "comunismo-medio/a-primeira-internacional",
+        "comunismo-medio/a-segunda-internacional",
+        "comunismo-medio/a-internacional-comunista",
+        "comunismo-medio/os-comunistas-na-luta-contra-o-nazifascismo",
+        "comunismo-medio/o-movimento-comunista-no-brasil",
+        "comunismo-medio/olga-benario-e-luis-carlos-prestes",
+        "comunismo-medio/anticomunismo-historia-de-uma-perseguicao",
+        "comunismo-medio/o-movimento-comunista-depois-de-1991"
+      ],
+      "pratica": [
+        "Ler o Manifesto do Partido Comunista com a leitura guiada da Escola e levar uma pergunta para discutir em grupo.",
+        "Conversar com três pessoas do trabalho ou do bairro sobre salário e custo de vida e anotar, sem nomes, o que elas disseram."
+      ]
+    },
+    {
+      "titulo": "2º semestre · Teoria",
+      "aulas": [
+        "o-que-e-imperialismo/colonialismo-e-imperialismo-qual-e-a-diferenca",
+        "o-que-e-imperialismo/a-partilha-da-africa-e-a-conferencia-de-berlim",
+        "o-que-e-imperialismo/lenin-e-o-imperialismo-como-fase-do-capitalismo",
+        "o-que-e-imperialismo/monopolios-e-capital-financeiro",
+        "o-que-e-imperialismo/as-duas-guerras-mundiais-como-disputa-entre-potencias",
+        "o-que-e-imperialismo/a-descolonizacao-da-asia-e-da-africa",
+        "o-que-e-imperialismo/a-guerra-fria-e-as-intervencoes-na-america-latina",
+        "o-que-e-imperialismo/o-fmi-o-banco-mundial-e-os-planos-de-ajuste",
+        "o-que-e-imperialismo/bases-militares-sancoes-e-bloqueios",
+        "o-que-e-imperialismo/como-reconhecer-o-imperialismo-no-noticiario",
+        "teoria-marxista-da-dependencia/ruy-mauro-marini-e-a-dialetica-da-dependencia",
+        "teoria-marxista-da-dependencia/vania-bambirra-e-o-capitalismo-dependente-latino-americano",
+        "teoria-marxista-da-dependencia/theotonio-dos-santos-e-a-nova-dependencia",
+        "teoria-marxista-da-dependencia/andre-gunder-frank-e-o-desenvolvimento-do-subdesenvolvimento",
+        "teoria-marxista-da-dependencia/transferencia-de-valor-e-troca-desigual",
+        "teoria-marxista-da-dependencia/o-subimperialismo-brasileiro",
+        "teoria-marxista-da-dependencia/a-cisao-entre-o-ciclo-do-capital-e-o-consumo-dos-trabalhadores",
+        "teoria-marxista-da-dependencia/a-polemica-com-fernando-henrique-cardoso-e-jose-serra",
+        "teoria-marxista-da-dependencia/florestan-fernandes-e-o-capitalismo-dependente",
+        "teoria-marxista-da-dependencia/mariategui-e-o-marxismo-indo-americano",
+        "teoria-marxista-da-dependencia/a-teoria-da-dependencia-hoje-plataformas-financas-e-extrativismo",
+        "ecossocialismo-basico/o-que-e-ecossocialismo",
+        "ecossocialismo-basico/a-natureza-como-recurso-gratis-de-onde-vem-a-crise",
+        "ecossocialismo-basico/marx-e-a-ruptura-metabolica",
+        "ecossocialismo-basico/crescer-sempre-a-logica-do-capital-e-os-limites-do-planeta",
+        "ecossocialismo-basico/quem-polui-e-quem-paga-justica-climatica",
+        "ecossocialismo-basico/racismo-ambiental",
+        "ecossocialismo-basico/capitalismo-verde-mercado-de-carbono-e-outras-promessas",
+        "ecossocialismo-basico/agronegocio-desmatamento-e-a-comida-que-chega-a-mesa",
+        "ecossocialismo-basico/agroecologia-e-reforma-agraria-popular",
+        "ecossocialismo-basico/povos-indigenas-e-quilombolas-como-guardioes-do-territorio",
+        "ecossocialismo-basico/transicao-justa-emprego-e-clima-no-mesmo-plano"
+      ]
+    },
+    {
+      "titulo": "2º semestre · Consciência de classe",
+      "aulas": [
+        "pensamento-negro/clovis-moura-e-as-rebelioes-da-senzala",
+        "pensamento-negro/frantz-fanon",
+        "pensamento-negro/w-e-b-du-bois",
+        "pensamento-negro/pan-africanismo",
+        "pensamento-negro/amilcar-cabral",
+        "pensamento-negro/quilombismo",
+        "luta-negra-medio/a-imprensa-negra-e-a-frente-negra-brasileira",
+        "luta-negra-medio/o-movimento-negro-unificado",
+        "luta-negra-medio/cotas-raciais",
+        "luta-negra-medio/direitos-civis-nos-estados-unidos-rosa-parks-martin-luther-king-e-malc",
+        "luta-negra-medio/os-panteras-negras",
+        "luta-negra-medio/mandela-e-o-fim-do-apartheid"
+      ]
+    },
+    {
+      "titulo": "2º semestre · História",
+      "aulas": [
+        "revolucoes-socialistas/socialismo-utopico-e-socialismo-cientifico",
+        "revolucoes-socialistas/a-revolucao-russa-de-1917",
+        "revolucoes-socialistas/quem-foi-lenin",
+        "revolucoes-socialistas/a-uniao-sovietica-da-revolucao-a-dissolucao",
+        "revolucoes-socialistas/stalin-e-trotsky-o-debate-sobre-os-rumos-da-revolucao",
+        "revolucoes-socialistas/a-revolucao-chinesa",
+        "revolucoes-socialistas/che-guevara-e-a-revolucao-cubana",
+        "revolucoes-socialistas/vietna-a-guerra-de-libertacao",
+        "revolucoes-socialistas/allende-e-a-via-chilena",
+        "revolucoes-socialistas/as-revolucoes-africanas-cabral-machel-e-sankara",
+        "revolucoes-socialistas/o-socialismo-no-seculo-xxi",
+        "antifascismo/o-que-e-fascismo",
+        "antifascismo/a-italia-de-mussolini",
+        "antifascismo/a-alemanha-nazista",
+        "antifascismo/como-o-fascismo-chega-ao-poder",
+        "antifascismo/o-integralismo-no-brasil",
+        "antifascismo/a-frente-unica-e-a-frente-popular",
+        "antifascismo/a-resistencia-e-a-vitoria-de-1945",
+        "antifascismo/como-se-defende-a-democracia"
+      ],
+      "pratica": [
+        "Escolher uma notícia sobre outro país e analisá-la por escrito com o roteiro da aula sobre reconhecer o imperialismo no noticiário.",
+        "Participar de uma reunião de uma organização do bairro, do trabalho ou da escola e anotar a pauta e o que foi decidido."
+      ]
+    }
+  ],
+  "requisitos": [
+    "historia-do-brasil-e-das-lutas-do-povo"
+  ],
+  "sensivel": true,
+  "patrono": {
+    "memorial": "antonio-gramsci",
+    "motivo": "Estudou como os poderosos governam não só pela força, mas também pelo consenso construído na escola, na imprensa e na cultura, e por isso defendeu que o povo trabalhador formasse os próprios intelectuais.",
+    "confirmado": false
+  },
+  "leituras": [
+    {
+      "obra": "o-capital",
+      "ordem": 1,
+      "porque": "A obra central de Marx."
+    },
+    {
+      "obra": "manifesto-do-partido-comunista",
+      "ordem": 2,
+      "porque": "O texto político mais lido da história moderna."
+    },
+    {
+      "obra": "salario-preco-e-lucro",
+      "ordem": 3,
+      "porque": "Conferência em que Marx explica, em linguagem direta, de onde vem o lucro e por que a luta por salários vale a pena."
+    },
+    {
+      "obra": "trabalho-assalariado-e-capital",
+      "ordem": 4,
+      "porque": "Série de artigos escritos para operários."
+    },
+    {
+      "obra": "imperialismo-fase-superior-do-capitalismo",
+      "ordem": 5,
+      "porque": "Lenin explica como a concentração de capital, os monopólios e os bancos levaram as grandes potências a repartir o mundo, e por que isso conduz à guerra."
+    },
+    {
+      "obra": "o-estado-e-a-revolucao",
+      "ordem": 6,
+      "porque": "Escrito às vésperas da Revolução de Outubro."
+    },
+    {
+      "obra": "principios-basicos-do-comunismo",
+      "ordem": 7,
+      "porque": "Vinte e cinco perguntas e respostas curtas sobre o que é o comunismo, escritas por Engels como rascunho do Manifesto."
+    },
+    {
+      "obra": "do-socialismo-utopico-ao-socialismo-cientifico",
+      "ordem": 8,
+      "porque": "Engels apresenta, de forma didática, as três fontes do marxismo e a diferença entre sonhar com uma sociedade justa e compreender as forças reais que podem construí-la."
+    }
+  ],
+  "tarefaNoMundo": "Durante o ano, participar de uma organização do bairro, do trabalho ou da escola e anotar na caderneta, sem nomes, o que aprendeu com ela.",
+  "projetoFinal": "Escrever e apresentar a análise de um problema do seu bairro ou do seu trabalho com os conceitos do curso (classe, exploração, Estado, imperialismo ou dependência).",
+  "casoDoBairro": true,
+  "semanas": 7
+}

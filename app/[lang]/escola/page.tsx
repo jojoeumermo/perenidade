@@ -4,11 +4,13 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { AberturaDaEscola, ReverAbertura, type TrechoPublicado } from "@/components/escola/AberturaDaEscola";
 import { CartaoLuciaMaria } from "@/components/escola/CartaoLuciaMaria";
+import { QuemVolta } from "@/components/escola/QuemVolta";
 import Link from "@/components/Link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath, type Locale } from "@/i18n/config";
 import { parseFrontmatter } from "@/lib/frontmatter";
+import { aulasDoAparelho, cursosDoAparelho, textosDaMatricula, textosDaPresenca } from "@/lib/escola/matricula-servidor";
 import { calendarioProposto } from "@/lib/escola/tempo";
 import { textosDaBase, trechoDoQuemSomos } from "@/lib/escola/textos";
 import { paginaMeta } from "@/lib/seo";
@@ -49,6 +51,8 @@ export default async function Escola({ params }: PageProps<"/[lang]/escola">) {
   const { lang } = await loadLang(params);
   const s = textosDaBase(lang);
   const e = s.entrada;
+  const m = textosDaMatricula(lang);
+  const cursos = cursosDoAparelho();
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
       {/* 1) Título e a linha honesta: não é universidade e não dá diploma. */}
@@ -81,7 +85,8 @@ export default async function Escola({ params }: PageProps<"/[lang]/escola">) {
         </ol>
       </section>
 
-      {/* E4-08: quem volta */}
+      {/* 4) E4-08: quem volta (mini-carteirinha, hoje no plano, continuar o curso e presença somada; ou o convite). */}
+      <QuemVolta s={m.quemVolta} comum={m.comum} sPresenca={textosDaPresenca(lang)} cursos={cursos} aulas={aulasDoAparelho(lang, cursos)} nomeDaCarteirinha={m.carteirinha.estudante} lang={lang} />
 
       {/* 5) Pela Escola: campus e calendário. */}
       <section className="mt-12" aria-labelledby="pela-escola">

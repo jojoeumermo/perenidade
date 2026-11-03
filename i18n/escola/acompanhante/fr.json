@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "titulo": "Accompagnateur de l'élève",
+    "descricao": "Posez une question sur une leçon, demandez des indices pour un exercice, un commentaire de rédaction, de l'aide pour comprendre un document, et pratiquez l'anglais ou l'espagnol. L'historique reste uniquement sur votre appareil."
+  },
+  "comum": {
+    "enviar": "Demander",
+    "enviando": "L'accompagnateur réfléchit…",
+    "rotuloResposta": "Réponse de l'accompagnateur",
+    "voce": "Vous",
+    "avisoAutomatico": "Réponse automatique : elle peut se tromper. Vérifiez avec la leçon et, si le doute persiste, demandez du soutien à un bénévole.",
+    "cortada": "La réponse était trop longue et a été coupée.",
+    "recusa": "L'assistant a préféré ne pas répondre à cette demande. Essayez de l'écrire autrement ou demandez du soutien à un bénévole.",
+    "restantes": "Vous pouvez encore poser {n} questions aujourd'hui.",
+    "oQueVai": "Quand vous appuyez sur le bouton, ceci part vers l'assistant : {itens}. La demande passe par le serveur de l'Institut et continue vers un fournisseur d'intelligence artificielle dont les serveurs sont hors du Brésil. L'Institut ne garde pas ce qui a été envoyé.",
+    "itens": {
+      "pergunta": "ce que vous écrivez",
+      "trecho": "l'extrait de la leçon",
+      "aula": "l'adresse de la leçon",
+      "historico": "les derniers messages de cette conversation",
+      "enunciado": "l'énoncé et les choix de l'exercice",
+      "trabalho": "le métier que vous indiquez",
+      "redacao": "la rédaction et le sujet",
+      "foto": "la photo réduite, avec vos bandes noires",
+      "idioma": "la langue pratiquée"
+    },
+    "comoFunciona": "Comment ça marche",
+    "historicoAqui": "Cette conversation est gardée uniquement sur cet appareil (jusqu'à 20 conversations, pendant 30 jours).",
+    "modoSeguro": "Mode sécurisé activé : cette conversation n'est pas gardée sur cet appareil.",
+    "naoEscreva": "N'écrivez ni votre nom, ni vos numéros de pièce d'identité, ni votre adresse, ni d'autres données personnelles.",
+    "entrar": "Pour interroger l'assistant, connectez-vous à votre compte.",
+    "entrarLink": "Se connecter",
+    "apagarConversa": "Supprimer cette conversation",
+    "novaConversa": "Commencer une autre conversation",
+    "caracteres": "{n} sur {max} caractères"
+  },
+  "hub": {
+    "titulo": "Accompagnateur de l'élève",
+    "lead": "Un appui pour étudier seul quand aucun bénévole n'est là. Il vous aide à réfléchir ; il ne réfléchit pas à votre place.",
+    "escolha": "De quoi avez-vous besoin maintenant ?",
+    "abrir": "Ouvrir",
+    "modos": {
+      "duvida": { "titulo": "Question sur une leçon", "texto": "Collez le passage qui vous bloque. L'accompagnateur pose une question avant d'expliquer. Dans une leçon, utilisez le bouton « Je n'ai pas compris » de la barre du haut." },
+      "pista": { "titulo": "Indice pour un exercice", "texto": "Vous vous êtes trompé ? Juste en dessous apparaît « Je veux un indice », en trois niveaux, sans donner la réponse d'emblée." },
+      "outroJeito": { "titulo": "Expliquer autrement", "texto": "Le même passage, expliqué avec un exemple de votre métier, sans changer les faits." },
+      "redacao": { "titulo": "Commentaire de rédaction", "texto": "Commentaire selon les 5 compétences de l'Enem, sans note." },
+      "documento": { "titulo": "Comprendre un document", "texto": "Contrat, facture, lettre de l'INSS : expliqué simplement, après que vous avez caché vos données personnelles." },
+      "idioma": { "titulo": "Pratiquer l'anglais ou l'espagnol", "texto": "Une courte conversation, avec des corrections bienveillantes. Vous pouvez parler ou écrire." }
+    },
+    "irParaPraticar": "Aller à Pratiquer",
+    "historico": {
+      "titulo": "Conversations gardées sur cet appareil",
+      "vazio": "Aucune conversation gardée sur cet appareil.",
+      "apagarTudo": "Tout supprimer",
+      "confirmar": "Supprimer toutes les conversations de cet appareil ? C'est définitif.",
+      "apagadas": "Conversations supprimées.",
+      "apagar": "Supprimer",
+      "continuar": "Continuer",
+      "em": "Dernier message le {data}",
+      "nenhumaNoModoSeguro": "Mode sécurisé activé : rien n'est gardé tant qu'il est activé."
+    },
+    "nomesDosModos": {
+      "socratico": "Question de leçon",
+      "pistas": "Indice d'exercice",
+      "outro-jeito": "Autrement",
+      "redacao": "Rédaction",
+      "documento": "Document",
+      "conversa": "Pratique de langue"
+    }
+  },
+  "duvida": {
+    "trecho": "Passage de la leçon que vous n'avez pas compris",
+    "trechoDica": "Copiez-le et collez-le depuis la leçon. Jusqu'à 1 200 caractères.",
+    "pergunta": "Votre question",
+    "perguntaDica": "Ex. : je ne comprends pas pourquoi le résultat change de signe.",
+    "precisa": "Écrivez votre question ou collez un passage."
+  },
+  "naoEntendi": {
+    "botao": "Je n'ai pas compris",
+    "titulo": "Je n'ai pas compris ce passage",
+    "fechar": "Fermer",
+    "selecionado": "Le passage que vous avez sélectionné :",
+    "parteAtual": "La partie de la leçon affichée à l'écran :",
+    "semTrecho": "Nous n'avons pas trouvé le passage. Sélectionnez du doigt ou à la souris la partie de la leçon qui vous bloque, puis touchez à nouveau « Je n'ai pas compris ».",
+    "perguntaOpcional": "Qu'est-ce qui vous bloque ? (facultatif)",
+    "perguntar": "Poser une question sur ce passage"
+  },
+  "outroJeito": {
+    "titulo": "Expliquer avec un exemple de mon métier",
+    "trabalho": "Votre métier",
+    "trabalhoDica": "Ex. : cuisinière, maçon, chauffeur VTC. Gardé uniquement sur cet appareil.",
+    "botao": "Expliquer avec un exemple de mon métier",
+    "precisa": "Écrivez votre métier et collez le passage."
+  },
+  "pistas": {
+    "botao": "Je veux un indice",
+    "titulo": "Indice {n} sur 3",
+    "outra": "Je veux un autre indice",
+    "solucao": "Je veux la solution complète",
+    "lead": "Les indices viennent en trois niveaux : d'abord la notion, puis l'étape suivante, et seulement à la fin, si vous la demandez, la solution."
+  },
+  "redacao": {
+    "titulo": "Commentaire de rédaction",
+    "lead": "Collez votre rédaction. L'accompagnateur commente chacune des 5 compétences de l'Enem : jusqu'à 2 points forts et jusqu'à 2 points à améliorer. Il ne réécrit pas le texte.",
+    "tema": "Sujet de la proposition (facultatif)",
+    "texto": "Votre rédaction",
+    "minimo": "Écrivez au moins 100 caractères.",
+    "botao": "Demander le commentaire",
+    "aviso": "Commentaire automatique, ce n'est ni une correction ni une note.",
+    "notaSoInep": "Seuls les correcteurs de l'Inep donnent la note de la rédaction de l'Enem.",
+    "veioDaOficina": "La rédaction vient de l'Atelier de rédaction de cet appareil.",
+    "tirouNota": "Une ligne qui donnait une note ou un score a été retirée de ce commentaire.",
+    "oficina": "Écrire dans l'Atelier de rédaction"
+  },
+  "documento": {
+    "titulo": "Comprendre un document",
+    "lead": "Prenez en photo un contrat, une facture ou une lettre (de l'INSS, par exemple). L'accompagnateur l'explique simplement et signale les délais et les montants.",
+    "avisoTitulo": "Avant d'envoyer",
+    "aviso": "Cachez le CPF, le RG, les numéros de compte et les données d'autres personnes avant d'envoyer.",
+    "outrasPessoas": "N'envoyez pas les documents d'autres personnes, y compris d'enfants, sans nécessité.",
+    "entendi": "J'ai lu l'avertissement et je vais cacher ce qu'il faut",
+    "escolher": "Choisir la photo du document",
+    "trocar": "Choisir une autre photo",
+    "pergunta": "Que voulez-vous savoir ? (facultatif)",
+    "botao": "Envoyer l'image masquée",
+    "semTarja": "Vous n'avez rien caché. Si la photo ne contient pas de données personnelles, vous pouvez l'envoyer telle quelle.",
+    "naoJuridica": "Ceci n'est pas un conseil juridique. Pour votre cas, adressez-vous à la Defensoria Pública (aide juridique publique), au Procon ou à l'INSS (téléphone 135), selon le sujet.",
+    "preparando": "Préparation de la photo sur votre appareil…"
+  },
+  "tarja": {
+    "titulo": "Cachez les données personnelles",
+    "instrucao": "Faites glisser le doigt ou la souris sur ce que vous voulez cacher. La bande noire est gravée dans l'image : ce qui est dessous ne quitte pas l'appareil.",
+    "teclado": "Au clavier : les flèches déplacent le cadre rouge, Maj avec les flèches change sa taille et Entrée trace la bande.",
+    "rotulo": "Photo du document. Faites glisser pour cacher une partie.",
+    "desfazer": "Annuler la dernière bande",
+    "limpar": "Retirer toutes les bandes",
+    "contagem": "Bandes : {n}"
+  },
+  "idioma": {
+    "titulo": "Pratiquer l'anglais ou l'espagnol",
+    "lead": "Une courte conversation dans la langue que vous étudiez. L'accompagnateur répond en peu de mots et corrige avec bienveillance, entre crochets.",
+    "escolha": "Langue pratiquée",
+    "ingles": "Anglais",
+    "espanhol": "Espagnol",
+    "fala": "Ce que vous dites",
+    "falaDica": "Écrivez-le ou utilisez le micro.",
+    "microfone": "Parler au micro",
+    "parar": "Arrêter l'écoute",
+    "ouvir": "Écouter la réponse",
+    "semPermissao": "Le navigateur n'a pas autorisé le micro.",
+    "naoOuviu": "Nous n'avons pas pu vous entendre. Réessayez, plus près du micro.",
+    "erroVoz": "La reconnaissance vocale a échoué. Écrivez ce que vous voulez dire.",
+    "trilhas": "Pour étudier tranquillement :",
+    "trilhaIngles": "L'anglais à partir de zéro",
+    "trilhaEspanhol": "L'espagnol à partir de zéro",
+    "comecar": "Hello! / ¡Hola! Écrivez une phrase pour commencer."
+  },
+  "semServidor": {
+    "titulo": "Réponses tirées des leçons du site (sans IA, sans serveur)",
+    "semConta": "Sans compte, l'assistant ne répond pas. En attendant, nous cherchons dans les leçons du site, ici sur votre appareil.",
+    "desligado": "L'assistant est désactivé pour le moment. Nous cherchons dans les leçons du site, ici sur votre appareil.",
+    "semInternet": "Sans internet, l'assistant ne répond pas. Nous cherchons dans les leçons que cet appareil a déjà téléchargées.",
+    "falhou": "L'assistant n'a pas répondu. Nous cherchons dans les leçons du site, ici sur votre appareil.",
+    "buscar": "Chercher dans les leçons",
+    "carregando": "Recherche dans les leçons…",
+    "nada": "Nous n'avons trouvé aucun passage de leçon à ce sujet. Essayez d'autres mots ou demandez du soutien à un bénévole.",
+    "semIndice": "Impossible d'ouvrir la liste des leçons pour le moment. Réessayez plus tard.",
+    "abrirAula": "Ouvrir la leçon",
+    "copiado": "Passage copié de la leçon, sans modification (les leçons sont écrites en portugais)."
+  },
+  "como": {
+    "titulo": "Comment fonctionne l'accompagnateur",
+    "lead": "Ce que devient ce que vous envoyez, qui répond et ce qui est gardé.",
+    "provedoresTitulo": "Qui peut répondre",
+    "provedoresTexto": "Les réponses viennent de l'un de ces services d'intelligence artificielle, tous d'entreprises extérieures, dont les serveurs sont hors du Brésil :",
+    "visao": "comprend les photos",
+    "semVisao": "texte seulement (ignoré quand il y a une photo)",
+    "ordem": "Lesquels sont activés, et dans quel ordre ils sont appelés, c'est la coordination qui le règle dans le panneau. Si l'un échoue, la demande passe au suivant.",
+    "oQueVaiTitulo": "Ce qui quitte votre appareil",
+    "oQueVai": [
+      "la question que vous avez écrite ;",
+      "un court contexte : l'extrait de la leçon (jusqu'à 1 200 caractères), l'exercice, votre métier ou la langue pratiquée ;",
+      "la photo du document, réduite, sans les données cachées de l'appareil photo et avec vos bandes gravées dans les pixels ;",
+      "les derniers messages de la conversation (8 au maximum, jusqu'à 6 000 caractères)."
+    ],
+    "oQueVaiFim": "Rien ne part avant que vous appuyiez sur le bouton, et l'écran indique d'abord ce qui part. La demande passe par le serveur de l'Institut, qui n'ajoute ni votre nom, ni votre e-mail, ni votre adresse réseau, puis va au fournisseur.",
+    "lei": "Envoyer des données vers des serveurs hors du Brésil, c'est ce que la Loi générale de protection des données appelle un transfert international (loi nº 13.709/2018, art. 33).",
+    "oQueFicaTitulo": "Ce qui reste sur votre appareil",
+    "oQueFica": "L'historique des conversations reste uniquement dans votre navigateur : jusqu'à 20 conversations, pendant 30 jours. Il n'entre pas dans la sauvegarde, il est effacé par « supprimer » dans Mes données et il n'est pas gardé en mode sécurisé.",
+    "guardaTitulo": "Ce que garde l'Institut",
+    "guarda": "Seulement le compte du nombre de questions posées par chaque compte chaque jour, pour appliquer la limite. Ce compte est effacé au bout de 90 jours. La question, la photo et la réponse ne sont pas gardées.",
+    "provedorGuarda": "Le fournisseur traite ce qu'il reçoit selon ses propres règles et peut garder le contenu un certain temps pour son fonctionnement ; l'Institut ne contrôle pas cette durée.",
+    "limiteTitulo": "Limite quotidienne",
+    "limiteBanco": "Aujourd'hui, chaque compte peut poser {n} questions par jour.",
+    "limitePadrao": "Par défaut : {n} questions par compte et par jour, et {total} pour tout le site. La coordination peut changer ce nombre.",
+    "contaTitulo": "Il faut un compte",
+    "conta": "Sans compte, avec l'assistant désactivé ou sans internet, l'accompagnateur cherche la réponse dans les leçons du site, sur votre appareil, sans IA et sans serveur.",
+    "modeloTitulo": "Et un modèle sur l'appareil lui-même ?",
+    "modelo": "Nous avons vérifié si un petit modèle sous licence ouverte, servi par le site lui-même, pouvait tourner sur un téléphone uniquement pour résumer les passages de leçon trouvés en mode sans serveur. Les critères : environ 150 Mo au plus, fonctionner en portugais et répondre en un temps acceptable sur un téléphone d'entrée de gamme avec 4 Go de mémoire.",
+    "modeloNumeros": [
+      "SmolLM2-135M-Instruct (Apache 2.0) : 117 Mo dans sa version la plus compacte, mais déclaré pour l'anglais seulement.",
+      "Qwen2.5-0.5B-Instruct (Apache 2.0, plusieurs langues) : 483 Mo dans sa version la plus compacte.",
+      "Gemma 3 270M : 273 Mo dans sa version la plus compacte, sous la licence propre de Google, qui n'est pas ouverte."
+    ],
+    "modeloFonte": "Tailles des fichiers ONNX vérifiées sur Hugging Face le 3 novembre 2026.",
+    "modeloDecisao": "Aucun n'est passé : le seul dans la taille n'a pas été fait pour le portugais, et un résumé faux reviendrait à inventer. Il n'y a donc pas de modèle sur l'appareil. Le test de temps sur le téléphone d'entrée de gamme n'a même pas été fait. Si un modèle qui passe apparaît, il arrivera désactivé, avec sa taille affichée et une confirmation avant le téléchargement.",
+    "papel": "L'École Lúcia Maria est une école populaire : l'accompagnateur soutient votre étude ; il ne remplace pas un éducateur et ne délivre pas de certificat."
+  }
+}

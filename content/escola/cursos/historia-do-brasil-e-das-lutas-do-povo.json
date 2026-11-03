@@ -1,0 +1,90 @@
+{
+  "slug": "historia-do-brasil-e-das-lutas-do-povo",
+  "titulo": "História do Brasil e das lutas do povo",
+  "ciclo": "basico",
+  "formato": "regular",
+  "area": "historia",
+  "resumo": "A história do Brasil da invasão portuguesa ao século XXI, as lutas do povo no Brasil e no mundo, a ditadura de 1964 e a luta pela terra.",
+  "objetivo": "Contar a história do Brasil a partir de quem trabalhou e lutou, ligando o passado ao que acontece hoje no bairro.",
+  "objetivos": [
+    "entender-o-mundo",
+    "terminar-a-escola",
+    "enem"
+  ],
+  "modulos": [
+    {
+      "titulo": "História do Brasil",
+      "aulas": [
+        "historia-do-brasil/os-povos-originarios-antes-de-1500",
+        "historia-do-brasil/a-invasao-portuguesa-e-a-colonizacao",
+        "historia-do-brasil/a-escravidao-no-brasil",
+        "historia-do-brasil/independencia-para-quem",
+        "historia-do-brasil/imperio-e-abolicao",
+        "historia-do-brasil/a-primeira-republica",
+        "historia-do-brasil/a-era-vargas",
+        "historia-do-brasil/o-golpe-de-1964-e-a-ditadura",
+        "historia-do-brasil/a-redemocratizacao-e-a-constituicao-de-1988",
+        "historia-do-brasil/o-brasil-no-seculo-xxi"
+      ]
+    },
+    {
+      "titulo": "Lutas do povo",
+      "aulas": [
+        "lutas-do-povo/palmares-e-os-quilombos",
+        "lutas-do-povo/a-revolucao-francesa",
+        "lutas-do-povo/revolucao-haitiana",
+        "lutas-do-povo/revolta-dos-males",
+        "lutas-do-povo/comuna-de-paris",
+        "lutas-do-povo/canudos",
+        "lutas-do-povo/revolta-da-chibata",
+        "lutas-do-povo/a-greve-geral-de-1917",
+        "lutas-do-povo/as-greves-do-abc",
+        "lutas-do-povo/a-luta-contra-o-apartheid",
+        "lutas-do-povo/a-luta-do-povo-palestino"
+      ]
+    },
+    {
+      "titulo": "A ditadura de 1964",
+      "aulas": [
+        "ditadura-de-1964/o-governo-joao-goulart-e-as-reformas-de-base",
+        "ditadura-de-1964/o-golpe-de-1-de-abril-de-1964",
+        "ditadura-de-1964/os-atos-institucionais-e-o-ai-5",
+        "ditadura-de-1964/censura-tortura-e-desaparecimentos",
+        "ditadura-de-1964/o-milagre-economico-e-o-arrocho",
+        "ditadura-de-1964/a-guerrilha-do-araguaia",
+        "ditadura-de-1964/a-anistia-de-1979",
+        "ditadura-de-1964/diretas-ja",
+        "ditadura-de-1964/a-comissao-nacional-da-verdade"
+      ]
+    },
+    {
+      "titulo": "A luta pela terra",
+      "aulas": [
+        "historia-da-luta-pela-terra/as-ligas-camponesas-e-francisco-juliao",
+        "historia-da-luta-pela-terra/a-comissao-pastoral-da-terra",
+        "historia-da-luta-pela-terra/a-fundacao-do-mst",
+        "historia-da-luta-pela-terra/eldorado-do-carajas",
+        "historia-da-luta-pela-terra/chico-mendes-e-os-povos-da-floresta",
+        "historia-da-luta-pela-terra/a-marcha-das-margaridas"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "sensivel": true,
+  "patrono": {
+    "memorial": "joao-candido",
+    "motivo": "Marinheiro gaúcho, filho de ex-escravizados, liderou em 1910 a Revolta da Chibata, em que os marinheiros tomaram os navios da Armada para exigir o fim dos castigos com chibata.",
+    "confirmado": false
+  },
+  "leituras": [
+    {
+      "obra": "constituicao-federal-de-1988",
+      "ordem": 1,
+      "porque": "O texto atualizado da Constituição."
+    }
+  ],
+  "tarefaNoMundo": "Conversar com uma pessoa mais velha da família ou do bairro sobre um acontecimento do curso que ela viveu ou ouviu contar e anotar o que ela disse, com a permissão dela.",
+  "projetoFinal": "Contar a história de uma luta do seu bairro ou da sua cidade, com as fontes usadas (documentos, jornais, conversas autorizadas), e apresentar.",
+  "casoDoBairro": true,
+  "semanas": 3
+}

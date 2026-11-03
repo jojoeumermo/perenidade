@@ -1,0 +1,77 @@
+{
+  "slug": "costura",
+  "titulo": "Costura",
+  "ciclo": "profissional",
+  "formato": "alternancia",
+  "area": "costureira",
+  "resumo": "Em alternância: das ferramentas e dos pontos à mão até consertos, moldes, a primeira peça e o preço do trabalho, com tarefas práticas entre um módulo e outro.",
+  "objetivo": "Fazer consertos e uma peça simples com segurança e calcular o preço do próprio trabalho.",
+  "objetivos": [
+    "trabalho-e-renda",
+    "ajudar-em-casa"
+  ],
+  "modulos": [
+    {
+      "titulo": "Começar com segurança",
+      "aulas": [
+        "costureira/ferramentas-e-seguranca-na-costura",
+        "costureira/os-tipos-de-tecido",
+        "costureira/pontos-a-mao",
+        "costureira/conhecer-a-maquina-de-costura"
+      ],
+      "pratica": [
+        "Montar a caixa de costura com o que a aula de ferramentas pede, seguindo os cuidados de segurança da aula, e anotar o que já tem e o que falta.",
+        "Separar três retalhos de tecidos diferentes e anotar, com o que a aula de tecidos ensina, o tipo provável de cada um e para que serve.",
+        "Fazer num retalho uma amostra dos pontos à mão da aula e guardar uma foto na caderneta."
+      ]
+    },
+    {
+      "titulo": "Costuras e consertos",
+      "aulas": [
+        "costureira/costuras-retas-e-acabamentos",
+        "costureira/barras-e-bainhas",
+        "costureira/botoes-casas-e-ziperes",
+        "costureira/consertos-e-ajustes-de-roupas"
+      ],
+      "pratica": [
+        "Escolher uma roupa da casa que precise de conserto (barra, botão ou costura aberta) e fazer o conserto seguindo a aula correspondente.",
+        "Anotar quanto tempo o conserto levou e o material usado, para o cálculo de preço do último módulo."
+      ]
+    },
+    {
+      "titulo": "Da medida à peça",
+      "aulas": [
+        "costureira/como-tirar-medidas",
+        "costureira/ler-e-usar-moldes",
+        "costureira/costurar-uma-peca-simples",
+        "costureira/reaproveitar-tecidos"
+      ],
+      "pratica": [
+        "Tirar as medidas de uma pessoa da casa, com a permissão dela, seguindo a aula de medidas, e anotar numa tabela.",
+        "Cortar e costurar a peça simples da aula, de preferência com tecido reaproveitado."
+      ]
+    },
+    {
+      "titulo": "Saúde, preço e trabalho coletivo",
+      "aulas": [
+        "costureira/postura-e-saude-de-quem-costura",
+        "costureira/calcular-o-preco-e-vender",
+        "costureira/a-historia-das-costureiras-e-das-trabalhadoras-da-confeccao",
+        "costureira/cooperativas-de-costura"
+      ],
+      "pratica": [
+        "Calcular o preço do conserto do segundo módulo com a conta da aula de preço.",
+        "Procurar se existe uma cooperativa ou um grupo de costura no seu bairro ou na sua cidade e anotar como funciona."
+      ]
+    }
+  ],
+  "requisitos": [],
+  "patrono": {
+    "memorial": "zuzu-angel",
+    "motivo": "Estilista mineira que levou a moda brasileira às passarelas internacionais.",
+    "confirmado": false
+  },
+  "tarefaNoMundo": "Fazer um conserto ou um ajuste para alguém da família ou da vizinhança e anotar o tempo e o material usados.",
+  "projetoFinal": "Costurar uma peça simples do começo ao fim e apresentá-la com o cálculo do preço.",
+  "semanas": 1
+}

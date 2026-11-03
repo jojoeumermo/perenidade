@@ -64,6 +64,9 @@ import {
   RetomarAquiSobDemanda as RetomarAqui,
   VersaoFacilSobDemanda as VersaoFacil,
 } from "@/components/aula/AulaVivaSobDemanda";
+import { FaixaDoCursoSobDemanda as FaixaDoCurso } from "@/components/escola/cursos/FaixaDoCursoSobDemanda";
+import { textosDosCursos } from "@/i18n/escola/cursos";
+import { cursosDaAula } from "@/lib/escola/cursos-vista";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -181,6 +184,9 @@ export default async function LessonPage({ params }: Props) {
   );
   // Ícones de traço ao lado do texto nos botões de navegação das aulas de alfabetização (R1-87).
   const comIcones = Boolean(sa) && letraGrande;
+  // Os cursos da Escola de que esta aula faz parte (E4-07; docs/escola/cursos.md). Com algum, a faixa do curso (só para
+  // quem está inscrito, lida no aparelho) assume o próximo passo; sem nenhum, a aula fica como era.
+  const cursosDestaAula = sa ? cursosDaAula(id) : [];
 
   return (
     <div className="pagina-da-aula pont">
@@ -308,12 +314,15 @@ export default async function LessonPage({ params }: Props) {
           {habilidades && <HabilidadesDaAula mapa={habilidades} s={estudo.mapa} />}
         </div>
 
+        {sa && cursosDestaAula.length > 0 && (
+          <FaixaDoCurso aula={id} cursos={cursosDestaAula} proximaDaTrilha={next && { caminho: path(next.slug), titulo: next.title }} s={textosDosCursos(lang).faixa} sProximo={sa.proximo} />
+        )}
         <CompleteButton
           id={id}
           next={next && { path: path(next.slug), title: next.title }}
           passo={sa ? { s: sa.proximo, proxima: next && { path: path(next.slug), title: next.title }, prova: !next && temProva ? `/trilhas/${track.slug}/prova` : undefined, trilhas: "/trilhas", icones: comIcones } : undefined}
         />
-        {sa && <ProximoPasso proxima={next && { caminho: path(next.slug), titulo: next.title }} s={sa.proximo} />}
+        {sa && cursosDestaAula.length === 0 && <ProximoPasso proxima={next && { caminho: path(next.slug), titulo: next.title }} s={sa.proximo} />}
         {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} />}
         <Compartilhar
           url={`${site.url}${to(path(lesson.slug))}`}

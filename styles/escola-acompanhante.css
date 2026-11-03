@@ -1,0 +1,169 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* Acompanhante do estudante (E4-10). Só os tokens que já existem (--ink, --parchment, --oxblood, --gold, --rule):
+   nenhuma cor nova, e o tema escuro vem junto. Toques de 44 px; nada passa da largura da tela em 360 px. */
+
+.acompanhante-botao {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  background: var(--ink);
+  color: var(--parchment);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--ink);
+}
+.acompanhante-botao:hover,
+.acompanhante-botao:focus-visible {
+  background: var(--oxblood);
+  border-color: var(--oxblood);
+}
+.acompanhante-botao:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.acompanhante-botao-claro {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+.acompanhante-botao-claro:hover,
+.acompanhante-botao-claro:focus-visible {
+  border-color: var(--oxblood);
+  color: var(--oxblood);
+}
+.acompanhante-botao-claro:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.acompanhante-campo {
+  max-width: 100%;
+  min-height: 2.75rem;
+}
+.acompanhante-falas {
+  overflow-wrap: anywhere;
+}
+.acompanhante-fala-pessoa {
+  width: fit-content;
+}
+
+/* A folha do "Não entendi": de baixo para cima no celular, de lado no computador. É um <dialog> modal. */
+.acompanhante-folha {
+  margin: auto auto 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 88vh;
+  padding: 0;
+  border: 0;
+  border-top: 4px solid var(--ink);
+  background: var(--parchment);
+  color: var(--ink);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.acompanhante-folha::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+@media (min-width: 768px) {
+  .acompanhante-folha {
+    margin: 0 0 0 auto;
+    height: 100vh;
+    max-height: 100vh;
+    width: min(32rem, 100vw);
+    border-top: 0;
+    border-left: 4px solid var(--ink);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .acompanhante-folha[open] {
+    animation: acompanhante-entrar 160ms ease-out;
+  }
+}
+@keyframes acompanhante-entrar {
+  from {
+    transform: translateY(1.5rem);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* O botão da faixa da aula, igual aos vizinhos (Ouvir, Anotar). */
+.acompanhante-na-faixa {
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  padding: 0.25rem 0.5rem;
+  color: #e9dcbc;
+}
+.acompanhante-na-faixa:hover,
+.acompanhante-na-faixa:focus-visible {
+  border-color: #e9dcbc;
+  color: #fff;
+}
+
+/* A tarja: a foto no canvas, do tamanho da coluna, sem rolagem lateral. */
+.acompanhante-tarja canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  touch-action: none;
+  border: 2px solid var(--ink);
+  cursor: crosshair;
+}
+.acompanhante-tarja canvas:focus-visible {
+  outline: 3px solid var(--oxblood);
+  outline-offset: 2px;
+}
+
+/* Os cartões dos modos na entrada do acompanhante. */
+.acompanhante-modos {
+  display: grid;
+  gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .acompanhante-modos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.acompanhante-modo {
+  border: 1px solid var(--rule);
+  background: var(--parchment-deep);
+  padding: 1rem;
+}
+.acompanhante-modo[open],
+.acompanhante-modo:hover {
+  border-color: var(--ink);
+}
+.acompanhante-modo[open] {
+  grid-column: 1 / -1;
+}
+.acompanhante-modo summary {
+  cursor: pointer;
+  min-height: 2.75rem;
+  list-style: none;
+}
+.acompanhante-modo summary::-webkit-details-marker {
+  display: none;
+}
+
+@media print {
+  .acompanhante-folha,
+  .acompanhante-aviso {
+    display: none;
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "slug": "matematica-para-a-vida",
+  "titulo": "Matemática para a vida",
+  "ciclo": "basico",
+  "formato": "regular",
+  "area": "matematica",
+  "resumo": "A matemática que aparece no salário, nas compras, nas contas e nas notícias: operações, frações, porcentagem, regra de três, juros, medidas, gráficos e probabilidade.",
+  "objetivo": "Fazer e conferir as contas do dia a dia, comparar preços e juros e ler gráficos e tabelas sem medo.",
+  "objetivos": [
+    "terminar-a-escola",
+    "enem",
+    "ajudar-em-casa",
+    "trabalho-e-renda"
+  ],
+  "modulos": [
+    {
+      "titulo": "Números e contas",
+      "aulas": [
+        "matematica-fundamental/as-quatro-operacoes",
+        "matematica-fundamental/expressoes-e-ordem-das-operacoes",
+        "matematica-fundamental/multiplos-divisores-e-numeros-primos",
+        "matematica-fundamental/numeros-negativos",
+        "matematica-fundamental/numeros-decimais",
+        "matematica-fundamental/fracoes",
+        "matematica-fundamental/potencias-e-raizes"
+      ]
+    },
+    {
+      "titulo": "Proporção, porcentagem e juros",
+      "aulas": [
+        "matematica-fundamental/razao-e-proporcao",
+        "matematica-fundamental/regra-de-tres",
+        "matematica-fundamental/porcentagem",
+        "matematica-medio/juros-simples-e-compostos"
+      ]
+    },
+    {
+      "titulo": "Medidas, gráficos e acaso",
+      "aulas": [
+        "matematica-fundamental/medidas-comprimento-massa-tempo-e-capacidade",
+        "matematica-fundamental/perimetro-e-area",
+        "matematica-fundamental/equacoes-do-1-grau",
+        "matematica-fundamental/leitura-de-graficos-e-tabelas",
+        "matematica-medio/estatistica-media-mediana-e-moda",
+        "matematica-medio/probabilidade"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "patrono": {
+    "memorial": "mehdi-ben-barka",
+    "motivo": "Professor de matemática e líder da esquerda marroquina, organizava a Conferência Tricontinental, que reuniria em Havana os movimentos da Ásia, da África e da América Latina.",
+    "confirmado": false
+  },
+  "tarefaNoMundo": "Anotar os gastos da casa durante um mês e calcular, em porcentagem, quanto cada tipo de gasto pesa no total.",
+  "projetoFinal": "Comparar duas formas de pagar uma compra grande (à vista e a prazo) com as contas de juros do curso e apresentar a conclusão com uma tabela ou um gráfico.",
+  "semanas": 2
+}

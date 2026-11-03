@@ -38,6 +38,16 @@ O instituto não guarda a sua pergunta, a foto nem a resposta. Guarda só quanta
 A resposta é automática e pode errar. Ela não substitui professor, médico, advogado nem nenhum outro profissional, e o próprio assistente indica um serviço adequado quando a dúvida pede isso. Se a resposta não resolver, peça reforço a um voluntário pelo formulário da mesma página.
 ```
 
+## Provedores que podem ser ligados além da Anthropic
+
+Desde a rodada de provedores, a função `assistente` sabe chamar, na ordem que a coordenação escolhe em *Controles do site*, com reserva automática (se um falhar, o pedido vai ao próximo): **Claude (Anthropic)**, **Groq**, **Cerebras**, **Gemini (Google)** e **OpenRouter** (`supabase/functions/assistente/provedores.ts`). Todos são empresas de fora, com servidores fora do Brasil. Só Claude e Gemini recebem foto; os outros são pulados nos pedidos com imagem. Se algum além da Anthropic estiver na ordem, o trecho da página precisa dizer "uma ferramenta de inteligência artificial de uma empresa de fora (a lista está em Como funciona o acompanhante)" em vez de citar só a Anthropic, e o passo 2 de "Antes de publicar" vale para cada provedor ligado.
+
+A lista pública fica em `lib/escola/provedores-publicos.ts` e aparece em `/escola/acompanhante/como-funciona`; `npm run testar:acompanhante` falha se ela divergir da função.
+
+## Acompanhante do estudante (Etapa 4, E4-10)
+
+O acompanhante usa a mesma função, com os modos novos (`socratico`, `pistas`, `outro-jeito`, `redacao`, `documento`, `conversa`) e os campos opcionais `historico` (até 8 falas, 6.000 caracteres) e `contexto` (trecho da aula de até 1.200 caracteres, exercício, nível da pista, trabalho, idioma da prática). Nada muda no banco: mesma conta, mesmo `assistente_usar`, mesmo limite do dia, nada guardado. O histórico fica só no aparelho (`lucia:escola-privado:conversas`). A página de privacidade já descreve o acompanhante na seção "Escola Lúcia Maria" (este pacote é o dono de `content/paginas/privacidade.md` na onda 2); o trecho geral do reforço, acima, continua esperando o assistente ser ligado em produção.
+
 ## Antes de desligar
 
 Nada a apagar: o banco não tem pergunta, foto nem resposta guardadas. Os contadores somem sozinhos em 90 dias.

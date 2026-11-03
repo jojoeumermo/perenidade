@@ -1,0 +1,69 @@
+{
+  "slug": "a-conta-de-luz",
+  "titulo": "A conta de luz",
+  "ciclo": "basico",
+  "formato": "regular",
+  "area": "fisica",
+  "resumo": "Curso interdisciplinar: ler a conta, entender de onde vem o consumo, fazer as contas e gastar menos com segurança, juntando aulas de alfabetização, matemática, física e eletricidade.",
+  "objetivo": "Ler a conta de luz, calcular quanto cada aparelho gasta e montar um plano para gastar menos sem correr risco.",
+  "objetivos": [
+    "ajudar-em-casa",
+    "entender-o-mundo"
+  ],
+  "modulos": [
+    {
+      "titulo": "Ler a conta",
+      "aulas": [
+        "ler-e-escrever/ler-placas-onibus-e-contas",
+        "alfabetizacao-de-jovens-e-adultos/fazer-contas-do-dia-a-dia",
+        "eletricidade-basica-e-seguranca/potencia-e-consumo-ler-a-conta-de-luz"
+      ]
+    },
+    {
+      "titulo": "De onde vem o consumo",
+      "aulas": [
+        "fisica-fundamental/energia-e-suas-transformacoes",
+        "fisica-fundamental/eletricidade-em-casa",
+        "enem-fisica/consumo",
+        "enem-fisica/potencia-e-rendimento",
+        "enem-fisica/circuitos"
+      ]
+    },
+    {
+      "titulo": "Gastar menos, com segurança",
+      "aulas": [
+        "enem-matematica-proporcionalidade/contas-do-dia-a-dia",
+        "instalacoes-eletricas-residenciais/iluminacao-lampadas-led-e-economia",
+        "manutencao-e-diagnostico-eletrico/chuveiro-eletrico-resistencia-e-ligacao",
+        "manutencao-e-diagnostico-eletrico/energia-solar-nocoes-de-sistemas-fotovoltaicos"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "patrono": {
+    "memorial": "berta-caceres",
+    "motivo": "Organizou a resistência das comunidades contra a construção de uma hidrelétrica no rio Gualcarque, sagrado para os lencas, e recebeu em 2015 o Prêmio Goldman, o mais importante do mundo para defensores do meio ambiente.",
+    "confirmado": false
+  },
+  "leituras": [
+    {
+      "obra": "enem-provas-e-gabaritos",
+      "ordem": 1,
+      "porque": "Arquivo oficial com as provas e os gabaritos das edições anteriores do Enem."
+    }
+  ],
+  "emConstrucao": [
+    {
+      "titulo": "Direito do consumidor e a conta de luz (cobrança, contestação e corte)",
+      "motivo": "aula a pedir aos educadores"
+    },
+    {
+      "titulo": "A luta pelo direito à energia",
+      "motivo": "aula a pedir aos educadores"
+    }
+  ],
+  "tarefaNoMundo": "Ler as três últimas contas de luz da casa, anotar o consumo, a bandeira e o valor de cada uma e calcular o consumo dos aparelhos que mais gastam.",
+  "projetoFinal": "Montar com a família ou a vizinhança um plano para gastar menos energia, com as contas do curso, e conferir se a casa tem direito à Tarifa Social de Energia Elétrica, como explica a aula sobre ler contas.",
+  "casoDoBairro": true,
+  "semanas": 2
+}

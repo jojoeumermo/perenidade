@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "matricula": { "titulo": "Enrolment", "descricao": "Enrol in the Lúcia Maria School with no sign-up: three questions, no name, email or ID. Everything stays on your device." },
+    "carteirinha": { "titulo": "Student card", "descricao": "The Lúcia Maria School card, made on your device. It is not an official document." },
+    "plano": { "titulo": "Plan for the week", "descricao": "A guilt-free study plan for the week, made on your device by simple rules." }
+  },
+  "comum": {
+    "olho": "Lúcia Maria School",
+    "carregando": "Opening what is stored on this device…",
+    "minutos": "{n} min",
+    "semGuardar": "This device did not allow saving (it may be the browser's private mode). Try outside it."
+  },
+  "fluxo": {
+    "lead": "Three questions, no name, email or ID. The enrolment stays on this device.",
+    "passo": "Question {i} of {n}",
+    "voltar": "Back",
+    "pular": "Skip",
+    "ouvir": "Listen to the question",
+    "pararDeOuvir": "Stop listening",
+    "semVoz": "This device has no voice to read aloud.",
+    "baixarVoz": "The chosen voice still needs to download {tamanho}. Download now?",
+    "baixarSim": "Download and listen",
+    "baixarNao": "Not now",
+    "objetivo": {
+      "pergunta": "What brings you here?",
+      "opcoes": {
+        "terminar-a-escola": { "titulo": "Finish school", "frase": "Go back to studying what was left behind." },
+        "trabalho-e-renda": { "titulo": "Work and income", "frase": "Learn something that helps at work or with money." },
+        "entender-o-mundo": { "titulo": "Understand the world", "frase": "Know why things are the way they are." },
+        "enem": { "titulo": "ENEM", "frase": "Prepare for the national exam." },
+        "ajudar-em-casa": { "titulo": "Help at home", "frase": "Follow the studies of the people I live with." },
+        "outro": { "titulo": "Something else", "frase": "I came to have a look, or it is something else." }
+      }
+    },
+    "tempo": {
+      "pergunta": "How much time a week do you have to study?",
+      "dica": "Any answer is fine. You can change it later.",
+      "opcoes": {
+        "ate-1h": { "titulo": "Up to 1 hour", "frase": "A few minutes now and then." },
+        "1-3h": { "titulo": "1 to 3 hours", "frase": "A little, a few days a week." },
+        "3-6h": { "titulo": "3 to 6 hours", "frase": "A little, almost every day." },
+        "mais-6h": { "titulo": "More than 6 hours", "frase": "I have time to dedicate." }
+      }
+    },
+    "acesso": {
+      "pergunta": "What is your internet like?",
+      "dica": "So the School uses less of your data, if needed.",
+      "opcoes": {
+        "pacote-acaba": { "titulo": "My data plan runs out", "frase": "I use mobile data and it runs out before the month ends." },
+        "wifi-em-casa": { "titulo": "I have wi-fi at home", "frase": "The internet at home is enough." },
+        "computador-ou-nucleo": { "titulo": "I study on a computer or at a Núcleo", "frase": "I use a computer, mine or a Núcleo's." }
+      }
+    },
+    "leve": {
+      "titulo": "To use less data",
+      "texto": "The site has a data saver (light mode): it hides images and videos and uses the device's own fonts. It is in the accessibility button.",
+      "botao": "Open the data saver"
+    },
+    "nivelamento": {
+      "pergunta": "Want to find out where to start?",
+      "texto": "A few short questions, no grade and no right or wrong on screen. They only suggest where to start. You can skip.",
+      "sim": "Yes, I want to find out",
+      "nao": "Not now",
+      "seguir": "Continue the enrolment",
+      "semTeste": "There are no placement questions for the School's courses yet. If you like, take the subject placement test later.",
+      "linkGeral": "Subject placement test"
+    },
+    "sugestao": {
+      "pergunta": "Courses to start with",
+      "texto": "Suggested from your answers. Tick the ones you want; you can change later.",
+      "semCursos": "The School's courses are still being put together. The enrolment counts anyway: when they arrive, you choose.",
+      "nenhumMarcado": "No course ticked: the enrolment counts anyway.",
+      "motivo": {
+        "pedido": "The course you chose in the catalogue",
+        "objetivo": "Matches what brings you here",
+        "comeco": "Good to start: basic cycle, no prerequisite"
+      },
+      "modulo1": "Long course (about {horas} h). With up to 1 hour a week, start with module 1.",
+      "horas": "About {horas} h (estimate)",
+      "nivelado": "Has lessons from the subject the placement test suggested.",
+      "antes": "Before a long course, if you like",
+      "verCurso": "See the course",
+      "marcar": "Join this course"
+    },
+    "apelido": {
+      "pergunta": "What do you want to be called on the card?",
+      "dica": "Optional. A nickname is enough: do not use your full name. Up to 40 letters. It stays on this device only.",
+      "rotulo": "Nickname (optional)",
+      "fazer": "Enrol me",
+      "guardar": "Save the answers"
+    },
+    "feito": {
+      "titulo": "Enrolment done on this device",
+      "numero": "Your number: {numero}",
+      "contagem": "The School added an anonymous +1 to the enrolment count, without your number and without anything that says who you are.",
+      "carteirinha": "Student card",
+      "plano": "Plan for the week",
+      "copia": "Changed phones? Make a backup in My data.",
+      "meusDados": "My data"
+    },
+    "gerir": {
+      "titulo": "Your enrolment",
+      "numero": "Number {numero}",
+      "desde": "Made on {data}, on this device.",
+      "respostas": "Your answers",
+      "rotuloObjetivo": "What brings you here",
+      "rotuloTempo": "Time a week",
+      "rotuloAcesso": "Internet",
+      "rotuloApelido": "Nickname",
+      "semApelido": "No nickname",
+      "editar": "Edit the answers",
+      "salvo": "Answers saved.",
+      "cancelar": "Cancel",
+      "refazer": "Redo the enrolment",
+      "refazerDica": "Answer the questions again and choose courses. Your number and the courses you already have stay.",
+      "cursos": "Your courses",
+      "semCursos": "No course for now.",
+      "verCursos": "See the courses",
+      "emAndamento": "In progress since {data}",
+      "trancar": "Pause",
+      "trancarDica": "Pausing is taking a break. You can come back whenever you want.",
+      "trancado": "Paused on {data}",
+      "destrancar": "Back to the course",
+      "formado": "Graduation on {data}",
+      "apagar": "Delete the enrolment",
+      "apagarPergunta": "Delete the enrolment, the courses, the plan for the week and everything the School stored on this device? There is no undo. The lessons you marked as done stay marked.",
+      "apagarSim": "Yes, delete",
+      "apagarNao": "Cancel",
+      "apagada": "Enrolment deleted from this device."
+    }
+  },
+  "carteirinha": {
+    "lead": "Made on this device, with no server. To keep as a souvenir, print or show to your class.",
+    "escola": "Lúcia Maria School",
+    "casa": "Instituto Lúcia",
+    "popular": "Free people's school",
+    "estudante": "Student",
+    "rotuloNumero": "No.",
+    "rotuloCurso": "Course",
+    "semCurso": "Still choosing",
+    "rotuloSemestre": "Semester",
+    "desde": "Since {ano}",
+    "frente": "Front of the card",
+    "verso": "Back of the card",
+    "avisoNaoDocumento": "This card is not an official document and is not valid as a student card for half-price tickets (meia-entrada). It was made on this device; nothing was sent.",
+    "leiNaoVale": "Half-price tickets require the Student ID Card (CIE), issued by the student organisations named in Brazilian Law no. 12.933/2013 (art. 1, § 2).",
+    "qr": "Point the camera to visit the School",
+    "qrAlt": "QR code with the address of the Lúcia Maria School",
+    "usarFoto": "Show my account photo",
+    "usarFotoDica": "It only appears if your account has a photo stored on this device. Without it, your initials are used.",
+    "imprimir": "Print",
+    "imprimirDica": "When printing, choose actual size (100%) and no margins. Two card-sized pages come out: front and back.",
+    "baixar": "Download image",
+    "gerando": "Making the image…",
+    "falhou": "Could not make the image on this device. Printing still works.",
+    "nomeDoArquivo": "lucia-maria-school-card",
+    "convite": {
+      "titulo": "You do not have an enrolment on this device yet",
+      "texto": "Enrolling takes three questions, no name, email or ID. Then the card appears here.",
+      "botao": "Enrol"
+    }
+  },
+  "plano": {
+    "lead": "The next lessons of your courses, within the time you said you have. Made on this device.",
+    "regra": "Made by simple rules, with no artificial intelligence: lessons follow the order of each course, waived subjects are left out and the time is split across the days you choose.",
+    "semana": "Week from {inicio} to {fim}",
+    "hoje": "Today",
+    "dias": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "diasCurtos": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "escolherDias": "Study days",
+    "tempoDaSemana": "Up to {n} minutes this week",
+    "metaDaSemana": "{n} lessons this week, from your goal in My studies",
+    "feito": "done",
+    "aFazer": "to do",
+    "diaLivre": "Nothing planned for this day.",
+    "hojeLivre": "Today is a free day. If you feel like it, do a lesson from another day.",
+    "acolhimento": ["Busy week? That is fine, we adjust.", "What did not fit today moves to the next study day.", "One lesson at a time is already a path."],
+    "paraDepois": "Left for next week: {n} lesson(s).",
+    "calma": {
+      "titulo": "Start again gently",
+      "texto": "It has been two weeks with no lesson done. It happens to everyone. How about a plan with half the time?",
+      "botao": "Start again gently",
+      "ativo": "Gentle plan: half the time.",
+      "voltar": "Back to the normal time"
+    },
+    "lembrete": "Calendar reminder",
+    "lembreteHora": "Reminder time",
+    "lembreteDica": "Downloads a calendar file that reminds you on study days, even with the site closed. Nothing is sent.",
+    "lembreteTitulo": "Study at the Lúcia Maria School",
+    "lembreteDescricao": "Time for the plan of the week.",
+    "remontar": "Make the plan again",
+    "acabou": "You have done every lesson of your courses. How about choosing another?",
+    "semCursos": "To make the plan, join a course.",
+    "verCursos": "See the courses",
+    "abrirAula": "Open the lesson"
+  },
+  "quemVolta": {
+    "rotulo": "Welcome back",
+    "titulo": "Good to see you again",
+    "carteirinha": "See the card",
+    "hoje": "Today in your plan",
+    "hojeLivre": "Nothing planned for today.",
+    "verPlano": "See the plan for the week",
+    "continuar": "Continue the course",
+    "continuarAula": "Continue where you left off",
+    "verCursos": "See the courses",
+    "convite": {
+      "titulo": "First time here?",
+      "texto": "Enrol: three questions, no name, email or ID.",
+      "botao": "Enrol"
+    }
+  }
+}

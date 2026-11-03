@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "titulo": "Acompanhante do estudante",
+    "descricao": "Tire dúvidas de uma aula, peça pistas de exercício, comentário de redação, ajuda para entender um documento e pratique inglês ou espanhol. O histórico fica só no seu aparelho."
+  },
+  "comum": {
+    "enviar": "Perguntar",
+    "enviando": "O acompanhante está pensando…",
+    "rotuloResposta": "Resposta do acompanhante",
+    "voce": "Você",
+    "avisoAutomatico": "Resposta automática: pode errar. Confira com a aula e, se a dúvida continuar, peça reforço a um voluntário.",
+    "cortada": "A resposta ficou grande demais e foi cortada.",
+    "recusa": "O assistente preferiu não responder a esse pedido. Tente escrever de outro jeito ou peça reforço a um voluntário.",
+    "restantes": "Você ainda pode fazer {n} perguntas hoje.",
+    "oQueVai": "Ao apertar o botão, vai para o assistente: {itens}. O pedido passa pelo servidor do Instituto e segue para um provedor de inteligência artificial com servidores fora do Brasil. O Instituto não guarda o que foi mandado.",
+    "itens": {
+      "pergunta": "o que você escrever",
+      "trecho": "o trecho da aula",
+      "aula": "o endereço da aula",
+      "historico": "as últimas falas desta conversa",
+      "enunciado": "o enunciado e as alternativas do exercício",
+      "trabalho": "o trabalho que você informar",
+      "redacao": "a redação e o tema",
+      "foto": "a foto riscada e reduzida",
+      "idioma": "o idioma da prática"
+    },
+    "comoFunciona": "Como funciona",
+    "historicoAqui": "Esta conversa fica guardada só neste aparelho (até 20 conversas, por 30 dias).",
+    "modoSeguro": "Modo seguro ligado: esta conversa não fica guardada neste aparelho.",
+    "naoEscreva": "Não escreva nome, CPF, endereço nem outros dados pessoais.",
+    "entrar": "Para perguntar ao assistente, entre na sua conta.",
+    "entrarLink": "Entrar",
+    "apagarConversa": "Apagar esta conversa",
+    "novaConversa": "Começar outra conversa",
+    "caracteres": "{n} de {max} caracteres"
+  },
+  "hub": {
+    "titulo": "Acompanhante do estudante",
+    "lead": "Um apoio para estudar sozinho, quando não há voluntário por perto. Ele ajuda a pensar, não pensa por você.",
+    "escolha": "O que você precisa agora?",
+    "abrir": "Abrir",
+    "modos": {
+      "duvida": { "titulo": "Tirar dúvida de uma aula", "texto": "Cole o trecho que travou. O acompanhante faz uma pergunta antes de explicar. Dentro da aula, use o botão “Não entendi”, na faixa de cima." },
+      "pista": { "titulo": "Pista de exercício", "texto": "Errou um exercício? Logo abaixo dele aparece “Quero uma pista”, em três níveis, sem entregar a resposta de cara." },
+      "outroJeito": { "titulo": "Explicar de outro jeito", "texto": "O mesmo trecho, explicado com um exemplo do seu trabalho, sem mudar os fatos." },
+      "redacao": { "titulo": "Comentário de redação", "texto": "Comentário pelas 5 competências do Enem, sem nota." },
+      "documento": { "titulo": "Entender um documento", "texto": "Contrato, conta, carta do INSS: explicado em linguagem simples, depois de você cobrir os dados pessoais." },
+      "idioma": { "titulo": "Praticar inglês ou espanhol", "texto": "Uma conversa curta, com correção gentil. Pode falar ou escrever." }
+    },
+    "irParaPraticar": "Ir para o Praticar",
+    "historico": {
+      "titulo": "Conversas guardadas neste aparelho",
+      "vazio": "Nenhuma conversa guardada neste aparelho.",
+      "apagarTudo": "Apagar tudo",
+      "confirmar": "Apagar todas as conversas deste aparelho? Não dá para desfazer.",
+      "apagadas": "Conversas apagadas.",
+      "apagar": "Apagar",
+      "continuar": "Continuar",
+      "em": "Última fala em {data}",
+      "nenhumaNoModoSeguro": "Modo seguro ligado: nada é guardado enquanto ele estiver ligado."
+    },
+    "nomesDosModos": {
+      "socratico": "Dúvida de aula",
+      "pistas": "Pista de exercício",
+      "outro-jeito": "Outro jeito",
+      "redacao": "Redação",
+      "documento": "Documento",
+      "conversa": "Prática de idioma"
+    }
+  },
+  "duvida": {
+    "trecho": "Trecho da aula que você não entendeu",
+    "trechoDica": "Copie e cole da aula. Até 1.200 caracteres.",
+    "pergunta": "Sua dúvida",
+    "perguntaDica": "Ex.: não entendi por que o resultado muda de sinal.",
+    "precisa": "Escreva a dúvida ou cole um trecho."
+  },
+  "naoEntendi": {
+    "botao": "Não entendi",
+    "titulo": "Não entendi este trecho",
+    "fechar": "Fechar",
+    "selecionado": "O trecho que você marcou:",
+    "parteAtual": "O pedaço da aula que está na tela:",
+    "semTrecho": "Não achamos o trecho. Marque com o dedo ou o mouse a parte da aula que travou e toque de novo em “Não entendi”.",
+    "perguntaOpcional": "O que travou? (opcional)",
+    "perguntar": "Perguntar sobre este trecho"
+  },
+  "outroJeito": {
+    "titulo": "Explique com exemplo do meu trabalho",
+    "trabalho": "Seu trabalho",
+    "trabalhoDica": "Ex.: cozinheira, pedreiro, motorista de aplicativo. Fica guardado só neste aparelho.",
+    "botao": "Explique com exemplo do meu trabalho",
+    "precisa": "Escreva o seu trabalho e cole o trecho."
+  },
+  "pistas": {
+    "botao": "Quero uma pista",
+    "titulo": "Pista {n} de 3",
+    "outra": "Quero outra pista",
+    "solucao": "Quero a solução completa",
+    "lead": "As pistas vêm em três níveis: primeiro o conceito, depois o próximo passo, e só no fim, se você pedir, a solução."
+  },
+  "redacao": {
+    "titulo": "Comentário de redação",
+    "lead": "Cole a sua redação. O acompanhante comenta cada uma das 5 competências do Enem: até 2 pontos fortes e até 2 para melhorar. Ele não reescreve o texto.",
+    "tema": "Tema da proposta (opcional)",
+    "texto": "Sua redação",
+    "minimo": "Escreva pelo menos 100 caracteres.",
+    "botao": "Pedir o comentário",
+    "aviso": "Comentário automático, não é correção nem nota.",
+    "notaSoInep": "Nota de redação do Enem só quem dá são os corretores do Inep.",
+    "veioDaOficina": "A redação veio da Oficina de Redação deste aparelho.",
+    "tirouNota": "Uma linha que trazia nota ou pontuação foi tirada deste comentário.",
+    "oficina": "Escrever na Oficina de Redação"
+  },
+  "documento": {
+    "titulo": "Entender um documento",
+    "lead": "Tire uma foto de um contrato, conta ou carta (do INSS, por exemplo). O acompanhante explica em linguagem simples e mostra os prazos e valores.",
+    "avisoTitulo": "Antes de mandar",
+    "aviso": "Cubra CPF, RG, números de conta e dados de outras pessoas antes de mandar.",
+    "outrasPessoas": "Não mande documento de outras pessoas, inclusive de crianças, sem necessidade.",
+    "entendi": "Li o aviso e vou cobrir o que for preciso",
+    "escolher": "Escolher a foto do documento",
+    "trocar": "Escolher outra foto",
+    "pergunta": "O que você quer saber? (opcional)",
+    "botao": "Mandar a imagem riscada",
+    "semTarja": "Você não cobriu nada. Se a foto não tem dado pessoal, pode mandar assim mesmo.",
+    "naoJuridica": "Isto não é orientação jurídica. Para um caso seu, procure a Defensoria Pública, o Procon ou o INSS (telefone 135), conforme o assunto.",
+    "preparando": "Preparando a foto no seu aparelho…"
+  },
+  "tarja": {
+    "titulo": "Cubra os dados pessoais",
+    "instrucao": "Arraste o dedo ou o mouse sobre o que quer cobrir. A tarja preta fica gravada na imagem: o que está embaixo não sai do aparelho.",
+    "teclado": "No teclado: as setas movem o quadro vermelho, Shift com as setas muda o tamanho e Enter risca.",
+    "rotulo": "Foto do documento. Arraste para cobrir uma parte.",
+    "desfazer": "Desfazer a última tarja",
+    "limpar": "Tirar todas as tarjas",
+    "contagem": "Tarjas: {n}"
+  },
+  "idioma": {
+    "titulo": "Praticar inglês ou espanhol",
+    "lead": "Uma conversa curta no idioma que você estuda. O acompanhante responde em poucas palavras e corrige com gentileza, entre colchetes.",
+    "escolha": "Idioma da prática",
+    "ingles": "Inglês",
+    "espanhol": "Espanhol",
+    "fala": "Sua fala",
+    "falaDica": "Escreva ou use o microfone.",
+    "microfone": "Falar pelo microfone",
+    "parar": "Parar de ouvir",
+    "ouvir": "Ouvir a resposta",
+    "semPermissao": "O navegador não deixou usar o microfone.",
+    "naoOuviu": "Não deu para ouvir. Tente de novo, mais perto do microfone.",
+    "erroVoz": "O reconhecimento de voz falhou. Escreva a sua fala.",
+    "trilhas": "Para estudar com calma:",
+    "trilhaIngles": "Inglês do zero",
+    "trilhaEspanhol": "Espanhol do zero",
+    "comecar": "Hello! / ¡Hola! Escreva uma frase para começar."
+  },
+  "semServidor": {
+    "titulo": "Respostas tiradas das aulas do site (sem IA, sem servidor)",
+    "semConta": "Sem conta, o assistente não responde. Enquanto isso, procuramos nas aulas do site, aqui no seu aparelho.",
+    "desligado": "O assistente está desligado agora. Procuramos nas aulas do site, aqui no seu aparelho.",
+    "semInternet": "Sem internet, o assistente não responde. Procuramos nas aulas que este aparelho já baixou.",
+    "falhou": "O assistente não respondeu. Procuramos nas aulas do site, aqui no seu aparelho.",
+    "buscar": "Procurar nas aulas",
+    "carregando": "Procurando nas aulas…",
+    "nada": "Não achamos um trecho de aula sobre isso. Tente outras palavras ou peça reforço a um voluntário.",
+    "semIndice": "Não deu para abrir a lista de aulas agora. Tente de novo mais tarde.",
+    "abrirAula": "Abrir a aula",
+    "copiado": "Trecho copiado da aula, sem mudanças."
+  },
+  "como": {
+    "titulo": "Como funciona o acompanhante",
+    "lead": "O que acontece com o que você manda, quem responde e o que fica guardado.",
+    "provedoresTitulo": "Quem pode responder",
+    "provedoresTexto": "As respostas vêm de um destes serviços de inteligência artificial, todos de empresas de fora, com servidores fora do Brasil:",
+    "visao": "entende foto",
+    "semVisao": "só texto (é pulado quando há foto)",
+    "ordem": "Quais estão ligados, e em que ordem são chamados, a coordenação configura no painel. Se um falhar, o pedido vai para o próximo.",
+    "oQueVaiTitulo": "O que sai do seu aparelho",
+    "oQueVai": [
+      "a pergunta que você escreveu;",
+      "um contexto curto: o trecho da aula (até 1.200 caracteres), o exercício, o seu trabalho ou o idioma da prática;",
+      "a foto do documento, reduzida, sem os dados escondidos da câmera e com as tarjas que você fez gravadas nos pixels;",
+      "as últimas falas da conversa (no máximo 8, até 6.000 caracteres)."
+    ],
+    "oQueVaiFim": "Isso só sai quando você aperta o botão, e a tela diz antes o que vai. O pedido passa pelo servidor do Instituto, que não acrescenta o seu nome, e-mail nem endereço de rede, e segue para o provedor.",
+    "lei": "Mandar dados para servidores fora do Brasil é o que a Lei Geral de Proteção de Dados chama de transferência internacional (Lei nº 13.709/2018, art. 33).",
+    "oQueFicaTitulo": "O que fica no seu aparelho",
+    "oQueFica": "O histórico das conversas fica só no seu navegador: até 20 conversas, por 30 dias. Ele não entra na cópia de segurança, sai no “apagar” de Meus dados e não é gravado no modo seguro.",
+    "guardaTitulo": "O que o Instituto guarda",
+    "guarda": "Só a contagem de quantas perguntas cada conta fez em cada dia, para aplicar o limite. Essa contagem é apagada depois de 90 dias. A pergunta, a foto e a resposta não são guardadas.",
+    "provedorGuarda": "O provedor trata o que recebe pelas regras dele e pode guardar o conteúdo por um tempo para o próprio funcionamento; o Instituto não controla esse prazo.",
+    "limiteTitulo": "Limite por dia",
+    "limiteBanco": "Hoje, cada conta pode fazer {n} perguntas por dia.",
+    "limitePadrao": "O padrão é de {n} perguntas por conta por dia, e {total} no site inteiro. A coordenação pode mudar esse número.",
+    "contaTitulo": "Precisa de conta",
+    "conta": "Sem conta, com o assistente desligado ou sem internet, o acompanhante procura a resposta nas aulas do próprio site, no seu aparelho, sem IA e sem servidor.",
+    "modeloTitulo": "E um modelo no próprio aparelho?",
+    "modelo": "Testamos se dava para rodar no celular um modelo pequeno de licença aberta, servido pelo próprio site, só para resumir os trechos das aulas achados no modo sem servidor. O critério era: até cerca de 150 MB, funcionar em português e responder em tempo aceitável num celular de entrada com 4 GB de memória.",
+    "modeloNumeros": [
+      "SmolLM2-135M-Instruct (Apache 2.0): 117 MB na versão mais compacta, mas declarado só para inglês.",
+      "Qwen2.5-0.5B-Instruct (Apache 2.0, várias línguas): 483 MB na versão mais compacta.",
+      "Gemma 3 270M: 273 MB na versão mais compacta, com licença própria do Google, que não é aberta."
+    ],
+    "modeloFonte": "Tamanhos dos arquivos ONNX conferidos no Hugging Face em 3 de novembro de 2026.",
+    "modeloDecisao": "Nenhum passou: o único dentro do tamanho não foi feito para português, e um resumo errado seria inventar. Por isso não há modelo no aparelho. O teste de tempo no celular de entrada nem chegou a ser feito. Se surgir um modelo que passe, ele entra desligado, com o tamanho mostrado e confirmação antes de baixar.",
+    "papel": "A Escola Lúcia Maria é escola popular: o acompanhante apoia o estudo, não substitui educador nem dá certificado."
+  }
+}

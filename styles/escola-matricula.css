@@ -1,0 +1,229 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+   Matrícula, carteirinha e plano da semana da Escola Lúcia Maria (E4-08, docs/escola/matricula.md).
+   A carteirinha usa as classes do certificado (.certificado, .certificado-folha, em app/globals.css) e as MESMAS cores
+   fixas dele (papel #fbf7ec, tinta #1c1712, ouro #a8862f e #8a6a1c, cinza #5c5245, bordô #8c1c13): nenhuma paleta nova.
+   Tudo em cqw (fração da largura do cartão), para sair igual na tela, no celular e na impressão. */
+
+/* ---- Perguntas da matrícula: botões grandes, um por linha no celular ---- */
+.matricula-opcao {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: 4rem;
+  border: 2px solid var(--rule);
+  background: var(--parchment);
+  padding: 0.9rem 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+.matricula-opcao:hover,
+.matricula-opcao:focus-visible {
+  border-color: var(--oxblood);
+}
+.matricula-opcao[aria-pressed="true"] {
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--sombra, var(--rule));
+}
+.matricula-icone {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  color: var(--oxblood);
+}
+
+/* ---- A carteirinha (85,6 x 54 mm, o tamanho de um cartão) ---- */
+.certificado.carteirinha {
+  aspect-ratio: 85.6 / 54;
+  border-radius: 3cqw;
+  max-width: 34rem;
+}
+.carteirinha .certificado-folha {
+  inset: 2.6cqw;
+  padding: 3.4cqw 4cqw;
+  border-width: 0.5cqw;
+  outline-width: 0.2cqw;
+  outline-offset: -1.6cqw;
+  border-radius: 1.6cqw;
+  align-items: stretch;
+  text-align: left;
+}
+.carteirinha-topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2cqw;
+  border-bottom: 0.25cqw solid #a8862f;
+  padding-bottom: 1.4cqw;
+}
+.carteirinha-escola {
+  font-size: 5.4cqw;
+  font-weight: 600;
+  line-height: 1.05;
+}
+.carteirinha-casa {
+  font-family: var(--font-archive), monospace;
+  font-size: 2.2cqw;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+  color: #8a6a1c;
+  text-align: right;
+}
+.carteirinha-corpo {
+  display: flex;
+  flex: 1;
+  gap: 4cqw;
+  align-items: center;
+  min-height: 0;
+  margin-top: 2.6cqw;
+}
+.carteirinha-rosto {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 19cqw;
+  height: 19cqw;
+  overflow: hidden;
+  border: 0.4cqw solid #1c1712;
+  border-radius: 50%;
+  background: #f1e8d2;
+  font-size: 7.5cqw;
+  font-weight: 600;
+  color: #8c1c13;
+}
+.carteirinha-rosto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.carteirinha-dados {
+  min-width: 0;
+  flex: 1;
+}
+.carteirinha-nome {
+  font-size: 5.6cqw;
+  font-weight: 600;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+.carteirinha-campos {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6cqw 2.4cqw;
+  margin-top: 1.8cqw;
+  font-size: 2.9cqw;
+  line-height: 1.3;
+}
+.carteirinha-campos dt {
+  font-family: var(--font-ui), sans-serif;
+  font-size: 2.1cqw;
+  letter-spacing: 0.2cqw;
+  text-transform: uppercase;
+  color: #8a6a1c;
+  align-self: center;
+}
+.carteirinha-campos dd {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.carteirinha-numero {
+  font-family: var(--font-archive), monospace;
+  letter-spacing: 0.2cqw;
+}
+.carteirinha-rodape {
+  margin-top: 1.6cqw;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 2.2cqw;
+  color: #5c5245;
+}
+/* Verso: o aviso em destaque, a lei, o QR e o endereço. */
+.carteirinha-aviso {
+  border: 0.4cqw solid #8c1c13;
+  padding: 2cqw 2.6cqw;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 3.2cqw;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #8c1c13;
+}
+.carteirinha-lei {
+  margin-top: 1.6cqw;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 2.15cqw;
+  line-height: 1.35;
+  color: #5c5245;
+}
+.carteirinha-qr {
+  display: flex;
+  align-items: center;
+  gap: 3cqw;
+  margin-top: auto;
+}
+.carteirinha-qr img {
+  flex: none;
+  width: 15cqw;
+  height: 15cqw;
+  background: #fff;
+  image-rendering: pixelated;
+}
+.carteirinha-qr p {
+  font-family: var(--font-ui), sans-serif;
+  font-size: 2.4cqw;
+  line-height: 1.35;
+}
+.carteirinha-endereco {
+  font-family: var(--font-archive), monospace;
+  overflow-wrap: anywhere;
+}
+
+/* ---- Impressão: só as duas faces, cada uma numa página do tamanho do cartão ----
+   As faces para imprimir ficam num bloco filho direto do <body> (portal), escondido na tela. Na impressão, todo o
+   resto do <body> some. O @page do tamanho do cartão é posto pela própria página (BaixarCarteirinha.tsx). */
+.carteirinha-impressao {
+  display: none;
+}
+@media print {
+  body:has(> .carteirinha-impressao) > :not(.carteirinha-impressao) {
+    display: none !important;
+  }
+  body:has(> .carteirinha-impressao) {
+    background: #fff !important;
+  }
+  .carteirinha-impressao {
+    display: block;
+  }
+  .carteirinha-impressao .certificado.carteirinha {
+    position: relative;
+    inset: auto;
+    width: 85.6mm;
+    height: 54mm;
+    max-width: none;
+    border-radius: 0;
+    break-after: page;
+    page-break-after: always;
+  }
+  .carteirinha-impressao .certificado.carteirinha:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
+
+/* ---- Plano da semana ---- */
+.plano-dia[aria-current="date"] {
+  border-color: var(--ink);
+  border-width: 2px;
+  background: var(--parchment-deep);
+  box-shadow: 4px 4px 0 var(--sombra, var(--rule));
+}
+
+/* As opções repetidas só para o "Ouvir a pergunta" (o leitor das aulas pula botões): fora da tela, sem sumir. */
+.matricula-para-ouvir {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

@@ -305,14 +305,21 @@ export function useAssistantOn(active = true): boolean {
   return on;
 }
 
+/** Os modos do acompanhante do estudante (E4-10) e dos agentes de trabalho (E4-16), além de "pergunta" e "foto". */
+export type AssistantMode = "pergunta" | "foto" | "socratico" | "pistas" | "outro-jeito" | "redacao" | "documento" | "conversa" | "entrevista" | "oratoria" | "papelada" | "turma" | "educador";
+
 export interface AssistantRequest {
-  modo: "pergunta" | "foto";
+  modo: AssistantMode;
   pergunta: string;
   disciplina: string;
   idioma: string;
   /** Aulas do próprio site que podem ajudar: o assistente só recomenda estas. */
   aulas: { titulo: string; caminho: string }[];
   imagem?: { tipo: string; dados: string };
+  /** Só nos modos novos (opcional): a conversa curta até aqui, cortada no aparelho (lib/escola/acompanhante.ts). */
+  historico?: { de: "pessoa" | "assistente"; texto: string }[];
+  /** Só nos modos novos (opcional): o trecho da aula, o exercício, o nível da pista, o trabalho, o idioma da prática… */
+  contexto?: { aula?: string; trecho?: string; enunciado?: string; alternativas?: string[]; nivel?: 1 | 2 | 3; trabalho?: string; idiomaAlvo?: "en" | "es"; vaga?: string };
 }
 
 export type AssistantResult =
