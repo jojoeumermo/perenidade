@@ -21,19 +21,21 @@ import { VoltarAoTopo } from "@/components/VoltarAoTopo";
 import { PrefsScript } from "@/components/ThemeToggle";
 import abertura from "@/content/abertura.json";
 import { loadLang } from "@/i18n";
-import { pickCore } from "@/i18n/core";
+import { pickBase } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
 import { organizacao, siteWeb } from "@/lib/dados-estruturados";
 import { secoesDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 
 // O chinês usa as fontes do próprio sistema; o russo, o recorte cirílico das mesmas famílias.
-// `subsets` só diz o que o navegador baixa antes de tudo (preload): os recortes latin-ext e cirílico continuam no CSS e
-// vêm sozinhos, pela faixa de caracteres, na página que precisar deles. Pré-carregar os três recortes custava 12
-// arquivos (400 KB) a quem abre a página em português num plano de dados curto.
-const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin"] });
-const ui = Inter({ variable: "--font-ui", subsets: ["latin"] });
-const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin"], weight: ["400", "500"] });
+// Nenhuma fonte é pré-carregada (preload: false): o <link rel="preload"> sai no HTML e o navegador baixa o arquivo antes
+// de saber se a pessoa está no modo leve, que troca as três pelas do aparelho (app/globals.css, :root[data-light]).
+// Eram 4 arquivos (cerca de 113 KB) baixados à toa por quem pediu economia de dados. Sem a pré-carga, cada recorte
+// (latin, latin-ext, cirílico) só vem quando um texto na tela usa a família, e a fonte reserva ajustada do next/font
+// segura o tamanho do texto enquanto isso. `subsets` continua dizendo quais recortes entram no CSS.
+const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin"], preload: false });
+const ui = Inter({ variable: "--font-ui", subsets: ["latin"], preload: false });
+const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin"], weight: ["400", "500"], preload: false });
 // A letra escrita à mão do estúdio de design (bilhetes, legendas de foto revelada): só carrega quando alguém usa.
 // A letra de madeira condensada do lambe-lambe da inicial (OFL-1.1). Sem pré-carga: só baixa na página que a usa.
 const cartaz = Anton({ variable: "--font-cartaz", subsets: ["latin"], weight: "400", preload: false });
@@ -99,7 +101,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       </head>
       <body className="paper min-h-full flex flex-col">
         <DadosEstruturados dados={[organizacao(), siteWeb(lang, t.meta.description)]} />
-        <I18nProvider lang={lang} t={pickCore(t)}>
+        {/* O núcleo sem as seções extras (i18n/core.ts): a rota que precisa de t.areas no navegador acrescenta a sua. */}
+        <I18nProvider lang={lang} t={pickBase(t)}>
           {/* O painel da equipe é uma tela à parte: lá dentro o site público não aparece. */}
           <OutsidePanel>
             <Header lang={lang} t={t} />

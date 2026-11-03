@@ -601,7 +601,7 @@ function Mudancas({ lista, decide, naoChegou, nomeDaArea, fechar, acao }: { list
           <button type="button" className="cursor-pointer px-2 text-2xl leading-none text-ink-soft hover:text-ink" onClick={fechar} aria-label="Fechar">×</button>
         </div>
         <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-5 py-4">
-          <p className="text-sm text-ink-soft">A rotina de publicação escreve as mudanças nos arquivos do site (de hora em hora; o GitHub às vezes atrasa) e o build confere tudo antes de ir ao ar.</p>
+          <p className="text-sm text-ink-soft">A rotina de publicação escreve as mudanças nos arquivos do site (uma vez por dia, ou na hora pelo botão Publicar agora; o GitHub às vezes atrasa) e o build confere tudo antes de ir ao ar.</p>
           {grupos.map((g) =>
             g.itens.length === 0 ? null : (
               <section key={g.titulo}>

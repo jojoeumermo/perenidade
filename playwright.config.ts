@@ -7,6 +7,7 @@ import { defineConfig, devices } from "@playwright/test";
 //   npx playwright test                         → sobe o dev:local sozinho (porta 3100) e roda tudo
 //   BASE_URL=http://localhost:3951 npx playwright test   → usa um servidor que já está rodando
 //   VISUAL=1 npx playwright test e2e/visual     → também compara as capturas das páginas principais
+//   npx playwright test e2e/fumaca --project=computador --project=s24   → a fumaça das telas principais
 const base = process.env.BASE_URL ?? "http://localhost:3100";
 
 export default defineConfig({
@@ -26,7 +27,11 @@ export default defineConfig({
   },
   projects: [
     { name: "computador", use: { ...devices["Desktop Chrome"], channel: "chrome" } },
-    { name: "celular", use: { ...devices["Pixel 7"], channel: "chrome" }, testIgnore: /visual/ },
+    // A fumaça (e2e/fumaca.spec.ts) roda no computador e no Galaxy S24; o Pixel 7 fica com os outros fluxos, para a
+    // suíte não rodar três vezes.
+    { name: "celular", use: { ...devices["Pixel 7"], channel: "chrome" }, testIgnore: /visual|fumaca/ },
+    // O Galaxy S24 pelo navegador do celular (o visual dentro do aplicativo é o de e2e/s24.spec.ts). Só a fumaça.
+    { name: "s24", use: { ...devices["Galaxy S24"], channel: "chrome" }, testMatch: /fumaca\.spec\.ts/ },
   ],
   webServer: process.env.BASE_URL
     ? undefined

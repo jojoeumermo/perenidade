@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { getClient } from "@/lib/backend";
 import { Aviso, botao, campo, rotulo } from "./comum";
 
 interface Achado {
@@ -43,7 +44,16 @@ export function FontesAbertas() {
     setOcupado(true);
     setAviso("");
     try {
-      const dados = await (await fetch(`/api/fontes?tipo=${tipo}&q=${encodeURIComponent(busca.trim())}`)).json();
+      // A pesquisa é só da equipe: vai com o token da sessão, que o servidor confere no banco.
+      const { data } = await (await getClient()).auth.getSession();
+      const token = data.session?.access_token;
+      const resposta = await fetch(`/api/fontes?tipo=${tipo}&q=${encodeURIComponent(busca.trim())}`, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+      if (resposta.status === 401) {
+        setAchados(null);
+        setAviso("A pesquisa nas fontes abertas é só para quem tem função no painel. Saia e entre de novo se acabou de receber a função.");
+        return;
+      }
+      const dados = await resposta.json();
       setAchados(dados.achados ?? []);
       if (!dados.achados?.length) setAviso("Nada encontrado nessas fontes. Tente outras palavras, ou o nome original da obra.");
     } catch {

@@ -104,7 +104,8 @@ export function aplicar(raiz, proposta) {
       if (!nome) throw new Error("falta o nome em português");
       const json = lerDict(lang);
       if (json.includes(`\n    "${slug}": [`)) continue;
-      const novoJson = json.replace('  "areas": {\n', `  "areas": {\n    ${JSON.stringify(slug)}: [\n      ${JSON.stringify(nome)},\n      ${JSON.stringify(desc)}\n    ],\n`);
+      // Âncora no "areas" de topo (recuo de 2): há outros "areas" aninhados mais fundo (ex.: labs.jogos.rumos.areas).
+      const novoJson = json.replace('\n  "areas": {\n', `\n  "areas": {\n    ${JSON.stringify(slug)}: [\n      ${JSON.stringify(nome)},\n      ${JSON.stringify(desc)}\n    ],\n`);
       JSON.parse(novoJson);
       escrever(dict(lang), novoJson);
     }

@@ -6,6 +6,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { ComoFunciona } from "@/components/ComoFunciona";
 import { VideoaulasPublicas } from "@/components/VideoaulasPublicas";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 
@@ -23,7 +25,7 @@ export default async function Videoaulas({ params }: PageProps<"/[lang]/videoaul
         {t.videoLessons.lead}
       </PageHeading>
       <Suspense>
-        <VideoaulasPublicas s={t.videoLessons} />
+        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><VideoaulasPublicas s={t.videoLessons} /></I18nProvider>
       </Suspense>
       <ComoFunciona s={t.videoLessons.how} href={localePath(lang, "/voluntarios")} />
       <p className="mt-12 font-sans text-sm">

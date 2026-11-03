@@ -2,7 +2,7 @@
 //
 // Frases traduzidas do Tatoeba (tatoeba.org), licença CC BY 2.0 FR: cada frase vai com o nome de quem a escreveu
 // e o link para a página dela, como a licença pede.
-import { buscarJson, responder, termo } from "@/lib/externo";
+import { buscarJson, canonica, responder, termo } from "@/lib/externo";
 
 const linguas = ["por", "eng", "fra", "spa"] as const;
 type Lingua = (typeof linguas)[number];
@@ -15,6 +15,9 @@ interface Tatoeba {
 export async function GET(pedido: Request) {
   const parametros = new URL(pedido.url).searchParams;
   const busca = termo(parametros.get("q"), 2, 60);
+  // A mesma busca escrita de outro jeito vai para o endereço normalizado: uma entrada só no cache da borda.
+  const normal = canonica(pedido, "q", busca);
+  if (normal) return normal;
   const de = lingua(parametros.get("de"), "eng");
   const para = lingua(parametros.get("para"), "por");
   if (!busca || de === para) return responder({ frases: [] }, 86400);

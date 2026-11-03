@@ -3,7 +3,10 @@
 // Consultas a serviços abertos de fora (Wikipedia, Banco Central, IBGE, Câmara, dicionários, acervos).
 // Só roda no servidor do site: o navegador de quem visita fala apenas com o nosso domínio, então nenhum
 // serviço de fora fica sabendo quem leu o quê, e a política de segurança das páginas continua intocada.
-// Cada resposta fica guardada no servidor pelo tempo pedido, para não sobrecarregar os serviços.
+// Nada fica guardado no servidor (o Data Cache da Vercel gravava uma entrada por endereço e por busca, e cada robô que
+// variava a busca era uma gravação paga): quem guarda é a borda (Vercel e Cloudflare), pelo Cache-Control de responder().
+// A busca é normalizada (termo) e a rota manda para o endereço normalizado (canonica), para que "Casa", "casa" e
+// "casa " sejam uma entrada só na borda.
 
 /** Os únicos destinos permitidos. Endereço fora desta lista não é consultado. */
 const permitidos = [
@@ -50,7 +53,10 @@ const SALTOS = 2;
 export const permitido = (url: URL) => url.protocol === "https:" && permitidos.includes(url.hostname);
 
 export interface Opcoes {
-  /** Por quantos segundos a resposta fica guardada no servidor. */
+  /**
+   * @deprecated Não tem mais efeito: a resposta de fora não é guardada no servidor, e o tempo na borda vem do
+   * Cache-Control de responder(). Continua aceito para os chamadores antigos não quebrarem.
+   */
   guardar?: number;
   /** Prazo de espera, em milissegundos. */
   prazo?: number;
@@ -60,7 +66,7 @@ export interface Opcoes {
 }
 
 /** Busca um endereço da lista e devolve o texto, ou null se algo der errado (fora do ar, lento, grande demais). */
-export async function buscarTexto(endereco: string, { guardar = 3600, prazo = 8000, cabecalhos = {}, se404 }: Opcoes = {}): Promise<string | null> {
+export async function buscarTexto(endereco: string, { prazo = 8000, cabecalhos = {}, se404 }: Opcoes = {}): Promise<string | null> {
   let url: URL;
   try {
     url = new URL(endereco);
@@ -74,7 +80,6 @@ export async function buscarTexto(endereco: string, { guardar = 3600, prazo = 80
       signal: AbortSignal.timeout(prazo),
       // Redirecionamentos não são seguidos às cegas: o destino também precisa estar na lista (abaixo).
       redirect: "manual",
-      next: { revalidate: guardar },
     });
     for (let salto = 0; salto < SALTOS && resposta.status >= 300 && resposta.status < 400; salto++) {
       const destino = resposta.headers.get("location");
@@ -90,7 +95,6 @@ export async function buscarTexto(endereco: string, { guardar = 3600, prazo = 80
         headers: { "User-Agent": AGENTE, Accept: "application/json, text/xml;q=0.9, */*;q=0.5", ...cabecalhos },
         signal: AbortSignal.timeout(prazo),
         redirect: "manual",
-        next: { revalidate: guardar },
       });
     }
     if (resposta.status >= 300 && resposta.status < 400) return null;
@@ -126,10 +130,30 @@ export function responder(corpo: unknown, guardar = 3600, status = 200): Respons
   });
 }
 
-/** Texto de busca vindo do endereço: limpo, curto, sem caracteres de controle. Vazio quando não serve. */
+/**
+ * Texto de busca vindo do endereço: limpo, curto, sem caracteres de controle, na forma Unicode composta (NFC) e em
+ * minúsculas, para que a mesma busca escrita de jeitos diferentes seja uma entrada só no cache da borda. Os serviços
+ * consultados com isto fazem busca de texto sem distinguir maiúsculas. Vazio quando não serve.
+ */
 export function termo(valor: string | null, minimo = 2, maximo = 80): string {
-  const limpo = (valor ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim().slice(0, maximo);
-  return limpo.length >= minimo ? limpo : "";
+  // Precisa ser idempotente (termo(termo(x)) === termo(x)), senão canonica() redirecionaria de novo: corta por caractere
+  // (sem partir um emoji), normaliza outra vez depois das minúsculas e tira o espaço que o corte deixar no fim.
+  const minusculo = (valor ?? "").normalize("NFC").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim().toLowerCase().normalize("NFC");
+  const limpo = Array.from(minusculo).slice(0, maximo).join("").trim();
+  return Array.from(limpo).length >= minimo ? limpo : "";
+}
+
+/**
+ * Quando a busca do endereço não está na forma normalizada (termo), devolve um redirecionamento permanente (308) para o
+ * mesmo endereço com a busca normalizada; senão, null. Assim a borda guarda uma resposta só por busca, em vez de uma por
+ * jeito de escrever. O redirecionamento também fica guardado na borda.
+ */
+export function canonica(pedido: Request, nome: string, normalizado: string): Response | null {
+  if (!normalizado) return null;
+  const url = new URL(pedido.url);
+  if (url.searchParams.get(nome) === normalizado) return null;
+  url.searchParams.set(nome, normalizado);
+  return new Response(null, { status: 308, headers: { Location: `${url.pathname}${url.search}`, "Cache-Control": "public, max-age=86400, s-maxage=86400", "X-Robots-Tag": "noindex" } });
 }
 
 /** Tira marcação HTML de um trecho vindo de fora: aqui só entra texto. */

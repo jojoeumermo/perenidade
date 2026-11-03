@@ -106,3 +106,6 @@ jobs:
           df -h /
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build
+      # O peso do que o navegador baixa nas páginas principais, contra o orçamento combinado (lê a saída do build acima).
+      - name: Orçamento de peso
+        run: npm run orcamento:peso

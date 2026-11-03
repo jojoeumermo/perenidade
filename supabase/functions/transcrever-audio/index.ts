@@ -4,10 +4,13 @@
 // serviço de contas (Edge Function), nunca no navegador: a chave do serviço de Whisper fica só aqui.
 //
 // O painel manda o arquivo (multipart, campo "arquivo", até 25 MB) com a sessão de quem pediu. A função confere a sessão
-// no banco (precisa ser alguém com conta e função) e manda o arquivo ao serviço de Whisper. Devolve o texto em parágrafos
-// e as legendas com tempo; quem guarda é o painel, depois de a pessoa revisar.
+// no banco (precisa ser alguém com conta e função, e dentro do limite por pessoa: 10 por hora, 30 por dia) e manda o
+// arquivo ao serviço de Whisper. Devolve o texto em parágrafos e as legendas com tempo; quem guarda é o painel, depois de
+// a pessoa revisar.
 //
 // Segredos (os mesmos de transcrever-podcast): TRANSCRICAO_CHAVE (ou GROQ_API_KEY), TRANSCRICAO_URL, TRANSCRICAO_MODELO.
+
+import { comCors } from "../_shared/cors.mjs";
 
 declare const Deno: { env: { get(nome: string): string | undefined }; serve(tratar: (pedido: Request) => Response | Promise<Response>): void };
 
@@ -18,8 +21,8 @@ const servico = Deno.env.get("TRANSCRICAO_URL") ?? "https://api.groq.com/openai/
 const modelo = Deno.env.get("TRANSCRICAO_MODELO") ?? "whisper-large-v3-turbo";
 const LIMITE = 25 * 1024 * 1024;
 
+// Sem "Access-Control-Allow-Origin" aqui: quem põe é comCors (../_shared/cors.mjs), só para as origens do site.
 const cabecalhos = {
-  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Cache-Control": "no-store",
@@ -40,18 +43,29 @@ const tempo = (s: number) => {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(seg).padStart(2, "0")}.${String(ms % 1000).padStart(3, "0")}`;
 };
 
-Deno.serve(async (pedido) => {
-  if (pedido.method === "OPTIONS") return new Response(null, { status: 204, headers: cabecalhos });
+Deno.serve(comCors(async (pedido) => {
   if (pedido.method !== "POST") return responder({ erro: "metodo" }, 405);
   if (!base || !anonima) return responder({ erro: "servico" });
   if (!chave) return responder({ erro: "desligada" });
 
-  // Só quem tem conta e função no painel: o banco confere a sessão.
+  // Só quem tem conta e função no painel, e com freio por pessoa (por hora e por dia): o banco confere a sessão e conta,
+  // pela função "transcricao_pedir" (supabase/migracoes/2026-11-seguranca.sql). A vaga é gasta antes de transcrever, então
+  // uma falha do serviço também conta: assim ninguém repete em laço. O banco guarda só o total por pessoa e janela, na
+  // mesma tabela de limites do resto do site, que se apaga sozinha em dois dias.
   const sessao = pedido.headers.get("Authorization") ?? "";
-  const quem = await fetch(`${base}/rest/v1/rpc/eu`, { method: "POST", headers: { apikey: anonima, Authorization: sessao, "Content-Type": "application/json" }, body: "{}", signal: AbortSignal.timeout(8000) }).catch(() => null);
-  if (!quem?.ok) return responder({ erro: "sem_permissao" }, 403);
-  const eu = (await quem.json()) as { papeis?: unknown[] };
-  if (!Array.isArray(eu.papeis) || eu.papeis.length === 0) return responder({ erro: "sem_permissao" }, 403);
+  const porta = await fetch(`${base}/rest/v1/rpc/transcricao_pedir`, { method: "POST", headers: { apikey: anonima, Authorization: sessao, "Content-Type": "application/json" }, body: "{}", signal: AbortSignal.timeout(8000) }).catch(() => null);
+  if (porta?.status === 404) {
+    // Banco ainda sem a migração: confere como antes (conta e função), sem o freio.
+    const quem = await fetch(`${base}/rest/v1/rpc/eu`, { method: "POST", headers: { apikey: anonima, Authorization: sessao, "Content-Type": "application/json" }, body: "{}", signal: AbortSignal.timeout(8000) }).catch(() => null);
+    if (!quem?.ok) return responder({ erro: "sem_permissao" }, 403);
+    const eu = (await quem.json().catch(() => null)) as { papeis?: unknown[] } | null;
+    if (!Array.isArray(eu?.papeis) || eu.papeis.length === 0) return responder({ erro: "sem_permissao" }, 403);
+  } else if (!porta?.ok) {
+    const corpo = (await porta?.json().catch(() => null)) as { message?: string } | null;
+    // Como "cota" e "grande", o limite volta com 200 e o motivo no corpo, para o painel ler (functions.invoke trata outro status como falha).
+    if (corpo?.message === "muitos_pedidos") return responder({ erro: "limite" });
+    return responder({ erro: "sem_permissao" }, 403);
+  }
 
   let arquivo: File | null = null;
   try {
@@ -95,4 +109,4 @@ Deno.serve(async (pedido) => {
   });
   const vtt = trechos.length ? ["WEBVTT", "", ...trechos.map((t) => `${tempo(t.start)} --> ${tempo(t.end)}\n${t.text.trim()}\n`)].join("\n") : "";
   return responder({ texto: paragrafos.length ? paragrafos.join("\n\n") : (resultado.text ?? "").trim(), vtt });
-});
+}));

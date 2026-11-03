@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { PageHeading } from "@/components/PageHeading";
 import { Tutoring } from "@/components/Tutoring";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/reforco">): Promise<Metadata> {
@@ -12,7 +14,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/reforco">)
 
 // Aula de reforço: quem travou em uma matéria escreve a dúvida e recebe a explicação por e-mail.
 export default async function Reforco({ params }: PageProps<"/[lang]/reforco">) {
-  const { t } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const s = t.tutoring;
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -24,7 +26,7 @@ export default async function Reforco({ params }: PageProps<"/[lang]/reforco">) 
           <li key={step}>{step}</li>
         ))}
       </ol>
-      <Tutoring s={s} />
+      <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><Tutoring s={s} /></I18nProvider>
     </div>
   );
 }

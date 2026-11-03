@@ -69,3 +69,33 @@ export async function entrarForteComo(page: Page, email: string) {
   await page.addInitScript((valor) => window.localStorage.setItem("lucia:sessao", valor), JSON.stringify(s));
   return s;
 }
+
+/**
+ * Junta os erros graves de uma página enquanto o teste roda: exceção de JavaScript que ninguém pegou, console.error do
+ * próprio site e resposta 5xx do site ou do banco de teste local. Fica de fora o que vem de outros endereços (fontes,
+ * vídeos, imagens de fora) e o aviso "Failed to load resource", que o navegador solta para qualquer 404 de recurso: as
+ * respostas que importam já são conferidas pelo status.
+ */
+export function vigiarErros(page: Page) {
+  const erros: string[] = [];
+  const local = (url: string) => {
+    try {
+      const { hostname } = new URL(url);
+      return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]";
+    } catch {
+      return false;
+    }
+  };
+  page.on("pageerror", (e) => erros.push(`exceção: ${e.message}`));
+  page.on("console", (m) => {
+    if (m.type() !== "error") return;
+    const origem = m.location().url;
+    if (origem && !local(origem)) return;
+    if (/Failed to load resource/i.test(m.text())) return;
+    erros.push(`console: ${m.text().slice(0, 300)}`);
+  });
+  page.on("response", (r) => {
+    if (r.status() >= 500 && local(r.url())) erros.push(`${r.status()} em ${r.url()}`);
+  });
+  return erros;
+}

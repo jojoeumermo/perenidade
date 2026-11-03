@@ -9,7 +9,13 @@
 //   verbetes: Wikipédia, Wikidata (datas de nascimento e morte), Wikisource, Wikimedia Commons, Wikcionário
 //   estudos:  OpenAlex (só artigos e livros de acesso aberto), Crossref (só com licença Creative Commons),
 //             Wikilivros (livros didáticos livres)
-import { buscarJson, responder, semHtml, termo } from "@/lib/externo";
+//
+// Só para quem tem função no painel (sessão conferida no banco, lib/sessao-da-equipe.ts): cada busca dispara de três a
+// cinco consultas a serviços de fora, e a rota não pode virar proxy aberto. A resposta não fica guardada na borda.
+import { buscarJson, semHtml, termo } from "@/lib/externo";
+import { daEquipe, respostaPrivada, soDaEquipe } from "@/lib/sessao-da-equipe";
+
+export const dynamic = "force-dynamic";
 
 export interface Achado {
   fonte: string;
@@ -192,15 +198,16 @@ async function crossref(busca: string): Promise<Achado[]> {
 const tipos = ["obras", "verbetes", "estudos"] as const;
 
 export async function GET(pedido: Request) {
+  if (!(await daEquipe(pedido))) return soDaEquipe();
   const parametros = new URL(pedido.url).searchParams;
   const busca = termo(parametros.get("q"), 3, 100);
   const tipo = tipos.find((valor) => valor === parametros.get("tipo")) ?? "obras";
-  if (!busca) return responder({ achados: [] }, 3600);
+  if (!busca) return respostaPrivada({ achados: [] });
   const fontes = {
     obras: () => [internetArchive(busca), openLibrary(busca), gutendex(busca), mecLivros(busca)],
     verbetes: () => [wikipedia(busca), wikidata(busca), wikimedia("pt.wikisource.org", busca), wikimedia("commons.wikimedia.org", busca), wikimedia("pt.wiktionary.org", busca)],
     estudos: () => [openAlex(busca), crossref(busca), wikimedia("pt.wikibooks.org", busca)],
   };
   const grupos = await Promise.all(fontes[tipo]());
-  return responder({ tipo, achados: grupos.flat() }, 86400);
+  return respostaPrivada({ tipo, achados: grupos.flat() });
 }
