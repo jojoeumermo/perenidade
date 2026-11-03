@@ -14,9 +14,11 @@ import { type Curso, tempoDaAula, validarCurso } from "./cursos";
 
 const RAIZ = process.cwd();
 const PASTA_CURSOS = path.join(RAIZ, "content", "escola", "cursos");
-const existe = (...partes: string[]) => {
+// Cada verificação diz a pasta no próprio caminho (content/memorial, content/acervo). Um caminho montado só com partes
+// soltas, a partir da raiz, faz o rastreio de arquivos da Vercel levar o projeto inteiro (15 mil arquivos) em cada função.
+const ehArquivo = (caminho: string) => {
   try {
-    return fs.statSync(path.join(RAIZ, ...partes)).isFile();
+    return fs.statSync(caminho).isFile();
   } catch {
     return false;
   }
@@ -56,8 +58,8 @@ function arquivoDaAula(trilhaAula: string): string | null {
 
 /** "trilha/aula" existe (e está ativa) em content/trilhas? O slug é o do endereço, sem o número do arquivo. */
 export const existeAula = (trilhaAula: string) => arquivoDaAula(trilhaAula) !== null;
-export const existeMemorial = (slug: string) => Boolean(slug) && existe("content", "memorial", `${slug}.md`);
-export const existeObra = (slug: string) => Boolean(slug) && existe("content", "acervo", `${slug}.md`);
+export const existeMemorial = (slug: string) => Boolean(slug) && ehArquivo(path.join(RAIZ, "content", "memorial", `${slug}.md`));
+export const existeObra = (slug: string) => Boolean(slug) && ehArquivo(path.join(RAIZ, "content", "acervo", `${slug}.md`));
 
 /** Os arquivos .json da pasta de cursos (o LEIA-ME e outros arquivos ficam de fora). */
 function arquivosDeCurso(): string[] {

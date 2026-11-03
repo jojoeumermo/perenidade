@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { PageHeading } from "@/components/PageHeading";
 import { PorOndeAndei } from "@/components/PorOndeAndei";
 import { loadLang } from "@/i18n";
-import { textosDaBusca } from "@/lib/escola/indice";
+import { textosDaBusca } from "@/lib/escola/textos-da-busca";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 

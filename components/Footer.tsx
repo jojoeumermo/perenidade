@@ -2,7 +2,7 @@
 import Link from "@/components/Link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
-import { textosDaBusca } from "@/lib/escola/indice";
+import { textosDaBusca } from "@/lib/escola/textos-da-busca";
 import { site } from "@/lib/site";
 
 /** O desenho da câmera do Instagram, em traço, na cor do texto ao redor. */

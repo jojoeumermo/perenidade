@@ -3,27 +3,18 @@
 // As páginas da Escola Lúcia Maria no índice da busca (Etapa 4, E4-05) e os textos da busca viva (i18n/escola/busca).
 // lib/indice-de-busca.ts acrescenta estas entradas só com ligado("escola"); a do modo seguro entra sempre, porque o
 // modo seguro existe com ou sem a Escola. Os cursos (E4-07) entram aqui, cada um como página: título, resumo e área.
-// Só o servidor importa este arquivo (ele traz os 6 dicionários); componente de cliente importa daqui só tipos.
+// Este arquivo LÊ o disco (os cursos): só a busca do servidor (lib/indice-de-busca.ts) pode importá-lo. Layout, rodapé e
+// páginas importam os textos de lib/escola/textos-da-busca.ts; componente de cliente importa só tipos.
 // Sem os atalhos "@/" de propósito (lib testável no Node).
 import type { SearchEntry } from "../search";
 import { textosDosCursos } from "../../i18n/escola/cursos/index";
 import { carregarCursos } from "./cursos-servidor";
-import { escolher } from "./textos";
-import en from "../../i18n/escola/busca/en.json";
-import es from "../../i18n/escola/busca/es.json";
-import fr from "../../i18n/escola/busca/fr.json";
-import pt from "../../i18n/escola/busca/pt.json";
-import ru from "../../i18n/escola/busca/ru.json";
-import zh from "../../i18n/escola/busca/zh.json";
+import type { TextosDaBusca } from "./textos-da-busca";
 
-export type TextosDaBusca = typeof pt;
-
-const DICIONARIOS = { pt, en, es, fr, ru, zh } satisfies Record<string, TextosDaBusca>;
-
-/** Os textos da busca viva, do histórico, dos três passos e do modo seguro no idioma pedido (desconhecido cai no pt). */
-export function textosDaBusca(lang: string): TextosDaBusca {
-  return escolher(DICIONARIOS, lang);
-}
+// Os textos moram em textos-da-busca.ts, que não lê o disco (o layout raiz importa de lá). Reexportados aqui para os
+// testes e para quem já importava deste arquivo.
+export { textosDaBusca } from "./textos-da-busca";
+export type { TextosDaBusca } from "./textos-da-busca";
 
 /** As páginas da Escola que entram na busca: a chave do texto (título e descrição) e o caminho. */
 const PAGINAS_DA_ESCOLA = [

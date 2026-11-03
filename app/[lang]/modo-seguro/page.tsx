@@ -5,7 +5,7 @@ import { PageHeading } from "@/components/PageHeading";
 import { PainelDoModoSeguro } from "@/components/SaidaRapida";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
-import { textosDaBusca } from "@/lib/escola/indice";
+import { textosDaBusca } from "@/lib/escola/textos-da-busca";
 import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/modo-seguro">): Promise<Metadata> {
