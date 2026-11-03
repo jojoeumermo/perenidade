@@ -67,7 +67,9 @@
     "saberes": "经验认定",
     "formatura": "结业",
     "caderneta": "学习记录本",
-    "turmas": "班级"
+    "turmas": "班级",
+    "vida": "现实生活",
+    "agentes": "工作助手"
   },
   "calendario": {
     "proposto": "拟议校历，待协调组确认"

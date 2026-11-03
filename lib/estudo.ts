@@ -309,7 +309,12 @@ function juntarListas(atual: string | null, vindo: string): string {
     const b: unknown = JSON.parse(vindo);
     if (!Array.isArray(a) || !Array.isArray(b)) return vindo;
     const porId = new Map<string, Record<string, unknown>>();
-    const data = (x: Record<string, unknown>) => Number(x.atualizado ?? x.quando ?? x.criado ?? 0);
+    const data = (x: Record<string, unknown>) => {
+      const n = Number(x.atualizado ?? x.quando ?? x.criado ?? 0);
+      if (n) return n;
+      const d = typeof x.data === "string" ? Date.parse(x.data) : 0; // registros da caderneta (E4-14) têm "data" AAAA-MM-DD
+      return Number.isFinite(d) ? d : 0;
+    };
     for (const x of [...a, ...b]) {
       if (!x || typeof x !== "object" || typeof (x as { id?: unknown }).id !== "string") continue;
       const item = x as Record<string, unknown>;
@@ -338,15 +343,50 @@ function juntarRegistros(atual: string | null, vindo: string): string {
   }
 }
 
-/** Restaura a cópia: listas com id (cadernos, cartões, erros) e registros por item se juntam; o resto é trocado. Devolve quantas chaves mudaram. */
+/**
+ * Junta o projeto final (E4-14): {versao, cursos: {[slug]: {tema?, etapas, notas?, gaveta?}}}. Junta por curso: curso que só
+ * existe de um lado fica; nos dois lados, as etapas se juntam (no mesmo passo vence a data mais recente) e tema e notas vêm do
+ * lado com a data mais recente, completados pelo outro quando faltam. Nada local se perde.
+ */
+function juntarProjeto(atual: string | null, vindo: string): string {
+  try {
+    const a: unknown = JSON.parse(atual ?? "{}");
+    const b: unknown = JSON.parse(vindo);
+    const ok = (x: unknown): x is Record<string, unknown> => Boolean(x) && typeof x === "object" && !Array.isArray(x);
+    if (!ok(b) || !ok(b.cursos)) return vindo;
+    if (!ok(a) || !ok(a.cursos)) return vindo;
+    const dia = (s: unknown) => (typeof s === "string" && Number.isFinite(Date.parse(s)) ? Date.parse(s) : 0);
+    const recente = (c: Record<string, unknown>) => Math.max(dia(c.gaveta), ...Object.values(ok(c.etapas) ? c.etapas : {}).map(dia));
+    const cursos: Record<string, unknown> = { ...a.cursos };
+    for (const [slug, novo] of Object.entries(b.cursos)) {
+      const velho = cursos[slug];
+      if (!ok(velho) || !ok(novo)) {
+        if (!(slug in cursos)) cursos[slug] = novo;
+        continue;
+      }
+      const [ganha, perde] = recente(novo) > recente(velho) ? [novo, velho] : [velho, novo];
+      const etapas: Record<string, unknown> = { ...(ok(perde.etapas) ? perde.etapas : {}) };
+      for (const [e, d] of Object.entries(ok(ganha.etapas) ? ganha.etapas : {})) if (!(e in etapas) || dia(d) >= dia(etapas[e])) etapas[e] = d;
+      cursos[slug] = { ...perde, ...ganha, etapas, ...(ganha.gaveta || perde.gaveta ? { gaveta: dia(ganha.gaveta) >= dia(perde.gaveta) ? ganha.gaveta ?? perde.gaveta : perde.gaveta } : {}) };
+    }
+    const versao = Math.max(Number(a.versao) || 1, Number(b.versao) || 1);
+    return JSON.stringify({ ...a, ...b, versao, cursos });
+  } catch {
+    return vindo;
+  }
+}
+
+/** Restaura a cópia: listas com id (cadernos, cartões, erros, caderneta) e registros por item se juntam, o projeto final se junta por curso; o resto é trocado. Devolve quantas chaves mudaram. */
 export function restaurarCopia(copia: Copia, armazenamento: Pick<Storage, "getItem" | "setItem">): number {
   let n = 0;
   for (const [chave, valor] of Object.entries(copia.dados)) {
-    const final = ["lucia:caderno", "lucia:revisao", "lucia:erros"].includes(chave)
+    const final = ["lucia:caderno", "lucia:revisao", "lucia:erros", "lucia:escola:caderneta"].includes(chave)
       ? juntarListas(armazenamento.getItem(chave), valor)
-      : REGISTROS.includes(chave)
-        ? juntarRegistros(armazenamento.getItem(chave), valor)
-        : valor;
+      : chave === "lucia:escola:projeto"
+        ? juntarProjeto(armazenamento.getItem(chave), valor)
+        : REGISTROS.includes(chave)
+          ? juntarRegistros(armazenamento.getItem(chave), valor)
+          : valor;
     try {
       armazenamento.setItem(chave, final);
       n++;

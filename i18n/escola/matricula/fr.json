@@ -54,7 +54,10 @@
     "leve": {
       "titulo": "Pour consommer moins de données",
       "texto": "Le site a un économiseur de données (mode léger) : il masque images et vidéos et utilise les polices de l'appareil. Il se trouve dans le bouton d'accessibilité.",
-      "botao": "Ouvrir l'économiseur de données"
+      "botao": "Ouvrir l'économiseur de données",
+      "pacoteTexto": "Si votre forfait de données est court, le mode forfait masque les simulations, active le mode léger et prévient avant un gros téléchargement. Il reste seulement sur cet appareil.",
+      "pacoteBotao": "Activer le mode forfait de données",
+      "pacoteLigado": "C'est fait : le mode forfait de données est activé sur cet appareil."
     },
     "nivelamento": {
       "pergunta": "Voulez-vous savoir par où commencer ?",

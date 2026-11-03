@@ -6,17 +6,20 @@ import { Ementa } from "@/components/escola/cursos/Ementa";
 import { EntrarNoCurso } from "@/components/escola/cursos/EntrarNoCurso";
 import { GradeDoCurso } from "@/components/escola/cursos/GradeDoCurso";
 import { HorasDoCurso } from "@/components/escola/cursos/HorasDoCurso";
+import { TarefaNoMundo } from "@/components/escola/vida/TarefaNoMundo";
 import { Patrono } from "@/components/escola/cursos/Patrono";
 import Link from "@/components/Link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { fill, htmlLang, localePath } from "@/i18n/config";
 import { textosDosCursos } from "@/i18n/escola/cursos";
+import { textosDaVida } from "@/i18n/escola/vida";
 import { aulasDoCurso } from "@/lib/escola/cursos";
 import { carregarCursos, cursoPorSlug } from "@/lib/escola/cursos-servidor";
 import { bibliografiaDo, bibliotecaDo, patronoDo, verCurso } from "@/lib/escola/cursos-vista";
 import { paginaMeta } from "@/lib/seo";
 import "@/styles/escola-cursos.css";
+import "@/styles/escola-vida.css";
 
 type Props = PageProps<"/[lang]/escola/cursos/[curso]">;
 
@@ -44,6 +47,7 @@ export default async function PaginaDoCurso({ params }: Props) {
   const curso = cursoPorSlug((await params).curso);
   if (!curso) notFound();
   const s = textosDosCursos(lang);
+  const vida = textosDaVida(lang);
   const visto = verCurso(curso);
   const patrono = patronoDo(curso);
   const biblioteca = bibliotecaDo(curso);
@@ -159,6 +163,7 @@ export default async function PaginaDoCurso({ params }: Props) {
           <p className="mt-2" lang="pt">
             {curso.tarefaNoMundo}
           </p>
+          <TarefaNoMundo curso={curso.slug} tituloDoCurso={curso.titulo} s={vida.tarefas.cartao} lang={lang} />
         </div>
         <div>
           <h2 className="font-serif text-2xl font-semibold">
@@ -168,6 +173,13 @@ export default async function PaginaDoCurso({ params }: Props) {
             {curso.projetoFinal}
           </p>
           {curso.casoDoBairro && <p className="mt-2 font-sans text-sm text-ink-soft">{s.curso.casoDoBairro}</p>}
+          {curso.casoDoBairro && (
+            <p className="mt-2 font-sans text-sm">
+              <Link href={localePath(lang, `/escola/vida/caso-do-bairro?curso=${curso.slug}`)} className="underline hover:text-oxblood">
+                {vida.caso.titulo}
+              </Link>
+            </p>
+          )}
         </div>
       </section>
 

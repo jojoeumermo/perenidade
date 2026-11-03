@@ -22,7 +22,12 @@
       "trabalho": "你填写的职业",
       "redacao": "作文和题目",
       "foto": "缩小后、带有你涂黑部分的照片",
-      "idioma": "练习的语言"
+      "idioma": "练习的语言",
+      "vaga": "你写下的职位",
+      "fala": "你的演讲文字",
+      "formulario": "你粘贴的表格文字",
+      "resumo": "课程标题和摘要",
+      "tema": "你写下的主题"
     },
     "comoFunciona": "如何运作",
     "historicoAqui": "这段对话只保存在本设备上（最多 20 段对话，保存 30 天）。",
@@ -65,7 +70,12 @@
       "outro-jeito": "换个方式",
       "redacao": "作文",
       "documento": "文件",
-      "conversa": "语言练习"
+      "conversa": "语言练习",
+      "entrevista": "面试练习",
+      "oratoria": "演讲练习",
+      "papelada": "手续助手",
+      "turma": "班级讨论",
+      "educador": "教育者草稿"
     }
   },
   "duvida": {

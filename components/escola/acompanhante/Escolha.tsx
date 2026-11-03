@@ -62,7 +62,7 @@ function Historico({ s }: { s: Textos }) {
               <li key={c.id}>
                 <details className="acompanhante-modo">
                   <summary className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <span className="font-mono text-xs uppercase tracking-widest text-ink-soft">{s.hub.nomesDosModos[c.modo]}</span>
+                    <span className="font-mono text-xs uppercase tracking-widest text-ink-soft">{(s.hub.nomesDosModos as Record<string, string>)[c.modo] ?? c.modo}</span>
                     <span className="font-semibold">{c.titulo}</span>
                     <span className="text-xs text-ink-soft">{fill(h.em, { data: data(c.atualizada) })}</span>
                   </summary>

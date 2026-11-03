@@ -27,6 +27,14 @@ const PAGINAS_DA_ESCOLA = [
   ["turmas", "/escola/turmas"],
   ["acompanhante", "/escola/acompanhante"],
   ["caderneta", "/escola/caderneta"],
+  ["formatura", "/escola/formatura"],
+  ["vida", "/escola/vida"],
+  ["vozes", "/escola/vozes"],
+  ["lutas", "/escola/lutas"],
+  ["assembleia", "/escola/assembleia"],
+  ["ouvidoria", "/escola/ouvidoria"],
+  ["educadorDoMes", "/escola/educador-do-mes"],
+  ["agentes", "/escola/agentes"],
 ] as const;
 
 /** A entrada do modo seguro (sempre no índice: quem procura "saída rápida" precisa achar, com ou sem a Escola). */
@@ -44,7 +52,7 @@ export function entradasDosCursos(lang: string): SearchEntry[] {
   return carregarCursos().map((c) => ({ kind: "pagina", title: c.titulo, href: `/escola/cursos/${c.slug}`, area: c.area, context: contexto, text: `${c.resumo} ${c.objetivo}` }));
 }
 
-/** As páginas da Escola (entrada, quem foi Lúcia Maria, cursos, matrícula, calendário, campus, turmas, acompanhante, caderneta), os cursos e o modo seguro (por último). */
+/** As páginas da Escola (entrada, quem foi Lúcia Maria, cursos, matrícula, calendário, campus, turmas, acompanhante, caderneta, formatura, vida, vozes, lutas, assembleia, ouvidoria, educador do mês, agentes), os cursos e o modo seguro (por último). */
 export function entradasDaEscola(lang: string, t: TextosDaBusca): SearchEntry[] {
   const i = t.indice;
   const entradas = PAGINAS_DA_ESCOLA.map(([chave, href]): SearchEntry => ({

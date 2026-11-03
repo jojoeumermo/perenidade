@@ -542,3 +542,70 @@ export function lerMolecula(spec: string): { entrada: string; xyz: { el: string;
   }
   return r;
 }
+
+// ───────────── Documento real com áreas explicadas (E4-11) ─────────────
+
+export interface AreaDoDocumento {
+  nome: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** O que o campo significa. */
+  texto: string;
+  /** O que conferir nele. */
+  conferir: string;
+}
+
+export interface DocumentoReal {
+  imagem: string;
+  descricao: string;
+  /** Endereço oficial do documento (sempre https). */
+  fonte: string;
+  licenca: string;
+  semDadosPessoais: boolean;
+  areas: AreaDoDocumento[];
+}
+
+export const MAX_AREAS_DO_DOCUMENTO = 24;
+
+/**
+ * imagem: /imagens/documentos/modelo.webp | Modelo em branco do documento
+ * fonte: https://www.gov.br/...
+ * licenca: Modelo oficial em branco, ato oficial sem direitos reservados
+ * sem-dados-pessoais: sim
+ * Campo 1 | 10 12 40 8 | O que este campo significa. | O que conferir nele.
+ * (as quatro medidas são em % da imagem: esquerda, topo, largura, altura)
+ * Recusa (devolve null) imagem de fora do site, fonte sem https, bloco sem "fonte" ou "licenca", área fora de 0 a 100 e
+ * mais de 24 áreas: documento mal descrito não deve ser mostrado.
+ */
+export function lerDocumento(spec: string): DocumentoReal | null {
+  const d: DocumentoReal = { imagem: "", descricao: "", fonte: "", licenca: "", semDadosPessoais: false, areas: [] };
+  for (const bruta of linhasDe(spec)) {
+    const linha = limpa(bruta);
+    if (!linha || linha.startsWith("#")) continue;
+    const opcao = /^(imagem|fonte|licen[cç]a|sem-dados-pessoais)\s*:\s*(.+)$/i.exec(linha);
+    if (opcao) {
+      const chave = semAcento(opcao[1]);
+      if (chave === "imagem") {
+        const [caminho, descricao = ""] = opcao[2].split("|").map((x) => x.trim());
+        if (!imagemDoSite(caminho)) return null;
+        d.imagem = caminho;
+        d.descricao = descricao.slice(0, 300);
+      } else if (chave === "fonte") {
+        if (!/^https:\/\/[^\s]+$/i.test(opcao[2].trim())) return null;
+        d.fonte = opcao[2].trim();
+      } else if (chave === "licenca") d.licenca = opcao[2].trim().slice(0, 300);
+      else d.semDadosPessoais = semAcento(opcao[2]) === "sim";
+      continue;
+    }
+    const [nome, medidas = "", texto = "", conferir = ""] = linha.split("|").map((x) => x.trim());
+    const n = medidas.split(/\s+/).map(numero);
+    if (!nome || n.length !== 4 || !n.every((v) => Number.isFinite(v) && v >= 0 && v <= 100)) return null;
+    const [x, y, w, h] = n;
+    if (w <= 0 || h <= 0 || x + w > 100 || y + h > 100 || d.areas.length >= MAX_AREAS_DO_DOCUMENTO) return null;
+    d.areas.push({ nome: nome.slice(0, 60), x, y, w, h, texto: texto.slice(0, 300), conferir: conferir.slice(0, 300) });
+  }
+  // Só documento declarado SEM dado pessoal (LGPD): sem "sem-dados-pessoais: sim" o bloco não aparece.
+  return d.imagem && d.fonte && d.licenca && d.semDadosPessoais && d.areas.length ? d : null;
+}

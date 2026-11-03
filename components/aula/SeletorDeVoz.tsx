@@ -3,6 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
+import { readPrefs } from "@/lib/prefs";
 import { carregarLista, comoEstaOAparelho, faltaBaixar, gravarEscolha, lerEscolha, VOZ_DO_APARELHO, type Aparelho, type Lista } from "@/lib/vozes/catalogo";
 import { aquecer, baixarVoz, cancelarDownload, definirModo, trocarVoz, useLeitor } from "@/lib/vozes/leitor";
 import { TRECHOS_DA_AULA } from "./BarraDaAula";
@@ -34,8 +35,10 @@ export function SeletorDeVoz({ fechar }: { fechar: () => void }) {
   useEffect(() => {
     janela.current?.showModal();
     void aquecer(TRECHOS_DA_AULA);
+    const a = comoEstaOAparelho();
+    // Modo pacote de dados (E4-17): reaproveita o aviso de economia antes de baixar a voz natural.
     // eslint-disable-next-line react-hooks/set-state-in-effect -- memória e rede só existem no aparelho
-    setAparelho(comoEstaOAparelho());
+    setAparelho({ ...a, economia: a.economia || readPrefs().pacote });
     let vivo = true;
     void carregarLista().then(async (l) => {
       if (!vivo) return;

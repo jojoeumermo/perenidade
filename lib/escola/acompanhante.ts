@@ -17,6 +17,12 @@ export const CHAVE_TRABALHO = "lucia:escola-privado:trabalho";
 export const MODOS_DO_ACOMPANHANTE = ["socratico", "pistas", "outro-jeito", "redacao", "documento", "conversa"] as const;
 export type ModoDoAcompanhante = (typeof MODOS_DO_ACOMPANHANTE)[number];
 
+/** Os modos dos agentes (E4-16): a Edge Function já os aceita; as telas ficam em /escola/agentes. */
+export const MODOS_DOS_AGENTES = ["entrevista", "oratoria", "papelada", "turma", "educador"] as const;
+export type ModoDeAgente = (typeof MODOS_DOS_AGENTES)[number];
+/** Qualquer modo que uma conversa guardada pode ter. */
+export type ModoDeConversa = ModoDoAcompanhante | ModoDeAgente;
+
 /** Os mesmos limites de supabase/functions/assistente/assistente.ts (LIMITES_DO_ACOMPANHANTE); o teste confere. */
 export const LIMITES = { itens: 8, item: 1500, historico: 6000, trecho: 1200, enunciado: 1500, alternativas: 6, alternativa: 300, trabalho: 80, vaga: 120, redacao: 2800, pergunta: 3000 };
 /** O que o aparelho guarda: no máximo 20 conversas, de até 30 dias, com até 40 falas de até 20 mil caracteres. */
@@ -34,7 +40,7 @@ export interface Fala {
 
 export interface Conversa {
   id: string;
-  modo: ModoDoAcompanhante;
+  modo: ModoDeConversa;
   titulo: string;
   /** A aula ("trilha/aula"), quando a conversa nasceu nela. */
   aula?: string;
@@ -82,7 +88,7 @@ function avisar() {
   }
 }
 
-const ehModo = (v: unknown): v is ModoDoAcompanhante => (MODOS_DO_ACOMPANHANTE as readonly unknown[]).includes(v);
+const ehModo = (v: unknown): v is ModoDeConversa => (MODOS_DO_ACOMPANHANTE as readonly unknown[]).includes(v) || (MODOS_DOS_AGENTES as readonly unknown[]).includes(v);
 
 function validarFala(dado: unknown): Fala | null {
   if (!dado || typeof dado !== "object") return null;
@@ -215,7 +221,7 @@ const cortar = (texto: string | undefined, limite: number) => (texto ?? "").trim
  * uma com até 1500 caracteres e 6000 no total (saem as mais antigas). O contexto só leva o que tem valor.
  */
 export function montarPedido(o: {
-  modo: ModoDoAcompanhante;
+  modo: ModoDeConversa;
   pergunta: string;
   idioma: string;
   falas?: readonly Pick<Fala, "de" | "texto">[];

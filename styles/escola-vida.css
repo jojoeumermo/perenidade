@@ -1,0 +1,320 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Vida real e vozes da Escola Lúcia Maria (Etapa 4, pacote E4-11): hub, vozes, mapa das lutas, tarefa no mundo,
+ * missões, estudo de caso e documentos. Só os tokens que já existem (papel, tinta, fio, vermelho da margem); nenhuma cor
+ * nem fonte nova. Celular de entrada primeiro: nada passa de 360 px de largura e todo botão tem 44 px de altura.
+ */
+
+.vida-bloco {
+  margin-top: 2.5rem;
+  border-top: 3px solid var(--ink);
+  padding-top: 1rem;
+  min-width: 0;
+}
+.vida-titulo {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.vida-texto {
+  margin-top: 0.5rem;
+  max-width: 65ch;
+  color: var(--ink-soft);
+}
+.vida-nota {
+  margin-top: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.vida-aviso {
+  margin-top: 0.75rem;
+  border-left: 4px solid var(--prelo-texto);
+  background: var(--parchment-deep);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+.vida-aviso ul {
+  margin-top: 0.4rem;
+  display: grid;
+  gap: 0.25rem;
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+.vida-selo {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  padding: 0 0.4rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gold);
+  vertical-align: middle;
+}
+.vida-erro {
+  margin-top: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--prelo-texto);
+}
+.vida-ok {
+  margin-top: 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--ok);
+}
+
+/* ── Botões e campos ── */
+.vida-botoes {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.vida-botao,
+.vida-botao-claro {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.vida-botao {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--parchment);
+}
+.vida-botao:hover:not(:disabled) {
+  border-color: var(--oxblood);
+  background: var(--oxblood);
+}
+.vida-botao-claro {
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+.vida-botao-claro:hover:not(:disabled) {
+  border-color: var(--oxblood);
+  color: var(--oxblood);
+}
+.vida-botao:disabled,
+.vida-botao-claro:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.vida-rotulo {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.vida-input {
+  margin-top: 0.25rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  color: var(--ink);
+}
+textarea.vida-input {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+/* ── Cartões e listas ── */
+.vida-grade {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .vida-grade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.vida-cartao {
+  min-width: 0;
+  border: 1px solid var(--rule);
+  background: var(--parchment);
+  padding: 1rem;
+  overflow-wrap: anywhere;
+}
+.vida-cartao-link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease;
+}
+.vida-cartao-link:hover {
+  border-color: var(--oxblood);
+}
+.vida-cartao h2,
+.vida-cartao h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.vida-cartao p {
+  margin-top: 0.4rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+.vida-lista {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+.vida-lista > li {
+  min-width: 0;
+  border-left: 3px solid var(--prelo-texto);
+  padding-left: 0.75rem;
+  overflow-wrap: anywhere;
+}
+.vida-roteiro {
+  margin-top: 0.6rem;
+  display: grid;
+  gap: 0.4rem;
+  max-width: 65ch;
+}
+.vida-roteiro label {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--rule);
+  padding: 0.4rem 0.7rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  cursor: pointer;
+}
+.vida-roteiro input {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  accent-color: var(--ink);
+}
+.vida-audio {
+  margin-top: 0.5rem;
+  width: 100%;
+  max-width: 28rem;
+}
+.vida-relogio {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* ── Mapa das lutas ── */
+.lutas-filtros {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.lutas-ancora {
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+.lutas-mes {
+  margin-top: 2rem;
+  border-top: 3px solid var(--ink);
+  padding-top: 0.75rem;
+}
+.lutas-luta {
+  margin-top: 1rem;
+  border: 1px solid var(--rule);
+  padding: 0.9rem 1rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lutas-luta[data-feriado="true"] {
+  border-left: 4px solid var(--prelo-texto);
+  background: var(--parchment-deep);
+}
+.lutas-luta[data-hoje="true"] {
+  outline: 2px solid var(--gold);
+}
+.lutas-dia {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-weight: 600;
+}
+.lutas-etiqueta {
+  margin-left: 0.5rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.lutas-fatos {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.4rem;
+  padding-left: 1.1rem;
+  list-style: disc;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+/* Filtro sem JavaScript: o link muda o alvo (:target) e o :has mostra ou esconde as datas de memória. */
+.lutas-raiz .lutas-luta[data-feriado="false"],
+.lutas-raiz .lutas-mes:not(:has([data-feriado="true"])) {
+  display: none;
+}
+.lutas-raiz:has(#todas:target) .lutas-luta[data-feriado="false"] {
+  display: block;
+}
+.lutas-raiz:has(#todas:target) .lutas-mes:not(:has([data-feriado="true"])) {
+  display: block;
+}
+
+/* ── Documento real ── */
+.documento-quadro {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.documento-quadro img {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+}
+.documento-area {
+  position: absolute;
+  min-width: 44px;
+  min-height: 44px;
+  border: 2px dashed var(--gold);
+  background: transparent;
+  cursor: pointer;
+}
+.documento-area:hover,
+.documento-area[aria-pressed="true"] {
+  border-style: solid;
+  border-color: var(--oxblood);
+  background: color-mix(in srgb, var(--oxblood) 15%, transparent);
+}
+.documento-area:focus-visible {
+  outline: 3px solid var(--oxblood);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vida-botao,
+  .vida-botao-claro,
+  .vida-cartao-link {
+    transition: none;
+  }
+}

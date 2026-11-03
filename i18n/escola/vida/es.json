@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "hub": { "titulo": "Vida real", "descricao": "Voces del trabajo, mapa de las luchas, tarea en el mundo, misiones de laboratorio, estudio de caso del barrio y documentos reales: la Escuela unida a la vida de quien estudia." },
+    "vozes": { "titulo": "Voces del trabajo", "descricao": "Escuche a trabajadores que contaron su oficio y grabe, solo en su dispositivo, un audio de hasta 2 minutos con un guion de preguntas." },
+    "lutas": { "titulo": "Mapa de las luchas", "descricao": "Las fechas de lucha del campus y los hechos de cada día, por mes, con fuente, lección del tema y agenda. Un mapa en el tiempo." },
+    "tarefas": { "titulo": "Tareas en el mundo", "descricao": "La tarea práctica de cada curso, para hacer fuera de la pantalla: márquela como hecha, escriba una nota y regístrela en el cuaderno." },
+    "missoes": { "titulo": "Misiones de laboratorio", "descricao": "Problemas de trabajo para resolver en los laboratorios del sitio, con el cuidado de cada situación. Usted marca cuando cumpla." },
+    "caso": { "titulo": "Estudio de caso del barrio", "descricao": "Mirar, escuchar, anotar, comparar con la lección y proponer: un guion de 5 pasos con borrador privado." },
+    "documentos": { "titulo": "Documentos reales en las lecciones", "descricao": "Cómo las lecciones muestran un documento de verdad, con las áreas explicadas, la fuente y la licencia." }
+  },
+  "comum": {
+    "emRevisao": "en revisión",
+    "revisar": "[A REVISAR POR LA COORDINACIÓN]",
+    "voltarVida": "Volver a la vida real",
+    "voltarEscola": "Volver a la entrada de la Escuela",
+    "soNoAparelho": "Queda solo en este dispositivo. Nada va al Instituto."
+  },
+  "hub": {
+    "olho": "Escuela Lúcia Maria",
+    "titulo": "Vida real",
+    "lead": "Estudiar no termina en la pantalla. Aquí la Escuela va al trabajo, al barrio y a la lucha de quien estudia. Todo funciona en su dispositivo, sin registro y sin rastreo.",
+    "resumoTarefas": "{n} de {m} tareas hechas",
+    "resumoMissoes": "{n} de {m} misiones",
+    "abrir": "Abrir",
+    "nota": "Los textos de esta parte fueron escritos por el paquete y están en revisión. Lo que depende de la coordinación está marcado.",
+    "cartoes": {
+      "vozes": { "titulo": "Voces del trabajo", "texto": "Escuche a quien cuenta su oficio y ensaye su propio audio de 2 minutos." },
+      "lutas": { "titulo": "Mapa de las luchas", "texto": "Las fechas de lucha, mes a mes, con fuente y lección del tema." },
+      "tarefas": { "titulo": "Tareas en el mundo", "texto": "La tarea práctica de cada curso, con nota y registro en el cuaderno." },
+      "missoes": { "titulo": "Misiones de laboratorio", "texto": "Un problema de trabajo para resolver en el laboratorio correcto." },
+      "caso": { "titulo": "Estudio de caso del barrio", "texto": "Cinco pasos para mirar su barrio con lo que enseña la lección." },
+      "documentos": { "titulo": "Documentos reales", "texto": "Cómo las lecciones muestran un documento de verdad, con la fuente y la licencia." },
+      "circulo": { "titulo": "Círculo de cultura digital", "texto": "Para quien facilita un encuentro: de las palabras del grupo a una secuencia de lecciones." }
+    }
+  },
+  "vozes": {
+    "olho": "Vida real",
+    "titulo": "Voces del trabajo",
+    "lead": "Quien trabaja sabe cosas que los libros no dicen. Aquí escucha voces publicadas con autorización y puede ensayar la suya.",
+    "publicadas": {
+      "titulo": "Voces publicadas",
+      "vazio": "Todavía no hay voz publicada. Una voz solo entra con la autorización de quien habló y con la transcripción al lado.",
+      "transcricao": "Transcripción",
+      "autorizada": "Publicada con autorización. Quien habló puede pedir que se retire en cualquier momento, sin dar explicaciones.",
+      "retirar": "Para retirar una voz, escriba por la página de voluntariado."
+    },
+    "ensinam": {
+      "titulo": "Trabajadores que enseñan",
+      "lead": "Personas del Memorial cuya vida de trabajo se une a una lección. El texto de cada tarjeta está en revisión.",
+      "memorial": "Ver en el Memorial",
+      "aula": "Ver la lección",
+      "fonte": "Fuente"
+    },
+    "gravador": {
+      "titulo": "Grabe su voz",
+      "avisoTitulo": "Antes de grabar",
+      "aviso": [
+        "Grabe solo su voz y su experiencia.",
+        "No diga nombres de otras personas, ni de jefe o cliente, ni datos de terceros.",
+        "No grabe a un niño ni a un adolescente.",
+        "La grabación queda solo en su dispositivo. No se envía nada.",
+        "Puede borrarla cuando quiera."
+      ],
+      "menores": "Los menores de 18 años pueden grabar para sí, pero la publicación solo es posible con la autorización de un responsable. La coordinación no publica audio de niños ni de adolescentes.",
+      "semGravacao": "Su dispositivo no graba audio. Use el guion escrito de abajo: sirve igual para ensayar en voz alta.",
+      "semMicrofone": "No fue posible usar el micrófono. Revise el permiso del navegador o use el guion escrito.",
+      "gravar": "Grabar",
+      "parar": "Parar",
+      "restam": "Quedan {s} s",
+      "gravando": "Grabando",
+      "fimAos120": "La grabación se detiene sola a los 120 segundos.",
+      "perguntaEscolhida": "Pregunta que está respondiendo",
+      "tituloLabel": "Título de la grabación (hasta 60 caracteres)",
+      "limite": "Ya tiene 10 grabaciones. Borre una para grabar otra.",
+      "suas": "Sus grabaciones (solo en este dispositivo)",
+      "nenhuma": "Todavía no grabó nada.",
+      "ouvir": "Escuchar",
+      "baixar": "Descargar",
+      "apagar": "Borrar",
+      "apagada": "Grabación borrada.",
+      "segundos": "{s} s",
+      "semTitulo": "Grabación sin título",
+      "falhou": "No fue posible guardar la grabación en este dispositivo."
+    },
+    "roteiro": {
+      "titulo": "Guion de preguntas",
+      "emRevisao": "En revisión: las preguntas fueron escritas por el paquete.",
+      "lead": "Elija una pregunta y responda en hasta 2 minutos. O solo lea y piense: el guion sirve sin grabar.",
+      "perguntas": [
+        "¿Qué hago en mi trabajo?",
+        "¿Qué aprendí en la práctica que no está en los libros?",
+        "¿Cuál es un riesgo de mi trabajo?",
+        "¿Qué derecho me habría gustado conocer antes?",
+        "¿Qué consejo daría a quien está empezando?",
+        "¿Qué podría enseñar la Escuela sobre esto?"
+      ]
+    },
+    "enviar": {
+      "titulo": "¿Quiere que su voz sea escuchada?",
+      "texto": "Nada va solo. Si quiere contar su trabajo al Instituto, copie el texto de abajo y use la página de voluntariado. La coordinación pide su autorización por escrito, revisa la transcripción y solo entonces publica. Solo mayores de 18 años.",
+      "pronto": "Quiero contar mi trabajo en un audio de 2 minutos.",
+      "copiar": "Copiar el texto",
+      "link": "Ir a la página de voluntariado"
+    }
+  },
+  "lutas": {
+    "olho": "Vida real",
+    "titulo": "Mapa de las luchas",
+    "lead": "Un mapa en el tiempo: las fechas de lucha del pueblo, mes a mes. No hay mapa de lugares porque el sitio aún no tiene coordenadas con fuente.",
+    "filtroFeriados": "Feriados del campus",
+    "filtroTodas": "Todas las fechas",
+    "feriado": "Feriado del campus",
+    "memoria": "Fecha de memoria",
+    "hoje": "Hoy",
+    "proxima": "Próxima fecha",
+    "aula": "Lección del tema",
+    "fonte": "Fuente",
+    "fatos": "Qué pasó este día",
+    "agenda": "Poner en la agenda",
+    "ver": "Ver",
+    "vazio": "Ninguna fecha en este filtro.",
+    "avisoMemoria": "Las fechas de memoria vienen de los hechos del cuadro \"En este día\", cada uno con su enlace. Solo los feriados del campus entran en el calendario de la Escuela.",
+    "mais": "y {n} hechos más en el cuadro \"En este día\""
+  },
+  "tarefas": {
+    "olho": "Vida real",
+    "titulo": "Tareas en el mundo",
+    "lead": "Cada curso tiene una tarea para hacer fuera de la pantalla: en el trabajo, en casa, en el barrio. Márquela cuando la haga y, si quiere, escriba una nota corta.",
+    "cartao": {
+      "titulo": "Su marca",
+      "marcar": "Marcar como hecha",
+      "feita": "Hecha el {data}",
+      "desfazer": "Deshacer",
+      "nota": "Nota corta (hasta 500 caracteres)",
+      "notaAviso": "Sin nombres de otras personas.",
+      "salvarNota": "Guardar la nota",
+      "registrar": "Registrar en el cuaderno",
+      "registrada": "Registrada en el cuaderno.",
+      "avisoCaderneta": "El cuaderno puede exportarse y ser visto por otras personas. No ponga el nombre de nadie.",
+      "falhou": "No fue posible guardar en este dispositivo.",
+      "soNoAparelho": "La marca queda solo en este dispositivo."
+    },
+    "contador": "{n} de {m} tareas hechas",
+    "abrirCurso": "Abrir el curso",
+    "estadoFeita": "Hecha el {data}",
+    "estadoAFazer": "Por hacer"
+  },
+  "missoes": {
+    "olho": "Vida real",
+    "titulo": "Misiones de laboratorio",
+    "lead": "Un problema de trabajo, un laboratorio del sitio y un cuidado que tener. Usted lo resuelve y marca que cumplió.",
+    "emRevisao": "En revisión: las misiones fueron escritas por el paquete.",
+    "situacao": "Situación",
+    "tarefa": "Tarea",
+    "cuidado": "Cuidado",
+    "abrir": "Abrir el laboratorio",
+    "cumpri": "Cumplí la misión",
+    "cumprida": "Cumplida el {data}",
+    "desfazer": "Deshacer",
+    "contador": "{n} de {m} misiones",
+    "nota": "El laboratorio no manda resultado a nadie: la marca es suya, solo en este dispositivo.",
+    "semCurso": "Sin curso específico",
+    "falhou": "No fue posible guardar en este dispositivo."
+  },
+  "caso": {
+    "olho": "Vida real",
+    "titulo": "Estudio de caso del barrio",
+    "lead": "Un guion de 5 pasos para mirar un problema de su barrio con lo que enseña la lección. El borrador es suyo y queda solo en el dispositivo.",
+    "aviso": "No identifique a nadie, ni el lugar exacto. Escriba sobre la situación, no sobre las personas.",
+    "curso": "Curso del caso",
+    "livre": "Caso libre (sin curso)",
+    "tituloLabel": "Título del caso (hasta 160 caracteres)",
+    "tituloPadrao": "Estudio de caso del barrio",
+    "limite": "Hasta {n} caracteres por paso.",
+    "passos": [
+      { "titulo": "1. Lo que vi", "ajuda": "Describa lo que vio, sin juzgar." },
+      { "titulo": "2. A quién escuché", "ajuda": "Lo que decían las personas, sin decir quiénes son." },
+      { "titulo": "3. Lo que dice la lección sobre esto", "ajuda": "Una lo que vio con una lección o un curso." },
+      { "titulo": "4. Lo que muestra el caso", "ajuda": "Lo que este caso enseña sobre la vida del barrio." },
+      { "titulo": "5. Lo que se puede proponer", "ajuda": "Una acción posible, pequeña y colectiva." }
+    ],
+    "guardar": "Guardar el borrador",
+    "guardado": "Borrador guardado en este dispositivo.",
+    "privado": "El borrador es privado: queda solo en este dispositivo y no entra en la copia de seguridad.",
+    "registrar": "Registrar en el cuaderno",
+    "avisoCaderneta": "Solo el resumen va al cuaderno, y el cuaderno puede exportarse y ser visto por otras personas. Revise que no haya nombre ni dirección.",
+    "registrado": "Registrado en el cuaderno.",
+    "apagar": "Borrar el borrador",
+    "cancelar": "Cancelar",
+    "apagado": "Borrador borrado.",
+    "falhou": "No fue posible guardar en este dispositivo."
+  },
+  "documentos": {
+    "olho": "Vida real",
+    "titulo": "Documentos reales en las lecciones",
+    "lead": "Algunas lecciones muestran un documento de verdad, con áreas que usted toca para entender qué significa cada campo y qué revisar.",
+    "regrasTitulo": "Las reglas",
+    "regras": [
+      "Solo entra documento sin datos personales: modelo oficial en blanco, acto oficial, dominio público o documento del propio equipo.",
+      "Toda imagen tiene la fuente (dirección oficial) y la licencia. Sin las dos, el bloque no aparece.",
+      "Ninguna nómina, factura ni documento de una persona real.",
+      "La explicación de cada área está en revisión hasta que la coordinación la revise.",
+      "Leer su propio documento por foto es otra parte de la Escuela, y no esta."
+    ],
+    "listaTitulo": "Lecciones con documento",
+    "vazio": "Todavía no hay lección con documento. [A REVISAR POR LA COORDINACIÓN]: elegir los primeros documentos y revisar los derechos de imagen antes de publicar.",
+    "comoTitulo": "Cómo poner un documento en una lección",
+    "como": "En el editor de la lección, ponga el bloque \"Documento real con áreas\", con la imagen del sitio, la fuente, la licencia y una línea por área. El formato está en content/escola/vida/LEIA-ME.md.",
+    "abrirAula": "Abrir la lección"
+  },
+  "documento": {
+    "selo": "Explicación en revisión",
+    "verOriginal": "Ver el original",
+    "fonte": "Fuente",
+    "licenca": "Licencia",
+    "semDados": "Documento sin datos personales",
+    "toque": "Toque un área del documento para leer lo que significa.",
+    "areas": "Áreas del documento",
+    "significa": "Qué significa",
+    "conferir": "Qué revisar",
+    "fechar": "Cerrar"
+  }
+}

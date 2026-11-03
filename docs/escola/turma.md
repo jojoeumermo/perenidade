@@ -107,7 +107,7 @@ Roteiro de 30 minutos (10 de apresentação, 15 de conversa, 5 de devolutiva), t
 território). Ficha por competência (clareza, ligação com o curso, ligação com a vida, próximo passo), sem nota, para
 imprimir ou preencher. "Registrar na minha caderneta" chama `acrescentarNaCaderneta({tipo: 'banca', curso, data,
 titulo: 'Projeto apresentado em banca', detalhe, pessoas})`. Nomes só com a caixa de permissão marcada. O E4-14 lê o
-registro como projeto "banca". A banca presencial fica para depois.
+registro como projeto "banca". A banca presencial fica para depois. **Feito pelo E4-14:** `bancaDoCurso` e `apresentacaoFeita` (lib/escola/formatura.ts) leem esse registro e marcam a etapa "apresentação" do projeto final (docs/escola/formatura.md).
 
 ## Cartaz da turma (R1-68) — processo da Galeria
 
