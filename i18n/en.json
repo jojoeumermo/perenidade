@@ -1103,7 +1103,7 @@
       "parar": "Stop reading",
       "velocidade": "Speed",
       "frase": "Sentence {n} of {total}",
-      "preparando": "Preparing the voice…",
+      "preparando": "Preparing the voice (at first it can take up to half a minute)…",
       "preparandoProxima": "Preparing the next sentence…"
     },
     "videoCurto": {

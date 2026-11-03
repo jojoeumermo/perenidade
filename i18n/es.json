@@ -1103,7 +1103,7 @@
       "parar": "Detener la lectura",
       "velocidade": "Velocidad",
       "frase": "Frase {n} de {total}",
-      "preparando": "Preparando la voz…",
+      "preparando": "Preparando la voz (al principio puede tardar hasta medio minuto)…",
       "preparandoProxima": "Preparando la siguiente frase…"
     },
     "videoCurto": {

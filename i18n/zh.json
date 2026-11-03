@@ -1096,7 +1096,7 @@
       "parar": "停止朗读",
       "velocidade": "语速",
       "frase": "第 {n} 句，共 {total} 句",
-      "preparando": "正在准备语音…",
+      "preparando": "正在准备语音（第一次可能需要半分钟左右）…",
       "preparandoProxima": "正在准备下一句…"
     },
     "videoCurto": {
