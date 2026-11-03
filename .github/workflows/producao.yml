@@ -17,7 +17,6 @@ on:
       - "docs/CHECKLIST-DE-REVISAO.md"
       - "!.github/**"
       - ".github/workflows/producao.yml"
-      - "!.claude/**"
       - "!infra/**"
       - "!supabase/*.sql"
       - "!supabase/functions/**"
