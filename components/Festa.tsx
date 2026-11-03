@@ -187,11 +187,16 @@ function desenho(festa: Festa): { largura: number; svg: string } {
     case "consciencia": {
       // Data de luta e de memória, como Finados: nada de festa colorida. Só o Sankofa (o coração de pontas voltadas
       // para dentro, "voltar e buscar o que ficou para trás"), em tinta, de tempos em tempos.
+      // O mesmo desenho do pano de adinkras aprovado em 29/10 (caixa de 200), com o traço mais fino para as espirais
+      // não fecharem no tamanho pequeno.
       const sankofa =
-        "M150 15C144 11 142 8.5 142 6.3C142 4 143.8 2.5 146 2.5C148.4 2.5 149.5 4.5 149 6.3C148.6 7.6 147 7.8 146.4 6.8C146 6 146.8 5.3 147.4 5.8" +
-        "M150 15C156 11 158 8.5 158 6.3C158 4 156.2 2.5 154 2.5C151.6 2.5 150.5 4.5 151 6.3C151.4 7.6 153 7.8 153.6 6.8C154 6 153.2 5.3 152.6 5.8" +
-        "M150 15c-1.2 .9-2.7 1.4-3.2.4c-.3-.6.3-1.1.8-.8M150 15c1.2 .9 2.7 1.4 3.2.4c.3-.6-.3-1.1-.8-.8";
-      return { largura: 300, svg: `<path d="${sankofa}" stroke="${TINTA}" stroke-width=".9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>` };
+        "M100 66C78 18 14 30 22 92C28 132 74 150 100 178C126 150 172 132 178 92C186 30 122 18 100 66" +
+        "M100 66C96 96 64 98 66 78C68 64 86 66 84 78M100 66C104 96 136 98 134 78C132 64 114 66 116 78" +
+        "M100 178C88 196 62 194 66 178C70 166 84 170 82 180M100 178C112 196 138 194 134 178C130 166 116 170 118 180";
+      return {
+        largura: 300,
+        svg: `<svg x="142" y="0" width="16" height="18" viewBox="0 10 200 200" overflow="visible"><path d="${sankofa}" fill="none" stroke="${TINTA}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      };
     }
   }
 }
