@@ -33,7 +33,7 @@ quiz:
     resposta: 0
     explicacao: "O dado é de um estudo de 2015."
   - pergunta: "A quem o STF decidiu, em 2025, que a Lei Maria da Penha também se aplica?"
-    opcoes: ["A mulheres travestis e transexuais e a casais de homens", "Só a mulheres casadas", "A ninguém mais"]
+    opcoes: ["A mulheres travestis e transexuais e a casais de homens", "Só a mulheres casadas", "A homens que sofrem violência de mulheres"]
     resposta: 0
     explicacao: "O Supremo entendeu que havia omissão do Congresso."
 ---

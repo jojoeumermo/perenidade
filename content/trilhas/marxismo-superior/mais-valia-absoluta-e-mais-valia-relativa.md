@@ -23,7 +23,7 @@ quiz:
     resposta: 1
     explicacao: "Mais-valia = 300 - 100 = 200. Taxa = 200/100 = 200%. Para cada hora paga, duas não são pagas."
   - pergunta: "Por que Marx diz que entre direitos iguais decide a força?"
-    opcoes: ["Porque o capitalista tem o direito de consumir a mercadoria que comprou, e o trabalhador tem o direito de limitar o seu desgaste; a jornada é fixada pela luta", "Porque a lei sempre favorece o mais forte fisicamente", "Porque não existe direito"]
+    opcoes: ["Porque o capitalista tem o direito de consumir a mercadoria que comprou, e o trabalhador tem o direito de limitar o seu desgaste; a jornada é fixada pela luta", "Porque o juiz decide caso a caso, sem lei", "Porque o direito do patrão vale mais que o do trabalhador"]
     resposta: 0
     explicacao: "A duração da jornada não decorre da lei do valor: é resultado da luta entre classes."
   - pergunta: "Qual é a diferença entre a subsunção formal e a subsunção real do trabalho ao capital?"

@@ -19,7 +19,7 @@ fontes:
     ano: "1969"
 quiz:
   - pergunta: "O que foi o 'arrocho salarial' depois do golpe de 1964 no Brasil?"
-    opcoes: ["Uma política de reajustes abaixo da inflação, combinada com a proibição prática das greves", "Um aumento geral de salários", "A criação do décimo terceiro salário"]
+    opcoes: ["Uma política de reajustes abaixo da inflação, combinada com a proibição prática das greves", "Um congelamento de preços para proteger o poder de compra do povo", "A criação do décimo terceiro salário"]
     resposta: 0
     explicacao: "Os reajustes passaram a ser fixados por fórmula do governo, e os sindicatos sofreram intervenção."
   - pergunta: "Quem eram os 'Chicago Boys'?"

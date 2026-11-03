@@ -22,7 +22,7 @@ quiz:
     resposta: 0
     explicacao: "Para eles, a propriedade privada e o Estado eram invenções históricas recentes."
   - pergunta: "O que o antropólogo Pierre Clastres mostrou sobre muitos povos indígenas da América do Sul?"
-    opcoes: ["Que tinham mecanismos sociais para impedir que um chefe acumulasse poder de mando", "Que tinham reis absolutos", "Que não tinham nenhuma organização"]
+    opcoes: ["Que tinham mecanismos sociais para impedir que um chefe acumulasse poder de mando", "Que eram governados por chefes que mandavam em tudo", "Que eram desorganizados e viviam em guerra constante"]
     resposta: 0
     explicacao: "Clastres chamou essas sociedades de 'sociedades contra o Estado'."
   - pergunta: "Qual é a crítica atual à expressão 'comunismo primitivo'?"

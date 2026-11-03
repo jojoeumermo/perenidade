@@ -880,6 +880,16 @@
     "summaryTitle": "Sumário",
     "underConstruction": "Em construção",
     "helpWrite": "Ajude a escrever esta trilha",
+    "notifyMe": "Me avise quando sair aula nova",
+    "notifyOn": "✓ Vou ser avisado neste aparelho",
+    "notifyOff": "parar de avisar",
+    "notifyHint": "O aviso fica só neste aparelho: o site não guarda quem pediu. Aparece aqui e na página das disciplinas quando sair aula nova.",
+    "notifyNews": "Saiu aula nova nas trilhas que você marcou",
+    "notifyNewsItem": "{n} aula(s) nova(s)",
+    "notifySeen": "já vi",
+    "emptyHelp": "Trilha ainda sem aulas prontas: ajude a escrever →",
+    "saveCourse": "Guardar curso para ler sem internet",
+    "saveSize": "cerca de {n} MB",
     "planned": "em preparação",
     "plannedHelp": "As aulas marcadas como “em preparação” fazem parte do roteiro desta trilha e ainda não foram escritas.",
     "plannedLink": "Quer escrever uma delas?",
@@ -1061,7 +1071,29 @@
       "leve": "Leve para a sua comunidade",
       "roda": "Discuta na sala",
       "rodaLink": "Abrir a sala desta disciplina na comunidade",
-      "ouvirTrecho": "Ouvir este trecho"
+      "ouvirTrecho": "Ouvir este trecho",
+      "suarealidade": "Na sua realidade",
+      "suarealidadePrompt": "Pense no seu trabalho ou no seu bairro e escreva. Fica só no seu aparelho.",
+      "outrolado": "O outro lado",
+      "outroladoForte": "O argumento mais forte de quem discorda",
+      "outroladoTreino": "Treine a sua resposta",
+      "outroladoPrompt": "Escreva como você responderia, com respeito e com fatos. Fica só no seu aparelho.",
+      "outroladoResposta": "Ver uma resposta possível",
+      "agir": "Agir",
+      "agirVou": "Vou fazer isto",
+      "agirFeito": "Anotado neste aparelho. A próxima aula vai perguntar como foi.",
+      "agirAviso": "Uma tarefa pequena. A sua resposta fica só no seu aparelho.",
+      "comoFoiTitulo": "Como foi?",
+      "comoFoiIntro": "Na aula “{aula}”, a tarefa era:",
+      "comoFoiFiz": "Fiz",
+      "comoFoiParte": "Fiz em parte",
+      "comoFoiNao": "Ainda não fiz",
+      "comoFoiNota": "Quer anotar como foi? Fica só no seu aparelho.",
+      "comoFoiRespFiz": "Que bom. Anotado neste aparelho.",
+      "comoFoiRespParte": "Já é um começo. Dá para terminar quando puder.",
+      "comoFoiRespNao": "Tudo bem. A tarefa continua na aula anterior, para quando der.",
+      "comoFoiMudar": "Mudar a resposta",
+      "comoFoiVer": "Voltar à tarefa"
     },
     "quickCheck": "Pergunta rápida",
     "voz": {
@@ -2150,6 +2182,26 @@
     "corretor-ortografico": [
       "Corretor ortográfico",
       "Confere a grafia em português do Brasil, com sugestões, sem o texto sair do aparelho."
+    ],
+    "quanto-cobrar": [
+      "Quanto cobrar",
+      "Quanto cobrar pela hora e pelo dia de trabalho por conta própria, com INSS, férias e 13º."
+    ],
+    "gerador-de-curriculo": [
+      "Gerador de currículo",
+      "Currículo e carta curta feitos no aparelho, também para quem só fez bico; imprimir ou copiar."
+    ],
+    "orcamento-e-contrato": [
+      "Orçamento e contrato",
+      "Orçamento e contrato simples de serviço, com material, mão de obra, prazo e pagamento."
+    ],
+    "dividas-e-renegociacao": [
+      "Dívida e renegociação",
+      "Quanto tempo e quanto você paga de uma dívida, a proposta de acordo e a Lei do Superendividamento."
+    ],
+    "modelos-de-documentos": [
+      "Modelos de documentos",
+      "Reclamação ao Procon, pedido de demissão, recurso ao INSS e notificação ao locador."
     ]
   },
   "tools": {
@@ -5584,6 +5636,12 @@
   },
   "compartilhar": {
     "titulo": "Compartilhar",
+    "baixarHtml": "Baixar a aula num arquivo só (para mandar no WhatsApp)",
+    "baixarHtmlDica": "Um arquivo .html pequeno que abre sem internet em qualquer celular, até nos antigos.",
+    "baixarHtmlPronto": "Arquivo pronto: veja nos seus downloads.",
+    "baixarHtmlFalhou": "Não deu para montar o arquivo neste navegador.",
+    "baixarHtmlFonte": "Baixado de",
+    "baixarHtmlRodape": "Funciona sem internet. Para fazer os testes e guardar o progresso, abra a aula no site.",
     "whatsapp": "Mandar no WhatsApp",
     "telegram": "Mandar no Telegram",
     "copiar": "Copiar o link",

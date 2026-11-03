@@ -36,7 +36,9 @@ async function guardadas(paths: string[]) {
 }
 
 /** Guarda no aparelho todas as aulas de uma trilha, para ler no ônibus ou onde não houver sinal, e diz quanto ocupa. */
-export function SaveOffline({ paths, s }: { paths: string[]; s: Dict["tracks"] }) {
+// Etapa 3: "Guardar trilha" virou "Guardar curso", com o tamanho estimado à vista ANTES de guardar (estimativa em bytes,
+// calculada no servidor pelo tamanho das aulas); depois de guardado vale o tamanho medido.
+export function SaveOffline({ paths, s, estimativa }: { paths: string[]; s: Dict["tracks"]; estimativa?: number }) {
   const [state, setState] = useState<"idle" | "saving" | "saved" | "failed" | "unsupported" | "removed">("idle");
   const [bytes, setBytes] = useState(0);
 
@@ -94,9 +96,10 @@ export function SaveOffline({ paths, s }: { paths: string[]; s: Dict["tracks"] }
         </button>
       ) : (
         <button type="button" onClick={save} disabled={state === "saving"} className="cursor-pointer underline hover:text-oxblood disabled:cursor-wait disabled:opacity-60">
-          {state === "saving" ? s.offlineSaving : s.offlineSave}
+          {state === "saving" ? s.offlineSaving : s.saveCourse}
         </button>
       )}
+      {state !== "saved" && estimativa !== undefined && estimativa > 0 && <span className="ml-2 text-ink-soft">({s.saveSize.replace("{n}", Math.max(0.1, estimativa / 1024 / 1024).toLocaleString(undefined, { maximumFractionDigits: 1 }))})</span>}
       <span role="status" className="ml-3 text-ink-soft">
         {state === "saved" && `${s.offlineSaved} ${bytes > 0 ? s.offlineSize.replace("{tamanho}", tamanho(bytes)) : ""}`}
         {state === "failed" && s.offlineFailed}

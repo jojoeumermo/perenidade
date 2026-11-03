@@ -17,7 +17,7 @@ fontes:
     url: "https://www.marxists.org/portugues/lenin/1917/04/04_teses.htm"
 quiz:
   - pergunta: "Segundo Engels, por que em 1848 o Manifesto foi chamado 'comunista' e não 'socialista'?"
-    opcoes: ["Porque na época 'socialismo' designava sobretudo movimentos de classe média e reformadores, e 'comunismo', um movimento operário", "Porque a palavra socialismo não existia", "Por acaso"]
+    opcoes: ["Porque na época 'socialismo' designava sobretudo movimentos de classe média e reformadores, e 'comunismo', um movimento operário", "Porque o comunismo era a corrente mais moderada e aceita pelos governos", "Porque a polícia alemã só proibia a palavra socialismo"]
     resposta: 0
     explicacao: "Engels explica isso no prefácio à edição inglesa de 1888."
   - pergunta: "Por que Lenin propôs, em 1917, que o partido bolchevique se chamasse 'comunista'?"

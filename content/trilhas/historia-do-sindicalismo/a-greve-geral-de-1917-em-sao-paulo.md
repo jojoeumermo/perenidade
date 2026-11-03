@@ -27,7 +27,7 @@ quiz:
     resposta: 0
     explicacao: "Com forte participação de imigrantes italianos e espanhóis."
   - pergunta: "Qual destas era uma reivindicação da greve?"
-    opcoes: ["A jornada de 8 horas", "O fim do salário", "Mais horas de trabalho"]
+    opcoes: ["A jornada de 8 horas", "A volta do trabalho de menores de 14 anos", "A proibição das greves nas fábricas"]
     resposta: 0
     explicacao: "Pediam também jornada de 6 horas para mulheres e crianças e aumento de salário."
 ---

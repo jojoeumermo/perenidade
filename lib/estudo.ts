@@ -230,12 +230,18 @@ const CHAVES_DA_COPIA = new Set([
   "lucia:posicao-da-aula",
   "lucia:aula-em-partes",
   "lucia:uma-mao",
+  // Etapa 3 (catálogo honesto): as trilhas em que a pessoa pediu "me avise quando sair" e quantas aulas havia (lib/avise.ts).
+  "lucia:avise",
 ]);
 /** Chaves que guardam um objeto por item (aula ou exercício): na restauração, cada item fica com a versão mais nova. */
 const REGISTROS = ["lucia:testes", "lucia:exercicios", "lucia:concluidas-em", "lucia:nivelamento", "lucia:ajudou"];
 // "lucia:escola:" é o estudo da Escola Lúcia Maria (matrícula, cursos, caderneta...). O irmão "lucia:escola-privado:"
 // fica de fora de propósito: conversas e documentos de trabalho não viajam num arquivo de cópia (veja SO_APAGAR).
-const PREFIXOS_DA_COPIA = ["lucia:lab:", "lucia:ouvido:", "lucia:escola:"];
+// "lucia:agir:<trilha>/<aula>" é o "Agir" da aula e o "como foi?" da aula seguinte (lib/agir.ts): só no aparelho.
+// "lucia:bloco:" são as respostas escritas nos blocos da aula (components/aula/Blocos.tsx: Na sua realidade, O outro
+// lado, Realidade): antes ficavam fora da cópia e do "apagar"; a página de privacidade promete que tudo sai.
+// "lucia:ferramenta:" são os campos das ferramentas da vida real (components/tools/novas/VidaReal.tsx).
+const PREFIXOS_DA_COPIA = ["lucia:lab:", "lucia:ouvido:", "lucia:escola:", "lucia:agir:", "lucia:bloco:", "lucia:ferramenta:"];
 export const entraNaCopia = (chave: string) => CHAVES_DA_COPIA.has(chave) || PREFIXOS_DA_COPIA.some((p) => chave.startsWith(p) && !/[\s]/.test(chave) && chave.length < 200);
 
 /**

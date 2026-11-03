@@ -12,4 +12,6 @@ export const RetomarAquiSobDemanda = dynamic(() => import("./RetomarAqui").then(
 export const BarraDeSelecaoSobDemanda = dynamic(() => import("./BarraDeSelecao").then((m) => m.BarraDeSelecao), { ssr: false });
 export const OuvirParagrafoSobDemanda = dynamic(() => import("./OuvirParagrafo").then((m) => m.OuvirParagrafo), { ssr: false });
 export const TamanhoDaLetraSobDemanda = dynamic(() => import("./TamanhoDaLetra").then((m) => m.TamanhoDaLetra), { ssr: false });
+// O "como foi?" da tarefa do "Agir" da aula anterior (modelo de 9 partes): só baixa quando a aula anterior tem a tarefa.
+export const ComoFoiSobDemanda = dynamic(() => import("./ComoFoi").then((m) => m.ComoFoi), { ssr: false });
 export const VersaoFacilSobDemanda = dynamic(() => import("./VersaoFacil").then((m) => m.VersaoFacil));

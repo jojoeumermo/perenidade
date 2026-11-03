@@ -156,7 +156,7 @@ export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   comunismo: ["mais-valia"],
   dependencia: ["estatistica"],
   ecossocialismo: ["conversor-de-unidades"],
-  trabalho: ["mais-valia", "juros-compostos", "direitos-trabalhistas", "contas-do-dia-a-dia"],
+  trabalho: ["mais-valia", "juros-compostos", "direitos-trabalhistas", "contas-do-dia-a-dia", "quanto-cobrar", "gerador-de-curriculo", "orcamento-e-contrato", "dividas-e-renegociacao", "modelos-de-documentos"],
   sindicalismo: ["mais-valia", "direitos-trabalhistas"],
   "redes-e-seguranca": ["criptografia", "grafos"],
   frances: ["pronuncia"],
@@ -264,5 +264,10 @@ export const tools = [
   "dicionario-chines",
   "escrita-chinesa",
   "corretor-ortografico",
+  "quanto-cobrar",
+  "gerador-de-curriculo",
+  "orcamento-e-contrato",
+  "dividas-e-renegociacao",
+  "modelos-de-documentos",
 ] as const;
 export type ToolId = (typeof tools)[number];

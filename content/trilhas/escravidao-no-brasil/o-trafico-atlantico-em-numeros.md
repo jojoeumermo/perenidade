@@ -29,7 +29,7 @@ quiz:
     resposta: 1
     explicacao: "Estima-se que cerca de 5,5 milhões foram trazidos ao Brasil entre 1540 e a década de 1860."
   - pergunta: "Quantas pessoas morreram durante a travessia, segundo as estimativas?"
-    opcoes: ["Quase ninguém", "Até 2 milhões", "Exatamente 100 mil"]
+    opcoes: ["Cerca de 50 mil", "Até 2 milhões", "Cerca de 300 mil"]
     resposta: 1
     explicacao: "A diferença entre embarcados e desembarcados mostra a mortalidade nos navios."
   - pergunta: "Por que o Cais do Valongo é Patrimônio Mundial?"

@@ -10,7 +10,7 @@ import path from "node:path";
 import { CORE_SCHEMA, load } from "js-yaml";
 import { validarExercicios } from "./exercicios";
 import { parseFrontmatter } from "./frontmatter";
-import { conferirModelo, conferirSecoesDoEnem, lerRevisoes, type ParteDoModelo, type Revisao, type SecaoDoEnem } from "./modelo-de-aula";
+import { conferirModelo, conferirPartesNovas, conferirSecoesDoEnem, exigeAsPartesNovas, lerRevisoes, type ParteDoModelo, type ParteNova, type Revisao, type SecaoDoEnem } from "./modelo-de-aula";
 
 export interface AulaPendente {
   trilha: string;
@@ -21,6 +21,12 @@ export interface AulaPendente {
   situacao: "revisada" | "aprovada" | "em-revisao";
   revisoes: Revisao[];
   faltam: ParteDoModelo[];
+  /** As 3 partes novas do modelo de 9 partes que a aula ainda não tem (opcionais nas aulas antigas). */
+  faltamNovas: ParteNova[];
+  /** A aula declara `modelo: 9` no cabeçalho: é aula nova no modelo de 9 partes. */
+  modelo9: boolean;
+  /** Trilha de entrada ou de formação militante: aula nova (modelo: 9) tem de levar as 3 partes novas. */
+  exigeNovas: boolean;
   /** Nas aulas do percurso ENEM: as seções a mais que faltam ("Como isso cai no ENEM", questão comentada, "Para aprofundar"). */
   faltamEnem: SecaoDoEnem[];
   exercicios: number;
@@ -88,6 +94,9 @@ export function lerPendencias(raiz = process.cwd()): Pendencias {
         situacao: revisoes.length ? "revisada" : data.revisada === true ? "aprovada" : "em-revisao",
         revisoes,
         faltam: modelo.filter((m) => !m.ok).map((m) => m.parte),
+        faltamNovas: conferirPartesNovas(content).filter((m) => !m.ok).map((m) => m.parte),
+        modelo9: data.modelo === 9,
+        exigeNovas: exigeAsPartesNovas({ stage: typeof cabecalho.etapa === "string" ? cabecalho.etapa : undefined, area: typeof cabecalho.area === "string" ? cabecalho.area : undefined }),
         faltamEnem: conferirSecoesDoEnem(trilha.name, content, aula),
         exercicios: ex.total,
         exerciciosEmRevisao: ex.emRevisao,

@@ -1,0 +1,13 @@
+[
+  { "slug": "instalacao-hidraulica-basica", "titulo": "Instalação hidráulica básica: como a água chega e sai da casa" },
+  { "slug": "vazamentos-como-achar-e-consertar", "titulo": "Vazamentos: como achar e consertar" },
+  { "slug": "seguranca-no-trabalho-do-encanador", "titulo": "Segurança no trabalho do encanador" },
+  { "slug": "orcamento-do-encanador", "titulo": "Orçamento do encanador" },
+  { "slug": "tubos-e-conexoes-pvc-ppr-e-pex", "titulo": "Tubos e conexões: PVC, PPR e PEX" },
+  { "slug": "torneiras-registros-e-valvula-de-descarga", "titulo": "Torneiras, registros e válvula de descarga" },
+  { "slug": "caixa-dagua-limpeza-e-boia", "titulo": "Caixa d'água: limpeza e boia" },
+  { "slug": "esgoto-e-desentupimento", "titulo": "Esgoto e desentupimento" },
+  { "slug": "chuveiro-e-agua-quente", "titulo": "Chuveiro e água quente" },
+  { "slug": "hidrometro-e-conta-de-agua", "titulo": "Hidrômetro e conta de água" },
+  { "slug": "formalizacao-mei-para-encanador", "titulo": "Formalização: o MEI para encanador" }
+]

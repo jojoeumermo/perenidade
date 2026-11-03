@@ -22,7 +22,7 @@ glossario:
     definicao: "Campanha de perseguição a supostos comunistas nos Estados Unidos, no início dos anos 1950, associada ao senador Joseph McCarthy."
 quiz:
   - pergunta: "O que aconteceu na Indonésia em 1965-1966?"
-    opcoes: ["Centenas de milhares de pessoas acusadas de comunismo foram assassinadas, depois da tomada do poder pelos militares", "A Indonésia virou socialista", "Nada de relevante"]
+    opcoes: ["Centenas de milhares de pessoas acusadas de comunismo foram assassinadas, depois da tomada do poder pelos militares", "Um golpe de militares comunistas tomou o poder e perseguiu opositores", "Houve uma guerra com a Malásia, sem relação com o comunismo"]
     resposta: 0
     explicacao: "O Partido Comunista da Indonésia, então um dos maiores do mundo, foi destruído."
   - pergunta: "O que foi a Operação Condor?"
@@ -30,7 +30,7 @@ quiz:
     resposta: 0
     explicacao: "Participaram ditaduras como as do Chile, Argentina, Uruguai, Paraguai, Bolívia e Brasil."
   - pergunta: "Quem foram as vítimas do macarthismo nos Estados Unidos?"
-    opcoes: ["Funcionários públicos, professores, artistas e sindicalistas acusados de ligações com o comunismo", "Apenas espiões comprovados", "Ninguém"]
+    opcoes: ["Funcionários públicos, professores, artistas e sindicalistas acusados de ligações com o comunismo", "Apenas quem foi condenado por entregar segredos à União Soviética", "Só dirigentes do Partido Comunista"]
     resposta: 0
     explicacao: "Milhares perderam o emprego; artistas de Hollywood entraram em listas negras."
 ---

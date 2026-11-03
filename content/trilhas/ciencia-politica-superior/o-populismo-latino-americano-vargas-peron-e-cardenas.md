@@ -36,7 +36,7 @@ quiz:
     resposta: 0
     explicacao: "Sob a ideia de colaboração de classes."
   - pergunta: "Qual é uma crítica comum a esses governos?"
-    opcoes: ["Deram direitos, mas atrelaram os sindicatos ao Estado e concentraram poder", "Não fizeram nada pelos trabalhadores", "Eram todos democracias plenas"]
+    opcoes: ["Deram direitos, mas atrelaram os sindicatos ao Estado e concentraram poder", "Foram contra a industrialização e defenderam o fim do Estado", "Governaram sem apoio popular, só pela força militar"]
     resposta: 0
     explicacao: "No Brasil, surgiu o termo 'pelego'."
 ---

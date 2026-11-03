@@ -24,7 +24,7 @@ quiz:
     resposta: 0
     explicacao: "Cada um tem um modelo próprio, com diferentes combinações de planejamento, propriedade estatal e mercado."
   - pergunta: "Qual destas afirmações é mais justa sobre as experiências socialistas do século XX?"
-    opcoes: ["Tiveram conquistas sociais importantes e também graves problemas, como repressão política e burocratização", "Foram perfeitas", "Não tiveram nenhuma conquista"]
+    opcoes: ["Tiveram conquistas sociais importantes e também graves problemas, como repressão política e burocratização", "Cumpriram tudo o que prometeram, sem repressão nem erros", "Só tiveram problemas, sem avanços sociais"]
     resposta: 0
     explicacao: "Estudar a história sem propaganda, de nenhum lado, é condição para aprender com ela."
 ---

@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Confere o que os recursos novos guardam no aparelho (lib/meu-estudo.ts), a leitura das flags (lib/recursos.ts) e
 // que a cópia de segurança de lib/estudo.ts leva e junta as chaves novas sem perder nada. Sem rede, sem navegador.
-import { lerCopia, montarCopia, restaurarCopia } from "../lib/estudo.ts";
+import { chavesDeEstudo, entraNaCopia, lerCopia, montarCopia, restaurarCopia } from "../lib/estudo.ts";
 import {
   aulasNaSemana,
   apagarProgresso,
@@ -25,7 +25,10 @@ import fs from "node:fs";
 import { CORE_SCHEMA, load } from "js-yaml";
 import { validarMapa } from "../lib/mapa-curricular.ts";
 import { icsSemanal } from "../lib/agenda.ts";
-import { conferirModelo, lerRevisoes } from "../lib/modelo-de-aula.ts";
+import { conferirModelo, conferirPartesNovas, exigeAsPartesNovas, lerRevisoes, partesDoOutroLado, tarefaDoAgir } from "../lib/modelo-de-aula.ts";
+import { aulaDoEndereco, chaveDoAgir, guardarAgir, lerAgir } from "../lib/agir.ts";
+import { lerAvisos, marcarAviso, novidades } from "../lib/avise.ts";
+import { LIMITE_DO_ARQUIVO, montarArquivoUnico, nomeDoArquivo, tamanhoEmBytes } from "../lib/arquivo-unico.ts";
 import { codificarSequencia, codigoDaSequencia, gerarComprovante, lerComprovante, lerComprovantes, lerSequencia } from "../lib/turma.ts";
 import { ligado, lerRecursos, PADRAO, RECURSOS, SO_PELO_NOME } from "../lib/recursos.ts";
 
@@ -127,6 +130,49 @@ const faltando = conferirModelo({ corpo: linhas("## Partes", "", "curto"), quiz:
 conferir("aponta o que falta", JSON.stringify(faltando) === JSON.stringify(["objetivo", "explicacao", "exemplo", "exercicio", "resumo"]));
 const blocos = linhas("```conta", "1+1", "```", "```verificar", "p", "+ a", "```");
 conferir("bloco conta vale como exemplo e verificar como exercício", conferirModelo({ corpo: blocos, quiz: 0, fontes: 1 }).filter((p) => p.ok).map((p) => p.parte).join() === "exemplo,exercicio,fontes");
+// As 3 partes novas do modelo de 9 partes: opcionais nas aulas antigas (conferirModelo não muda), conferidas à parte
+conferir("conferirModelo segue com as 6 partes", conferirModelo({ corpo, quiz: 3, fontes: 1 }).length === 6);
+conferir("aula antiga: as 3 partes novas faltam, sem quebrar nada", conferirPartesNovas(corpo).map((p) => p.motivo).join() === "falta,falta,falta");
+const completa = linhas("## O que você vai aprender", "", "Algo.", "", "```suarealidade", "E no seu trabalho?", "```", "", "## Partes", "", "texto", "", "```outrolado", "# O mais forte", "Argumento.", "---", "Como responderia?", "---", "Uma resposta.", "```", "", "```agir", "Anote uma coisa.", "```", "", "## Resumo", "", "- ok");
+conferir("aula de 9 partes: as 3 novas ok", conferirPartesNovas(completa).every((p) => p.ok));
+const depois = linhas("## O que você vai aprender", "", "x", "", "## Partes", "", "texto", "", "```suarealidade", "E no seu trabalho?", "```", "", "```outrolado", "Argumento.", "```", "", "```agir", "Faça.", "```");
+conferir("Na sua realidade depois da explicação é apontada", conferirPartesNovas(depois)[0].motivo === "ordem");
+conferir("O outro lado sem treino é apontado", conferirPartesNovas(depois)[1].motivo === "treino");
+conferir("Na sua realidade pode ficar dentro da seção do objetivo", conferirPartesNovas(linhas("## O que você vai aprender", "", "```suarealidade", "P?", "```", "", "## Partes"))[0].ok);
+conferir("título ## Agir também vale", conferirPartesNovas("## Agir\n\nFaça isto.")[2].ok && tarefaDoAgir("## Agir\n\nFaça isto.\n\n## Resumo") === "Faça isto.");
+conferir("bloco dentro de código não conta como título", conferirPartesNovas("```\n## Agir\n```")[2].motivo === "falta");
+conferir("o treino do outro lado separa em três", JSON.stringify(partesDoOutroLado("A\n---\nB\n---\nC")) === JSON.stringify({ argumento: "A", treino: "B", resposta: "C" }));
+conferir("tarefa do bloco agir", tarefaDoAgir(completa) === "Anote uma coisa." && tarefaDoAgir(corpo) === null);
+conferir("trilhas que exigem as 3 partes", exigeAsPartesNovas({ stage: "fundamental" }) && exigeAsPartesNovas({ area: "alfabetizacao" }) && exigeAsPartesNovas({ area: "formacao-militante", stage: "medio" }) && !exigeAsPartesNovas({ stage: "medio", area: "matematica" }));
+// "Como foi?": só no aparelho, com o prefixo lucia:
+const aparelho = new Memoria({});
+conferir("sem registro, nada guardado", lerAgir("a/1", aparelho) === null);
+guardarAgir("a/1", { estado: "vou" }, aparelho, 10);
+guardarAgir("a/1", { estado: "em-parte", nota: " deu certo " }, aparelho, 20);
+const reg = lerAgir("a/1", aparelho);
+conferir("guarda o estado e a nota com a data", reg?.estado === "em-parte" && reg.nota === "deu certo" && reg.em === 20 && chaveDoAgir("a/1") === "lucia:agir:a/1" && aparelho.getItem("lucia:agir:a/1") !== null);
+aparelho.setItem("lucia:agir:b/2", "{lixo");
+conferir("registro estragado vira nada", lerAgir("b/2", aparelho) === null);
+conferir("o registro entra na cópia e no apagar", entraNaCopia("lucia:agir:a/1") && chavesDeEstudo(aparelho).includes("lucia:agir:a/1"));
+conferir("armazenamento bloqueado não quebra", guardarAgir("a/1", { estado: "fiz" }, { getItem() { throw new Error("x"); }, setItem() { throw new Error("x"); }, removeItem() { throw new Error("x"); } }) === false);
+conferir("a aula vem do endereço", aulaDoEndereco("/en/trilhas/mat/fracoes") === "mat/fracoes" && aulaDoEndereco("/trilhas/mat/fracoes/") === "mat/fracoes" && aulaDoEndereco("/sobre") === null);
+// "Me avise quando sair" (catálogo honesto): só no aparelho, uma chave só
+const avisos = new Memoria({});
+conferir("sem avisos, objeto vazio", JSON.stringify(lerAvisos(avisos)) === "{}");
+marcarAviso("ofícios-x", 2, avisos);
+marcarAviso("oficios-cozinha", 0, avisos);
+marcarAviso("mei", 3, avisos);
+conferir("slug estranho é ignorado na leitura", !("ofícios-x" in lerAvisos(avisos)) && lerAvisos(avisos).mei === 3);
+conferir("aula nova aparece como novidade", JSON.stringify(novidades(lerAvisos(avisos), { "oficios-cozinha": 2, mei: 3 })) === JSON.stringify([{ trilha: "oficios-cozinha", novas: 2 }]));
+marcarAviso("mei", null, avisos);
+conferir("desligar tira a trilha", !("mei" in lerAvisos(avisos)) && entraNaCopia("lucia:avise") && entraNaCopia("lucia:bloco:/trilhas/a/b:outrolado:abc"));
+avisos.setItem("lucia:avise", "[1,2]");
+conferir("aviso estragado vira vazio", JSON.stringify(lerAvisos(avisos)) === "{}");
+// "Baixar para o WhatsApp": arquivo único, sem script nem evento, pequeno
+const arquivo = montarArquivoUnico({ titulo: "Frações <1>", conteudo: '<h1 onclick="x()">Oi</h1><script>alert(1)</script><a href="javascript:alert(1)">a</a><iframe src="https://x"></iframe><p>texto</p>', url: "https://site/pt/trilhas/mat/fracoes", lang: "pt", fonte: "Baixado de", rodape: "Funciona sem internet." });
+conferir("arquivo único sem script, evento nem iframe", !/<script|onclick|javascript:|<iframe/i.test(arquivo) && arquivo.includes("<p>texto</p>") && arquivo.includes("Frações &lt;1&gt;"));
+conferir("arquivo único pequeno", tamanhoEmBytes(arquivo) < LIMITE_DO_ARQUIVO && tamanhoEmBytes("ção") === 5);
+conferir("nome do arquivo pela aula", nomeDoArquivo("/en/trilhas/mat/fracoes") === "mat-fracoes.html" && nomeDoArquivo("/") === "aula.html");
 conferir("sem revisões é em revisão", lerRevisoes(undefined, "x").length === 0);
 const rev = lerRevisoes([{ funcao: "revisão", data: "2026-10-01" }, { funcao: "educador de matemática", nome: "Ana", data: new Date("2026-10-20"), nota: "ok" }], "x");
 conferir("revisões em ordem, a mais nova primeiro", rev[0].data === "2026-10-20" && rev[0].nome === "Ana" && rev[1].funcao === "revisão");

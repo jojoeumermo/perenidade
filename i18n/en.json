@@ -880,6 +880,16 @@
     "summaryTitle": "Contents",
     "underConstruction": "Under construction",
     "helpWrite": "Help write this track",
+    "notifyMe": "Let me know when a new lesson is out",
+    "notifyOn": "✓ You'll be notified on this device",
+    "notifyOff": "stop notifying",
+    "notifyHint": "The notice stays only on this device: the site doesn't store who asked. It shows here and on the subjects page when a new lesson is out.",
+    "notifyNews": "New lessons in the tracks you marked",
+    "notifyNewsItem": "{n} new lesson(s)",
+    "notifySeen": "seen",
+    "emptyHelp": "No lessons ready yet: help write it →",
+    "saveCourse": "Save course to read offline",
+    "saveSize": "about {n} MB",
     "planned": "in preparation",
     "plannedHelp": "Lessons marked “in preparation” are part of this track's roadmap and have not been written yet.",
     "plannedLink": "Would you like to write one?",
@@ -1061,7 +1071,29 @@
       "leve": "Take it to your community",
       "roda": "Talk it over in the room",
       "rodaLink": "Open this subject's room in the community",
-      "ouvirTrecho": "Listen to this part"
+      "ouvirTrecho": "Listen to this part",
+      "suarealidade": "In your reality",
+      "suarealidadePrompt": "Think about your work or your neighborhood and write. It stays on your device only.",
+      "outrolado": "The other side",
+      "outroladoForte": "The strongest argument from those who disagree",
+      "outroladoTreino": "Practice your answer",
+      "outroladoPrompt": "Write how you would answer, respectfully and with facts. It stays on your device only.",
+      "outroladoResposta": "See a possible answer",
+      "agir": "Act",
+      "agirVou": "I will do this",
+      "agirFeito": "Noted on this device. The next lesson will ask how it went.",
+      "agirAviso": "A small task. Your answer stays on your device only.",
+      "comoFoiTitulo": "How did it go?",
+      "comoFoiIntro": "In the lesson “{aula}”, the task was:",
+      "comoFoiFiz": "I did it",
+      "comoFoiParte": "I did part of it",
+      "comoFoiNao": "Not yet",
+      "comoFoiNota": "Want to note how it went? It stays on your device only.",
+      "comoFoiRespFiz": "Good. Noted on this device.",
+      "comoFoiRespParte": "That is already a start. You can finish when you can.",
+      "comoFoiRespNao": "That is fine. The task stays in the previous lesson for when you can.",
+      "comoFoiMudar": "Change the answer",
+      "comoFoiVer": "Back to the task"
     },
     "quickCheck": "Quick check",
     "voz": {
@@ -2150,6 +2182,26 @@
     "corretor-ortografico": [
       "Spell checker (Portuguese)",
       "Checks Brazilian Portuguese spelling with suggestions, without the text leaving your device."
+    ],
+    "quanto-cobrar": [
+      "How much to charge (Brazil)",
+      "Your minimum hourly and daily rate for self-employed work, with social security, holidays and 13th pay."
+    ],
+    "gerador-de-curriculo": [
+      "Résumé maker",
+      "A résumé and short cover letter made on your device, also for people who only did odd jobs; print or copy."
+    ],
+    "orcamento-e-contrato": [
+      "Quote and simple contract",
+      "A service quote and simple contract with materials, labor, deadline and payment terms."
+    ],
+    "dividas-e-renegociacao": [
+      "Debt and renegotiation",
+      "How long and how much a debt costs you, a settlement offer compared, and Brazil's over-indebtedness law."
+    ],
+    "modelos-de-documentos": [
+      "Document templates (Brazil)",
+      "Consumer complaint, resignation letter, social security appeal and notice to a landlord."
     ]
   },
   "tools": {
@@ -5584,6 +5636,12 @@
   },
   "compartilhar": {
     "titulo": "Share",
+    "baixarHtml": "Download the lesson as a single file (to send on WhatsApp)",
+    "baixarHtmlDica": "A small .html file that opens offline on any phone, even old ones.",
+    "baixarHtmlPronto": "File ready: check your downloads.",
+    "baixarHtmlFalhou": "Could not build the file in this browser.",
+    "baixarHtmlFonte": "Downloaded from",
+    "baixarHtmlRodape": "Works offline. To take the quizzes and save your progress, open the lesson on the site.",
     "whatsapp": "Send on WhatsApp",
     "telegram": "Send on Telegram",
     "copiar": "Copy the link",

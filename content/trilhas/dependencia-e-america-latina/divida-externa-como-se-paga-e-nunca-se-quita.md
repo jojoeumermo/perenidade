@@ -27,7 +27,7 @@ quiz:
     resposta: 2
     explicacao: "Essa auditoria prevista na Constituição não foi concluída."
   - pergunta: "O que o Equador fez em 2007 e 2008?"
-    opcoes: ["Criou uma comissão oficial para auditar a sua dívida pública", "Pagou a dívida de todos os vizinhos", "Abandonou o uso de moeda"]
+    opcoes: ["Criou uma comissão oficial para auditar a sua dívida pública", "Aumentou os juros da dívida para atrair investidores", "Pagou toda a dívida de uma vez com as reservas do país"]
     resposta: 0
     explicacao: "A comissão apontou irregularidades, e o governo recomprou parte dos títulos com grande desconto."
 ---

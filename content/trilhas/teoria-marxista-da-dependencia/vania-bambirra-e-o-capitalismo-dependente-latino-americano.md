@@ -22,7 +22,7 @@ quiz:
     resposta: 0
     explicacao: "Ela distingue os que se industrializaram antes da Segunda Guerra dos que o fizeram depois, já sob controle do capital estrangeiro."
   - pergunta: "Em que grupo Bambirra coloca Brasil, Argentina e México?"
-    opcoes: ["Entre os países sem nenhuma indústria", "Entre os países que só se industrializaram depois de 1945", "Entre os países de industrialização antiga, iniciada antes da integração monopólica do pós-guerra"]
+    opcoes: ["Entre os países que só exportavam produtos agrícolas", "Entre os países que só se industrializaram depois de 1945", "Entre os países de industrialização antiga, iniciada antes da integração monopólica do pós-guerra"]
     resposta: 2
     explicacao: "É o que ela chama de tipo A."
   - pergunta: "Para Bambirra, o que acontece com as burguesias industriais desses países depois da Segunda Guerra?"
