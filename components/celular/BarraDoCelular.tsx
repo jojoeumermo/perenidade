@@ -5,6 +5,7 @@ import Link from "@/components/Link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { localePath } from "@/i18n/config";
+import { ligado } from "@/lib/recursos";
 import { site } from "@/lib/site";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { TRECHOS_DA_AULA } from "../aula/BarraDaAula";
@@ -12,8 +13,8 @@ import { useI18n } from "../I18n";
 import { AccountLink } from "../NavLinks";
 import { ABRIR_FOLHA_DA_AULA } from "./AcoesDaAula";
 
-/** As abas de baixo: nelas a barra mostra o nome da aba, e não a seta de voltar. */
-const RAIZES = ["trilhas", "acervo", "comunidade"];
+/** As abas de baixo: nelas a barra mostra o nome da aba, e não a seta de voltar. Com a Escola ligada, as abas mudam. */
+const RAIZES = ligado("escola") ? ["trilhas", "acervo", "comunidade", "escola", "meu-estudo"] : ["trilhas", "acervo", "comunidade"];
 
 // Andou dentro do site desde que a página abriu? Então "voltar" é voltar mesmo; quem chegou por um link de fora
 // (WhatsApp, busca) volta para a página de cima, em vez de sair do site.
@@ -128,7 +129,7 @@ export function BarraDoCelular() {
     });
   };
 
-  const nomeDaAba: Record<string, string> = { trilhas: t.nav.disciplines, acervo: t.nav.library, comunidade: t.nav.community };
+  const nomeDaAba: Record<string, string> = { trilhas: t.nav.disciplines, acervo: t.nav.library, comunidade: t.nav.community, escola: t.celular.escola, "meu-estudo": t.celular.abaMeuEstudo };
 
   return (
     <header className="barra-do-celular no-leitor no-print no-focus md:hidden" data-raiz={raiz ?? undefined}>

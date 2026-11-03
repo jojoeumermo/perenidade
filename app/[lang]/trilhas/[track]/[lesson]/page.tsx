@@ -28,7 +28,7 @@ import { StudyTools } from "@/components/StudyTools";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath, plural } from "@/i18n/config";
-import { getGlossary, getTrack, getTracks, requisitosDaAula, tambemEmOutras, idiomasDe } from "@/lib/content";
+import { getGlossary, getTrack, getTracks, requisitosDaAula, tambemEmOutras, idiomasDe, versaoFacilDe } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
 import { normalize } from "@/lib/text";
@@ -49,6 +49,21 @@ import { mapaDaAula } from "@/lib/curriculo-conteudo";
 import { questoesOficiaisDaAula } from "@/lib/enem-conteudo";
 import { VideoCurto } from "@/components/videos/VideoCurto";
 import { videosDaAula } from "@/lib/videos/indice";
+import fs from "node:fs";
+import nodePath from "node:path";
+import "@/styles/escola-aula.css";
+import { textosDaAula } from "@/i18n/escola/aula";
+import { fatiar } from "@/lib/fatias";
+import { medirLeitura, textoParaMedir } from "@/lib/legibilidade";
+import { NivelDeLeitura } from "@/components/aula/NivelDeLeitura";
+import {
+  BarraDeSelecaoSobDemanda as BarraDeSelecao,
+  FatiasSobDemanda as Fatias,
+  OuvirParagrafoSobDemanda as OuvirParagrafo,
+  ProximoPassoSobDemanda as ProximoPasso,
+  RetomarAquiSobDemanda as RetomarAqui,
+  VersaoFacilSobDemanda as VersaoFacil,
+} from "@/components/aula/AulaVivaSobDemanda";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -143,10 +158,34 @@ export default async function LessonPage({ params }: Props) {
       ? { id: ferramenta, nome: (t.toolNames as Record<string, string[]>)[ferramenta]?.[0] ?? ferramenta }
       : undefined;
 
+  // A aula por dentro (Etapa 4, pacote E4-03; docs/escola/aula.md): só com o recurso "escola" ligado. Desligado, nada
+  // disto é calculado nem aparece, e a aula fica exatamente como era. Vale para toda aula, não só as da Escola.
+  const sa = ligado("escola") ? textosDaAula(lang) : null;
+  // As trilhas de alfabetização (as mesmas que ganham data-letra-grande) e as de entrada (etapa fundamental).
+  const letraGrande = track.area === "alfabetizacao" && track.stage !== "superior";
+  const deEntrada = track.stage === "fundamental" || track.area === "alfabetizacao";
+  const fatias = sa ? fatiar(lesson.body).map(({ minutos, titulo, ancora }) => ({ minutos, titulo, ancora })) : [];
+  const facil = sa ? versaoFacilDe(lesson.file, lang) : null;
+  // O índice de leitura é o de Flesch adaptado ao português: só mede o texto em português, e na montagem do site.
+  const leitura = sa && deEntrada && lang === defaultLocale ? medirLeitura(textoParaMedir(lesson.body)) : null;
+  const temProva = track.lessons.reduce((soma, l) => soma + l.quiz.length, 0) >= 10;
+  // Gancho do cordel da aula (E4-06): o link só aparece quando o arquivo existe.
+  const cordel = sa ? fs.existsSync(nodePath.join(process.cwd(), "content", "cordel", track.slug, `${lesson.slug}.md`)) : false;
+  const glossarioDaAula = sa
+    ? lesson.terms.map((termo) => ({ term: termo.term, summary: termo.summary, slug: getGlossary(lang).find((g) => g.term.toLowerCase() === termo.term.toLowerCase())?.slug }))
+    : [];
+  const textoCompleto = (
+    <div id="texto-da-aula" className="mt-8">
+      <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area}>{lesson.body}</Markdown>
+    </div>
+  );
+  // Ícones de traço ao lado do texto nos botões de navegação das aulas de alfabetização (R1-87).
+  const comIcones = Boolean(sa) && letraGrande;
+
   return (
     <div className="pagina-da-aula pont">
       {/* A faixa preta da aula: a trilha, a posição, quanto já foi lido e os botões de ouvir, anotar, alargar e focar. */}
-      <BarraDaAula voltar={to(`/trilhas/${track.slug}`)} trilha={track.title} posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} minutos={fill(t.tracks.minutes, { n: lesson.minutes })} aula={id} ferramentas={t.tools.box.open} />
+      <BarraDaAula voltar={to(`/trilhas/${track.slug}`)} trilha={track.title} posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} minutos={fill(t.tracks.minutes, { n: lesson.minutes })} aula={id} ferramentas={t.tools.box.open} letra={sa?.letra} />
     <div className="grade-da-aula mx-auto grid max-w-[86rem] gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! sm:px-6 md:grid-cols-[14rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[14rem_minmax(0,1fr)_15rem]">
       <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, `/trilhas/${track.slug}`], [lesson.title, `/trilhas/${track.slug}/${lesson.slug}`]])]} />
       <ReadingChrome />
@@ -155,6 +194,7 @@ export default async function LessonPage({ params }: Props) {
         anterior={prev && { id: lessonId(track.slug, prev.slug), path: path(prev.slug), title: prev.title }}
         proxima={next && { id: lessonId(track.slug, next.slug), path: path(next.slug), title: next.title }}
         aulas={track.plan.map((item) => ({ id: lessonId(track.slug, item.slug), path: path(item.slug), title: item.title, ready: item.ready }))}
+        escola={sa ? { umaMao: sa.umaMao, letra: sa.letra, trilha: `/trilhas/${track.slug}` } : undefined}
       />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} area={track.area} />
       {(ligado("meu-estudo") || ligado("metas")) && <RegistroDeConclusao />}
@@ -194,7 +234,22 @@ export default async function LessonPage({ params }: Props) {
           <h1 className="mt-2.5 text-[2.5rem] font-semibold leading-[1.05] text-balance app:max-md:text-[2rem] app:max-md:leading-[1.15] sm:text-[3.4rem]">{lesson.title}</h1>
           <p className="mt-3 text-[1.4rem] italic leading-snug text-ink-soft app:max-md:text-lg">{lesson.summary}</p>
         </div>
-        <OuvirAula minutos={fill(t.tracks.minutes, { n: lesson.minutes })} lexico={lerLexico()} />
+        {/* E4-17: Libras */}
+        <OuvirAula minutos={fill(t.tracks.minutes, { n: lesson.minutes })} lexico={lerLexico()} avisoTelaApagada={sa?.voz.telaApagada} />
+        {sa && (
+          <>
+            {leitura && <NivelDeLeitura indice={leitura.indice} s={sa.nivel} />}
+            {cordel && (
+              <p className="no-print mt-4 font-sans text-sm">
+                <Link href={to(`${path(lesson.slug)}/cordel`)} className="font-semibold underline decoration-[#c21f16] underline-offset-4 hover:text-oxblood">
+                  {sa.cordel.ouvir} →
+                </Link>
+              </p>
+            )}
+            <RetomarAqui aula={id} partes={fatias.length > 1} s={sa.retomar} />
+            <Fatias aula={id} fatias={fatias} s={sa.fatias} />
+          </>
+        )}
 
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
         <AntesDaAula aula={id} requisitos={requisitos} />
@@ -208,9 +263,14 @@ export default async function LessonPage({ params }: Props) {
         <div {...originalLang(lesson.translated)}>
           {/* Vídeos curtos da aula (recurso enem-video): o tocador só baixa depois do clique. */}
           {ligado("enem-video") && videosDaAula(track.slug, lesson.slug).filter((v) => !lesson.body.includes(v)).map((v) => <VideoCurto key={v} id={v} />)}
-          <div id="texto-da-aula" className="mt-8">
-            <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area}>{lesson.body}</Markdown>
-          </div>
+          {sa && facil ? (
+            <VersaoFacil completo={textoCompleto} facil={<Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area}>{facil.body}</Markdown>} s={sa.facil} />
+          ) : (
+            textoCompleto
+          )}
+          {sa && letraGrande && <OuvirParagrafo raiz="#texto-da-aula" s={sa.ouvir} />}
+          {sa && letraGrande && facil && <OuvirParagrafo raiz="#texto-facil" s={sa.ouvir} />}
+          {sa && <BarraDeSelecao termos={glossarioDaAula} titulo={lesson.title} endereco={site.url} s={sa.selecao} cartao={sa.cartao} />}
           {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={id} guardarNoAparelho={ligado("meu-estudo")} />}
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
           {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />}
@@ -248,7 +308,12 @@ export default async function LessonPage({ params }: Props) {
           {habilidades && <HabilidadesDaAula mapa={habilidades} s={estudo.mapa} />}
         </div>
 
-        <CompleteButton id={id} next={next && { path: path(next.slug), title: next.title }} />
+        <CompleteButton
+          id={id}
+          next={next && { path: path(next.slug), title: next.title }}
+          passo={sa ? { s: sa.proximo, proxima: next && { path: path(next.slug), title: next.title }, prova: !next && temProva ? `/trilhas/${track.slug}/prova` : undefined, trilhas: "/trilhas", icones: comIcones } : undefined}
+        />
+        {sa && <ProximoPasso proxima={next && { caminho: path(next.slug), titulo: next.title }} s={sa.proximo} />}
         {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} />}
         <Compartilhar
           url={`${site.url}${to(path(lesson.slug))}`}
@@ -259,8 +324,26 @@ export default async function LessonPage({ params }: Props) {
         />
 
         <nav aria-label={t.lesson.neighbors} data-vizinhas className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
-          {prev ? <Link href={to(path(prev.slug))} data-prev className={`hover:text-oxblood ${vizinha}`}>← {prev.title}</Link> : <span />}
-          {next ? <Link href={to(path(next.slug))} data-next className={`text-right hover:text-oxblood app:max-md:order-first ${vizinha}`}>{next.title} →</Link> : <span />}
+          {prev ? (
+            comIcones ? (
+              <Link href={to(path(prev.slug))} data-prev aria-label={`${t.common.back}: ${prev.title}`} className={`inline-flex items-center gap-2 hover:text-oxblood ${vizinha}`}>
+                <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H6M11 6l-6 6 6 6" /></svg>
+                {prev.title}
+              </Link>
+            ) : (
+              <Link href={to(path(prev.slug))} data-prev className={`hover:text-oxblood ${vizinha}`}>← {prev.title}</Link>
+            )
+          ) : <span />}
+          {next ? (
+            comIcones ? (
+              <Link href={to(path(next.slug))} data-next aria-label={`${t.lesson.next} ${next.title}`} className={`inline-flex items-center justify-end gap-2 text-right hover:text-oxblood app:max-md:order-first ${vizinha}`}>
+                {next.title}
+                <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h13M13 6l6 6-6 6" /></svg>
+              </Link>
+            ) : (
+              <Link href={to(path(next.slug))} data-next className={`text-right hover:text-oxblood app:max-md:order-first ${vizinha}`}>{next.title} →</Link>
+            )
+          ) : <span />}
         </nav>
 
         <StudyTools id={id} path={path(lesson.slug)} s={t.study} titulo={lesson.title} sala={track.area} />

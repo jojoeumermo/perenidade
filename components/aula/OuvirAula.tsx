@@ -20,7 +20,7 @@ const nada = () => () => {};
  * escondida na faixa de cima. Ao lado, a escolha da voz: a do aparelho (leve, não baixa nada) ou uma voz natural, que
  * a pessoa baixa uma vez e roda no próprio aparelho. Some onde o navegador não sabe falar e no modo leitor (Kindle).
  */
-export function OuvirAula({ minutos, lexico }: { minutos: string; lexico: Lexico }) {
+export function OuvirAula({ minutos, lexico, avisoTelaApagada }: { minutos: string; lexico: Lexico; avisoTelaApagada?: string }) {
   const { t } = useI18n();
   const l = t.lesson;
   const falando = useSpeaking();
@@ -82,7 +82,7 @@ export function OuvirAula({ minutos, lexico }: { minutos: string; lexico: Lexico
         </p>
       )}
       {aberto && <SeletorDeVoz fechar={() => setAberto(false)} />}
-      <TocadorDaVoz />
+      <TocadorDaVoz avisoTelaApagada={avisoTelaApagada} />
     </div>
   );
 }

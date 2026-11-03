@@ -1,0 +1,10 @@
+{
+  "rotulo": "学校的到场情况，不记名统计",
+  "abertas": "今天，学校里有 {n} 节课被打开",
+  "abertasUma": "今天，学校里有 {n} 节课被打开",
+  "terminadas": "过去 7 天，有 {n} 节课被学完",
+  "terminadasUma": "过去 7 天，有 {n} 节课被学完",
+  "matriculas": "本月新增 {n} 个入学登记",
+  "matriculasUma": "本月新增 {n} 个入学登记",
+  "nota": "匿名合计：不记名，不排名。"
+}

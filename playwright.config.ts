@@ -26,12 +26,19 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   projects: [
-    { name: "computador", use: { ...devices["Desktop Chrome"], channel: "chrome" } },
+    { name: "computador", use: { ...devices["Desktop Chrome"], channel: "chrome" }, testIgnore: /aparelho-de-entrada/ },
     // A fumaça (e2e/fumaca.spec.ts) roda no computador e no Galaxy S24; o Pixel 7 fica com os outros fluxos, para a
     // suíte não rodar três vezes.
-    { name: "celular", use: { ...devices["Pixel 7"], channel: "chrome" }, testIgnore: /visual|fumaca/ },
+    { name: "celular", use: { ...devices["Pixel 7"], channel: "chrome" }, testIgnore: /visual|fumaca|aparelho-de-entrada/ },
     // O Galaxy S24 pelo navegador do celular (o visual dentro do aplicativo é o de e2e/s24.spec.ts). Só a fumaça.
     { name: "s24", use: { ...devices["Galaxy S24"], channel: "chrome" }, testMatch: /fumaca\.spec\.ts/ },
+    // O celular de entrada (E4-04, R1-89): tela de 360x640, toque, e no próprio teste a CPU 4x mais lenta e a rede 3G lenta
+    // (CDP). Só e2e/aparelho-de-entrada.spec.ts, que mede o LCP e o JS baixado: `npm run testar:entrada`.
+    {
+      name: "entrada",
+      use: { viewport: { width: 360, height: 640 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, channel: "chrome", userAgent: devices["Pixel 7"].userAgent },
+      testMatch: /aparelho-de-entrada\.spec\.ts/,
+    },
   ],
   webServer: process.env.BASE_URL
     ? undefined

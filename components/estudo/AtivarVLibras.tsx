@@ -3,6 +3,9 @@
 
 import { useState } from "react";
 import textos from "@/i18n/estudo/pt.json";
+import { SelosDePrivacidade } from "../SeloDePrivacidade";
+import { ligado, type Recurso } from "@/lib/recursos";
+import { SELOS_DE_FORA } from "@/lib/selos";
 import { carregarVLibras, lembrarVLibras, vlibrasCarregado, vlibrasLembrado } from "@/lib/vlibras";
 
 // A parte do VLibras no painel de acessibilidade (recurso "vlibras"). Este arquivo só é baixado quando o painel abre
@@ -32,6 +35,8 @@ export default function AtivarVLibras() {
     <div>
       <p className="font-semibold">{s.titulo}</p>
       <p className="text-xs text-ink-soft">{s.dica}</p>
+      {/* Selo de privacidade (E4-04). "escola" entra em lib/recursos.ts pelo E4-01. */}
+      {ligado("escola" as Recurso) && <SelosDePrivacidade item={SELOS_DE_FORA.vlibras} className="mt-1" />}
       {estado === "desligado" && (
         <button type="button" onClick={() => setEstado("confirmando")} className="mt-2 cursor-pointer border-2 border-ink px-4 py-2 font-medium hover:border-oxblood hover:text-oxblood">
           {s.ativar}

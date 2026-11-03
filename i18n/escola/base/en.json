@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "titulo": "Lúcia Maria School",
+    "descricao": "The free people's school of the Instituto Lúcia, with no sign-up: a path, a class and a record of what you studied."
+  },
+  "nav": {
+    "rotulo": "Parts of the School",
+    "entrada": "Entrance",
+    "quemFoi": "Who Lúcia Maria was",
+    "cursos": "Courses",
+    "matricula": "Enrolment",
+    "calendario": "Calendar",
+    "campus": "Campus",
+    "turmas": "Classes",
+    "acompanhante": "Study companion",
+    "caderneta": "Record book"
+  },
+  "entrada": {
+    "olho": "Instituto Lúcia",
+    "titulo": "Lúcia Maria School",
+    "linhaNaoUniversidade": "A free people's school, with no sign-up. It is not a university and does not award diplomas: it gives you a path, a class and a record of what you studied.",
+    "comoFunciona": "How it works",
+    "passos": [
+      { "titulo": "Enrolment", "texto": "Say what you want and how much time you have. No name, email or ID: your enrolment stays on your device." },
+      { "titulo": "Course", "texto": "Pick a course built only from lessons that already exist at the Instituto." },
+      { "titulo": "Class", "texto": "If you like, study together with others taking the same course." },
+      { "titulo": "Task in the world", "texto": "Take what you learned beyond the screen: at work, at home, in your neighbourhood." },
+      { "titulo": "Graduation", "texto": "At the end, a graduation and the record book of what you studied." }
+    ],
+    "pelaEscola": "Around the School",
+    "campusTexto": "The School's buildings: lessons, library, labs, radio and community.",
+    "calendarioTexto": "Terms, holidays and exam week.",
+    "rever": "Watch the opening again"
+  },
+  "cartao": {
+    "olho": "First of all",
+    "titulo": "Who Lúcia Maria was",
+    "texto": "The person this school is named after.",
+    "ler": "Read"
+  },
+  "quemFoi": {
+    "olho": "Lúcia Maria School",
+    "titulo": "Who Lúcia Maria was",
+    "descricao": "The person the Lúcia Maria School of the Instituto Lúcia is named after.",
+    "emPortugues": "(text in Portuguese)",
+    "voltar": "Back to the School entrance"
+  },
+  "emConstrucao": {
+    "titulo": "This part of the School is being built",
+    "texto": "It goes live when it is ready. Meanwhile, the lessons, the library and My study remain open.",
+    "voltar": "Back to the School entrance"
+  },
+  "paginas": {
+    "cursos": "Courses",
+    "matricula": "Enrolment",
+    "carteirinha": "Student card",
+    "plano": "Weekly plan",
+    "campus": "Campus",
+    "calendario": "Calendar",
+    "acompanhante": "Study companion",
+    "vozes": "Voices of work",
+    "lutas": "Map of struggles",
+    "assembleia": "Student assembly",
+    "ouvidoria": "Ombudsman",
+    "educador-do-mes": "Educator of the month",
+    "provas": "Exam week",
+    "saberes": "Recognition of knowledge",
+    "formatura": "Graduation",
+    "caderneta": "Record book",
+    "turmas": "Classes"
+  },
+  "calendario": {
+    "proposto": "Proposed calendar, to be confirmed by the coordination"
+  },
+  "abertura": {
+    "rotulo": "Welcome to the Lúcia Maria School",
+    "pular": "Skip",
+    "seguir": "Next",
+    "entrar": "Enter the School",
+    "ouvir": "Listen",
+    "parar": "Stop listening",
+    "de": "{n} of {total}",
+    "q1Titulo": "This is the Lúcia Maria School",
+    "q1Texto": "A free and open people's school, inside the Instituto Lúcia.",
+    "q2Titulo": "Who Lúcia Maria was",
+    "q3Titulo": "Why the School exists",
+    "fonte": "Excerpt from “About us”",
+    "emPortugues": "(text in Portuguese)",
+    "q4Titulo": "How it works",
+    "q4Texto": "No sign-up. What you study is kept on this device and only leaves it if you send it.",
+    "baixarVoz": "To listen with the voice you chose, the device needs to download {tamanho}. Download now?",
+    "baixarSim": "Download and listen",
+    "baixarNao": "Not now",
+    "semVoz": "This device has no voice to read aloud."
+  }
+}

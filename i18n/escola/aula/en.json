@@ -1,0 +1,91 @@
+{
+  "proximo": {
+    "proximaAula": "Next lesson: {titulo}",
+    "revisar": "Review this lesson",
+    "prova": "Take the track test",
+    "outraTrilha": "Choose the next track",
+    "barra": "Next",
+    "barraRotulo": "Go to the next lesson: {titulo}",
+    "esconder": "Hide"
+  },
+  "fatias": {
+    "indice": "This lesson in {n} parts",
+    "marca": "Part {i} of {n} · {min} min",
+    "minutos": "{min} min",
+    "semTitulo": "Part {i}",
+    "pararAqui": "Stop here",
+    "parado": "Saved on this device. When you come back, the lesson will offer to continue from here.",
+    "umaPorVez": "One part at a time",
+    "continuar": "Continue: part {i}",
+    "fim": "End of this lesson's parts."
+  },
+  "retomar": {
+    "aviso": "Go back to where you stopped (part {parte}, paragraph {paragrafo})",
+    "avisoSemParte": "Go back to where you stopped (paragraph {paragrafo})",
+    "dispensar": "Not now"
+  },
+  "letra": {
+    "rotulo": "Text size",
+    "menor": "Smaller text",
+    "normal": "Normal text",
+    "maior": "Larger text",
+    "agora": "Text at {n}%"
+  },
+  "selecao": {
+    "rotulo": "What to do with the selected passage",
+    "oQueE": "What is it?",
+    "compartilhar": "Share passage",
+    "procurando": "Looking it up…",
+    "doGlossario": "Institute glossary",
+    "verGlossario": "See in the glossary",
+    "naoAchou": "We couldn't find this word in the glossary or in the dictionary.",
+    "indisponivel": "The dictionary didn't answer right now. Please try again later.",
+    "fonte": "Source",
+    "licenca": "License",
+    "aviso": "Looked up by the Institute's server in an open dictionary.",
+    "fechar": "Close"
+  },
+  "cartao": {
+    "titulo": "Passage card",
+    "gerando": "Making the image…",
+    "compartilhar": "Share image",
+    "baixar": "Download image",
+    "baixado": "Image downloaded and lesson link copied.",
+    "soBaixado": "Image downloaded.",
+    "privado": "The image is made on this device. Nothing is sent to the Institute.",
+    "alt": "Image with the chosen passage from the lesson",
+    "fechar": "Close"
+  },
+  "umaMao": {
+    "rotulo": "One-handed mode",
+    "dica": "The lesson buttons move down, close to your thumb.",
+    "voltar": "Back to the track",
+    "ouvir": "Listen",
+    "parar": "Stop"
+  },
+  "ouvir": {
+    "ouvir": "Listen",
+    "parar": "Stop",
+    "rotulo": "Listen to this paragraph"
+  },
+  "facil": {
+    "ler": "Read the easy version",
+    "voltar": "Back to the full text",
+    "aviso": "Plain-language version of this lesson."
+  },
+  "nivel": {
+    "rotulo": "Reading: {nivel}",
+    "facil": "easy",
+    "media": "medium",
+    "dificil": "hard",
+    "como": "How we measure",
+    "explicacao": "The score uses the length of sentences and words (the Flesch index adapted to Portuguese, from 0 to 100). It does not measure whether the subject is easy. Lessons scoring below 50 go on the list to get an easy version, written by educators.",
+    "fonteDaConta": "Formula: Portuguese adaptation cited in Martins et al. (1996), not checked."
+  },
+  "voz": {
+    "telaApagada": "With the device voice, reading may stop when the screen turns off. The natural voice keeps playing."
+  },
+  "cordel": {
+    "ouvir": "Listen in cordel verse"
+  }
+}

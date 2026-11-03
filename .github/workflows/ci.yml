@@ -70,6 +70,8 @@ jobs:
       - run: npm run testar:chines
       # O estudo guardado no navegador: repetição espaçada, caderno de erros e a cópia (que não leva chave de aparelho).
       - run: npm run testar:estudo
+      # Etapa 4, Escola Lúcia Maria (docs/ESCOLA.md): roda todo teste da etapa que já existe e diz quais ainda faltam.
+      - run: npm run testar:etapa4
       # Os exercícios com explicação do erro (content/exercicios): formato, aula existente e cada conta refeita.
       - run: npm run testar:exercicios
       # O curso ENEM (docs/ENEM.md): matriz, edição corrente, provas oficiais classificadas, incidência e ligações.

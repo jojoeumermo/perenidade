@@ -5988,7 +5988,11 @@
     "tema": "Thème",
     "claro": "Clair",
     "escuro": "Sombre",
-    "secoes": "Toutes les rubriques"
+    "secoes": "Toutes les rubriques",
+    "escola": "École",
+    "abaEstudar": "Étudier",
+    "abaMeuEstudo": "Mes études",
+    "abaCampus": "Campus"
   },
   "timeline": {
     "brasil": "Au Brésil",

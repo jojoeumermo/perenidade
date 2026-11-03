@@ -1,0 +1,10 @@
+{
+  "rotulo": "Présence à l'École, comptée sans noms",
+  "abertas": "Aujourd'hui, {n} leçons ont été ouvertes à l'École",
+  "abertasUma": "Aujourd'hui, {n} leçon a été ouverte à l'École",
+  "terminadas": "Ces 7 derniers jours, {n} leçons ont été terminées",
+  "terminadasUma": "Ces 7 derniers jours, {n} leçon a été terminée",
+  "matriculas": "Ce mois-ci, {n} inscriptions",
+  "matriculasUma": "Ce mois-ci, {n} inscription",
+  "nota": "Totaux anonymes : sans noms et sans classement."
+}

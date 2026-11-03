@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "titulo": "École Lúcia Maria",
+    "descricao": "L'école populaire et gratuite de l'Instituto Lúcia, sans création de compte : un chemin, une classe et la trace de ce que vous avez étudié."
+  },
+  "nav": {
+    "rotulo": "Parties de l'École",
+    "entrada": "Entrée",
+    "quemFoi": "Qui était Lúcia Maria",
+    "cursos": "Cours",
+    "matricula": "Inscription",
+    "calendario": "Calendrier",
+    "campus": "Campus",
+    "turmas": "Classes",
+    "acompanhante": "Accompagnateur",
+    "caderneta": "Carnet"
+  },
+  "entrada": {
+    "olho": "Instituto Lúcia",
+    "titulo": "École Lúcia Maria",
+    "linhaNaoUniversidade": "Une école populaire et gratuite, sans création de compte. Ce n'est pas une université et elle ne délivre pas de diplôme : elle donne un chemin, une classe et la trace de ce que vous avez étudié.",
+    "comoFunciona": "Comment ça marche",
+    "passos": [
+      { "titulo": "Inscription", "texto": "Dites ce que vous voulez et combien de temps vous avez. Sans nom, e-mail ni pièce d'identité : l'inscription reste sur votre appareil." },
+      { "titulo": "Cours", "texto": "Choisissez un cours composé uniquement de leçons qui existent déjà à l'Instituto." },
+      { "titulo": "Classe", "texto": "Si vous voulez, étudiez avec celles et ceux qui suivent le même cours." },
+      { "titulo": "Tâche dans le monde", "texto": "Emportez ce que vous avez appris hors de l'écran : au travail, à la maison, dans le quartier." },
+      { "titulo": "Fin de parcours", "texto": "À la fin, une cérémonie de fin de parcours et le carnet avec la trace de ce que vous avez étudié." }
+    ],
+    "pelaEscola": "Dans l'École",
+    "campusTexto": "Les bâtiments de l'École : leçons, bibliothèque, laboratoires, radio et communauté.",
+    "calendarioTexto": "Les semestres, les vacances et la semaine d'examens.",
+    "rever": "Revoir l'ouverture"
+  },
+  "cartao": {
+    "olho": "Avant tout",
+    "titulo": "Qui était Lúcia Maria",
+    "texto": "Celle qui donne son nom à cette école.",
+    "ler": "Lire"
+  },
+  "quemFoi": {
+    "olho": "École Lúcia Maria",
+    "titulo": "Qui était Lúcia Maria",
+    "descricao": "Celle qui donne son nom à l'École Lúcia Maria de l'Instituto Lúcia.",
+    "emPortugues": "(texte en portugais)",
+    "voltar": "Retour à l'entrée de l'École"
+  },
+  "emConstrucao": {
+    "titulo": "Cette partie de l'École est en cours de montage",
+    "texto": "Elle sera en ligne quand elle sera prête. En attendant, les leçons, la bibliothèque et Mes études restent ouverts.",
+    "voltar": "Retour à l'entrée de l'École"
+  },
+  "paginas": {
+    "cursos": "Cours",
+    "matricula": "Inscription",
+    "carteirinha": "Carte",
+    "plano": "Plan de la semaine",
+    "campus": "Campus",
+    "calendario": "Calendrier",
+    "acompanhante": "Accompagnateur",
+    "vozes": "Voix du travail",
+    "lutas": "Carte des luttes",
+    "assembleia": "Assemblée étudiante",
+    "ouvidoria": "Médiation",
+    "educador-do-mes": "Éducateur du mois",
+    "provas": "Semaine d'examens",
+    "saberes": "Reconnaissance des savoirs",
+    "formatura": "Fin de parcours",
+    "caderneta": "Carnet",
+    "turmas": "Classes"
+  },
+  "calendario": {
+    "proposto": "Calendrier proposé, à confirmer par la coordination"
+  },
+  "abertura": {
+    "rotulo": "Bienvenue à l'École Lúcia Maria",
+    "pular": "Passer",
+    "seguir": "Suivant",
+    "entrar": "Entrer dans l'École",
+    "ouvir": "Écouter",
+    "parar": "Arrêter d'écouter",
+    "de": "{n} sur {total}",
+    "q1Titulo": "Voici l'École Lúcia Maria",
+    "q1Texto": "Une école populaire, gratuite et ouverte, au sein de l'Instituto Lúcia.",
+    "q2Titulo": "Qui était Lúcia Maria",
+    "q3Titulo": "Pourquoi l'École existe",
+    "fonte": "Extrait de « Qui sommes-nous »",
+    "emPortugues": "(texte en portugais)",
+    "q4Titulo": "Comment ça marche",
+    "q4Texto": "Sans création de compte. Ce que vous étudiez reste sur cet appareil et n'en sort que si vous l'envoyez.",
+    "baixarVoz": "Pour écouter avec la voix choisie, l'appareil doit télécharger {tamanho}. Télécharger maintenant ?",
+    "baixarSim": "Télécharger et écouter",
+    "baixarNao": "Pas maintenant",
+    "semVoz": "Cet appareil n'a pas de voix pour lire à voix haute."
+  }
+}

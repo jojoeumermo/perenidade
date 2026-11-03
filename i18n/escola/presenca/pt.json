@@ -1,0 +1,10 @@
+{
+  "rotulo": "Presença na Escola, somada sem nomes",
+  "abertas": "Hoje, {n} aulas foram abertas na Escola",
+  "abertasUma": "Hoje, {n} aula foi aberta na Escola",
+  "terminadas": "Nos últimos 7 dias, {n} aulas foram terminadas",
+  "terminadasUma": "Nos últimos 7 dias, {n} aula foi terminada",
+  "matriculas": "Este mês, {n} matrículas",
+  "matriculasUma": "Este mês, {n} matrícula",
+  "nota": "Somas anônimas: sem nomes e sem ranking."
+}

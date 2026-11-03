@@ -194,11 +194,38 @@ const CHAVES_DA_COPIA = new Set([
   "lucia:voz",
   // Vídeos curtos (components/videos/Tocador.tsx): onde a pessoa parou em cada vídeo e a velocidade escolhida.
   "lucia:video-curto",
+  // Etapa 4 (lib/escola/, docs/ESCOLA.md): onde a pessoa parou dentro da aula e duas preferências de leitura da aula
+  // (em partes, com uma mão). As chaves da Escola em si entram pelo prefixo "lucia:escola:" logo abaixo.
+  "lucia:posicao-da-aula",
+  "lucia:aula-em-partes",
+  "lucia:uma-mao",
 ]);
 /** Chaves que guardam um objeto por item (aula ou exercício): na restauração, cada item fica com a versão mais nova. */
 const REGISTROS = ["lucia:testes", "lucia:exercicios", "lucia:concluidas-em", "lucia:nivelamento", "lucia:ajudou"];
-const PREFIXOS_DA_COPIA = ["lucia:lab:", "lucia:ouvido:"];
+// "lucia:escola:" é o estudo da Escola Lúcia Maria (matrícula, cursos, caderneta...). O irmão "lucia:escola-privado:"
+// fica de fora de propósito: conversas e documentos de trabalho não viajam num arquivo de cópia (veja SO_APAGAR).
+const PREFIXOS_DA_COPIA = ["lucia:lab:", "lucia:ouvido:", "lucia:escola:"];
 export const entraNaCopia = (chave: string) => CHAVES_DA_COPIA.has(chave) || PREFIXOS_DA_COPIA.some((p) => chave.startsWith(p) && !/[\s]/.test(chave) && chave.length < 200);
+
+/**
+ * Chaves que NÃO entram na cópia de segurança (são pessoais demais ou só servem neste aparelho), mas que o "apagar meus
+ * dados" precisa apagar, porque a página de privacidade promete que tudo sai: o histórico do que a pessoa abriu, onde o
+ * rádio parou, o convite do modo pacote e as marcas de "já somei o +1 anônimo" do "Isso ajudou?".
+ */
+export const SO_APAGAR: readonly string[] = ["lucia:historico", "lucia:historico-ligado", "lucia:radio-retomar", "lucia:modo-pacote-convite"];
+/** Prefixos que ficam fora da cópia e saem no "apagar": o privado da Escola e as marcas do "Isso ajudou?". */
+export const PREFIXOS_SO_APAGAR: readonly string[] = ["lucia:escola-privado:", "lucia:ajudou-contou:"];
+const soApagar = (chave: string) => SO_APAGAR.includes(chave) || PREFIXOS_SO_APAGAR.some((p) => chave.startsWith(p));
+
+/** As chaves "só apagar" que existem neste armazenamento. */
+export function chavesSoApagar(armazenamento: Pick<Storage, "length" | "key">): string[] {
+  const chaves: string[] = [];
+  for (let i = 0; i < armazenamento.length; i++) {
+    const chave = armazenamento.key(i);
+    if (chave && soApagar(chave) && !entraNaCopia(chave)) chaves.push(chave);
+  }
+  return chaves;
+}
 
 /** As chaves de estudo que existem neste armazenamento (para Meus dados copiar ou apagar tudo de uma vez). */
 export function chavesDeEstudo(armazenamento: Pick<Storage, "length" | "key">): string[] {

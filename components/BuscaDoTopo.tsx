@@ -6,7 +6,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { Fragment, type ReactNode, useEffect, useId, useRef, useState } from "react";
 import { type Locale, fill, localePath } from "@/i18n/config";
 import type { SearchEntry, SearchHit } from "@/lib/search";
+import { BuscaPorVoz } from "./busca/BuscaPorVoz";
+import { MelhorCaminho } from "./busca/MelhorCaminho";
+import { useTextosDaBusca } from "./busca/TextosDaBusca";
 import { useI18n } from "./I18n";
+import { VistasHoje } from "./PorOndeAndei";
 
 /** Abre a busca do alto de qualquer lugar (a tecla "/" usa isto quando ela está à vista). */
 export const ABRIR_BUSCA = "lucia:abrir-busca";
@@ -19,6 +23,8 @@ export const buscaDoTopoVisivel = () => {
 
 type Buscador = (consulta: string, limite?: number) => SearchHit[];
 let buscadorPronto: Promise<Buscador> | null = null;
+/** As entradas do índice leve, guardadas para a caixa "Melhor caminho" achar os títulos (Etapa 4, E4-05). */
+let entradasDoIndice: SearchEntry[] | null = null;
 
 /** Baixa o índice leve uma vez por página aberta e monta o buscador (o mesmo motor da página de busca). */
 function carregarBuscador(lang: Locale): Promise<Buscador> {
@@ -26,7 +32,7 @@ function carregarBuscador(lang: Locale): Promise<Buscador> {
     fetch(localePath(lang, "/indice-leve.json")).then((resposta) => {
       if (!resposta.ok) throw new Error(String(resposta.status));
       return resposta.json() as Promise<SearchEntry[]>;
-    }),
+    }).then((entradas) => (entradasDoIndice = entradas)),
     import("@/lib/search"),
     import("@/content/busca.json"),
   ]).then(([entradas, { buildSearch }, sinonimos]) => buildSearch(entradas, (sinonimos as { default?: Record<string, string> }).default ?? (sinonimos as unknown as Record<string, string>)));
@@ -81,6 +87,7 @@ function Lupa({ className }: { className: string }) {
  */
 export function BuscaDoTopo() {
   const { lang, t } = useI18n();
+  const textosDaBusca = useTextosDaBusca();
   const router = useRouter();
   const pathname = usePathname();
   const [abertaEm, setAbertaEm] = useState<string | null>(null);
@@ -137,7 +144,8 @@ export function BuscaDoTopo() {
     else grupos.push({ kind: achado.entry.kind, itens: [achado] });
   }
   const resultados = grupos.flatMap((g) => g.itens);
-  const nomesDosGrupos = t.nav.searchGroups as Record<string, string>;
+  // O grupo "pagina" (as páginas da Escola e o modo seguro, E4-05) não tem nome no núcleo do i18n: usa o dos textos da busca.
+  const nomesDosGrupos: Record<string, string> = { pagina: textosDaBusca?.textos.indice.grupo ?? "", ...(t.nav.searchGroups as Record<string, string>) };
   const todos = `${localePath(lang, "/busca")}?q=${encodeURIComponent(consulta.trim())}`;
   const formas = t.nav.searchSeeN as Record<string, string>;
   const verTodos = fill(formas[new Intl.PluralRules(lang).select(achados.length)] ?? formas.other, { n: achados.length });
@@ -212,6 +220,13 @@ export function BuscaDoTopo() {
               placeholder={t.nav.searchPlaceholder}
               className="min-w-0 flex-1 bg-transparent font-sans text-[0.95rem] text-ink outline-none placeholder:text-ink-soft"
             />
+            <BuscaPorVoz
+              aoOuvir={(texto) => {
+                setConsulta(texto.slice(0, 120));
+                setMarcado(0);
+                campo.current?.focus();
+              }}
+            />
             <button type="button" onClick={fechar} aria-label={t.nav.searchClose} className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center text-ink-soft hover:text-ink">
               <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                 <path d="M6 6l12 12M18 6 6 18" />
@@ -223,6 +238,9 @@ export function BuscaDoTopo() {
             <p role="status" aria-live="polite" className={aviso ? "px-3.5 py-3 font-sans text-sm text-ink-soft" : "sr-only"}>
               {aviso || verTodos}
             </p>
+            {/* Etapa 4 (E4-05): o melhor caminho para a pergunta e, com a busca vazia, as páginas vistas hoje. Só com a Escola ligada. */}
+            {buscador && consulta.trim() && <MelhorCaminho consulta={consulta} entradas={entradasDoIndice} compacto aoEscolher={fechar} />}
+            {!consulta.trim() && <VistasHoje aoEscolher={fechar} className="px-3.5 pb-2" />}
             {resultados.length > 0 && (
               <ul id={lista} role="listbox" aria-label={t.search.label} className="max-h-[min(28rem,62vh)] overflow-y-auto py-2">
                 {grupos.map((grupo) => (

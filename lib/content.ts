@@ -401,11 +401,33 @@ function readJson<T>(file: string, fallback: T): T {
 // ativo: false tira o item do ar sem apagar o histórico (quarentena de denúncias).
 const isActive = (data: Data) => data.ativo !== false;
 
-/** Arquivos originais de uma pasta, sem as traduções ("x.en.md"). */
+/**
+ * O arquivo é um original (aula, verbete, matéria)? Fora as traduções ("x.en.md") e as versões fáceis das aulas
+ * ("x.facil.md", e as traduções delas, "x.facil.en.md"), que moram ao lado do original e nunca viram item nem idioma.
+ */
+export const eOriginal = (name: string) => name.endsWith(".md") && !/\.[a-z]{2}\.md$/.test(name) && !/\.facil(\.[a-z]{2})?\.md$/.test(name);
+
+/** Arquivos originais de uma pasta, sem as traduções ("x.en.md") nem as versões fáceis ("x.facil.md"). */
 function originals(dir: string): string[] {
   const full = path.join(CONTENT_DIR, dir);
   if (!fs.existsSync(full)) return [];
-  return fs.readdirSync(full).filter((name) => name.endsWith(".md") && !/\.[a-z]{2}\.md$/.test(name));
+  return fs.readdirSync(full).filter(eOriginal);
+}
+
+/**
+ * A versão fácil de uma aula ("<aula>.facil.md" ao lado dela, escrita e revisada por educadores; Etapa 4, R1-88), no
+ * idioma pedido ("<aula>.facil.en.md") ou, sem ela, em português. Sem o arquivo, null. Só o texto: o cabeçalho é ignorado.
+ */
+export function versaoFacilDe(file: string, lang: Locale): { body: string; translated: boolean } | null {
+  const original = file.replace(/\.md$/, ".facil.md");
+  const traduzida = file.replace(/\.md$/, `.facil.${lang}.md`);
+  if (lang !== defaultLocale && fs.existsSync(absolute(traduzida))) {
+    const { body } = parse(traduzida);
+    return body ? { body, translated: true } : null;
+  }
+  if (!fs.existsSync(absolute(original))) return null;
+  const { body } = parse(original);
+  return body ? { body, translated: lang === defaultLocale } : null;
 }
 
 function slugOf(name: string, file: string): string {

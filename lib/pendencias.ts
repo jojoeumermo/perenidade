@@ -66,7 +66,8 @@ export function lerPendencias(raiz = process.cwd()): Pendencias {
     if (cabecalho.ativo === false) continue;
     for (const nome of fs.readdirSync(base)) {
       const achado = /^(?:\d+-)?([a-z0-9-]+)\.md$/.exec(nome);
-      if (!achado || nome === "_trilha.md" || /\.[a-z]{2}\.md$/.test(nome)) continue;
+      // Fora as traduções ("x.en.md") e as versões fáceis ("x.facil.md", Etapa 4): não são aulas para revisar à parte.
+      if (!achado || nome === "_trilha.md" || /\.[a-z]{2}\.md$/.test(nome) || /\.facil(\.[a-z]{2})?\.md$/.test(nome)) continue;
       const arquivo = `content/trilhas/${trilha.name}/${nome}`;
       const { data, content } = parseFrontmatter(fs.readFileSync(path.join(base, nome), "utf8"));
       if (data.ativo === false) continue;

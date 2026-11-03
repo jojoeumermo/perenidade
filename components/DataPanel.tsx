@@ -4,7 +4,8 @@
 import { useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
-import { chavesDeEstudo, entraNaCopia, restaurarCopia } from "@/lib/estudo";
+import { chavesDeEstudo, chavesSoApagar, entraNaCopia, restaurarCopia } from "@/lib/estudo";
+import { apagarEscola } from "@/lib/escola/estudante";
 import { applyPrefs, defaultPrefs } from "@/lib/prefs";
 import { apagarVozes } from "@/lib/vozes/catalogo";
 import { useCompleted } from "@/lib/progress";
@@ -68,6 +69,15 @@ export function DataPanel({ s }: { s: Dict["data"] }) {
   function clearAll() {
     for (const key of Object.values(KEYS)) setItem(key, null);
     for (const key of chavesDeEstudo(localStorage)) setItem(key, null);
+    // O que fica fora da cópia mas sai aqui (histórico, rádio, a parte privada da Escola...) e a Escola inteira.
+    for (const key of chavesSoApagar(localStorage)) setItem(key, null);
+    apagarEscola();
+    // As explicações guardadas pelo acompanhante da Escola; se a base não existe, o navegador só responde que apagou.
+    try {
+      globalThis.indexedDB?.deleteDatabase("lucia-explicacoes");
+    } catch {
+      // navegador sem IndexedDB ou bloqueado: não há o que apagar
+    }
     void apagarVozes();
     window.dispatchEvent(new Event("lucia:estudo"));
     document.documentElement.removeAttribute("data-theme");

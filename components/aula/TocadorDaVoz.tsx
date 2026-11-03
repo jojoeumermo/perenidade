@@ -14,7 +14,7 @@ const VELOCIDADES = [0.75, 1, 1.25, 1.5, 1.75, 2];
  * (veja lib/vozes/leitor.ts). Enquanto a voz natural carrega, a do aparelho lê e o tocador avisa. Some quando a
  * leitura para.
  */
-export function TocadorDaVoz() {
+export function TocadorDaVoz({ avisoTelaApagada }: { avisoTelaApagada?: string } = {}) {
   const { lang, t } = useI18n();
   const s = t.lesson.leitor;
   const e = useLeitor();
@@ -24,7 +24,8 @@ export function TocadorDaVoz() {
   const onde = `${fill(s.trecho, { n: numero(e.trecho + 1), total: numero(e.trechos) })} · ${fill(s.frase, { n: numero(e.frase + 1), total: numero(e.total) })}`;
   const situacao = e.esperando && e.tocando ? (e.carregando ? `${s.preparando}${pct ? ` ${pct}%` : ""}` : s.preparandoProxima) : onde;
   // A voz natural escolhida ainda não entrou: o aparelho lê por enquanto.
-  const aviso = e.vozAgora === "aparelho" && e.carregando ? fill(s.vozProvisoria, { pct: pct ? ` (${pct}%)` : "" }) : e.vozAgora === "aparelho" && e.naturalPronta ? s.naturalNoProximo : "";
+  // Com a voz do aparelho, a leitura pode parar quando a tela apaga (o aviso vem da página, com o recurso "escola").
+  const aviso = e.vozAgora === "aparelho" && e.carregando ? fill(s.vozProvisoria, { pct: pct ? ` (${pct}%)` : "" }) : e.vozAgora === "aparelho" && e.naturalPronta ? s.naturalNoProximo : e.vozAgora === "aparelho" && avisoTelaApagada ? avisoTelaApagada : "";
   const botao = "min-h-11 min-w-11 cursor-pointer border-2 border-ink px-2 font-sans text-base disabled:opacity-50";
   const claro = `${botao} bg-parchment text-ink hover:bg-parchment-deep`;
   return (

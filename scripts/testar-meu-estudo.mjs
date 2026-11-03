@@ -27,7 +27,7 @@ import { validarMapa } from "../lib/mapa-curricular.ts";
 import { icsSemanal } from "../lib/agenda.ts";
 import { conferirModelo, lerRevisoes } from "../lib/modelo-de-aula.ts";
 import { codificarSequencia, codigoDaSequencia, gerarComprovante, lerComprovante, lerComprovantes, lerSequencia } from "../lib/turma.ts";
-import { ligado, lerRecursos, RECURSOS } from "../lib/recursos.ts";
+import { ligado, lerRecursos, PADRAO, RECURSOS, SO_PELO_NOME } from "../lib/recursos.ts";
 
 let ok = 0;
 const falhas = [];
@@ -56,9 +56,14 @@ class Memoria {
 globalThis.localStorage = new Memoria();
 
 // Flags
-conferir("sem variável, tudo desligado", Object.keys(RECURSOS).every((r) => !ligado(r, lerRecursos(undefined))));
-conferir("lista com espaços e maiúsculas", ligado("meu-estudo", lerRecursos(" Meu-Estudo , exercicios")) && ligado("exercicios", lerRecursos("meu-estudo,exercicios")) && !ligado("turma", lerRecursos("meu-estudo")));
-conferir("todos liga tudo", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos"))));
+// Sem variável, só os de PADRAO (os já testados que a produção já liga); a Escola nunca.
+conferir("sem variável, só os padrões", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos(undefined)) === PADRAO.includes(r)));
+conferir("escola não é padrão", !PADRAO.includes("escola") && !ligado("escola", lerRecursos(undefined)));
+conferir("lista com espaços e maiúsculas", ligado("escola", lerRecursos(" Escola , exercicios")) && ligado("enem-curso", lerRecursos("meu-estudo,enem-curso")) && !ligado("enem-video", lerRecursos("enem-curso")));
+conferir("todos liga tudo menos o que é só pelo nome", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos")) === !SO_PELO_NOME.includes(r)));
+conferir("todos com escola liga tudo", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos,escola"))));
+conferir("-nome desliga um padrão", !ligado("vlibras", lerRecursos("-vlibras")) && ligado("meu-estudo", lerRecursos("-vlibras")) && !ligado("vlibras", lerRecursos("todos,-vlibras")));
+conferir("nenhum desliga os padrões", PADRAO.every((r) => !ligado(r, lerRecursos("nenhum"))) && ligado("turma", lerRecursos("nenhum,turma")));
 
 // Testes de fim de aula
 registrarTeste("matematica-fundamental/fracoes", 2, 3, 1000);

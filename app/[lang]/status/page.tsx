@@ -1,6 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
+import { EspelhosDoSite } from "@/components/EspelhosDoSite";
 import { Capa, Corpo } from "@/components/pagina/Capa";
+import { QualidadeDoConteudo } from "@/components/QualidadeDoConteudo";
 import { StatusDoSite } from "@/components/StatusDoSite";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -18,6 +20,9 @@ export default async function Status({ params }: PageProps<"/[lang]/status">) {
       <Capa rotulo={t.status.eyebrow} titulo={t.status.title}>{t.status.lead}</Capa>
       <Corpo largura="estreita">
         <StatusDoSite lang={lang} s={t.status} />
+        {/* E4-04: os espelhos de leitura (só com NEXT_PUBLIC_ESPELHOS) e o painel público de qualidade do conteúdo. */}
+        <EspelhosDoSite lang={lang} />
+        <QualidadeDoConteudo lang={lang} />
       </Corpo>
     </>
   );

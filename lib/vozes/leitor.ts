@@ -5,6 +5,7 @@ import { useSyncExternalStore } from "react";
 import { carregarLista, faltaBaixar, lerEscolha, MotorNatural, VOZ_DO_APARELHO, type Lista, type VozNatural } from "./catalogo";
 import { dividirEmFrases, lerTex, normalizar, normalizarOutroIdioma, type Lexico } from "./normalizar";
 import { escolherVoz, marcarTrechos, proximoTrecho } from "./trechos";
+import { ligado } from "../recursos";
 
 // O leitor do "Ouvir a aula": divide o texto em frases, destaca a frase que está sendo lida (sem mexer no texto: CSS
 // Custom Highlight API) e fala com a voz escolhida, a do aparelho (speechSynthesis) ou uma natural (Kokoro), que roda
@@ -20,6 +21,14 @@ import { escolherVoz, marcarTrechos, proximoTrecho } from "./trechos";
 // mouse no "Ouvir" ou abre o seletor (aquecer); a primeira frase longa é partida num pedaço curto; e enquanto uma
 // frase toca, as três seguintes vão sendo geradas. Cada leitura tem um número de sessão: ao trocar de aula, o que
 // estava na fila da aula anterior é descartado no Worker e nada dela chega a tocar.
+//
+// Tela desligada (Etapa 4, R1-24, com o recurso "escola" ligado): ao tocar, a leitura se registra na sessão de mídia
+// do aparelho (navigator.mediaSession: título da aula, "Instituto Lúcia" e o ícone do site; tocar, pausar, trecho
+// anterior e seguinte, voltar e avançar frase), para os controles aparecerem na tela de bloqueio e nos fones. O som da
+// voz natural passa por um elemento <audio> (um WAV por frase, com a seguinte já preparada), que o sistema deixa
+// continuar com a tela apagada; o AudioContext fica de reserva. A voz do aparelho (speechSynthesis) só ganha o que der:
+// o sistema pode pará-la com a tela apagada, e o tocador avisa.
+const telaDesligada = ligado("escola");
 
 export type EstadoDoLeitor = {
   ativo: boolean;
@@ -396,6 +405,11 @@ let motor: MotorNatural | null = null;
 let lista: Lista | null = null;
 let contexto: AudioContext | null = null;
 let fonte: AudioBufferSourceNode | null = null;
+/** O <audio> da voz natural (tela desligada) e se a frase atual está tocando nele. */
+let tocador: HTMLAudioElement | null = null;
+let somNoAudio = false;
+/** Os WAV já montados, pela mesma chave da fila de sons (ver chaveDoSom). */
+const urls = new Map<string, string>();
 let motorCarregado = false;
 /** A voz natural escolhida está aberta e pode entrar nesta leitura. */
 let naturalPronta = false;
@@ -494,6 +508,152 @@ async function prepararNatural(voz: VozNatural): Promise<boolean> {
   }
 }
 
+// ───────────── Tela desligada: WAV no <audio> e sessão de mídia ─────────────
+
+/** PCM de 32 bits (o que a voz natural gera) num WAV mono de 16 bits, que o <audio> toca. */
+export function wavDe(pcm: Float32Array, taxa: number): Blob {
+  const dados = new ArrayBuffer(44 + pcm.length * 2);
+  const v = new DataView(dados);
+  const texto = (pos: number, t: string) => {
+    for (let k = 0; k < t.length; k++) v.setUint8(pos + k, t.charCodeAt(k));
+  };
+  texto(0, "RIFF");
+  v.setUint32(4, 36 + pcm.length * 2, true);
+  texto(8, "WAVE");
+  texto(12, "fmt ");
+  v.setUint32(16, 16, true);
+  v.setUint16(20, 1, true);
+  v.setUint16(22, 1, true);
+  v.setUint32(24, taxa, true);
+  v.setUint32(28, taxa * 2, true);
+  v.setUint16(32, 2, true);
+  v.setUint16(34, 16, true);
+  texto(36, "data");
+  v.setUint32(40, pcm.length * 2, true);
+  for (let k = 0; k < pcm.length; k++) {
+    const x = Math.max(-1, Math.min(1, pcm[k]));
+    v.setInt16(44 + k * 2, x < 0 ? x * 0x8000 : x * 0x7fff, true);
+  }
+  return new Blob([dados], { type: "audio/wav" });
+}
+
+function urlDoSom(chave: string, s: Som): string {
+  let url = urls.get(chave);
+  if (!url) {
+    url = URL.createObjectURL(wavDe(s.pcm, s.taxa));
+    urls.set(chave, url);
+  }
+  return url;
+}
+
+/** Deixa o WAV da frase `i` pronto (a seguinte da que toca), para a troca não ter silêncio. */
+function prepararUrl(i: number) {
+  const chave = chaveDoSom(i);
+  const pedido = chave ? sons.get(chave) : undefined;
+  if (chave && pedido) void pedido.then((s) => urlDoSom(chave, s)).catch(() => {});
+}
+
+function pararAudio() {
+  if (!tocador || !somNoAudio) return;
+  tocador.onended = null;
+  tocador.pause();
+  somNoAudio = false;
+}
+
+/** Libera o <audio> dentro do clique (o Safari e o Chrome do celular exigem), com um instante de silêncio. */
+function liberarAudio() {
+  if (!telaDesligada || typeof Audio === "undefined") return;
+  tocador ??= new Audio();
+  tocador.preload = "auto";
+  const silencio = urls.get("silencio") ?? URL.createObjectURL(wavDe(new Float32Array(2400), 24000));
+  urls.set("silencio", silencio);
+  if (somNoAudio) return;
+  tocador.src = silencio;
+  void tocador.play().catch(() => {});
+}
+
+/** Toca a frase no <audio>. Se o aparelho recusar, devolve false e a frase vai pelo AudioContext. */
+async function tocarNoAudio(s: Som, i: number, minhaVez: number): Promise<boolean> {
+  const chave = chaveDoSom(i);
+  if (!tocador || !chave) return false;
+  const t = tocador;
+  t.onended = null;
+  t.src = urlDoSom(chave, s);
+  t.playbackRate = 1;
+  somNoAudio = true;
+  t.onended = () => {
+    if (minhaVez === vez && somNoAudio && estado.tocando) avancarSozinho(i);
+  };
+  try {
+    await t.play();
+  } catch {
+    somNoAudio = false;
+    t.onended = null;
+    return false;
+  }
+  if (minhaVez !== vez) return true;
+  avisarQueFalou(i, s.pcm.length / s.taxa);
+  if (i + 1 < frases.length) prepararUrl(i + 1);
+  return true;
+}
+
+const ACOES_DE_MIDIA = ["play", "pause", "previoustrack", "nexttrack", "seekbackward", "seekforward"] as const;
+
+/** A primeira frase do trecho `t` (ou -1). */
+const inicioDoTrecho = (t: number) => frases.findIndex((f) => f.trecho === t);
+
+/** Registra a leitura na sessão de mídia do aparelho (tela de bloqueio, fones, relógio). `false` tira o registro. */
+function sessaoDeMidia(ligar: boolean) {
+  if (!telaDesligada || typeof navigator === "undefined" || !("mediaSession" in navigator)) return;
+  const ms = navigator.mediaSession;
+  const acao = (nome: (typeof ACOES_DE_MIDIA)[number], fazer: (() => void) | null) => {
+    try {
+      ms.setActionHandler(nome, fazer);
+    } catch {
+      // ação que este navegador não conhece
+    }
+  };
+  if (!ligar) {
+    for (const nome of ACOES_DE_MIDIA) acao(nome, null);
+    ms.playbackState = "none";
+    return;
+  }
+  const titulo = document.querySelector(".folha-da-aula h1")?.textContent?.trim() || document.title;
+  if (typeof MediaMetadata !== "undefined") {
+    ms.metadata = new MediaMetadata({
+      title: titulo,
+      artist: "Instituto Lúcia",
+      artwork: [
+        { src: "/icone-192.png", sizes: "192x192", type: "image/png" },
+        { src: "/icone-512.png", sizes: "512x512", type: "image/png" },
+      ],
+    });
+  }
+  acao("play", () => continuar());
+  acao("pause", () => pausar());
+  acao("previoustrack", () => {
+    if (!estado.ativo) return;
+    const comeco = inicioDoTrecho(estado.trecho);
+    // No meio do trecho, volta ao começo dele; já no começo, vai para o anterior.
+    const alvo = estado.frase > comeco ? comeco : inicioDoTrecho(Math.max(0, estado.trecho - 1));
+    if (contexto?.state === "suspended") void contexto.resume();
+    falar(Math.max(0, alvo), true);
+  });
+  acao("nexttrack", () => {
+    if (!estado.ativo) return;
+    const alvo = inicioDoTrecho(estado.trecho + 1);
+    if (alvo < 0) return parar();
+    if (contexto?.state === "suspended") void contexto.resume();
+    falar(alvo, true);
+  });
+  acao("seekbackward", () => anterior());
+  acao("seekforward", () => proxima());
+}
+
+function estadoDaMidia(tocando: boolean) {
+  if (telaDesligada && typeof navigator !== "undefined" && "mediaSession" in navigator) navigator.mediaSession.playbackState = tocando ? "playing" : "paused";
+}
+
 async function falarNatural(i: number, minhaVez: number) {
   const pedido = som(i);
   if (!pedido) return "speechSynthesis" in window && !aparelhoFalhou ? falarNoAparelho(i, minhaVez) : semVoz();
@@ -519,9 +679,12 @@ async function falarNatural(i: number, minhaVez: number) {
   }
   window.clearTimeout(aviso);
   if (estado.esperando) mudar({ esperando: false });
-  if (minhaVez !== vez || !estado.tocando || !contexto) return;
+  if (minhaVez !== vez || !estado.tocando) return;
   fonte?.stop();
   if (!s.pcm.length) return avancarSozinho(i);
+  // Tela desligada: o <audio> toca; se o aparelho recusar, segue pelo AudioContext.
+  if (telaDesligada && tocador && (await tocarNoAudio(s, i, minhaVez))) return;
+  if (minhaVez !== vez || !estado.tocando || !contexto) return;
   const buffer = contexto.createBuffer(1, s.pcm.length, s.taxa);
   buffer.copyToChannel(s.pcm as Float32Array<ArrayBuffer>, 0);
   const f = contexto.createBufferSource();
@@ -551,6 +714,8 @@ function falar(i: number, pulo = false) {
   falaDoAparelho = null;
   fonte?.stop();
   fonte = null;
+  pararAudio();
+  estadoDaMidia(true);
   const natural = naturalPronta && Boolean(motor) && Boolean(vozDaFrase(i));
   const qual = escolherVoz({ naturalPronta: natural, somPronto: natural && somPronto(i), abreTrecho: frases[i].abre || pulo, vozAtual, aparelhoFala: Boolean(synth) && !aparelhoFalhou });
   mudar({ frase: i, trecho: frases[i].trecho, tocando: true, esperando: qual === "esperar" });
@@ -640,6 +805,8 @@ function comecar(i: number) {
     contexto ??= new AudioContext();
     void contexto.resume();
   }
+  if (querNatural) liberarAudio();
+  sessaoDeMidia(true);
   if (querNatural && !naturalPronta) void prepararAoFundo(minhaLeitura);
   falar(Math.min(i, frases.length - 1), true);
 }
@@ -681,13 +848,28 @@ export function pausar() {
   if (!estado.ativo || !estado.tocando) return;
   vez++;
   limparVigia();
-  if (fonte && contexto) void contexto.suspend();
+  if (somNoAudio && tocador) tocador.pause();
+  else if (fonte && contexto) void contexto.suspend();
   else window.speechSynthesis?.cancel();
+  estadoDaMidia(false);
   mudar({ tocando: false, esperando: false });
 }
 
 export function continuar() {
   if (!estado.ativo || estado.tocando) return;
+  if (somNoAudio && tocador?.paused) {
+    // Retoma o <audio> do ponto exato da frase.
+    vez++;
+    const minhaVez = vez;
+    const i = estado.frase;
+    tocador.onended = () => {
+      if (minhaVez === vez && somNoAudio && estado.tocando) avancarSozinho(i);
+    };
+    mudar({ tocando: true });
+    estadoDaMidia(true);
+    void tocador.play().catch(() => falar(i));
+    return;
+  }
   if (fonte && contexto && contexto.state === "suspended") {
     // Retoma do ponto exato da frase.
     vez++;
@@ -723,7 +905,7 @@ export function definirVelocidade(v: number) {
   const velocidade = Math.min(2, Math.max(0.5, v));
   mudar({ velocidade });
   // A voz do aparelho só muda a velocidade na próxima fala: recomeça a frase atual já no ritmo novo.
-  if (estado.ativo && estado.tocando && !fonte) falar(estado.frase);
+  if (estado.ativo && estado.tocando && !fonte && !somNoAudio) falar(estado.frase);
 }
 
 export function definirModo(modo: "frase" | "direto") {
@@ -745,6 +927,8 @@ export function parar(limpar = true) {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   fonte?.stop();
   fonte = null;
+  pararAudio();
+  sessaoDeMidia(false);
   if (contexto?.state === "suspended") void contexto.resume();
   apagarDestaque();
   if (limpar) {
@@ -753,6 +937,11 @@ export function parar(limpar = true) {
     sons.clear();
     prontos.clear();
     aquecidoPara = "";
+    for (const [chave, url] of urls) {
+      if (chave === "silencio") continue;
+      URL.revokeObjectURL(url);
+      urls.delete(chave);
+    }
   }
   // A voz natural que estava baixando continua ao fundo (o progresso segue no seletor); só sai do tocador.
   mudar({ ativo: false, tocando: false, esperando: false, frase: 0, trecho: 0, vozAgora: null, naturalPronta: false, carregando: Boolean(motor) && !motorCarregado });

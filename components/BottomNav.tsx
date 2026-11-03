@@ -4,6 +4,7 @@
 import Link from "@/components/Link";
 import { usePathname } from "next/navigation";
 import { localePath } from "@/i18n/config";
+import { ligado } from "@/lib/recursos";
 import { useI18n } from "./I18n";
 import { abrirMais } from "./NavLinks";
 
@@ -13,7 +14,20 @@ const icons: Record<string, React.ReactNode> = {
   library: <path d="M5 4v16M9.5 4v16M14 5l4.5 14.5M3 20h18" />,
   community: <path d="M4 5h16v11H10l-4.5 4v-4H4z" />,
   more: <path d="M5 7h14M5 12h14M5 17h14" />,
+  // Só com a Escola ligada (recurso "escola"): estudar, meu estudo, campus e buscar.
+  study: <path d="M3 9.5 12 5l9 4.5-9 4.5zM7 11.5v4.5c1.5 1.5 3.2 2 5 2s3.5-.5 5-2v-4.5M21 9.5v5" />,
+  mine: <path d="M6 4h12v16l-6-4-6 4z" />,
+  campus: <path d="M4 20h16M6 20V10l6-4 6 4v10M10 20v-5h4v5" />,
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M15.5 15.5 20 20" />
+    </>
+  ),
 };
+
+/** Com a Escola ligada, a barra fica nos 4 destinos do plano mais o Início (o painel de quem volta, no celular). */
+const comEscola = ligado("escola");
 
 /**
  * Navegação de celular: fica embaixo, ao alcance do polegar, na faixa preta com o fio vermelho do prelo. Em telas
@@ -22,13 +36,22 @@ const icons: Record<string, React.ReactNode> = {
 export function BottomNav() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
-  const items: [string, string, string][] = [
-    ["home", t.nav.home, "/"],
-    ["disciplines", t.nav.disciplines, "/trilhas"],
-    ["library", t.nav.library, "/acervo"],
-    ["community", t.nav.community, "/comunidade"],
-    ["more", t.nav.more, "/explorar"],
-  ];
+  // Sem a Escola, a barra é a de sempre. Com ela, Acervo e Comunidade continuam no Campus (o "Mais") e nos atalhos.
+  const items: [string, string, string][] = comEscola
+    ? [
+        ["home", t.nav.home, "/"],
+        ["study", t.celular.abaEstudar, "/escola"],
+        ["mine", t.celular.abaMeuEstudo, "/meu-estudo"],
+        ["campus", t.celular.abaCampus, "/explorar"],
+        ["search", t.nav.search, "/busca"],
+      ]
+    : [
+        ["home", t.nav.home, "/"],
+        ["disciplines", t.nav.disciplines, "/trilhas"],
+        ["library", t.nav.library, "/acervo"],
+        ["community", t.nav.community, "/comunidade"],
+        ["more", t.nav.more, "/explorar"],
+      ];
   return (
     <nav aria-label={t.nav.main} className="app-abas abas-do-celular no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-[3px] border-[#c21f16] bg-[#1f1a14] pb-[var(--recuo-baixo)] md:hidden">
       <ul className="grid grid-cols-5">

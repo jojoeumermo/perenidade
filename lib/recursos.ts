@@ -1,9 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Recursos novos que entram desligados. Cada um só aparece quando o nome está na variável de montagem
-// NEXT_PUBLIC_RECURSOS, separada por vírgulas (ou "todos"). Sem a variável, o site fica exatamente como era.
+// Recursos novos que entram desligados. Cada um aparece quando o nome está na variável de montagem
+// NEXT_PUBLIC_RECURSOS, separada por vírgulas (ou "todos"), ou quando está em PADRAO (já testado e já ligado em
+// produção: o ambiente novo, como a prévia, o espelho ou a cópia local, nasce igual à produção).
 //
 //   NEXT_PUBLIC_RECURSOS=meu-estudo,exercicios          (no .env.local para testar; na Vercel para publicar)
+//   NEXT_PUBLIC_RECURSOS=escola,-vlibras                ("-nome" desliga um recurso padrão)
+//   NEXT_PUBLIC_RECURSOS=nenhum                         (desliga todos os padrões)
+//
+// "todos" liga tudo, MENOS o que está em SO_PELO_NOME: a Escola Lúcia Maria só liga com o nome escrito na lista,
+// porque a produção usa "todos" e a Escola não pode abrir antes de a coordenação mandar o texto (docs/ESCOLA.md).
 //
 // O valor é lido na montagem do site: mudou a variável, monte e publique de novo. Sem os atalhos "@/" de propósito:
 // `npm run testar:meu-estudo` roda este arquivo direto no Node.
@@ -18,14 +24,40 @@ export const RECURSOS = {
   nivelamento: "Teste curto de nivelamento por disciplina, que só sugere por onde começar",
   metas: "Meta semanal opcional e lembrete por arquivo de agenda (.ics)",
   vlibras: "Botão para ativar o VLibras (serviço externo do governo), que só carrega depois do clique",
-  ajudou: "\"Isso ajudou?\" no fim da aula, guardado só no aparelho",
+  ajudou: "Isso ajudou? no fim da aula; a resposta fica no aparelho e, com a Escola ligada, soma +1 anônimo para a equipe",
   "guia-contribuir": "Guia de contribuição: funções, passo a passo, modelo de aula e checklist de revisão",
   "pratica-sem-placar": "Esconde os pontos e a sequência de dias da prática das aulas de idioma",
   "enem-video": "Vídeos curtos do curso ENEM: tocador com narração pré-gravada, legendas e transcrição, nas aulas que têm vídeo",
   "enem-curso": "Curso ENEM: a página /enem, diagnóstico, plano, prática por habilidade, provas oficiais por ano e dia, oficina de redação e reta final",
+  escola: "Escola Lúcia Maria: entrada, cursos, matrícula, campus e calendário",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;
+
+/**
+ * Ligados por padrão, sem precisar da variável. Só entra aqui o recurso que cumpre as DUAS condições: (1)
+ * docs/RECURSOS.md e docs/RELATORIO-ESTUDO-NO-APARELHO.md o dão como testado; (2) a produção já o liga hoje (conferido
+ * em 03/11/2026 no código publicado de https://institutolucia.org: NEXT_PUBLIC_RECURSOS="todos"). Assim a produção não
+ * muda nada, e a prévia, o espelho e a cópia local nascem completos. "enem-curso" e "enem-video" ficam de fora porque
+ * o relatório do estudo no aparelho não os cobre; "escola" fica de fora de propósito (quem liga é a coordenação).
+ */
+export const PADRAO: readonly Recurso[] = [
+  "meu-estudo",
+  "exercicios",
+  "revisoes",
+  "turma",
+  "professores",
+  "mapa-curricular",
+  "nivelamento",
+  "metas",
+  "vlibras",
+  "ajudou",
+  "guia-contribuir",
+  "pratica-sem-placar",
+];
+
+/** Recursos que "todos" não liga: só ligam com o nome na lista. */
+export const SO_PELO_NOME: readonly Recurso[] = ["escola"];
 
 /** Lê a lista da variável. Separado para os testes poderem conferir a leitura sem mexer no ambiente. */
 export function lerRecursos(valor: string | undefined): Set<string> {
@@ -40,7 +72,13 @@ export function lerRecursos(valor: string | undefined): Set<string> {
 // A referência precisa ser literal (process.env.NEXT_PUBLIC_RECURSOS) para o Next gravar o valor no código do navegador.
 const ligados = lerRecursos(process.env.NEXT_PUBLIC_RECURSOS);
 
-/** O recurso está ligado nesta montagem do site? */
+/**
+ * O recurso está ligado nesta montagem do site? "-nome" na lista sempre desliga; o nome na lista liga; "todos" liga o
+ * que não está em SO_PELO_NOME; e os de PADRAO ficam ligados, a não ser que a lista diga "nenhum".
+ */
 export function ligado(recurso: Recurso, lista: Set<string> = ligados): boolean {
-  return lista.has(recurso) || lista.has("todos");
+  if (lista.has(`-${recurso}`)) return false;
+  if (lista.has(recurso)) return true;
+  if (lista.has("todos") && !SO_PELO_NOME.includes(recurso)) return true;
+  return PADRAO.includes(recurso) && !lista.has("nenhum");
 }

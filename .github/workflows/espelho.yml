@@ -14,6 +14,11 @@ permissions:
 jobs:
   espelho:
     runs-on: ubuntu-latest
+    # Publicar noutro endereço (opcional, E4-04): só com os três valores da conta da coordenação na Cloudflare
+    # (docs/ESPELHO-E-COPIAS.md). Sem eles, o passo "Publicar o espelho" é pulado e o workflow faz só o .zip, como antes.
+    # Os segredos ficam só no passo que publica (nem o npm ci nem o gerador os veem); aqui vai apenas "true"/"false".
+    env:
+      PUBLICAR_ESPELHO: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' && vars.ESPELHO_PROJETO != '' }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
@@ -27,3 +32,10 @@ jobs:
           name: espelho-instituto-lucia
           path: espelho.zip
           retention-days: 90
+      - name: Publicar o espelho (Cloudflare Pages, opcional)
+        if: ${{ env.PUBLICAR_ESPELHO == 'true' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          ESPELHO_PROJETO: ${{ vars.ESPELHO_PROJETO }}
+        run: npx --yes wrangler@4.147.0 pages deploy espelho --project-name="$ESPELHO_PROJETO" --branch=main --commit-dirty=true

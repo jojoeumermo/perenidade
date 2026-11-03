@@ -1,0 +1,473 @@
+[
+  {
+    "id": "eja-estudar",
+    "padroes": ["estudar na eja", "eja", "voltar a estudar", "terminar os estudos", "estudar depois de adulto", "matricula na eja", "supletivo"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/o-que-e-a-eja-e-como-se-matricular" },
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/encceja-o-certificado-do-ensino-fundamental-e-do-medio" },
+      { "tipo": "trilha", "slug": "alfabetizacao-de-jovens-e-adultos" }
+    ],
+    "nota": "Quem quer voltar a estudar: a aula da EJA, a do Encceja e a trilha de jovens e adultos."
+  },
+  {
+    "id": "encceja",
+    "padroes": ["encceja", "certificado do ensino medio", "certificado do ensino fundamental", "tirar o diploma do ensino medio", "terminar o ensino medio"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/encceja-o-certificado-do-ensino-fundamental-e-do-medio" },
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/o-que-e-a-eja-e-como-se-matricular" }
+    ],
+    "nota": "O certificado do fundamental e do médio pelo Encceja."
+  },
+  {
+    "id": "aprender-a-ler",
+    "padroes": ["aprender a ler", "aprender a ler e escrever", "nao sei ler", "alfabetizacao de adulto", "ler e escrever", "comecar a ler"],
+    "destinos": [
+      { "tipo": "trilha", "slug": "ler-e-escrever" },
+      { "tipo": "aula", "id": "ler-e-escrever/como-funciona-a-alfabetizacao-de-adultos" },
+      { "tipo": "aula", "id": "ler-e-escrever/o-seu-nome" }
+    ],
+    "nota": "Alfabetização: a trilha Ler e escrever, do começo."
+  },
+  {
+    "id": "escrever-nome",
+    "padroes": ["escrever meu nome", "escrever o nome", "assinar o nome"],
+    "destinos": [
+      { "tipo": "aula", "id": "ler-e-escrever/o-seu-nome" },
+      { "tipo": "trilha", "slug": "ler-e-escrever" }
+    ],
+    "nota": "A primeira aula da alfabetização é o próprio nome."
+  },
+  {
+    "id": "formulario",
+    "padroes": ["preencher formulario", "preencher ficha", "preencher cadastro", "ficha de emprego"],
+    "destinos": [
+      { "tipo": "aula", "id": "ler-e-escrever/preencher-um-formulario" },
+      { "tipo": "aula", "id": "portugues-fundamental/bilhete-e-mail-e-requerimento-como-escrever" }
+    ],
+    "nota": "Formulários e requerimentos."
+  },
+  {
+    "id": "escrever-bilhete-mensagem",
+    "padroes": ["escrever uma carta", "escrever mensagem", "escrever bilhete", "escrever um email", "escrever requerimento"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/escrever-uma-carta-e-uma-mensagem" },
+      { "tipo": "aula", "id": "ler-e-escrever/escrever-um-bilhete" },
+      { "tipo": "aula", "id": "portugues-fundamental/bilhete-e-mail-e-requerimento-como-escrever" }
+    ],
+    "nota": "Carta, bilhete, mensagem, e-mail e requerimento."
+  },
+  {
+    "id": "interpretar-texto",
+    "padroes": ["interpretar texto", "entender o que leio", "entender um texto", "interpretacao de texto"],
+    "destinos": [
+      { "tipo": "aula", "id": "portugues-fundamental/como-interpretar-um-texto" },
+      { "tipo": "aula", "id": "ler-e-escrever/ler-uma-noticia-curta" }
+    ],
+    "nota": "Ler e entender um texto."
+  },
+  {
+    "id": "contrato",
+    "padroes": ["ler contrato", "assinar contrato", "contrato antes de assinar", "contrato de aluguel"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/ler-um-contrato-antes-de-assinar" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Ler um contrato antes de assinar; a Defensoria está no guia de direitos."
+  },
+  {
+    "id": "bula-rotulo",
+    "padroes": ["ler bula", "bula de remedio", "ler rotulo", "validade do remedio"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/ler-rotulo-e-bula" }
+    ],
+    "nota": "Rótulo e bula."
+  },
+  {
+    "id": "contas-do-dia",
+    "padroes": ["fazer conta", "fazer contas", "contas do dia a dia", "conta de cabeca", "aprender matematica do basico"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/fazer-contas-do-dia-a-dia" },
+      { "tipo": "ferramenta", "id": "contas-do-dia-a-dia" },
+      { "tipo": "aula", "id": "matematica-fundamental/as-quatro-operacoes" }
+    ],
+    "nota": "Contas do dia a dia: a aula, a ferramenta e as quatro operações."
+  },
+  {
+    "id": "porcentagem",
+    "padroes": ["calcular porcentagem", "porcentagem", "quanto e por cento", "desconto em porcentagem"],
+    "destinos": [
+      { "tipo": "aula", "id": "matematica-fundamental/02-porcentagem" },
+      { "tipo": "ferramenta", "id": "contas-do-dia-a-dia" },
+      { "tipo": "aula", "id": "estatistica-para-ler-o-brasil/porcentagem-no-noticiario" }
+    ],
+    "nota": "Porcentagem na aula e na ferramenta de contas."
+  },
+  {
+    "id": "regra-de-tres",
+    "padroes": ["regra de tres", "fazer regra de tres"],
+    "destinos": [
+      { "tipo": "aula", "id": "matematica-fundamental/regra-de-tres" },
+      { "tipo": "ferramenta", "id": "contas-do-dia-a-dia" }
+    ],
+    "nota": "Regra de três."
+  },
+  {
+    "id": "juros-parcelado",
+    "padroes": ["juros", "comprar parcelado", "a vista ou parcelado", "juros do cartao", "emprestimo vale a pena", "calcular juros"],
+    "destinos": [
+      { "tipo": "aula", "id": "economia-fundamental/juros-o-preco-do-dinheiro" },
+      { "tipo": "ferramenta", "id": "juros-compostos" },
+      { "tipo": "ferramenta", "id": "contas-do-dia-a-dia" }
+    ],
+    "nota": "Juros, compra parcelada e a calculadora de juros compostos."
+  },
+  {
+    "id": "orcamento-casa",
+    "padroes": ["orcamento da casa", "organizar as contas", "organizar o dinheiro", "controlar gastos", "dinheiro nao da"],
+    "destinos": [
+      { "tipo": "ferramenta", "id": "contas-do-dia-a-dia" },
+      { "tipo": "aula", "id": "ler-e-escrever/os-numeros-e-o-dinheiro" },
+      { "tipo": "aula", "id": "economia-fundamental/preco-salario-e-inflacao" }
+    ],
+    "nota": "Orçamento da casa na ferramenta de contas."
+  },
+  {
+    "id": "conta-de-luz",
+    "padroes": ["conta de luz", "ler a conta de luz", "consumo de energia", "gasto de energia", "tarifa social"],
+    "destinos": [
+      { "tipo": "aula", "id": "eletricidade-basica-e-seguranca/potencia-e-consumo-ler-a-conta-de-luz" },
+      { "tipo": "pagina", "caminho": "/direitos" },
+      { "tipo": "aula", "id": "ler-e-escrever/ler-placas-onibus-e-contas" }
+    ],
+    "nota": "Ler a conta de luz; a Tarifa Social está no guia de direitos."
+  },
+  {
+    "id": "inflacao",
+    "padroes": ["inflacao", "por que tudo esta caro", "preco subindo", "ipca"],
+    "destinos": [
+      { "tipo": "aula", "id": "economia-fundamental/preco-salario-e-inflacao" },
+      { "tipo": "aula", "id": "estatistica-para-ler-o-brasil/inflacao-o-que-e-o-ipca" }
+    ],
+    "nota": "Preço, salário e inflação."
+  },
+  {
+    "id": "impostos",
+    "padroes": ["impostos", "quem paga imposto", "imposto"],
+    "destinos": [
+      { "tipo": "aula", "id": "economia-fundamental/impostos-quem-paga" }
+    ],
+    "nota": "Quem paga os impostos."
+  },
+  {
+    "id": "rescisao",
+    "padroes": ["rescisao", "fazer rescisao", "fui demitido", "fui mandado embora", "aviso previo", "acerto do trabalho", "calcular rescisao"],
+    "destinos": [
+      { "tipo": "aula", "id": "direitos-no-trabalho/o-que-e-a-clt" },
+      { "tipo": "ferramenta", "id": "direitos-trabalhistas" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Rescisão: a aula da CLT, as contas da ferramenta Direitos do trabalhador (que já existe) e o guia de direitos (seguro-desemprego e Defensoria). O roteiro passo a passo da rescisão é da Etapa 3 e ainda não existe."
+  },
+  {
+    "id": "direitos-trabalhistas",
+    "padroes": ["direitos do trabalhador", "direitos trabalhistas", "carteira assinada", "clt", "ferias", "decimo terceiro", "hora extra", "fgts"],
+    "destinos": [
+      { "tipo": "aula", "id": "direitos-no-trabalho/o-que-e-a-clt" },
+      { "tipo": "ferramenta", "id": "direitos-trabalhistas" },
+      { "tipo": "trilha", "slug": "direitos-no-trabalho" }
+    ],
+    "nota": "CLT, férias, 13º, horas extras e FGTS."
+  },
+  {
+    "id": "seguro-desemprego",
+    "padroes": ["seguro desemprego", "pedir seguro desemprego", "estou desempregado", "perdi o emprego"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/direitos" },
+      { "tipo": "aula", "id": "direitos-no-trabalho/o-que-e-a-clt" }
+    ],
+    "nota": "O seguro-desemprego está no guia de direitos."
+  },
+  {
+    "id": "trabalho-por-conta",
+    "padroes": ["trabalhar por conta propria", "abrir mei", "mei", "trabalho informal", "autonomo"],
+    "destinos": [
+      { "tipo": "aula", "id": "barbeiro/formalizacao-e-direitos-de-quem-trabalha-por-conta-propria" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Formalização e direitos de quem trabalha por conta própria."
+  },
+  {
+    "id": "aplicativo-entrega",
+    "padroes": ["trabalhar de aplicativo", "entregador de aplicativo", "motorista de aplicativo", "uberizacao"],
+    "destinos": [
+      { "tipo": "aula", "id": "capitalismo-contemporaneo/capitalismo-de-plataforma-e-uberizacao" }
+    ],
+    "nota": "Trabalho por aplicativo."
+  },
+  {
+    "id": "sindicato",
+    "padroes": ["sindicato", "o que faz o sindicato", "entrar no sindicato", "greve"],
+    "destinos": [
+      { "tipo": "aula", "id": "sindicalismo-fundamental/o-que-e-um-sindicato" },
+      { "tipo": "aula", "id": "marxismo-fundamental/o-que-e-um-sindicato" }
+    ],
+    "nota": "O que é um sindicato."
+  },
+  {
+    "id": "inss-aposentadoria",
+    "padroes": ["aposentadoria", "aposentar", "inss", "auxilio doenca", "pensao por morte"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/direitos" },
+      { "tipo": "aula", "id": "envelhecer-com-direitos/o-estatuto-da-pessoa-idosa" }
+    ],
+    "nota": "INSS, aposentadoria e auxílios estão no guia de direitos."
+  },
+  {
+    "id": "bolsa-familia-cadunico",
+    "padroes": ["bolsa familia", "cadastro unico", "cadunico", "cras", "auxilio do governo", "beneficio do governo"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Bolsa Família, Cadastro Único e CRAS no guia de direitos."
+  },
+  {
+    "id": "bpc",
+    "padroes": ["bpc", "loas", "beneficio de prestacao continuada", "beneficio para pessoa com deficiencia"],
+    "destinos": [
+      { "tipo": "aula", "id": "direitos-das-pessoas-com-deficiencia/o-beneficio-de-prestacao-continuada" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "O BPC na aula e no guia de direitos."
+  },
+  {
+    "id": "pessoa-com-deficiencia",
+    "padroes": ["direitos da pessoa com deficiencia", "lei brasileira de inclusao", "cota para pessoa com deficiencia"],
+    "destinos": [
+      { "tipo": "aula", "id": "direitos-das-pessoas-com-deficiencia/a-lei-brasileira-de-inclusao" },
+      { "tipo": "aula", "id": "direitos-das-pessoas-com-deficiencia/cotas-no-trabalho" },
+      { "tipo": "trilha", "slug": "direitos-das-pessoas-com-deficiencia" }
+    ],
+    "nota": "Lei Brasileira de Inclusão e cotas no trabalho."
+  },
+  {
+    "id": "pessoa-idosa",
+    "padroes": ["direitos do idoso", "estatuto do idoso", "estatuto da pessoa idosa"],
+    "destinos": [
+      { "tipo": "aula", "id": "envelhecer-com-direitos/o-estatuto-da-pessoa-idosa" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Estatuto da Pessoa Idosa."
+  },
+  {
+    "id": "advogado-gratis",
+    "padroes": ["advogado de graca", "advogado gratis", "defensoria publica", "processar alguem", "preciso de advogado"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "A Defensoria Pública está no guia de direitos."
+  },
+  {
+    "id": "abordagem-policial",
+    "padroes": ["abordagem policial", "fui parado pela policia", "direitos na abordagem", "revista policial"],
+    "destinos": [
+      { "tipo": "aula", "id": "direito-fundamental/abordagem-policial-seus-direitos" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Abordagem policial: seus direitos."
+  },
+  {
+    "id": "constituicao",
+    "padroes": ["constituicao", "o que diz a constituicao", "meus direitos", "direitos basicos"],
+    "destinos": [
+      { "tipo": "aula", "id": "direito-fundamental/o-que-diz-a-constituicao-de-1988" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "A Constituição de 1988 e o guia de direitos."
+  },
+  {
+    "id": "violencia-contra-mulher",
+    "padroes": ["maria da penha", "violencia domestica", "violencia contra a mulher", "medida protetiva", "denunciar agressao"],
+    "destinos": [
+      { "tipo": "aula", "id": "feminismo-fundamental/a-lei-maria-da-penha" },
+      { "tipo": "pagina", "caminho": "/direitos" },
+      { "tipo": "pagina", "caminho": "/modo-seguro" }
+    ],
+    "nota": "Lei Maria da Penha, os telefones de ajuda do guia de direitos e o modo seguro para quem estuda num aparelho vigiado."
+  },
+  {
+    "id": "racismo",
+    "padroes": ["racismo", "racismo e crime", "denunciar racismo", "injuria racial"],
+    "destinos": [
+      { "tipo": "aula", "id": "luta-negra-fundamental/racismo-e-crime" },
+      { "tipo": "aula", "id": "luta-negra-fundamental/o-que-e-racismo" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Racismo é crime: a aula e onde denunciar."
+  },
+  {
+    "id": "sus",
+    "padroes": ["sus", "posto de saude", "atendimento de saude gratis", "consulta no sus", "remedio de graca"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/direitos" },
+      { "tipo": "aula", "id": "biologia-fundamental/o-sus-saude-como-direito" }
+    ],
+    "nota": "O SUS no guia de direitos e na aula."
+  },
+  {
+    "id": "saude-mental",
+    "padroes": ["saude mental", "ansiedade", "depressao", "preciso conversar com alguem", "apoio emocional"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/direitos" },
+      { "tipo": "aula", "id": "saude-mental/o-que-e-saude-mental" }
+    ],
+    "nota": "O CVV e os serviços de apoio estão no guia de direitos."
+  },
+  {
+    "id": "moradia",
+    "padroes": ["direito a moradia", "moradia", "despejo", "funcao social da propriedade", "estatuto da cidade"],
+    "destinos": [
+      { "tipo": "aula", "id": "direito-a-cidade/o-estatuto-da-cidade-e-a-funcao-social-da-propriedade" },
+      { "tipo": "pagina", "caminho": "/direitos" }
+    ],
+    "nota": "Estatuto da Cidade; a Defensoria no guia de direitos."
+  },
+  {
+    "id": "golpe-celular",
+    "padroes": ["golpe no celular", "golpe do whatsapp", "golpe do pix", "cai num golpe", "link falso", "clonaram meu whatsapp", "golpe"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/o-celular-no-dia-a-dia" },
+      { "tipo": "pagina", "caminho": "/seguranca-digital" },
+      { "tipo": "aula", "id": "autodefesa-digital/senhas-e-verificacao-em-duas-etapas" }
+    ],
+    "nota": "Golpes no celular: a aula do celular no dia a dia, o guia de segurança digital e a verificação em duas etapas."
+  },
+  {
+    "id": "senha-segura",
+    "padroes": ["senha segura", "proteger o whatsapp", "verificacao em duas etapas", "proteger minha conta", "hackearam minha conta"],
+    "destinos": [
+      { "tipo": "aula", "id": "autodefesa-digital/senhas-e-verificacao-em-duas-etapas" },
+      { "tipo": "pagina", "caminho": "/seguranca-digital" }
+    ],
+    "nota": "Senhas e verificação em duas etapas."
+  },
+  {
+    "id": "usar-celular",
+    "padroes": ["usar o celular", "aprender a usar o celular", "mandar mensagem no celular", "celular para iniciante"],
+    "destinos": [
+      { "tipo": "aula", "id": "alfabetizacao-de-jovens-e-adultos/o-celular-no-dia-a-dia" }
+    ],
+    "nota": "O celular no dia a dia."
+  },
+  {
+    "id": "noticia-falsa",
+    "padroes": ["noticia falsa", "fake news", "saber se e mentira", "checar noticia", "boato"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/checagens" },
+      { "tipo": "aula", "id": "estatistica-para-ler-o-brasil/como-ler-um-grafico-sem-ser-enganado" },
+      { "tipo": "aula", "id": "ler-e-escrever/ler-uma-noticia-curta" }
+    ],
+    "nota": "Checagens do site e como ler um gráfico sem ser enganado."
+  },
+  {
+    "id": "enem-como-funciona",
+    "padroes": ["enem", "como funciona o enem", "fazer o enem", "estudar para o enem", "passar no enem"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-como-funciona/como-funciona-o-enem" },
+      { "tipo": "trilha", "slug": "enem-como-funciona" },
+      { "tipo": "aula", "id": "enem-como-funciona/como-montar-um-plano-de-estudos-realista" }
+    ],
+    "nota": "Como funciona o ENEM e como montar um plano realista."
+  },
+  {
+    "id": "enem-inscricao",
+    "padroes": ["inscricao do enem", "isencao da taxa do enem", "taxa do enem", "me inscrever no enem"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-como-funciona/inscricao-e-isencao-da-taxa" }
+    ],
+    "nota": "Inscrição e isenção da taxa do ENEM."
+  },
+  {
+    "id": "enem-faculdade",
+    "padroes": ["sisu", "prouni", "fies", "entrar na faculdade", "faculdade de graca", "bolsa na faculdade"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-como-funciona/sisu-prouni-e-fies" },
+      { "tipo": "aula", "id": "enem-como-funciona/cotas-como-funciona-a-lei-de-cotas" }
+    ],
+    "nota": "Sisu, ProUni, Fies e cotas."
+  },
+  {
+    "id": "cotas",
+    "padroes": ["cotas", "lei de cotas", "cota racial", "cota de escola publica"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-como-funciona/cotas-como-funciona-a-lei-de-cotas" },
+      { "tipo": "aula", "id": "luta-negra-medio/cotas-raciais" }
+    ],
+    "nota": "A lei de cotas."
+  },
+  {
+    "id": "redacao-enem",
+    "padroes": ["redacao do enem", "fazer redacao", "redacao nota mil", "o que zera a redacao", "estrutura da redacao"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-redacao/a-estrutura-da-redacao-do-enem" },
+      { "tipo": "aula", "id": "enem-redacao/o-que-zera-a-redacao" },
+      { "tipo": "trilha", "slug": "enem-redacao" }
+    ],
+    "nota": "A redação do ENEM."
+  },
+  {
+    "id": "dia-da-prova",
+    "padroes": ["dia da prova", "o que levar na prova", "nervoso na prova", "ansiedade na prova", "tempo de prova"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-como-funciona/o-dia-da-prova-o-que-levar-e-como-administrar-o-tempo" },
+      { "tipo": "aula", "id": "enem-estrategia-de-prova/ansiedade-e-sono-antes-da-prova" },
+      { "tipo": "aula", "id": "enem-estrategia-de-prova/tempo-por-questao-e-ordem-de-resolucao" }
+    ],
+    "nota": "O dia da prova."
+  },
+  {
+    "id": "estudar-trabalhando",
+    "padroes": ["estudar trabalhando", "estudar e trabalhar", "pouco tempo para estudar", "estudar cuidando dos filhos", "plano de estudos"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-estrategia-de-prova/estudar-trabalhando-ou-cuidando-de-alguem" },
+      { "tipo": "aula", "id": "enem-como-funciona/como-montar-um-plano-de-estudos-realista" },
+      { "tipo": "aula", "id": "enem-estrategia-de-prova/estudar-do-jeito-que-funciona" }
+    ],
+    "nota": "Estudar com pouco tempo."
+  },
+  {
+    "id": "cursinho-popular",
+    "padroes": ["cursinho popular", "cursinho de graca", "estudar em grupo", "grupo de estudo"],
+    "destinos": [
+      { "tipo": "aula", "id": "enem-como-funciona/cursinhos-populares-estudar-junto-e-de-graca" },
+      { "tipo": "pagina", "caminho": "/estudo-em-grupo" }
+    ],
+    "nota": "Cursinhos populares e estudo em grupo."
+  },
+  {
+    "id": "por-onde-comecar",
+    "padroes": ["por onde comecar", "nao sei por onde comecar", "comecar a estudar", "quero estudar"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/comecar" },
+      { "tipo": "aula", "id": "enem-estrategia-de-prova/estudar-do-jeito-que-funciona" }
+    ],
+    "nota": "A página Comece aqui."
+  },
+  {
+    "id": "modo-seguro",
+    "padroes": ["saida rapida", "sair rapido do site", "estudar escondido", "celular vigiado", "apagar rastro", "modo seguro"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/modo-seguro" },
+      { "tipo": "pagina", "caminho": "/seguranca-digital" }
+    ],
+    "nota": "O modo seguro e o guia de segurança digital."
+  },
+  {
+    "id": "voluntario",
+    "padroes": ["ser voluntario", "ajudar o instituto", "dar aula de graca", "como ajudar"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/voluntarios" },
+      { "tipo": "pagina", "caminho": "/contribuir" }
+    ],
+    "nota": "Voluntariado e contribuição."
+  }
+]

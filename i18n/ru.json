@@ -6148,7 +6148,11 @@
     "tema": "Тема",
     "claro": "Светлая",
     "escuro": "Тёмная",
-    "secoes": "Все разделы"
+    "secoes": "Все разделы",
+    "escola": "Школа",
+    "abaEstudar": "Учиться",
+    "abaMeuEstudo": "Моя учёба",
+    "abaCampus": "Кампус"
   },
   "timeline": {
     "brasil": "В Бразилии",

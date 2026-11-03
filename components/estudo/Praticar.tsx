@@ -3,11 +3,15 @@
 
 import { useEffect, useState } from "react";
 import { fill } from "@/i18n/config";
+import { lerCartoes } from "@/lib/estudo";
 import type { ExercicioNovo } from "@/lib/exercicios";
 import { lerRespostas, paraRevisar, type RespostaGuardada } from "@/lib/meu-estudo";
+import { ligado } from "@/lib/recursos";
 import { useHydrated } from "@/lib/storage";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
+import { useTextosDaBusca } from "../busca/TextosDaBusca";
 import { L } from "../I18n";
+import { ComecoEmTresPassos } from "./ComecoEmTresPassos";
 import { CartaoDeExercicio } from "./Exercicio";
 import { useGuardado } from "./guardado";
 
@@ -21,6 +25,26 @@ export interface ExercicioComOrigem {
 }
 
 const TAMANHO = 10;
+/** A aula que o "Revisar esta aula" do fim da aula (E4-03) deixou para praticar primeiro: {aula: "trilha/aula"}. */
+export const CHAVE_PRATICAR_AULA = "lucia:praticar-aula";
+
+/** Lê e apaga a aula pedida pelo "Revisar esta aula" (sessionStorage; forma errada vira null). */
+function tirarAulaPedida(): string | null {
+  try {
+    const bruto = sessionStorage.getItem(CHAVE_PRATICAR_AULA);
+    sessionStorage.removeItem(CHAVE_PRATICAR_AULA);
+    if (!bruto) return null;
+    let aula: unknown = bruto;
+    try {
+      aula = (JSON.parse(bruto) as { aula?: unknown })?.aula ?? bruto;
+    } catch {
+      // gravado como texto puro ("trilha/aula"): vale também
+    }
+    return typeof aula === "string" && /^[a-z0-9-]+\/[a-z0-9-]+$/.test(aula) ? aula : null;
+  } catch {
+    return null;
+  }
+}
 const botao = "cursor-pointer bg-ink px-5 py-2.5 font-sans text-sm font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const campo = "mt-1 w-full border-2 border-ink bg-parchment px-3 py-2";
 
@@ -40,12 +64,63 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
   const [posicao, setPosicao] = useState(0);
   const [terminado, setTerminado] = useState(false);
   const [resultados, setResultados] = useState<Record<string, boolean>>({});
+  const [aulaPedida, setAulaPedida] = useState<string | null>(null);
+  const busca = useTextosDaBusca();
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("modo") === "revisar") void Promise.resolve().then(() => setModo("revisar"));
   }, []);
 
+  // Etapa 4 (E4-05): veio do "Revisar esta aula"? Os exercícios daquela aula vêm primeiro, depois os da mesma trilha.
+  useEffect(() => {
+    const aula = tirarAulaPedida();
+    if (!aula) return;
+    const daAula = todos.filter((x) => x.aula === aula).sort((a, b) => a.ex.dificuldade - b.ex.dificuldade);
+    const trilhaDaAula = aula.split("/")[0];
+    const daTrilha = todos.filter((x) => x.aula !== aula && x.trilha === trilhaDaAula).sort((a, b) => a.ex.dificuldade - b.ex.dificuldade);
+    void Promise.resolve().then(() => {
+      setAulaPedida(aula);
+      if (daAula.length > 0) {
+        setModo("livre");
+        setSessao([...daAula, ...daTrilha].slice(0, TAMANHO).map((x) => x.ex.id));
+        setPosicao(0);
+        setResultados({});
+        setTerminado(false);
+      }
+    });
+  }, [todos]);
+
   if (!hidratado) return null;
+
+  // O aviso da aula pedida: de qual aula são os primeiros exercícios e quantos cartões dela estão no baralho.
+  const tituloPedido = aulaPedida ? (todos.find((x) => x.aula === aulaPedida)?.tituloDaAula ?? aulaPedida) : "";
+  const temExerciciosDaAula = Boolean(aulaPedida && todos.some((x) => x.aula === aulaPedida));
+  const cartoesDaAula = aulaPedida ? lerCartoes().filter((c) => c.origem === tituloPedido).length : 0;
+  const avisoDaAula =
+    aulaPedida && busca ? (
+      <div className="mt-6 border-l-2 border-gold pl-3 font-sans text-sm" data-praticar-aula={aulaPedida}>
+        <p>{fill(temExerciciosDaAula ? busca.textos.praticarAula.primeiro : busca.textos.praticarAula.semExercicios, { aula: tituloPedido })}</p>
+        <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+          {cartoesDaAula > 0 && (
+            <L href="/caderno?ferramenta=revisao" className="underline hover:text-oxblood">
+              {fill(busca.textos.praticarAula.cartoes, { n: cartoesDaAula })}
+            </L>
+          )}
+          <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => { setAulaPedida(null); setSessao(null); }}>
+            {busca.textos.praticarAula.fechar}
+          </button>
+        </p>
+      </div>
+    ) : null;
+
+  // Etapa 4 (E4-05): nada para praticar ainda? O vazio ensina a começar.
+  if (todos.length === 0 && ligado("escola")) {
+    return (
+      <section className="mt-8 border border-rule bg-parchment-deep p-5" aria-label={s.titulo}>
+        <ComecoEmTresPassos caso="praticar" />
+      </section>
+    );
+  }
 
   const trilhas = [...new Map(todos.map((x) => [x.trilha, x.tituloDaTrilha])).entries()];
   const temas = [...new Set(todos.filter((x) => !trilha || x.trilha === trilha).map((x) => x.ex.tema))].sort();
@@ -90,6 +165,8 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
       );
     }
     return (
+      <>
+      {avisoDaAula}
       <section className="mt-8" aria-label={s.titulo}>
         <p className="flex flex-wrap items-center justify-between gap-2 font-sans text-sm">
           <span className="font-mono text-xs text-ink-soft">{fill(s.posicao, { i: posicao + 1, n: sessao.length })}</span>
@@ -131,10 +208,13 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
           </button>
         </p>
       </section>
+      </>
     );
   }
 
   return (
+    <>
+    {avisoDaAula}
     <section className="mt-8 border border-rule bg-parchment-deep p-5 font-sans text-sm" aria-labelledby="pr-escolha">
       <h2 id="pr-escolha" className="font-serif text-2xl font-semibold">
         {s.comoPraticar}
@@ -197,5 +277,6 @@ export function Praticar({ todos, s, sEx }: { todos: ExercicioComOrigem[]; s: Te
       </p>
       {todos.some((x) => x.ex.revisao.status === "em-revisao") && <p className="mt-4 border-l-2 border-gold pl-3 text-xs text-ink-soft">{sEx.avisoEmRevisao}</p>}
     </section>
+    </>
   );
 }

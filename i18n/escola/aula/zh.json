@@ -1,0 +1,91 @@
+{
+  "proximo": {
+    "proximaAula": "下一课：{titulo}",
+    "revisar": "复习这一课",
+    "prova": "参加本课程测验",
+    "outraTrilha": "选择下一门课程",
+    "barra": "下一课",
+    "barraRotulo": "前往下一课：{titulo}",
+    "esconder": "隐藏"
+  },
+  "fatias": {
+    "indice": "本课分为 {n} 部分",
+    "marca": "第 {i} 部分，共 {n} 部分 · {min} 分钟",
+    "minutos": "{min} 分钟",
+    "semTitulo": "第 {i} 部分",
+    "pararAqui": "停在这里",
+    "parado": "已保存在本设备上。你回来时，本课会提示从这里继续。",
+    "umaPorVez": "一次一部分",
+    "continuar": "继续：第 {i} 部分",
+    "fim": "本课的各部分到此结束。"
+  },
+  "retomar": {
+    "aviso": "回到上次停下的地方（第 {parte} 部分，第 {paragrafo} 段）",
+    "avisoSemParte": "回到上次停下的地方（第 {paragrafo} 段）",
+    "dispensar": "暂时不用"
+  },
+  "letra": {
+    "rotulo": "字体大小",
+    "menor": "缩小字体",
+    "normal": "正常字体",
+    "maior": "放大字体",
+    "agora": "字体 {n}%"
+  },
+  "selecao": {
+    "rotulo": "如何处理选中的文字",
+    "oQueE": "这是什么？",
+    "compartilhar": "分享这段文字",
+    "procurando": "正在查找…",
+    "doGlossario": "研究所词汇表",
+    "verGlossario": "在词汇表中查看",
+    "naoAchou": "词汇表和词典里都没有找到这个词。",
+    "indisponivel": "词典暂时没有回应，请稍后再试。",
+    "fonte": "来源",
+    "licenca": "许可",
+    "aviso": "由研究所的服务器向一部开放词典查询。",
+    "fechar": "关闭"
+  },
+  "cartao": {
+    "titulo": "文字卡片",
+    "gerando": "正在生成图片…",
+    "compartilhar": "分享图片",
+    "baixar": "下载图片",
+    "baixado": "图片已下载，课程链接已复制。",
+    "soBaixado": "图片已下载。",
+    "privado": "图片在本设备上生成，不会向研究所发送任何内容。",
+    "alt": "包含本课所选文字的图片",
+    "fechar": "关闭"
+  },
+  "umaMao": {
+    "rotulo": "单手模式",
+    "dica": "课程按钮移到下方，拇指够得着的地方。",
+    "voltar": "返回课程",
+    "ouvir": "朗读",
+    "parar": "停止"
+  },
+  "ouvir": {
+    "ouvir": "朗读",
+    "parar": "停止",
+    "rotulo": "朗读这一段"
+  },
+  "facil": {
+    "ler": "阅读简易版",
+    "voltar": "返回完整文本",
+    "aviso": "本课的简明语言版本。"
+  },
+  "nivel": {
+    "rotulo": "阅读难度：{nivel}",
+    "facil": "容易",
+    "media": "中等",
+    "dificil": "较难",
+    "como": "我们如何计算",
+    "explicacao": "计算依据句子和单词的长度（适用于葡萄牙语的 Flesch 指数，0 到 100）。它不衡量主题本身是否容易。指数低于 50 的课程会列入清单，由教育者撰写简易版。",
+    "fonteDaConta": "公式：Martins 等（1996）中引用的葡萄牙语改编版，未经核对。"
+  },
+  "voz": {
+    "telaApagada": "使用设备自带语音时，屏幕熄灭后朗读可能会停止。自然语音会继续播放。"
+  },
+  "cordel": {
+    "ouvir": "听科尔德尔诗版"
+  }
+}

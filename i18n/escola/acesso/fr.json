@@ -1,0 +1,45 @@
+{
+  "selo": {
+    "rotulo": "Confidentialité",
+    "aparelho": "Reste sur votre appareil",
+    "instituto": "Passe par le serveur de l'Institut",
+    "institutoNaoGuarda": "Passe par le serveur de l'Institut ; l'Institut ne garde pas ce que vous avez envoyé",
+    "institutoConsulta": "Passe par le serveur de l'Institut, qui consulte {servico} ; le service consulté ne sait pas qui vous êtes",
+    "externo": "Utilise un service extérieur : {servico}",
+    "privacidade": "Voir la page de confidentialité"
+  },
+  "servicos": {
+    "dicionarios": "le Wiktionnaire en portugais, le Dicionário Aberto et la Free Dictionary API",
+    "tatoeba": "Tatoeba",
+    "phet": "PhET (phet.colorado.edu), qui s'ouvre dans la page",
+    "vozDoNavegador": "la voix du navigateur ; dans certains navigateurs, elle est produite par l'entreprise du navigateur, qui reçoit le texte lu",
+    "reconhecimentoDeFala": "le service vocal du navigateur ; dans certains navigateurs, ce que vous dites est envoyé à l'entreprise du navigateur",
+    "ia": "un fournisseur d'IA, avec des serveurs hors du Brésil",
+    "vlibras": "le gouvernement fédéral brésilien (VLibras)"
+  },
+  "partes": {
+    "foto": "La photo de l'exercice",
+    "voz": "La voix"
+  },
+  "qualidade": {
+    "titulo": "Qualité du contenu",
+    "lead": "Compté dans les fichiers des leçons au montage du site. Cela montre l'état du contenu, jamais un classement de personnes.",
+    "aulas": "Leçons publiées",
+    "revisadas": "Relues par quelqu'un de l'équipe",
+    "emRevisaoProntas": "En relecture, avec le modèle de leçon complet",
+    "emRevisaoFaltam": "En relecture, il manque encore des parties du modèle de leçon",
+    "comFontes": "Avec des sources",
+    "comTeste": "Avec un quiz à la fin",
+    "comExercicio": "Avec des exercices corrigés qui expliquent chaque erreur",
+    "trilhas": "Parcours",
+    "trilhasComAula": "Avec au moins une leçon",
+    "trilhasSemAula": "Encore sans leçon",
+    "deTotal": "{n} sur {total}",
+    "calculadoEm": "Calculé le {data}.",
+    "guia": "Comment une leçon est relue (guide de relecture)"
+  },
+  "espelhos": {
+    "titulo": "Si le site tombe, lisez ici",
+    "texto": "Copies en lecture seule des leçons et du fonds, à une autre adresse :"
+  }
+}

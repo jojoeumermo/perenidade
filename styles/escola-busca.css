@@ -1,0 +1,76 @@
+/* Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* Busca viva, "Por onde andei", três passos e modo seguro (E4-05). Só tokens que já existem: nenhuma cor nova. */
+
+/* O botão "Sair" do modo seguro: discreto, fixo no canto de baixo à esquerda, acima do "voltar ao topo" e da barra de
+   abas do celular, com 44 px de toque. */
+.saida-rapida {
+  position: fixed;
+  left: 0.75rem;
+  bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.saida-rapida:hover,
+.saida-rapida:focus-visible {
+  border-color: var(--oxblood);
+  color: var(--oxblood);
+}
+@media (min-width: 768px) {
+  .saida-rapida {
+    left: 1.5rem;
+    bottom: 6.5rem;
+  }
+}
+
+/* O microfone: 44 px de toque na página de busca; no campo do alto, cabe na altura do campo. */
+.busca-voz-botao {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+.busca-campo .busca-voz-botao {
+  min-width: 2rem;
+  min-height: 2rem;
+}
+.busca-voz-aviso {
+  width: min(20rem, calc(100vw - 2rem));
+  overflow-wrap: anywhere;
+}
+.busca-voz-aviso button {
+  min-height: 2.75rem;
+}
+
+/* A caixa "Melhor caminho" e as listas de passos: o texto quebra em vez de empurrar a página no celular. */
+.melhor-caminho,
+.comeco-tres-passos,
+.convite-historico {
+  overflow-wrap: anywhere;
+}
+.melhor-caminho-item {
+  min-height: 2.75rem;
+  align-items: center;
+}
+.comeco-passo {
+  min-height: 2.75rem;
+}
+
+/* Leitor de tinta e modo leve: sem sombra. */
+:root:is([data-eink], [data-light]) .saida-rapida,
+:root:is([data-eink], [data-light]) .busca-voz-aviso {
+  box-shadow: none;
+}
+
+@media print {
+  .saida-rapida {
+    display: none;
+  }
+}

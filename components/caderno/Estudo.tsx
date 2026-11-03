@@ -5,6 +5,8 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import { type Fonte, limpar, type Marca, novoId } from "@/lib/caderno";
 import { agendar, apagarCartao, apagarErro, type CartaoDeRevisao, type Erro, filaDeErros, guardarCartoes, hoje, lerCartoes, lerCopia, lerErros, montarCopia, type Nota, paraHoje, refazerErro, responderCartao, restaurarCopia } from "@/lib/estudo";
+import { ligado } from "@/lib/recursos";
+import { ComecoEmTresPassos } from "../estudo/ComecoEmTresPassos";
 import { L } from "../I18n";
 import type { NotebookStrings } from "./Caderno";
 
@@ -166,6 +168,11 @@ export function Revisao({ s }: { s: NotebookStrings }) {
             </div>
           )}
         </>
+      ) : cartoes.length === 0 && ligado("escola") ? (
+        // Etapa 4 (E4-05): baralho vazio de verdade (não só "nada para hoje"): o vazio ensina a começar.
+        <div className="caderno-folha mt-3 px-5 py-6">
+          <ComecoEmTresPassos caso="caderno" />
+        </div>
       ) : (
         <p className="caderno-folha mt-3 px-5 py-10 text-center font-serif text-lg italic">{s.reviewNone}</p>
       )}
@@ -249,7 +256,11 @@ export function Erros({ s }: { s: NotebookStrings }) {
         <L href="/questoes#simulado" className={claro}>{s.mockExam}</L>
         <span className="font-mono text-xs text-ink-soft">{fill(s.mistakesCount, { n: erros.length })}</span>
       </p>
-      {erros.length === 0 ? (
+      {erros.length === 0 && ligado("escola") ? (
+        <div className="caderno-folha mt-4 px-5 py-6">
+          <ComecoEmTresPassos caso="erros" />
+        </div>
+      ) : erros.length === 0 ? (
         <p className="caderno-folha mt-4 px-5 py-10 text-center font-serif text-lg italic">{s.mistakesEmpty}</p>
       ) : (
         <ul className="mt-4 space-y-3">

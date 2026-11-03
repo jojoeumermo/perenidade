@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "titulo": "Escola Lúcia Maria",
+    "descricao": "Escola popular e gratuita do Instituto Lúcia, sem cadastro: caminho, turma e registro do que você estudou."
+  },
+  "nav": {
+    "rotulo": "Partes da Escola",
+    "entrada": "Entrada",
+    "quemFoi": "Quem foi Lúcia Maria",
+    "cursos": "Cursos",
+    "matricula": "Matrícula",
+    "calendario": "Calendário",
+    "campus": "Campus",
+    "turmas": "Turmas",
+    "acompanhante": "Acompanhante",
+    "caderneta": "Caderneta"
+  },
+  "entrada": {
+    "olho": "Instituto Lúcia",
+    "titulo": "Escola Lúcia Maria",
+    "linhaNaoUniversidade": "Escola popular e gratuita, sem cadastro. Não é universidade e não dá diploma: dá caminho, turma e registro do que você estudou.",
+    "comoFunciona": "Como funciona",
+    "passos": [
+      { "titulo": "Matrícula", "texto": "Diga o que você quer e quanto tempo tem. Sem nome, e-mail ou documento: a matrícula fica no seu aparelho." },
+      { "titulo": "Curso", "texto": "Escolha um curso montado só com aulas que já existem no Instituto." },
+      { "titulo": "Turma", "texto": "Se quiser, estude junto com quem faz o mesmo curso." },
+      { "titulo": "Tarefa no mundo", "texto": "Leve o que aprendeu para fora da tela: no trabalho, em casa, no bairro." },
+      { "titulo": "Formatura", "texto": "No fim, a formatura e a caderneta com o registro do que você estudou." }
+    ],
+    "pelaEscola": "Pela Escola",
+    "campusTexto": "Os prédios da Escola: aulas, acervo, laboratórios, rádio e comunidade.",
+    "calendarioTexto": "Os semestres, as férias e a semana de provas.",
+    "rever": "Ver a abertura de novo"
+  },
+  "cartao": {
+    "olho": "Antes de tudo",
+    "titulo": "Quem foi Lúcia Maria",
+    "texto": "Quem dá nome a esta escola.",
+    "ler": "Ler"
+  },
+  "quemFoi": {
+    "olho": "Escola Lúcia Maria",
+    "titulo": "Quem foi Lúcia Maria",
+    "descricao": "Quem dá nome à Escola Lúcia Maria, do Instituto Lúcia.",
+    "emPortugues": "(texto em português)",
+    "voltar": "Voltar à entrada da Escola"
+  },
+  "emConstrucao": {
+    "titulo": "Esta parte da Escola está sendo montada",
+    "texto": "Ela entra no ar quando estiver pronta. Enquanto isso, as aulas, o acervo e o Meu estudo continuam abertos.",
+    "voltar": "Voltar à entrada da Escola"
+  },
+  "paginas": {
+    "cursos": "Cursos",
+    "matricula": "Matrícula",
+    "carteirinha": "Carteirinha",
+    "plano": "Plano da semana",
+    "campus": "Campus",
+    "calendario": "Calendário",
+    "acompanhante": "Acompanhante",
+    "vozes": "Vozes do trabalho",
+    "lutas": "Mapa das lutas",
+    "assembleia": "Assembleia estudantil",
+    "ouvidoria": "Ouvidoria",
+    "educador-do-mes": "Educador do mês",
+    "provas": "Semana de provas",
+    "saberes": "Reconhecimento de saberes",
+    "formatura": "Formatura",
+    "caderneta": "Caderneta",
+    "turmas": "Turmas"
+  },
+  "calendario": {
+    "proposto": "Calendário proposto, a confirmar pela coordenação"
+  },
+  "abertura": {
+    "rotulo": "Boas-vindas à Escola Lúcia Maria",
+    "pular": "Pular",
+    "seguir": "Seguir",
+    "entrar": "Entrar na Escola",
+    "ouvir": "Ouvir",
+    "parar": "Parar de ouvir",
+    "de": "{n} de {total}",
+    "q1Titulo": "Esta é a Escola Lúcia Maria",
+    "q1Texto": "Uma escola popular, gratuita e aberta, dentro do Instituto Lúcia.",
+    "q2Titulo": "Quem foi Lúcia Maria",
+    "q3Titulo": "Por que a Escola existe",
+    "fonte": "Trecho de “Quem somos”",
+    "emPortugues": "(texto em português)",
+    "q4Titulo": "Como funciona",
+    "q4Texto": "Sem cadastro. O que você estuda fica guardado neste aparelho e só sai dele se você mandar.",
+    "baixarVoz": "Para ouvir com a voz que você escolheu, o aparelho precisa baixar {tamanho}. Baixar agora?",
+    "baixarSim": "Baixar e ouvir",
+    "baixarNao": "Agora não",
+    "semVoz": "Este aparelho não tem voz para ler em voz alta."
+  }
+}

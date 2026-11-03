@@ -2,6 +2,7 @@
 import Link from "@/components/Link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { textosDaBusca } from "@/lib/escola/indice";
 import { site } from "@/lib/site";
 
 /** O desenho da câmera do Instagram, em traço, na cor do texto ao redor. */
@@ -76,6 +77,8 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
   const regras = [
     [t.nav.myData, "/meus-dados"],
     [t.nav.privacy, "/privacidade"],
+    // Etapa 4 (E4-05): a saída rápida para quem estuda num aparelho vigiado. Sempre, com ou sem a Escola.
+    [textosDaBusca(lang).seguro.rodape, "/modo-seguro"],
     [t.nav.terms, "/termos"],
     [t.nav.usePolicy, "/uso"],
     [t.nav.conduct, "/conduta"],

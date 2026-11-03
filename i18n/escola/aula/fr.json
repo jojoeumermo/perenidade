@@ -1,0 +1,91 @@
+{
+  "proximo": {
+    "proximaAula": "Leçon suivante : {titulo}",
+    "revisar": "Réviser cette leçon",
+    "prova": "Passer l'épreuve du parcours",
+    "outraTrilha": "Choisir le parcours suivant",
+    "barra": "Suivante",
+    "barraRotulo": "Aller à la leçon suivante : {titulo}",
+    "esconder": "Masquer"
+  },
+  "fatias": {
+    "indice": "Cette leçon en {n} parties",
+    "marca": "Partie {i} sur {n} · {min} min",
+    "minutos": "{min} min",
+    "semTitulo": "Partie {i}",
+    "pararAqui": "M'arrêter ici",
+    "parado": "Enregistré sur cet appareil. À votre retour, la leçon proposera de reprendre ici.",
+    "umaPorVez": "Une partie à la fois",
+    "continuar": "Continuer : partie {i}",
+    "fim": "Fin des parties de cette leçon."
+  },
+  "retomar": {
+    "aviso": "Revenir là où vous vous êtes arrêté (partie {parte}, paragraphe {paragrafo})",
+    "avisoSemParte": "Revenir là où vous vous êtes arrêté (paragraphe {paragrafo})",
+    "dispensar": "Pas maintenant"
+  },
+  "letra": {
+    "rotulo": "Taille du texte",
+    "menor": "Texte plus petit",
+    "normal": "Texte normal",
+    "maior": "Texte plus grand",
+    "agora": "Texte à {n} %"
+  },
+  "selecao": {
+    "rotulo": "Que faire du passage choisi",
+    "oQueE": "Qu'est-ce que c'est ?",
+    "compartilhar": "Partager le passage",
+    "procurando": "Recherche…",
+    "doGlossario": "Glossaire de l'Institut",
+    "verGlossario": "Voir dans le glossaire",
+    "naoAchou": "Ce mot n'est ni dans le glossaire ni dans le dictionnaire.",
+    "indisponivel": "Le dictionnaire n'a pas répondu. Réessayez plus tard.",
+    "fonte": "Source",
+    "licenca": "Licence",
+    "aviso": "Recherche faite par le serveur de l'Institut dans un dictionnaire libre.",
+    "fechar": "Fermer"
+  },
+  "cartao": {
+    "titulo": "Carte du passage",
+    "gerando": "Création de l'image…",
+    "compartilhar": "Partager l'image",
+    "baixar": "Télécharger l'image",
+    "baixado": "Image téléchargée et lien de la leçon copié.",
+    "soBaixado": "Image téléchargée.",
+    "privado": "L'image est créée sur cet appareil. Rien n'est envoyé à l'Institut.",
+    "alt": "Image avec le passage choisi de la leçon",
+    "fechar": "Fermer"
+  },
+  "umaMao": {
+    "rotulo": "Mode une main",
+    "dica": "Les boutons de la leçon descendent près du pouce.",
+    "voltar": "Retour au parcours",
+    "ouvir": "Écouter",
+    "parar": "Arrêter"
+  },
+  "ouvir": {
+    "ouvir": "Écouter",
+    "parar": "Arrêter",
+    "rotulo": "Écouter ce paragraphe"
+  },
+  "facil": {
+    "ler": "Lire la version facile",
+    "voltar": "Revenir au texte complet",
+    "aviso": "Version en langage simple de cette leçon."
+  },
+  "nivel": {
+    "rotulo": "Lecture : {nivel}",
+    "facil": "facile",
+    "media": "moyenne",
+    "dificil": "difficile",
+    "como": "Comment nous mesurons",
+    "explicacao": "Le calcul utilise la longueur des phrases et des mots (l'indice de Flesch adapté au portugais, de 0 à 100). Il ne mesure pas si le sujet est facile. Les leçons sous 50 entrent dans la liste pour recevoir une version facile, écrite par des éducateurs.",
+    "fonteDaConta": "Formule : adaptation au portugais citée dans Martins et al. (1996), non vérifiée."
+  },
+  "voz": {
+    "telaApagada": "Avec la voix de l'appareil, la lecture peut s'arrêter quand l'écran s'éteint. La voix naturelle continue."
+  },
+  "cordel": {
+    "ouvir": "Écouter en cordel"
+  }
+}

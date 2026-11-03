@@ -16,14 +16,19 @@ import { OfflineSupport } from "@/components/Offline";
 import { OpeningNotice } from "@/components/OpeningNotice";
 import { OutsidePanel } from "@/components/OutsidePanel";
 import { RadioPlayer } from "@/components/RadioPlayer";
+import { RegistroDeVisita } from "@/components/RegistroDeVisita";
+import { SaidaRapida } from "@/components/SaidaRapida";
+import { TextosDaBuscaProvider } from "@/components/busca/TextosDaBusca";
 import { Shortcuts } from "@/components/Shortcuts";
 import { VoltarAoTopo } from "@/components/VoltarAoTopo";
 import { PrefsScript } from "@/components/ThemeToggle";
 import abertura from "@/content/abertura.json";
+import comecar from "@/content/comecar.json";
 import { loadLang } from "@/i18n";
 import { pickBase } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
 import { organizacao, siteWeb } from "@/lib/dados-estruturados";
+import { textosDaBusca } from "@/lib/escola/indice";
 import { secoesDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 
@@ -88,6 +93,9 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   };
 }
 
+// A primeira aula do "Comece aqui" (content/comecar.json): o passo 2 dos três passos dos estados vazios (E4-05).
+const primeiraAula = comecar.flatMap((bloco) => bloco.aulas)[0] ?? null;
+
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang, t } = await loadLang(params);
   return (
@@ -103,6 +111,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <DadosEstruturados dados={[organizacao(), siteWeb(lang, t.meta.description)]} />
         {/* O núcleo sem as seções extras (i18n/core.ts): a rota que precisa de t.areas no navegador acrescenta a sua. */}
         <I18nProvider lang={lang} t={pickBase(t)}>
+          {/* Etapa 4 (E4-05): os textos da busca viva, do histórico, dos três passos e do modo seguro, só neste idioma. */}
+          <TextosDaBuscaProvider textos={textosDaBusca(lang)} primeiraAula={primeiraAula}>
           {/* O painel da equipe é uma tela à parte: lá dentro o site público não aparece. */}
           <OutsidePanel>
             <Header lang={lang} t={t} />
@@ -139,6 +149,10 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           </OutsidePanel>
           <Shortcuts />
           <OfflineSupport />
+          {/* O histórico local (só grava quando a pessoa ligou) e a saída rápida do modo seguro (sempre disponível). */}
+          <RegistroDeVisita />
+          <SaidaRapida />
+          </TextosDaBuscaProvider>
         </I18nProvider>
       </body>
     </html>

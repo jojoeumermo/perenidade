@@ -6,12 +6,15 @@ import { fill, htmlLang } from "@/i18n/config";
 import { type CartaoDeRevisao, type Erro, lerCartoes, lerErros, paraHoje } from "@/lib/estudo";
 import { apagarProgresso, emRevisao, lerRespostas, lerTestes, paraRevisar, porTema, type RespostaGuardada, type Teste } from "@/lib/meu-estudo";
 import { useCompleted, useLastLesson } from "@/lib/progress";
+import { ligado } from "@/lib/recursos";
 import { notifyStored, useHydrated } from "@/lib/storage";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { CopiaDeSeguranca } from "../caderno/Estudo";
 import type { NotebookStrings } from "../caderno/Caderno";
 import { L, useI18n } from "../I18n";
+import { ConviteDoHistorico } from "../PorOndeAndei";
 import { Barra } from "./Barra";
+import { ComecoEmTresPassos } from "./ComecoEmTresPassos";
 import { useGuardado } from "./guardado";
 import { useIndice } from "./indice";
 
@@ -91,12 +94,19 @@ export function MeuEstudo({ s, caderno, praticar, extras }: { s: S; caderno: Not
         </h2>
         {vazio ? (
           <div className="mt-3">
-            <p className="text-ink-soft">{s.vazio}</p>
-            <p className="mt-3 flex flex-wrap gap-3">
-              <L href="/trilhas" className={botao}>
-                {s.escolherAula}
-              </L>
-            </p>
+            {/* Etapa 4 (E4-05): com a Escola ligada, o vazio ensina a começar em três passos. */}
+            {ligado("escola") ? (
+              <ComecoEmTresPassos caso="meuEstudo" />
+            ) : (
+              <>
+                <p className="text-ink-soft">{s.vazio}</p>
+                <p className="mt-3 flex flex-wrap gap-3">
+                  <L href="/trilhas" className={botao}>
+                    {s.escolherAula}
+                  </L>
+                </p>
+              </>
+            )}
           </div>
         ) : (
           <div className="mt-4 grid grid-cols-2 gap-5 md:grid-cols-4">
@@ -261,6 +271,9 @@ export function MeuEstudo({ s, caderno, praticar, extras }: { s: S; caderno: Not
           {aviso}
         </p>
       </section>
+
+      {/* Etapa 4 (E4-05): o convite para este aparelho lembrar as páginas da semana (desligado por padrão). */}
+      <ConviteDoHistorico />
     </div>
   );
 }
