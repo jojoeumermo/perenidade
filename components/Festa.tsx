@@ -58,7 +58,8 @@ export function festaDe(agora: Date): Festa | null {
   if (md >= 915 && md <= 925) return "arvore";
   if (md >= 1010 && md <= 1012) return "criancas";
   if (md === 1102) return "finados";
-  if (md >= 1103 && md <= 1130) return "consciencia";
+  // Consciência Negra: só a semana que termina no 20 de novembro, dia de Zumbi.
+  if (md >= 1114 && md <= 1120) return "consciencia";
   return null;
 }
 
@@ -184,12 +185,13 @@ function desenho(festa: Festa): { largura: number; svg: string } {
       };
     }
     case "consciencia": {
-      // A faixa tecida, como a dos panos: blocos de cor sobre a trama escura.
-      const blocos = [
-        [1, 9, "#f0b323"], [11, 3, "#c21f16"], [15, 11, "#2e6b4f"], [27, 5, "#f0b323"], [33, 9, "#c21f16"], [43, 3, "#f4ecd8"], [47, 11, "#2e6b4f"], [59, 4, "#f0b323"],
-      ] as const;
-      const corpo = blocos.map(([x, w, cor]) => `<rect x="${x}" y="1" width="${w}" height="5" fill="${cor}"/>`).join("");
-      return { largura: 64, svg: `<rect width="64" height="7" fill="${TINTA}"/>${corpo}<path d="M0 3.5H64" stroke="${TINTA}" stroke-width=".5" stroke-dasharray="1 2"/>` };
+      // Data de luta e de memória, como Finados: nada de festa colorida. Só o Sankofa (o coração de pontas voltadas
+      // para dentro, "voltar e buscar o que ficou para trás"), em tinta, de tempos em tempos.
+      const sankofa =
+        "M150 15C144 11 142 8.5 142 6.3C142 4 143.8 2.5 146 2.5C148.4 2.5 149.5 4.5 149 6.3C148.6 7.6 147 7.8 146.4 6.8C146 6 146.8 5.3 147.4 5.8" +
+        "M150 15C156 11 158 8.5 158 6.3C158 4 156.2 2.5 154 2.5C151.6 2.5 150.5 4.5 151 6.3C151.4 7.6 153 7.8 153.6 6.8C154 6 153.2 5.3 152.6 5.8" +
+        "M150 15c-1.2 .9-2.7 1.4-3.2.4c-.3-.6.3-1.1.8-.8M150 15c1.2 .9 2.7 1.4 3.2.4c.3-.6-.3-1.1-.8-.8";
+      return { largura: 300, svg: `<path d="${sankofa}" stroke="${TINTA}" stroke-width=".9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>` };
     }
   }
 }
