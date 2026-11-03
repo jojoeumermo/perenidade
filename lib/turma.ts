@@ -133,3 +133,43 @@ export function lerComprovantes(texto: string): { lidos: Comprovante[]; invalido
   }
   return { lidos, invalidos };
 }
+
+
+// ───────────── Caderneta do trabalhador (E4-14) ─────────────
+// O comprovante vira um registro da caderneta SEM copiar o nome que a pessoa escreveu nele (c.n). A forma é estrutural
+// (igual a RegistroDaCaderneta de lib/escola/estudante.ts) para este arquivo seguir sem importar a Escola.
+
+export interface ResumoDoComprovante {
+  codigo: string;
+  feitas: number;
+  total: number;
+  completo: boolean;
+  dia: string;
+}
+
+/** Quantas aulas o comprovante diz que foram feitas, para mostrar antes de a pessoa confirmar a importação. */
+export function resumoDoComprovante(c: Comprovante): ResumoDoComprovante {
+  const feitas = c.c.length;
+  return { codigo: c.s, feitas, total: c.t, completo: c.t > 0 && feitas >= c.t, dia: c.d };
+}
+
+/**
+ * O registro de caderneta de um comprovante já validado por lerComprovante. O id é estável (turma-<código>-<dia>): importar
+ * o mesmo comprovante duas vezes substitui o registro. NUNCA leva c.n (o nome escrito no comprovante). Devolve null se não
+ * houver aula feita.
+ */
+export function registroDoComprovante(
+  c: Comprovante,
+  apelidoDaTurma?: string,
+): { id: string; tipo: "turma"; data: string; titulo: string; detalhe: string } | null {
+  if (c.t < 1 || c.c.length === 0) return null;
+  const rotulo = limpar(apelidoDaTurma ?? "", 120) || c.s;
+  const posicoes = c.c.map((i) => i + 1).join(", ");
+  return {
+    id: `turma-${c.s}-${c.d}`,
+    tipo: "turma",
+    data: c.d,
+    titulo: `Turma: ${rotulo}`.slice(0, 160),
+    detalhe: `${c.c.length} de ${c.t} aulas da sequência (posições ${posicoes}). Comprovante lido neste aparelho: sem valor de documento.`.slice(0, 2000),
+  };
+}

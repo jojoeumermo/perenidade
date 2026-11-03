@@ -1,0 +1,4 @@
+{
+  "_sobre": "Educador ou educadora do mês (E4-12, docs/escola/organizacao.md). Lista curada pela coordenação, começa vazia. Processo: (1) as indicações chegam pela ouvidoria (assunto 'educador'), em privado; (2) a coordenação conversa com a pessoa e pede autorização para o apelido aparecer; (3) acrescenta em 'educadores' um item por mês: {\"mes\": \"AAAA-MM\", \"apelido\": \"Como quer ser chamada\", \"curso\": \"slug-do-curso (opcional)\", \"motivo\": \"texto da coordenação, até 280 caracteres\", \"autorizacao\": true}. Sem foto, sem ranking, sem número de indicações por pessoa, só apelido (nunca nome completo, e-mail ou número de documento). Item sem autorizacao:true, mês repetido ou curso que não existe invalida a lista inteira e a página não mostra nada. Para retirar um nome: apagar o item e publicar, vale na hora, sem justificar. Crítica a educador nomeado fica só na fila da mediação.",
+  "educadores": []
+}

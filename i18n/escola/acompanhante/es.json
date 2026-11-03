@@ -22,7 +22,12 @@
       "trabalho": "el trabajo que indiques",
       "redacao": "la redacción y el tema",
       "foto": "la foto reducida, con tus tachaduras",
-      "idioma": "el idioma de la práctica"
+      "idioma": "el idioma de la práctica",
+      "vaga": "el puesto que escriba",
+      "fala": "el texto de su discurso",
+      "formulario": "el texto del formulario que pegue",
+      "resumo": "el título y el resumen de la clase",
+      "tema": "el tema que escriba"
     },
     "comoFunciona": "Cómo funciona",
     "historicoAqui": "Esta conversación se guarda solo en este dispositivo (hasta 20 conversaciones, durante 30 días).",
@@ -65,7 +70,12 @@
       "outro-jeito": "Otra manera",
       "redacao": "Redacción",
       "documento": "Documento",
-      "conversa": "Práctica de idioma"
+      "conversa": "Práctica de idioma",
+      "entrevista": "Ensayo de entrevista",
+      "oratoria": "Ensayo de oratoria",
+      "papelada": "Ayudante de trámites",
+      "turma": "Debate del grupo",
+      "educador": "Borrador del educador"
     }
   },
   "duvida": {

@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "hub": { "titulo": "Vida real", "descricao": "Vozes do trabalho, mapa das lutas, tarefa no mundo, missões de laboratório, estudo de caso do bairro e documentos reais: a Escola ligada à vida de quem estuda." },
+    "vozes": { "titulo": "Vozes do trabalho", "descricao": "Ouça trabalhadores que contaram o seu ofício e grave, só no seu aparelho, um áudio de até 2 minutos com um roteiro de perguntas." },
+    "lutas": { "titulo": "Mapa das lutas", "descricao": "As datas de luta do campus e os fatos de cada dia, por mês, com fonte, aula do tema e agenda. Um mapa no tempo." },
+    "tarefas": { "titulo": "Tarefas no mundo", "descricao": "A tarefa prática de cada curso, para fazer fora da tela: marque como feita, escreva uma nota e registre na caderneta." },
+    "missoes": { "titulo": "Missões de laboratório", "descricao": "Problemas de trabalho para resolver nos laboratórios do site, com o cuidado de cada situação. Você marca quando cumprir." },
+    "caso": { "titulo": "Estudo de caso do bairro", "descricao": "Olhar, ouvir, anotar, comparar com a aula e propor: um roteiro de 5 passos com rascunho privado." },
+    "documentos": { "titulo": "Documentos reais nas aulas", "descricao": "Como as aulas mostram um documento de verdade, com as áreas explicadas, a fonte e a licença." }
+  },
+  "comum": {
+    "emRevisao": "em revisão",
+    "revisar": "[A REVISAR PELA COORDENAÇÃO]",
+    "voltarVida": "Voltar à vida real",
+    "voltarEscola": "Voltar à entrada da Escola",
+    "soNoAparelho": "Fica só neste aparelho. Nada vai para o Instituto."
+  },
+  "hub": {
+    "olho": "Escola Lúcia Maria",
+    "titulo": "Vida real",
+    "lead": "Estudar não termina na tela. Aqui a Escola vai para o trabalho, para o bairro e para a luta de quem estuda. Tudo funciona no seu aparelho, sem cadastro e sem rastreio.",
+    "resumoTarefas": "{n} de {m} tarefas feitas",
+    "resumoMissoes": "{n} de {m} missões",
+    "abrir": "Abrir",
+    "nota": "Os textos desta parte foram escritos pelo pacote e estão em revisão. O que depende da coordenação está marcado.",
+    "cartoes": {
+      "vozes": { "titulo": "Vozes do trabalho", "texto": "Ouça quem conta o seu ofício e ensaie o seu próprio áudio de 2 minutos." },
+      "lutas": { "titulo": "Mapa das lutas", "texto": "As datas de luta, mês a mês, com fonte e aula do tema." },
+      "tarefas": { "titulo": "Tarefas no mundo", "texto": "A tarefa prática de cada curso, com nota e registro na caderneta." },
+      "missoes": { "titulo": "Missões de laboratório", "texto": "Um problema de trabalho para resolver no laboratório certo." },
+      "caso": { "titulo": "Estudo de caso do bairro", "texto": "Cinco passos para olhar o seu bairro com o que a aula ensina." },
+      "documentos": { "titulo": "Documentos reais", "texto": "Como as aulas mostram um documento de verdade, com a fonte e a licença." },
+      "circulo": { "titulo": "Círculo de cultura digital", "texto": "Para quem facilita um encontro: das palavras da turma a uma sequência de aulas." }
+    }
+  },
+  "vozes": {
+    "olho": "Vida real",
+    "titulo": "Vozes do trabalho",
+    "lead": "Quem trabalha sabe coisas que os livros não dizem. Aqui você ouve vozes publicadas com autorização e pode ensaiar a sua.",
+    "publicadas": {
+      "titulo": "Vozes publicadas",
+      "vazio": "Ainda não há voz publicada. Uma voz só entra com a autorização de quem falou e com a transcrição ao lado.",
+      "transcricao": "Transcrição",
+      "autorizada": "Publicada com autorização. Quem falou pode pedir para retirar a qualquer momento, sem dar explicação.",
+      "retirar": "Para retirar uma voz, escreva pela página de voluntariado."
+    },
+    "ensinam": {
+      "titulo": "Trabalhadores que ensinam",
+      "lead": "Pessoas do Memorial cuja vida de trabalho se liga a uma aula. O texto de cada cartão está em revisão.",
+      "memorial": "Ver no Memorial",
+      "aula": "Ver a aula",
+      "fonte": "Fonte"
+    },
+    "gravador": {
+      "titulo": "Grave a sua voz",
+      "avisoTitulo": "Antes de gravar",
+      "aviso": [
+        "Grave só a sua voz e a sua experiência.",
+        "Não diga nomes de outras pessoas, nem de patrão ou cliente, nem dado de terceiros.",
+        "Não grave criança nem adolescente.",
+        "A gravação fica só no seu aparelho. Nada é enviado.",
+        "Você pode apagar quando quiser."
+      ],
+      "menores": "Menores de 18 anos podem gravar para si, mas a publicação só é possível com a autorização de um responsável. A coordenação não publica áudio de criança nem de adolescente.",
+      "semGravacao": "Seu aparelho não grava áudio. Use o roteiro escrito abaixo: ele serve do mesmo jeito para ensaiar em voz alta.",
+      "semMicrofone": "Não foi possível usar o microfone. Confira a permissão do navegador ou use o roteiro escrito.",
+      "gravar": "Gravar",
+      "parar": "Parar",
+      "restam": "Restam {s} s",
+      "gravando": "Gravando",
+      "fimAos120": "A gravação para sozinha aos 120 segundos.",
+      "perguntaEscolhida": "Pergunta que você está respondendo",
+      "tituloLabel": "Título da gravação (até 60 caracteres)",
+      "limite": "Você já tem 10 gravações. Apague uma para gravar outra.",
+      "suas": "Suas gravações (só neste aparelho)",
+      "nenhuma": "Você ainda não gravou nada.",
+      "ouvir": "Ouvir",
+      "baixar": "Baixar",
+      "apagar": "Apagar",
+      "apagada": "Gravação apagada.",
+      "segundos": "{s} s",
+      "semTitulo": "Gravação sem título",
+      "falhou": "Não foi possível guardar a gravação neste aparelho."
+    },
+    "roteiro": {
+      "titulo": "Roteiro de perguntas",
+      "emRevisao": "Em revisão: as perguntas foram escritas pelo pacote.",
+      "lead": "Escolha uma pergunta e responda em até 2 minutos. Ou só leia e pense: o roteiro serve sem gravar.",
+      "perguntas": [
+        "O que eu faço no meu trabalho?",
+        "O que aprendi na prática que não está nos livros?",
+        "Qual é um risco do meu trabalho?",
+        "Qual direito eu gostaria de ter sabido antes?",
+        "Que conselho eu daria a quem está começando?",
+        "O que a Escola poderia ensinar sobre isso?"
+      ]
+    },
+    "enviar": {
+      "titulo": "Quer que a sua voz seja ouvida?",
+      "texto": "Nada vai sozinho. Se quiser contar o seu trabalho para o Instituto, copie o texto abaixo e use a página de voluntariado. A coordenação pede a sua autorização por escrito, revisa a transcrição e só então publica. Só maiores de 18 anos.",
+      "pronto": "Quero contar o meu trabalho em áudio de 2 minutos.",
+      "copiar": "Copiar o texto",
+      "link": "Ir para a página de voluntariado"
+    }
+  },
+  "lutas": {
+    "olho": "Vida real",
+    "titulo": "Mapa das lutas",
+    "lead": "Um mapa no tempo: as datas de luta do povo, mês a mês. Não há mapa de lugares porque o site ainda não tem coordenadas com fonte.",
+    "filtroFeriados": "Feriados do campus",
+    "filtroTodas": "Todas as datas",
+    "feriado": "Feriado do campus",
+    "memoria": "Data de memória",
+    "hoje": "Hoje",
+    "proxima": "Próxima data",
+    "aula": "Aula do tema",
+    "fonte": "Fonte",
+    "fatos": "O que aconteceu neste dia",
+    "agenda": "Pôr na agenda",
+    "ver": "Ver",
+    "vazio": "Nenhuma data neste filtro.",
+    "avisoMemoria": "Datas de memória vêm dos fatos do quadro \"Neste dia\", cada um com o seu link. Só os feriados do campus entram no calendário da Escola.",
+    "mais": "e mais {n} fatos no quadro \"Neste dia\""
+  },
+  "tarefas": {
+    "olho": "Vida real",
+    "titulo": "Tarefas no mundo",
+    "lead": "Cada curso tem uma tarefa para fazer fora da tela: no trabalho, em casa, no bairro. Marque quando fizer e, se quiser, escreva uma nota curta.",
+    "cartao": {
+      "titulo": "Sua marca",
+      "marcar": "Marcar como feita",
+      "feita": "Feita em {data}",
+      "desfazer": "Desfazer",
+      "nota": "Nota curta (até 500 caracteres)",
+      "notaAviso": "Sem nomes de outras pessoas.",
+      "salvarNota": "Guardar a nota",
+      "registrar": "Registrar na caderneta",
+      "registrada": "Registrada na caderneta.",
+      "avisoCaderneta": "A caderneta pode ser exportada e vista por outras pessoas. Não ponha nome de ninguém.",
+      "falhou": "Não foi possível guardar neste aparelho.",
+      "soNoAparelho": "A marca fica só neste aparelho."
+    },
+    "contador": "{n} de {m} tarefas feitas",
+    "abrirCurso": "Abrir o curso",
+    "estadoFeita": "Feita em {data}",
+    "estadoAFazer": "A fazer"
+  },
+  "missoes": {
+    "olho": "Vida real",
+    "titulo": "Missões de laboratório",
+    "lead": "Um problema de trabalho, um laboratório do site e um cuidado a ter. Você resolve, e marca que cumpriu.",
+    "emRevisao": "Em revisão: as missões foram escritas pelo pacote.",
+    "situacao": "Situação",
+    "tarefa": "Tarefa",
+    "cuidado": "Cuidado",
+    "abrir": "Abrir o laboratório",
+    "cumpri": "Cumpri a missão",
+    "cumprida": "Cumprida em {data}",
+    "desfazer": "Desfazer",
+    "contador": "{n} de {m} missões",
+    "nota": "O laboratório não manda resultado para ninguém: a marca é sua, só neste aparelho.",
+    "semCurso": "Sem curso específico",
+    "falhou": "Não foi possível guardar neste aparelho."
+  },
+  "caso": {
+    "olho": "Vida real",
+    "titulo": "Estudo de caso do bairro",
+    "lead": "Um roteiro de 5 passos para olhar um problema do seu bairro com o que a aula ensina. O rascunho é seu e fica só no aparelho.",
+    "aviso": "Não identifique ninguém, nem o lugar exato. Escreva sobre a situação, não sobre as pessoas.",
+    "curso": "Curso do caso",
+    "livre": "Caso livre (sem curso)",
+    "tituloLabel": "Título do caso (até 160 caracteres)",
+    "tituloPadrao": "Estudo de caso do bairro",
+    "limite": "Até {n} caracteres por passo.",
+    "passos": [
+      { "titulo": "1. O que vi", "ajuda": "Descreva o que você viu, sem julgar." },
+      { "titulo": "2. Quem ouvi", "ajuda": "O que diziam as pessoas, sem dizer quem são." },
+      { "titulo": "3. O que a aula diz sobre isso", "ajuda": "Ligue o que viu a uma aula ou a um curso." },
+      { "titulo": "4. O que o caso mostra", "ajuda": "O que esse caso ensina sobre a vida do bairro." },
+      { "titulo": "5. O que se pode propor", "ajuda": "Uma ação possível, pequena e coletiva." }
+    ],
+    "guardar": "Guardar o rascunho",
+    "guardado": "Rascunho guardado neste aparelho.",
+    "privado": "O rascunho é privado: fica só neste aparelho e não entra na cópia de segurança.",
+    "registrar": "Registrar na caderneta",
+    "avisoCaderneta": "Só o resumo vai para a caderneta, e a caderneta pode ser exportada e vista por outras pessoas. Confira se não há nome nem endereço.",
+    "registrado": "Registrado na caderneta.",
+    "apagar": "Apagar o rascunho",
+    "cancelar": "Cancelar",
+    "apagado": "Rascunho apagado.",
+    "falhou": "Não foi possível guardar neste aparelho."
+  },
+  "documentos": {
+    "olho": "Vida real",
+    "titulo": "Documentos reais nas aulas",
+    "lead": "Algumas aulas mostram um documento de verdade, com áreas que você toca para entender o que cada campo significa e o que conferir.",
+    "regrasTitulo": "As regras",
+    "regras": [
+      "Só entra documento sem dado pessoal: modelo oficial em branco, ato oficial, domínio público ou documento da própria equipe.",
+      "Toda imagem tem a fonte (endereço oficial) e a licença. Sem as duas, o bloco não aparece.",
+      "Nenhum holerite, conta ou documento de pessoa real.",
+      "A explicação de cada área está em revisão até a coordenação conferir.",
+      "Ler o seu próprio documento por foto é outra parte da Escola, e não esta."
+    ],
+    "listaTitulo": "Aulas com documento",
+    "vazio": "Ainda não há aula com documento. [A REVISAR PELA COORDENAÇÃO]: escolher os primeiros documentos e conferir os direitos de imagem antes de publicar.",
+    "comoTitulo": "Como pôr um documento numa aula",
+    "como": "No editor da aula, ponha o bloco \"Documento real com áreas\", com a imagem do site, a fonte, a licença e uma linha por área. O formato está em content/escola/vida/LEIA-ME.md.",
+    "abrirAula": "Abrir a aula"
+  },
+  "documento": {
+    "selo": "Explicação em revisão",
+    "verOriginal": "Ver o original",
+    "fonte": "Fonte",
+    "licenca": "Licença",
+    "semDados": "Documento sem dados pessoais",
+    "toque": "Toque numa área do documento para ler o que ela significa.",
+    "areas": "Áreas do documento",
+    "significa": "O que significa",
+    "conferir": "O que conferir",
+    "fechar": "Fechar"
+  }
+}

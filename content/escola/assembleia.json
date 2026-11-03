@@ -1,0 +1,6 @@
+{
+  "_sobre": "Pauta da Assembleia estudantil do semestre (E4-12, docs/escola/organizacao.md). A coordenação escolhe até 12 trilhas que já existem em content/trilhas (use o nome da pasta) e põe em 'candidatas'. 'semestre' é AAAA.S (1 ou 2). 'abreEm' e 'fechaEm' (AAAA-MM-DD) são opcionais e precisam cair dentro do semestre; sem elas a votação vale o semestre inteiro. Enquanto 'confirmado' for false, a página mostra 'Pauta proposta, a confirmar pela coordenação'. Com 'candidatas' vazia a votação não abre. Para os votos contarem, rode scripts/alvos-de-contagem.mjs na publicação seguinte (docs/escola/banco.md). Não ponha aqui nome de pessoa.",
+  "semestre": "2026.2",
+  "confirmado": false,
+  "candidatas": []
+}

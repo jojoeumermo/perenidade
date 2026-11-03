@@ -1,0 +1,4 @@
+{
+  "_sobre": "Vozes do trabalho PUBLICADAS (E4-11, docs/escola/vida.md). Começa vazia: uma voz só entra com 'autorizacao': true (consentimento livre, informado e específico de quem falou, LGPD art. 7, I, e art. 8), com a transcrição revisada pela coordenação e sem dado pessoal, nome de terceiro, criança nem adolescente. Retirar uma voz é apagar o item daqui e o arquivo de public/arquivos/vozes, e publicar na hora, sem pedir justificativa (art. 8, § 5). Formato e conferência: content/escola/vida/LEIA-ME.md e npm run testar:escola-vida.",
+  "vozes": []
+}

@@ -4,7 +4,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { comMarcas, miolo, partir, textoPuro, tipoDe } from "../lib/blocos.ts";
 import { expressaoSegura, lacunaCerta, lerCacaPalavras, lerCalculadora, lerDados, lerForca, lerGrafico, lerPares, lerPronuncia, lerTeste, MODELOS_INTERATIVOS, montarGrade, numeroCerto } from "../lib/interativos.ts";
-import { anguloEm, areaDoPoligono, distancia, lerArrastar, lerCena, lerGeometria, lerMapa, lerMolecula, lerMusica, lerProgramacao, lerRodar, lerSimulacao, nomeDeLugar, parDeNumeros, posicoesDaGeometria, saidaConfere, segundos } from "../lib/interativos-mais.ts";
+import { anguloEm, areaDoPoligono, distancia, lerArrastar, lerCena, lerDocumento, lerGeometria, lerMapa, lerMolecula, lerMusica, lerProgramacao, lerRodar, lerSimulacao, nomeDeLugar, parDeNumeros, posicoesDaGeometria, saidaConfere, segundos } from "../lib/interativos-mais.ts";
 import { BIBLIOTECA, comprimentoDaLigacao, formula, lerSmiles, moleculaDe } from "../lib/moleculas.ts";
 
 let ok = 0;
@@ -107,6 +107,10 @@ conferir("código para rodar: saída confere sem ligar para espaço no fim", sai
 
 conferir("cena: modelo com duas áreas e modo", lerCena(MODELOS_INTERATIVOS.cena.modelo)?.areas.length === 2);
 conferir("cena: imagem de fora do site é recusada", lerCena("imagem: https://exemplo.com/a.png\nx | 1 1 10 10") === null && lerCena("imagem: /arquivos/../segredo.png\nx | 1 1 10 10") === null);
+conferir("documento: leitura válida", lerDocumento("imagem: /imagens/documentos/a.webp | Modelo\nfonte: https://www.gov.br/x\nlicenca: Modelo oficial em branco\nsem-dados-pessoais: sim\nCampo | 10 10 20 5 | Significa. | Conferir.")?.areas.length === 1);
+conferir("documento: sem fonte ou licença é recusado", lerDocumento("imagem: /imagens/a.webp\nlicenca: x\nCampo | 1 1 5 5 | a | b") === null && lerDocumento("imagem: /imagens/a.webp\nfonte: https://x.org\nCampo | 1 1 5 5 | a | b") === null);
+conferir("documento: imagem de fora e área fora de 0..100 são recusadas", lerDocumento("imagem: https://x.org/a.png\nfonte: https://x.org\nlicenca: x\nCampo | 1 1 5 5 | a | b") === null && lerDocumento("imagem: /imagens/a.webp\nfonte: https://x.org\nlicenca: x\nCampo | 1 1 150 5 | a | b") === null);
+conferir("documento: sem declarar que não há dado pessoal é recusado", lerDocumento("imagem: /imagens/a.webp\nfonte: https://x.org\nlicenca: x\nCampo | 1 1 5 5 | a | b") === null && lerDocumento("imagem: /imagens/a.webp\nfonte: https://x.org\nlicenca: x\nsem-dados-pessoais: nao\nCampo | 1 1 5 5 | a | b") === null);
 const arr = lerArrastar(MODELOS_INTERATIVOS.arrastar.modelo);
 conferir("arrastar: três grupos de três itens", arr.grupos.length === 3 && arr.grupos.every((g) => g.itens.length === 3));
 conferir("arrastar: um grupo só não vira jogo", lerArrastar("A: x, y").grupos.length === 0);

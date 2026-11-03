@@ -1,0 +1,58 @@
+{
+  "convite": {
+    "rotulo": "Convite: modo pacote de dados",
+    "titulo": "Seu pacote de dados acaba rápido?",
+    "textoPacoteAcaba": "Você disse que o pacote acaba. O modo pacote deixa o site mais leve e avisa antes de baixar algo grande.",
+    "textoEconomia": "Seu aparelho está em economia de dados. O modo pacote deixa o site mais leve.",
+    "textoRedeLenta": "Sua conexão está lenta. O modo pacote deixa o site mais leve.",
+    "ligar": "Ligar o modo pacote",
+    "agora": "Agora não",
+    "nunca": "Não perguntar mais",
+    "aviso": "A escolha fica só neste aparelho."
+  },
+  "libras": {
+    "botao": "Ver esta aula em Libras",
+    "titulo": "Tradutor de Libras do governo federal",
+    "aviso": "O tradutor é um serviço de fora, do governo federal. Ao carregar, seu aparelho baixa programas do site dele. A tradução é automática, pode errar e não substitui um intérprete de Libras.",
+    "avisoPacote": "Com o modo pacote ligado, isso pode gastar parte do seu pacote de dados.",
+    "carregar": "Carregar o tradutor",
+    "cancelar": "Agora não",
+    "carregando": "Carregando o tradutor…",
+    "ligado": "Tradutor ligado. Toque no ícone das mãos e depois no texto que quer ver em Libras.",
+    "ligadoCurto": "Tradutor de Libras ligado",
+    "erro": "Não consegui carregar o tradutor agora. Tente de novo mais tarde.",
+    "soPortugues": "O tradutor de Libras entende só português.",
+    "abrirEmPortugues": "Abrir esta aula em português",
+    "humano": "Ver esta aula em Libras, com intérprete",
+    "humanoFonte": "Fonte: {fonte}. Intérprete: {interprete}. Em revisão."
+  },
+  "leve": {
+    "resumo": "Estudar mais leve",
+    "pacote": "Modo pacote de dados",
+    "pacoteDica": "Liga também o modo leve: sem imagens pesadas, sem animações, fontes do aparelho, e esconde as simulações.",
+    "desligarLeve": "Desligar também o modo leve",
+    "soTexto": "Só o texto",
+    "soTextoDica": "Esconde a margem, as aulas parecidas e os educadores. O texto da aula continua inteiro.",
+    "ligou": "{nome} ligado",
+    "desligou": "{nome} desligado",
+    "nota": "Isso muda o que aparece, não o que já foi baixado. Para gastar menos de verdade, baixe só o texto ou guarde a trilha no Wi-Fi."
+  },
+  "levar": {
+    "titulo": "Levar esta aula",
+    "texto": "Baixar só o texto (cerca de {tamanho})",
+    "livro": "Baixar a trilha em livro (EPUB)",
+    "livroDica": "Abre em leitores de livro e em celulares antigos.",
+    "espelhoTitulo": "Se o site cair, leia aqui",
+    "espelhoDica": "Versão só de leitura, sem JavaScript, que abre em celular antigo."
+  },
+  "telaApagada": {
+    "titulo": "Ouvir com a tela apagada",
+    "texto": "Toque em Ouvir a aula, escolha a voz natural e apague a tela: a leitura continua e os controles aparecem na tela de bloqueio. A voz do aparelho pode parar quando a tela apaga."
+  },
+  "medidor": {
+    "botao": "Ver quanto esta página gastou",
+    "resultado": "Até agora, esta página gastou cerca de {tamanho} da rede.",
+    "ressalva": "Não inclui o que veio de fora, como o tradutor de Libras, nem o que já estava guardado no aparelho.",
+    "semInfo": "O navegador não informou."
+  }
+}

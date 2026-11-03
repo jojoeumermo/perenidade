@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "hub": { "titulo": "Vie réelle", "descricao": "Voix du travail, carte des luttes, tâche dans le monde, missions de laboratoire, étude de cas du quartier et documents réels : l'École liée à la vie de celles et ceux qui étudient." },
+    "vozes": { "titulo": "Voix du travail", "descricao": "Écoutez des travailleurs qui ont raconté leur métier et enregistrez, seulement sur votre appareil, un audio de 2 minutes maximum avec une série de questions." },
+    "lutas": { "titulo": "Carte des luttes", "descricao": "Les dates de lutte du campus et les faits de chaque jour, par mois, avec source, leçon du thème et agenda. Une carte dans le temps." },
+    "tarefas": { "titulo": "Tâches dans le monde", "descricao": "La tâche pratique de chaque cours, à faire hors de l'écran : marquez-la comme faite, écrivez une note et inscrivez-la dans le carnet." },
+    "missoes": { "titulo": "Missions de laboratoire", "descricao": "Des problèmes de travail à résoudre dans les laboratoires du site, avec la précaution de chaque situation. Vous cochez quand c'est accompli." },
+    "caso": { "titulo": "Étude de cas du quartier", "descricao": "Regarder, écouter, noter, comparer avec la leçon et proposer : un parcours en 5 étapes avec brouillon privé." },
+    "documentos": { "titulo": "Documents réels dans les leçons", "descricao": "Comment les leçons montrent un vrai document, avec les zones expliquées, la source et la licence." }
+  },
+  "comum": {
+    "emRevisao": "en révision",
+    "revisar": "[À RÉVISER PAR LA COORDINATION]",
+    "voltarVida": "Retour à la vie réelle",
+    "voltarEscola": "Retour à l'entrée de l'École",
+    "soNoAparelho": "Reste uniquement sur cet appareil. Rien ne part vers l'Institut."
+  },
+  "hub": {
+    "olho": "École Lúcia Maria",
+    "titulo": "Vie réelle",
+    "lead": "Étudier ne s'arrête pas à l'écran. Ici l'École va vers le travail, le quartier et la lutte de celles et ceux qui étudient. Tout fonctionne sur votre appareil, sans inscription et sans suivi.",
+    "resumoTarefas": "{n} tâches faites sur {m}",
+    "resumoMissoes": "{n} missions sur {m}",
+    "abrir": "Ouvrir",
+    "nota": "Les textes de cette partie ont été écrits par le paquet et sont en révision. Ce qui dépend de la coordination est signalé.",
+    "cartoes": {
+      "vozes": { "titulo": "Voix du travail", "texto": "Écoutez ceux qui racontent leur métier et répétez votre propre audio de 2 minutes." },
+      "lutas": { "titulo": "Carte des luttes", "texto": "Les dates de lutte, mois par mois, avec source et leçon du thème." },
+      "tarefas": { "titulo": "Tâches dans le monde", "texto": "La tâche pratique de chaque cours, avec note et inscription dans le carnet." },
+      "missoes": { "titulo": "Missions de laboratoire", "texto": "Un problème de travail à résoudre dans le bon laboratoire." },
+      "caso": { "titulo": "Étude de cas du quartier", "texto": "Cinq étapes pour regarder votre quartier avec ce qu'enseigne la leçon." },
+      "documentos": { "titulo": "Documents réels", "texto": "Comment les leçons montrent un vrai document, avec la source et la licence." },
+      "circulo": { "titulo": "Cercle de culture numérique", "texto": "Pour qui anime une rencontre : des mots du groupe à une séquence de leçons." }
+    }
+  },
+  "vozes": {
+    "olho": "Vie réelle",
+    "titulo": "Voix du travail",
+    "lead": "Celles et ceux qui travaillent savent des choses que les livres ne disent pas. Ici vous écoutez des voix publiées avec autorisation et vous pouvez répéter la vôtre.",
+    "publicadas": {
+      "titulo": "Voix publiées",
+      "vazio": "Aucune voix n'est encore publiée. Une voix n'est mise en ligne qu'avec l'autorisation de la personne qui a parlé et avec la transcription à côté.",
+      "transcricao": "Transcription",
+      "autorizada": "Publiée avec autorisation. La personne qui a parlé peut demander le retrait à tout moment, sans donner d'explication.",
+      "retirar": "Pour retirer une voix, écrivez par la page du bénévolat."
+    },
+    "ensinam": {
+      "titulo": "Travailleurs qui enseignent",
+      "lead": "Des personnes du Mémorial dont la vie de travail rejoint une leçon. Le texte de chaque carte est en révision.",
+      "memorial": "Voir dans le Mémorial",
+      "aula": "Voir la leçon",
+      "fonte": "Source"
+    },
+    "gravador": {
+      "titulo": "Enregistrez votre voix",
+      "avisoTitulo": "Avant d'enregistrer",
+      "aviso": [
+        "Enregistrez seulement votre voix et votre expérience.",
+        "Ne dites pas de noms d'autres personnes, ni de patron ou de client, ni de données de tiers.",
+        "N'enregistrez pas un enfant ni un adolescent.",
+        "L'enregistrement reste uniquement sur votre appareil. Rien n'est envoyé.",
+        "Vous pouvez l'effacer quand vous voulez."
+      ],
+      "menores": "Les moins de 18 ans peuvent enregistrer pour eux-mêmes, mais la publication n'est possible qu'avec l'autorisation d'un responsable. La coordination ne publie pas d'audio d'enfants ni d'adolescents.",
+      "semGravacao": "Votre appareil n'enregistre pas l'audio. Utilisez le parcours écrit ci-dessous : il sert tout autant à répéter à voix haute.",
+      "semMicrofone": "Impossible d'utiliser le microphone. Vérifiez l'autorisation du navigateur ou utilisez le parcours écrit.",
+      "gravar": "Enregistrer",
+      "parar": "Arrêter",
+      "restam": "Il reste {s} s",
+      "gravando": "Enregistrement",
+      "fimAos120": "L'enregistrement s'arrête tout seul à 120 secondes.",
+      "perguntaEscolhida": "Question à laquelle vous répondez",
+      "tituloLabel": "Titre de l'enregistrement (60 caractères maximum)",
+      "limite": "Vous avez déjà 10 enregistrements. Effacez-en un pour en faire un autre.",
+      "suas": "Vos enregistrements (seulement sur cet appareil)",
+      "nenhuma": "Vous n'avez encore rien enregistré.",
+      "ouvir": "Écouter",
+      "baixar": "Télécharger",
+      "apagar": "Effacer",
+      "apagada": "Enregistrement effacé.",
+      "segundos": "{s} s",
+      "semTitulo": "Enregistrement sans titre",
+      "falhou": "Impossible de garder l'enregistrement sur cet appareil."
+    },
+    "roteiro": {
+      "titulo": "Série de questions",
+      "emRevisao": "En révision : les questions ont été écrites par le paquet.",
+      "lead": "Choisissez une question et répondez en 2 minutes maximum. Ou lisez et pensez seulement : la série sert sans enregistrer.",
+      "perguntas": [
+        "Que fais-je dans mon travail ?",
+        "Qu'ai-je appris dans la pratique qui n'est pas dans les livres ?",
+        "Quel est un risque de mon travail ?",
+        "Quel droit aurais-je aimé connaître avant ?",
+        "Quel conseil donnerais-je à qui débute ?",
+        "Que pourrait enseigner l'École à ce sujet ?"
+      ]
+    },
+    "enviar": {
+      "titulo": "Envie que votre voix soit entendue ?",
+      "texto": "Rien ne part tout seul. Si vous voulez raconter votre travail à l'Institut, copiez le texte ci-dessous et utilisez la page du bénévolat. La coordination demande votre autorisation écrite, révise la transcription et seulement alors publie. Réservé aux plus de 18 ans.",
+      "pronto": "Je veux raconter mon travail dans un audio de 2 minutes.",
+      "copiar": "Copier le texte",
+      "link": "Aller à la page du bénévolat"
+    }
+  },
+  "lutas": {
+    "olho": "Vie réelle",
+    "titulo": "Carte des luttes",
+    "lead": "Une carte dans le temps : les dates de lutte du peuple, mois par mois. Il n'y a pas de carte des lieux car le site n'a pas encore de coordonnées avec source.",
+    "filtroFeriados": "Jours fériés du campus",
+    "filtroTodas": "Toutes les dates",
+    "feriado": "Jour férié du campus",
+    "memoria": "Date de mémoire",
+    "hoje": "Aujourd'hui",
+    "proxima": "Prochaine date",
+    "aula": "Leçon du thème",
+    "fonte": "Source",
+    "fatos": "Ce qui s'est passé ce jour-là",
+    "agenda": "Ajouter à l'agenda",
+    "ver": "Voir",
+    "vazio": "Aucune date dans ce filtre.",
+    "avisoMemoria": "Les dates de mémoire viennent des faits du tableau « Ce jour-là », chacun avec son lien. Seuls les jours fériés du campus entrent dans le calendrier de l'École.",
+    "mais": "et {n} autres faits dans le tableau « Ce jour-là »"
+  },
+  "tarefas": {
+    "olho": "Vie réelle",
+    "titulo": "Tâches dans le monde",
+    "lead": "Chaque cours a une tâche à faire hors de l'écran : au travail, à la maison, dans le quartier. Marquez-la quand vous la faites et, si vous voulez, écrivez une courte note.",
+    "cartao": {
+      "titulo": "Votre marque",
+      "marcar": "Marquer comme faite",
+      "feita": "Faite le {data}",
+      "desfazer": "Annuler",
+      "nota": "Courte note (500 caractères maximum)",
+      "notaAviso": "Sans noms d'autres personnes.",
+      "salvarNota": "Garder la note",
+      "registrar": "Inscrire dans le carnet",
+      "registrada": "Inscrite dans le carnet.",
+      "avisoCaderneta": "Le carnet peut être exporté et vu par d'autres personnes. Ne mettez le nom de personne.",
+      "falhou": "Impossible de garder sur cet appareil.",
+      "soNoAparelho": "La marque reste uniquement sur cet appareil."
+    },
+    "contador": "{n} tâches faites sur {m}",
+    "abrirCurso": "Ouvrir le cours",
+    "estadoFeita": "Faite le {data}",
+    "estadoAFazer": "À faire"
+  },
+  "missoes": {
+    "olho": "Vie réelle",
+    "titulo": "Missions de laboratoire",
+    "lead": "Un problème de travail, un laboratoire du site et une précaution à prendre. Vous le résolvez et vous cochez que c'est accompli.",
+    "emRevisao": "En révision : les missions ont été écrites par le paquet.",
+    "situacao": "Situation",
+    "tarefa": "Tâche",
+    "cuidado": "Précaution",
+    "abrir": "Ouvrir le laboratoire",
+    "cumpri": "J'ai accompli la mission",
+    "cumprida": "Accomplie le {data}",
+    "desfazer": "Annuler",
+    "contador": "{n} missions sur {m}",
+    "nota": "Le laboratoire n'envoie de résultat à personne : la marque est la vôtre, seulement sur cet appareil.",
+    "semCurso": "Sans cours précis",
+    "falhou": "Impossible de garder sur cet appareil."
+  },
+  "caso": {
+    "olho": "Vie réelle",
+    "titulo": "Étude de cas du quartier",
+    "lead": "Un parcours en 5 étapes pour regarder un problème de votre quartier avec ce qu'enseigne la leçon. Le brouillon est à vous et reste uniquement sur l'appareil.",
+    "aviso": "N'identifiez personne, ni le lieu exact. Écrivez sur la situation, pas sur les personnes.",
+    "curso": "Cours du cas",
+    "livre": "Cas libre (sans cours)",
+    "tituloLabel": "Titre du cas (160 caractères maximum)",
+    "tituloPadrao": "Étude de cas du quartier",
+    "limite": "{n} caractères maximum par étape.",
+    "passos": [
+      { "titulo": "1. Ce que j'ai vu", "ajuda": "Décrivez ce que vous avez vu, sans juger." },
+      { "titulo": "2. Qui j'ai écouté", "ajuda": "Ce que disaient les gens, sans dire qui ils sont." },
+      { "titulo": "3. Ce que la leçon dit à ce sujet", "ajuda": "Reliez ce que vous avez vu à une leçon ou à un cours." },
+      { "titulo": "4. Ce que le cas montre", "ajuda": "Ce que ce cas enseigne sur la vie du quartier." },
+      { "titulo": "5. Ce qu'on peut proposer", "ajuda": "Une action possible, petite et collective." }
+    ],
+    "guardar": "Garder le brouillon",
+    "guardado": "Brouillon gardé sur cet appareil.",
+    "privado": "Le brouillon est privé : il reste uniquement sur cet appareil et n'entre pas dans la copie de sauvegarde.",
+    "registrar": "Inscrire dans le carnet",
+    "avisoCaderneta": "Seul le résumé va dans le carnet, et le carnet peut être exporté et vu par d'autres personnes. Vérifiez qu'il n'y a ni nom ni adresse.",
+    "registrado": "Inscrit dans le carnet.",
+    "apagar": "Effacer le brouillon",
+    "cancelar": "Annuler",
+    "apagado": "Brouillon effacé.",
+    "falhou": "Impossible de garder sur cet appareil."
+  },
+  "documentos": {
+    "olho": "Vie réelle",
+    "titulo": "Documents réels dans les leçons",
+    "lead": "Certaines leçons montrent un vrai document, avec des zones que vous touchez pour comprendre ce que signifie chaque champ et ce qu'il faut vérifier.",
+    "regrasTitulo": "Les règles",
+    "regras": [
+      "Seuls entrent les documents sans données personnelles : modèle officiel vierge, acte officiel, domaine public ou document de l'équipe elle-même.",
+      "Chaque image a sa source (adresse officielle) et sa licence. Sans les deux, le bloc n'apparaît pas.",
+      "Aucune fiche de paie, facture ou document d'une personne réelle.",
+      "L'explication de chaque zone est en révision jusqu'à vérification par la coordination.",
+      "Lire votre propre document par photo est une autre partie de l'École, pas celle-ci."
+    ],
+    "listaTitulo": "Leçons avec document",
+    "vazio": "Aucune leçon avec document pour l'instant. [À RÉVISER PAR LA COORDINATION] : choisir les premiers documents et vérifier les droits d'image avant de publier.",
+    "comoTitulo": "Comment mettre un document dans une leçon",
+    "como": "Dans l'éditeur de la leçon, ajoutez le bloc « Document réel avec zones », avec l'image du site, la source, la licence et une ligne par zone. Le format est dans content/escola/vida/LEIA-ME.md.",
+    "abrirAula": "Ouvrir la leçon"
+  },
+  "documento": {
+    "selo": "Explication en révision",
+    "verOriginal": "Voir l'original",
+    "fonte": "Source",
+    "licenca": "Licence",
+    "semDados": "Document sans données personnelles",
+    "toque": "Touchez une zone du document pour lire ce qu'elle signifie.",
+    "areas": "Zones du document",
+    "significa": "Ce que ça signifie",
+    "conferir": "Ce qu'il faut vérifier",
+    "fechar": "Fermer"
+  }
+}

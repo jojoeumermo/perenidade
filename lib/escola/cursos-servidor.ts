@@ -121,10 +121,12 @@ export const cursoPorSlug = (slug: string) => carregarCursos().find((c) => c.slu
 /** Minutos estimados de uma aula: leitura (180 palavras por minuto, como no resto do site) + teste + exercícios. */
 export function minutosDaAula(trilhaAula: string): number {
   const [trilha, aula] = trilhaAula.split("/");
-  const arquivo = arquivoDaAula(trilhaAula);
-  if (!arquivo) return 0;
+  if (!arquivoDaAula(trilhaAula)) return 0;
+  // A leitura monta o caminho com a pasta escrita aqui mesmo (content/trilhas): lido de uma variável qualquer, o rastreio
+  // da Vercel não sabe onde o arquivo pode estar e leva o projeto inteiro em cada página da Escola.
+  const nome = aulasDa(trilha).get(aula)!;
   try {
-    const { data, content } = parseFrontmatter(fs.readFileSync(arquivo, "utf8"));
+    const { data, content } = parseFrontmatter(fs.readFileSync(path.join(RAIZ, "content", "trilhas", trilha, nome), "utf8"));
     const minutes = Math.max(1, Math.ceil(plainText(content).split(" ").length / 180));
     const quiz = Array.isArray(data.quiz) ? data.quiz.length : 0;
     let exercicios = 0;

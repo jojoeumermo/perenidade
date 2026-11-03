@@ -398,4 +398,5 @@ export const VITRINE: Record<Interativo, [string, "Escrever" | "Imagem, som e te
   mapa: ["mapa", "Imagem, som e tempo"], linhadotempo: ["linhadotempo", "Imagem, som e tempo"], diagrama: ["fluxo", "Imagem, som e tempo"],
   desenho: ["lapis", "Ferramentas"], ferramenta: ["ferramentas", "Ferramentas"], recurso: ["frasco", "Ferramentas"],
   videocurto: ["claquete", "Imagem, som e tempo"],
+  documento: ["imagem", "Imagem, som e tempo"],
 };
