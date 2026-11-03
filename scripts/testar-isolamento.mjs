@@ -28,7 +28,10 @@ espera("public/workers/isolar.js tem o mesmo texto de lib/isolamento.ts", () => 
 
 // Cada Worker de arquivo carrega a trava antes de qualquer outro código.
 const pasta = "public/workers";
-for (const nome of readdirSync(pasta).filter((n) => /\.(m?js)$/.test(n) && n !== "isolar.js")) {
+// A trava é dos executores de código escrito pela pessoa (Python, Lua, Ruby...). Os Workers da voz (voz.js e voz-motor.js)
+// são código do próprio site e precisam do cache para guardar os modelos de voz no aparelho: ficam fora.
+const confiaveis = new Set(["isolar.js", "voz.js", "voz-motor.js"]);
+for (const nome of readdirSync(pasta).filter((n) => /\.(m?js)$/.test(n) && !confiaveis.has(n))) {
   const codigo = readFileSync(join(pasta, nome), "utf8").split("\n").filter((l) => l.trim() && !l.trim().startsWith("//"));
   espera(`${nome} começa pela trava`, () => /^(importScripts\("\/workers\/isolar\.js"\);|import "\/workers\/isolar\.js";)$/.test(codigo[0]?.trim() ?? ""));
 }
