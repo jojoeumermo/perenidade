@@ -9,6 +9,7 @@ import { useI18n } from "../I18n";
 import { ABRIR_CAIXA } from "./MargemDaAula";
 import type { TextosDaAula } from "@/i18n/escola/aula";
 import { TamanhoDaLetraSobDemanda as TamanhoDaLetra } from "./AulaVivaSobDemanda";
+import { NaoEntendiSobDemanda as NaoEntendi } from "../escola/acompanhante/NaoEntendiSobDemanda";
 
 const LARGURA = "lucia:aula-largura";
 export const ANOTAR = "lucia:anotar";
@@ -127,6 +128,8 @@ export function BarraDaAula({ voltar, trilha, posicao, minutos, aula, ferramenta
               {falando ? l.stopListening : l.listen}
             </button>
           )}
+          {/* "Não entendi" (Etapa 4, E4-10): só com o recurso "escola"; o próprio componente confere e baixa os textos. */}
+          <NaoEntendi aula={aula} className={botao} />
           {/* Letra de verdade (Etapa 4, R1-19): só com o recurso "escola" ligado, quando a página manda os textos. */}
           {letra && <TamanhoDaLetra s={letra} />}
           <button type="button" className={`${botao} max-xl:hidden`} onClick={() => window.dispatchEvent(new CustomEvent(ABRIR_CAIXA, { detail: "" }))}>

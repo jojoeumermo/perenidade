@@ -1,0 +1,69 @@
+{
+  "slug": "eletricista-residencial",
+  "titulo": "Eletricista residencial",
+  "ciclo": "profissional",
+  "formato": "alternancia",
+  "area": "eletricista",
+  "resumo": "Em alternância: tempo escola com as aulas de eletricidade básica, instalações e manutenção, e tempo trabalho com tarefas de observar, medir com segurança e anotar.",
+  "objetivo": "Entender a instalação elétrica de uma casa, trabalhar com segurança e montar o orçamento de um serviço.",
+  "objetivos": [
+    "trabalho-e-renda"
+  ],
+  "modulos": [
+    {
+      "titulo": "Eletricidade básica e segurança",
+      "aulas": [
+        "eletricidade-basica-e-seguranca/corrente-tensao-e-resistencia",
+        "eletricidade-basica-e-seguranca/a-lei-de-ohm-no-dia-a-dia",
+        "eletricidade-basica-e-seguranca/potencia-e-consumo-ler-a-conta-de-luz",
+        "eletricidade-basica-e-seguranca/choque-eletrico-o-que-e-e-como-evitar",
+        "eletricidade-basica-e-seguranca/ferramentas-e-equipamentos-de-protecao-do-eletricista",
+        "eletricidade-basica-e-seguranca/multimetro-medir-tensao-corrente-e-continuidade",
+        "eletricidade-basica-e-seguranca/seguranca-em-eletricidade-nr-10-em-linguagem-simples"
+      ],
+      "pratica": [
+        "Pegar a última conta de luz da casa e anotar o consumo do mês em kWh, os dias de leitura e o valor total, como na aula de potência e consumo.",
+        "Fazer a lista dos aparelhos da casa com a potência da etiqueta ou do manual e calcular o consumo de um mês de cada um. Só ler etiquetas: não abrir nenhum aparelho.",
+        "Separar as ferramentas e os equipamentos de proteção da aula e anotar o que você tem e o que falta. Nenhuma tarefa deste curso é feita em instalação ligada."
+      ]
+    },
+    {
+      "titulo": "Instalações elétricas residenciais",
+      "aulas": [
+        "instalacoes-eletricas-residenciais/o-quadro-de-distribuicao-disjuntores-e-dr",
+        "instalacoes-eletricas-residenciais/fios-e-cabos-bitolas-e-cores",
+        "instalacoes-eletricas-residenciais/tomadas-e-plugues-no-padrao-brasileiro",
+        "instalacoes-eletricas-residenciais/interruptor-simples-paralelo-e-intermediario",
+        "instalacoes-eletricas-residenciais/iluminacao-lampadas-led-e-economia",
+        "instalacoes-eletricas-residenciais/aterramento-e-protecao-contra-surtos",
+        "instalacoes-eletricas-residenciais/dimensionar-um-circuito",
+        "instalacoes-eletricas-residenciais/o-projeto-eletrico-de-uma-casa-pequena"
+      ],
+      "pratica": [
+        "Sem abrir o quadro e sem tocar em fios, olhar o quadro de distribuição da casa e anotar quantos disjuntores há, a corrente marcada em cada um, se existe DR e se há etiqueta dizendo o que cada disjuntor protege.",
+        "Contar as lâmpadas da casa, anotar a potência e o tipo de cada uma e calcular quanto se economiza trocando as que não são LED, como na aula de iluminação.",
+        "Anotar, só olhando e sem abrir espelho de tomada, quais tomadas seguem o padrão brasileiro e onde há benjamim ou extensão em uso."
+      ]
+    },
+    {
+      "titulo": "Manutenção, diagnóstico e o ofício",
+      "aulas": [
+        "manutencao-e-diagnostico-eletrico/diagnostico-de-defeitos-com-o-multimetro",
+        "manutencao-e-diagnostico-eletrico/curto-circuito-e-sobrecarga",
+        "manutencao-e-diagnostico-eletrico/chuveiro-eletrico-resistencia-e-ligacao",
+        "manutencao-e-diagnostico-eletrico/motores-e-ventiladores",
+        "manutencao-e-diagnostico-eletrico/energia-solar-nocoes-de-sistemas-fotovoltaicos",
+        "manutencao-e-diagnostico-eletrico/trabalhar-como-eletricista-orcamento-etica-e-seguranca"
+      ],
+      "pratica": [
+        "Anotar a potência e a tensão do chuveiro (na etiqueta ou no manual) e comparar com o que a aula do chuveiro diz sobre fio e disjuntor. Se algo não bater, não mexer: desligar o disjuntor do chuveiro e chamar quem saiba consertar.",
+        "Com uma extensão desligada da tomada, fazer o teste de continuidade com o multímetro, como na aula do multímetro: continuidade só se mede com o circuito sem energia.",
+        "Montar o orçamento de exemplo de um serviço simples (trocar as lâmpadas da casa por LED) com os itens que a aula de orçamento pede."
+      ]
+    }
+  ],
+  "requisitos": [],
+  "tarefaNoMundo": "Fazer o levantamento da instalação elétrica de uma casa só olhando e lendo etiquetas (quadro, disjuntores, tomadas, lâmpadas e chuveiro), sem mexer em nada que esteja ligado.",
+  "projetoFinal": "Apresentar o projeto elétrico de uma casa pequena, como na aula de projeto, com a lista de circuitos, disjuntores e fios, e o orçamento do serviço.",
+  "semanas": 2
+}

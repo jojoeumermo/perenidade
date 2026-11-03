@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "catalogoTitulo": "Cours de l'École Lúcia Maria",
+    "catalogoDescricao": "Cours gratuits montés uniquement avec des leçons qui existent déjà à l'Institut Lúcia : de base, professionnels et avancés, avec heures estimées, programme et fanzine à imprimer.",
+    "zineTitulo": "Fanzine du cours",
+    "leituraTitulo": "Lecture guidée"
+  },
+  "catalogo": {
+    "olho": "École Lúcia Maria",
+    "titulo": "Cours",
+    "lead": "Chaque cours réunit des leçons déjà prêtes à l'Institut, en modules et dans un ordre d'étude. Ce qui n'a pas encore de leçon apparaît en construction, sans lien.",
+    "selo": "Cours monté uniquement avec des leçons prêtes",
+    "comece": "Vous commencez un long cours ? Commencez par Apprendre à étudier.",
+    "filtros": "Filtrer les cours",
+    "filtroObjetivo": "Ce que vous voulez",
+    "filtroArea": "Domaine",
+    "todos": "Tous",
+    "todas": "Tous",
+    "nenhum": "Aucun cours avec ces filtres.",
+    "limpar": "Effacer les filtres",
+    "contagem": "{n} cours",
+    "aulas": "{n} leçons",
+    "horas": "{h} heures",
+    "semanas": "{n} semaines",
+    "patrono": "Parrain ou marraine proposé(e) : {nome}",
+    "ver": "Voir le cours",
+    "requisitos": "Avant : {lista}",
+    "conteudoEmPortugues": "Les cours et les leçons sont en portugais."
+  },
+  "ciclos": {
+    "basico": { "titulo": "Base", "texto": "Pour commencer ou recommencer : étudier, lire, écrire, compter, les sciences, l'histoire et les langues." },
+    "profissional": { "titulo": "Professionnel", "texto": "En alternance : temps école avec les leçons et temps travail avec des tâches pratiques." },
+    "avancado": { "titulo": "Avancé", "texto": "Pour qui a déjà la base : formation politique et le parcours de l'ENEM." }
+  },
+  "formatos": {
+    "regular": "Régulier",
+    "alternancia": "Alternance",
+    "percurso": "Parcours"
+  },
+  "formatosTexto": {
+    "regular": "Des modules de leçons, dans l'ordre d'étude.",
+    "alternancia": "Temps école (leçons) et temps travail (tâches pratiques), en alternance.",
+    "percurso": "Un chemin court, qui mène à d'autres cours ou pages."
+  },
+  "objetivos": {
+    "terminar-a-escola": "Finir l'école",
+    "trabalho-e-renda": "Travail et revenu",
+    "entender-o-mundo": "Comprendre le monde",
+    "enem": "ENEM",
+    "ajudar-em-casa": "Aider à la maison",
+    "outro": "Autre raison"
+  },
+  "curso": {
+    "olho": "Cours de l'École",
+    "voltar": "Cours",
+    "ciclo": "Cycle",
+    "formato": "Format",
+    "horasESemanas": "{h} heures estimées · environ {s} semaines à 3 heures par semaine",
+    "conteudoEmPortugues": "Le contenu du cours est en portugais.",
+    "emRevisao": "en révision",
+    "tarefaNoMundo": "Tâche dans le monde",
+    "projetoFinal": "Projet final",
+    "casoDoBairro": "Le projet final peut être un cas de votre quartier.",
+    "emConstrucaoTitulo": "Encore en construction",
+    "emConstrucaoTexto": "Ces parties n'ont pas encore de leçon. Elles entreront dans le cours quand les leçons seront écrites.",
+    "emConstrucao": "en construction",
+    "zine": "Fanzine du cours à imprimer",
+    "zineTexto": "Le résumé, les mots et la première question de chaque leçon, sur des feuilles A4 qui deviennent des livrets, avec le QR de chaque leçon.",
+    "turmas": "Étudier en groupe",
+    "turmasTexto": "Si vous voulez, étudiez avec celles et ceux qui suivent le même cours.",
+    "sensivel": "Ce cours traite de politique. L'inscription reste uniquement sur votre appareil ; pour rejoindre un groupe, l'École vous demande d'abord votre consentement.",
+    "enem": "Les questions, les examens blancs, le diagnostic et le plan complet sont sur la page ENEM de l'Institut.",
+    "enemLink": "Aller à la page ENEM",
+    "requisitosTitulo": "Avant ce cours",
+    "semRequisitos": "Aucun prérequis : vous pouvez commencer maintenant.",
+    "recomendado": "Recommandé avant tout long cours : Apprendre à étudier.",
+    "objetivosTitulo": "Pour qui veut"
+  },
+  "grade": {
+    "titulo": "Plan du cours",
+    "modulo": "Module {n}",
+    "tempoEscola": "Temps école",
+    "tempoTrabalho": "Temps travail",
+    "tempoTrabalhoAviso": "Faites les tâches avec les précautions enseignées dans les leçons. Rien sur une installation électrique sous tension, rien sans hygiène et rien sans l'accord des personnes concernées.",
+    "feita": "faite",
+    "dispensada": "dispensée",
+    "minutos": "{n} min",
+    "progresso": "{feitas} sur {total} leçons",
+    "pratica": "Pratique"
+  },
+  "horas": {
+    "titulo": "Vos heures dans le cours",
+    "conta": "{feitas} sur {total} heures",
+    "selo": "estimation : lecture + 2 min par question + 3 min par exercice",
+    "noAparelho": "Compté sur cet appareil, avec les leçons marquées comme faites et les parcours dispensés."
+  },
+  "ementa": {
+    "titulo": "Programme",
+    "abrir": "Voir le programme complet",
+    "imprimir": "Imprimer le programme",
+    "objetivo": "Objectif",
+    "conteudo": "Contenu",
+    "avaliacao": "Évaluation",
+    "avaliacaoTexto": "Formative, sans note : retour par compétence à la fin de chaque module, examen du parcours facultatif, tâche dans le monde et projet final présenté devant un jury.",
+    "bibliografia": "Bibliographie",
+    "bibliografiaTexto": "Les sources citées dans les leçons du cours, sans doublons, et les lectures de la bibliothèque du cours.",
+    "requisitos": "Prérequis",
+    "nenhum": "Aucun",
+    "carga": "Volume horaire estimé",
+    "cargaTexto": "{h} heures, sur environ {s} semaines à 3 heures par semaine. Estimation : lecture + 2 min par question + 3 min par exercice.",
+    "naoOficial": "C'est une estimation pour organiser l'étude. L'École n'est pas un établissement d'enseignement supérieur et ne délivre pas de titre.",
+    "total": "{n} leçons · {min} minutes"
+  },
+  "patrono": {
+    "titulo": "Parrain ou marraine du cours",
+    "proposto": "Proposition, à confirmer par la coordination",
+    "memorial": "Voir dans le Mémorial",
+    "motivo": "D'après la fiche du Mémorial"
+  },
+  "biblioteca": {
+    "titulo": "Bibliothèque du cours",
+    "texto": "Œuvres du Fonds citées dans les leçons du cours, dans l'ordre de lecture.",
+    "licenca": "Licence : {licenca}",
+    "reservados": "Œuvre sous droits réservés : seule la fiche est ici. Lisez-la par la source légale.",
+    "ficha": "Fiche dans le Fonds",
+    "fonte": "À la source : {fonte}",
+    "guiada": "Lecture guidée",
+    "porque": "Pourquoi lire"
+  },
+  "entrar": {
+    "semMatricula": "Pour entrer dans le cours, inscrivez-vous d'abord : sans nom, e-mail ni document, et l'inscription reste sur votre appareil.",
+    "fazerMatricula": "S'inscrire",
+    "entrar": "Entrer dans le cours",
+    "dentro": "Vous suivez ce cours depuis le {data}.",
+    "continuar": "Continuer : {titulo}",
+    "voltar": "Revenir au cours",
+    "trancado": "Vous avez mis ce cours en pause le {data}. Vous pouvez revenir quand vous voulez.",
+    "formado": "Vous avez terminé ce cours le {data}.",
+    "acabou": "Vous avez fait toutes les leçons du cours.",
+    "noAparelho": "L'inscription reste uniquement sur cet appareil.",
+    "erro": "Impossible d'enregistrer sur cet appareil (navigation privée ou mémoire pleine)."
+  },
+  "faixa": {
+    "rotulo": "Votre cours",
+    "linha": "{curso} · module {modulo} · leçon {aula} sur {total}",
+    "ver": "Voir le cours"
+  },
+  "zine": {
+    "olho": "Fanzine du cours",
+    "lead": "Pour étudier sans internet : le résumé, les mots et la première question de chaque leçon, par module, avec le QR qui mène à la leçon complète. Chaque feuille A4 devient un livret de 8 pages.",
+    "voltar": "Retour au cours",
+    "modulo": "Module {n}",
+    "folha": "Feuille {n} sur {total}",
+    "aula": "Leçon {n} sur {total}",
+    "partes": "Parties de la leçon",
+    "palavras": "Mots",
+    "pergunta": "Pour réfléchir",
+    "curso": "Le cours complet"
+  },
+  "leitura": {
+    "olho": "Lecture guidée",
+    "voltar": "Cours",
+    "lead": "Des questions pour chaque partie de l'œuvre, à lire calmement, seul ou en groupe.",
+    "emRevisao": "Questions en révision par la coordination.",
+    "emPortugues": "Les questions sont en portugais, comme l'œuvre.",
+    "ficha": "Fiche de l'œuvre dans le Fonds",
+    "fonte": "Lire l'œuvre à la source",
+    "onde": "Où lire",
+    "pergunta": "Question {n}",
+    "guardado": "Enregistré uniquement sur cet appareil.",
+    "naoGuardou": "Impossible d'enregistrer sur cet appareil.",
+    "progresso": "{n} questions sur {total} répondues",
+    "apagar": "Effacer mes réponses pour cette œuvre",
+    "apagarConfirma": "Effacer les réponses pour cette œuvre sur cet appareil ? C'est définitif.",
+    "apagado": "Réponses effacées.",
+    "privacidade": "Les réponses restent uniquement sur cet appareil et ne sont envoyées à personne. Pour les emporter sur un autre appareil, utilisez la copie de sauvegarde dans Mes données."
+  },
+  "busca": {
+    "contexto": "Cours de l'École"
+  }
+}

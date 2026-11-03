@@ -1,0 +1,74 @@
+{
+  "obra": "manifesto-do-partido-comunista",
+  "titulo": "Manifesto do Partido Comunista",
+  "revisao": "em-revisao",
+  "apresentacao": "Leia uma parte por vez, na edição indicada na ficha do Acervo, e responda com as suas palavras. Não há resposta certa para decorar: as perguntas ajudam a entender o texto e a discutir em grupo.",
+  "secoes": [
+    {
+      "id": "introducao",
+      "titulo": "Introdução",
+      "referencia": "As primeiras linhas, antes da parte I: a imagem do \"espectro\" que ronda a Europa e o motivo de os comunistas exporem as próprias ideias.",
+      "perguntas": [
+        "Segundo a introdução, quem tinha medo do comunismo em 1848? Como o texto mostra esse medo?",
+        "Por que os autores dizem que era hora de os comunistas exporem abertamente as suas ideias?"
+      ]
+    },
+    {
+      "id": "burgueses-e-proletarios",
+      "titulo": "I. Burgueses e proletários",
+      "referencia": "Parte I, do começo ao fim: a história como luta de classes, a burguesia que transforma o mundo e cria o mercado mundial, as crises e o proletariado que cresce junto com ela.",
+      "perguntas": [
+        "A parte I começa dizendo que a história das sociedades é a história da luta de classes. Com as suas palavras, o que isso quer dizer? Dê um exemplo de hoje.",
+        "Por que o texto diz que a burguesia teve um papel revolucionário? Cite duas coisas que, segundo o texto, ela transformou.",
+        "Como o texto descreve as crises de superprodução? Você já viu algo parecido: mercadoria sobrando e gente sem poder comprar?",
+        "O que o texto quer dizer ao chamar o proletariado de \"coveiro\" da burguesia?"
+      ]
+    },
+    {
+      "id": "proletarios-e-comunistas",
+      "titulo": "II. Proletários e comunistas",
+      "referencia": "Parte II: a relação dos comunistas com o conjunto dos proletários, a resposta às acusações feitas aos comunistas e a lista de medidas no fim da parte.",
+      "perguntas": [
+        "Que tipo de propriedade os comunistas dizem querer abolir? E que tipo dizem que não querem tirar de quem trabalha?",
+        "Escolha uma das acusações que a parte II responde e resuma, com as suas palavras, a resposta dos autores.",
+        "Leia a lista de medidas no fim da parte II. Quais delas existem hoje no Brasil (por exemplo, educação pública e gratuita)? Quais não existem?"
+      ]
+    },
+    {
+      "id": "literatura-socialista-e-comunista",
+      "titulo": "III. Literatura socialista e comunista",
+      "referencia": "Parte III: a crítica às outras correntes socialistas da época.",
+      "perguntas": [
+        "A parte III critica outras correntes socialistas do tempo de Marx e Engels. Escolha uma e explique, com as suas palavras, a crítica que o texto faz.",
+        "Por que você acha que os autores quiseram se separar dessas correntes num texto que era o programa de uma organização?"
+      ]
+    },
+    {
+      "id": "posicao-dos-comunistas",
+      "titulo": "IV. Posição dos comunistas diante dos diversos partidos de oposição",
+      "referencia": "Parte IV, a mais curta: as alianças com outros partidos de oposição e o chamado final.",
+      "perguntas": [
+        "Segundo a parte IV, como os comunistas devem se relacionar com outros partidos de oposição?",
+        "O texto termina com um chamado aos proletários de todos os países. Por que um chamado internacional, e não só para um país?"
+      ]
+    },
+    {
+      "id": "prefacio-de-1872",
+      "titulo": "Prefácio de 1872",
+      "referencia": "O prefácio à edição alemã de 1872, se a sua edição trouxer os prefácios: o que os próprios autores dizem do texto 24 anos depois.",
+      "perguntas": [
+        "O que os autores dizem, no prefácio de 1872, sobre as medidas da parte II?",
+        "Que lição da Comuna de Paris eles acrescentam? Por que é importante ler um texto político junto com a sua época?"
+      ]
+    },
+    {
+      "id": "para-conversar",
+      "titulo": "Para conversar",
+      "referencia": "O texto inteiro, depois da leitura.",
+      "perguntas": [
+        "Que trecho do Manifesto parece mais atual para você? Qual parece mais distante do mundo de hoje? Por quê?",
+        "Que pergunta você levaria para discutir em grupo?"
+      ]
+    }
+  ]
+}

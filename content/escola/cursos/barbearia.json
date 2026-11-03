@@ -1,0 +1,59 @@
+{
+  "slug": "barbearia",
+  "titulo": "Barbearia",
+  "ciclo": "profissional",
+  "formato": "alternancia",
+  "area": "barbeiro",
+  "resumo": "Em alternância: ferramentas, higiene e esterilização, atendimento, cortes na máquina e na tesoura, barba e o trabalho por conta própria, com tarefas práticas e os cuidados de higiene das aulas.",
+  "objetivo": "Atender, cortar e fazer a barba com a rotina de higiene das aulas e organizar preço e agenda.",
+  "objetivos": [
+    "trabalho-e-renda"
+  ],
+  "modulos": [
+    {
+      "titulo": "Ferramentas, higiene e atendimento",
+      "aulas": [
+        "barbeiro/as-ferramentas-tesoura-maquina-navalha-e-pentes",
+        "barbeiro/higiene-limpeza-e-esterilizacao",
+        "barbeiro/o-couro-cabeludo-e-os-tipos-de-cabelo",
+        "barbeiro/atender-e-entender-o-que-o-cliente-quer"
+      ],
+      "pratica": [
+        "Montar por escrito a rotina de higiene entre clientes da aula (lavar as mãos, lavar pentes e escovas, álcool 70% nas ferramentas e na cadeira, lâmina nova para cada cliente) e deixar à vista na bancada.",
+        "Ver no posto de saúde como tomar a vacina de hepatite B, de graça no SUS, como a aula de higiene explica."
+      ]
+    },
+    {
+      "titulo": "Cortes",
+      "aulas": [
+        "barbeiro/corte-na-maquina-pentes-e-alturas",
+        "barbeiro/o-degrade",
+        "barbeiro/corte-na-tesoura",
+        "barbeiro/acabamento-e-contorno",
+        "barbeiro/cabelo-crespo-na-barbearia"
+      ],
+      "pratica": [
+        "Desenhar no papel o degradê que vai fazer, com a altura de cada pente, antes de começar.",
+        "Treinar o corte na máquina numa pessoa que concordar, com o material limpo e desinfetado como no primeiro módulo."
+      ]
+    },
+    {
+      "titulo": "Barba e trabalho por conta própria",
+      "aulas": [
+        "barbeiro/barba-desenho-e-aparo",
+        "barbeiro/barba-na-navalha-e-cuidados-com-a-pele",
+        "barbeiro/postura-e-saude-do-barbeiro",
+        "barbeiro/preco-agenda-e-clientela",
+        "barbeiro/formalizacao-e-direitos-de-quem-trabalha-por-conta-propria"
+      ],
+      "pratica": [
+        "Fazer a barba só com lâmina nova, aberta na frente da pessoa e descartada na caixa de perfurocortantes, como a aula ensina.",
+        "Montar uma tabela de preços e a agenda de uma semana com a conta da aula de preço."
+      ]
+    }
+  ],
+  "requisitos": [],
+  "tarefaNoMundo": "Fazer um atendimento completo (corte e acabamento) numa pessoa que concordar, seguindo do começo ao fim a rotina de higiene entre clientes.",
+  "projetoFinal": "Apresentar a sua tabela de preços, a agenda de uma semana e a rotina de higiene da sua bancada.",
+  "semanas": 1
+}

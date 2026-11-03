@@ -1,0 +1,82 @@
+{
+  "slug": "portugues-ler-e-escrever-melhor",
+  "titulo": "Português: ler e escrever melhor",
+  "ciclo": "basico",
+  "formato": "regular",
+  "area": "portugues",
+  "resumo": "Do parágrafo ao texto argumentativo: interpretar, pontuar, concordar, escrever bilhetes, e-mails e requerimentos, resumir e ler notícias com olhar crítico.",
+  "objetivo": "Ler com atenção e escrever textos claros do dia a dia e do estudo, revisando o que escreveu.",
+  "objetivos": [
+    "terminar-a-escola",
+    "enem",
+    "ajudar-em-casa",
+    "trabalho-e-renda"
+  ],
+  "modulos": [
+    {
+      "titulo": "Ler, escrever e as regras do dia a dia",
+      "aulas": [
+        "portugues-fundamental/o-alfabeto-as-silabas-e-a-silaba-tonica",
+        "portugues-fundamental/acentuacao-as-regras-essenciais",
+        "portugues-fundamental/pontuacao-ponto-virgula-e-companhia",
+        "portugues-fundamental/substantivo-adjetivo-e-artigo",
+        "portugues-fundamental/verbo-tempos-e-pessoas",
+        "portugues-fundamental/pronomes",
+        "portugues-fundamental/concordancia-o-basico",
+        "portugues-fundamental/por-que-porque-por-que-e-porque",
+        "portugues-fundamental/mal-e-mau-mas-e-mais-a-e-ha",
+        "portugues-fundamental/como-interpretar-um-texto",
+        "portugues-fundamental/como-escrever-um-paragrafo",
+        "portugues-fundamental/bilhete-e-mail-e-requerimento-como-escrever"
+      ]
+    },
+    {
+      "titulo": "Textos mais longos e leitura crítica",
+      "aulas": [
+        "portugues-medio/sujeito-e-predicado",
+        "portugues-medio/oracoes-coordenadas-e-subordinadas",
+        "portugues-medio/regencia-e-crase",
+        "portugues-medio/concordancia-verbal-e-nominal",
+        "portugues-medio/colocacao-pronominal",
+        "portugues-medio/figuras-de-linguagem",
+        "portugues-medio/variacao-linguistica-e-preconceito-linguistico",
+        "portugues-medio/generos-textuais",
+        "portugues-medio/o-texto-dissertativo-argumentativo",
+        "portugues-medio/coesao-e-coerencia",
+        "portugues-medio/como-fazer-um-resumo-e-um-fichamento",
+        "portugues-medio/leitura-critica-de-noticias"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "patrono": {
+    "memorial": "luiz-gama",
+    "motivo": "Aprendeu a ler na adolescência, provou que tinha nascido livre e virou rábula, advogado sem diploma: libertou na Justiça centenas de pessoas escravizadas.",
+    "confirmado": false
+  },
+  "leituras": [
+    {
+      "obra": "vocabulario-ortografico-da-lingua-portuguesa",
+      "ordem": 1,
+      "porque": "Lista oficial das palavras da língua portuguesa, com a grafia correta e a classe gramatical de cada uma."
+    },
+    {
+      "obra": "acordo-ortografico-da-lingua-portuguesa",
+      "ordem": 2,
+      "porque": "Decreto que pôs em vigor no Brasil o Acordo Ortográfico de 1990, assinado pelos países de língua portuguesa."
+    },
+    {
+      "obra": "constituicao-federal-de-1988",
+      "ordem": 3,
+      "porque": "O texto atualizado da Constituição."
+    },
+    {
+      "obra": "os-lusiadas",
+      "ordem": 4,
+      "porque": "Poema épico em dez cantos que narra a viagem de Vasco da Gama à Índia e, por meio dela, a história de Portugal."
+    }
+  ],
+  "tarefaNoMundo": "Escrever um e-mail ou um requerimento de verdade (para a escola, o posto de saúde, a prefeitura ou o trabalho) com o que o curso ensina e reler antes de mandar.",
+  "projetoFinal": "Escrever um texto dissertativo-argumentativo sobre um problema do seu bairro, reescrever depois de uma revisão e apresentar o texto final.",
+  "semanas": 2
+}

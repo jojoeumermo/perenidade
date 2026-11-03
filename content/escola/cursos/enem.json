@@ -1,0 +1,72 @@
+{
+  "slug": "enem",
+  "titulo": "ENEM",
+  "ciclo": "avancado",
+  "formato": "percurso",
+  "area": "enem",
+  "resumo": "O percurso da Escola para o ENEM: entender a prova, a estratégia e a redação. As questões, os simulados e o plano completo ficam na página do ENEM do Instituto, que o curso usa sem repetir.",
+  "objetivo": "Entender como o ENEM funciona, ter estratégia para a prova e treinar a redação nas cinco competências.",
+  "objetivos": [
+    "enem"
+  ],
+  "modulos": [
+    {
+      "titulo": "Entender o ENEM",
+      "aulas": [
+        "enem-como-funciona/como-funciona-o-enem",
+        "enem-como-funciona/inscricao-e-isencao-da-taxa",
+        "enem-como-funciona/a-nota-o-que-e-a-tri",
+        "enem-como-funciona/sisu-prouni-e-fies",
+        "enem-como-funciona/cotas-como-funciona-a-lei-de-cotas",
+        "enem-como-funciona/como-montar-um-plano-de-estudos-realista",
+        "enem-como-funciona/o-dia-da-prova-o-que-levar-e-como-administrar-o-tempo",
+        "enem-como-funciona/cursinhos-populares-estudar-junto-e-de-graca"
+      ]
+    },
+    {
+      "titulo": "Estratégia de prova",
+      "aulas": [
+        "enem-estrategia-de-prova/como-a-prova-e-montada",
+        "enem-estrategia-de-prova/tempo-por-questao-e-ordem-de-resolucao",
+        "enem-estrategia-de-prova/ler-o-comando-da-questao",
+        "enem-estrategia-de-prova/eliminar-alternativas-e-chutar-com-criterio",
+        "enem-estrategia-de-prova/o-cartao-resposta",
+        "enem-estrategia-de-prova/ansiedade-e-sono-antes-da-prova",
+        "enem-estrategia-de-prova/estudar-do-jeito-que-funciona",
+        "enem-estrategia-de-prova/estudar-trabalhando-ou-cuidando-de-alguem"
+      ]
+    },
+    {
+      "titulo": "Redação",
+      "aulas": [
+        "enem-redacao/a-estrutura-da-redacao-do-enem",
+        "enem-redacao/competencia-1-a-norma-padrao",
+        "enem-redacao/competencia-2-entender-o-tema-e-usar-repertorio",
+        "enem-redacao/competencia-3-organizar-os-argumentos",
+        "enem-redacao/competencia-4-coesao",
+        "enem-redacao/competencia-5-a-proposta-de-intervencao",
+        "enem-redacao/o-que-zera-a-redacao",
+        "enem-redacao/como-treinar-escrever-reler-e-reescrever"
+      ]
+    }
+  ],
+  "requisitos": [
+    "portugues-ler-e-escrever-melhor",
+    "matematica-para-a-vida"
+  ],
+  "leituras": [
+    {
+      "obra": "enem-provas-e-gabaritos",
+      "ordem": 1,
+      "porque": "Arquivo oficial com as provas e os gabaritos das edições anteriores do Enem."
+    },
+    {
+      "obra": "lei-de-cotas",
+      "ordem": 2,
+      "porque": "A lei que reserva vagas nas universidades e institutos federais para estudantes de escolas públicas, com cotas raciais e de renda."
+    }
+  ],
+  "tarefaNoMundo": "Fazer a inscrição no ENEM no prazo (ou pedir a isenção da taxa), como explica a aula, e montar o plano de estudos até a prova.",
+  "projetoFinal": "Fazer um simulado completo na página do ENEM do Instituto, escrever uma redação nas cinco competências e reescrevê-la depois da correção.",
+  "semanas": 2
+}

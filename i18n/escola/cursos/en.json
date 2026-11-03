@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "catalogoTitulo": "Courses of the Lúcia Maria School",
+    "catalogoDescricao": "Free courses built only from lessons that already exist at Instituto Lúcia: basic, vocational and advanced, with estimated hours, syllabus and a printable zine.",
+    "zineTitulo": "Course zine",
+    "leituraTitulo": "Guided reading"
+  },
+  "catalogo": {
+    "olho": "Lúcia Maria School",
+    "titulo": "Courses",
+    "lead": "Each course brings together lessons that are already written at the Institute, in modules and in a study order. Whatever has no lesson yet shows as under construction, with no link.",
+    "selo": "Course built only from finished lessons",
+    "comece": "Starting a long course? Begin with Learning to study.",
+    "filtros": "Filter the courses",
+    "filtroObjetivo": "What you want",
+    "filtroArea": "Area",
+    "todos": "All",
+    "todas": "All",
+    "nenhum": "No course matches these filters.",
+    "limpar": "Clear the filters",
+    "contagem": "{n} courses",
+    "aulas": "{n} lessons",
+    "horas": "{h} hours",
+    "semanas": "{n} weeks",
+    "patrono": "Proposed patron: {nome}",
+    "ver": "See the course",
+    "requisitos": "Before: {lista}",
+    "conteudoEmPortugues": "The courses and lessons are in Portuguese."
+  },
+  "ciclos": {
+    "basico": { "titulo": "Basic", "texto": "To start or start again: studying, reading, writing, counting, science, history and languages." },
+    "profissional": { "titulo": "Vocational", "texto": "In alternation: school time with the lessons and work time with practical tasks." },
+    "avancado": { "titulo": "Advanced", "texto": "For those who already have the basics: political education and the ENEM path." }
+  },
+  "formatos": {
+    "regular": "Regular",
+    "alternancia": "Alternation",
+    "percurso": "Path"
+  },
+  "formatosTexto": {
+    "regular": "Modules of lessons, in study order.",
+    "alternancia": "School time (lessons) and work time (practical tasks), alternating.",
+    "percurso": "A short path that leads to other courses or pages."
+  },
+  "objetivos": {
+    "terminar-a-escola": "Finish school",
+    "trabalho-e-renda": "Work and income",
+    "entender-o-mundo": "Understand the world",
+    "enem": "ENEM",
+    "ajudar-em-casa": "Help at home",
+    "outro": "Another reason"
+  },
+  "curso": {
+    "olho": "School course",
+    "voltar": "Courses",
+    "ciclo": "Cycle",
+    "formato": "Format",
+    "horasESemanas": "{h} estimated hours · about {s} weeks at 3 hours a week",
+    "conteudoEmPortugues": "The course content is in Portuguese.",
+    "emRevisao": "under review",
+    "tarefaNoMundo": "Task in the world",
+    "projetoFinal": "Final project",
+    "casoDoBairro": "The final project can be a case from your neighbourhood.",
+    "emConstrucaoTitulo": "Still under construction",
+    "emConstrucaoTexto": "These parts have no lesson yet. They join the course once the lessons are written.",
+    "emConstrucao": "under construction",
+    "zine": "Printable course zine",
+    "zineTexto": "The summary, the words and the first question of each lesson, on A4 sheets that fold into booklets, with each lesson's QR code.",
+    "turmas": "Study in a group",
+    "turmasTexto": "If you like, study together with others taking the same course.",
+    "sensivel": "This course is about politics. Your enrolment stays only on your device; to join a group, the School asks for your consent first.",
+    "enem": "Questions, mock exams, the diagnostic and the full plan are on the Institute's ENEM page.",
+    "enemLink": "Go to the ENEM page",
+    "requisitosTitulo": "Before this course",
+    "semRequisitos": "No requirements: you can start now.",
+    "recomendado": "Recommended before any long course: Learning to study.",
+    "objetivosTitulo": "For people who want"
+  },
+  "grade": {
+    "titulo": "Course plan",
+    "modulo": "Module {n}",
+    "tempoEscola": "School time",
+    "tempoTrabalho": "Work time",
+    "tempoTrabalhoAviso": "Do the tasks with the care taught in the lessons. Nothing on a live electrical installation, nothing without hygiene and nothing without the permission of the people involved.",
+    "feita": "done",
+    "dispensada": "exempted",
+    "minutos": "{n} min",
+    "progresso": "{feitas} of {total} lessons",
+    "pratica": "Practice"
+  },
+  "horas": {
+    "titulo": "Your hours in the course",
+    "conta": "{feitas} of {total} hours",
+    "selo": "estimate: reading + 2 min per question + 3 min per exercise",
+    "noAparelho": "Counted on this device, with the lessons you marked as done and the exempted tracks."
+  },
+  "ementa": {
+    "titulo": "Syllabus",
+    "abrir": "See the full syllabus",
+    "imprimir": "Print syllabus",
+    "objetivo": "Objective",
+    "conteudo": "Content",
+    "avaliacao": "Assessment",
+    "avaliacaoTexto": "Formative, with no grades: feedback by competence at the end of each module, an optional track test, a task in the world and a final project presented to a panel.",
+    "bibliografia": "Bibliography",
+    "bibliografiaTexto": "The sources cited in the course lessons, without repeats, and the readings from the course library.",
+    "requisitos": "Requirements",
+    "nenhum": "None",
+    "carga": "Estimated workload",
+    "cargaTexto": "{h} hours, over about {s} weeks at 3 hours a week. Estimate: reading + 2 min per question + 3 min per exercise.",
+    "naoOficial": "It is an estimate for planning your study. The School is not a higher-education institution and does not award degrees.",
+    "total": "{n} lessons · {min} minutes"
+  },
+  "patrono": {
+    "titulo": "Course patron",
+    "proposto": "Proposed patron, to be confirmed by the coordination",
+    "memorial": "See in the Memorial",
+    "motivo": "From the Memorial entry"
+  },
+  "biblioteca": {
+    "titulo": "Course library",
+    "texto": "Works from the Collection cited in the course lessons, in reading order.",
+    "licenca": "Licence: {licenca}",
+    "reservados": "All rights reserved: only the record is here. Read it through the legal source.",
+    "ficha": "Record in the Collection",
+    "fonte": "At the source: {fonte}",
+    "guiada": "Guided reading",
+    "porque": "Why read it"
+  },
+  "entrar": {
+    "semMatricula": "To join the course, enrol first: no name, e-mail or document, and the enrolment stays on your device.",
+    "fazerMatricula": "Enrol",
+    "entrar": "Join the course",
+    "dentro": "You have been in this course since {data}.",
+    "continuar": "Continue: {titulo}",
+    "voltar": "Return to the course",
+    "trancado": "You paused this course on {data}. You can come back whenever you want.",
+    "formado": "You completed this course on {data}.",
+    "acabou": "You have done all the lessons in the course.",
+    "noAparelho": "Your enrolment stays only on this device.",
+    "erro": "Could not save on this device (private window or full storage)."
+  },
+  "faixa": {
+    "rotulo": "Your course",
+    "linha": "{curso} · module {modulo} · lesson {aula} of {total}",
+    "ver": "See the course"
+  },
+  "zine": {
+    "olho": "Course zine",
+    "lead": "To study without internet: the summary, the words and the first question of each lesson, by module, with the QR code to the full lesson. Each A4 sheet becomes an 8-page booklet.",
+    "voltar": "Back to the course",
+    "modulo": "Module {n}",
+    "folha": "Sheet {n} of {total}",
+    "aula": "Lesson {n} of {total}",
+    "partes": "Parts of the lesson",
+    "palavras": "Words",
+    "pergunta": "To think about",
+    "curso": "The full course"
+  },
+  "leitura": {
+    "olho": "Guided reading",
+    "voltar": "Courses",
+    "lead": "Questions for each part of the work, to read calmly, alone or in a group.",
+    "emRevisao": "Questions under review by the coordination.",
+    "emPortugues": "The questions are in Portuguese, like the work.",
+    "ficha": "Record of the work in the Collection",
+    "fonte": "Read the work at the source",
+    "onde": "Where to read",
+    "pergunta": "Question {n}",
+    "guardado": "Saved only on this device.",
+    "naoGuardou": "Could not save on this device.",
+    "progresso": "{n} of {total} questions answered",
+    "apagar": "Delete my answers for this work",
+    "apagarConfirma": "Delete the answers for this work on this device? This cannot be undone.",
+    "apagado": "Answers deleted.",
+    "privacidade": "Your answers stay only on this device and are not sent to anyone. To take them to another device, use the backup copy in My data."
+  },
+  "busca": {
+    "contexto": "School course"
+  }
+}

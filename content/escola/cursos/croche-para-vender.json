@@ -1,0 +1,63 @@
+{
+  "slug": "croche-para-vender",
+  "titulo": "Crochê para vender",
+  "ciclo": "profissional",
+  "formato": "alternancia",
+  "area": "costureira",
+  "resumo": "Em alternância: do crochê do zero às peças que vendem (amigurumi, bolsas, tapetes e roupas), com preço, fotos, venda e encomendas.",
+  "objetivo": "Fazer peças de crochê que vendem, calcular o preço e organizar encomendas e prazos.",
+  "objetivos": [
+    "trabalho-e-renda"
+  ],
+  "modulos": [
+    {
+      "titulo": "Crochê do zero",
+      "aulas": [
+        "croche-do-zero/agulhas-fios-e-como-segurar",
+        "croche-do-zero/correntinha-e-ponto-baixo",
+        "croche-do-zero/ponto-alto-e-meio-ponto-alto",
+        "croche-do-zero/aumentar-e-diminuir",
+        "croche-do-zero/trabalhar-em-circulo-o-anel-magico",
+        "croche-do-zero/ler-receitas-e-graficos",
+        "croche-do-zero/trocar-de-cor-e-arrematar",
+        "croche-do-zero/primeira-peca-um-porta-copos-e-um-cachecol",
+        "croche-do-zero/cuidado-com-as-maos-e-com-a-postura"
+      ],
+      "pratica": [
+        "Fazer a primeira peça da aula (porta-copos ou cachecol) e guardar uma foto na caderneta.",
+        "Fazer as pausas da aula de cuidado com as mãos e com a postura em cada sessão de crochê e anotar se sentiu dor."
+      ]
+    },
+    {
+      "titulo": "Peças que vendem",
+      "aulas": [
+        "croche-para-vender/o-que-vende-bolsas-tapetes-amigurumi-roupas",
+        "croche-para-vender/amigurumi-os-bichinhos",
+        "croche-para-vender/bolsas-e-cestos-com-fio-de-malha",
+        "croche-para-vender/tapetes-e-pecas-para-casa",
+        "croche-para-vender/roupas-top-cropped-e-saida-de-praia"
+      ],
+      "pratica": [
+        "Escolher uma peça das aulas (amigurumi, bolsa, tapete ou roupa) e fazer uma.",
+        "Anotar o material e o tempo gastos na peça."
+      ]
+    },
+    {
+      "titulo": "Preço, fotos e venda",
+      "aulas": [
+        "croche-para-vender/quanto-cobrar-material-tempo-e-margem",
+        "croche-para-vender/fotografar-e-mostrar-o-trabalho",
+        "croche-para-vender/vender-presencial-e-pela-internet",
+        "croche-para-vender/organizar-encomendas-e-prazos"
+      ],
+      "pratica": [
+        "Calcular o preço da peça do segundo módulo com a conta da aula (material, tempo e margem).",
+        "Fotografar a peça seguindo a aula de fotografia e montar a lista de encomendas com prazos."
+      ]
+    }
+  ],
+  "requisitos": [],
+  "tarefaNoMundo": "Fazer uma peça por encomenda de alguém e entregar no prazo combinado.",
+  "projetoFinal": "Montar uma pequena coleção de três peças, com fotos e preços calculados com as aulas, e apresentar.",
+  "semanas": 2
+}

@@ -1,12 +1,17 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import { useId, useState } from "react";
+import { ligado } from "@/lib/recursos";
 import { fill, htmlLang } from "@/i18n/config";
 import { certaDe, corrigirEscolha, corrigirNumero, type ExercicioNovo } from "@/lib/exercicios";
 import { responderExercicio } from "@/lib/meu-estudo";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { L, useI18n } from "../I18n";
+
+// As pistas do acompanhante (E4-10) só são baixadas quando aparecem, depois de um erro.
+const PistasDoExercicio = dynamic(() => import("../escola/acompanhante/PistasDoExercicio").then((m) => m.PistasDoExercicio), { ssr: false });
 
 type S = TextosDoEstudo["exercicios"];
 type Fase = "respondendo" | "certo" | "errado" | "resolvido";
@@ -205,6 +210,9 @@ export function CartaoDeExercicio({ ex, aula, s, posicao, corrigir, aoTerminar }
           </button>
         </p>
       )}
+
+      {/* "Quero uma pista" (Etapa 4, E4-10): depois de um erro, com a Escola ligada, conta e o assistente ligado. */}
+      {primeira === false && !fechado && ligado("escola") && <PistasDoExercicio ex={ex} aula={aula} />}
 
       <p className="mt-4 text-xs text-ink-soft">
         {ex.fonte} · {fill(s.autoria, { nome: ex.autoria })}

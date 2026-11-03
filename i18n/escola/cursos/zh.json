@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "catalogoTitulo": "露西亚·玛丽亚学校课程",
+    "catalogoDescricao": "只用露西亚研究所已有的课文组成的免费课程：基础、职业和进阶三类，附预计学时、教学大纲和可打印的小册子。",
+    "zineTitulo": "课程小册子",
+    "leituraTitulo": "导读"
+  },
+  "catalogo": {
+    "olho": "露西亚·玛丽亚学校",
+    "titulo": "课程",
+    "lead": "每门课程都把研究所里已经写好的课文按模块和学习顺序组织起来。还没有课文的部分标为“建设中”，不提供链接。",
+    "selo": "只用已完成的课文组成",
+    "comece": "要开始一门长课程？先学“学会学习”。",
+    "filtros": "筛选课程",
+    "filtroObjetivo": "你的目标",
+    "filtroArea": "领域",
+    "todos": "全部",
+    "todas": "全部",
+    "nenhum": "没有符合这些条件的课程。",
+    "limpar": "清除筛选",
+    "contagem": "{n} 门课程",
+    "aulas": "{n} 课",
+    "horas": "{h} 小时",
+    "semanas": "{n} 周",
+    "patrono": "推荐的课程纪念人物：{nome}",
+    "ver": "查看课程",
+    "requisitos": "先修：{lista}",
+    "conteudoEmPortugues": "课程和课文都是葡萄牙语。"
+  },
+  "ciclos": {
+    "basico": { "titulo": "基础", "texto": "从头开始或重新开始：学习方法、阅读、写作、计算、自然科学、历史和语言。" },
+    "profissional": { "titulo": "职业", "texto": "交替进行：学校时间学课文，工作时间做实践任务。" },
+    "avancado": { "titulo": "进阶", "texto": "适合已有基础的人：政治教育和 ENEM 备考路线。" }
+  },
+  "formatos": {
+    "regular": "常规",
+    "alternancia": "交替",
+    "percurso": "路线"
+  },
+  "formatosTexto": {
+    "regular": "按学习顺序排列的课文模块。",
+    "alternancia": "学校时间（课文）和工作时间（实践任务）交替。",
+    "percurso": "一条短路线，通向其他课程或页面。"
+  },
+  "objetivos": {
+    "terminar-a-escola": "完成学业",
+    "trabalho-e-renda": "工作和收入",
+    "entender-o-mundo": "认识世界",
+    "enem": "ENEM",
+    "ajudar-em-casa": "在家里帮忙",
+    "outro": "其他原因"
+  },
+  "curso": {
+    "olho": "学校课程",
+    "voltar": "课程",
+    "ciclo": "阶段",
+    "formato": "形式",
+    "horasESemanas": "预计 {h} 小时 · 每周 3 小时约 {s} 周",
+    "conteudoEmPortugues": "课程内容是葡萄牙语。",
+    "emRevisao": "审核中",
+    "tarefaNoMundo": "生活中的任务",
+    "projetoFinal": "结业项目",
+    "casoDoBairro": "结业项目可以是你所在社区的一个案例。",
+    "emConstrucaoTitulo": "仍在建设中",
+    "emConstrucaoTexto": "这些部分还没有课文。课文写好后会加入课程。",
+    "emConstrucao": "建设中",
+    "zine": "可打印的课程小册子",
+    "zineTexto": "每课的摘要、词语和第一个问题，印在可折成小册子的 A4 纸上，附每课的二维码。",
+    "turmas": "小组学习",
+    "turmasTexto": "如果愿意，可以和学同一门课程的人一起学习。",
+    "sensivel": "这门课程涉及政治。报名信息只保存在你的设备上；加入小组前，学校会先征得你的同意。",
+    "enem": "题目、模拟考试、诊断和完整计划在研究所的 ENEM 页面。",
+    "enemLink": "前往 ENEM 页面",
+    "requisitosTitulo": "本课程之前",
+    "semRequisitos": "没有先修要求：现在就可以开始。",
+    "recomendado": "建议在任何长课程之前先学：学会学习。",
+    "objetivosTitulo": "适合想要"
+  },
+  "grade": {
+    "titulo": "课程安排",
+    "modulo": "模块 {n}",
+    "tempoEscola": "学校时间",
+    "tempoTrabalho": "工作时间",
+    "tempoTrabalhoAviso": "按照课文中教的注意事项完成任务。不碰带电的电路，不忽视卫生，不在未经参与者同意的情况下进行。",
+    "feita": "已完成",
+    "dispensada": "已免修",
+    "minutos": "{n} 分钟",
+    "progresso": "{feitas} / {total} 课",
+    "pratica": "实践"
+  },
+  "horas": {
+    "titulo": "你在本课程的学时",
+    "conta": "{feitas} / {total} 小时",
+    "selo": "估算：阅读 + 每题 2 分钟 + 每个练习 3 分钟",
+    "noAparelho": "在本设备上计算，依据你标记为完成的课文和免修的学习路线。"
+  },
+  "ementa": {
+    "titulo": "教学大纲",
+    "abrir": "查看完整大纲",
+    "imprimir": "打印大纲",
+    "objetivo": "目标",
+    "conteudo": "内容",
+    "avaliacao": "评价",
+    "avaliacaoTexto": "形成性评价，不打分：每个模块结束时按能力给出反馈，学习路线测验可选，生活中的任务，以及在评审小组前展示的结业项目。",
+    "bibliografia": "参考文献",
+    "bibliografiaTexto": "课程各课引用的来源（不重复），以及课程书架上的读物。",
+    "requisitos": "先修要求",
+    "nenhum": "无",
+    "carga": "预计学时",
+    "cargaTexto": "{h} 小时，每周 3 小时约 {s} 周。估算：阅读 + 每题 2 分钟 + 每个练习 3 分钟。",
+    "naoOficial": "这是用于安排学习的估算。本学校不是高等教育机构，不授予任何证书。",
+    "total": "{n} 课 · {min} 分钟"
+  },
+  "patrono": {
+    "titulo": "课程纪念人物",
+    "proposto": "推荐人选，待协调组确认",
+    "memorial": "在纪念馆中查看",
+    "motivo": "摘自纪念馆的介绍"
+  },
+  "biblioteca": {
+    "titulo": "课程书架",
+    "texto": "课程各课引用的馆藏作品，按阅读顺序排列。",
+    "licenca": "许可：{licenca}",
+    "reservados": "版权所有的作品：这里只有条目。请通过合法来源阅读。",
+    "ficha": "馆藏条目",
+    "fonte": "来源：{fonte}",
+    "guiada": "导读",
+    "porque": "为什么读"
+  },
+  "entrar": {
+    "semMatricula": "要加入课程，请先注册：不需要姓名、邮箱或证件，注册信息保存在你的设备上。",
+    "fazerMatricula": "注册",
+    "entrar": "加入课程",
+    "dentro": "你从 {data} 起在学这门课程。",
+    "continuar": "继续：{titulo}",
+    "voltar": "回到课程",
+    "trancado": "你在 {data} 暂停了这门课程。随时可以回来。",
+    "formado": "你在 {data} 完成了这门课程。",
+    "acabou": "你已经学完了课程的所有课文。",
+    "noAparelho": "报名信息只保存在这台设备上。",
+    "erro": "无法在这台设备上保存（隐私窗口或存储已满）。"
+  },
+  "faixa": {
+    "rotulo": "你的课程",
+    "linha": "{curso} · 模块 {modulo} · 第 {aula} 课，共 {total} 课",
+    "ver": "查看课程"
+  },
+  "zine": {
+    "olho": "课程小册子",
+    "lead": "没有网络也能学习：按模块列出每课的摘要、词语和第一个问题，附通往完整课文的二维码。每张 A4 纸可折成 8 页的小册子。",
+    "voltar": "回到课程",
+    "modulo": "模块 {n}",
+    "folha": "第 {n} 张，共 {total} 张",
+    "aula": "第 {n} 课，共 {total} 课",
+    "partes": "本课各部分",
+    "palavras": "词语",
+    "pergunta": "想一想",
+    "curso": "完整课程"
+  },
+  "leitura": {
+    "olho": "导读",
+    "voltar": "课程",
+    "lead": "按作品各部分提出的问题，可以独自或在小组里慢慢读。",
+    "emRevisao": "问题正在由协调组审核。",
+    "emPortugues": "问题和作品一样是葡萄牙语。",
+    "ficha": "馆藏中的作品条目",
+    "fonte": "在来源处阅读作品",
+    "onde": "在哪里读",
+    "pergunta": "问题 {n}",
+    "guardado": "只保存在这台设备上。",
+    "naoGuardou": "无法在这台设备上保存。",
+    "progresso": "已回答 {n} / {total} 个问题",
+    "apagar": "删除我对这部作品的回答",
+    "apagarConfirma": "删除这台设备上对这部作品的回答？此操作无法撤销。",
+    "apagado": "回答已删除。",
+    "privacidade": "回答只保存在这台设备上，不会发送给任何人。要转到其他设备，请使用“我的数据”中的备份。"
+  },
+  "busca": {
+    "contexto": "学校课程"
+  }
+}

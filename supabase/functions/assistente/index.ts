@@ -12,6 +12,11 @@
 // ASSISTENTE_MODELO; GROQ_API_KEY e GROQ_MODELO; CEREBRAS_API_KEY e CEREBRAS_MODELO; GEMINI_API_KEY e GEMINI_MODELO;
 // OPENROUTER_API_KEY e OPENROUTER_MODELO (veja provedores.ts). SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY já vêm prontos.
 // Nenhuma chave aparece em resposta nem em registro.
+//
+// Acompanhante do estudante (Etapa 4, E4-10) e agentes de trabalho (E4-16): os modos novos ("socratico", "pistas",
+// "outro-jeito", "redacao", "documento", "conversa", "entrevista", "oratoria", "papelada", "turma" e "educador") e os
+// campos opcionais "historico" e "contexto" são conferidos e montados em assistente.ts. Passam pelo mesmo caminho daqui:
+// conta, assistente_usar, mesmo limite do dia, nada guardado. Os pedidos "pergunta" e "foto" seguem iguais.
 import Anthropic from "npm:@anthropic-ai/sdk@0.133.0";
 import { lerResposta, montarPedido, pedidoDeTeste, tipoDeFalha, validarEntrada, type Entrada } from "./assistente.ts";
 import { FalhaDoProvedor, IDS, modeloDe, perguntar, PROVEDORES, verificar } from "./provedores.ts";

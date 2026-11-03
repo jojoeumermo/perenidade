@@ -1,0 +1,47 @@
+{
+  "slug": "espanhol-do-zero",
+  "titulo": "Espanhol do zero",
+  "ciclo": "basico",
+  "formato": "regular",
+  "area": "espanhol",
+  "resumo": "Os primeiros passos no espanhol: sons, saudações, artigos, ser e estar, números e horas, falsos amigos e o presente.",
+  "objetivo": "Apresentar-se, pedir e dar informações simples e evitar os falsos amigos do português.",
+  "objetivos": [
+    "trabalho-e-renda",
+    "enem",
+    "outro"
+  ],
+  "modulos": [
+    {
+      "titulo": "Primeiras palavras",
+      "aulas": [
+        "espanhol-do-zero/o-alfabeto-e-os-sons-do-espanhol",
+        "espanhol-do-zero/saudacoes-e-apresentacoes-em-espanhol",
+        "espanhol-do-zero/ser-e-estar",
+        "espanhol-do-zero/artigos-e-genero-das-palavras",
+        "espanhol-do-zero/numeros-horas-e-datas"
+      ]
+    },
+    {
+      "titulo": "Conversar no dia a dia",
+      "aulas": [
+        "espanhol-do-zero/presente-do-indicativo",
+        "espanhol-do-zero/familia-casa-e-comida",
+        "espanhol-do-zero/falsos-amigos-entre-portugues-e-espanhol",
+        "espanhol-do-zero/gustar-e-verbos-parecidos",
+        "espanhol-do-zero/perguntar-e-dar-direcoes"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "leituras": [
+    {
+      "obra": "diccionario-de-la-lengua-espanola",
+      "ordem": 1,
+      "porque": "O dicionário da Real Academia Española, de consulta gratuita na internet: significados, etimologia e conjugação dos verbos."
+    }
+  ],
+  "tarefaNoMundo": "Escrever cinco frases em espanhol sobre a sua família e a sua casa e ler em voz alta para alguém ou para o gravador do celular.",
+  "projetoFinal": "Gravar uma conversa curta em espanhol pedindo e dando uma direção, com as palavras do curso, e mostrar à turma se quiser.",
+  "semanas": 1
+}

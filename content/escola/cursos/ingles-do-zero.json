@@ -1,0 +1,51 @@
+{
+  "slug": "ingles-do-zero",
+  "titulo": "Inglês do zero",
+  "ciclo": "basico",
+  "formato": "regular",
+  "area": "ingles",
+  "resumo": "Os primeiros passos no inglês: sons, saudações, o verbo to be, números, rotina, perguntas e o presente.",
+  "objetivo": "Apresentar-se, falar da rotina e fazer perguntas simples em inglês.",
+  "objetivos": [
+    "trabalho-e-renda",
+    "enem",
+    "outro"
+  ],
+  "modulos": [
+    {
+      "titulo": "Primeiras palavras",
+      "aulas": [
+        "ingles-do-zero/alfabeto-e-sons",
+        "ingles-do-zero/saudacoes-e-apresentacoes",
+        "ingles-do-zero/verbo-to-be",
+        "ingles-do-zero/numeros-e-idade",
+        "ingles-do-zero/artigos-a-an-e-the",
+        "ingles-do-zero/plural-dos-substantivos",
+        "ingles-do-zero/pronomes-pessoais-e-possessivos"
+      ]
+    },
+    {
+      "titulo": "Rotina e perguntas",
+      "aulas": [
+        "ingles-do-zero/presente-simples",
+        "ingles-do-zero/perguntas-com-do-e-does",
+        "ingles-do-zero/familia-casa-e-rotina",
+        "ingles-do-zero/horas-dias-e-meses",
+        "ingles-do-zero/there-is-e-there-are",
+        "ingles-do-zero/can-habilidade-e-pedido",
+        "ingles-do-zero/presente-continuo"
+      ]
+    }
+  ],
+  "requisitos": [],
+  "leituras": [
+    {
+      "obra": "wikilivros-ingles",
+      "ordem": 1,
+      "porque": "Curso colaborativo de inglês escrito em português, com gramática, vocabulário e exercícios."
+    }
+  ],
+  "tarefaNoMundo": "Escrever cinco frases em inglês sobre a sua rotina e ler em voz alta para alguém ou para o gravador do celular.",
+  "projetoFinal": "Gravar uma apresentação de um minuto em inglês sobre você, a sua rotina e o que você sabe fazer, e mostrar à turma se quiser.",
+  "semanas": 1
+}

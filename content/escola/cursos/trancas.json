@@ -1,0 +1,60 @@
+{
+  "slug": "trancas",
+  "titulo": "Tranças",
+  "ciclo": "profissional",
+  "formato": "alternancia",
+  "area": "trancista",
+  "resumo": "Em alternância: a história das tranças, o cuidado com o cabelo e o couro cabeludo, as tranças mais pedidas e o trabalho de trancista, com tarefas práticas e os cuidados de higiene das aulas.",
+  "objetivo": "Trançar com cuidado e higiene, saber quando não trançar e calcular o preço do serviço.",
+  "objetivos": [
+    "trabalho-e-renda"
+  ],
+  "modulos": [
+    {
+      "titulo": "Cabelo, couro cabeludo e cuidado",
+      "aulas": [
+        "trancista/a-historia-das-trancas-na-diaspora-africana",
+        "trancista/o-cabelo-crespo-e-cacheado-estrutura-e-cuidados",
+        "trancista/saude-do-couro-cabeludo-quando-nao-trancar",
+        "trancista/ferramentas-e-materiais",
+        "trancista/preparar-e-dividir-o-cabelo"
+      ],
+      "pratica": [
+        "Antes de qualquer trança, examinar o couro cabeludo da pessoa, com o consentimento dela, seguindo a aula de saúde do couro cabeludo. Com ferida, micose, piolho, dermatite ou sinal de alopecia de tração, não trançar: anotar e orientar a procurar a unidade de saúde.",
+        "Organizar as ferramentas e os materiais da aula e anotar a rotina de limpeza: lavar pentes e escovas com água e sabão e deixar secar, como a aula ensina."
+      ]
+    },
+    {
+      "titulo": "As tranças",
+      "aulas": [
+        "trancista/a-tranca-de-tres-mechas",
+        "trancista/trancas-nago-rasteiras",
+        "trancista/box-braids",
+        "trancista/twists",
+        "trancista/trancas-com-fibra"
+      ],
+      "pratica": [
+        "Treinar a trança de três mechas e a nagô numa cabeça de treino ou numa pessoa que concordar, com as mãos lavadas e o pente limpo.",
+        "Anotar quanto tempo levou cada trança, para o cálculo de preço do último módulo."
+      ]
+    },
+    {
+      "titulo": "O trabalho de trancista",
+      "aulas": [
+        "trancista/manutencao-e-retirada-das-trancas",
+        "trancista/postura-e-saude-de-quem-tranca",
+        "trancista/atendimento-tempo-de-trabalho-e-preco-do-servico",
+        "trancista/formalizacao-o-que-e-o-mei",
+        "trancista/divulgar-o-proprio-trabalho"
+      ],
+      "pratica": [
+        "Calcular o preço de uma box braid com a conta da aula de preço (tempo, material e fibra).",
+        "Escrever o texto de divulgação do seu trabalho seguindo a aula de divulgação, usando foto de alguém só com a autorização da pessoa."
+      ]
+    }
+  ],
+  "requisitos": [],
+  "tarefaNoMundo": "Fazer uma trança completa numa pessoa que concordar, seguindo os cuidados de higiene e de couro cabeludo das aulas, e anotar o tempo e o material.",
+  "projetoFinal": "Apresentar um portfólio com três tipos de trança (fotos só com autorização de quem aparece) e a sua tabela de preços calculada com as aulas.",
+  "semanas": 1
+}

@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "matricula": { "titulo": "Inscription", "descricao": "Inscription à l'École Lúcia Maria sans compte : trois questions, sans nom, e-mail ni pièce d'identité. Tout reste sur votre appareil." },
+    "carteirinha": { "titulo": "Carte", "descricao": "La carte de l'École Lúcia Maria, faite sur votre appareil. Ce n'est pas un document officiel." },
+    "plano": { "titulo": "Plan de la semaine", "descricao": "Un plan d'étude de la semaine, fait sur votre appareil avec des règles simples, sans culpabilité." }
+  },
+  "comum": {
+    "olho": "École Lúcia Maria",
+    "carregando": "Ouverture de ce qui est gardé sur cet appareil…",
+    "minutos": "{n} min",
+    "semGuardar": "Cet appareil n'a pas permis d'enregistrer (c'est peut-être la navigation privée). Essayez en dehors."
+  },
+  "fluxo": {
+    "lead": "Trois questions, sans nom, e-mail ni pièce d'identité. L'inscription reste sur cet appareil.",
+    "passo": "Question {i} sur {n}",
+    "voltar": "Retour",
+    "pular": "Passer",
+    "ouvir": "Écouter la question",
+    "pararDeOuvir": "Arrêter l'écoute",
+    "semVoz": "Cet appareil n'a pas de voix pour lire à haute voix.",
+    "baixarVoz": "La voix choisie doit encore télécharger {tamanho}. Télécharger maintenant ?",
+    "baixarSim": "Télécharger et écouter",
+    "baixarNao": "Pas maintenant",
+    "objetivo": {
+      "pergunta": "Qu'est-ce qui vous amène ici ?",
+      "opcoes": {
+        "terminar-a-escola": { "titulo": "Finir l'école", "frase": "Reprendre les études laissées de côté." },
+        "trabalho-e-renda": { "titulo": "Travail et revenu", "frase": "Apprendre quelque chose qui aide au travail ou pour les finances." },
+        "entender-o-mundo": { "titulo": "Comprendre le monde", "frase": "Savoir pourquoi les choses sont comme elles sont." },
+        "enem": { "titulo": "ENEM", "frase": "Me préparer à l'examen national." },
+        "ajudar-em-casa": { "titulo": "Aider à la maison", "frase": "Suivre les études des personnes qui vivent avec moi." },
+        "outro": { "titulo": "Autre raison", "frase": "Je viens découvrir, ou c'est autre chose." }
+      }
+    },
+    "tempo": {
+      "pergunta": "Combien de temps par semaine avez-vous pour étudier ?",
+      "dica": "Toute réponse convient. Vous pourrez la changer plus tard.",
+      "opcoes": {
+        "ate-1h": { "titulo": "Jusqu'à 1 heure", "frase": "Quelques minutes de temps en temps." },
+        "1-3h": { "titulo": "De 1 à 3 heures", "frase": "Un peu, quelques jours par semaine." },
+        "3-6h": { "titulo": "De 3 à 6 heures", "frase": "Un peu, presque tous les jours." },
+        "mais-6h": { "titulo": "Plus de 6 heures", "frase": "J'ai du temps à y consacrer." }
+      }
+    },
+    "acesso": {
+      "pergunta": "Comment est votre connexion internet ?",
+      "dica": "Pour que l'École consomme moins de vos données, si besoin.",
+      "opcoes": {
+        "pacote-acaba": { "titulo": "Mon forfait s'épuise", "frase": "J'utilise les données mobiles et elles s'épuisent avant la fin du mois." },
+        "wifi-em-casa": { "titulo": "J'ai le wifi à la maison", "frase": "À la maison, la connexion suffit." },
+        "computador-ou-nucleo": { "titulo": "J'étudie sur ordinateur ou au Núcleo", "frase": "J'utilise un ordinateur, le mien ou celui d'un Núcleo." }
+      }
+    },
+    "leve": {
+      "titulo": "Pour consommer moins de données",
+      "texto": "Le site a un économiseur de données (mode léger) : il masque images et vidéos et utilise les polices de l'appareil. Il se trouve dans le bouton d'accessibilité.",
+      "botao": "Ouvrir l'économiseur de données"
+    },
+    "nivelamento": {
+      "pergunta": "Voulez-vous savoir par où commencer ?",
+      "texto": "Quelques questions courtes, sans note et sans juste ou faux à l'écran. Elles servent seulement à suggérer par où commencer. Vous pouvez passer.",
+      "sim": "Oui, je veux savoir",
+      "nao": "Pas maintenant",
+      "seguir": "Continuer l'inscription",
+      "semTeste": "Il n'y a pas encore de questions de positionnement pour les cours de l'École. Si vous voulez, faites plus tard le test de positionnement des matières.",
+      "linkGeral": "Test de positionnement des matières"
+    },
+    "sugestao": {
+      "pergunta": "Des cours pour commencer",
+      "texto": "Suggérés d'après vos réponses. Cochez ceux que vous voulez ; vous pourrez changer plus tard.",
+      "semCursos": "Les cours de l'École sont encore en préparation. L'inscription compte quand même : quand ils arriveront, vous choisirez.",
+      "nenhumMarcado": "Aucun cours coché : l'inscription compte quand même.",
+      "motivo": {
+        "pedido": "Le cours que vous avez choisi dans le catalogue",
+        "objetivo": "Correspond à ce qui vous amène",
+        "comeco": "Bien pour commencer : cycle de base, sans prérequis"
+      },
+      "modulo1": "Cours long (environ {horas} h). Avec jusqu'à 1 heure par semaine, commencez par le module 1.",
+      "horas": "Environ {horas} h (estimation)",
+      "nivelado": "Contient des leçons de la matière suggérée par le positionnement.",
+      "antes": "Avant un cours long, si vous voulez",
+      "verCurso": "Voir le cours",
+      "marcar": "Rejoindre ce cours"
+    },
+    "apelido": {
+      "pergunta": "Comment voulez-vous être appelé sur la carte ?",
+      "dica": "Facultatif. Un surnom suffit : n'utilisez pas votre nom complet. Jusqu'à 40 lettres. Il reste seulement sur cet appareil.",
+      "rotulo": "Surnom (facultatif)",
+      "fazer": "M'inscrire",
+      "guardar": "Enregistrer les réponses"
+    },
+    "feito": {
+      "titulo": "Inscription faite sur cet appareil",
+      "numero": "Votre numéro : {numero}",
+      "contagem": "L'École a ajouté un +1 anonyme au compte des inscriptions, sans votre numéro et sans rien qui dise qui vous êtes.",
+      "carteirinha": "Carte",
+      "plano": "Plan de la semaine",
+      "copia": "Vous avez changé de téléphone ? Faites la sauvegarde dans Mes données.",
+      "meusDados": "Mes données"
+    },
+    "gerir": {
+      "titulo": "Votre inscription",
+      "numero": "Numéro {numero}",
+      "desde": "Faite le {data}, sur cet appareil.",
+      "respostas": "Vos réponses",
+      "rotuloObjetivo": "Ce qui vous amène",
+      "rotuloTempo": "Temps par semaine",
+      "rotuloAcesso": "Internet",
+      "rotuloApelido": "Surnom",
+      "semApelido": "Sans surnom",
+      "editar": "Modifier les réponses",
+      "salvo": "Réponses enregistrées.",
+      "cancelar": "Annuler",
+      "refazer": "Refaire l'inscription",
+      "refazerDica": "Vous répondez de nouveau aux questions et choisissez des cours. Le numéro et les cours que vous avez déjà restent.",
+      "cursos": "Vos cours",
+      "semCursos": "Aucun cours pour l'instant.",
+      "verCursos": "Voir les cours",
+      "emAndamento": "En cours depuis le {data}",
+      "trancar": "Mettre en pause",
+      "trancarDica": "Mettre en pause, c'est souffler un peu. Vous pouvez revenir quand vous voulez.",
+      "trancado": "En pause depuis le {data}",
+      "destrancar": "Revenir au cours",
+      "formado": "Fin de parcours le {data}",
+      "apagar": "Supprimer l'inscription",
+      "apagarPergunta": "Supprimer l'inscription, les cours, le plan de la semaine et tout ce que l'École a gardé sur cet appareil ? C'est définitif. Les leçons que vous avez marquées comme faites restent marquées.",
+      "apagarSim": "Oui, supprimer",
+      "apagarNao": "Annuler",
+      "apagada": "Inscription supprimée de cet appareil."
+    }
+  },
+  "carteirinha": {
+    "lead": "Faite sur cet appareil, sans serveur. À garder en souvenir, à imprimer ou à montrer à votre groupe.",
+    "escola": "École Lúcia Maria",
+    "casa": "Instituto Lúcia",
+    "popular": "École populaire et gratuite",
+    "estudante": "Élève",
+    "rotuloNumero": "N°",
+    "rotuloCurso": "Cours",
+    "semCurso": "En train de choisir",
+    "rotuloSemestre": "Semestre",
+    "desde": "Depuis {ano}",
+    "frente": "Recto de la carte",
+    "verso": "Verso de la carte",
+    "avisoNaoDocumento": "Cette carte n'est pas un document officiel et ne vaut pas carte d'étudiant pour le demi-tarif (meia-entrada). Elle a été faite sur cet appareil ; rien n'a été envoyé.",
+    "leiNaoVale": "Le demi-tarif exige la Carteira de Identificação Estudantil (CIE), délivrée par les organisations étudiantes indiquées dans la loi brésilienne n° 12.933/2013 (art. 1, § 2).",
+    "qr": "Visez avec l'appareil photo pour découvrir l'École",
+    "qrAlt": "Code QR avec l'adresse de l'École Lúcia Maria",
+    "usarFoto": "Afficher la photo de mon compte",
+    "usarFotoDica": "Elle n'apparaît que si votre compte a une photo gardée sur cet appareil. Sinon, ce sont les initiales.",
+    "imprimir": "Imprimer",
+    "imprimirDica": "À l'impression, choisissez la taille réelle (100 %) et sans marges. Deux pages au format carte sortent : recto et verso.",
+    "baixar": "Télécharger l'image",
+    "gerando": "Création de l'image…",
+    "falhou": "Impossible de créer l'image sur cet appareil. L'impression fonctionne toujours.",
+    "nomeDoArquivo": "carte-ecole-lucia-maria",
+    "convite": {
+      "titulo": "Vous n'avez pas encore d'inscription sur cet appareil",
+      "texto": "L'inscription, c'est trois questions, sans nom, e-mail ni pièce d'identité. Ensuite, la carte apparaît ici.",
+      "botao": "S'inscrire"
+    }
+  },
+  "plano": {
+    "lead": "Les prochaines leçons de vos cours, dans le temps que vous avez indiqué. Fait sur cet appareil.",
+    "regra": "Fait avec des règles simples, sans intelligence artificielle : les leçons suivent l'ordre de chaque cours, les matières dispensées sont laissées de côté et le temps est réparti sur les jours que vous choisissez.",
+    "semana": "Semaine du {inicio} au {fim}",
+    "hoje": "Aujourd'hui",
+    "dias": ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+    "diasCurtos": ["dim", "lun", "mar", "mer", "jeu", "ven", "sam"],
+    "escolherDias": "Jours d'étude",
+    "tempoDaSemana": "Jusqu'à {n} minutes cette semaine",
+    "metaDaSemana": "{n} leçons cette semaine, d'après votre objectif dans Mes études",
+    "feito": "fait",
+    "aFazer": "à faire",
+    "diaLivre": "Rien de prévu ce jour-là.",
+    "hojeLivre": "Aujourd'hui est un jour libre. Si l'envie vous prend, avancez une leçon d'un autre jour.",
+    "acolhimento": ["Semaine chargée ? Pas de souci, on ajuste.", "Ce qui n'a pas pu se faire aujourd'hui passe au prochain jour d'étude.", "Une leçon à la fois, c'est déjà un chemin."],
+    "paraDepois": "Pour la semaine prochaine : {n} leçon(s).",
+    "calma": {
+      "titulo": "Recommencer en douceur",
+      "texto": "Cela fait deux semaines sans leçon faite. Ça arrive à tout le monde. Et si on faisait un plan avec la moitié du temps ?",
+      "botao": "Recommencer en douceur",
+      "ativo": "Plan en douceur : la moitié du temps.",
+      "voltar": "Revenir au temps normal"
+    },
+    "lembrete": "Rappel dans l'agenda",
+    "lembreteHora": "Heure du rappel",
+    "lembreteDica": "Télécharge un fichier d'agenda qui vous prévient les jours d'étude, même site fermé. Rien n'est envoyé.",
+    "lembreteTitulo": "Étudier à l'École Lúcia Maria",
+    "lembreteDescricao": "C'est l'heure du plan de la semaine.",
+    "remontar": "Refaire le plan",
+    "acabou": "Vous avez fait toutes les leçons de vos cours. Et si vous en choisissiez un autre ?",
+    "semCursos": "Pour faire le plan, rejoignez un cours.",
+    "verCursos": "Voir les cours",
+    "abrirAula": "Ouvrir la leçon"
+  },
+  "quemVolta": {
+    "rotulo": "Bon retour",
+    "titulo": "Content de vous revoir",
+    "carteirinha": "Voir la carte",
+    "hoje": "Aujourd'hui dans votre plan",
+    "hojeLivre": "Rien de prévu aujourd'hui.",
+    "verPlano": "Voir le plan de la semaine",
+    "continuar": "Continuer le cours",
+    "continuarAula": "Reprendre là où vous en étiez",
+    "verCursos": "Voir les cours",
+    "convite": {
+      "titulo": "Première fois ici ?",
+      "texto": "Inscrivez-vous : trois questions, sans nom, e-mail ni pièce d'identité.",
+      "botao": "S'inscrire"
+    }
+  }
+}

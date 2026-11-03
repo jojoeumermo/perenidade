@@ -2,10 +2,12 @@
 //
 // As páginas da Escola Lúcia Maria no índice da busca (Etapa 4, E4-05) e os textos da busca viva (i18n/escola/busca).
 // lib/indice-de-busca.ts acrescenta estas entradas só com ligado("escola"); a do modo seguro entra sempre, porque o
-// modo seguro existe com ou sem a Escola. O E4-07 acrescenta os cursos em lib/indice-de-busca.ts.
+// modo seguro existe com ou sem a Escola. Os cursos (E4-07) entram aqui, cada um como página: título, resumo e área.
 // Só o servidor importa este arquivo (ele traz os 6 dicionários); componente de cliente importa daqui só tipos.
 // Sem os atalhos "@/" de propósito (lib testável no Node).
 import type { SearchEntry } from "../search";
+import { textosDosCursos } from "../../i18n/escola/cursos/index";
+import { carregarCursos } from "./cursos-servidor";
 import { escolher } from "./textos";
 import en from "../../i18n/escola/busca/en.json";
 import es from "../../i18n/escola/busca/es.json";
@@ -41,8 +43,18 @@ export function entradaDoModoSeguro(t: TextosDaBusca): SearchEntry {
   return { kind: "pagina", title: t.indice.modoSeguro, href: "/modo-seguro", area: "", context: "", text: t.indice.modoSeguroTexto };
 }
 
-/** As páginas da Escola (entrada, quem foi Lúcia Maria, cursos, matrícula, calendário, campus, turmas, acompanhante, caderneta) e o modo seguro. */
-export function entradasDaEscola(_lang: string, t: TextosDaBusca): SearchEntry[] {
+/**
+ * Os cursos da Escola (content/escola/cursos), cada um como uma página da busca: o título e o resumo do curso (em
+ * português, como o conteúdo) e a área. O contexto diz "Curso da Escola" no idioma da busca. O tipo é "pagina" porque
+ * lib/search.ts ainda não tem o tipo "curso" (pedido no relatório do E4-07).
+ */
+export function entradasDosCursos(lang: string): SearchEntry[] {
+  const contexto = textosDosCursos(lang).busca.contexto;
+  return carregarCursos().map((c) => ({ kind: "pagina", title: c.titulo, href: `/escola/cursos/${c.slug}`, area: c.area, context: contexto, text: `${c.resumo} ${c.objetivo}` }));
+}
+
+/** As páginas da Escola (entrada, quem foi Lúcia Maria, cursos, matrícula, calendário, campus, turmas, acompanhante, caderneta), os cursos e o modo seguro (por último). */
+export function entradasDaEscola(lang: string, t: TextosDaBusca): SearchEntry[] {
   const i = t.indice;
   const entradas = PAGINAS_DA_ESCOLA.map(([chave, href]): SearchEntry => ({
     kind: "pagina",
@@ -52,7 +64,7 @@ export function entradasDaEscola(_lang: string, t: TextosDaBusca): SearchEntry[]
     context: chave === "entrada" ? "" : i.contexto,
     text: i[`${chave}Texto`],
   }));
-  return [...entradas, entradaDoModoSeguro(t)];
+  return [...entradas, ...entradasDosCursos(lang), entradaDoModoSeguro(t)];
 }
 
 /** Os caminhos das páginas da Escola no índice (para o teste conferir que existem). */

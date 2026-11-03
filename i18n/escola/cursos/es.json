@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "catalogoTitulo": "Cursos de la Escuela Lúcia Maria",
+    "catalogoDescricao": "Cursos gratuitos armados solo con clases que ya existen en el Instituto Lúcia: básico, profesional y avanzado, con horas estimadas, programa y fanzine para imprimir.",
+    "zineTitulo": "Fanzine del curso",
+    "leituraTitulo": "Lectura guiada"
+  },
+  "catalogo": {
+    "olho": "Escuela Lúcia Maria",
+    "titulo": "Cursos",
+    "lead": "Cada curso reúne clases que ya están listas en el Instituto, en módulos y en un orden de estudio. Lo que todavía no tiene clase aparece en construcción, sin enlace.",
+    "selo": "Curso armado solo con clases listas",
+    "comece": "¿Vas a empezar un curso largo? Empieza por Aprender a estudiar.",
+    "filtros": "Filtrar los cursos",
+    "filtroObjetivo": "Lo que quieres",
+    "filtroArea": "Área",
+    "todos": "Todos",
+    "todas": "Todas",
+    "nenhum": "Ningún curso con esos filtros.",
+    "limpar": "Quitar los filtros",
+    "contagem": "{n} cursos",
+    "aulas": "{n} clases",
+    "horas": "{h} horas",
+    "semanas": "{n} semanas",
+    "patrono": "Patrono propuesto: {nome}",
+    "ver": "Ver el curso",
+    "requisitos": "Antes: {lista}",
+    "conteudoEmPortugues": "Los cursos y las clases están en portugués."
+  },
+  "ciclos": {
+    "basico": { "titulo": "Básico", "texto": "Para empezar o volver a empezar: estudiar, leer, escribir, contar, las ciencias, la historia y los idiomas." },
+    "profissional": { "titulo": "Profesional", "texto": "En alternancia: tiempo escuela con las clases y tiempo trabajo con tareas prácticas." },
+    "avancado": { "titulo": "Avanzado", "texto": "Para quien ya tiene la base: formación política y el recorrido del ENEM." }
+  },
+  "formatos": {
+    "regular": "Regular",
+    "alternancia": "Alternancia",
+    "percurso": "Recorrido"
+  },
+  "formatosTexto": {
+    "regular": "Módulos con clases, en orden de estudio.",
+    "alternancia": "Tiempo escuela (clases) y tiempo trabajo (tareas prácticas), alternados.",
+    "percurso": "Un camino corto, que lleva a otros cursos o páginas."
+  },
+  "objetivos": {
+    "terminar-a-escola": "Terminar la escuela",
+    "trabalho-e-renda": "Trabajo e ingresos",
+    "entender-o-mundo": "Entender el mundo",
+    "enem": "ENEM",
+    "ajudar-em-casa": "Ayudar en casa",
+    "outro": "Otro motivo"
+  },
+  "curso": {
+    "olho": "Curso de la Escuela",
+    "voltar": "Cursos",
+    "ciclo": "Ciclo",
+    "formato": "Formato",
+    "horasESemanas": "{h} horas estimadas · unas {s} semanas con 3 horas por semana",
+    "conteudoEmPortugues": "El contenido del curso está en portugués.",
+    "emRevisao": "en revisión",
+    "tarefaNoMundo": "Tarea en el mundo",
+    "projetoFinal": "Proyecto final",
+    "casoDoBairro": "El proyecto final puede ser un caso de tu barrio.",
+    "emConstrucaoTitulo": "Todavía en construcción",
+    "emConstrucaoTexto": "Estas partes todavía no tienen clase. Entran en el curso cuando las clases estén escritas.",
+    "emConstrucao": "en construcción",
+    "zine": "Fanzine del curso para imprimir",
+    "zineTexto": "El resumen, las palabras y la primera pregunta de cada clase, en hojas A4 que se convierten en cuadernillos, con el QR de cada clase.",
+    "turmas": "Estudiar en grupo",
+    "turmasTexto": "Si quieres, estudia junto con quien hace el mismo curso.",
+    "sensivel": "Este curso trata de política. La inscripción queda solo en tu dispositivo; para entrar en un grupo, la Escuela te pide antes tu consentimiento.",
+    "enem": "Las preguntas, los simulacros, el diagnóstico y el plan completo están en la página del ENEM del Instituto.",
+    "enemLink": "Ir a la página del ENEM",
+    "requisitosTitulo": "Antes de este curso",
+    "semRequisitos": "Sin requisitos: puedes empezar ahora.",
+    "recomendado": "Recomendado antes de cualquier curso largo: Aprender a estudiar.",
+    "objetivosTitulo": "Para quien quiere"
+  },
+  "grade": {
+    "titulo": "Plan del curso",
+    "modulo": "Módulo {n}",
+    "tempoEscola": "Tiempo escuela",
+    "tempoTrabalho": "Tiempo trabajo",
+    "tempoTrabalhoAviso": "Haz las tareas con los cuidados que enseñan las clases. Nada en una instalación eléctrica encendida, nada sin higiene y nada sin el permiso de quien participa.",
+    "feita": "hecha",
+    "dispensada": "convalidada",
+    "minutos": "{n} min",
+    "progresso": "{feitas} de {total} clases",
+    "pratica": "Práctica"
+  },
+  "horas": {
+    "titulo": "Tus horas en el curso",
+    "conta": "{feitas} de {total} horas",
+    "selo": "estimación: lectura + 2 min por pregunta + 3 min por ejercicio",
+    "noAparelho": "Contado en este dispositivo, con las clases que marcaste como hechas y las rutas convalidadas."
+  },
+  "ementa": {
+    "titulo": "Programa",
+    "abrir": "Ver el programa completo",
+    "imprimir": "Imprimir programa",
+    "objetivo": "Objetivo",
+    "conteudo": "Contenido",
+    "avaliacao": "Evaluación",
+    "avaliacaoTexto": "Formativa, sin nota: devolución por competencia al final de cada módulo, prueba de la ruta opcional, tarea en el mundo y proyecto final presentado ante un tribunal.",
+    "bibliografia": "Bibliografía",
+    "bibliografiaTexto": "Las fuentes citadas en las clases del curso, sin repetir, y las lecturas de la biblioteca del curso.",
+    "requisitos": "Requisitos",
+    "nenhum": "Ninguno",
+    "carga": "Carga horaria estimada",
+    "cargaTexto": "{h} horas, en unas {s} semanas con 3 horas por semana. Estimación: lectura + 2 min por pregunta + 3 min por ejercicio.",
+    "naoOficial": "Es una estimación para planificar el estudio. La Escuela no es una institución de educación superior y no otorga títulos.",
+    "total": "{n} clases · {min} minutos"
+  },
+  "patrono": {
+    "titulo": "Patrono del curso",
+    "proposto": "Patrono propuesto, a confirmar por la coordinación",
+    "memorial": "Ver en el Memorial",
+    "motivo": "De la ficha del Memorial"
+  },
+  "biblioteca": {
+    "titulo": "Biblioteca del curso",
+    "texto": "Obras del Acervo citadas en las clases del curso, en orden de lectura.",
+    "licenca": "Licencia: {licenca}",
+    "reservados": "Obra con derechos reservados: aquí solo está la ficha. Léela por la fuente legal.",
+    "ficha": "Ficha en el Acervo",
+    "fonte": "En la fuente: {fonte}",
+    "guiada": "Lectura guiada",
+    "porque": "Por qué leer"
+  },
+  "entrar": {
+    "semMatricula": "Para entrar en el curso, haz antes la matrícula: sin nombre, correo ni documento, y queda en tu dispositivo.",
+    "fazerMatricula": "Hacer la matrícula",
+    "entrar": "Entrar en el curso",
+    "dentro": "Estás en este curso desde el {data}.",
+    "continuar": "Continuar: {titulo}",
+    "voltar": "Volver al curso",
+    "trancado": "Pausaste este curso el {data}. Puedes volver cuando quieras.",
+    "formado": "Terminaste este curso el {data}.",
+    "acabou": "Hiciste todas las clases del curso.",
+    "noAparelho": "La inscripción queda solo en este dispositivo.",
+    "erro": "No se pudo guardar en este dispositivo (ventana privada o memoria llena)."
+  },
+  "faixa": {
+    "rotulo": "Tu curso",
+    "linha": "{curso} · módulo {modulo} · clase {aula} de {total}",
+    "ver": "Ver el curso"
+  },
+  "zine": {
+    "olho": "Fanzine del curso",
+    "lead": "Para estudiar sin internet: el resumen, las palabras y la primera pregunta de cada clase, por módulo, con el QR que lleva a la clase completa. Cada hoja A4 se convierte en un cuadernillo de 8 páginas.",
+    "voltar": "Volver al curso",
+    "modulo": "Módulo {n}",
+    "folha": "Hoja {n} de {total}",
+    "aula": "Clase {n} de {total}",
+    "partes": "Partes de la clase",
+    "palavras": "Palabras",
+    "pergunta": "Para pensar",
+    "curso": "El curso completo"
+  },
+  "leitura": {
+    "olho": "Lectura guiada",
+    "voltar": "Cursos",
+    "lead": "Preguntas por parte de la obra, para leer con calma, solo o en grupo.",
+    "emRevisao": "Preguntas en revisión por la coordinación.",
+    "emPortugues": "Las preguntas están en portugués, como la obra.",
+    "ficha": "Ficha de la obra en el Acervo",
+    "fonte": "Leer la obra en la fuente",
+    "onde": "Dónde leer",
+    "pergunta": "Pregunta {n}",
+    "guardado": "Guardado solo en este dispositivo.",
+    "naoGuardou": "No se pudo guardar en este dispositivo.",
+    "progresso": "{n} de {total} preguntas respondidas",
+    "apagar": "Borrar mis respuestas de esta obra",
+    "apagarConfirma": "¿Borrar las respuestas de esta obra en este dispositivo? No se puede deshacer.",
+    "apagado": "Respuestas borradas.",
+    "privacidade": "Las respuestas quedan solo en este dispositivo y no se envían a nadie. Para llevarlas a otro dispositivo, usa la copia de seguridad en Mis datos."
+  },
+  "busca": {
+    "contexto": "Curso de la Escuela"
+  }
+}

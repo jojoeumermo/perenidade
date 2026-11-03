@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "matricula": { "titulo": "入学登记", "descricao": "无需注册即可在露西亚·玛丽亚学校登记：三个问题，不需要姓名、邮箱或证件。一切都保存在你的设备上。" },
+    "carteirinha": { "titulo": "学习卡", "descricao": "露西亚·玛丽亚学校的学习卡，在你的设备上生成。它不是官方证件。" },
+    "plano": { "titulo": "每周计划", "descricao": "一份没有负担的每周学习计划，在你的设备上按简单规则生成。" }
+  },
+  "comum": {
+    "olho": "露西亚·玛丽亚学校",
+    "carregando": "正在打开这台设备上保存的内容……",
+    "minutos": "{n} 分钟",
+    "semGuardar": "这台设备不允许保存（可能是浏览器的无痕模式）。请换到普通模式再试。"
+  },
+  "fluxo": {
+    "lead": "三个问题，不需要姓名、邮箱或证件。登记只保存在这台设备上。",
+    "passo": "第 {i} 题，共 {n} 题",
+    "voltar": "返回",
+    "pular": "跳过",
+    "ouvir": "朗读问题",
+    "pararDeOuvir": "停止朗读",
+    "semVoz": "这台设备没有可以朗读的语音。",
+    "baixarVoz": "所选语音还需要下载 {tamanho}。现在下载吗？",
+    "baixarSim": "下载并收听",
+    "baixarNao": "以后再说",
+    "objetivo": {
+      "pergunta": "是什么让你来到这里？",
+      "opcoes": {
+        "terminar-a-escola": { "titulo": "完成学业", "frase": "重新学习以前落下的内容。" },
+        "trabalho-e-renda": { "titulo": "工作与收入", "frase": "学点对工作或收入有帮助的东西。" },
+        "entender-o-mundo": { "titulo": "理解世界", "frase": "弄明白事情为什么是现在这样。" },
+        "enem": { "titulo": "ENEM", "frase": "准备巴西全国高中考试。" },
+        "ajudar-em-casa": { "titulo": "在家帮忙", "frase": "陪伴家里人学习。" },
+        "outro": { "titulo": "其他原因", "frase": "来看看，或者是别的原因。" }
+      }
+    },
+    "tempo": {
+      "pergunta": "你每周有多少时间学习？",
+      "dica": "怎么回答都可以，以后也能修改。",
+      "opcoes": {
+        "ate-1h": { "titulo": "最多 1 小时", "frase": "偶尔几分钟。" },
+        "1-3h": { "titulo": "1 到 3 小时", "frase": "每周有几天学一点。" },
+        "3-6h": { "titulo": "3 到 6 小时", "frase": "几乎每天学一点。" },
+        "mais-6h": { "titulo": "超过 6 小时", "frase": "我有时间专心学习。" }
+      }
+    },
+    "acesso": {
+      "pergunta": "你的网络情况怎么样？",
+      "dica": "如果需要，学校可以少用你的流量。",
+      "opcoes": {
+        "pacote-acaba": { "titulo": "流量不够用", "frase": "我用手机流量，不到月底就用完了。" },
+        "wifi-em-casa": { "titulo": "家里有 wi-fi", "frase": "家里的网络够用。" },
+        "computador-ou-nucleo": { "titulo": "在电脑上或在 Núcleo 学习", "frase": "我用电脑，自己的或 Núcleo 的。" }
+      }
+    },
+    "leve": {
+      "titulo": "少用流量",
+      "texto": "网站有省流量模式（轻量模式）：隐藏图片和视频，使用设备自带的字体。它在无障碍按钮里。",
+      "botao": "打开省流量模式"
+    },
+    "nivelamento": {
+      "pergunta": "想知道从哪里开始吗？",
+      "texto": "几道简短的问题，不打分，屏幕上也不显示对错。只是为了建议你从哪里开始。可以跳过。",
+      "sim": "好，我想知道",
+      "nao": "以后再说",
+      "seguir": "继续登记",
+      "semTeste": "学校的课程还没有定级问题。如果愿意，可以之后去做各学科的定级测试。",
+      "linkGeral": "学科定级测试"
+    },
+    "sugestao": {
+      "pergunta": "适合开始的课程",
+      "texto": "根据你的回答推荐。勾选你想上的课程；以后可以更换。",
+      "semCursos": "学校的课程还在准备中。登记照样有效：课程上线后你再选择。",
+      "nenhumMarcado": "没有勾选课程：登记照样有效。",
+      "motivo": {
+        "pedido": "你在课程目录里选的课程",
+        "objetivo": "符合你来这里的原因",
+        "comeco": "适合开始：基础阶段，没有先修要求"
+      },
+      "modulo1": "长课程（约 {horas} 小时）。每周最多 1 小时的话，先从第 1 单元开始。",
+      "horas": "约 {horas} 小时（估算）",
+      "nivelado": "包含定级测试建议的学科课。",
+      "antes": "在长课程之前，如果你愿意",
+      "verCurso": "查看课程",
+      "marcar": "加入这门课程"
+    },
+    "apelido": {
+      "pergunta": "你希望学习卡上怎么称呼你？",
+      "dica": "可选。用昵称就够了，不要写全名。最多 40 个字。只保存在这台设备上。",
+      "rotulo": "昵称（可选）",
+      "fazer": "完成我的登记",
+      "guardar": "保存回答"
+    },
+    "feito": {
+      "titulo": "已在这台设备上完成登记",
+      "numero": "你的编号：{numero}",
+      "contagem": "学校在登记人数上匿名加了 1，不包含你的编号，也没有任何能识别你的信息。",
+      "carteirinha": "学习卡",
+      "plano": "每周计划",
+      "copia": "换手机了？请在“我的数据”里做备份。",
+      "meusDados": "我的数据"
+    },
+    "gerir": {
+      "titulo": "你的登记",
+      "numero": "编号 {numero}",
+      "desde": "于 {data} 在这台设备上登记。",
+      "respostas": "你的回答",
+      "rotuloObjetivo": "来这里的原因",
+      "rotuloTempo": "每周时间",
+      "rotuloAcesso": "网络",
+      "rotuloApelido": "昵称",
+      "semApelido": "没有昵称",
+      "editar": "修改回答",
+      "salvo": "回答已保存。",
+      "cancelar": "取消",
+      "refazer": "重新登记",
+      "refazerDica": "重新回答问题并选择课程。编号和已有的课程保持不变。",
+      "cursos": "你的课程",
+      "semCursos": "目前还没有课程。",
+      "verCursos": "查看课程",
+      "emAndamento": "自 {data} 起进行中",
+      "trancar": "暂停",
+      "trancarDica": "暂停就是休息一下，随时可以回来。",
+      "trancado": "于 {data} 暂停",
+      "destrancar": "回到课程",
+      "formado": "于 {data} 结业",
+      "apagar": "删除登记",
+      "apagarPergunta": "删除登记、课程、每周计划以及学校在这台设备上保存的一切？此操作无法撤销。你标记为已完成的课仍然保持标记。",
+      "apagarSim": "是，删除",
+      "apagarNao": "取消",
+      "apagada": "已从这台设备上删除登记。"
+    }
+  },
+  "carteirinha": {
+    "lead": "在这台设备上生成，不经过服务器。可以留作纪念、打印或给你的学习小组看。",
+    "escola": "露西亚·玛丽亚学校",
+    "casa": "Instituto Lúcia",
+    "popular": "免费的平民学校",
+    "estudante": "学员",
+    "rotuloNumero": "编号",
+    "rotuloCurso": "课程",
+    "semCurso": "还在选择",
+    "rotuloSemestre": "学期",
+    "desde": "{ano} 年起",
+    "frente": "学习卡正面",
+    "verso": "学习卡背面",
+    "avisoNaoDocumento": "这张学习卡不是官方证件，不能当作学生证享受半价票（meia-entrada）。它在这台设备上生成，没有发送任何内容。",
+    "leiNaoVale": "半价票需要学生身份证（CIE，Carteira de Identificação Estudantil），由巴西第 12.933/2013 号法律（第 1 条第 2 款）所列的学生组织签发。",
+    "qr": "用相机扫码了解学校",
+    "qrAlt": "带有露西亚·玛丽亚学校网址的二维码",
+    "usarFoto": "显示我账户的照片",
+    "usarFotoDica": "只有当你的账户在这台设备上保存了照片时才会显示。没有照片就显示姓名首字母。",
+    "imprimir": "打印",
+    "imprimirDica": "打印时请选择实际大小（100%），不留边距。会打印出两页卡片大小的纸：正面和背面。",
+    "baixar": "下载图片",
+    "gerando": "正在生成图片……",
+    "falhou": "无法在这台设备上生成图片。打印仍然可用。",
+    "nomeDoArquivo": "lucia-maria-xuexiao-xuexika",
+    "convite": {
+      "titulo": "你还没有在这台设备上登记",
+      "texto": "登记只需三个问题，不需要姓名、邮箱或证件。之后学习卡会出现在这里。",
+      "botao": "去登记"
+    }
+  },
+  "plano": {
+    "lead": "你所选课程的下几节课，安排在你说的时间之内。在这台设备上生成。",
+    "regra": "按简单规则生成，没有使用人工智能：课程按各自的顺序排列，免修的学科不计入，时间平均分到你选的日子里。",
+    "semana": "{inicio} 至 {fim} 这一周",
+    "hoje": "今天",
+    "dias": ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+    "diasCurtos": ["日", "一", "二", "三", "四", "五", "六"],
+    "escolherDias": "学习日",
+    "tempoDaSemana": "本周最多 {n} 分钟",
+    "metaDaSemana": "本周 {n} 节课，按你在“我的学习”里的目标",
+    "feito": "已完成",
+    "aFazer": "待完成",
+    "diaLivre": "这一天没有安排。",
+    "hojeLivre": "今天是休息日。想学的话，可以提前上别的日子的课。",
+    "acolhimento": ["这周很忙？没关系，我们来调整。", "今天没做完的，会移到下一个学习日。", "一次一节课，也是在前进。"],
+    "paraDepois": "留到下周：{n} 节课。",
+    "calma": {
+      "titulo": "慢慢重新开始",
+      "texto": "已经两周没有完成课程了。这对谁都会发生。要不要试试一半时间的计划？",
+      "botao": "慢慢重新开始",
+      "ativo": "轻松计划：一半时间。",
+      "voltar": "恢复正常时间"
+    },
+    "lembrete": "日历提醒",
+    "lembreteHora": "提醒时间",
+    "lembreteDica": "下载一个日历文件，即使网站关闭也会在学习日提醒你。不发送任何内容。",
+    "lembreteTitulo": "在露西亚·玛丽亚学校学习",
+    "lembreteDescricao": "每周计划的时间到了。",
+    "remontar": "重新制定计划",
+    "acabou": "你已经完成了所选课程的所有课。要不要再选一门？",
+    "semCursos": "要制定计划，请先加入一门课程。",
+    "verCursos": "查看课程",
+    "abrirAula": "打开这节课"
+  },
+  "quemVolta": {
+    "rotulo": "欢迎回来",
+    "titulo": "很高兴再次见到你",
+    "carteirinha": "查看学习卡",
+    "hoje": "今天的计划",
+    "hojeLivre": "今天没有安排。",
+    "verPlano": "查看每周计划",
+    "continuar": "继续课程",
+    "continuarAula": "从上次停下的地方继续",
+    "verCursos": "查看课程",
+    "convite": {
+      "titulo": "第一次来？",
+      "texto": "去登记吧：三个问题，不需要姓名、邮箱或证件。",
+      "botao": "去登记"
+    }
+  }
+}
