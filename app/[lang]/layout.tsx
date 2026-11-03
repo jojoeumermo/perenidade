@@ -113,7 +113,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <RadioPlayer />
             <BottomNav />
             <VoltarAoTopo label={t.lists.top} />
-            <OpeningNotice initial={abertura} close={t.a11y.close} />
+            <OpeningNotice initial={abertura.ativo ? abertura : null} close={t.a11y.close} />
             <MaisGaveta
               secoes={secoesDoSite(lang, t)}
               textos={{
