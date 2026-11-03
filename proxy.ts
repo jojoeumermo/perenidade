@@ -2,6 +2,7 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
+import { site } from "@/lib/site";
 
 // Endereços que só robôs de invasão procuram (painéis de outros sistemas, cópias de segurança, arquivos
 // de configuração e de senha). Nada disso existe aqui: a resposta é um "não encontrado" seco, sem redirecionar
@@ -55,10 +56,26 @@ async function interdicao(): Promise<EstadoDaInterdicao> {
   return estado;
 }
 
+// O endereço *.vercel.app da produção não fica atrás do Cloudflare: robôs que o descobrem (pelos registros públicos de
+// certificados, por exemplo) rastreavam o site inteiro direto na Vercel, sem o cache da borda, e gastavam a cota.
+// Em produção, qualquer pedido nesse endereço vai (308, permanente) para o mesmo caminho no domínio do instituto.
+// Só vale com VERCEL_ENV=production: as prévias e o servidor próprio (onde a variável não existe) ficam como estão.
+const dominio = new URL(site.url);
+function foraDoDominio(request: NextRequest): NextResponse | null {
+  if (process.env.VERCEL_ENV !== "production") return null;
+  const host = (request.headers.get("host") ?? "").toLowerCase();
+  if (!host.endsWith(".vercel.app") || host === dominio.host) return null;
+  const destino = new URL(request.nextUrl.pathname + request.nextUrl.search, dominio);
+  return NextResponse.redirect(destino, 308);
+}
+
 // O idioma principal é o português: todo endereço sem prefixo de idioma ("/", "/trilhas")
 // abre em português, seja qual for o idioma do navegador. Os outros idiomas são escolhidos
-// pela pessoa no seletor do cabeçalho.
+// pela pessoa no seletor do cabeçalho. O redirecionamento é permanente (308): o navegador e a borda guardam a resposta,
+// e a próxima visita a "/" nem chega à Vercel.
 export async function proxy(request: NextRequest, event: NextFetchEvent) {
+  const outroHost = foraDoDominio(request);
+  if (outroHost) return outroHost;
   const { pathname } = request.nextUrl;
   if (bait.test(pathname) || baitFile.test(pathname) || estranho.test(pathname) || pathname.length > 300) {
     note(request, event);
@@ -85,7 +102,7 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   if (locales.some((code) => pathname === `/${code}` || pathname.startsWith(`/${code}/`))) return;
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  return NextResponse.redirect(url, 308);
 }
 
 export const config = {

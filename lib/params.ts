@@ -8,11 +8,12 @@ export function withLangs<T extends object>(items: T[]): (T & { lang: string })[
 }
 
 /**
- * Os parâmetros só nos idiomas em que o texto existe de fato (o português sempre). As outras versões da mesma página
- * (o texto em português com os menus noutro idioma, que já apontam o português como canônico) saem na primeira visita
- * e ficam guardadas até a próxima publicação. Montar todas no build passava de 26 mil páginas e chegou a estourar os
- * 45 minutos que a Vercel dá para cada publicação. A rota que usa isto precisa de dynamicParams = true e do conteúdo
- * no rastreio de arquivos (outputFileTracingIncludes no next.config.ts).
+ * Os parâmetros só nos idiomas em que o texto existe de fato (o português sempre). Nos outros idiomas a página não é
+ * copiada: a aula, o texto puro, a zine e a ficha da obra redirecionam (308) para a versão em português, e a interface
+ * continua nos 6 idiomas no resto do site (o seletor de idioma não muda). Antes, cada robô que pedia /en, /es, /zh, /ru
+ * ou /fr de uma aula gerava e guardava mais uma cópia (mais de 30 mil possíveis); montar todas no build passava de 26
+ * mil páginas e estourava os 45 minutos da Vercel. A rota que usa isto precisa de dynamicParams = true (para o
+ * redirecionamento e as traduções novas) e do conteúdo no rastreio de arquivos (outputFileTracingIncludes no next.config.ts).
  */
 export function nosIdiomasDoTexto<T extends object>(items: { params: T; file: string }[]): (T & { lang: string })[] {
   return items.flatMap(({ params, file }) => idiomasDe(file).map((lang) => ({ ...params, lang })));

@@ -10,9 +10,10 @@ import { site } from "@/lib/site";
 // O "não encontrado" de endereço que nenhuma rota atende (/pt/pagina-que-nao-existe, /pt/trilhas/nome-errado).
 // O layout do site depende do idioma do endereço, e aqui não há idioma: a página vem inteira, em português (a língua
 // principal do site), com a marca, o papel e as letras de sempre, em vez da tela branca em inglês do Next.
-const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin"] });
-const ui = Inter({ variable: "--font-ui", subsets: ["latin"] });
-const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin"], weight: ["400", "500"] });
+// Sem pré-carga, como no layout do site: no modo leve as três dão lugar às fontes do aparelho e nada é baixado.
+const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin"], preload: false });
+const ui = Inter({ variable: "--font-ui", subsets: ["latin"], preload: false });
+const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin"], weight: ["400", "500"], preload: false });
 
 const t = pt.notFound;
 

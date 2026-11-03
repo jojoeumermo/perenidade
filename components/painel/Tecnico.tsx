@@ -26,8 +26,9 @@ export function Tecnico() {
   const estado = useLista<Diagnostico>("diagnostico");
   const d = estado.dados;
   if (!d) return <Aviso texto={estado.erro || "Carregando…"} />;
-  // A rotina de publicação roda de hora em hora: aprovado há mais de três horas quer dizer que ela parou.
-  const publicacaoParada = d.aprovadas > 0 && horas(d.aprovada_mais_antiga) > 3;
+  // A rotina de publicação roda uma vez por dia: aprovado há mais de 26 horas (um dia e a folga do agendador do GitHub)
+  // quer dizer que ela parou.
+  const publicacaoParada = d.aprovadas > 0 && horas(d.aprovada_mais_antiga) > 26;
   const linhas: [string, string, boolean, string][] = [
     ["Aprovadas esperando a publicação", `${d.aprovadas}${d.aprovada_mais_antiga ? ` · a mais antiga desde ${dataHora(d.aprovada_mais_antiga)}` : ""}`, publicacaoParada, "Veja a rotina “Publicar contribuições aprovadas” no GitHub (Actions) e a variável PUBLICAR."],
     ["Última publicação", d.ultima_publicacao ? dataHora(d.ultima_publicacao) : "nenhuma ainda", false, ""],

@@ -47,7 +47,10 @@ concurrency:
 
 jobs:
   publicar:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    # Sem servidor configurado (variável COOLIFY_URL vazia), não há para onde mandar a imagem: o job fica pulado em vez
+    # de gastar uns dez minutos de máquina ARM a cada push. Hoje o site está na Vercel (docs/HOSPEDAGEM.md). No dia em
+    # que COOLIFY_URL existir, a primeira execução monta a imagem normalmente.
+    if: vars.COOLIFY_URL != '' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     # A imagem sai no processador da máquina do GitHub, que precisa ser igual ao do servidor: ARM na Oracle
     # (ubuntu-24.04-arm, o padrão), x86 num servidor comum (variável MAQUINA_DE_MONTAGEM = ubuntu-24.04).
     runs-on: ${{ vars.MAQUINA_DE_MONTAGEM || 'ubuntu-24.04-arm' }}
@@ -117,7 +120,7 @@ jobs:
           docker push "$IMAGEM:producao"
 
       - name: Trocar a versão no ar (Coolify)
-        # Enquanto o servidor não estiver configurado (variáveis COOLIFY_*), a rotina só monta e guarda a imagem.
+        # Com COOLIFY_URL mas sem COOLIFY_APP_UUID (servidor em preparo), a rotina só monta e guarda a imagem.
         if: vars.COOLIFY_URL != '' && vars.COOLIFY_APP_UUID != ''
         env:
           COOLIFY_URL: ${{ vars.COOLIFY_URL }}

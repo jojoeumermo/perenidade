@@ -6,10 +6,21 @@
 // Commit que só mexe em documentação, rotinas do GitHub, SQL do banco ou testes não precisa de publicação nova.
 //
 // Saída 0 = pular a publicação; saída 1 = publicar. Na dúvida (sem o commit anterior, histórico raso), publica.
+// Os previews seguem a regra do prefixo "preview/" logo abaixo.
 import { execFileSync } from "node:child_process";
 
 const anterior = process.env.VERCEL_GIT_PREVIOUS_SHA;
 const atual = process.env.VERCEL_GIT_COMMIT_SHA || "HEAD";
+
+// Pré-visualização só sob pedido: monta preview apenas o branch que começa com "preview/" (docs/HOSPEDAGEM.md ›
+// Pré-visualização). Os outros branches não gastam build nem entram na fila na frente da produção (a Hobby monta um
+// por vez). Dentro de "preview/", o resto do filtro continua valendo: commit só de documentação também não monta.
+const ambiente = process.env.VERCEL_ENV;
+const ramo = process.env.VERCEL_GIT_COMMIT_REF ?? "";
+if (ambiente === "preview" && !ramo.startsWith("preview/")) {
+  console.log(`Preview pulado: o branch ${ramo || "(sem nome)"} não começa com preview/.`);
+  process.exit(0);
+}
 
 // O que não entra no site montado. supabase/functions/_shared entra (o painel usa o desenho dos e-mails).
 const ignorado = (arquivo) =>

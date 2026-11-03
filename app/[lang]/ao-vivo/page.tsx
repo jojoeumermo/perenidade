@@ -5,6 +5,8 @@ import { Cartaz } from "@/components/Cartaz";
 import { ComoFunciona } from "@/components/ComoFunciona";
 import { localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ao-vivo">): Promise<Metadata> {
@@ -20,7 +22,7 @@ export default async function AoVivo({ params }: PageProps<"/[lang]/ao-vivo">) {
       <Cartaz eyebrow={t.live.eyebrow} title={t.live.title} slogan={t.slogans.aoVivo} tone="vermelho">
         {t.live.lead}
       </Cartaz>
-      <Agenda s={t.live} />
+      <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><Agenda s={t.live} /></I18nProvider>
       <ComoFunciona s={t.live.how} href={localePath(lang, "/voluntarios")} />
     </div>
   );

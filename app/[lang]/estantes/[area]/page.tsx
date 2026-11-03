@@ -11,6 +11,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { SecaoEstudioDePratica } from "@/components/EstudioDePraticaSecao";
 import { temEstudio } from "@/lib/estudio";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 import { ligado } from "@/lib/recursos";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 import { paginaMeta } from "@/lib/seo";
@@ -140,7 +142,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
       </section>
 
       {/* Aulas em vídeo gravadas pelos educadores da disciplina, lidas do serviço na hora. */}
-      <VideoaulasDaDisciplina disciplina={area} s={t.videoLessons} />
+      <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><VideoaulasDaDisciplina disciplina={area} s={t.videoLessons} /></I18nProvider>
 
       {/* Edição de vídeo, de foto e Modelagem 3D: os programas de prática, que abrem dentro do site. */}
       {temEstudio(area) && <SecaoEstudioDePratica s={t.practiceStudio} area={area} />}

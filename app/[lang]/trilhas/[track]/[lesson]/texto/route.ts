@@ -4,8 +4,9 @@ import { getTrack, getTracks } from "@/lib/content";
 import { nosIdiomasDoTexto } from "@/lib/params";
 import { site } from "@/lib/site";
 
-// A aula em texto puro, gerada no build nos idiomas em que o texto existe (as outras versões, na primeira visita). Serve para conexões fracas, leitores de tela simples
-// e para quem prefere o terminal: curl <endereço da aula>/texto
+// A aula em texto puro, gerada no build nos idiomas em que o texto existe. Nos outros idiomas redireciona (308) para o
+// texto em português (veja lib/params.ts). Serve para conexões fracas, leitores de tela simples e para quem prefere o
+// terminal: curl <endereço da aula>/texto
 export const dynamic = "force-static";
 export const dynamicParams = true;
 
@@ -20,6 +21,10 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/t
   const track = isLocale(lang) ? getTrack(trackSlug, lang) : undefined;
   const lesson = track?.lessons.find((l) => l.slug === lessonSlug);
   if (!track || !lesson) return new Response("404\n", { status: 404 });
+  // Sem tradução do texto neste idioma: vai para o texto em português (veja lib/params.ts).
+  if (lang !== defaultLocale && !lesson.translated) {
+    return new Response(null, { status: 308, headers: { Location: `${site.url}/${defaultLocale}/trilhas/${track.slug}/${lesson.slug}/texto` } });
+  }
 
   const body = [
     `${lesson.title}`,

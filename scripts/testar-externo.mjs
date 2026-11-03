@@ -2,7 +2,7 @@
 //
 // Prova a porta de saída do servidor para os serviços abertos (lib/externo.ts), sem rede: só https, só os destinos da
 // lista, e redirecionamento seguido apenas quando o destino também está na lista. Uso: npm run testar:externo
-import { buscarJson, buscarTexto, permitido, semHtml, termo } from "../lib/externo.ts";
+import { buscarJson, buscarTexto, canonica, permitido, semHtml, termo } from "../lib/externo.ts";
 
 let certos = 0;
 const falhas = [];
@@ -27,6 +27,15 @@ function simular(respostas) {
     return new Response(proxima.corpo ?? "", { status: proxima.status ?? 200, headers: proxima.cabecalhos ?? {} });
   };
 }
+
+// A busca normalizada: uma forma só por termo, para a borda guardar uma resposta só (e canonica não redirecionar em laço).
+await confere("termo em minúsculas e NFC", () => termo("CASA") === "casa" && termo("Ação") === "ação");
+await confere("termo idempotente, sem espaço sobrando no corte", () => termo("abc def", 2, 4) === "abc" && termo(termo("  Muitos   Espaços ")) === termo("  Muitos   Espaços "));
+await confere("canonica redireciona a busca fora da forma normal", () => {
+  const r = canonica(new Request("https://institutolucia.org/api/frases?q=CASA"), "q", termo("CASA"));
+  return r?.status === 308 && r.headers.get("Location") === "/api/frases?q=casa";
+});
+await confere("canonica não redireciona o que já está normal", () => canonica(new Request("https://institutolucia.org/api/frases?q=casa"), "q", "casa") === null);
 
 await confere("só https e só a lista", () => permitido(new URL("https://pt.wikipedia.org/w/api.php")) && !permitido(new URL("http://pt.wikipedia.org/")) && !permitido(new URL("https://exemplo.com/")));
 

@@ -4,6 +4,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { SignIn } from "@/components/SignIn";
 import { VolunteerForm } from "@/components/VolunteerForm";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
+import { I18nProvider } from "@/components/I18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/entrar">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -11,7 +13,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/entrar">):
 }
 
 export default async function Entrar({ params }: PageProps<"/[lang]/entrar">) {
-  const { t } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <PageHeading eyebrow={t.auth.eyebrow} title={t.auth.title}>
@@ -24,7 +26,7 @@ export default async function Entrar({ params }: PageProps<"/[lang]/entrar">) {
           <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center bg-oxblood font-sans text-xl font-black italic text-parchment">+</span>
           {t.auth.volunteerLink}
         </summary>
-        <VolunteerForm s={t.volunteer} />
+        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><VolunteerForm s={t.volunteer} /></I18nProvider>
       </details>
     </div>
   );

@@ -1595,11 +1595,19 @@ body {
   background-image: none;
 }
 
-/* Modo leve: sem imagens, sem textura, sem animação e com as fontes que o aparelho já tem. */
+/* Modo leve: sem imagens, sem textura, sem animação e com as fontes que o aparelho já tem. Nenhuma fonte do site é
+   baixada: as de next/font vêm sem pré-carga (app/[lang]/layout.tsx) e o @font-face só baixa o arquivo quando alguma
+   regra usa a família, o que deixa de acontecer com as variáveis trocadas aqui (inclusive a do lambe-lambe, a escrita à
+   mão e a letra de revista das páginas de território, que é definida num bloco da página e por isso vai pela classe). */
 :root[data-light] {
   --font-serif-display: Georgia, "Times New Roman", serif;
   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-archive: ui-monospace, Consolas, "Courier New", monospace;
+  --font-cartaz: "Arial Narrow", Impact, sans-serif;
+  --font-hand: "Segoe Print", "Comic Sans MS", cursive;
+}
+:root[data-light] .territorio-play {
+  font-family: Georgia, "Times New Roman", serif;
 }
 :root[data-light] .paper {
   background-image: none;

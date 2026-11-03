@@ -1,11 +1,11 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { BotaoImprimir } from "@/components/BotaoImprimir";
 import Link from "@/components/Link";
 import { loadLang } from "@/i18n";
-import { fill, localePath } from "@/i18n/config";
+import { defaultLocale, fill, localePath } from "@/i18n/config";
 import { getTrack } from "@/lib/content";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -52,6 +52,8 @@ export default async function ZineDaAula({ params }: Props) {
   const index = track?.lessons.findIndex((l) => l.slug === lessonSlug) ?? -1;
   if (!track || index < 0) notFound();
   const lesson = track.lessons[index];
+  // Sem tradução do texto neste idioma: vai para a zine em português (veja lib/params.ts).
+  if (lang !== defaultLocale && !lesson.translated) permanentRedirect(localePath(defaultLocale, `/trilhas/${track.slug}/${lesson.slug}/zine`));
   const s = t.kit;
   const caminho = localePath(lang, `/trilhas/${track.slug}/${lesson.slug}`);
   const url = `${site.url}${caminho}`;

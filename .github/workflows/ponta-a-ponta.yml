@@ -1,19 +1,44 @@
 name: Testes de ponta a ponta
 
-# Os fluxos que não podem quebrar (e2e/fluxos.spec.ts), num navegador de verdade, contra o banco de teste local.
-# Só roda quando alguém manda (Actions › Testes de ponta a ponta › Run workflow) ou num pull request com a etiqueta
-# "ponta-a-ponta": cada execução leva uns 15 minutos, e os minutos do GitHub Actions são contados.
+# Num navegador de verdade, contra o banco de teste local (npm run dev:local: banco em memória e next dev), sem segredo
+# nenhum e sem tocar em produção.
+# - Em todo pull request e em todo push no master que mexe em código: a fumaça das telas principais (e2e/fumaca.spec.ts)
+#   no computador e no Galaxy S24. Aula, matéria e documentação não mudam o código e não disparam a rotina.
+# - Num pull request com a etiqueta "ponta-a-ponta", ou quando alguém manda (Actions › Testes de ponta a ponta › Run
+#   workflow): também todos os outros testes de e2e/ no computador (uns 15 minutos a mais).
 on:
   workflow_dispatch:
   pull_request:
-    types: [labeled, synchronize]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
+      - "supabase/*.sql"
+  push:
+    branches: [master]
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
+      - "supabase/*.sql"
+
+# Vários envios seguidos: só o último é testado, os anteriores são cancelados. Uma etiqueta qualquer (que não seja
+# "ponta-a-ponta") ganha um grupo só dela: não cancela o teste em andamento e o job fica pulado logo abaixo.
+concurrency:
+  group: ponta-a-ponta-${{ github.ref }}${{ (github.event.action == 'labeled' && github.event.label.name != 'ponta-a-ponta') && format('-{0}', github.run_id) || '' }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
   fluxos:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'ponta-a-ponta')
+    # Rascunho de pull request, atualização de dependência pelo Dependabot e etiqueta que não é "ponta-a-ponta" não
+    # gastam minutos aqui.
+    if: github.event_name != 'pull_request' || (!github.event.pull_request.draft && github.actor != 'dependabot[bot]' && (github.event.action != 'labeled' || github.event.label.name == 'ponta-a-ponta'))
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -26,7 +51,15 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
       # O Chrome já vem instalado nas máquinas do GitHub: o Playwright usa ele (channel "chrome").
-      - run: npx playwright test --project=computador
+      - name: Fumaça das telas principais (computador e Galaxy S24)
+        run: npx playwright test e2e/fumaca --project=computador --project=s24
+        env:
+          CI: "1"
+      # O pacote completo, só sob pedido. Roda mesmo se a fumaça falhar, para o relatório mostrar tudo de uma vez.
+      - name: Todos os fluxos (computador)
+        if: (success() || failure()) && (github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'ponta-a-ponta'))
+        # Pasta própria: o Playwright esvazia a pasta de saída ao começar, e os rastros de uma fumaça que falhou se perderiam.
+        run: npx playwright test --project=computador --grep-invert "fumaça:" --output=test-results/fluxos
         env:
           CI: "1"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

@@ -2,7 +2,7 @@
 //
 // Busca de imagens livres para o estúdio de design: arquivos da Wikimedia Commons com licença que permite reuso.
 // Consultado pelo servidor do site, como os outros serviços abertos; devolve miniatura, autor e licença de cada um.
-import { buscarJson, responder, semHtml, termo } from "@/lib/externo";
+import { buscarJson, canonica, responder, semHtml, termo } from "@/lib/externo";
 
 interface Pagina {
   title?: string;
@@ -11,6 +11,9 @@ interface Pagina {
 
 export async function GET(pedido: Request) {
   const busca = termo(new URL(pedido.url).searchParams.get("q"), 3, 80);
+  // A mesma busca escrita de outro jeito vai para o endereço normalizado: uma entrada só no cache da borda.
+  const normal = canonica(pedido, "q", busca);
+  if (normal) return normal;
   if (!busca) return responder({ achados: [] }, 3600);
   const dados = await buscarJson<{ query?: { pages?: Record<string, Pagina> } }>(
     `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(`filetype:bitmap ${busca}`)}&gsrnamespace=6&gsrlimit=24&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=480&iiextmetadatafilter=LicenseShortName|Artist|Credit&format=json&utf8=1`,

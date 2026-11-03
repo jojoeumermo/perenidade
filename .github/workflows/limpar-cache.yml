@@ -2,7 +2,13 @@ name: Limpar o cache do Cloudflare
 
 # O Cloudflare guarda as páginas do site por 4 horas (regra "HTML do site na borda 4h"), para os robôs não gastarem a
 # cota da Vercel. Esta rotina limpa essa cópia assim que a Vercel termina uma publicação de produção, para a versão nova
-# aparecer na hora. Também dá para rodar à mão (Actions → Limpar o cache do Cloudflare → Run workflow).
+# aparecer na hora. Também dá para rodar à mão (Actions → Limpar o cache do Cloudflare → Run workflow): à mão, limpa tudo.
+# A limpeza é seletiva: quando a publicação só mudou conteúdo (aulas em content/trilhas, obras em content/acervo,
+# arquivos em public/arquivos e o resumo em historico/), só saem do cache os endereços dessas páginas e das listas fixas
+# (início, trilhas, acervo, índices). Limpar tudo a cada publicação obrigava a Vercel a refazer o site inteiro para os
+# robôs. Limpa TUDO quando mudou código, estilo, layout ou qualquer outro arquivo (o código novo troca os arquivos de
+# /_next, e página velha guardada apontaria para arquivos que não existem mais), quando não dá para saber a publicação
+# anterior, quando a lista passa de 300 endereços e quando a própria limpeza seletiva falha.
 # Precisa do segredo CF_TOKEN_CACHE (token do Cloudflare só com a permissão "Cache Purge") e da variável CF_ZONE_ID
 # (o ID da zona institutolucia.org). Sem o segredo, a rotina só avisa e termina sem erro.
 # Atenção: o evento deployment_status vem da Vercel. Quando o site migrar para o servidor próprio (producao.yml), a
@@ -11,7 +17,10 @@ on:
   deployment_status:
   workflow_dispatch:
 
-permissions: {}
+# Ler o repositório (para comparar as duas publicações) e a lista de publicações da Vercel registradas no GitHub.
+permissions:
+  contents: read
+  deployments: read
 
 concurrency:
   group: limpar-cache
@@ -21,19 +30,130 @@ jobs:
   limpar:
     if: ${{ github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production') }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
-      - name: Limpar o cache de todas as páginas
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        if: ${{ github.event_name == 'deployment_status' }}
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.deployment.sha }}
+          fetch-depth: 0
+      - name: O que mudou desde a publicação anterior
+        id: lista
+        if: ${{ github.event_name == 'deployment_status' }}
+        # Se este passo falhar, o seguinte limpa tudo (sem "modo", vale a limpeza total).
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ATUAL: ${{ github.event.deployment.sha }}
+          ESTA: ${{ github.event.deployment.id }}
+          AMBIENTE: ${{ github.event.deployment.environment }}
+        run: |
+          # A publicação de produção anterior que deu certo: a mais recente da lista, tirando esta.
+          ANTERIOR=""
+          for id_sha in $(gh api "repos/${GITHUB_REPOSITORY}/deployments?environment=${AMBIENTE}&per_page=10" --jq '.[] | "\(.id):\(.sha)"' 2>/dev/null); do
+            id="${id_sha%%:*}"; sha="${id_sha#*:}"
+            [ "$id" = "$ESTA" ] && continue
+            # Olha todos os estados, não só o último: quando a publicação nova dá certo, o GitHub pode marcar a anterior
+            # como "inactive", e o último estado dela deixa de ser "success".
+            deu_certo=$(gh api "repos/${GITHUB_REPOSITORY}/deployments/${id}/statuses?per_page=100" --jq 'any(.[]; .state == "success")' 2>/dev/null || true)
+            if [ "$deu_certo" = "true" ]; then ANTERIOR="$sha"; break; fi
+          done
+          echo "Publicação anterior: ${ANTERIOR:-desconhecida} · atual: ${ATUAL}"
+          if [ -z "$ANTERIOR" ] || ! git cat-file -e "${ANTERIOR}^{commit}" 2>/dev/null; then
+            echo "modo=tudo" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # --no-renames: aula renomeada aparece como apagada (o endereço velho sai do cache) e criada (o novo entra).
+          git -c core.quotePath=false diff --name-only --no-renames "$ANTERIOR" "$ATUAL" > mudados.txt
+          echo "Arquivos mudados: $(wc -l < mudados.txt)"
+          node --input-type=module - <<'JS'
+          import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
+          const SITE = "https://institutolucia.org";
+          const LIMITE = 300;
+          // Os idiomas do site, lidos do mesmo lugar que o site usa.
+          const idiomas = JSON.parse(/locales\s*=\s*(\[[^\]]*\])/.exec(readFileSync("i18n/config.ts", "utf8"))[1].replace(/'/g, '"'));
+          const padrao = /defaultLocale[^=]*=\s*["']([a-z]+)["']/.exec(readFileSync("i18n/config.ts", "utf8"))[1];
+          const outros = idiomas.filter((l) => l !== padrao).join("|");
+          const mudados = readFileSync("mudados.txt", "utf8").split("\n").map((l) => l.trim()).filter(Boolean);
+          const urls = new Set();
+          let tudo = mudados.length === 0 ? "a publicação repete o mesmo registro (variável ou configuração nova)" : "";
+          const aula = new RegExp(`^content/trilhas/([a-z0-9-]+)/(?:\\d+-)?([a-z0-9-]+?)(?:\\.(${outros}))?\\.md$`);
+          const trilha = new RegExp(`^content/trilhas/([a-z0-9-]+)/_trilha(?:\\.(${outros}))?\\.md$`);
+          const obra = new RegExp(`^content/acervo/([a-z0-9-]+?)(?:\\.(${outros}))?\\.md$`);
+          for (const arquivo of mudados) {
+            let m;
+            if ((m = trilha.exec(arquivo))) {
+              for (const l of idiomas) urls.add(`/${l}/trilhas/${m[1]}`);
+              urls.add(`/${padrao}/original/${m[1]}`); // o original que o painel de traduções lê (só em pt)
+            } else if ((m = aula.exec(arquivo))) {
+              // O texto em português vale para todos os idiomas sem tradução (que redirecionam para ele); a tradução,
+              // só para o idioma dela. A página da trilha lista o título da aula em todos os idiomas.
+              const l = m[3] || padrao;
+              for (const fim of ["", "/texto", "/zine"]) urls.add(`/${l}/trilhas/${m[1]}/${m[2]}${fim}`);
+              for (const i of idiomas) urls.add(`/${i}/trilhas/${m[1]}`);
+              urls.add(`/${padrao}/original/${m[1]}`);
+            } else if ((m = obra.exec(arquivo))) {
+              urls.add(`/${m[2] || padrao}/acervo/${m[1]}`);
+            } else if (arquivo.startsWith("public/arquivos/")) {
+              urls.add(encodeURI(arquivo.slice("public".length)));
+            } else if (arquivo.startsWith("historico/")) {
+              for (const l of idiomas) urls.add(`/${l}/historico`);
+            } else {
+              tudo ||= `mudou ${arquivo}`;
+            }
+          }
+          // As listas que mostram o que é novo, em todos os idiomas.
+          if (!tudo) {
+            urls.add("/sitemap.xml");
+            for (const l of idiomas) for (const p of ["", "/trilhas", "/acervo", "/indice.json", "/indice-leve.json", "/novidades.json", "/obras.json", "/aulas.json", "/acervo-fichas.json", "/apoio-numeros.json", "/lacunas.json", "/roteiros.json", "/tarefas.json", "/traducoes.json"]) urls.add(`/${l}${p}`);
+          }
+          if (!tudo && urls.size > LIMITE) tudo = `${urls.size} endereços (mais de ${LIMITE})`;
+          if (tudo) {
+            console.log(`Limpeza total: ${tudo}.`);
+            appendFileSync(process.env.GITHUB_OUTPUT, "modo=tudo\n");
+          } else {
+            const lista = [...urls].map((u) => SITE + u);
+            writeFileSync("urls.txt", lista.join("\n") + "\n");
+            console.log(`Limpeza seletiva de ${lista.length} endereços:\n${lista.join("\n")}`);
+            appendFileSync(process.env.GITHUB_OUTPUT, "modo=seletiva\n");
+          }
+          JS
+      - name: Limpar o cache
         env:
           TOKEN: ${{ secrets.CF_TOKEN_CACHE }}
           ZONA: ${{ vars.CF_ZONE_ID }}
+          MODO: ${{ steps.lista.outputs.modo || 'tudo' }}
         run: |
           if [ -z "$TOKEN" ] || [ -z "$ZONA" ]; then
             echo "Falta o segredo CF_TOKEN_CACHE ou a variável CF_ZONE_ID: cache não limpo (expira sozinho em até 4 horas)."
             exit 0
           fi
-          resposta=$(curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/${ZONA}/purge_cache" \
-            -H "Authorization: Bearer ${TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data '{"purge_everything":true}')
-          echo "$resposta" | grep -q '"success":true' && echo "Cache limpo." || { echo "O Cloudflare recusou a limpeza: $resposta"; exit 1; }
+          limpar() {
+            curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/${ZONA}/purge_cache" \
+              -H "Authorization: Bearer ${TOKEN}" \
+              -H "Content-Type: application/json" \
+              --data "$1" || true
+          }
+          tudo() {
+            resposta=$(limpar '{"purge_everything":true}')
+            echo "$resposta" | grep -q '"success":true' && echo "Cache inteiro limpo." || { echo "O Cloudflare recusou a limpeza: $resposta"; exit 1; }
+          }
+          if [ "$MODO" != "seletiva" ] || [ ! -s urls.txt ]; then
+            tudo
+            exit 0
+          fi
+          # Em lotes de 30 endereços, o máximo por chamada aceito em todos os planos do Cloudflare. Se um lote falhar,
+          # limpa tudo: melhor refazer o site inteiro do que deixar página velha no ar.
+          split -l 30 urls.txt lote-
+          for lote in lote-*; do
+            corpo=$(jq -R -s -c '{files: (split("\n") | map(select(length > 0)))}' "$lote")
+            resposta=$(limpar "$corpo")
+            if ! echo "$resposta" | grep -q '"success":true'; then
+              echo "A limpeza seletiva falhou ($resposta); limpando tudo."
+              tudo
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Limpos $(wc -l < urls.txt) endereços."
