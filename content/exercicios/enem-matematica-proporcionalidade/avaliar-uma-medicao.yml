@@ -1,0 +1,112 @@
+# Exercícios da aula "Avaliar uma medição: precisão, erro e arredondamento" (trilha enem-matematica-proporcionalidade).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-mat-medicao-01
+  tema: "Avaliar uma medição"
+  area: matematica
+  habilidade: 13
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 1
+  enunciado: "Uma régua milimetrada mediu um lápis. Qual registro é compatível com a precisão dessa régua?"
+  alternativas:
+    - texto: "15 cm"
+      erro: "Joga fora os milímetros que a régua consegue medir."
+    - texto: "15,3 cm"
+      certa: true
+    - texto: "15,34 cm"
+      erro: "Centésimos de centímetro são décimos de milímetro, que a régua não mede."
+    - texto: "15,347 cm"
+      erro: "Precisão muito maior que a do instrumento."
+    - texto: "uns 15 ou 16 cm"
+      erro: "É vago demais para uma régua que mede milímetros."
+  explicacao: "A menor divisão é 1 mm = 0,1 cm. O registro deve ter uma casa decimal em centímetros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-medicao-02
+  tema: "Avaliar uma medição"
+  area: matematica
+  habilidade: 13
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 1
+  enunciado: "Uma balança marcou 2,1 kg para um pacote de 2 kg. Qual o erro relativo?"
+  alternativas:
+    - texto: "0,1%"
+      erro: "Esqueceu de multiplicar por 100 depois de dividir."
+    - texto: "2%"
+      erro: "0,1 ÷ 2 = 0,05, não 0,02."
+    - texto: "5%"
+      certa: true
+    - texto: "10%"
+      erro: "Seria o erro se o pacote tivesse 1 kg."
+    - texto: "0,1 kg"
+      erro: "Esse é o erro absoluto, não o relativo."
+  explicacao: "Erro absoluto: 0,1 kg. Erro relativo: 0,1 ÷ 2 = 0,05, ou 5%."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-medicao-03
+  tema: "Avaliar uma medição"
+  area: matematica
+  habilidade: 13
+  objeto: mat-geometria-unidades-de-medida
+  dificuldade: 2
+  enunciado: "Dois técnicos erraram 5 cm cada um. O primeiro mediu um muro de 10 m; o segundo, uma janela de 1 m. Qual afirmação é correta?"
+  alternativas:
+    - texto: "Os dois erros têm a mesma importância, porque são de 5 cm."
+      erro: "O erro absoluto é igual, mas o relativo é diferente."
+    - texto: "O erro do muro é mais grave, porque o muro é maior."
+      erro: "Ao contrário: no muro, 5 cm são 0,5%; na janela, 5%."
+    - texto: "O erro da janela é dez vezes mais grave em termos relativos."
+      certa: true
+    - texto: "Nenhum dos dois errou, porque 5 cm é pouco."
+      erro: "Erraram, e na janela o erro pode impedir a instalação."
+    - texto: "Não dá para comparar medidas em metros e centímetros."
+      erro: "Basta usar a mesma unidade: 1.000 cm e 100 cm."
+  explicacao: "Muro: 5 ÷ 1.000 = 0,5%. Janela: 5 ÷ 100 = 5%. O erro relativo da janela é 10 vezes maior."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-medicao-04
+  tema: "Avaliar uma medição"
+  area: matematica
+  habilidade: 13
+  objeto: mat-numeros-estimativa
+  dificuldade: 2
+  enunciado: "Quatro medidas do tempo de uma corrida deram 12,4 s; 12,6 s; 12,5 s e 15,9 s. O último cronometrista admitiu que apertou o botão atrasado. Qual a melhor estimativa do tempo?"
+  alternativas:
+    - texto: "12,5 s"
+      certa: true
+    - texto: "13,35 s"
+      erro: "É a média com a medida errada, que deveria ser descartada."
+    - texto: "15,9 s"
+      erro: "É justamente a medida com erro de leitura."
+    - texto: "12,4 s"
+      erro: "É só a menor medida, não a média das coerentes."
+    - texto: "53,4 s"
+      erro: "É a soma das quatro, não a média."
+  explicacao: "Descarta-se 15,9 s com justificativa (erro admitido). Média das outras: (12,4 + 12,6 + 12,5) ÷ 3 = 12,5 s."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-mat-medicao-05
+  tema: "Avaliar uma medição"
+  area: matematica
+  habilidade: 13
+  objeto: mat-numeros-estimativa
+  dificuldade: 3
+  enunciado: "Uma parede tem 13,2 m² e cada lata de tinta pinta 4 m². Um vendedor diz que \"3 latas bastam, porque 13,2 ÷ 4 = 3,3, que arredonda para 3\". O argumento:"
+  alternativas:
+    - texto: "está certo, porque 3,3 está mais perto de 3."
+      erro: "Com 3 latas pintam-se 12 m², e a parede tem 13,2 m²."
+    - texto: "está errado: é preciso arredondar para cima, 4 latas, para cobrir toda a parede."
+      certa: true
+    - texto: "está certo, porque sobra tinta em toda obra."
+      erro: "Nada no problema garante sobra."
+    - texto: "está errado: são necessárias 33 latas."
+      erro: "Confundiu 3,3 com 33."
+    - texto: "está errado: são necessárias 5 latas."
+      erro: "4 latas pintam 16 m², o que já basta."
+  explicacao: "3 latas pintam 12 m² e faltariam 1,2 m². Quando é preciso cobrir tudo, arredonda-se para cima: 4 latas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

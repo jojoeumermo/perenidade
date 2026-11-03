@@ -1,0 +1,112 @@
+# Exercícios da aula "Genética mendeliana e heredogramas" (trilha enem-biologia).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-bio-mendel-01
+  tema: "Genética mendeliana e heredogramas"
+  area: natureza
+  habilidade: 13
+  objeto: nat-bio-hereditariedade-mendel
+  dificuldade: 1
+  enunciado: "Uma pessoa com genótipo aa, sendo a um alelo recessivo, é:"
+  alternativas:
+    - texto: "heterozigota."
+      erro: "Heterozigota tem dois alelos diferentes (Aa)."
+    - texto: "homozigota recessiva."
+      certa: true
+    - texto: "homozigota dominante."
+      erro: "Homozigota dominante é AA."
+    - texto: "portadora sem manifestar a característica."
+      erro: "Portadora sem manifestar é a heterozigota Aa. A pessoa aa manifesta."
+    - texto: "impossível de existir."
+      erro: "Basta receber um a de cada pai."
+  explicacao: "Dois alelos iguais: homozigota. Os dois são recessivos: homozigota recessiva, que manifesta a característica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-mendel-02
+  tema: "Genética mendeliana e heredogramas"
+  area: natureza
+  habilidade: 13
+  objeto: nat-bio-hereditariedade-mendel
+  dificuldade: 1
+  enunciado: "No cruzamento Aa × Aa, qual é a proporção esperada de filhos com o fenótipo dominante?"
+  alternativas:
+    - texto: "1/4"
+      erro: "1/4 é a proporção de aa, o fenótipo recessivo."
+    - texto: "1/2"
+      erro: "1/2 é só a proporção de Aa. Falta somar AA."
+    - texto: "3/4"
+      certa: true
+    - texto: "1"
+      erro: "Há 1/4 de chance de aa."
+    - texto: "0"
+      erro: "Os próprios pais mostram o fenótipo dominante, e os filhos também podem mostrar."
+  explicacao: "O quadro dá AA, Aa, Aa e aa. Três em quatro têm pelo menos um A."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-mendel-03
+  tema: "Genética mendeliana e heredogramas"
+  area: natureza
+  habilidade: 13
+  objeto: nat-bio-hereditariedade-mendel
+  dificuldade: 2
+  enunciado: "Num heredograma, um casal em que os dois têm uma característica tem uma filha sem ela. A característica é:"
+  alternativas:
+    - texto: "recessiva, e os pais são aa."
+      erro: "Pais aa só passam a. A filha também teria a característica."
+    - texto: "dominante, e os pais são Aa."
+      certa: true
+    - texto: "dominante, e os pais são AA."
+      erro: "Pais AA só passam A. A filha teria a característica."
+    - texto: "recessiva, e os pais são Aa."
+      erro: "Pais Aa de característica recessiva não a manifestam, mas aqui eles a têm."
+    - texto: "impossível de determinar."
+      erro: "\"Pais iguais, filho diferente\" basta para determinar."
+  explicacao: "Pais com a característica e filha sem: os pais escondiam um alelo recessivo. A característica é dominante, e os pais são Aa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-mendel-04
+  tema: "Genética mendeliana e heredogramas"
+  area: natureza
+  habilidade: 13
+  objeto: nat-bio-hereditariedade-mendel
+  dificuldade: 2
+  enunciado: "Um casal Aa × Aa já tem dois filhos aa, de uma característica recessiva. Qual a chance de o terceiro filho também ser aa?"
+  alternativas:
+    - texto: "Zero, porque já nasceram dois."
+      erro: "Cada nascimento é independente. Os anteriores não mudam a chance."
+    - texto: "1/4"
+      certa: true
+    - texto: "1/2"
+      erro: "1/2 seria para Aa × aa."
+    - texto: "3/4"
+      erro: "3/4 é a chance do fenótipo dominante."
+    - texto: "100%"
+      erro: "Os filhos anteriores não determinam o próximo."
+  explicacao: "A chance de aa em Aa × Aa é 1/4 em cada nascimento, independentemente dos filhos anteriores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-bio-mendel-05
+  tema: "Genética mendeliana e heredogramas"
+  area: natureza
+  habilidade: 13
+  objeto: nat-bio-hereditariedade-mendel
+  dificuldade: 3
+  enunciado: "O albinismo do tipo mais comum tem herança autossômica recessiva. Um homem não albino, cuja mãe é albina, tem filhos com uma mulher albina. Qual a chance de um filho do casal ser albino?"
+  alternativas:
+    - texto: "0%"
+      erro: "O homem recebeu um a da mãe albina; ele é Aa e pode passá-lo."
+    - texto: "25%"
+      erro: "25% é de Aa × Aa. A mulher é aa."
+    - texto: "50%"
+      certa: true
+    - texto: "75%"
+      erro: "Não há combinação que dê 75% de albinos aqui."
+    - texto: "100%"
+      erro: "Só se o homem também fosse aa, e ele não é albino."
+  explicacao: "O homem é Aa (não albino, mas recebeu a da mãe). A mulher é aa. Aa × aa dá metade Aa e metade aa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

@@ -1,0 +1,112 @@
+# Exercícios da aula "Cada tecnologia tem sua linguagem" (trilha enem-linguagens-tecnologias-da-comunicacao).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-lin-digitais-linguagens-01
+  tema: "Cada tecnologia tem sua linguagem"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 1
+  enunciado: "\"CHEGO SEXTA TREM DAS DEZ ESPERAR ESTACAO\". As marcas desse texto indicam que ele foi escrito para:"
+  alternativas:
+    - texto: "uma carta pessoal."
+      erro: "A carta tem saudação, parágrafos e frases completas."
+    - texto: "um telegrama."
+      certa: true
+    - texto: "um programa de rádio."
+      erro: "O rádio é oral e fala com o ouvinte; não usa esse corte de palavras."
+    - texto: "um post com hiperlinks."
+      erro: "Não há link nem marcação de rede social."
+    - texto: "um romance."
+      erro: "Nada no texto é narrativa literária."
+  explicacao: "O telegrama era cobrado por palavra: por isso as frases mínimas, sem artigos nem pontuação, em maiúsculas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-linguagens-02
+  tema: "Cada tecnologia tem sua linguagem"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 1
+  enunciado: "Qual recurso é típico da linguagem do rádio?"
+  alternativas:
+    - texto: "O link para outra página."
+      erro: "Link é marca da internet."
+    - texto: "A legenda embaixo da imagem."
+      erro: "No rádio não há imagem."
+    - texto: "A repetição da informação principal para quem acabou de sintonizar."
+      certa: true
+    - texto: "O texto em colunas."
+      erro: "É marca do jornal impresso."
+    - texto: "O emoji."
+      erro: "É marca das mensagens escritas no celular."
+  explicacao: "No rádio o ouvinte não volta atrás: o locutor repete o essencial e conversa com quem ouve."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-linguagens-03
+  tema: "Cada tecnologia tem sua linguagem"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 2
+  enunciado: "Abreviações como \"vc\", \"tb\" e \"blz\" se espalharam com as mensagens curtas do celular. A melhor explicação para elas é:"
+  alternativas:
+    - texto: "o desconhecimento da forma completa das palavras."
+      erro: "Quem abrevia, em geral, conhece a palavra. É escolha, não ignorância."
+    - texto: "a adaptação da escrita ao limite de caracteres e à rapidez da troca."
+      certa: true
+    - texto: "uma regra da norma-padrão."
+      erro: "A norma-padrão não prevê essas abreviações."
+    - texto: "a influência do telegrama, que também usava \"vc\"."
+      erro: "O telegrama cortava palavras inteiras, como artigos, e não usava essas abreviações."
+    - texto: "uma exigência dos professores."
+      erro: "Nada indica isso. É adaptação à tecnologia."
+  explicacao: "Limite de tamanho e conversa rápida levaram à economia na escrita. É adequação à tecnologia, não erro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-linguagens-04
+  tema: "Cada tecnologia tem sua linguagem"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 2
+  enunciado: "Diferentemente de um texto impresso, um texto na internet pode trazer palavras que, clicadas, levam a outros textos. Esse recurso se chama:"
+  alternativas:
+    - texto: "estilo telegráfico."
+      erro: "É a escrita econômica do telegrama."
+    - texto: "vinheta."
+      erro: "Vinheta é a marca sonora ou visual de um programa de rádio ou TV."
+    - texto: "hipertexto (link)."
+      certa: true
+    - texto: "legenda."
+      erro: "Legenda acompanha imagem; não leva a outro texto."
+    - texto: "rodapé."
+      erro: "O rodapé é parte da página, não leva a outra."
+  explicacao: "O hipertexto liga textos entre si; o leitor escolhe o caminho de leitura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-lin-digitais-linguagens-05
+  tema: "Cada tecnologia tem sua linguagem"
+  area: linguagens
+  habilidade: 29
+  objeto: lin-generos-digitais-hipertexto
+  dificuldade: 3
+  enunciado: "Num roteiro, a fala do apresentador é só \"Olha isso!\", seguida da indicação \"close no rosto da criança que sorri\". O roteiro foi escrito, mais provavelmente, para:"
+  alternativas:
+    - texto: "o rádio, porque a fala é curta."
+      erro: "No rádio não há close: o ouvinte não veria a criança, e a fala sozinha não diria nada."
+    - texto: "o telegrama, porque economiza palavras."
+      erro: "Telegrama não tem indicação de imagem nem de câmera."
+    - texto: "a televisão, porque a imagem completa o sentido que a fala deixa aberto."
+      certa: true
+    - texto: "o jornal impresso, porque descreve a cena."
+      erro: "\"Close\" é termo de câmera, não de página impressa."
+    - texto: "a carta, porque fala com alguém."
+      erro: "Carta não tem indicações de câmera."
+  explicacao: "Na TV, som e imagem trabalham juntos: a fala pode ser mínima porque a câmera mostra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

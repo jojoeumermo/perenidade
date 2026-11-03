@@ -189,3 +189,24 @@ aulas:
         resumo: Analisar a variação de grandezas para construir argumentos.
         situacao: a-confirmar
     objetos: [mat-numeros-taxas]
+  avaliar-uma-medicao:
+    enem:
+      - area: matematica
+        competencia: 3
+        habilidade: 13
+        resumo: "Avaliar o resultado de uma medição ao construir um argumento."
+        situacao: a-confirmar
+    objetos: [mat-geometria-unidades-de-medida, mat-numeros-estimativa]
+  comparar-propostas-com-grandezas:
+    enem:
+      - area: matematica
+        competencia: 4
+        habilidade: 18
+        resumo: "Avaliar propostas de intervenção que envolvem variação de grandezas."
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 17
+        resumo: "Analisar a variação de grandezas para construir argumentos."
+        situacao: a-confirmar
+    objetos: [mat-numeros-grandezas-proporcionais]
