@@ -33,7 +33,7 @@ quiz:
     resposta: 0
     explicacao: "Foi proposta em 2019 pelo PSB."
   - pergunta: "Que condenação internacional a ação citou?"
-    opcoes: ["A do Brasil pela Corte Interamericana no caso Favela Nova Brasília (2017)", "Uma multa da FIFA", "Nenhuma"]
+    opcoes: ["A do Brasil pela Corte Interamericana no caso Favela Nova Brasília (2017)", "Uma condenação do Brasil pela ONU no caso da Candelária", "Uma condenação do Brasil por trabalho escravo em fazenda"]
     resposta: 0
     explicacao: "O caso tratou da impunidade de agentes envolvidos em execuções de civis."
 ---

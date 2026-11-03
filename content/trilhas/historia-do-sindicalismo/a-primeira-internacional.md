@@ -19,7 +19,7 @@ quiz:
     resposta: 0
     explicacao: "Foi a primeira organização operária a ultrapassar as fronteiras nacionais."
   - pergunta: "Qual destas foi uma resolução dos congressos da Internacional?"
-    opcoes: ["Aumentar a jornada para doze horas", "Reduzir a jornada de trabalho para oito horas", "Proibir os sindicatos"]
+    opcoes: ["Pagar o salário em vales da fábrica", "Reduzir a jornada de trabalho para oito horas", "Deixar cada operário negociar sozinho com o patrão"]
     resposta: 1
     explicacao: "Também defendeu o trabalho cooperativo e melhores condições, sobretudo para mulheres e crianças."
   - pergunta: "Qual levante a Internacional apoiou em 1871?"

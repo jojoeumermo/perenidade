@@ -25,7 +25,7 @@ quiz:
     resposta: 0
     explicacao: "Sete lavradores foram mortos com foices e facões."
   - pergunta: "Quem foi condenado em 2012?"
-    opcoes: ["O coronel Pantoja (228 anos) e o major Oliveira (158 anos)", "Todos os 155 policiais", "Ninguém"]
+    opcoes: ["O coronel Pantoja (228 anos) e o major Oliveira (158 anos)", "Todos os 155 policiais", "Só os soldados que dispararam"]
     resposta: 0
     explicacao: "Os dois comandantes da operação foram presos."
 ---

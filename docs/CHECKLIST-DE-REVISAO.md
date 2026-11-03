@@ -12,7 +12,11 @@ Para quem revisa uma aula ou um exercício. Leia com calma, do começo ao fim, c
 
 ## 2. Ensina?
 
-- [ ] Segue o modelo (`docs/MODELO-DE-AULA.md`): objetivo, explicação, exemplo resolvido, exercício, resumo e fontes. `npm run pendencias -- <trilha>` mostra o que falta.
+- [ ] Segue o modelo (`docs/MODELO-DE-AULA.md`): objetivo, explicação, exemplo resolvido, exercício, resumo e fontes (e, nas aulas novas, as três partes abaixo). `npm run pendencias -- <trilha>` mostra o que falta.
+- [ ] Aula nova de trilha de entrada (etapa fundamental ou alfabetização) ou de formação militante: declara `modelo: 9` no cabeçalho e leva as três partes novas, que `npm run pendencias -- <trilha>` confere. Nas aulas antigas elas são opcionais.
+- [ ] **Na sua realidade** (bloco `suarealidade`) vem antes da explicação e faz uma só pergunta sobre o trabalho ou o bairro de quem estuda, sem pedir nome, endereço nem dado de ninguém.
+- [ ] **O outro lado** (bloco `outrolado`) traz o argumento mais forte de quem discorda, como essa pessoa o diria, com fonte conferida e sem caricatura; tem o treino de resposta (a pergunta depois do `---`); sobre pessoas vivas, partidos ou opinião política, só fatos documentados.
+- [ ] **Agir** (bloco `agir`) é uma tarefa pequena e concreta, que cabe numa semana, sem computador, e que não expõe a pessoa a risco (confronto sozinho, fotografar ou gravar outras pessoas, informar dado pessoal). Não promete resultado e não cobra: a aula seguinte só pergunta "como foi?".
 - [ ] Parte do que a pessoa já conhece e chega ao novo, uma ideia por vez, com exemplos do dia a dia.
 - [ ] O tom combina com a etapa (fundamental, médio, superior). Termo técnico vem explicado na primeira vez.
 - [ ] O exemplo resolvido mostra todos os passos, e não só a resposta.

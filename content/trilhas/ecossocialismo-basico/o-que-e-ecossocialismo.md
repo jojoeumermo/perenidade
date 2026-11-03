@@ -26,7 +26,7 @@ quiz:
     resposta: 0
     explicacao: "Löwy é um sociólogo brasileiro que vive na França; Kovel era um médico e escritor norte-americano."
   - pergunta: "O que o ecossocialismo propõe no lugar do mercado como critério de decisão?"
-    opcoes: ["Que cada empresa decida sozinha", "O planejamento democrático, orientado pelas necessidades das pessoas e pelos limites da natureza", "Que ninguém decida nada"]
+    opcoes: ["Que cada empresa decida sozinha", "O planejamento democrático, orientado pelas necessidades das pessoas e pelos limites da natureza", "Que um grupo de técnicos decida sem consultar o povo"]
     resposta: 1
     explicacao: "A pergunta deixa de ser 'o que dá lucro?' e passa a ser 'do que precisamos e o que o planeta suporta?'."
 ---

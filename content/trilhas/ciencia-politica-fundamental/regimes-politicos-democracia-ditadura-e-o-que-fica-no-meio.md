@@ -38,7 +38,7 @@ quiz:
     resposta: 0
     explicacao: "O ditador busca controlar os três poderes."
   - pergunta: "Segundo os índices V-Dem e The Economist, quanto da população mundial vivia numa democracia em 2022?"
-    opcoes: ["Menos da metade", "Todo mundo", "Ninguém"]
+    opcoes: ["Menos da metade", "Cerca de três quartos", "Pouco mais de 90%"]
     resposta: 0
     explicacao: "A democracia ainda é minoria no mundo."
 ---

@@ -32,7 +32,7 @@ glossario:
     definicao: "Um grupo que faz campanha e exerce o mandato junto. Para a lei, o registro e o mandato são de uma pessoa só."
 quiz:
   - pergunta: "Quem tem o dever de fiscalizar o prefeito?"
-    opcoes: ["A câmara municipal", "O governador", "Ninguém"]
+    opcoes: ["A câmara municipal", "O governador", "O presidente da República"]
     resposta: 0
     explicacao: "A Constituição (art. 31) dá à câmara municipal o controle externo do município."
   - pergunta: "Um vereador eleito sai do partido no meio do mandato, sem justa causa. O que acontece?"

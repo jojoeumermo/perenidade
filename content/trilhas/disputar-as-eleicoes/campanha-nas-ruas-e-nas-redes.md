@@ -36,7 +36,7 @@ quiz:
     resposta: 1
     explicacao: "A lei proíbe brindes como camisetas, chaveiros, bonés e cestas básicas (art. 39, § 6º)."
   - pergunta: "Quem pode pagar anúncio (impulsionamento) de propaganda eleitoral na internet?"
-    opcoes: ["Qualquer apoiador", "Ninguém", "Só candidatos, partidos e coligações, com o anúncio identificado"]
+    opcoes: ["Qualquer apoiador", "Qualquer empresa que declare o gasto à Justiça Eleitoral", "Só candidatos, partidos e coligações, com o anúncio identificado"]
     resposta: 2
     explicacao: "Art. 57-C: o impulsionamento precisa ser identificado e contratado só por partidos, coligações, candidatos e seus representantes."
 ---

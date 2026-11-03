@@ -23,7 +23,7 @@ quiz:
     resposta: 0
     explicacao: "Também educação, saúde, alimentação, trabalho, transporte, lazer e outros."
   - pergunta: "O que a Constituição diz sobre a tortura?"
-    opcoes: ["Ninguém será submetido a tortura nem a tratamento desumano ou degradante", "É permitida em casos graves", "Não fala do assunto"]
+    opcoes: ["Ninguém será submetido a tortura nem a tratamento desumano ou degradante", "É permitida em casos graves", "Só proíbe a tortura praticada por policiais"]
     resposta: 0
     explicacao: "Está no inciso III do artigo 5º."
 ---

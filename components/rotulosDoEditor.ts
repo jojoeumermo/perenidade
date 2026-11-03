@@ -43,6 +43,9 @@ export const editorPt: EditorLabels = {
       realidade: "Na sua realidade (exercício)",
       leve: "Leve para a sua comunidade",
       roda: "Discuta na sala",
+      suarealidade: "Na sua realidade (antes da explicação)",
+      outrolado: "O outro lado (com treino de resposta)",
+      agir: "Agir (tarefa da aula)",
     },
   },
 };

@@ -24,7 +24,7 @@ quiz:
     resposta: 1
     explicacao: "As empresas continuam separadas, mas param de concorrer entre si."
   - pergunta: "O que Hilferding chamou de capital financeiro?"
-    opcoes: ["O dinheiro guardado em casa", "As moedas de ouro", "O capital dos bancos aplicado na indústria e fundido com ela"]
+    opcoes: ["O dinheiro que o governo empresta aos bancos", "As moedas de ouro", "O capital dos bancos aplicado na indústria e fundido com ela"]
     resposta: 2
     explicacao: "Banqueiros passam a sentar nos conselhos das indústrias e a decidir os rumos delas."
   - pergunta: "No Brasil, que órgão julga fusões de empresas e pune cartéis?"

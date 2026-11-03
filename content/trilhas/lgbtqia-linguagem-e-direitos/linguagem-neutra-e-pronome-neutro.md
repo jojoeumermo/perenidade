@@ -29,7 +29,7 @@ quiz:
     resposta: 1
     explicacao: "O tribunal derrubou a lei por um motivo de competência. Não obrigou ninguém a usar linguagem neutra."
   - pergunta: "Uma pessoa pede para ser tratada por \"elu\". Qual é a atitude respeitosa?"
-    opcoes: ["Insistir em outra forma", "Tentar usar a forma pedida ou, na dúvida, chamar a pessoa pelo nome", "Fazer piada"]
+    opcoes: ["Insistir em outra forma", "Tentar usar a forma pedida ou, na dúvida, chamar a pessoa pelo nome", "Evitar falar com a pessoa para não errar"]
     resposta: 1
     explicacao: "Tratar alguém como a pessoa pede custa pouco. Quando a forma nova não sai, o nome próprio resolve."
 ---

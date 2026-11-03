@@ -413,6 +413,9 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     realidade: "```realidade\nUma pergunta sobre a vida de quem estuda, para responder por escrito.\n```",
     leve: "```leve\n- Como explicar isso para alguém da sua casa\n- Uma pergunta para começar a conversa\n```",
     roda: "```roda\n- Uma pergunta para discutir na sala da disciplina\n```",
+    suarealidade: "```suarealidade\nUma pergunta sobre o trabalho ou o bairro de quem estuda, para pensar ANTES da explicação.\n```",
+    outrolado: "```outrolado\n# O argumento mais forte de quem discorda\nO argumento dito do jeito que quem discorda diria, sem caricatura, com fonte.\n---\nO treino: como você responderia a esse argumento, com respeito e com fatos?\n---\nUma resposta possível, com a fonte dos fatos.\n```",
+    agir: "```agir\nUma tarefa pequena e concreta, que dá para fazer esta semana sem se expor a risco.\n```",
   };
   const [telaCheia, setTelaCheia] = useState(false);
   useEffect(() => {

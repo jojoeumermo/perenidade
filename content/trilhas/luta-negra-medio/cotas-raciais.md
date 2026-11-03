@@ -26,7 +26,7 @@ quiz:
     resposta: 0
     explicacao: "Os outros 50% ficam para a ampla concorrência."
   - pergunta: "Como se define a parte das vagas para pretos, pardos e indígenas?"
-    opcoes: ["Pela proporção desses grupos no estado da instituição, segundo o último censo do IBGE", "Por sorteio", "Por indicação do reitor"]
+    opcoes: ["Pela proporção desses grupos no estado da instituição, segundo o último censo do IBGE", "Pela escolha de cada universidade, sem regra nacional", "Pelo número de inscritos negros no vestibular daquele ano"]
     resposta: 0
     explicacao: "Por isso o percentual muda de um estado para outro."
   - pergunta: "Que grupo passou a ser incluído nas cotas com a revisão de 2023?"

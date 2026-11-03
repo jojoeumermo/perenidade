@@ -26,7 +26,7 @@ quiz:
     resposta: 2
     explicacao: "Cortar gastos, privatizar e abrir o comércio estavam entre as mais comuns."
   - pergunta: "Como se decide o voto no FMI?"
-    opcoes: ["Pelo tamanho da cota de cada país, o que dá mais peso aos países ricos", "Um país, um voto", "Por sorteio"]
+    opcoes: ["Pelo tamanho da cota de cada país, o que dá mais peso aos países ricos", "Um país, um voto", "Pelo tamanho da população de cada país"]
     resposta: 0
     explicacao: "Os Estados Unidos têm sozinhos votos suficientes para barrar as decisões mais importantes."
 ---

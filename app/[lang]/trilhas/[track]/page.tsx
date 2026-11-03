@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { Markdown } from "@/components/Markdown";
 import { SaveOffline } from "@/components/Offline";
+import { MeAviseQuandoSair } from "@/components/AviseQuandoSair";
 import { Compartilhar } from "@/components/Compartilhar";
 import { CertificadoDaTrilha } from "@/components/CertificadoDaTrilha";
 import { PlanoDeEstudos } from "@/components/PlanoDeEstudos";
@@ -157,7 +158,8 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
               <span className="text-ink-soft"> · {t.tracks.epubHint}</span>
             </p>
           )}
-          {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} />}
+          {/* A estimativa: a página pronta pesa uns 45 KB além do texto da aula (marcação, estilos embutidos). */}
+          {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} estimativa={(ready.length + 1) * 45 * 1024 + track.lessons.reduce((soma, l) => soma + l.body.length * 2, 0)} />}
           <Compartilhar url={`${site.url}${to(`/trilhas/${track.slug}`)}`} texto={`${t.compartilhar.trilha} ${track.title}`} s={t.compartilhar} />
           {ready.length > 0 && (
             <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-sans text-sm">
@@ -183,6 +185,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
               <Link href={`${to("/contribuir")}?trilha=${encodeURIComponent(track.slug)}`} className="mt-3 inline-block font-sans font-bold underline decoration-[#c21f16] underline-offset-4 hover:text-prelo-texto">
                 {t.tracks.helpWrite} →
               </Link>
+              <MeAviseQuandoSair trilha={track.slug} prontas={ready.length} s={t.tracks} />
             </section>
           )}
           <CaixaDaAula t={t} lang={lang} area={track.area} />

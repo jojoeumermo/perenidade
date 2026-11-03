@@ -24,7 +24,7 @@ quiz:
     resposta: 1
     explicacao: "Sem esse trabalho, ninguém conseguiria ir para o emprego no dia seguinte. Ele é feito principalmente por mulheres e muitas vezes não é reconhecido."
   - pergunta: "O que acontece com o trabalho no capitalismo?"
-    opcoes: ["O trabalhador decide o que e como produzir", "O trabalhador vende a sua capacidade de trabalhar, e o produto pertence a outro", "Ninguém trabalha"]
+    opcoes: ["O trabalhador decide o que e como produzir", "O trabalhador vende a sua capacidade de trabalhar, e o produto pertence a outro", "O trabalho acaba, porque as máquinas fazem tudo"]
     resposta: 1
     explicacao: "O que deveria ser a expressão da nossa capacidade criativa vira obrigação para sobreviver, sob o comando de outro."
 ---

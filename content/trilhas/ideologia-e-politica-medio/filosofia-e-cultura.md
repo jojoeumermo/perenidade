@@ -27,7 +27,7 @@ quiz:
     resposta: 0
     explicacao: "A expressão vem de um texto da dinastia Han e foi usada por Mao e depois por Deng Xiaoping."
   - pergunta: "Quais tradições culturais chinesas aparecem no módulo como parte da 'excelente cultura tradicional'?"
-    opcoes: ["Confucionismo, taoismo e outras tradições do pensamento chinês", "Apenas a cultura ocidental", "Nenhuma"]
+    opcoes: ["Confucionismo, taoismo e outras tradições do pensamento chinês", "Apenas o budismo e o cristianismo", "Apenas o marxismo, sem raízes antigas"]
     resposta: 0
     explicacao: "O currículo valoriza a herança tradicional, depois de um período (a Revolução Cultural) em que ela foi atacada."
 ---

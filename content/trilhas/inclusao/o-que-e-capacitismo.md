@@ -26,7 +26,7 @@ quiz:
     resposta: 0
     explicacao: "É uma crença falsa."
   - pergunta: "Qual é a pena para quem pratica, induz ou incita discriminação de pessoa por causa da sua deficiência?"
-    opcoes: ["Reclusão de 1 a 3 anos e multa", "Nenhuma", "Só advertência"]
+    opcoes: ["Reclusão de 1 a 3 anos e multa", "Multa de um salário mínimo", "Só advertência"]
     resposta: 0
     explicacao: "Está no artigo 88 da Lei Brasileira de Inclusão."
 ---

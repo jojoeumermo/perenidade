@@ -19,7 +19,7 @@ glossario:
     definicao: "Conceito adotado oficialmente pelo Partido Comunista da China e incluído na Constituição chinesa em 2018, que propõe harmonizar desenvolvimento econômico e proteção ambiental."
 quiz:
   - pergunta: "Que metas climáticas a China anunciou em 2020?"
-    opcoes: ["Atingir o pico de emissões de carbono antes de 2030 e a neutralidade de carbono antes de 2060", "Aumentar as emissões até 2100", "Nenhuma meta"]
+    opcoes: ["Atingir o pico de emissões de carbono antes de 2030 e a neutralidade de carbono antes de 2060", "Zerar todas as emissões antes de 2030", "Neutralidade de carbono antes de 2040, sem pico prévio"]
     resposta: 0
     explicacao: "O anúncio foi feito na Assembleia Geral da ONU, em setembro de 2020."
   - pergunta: "O que diz o artigo 225 da Constituição brasileira?"

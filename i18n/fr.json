@@ -880,6 +880,16 @@
     "summaryTitle": "Sommaire",
     "underConstruction": "En construction",
     "helpWrite": "Aidez à écrire ce parcours",
+    "notifyMe": "Prévenez-moi quand une nouvelle leçon sort",
+    "notifyOn": "✓ Vous serez prévenu sur cet appareil",
+    "notifyOff": "arrêter de prévenir",
+    "notifyHint": "L'avis reste uniquement sur cet appareil : le site ne garde pas qui l'a demandé. Il apparaît ici et sur la page des disciplines quand une nouvelle leçon sort.",
+    "notifyNews": "Nouvelles leçons dans les parcours que vous avez marqués",
+    "notifyNewsItem": "{n} nouvelle(s) leçon(s)",
+    "notifySeen": "vu",
+    "emptyHelp": "Parcours encore sans leçon prête : aidez à l'écrire →",
+    "saveCourse": "Enregistrer le cours pour lire hors ligne",
+    "saveSize": "environ {n} Mo",
     "planned": "en préparation",
     "plannedHelp": "Les cours marqués « en préparation » font partie du programme de ce parcours et n'ont pas encore été écrits.",
     "plannedLink": "Vous voulez en écrire un ?",
@@ -1061,7 +1071,29 @@
       "leve": "Emportez-le dans votre communauté",
       "roda": "Discutez-en dans le salon",
       "rodaLink": "Ouvrir le salon de cette matière dans la communauté",
-      "ouvirTrecho": "Écouter ce passage"
+      "ouvirTrecho": "Écouter ce passage",
+      "suarealidade": "Dans votre réalité",
+      "suarealidadePrompt": "Pensez à votre travail ou à votre quartier et écrivez. Cela reste sur votre appareil.",
+      "outrolado": "L'autre côté",
+      "outroladoForte": "L'argument le plus fort de ceux qui ne sont pas d'accord",
+      "outroladoTreino": "Entraînez votre réponse",
+      "outroladoPrompt": "Écrivez comment vous répondriez, avec respect et avec des faits. Cela reste sur votre appareil.",
+      "outroladoResposta": "Voir une réponse possible",
+      "agir": "Agir",
+      "agirVou": "Je vais le faire",
+      "agirFeito": "Noté sur cet appareil. Le prochain cours demandera comment cela s'est passé.",
+      "agirAviso": "Une petite tâche. Votre réponse reste sur votre appareil.",
+      "comoFoiTitulo": "Comment cela s'est-il passé ?",
+      "comoFoiIntro": "Dans le cours « {aula} », la tâche était :",
+      "comoFoiFiz": "Je l'ai fait",
+      "comoFoiParte": "Je l'ai fait en partie",
+      "comoFoiNao": "Pas encore",
+      "comoFoiNota": "Voulez-vous noter comment cela s'est passé ? Cela reste sur votre appareil.",
+      "comoFoiRespFiz": "Très bien. Noté sur cet appareil.",
+      "comoFoiRespParte": "C'est déjà un début. Vous pourrez terminer quand vous pourrez.",
+      "comoFoiRespNao": "Pas de souci. La tâche reste dans le cours précédent, pour quand vous pourrez.",
+      "comoFoiMudar": "Changer la réponse",
+      "comoFoiVer": "Revenir à la tâche"
     },
     "quickCheck": "Question rapide",
     "voz": {
@@ -2150,6 +2182,26 @@
     "corretor-ortografico": [
       "Correcteur orthographique (portugais)",
       "Vérifie l'orthographe du portugais du Brésil avec des suggestions, sans que le texte quitte l'appareil."
+    ],
+    "quanto-cobrar": [
+      "Combien facturer (Brésil)",
+      "Votre tarif minimum à l'heure et à la journée pour le travail indépendant, avec cotisations, congés et 13e mois."
+    ],
+    "gerador-de-curriculo": [
+      "Générateur de CV",
+      "CV et courte lettre faits sur l'appareil, aussi pour qui n'a fait que des petits boulots ; imprimer ou copier."
+    ],
+    "orcamento-e-contrato": [
+      "Devis et contrat simple",
+      "Devis et contrat simple de service, avec matériaux, main-d'œuvre, délai et paiement."
+    ],
+    "dividas-e-renegociacao": [
+      "Dette et renégociation",
+      "Combien de temps et combien vous coûte une dette, la proposition d'accord et la loi brésilienne sur le surendettement."
+    ],
+    "modelos-de-documentos": [
+      "Modèles de documents (Brésil)",
+      "Réclamation au Procon, démission, recours à l'INSS et notification au bailleur."
     ]
   },
   "tools": {
@@ -5584,6 +5636,12 @@
   },
   "compartilhar": {
     "titulo": "Partager",
+    "baixarHtml": "Télécharger la leçon en un seul fichier (pour l'envoyer sur WhatsApp)",
+    "baixarHtmlDica": "Un petit fichier .html qui s'ouvre hors ligne sur n'importe quel téléphone, même ancien.",
+    "baixarHtmlPronto": "Fichier prêt : regardez vos téléchargements.",
+    "baixarHtmlFalhou": "Impossible de créer le fichier dans ce navigateur.",
+    "baixarHtmlFonte": "Téléchargé depuis",
+    "baixarHtmlRodape": "Fonctionne hors ligne. Pour faire les quiz et garder votre progression, ouvrez la leçon sur le site.",
     "whatsapp": "Envoyer sur WhatsApp",
     "telegram": "Envoyer sur Telegram",
     "copiar": "Copier le lien",
