@@ -1,0 +1,48 @@
+name: Vale o Escrito (robô de coleta)
+
+# De três em três horas, o robô lê os feeds e as APIs abertas das fontes do observatório "Vale o Escrito", filtra pelos temas
+# dos dossiês, pede um resumo neutro à IA gratuita (rodízio; sem chave ou sem cota, segue sem resumo) e põe cada achado na
+# FILA DA CURADORIA do Supabase. O robô não publica nada: quem publica é a curadoria, depois de conferir a fonte.
+# Só roda depois de criada a variável VALE_O_ESCRITO com o valor "sim" (Settings → Secrets and variables → Actions →
+# Variables); para pausar, apague a variável. Segredos: SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY (os mesmos da publicação);
+# opcionais, para o resumo: GEMINI_API_KEY, GROQ_API_KEY, CEREBRAS_API_KEY, OPENROUTER_API_KEY. Ver docs/vale-o-escrito/ROBO.md.
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      seco:
+        description: "Rodada seca: imprime o que acharia, sem gravar no Supabase"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vale-o-escrito
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    if: ${{ vars.VALE_O_ESCRITO == 'sim' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/vale-o-escrito
+            content/vale-o-escrito
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+      - run: node scripts/vale-o-escrito/coletar.mjs ${{ inputs.seco && '--seco' || '' }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}

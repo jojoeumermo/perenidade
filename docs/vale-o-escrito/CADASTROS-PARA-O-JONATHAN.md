@@ -1,0 +1,48 @@
+# Vale o Escrito: cadastros gratuitos que só o Jonathan pode fazer
+
+Pacote "fontes-e-dossies". Conferido em 04/11/2026 (curl e WebFetch). Cadastro, senha e chave são do Jonathan: ninguém da equipe de código cria conta em nome do Instituto nem guarda senha em arquivo. Cada chave vai para um **segredo do GitHub Actions** (Settings, Secrets and variables, Actions), nunca para o repositório, e o robô a lê de variável de ambiente. Sem a chave, o robô pula a fonte e segue (regra do fluxo: sem cota ou sem chave, segue sem aquela fonte).
+
+O detalhe de cada fonte (RSS, API, licença, observação) está em `content/vale-o-escrito/fontes.json`; aqui só o que pede ação.
+
+## 1. Cadastros que a fonte pede (confirmado)
+
+| Fonte | O que fazer | Segredo sugerido | Observação |
+|---|---|---|---|
+| **Portal da Transparência (CGU)** | Pedir a chave da API pelo cadastro de e-mail do próprio portal (a documentação em `api.portaldatransparencia.gov.br/swagger-ui` explica; a API devolveu 401 sem chave). É gratuita; tem limite de requisições por minuto. | `PORTAL_TRANSPARENCIA_CHAVE` | Licença: Decreto 8.777/2016 (campo `license` do OpenAPI). |
+| **ACLED** | Criar conta em `acleddata.com/user/register` e aceitar os termos (contrato de licença, termos de uso de conteúdo, política de atribuição, em `acleddata.com/terms-and-conditions`). A API devolveu 403 sem credencial. | `ACLED_EMAIL`, `ACLED_CHAVE` | **A assessoria jurídica lê os termos antes de o robô usar**: a licença tem regra própria de uso e de republicação. Só dado agregado de evento, nunca nome de pessoa. |
+
+## 2. Provavelmente pedem cadastro (não deu para confirmar daqui)
+
+| Fonte | Por que está aqui | O que fazer |
+|---|---|---|
+| **Diário Oficial da União (INLABS)** | `inlabs.in.gov.br` respondeu 200, mas a tela de entrada não foi aberta; pelo que a Imprensa Nacional anuncia, o download dos XML do dia pede cadastro gratuito. | Abrir `inlabs.in.gov.br` num navegador brasileiro e ver se há "Cadastre-se". Se houver, cadastrar e guardar `INLABS_EMAIL` e `INLABS_SENHA` como segredos. |
+| **Fogo Cruzado (API)** | A documentação abre em `api.fogocruzado.org.br/docs`, mas é página de JavaScript e não deu para ler se pede conta. | Abrir a documentação e ver como se obtém o token; se for conta gratuita, cadastrar e guardar `FOGO_CRUZADO_EMAIL` e `FOGO_CRUZADO_SENHA`. |
+| **MapBiomas Alerta (API)** | `alerta.mapbiomas.org/api/` abre; não deu para ver se a API de alertas exige cadastro. Os números dos relatórios (PDF) não precisam. | Abrir a documentação da API; se pedir conta, cadastrar. |
+
+## 3. Não pedem cadastro, mas exigem atenção
+
+- **DataJud (CNJ)**: a API usa uma **chave pública** publicada na própria wiki (`datajud-wiki.cnj.jus.br/api-publica/acesso/`), sem cadastro pessoal, e o CNJ avisa que pode trocá-la a qualquer momento. Guardar como segredo `DATAJUD_CHAVE_PUBLICA` e trocar quando a API devolver 401.
+- **Querido Diário**: a API (`api.queridodiario.org.br`) **não respondeu** do computador usado nos testes (que está fora do Brasil). Provavelmente é aberta, mas é preciso conferir de um IP brasileiro, ou da própria máquina do GitHub Actions num teste.
+- **CNPJ (Receita)**: `dadosabertos.rfb.gov.br` não respondeu e a página do gov.br pediu autenticação para ser vista. Conferir de um IP brasileiro onde ficam hoje os arquivos mensais.
+- **TCU**: o portal responde, mas os endereços de API que tentamos não; conferir o endereço atual dos serviços.
+- **Observatório do Clima**: o site e o feed devolveram 403 para o robô (proteção contra automação). Se quiser o feed, pedir liberação à organização ou ler à mão.
+
+## 4. Pegadinhas de endereço (valem como aviso para o robô)
+
+- **Alma Preta**: o domínio `almapreta.com` (sem `.br`) hoje redireciona para um site que nada tem a ver com o jornal. O endereço certo é `almapreta.com.br`. O robô só aceita link do domínio exato.
+- **Agência Lupa**: `lupa.news` redireciona para `agencialupa.org`.
+- **Anistia Internacional**: o site brasileiro não tem feed; o feed da seção Brasil é o do site internacional, em inglês.
+- **Grupo Gay da Bahia**: só `http://www.ggb.org.br` respondeu.
+
+## 5. Termos que a assessoria jurídica precisa ler
+
+Itens de licença que apareceram nas páginas e mudam o que o Instituto pode fazer com o texto:
+
+- Portais do **gov.br** (PF, FUNAI, IBAMA e outros) trazem **CC BY-ND 3.0** no rodapé: atribuição, sem obra derivada. O Vale o Escrito só guarda trecho curto com link e crédito; confirmar se o resumo escrito pela IA ou pela curadoria conta como "derivação".
+- **Agência Pública**: CC BY-ND 4.0 na página inicial (mesma pergunta).
+- **MapBiomas**: "CC BY 4.0" na página inicial (a que produto se aplica não foi conferido).
+- A maioria das organizações e dos jornais não declarou licença aberta na página inicial: citação curta com crédito e link (Lei 9.610/1998, art. 46; **não conferido** no planalto.gov.br nesta fase).
+
+## 6. O que não precisa de nada
+
+Câmara, Senado, TSE (CKAN), IBGE (localidades e malhas) e os feeds RSS de CIMI, CPT, ISA, FBSP, Fogo Cruzado, Rede de Observatórios, Sou da Paz, Justiça Global, ANTRA, HRW, Anistia (internacional), Agência Pública, Repórter Brasil, InfoAmazonia, Amazônia Real, Ponte, Alma Preta, De Olho nos Ruralistas, Intercept, Brasil de Fato, Lupa, Aos Fatos, MapBiomas, IBAMA, STF e STJ respondem sem chave.

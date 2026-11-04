@@ -168,6 +168,17 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "Ninguém aprova o próprio envio. Parecer bom é curto, gentil e diz o que fazer.",
   },
+  "vale-curadoria": {
+    paraQue: "Revisar o que o robô e o público sugerem ao Vale o Escrito e publicar só o que está em fonte pública.",
+    passos: [
+      { titulo: "Abra uma sugestão", texto: "Na Fila, escolha uma sugestão nova. Abra o link da fonte e leia você mesmo: o resumo da IA é só ponto de partida." },
+      { titulo: "Preencha com fonte", texto: "Título, resumo com “segundo [veículo]”, trecho de 20 a 400 letras, datas, lugar e a situação jurídica (suspeito, investigado, denunciado, réu, condenado, absolvido ou arquivado). Pessoa só com a marca “pública no caso”; nunca vítima, criança, adolescente ou testemunha." },
+      { titulo: "Aprove, devolva ou recuse", texto: "Aprovar confere as regras, pede a cópia de cada fonte no Internet Archive e publica. Recusar e devolver pedem uma nota. Mesclar junta duas sugestões do mesmo fato." },
+      { titulo: "Mantenha atualizado", texto: "Em Publicadas, atualize a situação quando houver absolvição, arquivamento ou nova decisão, com a fonte da mudança. A ficha mostra o histórico." },
+      { titulo: "Responda em 7 dias", texto: "Em Correções e respostas, cada pedido tem a meta de 7 dias (Lei 13.188/2015, art. 5º). Aceitar um direito de resposta publica o texto ao lado da ficha." },
+    ],
+    dica: "O público nunca vê quem aprovou: a ficha diz “curadoria do Vale o Escrito”. O observatório só abre no site depois da revisão da curadoria e da assessoria jurídica.",
+  },
   traducoes: {
     paraQue: "As aulas que ainda não têm tradução e as traduções a caminho.",
     passos: [

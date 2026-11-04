@@ -1,0 +1,294 @@
+{
+  "dossie": "trabalho-escravo",
+  "pessoas": [
+    {
+      "id": "anterio-manica",
+      "nome": "Antério Mânica",
+      "publicaNoCaso": true,
+      "papel": "proprietario_rural",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "cargo": "ex-prefeito de Unaí (2007 a 2012)"
+    },
+    {
+      "id": "norberto-manica",
+      "nome": "Norberto Mânica",
+      "publicaNoCaso": true,
+      "papel": "proprietario_rural",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "jose-alberto-de-castro",
+      "nome": "José Alberto de Castro",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f2"
+      ]
+    },
+    {
+      "id": "hugo-alves-pimenta",
+      "nome": "Hugo Alves Pimenta",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f2"
+      ]
+    }
+  ],
+  "organizacoes": [
+    {
+      "id": "fenix-servicos-administrativos",
+      "nome": "Fênix Serviços Administrativos e Apoio e Gestão de Saude Ltda",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "ligacoes": [
+    {
+      "id": "l-anterio-manica-2004-unai-chacina-auditores-fiscais",
+      "de": {
+        "tipo": "pessoa",
+        "id": "anterio-manica"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2004-unai-chacina-auditores-fiscais"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2004-unai-chacina-auditores-fiscais"
+    },
+    {
+      "id": "l-norberto-manica-2004-unai-chacina-auditores-fiscais",
+      "de": {
+        "tipo": "pessoa",
+        "id": "norberto-manica"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2004-unai-chacina-auditores-fiscais"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2004-unai-chacina-auditores-fiscais"
+    },
+    {
+      "id": "l-jose-alberto-de-castro-2004-unai-chacina-auditores-fiscais",
+      "de": {
+        "tipo": "pessoa",
+        "id": "jose-alberto-de-castro"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2004-unai-chacina-auditores-fiscais"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f2"
+      ],
+      "entradaId": "2004-unai-chacina-auditores-fiscais"
+    },
+    {
+      "id": "l-hugo-alves-pimenta-2004-unai-chacina-auditores-fiscais",
+      "de": {
+        "tipo": "pessoa",
+        "id": "hugo-alves-pimenta"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2004-unai-chacina-auditores-fiscais"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f2"
+      ],
+      "entradaId": "2004-unai-chacina-auditores-fiscais"
+    },
+    {
+      "id": "l-anterio-norberto-irmaos",
+      "de": {
+        "tipo": "pessoa",
+        "id": "anterio-manica"
+      },
+      "para": {
+        "tipo": "pessoa",
+        "id": "norberto-manica"
+      },
+      "tipo": "relacionada",
+      "fonteIds": [
+        "f2"
+      ],
+      "entradaId": "2004-unai-chacina-auditores-fiscais",
+      "rotulo": "irmãos, segundo O Povo"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "anterio-manica",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo O Povo, condenado como mandante; segundo o TRF6, condenação confirmada e pena em cumprimento (janeiro de 2025)."
+        },
+        {
+          "pessoaId": "norberto-manica",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TRF6, condenado por participação na chacina; preso em janeiro de 2025 em cumprimento de ordem do TRF6."
+        },
+        {
+          "pessoaId": "jose-alberto-de-castro",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo O Povo, condenado por contratar os atiradores; segundo o TRF6, os condenados cumprem ou já cumpriram pena (janeiro de 2025)."
+        },
+        {
+          "pessoaId": "hugo-alves-pimenta",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo O Povo, condenado por contratar os atiradores; segundo o TRF6, os condenados cumprem ou já cumpriram pena (janeiro de 2025)."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2004-unai-chacina-auditores-fiscais",
+      "dossie": "trabalho-escravo",
+      "titulo": "Chacina de Unaí (MG, 2004): mandantes e intermediários condenados pela morte de auditores do trabalho",
+      "resumo": "Segundo O Povo, em 28 de janeiro de 2004 três auditores fiscais do trabalho e um motorista foram mortos em uma emboscada em Unaí (MG); os auditores investigavam denúncias de trabalho análogo à escravidão, e as investigações apontaram os irmãos Mânica como mandantes. Segundo o TRF6, a condenação de Antério Mânica foi confirmada e a pena, em cumprimento, aumentada para mais de 90 anos; segundo o TRF6 (janeiro de 2025), todos os condenados cumprem ou já cumpriram pena, e Norberto Mânica foi preso depois de anos foragido.",
+      "dataDoFato": "2004-01-28",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "municipioIbge": "3170404",
+        "nome": "Unaí"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "TRF6",
+          "tipo": "processo",
+          "titulo": "Foragido por anos, Norberto Mânica é preso em cumprimento de ordem do TRF6",
+          "url": "https://portal.trf6.jus.br/foragido-por-anos-norberto-manica-e-preso-em-cumprimento-de-ordem-do-tribunal-regional-federal-da-6a-regiao/",
+          "trecho": "Antério Mânica teve sua condenação confirmada e a pena, atualmente em cumprimento, aumentada para mais de 90 anos de reclusão",
+          "data": "2025-01-17",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "veiculo": "O Povo",
+          "tipo": "reportagem",
+          "titulo": "Mandante da Chacina de Unaí entrega-se à PF 19 anos após crime",
+          "url": "https://www.opovo.com.br/noticias/brasil/2023/09/16/mandante-da-chacina-de-unai-entrega-se-a-pf-19-anos-apos-crime.html",
+          "trecho": "Condenado como mandante da Chacina de Unaí, em Minas Gerais, em que auditores fiscais do trabalho foram assassinados em 2004",
+          "data": "2023-09-16",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "auditores fiscais do trabalho",
+        "trabalho análogo à escravidão",
+        "Minas Gerais",
+        "júri",
+        "Chacina de Unaí"
+      ],
+      "notaDaCuradoria": "Condenações pelo júri (2015 e 2022), mantidas nos tribunais; a pena é executada provisoriamente (STJ e TRF6, 2023). Nenhuma fonte lida certifica o trânsito em julgado: por isso 'condenado em 1ª instância' (o modelo não tem o degrau 'condenado em 2ª instância': pendência para a assessoria). A página do STJ sobre a execução provisória (12/09/2023) bloqueou a leitura automática: ler à mão. Os três executores condenados em 2013 não estão nesta ficha (só aparecem nomeados em fonte que não lemos por inteiro). Quem morreu não é nomeado."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [
+        "fenix-servicos-administrativos"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2023-bento-goncalves-resgate-trabalhadores-fenix",
+      "dossie": "trabalho-escravo",
+      "titulo": "Bento Gonçalves (RS): terceirizada e donos condenados em ação do MPT por trabalhadores resgatados",
+      "resumo": "Segundo o MPT-RS, em fevereiro de 2023 mais de 200 pessoas foram encontradas em condições degradantes, contratadas pela Fênix Serviços para trabalhar na colheita da uva em vinícolas da região. Segundo o MPT-RS, em abril de 2025 a Justiça do Trabalho condenou a Fênix, seus proprietários e outras empresas associadas a pagar R$ 3.009.000,00 aos trabalhadores resgatados, em sentença que ainda cabe recurso; as três vinícolas contratantes assinaram um TAC de R$ 7 milhões. É ação trabalhista, de natureza civil: não é condenação criminal.",
+      "dataDoFato": "2023-02",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RS",
+        "municipioIbge": "4302105",
+        "nome": "Bento Gonçalves"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPT-RS",
+          "tipo": "processo",
+          "titulo": "MPT obtém condenação da terceirizada que contratou trabalhadores encontrados em condições análogas à escravidão em Bento Gonçalves",
+          "url": "https://www.prt4.mpt.mp.br/procuradorias/prt-porto-alegre/12495-mpt-obtem-condenacao-da-terceirizada-que-contratou-trabalhadores-encontrados-em-condicoes-analogas-a-escravidao-em-bento-goncalves",
+          "trecho": "a Fênix, seus proprietários e outras empresas associadas aos donos foram condenados ao pagamento de R$ 3.009.000,00",
+          "data": "2025-04-29",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "terceirização",
+        "vinícolas",
+        "Rio Grande do Sul",
+        "ação civil"
+      ],
+      "notaDaCuradoria": "Condenação de 1ª instância na Justiça do Trabalho (ACC 0020243-42.2023.5.04.0512, número que consta do texto do MPT); a situação usa o vocabulário criminal porque é o único do modelo: o resumo diz que é ação civil. Os proprietários da Fênix não são nomeados (a fonte lida não os nomeia); as vinícolas não são nomeadas na fonte lida. Reconferir se houve recurso ou pagamento depois de abril/2025."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2010-fazendas-buritis-unai-trabalho-escravo",
+      "dossie": "trabalho-escravo",
+      "titulo": "Fazendas entre Buritis e Unaí (MG): TRF6 reverte absolvição e condena três homens por trabalho escravo",
+      "resumo": "Segundo o MPF, uma fiscalização do Ministério do Trabalho e Emprego em 2010 encontrou 132 trabalhadores rurais em situação degradante nas fazendas São Miguel, Gado Bravo e Três Governadores, entre Buritis e Unaí (MG). Segundo o MPF, em março de 2026 o TRF6 acolheu recurso do MPF, reverteu a absolvição e condenou três homens a 5 anos e 6 meses de reclusão e 701 dias-multa. Os condenados ainda podem recorrer: a condenação é de segunda instância e não há trânsito em julgado.",
+      "dataDoFato": "2010",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "nome": "Fazendas entre Buritis e Unaí"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "MPF obtém condenação de três réus por trabalho escravo em Minas Gerais",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-mg/noticias/mpf-obtem-condenacao-de-tres-reus-por-trabalho-escravo-em-minas-gerais",
+          "trecho": "condenou três homens pela prática de crime de redução à condição análoga à de escravo em fazendas de Minas Gerais",
+          "data": "2026-03-06",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "condições degradantes",
+        "Minas Gerais",
+        "imprescritibilidade"
+      ],
+      "notaDaCuradoria": "Condenação por reversão de absolvição no TRF6: o modelo não tem 'condenado em 2ª instância'; usamos 'réu' (não há trânsito) e o resumo diz que há condenação. A fonte não nomeia os três condenados, então não há nós de pessoa. A fonte é notícia do MPF sobre decisão do TRF6; achar o acórdão (que traria os nomes) antes de aprovar."
+    }
+  ]
+}

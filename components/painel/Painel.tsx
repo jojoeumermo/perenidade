@@ -54,6 +54,7 @@ import { Equipe, type Membro } from "./Equipe";
 import { Repasse } from "./Sigilo";
 import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
+import { ValeOEscritoCuradoria } from "./ValeOEscrito";
 import { Fila } from "./Fila";
 import { GavetaFila } from "./GavetaFila";
 import { Horas } from "./Horas";
@@ -554,6 +555,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: produz },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "supervisao", "curadoria", "revisao", "educacao"), conta: r?.fila },
+      { id: "vale-curadoria", nome: "Vale o Escrito: curadoria", sobre: "O observatório de crimes de interesse público: fila de sugestões do robô e do público, entrada manual, situação jurídica, correções e direito de resposta.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria") },
       { id: "traducoes", nome: "Traduções", sobre: "As aulas que ainda não têm tradução e as traduções a caminho.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "traducao", "revisao") },
       { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
       { id: "curriculo", nome: "Disciplinas e trilhas", sobre: "As suas disciplinas e trilhas: sugerir mudanças e convidar colegas de outras disciplinas para ajudar (a coordenação cria, edita e remove).", grupo: "Produção", mostra: educa || can(eu, "coordenacao", "supervisao", "curadoria") },
@@ -859,6 +861,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
+          {atual.id === "vale-curadoria" && <ValeOEscritoCuradoria me={eu} />}
           {atual.id === "traducoes" && <Traducoes irEscrever={() => ir("escrever")} />}
           {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
           {atual.id === "curriculo" && <DisciplinasETrilhas me={eu} />}

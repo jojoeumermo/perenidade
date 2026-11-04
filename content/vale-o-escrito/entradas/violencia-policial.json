@@ -1,0 +1,262 @@
+{
+  "dossie": "violencia-policial",
+  "pessoas": [
+    {
+      "id": "paulo-rodolpho-lima-nascimento",
+      "nome": "Paulo Rodolpho Lima Nascimento",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "cargo": "ex-policial rodoviário federal"
+    },
+    {
+      "id": "william-de-barros-noia",
+      "nome": "William de Barros Noia",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "cargo": "ex-policial rodoviário federal"
+    },
+    {
+      "id": "kleber-nascimento-freitas",
+      "nome": "Kleber Nascimento Freitas",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "cargo": "ex-policial rodoviário federal"
+    }
+  ],
+  "organizacoes": [],
+  "ligacoes": [
+    {
+      "id": "l-paulo-rodolpho-lima-nascimento-2022-umbauba-morte-em-viatura-da-prf",
+      "de": {
+        "tipo": "pessoa",
+        "id": "paulo-rodolpho-lima-nascimento"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-umbauba-morte-em-viatura-da-prf"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-umbauba-morte-em-viatura-da-prf"
+    },
+    {
+      "id": "l-william-de-barros-noia-2022-umbauba-morte-em-viatura-da-prf",
+      "de": {
+        "tipo": "pessoa",
+        "id": "william-de-barros-noia"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-umbauba-morte-em-viatura-da-prf"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-umbauba-morte-em-viatura-da-prf"
+    },
+    {
+      "id": "l-kleber-nascimento-freitas-2022-umbauba-morte-em-viatura-da-prf",
+      "de": {
+        "tipo": "pessoa",
+        "id": "kleber-nascimento-freitas"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-umbauba-morte-em-viatura-da-prf"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-umbauba-morte-em-viatura-da-prf"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "paulo-rodolpho-lima-nascimento",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TRF5, condenado pelo júri por homicídio triplamente qualificado, a 28 anos; segundo o MPF, o MPF recorreu pedindo 30 anos."
+        },
+        {
+          "pessoaId": "william-de-barros-noia",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TRF5, condenado por tortura seguida de morte; segundo o MPF, a pena passou a 23 anos, 8 meses e 14 dias e o MPF recorreu pedindo aumento."
+        },
+        {
+          "pessoaId": "kleber-nascimento-freitas",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TRF5, condenado por tortura seguida de morte; segundo o MPF, a pena passou a 23 anos, 8 meses e 14 dias e o MPF recorreu pedindo aumento."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2022-umbauba-morte-em-viatura-da-prf",
+      "dossie": "violencia-policial",
+      "titulo": "Umbaúba (SE): três ex-policiais rodoviários federais condenados pela morte de um homem em viatura",
+      "resumo": "Segundo o TRF5, os três ex-policiais rodoviários federais foram condenados em 7 de dezembro de 2024, pelo Tribunal do Júri da 7ª Vara Federal de Sergipe, pela morte de um homem dentro de uma viatura durante abordagem em Umbaúba (SE): um por homicídio triplamente qualificado (28 anos) e dois por tortura seguida de morte. Segundo o MPF, o crime ocorreu em maio de 2022 e o MPF recorreu ao TRF5 em abril de 2025 para aumentar as penas. Cabe recurso: não há trânsito em julgado.",
+      "dataDoFato": "2022-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SE",
+        "municipioIbge": "2807600",
+        "nome": "Umbaúba"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "TRF5",
+          "tipo": "processo",
+          "titulo": "Ex-PRFs acusados pela morte são condenados após 12 dias de julgamento",
+          "url": "https://www.trf5.jus.br/index.php/noticias/leitura-de-noticias?%2Fid=325987",
+          "trecho": "Paulo Rodolpho Lima Nascimento foi condenado pelo Conselho de Sentença por homicídio triplamente qualificado, a 28 anos de reclusão.",
+          "data": "2024-12-09",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPF recorre para aumentar as penas dos policiais condenados",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-se/noticias/mpf-recorre-para-aumentar-as-penas-dos-policiais-condenados-pelo-homicidio-de-genivaldo-santos",
+          "trecho": "recorreu ao Tribunal Federal da 5ª Região (TRF5) pelo aumento das penas dos três ex-policiais rodoviários federais",
+          "data": "2025-04-03",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "Polícia Rodoviária Federal",
+        "tortura",
+        "júri",
+        "Sergipe",
+        "condenação em 1ª instância"
+      ],
+      "notaDaCuradoria": "A fonte mais recente é de abril de 2025 (recurso do MPF ao TRF5); não achamos decisão do TRF5 sobre a apelação nem recurso das defesas: reconferir antes de aprovar. A ficha não nomeia quem morreu. Dois dos três tiveram a pena corrigida em 29/01/2025 por embargos do MPF (dado do texto do MPF)."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "1992-carandiru-massacre",
+      "dossie": "violencia-policial",
+      "titulo": "Massacre do Carandiru (SP, 1992): 74 policiais militares condenados; penas extintas por indulto em 2024",
+      "resumo": "Segundo o STF, 341 policiais militares de São Paulo participaram da operação que terminou com a morte de 111 detentos na Casa de Detenção, em 1992, e a Justiça condenou 74 policiais por homicídio qualificado, com penas de 96 a 624 anos. Segundo o Diário do Grande ABC, as condenações se tornaram definitivas depois de decisões do STJ e do STF e, em 8 de outubro de 2024, a 4ª Câmara de Direito Criminal do TJ-SP declarou extintas as penas por causa do indulto de 2022; o Ministério Público de São Paulo podia recorrer.",
+      "dataDoFato": "1992-10",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3550308",
+        "nome": "São Paulo (Casa de Detenção)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "PGR questiona indulto de Bolsonaro que alcança PMs condenados pelo massacre do Carandiru",
+          "url": "https://noticias.stf.jus.br/?p=57142",
+          "trecho": "A Justiça condenou 74 policiais por homicídio qualificado, com penas privativas de liberdade de 96 a 624 anos.",
+          "data": "2022-12-27",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Diário do Grande ABC",
+          "tipo": "reportagem",
+          "titulo": "Massacre do Carandiru: após perdão de Bolsonaro, TJSP extingue penas de PMs",
+          "url": "https://www.dgabc.com.br/Noticia/4168294/massacre-do-carandiru-apos-validar-perdao-de-bolsonaro-tj-sp-extingue-penas-de-pms",
+          "trecho": "Com isso, as condenações se tornaram definitivas, ou seja, os PMs não podem mais ser absolvidos.",
+          "data": "2024-10-08",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "massacre",
+        "Polícia Militar",
+        "sistema prisional",
+        "indulto",
+        "São Paulo"
+      ],
+      "notaDaCuradoria": "O trânsito em julgado vem de reportagem; a fonte primária lida (STF, ADI 7330) só confirma a condenação dos 74. Conferir a certidão e o que aconteceu depois de 08/10/2024 (recurso do MP-SP, ADI 7330 no STF). Os policiais não são nomeados nesta ficha (74 nomes; a fonte lida não os traz). Situação escrita como 'condenado em 1ª instância' (degrau mais baixo de condenação do modelo) porque a regra do projeto só aceita 'trânsito em julgado' com fonte primária e aqui o trânsito consta só de reportagem; as condenações foram mantidas pelos tribunais superiores segundo as fontes. Subir para 'condenado com trânsito em julgado' quando a certidão for conferida."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2025-operacao-contencao-alemao-penha",
+      "dossie": "violencia-policial",
+      "titulo": "Operação Contenção (RJ, 2025): mortes nos Complexos do Alemão e da Penha são investigadas",
+      "resumo": "Segundo o MPRJ, o Grupo de Atuação Especializada em Segurança Pública coordena uma investigação independente sobre a Operação Contenção, feita em 28 de outubro de 2025 nos Complexos do Alemão e da Penha, na zona norte do Rio. Segundo o STF, o ministro Alexandre de Moraes determinou, na ADPF 635, a preservação das imagens das câmeras corporais, o envio de laudos de necropsia e a cópia do procedimento do MP-RJ. Não há pessoa denunciada por mortes na operação nas fontes lidas: a apuração está em curso.",
+      "dataDoFato": "2025-10-28",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Complexos do Alemão e da Penha, Rio de Janeiro"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPRJ",
+          "tipo": "investigacao_oficial",
+          "titulo": "PGJ reafirma compromisso com apuração independente e anuncia medidas adotadas pelo MPRJ",
+          "url": "https://www.mprj.mp.br/web/guest/visualizar?noticiaId=202001",
+          "trecho": "O Grupo de Atuação Especializada em Segurança Pública (GAESP/MPRJ) coordena a investigação independente",
+          "data": "2025-10-29",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF requer informações adicionais de autoridades do RJ sobre operação nos Complexos do Alemão e da Penha",
+          "url": "https://noticias.stf.jus.br/postsnoticias/stf-requer-informacoes-adicionais-de-autoridades-do-rj-sobre-operacao-nos-complexos-do-alemao-e-da-penha/",
+          "trecho": "determinou novas providências e o envio de informações adicionais sobre a “Operação Contenção”, realizada no último dia 28 nos Complexos do Alemão e da Penha",
+          "data": "2025-11-10",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "operação policial",
+        "letalidade policial",
+        "ADPF 635",
+        "Rio de Janeiro"
+      ],
+      "notaDaCuradoria": "Caso sem pessoa acusada: 'investigado' vale para a apuração, não para alguém em particular. Número de mortos varia por fonte (o governo do RJ falou em 121; uma procuradoria do MPF, em 122): a ficha não traz o número porque não o conferimos em fonte primária lida. As fontes lidas são de out-nov/2025; há decisão da ADPF 635 de 28/04/2026 (citada em busca, não lida): reconferir. Ninguém que morreu é nomeado."
+    }
+  ]
+}

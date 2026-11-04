@@ -1,0 +1,1092 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * Vale o Escrito (pacote "visual"). É o ÚNICO lugar do site que não segue a identidade do instituto: fundo preto, nós
+ * neon (amarelo, azul, vermelho), mono em caixa alta nos rótulos e nos códigos. Inspirado no desenho do Blood Money
+ * (bl00d.money); nenhum código copiado.
+ *
+ * Escopo: TUDO sob ".ve". Nenhuma regra solta, nada em :root, html ou body: o tema do site não é tocado.
+ * Importado só pelos componentes de components/vale-o-escrito/, então só paga quem abre o observatório.
+ */
+
+.ve {
+  --ve-fundo: #050505;
+  --ve-painel: #0c0c0e;
+  --ve-linha: #26262b;
+  --ve-texto: #ececec;
+  --ve-suave: #9d9da6;
+  --ve-amarelo: #ffe600;
+  --ve-azul: #2aa3ff;
+  --ve-vermelho: #ff2d55;
+  --ve-verde: #3dff9a;
+  --ve-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --ve-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  background: var(--ve-fundo);
+  color: var(--ve-texto);
+  font-family: var(--ve-sans);
+  line-height: 1.5;
+  min-height: calc(100dvh - 4rem);
+  position: relative;
+  isolation: isolate;
+}
+.ve *,
+.ve *::before,
+.ve *::after {
+  box-sizing: border-box;
+}
+.ve a {
+  color: var(--ve-amarelo);
+  text-underline-offset: 3px;
+}
+.ve a:hover {
+  color: #fff;
+}
+.ve button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.ve :focus-visible {
+  outline: 2px solid var(--ve-amarelo);
+  outline-offset: 2px;
+}
+.ve-so-leitor {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.ve-pular {
+  position: absolute;
+  left: 8px;
+  top: -48px;
+  z-index: 20;
+  padding: 8px 12px;
+  background: var(--ve-amarelo);
+  color: #000 !important;
+  font-family: var(--ve-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.ve-pular:focus {
+  top: 8px;
+}
+
+/* Rótulos e códigos: mono, caixa alta, espaçado. */
+.ve-rotulo,
+.ve-codigo {
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+}
+.ve-rotulo {
+  color: var(--ve-suave);
+}
+.ve-codigo {
+  color: var(--ve-amarelo);
+}
+
+/* ── Topo ─────────────────────────────────────────────── */
+.ve-topo {
+  display: grid;
+  gap: 10px;
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-topo h1 {
+  margin: 0;
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: clamp(1.25rem, 3.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.ve-topo h1 span {
+  color: var(--ve-amarelo);
+}
+.ve-subtitulo {
+  margin: 0;
+  color: var(--ve-suave);
+  font-size: 0.95rem;
+  max-width: 70ch;
+}
+.ve-avisos {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--ve-suave);
+  max-width: 100ch;
+}
+.ve-avisos li::before {
+  content: "// ";
+  color: var(--ve-vermelho);
+  font-family: var(--ve-mono);
+}
+.ve-vivo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ve-suave);
+}
+.ve-vivo i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+}
+.ve-vivo[data-ligado="true"] {
+  color: var(--ve-verde);
+}
+.ve-vivo[data-ligado="true"] i {
+  background: var(--ve-verde);
+  box-shadow: 0 0 8px var(--ve-verde);
+}
+@media (min-width: 1000px) {
+  .ve-topo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 40px;
+    align-items: start;
+    padding-block: 12px 10px;
+  }
+  .ve-topo > .ve-avisos {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+  }
+  .ve-topo > .ve-vivo,
+  .ve-topo > .ve-aviso-vivo {
+    grid-column: 1 / -1;
+  }
+}
+.ve-aviso-vivo {
+  margin: 0;
+  font-family: var(--ve-mono);
+  font-size: 12px;
+  color: var(--ve-verde);
+}
+
+/* ── Corpo: coluna esquerda | palco | ficha ───────────────────────────────────────────────── */
+.ve-corpo {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 70dvh;
+}
+@media (min-width: 1000px) {
+  .ve-corpo {
+    grid-template-columns: 260px minmax(0, 1fr) 380px;
+    height: calc(100dvh - 14rem);
+    min-height: 620px;
+  }
+  .ve-corpo > * {
+    min-height: 0;
+    overflow: auto;
+  }
+  .ve-palco {
+    overflow: hidden;
+  }
+}
+
+/* Coluna esquerda: dossiês em abas numeradas */
+.ve-esq {
+  border-right: 1px solid var(--ve-linha);
+  padding: 12px 0;
+  background: var(--ve-painel);
+}
+.ve-abas {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 0;
+  margin: 0;
+  padding: 0 8px;
+  list-style: none;
+}
+@media (min-width: 1000px) {
+  .ve-abas {
+    flex-direction: column;
+    overflow: visible;
+    padding: 0;
+  }
+}
+.ve-aba {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  min-width: max-content;
+  padding: 10px 14px;
+  background: transparent;
+  border: 0;
+  border-left: 3px solid transparent;
+  text-align: left;
+  color: var(--ve-suave);
+}
+.ve-aba:hover {
+  background: #141418;
+  color: var(--ve-texto);
+}
+.ve-aba[aria-selected="true"] {
+  background: #17171c;
+  color: #fff;
+  border-left-color: var(--ve-amarelo);
+}
+.ve-aba[data-cor="vermelho"][aria-selected="true"] {
+  border-left-color: var(--ve-vermelho);
+}
+.ve-aba[data-cor="azul"][aria-selected="true"] {
+  border-left-color: var(--ve-azul);
+}
+.ve-aba-num {
+  font-family: var(--ve-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ve-amarelo);
+}
+.ve-aba[data-cor="vermelho"] .ve-aba-num {
+  color: var(--ve-vermelho);
+}
+.ve-aba[data-cor="azul"] .ve-aba-num {
+  color: var(--ve-azul);
+}
+.ve-aba-nome {
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 12.5px;
+  line-height: 1.25;
+}
+.ve-aba-n {
+  margin-left: auto;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  color: var(--ve-suave);
+}
+.ve-dossie-desc {
+  margin: 14px 16px 0;
+  font-size: 0.82rem;
+  color: var(--ve-suave);
+}
+.ve-esq-links {
+  display: grid;
+  gap: 8px;
+  margin: 14px 16px 0;
+  font-family: var(--ve-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ve-contagens {
+  display: grid;
+  gap: 4px;
+  margin: 18px 16px 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  color: var(--ve-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ve-contagens li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* ── Palco ────────────────────────────────────────────── */
+.ve-palco {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background:
+    radial-gradient(circle at 50% 40%, rgb(255 230 0 / 4%), transparent 60%),
+    #000;
+}
+.ve-viz {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 56dvh;
+  overflow: hidden;
+  touch-action: none;
+}
+@media (min-width: 1000px) {
+  .ve-viz {
+    min-height: 0;
+  }
+}
+.ve-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 56dvh;
+  user-select: none;
+  background: transparent;
+}
+@media (min-width: 1000px) {
+  .ve-svg {
+    min-height: 0;
+  }
+}
+.ve-svg:focus-visible {
+  outline-offset: -3px;
+}
+.ve-vazio {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  color: var(--ve-suave);
+  font-size: 0.95rem;
+}
+.ve-vazio strong {
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  color: var(--ve-amarelo);
+}
+.ve-vazio p {
+  margin: 0 auto;
+  max-width: 52ch;
+}
+
+/* Nós e ligações (SVG): amarelo = pessoa, azul = organização, vermelho = caso, cinza = lugar. */
+.ve-no {
+  cursor: pointer;
+}
+.ve-no circle {
+  stroke-width: 1.5;
+  transition: r 0.12s;
+}
+.ve-no--pessoa circle {
+  fill: var(--ve-amarelo);
+  stroke: #fff6;
+  filter: drop-shadow(0 0 4px var(--ve-amarelo));
+}
+.ve-no--organizacao circle {
+  fill: var(--ve-azul);
+  stroke: #fff6;
+  filter: drop-shadow(0 0 4px var(--ve-azul));
+}
+.ve-no--entrada circle {
+  fill: var(--ve-vermelho);
+  stroke: #fff6;
+  filter: drop-shadow(0 0 5px var(--ve-vermelho));
+}
+.ve-no--lugar circle {
+  fill: #b9bcc6;
+  stroke: #fff4;
+}
+.ve-no[data-sel="true"] circle {
+  stroke: #fff;
+  stroke-width: 3;
+}
+.ve-no[data-apagado="true"] {
+  opacity: 0.28;
+}
+.ve-no:focus-visible {
+  outline: none;
+}
+.ve-no:focus-visible circle {
+  stroke: #fff;
+  stroke-width: 4;
+}
+.ve-no text {
+  font-family: var(--ve-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  fill: var(--ve-texto);
+  paint-order: stroke;
+  stroke: #000;
+  stroke-width: 3px;
+  pointer-events: none;
+}
+.ve-aresta {
+  stroke: #4a4a55;
+  stroke-width: 1;
+  fill: none;
+}
+.ve-aresta[data-implicita="false"] {
+  stroke: #8b8b99;
+  stroke-width: 1.4;
+}
+.ve-aresta[data-realce="true"] {
+  stroke: var(--ve-amarelo);
+  stroke-width: 2;
+}
+.ve-aresta[data-apagado="true"] {
+  opacity: 0.12;
+}
+.ve-anel {
+  fill: none;
+  stroke: #1d1d22;
+  stroke-dasharray: 3 5;
+}
+.ve-grupo-circulo {
+  fill: rgb(255 255 255 / 2%);
+  stroke: #2d2d34;
+}
+.ve-grupo-nome {
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  fill: var(--ve-suave);
+}
+.ve-fluxo-faixa {
+  fill: none;
+  stroke-opacity: 0.45;
+}
+.ve-fluxo-faixa:hover,
+.ve-fluxo-faixa[data-sel="true"] {
+  stroke-opacity: 0.85;
+}
+.ve-fluxo-caixa {
+  fill: #d8d8de;
+}
+.ve-fluxo-texto {
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  fill: var(--ve-texto);
+}
+.ve-eixo {
+  stroke: #2a2a30;
+}
+.ve-eixo-texto {
+  font-family: var(--ve-mono);
+  font-size: 10px;
+  fill: var(--ve-suave);
+}
+.ve-marca {
+  cursor: pointer;
+}
+.ve-marca circle {
+  fill: var(--ve-vermelho);
+  stroke: #fff5;
+  filter: drop-shadow(0 0 4px var(--ve-vermelho));
+}
+.ve-marca[data-sel="true"] circle {
+  stroke: #fff;
+  stroke-width: 3;
+}
+.ve-marca:focus-visible {
+  outline: none;
+}
+.ve-marca:focus-visible circle {
+  stroke: #fff;
+  stroke-width: 4;
+}
+
+/* Controles de zoom e nível nomeado (HUD) */
+.ve-hud {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  display: grid;
+  gap: 6px;
+  z-index: 2;
+}
+.ve-hud-botoes {
+  display: flex;
+  gap: 4px;
+}
+.ve-hud button {
+  width: 34px;
+  height: 34px;
+  background: #0c0c0ecc;
+  border: 1px solid var(--ve-linha);
+  color: var(--ve-texto);
+  font-family: var(--ve-mono);
+  font-size: 16px;
+  line-height: 1;
+}
+.ve-hud button:hover {
+  border-color: var(--ve-amarelo);
+  color: var(--ve-amarelo);
+}
+.ve-nivel {
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ve-amarelo);
+  background: #000a;
+  padding: 3px 6px;
+  width: fit-content;
+}
+.ve-legenda {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 8px 10px;
+  list-style: none;
+  background: #000b;
+  border: 1px solid var(--ve-linha);
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-suave);
+  z-index: 2;
+}
+.ve-legenda li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ve-legenda i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.ve-i-pessoa {
+  background: var(--ve-amarelo);
+}
+.ve-i-organizacao {
+  background: var(--ve-azul);
+}
+.ve-i-entrada {
+  background: var(--ve-vermelho);
+}
+.ve-i-lugar {
+  background: #b9bcc6;
+}
+.ve-titulo-da-visao {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ve-suave);
+  max-width: 70%;
+  background: #000a;
+  padding: 2px 6px;
+}
+
+/* Lista textual (equivalente à teia) */
+.ve-lista {
+  border-top: 1px solid var(--ve-linha);
+  background: var(--ve-painel);
+  max-height: 38dvh;
+  overflow: auto;
+}
+.ve-lista > summary {
+  cursor: pointer;
+  padding: 10px 16px;
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  color: var(--ve-amarelo);
+}
+.ve-lista-explica {
+  margin: 0 16px 8px;
+  font-size: 0.82rem;
+  color: var(--ve-suave);
+}
+.ve-lista ul {
+  margin: 0;
+  padding: 0 16px 14px;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.ve-lista li > div {
+  font-size: 0.85rem;
+}
+.ve-lista ul ul {
+  padding: 4px 0 0 14px;
+  gap: 2px;
+  border-left: 1px solid var(--ve-linha);
+  font-size: 0.8rem;
+  color: var(--ve-suave);
+}
+.ve-lista-no {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  color: var(--ve-texto);
+  text-decoration: underline;
+  text-decoration-color: var(--ve-linha);
+  text-underline-offset: 3px;
+}
+.ve-lista-no:hover {
+  color: var(--ve-amarelo);
+}
+
+/* Seletor de visões (embaixo) */
+.ve-visoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 8px;
+  border-top: 1px solid var(--ve-linha);
+  background: #000;
+}
+.ve-visao {
+  padding: 9px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--ve-suave);
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+}
+.ve-visao:hover {
+  color: #fff;
+  border-color: var(--ve-linha);
+}
+.ve-visao[aria-selected="true"] {
+  color: #000;
+  background: var(--ve-amarelo);
+  border-color: var(--ve-amarelo);
+}
+
+/* Mapa (marcador; o pacote "mapa" o substitui) */
+.ve-mapa-marcador {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  padding: 56px 16px 16px;
+}
+.ve-mapa-marcador h2 {
+  margin: 0 0 6px;
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 13px;
+  color: var(--ve-amarelo);
+}
+.ve-mapa-marcador p {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: var(--ve-suave);
+  max-width: 60ch;
+}
+.ve-mapa-marcador ul {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+.ve-mapa-marcador li button {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  color: var(--ve-texto);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Ficha (direita) ───────────────────────────────────── */
+.ve-ficha {
+  border-left: 1px solid var(--ve-linha);
+  background: var(--ve-painel);
+  padding: 16px;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.ve-ficha h2,
+.ve-ficha h3 {
+  margin: 0;
+}
+.ve-ficha-titulo {
+  font-size: 1.15rem;
+  line-height: 1.25;
+  font-weight: 650;
+}
+.ve-ficha-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+.ve-fechar {
+  background: none;
+  border: 1px solid var(--ve-linha);
+  padding: 3px 8px;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-suave);
+}
+.ve-fechar:hover {
+  color: #fff;
+  border-color: #fff;
+}
+/* A situação jurídica: sempre visível, no alto da ficha. */
+.ve-situacao {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--ve-amarelo);
+  background: #14130a;
+  position: sticky;
+  top: -16px;
+  z-index: 1;
+}
+.ve-situacao strong {
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+  color: var(--ve-amarelo);
+}
+.ve-situacao--solta {
+  position: static;
+}
+.ve-situacao[data-situacao="condenado_transitado"] {
+  border-color: var(--ve-vermelho);
+  background: #1a0a0f;
+}
+.ve-situacao[data-situacao="condenado_transitado"] strong {
+  color: var(--ve-vermelho);
+}
+.ve-situacao[data-situacao="absolvido"],
+.ve-situacao[data-situacao="arquivado"] {
+  border-color: var(--ve-verde);
+  background: #08150e;
+}
+.ve-situacao[data-situacao="absolvido"] strong,
+.ve-situacao[data-situacao="arquivado"] strong {
+  color: var(--ve-verde);
+}
+.ve-situacao small {
+  color: var(--ve-suave);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.ve-selo {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid var(--ve-amarelo);
+  color: var(--ve-amarelo);
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+.ve-selo[data-situacao="condenado_transitado"] {
+  border-color: var(--ve-vermelho);
+  color: var(--ve-vermelho);
+}
+.ve-selo[data-situacao="absolvido"],
+.ve-selo[data-situacao="arquivado"] {
+  border-color: var(--ve-verde);
+  color: var(--ve-verde);
+}
+.ve-selo[data-confianca="primaria"] {
+  border-color: var(--ve-azul);
+  color: var(--ve-azul);
+}
+.ve-selo[data-confianca="reportado"] {
+  border-color: var(--ve-suave);
+  color: var(--ve-suave);
+}
+.ve-bloco {
+  display: grid;
+  gap: 6px;
+}
+.ve-dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0;
+  font-size: 0.85rem;
+}
+.ve-dl dt {
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 10.5px;
+  color: var(--ve-suave);
+  align-self: center;
+}
+.ve-dl dd {
+  margin: 0;
+}
+.ve-resumo {
+  margin: 0;
+  font-size: 0.92rem;
+}
+.ve-fontes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.ve-fonte {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ve-linha);
+}
+.ve-fonte-n {
+  font-family: var(--ve-mono);
+  font-size: 12px;
+  color: #000;
+  background: var(--ve-amarelo);
+  height: 22px;
+  width: 28px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+.ve-fonte-titulo {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.ve-fonte blockquote {
+  margin: 6px 0;
+  padding: 0 0 0 10px;
+  border-left: 2px solid var(--ve-azul);
+  font-size: 0.82rem;
+  color: #cfcfd6;
+}
+.ve-fonte-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 0.76rem;
+  color: var(--ve-suave);
+}
+.ve-pessoas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.ve-pessoas li {
+  display: grid;
+  gap: 3px;
+}
+.ve-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ve-botao {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--ve-amarelo);
+  background: transparent;
+  color: var(--ve-amarelo) !important;
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11.5px;
+  text-decoration: none !important;
+}
+.ve-botao:hover {
+  background: var(--ve-amarelo);
+  color: #000 !important;
+}
+.ve-botao--azul {
+  border-color: var(--ve-azul);
+  color: var(--ve-azul) !important;
+}
+.ve-botao--azul:hover {
+  background: var(--ve-azul);
+}
+.ve-aviso-fixo {
+  margin: 0;
+  font-size: 0.74rem;
+  color: var(--ve-suave);
+}
+.ve-ficha-vazia {
+  color: var(--ve-suave);
+  font-size: 0.9rem;
+}
+
+/* Cartão de arquivo: foto presa por clipe, com crédito. */
+.ve-cartao {
+  position: relative;
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 12px;
+  padding: 22px 12px 12px;
+  background: #d9d3c0;
+  color: #1b1a16;
+  border-radius: 2px;
+  box-shadow: 0 6px 18px #0009;
+  transform: rotate(-0.6deg);
+}
+.ve-cartao a {
+  color: #5a1a00;
+}
+.ve-clipe {
+  position: absolute;
+  top: -10px;
+  left: 28px;
+  width: 22px;
+  height: 52px;
+  pointer-events: none;
+}
+.ve-cartao-foto {
+  margin: 0;
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+.ve-cartao-foto img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  filter: grayscale(0.4) contrast(1.05);
+  border: 1px solid #0006;
+  background: #bbb;
+}
+.ve-cartao-semfoto {
+  aspect-ratio: 3 / 4;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 6px;
+  border: 1px dashed #0007;
+  font-family: var(--ve-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #4a4636;
+}
+.ve-cartao figcaption {
+  font-size: 9.5px;
+  line-height: 1.3;
+  color: #3b3829;
+  font-family: var(--ve-mono);
+}
+.ve-cartao-corpo {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  min-width: 0;
+}
+.ve-cartao-corpo .ve-codigo {
+  color: #7a1200;
+}
+.ve-cartao-nome {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.ve-cartao-linha {
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #3b3829;
+}
+.ve-carimbo {
+  justify-self: start;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border: 2px solid #7a1200;
+  color: #7a1200;
+  font-family: var(--ve-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10.5px;
+  transform: rotate(-3deg);
+}
+
+/* ── Página própria (ficha, pessoa, organização) ───────────────────── */
+.ve-pagina {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 16px 56px;
+  display: grid;
+  gap: 18px;
+}
+.ve-pagina h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+  line-height: 1.15;
+}
+.ve-pagina .ve-situacao {
+  position: static;
+}
+.ve-pagina-voltar {
+  font-family: var(--ve-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+}
+.ve-lista-de-casos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.ve-lista-de-casos li {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--ve-linha);
+  background: var(--ve-painel);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ve * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .ve-no circle,
+  .ve-marca circle {
+    stroke: CanvasText;
+  }
+}
+
+/* Traço com largura fixa na tela, mesmo com a teia aproximada. */
+.ve-no circle,
+.ve-aresta,
+.ve-marca circle {
+  vector-effect: non-scaling-stroke;
+}

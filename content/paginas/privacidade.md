@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 3 de novembro de 2026.
+Atualizada em 4 de novembro de 2026.
 
 ## Em uma frase
 
@@ -60,8 +60,12 @@ Algumas páginas aceitam envios de qualquer pessoa. Nada é publicado sem passar
 | Denúncia ou pedido sobre dados | O que você escrever | A coordenação e a curadoria | Um ano depois de resolvida |
 | Candidatura a voluntário | O nome completo, o e-mail de contato, a função pretendida e a apresentação que você escrever | Só a coordenação | Noventa dias depois de respondida |
 | Boletim do jornal | Só o e-mail. Ele entra na lista depois que você clica no link de confirmação que recebe | A coordenação e quem escreve o jornal | Até você clicar em "sair da lista", que vem em todo boletim. Pedido nunca confirmado sai em uma semana |
+| Fonte enviada ao observatório Vale o Escrito (quando ele estiver aberto) | O link, o que você escrever sobre a fonte, o trecho e o dossiê, se informar, e o contato, se quiser | Só a curadoria do observatório | Até a curadoria decidir; o que for recusado é apagado em até 90 dias; o que for aprovado vira ficha pública, sem o seu contato e sem o seu nome |
+| Pedido de correção, direito de resposta ou remoção de dado numa ficha do Vale o Escrito | O código da ficha, o que você escrever, o link que comprova, o nome e o contato que informar (no direito de resposta o nome, a sua qualidade e o contato são obrigatórios) e a resposta que a curadoria der | A curadoria do observatório e a coordenação; a resposta aceita aparece ao lado da ficha, sem o seu contato | Um ano depois de resolvido |
 
 Para barrar abuso, o sistema guarda por até dois dias um código embaralhado da origem do envio. Ele serve só para contar quantos envios vieram do mesmo lugar e não permite identificar ninguém. Em caso extremo de abuso, a mediação pode barrar os envios de uma origem: o que fica guardado é esse mesmo código embaralhado, nunca o endereço de rede, até a coordenação desfazer o bloqueio.
+
+**Vale o Escrito: enviar uma fonte e pedir correção.** O observatório Vale o Escrito reúne casos de interesse público que já constam de fonte pública, e só existe quando o instituto o abre. Nele, qualquer pessoa pode enviar uma fonte ou pedir a correção, o direito de resposta ou a remoção de um dado de uma ficha, sem conta. Os dois formulários não usam CAPTCHA de terceiros nem rastreamento: têm um campo escondido que só robô preenche, um tempo mínimo de preenchimento e um limite de envios por origem. Para esse limite, o banco guarda só um código embaralhado da origem, feito com um sal que muda todo dia e é apagado em até dois dias; o endereço de rede não fica guardado nas linhas. O que fica guardado está na tabela acima. A base legal do envio de fonte é o legítimo interesse do projeto em receber fontes de interesse público (art. 7º, IX, da LGPD); a do pedido de correção e de resposta é o exercício do seu direito e a obrigação de atendê-lo (art. 7º, II). No direito de resposta pedimos o seu nome, a sua qualidade (a própria pessoa, o representante legal ou um familiar próximo) e um contato, porque a Lei 13.188/2015 (art. 3º) dá esse direito ao ofendido e, em certos casos, a quem o representa; o contato serve só para a resposta chegar a você e não aparece no site. A curadoria do observatório é anônima ao público: quem aprovou uma ficha fica só no histórico interno, que só acrescenta. Ler o observatório não exige conta e só gera contagens anônimas. Sobre as regras de cada ficha, veja o texto do próprio observatório, em "Sobre o método".
 
 ## Se você tem uma conta
 

@@ -73,3 +73,7 @@ Alguns dependem de outros para fazer sentido: `exercicios` e `metas` aparecem me
 ## O que fica guardado
 
 Tudo o que estes recursos guardam fica no navegador de quem estuda (`localStorage`), nas chaves `lucia:testes`, `lucia:exercicios`, `lucia:concluidas-em`, `lucia:metas`, `lucia:nivelamento`, `lucia:ajudou`, `lucia:turmas`, `lucia:enem` e `lucia:video-curto` (onde parou em cada vídeo curto e a velocidade) (o curso ENEM: provas e simulados feitos, diagnóstico, plano e tempo por questão). Elas entram na cópia de segurança (Caderno e Meus dados) e saem no "Apagar". Nada vai para o servidor nem para o Supabase; nenhum cookie novo. O único recurso que fala com um serviço de fora é o `vlibras`, e só depois do clique de quem quer usar (veja `docs/privacidade-vlibras.md`).
+
+## `vale-o-escrito` (Etapa 10)
+
+O observatório Vale o Escrito (`/[lang]/vale-o-escrito`) também está em `SO_PELO_NOME`: `todos` **não** o liga. Só abre com o nome na lista (`NEXT_PUBLIC_RECURSOS=todos,vale-o-escrito`) e **não deve ser ligado em produção antes de a curadoria revisar as entradas e a assessoria jurídica conferir** (docs/vale-o-escrito/ESPEC.md). Desligado, as rotas respondem 404 e o item some do menu.

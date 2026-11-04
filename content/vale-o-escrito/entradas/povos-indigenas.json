@@ -1,0 +1,245 @@
+{
+  "dossie": "povos-indigenas",
+  "pessoas": [
+    {
+      "id": "amarildo-da-costa-oliveira",
+      "nome": "Amarildo da Costa Oliveira",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f2"
+      ]
+    },
+    {
+      "id": "jefferson-da-silva-lima",
+      "nome": "Jefferson da Silva Lima",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f2"
+      ]
+    },
+    {
+      "id": "rubens-villar-coelho",
+      "nome": "Rubens Villar Coelho",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "organizacoes": [],
+  "ligacoes": [
+    {
+      "id": "l-rubens-villar-coelho-2022-vale-do-javari-mortes-indigenista-jornalista",
+      "de": {
+        "tipo": "pessoa",
+        "id": "rubens-villar-coelho"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-vale-do-javari-mortes-indigenista-jornalista"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-vale-do-javari-mortes-indigenista-jornalista"
+    },
+    {
+      "id": "l-amarildo-da-costa-oliveira-2022-vale-do-javari-mortes-indigenista-jornalista",
+      "de": {
+        "tipo": "pessoa",
+        "id": "amarildo-da-costa-oliveira"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-vale-do-javari-mortes-indigenista-jornalista"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f2"
+      ],
+      "entradaId": "2022-vale-do-javari-mortes-indigenista-jornalista"
+    },
+    {
+      "id": "l-jefferson-da-silva-lima-2022-vale-do-javari-mortes-indigenista-jornalista",
+      "de": {
+        "tipo": "pessoa",
+        "id": "jefferson-da-silva-lima"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-vale-do-javari-mortes-indigenista-jornalista"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f2"
+      ],
+      "entradaId": "2022-vale-do-javari-mortes-indigenista-jornalista"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "1993-haximu-genocidio-yanomami",
+      "dossie": "povos-indigenas",
+      "titulo": "Massacre de Haximu: garimpeiros condenados por genocídio contra os Yanomami",
+      "resumo": "Segundo o STF, em agosto de 1993 garimpeiros atacaram a comunidade Yanomami de Haximu e mataram 12 indígenas. Segundo o STF, a Justiça Federal de Boa Vista condenou quatro dos 22 garimpeiros denunciados a penas de 19 a 20 anos de prisão, e em 3 de agosto de 2006 o Plenário do STF decidiu (RE 351487) que o crime foi genocídio e que o caso é da Justiça Federal.",
+      "dataDoFato": "1993-08",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "nome": "Território Yanomami, fronteira com a Venezuela (julgado em Boa Vista, RR)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Direto do Plenário: Justiça Federal é competente para julgar genocídio dos Yanomamis",
+          "url": "https://noticias.stf.jus.br/postsnoticias/direto-do-plenario-justica-federal-e-competente-para-julgar-genocidio-dos-yanomamis/",
+          "trecho": "O Plenário do Supremo Tribunal Federal (STF) decidiu que o crime conhecido como Massacre de Haximu foi um genocídio",
+          "data": "2006-08-03",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Massacre de Haximu: 1ª Turma remete ao Plenário recurso de garimpeiros",
+          "url": "https://noticias.stf.jus.br/?p=8612",
+          "trecho": "condenou quatro dos 22 garimpeiros denunciados pelo Ministério Público Federal a penas que variam de 19 a 20 anos de prisão",
+          "data": "2005-09-20",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "genocídio",
+        "garimpo",
+        "Yanomami",
+        "Roraima",
+        "RE 351487"
+      ],
+      "notaDaCuradoria": "Situação escrita como 'condenado em 1ª instância' porque nenhuma fonte lida diz que houve trânsito em julgado; o STF confirmou a condenação em 2006 (a ficha 'casos relevantes' do STF, RE 351487, diz que 'confirmou a condenação'). Conferir a certidão de trânsito: se existir, subir para 'condenado com trânsito em julgado'. Nenhuma pessoa nomeada: os nomes dos quatro condenados não constam das fontes lidas. O ataque ocorreu em área de fronteira; conferir o lugar exato."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "rubens-villar-coelho",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPF, apontado como mandante dos homicídios; pronunciado para júri popular em junho de 2026."
+        },
+        {
+          "pessoaId": "amarildo-da-costa-oliveira",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPF, apontado como executor dos homicídios; júri transferido para Manaus (TRF1, fevereiro de 2026)."
+        },
+        {
+          "pessoaId": "jefferson-da-silva-lima",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPF, apontado como executor dos homicídios; júri transferido para Manaus (TRF1, fevereiro de 2026)."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2022-vale-do-javari-mortes-indigenista-jornalista",
+      "dossie": "povos-indigenas",
+      "titulo": "Vale do Javari (AM): mortes de um indigenista e de um jornalista levam acusados a júri",
+      "resumo": "Segundo o MPF, um indigenista e um jornalista britânico foram mortos a tiros em 5 de junho de 2022, em Atalaia do Norte (AM), perto da Terra Indígena Vale do Javari. Segundo o MPF, a Justiça Federal pronunciou em junho de 2026 o acusado de ser o mandante, que será julgado por júri popular, e o TRF1 transferiu para Manaus o júri de dois acusados de serem os executores, ainda sem data (fevereiro de 2026). Os três são réus: não há condenação.",
+      "dataDoFato": "2022-06-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "municipioIbge": "1300201",
+        "nome": "Atalaia do Norte"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Caso Bruno e Dom: Justiça Federal acolhe pedido do MPF e leva 'Colômbia' a júri popular",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/caso-bruno-e-dom-justica-federal-acolhe-pedido-do-mpf-e-leva-2018colombia2019-a-juri-popular",
+          "trecho": "pronunciou Rubens Villar Coelho, conhecido como ‘Colômbia’, para ser julgado por júri popular",
+          "data": "2026-06-08",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "TRF1 acolhe pedido do MPF e transfere julgamento dos executores para Manaus (AM)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/prr1/noticias/trf1-acolhe-pedido-do-mpf-e-transfere-julgamento-dos-executores-de-bruno-pereira-e-dom-phillips-para-manaus-am",
+          "trecho": "determinou o desaforamento (a transferência do local) do julgamento de Amarildo da Costa Oliveira e Jefferson da Silva Lima",
+          "data": "2026-02-04",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "Vale do Javari",
+        "júri popular",
+        "Amazônia",
+        "terra indígena"
+      ],
+      "notaDaCuradoria": "A ficha não nomeia quem foi morto (ECA e LGPD: regra da casa para vítimas). A fonte mais recente lida é de 08/06/2026; reconferir a data do júri e o desfecho do recurso de um terceiro denunciado que foi impronunciado (não incluído aqui). Notícias do MPF refletem a versão da acusação."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2017-garimpo-yanomami-financiadores-rr",
+      "dossie": "povos-indigenas",
+      "titulo": "Seis réus acusados de financiar o garimpo ilegal em território Yanomami",
+      "resumo": "Segundo o MPF, a Justiça Federal em Roraima recebeu em maio de 2026 a denúncia contra seis pessoas acusadas de organização criminosa, lavagem de dinheiro e usurpação de bens da União. Segundo o MPF, entre janeiro de 2017 e outubro de 2021 elas teriam movimentado cerca de R$ 64 milhões para custear garimpo clandestino, sobretudo no território Yanomami. Os acusados são réus: não há condenação.",
+      "dataDoFato": "2017",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "nome": "Terra Indígena Yanomami; acusados em Boa Vista"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça aceita denúncia do MPF contra acusados de movimentar R$ 64 mi para financiar garimpo ilegal em RR",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/justica-federal-aceita-denuncia-contra-seis-acusados-de-movimentar-r-64-milhoes-para-financiar-garimpo-ilegal-em-roraima",
+          "trecho": "recebeu denúncia oferecida pelo Ministério Público Federal (MPF) contra seis pessoas acusadas de financiamento de garimpo ilegal e lavagem de dinheiro",
+          "data": "2026-05-06",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "lavagem de dinheiro",
+        "Yanomami",
+        "Roraima"
+      ],
+      "notaDaCuradoria": "A fonte não nomeia os réus (a notícia do MPF fala em 'um empresário de Boa Vista' e outros cinco); por isso a ficha não tem nós de pessoa. Processo 1004325-11.2021.4.01.4200 (número que consta da notícia do MPF). Notícia do MPF = versão da acusação; reconferir o andamento."
+    }
+  ]
+}

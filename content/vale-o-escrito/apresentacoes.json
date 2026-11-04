@@ -1,0 +1,260 @@
+{
+  "_sobre": "Textos de apresentação dos 6 dossiês do Vale o Escrito (pacote fontes-e-dossies). O português é o texto completo; en, es, fr, ru e zh são RASCUNHO sem revisão de nativo nem da assessoria jurídica. Cada número tem fonte, ano, endereço e a data em que foi lido (04/11/2026); número de organização é 'reportado', número de órgão oficial é 'oficial'. Nenhum número aqui dá nome a vítima.",
+  "revisao": "pendente-curadoria",
+  "dossies": {
+    "povos-indigenas": {
+      "oQueE": {
+        "pt": "Registros de invasões de terras indígenas, garimpo, extração ilegal de madeira, ataques armados e omissão do poder público, quando já constam de processo, investigação oficial, relatório de organização ou reportagem.",
+        "en": "Records of invasions of Indigenous lands, illegal mining and logging, armed attacks and public-authority omission, when already documented in a court case, official investigation, organisation report or news story.",
+        "es": "Registros de invasiones de tierras indígenas, minería y tala ilegales, ataques armados y omisión del poder público, cuando ya constan en proceso judicial, investigación oficial, informe de organización o reportaje.",
+        "fr": "Registre des invasions de terres autochtones, de l'orpaillage et de l'exploitation forestière illégaux, des attaques armées et des omissions des pouvoirs publics, lorsqu'ils figurent déjà dans une procédure, une enquête officielle, un rapport d'organisation ou un reportage.",
+        "ru": "Записи о вторжениях на земли коренных народов, незаконной добыче золота и вырубке, вооружённых нападениях и бездействии власти, уже отражённые в судебном деле, официальном расследовании, докладе организации или репортаже.",
+        "zh": "记录入侵原住民土地、非法采矿和采伐、武装袭击及公共权力不作为，仅限已见于诉讼、官方调查、组织报告或新闻报道的内容。"
+      },
+      "porQueImporta": {
+        "pt": "A Constituição reconhece aos povos indígenas o direito originário às terras que ocupam, e a demarcação é dever da União. Onde a terra não está protegida, crescem a invasão, a violência e a crise sanitária; mostrar quem é acusado, em que fase está cada processo e quanto tempo ele leva é parte de cobrar proteção.",
+        "en": "The Constitution recognises Indigenous peoples' original rights to the lands they occupy, and demarcation is a Union duty. Where land is unprotected, invasion, violence and health crises grow; showing who is accused and where each case stands is part of demanding protection.",
+        "es": "La Constitución reconoce a los pueblos indígenas el derecho originario a las tierras que ocupan y la demarcación es deber de la Unión. Donde la tierra no está protegida crecen la invasión, la violencia y la crisis sanitaria; mostrar quién es acusado y en qué fase está cada proceso es parte de exigir protección.",
+        "fr": "La Constitution reconnaît aux peuples autochtones un droit originaire sur les terres qu'ils occupent, et la démarcation est un devoir de l'Union. Là où la terre n'est pas protégée, l'invasion, la violence et la crise sanitaire augmentent ; montrer qui est accusé et où en est chaque procédure fait partie de l'exigence de protection.",
+        "ru": "Конституция признаёт за коренными народами исконное право на занимаемые земли, а демаркация — обязанность Союза. Где земля не защищена, растут вторжения, насилие и санитарный кризис; показывать, кто обвиняется и на какой стадии каждое дело, — часть требования защиты.",
+        "zh": "宪法承认原住民对其所占土地的原始权利，划界是联邦的责任。土地得不到保护的地方，入侵、暴力和卫生危机随之增加；说明谁被指控、各案进展如何，是要求保护的一部分。"
+      },
+      "fontesPrincipais": ["cimi", "funai", "isa", "mpf", "stf-stj", "amazonia-real", "infoamazonia", "global-witness"],
+      "dados": [
+        {
+          "rotulo": { "pt": "Assassinatos de indígenas registrados em 2024", "en": "Murders of Indigenous people recorded in 2024" },
+          "valor": "211",
+          "ano": 2024,
+          "fonteId": "cimi",
+          "veiculo": "CIMI",
+          "nivel": "reportado",
+          "url": "https://cimi.org.br/2025/07/relatorioviolencia2024/",
+          "observacao": "Relatório 'Violência contra os Povos Indígenas no Brasil, dados de 2024'. Roraima (57), Amazonas (45), Mato Grosso do Sul (33) e Bahia (23) têm os maiores números. O CIMI diz ter compilado dados do SIM, de secretarias estaduais de saúde e da Sesai (via LAI).",
+          "lidoEm": "2026-11-04"
+        },
+        {
+          "rotulo": { "pt": "Casos de violência contra o patrimônio indígena em 2024 (invasões, exploração ilegal, danos)", "en": "Cases of violence against Indigenous property in 2024 (invasions, illegal exploitation, damage)" },
+          "valor": "1.241",
+          "ano": 2024,
+          "fonteId": "cimi",
+          "veiculo": "CIMI",
+          "nivel": "reportado",
+          "url": "https://cimi.org.br/2025/07/relatorioviolencia2024/",
+          "observacao": "Primeiro capítulo do mesmo relatório; o CIMI chama 2024 de primeiro ano de vigência da Lei 14.701 (Lei do Marco Temporal).",
+          "lidoEm": "2026-11-04"
+        }
+      ],
+      "limites": {
+        "pt": "Os números do CIMI são de uma organização, não de um processo: valem como 'reportado'. Cada caso individual só entra com fonte própria e nunca nomeia quem morreu. Garimpeiro, fazendeiro ou agente público só aparece com a situação jurídica escrita."
+      }
+    },
+    "conflitos-no-campo": {
+      "oQueE": {
+        "pt": "Disputas por terra e água no campo, despejos, ameaças, massacres e a resposta da Justiça, segundo relatórios, processos e reportagens.",
+        "en": "Disputes over land and water in the countryside, evictions, threats, massacres and the justice system's response, according to reports, court cases and news stories.",
+        "es": "Disputas por tierra y agua en el campo, desalojos, amenazas, masacres y la respuesta de la Justicia, según informes, procesos y reportajes.",
+        "fr": "Conflits fonciers et pour l'eau en milieu rural, expulsions, menaces, massacres et réponse de la justice, selon rapports, procédures et enquêtes de presse.",
+        "ru": "Споры за землю и воду в сельской местности, выселения, угрозы, массовые убийства и реакция правосудия по данным докладов, дел и репортажей.",
+        "zh": "据报告、诉讼和报道，农村地区围绕土地与水的争端、驱逐、威胁、屠杀以及司法的应对。"
+      },
+      "porQueImporta": {
+        "pt": "A terra é a origem de boa parte da violência rural no Brasil, e muitos casos levam décadas para chegar a um júri ou nunca chegam. Ver o caso, a data e a fase do processo no mesmo lugar mostra onde a Justiça andou e onde parou.",
+        "en": "Land is behind much rural violence in Brazil, and many cases take decades to reach a jury, or never do. Seeing the case, the date and the stage of the proceedings in one place shows where justice moved and where it stalled.",
+        "es": "La tierra está en el origen de buena parte de la violencia rural en Brasil y muchos casos tardan décadas en llegar a un jurado, o nunca llegan. Ver el caso, la fecha y la fase del proceso en un solo lugar muestra dónde avanzó la Justicia y dónde se detuvo.",
+        "fr": "La terre est à l'origine d'une grande part de la violence rurale au Brésil, et beaucoup d'affaires mettent des décennies à arriver devant un jury, ou n'y arrivent jamais. Voir l'affaire, la date et l'étape de la procédure au même endroit montre où la justice a avancé et où elle s'est arrêtée.",
+        "ru": "Земля — причина значительной части насилия в сельской местности Бразилии, и многие дела десятилетиями не доходят до суда присяжных или не доходят вовсе. Дело, дата и стадия процесса в одном месте показывают, где правосудие продвинулось, а где остановилось.",
+        "zh": "土地是巴西农村暴力的重要根源，许多案件要过几十年才进入陪审团审判，甚至永远不会。把案件、日期和诉讼阶段放在一处，可以看出司法在哪里推进、在哪里停滞。"
+      },
+      "fontesPrincipais": ["cpt", "mpf", "stf-stj", "de-olho-nos-ruralistas", "reporter-brasil", "brasil-de-fato", "justica-global", "ibge"],
+      "dados": [
+        {
+          "rotulo": { "pt": "Ocorrências de conflito no campo em 2025", "en": "Rural conflict occurrences in 2025" },
+          "valor": "1.593 (2.207 em 2024)",
+          "ano": 2025,
+          "fonteId": "cpt",
+          "veiculo": "CPT (Cedoc Dom Tomás Balduino)",
+          "nivel": "reportado",
+          "url": "https://cptnacional.org.br/2026/04/27/dados2025-conflitosnocampo/",
+          "observacao": "Caderno 'Conflitos no Campo Brasil 2025' (40ª edição), lançado em 27/04/2026.",
+          "lidoEm": "2026-11-04"
+        },
+        {
+          "rotulo": { "pt": "Assassinatos em conflitos agrários em 2025", "en": "Murders in agrarian conflicts in 2025" },
+          "valor": "26 (13 em 2024)",
+          "ano": 2025,
+          "fonteId": "cpt",
+          "veiculo": "CPT (Cedoc Dom Tomás Balduino)",
+          "nivel": "reportado",
+          "url": "https://cptnacional.org.br/2026/04/27/dados2025-conflitosnocampo/",
+          "observacao": "16 deles na Amazônia Legal; dois massacres (três ou mais mortes no mesmo episódio), um no Pará e um em Rondônia, segundo a CPT.",
+          "lidoEm": "2026-11-04"
+        }
+      ],
+      "limites": {
+        "pt": "A CPT é uma organização que acompanha os casos e que, em alguns, atua como assistente da acusação: seus números são 'reportado'. Um nome só entra com fonte própria, e nunca o de quem foi morto."
+      }
+    },
+    "violencia-policial": {
+      "oQueE": {
+        "pt": "Operações policiais e mortes em ação do Estado, com a situação de cada inquérito e processo escrita na ficha: investigado, denunciado, réu, condenado, absolvido ou arquivado.",
+        "en": "Police operations and deaths in state action, with the status of each inquiry and case written on the record: investigated, charged, defendant, convicted, acquitted or shelved.",
+        "es": "Operativos policiales y muertes en acción del Estado, con la situación de cada investigación y proceso escrita en la ficha: investigado, denunciado, acusado, condenado, absuelto o archivado.",
+        "fr": "Opérations policières et morts lors d'actions de l'État, avec la situation de chaque enquête et procédure indiquée sur la fiche : enquêté, mis en accusation, prévenu, condamné, acquitté ou classé.",
+        "ru": "Полицейские операции и гибель людей при действиях государства; статус каждого расследования и дела указан в карточке: подозреваемый, обвиняемый, подсудимый, осуждённый, оправданный или дело прекращено.",
+        "zh": "警察行动与国家行动中的死亡事件，每份档案写明调查和诉讼状态：被调查、被起诉、被告、被判有罪、被宣告无罪或已归档。"
+      },
+      "porQueImporta": {
+        "pt": "A polícia é o braço do Estado que pode usar a força letal; por isso o controle externo e a apuração independente são parte do Estado de Direito. Muitos inquéritos terminam arquivados sem julgamento. Mostrar a fase de cada caso, com a data, expõe esse desfecho.",
+        "en": "The police are the arm of the state that may use lethal force; external oversight and independent investigation are therefore part of the rule of law. Many inquiries end shelved without a trial. Showing each case's stage, with its date, exposes that outcome.",
+        "es": "La policía es el brazo del Estado que puede usar fuerza letal; por eso el control externo y la investigación independiente son parte del Estado de Derecho. Muchas investigaciones terminan archivadas sin juicio. Mostrar la fase de cada caso, con su fecha, expone ese desenlace.",
+        "fr": "La police est le bras de l'État qui peut user de la force létale ; le contrôle externe et l'enquête indépendante font donc partie de l'État de droit. Beaucoup d'enquêtes sont classées sans procès. Montrer l'étape de chaque affaire, avec sa date, met ce dénouement en lumière.",
+        "ru": "Полиция — орган государства, вправе применять смертельную силу; поэтому внешний контроль и независимое расследование — часть правового государства. Многие дела закрываются без суда. Стадия каждого дела с датой показывает такой исход.",
+        "zh": "警察是国家中可使用致命武力的部门，因此外部监督和独立调查是法治的一部分。许多调查未经审判即被归档。标明每案的阶段和日期，可以让这一结果显现出来。"
+      },
+      "fontesPrincipais": ["fbsp", "rede-observatorios", "fogo-cruzado", "sou-da-paz", "mpf", "stf-stj", "ponte", "alma-preta", "justica-global", "atlas-violencia"],
+      "dados": [
+        {
+          "rotulo": { "pt": "Mortes decorrentes de intervenção policial em 2025", "en": "Deaths from police intervention in 2025" },
+          "valor": "6.602 (+5,4% sobre 2024)",
+          "ano": 2025,
+          "fonteId": "fbsp",
+          "veiculo": "Fórum Brasileiro de Segurança Pública (Anuário Brasileiro de Segurança Pública 2026)",
+          "nivel": "reportado",
+          "url": "https://fontesegura.forumseguranca.org.br/policia-para-quem-precisa-de-policia-o-que-os-numeros-do-anuario-brasileiro-de-seguranca-publica-2026-apontam-sobre-a-atividade-policial/",
+          "observacao": "Texto do FBSP (Fonte Segura) sobre o Anuário 2026: 'letalidade policial, com 6.602 vítimas e aumento de 5,4% em relação a 2024'. O PDF do Anuário (forumseguranca.org.br/wp-content/uploads/2026/07/anuario-2026.pdf) não foi lido: conferir a série e a base de 2024 antes de citar fora daqui.",
+          "lidoEm": "2026-11-04"
+        }
+      ],
+      "limites": {
+        "pt": "O Anuário é agregado e o Vale o Escrito nunca guarda nome de vítima de fonte agregada (DATASUS, Disque 100, Fogo Cruzado, Rede de Observatórios, Atlas da Violência). Cada ficha individual diz o que a fonte diz e nada além: 'investigado' não é 'culpado'."
+      }
+    },
+    "trabalho-escravo": {
+      "oQueE": {
+        "pt": "Empregadores flagrados em trabalho análogo ao de escravo (Código Penal, art. 149), a 'lista suja' e o estágio de cada processo.",
+        "en": "Employers caught using slave-like labour (Penal Code, art. 149), the federal \"dirty list\" and the stage of each case.",
+        "es": "Empleadores sorprendidos en trabajo análogo al esclavo (Código Penal, art. 149), la \"lista sucia\" y la etapa de cada proceso.",
+        "fr": "Employeurs pris en flagrant délit de travail analogue à l'esclavage (Code pénal, art. 149), « liste noire » fédérale et état de chaque procédure.",
+        "ru": "Работодатели, уличённые в труде, схожем с рабским (Уголовный кодекс, ст. 149), «грязный список» и стадия каждого дела.",
+        "zh": "被查出使用类似奴役劳动的雇主（《刑法》第149条）、联邦“黑名单”，以及各案进展。"
+      },
+      "porQueImporta": {
+        "pt": "O trabalho análogo ao de escravo é crime e não prescreve para o TRF6, em decisão de março de 2026. A lista suja, atualizada duas vezes por ano, é pública por decisão do STF (ADPF 509) e não é sanção; ligar a lista ao processo mostra se a cadeia econômica foi alcançada ou só o último elo.",
+        "en": "Slave-like labour is a crime, and in a March 2026 ruling the TRF6 held it does not lapse with time. The \"dirty list\", updated twice a year, is public by decision of the Supreme Court (ADPF 509) and is not a sanction; linking the list to the case shows whether the economic chain was reached or only the last link.",
+        "es": "El trabajo análogo al esclavo es delito y, en decisión de marzo de 2026, el TRF6 entendió que no prescribe. La lista sucia, actualizada dos veces al año, es pública por decisión del STF (ADPF 509) y no es sanción; unir la lista al proceso muestra si se alcanzó la cadena económica o solo el último eslabón.",
+        "fr": "Le travail analogue à l'esclavage est un crime et, dans une décision de mars 2026, le TRF6 a jugé qu'il ne se prescrit pas. La liste noire, mise à jour deux fois par an, est publique par décision du STF (ADPF 509) et n'est pas une sanction ; relier la liste à la procédure montre si la chaîne économique a été atteinte ou seulement le dernier maillon.",
+        "ru": "Труд, схожий с рабским, — преступление, и в решении от марта 2026 года TRF6 признал, что срок давности не применяется. «Грязный список», обновляемый дважды в год, публичен по решению STF (ADPF 509) и не является санкцией; связь списка с делом показывает, затронута ли вся цепочка или лишь последнее звено.",
+        "zh": "类似奴役劳动是犯罪，TRF6在2026年3月的裁决中认定其不适用时效。每年更新两次的“黑名单”依最高法院裁决（ADPF 509）公开，不属于制裁；把名单与案件联系起来，可以看出追究的是整个经济链条还是仅最后一环。"
+      },
+      "fontesPrincipais": ["lista-suja", "reporter-brasil", "mpf", "datajud", "cpt", "portal-transparencia"],
+      "dados": [
+        {
+          "rotulo": { "pt": "Empregadores incluídos na atualização de outubro de 2026 do Cadastro (lista suja)", "en": "Employers added in the October 2026 update of the register (\"dirty list\")" },
+          "valor": "82 (54 pessoas físicas e 28 jurídicas), 553 trabalhadores",
+          "ano": 2026,
+          "fonteId": "lista-suja",
+          "veiculo": "Ministério do Trabalho e Emprego",
+          "nivel": "oficial",
+          "url": "https://www.gov.br/trabalho-e-emprego/pt-br/noticias-e-conteudo/2026/outubro/201clista-suja201d-do-trabalho-analogo-a-escravidao-e-atualizada-com-82-novos-empregadores",
+          "observacao": "Casos identificados pela Inspeção do Trabalho entre 2024 e 2026; 21 unidades da Federação; Minas Gerais lidera (19), depois a Bahia (8). O MTE diz que é uma redução de cerca de 51,48% sobre a atualização anterior (a de abril de 2026, que segundo busca no portal do MTE teve 169 inclusões; esse número não foi lido na página). Cada nome fica dois anos; a inclusão só ocorre depois de decisão administrativa irrecorrível.",
+          "lidoEm": "2026-11-04"
+        }
+      ],
+      "limites": {
+        "pt": "Estar na lista é fato administrativo (auto de infração sem recurso), não condenação criminal: a ficha escreve as duas coisas separadas. Pessoa física só aparece com a fonte do cadastro ou do processo."
+      }
+    },
+    "crimes-ambientais": {
+      "oQueE": {
+        "pt": "Desmatamento, garimpo, queimadas, extração ilegal de madeira e desastres ambientais, com os responsáveis já apontados em processo, investigação oficial ou reportagem, e a situação jurídica de cada um.",
+        "en": "Deforestation, illegal mining, fires, illegal logging and environmental disasters, with those responsible already named in a court case, official investigation or news story, and each one's legal status.",
+        "es": "Deforestación, minería ilegal, incendios, tala ilegal y desastres ambientales, con los responsables ya señalados en proceso, investigación oficial o reportaje, y la situación jurídica de cada uno.",
+        "fr": "Déforestation, orpaillage illégal, incendies, exploitation forestière illégale et catastrophes environnementales, avec les responsables déjà désignés dans une procédure, une enquête officielle ou un reportage, et la situation juridique de chacun.",
+        "ru": "Вырубка лесов, незаконная добыча, пожары, незаконные рубки и экологические катастрофы; ответственные, уже названные в деле, официальном расследовании или репортаже, и их правовой статус.",
+        "zh": "毁林、非法采矿、火灾、非法采伐和环境灾难，列出已见于诉讼、官方调查或报道的责任人及其法律状态。"
+      },
+      "porQueImporta": {
+        "pt": "O desmatamento e os desastres de mineração têm autores e donos; o dado de satélite mostra onde e quanto, e o processo mostra quem responde. Só o cruzamento dos dois permite dizer se a queda do desmatamento vem acompanhada de responsabilização.",
+        "en": "Deforestation and mining disasters have perpetrators and owners; satellite data show where and how much, and the case file shows who answers for it. Only combining the two can tell whether falling deforestation comes with accountability.",
+        "es": "La deforestación y los desastres mineros tienen autores y dueños; el dato satelital muestra dónde y cuánto, y el proceso muestra quién responde. Solo cruzar ambos permite saber si la caída de la deforestación viene acompañada de responsabilización.",
+        "fr": "La déforestation et les catastrophes minières ont des auteurs et des propriétaires ; les données satellite montrent où et combien, la procédure montre qui en répond. Seul le croisement des deux permet de savoir si la baisse de la déforestation s'accompagne de responsabilisation.",
+        "ru": "У вырубки лесов и горнодобывающих катастроф есть исполнители и владельцы; спутниковые данные показывают где и сколько, а дело — кто отвечает. Только сопоставление позволяет понять, сопровождается ли снижение вырубки ответственностью.",
+        "zh": "毁林和采矿灾难有责任人和所有者；卫星数据显示地点和规模，案卷显示谁来负责。只有把两者对照，才能判断毁林下降是否伴随着追责。"
+      },
+      "fontesPrincipais": ["inpe", "mapbiomas", "ibama", "imazon", "observatorio-do-clima", "infoamazonia", "mpf", "isa"],
+      "dados": [
+        {
+          "rotulo": { "pt": "Desmatamento na Amazônia Legal, Prodes 2025 (agosto de 2024 a julho de 2025)", "en": "Deforestation in the Legal Amazon, Prodes 2025 (August 2024 to July 2025)" },
+          "valor": "5.731 km² (-12,07% sobre 2024, que teve 6.518 km²)",
+          "ano": 2025,
+          "fonteId": "inpe",
+          "veiculo": "INPE (Prodes)",
+          "nivel": "oficial",
+          "url": "https://www.gov.br/inpe/pt-br/assuntos/ultimas-noticias/sistema-do-inpe-aponta-5-731-km2-de-desmatamento-na-amazonia-em-2025",
+          "observacao": "Taxa consolidada. O próprio INPE tem divulgação de 2026 (agosto de 2025 a julho de 2026) que não foi lida aqui.",
+          "lidoEm": "2026-11-04"
+        },
+        {
+          "rotulo": { "pt": "Desmatamento no Brasil em 2025, todos os biomas (RAD2025)", "en": "Deforestation in Brazil in 2025, all biomes (RAD2025)" },
+          "valor": "984.794 hectares (-20,6% sobre 2024)",
+          "ano": 2025,
+          "fonteId": "mapbiomas",
+          "veiculo": "MapBiomas Alerta (Relatório Anual do Desmatamento 2025)",
+          "nivel": "oficial",
+          "url": "https://alerta.mapbiomas.org/wp-content/uploads/sites/17/2026/05/Factsheet-RAD-26052026-1.pdf",
+          "observacao": "Ficha-resumo do RAD2025 (maio de 2026), lida em PDF. O MapBiomas não é órgão do governo: o catálogo o lista entre as fontes 'oficiais' por usar imagem de satélite e método aberto, mas o dado é de uma rede de organizações; marcado aqui como número de monitoramento.",
+          "lidoEm": "2026-11-04"
+        }
+      ],
+      "limites": {
+        "pt": "Os números de satélite não têm autor: por isso mapa e dossiê os trazem como dado agregado, sem nome. Quem responde por um caso só aparece com fonte de processo ou investigação oficial."
+      }
+    },
+    "dinheiro-publico": {
+      "oQueE": {
+        "pt": "Desvio, fraude, corrupção e má aplicação de dinheiro público, com os envolvidos já apontados em processo, investigação oficial ou auditoria, e a situação de cada um.",
+        "en": "Embezzlement, fraud, corruption and misuse of public money, with those involved already named in a court case, official investigation or audit, and each one's status.",
+        "es": "Desvío, fraude, corrupción y mala aplicación de dinero público, con los implicados ya señalados en proceso, investigación oficial o auditoría, y la situación de cada uno.",
+        "fr": "Détournements, fraudes, corruption et mauvais usage de l'argent public, avec les personnes impliquées déjà désignées dans une procédure, une enquête officielle ou un audit, et la situation de chacune.",
+        "ru": "Хищения, мошенничество, коррупция и нецелевое использование госсредств; причастные, уже названные в деле, официальном расследовании или аудите, и их статус.",
+        "zh": "挪用、欺诈、腐败和滥用公款，列出已见于诉讼、官方调查或审计的涉事者及其状态。"
+      },
+      "porQueImporta": {
+        "pt": "O dinheiro público é de todos, e o Brasil tem uma Lei de Acesso à Informação (Lei 12.527/2011) para que se possa acompanhá-lo. Um contrato ou uma emenda só vira caso quando há auditoria, investigação ou processo; a ficha mostra em que fase está, para que 'investigado' não seja confundido com 'condenado'.",
+        "en": "Public money belongs to everyone, and Brazil has an Access to Information Law (Law 12.527/2011) so it can be followed. A contract or an amendment only becomes a case when there is an audit, investigation or lawsuit; the record shows the stage, so that \"investigated\" is not mistaken for \"convicted\".",
+        "es": "El dinero público es de todos y Brasil tiene una Ley de Acceso a la Información (Ley 12.527/2011) para poder seguirlo. Un contrato o una enmienda solo se convierte en caso cuando hay auditoría, investigación o proceso; la ficha muestra la fase, para que \"investigado\" no se confunda con \"condenado\".",
+        "fr": "L'argent public appartient à tous, et le Brésil a une loi d'accès à l'information (loi 12.527/2011) pour pouvoir le suivre. Un contrat ou un amendement ne devient une affaire que s'il y a audit, enquête ou procédure ; la fiche montre l'étape, pour que « enquêté » ne soit pas confondu avec « condamné ».",
+        "ru": "Государственные деньги принадлежат всем, и в Бразилии есть закон о доступе к информации (закон 12.527/2011), чтобы их можно было отслеживать. Контракт или поправка становятся делом только при аудите, расследовании или иске; карточка показывает стадию, чтобы «расследуемый» не путали с «осуждённым».",
+        "zh": "公款属于全民，巴西有《信息获取法》（第12.527/2011号法）以便追踪。合同或预算修正案只有在出现审计、调查或诉讼时才成为案件；档案标明阶段，避免把“被调查”误认为“被判有罪”。"
+      },
+      "fontesPrincipais": ["portal-transparencia", "tcu", "dou", "querido-diario", "camara", "senado", "tse", "cnpj", "pf", "mpf", "datajud"],
+      "dados": [
+        {
+          "rotulo": { "pt": "Descontos associativos não autorizados em aposentadorias e pensões do INSS, 2019 a 2024 (valor estimado)", "en": "Unauthorised association deductions from INSS pensions, 2019 to 2024 (estimated amount)" },
+          "valor": "R$ 6,3 bilhões",
+          "ano": 2025,
+          "fonteId": "portal-transparencia",
+          "veiculo": "CGU e Polícia Federal (Operação Sem Desconto)",
+          "nivel": "oficial",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/04/cgu-e-pf-combatem-descontos-nao-autorizados-em-beneficios-do-inss",
+          "observacao": "Nota da CGU de 23/04/2025: 'as entidades cobraram o valor estimado de R$ 6,3 bilhões'. É estimativa de investigação em curso, não valor reconhecido em decisão. O catálogo do Vale o Escrito não tem a CGU como fonte própria (o Portal da Transparência é da CGU); ver relatório.",
+          "lidoEm": "2026-11-04"
+        },
+        {
+          "rotulo": { "pt": "Emendas individuais com planos de trabalho não cadastrados corretamente, que o ministro Flávio Dino mandou a PF investigar (agosto de 2025)", "en": "Individual amendments with improperly registered work plans that Justice Flávio Dino ordered the Federal Police to investigate (August 2025)" },
+          "valor": "R$ 694,6 milhões em 964 planos de trabalho",
+          "ano": 2025,
+          "fonteId": "tcu",
+          "veiculo": "JB, citando nota técnica do TCU",
+          "nivel": "reportado",
+          "url": "https://www.jb.com.br/brasil/justica/2025/08/1056667-dino-determina-que-pf-investigue-rs-694-milhoes-em-emendas-parlamentares-sem-registro.html",
+          "observacao": "Segundo o JB, o valor é de nota técnica do TCU; a nota do TCU não foi lida. Inquérito não é acusação.",
+          "lidoEm": "2026-11-04"
+        }
+      ],
+      "limites": {
+        "pt": "Ninguém é nomeado só por ter recebido ou liberado dinheiro: o nome entra se a fonte primária já o aponta no caso. Dado pessoal (CPF, endereço, renda) nunca entra; de empresa, só o CNPJ."
+      }
+    }
+  }
+}

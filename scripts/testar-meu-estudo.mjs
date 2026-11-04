@@ -64,7 +64,7 @@ conferir("sem variável, só os padrões", Object.keys(RECURSOS).every((r) => li
 conferir("escola não é padrão", !PADRAO.includes("escola") && !ligado("escola", lerRecursos(undefined)));
 conferir("lista com espaços e maiúsculas", ligado("escola", lerRecursos(" Escola , exercicios")) && ligado("enem-curso", lerRecursos("meu-estudo,enem-curso")) && !ligado("enem-video", lerRecursos("enem-curso")));
 conferir("todos liga tudo menos o que é só pelo nome", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos")) === !SO_PELO_NOME.includes(r)));
-conferir("todos com escola liga tudo", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos,escola"))));
+conferir("todos com os só pelo nome liga tudo", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos(`todos,${SO_PELO_NOME.join(",")}`))));
 conferir("-nome desliga um padrão", !ligado("vlibras", lerRecursos("-vlibras")) && ligado("meu-estudo", lerRecursos("-vlibras")) && !ligado("vlibras", lerRecursos("todos,-vlibras")));
 conferir("nenhum desliga os padrões", PADRAO.every((r) => !ligado(r, lerRecursos("nenhum"))) && ligado("turma", lerRecursos("nenhum,turma")));
 
