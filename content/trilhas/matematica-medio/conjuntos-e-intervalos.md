@@ -30,6 +30,10 @@ quiz:
     explicacao: "O 3 fica de fora (colchete virado para fora) e o 10 entra (colchete virado para dentro)."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar conjuntos, união, interseção e diferença para organizar e contar grupos, reconhecer os conjuntos numéricos e escrever e ler intervalos, como os que aparecem em leis e editais.
+
 ## Juntar coisas em um grupo
 
 Um **conjunto** é uma coleção de coisas, chamadas **elementos**. Os moradores de uma rua, as letras do seu nome, os números pares. A ideia é simples, e quase toda a matemática pode ser escrita com ela.
@@ -123,3 +127,11 @@ Leis, editais e regras de benefício estão cheios de intervalos escondidos em e
 5. Um edital aceita candidatos "com mais de 18 e até 29 anos". Escreva como intervalo. Quem acabou de fazer 18 pode se inscrever?
 
 **Respostas:** 1) {1, 3, 5, 6, 7, 9, 12}; {3, 9}; {1, 5, 7}. 2) Falso; verdadeiro; falso (√9 = 3). 3) 10. 4) [−1, 4[. 5) ]18, 29]. Pela letra do edital, só quem tem mais de 18; na prática, vale conferir como o edital conta a idade.
+
+## Resumo
+
+- Conjunto é uma coleção de elementos; ∈ diz que pertence, ∅ é o conjunto vazio.
+- União (∪) é "ou", interseção (∩) é "e", diferença (A − B) é o que está em A e não em B.
+- Para contar sem contar duas vezes: soma-se e tira-se a interseção (18 + 15 − 8 = 25).
+- ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ; irracionais, como √2 e π, têm decimais que nunca terminam nem se repetem.
+- Intervalo é um pedaço da reta; o colchete para dentro inclui a ponta, para fora exclui.

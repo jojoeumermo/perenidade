@@ -33,6 +33,10 @@ quiz:
     explicacao: "40² + 40 + 41 = 1.681 = 41². Exemplos, por mais numerosos, não substituem uma demonstração."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler proposições e conectivos, reconhecer argumentos válidos e falácias, negar "todos" e "algum" e acompanhar as demonstrações direta, por contrapositiva, por absurdo e por indução.
+
 ## Por que demonstrar
 
 Nas ciências da natureza, uma teoria é aceita enquanto os experimentos a confirmam. Na matemática, o padrão é outro: uma afirmação só vira **teorema** quando é **demonstrada**, isto é, deduzida, passo a passo, de afirmações já aceitas. Depois disso, vale para sempre e em todos os casos.
@@ -130,6 +134,17 @@ Essa demonstração tem mais de dois mil anos e continua sendo um modelo: curta,
 
 Logo, vale para todos.
 
+## Exemplo resolvido
+
+**A expressão n² + n + 41 dá número primo para todo n?**
+
+1. Teste alguns valores: para n = 0, 1, 2, 3... até 39, o resultado é primo. São quarenta acertos seguidos.
+2. Testar não prova que vale sempre. Para derrubar "dá primo para todo n", basta **um contraexemplo**. Teste n = 40.
+3. Calcule: 40² + 40 + 41 = 1.600 + 40 + 41 = 1.681.
+4. Fatore: 41 × 41 = 1.681. O resultado não é primo.
+
+Conclusão: a afirmação "para todo n, o resultado é primo" é falsa, apesar dos quarenta acertos. Confira: a negação de "todos" é "existe um que não", e o n = 40 é esse.
+
 ## O ponto de partida
 
 Toda demonstração se apoia em afirmações anteriores, e estas em outras. A cadeia tem de começar em algum lugar: nos **axiomas**, afirmações aceitas sem prova. Euclides organizou a geometria assim, a partir de cinco postulados.
@@ -152,3 +167,13 @@ Distinguir uma condicional da sua recíproca, saber negar um "todos", exigir que
 6. Mostre por indução que 2 + 4 + 6 + ... + 2n = n(n + 1).
 
 **Respostas:** 1) Se não é brasileiro, não é paulista. 2) Existe pelo menos um banco que não cobra tarifa. 3) Inválido (afirma o consequente). 4) (2a + 1) + (2b + 1) = 2(a + b + 1). 5) 6, por exemplo. 6) Para n = 1: 2 = 1 × 2. Supondo para n e somando 2(n + 1): n(n + 1) + 2(n + 1) = (n + 1)(n + 2).
+
+## Resumo
+
+- Em matemática, uma afirmação só vira teorema quando é demonstrada; testar exemplos não basta.
+- Proposição é uma frase verdadeira ou falsa; os conectivos são não, e, ou, se... então e se e somente se.
+- A contrapositiva diz o mesmo que a condicional original; a recíproca e a inversa, não.
+- Negar "todos" dá "existe um que não"; um contraexemplo derruba uma afirmação do tipo "todo".
+- Argumento válido: a conclusão decorre das premissas. Afirmar o consequente e negar o antecedente são falácias.
+- Demonstrações: direta, pela contrapositiva, por absurdo e por indução.
+- Axiomas são escolhas, e Gödel mostrou que nenhum sistema coerente e capaz de expressar a aritmética prova tudo.

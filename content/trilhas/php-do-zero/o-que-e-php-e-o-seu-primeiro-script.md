@@ -88,3 +88,30 @@ Apague o ponto e vírgula do primeiro `echo` de um dos exemplos e execute. O PHP
 1. Escreva um script que mostre o seu nome em uma linha e a sua cidade em outra.
 2. Faça o PHP calcular quantas horas há em um ano de 365 dias.
 3. Provoque um erro de propósito e localize a linha indicada na mensagem.
+
+## Exemplo resolvido
+
+**Escreva um script que mostre, em uma frase, quantos minutos há em um dia.**
+
+1. Abra o código com `<?php`.
+2. Um dia tem 24 horas e cada hora tem 60 minutos: o PHP faz a conta `24 * 60`, sem precisar de aspas.
+3. Cada `echo` termina com ponto e vírgula. O `\n` no fim da frase muda de linha.
+
+```php
+<?php
+echo "Um dia tem ";
+echo 24 * 60;
+echo " minutos.\n";
+```
+
+O programa mostra `Um dia tem 1440 minutos.`
+
+Confira: 24 × 60 = 1440. E repare que o texto está entre aspas, mas a conta não: o que está entre aspas é mostrado como foi escrito; o que está sem aspas, o PHP calcula.
+
+## Resumo
+
+- PHP é uma linguagem para páginas da web: o servidor executa o código e envia o resultado pronto ao navegador.
+- O código começa em `<?php` e cada instrução termina em ponto e vírgula.
+- `echo` escreve na saída; `\n` dentro de aspas duplas muda de linha.
+- Comentários: `//`, `#` e `/* ... */`.
+- Ler a mensagem de erro com calma ajuda: a linha indicada pode ser a seguinte à do problema.

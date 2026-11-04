@@ -24,6 +24,10 @@ quiz:
     explicacao: "São gêneros com finalidades diferentes, embora apareçam no mesmo jornal."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre tipo e gênero textual, reconhecer um gênero pelas quatro perguntas e escolher o gênero certo para cada situação da vida prática.
+
 ## Ninguém escreve "um texto"
 
 Ninguém se senta para escrever "um texto". Escreve-se um bilhete, uma mensagem, um currículo, uma reclamação, uma ata. Cada um desses é um **gênero textual**: um modelo de texto que a sociedade criou para resolver um tipo de situação.
@@ -97,6 +101,26 @@ Dois cuidados:
 
 - **O gênero engana.** Um anúncio pode se vestir de notícia; uma opinião, de reportagem; uma corrente anônima, de comunicado oficial. Antes de acreditar, pergunte que gênero é aquele **de verdade**: quem escreveu, para quê, e onde foi publicado originalmente.
 - **O que se escreve fica.** Uma mensagem em grupo pode ser copiada, reenviada e usada como prova. Escrever em rede é escrever em público.
+
+## Exemplo resolvido: que gênero é este?
+
+Situação: moradores querem que o posto de saúde volte a abrir aos sábados e passam de casa em casa uma folha com o pedido e espaço para assinar.
+
+1. **Para que serve?** Reivindicar algo em conjunto.
+2. **Quem escreve e para quem?** Um grupo de moradores, para quem decide sobre o posto.
+3. **Onde circula?** Em papel, de mão em mão, e depois é entregue à autoridade (o suporte).
+4. **Que forma tem?** Um texto curto com o pedido, seguido de nomes e assinaturas.
+5. **Conclusão:** é um **abaixo-assinado**. Não é um requerimento, que parte de uma só pessoa; não é um panfleto, que convoca e divulga.
+
+Confira: o que definiu o gênero foi a função social (reivindicar coletivamente), e não o tipo de texto.
+
+## Resumo
+
+- Gênero textual é um modelo de texto que a sociedade criou para resolver um tipo de situação; ele muda, nasce e morre.
+- Tipos textuais são poucos (narrativo, descritivo, expositivo, argumentativo, injuntivo); gêneros são incontáveis.
+- Um mesmo gênero costuma misturar vários tipos; o que o define é a função social.
+- Quatro perguntas ajudam a reconhecê-lo: para que serve, quem escreve e para quem, onde circula, que forma tem.
+- Dominar um gênero é poder agir na esfera em que ele circula; na internet, o gênero pode enganar.
 
 ## Para praticar
 

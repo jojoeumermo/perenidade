@@ -27,6 +27,10 @@ quiz:
     explicacao: "A quinta competência pede uma proposta de intervenção para o problema, com respeito aos direitos humanos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre tema, tese e argumento, montar um texto dissertativo-argumentativo com introdução, desenvolvimento e conclusão e escrever uma proposta de intervenção completa.
+
 ## Dissertar e argumentar
 
 **Dissertar** é expor ideias sobre um assunto. **Argumentar** é defender uma posição, dando razões. O **texto dissertativo-argumentativo** faz as duas coisas: apresenta um tema e defende, com argumentos, um ponto de vista sobre ele.
@@ -131,6 +135,25 @@ Entre os motivos que levam à nota zero estão: fugir totalmente do tema, não e
 ## Argumentar para quê
 
 A escola costuma tratar a dissertação como um ritual para ganhar nota. Ela é mais que isso. Quem aprende a sustentar uma posição com razões, a prever a objeção e a propor uma saída, aprende a participar: da assembleia do sindicato, da audiência pública, do conselho da escola. E aprende, do outro lado, a reconhecer quando um discurso não tem argumento nenhum.
+
+## Exemplo resolvido: do tema à proposta
+
+1. **Tema:** a iluminação das ruas do bairro. Isso é só um assunto: ainda não se defende nada.
+2. **Tese:** "A iluminação pública deve ser tratada como serviço essencial, com prazo fixo para trocar lâmpadas queimadas." Agora há uma posição que pode ser defendida.
+3. **Argumento, de causa e consequência:** com a rua apagada, quem volta do trabalho à noite anda com receio, e calçadas e praças deixam de ser usadas. Depois de apresentar o argumento, explique o que ele prova: o espaço público, que é de todos, fica menos usado por quem mais precisa dele.
+4. **Objeção e resposta:** "É verdade que a manutenção custa aos cofres públicos. Mas ruas escuras também têm custo, pago por quem deixa de circular com tranquilidade."
+5. **Proposta de intervenção, com agente, ação, meio e efeito:** "A prefeitura (agente) deve fixar um prazo para trocar lâmpadas queimadas (ação), por meio de um telefone gratuito em que o morador registre o defeito (meio), para que ninguém precise andar no escuro (efeito)."
+
+Confira: a tese afirma uma posição, o argumento tem explicação, a objeção foi respondida e a proposta diz o que fazer, quem faz, como e para quê.
+
+## Resumo
+
+- Dissertar é expor ideias; argumentar é defender uma posição com razões. O texto dissertativo-argumentativo faz as duas coisas.
+- Tema é o assunto; tese é a posição; argumentos são as razões que a sustentam. Sem tese, o texto só informa; sem argumentos, só opina.
+- Estrutura: introdução (tema e tese), desenvolvimento (um argumento por parágrafo) e conclusão.
+- Dado tem fonte, citação tem de ser verdadeira e o argumento precisa ser explicado.
+- Um texto forte considera a objeção e responde a ela; argumentos que não valem incluem atacar a pessoa, generalizar de um caso e apelar à maioria.
+- No ENEM, a proposta de intervenção traz ação, agente, meio e efeito, com respeito aos direitos humanos.
 
 ## Para praticar
 

@@ -27,6 +27,10 @@ quiz:
     explicacao: "É o que Austin chamou de enunciado performativo: dizer é fazer."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre semântica e pragmática, reconhecer relações entre palavras (sinonímia, polissemia, homonímia), perceber pressuposições e implicaturas e entender que dizer também é fazer.
+
 ## Dois tipos de sentido
 
 - A **semântica** estuda o significado das palavras e das frases, em si.
@@ -96,6 +100,27 @@ A implicatura tem uma propriedade útil para quem fala: **pode ser negada**. "Eu
 ## Contexto
 
 Algumas palavras só ganham sentido na situação: *eu, você, aqui, ali, hoje, amanhã, este*. São os **dêiticos**. Um bilhete que diz "Volto daqui a uma hora", sem assinatura e sem horário, não informa nada.
+
+## Exemplo resolvido: uma frase, três camadas de sentido
+
+Frase, dita por uma moradora a outra: "O síndico finalmente consertou o portão."
+
+1. **Acarretamento.** Se a frase é verdadeira, outra também é: "O portão foi consertado."
+2. **Pressuposição.** A palavra *finalmente* dá como já sabido que o conserto era esperado e que demorou. A frase não afirma isso: passa a informação sem afirmá-la.
+3. **Pragmática.** Dependendo de quem diz, a quem e em que tom, a frase pode ser só uma notícia ou uma crítica à demora, isto é, um ato indireto. O sentido em uso depende da situação, e não só das palavras.
+4. **Conotação.** Se a moradora dissesse "O síndico consertou o portão", a informação dada seria a mesma, mas sem o julgamento que *finalmente* carrega.
+
+Confira: o que está nas palavras (acarretamento) é diferente do que a frase dá como sabido (pressuposição) e do que ela faz na conversa (pragmática).
+
+## Resumo
+
+- Semântica estuda o significado em si; pragmática estuda o significado em uso, numa situação.
+- Relações entre palavras: sinonímia, antonímia, polissemia, homonímia e hiperonímia. Não há sinônimos perfeitos: a denotação é o sentido básico, e a conotação, as associações e avaliações.
+- Há disputa política pelas palavras (invasão e ocupação, reforma e corte).
+- Ambiguidade, acarretamento e pressuposição são fenômenos do sentido da frase; a pressuposição passa informação sem afirmá-la.
+- Segundo Austin, enunciados performativos fazem coisas, e todo enunciado é um ato de fala; os atos indiretos têm forma de uma coisa e valor de outra.
+- Segundo Grice, a conversa se apoia em um princípio de cooperação, e a implicatura é o sentido que o ouvinte conclui e que pode ser negado.
+- Dêiticos (eu, aqui, hoje) só ganham sentido na situação.
 
 ## Para pesquisar e debater
 

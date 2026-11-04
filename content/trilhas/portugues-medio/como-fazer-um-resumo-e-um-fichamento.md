@@ -28,6 +28,10 @@ quiz:
     explicacao: "Sem autor, título, editora, ano e página, a anotação não poderá ser citada depois."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler com lápis na mão, fazer um resumo fiel com as suas palavras, montar um fichamento com referência, citações e comentários e citar sem cair no plágio.
+
 ## Ler para guardar
 
 Ler com atenção e, uma semana depois, não lembrar de nada: acontece com todo mundo. A memória retém pouco do que só passou pelos olhos. O que fica é aquilo que foi **trabalhado**: sublinhado, reorganizado, dito com as próprias palavras.

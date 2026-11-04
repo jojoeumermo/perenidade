@@ -27,6 +27,10 @@ quiz:
     explicacao: "Com 'que', o verbo concorda com o pronome anterior: fui eu que fiz. Com 'quem', o usual é a 3ª pessoa: fui eu quem fez."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber decidir a concordância nos casos difíceis: sujeito composto, porcentagens, "que" e "quem", o "se" que engana, o verbo ser e as palavras que variam ou não.
+
 A aula [Concordância: o básico](/trilhas/portugues-fundamental/concordancia-o-basico) apresenta as regras gerais. Aqui estão os casos em que mesmo quem escreve bastante para e pensa.
 
 ## O princípio
@@ -132,6 +136,22 @@ O verbo *ser* é o mais flexível: às vezes concorda com o que vem **depois**.
 Em vários pontos desta aula apareceu "ou": *votou ou votaram*, *apoia ou apoiam*, *subiu ou subiram*. Não é falha das gramáticas. A língua tem duas lógicas de concordância convivendo: a **gramatical**, que olha para a forma da palavra ("a maioria" é singular), e a do **sentido**, que olha para a ideia ("a maioria" são muitas pessoas).
 
 Isso ensina algo sobre a própria norma: ela é uma convenção feita por pessoas, com zonas de dúvida, e muda com o tempo. Quem escreve precisa conhecê-la bem, justamente para saber onde ela é firme e onde admite escolha.
+
+## Exemplo resolvido: o "se" em duas frases
+
+1. **"Vende-se casas."** Dá para passar para "casas são vendidas"? Dá. Então "casas" é o sujeito (plural) e o verbo concorda: **Vendem-se casas.**
+2. **"Precisam-se de pedreiros."** Há a preposição *de* logo depois do verbo. O sujeito é indeterminado e o verbo fica no singular: **Precisa-se de pedreiros.**
+
+Confira: o teste é sempre o mesmo. Tem preposição logo depois? Singular. Dá para dizer "são vendidas"? Plural.
+
+## Resumo
+
+- O verbo concorda com o núcleo do sujeito; o que acompanha o substantivo concorda com ele em gênero e número.
+- Sujeito composto antes do verbo vai para o plural; resumido por tudo, nada ou ninguém, fica no singular.
+- Com "que", o verbo concorda com a palavra anterior (fui eu que fiz); com "quem", o usual é a 3ª pessoa (fui eu quem fez).
+- "Vendem-se casas" (sujeito plural); "Precisa-se de pedreiros" (preposição, singular).
+- O verbo ser concorda com o número em horas e distâncias; só, mesmo, anexo e obrigado variam; palavras que modificam o verbo, como alto e caro em "falaram alto", não.
+- Quando a norma aceita duas formas, a língua tem duas lógicas convivendo: a da forma e a do sentido.
 
 ## Para praticar
 

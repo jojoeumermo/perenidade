@@ -27,6 +27,10 @@ quiz:
     explicacao: "Na indicação de horas, usa-se o acento grave: às 19 horas, à uma hora."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a regência dos verbos que mais geram dúvida, usar o teste do masculino para decidir a crase e saber onde ela sempre aparece, nunca aparece ou é opcional.
+
 ## Regência: quem pede o quê
 
 Algumas palavras exigem um complemento, e exigem que ele venha de certo jeito: com uma preposição determinada ou sem nenhuma. Essa exigência chama-se **regência**.
@@ -135,6 +139,15 @@ O acento grave não é enfeite. Ele informa que ali existe uma preposição.
 ## Uma palavra sobre o medo
 
 A crase virou símbolo de "português difícil", e muita gente trava. Não há motivo: são dois testes e uma lista curta. Mais importante: errar a crase não é errar o raciocínio. O texto com uma crase fora do lugar e uma boa ideia vale mais que o texto impecável e vazio. Aprenda a regra para que ninguém use a falta dela contra você.
+
+## Resumo
+
+- Regência é a exigência de certas palavras quanto à preposição do complemento: gostar de, confiar em, comprar (sem preposição).
+- Na norma-padrão: chegar e ir a; assistir ao jogo; obedecer ao regulamento; preferir uma coisa a outra; responder ao ofício; implicar sem "em".
+- Algumas formas da fala ("cheguei em casa", "vou no mercado") são regência viva do português brasileiro; em redações, concursos e documentos, cobra-se a norma-padrão.
+- Crase é a fusão da preposição a com o artigo a, marcada pelo acento grave; só há crase onde há os dois.
+- Teste do masculino: se aparece "ao", há crase. Teste do "vou a, volto da": se volta "da", há crase.
+- Sempre há crase nas horas e em expressões como à noite e à vista; nunca antes de palavra masculina, verbo e pronomes como ela e você.
 
 ## Para praticar
 

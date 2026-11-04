@@ -50,6 +50,10 @@ quiz:
     explicacao: "O relatório presta contas do que já aconteceu. O futuro aparece apenas nas recomendações."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que os textos acadêmicos têm em comum, reconhecer a estrutura do artigo (IMRaD), da resenha e do relatório e ajustar a linguagem para ser precisa e cuidadosa com o grau de certeza.
+
 Na universidade, no curso técnico ou no trabalho, chega o dia em que alguém pede um artigo, uma resenha ou um relatório. Muita gente trava porque acha que escrita acadêmica é escrever difícil, com palavras raras e frases longas. Não é. É escrever dentro de **gêneros** com regras conhecidas, e essas regras podem ser aprendidas como qualquer outra.
 
 Esta aula parte do que foi visto em [Como fazer um resumo e um fichamento](/trilhas/portugues-medio/como-fazer-um-resumo-e-um-fichamento) e em [O texto dissertativo-argumentativo](/trilhas/portugues-medio/o-texto-dissertativo-argumentativo).
@@ -152,6 +156,26 @@ Ninguém escreve um bom texto acadêmico de primeira. Um caminho que funciona:
 3. **Revise em camadas:** primeiro a estrutura (cada seção faz o que deve?), depois os parágrafos (cada um tem uma ideia central? veja [Como escrever um parágrafo](/trilhas/portugues-fundamental/como-escrever-um-paragrafo)), depois as frases e, por último, a ortografia.
 4. **Leia em voz alta:** frase que faz perder o fôlego está longa demais.
 5. **Peça leitura:** um colega de grupo de estudo enxerga o que você já não vê.
+
+## Exemplo resolvido: ajustando uma frase
+
+Frase de rascunho: "Hoje em dia, cada vez mais gente anda de bicicleta, e isso prova que a cidade melhorou."
+
+1. **Vago.** "Hoje em dia, cada vez mais" não diz quando nem quanto. Troque por período e dado, com a fonte: "Entre [ano] e [ano], o número de ciclistas aumentou [dado] (Sobrenome, ano)."
+2. **Certeza demais.** "Isso prova" afirma mais do que o dado permite. Troque por "isso indica" ou "os dados sugerem".
+3. **Conclusão maior que o dado.** O aumento de ciclistas não mostra, por si só, que "a cidade melhorou". Delimite o que o dado mostra: "maior procura por esse meio de transporte".
+4. **Versão ajustada:** "Entre [ano] e [ano], o número de ciclistas aumentou [dado] (Sobrenome, ano), o que indica maior procura por esse meio de transporte."
+
+Confira: o que está entre colchetes você preenche com o dado e a fonte reais. A frase final diz só o que se pode sustentar.
+
+## Resumo
+
+- Textos acadêmicos conversam com outros textos, sustentam o que afirmam, buscam clareza e precisão e seguem convenções de forma.
+- A linguagem é impessoal e mede a certeza (modalização): "os dados indicam", em vez de "isso prova".
+- O artigo tem elementos pré-textuais, textuais e pós-textuais; o que relata pesquisa segue o IMRaD (introdução, métodos, resultados e discussão).
+- A resenha pode ser descritiva ou crítica; a crítica apresenta, resume, avalia com argumentos e recomenda.
+- O relatório presta contas do que foi feito: usa o passado para as atividades e o presente para as conclusões.
+- Escrever é planejar, rascunhar, revisar em camadas (estrutura, parágrafos, frases, ortografia) e pedir leitura de outra pessoa.
 
 ## Para praticar
 

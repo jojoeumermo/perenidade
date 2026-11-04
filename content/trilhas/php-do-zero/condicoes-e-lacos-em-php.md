@@ -24,6 +24,10 @@ quiz:
     explicacao: "É um atalho para $i = $i + 1."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber fazer o PHP decidir entre caminhos com `if`, `elseif` e `else`, e repetir tarefas com `while`, `for` e `foreach`, sem cair em laço infinito.
+
 ## Decidir com if
 
 ```php
@@ -145,3 +149,45 @@ Saem 1 2 3 5 6 7.
 1. Dado um número em uma variável, diga se ele é par ou ímpar.
 2. Mostre a tabuada do 9.
 3. Some os números de 1 a 100 com um laço e mostre o total (deve dar 5050).
+
+## Qual laço usar
+
+Os três laços fazem repetição, mas cada um combina com uma situação:
+
+- **for**: quando você sabe quantas voltas quer dar ("de 1 a 10", "dez vezes");
+- **while**: quando a repetição depende de algo que muda no caminho ("enquanto a condição for verdadeira"); lembre-se de alterar a variável dentro do bloco, para a condição um dia ficar falsa;
+- **foreach**: quando há uma lista e você quer fazer algo com cada item dela.
+
+E a condição pode ficar dentro do laço: a cada volta o programa decide o que fazer com aquele valor. É a combinação mais usada, e o exemplo a seguir mostra um caso.
+
+## Exemplo resolvido
+
+**Qual é a soma dos números pares de 1 a 10?**
+
+1. Precisamos olhar cada número de 1 a 10: um `for` com `$i` indo de 1 a 10.
+2. Precisamos de uma variável para ir somando, que começa em zero: `$total = 0`.
+3. Em cada volta, só queremos os pares. Um número é par quando o resto da divisão por 2 é zero: `$i % 2 === 0`.
+4. Se for par, somamos `$i` ao total.
+
+```php
+<?php
+$total = 0;
+for ($i = 1; $i <= 10; $i++) {
+    if ($i % 2 === 0) {
+        $total = $total + $i;
+    }
+}
+echo "Soma dos pares: ", $total, "\n";
+```
+
+O laço passa por 2, 4, 6, 8 e 10 e o programa mostra `Soma dos pares: 30`.
+
+Confira à mão: 2 + 4 + 6 + 8 + 10 = 30.
+
+## Resumo
+
+- `if`, `elseif` e `else` escolhem um caminho; a condição vai entre parênteses e o bloco entre chaves.
+- `&&` (e), `||` (ou) e `!` (não) juntam condições.
+- `while` repete enquanto a condição for verdadeira; sem mudar a variável, vira laço infinito.
+- `for` reúne começo, condição e passo; `foreach` percorre uma lista.
+- `break` sai do laço; `continue` pula para a próxima volta.

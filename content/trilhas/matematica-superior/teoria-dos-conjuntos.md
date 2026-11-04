@@ -29,6 +29,10 @@ quiz:
     explicacao: "Pelo argumento da diagonal, qualquer lista de números reais deixa algum de fora."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar o conjunto das partes e o produto cartesiano, classificar funções em injetora, sobrejetora e bijetora e explicar, com a ideia de emparelhar, por que existem infinitos de tamanhos diferentes.
+
 A aula [Conjuntos e intervalos](/trilhas/matematica-medio/conjuntos-e-intervalos) apresenta a linguagem básica: pertencer, união, interseção. Aqui vamos mais longe, até a pergunta que deu origem à teoria: o que é o infinito?
 
 ## O conjunto das partes
@@ -38,6 +42,16 @@ Dado um conjunto A, pode-se formar o conjunto de **todos os seus subconjuntos**,
 Para A = {a, b, c}: ∅, {a}, {b}, {c}, {a, b}, {a, c}, {b, c} e {a, b, c}. São 8.
 
 Para montar um subconjunto, decide-se, elemento por elemento, se ele entra ou não: duas opções para cada um. Um conjunto com n elementos tem **2^n** subconjuntos. Com 10 elementos, 1.024; com 20, mais de um milhão.
+
+## Exemplo resolvido
+
+**Quantos subconjuntos tem o conjunto D = {a, b, c, d}?**
+
+1. Para montar um subconjunto, decida, elemento por elemento, se ele entra ou não: duas opções para cada um.
+2. São quatro elementos: 2 × 2 × 2 × 2 = 2⁴ = 16.
+3. Outro jeito de ver: os 8 subconjuntos de {a, b, c} (listados acima) ficam como estão, sem o d; e os mesmos 8 ganham o d. Somando, 8 + 8 = 16.
+
+Confira: um conjunto com n elementos tem 2^n subconjuntos, e 2⁴ = 16, o mesmo resultado dos dois caminhos.
 
 ## Produto cartesiano
 
@@ -148,3 +162,13 @@ A história lembra que a matemática não avança só por acúmulo tranquilo de 
 6. Explique, com as suas palavras, por que o número construído pela diagonal não pode estar na lista.
 
 **Respostas:** 1) ∅, {1}, {2} e {1, 2}; 32. 2) 6. 3) Não é injetora (2 e −2 dão 4) nem sobrejetora (nenhum real tem quadrado −1). 4) n → 5n. 5) Manda cada hóspede do quarto n para o quarto n + 3; ficam livres os quartos 1, 2 e 3. 6) Porque ele difere de cada número da lista em pelo menos uma casa decimal.
+
+## Resumo
+
+- Um conjunto com n elementos tem 2^n subconjuntos; todos eles formam o conjunto das partes.
+- Produto cartesiano A × B: todos os pares (a, b); o plano é ℝ × ℝ.
+- Função injetora: elementos diferentes vão a elementos diferentes; sobrejetora: todo elemento de B é alcançado; bijetora: as duas coisas.
+- Dois conjuntos têm a mesma cardinalidade quando existe uma bijeção entre eles; num conjunto infinito, uma parte pode ter o tamanho do todo.
+- Naturais, inteiros e racionais são enumeráveis; Cantor mostrou, pelo argumento da diagonal, que os reais não são.
+- O conjunto das partes é sempre maior que o conjunto; há uma escada de infinitos cada vez maiores.
+- O paradoxo de Russell levou à restrição do que é conjunto por axiomas.
