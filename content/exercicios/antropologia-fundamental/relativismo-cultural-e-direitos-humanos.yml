@@ -1,0 +1,51 @@
+# Exercícios da aula "Relativismo cultural e direitos humanos" (Antropologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: antrop-relativismo-01
+  tema: "Entender não é concordar"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que a aula diz sobre o relativismo cultural?"
+  alternativas:
+    - texto: "É um método para compreender, não uma regra que obriga a aceitar qualquer violência"
+      certa: true
+    - texto: "Obriga a aceitar qualquer costume"
+      erro: "Entender um costume não é o mesmo que concordar com ele."
+    - texto: "Proíbe estudar costumes diferentes"
+      erro: "Ele é justamente um método para compreender o diferente."
+  explicacao: "O debate é como respeitar a diversidade sem aceitar violações, ouvindo quem vive naquela cultura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-relativismo-02
+  tema: "A Declaração"
+  dificuldade: 1
+  enunciado: "Em que data a ONU proclamou a Declaração Universal dos Direitos Humanos?"
+  alternativas:
+    - texto: "1º de janeiro de 1959"
+      erro: "Essa é a data da Revolução Cubana."
+    - texto: "10 de dezembro de 1948"
+      certa: true
+    - texto: "22 de dezembro de 1961"
+      erro: "Essa é a data do fim da campanha cubana de alfabetização."
+  explicacao: "A ONU a proclamou em 10 de dezembro de 1948; \"universal\" quer dizer que vale para todas as pessoas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-relativismo-03
+  tema: "A tensão"
+  dificuldade: 2
+  enunciado: "Qual é a tensão entre relativismo e direitos humanos?"
+  alternativas:
+    - texto: "Não há nenhuma tensão"
+      erro: "A aula apresenta uma tensão: entender cada costume x garantias universais."
+    - texto: "Os dois dizem exatamente a mesma coisa"
+      erro: "São ideias diferentes, e o debate é como combiná-las."
+    - texto: "O relativismo pede entender cada costume por dentro; os direitos humanos dizem que algumas garantias valem para todos"
+      certa: true
+  explicacao: "Entre as garantias universais estão a vida, a liberdade e a proibição da tortura e da escravidão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

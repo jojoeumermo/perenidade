@@ -31,6 +31,9 @@ quiz:
     resposta: 0
     explicacao: "A comissão apontou irregularidades, e o governo recomprou parte dos títulos com grande desconto."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como a dívida externa brasileira se formou, por que "se paga e nunca se quita" e o que mudou desde os anos 2000.
 
 Quem já ficou preso no rotativo do cartão de crédito conhece a sensação: paga-se todo mês, e a dívida não diminui. Com países acontece algo parecido, em escala muito maior.
 
@@ -77,3 +80,23 @@ A situação brasileira mudou. A partir dos anos 2000, o país acumulou reservas
 ## Para pesquisar e debater
 
 Procure quanto do orçamento federal do último ano foi destinado a juros e amortizações da dívida pública e quanto foi para saúde e educação. O que os números sugerem?
+
+## Exemplo resolvido
+
+**Um país paga os juros de um empréstimo antigo com o dinheiro de um empréstimo novo. O que acontece com a dívida total?**
+
+1. **Parta do rotativo do cartão.** Paga-se todo mês e a dívida não diminui.
+2. **Aplique ao país.** O país deve em dólares, moeda que não emite; para obtê-los, precisa exportar mais do que importa.
+3. **Veja o custo interno.** Para exportar mais, reduz o consumo interno: desvaloriza a moeda, segura salários e corta gastos.
+4. **Quando não bastam dólares.** Toma novos empréstimos para pagar os juros dos antigos.
+5. **Conclua.** A dívida total **aumenta**, mesmo com o pagamento em dia; por longos períodos o país envia para fora mais dinheiro do que recebe.
+
+Confira: nos anos 1970 os juros eram flutuantes, e em 1979 a alta dos juros dos Estados Unidos fez as dívidas dispararem sem que os devedores tivessem recebido um dólar a mais.
+
+## Resumo
+
+- A dívida externa brasileira nasceu com o Império: empréstimo de 1824 em Londres e indenização de dois milhões de libras a Portugal (1825).
+- Anos 1970: empréstimos a juros **flutuantes**; em 1979 os juros dos Estados Unidos subiram e as dívidas dispararam; em 1982 o México não conseguiu pagar e em 1987 o Brasil declarou **moratória**.
+- Mecanismo: dever em dólares, exportar mais que importar, reduzir o consumo interno e tomar novos empréstimos para pagar juros.
+- A Constituição de 1988 (ADCT, art. 26) mandou fazer uma auditoria da dívida externa; ela não foi concluída; o Equador fez a sua em 2007-2008.
+- Hoje a maior parte da dívida pública é interna, em reais, mas os juros consomem uma parcela grande do orçamento.

@@ -1,5 +1,6 @@
 ---
 titulo: "O que é reforma agrária"
+modelo: 9
 resumo: "Reforma agrária é reorganizar a estrutura da terra para distribuí-la melhor e fazer com que ela cumpra a sua função social. O que diz a Constituição, quem faz a reforma no Brasil e o que já foi feito."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,11 @@ Uma fazenda enorme e improdutiva ao lado de milhares de famílias que querem pla
 
 Ao fim desta aula você vai saber o que é reforma agrária, o que a Constituição diz sobre ela e o que já foi feito no Brasil.
 
+```suarealidade
+De onde vem a comida que chega à sua mesa? Alguém da sua família já trabalhou na terra ou veio do campo?
+```
+
+
 ## O que é
 
 **Reforma agrária** é a **reorganização da estrutura fundiária** para **redistribuir** as propriedades rurais e fazer com que a terra cumpra a sua **função social**. Pode significar transferir terra de **poucos proprietários ricos**, com grandes fazendas, para **quem trabalha nela**. A característica comum de toda reforma agrária é **mudar as regras** de **posse e uso** da terra.
@@ -91,4 +97,18 @@ Existe assentamento da reforma agrária no seu estado? O que se produz lá?
 
 ```leve
 - Leia o artigo 184 da Constituição e explique com suas palavras o que é "função social".
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A propriedade é um direito garantido pela Constituição. Tirar terra de um dono para dar a outro ameaça esse direito e pode reduzir a produção de alimentos, porque grandes fazendas são mais eficientes." É uma crítica feita por produtores rurais e por quem teme a insegurança no campo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O artigo 184 da Constituição não permite tirar a terra de qualquer dono: só o imóvel rural que **não cumpre a função social** pode ser desapropriado para a reforma agrária, e com indenização **prévia e justa** (em títulos da dívida agrária; as benfeitorias úteis e necessárias, em dinheiro). Ou seja, a própria Constituição protege a propriedade e põe uma condição: cumprir a sua função social.
+```
+
+```agir
+# Esta semana
+Escolha uma comida que você comeu hoje e escreva, em poucas linhas, o caminho dela do campo até o seu prato. Pergunte a alguém de casa o que essa pessoa sabe sobre isso. Não precisa anotar nome de ninguém.
 ```

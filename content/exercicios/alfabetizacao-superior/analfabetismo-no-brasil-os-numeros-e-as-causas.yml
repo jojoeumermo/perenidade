@@ -1,0 +1,51 @@
+# Exercícios da aula "Analfabetismo no Brasil: os números e as causas" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-numeros-01
+  tema: "Comparar taxas"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "No Censo de 2022, a taxa de analfabetismo era 1,5% entre pessoas de 15 a 24 anos e 20,3% entre pessoas de 65 anos ou mais. O que isso mostra?"
+  alternativas:
+    - texto: "Que o analfabetismo é igual em todas as idades"
+      erro: "1,5% e 20,3% são muito diferentes."
+    - texto: "Que o analfabetismo se concentra entre os mais velhos"
+      certa: true
+    - texto: "Que os jovens são os que menos leem"
+      erro: "É o contrário: a taxa dos jovens é a menor (1,5%)."
+  explicacao: "Quem tem 65 anos ou mais tem taxa mais de dez vezes maior que a dos jovens de 15 a 24 anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-numeros-02
+  tema: "Dados históricos"
+  dificuldade: 1
+  enunciado: "Qual era a taxa de analfabetismo de adultos no Censo de 1950?"
+  alternativas:
+    - texto: "7,0%"
+      erro: "7,0% é a taxa do Censo de 2022."
+    - texto: "39,6%"
+      erro: "39,6% é a de 1960."
+    - texto: "50,5%"
+      certa: true
+  explicacao: "Em 1950, 50,5%; em 1960, 39,6%; em 2022, 7,0%."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-numeros-03
+  tema: "Cor ou raça"
+  dificuldade: 2
+  enunciado: "Em 2022, qual grupo, entre brancos, pardos e pretos, tinha a maior taxa de analfabetismo (15 anos ou mais)?"
+  alternativas:
+    - texto: "Pretos, com 10,1%"
+      certa: true
+    - texto: "Brancos, com 4,3%"
+      erro: "4,3% é a menor das três taxas."
+    - texto: "Pardos, com 8,8%"
+      erro: "Os pardos têm 8,8%; os pretos têm 10,1%, a mais alta entre os três."
+  explicacao: "Brancos 4,3%, pardos 8,8%, pretos 10,1% (e indígenas, 16,1%)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

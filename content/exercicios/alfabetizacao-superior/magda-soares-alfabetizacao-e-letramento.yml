@@ -1,0 +1,51 @@
+# Exercícios da aula "Magda Soares: alfabetização e letramento" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-soares-01
+  tema: "Distinguir as duas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas situações é letramento, no sentido de Magda Soares?"
+  alternativas:
+    - texto: "Ler um contrato ou entender uma bula"
+      certa: true
+    - texto: "Aprender a relação entre a letra B e o som /b/"
+      erro: "Isso é alfabetização: o sistema de escrita."
+    - texto: "Decorar a ordem das letras do alfabeto"
+      erro: "Isso é conhecer o código, ligado à alfabetização."
+  explicacao: "Alfabetização é aprender o sistema de escrita; letramento é usar a leitura e a escrita nas práticas sociais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-soares-02
+  tema: "Alfabetizar letrando"
+  dificuldade: 2
+  enunciado: "O que quer dizer \"alfabetizar letrando\"?"
+  alternativas:
+    - texto: "Ensinar só o código, sem textos"
+      erro: "Soares criticou ensinar só o código, com frases artificiais de cartilha."
+    - texto: "Ensinar o sistema de escrita dentro de textos reais, com função real"
+      certa: true
+    - texto: "Abandonar o ensino do código e só conviver com textos"
+      erro: "Ela também criticou esse desvio, que levou muitas crianças a não se alfabetizarem."
+  explicacao: "Os dois processos são distintos, mas inseparáveis: aprende-se melhor o código em textos reais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-soares-03
+  tema: "Quem foi"
+  dificuldade: 1
+  enunciado: "Qual livro, de 2020, resultou do trabalho de Magda Soares com professoras de Lagoa Santa (MG)?"
+  alternativas:
+    - texto: "Pedagogia do oprimido"
+      erro: "Esse livro é de Paulo Freire."
+    - texto: "Psicogênese da língua escrita"
+      erro: "Esse é de Emilia Ferreiro e Ana Teberosky (1979)."
+    - texto: "Alfaletrar"
+      certa: true
+  explicacao: "Alfaletrar (2020) nasceu do trabalho de Magda Soares (1932-2023) com professoras da rede pública de Lagoa Santa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

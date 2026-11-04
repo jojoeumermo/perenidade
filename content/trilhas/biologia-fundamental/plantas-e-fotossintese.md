@@ -33,6 +33,9 @@ quiz:
     resposta: 2
     explicacao: "Nas angiospermas, a semente fica protegida dentro do fruto."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a fotossíntese (o que entra, o que sai e onde acontece), de onde vem a matéria de uma árvore, a função de cada parte da planta e os grandes grupos de plantas.
 
 ## Fábricas de alimento
 
@@ -120,3 +123,23 @@ A fotossíntese não é exclusiva das plantas: **algas** e certas **bactérias**
 1. Cubra uma folha de uma planta com papel-alumínio por uma semana, sem arrancá-la. Compare com as outras folhas. O que mudou e por quê?
 2. Ponha feijões para germinar no algodão úmido: um pote no claro, outro no escuro. Observe por dez dias e anote.
 3. Liste dez alimentos do seu dia e diga de que parte da planta vem cada um (raiz, caule, folha, fruto, semente).
+
+## Exemplo resolvido
+
+**Uma árvore cresce durante anos em um vaso grande. No fim, a terra do vaso quase não mudou de peso. De onde veio a matéria da árvore?**
+
+1. **Releia a receita.** Gás carbônico + água + luz dão açúcar (glicose) + oxigênio.
+2. **Veja o que o solo dá.** Água e sais minerais, indispensáveis, mas em pequena quantidade. Por isso a terra quase não perde peso.
+3. **Veja o que vem do ar.** A maior parte da matéria seca da árvore é de **carbono**, que veio do **gás carbônico do ar**, captado pelas folhas e transformado em açúcar pela fotossíntese.
+4. **Conclua.** A árvore é feita sobretudo de ar e de água, com luz do Sol.
+
+Confira: é por isso que as florestas retiram gás carbônico do ar e, se queimadas, devolvem esse carbono à atmosfera.
+
+## Resumo
+
+- **Fotossíntese:** gás carbônico + água + luz dão açúcar (glicose) + oxigênio. Acontece nos **cloroplastos**, onde está a clorofila.
+- O gás carbônico entra pelas folhas (estômatos), a água pelas raízes.
+- A maior parte da matéria de uma árvore vem do **gás carbônico do ar**, não da terra.
+- As plantas fazem fotossíntese **e** respiram.
+- Partes: raiz, caule, folha, flor, fruto e semente; dois "encanamentos" levam água e sais para cima e açúcar para o resto da planta.
+- Grupos: briófitas, pteridófitas, gimnospermas e angiospermas (de onde vem quase tudo o que comemos). Algas e certas bactérias também fazem fotossíntese.

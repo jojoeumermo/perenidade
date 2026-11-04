@@ -31,6 +31,10 @@ quiz:
     explicacao: "Por isso ela não vê nelas uma força capaz de conduzir um desenvolvimento autônomo."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar quem foi Vânia Bambirra e usar a sua tipologia dos países dependentes (tipos A, B e C) para entender que a dependência tem formas diferentes.
+
 Falar em "América Latina dependente" pode esconder diferenças enormes. O Brasil dos anos 1960 tinha siderúrgicas e montadoras; o Haiti e o Paraguai, quase nenhuma indústria. Como tratar os dois com o mesmo conceito? **Vânia Bambirra** enfrentou esse problema.
 
 ## Quem foi
@@ -77,6 +81,25 @@ Em 1986, no balanço disponível em português, ela retoma essa discussão e res
 
 Ela oferece o que falta ao ensaio de Marini: a **história concreta**, país por país, e a análise das classes. E lembra, com a própria trajetória, que essa teoria foi construída por militantes no exílio, e não em gabinetes.
 
+## Exemplo resolvido
+
+**Como classificar o Brasil, o Peru e o Haiti pela tipologia de Bambirra?**
+
+1. Pergunte quando e como a indústria surgiu. No Brasil, antes da Segunda Guerra, a partir da expansão do setor exportador: é o tipo A (industrialização antiga), com burguesia industrial de alguma base própria.
+2. No Peru, a indústria só surgiu depois da guerra, pelas mãos das multinacionais: tipo B (integração monopólica), sem projeto nacional de industrialização.
+3. No Haiti, a estrutura é agroexportadora sem diversificação industrial: tipo C.
+4. Veja o ponto de virada para todos: depois de 1945 o capital dos países centrais passa a investir dentro das economias latino-americanas, o que Bambirra chama de integração monopólica mundial.
+
+Conclusão: nos países do tipo A houve desnacionalização de uma indústria já existente e a burguesia local virou sócia menor. A industrialização não trouxe autonomia: aprofundou a dependência.
+
 ## Para pesquisar e debater
 
 Em qual dos tipos de Bambirra você colocaria hoje países como Bolívia, Costa Rica ou República Dominicana? A classificação de 1974 ainda serve?
+
+## Resumo
+
+- Vânia Bambirra (1940-2015) trabalhou no CESO, no Chile, ao lado de Theotonio dos Santos e de Marini.
+- Em *O Capitalismo Dependente Latino-Americano* (1974), classificou os países em tipo A (industrialização antiga), tipo B (indústria nascida sob as multinacionais) e tipo C (agroexportadores).
+- O ponto de virada é o pós-1945: a integração monopólica mundial.
+- Nos países do tipo A, a burguesia local tornou-se sócia menor; nos do tipo B, a indústria já nasceu estrangeira.
+- Em 1978, respondeu às críticas em *Teoría de la dependencia: una anticrítica*.

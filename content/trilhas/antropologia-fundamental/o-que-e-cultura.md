@@ -1,5 +1,6 @@
 ---
 titulo: "O que é cultura"
+modelo: 9
 resumo: "Para a antropologia, cultura não é só arte e museu: é tudo o que aprendemos vivendo em sociedade, da língua à comida, das crenças às leis. A definição clássica de E. B. Tylor e por que todo povo tem cultura."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender o que a antropologia chama de cultura e por que todo grupo humano tem cultura.
+
+```suarealidade
+Que costumes da sua família ou do seu bairro (um jeito de cumprimentar, de comer, de festejar) alguém de fora acharia estranhos, mas que para você são normais?
+```
 
 ## Duas ideias de cultura
 
@@ -85,4 +90,18 @@ Que costumes da sua família você aprendeu com os mais velhos? Algum deles mudo
 
 ```leve
 - Faça uma lista com cinco coisas da cultura do seu bairro: comida, música, festa, jeito de falar, jogo.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Existe a alta cultura (literatura, ópera, museus) e existe o resto. Chamar tudo de cultura nivela por baixo e tira o valor do estudo e das grandes obras." É uma preocupação de quem dedica a vida às artes e ao ensino.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A antropologia não tira o valor das artes: a definição de Tylor inclui expressamente a arte, o conhecimento, a moral e a lei, e na aula a ópera é um exemplo de cultura. O que ela recusa é dizer que alguém "não tem cultura". Toda pessoa aprende, vivendo em sociedade, uma língua, costumes e crenças. Reconhecer a cultura de todos não impede ninguém de estudar, valorizar e frequentar as grandes obras.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha da sua família um costume (uma receita, uma festa, um jeito de fazer algo) que ela aprendeu quando era mais nova, e se ele mudou com o tempo. Escreva em poucas linhas o que ouviu.
 ```

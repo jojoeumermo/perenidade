@@ -1,0 +1,69 @@
+# Exercícios da aula "Números de 1 a 100 em chinês" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-numeros-01
+  tipo: numero
+  tema: "Ler um número"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Que número é 四十八 (sìshíbā)?"
+  resposta: "48"
+  erros_comuns:
+    - resposta: "84"
+      explicacao: "A ordem é dezena + unidade: 四十 (40) + 八 (8) = 48."
+    - resposta: "12"
+      explicacao: "Some 4 × 10 + 8."
+  dica: "四 é 4, 十 é 10 e 八 é 8: quatro vezes dez, mais oito."
+  explicacao: "4 × 10 + 8 = 48."
+  conferir: "4 * 10 + 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-numeros-02
+  tema: "14 e 40"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre 十四 e 四十?"
+  alternativas:
+    - texto: "Não há diferença"
+      erro: "Os dois valores são diferentes: 14 e 40."
+    - texto: "十四 é 40 e 四十 é 14"
+      erro: "十四 é dez + quatro = 14; 四十 é quatro × dez = 40."
+    - texto: "十四 é 14 e 四十 é 40: a ordem é tudo"
+      certa: true
+  explicacao: "11 a 19: dez + unidade. Dezenas: unidade + dez."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-numeros-03
+  tema: "O número 100"
+  dificuldade: 1
+  enunciado: "Como se diz 100 em chinês, segundo a aula?"
+  alternativas:
+    - texto: "一百 (yìbǎi), não só 百"
+      certa: true
+    - texto: "百 (bǎi), só"
+      erro: "A aula diz: não se diz só 百."
+    - texto: "十十"
+      erro: "100 é 一百, \"um cento\"."
+  explicacao: "O 100 é 一百: \"um cento\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-numeros-04
+  tema: "二 ou 两"
+  dificuldade: 2
+  enunciado: "Como se diz \"duas horas\" no relógio?"
+  alternativas:
+    - texto: "二点 (èr diǎn)"
+      erro: "Às 2 horas diz-se 两点, não 二点."
+    - texto: "两点 (liǎng diǎn)"
+      certa: true
+    - texto: "十点 (shí diǎn)"
+      erro: "十点 é 10 horas."
+  explicacao: "二 e 两 têm usos diferentes: nas horas e ao contar coisas, usa-se 两."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

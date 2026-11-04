@@ -32,6 +32,10 @@ quiz:
     explicacao: "Marx reconhece a dificuldade dos primeiros capítulos e avisa o leitor."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é *O Capital*, como o Livro I se organiza e por que os primeiros capítulos travam quase todo mundo.
+
 *O Capital* tem fama de livro impossível. Não é. É um livro exigente, que pede tempo, paciência e, de preferência, companhia. Esta aula é um mapa para quem vai começar a leitura.
 
 ## O que é a obra
@@ -94,6 +98,24 @@ No prefácio à edição francesa, Marx avisou: não há estrada real para a ci�
 
 Esta trilha acompanha os principais temas do Livro I e alguns do Livro III, e depois apresenta autores da tradição marxista que desenvolveram e discutiram a obra.
 
+## Exemplo resolvido
+
+**Em qual livro, e em qual seção, procurar cada tema?**
+
+1. O Livro I (1867, por Marx) trata do processo de produção do capital; o II (1885) e o III (1894) foram editados por Engels.
+2. O Livro I tem sete seções: de "Mercadoria e dinheiro" a "O processo de acumulação do capital".
+3. Quem quer a mais-valia vai às seções 3 a 5; quem quer o salário vai à 6; a acumulação está na 7.
+4. Quem trava no começo (mercadoria, valor e dinheiro) lembre: há um motivo de método, a diferença entre o caminho da investigação e o da exposição.
+
+Confira: *O Capital* é uma crítica da economia política, e não um manual de economia; vale ler com companhia, em grupo, com um ritmo combinado.
+
 ## Para pesquisar e debater
 
 Organize um grupo de leitura com três a cinco pessoas. Combinem um ritmo, uma edição e uma pergunta-guia para cada encontro.
+
+## Resumo
+
+- *O Capital: Crítica da Economia Política* resulta de mais de vinte anos de pesquisa de Marx e tem três livros.
+- Só o Livro I foi publicado por Marx (1867); o II (1885) e o III (1894) foram editados por Engels.
+- O Livro I tem sete seções; os primeiros capítulos são os mais difíceis.
+- Dicas: leia em grupo, combine um ritmo e uma pergunta-guia para cada encontro.

@@ -25,6 +25,11 @@ quiz:
     explicacao: "Municípios enormes e pouco povoados ocupam muito espaço no mapa. Quem vota são pessoas, não quilômetros quadrados."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer os truques mais comuns de gráficos (eixo cortado, período escolhido a dedo, acumulado, valores sem correção, total no lugar de taxa, dois eixos, mapa e pizza) e se defender de cada um.
+
+
 A aula [Leitura de gráficos e tabelas](/trilhas/matematica-fundamental/leitura-de-graficos-e-tabelas) apresenta os tipos de gráfico. Esta vai aos truques. Quase nenhum deles exige mentir nos números: basta escolher **como mostrar**.
 
 ## 1. O eixo cortado
@@ -117,3 +122,12 @@ Quando um gráfico vier sem fonte, sem data e sem números nos eixos, trate-o co
 3. Procure em um jornal ou rede social um gráfico de barras e verifique onde começa o eixo. Refaça o desenho, à mão, começando no zero. A impressão muda?
 
 **Respostas:** 1) 15 e 25 por 100 mil; a cidade menor. 2) As doses aplicadas por semana ou por mês, e a cobertura (parte da população vacinada).
+
+## Resumo
+
+- Quase nenhum truque exige mentir nos números: basta escolher **como mostrar**.
+- **Eixo cortado:** em barras, o eixo deve começar no zero; leia os números do eixo primeiro.
+- **Período escolhido a dedo:** pergunte por que o gráfico começa onde começa.
+- **Acumulado** nunca desce: peça o dado por período. **Valores em dinheiro:** peça corrigidos pela inflação e, se couber, por habitante.
+- **Total em vez de taxa:** para comparar lugares de tamanhos diferentes, use taxas (por 100 mil habitantes).
+- Desconfie de dois eixos, de mapas que pintam território (e não gente) e de pizzas que não somam 100%.

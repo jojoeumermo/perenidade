@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "Ashoka mandou gravar em pedras e colunas os seus princípios de governo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber situar as civilizações do vale do Indo e da China, conhecer Buda, Confúcio e o primeiro imperador e dizer o que a Rota da Seda e as invenções chinesas mudaram no mundo.
+
 
 ## Longe da Europa, bem antes dela
 
@@ -93,8 +97,28 @@ A dinastia **Han** (206 a.C. a 220 d.C.) consolidou o império. Nesse período, 
 
 Da China vieram invenções que mudaram o mundo: o **papel** (a tradição atribui o seu aperfeiçoamento a Cai Lun, no ano 105), a **bússola**, a **pólvora** e a **impressão**. Todas chegaram à Europa séculos depois.
 
+## Exemplo resolvido
+
+**Quanto tempo viveu Confúcio? Quantos anos separam o primeiro imperador da dinastia Han?**
+
+1. Confúcio viveu de 551 a 479 a.C. Como as duas datas são a.C., subtraia: 551 − 479 = **72 anos**.
+2. O rei de Qin unificou a China em 221 a.C. A dinastia Han começa em 206 a.C.
+3. Entre as duas datas: 221 − 206 = **15 anos**. O governo do primeiro imperador foi mesmo curto, como diz a aula.
+4. A cidade de Harappa, no vale do Indo, existia "há mais de 4.500 anos". Em ano a.C., 4.500 − 2.026 = cerca de 2.500 a.C. (ou antes), ou seja, contemporânea das pirâmides do Egito.
+
+Cuidado: a conta 551 − 479 só funciona porque as duas datas são antes de Cristo. Se uma fosse a.C. e a outra d.C., somam-se os dois números (e, como não existe o ano zero, tira-se 1).
+
 ## Para pesquisar e debater
 
 1. Por que as civilizações da Ásia aparecem tão pouco nos livros escolares do Brasil?
 2. Compare o mandato do céu com a ideia europeia de que o rei governava por vontade de Deus. Qual das duas dá mais espaço à revolta?
 3. Que desigualdades de hoje são apresentadas como naturais ou merecidas?
+
+## Resumo
+
+- Ao longo de grandes rios, a Ásia teve civilizações tão antigas quanto as da Europa, cuja história chega até hoje.
+- No vale do Indo, há mais de 4.500 anos, existiam cidades como Harappa e Mohenjo-Daro, com ruas retas.
+- Na planície do Ganges, a sociedade descrita nos Vedas dividia as pessoas, pelo nascimento, em grupos hierarquizados (o sistema de castas); por volta do século V a.C., Buda pregou um caminho de libertação aberto a todos, e o budismo se espalhou pela Ásia.
+- Na China, a primeira dinastia com provas escritas é a Shang; Confúcio (551-479 a.C.) ensinou que a ordem depende de cada um cumprir bem o seu papel.
+- Em 221 a.C., Qin Shi Huang unificou o país; o nome "China" vem de Qin.
+- Com os Han (206 a.C. a 220 d.C.), abriu-se a Rota da Seda, que ligava a China à Ásia Central, à Pérsia e a Roma.

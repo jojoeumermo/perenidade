@@ -1,0 +1,54 @@
+# Exercícios da aula "Formalização: o MEI para quem cozinha" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: coz-mei-01
+  tipo: numero
+  tema: "Limite anual"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Uma cozinheira fatura R$ 4.000 por mês. Quanto fatura em 12 meses, em reais?"
+  resposta: "48000"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "4012"
+      explicacao: "Você somou 4.000 + 12. Para achar o ano, multiplique o valor mensal por 12 meses."
+    - resposta: "333"
+      explicacao: "Você dividiu por 12. Para o total do ano, multiplique."
+  dica: "Valor mensal vezes 12."
+  explicacao: "4.000 × 12 = 48.000 reais por ano, abaixo do limite de R$ 81.000 do texto da lei (confira o limite atual no Portal do Empreendedor)."
+  conferir: "4000 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-mei-02
+  tema: "O que o MEI não resolve"
+  dificuldade: 1
+  enunciado: "Uma cozinheira abre o MEI. O que continua valendo para ela?"
+  alternativas:
+    - texto: "As regras da vigilância sanitária e as boas práticas de higiene"
+      certa: true
+    - texto: "Nada: o CNPJ dispensa qualquer regra sanitária"
+      erro: "O CNPJ não substitui a licença sanitária nem as boas práticas. O alimento continua precisando ser seguro."
+    - texto: "Só as regras do banco"
+      erro: "O MEI continua sujeito às regras de quem vende alimento, entre elas as da vigilância sanitária."
+  explicacao: "O MEI dá CNPJ, nota e INSS, mas não dispensa a vigilância sanitária."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-mei-03
+  tema: "Condições do MEI"
+  dificuldade: 1
+  enunciado: "Qual destas é uma condição do MEI na Lei Complementar 123/2006?"
+  alternativas:
+    - texto: "Ter, no máximo, um empregado"
+      certa: true
+    - texto: "Ser sócia de outra empresa"
+      erro: "O MEI não pode participar de outra empresa como titular, sócio ou administrador."
+    - texto: "Ter três ou mais empregados"
+      erro: "O MEI pode ter no máximo um empregado, que receba um salário mínimo ou o piso da categoria."
+  explicacao: "Pela lei, o MEI pode ter um único empregado, entre outras condições."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

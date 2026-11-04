@@ -29,6 +29,11 @@ quiz:
     explicacao: "É uma média, e como toda média não informa como o total está distribuído."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que a média, a mediana e a moda dizem, por que a renda "média" engana num país desigual e como as fatias (quintos, décimos, percentis) mostram o que a média esconde.
+
+
 A conta de cada medida está na aula [Estatística: média, mediana e moda](/trilhas/matematica-medio/estatistica-media-mediana-e-moda). Aqui o assunto é como elas são usadas para descrever um país. Os números dos exemplos são inventados para o exercício.
 
 ## O bilionário no bar
@@ -93,6 +98,17 @@ Em uma negociação salarial, a empresa pode dizer que "o salário médio é de 
 
 Quem apresenta um número escolhe a medida que conta a história que lhe convém. Darrell Huff, em *Como mentir com estatística*, chamou isso de "a média bem escolhida". A defesa é perguntar sempre: **que média é essa? De quem? Como estão distribuídos os valores em volta dela?**
 
+## Exemplo resolvido
+
+**Dez trabalhadores têm cerca de R$ 20 mil de patrimônio cada um. Entra no bar um bilionário, com R$ 1 bilhão. O que acontece com a média, a mediana e a moda?**
+
+1. **Média:** o total passa a ser dividido por 11. Com R$ 1 bilhão no total, a média passa de R$ 20 mil para mais de R$ 90 milhões. "Em média", todos ali são milionários.
+2. **Mediana:** quem está exatamente no meio da fila continua com cerca de R$ 20 mil.
+3. **Moda:** a situação mais comum também continua em R$ 20 mil.
+4. **Leitura:** ninguém ficou mais rico. A média mudou porque o valor muito alto puxa o total.
+
+Confira: diante de "a renda média é de tanto", pergunte pela **mediana**.
+
 ## Para praticar
 
 1. Nove pessoas ganham R$ 2.000 e uma ganha R$ 82.000. Calcule a média e a mediana.
@@ -101,3 +117,11 @@ Quem apresenta um número escolhe a medida que conta a história que lhe convém
 4. Um governo afirma que "a renda média cresceu 8%". Que duas perguntas você faria antes de comemorar?
 
 **Respostas:** 1) Média de R$ 10.000; mediana de R$ 2.000. 2) Nove das dez. 3) R$ 2.350. 4) Por exemplo: a mediana também cresceu? O crescimento foi descontado da inflação? Como ele se repartiu entre as faixas de renda?
+
+## Resumo
+
+- **Média**: o total repartido igualmente; **mediana**: o valor de quem está no meio da fila; **moda**: a situação mais comum.
+- Com poucos valores muito altos (renda, patrimônio), a média é puxada para cima e a mediana é um retrato mais próximo da maioria.
+- O **PIB per capita** é uma média: dois países com o mesmo valor podem ter vidas muito diferentes.
+- Fatias: **quintos**, **décimos** e **percentis** mostram a parte da renda que fica com cada grupo.
+- Médias podem ser valores que não existem (1,6 filho) e podem confundir (expectativa de vida).

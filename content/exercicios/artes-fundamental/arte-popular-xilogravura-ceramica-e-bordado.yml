@@ -1,0 +1,51 @@
+# Exercícios da aula "Arte popular: xilogravura, cerâmica e bordado" (Artes: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: artes-popular-01
+  tema: "Xilogravura"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se faz uma xilogravura?"
+  alternativas:
+    - texto: "Pinta-se a figura direto no papel com pincel"
+      erro: "A xilogravura usa matriz de madeira, como um carimbo."
+    - texto: "Entalha-se a figura numa matriz de madeira, passa-se tinta nas partes elevadas e imprime-se no papel"
+      certa: true
+    - texto: "Modela-se a figura em barro e leva-se ao forno"
+      erro: "Isso é cerâmica. A xilogravura é gravura em madeira."
+  explicacao: "É muito parecido com um carimbo: a tinta só toca as partes elevadas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: artes-popular-02
+  tema: "Cordel"
+  dificuldade: 2
+  enunciado: "O que é o cordel e de onde vem o nome?"
+  alternativas:
+    - texto: "Um tipo de cerâmica; o nome vem do barro"
+      erro: "O cordel é literatura em folhetos."
+    - texto: "Um tipo de bordado; o nome vem da linha"
+      erro: "O nome vem dos barbantes onde os folhetos eram pendurados, em Portugal."
+    - texto: "Literatura popular em versos rimados, em folhetos pendurados em barbantes (cordéis)"
+      certa: true
+  explicacao: "Em 2018, o Iphan reconheceu o cordel como patrimônio cultural imaterial do Brasil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: artes-popular-03
+  tema: "Mestre Vitalino"
+  dificuldade: 2
+  enunciado: "O que fazia Mestre Vitalino (1909-1963), de Caruaru?"
+  alternativas:
+    - texto: "Figuras de barro que mostram o sertão, como cangaceiros"
+      certa: true
+    - texto: "Xilogravuras para ilustrar cordéis"
+      erro: "Isso é J. Borges, de Bezerros."
+    - texto: "Pinturas em museus europeus"
+      erro: "Vitalino foi filho de lavrador e artesã e fez peças de barro do rio Ipojuca."
+  explicacao: "Ele começou criança modelando bois e cavalos com as sobras do barro da mãe."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

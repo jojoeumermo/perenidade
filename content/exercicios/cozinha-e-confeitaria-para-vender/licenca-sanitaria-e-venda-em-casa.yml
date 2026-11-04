@@ -1,0 +1,51 @@
+# Exercícios da aula "Licença sanitária e venda em casa" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: coz-licenca-01
+  tema: "Vigilância sanitária"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quem orienta e fiscaliza a venda de comida na sua cidade?"
+  alternativas:
+    - texto: "A vigilância sanitária do município"
+      certa: true
+    - texto: "Só o Procon"
+      erro: "O Procon cuida de direitos do consumidor. A fiscalização sanitária é da vigilância sanitária."
+    - texto: "Ninguém, se a venda for em casa"
+      erro: "Quem vende alimento responde pela segurança dele, mesmo em casa. A vigilância pode orientar e fiscalizar."
+  explicacao: "A vigilância sanitária integra o SUS (Lei 8.080/1990) e atua, em geral, pelo município."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-licenca-02
+  tema: "Regras por município"
+  dificuldade: 1
+  enunciado: "As exigências para vender comida de casa são iguais em todas as cidades?"
+  alternativas:
+    - texto: "Sim, a regra é única no país"
+      erro: "Há normas gerais da Anvisa, mas cada município tem exigências e formas de licenciar próprias."
+    - texto: "Não: variam por município e pelo tipo de alimento, por isso é preciso perguntar na sua cidade"
+      certa: true
+    - texto: "Só mudam para quem mora em capital"
+      erro: "As diferenças existem entre municípios de qualquer tamanho."
+  explicacao: "A norma geral é da Anvisa (RDC 216/2004), mas cada município tem regras próprias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-licenca-03
+  tema: "Notificação da vigilância"
+  dificuldade: 2
+  enunciado: "Você recebeu uma notificação da vigilância sanitária. Qual é a melhor atitude?"
+  alternativas:
+    - texto: "Rasgar o papel e continuar como estava"
+      erro: "Ignorar pode levar a penalidades maiores. Guarde o papel e entenda o que foi pedido."
+    - texto: "Ler com calma, guardar o papel e procurar a vigilância para saber o que corrigir e o prazo"
+      certa: true
+    - texto: "Esperar que a fiscalização esqueça"
+      erro: "A notificação tem prazo. Esperar sem agir não resolve e pode gerar multa."
+  explicacao: "Entender o que foi pedido e procurar a vigilância é o caminho. Sebrae e Defensoria também orientam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

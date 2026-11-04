@@ -27,6 +27,10 @@ quiz:
     explicacao: "Depois de t ou d, o -ed soa \"id\": wanted, needed, started."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar o passado dos verbos regulares com -ed, pronunciar o -ed e fazer negativa e pergunta com *did*.
+
 ## Contar o que aconteceu
 
 O **passado simples** fala de ações **terminadas**, em um momento do passado: ontem, na semana passada, em 2010, quando eu era criança.
@@ -87,9 +91,27 @@ Qual frase está correta?
 
 O passado simples é o tempo dos relatos, das notícias e da história.
 
+## Exemplo resolvido
+
+**Escreva o passado de *study*, *stop* e *live*, e diga como se lê o -ed de *wanted*, *walked* e *played*.**
+
+1. *Study* termina em consoante + y: troque o y por **-ied**: *studied*.
+2. *Stop* tem consoante-vogal-consoante: dobra a consoante: *stopped*.
+3. *Live* termina em -e: só **-d**: *lived*.
+4. Pronúncia: *wanted* termina depois de **t**, então soa "id" (uma sílaba a mais); *walked* depois de som surdo, soa "t"; *played* depois de vogal, soa "d".
+
+Confira: o passado dos regulares é igual para todas as pessoas (*I worked, she worked, they worked*).
+
 ## Para praticar
 
 1. Escreva o passado: help, live, try, play, stop, need, watch, study.
 2. Passe para a negativa e para a pergunta: "He worked in a hospital." / "They visited Salvador."
 3. Classifique a pronúncia do -ed (t, d ou id): asked, wanted, cleaned, decided, walked, lived.
 4. Escreva cinco frases sobre o que você fez na semana passada.
+
+## Resumo
+
+- Passado simples: ações terminadas num momento do passado.
+- Regulares: **-ed**; só **-d** se termina em -e; **-ied** depois de consoante + y; dobra a consoante (*stopped*).
+- O -ed soa "t", "d" ou "id".
+- Negativa e pergunta com **did** e o verbo na forma básica.

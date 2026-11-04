@@ -1,0 +1,51 @@
+# Exercícios da aula "Comunismo e socialismo: qual é a diferença" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-comsoc-01
+  tema: "Por que \"comunista\""
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Por que Marx e Engels chamaram o Manifesto de 1848 de \"comunista\", e não \"socialista\", segundo Engels?"
+  alternativas:
+    - texto: "Porque \"socialista\" era uma palavra proibida"
+      erro: "Engels explicou que a escolha foi pelos sentidos que cada palavra tinha na época."
+    - texto: "Porque \"comunista\" era mais fácil de escrever"
+      erro: "Foi por causa do sentido de cada palavra, segundo Engels."
+    - texto: "Porque \"socialistas\" eram utópicos e reformadores de fora da classe operária, e \"comunismo\" era o nome dos setores operários que exigiam transformação radical"
+      certa: true
+  explicacao: "Engels explicou isso no prefácio da edição inglesa de 1888."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-comsoc-02
+  tema: "As duas fases"
+  dificuldade: 2
+  enunciado: "Quais são as duas fases da sociedade futura, segundo Marx na Crítica do Programa de Gotha (1875)?"
+  alternativas:
+    - texto: "Uma primeira fase, em que a distribuição é proporcional ao trabalho, e uma fase superior, de abundância"
+      certa: true
+    - texto: "Capitalismo e feudalismo"
+      erro: "Marx falava de duas fases da sociedade comunista, depois do capitalismo."
+    - texto: "Socialismo e democracia"
+      erro: "As fases são a primeira, recém-saída do capitalismo, e a superior."
+  explicacao: "Foi Lenin, em O Estado e a Revolução (1917), quem popularizou chamar a primeira de socialismo e a superior de comunismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-comsoc-03
+  tema: "Quem popularizou"
+  dificuldade: 2
+  enunciado: "Quem popularizou chamar a primeira fase de socialismo e a fase superior de comunismo?"
+  alternativas:
+    - texto: "Engels, em 1888"
+      erro: "Engels explicou a escolha do nome do Manifesto."
+    - texto: "Lenin, em O Estado e a Revolução (1917)"
+      certa: true
+    - texto: "Marx, em 1875"
+      erro: "Marx chamou as duas fases de sociedade comunista."
+  explicacao: "Marx chamou as duas de sociedade comunista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

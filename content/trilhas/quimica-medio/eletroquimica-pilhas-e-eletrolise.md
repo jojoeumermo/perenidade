@@ -42,6 +42,10 @@ quiz:
     explicacao: "O zinco perde elétrons com mais facilidade que o ferro e se sacrifica por ele."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar oxidação e redução, como funciona uma pilha, o que é a eletrólise e por que a ferrugem é uma pilha indesejada.
+
 ## Química e eletricidade
 
 Algumas reações químicas **transferem elétrons** de uma substância para outra. Se esses elétrons forem obrigados a passar por um fio, tem-se **corrente elétrica**. É a ideia da pilha. O caminho inverso também existe: usar corrente elétrica para **forçar** uma reação. É a eletrólise.
@@ -159,9 +163,28 @@ O Brasil tem grandes reservas de bauxita, sobretudo na Amazônia. A mineração,
 - **Galvanoplastia**: cobrir um objeto com uma camada fina de metal (cromo, níquel, prata, ouro). É a cromação e a niquelação de peças.
 - **Refino do cobre**: produz o cobre de alta pureza usado nos fios elétricos.
 
+## Exemplo resolvido
+
+**Uma colher de prata mergulhada numa solução com íons de ferro vai se cobrir de ferro?**
+
+1. Lembre a fila dos metais, em ordem decrescente de tendência a se oxidar: magnésio > alumínio > zinco > ferro > chumbo > cobre > prata > ouro.
+2. A regra: um metal desloca da solução os íons dos metais que vêm depois dele na fila.
+3. A prata vem depois do ferro. Então a prata não desloca o íon ferro; é o ferro que desloca a prata.
+
+Conclusão: não há reação. É o mesmo raciocínio do prego de ferro que se cobre de cobre: o ferro desloca o cobre, mas o cobre não desloca o ferro.
+
 ## Para praticar
 
 1. Na reação Zn + 2 HCl → ZnCl₂ + H₂, quem se oxidou e quem se reduziu?
 2. Use a fila dos metais: uma colher de alumínio pode ser guardada em uma solução de sulfato de cobre? E uma de prata?
 3. Explique por que o portão de ferro enferruja mais depressa em uma cidade de praia.
 4. Descubra onde há um ponto de coleta de pilhas e baterias no seu bairro.
+
+## Resumo
+
+- Oxidação é perda de elétrons; redução é ganho. Uma não ocorre sem a outra (oxirredução).
+- Um metal desloca da solução os íons dos metais que vêm depois dele na fila de reatividade.
+- Na pilha, uma reação espontânea transforma energia química em elétrica; na de Daniell, o zinco é o ânodo (negativo) e o cobre o cátodo (positivo).
+- A ponte salina fecha o circuito; a tensão da pilha de Daniell é de cerca de 1,1 V.
+- Pilhas e baterias não vão para o lixo comum: a Lei nº 12.305/2010 exige logística reversa.
+- A ferrugem é uma pilha indesejada: ferro, água e oxigênio; pintura, galvanização e metal de sacrifício protegem o metal.

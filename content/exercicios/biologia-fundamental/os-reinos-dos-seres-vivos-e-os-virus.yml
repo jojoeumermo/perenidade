@@ -1,0 +1,51 @@
+# Exercícios da aula "Os reinos dos seres vivos e os vírus" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-reinos-01
+  tema: "Nome científico"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em Panthera onca, qual palavra é o gênero?"
+  alternativas:
+    - texto: "Panthera"
+      certa: true
+    - texto: "onca"
+      erro: "A segunda palavra completa o nome da espécie."
+    - texto: "As duas palavras juntas"
+      erro: "A primeira palavra é o gênero, com inicial maiúscula."
+  explicacao: "Panthera onca é a onça-pintada; Panthera leo, o leão: mesmo gênero, espécies diferentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-reinos-02
+  tema: "Ordem da classificação"
+  dificuldade: 2
+  enunciado: "Qual destas sequências, do mais amplo para o mais restrito, está certa no sistema de Lineu?"
+  alternativas:
+    - texto: "Espécie, gênero, família, ordem, classe, filo, reino, domínio"
+      erro: "Essa é a ordem inversa: do mais restrito para o mais amplo."
+    - texto: "Domínio, reino, filo, classe, ordem, família, gênero, espécie"
+      certa: true
+    - texto: "Reino, domínio, classe, filo, família, ordem, espécie, gênero"
+      erro: "A ordem certa é domínio, reino, filo, classe, ordem, família, gênero, espécie."
+  explicacao: "O ser humano e a onça-pintada andam juntos até a classe dos mamíferos e se separam na ordem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-reinos-03
+  tema: "Taxonomia"
+  dificuldade: 1
+  enunciado: "O que é taxonomia?"
+  alternativas:
+    - texto: "O estudo só das plantas"
+      erro: "A taxonomia classifica todos os seres vivos."
+    - texto: "O estudo das doenças"
+      erro: "É a ciência que classifica os seres vivos."
+    - texto: "A ciência que organiza os seres vivos em grupos, que procuram refletir o parentesco"
+      certa: true
+  explicacao: "Seres do mesmo grupo têm ancestrais em comum."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

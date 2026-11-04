@@ -1,0 +1,51 @@
+# Exercícios da aula "Movimentos sociais: o povo organizado fora do parlamento" (Ciência política: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cpf-movimentos-01
+  tema: "O que é"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é um movimento social, segundo a aula?"
+  alternativas:
+    - texto: "Um partido que disputa eleições"
+      erro: "Partidos disputam eleições e cargos; movimentos atuam fora do parlamento."
+    - texto: "Ação coletiva de setores da sociedade para defender ou promover objetivos ou interesses"
+      certa: true
+    - texto: "Uma reunião de uma só pessoa"
+      erro: "É uma ação coletiva."
+  explicacao: "Pode ser de transformação da sociedade ou de preservação da ordem estabelecida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-movimentos-02
+  tema: "Como atuam"
+  dificuldade: 1
+  enunciado: "Qual destas é uma forma de ação dos movimentos sociais citada na aula?"
+  alternativas:
+    - texto: "Só disputar cargos"
+      erro: "Disputar cargos é o que fazem os partidos."
+    - texto: "Só escrever leis no Congresso"
+      erro: "Os movimentos atuam fora do parlamento, pressionando o Estado."
+    - texto: "Ocupações, marchas, greves, atos e campanhas"
+      certa: true
+  explicacao: "Muitas vezes, os movimentos colocam um tema na agenda antes de ele virar lei."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-movimentos-03
+  tema: "Exemplos brasileiros"
+  dificuldade: 2
+  enunciado: "Quando foi fundado o MST e o que ele defende, segundo a aula?"
+  alternativas:
+    - texto: "Em 1984, pela reforma agrária"
+      certa: true
+    - texto: "Em 1978, pelo ativismo negro"
+      erro: "1978 é o ano do Movimento Negro Unificado."
+    - texto: "Em 1789, pela monarquia"
+      erro: "O MST foi fundado em 1984."
+  explicacao: "O Movimento Negro Unificado, de 1978, marcou a retomada do ativismo negro depois da repressão da ditadura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

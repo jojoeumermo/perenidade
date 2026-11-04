@@ -31,6 +31,11 @@ quiz:
     resposta: 0
     explicacao: "A China é hoje a maior emissora anual de gases de efeito estufa e, ao mesmo tempo, a maior produtora de equipamentos de energia renovável."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o conceito de civilização ecológica, as contradições ambientais da China e o que a Constituição brasileira diz no art. 225.
+
+
 
 Proteger o meio ambiente é tema escolar em muitos países. Na China, ele aparece na disciplina de Moral e Estado de Direito ligado a um conceito oficial: a **civilização ecológica** (生态文明, *shēngtài wénmíng*). Esta aula explica o conceito, olha para a realidade e compara com o Brasil.
 
@@ -74,3 +79,20 @@ O conceito de civilização ecológica é interessante porque admite que o desen
 ## Para conversar
 
 Qual é o maior problema ambiental da sua região? Quem é responsável por ele? Quem sofre as consequências?
+
+## Exemplo resolvido: de onde vêm as emissões em cada país?
+
+Pergunta: por que a defesa do clima não pede a mesma coisa da China e do Brasil?
+
+1. China: é a maior emissora anual de gases de efeito estufa e a maior consumidora de carvão, e ao mesmo tempo a maior produtora de painéis solares, turbinas eólicas, baterias e veículos elétricos.
+2. Brasil: a maior parte das emissões vem do desmatamento e da agropecuária, e não da indústria.
+3. Conclusão: na China, o desafio passa pela energia e pela indústria; no Brasil, pela floresta e pelo campo. Por isso a defesa da Amazônia pesa tanto no caso brasileiro.
+
+Confira: a aula lembra ainda que os países ricos do Norte respondem pela maior parte das emissões históricas acumuladas. A pergunta decisiva, nos dois países, é quem paga o custo e quem se beneficia.
+
+## Resumo
+
+- Civilização ecológica: expressão de destaque nos documentos do Partido Comunista da China desde 2012.
+- A China é a maior emissora anual e a maior produtora de energia renovável; anunciou em setembro de 2020 o pico de emissões antes de 2030 e a neutralidade de carbono antes de 2060.
+- No Brasil, o art. 225 da Constituição garante a todos o meio ambiente ecologicamente equilibrado; as emissões vêm sobretudo do desmatamento e da agropecuária.
+- Em qualquer país, a questão decisiva é quem paga e quem se beneficia.

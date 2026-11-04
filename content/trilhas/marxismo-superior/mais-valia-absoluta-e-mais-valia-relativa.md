@@ -32,6 +32,10 @@ quiz:
     explicacao: "A mais-valia relativa está associada à subsunção real: o capital revoluciona a técnica e a organização do trabalho."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir capital constante e variável, calcular a taxa de mais-valia e a taxa de lucro e explicar como o capital aumenta a mais-valia por dois caminhos.
+
 As seções 3 a 5 do Livro I são o coração da teoria da exploração. Marx mostra como o valor se reparte, como se mede a exploração e por que meios o capital a aumenta. Esta aula percorre esse caminho.
 
 ## Capital constante e capital variável
@@ -92,3 +96,11 @@ O sociólogo norte-americano Harry Braverman, em *Trabalho e Capital Monopolista
 ## Para pesquisar e debater
 
 Estime, para um trabalho que você conhece, os valores de c, v e m de um dia. Calcule a taxa de mais-valia e a taxa de lucro. Por que a segunda é sempre menor?
+
+## Resumo
+
+- Capital constante (c) é o dos meios de produção; capital variável (v) são os salários; o valor da mercadoria é c + v + m.
+- A taxa de mais-valia é m/v (mede a exploração); a taxa de lucro é m/(c + v) e é sempre menor.
+- No exemplo da aula (c = 600, v = 100, m = 200), a taxa de mais-valia é 200% e a de lucro, cerca de 28,6%.
+- Mais-valia absoluta: prolongar a jornada; relativa: aumentar a produtividade, reduzindo o tempo de trabalho necessário.
+- Braverman (1974) aplicou as categorias ao século XX, ao taylorismo, e o debate segue com a automação e a inteligência artificial.

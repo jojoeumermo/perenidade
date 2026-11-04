@@ -1,0 +1,51 @@
+# Exercícios da aula "A campanha de alfabetização de Cuba de 1961" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-cuba-01
+  tema: "O ponto de partida"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo os dados citados na aula, qual era a taxa de analfabetismo no campo cubano em 1958?"
+  alternativas:
+    - texto: "Cerca de 11%"
+      erro: "11% era a taxa nas cidades. No campo era de cerca de 41,7%."
+    - texto: "Cerca de 41,7%"
+      certa: true
+    - texto: "Cerca de 4,9%"
+      erro: "4,9% é a taxa brasileira da PNAD de 2025. Em Cuba, no campo, foi cerca de 41,7%."
+  explicacao: "Em 1958 a taxa era de cerca de 11% nas cidades e 41,7% no campo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-cuba-02
+  tema: "Os três grupos"
+  dificuldade: 2
+  enunciado: "Os brigadistas Conrado Benítez eram quem?"
+  alternativas:
+    - texto: "Trabalhadores organizados nos sindicatos"
+      erro: "Esses eram os brigadistas operários (cerca de 30 000)."
+    - texto: "Voluntários que ensinavam no próprio bairro"
+      erro: "Esses eram os alfabetizadores populares (cerca de 178 000)."
+    - texto: "Jovens estudantes, muitos adolescentes, que foram viver no campo"
+      certa: true
+  explicacao: "Eram cerca de 100 000 jovens, que moravam com as famílias camponesas, trabalhavam de dia e ensinavam à noite."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-cuba-03
+  tema: "O resultado declarado"
+  dificuldade: 1
+  enunciado: "Em que dia de 1961, na Praça da Revolução, Cuba foi declarada \"território livre de analfabetismo\"?"
+  alternativas:
+    - texto: "22 de dezembro"
+      certa: true
+    - texto: "1º de janeiro"
+      erro: "1º de janeiro de 1959 foi o triunfo da Revolução."
+    - texto: "1º de abril"
+      erro: "1º de abril de 1964 foi o golpe militar no Brasil."
+  explicacao: "A declaração foi em 22 de dezembro de 1961, em Havana."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

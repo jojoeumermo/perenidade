@@ -25,6 +25,10 @@ quiz:
     explicacao: "São pequenos traços que continuam a pauta para cima ou para baixo. O dó central, na clave de sol, fica na primeira linha suplementar inferior."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler a pauta, dizer o que faz a clave de sol e a de fá e achar as notas nas linhas, nos espaços e nas linhas suplementares.
+
 ## Cinco linhas e quatro espaços
 
 A música é escrita na **pauta** (ou pentagrama): cinco linhas paralelas com quatro espaços entre elas. Linhas e espaços são contados **de baixo para cima**.
@@ -87,6 +91,24 @@ nomes: sim
 
 Nesta trilha vamos trabalhar principalmente na clave de sol. A clave de fá volta na trilha seguinte.
 
+## Exemplo resolvido
+
+**Na clave de sol, qual nota fica no primeiro espaço, o de baixo?**
+
+1. A clave de sol se enrola em volta da segunda linha e diz que essa linha é sol.
+2. Conte as linhas de baixo para cima: a primeira linha é mi.
+3. O primeiro espaço fica logo acima dela, uma nota adiante na sequência dó, ré, mi, fá, sol, lá, si. Depois do mi vem o fá.
+
+Conclusão: o primeiro espaço é fá. Confira subindo: mi (linha), fá (espaço), sol (linha), lá (espaço) e assim por diante, degrau por degrau.
+
 ## Para praticar
 
 Use o [treino de leitura de notas](/ferramentas/leitura-de-notas). Comece pela clave de sol e não tenha pressa: o objetivo é reconhecer cada nota sem precisar contar as linhas.
+
+## Resumo
+
+- A pauta tem cinco linhas e quatro espaços, contados de baixo para cima; quanto mais alta a bolinha, mais agudo o som.
+- A clave dá nome a uma das linhas; a clave de sol marca a segunda linha como sol.
+- Nas linhas da clave de sol: mi, sol, si, ré, fá; nos espaços: fá, lá, dó, mi.
+- Linhas suplementares estendem a pauta; o dó central fica na primeira linha suplementar abaixo.
+- A clave de fá marca a quarta linha como fá e é usada por instrumentos graves.

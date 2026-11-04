@@ -29,6 +29,9 @@ quiz:
     resposta: 0
     explicacao: "Eles concluíram que a libertação da Irlanda era condição para a emancipação da própria classe operária inglesa."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como o marxismo tratou a questão nacional: a Irlanda para Marx e Engels, o debate entre Lenin e Rosa Luxemburgo, a experiência soviética e as lutas anticoloniais.
 
 O *Manifesto* diz que "os operários não têm pátria". No entanto, ao longo dos séculos XIX e XX, as lutas nacionais (de poloneses, irlandeses, indianos, vietnamitas, argelinos, angolanos) foram algumas das mais poderosas do mundo. Como o marxismo lidou com isso? Esta aula apresenta a **questão nacional**.
 
@@ -67,3 +70,23 @@ A questão nacional também nos diz respeito: o Brasil é um país dependente na
 ## Para pesquisar e debater
 
 O Brasil deveria se reconhecer como Estado plurinacional? Que mudanças isso traria para os direitos dos povos indígenas e para a organização do Estado?
+
+## Exemplo resolvido
+
+**Qual é a posição de Lenin sobre o direito de uma nação oprimida se separar? Siga o argumento.**
+
+1. **Os socialistas da nação opressora.** Devem defender o direito das nações oprimidas de se separar, inclusive formando um Estado próprio; senão ficam cúmplices do seu próprio imperialismo.
+2. **O limite.** Reconhecer o direito não significa defender a separação em todos os casos, como reconhecer o direito ao divórcio não significa recomendar que todos se divorciem.
+3. **Os socialistas da nação oprimida.** Devem defender a unidade com os trabalhadores das outras nações.
+4. **A crítica de Rosa Luxemburgo.** Ela temia que a autodeterminação servisse às burguesias nacionais e dividisse os operários.
+5. **Conclua.** Ter um direito não é ser obrigado a usá-lo; o debate entre os dois continua até hoje.
+
+Confira: antes, Marx e Engels tinham concluído, estudando a Irlanda, que um povo que oprime outro não pode ser livre.
+
+## Resumo
+
+- Marx e Engels, estudando a **Irlanda**, concluíram que um povo que oprime outro não pode ser livre.
+- Rosa Luxemburgo criticava a autodeterminação; Lenin (1914) defendeu o direito de separação das nações oprimidas, sem obrigar ninguém a exercê-lo.
+- A URSS (1922) foi organizada como federação de repúblicas, mas houve depois centralização, russificação e, sob Stálin, deportações de povos inteiros.
+- Nas lutas anticoloniais, Ho Chi Minh, Fanon e Cabral articularam libertação nacional e socialismo; para Cabral, a luta era também um ato de cultura.
+- No Brasil e na América Latina, o debate atual é a plurinacionalidade e os direitos dos povos originários.

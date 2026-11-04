@@ -9,7 +9,7 @@ import "katex/dist/katex.min.css";
 import { localePath } from "@/i18n/config";
 import { eInterativo } from "@/lib/interativos";
 import { Interativo } from "./blocos/Interativo";
-import { Agir, Escondido, Formula, Historia, Leve, NaVidaReal, OutroLado, Provocacao, Realidade, Roda, SuaRealidade } from "./aula/Blocos";
+import { Agir, Escondido, Formula, Historia, Leve, NaVidaReal, OutroJeito, OutroLado, Provocacao, Realidade, Roda, SuaRealidade } from "./aula/Blocos";
 import { InlineCheck } from "./InlineCheck";
 import { AnexoPendente, PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
@@ -101,7 +101,7 @@ function Calculation({ spec }: { spec: string }) {
 // HTML cru não é interpretado. Imagens só as guardadas no próprio site (/arquivos, /imagens): nada de
 // terceiros é carregado, e toda imagem publicada passou pela equipe. Vídeo só aparece quando a pessoa pede.
 // Links internos ("/acervo/...") ganham o prefixo do idioma atual.
-export function Markdown({ children, lang, terms, tryCode, sala }: { children: string; lang: string; terms?: GlossaryLink[]; tryCode?: string; sala?: string }) {
+export function Markdown({ children, lang, terms, tryCode, sala, audio = false }: { children: string; lang: string; terms?: GlossaryLink[]; tryCode?: string; sala?: string; audio?: boolean }) {
   return (
     <div className="prose-lesson">
       <ReactMarkdown
@@ -150,7 +150,7 @@ export function Markdown({ children, lang, terms, tryCode, sala }: { children: s
             const source = textOf(code).replace(/\n$/, "");
             if (language === "pauta") return <Staff spec={source} />;
             if (language === "teclado") return <KeyboardDiagram spec={source} />;
-            if (language === "verificar") return <InlineCheck spec={source} />;
+            if (language === "verificar") return <InlineCheck spec={source} audio={audio} />;
             if (language === "video") return <VideoEmbed spec={source} />;
             if (language === "conta") return <Calculation spec={source} />;
             // Os blocos da aula-experiência (components/aula/Blocos.tsx).
@@ -164,6 +164,7 @@ export function Markdown({ children, lang, terms, tryCode, sala }: { children: s
             if (language === "roda") return <Roda spec={source} sala={sala} />;
             if (language === "suarealidade") return <SuaRealidade spec={source} />;
             if (language === "outrolado") return <OutroLado spec={source} />;
+            if (language === "outrojeito") return <OutroJeito spec={source} />;
             if (language === "agir") return <Agir spec={source} />;
             if (eInterativo(language)) return <Interativo tipo={language} spec={source} />;
             const runnable = (language === "python" || language === "php") && tryCode;

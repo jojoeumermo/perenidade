@@ -29,6 +29,9 @@ quiz:
     resposta: 0
     explicacao: "A lei brasileira de 2018 lista direitos do titular e exige base legal para o tratamento de dados pessoais."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o conceito de capitalismo de vigilância de Shoshana Zuboff, as críticas da leitura marxista, os efeitos sobre a política e as medidas que ajudam a enfrentá-lo.
 
 Você pesquisa um produto e, minutos depois, anúncios dele aparecem em todos os aplicativos. A rede social parece saber o que vai prender a sua atenção. Isso não é coincidência: é um modelo de negócio. A psicóloga social e professora de Harvard Shoshana Zuboff deu a ele um nome que pegou: **capitalismo de vigilância**.
 
@@ -84,3 +87,23 @@ Nenhuma dessas medidas sozinha resolve o problema, porque ele está na lógica d
 ## Para pesquisar e debater
 
 Baixe os dados que uma grande plataforma guarda sobre você (a maioria oferece essa opção nas configurações). O que surpreendeu você? O que essa empresa pode fazer com essas informações?
+
+## Exemplo resolvido
+
+**Você pesquisa um produto e, minutos depois, anúncios dele aparecem em todos os aplicativos. Como as etapas de Zuboff explicam isso?**
+
+1. **Matéria-prima gratuita.** A sua busca, o seu clique e o tempo que você ficou olhando foram tratados como matéria-prima gratuita.
+2. **Excedente comportamental.** Os dados coletados além do necessário para o serviço funcionar formam um excedente.
+3. **Produto de predição.** Com ele, máquinas de previsão calculam a chance de você comprar, e esse produto de predição é vendido a anunciantes.
+4. **Modificação.** Com o tempo, a empresa passa também a tentar **modificar** o comportamento: empurrar, sugerir, viciar.
+5. **Quem paga.** Os clientes pagantes são os anunciantes. Por isso mais tempo na rede gera mais dados e mais anúncios exibidos, e mais receita.
+
+Confira: o serviço é "gratuito", mas o produto, para quem paga, é a previsão do comportamento de quem usa.
+
+## Resumo
+
+- Muitos serviços "gratuitos" vivem de anunciantes, que compram a capacidade de mostrar o anúncio certo, à pessoa certa, na hora certa.
+- Zuboff (2019): **matéria-prima gratuita**, **excedente comportamental**, **produtos de predição** e, depois, **modificação do comportamento**. O modelo nasceu no começo dos anos 2000, no Google.
+- Crítica marxista: vigilância não é desvio de um capitalismo saudável; é lógica do sistema. Debates sobre origem do valor, monopólio, controle do trabalho e soberania digital.
+- Cambridge Analytica (2018): dados de dezenas de milhões de usuários do Facebook usados em campanhas políticas sem consentimento adequado.
+- Respostas: Lei Geral de Proteção de Dados (Lei 13.709/2018), regulação e combate a monopólios, software livre e autodefesa digital.

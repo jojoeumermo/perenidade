@@ -32,6 +32,10 @@ quiz:
     resposta: 0
     explicacao: "Ao exigir a compra, a lei fechou o acesso à terra para quem não tinha dinheiro: libertos, pobres livres e imigrantes."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o peso da escravidão na história do Brasil, ler os números do tráfico, reconhecer as formas de resistência e entender por que a abolição foi um processo, não um presente.
+
 
 ## A base de tudo
 
@@ -105,3 +109,12 @@ Nas décadas seguintes, o Estado estimulou a vinda de imigrantes europeus, em pa
 2. Por que a história oficial atribuiu a abolição à princesa Isabel? O que essa versão apaga?
 3. Compare o que André Rebouças propunha com o que a Lei Áurea fez. O que teria mudado?
 4. Que ligações você vê entre a Lei de Terras de 1850 e a concentração de terras no Brasil atual?
+
+## Resumo
+
+- A escravidão foi, por mais de três séculos, a base da economia, da sociedade e do Estado brasileiro.
+- Pelo banco de dados Slave Voyages, cerca de 12,5 milhões de africanos foram embarcados à força para as Américas entre os séculos XVI e XIX; cerca de 10,7 milhões chegaram vivos.
+- A violência marcou a travessia, a venda como mercadoria, o trabalho nos engenhos e minas e o castigo.
+- A resistência foi permanente e de muitas formas (Clóvis Moura, Rebeliões da senzala, 1959).
+- A abolição não foi presente: resultou da pressão da Inglaterra, da resistência dos escravizados e do movimento abolicionista.
+- A Lei Áurea tem dois artigos e nada mais: sem terra, indenização, escola ou trabalho para os libertos; a terra já estava fechada pela Lei de Terras de 1850, que só permitia adquirir terras públicas por compra.

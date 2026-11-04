@@ -98,6 +98,16 @@ Há também os limites. O Censo é feito de casa em casa. Por isso, a populaçã
 
 Por tudo isso, atrasar ou encolher um censo não é economia: é governar no escuro. E recusar-se a responder não é um protesto contra o governo: é fazer o próprio bairro aparecer menor do que é.
 
+## Exemplo resolvido
+
+**Com os números do Censo de 2022 (população total: 203.080.756; moradores de favelas: 16.390.790), que parte da população mora em favelas?**
+
+1. **Monte a divisão:** moradores de favelas ÷ população total = 16.390.790 ÷ 203.080.756.
+2. **Calcule:** o resultado é cerca de 0,08.
+3. **Leia em porcentagem:** cerca de **8%**, ou 8 em cada 100 moradores.
+
+Confira: o IBGE publica somas e proporções, nunca dados de uma pessoa identificada; as respostas do Censo são sigilosas (Lei nº 5.534/1968). Quem é contado passa a existir nos números do país.
+
 ## Para praticar
 
 1. Com os dados da tabela, calcule a porcentagem da população que vive em favelas.
@@ -106,3 +116,11 @@ Por tudo isso, atrasar ou encolher um censo não é economia: é governar no esc
 4. Que pergunta você acha que falta no Censo? Por quê?
 
 **Respostas:** 1) Cerca de 8,1%. 2) Sim: 3.025.022 pessoas, cerca de 1,5% do total.
+
+## Resumo
+
+- O **Censo demográfico** conta e descreve todos os moradores do país; é feito pelo IBGE, com intervalo máximo de dez anos entre dois censos. O mais recente é o de **2022**.
+- O território é dividido em **setores censitários**, percorridos por recenseadores; há um questionário curto e um mais longo, aplicado a uma amostra.
+- Responder é obrigatório e as respostas são **sigilosas**, usadas só para estatística (Lei nº 5.534/1968).
+- Números de 2022: 203.080.756 pessoas; cerca de 87 em cada 100 moram em áreas urbanas; 1.694.836 indígenas; 1.330.186 quilombolas.
+- O Censo de 2022 foi o primeiro a identificar a população quilombola em todo o país.

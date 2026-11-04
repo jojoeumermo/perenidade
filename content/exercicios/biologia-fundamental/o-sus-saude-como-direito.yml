@@ -1,0 +1,51 @@
+# Exercícios da aula "O SUS: saúde como direito" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-sus-01
+  tema: "De onde veio o SUS"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, de onde veio o SUS?"
+  alternativas:
+    - texto: "De uma conquista: o Movimento da Reforma Sanitária, nos anos 1970 e 1980"
+      certa: true
+    - texto: "De um presente de governo"
+      erro: "A aula diz: \"O SUS não foi presente de governo nenhum. Foi conquistado.\""
+    - texto: "De uma lei de 1930 que criou os hospitais"
+      erro: "O SUS nasceu da luta dos anos 1970 e 1980 e da Constituição de 1988."
+  explicacao: "Profissionais de saúde, pesquisadores, sindicatos e movimentos populares de bairro formaram o movimento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-sus-02
+  tema: "Antes do SUS"
+  dificuldade: 2
+  enunciado: "Até 1988, quem tinha direito ao atendimento médico da previdência?"
+  alternativas:
+    - texto: "Todas as pessoas, sem exceção"
+      erro: "Até 1988 a saúde pública não era para todos."
+    - texto: "Quem contribuía, na prática os trabalhadores com carteira e suas famílias"
+      certa: true
+    - texto: "Só os trabalhadores rurais"
+      erro: "Os rurais, informais e desempregados ficavam de fora."
+  explicacao: "Quem estava fora pagava, recorria às santas casas ou ficava sem atendimento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-sus-03
+  tema: "O artigo 196"
+  dificuldade: 2
+  enunciado: "O artigo 196 da Constituição afirma que a saúde é:"
+  alternativas:
+    - texto: "Direito só de quem contribui"
+      erro: "O artigo afirma que a saúde é de todos, sem exigir contribuição."
+    - texto: "Um favor do governo a quem precisa"
+      erro: "A saúde não é mercadoria nem favor: é direito."
+    - texto: "Direito de todos e dever do Estado"
+      certa: true
+  explicacao: "A 8ª Conferência Nacional de Saúde, em 1986, levou propostas à Constituinte."
+  fonte: "Questão original do Instituto Lúcia (Constituição Federal, art. 196)"
+  revisao:
+    status: em-revisao

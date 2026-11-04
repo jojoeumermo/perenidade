@@ -37,6 +37,10 @@ quiz:
     explicacao: "Não existe atividade humana da qual se possa excluir toda intervenção intelectual. A questão é a função social."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a pergunta de Gramsci sobre o Ocidente, o conceito de hegemonia (domínio e direção) e o papel dos intelectuais.
+
 **Antonio Gramsci** (1891-1937) nasceu na Sardenha, região pobre do sul da Itália. Foi jornalista socialista em Turim, dirigiu o jornal *L'Ordine Nuovo* durante a onda de ocupações de fábricas de 1919-1920, participou da fundação do Partido Comunista da Itália em 1921 e chegou a ser seu secretário-geral e deputado. Preso pelo regime fascista de Mussolini em 1926, foi condenado a mais de vinte anos de prisão; o promotor teria dito que era preciso "impedir esse cérebro de funcionar". Na prisão, doente, escreveu cerca de trinta cadernos de notas: os **Cadernos do Cárcere**. Morreu em 1937, poucos dias depois de ter a pena declarada extinta.
 
 ## A pergunta de Gramsci
@@ -85,6 +89,24 @@ O senso comum é uma mistura incoerente de ideias de várias épocas, com elemen
 
 Gramsci foi intensamente lido no Brasil a partir dos anos 1960 e 1970, com traduções e estudos de Carlos Nelson Coutinho, entre outros. Influenciou a educação popular, o serviço social, os estudos de comunicação e o debate sobre a democracia na esquerda brasileira, em diálogo com a obra de Paulo Freire.
 
+## Exemplo resolvido
+
+**Por que, para Gramsci, a revolução de 1917 venceu na Rússia e não no Ocidente?**
+
+1. No **Oriente** (a Rússia czarista), o Estado era tudo e a sociedade civil era "primitiva e gelatinosa": derrubado o aparelho estatal, o poder caía.
+2. No **Ocidente**, havia uma relação equilibrada entre Estado e sociedade civil; quando o Estado tremia, aparecia uma robusta estrutura da sociedade civil, uma cadeia de **fortalezas e casamatas**.
+3. Por isso a supremacia de uma classe não é só **domínio** (coerção), mas também **direção intelectual e moral** (consenso): a **hegemonia**.
+4. Uma classe é hegemônica quando seus interesses aparecem como universais e a sua visão de mundo vira **senso comum**.
+
+Confira: Gramsci (1891-1937) escreveu os *Cadernos do Cárcere* preso pelo regime fascista de Mussolini.
+
 ## Para pesquisar e debater
 
 Identifique na sua cidade três "casamatas" da sociedade civil (uma rádio, uma igreja, uma escola, uma associação). Que visão de mundo elas difundem? Que contra-hegemonia seria possível construir ali?
+
+## Resumo
+
+- Gramsci nasceu em 1891 na Sardenha, fundou com outros o Partido Comunista da Itália (1921), foi preso em 1926 e escreveu os *Cadernos do Cárcere*; morreu em 1937.
+- Hegemonia: domínio (coerção) mais direção intelectual e moral (consenso); a visão de mundo da classe se torna senso comum.
+- No Ocidente, a sociedade civil forma "fortalezas e casamatas"; daí a guerra de posição.
+- Os intelectuais têm papel na organização do consenso; Gramsci influenciou no Brasil a educação popular, o serviço social e os estudos de comunicação.

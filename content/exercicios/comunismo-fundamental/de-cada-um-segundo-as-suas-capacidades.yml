@@ -1,0 +1,51 @@
+# Exercícios da aula "De cada um segundo as suas capacidades" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-capacidades-01
+  tema: "As duas metades"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer \"a cada um segundo as suas necessidades\", segundo a aula?"
+  alternativas:
+    - texto: "Todos recebem exatamente a mesma coisa"
+      erro: "A aula diz: a frase não diz que todos recebem a mesma coisa."
+    - texto: "Cada pessoa recebe segundo o que possui"
+      erro: "É segundo as necessidades."
+    - texto: "Cada pessoa recebe o que precisa para viver bem e se desenvolver"
+      certa: true
+  explicacao: "Quem tem uma doença rara recebe o tratamento, mesmo que seja caro; quem tem filhos recebe mais apoio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-capacidades-02
+  tema: "Em que fase"
+  dificuldade: 2
+  enunciado: "A frase descreve qual fase da sociedade comunista, segundo Marx?"
+  alternativas:
+    - texto: "A fase superior"
+      certa: true
+    - texto: "A primeira fase, logo depois do capitalismo"
+      erro: "A aula diz que ela descreve a fase superior, não a primeira."
+    - texto: "O capitalismo"
+      erro: "A frase descreve a fase superior da sociedade comunista."
+  explicacao: "Marx retomou a frase em 1875, na Crítica do Programa de Gotha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-capacidades-03
+  tema: "Uma ideia antiga"
+  dificuldade: 1
+  enunciado: "Qual livro da Bíblia a aula cita como tendo uma ideia parecida, de distribuir conforme a necessidade?"
+  alternativas:
+    - texto: "O Gênesis"
+      erro: "A aula cita os Atos dos Apóstolos."
+    - texto: "Os Atos dos Apóstolos"
+      certa: true
+    - texto: "O Apocalipse"
+      erro: "A aula cita os Atos dos Apóstolos."
+  explicacao: "Socialistas franceses do século XIX, como Louis Blanc, também usaram fórmulas parecidas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

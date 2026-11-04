@@ -1,0 +1,67 @@
+# Exercícios da aula "O alfabeto e a pronúncia: ä, ö, ü e ß" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-alfabeto-01
+  tema: "Sons que mudam"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se pronuncia a letra w em alemão, como em Wasser (água)?"
+  alternativas:
+    - texto: "Como o nosso v: \"vásser\""
+      certa: true
+    - texto: "Como o nosso u: \"uásser\""
+      erro: "Em alemão, o w soa como o nosso v. Wasser lê-se \"vásser\"."
+    - texto: "Como o nosso f: \"fásser\""
+      erro: "O som de f é do v alemão (Vater = \"fáter\"). O w soa como v."
+  explicacao: "O w alemão soa como o v do português; já o v costuma soar como f (Vater, \"fáter\")."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-alfabeto-02
+  tema: "O som de j e z"
+  dificuldade: 2
+  enunciado: "Como se lê ja (sim) e Zeit (tempo)?"
+  alternativas:
+    - texto: "ja = \"iá\" e Zeit = \"tsáit\""
+      certa: true
+    - texto: "ja = \"já\" e Zeit = \"zeit\""
+      erro: "O j alemão soa como o i de \"iate\", e o z soa ts."
+    - texto: "ja = \"iá\" e Zeit = \"seit\""
+      erro: "O z alemão não é s: soa ts. Zeit = \"tsáit\"."
+  explicacao: "O j soa como o i de \"iate\" e o z soa ts: ja = \"iá\", Zeit = \"tsáit\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-alfabeto-03
+  tema: "O Eszett"
+  dificuldade: 2
+  enunciado: "Quando aparece o ß (Eszett), segundo a aula?"
+  alternativas:
+    - texto: "Depois de vogal longa ou ditongo, como em Straße e heißen"
+      certa: true
+    - texto: "Sempre no começo das palavras"
+      erro: "O ß aparece depois de vogal longa ou ditongo, no meio ou no fim."
+    - texto: "Só nas palavras suíças"
+      erro: "Na Suíça o ß nem é usado: escreve-se sempre ss."
+  explicacao: "O ß é um ss depois de vogal longa ou ditongo (Straße, groß). Depois de vogal curta escreve-se ss (Wasser, muss)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-alfabeto-04
+  tema: "Encontros ei e ie"
+  dificuldade: 2
+  enunciado: "Como se lê nein (não)?"
+  alternativas:
+    - texto: "\"nain\", com o ei soando ai"
+      certa: true
+    - texto: "\"nin\", com um i longo"
+      erro: "O i longo é do encontro ie (Liebe). O ei soa ai."
+    - texto: "\"nêin\""
+      erro: "O ei não se lê \"êi\": ele soa ai. Nein = \"nain\"."
+  explicacao: "O encontro ei soa ai (mein, nein); o encontro ie soa i longo (die, Liebe)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

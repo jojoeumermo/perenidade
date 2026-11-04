@@ -42,6 +42,11 @@ quiz:
     explicacao: "Muitos judeus, dentro e fora de Israel, defendem os direitos dos palestinos. Confundir as duas coisas prejudica tanto a luta contra o racismo quanto o debate sobre a Palestina."
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar, em ordem, a história da Palestina desde o fim do século XIX, as formas de luta do povo palestino e como criticar um Estado sem cair no preconceito contra um povo ou uma religião.
+
 ## Uma terra com gente
 
 A **Palestina** é a faixa de terra entre o rio Jordão e o mar Mediterrâneo. Durante séculos fez parte do Império Otomano. No começo do século XX, era habitada sobretudo por **árabes palestinos**, muçulmanos e cristãos, que viviam da agricultura, do comércio e do artesanato, em aldeias e em cidades como Jerusalém, Jafa, Haifa, Nablus e Gaza. Havia também uma minoria judaica, antiga na região.
@@ -114,3 +119,10 @@ Desde 1977, a ONU celebra em **29 de novembro** o Dia Internacional de Solidarie
 1. Compare a Nakba com a história dos povos indígenas e quilombolas no Brasil (veja [Palmares e os quilombos](/trilhas/lutas-do-povo/palmares-e-os-quilombos)). O que significa, para um povo, perder a terra em que vivia?
 2. Por que o direito de retorno dos refugiados é uma das questões mais difíceis do conflito?
 3. Como separar, no debate público, a crítica a um Estado do preconceito contra um povo ou uma religião? Dê exemplos.
+
+## Resumo
+
+- No começo do século XX, a Palestina era habitada sobretudo por árabes palestinos, com uma minoria judaica antiga na região.
+- O sionismo surgiu na Europa no fim do século XIX; em 1917, a Declaração Balfour apoiou um "lar nacional para o povo judeu", desde que não se prejudicassem os direitos das comunidades não judaicas existentes.
+- A aula trata da partilha e da Nakba (1947-1949), da ocupação (1967), das formas da luta e de Gaza.
+- Solidariedade sem ódio: separar a crítica a um Estado do preconceito contra um povo ou uma religião.

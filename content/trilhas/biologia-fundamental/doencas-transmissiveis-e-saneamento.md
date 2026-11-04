@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "Lavar as mãos antes de comer e depois de usar o banheiro interrompe a transmissão de vários micróbios."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é uma doença transmissível, quais agentes e caminhos de transmissão existem, quais são os quatro serviços do saneamento básico e o que cada pessoa pode fazer para se proteger.
 
 ## O que é uma doença transmissível
 
@@ -108,3 +111,23 @@ Por isso, o combate a essas doenças não depende só do cuidado de cada um. Nã
 1. A sua rua tem rede de esgoto? Para onde vai o esgoto do seu bairro? Procure a informação na prefeitura ou na companhia de saneamento.
 2. Quais doenças da tabela já apareceram na sua comunidade? Por qual caminho chegaram?
 3. Faça com vizinhos um mapa dos pontos de água parada e de lixo acumulado do quarteirão. A quem cabe resolver cada um?
+
+## Exemplo resolvido
+
+**Depois de uma enchente, um bairro registra vários casos de leptospirose. Como o caminho da transmissão ajuda a explicar e a prevenir?**
+
+1. **Agente.** A leptospirose é causada por uma bactéria.
+2. **Caminho.** Pela tabela, é o caminho do **contato com água ou solo**: a água da enchente se mistura com urina de ratos e a bactéria entra pela pele das pessoas.
+3. **Prevenção de cada um.** Evitar o contato com a água de enchente; se for inevitável, usar botas e luvas.
+4. **Prevenção do bairro.** O saneamento corta o caminho: drenagem e manejo das águas da chuva evitam enchentes, e lixo recolhido tira o alimento dos ratos.
+
+Confira: lavar as mãos sozinho não resolveria. A doença tem endereço, e parte da solução é obra pública e direito.
+
+## Resumo
+
+- Doença **transmissível** é causada por um agente (vírus, bactéria, protozoário, fungo ou verme) que passa de uma pessoa, animal ou ambiente para outra pessoa. Pressão alta e diabetes não são transmissíveis.
+- Caminhos: **ar**, **água e alimentos**, **vetores**, **contato com água ou solo**, **relação sexual e sangue** e **ferimentos**. Saber o caminho é saber como se proteger.
+- **Saneamento básico** (Lei 11.445/2007): água potável, esgotamento sanitário, limpeza urbana e manejo de resíduos, drenagem das águas da chuva.
+- Em 1854, John Snow ligou os casos de cólera de Londres a uma bomba de água contaminada.
+- As doenças do saneamento atingem mais quem mora em áreas sem esgoto e água: saneamento é obra pública e direito.
+- Ao alcance de cada um: lavar as mãos, tratar a água, evitar água parada, manter a vacinação em dia.

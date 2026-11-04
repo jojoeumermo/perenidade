@@ -32,6 +32,9 @@ quiz:
     resposta: 0
     explicacao: "A tese justificou a expansão do aparelho repressivo e foi criticada por Trotsky e outros marxistas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Engels e Lenin queriam dizer com a extinção do Estado, a distinção entre coerção e coordenação e por que o Estado cresceu nas experiências do século XX.
 
 Uma das ideias mais ousadas do marxismo é a de que o **Estado não é eterno**: surgiu com as classes e deve desaparecer com elas. Esta aula examina o que os clássicos disseram sobre esse "definhamento" e por que ele não aconteceu nas experiências do século XX.
 
@@ -82,3 +85,24 @@ Hoje, poucas correntes marxistas defendem que o Estado possa desaparecer em pouc
 ## Para pesquisar e debater
 
 Escolha um serviço público que você conhece (escola, posto de saúde, transporte). Que decisões sobre ele poderiam ser tomadas pelos próprios usuários e trabalhadores, sem um chefe nomeado de cima?
+
+## Exemplo resolvido
+
+**O Estado "definha" ou é "abolido"? Separe as duas funções, como Engels.**
+
+1. **Funções de coerção.** Exército, polícia, prisões, a dominação de uma classe sobre outra; perderiam a razão de ser numa sociedade sem classes.
+2. **Funções de coordenação.** Planejar, administrar, organizar serviços; continuariam, mas sem um corpo separado e acima da sociedade.
+3. **A fórmula.** O governo das pessoas é substituído pela administração das coisas.
+4. **A palavra.** O Estado não é "abolido": extingue-se.
+5. **Conclua.** O que tende a desaparecer é a coerção de uma classe sobre outra, e não o planejamento nem os serviços como saúde e educação.
+
+Confira: Lenin acrescentou condições materiais (abundância, educação geral, funções administrativas simples) e, na URSS, o Estado cresceu em vez de definhar.
+
+## Resumo
+
+- Para o marxismo, o Estado surgiu com as classes e deve se extinguir com elas (Engels, 1880); "extingue-se", não é abolido.
+- Distinção: a **coerção** perde a razão de ser; a **coordenação** continua, sem um corpo separado da sociedade.
+- Lenin: a extinção depende de abundância, educação geral, funções administrativas simples e do hábito de respeitar as regras sem coerção.
+- Na URSS o Estado cresceu; as explicações variam (cerco externo, atraso econômico, burocracia, concentração da propriedade no Estado).
+- Gramsci falou em **sociedade regulada**, com a coerção diminuindo e a sociedade civil se autorregulando.
+- Hoje se discute como democratizar o Estado e evitar uma camada burocrática separada.

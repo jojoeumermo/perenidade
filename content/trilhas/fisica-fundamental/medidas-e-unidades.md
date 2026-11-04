@@ -28,6 +28,10 @@ quiz:
     resposta: 1
     explicacao: "Nenhum instrumento é perfeito. Medir bem inclui saber o tamanho da incerteza."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é medir, usar os prefixos do Sistema Internacional (quilo, mili, giga) e converter unidades como km/h em m/s sem errar.
+
 
 ## Medir é comparar
 
@@ -118,3 +122,11 @@ Vale para a balança da feira, o medidor de pressão e o hidrômetro. E é um di
 4. Meça três vezes o comprimento de uma mesa. Os resultados foram idênticos? Por quê?
 
 **Respostas:** 1) 25 m/s; 54 km/h; 150 minutos. 2) 0,5 g. 3) 2 bilhões de watts.
+
+## Resumo
+
+- Medir é comparar com um padrão, a unidade; o Sistema Internacional uniformiza as unidades no mundo.
+- Prefixos como quilo, mili e giga evitam números enormes ou minúsculos.
+- De km/h para m/s, divide-se por 3,6; no sentido contrário, multiplica-se.
+- Misturar unidades causa erros graves, como o da sonda Mars Climate Orbiter.
+- Nenhuma medida é exata: o último algarismo é sempre estimado.

@@ -25,7 +25,17 @@ quiz:
     opcoes: ["190", "180", "192"]
     resposta: 1
     explicacao: "O Ligue 180 é gratuito e funciona 24 horas. Em caso de emergência, o número é o 190, da Polícia Militar."
+modelo: 9
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quem é Maria da Penha, o que a lei que leva o nome dela diz, as cinco formas de violência que ela descreve e onde pedir ajuda.
+
+
+```suarealidade
+Sem citar nomes nem endereços: você sabe a quem uma mulher do seu bairro ou do seu trabalho poderia recorrer, se precisasse de ajuda numa situação de violência em casa?
+```
 
 ## Quem é Maria da Penha
 
@@ -80,3 +90,36 @@ Quem presencia a violência também pode e deve denunciar.
 ## O que ainda falta
 
 A lei é considerada uma das mais avançadas do mundo sobre o tema, mas lei no papel não basta. Faltam delegacias especializadas e casas-abrigo na maior parte dos municípios, e os números de feminicídio continuam altos. Em 2015, o assassinato de mulheres por razões de gênero passou a ter nome na lei: **feminicídio**. Fazer a lei valer, em cada cidade, continua sendo uma luta dos movimentos de mulheres.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A lei é injusta porque protege só as mulheres, e a medida protetiva sai sem ouvir o acusado, o que abre espaço para acusações falsas".
+---
+Como você responderia, com respeito e com fatos?
+---
+Uma resposta possível: a preocupação com o direito de defesa é legítima. A própria lei prevê que as medidas protetivas podem ser concedidas de imediato, sem audiência das partes (art. 19, § 1º), mas também que o juiz pode rever as que já concedeu (art. 19, § 3º), e o processo segue com defesa. A urgência existe porque, como o caso de Maria da Penha mostrou, a demora pode custar a vida da mulher. Fonte: Lei nº 11.340/2006, planalto.gov.br.
+```
+
+## Exemplo resolvido
+
+**O companheiro de Joana não bate nela, mas confere o celular dela todos os dias, proíbe que ela visite a mãe e fica com o cartão do banco. Isso é violência segundo a lei? O que ela pode fazer?**
+
+1. **Confira cada atitude na tabela das cinco formas.** Vigiar e isolar da família é violência *psicológica*. Ficar com o cartão e o dinheiro dela é violência *patrimonial*.
+2. **A lei não exige agressão física.** Basta uma das cinco formas para a lei valer.
+3. **Onde pedir ajuda:** ligar para o 180 (gratuito, 24 horas), procurar uma delegacia ou a Defensoria Pública. Em caso de emergência, 190.
+4. **A medida protetiva:** na delegacia, Joana pode pedir as medidas de urgência; o juiz decide em até 48 horas (art. 18).
+
+Confira: a resposta à pergunta é sim, e nenhuma das atitudes precisa de um soco para ser violência.
+
+```agir
+# Esta semana
+Anote num papel os números 180 (Central de Atendimento à Mulher) e 190 (emergência) e guarde num lugar fácil de achar em casa. Se quiser, compartilhe o 180 com uma pessoa de confiança, sem contar a história de ninguém.
+```
+
+## Resumo
+
+- A lei foi sancionada em **7 de agosto de 2006** e leva o nome de Maria da Penha, vítima de duas tentativas de homicídio em 1983.
+- Ela descreve cinco formas de violência: **física, psicológica, sexual, patrimonial e moral**.
+- As **medidas protetivas de urgência** podem ser pedidas na delegacia; o juiz decide em até 48 horas (art. 18).
+- Para pedir ajuda: **180** (24 horas, gratuito), **190** (emergência), delegacia ou Defensoria Pública.
+- A lei é avançada, mas faltam delegacias e casas-abrigo em muitos municípios.

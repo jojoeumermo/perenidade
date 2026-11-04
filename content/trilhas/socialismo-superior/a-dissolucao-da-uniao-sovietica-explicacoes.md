@@ -32,6 +32,10 @@ quiz:
     explicacao: "A desestruturação econômica e social teve um custo demográfico enorme."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber montar a linha do tempo do fim da URSS, de 1985 a dezembro de 1991, e comparar as principais explicações para a dissolução sem tratar nenhuma como definitiva.
+
 Em **25 de dezembro de 1991**, Mikhail Gorbachev renunciou à presidência da União Soviética, e a bandeira vermelha foi baixada no Kremlin. O primeiro Estado que se declarou socialista deixou de existir sem guerra externa nem invasão. Por quê? Esta aula apresenta os fatos e as principais explicações.
 
 ## Os fatos
@@ -74,6 +78,24 @@ Na Rússia dos anos 1990, foi aplicada a **terapia de choque**: liberação imed
 
 Para os defensores do capitalismo, o fim da URSS provou a superioridade do mercado. Para muitos socialistas, provou que um socialismo sem democracia, comandado por uma burocracia, é vulnerável ao seu próprio esvaziamento. Para outros, mostrou a força do cerco imperialista. A pergunta continua central para quem pensa o socialismo hoje: **como evitar que a camada dirigente se separe dos trabalhadores?**
 
+## Exemplo resolvido
+
+**Como testar a explicação "a pressão externa derrubou a URSS" com a linha do tempo?**
+
+1. Monte a linha: 1985, Gorbachev lança a perestroika e a glasnost; 1986, Chernobyl; 1989, caem os regimes do Leste Europeu; 1990-1991, repúblicas declaram soberania; agosto de 1991, o golpe fracassa; 25 de dezembro de 1991, Gorbachev renuncia.
+2. Veja o que a aula diz sobre pressão externa: a corrida armamentista, a queda do preço do petróleo nos anos 1980 e a pressão ocidental pesaram sobre a economia.
+3. Veja o que não cabe nela: a URSS foi dissolvida sem guerra externa nem invasão, e os acordos finais foram assinados pelos líderes da Rússia, Ucrânia e Belarus.
+
+Conclusão: a pressão externa é um fator, e não a explicação inteira. A aula pede que se combinem o esgotamento econômico, a burocracia sem controle, a "revolução por cima" das elites, as nacionalidades e a pressão externa.
+
 ## Para pesquisar e debater
 
 Compare a transição da Rússia nos anos 1990 com a reforma gradual da China (aula anterior). Por que os resultados foram tão diferentes?
+
+## Resumo
+
+- A URSS deixou de existir em 25 de dezembro de 1991, sem guerra externa nem invasão.
+- Fatos: estagnação nos anos Brejnev, a perestroika e a glasnost (1985), Chernobyl (1986), a queda dos regimes do Leste (1989), os golpes e as independências (1990-1991).
+- Explicações: esgotamento do modelo econômico, burocracia sem democracia, "revolução por cima" da própria elite, nacionalidades e pressão externa.
+- A maioria dos historiadores combina vários fatores.
+- As lições da dissolução continuam em disputa.

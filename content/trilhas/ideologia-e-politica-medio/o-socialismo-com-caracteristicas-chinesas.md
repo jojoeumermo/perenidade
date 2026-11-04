@@ -29,6 +29,10 @@ quiz:
     resposta: 0
     explicacao: "O termo foi adotado no 19º Congresso do partido, em 2017."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever o percurso do primeiro módulo (das formas de sociedade ao socialismo com características chinesas), as ideias centrais apresentadas e os debates fora do discurso oficial.
+
 
 O primeiro módulo obrigatório da disciplina **Ideologia e Política** (思想政治) no ensino médio chinês chama-se **Socialismo com características chinesas** (中国特色社会主义). Esta aula descreve o que ele apresenta, a partir do padrão curricular oficial, e indica os debates em torno do tema. Para uma discussão teórica mais ampla, veja a aula [O socialismo com características chinesas](/trilhas/socialismo-superior/o-socialismo-com-caracteristicas-chinesas) da trilha superior de Socialismo.
 
@@ -65,3 +69,22 @@ Fora do discurso oficial, e mesmo entre marxistas, há forte debate sobre se a C
 ## Para conversar
 
 Como a história do Brasil é contada nos livros escolares que você conhece? Que períodos ganham destaque e quais são pouco discutidos? Quem decide isso?
+
+## Exemplo resolvido
+
+**Como organizar o percurso do módulo e separar o que é descrição do que é debate?**
+
+1. **O percurso, do geral ao particular.** A aula parte das formas de sociedade (comunidade primitiva, escravismo, feudalismo, capitalismo, segundo o materialismo histórico), passa do socialismo utópico ao científico e chega ao caminho seguido pela China.
+2. **As ideias centrais (como o currículo as apresenta).** O país estaria no "estágio primário do socialismo", fase longa em que o desenvolvimento das forças produtivas é prioritário; o sistema combina propriedade pública predominante com várias formas de propriedade e mercado sob direção do Estado; a direção do Partido é apresentada como característica essencial.
+3. **Os debates fora do discurso oficial.** Mesmo entre marxistas, discute-se se a China atual ainda é socialista ou se tornou uma forma de capitalismo de Estado. Há críticas à forma como períodos como a fome do Grande Salto Adiante são tratados nos materiais escolares.
+4. **Regra de leitura.** "Estágio primário" é uma tese do currículo; "capitalismo de Estado" é outra tese. Nenhuma é um fato: são interpretações que se discutem com dados e com a história.
+
+Pergunta de comparação (a da aula): como a história do Brasil é contada nos livros escolares que você conhece, e quem decide isso?
+
+## Resumo
+
+- O primeiro módulo obrigatório de Ideologia e Política chama-se Socialismo com características chinesas e vai do geral ao particular: formas de sociedade, do socialismo utópico ao científico, até o caminho seguido pela China.
+- O currículo apresenta o país no "estágio primário do socialismo", com propriedade pública predominante, várias formas de propriedade, mercado sob direção do Estado e a direção do Partido Comunista como característica essencial.
+- Fora do discurso oficial, há forte debate sobre se a China atual ainda é socialista ou capitalismo de Estado.
+- Há críticas a como certos períodos, como a fome do Grande Salto Adiante, são tratados nos materiais escolares.
+- Conhecer o currículo ajuda a entender o debate.

@@ -26,6 +26,10 @@ quiz:
     explicacao: "I found out the truth. = Descobri a verdade."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é um phrasal verb e reconhecer e usar os mais comuns do dia a dia e do trabalho.
+
 ## Verbo mais partícula
 
 Um **phrasal verb** é um verbo combinado com uma partícula (*up, down, out, off, on, in, back, for...*). A combinação ganha um **sentido novo**, muitas vezes impossível de adivinhar pelas partes.
@@ -86,9 +90,26 @@ Complete corretamente: "Your helmet is on the table. ___"
 
 > Last year, the factory **laid off** 300 workers. The union **set up** an emergency committee. They didn't **give up**: they **carried on** negotiating, and in the end the company **called off** another round of layoffs.
 
+## Exemplo resolvido
+
+**Como dizer "Eu acordo às 6 e me levanto às 6 e 10" e "Estou procurando um emprego"?**
+
+1. "Acordar" é *wake up* e "levantar-se" é *get up*: *I wake up at 6 and get up at 6:10.*
+2. "Procurar" é *look for*. O verbo no presente contínuo: *I'm looking for a job.*
+3. Cuidado: *look after* é outra coisa, "cuidar de" (*She looks after her mother*).
+
+Confira: a partícula muda o sentido. *Look*, *look for* e *look after* querem dizer coisas diferentes.
+
 ## Para praticar
 
 1. Traduza: "Eu acordo às 6 e me levanto às 6 e 10." / "Estou procurando um emprego."
 2. Substitua o objeto por um pronome: "Turn off the computer." / "Pick up the children."
 3. Escreva cinco frases sobre a sua rotina com phrasal verbs da tabela.
 4. Explique, em português, a diferença entre look for e look after.
+
+## Resumo
+
+- Phrasal verb é verbo mais partícula, com sentido novo (*get up*, *look for*, *give up*).
+- Aprendem-se pelo uso, em frases.
+- Alguns comuns: *turn on/off*, *put on/take off*, *fill in*, *pick up*, *run out of*, *call off*, *break down*.
+- A posição do objeto pode variar; com pronome, ele vai no meio.

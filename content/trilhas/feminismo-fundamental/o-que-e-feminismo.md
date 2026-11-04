@@ -30,6 +30,7 @@ quiz:
     opcoes: ["A proteção de mulheres e meninas contra a violência doméstica e o assédio", "O fim das escolas", "Proibir os homens de trabalhar"]
     resposta: 0
     explicacao: "Também lutou por direitos ao voto, à propriedade e ao trabalho."
+modelo: 9
 ---
 
 ```provocacao
@@ -39,6 +40,10 @@ Já ouviu dizer que "feminismo é o contrário de machismo"? Será? Se o machism
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é feminismo, o que ele defende e como a sua história costuma ser dividida.
+
+```suarealidade
+Que direito a mulher mais velha da sua família não tinha quando era jovem e hoje tem? E o que você ouve dizerem sobre feminismo ao seu redor?
+```
 
 ## O que é
 
@@ -78,6 +83,20 @@ O feminismo quer que as mulheres tenham mais direitos que os homens?
 
 1. **(a)** o voto foi a luta principal da **primeira onda** (século XIX e começo do XX).
 2. **(b)** a igualdade legal e social foi a luta da **segunda onda** (a partir dos anos 1960).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Feminismo é o contrário de machismo: quer as mulheres mandando nos homens".
+---
+Como você responderia, sem se zangar?
+---
+Uma resposta possível: a aula define feminismo como movimentos e ideias por direitos iguais entre mulheres e homens, e diz que ele não quer as mulheres acima dos homens. Dá para perguntar à pessoa qual direito da lista (votar, ter propriedade, trabalhar, ser protegida da violência) ela acha que as mulheres não deveriam ter, e conversar a partir daí.
+```
+
+```agir
+# Esta semana
+Explique com suas palavras, em duas frases, o que é feminismo para uma pessoa de casa ou do trabalho. Se for preciso, use a lista de conquistas da aula como exemplos.
+```
 
 ## Resumo
 

@@ -36,6 +36,9 @@ quiz:
     resposta: 0
     explicacao: "Nelson Mandela agradeceu publicamente a Cuba pela contribuição à derrota do apartheid."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o sentido da frase "os operários não têm pátria", a história do internacionalismo comunista e o debate sobre o socialismo num só país.
 
 "Os operários não têm pátria", diz o *Manifesto*. E termina com o chamado: **"Proletários de todos os países, uni-vos!"**. O **internacionalismo** é um dos princípios mais antigos do movimento comunista, e também um dos mais difíceis de praticar. Esta aula examina a sua história.
 
@@ -79,3 +82,23 @@ No mundo globalizado, o capital atravessa fronteiras com facilidade, e os trabal
 ## Para pesquisar e debater
 
 Escolha uma empresa multinacional presente no Brasil. Em que outros países ela tem trabalhadores? Que formas de solidariedade entre esses trabalhadores seriam possíveis?
+
+## Exemplo resolvido
+
+**"Os operários não têm pátria" quer dizer desprezo pelos povos? Leia o Manifesto com cuidado.**
+
+1. **O que a frase não diz.** Não significa desprezo pelos povos nem pelas culturas.
+2. **O que ela diz.** No capitalismo, os trabalhadores não controlam a nação: o Estado nacional é dominado pela burguesia.
+3. **O complemento.** O Manifesto acrescenta que o proletariado deve primeiro conquistar o poder político e elevar-se a classe dirigente da nação, sendo nacional, mas não no sentido burguês.
+4. **A razão do internacionalismo.** O capital já é internacional, e por isso a luta dos trabalhadores também precisa ser.
+5. **Conclua.** Foi essa lógica que levou à Primeira Internacional, nascida em parte para impedir que patrões usassem estrangeiros para furar greves.
+
+Confira: a aula traz o debate entre Stálin (socialismo num só país) e Trotsky (revolução permanente) sobre o que o internacionalismo exigia.
+
+## Resumo
+
+- "Os operários não têm pátria" quer dizer que, no capitalismo, o Estado nacional é dominado pela burguesia; o capital é internacional, e a luta dos trabalhadores também precisa ser.
+- Marcos: Primeira Internacional (1864), derrota de 1914, Brigadas Internacionais (1936-1939) e solidariedade com o Vietnã.
+- Stálin (a partir de 1924) defendeu construir o socialismo num só país; Trotsky, com a revolução permanente, dizia que o isolamento levaria à degeneração.
+- Internacionalismo do Sul: Che Guevara, a ajuda cubana à África (Angola, Cuito Cuanavale) e a solidariedade com Palestina, África do Sul e Nicarágua.
+- Hoje: redes sindicais em multinacionais, Via Campesina e solidariedade com migrantes e refugiados.

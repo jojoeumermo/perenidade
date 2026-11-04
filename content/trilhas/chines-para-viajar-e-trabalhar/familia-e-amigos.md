@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "会 indica habilidade aprendida; 能 indica capacidade ou possibilidade."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber conversar sobre família, passatempos e amigos em chinês, convidar com 吧 e aceitar ou recusar um convite com educação.
 
 ## Falar da família
 
@@ -99,3 +102,21 @@ Para cumprimentar: 新年快乐！(*xīnnián kuàilè*, feliz ano-novo) ou 春�
 2. Escreva três frases sobre os seus passatempos, uma com 会.
 3. Faça um convite com 吧 e escreva uma resposta aceitando e outra recusando.
 4. Pesquise como é calculada a data do Ano-Novo chinês.
+
+## Exemplo resolvido
+
+**Um colega diz: 周六一起去看电影吧！ Você não pode ir. Qual é a resposta educada?**
+
+1. **Entenda o convite.** O **吧** no fim da frase faz um convite ou sugestão: "vamos ao cinema no sábado!"
+2. **Agradeça e recuse com educação.** **不好意思，我有事。** (Bù hǎoyìsi, wǒ yǒu shì.) Desculpe, tenho um compromisso.
+3. **Deixe a porta aberta.** **下次吧。** (Xià cì ba.) Fica para a próxima.
+4. **Junte.** 不好意思，我有事。下次吧。
+
+Confira: "我不喜欢你" ("eu não gosto de você") seria ofensivo. Para aceitar, bastaria **好啊！** ou **没问题。**
+
+## Resumo
+
+- Perguntas sobre a família: **你结婚了吗？**, **你有孩子吗？**, **你家有几口人？**, **你父母住在哪儿？** Na China, perguntas sobre casamento, filhos e salário em geral são sinal de interesse.
+- Passatempos: **爱好**, **喜欢**, 踢足球, 看电影, 听音乐, 唱歌, 跳舞, 做饭, 游泳.
+- **吧** no fim da frase faz um convite ou sugestão (我们一起吃饭吧).
+- Aceitar: **好啊！**, **没问题。** Recusar com educação: **不好意思，我有事。**, **下次吧。**

@@ -31,6 +31,10 @@ quiz:
     explicacao: "Produzir para o mercado não basta para caracterizar o capitalismo, que supõe trabalho assalariado."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a imagem da cadeia metrópole-satélite de Frank, a sua tese de que a América Latina é capitalista desde a conquista e a principal crítica que Laclau fez a ele.
+
 Poucos autores provocaram tanto barulho nas ciências sociais latino-americanas quanto **André Gunder Frank** (1929-2005). As suas teses eram simples, radicais e fáceis de resumir, e por isso foram tão difundidas e tão atacadas.
 
 ## Um itinerário incomum
@@ -74,6 +78,17 @@ Frank não parou de mudar. Nos anos 1970, estudou a crise mundial; nos 1990, em 
 ## O que fica
 
 Mesmo quem discorda de Frank reconhece que ele derrubou duas ideias: a de que o subdesenvolvimento é uma etapa original e a de que partes da América Latina estariam "fora" do capitalismo.
+
+## Exemplo resolvido
+
+**Como testar a hipótese de Frank de que os satélites se desenvolvem mais quando os laços com a metrópole se afrouxam?**
+
+1. Enuncie a hipótese: se a metrópole extrai excedente dos satélites, quando a ligação diminui sobra mais para o desenvolvimento local.
+2. Procure um período de afrouxamento na história: as guerras mundiais e a depressão dos anos 1930.
+3. Olhe o que aconteceu: nesses períodos, a indústria latino-americana avançou.
+4. Confronte com a crítica de Laclau (1971): Frank define capitalismo pela circulação, e Marx o define pelas relações de produção, isto é, pelo trabalho assalariado.
+
+Conclusão: a hipótese pode ser testada na história, e a crítica mostra por que a tese de um capitalismo desde o século XVI continua em debate.
 
 ## Para pesquisar e debater
 

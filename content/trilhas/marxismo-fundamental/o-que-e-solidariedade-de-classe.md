@@ -29,6 +29,10 @@ quiz:
     explicacao: "A divisão enfraquece a classe inteira. Por isso o combate ao racismo e ao machismo é parte da luta de classes."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir caridade de solidariedade de classe, dar exemplos e explicar por que a classe trabalhadora precisa dela.
+
 Um grupo de entregadores para de trabalhar por algumas horas. Os clientes ficam sem a comida. Alguns reclamam. Outros pensam: "eles estão lutando por uma coisa justa, posso esperar". Esse segundo grupo está praticando **solidariedade de classe**.
 
 ## Não é caridade
@@ -76,6 +80,24 @@ Cada divisão enfraquece a classe inteira. Por isso a luta contra o racismo, o m
 
 Ninguém nasce solidário com a sua classe. A solidariedade se aprende na experiência: na greve, na assembleia, no mutirão, na conversa. Lenin dizia que nas greves os operários aprendem a sentir que são parte de uma classe. Cada gesto de apoio ensina.
 
+## Exemplo resolvido
+
+**Caridade ou solidariedade de classe: "doar uma cesta a quem passa fome" e "doar ao fundo de greve de outra categoria"?**
+
+1. Caridade é quando quem tem ajuda quem não tem, sem mudar a situação: um em cima, outro embaixo. Pode ser importante numa emergência.
+2. Solidariedade de classe é o apoio entre **iguais**, que reconhecem que têm o mesmo problema e o mesmo interesse.
+3. O **fundo de greve**, em que trabalhadores de outras categorias doam dinheiro para os grevistas aguentarem a paralisação, é solidariedade de classe.
+4. Paulo Freire chamava de falsa generosidade a que precisa que a injustiça continue para continuar ajudando.
+
+Confira: os exemplos da aula incluem a greve de solidariedade, o boicote e as cozinhas e mutirões dos movimentos populares.
+
 ## Para conversar
 
 Lembre de uma situação em que você ou alguém da sua família recebeu apoio de outros trabalhadores, ou deu apoio. Como foi? O que mudou depois?
+
+## Resumo
+
+- Caridade ajuda sem mudar a situação; solidariedade de classe é apoio entre iguais com o mesmo interesse.
+- Os trabalhadores são muitos, mas só têm força quando unidos: um trabalhador sozinho é substituível, uma categoria inteira não.
+- Exemplos: fundo de greve, greve de solidariedade, boicote, cozinhas e mutirões.
+- A solidariedade se aprende na experiência: na greve, na assembleia, no mutirão.

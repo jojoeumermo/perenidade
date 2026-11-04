@@ -37,6 +37,10 @@ quiz:
     explicacao: "As teses surpreenderam o próprio partido bolchevique e orientaram o caminho até a Revolução de Outubro."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber situar duas obras de Lenin (*Imperialismo* e *O Estado e a Revolução*) no contexto da guerra e da revolução e explicar o que cada uma quis responder.
+
 Vladimir Ilitch Ulianov, conhecido como **Lenin** (1870-1924), foi o principal dirigente da Revolução Russa de 1917 e um dos pensadores marxistas mais influentes do século XX. Esta aula concentra-se em duas obras escritas no intervalo de um ano, entre a guerra e a revolução. Para a sua trajetória política, veja a aula [Quem foi Lenin](/trilhas/revolucoes-socialistas/quem-foi-lenin).
 
 ## O contexto
@@ -83,6 +87,24 @@ As duas obras marcaram a fundação da Internacional Comunista (1919) e os movim
 - *Teses de Abril* (1917): a virada estratégica rumo ao poder dos sovietes.
 - *Esquerdismo, doença infantil do comunismo* (1920): contra o sectarismo e a recusa de atuar em sindicatos e parlamentos.
 
+## Exemplo resolvido
+
+**Que pergunta cada obra de Lenin quis responder?**
+
+1. Em agosto de 1914, a maior parte dos partidos da Segunda Internacional apoiou os seus governos na guerra. Para Lenin, foi uma **traição**.
+2. Ele quis explicar por que a guerra era inevitável sob o capitalismo da época e por que o movimento operário tinha capitulado: daí o estudo do imperialismo (*Imperialismo, Fase Superior do Capitalismo*, escrito em 1916).
+3. Com a revolução na Rússia em fevereiro de 1917, a pergunta passou a ser: o que fazer com o Estado? Daí *O Estado e a Revolução*.
+4. Em *Imperialismo*, ele polemiza com Kautsky, para quem o imperialismo era uma política, e defende que é uma **fase** do capitalismo.
+
+Confira: outros textos a conhecer são as *Teses de Abril* (1917) e *Esquerdismo, doença infantil do comunismo* (1920).
+
 ## Para pesquisar e debater
 
 Compare as medidas da Comuna de Paris descritas por Marx com as instituições políticas brasileiras. Quais delas (revogabilidade de mandatos, salário de trabalhador para representantes) você considera viáveis hoje?
+
+## Resumo
+
+- Lenin (1870-1924) foi o principal dirigente da Revolução Russa de 1917.
+- A guerra de 1914 e a adesão dos partidos socialistas aos seus governos levaram Lenin a estudar o imperialismo.
+- *Imperialismo* (1916, publicado em 1917) apoia-se em Hobson e Hilferding e trata o imperialismo como fase, e não como política.
+- A revolução de 1917 levou à pergunta sobre o Estado, respondida em *O Estado e a Revolução*.

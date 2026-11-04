@@ -29,9 +29,19 @@ quiz:
     opcoes: ["A mí también.", "A mí tampoco.", "A mí sí."]
     resposta: 1
     explicacao: "Para concordar com uma frase negativa, usa-se tampoco (também não)."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer do que gosta e do que não gosta com gustar, concordar e discordar de alguém e usar verbos que funcionam do mesmo jeito, como encantar e doler.
+
+
 Em português, quem gosta é o sujeito da frase: "**Eu** gosto de música". Em espanhol, a frase é montada ao contrário: a música é que **agrada** a você. *Me gusta la música* quer dizer, literalmente, "a música me agrada". Entender essa virada resolve não só o *gustar*, mas uma família inteira de verbos.
+
+```suarealidade
+Do que você gosta de fazer depois do trabalho? E o que, no seu dia a dia, te incomoda?
+```
 
 ## A estrutura
 
@@ -119,6 +129,30 @@ Para dizer que gostamos (ou não) de uma pessoa, sem sentido romântico, o espan
 - *Tu hermano me cae muy bien.* — Gosto muito do seu irmão. (Vou com a cara dele.)
 - *Ese jefe nos cae mal.* — A gente não vai com a cara desse chefe.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que essa estrutura é complicação desnecessária: "é só dizer yo gusto, e o outro entende".
+---
+Como você responderia?
+---
+Uma resposta possível: a pessoa até é entendida, mas fala de um jeito que o espanhol não usa. Em espanhol, a coisa é que agrada a pessoa (me gusta el café), e entender essa virada resolve também *me duele*, *me encanta*, *le molesta* e *nos interesa*, que se usam o tempo todo, inclusive no médico.
+```
+
+## Exemplo resolvido
+
+**Como dizer "Eu gosto de música, mas meus filhos gostam de desenho animado"?**
+
+1. **"Eu gosto de música"**: a música agrada a mim. *Me gusta la música* (uma coisa, *gusta*; com artigo).
+2. **"Meus filhos gostam"**: quem agrada são os desenhos (vários), e quem sente são os filhos: *a mis hijos les gustan los dibujos animados*.
+3. **Ligue as duas partes** com *pero* e use *a mí* para dar ênfase: *A mí me gusta la música, pero a mis hijos les gustan los dibujos animados.*
+
+Confira: o verbo concorda com o que agrada (*gusta* com uma coisa, *gustan* com várias), e não com a pessoa.
+
+```agir
+# Esta semana
+Escreva cinco frases em espanhol sobre você: duas com me gusta ou me gustan, uma com no me gusta, uma com me encanta e uma com me duele. Leia em voz alta, mesmo que só para você.
+```
+
 ## Para praticar
 
 1. Complete com *gusta* ou *gustan*: *Me ___ las frutas. ¿Te ___ el chocolate? A mis padres les ___ viajar. Nos ___ los domingos.*
@@ -126,3 +160,11 @@ Para dizer que gostamos (ou não) de uma pessoa, sem sentido romântico, o espan
 3. Imagine que você está no médico. Diga três coisas que doem: *Me duele…*
 
 Respostas do 1: *gustan, gusta, gusta, gustan.*
+
+## Resumo
+
+- Em espanhol, a coisa agrada a pessoa: *me gusta la música* ("a música me agrada").
+- O verbo concorda com o que agrada: *gusta* (uma coisa ou um infinitivo) e *gustan* (várias coisas).
+- Para concordar: *a mí también* e *a mí tampoco*; para discordar: *a mí no* e *a mí sí*.
+- Funcionam igual: *encantar, interesar, doler, molestar, importar, faltar, parecer, quedar*.
+- Para gostar de uma pessoa, sem sentido romântico: *caer bien* e *caer mal*.

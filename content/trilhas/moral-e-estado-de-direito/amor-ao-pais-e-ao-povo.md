@@ -28,6 +28,11 @@ quiz:
     resposta: 0
     explicacao: "Muitos movimentos de libertação nacional combinaram amor ao próprio povo com solidariedade a outros povos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como a China ensina o amor ao país na escola, o que isso tem de parecido e de diferente do Brasil e distinguir amor ao próprio povo, nacionalismo agressivo e internacionalismo.
+
+
 
 "Amar o país" aparece nos currículos escolares de muitos países, com sentidos muito diferentes. Na China, a **educação patriótica** é um dos eixos centrais da disciplina de Moral e Estado de Direito. Esta aula apresenta como o tema é tratado lá, como aparece no Brasil, e propõe uma reflexão crítica.
 
@@ -74,3 +79,20 @@ O *Manifesto Comunista* termina com "Proletários de todos os países, uni-vos!"
 ## Para conversar
 
 O que significa, para você, amar o Brasil? Isso tem a ver com a bandeira e o hino, com o povo, com a natureza, com a luta por direitos? Pode existir amor ao país sem justiça para quem vive nele?
+
+## Exemplo resolvido: patriotismo, nacionalismo ou internacionalismo?
+
+Três frases inventadas para usar as definições da aula.
+
+1. "Valorizo a cultura, a história e o bem-estar de quem vive no meu país." É **amor ao próprio povo**.
+2. "O meu país é superior e os outros povos são inimigos." É **nacionalismo agressivo**.
+3. "Os trabalhadores e os povos do mundo têm interesses comuns." É **internacionalismo**.
+
+Confira com os movimentos de libertação do século XX (Vietnã, Argélia, Angola, Moçambique): eles uniram a primeira com a terceira, e nenhum deles precisou da segunda.
+
+## Resumo
+
+- A educação patriótica chinesa une o amor ao país ao amor ao povo, ao Partido Comunista e ao socialismo; o "século de humilhação" (das Guerras do Ópio, em 1839, a 1949) tem grande destaque.
+- Defensores veem a formação de uma identidade comum num país grande e diverso; críticos apontam a ênfase em uma versão oficial.
+- No Brasil, o "amor à pátria" também pode servir a projetos opostos: libertar um povo ou reprimir parte dele.
+- Distinga: amor ao próprio povo, nacionalismo agressivo e internacionalismo.

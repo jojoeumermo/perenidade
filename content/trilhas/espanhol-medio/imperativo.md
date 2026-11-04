@@ -99,9 +99,28 @@ Em um aviso de segurança para o público (usted): "Não use o elevador em caso 
 
 Em muitos avisos e manuais, também se usa o **infinitivo** com valor de ordem: *No fumar. Empujar.*
 
+## Exemplo resolvido
+
+**Escreva um aviso de segurança para o público (usted): "Use o capacete. Não use o elevador em caso de incêndio".**
+
+1. **"Use"**: imperativo afirmativo de *usted*, forma do presente do subjuntivo: *use*.
+2. **"Use o capacete"**: *Use el casco.*
+3. **"Não use"**: negativo, também no subjuntivo: *no use*.
+4. **O aviso completo**: *No use el ascensor en caso de incendio.*
+
+Confira: se o pronome entrar, no afirmativo vai depois e junto (*Siéntese*); no negativo vai antes (*No se siente*).
+
 ## Para praticar
 
 1. Escreva o imperativo de tú e de usted: abrir, cerrar, venir, poner, salir.
 2. Passe para o negativo: "Habla más alto." / "Ven mañana." / "Hazlo ahora."
 3. Escreva uma receita simples em cinco passos, com usted.
 4. Escreva cinco regras de segurança do seu local de trabalho em espanhol.
+
+## Resumo
+
+- O imperativo dá ordens, instruções, conselhos e pedidos; com *por favor* é educado.
+- Afirmativo de **tú**: igual à terceira pessoa do presente (*habla*); irregulares *di, haz, ve, pon, sal, sé, ten, ven*.
+- **Usted, ustedes** e **nosotros** usam o presente do subjuntivo (*hable, hablen, hablemos*).
+- O **negativo** usa o subjuntivo, inclusive com tú (*no hables*).
+- Pronomes: depois do verbo no afirmativo (*dímelo*) e antes no negativo (*no me lo digas*).

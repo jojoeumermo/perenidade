@@ -30,6 +30,10 @@ quiz:
     explicacao: "Para Marx, cada modo de produção tem as suas próprias leis de população; o desemprego capitalista é produto da acumulação."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a reprodução simples e ampliada, a composição orgânica do capital e a lei geral da acumulação capitalista.
+
 A seção 7 do Livro I trata do que acontece quando a mais-valia não é simplesmente consumida, mas reinvestida. É ali que Marx formula a **lei geral da acumulação capitalista**, talvez a tese mais forte de todo o livro.
 
 ## Reprodução simples e ampliada
@@ -88,6 +92,24 @@ O capítulo culmina na formulação da lei geral: quanto maiores a riqueza socia
 
 A tese de Marx foi muitas vezes interpretada como previsão de empobrecimento absoluto contínuo dos trabalhadores, o que não se confirmou nos países centrais no século XX. Muitos intérpretes defendem que se trata de uma lei de **polarização relativa** e de reprodução da precariedade, que se verifica com clareza na escala mundial e nas periferias, onde a superpopulação relativa (informalidade, subemprego) é enorme. O debate está ligado à [superexploração](/trilhas/capitalismo-contemporaneo/a-superexploracao-da-forca-de-trabalho) e à teoria da dependência.
 
+## Exemplo resolvido
+
+**Qual a diferença entre reprodução simples e reprodução ampliada?**
+
+1. Na **reprodução simples**, o capitalista consome toda a mais-valia e a produção se repete na mesma escala. Mesmo assim, depois de algum tempo, todo o capital adiantado já é trabalho alheio não pago.
+2. Na **reprodução ampliada**, parte da mais-valia é reconvertida em capital: compra-se mais meios de produção e mais força de trabalho.
+3. A mais-valia de hoje vira o capital de amanhã, que extrai mais mais-valia.
+4. Marx resume o imperativo da classe capitalista: "Acumulai, acumulai! Eis Moisés e os profetas!"
+
+Confira: a lei da propriedade baseada no próprio trabalho se converte no seu contrário: o direito de se apropriar do trabalho alheio não pago.
+
 ## Para pesquisar e debater
 
 Compare a evolução da produtividade e dos salários reais no Brasil nas últimas décadas, usando dados do IBGE e do DIEESE. Os ganhos de produtividade foram para quem?
+
+## Resumo
+
+- Reprodução simples: a mais-valia é consumida; ampliada: parte volta como capital.
+- A composição do capital tem três faces: técnica, em valor (c/v) e orgânica.
+- O processo leva à concentração e à centralização do capital e à superpopulação relativa (o exército industrial de reserva).
+- Os debates atuais ligam o tema à informalidade, ao subemprego, à superexploração e à teoria da dependência.

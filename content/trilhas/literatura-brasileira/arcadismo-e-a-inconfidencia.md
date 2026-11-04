@@ -34,6 +34,10 @@ quiz:
     explicacao: "O poema é de 1769."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer as características do Arcadismo, citar seus autores e relacionar o movimento à Inconfidência Mineira.
+
 ## O Arcadismo
 
 No século XVIII, a descoberta do ouro fez de **Minas Gerais** o centro da colônia. Em cidades como Vila Rica (hoje Ouro Preto), surgiu um grupo de poetas que seguia o **Arcadismo**, estilo inspirado nos clássicos gregos e latinos.
@@ -85,9 +89,27 @@ Por que se fala em "ironia histórica" no Arcadismo mineiro?
 
 O poema de Basílio da Gama defende a política portuguesa e ataca os jesuítas, mas acaba por dar grandeza aos líderes indígenas, como **Cacambo** e **Sepé**. É uma obra útil para discutir como a literatura da colônia representou os povos originários. Veja [História e direitos indígenas](/trilhas/historia-e-direitos-indigenas).
 
+## Exemplo resolvido
+
+**Como reconhecer um traço árcade em um poema?**
+
+1. Procure o **bucolismo**: a vida no campo, entre pastores e rebanhos.
+2. Veja o **pseudônimo pastoril**: Tomás Antônio Gonzaga assina como **Dirceu**, em *Marília de Dirceu* (1792).
+3. Note a **simplicidade** (contra os exageros do Barroco), o *fugere urbem* ("fugir da cidade") e o *carpe diem* ("aproveita o dia").
+4. Pense no contexto: esses poetas cantavam pastores felizes enquanto viviam numa sociedade baseada no trabalho escravizado nas minas.
+
+Confira: o marco inicial do Arcadismo é a publicação das *Obras poéticas* de Cláudio Manuel da Costa, em 1768.
+
 ## Para praticar
 
 1. Explique o que é bucolismo com um exemplo.
 2. Pesquise uma lira de *Marília de Dirceu* e identifique um traço árcade.
 3. Compare a Inconfidência com uma revolta popular do mesmo período.
 4. Debata: por que Tiradentes, e não os poetas da elite, foi executado?
+
+## Resumo
+
+- O Arcadismo, inspirado nos clássicos, surgiu em Minas Gerais no século XVIII; marco: *Obras poéticas* (1768).
+- Traços: bucolismo, pseudônimos pastoris, simplicidade, *fugere urbem* e *carpe diem*.
+- Autores: Cláudio Manuel da Costa, Tomás Antônio Gonzaga, Basílio da Gama (*O Uraguai*) e Santa Rita Durão (*Caramuru*).
+- Em 1789 houve a Inconfidência Mineira, conspiração contra a Coroa portuguesa.

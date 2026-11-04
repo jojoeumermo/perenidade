@@ -28,6 +28,11 @@ quiz:
     explicacao: "Vem do árabe e expressa desejo: Ojalá llueva."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar o presente do subjuntivo e usá-lo para desejos e pedidos com dois sujeitos, com ojalá, com sentimentos e opiniões, com para que e com cuando de sentido futuro.
+
+
 ## O português também tem
 
 O **subjuntivo** espanhol corresponde ao nosso **subjuntivo** ("que eu fale", "quando eu chegar", "tomara que chova"). A boa notícia: ele se usa, em grande parte, nos **mesmos casos** em que o usamos em português.
@@ -95,9 +100,26 @@ Como se diz "Quando você puder, me avisa"?
 > Cuando com sentido de futuro: presente do subjuntivo.
 ```
 
+## Exemplo resolvido
+
+**Como dizer "Quero que você venha; quando você chegar, me liga; tomara que dê certo"?**
+
+1. **"Quero que você venha":** dois sujeitos, *querer que* + subjuntivo. *Venir* parte da forma *yo*: *vengo → vengas*. *Quiero que vengas.*
+2. **"Quando você chegar":** *cuando* com sentido de futuro pede o presente do subjuntivo: *Cuando llegues, llámame.*
+3. **"Tomara que dê certo":** *ojalá* sempre com subjuntivo: *Ojalá salga bien.*
+
+Confira: se fosse um hábito ("quando chego em casa, janto"), usaria o indicativo: *cuando llego a casa, ceno*.
+
 ## Para praticar
 
 1. Conjugue no presente do subjuntivo: trabajar, beber, tener, ir.
 2. Complete: "Quiero que tú ___ (estudiar)." / "Ojalá ___ (hacer) sol mañana." / "Es importante que ellos ___ (saber) la verdad."
 3. Traduza: "Quando eu terminar, te ligo." / "Tomara que dê certo."
 4. Escreva três desejos para a sua comunidade, começando com *Ojalá...*
+
+## Resumo
+
+- O subjuntivo troca as vogais: *-ar* vira *-e* (*hable*); *-er* e *-ir* viram *-a* (*coma, viva*). Irregulares partem do *yo* (*tengo → tenga*); próprios: *sea, esté, vaya, sepa, haya, dé*.
+- Usos: **querer/pedir/esperar que** (dois sujeitos), **ojalá**, sentimentos e opiniões com *que*, **para que** e **cuando** com sentido de futuro.
+- Com o mesmo sujeito, usa-se o infinitivo: *quiero venir*.
+- Para hábito, indicativo: *cuando llego a casa, ceno*.

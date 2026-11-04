@@ -23,6 +23,10 @@ quiz:
     explicacao: "O \"not\" vem logo depois do verbo: I am not tired."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar *am*, *is* e *are* em frases afirmativas, negativas e perguntas, e entender por que o inglês precisa do sujeito.
+
 Em português existem dois verbos: **ser** ("eu sou alto") e **estar** ("eu estou cansado"). Em inglês, os dois são o mesmo verbo: **to be**.
 
 ## As três formas
@@ -65,6 +69,24 @@ Em inglês, a frase sempre precisa de sujeito. Em português dizemos "Está frio
 - It is cold. — Está frio.
 - It is late. — Está tarde.
 
+## Exemplo resolvido
+
+**Como passar "Ele é professor" para a negativa e para a pergunta?**
+
+1. Comece pela afirmativa: *He is a teacher.* Com *he* o verbo é *is*.
+2. Negativa: ponha **not** depois do verbo: *He is not a teacher* (ou *He isn't a teacher*).
+3. Pergunta: leve o verbo para a frente: *Is he a teacher?*
+4. Resposta curta: *Yes, he is.* ou *No, he isn't.*
+
+Confira: nas três frases o verbo continua *is*, porque o sujeito não mudou. O que muda é só a posição das palavras.
+
 ## Pratique
 
 Escreva três frases sobre você, uma afirmativa, uma negativa e uma pergunta para alguém. Por exemplo: *I'm a student. I'm not a doctor. Are you a student?*
+
+## Resumo
+
+- *To be* serve para *ser* e para *estar*.
+- Só três formas: **am** (com *I*), **is** (com *he*, *she*, *it*) e **are** (com o resto).
+- Negativa: *not* depois do verbo. Pergunta: o verbo vai para a frente.
+- Em inglês a frase precisa de sujeito: *It is cold*, e não "Is cold".

@@ -30,6 +30,10 @@ quiz:
     explicacao: "O carbono que estava guardado no subsolo há milhões de anos é lançado na atmosfera."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o fogo, como apagar cada tipo de fogo e como se proteger do gás de cozinha e do monóxido de carbono.
+
 ## O que é o fogo
 
 O fogo não é uma coisa: é uma **reação química** acontecendo. Chama-se **combustão** a reação de um material com o **oxigênio**, com liberação de calor e, quase sempre, de luz.
@@ -126,9 +130,27 @@ Os biocombustíveis emitem, na queima, o carbono que a planta absorveu ao cresce
 
 A responsabilidade pelo aquecimento também não é igual. Os países ricos e as grandes empresas de petróleo, carvão e gás respondem pela maior parte das emissões acumuladas. Quem menos emitiu (as populações pobres, os moradores de encostas e de beiras de rio) é quem mais sofre com as enchentes, as secas e as ondas de calor.
 
+## Exemplo resolvido
+
+**Uma panela com óleo pegou fogo no fogão. Como apagar?**
+
+1. Use o triângulo do fogo: combustível (o óleo), comburente (o oxigênio do ar) e calor (a chama). Tirando um dos três, o fogo acaba.
+2. Jogar água é o erro: ela afunda no óleo, vira vapor de repente e arremessa o óleo em chamas.
+3. O melhor é tirar o oxigênio: desligue o fogo e abafe a panela com a tampa ou com um pano úmido.
+
+Confira: óleo é líquido inflamável (classe B), e para ele a regra é abafar, nunca usar água.
+
 ## Para pesquisar e debater
 
 1. De que cor é a chama do seu fogão? O fundo das panelas fica preto?
 2. Qual é a validade da mangueira e do regulador do seu botijão?
 3. Há extintores no seu local de trabalho? Para que classes de fogo servem? Você sabe usá-los?
 4. Por que quem menos contribuiu para o aquecimento global é quem mais sofre com ele?
+
+## Resumo
+
+- Fogo é uma reação química, a combustão, e precisa de combustível, comburente (oxigênio) e calor.
+- Apaga-se resfriando, abafando ou isolando o combustível.
+- Chama azul é queima completa; amarela, com fuligem, é incompleta e produz monóxido de carbono.
+- O monóxido de carbono não tem cor nem cheiro e mata em ambiente fechado: onde há chama, tem de haver ventilação.
+- Cheiro de gás: não acender nada, fechar o registro, abrir as janelas e chamar o 193 de fora de casa.

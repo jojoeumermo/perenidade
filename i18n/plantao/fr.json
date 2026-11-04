@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "descricao": "Où poser une question d'étude à l'Instituto Lúcia : soutien avec des bénévoles, assistant, communauté, cours en direct et étude en groupe, au même endroit."
+  },
+  "eyebrow": "Personne n'étudie seul",
+  "titulo": "Permanence des questions",
+  "lead": "Bloqué sur une matière ? Voici, au même endroit, les moyens que l'institut propose déjà pour poser une question. Choisissez celui qui convient à votre urgence.",
+  "semHorario": "Il n'y a pas d'horaire fixe de permanence : chaque moyen fonctionne à sa façon, et la ligne « Comment ça marche » de chacun l'explique. Le seul agenda fixé est celui des cours en direct, publié par les éducateurs.",
+  "antesTitulo": "Avant de demander",
+  "antesTexto": "Beaucoup de questions ont déjà une réponse sur le site. Cherchez d'abord :",
+  "canaisTitulo": "Où demander",
+  "comoFunciona": "Comment ça marche",
+  "abrir": "Ouvrir",
+  "paraEnsinarTitulo": "Pour celles et ceux qui enseignent",
+  "canais": {
+    "reforco": {
+      "quem": "Une personne bénévole de l'équipe d'enseignement",
+      "como": "Sans horaire fixé. Vous écrivez la question ; quelqu'un de l'équipe de la matière prend la demande et répond à l'e-mail indiqué."
+    },
+    "assistente": {
+      "quem": "Un assistant automatique",
+      "como": "Il répond tout de suite, mais il est réservé aux personnes avec un compte et il peut se tromper. Il se trouve sur la page de soutien, avant la demande à une personne bénévole.",
+      "acompanhante": "Si l'École est ouverte pour vous, l'assistant aide aussi dans la leçon, par l'accompagnateur."
+    },
+    "comunidade": {
+      "quem": "D'autres personnes qui étudient",
+      "como": "Sans horaire : les conversations restent ouvertes, par salle de matière, et chacun répond quand il peut."
+    },
+    "aovivo": {
+      "quem": "Des éducateurs, en cours programmé",
+      "como": "À l'heure prévue vous entrez, vous suivez et vous posez vos questions dans le chat. Les jours et horaires sont dans l'agenda."
+    },
+    "grupo": {
+      "quem": "Celles et ceux qui étudient avec vous",
+      "como": "Vous ouvrez une salle, envoyez le lien et vous étudiez ensemble, en vidéo."
+    },
+    "salalivre": {
+      "quem": "Professeures, professeurs et formateurs",
+      "como": "Un outil pour préparer et projeter votre propre cours avec ce que le site offre. Il reste seulement dans votre navigateur."
+    }
+  }
+}

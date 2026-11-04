@@ -36,6 +36,9 @@ quiz:
     resposta: 1
     explicacao: "Ultraprocessados são formulações industriais com muitos ingredientes, em geral ricas em açúcar, gordura, sal e aditivos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber para que servem os nutrientes, qual é o caminho da comida no corpo, como o Guia Alimentar classifica os alimentos em quatro grupos e como ler a lista de ingredientes de um rótulo.
 
 ## Comer para quê
 
@@ -112,3 +115,23 @@ A **alimentação** está entre os direitos sociais do artigo 6º da Constituiç
 1. Anote tudo o que você comeu ontem e classifique cada item nos quatro grupos do guia.
 2. Pegue três embalagens em casa e leia o primeiro ingrediente da lista de cada uma.
 3. Compare o preço de um quilo de feijão com o do equivalente em macarrão instantâneo. O que rende mais refeições?
+
+## Exemplo resolvido
+
+**Classifique, pelo Guia Alimentar, o que uma pessoa comeu: arroz, feijão, um ovo, pão de padaria, refrigerante, biscoito recheado, e óleo e sal para temperar.**
+
+1. **In natura ou minimamente processados:** arroz, feijão e ovo.
+2. **Ingredientes culinários:** óleo e sal, usados para temperar e cozinhar.
+3. **Processados:** pão de padaria (alimento com sal, açúcar ou óleo acrescentados).
+4. **Ultraprocessados:** refrigerante e biscoito recheado (formulações industriais com muitos ingredientes e aditivos).
+5. **Leia o rótulo do biscoito.** Os ingredientes vêm em ordem decrescente: se o primeiro é açúcar, o produto é sobretudo açúcar.
+
+Confira: o guia recomenda que a base da alimentação seja o primeiro grupo (arroz, feijão, ovo) e que se evitem os ultraprocessados.
+
+## Resumo
+
+- O corpo come para obter **energia**, **material de construção** e substâncias que **regulam** o organismo: os **nutrientes**.
+- Carboidratos dão energia; proteínas constroem e reparam; gorduras guardam energia; vitaminas e sais minerais regulam; a água transporta e controla a temperatura; as fibras ajudam o intestino.
+- A digestão vai da boca ao intestino; no **intestino delgado** os nutrientes passam para o sangue.
+- O **Guia Alimentar** separa: in natura ou minimamente processados, ingredientes culinários, processados e ultraprocessados. A base deve ser o primeiro grupo; evite os ultraprocessados.
+- Comer bem depende também de renda, tempo e preço; a alimentação é um direito social (art. 6º da Constituição).

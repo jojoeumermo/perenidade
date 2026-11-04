@@ -27,6 +27,11 @@ quiz:
     explicacao: "As variações mensais se multiplicam: 1,01 elevado a 12 dá cerca de 1,127."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é inflação, como o IBGE mede o IPCA e o INPC, por que a "sua" inflação não é a oficial e como saber se o seu salário ganhou ou perdeu do aumento dos preços.
+
+
 ## O que é inflação
 
 **Inflação** é o aumento geral dos preços de produtos e serviços. Não é o aumento de um preço só: é o movimento do conjunto. Ela é medida pelos **índices de preços**.
@@ -120,3 +125,10 @@ O remédio tem custo. Juros altos significam menos emprego, crédito mais caro p
 5. Anote os preços de dez itens que você compra todo mês. Repita daqui a três meses e calcule a sua inflação pessoal.
 
 **Respostas:** 1) Sim: o reajuste foi de 6%; 1,06 ÷ 1,04 ≈ 1,019, ganho real de cerca de 1,9%. 2) 1,02 × 1,03 = 1,0506: cerca de 5,06%. 3) R$ 1.100. 4) Porque o INPC acompanha a cesta das famílias com renda de 1 a 5 salários mínimos, mais próxima da de quem recebe o mínimo.
+
+## Resumo
+
+- **Inflação** é o aumento geral dos preços; o **IPCA** é o índice oficial e o **INPC** é o índice para famílias de 1 a 5 salários mínimos, usado no reajuste do salário mínimo.
+- O IBGE acompanha uma **cesta** de produtos, com base na Pesquisa de Orçamentos Familiares, e faz uma **média ponderada**: cada item pesa conforme a sua parte no orçamento.
+- Quanto menor a renda, maior a parte gasta em comida, gás, aluguel e transporte; a inflação sentida pode ficar acima da oficial.
+- Se o salário varia menos que a inflação, perde poder de compra; para a conta precisa, divida os fatores (por exemplo, 1,05 ÷ 1,08).

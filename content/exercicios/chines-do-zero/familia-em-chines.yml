@@ -1,0 +1,51 @@
+# Exercícios da aula "Família em chinês" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-familia-01
+  tema: "Irmãos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"irmã mais nova\"?"
+  alternativas:
+    - texto: "姐姐 (jiějie)"
+      erro: "姐姐 é irmã mais velha."
+    - texto: "弟弟 (dìdi)"
+      erro: "弟弟 é irmão mais novo."
+    - texto: "妹妹 (mèimei)"
+      certa: true
+  explicacao: "O chinês separa o mais velho do mais novo: gēge, dìdi, jiějie, mèimei."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-familia-02
+  tema: "Avós"
+  dificuldade: 2
+  enunciado: "Quem é 奶奶 (nǎinai)?"
+  alternativas:
+    - texto: "A avó paterna, mãe do pai"
+      certa: true
+    - texto: "A avó materna"
+      erro: "A avó materna é 外婆 ou 姥姥."
+    - texto: "A mãe"
+      erro: "A mãe é 妈妈 ou 母亲."
+  explicacao: "A língua separa os avós do lado do pai e do lado da mãe; as formas maternas variam por região."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-familia-03
+  tema: "Ter uma pessoa na família"
+  dificuldade: 2
+  enunciado: "Qual frase diz \"Eu tenho um irmão mais velho\"?"
+  alternativas:
+    - texto: "我是一个哥哥。"
+      erro: "是 é \"ser\". Para \"ter\", use 有."
+    - texto: "我有一个哥哥。"
+      certa: true
+    - texto: "我有一个弟弟。"
+      erro: "弟弟 é irmão mais novo."
+  explicacao: "有 é \"ter\"; 没有 é \"não ter\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

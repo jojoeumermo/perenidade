@@ -1,0 +1,51 @@
+# Exercícios da aula "Métodos sintéticos, analíticos e o debate do método fônico" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-metodos-01
+  tema: "Sintético ou analítico"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O método fônico parte de quê?"
+  alternativas:
+    - texto: "Dos sons das letras (fonemas): é um método sintético"
+      certa: true
+    - texto: "De frases inteiras"
+      erro: "Partir de frases é a sentenciação, método analítico."
+    - texto: "De textos memorizados"
+      erro: "Isso é o método global, analítico."
+  explicacao: "Os sintéticos partem das unidades menores (letras, sons, sílabas); os analíticos, das maiores (palavras, frases, textos)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-metodos-02
+  tema: "O método de Freire"
+  dificuldade: 2
+  enunciado: "Como a aula descreve o método de Paulo Freire?"
+  alternativas:
+    - texto: "Só sintético, partindo das letras"
+      erro: "Ele combina os dois: palavra com sentido e depois sílabas."
+    - texto: "Parte de uma palavra com sentido (analítico) e chega às famílias silábicas (sintético)"
+      certa: true
+    - texto: "Só analítico, sem trabalhar sílabas"
+      erro: "Chega às famílias silábicas."
+  explicacao: "O método de Freire combina elementos dos dois tipos, com o debate da realidade no centro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-metodos-03
+  tema: "Método silábico"
+  dificuldade: 1
+  enunciado: "Qual destes é um exemplo de método silábico?"
+  alternativas:
+    - texto: "Soletrar \"bê, a, ba\""
+      erro: "Isso é o método alfabético (soletração)."
+    - texto: "Memorizar um texto inteiro"
+      erro: "Isso é o método global."
+    - texto: "Ensinar as famílias BA, BE, BI, BO, BU e sua combinação"
+      certa: true
+  explicacao: "O silábico parte das sílabas e de suas famílias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -33,6 +33,10 @@ quiz:
     explicacao: "O melhor jeito de evitar que uma substância perigosa vaze é não precisar dela."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é química verde, citar seus doze princípios e calcular a economia atômica de uma reação.
+
 ## Prevenir em vez de remediar
 
 Durante boa parte do século XX, a regra da indústria química foi produzir primeiro e lidar com os resíduos depois: diluí-los no rio, enterrá-los, queimá-los. Os custos ficaram para as comunidades vizinhas e para o ambiente, como se viu em [Química ambiental](/trilhas/quimica-medio/quimica-ambiental).
@@ -115,3 +119,12 @@ Os princípios são técnicos, mas a sua aplicação depende de quem decide. Pro
 2. Calcule a economia atômica da decomposição CaCO₃ → CaO + CO₂, considerando a cal como produto desejado.
 3. Escolha três dos doze princípios e dê um exemplo de aplicação para cada um.
 4. Pesquise o desastre de Bhopal e relacione-o com pelo menos dois princípios da química verde.
+
+## Resumo
+
+- A química verde propõe projetar produtos e processos que não gerem poluição, em vez de tratar os resíduos depois.
+- Foi sistematizada por Paul Anastas e John Warner em 1998, em doze princípios.
+- Economia atômica = massa molar do produto desejado ÷ soma das massas molares dos reagentes × 100.
+- Reação com rendimento alto pode ter economia atômica baixa, porque desperdiça átomos em subprodutos.
+- Reações de adição tendem a ter economia atômica alta; as de substituição e eliminação, mais baixa.
+- Catalisadores, solventes mais seguros e matérias-primas renováveis fazem parte da proposta.

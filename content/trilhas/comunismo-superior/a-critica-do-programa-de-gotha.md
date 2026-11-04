@@ -28,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "Marx critica a fórmula do 'Estado livre' do programa e afirma a necessidade de um poder político da classe operária na transição."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que Marx criticou o programa de Gotha (1875), o que ele diz sobre o "fruto integral do trabalho", sobre as duas fases da sociedade comunista e sobre o Estado de transição.
 
 Em 1875, as duas correntes do socialismo alemão (os seguidores de Ferdinand Lassalle e os "eisenachianos", próximos de Marx e Engels) fundiram-se num só partido, no congresso de **Gotha**. Marx leu o projeto de programa e enviou comentários duros aos dirigentes. O texto só foi publicado por Engels em **1891**. É a passagem em que Marx mais se aproxima de descrever a sociedade comunista.
 
@@ -83,3 +86,23 @@ A *Crítica do Programa de Gotha* é curta e densa. Mostra que Marx pensava a tr
 ## Para pesquisar e debater
 
 Quais das "deduções" listadas por Marx já existem hoje, sob a forma de impostos e serviços públicos? O que mudaria se elas fossem decididas democraticamente pelos produtores?
+
+## Exemplo resolvido
+
+**Mesmo sem patrão, o trabalhador receberia "todo" o valor que produz? Refaça a conta de Marx.**
+
+1. **Parta do produto social total.** Numa sociedade sem exploração, é o que todos produziram juntos.
+2. **Deduza o que é coletivo.** O que repõe os meios de produção consumidos, uma parte para ampliar a produção, um fundo de reserva contra acidentes e catástrofes e os custos gerais de administração.
+3. **Deduza os serviços comuns.** O que vai para escolas e saúde e os fundos para quem não pode trabalhar.
+4. **Só então distribua.** O que sobra é distribuído individualmente, segundo o trabalho fornecido.
+5. **Conclua.** O "fruto integral" é, na verdade, um fruto coletivo.
+
+Confira: a aula sugere comparar essas deduções com os impostos e serviços públicos de hoje.
+
+## Resumo
+
+- O texto é de 1875, comentário de Marx ao programa do congresso de Gotha; só foi publicado por Engels em 1891.
+- O "fruto integral do trabalho" exige **deduções**: reposição, ampliação, reservas, administração, serviços comuns e fundos para quem não pode trabalhar.
+- Na **primeira fase**, cada um recebe segundo o trabalho; esse direito igual ainda é um "direito burguês", porque aplica a mesma régua a pessoas desiguais.
+- Na **fase superior**: "de cada um segundo as suas capacidades, a cada um segundo as suas necessidades".
+- Entre as duas sociedades há um período de transição política, a "ditadura revolucionária do proletariado", em que ditadura designa o domínio de uma classe; seu sentido foi muito disputado.

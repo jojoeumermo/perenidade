@@ -26,6 +26,10 @@ quiz:
     explicacao: "O alvo é a desigualdade que nasce de uns viverem do trabalho dos outros."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar as duas fases descritas por Marx na Crítica do Programa de Gotha, segundo o trabalho e segundo as necessidades, e por que isso não é "todo mundo ganhar igual".
+
 "No socialismo, o médico vai ganhar igual ao varredor?" "Quem trabalha muito vai receber o mesmo que quem trabalha pouco?" Essas perguntas são justas, e Marx tratou delas diretamente.
 
 ## O que Marx disse
@@ -81,6 +85,25 @@ O socialismo quer acabar com **essa** desigualdade primeiro.
 
 Nos países que tentaram construir o socialismo, houve diferenças salariais entre profissões, às vezes grandes, e também privilégios para dirigentes do partido e do Estado, o que gerou críticas dentro do próprio movimento socialista. O debate sobre quanto de diferença é justo, e como evitar que uma burocracia crie privilégios, continua aberto.
 
+## Exemplo resolvido
+
+**Na primeira fase descrita por Marx, como se distribui o que a sociedade produz? (números de exemplo)**
+
+1. Suponha que a sociedade produziu 100 unidades de riqueza.
+2. Primeiro separam-se os fundos sociais: repor as máquinas, investir, manter escolas e hospitais e sustentar quem não pode trabalhar. Digamos 30 unidades.
+3. O restante, 100 − 30 = 70, é distribuído de acordo com o trabalho de cada um: quem trabalha mais horas, ou num trabalho mais pesado, recebe mais.
+4. Ninguém recebe sem trabalhar, a não ser quem não pode, e ninguém enriquece com o trabalho dos outros: não há patrão, lucro, juros nem aluguel.
+
+Conclusão: a regra é "a cada um segundo o seu trabalho", e não "todo mundo igual". Só na fase superior, segundo Marx, valeria "a cada um segundo as suas necessidades".
+
 ## Para conversar
 
 Na sua opinião, um trabalho mais pesado ou mais perigoso deve receber mais? E quem cuida de crianças, em casa, deveria ser remunerado? Como uma sociedade justa resolveria essas questões?
+
+## Resumo
+
+- Em 1875, Marx comentou o Programa de Gotha; os comentários foram publicados como *Crítica do Programa de Gotha*.
+- Primeira fase: de cada um segundo as suas capacidades, a cada um segundo o seu trabalho, depois de separados os fundos sociais.
+- Marx reconhece que essa regra ainda é desigual, porque as pessoas são diferentes; seria inevitável na primeira fase.
+- Fase superior: de cada um segundo as suas capacidades, a cada um segundo as suas necessidades.
+- A igualdade que se busca não é de quantidade; é de dignidade, e a desigualdade que mais importa é a que vem de viver do trabalho alheio.

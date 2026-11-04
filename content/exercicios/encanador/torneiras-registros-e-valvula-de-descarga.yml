@@ -1,0 +1,51 @@
+# Exercícios da aula "Torneiras, registros e válvula de descarga" (Encanador). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: enc-torneira-01
+  tema: "Registros"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para que serve o registro de gaveta?"
+  alternativas:
+    - texto: "Fechar a passagem de água de um trecho para fazer um conserto"
+      certa: true
+    - texto: "Regular a temperatura da água"
+      erro: "Ele não regula temperatura. Ele abre ou fecha a passagem."
+    - texto: "Filtrar a água"
+      erro: "O registro não filtra. A filtragem é feita por filtro, e não por registro."
+  explicacao: "O registro de gaveta fecha o trecho totalmente. Para regular a vazão, usa-se o de pressão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-torneira-02
+  tema: "Torneira pingando"
+  dificuldade: 1
+  enunciado: "Qual é a primeira coisa a fazer antes de desmontar uma torneira para trocar o reparo?"
+  alternativas:
+    - texto: "Fechar o registro do trecho e abrir a torneira para aliviar a pressão"
+      certa: true
+    - texto: "Desmontar com o registro aberto, para ver a água"
+      erro: "A água jorra e alaga. Feche o registro primeiro."
+    - texto: "Cortar o cano"
+      erro: "Cortar o cano não é necessário e cria um problema maior. Troca-se o reparo."
+  explicacao: "Sem fechar o registro e aliviar a pressão, a desmontagem vira alagamento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-torneira-03
+  tema: "Caixa acoplada"
+  dificuldade: 2
+  enunciado: "A água escorre da caixa acoplada para a bacia sem parar, mesmo sem dar descarga. Qual peça conferir primeiro?"
+  alternativas:
+    - texto: "O reparo da válvula de saída da caixa"
+      certa: true
+    - texto: "O assento do vaso"
+      erro: "O assento não tem relação com o escoamento da água."
+    - texto: "O registro geral da casa"
+      erro: "O registro geral controla a entrada, e não o vazamento interno da caixa para a bacia."
+  explicacao: "A água que desce para a bacia sem descarga indica reparo da válvula de saída desgastado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

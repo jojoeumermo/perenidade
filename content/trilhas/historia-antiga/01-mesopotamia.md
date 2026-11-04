@@ -23,7 +23,16 @@ quiz:
     opcoes: ["A contagem em base 60", "O calendário de 365 dias", "Os algarismos romanos"]
     resposta: 0
     explicacao: "A hora de 60 minutos e o minuto de 60 segundos vêm do sistema de base 60 usado na Mesopotâmia."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber situar a Mesopotâmia no mapa e no tempo, explicar por que a escrita nasceu ali para resolver um problema de administração e dizer o que o Código de Hamurábi e a base 60 deixaram para nós.
+
+
+```suarealidade
+Que contas, horários ou combinações você guarda só de cabeça? O que aconteceria se alguém esquecesse, sem nada escrito?
+```
 
 ## Uma terra entre rios
 
@@ -55,3 +64,36 @@ Também nos deixaram uma lição que atravessa esta trilha: o conhecimento só s
 ## Para refletir
 
 A escrita surgiu para resolver um problema prático de administração. Que outras invenções você conhece que nasceram para uma coisa e acabaram servindo para muitas outras?
+
+## Exemplo resolvido
+
+**Quanto tempo separa a invenção da escrita em Uruk do Código de Hamurábi?**
+
+1. Anote as duas datas da aula: a escrita em tabuletas, por volta de 3300 a.C.; o Código de Hamurábi, por volta de 1750 a.C.
+2. Datas antes de Cristo contam de trás para a frente: quanto maior o número, mais antigo. Então a escrita veio primeiro.
+3. Subtraia o menor do maior: 3300 − 1750 = **1550 anos**.
+4. Para saber quanto tempo passou até hoje, some o ano atual ao número do a.C.: 1750 + 2026 = cerca de 3.800 anos desde Hamurábi.
+
+**A base 60 no dia a dia.** Um círculo tem 360 graus, que é 6 × 60. Uma hora tem 60 minutos. Duas horas e meia são 2 × 60 + 30 = 150 minutos. Contamos assim por herança dos povos da Mesopotâmia.
+
+```outrolado
+# O argumento de quem acha que história antiga não serve para nada
+Quem tem conta para pagar e família para sustentar não precisa saber de reis e tabuletas de quatro mil anos atrás. O que importa é o presente.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O presente está cheio do passado. A escrita nasceu em Uruk, por volta de 3300 a.C., para registrar quantidades de grãos, rebanhos e impostos, isto é, para resolver um problema de conta, e é por ela que hoje se escreve um contrato, um recibo ou uma lista de compras. A hora de 60 minutos e o círculo de 360 graus vêm da base 60 dos mesmos povos. Conhecer essa origem não paga a conta, mas mostra que o que usamos todo dia foi inventado por gente para resolver problemas parecidos com os nossos.
+```
+
+```agir
+# Esta semana
+Passe para um papel três contas ou combinações que você hoje guarda só de cabeça (um pagamento, um horário, um recado). Ao lado de cada uma, escreva a data. No fim da semana, confira se o papel ajudou a não esquecer nada.
+```
+
+## Resumo
+
+- Mesopotâmia, "terra entre rios", fica entre o Tigre e o Eufrates, onde hoje está sobretudo o Iraque; as cheias dos rios fertilizavam o solo.
+- Por volta de 3300 a.C., em Uruk, a escrita nasceu em tabuletas de argila para registrar quantidades de grãos, rebanhos e impostos.
+- Por volta de 1750 a.C., Hamurábi, da Babilônia, mandou gravar quase 300 leis em pedra: não é o código mais antigo, mas é o mais completo e bem preservado da época.
+- Os mesopotâmios contavam em base 60: daí a hora de 60 minutos e o círculo de 360 graus.
+- O conhecimento só sobrevive quando é registrado e passado adiante.

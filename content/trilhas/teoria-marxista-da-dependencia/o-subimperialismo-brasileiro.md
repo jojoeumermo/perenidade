@@ -30,6 +30,10 @@ quiz:
     explicacao: "O problema de realização empurrava para a exportação, para o consumo de luxo e para as compras do Estado."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o conceito de subimperialismo de Marini, por que o Brasil precisava de mercados fora de suas fronteiras e como o debate foi retomado nos anos 2000.
+
 A teoria da dependência costuma ser acusada de dividir o mundo em dois blocos simples: dominadores e dominados. O conceito de **subimperialismo**, proposto por Marini, mostra que a realidade tem degraus.
 
 ## A ideia
@@ -77,6 +81,25 @@ Os pesquisadores se dividem:
 
 O subimperialismo descreve uma **estrutura**: um capitalismo dependente que, pelo seu tamanho, precisa transbordar. Não é um xingamento para qualquer ato de política externa. A pergunta útil, diante de cada caso, é concreta: quem lucra, em que condições o país vizinho participa, e se a relação repete, em escala menor, o que o Brasil sofre das potências.
 
+## Exemplo resolvido
+
+**Por que, segundo Marini, o Brasil da ditadura precisava expandir-se para fora das fronteiras?**
+
+1. Parta da superexploração: a maioria dos trabalhadores brasileiros consome pouco.
+2. Veja o problema da indústria instalada, sobretudo de bens duráveis: não encontra compradores suficientes dentro do país.
+3. Veja as três saídas combinadas pela ditadura: o consumo das camadas de renda alta e média, as compras do Estado (armamentos e grandes obras) e a exportação de manufaturados e de capitais para países mais fracos.
+4. Dê um exemplo citado na aula: o Tratado de Itaipu (1973), que garantiu ao Brasil a maior parte da energia da usina.
+
+Conclusão: o país seguia dependente dos Estados Unidos, numa relação de "cooperação antagônica", e ao mesmo tempo tinha uma política expansionista relativamente autônoma. É o subimperialismo.
+
 ## Para pesquisar e debater
 
 Pesquise a história da renegociação do Tratado de Itaipu entre Brasil e Paraguai. Quais eram as queixas paraguaias? O que mudou?
+
+## Resumo
+
+- Subimperialismo: forma que a economia dependente assume ao chegar à etapa dos monopólios e do capital financeiro, com política expansionista dentro da hegemonia da potência maior.
+- A relação com os Estados Unidos é de cooperação antagônica: sócio, mas disputando a própria fatia.
+- Explicação: a superexploração limita o consumo interno e leva à busca de mercados fora.
+- Exemplos citados: Itaipu (1973), apoio ao golpe de 1971 na Bolívia e avanço de agricultores brasileiros em terras paraguaias e bolivianas.
+- Nos anos 2000, os pesquisadores se dividem: subimperialismo, integração subalterna ao capital-imperialismo (Virgínia Fontes) e outras leituras.

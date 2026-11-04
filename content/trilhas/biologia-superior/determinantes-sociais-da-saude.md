@@ -38,6 +38,9 @@ quiz:
     resposta: 1
     explicacao: "É o que diz o artigo 3º da Lei Orgânica da Saúde."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são determinantes sociais da saúde, descrever o modelo de camadas de Dahlgren e Whitehead, distinguir desigualdade de iniquidade e citar os principais determinantes no Brasil.
 
 ## Saúde não é só ausência de doença
 
@@ -109,3 +112,23 @@ Em 1971, o médico britânico **Julian Tudor Hart**, que trabalhava em uma regi�
 2. Procure dados de expectativa de vida ou de mortalidade infantil por bairro ou distrito na sua cidade. Que diferenças aparecem?
 3. Explique, com as suas palavras, por que a lei do cuidado inverso é um argumento a favor do SUS.
 4. Escolha um problema de saúde comum no seu bairro e identifique os determinantes sociais envolvidos.
+
+## Exemplo resolvido
+
+**Em uma cidade, a tuberculose é muito mais frequente em bairros com casas pequenas e lotadas e pouca ventilação. Isso é desigualdade ou iniquidade?**
+
+1. **Defina os termos.** **Desigualdade em saúde** é qualquer diferença (idosos adoecem mais que jovens). **Iniquidade** é a diferença **evitável e injusta**, produzida pela forma como a sociedade se organiza.
+2. **Veja a causa.** A transmissão da tuberculose é favorecida por aglomeração e pouca ventilação, que dependem das condições de moradia.
+3. **Pergunte se dá para mudar.** Sim: moradia adequada é uma escolha de política pública.
+4. **Conclua.** É **iniquidade em saúde**, ligada às condições de moradia, e não uma diferença genética nem natural e inevitável.
+5. **Camada do modelo.** Moradia está na camada das **condições de vida e de trabalho**, que condiciona os hábitos individuais.
+
+Confira: mandar alguém "comer melhor" ou "se cuidar" sem considerar a sua realidade ignora as camadas de fora.
+
+## Resumo
+
+- A OMS (1946) define saúde como bem-estar físico, mental e social, e não só ausência de doença; o art. 3º da Lei 8.080/1990 liga os níveis de saúde à organização social e econômica.
+- **Dahlgren e Whitehead** (1991): camadas, do centro para fora: características individuais, estilo de vida, redes sociais e comunitárias, condições de vida e de trabalho, condições socioeconômicas, culturais e ambientais gerais.
+- **Desigualdade** é qualquer diferença; **iniquidade** é a diferença evitável e injusta.
+- Determinantes no Brasil: renda e trabalho, moradia e cidade, educação, racismo, gênero e território.
+- **Lei do cuidado inverso** (Tudor Hart, 1971): quem mais precisa de cuidado costuma receber menos; é o argumento a favor de sistemas públicos e universais, como o SUS.

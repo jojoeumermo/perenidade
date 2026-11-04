@@ -1,5 +1,6 @@
 ---
 titulo: "O que é economia"
+modelo: 9
 resumo: "A palavra economia vem do grego e quer dizer 'regras da casa'. É a ciência que estuda a produção, a distribuição e o consumo de bens e serviços. Por que ela não é só assunto de banqueiro: é sobre como uma sociedade organiza o trabalho e decide quem fica com o quê."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -27,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "Distribuição é a forma como o que foi produzido é dividido."
 ---
+```suarealidade
+Pense no que mais pesa no orçamento da sua casa (comida, aluguel, transporte, salário). Quem você acha que decide o preço ou o valor disso?
+```
 
 ```provocacao
 Quem decide o que é produzido no Brasil, quanto vale o trabalho de cada um e quem fica com o resultado? Isso acontece "naturalmente", ou alguém decide?
@@ -87,4 +91,18 @@ Que decisão econômica mais afeta a sua família hoje: o preço da comida, o al
 
 ```leve
 - Liste cinco coisas que a sua família comprou esta semana e descubra onde cada uma foi produzida.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A economia funciona sozinha: preços e salários se acertam pelo mercado, como a gravidade. Querer decidir isso é interferência que atrapalha."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula parte de outra ideia: a economia estuda escolhas. Pela definição de Robbins, os recursos são escassos e têm usos alternativos (o mesmo terreno pode virar plantação de comida, pasto, moradia ou estacionamento), e alguém decide. Preço, salário, aluguel e desemprego não são fenômenos naturais: são decididos por pessoas, empresas e governos, com interesses diferentes. Dizer que algo é natural também é uma posição, e vale perguntar quem se beneficia dela.
+```
+
+```agir
+# Esta semana
+Escolha um preço que pesa na sua casa (o arroz, o aluguel ou a passagem). Escreva num papel quem você acha que decide esse valor e quem ganha com ele. Na semana seguinte, converse com uma pessoa de casa e compare as respostas.
 ```

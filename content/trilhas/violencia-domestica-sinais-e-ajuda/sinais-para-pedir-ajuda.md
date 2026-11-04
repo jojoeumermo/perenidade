@@ -1,5 +1,6 @@
 ---
 titulo: "Pedir ajuda sem alertar o agressor: o X vermelho, o sinal com a mão e o Ligue 180"
+modelo: 9
 resumo: "Os sinais combinados que permitem a uma mulher em situação de violência pedir socorro em silêncio, e o que fazer ao reconhecer um deles."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,14 @@ quiz:
     resposta: 1
     explicacao: "O 180 orienta, informa onde procurar atendimento e encaminha denúncias. Em perigo imediato, o número é o 190."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer o Sinal Vermelho e o gesto de pedir ajuda com a mão, o que fazer se receber um desses sinais e quais números ligar (190, 180 e 100).
+
+```suarealidade
+Você já viu ou ouviu, no seu trabalho, no seu bairro ou na sua família, alguém que parecia não poder falar com liberdade ao telefone ou em casa? Você sabe a quem essa pessoa poderia pedir ajuda?
+```
 
 Quem vive com um agressor muitas vezes não pode ligar, escrever nem falar em voz alta: ele está ao lado, confere o celular, escuta as conversas. Por isso existem sinais combinados, que dizem "preciso de ajuda" sem uma palavra. Esta aula é para quem pode precisar deles e para quem pode recebê-los.
 
@@ -107,3 +116,37 @@ Para quem vive a violência e ainda não pode ou não quer sair:
 - **Cuidado com o celular.** Apague o histórico de buscas e de conversas sobre o assunto, se ele costuma mexer no aparelho.
 
 Nada disso é obrigação de quem sofre. A responsabilidade pela violência é sempre de quem agride.
+
+## Exemplo resolvido
+
+**Numa chamada de vídeo do trabalho, uma colega fecha os dedos sobre o polegar, olhando para a câmera. O que fazer?**
+
+1. Reconheça o gesto: palma aberta, polegar dobrado e os outros quatro dedos fechados sobre ele, como se o prendessem. Quer dizer que ela está em perigo e pede que alguém a procure com cuidado.
+2. Não demonstre na chamada que entendeu e não confronte o agressor: isso pode piorar a situação dela quando vocês se separarem.
+3. Pergunte-se: há perigo agora? Se houver, ligue 190 e diga o endereço.
+4. Se não houver perigo imediato, procure falar com ela depois, sozinha, por um meio que ele não controle, com perguntas que se respondem com sim ou não ("Você quer que eu chame a polícia?").
+5. Não decida por ela, e ligue 180 para se orientar: a ligação é gratuita e pode ser anônima.
+
+Conclusão: o que ajuda é cuidado, calma e deixar que ela diga do que precisa.
+
+```outrolado
+# O argumento de "em briga de marido e mulher ninguém mete a colher"
+"É assunto de casal. Quem se mete só piora as coisas. Se ela quisesse ajuda, falava."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Ficar em silêncio pode ser o que o agressor mais deseja. A aula explica que quem vive com um agressor muitas vezes não pode ligar, escrever nem falar em voz alta, porque ele está ao lado, confere o celular e escuta as conversas. Por isso existem sinais combinados. Ajudar bem não é confrontar nem decidir por ela: é não perguntar nada na frente de outras pessoas, ligar 190 se houver perigo agora e 180 para se orientar. A Lei 14.188 transformou o Sinal Vermelho em programa nacional e incluiu a violência psicológica (humilhar, ameaçar, isolar, vigiar e controlar) como crime.
+```
+
+```agir
+# Esta semana
+Aprenda de cabeça os três números: 190 (Polícia Militar), 180 (Central de Atendimento à Mulher) e 100 (Disque Direitos Humanos). Não precisa anotar em lugar nenhum, principalmente se alguém confere o seu celular ou os seus papéis. Treine em voz baixa o gesto da mão e releia "Se você recebeu um sinal". Não confronte ninguém.
+```
+
+## Resumo
+
+- Quem vive com um agressor muitas vezes não pode ligar nem falar; por isso existem sinais combinados.
+- Sinal Vermelho: um X na palma da mão, de preferência em vermelho, mostrado a um atendente de um estabelecimento participante, que leva a mulher a um lugar reservado e liga 190. Foi lançado em 2020 e virou programa nacional pela Lei 14.188 (2021).
+- Gesto com a mão: palma aberta, polegar dobrado e quatro dedos fechados sobre ele; foi criado em 2020 pela Canadian Women's Foundation.
+- Quem recebe o sinal não confronta o agressor, liga 190 se há perigo agora, procura falar com ela depois, sozinha, e não decide por ela.
+- Números: 190 (PM), 180 (atendimento à mulher, 24 horas, gratuito, pode ser anônimo) e 100 (crianças, idosos e pessoas com deficiência).

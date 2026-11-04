@@ -34,6 +34,10 @@ quiz:
     explicacao: "A evaporação é um processo endotérmico: precisa de calor, e o retira do corpo."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir reação exotérmica de endotérmica, interpretar o sinal do ΔH e calcular o calor necessário para aquecer a água.
+
 ## Energia nas transformações
 
 Toda reação química envolve **energia**. Romper ligações entre átomos **consome** energia; formar ligações novas **libera**. O saldo decide se a reação esquenta ou esfria o ambiente.
@@ -157,3 +161,12 @@ C + O₂  →  CO₂            ΔH = −393,5 kJ
 2. Quanta energia é liberada na queima de 64 g de metano?
 3. Quantas quilocalorias são necessárias para aquecer 2 litros de água de 20 °C a 100 °C?
 4. Calcule a energia de um alimento com 30 g de carboidratos, 10 g de proteínas e 5 g de gorduras.
+
+## Resumo
+
+- Romper ligações consome energia e formar ligações libera; o saldo decide se a reação esquenta ou esfria o ambiente.
+- Exotérmica libera calor (ΔH negativo); endotérmica absorve calor (ΔH positivo).
+- ΔH = H dos produtos − H dos reagentes, em kJ por mol; queimar 1 mol de metano libera 890 kJ.
+- Calor para aquecer água: Q = m · c · Δt, com c = 1 cal/g·°C.
+- Por grama, o etanol libera menos energia que a gasolina; o hidrogênio libera muito mais e só produz água.
+- A conta ambiental de um combustível não termina na energia liberada.

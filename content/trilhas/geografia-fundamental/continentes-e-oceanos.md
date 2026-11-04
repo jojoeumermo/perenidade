@@ -45,6 +45,10 @@ quiz:
     resposta: 1
     explicacao: "200 × 1,852 = 370,4 km."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber nomear os continentes e oceanos, explicar a deriva dos continentes, situar o Brasil no mundo e converter milhas náuticas em quilômetros para entender o mar territorial.
+
 
 ## Um planeta de água
 
@@ -130,3 +134,12 @@ Zona econômica exclusiva: 200 × 1,852 = **370,4 km**.
 4. Liste os países que fazem fronteira com o estado onde você mora, se houver algum.
 
 **Resposta da 3:** 50 × 1,852 = 92,6 km.
+
+## Resumo
+
+- Os oceanos cobrem cerca de 70% da superfície da Terra.
+- Continente é uma grande massa de terra cercada de oceanos; a contagem depende da convenção (no Brasil, é comum ensinar seis).
+- O Pacífico é o maior e mais profundo dos oceanos.
+- Wegener, no início do século XX, notou que os continentes se encaixam e propôs que se movem.
+- O Brasil fica na América do Sul, banhado pelo Atlântico, e é o quinto maior país do mundo.
+- A Lei nº 8.617/1993 estende a soberania sobre o mar: 1 milha náutica = 1,852 km; mar territorial de 12 milhas (cerca de 22,2 km) e zona econômica exclusiva de 200 milhas (cerca de 370,4 km).

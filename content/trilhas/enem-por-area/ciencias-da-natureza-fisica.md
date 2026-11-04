@@ -27,6 +27,11 @@ quiz:
     explicacao: "Velocidade = comprimento de onda × frequência."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como a física costuma cair no ENEM, calcular o consumo de energia com Energia = Potência × tempo e organizar o estudo pelos temas que mais se repetem.
+
+
 ## Física do cotidiano
 
 A física do ENEM costuma partir de **situações reais**: o chuveiro, a conta de luz, a frenagem de um carro, a usina hidrelétrica, o micro-ondas, o celular. Mais do que fórmulas complexas, pede **compreensão do fenômeno** e contas simples.
@@ -75,3 +80,10 @@ Uma lâmpada de 10 W fica ligada 10 horas por dia durante 30 dias. Quanto consom
 2. Explique por que a distância de frenagem quadruplica quando a velocidade dobra.
 3. Calcule o comprimento de onda de uma rádio FM de 100 MHz.
 4. Resolva 10 questões de física de provas anteriores.
+
+## Resumo
+
+- A física do ENEM parte do **cotidiano** (chuveiro, conta de luz, frenagem, usina) e pede mais interpretação do que fórmulas complexas.
+- Temas: eletricidade, energia, mecânica, ondas, óptica, calor e hidrostática.
+- A conta que mais aparece: **Energia = Potência × tempo**, com a potência em kW e o tempo em horas (E em kWh).
+- Domine as conversões de unidades (minutos em horas, W em kW, km/h em m/s) e treine leitura de gráficos.

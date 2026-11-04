@@ -33,6 +33,10 @@ quiz:
     explicacao: "A transição justa procura desfazer essa oposição."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é transição justa, o que a torna justa e por que "emprego ou meio ambiente" é uma falsa escolha.
+
 Imagine uma cidade que vive de uma mina de carvão ou de uma refinaria. Os cientistas dizem que é preciso parar de queimar combustíveis fósseis. O operário que trabalha ali ouve isso e pensa: e o meu emprego? Se ninguém responder a essa pergunta, ele ficará contra a mudança, e com razão.
 
 ## A origem da ideia
@@ -85,3 +89,21 @@ Para o ecossocialismo, uma transição justa de verdade exige **planejamento pú
 ## Para pesquisar e debater
 
 Qual é a principal atividade econômica da sua cidade? Ela teria de mudar em uma economia sem combustíveis fósseis e sem desmatamento? O que os trabalhadores desse setor precisariam para não sair perdendo?
+
+## Exemplo resolvido
+
+**Uma usina a carvão vai fechar. O que distingue uma transição justa de um simples fechamento?**
+
+1. Pergunte pela renda: os trabalhadores têm renda garantida enquanto mudam de ocupação?
+2. Pergunte pela formação: há requalificação paga, e não por conta do trabalhador?
+3. Pergunte pelo emprego novo: há trabalho de qualidade na mesma região, com direitos?
+4. Pergunte pela voz: os trabalhadores e a comunidade participam das decisões?
+
+Confira: se a resposta for sim, é transição justa; se a usina fecha sem aviso e a região é abandonada, é só fechamento.
+
+## Resumo
+
+- Transição justa nasceu no movimento sindical (Tony Mazzocchi) e foi registrada no preâmbulo do Acordo de Paris.
+- Para limitar o aquecimento a 1,5 °C, o IPCC (2018) indica cortar as emissões cerca de pela metade até 2030 e chegar a zero líquido por volta de 2050.
+- Para ser justa: renda garantida, requalificação, empregos novos de qualidade na região, aposentadoria antecipada, participação e direitos.
+- Emprego contra meio ambiente é falsa escolha; o ecossocialismo propõe planejamento público e, se possível, jornada menor sem perda de salário.

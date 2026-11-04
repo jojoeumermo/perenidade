@@ -30,6 +30,10 @@ quiz:
     explicacao: "É a fermentação, uma transformação química feita por microrganismos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir transformação física de transformação química, reconhecer os sinais de uma reação e dar exemplos do dia a dia.
+
 ## Física ou química?
 
 A matéria muda de dois modos.
@@ -122,6 +126,16 @@ Em um banheiro fechado, essas misturas podem matar. As regras são simples:
 
 Quem trabalha com limpeza usa esses produtos todos os dias, muitas vezes concentrados. Tem direito a receber luvas e proteção, a ser informado sobre os riscos e a não ser obrigado a fazer misturas "para render mais".
 
+## Exemplo resolvido
+
+**Um ovo cozido é transformação física ou química?**
+
+1. Faça o teste prático: dá para voltar atrás facilmente? O ovo cozido não volta a ser cru.
+2. Procure os sinais: a clara, transparente e líquida, virou branca e sólida (mudança de cor e de estado ao mesmo tempo, sem ser só derretimento).
+3. Lembre que nenhum sinal sozinho é prova, mas aqui as pistas se somam: é uma transformação química, com substâncias novas.
+
+Confira com a água: o gelo derretido volta a ser gelo, então é transformação física.
+
 ## Para praticar
 
 1. Classifique como física ou química: (a) queimar lenha; (b) quebrar um copo; (c) fazer iogurte; (d) secar a roupa; (e) fritar um ovo.
@@ -130,3 +144,11 @@ Quem trabalha com limpeza usa esses produtos todos os dias, muitas vezes concent
 4. Na reação CH₄ + 2 O₂ → CO₂ + 2 H₂O, quantos átomos de oxigênio há de cada lado?
 
 **Respostas:** 1) (a) química; (b) física; (c) química; (d) física; (e) química. 2) Para impedir o contato do ferro com o ar e a umidade. 3) Porque o frio torna mais lentas as reações de decomposição e a multiplicação dos microrganismos. 4) Quatro de cada lado.
+
+## Resumo
+
+- Na transformação física a substância continua a mesma; na química surgem substâncias novas.
+- Sinais de reação: mudança de cor, gás, luz ou calor, mudança de cheiro ou sabor, formação de sólido. Nenhum sozinho é prova.
+- Na reação os átomos se rearranjam e a massa se conserva (Lavoisier).
+- Exemplos: combustão, ferrugem, fermentação, cozimento, fotossíntese, respiração e decomposição.
+- Temperatura, superfície de contato e concentração controlam a velocidade da reação.

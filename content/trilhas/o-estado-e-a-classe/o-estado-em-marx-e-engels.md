@@ -32,6 +32,7 @@ quiz:
     opcoes: ["1884", "1848", "1917"]
     resposta: 0
     explicacao: "O livro se baseia em parte em notas de Marx sobre o antropólogo Lewis Morgan."
+modelo: 9
 ---
 
 ```provocacao
@@ -41,6 +42,10 @@ Na escola, aprendemos que o Estado existe para "o bem comum". Mas se ele é de t
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer a ideia de Estado em Marx e Engels: de onde ele vem e a que classe ele serve.
+
+```suarealidade
+Pense numa lei ou decisão do governo que afetou o seu trabalho ou o do seu bairro. Quem pediu essa lei? Quem foi ouvido na hora de fazê-la?
+```
 
 ## O Estado não é neutro
 
@@ -73,6 +78,20 @@ Para Marx e Engels, o Estado é neutro?
 1. A lei se apresenta como **neutra**, em nome do "bem comum".
 2. Na prática, ela **limita a arma** dos trabalhadores (a greve) e **não limita** a do patrão (a demissão).
 3. **Conclusão**: a lei **abafa o conflito** a favor de uma classe, como Engels descreveu.
+
+```outrolado
+# O argumento mais forte de quem discorda
+O cientista político Robert Dahl, em Quem Governa? (1961), defendeu uma visão pluralista: numa democracia o poder está espalhado entre muitos grupos (sindicatos, empresas, associações, partidos), nenhum deles ganha sempre e o Estado funciona como uma arena em que esses grupos disputam. Por essa visão, dizer que o Estado serve a uma só classe seria simplificar.
+---
+Como você responderia, com respeito e com fatos? Pense em quem tem mais acesso e mais dinheiro para disputar nessa arena.
+---
+Uma resposta possível: a visão pluralista acerta ao notar que há disputa e que grupos populares já conquistaram leis. A tradição marxista, porém, pergunta se todos os grupos entram na disputa em condições parecidas, e a aula pede para observar, num caso concreto, a quem a lei beneficia. As duas visões concordam que o Estado é um campo de disputa; discordam sobre o peso do poder econômico nessa disputa.
+```
+
+```agir
+# Esta semana
+Escolha uma notícia sobre uma lei ou decisão do governo e anote num papel quem foi beneficiado, quem foi prejudicado e quem foi ouvido. Escreva uma frase de conclusão.
+```
 
 ## Resumo
 

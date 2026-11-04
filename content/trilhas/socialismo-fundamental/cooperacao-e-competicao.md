@@ -29,6 +29,10 @@ quiz:
     explicacao: "O mutirão é uma tradição popular brasileira de ajuda mútua."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber examinar a frase "o ser humano é egoísta por natureza" com argumentos da natureza, da história e do trabalho.
+
 "O ser humano é egoísta por natureza. Por isso o socialismo nunca vai dar certo." Você certamente já ouviu essa frase. Vamos examiná-la.
 
 ## O que a natureza mostra
@@ -78,6 +82,25 @@ Mude as regras, e o comportamento muda. Num mutirão para construir a casa de um
 
 O socialismo não exige que as pessoas virem santas. Propõe mudar as **regras do jogo**, para que a cooperação seja recompensada e a exploração deixe de ser possível. Ninguém precisa abrir mão dos seus interesses: o interesse de cada um passa a estar ligado ao interesse de todos.
 
+## Exemplo resolvido
+
+**Por que dez pedreiros juntos costumam produzir mais do que dez trabalhando cada um sozinho, e quem fica com esse ganho?**
+
+1. Veja o trabalho dividido: um prepara a massa, outro passa o tijolo, outro assenta. Juntos, formam uma força coletiva que nenhum tem sozinho.
+2. Compare com a soma: dez trabalhadores separados dariam apenas a soma das forças individuais. Juntos produzem mais, como Marx observou ao estudar a cooperação.
+3. Veja quem fica com o resultado: no capitalismo, o patrão paga dez salários individuais e fica com o resultado do trabalho coletivo.
+
+Conclusão: a cooperação aumenta o que se produz, e a discussão do socialismo é sobre quem controla esse ganho.
+
 ## Para conversar
 
 Lembre de uma situação em que você cooperou com outras pessoas e de outra em que precisou competir. Em qual delas você se sentiu melhor? O que fazia a situação ser de cooperação ou de competição?
+
+## Resumo
+
+- A frase "o ser humano é egoísta por natureza" não resiste ao exame de três pontos de vista.
+- Natureza: Kropotkin, em *Ajuda Mútua* (1902), mostrou que a cooperação é fator de evolução tão importante quanto a competição.
+- História: por quase toda a história, grupos pequenos dividiram a comida e cuidaram uns dos outros; muitos povos indígenas organizam a vida pela reciprocidade.
+- Trabalho: a cooperação cria uma força coletiva que, no capitalismo, é apropriada pelo patrão.
+- A competição de hoje também vem de como a sociedade está organizada; mudando as regras, o comportamento muda.
+- No Brasil: mutirão, cooperativas, cozinhas solidárias e SUS.

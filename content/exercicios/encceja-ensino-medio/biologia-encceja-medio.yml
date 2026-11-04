@@ -1,0 +1,51 @@
+# Exercícios da aula "Ciências da Natureza: Biologia" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-bio-01
+  tema: "Fotossíntese"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a planta produz na fotossíntese?"
+  alternativas:
+    - texto: "Glicose e oxigênio, a partir de água, gás carbônico e luz"
+      certa: true
+    - texto: "Gás carbônico e água, a partir de glicose"
+      erro: "Isso é mais parecido com a respiração, que consome glicose. A fotossíntese produz glicose."
+    - texto: "Só calor, a partir do solo"
+      erro: "A planta não produz só calor. Ela usa a luz para fazer o próprio alimento."
+  explicacao: "Com luz, água e gás carbônico, a planta produz glicose (alimento) e libera oxigênio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-bio-02
+  tema: "Resistência a antibióticos"
+  dificuldade: 2
+  enunciado: "Por que o uso errado de antibióticos (parar antes ou tomar sem necessidade) é um problema?"
+  alternativas:
+    - texto: "Porque as bactérias mais resistentes sobrevivem e passam essa característica adiante"
+      certa: true
+    - texto: "Porque o antibiótico perde o gosto"
+      erro: "O problema não é o gosto. É a seleção de bactérias que resistem ao remédio."
+    - texto: "Porque o antibiótico aquece o corpo demais"
+      erro: "Esse não é o problema central. O risco é a seleção de bactérias resistentes."
+  explicacao: "Pela seleção natural, as bactérias resistentes sobrevivem ao remédio e se multiplicam, e o antibiótico deixa de funcionar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-bio-03
+  tema: "Cadeia alimentar"
+  dificuldade: 1
+  enunciado: "Numa cadeia alimentar, o que fazem os decompositores (fungos e bactérias)?"
+  alternativas:
+    - texto: "Fazem o alimento pela fotossíntese"
+      erro: "Quem faz o alimento pela fotossíntese são os produtores, como as plantas."
+    - texto: "Devolvem nutrientes ao ambiente, decompondo restos de seres vivos"
+      certa: true
+    - texto: "Caçam os consumidores"
+      erro: "Os decompositores não caçam. Eles decompõem restos e devolvem nutrientes ao solo."
+  explicacao: "Os decompositores reciclam a matéria, devolvendo nutrientes ao solo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -25,6 +25,10 @@ quiz:
     explicacao: "O tempo de cozimento não depende do número de ovos. Nem toda situação é proporcional."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber resolver problemas de regra de três direta e inversa e conferir se a resposta faz sentido.
+
 ## A conta mais usada da vida
 
 Se 3 kg de tomate custam R$ 24, quanto custam 5 kg? Você conhece **três** valores e quer o **quarto**. Daí o nome: regra de três.
@@ -116,3 +120,10 @@ Vale um cuidado a mais quando a conta envolve gente. "Se 10 operários fazem 200
 5. Oito pessoas colhem uma roça em 9 dias. Para colher em 6 dias, no mesmo ritmo, quantas pessoas são necessárias?
 
 **Respostas:** 1) R$ 7,50. 2) 2 horas. 3) 625 g. 4) 6%. 5) 12 pessoas.
+
+## Resumo
+
+- Regra de três: conhecendo três valores, acha-se o quarto; um caminho que sempre funciona é achar o valor de um.
+- Monte as grandezas em colunas e multiplique em cruz quando elas crescem juntas (diretamente proporcionais).
+- Pergunte: se uma dobrar, o que acontece com a outra? Se cai pela metade, são inversamente proporcionais, e o que se mantém é o produto (4 pedreiros × 15 dias = 6 × 10 dias).
+- Confira sempre se a resposta faz sentido; porcentagem também é regra de três.

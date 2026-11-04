@@ -27,6 +27,10 @@ quiz:
     explicacao: "Push = empurre; pull = puxe."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer os falsos cognatos mais comuns entre inglês e português e evitar erros em conversa, leitura e documentos.
+
 ## Parecem, mas não são
 
 **Falsos cognatos** (ou falsos amigos) são palavras do inglês parecidas com palavras do português, mas com **outro sentido**. São armadilhas na leitura, na conversa e, sobretudo, em contratos e documentos.
@@ -82,9 +86,26 @@ Quando a tradução "óbvia" de uma palavra deixa a frase **sem sentido** no con
 
 Mas não exagere na desconfiança: a grande maioria das palavras parecidas é de **cognatos verdadeiros**, e eles ajudam muito, como se viu em [Como ler um texto em inglês](/trilhas/ingles-medio/como-ler-um-texto-em-ingles).
 
+## Exemplo resolvido
+
+**Traduza corretamente: "Actually, I'm a nurse." / "She attended the meeting." / "My parents live in Bahia."**
+
+1. *Actually* parece "atualmente", mas quer dizer "na verdade". Para "atualmente", o inglês usa *currently* ou *nowadays*. Tradução: "Na verdade, sou enfermeiro(a)."
+2. *Attend* parece "atender", mas quer dizer "frequentar, comparecer". Tradução: "Ela compareceu à reunião."
+3. *Parents* parece "parentes", mas quer dizer "pais" (mãe e pai). Para parentes, *relatives*. Tradução: "Meus pais moram na Bahia."
+
+Confira: a tabela da aula mostra o que cada palavra significa e a palavra certa do inglês para o sentido enganoso.
+
 ## Para praticar
 
 1. Traduza corretamente: "Actually, I'm a nurse." / "She attended the meeting." / "My parents live in Bahia."
 2. Escreva em inglês: "Eu assisto à novela todo dia." / "A fábrica fica perto da biblioteca."
 3. Escolha cinco falsos cognatos da tabela e escreva uma frase com cada um.
 4. Procure, em uma embalagem ou manual em inglês, uma palavra que pareça português. É cognato verdadeiro ou falso?
+
+## Resumo
+
+- Falsos cognatos parecem palavras do português, mas têm outro sentido.
+- Exemplos: *actually* (na verdade), *parents* (pais), *library* (biblioteca), *lunch* (almoço), *fabric* (tecido), *attend* (frequentar, comparecer), *resume* (retomar).
+- Em contratos e documentos, o erro pode custar caro.
+- Na dúvida, confira no dicionário antes de supor que a palavra é igual.

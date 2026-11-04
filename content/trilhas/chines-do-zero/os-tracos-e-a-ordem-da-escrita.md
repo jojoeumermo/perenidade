@@ -37,6 +37,9 @@ quiz:
     resposta: 1
     explicacao: "O lado esquerdo, depois o de cima com o direito num traço só, e por último o de baixo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer os traços básicos, seguir as regras da ordem de escrita, contar traços e distinguir caracteres simplificados e tradicionais.
 
 Os caracteres chineses parecem desenhos complicados. Mas cada um é feito de um número pequeno de **traços** básicos, escritos numa **ordem** que segue regras. Aprender essas regras desde o começo faz a escrita ficar mais rápida, mais bonita e mais fácil de memorizar. E ajuda numa coisa muito prática: procurar caracteres em dicionários e escrevê-los à mão na tela do celular, que reconhece melhor o desenho feito na ordem certa.
 
@@ -124,3 +127,22 @@ Não precisa ter pressa: cada caractere aprendido torna o próximo mais fácil, 
 1. Pegue uma folha quadriculada e escreva, seguindo as regras: 一, 二, 三, 十, 人, 八, 口, 日, 中, 小. Diga o pinyin em voz alta a cada caractere.
 2. Antes de escrever 国, diga qual traço vem por último. Depois confira a animação no dicionário MDBG.
 3. Escreva 你好 dez vezes, sempre na ordem certa: primeiro 亻, depois 尔; primeiro 女, depois 子.
+
+## Exemplo resolvido
+
+**Como escrever 你好 na ordem certa, e quantos traços ele tem?**
+
+1. **Regra da esquerda para a direita.** Em caracteres com duas partes lado a lado, escreve-se primeiro a da esquerda.
+2. **你.** Primeiro **亻** (a forma de 人 do lado esquerdo), depois **尔**. Ao todo, 7 traços.
+3. **好.** Primeiro **女** (mulher, 3 traços), depois **子**. Ao todo, 6 traços.
+4. **Some.** 7 + 6 = 13 traços em 你好.
+
+Confira: cada caractere cabe no mesmo quadrado imaginário, simples ou complicado.
+
+## Resumo
+
+- Cada caractere ocupa o **mesmo espaço**: um quadrado imaginário.
+- Traços básicos: horizontal, vertical, para a esquerda, para a direita, ponto, subida, dobra e gancho. O caractere 永 reúne os principais tipos.
+- Ordem: de cima para baixo; da esquerda para a direita; horizontal antes da vertical quando se cruzam; o traço para a esquerda antes do para a direita; de fora para dentro, fechando por último; o meio antes dos lados.
+- Contar traços ajuda a procurar em dicionários (一 = 1, 人 = 2, 好 = 6, 你 = 7, 国 = 8).
+- **Simplificados** (China continental, Singapura) e **tradicionais** (Taiwan, Hong Kong, Macau). A trilha usa os simplificados.

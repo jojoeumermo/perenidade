@@ -29,6 +29,10 @@ quiz:
     explicacao: "Ele foi um dos fundadores da Academia, em 1897, e seu primeiro presidente."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quem foi Machado de Assis, o que torna os livros dele diferentes e por onde começar a ler.
+
 ## Quem foi
 
 Joaquim Maria **Machado de Assis** nasceu no Rio de Janeiro em 1839, em uma família pobre. Era neto de pessoas escravizadas que haviam sido libertas, em um país que só aboliria a escravidão quando ele já tinha quase cinquenta anos. Não frequentou universidade: aprendeu em grande parte por conta própria, trabalhou como aprendiz de tipógrafo e revisor, tornou-se jornalista e depois funcionário público.
@@ -66,3 +70,21 @@ Escreveu romances, contos, crônicas, poemas e peças de teatro. Em 1897, ajudou
 ## Para refletir
 
 Leia o primeiro capítulo de *Dom Casmurro*, que explica o título do livro. O que esse começo já revela sobre a personalidade de quem está contando a história?
+
+## Exemplo resolvido
+
+**Como começar a ler Machado sem se perder?**
+
+1. Conheça o autor: nasceu no Rio de Janeiro em 1839, em família pobre, aprendeu em grande parte por conta própria.
+2. Entre pelos livros mais curtos e abertos ao leitor: os contos.
+3. Leia sabendo o que esperar: o narrador conversa com você, a ironia diz uma coisa para dar a entender outra, os capítulos são curtos e os romances terminam com mais dúvida que resposta.
+4. Se uma palavra sumiu do uso, siga em frente e consulte o dicionário só quando ela fizer falta.
+
+Confira: a ortografia das edições em domínio público é a da época (como "elle" e "pharmacia"), e o olho se acostuma depois de algumas páginas.
+
+## Resumo
+
+- Machado de Assis nasceu no Rio de Janeiro em 1839 e morreu em 1908; ajudou a fundar a Academia Brasileira de Letras (1897).
+- Seus livros têm narrador que conversa com o leitor, ironia, capítulos curtos e mais dúvida que resposta.
+- Os três grandes romances: *Memórias Póstumas de Brás Cubas*, *Quincas Borba* e *Dom Casmurro*.
+- Dicas: leia em pequenas doses e não pare em cada palavra desconhecida.

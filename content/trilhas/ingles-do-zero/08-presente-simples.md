@@ -30,6 +30,7 @@ quiz:
     explicacao: "O que está acontecendo neste momento usa o presente contínuo (I am working)."
 ---
 
+
 O presente simples é o tempo que se usa para falar do que acontece **sempre**, **todo dia** ou **em geral**: a rotina, os hábitos, o trabalho, os gostos e as verdades que valem sempre.
 
 - *I wake up at 5 a.m.* — Eu acordo às 5 da manhã.
@@ -105,6 +106,16 @@ Em português, "eu trabalho" pode querer dizer "eu tenho um emprego" ou "estou t
 
 O segundo é o **presente contínuo**, que tem uma aula própria nesta trilha.
 
+## Exemplo resolvido
+
+**Como falar da rotina de uma irmã que acorda às seis e não toma café?**
+
+1. Comece pela frase com *I*: *I get up at six.* Aqui o verbo fica na forma básica.
+2. Troque o sujeito por *my sister* (que equivale a *she*): o verbo ganha **-s**: *My sister gets up at six.*
+3. Para negar, use *doesn't* e volte o verbo à forma básica: *She doesn't drink coffee.*
+
+Confira: o -s aparece uma só vez. Na negativa ele vai para o *doesn't*, e o verbo *drink* não ganha -s.
+
 ## Para praticar
 
 Escreva cinco frases sobre a sua rotina com *I*. Depois, reescreva as mesmas frases falando de outra pessoa da sua casa, com *he* ou *she*, e confira se colocou o -s:
@@ -113,3 +124,10 @@ Escreva cinco frases sobre a sua rotina com *I*. Depois, reescreva as mesmas fra
 - *I don't drink coffee.* → *She doesn't drink coffee.*
 
 Leia as frases em voz alta. A ferramenta de pronúncia desta página ajuda a ouvir como cada uma soa.
+
+## Resumo
+
+- O presente simples fala do que acontece sempre, da rotina e das verdades gerais.
+- O verbo fica na forma básica, mas ganha **-s** com *he*, *she* e *it*.
+- Regras do -s: **-es** depois de s, ss, sh, ch, x, o; **-ies** depois de consoante + y; só **-s** depois de vogal + y.
+- Negativa com *don't* e *doesn't* e o verbo na forma básica.

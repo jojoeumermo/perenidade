@@ -1,0 +1,70 @@
+# Exercícios da aula "Comida e compras em chinês" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-comida-01
+  tema: "Pedir com 要"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"Eu quero uma tigela de arroz\"?"
+  alternativas:
+    - texto: "我要一个米饭。"
+      erro: "Para tigela, o classificador é 碗 (wǎn). 个 é o uso geral."
+    - texto: "我是一碗米饭。"
+      erro: "是 é \"ser\". Para pedir, use 要 (yào), \"querer\"."
+    - texto: "我要一碗米饭。"
+      certa: true
+  explicacao: "Entre o número e o substantivo vem um classificador: 一碗米饭, uma tigela de arroz."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-comida-02
+  tema: "Classificadores"
+  dificuldade: 2
+  enunciado: "Qual classificador se usa para um copo ou xícara de chá?"
+  alternativas:
+    - texto: "杯 (bēi)"
+      certa: true
+    - texto: "瓶 (píng)"
+      erro: "瓶 é para garrafa."
+    - texto: "斤 (jīn)"
+      erro: "斤 é meio quilo, unidade de peso tradicional."
+  explicacao: "一杯茶: um copo de chá."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-comida-03
+  tema: "O dinheiro"
+  dificuldade: 2
+  enunciado: "Na fala, como se diz a unidade 元 (yuán)?"
+  alternativas:
+    - texto: "角 (jiǎo)"
+      erro: "角, falado 毛 (máo), é um décimo de yuan."
+    - texto: "块 (kuài)"
+      certa: true
+    - texto: "人民币 (rénmínbì)"
+      erro: "人民币 é o nome da moeda inteira, \"moeda do povo\"."
+  explicacao: "十块 é 10 yuan; 五块五 é 5,50 yuan."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-comida-04
+  tipo: numero
+  tema: "Quanto é"
+  dificuldade: 2
+  enunciado: "Quanto é 五块五, em yuan?"
+  resposta: "5,50"
+  unidade: "yuan"
+  erros_comuns:
+    - resposta: "55"
+      explicacao: "Não são 55: 五块 é 5 yuan e 五 do fim é o 毛, cinco décimos."
+    - resposta: "5"
+      explicacao: "Falta a parte final: o último 五 vale 5 décimos de yuan, ou 0,50."
+  dica: "五块 são 5 yuan; o 五 do fim é o 毛, um décimo de yuan cada."
+  explicacao: "5 yuan + 5 máo (5 décimos) = 5,50 yuan."
+  conferir: "5 + 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

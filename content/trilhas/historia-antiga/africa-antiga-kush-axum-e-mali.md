@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "Apresentar os africanos como povos sem passado tornava mais fácil dominá-los."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber nomear três grandes reinos africanos (Kush, Axum e Mali), dizer em que se apoiava a força de cada um e explicar por que conhecer essa história importa para o Brasil.
+
 
 ## Um continente com história
 
@@ -93,8 +97,28 @@ Mais da metade da população brasileira se declara preta ou parda. As pessoas t
 
 Conhecer a história da África é uma questão de justiça e de verdade. Por isso, desde 2003, uma lei federal torna obrigatório o ensino de história e cultura afro-brasileira e africana nas escolas.
 
+## Exemplo resolvido
+
+**Como situar os séculos do reino de Kush e de Axum na linha do tempo?**
+
+1. A aula diz que Kush conquistou o Egito no **século VIII a.C.** Em a.C., os séculos contam de trás para a frente: o século VIII a.C. vai do ano 800 ao ano 701 a.C.
+2. Axum floresceu "nos primeiros séculos da nossa era". O século IV d.C. vai do ano 301 ao ano 400.
+3. Entre o fim do século VIII a.C. (ano 701 a.C.) e o começo do século IV d.C. (ano 301 d.C.) passam cerca de **mil anos**: 701 + 301 − 1 = 1001, porque não existe o ano zero.
+4. Leitura: Kush e Axum são de épocas diferentes; falar em "a África antiga" como um bloco apaga mil anos de história.
+
+Compare com a imagem de um continente "sem história", que a aula mostra ter sido construída para justificar o tráfico de escravizados e a colonização.
+
 ## Para pesquisar e debater
 
 1. O que você aprendeu sobre a África na escola? O que faltou?
 2. Por que a história de um povo é apagada quando se quer dominá-lo?
 3. Pesquise sobre os griôs. Existe alguém na sua comunidade que guarda a memória do lugar?
+
+## Resumo
+
+- A ideia de uma África "sem história" foi construída na época do tráfico e da colonização, e serviu para justificar a dominação.
+- Kush, ao sul do Egito, na Núbia (atual Sudão), fornecia ouro, marfim, madeiras e incenso; no século VIII a.C., seus reis conquistaram o Egito e governaram por quase um século: os "faraós negros".
+- Axum, nas terras altas da atual Etiópia e da Eritreia, tinha força no comércio pelo porto de Adúlis.
+- No Mali, no Sahel, as caravanas levavam sal do norte e traziam ouro do sul; quem controlava essas rotas ficava rico.
+- Há muito mais: Grande Zimbábue e as cidades suaílis da costa do Índico.
+- Mais da metade dos brasileiros se declara preta ou parda; as pessoas trazidas à força vinham de sociedades com Estados, cidades e técnicas próprias.

@@ -1,0 +1,54 @@
+# Exercícios da aula "Formalização: o MEI para manicure" (Manicure e pedicure). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: man-mei-01
+  tema: "MEI e salão-parceiro"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A profissional-parceira de um salão pode ser MEI?"
+  alternativas:
+    - texto: "Sim, a Lei 12.592/2012 permite que o profissional-parceiro seja MEI, microempresa ou empresa de pequeno porte"
+      certa: true
+    - texto: "Não, é proibido"
+      erro: "O art. 1º-A, §7º, da lei permite expressamente o registro como MEI."
+    - texto: "Só se tiver salão próprio"
+      erro: "Não é preciso ter salão próprio. A lei trata do profissional-parceiro."
+  explicacao: "A lei permite. O MEI, porém, não substitui o contrato de parceria escrito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-mei-02
+  tipo: numero
+  tema: "Limite anual"
+  dificuldade: 2
+  enunciado: "Uma manicure fatura R$ 3.200 por mês. Quanto fatura em 12 meses, em reais?"
+  resposta: "38400"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "3212"
+      explicacao: "Você somou 3.200 + 12. Para o ano, multiplique o valor mensal por 12."
+    - resposta: "267"
+      explicacao: "Você dividiu por 12. Para o total do ano, multiplique."
+  dica: "Valor mensal vezes 12."
+  explicacao: "3.200 × 12 = 38.400 reais por ano, abaixo do limite de R$ 81.000 do texto da lei (confira o limite atual no Portal do Empreendedor)."
+  conferir: "3200 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-mei-03
+  tema: "O que o MEI não resolve"
+  dificuldade: 1
+  enunciado: "Ao virar MEI, a manicure deixa de precisar esterilizar o material?"
+  alternativas:
+    - texto: "Sim, o MEI é isento"
+      erro: "O CNPJ não dispensa higiene. A esterilização continua sendo obrigação de toda profissional (Lei 12.592/2012, art. 4º)."
+    - texto: "Não, a esterilização e as normas sanitárias continuam valendo"
+      certa: true
+    - texto: "Só no salão, e não em casa"
+      erro: "Em qualquer lugar de atendimento, as normas sanitárias valem."
+  explicacao: "Higiene e esterilização continuam obrigatórias, com ou sem CNPJ."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

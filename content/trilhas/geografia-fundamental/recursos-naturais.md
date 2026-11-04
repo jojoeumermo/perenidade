@@ -46,6 +46,10 @@ quiz:
     resposta: 0
     explicacao: "12 m³ = 12.000 litros. 12.000 ÷ 4 ÷ 30 = 100 litros por pessoa por dia."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir recursos renováveis e não renováveis, ler o consumo de água na conta, conhecer os principais minérios e fontes de energia do Brasil e perguntar de quem é a riqueza.
+
 
 ## O que é um recurso natural
 
@@ -122,3 +126,12 @@ Há também o que se pode **reaproveitar**. A Política Nacional de Resíduos S�
 4. Classifique como renovável ou não renovável: lenha, gasolina, energia solar, cobre, peixe.
 
 **Respostas da 4:** lenha, energia solar e peixe são renováveis (se usados dentro do ritmo de reposição); gasolina (do petróleo) e cobre não são.
+
+## Resumo
+
+- Recursos renováveis são repostos em pouco tempo pela natureza; os não renováveis, não.
+- O Brasil tem muita água doce, mas mal distribuída. Na conta, 1 m³ = 1.000 litros.
+- O solo é a base da comida e pode ser perdido pela erosão; florestas protegem o solo e as nascentes.
+- O Brasil é grande produtor de minério de ferro (Minas Gerais e Pará), bauxita, ouro, nióbio e outros.
+- As fontes de energia também se dividem em renováveis e não renováveis.
+- Grande parte das exportações brasileiras é de recursos pouco transformados; a pergunta política é de quem é a riqueza e quem decide seu uso.

@@ -37,6 +37,10 @@ quiz:
     resposta: 1
     explicacao: "L = I·ω é constante: se I cai, ω sobe."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escrever a cinemática e as leis de Newton com cálculo diferencial e integral, usar trabalho, energia e momento angular e dizer onde a mecânica clássica deixa de valer.
+
 
 ## O que muda no nível superior
 
@@ -144,3 +148,12 @@ A mecânica de Newton funciona com enorme precisão para corpos de tamanho comum
 2. Uma mola de constante k = 200 N/m é comprimida 0,1 m e solta um bloco de 0,5 kg sem atrito. Qual é a velocidade do bloco ao deixar a mola?
 3. Explique, com o momento de inércia, por que um equilibrista usa uma vara longa.
 4. Uma roda de momento de inércia 2 kg·m² gira a 10 rad/s. Que torque constante a para em 5 s?
+
+## Resumo
+
+- Com cálculo: v = dx/dt e a = dv/dt; a segunda lei em forma geral é F = dp/dt (p = m·v).
+- Trabalho: W = ∫ F · dr; o teorema trabalho-energia liga o trabalho à variação da energia cinética.
+- Força conservativa: o trabalho entre dois pontos não depende do caminho, e há energia potencial associada.
+- O centro de massa de um sistema se move como se toda a massa e todas as forças estivessem nele.
+- Na rotação, cada grandeza da translação tem análoga; sem torque externo, L = I·ω se conserva.
+- A mecânica clássica se apoia em três conservações (energia, momento linear e momento angular) e falha para o muito pequeno e para o muito veloz.

@@ -30,6 +30,10 @@ quiz:
     explicacao: "Propriedade coletiva pode ser estatal, cooperativa ou comunitária."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber separar propriedade pessoal, propriedade privada dos meios de produção e propriedade coletiva, e dizer o que o socialismo propõe sobre cada uma.
+
 Quando alguém diz "os socialistas querem acabar com a propriedade privada", muita gente pensa logo na própria casa, no carro, no celular. Vamos separar as coisas com calma.
 
 ## Três tipos de propriedade
@@ -74,6 +78,24 @@ Mesmo no capitalismo, a propriedade não é absoluta. A **Constituição brasile
 - As **terras indígenas**, que pela Constituição são bens da União de usufruto exclusivo dos povos que as ocupam.
 - **Fábricas recuperadas**, que os trabalhadores assumiram depois da falência dos donos.
 
+## Exemplo resolvido
+
+**Uma costureira que vive de uma máquina própria e uma grande fábrica de roupas com centenas de empregados são a mesma coisa para a proposta socialista?**
+
+1. Classifique a máquina da costureira: é um meio de produção, mas ela trabalha com os próprios meios e vive do próprio trabalho. A maioria das propostas socialistas não vê nisso exploração e defende apoiar esses trabalhadores, com crédito e cooperativas.
+2. Classifique a fábrica: é propriedade privada de meios de produção em grande escala, que permite a alguém viver do trabalho dos outros e concentra poder e riqueza.
+3. Compare: o alvo da proposta são as grandes propriedades, e não o pequeno negócio nem a casa de ninguém.
+
+Conclusão: não são a mesma coisa. A casa, o carro e as economias de dona Rosa também continuam dela, porque são propriedade pessoal.
+
 ## Para conversar
 
 Na sua cidade, quais bens são de uso coletivo (praça, escola, posto de saúde, biblioteca)? Como seria a vida se eles também fossem privatizados?
+
+## Resumo
+
+- Há três tipos de propriedade: pessoal (casa, roupas, celular, economias), privada dos meios de produção e coletiva.
+- O socialismo não propõe tomar a propriedade pessoal; quer transformar a propriedade privada dos meios de produção.
+- A propriedade coletiva pode ser estatal, cooperativa ou comunitária.
+- O Manifesto Comunista (1848) já respondia a essa confusão: a propriedade privada só existe para poucos porque não existe para a maioria.
+- A Constituição brasileira (art. 5º e art. 186) já exige função social da propriedade; fazenda improdutiva ou com trabalho escravo pode ser desapropriada para reforma agrária.

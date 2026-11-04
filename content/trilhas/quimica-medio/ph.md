@@ -34,6 +34,10 @@ quiz:
     explicacao: "O sangue é tamponado: o seu pH se mantém em uma faixa muito estreita."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que o pH mede, calcular o pH e o pOH de ácidos e bases fortes e entender por que a escala é logarítmica.
+
 ## Um número para a acidez
 
 Na aula [Ácidos e bases em casa](/trilhas/quimica-fundamental/acidos-e-bases-em-casa), a escala de pH apareceu como uma régua de 0 a 14. Agora vamos ver **o que ela mede** e **de onde vêm os números**. Convém ter visto [Funções inorgânicas](/trilhas/quimica-medio/funcoes-inorganicas).
@@ -172,3 +176,12 @@ A chuva normal já é levemente ácida, com pH em torno de 5,6, porque o gás ca
 2. Calcule o pH de uma solução de NaOH a 0,001 mol/L.
 3. Quantas vezes um suco de limão (pH 2) é mais ácido que um café (pH 5)?
 4. Prepare um indicador com repolho roxo fervido e teste vinagre, água com bicarbonato e água com sabão. Anote as cores e ordene as soluções da mais ácida para a mais básica.
+
+## Resumo
+
+- A água se ioniza (H₂O ⇌ H⁺ + OH⁻); a 25 °C, [H⁺] · [OH⁻] = 10⁻¹⁴ e, na água pura, cada uma vale 10⁻⁷ mol/L.
+- pH = −log [H⁺] e pOH = −log [OH⁻]; a 25 °C, pH + pOH = 14.
+- Abaixo de 7 a solução é ácida, 7 é neutra e acima de 7 é básica.
+- Cada unidade de pH é um fator de dez na concentração de H⁺.
+- Diluir dez vezes um ácido forte sobe o pH em uma unidade.
+- Ácidos fracos têm pH mais alto do que um ácido forte na mesma concentração.

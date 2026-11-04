@@ -1,0 +1,51 @@
+# Exercícios da aula "Ciências Humanas: Filosofia e Sociologia" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-filo-01
+  tema: "Filosofia antiga"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual filósofo grego usava perguntas para levar as pessoas a questionar suas certezas?"
+  alternativas:
+    - texto: "Sócrates"
+      certa: true
+    - texto: "Karl Marx"
+      erro: "Marx foi um pensador do século XIX que estudou o trabalho e as classes sociais, e não um filósofo grego."
+    - texto: "Max Weber"
+      erro: "Weber foi um sociólogo alemão do século XIX e início do XX."
+  explicacao: "Sócrates dialogava por perguntas para mostrar que muita certeza não resiste ao exame."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-filo-02
+  tema: "Sociologia clássica"
+  dificuldade: 2
+  enunciado: "Qual pensador é associado ao estudo das classes sociais e do trabalho no capitalismo?"
+  alternativas:
+    - texto: "Émile Durkheim"
+      erro: "Durkheim estudou os fatos sociais e a solidariedade. O foco em classes e trabalho é de Marx."
+    - texto: "Karl Marx"
+      certa: true
+    - texto: "Aristóteles"
+      erro: "Aristóteles foi um filósofo grego, bem anterior ao capitalismo."
+  explicacao: "Marx analisou o trabalho, as classes sociais e a exploração no capitalismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-filo-03
+  tema: "Cidadania e direitos"
+  dificuldade: 1
+  enunciado: "Em que ano a ONU adotou a Declaração Universal dos Direitos Humanos?"
+  alternativas:
+    - texto: "1789"
+      erro: "Esse é o ano da Revolução Francesa, que difundiu ideias de liberdade e igualdade."
+    - texto: "1948"
+      certa: true
+    - texto: "1988"
+      erro: "Esse é o ano da Constituição brasileira. A Declaração da ONU é anterior."
+  explicacao: "A Declaração Universal dos Direitos Humanos foi adotada em 10 de dezembro de 1948."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

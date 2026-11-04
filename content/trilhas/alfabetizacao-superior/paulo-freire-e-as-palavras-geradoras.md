@@ -1,5 +1,6 @@
 ---
 titulo: "Paulo Freire e as palavras geradoras"
+modelo: 9
 resumo: "Objetivo: compreender o método de alfabetização de Paulo Freire (pesquisa do universo vocabular, palavras geradoras, codificação, círculos de cultura) e os fundamentos da sua pedagogia: diálogo, conscientização e crítica à educação bancária."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai explicar o método de alfabetização de Paulo Freire (o levantamento do universo vocabular, as palavras geradoras, a codificação e os círculos de cultura) e os fundamentos da sua pedagogia: o diálogo, a conscientização e a crítica à educação bancária. E vai conhecer as principais leituras e críticas da obra dele.
+
+```suarealidade
+Lembre uma situação em que você aprendeu conversando e outra em que só copiou e repetiu. Qual das duas ficou mais na sua memória?
+```
 
 ## Quem foi Paulo Freire
 
@@ -107,3 +112,17 @@ O método foi aplicado e reinventado em muitos países. Também foi criticado: h
 2. Escolha uma palavra geradora e monte a ficha de descoberta.
 3. Explique a diferença entre educação bancária e educação problematizadora com um exemplo da sua experiência escolar.
 4. Leia um trecho de *Pedagogia do oprimido* e discuta-o em grupo.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A crítica à 'educação bancária' é injusta com os professores. Explicar o conteúdo e treinar é necessário, e a escola precisa ensinar a técnica da leitura de forma direta, em vez de apostar na conscientização." Críticas desse tipo existem: apontam que a ênfase na conscientização pode secundarizar a técnica da leitura, ou que a sistematização silábica não basta para a fluência.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Freire critica o professor que apenas "deposita" conteúdos em quem aprende, tratado como recipiente vazio. Ele não nega que se ensine. O método tem uma etapa técnica: a palavra aparece escrita, é dividida em sílabas, as famílias silábicas são apresentadas na ficha de descoberta e o grupo cria palavras novas. E o próprio Freire insistia que o método não era uma receita fixa, mas uma postura diante dos educandos. Vale ler a obra nas fontes e conhecer também as críticas.
+```
+
+```agir
+# Esta semana
+Durante a semana, anote dez palavras que você ouve no seu trabalho ou no seu bairro e que mais dizem da vida dali (sem anotar nomes de pessoas). Escolha uma e escreva em duas linhas por que ela importa.
+```

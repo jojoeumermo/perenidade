@@ -31,6 +31,10 @@ quiz:
     explicacao: "A concorrência é uma disputa com vencedores. Os vencedores crescem; os perdedores somem ou são absorvidos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar concentração de centralização de capital, citar os cinco traços do imperialismo segundo Lenin e dizer o que muda para quem compra e para quem trabalha quando há poucos donos.
+
 Os livros de economia costumam descrever o capitalismo como um mercado cheio de pequenas empresas disputando o cliente. Olhe em volta: quantas empresas controlam os supermercados da sua cidade? Os bancos? A internet do seu celular? Esta aula explica por que a concorrência produz o seu contrário.
 
 ## A concorrência engole a si mesma
@@ -82,3 +86,21 @@ Marx viu nisso também uma possibilidade. Quando a produção de um setor inteir
 ## Para conversar
 
 Escolha um produto que você compra toda semana. Descubra quem fabrica e quem vende. Quantas empresas diferentes existem de fato nesse mercado?
+
+## Exemplo resolvido: concentração ou centralização?
+
+Dois casos inventados para treinar a distinção. Caso A: uma rede de farmácias com 400 lojas e outra com 600 anunciam fusão. Caso B: uma terceira rede reinveste o próprio lucro e abre 50 lojas novas.
+
+1. Pergunte, em cada caso, se as lojas já existiam. No caso A, sim: 400 + 600 = 1.000 lojas que passam a ter um só dono.
+2. No caso A, capitais que já existiam se juntaram: isso é **centralização**.
+3. No caso B, o capital cresceu com o próprio lucro e foram criadas 50 lojas que antes não existiam: isso é **concentração**.
+
+Confira: no caso A ninguém investiu em lojas novas e o número de donos caiu; no caso B o número de donos continua o mesmo. O efeito sobre a concorrência é maior no caso A.
+
+## Resumo
+
+- A concorrência engole a si mesma: quem tem mais capital compra máquinas melhores e quebra o rival.
+- Concentração é o crescimento de cada capital com o próprio lucro; centralização é a junção de capitais que já existiam (fusões, compras).
+- Lenin, em 1916, apontou cinco traços do imperialismo: monopólios, capital financeiro, exportação de capitais, associações internacionais de monopólios e partilha territorial do mundo.
+- Com poucos donos, os preços, os salários, o preço pago a fornecedores e a política sofrem a pressão do poder econômico.
+- A produção de um setor já é social na prática, embora continue privada na propriedade.

@@ -33,6 +33,10 @@ quiz:
     explicacao: "Em O Uso do Conhecimento na Sociedade (1945), Hayek apresenta o sistema de preços como mecanismo de comunicação."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber expor o debate sobre o cálculo econômico entre Mises, Lange e Hayek e o que a experiência soviética e os computadores acrescentaram.
+
 Uma das críticas mais sérias ao socialismo não veio de discursos políticos, mas da teoria econômica. Ela pode ser resumida numa pergunta: **sem preços de mercado, como uma economia planejada sabe o que produzir, como e em que quantidade?** Esta aula apresenta o debate, que começou em 1920 e ganhou nova vida com a computação.
 
 ## O desafio de Mises
@@ -76,6 +80,25 @@ Em 1993, os pesquisadores britânicos **Paul Cockshott** e **Allin Cottrell**, e
 
 Hoje, com big data, algoritmos e logística planetária (grandes empresas como as de comércio eletrônico já planejam internamente fluxos gigantescos de mercadorias), o debate voltou. Críticos lembram que o problema de Hayek (conhecimento tácito, inovação, preferências que mudam) não é só de capacidade de processamento. Defensores do planejamento democrático respondem que a questão é política: quem decide as prioridades, e se a economia deve se orientar pelo lucro ou pelas necessidades.
 
+## Exemplo resolvido
+
+**Como o modelo de Lange tentava imitar o mercado sem propriedade privada dos meios de produção? (exemplo ilustrativo)**
+
+1. Suponha que a economia precisa de aço. O Conselho Central de Planejamento fixa um preço para o aço.
+2. Se houver falta de aço, o preço sobe, sinalizando que é preciso produzir mais e consumir menos. Se sobrar, o preço desce.
+3. Os gestores das empresas estatais seguem uma regra: produzir até que o custo marginal iguale o preço.
+4. Repita o ajuste, por tentativa e erro, como o mercado faz.
+
+Conclusão: Lange concluía que seria possível ter propriedade social e cálculo racional. A resposta de Hayek foi deslocar o debate: o problema seria o conhecimento disperso e tácito de milhões de pessoas, que os preços transmitiriam de forma descentralizada.
+
 ## Para pesquisar e debater
 
 Grandes empresas multinacionais planejam internamente a produção e a distribuição sem usar preços de mercado entre os seus setores. Isso reforça ou enfraquece o argumento de Mises e Hayek?
+
+## Resumo
+
+- A pergunta: sem preços de mercado, como uma economia planejada sabe o que produzir, como e quanto?
+- Mises (1920): sem preços para os bens de produção, o cálculo econômico racional seria impossível.
+- Lange (1936-1937): um Conselho Central de Planejamento poderia fixar preços e ajustá-los por tentativa e erro.
+- Hayek (1945): o problema é de conhecimento, disperso entre milhões de pessoas; o mercado seria um processo de descoberta.
+- A experiência soviética deu munição aos dois lados; o debate ganhou nova vida com a computação e continua vivo.

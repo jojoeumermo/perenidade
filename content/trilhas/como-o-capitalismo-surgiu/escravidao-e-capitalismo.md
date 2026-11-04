@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "Açúcar, algodão e café eram mercadorias do mercado mundial, e o algodão escravista alimentou as fábricas têxteis inglesas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como a escravização de africanos se ligou ao nascimento do capitalismo, qual foi a tese de Eric Williams e como o Brasil encerrou a escravidão.
 
 Muita gente imagina a escravidão como algo "atrasado", oposto ao capitalismo moderno. A história mostra outra coisa: durante três séculos, a escravização de africanos foi uma das engrenagens que fizeram o capitalismo nascer e crescer.
 
@@ -78,3 +81,24 @@ O Brasil foi o último país das Américas a abolir a escravidão, em **13 de ma
 ## Para conversar
 
 Na sua cidade há ruas, praças ou monumentos com nomes de traficantes ou senhores de escravos? O que eles contam, e o que escondem?
+
+## Exemplo resolvido
+
+**A escravidão foi o oposto do capitalismo ou uma engrenagem dele? Siga o comércio triangular.**
+
+1. **Na Europa.** Navios saíam com tecidos, armas e bebidas.
+2. **Na África.** Essas mercadorias eram trocadas por pessoas.
+3. **Na América.** As pessoas eram vendidas e o dinheiro comprava açúcar, tabaco, café e algodão.
+4. **De volta à Europa.** O algodão alimentava as fábricas têxteis inglesas; portos como Liverpool, Bristol, Nantes e Lisboa enriqueceram, e bancos e seguradoras financiavam as viagens.
+5. **Conclua.** As plantações escravistas produziam mercadorias para o mercado mundial; Eric Williams (1944) defendeu que os lucros do tráfico e das plantações ajudaram a financiar a acumulação de capital e a industrialização da Grã-Bretanha.
+
+Confira: os números exatos ainda são debatidos pelos historiadores, mas a ligação entre escravidão e capitalismo é amplamente reconhecida.
+
+## Resumo
+
+- Entre os séculos XVI e XIX, mais de 12 milhões de africanos foram embarcados à força para as Américas (Slave Voyages); o Brasil recebeu cerca de 40% deles.
+- As plantações produziam açúcar, tabaco, café e algodão para o mercado mundial; o **comércio triangular** ligava Europa, África e América.
+- Eric Williams (1944): os lucros do tráfico ajudaram a financiar a industrialização britânica.
+- O racismo moderno nasce, em boa parte, como ideologia desse sistema.
+- Resistência: fugas, quilombos, rebeliões e a Revolução Haitiana (1791-1804).
+- O Brasil aboliu a escravidão em 13 de maio de 1888, sem terra nem indenização aos libertos.

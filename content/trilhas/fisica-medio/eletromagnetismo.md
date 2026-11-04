@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "A perda nos fios é R·i²: reduzir a corrente a um décimo reduz a perda a um centésimo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como a corrente cria magnetismo e o magnetismo cria corrente, como funcionam o motor, o gerador e o transformador e por que as linhas de transmissão usam alta tensão.
+
 
 ## Duas forças que são uma
 
@@ -139,3 +143,12 @@ No fim da década de 1880, o alemão **Heinrich Hertz** produziu e detectou essa
 2. Um carregador de celular reduz 127 V para 5 V. Qual deve ser a razão entre as espiras do primário e do secundário? (Considere apenas o transformador.)
 3. Por que um transformador não funciona ligado a uma bateria de carro?
 4. Explique o caminho da energia desde a água na represa até a lâmpada da sua casa, indicando cada transformação.
+
+## Resumo
+
+- Eletricidade e magnetismo são aspectos de uma mesma força: Oersted (1820) mostrou que corrente desvia a bússola; Faraday (1831) mostrou a indução.
+- Corrente cria campo magnético; enrolada em bobina, forma um eletroímã.
+- Um fio com corrente em um campo magnético sofre força: é o princípio do motor elétrico.
+- Variar o fluxo magnético em uma bobina produz corrente: é o gerador, um motor ao contrário.
+- O transformador aumenta ou diminui a tensão com duas bobinas no mesmo núcleo de ferro.
+- Alta tensão nas linhas reduz a perda de energia por efeito Joule. Maxwell reuniu tudo e previu as ondas eletromagnéticas.

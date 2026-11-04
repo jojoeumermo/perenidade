@@ -34,6 +34,9 @@ quiz:
     resposta: 0
     explicacao: "Trocar a fonte de energia é necessário, mas não resolve a exigência de expansão sem fim."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a ruptura metabólica em Marx, por que o capital não pode parar de crescer, o que é o capital fóssil, o que é injustiça climática e quais são as críticas ao "capitalismo verde".
 
 Ondas de calor, secas, enchentes, queimadas, perda de espécies. O relatório síntese do **IPCC** de 2023 afirma que as atividades humanas, principalmente pela emissão de gases de efeito estufa, causaram de forma inequívoca o aquecimento global. Mas "atividades humanas" é uma expressão vaga. Esta aula pergunta: **quais** atividades, organizadas **por quem** e **para quê**?
 
@@ -88,3 +91,23 @@ O **ecossocialismo** propõe que a produção seja planejada democraticamente em
 ## Para pesquisar e debater
 
 Quais são os maiores emissores de gases de efeito estufa no Brasil? (Dica: no Brasil, diferente de muitos países, a maior parte das emissões vem de mudança no uso da terra e da agropecuária.) Quem são os proprietários dessas atividades?
+
+## Exemplo resolvido
+
+**Por que uma empresa capitalista tem dificuldade de adotar, sozinha, uma produção que gere menos lucro mas cause menos dano ambiental?**
+
+1. **Lembre da fórmula.** O capital é valor que precisa se valorizar: D – M – D'. Não há ponto de chegada.
+2. **Veja a concorrência.** Uma empresa que não cresce é engolida pelos concorrentes.
+3. **Aplique ao caso.** Se ela reduz o lucro para poluir menos, perde mercado para as empresas que continuam poluindo e lucrando mais.
+4. **Conclua.** A pressão por produzir mais, extrair mais e consumir mais energia é do sistema, e não só da vontade de um dono: floresta, rio e atmosfera entram na conta como recursos ou depósitos de lixo gratuitos.
+
+Confira: é por isso que a aula discute regras coletivas e planejamento, e não apenas boa vontade de empresas.
+
+## Resumo
+
+- O IPCC (2023) afirma que as atividades humanas causaram de forma inequívoca o aquecimento global.
+- Marx descreve o trabalho como **metabolismo** com a natureza; a agricultura capitalista o rompe (**ruptura metabólica**, Foster).
+- O capital precisa se valorizar sem parar; a concorrência pressiona por mais produção, mais matéria-prima e mais energia.
+- **Capital fóssil** (Malm): o carvão foi adotado no século XIX também por permitir controlar a mão de obra, e não só por custo.
+- **Injustiça climática:** quem menos emitiu e menos tem sofre primeiro e mais.
+- Críticas ao "capitalismo verde": mineração para a transição, mercados de carbono, crescimento contínuo. A proposta alternativa é o **ecossocialismo**.

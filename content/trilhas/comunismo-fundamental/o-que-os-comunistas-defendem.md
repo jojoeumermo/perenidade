@@ -25,6 +25,9 @@ quiz:
     resposta: 0
     explicacao: "Engels imaginava um processo de transformação, e não um decreto instantâneo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que o Manifesto Comunista afirma sobre a posição dos comunistas, qual é o objetivo final deles e que bandeiras de cada momento defenderam.
 
 Muita gente tem medo dos comunistas sem saber o que eles defendem. Esta aula apresenta, em linguagem direta, as ideias centrais, a partir dos textos fundadores.
 
@@ -79,3 +82,23 @@ Engels, nos *Princípios Básicos do Comunismo* (1847), perguntou se seria poss�
 ## Para conversar
 
 Das bandeiras listadas nesta aula, quais você considera já conquistadas no Brasil? Quais ainda faltam? Quais estão ameaçadas?
+
+## Exemplo resolvido
+
+**Como os comunistas ligam o objetivo final às lutas de hoje? Siga o Manifesto.**
+
+1. **Posição.** Os comunistas não têm interesses separados dos da classe trabalhadora e destacam os interesses comuns de todo o proletariado, de qualquer nacionalidade.
+2. **Objetivos imediatos.** Organizar os trabalhadores como classe, derrubar a dominação burguesa e conquistar o poder político.
+3. **Objetivo final.** Uma sociedade sem classes, em que o livre desenvolvimento de cada um é a condição para o livre desenvolvimento de todos.
+4. **Bandeiras de cada momento.** Jornada menor, salário digno, educação e saúde públicas, reforma agrária, igualdade entre homens e mulheres, fim do colonialismo, luta contra o racismo e o fascismo, paz.
+5. **Conclua.** O Manifesto liga a liberdade individual à liberdade coletiva, e muitas bandeiras que pareciam radicais viraram direitos básicos.
+
+Confira: Engels (1847) respondeu que a propriedade privada não poderia ser abolida de uma só vez, e sim gradualmente.
+
+## Resumo
+
+- Segundo o Manifesto (1848), os comunistas não têm interesses separados dos de toda a classe trabalhadora.
+- Objetivos imediatos: organizar os trabalhadores como classe, derrubar a dominação burguesa e conquistar o poder político.
+- Objetivo final: uma sociedade sem classes, em que o livre desenvolvimento de cada um é condição para o de todos.
+- Bandeiras de cada momento: jornada de oito horas, salário digno, educação e saúde públicas, reforma agrária, igualdade de gênero, fim do colonialismo, antirracismo, antifascismo e paz.
+- Defendem reformas, mas julgam que elas não bastam enquanto os meios de produção forem de poucos; como fazer a transformação é um debate vivo.

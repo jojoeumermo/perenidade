@@ -1,0 +1,54 @@
+# Exercícios da aula "Chuveiro e água quente" (Encanador). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: enc-chuveiro-01
+  tipo: numero
+  tema: "Corrente do chuveiro"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Um chuveiro de 4.400 W é ligado em 220 V. Qual é a corrente, em ampères?"
+  resposta: "20"
+  unidade: "A"
+  erros_comuns:
+    - resposta: "968000"
+      explicacao: "Você multiplicou potência e tensão. A corrente é a potência dividida pela tensão."
+    - resposta: "0,05"
+      explicacao: "Você dividiu a tensão pela potência (220 ÷ 4.400). Inverta: potência ÷ tensão."
+  dica: "P = U · i, então i = P ÷ U."
+  explicacao: "4.400 ÷ 220 = 20 A. Por isso a fiação e o disjuntor devem ser adequados e instalados por profissional habilitado."
+  conferir: "4400 / 220"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-chuveiro-02
+  tema: "Limite do serviço"
+  dificuldade: 1
+  enunciado: "O chuveiro elétrico precisa de fiação nova e disjuntor maior. Quem deve fazer essa parte?"
+  alternativas:
+    - texto: "Profissional com qualificação em eletricidade (eletricista habilitado)"
+      certa: true
+    - texto: "Qualquer pessoa, se for rápido"
+      erro: "A rapidez não reduz o risco de choque e de incêndio. A instalação elétrica segue a NBR 5410 e a NR-10."
+    - texto: "O vizinho, sem desligar a energia"
+      erro: "Mexer sem desligar a energia é muito perigoso. Mesmo desligada, a instalação exige quem saiba."
+  explicacao: "O encanador cuida da parte hidráulica. A elétrica é de quem tem qualificação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-chuveiro-03
+  tema: "Aquecedor a gás"
+  dificuldade: 2
+  enunciado: "Por que o aquecedor a gás deve ser instalado por profissional habilitado e com ventilação adequada?"
+  alternativas:
+    - texto: "Por causa do risco de vazamento de gás e de intoxicação por monóxido de carbono"
+      certa: true
+    - texto: "Porque o gás deixa a água com gosto ruim"
+      erro: "O problema é de segurança: gás vaza e a queima sem ventilação libera monóxido de carbono."
+    - texto: "Porque o gás é mais caro que a luz"
+      erro: "O custo não é o motivo da regra. A exigência vem do risco para a vida."
+  explicacao: "Vazamento de gás pode explodir, e o monóxido de carbono intoxica sem cheiro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -27,6 +27,10 @@ quiz:
     explicacao: "Can't é a forma curta; cannot se escreve junto."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar *can* para dizer o que sabe fazer, pedir e dar permissão, e usar *could* para um pedido mais educado.
+
 ## Um verbo diferente
 
 **Can** é um **verbo modal**: um auxiliar que muda o sentido do verbo principal. Ele tem regras próprias:
@@ -86,9 +90,27 @@ Como se diz "Eu não consigo abrir este arquivo"?
 
 Na frase afirmativa, *can* costuma ser dito rápido e fraco ("kən"); *can't* é mais forte e longo ("kænt" nos Estados Unidos, "kɑːnt" no Reino Unido). Muitas vezes, é a força da palavra que permite distinguir *I can go* de *I can't go*. Pratique com a ferramenta de [pronúncia](/ferramentas/pronuncia).
 
+## Exemplo resolvido
+
+**Como dizer "Ele sabe consertar computadores" e depois perguntar?**
+
+1. Afirmativa: *He can fix computers.* Com *can* o verbo **não** ganha -s e **não** leva *to*.
+2. Negativa: *He can't fix computers.* O *can* faz a negativa sozinho, sem *do* nem *does*.
+3. Pergunta: leve o *can* para a frente: *Can he fix computers?*
+4. Resposta curta: *Yes, he can.* ou *No, he can't.*
+
+Confira: o verbo *fix* ficou igual nas três frases. Dizer *He cans* ou *Does he can fix* seria erro.
+
 ## Para praticar
 
 1. Escreva cinco coisas que você sabe fazer e três que não sabe: *I can cook. I can't swim.*
 2. Transforme em pergunta: "He can fix computers." / "They can work on Sunday."
 3. Reescreva de forma mais educada: "Can you repeat that?" / "Give me a glass of water."
 4. Prepare uma pequena apresentação para uma entrevista de emprego com três habilidades: *I can ...*
+
+## Resumo
+
+- *Can* é um verbo modal: não muda na terceira pessoa e vem seguido do verbo sem *to*.
+- Negativa e pergunta saem do próprio *can*: *can't* e *Can she...?*
+- Usos: habilidade, possibilidade, pedido e permissão.
+- *Could* torna o pedido mais educado: *Could you help me, please?*

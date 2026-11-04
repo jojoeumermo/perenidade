@@ -27,6 +27,9 @@ quiz:
     resposta: 1
     explicacao: "Os caracteres 北京 são os mesmos; mudou o sistema de transcrição."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar os três problemas que a reforma da escrita enfrentou, o que é o pinyin e para que serve, e os debates sobre a simplificação e o mandarim padrão.
 
 ## Uma língua, muitas falas
 
@@ -87,3 +90,23 @@ A experiência chinesa é parte de uma história mais ampla de campanhas de alfa
 2. Pesquise a vida de Zhou Youguang.
 3. Por que o pinyin não substituiu os caracteres? Liste argumentos.
 4. Compare a campanha de alfabetização chinesa com uma campanha brasileira ou cubana.
+
+## Exemplo resolvido
+
+**O pinyin foi criado para abolir os caracteres chineses? Para que ele serve, de fato?**
+
+1. **Veja o contexto.** No começo do século XX, a grande maioria da população não sabia ler e falava línguas e dialetos diferentes. Os reformadores queriam uma língua comum, uma escrita mais fácil e um jeito de registrar a pronúncia.
+2. **Veja o que o pinyin faz.** Ele ensina a pronúncia do mandarim padrão a crianças e a quem se alfabetiza, organiza dicionários e listas, serve para digitar em computadores e celulares e para escrever nomes chineses em outras línguas.
+3. **Veja o que ele não faz.** O pinyin **não substituiu** os caracteres; convive com eles.
+4. **Veja um efeito visível.** Em 1982, a organização internacional de normalização adotou o pinyin como padrão da romanização. Por isso se escreve *Beijing*, e não *Peking*, como no antigo Wade-Giles.
+
+Confira: a proposta de abolir os caracteres existiu, mas não prevaleceu.
+
+## Resumo
+
+- Três problemas: uma **língua comum**, uma escrita **mais fácil** e um jeito de **registrar a pronúncia**.
+- O mandarim padrão (普通话) tem como base a fala de Pequim.
+- Antes do pinyin: Wade-Giles e propostas de romanização, como a Latinxua Sin Wenz.
+- O **pinyin** (拼音) foi aprovado oficialmente depois de 1949; serve para ensino, dicionários, digitação e nomes; **não substituiu** os caracteres. Padrão internacional desde 1982.
+- Junto veio a simplificação dos caracteres (1956 a 1964), parte de uma campanha de alfabetização em massa.
+- Debates: a proposta de abolir os caracteres não prevaleceu; o mandarim padrão favorece a comunicação, mas levanta discussões sobre as línguas regionais.

@@ -1,0 +1,51 @@
+# Exercícios da aula "O corpo humano e seus sistemas" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-corpo-01
+  tema: "Níveis de organização"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a ordem correta, da menor para a maior estrutura?"
+  alternativas:
+    - texto: "Células, tecidos, órgãos, sistemas"
+      certa: true
+    - texto: "Sistemas, órgãos, tecidos, células"
+      erro: "É a ordem inversa: células parecidas formam tecidos, tecidos formam órgãos e órgãos formam sistemas."
+    - texto: "Órgãos, células, sistemas, tecidos"
+      erro: "Células parecidas formam tecidos, depois órgãos, depois sistemas."
+  explicacao: "Nenhum sistema funciona sozinho, como os setores de uma fábrica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-corpo-02
+  tema: "Qual sistema faz o quê"
+  dificuldade: 1
+  enunciado: "Qual sistema filtra o sangue e elimina resíduos na urina?"
+  alternativas:
+    - texto: "O respiratório"
+      erro: "O respiratório capta oxigênio e elimina gás carbônico."
+    - texto: "O excretor (urinário), com rins e bexiga"
+      certa: true
+    - texto: "O digestório"
+      erro: "O digestório quebra os alimentos e absorve os nutrientes."
+  explicacao: "Rins e bexiga fazem parte do sistema excretor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-corpo-03
+  tema: "O caminho do ar"
+  dificuldade: 2
+  enunciado: "Por onde o ar passa, na ordem, até chegar aos alvéolos?"
+  alternativas:
+    - texto: "Nariz, alvéolos, traqueia, brônquios"
+      erro: "Os alvéolos são o fim do caminho, nos pulmões."
+    - texto: "Brônquios, nariz, traqueia, alvéolos"
+      erro: "O ar entra pelo nariz primeiro, depois a traqueia."
+    - texto: "Nariz, traqueia, brônquios, alvéolos"
+      certa: true
+  explicacao: "Os alvéolos são milhões de saquinhos minúsculos nos pulmões."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

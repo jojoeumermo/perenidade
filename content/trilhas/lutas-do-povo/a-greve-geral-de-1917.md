@@ -43,6 +43,11 @@ quiz:
     explicacao: "Foi uma vitória parcial. Muitas promessas não foram cumpridas, e a repressão voltou nos meses seguintes."
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que São Paulo parou em 1917, o que a greve pedia e o que ela deixou para quem trabalha.
+
 ## Uma cidade de fábricas
 
 No começo do século XX, São Paulo crescia depressa. O dinheiro do café tinha financiado ferrovias, bancos e fábricas, sobretudo de **tecidos**, de alimentos e de bebidas. Para trabalhar nelas, chegaram milhares de imigrantes, principalmente italianos, espanhóis e portugueses, que se juntaram aos brasileiros pobres vindos do interior. Bairros como o **Brás**, a **Mooca** e o **Bom Retiro** eram bairros operários.
@@ -138,3 +143,10 @@ Hoje, a greve é um direito garantido pela Constituição de 1988 e regulado pel
 1. A greve começou numa fábrica de tecidos, com muitas mulheres. Por que as operárias costumam ser lembradas menos que os operários nas histórias de greve?
 2. Faça a conta do exemplo resolvido com o seu próprio salário ou com o salário mínimo: o último reajuste foi maior ou menor que a alta dos alimentos?
 3. Quais reivindicações de 1917 ainda não foram plenamente conquistadas por quem trabalha hoje no Brasil, por exemplo os trabalhadores de aplicativo?
+
+## Resumo
+
+- No começo do século XX, São Paulo tinha fábricas em bairros operários como Brás, Mooca e Bom Retiro, com jornadas de 10, 12 horas ou mais, trabalho infantil e nenhuma lei de férias ou de proteção contra acidentes.
+- A Primeira Guerra (1914) elevou o preço dos alimentos (a carestia) sem que os salários acompanhassem.
+- A greve geral de junho e julho de 1917 nasceu dessa combinação de salário que encolhe e vida dura nas fábricas.
+- Para o governo e os patrões da época, greve era assunto de polícia; a mobilização deixou uma herança de organização operária.

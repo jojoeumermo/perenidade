@@ -28,6 +28,10 @@ quiz:
     explicacao: "A Internacional Comunista, a partir de 1920, passou a dar grande importância à luta anticolonial."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber citar os cinco traços do imperialismo segundo Lenin e explicar por que ele ligou o imperialismo à Primeira Guerra.
+
 Em 1914, a Europa entrou numa guerra que mataria milhões de pessoas. Os grandes partidos socialistas, que tinham jurado se opor a qualquer guerra entre os povos, votaram a favor dos orçamentos de guerra dos seus governos. Lenin, exilado na Suíça, queria entender: o que levou a isso? A resposta foi um livro curto e decisivo: *Imperialismo, Fase Superior do Capitalismo* (1916).
 
 ## Do capitalismo concorrencial ao monopolista
@@ -70,6 +74,24 @@ A análise de Lenin teve uma consequência enorme: se o imperialismo explora os 
 
 Hoje quase não há colônias formais, mas o debate sobre o imperialismo continua vivo: dívida externa, cadeias globais de produção, controle do dólar, patentes, bases militares. A aula [Imperialismo hoje](/trilhas/capitalismo-contemporaneo/imperialismo-hoje) trata dessas formas atuais.
 
+## Exemplo resolvido
+
+**Por que, para Lenin, a partilha do mundo entre as potências era "a chave da guerra"?**
+
+1. O quinto traço do imperialismo é a **partilha territorial do mundo** entre as grandes potências, já concluída.
+2. Se o mundo já estava todo repartido, uma potência que crescesse só poderia avançar tomando o que era de outra.
+3. A aula dá o par: a Alemanha, que crescia, e a Inglaterra, que já tinha o seu império.
+4. Os outros quatro traços: monopólios, capital financeiro, exportação de capitais e associações internacionais de monopólios.
+
+Confira: a explicação de Lenin para a guerra de 1914 não é de culpa de um governante, mas da estrutura de um capitalismo concentrado.
+
 ## Para conversar
 
 Quais empresas estrangeiras têm mais presença na sua vida (no celular, no supermercado, no banco)? Para onde vai o lucro delas?
+
+## Resumo
+
+- Lenin (*Imperialismo, Fase Superior do Capitalismo*, 1916) viu a concorrência gerar concentração e monopólios.
+- Cinco traços: monopólios, capital financeiro, exportação de capitais, associações internacionais de monopólios e partilha territorial do mundo.
+- A partilha concluída explicaria a disputa entre potências na guerra de 1914.
+- O debate continua com dívida externa, cadeias globais e controle do dólar.

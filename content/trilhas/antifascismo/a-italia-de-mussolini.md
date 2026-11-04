@@ -28,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "O assassinato abriu uma crise, que Mussolini resolveu instaurando a ditadura aberta."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar, em ordem, como o fascismo chegou ao poder na Itália, que papel tiveram as elites e como o regime terminou.
 
 A Itália foi o primeiro país governado pelo fascismo, de **1922** a **1943**. Esta aula conta como isso aconteceu, porque o caminho do fascismo italiano ao poder revela mecanismos que se repetiram depois.
 
@@ -70,3 +73,24 @@ Com as derrotas militares, Mussolini foi destituído em **1943**. Os alemães oc
 ## Para conversar
 
 Quais foram os momentos em que o fascismo italiano poderia ter sido detido? Quem tinha força para detê-lo, e por que não o fez?
+
+## Exemplo resolvido
+
+**O fascismo chegou ao poder na Itália por uma vitória militar? Monte a sequência de fatos para responder.**
+
+1. **1919-1920 (biênio vermelho).** Greves, ocupações de terra e, em setembro de 1920, ocupação de fábricas, que passaram a funcionar sob conselhos de fábrica.
+2. **1920-1921.** O medo das elites diante disso foi o combustível do fascismo: esquadras fascistas, financiadas por industriais e grandes proprietários, atacaram sindicatos, cooperativas, jornais e prefeituras socialistas. A polícia e o exército, muitas vezes, olharam para o outro lado.
+3. **Outubro de 1922.** Marcha sobre Roma. O governo quis decretar estado de sítio, mas o rei Vítor Emanuel III recusou-se a assinar e **nomeou Mussolini primeiro-ministro**.
+4. **1924.** Eleições marcadas pela violência; o deputado Matteotti denunciou a fraude e foi sequestrado e assassinado por fascistas.
+5. **Conclua.** Não foi uma vitória militar: foi o consentimento da monarquia e o apoio de setores empresariais e agrários, depois de anos de violência contra os trabalhadores organizados.
+
+Confira: o mecanismo se repetiu depois, e por isso vale estudá-lo.
+
+## Resumo
+
+- A Itália foi governada pelo fascismo de **1922 a 1943**.
+- Depois da Primeira Guerra: crise, inflação, desemprego e o sentimento da "vitória mutilada".
+- **Biênio vermelho (1919-1920):** greves, ocupações de terras e de fábricas. A reação das elites financiou as **esquadras fascistas** (camisas-negras).
+- Em **outubro de 1922**, depois da Marcha sobre Roma, o **rei nomeou Mussolini** primeiro-ministro.
+- O regime criou partido único, polícia política, propaganda em massa, invadiu a Etiópia (1935-1936) e aprovou leis raciais (1938).
+- Mussolini foi destituído em 1943; a resistência partisan combateu até a libertação, em **abril de 1945**.

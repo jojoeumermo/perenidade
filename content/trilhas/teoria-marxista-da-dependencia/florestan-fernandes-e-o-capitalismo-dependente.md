@@ -31,6 +31,10 @@ quiz:
     explicacao: "Houve modernização econômica sem reforma agrária, sem democratização e sem autonomia nacional."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a revolução burguesa "pelo alto" de Florestan Fernandes, a dupla articulação do capitalismo dependente e o conceito de autocracia burguesa.
+
 **Florestan Fernandes** (1920-1995) não pertenceu ao grupo do CESO nem costuma ser classificado na teoria marxista da dependência em sentido estrito. Mas chegou, por caminho próprio, a conclusões muito próximas, e a sua obra é indispensável para entender o Brasil.
 
 ## Quem foi
@@ -78,6 +82,24 @@ A linguagem é a da sociologia, e não a da crítica da economia política. Mas 
 
 No fim da vida, ele escreveu sobre a atualidade de Mariátegui, tema da próxima aula.
 
+## Exemplo resolvido
+
+**Por que, para Florestan, a burguesia brasileira tende a soluções autoritárias?**
+
+1. Veja a dupla articulação: para fora, a burguesia local reparte o excedente com os sócios das economias centrais; para dentro, convive com formas arcaicas de exploração.
+2. Veja a consequência: sobra pouca margem de lucro, e ela precisa extrair mais dos de baixo, o que Florestan chama de sobreapropriação.
+3. Veja o efeito político: qualquer conquista dos trabalhadores ameaça uma margem já dividida, então as classes populares são mantidas fora das decisões, pela violência aberta ou por uma democracia restrita.
+
+Conclusão: é a autocracia burguesa, que não se resume às ditaduras. O golpe de 1964 foi, para ele, uma contrarrevolução preventiva, a resposta antecipada ao crescimento das lutas populares.
+
 ## Para pesquisar e debater
 
 A Constituição de 1988 ampliou direitos. Isso encerra a autocracia burguesa de que falava Florestan, ou ela se adapta e continua? Que fatos você citaria a favor de cada resposta?
+
+## Resumo
+
+- Florestan Fernandes (1920-1995) chegou, por caminho próprio, a conclusões próximas das da teoria da dependência.
+- Em *A Revolução Burguesa no Brasil* (1975), argumenta que a burguesia brasileira fez a transformação capitalista pelo alto, sem derrubar o latifúndio e sem dar ao povo o que as revoluções burguesas deram em outros lugares.
+- Dupla articulação: subordinação para fora e convivência de setores modernos com formas arcaicas de exploração para dentro.
+- Sobreapropriação do excedente, ideia vizinha da superexploração de Marini.
+- Autocracia burguesa: padrão de dominação em que as classes populares ficam fora da decisão política.

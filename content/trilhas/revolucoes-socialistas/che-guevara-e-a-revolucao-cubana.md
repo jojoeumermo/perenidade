@@ -31,6 +31,10 @@ quiz:
     explicacao: "Em um ano, a taxa de analfabetismo caiu de mais de 20% para menos de 4%, segundo os dados cubanos reconhecidos pela Unesco."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar o caminho da Revolução Cubana, do Moncada a 1959, o papel de Che Guevara e a reação dos Estados Unidos.
+
 ## Cuba antes de 1959
 
 No começo dos anos 1950, Cuba era formalmente independente, mas a sua economia girava em torno do açúcar vendido aos Estados Unidos, e empresas norte-americanas controlavam grande parte das terras, das usinas e dos serviços. Em 1952, o general Fulgencio Batista deu um golpe de Estado e instalou uma ditadura.
@@ -77,3 +81,21 @@ Em 1965, Che deixou os cargos para apoiar movimentos guerrilheiros em outros pa�
 ## Símbolo e debate
 
 A fotografia feita por Alberto Korda em 1960 tornou o rosto de Che uma das imagens mais reproduzidas do mundo. Para muitos, ele representa a coerência entre o que se diz e o que se faz, e a solidariedade entre os povos. Seus críticos apontam os fuzilamentos de 1959 e o regime de partido único que se consolidou em Cuba. Os defensores da revolução lembram os indicadores de saúde e de educação da ilha e as décadas de bloqueio. Como sempre, vale conhecer os fatos e as fontes antes de formar opinião.
+
+## Exemplo resolvido
+
+**Quanto tempo passou entre o desembarque do Granma e a fuga de Batista?**
+
+1. Marque a primeira data: em dezembro de 1956, 82 homens desembarcaram em Cuba vindos do México no iate Granma.
+2. Marque a segunda: em 1º de janeiro de 1959, Batista fugiu do país.
+3. Conte: de dezembro de 1956 a dezembro de 1958 são dois anos; mais janeiro de 1959, pouco mais de dois anos.
+
+Conclusão: em pouco mais de dois anos, um grupo pequeno, que se refugiou na Sierra Maestra com apoio dos camponeses e de uma rede clandestina nas cidades, chegou à vitória. No meio disso, no fim de 1958, a coluna de Che tomou Santa Clara.
+
+## Resumo
+
+- Antes de 1959, a economia de Cuba girava em torno do açúcar vendido aos Estados Unidos; em 1952, Batista deu um golpe.
+- Em 1953, Fidel Castro atacou o quartel Moncada; em dezembro de 1956, o Granma levou 82 homens a Cuba.
+- Che Guevara, médico argentino, tornou-se comandante; em 1º de janeiro de 1959, Batista fugiu.
+- O novo governo fez reforma agrária, nacionalizações, a campanha de alfabetização de 1961 e sistemas públicos de saúde e educação.
+- Os Estados Unidos impuseram um bloqueio e apoiaram a invasão da Baía dos Porcos; em 1962, a Crise dos Mísseis levou o mundo à beira da guerra nuclear.

@@ -36,6 +36,10 @@ quiz:
     explicacao: "O historiador E. P. Thompson insistiu que a classe 'se faz' na experiência e na luta, não nasce pronta."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que o *Manifesto* quer dizer com luta de classes, distinguir a luta oculta da aberta e reconhecê-la no dia a dia.
+
 > A história de todas as sociedades que existiram até hoje é a história da luta de classes.
 
 Assim começa o primeiro capítulo do *Manifesto Comunista*. É uma das frases mais famosas já escritas. Esta aula explica o que ela quer dizer, e o que ela não quer dizer.
@@ -86,6 +90,24 @@ Em *O 18 de Brumário de Luís Bonaparte* (1852), Marx analisa o golpe de Luís 
 
 Para Marx, a luta de classes moderna, entre burguesia e proletariado, tem uma particularidade: o proletariado não pode se libertar sem libertar toda a sociedade da exploração, porque não tem nenhuma propriedade a defender. Por isso o objetivo da sua luta não é virar a nova classe dominante, mas **acabar com as classes**.
 
+## Exemplo resolvido
+
+**Classifique: "o patrão que estica a jornada e o trabalhador que faz corpo mole" e "uma revolução que derruba um governo".**
+
+1. A luta de classes é a disputa entre grupos com interesses materiais opostos.
+2. O patrão que estica a jornada e o trabalhador que faz "corpo mole" é um episódio **cotidiano**: luta oculta.
+3. A revolução é a luta **aberta**, a que muita gente imagina quando ouve a expressão.
+4. As duas fazem parte; mas a maior parte da luta de classes é a do dia a dia (a empresa que corta direitos e o sindicato que negocia, a família que ocupa a terra cercada).
+
+Confira: o *Manifesto* diz que a luta é "ora oculta, ora aberta". Luta de classes, portanto, não é só barricada.
+
 ## Para conversar
 
 Liste três conflitos que você acompanhou nos últimos meses (no trabalho, no bairro, no noticiário). Em quais deles você reconhece uma disputa entre classes? Quem estava de cada lado?
+
+## Resumo
+
+- "A história de todas as sociedades que existiram até hoje é a história da luta de classes" (*Manifesto*, cap. 1); Engels acrescentou que a frase vale para a história escrita.
+- A luta é ora oculta (cotidiana), ora aberta (revolução, greve).
+- Luta de classes é disputa entre grupos com interesses materiais opostos.
+- O proletariado luta, no fim, para acabar com as classes.

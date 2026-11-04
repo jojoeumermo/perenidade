@@ -46,6 +46,10 @@ quiz:
     explicacao: "Foi o resultado da campanha popular 'O petróleo é nosso'."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever o refino do petróleo e dois processos que sustentam a economia, a amônia e o aço, e olhar para eles também pelo lado da dependência e da transição energética.
+
 ## Química em escala de fábrica
 
 No laboratório, uma reação se faz em um béquer. Na indústria, em reatores de milhares de litros, funcionando dia e noite. Muda tudo: o custo das matérias-primas, a energia, o calor que precisa ser retirado, a segurança, os resíduos. A química industrial é a ciência de fazer reações **funcionarem em grande escala**.
@@ -114,9 +118,28 @@ A exploração em águas profundas desenvolveu tecnologia nacional reconhecida n
 
 Petróleo, gás e carvão ainda respondem pela maior parte da energia usada no mundo. Reduzir essa dependência sem deixar de lado quem trabalha no setor e as regiões que dependem dele é um dos grandes problemas políticos do século. A química participa da resposta com biocombustíveis, baterias, hidrogênio produzido com eletricidade renovável e processos industriais mais eficientes, temas de [Química verde](/trilhas/quimica-superior/quimica-verde).
 
+## Exemplo resolvido
+
+**Confira se a reação do alto-forno, Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂, está balanceada, e diga quem reduz quem.**
+
+1. Conte à esquerda: ferro 2; oxigênio 3 (do Fe₂O₃) + 3 (dos três CO) = 6; carbono 3.
+2. Conte à direita: ferro 2; carbono 3; oxigênio 3 × 2 = 6 (nos três CO₂).
+3. Os dois lados têm 2 Fe, 3 C e 6 O: está balanceada.
+4. O monóxido de carbono, formado pela queima do coque, tira o oxigênio do óxido de ferro e o reduz a ferro metálico.
+
+Conclusão: o minério (Fe₂O₃) é o que se reduz, e o CO é o agente redutor. O calcário adicionado retira as impurezas na forma de escória.
+
 ## Para praticar
 
 1. Por que o asfalto sai no fundo da torre de destilação e o gás de cozinha, no alto?
 2. Escreva uma equação de craqueamento que produza eteno a partir do butano (C₄H₁₀).
 3. Que massa de ferro se obtém, no máximo, de 160 kg de Fe₂O₃? (Fe = 56; O = 16)
 4. Pesquise a campanha "O petróleo é nosso": quem participou e quais eram os argumentos?
+
+## Resumo
+
+- O petróleo é uma mistura de hidrocarbonetos; o refino começa pela destilação fracionada, que separa gases, nafta e gasolina, querosene, diesel, lubrificantes e resíduo (asfalto).
+- O craqueamento quebra cadeias longas em menores e produz, entre outros, o eteno.
+- Uma pequena fração do petróleo vira matéria-prima da petroquímica: plásticos, borrachas, fibras, tintas e fertilizantes.
+- O processo Haber-Bosch fixa o nitrogênio do ar (N₂ + 3 H₂ ⇌ 2 NH₃); o Brasil importa a maior parte dos fertilizantes que usa.
+- No alto-forno, o monóxido de carbono reduz o óxido de ferro a ferro metálico.

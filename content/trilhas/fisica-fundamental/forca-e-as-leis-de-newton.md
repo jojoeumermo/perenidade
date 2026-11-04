@@ -38,6 +38,10 @@ quiz:
 Por que o ônibus te joga para a frente quando o motorista freia de repente, se ninguém te empurrou?
 ```
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber enunciar as três leis de Newton com exemplos do dia a dia e usar F = m · a para calcular a aceleração de um corpo.
+
 ## O que é força
 
 Empurrar um carro, puxar uma gaveta, chutar uma bola, amassar o pão. Em todos esses casos, age uma **força**. Em física, força é tudo aquilo capaz de **mudar o movimento** de um corpo (pô-lo em movimento, pará-lo, desviá-lo) ou de **deformá-lo**.
@@ -140,3 +144,11 @@ Pense no seu dia de hoje (no trabalho, em casa, no caminho). Onde você usou for
 - Na sua cidade, que trabalhos ainda exigem carregar peso demais? O que a física diz sobre isso?
 - Conte um caso em que o cinto de segurança fez diferença.
 ```
+
+## Resumo
+
+- Força é o que muda o movimento de um corpo ou o deforma; a unidade é o newton (N).
+- 1ª lei (inércia): sem força resultante, o corpo parado fica parado e o em movimento segue em linha reta com a mesma velocidade. É por isso que existe o cinto de segurança.
+- 2ª lei: F = m · a. Mais força, mais aceleração; mais massa, menos aceleração.
+- 3ª lei: as forças vêm em pares, de mesma intensidade e sentido contrário, cada uma em um corpo.
+- O atrito se opõe ao deslizamento: desgasta, mas também permite andar e frear.

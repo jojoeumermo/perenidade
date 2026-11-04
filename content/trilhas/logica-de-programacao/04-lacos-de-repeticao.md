@@ -24,6 +24,10 @@ quiz:
     explicacao: "O while repete enquanto uma condição valer, por exemplo, até a pessoa acertar a senha."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber repetir tarefas com `while` e `for`, evitar o laço infinito e usar um acumulador.
+
 Computadores são ótimos em repetir tarefas sem cansar e sem errar. Os **laços** (em inglês, *loops*) dizem ao programa para executar um bloco várias vezes.
 
 ## Enquanto: `while`
@@ -82,6 +86,33 @@ A variável `soma` começa em zero e vai **acumulando** os valores a cada volta.
 - Use `for` quando souber quantas repetições serão, ou quando for percorrer uma sequência.
 - Use `while` quando a repetição depender de algo que acontece durante o programa, como "repita até a pessoa digitar a senha certa".
 
+## Exemplo resolvido
+
+**Como somar os números de 1 a 100?**
+
+```python
+soma = 0
+
+for numero in range(1, 101):
+    soma = soma + numero
+
+print(soma)
+```
+
+1. `soma` começa em zero: é o **acumulador**.
+2. `range(1, 101)` gera os números de 1 a 100 (o último valor, 101, não entra).
+3. A cada volta, `numero` recebe o próximo valor e é somado a `soma`.
+4. Ao fim, `print(soma)` mostra `5050`.
+
+Confira: o primeiro valor do `range` entra e o último não. Com `while`, lembre de mudar a variável dentro do bloco, senão o laço nunca para.
+
 ## Pratique
 
 Escreva um laço que mostre a tabuada do 7, de 7 × 1 até 7 × 10. Dica: dentro do laço, multiplique 7 pela variável que conta as voltas.
+
+## Resumo
+
+- Laços repetem um bloco: `while` enquanto a condição for verdadeira, `for` para uma quantidade conhecida ou uma sequência.
+- Sem uma linha que mude a variável, o `while` vira laço infinito.
+- `range(1, 6)` gera 1 a 5; `range(3)` gera 0, 1 e 2.
+- O acumulador (`soma = soma + numero`) aparece em quase todo programa.

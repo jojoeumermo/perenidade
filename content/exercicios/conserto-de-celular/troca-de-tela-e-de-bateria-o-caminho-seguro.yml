@@ -1,0 +1,51 @@
+# Exercícios da aula "Troca de tela e de bateria: o caminho seguro" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-troca-01
+  tema: "Antes de abrir"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que fazer antes de abrir o aparelho do cliente?"
+  alternativas:
+    - texto: "Abrir direto para ganhar tempo"
+      erro: "O bom conserto começa na recepção."
+    - texto: "Ver o aparelho com o cliente, anotar riscos, explicar as opções de peça, fazer orçamento por escrito e combinar o backup"
+      certa: true
+    - texto: "Combinar o preço só depois do conserto"
+      erro: "O orçamento é por escrito e antes."
+  explicacao: "O conserto começa na recepção, não na bancada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-troca-02
+  tema: "Soltar a cola"
+  dificuldade: 2
+  enunciado: "Como amolecer a cola da tela, segundo a aula?"
+  alternativas:
+    - texto: "Com calor forte para soltar rápido"
+      erro: "Calor demais danifica a tela e a bateria."
+    - texto: "Puxando de uma vez"
+      erro: "Abra devagar: a tela fica ligada à placa por flats."
+    - texto: "Com calor leve, nunca muito quente"
+      certa: true
+  explicacao: "Use ventosa e palheta de plástico, sem enfiar a palheta fundo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-troca-03
+  tema: "Bateria primeiro"
+  dificuldade: 2
+  enunciado: "Qual conector deve ser desconectado antes de mexer nos outros, na troca de tela?"
+  alternativas:
+    - texto: "A bateria"
+      certa: true
+    - texto: "A câmera"
+      erro: "A bateria deve ser desconectada antes."
+    - texto: "O alto-falante"
+      erro: "A aula manda desconectar a bateria primeiro."
+  explicacao: "Sempre desconecte a bateria da placa antes de mexer em outros conectores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

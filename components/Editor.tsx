@@ -415,6 +415,7 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     roda: "```roda\n- Uma pergunta para discutir na sala da disciplina\n```",
     suarealidade: "```suarealidade\nUma pergunta sobre o trabalho ou o bairro de quem estuda, para pensar ANTES da explicação.\n```",
     outrolado: "```outrolado\n# O argumento mais forte de quem discorda\nO argumento dito do jeito que quem discorda diria, sem caricatura, com fonte.\n---\nO treino: como você responderia a esse argumento, com respeito e com fatos?\n---\nUma resposta possível, com a fonte dos fatos.\n```",
+    outrojeito: "```outrojeito\n# Outro jeito de explicar (opcional)\nA mesma ideia por outro caminho: outro exemplo, outra imagem ou o passo a passo mais devagar. Não mude nenhum fato, número nem fonte.\n```",
     agir: "```agir\nUma tarefa pequena e concreta, que dá para fazer esta semana sem se expor a risco.\n```",
   };
   const [telaCheia, setTelaCheia] = useState(false);

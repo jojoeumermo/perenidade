@@ -1,0 +1,54 @@
+# Exercícios da aula "Simulado e reta final" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-reta-01
+  tipo: numero
+  tema: "Ler o simulado"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Num simulado de 30 questões, Ana acertou 21. Qual foi a porcentagem de acertos?"
+  resposta: "70"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "9"
+      explicacao: "Esse é o número de erros (30 − 21). A porcentagem de acertos usa os acertos: 21 ÷ 30."
+    - resposta: "21"
+      explicacao: "Esse é o número de acertos. Para a porcentagem, divida por 30 e multiplique por 100."
+  dica: "Divida os acertos pelo total e multiplique por 100."
+  explicacao: "21 ÷ 30 = 0,7, que é 70%."
+  conferir: "21 / 30 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-reta-02
+  tema: "Estratégia na prova"
+  dificuldade: 1
+  enunciado: "Numa questão que você não sabe responder, qual é a melhor atitude?"
+  alternativas:
+    - texto: "Gastar 20 minutos nela e ficar sem tempo para as outras"
+      erro: "O tempo é de todas as questões. Prender-se numa só prejudica o resto da prova."
+    - texto: "Eliminar o que está claramente errado, marcar a melhor opção e seguir, voltando se sobrar tempo"
+      certa: true
+    - texto: "Deixar o cartão em branco sem tentar"
+      erro: "Eliminar alternativas aumenta a chance de acerto. Marcar a melhor opção vale mais que deixar em branco."
+  explicacao: "Eliminar o que está errado, marcar e seguir poupa tempo e dá chance de acertar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-reta-03
+  tema: "Dia da prova"
+  dificuldade: 1
+  enunciado: "Onde conferir os documentos e o material permitidos no dia da prova?"
+  alternativas:
+    - texto: "No edital e no cartão de confirmação do seu ano"
+      certa: true
+    - texto: "Só em um grupo de mensagem qualquer"
+      erro: "Grupos podem trazer informação errada ou de outro ano. A regra oficial está no edital."
+    - texto: "Na própria sala, com o fiscal, na hora"
+      erro: "Se faltar um documento, pode ser tarde demais. Confira antes, no edital e no cartão."
+  explicacao: "As regras mudam por edição. O edital e o cartão de confirmação trazem o que vale para você."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

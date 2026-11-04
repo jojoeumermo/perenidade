@@ -37,6 +37,10 @@ quiz:
     resposta: 0
     explicacao: "Abaixo de certa frequência, nenhum elétron sai, por mais intensa que seja a luz."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que a relatividade restrita e a física quântica mudaram na nossa imagem da natureza e reconhecer essas ideias em tecnologias do dia a dia, como o GPS e o painel solar.
+
 
 ## Duas revoluções
 
@@ -166,3 +170,12 @@ O físico brasileiro **César Lattes** participou, em 1947, da descoberta do **m
 2. Calcule a energia de um fóton de luz de frequência 5 × 10¹⁴ Hz.
 3. Explique por que uma luz vermelha muito forte não arranca elétrons de um metal, e uma luz ultravioleta fraca arranca.
 4. Pesquise a vida de César Lattes e a história da descoberta do méson pi. Anote as fontes consultadas.
+
+## Resumo
+
+- No início do século XX, duas revoluções: a relatividade (Einstein, 1905 e 1915) e a física quântica (Planck, 1900, e outros).
+- Relatividade restrita: o tempo se dilata, o comprimento se contrai, E = m · c², e nenhum corpo com massa atinge a velocidade da luz.
+- Relatividade geral: a massa curva o espaço-tempo; o GPS precisa dessas correções.
+- Quântica: a energia vem em pacotes (Planck); o efeito fotoelétrico mostra a luz como partículas; a luz e a matéria têm comportamento de onda e de partícula.
+- No átomo, os elétrons só têm certos valores de energia; vale o princípio da incerteza.
+- Tecnologias como painel solar, câmera digital e laser usam essas ideias.

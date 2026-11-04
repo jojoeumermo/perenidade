@@ -39,6 +39,9 @@ quiz:
     resposta: 1
     explicacao: "Reagir na hora aumenta o risco e pode render acusação de resistência. O abuso se combate depois, com registro e denúncia."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quando a polícia pode revistar, o que você pode exigir numa abordagem, como agir para se proteger e onde denunciar abuso.
 
 Esta aula é informação geral e não substitui orientação jurídica. Quem não pode pagar advogado tem direito à **Defensoria Pública**. As regras abaixo valem para todo o país; a forma de agir das polícias muda de lugar para lugar.
 
@@ -112,3 +115,24 @@ Quem está de fora pode **filmar**. Não existe lei que proíba registrar a aç�
 - **Disque 100**, para violações de direitos humanos.
 
 Leve o que tiver: data, hora, lugar, nomes, vídeos, testemunhas, atestado médico. A Lei de Abuso de Autoridade pune, entre outras condutas, a prisão fora das hipóteses legais e o constrangimento de preso para que produza prova contra si.
+
+## Exemplo resolvido
+
+**Um policial para um jovem na rua, não diz o motivo e pede que ele desbloqueie o celular. O que o jovem pode fazer?**
+
+1. **Lembre a regra.** O STJ tem anulado provas tiradas de celulares vasculhados sem ordem judicial e sem o consentimento do dono; não é obrigatório informar senha.
+2. **Escolha a atitude.** Não corra e não faça movimentos bruscos, deixe as mãos à vista e fale baixo e devagar.
+3. **Diga o que não autoriza.** Com calma: "Não autorizo o acesso ao aparelho."
+4. **Não resista fisicamente.** Resistência e desobediência são crimes e reagir aumenta o risco, mesmo que a abordagem seja ilegal.
+5. **Guarde na memória.** Nomes, número da viatura, hora, lugar e testemunhas, para denunciar depois.
+
+Confira: ter razão não protege na hora; o que protege é chegar em casa. Em caso de abuso, procure a Defensoria Pública, a Corregedoria, o Ministério Público ou o Disque 100.
+
+## Resumo
+
+- Esta aula é informação geral; quem não pode pagar advogado tem direito à **Defensoria Pública**.
+- A busca pessoal sem mandado exige **fundada suspeita** apoiada em fatos concretos (STJ, 2022); não pode se basear em raça, cor, sexo, orientação sexual ou aparência (STF, 2024).
+- Direitos: saber quem aborda, ficar calado (além de se identificar), não ser humilhado nem agredido, revista de mulher por mulher, avisar alguém, advogado ou defensor; algemas só com justificativa escrita (Súmula Vinculante 11).
+- A casa é asilo inviolável: sem consentimento, só entra a polícia em flagrante, desastre ou socorro, ou de dia com ordem do juiz.
+- Para se proteger: não correr, não resistir, dizer calmamente o que não autoriza, não assinar sem ler.
+- Preso em flagrante tem direito à audiência de custódia em até 24 horas; denuncie abusos à Corregedoria, ao Ministério Público, à Defensoria ou ao Disque 100.

@@ -1,0 +1,51 @@
+# Exercícios da aula "Fazer o levantamento do universo vocabular" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-universo-01
+  tema: "A primeira tarefa"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o primeiro trabalho de um círculo de cultura, segundo a aula?"
+  alternativas:
+    - texto: "Escutar o grupo"
+      certa: true
+    - texto: "Ensinar as letras do alfabeto"
+      erro: "O primeiro trabalho não é ensinar: é escutar."
+    - texto: "Distribuir uma cartilha pronta"
+      erro: "A palavra geradora sai da vida do grupo, não de uma lista pronta."
+  explicacao: "O levantamento do universo vocabular é a base de tudo: as palavras precisam ser do grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-universo-02
+  tema: "As fases do método"
+  dificuldade: 2
+  enunciado: "Em que ordem a aula lista a preparação da alfabetização, segundo Freire?"
+  alternativas:
+    - texto: "Escolher as palavras geradoras, depois escutar o grupo"
+      erro: "O levantamento do universo vocabular vem primeiro; só depois se escolhem as palavras."
+    - texto: "Levantar o universo vocabular, escolher as palavras geradoras, criar situações existenciais, fazer fichas-roteiro e fichas de sílabas"
+      certa: true
+    - texto: "Fazer as fichas de sílabas antes de qualquer conversa"
+      erro: "As fichas de famílias de sílabas são a última fase."
+  explicacao: "As cinco fases: levantamento, escolha das palavras geradoras, situações existenciais, fichas-roteiro e fichas de famílias de sílabas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-universo-03
+  tema: "Quantas palavras"
+  dificuldade: 1
+  enunciado: "Quantas palavras geradoras a aula manda escolher, pelos critérios de Freire?"
+  alternativas:
+    - texto: "Só 1"
+      erro: "A aula fala em 15 a 20 palavras, em ordem da mais simples à mais difícil."
+    - texto: "De 150 a 200"
+      erro: "São 15 a 20 palavras geradoras."
+    - texto: "De 15 a 20"
+      certa: true
+  explicacao: "Escolhem-se de 15 a 20 palavras geradoras e se ordenam da mais simples à mais difícil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

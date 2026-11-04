@@ -1,0 +1,51 @@
+# Exercícios da aula "De Pé no Chão Também se Aprende a Ler" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-pe-no-chao-01
+  tema: "Cidade e período"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em que cidade e período aconteceu a campanha De Pé no Chão Também se Aprende a Ler?"
+  alternativas:
+    - texto: "No Recife, em 1960"
+      erro: "O Recife foi sede do MCP, criado em 1960. A campanha De Pé no Chão foi em Natal, de 1961 a 1964."
+    - texto: "Em Natal, de 1961 a 1964"
+      certa: true
+    - texto: "Em Salvador, em 1980"
+      erro: "A campanha foi em Natal, de 1961 a 1964."
+  explicacao: "A campanha foi feita em Natal, na gestão do prefeito Djalma Maranhão (1961 a 1964)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-pe-no-chao-02
+  tema: "Os acampamentos escolares"
+  dificuldade: 1
+  enunciado: "Como eram os acampamentos escolares da campanha?"
+  alternativas:
+    - texto: "Prédios de alvenaria com salas fechadas"
+      erro: "A campanha não tinha dinheiro para prédios de alvenaria. Os acampamentos eram galpões de palha."
+    - texto: "Escolas montadas dentro de igrejas"
+      erro: "Eram galpões com cobertura de palha de coqueiro e chão de terra batida."
+    - texto: "Galpões abertos, cobertos de palha de coqueiro, com chão de terra batida"
+      certa: true
+  explicacao: "Sem dinheiro para alvenaria, a campanha construiu galpões cobertos de palha de coqueiro, com várias salas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-pe-no-chao-03
+  tema: "Quem coordenou"
+  dificuldade: 2
+  enunciado: "Quem era o secretário de Educação que coordenou a campanha e depois contou a história em livro?"
+  alternativas:
+    - texto: "Moacyr de Góes"
+      certa: true
+    - texto: "Fernando Cardenal"
+      erro: "Cardenal coordenou a Cruzada da Nicarágua. A campanha de Natal foi coordenada por Moacyr de Góes."
+    - texto: "Miguel Arraes"
+      erro: "Arraes foi prefeito do Recife (MCP). Em Natal, o secretário de Educação foi Moacyr de Góes."
+  explicacao: "Moacyr de Góes coordenou a campanha e escreveu o livro De pé no chão também se aprende a ler (1961-64): uma escola democrática (1980)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

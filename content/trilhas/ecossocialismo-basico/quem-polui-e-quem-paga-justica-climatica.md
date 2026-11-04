@@ -32,6 +32,10 @@ quiz:
     explicacao: "Os dados são do SEEG, sistema mantido pelo Observatório do Clima."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que "a humanidade" não é igualmente responsável pela mudança do clima e o que é justiça climática.
+
 Quando se fala em mudança do clima, é comum ouvir que "a humanidade" está destruindo o planeta. A frase esconde uma injustiça. Os seres humanos não contribuíram por igual para o problema e não sofrem por igual as suas consequências.
 
 ## Quem emitiu
@@ -79,3 +83,21 @@ O ecossocialismo acrescenta um ponto. A divisão entre "países ricos" e "paíse
 ## Para pesquisar e debater
 
 Qual foi o último desastre ligado ao clima (enchente, seca, deslizamento, onda de calor) na sua região? Quem foi mais atingido? O que essas pessoas receberam de apoio?
+
+## Exemplo resolvido
+
+**A frase "a humanidade está destruindo o planeta" é exata?**
+
+1. Veja quem emitiu: pelo acumulado desde a industrialização, Estados Unidos e Europa respondem pela maior parte.
+2. Veja entre as pessoas: segundo Oxfam e Instituto Ambiental de Estocolmo (2020), entre 1990 e 2015 os 10% mais ricos foram responsáveis por cerca de metade das emissões acumuladas.
+3. Veja quem sofre: segundo o IPCC, quem menos contribuiu é afetado de forma desproporcional.
+4. Conclua: a responsabilidade e o sofrimento não são iguais, e a frase esconde essa injustiça.
+
+Confira: o princípio das responsabilidades comuns, porém diferenciadas, de 1992, diz exatamente isso.
+
+## Resumo
+
+- O que conta é o acumulado de emissões desde a industrialização, e também a desigualdade entre as pessoas: os 10% mais ricos emitiram cerca de metade (1990 a 2015).
+- Quem menos contribuiu sofre mais, por viver em áreas expostas, depender da natureza e ter menos recursos.
+- Justiça climática: quem mais causou e mais pode pagar deve arcar com maior parte do custo; em 2022 criou-se um fundo de perdas e danos.
+- No Brasil, cerca de três quartos das emissões vêm da mudança de uso da terra e da agropecuária, segundo o SEEG.

@@ -1,0 +1,67 @@
+# Exercícios da aula "Pronomes e o verbo 是 (ser)" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-pronomes-01
+  tema: "Verbo sem conjugação"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O verbo chinês 是 muda de forma conforme a pessoa?"
+  alternativas:
+    - texto: "Sim, muda como em português"
+      erro: "O verbo chinês não muda com a pessoa nem com o tempo."
+    - texto: "Não: o verbo não se conjuga"
+      certa: true
+    - texto: "Só muda no passado"
+      erro: "Também não muda no passado."
+  explicacao: "我是学生 pode ser \"eu sou estudante\" ou, com o contexto, \"eu era estudante\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-pronomes-02
+  tema: "Montar a frase"
+  dificuldade: 1
+  enunciado: "Como se diz \"Ela é professora\"?"
+  alternativas:
+    - texto: "她是学生。"
+      erro: "学生 é \"estudante\". \"Professor\" é 老师."
+    - texto: "我是老师。"
+      erro: "我 é \"eu\". Para \"ela\", use 她."
+    - texto: "她是老师。"
+      certa: true
+  explicacao: "sujeito + 是 + substantivo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-pronomes-03
+  tema: "Plural"
+  dificuldade: 1
+  enunciado: "Como se forma o plural dos pronomes, como 我 (eu)?"
+  alternativas:
+    - texto: "Acrescentando 们: 我们"
+      certa: true
+    - texto: "Repetindo o pronome: 我我"
+      erro: "Basta acrescentar 们 (men)."
+    - texto: "Trocando o tom"
+      erro: "O plural é feito com 们."
+  explicacao: "你 vira 你们; 他 vira 他们."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-pronomes-04
+  tema: "Ele e ela"
+  dificuldade: 2
+  enunciado: "Como se pronunciam 他, 她 e 它?"
+  alternativas:
+    - texto: "Com tons diferentes"
+      erro: "As três são pronunciadas do mesmo jeito: tā."
+    - texto: "Do mesmo jeito: tā"
+      certa: true
+    - texto: "Só 她 é pronunciado diferente"
+      erro: "Na fala não há diferença entre ele e ela."
+  explicacao: "A diferença só aparece na escrita; 她 foi criado no começo do século 20."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

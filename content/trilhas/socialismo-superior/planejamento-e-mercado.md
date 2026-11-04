@@ -40,6 +40,10 @@ quiz:
     explicacao: "Em Economics of Shortage (1980), Kornai descreveu a escassez como traço sistêmico, não acidental."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber organizar as grandes posições sobre planejamento e mercado, de Marx aos soviéticos, ao debate cubano e ao socialismo de mercado.
+
 Toda transição ao socialismo enfrenta a mesma pergunta: **como coordenar uma economia complexa sem que o lucro seja o regulador?** Esta aula organiza as grandes posições do debate, que atravessa todo o século XX e continua aberto.
 
 ## Marx: o horizonte
@@ -88,6 +92,24 @@ Desde os anos 1930, alguns economistas defenderam combinar propriedade coletiva 
 
 Hoje, defensores do **planejamento democrático** argumentam que tecnologias de informação permitiriam superar parte dos problemas de coordenação do século XX, desde que haja participação popular nas decisões. Defensores do **socialismo de mercado** respondem que o mercado regulado continua necessário para a informação e a inovação. A questão de fundo permanece: como combinar eficiência, democracia, igualdade e limites ecológicos.
 
+## Exemplo resolvido
+
+**Segundo Kornai, por que as empresas soviéticas geravam escassez crônica?**
+
+1. Veja a regra: era a "restrição orçamentária branda". Empresas deficitárias eram sempre socorridas pelo Estado.
+2. Veja o efeito sobre a empresa: sem risco de quebrar, ela não tinha de cortar custos nem de se preocupar com o que o consumidor queria; cumpria a meta em quantidade, sem atenção à qualidade.
+3. Veja o efeito sobre a economia: a demanda por insumos e bens crescia sem freio, e os produtos faltavam, o que Kornai chamou de escassez crônica (*Economics of Shortage*, 1980).
+
+Conclusão: o problema não era só a falta de máquinas, e sim a forma como os incentivos funcionavam sem risco de falência.
+
 ## Para pesquisar e debater
 
 Compare as posições de Preobrajenski, Bukharin, Che e Nove. Qual delas parece mais adequada a um país como o Brasil? Que condições seriam necessárias?
+
+## Resumo
+
+- Marx evitava escrever "receitas para as cozinhas do futuro": na sociedade de produtores associados, a produção seria regulada antes, de forma planejada, e não depois, pelo mercado.
+- Nos anos 1920, Preobrajenski defendia a acumulação socialista primitiva e Bukharin o crescimento gradual pelo mercado camponês; a partir de 1928-1929 prevaleceu a planificação centralizada.
+- O modelo soviético maduro teve sucessos na indústria pesada e na guerra, mas problemas de coordenação, qualidade e inovação; Kornai apontou a restrição orçamentária branda.
+- Em Cuba, entre 1963 e 1965, houve um grande debate sobre cálculo econômico, incentivos e a posição de Che Guevara.
+- O debate continua aberto, inclusive em torno do socialismo de mercado.

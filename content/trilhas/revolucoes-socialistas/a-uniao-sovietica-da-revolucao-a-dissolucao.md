@@ -32,6 +32,10 @@ quiz:
     explicacao: "Perestroika significa 'reestruturação'; glasnost, 'transparência'."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber percorrer a história da URSS, de 1922 à dissolução, e avaliar o que ela conseguiu e o que custou, sem simplificar para nenhum dos lados.
+
 ## Os anos 1920: reconstrução e disputa
 
 A União das Repúblicas Socialistas Soviéticas (URSS) foi fundada em dezembro de 1922, ao fim da guerra civil. Reunia a Rússia e outras repúblicas do antigo império; chegaria a ter quinze. A economia, arrasada, foi reanimada pela Nova Política Econômica, que permitia o pequeno comércio.
@@ -75,3 +79,21 @@ Nos anos seguintes, a privatização acelerada na Rússia derrubou a produção 
 ## Como avaliar
 
 Não existe um balanço único. Há quem destaque a industrialização, a derrota do nazismo, os direitos sociais e o apoio às lutas anticoloniais. Há quem destaque a repressão, a falta de liberdades políticas e o peso da burocracia. Há quem afirme que as duas coisas são verdadeiras ao mesmo tempo. Entre os próprios marxistas, as explicações para o fim da URSS são muitas. O importante é estudar os fatos e as fontes antes de repetir qualquer conclusão pronta.
+
+## Exemplo resolvido
+
+**Como avaliar o primeiro plano quinquenal sem esconder nem o ganho nem o custo?**
+
+1. Liste o ganho que a aula aponta: a partir de 1928, os planos quinquenais levaram a economia à indústria pesada e, em dez anos, um país agrário virou a segunda potência industrial do mundo. Ensino e saúde se tornaram públicos e gratuitos, e o desemprego desapareceu.
+2. Liste o custo: a coletivização forçada (1929-1933) provocou uma fome que matou milhões, sobretudo na Ucrânia, no Cazaquistão e no sul da Rússia; entre 1936 e 1938, o Grande Terror prendeu e fuzilou centenas de milhares.
+3. Junte os dois lados numa frase só, sem apagar nenhum.
+
+Conclusão: a avaliação honesta guarda os dois fatos: houve avanços reais e um custo humano imenso, e não havia liberdade de imprensa nem de organização fora do partido.
+
+## Resumo
+
+- A URSS foi fundada em dezembro de 1922; a Nova Política Econômica reanimou a economia, e Stalin concentrou o poder no fim da década.
+- Os planos quinquenais industrializaram o país; a coletivização forçada e o Grande Terror tiveram custo humano imenso.
+- Cerca de 27 milhões de soviéticos morreram na guerra contra o nazismo; Stalingrado mudou o rumo da guerra.
+- Em 1956, Khruschov denunciou os crimes e o culto à personalidade de Stalin.
+- Depois de 1945, a URSS foi uma das duas superpotências; o Sputnik (1957) e Gagarin (1961) vieram junto com a falta de liberdade de imprensa.

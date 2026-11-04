@@ -1,0 +1,67 @@
+# Exercícios da aula "O plural dos substantivos" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-plural-01
+  tema: "Plural com -er e trema"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o plural de das Haus (a casa)?"
+  alternativas:
+    - texto: "die Häuser"
+      certa: true
+    - texto: "die Haus"
+      erro: "Haus não fica igual no plural: leva -er e a vogal ganha trema."
+    - texto: "die Hauss"
+      erro: "O plural com -s é de palavras vindas do inglês ou do francês. Haus faz Häuser."
+  explicacao: "Das Haus faz o plural com -er e trema: die Häuser."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-plural-02
+  tema: "Plural das palavras em -er"
+  dificuldade: 2
+  enunciado: "Qual é o plural de der Lehrer (o professor)?"
+  alternativas:
+    - texto: "die Lehrer, sem mudança"
+      certa: true
+    - texto: "die Lehrere"
+      erro: "Palavras masculinas em -er muitas vezes não mudam no plural."
+    - texto: "die Lehrers"
+      erro: "O -s é de palavras do inglês e do francês. Lehrer não muda: die Lehrer."
+  explicacao: "Palavras em -er, -el, -en (masculinas e neutras) muitas vezes não mudam no plural: der Lehrer, die Lehrer."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-plural-03
+  tema: "Plural das femininas"
+  dificuldade: 2
+  enunciado: "Qual é o plural de die Zeitung (o jornal) e de die Lehrerin (a professora)?"
+  alternativas:
+    - texto: "die Zeitungen e die Lehrerinnen"
+      certa: true
+    - texto: "die Zeitungs e die Lehrerins"
+      erro: "O -s é de palavras do inglês e do francês. Femininas costumam usar -(e)n."
+    - texto: "die Zeitung e die Lehrerin, sem mudança"
+      erro: "Femininas costumam fazer o plural com -(e)n, e as em -in dobram o n: Lehrerinnen."
+  explicacao: "Muitas femininas fazem plural com -(e)n (Zeitungen). As profissões em -in dobram o n: Lehrerinnen."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-plural-04
+  tema: "O artigo no plural"
+  dificuldade: 1
+  enunciado: "Qual artigo definido se usa antes de qualquer substantivo no plural?"
+  alternativas:
+    - texto: "die"
+      certa: true
+    - texto: "der"
+      erro: "Der é o masculino do singular. No plural é sempre die."
+    - texto: "das"
+      erro: "Das é o neutro do singular. No plural é sempre die."
+  explicacao: "No plural, o artigo é sempre die: die Tage, die Kinder, die Autos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

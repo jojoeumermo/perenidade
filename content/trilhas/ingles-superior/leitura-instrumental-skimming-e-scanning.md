@@ -26,6 +26,10 @@ quiz:
     explicacao: "É muito usada em cursos técnicos, na universidade e em provas de proficiência em leitura."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar o skimming para pegar a ideia geral de um texto em inglês e o scanning para encontrar uma informação específica.
+
 ## Ler com um objetivo
 
 A **leitura instrumental** é o uso do inglês como **ferramenta** para chegar a uma informação: estudar, pesquisar, entender um manual, passar em uma prova de leitura. Não é preciso falar inglês fluentemente para isso. É preciso **estratégia**.
@@ -96,3 +100,10 @@ de quê? health (saúde), public (pública)
 2. Faça três perguntas ao texto e responda-as com scanning.
 3. Traduza os grupos nominais: *minimum wage increase*, *rural workers' union*, *low-cost housing program*.
 4. Identifique a topic sentence de três parágrafos do texto.
+
+## Resumo
+
+- Leitura instrumental: usar o inglês como ferramenta para chegar a uma informação, com estratégia.
+- Skimming: título, subtítulos, primeiro e último parágrafos, primeira frase de cada parágrafo e destaques.
+- A frase-tópico (*topic sentence*) costuma vir no começo do parágrafo.
+- Scanning: sabe-se o que se procura (número, data, nome) e os olhos correm até encontrar.

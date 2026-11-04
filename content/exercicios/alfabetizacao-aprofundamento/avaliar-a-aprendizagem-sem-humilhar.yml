@@ -1,0 +1,51 @@
+# Exercícios da aula "Avaliar a aprendizagem sem humilhar" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-avaliar-01
+  tema: "Examinar e avaliar"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Para Cipriano Luckesi, qual é a diferença entre examinar e avaliar?"
+  alternativas:
+    - texto: "Examinar ajuda a aprender e avaliar dá nota"
+      erro: "É o contrário: o exame classifica; a avaliação diagnostica e inclui."
+    - texto: "São a mesma coisa"
+      erro: "A aula distingue as duas: o exame classifica e exclui; a avaliação diagnostica e inclui."
+    - texto: "Examinar mede no fim e classifica; avaliar olha como a pessoa está para decidir o que fazer para ela aprender mais"
+      certa: true
+  explicacao: "O exame classifica e muitas vezes exclui. A avaliação diagnostica e inclui."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-avaliar-02
+  tema: "O erro"
+  dificuldade: 1
+  enunciado: "Na avaliação mediadora de Jussara Hoffmann, o erro é:"
+  alternativas:
+    - texto: "Informação para quem ensina ajustar o próprio trabalho"
+      certa: true
+    - texto: "Uma falha a ser punida"
+      erro: "Na avaliação mediadora o erro deixa de ser falha e vira informação."
+    - texto: "Algo a esconder do grupo"
+      erro: "Quem ensina observa, pergunta e registra o erro para ajustar o trabalho."
+  explicacao: "Para Hoffmann, quem ensina observa, pergunta, registra e ajusta; o erro vira informação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-avaliar-03
+  tema: "Função da avaliação no círculo"
+  dificuldade: 1
+  enunciado: "Qual é a função da avaliação no círculo, segundo a aula?"
+  alternativas:
+    - texto: "Dizer quem deve ser deixado de fora"
+      erro: "A aula lembra que quem aprende depois de adulto já foi avaliado para ser deixado de fora. No círculo, a função é ajudar."
+    - texto: "Ajudar a aprender"
+      certa: true
+    - texto: "Dar nota e aprovar ou reprovar"
+      erro: "Isso é o exame. No círculo, a avaliação é para ajudar a aprender."
+  explicacao: "No círculo a avaliação serve para ajudar a aprender, com portfólio, autoavaliação e comentários que ensinam sem humilhar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

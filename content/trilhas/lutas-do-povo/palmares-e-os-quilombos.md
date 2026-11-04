@@ -47,6 +47,10 @@ quiz:
     explicacao: "O direito foi conquistado pelo movimento negro e quilombola na Constituinte. A titulação, porém, anda devagar."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que era um quilombo, contar a história de Palmares e dizer o que os quilombos representam hoje.
+
 ## O que era um quilombo
 
 Desde o começo da escravidão no Brasil, houve fuga. E quem fugia não ficava sozinho no mato: juntava-se a outros, escolhia um lugar de difícil acesso, abria roças, levantava casas e preparava a defesa. Essas comunidades foram chamadas de **quilombos** ou **mocambos**. A palavra quilombo vem do quimbundo, língua falada em Angola, onde designava um acampamento de guerreiros.
@@ -135,3 +139,10 @@ Se quiser uma versão mais curta desta história, voltada a quem está começand
 1. O acordo de 1678 dividiu Palmares. Pense em outras lutas em que o poder ofereceu vantagens a uma parte do grupo em troca do abandono da outra. Que escolha você faria?
 2. Pesquise se há comunidades quilombolas no seu estado ou no seu município. A terra delas já foi titulada?
 3. Compare a definição de quilombo de 1740 com a de comunidade quilombola de hoje. O que mudou na maneira de ver essas comunidades, e quem lutou por essa mudança?
+
+## Resumo
+
+- Quilombo (ou mocambo) vem do quimbundo, língua de Angola; em 1740 o Conselho Ultramarino definiu como quilombo "toda habitação de negros fugidos que passem de cinco".
+- Houve quilombos em todas as regiões do Brasil; o maior foi Palmares, na Serra da Barriga.
+- Palmares durou quase um século e viveu uma guerra de décadas; o acordo de 1678 dividiu os palmarinos.
+- Hoje há comunidades quilombolas, e a luta pela titulação das terras continua.

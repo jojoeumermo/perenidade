@@ -1,0 +1,51 @@
+# Exercícios da aula "Os Centros Populares de Cultura e o Movimento de Cultura Popular" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-mcp-01
+  tema: "O contexto"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Pela Constituição de 1946, o que acontecia com quem não sabia ler?"
+  alternativas:
+    - texto: "Podia votar normalmente"
+      erro: "A aula diz que os analfabetos não podiam votar."
+    - texto: "Não podia votar"
+      certa: true
+    - texto: "Era obrigado a estudar"
+      erro: "Não: era excluído do voto, o que tirava milhões de trabalhadores pobres da política."
+  explicacao: "Alfabetizar era educar e ampliar a democracia, porque analfabeto não votava."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-mcp-02
+  tema: "O MCP"
+  dificuldade: 1
+  enunciado: "Onde e em que ano foi criado o Movimento de Cultura Popular (MCP), na gestão de qual prefeito?"
+  alternativas:
+    - texto: "Em Natal, em 1961, na gestão de Djalma Maranhão"
+      erro: "Isso é a campanha De Pé no Chão. O MCP foi criado no Recife, em 1960."
+    - texto: "No Rio, em 1964"
+      erro: "O MCP foi no Recife, em 1960, com Miguel Arraes."
+    - texto: "No Recife, em 1960, na gestão de Miguel Arraes"
+      certa: true
+  explicacao: "O MCP foi criado no Recife, em 1960, na gestão do prefeito Miguel Arraes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-mcp-03
+  tema: "O analfabetismo em 1960"
+  dificuldade: 2
+  enunciado: "No Censo de 1960, quase 40% das pessoas de 15 anos ou mais não sabiam ler e escrever. Isso é aproximadamente quantas em cada dez?"
+  alternativas:
+    - texto: "Quatro em cada dez"
+      certa: true
+    - texto: "Quatro em cada cem"
+      erro: "40% é 40 em cada cem, ou quatro em cada dez."
+    - texto: "Uma em cada dez"
+      erro: "10% seria uma em cada dez. 40% é quatro em cada dez."
+  explicacao: "40% é 40 em cada 100: quatro em cada dez."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -30,6 +30,10 @@ quiz:
     explicacao: "Uma única substância dá origem a duas ou mais."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler e escrever uma equação química, balanceá-la mexendo só nos coeficientes e reconhecer os tipos de reação.
+
 ## A equação química
 
 Uma **reação química** transforma substâncias em outras: as ligações entre os átomos se rompem e novas ligações se formam. A **equação química** é o jeito de escrever isso.
@@ -145,3 +149,11 @@ Sinais comuns: mudança de **cor**, liberação de **gás**, formação de um **
 2. Balanceie: Al + O₂ → Al₂O₃.
 3. Balanceie a combustão do propano, um dos gases do botijão: C₃H₈ + O₂ → CO₂ + H₂O.
 4. Classifique cada reação: 2 KClO₃ → 2 KCl + 3 O₂; Fe + CuSO₄ → FeSO₄ + Cu; N₂ + 3 H₂ → 2 NH₃.
+
+## Resumo
+
+- Equação química: reagentes → produtos; o índice faz parte da fórmula e o coeficiente diz quantas moléculas participam.
+- Lavoisier: em uma reação, a massa total se conserva, porque os átomos só se rearranjam.
+- Balancear é igualar o número de átomos de cada elemento nos dois lados, mexendo apenas nos coeficientes, nunca nos índices.
+- Roteiro: comece pelos elementos que aparecem em uma só substância de cada lado, deixe o O₂ e o H₂ para o fim e confira contando.
+- Tipos: síntese, decomposição, simples troca e dupla troca.

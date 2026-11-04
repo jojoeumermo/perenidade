@@ -35,6 +35,10 @@ quiz:
     explicacao: "Com máquinas e técnicas que barateiam comida, roupa e transporte, o salário passa a corresponder a menos horas, e sobra mais tempo de trabalho excedente."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar de onde sai o lucro segundo Marx, diferenciar trabalho necessário de trabalho excedente e reconhecer a mais-valia absoluta e a relativa no seu dia a dia.
+
 Toda empresa diz que existe para "gerar valor". A pergunta desta aula é simples e incômoda: **valor para quem, e tirado de onde?**
 
 ## A explicação que parece óbvia
@@ -101,3 +105,10 @@ Se o lucro fosse prêmio pela "esperteza" ou pelo "risco", nada haveria a discut
 ## Para conversar
 
 Pense no seu trabalho, ou no de alguém da família. Em quanto tempo do dia você acha que o salário já foi "pago"? O que o patrão faz para aumentar a outra parte?
+
+## Resumo
+
+- O lucro não nasce de vender mais caro: nasce na produção, no trabalho que o patrão não paga.
+- A jornada se divide em trabalho necessário (paga o salário) e trabalho excedente (fica com o patrão): esse excedente é a mais-valia.
+- A mais-valia absoluta vem de esticar ou intensificar a jornada; a relativa, de baratear o que o trabalhador consome, reduzindo o trabalho necessário.
+- A mais-valia é repartida entre banco (juros), dono do imóvel (aluguel), comerciante e Estado (impostos).

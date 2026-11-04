@@ -35,6 +35,9 @@ quiz:
     resposta: 0
     explicacao: "Na Espanha, o conflito entre conter ou aprofundar a revolução dividiu o campo republicano."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre frente única e frente popular, o que cada uma produziu na Alemanha, na França e na Espanha, e quais são os argumentos a favor e contra a frente popular.
 
 Diante do avanço do fascismo, a esquerda dos anos 1930 discutiu intensamente **como** enfrentá-lo. Duas estratégias marcaram o período: a **frente única** e a **frente popular**. Esta aula explica as duas e o que a história mostrou sobre elas.
 
@@ -78,3 +81,22 @@ A pergunta continua atual: **como unir forças amplas contra a extrema direita s
 ## Para conversar
 
 Pense numa luta recente na sua cidade (por moradia, transporte, contra um despejo). Que alianças foram feitas? O que se ganhou e o que se perdeu com elas?
+
+## Exemplo resolvido
+
+**Compare a Alemanha de 1932-1933 com a França de 1936: o que uma aliança antifascista mudou?**
+
+1. **Alemanha.** Trotsky defendeu uma frente única entre comunistas e social-democratas ("marchar separados, golpear juntos"). A direção da Internacional chamava os social-democratas de "social-fascistas", e os social-democratas confiavam nas instituições. A frente única não aconteceu, e o nazismo chegou ao poder em 1933.
+2. **A virada.** Em 1935, no 7º Congresso, Dimitrov defendeu a **frente popular**: aliança que inclui também partidos democráticos de classe média e setores da burguesia contrários ao fascismo.
+3. **França, 1936.** A Frente Popular (socialistas, comunistas e radicais) venceu as eleições e Léon Blum chefiou o governo. Greves com ocupação de fábricas arrancaram os Acordos de Matignon: aumento de salários, contratos coletivos, férias remuneradas e semana de 40 horas.
+4. **Balanço do debate.** Para os defensores, a frente ampliou a base antifascista e conquistou direitos. Para os críticos, subordinou os trabalhadores a aliados que temiam mais a revolução do que o fascismo.
+
+Confira: a pergunta continua atual, como unir forças amplas contra a extrema direita sem abrir mão das reivindicações dos trabalhadores.
+
+## Resumo
+
+- **Frente única** (1921): unidade de ação entre organizações da classe trabalhadora. Trotsky a defendeu em 1932 contra Hitler: "marchar separados, golpear juntos".
+- Na Alemanha, a divisão entre comunistas e social-democratas impediu a frente única; o nazismo chegou ao poder em 1933.
+- **Frente popular** (7º Congresso, 1935, Dimitrov): aliança ampla, que inclui partidos democráticos de classe média e setores da burguesia.
+- Experiências: França (1936, Acordos de Matignon), Espanha (1936, golpe de Franco e guerra civil), Chile (1938) e Brasil (Aliança Nacional Libertadora, 1935).
+- Debate: ampliou a base social e conquistou direitos, ou subordinou os trabalhadores a aliados vacilantes.

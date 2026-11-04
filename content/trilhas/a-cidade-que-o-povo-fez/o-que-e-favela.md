@@ -1,5 +1,6 @@
 ---
 titulo: "O que é favela"
+modelo: 9
 resumo: "De onde vem a palavra, quantas pessoas vivem em favelas no Brasil e quais são os direitos de quem construiu a própria casa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,13 @@ quiz:
     resposta: 1
     explicacao: "Sem salário para pagar aluguel no centro e sem política de habitação, quem trabalhava construiu a própria casa onde foi possível."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber de onde vem a palavra favela, quantas pessoas vivem em favelas e comunidades urbanas no Brasil e quais direitos tem quem construiu a própria casa.
+
+```suarealidade
+Olhe para a sua rua ou para o seu bairro: quem construiu as casas e como? Que serviço (água, esgoto, luz, coleta de lixo) chegou e qual ainda falta?
+```
 
 ## Uma palavra que veio do sertão
 
@@ -105,3 +113,36 @@ Tirar famílias de casa é medida extrema. Só se justifica em caso de risco rea
 ## Para pensar
 
 A cidade inteira foi construída por quem mora na favela. O que falta nela não é esforço de quem vive ali: é a parte que cabia ao poder público.
+
+## Exemplo resolvido
+
+**Uma família mora há seis anos, sem que ninguém a tenha contestado, num terreno particular de 200 m², em área urbana. Nenhum dos adultos tem outro imóvel. Ela pode pedir a usucapião urbana?**
+
+1. Releia o artigo 183: moradia em área urbana de **até 250 m²**, **cinco anos seguidos**, **sem oposição**, e quem pede **não pode ser dono de outro imóvel**.
+2. Confira cada requisito. Seis anos é mais que cinco. 200 m² é menos que 250. Ninguém contestou. Ninguém tem outro imóvel. Todos os requisitos estão cumpridos.
+3. Veja o tipo de terra: é terreno particular. Se fosse **terra pública**, a usucapião não valeria, mas a família poderia ter direito à **concessão de uso para moradia**.
+4. Veja o caminho: o pedido pode ser feito pelos moradores, e a **Defensoria Pública** e a associação do bairro ajudam.
+
+Confira: se a casa ficasse num terreno de 300 m², o requisito do tamanho não seria cumprido.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dar direito a quem ocupou terra sem autorização é injusto com quem comprou ou alugou o seu imóvel dentro da lei, e incentiva novas ocupações. Além disso, muita favela fica em lugar de risco, e o melhor seria remover as famílias." É uma crítica feita por pessoas que pagaram caro pela própria casa e por quem teme desastres em encostas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A usucapião não é um prêmio a quem ocupa qualquer coisa: a Constituição (art. 183) exige cinco anos seguidos, sem oposição, até 250 m², moradia da própria pessoa e nenhum outro imóvel, e não vale para terra pública. Quanto ao risco, a aula diz que a remoção só se justifica em caso de risco real, comprovado por laudo, com alternativa de moradia, aviso prévio e direito de defesa. Proteger a vida e respeitar o direito de morar podem andar juntos.
+```
+
+```agir
+# Esta semana
+Num papel, faça uma lista dos serviços da sua rua (água, esgoto, luz, coleta de lixo, escola, posto de saúde) e marque os que funcionam e os que faltam. Não precisa fotografar nem anotar nome de ninguém. Se quiser, mostre a lista a um vizinho de confiança.
+```
+
+## Resumo
+
+- **Favela** é o nome de uma planta do sertão que deu nome a um morro; em 1897, soldados que voltaram de Canudos se instalaram no Morro da Favela, no Rio.
+- As favelas surgiram porque a cidade precisava do trabalho de quem não tinha onde morar: foi a solução que os trabalhadores deram a um problema que não criaram.
+- Censo 2022: **16.390.815** moradores, **8,1%** da população, em **12.348** favelas e comunidades urbanas.
+- Moradia é direito (art. 6º); a **usucapião urbana** (art. 183) pede 5 anos, até 250 m², sem oposição e sem outro imóvel.
+- Remoção só em caso de risco real, com laudo, alternativa de moradia e direito de defesa.

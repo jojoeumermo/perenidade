@@ -45,6 +45,10 @@ quiz:
     explicacao: "O inglês tem um só verbo ('to be') para os dois. O valor de 'estar' vem da sua oposição a 'ser' dentro do sistema do português."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar as ideias centrais de Saussure (língua e fala, signo, sincronia e diacronia) e as críticas que elas receberam.
+
 Quem estuda Letras, pedagogia, comunicação ou psicologia acaba esbarrando num nome: Ferdinand de Saussure. Muitas ideias que hoje parecem óbvias sobre a língua (que ela é um sistema, que as palavras valem pela relação com outras, que se pode estudar a língua de hoje sem olhar só para o passado) foram formuladas por ele. Esta aula apresenta essas ideias e também as críticas que elas receberam.
 
 A aula anterior, [O que é linguística](/trilhas/linguistica/o-que-e-linguistica), mostrou como trabalha um linguista. Aqui vamos à teoria que deu origem à linguística moderna.
@@ -135,6 +139,16 @@ As ideias de Saussure fundaram o estruturalismo e influenciaram a antropologia, 
 
 No Brasil, as ideias de Saussure chegaram com força pela obra de **Joaquim Mattoso Câmara Jr.**, cujo livro *Princípios de linguística geral* saiu em 1941.
 
+## Exemplo resolvido
+
+**Por que o laço entre o som e a ideia numa palavra não pode ser mudado por um falante sozinho? E que eixo você explora ao trocar palavras na frase "A gente chegou cedo"?**
+
+1. O signo linguístico une um som (significante) e uma ideia (significado). O laço entre os dois é **fixado pela comunidade**.
+2. Por isso nenhum falante pode mudá-lo sozinho.
+3. Ao trocar cada palavra de "A gente chegou cedo" por outras que poderiam ocupar o mesmo lugar, você explora o **eixo associativo** (ou paradigmático), a memória de palavras que se opõem.
+
+Confira: a aula também lembra que o *Curso de linguística geral* (1916) foi reconstruído por Bally e Sechehaye a partir de cadernos de alunos, e que os manuscritos de Saussure (publicados em 2002) mostram um pensamento mais hesitante.
+
 ## Para praticar
 
 1. Explique, com um exemplo do seu dia a dia, a diferença entre língua e fala.
@@ -144,3 +158,11 @@ No Brasil, as ideias de Saussure chegaram com força pela obra de **Joaquim Matt
 5. Qual é a principal crítica de Volóchinov a Saussure?
 
 **Respostas:** 2) Porque o laço entre som e ideia é fixado pela comunidade e nenhum falante pode mudá-lo sozinho. 4) O eixo associativo (paradigmático). 5) Que a língua não é um sistema abstrato e estável: ela vive nas situações concretas de comunicação, e as palavras carregam valores sociais.
+
+## Resumo
+
+- Saussure (1857-1913) deu três cursos de linguística geral em Genebra (1907-1911); o *Curso* foi publicado em 1916 por Bally e Sechehaye.
+- Distingue língua (o sistema social) de fala (o uso individual).
+- O signo une som e ideia, e o laço é fixado pela comunidade; na língua só há diferenças.
+- Há dois eixos (a cadeia e a memória) e dois olhares (sincronia e diacronia).
+- Críticas, como a de Volóchinov: a língua vive nas situações concretas de comunicação.

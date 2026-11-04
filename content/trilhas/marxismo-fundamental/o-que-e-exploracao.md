@@ -26,6 +26,10 @@ quiz:
     explicacao: "O que muda de uma sociedade para outra é a forma da exploração."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é exploração no sentido marxista, por que ela existe mesmo com patrão educado e que cumpre a lei, e como ela pode ser maior ou menor.
+
 "Esse patrão é um explorador!" Muita gente usa essa frase quando o salário atrasa ou quando o chefe grita. Mas, para o marxismo, a palavra **exploração** tem um sentido mais preciso, e mais profundo.
 
 ## Exploração é uma relação
@@ -70,6 +74,25 @@ Exploração não é o mesmo que **opressão**. Opressão é a discriminação e
 
 O *Manifesto Comunista* diz que a história de todas as sociedades até hoje é a história da luta de classes, ou seja, da luta entre exploradores e explorados. A proposta do socialismo é a primeira, na história, a imaginar uma sociedade **sem classes**, em que ninguém viva do trabalho dos outros.
 
+## Exemplo resolvido
+
+**Uma empresa paga bem, oferece plano de saúde, trata os funcionários com respeito e tem lucro. Há exploração, no sentido marxista?**
+
+1. Explorar, no sentido marxista, é **viver do trabalho não pago de outra pessoa**; não depende do humor do chefe.
+2. Pergunte de onde vem o lucro da empresa: do valor que os trabalhadores produzem além do que recebem.
+3. Então, sim: há exploração, porque o lucro vem do valor produzido pelos trabalhadores e não pago a eles.
+4. A exploração está na **estrutura** (quem é dono e quem vende a força de trabalho), e não em descumprir a lei.
+
+Confira: ela pode ser maior ou menor. Aumenta com jornada mais longa, ritmo mais intenso e salário que cai; diminui quando os trabalhadores conseguem salário maior, jornada menor e direitos.
+
 ## Para conversar
 
 Liste situações de trabalho que você conhece em que a exploração aumentou nos últimos anos. O que mudou: a jornada, o ritmo, o salário?
+
+## Resumo
+
+- Exploração é viver do trabalho não pago de outra pessoa; existiu como escravidão, servidão e, no capitalismo, de forma escondida.
+- No capitalismo ela fica escondida: o salário parece pagar o dia inteiro, mas parte da jornada produz para o patrão.
+- Há exploração mesmo com patrão educado que cumpre a lei: ela está na estrutura.
+- Aumenta com jornada longa, ritmo intenso e salário que cai; diminui com salário maior, jornada menor e direitos.
+- Exploração não é o mesmo que opressão, mas as duas se misturam.

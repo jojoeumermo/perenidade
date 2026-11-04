@@ -37,6 +37,9 @@ quiz:
     resposta: 1
     explicacao: "São como primos: descendem de uma mesma espécie ancestral, que não era nenhuma das duas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a seleção natural em quatro passos, comparar Lamarck e Darwin, entender a evolução da resistência a antibióticos e a teoria atual, e citar evidências da evolução.
 
 ## As espécies mudam
 
@@ -139,3 +142,23 @@ Isso não é ciência. A seleção natural descreve o que acontece na natureza; 
 2. Por que interromper um tratamento com antibiótico antes do tempo favorece a resistência?
 3. Compare os ossos do seu braço com os de uma asa de frango, depois de uma refeição. Que semelhanças você encontra? O que isso sugere?
 4. Escolha um dos "equívocos comuns" e escreva, com as suas palavras, como você o explicaria a um colega.
+
+## Exemplo resolvido
+
+**Uma lavoura é pulverizada todos os anos com o mesmo inseticida. Com o tempo, ele deixa de funcionar. Qual é a explicação?**
+
+1. **Variação.** Na população de insetos, alguns, por mutação, já eram resistentes, antes do veneno.
+2. **Hereditariedade.** Essa resistência passa aos filhos.
+3. **Luta pela existência.** O inseticida mata a maioria; os resistentes sobrevivem.
+4. **Reprodução diferencial.** Os poucos resistentes se reproduzem, e seus descendentes passam a dominar a população.
+
+Confira: o inseticida **não cria** a resistência: **seleciona** a que já existia. Os insetos não "se acostumaram" ao longo da vida, e a variação vem antes: o ambiente seleciona. O mesmo vale para bactérias e antibióticos, por isso antibiótico só com receita, na dose e pelo tempo indicados.
+
+## Resumo
+
+- **Evolução:** mudança das características hereditárias das populações ao longo das gerações.
+- **Lamarck** (1809): uso e desuso e herança dos caracteres adquiridos (a segunda ideia não se sustentou).
+- **Darwin e Wallace:** seleção natural em quatro passos: **variação**, **hereditariedade**, **luta pela existência** e **reprodução diferencial**.
+- "Mais apto" é o mais ajustado àquele ambiente; não há plano nem objetivo.
+- Teoria atual: a variação vem das **mutações** e da **recombinação**; a seleção natural age sobre ela; há também **deriva genética** e **isolamento**.
+- Evidências: fósseis, anatomia comparada, órgãos vestigiais e comparação de DNA.

@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização e matemática: o letramento matemático" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-matematica-01
+  tema: "O saber que já existe"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a aula diz sobre a matemática de quem não leu na escola?"
+  alternativas:
+    - texto: "Quem não sabe ler não sabe matemática"
+      erro: "A aula diz que isso não é verdade: a feirante sabe o troco antes da calculadora."
+    - texto: "Essa matemática deve ser ignorada pela escola"
+      erro: "A aula critica a escola que ignora esse saber e impõe seus algoritmos."
+    - texto: "Os adultos trazem uma matemática da vida, muitas vezes mental e oral, e eficiente"
+      certa: true
+  explicacao: "Falta, muitas vezes, só o registro: escrever o número e a conta no papel."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-matematica-02
+  tema: "Etnomatemática"
+  dificuldade: 2
+  enunciado: "O que Ubiratan D'Ambrosio chamou de etnomatemática?"
+  alternativas:
+    - texto: "O estudo das matemáticas de cada grupo, como a do pedreiro, a do agricultor e a da costureira"
+      certa: true
+    - texto: "Uma matemática só para estudantes"
+      erro: "Etnomatemática estuda as formas de contar e medir de cada grupo de trabalho."
+    - texto: "Um método de decorar a tabuada"
+      erro: "É o estudo das matemáticas dos grupos, vistas como conhecimento legítimo."
+  explicacao: "Para D'Ambrosio, essas formas de contar, medir e calcular de cada grupo são conhecimento legítimo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-matematica-03
+  tema: "O registro"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que falta muitas vezes a quem já faz contas de cabeça?"
+  alternativas:
+    - texto: "A capacidade de calcular"
+      erro: "A pessoa já calcula bem. O que falta é o registro escrito."
+    - texto: "O registro: escrever o número e a conta no papel"
+      certa: true
+    - texto: "Uma calculadora"
+      erro: "A feirante sabe o troco antes da calculadora; falta o registro escrito."
+  explicacao: "Partir do que a pessoa já sabe e ensinar a registrar números e contas é o caminho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -30,6 +30,10 @@ quiz:
     explicacao: "Muitos governos de esquerda governam economias capitalistas, com mais ou menos reformas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber responder, com fatos e sem medo, às perguntas mais comuns sobre socialismo, como a diferença entre socialismo e comunismo, a liberdade, a religião e o lucro.
+
 Socialismo é um tema cercado de medo, mito e desinformação. Aqui estão algumas das perguntas mais comuns, com respostas diretas.
 
 ## "Socialismo e comunismo são a mesma coisa?"
@@ -76,6 +80,25 @@ Não necessariamente. Muitos governos de esquerda, no Brasil e no mundo, governa
 
 A União Soviética e o bloco do Leste Europeu acabaram entre 1989 e 1991. Mas o capitalismo também teve fracassos enormes: crises, guerras mundiais, fomes coloniais, desigualdade crescente, crise climática. A pergunta mais útil talvez não seja "qual sistema fracassou", e sim: **o que aprendemos com cada experiência, e que sociedade queremos construir?**
 
+## Exemplo resolvido
+
+**Alguém pergunta: "Socialismo e comunismo são a mesma coisa?" Como responder?**
+
+1. Diga em que tradição você está respondendo: na tradição marxista, são duas fases de um mesmo processo.
+2. Descreva a primeira fase, o socialismo: os grandes meios de produção são coletivos, mas ainda existem Estado, dinheiro e distribuição segundo o trabalho.
+3. Descreva a fase superior, o comunismo: uma sociedade sem classes, sem Estado e com abundância, em que cada um recebe segundo suas necessidades.
+4. Acrescente a ressalva: fora dessa tradição, as palavras têm outros usos, e há partidos "socialistas" que só defendem reformas dentro do capitalismo.
+
+Conclusão: a resposta curta, "não, são fases", precisa vir com a ressalva de que as palavras têm vários usos.
+
 ## Para conversar
 
 Qual destas perguntas você já ouviu mais vezes? Que outra dúvida sobre o socialismo você gostaria de investigar?
+
+## Resumo
+
+- Na tradição marxista, socialismo e comunismo são duas fases do mesmo processo; fora dela, as palavras têm outros usos.
+- Liberdade: o socialismo quer ampliar a liberdade econômica, mas vários países socialistas do século XX restringiram duramente as liberdades políticas, e muitos socialistas criticaram isso.
+- Religião: o socialismo é um projeto político e econômico, não um ateísmo obrigatório; há cristãos socialistas e a teologia da libertação.
+- Invenção: muitas invenções vieram de pesquisa pública ou de outras motivações que não o lucro.
+- Respostas honestas reconhecem erros e dão fatos.

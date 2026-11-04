@@ -1,0 +1,54 @@
+# Exercícios da aula "Língua estrangeira, artes e educação física" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-lingua-01
+  tema: "Avisos em inglês"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma placa na porta diz 'Pull'. O que ela pede?"
+  alternativas:
+    - texto: "Empurrar"
+      erro: "Empurrar é 'push'. 'Pull' é o contrário."
+    - texto: "Puxar"
+      certa: true
+    - texto: "Esperar"
+      erro: "Esperar não é o sentido de 'pull'. A placa orienta como abrir a porta: puxando."
+  explicacao: "'Pull' quer dizer puxe e 'push', empurre."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-lingua-02
+  tema: "Cultura popular"
+  dificuldade: 1
+  enunciado: "O samba, a capoeira e o cordel são exemplos de:"
+  alternativas:
+    - texto: "Cultura popular brasileira"
+      certa: true
+    - texto: "Esportes olímpicos obrigatórios"
+      erro: "A capoeira é arte e luta, e o samba e o cordel são música e literatura popular. Nenhum é uma modalidade obrigatória."
+    - texto: "Apenas costumes de outros países"
+      erro: "Todos nasceram ou se desenvolveram no Brasil, com raízes de vários povos, como os africanos."
+  explicacao: "São expressões da cultura popular brasileira, com raízes na história do povo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-lingua-03
+  tipo: numero
+  tema: "Atividade física"
+  dificuldade: 2
+  enunciado: "A OMS indica ao menos 150 minutos de atividade moderada por semana para adultos. Quantos minutos por dia, em 5 dias da semana, completam essa meta?"
+  resposta: "30"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "21"
+      explicacao: "Você dividiu por 7 dias (150 ÷ 7). O enunciado fala em 5 dias na semana."
+    - resposta: "750"
+      explicacao: "Você multiplicou 150 por 5. Para achar quanto por dia, divida o total pelos dias."
+  dica: "Divida os 150 minutos pelo número de dias."
+  explicacao: "150 ÷ 5 = 30 minutos por dia."
+  conferir: "150 / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

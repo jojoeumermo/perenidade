@@ -64,4 +64,8 @@ export const secaoDaFerramenta = {
   "orcamento-e-contrato": "eyebrow",
   "dividas-e-renegociacao": "eyebrow",
   "modelos-de-documentos": "eyebrow",
+  "arvore-trabalhista": "eyebrow",
+  "clausulas-de-contrato": "eyebrow",
+  "carga-eletrica": "eyebrow",
+  "mapa-de-servicos": "eyebrow",
 } as const satisfies Record<ToolId, string>;

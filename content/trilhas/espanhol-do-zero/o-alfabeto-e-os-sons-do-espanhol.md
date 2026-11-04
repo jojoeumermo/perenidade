@@ -29,9 +29,19 @@ quiz:
     opcoes: ["\"nótchi\"", "\"nótche\"", "\"nóxi\""]
     resposta: 1
     explicacao: "O e final não vira i em espanhol: noche termina com um e claro."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o alfabeto espanhol e os sons em que quem fala português mais tropeça: as vogais finais, o s entre vogais, o d e o t, o r e o j.
+
+
 Quem fala português lê espanhol quase sem esforço. Mas a pronúncia tem armadilhas, porque os nossos hábitos de fala, que parecem naturais, mudam o som das palavras. Esta aula mostra as letras e, principalmente, os sons em que mais tropeçamos.
+
+```suarealidade
+Que palavras em espanhol você já ouviu e repetiu sem ter certeza de como se falam? Em que lugar da sua semana elas aparecem?
+```
 
 ## As 27 letras
 
@@ -110,8 +120,41 @@ Quando a palavra foge dessa regra, leva acento: *café*, *canción*, *árbol*, *
 
 O acento também separa palavras iguais com sentidos diferentes: *tú* (você) e *tu* (seu), *él* (ele) e *el* (o), *sí* (sim) e *si* (se).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sotaque não importa. Importante é perder a vergonha e falar, do jeito que sair".
+---
+Como você responderia, concordando no que for justo?
+---
+Uma resposta possível: perder a vergonha é o primeiro passo, e a aula não pede sotaque de nativo. Mas há sons em que o hábito do português muda a palavra: *pero* (mas) e *perro* (cachorro) mudam só pelo r. Ter ouvido essas diferenças ajuda a se fazer entender e a entender os outros.
+```
+
+## Exemplo resolvido
+
+**Como ler em voz alta "La casa de mi tío es grande"?**
+
+1. **casa:** o s entre vogais é s, e não z: "cassa", não "caza".
+2. **tío:** o t continua t, não vira "tch": *tí-o*.
+3. **grande:** a vogal final é clara, não vira "i": *grán-de*, e não "grãndji".
+4. **es:** curta e com a vogal clara.
+
+Confira: leia devagar e compare com a ferramenta de pronúncia do site, escolhendo "Español".
+
+```agir
+# Esta semana
+Soletre o seu nome e o nome do seu bairro em espanhol, letra por letra, com os nomes da tabela. Repita por três dias, até sair sem olhar.
+```
+
 ## Para praticar
 
 1. Soletre o seu nome em espanhol, letra por letra, com os nomes da tabela.
 2. Leia em voz alta, prestando atenção ao e e ao o finais, ao s entre vogais e ao d e t: *Buenas noches. La casa de mi tío es grande. El perro come carne todos los días.*
 3. Cole as frases na ferramenta de [pronúncia](/ferramentas/pronuncia), escolha "Español" e compare a sua leitura com a voz do computador.
+
+## Resumo
+
+- O alfabeto tem **27 letras**: as 26 do português e o ñ; *ch* e *ll* são dígrafos.
+- Cinco vogais claras, sem som nasal; o e e o o finais não viram i e u.
+- D e t continuam d e t; o s entre vogais é s; b e v têm o mesmo som; o h é mudo.
+- O r tem dois sons (*pero* e *perro* são palavras diferentes); o j raspa na garganta; o ñ soa como nh.
+- O acento é um guia: se aparece, a força da voz vai ali.

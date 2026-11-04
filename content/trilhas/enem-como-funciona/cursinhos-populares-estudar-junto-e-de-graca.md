@@ -30,6 +30,10 @@ quiz:
     explicacao: "A rede apoia financeiramente cursinhos selecionados e paga um auxílio mensal a estudantes."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são cursinhos populares, de onde vieram, como encontrar um perto de você e como montar um grupo de estudos se não houver.
+
 Estudar sozinho para o ENEM é possível, mas é difícil. Faltam explicação na hora da dúvida, colegas para dividir o peso e alguém que diga "continua". Os **cursinhos populares** existem para isso: são cursos preparatórios gratuitos ou muito baratos, feitos em boa parte por professores voluntários, em escolas, igrejas, associações de moradores, sindicatos e universidades.
 
 ## De onde vieram
@@ -88,3 +92,22 @@ Este site foi feito para isso: aulas gratuitas, exercícios, ferramentas e uma c
 1. Pesquise e anote o nome, o endereço e a época de inscrição de pelo menos um cursinho popular da sua cidade.
 2. Convide duas pessoas para formar um grupo de estudos e marquem o primeiro encontro.
 3. Escolha um assunto que você domina e prepare uma explicação de dez minutos para o grupo.
+
+## Exemplo resolvido
+
+**Não existe cursinho popular perto de você. Como montar um grupo de estudos?**
+
+1. Comece pequeno: de três a seis pessoas já bastam.
+2. Combine um horário fixo por semana, presencial ou por videochamada.
+3. Divida as matérias: cada pessoa prepara uma explicação curta de um assunto que domina.
+4. Façam provas antigas juntos, com tempo marcado, e discutam cada questão errada.
+5. Troquem redações, corrigindo pelas cinco competências do ENEM.
+
+Confira: o grupo deve também cuidar uns dos outros: quem faltou recebe um recado, quem desanimou recebe uma força.
+
+## Resumo
+
+- Cursinhos populares são cursos preparatórios gratuitos ou muito baratos, feitos em boa parte por voluntários, nascidos da educação popular.
+- Marcos: Cooperativa Steve Biko (Salvador, 1992), PVNC (Baixada Fluminense, 1993), Educafro e Rede Emancipa (2007); eles pressionaram pela Lei de Cotas.
+- Em 2025 o MEC criou a Rede Nacional de Cursinhos Populares (CPOP), com apoio financeiro aos cursinhos e auxílio mensal de R$ 200 aos estudantes selecionados.
+- Para achar um: pergunte na escola, procure em universidades públicas, associações, sindicatos e igrejas, e veja a página da CPOP. Sem cursinho, monte um grupo.

@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "descricao": "Where to ask a study question at Instituto Lúcia: tutoring with volunteers, the assistant, the community, live classes and group study, all in one place."
+  },
+  "eyebrow": "Nobody studies alone",
+  "titulo": "Questions desk",
+  "lead": "Stuck on a subject? Here, in one place, are the ways the institute already offers to get a question answered. Pick the one that fits how urgent it is.",
+  "semHorario": "There are no fixed desk hours: each way works in its own manner, and the “How it works” line of each one says how. The only scheduled agenda is that of the live classes, published by the educators.",
+  "antesTitulo": "Before you ask",
+  "antesTexto": "Many questions already have a ready answer on the site. Look first:",
+  "canaisTitulo": "Where to ask",
+  "comoFunciona": "How it works",
+  "abrir": "Open",
+  "paraEnsinarTitulo": "For those who teach",
+  "canais": {
+    "reforco": {
+      "quem": "A volunteer from the teaching team",
+      "como": "No set hours. You write the question; someone from the subject's team takes the request and answers at the e-mail you gave."
+    },
+    "assistente": {
+      "quem": "An automatic assistant",
+      "como": "It answers right away, but it is for people with an account and it can be wrong. It sits on the tutoring page, before the request to a volunteer.",
+      "acompanhante": "If the School is open to you, the assistant also helps inside the lesson, through the companion."
+    },
+    "comunidade": {
+      "quem": "Other people who study",
+      "como": "No hours: the conversations stay open, by subject room, and each person answers when they can."
+    },
+    "aovivo": {
+      "quem": "Educators, in a scheduled class",
+      "como": "At the scheduled time you join, watch and ask in the chat. The days and times are on the agenda."
+    },
+    "grupo": {
+      "quem": "The people studying with you",
+      "como": "You open a room, send the link and you study together, with video."
+    },
+    "salalivre": {
+      "quem": "Teachers and instructors",
+      "como": "A tool to build and project your own class with what the site has. It stays only in your browser."
+    }
+  }
+}

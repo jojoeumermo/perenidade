@@ -24,6 +24,10 @@ quiz:
     explicacao: "O código fica em um só lugar: se houver um erro, você corrige uma vez e vale para todas as chamadas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber criar funções com `def`, passar parâmetros, devolver resultados com `return` e dizer por que usar funções.
+
 ## Dar nome a um conjunto de passos
 
 **Função** é um bloco de código com nome, que só é executado quando alguém o chama. Você já usou duas: `print` e `input`. Agora vai criar as suas.
@@ -103,3 +107,29 @@ O operador `%` dá o **resto da divisão**. Se o resto da divisão por 2 for zer
 ## Próximos passos
 
 Com algoritmos, variáveis, condições, laços e funções, você já conhece a base de toda linguagem de programação. Para continuar, o acervo indica dois livros gratuitos: [Think Python](/acervo/think-python) e [Automate the Boring Stuff with Python](/acervo/automate-the-boring-stuff).
+
+## Exemplo resolvido
+
+**Como criar uma função que calcula a média de dois números?**
+
+```python
+def media(a, b):
+    return (a + b) / 2
+
+resultado = media(7, 9)
+print(resultado)
+```
+
+1. `def media(a, b):` cria a função com dois **parâmetros**.
+2. `return (a + b) / 2` calcula (7 + 9) / 2 = 8 e **devolve** o valor.
+3. `resultado = media(7, 9)` chama a função e guarda o valor.
+4. `print(resultado)` mostra `8.0`.
+
+Confira: `return` entrega o valor para o resto do programa; `print` apenas o mostra na tela. Definir a função não a executa: é preciso chamá-la.
+
+## Resumo
+
+- Função é um bloco com nome, executado quando chamado; já foram usadas `print` e `input`.
+- `def` cria; parâmetros são a entrada; `return` é a saída.
+- `print` mostra para a pessoa; `return` entrega para o programa.
+- Funções evitam repetição, permitem corrigir em um lugar só e organizam o programa.

@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização de pessoas surdas e o bilinguismo com Libras" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-surdas-01
+  tema: "O que é a Libras"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é a Libras, segundo a aula?"
+  alternativas:
+    - texto: "Mímica ou português com as mãos"
+      erro: "A aula diz que não é mímica nem português com as mãos: é uma língua completa."
+    - texto: "Uma língua completa, com gramática própria, que usa mãos, rosto e corpo no espaço"
+      certa: true
+    - texto: "Um código de gestos sem gramática"
+      erro: "A Libras tem gramática própria."
+  explicacao: "A Libras é uma língua com gramática própria, reconhecida pela Lei nº 10.436/2002."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 10.436/2002)"
+  revisao:
+    status: em-revisao
+
+- id: aprof-surdas-02
+  tema: "Segunda língua"
+  dificuldade: 2
+  enunciado: "Por que o português escrito é ensinado à pessoa surda como segunda língua?"
+  alternativas:
+    - texto: "Porque a pessoa surda não consegue aprender a escrever"
+      erro: "Ela aprende, e muda o jeito de ensinar: o português é segunda língua, aprendido pela escrita."
+    - texto: "Porque o português é a língua da casa de todo surdo"
+      erro: "A língua da casa é a Libras. A criança ouvinte já sabe português; a surda, não."
+    - texto: "Porque a língua da pessoa surda é a Libras, e o português ela aprende pelos olhos, na escrita"
+      certa: true
+  explicacao: "A criança ouvinte já fala português ao chegar à escola. A pessoa surda tem a Libras como primeira língua e aprende o português escrito como segunda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-surdas-03
+  tema: "A lei da educação bilíngue"
+  dificuldade: 2
+  enunciado: "Que lei de 2021 incluiu a educação bilíngue de surdos na Lei de Diretrizes e Bases?"
+  alternativas:
+    - texto: "A Lei nº 14.191"
+      certa: true
+    - texto: "A Lei nº 10.436"
+      erro: "A Lei nº 10.436 é de 2002 e reconheceu a Libras. A educação bilíngue entrou em 2021, pela Lei nº 14.191."
+    - texto: "O Decreto nº 5.626"
+      erro: "O Decreto de 2005 regulamentou a lei da Libras. A educação bilíngue entrou pela Lei nº 14.191, de 2021."
+  explicacao: "A Lei nº 14.191, de 2021, incluiu a educação bilíngue de surdos: Libras como primeira língua e português escrito como segunda."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 14.191/2021)"
+  revisao:
+    status: em-revisao

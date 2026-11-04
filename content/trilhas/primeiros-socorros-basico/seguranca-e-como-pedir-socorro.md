@@ -30,7 +30,17 @@ quiz:
     opcoes: ["Não, só de médicos", "Sim: pelo menos pedir socorro, se puder fazer isso sem risco", "Sim: fazer massagem cardíaca de qualquer jeito"]
     resposta: 1
     explicacao: "O artigo 135 do Código Penal pune quem deixa de prestar assistência ou de pedir socorro, quando pode fazê-lo sem risco pessoal. Ligar já é socorrer."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber os três passos de qualquer emergência (proteger-se, avaliar, chamar), qual número ligar (192, 193 ou 190) e o que dizer ao atendente.
+
+```suarealidade
+Você sabe de cabeça os números 192, 193 e 190? Se alguém passasse mal na sua rua agora, quem ligaria, e o que essa pessoa diria sobre o lugar onde vocês estão?
+```
+
+
 
 Esta aula ensina o que fazer nos primeiros minutos. Ela não substitui um curso presencial, em que se treina com as mãos. Procure o Corpo de Bombeiros, a Cruz Vermelha ou a unidade de saúde do seu bairro.
 
@@ -105,3 +115,36 @@ Qual destas informações é a mais importante ao ligar para o 192?
 ## E se eu não souber fazer nada?
 
 Você sabe ligar. A lei brasileira trata como crime a **omissão de socorro**: deixar de ajudar ou de pedir ajuda quando se pode fazer isso sem risco para si. Ninguém é obrigado a se arriscar nem a fazer o que não sabe. Mas chamar o socorro, sinalizar o lugar e ficar ao lado da pessoa está ao alcance de qualquer um, e muitas vezes é o que salva.
+
+## Exemplo resolvido: um acidente de trânsito na esquina
+
+1. **Proteja-se:** pare e olhe em volta. Há carros passando, fio caído, fumaça? Se houver perigo que você não consegue afastar, não entre: ligue e avise do risco.
+2. **Avalie:** se for seguro, toque nos ombros da pessoa e pergunte "Você está me ouvindo?". Se não responde, veja por dez segundos se o peito sobe e desce.
+3. **Chame:** acidente com feridos é caso para o 192 (SAMU); se houver pessoa presa em ferragens, é caso para o 193 (Bombeiros). Na dúvida entre os dois, ligue para qualquer um.
+4. **Diga:** onde você está (rua, número, bairro e ponto de referência), o que aconteceu, quantas pessoas precisam de ajuda, se a pessoa responde e se respira, e o seu nome e telefone. Ponha no viva-voz e não desligue até o atendente mandar.
+5. **Espere:** não dê comida, bebida nem remédio, e não mexa em quem sofreu o acidente, a menos que haja perigo imediato.
+
+Confira: a informação mais importante é o endereço com ponto de referência.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Uma preocupação comum: quem não tem treinamento teme piorar a situação e prefere não se envolver, deixando tudo para os profissionais. Há também o medo de ser responsabilizado se algo der errado.
+---
+Como você responderia, com respeito e com fatos? Pense no que a aula pede de quem não sabe fazer nada.
+---
+Uma resposta possível: o cuidado é razoável, e a própria aula pede para não mexer em quem caiu de altura ou sofreu acidente de trânsito, a não ser que haja perigo imediato. Mas o que ela pede a todos é ligar e dar o endereço, e isso nunca piora a situação. A lei brasileira trata como crime a omissão de socorro: deixar de ajudar ou de pedir ajuda quando se pode fazer isso sem risco para si.
+```
+
+```agir
+# Esta semana
+Escreva num papel o endereço completo da sua casa, com um ponto de referência, e cole perto do telefone ou guarde na carteira. Ensine a uma pessoa da casa os três números (192, 193 e 190) e o que dizer ao atendente.
+```
+
+## Resumo
+
+- Três passos, sempre na mesma ordem: proteja-se, avalie, chame.
+- Proteja-se: trânsito, eletricidade, fogo ou gás, risco de desabamento e agressor por perto. Se não der para afastar o perigo, não entre e avise.
+- Avalie: toque nos ombros e pergunte; veja se respira por dez segundos.
+- 192 (SAMU) para problema grave de saúde; 193 (Bombeiros) para incêndio, afogamento e resgate; 190 (Polícia Militar) para crime. As ligações são gratuitas.
+- Diga o endereço com ponto de referência, o que aconteceu, quantas pessoas, se responde e respira, e seu nome e telefone.
+- Não dê comida, bebida ou remédio, não mexa em vítima de queda ou acidente e não arranque objeto cravado. Omissão de socorro é crime.

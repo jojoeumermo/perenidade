@@ -39,7 +39,9 @@ quiz:
     opcoes: ["M'Banza Congo", "Luanda", "Lisboa"]
     resposta: 0
     explicacao: "O reino foi fundado no século XIV por Nímia Luqueni."
+modelo: 9
 ---
+
 
 ```provocacao
 Nos livros antigos, a história da África começava com os navios negreiros. Mas o que existia lá antes de os europeus chegarem?
@@ -48,6 +50,10 @@ Nos livros antigos, a história da África começava com os navios negreiros. Ma
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer alguns reinos e impérios africanos anteriores ao tráfico atlântico e desmontar a ideia de uma África "sem história".
+
+```suarealidade
+Que imagens da África aparecem mais na TV e nos livros que você conhece: pobreza e guerra, ou reinos, cidades e ciência? Quem você acha que escolhe essas imagens?
+```
 
 ## O Império do Mali
 
@@ -81,6 +87,20 @@ Qual ideia esta aula ajuda a desmontar?
 2. **(b)** 1235.
 3. **(c)** século XIV (cerca de 1312 a 1337).
 4. **(d)** 1670.
+
+```outrolado
+# O argumento de quem duvida dos números e títulos
+"Dizer que Mansa Musa foi o homem mais rico da história é exagero. Não dá para comparar fortuna de séculos tão diferentes, e esse tipo de título é mais propaganda do que história."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A dúvida é razoável: comparar riqueza de épocas diferentes é sempre uma estimativa, e a própria aula diz que foi "um estudo de 2012, atualizando valores", e não uma medida exata. Mas a ideia principal da aula não depende desse número. Ela se apoia em fatos mais simples: o Império do Mali existiu entre 1235 e 1670, a mesquita de Sancoré, em Tombuctu, foi fundada em 989 e o Reino do Congo tinha nove províncias e capital em M'Banza Congo. Isso basta para desmontar a ideia de uma África sem história antes do tráfico.
+```
+
+```agir
+# Esta semana
+Procure num mapa (de papel ou no celular) onde ficam Tombuctu e M'Banza Congo hoje. Depois escreva, em duas linhas, uma coisa que você não sabia sobre a África antes do tráfico e conte para alguém da sua convivência.
+```
 
 ## Resumo
 

@@ -22,7 +22,7 @@ const dataLonga = (iso: string) => {
   return m ? `${m[3]}/${m[2]}/${m[1]}` : "____/____/________";
 };
 
-function Aviso({ children }: { children: React.ReactNode }) {
+export function Aviso({ children }: { children: React.ReactNode }) {
   return (
     <p role="note" className="mb-4 border-2 border-oxblood bg-parchment-deep px-4 py-3 font-sans text-sm">
       <strong>Ferramenta informativa, em revisão.</strong> {children} Nada do que você digita sai do aparelho.
@@ -31,7 +31,7 @@ function Aviso({ children }: { children: React.ReactNode }) {
 }
 
 /** Guarda os campos no aparelho (localStorage, chave "lucia:ferramenta:<nome>"). Lê depois de abrir, para o servidor e o navegador casarem. */
-function usePersistente<T extends object>(nome: string, inicial: T): [T, (v: T) => void, () => void] {
+export function usePersistente<T extends object>(nome: string, inicial: T): [T, (v: T) => void, () => void] {
   const chave = `lucia:ferramenta:${nome}`;
   const [valor, setValor] = useState<T>(inicial);
   useEffect(() => {
@@ -56,7 +56,7 @@ function usePersistente<T extends object>(nome: string, inicial: T): [T, (v: T) 
 }
 
 /** A folha de papel: o texto pronto, com copiar e imprimir. Na impressão só a folha aparece. */
-function Folha({ texto, aviso }: { texto: string; aviso?: string }) {
+export function Folha({ texto, aviso }: { texto: string; aviso?: string }) {
   const [msg, setMsg] = useState("");
   const copiar = async () => {
     try { await navigator.clipboard.writeText(texto); setMsg("Texto copiado."); } catch { setMsg("Não deu para copiar sozinho: selecione o texto e copie."); }
@@ -75,15 +75,15 @@ function Folha({ texto, aviso }: { texto: string; aviso?: string }) {
   );
 }
 
-function Apagar({ onClick }: { onClick: () => void }) {
+export function Apagar({ onClick }: { onClick: () => void }) {
   return <div className="mt-3 font-sans"><BotaoClaro onClick={onClick}>Apagar o que ficou guardado neste aparelho</BotaoClaro></div>;
 }
 
-function Entrada({ rotulo, valor, mudar, tipo = "text", modo, max = 120, dica }: { rotulo: string; valor: string; mudar: (v: string) => void; tipo?: string; modo?: "numeric" | "decimal"; max?: number; dica?: string }) {
+export function Entrada({ rotulo, valor, mudar, tipo = "text", modo, max = 120, dica }: { rotulo: string; valor: string; mudar: (v: string) => void; tipo?: string; modo?: "numeric" | "decimal"; max?: number; dica?: string }) {
   return <label className="block text-sm font-semibold">{rotulo}<input type={tipo} value={valor} onChange={(e) => mudar(e.target.value.slice(0, max))} inputMode={modo} placeholder={dica} className={campo} /></label>;
 }
 
-function Texto({ rotulo, valor, mudar, linhasN = 3, dica }: { rotulo: string; valor: string; mudar: (v: string) => void; linhasN?: number; dica?: string }) {
+export function Texto({ rotulo, valor, mudar, linhasN = 3, dica }: { rotulo: string; valor: string; mudar: (v: string) => void; linhasN?: number; dica?: string }) {
   return <label className="block text-sm font-semibold">{rotulo}<textarea value={valor} onChange={(e) => mudar(e.target.value.slice(0, 2000))} rows={linhasN} placeholder={dica} className={campo} /></label>;
 }
 

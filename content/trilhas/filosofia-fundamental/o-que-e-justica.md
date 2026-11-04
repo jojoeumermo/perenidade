@@ -26,6 +26,7 @@ quiz:
     opcoes: ["Justiça como equidade e justiça como bem-estar", "Justiça antiga e justiça futura", "Justiça dos ricos e dos pobres"]
     resposta: 0
     explicacao: "Cada corrente tem várias teorias diferentes."
+modelo: 9
 ---
 
 ```provocacao
@@ -35,6 +36,10 @@ Uma professora dá a mesma prova, no mesmo tempo, para um aluno que enxerga e pa
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer algumas das principais ideias sobre o que é justiça.
+
+```suarealidade
+Pense numa situação do seu trabalho, da sua escola ou do seu bairro que você achou injusta. O que teria sido justo nela?
+```
 
 ## Igualdade proporcional
 
@@ -71,6 +76,20 @@ Segundo a ideia de igualdade proporcional, dar mais tempo de prova a um aluno ce
 2. Tratar **igualmente** quem está em situação **desigual** manteria a desigualdade.
 3. Reservar vagas é tratar **desigualmente os desiguais**, **na medida** da desigualdade.
 4. Para a ideia de igualdade proporcional, isso é **justo**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Justiça é tratar todo mundo igual. Dar vantagem a alguns, mesmo com boa intenção, é injustiça com os outros".
+---
+Como você responderia, sem desprezar o valor da igualdade?
+---
+Uma resposta possível: a igualdade de tratamento importa, e é um valor central. A aula traz a resposta de Aristóteles: justiça é igualdade proporcional, tratar igualmente os iguais e desigualmente os desiguais, na proporção da desigualdade. Dar mais tempo de prova a um aluno cego não tira nada dos outros: corrige uma desigualdade de partida. O debate sobre onde está a medida continua, e a aula diz isso.
+```
+
+```agir
+# Esta semana
+Escreva duas situações em que tratar todos exatamente igual seria injusto e uma em que dar tratamento diferente seria injusto. Compartilhe a lista com uma pessoa de confiança e escute a opinião dela.
+```
 
 ## Resumo
 

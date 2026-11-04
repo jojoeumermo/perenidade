@@ -31,6 +31,9 @@ quiz:
     resposta: 1
     explicacao: "Ele chamou essa política de 'miséria planificada'. Foi morto pela ditadura no dia seguinte ao envio da carta."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o projeto econômico das ditaduras do Brasil, do Chile, da Argentina e do Uruguai e o que elas têm em comum, e quem pagou a conta.
 
 Entre 1964 e 1976, quatro países do sul da América do Sul caíram sob ditaduras militares: **Brasil** (1964), **Uruguai** e **Chile** (1973) e **Argentina** (1976). Costuma-se contar essa história pela repressão: prisões, tortura, desaparecimentos. Esta aula olha para outro lado da mesma moeda: o **projeto econômico**.
 
@@ -78,3 +81,24 @@ As quatro ditaduras não foram iguais. A brasileira manteve empresas estatais e 
 ## Para pesquisar e debater
 
 Converse com alguém que trabalhava nos anos 1970. O que essa pessoa lembra sobre salários, greves e sindicatos naquela época?
+
+## Exemplo resolvido
+
+**Por que a repressão aos sindicatos era necessária para os planos econômicos das ditaduras? Siga o caso brasileiro.**
+
+1. **O plano.** Depois de 1964, os reajustes passaram a ser calculados por uma fórmula oficial abaixo da inflação: o arrocho salarial.
+2. **O obstáculo.** Salários só cairiam sem resistência se os trabalhadores não pudessem se organizar.
+3. **A repressão.** Sindicatos sofreram intervenção, dirigentes foram presos e a lei de greve de 1964 tornou as paralisações quase impossíveis.
+4. **Outras medidas.** Em 1966, o FGTS substituiu a estabilidade no emprego conquistada depois de dez anos na mesma empresa, o que tornou demitir mais fácil e mais barato.
+5. **Conclua.** O plano reduzia salários e direitos, e só seria aceito sem resistência organizada.
+
+Confira: entre 1968 e 1973 a economia cresceu perto de 10% ao ano (o "milagre"), com aumento da concentração de renda nos censos de 1960 e 1970.
+
+## Resumo
+
+- Quatro ditaduras no Cone Sul: Brasil (1964), Uruguai e Chile (1973) e Argentina (1976).
+- **Brasil:** arrocho salarial, intervenção em sindicatos, FGTS (1966), "milagre" (1968-1973) com concentração de renda e dívida externa.
+- **Chile:** Chicago Boys, privatizações, abertura e, em 1980, previdência por contas individuais.
+- **Argentina:** abertura às importações e ao capital financeiro, fábricas fechadas e dívida externa multiplicada por mais de cinco (1976-1983).
+- Em comum: redução de salários, desmonte de sindicatos, abertura ao capital estrangeiro, endividamento e repressão contra operários, camponeses e sindicalistas.
+- As ditaduras não foram iguais: a brasileira manteve estatais e indústria pesada; o que as aproxima é quem pagou a conta.

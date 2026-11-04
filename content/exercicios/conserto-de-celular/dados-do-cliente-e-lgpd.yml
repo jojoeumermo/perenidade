@@ -1,0 +1,51 @@
+# Exercícios da aula "Dados do cliente e LGPD" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-lgpd-01
+  tema: "Princípio da necessidade"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Para trocar a tela de um celular, o técnico pode abrir a galeria de fotos do cliente?"
+  alternativas:
+    - texto: "Sim, para testar a câmera"
+      erro: "A aula diz que, para trocar a tela, não é preciso abrir galeria nem conversas."
+    - texto: "Sim, se o cliente não estiver olhando"
+      erro: "O uso deve ser o mínimo necessário e com finalidade combinada."
+    - texto: "Não: pelo princípio da necessidade, usa-se o mínimo"
+      certa: true
+  explicacao: "Finalidade: usar os dados só para consertar o aparelho."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 13.709/2018, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: cel-lgpd-02
+  tema: "Quem a LGPD alcança"
+  dificuldade: 1
+  enunciado: "A LGPD vale para uma assistência de celular pequena?"
+  alternativas:
+    - texto: "Sim: vale para quem lida com dados de outras pessoas, mesmo pequena"
+      certa: true
+    - texto: "Não, só vale para grandes empresas"
+      erro: "A aula diz que vale inclusive para a assistência pequena."
+    - texto: "Só se tiver CNPJ"
+      erro: "Vale para quem lida com dados de outras pessoas."
+  explicacao: "A Lei nº 13.709/2018 vale para quem lida com dados de outras pessoas."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 13.709/2018, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: cel-lgpd-03
+  tema: "O que o celular guarda"
+  dificuldade: 1
+  enunciado: "O que a aula diz que um celular guarda?"
+  alternativas:
+    - texto: "Só o número do telefone"
+      erro: "O celular guarda a vida inteira da pessoa."
+    - texto: "Fotos, vídeos, conversas, contatos, e-mails, localização, aplicativo de banco, documentos e senhas"
+      certa: true
+    - texto: "Só jogos e aplicativos"
+      erro: "Há fotos, conversas, contatos, banco, documentos e senhas."
+  explicacao: "Parte é dado sensível: saúde, religião, vida íntima, opinião política."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

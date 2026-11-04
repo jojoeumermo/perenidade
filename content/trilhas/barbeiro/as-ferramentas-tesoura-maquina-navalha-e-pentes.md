@@ -1,5 +1,6 @@
 ---
 titulo: "As ferramentas: tesoura, máquina, navalha e pentes"
+modelo: 9
 resumo: "Como funciona a máquina de cortar cabelo, para que servem a alavanca, os pentes de altura e o acabador, os tipos de tesoura, a navalha de lâmina descartável e os pentes, e como cuidar de cada ferramenta."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Há quatrocentos anos, os barbeiros do Brasil trabalhavam com navalha, pente, te
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender como funciona a máquina, para que servem a alavanca, os pentes de altura e o acabador, conhecer as tesouras, a navalha e os pentes e cuidar de cada ferramenta.
+
+```suarealidade
+Se você já foi a uma barbearia ou cortou cabelo em casa: que ferramentas reparou? Alguma você não sabia para que servia?
+```
 
 ## Um ofício antigo
 
@@ -136,4 +141,18 @@ Quais ferramentas você já tem? Qual é a altura real de cada pente de altura q
 ```leve
 - Mostre a quem está começando como limpar e lubrificar as lâminas da máquina.
 - Conte a alguém a história do cilindro de barbeiro, branco e vermelho.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Navalha é risco desnecessário. Com máquina e acabador dá para fazer todo o acabamento, e trocar a lâmina a cada cliente é gasto à toa."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A máquina e o acabador resolvem muito, e o acabador existe justamente para os contornos. A navalha faz o acabamento mais rente e a barba. Por preocupação com a saúde, alguns lugares exigem navalha com lâmina descartável ou trocável, e a regra prática da aula é lâmina nova para cada cliente: é isso que protege o cliente e quem trabalha. Quem não quiser usar navalha pode ficar com máquina e acabador, desde que saiba o que cada ferramenta faz.
+```
+
+```agir
+# Esta semana
+Num papel, faça a sua tabela de trabalho: para cada pente de altura que você usa, a numeração marcada e a altura real conferida no manual do fabricante. Se não tem máquina, liste as ferramentas desta aula e escreva, ao lado de cada uma, para que serve. Não fotografe nem grave ninguém.
 ```

@@ -33,6 +33,7 @@ quiz:
     opcoes: ["A Declaração Universal dos Direitos Humanos", "O Manifesto Comunista", "A Bíblia"]
     resposta: 0
     explicacao: "Em 2018, havia 525 traduções."
+modelo: 9
 ---
 
 ```provocacao
@@ -42,6 +43,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer a Declaração Universal dos Direitos Humanos, a sua origem e a sua relação com a Constituição brasileira.
+
+```suarealidade
+Você já ouviu "direitos humanos é para defender bandido"? Quem disse, em que situação, e o que você respondeu (ou gostaria de ter respondido)?
+```
 
 ## A origem
 
@@ -82,6 +87,20 @@ Por que os direitos civis e os direitos econômicos e sociais aparecem em pactos
 2. Ela inclui direitos como **saúde**, **educação** e **trabalho**, que beneficiam a maioria da população.
 3. Garantir que ninguém seja **torturado** ou condenado sem **julgamento** protege também **inocentes** de abusos.
 4. **Conclusão**: a frase confunde a defesa de direitos de todos com a defesa de crimes.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Uma crítica que se ouve com frequência é que o discurso dos direitos humanos parece proteger só quem cometeu o crime, e esquece as vítimas e as famílias. Quem pensa assim espera do Estado o mesmo cuidado com quem sofreu a violência.
+---
+Como você responderia, com respeito e com fatos? Releia o que a Declaração diz sobre a vida, a liberdade e a segurança de toda pessoa.
+---
+Uma resposta possível: a cobrança por mais cuidado com as vítimas é justa, e ela também é um direito humano: o art. 3º da Declaração garante a todo ser humano o direito à vida, à liberdade e à segurança pessoal. Os direitos humanos são de toda pessoa, inclusive das vítimas e dos inocentes que, sem a proibição da tortura e sem o julgamento, ficariam sem defesa contra abusos.
+```
+
+```agir
+# Esta semana
+Converse com uma pessoa sobre o que ela entende por direitos humanos. Mostre o art. 3º da Declaração (vida, liberdade e segurança pessoal) e anote num papel, sem nomes, se a conversa mudou alguma ideia sua ou dela.
+```
 
 ## Resumo
 

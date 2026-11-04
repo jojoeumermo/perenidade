@@ -42,6 +42,11 @@ quiz:
 Uma dona de padaria com três funcionários e um entregador de aplicativo ganham parecido no fim do mês. Eles estão na mesma classe?
 ```
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é classe social para Marx (lugar na produção, não faixa de renda), diferenciar classe em si de classe para si e reconhecer o que dificulta a consciência de classe.
+
+
 "Classe social" costuma aparecer como faixa de renda: classe A, B, C, D, E. Essa divisão serve para pesquisa de mercado, mas esconde a pergunta mais importante: **de onde vem o dinheiro de cada um, e quem manda em quem?**
 
 ## Classe é lugar na produção
@@ -98,3 +103,22 @@ Uma pergunta simples ajuda: **você vive do próprio trabalho ou do trabalho dos
 - O que faz um trabalhador se sentir mais perto do patrão do que dos colegas?
 - Que experiência comum do seu bairro ou trabalho poderia juntar as pessoas?
 ```
+
+## Exemplo resolvido: de que lado está cada um?
+
+Pergunta da aula: a dona de uma padaria com três funcionários e um entregador de aplicativo ganham parecido no fim do mês. Estão na mesma classe?
+
+1. Esqueça a faixa de renda e faça a pergunta central: de onde vem o ganho de cada um?
+2. A dona da padaria é dona de um meio de produção (a padaria) e emprega outras pessoas.
+3. O entregador não é dono da plataforma, não decide o preço da corrida nem escolhe os clientes e pode ser desligado sem explicação: vende a sua força de trabalho em troca de pagamento por tarefa.
+4. Conclusão: a renda é parecida, mas o lugar na produção é diferente.
+
+Confira: por isso a aula diz que a renda engana. Um professor bem pago e uma diarista mal paga ganham muito diferente, mas os dois vivem do próprio trabalho.
+
+## Resumo
+
+- Para Marx, classe é o lugar que se ocupa na produção: dono dos meios de produção ou quem precisa vender a sua força de trabalho.
+- A renda engana: classe não é faixa de renda.
+- Classe em si: vive a mesma situação, mas ainda não se vê como grupo; classe para si: se reconhece e age em conjunto. O caminho é a consciência de classe.
+- O que atrapalha: o mérito individual, as divisões, a esperança de subir sozinho e a falta de tempo.
+- Pergunta-guia: você vive do próprio trabalho ou do trabalho dos outros?

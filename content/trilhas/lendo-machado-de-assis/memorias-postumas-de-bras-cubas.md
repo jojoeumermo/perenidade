@@ -29,6 +29,10 @@ quiz:
     explicacao: "Prudêncio, que foi 'cavalo' de Brás na infância, depois de liberto compra um escravizado e o espanca."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar quem é Brás Cubas, o que é um "defunto autor" e como o romance critica a classe a que ele pertence.
+
 ## Um defunto que escreve
 
 O livro começa com uma **dedicatória** que já anuncia o tom:
@@ -74,9 +78,27 @@ O último capítulo, "Das negativas", faz o balanço da vida e termina assim:
 
 > *Não tive filhos, não transmiti a nenhuma criatura o legado da nossa miséria.*
 
+## Exemplo resolvido
+
+**Por que a dedicatória "Ao verme que primeiro roeu as frias carnes do meu cadáver" já anuncia o tom do livro?**
+
+1. Quem fala é Brás Cubas, que se diz **defunto autor**: um morto que resolveu escrever, e não um autor que morreu.
+2. A dedicatória vai a um **verme**, e não a um mecenas ou a um amigo: o tom é de ironia e de humor negro.
+3. Como já não tem nada a perder, ele conta a própria vida com uma franqueza que os vivos não se permitem.
+4. O balanço final da vida: não se casou, não teve filhos, não chegou a ministro, não lançou o emplasto.
+
+Confira: o romance saiu em folhetim em 1880 e em livro em 1881, e é apontado como o marco inicial do Realismo no Brasil.
+
 ## Para praticar
 
 1. Leia a dedicatória e os três primeiros capítulos no [acervo](/acervo/memorias-postumas-de-bras-cubas). O que surpreende?
 2. Escolha uma digressão do narrador e explique o que ela acrescenta à história.
 3. Releia o capítulo "O vergalho" e escreva um parágrafo sobre o que ele revela.
 4. Discuta: em que sentido o "nada" que Brás realizou é uma crítica à classe a que ele pertence?
+
+## Resumo
+
+- Brás Cubas, homem rico do Rio de Janeiro, narra a vida depois de morto: o "defunto autor".
+- O romance saiu em folhetim em 1880 e em livro em 1881; é marco do Realismo no Brasil.
+- O narrador conversa com o leitor e mostra a elite escravista, volúvel e egoísta.
+- Brás não realiza nada importante; o "nada" é uma crítica à sua classe.

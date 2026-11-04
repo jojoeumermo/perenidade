@@ -39,6 +39,11 @@ quiz:
     explicacao: "Ele escreveu: 'E foi, na significação integral da palavra, um crime. Denunciemo-lo.'"
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar a história de Canudos, quem era Antônio Conselheiro e por que a comunidade de Belo Monte foi destruída.
+
 ## O sertão de quem não tinha nada
 
 No fim do século XIX, o sertão da Bahia era terra de **latifúndio**. Poucas famílias eram donas de quase tudo, e a maioria da população vivia como agregada, vaqueira ou trabalhadora de enxada nas terras dos outros. A grande seca de 1877–1879 tinha matado centenas de milhares de pessoas no Nordeste e espalhado retirantes por toda a região. Em 1888, a abolição libertou os escravizados sem lhes dar um palmo de terra.
@@ -121,3 +126,10 @@ Canudos não foi um caso isolado. Poucos anos depois, entre 1912 e 1916, campone
 1. Os jornais da época chamaram os moradores de Belo Monte de fanáticos e monarquistas. Hoje, que palavras são usadas para desqualificar movimentos de pobres que ocupam terra?
 2. Por que uma comunidade que vivia da própria roça, no meio do sertão, parecia tão perigosa?
 3. Compare Canudos com [Palmares](/trilhas/lutas-do-povo/palmares-e-os-quilombos). O que há de parecido entre as duas histórias, e o que há de diferente?
+
+## Resumo
+
+- No sertão da Bahia, no fim do século XIX, poucas famílias eram donas de quase tudo; a seca de 1877–1879 e a abolição sem terra (1888) deixaram o povo sem chão.
+- Antônio Conselheiro (nascido em 1830, em Quixeramobim, Ceará) percorreu o sertão com seguidores, rezando e organizando mutirões.
+- A comunidade de Belo Monte viveu da própria roça e sofreu quatro expedições militares.
+- Euclides da Cunha, em *Os sertões*, registrou a campanha; a imprensa da época chamou os moradores de fanáticos.

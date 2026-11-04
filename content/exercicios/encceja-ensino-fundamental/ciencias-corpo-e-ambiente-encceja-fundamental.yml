@@ -1,0 +1,51 @@
+# Exercícios da aula "Ciências: corpo humano, saúde e ambiente" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-corpo-01
+  tema: "Sistemas do corpo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual sistema do corpo leva o ar para os pulmões, onde o oxigênio passa para o sangue?"
+  alternativas:
+    - texto: "Digestório"
+      erro: "O digestório cuida do alimento (boca, estômago, intestinos). O ar passa pelo sistema respiratório."
+    - texto: "Respiratório"
+      certa: true
+    - texto: "Urinário"
+      erro: "O urinário filtra o sangue nos rins e elimina a urina. Não leva ar."
+  explicacao: "O sistema respiratório leva o ar aos pulmões, onde o oxigênio passa para o sangue."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-corpo-02
+  tema: "Dengue"
+  dificuldade: 1
+  enunciado: "Qual ação ajuda a evitar a dengue em casa?"
+  alternativas:
+    - texto: "Guardar pneus velhos ao ar livre, para usar depois"
+      erro: "Pneu com água de chuva vira criadouro do mosquito. Guarde coberto ou com a boca para baixo."
+    - texto: "Tampar a caixa d'água e tirar a água parada de vasos e baldes"
+      certa: true
+    - texto: "Fechar as janelas só de manhã"
+      erro: "O mosquito se cria em água parada, e não por causa das janelas abertas. O cuidado é eliminar os criadouros."
+  explicacao: "O Aedes aegypti põe ovos em água parada. Sem água parada, ele não se reproduz."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-corpo-03
+  tema: "Saúde pública"
+  dificuldade: 2
+  enunciado: "Segundo a Lei 8.080/1990, que organiza o SUS, o acesso à saúde é:"
+  alternativas:
+    - texto: "Um favor, para quem paga plano"
+      erro: "A lei trata a saúde como direito, e não como favor. O SUS é para todos."
+    - texto: "Um direito, com acesso universal e igualitário"
+      certa: true
+    - texto: "Um serviço só para quem mora na capital"
+      erro: "O SUS atende em todo o território. Não depende do lugar onde a pessoa mora."
+  explicacao: "A Lei 8.080/1990 define a saúde como direito, com acesso universal (de todos) e igualitário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

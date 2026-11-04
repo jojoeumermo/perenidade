@@ -1,0 +1,51 @@
+# Exercícios da aula "Paulo Freire na África: a experiência da Guiné-Bissau" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-guine-01
+  tema: "O contexto"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quem fundou o PAIGC, que conduziu a luta pela independência da Guiné-Bissau?"
+  alternativas:
+    - texto: "Paulo Freire"
+      erro: "Freire foi educador e colaborou depois da independência. O PAIGC foi fundado por Amílcar Cabral."
+    - texto: "Amílcar Cabral"
+      certa: true
+    - texto: "Fernando Cardenal"
+      erro: "Cardenal coordenou a campanha da Nicarágua."
+  explicacao: "O PAIGC foi fundado por Amílcar Cabral, assassinado em janeiro de 1973."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-guine-02
+  tema: "O exílio de Freire"
+  dificuldade: 1
+  enunciado: "Por que Paulo Freire foi para o exílio?"
+  alternativas:
+    - texto: "Por causa da Revolução dos Cravos"
+      erro: "A Revolução dos Cravos foi em Portugal, em 1974. O exílio de Freire veio do golpe de 1964."
+    - texto: "Para fugir da seca no Nordeste"
+      erro: "O exílio foi consequência do golpe de 1964."
+    - texto: "Por causa do golpe de 1964 no Brasil"
+      certa: true
+  explicacao: "Depois do golpe de 1964, Freire viveu no Chile, nos Estados Unidos e na Suíça."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-guine-03
+  tema: "A questão da língua"
+  dificuldade: 2
+  enunciado: "Qual língua era a mais usada na Guiné-Bissau para a comunicação entre os povos, segundo a aula?"
+  alternativas:
+    - texto: "O crioulo"
+      certa: true
+    - texto: "O português"
+      erro: "O português era a língua do colonizador e do governo, usada por poucos."
+    - texto: "O francês"
+      erro: "A aula fala do crioulo como a língua mais usada entre os povos."
+  explicacao: "A língua mais usada entre os povos era o crioulo; o português era a língua do colonizador. Freire depois apontou a língua como problema central."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

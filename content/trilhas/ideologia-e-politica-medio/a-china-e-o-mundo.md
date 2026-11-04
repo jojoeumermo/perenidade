@@ -28,6 +28,10 @@ quiz:
     resposta: 0
     explicacao: "A China é o maior parceiro comercial do Brasil desde 2009."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber citar os princípios da política externa chinesa nos documentos oficiais, situar os marcos de 1954, 1971 e 1978, explicar os debates entre defensores e críticos e analisar a relação da China com o Brasil.
+
 
 A disciplina de Ideologia e Política ensina aos estudantes chineses como o país vê o seu lugar no mundo. Esta aula apresenta os princípios da política externa chinesa, como aparecem nos documentos oficiais, e os principais debates sobre eles, inclusive do ponto de vista brasileiro.
 
@@ -79,3 +83,24 @@ A pergunta para o Brasil é: como aproveitar essa relação sem aprofundar a dep
 ## Para conversar
 
 Pesquise o que a sua região exporta e para onde. A China aparece entre os principais compradores? O que isso significa para os trabalhadores da região?
+
+## Exemplo resolvido
+
+**Como ler dois lados de um mesmo fato: a Iniciativa Cinturão e Rota, lançada em 2013?**
+
+1. **Anote o fato verificável.** A iniciativa foi lançada em 2013 e se apresenta como investimento em portos, ferrovias, estradas e energia.
+2. **Anote a leitura dos defensores** (como a aula expõe): é uma alternativa ao domínio dos Estados Unidos e das instituições controladas pelo Ocidente, e financia infraestrutura sem impor as condicionalidades do FMI.
+3. **Anote a leitura dos críticos:** o risco de endividamento de países pobres, a busca de matérias-primas e as tensões territoriais no Mar do Sul da China.
+4. **Separe fato, discurso e avaliação.** A data e o tipo de investimento são fatos. "Cooperação multipolar" é o discurso oficial. "Armadilha de dívida" é uma avaliação crítica. Nenhuma das duas avaliações é um dado: cada uma precisa de evidência.
+5. **Aplique ao Brasil.** A China é o maior parceiro comercial desde 2009. O Brasil exporta soja, minério de ferro, petróleo e carnes e importa manufaturas e eletrônicos. Para muitos economistas, esse padrão repete a velha divisão em que o Brasil vende produto primário e compra produto industrial.
+
+Exercício final: onde a sua região se encaixa nessa troca?
+
+## Resumo
+
+- A disciplina de Ideologia e Política ensina como o país vê seu lugar no mundo; a aula apresenta os princípios da política externa chinesa nos documentos oficiais e os debates sobre eles.
+- Em 1954, China, Índia e Mianmar formularam os Cinco Princípios de Coexistência Pacífica (respeito mútuo à soberania, não agressão, não interferência, igualdade e benefício mútuo, coexistência pacífica).
+- Em 1971, a China assumiu a cadeira na ONU; a partir de 1978, a política externa priorizou o desenvolvimento econômico.
+- Temas atuais: a "comunidade de futuro compartilhado" e a Iniciativa Cinturão e Rota (2013).
+- Defensores veem uma alternativa ao domínio dos Estados Unidos; críticos apontam endividamento, busca de matérias-primas e tensões territoriais.
+- A China é o maior parceiro comercial do Brasil desde 2009.

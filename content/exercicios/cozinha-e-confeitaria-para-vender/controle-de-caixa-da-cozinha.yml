@@ -1,0 +1,57 @@
+# Exercícios da aula "Controle de caixa da cozinha" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: coz-caixa-01
+  tipo: numero
+  tema: "Resultado do mês"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em um mês entraram R$ 2.800 em vendas e saíram R$ 1.650 em ingredientes, embalagem e gás. Qual foi o resultado, em reais?"
+  resposta: "1150"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "4450"
+      explicacao: "Você somou entradas e saídas. O resultado é o que entrou menos o que saiu."
+    - resposta: "1650"
+      explicacao: "Esse é o total das saídas. O resultado é entradas menos saídas."
+  dica: "Resultado = entradas − saídas."
+  explicacao: "2.800 − 1.650 = 1.150 reais."
+  conferir: "2800 - 1650"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-caixa-02
+  tema: "Separar casa e negócio"
+  dificuldade: 1
+  enunciado: "Por que separar o dinheiro da casa do dinheiro do negócio?"
+  alternativas:
+    - texto: "Para saber quanto o negócio rende de verdade e não gastar o dinheiro dos ingredientes"
+      certa: true
+    - texto: "Para pagar mais imposto"
+      erro: "Separar não aumenta imposto. O objetivo é enxergar o resultado real do negócio."
+    - texto: "Não há motivo, é só burocracia"
+      erro: "Sem separar, o dinheiro de repor ingredientes pode ir para as despesas da casa e o negócio parece lucrar mais do que lucra."
+  explicacao: "A separação mostra o resultado real e protege o dinheiro de repor o material."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-caixa-03
+  tipo: numero
+  tema: "Reserva"
+  dificuldade: 2
+  enunciado: "Você vendeu R$ 3.000 no mês e quer guardar 10% das vendas como reserva. Quanto é a reserva, em reais?"
+  resposta: "300"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "30"
+      explicacao: "Você calculou 1% (3.000 × 0,01). 10% é a décima parte: divida por 10."
+    - resposta: "2700"
+      explicacao: "Esse é o valor que sobra depois de tirar a reserva. A pergunta é quanto vai para a reserva."
+  dica: "10% é dividir por 10."
+  explicacao: "3.000 ÷ 10 = 300 reais."
+  conferir: "3000 * 0.1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

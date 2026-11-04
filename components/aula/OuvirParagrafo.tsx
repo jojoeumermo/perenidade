@@ -11,6 +11,8 @@ const nada = () => () => {};
 interface Ponto {
   n: string;
   onde: HTMLElement;
+  /** O seletor do que este botão lê. */
+  alvo: string;
 }
 
 /** O alto-falante em traço, no estilo dos ícones de components/celular/Atalhos.tsx. */
@@ -42,12 +44,26 @@ export function OuvirParagrafo({ raiz, s }: { raiz: string; s: TextosDaAula["ouv
       onde.className = "ouvir-paragrafo no-print no-leitor";
       onde.setAttribute("data-ouvir", "");
       p.parentElement?.insertBefore(onde, p);
-      criados.push({ n: p.getAttribute("data-p") ?? "", onde });
+      const n = p.getAttribute("data-p") ?? "";
+      criados.push({ n, onde, alvo: `${raiz} p[data-p="${n}"]` });
     }
+    // Os blocos da aula (Na sua realidade, Agir, Outro lado...) também têm instrução: o botão lê o bloco inteiro, menos o
+    // que é campo e botão (o leitor pula). Etapa 3: alfabetização com áudio de cada instrução.
+    const blocos = [...document.querySelectorAll<HTMLElement>(`${raiz} aside.bloco`)];
+    blocos.forEach((bloco, i) => {
+      if (!(bloco.textContent ?? "").trim()) return;
+      bloco.setAttribute("data-ouvir-bloco", String(i));
+      const onde = document.createElement("div");
+      onde.className = "ouvir-paragrafo no-print no-leitor";
+      onde.setAttribute("data-ouvir", "");
+      bloco.parentElement?.insertBefore(onde, bloco);
+      criados.push({ n: `bloco-${i}`, onde, alvo: `${raiz} aside.bloco[data-ouvir-bloco="${i}"]` });
+    });
     // eslint-disable-next-line react-hooks/set-state-in-effect -- os parágrafos só existem depois que o texto está na tela
     setPontos(criados);
     return () => {
       for (const c of criados) c.onde.remove();
+      for (const bloco of blocos) bloco.removeAttribute("data-ouvir-bloco");
     };
   }, [raiz, pode]);
 
@@ -72,7 +88,7 @@ export function OuvirParagrafo({ raiz, s }: { raiz: string; s: TextosDaAula["ouv
                 return;
               }
               window.getSelection()?.removeAllRanges();
-              startReading([`${raiz} p[data-p="${ponto.n}"]`]);
+              startReading([ponto.alvo]);
               setLendo(ponto.n);
             }}
           >

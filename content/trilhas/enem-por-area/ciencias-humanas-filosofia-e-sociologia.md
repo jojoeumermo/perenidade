@@ -27,6 +27,11 @@ quiz:
     explicacao: "Muitas respostas estão no próprio trecho."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como filosofia e sociologia costumam cair no ENEM, que autores e conceitos se repetem e como treinar a leitura de trechos curtos.
+
+
 ## Filosofia
 
 As questões costumam trazer um **trecho** de um filósofo e pedir a **ideia central** ou a relação com um problema. Ler bem o trecho é metade do caminho.
@@ -67,9 +72,26 @@ Uma questão traz um trecho sobre trabalhadores que não se reconhecem no produt
 3. Relacione os conceitos com **situações do presente**.
 4. Resolva questões anteriores: muitas repetem autores e temas.
 
+## Exemplo resolvido
+
+**Uma questão traz um trecho sobre trabalhadores que não se reconhecem no produto que fabricam e não controlam o próprio trabalho. A que conceito ela se refere?**
+
+1. **Leia o trecho e ache a ideia central:** o trabalhador não se reconhece no próprio trabalho.
+2. **Procure no quadro de autores:** entre os conceitos de Marx estão classes sociais, luta de classes, mais-valia, **alienação** e ideologia.
+3. **Compare com os outros:** *fato social* é conceito de Durkheim; *dúvida metódica* é de Descartes. Nenhum fala do trabalhador separado do que produz.
+4. **Resposta:** alienação, em Marx.
+
+Confira: a pergunta é resolvida pelo texto do trecho, e não por decorar o nome do autor.
+
 ## Para praticar
 
 1. Monte o seu quadro de filósofos e sociólogos com uma frase sobre cada um.
 2. Leia a alegoria da caverna, de Platão, em uma versão resumida, e explique-a com as suas palavras.
 3. Explique a diferença entre os tipos de solidariedade de Durkheim.
 4. Resolva 10 questões de filosofia e sociologia de provas anteriores.
+
+## Resumo
+
+- Em filosofia, a questão traz um **trecho** de um filósofo e pede a ideia central ou a relação com um problema: ler bem é metade do caminho.
+- Em sociologia, os autores que mais aparecem: **Marx** (classes, luta de classes, mais-valia, alienação, ideologia), **Durkheim** (fato social, solidariedade, anomia) e **Weber** (ação social, dominação).
+- Para estudar: monte um quadro de autor, época e conceitos; treine dizer a ideia central de trechos em uma frase; relacione com o presente; resolva questões anteriores.

@@ -29,9 +29,19 @@ quiz:
     opcoes: ["Voy estudiar mañana.", "Voy a estudiar mañana.", "Vo estudiar mañana."]
     resposta: 1
     explicacao: "O futuro próximo se faz com ir + a + infinitivo. O a não pode faltar."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber conjugar os verbos regulares no presente, reconhecer os que mudam a vogal ou ganham um -go na primeira pessoa, e falar do futuro próximo com ir a + infinitivo.
+
+
 O presente do indicativo é o tempo do dia a dia: o que você faz, onde mora, do que gosta. Em espanhol, como em português, ele também serve para falar do futuro próximo ("amanhã eu trabalho"). A notícia boa é que as terminações são muito parecidas com as nossas.
+
+```suarealidade
+Que verbos você mais usa em um dia comum de trabalho, de casa ou de estudo? Quais deles você gostaria de dizer em espanhol primeiro?
+```
 
 ## Os pronomes
 
@@ -134,6 +144,31 @@ Para obrigação, a estrutura é a mesma do português:
 
 Encontre no texto: três verbos regulares, dois que mudam a vogal e três irregulares.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Conjugar verbo é decoreba chata. É melhor aprender frases prontas e deixar a gramática de lado".
+---
+Como você responderia?
+---
+Uma resposta possível: frases prontas ajudam no começo, e a aula usa várias. Mas o verbo muda o tempo todo, e a lógica ajuda a lembrar: o nosotros nunca muda a vogal (queremos, podemos), e há só três grupos (-ar, -er, -ir). Entender o padrão poupa decorar cada forma.
+```
+
+## Exemplo resolvido
+
+**Como dizer "Eu quero estudar, mas tenho que trabalhar no sábado; amanhã vou dormir cedo"?**
+
+1. **"Eu quero"**: *querer* muda e para ie: *quiero*.
+2. **"Estudar"**: fica no infinitivo: *quiero estudiar*.
+3. **"Tenho que trabalhar"**: *tener que* + infinitivo, com *tengo*: *tengo que trabajar el sábado*.
+4. **"Vou dormir"**: *ir a* + infinitivo, e não esqueça o *a*: *voy a dormir*.
+
+Frase pronta: *Quiero estudiar, pero tengo que trabajar el sábado. Mañana voy a dormir temprano.*
+
+```agir
+# Esta semana
+Escreva cinco frases em espanhol sobre a sua semana, com pelo menos um verbo de cada tipo: regular, que muda a vogal e com -go (por exemplo trabajo, quiero, tengo). Leia em voz alta.
+```
+
 ## Para praticar
 
 1. Conjugue no presente, para *yo* e *nosotros*: *trabajar, vivir, querer, dormir, tener, hacer.*
@@ -141,3 +176,10 @@ Encontre no texto: três verbos regulares, dois que mudam a vogal e três irregu
 3. Escreva três planos para o fim de semana com *voy a…*
 
 Respostas do 1: *trabajo / trabajamos; vivo / vivimos; quiero / queremos; duermo / dormimos; tengo / tenemos; hago / hacemos.*
+
+## Resumo
+
+- Três grupos de verbos regulares: **-ar** (hablar), **-er** (comer) e **-ir** (vivir).
+- Muitos verbos mudam a vogal, menos em *nosotros* e *vosotros*: *quiero* e *queremos*, *puedo* e *podemos*, *pido* e *pedimos*.
+- Alguns ganham -go na primeira pessoa: *tengo, vengo, digo, hago, pongo, salgo*. O verbo **ir** é todo irregular: *voy, vas, va...*.
+- Futuro próximo: **ir a** + infinitivo (*voy a estudiar*); obrigação: **tener que** (*tengo que trabajar*).

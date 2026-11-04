@@ -26,6 +26,11 @@ quiz:
     explicacao: "A margem diminui com a raiz quadrada do tamanho da amostra. Metade da margem custa quatro vezes mais entrevistas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é a margem de erro e o nível de confiança, de onde vem a aproximação margem ≈ 1 ÷ √n e como reconhecer um empate técnico.
+
+
 ## Por que existe margem
 
 Uma amostra, por melhor que seja, não é a população. Se dois institutos sortearem duas amostras no mesmo dia, com o mesmo método, os resultados sairão um pouco diferentes, só porque as pessoas sorteadas foram outras. Essa oscilação natural é o **erro amostral**.
@@ -109,3 +114,11 @@ Por isso uma pesquisa pode errar bem mais que a margem sem ter havido fraude: o 
 5. Quantas entrevistas são necessárias para uma margem de cerca de 2,5 pontos?
 
 **Respostas:** 1) 1 ÷ 40 = 2,5 pontos. 2) Não: A fica entre 43% e 47%; B, entre 38% e 42%. 3) Sim: A pode ter de 25% a 31%; B, de 21% a 27%. 4) Que ele está estável; a variação está dentro da margem. 5) Cerca de 1.600.
+
+## Resumo
+
+- A **margem de erro** é o tamanho máximo esperado da oscilação de uma amostra; é informação honesta sobre a precisão, e não um defeito.
+- "40%, com margem de 2 pontos" quer dizer que o valor real deve estar entre 38% e 42%, com **nível de confiança** de 95% na maior parte das pesquisas.
+- Aproximação: **margem ≈ 1 ÷ √n**; para cortar a margem pela metade é preciso quadruplicar a amostra; o tamanho da população quase não importa.
+- **Empate técnico**: os intervalos se sobrepõem, e não dá para afirmar quem está na frente.
+- Subgrupos têm margem maior que a amostra inteira.

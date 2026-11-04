@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "A guerrilha foi exterminada pelas Forças Armadas; muitos dos seus militantes continuam desaparecidos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar a história do Partido Comunista no Brasil: a fundação em 1922, o levante de 1935, a breve legalidade de 1945-1947, a ditadura de 1964 e a legalização em 1985.
 
 Os comunistas brasileiros passaram a maior parte do século XX na **ilegalidade**. Mesmo assim, estiveram presentes em quase todas as grandes lutas populares do país: sindicatos, ligas camponesas, movimento estudantil, cultura, resistência às ditaduras. Esta aula percorre essa história.
 
@@ -72,3 +75,24 @@ Com a redemocratização, os partidos comunistas foram legalizados em **1985**. 
 ## Para conversar
 
 Que nomes ligados ao movimento comunista brasileiro você conhece (escritores, artistas, sindicalistas, militantes)? Que papel eles tiveram na história do país?
+
+## Exemplo resolvido
+
+**O que a cassação do PCB em 1947 mostra sobre a democracia da época? Monte a sequência.**
+
+1. **1945.** Com o fim do Estado Novo, o partido foi legalizado; Prestes, libertado depois de nove anos de prisão, foi eleito senador com votação expressiva.
+2. **1946.** O partido elegeu uma bancada na Assembleia Constituinte, com nomes como Jorge Amado e Gregório Bezerra, e teve cerca de 10% dos votos na eleição presidencial.
+3. **1947.** No início da Guerra Fria, o Tribunal Superior Eleitoral cassou o registro do partido.
+4. **1948.** Os mandatos dos parlamentares comunistas foram cassados.
+5. **Conclua.** Um partido com votação expressiva foi excluído da vida legal por decisão política, o que mostra os limites daquela democracia.
+
+Confira: os partidos comunistas só foram legalizados de novo em 1985.
+
+## Resumo
+
+- O Partido Comunista do Brasil foi fundado em **março de 1922**, em Niterói e no Rio de Janeiro, por nove delegados; muitos vinham do anarquismo.
+- 1935: a Aliança Nacional Libertadora, proibida por Vargas, e o levante de novembro, derrotado; a repressão foi brutal.
+- 1945: legalização, Prestes senador, bancada na Constituinte de 1946; 1947: cassação do registro do partido.
+- 1962: divisão entre PCB e PCdoB.
+- Depois de 1964, os comunistas estiveram entre os mais perseguidos (Marighella, Guerrilha do Araguaia).
+- Legalizados em 1985; em 1992, a maioria do PCB se transformou em outro partido e a minoria manteve o PCB.

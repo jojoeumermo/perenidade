@@ -29,6 +29,10 @@ quiz:
     resposta: 1
     explicacao: "A válvula segura o vapor, a pressão sobe e a água atinge cerca de 120 °C."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar calor de temperatura, dizer por onde o calor passa (condução, convecção e radiação) e explicar por que a água fervendo não esquenta além de 100 °C.
+
 
 ## Quente e frio não bastam
 
@@ -97,9 +101,30 @@ O corpo humano precisa manter a temperatura quase constante. Para se livrar do e
 
 Trabalhar sob sol forte, em fornos, fundições, cozinhas e lavouras expõe o corpo a um risco real: cãibras, exaustão e, no limite, a insolação, que pode matar. As normas brasileiras de segurança do trabalho estabelecem limites de exposição ao calor e exigem pausas, água e medidas de proteção. Com as ondas de calor cada vez mais frequentes, esse é um direito a ser conhecido e cobrado.
 
+## Exemplo resolvido
+
+**Uma xícara de café a 90 °C é colocada sobre uma mesa de 25 °C. O que acontece com o calor e com a temperatura?**
+
+1. Veja quem está mais quente: o café (90 °C). A mesa e o ar (25 °C) estão mais frios.
+2. O calor passa sempre do mais quente para o mais frio. Então a energia sai do café e vai para a xícara, a mesa e o ar. O frio não "entra" no café.
+3. O café perde energia e a temperatura dele cai. A do ar da cozinha sobe um pouquinho.
+4. O processo só para quando os dois ficam na mesma temperatura: o café esfria até a temperatura do ambiente, e não passa disso.
+5. Agora, o caminho: a xícara de metal esquenta na mão por **condução**; o vapor que sobe leva calor por **convecção**; e você sente calor no rosto, de longe, por **radiação**.
+
+Para converter para a escala científica, some 273: 25 °C são cerca de 298 K, e 90 °C, cerca de 363 K.
+
 ## Para pesquisar e debater
 
 1. Explique por que um piso de cerâmica parece mais frio que um tapete, se os dois estão à mesma temperatura.
 2. Por que as panelas têm fundo de metal e cabo de outro material?
 3. Onde, na sua casa ou no seu bairro, você já viu juntas de dilatação?
 4. No seu trabalho há exposição ao calor? Que pausas e proteções existem?
+
+## Resumo
+
+- Temperatura mede a agitação das partículas; calor é a energia que passa de um corpo mais quente para um mais frio.
+- O calor passa por condução (contato), convecção (movimento de líquido ou gás) e radiação (ondas, sem matéria).
+- Metais conduzem bem o calor; madeira, plástico, isopor, lã e ar parado isolam.
+- Quando esquenta, o material dilata; por isso existem as juntas de dilatação.
+- A água em fervura fica a 100 °C ao nível do mar; fogo mais alto só gasta gás. Na panela de pressão, ferve a cerca de 120 °C.
+- Trabalhar no calor exige água, pausas e proteção.

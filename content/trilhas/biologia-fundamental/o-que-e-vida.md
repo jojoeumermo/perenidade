@@ -1,5 +1,6 @@
 ---
 titulo: "O que é vida"
+modelo: 9
 resumo: "Objetivo: reconhecer as características que separam o que é vivo do que não é e entender como a biologia organiza o estudo da vida, da célula à biosfera."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,13 @@ quiz:
     resposta: 1
     explicacao: "Células formam tecidos, tecidos formam órgãos, órgãos formam sistemas e o organismo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quais características a biologia usa para dizer se algo está vivo, explicar por que os vírus ficam na fronteira, montar os níveis de organização da vida e entender como a biologia testa suas ideias.
+
+```suarealidade
+Na sua casa ou no seu quintal, o que está vivo e o que não está? Tem algo que deixa você em dúvida (uma semente, o fermento do pão, a chama do fogão)?
+```
 
 ## Uma pergunta difícil
 
@@ -99,3 +107,36 @@ Saber o que é vida não é assunto só de laboratório. Está na discussão sob
 1. Escolha três coisas da sua casa (uma planta, o fermento do pão, a chama do fogão) e passe cada uma pela tabela das características. Quais são seres vivos?
 2. Monte a sequência dos níveis de organização usando um exemplo do seu bairro: da célula de uma árvore até o ecossistema da praça.
 3. Transforme uma dúvida do dia a dia em hipótese testável. Exemplo: "o feijão germina mais rápido no escuro?". Como você testaria?
+
+## Exemplo resolvido
+
+**Uma semente de feijão guardada há meses num pote está viva?**
+
+1. **Passe a semente pela lista das características.** Ela é formada por células (organização). Guarda genes. Tem metabolismo, mas muito lento.
+2. **Veja o que acontece com água e temperatura certas.** Ela volta a funcionar: absorve água, cresce e se desenvolve, responde à luz e, depois, produz novas sementes (reprodução).
+3. **Compare com o fogo e o cristal de sal.** O fogo cresce e se espalha, mas não tem células nem genes. O cristal de sal cresce, mas não se alimenta nem se reproduz por instruções herdadas.
+4. **Conclua.** A semente está viva, em **estado de espera**. O fogo e o cristal não estão vivos, porque não reúnem **todas** as características.
+
+Confira: uma só característica não basta. Para ser considerado vivo, o ser precisa reunir o conjunto.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Essa lista de características é arbitrária. Os vírus, as sementes e o fermento seco mostram que a fronteira entre vivo e não vivo é confusa. Então a biologia nem sabe direito o que é vida."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A confusão nas bordas é real, e a própria biologia admite isso: ela não define a vida com uma frase só, e sim com um conjunto de características, que o ser precisa reunir todas. Os vírus ficam na fronteira: têm material genético e evoluem, mas não são células e só se multiplicam dentro de uma célula viva. A maior parte dos biólogos não os coloca entre os seres vivos, embora o debate continue. Uma ciência que mostra onde ainda há dúvida está funcionando como deve: propõe hipóteses, testa e deixa outras pessoas repetirem e criticarem.
+```
+
+```agir
+# Esta semana
+Escolha três coisas da sua casa (uma planta, o fermento do pão, a chama do fogão) e passe cada uma pela tabela das características da vida. Escreva quais são seres vivos e por quê, e conte o resultado a alguém de casa.
+```
+
+## Resumo
+
+- A biologia não define a vida com uma frase: lista **características** que o ser vivo reúne **todas**: organização, metabolismo, homeostase, resposta a estímulos, crescimento e desenvolvimento, reprodução e adaptação.
+- Semente e fermento seco estão vivos em estado de espera; fogo e cristal não são seres vivos.
+- **Vírus** ficam na fronteira: não são células e só se multiplicam dentro de uma célula viva.
+- Níveis de organização: átomos e moléculas, célula, tecido, órgão, sistema, organismo, população, comunidade, ecossistema e biosfera; em cada nível surgem propriedades novas.
+- A biologia trabalha com **observação, hipótese, experimento e crítica**; uma teoria é uma explicação testada muitas vezes.

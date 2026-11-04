@@ -1,0 +1,59 @@
+# Exercícios da aula "Matemática: funções, gráficos e geometria" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-fun-01
+  tipo: numero
+  tema: "Função afim"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Uma corrida de aplicativo custa R$ 6 de valor fixo mais R$ 2,50 por quilômetro. Quanto custa uma corrida de 8 km, em reais?"
+  resposta: "26"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "20"
+      explicacao: "Você usou só o valor por quilômetro (2,50 × 8). Falta somar o valor fixo de R$ 6."
+    - resposta: "68"
+      explicacao: "Você multiplicou o valor fixo e o valor por km por 8, como se os dois crescessem. Só o valor por km cresce: 6 + 2,50 × 8."
+  dica: "Valor fixo mais valor por km vezes os km."
+  explicacao: "P = 6 + 2,50 × 8 = 6 + 20 = 26 reais."
+  conferir: "6 + 2.5 * 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-fun-02
+  tipo: numero
+  tema: "Teorema de Pitágoras"
+  dificuldade: 2
+  enunciado: "Um triângulo retângulo tem catetos de 9 m e 12 m. Quanto mede a hipotenusa, em metros?"
+  resposta: "15"
+  unidade: "metros"
+  erros_comuns:
+    - resposta: "21"
+      explicacao: "Você somou os catetos (9 + 12). Em Pitágoras, somam-se os quadrados e depois tira-se a raiz."
+    - resposta: "225"
+      explicacao: "Esse é o quadrado da hipotenusa (81 + 144). Falta tirar a raiz quadrada."
+  dica: "a² = b² + c², e depois a raiz quadrada."
+  explicacao: "9² + 12² = 81 + 144 = 225. A raiz de 225 é 15."
+  conferir: "(9^2 + 12^2)^0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-fun-03
+  tema: "Gráficos"
+  dificuldade: 1
+  enunciado: "Num gráfico de uma função afim y = 5 + 2x, onde a reta corta o eixo vertical (x = 0)?"
+  alternativas:
+    - texto: "No ponto y = 2"
+      erro: "O 2 é quanto a reta sobe a cada unidade de x. O ponto de partida é o valor fixo."
+    - texto: "No ponto y = 5"
+      certa: true
+    - texto: "No ponto y = 7"
+      erro: "7 é o valor para x = 1 (5 + 2). Para x = 0, só sobra o valor fixo."
+  explicacao: "Com x = 0, y = 5 + 2 × 0 = 5. O valor fixo é onde a reta corta o eixo vertical."
+  conferir: "5 + 2 * 0"
+  valor: "5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -32,6 +32,10 @@ quiz:
     explicacao: "Metas irreais, desorganização da agricultura e relatórios falsos levaram à morte de milhões de pessoas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar os caminhos da Revolução Chinesa, da fundação do Partido Comunista à República Popular de 1949, e explicar por que o campesinato teve papel central.
+
 Em 1949, a China tinha mais de 500 milhões de habitantes, a maioria camponeses pobres, num país dividido por senhores da guerra, ocupado por potências estrangeiras e devastado por décadas de guerra. A revolução que venceu naquele ano mudou a vida de um quarto da humanidade. Esta aula conta essa história.
 
 ## O "século de humilhação"
@@ -84,6 +88,25 @@ Em 1981, o próprio Partido Comunista da China aprovou uma resolução que consi
 
 A partir de **1978**, sob Deng Xiaoping, a China iniciou a **reforma e abertura**: descoletivização da agricultura, zonas econômicas especiais, entrada de capital estrangeiro, crescimento de empresas privadas, ao lado de um forte setor estatal e do controle do Partido Comunista. O país se tornou a segunda maior economia do mundo, e centenas de milhões de pessoas saíram da pobreza extrema. Se esse modelo continua socialista é um debate intenso, tratado na trilha superior de socialismo.
 
+## Exemplo resolvido
+
+**Por que os comunistas chineses apostaram no campo e não só nas fábricas?**
+
+1. Veja o país: em 1949, a China tinha mais de 500 milhões de habitantes, a maioria camponeses pobres.
+2. Veja a teoria da época: o marxismo estava centrado nos operários urbanos.
+3. Veja o fato: em 1927, o massacre de comunistas e operários em Xangai por Chiang Kai-shek tornou a cidade perigosa, e Mao escreveu o Relatório sobre o Movimento Camponês em Hunan, apontando o campesinato como força principal.
+4. Daí vieram as bases rurais, com reforma agrária e um exército popular.
+
+Conclusão: a ideia nasceu de olhar para a realidade do país, que era agrária, e não de copiar um esquema pronto.
+
 ## Para conversar
 
 Por que, num país de maioria camponesa, a questão da terra foi decisiva para a vitória da revolução? Que paralelos você vê com a luta pela terra no Brasil?
+
+## Resumo
+
+- Desde as Guerras do Ópio, a China sofreu tratados desiguais; o império Qing caiu em 1911 sem que a república unificasse o país.
+- O Partido Comunista foi fundado em 1921; em 1927 os nacionalistas massacraram comunistas em Xangai.
+- Mao apontou o campesinato como força principal da revolução e o partido construiu bases rurais.
+- Longa Marcha (1934-1935), invasão japonesa (1937) e guerra civil levaram à República Popular, proclamada em 1º de outubro de 1949.
+- Entre as conquistas: reforma agrária, lei do casamento de 1950, alfabetização e saúde pública; a aula trata também das tragédias e da reforma.

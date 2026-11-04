@@ -27,6 +27,9 @@ quiz:
     resposta: 1
     explicacao: "学 e 學 se leem xué."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre caracteres simplificados e tradicionais, por que e quando a China simplificou a escrita, onde cada forma é usada e como reconhecer as simplificações mais comuns.
 
 ## Duas formas de escrever
 
@@ -93,3 +96,22 @@ A simplificação ainda gera discussão. Defensores destacam que ela facilitou a
 2. Procure no dicionário a forma tradicional de: 东, 车, 长.
 3. Explique, com as suas palavras, por que a pronúncia não muda.
 4. Pesquise uma placa ou um cardápio de Taiwan ou de Hong Kong e identifique três caracteres tradicionais.
+
+## Exemplo resolvido
+
+**Sabendo que 馬 virou 马, qual é a forma simplificada de 媽 (mãe)?**
+
+1. **Separe as peças.** 媽 é formado por 女 (mulher) e 馬 (cavalo, que dá a pista do som).
+2. **Troque só o componente.** 馬 vira 马; o 女 não muda.
+3. **Monte.** **妈** (mā, mãe).
+4. **Confira a pronúncia.** Ela não muda: a diferença é só na escrita (como 學 e 学, que se leem igualmente *xué*).
+
+Confira: simplificar um componente muda dezenas de caracteres de uma vez, como o radical 言 virar 讠 em 語 → 语 e 說 → 说.
+
+## Resumo
+
+- **Tradicionais** (繁體字): formas mais antigas, com mais traços; **simplificados** (简体字): com menos traços, adotados na China continental no século XX. A pronúncia não muda.
+- A simplificação fez parte de um esforço de alfabetização em massa, junto com o pinyin: plano de 1956, lista de 1964, republicada em 1986.
+- Simplificados: China continental, Singapura e Malásia (e a maioria dos cursos). Tradicionais: Taiwan, Hong Kong, Macau e textos antigos.
+- Simplifica-se por forma cursiva (书, 马, 门), troca de radical (言 → 讠) ou retirada de partes (电, 爱).
+- Muitos caracteres não mudaram (人, 大, 中, 山, 日, 月). A simplificação ainda gera debate.

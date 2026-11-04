@@ -1,0 +1,51 @@
+# Exercícios da aula "Perguntas com 吗 e 什么" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-perguntas-01
+  tema: "Pergunta com 吗"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Onde se coloca 吗 numa pergunta de sim ou não?"
+  alternativas:
+    - texto: "No fim da frase"
+      certa: true
+    - texto: "No começo da frase"
+      erro: "A partícula 吗 vai no fim."
+    - texto: "Entre o sujeito e o verbo"
+      erro: "A ordem das palavras não muda: 吗 vai no fim."
+  explicacao: "你是老师。 vira 你是老师吗？"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-perguntas-02
+  tema: "Responder sim ou não"
+  dificuldade: 2
+  enunciado: "Como responder \"sim\" a 你喝茶吗？"
+  alternativas:
+    - texto: "是。 (Shì.)"
+      erro: "O chinês não tem palavra única para \"sim\": repete-se o verbo da pergunta; aqui é 喝."
+    - texto: "喝。 (repete o verbo)"
+      certa: true
+    - texto: "不喝。"
+      erro: "Isso é \"não bebo\"."
+  explicacao: "Para \"não\": 不喝。 Também se ouve 对 e 是的."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-perguntas-03
+  tema: "A palavra de pergunta"
+  dificuldade: 2
+  enunciado: "Onde fica a palavra de pergunta, como 什么, na frase?"
+  alternativas:
+    - texto: "Sempre no começo"
+      erro: "A regra é: no mesmo lugar em que a resposta vai ficar."
+    - texto: "Sempre no fim"
+      erro: "Fica onde a resposta ficará."
+    - texto: "No mesmo lugar em que a resposta vai ficar"
+      certa: true
+  explicacao: "Por isso a ordem da frase não muda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,54 @@
+# Exercícios da aula "Preço, agenda e clientela" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-preco-01
+  tipo: numero
+  tema: "Preço mínimo"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O barbeiro precisa de R$ 3.000 por mês e consegue atender 150 horas no mês. O custo por cliente é R$ 5. Qual é o preço mínimo de um serviço de 1 hora?"
+  resposta: "25"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "20"
+      explicacao: "Esse é só o valor da hora (3.000 ÷ 150). Falta somar o custo por cliente: 20 + 5 = 25."
+    - resposta: "5"
+      explicacao: "Esse é só o custo por cliente. Falta o valor do tempo: 1 hora × R$ 20 = R$ 20, mais R$ 5."
+  dica: "Primeiro ache o valor da hora (dinheiro necessário ÷ horas) e depois use a fórmula da aula."
+  explicacao: "Valor da hora = 3.000 ÷ 150 = R$ 20. Preço mínimo = (1 × 20) + 5 = R$ 25."
+  conferir: "(1 * (3000 / 150)) + 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-preco-02
+  tema: "Tabela visível"
+  dificuldade: 1
+  enunciado: "Por que a aula recomenda uma tabela de preços visível?"
+  alternativas:
+    - texto: "Para esconder o preço dos desenhos"
+      erro: "Serviços fora da tabela pedem preço combinado antes."
+    - texto: "Porque o Código de Defesa do Consumidor garante ao cliente informação clara sobre o serviço e o preço"
+      certa: true
+    - texto: "Só por enfeite"
+      erro: "A tabela cumpre o direito à informação clara (art. 6º do CDC)."
+  explicacao: "O CDC chama de prática abusiva fazer o serviço sem orçamento e autorização (art. 39)."
+  fonte: "Questão original do Instituto Lúcia (Código de Defesa do Consumidor, arts. 6º e 39, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: barb-preco-03
+  tema: "Corte mais demorado"
+  dificuldade: 1
+  enunciado: "Um degradê com desenho de uma hora e um corte simples de vinte minutos devem custar o mesmo?"
+  alternativas:
+    - texto: "Sim, o preço único é mais justo"
+      erro: "Cada serviço tem tempo e custo diferentes."
+    - texto: "Sim, porque o cliente é o mesmo"
+      erro: "A conta usa o tempo: serviço mais demorado custa mais."
+    - texto: "Não: o corte mais demorado precisa custar mais"
+      certa: true
+  explicacao: "O tempo de cada serviço entra na fórmula do preço mínimo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

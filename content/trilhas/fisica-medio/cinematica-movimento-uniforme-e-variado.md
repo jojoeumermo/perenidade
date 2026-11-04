@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "Na queda livre, todos os corpos têm a mesma aceleração, a da gravidade."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever um movimento com posição, velocidade e aceleração, resolver problemas de movimento uniforme e uniformemente variado e calcular a distância de frenagem de um veículo.
+
 
 ## Descrever antes de explicar
 
@@ -148,3 +152,12 @@ Uma ferramenta pequena caindo de 20 m chega ao chão a 72 km/h. É a razão do c
 2. Um carro parte do repouso e acelera a 2 m/s² durante 8 s. Que velocidade atinge e que distância percorre?
 3. Calcule a distância de frenagem de um carro a 54 km/h e a 108 km/h, com desaceleração de 5 m/s². Compare os resultados.
 4. Uma pedra é solta do alto de um poço e leva 3 s para atingir a água. Qual é a profundidade?
+
+## Resumo
+
+- A cinemática descreve o movimento sem perguntar a causa; todo movimento é descrito em relação a um referencial.
+- Velocidade média: v = Δs ÷ Δt. No movimento uniforme a velocidade é constante.
+- Aceleração: a = Δv ÷ Δt, em m/s². No movimento uniformemente variado a aceleração é constante e três equações resolvem quase tudo.
+- Perto da superfície da Terra, um corpo solto cai com aceleração constante (a gravidade, cerca de 10 m/s²).
+- Nos gráficos, a inclinação da posição × tempo é a velocidade; a inclinação da velocidade × tempo é a aceleração.
+- A distância de frenagem cresce com o quadrado da velocidade.

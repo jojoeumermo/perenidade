@@ -32,6 +32,10 @@ quiz:
     explicacao: "Para Gramsci, a classe dominante governa combinando força e consenso."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Marx e Engels chamaram de ideologia e reconhecer como ela universaliza e naturaliza interesses.
+
 "Sempre foi assim." "Cada um tem o que merece." "Rico é quem trabalha." "Não adianta lutar." Essas frases são ditas como se fossem verdades óbvias. Esta aula pergunta de onde elas vêm e a quem elas servem.
 
 ## As ideias da classe dominante
@@ -79,6 +83,23 @@ Hoje a ideologia dominante circula também pelas redes sociais, pelos influencia
 
 Paulo Freire chamava de **leitura do mundo** o processo pelo qual os oprimidos aprendem a desconfiar das explicações prontas e a compreender criticamente a própria realidade. A crítica da ideologia não é ensinar às pessoas "a verdade" de cima para baixo: é ajudar a perguntar, coletivamente, **a quem serve** cada ideia.
 
+## Exemplo resolvido
+
+**Classifique: "Sempre haverá ricos e pobres" e "O que é bom para as empresas é bom para o Brasil".**
+
+1. A primeira apresenta o que é histórico como se fosse natural e eterno. Isso é **naturalizar**.
+2. A segunda apresenta o interesse de uma classe como se fosse o interesse de todos. Isso é **universalizar**.
+3. Em seguida pergunte, como a aula propõe: **a quem serve** cada ideia?
+
+Confira: a tese de Marx e Engels é que as ideias da classe dominante são, em cada época, as ideias dominantes, porque a classe que tem o poder material tem também, em grande medida, o poder sobre a produção das ideias.
+
 ## Para conversar
 
 Escolha um ditado ou frase feita muito comum no seu bairro ou na sua família. Ela ajuda a mudar as coisas ou a mantê-las como estão? A quem ela serve?
+
+## Resumo
+
+- "As ideias da classe dominante são, em cada época, as ideias dominantes" (*A Ideologia Alemã*, 1845-1846).
+- A ideologia universaliza (o interesse de uma classe vira o de todos) e naturaliza (o histórico vira eterno).
+- Gramsci desenvolveu a ideia de hegemonia.
+- A crítica da ideologia, em Paulo Freire, é leitura do mundo: perguntar coletivamente a quem serve cada ideia.

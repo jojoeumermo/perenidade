@@ -23,6 +23,11 @@ quiz:
     resposta: 0
     explicacao: "O texto falou de algumas cidades. Estender a afirmação a todas é acrescentar o que não está lá."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber olhar de onde vem um texto, ler por etapas, separar fato de opinião, perceber pressuposto e subentendido e evitar os três erros clássicos de interpretação.
+
+
 
 ## Ler o mundo, ler a palavra
 
@@ -109,6 +114,25 @@ Entender o que o texto diz é o primeiro passo. O segundo é perguntar **por que
 - **O que não foi dito?** O silêncio também informa.
 
 Discordar do texto é um direito. Mas só discorda bem quem primeiro entendeu.
+
+## Exemplo resolvido: a manchete "Governo finalmente decide investir em saneamento"
+
+1. **De onde vem?** É uma manchete de notícia: confira quem publicou e quando.
+2. **Palavras de ligação e marcas:** a palavra "finalmente" está presa à frase e entrega um pressuposto: que a decisão era esperada e demorou.
+3. **Fato ou opinião?** "O governo decide investir em saneamento" é um fato que se pode verificar. "Finalmente" carrega uma opinião, escondida em um advérbio.
+4. **Cuidado com os erros clássicos:** não extrapolar (entender que o investimento é em todo o país se o texto diz "em algumas cidades"), não reduzir e não contradizer. Volte ao texto e ache a frase que sustenta a sua resposta.
+5. **Leitura crítica:** quem foi ouvido? Que palavras foram escolhidas? O que não foi dito?
+
+Confira: ler bem é perceber o que vem embutido sem inventar o que não está lá.
+
+## Resumo
+
+- Interpretar é fazer perguntas ao texto: quem escreveu, onde, quando, que tipo de texto, o que o título promete.
+- Leia tudo uma vez, depois parágrafo por parágrafo; descubra palavras pelo contexto; atenção às palavras de ligação (mas, porque, portanto...).
+- Fato se verifica; opinião é julgamento e costuma se esconder em adjetivos e advérbios.
+- Pressuposto está preso às palavras; subentendido depende da situação.
+- Três erros: extrapolar, reduzir e contradizer. A defesa é voltar ao texto.
+- Leitura crítica: quem ganha, quem foi ouvido, que palavras foram escolhidas, o que não foi dito.
 
 ## Para praticar
 

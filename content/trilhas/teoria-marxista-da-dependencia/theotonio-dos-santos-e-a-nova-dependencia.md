@@ -30,6 +30,10 @@ quiz:
     explicacao: "Para ele, não havia espaço para um desenvolvimento capitalista nacional e democrático."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir as três formas de dependência descritas por Theotonio dos Santos e explicar os limites que a nova dependência impõe à industrialização.
+
 **Theotonio dos Santos** (1936-2018) é o autor mais lido da teoria da dependência fora da América Latina. O seu artigo de 1970 na *American Economic Review*, de apenas seis páginas, levou o debate latino-americano ao centro da economia acadêmica dos Estados Unidos.
 
 ## Trajetória
@@ -76,6 +80,24 @@ Nas décadas finais da vida, Theotonio aproximou-se dos estudos do **sistema mun
 
 Dos três fundadores brasileiros, Theotonio é o que escreve de modo mais acessível e o que mais dialogou com economistas de outras correntes. Por isso, costuma ser a melhor porta de entrada.
 
+## Exemplo resolvido
+
+**Uma multinacional instala uma fábrica depois da Segunda Guerra para vender no mercado interno de um país subdesenvolvido. Que forma de dependência é essa, e que amarras ela tem?**
+
+1. Compare com as três formas: colonial (comércio, terra e minas sob o Estado colonizador), financeiro-industrial (fim do século XIX, exportação de matérias-primas e alimentos) e tecnológico-industrial (depois de 1945, empresas multinacionais investindo em indústrias para o mercado interno).
+2. A fábrica descrita é a terceira, a nova dependência.
+3. Liste as amarras: o setor exportador (gera os dólares para importar máquinas e insumos); o balanço de pagamentos (as filiais remetem lucros e pagam patentes e assistência técnica); o monopólio tecnológico (a tecnologia vem como capital, e não como mercadoria comum).
+
+Conclusão: a indústria existe, mas combina tecnologia avançada com mão de obra barata e mercado interno restrito.
+
 ## Para pesquisar e debater
 
 Hoje se fala em dependência de dados, de plataformas digitais e de semicondutores. Seria uma quarta forma de dependência, ou uma variação da terceira?
+
+## Resumo
+
+- Theotonio dos Santos (1936-2018) dirigiu o CESO, no Chile; seu artigo de 1970 levou o debate à economia acadêmica dos Estados Unidos.
+- A dependência muda de forma: colonial, financeiro-industrial e tecnológico-industrial.
+- A nova dependência (tecnológico-industrial) surge depois da Segunda Guerra, com as multinacionais investindo para o mercado interno.
+- Três amarras: o setor exportador, o balanço de pagamentos e o monopólio tecnológico.
+- Sua conclusão política dos anos 1960: ou ruptura socialista, ou regimes de força que garantam a acumulação.

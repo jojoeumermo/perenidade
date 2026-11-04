@@ -34,6 +34,10 @@ quiz:
     explicacao: "Quando ele acaba, a reação para, mesmo que ainda haja dos outros."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular massa molecular e massa molar, passar de gramas para mols e usar a equação balanceada para prever quanto se produz numa reação.
+
 ## Contar pesando
 
 Em uma loja de ferragens, ninguém conta mil parafusos um a um: pesa-se. Sabendo quanto pesa um parafuso, a balança faz a contagem.
@@ -173,3 +177,12 @@ Se o reagente é impuro, só a parte pura entra na conta. Um calcário com 80% d
 2. Quantos mols há em 460 g de etanol?
 3. Na combustão do carvão (C + O₂ → CO₂), que massa de CO₂ é produzida na queima de 1 kg de carbono?
 4. Que massa de água se forma quando 8 g de hidrogênio reagem com oxigênio em excesso?
+
+## Resumo
+
+- Massa molecular é a soma das massas atômicas da fórmula (H₂O: 18 u).
+- Um mol tem 6,02 × 10²³ partículas (constante de Avogadro); a massa de 1 mol, em gramas, é igual à massa molecular em u.
+- Quantidade em mols: n = m ÷ M.
+- Nas condições normais (0 °C e 1 atm), 1 mol de qualquer gás ocupa cerca de 22,4 litros.
+- Os coeficientes da equação balanceada dão a proporção em mols; o roteiro é balancear, passar para mols, usar a proporção e voltar para massa.
+- A massa se conserva: em 2 H₂ + O₂ → 2 H₂O, 4 g + 32 g = 36 g.

@@ -29,6 +29,9 @@ quiz:
     resposta: 1
     explicacao: "Para Frank, não se trata de falta de capitalismo, mas do resultado dele."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que Furtado e Frank rejeitam a imagem do subdesenvolvimento como atraso numa corrida e o que quer dizer "o desenvolvimento do subdesenvolvimento".
 
 Há uma imagem muito difundida sobre as diferenças entre os países: a de uma corrida. Todos largaram do mesmo ponto, uns correram mais e estão na frente, outros se atrasaram. Esta aula mostra por que os autores latino-americanos consideram essa imagem falsa.
 
@@ -73,3 +76,22 @@ Frank foi criticado, inclusive por marxistas, por dar pouca atenção às classe
 ## Para pesquisar e debater
 
 Pesquise a história de uma cidade brasileira que foi rica em um ciclo econômico do passado (borracha, ouro, açúcar, café). O que aconteceu com ela quando o ciclo acabou?
+
+## Exemplo resolvido
+
+**Por que regiões como Potosí, que produziram tanta riqueza, estão entre as mais pobres hoje? Siga o argumento de Frank.**
+
+1. **Parta da ideia comum.** A imagem da corrida diz que os países pobres ficaram isolados e atrasados.
+2. **Veja o que Frank diz.** As regiões hoje mais pobres da América Latina são, muitas vezes, as que tiveram no passado ligação mais forte com o mercado mundial: o Nordeste do açúcar, Potosí, a região do ouro em Minas Gerais.
+3. **O que aconteceu depois.** Quando o ciclo acabou e o interesse de fora passou, ficou a miséria.
+4. **Conclua.** A riqueza foi levada para fora e a região foi organizada apenas para extraí-la; a ligação com o mercado mundial não faltou, sobrou.
+
+Confira: a aula lembra que Frank foi criticado, inclusive por marxistas, por dar pouca atenção às classes e às lutas dentro de cada país.
+
+## Resumo
+
+- Rostow (1960) propôs cinco **etapas**, e os países pobres "decolariam" como os ricos; o livro era "um manifesto não comunista".
+- Furtado (1961): o subdesenvolvimento **não é uma etapa**, é um processo histórico próprio; a Inglaterra pré-industrial era pobre, mas não subdesenvolvida.
+- Frank (1966): "o desenvolvimento do subdesenvolvimento"; as regiões mais pobres foram muitas vezes as de ligação mais forte com o mercado mundial.
+- Desenvolvimento e subdesenvolvimento são dois resultados do mesmo processo (a expansão do capitalismo); Walter Rodney defendeu o mesmo para a África.
+- Superar essa condição exige mudar a relação com o sistema, e não apenas correr mais.

@@ -31,6 +31,9 @@ quiz:
     resposta: 0
     explicacao: "A divergência girava em torno da luta política e do papel do Estado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que a Primeira Internacional foi fundada em 1864, o que ela fez, qual foi sua ligação com a Comuna de Paris e por que ela se dividiu.
 
 Em 1864, operários de vários países decidiram fazer algo inédito: organizar-se **juntos**, por cima das fronteiras, contra um capital que já era internacional. Nascia a **Associação Internacional dos Trabalhadores**, conhecida como **Primeira Internacional**.
 
@@ -79,3 +82,24 @@ A Primeira Internacional mostrou que era possível organizar trabalhadores de v�
 ## Para conversar
 
 Hoje, empresas multinacionais produzem em vários países ao mesmo tempo. Como os trabalhadores poderiam se organizar internacionalmente contra elas?
+
+## Exemplo resolvido
+
+**Por que operários ingleses e de outros países se juntaram numa mesma associação em 1864? Siga o motivo prático.**
+
+1. **O problema.** Os patrões ingleses costumavam trazer trabalhadores de outros países para furar greves.
+2. **A resposta.** Em 28 de setembro de 1864, no St. Martin's Hall, em Londres, sindicalistas ingleses, operários franceses e exilados alemães, italianos e poloneses fundaram a Associação.
+3. **Os textos.** Marx redigiu a Mensagem Inaugural e os Estatutos, com o princípio de que a emancipação da classe trabalhadora deve ser conquistada pelos próprios trabalhadores.
+4. **A prática.** A Internacional organizou apoio a greves em vários países, com coletas e boicote ao uso de fura-greves estrangeiros.
+5. **Conclua.** Organizar-se por cima das fronteiras era uma questão de sobrevivência contra um capital já internacional.
+
+Confira: a Internacional também defendeu a jornada de oito horas no Congresso de Genebra, em 1866.
+
+## Resumo
+
+- Fundada em **28 de setembro de 1864**, em Londres, por sindicalistas e exilados de vários países.
+- Princípio dos Estatutos: "a emancipação da classe trabalhadora deve ser conquistada pelos próprios trabalhadores".
+- Apoiou greves, defendeu a jornada de oito horas (Genebra, 1866) e a luta contra a escravidão nos Estados Unidos.
+- Membros participaram da **Comuna de Paris** (1871); Marx escreveu *A Guerra Civil em França*, e governos europeus passaram a perseguir a Internacional.
+- Conflito entre Marx (partido e conquista do poder político) e Bakunin (abolição imediata do Estado); no Congresso de Haia (1872) Bakunin foi expulso.
+- Dissolvida formalmente em 1876, na Filadélfia.

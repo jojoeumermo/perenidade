@@ -31,6 +31,11 @@ quiz:
     resposta: 0
     explicacao: "Em sociedades marcadas pela escravidão, como o Brasil, o desprezo pelo trabalho manual tem raízes profundas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a educação para o trabalho na China, a ideia socialista de unir trabalho manual e intelectual e o valor que Paulo Freire dá ao saber de quem trabalha.
+
+
 
 Na disciplina chinesa de Moral e Estado de Direito, o **trabalho** aparece como valor: respeitar quem trabalha, participar das tarefas da casa e da escola, entender o trabalho como contribuição à coletividade. Nos últimos anos, o tema ganhou uma disciplina própria. Esta aula apresenta essa orientação e a relaciona com a tradição da educação socialista e da educação popular.
 
@@ -73,3 +78,23 @@ Valorizar o trabalho não é o mesmo que valorizar a **exploração**. Uma educa
 ## Para conversar
 
 Que trabalhos você aprendeu a fazer em casa ou na comunidade? Eles são valorizados? Como a escola poderia reconhecer esses saberes?
+
+## Exemplo resolvido: que tipo de trabalho é este?
+
+As três formas de educação para o trabalho previstas nas orientações chinesas de março de 2020, com um exemplo de cada:
+
+1. Arrumar, limpar, cozinhar: **trabalho doméstico cotidiano**.
+2. Atividades agrícolas simples, artesanato, uso de ferramentas: **trabalho produtivo**.
+3. Tarefas comunitárias e voluntariado: **trabalho de serviço**.
+
+Agora o olhar crítico: para Paulo Freire, parte-se da experiência de trabalho dos educandos (o pedreiro, a lavadeira, o agricultor) e reconhece-se nela um saber. E valorizar o trabalho não é valorizar a exploração: pergunta-se também por que quem trabalha tanto tem tão pouco.
+
+Confira: o objetivo, segundo a aula, é superar a separação entre quem pensa e manda e quem executa e obedece.
+
+## Resumo
+
+- Em março de 2020, o Partido e o Conselho de Estado orientaram a educação para o trabalho em todas as etapas: doméstico, produtivo e de serviço.
+- A ideia de ligar escola e trabalho é antiga no pensamento socialista (escola politécnica): unir trabalho manual e intelectual.
+- No Brasil, a herança da escravidão deixou desprezo pelo trabalho manual.
+- Paulo Freire propõe partir da experiência de trabalho de quem estuda e reconhecer nela um saber.
+- Valorizar o trabalho não é valorizar a exploração.

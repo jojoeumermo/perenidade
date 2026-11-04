@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "É um exemplo dos sistemas trabalhando juntos para manter o equilíbrio do corpo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quais são os principais sistemas do corpo e o que cada um faz, seguir o caminho do ar e do sangue e explicar o que é homeostase.
 
 ## Uma equipe
 
@@ -106,3 +109,22 @@ Pense em uma corrida para pegar o ônibus. O sistema nervoso dá a ordem; os mú
 1. Meça a sua pulsação em repouso durante um minuto. Faça 30 polichinelos e meça de novo. Explique a diferença.
 2. Escolha um sistema da tabela e descubra uma doença comum que o atinge e como preveni-la.
 3. Explique com as suas palavras a diferença entre a ação do sistema nervoso e a do sistema endócrino.
+
+## Exemplo resolvido
+
+**Um trabalhador passa a manhã sob sol forte e quase não bebe água. O que acontece no corpo dele?**
+
+1. **Homeostase.** O corpo trabalha para manter o interior estável, com a temperatura perto de 37 °C e a quantidade certa de água.
+2. **Calor.** Os vasos da pele se dilatam e ele **sua**; o suor evapora e leva calor embora.
+3. **Pouca água.** Os rins economizam: produzem **menos urina**, e mais concentrada.
+4. **Resultado.** A urina fica escura e em pouca quantidade, sinal de que falta água.
+
+Confira: pausa, sombra e água, no trabalho no calor, são necessidades do corpo, não favores.
+
+## Resumo
+
+- Células parecidas formam **tecidos**, tecidos formam **órgãos** e órgãos formam **sistemas**; nenhum sistema funciona sozinho.
+- Sistemas: digestório, respiratório, circulatório, excretor, nervoso, endócrino, esquelético, muscular, imunitário, reprodutor e tegumentar.
+- O ar chega aos **alvéolos**, onde o oxigênio passa para o sangue; o **coração** bombeia o sangue pela circulação pulmonar e pela sistêmica.
+- O sistema **nervoso** age rápido; o **endócrino** age por **hormônios**, mais lento e duradouro (a insulina, por exemplo).
+- **Homeostase** é o equilíbrio do interior do corpo: suar no calor, tremer no frio, urinar menos quando falta água.

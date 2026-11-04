@@ -27,6 +27,11 @@ quiz:
     explicacao: "As perguntas costumam vir em português."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como literatura, artes, educação física e língua estrangeira aparecem no ENEM e como ler um texto em inglês ou espanhol com cognatos, contexto e comando.
+
+
 ## Literatura
 
 A literatura aparece por meio de **trechos** de poemas, contos, romances e crônicas. As questões pedem que você:
@@ -63,9 +68,27 @@ Em uma questão de inglês, você não conhece uma palavra-chave do texto. O que
 > As cinco questões são de compreensão de leitura.
 ```
 
+## Exemplo resolvido
+
+**Você lê, num texto em inglês, a frase "The workers went on strike for better wages" e não conhece a palavra "strike". O que fazer?**
+
+1. **Leia o comando da questão** para saber o que se pergunta.
+2. **Use o contexto:** quem "went on strike"? Os trabalhadores (*workers*). Por quê? Por melhores salários (*better wages*).
+3. **Procure cognatos:** *workers* lembra "trabalhadores"; *wages* aparece em contextos de pagamento.
+4. **Infira o sentido:** é uma ação coletiva dos trabalhadores por salários melhores, ou seja, uma greve.
+
+Confira: as cinco questões de língua estrangeira são de compreensão de leitura; não é preciso conhecer todas as palavras.
+
 ## Para praticar
 
 1. Escolha um poema de um autor modernista e escreva o que ele diz e como diz.
 2. Resolva as cinco questões de língua estrangeira de duas provas anteriores.
 3. Escolha uma obra de arte de uma prova anterior e explique a relação com o contexto.
 4. Faça uma lista dos autores de literatura que apareceram nas três últimas provas.
+
+## Resumo
+
+- **Literatura:** trechos de poemas, contos, romances e crônicas; pede interpretação, contexto histórico, estilo de época e recursos expressivos.
+- **Artes e Educação Física:** partem de imagens e textos sobre artes visuais, música, dança, teatro, práticas corporais, saúde e inclusão.
+- **Língua estrangeira:** cinco questões, de inglês ou espanhol; o texto vem na língua estrangeira, o comando e as alternativas em português.
+- Estratégia: cognatos, palavras-chave, contexto, fonte e data; para o espanhol, cuidado com os falsos amigos.

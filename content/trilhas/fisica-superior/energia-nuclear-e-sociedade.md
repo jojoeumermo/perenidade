@@ -37,6 +37,10 @@ quiz:
     resposta: 1
     explicacao: "Os resíduos radioativos, o custo e o risco de acidentes estão entre os argumentos contrários."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a fissão e a reação em cadeia, como funciona um reator, o que aconteceram em Hiroshima, Nagasaki e nos grandes acidentes, o que diz a lei brasileira e quais são os argumentos do debate.
+
 
 ## Uma tecnologia de duas faces
 
@@ -118,3 +122,12 @@ E a **fusão nuclear**, a mesma que alimenta o Sol, ainda não produz eletricida
 2. Qual é a diferença entre um acidente nuclear (como Chernobyl) e um acidente radiológico (como Goiânia)?
 3. Organize um debate: o Brasil deve concluir Angra 3? Use apenas argumentos com fonte.
 4. Leia o artigo 21, inciso XXIII, da Constituição e liste as condições que ele impõe.
+
+## Resumo
+
+- A mesma tecnologia nuclear serve para gerar eletricidade e para fazer bombas.
+- A fissão (descrita em 1938 por Hahn e Strassmann) libera energia e nêutrons que podem provocar reação em cadeia.
+- Uma usina nuclear é uma termelétrica: o calor da fissão ferve água, e o vapor gira a turbina.
+- Em 6 e 9 de agosto de 1945, bombas atômicas foram lançadas sobre Hiroshima e Nagasaki.
+- A Constituição de 1988 (art. 21, XXIII) determina que a atividade nuclear no Brasil só pode ter fins pacíficos e depende de aprovação do Congresso.
+- O debate tem argumentos dos dois lados (baixa emissão de carbono na operação, de um lado; resíduos e risco de acidente, de outro); decidir é uma escolha da sociedade, não só dos técnicos.

@@ -1,0 +1,54 @@
+# Exercícios da aula "Formalização: o MEI na obra e na reforma" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-mei-01
+  tema: "Art. 18-B"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Quando uma empresa contrata MEI para pintura ou alvenaria, o que o art. 18-B da LC 123/2006 mantém?"
+  alternativas:
+    - texto: "A obrigação da empresa contratante de recolher a contribuição previdenciária relativa a esses serviços"
+      certa: true
+    - texto: "A isenção total de qualquer obrigação para a empresa"
+      erro: "A lei diz o contrário: a empresa continua obrigada à contribuição previdenciária."
+    - texto: "A proibição de contratar MEI"
+      erro: "A lei não proíbe a contratação. Ela mantém uma obrigação da empresa."
+  explicacao: "Hidráulica, eletricidade, pintura, alvenaria e carpintaria estão entre os serviços tratados no art. 18-B."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-mei-02
+  tipo: numero
+  tema: "Faturamento anual"
+  dificuldade: 2
+  enunciado: "Um pedreiro fatura em média R$ 5.500 por mês. Quanto fatura em 12 meses, em reais?"
+  resposta: "66000"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "5512"
+      explicacao: "Você somou 5.500 + 12. Para o ano, multiplique o valor mensal por 12."
+    - resposta: "458"
+      explicacao: "Você dividiu por 12. Para o total do ano, multiplique."
+  dica: "Valor mensal vezes 12."
+  explicacao: "5.500 × 12 = 66.000 reais por ano, abaixo do limite de R$ 81.000 do texto da lei (confira o limite atual no Portal do Empreendedor)."
+  conferir: "5500 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-mei-03
+  tema: "Vínculo de emprego"
+  dificuldade: 2
+  enunciado: "Um pedreiro abriu MEI, mas trabalha todos os dias, no horário que o dono manda, só para ele. O que isso pode indicar?"
+  alternativas:
+    - texto: "Uma relação de emprego disfarçada, porque o que vale é a realidade do trabalho"
+      certa: true
+    - texto: "Que ele é um empreendedor totalmente independente"
+      erro: "Receber ordens, cumprir horário e trabalhar só para um patrão se parece mais com emprego do que com trabalho autônomo."
+    - texto: "Que ele deve pagar menos imposto"
+      erro: "O imposto não muda a natureza da relação. O que importa é como o trabalho acontece de fato (CLT, art. 3º)."
+  explicacao: "O CNPJ não esconde subordinação, habitualidade e pessoalidade. Procure o sindicato ou a Defensoria em caso de dúvida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

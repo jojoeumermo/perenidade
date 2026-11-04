@@ -40,6 +40,10 @@ quiz:
     explicacao: "Do outro lado, morreram cerca de uma dúzia de pessoas. A desigualdade de armas era enorme."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quem eram os malês, o que aconteceu na noite de 24 para 25 de janeiro de 1835, em Salvador, e por que a repressão que veio depois importa.
+
 ## Salvador, uma cidade africana
 
 Em 1835, Salvador era uma das maiores cidades do Brasil e um dos grandes portos do tráfico de pessoas escravizadas. Uma parte enorme da população era escravizada, e muitos tinham nascido na África. Quem andava pelas ruas ouvia iorubá, haussá e outras línguas africanas tanto quanto português.
@@ -117,3 +121,10 @@ Para ver como as fugas e os quilombos fizeram parte da mesma luta, leia a aula [
 1. Por que a religião foi tão importante para organizar o levante? Que outros movimentos você conhece em que a fé ajudou a organizar a luta?
 2. Depois de 1835, todo africano em Salvador passou a ser suspeito. Onde você vê, hoje, um grupo inteiro ser tratado como suspeito por causa da origem, da cor ou da religião?
 3. Por que os senhores tinham tanto medo de escravizados que sabiam ler e escrever?
+
+## Resumo
+
+- Em 1835, Salvador era uma das maiores cidades do Brasil, com grande população escravizada, muitos nascidos na África; os "de ganho" trabalhavam na rua e entregavam ao senhor uma quantia fixa.
+- Malês eram os africanos muçulmanos da Bahia (de *imale*, "muçulmano" em iorubá); a maioria era nagô, e havia também haussás.
+- A revolta aconteceu na noite de 24 para 25 de janeiro de 1835 e foi reprimida.
+- Depois dela, todo africano passou a ser suspeito; a aula fala também do medo dos senhores e da memória de Luísa Mahin.

@@ -26,6 +26,10 @@ quiz:
     explicacao: "A mais-valia é a fonte do lucro, dos juros e do aluguel."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar, com a conta de uma lanchonete, de onde sai o lucro segundo Marx e por que salário e lucro saem do mesmo bolo.
+
 Toda empresa existe para ter lucro. Os jornais comemoram quando o lucro dos bancos sobe. Mas de onde sai esse dinheiro? Esta aula mostra, com um exemplo do dia a dia, a resposta de Marx.
 
 ## Uma lanchonete
@@ -78,3 +82,11 @@ Numa grande empresa, os donos (os acionistas) muitas vezes nem sabem onde ficam 
 ## Para conversar
 
 Pense num lugar onde você trabalhou (ou onde alguém da família trabalha). Quantos clientes eram atendidos por dia? Quanto custava cada produto? Dá para estimar quanto valor os trabalhadores produziam e quanto recebiam?
+
+## Resumo
+
+- Lucro é o que sobra depois de descontar os custos e os salários: na lanchonete, R$ 800 de vendas menos R$ 300 de custos e R$ 200 de salários dão R$ 300 de lucro.
+- Os ingredientes só reaparecem no preço; quem acrescenta valor novo é o trabalho das funcionárias.
+- Mais-valia é o valor que o trabalhador produz além do que recebe; a exploração está na regra do jogo, e não numa mentira.
+- Salário e lucro saem do mesmo bolo: quando um cresce, o outro diminui.
+- O risco explica por que a dona quer lucro, mas não de onde ele vem.

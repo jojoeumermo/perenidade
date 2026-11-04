@@ -35,11 +35,21 @@ quiz:
     opcoes: ["Aprende com os outros, divide tarefas e não carrega tudo sozinha", "Passa a decidir tudo sozinha", "Deixa de ter responsabilidades"]
     resposta: 0
     explicacao: "Organização é também escola: troca de experiência, divisão do trabalho e cuidado mútuo."
+modelo: 9
 ---
 
 ```provocacao
 Você e mais vinte colegas ganham pouco. Um pede aumento sozinho e é mandado embora. O que teria acontecido se os vinte pedissem juntos, no mesmo dia?
 ```
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que problemas comuns pedem respostas comuns, citar direitos conquistados por organização no Brasil e dar os primeiros passos para organizar um grupo.
+
+```suarealidade
+Qual problema do seu bairro, trabalho ou escola atinge muita gente ao mesmo tempo? Quem decide sobre ele?
+```
+
 
 A gente aprende desde cedo que a vida melhora com esforço pessoal: estudar mais, trabalhar mais, aguentar mais. Esforço importa. Mas tem problema que **não é só seu**: é de todo mundo que vive na mesma situação. Salário baixo, ônibus lotado, posto de saúde sem médico, aluguel que sobe todo ano. Para esses, o esforço de uma pessoa sozinha bate num muro.
 
@@ -96,3 +106,37 @@ Um núcleo de estudo do Instituto Lúcia é exatamente isso: começar estudando 
 - Que direito que você tem hoje foi conquistado por gente organizada?
 - O que impede as pessoas de se juntarem no seu bairro ou no seu trabalho?
 ```
+
+## Exemplo resolvido: do problema à primeira meta
+
+Caso da aula, em passos: o elevador quebrado de um condomínio.
+
+1. **Problema comum:** o síndico não troca o elevador depois da reclamação de um morador.
+2. **Conversar:** o morador descobre que outros também reclamam; ele não está só.
+3. **Juntar:** os moradores marcam uma assembleia.
+4. **Meta possível:** o conserto entra na pauta; com metade do prédio presente, o assunto não é mais ignorado.
+5. **Dividir tarefas:** quem fala com o síndico, quem redige a ata, quem acompanha o prazo.
+
+Confira: o que um morador sozinho não conseguiu, a assembleia conseguiu. É o mesmo caminho dos direitos conquistados no Brasil, como o 13º salário (1962).
+
+```outrolado
+# O argumento mais forte de quem discorda
+O economista Mancur Olson, em A Lógica da Ação Coletiva (1965), apresentou um argumento forte contra a ideia de que, se todos têm interesse comum, todos vão se organizar: quando o benefício é coletivo (um aumento para toda a categoria, por exemplo), cada pessoa pode pensar que vai receber de qualquer jeito, sem pagar o custo de tempo, de risco e de trabalho. Quem se organiza paga; quem fica de fora recebe da mesma forma. É o problema do "carona".
+---
+Como você responderia, com respeito e com fatos? Pense nos exemplos da aula e no que a pessoa ganha por participar de um grupo.
+---
+Uma resposta possível: o argumento descreve uma dificuldade real, e por isso a aula pede para começar pequeno, com uma meta possível e tarefas divididas. Dentro da organização as pessoas aprendem umas com as outras e se protegem (benefícios que só quem participa recebe). E a história mostra que direitos como a Greve Geral de 1917, o 13º salário (1962) e o SUS só existem porque muita gente decidiu não esperar de braços cruzados.
+```
+
+```agir
+# Esta semana
+Converse com duas pessoas que vivem o mesmo problema que você (no bairro, no trabalho ou na escola) e pergunte o que elas acham que daria para fazer juntos. Anote as respostas num papel, sem nomes, e leve para a aula seguinte.
+```
+
+## Resumo
+
+- Problemas comuns, que dependem de regras e de quem decide, pedem respostas comuns.
+- Organização é um grupo estável, com objetivos e regras combinadas.
+- Jornada limitada, descanso semanal, 13º salário (1962), assentamentos e SUS vieram de ação coletiva.
+- Organizar é também aprender, dividir tarefas e se proteger.
+- Comece pequeno: conversar, juntar, escolher uma meta possível e dividir as tarefas.

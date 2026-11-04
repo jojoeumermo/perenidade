@@ -1,0 +1,51 @@
+# Exercícios da aula "Produzir materiais a partir de textos reais" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-materiais-01
+  tema: "Alfabetização e letramento"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Para Magda Soares, qual é a diferença entre alfabetização e letramento?"
+  alternativas:
+    - texto: "São a mesma coisa"
+      erro: "A aula distingue as duas, e defende alfabetizar letrando."
+    - texto: "Alfabetização é aprender o sistema de escrita (letras e sons); letramento é usar a leitura e a escrita nas práticas da vida"
+      certa: true
+    - texto: "Letramento é aprender só as letras"
+      erro: "Aprender letras e sons é a alfabetização. O letramento é o uso da leitura e escrita na vida."
+  explicacao: "Alfabetizar letrando é ensinar letras e sons dentro de textos que têm uso: uma coisa sem a outra não basta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-materiais-02
+  tema: "Textos reais"
+  dificuldade: 1
+  enunciado: "Qual destes é um texto real que pode virar material de alfabetização, segundo a aula?"
+  alternativas:
+    - texto: "A frase \"Vovó viu a uva\""
+      erro: "Esse é o tipo de frase da cartilha clássica, que ninguém fala."
+    - texto: "Uma lista de sílabas sem sentido"
+      erro: "O material deve vir de textos que circulam na vida do grupo."
+    - texto: "A conta de luz"
+      certa: true
+  explicacao: "A conta de luz, a receita, o folheto do posto e a letra da música circulam na vida do adulto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-materiais-03
+  tema: "Preparar o texto"
+  dificuldade: 2
+  enunciado: "O que a aula sugere para preparar um texto real para o círculo?"
+  alternativas:
+    - texto: "Aumentar, recortar e cobrir dados pessoais"
+      certa: true
+    - texto: "Reescrevê-lo com frases de cartilha"
+      erro: "O texto real deve ser mantido, preparado para o grupo: aumentar, recortar, cobrir dados."
+    - texto: "Usar o texto só para o coordenador ler"
+      erro: "O texto é preparado para o círculo, e se planeja o que ensinar com ele."
+  explicacao: "Escolhem-se textos que façam sentido ao grupo e se preparam (aumentar, recortar, cobrir dados) para ensinar palavras, sílabas, números e a função do texto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

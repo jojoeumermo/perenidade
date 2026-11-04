@@ -31,6 +31,11 @@ quiz:
     resposta: 1
     explicacao: "Com a cabeça para trás, o sangue desce pela garganta e pode causar vômito ou engasgo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber estancar um sangramento com pressão direta, quando ligar para o 192, o que não fazer e como agir no nariz que sangra e na parte amputada.
+
+
 
 Esta aula não substitui um curso presencial. Sangramento forte é emergência: enquanto você age, alguém liga para o 192.
 
@@ -94,3 +99,24 @@ Estanque o sangramento primeiro. Depois, **enrole a parte amputada em um pano li
 4. Não ponha algodão, não deite e não incline a cabeça para trás.
 
 Procure atendimento se não parar em vinte minutos, se veio depois de uma pancada forte na cabeça ou se acontece com frequência.
+
+## Exemplo resolvido: um corte fundo no braço de um colega
+
+1. **Proteja-se:** cubra as mãos com luvas ou, se não houver, com um saco plástico limpo, e peça para alguém ligar 192.
+2. **Deite ou sente o colega:** quem perde sangue pode desmaiar.
+3. **Descubra o ferimento** e ponha um pano limpo por cima.
+4. **Aperte com firmeza, com a palma da mão**, direto no ferimento, e não solte para olhar, por pelo menos dez minutos.
+5. **O pano encharcou?** Ponha outro por cima, sem tirar o primeiro, e continue apertando.
+6. **Quando parar de sangrar**, prenda os panos com uma faixa firme, sem deixar a mão roxa ou gelada.
+7. **Se não parou em dez minutos**, ou o sangue sai em jato, ligue ou confirme o 192.
+
+Confira: o erro mais comum é soltar a toda hora para conferir. Nada de pó de café, açúcar ou pasta de dente.
+
+## Resumo
+
+- Proteja-se: luvas ou saco plástico; lave bem as mãos depois.
+- O que estanca é a pressão direta, com pano limpo e palma da mão, por pelo menos dez minutos, sem soltar para olhar.
+- Ligue 192 se o sangue sair em jato, não parar em dez minutos, o corte for grande ou fundo, houver objeto cravado, amputação ou sinais de perda de muito sangue.
+- Não use receitas caseiras, não arranque objeto cravado, não empurre nada de volta e não dê remédio, comida ou bebida.
+- Torniquete só em sangramento que ameaça a vida e com treino; sem treino, aperte direto no ferimento.
+- Nariz: sentar com a cabeça levemente para a frente, apertar a parte mole por dez minutos.

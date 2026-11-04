@@ -29,6 +29,11 @@ quiz:
     explicacao: "Ele viveu anos em Nova York e alertou para o expansionismo do vizinho do norte."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai conhecer a vida de José Martí, o ensaio Nuestra América (1891) e as suas quatro ideias centrais: conhecer a própria realidade, incluir os excluídos, valorizar as ideias e buscar a unidade.
+
+
 ## A vida
 
 **José Martí** nasceu em Havana em **1853**, quando Cuba ainda era colônia da Espanha. Aos 16 anos, foi preso por escrever contra o domínio colonial e condenado a trabalhos forçados; depois, deportado para a Espanha. Viveu no México, na Guatemala, na Venezuela e, por cerca de quinze anos, em **Nova York**.
@@ -87,3 +92,21 @@ O texto completo de *Nuestra América* está em domínio público e pode ser lid
 2. Explique com as suas palavras a ideia do "tronco" das repúblicas.
 3. Que alertas de Martí sobre a relação com os Estados Unidos continuam atuais? Debata com exemplos.
 4. Compare as ideias de Martí com as de um pensador brasileiro que você conheça.
+
+## Exemplo resolvido
+
+**Explique a imagem do enxerto e do tronco: "Injértese en nuestras repúblicas el mundo; pero el tronco ha de ser el de nuestras repúblicas".**
+
+1. **Traduza:** "Que o mundo seja enxertado nas nossas repúblicas; mas o tronco tem de ser o das nossas repúblicas".
+2. **Pense na imagem:** num enxerto, o tronco é o que sustenta a planta; o que se enxerta vem de fora.
+3. **Leia o sentido:** aprender com o mundo, sim, mas a partir da própria realidade.
+4. **Ligue à crítica de Martí:** ele critica os governantes que copiam leis e instituições da Europa e dos Estados Unidos sem conhecer o próprio país.
+
+Confira: a frase não pede isolamento, e sim uma base própria.
+
+## Resumo
+
+- **José Martí** (Havana, 1853): jornalista, poeta, ensaísta; fundou o Partido Revolucionario Cubano em 1892.
+- ***Nuestra América*** foi publicado em janeiro de 1891, em jornais do México e de Nova York.
+- Ideias centrais: conhecer a própria realidade (o enxerto e o tronco); incluir indígenas, negros e camponeses; *trincheras de ideas valen más que trincheras de piedra*; unidade diante do expansionismo dos Estados Unidos.
+- O texto está em domínio público e pode ser lido no original.

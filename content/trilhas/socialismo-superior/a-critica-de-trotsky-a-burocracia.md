@@ -34,6 +34,10 @@ quiz:
     explicacao: "Para os teóricos do capitalismo de Estado, a burocracia já era uma nova classe exploradora."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber expor a explicação de Trotsky para o surgimento da burocracia soviética, o que ele quis dizer com Termidor e Estado operário degenerado e por que ele não a chamava de nova classe.
+
 **Leon Trotsky** (1879-1940) foi presidente do soviete de São Petersburgo em 1905, um dos organizadores da insurreição de outubro de 1917 e o criador do Exército Vermelho. Depois da morte de Lenin, liderou a oposição a Stálin, foi expulso do partido em 1927, exilado em 1929 e assassinado no México, em 1940, por um agente soviético. No exílio, escreveu a crítica mais influente da URSS feita a partir do marxismo: **A Revolução Traída** (1936). A aula [Stalin e Trotsky](/trilhas/revolucoes-socialistas/stalin-e-trotsky-o-debate-sobre-os-rumos-da-revolucao) apresenta o conflito político; esta se concentra na teoria.
 
 ## As raízes da burocracia
@@ -79,6 +83,25 @@ A análise de Trotsky foi debatida por outras correntes marxistas:
 - **coletivismo burocrático**: outros viram na URSS uma nova sociedade de classes, nem capitalista nem socialista;
 - defensores da experiência soviética rejeitaram a crítica como exagerada ou injusta, destacando o cerco imperialista e as conquistas sociais.
 
+## Exemplo resolvido
+
+**Por que Trotsky não considerava a burocracia soviética uma nova classe dominante?**
+
+1. Lembre o critério marxista de classe: a relação com os meios de produção.
+2. Aplique à burocracia: ela controlava o Estado e tinha privilégios, mas não era dona dos meios de produção como propriedade e não podia transmiti-los por herança.
+3. Compare com uma classe que possui e transmite a propriedade: a burocracia, por isso, não se encaixa.
+4. Dê o nome que ele usou: uma casta parasitária, num Estado operário burocraticamente degenerado.
+
+Conclusão: a base econômica da revolução (propriedade estatal, monopólio do comércio exterior, planejamento) seguia de pé, enquanto a política tinha sido usurpada por uma camada de privilegiados.
+
 ## Para pesquisar e debater
 
 Como se forma uma burocracia num sindicato, num partido ou num movimento social? Que mecanismos (rodízio, revogabilidade, transparência, limite de mandatos) podem impedir que ela se separe da base?
+
+## Resumo
+
+- Trotsky escreveu *A Revolução Traída* (1936), a crítica marxista mais influente da URSS.
+- Raízes da burocracia: revolução vencida num país atrasado e isolado, guerra civil e escassez generalizada (a "fila" que pede um "policial").
+- Termidor soviético: como em 1794 na França, as massas foram afastadas do poder sem que se restaurasse o antigo regime.
+- Estado operário burocraticamente degenerado: base econômica conquistada e superestrutura política usurpada.
+- A burocracia seria uma casta parasitária, e não uma nova classe, porque não era dona dos meios de produção nem os transmitia por herança.

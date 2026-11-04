@@ -1,0 +1,51 @@
+# Exercícios da aula "Corte na máquina: pentes e alturas" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-maquina-01
+  tema: "Comece mais longo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que começar um pente acima do combinado?"
+  alternativas:
+    - texto: "Porque o que se corta não volta"
+      certa: true
+    - texto: "Porque a máquina esquenta menos"
+      erro: "O motivo é segurança do resultado: o que se corta não volta."
+    - texto: "Porque o cliente paga menos"
+      erro: "É para chegar aos poucos à altura combinada."
+  explicacao: "Comece um pente acima, confira no espelho com o cliente e, se for o caso, desça um pente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-maquina-02
+  tema: "A numeração dos pentes"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre a numeração dos pentes?"
+  alternativas:
+    - texto: "É a mesma em todas as máquinas"
+      erro: "A numeração muda de fabricante para fabricante."
+    - texto: "Muda de fabricante para fabricante; pergunte a altura em milímetros"
+      certa: true
+    - texto: "Não importa, basta usar o 2"
+      erro: "Seu \"2\" pode não ser o \"2\" da outra barbearia: pergunte a altura em milímetros."
+  explicacao: "Pergunte a altura em milímetros que o cliente gosta, ou mostre com o pente na cabeça dele."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-maquina-03
+  tema: "Sem degrau"
+  dificuldade: 3
+  enunciado: "Perto da linha do chapéu, como evitar um degrau entre o curto e o comprido?"
+  alternativas:
+    - texto: "Parar a máquina de repente"
+      erro: "Isso deixa degrau. O correto é afastar em arco."
+    - texto: "Subir reto, sem inclinar"
+      erro: "Afaste a máquina da cabeça em arco, para o cabelo ficar mais comprido aos poucos."
+    - texto: "Afastar a máquina da cabeça em arco"
+      certa: true
+  explicacao: "Suba em faixas, cobrindo um pouco a anterior, e afaste em arco perto da linha do chapéu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

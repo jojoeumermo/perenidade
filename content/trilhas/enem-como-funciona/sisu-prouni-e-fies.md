@@ -35,6 +35,10 @@ quiz:
     explicacao: "Os três programas exigem nota acima de zero na redação."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar Sisu, Prouni e Fies, conhecer os requisitos de cada um nas regras de 2026 e escolher uma ordem para tentar.
+
 A nota do ENEM sozinha não dá vaga em lugar nenhum. Ela vira oportunidade por meio de programas do Ministério da Educação, e os três principais são o **Sisu**, o **Prouni** e o **Fies**. Todos funcionam pelo **Portal Único de Acesso ao Ensino Superior** (*acessounico.mec.gov.br*), com a conta gov.br.
 
 Esta aula usa as regras de **2026** como exemplo. Datas, limites de renda e detalhes mudam: confira sempre o edital do seu ano no portal.
@@ -115,3 +119,21 @@ Além desses programas, muitas faculdades usam a nota do ENEM no lugar do vestib
 1. Entre no portal *acessounico.mec.gov.br* e encontre a página de cada programa.
 2. Calcule a renda por pessoa da sua família: some a renda bruta de todos que moram na casa e divida pelo número de pessoas. Compare com os limites desta aula.
 3. Escolha dois cursos que você gostaria de fazer e pesquise, na página do Sisu, quais instituições os oferecem e quais pesos dão a cada área.
+
+## Exemplo resolvido
+
+**Rafael quer Pedagogia e a nota de corte parcial está acima da nota dele. O que fazer?**
+
+1. Lembre como o Sisu funciona: a nota de corte parcial é mostrada durante a inscrição e atualizada a cada dia.
+2. Veja o que ele pode mudar: o candidato escolhe até duas opções e pode trocar de curso até o fim do prazo.
+3. Veja os pesos: cada curso dá pesos diferentes às áreas, então a nota dele pode render mais em outro curso.
+4. Veja a segunda chance: ele pode manter a opção e confirmar o interesse na lista de espera.
+
+Confira: a escolha não é definitiva enquanto as inscrições estiverem abertas.
+
+## Resumo
+
+- Sisu: vaga em instituição pública, pela nota do ENEM, com até duas opções de curso e lista de espera.
+- Prouni: bolsa que não se devolve em faculdade particular; integral para renda de até 1,5 salário mínimo por pessoa e parcial (50%) até 3.
+- Fies: financiamento, que é dívida; nas regras de 2026, renda de até 3 salários mínimos por pessoa e média de 450 com redação acima de zero.
+- Caminho sugerido: Sisu primeiro, depois Prouni, Fies por último; acompanhe as listas de espera e pergunte sobre a permanência.

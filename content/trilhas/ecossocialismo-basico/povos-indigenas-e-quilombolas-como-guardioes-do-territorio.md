@@ -38,6 +38,10 @@ quiz:
     explicacao: "O Supremo Tribunal Federal rejeitou a tese em 2023; o Congresso aprovou lei que a adota, e em dezembro de 2025 o STF declarou inconstitucional esse trecho da lei."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar os dados do MapBiomas e os artigos da Constituição para explicar por que os territórios indígenas e quilombolas protegem a floresta, e o que é o marco temporal.
+
 Nos mapas feitos por satélite, as terras indígenas da Amazônia aparecem como grandes manchas verdes cercadas por áreas desmatadas. A imagem dispensa muitos argumentos.
 
 ## O que os dados mostram
@@ -89,3 +93,21 @@ Isso não significa idealizar. São povos diversos, com conflitos e escolhas pr�
 ## Para pesquisar e debater
 
 Quais povos indígenas e comunidades quilombolas existem no seu estado? As terras deles estão demarcadas ou tituladas? Que ameaças enfrentam?
+
+## Exemplo resolvido
+
+**Como comparar o que os dados mostram sobre terras indígenas e áreas privadas?**
+
+1. Pegue os números do MapBiomas, em mais de trinta anos: as terras indígenas perderam cerca de 1% da vegetação nativa; as áreas privadas, cerca de 20%.
+2. Divida: 20 dividido por 1 dá cerca de vinte vezes mais perda nas áreas privadas.
+3. Interprete: nas terras indígenas, a floresta ficou muito mais de pé.
+4. Ligue à lei: o artigo 231 da Constituição garante os direitos originários sobre essas terras.
+
+Confira: por isso a aula diz que as terras indígenas funcionam como barreira eficaz contra o desmatamento.
+
+## Resumo
+
+- Segundo o MapBiomas, as terras indígenas perderam cerca de 1% da vegetação nativa em mais de trinta anos; as áreas privadas, cerca de 20%.
+- A Constituição reconhece os direitos originários dos indígenas (art. 231) e a propriedade das terras quilombolas (art. 68 do ADCT); a Convenção 169 da OIT garante consulta prévia.
+- Há grande distância entre a lei e a prática: demarcações paradas, garimpo e grilagem.
+- Marco temporal: o STF rejeitou a tese em 2023 e, em dezembro de 2025, considerou inconstitucional o trecho da Lei 14.701 que a institui.

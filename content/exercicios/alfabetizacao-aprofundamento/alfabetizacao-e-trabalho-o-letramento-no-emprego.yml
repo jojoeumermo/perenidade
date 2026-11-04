@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização e trabalho: o letramento no emprego" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-trabalho-01
+  tema: "O Inaf"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O Inaf 2024 mostrou 29% das pessoas de 15 a 64 anos nos dois níveis mais baixos (analfabeto e rudimentar). Isso equivale a quase quantas em cada dez?"
+  alternativas:
+    - texto: "Quase três em cada dez"
+      certa: true
+    - texto: "Quase uma em cada dez"
+      erro: "29% é quase 30%, ou seja, três em cada dez."
+    - texto: "Quase seis em cada dez"
+      erro: "Seis em cada dez seria 60%. 29% é quase três em cada dez."
+  explicacao: "29% é quase 30%: quase três em cada dez pessoas em idade de trabalhar têm dificuldade com textos como uma instrução de trabalho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-trabalho-02
+  tema: "Quem coordena o Inaf"
+  dificuldade: 1
+  enunciado: "Quem coordena o Indicador de Alfabetismo Funcional (Inaf), segundo a aula?"
+  alternativas:
+    - texto: "O IBGE"
+      erro: "O IBGE faz o Censo e a PNAD. O Inaf é coordenado pela Ação Educativa."
+    - texto: "A Ação Educativa"
+      certa: true
+    - texto: "O Instituto Pró-Livro"
+      erro: "O Pró-Livro faz o Retratos da Leitura. O Inaf é da Ação Educativa."
+  explicacao: "O Inaf é coordenado pela Ação Educativa e mede o uso da leitura, da escrita e dos números por brasileiros de 15 a 64 anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-trabalho-03
+  tema: "O custo no emprego"
+  dificuldade: 1
+  enunciado: "Qual situação do emprego a aula dá como exemplo de custo da falta de leitura?"
+  alternativas:
+    - texto: "O trabalhador ler demais e não render"
+      erro: "A aula mostra o contrário: a falta de leitura custa caro ao trabalhador."
+    - texto: "A empresa assinar contratos sem ler"
+      erro: "Os exemplos são do trabalhador: vaga que pede escolaridade, relatório, aviso de segurança e contracheque."
+    - texto: "O aviso de segurança que não se consegue ler e o contracheque que ninguém explica"
+      certa: true
+  explicacao: "A falta de leitura custa caro no emprego, e quem paga é o trabalhador."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

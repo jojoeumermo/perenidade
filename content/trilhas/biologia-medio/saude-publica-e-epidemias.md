@@ -41,6 +41,9 @@ quiz:
     resposta: 1
     explicacao: "A lei reconhece que os níveis de saúde expressam a organização social e econômica do país."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o vocabulário da epidemiologia (endemia, surto, epidemia, pandemia; incidência, prevalência, mortalidade, letalidade), comparar taxas por 100 mil habitantes, interpretar o número básico de reprodução e conhecer as medidas de contenção.
 
 ## A saúde de todos
 
@@ -163,3 +166,22 @@ Na dúvida, pergunte na unidade de saúde.
 2. Duas cidades tiveram 200 casos de uma doença: uma tem 20 mil habitantes; a outra, 400 mil. Calcule os casos por 100 mil e compare.
 3. Como está a cobertura vacinal das crianças na sua cidade? Onde encontrar esse dado?
 4. Escolha uma mensagem sobre saúde recebida por aplicativo e aplique as quatro perguntas da aula. Ela se sustenta?
+
+## Exemplo resolvido
+
+**A cidade A teve 500 casos em 1 000 000 de habitantes. A cidade B teve 100 casos em 50 000 habitantes. Qual está em situação pior?**
+
+1. **Padronize por 100 mil habitantes.** Para a cidade A, 1 000 000 ÷ 100 000 = 10; então 500 ÷ 10 = **50 casos por 100 mil**.
+2. **Cidade B.** 50 000 ÷ 100 000 = 0,5; então 100 ÷ 0,5 = **200 casos por 100 mil**.
+3. **Compare.** 200 ÷ 50 = 4.
+4. **Conclua.** A cidade B, com menos casos, está em situação **quatro vezes pior**.
+
+Confira: comparar números absolutos engana quando as populações são de tamanhos diferentes.
+
+## Resumo
+
+- **Saúde pública** cuida da população e age sobre as causas do adoecimento.
+- **Endemia:** presença constante; **surto:** aumento repentino em local restrito; **epidemia:** casos bem acima do esperado numa região; **pandemia:** epidemia em vários países e continentes.
+- **Incidência:** casos novos; **prevalência:** todos os casos existentes; **mortalidade:** mortes em relação a toda a população; **letalidade:** mortes em relação aos doentes. Os números costumam ser dados por 100 mil habitantes.
+- **Número básico de reprodução:** maior que 1, a doença se espalha; menor que 1, tende a desaparecer. Vacinação, isolamento, máscaras e ventilação puxam o número para baixo de 1.
+- Uma epidemia começa por novo agente, mutação, queda da vacinação, más condições de vida e circulação. A contenção começa pela **vigilância** (Lei 6.259/1975, notificação).

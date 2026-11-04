@@ -34,6 +34,10 @@ quiz:
     explicacao: "Tratar alguém como a pessoa pede custa pouco. Quando a forma nova não sai, o nome próprio resolve."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir linguagem neutra de linguagem inclusiva, dizer o que a norma-padrão e o Supremo Tribunal Federal decidiram e agir com respeito no dia a dia.
+
 ## Um problema antigo da língua
 
 Em português, quase toda palavra que se refere a gente tem gênero: *aluno* ou *aluna*, *cansado* ou *cansada*, *ele* ou *ela*. E, quando o grupo é misto, a gramática tradicional manda usar o masculino: "os alunos", mesmo que haja vinte meninas e um menino.
@@ -100,3 +104,22 @@ Mais importante que qualquer terminação é o **nome**. Desde 2016, um decreto 
 - **Não use a discussão para humilhar**, de nenhum lado.
 
 A língua é de quem fala. O que a linguagem neutra pede, no fundo, é pouco: que se preste atenção em quem está na sala.
+
+## Exemplo resolvido
+
+**Como cumprimentar uma turma mista sem excluir ninguém e sem palavra nova?**
+
+1. Veja o problema: pela gramática tradicional, o masculino vale por todo mundo ("os alunos"), mesmo que haja vinte meninas e um menino.
+2. Use a **linguagem inclusiva**, que só usa o que a língua já tem: em vez de "os alunos", "a turma", "estudantes" ou "quem estuda aqui".
+3. Em vez de "todos", "todas as pessoas" ou "todo mundo".
+4. Resultado: *Bom dia, turma.* Está nos dicionários, é aceita em qualquer registro e não marca gênero.
+
+Confira: a forma "todxs" é desaconselhada porque não se pronuncia e os leitores de tela usados por pessoas cegas tropeçam nela. Em prova que cobra a norma-padrão, vale a norma-padrão.
+
+## Resumo
+
+- Linguagem neutra propõe formas novas (*todes*, *elu*); linguagem inclusiva usa só o que a língua já tem (*a turma*, *todo mundo*).
+- *Todxs* e *tod@s* são desaconselhados: não se pronunciam e confundem leitores de tela.
+- A norma-padrão não registra *elu* nem *todes*; em prova, vale a norma-padrão.
+- Em fevereiro de 2023, o STF (ADI 7.019) declarou inconstitucional, por unanimidade, a lei de Rondônia sobre o tema, por competência: só a União legisla sobre diretrizes da educação.
+- Na prática: respeite o nome e o pronome que a pessoa indicar, corrija sem drama e não use a discussão para humilhar.
