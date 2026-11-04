@@ -24,6 +24,10 @@ quiz:
     explicacao: "Em PHP o escopo é fechado. O jeito certo de levar um valor para dentro da função é passá-lo como parâmetro."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber criar funções em PHP, com parâmetros, tipos e valor padrão, devolver resultados com `return` e entender por que a função só enxerga o que recebe.
+
 ## Definir e chamar
 
 ```php
@@ -145,3 +149,32 @@ Cada função faz uma coisa só e tem um nome que explica o que é.
 1. Escreva `eh_par(int $n): bool`.
 2. Escreva `maior(float $a, float $b): float` sem usar `max`.
 3. Escreva `formata_reais(float $valor): string`, que devolve o valor no formato `R$ 1.234,50`.
+
+## Exemplo resolvido
+
+**Um restaurante cobra 10% de serviço. Quanto paga quem consumiu R$ 80? E se a pessoa recusar o serviço?**
+
+1. A conta é sempre a mesma: consumo mais uma porcentagem do consumo. Vale uma função.
+2. Os dados que mudam são o consumo e a porcentagem: dois parâmetros. A porcentagem recebe o valor padrão 10, para quem não disser nada.
+3. A função calcula e devolve com `return`; quem chama decide o que mostrar.
+
+```php
+<?php
+function conta_com_servico(float $consumo, float $servico = 10): float
+{
+    return $consumo + $consumo * $servico / 100;
+}
+
+echo conta_com_servico(80), "\n";
+echo conta_com_servico(80, 0), "\n";
+```
+
+A primeira chamada usa o padrão: 80 + 80 × 10 / 100 = 80 + 8 = 88. A segunda informa 0 e dá 80. O programa mostra 88 e 80.
+
+## Resumo
+
+- `function nome(tipo $parametro): tipo` cria a função; ela só roda quando é chamada.
+- `return` devolve o resultado; função que calcula devolve, e quem chama decide o que mostrar.
+- Declarar os tipos faz o engano aparecer na hora, como `TypeError`.
+- Um parâmetro pode ter valor padrão.
+- A função não enxerga as variáveis de fora: tudo de que precisa entra como parâmetro.

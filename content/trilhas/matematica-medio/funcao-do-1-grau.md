@@ -26,6 +26,10 @@ quiz:
     explicacao: "Com a negativo, cada passo em x faz o valor diminuir: a função é decrescente."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer uma função do 1º grau, achar o zero e a regra a partir de dois valores e comparar duas opções de preço para ver qual compensa em cada distância.
+
 ## Sempre o mesmo passo
 
 Uma corrida custa R$ 4 de taxa fixa mais R$ 2 por quilômetro. A cada quilômetro, o preço sobe **sempre os mesmos** R$ 2, seja no primeiro ou no vigésimo. Esse é o traço da **função do 1º grau** (também chamada função afim):
@@ -119,3 +123,13 @@ A função do 1º grau supõe que o ritmo nunca muda. Serve bem para trechos cur
 5. A função f(x) = −3x + 12 é crescente ou decrescente? Onde corta os dois eixos?
 
 **Respostas:** 1) −6, 4 e x = 3. 2) f(x) = 3x + 2. 3) f(t) = 60 − 5t; 12 horas. 4) Acima de 500 panfletos. 5) Decrescente; corta o eixo y em 12 e o eixo x em 4.
+
+## Resumo
+
+- Função do 1º grau: f(x) = ax + b; o gráfico é uma reta.
+- b é o valor inicial (onde a reta corta o eixo y); a é a taxa de variação, a mudança a cada unidade de x.
+- Com a positivo a reta sobe, com a negativo desce, com a zero fica deitada.
+- O zero da função é x = −b/a.
+- Dois pontos definem a reta: a = variação do resultado ÷ variação da entrada; depois acha-se o b.
+- Para comparar duas opções, iguala-se as duas funções e acha-se o ponto de empate.
+- A reta só serve quando o passo é constante; dívida com juros cresce em curva.

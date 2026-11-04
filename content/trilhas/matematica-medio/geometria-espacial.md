@@ -25,6 +25,10 @@ quiz:
     explicacao: "Dobra no comprimento, na largura e na altura: 2 × 2 × 2 = 8."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular o volume de prismas, cilindros, pirâmides, cones e esferas, achar a área da superfície de um sólido e passar o volume para litros.
+
 ## Três dimensões
 
 As figuras planas têm comprimento e largura. Os **sólidos** têm também altura. Deles interessam duas medidas:
@@ -142,3 +146,13 @@ Dobrando todas as medidas de um sólido, a área da superfície fica 4 vezes mai
 6. Calcule o volume de uma esfera de 3 m de raio.
 
 **Respostas:** 1) 27 m³ e 54 m². 2) 3.000 litros. 3) 6,28 m³ e cerca de 2,09 m³. 4) 1,44 m³. 5) 7 viagens. 6) Cerca de 113,04 m³.
+
+## Resumo
+
+- Volume é o espaço que o sólido ocupa; área da superfície é o tamanho da "casca". 1 m³ = 1.000 litros.
+- Prismas e cilindros: volume = área da base × altura.
+- Pirâmides e cones: volume = área da base × altura ÷ 3.
+- Esfera: volume = 4/3 × π × raio³ e área = 4 × π × raio².
+- Para a área da superfície, "desmonte" o sólido e some as áreas das faces.
+- Poliedro convexo: V − A + F = 2.
+- Dobrando todas as medidas, a área fica 4 vezes maior e o volume, 8 vezes maior.

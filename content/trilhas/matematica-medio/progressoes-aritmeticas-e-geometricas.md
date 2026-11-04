@@ -33,6 +33,10 @@ quiz:
     explicacao: "Cada termo é o anterior multiplicado por 2."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer progressões aritméticas e geométricas, achar um termo qualquer, calcular a soma dos termos e entender quando a soma de infinitos termos chega a um valor.
+
 ## Sequências com regra
 
 Uma **sequência** é uma lista ordenada de números. As mais úteis são as que seguem uma regra fixa de um termo para o seguinte. Costuma-se chamar o primeiro termo de a₁, o segundo de a₂, e um termo qualquer, na posição n, de aₙ.
@@ -127,3 +131,12 @@ A lição matemática: uma PA e uma PG são **modelos**. Antes de aceitar a conc
 6. Um salário de R$ 1.500 recebe aumento de R$ 100 por ano. Outro, de R$ 1.500, recebe aumento de 5% por ano. Quanto vale cada um no quarto ano (depois de três aumentos)?
 
 **Respostas:** 1) 63. 2) 1.030. 3) 1.275. 4) 486. 5) 1,5. 6) R$ 1.800 e cerca de R$ 1.736. Nos primeiros anos a PA vai à frente; a PG só passa adiante bem mais tarde.
+
+## Resumo
+
+- PA: soma-se sempre a razão r. Termo: aₙ = a₁ + (n − 1) × r. Soma: Sₙ = (a₁ + aₙ) × n ÷ 2.
+- PG: multiplica-se sempre pela razão q. Termo: aₙ = a₁ × q^(n − 1). Soma: Sₙ = a₁ × (q^n − 1) ÷ (q − 1).
+- Do 1º ao n-ésimo termo há n − 1 passos.
+- Com a razão entre −1 e 1, a soma infinita da PG é S = a₁ ÷ (1 − q).
+- Juros simples formam uma PA; juros compostos, uma PG.
+- PA e PG são modelos: pergunte de onde saiu a razão e se ela vai mesmo ficar constante.

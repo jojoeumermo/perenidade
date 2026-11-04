@@ -30,6 +30,10 @@ quiz:
     explicacao: "Dividir 1 por números cada vez maiores dá resultados cada vez mais próximos de zero."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o limite de uma função, calcular limites simples (inclusive no infinito e laterais) e dizer quando uma função é contínua.
+
 Nesta trilha, o sinal ^ quer dizer "elevado a", e "x → a" lê-se "x tende a a".
 
 ## Chegar perto
@@ -143,3 +147,13 @@ A resposta veio no século XIX, com Augustin-Louis Cauchy e Karl Weierstrass. Na
 5. A função que dá o preço do estacionamento do exemplo é contínua em x = 1? E em x = 0,5?
 
 **Respostas:** 1) 7. 2) 6. 3) 2. 4) Não: pela esquerda o limite é −1; pela direita, 1. 5) Não é contínua em 1 (há um salto); é contínua em 0,5.
+
+## Resumo
+
+- O limite descreve para onde f(x) tende quando x se aproxima de a; não depende do que acontece no ponto, e sim em volta dele.
+- O limite só existe se os dois limites laterais concordam.
+- Perto de 0, 1/x² cresce sem parar (+∞); com x crescendo, 1/x tende a 0.
+- Para frações de polinômios no infinito, divide-se tudo pela maior potência de x.
+- Soma, produto e quociente de limites seguem as operações; 0 ÷ 0 e ∞ ÷ ∞ são formas indeterminadas e pedem simplificação.
+- Função contínua em a: lim f(x) = f(a).
+- Derivada e integral são limites; (1 + 1/n)^n tende a e ≈ 2,71828.

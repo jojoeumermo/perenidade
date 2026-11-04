@@ -49,6 +49,10 @@ quiz:
     explicacao: "Eni Orlandi, da Unicamp, começou esse trabalho nos anos 1970 e escreveu um dos manuais mais usados da área no país."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que a análise do discurso entende por discurso, usar conceitos como condições de produção, formação discursiva, interdiscurso e silêncio e fazer uma análise simples de um texto, passo a passo.
+
 "O Brasil foi descoberto em 1500." "Os portugueses chegaram ao Brasil em 1500." "Em 1500 começou a invasão do território indígena." As três frases falam do mesmo acontecimento, e nenhuma diz a mesma coisa. Cada uma traz um ponto de vista, uma memória e uma posição na história. A **análise do discurso** estuda exatamente isso: como os sentidos são produzidos quando a língua encontra a história.
 
 Esta aula conversa com [Semântica e pragmática](/trilhas/portugues-superior/semantica-e-pragmatica), que mostrou a disputa política pelas palavras, e com [Leitura crítica de notícias](/trilhas/portugues-medio/leitura-critica-de-noticias).
@@ -123,6 +127,15 @@ Na manchete 'Morre jovem durante operação policial', o que a análise do discu
 6. **Teste paráfrases:** reescreva o trecho de outro jeito e veja o que muda.
 
 Um cuidado: analisar discursos não é "descobrir a intenção escondida" de alguém nem acusar sem provas. É mostrar como os sentidos se produzem, a partir das marcas que estão no próprio texto.
+
+## Resumo
+
+- Discurso, para a análise do discurso, é a língua funcionando na história: o sentido que se produz entre pessoas situadas.
+- As palavras não têm sentido fixo, e quem fala não é dono absoluto do que diz.
+- A corrente mais forte no Brasil vem de Pêcheux e foi trazida por Eni Orlandi; Foucault mostra que o discurso é controlado, por exemplo pela interdição.
+- Conceitos de base: condições de produção, formação discursiva, interdiscurso, ideologia, silêncio, paráfrase e polissemia.
+- Para analisar: delimitar o material, descrever as marcas da língua, relacionar com as condições de produção, procurar a memória, ouvir o silêncio e testar paráfrases.
+- Analisar não é adivinhar a intenção escondida nem acusar sem provas: parte das marcas que estão no próprio texto.
 
 ## Para praticar
 

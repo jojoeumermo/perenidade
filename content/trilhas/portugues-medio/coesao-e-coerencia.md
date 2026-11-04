@@ -24,6 +24,10 @@ quiz:
     explicacao: "Portanto, logo e por isso introduzem conclusão. Porém opõe; além disso soma."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre coesão (a ligação entre as partes) e coerência (o sentido do todo), usar pronomes e conectivos para ligar as ideias e revisar um texto para ver se ele se sustenta.
+
 ## O que é um texto
 
 A palavra *texto* tem a mesma origem de *tecido*. Um texto não é um amontoado de frases, assim como um tecido não é um amontoado de fios: é preciso que as partes estejam **entrelaçadas** e que o conjunto **faça sentido**.
@@ -126,6 +130,24 @@ Daí uma regra de ouro para quem escreve: **pense em quem vai ler**. O que essa 
 4. Cada pronome tem um dono claro?
 5. Cada conectivo indica a relação certa?
 6. Uma pessoa de fora entenderia?
+
+## Exemplo resolvido: revisando um texto curto
+
+Texto: "A feira mudou de lugar. A feira ficou longe do ponto de ônibus. Por isso, as vendas aumentaram."
+
+1. **Repetição.** "A feira" aparece duas vezes seguidas. Na segunda, um pronome retoma o termo sem confusão: "Ela ficou longe do ponto de ônibus." (Ou liga-se tudo com "e".)
+2. **Conectivo.** "Por isso" indica consequência. Mas ficar longe do ponto de ônibus não leva, em geral, a vender mais: a segunda ideia contraria o que a primeira faria esperar. A relação é de oposição, e o conectivo certo é "mesmo assim" ou "no entanto".
+3. **Texto revisado:** "A feira mudou de lugar e ficou longe do ponto de ônibus. Mesmo assim, as vendas aumentaram."
+
+Confira: cada pronome tem dono claro e cada conectivo mostra a relação certa. Se o texto quisesse dizer que as vendas caíram, "Por isso" estaria certo: "...Por isso, as vendas caíram."
+
+## Resumo
+
+- Coesão é a costura do texto, visível nas palavras: pronomes, sinônimos, advérbios e conectivos retomam e ligam as partes.
+- Coerência é o sentido do todo: unidade, progressão, não contradição e relação com o mundo.
+- O conectivo indica a relação entre as frases (soma, oposição, causa, conclusão, condição, finalidade); o errado engana o leitor.
+- Um texto pode ter coesão sem coerência, e o contrário também.
+- A coerência é construída por quem lê; por isso, escreva pensando em quem vai ler.
 
 ## Para praticar
 

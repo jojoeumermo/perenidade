@@ -46,6 +46,10 @@ quiz:
     explicacao: "A história da língua mostra que muitas formas hoje condenadas seguem os mesmos caminhos que formaram o português padrão."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como o latim falado pelo povo virou português, reconhecer as camadas que outros povos deixaram na língua e entender o lugar das línguas indígenas e africanas na história do português do Brasil.
+
 Toda vez que alguém diz "chuva", "chave" ou "cheio", está repetindo, sem saber, mudanças de som que aconteceram há mais de mil anos. A língua que falamos no ônibus, no trabalho e em casa é o resultado de uma história longa, feita de conquistas, migrações, escravidão e resistência. Conhecer essa história ajuda a entender por que o português é como é, e por que ele não para de mudar.
 
 Esta aula usa ideias das aulas [O que estuda a linguística](/trilhas/portugues-superior/o-que-estuda-a-linguistica) (sincronia e diacronia) e [Fonética e fonologia do português](/trilhas/portugues-superior/fonetica-e-fonologia-do-portugues).
@@ -136,6 +140,25 @@ Qual das palavras abaixo mostra a mesma mudança que transformou o latim 'pluvia
 - dor (de dolore)
 > Procure o grupo de consoante com L no começo da palavra latina.
 ```
+
+## Exemplo resolvido: de onde vêm "cavalo", "chuva" e "praga"?
+
+1. **"Cavalo."** Na tabela, o latim clássico tinha *equus*, mas o povo dizia *caballus*. O português vem do latim vulgar, e não do clássico. Origem: **caballus** → cavalo.
+2. **"Chuva."** O latim era *pluvia*. O grupo *pl-* do começo virou *ch-* (como em *clave* → chave e *flamma* → chama). É uma mudança de som regular.
+3. **"Praga."** O latim era *plaga*. Aqui o *l* do grupo de consoantes virou *r* (como em *ecclesia* → igreja).
+4. **Conclusão.** "Praga" e "igreja" nasceram do mesmo processo que hoje é ridicularizado em "pranta" e "frecha". Não é invenção recente da fala popular: é um caminho antigo da língua.
+
+Confira: em todos os casos o português vem do latim falado, e as mudanças seguem regras que se repetem em várias palavras.
+
+## Resumo
+
+- O português vem do latim vulgar, falado pelo povo no Império Romano, e não do latim clássico.
+- Com a queda do Império Romano do Ocidente, o latim falado deu origem às línguas românicas (português, espanhol, francês, italiano e outras).
+- As mudanças de som seguem regras (pl- virou ch-; o n e o l entre vogais caíram; o l de grupos de consoantes virou r).
+- Substrato, superstrato e adstrato são camadas deixadas por outros povos: celtas, germânicos e árabes.
+- O galego-português foi a primeira língua escrita; o português se firmou com D. Dinis, ganhou gramáticas no século XVI e foi levado por navegadores a outros continentes.
+- No Brasil, o português se formou em contato com as línguas indígenas (línguas gerais, nheengatu) e africanas; o Diretório dos Índios (1757) impôs o português.
+- A ortografia mudou várias vezes, e mudar a escrita não muda a língua falada.
 
 ## Para pensar
 

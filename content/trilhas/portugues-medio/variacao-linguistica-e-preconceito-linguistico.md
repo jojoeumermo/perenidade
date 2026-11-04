@@ -31,6 +31,10 @@ quiz:
     explicacao: "Vossa mercê, vosmecê, você: um exemplo de mudança da língua ao longo dos séculos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer os tipos de variação da língua, diferenciar norma-padrão, norma culta e variedades populares, usar a ideia de adequação em vez de "certo e errado" e identificar o preconceito linguístico.
+
 ## Nenhuma língua é uma só
 
 Ninguém fala do mesmo jeito em casa, na igreja, no trabalho e na entrevista de emprego. Um gaúcho não fala como um paraense, nem um jovem como a avó. Isso não é defeito do português nem do Brasil: **toda língua viva varia**. O ramo da linguística que estuda essa variação é a **sociolinguística**.
@@ -107,6 +111,26 @@ Em 2011, um livro didático para a educação de jovens e adultos, *Por uma vida
 Precisa, e é um **direito**. A norma-padrão é a língua das leis, dos contratos, dos concursos, da universidade e de boa parte dos empregos. Quem não a domina fica do lado de fora dessas portas, e os que estão dentro agradecem.
 
 A posição dos sociolinguistas, como Stella Maris Bortoni-Ricardo, não é "tudo vale". É que a escola deve **somar**: respeitar a variedade que o aluno traz de casa e ensinar, a todos, as formas de prestígio, explicando onde e por que elas são cobradas. O contrário disso (humilhar a fala do aluno) só ensina o silêncio.
+
+## Exemplo resolvido: uma frase, três perguntas
+
+Na obra, o mestre de obras diz: "Pintei as casa nova." Em um requerimento, ele escreve: "Pintei as casas novas."
+
+1. **Que tipo de variação é essa?** Ele muda de fala conforme a situação (conversa na obra e documento escrito), e a forma falada é comum em certos grupos sociais. É variação **de situação** e **de grupo social**.
+2. **Há regularidade?** Sim. O plural aparece só na primeira palavra ("as"), e a marca não é aplicada ao acaso. Existe uma regra, diferente da regra da norma-padrão, e não ausência de regra.
+3. **A forma é adequada?** Na conversa na obra, serve. No requerimento, pede-se a norma-padrão: "as casas novas". Quem escolhe a forma de acordo com a situação mostra que domina as duas.
+4. **Conclusão:** "as casa nova" não é prova de pouca inteligência. É uma forma que não cabe naquele documento. Saber as duas é direito de quem estuda.
+
+Confira: a pergunta deixou de ser "está certo ou errado?" e passou a ser "existe regra?" e "cabe nesta situação?".
+
+## Resumo
+
+- Toda língua viva varia: conforme o lugar, o grupo social, a situação e a época.
+- Norma-padrão é o modelo das gramáticas; norma culta é o uso real de quem tem mais escolaridade; variedades populares são as formas da maioria da população, com regularidades próprias.
+- Em vez de "certo e errado", a linguística fala em adequação: a forma que cabe na situação.
+- Formas hoje chamadas de "erro" ajudaram a formar o português (igreja, cravo, praga): a mudança é o modo de existir da língua.
+- Preconceito linguístico é julgar a pessoa pelo jeito como fala; o que se discrimina é quem usa a forma, e não a forma.
+- Aprender a norma-padrão é um direito, e a escola deve somar: respeitar a variedade do aluno e ensinar as formas de prestígio.
 
 ## Para conversar
 

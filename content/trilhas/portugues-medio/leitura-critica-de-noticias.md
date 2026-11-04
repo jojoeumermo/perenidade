@@ -34,6 +34,10 @@ quiz:
     explicacao: "Sem fonte identificável e sem data, não há como saber se o conteúdo é verdadeiro ou atual."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber identificar as partes de uma notícia, distinguir os gêneros do jornal e usar oito perguntas para ler com atenção, além de checar um boato antes de repassar.
+
 ## Notícia não é espelho
 
 Uma notícia não é o fato: é um **relato** do fato, feito por alguém, para um veículo, com espaço e tempo limitados. Entre o que aconteceu e o que você lê, houve escolhas: o que virou notícia e o que ficou de fora; quem foi ouvido; que palavra foi usada; o que foi para o título.
@@ -140,6 +144,26 @@ Quem é ofendido ou tem um fato falso divulgado a seu respeito tem direito de re
 ## Informar também é tarefa nossa
 
 A crítica à imprensa não deve terminar em "não acredito em mais nada", que é o melhor terreno para o boato. Termina em ler melhor, comparar e também **produzir**: o boletim da associação, o jornal do sindicato, a rádio comunitária, a página do bairro. Uma comunidade que só é noticiada pelos outros aparece quase sempre nas páginas policiais. Para contar a própria história, é preciso escrevê-la.
+
+## Exemplo resolvido: lendo um título
+
+Título (inventado para esta aula): "Sindicato alega que salários estão atrasados; empresa garante que pagou tudo".
+
+1. **Palavras (pergunta 4).** O verbo da fala do sindicato é *alegar*, que põe a afirmação em dúvida. O da empresa é *garantir*, que dá certeza. Os dois lados dizem o que sabem, mas o título já inclina a balança para a empresa.
+2. **Quem foi ouvido (pergunta 2).** Aparecem o sindicato e a empresa. Nenhum trabalhador, nenhum documento (como o contracheque) é citado no título; vale conferir se o texto traz.
+3. **O que ficou de fora (pergunta 8).** Falta a data do pagamento e o que cada lado apresenta como prova.
+4. **Título com os dois lados no mesmo peso:** "O sindicato afirma que os salários estão atrasados; a empresa afirma que pagou tudo."
+
+Confira: a diferença está nos verbos escolhidos, e não nos fatos. É por isso que a pergunta 4 vale a pena.
+
+## Resumo
+
+- Uma notícia é um relato do fato, com escolhas: o que entra, quem é ouvido, que palavra é usada, o que vai para o título.
+- A notícia tem título, linha fina, lide, corpo, fontes e foto com legenda; o mais importante vem primeiro (pirâmide invertida).
+- Notícia, reportagem, editorial, artigo e conteúdo patrocinado são gêneros diferentes; confundi-los é o erro de leitura mais comum.
+- Perguntas-guia: quem publica, quem foi ouvido, o título bate com o texto, que palavras foram escolhidas, quem é o sujeito, o que os números dizem, o que é fato e o que é opinião, o que ficou de fora.
+- Antes de repassar uma mensagem, veja quem publicou e quando; na dúvida, não repasse.
+- Quem é ofendido tem direito de resposta (Constituição, art. 5º, V; Lei nº 13.188/2015).
 
 ## Para praticar
 

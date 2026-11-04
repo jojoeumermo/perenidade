@@ -25,6 +25,10 @@ quiz:
     explicacao: "Sem cargos, a ordem não importa. Cada trio foi contado 6 vezes nas 720 chapas: 720 ÷ 6 = 120."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar possibilidades sem listar uma por uma: usar o princípio multiplicativo, calcular permutações, arranjos e combinações e decidir, pela pergunta "a ordem importa?", qual delas usar.
+
 ## Contar sem enumerar
 
 Quantas senhas de 6 dígitos existem? Quantas chapas podem concorrer em uma eleição? Qual é a chance de acertar na loteria? Listar tudo é impossível. A **análise combinatória** é a arte de contar por raciocínio.
@@ -126,3 +130,11 @@ Com uma aposta simples, a chance de acertar a sena é de 1 em 50.063.860. Para t
 6. Um campeonato tem 8 times, e cada um joga uma vez contra cada outro. Quantos jogos são?
 
 **Respostas:** 1) 12. 2) 4! ÷ 2! = 12 (o O aparece duas vezes). 3) 10 × 9 × 8 × 7 = 5.040. 4) 8 × 7 × 6 = 336. 5) 210. 6) C(8, 2) = 28.
+
+## Resumo
+
+- Princípio multiplicativo: multiplicam-se as quantidades de opções de cada etapa.
+- Permutação: n elementos em fila podem se ordenar de n! maneiras; com letras repetidas, divide-se pelo fatorial de cada repetição.
+- Antes de escolher a fórmula, pergunte: a ordem importa?
+- Se a ordem importa, é arranjo: n! ÷ (n − p)!. Se não importa, é combinação: C(n, p) = n! ÷ [p! × (n − p)!].
+- A Mega-Sena tem C(60, 6) = 50.063.860 resultados possíveis.

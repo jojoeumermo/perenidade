@@ -24,6 +24,10 @@ quiz:
     explicacao: "Colchetes vazios dizem ao PHP para usar a próxima posição livre."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber criar uma lista e um array com chaves de nome, ler e trocar itens, percorrer tudo com `foreach` e usar as funções prontas `count`, `array_sum`, `max`, `min`, `sort` e `in_array`.
+
 ## Lista simples
 
 Um **array** guarda vários valores sob um nome só. Escreve-se entre colchetes:
@@ -140,3 +144,34 @@ Dentro de aspas duplas, um valor de array vai entre chaves: `{$aluno['nome']}`.
 1. Crie um array com as temperaturas de uma semana e mostre a maior, a menor e a média.
 2. Crie um array associativo com três produtos e seus preços, e mostre o total da compra.
 3. A partir de um array de números, monte outro só com os pares.
+
+## Exemplo resolvido
+
+**Quatro alunas tiraram 7.5, 9.0, 6.0 e 8.5. Qual é a média da turma e quem ficou acima dela?**
+
+1. Guarde as notas em um array: `$notas = [7.5, 9.0, 6.0, 8.5];`
+2. Some tudo com `array_sum`: 7.5 + 9.0 + 6.0 + 8.5 dá 31.
+3. Divida pela quantidade, que `count` informa (4): 31 / 4 = 7.75.
+4. Percorra o array com `foreach` e compare cada nota com a média.
+
+```php
+<?php
+$notas = [7.5, 9.0, 6.0, 8.5];
+$media = array_sum($notas) / count($notas);
+echo "Média: ", $media, "\n";
+foreach ($notas as $nota) {
+    echo $nota >= $media ? "$nota acima da média\n" : "$nota abaixo da média\n";
+}
+```
+
+O programa mostra a média 7.75; depois, 7.5 e 6 abaixo da média, 9 e 8.5 acima (o PHP escreve 9.0 e 6.0 como 9 e 6).
+
+Confira: a média tem de ficar entre a menor e a maior nota. 7.75 está entre 6 e 9, então a conta faz sentido.
+
+## Resumo
+
+- Um array guarda vários valores sob um nome só; as posições começam em zero.
+- No array associativo, cada valor tem uma chave com nome, ligada a ele por `=>`.
+- `foreach` percorre os valores (ou chave e valor); `$lista[] = valor` acrescenta no fim.
+- `count`, `array_sum`, `max`, `min`, `sort` e `in_array` poupam trabalho.
+- Um array de arrays é uma lista de registros.

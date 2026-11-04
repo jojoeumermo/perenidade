@@ -25,6 +25,10 @@ quiz:
     explicacao: "Com and, as duas partes precisam ser verdadeiras. A segunda (3 > 8) é falsa."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber fazer contas com os operadores aritméticos (inclusive `//` e `%`), conhecer a ordem das operações, comparar valores e juntar comparações com `and`, `or` e `not`.
+
 ## Operadores aritméticos
 
 | Operador | O que faz | Exemplo | Resultado |
@@ -113,3 +117,28 @@ print("-" * 20)
 1. Calcule quantas dúzias inteiras há em 100 ovos e quantos ovos sobram.
 2. Dado um total de minutos, mostre quantas horas e quantos minutos isso dá (use `//` e `%`).
 3. Escreva uma expressão que seja verdadeira quando um número está entre 1 e 10, inclusive.
+
+## Exemplo resolvido
+
+**Um ano é bissexto quando é divisível por 4, exceto os divisíveis por 100, a não ser que também sejam divisíveis por 400. Escreva uma expressão que diga se um ano é bissexto.**
+
+1. "Divisível por 4" quer dizer resto zero na divisão por 4: `ano % 4 == 0`.
+2. A exceção: não divisível por 100, ou então divisível por 400: `ano % 100 != 0 or ano % 400 == 0`. Os parênteses juntam as duas partes.
+3. As duas condições têm de valer ao mesmo tempo: `and`.
+
+```python
+ano = 2024
+print(ano % 4 == 0 and (ano % 100 != 0 or ano % 400 == 0))
+```
+
+O programa mostra `True`.
+
+Confira trocando o ano: 1900 dá `False` (divisível por 100, mas não por 400); 2000 dá `True` (divisível por 400); 2026 dá `False` (não é divisível por 4).
+
+## Resumo
+
+- `+ - * /` fazem as contas de sempre; `//` dá a divisão inteira, `%` o resto e `**` a potência.
+- A divisão com `/` sempre devolve decimal.
+- A ordem é a da matemática; na dúvida, use parênteses.
+- `==`, `!=`, `>`, `<`, `>=` e `<=` comparam e dão `True` ou `False`; um `=` guarda, dois `==` comparam.
+- `and`, `or` e `not` juntam comparações.

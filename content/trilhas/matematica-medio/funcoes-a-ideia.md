@@ -26,6 +26,10 @@ quiz:
     explicacao: "O domínio reúne as entradas permitidas; a imagem, as saídas que de fato aparecem."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é uma função, calcular f(x), mostrar a mesma função por regra, tabela e gráfico, e ler domínio, imagem, zeros e o crescimento de um gráfico.
+
 ## Uma coisa depende da outra
 
 O valor da conta de luz depende do consumo. O preço da corrida depende da distância. O salário de quem ganha por produção depende do que foi produzido. Em matemática, quando uma quantidade depende de outra segundo uma regra, fala-se em **função**.
@@ -113,3 +117,12 @@ Função é a ferramenta para descrever como o mundo muda: como o preço da cest
 5. Um estacionamento cobra R$ 8 pela primeira hora e R$ 3 por hora adicional. Monte uma tabela do preço para 1, 2, 3 e 4 horas.
 
 **Respostas:** 1) −2, 10 e −5. 2) x = 5. 3) Todos os reais, menos o 3. 4) Sim; não. 5) R$ 8, R$ 11, R$ 14 e R$ 17.
+
+## Resumo
+
+- Função é uma relação em que cada entrada tem exatamente uma saída.
+- f(x) lê-se "f de x" e quer dizer o valor da função quando a entrada é x.
+- A mesma função pode ser mostrada por fórmula, tabela ou gráfico.
+- Domínio é o que pode entrar; imagem é o que sai. Não se divide por zero nem se tira raiz quadrada real de número negativo.
+- No gráfico: crescente onde sobe, decrescente onde desce; os zeros são onde corta o eixo x.
+- Uma reta vertical que corta o desenho em dois pontos mostra que não é gráfico de função.
