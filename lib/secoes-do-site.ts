@@ -4,6 +4,7 @@ import type { Dict } from "@/i18n/types";
 import { textosDoPlantao } from "@/i18n/plantao";
 import { textosDaBase } from "@/lib/escola/textos";
 import { ligado } from "@/lib/recursos";
+import { menuDoObservatorio, ROTA_DO_OBSERVATORIO } from "@/lib/vale-o-escrito/menu";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 
 export interface SecaoDoSite {
@@ -60,6 +61,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
     {
       title: t.lists.inform,
       items: itens([
+        ...se("vale-o-escrito", [menuDoObservatorio(lang).rotulo, ROTA_DO_OBSERVATORIO, menuDoObservatorio(lang).descricao]),
         [n.journal, "/jornal", d.journal],
         [n.news, "/noticias", d.news],
         [n.podcasts, "/podcasts", d.podcasts],

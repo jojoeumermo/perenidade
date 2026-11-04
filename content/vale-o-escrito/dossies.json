@@ -1,0 +1,94 @@
+{
+  "dossies": [
+    {
+      "slug": "povos-indigenas",
+      "ordem": 1,
+      "cor": "vermelho",
+      "titulo": { "pt": "Povos indígenas", "en": "Indigenous peoples", "es": "Pueblos indígenas", "fr": "Peuples autochtones", "ru": "Коренные народы", "zh": "原住民族" },
+      "descricao": {
+        "pt": "Invasões de terras, violência e omissão do poder público contra povos indígenas, já registradas em fonte pública.",
+        "en": "Land invasions, violence and public-authority omission against Indigenous peoples, already recorded in public sources.",
+        "es": "Invasiones de tierras, violencia y omisión del poder público contra pueblos indígenas, ya registradas en fuentes públicas.",
+        "fr": "Invasions de terres, violences et omissions des pouvoirs publics contre les peuples autochtones, déjà consignées dans des sources publiques.",
+        "ru": "Захваты земель, насилие и бездействие власти в отношении коренных народов, уже зафиксированные в открытых источниках.",
+        "zh": "针对原住民族的侵占土地、暴力和公共权力不作为，均已见于公开来源。"
+      },
+      "temas": ["terra indígena", "demarcação", "invasão", "garimpo", "FUNAI"]
+    },
+    {
+      "slug": "conflitos-no-campo",
+      "ordem": 2,
+      "cor": "amarelo",
+      "titulo": { "pt": "Conflitos no campo", "en": "Rural conflicts", "es": "Conflictos en el campo", "fr": "Conflits agraires", "ru": "Конфликты в сельской местности", "zh": "农村冲突" },
+      "descricao": {
+        "pt": "Disputas por terra e água no campo, despejos e ameaças, segundo relatórios, processos e reportagens.",
+        "en": "Disputes over land and water in the countryside, evictions and threats, according to reports, court cases and news stories.",
+        "es": "Disputas por tierra y agua en el campo, desalojos y amenazas, según informes, procesos y reportajes.",
+        "fr": "Conflits fonciers et pour l'eau en milieu rural, expulsions et menaces, selon rapports, procédures et enquêtes de presse.",
+        "ru": "Споры за землю и воду в сельской местности, выселения и угрозы по данным докладов, судебных дел и репортажей.",
+        "zh": "据报告、诉讼和报道，农村地区围绕土地与水的争端、驱逐和威胁。"
+      },
+      "temas": ["conflito agrário", "despejo", "grilagem", "reforma agrária", "quilombo"]
+    },
+    {
+      "slug": "violencia-policial",
+      "ordem": 3,
+      "cor": "azul",
+      "titulo": { "pt": "Violência policial", "en": "Police violence", "es": "Violencia policial", "fr": "Violences policières", "ru": "Насилие со стороны полиции", "zh": "警察暴力" },
+      "descricao": {
+        "pt": "Operações policiais e mortes em ação do Estado, com a situação de cada inquérito e processo escrita na ficha.",
+        "en": "Police operations and deaths in state action, with the status of each inquiry and case written on the record.",
+        "es": "Operativos policiales y muertes en acción del Estado, con la situación de cada investigación y proceso escrita en la ficha.",
+        "fr": "Opérations policières et morts lors d'actions de l'État, avec la situation de chaque enquête et procédure indiquée sur la fiche.",
+        "ru": "Полицейские операции и гибель людей при действиях государства; статус каждого расследования и дела указан в карточке.",
+        "zh": "警察行动与国家行动中的死亡事件，每份档案均写明相关调查和诉讼的状态。"
+      },
+      "temas": ["letalidade policial", "operação policial", "chacina", "inquérito", "corregedoria"]
+    },
+    {
+      "slug": "trabalho-escravo",
+      "ordem": 4,
+      "cor": "vermelho",
+      "titulo": { "pt": "Trabalho escravo", "en": "Slave labour", "es": "Trabajo esclavo", "fr": "Travail esclavagiste", "ru": "Рабский труд", "zh": "奴役劳动" },
+      "descricao": {
+        "pt": "Empregadores flagrados em trabalho análogo ao de escravo e a lista suja, com o estágio de cada processo.",
+        "en": "Employers caught using slave-like labour and the federal \"dirty list\", with the stage of each case.",
+        "es": "Empleadores sorprendidos en trabajo análogo al esclavo y la \"lista sucia\", con la etapa de cada proceso.",
+        "fr": "Employeurs pris en flagrant délit de travail analogue à l'esclavage et « liste noire », avec l'état de chaque procédure.",
+        "ru": "Работодатели, уличённые в труде, схожем с рабским, и «грязный список», с указанием стадии каждого дела.",
+        "zh": "被查出使用类似奴役劳动的雇主与联邦“黑名单”，并注明各案进展。"
+      },
+      "temas": ["trabalho análogo ao de escravo", "lista suja", "resgate de trabalhadores", "fiscalização"]
+    },
+    {
+      "slug": "crimes-ambientais",
+      "ordem": 5,
+      "cor": "amarelo",
+      "titulo": { "pt": "Crimes ambientais", "en": "Environmental crimes", "es": "Crímenes ambientales", "fr": "Crimes environnementaux", "ru": "Экологические преступления", "zh": "环境犯罪" },
+      "descricao": {
+        "pt": "Desmatamento, garimpo e queimadas ilegais, autos de infração e processos, com dados do INPE, IBAMA e MapBiomas.",
+        "en": "Illegal deforestation, mining and burning, infraction notices and cases, with data from INPE, IBAMA and MapBiomas.",
+        "es": "Deforestación, minería y quemas ilegales, autos de infracción y procesos, con datos del INPE, IBAMA y MapBiomas.",
+        "fr": "Déforestation, orpaillage et brûlis illégaux, procès-verbaux et procédures, avec données de l'INPE, de l'IBAMA et de MapBiomas.",
+        "ru": "Незаконные вырубки, добыча и палы, акты о нарушениях и дела; данные INPE, IBAMA и MapBiomas.",
+        "zh": "非法毁林、采矿与焚烧、处罚通知与诉讼，数据来自 INPE、IBAMA 和 MapBiomas。"
+      },
+      "temas": ["desmatamento", "garimpo ilegal", "queimada", "auto de infração", "licenciamento"]
+    },
+    {
+      "slug": "dinheiro-publico",
+      "ordem": 6,
+      "cor": "azul",
+      "titulo": { "pt": "Dinheiro público", "en": "Public money", "es": "Dinero público", "fr": "Argent public", "ru": "Государственные деньги", "zh": "公共资金" },
+      "descricao": {
+        "pt": "Desvios, contratos e emendas apontados por órgãos de controle, tribunais e reportagens, com a situação jurídica de cada caso.",
+        "en": "Embezzlement, contracts and amendments flagged by oversight bodies, courts and the press, with each case's legal status.",
+        "es": "Desvíos, contratos y enmiendas señalados por órganos de control, tribunales y la prensa, con la situación jurídica de cada caso.",
+        "fr": "Détournements, marchés et amendements signalés par les organes de contrôle, les tribunaux et la presse, avec la situation juridique de chaque cas.",
+        "ru": "Хищения, контракты и поправки, на которые указали контрольные органы, суды и пресса, с юридическим статусом каждого дела.",
+        "zh": "监督机构、法院和媒体指出的挪用、合同与修正案，并写明各案的法律状态。"
+      },
+      "temas": ["licitação", "emenda parlamentar", "desvio de verba", "improbidade", "contrato público"]
+    }
+  ]
+}

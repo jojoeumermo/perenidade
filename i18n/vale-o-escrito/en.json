@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "titulo": "Vale o Escrito: Brazil's web of power",
+    "descricao": "An observatory of crimes of public interest that already appear in public sources: court records, official investigations, organisation reports or news stories. Every record shows source, date, excerpt and the legal status in writing."
+  },
+  "emPreparacao": {
+    "olho": "In preparation",
+    "titulo": "Vale o Escrito is in preparation",
+    "texto": "This observatory opens only after the editorial team has reviewed the first entries and legal counsel has checked the text. Until then, nothing here is published."
+  },
+  "entrada": {
+    "olho": "Observatory",
+    "titulo": "Vale o Escrito",
+    "subtitulo": "Brazil's web of power",
+    "linhaHonesta": "This is not our own investigation, a police feed or a court. We gather what is already in public sources, with the link, date and excerpt, and we write the legal status of each case."
+  },
+  "avisos": {
+    "presuncao": "Appearing here does not make anyone guilty. A final conviction exists only when the status says \"convicted, final judgment\".",
+    "segundoFonte": "Everything written here is according to the source cited. When the source only alleges, the record says \"allegedly\".",
+    "semVitimas": "We do not publish victims, children or witnesses. Only people who are already public in the case.",
+    "curadoriaAnonima": "Curation is anonymous to the public. Nobody here signs an accusation."
+  },
+  "situacao": {
+    "suspeito": "Suspect",
+    "investigado": "Under investigation",
+    "denunciado": "Formally charged by prosecutors",
+    "reu": "Defendant",
+    "condenado_1a_instancia": "Convicted at first instance",
+    "condenado_transitado": "Convicted, final judgment (res judicata)",
+    "absolvido": "Acquitted",
+    "arquivado": "Case closed (archived)"
+  },
+  "confianca": {
+    "primaria": "Confirmed by a primary source",
+    "reportado": "Reported",
+    "primariaExplica": "A court record, official investigation or official data supports what is written.",
+    "reportadoExplica": "It appears in an organisation's report, a news story or a fact-check; there is no primary source yet."
+  },
+  "ficha": {
+    "fontes": "Sources",
+    "fonte": "Source",
+    "trecho": "Excerpt",
+    "dataDaFonte": "Source date",
+    "arquivo": "Copy at the Internet Archive",
+    "semArquivo": "Copy not made yet",
+    "atualizadoEm": "Updated on",
+    "historicoTitulo": "Changes in legal status",
+    "respostasTitulo": "Published replies and corrections",
+    "tipoCorrecao": "Correction",
+    "tipoResposta": "Right of reply",
+    "mudouDePara": "from {de} to {para}",
+    "publicadoEm": "Published on",
+    "situacao": "Legal status",
+    "confianca": "Confidence",
+    "pessoas": "Public figures in the case",
+    "organizacoes": "Organisations",
+    "lugar": "Place",
+    "dataDoFato": "Date of the event",
+    "corrigir": "Request a correction or right of reply",
+    "enviarFonte": "Send a source",
+    "fotoCredito": "Photo",
+    "semEntradas": "There are no entries in this dossier yet."
+  },
+  "dossie": {
+    "titulo": "Dossiers",
+    "entradas": "{n} entries"
+  },
+  "visoes": {
+    "teia": "Web",
+    "orbita": "Orbit",
+    "grupos": "Groups",
+    "fluxo": "Flow",
+    "mapa": "Map of Brazil",
+    "linha": "Timeline"
+  },
+  "zoom": {
+    "pais": "Country",
+    "estado": "State",
+    "municipio": "Municipality"
+  },
+  "mapa": {
+    "semWebgl": "This browser cannot draw the map (WebGL is missing). The case list below still works.",
+    "semMalha": "The IBGE boundary files have not been generated on this server yet.",
+    "voltar": "Back one level",
+    "brasil": "Brazil",
+    "casos": "{n} cases",
+    "umCaso": "1 case",
+    "nenhumCaso": "No published case",
+    "casosAqui": "Cases at this point",
+    "abrirFicha": "Open the record",
+    "listaDeCasos": "Cases on the map (list for keyboard and screen readers)",
+    "aria": "Map of Brazil with published cases, by state and municipality",
+    "credito": "Territorial boundaries: IBGE. No third-party map, no tracking.",
+    "nivel": "Map level"
+  },
+  "enviar": {
+    "titulo": "Send a source",
+    "lead": "Did you see a ruling, a report or a news story about a case of public interest? Send the link. The editorial team checks it before publishing.",
+    "url": "Source link",
+    "descricao": "What the source shows",
+    "trecho": "Supporting excerpt (optional, up to 400 characters)",
+    "dossie": "Dossier (if you know)",
+    "contato": "E-mail or phone (optional, so the team can ask questions)",
+    "aviso": "I read the notice: I am not sending names of victims, children or witnesses, nor ID numbers; only what is already public.",
+    "enviar": "Send",
+    "enviado": "Received. The team will check it. We do not store your network address.",
+    "erro": "Could not send right now. Please try again later.",
+    "aguarde": "As protection against bots, the button unlocks a few seconds after the page opens.",
+    "protecao": "No third-party CAPTCHA and no tracking: the form has a decoy field, a minimum fill time and a per-origin limit computed with a scrambled code that changes every day. Your network address is not stored.",
+    "privacidade": "We keep the link, what you wrote and, if you give it, your contact, until the curators decide. Legal basis: the project's legitimate interest in receiving public-interest sources (LGPD, art. 7, IX). See the privacy policy.",
+    "semServico": "Submissions are unavailable right now. Please try again later."
+  },
+  "correcao": {
+    "titulo": "Correction and right of reply",
+    "lead": "If something in this record is wrong, outdated or harms your honour, tell us. We fix what is wrong and publish your reply next to the record. Acquittals and case closures are added as soon as there is a source.",
+    "tipo": "What you are asking for",
+    "tipos": {
+      "correcao": "Correction",
+      "direito_de_resposta": "Right of reply",
+      "remocao_de_dado": "Removal of a data point"
+    },
+    "texto": "What is wrong and what should say instead",
+    "comprovante": "Link that proves it (optional)",
+    "nome": "Your name (optional)",
+    "contato": "E-mail or phone (required for the right of reply)",
+    "enviar": "Send request",
+    "enviado": "Received. The team replies within 7 days.",
+    "erro": "Could not send right now. Please try again later.",
+    "ficha": "Entry code",
+    "fichaAjuda": "It is the code in the address and at the top of the entry, such as 2026-exemplo-fazenda.",
+    "fichaInvalida": "The entry code has only lowercase letters without accents, digits and hyphens.",
+    "qualidade": "In what capacity you are asking",
+    "qualidades": {
+      "ofendido": "I am the person named in the entry",
+      "representante": "I am the legal representative of the person or organization named",
+      "familiar": "I am the spouse, descendant, ascendant or sibling of the person named"
+    },
+    "identificacao": "For a right of reply we ask for your name, your capacity and a contact. Brazilian Law 13.188/2015 (art. 3) gives the right of reply or rectification to the offended person or, in some cases, to their legal representative and close relatives, so we need to know who is replying and in what capacity. The contact is only used to reach you and is not shown on the site.",
+    "aguarde": "As protection against bots, the button unlocks a few seconds after the page opens.",
+    "protecao": "No third-party CAPTCHA and no tracking: decoy field, minimum time and a per-origin limit with a scrambled code that changes every day. Your network address is not stored.",
+    "privacidade": "We keep the request, name and contact you give for up to one year after it is resolved. Legal basis: the exercise of your right to correction and reply and our duty to honour it (LGPD, art. 7, II). An accepted reply appears next to the entry, without your contact.",
+    "semServico": "Requests are unavailable right now. Please try again later.",
+    "prazo": "Response goal: 7 days from receipt. The deadline comes from art. 5 of Law 13.188/2015, which applies it to media outlets; the Institute follows it in good faith without claiming the law binds it."
+  },
+  "erros": {
+    "invalido": "Check the fields and try again.",
+    "muitos": "Too many requests in a short time. Please wait a little."
+  },
+  "visual": {
+    "aria": {
+      "observatorio": "Vale o Escrito observatory",
+      "dossies": "Dossiers",
+      "visoes": "Views",
+      "palco": "Web drawing. The equivalent text list is right below.",
+      "lista": "Text list of cases and links",
+      "ficha": "Case file"
+    },
+    "pularParaLista": "Skip to the text list",
+    "abaTodos": "All",
+    "contagem": "{n} cases",
+    "tipoNo": {
+      "pessoa": "Person",
+      "organizacao": "Organization",
+      "entrada": "Case",
+      "lugar": "Place"
+    },
+    "ligacao": {
+      "integra": "is a member of",
+      "dirige": "heads",
+      "financia": "funds",
+      "contrata": "contracts",
+      "doa_para": "donates to",
+      "investiga": "investigates",
+      "denuncia": "charges",
+      "citado_em": "named in",
+      "ocorreu_em": "took place in",
+      "relacionada": "related to"
+    },
+    "zoomTeia": {
+      "panorama": "Overview",
+      "dossie": "Dossier",
+      "caso": "Case",
+      "detalhe": "Detail"
+    },
+    "zoomMais": "Zoom in",
+    "zoomMenos": "Zoom out",
+    "zoomRestaurar": "Recenter",
+    "zoomNivel": "Zoom: {nivel}",
+    "aoVivo": {
+      "ligado": "Live",
+      "desligado": "No live updates",
+      "atualizou": "Just updated: {titulo}"
+    },
+    "lista": {
+      "titulo": "Text list",
+      "explica": "The same as the drawing, in text: each case, person, organization and place, with its links.",
+      "ligadoA": "Linked to",
+      "semLigacoes": "No links",
+      "abrir": "Open the file"
+    },
+    "vazio": "No cases published yet. The observatory opens empty on purpose: a case only enters with source, date and excerpt, after the curators review it.",
+    "vazioDossie": "This dossier has no published cases yet.",
+    "carregando": "Loading the view…",
+    "semSelecao": "Choose a case, person or organization to see its file: sources, excerpt, date and legal status.",
+    "legenda": "Legend",
+    "linha": {
+      "titulo": "Cases by date of the event",
+      "semDados": "No dated cases to draw."
+    },
+    "fluxo": {
+      "titulo": "From each dossier to the legal status of its cases"
+    },
+    "grupos": {
+      "titulo": "Cases grouped by dossier"
+    },
+    "orbita": {
+      "titulo": "Orbit around {nome}"
+    },
+    "mapa": {
+      "emPreparacao": "Map of Brazil in preparation",
+      "texto": "The neon map of Brazil (country, state, municipality) opens here. Meanwhile, the cases by place:",
+      "semLugar": "No place given"
+    },
+    "ficha": {
+      "codigo": "File",
+      "segundo": "According to {veiculos}",
+      "resumo": "Summary",
+      "numeroFonte": "Source {n}",
+      "abrirFonte": "Open the source",
+      "abrirArquivo": "See the archived copy",
+      "abrirFicha": "Open the full file",
+      "fechar": "Close the file",
+      "aviso": "Legal status according to the sources. Only \"convicted, final judgment\" is a definitive conviction; every other status may change.",
+      "direitoDeResposta": "Right of reply",
+      "pedirCorrecao": "Request a correction",
+      "papel": "Role",
+      "cargo": "Position",
+      "casos": "Cases",
+      "semFoto": "No freely licensed photo",
+      "voltar": "Back to the observatory",
+      "licenca": "License",
+      "origem": "Photo source",
+      "atualizadoNaFonte": "Updated on {data}",
+      "sobre": "About",
+      "nuncaVitima": "We never publish victims, children or witnesses.",
+      "situacaoDoCaso": "Case status"
+    },
+    "papel": {
+      "acusado": "Accused",
+      "investigado": "Investigated",
+      "autoridade": "Authority",
+      "agente_publico": "Public official",
+      "parlamentar": "Legislator",
+      "dirigente": "Executive",
+      "empresario": "Businessperson",
+      "proprietario_rural": "Rural landowner",
+      "agente_de_seguranca": "Security agent",
+      "outro_publico_no_caso": "Other public role in the case"
+    },
+    "tipoOrg": {
+      "empresa": "Company",
+      "orgao_publico": "Public body",
+      "partido": "Party",
+      "associacao": "Association",
+      "grupo_armado": "Armed group",
+      "outra": "Other"
+    }
+  },
+  "navegacao": {
+    "inicio": "Observatory",
+    "sobre": "About the method",
+    "enviar": "Send a source",
+    "corrigir": "Request a correction"
+  },
+  "sobre": {
+    "olho": "Method and rules",
+    "titulo": "How Vale o Escrito works",
+    "lead": "What goes in, what never does, how each legal status is written and how you can correct an entry.",
+    "metodo": {
+      "titulo": "The method",
+      "texto": "Vale o Escrito gathers public-interest cases that are already in a public source: a court case, an official investigation, official data, an organization's report or a news story. We do not investigate, we do not do police reporting and we do not judge anyone. Every entry has a source, a date and a short excerpt, with the link and a copy in the Internet Archive. A scheduled robot reads the sources and suggests; a curator checks and approves before anything appears. Artificial intelligence, when used, only suggests a summary and tags and never publishes."
+    },
+    "regras": {
+      "titulo": "The rules that are not negotiable",
+      "r1": "Every entry has a source, a date and an excerpt.",
+      "r2": "The legal status is always written, and the text says \"according to [source]\" or \"allegedly\" when the source only alleges.",
+      "r3": "Only people who are already public in the case, always with a source.",
+      "r4": "Never victims, children, teenagers or witnesses: not as a name, a photo or a tag.",
+      "r5": "Acquittals and dismissals are updated, and the entry shows the date of the update.",
+      "r6": "Every entry has a path for correction and right of reply.",
+      "r7": "Photos only in the public domain or under a free licence, with credit.",
+      "r8": "No tracking: only anonymous counts."
+    },
+    "situacao": {
+      "titulo": "Legal status, explained",
+      "texto": "Being in an entry does not mean being guilty. Each person appears with the status the source records, one of these eight:",
+      "suspeito": "The name appears in an inquiry, but there is no formal investigation or accusation against the person.",
+      "investigado": "There is a formal investigation in which the person is being looked into. Investigating is not accusing.",
+      "denunciado": "Prosecutors filed charges, the formal accusation, which the judge has not yet accepted.",
+      "reu": "The judge accepted the charges and the case is under way. There is no verdict yet.",
+      "condenado_1a_instancia": "There is a conviction, but an appeal is still possible. The conviction is not final.",
+      "condenado_transitado": "No further appeal is possible. It is the only status in which the conviction is final.",
+      "absolvido": "The decision acquitted the person. The entry shows the date.",
+      "arquivado": "The investigation or case was closed without a conviction.",
+      "nota": "Under the Constitution (art. 5, LVII), no one is considered guilty until a criminal conviction is final."
+    },
+    "confianca": {
+      "titulo": "The two confidence levels",
+      "texto": "\"Confirmed by a primary source\" means there is a court case, an official investigation or official data behind what is written. \"Reported\" means it comes from an organization's report, a news story or a fact-check, and there is no primary source yet. Each entry always shows which one applies."
+    },
+    "corrigir": {
+      "titulo": "How to correct an entry",
+      "texto": "Every entry has a \"Request a correction or right of reply\" link. We fix what is wrong, update acquittals and dismissals as soon as there is a source, and publish the reply next to the entry. Our goal is to answer within 7 days. Anyone with a court order can use the same channel; it is complied with."
+    },
+    "anonima": {
+      "titulo": "Why the curators are anonymous",
+      "texto": "Curators do not sign entries on the site so that no one is exposed for checking a source. Responsibility lies with the Institute, not with one person: who approved stays only in the internal history, which only adds and never deletes, and the coordination answers for what was published."
+    },
+    "base": {
+      "titulo": "Legal basis",
+      "intro": "A reading summary. It is not legal advice; the full text of each law is on the Planalto site.",
+      "lgpd": "LGPD (Law 13.709/2018): art. 4, II, \"a\" takes processing for journalistic purposes out of the law, but we do not rely on that exception because the Institute is not a registered press outlet. We act as if the whole law applied: a public-interest purpose, minimum data, only what is already public in the case, on the basis of art. 7 (II, VI and IX) and with care for sensitive data (art. 11).",
+      "eca": "Child and Adolescent Statute (Law 8.069/1990), arts. 17, 143 and 247: we never publish the name, photo or acts of a child or adolescent. The LGPD (art. 14) requires the child's best interest.",
+      "direitoDeResposta": "Law 13.188/2015 (right of reply), arts. 2 to 7: it covers material from media outlets. We do not know whether the Institute is one, so we offer the same path in good faith: a free reply, proportionate to the harm, in the same place as the entry, within 7 days.",
+      "codigoPenal": "Penal Code, arts. 138 to 140 (slander, defamation and insult): \"according to [source]\" and \"allegedly\" exist so we do not state as fact what is only an allegation. They give no immunity, which is why we require source, date and excerpt.",
+      "marcoCivil": "Marco Civil da Internet (Law 12.965/2014): a specific court order (art. 19) is complied with. We do not keep access logs of readers (art. 15).",
+      "lai": "Access to Information Law (Law 12.527/2011), arts. 3, 8 and 31: we use only what the public authority itself has already released, respecting intimacy, private life, honour and image.",
+      "aviso": "Legal counsel has yet to review this text, the use of the LGPD art. 4, II, \"a\" exception, Law 13.188/2015 and copyright. This is why the observatory only opens after that review."
+    },
+    "fontes": {
+      "titulo": "Sources and licences",
+      "texto": "We read 48 sources: official bodies, civil-society organizations, the press and fact-checkers. Some provide only aggregate figures (for example violence statistics), and we never take a person's name from them. From each source we keep only the link, an excerpt of up to 400 characters and the Internet Archive copy, never the whole page.",
+      "licencas": "Each source's content remains its authors', who are always credited. Open official data follows each body's licence. Photos come only from the public domain or a free licence, with credit and source page, and never of a victim or a minor."
+    },
+    "privacidade": {
+      "titulo": "Privacy",
+      "texto": "Reading the observatory needs no account and leaves no trace: only anonymous counts. Whoever sends a source or asks for a correction does not have their network address stored; the anti-spam limit uses a scrambled code that changes every day. What we keep and for how long is in the Institute's privacy policy."
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "dossie": "conflitos-no-campo",
+  "pessoas": [
+    {
+      "id": "mario-colares-pantoja",
+      "nome": "Mário Colares Pantoja",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "cargo": "coronel da PM do Pará à época"
+    },
+    {
+      "id": "jose-maria-pereira-de-oliveira",
+      "nome": "José Maria Pereira de Oliveira",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f2"
+      ],
+      "cargo": "major da PM do Pará à época"
+    }
+  ],
+  "organizacoes": [],
+  "ligacoes": [
+    {
+      "id": "l-mario-colares-pantoja-1996-eldorado-dos-carajas-massacre",
+      "de": {
+        "tipo": "pessoa",
+        "id": "mario-colares-pantoja"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1996-eldorado-dos-carajas-massacre"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1996-eldorado-dos-carajas-massacre"
+    },
+    {
+      "id": "l-jose-maria-pereira-de-oliveira-1996-eldorado-dos-carajas-massacre",
+      "de": {
+        "tipo": "pessoa",
+        "id": "jose-maria-pereira-de-oliveira"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1996-eldorado-dos-carajas-massacre"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f2"
+      ],
+      "entradaId": "1996-eldorado-dos-carajas-massacre"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "mario-colares-pantoja",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado a 228 anos de reclusão; segundo o Vermelho, condenação transitou em julgado em abril de 2012."
+        },
+        {
+          "pessoaId": "jose-maria-pereira-de-oliveira",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o Vermelho, condenado a 158 anos e 4 meses; condenação transitou em julgado em abril de 2012."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "1996-eldorado-dos-carajas-massacre",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Massacre de Eldorado do Carajás (PA): coronel e major da PM condenados",
+      "resumo": "Segundo o STF, em 17 de abril de 1996 dezenove sem-terra foram mortos pela Polícia Militar do Pará, em Eldorado do Carajás, durante a desobstrução da rodovia PA-150. Segundo o STF, o coronel Mário Colares Pantoja foi condenado a 228 anos de reclusão. Segundo o Vermelho, o major José Maria Pereira de Oliveira foi condenado a 158 anos e 4 meses, eram os dois únicos condenados e o processo transitou em julgado em abril de 2012, quando foi ordenada a prisão dos dois.",
+      "dataDoFato": "1996-04-17",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1502954",
+        "nome": "Eldorado do Carajás"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Negado HC a coronel condenado sob acusação de comandar o massacre de Eldorado do Carajás",
+          "url": "https://noticias.stf.jus.br/?p=28656",
+          "trecho": "pedia a nulidade do processo que o condenou a 228 anos de reclusão pelo massacre ocorrido em Eldorado do Carajás (PA)",
+          "data": "2011-06-29",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Vermelho",
+          "tipo": "reportagem",
+          "titulo": "TJ-PA determina prisão de envolvidos em massacre de Carajás",
+          "url": "https://vermelho.org.br/2012/05/07/tj-pa-determina-prisao-de-envolvidos-em-massacre-de-carajas/",
+          "trecho": "Em abril, o processo que os condenou transitou em julgado (fase em que não cabem mais recursos).",
+          "data": "2012-05-07",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f3",
+          "veiculo": "Consultor Jurídico",
+          "tipo": "reportagem",
+          "titulo": "STJ mantém condenação de policiais pelo massacre de Eldorado dos Carajás",
+          "url": "https://www.conjur.com.br/2009-ago-25/stj-mantem-condenacao-policiais-massacre-eldorado-carajas/",
+          "trecho": "O Superior Tribunal de Justiça negou recursos dos policiais militares condenados pela morte de 19 trabalhadores sem-terra em 1996",
+          "data": "2009-08-25",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "massacre",
+        "Polícia Militar",
+        "sem-terra",
+        "Pará",
+        "rodovia PA-150"
+      ],
+      "notaDaCuradoria": "O trânsito em julgado vem de reportagem (Vermelho, com agências, 07/05/2012); a fonte primária lida (STF, HC 86604) confirma a condenação, não o trânsito. Procurar a certidão. Não foi possível conferir fato posterior a 2012 (cumprimento da pena, indulto, falecimento): a curadoria reconfere antes de aprovar. Situação escrita como 'condenado em 1ª instância' (degrau mais baixo de condenação do modelo) porque a regra do projeto só aceita 'trânsito em julgado' com fonte primária e aqui o trânsito consta só de reportagem; as condenações foram mantidas pelos tribunais superiores segundo as fontes. Subir para 'condenado com trânsito em julgado' quando a certidão for conferida."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2017-pau-darco-massacre-policiais-reus",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Massacre de Pau D'Arco (PA): TJPA mantém pronúncia de policiais, que irão a júri",
+      "resumo": "Segundo a CPT, em 24 de maio de 2017, na antiga Fazenda Santa Lúcia, uma operação policial terminou com a morte de nove trabalhadores e uma trabalhadora rurais. Segundo a CPT, o Ministério Público do Pará sustenta que não houve confronto, mas execução, e denunciou 17 policiais em setembro de 2017. Segundo a CPT, em 26 de maio de 2026 a 2ª Turma de Direito Penal do TJPA rejeitou, por unanimidade, os principais recursos das defesas e manteve a pronúncia: os policiais seguem réus e ainda não há data de júri.",
+      "dataDoFato": "2017-05-24",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1505551",
+        "nome": "Pau D'Arco"
+      },
+      "situacao": "reu",
+      "confianca": "reportado",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "cpt",
+          "veiculo": "CPT",
+          "tipo": "relatorio_organizacao",
+          "titulo": "TJPA mantém decisão que leva acusados do Massacre de Pau D'Arco ao Tribunal do Júri",
+          "url": "https://cptnacional.org.br/2026/05/26/decisao-pau-darco-tribunal/",
+          "trecho": "Por unanimidade, os desembargadores rejeitaram os principais recursos apresentados pelas defesas e confirmaram a sentença de pronúncia dos acusados.",
+          "data": "2026-05-26",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "massacre",
+        "operação policial",
+        "Pará",
+        "júri popular"
+      ],
+      "notaDaCuradoria": "Fonte única e de organização que acompanha o caso (CPT, com advogada no processo): confiança 'reportado'. Conseguir o acórdão do TJPA ou nota do MPPA para subir a 'primaria'. A CPT informa que dois réus foram impronunciados quanto às seis primeiras mortes; conferir. Os policiais não são nomeados nesta ficha (nomes não constam da fonte lida)."
+    }
+  ]
+}

@@ -59,8 +59,9 @@ await espera("instalar de novo não quebra (o bloco é idempotente)", () => banc
 await espera("a migração é o mesmo bloco do fim do install.sql", async () => {
   const migracao = fs.readFileSync(new URL("../supabase/migracoes/2026-11-escola.sql", import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
   let install = fs.readFileSync(new URL("../supabase/install.sql", import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
-  // Migrações que vieram depois da Escola (Etapa 3: acertos por aula) ficam depois do bloco dela, cada uma inteira.
-  for (const depois of ["2026-11-acertos.sql"]) {
+  // Migrações que vieram depois da Escola (acertos por aula, Vale o Escrito) ficam depois do bloco dela, cada uma inteira,
+  // na ordem do install.sql; tiram-se do fim, da última para a primeira.
+  for (const depois of ["2026-11-vale-o-escrito.sql", "2026-11-acertos.sql"]) {
     const bloco = fs.readFileSync(new URL(`../supabase/migracoes/${depois}`, import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
     if (!install.endsWith(bloco)) return false;
     install = install.slice(0, -bloco.length).trim();

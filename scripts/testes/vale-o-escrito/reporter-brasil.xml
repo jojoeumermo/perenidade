@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+<title>Feed de exemplo (teste, sem rede)</title>
+<item>
+  <title>Garimpo ilegal avança em terra indígena no Pará, segundo relatório</title>
+  <link>https://exemplo.test/noticias/garimpo-terra-indigena/?utm_source=feed&amp;utm_medium=rss</link>
+  <pubDate>Mon, 02 Nov 2026 10:00:00 +0000</pubDate>
+  <description><![CDATA[<p>A Polícia Federal abriu inquérito sobre o garimpo em terra indígena perto de Belém, e o Ministério Público Federal pediu a retirada dos invasores.</p>]]></description>
+</item>
+<item>
+  <title>Garimpo ilegal avança em terra indígena no Pará, segundo relatório</title>
+  <link>https://exemplo.test/noticias/garimpo-terra-indigena</link>
+  <pubDate>Mon, 02 Nov 2026 10:05:00 +0000</pubDate>
+  <description>Mesmo texto, link repetido sem os parâmetros de rastreio: tem de ser tirado como repetido.</description>
+</item>
+<item>
+  <title>Time vence o clássico por dois a zero</title>
+  <link>https://exemplo.test/esporte/classico</link>
+  <pubDate>Mon, 02 Nov 2026 09:00:00 +0000</pubDate>
+  <description>Esporte: nada a ver com os dossiês. Fica de fora do filtro por temas e não vai para a fila.</description>
+</item>
+<item>
+  <title>Fiscalização encontra trabalho análogo ao de escravo em fazenda</title>
+  <link>https://exemplo.test/noticias/fazenda-fiscalizacao</link>
+  <pubDate>Sun, 01 Nov 2026 12:00:00 +0000</pubDate>
+  <description>A fiscalização do trabalho resgatou trabalhadores em uma fazenda no Maranhão; o empregador é alvo de inquérito, segundo o Ministério Público do Trabalho.</description>
+</item>
+<item>
+  <title>Operação policial deixa mortos e uma criança ferida no Rio de Janeiro</title>
+  <link>https://exemplo.test/noticias/operacao-crianca</link>
+  <pubDate>Mon, 02 Nov 2026 08:00:00 +0000</pubDate>
+  <description>Item que fala de criança: o robô descarta inteiro (ECA, art. 143).</description>
+</item>
+<item>
+  <title>Desmatamento: auto de infração antigo</title>
+  <link>https://exemplo.test/noticias/antigo</link>
+  <pubDate>Tue, 01 Sep 2026 08:00:00 +0000</pubDate>
+  <description>Fora da janela de dias: descartado como antigo, mesmo com tema de crimes ambientais.</description>
+</item>
+</channel>
+</rss>
