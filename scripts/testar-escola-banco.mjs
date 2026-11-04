@@ -61,7 +61,9 @@ await espera("a migração é o mesmo bloco do fim do install.sql", async () => 
   let install = fs.readFileSync(new URL("../supabase/install.sql", import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
   // Migrações que vieram depois da Escola (acertos por aula, Vale o Escrito) ficam depois do bloco dela, cada uma inteira,
   // na ordem do install.sql; tiram-se do fim, da última para a primeira.
-  for (const depois of ["2026-11-vale-o-escrito.sql", "2026-11-acertos.sql"]) {
+  // A Rede v2 entrou depois, em 9 blocos (um por pacote), na ordem de docs/rede/V2.md.
+  const rede = ["fundacao", "consertos", "perfil", "publicar", "conversa", "descoberta", "comunidades", "avisos", "moderacao", "integracao"].map((n) => `2026-11-rede-${n}.sql`);
+  for (const depois of [...rede.reverse(), "2026-11-vale-o-escrito.sql", "2026-11-acertos.sql"]) {
     const bloco = fs.readFileSync(new URL(`../supabase/migracoes/${depois}`, import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
     if (!install.endsWith(bloco)) return false;
     install = install.slice(0, -bloco.length).trim();

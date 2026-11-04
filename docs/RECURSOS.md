@@ -59,6 +59,7 @@ O valor é lido na **montagem** do site (é uma variável `NEXT_PUBLIC_`, gravad
 | `enem-video` | vídeos curtos do curso ENEM: narração pré-gravada (voz sintética), legendas, transcrição, capítulos e velocidade; nada carrega antes do clique (veja `docs/enem/video/RELATORIO.md`) | no topo das aulas que têm vídeo e no bloco `videocurto` |
 | `pratica-sem-placar` | esconde os pontos e a sequência de dias da prática das aulas de idioma | aulas de idioma |
 | `escola` | Escola Lúcia Maria: entrada, Quem foi Lúcia Maria, cursos, matrícula, campus e calendário; com ela, a barra de baixo do celular passa a Início, Estudar, Meu estudo, Campus e Buscar (veja `docs/ESCOLA.md`). Só liga pelo nome | `/escola` e as páginas abaixo dela; "Escola" no menu do topo, no índice do site e na barra do celular |
+| `rede-v2` | Rede Lúcia v2: Rede e Fórum numa só (posts curtos, discussões, dúvidas, enquetes), comunidades com página própria, perfil com @nome e endereço próprio para post, perfil e comunidade (veja `docs/rede/V2.md`). Só liga pelo nome | `/comunidade` (troca a Rede de hoje pela v2) e `/comunidade/p/[id]`, `/comunidade/c/[slug]`, `/comunidade/u/[handle]` |
 
 Alguns dependem de outros para fazer sentido: `exercicios` e `metas` aparecem melhor com `meu-estudo`; `mapa-curricular` usa as páginas de `professores`.
 
@@ -77,3 +78,13 @@ Tudo o que estes recursos guardam fica no navegador de quem estuda (`localStorag
 ## `vale-o-escrito` (Etapa 10)
 
 O observatório Vale o Escrito (`/[lang]/vale-o-escrito`) também está em `SO_PELO_NOME`: `todos` **não** o liga. Só abre com o nome na lista (`NEXT_PUBLIC_RECURSOS=todos,vale-o-escrito`) e **não deve ser ligado em produção antes de a curadoria revisar as entradas e a assessoria jurídica conferir** (docs/vale-o-escrito/ESPEC.md). Desligado, as rotas respondem 404 e o item some do menu.
+
+
+## `rede-v2` (Etapa 7)
+
+A Rede Lúcia v2 (Rede e Fórum numa só: posts curtos, discussões, dúvidas, enquetes; comunidades com página própria; perfil com @nome; endereços `/comunidade/p/[id]`, `/comunidade/c/[slug]` e `/comunidade/u/[handle]`) também está em `SO_PELO_NOME`: `todos` **não** a liga, porque a produção usa `todos` e a migração SQL dela (`supabase/migracoes/2026-11-rede-*.sql`, depois do `install.sql`) ainda precisa rodar no Supabase. Só abre com o nome na lista (`NEXT_PUBLIC_RECURSOS=todos,rede-v2`).
+
+- **Desligado** (o caso da produção hoje): a Rede e o Fórum de hoje ficam exatamente como estão, as três rotas novas respondem 404 e `?t=` e `?sala=` não redirecionam. É a volta atrás garantida.
+- **Ligado**: `/[lang]/comunidade` abre a v2 (carregada sob demanda, com esqueleto), `?t=<tópico>` e `?sala=<disciplina>` redirecionam (301) para o post e a comunidade novos, e o Fórum de visual antigo deixa de aparecer.
+- Os consertos de segurança e privacidade (contagens só para o autor, idade mínima 18, convites com hash, moderação externa) valem para as duas versões e não dependem do recurso.
+- Ordem para ligar: rodar `install.sql` e as migrações `2026-11-rede-*.sql` na ordem de `docs/rede/V2.md`; conferir com `npm run testar:rede-fundacao`; ligar para a equipe (prévia), depois beta, depois todos. Nenhum `drop` até a v2 estar no ar há 30 dias.

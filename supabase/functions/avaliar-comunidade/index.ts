@@ -89,7 +89,7 @@ Deno.serve(comCors(async (pedido) => {
       }
       return responder({ recuperadas: contagem });
     }
-    if (!["topico", "resposta", "comentario", "aula_chat"].includes(String(tipo)) || typeof id !== "string" || !/^[0-9a-f-]{36}$/.test(id)) return responder({ erro: "pedido" }, 400);
+    if (!["topico", "resposta", "comentario", "aula_chat", "rede"].includes(String(tipo)) || typeof id !== "string" || !/^[0-9a-f-]{36}$/.test(id)) return responder({ erro: "pedido" }, 400);
     return responder({ veredito: await avaliar(tipo, id) });
   } catch (falha) {
     // Sem o banco, nada muda: a mensagem segue na fila de revisão.

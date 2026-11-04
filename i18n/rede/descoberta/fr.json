@@ -1,0 +1,146 @@
+{
+  "_rascunho": true,
+  "entrada": {
+    "titulo": "Bienvenue sur Rede Lúcia",
+    "passo": "Étape {n} sur {total}",
+    "voltar": "Retour",
+    "continuar": "Continuer",
+    "passos": {
+      "regras": "Règles",
+      "consentimento": "Consentement",
+      "idade": "Âge",
+      "codinome": "Pseudonyme",
+      "escolhas": "Luttes et parcours",
+      "guia": "Guide de sécurité"
+    },
+    "regras": {
+      "titulo": "Les règles du Réseau, en quatre phrases",
+      "pontos": [
+        "La conversation porte sur l'étude et la lutte : respect de celles et ceux qui pensent autrement, critique des idées et jamais des personnes.",
+        "Personne n'apparaît sous son vrai nom : seulement le pseudonyme, pas même l'équipe.",
+        "Il n'y a pas de messagerie privée. Ni adresse personnelle, ni téléphone, ni document dans les publications.",
+        "Qui signale n'est jamais révélé. Toute décision de modération a une règle, un motif et un droit de recours."
+      ],
+      "completas": "Lire les règles complètes"
+    },
+    "consentimento": {
+      "titulo": "Données sensibles : vous décidez",
+      "texto": "Parler de politique et de lutte peut révéler votre opinion politique ou votre appartenance syndicale. La loi y voit une donnée personnelle sensible (LGPD, art. 5, II).",
+      "finalidade": "Nous l'utilisons seulement pour montrer ce que vous écrivez à qui vous choisissez et pour que la modération veille sur la conversation. Nous ne vendons rien, ne faisons pas de profil commercial et ne suivons pas ce que vous lisez.",
+      "revogar": "Vous pouvez retirer votre consentement à tout moment et demander l'effacement de vos données (LGPD, art. 18). La version des règles en vigueur est enregistrée.",
+      "caixa": "Je consens, de manière spécifique et distincte, au traitement des données sensibles que je pourrais révéler en participant au Réseau, pour cette finalité (LGPD, art. 11, I).",
+      "base": "Sans ce consentement, vous gardez le reste du site ; vous n'entrez simplement pas dans le Réseau."
+    },
+    "idade": {
+      "titulo": "Le Réseau est réservé aux plus de 18 ans",
+      "texto": "Nous ne traitons pas de données d'enfants et d'adolescents dans le Réseau (LGPD, art. 14). C'est une déclaration de votre part ; le reste du site reste ouvert à tous les âges.",
+      "caixa": "J'ai 18 ans ou plus.",
+      "menor": "J'ai moins de 18 ans",
+      "negada": "Pas de problème : le Réseau est réservé aux plus de 18 ans. Le reste du site reste ouvert pour vous."
+    },
+    "codinome": {
+      "titulo": "Choisissez votre pseudonyme",
+      "texto": "C'est le nom que tout le monde verra. N'utilisez ni votre vrai nom ni celui d'une autre personne.",
+      "rotulo": "Pseudonyme (3 à 30 caractères)",
+      "salvar": "Entrer dans le Réseau"
+    },
+    "escolhas": {
+      "titulo": "Choisissez 3 luttes et 3 parcours",
+      "texto": "Cela compose votre fil et vous inscrit aux communautés ouvertes liées. Vous pouvez changer à tout moment dans Explorer.",
+      "lutas": "Trois luttes",
+      "lutasVazio": "Il n'y a pas encore de communautés de lutte ouvertes. Continuez.",
+      "trilhas": "Trois parcours d'étude",
+      "trilhasCarregando": "Chargement des parcours…",
+      "trilhasFalha": "Impossible de lister les parcours pour l'instant.",
+      "filtro": "Filtrer les parcours",
+      "contador": "{n} sur {max} choisis",
+      "aparecer": "J'accepte d'apparaître dans les paquets de personnes à suivre (seulement si mon profil est ouvert). Vous pouvez le désactiver quand vous voulez.",
+      "salvar": "Enregistrer les choix"
+    },
+    "guia": {
+      "titulo": "Guide de sécurité",
+      "pular": "Passer le guide",
+      "concluir": "Compris, aller au Réseau",
+      "proximo": "Carte suivante",
+      "cartao": "Carte {n} sur {total}",
+      "cartoes": [
+        { "titulo": "Le pseudonyme vous protège", "texto": "Ne dites pas où vous habitez, où vous travaillez ni avec qui vous vivez. Même l'équipe ne voit pas votre vrai nom dans le Réseau." },
+        { "titulo": "Aucune donnée personnelle", "texto": "Adresse, téléphone, pièce d'identité et e-mail restent hors des publications. Pour un rendez-vous, utilisez un lieu public : place, bibliothèque, syndicat." },
+        { "titulo": "Signalez sans crainte", "texto": "Le bouton Signaler est sur chaque publication. Vous suivez l'avancement dans Avis et personne ne sait qui a signalé." },
+        { "titulo": "Sortie rapide", "texto": "Le bouton Sortie rapide ouvre une page neutre et efface ce que le Réseau a gardé sur cet appareil. Utilisez-le en cas de besoin." }
+      ]
+    },
+    "erro": "Impossible d'enregistrer pour l'instant. Réessayez."
+  },
+  "ordens": {
+    "rotulo": "Ordre",
+    "porQue": "Pourquoi cet ordre ?",
+    "semAlgoritmo": "Il n'y a pas de note cachée : l'ordre est seulement la règle ci-dessous. Aucun ordre n'utilise le temps de lecture, les clics ou ce que vous avez aimé.",
+    "teto": "Chaque ordre montre au plus 100 publications, et la liste s'arrête là. Pour aller plus loin, affinez par hashtag, communauté ou recherche.",
+    "novos": { "nome": "Récentes", "formula": "De la plus récente à la plus ancienne. Rien d'autre." },
+    "uteis": { "nome": "Les plus utiles", "formula": "Combien de personnes ont marqué Utile, du plus grand nombre au plus petit. Égalité : la plus récente. Seulement les 30 derniers jours." },
+    "sem_resposta": { "nome": "Sans réponse", "formula": "Publications sans aucune réponse visible pour vous ni réponse acceptée, de la plus récente à la plus ancienne. Seulement les 30 derniers jours." },
+    "em_debate": { "nome": "En débat", "formula": "Combien de réponses la conversation a reçues ces 7 derniers jours (seulement celles que vous pouvez voir), du plus grand nombre au plus petit. Égalité : la plus récente. Seulement les 30 derniers jours." },
+    "relevancia": { "nome": "Pertinence", "formula": "À quel point le texte correspond à votre recherche (ts_rank_cd de Postgres, en portugais, sans accents). Égalité : la plus récente." }
+  },
+  "tag": {
+    "titulo": "Publications avec #{tag}",
+    "regraDaLinha": "Ligne thématique {titulo} : {regra}",
+    "vazio": "Il n'y a pas encore de publications avec ce hashtag que vous puissiez voir.",
+    "voltar": "Retour à Explorer"
+  },
+  "explorar": {
+    "titulo": "Explorer",
+    "lead": "Découvrez des communautés, des lignes thématiques et les conversations du moment. Tout avec une règle écrite, sans algorithme caché.",
+    "mudarEscolhas": "Changer mes 3 luttes et 3 parcours",
+    "comunidades": "Communautés",
+    "categorias": { "lutas": "Luttes", "disciplinas": "Disciplines", "instituto": "Institut" },
+    "membro": "Vous participez",
+    "entrar": "Ouvrir",
+    "linhas": "Lignes thématiques",
+    "linhasAjuda": "Chaque ligne montre les publications qui respectent une règle publique.",
+    "regra": "Règle",
+    "ver": "Voir la ligne",
+    "linhaAtiva": "Ligne : {titulo}",
+    "fecharLinha": "Quitter la ligne",
+    "tags": "En vogue cette semaine",
+    "tagsAjuda": "Hashtags utilisés par au moins 3 personnes différentes ces 7 derniers jours, seulement dans des publications que vous pouvez voir.",
+    "tagsVazio": "Pas encore de hashtag en vogue.",
+    "posts": "{n} publications",
+    "pacotes": "Personnes à suivre",
+    "pacotesAjuda": "Paquets choisis par l'équipe. N'y entre que qui a un profil ouvert et a accepté d'apparaître.",
+    "pacotesVazio": "Il n'y a pas encore de paquets de personnes.",
+    "pessoas": "{n} personnes",
+    "abrirPacote": "Voir qui est dans le paquet",
+    "seguirTodos": "Suivre toutes",
+    "seguiu": "Vous suivez maintenant {n} personnes.",
+    "jaSegue": "Vous suivez déjà tout le monde.",
+    "sigo": "Suivi",
+    "aparecerTitulo": "Apparaître dans les paquets",
+    "aparecerAjuda": "Si activé, l'équipe peut inclure votre profil ouvert dans des paquets de personnes à suivre. Désactivé, personne ne vous inclut.",
+    "aparecerLigar": "Je veux apparaître",
+    "aparecerDesligar": "Je ne veux pas apparaître"
+  },
+  "buscar": {
+    "titulo": "Rechercher dans le Réseau",
+    "rotulo": "Que cherchez-vous ?",
+    "dica": "Fonctionne sans accents et avec les pluriels. Utilisez des guillemets pour une phrase et - pour exclure un mot.",
+    "botao": "Rechercher",
+    "posts": "Publications",
+    "pessoas": "Personnes",
+    "comunidades": "Communautés",
+    "vazio": "Rien de trouvé que vous puissiez voir.",
+    "curta": "Écrivez au moins deux lettres.",
+    "soComuns": "Seulement des mots très courants : essayez des termes plus précis.",
+    "visitante": "Sans compte, la recherche ne montre que ce qui est ouvert à Internet.",
+    "irParaTag": "Voir la page du hashtag #{tag}"
+  },
+  "estados": {
+    "carregando": "Chargement…",
+    "erro": "Impossible de charger pour l'instant.",
+    "tentar": "Réessayer",
+    "maisPosts": "Charger plus",
+    "fim": "Fin de la liste.",
+    "fimPorTeto": "Nous avons atteint la limite de 100 publications de cet ordre."
+  }
+}

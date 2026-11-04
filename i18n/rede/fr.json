@@ -1,0 +1,171 @@
+{
+  "_rascunho": true,
+  "marca": "Réseau Lúcia",
+  "menu": {
+    "principal": "Menu du réseau",
+    "barra": "Barre du réseau",
+    "inicio": "Accueil",
+    "comunidades": "Communautés",
+    "chamados": "Appels",
+    "nucleos": "Cercles d'étude",
+    "avisos": "Avis",
+    "salvos": "Enregistrés",
+    "perfil": "Profil",
+    "escrever": "Écrire",
+    "busca": "Rechercher",
+    "explorar": "Explorer"
+  },
+  "abas": {
+    "rotulo": "Fils du réseau",
+    "seguindo": "Abonnements",
+    "comunidades": "Mes communautés",
+    "tudo": "Tout",
+    "geral": "Fil général"
+  },
+  "novos": {
+    "um": "1 nouveau message, afficher",
+    "outros": "{n} nouveaux messages, afficher"
+  },
+  "postando": "Vous publiez en tant que {codinome}",
+  "quemVe": "Qui peut le voir : {publico}",
+  "porQueEstaOrdem": "Pourquoi cet ordre ?",
+  "publicos": {
+    "internet": "Internet (tout le monde, sans compte)",
+    "membros": "Membres du réseau",
+    "seguidores": "Mes abonnés",
+    "comunidade": "Cette communauté seulement",
+    "nucleo": "Ce cercle seulement",
+    "equipe": "L'équipe de l'institut seulement"
+  },
+  "tipos": {
+    "post": "Message",
+    "discussao": "Discussion",
+    "duvida": "Question",
+    "enquete": "Sondage",
+    "chamado": "Appel",
+    "aviso": "Avis de l'institut"
+  },
+  "acoes": {
+    "responder": "Répondre",
+    "citar": "Citer",
+    "apoiar": "Soutenir",
+    "salvar": "Enregistrer",
+    "mais": "Plus",
+    "denunciar": "Signaler",
+    "util": "Utile"
+  },
+  "post": {
+    "editado": "modifié",
+    "respostas": {
+      "um": "1 réponse",
+      "outros": "{n} réponses"
+    },
+    "util": "{n} l'ont trouvé utile",
+    "resolvida": "Résolue",
+    "travado": "Conversation verrouillée : plus de réponses.",
+    "retido": "Ce message attend la lecture de la médiation. Vous seul le voyez.",
+    "restrito": "Contenu restreint",
+    "continuar": "Continuer la conversation",
+    "avisoConteudo": "Avertissement de contenu",
+    "verMais": "Lire le texte entier"
+  },
+  "casca": {
+    "escrever": "Écrire sur le réseau",
+    "fechar": "Fermer",
+    "publicar": "Publier",
+    "publicando": "Publication…",
+    "cancelar": "Annuler",
+    "textoDica": "Que voulez-vous dire ?",
+    "tituloDica": "Titre",
+    "corpoDica": "Prenez votre temps. Jusqu'à 10 000 caractères.",
+    "contador": "{n} sur {max}",
+    "tipo": "Type de message",
+    "publico": "Qui peut le voir",
+    "comunidade": "Communauté (facultatif)",
+    "saltarParaConteudo": "Aller au fil",
+    "sairRapido": "Sortie rapide",
+    "sairRapidoAjuda": "Ouvre une page neutre et efface les données du réseau sur cet appareil.",
+    "cartaoSeguranca": "La sécurité d'abord : ne publiez jamais une adresse, un téléphone ou un document. Au moindre doute, signalez.",
+    "cuidados": {
+      "titulo": "Vigilance",
+      "regras": "Règles de bienveillance",
+      "denuncias": "Mes signalements",
+      "silenciados": "Masqués",
+      "moderacao": "Tableau de modération"
+    }
+  },
+  "codinome": {
+    "aviso": "Sur le réseau, personne n'apparaît sous son vrai nom, pas même l'équipe."
+  },
+  "chamado": {
+    "pontoPublico": "Point de rendez-vous public (place, bibliothèque, syndicat, école). Jamais une adresse privée."
+  },
+  "denuncia": {
+    "sigilo": "Qui signale n'est jamais révélé. Vous suivez l'avancement dans Avis."
+  },
+  "entrada": {
+    "titulo": "Rejoindre le réseau Lúcia",
+    "texto": "Ici on parle d'étude et de lutte, sous pseudonyme et sans messagerie privée. Avant d'entrer, lisez les règles et confirmez deux choses.",
+    "maior": "J'ai 18 ans ou plus.",
+    "consentimento": "Je comprends que parler de politique peut révéler mon opinion politique ou mon affiliation syndicale, et je consens spécifiquement au traitement de ces données sur le réseau, selon les règles.",
+    "regras": "Lire les règles du réseau",
+    "aderir": "Rejoindre le réseau",
+    "idadeNegada": "Le réseau est réservé aux plus de 18 ans. Le reste du site vous reste ouvert.",
+    "menor": "J'ai moins de 18 ans",
+    "codinome": "Votre pseudonyme (3 à 30 caractères, sans @ ni vrai nom)",
+    "entreNaConta": "Connectez-vous pour participer. Vous pouvez lire les questions des disciplines sans compte.",
+    "entrar": "Se connecter"
+  },
+  "estados": {
+    "carregando": "Chargement…",
+    "vazioLinha": "Rien ici pour l'instant. Choisissez des communautés à suivre ou écrivez le premier message.",
+    "vazioSeguindo": "Vous ne suivez personne pour l'instant. Suivez des personnes via les communautés.",
+    "vazioComunidades": "Vous n'avez rejoint aucune communauté.",
+    "erro": "Impossible de charger pour le moment.",
+    "tentar": "Réessayer",
+    "maisPosts": "Charger plus",
+    "fim": "Vous êtes arrivé au bout.",
+    "naoEncontrado": "Introuvable, ou vous n'y avez pas accès.",
+    "emBreve": "Cet écran arrive bientôt."
+  },
+  "comunidade": {
+    "sobre": "À propos",
+    "posts": "Messages",
+    "regras": "Règles",
+    "moderacao": "Modération",
+    "tipoAberta": "Ouverte",
+    "tipoRestrita": "Restreinte : les membres du réseau lisent, seuls les inscrits écrivent",
+    "tipoFechada": "Fermée : réservée aux membres de la communauté",
+    "banido": "Vous ne pouvez pas écrire dans cette communauté pour l'instant."
+  },
+  "perfil": {
+    "trancado": "Profil verrouillé : les abonnés doivent être approuvés.",
+    "equipe": "Équipe de l'institut",
+    "semContagens": "Pas de compteurs publics d'abonnés ni de soutiens."
+  },
+  "erros": {
+    "entre_primeiro": "Connectez-vous pour faire cela.",
+    "conta_suspensa": "Votre compte est suspendu.",
+    "area_interditada": "Cette zone est hors service pour l'instant.",
+    "confirme_idade": "Confirmez que vous avez 18 ans ou plus pour rejoindre le réseau.",
+    "idade_minima": "Le réseau est réservé aux plus de 18 ans.",
+    "consentimento": "Lisez les règles et donnez votre consentement pour rejoindre le réseau.",
+    "confirme_codinome": "Choisissez ou confirmez votre pseudonyme avant d'écrire.",
+    "dado_pessoal": "Retirez le numéro de document, le téléphone ou l'e-mail du texte : les données personnelles n'ont pas leur place ici.",
+    "sem_permissao": "Vous n'avez pas la permission de faire cela ici.",
+    "nao_encontrado": "Introuvable, ou vous n'y avez pas accès.",
+    "travado": "Cette conversation est verrouillée.",
+    "limite_de_niveis": "La conversation a atteint la limite de niveaux : continuez depuis une réponse plus haute.",
+    "muitos_pedidos": "Doucement : trop de demandes d'affilée. Réessayez dans un instant.",
+    "banco_desatualizado": "La base de données n'a pas encore reçu la mise à jour du réseau.",
+    "sem_servico": "Le service de comptes n'est pas activé dans cet environnement.",
+    "sem_conexao": "Pas de connexion. Vérifiez internet et réessayez.",
+    "falha": "Un problème est survenu. Réessayez.",
+    "invalido": "Vérifiez le champ : {campo}.",
+    "modo_lento": "Ce lieu est en mode lent : attendez un peu avant de réécrire.",
+    "nivel_links": "Votre niveau ne permet pas encore autant de liens dans un message. Voyez les limites dans Comment le Réseau veille.",
+    "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment le Réseau veille.",
+    "limite_diario": "Vous avez atteint la limite de messages d'aujourd'hui pour votre niveau.",
+    "lista_bloqueio": "La médiation de ce lieu n'autorise pas vos messages ici."
+  }
+}

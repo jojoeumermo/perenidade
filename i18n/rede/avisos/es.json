@@ -1,0 +1,68 @@
+{
+  "_rascunho": true,
+  "titulo": "Avisos",
+  "abas": { "rotulo": "Avisos y preferencias", "avisos": "Avisos", "preferencias": "Preferencias" },
+  "lista": {
+    "rotulo": "Tus avisos",
+    "vazio": "Todavía no hay avisos. Cuando alguien responda, mencione o apoye lo que escribiste, aparece aquí.",
+    "marcarTodos": "Marcar todo como leído",
+    "mais": "Ver avisos más antiguos",
+    "carregando": "Cargando los avisos…",
+    "falha": "No se pudieron cargar los avisos. Inténtalo de nuevo.",
+    "novo": "Nuevo",
+    "reserva": "Hay una novedad para ti en la Red.",
+    "naoLidos": "{n} sin leer",
+    "tudoLido": "Todo leído.",
+    "emTitulo": "en “{titulo}”",
+    "abrir": "Abrir"
+  },
+  "frases": {
+    "resposta": { "um": "{a} respondió a tu publicación.", "vezes": "{a} respondió {n} veces a tu publicación.", "varios": "{a} y {n} más respondieron a tu publicación.", "anonimo": "Alguien respondió a tu publicación.", "anonimoVarios": "{n} personas respondieron a tu publicación." },
+    "mencao": { "um": "{a} te mencionó.", "vezes": "{a} te mencionó {n} veces.", "varios": "{a} y {n} más te mencionaron.", "anonimo": "Alguien te mencionó.", "anonimoVarios": "{n} personas te mencionaron." },
+    "citacao": { "um": "{a} citó tu publicación.", "vezes": "{a} citó tu publicación {n} veces.", "varios": "{a} y {n} más citaron tu publicación.", "anonimo": "Alguien citó tu publicación.", "anonimoVarios": "{n} personas citaron tu publicación." },
+    "seguidor": { "um": "{a} empezó a seguirte.", "vezes": "{a} empezó a seguirte.", "varios": "{a} y {n} más empezaron a seguirte.", "anonimo": "Alguien empezó a seguirte.", "anonimoVarios": "{n} personas empezaron a seguirte." },
+    "apoio": { "um": "1 persona apoyó tu publicación.", "vezes": "1 persona apoyó tu publicación.", "varios": "{n} personas apoyaron tu publicación.", "anonimo": "1 persona apoyó tu publicación.", "anonimoVarios": "{n} personas apoyaron tu publicación." }
+  },
+  "prefs": {
+    "titulo": "Cómo quieres que te avisemos",
+    "salvo": "Preferencia guardada.",
+    "falha": "No se pudo guardar. Inténtalo de nuevo.",
+    "site": {
+      "titulo": "Avisos aquí en la Red",
+      "descricao": "Elige qué aparece en esta pantalla. Los avisos de moderación siempre aparecen: tienes derecho a saber qué pasó con lo que escribiste.",
+      "tipos": {
+        "resposta": "Respuestas a lo que escribiste",
+        "mencao": "Menciones de tu @nombre",
+        "citacao": "Citas de tu publicación",
+        "seguidor": "Nuevos seguidores",
+        "chamado": "Convocatorias",
+        "nucleo": "Núcleos",
+        "moderacao": "Moderación (siempre activado)",
+        "apoio": "Apoyos (solo la cantidad, nunca quién)"
+      }
+    },
+    "resumo": {
+      "titulo": "Resumen semanal por correo",
+      "descricao": "Desactivado hasta que lo actives. Una vez por semana, y solo si hay novedades: cantidades y títulos de conversaciones públicas. Nunca el texto de una publicación, nunca nombres.",
+      "ligar": "Recibir el resumen semanal por correo",
+      "ver": "Ver qué se enviaría ahora",
+      "nada": "Nada que enviar ahora: no tienes avisos nuevos.",
+      "fechar": "Cerrar la vista previa",
+      "precisaEntrar": "Para recibir correo de la Red, primero entra en la Red (18 años o más, con las normas aceptadas)."
+    },
+    "push": {
+      "titulo": "Aviso en el celular",
+      "descricao": "El aparato recibe solo “Tienes N avisos en la Red”, sin el texto de ninguna publicación. Lo desactivas cuando quieras y el aparato sale de nuestro servidor.",
+      "ligar": "Avisar en este aparato",
+      "desligar": "Desactivar en este aparato",
+      "ativo": "Activado en este aparato.",
+      "outros": "Aparatos activados: {n}.",
+      "tipos": "Avisar en el celular sobre:",
+      "semSuporte": "Este navegador no avisa en el celular.",
+      "bloqueado": "El aviso está bloqueado en este navegador. Permítelo en los ajustes del sitio e inténtalo de nuevo.",
+      "ios": "En iPhone y iPad, primero añade el sitio a la pantalla de inicio (Compartir → Añadir a pantalla de inicio) y ábrelo desde allí.",
+      "naoConfigurado": "El aviso en el celular todavía no está activado en este sitio.",
+      "precisaEntrar": "Para recibir avisos en el celular, primero entra en la Red (18 años o más, con las normas aceptadas)."
+    }
+  }
+}

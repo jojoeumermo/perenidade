@@ -1,0 +1,67 @@
+{
+  "titulo": "Avisos",
+  "abas": { "rotulo": "Avisos e preferências", "avisos": "Avisos", "preferencias": "Preferências" },
+  "lista": {
+    "rotulo": "Seus avisos",
+    "vazio": "Nenhum aviso por enquanto. Quando alguém responder, mencionar ou apoiar o que você escreveu, aparece aqui.",
+    "marcarTodos": "Marcar tudo como lido",
+    "mais": "Ver avisos mais antigos",
+    "carregando": "Carregando os avisos…",
+    "falha": "Não foi possível carregar os avisos. Tente de novo.",
+    "novo": "Novo",
+    "reserva": "Há uma novidade para você na Rede.",
+    "naoLidos": "{n} não lidos",
+    "tudoLido": "Tudo lido.",
+    "emTitulo": "em “{titulo}”",
+    "abrir": "Abrir"
+  },
+  "frases": {
+    "resposta": { "um": "{a} respondeu ao seu post.", "vezes": "{a} respondeu {n} vezes ao seu post.", "varios": "{a} e mais {n} responderam ao seu post.", "anonimo": "Alguém respondeu ao seu post.", "anonimoVarios": "{n} pessoas responderam ao seu post." },
+    "mencao": { "um": "{a} mencionou você.", "vezes": "{a} mencionou você {n} vezes.", "varios": "{a} e mais {n} mencionaram você.", "anonimo": "Alguém mencionou você.", "anonimoVarios": "{n} pessoas mencionaram você." },
+    "citacao": { "um": "{a} citou o seu post.", "vezes": "{a} citou o seu post {n} vezes.", "varios": "{a} e mais {n} citaram o seu post.", "anonimo": "Alguém citou o seu post.", "anonimoVarios": "{n} pessoas citaram o seu post." },
+    "seguidor": { "um": "{a} começou a seguir você.", "vezes": "{a} começou a seguir você.", "varios": "{a} e mais {n} começaram a seguir você.", "anonimo": "Alguém começou a seguir você.", "anonimoVarios": "{n} pessoas começaram a seguir você." },
+    "apoio": { "um": "1 pessoa apoiou o seu post.", "vezes": "1 pessoa apoiou o seu post.", "varios": "{n} pessoas apoiaram o seu post.", "anonimo": "1 pessoa apoiou o seu post.", "anonimoVarios": "{n} pessoas apoiaram o seu post." }
+  },
+  "prefs": {
+    "titulo": "Como você quer ser avisado",
+    "salvo": "Preferência salva.",
+    "falha": "Não foi possível salvar. Tente de novo.",
+    "site": {
+      "titulo": "Avisos aqui na Rede",
+      "descricao": "Escolha o que aparece nesta tela. Os avisos da moderação sempre aparecem: você tem direito de saber o que aconteceu com o que você escreveu.",
+      "tipos": {
+        "resposta": "Respostas ao que você escreveu",
+        "mencao": "Menções ao seu @nome",
+        "citacao": "Citações do seu post",
+        "seguidor": "Novos seguidores",
+        "chamado": "Chamados",
+        "nucleo": "Núcleos",
+        "moderacao": "Moderação (sempre ligado)",
+        "apoio": "Apoios (só a quantidade, nunca quem apoiou)"
+      }
+    },
+    "resumo": {
+      "titulo": "Resumo semanal por e-mail",
+      "descricao": "Desligado até você ligar. Uma vez por semana, e só se houver avisos novos: contagens e títulos de conversas públicas. Nunca o texto de um post, nunca nomes.",
+      "ligar": "Receber o resumo semanal por e-mail",
+      "ver": "Ver o que seria enviado agora",
+      "nada": "Nada a enviar agora: você não tem avisos novos.",
+      "fechar": "Fechar a prévia",
+      "precisaEntrar": "Para receber e-mail da Rede, entre primeiro na Rede (18 anos ou mais, com as normas aceitas)."
+    },
+    "push": {
+      "titulo": "Aviso no celular",
+      "descricao": "O aparelho recebe só “Você tem N avisos na Rede”, sem o texto de nenhum post. Você desliga quando quiser, e o aparelho sai do nosso servidor.",
+      "ligar": "Avisar neste aparelho",
+      "desligar": "Desligar neste aparelho",
+      "ativo": "Ligado neste aparelho.",
+      "outros": "Aparelhos ligados: {n}.",
+      "tipos": "Avisar no celular sobre:",
+      "semSuporte": "Este navegador não avisa pelo celular.",
+      "bloqueado": "O aviso está bloqueado neste navegador. Libere nas configurações do site e tente de novo.",
+      "ios": "No iPhone e no iPad, primeiro adicione o site à tela de início (Compartilhar → Adicionar à Tela de Início) e abra por lá.",
+      "naoConfigurado": "O aviso no celular ainda não foi ligado neste site.",
+      "precisaEntrar": "Para avisar no celular, entre primeiro na Rede (18 anos ou mais, com as normas aceitas)."
+    }
+  }
+}
