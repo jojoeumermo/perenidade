@@ -25,6 +25,10 @@ quiz:
     explicacao: "len devolve a quantidade de itens. A soma (43) seria dada por sum."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber criar uma lista, ler e trocar itens pela posição, acrescentar e tirar itens, percorrer a lista com `for` e usar `len`, `sum`, `max`, `min`, `sorted`, `in` e fatias.
+
 ## Vários valores, um nome só
 
 Imagine guardar as notas de quarenta alunos. Criar quarenta variáveis seria um pesadelo. Uma **lista** guarda vários valores em ordem, sob um único nome. Ela é escrita entre colchetes, com os itens separados por vírgula:
@@ -135,3 +139,33 @@ print("Chamada:", sorted(nomes))
 1. Crie uma lista com as temperaturas de uma semana e mostre a maior, a menor e a média.
 2. Dada uma lista de números, crie outra só com os pares.
 3. Leia cinco nomes e mostre-os em ordem alfabética, um por linha.
+
+## Exemplo resolvido
+
+**Quatro alunas tiraram 7.5, 9.0, 6.0 e 8.5. Qual é a média e quantas ficaram aprovadas (nota 7 ou mais)?**
+
+1. Guarde as notas em uma lista.
+2. Para a média, `sum` soma tudo (31.0) e `len` diz quantos itens há (4): 31.0 / 4 = 7.75.
+3. Para contar as aprovadas, crie um contador em zero e percorra a lista com `for`. A cada nota maior ou igual a 7, some 1.
+
+```python
+notas = [7.5, 9.0, 6.0, 8.5]
+aprovados = 0
+for nota in notas:
+    if nota >= 7:
+        aprovados = aprovados + 1
+print("Média:", sum(notas) / len(notas))
+print("Aprovados:", aprovados)
+```
+
+O programa mostra `Média: 7.75` e `Aprovados: 3`.
+
+Confira: as notas 7.5, 9.0 e 8.5 chegam a 7; a 6.0 não. São três.
+
+## Resumo
+
+- Uma lista guarda vários valores em ordem, entre colchetes e separados por vírgula.
+- O índice começa em zero; `-1` é o último item; uma posição que não existe causa `IndexError`.
+- `lista[i] = valor` troca; `append` acrescenta; `remove` tira; `len` conta.
+- `for item in lista` percorre; `sum`, `max`, `min` e `sorted` ajudam a analisar.
+- `valor in lista` diz se está na lista; `lista[1:4]` recorta uma fatia, com o fim de fora.

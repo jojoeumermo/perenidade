@@ -24,6 +24,10 @@ quiz:
     explicacao: "Entre textos, o sinal + junta um ao outro. Para somar, os valores precisam ser números."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber guardar valores em variáveis, reconhecer os tipos `int`, `float`, `str` e `bool`, ler o que a pessoa digita com `input`, converter texto em número e montar frases com f-strings.
+
 ## Variáveis: caixas com etiqueta
 
 Uma **variável** é um nome que aponta para um valor guardado na memória. Cria-se uma variável com o sinal de igual:
@@ -112,3 +116,32 @@ O `:.2f` pede duas casas decimais.
 1. Peça o nome e a cidade da pessoa e mostre: "Fulana mora em Tal lugar."
 2. Peça dois números e mostre a soma.
 3. Peça o valor de uma hora de trabalho e quantas horas foram trabalhadas, e mostre o total a receber com duas casas decimais.
+
+## Exemplo resolvido
+
+**Peça o produto, o preço e a quantidade, e mostre o total da compra.**
+
+1. O produto é texto: `input` basta.
+2. O preço pode ter casas decimais: converta com `float()`. A quantidade é um número inteiro: converta com `int()`.
+3. Multiplique preço e quantidade e guarde em `total`.
+4. Monte a frase com f-string, com `:.2f` para duas casas decimais.
+
+```python
+produto = input("Produto: ")
+preco = float(input("Preço: "))
+quantidade = int(input("Quantidade: "))
+total = preco * quantidade
+print(f"{quantidade} x {produto}: R$ {total:.2f}")
+```
+
+Se a pessoa digitar `arroz`, `6.5` e `3` (na ferramenta, uma resposta por linha no campo "Entradas"), o programa mostra `3 x arroz: R$ 19.50`.
+
+Confira: 6,5 × 3 = 19,5. Sem a conversão com `float()`, o `input` devolveria o texto `"6.5"` e a multiplicação não daria um preço.
+
+## Resumo
+
+- Uma variável é um nome que aponta para um valor; `idade = 34` guarda, não compara.
+- Os tipos básicos são `int`, `float`, `str` e `bool`; a parte decimal usa ponto; `type` mostra o tipo.
+- `input` mostra uma pergunta e devolve sempre texto.
+- `int()` e `float()` convertem texto em número.
+- Na f-string, as variáveis ficam entre chaves; `:.2f` pede duas casas decimais.

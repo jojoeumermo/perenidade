@@ -30,6 +30,10 @@ quiz:
     explicacao: "O crescimento freia à medida que a população se aproxima do máximo que o ambiente sustenta."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é uma equação diferencial, resolver y' = ky e usá-la para crescimento, decaimento e resfriamento, e dizer por que nenhum crescimento sem limite dura para sempre.
+
 Nesta aula, y' é a [derivada](/trilhas/matematica-superior/derivadas) de y em relação ao tempo t, e e^(kt) é a exponencial de base e.
 
 ## A incógnita é uma função
@@ -153,3 +157,14 @@ Uma equação diferencial é um **modelo**: uma hipótese sobre a lei da mudanç
 6. Na equação logística, para que valores de P a população não muda?
 
 **Respostas:** 1) y' = 15e^(3t) = 3 × 5e^(3t); y(0) = 5. 2) ln 2 ÷ 0,02 ≈ 35 anos. 3) 1/8. 4) 44,1 m. 5) y(0,1) ≈ 1,2; y(0,2) ≈ 1,44. 6) P = 0 e P = K.
+
+## Resumo
+
+- Numa equação diferencial procura-se uma função; o que se conhece é a lei da mudança, a relação entre ela e a sua taxa de variação.
+- Em geral há infinitas soluções; a condição inicial escolhe uma.
+- y' = ky tem solução y = Ce^(kt): crescimento com k positivo, decaimento com k negativo; C é o valor inicial.
+- Tempo de duplicação: ln 2 ÷ k. Meia-vida: ln 2 ÷ |k|.
+- Lei do resfriamento: T(t) = Ta + (T0 − Ta) × e^(−kt).
+- A equação logística P' = rP × (1 − P/K) freia o crescimento em K, a capacidade de suporte.
+- Quando não há fórmula, resolve-se em passos pequenos, como no método de Euler.
+- Equação diferencial é um modelo: vale enquanto valer a hipótese sobre a lei da mudança.

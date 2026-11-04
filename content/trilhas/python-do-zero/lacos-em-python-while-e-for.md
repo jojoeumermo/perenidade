@@ -25,6 +25,10 @@ quiz:
     explicacao: "break encerra o laço. Quem pula para a próxima volta é o continue."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber repetir tarefas com `while` e com `for`, usar `range`, somar valores a cada volta e escolher o laço certo para cada situação.
+
 ## Repetir com while
 
 `while` quer dizer "enquanto". O bloco é repetido **enquanto a condição for verdadeira**:
@@ -115,3 +119,32 @@ Saem 1, 2, 3, 5, 6 e 7: o 4 foi pulado e, no 8, o laço acabou.
 1. Mostre os números de 10 a 1, em contagem regressiva (dica: o passo de `range` pode ser negativo).
 2. Some todos os números pares de 1 a 50.
 3. Calcule o fatorial de um número digitado (5! = 5 × 4 × 3 × 2 × 1).
+
+## Exemplo resolvido
+
+**Quantos números de 1 a 20 são múltiplos de 3?**
+
+1. Precisamos olhar cada número de 1 a 20: `for numero in range(1, 21)` (o 21 fica de fora).
+2. Precisamos de um contador que começa em zero.
+3. Um número é múltiplo de 3 quando o resto da divisão por 3 é zero: `numero % 3 == 0`.
+4. Se for, somamos 1 ao contador.
+
+```python
+quantidade = 0
+for numero in range(1, 21):
+    if numero % 3 == 0:
+        quantidade = quantidade + 1
+print("Múltiplos de 3:", quantidade)
+```
+
+O programa mostra `Múltiplos de 3: 6`.
+
+Confira à mão: 3, 6, 9, 12, 15 e 18. São seis.
+
+## Resumo
+
+- `while` repete enquanto a condição for verdadeira; sem mudar a variável, vira laço infinito.
+- `for` percorre uma sequência; `range(fim)`, `range(começo, fim)` e `range(começo, fim, passo)` criam números, e o fim fica de fora.
+- Um acumulador é uma variável que vai somando a cada volta.
+- `break` sai do laço; `continue` pula para a próxima volta.
+- `for` quando se sabe quantas voltas; `while` quando depende do que acontece no caminho.

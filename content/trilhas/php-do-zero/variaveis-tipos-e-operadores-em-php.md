@@ -24,6 +24,10 @@ quiz:
     explicacao: "=== compara valor e tipo. Um é número inteiro, o outro é texto: são diferentes."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber guardar valores em variáveis, reconhecer os tipos básicos, juntar textos, fazer contas com os operadores e comparar valores com `===`.
+
 ## Variáveis começam com cifrão
 
 ```php
@@ -130,3 +134,33 @@ Qual comparação é a mais segura para conferir se $senha é igual a $digitada?
 1. Guarde o seu nome e o ano em que nasceu em variáveis e mostre: "Fulana faz X anos em 2026."
 2. Calcule o preço de um produto de R$ 80 com 15% de desconto e mostre com `number_format`.
 3. Use `var_dump` para descobrir o tipo de `10 / 2` e de `10 / 4`.
+
+## Exemplo resolvido
+
+**Marta tirou 7 e 8.5 nas duas provas. Mostre a frase "Marta tirou média 7,75."**
+
+1. Guarde o nome e as duas notas em variáveis.
+2. Calcule a média: some as notas e divida por 2. Os parênteses fazem a soma acontecer antes da divisão.
+3. Formate a média com `number_format`, em duas casas, vírgula nos decimais e ponto nos milhares.
+4. Junte as partes do texto com o ponto.
+
+```php
+<?php
+$nome = "Marta";
+$nota1 = 7;
+$nota2 = 8.5;
+$media = ($nota1 + $nota2) / 2;
+echo $nome . " tirou média " . number_format($media, 2, ",", ".") . ".\n";
+```
+
+O programa mostra `Marta tirou média 7,75.`
+
+Confira: (7 + 8.5) / 2 = 15.5 / 2 = 7.75. Sem os parênteses, o PHP faria primeiro a divisão `$nota2 / 2` e o resultado sairia errado.
+
+## Resumo
+
+- Variáveis começam com `$` e guardam um valor com `=`; maiúsculas e minúsculas contam.
+- Tipos básicos: `int`, `float`, `string`, `bool` e `null`; `var_dump` mostra o tipo e o valor.
+- Aspas duplas trocam variáveis pelo valor; aspas simples não.
+- O ponto junta textos; `+ - * / % **` fazem contas, e `number_format` formata o resultado.
+- Use `===` e `!==` para comparar valor e tipo.

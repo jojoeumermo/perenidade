@@ -54,6 +54,10 @@ quiz:
     explicacao: "A entrada é o primeiro elemento da referência, em geral o sobrenome do autor, ou o nome da instituição ou do país."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir citação e referência, escolher entre citação direta, indireta e citação de citação, indicar a fonte no sistema autor-data (NBR 10520, 2023) e montar uma referência (NBR 6023), sem cair em plágio.
+
 Todo trabalho acadêmico é uma conversa com quem pensou antes. Citar é mostrar com quem você está conversando: dá crédito a quem fez o trabalho, permite ao leitor conferir e mostra que o seu texto tem base. Esconder essas vozes, ao contrário, é **plágio**, uma das faltas mais graves na vida acadêmica.
 
 A aula [Como fazer um resumo e um fichamento](/trilhas/portugues-medio/como-fazer-um-resumo-e-um-fichamento) apresentou a ideia de que citar não é copiar. Aqui vamos ao detalhe: como fazer citações e referências segundo as normas brasileiras. A aula anterior, [Escrita acadêmica: artigo, resenha e relatório](/trilhas/portugues-superior/escrita-academica-artigo-resenha-e-relatorio), mostra onde elas entram no texto.
@@ -160,6 +164,26 @@ Plágio não é só copiar um texto inteiro. Também é:
 - entregar como novo um trabalho seu já apresentado em outro lugar, sem avisar (o chamado autoplágio).
 
 Hábitos que protegem: fichar tudo o que lê com a referência completa e a página; pôr aspas em todo trecho copiado, já no fichamento; anotar a fonte no mesmo momento em que usa uma ideia. Gerenciadores de referências gratuitos e livres, como o Zotero, guardam as fontes e montam a lista no formato pedido.
+
+## Exemplo resolvido: da ideia à lista de referências
+
+Situação: você quer dizer, no seu trabalho, o que a lei permite quanto a citações.
+
+1. **Escolha o tipo.** Vai usar a ideia com as suas palavras, sem copiar o trecho: é **citação indireta**. Não leva aspas, mas leva fonte.
+2. **Escreva e indique a fonte (autor-data).** "A Lei de Direitos Autorais permite citar passagens de uma obra para estudo, crítica ou polêmica, desde que se indiquem o autor e a origem (Brasil, 1998)." Na indireta, a página é opcional.
+3. **Monte a referência**, para a lista no final do trabalho: BRASIL. Lei nº 9.610, de 19 de fevereiro de 1998. Altera, atualiza e consolida a legislação sobre direitos autorais e dá outras providências. Brasília, DF: Presidência da República, 1998. Disponível em: https://www.planalto.gov.br/ccivil_03/leis/l9610.htm. Acesso em: (a data em que você consultou).
+4. **Confira:** a citação do texto, (Brasil, 1998), tem a referência completa no final, e a referência da lista foi citada no texto.
+
+Se o trecho fosse copiado palavra por palavra, com até três linhas, iria entre aspas e com página (quando houver).
+
+## Resumo
+
+- Citação é a menção curta, no corpo do texto; referência é a descrição completa da fonte, na lista final. Toda citação tem referência, e vice-versa.
+- A Lei nº 9.610, de 1998, permite citar, com três condições: finalidade (estudo, crítica ou polêmica), medida (só o necessário) e identificação (autor e origem).
+- Citação direta curta (até três linhas) vai entre aspas; a longa vai em bloco recuado, sem aspas; a indireta não leva aspas, mas leva fonte; "apud" indica citação de citação.
+- No sistema autor-data, desde a NBR 10520 de 2023, o sobrenome leva só a inicial maiúscula: (Severino, 2016, p. 50). Na citação direta, a página é obrigatória.
+- Referência (NBR 6023): sobrenome em maiúsculas, título em destaque, local, editora e ano; documento da internet leva "Disponível em" e "Acesso em".
+- Plágio inclui copiar sem aspas, trocar algumas palavras e usar a ideia sem citar; fichar com referência e página protege contra ele.
 
 ## Para praticar
 

@@ -27,6 +27,10 @@ quiz:
     explicacao: "A ordem neutra é sujeito, verbo e objeto, embora outras sejam possíveis para dar destaque."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são constituintes e como testá-los, reconhecer argumentos e adjuntos pela valência do verbo e entender que o português brasileiro falado tem uma sintaxe própria, sem ser "erro".
+
 ## Mais que uma fila de palavras
 
 A **sintaxe** estuda como as palavras se combinam para formar frases. A ideia central é que uma frase não é uma fila: é uma **estrutura**, com blocos dentro de blocos.
@@ -111,6 +115,27 @@ Gramáticas recentes, como as de Ataliba de Castilho e Mário Perini, descrevem 
 | Tópico no começo | Os pneus do carro furaram. | O carro, furou os pneus. |
 
 Essas construções aparecem na fala de todas as classes sociais, inclusive entre os mais escolarizados. Elas não são "desvios": são a gramática do português do Brasil. A norma-padrão escrita ainda segue, em boa parte, o modelo europeu do século XIX, e é por isso que os brasileiros precisam estudar na escola construções que não ouvem em casa.
+
+## Exemplo resolvido: a estrutura de uma frase
+
+Frase: "A diretora da escola entregou os certificados aos alunos ontem."
+
+1. **Ache o verbo:** *entregou*. Ele é o centro da oração.
+2. **Valência.** Quem entrega, entrega algo a alguém. O verbo exige três participantes, como *dar*: *a diretora da escola* (quem entrega), *os certificados* (o que entrega) e *aos alunos* (a quem entrega). Esses são os argumentos.
+3. **Adjunto.** *Ontem* informa o tempo e não é exigido pelo verbo: é adjunto.
+4. **Teste de constituinte.** "A diretora da escola" é um bloco? Substituição: "**Ela** entregou os certificados aos alunos ontem." Pergunta: "Quem entregou os certificados? **A diretora da escola.**" Sim, é um sintagma nominal, com núcleo *diretora*.
+5. **Deslocamento.** O adjunto muda de lugar sem alterar a estrutura: "Ontem, a diretora da escola entregou os certificados aos alunos."
+
+Confira: a ordem neutra é sujeito, verbo, objeto; os argumentos vêm do verbo e o adjunto é opcional.
+
+## Resumo
+
+- Sintaxe estuda como as palavras se combinam: a frase é uma estrutura, com blocos dentro de blocos. É por isso que uma frase pode ter dois sentidos com as mesmas palavras.
+- Constituintes (ou sintagmas) têm um núcleo: nominal, verbal, preposicional e adjetival. Os testes são substituição, deslocamento e pergunta.
+- O verbo determina quantos participantes a cena exige (valência); os exigidos são argumentos e os opcionais, adjuntos.
+- A ordem neutra do português é sujeito, verbo, objeto; outras ordens dão destaque, e a ordem também distingue funções.
+- Para Chomsky, todo falante tem uma competência: um sistema de regras que ninguém ensinou.
+- O português brasileiro falado tem uma sintaxe própria (me dá um cigarro, eu vi ele, tem muita gente), usada em todas as classes sociais.
 
 ## Para praticar
 

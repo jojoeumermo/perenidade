@@ -30,6 +30,10 @@ quiz:
     explicacao: "Velocidade vezes tempo dá distância. A integral soma essas pequenas distâncias ao longo do intervalo."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é a integral como soma de fatias, calcular uma integral definida com uma primitiva (Teorema Fundamental do Cálculo) e usá-la para acumular quantidades, como distância e energia.
+
 ## O problema da área
 
 A área de um retângulo é base vezes altura. E a área debaixo de uma curva?
@@ -152,3 +156,13 @@ Muitas funções não têm primitiva que se escreva com as funções usuais. A c
 5. Uma torneira despeja água a uma vazão de 2 + t litros por minuto, em que t é o tempo em minutos. Quantos litros saem nos primeiros 4 minutos?
 
 **Respostas:** 1) 8. 2) x⁴ − 3x² + 2x + C. 3) 8, nos dois casos. 4) 8 m. 5) [2t + t²/2] entre 0 e 4 = 8 + 8 = 16 litros.
+
+## Resumo
+
+- A integral definida é o limite da soma de retângulos cada vez mais finos; ∫ (de 0 a 1) x² dx = 1/3.
+- Primitiva de f é uma função F cuja derivada é f; integrar é o inverso de derivar.
+- Teorema Fundamental do Cálculo: ∫ (de a a b) f(x) dx = F(b) − F(a).
+- Na integral indefinida aparece a constante C; na definida, ela se cancela.
+- Integral é acúmulo: taxa × tempo = quantidade (distância, energia, volume de água).
+- O índice de Gini pode ser escrito como G = 1 − 2 × ∫ L(x) dx, uma área.
+- Sem fórmula, usa-se a integração numérica, somando muitas fatias no computador.

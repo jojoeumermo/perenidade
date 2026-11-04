@@ -27,6 +27,10 @@ quiz:
     explicacao: "A concessiva admite uma dificuldade e, apesar dela, o fato principal acontece."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar as orações de um período, distinguir coordenação de subordinação, classificar as orações mais comuns e perceber como a estrutura da frase distribui o peso das ideias.
+
 ## Período simples e período composto
 
 Cada verbo forma uma **oração**. Um **período** é a frase que vai da letra maiúscula ao ponto.
@@ -133,6 +137,27 @@ Os fatos são os mesmos. Na primeira frase, o autor é contra o projeto; na segu
 **O que vai na subordinada fica em segundo plano.** "O ministro, **que é investigado por corrupção**, anunciou novas obras." A investigação virou um detalhe, entre vírgulas. "O ministro que anunciou novas obras **é investigado por corrupção**": agora a investigação é a notícia.
 
 Ao ler um texto de opinião, veja o que o autor pôs na oração principal e depois do *mas*: é ali que está o que ele defende. Ao escrever, faça o mesmo de propósito: a sua ideia mais importante merece a oração principal.
+
+## Exemplo resolvido: analisando um período
+
+Período: "Quando a chuva parou, os moradores, que tinham perdido os móveis, pediram ajuda, mas ninguém apareceu."
+
+1. **Conte os verbos.** *parou*, *tinham perdido* (uma locução, vale por um), *pediram*, *apareceu*. São quatro orações.
+2. **Ache a principal:** "os moradores pediram ajuda". É a que comanda as outras.
+3. **"Quando a chuva parou"** indica tempo e depende da principal: **subordinada adverbial temporal.** Vem antes da principal, por isso há vírgula.
+4. **"que tinham perdido os móveis"** começa com pronome relativo, refere-se a "os moradores" e está entre vírgulas: **subordinada adjetiva explicativa** (todos os moradores perderam os móveis).
+5. **"mas ninguém apareceu"** tem uma conjunção de oposição e podia ficar sozinha: **coordenada adversativa.**
+
+Confira: sem a vírgula depois de "moradores", a adjetiva seria restritiva, e só alguns moradores teriam perdido os móveis.
+
+## Resumo
+
+- Cada verbo (ou locução verbal) forma uma oração; o período composto tem duas ou mais.
+- Na coordenação, as orações são independentes: aditivas, adversativas, alternativas, conclusivas e explicativas.
+- Na subordinação, uma oração depende da outra: substantivas (fazem papel de substantivo), adjetivas (de adjetivo) e adverbiais (de circunstância).
+- A vírgula separa a adjetiva restritiva (sem vírgulas) da explicativa (entre vírgulas).
+- Algumas conjunções pedem o verbo no subjuntivo (embora, caso, para que).
+- A estrutura distribui o peso: ganha o que vem depois do "mas" e na principal; perde o que vai na concessiva.
 
 ## Para praticar
 

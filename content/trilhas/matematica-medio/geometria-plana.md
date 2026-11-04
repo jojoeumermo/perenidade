@@ -29,6 +29,10 @@ quiz:
     explicacao: "A sombra do prédio é 10 vezes a da vara; a altura também: 2 × 10 = 20 m."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber classificar ângulos e triângulos, usar a soma dos ângulos de triângulos e polígonos, e usar a semelhança para achar medidas que não dá para medir direto, como a altura de uma árvore pela sombra.
+
 ## Medir a terra
 
 A palavra **geometria** vem do grego e quer dizer "medida da terra". Segundo o historiador grego Heródoto, ela teria nascido no Egito, da necessidade de remarcar os terrenos depois de cada cheia do rio Nilo. Era um saber prático, de agrimensores e construtores.
@@ -121,3 +125,12 @@ Se você dobra todas as medidas de uma figura, o perímetro dobra, mas a **área
 6. Uma pizza de 30 cm custa R$ 40 e uma de 45 cm custa R$ 70. Qual sai mais em conta por área?
 
 **Respostas:** 1) 55°. 2) 1.080°. 3) 70° cada. 4) 1,20 m. 5) 12 m² (a área cresce 100 × 100 = 10.000 vezes: 120.000 cm²). 6) A de 45 cm: ela tem 2,25 vezes a área da menor e custa 1,75 vez o preço.
+
+## Resumo
+
+- A volta inteira tem 360°; ângulo reto mede 90° e ângulo raso, 180°.
+- Os três ângulos internos de qualquer triângulo somam 180°.
+- Polígono de n lados: soma dos ângulos internos = (n − 2) × 180°.
+- O triângulo é rígido, por isso aparece em telhados, torres e pontes.
+- Figuras semelhantes têm ângulos iguais e lados proporcionais.
+- Dobrando todas as medidas, o perímetro dobra e a área fica 4 vezes maior.

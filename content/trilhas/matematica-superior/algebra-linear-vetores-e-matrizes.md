@@ -30,6 +30,10 @@ quiz:
     explicacao: "Para um autovetor v, vale A × v = λ × v. O número λ é o autovalor."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber operar com vetores e calcular o produto escalar, entender a matriz como uma transformação, usar o determinante e a inversa para resolver sistemas e dizer o que são autovalores e autovetores.
+
 A aula [Matrizes e sistemas lineares](/trilhas/matematica-medio/matrizes-e-sistemas-lineares) apresenta as contas básicas. Aqui o assunto é o que elas **significam**.
 
 ## Vetores
@@ -140,3 +144,13 @@ O método foi usado tanto por governos capitalistas quanto no planejamento das e
 5. Quais são os autovalores da matriz de linhas (4, 0) e (0, 2)? E os autovetores?
 
 **Respostas:** 1) (4, 2); (6, 8); −5. 2) Sim: o primeiro é o dobro do segundo. 3) (−1, 2). 4) 10; a inversa é 1/10 vezes a matriz de linhas (4, −1) e (−2, 3). 5) 4 e 2; os autovetores estão nas direções (1, 0) e (0, 1).
+
+## Resumo
+
+- Vetor é uma lista de números (componentes) com direção e sentido; soma-se componente a componente e o módulo vem de Pitágoras.
+- Produto escalar: soma dos produtos das componentes; zero quer dizer vetores perpendiculares.
+- Base é um conjunto de vetores que monta todo o espaço; o número deles é a dimensão.
+- Uma matriz transforma vetores; multiplicar duas matrizes é fazer uma transformação depois da outra, por isso a ordem importa.
+- O determinante é o fator pelo qual as áreas mudam; com determinante zero não há inversa.
+- Sistema A × x = b com A invertível tem solução x = A⁻¹ × b.
+- Autovetor: direção que a matriz só estica ou encolhe, A × v = λ × v.

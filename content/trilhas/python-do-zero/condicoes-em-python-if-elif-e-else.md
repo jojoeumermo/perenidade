@@ -25,6 +25,10 @@ quiz:
     explicacao: "Toda linha de if, elif e else termina com dois-pontos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber fazer o programa escolher entre dois ou mais caminhos com `if`, `elif` e `else`, combinar condições com `and`, `or` e `not` e usar o recuo para marcar cada bloco.
+
 ## Se… então…
 
 Na trilha de lógica você viu a estrutura "se… então… senão…". Em Python ela se escreve com `if` e `else`:
@@ -120,3 +124,34 @@ Cada nível ganha mais quatro espaços. Se os níveis passarem de três, o códi
 1. Peça um número e diga se ele é par ou ímpar.
 2. Peça dois números e mostre o maior (ou avise que são iguais).
 3. Peça o valor de uma compra: acima de R$ 200, dê 10% de desconto; acima de R$ 100, 5%; abaixo disso, nenhum. Mostre o valor final.
+
+## Exemplo resolvido
+
+**Com a temperatura em 31 graus, o programa deve avisar: 30 ou mais, "Calor"; de 20 a 29, "Agradável"; abaixo de 20, "Frio".**
+
+1. Há três caminhos, então precisamos de `if`, `elif` e `else`.
+2. Comece pelo teste mais exigente (`>= 30`). Se começássemos por `>= 20`, o 31 cairia ali e nunca chegaria ao "Calor".
+3. Só entra no `elif` quem não passou no `if`: basta testar `>= 20`.
+4. Quem não passou em nenhum cai no `else`, que não precisa de condição.
+
+```python
+temperatura = 31
+if temperatura >= 30:
+    print("Calor: beba água.")
+elif temperatura >= 20:
+    print("Agradável.")
+else:
+    print("Frio: leve um casaco.")
+```
+
+Com 31, o primeiro teste é verdadeiro e o programa mostra `Calor: beba água.` Os outros blocos nem são olhados.
+
+Confira trocando o valor: com 25 aparece "Agradável"; com 12, "Frio: leve um casaco."
+
+## Resumo
+
+- `if` e `else` escolhem entre dois caminhos; depois da condição vêm dois-pontos.
+- O recuo (quatro espaços) diz quais linhas pertencem ao bloco.
+- `elif` acrescenta mais caminhos; vale só o primeiro bloco verdadeiro, então a ordem importa.
+- `and`, `or` e `not` juntam condições.
+- Um `if` pode ficar dentro de outro, mas poucos níveis deixam o código mais legível.

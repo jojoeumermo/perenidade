@@ -27,6 +27,10 @@ quiz:
     explicacao: "Nenhuma língua natural estudada até hoje se mostrou incompleta ou sem regras."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que a linguística estuda, a diferença entre descrever e prescrever, as áreas da linguística e a diferença entre sincronia e diacronia.
+
 Esta trilha é a porta de entrada dos estudos de Letras. Parte do que foi visto no ensino médio e muda a pergunta: em vez de "como se deve escrever?", passa a ser "como a língua funciona?".
 
 ## Uma ciência da linguagem
@@ -100,6 +104,24 @@ Os dois se completam. Muita coisa que parece "exceção" na língua de hoje é r
 - **Para defender as línguas.** Descrever uma língua indígena ameaçada é ajudar o seu povo a mantê-la.
 - **Para ler o poder.** A linguagem é o meio em que se disputam versões, e conhecer os seus mecanismos é uma defesa.
 - **Para a tecnologia.** Tradutores automáticos, corretores e assistentes de voz se apoiam em descrições linguísticas.
+
+## Exemplo resolvido: um aluno escreve "nós vai"
+
+1. **O olhar normativo.** A gramática escolar escolhe uma variedade como modelo e chama de "erro" o que se afasta dela. Para ela, "nós vai" está errado, e a conversa para aí.
+2. **O olhar linguístico (descritivo).** Faz outras perguntas: quem diz? Em que situação? Com que regularidade? O que isso mostra sobre o português?
+3. **Em que área cai.** Relacionar a forma com grupos e situações é trabalho da **sociolinguística**.
+4. **O que se faz com isso.** Quem entende por que o aluno escreve "nós vai" ensina a norma-padrão sem humilhá-lo, e explica onde ela é cobrada.
+
+Confira: a linguística não diz que a norma-padrão não importa. Ela a estuda como um fato social e, ao mesmo tempo, descreve as outras formas sem chamá-las de erro.
+
+## Resumo
+
+- Linguística é o estudo científico da linguagem humana e das línguas; o seu nascimento moderno costuma ser marcado em 1916, com Saussure.
+- A gramática normativa prescreve um modelo; a linguística descreve como as pessoas realmente falam.
+- Três ideias de base: toda língua é completa, a fala vem antes da escrita, toda língua varia e muda.
+- Áreas: fonética e fonologia, morfologia, sintaxe, semântica e pragmática, além de sociolinguística, linguística histórica, análise do discurso, linguística textual, psicolinguística e linguística aplicada.
+- Sincronia estuda a língua em um momento; diacronia, ao longo do tempo.
+- A linguística serve para ensinar melhor, combater o preconceito, defender as línguas, ler o poder e apoiar a tecnologia.
 
 ## Para pesquisar e debater
 

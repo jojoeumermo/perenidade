@@ -27,6 +27,10 @@ quiz:
     explicacao: "A troca não cria outra palavra. São variantes (alofones) do mesmo fonema."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre fonética e fonologia, classificar consoantes, usar o par mínimo para reconhecer fonemas e entender por que a pronúncia varia sem que nenhuma variante seja "erro".
+
 ## Dois olhares sobre o som
 
 - A **fonética** estuda os sons da fala como fenômeno físico: como são produzidos pela boca, como se propagam no ar, como são ouvidos.
@@ -102,6 +106,24 @@ Muitas das formas populares são resultado de processos regulares, os mesmos que
 | Assimilação | um som fica parecido com o vizinho | *falando* → "falano" |
 
 Conhecer esses processos tem uso direto na escola. A criança que escreve "pexe", "falano" e "cantá" não está chutando: está escrevendo como fala. O ensino da ortografia fica mais eficaz quando parte dessa lógica.
+
+## Exemplo resolvido: /t/ e /d/ são fonemas diferentes?
+
+1. **Procure duas palavras que só diferem em um som:** *toca* e *doca*. Só o primeiro som muda.
+2. **Veja se o significado muda.** *Toca* é o buraco onde um bicho mora; *doca* é o cais onde o navio atraca. São palavras diferentes.
+3. **Conclusão:** como a troca muda o significado, /t/ e /d/ são fonemas distintos do português. É um par mínimo.
+4. **Classificação:** os dois são oclusivos, com o mesmo ponto de articulação (dentes e alvéolos). Só o vozeamento muda: /t/ é surdo e /d/ é sonoro. Ponha a mão na garganta: só no /d/ há vibração.
+5. **Contraste:** o *t* de *tia* dito "tch" ou "t" não cria outra palavra. Aí são alofones do mesmo fonema, e não fonemas diferentes.
+
+Confira: se a troca muda a palavra, são dois fonemas; se não muda, são duas pronúncias do mesmo fonema.
+
+## Resumo
+
+- A fonética estuda os sons da fala como fenômeno físico; a fonologia estuda a função dos sons em cada língua.
+- Nas vogais, o ar sai livre; nas consoantes, encontra obstáculo. As consoantes se classificam por ponto de articulação, modo de articulação e vozeamento.
+- Fonema é o som que distingue palavras; o par mínimo é o teste. Fonema não é letra.
+- Alofones são pronúncias diferentes de um mesmo fonema (como o "t" de tia); nenhuma pronúncia é mais correta que outra.
+- O acento é distintivo (sábia, sabia, sabiá), e muitas formas populares vêm de processos regulares: queda de som, redução de ditongo, acréscimo de vogal, troca de l por r e assimilação.
 
 ## Para praticar
 

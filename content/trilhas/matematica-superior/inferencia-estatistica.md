@@ -33,6 +33,10 @@ quiz:
     explicacao: "5% de 20 é 1. Testar muitas coisas e relatar só a que 'deu certo' fabrica descobertas falsas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular o erro padrão e um intervalo de confiança, entender como funciona um teste de hipóteses e o que o valor-p quer dizer (e o que não quer), e reconhecer os dois tipos de erro.
+
 ## O problema
 
 Quase nunca se pode observar a população inteira. Observa-se uma [amostra](/trilhas/estatistica-para-ler-o-brasil/o-que-e-uma-pesquisa-por-amostragem) e, a partir dela, tira-se uma conclusão sobre o todo. A **inferência estatística** é o conjunto de métodos para fazer isso dizendo, ao mesmo tempo, **quão incerta** é a conclusão.
@@ -142,3 +146,13 @@ Os métodos são válidos: valem pelo que se demonstra, não por quem os criou, 
 6. Em um teste de gravidez, o que seriam o erro tipo I e o erro tipo II, tomando como hipótese nula "não está grávida"?
 
 **Respostas:** 1) 2. 2) 70 ± 3,92: de 66,08 a 73,92. 3) 1,96 × √(0,25 ÷ 400) = 1,96 × 0,025 ≈ 4,9 pontos. 4) A 1 desvio padrão; não, é um resultado comum. 5) Se a diferença tem alguma importância prática: com amostras enormes, quase qualquer diferença é significativa. 6) Tipo I: o teste dá positivo sem haver gravidez; tipo II: dá negativo havendo gravidez.
+
+## Resumo
+
+- Inferência estatística tira conclusões sobre a população a partir de uma amostra sorteada, dizendo quão incerta é a conclusão.
+- Erro padrão = desvio padrão ÷ √n; para dobrar a precisão é preciso quadruplicar a amostra.
+- Intervalo de 95% = média ± 1,96 × erro padrão; a confiança está no método, não neste intervalo específico.
+- Teste de hipóteses: supõe-se H0 verdadeira e calcula-se o valor-p; se ele é menor que 5%, rejeita-se H0.
+- Erro tipo I é o alarme falso; erro tipo II é o efeito não detectado; qual é pior depende das consequências.
+- O valor-p não é a probabilidade de H0 ser verdadeira nem mede a importância do efeito; significativo não é importante.
+- Muitos testes e só um resultado publicado fabricam descobertas; correlação não é causa.

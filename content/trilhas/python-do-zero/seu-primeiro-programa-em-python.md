@@ -25,6 +25,10 @@ quiz:
     explicacao: "Sem aspas, o Python entende Olá como o nome de uma variável, que não existe, e avisa com um NameError."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é Python, executar um programa na ferramenta do site, mostrar textos e contas com `print`, escrever comentários e ler uma mensagem de erro.
+
 ## O que é Python
 
 Python é uma linguagem de programação criada pelo holandês Guido van Rossum e lançada em 1991. O nome é uma homenagem ao grupo de humor britânico Monty Python, e não à cobra. Ela é gratuita, tem o código aberto e é usada em escolas, em pesquisas científicas, em análise de dados e em sites.
@@ -87,3 +91,28 @@ Agora escreva `Print("oi")`, com P maiúsculo. Novo erro, desta vez `NameError`:
 1. Faça um programa que mostre o seu nome em uma linha e a sua cidade em outra.
 2. Faça o Python calcular quantos minutos tem um dia.
 3. Provoque de propósito um `SyntaxError` e um `NameError`, e leia as mensagens.
+
+## Exemplo resolvido
+
+**Escreva um programa que mostre quantos segundos há em uma hora.**
+
+1. Uma hora tem 60 minutos e cada minuto tem 60 segundos: a conta é `60 * 60`.
+2. Para mostrar um texto, use aspas. Para mostrar o resultado de uma conta, escreva a conta sem aspas.
+3. Cada `print` mostra uma linha.
+
+```python
+print("Uma hora tem")
+print(60 * 60)
+```
+
+O programa mostra `Uma hora tem` e, na linha de baixo, `3600`.
+
+Confira: 60 × 60 = 3600. Se você escrevesse `print("60 * 60")`, com aspas, o Python mostraria o texto `60 * 60`, e não o resultado.
+
+## Resumo
+
+- Python é uma linguagem de leitura fácil, criada por Guido van Rossum e lançada em 1991.
+- `print` mostra o que está entre os parênteses; texto vai entre aspas.
+- O programa é executado de cima para baixo, uma instrução por vez.
+- Tudo depois de `#` é comentário e o Python ignora.
+- Um erro como `SyntaxError` ou `NameError` não é desastre: a mensagem diz o que e onde.

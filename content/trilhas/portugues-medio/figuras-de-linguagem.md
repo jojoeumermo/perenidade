@@ -28,6 +28,10 @@ quiz:
     explicacao: "'A vida é como uma viagem' é comparação. 'A vida é uma viagem' é metáfora."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer as principais figuras de linguagem (comparação, metáfora, metonímia, personificação, hipérbole, eufemismo, ironia e outras) e notar como elas funcionam na conversa, na propaganda e na política.
+
 ## Dizer mais com as mesmas palavras
 
 Quando alguém diz "estou morrendo de fome", ninguém chama a ambulância. Quando o patrão diz que vai "enxugar a empresa", ninguém procura a toalha. Usamos as palavras fora do sentido literal o tempo todo, para dar força, beleza, humor ou disfarce ao que dizemos. Esses usos são as **figuras de linguagem**.
@@ -132,6 +136,24 @@ A metáfora não só enfeita: ela **organiza o pensamento**. Quem aceita a metá
 - Se há uma "**guerra**" contra as drogas, há inimigos, e em guerra se mata.
 
 Nenhuma dessas expressões é mentira no sentido estrito. São figuras. E é por isso que funcionam: passam sem ser discutidas. O primeiro passo da crítica é notar a figura e perguntar que outra metáfora contaria a história de outro jeito.
+
+## Exemplo resolvido: três figuras em uma frase
+
+Frase: "Esperei mil anos na fila, e Brasília anunciou que vai fazer um ajuste."
+
+1. **"Mil anos"** é um exagero proposital: ninguém esperou mil anos. É **hipérbole**.
+2. **"Brasília"** é o nome do lugar, usado no lugar do governo que funciona lá. A troca é por vizinhança, não por semelhança. É **metonímia**.
+3. **"Um ajuste"** é uma palavra macia no lugar de uma expressão dura, como "corte de gastos". Quando serve para disfarçar, é **eufemismo**. Dito às claras: "Brasília anunciou que vai cortar gastos."
+
+Confira: a hipérbole exagera, a metonímia troca por uma coisa vizinha e o eufemismo suaviza. Cada figura responde a uma pergunta diferente.
+
+## Resumo
+
+- Figuras de linguagem usam as palavras fora do sentido literal para dar força, beleza, humor ou disfarce.
+- Comparação usa uma palavra de ligação (como, feito); metáfora afirma que uma coisa é outra; metonímia troca por uma coisa vizinha.
+- Personificação, hipérbole, eufemismo, ironia, antítese e paradoxo trabalham o sentido; elipse, pleonasmo, anáfora e inversão mexem na construção; aliteração e onomatopeia, no som.
+- O eufemismo pode ser delicadeza ou disfarce: diante de uma palavra macia demais, pergunte o que ela cobre.
+- Uma metáfora traz junto uma conclusão; notá-la é o primeiro passo da crítica.
 
 ## Para praticar
 

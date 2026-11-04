@@ -26,6 +26,10 @@ quiz:
     explicacao: "A área x(20 − x) é máxima no vértice, x = 10: um quadrado de 100 m²."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer uma função do 2º grau e sua parábola, achar as raízes com a fórmula de Bhaskara e usar o vértice para descobrir o maior ou o menor valor, como a maior área ou a receita máxima.
+
 ## Quando a mudança muda
 
 Na função do 1º grau, o passo é sempre o mesmo. Em muitos fenômenos não é assim: uma bola jogada para cima sobe cada vez mais devagar, para e desce cada vez mais rápido. Para descrever isso usa-se a **função do 2º grau** (ou quadrática):
@@ -134,3 +138,12 @@ A conta mostra o máximo da **receita** da barraca. Ela não diz nada sobre quem
 5. Com 60 m de tela, qual é a maior área retangular que se pode cercar?
 
 **Respostas:** 1) 2 e 5. 2) x = 3; Δ = 0, uma raiz só. 3) (2, −3); é mínimo. 4) Para baixo; 0 e 4. 5) 225 m² (quadrado de 15 m de lado).
+
+## Resumo
+
+- Função do 2º grau: f(x) = ax² + bx + c, com a diferente de zero; o gráfico é uma parábola.
+- Com a positivo, a parábola abre para cima e há um valor mínimo; com a negativo, abre para baixo e há um máximo.
+- As raízes saem de x = (−b ± √Δ) ÷ (2a), com Δ = b² − 4ac.
+- Δ positivo: duas raízes; Δ zero: uma; Δ negativo: nenhuma raiz real.
+- O vértice tem x = −b ÷ (2a); o y sai de calcular a função nesse x.
+- O vértice resolve problemas de máximo e mínimo: a maior área, a altura da bola, a receita máxima.

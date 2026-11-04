@@ -30,6 +30,10 @@ quiz:
     explicacao: "A escala é logarítmica: cada ponto multiplica a amplitude por 10. Dois pontos: 10 × 10 = 100."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer o crescimento e o decaimento exponenciais, entender o logaritmo como o expoente que se procura e usar as propriedades dele para descobrir, por exemplo, em quanto tempo uma dívida dobra.
+
 Nesta aula, o sinal **^** quer dizer "elevado a": 2^x é "dois elevado a x". Se precisar, reveja a aula de [potências e raízes](/trilhas/matematica-fundamental/potencias-e-raizes).
 
 ## Somar ou multiplicar
@@ -129,3 +133,12 @@ Por isso a diferença entre 80 e 90 decibéis em uma fábrica não é "um pouco 
 6. Um material tem meia-vida de 10 anos. Que fração dele resta depois de 40 anos?
 
 **Respostas:** 1) x = 5. 2) 5 e 6. 3) 3 × 0,301 = 0,903. 4) 50 × 3⁴ = 4.050. 5) Em cerca de 10 anos. 6) 1/16.
+
+## Resumo
+
+- Função exponencial: f(x) = c × a^x; a variável está no expoente, e a cada passo multiplica-se por a.
+- Com a maior que 1 a quantidade cresce; com a entre 0 e 1 ela decresce, como na meia-vida.
+- Logaritmo é o expoente: log₂ 8 = 3, porque 2³ = 8.
+- Propriedades: log (a × b) = log a + log b; log (a ÷ b) = log a − log b; log (a^n) = n × log a.
+- Para achar o tempo, aplica-se logaritmo aos dois lados (1,01^t = 2 dá t ≈ 70 meses); a regra do 70 é um atalho aproximado.
+- Em escalas logarítmicas (terremoto, pH, decibel), cada degrau multiplica por 10.

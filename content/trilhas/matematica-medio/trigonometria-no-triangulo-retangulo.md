@@ -29,6 +29,10 @@ quiz:
     explicacao: "Inclinação é subida dividida por avanço: 1 ÷ 12 ≈ 0,0833, ou 8,33%."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar o teorema de Pitágoras e as razões seno, cosseno e tangente para achar lados e alturas que não dá para medir direto, como a altura de uma árvore ou o tamanho de uma rampa.
+
 ## O triângulo do esquadro
 
 Um **triângulo retângulo** tem um ângulo reto (90°), o canto de um esquadro. Os dois lados que formam o ângulo reto são os **catetos**. O lado em frente a ele, sempre o maior, é a **hipotenusa**.
@@ -128,3 +132,11 @@ Uma rampa mais curta que isso é mais íngreme do que a norma permite: quem usa 
 6. Uma rampa de 3 m de comprimento horizontal vence 30 cm de altura. Está dentro do limite de 8,33%?
 
 **Respostas:** 1) 13. 2) 8. 3) 5 m (tg 45° = 1). 4) 50 × 0,5 = 25 m. 5) 30%. 6) Não: 0,30 ÷ 3 = 10%.
+
+## Resumo
+
+- No triângulo retângulo, hipotenusa² = cateto² + cateto²; o triângulo 3-4-5 tira o esquadro na obra.
+- Seno = oposto ÷ hipotenusa; cosseno = adjacente ÷ hipotenusa; tangente = oposto ÷ adjacente.
+- As razões dependem só do ângulo, não do tamanho do triângulo.
+- 30°: sen 0,5; 45°: sen e cos 0,707; 60°: sen 0,866 (valores tabelados).
+- A inclinação de uma rampa é a tangente do ângulo, dada em porcentagem; a NBR 9050 admite no máximo 8,33% (1 m de subida para 12 m de avanço).

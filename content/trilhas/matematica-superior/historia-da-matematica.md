@@ -31,6 +31,10 @@ quiz:
     explicacao: "Artur Avila, formado no IMPA, foi o primeiro latino-americano a receber o prêmio."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar, em linhas gerais, de onde vêm as ideias da matemática (Mesopotâmia, Egito, Grécia, Índia, China, mundo árabe, Europa e Brasil), situar datas ao longo do tempo e perceber quem ficou fora da história que se costuma contar.
+
 ## Uma história com muitos começos
 
 A matemática costuma ser contada como uma linha reta: nasce na Grécia, dorme na Idade Média, renasce na Europa e chega até nós. A historiadora brasileira Tatiana Roque dedica um livro a desmontar essa narrativa. A matemática foi feita em muitos lugares, por povos que nem sempre se conheciam, ora para resolver problemas práticos, ora por gosto de pensar. O que hoje se ensina na escola é uma síntese de heranças mesopotâmicas, egípcias, gregas, indianas, chinesas, árabes e europeias.
@@ -119,6 +123,17 @@ Durante a colônia e boa parte do Império, a matemática ensinada no Brasil era
 
 Nos seus últimos anos, Karl Marx estudou o cálculo diferencial e deixou centenas de páginas de anotações sobre o assunto, em especial sobre o significado da derivada. Esses *Manuscritos matemáticos* foram publicados na íntegra em Moscou, em 1968. Não trouxeram novidade para a matemática da época, mas mostram o interesse de Marx em entender por dentro, e criticamente, os métodos que usava.
 
+## Exemplo resolvido
+
+**Quantos anos se passaram entre *Os Elementos*, de Euclides (cerca de 300 a.C.), e o *Liber Abaci*, de Fibonacci (1202)?**
+
+1. Anote as duas datas: cerca de 300 a.C. e o ano 1202 d.C.
+2. Como uma data é antes de Cristo e a outra é depois, não se subtrai: somam-se os dois tempos. De 300 a.C. até o ano 1 são cerca de 300 anos; do ano 1 até 1202 são 1.202 anos.
+3. Some: 300 + 1.202 = 1.502.
+4. Ajuste: o calendário vai do ano 1 a.C. direto para o ano 1 d.C., sem ano zero, então a conta exata dá 1.501. Como "cerca de 300 a.C." já é uma data aproximada, a resposta honesta é **cerca de 1.500 anos**.
+
+Confira: o erro comum é fazer 1.202 − 300 = 902, que esquece que as duas datas estão em lados diferentes do ano 1.
+
 ## O que a história ensina
 
 A matemática não caiu do céu nem saiu pronta da cabeça de gênios isolados. Respondeu a necessidades (medir a terra, navegar, cobrar, planejar, guerrear) e à curiosidade humana. Foi feita em muitas línguas, perdida e recuperada, travada por preconceitos e libertada por quem insistiu. Saber disso muda a relação com ela: deixa de ser um conjunto de regras a obedecer e passa a ser uma obra coletiva, inacabada, da qual todos podem participar.
@@ -129,3 +144,12 @@ A matemática não caiu do céu nem saiu pronta da cabeça de gênios isolados. 
 2. Procure a história de uma matemática ou de um matemático de fora da Europa e conte-a a alguém.
 3. Por que, na sua opinião, a escola ensina os resultados da matemática e quase nunca a sua história?
 4. Os comerciantes adotaram os algarismos indo-arábicos antes dos sábios. O que isso sugere sobre a relação entre matemática e economia?
+
+## Resumo
+
+- A matemática foi feita em muitos lugares: Mesopotâmia (base 60), Egito, Grécia (a demonstração), Índia (o zero), China, mundo árabe (álgebra e algoritmo) e Europa.
+- Os algarismos indo-arábicos nasceram na Índia e chegaram à Europa pelo mundo árabe; foram os comerciantes que os impuseram.
+- No século XVII, Newton e Leibniz criaram o cálculo; no século XIX, a matemática voltou-se aos próprios fundamentos.
+- Mulheres, pessoas negras e povos colonizados ficaram de fora da lista dos "grandes nomes" por falta de acesso, não de capacidade.
+- Etnomatemática: cada cultura cria formas próprias de contar, medir e raciocinar.
+- No Brasil: IMPA (1952), Malba Tahan (1938), OBMEP (2005) e Artur Avila (Medalha Fields, 2014).

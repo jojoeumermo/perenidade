@@ -37,6 +37,10 @@ quiz:
     explicacao: "O CET soma aos juros as tarifas, os seguros e os impostos. A parcela pequena pode esconder um prazo longo e um custo alto."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular juros simples e compostos, perceber por que os compostos disparam com o tempo e comparar ofertas de crédito olhando o custo total, e não só a parcela.
+
 ## O aluguel do dinheiro
 
 **Juro** é o preço pago pelo uso do dinheiro de outra pessoa durante um tempo. Quem empresta recebe juros; quem toma emprestado paga. Três elementos entram em toda conta:
@@ -144,3 +148,12 @@ Por que quem tem menos paga os juros mais altos? Quem ganha com isso? No seu bai
 5. Pela regra do 70, em quanto tempo dobra uma dívida a 7% ao mês?
 
 **Respostas:** 1) R$ 240. 2) Cerca de R$ 1.156,53. 3) 15% ao mês. 4) 24 × 149 = R$ 3.576; R$ 1.176 a mais. 5) Em cerca de 10 meses.
+
+## Resumo
+
+- Capital (C), taxa (i), tempo (t) e montante (M); taxa e tempo na mesma unidade, e a taxa em forma decimal.
+- Juros simples: J = C × i × t, sempre sobre o capital inicial.
+- Juros compostos: M = C × (1 + i)^t, juro sobre juro; o crescimento é exponencial.
+- Taxa ao mês não é a taxa ao ano dividida por 12: 10% ao mês dá cerca de 214% ao ano.
+- Peça o CET, compare o total das parcelas com o preço à vista e olhe o prazo.
+- O ganho de uma aplicação só é real se superar a inflação.

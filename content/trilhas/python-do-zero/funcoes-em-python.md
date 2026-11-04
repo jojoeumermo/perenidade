@@ -25,6 +25,10 @@ quiz:
     explicacao: "É uma variável local. Para levar um valor para fora, use return."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber criar funções com `def`, passar parâmetros, devolver resultados com `return`, usar valor padrão e entender por que as variáveis de dentro da função ficam lá dentro.
+
 ## Por que criar funções
 
 Você já usa funções prontas: `print`, `input`, `len`, `sum`. Agora vai criar as suas. Uma função é um **trecho de código com nome**, que pode ser usado quantas vezes for preciso. As vantagens:
@@ -132,3 +136,29 @@ Cada função faz uma coisa só e tem um nome que diz o que é. Ler o programa p
 1. Escreva `eh_par(n)`, que devolve `True` se o número for par.
 2. Escreva `maior(a, b)`, que devolve o maior de dois números, sem usar `max`.
 3. Escreva `celsius_para_fahrenheit(c)`. A fórmula é F = C × 9 / 5 + 32.
+
+## Exemplo resolvido
+
+**Um restaurante cobra 10% de serviço. Quanto paga quem consumiu R$ 80? E se a pessoa recusar o serviço?**
+
+1. A conta é sempre a mesma: consumo mais uma porcentagem do consumo. Vale uma função.
+2. O que muda é o consumo e a porcentagem: dois parâmetros. A porcentagem recebe o valor padrão 10, para quem não disser nada.
+3. A função calcula e devolve com `return`; quem chama decide o que mostrar.
+
+```python
+def conta_com_servico(consumo, servico=10):
+    return consumo + consumo * servico / 100
+
+print(conta_com_servico(80))
+print(conta_com_servico(80, 0))
+```
+
+A primeira chamada usa o padrão: 80 + 80 × 10 / 100 = 80 + 8 = 88. A segunda informa 0 e dá 80. Como a divisão com `/` devolve decimal, o Python mostra `88.0` e `80.0`.
+
+## Resumo
+
+- `def` define a função; ela só roda quando é chamada.
+- Parâmetros são os valores que a função recebe; um parâmetro pode ter valor padrão.
+- `return` devolve o resultado e encerra a função; quem calcula devolve, quem chama decide o que mostrar.
+- O que é criado dentro da função fica dentro dela.
+- Cada função deve fazer uma coisa só, com um nome que explique o que é.

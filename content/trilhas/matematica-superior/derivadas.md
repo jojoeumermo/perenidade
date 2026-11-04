@@ -30,6 +30,10 @@ quiz:
     explicacao: "No topo do morro ou no fundo do vale, a tangente é horizontal: inclinação zero."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é a derivada como taxa de variação instantânea e inclinação da tangente, usar as regras de derivação e achar máximos e mínimos igualando a derivada a zero.
+
 ## Velocidade em um instante
 
 Um carro arranca, e a distância percorrida, em metros, depois de t segundos é s(t) = 5t². Qual é a velocidade exatamente em t = 2?
@@ -151,3 +155,12 @@ O cálculo foi criado na segunda metade do século XVII, de forma independente, 
 6. O total de casos de uma doença continua crescendo, mas a cada dia surgem menos casos novos que no dia anterior. O que se pode dizer do sinal da primeira e da segunda derivada do total de casos?
 
 **Respostas:** 1) 3x²; 3. 2) 6x − 4; 8. 3) x = 3; o mínimo é 1. 4) 6(2x + 1)². 5) e^x + x × e^x. 6) A primeira é positiva (o total cresce); a segunda é negativa (o ritmo diminui).
+
+## Resumo
+
+- Derivada é o limite da taxa média de variação quando o intervalo encolhe até zero: f'(x) = lim (h → 0) [f(x + h) − f(x)] ÷ h.
+- Geometricamente, é a inclinação da tangente: positiva, a função sobe; negativa, desce; zero, a tangente é horizontal.
+- Regras: x^n dá n × x^(n − 1); constante sai para fora; há regras do produto, do quociente e da cadeia.
+- Máximos e mínimos de funções deriváveis ocorrem onde a derivada é zero; é preciso conferir se o ponto é máximo, mínimo ou nenhum.
+- Derivada da posição é a velocidade; derivada da velocidade é a aceleração.
+- "Desacelerou" é frase sobre derivadas: o valor continua subindo, mas o ritmo diminuiu.

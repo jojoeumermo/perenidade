@@ -24,6 +24,10 @@ quiz:
     explicacao: "Na voz passiva sem agente, quem sofreu a ação vira sujeito, e quem a praticou desaparece da frase."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber achar o sujeito perguntando ao verbo, classificar os tipos de sujeito e de predicado e perceber como a estrutura da frase mostra ou esconde quem é o responsável pela ação.
+
 ## As duas metades da oração
 
 Uma **oração** é uma frase organizada em torno de um verbo. Quase sempre ela se divide em duas partes:
@@ -135,6 +139,26 @@ Declarações oficiais usam muito esses recursos. "Erros foram cometidos" não d
 Nem sempre é má-fé: às vezes não se sabe mesmo quem agiu, ou o que importa é o fato. Mas, diante de uma frase assim, vale reescrevê-la na voz ativa e ver se o sujeito aparece: **quem fez?** Se o texto não responde, a pergunta está feita.
 
 Vale também na hora de escrever. Em uma denúncia, em uma ata ou em um abaixo-assinado, prefira a voz ativa e o sujeito claro: "A prefeitura não recolhe o lixo há três semanas" diz mais que "O lixo não é recolhido".
+
+## Exemplo resolvido: analisando um período com duas orações
+
+Frase: "Na semana passada faltou água no bairro, e cortaram a luz."
+
+1. **Conte os verbos:** *faltou* e *cortaram*. São duas orações.
+2. **Primeira oração.** Pergunte ao verbo: o que faltou? **Água.** O sujeito é simples (o núcleo é *água*) e vem depois do verbo. Como o verbo indica uma ação ou fato, o predicado é verbal.
+3. **Segunda oração.** Pergunte ao verbo: quem cortou? A frase não diz. O verbo está na 3ª pessoa do plural, sem referência a ninguém já citado: o sujeito é **indeterminado**. "A luz" é o objeto direto (sem preposição).
+4. **Dando nome ao responsável:** "A companhia de energia cortou a luz." (Só dá para escrever assim se se souber quem foi.)
+
+Confira: na primeira oração o sujeito está depois do verbo; na segunda, a frase não diz quem agiu. Perguntar "quem fez?" mostra a diferença.
+
+## Resumo
+
+- A oração se divide em sujeito (de quem se diz algo) e predicado (o que se diz; nele está o verbo).
+- Para achar o sujeito, pergunte ao verbo "quem?" ou "o quê?"; ele pode vir depois do verbo e concorda com o verbo.
+- Tipos de sujeito: simples, composto, oculto, indeterminado e oração sem sujeito (fenômenos da natureza, haver no sentido de existir, fazer e haver indicando tempo).
+- Predicado verbal (ação), nominal (verbo de ligação mais predicativo) e verbo-nominal (os dois).
+- Objeto direto liga-se ao verbo sem preposição; o indireto, com preposição.
+- Voz passiva sem agente, sujeito indeterminado e oração sem sujeito tiram de cena quem agiu; na voz ativa, o responsável aparece.
 
 ## Para praticar
 

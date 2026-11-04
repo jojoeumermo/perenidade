@@ -27,6 +27,10 @@ quiz:
     explicacao: "Na composição, duas palavras ou radicais se unem para formar uma terceira."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber separar uma palavra em morfemas, distinguir flexão de derivação, reconhecer os processos que formam palavras novas e as classes de palavras.
+
 ## Palavras têm partes
 
 A **morfologia** estuda a estrutura interna das palavras. A unidade básica é o **morfema**: a menor parte da língua que carrega significado.
@@ -117,6 +121,24 @@ Um dicionário registra as palavras **depois** que os falantes as criam e usam. 
 A tradição gramatical divide as palavras em dez classes. Seis **variam** (substantivo, adjetivo, artigo, numeral, pronome, verbo) e quatro **não variam** (advérbio, preposição, conjunção, interjeição).
 
 Os critérios para classificar são três: a forma (flexiona-se? como?), o sentido (nomeia, qualifica, indica ação?) e a função na frase. Como os três nem sempre coincidem, as fronteiras entre as classes são menos nítidas do que a escola dá a entender, e os linguistas discutem até hoje a melhor divisão.
+
+## Exemplo resolvido: analisando "deslealdades"
+
+1. **Ache o radical.** O núcleo de sentido é *leal*. Pertencem à mesma família: *leal, desleal, lealdade, deslealdade*.
+2. **Separe as outras peças.** *des-* (prefixo, vem antes do radical e inverte o sentido), *-dade* (sufixo, forma o substantivo) e *-s* (desinência de plural).
+3. **Separe flexão de derivação.** O *-s* é flexão: adapta a mesma palavra ao plural, sem criar outra. *Des-* e *-dade* são derivação: criam palavras novas.
+4. **Diga o processo.** *Deslealdade* se formou por derivação com prefixo e sufixo. Não é a derivação em que os dois entram ao mesmo tempo, como em *entardecer*, porque existem as formas só com um deles: *desleal* e *lealdade*.
+
+Confira: des- + leal + -dade + -s dá quatro peças, e só uma delas (o -s) é flexão.
+
+## Resumo
+
+- Morfema é a menor parte da língua que carrega significado; o radical é o núcleo de sentido.
+- Os morfemas são radical, prefixo, sufixo e desinência; palavras com o mesmo radical formam uma família.
+- Flexão adapta a mesma palavra à frase (menino, menina, meninos); derivação cria outra palavra (trabalho, trabalhador).
+- Processos de formação: derivação, composição, redução, siglas, mudança de classe e onomatopeia.
+- Empréstimos e neologismos mostram que a língua incorpora o que lhe serve; quem decide se uma palavra existe é o uso.
+- As dez classes de palavras (seis variáveis e quatro invariáveis) têm fronteiras menos nítidas do que parece.
 
 ## Para praticar
 

@@ -26,6 +26,10 @@ quiz:
     explicacao: "(6 × 2 + 9 × 1) ÷ 3 = 21 ÷ 3 = 7."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular média, mediana, moda e média ponderada, escolher a que conta a história certa e medir o quanto os valores se espalham, com a amplitude e o desvio padrão.
+
 ## Um número no lugar de muitos
 
 A estatística serve para resumir. Em vez de listar o salário de cada pessoa, a nota de cada estudante ou a temperatura de cada dia, procura-se um valor que represente o conjunto. Há três jeitos principais de fazer isso, e eles podem contar histórias bem diferentes.
@@ -121,3 +125,12 @@ Desvio padrão pequeno: valores concentrados perto da média. Desvio padrão gra
 5. Calcule o desvio padrão de 2, 4 e 6.
 
 **Respostas:** 1) Média 7, mediana 6,5, moda 6. 2) Média R$ 3.000; mediana R$ 1.500, que representa melhor. 3) 675. 4) 11. 5) Média 4; variância 8/3; desvio padrão de cerca de 1,63.
+
+## Resumo
+
+- Média: soma dos valores dividida pela quantidade; valores extremos a puxam.
+- Mediana: o valor do meio, com os dados em ordem; não sente os extremos.
+- Moda: o valor que mais se repete; pode não existir ou haver mais de uma.
+- Em dados desiguais, como renda, a média fica acima da mediana; pergunte pela mediana.
+- Média ponderada: cada valor é multiplicado pelo seu peso e divide-se pela soma dos pesos.
+- Média igual não quer dizer grupo igual: meça também a dispersão (amplitude e desvio padrão).

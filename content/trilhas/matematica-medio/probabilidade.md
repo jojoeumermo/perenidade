@@ -29,6 +29,10 @@ quiz:
     explicacao: "O contrário é não sair nenhuma cara: 1/2 × 1/2 × 1/2 = 1/8. Então 1 − 1/8 = 7/8."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular probabilidades de um ou de vários eventos (com "ou", "e" e "pelo menos um"), evitar a falácia do apostador e usar o valor esperado para entender por que os jogos de aposta favorecem a casa.
+
 ## Medir a incerteza
 
 Não se sabe se a moeda vai dar cara ou coroa, mas sabe-se que as duas faces têm a mesma chance. A **probabilidade** é um número que mede essa chance.
@@ -120,3 +124,12 @@ As casas de apostas esportivas, físicas ou de aplicativo, funcionam assim tamb�
 6. Uma peça sai com defeito em 2% das vezes. Qual é a probabilidade de duas peças seguidas saírem perfeitas?
 
 **Respostas:** 1) 2/6 = 1/3. 2) 1/4. 3) 5/200 = 2,5%. 4) 4/10 × 3/9 = 2/15. 5) (3 + 2 + 1)/36 = 1/6. 6) 0,98 × 0,98 = 0,9604, cerca de 96%.
+
+## Resumo
+
+- Probabilidade = resultados favoráveis ÷ resultados possíveis (quando todos têm a mesma chance); vai de 0 a 1.
+- Evento contrário: 1 menos a probabilidade do evento; ajuda nos problemas de "pelo menos um".
+- "Ou": soma-se, descontando a parte comum quando os eventos podem acontecer juntos.
+- "E": multiplica-se; se um evento muda a chance do outro, usa-se a probabilidade já ajustada.
+- A moeda não tem memória: depois de várias caras, a chance de coroa continua 1/2.
+- Valor esperado é o ganho médio por aposta; nos jogos comerciais ele favorece quem organiza, e aposta não é investimento.

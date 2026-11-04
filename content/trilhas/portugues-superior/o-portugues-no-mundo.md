@@ -44,6 +44,10 @@ quiz:
     explicacao: "O português é a língua mais falada em casa em Angola, sobretudo nas cidades. O umbundo vem em segundo lugar."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber em que países o português é língua oficial, por que ser língua oficial não é o mesmo que ser a língua do povo, o que significa dizer que o português é pluricêntrico e o que é a CPLP.
+
 Um pedreiro brasileiro que vai trabalhar em Lisboa descobre que o ônibus se chama "autocarro" e o celular, "telemóvel". Uma estudante angolana em São Paulo ouve "a gente vai" onde ela diria "nós vamos" e estranha o "você" para todo mundo. Os dois falam português, e os dois falam certo. Esta aula mostra onde a língua está hoje, como ela vive ao lado de outras línguas e por que ela tem mais de um modelo culto.
 
 A aula anterior, [História da língua portuguesa](/trilhas/portugues-superior/historia-da-lingua-portuguesa), conta como o português saiu da Península Ibérica com a expansão marítima. Aqui vemos o resultado.
@@ -120,6 +124,26 @@ O português também atravessa fronteiras sem papel oficial:
 - no Paraguai, vivem muitos brasileiros e descendentes, os "brasiguaios";
 - há grandes comunidades brasileiras em Portugal, nos Estados Unidos e no Japão;
 - na Galiza, na Espanha, o galego, irmão próximo do português, segue vivo, e há quem defenda que os dois são a mesma língua.
+
+## Exemplo resolvido: língua oficial é língua do povo?
+
+Pergunta: no Brasil e em Moçambique, o português ocupa o mesmo lugar?
+
+1. **É língua oficial?** Nos dois, sim: ambos estão entre os nove países da tabela.
+2. **Quantos falam?** No Brasil, é a língua materna da grande maioria dos cerca de 203 milhões de habitantes (Censo 2022). Em Moçambique, segundo o recenseamento de 2017, menos da metade da população (cerca de 47%) fala português, e pouco menos de um quinto o tem como língua materna.
+3. **E as outras línguas?** Em Moçambique, a maioria fala línguas bantas. No Brasil, o português convive com línguas indígenas, a Libras e línguas de imigração.
+4. **Conclusão.** Os dois têm o português como língua oficial, mas em Moçambique ele é a língua do Estado e da escola para boa parte das pessoas, enquanto em casa se falam outras línguas. Por isso, "oficial" não quer dizer "do povo".
+
+Confira: o raciocínio vale para Cabo Verde (oficial e da escola, mas a língua materna de quase todos é o crioulo) e para os demais países da tabela.
+
+## Resumo
+
+- O português é língua oficial em nove países, em quatro continentes, e em Macau; todos, menos Macau, formam a CPLP, criada em 1996.
+- Ser língua oficial não é o mesmo que ser a língua do povo: em boa parte da África, ele é a língua do Estado e da escola, e em casa se falam outras línguas.
+- O português é pluricêntrico: tem mais de um centro de referência, cada um com a sua norma culta (a brasileira, a europeia, e as africanas que se formam).
+- As diferenças entre as normas vão além do vocabulário (ônibus e autocarro, "estou fazendo" e "estou a fazer").
+- Línguas crioulas, como o cabo-verdiano, são línguas próprias, e não "português mal falado".
+- "Lusofonia" tem duas faces: língua de encontro e língua de poder, pois chegou com o colonialismo.
 
 ## Para praticar
 

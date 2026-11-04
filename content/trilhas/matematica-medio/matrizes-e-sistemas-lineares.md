@@ -30,6 +30,10 @@ quiz:
     explicacao: "1 × 4 − 2 × 3 = 4 − 6 = −2."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber resolver um sistema de duas equações pelos métodos da substituição e da adição, dizer quando ele tem uma, nenhuma ou infinitas soluções e fazer as operações básicas com matrizes e o determinante 2 por 2.
+
 ## Duas perguntas ao mesmo tempo
 
 Na feira, Dona Lúcia comprou 2 kg de arroz e 1 kg de feijão e pagou R$ 19. A vizinha comprou 1 kg de arroz e 2 kg de feijão, na mesma banca, e pagou R$ 23. Quanto custa o quilo de cada um?
@@ -168,3 +172,12 @@ Hoje é assim que os computadores trabalham. Uma imagem digital é uma matriz de
 6. Classifique o sistema: x + 2y = 4 e 3x + 6y = 12.
 
 **Respostas:** 1) x = 7 e y = 5. 2) x = 4 e y = 3. 3) Caderno R$ 12 e caneta R$ 4. 4) Linhas (1, 3) e (8, 6). 5) −2; coluna (3, 7). 6) Possível e indeterminado: a segunda equação é a primeira multiplicada por 3.
+
+## Resumo
+
+- Um sistema linear junta equações que precisam ser verdadeiras ao mesmo tempo.
+- Substituição: isola-se uma incógnita e troca-se na outra equação. Adição: somam-se ou subtraem-se as equações para uma incógnita sumir.
+- Cada equação com duas incógnitas é uma reta: retas que se cruzam dão uma solução; retas iguais, infinitas; retas paralelas, nenhuma.
+- Matriz é uma tabela de linhas e colunas; soma-se posição por posição e multiplica-se linha por coluna.
+- Na multiplicação de matrizes a ordem importa: em geral A × B é diferente de B × A.
+- Determinante 2 por 2: a × d − b × c; se for diferente de zero, a solução é única.

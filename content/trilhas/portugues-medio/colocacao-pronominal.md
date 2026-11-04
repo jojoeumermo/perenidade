@@ -27,6 +27,10 @@ quiz:
     explicacao: "Palavras negativas pedem a próclise, mesmo na norma mais tradicional."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são próclise, ênclise e mesóclise, usar a regra de ouro e as palavras que atraem o pronome na norma-padrão e conhecer o uso brasileiro, que também é legítimo.
+
 ## O assunto
 
 Os pronomes **me, te, se, o, a, lhe, nos, vos, os, as, lhes** não têm força própria na pronúncia: apoiam-se no verbo. A dúvida é onde colocá-los.
@@ -116,6 +120,21 @@ A orientação prática:
 1. Há palavra que atrai (negativa, *que*, *quando*, *se*)? Pronome **antes**.
 2. É começo de frase em texto formal? Pronome **depois**, ou ponha um sujeito na frente.
 3. No resto, antes ou depois, conforme o tom do texto.
+
+## Exemplo resolvido: dois ajustes para a escrita formal
+
+1. **"Me avisaram que a reunião acabou."** A frase começa com pronome oblíquo átono (*me*), e a norma-padrão evita isso. Não há palavra que atraia o pronome, então ele vai para depois do verbo, com hífen: **Avisaram-me que a reunião acabou.**
+2. **"Nunca disseram-me a verdade."** *Nunca* é palavra negativa, e as negativas atraem o pronome para antes do verbo. Aqui o erro é de excesso (hipercorreção): **Nunca me disseram a verdade.**
+
+Confira: no primeiro caso nada atrai o pronome e a frase começa por ele, então vem depois (ênclise); no segundo há uma negativa, então vem antes (próclise).
+
+## Resumo
+
+- Próclise é o pronome antes do verbo; ênclise, depois, com hífen; mesóclise, no meio, só com o verbo no futuro.
+- Na norma-padrão, não se começa frase com pronome oblíquo átono: Disseram-me, e não "Me disseram".
+- Negativas, pronomes relativos, conjunções e certos advérbios atraem o pronome para antes do verbo.
+- Ênclise: início da frase, depois de pausa e no imperativo afirmativo.
+- No Brasil, falado e escrito informal, usa-se muito o pronome antes do verbo ("Me dá um cigarro"); é uso legítimo, e a regra formal vale para textos formais.
 
 ## Para praticar
 

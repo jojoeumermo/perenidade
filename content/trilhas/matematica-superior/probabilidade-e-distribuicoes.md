@@ -34,6 +34,10 @@ quiz:
     explicacao: "Mesmo que os valores individuais não sejam normais, as médias de amostras grandes se distribuem aproximadamente como a normal."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular valor esperado e variância, usar as distribuições binomial e normal, padronizar um valor com o z e entender por que a normal aparece tanto e onde ela não serve.
+
 A aula [Probabilidade](/trilhas/matematica-medio/probabilidade) trata de eventos isolados. Aqui o objeto é a **distribuição** inteira: todos os resultados possíveis de um fenômeno e a chance de cada um.
 
 ## Variável aleatória
@@ -149,3 +153,13 @@ A escolha da distribuição é uma hipótese sobre o fenômeno. Vale sempre conf
 6. No exercício 3, obter 260 caras seria um resultado esperado de uma moeda honesta?
 
 **Respostas:** 1) 600 ÷ 200 − 5 = −R$ 2. 2) 6/16 = 37,5%. 3) 200 e 10. 4) −1,5. 5) 0,98^10, cerca de 82%. 6) Não: está a 6 desvios padrão da média.
+
+## Resumo
+
+- Variável aleatória é um número que depende do acaso; discreta (valores separados) ou contínua (qualquer valor de um intervalo).
+- Valor esperado: soma de cada valor vezes a sua probabilidade (no dado, 3,5). A raiz da variância é o desvio padrão.
+- Binomial: P(k sucessos) = C(n, k) × p^k × (1 − p)^(n − k); média n × p e variância n × p × (1 − p).
+- Normal: em forma de sino; cerca de 68%, 95% e 99,7% dos valores ficam a até 1, 2 e 3 desvios padrão da média.
+- Padronização: z = (x − μ) ÷ σ.
+- Teorema central do limite: a soma de muitas variáveis independentes é aproximadamente normal.
+- Nem tudo é sino: renda tem cauda longa e eventos extremos são mais frequentes do que a normal prevê.
