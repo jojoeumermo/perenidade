@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "titulo": "Vale o Escrito : la toile du pouvoir au Brésil",
+    "descricao": "Observatoire de crimes d'intérêt public déjà présents dans des sources publiques : procédure judiciaire, enquête officielle, rapport d'organisation ou reportage. Chaque fiche indique source, date, extrait et la situation juridique par écrit."
+  },
+  "emPreparacao": {
+    "olho": "En préparation",
+    "titulo": "Vale o Escrito est en préparation",
+    "texto": "Cet observatoire n'ouvre qu'après la relecture des premières entrées par la curation et la vérification du texte par le conseil juridique. D'ici là, rien n'est publié ici."
+  },
+  "entrada": {
+    "olho": "Observatoire",
+    "titulo": "Vale o Escrito",
+    "subtitulo": "La toile du pouvoir au Brésil",
+    "linhaHonesta": "Ce n'est ni une enquête propre, ni un fil policier, ni un tribunal. Nous réunissons ce qui figure déjà dans des sources publiques, avec lien, date et extrait, et nous écrivons la situation juridique de chaque cas."
+  },
+  "avisos": {
+    "presuncao": "Figurer ici ne rend personne coupable. Il n'y a de condamnation définitive que lorsque la situation indique « condamné, décision définitive ».",
+    "segundoFonte": "Tout ce qui est écrit l'est selon la source indiquée. Quand la source ne fait qu'alléguer, la fiche dit « supposément ».",
+    "semVitimas": "Nous ne publions ni victimes, ni enfants, ni témoins. Seulement des personnes déjà publiques dans l'affaire.",
+    "curadoriaAnonima": "La curation est anonyme pour le public. Personne ici ne signe une accusation."
+  },
+  "situacao": {
+    "suspeito": "Suspect",
+    "investigado": "Sous enquête",
+    "denunciado": "Mis en cause par le parquet (denunciado)",
+    "reu": "Prévenu (réu)",
+    "condenado_1a_instancia": "Condamné en première instance",
+    "condenado_transitado": "Condamné, décision définitive",
+    "absolvido": "Acquitté",
+    "arquivado": "Classé sans suite"
+  },
+  "confianca": {
+    "primaria": "Confirmé par une source primaire",
+    "reportado": "Rapporté",
+    "primariaExplica": "Une procédure, une enquête officielle ou une donnée officielle étaye ce qui est écrit.",
+    "reportadoExplica": "Figure dans un rapport d'organisation, un reportage ou une vérification ; pas encore de source primaire."
+  },
+  "ficha": {
+    "fontes": "Sources",
+    "fonte": "Source",
+    "trecho": "Extrait",
+    "dataDaFonte": "Date de la source",
+    "arquivo": "Copie sur l'Internet Archive",
+    "semArquivo": "Copie pas encore faite",
+    "atualizadoEm": "Mis à jour le",
+    "historicoTitulo": "Changements de situation juridique",
+    "respostasTitulo": "Réponses et corrections publiées",
+    "tipoCorrecao": "Correction",
+    "tipoResposta": "Droit de réponse",
+    "mudouDePara": "de {de} à {para}",
+    "publicadoEm": "Publié le",
+    "situacao": "Situation juridique",
+    "confianca": "Confiance",
+    "pessoas": "Personnes publiques dans l'affaire",
+    "organizacoes": "Organisations",
+    "lugar": "Lieu",
+    "dataDoFato": "Date des faits",
+    "corrigir": "Demander une correction ou un droit de réponse",
+    "enviarFonte": "Envoyer une source",
+    "fotoCredito": "Photo",
+    "semEntradas": "Il n'y a pas encore d'entrées dans ce dossier."
+  },
+  "dossie": {
+    "titulo": "Dossiers",
+    "entradas": "{n} entrées"
+  },
+  "visoes": {
+    "teia": "Toile",
+    "orbita": "Orbite",
+    "grupos": "Groupes",
+    "fluxo": "Flux",
+    "mapa": "Carte du Brésil",
+    "linha": "Chronologie"
+  },
+  "zoom": {
+    "pais": "Pays",
+    "estado": "État",
+    "municipio": "Commune"
+  },
+  "mapa": {
+    "semWebgl": "Ce navigateur ne peut pas dessiner la carte (WebGL absent). La liste des cas ci-dessous reste valable.",
+    "semMalha": "Les fonds de carte de l'IBGE n'ont pas encore été générés sur ce serveur.",
+    "voltar": "Remonter d'un niveau",
+    "brasil": "Brésil",
+    "casos": "{n} cas",
+    "umCaso": "1 cas",
+    "nenhumCaso": "Aucun cas publié",
+    "casosAqui": "Cas à cet endroit",
+    "abrirFicha": "Ouvrir la fiche",
+    "listaDeCasos": "Cas sur la carte (liste pour clavier et lecteur d'écran)",
+    "aria": "Carte du Brésil avec les cas publiés, par État et par commune",
+    "credito": "Limites territoriales : IBGE. Pas de carte tierce, pas de traçage.",
+    "nivel": "Niveau de la carte"
+  },
+  "enviar": {
+    "titulo": "Envoyer une source",
+    "lead": "Vous avez vu une décision, un rapport ou un reportage sur une affaire d'intérêt public ? Envoyez le lien. La curation vérifie avant de publier.",
+    "url": "Lien de la source",
+    "descricao": "Ce que montre la source",
+    "trecho": "Extrait à l'appui (facultatif, jusqu'à 400 caractères)",
+    "dossie": "Dossier (si vous le savez)",
+    "contato": "E-mail ou téléphone (facultatif, pour que la curation puisse poser des questions)",
+    "aviso": "J'ai lu l'avertissement : je n'envoie ni nom de victime, d'enfant ou de témoin, ni numéro d'identité ; seulement ce qui est déjà public.",
+    "enviar": "Envoyer",
+    "enviado": "Reçu. La curation va vérifier. Nous ne conservons pas votre adresse réseau.",
+    "erro": "Envoi impossible pour le moment. Réessayez plus tard.",
+    "aguarde": "Par protection contre les robots, le bouton se débloque quelques secondes après l'ouverture de la page.",
+    "protecao": "Sans CAPTCHA tiers et sans traçage : le formulaire comporte un champ leurre, un temps de remplissage minimal et une limite d'envois par origine, calculée avec un code brouillé qui change chaque jour. Votre adresse réseau n'est pas conservée.",
+    "privacidade": "Nous conservons le lien, ce que vous avez écrit et, si vous l'indiquez, le contact, jusqu'à la décision de la curation. Base légale : l'intérêt légitime du projet à recevoir des sources d'intérêt public (LGPD, art. 7, IX). Détails dans la politique de confidentialité.",
+    "semServico": "L'envoi est indisponible pour le moment. Réessayez plus tard."
+  },
+  "correcao": {
+    "titulo": "Correction et droit de réponse",
+    "lead": "Si quelque chose dans cette fiche est faux, dépassé ou porte atteinte à votre honneur, dites-le. Nous corrigeons ce qui est faux et publions votre réponse à côté de la fiche. Acquittements et classements sont ajoutés dès qu'il y a une source.",
+    "tipo": "Ce que vous demandez",
+    "tipos": {
+      "correcao": "Correction",
+      "direito_de_resposta": "Droit de réponse",
+      "remocao_de_dado": "Suppression d'une donnée"
+    },
+    "texto": "Ce qui est faux et ce qui devrait figurer",
+    "comprovante": "Lien qui le prouve (facultatif)",
+    "nome": "Votre nom (facultatif)",
+    "contato": "E-mail ou téléphone (obligatoire pour le droit de réponse)",
+    "enviar": "Envoyer la demande",
+    "enviado": "Reçu. La curation répond sous 7 jours.",
+    "erro": "Envoi impossible pour le moment. Réessayez plus tard.",
+    "ficha": "Code de la fiche",
+    "fichaAjuda": "C'est le code qui figure dans l'adresse et en haut de la fiche, par exemple 2026-exemplo-fazenda.",
+    "fichaInvalida": "Le code de la fiche ne contient que des minuscules sans accent, des chiffres et des tirets.",
+    "qualidade": "En quelle qualité vous demandez",
+    "qualidades": {
+      "ofendido": "Je suis la personne citée dans la fiche",
+      "representante": "Je suis le représentant légal de la personne ou de l'organisation citée",
+      "familiar": "Je suis le conjoint, un descendant, un ascendant ou un frère ou une sœur de la personne citée"
+    },
+    "identificacao": "Pour un droit de réponse, nous demandons votre nom, votre qualité et un contact. La loi brésilienne 13.188/2015 (art. 3) réserve le droit de réponse ou de rectification à la personne offensée ou, dans certains cas, à son représentant légal et à ses proches ; nous devons donc savoir qui répond et en quelle qualité. Le contact sert seulement à vous joindre et n'apparaît pas sur le site.",
+    "aguarde": "Par protection contre les robots, le bouton se débloque quelques secondes après l'ouverture de la page.",
+    "protecao": "Sans CAPTCHA tiers et sans traçage : champ leurre, temps minimal et limite par origine avec un code brouillé qui change chaque jour. Votre adresse réseau n'est pas conservée.",
+    "privacidade": "Nous conservons la demande, le nom et le contact indiqués jusqu'à un an après le traitement. Base légale : l'exercice de votre droit de correction et de réponse et notre obligation d'y donner suite (LGPD, art. 7, II). La réponse acceptée apparaît à côté de la fiche, sans votre contact.",
+    "semServico": "La demande est indisponible pour le moment. Réessayez plus tard.",
+    "prazo": "Objectif de réponse : 7 jours à compter de la réception. Le délai vient de l'art. 5 de la loi 13.188/2015, qui l'applique aux organes de communication ; l'Institut le respecte de bonne foi, sans prétendre que la loi l'y oblige."
+  },
+  "erros": {
+    "invalido": "Vérifiez les champs et réessayez.",
+    "muitos": "Trop de demandes en peu de temps. Patientez un peu."
+  },
+  "visual": {
+    "aria": {
+      "observatorio": "Observatoire Vale o Escrito",
+      "dossies": "Dossiers",
+      "visoes": "Vues",
+      "palco": "Dessin de la toile. La liste textuelle équivalente se trouve juste en dessous.",
+      "lista": "Liste textuelle des cas et des liens",
+      "ficha": "Fiche"
+    },
+    "pularParaLista": "Aller à la liste textuelle",
+    "abaTodos": "Tous",
+    "contagem": "{n} cas",
+    "tipoNo": {
+      "pessoa": "Personne",
+      "organizacao": "Organisation",
+      "entrada": "Cas",
+      "lugar": "Lieu"
+    },
+    "ligacao": {
+      "integra": "fait partie de",
+      "dirige": "dirige",
+      "financia": "finance",
+      "contrata": "passe un contrat avec",
+      "doa_para": "fait un don à",
+      "investiga": "enquête sur",
+      "denuncia": "dénonce",
+      "citado_em": "cité dans",
+      "ocorreu_em": "a eu lieu à",
+      "relacionada": "liée à"
+    },
+    "zoomTeia": {
+      "panorama": "Panorama",
+      "dossie": "Dossier",
+      "caso": "Cas",
+      "detalhe": "Détail"
+    },
+    "zoomMais": "Zoom avant",
+    "zoomMenos": "Zoom arrière",
+    "zoomRestaurar": "Recentrer",
+    "zoomNivel": "Zoom : {nivel}",
+    "aoVivo": {
+      "ligado": "En direct",
+      "desligado": "Pas de mise à jour en direct",
+      "atualizou": "Mis à jour à l'instant : {titulo}"
+    },
+    "lista": {
+      "titulo": "Liste textuelle",
+      "explica": "La même chose que le dessin, en texte : chaque cas, personne, organisation et lieu, avec ses liens.",
+      "ligadoA": "Lié à",
+      "semLigacoes": "Aucun lien",
+      "abrir": "Voir la fiche"
+    },
+    "vazio": "Aucun cas publié pour l'instant. L'observatoire ouvre vide à dessein : un cas n'entre qu'avec source, date et extrait, après relecture de la curation.",
+    "vazioDossie": "Ce dossier n'a pas encore de cas publiés.",
+    "carregando": "Chargement de la vue…",
+    "semSelecao": "Choisissez un cas, une personne ou une organisation pour voir la fiche : sources, extrait, date et situation juridique.",
+    "legenda": "Légende",
+    "linha": {
+      "titulo": "Cas par date des faits",
+      "semDados": "Aucun cas daté à dessiner."
+    },
+    "fluxo": {
+      "titulo": "De chaque dossier à la situation juridique des cas"
+    },
+    "grupos": {
+      "titulo": "Cas regroupés par dossier"
+    },
+    "orbita": {
+      "titulo": "Orbite autour de {nome}"
+    },
+    "mapa": {
+      "emPreparacao": "Carte du Brésil en préparation",
+      "texto": "La carte néon du Brésil (pays, État, municipalité) s'ouvre ici. En attendant, les cas par lieu :",
+      "semLugar": "Lieu non indiqué"
+    },
+    "ficha": {
+      "codigo": "Dossier",
+      "segundo": "Selon {veiculos}",
+      "resumo": "Résumé",
+      "numeroFonte": "Source {n}",
+      "abrirFonte": "Ouvrir la source",
+      "abrirArquivo": "Voir la copie archivée",
+      "abrirFicha": "Ouvrir la fiche complète",
+      "fechar": "Fermer la fiche",
+      "aviso": "Situation juridique selon les sources. Seule la mention \"condamné définitivement\" est une condamnation définitive ; toutes les autres situations peuvent changer.",
+      "direitoDeResposta": "Droit de réponse",
+      "pedirCorrecao": "Demander une correction",
+      "papel": "Rôle",
+      "cargo": "Fonction",
+      "casos": "Cas",
+      "semFoto": "Pas de photo sous licence libre",
+      "voltar": "Retour à l'observatoire",
+      "licenca": "Licence",
+      "origem": "Origine de la photo",
+      "atualizadoNaFonte": "Mis à jour le {data}",
+      "sobre": "À propos",
+      "nuncaVitima": "Nous ne publions jamais de victimes, d'enfants ni de témoins.",
+      "situacaoDoCaso": "Situation de l'affaire"
+    },
+    "papel": {
+      "acusado": "Accusé",
+      "investigado": "Enquêté",
+      "autoridade": "Autorité",
+      "agente_publico": "Agent public",
+      "parlamentar": "Parlementaire",
+      "dirigente": "Dirigeant",
+      "empresario": "Chef d'entreprise",
+      "proprietario_rural": "Propriétaire rural",
+      "agente_de_seguranca": "Agent de sécurité",
+      "outro_publico_no_caso": "Autre rôle public dans l'affaire"
+    },
+    "tipoOrg": {
+      "empresa": "Entreprise",
+      "orgao_publico": "Organisme public",
+      "partido": "Parti",
+      "associacao": "Association",
+      "grupo_armado": "Groupe armé",
+      "outra": "Autre"
+    }
+  },
+  "navegacao": {
+    "inicio": "Observatoire",
+    "sobre": "À propos de la méthode",
+    "enviar": "Envoyer une source",
+    "corrigir": "Demander une correction"
+  },
+  "sobre": {
+    "olho": "Méthode et règles",
+    "titulo": "Comment fonctionne Vale o Escrito",
+    "lead": "Ce qui entre, ce qui n'entre jamais, comment chaque situation juridique est écrite et comment corriger une fiche.",
+    "metodo": {
+      "titulo": "La méthode",
+      "texto": "Vale o Escrito rassemble des cas d'intérêt public déjà consignés dans une source publique : une procédure, une enquête officielle, une donnée officielle, un rapport d'organisation ou un reportage. Nous n'enquêtons pas, nous ne faisons pas de faits divers policiers et nous ne jugeons personne. Chaque fiche a une source, une date et un court extrait, avec le lien et une copie sur l'Internet Archive. Un robot programmé lit les sources et suggère ; une personne de la curation vérifie et approuve avant que rien n'apparaisse. L'intelligence artificielle, quand elle est utilisée, ne suggère qu'un résumé et des étiquettes et ne publie jamais."
+    },
+    "regras": {
+      "titulo": "Les règles non négociables",
+      "r1": "Toute fiche a une source, une date et un extrait.",
+      "r2": "La situation juridique est toujours écrite, et le texte dit « selon [source] » ou « supposément » quand la source ne fait qu'alléguer.",
+      "r3": "Seulement des personnes déjà publiques dans l'affaire, toujours avec source.",
+      "r4": "Jamais de victimes, d'enfants, d'adolescents ni de témoins : ni en nom, ni en photo, ni en étiquette.",
+      "r5": "Les acquittements et les classements sont mis à jour, et la fiche indique la date de mise à jour.",
+      "r6": "Toute fiche offre une voie de correction et de droit de réponse.",
+      "r7": "Photos seulement du domaine public ou sous licence libre, avec crédit.",
+      "r8": "Aucun traçage : seulement des comptages anonymes."
+    },
+    "situacao": {
+      "titulo": "La situation juridique, expliquée",
+      "texto": "Figurer dans une fiche ne veut pas dire être coupable. Chaque personne apparaît avec la situation consignée par la source, parmi ces huit :",
+      "suspeito": "Le nom apparaît dans une vérification, mais il n'y a ni enquête formelle ni accusation contre la personne.",
+      "investigado": "Il y a une enquête formelle dans laquelle la personne est examinée. Enquêter n'est pas accuser.",
+      "denunciado": "Le ministère public a déposé la dénonciation, l'accusation formelle, que le juge n'a pas encore reçue.",
+      "reu": "Le juge a reçu la dénonciation et la procédure est en cours. Il n'y a pas encore de jugement.",
+      "condenado_1a_instancia": "Il y a une condamnation, mais un recours est encore possible. La condamnation n'est pas définitive.",
+      "condenado_transitado": "Plus aucun recours n'est possible. C'est la seule situation où la condamnation est définitive.",
+      "absolvido": "La décision a acquitté la personne. La fiche indique la date.",
+      "arquivado": "L'enquête ou la procédure a été close sans condamnation.",
+      "nota": "Selon la Constitution brésilienne (art. 5, LVII), nul n'est considéré coupable avant que la condamnation pénale soit définitive."
+    },
+    "confianca": {
+      "titulo": "Les deux niveaux de confiance",
+      "texto": "« Confirmé par une source primaire » signifie qu'il y a une procédure, une enquête officielle ou une donnée officielle derrière ce qui est écrit. « Rapporté » signifie que cela vient d'un rapport d'organisation, d'un reportage ou d'une vérification, sans source primaire pour l'instant. La fiche indique toujours lequel s'applique."
+    },
+    "corrigir": {
+      "titulo": "Comment corriger une fiche",
+      "texto": "Chaque fiche a le lien « Demander une correction ou un droit de réponse ». Nous corrigeons ce qui est faux, mettons à jour les acquittements et classements dès qu'il y a une source et publions la réponse à côté de la fiche. L'objectif est de répondre sous 7 jours. Quiconque a une décision de justice peut utiliser le même canal ; elle est respectée."
+    },
+    "anonima": {
+      "titulo": "Pourquoi la curation est anonyme",
+      "texto": "La curation ne signe pas les fiches sur le site afin que personne ne soit exposé pour avoir vérifié une source. La responsabilité est celle de l'Institut, pas d'une personne : qui a approuvé reste seulement dans l'historique interne, qui ne fait qu'ajouter et n'efface jamais, et la coordination répond de ce qui a été publié."
+    },
+    "base": {
+      "titulo": "Base légale",
+      "intro": "Résumé de lecture. Ce n'est pas un avis juridique ; le texte complet de chaque loi est sur le site du Planalto.",
+      "lgpd": "LGPD (loi 13.709/2018) : l'art. 4, II, « a » exclut de la loi le traitement à des fins journalistiques, mais nous ne comptons pas sur cette exception, car l'Institut n'est pas un organe de presse enregistré. Nous agissons comme si toute la loi s'appliquait : finalité d'intérêt public, minimum de données, seulement ce qui est déjà public dans l'affaire, sur la base de l'art. 7 (II, VI et IX) et avec prudence pour les données sensibles (art. 11).",
+      "eca": "Statut de l'enfant et de l'adolescent (loi 8.069/1990), art. 17, 143 et 247 : nous ne divulguons jamais le nom, la photo ni les actes d'un enfant ou d'un adolescent. La LGPD (art. 14) exige l'intérêt supérieur de l'enfant.",
+      "direitoDeResposta": "Loi 13.188/2015 (droit de réponse), art. 2 à 7 : elle vise les contenus des organes de communication. Nous ne savons pas si l'Institut en est un ; nous offrons donc la même voie de bonne foi : réponse gratuite, proportionnelle à l'atteinte, au même endroit que la fiche, sous 7 jours.",
+      "codigoPenal": "Code pénal, art. 138 à 140 (calomnie, diffamation et injure) : « selon [source] » et « supposément » existent pour ne pas affirmer comme un fait ce qui n'est qu'une allégation. Ils ne donnent aucune immunité : c'est pourquoi nous exigeons source, date et extrait.",
+      "marcoCivil": "Marco Civil da Internet (loi 12.965/2014) : une décision de justice spécifique (art. 19) est respectée. Nous ne conservons pas les journaux d'accès des lecteurs (art. 15).",
+      "lai": "Loi d'accès à l'information (loi 12.527/2011), art. 3, 8 et 31 : nous n'utilisons que ce que les pouvoirs publics ont déjà divulgué, dans le respect de l'intimité, de la vie privée, de l'honneur et de l'image.",
+      "aviso": "Le conseil juridique doit encore vérifier ce texte, l'application de l'exception de l'art. 4, II, « a » de la LGPD, celle de la loi 13.188/2015 et le droit d'auteur. C'est pourquoi l'observatoire n'ouvre qu'après cette révision."
+    },
+    "fontes": {
+      "titulo": "Sources et licences",
+      "texto": "Nous lisons 48 sources : organismes officiels, organisations de la société civile, presse et vérificateurs. Certaines ne fournissent que des chiffres agrégés (par exemple des statistiques de violence) et nous n'en tirons jamais le nom d'une personne. De chaque source, nous ne gardons que le lien, un extrait de 400 caractères au plus et la copie sur l'Internet Archive, jamais la page entière.",
+      "licencas": "Le contenu de chaque source reste à ses auteurs, toujours cités. Les données officielles ouvertes suivent la licence de chaque organisme. Les photos ne viennent que du domaine public ou d'une licence libre, avec crédit et page d'origine, et jamais d'une victime ni d'un mineur."
+    },
+    "privacidade": {
+      "titulo": "Confidentialité",
+      "texto": "Lire l'observatoire n'exige pas de compte et ne laisse pas de trace : seulement des comptages anonymes. Pour qui envoie une source ou demande une correction, l'adresse réseau n'est pas conservée ; la limite anti-spam utilise un code brouillé qui change chaque jour. Ce que nous conservons et pour combien de temps figure dans la politique de confidentialité de l'Institut."
+    }
+  }
+}

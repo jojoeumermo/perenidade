@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Feed Atom de exemplo (teste, sem rede)</title>
+  <entry>
+    <title>Grilagem e conflito agrário: despejo de famílias em Manaus</title>
+    <link rel="self" href="https://exemplo.test/atom/self-nao-usar"/>
+    <link rel="alternate" href="https://exemplo.test/atom/despejo-manaus"/>
+    <published>2026-11-02T15:30:00-03:00</published>
+    <summary type="html">&lt;p&gt;Segundo a Comissão Pastoral da Terra, o despejo atinge um quilombo. A ocupação é alvo de ação de reintegração de posse.&lt;/p&gt;</summary>
+  </entry>
+</feed>

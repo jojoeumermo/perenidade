@@ -1,0 +1,254 @@
+{
+  "dossie": "dinheiro-publico",
+  "pessoas": [
+    {
+      "id": "jose-dirceu",
+      "nome": "José Dirceu",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "delubio-soares",
+      "nome": "Delúbio Soares",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "marcos-valerio",
+      "nome": "Marcos Valério",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "organizacoes": [],
+  "ligacoes": [
+    {
+      "id": "l-jose-dirceu-2005-mensalao-acao-penal-470",
+      "de": {
+        "tipo": "pessoa",
+        "id": "jose-dirceu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2005-mensalao-acao-penal-470"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2005-mensalao-acao-penal-470"
+    },
+    {
+      "id": "l-delubio-soares-2005-mensalao-acao-penal-470",
+      "de": {
+        "tipo": "pessoa",
+        "id": "delubio-soares"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2005-mensalao-acao-penal-470"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2005-mensalao-acao-penal-470"
+    },
+    {
+      "id": "l-marcos-valerio-2005-mensalao-acao-penal-470",
+      "de": {
+        "tipo": "pessoa",
+        "id": "marcos-valerio"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2005-mensalao-acao-penal-470"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2005-mensalao-acao-penal-470"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "jose-dirceu",
+          "situacao": "condenado_transitado",
+          "papelNoCaso": "Segundo o STF, condenado por corrupção ativa a 7 anos e 11 meses; trânsito parcial certificado em 2013; punibilidade extinta por indulto em outubro de 2016."
+        },
+        {
+          "pessoaId": "delubio-soares",
+          "situacao": "condenado_transitado",
+          "papelNoCaso": "Segundo o STF, condenado na AP 470; trânsito em julgado (parcial) certificado em novembro de 2013."
+        },
+        {
+          "pessoaId": "marcos-valerio",
+          "situacao": "condenado_transitado",
+          "papelNoCaso": "Segundo o STF, condenado na AP 470; trânsito em julgado (parcial) certificado em novembro de 2013."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2005-mensalao-acao-penal-470",
+      "dossie": "dinheiro-publico",
+      "titulo": "Mensalão (Ação Penal 470): condenações transitaram em julgado em 2013",
+      "resumo": "Segundo o STF, em 15 de novembro de 2013 foi certificado o trânsito em julgado (parcial) da Ação Penal 470 para nove condenados, entre eles José Dirceu, Delúbio Soares e Marcos Valério, e o relator expediu os mandados de prisão. Segundo o STF, em 2016 o ministro Luís Roberto Barroso declarou extinta a punibilidade de José Dirceu, condenado por corrupção ativa a 7 anos e 11 meses de reclusão, por causa de indulto.",
+      "dataDoFato": "2005",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "DF",
+        "municipioIbge": "5300108",
+        "nome": "Brasília (STF)"
+      },
+      "situacao": "condenado_transitado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF certifica trânsito em julgado para condenados na AP 470",
+          "url": "https://noticias.stf.jus.br/postsnoticias/stf-certifica-transito-em-julgado-para-condenados-na-ap-470/",
+          "trecho": "foi certificado o trânsito em julgado (parcial) da ação para nove condenados: Simone Vasconcelos, Kátia Rabello, Cristiano Paz, Delúbio Soares, José Dirceu",
+          "data": "2013-11-18",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Indulto extingue a punibilidade de José Dirceu na AP 470",
+          "url": "https://noticias.stf.jus.br/postsnoticias/indulto-extingue-a-punibilidade-de-jose-dirceu-na-ap-470/",
+          "trecho": "declarou extinta a punibilidade de José Dirceu de Oliveira, condenado na Ação Penal 470 por corrupção ativa à pena de 7 anos e 11 meses",
+          "data": "2016-10-17",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "corrupção ativa",
+        "AP 470",
+        "STF",
+        "indulto"
+      ],
+      "notaDaCuradoria": "O STF certificou trânsito PARCIAL para esses nove (outros pontos ainda tinham embargos): conferir, para cada pessoa, quais condenações são definitivas antes de aprovar. As fontes não dizem os cargos, então os papéis são genéricos. Há outros 20 e tantos condenados na AP 470 que não estão aqui. A Lava Jato (outra ação) não faz parte desta ficha. Dirceu: ficha mostra a extinção da punibilidade por indulto (2016) para não parecer que ainda cumpre pena."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2019-inss-descontos-associativos-sem-desconto",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Sem Desconto: descontos associativos não autorizados em aposentadorias e pensões do INSS",
+      "resumo": "Segundo a CGU, a Controladoria-Geral da União e a Polícia Federal deflagraram em 23 de abril de 2025 a Operação Sem Desconto contra um esquema nacional de descontos associativos não autorizados em aposentadorias e pensões; segundo a CGU, as entidades investigadas descontaram cerca de R$ 6,3 bilhões entre 2019 e 2024. Segundo a CGU, uma nova fase em 18 de dezembro de 2025 cumpriu 52 mandados de busca e 16 de prisão, expedidos pelo STF. Há investigados, mas as fontes lidas não trazem denúncia aceita nem condenação.",
+      "dataDoFato": "2019",
+      "lugar": {
+        "pais": "BR",
+        "nome": "Nacional"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "CGU e PF combatem descontos não autorizados em benefícios do INSS",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/04/cgu-e-pf-combatem-descontos-nao-autorizados-em-beneficios-do-inss",
+          "trecho": "Os investigados poderão responder pelos crimes de corrupção ativa, passiva, violação de sigilo funcional, falsificação de documento, organização criminosa e lavagem de capitais.",
+          "data": "2025-04-23",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "CGU e PF deflagram nova fase da Operação Sem Desconto",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/12/cgu-e-pf-deflagram-nova-fase-da-operacao-sem-desconto",
+          "trecho": "Os mandados foram expedidos pelo Supremo Tribunal Federal, em procedimentos sob a relatoria do Ministro André Mendonça.",
+          "data": "2025-12-18",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "INSS",
+        "aposentadorias",
+        "descontos associativos",
+        "Operação Sem Desconto"
+      ],
+      "notaDaCuradoria": "Sem pessoa nomeada de propósito: as fontes lidas (CGU) não nomeiam investigados e a imprensa já noticiou indiciamentos e denúncias depois de dezembro de 2025 que NÃO foram lidos aqui. Reconferir na PF, no MPF e no STF antes de aprovar (e então nomear só quem for denunciado e já público)."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2024-emendas-parlamentares-orcamento-secreto",
+      "dossie": "dinheiro-publico",
+      "titulo": "Orçamento secreto e emendas parlamentares: STF manda a Polícia Federal investigar",
+      "resumo": "Segundo o STF, o Plenário considerou inconstitucional a prática do chamado orçamento secreto, e em 10 de outubro de 2024 o ministro Flávio Dino manteve suspensa a execução de emendas de comissão e de relator na ADPF 854. Segundo o JB, em agosto de 2025 o ministro Dino determinou que a Polícia Federal abra inquéritos sobre 964 planos de trabalho de emendas individuais não cadastrados corretamente, que somam R$ 694,6 milhões segundo nota técnica do TCU. Inquérito não é acusação: ninguém é nomeado nesta ficha.",
+      "dataDoFato": "2024",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "DF",
+        "municipioIbge": "5300108",
+        "nome": "Brasília (STF)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF mantém suspensa execução de emendas parlamentares de comissão e de relator",
+          "url": "https://noticias.stf.jus.br/?p=94367",
+          "trecho": "determinações do Plenário do STF, que considerou inconstitucional a prática do chamado “orçamento secreto”",
+          "data": "2024-10-10",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "veiculo": "JB",
+          "tipo": "reportagem",
+          "titulo": "Dino determina que PF investigue R$ 694 milhões em emendas parlamentares sem registro",
+          "url": "https://www.jb.com.br/brasil/justica/2025/08/1056667-dino-determina-que-pf-investigue-rs-694-milhoes-em-emendas-parlamentares-sem-registro.html",
+          "trecho": "determinou que a Polícia Federal abra inquéritos para apurar 964 planos de trabalho de emendas parlamentares individuais que não foram cadastrados corretamente",
+          "data": "2025-08-25",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "emendas parlamentares",
+        "orçamento secreto",
+        "ADPF 854",
+        "Polícia Federal",
+        "TCU"
+      ],
+      "notaDaCuradoria": "A decisão que manda a PF investigar vem de reportagem (JB, 25/08/2025); achar a decisão do ministro Dino na ADPF 854 no site do STF. A fonte do STF lida (10/10/2024) trata da inconstitucionalidade e da suspensão, não dos inquéritos. Há outros desdobramentos em 2025 (PF, CGU, AGU) vistos só em buscas. Sem pessoa nomeada: ninguém foi denunciado nas fontes lidas."
+    }
+  ]
+}

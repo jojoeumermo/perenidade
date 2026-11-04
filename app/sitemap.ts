@@ -6,6 +6,7 @@ import { territorios } from "@/lib/territorios";
 import { getArticles, getBooks, getTracks, idiomasDe } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { site } from "@/lib/site";
+import { ligado } from "@/lib/recursos";
 
 // Mapa do site para os buscadores. Cada endereço aparece uma vez por idioma, com a indicação das
 // versões nos outros idiomas (hreflang), para o buscador mostrar a versão certa a cada pessoa. Aula e obra entram só
@@ -93,6 +94,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/criancas/seguranca",
     "/criancas/imprimir",
   ];
+  // O Vale o Escrito só entra no mapa com o recurso ligado pelo nome (enviar e correção ficam fora: noindex).
+  if (ligado("vale-o-escrito")) paths.push("/vale-o-escrito", "/vale-o-escrito/sobre");
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
   for (const territorio of territorios) paths.push(`/territorios/${territorio.slug}`);

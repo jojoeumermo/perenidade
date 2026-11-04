@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 /** Páginas que não entram nos buscadores: só fazem sentido para quem está usando o site naquele momento. */
 // O Mural de Saúde mostra nome, registro e contato de pessoas: fica fora dos buscadores (e do sitemap) até a
 // revisão jurídica decidir o contrário. O texto público do termo (/saude/termo) não tem dado pessoal e continua indexado.
-const PRIVADAS = new Set(["/busca", "/denunciar", "/reforco", "/meus-dados", "/certificado", "/entrar", "/painel", "/fora-do-ar", "/apoie/anterior", "/saude"]);
+const PRIVADAS = new Set(["/busca", "/denunciar", "/reforco", "/meus-dados", "/certificado", "/entrar", "/painel", "/fora-do-ar", "/apoie/anterior", "/saude", "/vale-o-escrito/enviar", "/vale-o-escrito/correcao"]);
 
 /**
  * O endereço canônico da página no idioma dela e as versões nos outros idiomas (hreflang), com x-default em português.

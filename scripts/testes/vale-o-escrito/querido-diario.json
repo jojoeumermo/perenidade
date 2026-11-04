@@ -1,0 +1,14 @@
+{
+  "total_gazettes": 1,
+  "gazettes": [
+    {
+      "territory_id": "3550308",
+      "territory_name": "São Paulo",
+      "state_code": "SP",
+      "date": "2026-11-02",
+      "url": "https://exemplo.test/diario/sp-2026-11-02.pdf",
+      "txt_url": "https://exemplo.test/diario/sp-2026-11-02.txt",
+      "excerpts": ["... suspensão do contrato público por indício de desvio de verba e improbidade, conforme apuração da controladoria ..."]
+    }
+  ]
+}

@@ -8,8 +8,10 @@
 //   NEXT_PUBLIC_RECURSOS=escola,-vlibras                ("-nome" desliga um recurso padrão)
 //   NEXT_PUBLIC_RECURSOS=nenhum                         (desliga todos os padrões)
 //
-// "todos" liga tudo, MENOS o que está em SO_PELO_NOME: a Escola Lúcia Maria só liga com o nome escrito na lista,
-// porque a produção usa "todos" e a Escola não pode abrir antes de a coordenação mandar o texto (docs/ESCOLA.md).
+// "todos" liga tudo, MENOS o que está em SO_PELO_NOME: a Escola Lúcia Maria e o Vale o Escrito só ligam com o nome escrito
+// na lista, porque a produção usa "todos": a Escola não pode abrir antes de a coordenação mandar o texto (docs/ESCOLA.md)
+// e o Vale o Escrito não abre antes de a curadoria revisar as entradas e a assessoria jurídica conferir
+// (docs/vale-o-escrito/ESPEC.md).
 //
 // O valor é lido na montagem do site: mudou a variável, monte e publique de novo. Sem os atalhos "@/" de propósito:
 // `npm run testar:meu-estudo` roda este arquivo direto no Node.
@@ -30,6 +32,7 @@ export const RECURSOS = {
   "enem-video": "Vídeos curtos do curso ENEM: tocador com narração pré-gravada, legendas e transcrição, nas aulas que têm vídeo",
   "enem-curso": "Curso ENEM: a página /enem, diagnóstico, plano, prática por habilidade, provas oficiais por ano e dia, oficina de redação e reta final",
   escola: "Escola Lúcia Maria: entrada, cursos, matrícula, campus e calendário",
+  "vale-o-escrito": "Vale o Escrito: observatório de crimes de interesse público já em fonte pública (teia, mapa, dossiês, envio de fonte e correção)",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;
@@ -57,7 +60,7 @@ export const PADRAO: readonly Recurso[] = [
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */
-export const SO_PELO_NOME: readonly Recurso[] = ["escola"];
+export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito"];
 
 /** Lê a lista da variável. Separado para os testes poderem conferir a leitura sem mexer no ambiente. */
 export function lerRecursos(valor: string | undefined): Set<string> {

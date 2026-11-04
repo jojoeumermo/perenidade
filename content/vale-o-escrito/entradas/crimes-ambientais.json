@@ -1,0 +1,481 @@
+{
+  "dossie": "crimes-ambientais",
+  "pessoas": [
+    {
+      "id": "daviely-rodrigues-silva",
+      "nome": "Daviely Rodrigues Silva",
+      "publicaNoCaso": true,
+      "papel": "dirigente",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "ex-gerente de Geotecnia da Samarco"
+    },
+    {
+      "id": "germano-silva-lopes",
+      "nome": "Germano Silva Lopes",
+      "publicaNoCaso": true,
+      "papel": "dirigente",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "ex-gerente de Projetos Estruturantes da Samarco"
+    },
+    {
+      "id": "wagner-milagres-alves",
+      "nome": "Wagner Milagres Alves",
+      "publicaNoCaso": true,
+      "papel": "dirigente",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "ex-gerente de Operações de Mina da Samarco"
+    },
+    {
+      "id": "ricardo-vescovi-de-aragao",
+      "nome": "Ricardo Vescovi de Aragão",
+      "publicaNoCaso": true,
+      "papel": "dirigente",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "então diretor-presidente da Samarco"
+    },
+    {
+      "id": "kleber-luiz-de-mendonca-terra",
+      "nome": "Kleber Luiz de Mendonça Terra",
+      "publicaNoCaso": true,
+      "papel": "dirigente",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "à época diretor de Operações e Infraestrutura da Samarco"
+    },
+    {
+      "id": "samuel-santana-paes-loures",
+      "nome": "Samuel Santana Paes Loures",
+      "publicaNoCaso": true,
+      "papel": "outro_publico_no_caso",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "engenheiro sênior da VOGBR"
+    },
+    {
+      "id": "fabio-schvartsman",
+      "nome": "Fábio Schvartsman",
+      "publicaNoCaso": true,
+      "papel": "dirigente",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "cargo": "ex-presidente da Vale"
+    }
+  ],
+  "organizacoes": [
+    {
+      "id": "samarco",
+      "nome": "Samarco Mineração",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "vale",
+      "nome": "Vale",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "bhp-billiton-brasil",
+      "nome": "BHP Billiton Brasil",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "vogbr",
+      "nome": "VOGBR Recursos Hídricos e Geotecnia",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "tuv-sud",
+      "nome": "Tüv Süd",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f2"
+      ]
+    }
+  ],
+  "ligacoes": [
+    {
+      "id": "l-daviely-samarco",
+      "de": {
+        "tipo": "pessoa",
+        "id": "daviely-rodrigues-silva"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "samarco"
+      },
+      "tipo": "integra",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-mariana-fundao-acao-penal",
+      "rotulo": "ex-gerente de Geotecnia, segundo o MPF"
+    },
+    {
+      "id": "l-germano-samarco",
+      "de": {
+        "tipo": "pessoa",
+        "id": "germano-silva-lopes"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "samarco"
+      },
+      "tipo": "integra",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-mariana-fundao-acao-penal",
+      "rotulo": "ex-gerente de Projetos Estruturantes, segundo o MPF"
+    },
+    {
+      "id": "l-wagner-samarco",
+      "de": {
+        "tipo": "pessoa",
+        "id": "wagner-milagres-alves"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "samarco"
+      },
+      "tipo": "integra",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-mariana-fundao-acao-penal",
+      "rotulo": "ex-gerente de Operações de Mina, segundo o MPF"
+    },
+    {
+      "id": "l-vescovi-samarco",
+      "de": {
+        "tipo": "pessoa",
+        "id": "ricardo-vescovi-de-aragao"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "samarco"
+      },
+      "tipo": "dirige",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-mariana-fundao-acao-penal",
+      "rotulo": "então diretor-presidente, segundo o MPF"
+    },
+    {
+      "id": "l-kleber-samarco",
+      "de": {
+        "tipo": "pessoa",
+        "id": "kleber-luiz-de-mendonca-terra"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "samarco"
+      },
+      "tipo": "integra",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-mariana-fundao-acao-penal",
+      "rotulo": "diretor de Operações e Infraestrutura à época, segundo o MPF"
+    },
+    {
+      "id": "l-loures-vogbr",
+      "de": {
+        "tipo": "pessoa",
+        "id": "samuel-santana-paes-loures"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "vogbr"
+      },
+      "tipo": "integra",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-mariana-fundao-acao-penal",
+      "rotulo": "engenheiro sênior, segundo o MPF"
+    },
+    {
+      "id": "l-schvartsman-vale",
+      "de": {
+        "tipo": "pessoa",
+        "id": "fabio-schvartsman"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "vale"
+      },
+      "tipo": "dirige",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2019-brumadinho-corrego-do-feijao-acao-penal",
+      "rotulo": "ex-presidente da Vale, segundo o MPF"
+    },
+    {
+      "id": "l-fabio-schvartsman-2019-brumadinho-corrego-do-feijao-acao-penal",
+      "de": {
+        "tipo": "pessoa",
+        "id": "fabio-schvartsman"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2019-brumadinho-corrego-do-feijao-acao-penal"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2019-brumadinho-corrego-do-feijao-acao-penal"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [
+        "samarco",
+        "vale",
+        "bhp-billiton-brasil",
+        "vogbr"
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "daviely-rodrigues-silva",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPF, condenada pelo TRF6 a 8 anos e 9 meses de reclusão (setembro de 2026); cabe recurso."
+        },
+        {
+          "pessoaId": "germano-silva-lopes",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPF, condenado pelo TRF6 a 8 anos e 9 meses de reclusão (setembro de 2026); cabe recurso."
+        },
+        {
+          "pessoaId": "wagner-milagres-alves",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPF, condenado pelo TRF6 a 7 anos, 3 meses e 14 dias de reclusão (setembro de 2026); cabe recurso."
+        },
+        {
+          "pessoaId": "ricardo-vescovi-de-aragao",
+          "situacao": "absolvido",
+          "papelNoCaso": "Segundo o MPF, absolvição mantida pelo TRF6 em setembro de 2026; o MPF avalia novos recursos."
+        },
+        {
+          "pessoaId": "kleber-luiz-de-mendonca-terra",
+          "situacao": "absolvido",
+          "papelNoCaso": "Segundo o MPF, absolvição mantida pelo TRF6 em setembro de 2026; o MPF avalia novos recursos."
+        },
+        {
+          "pessoaId": "samuel-santana-paes-loures",
+          "situacao": "absolvido",
+          "papelNoCaso": "Segundo o MPF, absolvição mantida pelo TRF6 em setembro de 2026; o MPF avalia novos recursos."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2015-mariana-fundao-acao-penal",
+      "dossie": "crimes-ambientais",
+      "titulo": "Rompimento da barragem de Fundão (Mariana, MG): TRF6 condena a Samarco e três ex-gerentes",
+      "resumo": "Segundo o MPF, a 2ª Turma do TRF6 acolheu em setembro de 2026 recurso do MPF, reverteu a absolvição de 2024 e condenou a Samarco e três ex-gerentes pelo rompimento da barragem de Fundão (5 de novembro de 2015): inundação com resultado morte e crimes ambientais, com penas de 7 anos e 3 meses a 8 anos e 9 meses para eles e multa penal de mais de R$ 6 milhões para a empresa. Segundo o MPF, foram mantidas as absolvições da Vale, da BHP Billiton Brasil, da VOGBR e de três outros denunciados, e o MPF ainda vai analisar recursos. Ainda cabe recurso: não há trânsito em julgado.",
+      "dataDoFato": "2015-11-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "municipioIbge": "3140001",
+        "nome": "Mariana"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "TRF6 condena Samarco e três ex-gerentes por rompimento de barragem em Mariana (MG)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/prr6/noticias/trf6-condena-samarco-e-tres-ex-gerentes-por-rompimento-de-barragem-em-mariana-mg",
+          "trecho": "condenou a empresa Samarco Mineração e três de seus ex-gerentes pelo rompimento da barragem de Fundão, em Mariana (MG)",
+          "data": "2026-09-04",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "barragem",
+        "rompimento",
+        "Mariana",
+        "Rio Doce",
+        "mineração",
+        "Samarco"
+      ],
+      "notaDaCuradoria": "Condenação em 2ª instância por reversão de absolvição: o modelo não tem esse degrau; usamos 'réu' (sem trânsito) para os três e o resumo diz que há condenação. Absolvições entram com a data: o MPF disse que ainda vai analisar recursos, então reconferir. Fonte única (nota do MPF); pegar o acórdão do TRF6. A fonte fala em 19 mortes; a ficha não nomeia ninguém."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [
+        "vale",
+        "tuv-sud"
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "fabio-schvartsman",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPF, acusado de homicídio qualificado e crimes ambientais; segundo O Fator, mantido como réu pelo STJ em 2 de junho de 2026."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2019-brumadinho-corrego-do-feijao-acao-penal",
+      "dossie": "crimes-ambientais",
+      "titulo": "Rompimento da barragem de Brumadinho (MG): ex-presidente da Vale volta a ser réu",
+      "resumo": "Segundo o MPF, em 7 de abril de 2026 a Sexta Turma do STJ determinou a reabertura das ações penais contra Fábio Schvartsman, ex-presidente da Vale, acusado de homicídio qualificado e de crimes ambientais pelo rompimento da barragem da Mina Córrego do Feijão (25 de janeiro de 2019), que deixou 270 mortos segundo a nota do MPF. Segundo O Fator, em 2 de junho de 2026 a mesma Turma rejeitou, por unanimidade, o recurso da defesa e o manteve como réu. A denúncia atinge também a Vale e a Tüv Süd. Ele é réu: não há condenação.",
+      "dataDoFato": "2019-01-25",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "municipioIbge": "3109006",
+        "nome": "Brumadinho"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "STJ determina que ex-presidente da Vale volte a ser réu em ações penais pelo rompimento da barragem de Brumadinho (MG)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/stj-determina-que-ex-presidente-da-vale-volte-a-ser-reu-em-acoes-penais-pelo-rompimento-da-barragem-de-brumadinho-mg",
+          "trecho": "determinou a reabertura das ações penais contra Fábio Schvartsman, ex-presidente da Vale, pelo rompimento da barragem de Brumadinho (MG), em 2019",
+          "data": "2026-04-08",
+          "acessadoEm": "2026-11-04"
+        },
+        {
+          "id": "f2",
+          "veiculo": "O Fator",
+          "tipo": "reportagem",
+          "titulo": "STJ nega recurso e mantém ex-presidente da Vale como réu em ações penais por Brumadinho",
+          "url": "https://ofator.com.br/?p=65000",
+          "trecho": "manteve o executivo no banco de réus na ação criminal que julga os responsáveis pela tragédia",
+          "data": "2026-06-03",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "barragem",
+        "rompimento",
+        "Brumadinho",
+        "Vale",
+        "mineração",
+        "júri"
+      ],
+      "notaDaCuradoria": "A situação mudou várias vezes (réu em 2023, ação trancada pelo TRF6 em março de 2024, reaberta pelo STJ em abril de 2026): a curadoria reconfere e a ficha mostra a data. Os outros 14 réus pessoas físicas não são nomeados (as fontes lidas não os nomeiam). A Tüv Süd aparece como ré na matéria de O Fator; conferir na denúncia. Os 270 mortos vêm da nota do MPF; ninguém é nomeado."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2016-ti-geralda-toco-preto-madeira-ilegal",
+      "dossie": "crimes-ambientais",
+      "titulo": "Terra Indígena Geralda Toco Preto (MA): condenação por desmatamento e furto de madeira",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou um homem por desmatamento e furto qualificado de recursos florestais em um esquema de exploração ilegal de madeira na Terra Indígena Geralda Toco Preto, em Itaipava do Grajaú (MA). Segundo o MPF, laudos periciais confirmaram desmatamento contínuo entre 2016 e 2023, e a pena foi de seis anos de reclusão em regime inicial semiaberto, além de multa. Ainda cabe recurso.",
+      "dataDoFato": "2016",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MA",
+        "municipioIbge": "2105351",
+        "nome": "Itaipava do Grajaú; Terra Indígena Geralda Toco Preto"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Abril Indígena: MPF obtém condenação de réu por extração ilegal de madeira em terra indígena no Maranhão",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-ma/noticias/abril-indigena-mpf-obtem-condenacao-de-reu-por-extracao-ilegal-de-madeira-em-terra-indigena-no-maranhao",
+          "trecho": "O réu foi condenado a seis anos de reclusão, em regime inicial semiaberto, além do pagamento de multa.",
+          "data": "2026-04-23",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "desmatamento",
+        "madeira ilegal",
+        "terra indígena",
+        "Maranhão"
+      ],
+      "notaDaCuradoria": "A fonte não nomeia o condenado (ação penal 1095007-52.2024.4.01.3700, número que consta do texto): sem nó de pessoa. Os outros acusados respondem em processos separados, segundo o MPF. Notícia do MPF; reconferir o recurso."
+    },
+    {
+      "publicadoEm": "2026-11-04",
+      "atualizadoEm": "2026-11-04",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-04",
+      "id": "2018-ti-rio-das-cobras-desmatamento",
+      "dossie": "crimes-ambientais",
+      "titulo": "Terra Indígena Rio das Cobras (PR): TRF4 condena sócios de empresa de cereais por desmatamento",
+      "resumo": "Segundo o MPF, o TRF4 acolheu em julho de 2026, por unanimidade, recurso do MPF e condenou dois sócios-administradores de uma empresa de cereais de Nova Laranjeiras (PR) por desmatamento de cerca de 551,1 hectares dentro da Terra Indígena Rio das Cobras, entre 13 de maio de 2018 e outubro de 2021, seguido de plantio de soja e milho geneticamente modificados. Segundo o MPF, a sentença de primeira instância havia absolvido os réus do desmatamento e condenado só um sócio e a empresa pelo uso de substância nociva; o TRF4 elevou a reparação mínima de R$ 359 mil para R$ 6 milhões. Ainda cabe recurso.",
+      "dataDoFato": "2018-05-13",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PR",
+        "municipioIbge": "4117057",
+        "nome": "Nova Laranjeiras; Terra Indígena Rio das Cobras"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "TRF4 atende MPF e condena dois sócios de empresa de cereal por desmatamento em terra indígena no Paraná",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/prr4/noticias/trf4-atende-mpf-e-condena-dois-socios-de-empresa-de-cereal-por-desmatamento-em-terra-indigena-no-parana",
+          "trecho": "condenou dois sócios-administradores de uma empresa de cereais da região de Nova Laranjeiras, no Paraná, por desmatamento",
+          "data": "2026-07-13",
+          "acessadoEm": "2026-11-04"
+        }
+      ],
+      "etiquetas": [
+        "desmatamento",
+        "terra indígena",
+        "soja",
+        "transgênicos",
+        "Paraná"
+      ],
+      "notaDaCuradoria": "Um dos sócios foi condenado já em 1ª instância (uso de substância nociva) e a condenação por desmatamento é do TRF4: usamos 'condenado em 1ª instância' para o caso, mas o degrau 'condenado em 2ª instância' não existe no modelo (pendência para a assessoria). A fonte não nomeia os sócios nem a empresa: sem nós."
+    }
+  ]
+}
