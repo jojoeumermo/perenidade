@@ -303,8 +303,15 @@ caso("sem IP cru: o envio e a correção guardam só o hash com sal do dia", () 
   assert.match(sql, /vale_historico só aceita acréscimo/);
 });
 caso("o mesmo bloco está no fim do install.sql", () => {
-  const sql = ler("supabase", "migracoes", "2026-11-vale-o-escrito.sql").replace(/\r\n/g, "\n");
-  assert.ok(ler("supabase", "install.sql").replace(/\r\n/g, "\n").endsWith(sql), "install.sql não termina com a migração");
+  const sql = ler("supabase", "migracoes", "2026-11-vale-o-escrito.sql").replace(/\r\n/g, "\n").trim();
+  let install = ler("supabase", "install.sql").replace(/\r\n/g, "\n").trim();
+  // Só os 10 blocos da Rede v2 podem vir depois dele; cada um inteiro, do último para o primeiro.
+  for (const n of ["integracao", "moderacao", "avisos", "comunidades", "descoberta", "conversa", "publicar", "perfil", "consertos", "fundacao"]) {
+    const bloco = ler("supabase", "migracoes", `2026-11-rede-${n}.sql`).replace(/\r\n/g, "\n").trim();
+    assert.ok(install.endsWith(bloco), `install.sql não termina com a migração rede-${n}`);
+    install = install.slice(0, -bloco.length).trim();
+  }
+  assert.ok(install.endsWith(sql), "install.sql não termina com a migração");
 });
 caso("a ESPEC existe e nomeia os 6 pacotes", () => {
   const espec = ler("docs", "vale-o-escrito", "ESPEC.md");

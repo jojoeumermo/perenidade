@@ -1,0 +1,129 @@
+{
+  "_rascunho": true,
+  "enquete": {
+    "rotulo": "Encuesta",
+    "pergunta": "Pregunta de la encuesta",
+    "opcao": "Opción {n}",
+    "mais": "Otra opción",
+    "tirar": "Quitar la opción {n}",
+    "prazo": "Cuánto tiempo queda abierta",
+    "p1": "1 hora",
+    "p6": "6 horas",
+    "p24": "1 día",
+    "p72": "3 días",
+    "p168": "7 días",
+    "multipla": "Se puede marcar más de una opción",
+    "secreto": "Voto secreto: nadie ve quién votó qué, solo los totales.",
+    "votar": "Votar",
+    "votou": "Ya votaste.",
+    "encerrada": "Encuesta cerrada",
+    "termina": "Termina {quando}",
+    "votos": "{n} votos",
+    "voto": "1 voto",
+    "depois": "Los totales aparecen después de votar."
+  },
+  "imagens": {
+    "titulo": "Imágenes (hasta 4)",
+    "adicionar": "Agregar imagen",
+    "tirar": "Quitar la imagen {n}",
+    "alt": "Describe la imagen (texto alternativo)",
+    "altDica": "Para quien no puede verla: ¿qué aparece en la imagen?",
+    "altFalta": "Sin descripción, quien usa lector de pantalla pierde la imagen. Conviene escribirla.",
+    "limpa": "La ubicación y los datos de la cámara se quitan de la imagen antes de enviarla.",
+    "borrar": "Difuminar rostros",
+    "achar": "Buscar rostros",
+    "semDetector": "Este dispositivo no encuentra rostros solo: arrastra sobre cada rostro para difuminarlo.",
+    "desfazer": "Deshacer",
+    "pronto": "Listo",
+    "cancelar": "Cancelar",
+    "borradas": "{n} zonas difuminadas",
+    "preparando": "Preparando la imagen…",
+    "invalida": "Usa una imagen JPG, PNG o WebP.",
+    "grande": "La imagen es demasiado grande.",
+    "maximo": "Como máximo 4 imágenes.",
+    "ver": "Imagen {n} de {total}",
+    "semAcesso": "Inicia sesión para ver la imagen."
+  },
+  "audio": {
+    "titulo": "Audio (hasta 1 minuto)",
+    "gravar": "Grabar",
+    "parar": "Parar",
+    "regravar": "Grabar de nuevo",
+    "tirar": "Quitar el audio",
+    "gravando": "Grabando… {s} s de 60",
+    "semSuporte": "Este navegador no graba audio.",
+    "semPermissao": "Sin permiso para usar el micrófono.",
+    "ouvir": "Escuchar audio ({s} s)",
+    "carregando": "Cargando…",
+    "falha": "No se pudo cargar el audio."
+  },
+  "previa": {
+    "titulo": "Vista previa del enlace",
+    "gerar": "Crear vista previa",
+    "gerando": "Buscando…",
+    "tirar": "Quitar la vista previa",
+    "falha": "No pudimos armar la vista previa de este enlace. Aparecerá solo como texto.",
+    "nota": "Nuestro servidor arma la vista previa: ni tu navegador ni el de quien lee toca el sitio."
+  },
+  "quem": {
+    "rotulo": "Quién puede responder",
+    "todos": "Todos",
+    "seguindo": "Quienes sigo",
+    "mencionados": "Solo a quien mencione",
+    "ninguem": "Nadie",
+    "so": "Quien escribió limitó las respuestas: {quem}."
+  },
+  "agendar": {
+    "rotulo": "Publicar más tarde",
+    "quando": "Fecha y hora",
+    "marcar": "Programar",
+    "agendado": "Programado para {quando}. Si la Red está cerrada a esa hora, sale la próxima vez que la abras.",
+    "fila": "Publicaciones programadas",
+    "cancelar": "Cancelar programación",
+    "falhou": "No salió: {erro}",
+    "cedo": "Elige una hora entre 5 minutos y 30 días adelante."
+  },
+  "rascunho": {
+    "guardado": "Borrador guardado en este dispositivo.",
+    "recuperado": "Recuperamos el borrador guardado en este dispositivo.",
+    "apagar": "Borrar el borrador"
+  },
+  "checagem": {
+    "cpf": "Parece un CPF. Quítalo: los datos personales no van a la Red.",
+    "telefone": "Parece un teléfono. Quítalo: los datos personales no van a la Red.",
+    "email": "Parece un correo electrónico. Quítalo: los datos personales no van a la Red.",
+    "endereco": "Parece una dirección con número. Quítala: decir dónde vive o está alguien lo expone.",
+    "odio": "El texto tiene palabras que suelen herir. Puedes enviarlo, pero la moderación lo lee antes de que aparezca."
+  },
+  "editar": {
+    "botao": "Editar",
+    "titulo": "Editar la publicación",
+    "salvar": "Guardar",
+    "cancelar": "Cancelar",
+    "livre": "En los primeros 15 minutos editas sin dejar marca.",
+    "marca": "Después, la publicación queda marcada como editada y el texto anterior queda visible.",
+    "editado": "editado",
+    "historico": "Ver el texto anterior",
+    "esconder": "Ocultar el texto anterior",
+    "anterior": "Antes de {quando}",
+    "retido": "La edición pasó a la lectura de la moderación antes de reaparecer."
+  },
+  "fio": {
+    "badge": "Hilo",
+    "continuar": "Continuar el hilo"
+  },
+  "erros": {
+    "invalido_midia": "Revisa las imágenes: JPG, PNG o WebP, como máximo 4.",
+    "invalido_audio": "Revisa el audio: hasta 1 minuto.",
+    "invalido_opcoes": "Revisa las opciones: de 2 a 4, distintas, hasta 80 letras cada una.",
+    "invalido_enquete": "Revisa la encuesta.",
+    "invalido_prazo": "La encuesta dura de 1 hora a 7 días.",
+    "invalido_previa": "El enlace de la vista previa no vale.",
+    "invalido_quando": "Elige una hora entre 5 minutos y 30 días adelante.",
+    "invalido_fio": "Solo puedes continuar tu propia publicación.",
+    "invalido_responde_quem": "Revisa quién puede responder.",
+    "ja_votou": "Ya votaste en esta encuesta.",
+    "encerrada": "Esta encuesta ya terminó.",
+    "dado_pessoal": "Quita del texto CPF, teléfono, correo o dirección con número: los datos personales no van a la Red."
+  }
+}

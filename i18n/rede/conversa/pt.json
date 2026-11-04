@@ -1,0 +1,73 @@
+{
+  "ordem": {
+    "rotulo": "Ordenar as respostas",
+    "uteis": "Mais úteis",
+    "antigas": "Mais antigas",
+    "novas": "Mais novas",
+    "porQue": "Por que esta ordem?",
+    "formulaUteis": "Mais úteis: primeiro a resposta que resolveu a dúvida; depois quem recebeu mais marcações de “Útil”; no empate, a resposta mais antiga. Os apoios não entram na conta: só quem escreveu vê quantos apoios recebeu.",
+    "formulaAntigas": "Mais antigas: da resposta mais antiga para a mais nova, sem nenhum outro critério.",
+    "formulaNovas": "Mais novas: da resposta mais nova para a mais antiga, sem nenhum outro critério.",
+    "aoLado": "A ordem vale para cada grupo de respostas a um mesmo post; as respostas de uma resposta ficam sempre logo abaixo dela."
+  },
+  "arvore": {
+    "carregando": "Carregando a conversa",
+    "respostas": "Respostas",
+    "nenhuma": "Ninguém respondeu ainda. Você pode ser a primeira pessoa.",
+    "continuar": "Continuar a conversa ({n} respostas)",
+    "continuarUm": "Continuar a conversa (1 resposta)",
+    "silenciada": "Resposta de uma pessoa que você silenciou.",
+    "mais": "Mostramos as primeiras 400 respostas. Abra uma resposta para ver o que vem depois.",
+    "acima": "A conversa até aqui",
+    "desdeOComeco": "Ver a conversa desde o começo",
+    "nivel": "Nível {n} da conversa",
+    "naoEncontrada": "Não encontramos esta conversa, ou você não tem acesso a ela."
+  },
+  "resolveu": {
+    "marcar": "Esta resposta resolveu",
+    "desmarcar": "Desmarcar",
+    "selo": "Resposta que resolveu",
+    "ajuda": "Só quem fez a dúvida e a moderação marcam a resposta que resolveu. Há uma só por dúvida; marcar outra troca a marca.",
+    "marcada": "Marcada como a resposta que resolveu.",
+    "desmarcada": "Marca retirada."
+  },
+  "sintese": {
+    "titulo": "Síntese da conversa",
+    "fixada": "Fixada no alto",
+    "por": "Escrita por {autor}, {quando}",
+    "escrever": "Escrever a síntese",
+    "novaVersao": "Escrever nova versão",
+    "retirar": "Retirar a síntese",
+    "confirmarRetirar": "Retirar a síntese do alto da conversa? Ela continua no histórico.",
+    "confirmar": "Retirar",
+    "cancelar": "Cancelar",
+    "salvar": "Fixar no alto",
+    "salva": "Síntese fixada.",
+    "retirada": "Síntese retirada do alto.",
+    "placeholder": "Em poucas linhas: o que a conversa concluiu e o que ficou em aberto.",
+    "dica": "Só quem abriu a conversa e a moderação escrevem a síntese. Não ponha CPF, telefone ou e-mail. Cada versão fica no histórico.",
+    "contador": "{n} de {max}",
+    "historico": "Ver o histórico ({n} versões)",
+    "versaoAtual": "versão atual",
+    "versaoAntiga": "versão retirada",
+    "escritaPor": "{autor}, {quando}"
+  },
+  "citar": {
+    "botao": "Citar",
+    "titulo": "Citar este post",
+    "placeholder": "Escreva o que você quer dizer sobre este post",
+    "enviar": "Publicar a citação",
+    "cancelar": "Cancelar",
+    "quemVe": "Quem pode ver: {publico}",
+    "restrito": "Quem não pode ver o post original verá só “conteúdo restrito”.",
+    "publicada": "Citação publicada.",
+    "verPublicada": "Abrir a citação",
+    "contador": "{n} de {max}"
+  },
+  "mencao": {
+    "lista": "Pessoas para mencionar",
+    "dica": "Digite @ e o começo do @nome para mencionar alguém. A pessoa só é avisada se puder ver a conversa e não tiver bloqueado você.",
+    "nenhuma": "Ninguém encontrado.",
+    "equipe": "equipe"
+  }
+}

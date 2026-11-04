@@ -1,0 +1,171 @@
+{
+  "_rascunho": true,
+  "marca": "Red Lúcia",
+  "menu": {
+    "principal": "Menú de la Red",
+    "barra": "Barra de la Red",
+    "inicio": "Inicio",
+    "comunidades": "Comunidades",
+    "chamados": "Convocatorias",
+    "nucleos": "Núcleos",
+    "avisos": "Avisos",
+    "salvos": "Guardados",
+    "perfil": "Perfil",
+    "escrever": "Escribir",
+    "busca": "Buscar",
+    "explorar": "Explorar"
+  },
+  "abas": {
+    "rotulo": "Líneas de la Red",
+    "seguindo": "Siguiendo",
+    "comunidades": "Mis comunidades",
+    "tudo": "Todo",
+    "geral": "Línea general"
+  },
+  "novos": {
+    "um": "1 publicación nueva, mostrar",
+    "outros": "{n} publicaciones nuevas, mostrar"
+  },
+  "postando": "Publicando como {codinome}",
+  "quemVe": "Quién puede verlo: {publico}",
+  "porQueEstaOrdem": "¿Por qué este orden?",
+  "publicos": {
+    "internet": "Internet (cualquiera, sin cuenta)",
+    "membros": "Miembros de la Red",
+    "seguidores": "Quien me sigue",
+    "comunidade": "Solo esta comunidad",
+    "nucleo": "Solo este núcleo",
+    "equipe": "Solo el equipo del instituto"
+  },
+  "tipos": {
+    "post": "Publicación",
+    "discussao": "Discusión",
+    "duvida": "Duda",
+    "enquete": "Encuesta",
+    "chamado": "Convocatoria",
+    "aviso": "Aviso del instituto"
+  },
+  "acoes": {
+    "responder": "Responder",
+    "citar": "Citar",
+    "apoiar": "Apoyar",
+    "salvar": "Guardar",
+    "mais": "Más",
+    "denunciar": "Denunciar",
+    "util": "Útil"
+  },
+  "post": {
+    "editado": "editado",
+    "respostas": {
+      "um": "1 respuesta",
+      "outros": "{n} respuestas"
+    },
+    "util": "{n} lo encontraron útil",
+    "resolvida": "Resuelta",
+    "travado": "Conversación cerrada: ya no se puede responder.",
+    "retido": "Esta publicación espera la lectura de la mediación. Solo tú la ves.",
+    "restrito": "Contenido restringido",
+    "continuar": "Continuar la conversación",
+    "avisoConteudo": "Aviso de contenido",
+    "verMais": "Ver el texto completo"
+  },
+  "casca": {
+    "escrever": "Escribir en la Red",
+    "fechar": "Cerrar",
+    "publicar": "Publicar",
+    "publicando": "Publicando…",
+    "cancelar": "Cancelar",
+    "textoDica": "¿Qué quieres decir?",
+    "tituloDica": "Título",
+    "corpoDica": "Escribe con calma. Hasta 10.000 caracteres.",
+    "contador": "{n} de {max}",
+    "tipo": "Tipo de publicación",
+    "publico": "Quién puede verlo",
+    "comunidade": "Comunidad (opcional)",
+    "saltarParaConteudo": "Ir a la línea",
+    "sairRapido": "Salir rápido",
+    "sairRapidoAjuda": "Abre una página neutra y borra los datos de la Red en este dispositivo.",
+    "cartaoSeguranca": "La seguridad primero: nunca publiques tu dirección, teléfono o documento. Si algo te preocupa, denuncia.",
+    "cuidados": {
+      "titulo": "Cuidado",
+      "regras": "Reglas de cuidado",
+      "denuncias": "Mis denuncias",
+      "silenciados": "Silenciados",
+      "moderacao": "Panel de moderación"
+    }
+  },
+  "codinome": {
+    "aviso": "En la Red nadie aparece con su nombre real, ni siquiera el equipo."
+  },
+  "chamado": {
+    "pontoPublico": "Punto de encuentro público (plaza, biblioteca, sindicato, escuela). Nunca una dirección de casa."
+  },
+  "denuncia": {
+    "sigilo": "Quien denuncia nunca se revela. Sigues el avance en Avisos."
+  },
+  "entrada": {
+    "titulo": "Entrar en la Red Lúcia",
+    "texto": "Aquí se conversa sobre estudio y lucha, con seudónimo y sin chat privado. Antes de entrar, lee las reglas y confirma dos cosas.",
+    "maior": "Tengo 18 años o más.",
+    "consentimento": "Entiendo que hablar de política puede revelar mi opinión política o afiliación sindical, y consiento de forma específica el tratamiento de esos datos en la Red, según las reglas.",
+    "regras": "Leer las reglas de la Red",
+    "aderir": "Entrar en la Red",
+    "idadeNegada": "La Red es solo para mayores de 18 años. El resto del sitio sigue abierto para ti.",
+    "menor": "Tengo menos de 18 años",
+    "codinome": "Tu seudónimo (3 a 30 caracteres, sin @ ni nombre real)",
+    "entreNaConta": "Entra en tu cuenta para participar. Puedes leer las dudas de las disciplinas sin cuenta.",
+    "entrar": "Entrar en la cuenta"
+  },
+  "estados": {
+    "carregando": "Cargando…",
+    "vazioLinha": "Aún no hay nada aquí. Elige comunidades para seguir o escribe la primera publicación.",
+    "vazioSeguindo": "Aún no sigues a nadie. Sigue a personas desde las comunidades.",
+    "vazioComunidades": "Aún no has entrado en ninguna comunidad.",
+    "erro": "No se pudo cargar ahora.",
+    "tentar": "Intentar de nuevo",
+    "maisPosts": "Cargar más",
+    "fim": "Llegaste al final.",
+    "naoEncontrado": "No encontramos esto, o no tienes acceso.",
+    "emBreve": "Esta pantalla llega pronto."
+  },
+  "comunidade": {
+    "sobre": "Acerca de",
+    "posts": "Publicaciones",
+    "regras": "Reglas",
+    "moderacao": "Moderación",
+    "tipoAberta": "Abierta",
+    "tipoRestrita": "Restringida: los miembros de la Red leen, solo quienes entraron escriben",
+    "tipoFechada": "Cerrada: solo quienes son de la comunidad",
+    "banido": "Por ahora no puedes escribir en esta comunidad."
+  },
+  "perfil": {
+    "trancado": "Perfil bloqueado: quien sigue necesita aprobación.",
+    "equipe": "Equipo del instituto",
+    "semContagens": "Sin contadores públicos de seguidores ni apoyos."
+  },
+  "erros": {
+    "entre_primeiro": "Entra en tu cuenta para hacer esto.",
+    "conta_suspensa": "Tu cuenta está suspendida.",
+    "area_interditada": "Esta área está fuera de servicio por ahora.",
+    "confirme_idade": "Confirma que tienes 18 años o más para entrar en la Red.",
+    "idade_minima": "La Red es solo para mayores de 18 años.",
+    "consentimento": "Lee las reglas y da tu consentimiento para entrar en la Red.",
+    "confirme_codinome": "Elige o confirma tu seudónimo antes de escribir.",
+    "dado_pessoal": "Quita el documento, teléfono o correo del texto: los datos personales no van en la Red.",
+    "sem_permissao": "No tienes permiso para esto aquí.",
+    "nao_encontrado": "No encontramos esto, o no tienes acceso.",
+    "travado": "Esta conversación está cerrada.",
+    "limite_de_niveis": "La conversación llegó al límite de niveles: continúa desde una respuesta anterior.",
+    "muitos_pedidos": "Calma: demasiadas solicitudes seguidas. Inténtalo de nuevo en un rato.",
+    "banco_desatualizado": "La base de datos aún no recibió la actualización de la Red.",
+    "sem_servico": "El servicio de cuentas no está activado en este entorno.",
+    "sem_conexao": "Sin conexión. Revisa tu internet e inténtalo de nuevo.",
+    "falha": "Algo salió mal. Inténtalo de nuevo.",
+    "invalido": "Revisa el campo: {campo}.",
+    "modo_lento": "Este lugar está en modo lento: espera un poco para escribir de nuevo.",
+    "nivel_links": "Tu nivel aún no permite tantos enlaces en una publicación. Mira los límites en Cómo cuida la Red.",
+    "nivel_imagens": "Tu nivel aún no permite tantas imágenes en una publicación. Mira los límites en Cómo cuida la Red.",
+    "limite_diario": "Llegaste al límite de publicaciones de hoy para tu nivel.",
+    "lista_bloqueio": "La mediación de este lugar no permite publicaciones tuyas aquí."
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "_rascunho": true,
+  "entrada": {
+    "titulo": "Welcome to Rede Lúcia",
+    "passo": "Step {n} of {total}",
+    "voltar": "Back",
+    "continuar": "Continue",
+    "passos": {
+      "regras": "Rules",
+      "consentimento": "Consent",
+      "idade": "Age",
+      "codinome": "Pseudonym",
+      "escolhas": "Struggles and tracks",
+      "guia": "Safety guide"
+    },
+    "regras": {
+      "titulo": "The rules of the Network, in four sentences",
+      "pontos": [
+        "The conversation is about study and struggle: respect people who think differently, criticize ideas and never persons.",
+        "Nobody appears with their real name: only the pseudonym, not even the team.",
+        "There is no private chat. No home address, phone number or document in posts.",
+        "Whoever reports is never revealed. Every moderation decision has a rule, a reason and the right to appeal."
+      ],
+      "completas": "Read the full rules"
+    },
+    "consentimento": {
+      "titulo": "Sensitive data: you decide",
+      "texto": "Talking about politics and struggle can reveal your political opinion or trade union membership. The law treats this as sensitive personal data (LGPD, art. 5, II).",
+      "finalidade": "We use it only to show what you write to whom you choose and for moderation to look after the conversation. We do not sell it, build commercial profiles or track what you read.",
+      "revogar": "You can withdraw consent at any time and ask for your data to be deleted (LGPD, art. 18). The version of the rules in force is recorded.",
+      "caixa": "I consent, specifically and prominently, to the processing of the sensitive data I may reveal by taking part in the Network, for this purpose (LGPD, art. 11, I).",
+      "base": "Without this consent you keep the rest of the site; you just do not join the Network."
+    },
+    "idade": {
+      "titulo": "The Network is only for people over 18",
+      "texto": "We do not process data of children and teenagers in the Network (LGPD, art. 14). This is your own declaration; the rest of the site stays open to all ages.",
+      "caixa": "I am 18 or older.",
+      "menor": "I am under 18",
+      "negada": "That is fine: the Network is only for people over 18. The rest of the site remains open to you."
+    },
+    "codinome": {
+      "titulo": "Choose your pseudonym",
+      "texto": "It is the name everyone will see. Do not use your real name or someone else's name.",
+      "rotulo": "Pseudonym (3 to 30 characters)",
+      "salvar": "Join the Network"
+    },
+    "escolhas": {
+      "titulo": "Choose 3 struggles and 3 tracks",
+      "texto": "This builds your feed and joins you to the related open communities. You can change it any time in Explore.",
+      "lutas": "Three struggles",
+      "lutasVazio": "There are no open struggle communities yet. Go ahead.",
+      "trilhas": "Three study tracks",
+      "trilhasCarregando": "Loading tracks…",
+      "trilhasFalha": "Could not list the tracks right now.",
+      "filtro": "Filter tracks",
+      "contador": "{n} of {max} chosen",
+      "aparecer": "I agree to appear in people packs to follow (only if my profile is open). You can turn it off any time.",
+      "salvar": "Save choices"
+    },
+    "guia": {
+      "titulo": "Safety guide",
+      "pular": "Skip the guide",
+      "concluir": "Got it, go to the Network",
+      "proximo": "Next card",
+      "cartao": "Card {n} of {total}",
+      "cartoes": [
+        { "titulo": "Your pseudonym protects you", "texto": "Do not say where you live, where you work or who you live with. Not even the team sees your real name in the Network." },
+        { "titulo": "No personal data", "texto": "Home address, phone, ID number and e-mail stay out of posts. For calls to action use a public place: square, library, union hall." },
+        { "titulo": "Report without fear", "texto": "The Report button is on every post. You follow progress in Notices and nobody learns who reported." },
+        { "titulo": "Quick exit", "texto": "The Quick exit button opens a neutral page and erases what the Network kept on this device. Use it when you need to." }
+      ]
+    },
+    "erro": "Could not save right now. Try again."
+  },
+  "ordens": {
+    "rotulo": "Order",
+    "porQue": "Why this order?",
+    "semAlgoritmo": "There is no hidden score: the order is only the rule below. No order uses reading time, clicks or what you liked.",
+    "teto": "Each order shows at most 100 posts, and the list ends there. To go further, refine by tag, community or search.",
+    "novos": { "nome": "Newest", "formula": "From newest to oldest. Nothing else." },
+    "uteis": { "nome": "Most useful", "formula": "How many people marked Useful, highest first. Tie: the newest. Only posts from the last 30 days." },
+    "sem_resposta": { "nome": "Unanswered", "formula": "Posts with no reply you can see and no accepted answer, newest first. Only the last 30 days." },
+    "em_debate": { "nome": "In debate", "formula": "How many replies the conversation got in the last 7 days (only those you can see), highest first. Tie: the newest. Only posts from the last 30 days." },
+    "relevancia": { "nome": "Relevance", "formula": "How well the post text matches your search (Postgres ts_rank_cd, Portuguese, accent-free). Tie: the newest." }
+  },
+  "tag": {
+    "titulo": "Posts with #{tag}",
+    "regraDaLinha": "Theme line {titulo}: {regra}",
+    "vazio": "There are no posts with this hashtag that you can see yet.",
+    "voltar": "Back to Explore"
+  },
+  "explorar": {
+    "titulo": "Explore",
+    "lead": "Discover communities, theme lines and current conversations. Everything with a written rule, no hidden algorithm.",
+    "mudarEscolhas": "Change my 3 struggles and 3 tracks",
+    "comunidades": "Communities",
+    "categorias": { "lutas": "Struggles", "disciplinas": "Subjects", "instituto": "Institute" },
+    "membro": "You take part",
+    "entrar": "Open",
+    "linhas": "Theme lines",
+    "linhasAjuda": "Each line shows the posts that follow a public rule.",
+    "regra": "Rule",
+    "ver": "See the line",
+    "linhaAtiva": "Line: {titulo}",
+    "fecharLinha": "Leave the line",
+    "tags": "Trending this week",
+    "tagsAjuda": "Hashtags used by 3 or more different people in the last 7 days, only from posts you can see.",
+    "tagsVazio": "No trending hashtag yet.",
+    "posts": "{n} posts",
+    "pacotes": "People to follow",
+    "pacotesAjuda": "Packs chosen by the team. Only people with an open profile who agreed to appear are included.",
+    "pacotesVazio": "There are no people packs yet.",
+    "pessoas": "{n} people",
+    "abrirPacote": "See who is in the pack",
+    "seguirTodos": "Follow all",
+    "seguiu": "You now follow {n} people.",
+    "jaSegue": "You already follow everyone.",
+    "sigo": "Following",
+    "aparecerTitulo": "Appear in packs",
+    "aparecerAjuda": "If on, the team may include your open profile in people packs to follow. If off, nobody includes you.",
+    "aparecerLigar": "I want to appear",
+    "aparecerDesligar": "I do not want to appear"
+  },
+  "buscar": {
+    "titulo": "Search the Network",
+    "rotulo": "What are you looking for?",
+    "dica": "Works without accents and with plurals: strike finds strikes. Use quotes for a phrase and - to exclude a word.",
+    "botao": "Search",
+    "posts": "Posts",
+    "pessoas": "People",
+    "comunidades": "Communities",
+    "vazio": "Nothing found that you can see.",
+    "curta": "Type at least two letters.",
+    "soComuns": "Only very common words: try more specific terms.",
+    "visitante": "Without an account, search shows only what is open to the internet.",
+    "irParaTag": "See the hashtag page #{tag}"
+  },
+  "estados": {
+    "carregando": "Loading…",
+    "erro": "Could not load right now.",
+    "tentar": "Try again",
+    "maisPosts": "Load more",
+    "fim": "End of the list.",
+    "fimPorTeto": "We reached the 100-post limit for this order."
+  }
+}

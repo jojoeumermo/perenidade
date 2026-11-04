@@ -2,6 +2,8 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
+import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
+import { ligado } from "@/lib/recursos";
 import { site } from "@/lib/site";
 
 // Endereços que só robôs de invasão procuram (painéis de outros sistemas, cópias de segurança, arquivos
@@ -56,6 +58,35 @@ async function interdicao(): Promise<EstadoDaInterdicao> {
   return estado;
 }
 
+// Rede Lúcia v2 (recurso "rede-v2", só liga pelo nome): os endereços do Fórum antigo (?t=<tópico>, ?sala=<disciplina>) e o ?post= da Rede
+// de hoje vão (301) para /comunidade/p/[id] e /comunidade/c/[slug]. O mapa antigo → novo está no banco (rede_antigo, só devolve o par de
+// endereços, nunca conteúdo). Sem resposta do banco, o endereço segue como está e a própria página faz o redirecionamento no navegador.
+// Desligado, esta função não faz nada: o endereço de hoje continua exatamente como era.
+async function enderecoAntigoDaRede(request: NextRequest): Promise<NextResponse | null> {
+  if (!ligado("rede-v2")) return null;
+  const pedido = pedidoAntigo(request.nextUrl.pathname, request.nextUrl.search);
+  if (!pedido) return null;
+  let destino = destinoDireto(pedido);
+  if (!destino && backend && key && pedido.tipo !== "post") {
+    try {
+      const resposta = await fetch(`${backend}/rest/v1/rpc/rede_antigo`, {
+        method: "POST",
+        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ p_tipo: pedido.tipo, p_antigo: pedido.antigo }),
+        signal: AbortSignal.timeout(1500),
+      });
+      if (resposta.ok) destino = destinoNovo(pedido.lang, (await resposta.json()) as Parameters<typeof destinoNovo>[1]);
+    } catch {
+      // sem resposta: o endereço segue como está
+    }
+  }
+  if (!destino) return null;
+  const url = request.nextUrl.clone();
+  url.pathname = destino;
+  url.search = "";
+  return NextResponse.redirect(url, 301);
+}
+
 // O endereço *.vercel.app da produção não fica atrás do Cloudflare: robôs que o descobrem (pelos registros públicos de
 // certificados, por exemplo) rastreavam o site inteiro direto na Vercel, sem o cache da borda, e gastavam a cota.
 // Em produção, qualquer pedido nesse endereço vai (308, permanente) para o mesmo caminho no domínio do instituto.
@@ -99,6 +130,8 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     cabecalhos.set("x-lucia-recado", encodeURIComponent(estado.mensagem));
     return NextResponse.rewrite(destino, { request: { headers: cabecalhos } });
   }
+  const antigo = await enderecoAntigoDaRede(request);
+  if (antigo) return antigo;
   if (locales.some((code) => pathname === `/${code}` || pathname.startsWith(`/${code}/`))) return;
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;

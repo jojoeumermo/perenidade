@@ -1,0 +1,129 @@
+{
+  "_rascunho": true,
+  "enquete": {
+    "rotulo": "投票",
+    "pergunta": "投票问题",
+    "opcao": "选项 {n}",
+    "mais": "再加一个选项",
+    "tirar": "删除选项 {n}",
+    "prazo": "开放时长",
+    "p1": "1 小时",
+    "p6": "6 小时",
+    "p24": "1 天",
+    "p72": "3 天",
+    "p168": "7 天",
+    "multipla": "可多选",
+    "secreto": "无记名投票：没有人能看到谁投了什么，只显示总数。",
+    "votar": "投票",
+    "votou": "你已投票。",
+    "encerrada": "投票已结束",
+    "termina": "{quando}结束",
+    "votos": "{n} 票",
+    "voto": "1 票",
+    "depois": "投票后才能看到总数。"
+  },
+  "imagens": {
+    "titulo": "图片（最多 4 张）",
+    "adicionar": "添加图片",
+    "tirar": "删除第 {n} 张图片",
+    "alt": "描述这张图片（替代文字）",
+    "altDica": "给看不见的人：图片里有什么？",
+    "altFalta": "没有描述，使用读屏软件的人就看不到这张图片。建议填写。",
+    "limpa": "发送前会去掉图片中的位置和相机信息。",
+    "borrar": "模糊人脸",
+    "achar": "查找人脸",
+    "semDetector": "此设备无法自动识别人脸：请在每张脸上拖动来模糊。",
+    "desfazer": "撤销",
+    "pronto": "完成",
+    "cancelar": "取消",
+    "borradas": "已模糊 {n} 处",
+    "preparando": "正在处理图片…",
+    "invalida": "请使用 JPG、PNG 或 WebP 图片。",
+    "grande": "图片太大。",
+    "maximo": "最多 4 张图片。",
+    "ver": "第 {n} 张，共 {total} 张",
+    "semAcesso": "登录后才能查看图片。"
+  },
+  "audio": {
+    "titulo": "音频（最长 1 分钟）",
+    "gravar": "录音",
+    "parar": "停止",
+    "regravar": "重新录音",
+    "tirar": "删除音频",
+    "gravando": "录音中… {s} 秒 / 60",
+    "semSuporte": "此浏览器不支持录音。",
+    "semPermissao": "没有使用麦克风的权限。",
+    "ouvir": "播放音频（{s} 秒）",
+    "carregando": "加载中…",
+    "falha": "无法加载音频。"
+  },
+  "previa": {
+    "titulo": "链接预览",
+    "gerar": "生成链接预览",
+    "gerando": "获取中…",
+    "tirar": "删除预览",
+    "falha": "无法生成此链接的预览，将仅显示为文字。",
+    "nota": "预览由我们的服务器生成：你和读者的浏览器都不会访问该网站。"
+  },
+  "quem": {
+    "rotulo": "谁可以回复",
+    "todos": "所有人",
+    "seguindo": "我关注的人",
+    "mencionados": "仅我提到的人",
+    "ninguem": "无人",
+    "so": "作者限制了回复：{quem}。"
+  },
+  "agendar": {
+    "rotulo": "稍后发布",
+    "quando": "日期和时间",
+    "marcar": "定时发布",
+    "agendado": "已定于 {quando} 发布。如果那时网络未开放，会在你下次打开时发出。",
+    "fila": "定时发布列表",
+    "cancelar": "取消定时",
+    "falhou": "未发出：{erro}",
+    "cedo": "请选择 5 分钟到 30 天之后的时间。"
+  },
+  "rascunho": {
+    "guardado": "草稿已保存在此设备上。",
+    "recuperado": "已恢复此设备上保存的草稿。",
+    "apagar": "删除草稿"
+  },
+  "checagem": {
+    "cpf": "这像是 CPF 号码。请删除：个人信息不能发到网络上。",
+    "telefone": "这像是电话号码。请删除：个人信息不能发到网络上。",
+    "email": "这像是电子邮箱。请删除：个人信息不能发到网络上。",
+    "endereco": "这像是带门牌号的地址。请删除：说出某人住在哪里或在哪里会让他暴露。",
+    "odio": "文字里有容易伤人的词。可以发送，但会先经过协调员审阅再显示。"
+  },
+  "editar": {
+    "botao": "编辑",
+    "titulo": "编辑帖子",
+    "salvar": "保存",
+    "cancelar": "取消",
+    "livre": "前 15 分钟内编辑不留痕迹。",
+    "marca": "之后帖子会标为已编辑，并保留可见的原文。",
+    "editado": "已编辑",
+    "historico": "查看原文",
+    "esconder": "隐藏原文",
+    "anterior": "{quando}之前",
+    "retido": "此次编辑已交协调员审阅，通过后才会重新显示。"
+  },
+  "fio": {
+    "badge": "串帖",
+    "continuar": "继续这串帖子"
+  },
+  "erros": {
+    "invalido_midia": "请检查图片：JPG、PNG 或 WebP，最多 4 张。",
+    "invalido_audio": "请检查音频：最长 1 分钟。",
+    "invalido_opcoes": "请检查选项：2 到 4 个，互不相同，每个最多 80 字。",
+    "invalido_enquete": "请检查投票。",
+    "invalido_prazo": "投票时长为 1 小时到 7 天。",
+    "invalido_previa": "预览链接无效。",
+    "invalido_quando": "请选择 5 分钟到 30 天之后的时间。",
+    "invalido_fio": "只能续写你自己的帖子。",
+    "invalido_responde_quem": "请检查谁可以回复。",
+    "ja_votou": "你已在此投票中投过票。",
+    "encerrada": "此投票已结束。",
+    "dado_pessoal": "请从文字中删除 CPF、电话、邮箱或带门牌号的地址：个人信息不能发到网络上。"
+  }
+}

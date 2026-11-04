@@ -55,6 +55,7 @@ import { Repasse } from "./Sigilo";
 import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
 import { ValeOEscritoCuradoria } from "./ValeOEscrito";
+import { RedePropostas } from "./RedePropostas";
 import { Fila } from "./Fila";
 import { GavetaFila } from "./GavetaFila";
 import { Horas } from "./Horas";
@@ -563,6 +564,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design", "marketing") },
       { id: "divulgacao", nome: "Divulgação", sobre: "Calendário de posts e stories, kit da marca e acesso ao Instagram.", grupo: "Produção", mostra: can(eu, "coordenacao", "marketing"), conta: r?.divulgacao },
       { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
+      { id: "rede-propostas", nome: "Rede: propostas de comunidade", sobre: "Comunidade nova da Rede Lúcia só nasce por proposta: ler o objetivo e as regras, conferir os moderadores e aprovar ou recusar com o motivo.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mentoria", "educacao"), conta: r?.reforco },
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
@@ -862,6 +864,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
           {atual.id === "vale-curadoria" && <ValeOEscritoCuradoria me={eu} />}
+          {atual.id === "rede-propostas" && <RedePropostas />}
           {atual.id === "traducoes" && <Traducoes irEscrever={() => ir("escrever")} />}
           {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
           {atual.id === "curriculo" && <DisciplinasETrilhas me={eu} />}

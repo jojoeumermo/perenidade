@@ -1,0 +1,74 @@
+{
+  "_rascunho": true,
+  "ordem": {
+    "rotulo": "回复排序",
+    "uteis": "最有用",
+    "antigas": "最早",
+    "novas": "最新",
+    "porQue": "为什么是这个顺序？",
+    "formulaUteis": "最有用：先显示解决了问题的回复；然后是“有用”标记最多的回复；数量相同时，较早的回复在前。支持数不计入：只有作者能看到自己收到多少支持。",
+    "formulaAntigas": "最早：从最早的回复到最新的回复，没有其他条件。",
+    "formulaNovas": "最新：从最新的回复到最早的回复，没有其他条件。",
+    "aoLado": "排序适用于对同一条帖子的每一组回复；对某条回复的回复始终紧跟在它下面。"
+  },
+  "arvore": {
+    "carregando": "正在加载对话",
+    "respostas": "回复",
+    "nenhuma": "还没有人回复。你可以是第一个。",
+    "continuar": "继续这段对话（{n} 条回复）",
+    "continuarUm": "继续这段对话（1 条回复）",
+    "silenciada": "你已静音的人的回复。",
+    "mais": "这里显示前 400 条回复。打开某条回复可查看后面的内容。",
+    "acima": "到目前为止的对话",
+    "desdeOComeco": "从头查看对话",
+    "nivel": "对话第 {n} 层",
+    "naoEncontrada": "找不到这段对话，或者你没有查看权限。"
+  },
+  "resolveu": {
+    "marcar": "这条回复解决了问题",
+    "desmarcar": "取消标记",
+    "selo": "解决了问题的回复",
+    "ajuda": "只有提问的人和管理员可以标记解决了问题的回复。每个问题只有一条；标记另一条会转移标记。",
+    "marcada": "已标记为解决了问题的回复。",
+    "desmarcada": "已取消标记。"
+  },
+  "sintese": {
+    "titulo": "对话总结",
+    "fixada": "置顶",
+    "por": "由 {autor} 撰写，{quando}",
+    "escrever": "撰写总结",
+    "novaVersao": "撰写新版本",
+    "retirar": "撤下总结",
+    "confirmarRetirar": "要把总结从对话顶部撤下吗？它仍保留在历史记录中。",
+    "confirmar": "撤下",
+    "cancelar": "取消",
+    "salvar": "置顶",
+    "salva": "总结已置顶。",
+    "retirada": "总结已从顶部撤下。",
+    "placeholder": "用几行话写：对话得出了什么结论，还有什么没解决。",
+    "dica": "只有发起对话的人和管理员可以撰写总结。不要写证件号、电话或电子邮箱。每个版本都会保留在历史记录中。",
+    "contador": "{n} / {max}",
+    "historico": "查看历史（{n} 个版本）",
+    "versaoAtual": "当前版本",
+    "versaoAntiga": "已撤下的版本",
+    "escritaPor": "{autor}，{quando}"
+  },
+  "citar": {
+    "botao": "引用",
+    "titulo": "引用这条帖子",
+    "placeholder": "写下你想对这条帖子说的话",
+    "enviar": "发布引用",
+    "cancelar": "取消",
+    "quemVe": "谁能看到：{publico}",
+    "restrito": "看不到原帖的人只会看到“受限内容”。",
+    "publicada": "引用已发布。",
+    "verPublicada": "打开引用",
+    "contador": "{n} / {max}"
+  },
+  "mencao": {
+    "lista": "可提及的人",
+    "dica": "输入 @ 和 @名称 的开头即可提及某人。只有能看到这段对话且没有屏蔽你的人才会收到通知。",
+    "nenhuma": "没有找到任何人。",
+    "equipe": "团队"
+  }
+}

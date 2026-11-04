@@ -11,7 +11,8 @@
 // "todos" liga tudo, MENOS o que está em SO_PELO_NOME: a Escola Lúcia Maria e o Vale o Escrito só ligam com o nome escrito
 // na lista, porque a produção usa "todos": a Escola não pode abrir antes de a coordenação mandar o texto (docs/ESCOLA.md)
 // e o Vale o Escrito não abre antes de a curadoria revisar as entradas e a assessoria jurídica conferir
-// (docs/vale-o-escrito/ESPEC.md).
+// (docs/vale-o-escrito/ESPEC.md); a Rede Lúcia v2 só liga pelo nome porque a migração SQL dela (supabase/migracoes/2026-11-rede-*.sql)
+// ainda precisa rodar no Supabase de produção antes (docs/rede/V2.md). Desligado, a Rede e o Fórum de hoje ficam exatamente como estão.
 //
 // O valor é lido na montagem do site: mudou a variável, monte e publique de novo. Sem os atalhos "@/" de propósito:
 // `npm run testar:meu-estudo` roda este arquivo direto no Node.
@@ -33,6 +34,7 @@ export const RECURSOS = {
   "enem-curso": "Curso ENEM: a página /enem, diagnóstico, plano, prática por habilidade, provas oficiais por ano e dia, oficina de redação e reta final",
   escola: "Escola Lúcia Maria: entrada, cursos, matrícula, campus e calendário",
   "vale-o-escrito": "Vale o Escrito: observatório de crimes de interesse público já em fonte pública (teia, mapa, dossiês, envio de fonte e correção)",
+  "rede-v2": "Rede Lúcia v2: Rede e Fórum numa só (posts curtos, discussões, dúvidas, enquetes), comunidades com página própria, perfil com @nome, endereços de post, perfil e comunidade",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;
@@ -60,7 +62,7 @@ export const PADRAO: readonly Recurso[] = [
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */
-export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito"];
+export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2"];
 
 /** Lê a lista da variável. Separado para os testes poderem conferir a leitura sem mexer no ambiente. */
 export function lerRecursos(valor: string | undefined): Set<string> {

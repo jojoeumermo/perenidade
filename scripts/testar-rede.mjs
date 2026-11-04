@@ -26,7 +26,7 @@ const recusa = async (promessa) => {
   }
 };
 
-const banco = await criarBanco();
+const banco = await criarBanco({ semRede: true });
 const { dono, criarUsuario } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 

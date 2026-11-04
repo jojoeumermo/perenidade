@@ -12,6 +12,7 @@ import { KEYS, useHydrated, useStored } from "@/lib/storage";
 import { Captcha, captchaEnabled } from "./Captcha";
 import { L, useI18n } from "./I18n";
 import { SenhaCampo, senhaForte, type SenhaLabels } from "./SenhaCampo";
+import { EsqueciASenha } from "./rede/consertos/EsqueciASenha";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 // No aplicativo os botões ocupam a largura toda e ficam mais altos: é o polegar que aperta.
@@ -27,7 +28,7 @@ interface Invite {
  * A entrada do site. Quem tem conta entra com e-mail e senha; qualquer pessoa cria uma conta de participante da
  * comunidade (sem função nenhuma: o que ela escreve espera a mediação); quem recebeu um convite da coordenação cria a
  * conta pelo endereço do convite, já com a função combinada; e quem recebeu um link de senha nova escolhe a senha aqui.
- * Não existe "esqueci a senha" automático.
+ * "Esqueci a senha" pede o link de senha nova ao serviço de contas (components/rede/consertos/EsqueciASenha.tsx).
  */
 export function SignIn({ s }: { s: Dict["auth"] }) {
   const { lang, t } = useI18n();
@@ -446,6 +447,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </div>
       )}
       {state === "resent" && <p role="status" className="border-l-2 border-ok pl-3">{s.resent}</p>}
+      <EsqueciASenha lang={lang} email={email} token={token} esperandoDesafio={waiting} aoUsarDesafio={done} />
       {state === "failed" && (
         <p role="alert" className="text-oxblood">
           {s.failed}

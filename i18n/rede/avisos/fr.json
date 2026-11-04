@@ -1,0 +1,68 @@
+{
+  "_rascunho": true,
+  "titulo": "Notifications",
+  "abas": { "rotulo": "Notifications et préférences", "avisos": "Notifications", "preferencias": "Préférences" },
+  "lista": {
+    "rotulo": "Vos notifications",
+    "vazio": "Rien pour le moment. Quand quelqu'un répond, mentionne ou soutient ce que vous avez écrit, cela apparaît ici.",
+    "marcarTodos": "Tout marquer comme lu",
+    "mais": "Voir les notifications plus anciennes",
+    "carregando": "Chargement des notifications…",
+    "falha": "Impossible de charger les notifications. Réessayez.",
+    "novo": "Nouveau",
+    "reserva": "Il y a du nouveau pour vous sur le Réseau.",
+    "naoLidos": "{n} non lues",
+    "tudoLido": "Tout est lu.",
+    "emTitulo": "dans « {titulo} »",
+    "abrir": "Ouvrir"
+  },
+  "frases": {
+    "resposta": { "um": "{a} a répondu à votre message.", "vezes": "{a} a répondu {n} fois à votre message.", "varios": "{a} et {n} autres ont répondu à votre message.", "anonimo": "Quelqu'un a répondu à votre message.", "anonimoVarios": "{n} personnes ont répondu à votre message." },
+    "mencao": { "um": "{a} vous a mentionné.", "vezes": "{a} vous a mentionné {n} fois.", "varios": "{a} et {n} autres vous ont mentionné.", "anonimo": "Quelqu'un vous a mentionné.", "anonimoVarios": "{n} personnes vous ont mentionné." },
+    "citacao": { "um": "{a} a cité votre message.", "vezes": "{a} a cité votre message {n} fois.", "varios": "{a} et {n} autres ont cité votre message.", "anonimo": "Quelqu'un a cité votre message.", "anonimoVarios": "{n} personnes ont cité votre message." },
+    "seguidor": { "um": "{a} a commencé à vous suivre.", "vezes": "{a} a commencé à vous suivre.", "varios": "{a} et {n} autres ont commencé à vous suivre.", "anonimo": "Quelqu'un a commencé à vous suivre.", "anonimoVarios": "{n} personnes ont commencé à vous suivre." },
+    "apoio": { "um": "1 personne a soutenu votre message.", "vezes": "1 personne a soutenu votre message.", "varios": "{n} personnes ont soutenu votre message.", "anonimo": "1 personne a soutenu votre message.", "anonimoVarios": "{n} personnes ont soutenu votre message." }
+  },
+  "prefs": {
+    "titulo": "Comment vous voulez être prévenu",
+    "salvo": "Préférence enregistrée.",
+    "falha": "Impossible d'enregistrer. Réessayez.",
+    "site": {
+      "titulo": "Notifications ici sur le Réseau",
+      "descricao": "Choisissez ce qui s'affiche sur cet écran. Les avis de modération s'affichent toujours : vous avez le droit de savoir ce qu'il est advenu de ce que vous avez écrit.",
+      "tipos": {
+        "resposta": "Réponses à ce que vous avez écrit",
+        "mencao": "Mentions de votre @nom",
+        "citacao": "Citations de votre message",
+        "seguidor": "Nouveaux abonnés",
+        "chamado": "Appels",
+        "nucleo": "Noyaux locaux",
+        "moderacao": "Modération (toujours activée)",
+        "apoio": "Soutiens (seulement le nombre, jamais qui)"
+      }
+    },
+    "resumo": {
+      "titulo": "Résumé hebdomadaire par e-mail",
+      "descricao": "Désactivé tant que vous ne l'activez pas. Une fois par semaine, et seulement s'il y a du nouveau : nombres et titres de conversations publiques. Jamais le texte d'un message, jamais de noms.",
+      "ligar": "Recevoir le résumé hebdomadaire par e-mail",
+      "ver": "Voir ce qui serait envoyé maintenant",
+      "nada": "Rien à envoyer maintenant : vous n'avez pas de nouvelles notifications.",
+      "fechar": "Fermer l'aperçu",
+      "precisaEntrar": "Pour recevoir des e-mails du Réseau, rejoignez d'abord le Réseau (18 ans ou plus, règles acceptées)."
+    },
+    "push": {
+      "titulo": "Notification sur le téléphone",
+      "descricao": "L'appareil reçoit seulement « Vous avez N notifications sur le Réseau », sans le texte d'aucun message. Vous la désactivez quand vous voulez et l'appareil quitte notre serveur.",
+      "ligar": "Prévenir sur cet appareil",
+      "desligar": "Désactiver sur cet appareil",
+      "ativo": "Activé sur cet appareil.",
+      "outros": "Appareils activés : {n}.",
+      "tipos": "Prévenir sur le téléphone pour :",
+      "semSuporte": "Ce navigateur ne peut pas notifier sur le téléphone.",
+      "bloqueado": "La notification est bloquée dans ce navigateur. Autorisez-la dans les réglages du site et réessayez.",
+      "ios": "Sur iPhone et iPad, ajoutez d'abord le site à l'écran d'accueil (Partager → Sur l'écran d'accueil) et ouvrez-le depuis là.",
+      "naoConfigurado": "La notification sur le téléphone n'est pas encore activée sur ce site.",
+      "precisaEntrar": "Pour être prévenu sur le téléphone, rejoignez d'abord le Réseau (18 ans ou plus, règles acceptées)."
+    }
+  }
+}

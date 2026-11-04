@@ -1,0 +1,129 @@
+{
+  "_rascunho": true,
+  "enquete": {
+    "rotulo": "Poll",
+    "pergunta": "Poll question",
+    "opcao": "Option {n}",
+    "mais": "Add an option",
+    "tirar": "Remove option {n}",
+    "prazo": "How long it stays open",
+    "p1": "1 hour",
+    "p6": "6 hours",
+    "p24": "1 day",
+    "p72": "3 days",
+    "p168": "7 days",
+    "multipla": "Allow more than one choice",
+    "secreto": "Secret ballot: nobody sees who voted for what, only the totals.",
+    "votar": "Vote",
+    "votou": "You voted.",
+    "encerrada": "Poll closed",
+    "termina": "Ends {quando}",
+    "votos": "{n} votes",
+    "voto": "1 vote",
+    "depois": "Totals show up after you vote."
+  },
+  "imagens": {
+    "titulo": "Images (up to 4)",
+    "adicionar": "Add image",
+    "tirar": "Remove image {n}",
+    "alt": "Describe the image (alt text)",
+    "altDica": "For people who cannot see it: what is in the image?",
+    "altFalta": "Without a description, screen reader users miss the image. Please write one.",
+    "limpa": "Location and camera data are removed from the image before sending.",
+    "borrar": "Blur faces",
+    "achar": "Find faces",
+    "semDetector": "This device cannot find faces on its own: drag over each face to blur it.",
+    "desfazer": "Undo",
+    "pronto": "Done",
+    "cancelar": "Cancel",
+    "borradas": "{n} areas blurred",
+    "preparando": "Preparing the image…",
+    "invalida": "Use a JPG, PNG or WebP image.",
+    "grande": "The image is too large.",
+    "maximo": "At most 4 images.",
+    "ver": "Image {n} of {total}",
+    "semAcesso": "Sign in to see the image."
+  },
+  "audio": {
+    "titulo": "Audio (up to 1 minute)",
+    "gravar": "Record",
+    "parar": "Stop",
+    "regravar": "Record again",
+    "tirar": "Remove audio",
+    "gravando": "Recording… {s} s of 60",
+    "semSuporte": "This browser cannot record audio.",
+    "semPermissao": "No permission to use the microphone.",
+    "ouvir": "Play audio ({s} s)",
+    "carregando": "Loading…",
+    "falha": "Could not load the audio."
+  },
+  "previa": {
+    "titulo": "Link preview",
+    "gerar": "Create link preview",
+    "gerando": "Fetching…",
+    "tirar": "Remove preview",
+    "falha": "We could not build a preview for this link. It will show as plain text.",
+    "nota": "Our server builds the preview: neither your browser nor the reader's touches the site."
+  },
+  "quem": {
+    "rotulo": "Who can reply",
+    "todos": "Everyone",
+    "seguindo": "People I follow",
+    "mencionados": "Only people I mention",
+    "ninguem": "Nobody",
+    "so": "The author limited replies: {quem}."
+  },
+  "agendar": {
+    "rotulo": "Publish later",
+    "quando": "Date and time",
+    "marcar": "Schedule",
+    "agendado": "Scheduled for {quando}. If the Network is closed then, it comes out the next time you open it.",
+    "fila": "Scheduled posts",
+    "cancelar": "Cancel schedule",
+    "falhou": "Did not go out: {erro}",
+    "cedo": "Pick a time between 5 minutes and 30 days ahead."
+  },
+  "rascunho": {
+    "guardado": "Draft saved on this device.",
+    "recuperado": "We recovered the draft saved on this device.",
+    "apagar": "Delete draft"
+  },
+  "checagem": {
+    "cpf": "This looks like a CPF number. Remove it: personal data does not go on the Network.",
+    "telefone": "This looks like a phone number. Remove it: personal data does not go on the Network.",
+    "email": "This looks like an e-mail address. Remove it: personal data does not go on the Network.",
+    "endereco": "This looks like a street address with a number. Remove it: saying where someone lives or is exposes them.",
+    "odio": "The text has words that tend to hurt. You can send it, but moderators read it before it appears."
+  },
+  "editar": {
+    "botao": "Edit",
+    "titulo": "Edit post",
+    "salvar": "Save",
+    "cancelar": "Cancel",
+    "livre": "In the first 15 minutes you can edit without a trace.",
+    "marca": "After that the post is marked as edited and the earlier text stays visible.",
+    "editado": "edited",
+    "historico": "See the earlier text",
+    "esconder": "Hide the earlier text",
+    "anterior": "Before {quando}",
+    "retido": "The edit went to moderator review before it reappears."
+  },
+  "fio": {
+    "badge": "Thread",
+    "continuar": "Continue the thread"
+  },
+  "erros": {
+    "invalido_midia": "Check the images: JPG, PNG or WebP, at most 4.",
+    "invalido_audio": "Check the audio: up to 1 minute.",
+    "invalido_opcoes": "Check the poll options: 2 to 4, all different, up to 80 characters each.",
+    "invalido_enquete": "Check the poll.",
+    "invalido_prazo": "A poll lasts from 1 hour to 7 days.",
+    "invalido_previa": "The preview link is not valid.",
+    "invalido_quando": "Pick a time between 5 minutes and 30 days ahead.",
+    "invalido_fio": "You can only continue your own post.",
+    "invalido_responde_quem": "Check who can reply.",
+    "ja_votou": "You already voted in this poll.",
+    "encerrada": "This poll has ended.",
+    "dado_pessoal": "Remove CPF, phone, e-mail or street address with number from the text: personal data does not go on the Network."
+  }
+}

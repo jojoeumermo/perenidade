@@ -1,0 +1,74 @@
+{
+  "_rascunho": true,
+  "ordem": {
+    "rotulo": "Ordenar las respuestas",
+    "uteis": "Más útiles",
+    "antigas": "Más antiguas",
+    "novas": "Más nuevas",
+    "porQue": "¿Por qué este orden?",
+    "formulaUteis": "Más útiles: primero la respuesta que resolvió la duda; después quien recibió más marcas de “Útil”; en caso de empate, la respuesta más antigua. Los apoyos no cuentan: solo quien escribió ve cuántos apoyos recibió.",
+    "formulaAntigas": "Más antiguas: de la respuesta más antigua a la más nueva, sin otro criterio.",
+    "formulaNovas": "Más nuevas: de la respuesta más nueva a la más antigua, sin otro criterio.",
+    "aoLado": "El orden vale para cada grupo de respuestas a una misma publicación; las respuestas a una respuesta quedan siempre justo debajo de ella."
+  },
+  "arvore": {
+    "carregando": "Cargando la conversación",
+    "respostas": "Respuestas",
+    "nenhuma": "Nadie ha respondido todavía. Puedes ser la primera persona.",
+    "continuar": "Continuar la conversación ({n} respuestas)",
+    "continuarUm": "Continuar la conversación (1 respuesta)",
+    "silenciada": "Respuesta de una persona que silenciaste.",
+    "mais": "Mostramos las primeras 400 respuestas. Abre una respuesta para ver lo que sigue.",
+    "acima": "La conversación hasta aquí",
+    "desdeOComeco": "Ver la conversación desde el principio",
+    "nivel": "Nivel {n} de la conversación",
+    "naoEncontrada": "No encontramos esta conversación, o no tienes acceso a ella."
+  },
+  "resolveu": {
+    "marcar": "Esta respuesta resolvió",
+    "desmarcar": "Quitar la marca",
+    "selo": "Respuesta que resolvió",
+    "ajuda": "Solo quien hizo la duda y la moderación marcan la respuesta que resolvió. Hay una sola por duda; marcar otra cambia la marca.",
+    "marcada": "Marcada como la respuesta que resolvió.",
+    "desmarcada": "Marca retirada."
+  },
+  "sintese": {
+    "titulo": "Síntesis de la conversación",
+    "fixada": "Fijada arriba",
+    "por": "Escrita por {autor}, {quando}",
+    "escrever": "Escribir la síntesis",
+    "novaVersao": "Escribir una nueva versión",
+    "retirar": "Retirar la síntesis",
+    "confirmarRetirar": "¿Retirar la síntesis de arriba de la conversación? Sigue en el historial.",
+    "confirmar": "Retirar",
+    "cancelar": "Cancelar",
+    "salvar": "Fijar arriba",
+    "salva": "Síntesis fijada.",
+    "retirada": "Síntesis retirada de arriba.",
+    "placeholder": "En pocas líneas: qué concluyó la conversación y qué quedó abierto.",
+    "dica": "Solo quien abrió la conversación y la moderación escriben la síntesis. No pongas documentos, teléfonos ni correos. Cada versión queda en el historial.",
+    "contador": "{n} de {max}",
+    "historico": "Ver el historial ({n} versiones)",
+    "versaoAtual": "versión actual",
+    "versaoAntiga": "versión retirada",
+    "escritaPor": "{autor}, {quando}"
+  },
+  "citar": {
+    "botao": "Citar",
+    "titulo": "Citar esta publicación",
+    "placeholder": "Escribe lo que quieres decir sobre esta publicación",
+    "enviar": "Publicar la cita",
+    "cancelar": "Cancelar",
+    "quemVe": "Quién puede verla: {publico}",
+    "restrito": "Quien no pueda ver la publicación original verá solo “contenido restringido”.",
+    "publicada": "Cita publicada.",
+    "verPublicada": "Abrir la cita",
+    "contador": "{n} de {max}"
+  },
+  "mencao": {
+    "lista": "Personas para mencionar",
+    "dica": "Escribe @ y el comienzo del @nombre para mencionar a alguien. La persona solo recibe el aviso si puede ver la conversación y no te ha bloqueado.",
+    "nenhuma": "No se encontró a nadie.",
+    "equipe": "equipo"
+  }
+}

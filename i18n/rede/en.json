@@ -1,0 +1,171 @@
+{
+  "_rascunho": true,
+  "marca": "Lúcia Network",
+  "menu": {
+    "principal": "Network menu",
+    "barra": "Network bar",
+    "inicio": "Home",
+    "comunidades": "Communities",
+    "chamados": "Calls to action",
+    "nucleos": "Study circles",
+    "avisos": "Notices",
+    "salvos": "Saved",
+    "perfil": "Profile",
+    "escrever": "Write",
+    "busca": "Search",
+    "explorar": "Explore"
+  },
+  "abas": {
+    "rotulo": "Network timelines",
+    "seguindo": "Following",
+    "comunidades": "My communities",
+    "tudo": "Everything",
+    "geral": "Open line"
+  },
+  "novos": {
+    "um": "1 new post, show",
+    "outros": "{n} new posts, show"
+  },
+  "postando": "Posting as {codinome}",
+  "quemVe": "Who can see this: {publico}",
+  "porQueEstaOrdem": "Why this order?",
+  "publicos": {
+    "internet": "Internet (anyone, no account)",
+    "membros": "Network members",
+    "seguidores": "People who follow me",
+    "comunidade": "This community only",
+    "nucleo": "This study circle only",
+    "equipe": "Institute staff only"
+  },
+  "tipos": {
+    "post": "Post",
+    "discussao": "Discussion",
+    "duvida": "Question",
+    "enquete": "Poll",
+    "chamado": "Call to action",
+    "aviso": "Institute notice"
+  },
+  "acoes": {
+    "responder": "Reply",
+    "citar": "Quote",
+    "apoiar": "Support",
+    "salvar": "Save",
+    "mais": "More",
+    "denunciar": "Report",
+    "util": "Helpful"
+  },
+  "post": {
+    "editado": "edited",
+    "respostas": {
+      "um": "1 reply",
+      "outros": "{n} replies"
+    },
+    "util": "{n} found this helpful",
+    "resolvida": "Solved",
+    "travado": "Conversation locked: no more replies.",
+    "retido": "This post is waiting for moderation. Only you can see it.",
+    "restrito": "Restricted content",
+    "continuar": "Continue the conversation",
+    "avisoConteudo": "Content warning",
+    "verMais": "Read the full text"
+  },
+  "casca": {
+    "escrever": "Write on the network",
+    "fechar": "Close",
+    "publicar": "Publish",
+    "publicando": "Publishing…",
+    "cancelar": "Cancel",
+    "textoDica": "What do you want to say?",
+    "tituloDica": "Title",
+    "corpoDica": "Take your time. Up to 10,000 characters.",
+    "contador": "{n} of {max}",
+    "tipo": "Post type",
+    "publico": "Who can see it",
+    "comunidade": "Community (optional)",
+    "saltarParaConteudo": "Skip to the timeline",
+    "sairRapido": "Quick exit",
+    "sairRapidoAjuda": "Opens a neutral page and clears the network's data on this device.",
+    "cartaoSeguranca": "Safety first: never post a home address, phone number or ID. If something worries you, report it.",
+    "cuidados": {
+      "titulo": "Care",
+      "regras": "Care rules",
+      "denuncias": "My reports",
+      "silenciados": "Muted",
+      "moderacao": "Moderation panel"
+    }
+  },
+  "codinome": {
+    "aviso": "On the network nobody appears under their real name, not even the staff."
+  },
+  "chamado": {
+    "pontoPublico": "Public meeting point (square, library, union hall, school). Never a home address."
+  },
+  "denuncia": {
+    "sigilo": "Whoever reports is never revealed. You follow progress in Notices."
+  },
+  "entrada": {
+    "titulo": "Join the Lúcia Network",
+    "texto": "Here the conversation is about study and struggle, with pseudonyms and no private chat. Before joining, read the rules and confirm two things.",
+    "maior": "I am 18 or older.",
+    "consentimento": "I understand that talking about politics can reveal my political opinion or union membership, and I specifically consent to this data being processed on the network, under the rules.",
+    "regras": "Read the network rules",
+    "aderir": "Join the network",
+    "idadeNegada": "The network is only for people over 18. The rest of the site stays open to you.",
+    "menor": "I am under 18",
+    "codinome": "Your pseudonym (3 to 30 characters, no @ and no real name)",
+    "entreNaConta": "Sign in to take part. You can read the subject Q&A without an account.",
+    "entrar": "Sign in"
+  },
+  "estados": {
+    "carregando": "Loading…",
+    "vazioLinha": "Nothing here yet. Pick communities to follow or write the first post.",
+    "vazioSeguindo": "You don't follow anyone yet. Follow people through the communities.",
+    "vazioComunidades": "You haven't joined any community yet.",
+    "erro": "Could not load right now.",
+    "tentar": "Try again",
+    "maisPosts": "Load more",
+    "fim": "You reached the end.",
+    "naoEncontrado": "We couldn't find this, or you don't have access.",
+    "emBreve": "This screen is coming soon."
+  },
+  "comunidade": {
+    "sobre": "About",
+    "posts": "Posts",
+    "regras": "Rules",
+    "moderacao": "Moderation",
+    "tipoAberta": "Open",
+    "tipoRestrita": "Restricted: network members read, only joined members write",
+    "tipoFechada": "Closed: community members only",
+    "banido": "You can't write in this community for now."
+  },
+  "perfil": {
+    "trancado": "Locked profile: followers need approval.",
+    "equipe": "Institute staff",
+    "semContagens": "No public follower or support counts."
+  },
+  "erros": {
+    "entre_primeiro": "Sign in to do this.",
+    "conta_suspensa": "Your account is suspended.",
+    "area_interditada": "This area is offline for now.",
+    "confirme_idade": "Confirm you are 18 or older to join the network.",
+    "idade_minima": "The network is only for people over 18.",
+    "consentimento": "Read the rules and give your consent to join the network.",
+    "confirme_codinome": "Choose or confirm your pseudonym before writing.",
+    "dado_pessoal": "Remove the ID number, phone or e-mail from the text: personal data does not go on the network.",
+    "sem_permissao": "You don't have permission to do this here.",
+    "nao_encontrado": "We couldn't find this, or you don't have access.",
+    "travado": "This conversation is locked.",
+    "limite_de_niveis": "The conversation reached the nesting limit: continue from a reply higher up.",
+    "muitos_pedidos": "Slow down: too many requests in a row. Try again shortly.",
+    "banco_desatualizado": "The database hasn't received the network update yet.",
+    "sem_servico": "The accounts service isn't enabled in this environment.",
+    "sem_conexao": "No connection. Check your internet and try again.",
+    "falha": "Something went wrong. Try again.",
+    "invalido": "Check the field: {campo}.",
+    "modo_lento": "This place is in slow mode: wait a little before writing again.",
+    "nivel_links": "Your level does not allow that many links in a post yet. See the limits in How the Network cares.",
+    "nivel_imagens": "Your level does not allow that many images in a post yet. See the limits in How the Network cares.",
+    "limite_diario": "You reached today's post limit for your level.",
+    "lista_bloqueio": "This place's mediators do not allow posts from you here."
+  }
+}

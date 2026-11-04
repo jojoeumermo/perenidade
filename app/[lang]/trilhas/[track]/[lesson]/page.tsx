@@ -42,6 +42,7 @@ import { site } from "@/lib/site";
 import { ExerciciosComExplicacaoSobDemanda as ExerciciosComExplicacao, IssoAjudouSobDemanda as IssoAjudou, RegistroDeConclusaoSobDemanda as RegistroDeConclusao } from "@/components/estudo/NaAula";
 import { exerciciosDaAula } from "@/lib/exercicios-conteudo";
 import { ligado } from "@/lib/recursos";
+import { enderecoDiscutirAula, rotuloDiscutirAula } from "@/lib/rede/discutir-aula";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 import { creditosDeRevisao, EtiquetaDeRevisao } from "@/components/estudo/EtiquetaDeRevisao";
 import { revisoesDaAula } from "@/lib/revisoes-conteudo";
@@ -367,6 +368,14 @@ export default async function LessonPage({ params }: Props) {
         />
         {sa && cursosDestaAula.length === 0 && <ProximoPasso proxima={next && { caminho: path(next.slug), titulo: next.title }} s={sa.proximo} />}
         {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} />}
+        {/* Rede v2 (só com o recurso ligado pelo nome): a conversa desta aula, na comunidade da disciplina. */}
+        {ligado("rede-v2") && (
+          <p className="no-print mt-6 font-sans text-sm">
+            <Link href={enderecoDiscutirAula(lang, track.slug, lesson.slug, track.area) ?? to("/comunidade")} className="font-bold underline hover:text-oxblood">
+              {rotuloDiscutirAula(lang)}
+            </Link>
+          </p>
+        )}
         <Compartilhar
           url={`${site.url}${to(path(lesson.slug))}`}
           texto={`${t.compartilhar.aula} ${lesson.title}`}

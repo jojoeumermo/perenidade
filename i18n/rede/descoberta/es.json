@@ -1,0 +1,146 @@
+{
+  "_rascunho": true,
+  "entrada": {
+    "titulo": "Te damos la bienvenida a Rede Lúcia",
+    "passo": "Paso {n} de {total}",
+    "voltar": "Volver",
+    "continuar": "Continuar",
+    "passos": {
+      "regras": "Reglas",
+      "consentimento": "Consentimiento",
+      "idade": "Edad",
+      "codinome": "Seudónimo",
+      "escolhas": "Luchas y rutas",
+      "guia": "Guía de seguridad"
+    },
+    "regras": {
+      "titulo": "Las reglas de la Red, en cuatro frases",
+      "pontos": [
+        "La conversación es sobre estudio y lucha: respeto a quien piensa distinto, crítica a las ideas y nunca a las personas.",
+        "Nadie aparece con su nombre real: solo el seudónimo, ni siquiera el equipo.",
+        "No hay chat privado. Nada de dirección de casa, teléfono o documento en las publicaciones.",
+        "Quien denuncia nunca es revelado. Toda decisión de moderación tiene regla, motivo y derecho a apelación."
+      ],
+      "completas": "Leer las reglas completas"
+    },
+    "consentimento": {
+      "titulo": "Datos sensibles: tú decides",
+      "texto": "Hablar de política y de lucha puede revelar tu opinión política o tu afiliación sindical. La ley lo trata como dato personal sensible (LGPD, art. 5, II).",
+      "finalidade": "Lo usamos solo para mostrar lo que escribes a quien elijas y para que la moderación cuide la conversación. No vendemos, no hacemos perfiles comerciales y no rastreamos lo que lees.",
+      "revogar": "Puedes retirar el consentimiento en cualquier momento y pedir la eliminación de tus datos (LGPD, art. 18). Queda registrada la versión de las reglas vigente.",
+      "caixa": "Consiento, de forma específica y destacada, el tratamiento de los datos sensibles que yo revele al participar en la Red, para esta finalidad (LGPD, art. 11, I).",
+      "base": "Sin este consentimiento sigues con el resto del sitio; solo no entras en la Red."
+    },
+    "idade": {
+      "titulo": "La Red es solo para mayores de 18 años",
+      "texto": "No tratamos datos de niños y adolescentes en la Red (LGPD, art. 14). Es una declaración tuya; el resto del sitio queda abierto a todas las edades.",
+      "caixa": "Tengo 18 años o más.",
+      "menor": "Tengo menos de 18 años",
+      "negada": "Está bien: la Red es solo para mayores de 18 años. El resto del sitio sigue abierto para ti."
+    },
+    "codinome": {
+      "titulo": "Elige tu seudónimo",
+      "texto": "Es el nombre que todos verán. No uses tu nombre real ni el de otra persona.",
+      "rotulo": "Seudónimo (3 a 30 caracteres)",
+      "salvar": "Entrar en la Red"
+    },
+    "escolhas": {
+      "titulo": "Elige 3 luchas y 3 rutas",
+      "texto": "Esto arma tu línea y te une a las comunidades abiertas relacionadas. Puedes cambiarlo cuando quieras, en Explorar.",
+      "lutas": "Tres luchas",
+      "lutasVazio": "Aún no hay comunidades de lucha abiertas. Sigue adelante.",
+      "trilhas": "Tres rutas de estudio",
+      "trilhasCarregando": "Cargando las rutas…",
+      "trilhasFalha": "No se pudo listar las rutas ahora.",
+      "filtro": "Filtrar rutas",
+      "contador": "{n} de {max} elegidas",
+      "aparecer": "Acepto aparecer en los paquetes de personas para seguir (solo si mi perfil es abierto). Lo apagas cuando quieras.",
+      "salvar": "Guardar elecciones"
+    },
+    "guia": {
+      "titulo": "Guía de seguridad",
+      "pular": "Saltar la guía",
+      "concluir": "Entendido, ir a la Red",
+      "proximo": "Siguiente tarjeta",
+      "cartao": "Tarjeta {n} de {total}",
+      "cartoes": [
+        { "titulo": "El seudónimo te protege", "texto": "No cuentes dónde vives, dónde trabajas ni con quién convives. Ni el equipo ve tu nombre real en la Red." },
+        { "titulo": "Nada de datos personales", "texto": "Dirección de casa, teléfono, documento y correo quedan fuera de la publicación. Para convocatorias usa un lugar público: plaza, biblioteca, sindicato." },
+        { "titulo": "Denuncia sin miedo", "texto": "El botón Denunciar está en cada publicación. Sigues el avance en Avisos y nadie sabe quién denunció." },
+        { "titulo": "Salida rápida", "texto": "El botón Salida rápida abre una página neutra y borra lo que la Red guardó en este dispositivo. Úsalo cuando lo necesites." }
+      ]
+    },
+    "erro": "No se pudo guardar ahora. Inténtalo de nuevo."
+  },
+  "ordens": {
+    "rotulo": "Orden",
+    "porQue": "¿Por qué este orden?",
+    "semAlgoritmo": "No hay una nota escondida: el orden es solo la regla de abajo. Ningún orden usa tiempo de lectura, clics ni lo que te gustó.",
+    "teto": "Cada orden muestra como máximo 100 publicaciones y la lista termina ahí. Para ir más allá, afina por etiqueta, comunidad o búsqueda.",
+    "novos": { "nome": "Nuevas", "formula": "De la más nueva a la más antigua. Nada más." },
+    "uteis": { "nome": "Más útiles", "formula": "Cuántas personas marcaron Útil, de mayor a menor. Empate: la más nueva. Solo publicaciones de los últimos 30 días." },
+    "sem_resposta": { "nome": "Sin respuesta", "formula": "Publicaciones sin ninguna respuesta que puedas ver ni respuesta aceptada, de la más nueva a la más antigua. Solo los últimos 30 días." },
+    "em_debate": { "nome": "En debate", "formula": "Cuántas respuestas recibió la conversación en los últimos 7 días (solo las que puedes ver), de mayor a menor. Empate: la más nueva. Solo publicaciones de los últimos 30 días." },
+    "relevancia": { "nome": "Relevancia", "formula": "Cuánto coincide el texto con tu búsqueda (ts_rank_cd de Postgres, en portugués, sin acentos). Empate: la más nueva." }
+  },
+  "tag": {
+    "titulo": "Publicaciones con #{tag}",
+    "regraDaLinha": "Línea temática {titulo}: {regra}",
+    "vazio": "Aún no hay publicaciones con esta etiqueta que puedas ver.",
+    "voltar": "Volver a Explorar"
+  },
+  "explorar": {
+    "titulo": "Explorar",
+    "lead": "Descubre comunidades, líneas temáticas y conversaciones del momento. Todo con regla escrita, sin algoritmo escondido.",
+    "mudarEscolhas": "Cambiar mis 3 luchas y 3 rutas",
+    "comunidades": "Comunidades",
+    "categorias": { "lutas": "Luchas", "disciplinas": "Asignaturas", "instituto": "Instituto" },
+    "membro": "Participas",
+    "entrar": "Abrir",
+    "linhas": "Líneas temáticas",
+    "linhasAjuda": "Cada línea muestra las publicaciones que cumplen una regla pública.",
+    "regra": "Regla",
+    "ver": "Ver la línea",
+    "linhaAtiva": "Línea: {titulo}",
+    "fecharLinha": "Salir de la línea",
+    "tags": "En alza esta semana",
+    "tagsAjuda": "Etiquetas usadas por 3 o más personas distintas en los últimos 7 días, solo de publicaciones que puedes ver.",
+    "tagsVazio": "Aún no hay etiquetas en alza.",
+    "posts": "{n} publicaciones",
+    "pacotes": "Personas para seguir",
+    "pacotesAjuda": "Paquetes elegidos por el equipo. Solo entra quien tiene perfil abierto y aceptó aparecer.",
+    "pacotesVazio": "Aún no hay paquetes de personas.",
+    "pessoas": "{n} personas",
+    "abrirPacote": "Ver quién está en el paquete",
+    "seguirTodos": "Seguir a todas",
+    "seguiu": "Ahora sigues a {n} personas.",
+    "jaSegue": "Ya sigues a todas.",
+    "sigo": "Siguiendo",
+    "aparecerTitulo": "Aparecer en los paquetes",
+    "aparecerAjuda": "Si lo activas, el equipo puede incluir tu perfil abierto en paquetes de personas para seguir. Desactivado, nadie te incluye.",
+    "aparecerLigar": "Quiero aparecer",
+    "aparecerDesligar": "No quiero aparecer"
+  },
+  "buscar": {
+    "titulo": "Buscar en la Red",
+    "rotulo": "¿Qué buscas?",
+    "dica": "Funciona sin acentos y con plurales: huelga encuentra huelgas. Usa comillas para una frase y - para excluir una palabra.",
+    "botao": "Buscar",
+    "posts": "Publicaciones",
+    "pessoas": "Personas",
+    "comunidades": "Comunidades",
+    "vazio": "No se encontró nada que puedas ver.",
+    "curta": "Escribe al menos dos letras.",
+    "soComuns": "Solo palabras muy comunes: prueba términos más específicos.",
+    "visitante": "Sin cuenta, la búsqueda muestra solo lo abierto a internet.",
+    "irParaTag": "Ver la página de la etiqueta #{tag}"
+  },
+  "estados": {
+    "carregando": "Cargando…",
+    "erro": "No se pudo cargar ahora.",
+    "tentar": "Intentar de nuevo",
+    "maisPosts": "Cargar más",
+    "fim": "Fin de la lista.",
+    "fimPorTeto": "Llegamos al límite de 100 publicaciones de este orden."
+  }
+}

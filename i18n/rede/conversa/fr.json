@@ -1,0 +1,74 @@
+{
+  "_rascunho": true,
+  "ordem": {
+    "rotulo": "Trier les réponses",
+    "uteis": "Les plus utiles",
+    "antigas": "Les plus anciennes",
+    "novas": "Les plus récentes",
+    "porQue": "Pourquoi cet ordre ?",
+    "formulaUteis": "Les plus utiles : d’abord la réponse qui a réglé la question ; ensuite celle qui a reçu le plus de marques « Utile » ; à égalité, la plus ancienne. Les soutiens ne comptent pas : seule la personne qui a écrit voit combien de soutiens elle a reçus.",
+    "formulaAntigas": "Les plus anciennes : de la réponse la plus ancienne à la plus récente, sans autre critère.",
+    "formulaNovas": "Les plus récentes : de la réponse la plus récente à la plus ancienne, sans autre critère.",
+    "aoLado": "L’ordre vaut pour chaque groupe de réponses à un même message ; les réponses à une réponse restent toujours juste en dessous."
+  },
+  "arvore": {
+    "carregando": "Chargement de la conversation",
+    "respostas": "Réponses",
+    "nenhuma": "Personne n’a encore répondu. Vous pouvez être la première personne.",
+    "continuar": "Continuer la conversation ({n} réponses)",
+    "continuarUm": "Continuer la conversation (1 réponse)",
+    "silenciada": "Réponse d’une personne que vous avez mise en sourdine.",
+    "mais": "Nous montrons les 400 premières réponses. Ouvrez une réponse pour voir la suite.",
+    "acima": "La conversation jusqu’ici",
+    "desdeOComeco": "Voir la conversation depuis le début",
+    "nivel": "Niveau {n} de la conversation",
+    "naoEncontrada": "Nous n’avons pas trouvé cette conversation, ou vous n’y avez pas accès."
+  },
+  "resolveu": {
+    "marcar": "Cette réponse a réglé la question",
+    "desmarcar": "Retirer la marque",
+    "selo": "Réponse qui a réglé la question",
+    "ajuda": "Seule la personne qui a posé la question et la modération marquent la réponse qui a réglé la question. Il n’y en a qu’une ; en marquer une autre déplace la marque.",
+    "marcada": "Marquée comme la réponse qui a réglé la question.",
+    "desmarcada": "Marque retirée."
+  },
+  "sintese": {
+    "titulo": "Synthèse de la conversation",
+    "fixada": "Épinglée en haut",
+    "por": "Écrite par {autor}, {quando}",
+    "escrever": "Écrire la synthèse",
+    "novaVersao": "Écrire une nouvelle version",
+    "retirar": "Retirer la synthèse",
+    "confirmarRetirar": "Retirer la synthèse du haut de la conversation ? Elle reste dans l’historique.",
+    "confirmar": "Retirer",
+    "cancelar": "Annuler",
+    "salvar": "Épingler en haut",
+    "salva": "Synthèse épinglée.",
+    "retirada": "Synthèse retirée du haut.",
+    "placeholder": "En quelques lignes : ce que la conversation a conclu et ce qui reste ouvert.",
+    "dica": "Seules la personne qui a ouvert la conversation et la modération écrivent la synthèse. Ne mettez ni numéro d’identité, ni téléphone, ni e-mail. Chaque version reste dans l’historique.",
+    "contador": "{n} sur {max}",
+    "historico": "Voir l’historique ({n} versions)",
+    "versaoAtual": "version actuelle",
+    "versaoAntiga": "version retirée",
+    "escritaPor": "{autor}, {quando}"
+  },
+  "citar": {
+    "botao": "Citer",
+    "titulo": "Citer ce message",
+    "placeholder": "Écrivez ce que vous voulez dire sur ce message",
+    "enviar": "Publier la citation",
+    "cancelar": "Annuler",
+    "quemVe": "Qui peut le voir : {publico}",
+    "restrito": "Qui ne peut pas voir le message d’origine verra seulement « contenu restreint ».",
+    "publicada": "Citation publiée.",
+    "verPublicada": "Ouvrir la citation",
+    "contador": "{n} sur {max}"
+  },
+  "mencao": {
+    "lista": "Personnes à mentionner",
+    "dica": "Tapez @ et le début du @nom pour mentionner quelqu’un. La personne n’est prévenue que si elle peut voir la conversation et ne vous a pas bloqué.",
+    "nenhuma": "Personne trouvé.",
+    "equipe": "équipe"
+  }
+}

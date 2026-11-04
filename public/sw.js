@@ -89,3 +89,55 @@ self.addEventListener("fetch", (evento) => {
   // sem ela, o navegador pede o documento inteiro, que sai daqui.
   if (pedido.mode === "navigate") evento.respondWith(primeiroARede(pedido));
 });
+
+// ── Aviso no celular da Rede (Web Push, pacote avisos; docs/rede/AVISOS.md) ──
+// O conteúdo do aviso é só {n, l}: quantos avisos e o idioma. Nunca o texto de um post. Toda notificação recebida é mostrada
+// (exigência do navegador) e toca na tela de Avisos da Rede.
+const TEXTOS_AVISO = {
+  pt: ["Rede Lúcia", (n) => (n === 1 ? "Você tem 1 aviso na Rede." : n > 1 ? `Você tem ${n} avisos na Rede.` : "Você tem avisos novos na Rede.")],
+  en: ["Lúcia Network", (n) => (n === 1 ? "You have 1 notification on the Network." : n > 1 ? `You have ${n} notifications on the Network.` : "You have new notifications on the Network.")],
+  es: ["Red Lúcia", (n) => (n === 1 ? "Tienes 1 aviso en la Red." : n > 1 ? `Tienes ${n} avisos en la Red.` : "Tienes avisos nuevos en la Red.")],
+  fr: ["Réseau Lúcia", (n) => (n === 1 ? "Vous avez 1 notification sur le Réseau." : n > 1 ? `Vous avez ${n} notifications sur le Réseau.` : "Vous avez de nouvelles notifications sur le Réseau.")],
+  ru: ["Сеть Лусии", (n) => (n > 0 ? `У вас уведомлений в Сети: ${n}.` : "У вас новые уведомления в Сети.")],
+  zh: ["露西亚网络", (n) => (n > 0 ? `你在网络上有 ${n} 条通知。` : "你在网络上有新通知。")],
+};
+
+self.addEventListener("push", (evento) => {
+  let dados = {};
+  try {
+    dados = evento.data ? evento.data.json() : {};
+  } catch {
+    dados = {};
+  }
+  const lang = typeof dados.l === "string" && dados.l in TEXTOS_AVISO ? dados.l : "pt";
+  const n = Number.isInteger(dados.n) && dados.n > 0 && dados.n < 100 ? dados.n : 0;
+  const [titulo, frase] = TEXTOS_AVISO[lang];
+  evento.waitUntil(
+    self.registration.showNotification(titulo, {
+      body: frase(n),
+      icon: "/icone-192.png",
+      badge: "/marca-96.png",
+      tag: "rede-avisos",
+      data: { lang },
+    }),
+  );
+});
+
+self.addEventListener("notificationclick", (evento) => {
+  evento.notification.close();
+  const lang = typeof evento.notification.data?.lang === "string" && evento.notification.data.lang in TEXTOS_AVISO ? evento.notification.data.lang : "pt";
+  const destino = `/${lang}/comunidade/avisos`;
+  evento.waitUntil(
+    (async () => {
+      const abertas = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+      for (const janela of abertas) {
+        if (new URL(janela.url).origin === self.location.origin && "focus" in janela) {
+          await janela.focus();
+          if ("navigate" in janela) await janela.navigate(destino).catch(() => undefined);
+          return;
+        }
+      }
+      await self.clients.openWindow(destino);
+    })(),
+  );
+});

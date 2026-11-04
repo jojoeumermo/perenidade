@@ -54,6 +54,7 @@ export const icones: Record<string, string> = {
   saude: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9zM12 8v6M9 11h6",
   erros: "M8 8a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0zM12 10v8M4 9h4M16 9h4M4 15h4M16 15h4M9 4l1.5 2M15 4l-1.5 2",
   termos: "M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 15h7M9 18h4",
+  "rede-propostas": "M4 5h16v11H10l-4.5 4v-4H4zM9 10.5h6M12 8v5",
 };
 
 export function Icone({ id, className = "h-[18px] w-[18px]" }: { id: string; className?: string }) {
