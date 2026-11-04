@@ -1,0 +1,51 @@
+# Exercícios da aula "Emilia Ferreiro e a psicogênese da língua escrita" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-ferreiro-01
+  tema: "A mudança de pergunta"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual pergunta Emilia Ferreiro colocou no lugar de \"como ensinar?\""
+  alternativas:
+    - texto: "Qual é o melhor método?"
+      erro: "Essa é a velha pergunta. Ferreiro perguntou como se aprende."
+    - texto: "Como a criança aprende?"
+      certa: true
+    - texto: "Quantas letras uma criança deve decorar por dia?"
+      erro: "Ela perguntou o que a criança pensa sobre a escrita e como aprende."
+  explicacao: "Ferreiro e Teberosky mudaram o foco do método de ensino para o que o aprendiz pensa e como aprende."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-ferreiro-02
+  tema: "Os níveis"
+  dificuldade: 2
+  enunciado: "Num texto em que o aprendiz escreve AO para GATO, em qual nível está?"
+  alternativas:
+    - texto: "Pré-silábico"
+      erro: "No pré-silábico a escrita não representa os sons (rabiscos, letras aleatórias)."
+    - texto: "Alfabético"
+      erro: "No alfabético ele escreveria GATO (ou GATU), com letras representando sons menores que a sílaba."
+    - texto: "Silábico: cada letra corresponde a uma sílaba falada"
+      certa: true
+  explicacao: "AO tem uma letra por sílaba (GA-TO): nível silábico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-ferreiro-03
+  tema: "Erro e hipótese"
+  dificuldade: 2
+  enunciado: "O que os \"erros\" revelam, segundo a teoria?"
+  alternativas:
+    - texto: "O que o aprendiz está pensando sobre a escrita"
+      certa: true
+    - texto: "Falta de esforço"
+      erro: "Os erros deixam de ser só falhas: mostram as hipóteses do aprendiz."
+    - texto: "Que ele deve ser reprovado"
+      erro: "Eles informam o que o aprendiz pensa, para quem ensina ajudar."
+  explicacao: "Os erros mostram as hipóteses do aprendiz, que testa e reformula diante dos conflitos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

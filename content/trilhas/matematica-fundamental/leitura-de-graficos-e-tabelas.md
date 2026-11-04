@@ -25,6 +25,7 @@ quiz:
     explicacao: "Cortar a base das barras estica as diferenças. Sempre leia os números do eixo."
 ---
 
+
 ## Para que servem
 
 Uma **tabela** organiza informações em linhas e colunas, para você achar um valor exato. Um **gráfico** transforma os números em desenho, para você ver de uma vez a comparação ou a tendência. Contas de luz, exames, pesquisas eleitorais, notícias de economia: tudo isso chega em tabelas e gráficos. Saber ler é uma defesa.
@@ -114,6 +115,17 @@ B █████████████████████ 52   B ██�
 
 Nada disso exige mentir nos números. Basta escolher como mostrar. Por isso a regra é: **leia os números, não só o desenho**. A trilha [Estatística para ler o Brasil](/trilhas/estatistica-para-ler-o-brasil) aprofunda esses cuidados.
 
+## Exemplo resolvido
+
+**Que porcentagem da colheita da horta foi de alface?**
+
+1. Na tabela, leia o título e os cabeçalhos: são quilos colhidos em um mês (dados de exemplo).
+2. Ache a alface: 40 kg. Ache o total: 200 kg.
+3. Divida a parte pelo total: 40 ÷ 200 = 0,2.
+4. Multiplique por 100: 20%.
+
+Confira: tomate (80 kg) é 40% e alface é 20%, e o tomate rendeu o dobro da alface, o que o gráfico de barras mostra de relance.
+
 ## Para praticar
 
 Use a tabela da horta e a tabela do feijão.
@@ -125,3 +137,10 @@ Use a tabela da horta e a tabela do feijão.
 5. Pegue um gráfico de um jornal ou de uma conta de luz e responda às cinco perguntas desta aula.
 
 **Respostas:** 1) 20 kg. 2) 20%. 3) Em março: R$ 1,50. 4) R$ 1,50, que são 25% de R$ 6,00.
+
+## Resumo
+
+- Tabela organiza informações para achar um valor exato; gráfico mostra a comparação ou a tendência.
+- Antes dos números, leia título, cabeçalhos, unidade e fonte.
+- Barras comparam categorias; linhas mostram mudança no tempo (a inclinação conta); setores mostram como um todo se divide.
+- Antes de acreditar num gráfico, faça perguntas: escala, fonte, recorte; um gráfico pode enganar.

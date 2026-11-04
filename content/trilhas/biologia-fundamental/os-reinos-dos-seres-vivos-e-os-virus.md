@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "Usar antibiótico sem necessidade ainda favorece o surgimento de bactérias resistentes."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como a biologia classifica os seres vivos (do domínio à espécie), ler um nome científico, reconhecer os grandes grupos e explicar por que os vírus não aparecem entre eles.
 
 ## Por que classificar
 
@@ -119,3 +122,23 @@ Contra muitos vírus, a melhor defesa é a [vacina](/trilhas/biologia-fundamenta
 1. Procure o nome científico de três animais ou plantas da sua região. Quais pertencem ao mesmo gênero ou à mesma família?
 2. Liste cinco alimentos produzidos com a ajuda de fungos ou bactérias.
 3. Explique para alguém da sua casa por que não se deve tomar antibiótico para gripe.
+
+## Exemplo resolvido
+
+**O fermento biológico do pão é uma levedura: um ser de uma só célula, com núcleo, que não faz fotossíntese. A que grupo ele pertence?**
+
+1. **Veja se é célula.** Sim, é uma célula; então não é um vírus.
+2. **Veja o núcleo.** Tem núcleo: não é bactéria nem arqueia. Está entre os eucariontes.
+3. **Veja como se alimenta.** Não produz o próprio alimento, então não é planta. Não come outros seres como os animais: absorve matéria orgânica.
+4. **Conclua.** É um **fungo**, como os cogumelos e os bolores.
+
+Confira: tem núcleo (não é bactéria) e não faz fotossíntese (não é planta).
+
+## Resumo
+
+- A **taxonomia** organiza os seres vivos em grupos que refletem o parentesco: domínio, reino, filo, classe, ordem, família, gênero e espécie (sistema de Lineu).
+- O **nome científico** tem duas palavras (gênero e espécie) e vale no mundo inteiro, ao contrário dos nomes populares.
+- Três domínios: **bactérias**, **arqueias** e **eucariontes**; na escola, usam-se cinco reinos (moneras, protistas, fungos, plantas e animais).
+- A classificação **muda** quando o conhecimento avança.
+- A maior parte das bactérias não causa doença.
+- **Vírus** não são células: são parasitas obrigatórios, que só se multiplicam dentro de uma célula viva. **Antibiótico não mata vírus.**

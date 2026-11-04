@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "可以 (kěyǐ) = poder (permissão)."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber falar da sua empresa e função, usar o vocabulário de jornada e direitos (salário, contrato, hora extra, sindicato), participar de uma reunião e pedir ajuda e esclarecimento.
 
 ## A empresa e a função
 
@@ -98,3 +101,23 @@ Avisos de segurança costumam usar estes caracteres: 危险 (*wēixiǎn*, perigo
 2. Escreva as cinco frases de pedido de ajuda e decore duas.
 3. Traduza: "Hoje vou fazer duas horas extras."
 4. Encene uma reunião curta em que você concorda com uma proposta e discorda de outra.
+
+## Exemplo resolvido
+
+**Em uma reunião, você quer dar a sua opinião e pedir que repitam algo que não entendeu. Como fazer?**
+
+1. **Peça a palavra.** **我可以说几句吗？** (Wǒ kěyǐ shuō jǐ jù ma?) Posso dizer algumas palavras?
+2. **Dê a opinião.** **我觉得…** (Wǒ juéde…) Acho que…
+3. **Concorde ou discorde.** **我同意。** (concordo) ou **我不同意。** (discordo)
+4. **Peça esclarecimento.** **我没听懂，请再说一遍。** (Não entendi, repita, por favor.) Ou **请说慢一点儿。** (Fale mais devagar, por favor.)
+5. **Peça que escrevam.** **请写下来。** Muitas vezes é mais fácil ler os caracteres do que entender a fala.
+
+Confira: "我不同意你是谁" não faz sentido; peça a palavra e use 我觉得 para opinar.
+
+## Resumo
+
+- A empresa e a função: 公司, 工厂, 同事, 老板, 经理, 部门; **我负责…** (sou responsável por…).
+- Jornada e direitos: 上班/下班, 加班 (hora extra), 工资 (salário), 合同 (contrato), 休假, 病假, 工会 (sindicato), 安全.
+- Reuniões: 开会, 我同意, 我不同意, 我觉得…, 我可以说几句吗？
+- Pedir ajuda: 我没听懂，请再说一遍; 请说慢一点儿; 这个用中文怎么说？; 你能帮我吗？; 请写下来.
+- Avisos de segurança usam caracteres como 危险 (perigo) e 小心 (cuidado).

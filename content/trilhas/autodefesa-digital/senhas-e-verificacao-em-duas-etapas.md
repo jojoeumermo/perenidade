@@ -1,5 +1,6 @@
 ---
 titulo: "Senhas fortes e verificação em duas etapas"
+modelo: 9
 resumo: "Por que senha comprida vale mais do que senha complicada, por que nunca repetir, como usar um cofre de senhas e como ligar a segunda etapa nas contas que importam."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,13 @@ quiz:
     resposta: 0
     explicacao: "O SMS pode ser desviado se o golpista transferir o seu número para outro chip. Ainda assim, é bem melhor do que não ter segunda etapa."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber montar uma frase-senha forte, usar uma senha diferente em cada conta (com um cofre de senhas ou um caderno), ligar a verificação em duas etapas e o que fazer quando uma senha vaza.
+
+```suarealidade
+Quantas das suas contas (e-mail, WhatsApp, banco, gov.br, redes sociais) usam a mesma senha ou uma senha parecida? Se alguém descobrisse a senha do seu e-mail, o que conseguiria abrir? (Não escreva senhas aqui nem em lugar nenhum da internet.)
+```
 
 ## Como as contas são invadidas
 
@@ -135,3 +143,37 @@ Em sindicato, coletivo ou associação, a conta do grupo é de todos, e a perda 
 - Quando alguém deixa o grupo, troca-se a senha no mesmo dia. Não é desconfiança; é rotina.
 
 A última aula desta trilha volta a esse assunto.
+
+## Exemplo resolvido
+
+**Qual destas senhas é a mais forte: "Br@sil2026" ou "tomate janela violão quinze rio"? E por onde começar a proteger as contas?**
+
+1. **Olhe o comprimento.** "Br@sil2026" tem 10 caracteres. "tomate janela violão quinze rio" tem mais de 30.
+2. **Veja o que um programa de ataque testa primeiro.** Palavras conhecidas com trocas de letras por símbolos (como o @ no lugar do a) e anos são as primeiras da fila. Quatro ou cinco palavras ao acaso, sem relação entre si, não.
+3. **Conclua.** A frase de palavras é muito mais forte e mais fácil de lembrar. Para a sua, invente outra: os exemplos publicados na aula já não servem.
+4. **Escolha por onde começar.** O e-mail principal abre todas as outras contas ("esqueci minha senha"). Primeiro ele: frase-senha própria e verificação em duas etapas.
+5. **Guarde o estepe.** Na hora de ligar a segunda etapa, imprima ou copie à mão os códigos de reserva e guarde em casa.
+
+Confira: nenhuma senha foi repetida, nenhum código foi dito a ninguém e o e-mail ficou protegido antes do resto.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Gerenciador de senhas põe todos os ovos numa cesta só. Se o cofre for invadido, ou se eu esquecer a senha mestra, perco tudo. É mais seguro decorar poucas senhas ou usar a mesma em tudo, que eu nunca esqueço."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O cuidado faz sentido, e a aula não obriga ninguém a usar aplicativo. O que ela mostra é o risco maior: senha repetida transforma o vazamento de uma loja qualquer na perda do seu e-mail. O cofre fica trancado por uma única senha mestra (a sua melhor frase-senha, que não pode estar em nenhum outro lugar). O KeePassXC guarda o cofre num arquivo no seu próprio aparelho, sem depender de servidor de ninguém. E, para quem não se dá bem com aplicativos, um caderno guardado em casa é mais seguro do que usar a mesma senha em tudo: o ladrão de senhas está na internet, não na gaveta.
+```
+
+```agir
+# Esta semana
+Ligue a verificação em duas etapas no seu e-mail principal e no WhatsApp (Configurações, Conta, Confirmação em duas etapas) e guarde os códigos de reserva em papel, em casa. Não diga o código que chega no celular a ninguém, nem digite suas senhas em lugar nenhum além do próprio serviço.
+```
+
+## Resumo
+
+- Contas são invadidas por **vazamento**, **reaproveitamento** de senha, **engano** (página ou ligação falsa) e **senha óbvia**.
+- **Regra 1:** senha **comprida**. Uma frase-senha de quatro ou cinco palavras ao acaso é forte e fácil de lembrar.
+- **Regra 2:** **uma senha para cada conta**, com um cofre de senhas (Bitwarden, KeePassXC) ou um caderno guardado em casa.
+- **Regra 3:** ligue a **verificação em duas etapas**, começando pelo e-mail, gov.br, banco, WhatsApp e redes.
+- **O código não se diz a ninguém.** Se a senha vazou: troque, ligue a segunda etapa, encerre as sessões abertas e confira os dados de recuperação.

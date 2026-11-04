@@ -1,5 +1,6 @@
 ---
 titulo: "O que é fascismo"
+modelo: 9
 resumo: "Uma palavra muito usada e pouco definida: as características históricas do fascismo, de onde veio o nome e por que ele não é só 'autoritarismo'."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,13 @@ quiz:
     resposta: 0
     explicacao: "A destruição do movimento operário foi uma das funções centrais do fascismo para as classes dominantes."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber de onde vem a palavra fascismo, quais características os historiadores apontam como comuns aos fascismos e por que nem toda ditadura é fascista.
+
+```suarealidade
+Você já ouviu alguém chamar uma pessoa ou uma ideia de "fascista"? Em que situação foi, e o que a pessoa queria dizer com isso?
+```
 
 "Fascista" virou xingamento comum, usado para quase qualquer coisa. Mas o **fascismo** foi um fenômeno histórico preciso, que matou milhões de pessoas. Entender o que ele foi é a primeira condição para reconhecê-lo quando ele volta, com outras roupas.
 
@@ -73,3 +81,35 @@ Nem toda ditadura é fascista. A ditadura militar brasileira (1964-1985), por ex
 ## Para conversar
 
 Por que, na sua opinião, pessoas comuns aderiram ao fascismo na Itália e na Alemanha? O que o fascismo prometia a elas?
+
+## Exemplo resolvido
+
+**Alguém diz: "a ditadura militar brasileira (1964-1985) foi igual ao fascismo". Como testar essa frase com a lista de características?**
+
+1. **Pegue a lista de Paxton**: nacionalismo radical, culto ao líder, mobilização de massas (partido, milícias, desfiles, propaganda), violência como método político, inimigos internos, anticomunismo e aliança com os grandes proprietários.
+2. **Compare com o caso.** Segundo a aula, a ditadura brasileira foi autoritária e violenta, mas não tinha partido de massas mobilizado nem a mesma ideologia de renascimento nacional pela violência popular.
+3. **Conclua.** Nem toda ditadura é fascista. Autoritarismo e violência existem em muitos regimes; o fascismo é um fenômeno histórico mais preciso.
+
+Confira: usar a palavra com precisão ajuda a entender cada caso e a combatê-lo melhor.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "'Fascista' virou xingamento, uma palavra que se joga em qualquer adversário para encerrar a conversa. Falar de fascismo hoje, quase cem anos depois, é exagero."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A primeira parte é verdadeira, e a própria aula começa por ela: a palavra virou xingamento comum. Por isso o caminho é o oposto de rotular: tratar o fascismo como um fenômeno histórico preciso e testar cada caso por características documentadas pelos historiadores, como as de Robert Paxton, e nem toda ditadura passa no teste. Os historiadores discutem há décadas a definição; Umberto Eco, no ensaio *Fascismo Eterno*, descreveu traços que podem se repetir. Conhecer o que ele foi é a condição para reconhecê-lo, ou para dizer com fundamento que algo não é fascismo.
+```
+
+```agir
+# Esta semana
+Escreva num papel três características do fascismo da lista da aula. Durante a semana, quando ouvir alguém chamar algo de "fascista", anote se o caso descrito tem de fato essas marcas. Não é para discutir nem confrontar ninguém, só para treinar a precisão.
+```
+
+## Resumo
+
+- A palavra vem do italiano **fascio**, "feixe": os *fasces* eram feixes de varas em torno de um machado, símbolo de autoridade na Roma antiga. Em 1919, Mussolini fundou os *Fasci di Combattimento*.
+- Características que se repetem (Paxton): **nacionalismo radical**, **culto ao líder**, **mobilização de massas**, **violência** política, **inimigos internos**, **anticomunismo** e aliança com os grandes proprietários.
+- Umberto Eco falou de traços do "Ur-fascismo": culto da tradição, rejeição do pensamento crítico, medo da diferença, obsessão com conspirações.
+- Para muitos marxistas dos anos 1920 e 1930, o fascismo foi resposta das classes dominantes a uma crise, mobilizando classes médias arruinadas.
+- **Nem toda ditadura é fascista**; usar a palavra com precisão ajuda a combatê-lo.

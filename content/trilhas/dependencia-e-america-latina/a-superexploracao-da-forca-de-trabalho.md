@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "O trabalhador conta como produtor, mas pouco como consumidor."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o conceito de superexploração da força de trabalho de Ruy Mauro Marini, seus três mecanismos e por que ele se sustenta nas economias dependentes.
 
 Em 1973, o brasileiro **Ruy Mauro Marini**, que vivia no exílio desde o golpe de 1964, publicou no México um ensaio curto chamado *Dialética da Dependência*. Nele está o conceito mais conhecido, e mais discutido, da teoria marxista da dependência: a **superexploração da força de trabalho**.
 
@@ -76,3 +79,24 @@ O conceito recebeu críticas. Alguns autores afirmam que salários baixos e jorn
 ## Para pesquisar e debater
 
 Procure o valor do salário mínimo necessário calculado pelo DIEESE neste mês e compare com o salário mínimo oficial. Quanto dos gastos de uma família o salário oficial consegue cobrir?
+
+## Exemplo resolvido
+
+**Uma empresa mantém o mesmo salário, mas passa a exigir que cada operário cuide de três máquinas em vez de duas, no mesmo horário. Qual mecanismo de Marini está em ação?**
+
+1. **Lembre os três mecanismos.** Prolongar a jornada, aumentar a intensidade do trabalho e reduzir o consumo do trabalhador abaixo do necessário.
+2. **Olhe a jornada.** Não mudou: o horário é o mesmo.
+3. **Olhe o esforço.** Passou de duas máquinas para três no mesmo tempo, ou seja, mais esforço dentro da mesma jornada.
+4. **Conclua.** É o aumento da **intensidade** do trabalho.
+5. **Veja o efeito.** O trabalhador se desgasta mais depressa do que consegue se recuperar, e parte do que seria sustento da família vira lucro.
+
+Confira: o salário real não subiu; por isso não se trata de aumento do salário.
+
+## Resumo
+
+- Ruy Mauro Marini publicou *Dialética da Dependência* em 1973, no exílio.
+- Na economia dependente, o capital compensa as perdas do comércio com o centro **dentro de casa**, sobre os trabalhadores: a **superexploração**.
+- Três mecanismos: **prolongar a jornada**, **aumentar a intensidade** e **pagar abaixo do valor da força de trabalho**.
+- Ela se sustenta porque a produção se destina em boa parte ao mercado externo e às rendas altas (o trabalhador interessa mais como produtor que como consumidor) e porque há muita gente procurando emprego.
+- O DIEESE calcula todo mês o salário mínimo necessário, em geral várias vezes o oficial.
+- O conceito é debatido: os seguidores de Marini dizem que aqui é a regra, e não a exceção.

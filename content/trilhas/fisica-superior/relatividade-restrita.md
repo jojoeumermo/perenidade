@@ -37,6 +37,10 @@ quiz:
     resposta: 0
     explicacao: "Mesmo parada, a partícula tem energia E₀ = m·c²."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a relatividade da simultaneidade, deduzir a dilatação do tempo com o relógio de luz e usar as transformações de Lorentz e a relação entre energia e momento.
+
 
 ## O ponto de partida
 
@@ -139,3 +143,12 @@ A relatividade restrita é confirmada nos aceleradores, na física nuclear, nos 
 2. Uma barra de 10 m em repouso passa por você a 0,8c. Que comprimento você mede?
 3. Calcule a energia cinética de um elétron (m = 9,11 × 10⁻³¹ kg) a 0,6c.
 4. Explique com as suas palavras por que não existe um "agora" válido para todo o universo.
+
+## Resumo
+
+- A relatividade restrita parte de dois postulados e muda as ideias de tempo e espaço.
+- A simultaneidade é relativa: dois eventos simultâneos para um observador podem não ser para outro.
+- Dilatação do tempo (visível no relógio de luz) e contração do comprimento: L = L₀ / γ.
+- Os múons, produzidos na alta atmosfera, são uma prova experimental dessas ideias.
+- As transformações de Lorentz substituem as de Galileu; as leis de conservação valem com momento e energia redefinidos.
+- A teoria é testada todos os dias: aceleradores, física nuclear, relógios atômicos e correção do GPS.

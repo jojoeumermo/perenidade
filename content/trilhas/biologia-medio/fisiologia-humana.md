@@ -37,6 +37,9 @@ quiz:
     resposta: 1
     explicacao: "Dentro do neurônio, o sinal é elétrico; entre neurônios, é químico."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a retroalimentação negativa, descrever o neurônio, a sinapse e a organização do sistema nervoso, relacionar as glândulas aos hormônios e explicar o controle do açúcar no sangue.
 
 ## Como o corpo se mantém funcionando
 
@@ -163,3 +166,23 @@ Os rins filtram todo o sangue do corpo dezenas de vezes por dia. Quando param de
 2. Compare a ação do sistema nervoso com a do sistema endócrino quanto à velocidade e à duração.
 3. Por que a urina de uma pessoa com diabetes não tratado contém glicose?
 4. Meça a sua pressão em uma unidade de saúde e anote o resultado. O que significam os dois números?
+
+## Exemplo resolvido
+
+**Depois de uma refeição, como o corpo controla o açúcar no sangue? Use sensor, centro de controle e efetor.**
+
+1. **Desvio.** Depois de comer, a glicose no sangue sobe.
+2. **Resposta.** O pâncreas libera **insulina**, que faz a glicose entrar nas células e ser armazenada no fígado (nos músculos).
+3. **Retorno ao normal.** A glicose do sangue desce e a resposta cessa.
+4. **Em jejum.** A glicose cai; o pâncreas libera **glucagon**, que manda o fígado soltar glicose no sangue, e ela sobe.
+
+Confira: é um exemplo clássico de retroalimentação negativa: a resposta age no sentido **contrário** ao desvio. No diabetes, esse controle falha.
+
+## Resumo
+
+- **Anatomia** descreve as partes; **fisiologia** explica como funcionam.
+- **Homeostase** por **retroalimentação negativa**: sensor, centro de controle e efetor agem contra o desvio.
+- **Neurônio:** dendritos, corpo celular e axônio (com bainha de mielina). O impulso é elétrico; na **sinapse**, o sinal é químico, por neurotransmissores.
+- Sistema nervoso central (encéfalo e medula) e periférico (nervos); o autônomo controla o que não depende da vontade. No **arco reflexo**, a resposta sai da medula.
+- Sistema **endócrino:** hipófise, tireoide (precisa de iodo), pâncreas (insulina e glucagon), suprarrenais, ovários e testículos.
+- Controle do açúcar no sangue: insulina depois da refeição, glucagon em jejum.

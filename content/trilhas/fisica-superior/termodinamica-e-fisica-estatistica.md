@@ -37,6 +37,10 @@ quiz:
     resposta: 1
     explicacao: "A segunda lei, vista estatisticamente, é uma lei de probabilidades."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar a equação do gás ideal, ligar temperatura ao movimento das moléculas, aplicar a primeira e a segunda lei a processos e ciclos e interpretar a entropia de forma estatística.
+
 
 ## Do micro ao macro
 
@@ -137,3 +141,12 @@ Boltzmann enfrentou forte oposição de colegas que não aceitavam a existência
 2. Calcule a energia cinética média de uma molécula a 27 °C.
 3. Em um processo isocórico, um gás recebe 300 J de calor. Quanto vale o trabalho? E a variação da energia interna?
 4. Com 6 moedas, quantos microestados correspondem a 3 caras e 3 coroas? Compare com o de 6 caras.
+
+## Resumo
+
+- A física estatística liga o macro (pressão, temperatura) ao micro (moléculas em movimento).
+- Gás ideal: p·V = n·R·T. Na teoria cinética, a temperatura mede a energia cinética média das moléculas.
+- Primeira lei: ΔU = Q − W, com W = ∫ p dV (área sob a curva do diagrama pV).
+- Segunda lei e ciclo de Carnot: nenhuma máquina térmica, operando entre duas temperaturas, tem rendimento maior que o de Carnot.
+- Entropia: dS = dQ/T para processo reversível; em um sistema isolado, nunca diminui.
+- Boltzmann deu à entropia o sentido microscópico: S = k · ln W.

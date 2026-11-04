@@ -30,6 +30,10 @@ quiz:
     explicacao: "Sankara também defendeu, em 1987, que os países africanos não pagassem a dívida externa."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber situar as lutas de libertação das colônias portuguesas, apresentar Cabral, Machel e Sankara e explicar como a luta africana se ligou à Revolução dos Cravos.
+
 Entre os anos 1950 e 1980, dezenas de países africanos conquistaram a independência. Em vários deles, a luta contra o colonialismo se uniu à proposta de socialismo. Esta aula apresenta três lideranças: **Amílcar Cabral**, **Samora Machel** e **Thomas Sankara**.
 
 ## O império colonial português
@@ -74,6 +78,25 @@ Em julho de 1987, na Organização da Unidade Africana, Sankara defendeu que a *
 
 Essas lutas inspiraram a libertação da África Austral e o fim do apartheid. O pensamento de Cabral, de Fanon e de Sankara continua vivo em movimentos de juventude africanos e nas lutas antirracistas do mundo inteiro.
 
+## Exemplo resolvido
+
+**Em que ordem aconteceram os fatos que ligam a Guiné-Bissau, Portugal e Moçambique?**
+
+1. Em 1961 começa a luta armada nas colônias portuguesas, e em 1963 o PAIGC de Cabral passa à luta armada na Guiné.
+2. Em janeiro de 1973, Cabral é assassinado em Conacri; em setembro de 1973, a Guiné-Bissau declara a independência.
+3. Em 25 de abril de 1974, militares portugueses, desgastados pelas guerras coloniais, derrubam a ditadura (Revolução dos Cravos).
+4. Em 25 de junho de 1975, Moçambique torna-se independente, com Samora Machel presidente.
+
+Conclusão: a ordem mostra a ligação. Foram anos de guerra que desgastaram o exército português e ajudaram a derrubar a ditadura em Lisboa.
+
 ## Para conversar
 
 O Brasil fala português por causa do mesmo império colonial. Que laços históricos ligam o Brasil a Angola, Moçambique, Guiné-Bissau e Cabo Verde? Por que se fala tão pouco deles nas escolas?
+
+## Resumo
+
+- Portugal, sob Salazar, recusou descolonizar; Angola, Moçambique, Guiné-Bissau, Cabo Verde e São Tomé e Príncipe lutaram a partir de 1961.
+- Amílcar Cabral fundou o PAIGC em 1956, defendeu que a libertação é um ato de cultura e foi assassinado em janeiro de 1973.
+- Samora Machel, da FRELIMO, foi o primeiro presidente de Moçambique, independente em 25 de junho de 1975.
+- A Revolução dos Cravos, em 25 de abril de 1974, derrubou a ditadura portuguesa.
+- Thomas Sankara chegou ao poder no Alto Volta em 1983 e, em 1984, rebatizou o país.

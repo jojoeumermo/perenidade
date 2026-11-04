@@ -31,6 +31,10 @@ quiz:
     resposta: 1
     explicacao: "A mineração levou gente e riqueza para Minas Gerais, e a capital passou de Salvador para o Rio de Janeiro em 1763."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que Portugal veio buscar mercadorias, como a Coroa organizou a colônia, o que foi o engenho e o ciclo do ouro e quais estruturas a colônia deixou de herança.
+
 
 ## Um negócio
 
@@ -101,9 +105,30 @@ A repressão tratou os dois movimentos de modo diferente. Na Inconfidência, só
 
 A colônia terminou, mas as suas estruturas atravessaram os séculos: a terra concentrada, a economia voltada para exportar produtos primários, a desigualdade extrema e o racismo que justificou a escravidão. Entender o Brasil de hoje começa por aqui.
 
+## Exemplo resolvido
+
+**Quanto tempo se passou entre os marcos da colonização que a aula cita?**
+
+1. Tratado de Tordesilhas, 1494; chegada dos portugueses, 1500: 1500 − 1494 = **6 anos**.
+2. Capitanias hereditárias, 1534; governo-geral, 1549: 1549 − 1534 = **15 anos**. A Coroa centralizou o que as capitanias não deram conta.
+3. União Ibérica, de 1580 a 1640: 1640 − 1580 = **60 anos** sob os reis da Espanha.
+4. Domínio holandês em Pernambuco, de 1630 a 1654: 1654 − 1630 = **24 anos**.
+5. De 1500 ao fim do século XVII, quando se descobriu ouro em Minas Gerais, passaram cerca de 200 anos; a primeira grande riqueza do período foi o açúcar.
+
+Leitura: a colônia teve fases, e cada uma deixou marcas: a terra concentrada, a economia voltada para exportar produtos primários, a desigualdade e o racismo que justificou a escravidão.
+
 ## Para pesquisar e debater
 
 1. O que o seu estado produzia no período colonial? Para quem?
 2. Por que a história oficial transformou os bandeirantes em heróis? Quem são os homenageados nas estátuas e nos nomes de rodovias da sua região?
 3. Compare a Inconfidência Mineira e a Conjuração Baiana quanto aos participantes, ao programa e à punição.
 4. Que características da economia colonial ainda aparecem na economia brasileira atual?
+
+## Resumo
+
+- Portugal chegou em 1500 em busca de mercadorias para o comércio; o Tratado de Tordesilhas (1494) dividiu as terras entre Portugal e Espanha.
+- Capitanias hereditárias (1534) e governo-geral (1549) foram as formas de administração.
+- A primeira grande riqueza foi o açúcar, produzido no engenho, sobretudo em Pernambuco e na Bahia.
+- Entre 1580 e 1640, Portugal esteve sob os reis da Espanha; de 1630 a 1654, os holandeses ocuparam o Nordeste açucareiro; os bandeirantes avançaram pelo interior.
+- No fim do século XVII, o ouro descoberto em Minas Gerais deslocou o centro da colônia para o Centro-Sul.
+- Na segunda metade do século XVIII, o ouro escasseou, os impostos aumentaram e Pombal expulsou os jesuítas (1759). A herança: terra concentrada, exportação de produtos primários, desigualdade e racismo.

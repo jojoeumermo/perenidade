@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização nas prisões" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-prisoes-01
+  tema: "Direito que continua"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a Lei de Execução Penal (Lei nº 7.210/1984) diz sobre o ensino fundamental de quem está preso?"
+  alternativas:
+    - texto: "É proibido dentro das unidades prisionais"
+      erro: "A lei diz o contrário: a assistência educacional compreende instrução escolar e formação profissional."
+    - texto: "É obrigatório e integrado ao sistema escolar do estado (art. 18)"
+      certa: true
+    - texto: "É opcional e só a critério do diretor"
+      erro: "O artigo 18 diz que o ensino fundamental é obrigatório."
+  explicacao: "A pessoa presa perdeu a liberdade, não os outros direitos: o ensino fundamental é obrigatório e o médio também deve ser oferecido (art. 18-A)."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 7.210/1984, arts. 17, 18 e 18-A)"
+  revisao:
+    status: em-revisao
+
+- id: aprof-prisoes-02
+  tema: "Ensino médio"
+  dificuldade: 2
+  enunciado: "Que artigo, incluído em 2015, diz que o ensino médio também deve ser oferecido a quem está preso?"
+  alternativas:
+    - texto: "O artigo 17"
+      erro: "O artigo 17 trata da assistência educacional em geral. O ensino médio está no 18-A."
+    - texto: "O artigo 18"
+      erro: "O 18 trata do ensino fundamental obrigatório. O médio está no 18-A, incluído em 2015."
+    - texto: "O artigo 18-A"
+      certa: true
+  explicacao: "O artigo 18-A, incluído em 2015, prevê o ensino médio."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 7.210/1984, art. 18-A)"
+  revisao:
+    status: em-revisao
+
+- id: aprof-prisoes-03
+  tema: "Papel da escola"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre a escola na prisão?"
+  alternativas:
+    - texto: "Para muitos, a prisão pode ser o primeiro lugar com tempo e oferta de escola, e a lei faz do estudo um direito"
+      certa: true
+    - texto: "A escola é um castigo extra"
+      erro: "A aula diz que o estudo é um direito e um caminho para reduzir a pena."
+    - texto: "Quem está preso não tem direito a estudar"
+      erro: "A pessoa presa perdeu a liberdade, não os outros direitos."
+  explicacao: "A lei transforma o estudo em direito e em caminho para reduzir a pena, pela remição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

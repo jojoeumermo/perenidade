@@ -1,0 +1,51 @@
+# Exercícios da aula "Ciências Humanas: História" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-hist-01
+  tema: "Revolução Industrial"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual foi uma consequência da Revolução Industrial para o mundo do trabalho?"
+  alternativas:
+    - texto: "O fim das cidades"
+      erro: "As cidades cresceram, e não acabaram: muitos camponeses migraram para elas para trabalhar nas fábricas."
+    - texto: "O surgimento da classe operária e das lutas por direitos, como a jornada menor"
+      certa: true
+    - texto: "O fim do trabalho assalariado"
+      erro: "O trabalho assalariado se expandiu com as fábricas."
+  explicacao: "As fábricas criaram a classe operária. Das condições duras nasceram sindicatos e lutas por direitos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-hist-02
+  tema: "Datas importantes"
+  dificuldade: 2
+  enunciado: "A Segunda Guerra Mundial aconteceu entre:"
+  alternativas:
+    - texto: "1914 e 1918"
+      erro: "Esses são os anos da Primeira Guerra Mundial."
+    - texto: "1939 e 1945"
+      certa: true
+    - texto: "1945 e 1991"
+      erro: "Esse é o período da Guerra Fria, que veio depois da Segunda Guerra."
+  explicacao: "A Segunda Guerra Mundial foi de 1939 a 1945."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-hist-03
+  tema: "Brasil: ditadura e democracia"
+  dificuldade: 2
+  enunciado: "Qual marco encerrou a ditadura militar e consagrou direitos e liberdades no Brasil?"
+  alternativas:
+    - texto: "A Lei Áurea, de 1888"
+      erro: "A Lei Áurea acabou com a escravidão, quase cem anos antes."
+    - texto: "A Constituição de 1988, depois da redemocratização"
+      certa: true
+    - texto: "A CLT, de 1943"
+      erro: "A CLT é de 1943, bem antes da ditadura militar de 1964 a 1985."
+  explicacao: "Depois da ditadura (1964 a 1985), a Constituição de 1988 garantiu direitos sociais e liberdades."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -26,6 +26,11 @@ quiz:
     resposta: 0
     explicacao: "Oxítonas terminadas em a, e, o são acentuadas; paroxítonas com essas mesmas terminações não são."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber achar a sílaba tônica, aplicar as quatro regras de acentuação e reconhecer o que o Acordo Ortográfico mudou.
+
+
 
 ## Primeiro passo: a sílaba forte
 
@@ -88,6 +93,26 @@ O acordo vale no Brasil desde 2009. Na acentuação, as mudanças principais for
 | lingüiça, freqüente | linguiça, frequente | o trema deixou de existir |
 
 Atenção: **herói, papéis, chapéu, dói** continuam com acento, porque são oxítonas ou monossílabos.
+
+## Exemplo resolvido: acentuar ou não?
+
+**Acentue, se for preciso: armazem, lampada, facil, cafe.**
+
+1. **armazem**: ar-ma-**zem**. A tônica é a última, então é oxítona. Oxítonas terminadas em em levam acento: **armazém**.
+2. **lampada**: **lâm**-pa-da. A tônica é a antepenúltima (proparoxítona). Todas as proparoxítonas levam acento: **lâmpada**.
+3. **facil**: **fá**-cil. A tônica é a penúltima (paroxítona) e termina em l. Paroxítonas terminadas em l levam acento: **fácil**.
+4. **cafe**: ca-**fé**. Oxítona terminada em e leva acento: **café**.
+
+Confira: o primeiro passo é sempre a sílaba tônica; só depois se olha para a terminação.
+
+## Resumo
+
+- Toda palavra com mais de uma sílaba tem uma sílaba tônica: oxítona (última), paroxítona (penúltima) ou proparoxítona (antepenúltima).
+- Proparoxítonas: todas levam acento.
+- Oxítonas: acentuam-se as terminadas em a, e, o (com ou sem s) e em em, ens.
+- Paroxítonas: levam acento as terminadas em l, n, r, x; i, is, us; ã, ão; um, uns, ps; e em ditongo.
+- Monossílabos tônicos terminados em a, e, o levam acento (pá, pé, pó).
+- O Acordo (no Brasil desde 2009) tirou o acento de ideia, voo e pelo e o trema de linguiça.
 
 ## Para praticar
 

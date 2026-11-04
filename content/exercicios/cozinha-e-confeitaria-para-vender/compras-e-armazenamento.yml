@@ -1,0 +1,54 @@
+# Exercícios da aula "Compras e armazenamento: geladeira, freezer e estoque" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: coz-compras-01
+  tema: "Armazenamento"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Onde guardar a carne crua na geladeira?"
+  alternativas:
+    - texto: "Na prateleira de cima, sobre as sobremesas"
+      erro: "O líquido da carne crua pode pingar e contaminar o que está embaixo. Ela deve ficar na parte de baixo."
+    - texto: "Na prateleira de baixo, embalada, longe dos alimentos prontos"
+      certa: true
+    - texto: "Fora da geladeira, para descongelar"
+      erro: "Carne fora da geladeira passa tempo demais na faixa em que as bactérias se multiplicam. Descongele na geladeira."
+  explicacao: "Carne crua embaixo, bem embalada, evita que o caldo pingue sobre alimentos que serão comidos sem cozinhar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-compras-02
+  tipo: numero
+  tema: "Estoque e consumo"
+  dificuldade: 2
+  enunciado: "Você compra 12 kg de farinha e usa 3 kg por semana. Em quantas semanas o estoque acaba?"
+  resposta: "4"
+  unidade: "semanas"
+  erros_comuns:
+    - resposta: "36"
+      explicacao: "Você multiplicou 12 por 3. Para saber por quanto tempo dura, divida o estoque pelo consumo semanal."
+    - resposta: "9"
+      explicacao: "Você subtraiu 12 − 3. A conta é de repartir: quantas vezes 3 kg cabem em 12 kg?"
+  dica: "Quantas vezes o consumo semanal cabe no estoque?"
+  explicacao: "12 ÷ 3 = 4 semanas. Confira a validade: se for menor que isso, compre menos."
+  conferir: "12 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-compras-03
+  tema: "Temperaturas"
+  dificuldade: 1
+  enunciado: "Segundo as normas de boas práticas (RDC 216/2004), qual é a temperatura do alimento congelado?"
+  alternativas:
+    - texto: "0 °C"
+      erro: "Zero grau é o ponto de congelamento da água, mas a norma pede bem mais frio: menos 18 °C ou menos."
+    - texto: "−18 °C ou menos"
+      certa: true
+    - texto: "5 °C"
+      erro: "5 °C é o limite da geladeira (refrigerado), e não do freezer."
+  explicacao: "Congelados ficam a menos 18 graus ou menos; refrigerados, a 5 graus ou menos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

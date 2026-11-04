@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "A ideia de que não existe alternativa ao mercado é, ela mesma, uma ideologia: apresenta uma escolha política como se fosse lei natural."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que defende o neoliberalismo, como ele foi aplicado no Chile, no Reino Unido e nos Estados Unidos e como se espalhou pelo mundo.
 
 Na década de 1970, o pacto do pós-guerra entrou em crise. Os lucros caíam, a inflação subia, os trabalhadores faziam greves. O capital precisava de uma saída. A saída que venceu foi o **neoliberalismo**. Esta aula conta como ele chegou ao poder, e por quais caminhos.
 
@@ -83,3 +86,24 @@ O neoliberalismo nunca reinou em paz: o levante zapatista no México (1994), as 
 ## Para conversar
 
 Que serviço público da sua cidade foi privatizado nos últimos anos? A tarifa e a qualidade melhoraram? Para quem?
+
+## Exemplo resolvido
+
+**Por que se diz que o Chile de 1973 foi o "laboratório" do neoliberalismo? Siga os fatos.**
+
+1. **O golpe.** Em 11 de setembro de 1973, a ditadura de Augusto Pinochet derrubou o governo de Salvador Allende, com apoio dos Estados Unidos.
+2. **Os economistas.** Os "Chicago Boys", formados na Universidade de Chicago, assumiram a economia.
+3. **As medidas.** Privatizaram empresas, abriram o mercado, cortaram gastos sociais e, em 1980, trocaram a previdência pública por capitalização individual em empresas privadas.
+4. **O contexto.** Tudo isso enquanto milhares de opositores eram presos, torturados, mortos ou desaparecidos e os sindicatos eram reprimidos.
+5. **Conclua.** As reformas foram impostas sem que a população pudesse votar contra; depois vieram Thatcher (1979) e Reagan (1981), que enfrentaram greves de mineiros e de controladores de voo.
+
+Confira: para Naomi Klein, momentos de trauma são usados para impor reformas que a população não aceitaria em condições normais.
+
+## Resumo
+
+- O neoliberalismo defende privatizar, abrir a economia, cortar gastos sociais e impostos dos ricos, desregulamentar o trabalho e enfraquecer sindicatos.
+- Primeiro aplicado no Chile de Pinochet (a partir de 1973), com os Chicago Boys.
+- Thatcher (1979-1990) privatizou e derrotou a greve dos mineiros (1984-1985); Reagan (1981-1989) demitiu mais de 11 mil controladores de voo em greve.
+- Espalhou-se pelo FMI, pelo Banco Mundial e pelo Consenso de Washington (1989); no Brasil, nos anos 1990, vieram privatizações como a Vale e a Telebrás.
+- Para David Harvey, o efeito principal foi restaurar o poder de classe dos mais ricos; a desigualdade cresceu.
+- Houve resistência: zapatistas, Seattle, Fórum Social Mundial.

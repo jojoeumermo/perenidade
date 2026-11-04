@@ -36,6 +36,10 @@ quiz:
     explicacao: "No *Capital*, Marx mostra que o salário por peça transfere a fiscalização para o próprio trabalhador e serve para elevar a intensidade do trabalho."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que o salário paga de fato, diferenciar salário nominal de real e usar o salário mínimo necessário do DIEESE para medir a distância entre o que se paga e o que a vida custa.
+
 No fim do mês, o salário cai na conta e parece pagar o mês inteiro de trabalho. É essa aparência que esta aula desmonta.
 
 ## O que exatamente é comprado
@@ -82,3 +86,21 @@ Marx debateu esse ponto com um operário inglês, John Weston, que achava inúti
 ## Para conversar
 
 Calcule, com a sua família ou turma, quanto custa um mês de vida digna onde vocês moram. Compare com o salário mínimo. O que explica a diferença?
+
+## Exemplo resolvido: o aumento que não aumentou
+
+Um exemplo inventado: o salário de Carlos é de R$ 1.500 e ele recebe um reajuste de 8% em um ano em que os preços do que ele compra subiram 6%.
+
+1. Calcule o salário novo: 1.500 × 1,08 = R$ 1.620 (salário nominal).
+2. Retire o efeito dos preços: 1.620 ÷ 1,06 ≈ R$ 1.528 em dinheiro de antes (salário real).
+3. Compare com o salário antigo: 1.528 - 1.500 = R$ 28, cerca de 1,9% a mais de poder de compra.
+
+Confira: o aumento nominal foi de 8%, mas o poder de compra só subiu 1,9%. Se o reajuste fosse de 6%, o salário real ficaria igual; abaixo disso, cairia.
+
+## Resumo
+
+- O salário é o preço da força de trabalho, e gira em torno do que é preciso para a pessoa viver e voltar a trabalhar.
+- O que é necessário tem um elemento histórico e moral: muda conforme as conquistas de cada país.
+- O salário parece pagar todo o trabalho, mas apaga a divisão da jornada entre trabalho pago e não pago.
+- Salário nominal é o número no contracheque; real é o que ele compra. Sem reajuste, a inflação o reduz.
+- O art. 7º da Constituição de 1988 diz o que o mínimo deveria cobrir; o DIEESE calcula o mínimo necessário, muito acima do mínimo em vigor.

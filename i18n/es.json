@@ -1079,6 +1079,27 @@
       "outroladoTreino": "Practica tu respuesta",
       "outroladoPrompt": "Escribe cómo responderías, con respeto y con hechos. Se queda solo en tu aparato.",
       "outroladoResposta": "Ver una respuesta posible",
+      "outrojeito": "Otra forma de explicar",
+      "outrojeitoAbrir": "¿No quedó claro? Míralo de otra forma",
+      "ouvirPergunta": "Escuchar la pregunta y las respuestas",
+      "pararAudio": "Parar",
+      "respostaFalar": "O responde hablando",
+      "respostaGravar": "Grabar",
+      "respostaParar": "Parar la grabación",
+      "respostaGravando": "Grabando… habla con calma.",
+      "respostaOuvir": "Tu respuesta grabada",
+      "respostaApagar": "Borrar el audio",
+      "respostaAviso": "El audio se queda solo en este aparato: el instituto no lo recibe ni lo escucha. Si borras los datos del sitio, desaparece.",
+      "respostaSemMicrofone": "Este aparato no permite grabar audio aquí. Escribe la respuesta.",
+      "respostaConferir": "Escucha y comprueba por tu cuenta:",
+      "respostaConferir1": "¿Dije la idea principal?",
+      "respostaConferir2": "¿Di un ejemplo de mi vida?",
+      "respostaConferir3": "¿Hablé con calma, se entiende?",
+      "retornoPedir": "Pedir un comentario al asistente",
+      "retornoPergunta": "Esta es mi respuesta. ¿Puedes darme un comentario breve: qué está bien y qué falta?",
+      "retornoRotulo": "Tu respuesta, para que el asistente la comente",
+      "retornoBotao": "Pedir el comentario",
+      "retornoAviso": "Solo va al asistente si pulsas el botón, y solo el texto escrito. El audio nunca sale del aparato.",
       "agir": "Actuar",
       "agirVou": "Voy a hacerlo",
       "agirFeito": "Anotado en este aparato. La próxima clase preguntará cómo te fue.",
@@ -2202,6 +2223,22 @@
     "modelos-de-documentos": [
       "Modelos de documentos (Brasil)",
       "Reclamación al Procon, renuncia al empleo, recurso al INSS y notificación al arrendador."
+    ],
+    "arvore-trabalhista": [
+      "Emergencia laboral (Brasil)",
+      "Árbol de decisión para problemas de trabajo: reúna pruebas, vea la ley (CLT) y llévelo al sindicato o a la Defensoría."
+    ],
+    "clausulas-de-contrato": [
+      "Explicador de cláusulas (Brasil)",
+      "Pegue un contrato de alquiler o de préstamo y vea qué dicen la Ley de Inquilinato y el Código del Consumidor."
+    ],
+    "carga-eletrica": [
+      "Carga eléctrica de la casa",
+      "Sume los aparatos por circuito y vea si el cable y el interruptor aguantan, con aviso de seguridad (NBR 5410)."
+    ],
+    "mapa-de-servicos": [
+      "Mapa de servicios públicos (Brasil)",
+      "Qué hacen CRAS, UBS, CAPS, Defensoría, Procon y educación de adultos, con enlaces oficiales para hallar su unidad."
     ]
   },
   "tools": {
@@ -5642,6 +5679,9 @@
     "baixarHtmlFalhou": "No se pudo armar el archivo en este navegador.",
     "baixarHtmlFonte": "Descargado de",
     "baixarHtmlRodape": "Funciona sin internet. Para hacer las pruebas y guardar el progreso, abre la clase en el sitio.",
+    "baixarFerramenta": "Descargar la herramienta en un solo archivo (para mandar por WhatsApp)",
+    "baixarFerramentaDica": "Un archivo .html pequeño, con la cuenta adentro, que abre sin internet en cualquier celular, incluso los viejos.",
+    "baixarFerramentaRodape": "Funciona sin internet y no guarda nada de lo que escribes. Para la versión completa, abre la herramienta en el sitio.",
     "whatsapp": "Mandar por WhatsApp",
     "telegram": "Mandar por Telegram",
     "copiar": "Copiar el enlace",

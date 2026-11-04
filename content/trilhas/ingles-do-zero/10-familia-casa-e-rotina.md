@@ -31,6 +31,10 @@ quiz:
     explicacao: "Em inglês se diz take a shower. Também se ouve have a shower, mais no inglês britânico."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber falar em inglês da sua família, da sua casa e do seu dia, juntando o *to be*, os possessivos e o presente simples.
+
 Esta aula junta o que você aprendeu até aqui (o *to be*, os possessivos e o presente simples) com o vocabulário do dia a dia: a família, a casa e a rotina. É o tipo de conversa que aparece em qualquer primeiro contato.
 
 ## A família
@@ -118,6 +122,16 @@ Tradução: Meu nome é Joana. Moro numa casa pequena em Nova Iguaçu com meu ma
 
 Repare nos verbos com -s quando o sujeito é *my husband* (*he works, he takes*) e sem -s quando o sujeito é *I* ou *we*.
 
+## Exemplo resolvido
+
+**Como dizer "Tenho dois irmãos e uma irmã. Meus avós moram no interior"?**
+
+1. Para família, use *have*: *I have two brothers and one sister.*
+2. Para "meus avós", use *grandparents* e o possessivo *my*: *My grandparents*.
+3. Com sujeito no plural (*they*), o verbo *live* fica sem -s: *My grandparents live in the countryside.*
+
+Confira: se o sujeito fosse "minha avó", o verbo ganharia -s (*my grandmother lives*), como o texto da Joana mostra em *he works, he takes*.
+
 ## Para praticar
 
 Escreva um parágrafo como o da Joana, sobre você: quem mora na sua casa, como é a casa e o que você faz num dia comum. Depois responda, por escrito ou em voz alta:
@@ -126,3 +140,10 @@ Escreva um parágrafo como o da Joana, sobre você: quem mora na sua casa, como 
 - *How many rooms does your house have?*
 - *What time do you get up?*
 - *What do you do on weekends?*
+
+## Resumo
+
+- *Parents* quer dizer pai e mãe, e não "parentes" (*relatives*).
+- *House* é o imóvel; *home* é o lar: *I'm at home*, *go home*.
+- Ações da rotina são expressões inteiras: *wake up*, *get up*, *have breakfast*, *go to bed*.
+- As partes do corpo levam possessivo: *brush my teeth*.

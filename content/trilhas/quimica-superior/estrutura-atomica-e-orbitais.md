@@ -38,6 +38,10 @@ quiz:
     explicacao: "A carga nuclear efetiva aumenta, e os elétrons ficam mais presos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler os quatro números quânticos, aplicar as regras de preenchimento dos orbitais e prever as tendências periódicas do raio, da ionização e da eletronegatividade.
+
 ## Do modelo de camadas aos orbitais
 
 No ensino médio, distribuímos os elétrons em camadas e subníveis com o [diagrama de Pauling](/trilhas/quimica-medio/distribuicao-eletronica). A [mecânica quântica](/trilhas/fisica-superior/mecanica-quantica-os-fundamentos) explica de onde vem esse arranjo: os elétrons ocupam **orbitais**, regiões em que a probabilidade de encontrá-los é alta, descritas por soluções da equação de Schrödinger.
@@ -133,3 +137,12 @@ A diferença entre o diamante (sp³, rede tridimensional, duríssimo e isolante)
 2. Faça o diagrama de orbitais do carbono e do flúor. Quantos elétrons desemparelhados há em cada um?
 3. Preveja a geometria e o ângulo aproximado de: H₂S, CCl₄ e SO₂.
 4. Qual é a hibridização de cada carbono no propeno, CH₂=CH–CH₃?
+
+## Resumo
+
+- Orbitais são regiões de alta probabilidade de achar o elétron, descritas pela equação de Schrödinger.
+- Quatro números quânticos descrevem o elétron: n, l, mₗ e mₛ.
+- Os subníveis p, d e f têm 3, 5 e 7 orbitais, e comportam até 6, 10 e 14 elétrons.
+- Regras: menor energia primeiro; Pauli (no máximo dois elétrons por orbital, spins opostos); Hund (um elétron por orbital antes de formar pares).
+- Raio atômico diminui ao longo do período e aumenta ao descer no grupo; ionização e eletronegatividade fazem o contrário.
+- O flúor é o elemento mais eletronegativo.

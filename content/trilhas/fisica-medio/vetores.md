@@ -29,6 +29,10 @@ quiz:
     resposta: 0
     explicacao: "A componente vertical é F·sen 30° = 100 × 0,5 = 50 N."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir grandezas escalares e vetoriais, somar vetores nos casos de mesma direção, direção oposta e perpendiculares e decompor um vetor em componentes.
+
 
 ## Quando o número não basta
 
@@ -124,3 +128,11 @@ Dos 100 N de esforço, só 87 N servem para mover o carrinho. Quanto mais inclin
 2. Uma pessoa caminha 300 m para o leste e depois 400 m para o norte. Qual foi a distância percorrida? E o deslocamento?
 3. Um avião voa a 200 km/h para o norte com vento de 50 km/h soprando para o sul. Qual é a velocidade em relação ao solo?
 4. Decomponha uma força de 200 N que faz 60° com a horizontal.
+
+## Resumo
+
+- Grandezas escalares só têm valor (massa); as vetoriais têm também direção e sentido (força, velocidade).
+- Vetores se somam pela resultante: mesma direção e sentido, as intensidades se somam; sentidos opostos, se subtraem.
+- Em direções perpendiculares, a resultante é a hipotenusa (teorema de Pitágoras); no caso geral, desenha-se um vetor a partir da ponta do outro.
+- Decompor um vetor é trocá-lo por dois, um horizontal e um vertical.
+- Isso aparece na construção, no peso de um telhado inclinado, no barco que atravessa o rio e em muitos outros casos.

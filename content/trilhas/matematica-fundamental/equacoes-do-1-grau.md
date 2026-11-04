@@ -22,6 +22,10 @@ quiz:
     explicacao: "Primeiro tire 5 dos dois lados: 2x = 12. Depois divida por 2: x = 6."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber resolver equações do 1º grau desfazendo as operações com a ideia da balança e conferir o resultado.
+
 ## Um número escondido
 
 "Pensei em um número, somei 7 e deu 12. Em que número pensei?" Você resolve de cabeça: 5. Acabou de resolver uma equação.
@@ -94,6 +98,17 @@ Você talvez tenha aprendido a regra "passa para o outro lado trocando o sinal".
 
 Chame de x o número de quilômetros: 2x + 4 = 26. Tirando 4: 2x = 22. Dividindo por 2: x = 11 quilômetros.
 
+## Exemplo resolvido
+
+**Resolva 3x − 8 = 19.**
+
+1. O x foi multiplicado por 3 e depois diminuído de 8. Desfaça na ordem inversa, começando pela subtração.
+2. Some 8 aos dois lados: 3x = 27.
+3. Divida os dois lados por 3: x = 9.
+4. Confira: 3 × 9 − 8 = 27 − 8 = 19. Confere.
+
+Confira: tudo o que se faz de um lado se faz igual do outro, como numa balança em equilíbrio.
+
 ## Para praticar
 
 1. x + 15 = 40
@@ -101,3 +116,11 @@ Chame de x o número de quilômetros: 2x + 4 = 26. Tirando 4: 2x = 22. Dividindo
 3. 3x − 8 = 19
 4. 6x + 2 = 4x + 14
 5. Um salário de R$ 1.800 é formado por um valor fixo de R$ 1.200 mais R$ 30 por venda. Quantas vendas foram feitas?
+
+## Resumo
+
+- Equação é uma igualdade com um valor desconhecido (a incógnita, em geral x).
+- Regra de ouro: o que se faz de um lado faz-se igual do outro.
+- Para isolar o x, use a operação contrária, desfazendo na ordem inversa.
+- Com x dos dois lados, junte os termos com x de um lado e os números do outro.
+- Sempre confira trocando o x pelo valor encontrado.

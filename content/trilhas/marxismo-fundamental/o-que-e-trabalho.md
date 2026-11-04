@@ -29,6 +29,10 @@ quiz:
     explicacao: "O que deveria ser a expressão da nossa capacidade criativa vira obrigação para sobreviver, sob o comando de outro."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que Marx e Engels entendem por trabalho, por que ele é mais do que emprego e quais trabalhos ficam sem pagamento.
+
 Quando alguém pergunta "você trabalha?", geralmente quer saber se você tem emprego. Mas trabalho é muito mais do que emprego. É a atividade que fez de nós o que somos.
 
 ## O ser humano se faz trabalhando
@@ -71,6 +75,24 @@ Marx deu uma resposta nos *Manuscritos de 1844*: no capitalismo, o trabalhador n
 
 Pense nas vezes em que você trabalhou com prazer: ajudando a construir a casa de um vizinho num mutirão, plantando uma horta comunitária, preparando uma festa. Era cansativo, mas era seu e de todos. O sonho socialista é que todo trabalho possa ser assim: decidido coletivamente, para atender às necessidades de todos, e não para enriquecer poucos.
 
+## Exemplo resolvido
+
+**Cozinhar, lavar e cuidar de crianças são trabalho?**
+
+1. Marx e Engels veem o trabalho como a atividade em que o ser humano **transforma** a natureza de forma planejada e consciente (a abelha constrói favos, mas o pior arquiteto imagina a casa antes).
+2. Trabalho, portanto, é mais do que emprego.
+3. Cozinhar, lavar, limpar, cuidar de crianças, de idosos e de doentes são trabalho que ninguém paga, feito sobretudo por mulheres.
+4. Sem ele a sociedade pararia: ninguém iria para a fábrica de barriga vazia e roupa suja.
+
+Confira: reconhecer esse trabalho é parte da luta das mulheres trabalhadoras.
+
 ## Para conversar
 
 Qual trabalho você mais gostou de fazer na vida? E qual menos gostou? O que fazia a diferença entre um e outro?
+
+## Resumo
+
+- Trabalho é a atividade pela qual o ser humano transforma a natureza de modo planejado e consciente.
+- Ao trabalhar, a pessoa muda a si mesma; Engels (1876) ligou o trabalho ao desenvolvimento da linguagem e do cérebro humano.
+- Existe muito trabalho que ninguém paga (cozinhar, lavar, cuidar), feito sobretudo por mulheres.
+- Quando vira castigo, é trabalho alienado; outro trabalho é possível, decidido coletivamente para as necessidades de todos.

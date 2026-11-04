@@ -1,5 +1,6 @@
 ---
 titulo: "O que diz a Constituição de 1988"
+modelo: 9
 resumo: "A lei que está acima de todas as outras: de onde veio, como está organizada e quais artigos todo mundo deveria conhecer."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,13 @@ quiz:
     resposta: 0
     explicacao: "O artigo 60, parágrafo 4º, proíbe emendas que tendam a abolir a federação, o voto direto, secreto, universal e periódico, a separação dos Poderes e os direitos e garantias individuais."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é a Constituição, como ela foi escrita em 1987-1988, quais artigos vale conhecer de perto e o que nenhuma emenda pode abolir.
+
+```suarealidade
+Na sua rua ou no seu serviço, qual direito escrito na lei você acha que ainda não chegou a todo mundo? Quem sente mais a falta dele?
+```
 
 Esta aula é informação geral. Ela não substitui a orientação de um advogado ou da Defensoria Pública, que atende de graça quem não pode pagar.
 
@@ -93,3 +101,36 @@ Mas há um núcleo que nenhuma emenda pode abolir: as **cláusulas pétreas**. S
 Muito do que está escrito ainda não chegou a todo mundo. A Constituição promete moradia, e milhões vivem sem ela. Promete salário mínimo capaz de atender às necessidades de uma família, e ele não atende.
 
 Isso não torna o texto inútil. Ele é uma ferramenta: é com base nele que se entra na Justiça por uma vaga na creche, por um remédio, contra um despejo ilegal. E é com base nele que os movimentos cobram do Estado o que ele mesmo prometeu. Direito escrito só vira direito vivido com organização.
+
+## Exemplo resolvido
+
+**Um prefeito proíbe por decreto qualquer reunião em praça pública. O decreto vale? Siga a hierarquia das leis.**
+
+1. **Pergunte qual lei está acima.** A Constituição está acima de todas as outras: nenhuma lei, decreto ou ordem pode contrariá-la.
+2. **Procure o direito.** O artigo 5º garante, entre outros, o direito de se reunir.
+3. **Compare.** O decreto do prefeito contraria esse direito.
+4. **Conclua.** O decreto não vale: se contrariar a Constituição, pode ser derrubado na Justiça.
+
+Confira: o direito de reunião pacífica não depende da vontade de quem governa a cidade.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A Constituição promete moradia, salário mínimo que sustente uma família e saúde para todos, e nada disso se cumpre. Papel aceita tudo; é um texto bonito sem efeito na vida real."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A própria aula reconhece que muito do que está escrito ainda não chegou a todo mundo: a Constituição promete moradia e milhões vivem sem ela; promete salário mínimo capaz de atender às necessidades de uma família, e ele não atende. Mas ela é uma ferramenta: é com base nela que se entra na Justiça por uma vaga na creche, por um remédio, contra um despejo ilegal, e que os movimentos cobram do Estado o que ele mesmo prometeu. O SUS e os direitos dos povos indígenas vieram da pressão popular na Constituinte. Direito escrito só vira direito vivido com organização.
+```
+
+```agir
+# Esta semana
+Abra a Constituição (ou o artigo 6º na internet) e leia a lista dos direitos sociais. Marque num papel os dois que fazem mais falta na sua rua e anote quem, no seu bairro, poderia ajudar a cobrar: associação de moradores, sindicato, Defensoria Pública.
+```
+
+## Resumo
+
+- A **Constituição** é a lei acima de todas as outras: nenhuma lei, decreto ou ordem pode contrariá-la.
+- Foi escrita por uma Assembleia Constituinte instalada em 1º de fevereiro de 1987, com **emendas populares** de pelo menos 30 mil eleitores, e promulgada em **5 de outubro de 1988** (a "Constituição Cidadã").
+- Artigos para conhecer: 1º (dignidade da pessoa humana, todo poder emana do povo), 3º (erradicar a pobreza e reduzir desigualdades), 5º (direitos individuais), 6º (direitos sociais), 7º a 9º (direitos de quem trabalha e greve), 196 (saúde, base do SUS), 205 (educação) e 231 (povos indígenas).
+- As **cláusulas pétreas** não podem ser abolidas nem por emenda: forma federativa, voto direto, secreto, universal e periódico, separação dos Poderes e direitos e garantias individuais.
+- O texto é uma ferramenta: direito escrito só vira direito vivido com organização.

@@ -1,0 +1,54 @@
+# Exercícios da aula "Formalização: o MEI para encanador" (Encanador). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: enc-mei-01
+  tema: "Art. 18-B"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Quando uma empresa contrata MEI para serviços de hidráulica, o que o art. 18-B da LC 123/2006 mantém?"
+  alternativas:
+    - texto: "A obrigação da empresa contratante de recolher a contribuição previdenciária relativa a esses serviços"
+      certa: true
+    - texto: "A isenção de qualquer obrigação para a empresa"
+      erro: "A lei mantém, e não retira, a obrigação previdenciária da empresa contratante."
+    - texto: "O fim do limite de faturamento do MEI"
+      erro: "O art. 18-B não trata do limite de faturamento. Esse é o tema do art. 18-A."
+  explicacao: "Hidráulica está entre os serviços tratados pelo art. 18-B."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-mei-02
+  tipo: numero
+  tema: "Faturamento anual"
+  dificuldade: 2
+  enunciado: "Um encanador fatura em média R$ 4.500 por mês. Quanto fatura em 12 meses, em reais?"
+  resposta: "54000"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "4512"
+      explicacao: "Você somou 4.500 + 12. Para o ano, multiplique o valor mensal por 12."
+    - resposta: "375"
+      explicacao: "Você dividiu por 12. Para o total do ano, multiplique."
+  dica: "Valor mensal vezes 12."
+  explicacao: "4.500 × 12 = 54.000 reais por ano, abaixo do limite de R$ 81.000 do texto da lei (confira o limite atual no Portal do Empreendedor)."
+  conferir: "4500 * 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-mei-03
+  tema: "O que o MEI não resolve"
+  dificuldade: 1
+  enunciado: "O encanador vira MEI. Ele já pode instalar gás sem nenhuma habilitação?"
+  alternativas:
+    - texto: "Não: instalação de gás exige profissional habilitado e normas próprias, e o CNPJ não substitui isso"
+      certa: true
+    - texto: "Sim, o CNPJ dá habilitação para tudo"
+      erro: "O CNPJ é um registro fiscal. A habilitação técnica vem de formação e de normas específicas."
+    - texto: "Só se o cliente pedir com educação"
+      erro: "O pedido do cliente não substitui a habilitação. A segurança não depende de aceitação."
+  explicacao: "O MEI não dá habilitação técnica. Gás e eletricidade exigem qualificação própria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

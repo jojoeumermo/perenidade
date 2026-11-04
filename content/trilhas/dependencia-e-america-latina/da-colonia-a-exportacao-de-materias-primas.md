@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "Mudou a bandeira e mudou o freguês, mas não o lugar na divisão do trabalho."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o sentido da colonização, os pilares do latifúndio, da monocultura e da escravidão e por que a estrutura exportadora continuou depois da independência.
 
 Para entender a dependência de hoje, é preciso voltar ao começo: ao modo como a América Latina entrou no mercado mundial.
 
@@ -88,3 +91,24 @@ A ferrovia que liga a fazenda ao porto, e não uma cidade a outra; a terra conce
 ## Para pesquisar e debater
 
 Qual foi o principal produto de exportação do seu estado no passado? E hoje? Quem são os donos das terras ou das minas de onde ele sai?
+
+## Exemplo resolvido
+
+**Por que um país que vive da exportação de um só produto é vulnerável? Siga o caso do café.**
+
+1. **A especialização.** No fim do século XIX, cada país se especializou em um ou dois produtos: café no Brasil, carne e trigo na Argentina, salitre no Chile e assim por diante.
+2. **A dependência.** No começo do século XX, o Brasil fornecia a maior parte do café consumido no mundo.
+3. **O preço.** Quando o preço caía, o país inteiro entrava em crise, e o preço era decidido fora, onde o país não controlava.
+4. **A resposta.** Em 1906, o Convênio de Taubaté: São Paulo, Minas e Rio compraram e estocaram café para segurar o preço, com dinheiro emprestado do exterior.
+5. **Conclua.** Toda a economia passa a depender de um preço que o país não controla.
+
+Confira: Mariátegui observou nos anos 1920 que a economia do Peru continuava "colonial" um século depois da independência.
+
+## Resumo
+
+- Caio Prado Júnior (1942): o **sentido da colonização** foi fornecer produtos ao comércio europeu.
+- A *plantation* se apoiava em **latifúndio**, **monocultura** e **trabalho escravizado**.
+- Na América espanhola, Potosí (a partir de 1545) forneceu prata extraída por trabalho forçado indígena.
+- Depois da independência, o parceiro passou a ser a Inglaterra; o Brasil assumiu pelo tratado de 1825 uma indenização de dois milhões de libras a Portugal.
+- Cada país se especializou em um ou dois produtos; o Convênio de Taubaté (1906) tentou segurar o preço do café.
+- Heranças: terra concentrada, ferrovias do porto, renda que vai para fora.

@@ -1,0 +1,67 @@
+# Exercícios da aula "Datas, dias e horas em chinês" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-datas-01
+  tema: "Ordem das datas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em que ordem se dizem as datas em chinês?"
+  alternativas:
+    - texto: "Do menor para o maior: dia, mês, ano"
+      erro: "É o contrário: em chinês vem o ano primeiro."
+    - texto: "Do maior para o menor: ano, mês, dia"
+      certa: true
+    - texto: "Mês, dia, ano"
+      erro: "A ordem é sempre do maior para o menor."
+  explicacao: "2024年5月1日 é 1º de maio de 2024, e o ano é lido dígito por dígito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-datas-02
+  tema: "Meses"
+  dificuldade: 1
+  enunciado: "Como se diz \"março\"?"
+  alternativas:
+    - texto: "二月"
+      erro: "二月 é fevereiro."
+    - texto: "十二月"
+      erro: "十二月 é dezembro."
+    - texto: "三月"
+      certa: true
+  explicacao: "Mês = número + 月: 一月 é janeiro, 三月 é março."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-datas-03
+  tema: "Dia da semana"
+  dificuldade: 2
+  enunciado: "Qual destas é a sexta-feira?"
+  alternativas:
+    - texto: "星期五"
+      certa: true
+    - texto: "星期六"
+      erro: "星期六 é sábado."
+    - texto: "星期天"
+      erro: "星期天 é domingo."
+  explicacao: "星期 + número, a partir da segunda: 星期一 é segunda-feira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-datas-04
+  tema: "As horas"
+  dificuldade: 2
+  enunciado: "Como se diz 8h15?"
+  alternativas:
+    - texto: "八点半"
+      erro: "八点半 é 8h30."
+    - texto: "八点一刻"
+      certa: true
+    - texto: "八点十分"
+      erro: "八点十分 é 8h10."
+  explicacao: "刻 é o quarto de hora: 八点一刻 é 8h15. Para 2 horas, diz-se 两点."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

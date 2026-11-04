@@ -29,7 +29,17 @@ quiz:
     opcoes: ["Guarda os arquivos", "Transforma a energia da tomada na energia que as peças usam", "Mostra a imagem no monitor"]
     resposta: 1
     explicacao: "Ela converte a corrente alternada da tomada em corrente contínua de baixa tensão."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber nomear as principais peças de um computador e o que cada uma faz, diferenciar RAM de armazenamento e HD de SSD e decidir o que trocar quando ele está lento.
+
+```suarealidade
+Que computador ou celular você usa no trabalho ou nos estudos? O que o deixa lento ou limita o que você consegue fazer com ele?
+```
+
+
 
 ## Uma cozinha
 
@@ -148,3 +158,42 @@ Um computador de dez anos demora cinco minutos para ligar, mas depois funciona r
 ## Antes de abrir
 
 Não abra nada ainda. **Tire o computador da tomada antes de mexer** e nunca abra a fonte: ela guarda carga mesmo desligada. A próxima aula trata de segurança, eletricidade estática e ferramentas.
+
+## Exemplo resolvido: "128 giga" ou "6 giga"? E o que trocar?
+
+Pergunta 1: um celular tem "128 giga" e "6 giga de RAM". Qual número é qual?
+
+1. A RAM é a bancada: guarda o que está aberto agora e se apaga sem energia. Os 6 GB são a RAM.
+2. O armazenamento é a despensa: guarda sistema, programas e arquivos mesmo desligado. Os 128 GB são o armazenamento.
+3. Um não substitui o outro, embora os dois se meçam em gigabytes.
+
+Pergunta 2: um computador de dez anos demora cinco minutos para ligar, mas depois funciona razoavelmente. O que trocar?
+
+1. Ligar é, quase todo, ler arquivos da despensa (o armazenamento).
+2. O HD tem discos que giram e um braço mecânico; o SSD usa chips, sem partes móveis, e é muito mais rápido.
+3. Troque o HD por um SSD. Antes de gastar, limpe a poeira e considere um sistema mais leve.
+
+Confira: a troca que mais ajuda é a que ataca o gargalo, e aqui o gargalo era o armazenamento.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Muita gente defende que, em computador antigo, não vale a pena trocar peças: o equipamento esquenta mais, gasta mais energia e fica sem atualizações de segurança do fabricante. A Microsoft encerrou o suporte do Windows 10 em 14 de outubro de 2025, e muitos computadores de dez anos não atendem aos requisitos do Windows 11; para quem pensa assim, comprar um computador novo é a opção mais segura.
+---
+Como você responderia, com respeito e com fatos? Pense no que a aula diz sobre sistemas mais leves e sobre o que custa trocar só uma peça.
+---
+Uma resposta possível: o argumento tem razão ao lembrar que um sistema sem atualizações é um risco, e que a decisão deve olhar a segurança. A aula, porém, aponta um caminho: trocar o HD por um SSD, aumentar a RAM se a placa-mãe aceitar e instalar um sistema mais leve, como os da trilha de Linux e software livre, que continuam recebendo atualizações. Vale comparar o custo das duas saídas antes de decidir.
+```
+
+```agir
+# Esta semana
+Sem abrir o computador nem o celular, descubra e anote num papel: o modelo, a quantidade de RAM e o tipo e o tamanho do armazenamento do aparelho que você mais usa (em Configurações, na parte "Sobre"). Depois escreva qual das peças você acha que limita o aparelho.
+```
+
+## Resumo
+
+- Cozinha: processador (a cozinheira), RAM (a bancada), armazenamento (a despensa), placa-mãe (o prédio), fonte (gás e luz), cooler (exaustor) e placa de vídeo com monitor (a janela).
+- A placa-mãe decide quais peças servem: processador e memória precisam ser compatíveis com ela.
+- A RAM é rápida e volátil; o armazenamento guarda mesmo desligado. HD é mais barato e lento; SSD, muito mais rápido e silencioso.
+- Placa de vídeo integrada basta para estudo e trabalho com texto; a dedicada serve para jogos pesados, edição de vídeo e modelagem 3D.
+- Para um computador antigo e lento: SSD no lugar do HD, mais RAM (se a placa-mãe aceitar), limpeza e sistema mais leve.
+- Tire o computador da tomada antes de mexer e nunca abra a fonte.

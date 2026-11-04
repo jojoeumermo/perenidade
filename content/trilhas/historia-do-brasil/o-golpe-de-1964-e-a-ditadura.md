@@ -31,6 +31,10 @@ quiz:
     resposta: 1
     explicacao: "A economia cresceu muito, mas com arrocho salarial, sindicatos sob intervenção e greves proibidas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que antecedeu o golpe de 1964, quem o preparou, como o regime governou e reprimiu, o que foi o "milagre" e como a ditadura terminou.
+
 
 ## O país antes do golpe
 
@@ -105,9 +109,30 @@ Pressionado, o regime iniciou uma abertura "lenta, gradual e segura", controlada
 
 A ditadura terminou sem ruptura e sem punição dos seus crimes. Essa impunidade é uma das heranças mais pesadas do período.
 
+## Exemplo resolvido
+
+**Quanto tempo durou a ditadura? Quanto, em média, cada general governou?**
+
+1. A ditadura vai de 1964 a 1985: 1985 − 1964 = **21 anos**, como o título de uma das seções da aula.
+2. Cinco generais se sucederam: Castelo Branco, Costa e Silva, Médici, Geisel e Figueiredo.
+3. Divida: 21 ÷ 5 = **4,2 anos** por general, em média.
+4. O "milagre econômico" foi de 1968 a 1973: 1973 − 1968 = **5 anos**, dos 21 da ditadura.
+5. Da Lei da Anistia (1979) ao fim da ditadura (1985): 1985 − 1979 = **6 anos**. A abertura foi "lenta, gradual e segura", controlada pelo regime.
+
+Leitura: o crescimento do "milagre" apoiou-se em empréstimos externos, multinacionais e arrocho salarial. Quem pagou a conta foi o trabalhador. A aula chama isso de "o milagre e a conta".
+
 ## Para pesquisar e debater
 
 1. Há na sua cidade ruas, escolas ou pontes com nomes de presidentes ou agentes da ditadura? E memoriais às vítimas?
 2. Converse com alguém que viveu aquele período. O que essa pessoa lembra da escola, do trabalho, dos jornais?
 3. Por que, na sua opinião, o Brasil não julgou os torturadores, ao contrário da Argentina e do Chile?
 4. Que argumentos são usados hoje para defender a ditadura? O que os documentos respondem a eles?
+
+## Resumo
+
+- No começo dos anos 1960, havia intensa mobilização: Ligas Camponesas, sindicatos, estudantes na UNE e até soldados e sargentos reivindicando direitos.
+- O golpe de 1964 não foi obra só de militares: René Dreifuss mostrou a articulação de grandes empresários, proprietários e outros setores, preparada durante anos.
+- A ditadura durou até 1985 (21 anos), com cinco generais na Presidência, governando por Atos Institucionais que se sobrepunham à Constituição.
+- A repressão foi política de governo: órgãos como os DOI-CODI, centros de tortura, censura prévia e espionagem.
+- O "milagre econômico" (1968-1973) se apoiou em empréstimos externos, multinacionais e arrocho salarial.
+- A resistência teve muitas formas, inclusive a luta armada. A saída: abertura "lenta, gradual e segura"; em 1979, a Lei da Anistia.

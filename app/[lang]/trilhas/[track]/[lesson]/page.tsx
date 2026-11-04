@@ -190,7 +190,7 @@ export default async function LessonPage({ params }: Props) {
     : [];
   const textoCompleto = (
     <div id="texto-da-aula" className="mt-8">
-      <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area}>{lesson.body}</Markdown>
+      <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area} audio={letraGrande}>{lesson.body}</Markdown>
     </div>
   );
   // Ícones de traço ao lado do texto nos botões de navegação das aulas de alfabetização (R1-87).
@@ -312,14 +312,14 @@ export default async function LessonPage({ params }: Props) {
           {/* Vídeos curtos da aula (recurso enem-video): o tocador só baixa depois do clique. */}
           {ligado("enem-video") && videosDaAula(track.slug, lesson.slug).filter((v) => !lesson.body.includes(v)).map((v) => <VideoCurto key={v} id={v} />)}
           {sa && facil ? (
-            <VersaoFacil completo={textoCompleto} facil={<Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area}>{facil.body}</Markdown>} s={sa.facil} />
+            <VersaoFacil completo={textoCompleto} facil={<Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area} audio={letraGrande}>{facil.body}</Markdown>} s={sa.facil} />
           ) : (
             textoCompleto
           )}
           {sa && letraGrande && <OuvirParagrafo raiz="#texto-da-aula" s={sa.ouvir} />}
           {sa && letraGrande && facil && <OuvirParagrafo raiz="#texto-facil" s={sa.ouvir} />}
           {sa && <BarraDeSelecao termos={glossarioDaAula} titulo={lesson.title} endereco={site.url} s={sa.selecao} cartao={sa.cartao} />}
-          {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={id} guardarNoAparelho={ligado("meu-estudo")} />}
+          {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={id} guardarNoAparelho={ligado("meu-estudo")} audio={letraGrande} />}
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
           {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />}
           {oficiais.length > 0 && (

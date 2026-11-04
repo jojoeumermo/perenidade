@@ -7,7 +7,7 @@
 
 export const LIMITE_DO_ARQUIVO = 1024 * 1024;
 
-const ESTILO =
+export const ESTILO =
   "body{margin:0;background:#f8f5ee;color:#1f1a14;font:18px/1.6 Georgia,serif}main{max-width:40rem;margin:0 auto;padding:1.25rem}" +
   "h1{font-size:1.9rem;line-height:1.15}h2{font-size:1.35rem;margin-top:2rem;border-bottom:2px solid #1f1a14}h3{font-size:1.15rem}" +
   "a{color:#6e1f1a}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:.3rem}" +
@@ -15,7 +15,7 @@ const ESTILO =
   "footer{margin-top:2.5rem;border-top:1px solid #bbb;padding-top:.75rem;font:14px/1.5 sans-serif;color:#5a4e3c}" +
   "@media(prefers-color-scheme:dark){body{background:#17130e;color:#efe4c8}aside,.bloco{background:#221c15}a{color:#e0837a}h2{border-color:#efe4c8}}";
 
-const escapar = (texto: string) => texto.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+export const escapar = (texto: string) => texto.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /** Tira de um pedaço de HTML o que não funciona (ou não deve ir) num arquivo solto: scripts, eventos e endereços javascript:. */
 export function limparHtml(html: string): string {

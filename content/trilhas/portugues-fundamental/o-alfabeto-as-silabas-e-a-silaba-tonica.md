@@ -25,7 +25,17 @@ quiz:
     opcoes: ["ca", "der", "no"]
     resposta: 1
     explicacao: "Fala-se ca-DER-no. A tônica é a penúltima: a palavra é paroxítona."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre letra e som, separar sílabas, classificar palavras pelo número de sílabas e achar a sílaba tônica.
+
+```suarealidade
+Qual palavra do seu trabalho ou do dia a dia você já teve dúvida de como escrever? Em que situação isso aconteceu (um bilhete, um formulário, uma mensagem)?
+```
+
+
 
 ## As letras
 
@@ -117,6 +127,37 @@ A maior parte das palavras do português é paroxítona.
 Achar a tônica é o primeiro passo para saber se a palavra leva acento. As regras estão na aula [Acentuação: as regras essenciais](/trilhas/portugues-fundamental/acentuacao-as-regras-essenciais).
 
 A posição da tônica pode mudar o sentido. Compare: **sá**bia (mulher que sabe muito), sa**bi**a (do verbo saber) e sabi**á** (o pássaro).
+
+## Exemplo resolvido: analisando "passarinho"
+
+1. **Letras e sons:** p-a-s-s-a-r-i-n-h-o tem 10 letras. O **ss** é um dígrafo (duas letras, um som) e o **nh** também, então a palavra tem 8 sons.
+2. **Separar as sílabas:** o ss se separa (pas-sa) e o nh não se separa (ri-nho): **pas-sa-ri-nho**.
+3. **Número de sílabas:** quatro; é uma polissílaba.
+4. **Tônica:** conte do fim para o começo: nho (última), **ri** (penúltima). A tônica é a penúltima: é uma paroxítona.
+
+Confira batendo palmas: cada palma é uma sílaba, e a mais forte é a do "ri".
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem defenda que se deve escrever como se fala e que cobrar ortografia é cobrar de quem teve menos escola: nessa visão, a escrita oficial funciona como um filtro social. O linguista Marcos Bagno, em Preconceito Linguístico (1999), critica o uso da norma-padrão como instrumento de exclusão.
+---
+Como você responderia, com respeito e com fatos? Pense no que a aula diz sobre letra e som e em quem cobra a escrita formal.
+---
+Uma resposta possível: a crítica tem razão em dizer que ninguém é menos inteligente por falar diferente. Mas a aula mostra que a escrita não é cópia da fala (uma letra pode ter vários sons e um som, várias letras), e que a ortografia é a mesma para todos. Provas, concursos e o ENEM cobram a escrita formal (a Competência 1 da redação do ENEM), então aprender essas regras também é uma forma de acesso.
+```
+
+```agir
+# Esta semana
+Escolha cinco palavras do seu trabalho ou da sua casa, separe as sílabas de cada uma com um hífen e sublinhe a sílaba tônica. Depois escreva se ela é oxítona, paroxítona ou proparoxítona.
+```
+
+## Resumo
+
+- O alfabeto tem 26 letras; letra não é som (uma letra pode ter vários sons, um som pode ter várias letras, há letras sem som e dígrafos).
+- Toda sílaba tem uma vogal. Palavras: monossílabas, dissílabas, trissílabas e polissílabas.
+- Separam-se rr, ss, sc, sç, xc e os hiatos; não se separam ch, lh, nh, qu, gu, ditongos e grupos de consoante com l ou r.
+- A sílaba tônica é a mais forte: oxítona (última), paroxítona (penúltima), proparoxítona (antepenúltima).
+- Achar a tônica é o primeiro passo para saber se a palavra leva acento.
 
 ## Para praticar
 

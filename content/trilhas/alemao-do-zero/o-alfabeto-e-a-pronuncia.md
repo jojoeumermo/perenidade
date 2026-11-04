@@ -1,5 +1,6 @@
 ---
 titulo: "O alfabeto e a pronúncia: ä, ö, ü e ß"
+modelo: 9
 resumo: "O alfabeto alemão, as letras que não existem em português (ä, ö, ü e ß), os encontros de letras que mudam de som e as regras que deixam a pronúncia previsível."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,9 +32,16 @@ quiz:
     resposta: 0
     explicacao: "der Tisch, die Arbeit, das Buch: todo substantivo começa com maiúscula."
 ---
-
 ```provocacao
 Você sabe ler "Volkswagen"? Os alemães dizem algo como "fólks-váguen". Por que o v vira f e o w vira v?
+```
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler em voz alta palavras em alemão: as quatro letras a mais (ä, ö, ü, ß), os sons que mudam (j, v, w, z, s, sch, ei, ie, eu) e a regra da letra maiúscula nos substantivos.
+
+```suarealidade
+Em que lugares da sua semana você já viu palavras em alemão (marca, carro, loja, time, sobrenome)? Como você as lia?
 ```
 
 Boa notícia para começar: o alemão se escreve quase **do jeito que se fala**. Depois de aprender meia dúzia de regras, dá para ler em voz alta qualquer palavra, mesmo sem saber o que ela quer dizer. Esta aula mostra essas regras.
@@ -102,3 +110,34 @@ Qual destas palavras está escrita do jeito certo, no meio de uma frase?
 - Leia em voz alta, três vezes: Straße, Zeit, schön, über, Deutsch, ich, Buch.
 - Procure três marcas ou palavras alemãs que você já conhece (no mercado, no futebol, na rua) e tente ler do jeito alemão.
 ```
+
+## Exemplo resolvido
+
+**Como se lê "Deutsch" (alemão) e "Straße" (rua)?**
+
+1. **Deutsch**: o **eu** soa "ói" e o **tsch** soa "tch". Juntando com o D do começo: "dóitch".
+2. **Straße**: no começo da palavra, **st** soa "cht". O **r** vem em seguida. O **ß** é um "ss" depois de vogal longa e soa como nosso "ss". Juntando: "chtrásse".
+3. Confira com a tabela da aula: *Deutsch* = "dóitch" e *Straße* = "chtrásse".
+
+Confira: palavras com **sch**, **st** e **sp** no começo costumam soar com "ch".
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Não vale a pena aprender alemão do zero. A língua é difícil, cheia de regras, e para viajar ou trabalhar o inglês basta." É uma conclusão razoável para quem não tem nenhuma ligação com o idioma.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Nem toda pessoa precisa do alemão, e escolher outra língua é legítimo. Mas, para quem tem um motivo (família, trabalho, curso, o desejo de ler um livro no original), esta aula mostra que o começo é mais leve do que parece: o alemão se escreve quase como se fala e, com meia dúzia de regras, dá para ler em voz alta qualquer palavra. O difícil vem depois, e se aprende passo a passo.
+```
+
+```agir
+# Esta semana
+Escolha cinco palavras alemãs que você vê por aí (marca, loja, sobrenome, nome de time). Escreva num papel como você acha que se lê e confira com as regras da aula.
+```
+
+## Resumo
+
+- O alemão tem as 26 letras do português e mais quatro: **ä, ö, ü** e **ß**.
+- Letras com som diferente: **j** = "i", **v** = "f", **w** = "v", **z** = "ts", **s** antes de vogal = "z".
+- Encontros: **ei** = "ai", **ie** = "i" longo, **eu/äu** = "ói", **sch** = "ch", **st/sp** no começo = "cht/chp".
+- **Todo substantivo** começa com letra maiúscula.

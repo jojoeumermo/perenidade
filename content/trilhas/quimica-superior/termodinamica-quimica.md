@@ -38,6 +38,10 @@ quiz:
     explicacao: "Espontaneidade não diz nada sobre velocidade: isso é assunto da cinética."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que torna uma reação espontânea e usar ΔG = ΔH − T·ΔS para prever em que temperatura ela acontece.
+
 ## A pergunta central
 
 Por que algumas reações acontecem sozinhas e outras não? O ferro enferruja, mas a ferrugem não volta a ser ferro. O sal se dissolve na água, mas não se separa sozinho. A **termodinâmica química** responde com três grandezas: **entalpia**, **entropia** e **energia livre**.
@@ -131,3 +135,12 @@ As células fazem reações não espontâneas (construir proteínas, bombear ío
 2. Uma reação tem ΔH = +50 kJ e ΔS = +100 J/K. Acima de que temperatura ela é espontânea?
 3. Preveja o sinal de ΔS para: 2 H₂(g) + O₂(g) → 2 H₂O(l).
 4. Se K = 1 a certa temperatura, quanto vale ΔG°?
+
+## Resumo
+
+- Espontâneo não quer dizer rápido: é o que ocorre sem intervenção externa contínua.
+- Entropia (S) mede a dispersão da energia e da matéria e aumenta com fusão, vaporização, dissolução, mais mols de gás e temperatura maior.
+- Segunda lei: em processo espontâneo, a entropia do universo aumenta.
+- Energia livre de Gibbs: ΔG = ΔH − T·ΔS; negativo é espontânea, zero é equilíbrio, positivo não é espontânea.
+- Com ΔH positivo e ΔS positivo, a reação só é espontânea acima de certa temperatura, como a decomposição do calcário.
+- Fusão do gelo: o equilíbrio vem em T = ΔH ÷ ΔS, cerca de 273 K, ou 0 °C.

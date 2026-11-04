@@ -29,6 +29,10 @@ quiz:
     explicacao: "Owen, industrial galês, reduziu a jornada e criou escolas em sua fábrica de New Lanark e depois tentou fundar comunidades cooperativas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que os socialistas utópicos propuseram e por que Marx e Engels chamaram a sua abordagem de científica.
+
 ## Um mundo novo e brutal
 
 No começo do século XIX, a Revolução Industrial tinha enchido a Inglaterra e a França de fábricas, e as fábricas, de miséria. Jornadas de 14 horas, crianças de seis anos nas tecelagens, bairros operários sem esgoto. A Revolução Francesa prometera liberdade e igualdade, mas a igualdade tinha ficado só no papel.
@@ -71,3 +75,21 @@ Engels chamou essa abordagem de **socialismo científico**. "Científico" aqui n
 ## Por que isso importa
 
 A diferença continua atual. Diante de um problema social, há quem proponha um bom projeto e espere a adesão de todos, e há quem pergunte: quem ganha com a situação atual, quem perde, e quem tem força para mudá-la?
+
+## Exemplo resolvido
+
+**Duas pessoas querem melhorar a vida na fábrica. Uma abre uma escola e reduz a jornada na própria fábrica; a outra organiza os trabalhadores. Quem está mais perto de cada tradição?**
+
+1. Veja o caminho de Robert Owen: em New Lanark ele reduziu a jornada, proibiu o trabalho de crianças pequenas e abriu escolas, e depois tentou criar comunidades-modelo. Contava em convencer pelo exemplo e pelos argumentos. É a tradição utópica.
+2. Veja a pergunta de Marx e Engels: em vez de "como deveria ser a sociedade ideal?", "como a sociedade realmente funciona e muda?". A resposta aponta a luta entre as classes e a classe trabalhadora como quem pode construir o socialismo.
+3. Quem organiza os trabalhadores está, portanto, no caminho do socialismo científico.
+
+Conclusão: "científico", para Engels, não é "infalível": é partir do estudo da realidade e não de um desenho do mundo perfeito.
+
+## Resumo
+
+- Os socialistas utópicos (Saint-Simon, Fourier, Owen) criticaram o capitalismo e imaginaram sociedades melhores, mas contavam em convencer os poderosos.
+- As comunidades que tentaram fracassaram, e nenhum poderoso abriu mão da fortuna por ser convencido.
+- Marx e Engels mudaram a pergunta: como a sociedade realmente funciona e muda?
+- Materialismo histórico: as sociedades mudam pela luta entre as classes; mais-valia: o lucro vem do trabalho não pago.
+- O socialismo não será um presente dos de cima: quem pode construí-lo é a classe trabalhadora.

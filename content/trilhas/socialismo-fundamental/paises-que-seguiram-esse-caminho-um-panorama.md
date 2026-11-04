@@ -29,6 +29,10 @@ quiz:
     explicacao: "Estudar a história sem propaganda, de nenhum lado, é condição para aprender com ela."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber situar os principais países que se disseram socialistas no século XX e avaliar cada experiência olhando as conquistas e os problemas.
+
 O socialismo não ficou só nos livros. No século XX, um terço da humanidade chegou a viver em países governados em nome do socialismo. Esta aula é um mapa inicial. Cada experiência tem uma aula própria na trilha [As revoluções socialistas](/trilhas/revolucoes-socialistas).
 
 ## Os principais casos
@@ -84,6 +88,25 @@ Nenhuma dessas experiências aconteceu em condições escolhidas. Quase todas co
 
 Hoje, **China, Vietnã, Cuba e Laos**, além da Coreia do Norte, são governados por partidos comunistas, cada um com um modelo diferente. China e Vietnã combinam planejamento estatal com amplos setores de mercado e empresas privadas, e há um grande debate sobre se esses modelos ainda são socialistas. Em outros países, partidos e movimentos socialistas disputam eleições, governam cidades ou constroem experiências de economia solidária.
 
+## Exemplo resolvido
+
+**Como ler a experiência da China com as duas listas da aula, a das conquistas e a dos problemas?**
+
+1. Situe: a China aparece desde 1949, depois de uma longa guerra revolucionária camponesa dirigida pelo Partido Comunista.
+2. Anote uma conquista que a aula cita: desde 1978, centenas de milhões de pessoas saíram da pobreza extrema, segundo o Banco Mundial.
+3. Anote um problema que a aula cita: fomes ligadas a decisões políticas, como o Grande Salto Adiante (1959-1961).
+4. Junte as duas notas na mesma resposta, sem apagar nenhuma.
+
+Conclusão: avaliar uma experiência é manter o conjunto dos fatos. A atitude que ajuda a aprender é estudar conquistas e erros juntos.
+
 ## Para conversar
 
 O que você já ouviu falar sobre a União Soviética, Cuba ou a China? De onde vinha essa informação? Que perguntas você gostaria de investigar com fontes mais sérias?
+
+## Resumo
+
+- Um terço da humanidade chegou a viver, no século XX, em países governados em nome do socialismo.
+- Casos principais: URSS, Leste Europeu, Iugoslávia, China, Coreia do Norte, Vietnã, Cuba, Laos, colônias portuguesas na África, Nicarágua e Burkina Faso.
+- Conquistas citadas: alfabetização em massa, saúde pública, industrialização, direitos das mulheres e apoio às lutas anticoloniais.
+- Problemas citados: repressão política, fomes ligadas a decisões políticas, burocratização e dificuldades econômicas.
+- Um estudo honesto olha os dois lados e o contexto de cada experiência.

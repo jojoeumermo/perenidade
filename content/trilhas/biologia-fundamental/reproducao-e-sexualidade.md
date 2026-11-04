@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "Sem consentimento, não há relação: há violência."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre reprodução assexuada e sexuada, como funcionam o ciclo menstrual, a fecundação e a gravidez, quais métodos protegem da gravidez e das infecções e o que é consentimento.
 
 ## Por que os seres vivos se reproduzem
 
@@ -124,3 +127,22 @@ Qualquer ato sexual sem consentimento é violência. Com crianças, é sempre cr
 1. Que métodos contraceptivos a unidade de saúde do seu bairro oferece? Vá até lá e pergunte.
 2. Por que a camisinha continua necessária mesmo para quem usa pílula?
 3. Com um grupo, discuta: de que forma a falta de informação sobre o corpo deixa crianças e adolescentes mais expostos à violência?
+
+## Exemplo resolvido
+
+**Uma pessoa usa pílula e pergunta: "Então não preciso de camisinha?"**
+
+1. **Veja como a pílula age.** Ela usa hormônios que impedem a ovulação: ajuda a evitar a gravidez.
+2. **Veja a coluna "Protege de infecções?".** Para a pílula, a resposta é **não**.
+3. **Veja a camisinha.** Ela é uma barreira que impede o contato. É o único método da tabela que protege também das infecções sexualmente transmissíveis (IST).
+4. **Conclua.** Quem quer evitar a gravidez **e** as IST precisa considerar os dois cuidados. A escolha do método deve ser feita com orientação de um profissional de saúde, e o SUS oferece os métodos gratuitamente.
+
+Confira: várias IST não dão sintoma no começo, por isso os testes gratuitos do SUS também fazem parte do cuidado.
+
+## Resumo
+
+- A reprodução **assexuada** tem um genitor e gera descendentes iguais; a **sexuada** usa gametas e gera variedade.
+- No ciclo menstrual (cerca de 28 dias, varia de pessoa para pessoa), o revestimento do útero engrossa, ocorre a ovulação e, sem fecundação, vem a menstruação. Menstruação não é doença nem sujeira.
+- A fecundação normalmente acontece na **tuba uterina**; a gravidez dura cerca de nove meses, com **pré-natal** gratuito no SUS.
+- A Lei 9.263/1996 garante o **planejamento familiar**. Só a **camisinha** protege também das IST.
+- **Consentimento:** "não" é não; silêncio não é sim. Violência sexual é crime e a culpa nunca é da vítima. **Disque 100** e **Ligue 180**.

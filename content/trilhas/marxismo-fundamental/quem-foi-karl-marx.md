@@ -31,6 +31,10 @@ quiz:
     explicacao: "Os dois escreveram juntos o Manifesto Comunista e outras obras, e Engels publicou os livros 2 e 3 do Capital depois da morte de Marx."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar em poucas palavras quem foi Karl Marx, o que fez e por que estudá-lo é aprender um método, e não decorar frases.
+
 Ele é um dos pensadores mais citados da história, amado por uns e odiado por outros. Mas quem foi, de verdade, **Karl Marx**?
 
 ## Juventude
@@ -75,6 +79,25 @@ No túmulo de Marx está gravada a 11ª das suas *Teses sobre Feuerbach*: **"Os 
 
 As ideias de Marx foram usadas, desenvolvidas, discutidas e também deformadas ao longo de mais de um século. Inspiraram revoluções, sindicatos, partidos, movimentos de libertação, pesquisas científicas. Estudar Marx não é decorar frases: é aprender um método para entender a sociedade e agir nela.
 
+## Exemplo resolvido
+
+**Como situar Marx no tempo, em cinco datas?**
+
+1. **5 de maio de 1818**: nasce em Tréveris, na Renânia, hoje Alemanha.
+2. **1841**: doutora-se, com tese sobre filósofos gregos antigos; sem lugar na universidade, vira jornalista.
+3. **1843**: a *Gazeta Renana*, da qual era redator, é fechada pela censura; ele vai para Paris, onde conhece Engels.
+4. **Fevereiro de 1848**: com Engels, publica o *Manifesto Comunista*.
+5. **1849**: instala-se em Londres, onde viveu até o fim da vida.
+
+Confira: as datas mostram um caminho de perseguição e exílio por causa das ideias, seguido de estudo e militância.
+
 ## Para conversar
 
 Marx viveu na pobreza e no exílio por causa das suas ideias. Que pessoas você conhece, na história do Brasil, que também foram perseguidas por defender os trabalhadores?
+
+## Resumo
+
+- Karl Marx nasceu em 5 de maio de 1818, em Tréveris; estudou Direito e Filosofia e doutorou-se em 1841.
+- Foi jornalista, viveu exilado (Paris, Bruxelas, Londres) e escreveu com Engels o *Manifesto Comunista* (1848).
+- Viveu muitos anos em Londres, na pobreza e no estudo, e foi militante.
+- As suas ideias foram usadas, discutidas e deformadas; estudá-lo é aprender um método para entender a sociedade e agir nela.

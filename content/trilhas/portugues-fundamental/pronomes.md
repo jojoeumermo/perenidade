@@ -26,6 +26,11 @@ quiz:
     resposta: 1
     explicacao: "'Onde' indica lugar. Para tempo e situação, usa-se 'em que'."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar pronomes pessoais, possessivos, demonstrativos e relativos, escolher entre "para mim" e "para eu" e evitar a ambiguidade.
+
+
 
 ## Para não repetir
 
@@ -138,6 +143,24 @@ Ligam duas frases, retomando uma palavra já dita.
 - **Indefinidos**, vagos de propósito: *alguém, ninguém, tudo, nada, algum, nenhum, cada, vários, outro*.
 
 Os indefinidos merecem atenção na leitura. "**Alguns** especialistas afirmam...", "**Muitos** dizem que...". Quem são? Quantos? O pronome indefinido pode servir para esconder que não há fonte.
+
+## Exemplo resolvido: ligando frases com pronomes
+
+1. **"Comprei um livro. O livro é ótimo."** Use o relativo *que*: **O livro que comprei é ótimo.**
+2. **"Conheço o morador. A casa do morador caiu."** O relativo de posse é *cujo*, sem artigo depois: **o morador cuja casa caiu.**
+3. **"A reunião onde se discutiu o aumento."** *Onde* só vale para lugar, e reunião não é lugar; a lição pede outro relativo: **A reunião em que se discutiu o aumento.**
+4. **"Este serviço é para ___ fazer."** Se vem um verbo no infinitivo cuja ação é sua, use **eu**: "para eu fazer". Já "Este serviço é para mim" (fim da frase, depois de preposição).
+
+Confira: o relativo retoma uma palavra já dita, e a preposição, se o verbo pedir, vem antes dele.
+
+## Resumo
+
+- Pronomes ficam no lugar de um nome ou o acompanham, para não repetir.
+- Pessoais: eu/me/mim/comigo e as demais formas. Para mim (depois de preposição) ou para eu fazer (o eu é sujeito do infinitivo). Entre mim e você.
+- Você, tu e o senhor pedem formas diferentes; em ofícios usam-se tratamentos como Vossa Senhoria.
+- Seu/sua podem ser ambíguos: reescreva quando confundir.
+- Este (perto de quem fala; o que vai ser dito), esse (perto de quem ouve; retoma o que foi dito) e aquele (longe).
+- Relativos: que, quem, onde (só lugar) e cujo (sem artigo depois).
 
 ## Para praticar
 

@@ -1,0 +1,67 @@
+# Exercícios da aula "Reprodução e sexualidade" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-reproducao-01
+  tema: "Assexuada e sexuada"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é uma vantagem da reprodução sexuada, segundo a tabela da aula?"
+  alternativas:
+    - texto: "Gera variedade, o que ajuda a espécie a enfrentar mudanças"
+      certa: true
+    - texto: "É rápida e não exige parceiro"
+      erro: "Essa é a vantagem da reprodução assexuada."
+    - texto: "Gera descendentes geneticamente iguais ao genitor"
+      erro: "Isso é na assexuada."
+  explicacao: "Na sexuada, os descendentes são diferentes dos pais e entre si."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-reproducao-02
+  tema: "Gametas"
+  dificuldade: 1
+  enunciado: "O que é a fecundação?"
+  alternativas:
+    - texto: "O início da puberdade"
+      erro: "A puberdade é a fase das mudanças do corpo, por ação de hormônios."
+    - texto: "A união de dois gametas"
+      certa: true
+    - texto: "A produção de testosterona"
+      erro: "A fecundação é a união de dois gametas."
+  explicacao: "Cada genitor produz gametas com metade do material genético."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-reproducao-03
+  tema: "Onde são produzidos"
+  dificuldade: 1
+  enunciado: "Onde é produzido o espermatozoide?"
+  alternativas:
+    - texto: "Nos ovários"
+      erro: "Os ovários produzem o óvulo."
+    - texto: "No útero"
+      erro: "O espermatozoide é produzido nos testículos."
+    - texto: "Nos testículos"
+      certa: true
+  explicacao: "O óvulo é produzido nos ovários; os principais hormônios masculino e feminino são diferentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-reproducao-04
+  tema: "Ciclo menstrual"
+  dificuldade: 2
+  enunciado: "Quanto dura, em média, o ciclo menstrual, segundo a aula?"
+  alternativas:
+    - texto: "Cerca de 28 dias, variando de pessoa para pessoa"
+      certa: true
+    - texto: "Exatamente 7 dias para todas"
+      erro: "A duração média é de cerca de 28 dias, e varia."
+    - texto: "Cerca de 100 dias"
+      erro: "Em média, cerca de 28 dias."
+  explicacao: "A idade da puberdade e a duração do ciclo variam de pessoa para pessoa, e isso é normal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

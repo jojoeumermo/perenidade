@@ -38,6 +38,10 @@ quiz:
     explicacao: "O grupo –COOH é o dos ácidos carboxílicos; o –NH₂, o das aminas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber por que o carbono forma tantos compostos, classificar cadeias carbônicas e dar nome a hidrocarbonetos simples.
+
 ## A química do carbono
 
 A **química orgânica** é a química dos **compostos de carbono**. O nome é antigo: acreditava-se que essas substâncias só podiam ser produzidas por seres vivos, graças a uma "força vital". Em **1828**, o alemão **Friedrich Wöhler** obteve **ureia**, substância da urina, a partir de um composto mineral. A fronteira caiu, mas o nome ficou.
@@ -156,3 +160,12 @@ Mesma fórmula, substâncias com propriedades completamente diferentes. Em quím
 2. Escreva a fórmula estrutural do hexano e a sua fórmula molecular.
 3. Identifique a função: CH₃–OH; CH₃–COOH; CH₃–CO–CH₃.
 4. Procure nos rótulos de cinco produtos de casa (alimentos, cosméticos, limpeza) nomes terminados em "ol" e em "ato". A que funções devem pertencer?
+
+## Resumo
+
+- A química orgânica é a química dos compostos de carbono; em 1828 Wöhler obteve ureia de um composto mineral.
+- O carbono é tetravalente, forma cadeias e faz ligações simples, duplas ou triplas.
+- Cadeias podem ser abertas ou fechadas, normais ou ramificadas, saturadas ou insaturadas, homogêneas ou heterogêneas.
+- Hidrocarbonetos têm só carbono e hidrogênio: alcanos (CₙH₂ₙ₊₂), alcenos (CₙH₂ₙ), alcinos (CₙH₂ₙ₋₂) e aromáticos.
+- Nome = prefixo (nº de carbonos) + infixo (an, en, in) + o; por exemplo, but + an + o = butano.
+- O benzeno é tóxico e cancerígeno e está presente na gasolina.

@@ -23,6 +23,10 @@ quiz:
     explicacao: "É uma despedida informal: até mais tarde."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber cumprimentar em inglês, perguntar como a pessoa está, se apresentar e se despedir.
+
 ## Cumprimentar
 
 | Inglês | Significado | Quando usar |
@@ -67,6 +71,24 @@ Repare que o português usa "boa noite" para chegar e para sair. O inglês separ
 - *See you tomorrow* — Até amanhã
 - *Take care* — Cuide-se
 
+## Exemplo resolvido
+
+**Como começar e terminar uma conversa às sete da noite?**
+
+1. Escolha o cumprimento. É noite e você está **chegando**: *Good evening*.
+2. Pergunte como a pessoa está: *How are you?* A resposta padrão é *I'm fine, thanks. And you?*
+3. Apresente-se: *My name is Ana.* (ou *I'm Ana.*) e depois *Nice to meet you.*
+4. Na hora de **sair**, o cumprimento muda: *Good night*, ou *See you tomorrow*.
+
+Confira: *Good evening* abre a conversa e *Good night* a encerra. Em português os dois são "boa noite", e é aí que muita gente erra.
+
 ## Pratique
 
 Monte, em voz alta, um diálogo completo: cumprimente, pergunte como a pessoa está, diga seu nome, diga de onde você é e se despeça.
+
+## Resumo
+
+- *Good evening* se diz ao chegar à noite; *Good night*, ao sair ou ir dormir.
+- *How are you?* se responde com *I'm fine, thanks. And you?*
+- Para se apresentar: *My name is...* ou *I'm...*, e *Nice to meet you*.
+- Para se despedir: *Bye*, *See you later*, *See you tomorrow*, *Take care*.

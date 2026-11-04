@@ -36,6 +36,9 @@ quiz:
     resposta: 1
     explicacao: "Os dois soam igual. A diferença só aparece na escrita."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar os pronomes, montar frases com o verbo 是 (shì), negar com 不是, dizer "também" com 也, saber quando não usar 是 e indicar posse com 的.
 
 Nesta aula você monta as primeiras frases completas em chinês. A boa notícia é que o verbo chinês **não se conjuga**: ele não muda com a pessoa (eu, você, ele) nem com o tempo (presente, passado). Uma vez aprendido, serve para tudo.
 
@@ -151,3 +154,21 @@ Com pessoas próximas, como a família, o 的 costuma sumir: 我妈妈 (wǒ mām
 3. Apresente três pessoas da sua vida com 这是…: quem é, o que faz e de onde é.
 
 Respostas do 1: 我是巴西人。她是医生。我们不是老师。他也是学生。 Respostas do 2: 我很忙。/ 她在家。/ 他三十岁。
+
+## Exemplo resolvido
+
+**Corrija as frases: 我是很忙。 / 她是在家。 / 他是三十岁。**
+
+1. **我是很忙。** É um adjetivo ("ocupado"). Com adjetivos não se usa 是: entra **很**. Correto: **我很忙。** (Wǒ hěn máng.) Estou ocupado.
+2. **她是在家。** É um lugar. Para lugar usa-se **在** (estar em). Correto: **她在家。** (Tā zài jiā.) Ela está em casa.
+3. **他是三十岁。** Para a idade não se usa verbo nenhum. Correto: **他三十岁。** (Tā sānshí suì.) Ele tem trinta anos.
+
+Confira: 是 liga dois substantivos (我是学生, "eu sou estudante"); adjetivo, lugar e idade têm outro jeito.
+
+## Resumo
+
+- O verbo chinês **não se conjuga**; os pronomes não mudam de forma: 我, 你, 您, 他/她/它; plural com **们** (我们, 你们, 他们).
+- **是** (shì) liga duas coisas: sujeito + 是 + substantivo (我是学生).
+- Nacionalidade: país + **人** (巴西人). Negação: **不是** (bú shì). "Também": **也**, antes do verbo.
+- **Não use 是** com adjetivos (use **很**), com lugar (use **在**) nem com idade.
+- Posse: **的** (我的书); com família e amigos próximos o 的 costuma sumir (我妈妈).

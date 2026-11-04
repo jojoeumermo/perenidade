@@ -28,6 +28,11 @@ quiz:
     explicacao: "Particípios irregulares: hecho, dicho, escrito, visto, puesto, vuelto, abierto, roto."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar o pretérito perfecto compuesto e o indefinido, reconhecer os irregulares mais frequentes e saber quando cada um é mais usado na Espanha e na América Latina.
+
+
 ## Dois passados
 
 O espanhol tem duas formas principais para ações concluídas no passado:
@@ -106,9 +111,26 @@ Na Argentina, como alguém diria naturalmente "Hoje eu almocei tarde"?
 
 Saiba mais sobre essa campanha na trilha [Alfabetização: teoria e método](/trilhas/alfabetizacao-superior).
 
+## Exemplo resolvido
+
+**Como dizer "Hoje eu trabalhei muito; ontem eu fui à assembleia e fiz a ata" na Espanha e na Argentina?**
+
+1. **Na Espanha**, "hoje" é um tempo que ainda não terminou: *perfecto compuesto*, *haber* + particípio: *Hoy he trabajado mucho*.
+2. **"Ontem"** é tempo encerrado: indefinido. *Ir* faz *fui*; *hacer* faz *hice*: *Ayer fui a la asamblea e hice el acta.*
+3. **Na Argentina** e na maior parte da América Latina, o indefinido serve também para hoje: *Hoy trabajé mucho.*
+
+Confira: as duas formas são corretas; a diferença é de uso regional. E *he trabajado* corresponde a "trabalhei", e não a "tenho trabalhado".
+
 ## Para praticar
 
 1. Conjugue no indefinido: hablar, beber, salir (yo, tú, ellos).
 2. Escreva o particípio: hacer, decir, ver, escribir, volver.
 3. Escreva três frases sobre o que você fez ontem (indefinido) e três sobre o que você já fez na vida (*alguna vez*, perfecto compuesto).
 4. Reescreva no uso latino-americano: "Esta mañana he desayunado café."
+
+## Resumo
+
+- **Perfecto compuesto**: *haber* + particípio (*he trabajado*); corresponde, em geral, a "trabalhei", e não a "tenho trabalhado".
+- **Indefinido**: *trabajé, comí, viví*; irregulares frequentes como *fui, tuve, hice, pude, dije*. *Ser* e *ir* têm a mesma forma.
+- Na **Espanha**: perfecto para tempo que não terminou (*hoy, esta semana*) e indefinido para tempo encerrado (*ayer*).
+- Na **América Latina** o indefinido cobre quase todas as ações concluídas, inclusive as de hoje.

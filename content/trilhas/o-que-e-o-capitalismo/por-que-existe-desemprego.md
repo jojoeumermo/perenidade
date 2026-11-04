@@ -32,6 +32,10 @@ quiz:
     explicacao: "O exército de reserva inclui não só os desempregados, mas também quem vive de ocupações precárias e irregulares."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o desemprego como parte do funcionamento do capitalismo (o exército industrial de reserva) e responder a quem diz que é só falta de qualificação.
+
 Quando o desemprego sobe, a explicação mais comum culpa o desempregado: falta de qualificação, falta de esforço. Mas, se fosse só isso, por que o desemprego sobe e desce para milhões de pessoas ao mesmo tempo? Ninguém fica preguiçoso em massa numa terça-feira.
 
 ## O desemprego nas sociedades anteriores
@@ -86,3 +90,21 @@ A resposta histórica dos sindicatos ao desemprego tecnológico é a **redução
 ## Para conversar
 
 Na sua família ou no seu bairro, quantas pessoas vivem de bico? Elas estão "desempregadas" ou "trabalhando"? Por que essa diferença importa para entender o país?
+
+## Exemplo resolvido: dez pessoas, três cadeiras
+
+Usando a imagem da aula: dez pessoas disputam três vagas em uma empresa.
+
+1. Conte os lugares: 3 vagas para 10 candidatos. Sobram 10 - 3 = 7 pessoas sem vaga.
+2. Calcule a proporção: 7 ÷ 10 = 70% ficam de fora.
+3. Suponha que todos façam um curso e fiquem igualmente qualificados: continuam sendo 3 vagas e 10 candidatos, e 7 continuam de fora.
+
+Confira: a qualificação mudou quem senta, não quantas cadeiras existem. O problema está no número de vagas.
+
+## Resumo
+
+- Ficar sem emprego, querendo trabalhar e sem quem contrate, é uma situação moderna: só existe quando a maioria depende de salário.
+- Os desempregados formam o exército industrial de reserva: ficam disponíveis para o capital e disciplinam os salários dos empregados.
+- A concorrência leva cada empresa a pôr mais dinheiro em máquinas e menos em salários: a procura por trabalho cresce menos do que a população que precisa trabalhar.
+- Qualificação muda quem consegue a vaga, não quantas vagas existem.
+- Resposta histórica dos sindicatos: reduzir a jornada sem reduzir o salário.

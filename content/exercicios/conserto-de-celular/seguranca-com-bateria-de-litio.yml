@@ -1,0 +1,51 @@
+# Exercícios da aula "Segurança com bateria de lítio" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-litio-01
+  tema: "Quando é perigosa"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas situações pode levar a bateria de íons de lítio à fuga térmica?"
+  alternativas:
+    - texto: "Ser perfurada, amassada, esquentada demais ou sofrer curto-circuito"
+      certa: true
+    - texto: "Ser usada normalmente"
+      erro: "Em condição normal, ela é segura."
+    - texto: "Ficar guardada em lugar fresco"
+      erro: "Calor demais, e não o frescor, é o problema."
+  explicacao: "Fuga térmica: a bateria esquenta sem parar, solta fumaça, chama e, em casos graves, explode."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-litio-02
+  tema: "Sinais de bateria ruim"
+  dificuldade: 1
+  enunciado: "Qual destes é um sinal de bateria ruim?"
+  alternativas:
+    - texto: "Tela limpa"
+      erro: "Os sinais são abaulamento, calor, cheiro, vazamento e perda rápida de carga."
+    - texto: "Aparelho abaulado, com a tela ou a tampa levantando"
+      certa: true
+    - texto: "Carga que dura bastante"
+      erro: "Carga que cai muito rápido é sinal de bateria ruim."
+  explicacao: "Calor fora do normal, cheiro químico ou de queimado e vazamento também são sinais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-litio-03
+  tema: "Bateria estufada"
+  dificuldade: 2
+  enunciado: "O que fazer com uma bateria estufada?"
+  alternativas:
+    - texto: "Carregar devagar para ver se melhora"
+      erro: "Bateria estufada não deve ser carregada."
+    - texto: "Apertar para desinchar"
+      erro: "Nunca aperte nem perfure."
+    - texto: "Não carregar, apertar nem perfurar; trocar e manter o aparelho longe de quem dorme, de papel e de tecido"
+      certa: true
+  explicacao: "Ela precisa ser trocada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

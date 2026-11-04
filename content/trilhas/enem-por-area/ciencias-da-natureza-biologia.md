@@ -27,6 +27,11 @@ quiz:
     explicacao: "Veja a aula Vacinas: como funcionam."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como a biologia costuma cair no ENEM, quais são os temas que mais se repetem e como estudar ligando cada conteúdo a uma situação real.
+
+
 ## Biologia em contexto
 
 As questões de biologia partem de **situações**: uma epidemia, um desmatamento, um alimento, um remédio, uma técnica de biotecnologia. Quase sempre trazem um texto, um gráfico ou um esquema.
@@ -71,9 +76,28 @@ Qual é a resposta correta na questão de exemplo?
 3. Pratique os **cruzamentos** genéticos simples.
 4. Resolva questões anteriores, anotando os temas.
 
+## Exemplo resolvido
+
+**Em uma cidade, o uso frequente de um mesmo inseticida contra o mosquito da dengue fez com que, após alguns anos, o produto perdesse a eficácia. Qual é a explicação biológica?**
+
+1. **Identifique o tema:** resistência a um produto é assunto de *evolução e seleção natural*.
+2. **Pergunte onde está a variação:** numa população de mosquitos, alguns já eram naturalmente mais resistentes ao inseticida.
+3. **O ambiente seleciona:** o inseticida matou os sensíveis; os resistentes sobreviveram e se reproduziram.
+4. **Descarte as outras:** (A) diz que os mosquitos "aprenderam" durante a vida, o que não é como a seleção natural funciona; (C) diz que o inseticida causou mutações em todos.
+5. **Resposta:** (B).
+
+Confira: a variação existe antes; o ambiente seleciona.
+
 ## Para praticar
 
 1. Monte uma cadeia alimentar de um bioma brasileiro com quatro níveis.
 2. Explique, em três frases, como uma vacina protege.
 3. Resolva um cruzamento Aa × aa e dê as proporções.
 4. Resolva 10 questões de biologia de provas anteriores.
+
+## Resumo
+
+- As questões de biologia partem de **situações** (epidemia, desmatamento, alimento, remédio) e trazem texto, gráfico ou esquema.
+- Temas recorrentes: ecologia, ambiente, saúde, genética, fisiologia, citologia, evolução e biotecnologia.
+- Resistência a inseticidas e a antibióticos: a variação já existe e o ambiente seleciona.
+- Para estudar: ligar cada conteúdo a uma situação real, treinar leitura de gráficos, praticar cruzamentos simples e resolver questões anteriores anotando o tema.

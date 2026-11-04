@@ -38,6 +38,10 @@ quiz:
     explicacao: "São 4 mols de gás à esquerda e 2 à direita: a pressão favorece o lado de menor volume."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que acelera uma reação, o que é um catalisador e o que significa o equilíbrio químico e o princípio de Le Chatelier.
+
 ## Duas perguntas sobre toda reação
 
 Saber que uma reação é possível não basta. Faltam duas perguntas:
@@ -134,9 +138,28 @@ A solução industrial, desenvolvida no começo do século XX pelos alemães **F
 
 O processo permitiu fabricar **fertilizantes nitrogenados** a partir do nitrogênio do ar, e boa parte da comida produzida hoje no mundo depende dele. A mesma amônia serve para fabricar **explosivos**. E o próprio Haber dirigiu, na Primeira Guerra Mundial, o desenvolvimento de gases de combate para o exército alemão. A ciência não é boa nem má por si: o que se faz com ela é decisão da sociedade.
 
+## Exemplo resolvido
+
+**Pela regra aproximada de que a cada 10 °C a velocidade dobra, quantas vezes mais rápida fica uma reação ao subir de 20 °C para 40 °C?**
+
+1. Calcule o aumento de temperatura: 40 − 20 = 20 °C.
+2. Veja quantos degraus de 10 °C cabem nele: 20 ÷ 10 = 2.
+3. Cada degrau dobra a velocidade: 2 × 2 = 4.
+
+A reação fica cerca de 4 vezes mais rápida. Lembre que é uma regra aproximada, válida para muitas reações, e não uma lei exata. É a razão de o alimento estragar depressa fora da geladeira.
+
 ## Para praticar
 
 1. Explique, com a teoria das colisões, por que se abana o carvão para acender a churrasqueira.
 2. Dê dois exemplos de casa em que se muda a velocidade de uma reação de propósito. Que fator foi alterado em cada um?
 3. Na reação 2 SO₂ + O₂ ⇌ 2 SO₃ (exotérmica), o que acontece com o equilíbrio se a temperatura aumentar? E se a pressão aumentar?
 4. Por que um catalisador não aumenta a quantidade de produto obtida no equilíbrio?
+
+## Resumo
+
+- Cinética química estuda a rapidez da reação; equilíbrio químico estuda até onde ela vai.
+- Para reagir, as partículas colidem com energia suficiente (energia de ativação) e orientação certa.
+- Temperatura, concentração, superfície de contato e catalisador aceleram a reação.
+- O catalisador acelera sem ser consumido e não muda o que se produz; as enzimas são os catalisadores dos seres vivos.
+- No equilíbrio, a reação direta e a inversa têm a mesma velocidade e as quantidades não mudam mais; o equilíbrio é dinâmico.
+- Pelo princípio de Le Chatelier, o sistema perturbado se desloca no sentido que diminui o efeito da perturbação.

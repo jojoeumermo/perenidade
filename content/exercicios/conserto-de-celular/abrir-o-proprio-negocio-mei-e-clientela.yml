@@ -1,0 +1,51 @@
+# Exercícios da aula "Abrir o próprio negócio: MEI e clientela" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-mei-01
+  tema: "O passo que importa"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o passo que a aula destaca antes de abrir o MEI para uma assistência técnica?"
+  alternativas:
+    - texto: "Conferir no Portal do Empreendedor se a atividade consta na lista de ocupações permitidas ao MEI"
+      certa: true
+    - texto: "Comprar o estoque de peças"
+      erro: "O passo destacado é conferir se a atividade consta na lista de ocupações do MEI."
+    - texto: "Pedir autorização ao fabricante dos celulares"
+      erro: "É conferir a lista no Portal do Empreendedor; se não consta, procurar o Sebrae."
+  explicacao: "Se a atividade não consta, procure o Sebrae para ver a alternativa, como microempresa. A aula também lembra de conferir se o limite anual do MEI mudou."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-mei-02
+  tema: "Custos na conta"
+  dificuldade: 2
+  enunciado: "Qual destes custos deve entrar no preço do serviço, além do DAS?"
+  alternativas:
+    - texto: "Só as peças trocadas"
+      erro: "A aula lista vários custos além das peças."
+    - texto: "Aluguel ou espaço, internet, energia, ferramentas, peças em estoque, perdas, tempo e garantia"
+      certa: true
+    - texto: "Nenhum: o DAS cobre tudo"
+      erro: "O DAS é só o pagamento mensal do MEI; o preço deve cobrir os outros custos e deixar para você."
+  explicacao: "O retrabalho da garantia também custa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-mei-03
+  tema: "Clientela com confiança"
+  dificuldade: 1
+  enunciado: "Qual destas práticas a aula recomenda para construir clientela com confiança?"
+  alternativas:
+    - texto: "Prometer que todo aparelho será consertado"
+      erro: "A aula manda ser honesto, inclusive quando não compensa consertar."
+    - texto: "Ler as conversas do cliente para entender o defeito"
+      erro: "A aula manda nunca copiar, ler ou guardar nada do aparelho do cliente."
+    - texto: "Orçamento claro e por escrito, garantia por escrito e honestidade, inclusive dizendo quando não compensa consertar"
+      certa: true
+  explicacao: "Peça indicação a quem ficou satisfeito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

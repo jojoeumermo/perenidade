@@ -21,6 +21,10 @@ quiz:
     resposta: 1
     explicacao: "Escavações encontraram a vila dos trabalhadores, com padarias, alojamentos e túmulos próprios."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que o Nilo tornou a vida possível no Egito, dizer quem era o faraó, para que serviam as pirâmides e como se escrevia em hieróglifos e papiro.
+
 
 ## Um presente do Nilo
 
@@ -55,3 +59,23 @@ Foi essa dinastia, a dos Ptolomeus, que criou a Biblioteca de Alexandria, tema d
 ## Para refletir
 
 A ideia de que escravos construíram as pirâmides é repetida há séculos, embora as evidências digam outra coisa. Como você faria para conferir uma informação histórica que "todo mundo sabe"?
+
+## Exemplo resolvido
+
+**Quantos anos separam a unificação do Egito, as pirâmides de Gizé e a conquista por Alexandre?**
+
+1. Datas da aula: unificação por volta de 3100 a.C.; pirâmides de Gizé por volta de 2500 a.C.; conquista por Alexandre em 332 a.C.
+2. Da unificação às pirâmides: 3100 − 2500 = **600 anos**.
+3. Das pirâmides à conquista: 2500 − 332 = **2168 anos**.
+4. Da unificação à conquista: 3100 − 332 = **2768 anos**, quase três milênios, como diz a aula.
+
+**Ordem de grandeza.** A pirâmide de Quéops tinha cerca de 146 metros. Se um andar de prédio tem uns 3 metros (suposição para a conta), 146 ÷ 3 dá cerca de 48 andares.
+
+## Resumo
+
+- O Egito fica em um lugar muito seco; o Nilo, que transbordava todo ano e deixava lama fértil, tornou a vida possível ("o Egito é um presente do Nilo", disse Heródoto).
+- Por volta de 3100 a.C., o Alto e o Baixo Egito foram unidos sob um só governante; a tradição fala em Narmer. O governante é o faraó.
+- As pirâmides eram túmulos de faraós; as de Gizé são de cerca de 2500 a.C., e a de Quéops tinha cerca de 146 m.
+- Os egípcios criaram os hieróglifos e o papiro, de onde vem a palavra "papel".
+- Em 332 a.C., Alexandre conquistou o Egito; depois, Ptolomeu fundou uma dinastia.
+- Informação histórica que "todo mundo sabe" precisa ser conferida nas evidências.

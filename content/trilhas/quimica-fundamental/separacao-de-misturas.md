@@ -29,6 +29,10 @@ quiz:
     explicacao: "Cada fração ferve em uma faixa de temperatura e é recolhida em uma altura diferente da torre."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escolher o método certo para separar uma mistura, a partir da propriedade em que os componentes são diferentes.
+
 ## Separar é aproveitar diferenças
 
 Em uma mistura, cada componente mantém as suas propriedades. Para separá-los, escolhe-se uma propriedade em que eles sejam **diferentes**: o tamanho, a densidade, a solubilidade, a temperatura de ebulição, a atração pelo ímã.
@@ -119,6 +123,16 @@ A **coleta seletiva** é uma catação feita na origem. A **reciclagem** que vem
 
 Quem faz a maior parte desse trabalho no Brasil são as **catadoras e os catadores** de materiais recicláveis. A Política Nacional de Resíduos Sólidos, de 2010, reconhece o papel deles e determina que as suas cooperativas e associações sejam integradas à gestão do lixo. Separar o lixo em casa, limpo e seco, é respeitar o trabalho de quem vive da triagem.
 
+## Exemplo resolvido
+
+**Como separar uma mistura de água, óleo e sal?**
+
+1. Veja o que há de diferente. O óleo é menos denso que a água e não se mistura com ela; o sal está dissolvido na água.
+2. O óleo forma outra fase por cima: use a decantação e escorra com cuidado a fase de cima.
+3. Sobra água com sal, uma mistura homogênea. Para ficar só com o sal, use a evaporação; para ficar também com a água, use a destilação.
+
+Confira: primeiro se resolve o que é heterogêneo, com métodos físicos simples; depois, o que está dissolvido, com mudança de estado.
+
 ## Para praticar
 
 1. Que método você usaria para separar: (a) arroz de pedrinhas; (b) água de barro; (c) pregos misturados com serragem; (d) álcool de água?
@@ -127,3 +141,11 @@ Quem faz a maior parte desse trabalho no Brasil são as **catadoras e os catador
 4. Existe coleta seletiva ou cooperativa de catadores no seu bairro? Como o material é separado?
 
 **Respostas:** 1) (a) catação; (b) decantação e filtração; (c) separação magnética; (d) destilação fracionada. 2) Porque as partículas do açúcar dissolvido são muito menores que os furos do coador. 3) Por exemplo: juntar água (a serragem boia e é retirada); filtrar (a areia fica no filtro); evaporar a água (o sal fica).
+
+## Resumo
+
+- Para separar, escolhe-se uma propriedade em que os componentes sejam diferentes: tamanho, densidade, solubilidade, temperatura de ebulição, atração pelo ímã.
+- Nas misturas heterogêneas usam-se catação, peneiração, ventilação, separação magnética, decantação, filtração e flotação.
+- Nas homogêneas usam-se a evaporação e a destilação (simples ou fracionada).
+- Na vida real combinam-se vários métodos em sequência.
+- O lixo é uma mistura: a coleta seletiva é uma catação feita na origem.

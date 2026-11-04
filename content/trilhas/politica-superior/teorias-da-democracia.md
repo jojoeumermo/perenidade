@@ -32,6 +32,7 @@ quiz:
     opcoes: ["Que introduzir democracia sem mudar as relações sociais nem enfrentar o imperialismo seria uma fraude", "Que a democracia é perfeita", "Que o Sul não precisa de democracia"]
     resposta: 0
     explicacao: "Para ele, democracia política sem mudança social é limitada."
+modelo: 9
 ---
 
 ```provocacao
@@ -41,6 +42,10 @@ Num país, todos votam a cada quatro anos, mas metade da população passa fome 
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer diferentes formas de definir a democracia e as críticas feitas a elas.
+
+```suarealidade
+Além de votar, de que outras formas você ou alguém que você conhece já participou de uma decisão no bairro, no trabalho ou na escola (assembleia, reunião, conselho)?
+```
 
 ## A palavra
 
@@ -77,6 +82,20 @@ Qual é a diferença entre a definição mínima e a definição ampla de democr
 1. **Definição mínima**: é uma **democracia**, porque há eleições justas.
 2. **Definição ampla**: é uma democracia **com problemas**, porque a liberdade de imprensa é limitada na prática.
 3. **Crítica marxista**: é uma democracia **limitada**, porque a desigualdade econômica distorce o poder político.
+
+```outrolado
+# O argumento mais forte de quem discorda
+O economista Joseph Schumpeter, em Capitalismo, Socialismo e Democracia (1942), defendeu uma definição enxuta: democracia é o método pelo qual os cidadãos escolhem seus governantes em competição por votos. Segundo ele, o povo comum não tem informação nem tempo para decidir questões complexas, e esperar muito mais da democracia só gera frustração.
+---
+Como você responderia, com respeito e com fatos? Pense no que a definição ampla e Rousseau acrescentam.
+---
+Uma resposta possível: a definição mínima tem uma virtude, a clareza: dá para verificar se as eleições são justas e competitivas. A aula mostra o que ela deixa de fora: as liberdades civis e os direitos humanos da definição ampla, a participação direta que Rousseau defende e a crítica marxista de que a desigualdade econômica distorce o poder político. Vale perguntar o que se perde quando se aceita só o voto.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa da sua casa ou do trabalho se o Brasil é uma democracia e por quê. Compare a resposta com a definição mínima e com a ampla e anote o que você aprendeu, sem escrever nomes.
+```
 
 ## Resumo
 

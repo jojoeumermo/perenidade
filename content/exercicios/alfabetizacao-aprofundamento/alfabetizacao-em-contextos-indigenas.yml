@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização em contextos indígenas" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-indigenas-01
+  tema: "O que o Censo mostra"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Segundo a aula, em 2022 a taxa de analfabetismo das pessoas indígenas de 15 anos ou mais foi 16,1% e a média do país, 7,0%. A taxa indígena é:"
+  alternativas:
+    - texto: "Mais que o dobro da média do país"
+      certa: true
+    - texto: "Menor que a média do país"
+      erro: "16,1% é maior que 7,0%."
+    - texto: "Igual à média do país"
+      erro: "16,1% é bem maior que 7,0%, mais que o dobro."
+  explicacao: "16,1% é mais que o dobro de 7,0%. Mas atenção: o Censo pergunta se a pessoa lê um bilhete simples, sem dizer em qual língua."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-indigenas-02
+  tema: "O limite do número"
+  dificuldade: 3
+  enunciado: "Por que o número de analfabetismo indígena do Censo precisa de cuidado?"
+  alternativas:
+    - texto: "Porque o Censo não contou pessoas indígenas"
+      erro: "O Censo 2022 contou cerca de 1,69 milhão de pessoas indígenas. O cuidado é outro: a língua da escrita."
+    - texto: "Porque o Censo não diz em qual língua a pessoa sabe escrever: ela pode escrever na sua língua e não em português"
+      certa: true
+    - texto: "Porque todas as pessoas indígenas escrevem só em português"
+      erro: "Muitas escrevem em sua língua; o Censo não pergunta a língua."
+  explicacao: "A pergunta do Censo é sobre ler e escrever um bilhete simples, sem especificar a língua."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-indigenas-03
+  tema: "Quantas línguas"
+  dificuldade: 1
+  enunciado: "Segundo o Censo de 2010, citado na aula, quantas línguas indígenas foram registradas?"
+  alternativas:
+    - texto: "Apenas 2 línguas"
+      erro: "O Brasil não é um país de uma língua só: foram 274 línguas indígenas."
+    - texto: "1,69 milhão de línguas"
+      erro: "1,69 milhão é o número de pessoas indígenas no Censo 2022, não de línguas."
+    - texto: "274 línguas indígenas, faladas por 305 etnias"
+      certa: true
+  explicacao: "O Censo de 2010 registrou 305 etnias e 274 línguas indígenas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

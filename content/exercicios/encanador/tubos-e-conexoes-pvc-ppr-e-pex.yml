@@ -1,0 +1,54 @@
+# Exercícios da aula "Tubos e conexões: PVC, PPR e PEX" (Encanador). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: enc-tubos-01
+  tema: "Materiais"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual tubo, unido com adesivo, é o mais usado em instalações de água fria nas casas?"
+  alternativas:
+    - texto: "PVC marrom soldável"
+      certa: true
+    - texto: "PVC branco de esgoto"
+      erro: "O branco é de esgoto e águas pluviais, e não foi feito para a pressão da água de abastecimento."
+    - texto: "PEX com termofusão"
+      erro: "O PEX é flexível e usa conexões próprias. A termofusão é usada no PPR."
+  explicacao: "O PVC marrom soldável é o padrão da água fria predial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-tubos-02
+  tema: "Água quente"
+  dificuldade: 2
+  enunciado: "Por que não se usa PVC soldável comum de água fria em tubulação de água quente?"
+  alternativas:
+    - texto: "Porque ele amolece e deforma com o calor; para água quente usam-se materiais próprios, como CPVC, PPR ou PEX"
+      certa: true
+    - texto: "Porque a água quente é mais pesada"
+      erro: "O peso não é o problema. O que importa é a temperatura que o material suporta."
+    - texto: "Porque o PVC marrom só funciona com água gelada"
+      erro: "Ele funciona com água fria em temperatura ambiente, mas não foi feito para a temperatura da água quente."
+  explicacao: "Cada material tem limite de temperatura. Para água quente, use o indicado pelo fabricante."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-tubos-03
+  tipo: numero
+  tema: "Medida do tubo"
+  dificuldade: 2
+  enunciado: "Para ligar dois pontos distantes 2,40 m, usando duas conexões em que o tubo entra 2 cm em cada uma, quantos centímetros de tubo são necessários?"
+  resposta: "244"
+  unidade: "cm"
+  erros_comuns:
+    - resposta: "236"
+      explicacao: "Você descontou o encaixe. O tubo precisa ser maior que a distância, pois entra dentro das conexões: some, e não subtraia."
+    - resposta: "240"
+      explicacao: "Você esqueceu o trecho do tubo que fica dentro das duas conexões (2 cm em cada)."
+  dica: "A distância mais o encaixe dos dois lados."
+  explicacao: "2,40 m = 240 cm. Mais 2 cm em cada conexão: 240 + 2 + 2 = 244 cm. (Confira sempre as medidas do fabricante.)"
+  conferir: "240 + 2 + 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

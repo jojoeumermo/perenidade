@@ -23,6 +23,11 @@ quiz:
     resposta: 1
     explicacao: "O ouvido percebe a frase longa demais, a repetição e a falta de sentido que o olho deixa passar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber montar um parágrafo com tópico frasal, desenvolvimento e conclusão, ligar as frases, escrever com clareza e revisar o próprio texto.
+
+
 
 ## O tijolo do texto
 
@@ -113,6 +118,28 @@ Ninguém escreve bem de primeira. Escrever é **reescrever**.
 3. **Confira a ideia.** O parágrafo diz o que você queria dizer? Tem uma ideia só?
 4. **Confira a língua:** pontuação, concordância, ortografia.
 5. **Peça a alguém que leia.** Se a pessoa não entender, o problema está no texto, e não nela.
+
+## Exemplo resolvido: um parágrafo sobre o lixo no bairro
+
+Exemplo inventado, seguindo os passos da aula.
+
+1. **Decida o que quer dizer:** o lixo acumulado na rua é um problema de saúde.
+2. **Tópico frasal:** "O lixo acumulado na rua prejudica a saúde de quem mora ali."
+3. **Desenvolvimento:** pergunte ao tópico "como assim? por quê?" e responda com causa e consequência: "O lixo atrai ratos e baratas, e a água parada entre os sacos favorece os mosquitos. Quem mora perto sente o cheiro e corre mais risco de ficar doente."
+4. **Conclusão (opcional):** "Assim, a limpeza da rua é também uma questão de saúde pública."
+5. **Amarre:** o pronome "ali" retoma a rua; "assim" marca a conclusão.
+6. **Revise:** leia em voz alta. Uma ideia só? Frases curtas?
+
+Confira: quem leu só a primeira frase já sabe o essencial.
+
+## Resumo
+
+- Ideia nova, parágrafo novo.
+- Três partes: tópico frasal, desenvolvimento e conclusão (opcional).
+- Jeitos de desenvolver: exemplo, causa e consequência, dados, comparação, enumeração. Dado, com a fonte.
+- Amarre as frases retomando sem repetir e usando palavras de ligação pelo sentido.
+- Escreva claro: frases curtas, ordem direta, palavras conhecidas, verbos em vez de substantivos, corte o que não faz falta.
+- Escrever é reescrever: releia, leia em voz alta, peça a alguém que leia.
 
 ## Para praticar
 

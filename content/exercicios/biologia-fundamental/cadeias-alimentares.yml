@@ -1,0 +1,67 @@
+# Exercícios da aula "Cadeias alimentares" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-cadeias-01
+  tema: "Ler uma cadeia"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Na cadeia capim → gafanhoto → sapo → cobra → gavião, o que a seta quer dizer?"
+  alternativas:
+    - texto: "\"É parente de\""
+      erro: "A seta mostra o caminho da energia e da matéria: serve de alimento para."
+    - texto: "\"Serve de alimento para\""
+      certa: true
+    - texto: "\"Vive no mesmo lugar que\""
+      erro: "A seta quer dizer \"serve de alimento para\"."
+  explicacao: "A seta mostra o caminho da energia e da matéria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-cadeias-02
+  tema: "O papel de cada ser"
+  dificuldade: 2
+  enunciado: "Qual é o papel do sapo, que come gafanhotos, na cadeia da aula?"
+  alternativas:
+    - texto: "Produtor"
+      erro: "Produtores fabricam o próprio alimento pela fotossíntese, como o capim."
+    - texto: "Consumidor primário"
+      erro: "Consumidores primários comem produtores. O gafanhoto come capim; o sapo come o gafanhoto."
+    - texto: "Consumidor secundário"
+      certa: true
+  explicacao: "Primário: herbívoros. Secundário: comem os herbívoros. Terciário: comem outros carnívoros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-cadeias-03
+  tema: "Decompositores"
+  dificuldade: 2
+  enunciado: "Qual é o papel dos decompositores, como fungos e bactérias?"
+  alternativas:
+    - texto: "Alimentam-se de restos e de seres mortos e devolvem os nutrientes ao solo e à água"
+      certa: true
+    - texto: "Fabricam alimento com luz"
+      erro: "Isso é dos produtores."
+    - texto: "Comem só herbívoros"
+      erro: "Os decompositores alimentam-se de restos e de seres mortos."
+  explicacao: "Sem eles, o chão da floresta seria um depósito de restos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-cadeias-04
+  tema: "Cadeia e teia"
+  dificuldade: 2
+  enunciado: "Por que, na natureza, as cadeias formam uma teia alimentar?"
+  alternativas:
+    - texto: "Porque cada animal come uma única espécie"
+      erro: "Na natureza, o sapo come gafanhotos, moscas e besouros."
+    - texto: "Porque quase nenhum animal come uma coisa só, e as cadeias se cruzam"
+      certa: true
+    - texto: "Porque as plantas comem animais"
+      erro: "As cadeias se cruzam porque os animais comem vários tipos de alimento."
+  explicacao: "A cobra come sapos, mas também ratos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

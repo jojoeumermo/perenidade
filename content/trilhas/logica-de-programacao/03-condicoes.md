@@ -24,6 +24,10 @@ quiz:
     explicacao: "O recuo (indentação) define o bloco. Linhas alinhadas sob o if só rodam quando a condição é verdadeira."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escolher caminhos num programa com `if`, `elif` e `else`, usar os operadores de comparação e combinar condições com `and`, `or` e `not`.
+
 Até aqui, os programas executavam todas as linhas, de cima para baixo. Com **condições**, o programa escolhe um caminho.
 
 ## Se... senão
@@ -90,6 +94,34 @@ if dia == "sábado" or dia == "domingo":
     print("Fim de semana")
 ```
 
+## Exemplo resolvido
+
+**Qual caminho o programa toma com `nota = 9.5`?**
+
+```python
+if nota >= 9:
+    print("Excelente")
+elif nota >= 6:
+    print("Aprovado")
+elif nota >= 4:
+    print("Recuperação")
+else:
+    print("Reprovado")
+```
+
+1. O computador testa de cima para baixo.
+2. `9.5 >= 9` é `True`, então ele mostra "Excelente".
+3. Ele executa **apenas o primeiro** bloco verdadeiro e pula o resto, mesmo que 9,5 também seja maior que 6.
+
+Confira: com `nota = 5`, a primeira e a segunda condições são falsas e a terceira (`5 >= 4`) é verdadeira: mostra "Recuperação".
+
 ## Pratique
 
 Escreva, em pseudocódigo ou em Python, um programa que recebe um número e diz se ele é positivo, negativo ou zero. Quantos caminhos ele precisa ter?
+
+## Resumo
+
+- `if` (se), `elif` (senão, se) e `else` (senão) escolhem um caminho; o recuo mostra o que pertence a cada bloco.
+- Comparações dão `True` ou `False`: `==`, `!=`, `>`, `<`, `>=`, `<=`.
+- Um `=` guarda um valor; dois `==` comparam.
+- `and`, `or` e `not` combinam condições; só o primeiro bloco verdadeiro executa.

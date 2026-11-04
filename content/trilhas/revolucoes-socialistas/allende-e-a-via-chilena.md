@@ -30,6 +30,10 @@ quiz:
     explicacao: "Investigações do próprio Senado americano (Comissão Church, 1975) documentaram ações encobertas no Chile."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a via chilena ao socialismo, o que o governo da Unidade Popular fez, como foi atacado e como terminou em 1973.
+
 Em 1970, o Chile elegeu para presidente um médico socialista de 62 anos que prometia levar o país ao socialismo **sem guerra civil, por dentro da democracia e da Constituição**. A experiência durou mil dias. Esta aula conta a história da **via chilena ao socialismo**.
 
 ## A Unidade Popular
@@ -78,6 +82,24 @@ A experiência chilena alimenta, até hoje, um grande debate na esquerda mundial
 
 A memória da Unidade Popular inspirou, décadas depois, novas mobilizações chilenas, como a revolta social de 2019.
 
+## Exemplo resolvido
+
+**Allende teve só cerca de 36% dos votos em 1970. Como assumiu a presidência?**
+
+1. A eleição foi em 4 de setembro de 1970, com três candidatos. Allende venceu com cerca de 36% dos votos, na frente dos outros dois.
+2. Ninguém teve maioria absoluta. Pelo caminho previsto, o Congresso decidiu e confirmou Allende.
+3. Ele tomou posse em novembro, e o programa que prometia (o socialismo por dentro da democracia e da Constituição) seguiu esse caminho legal. O cobre foi nacionalizado em 1971 com aprovação unânime do Congresso.
+
+Conclusão: a via chilena foi, no começo, eleitoral e legal. Foi a reação interna e externa, até o golpe de 11 de setembro de 1973, que a interrompeu.
+
 ## Para conversar
 
 Por que um governo eleito democraticamente foi derrubado com apoio de quem dizia defender a democracia? Que lições essa história traz para o Brasil, que viveu o golpe de 1964?
+
+## Resumo
+
+- Allende, médico socialista, venceu em 1970 pela Unidade Popular e prometeu o socialismo sem guerra civil, por dentro da democracia.
+- O governo nacionalizou o cobre, aprofundou a reforma agrária, estatizou bancos e distribuiu meio litro de leite por dia a cada criança.
+- A reação incluiu boicote, inflação, a greve patronal de 1972 e, segundo a Comissão Church, ações encobertas da CIA.
+- Os trabalhadores responderam com os cordões industriais.
+- Em 11 de setembro de 1973, o general Pinochet deu o golpe e Allende morreu em La Moneda; vieram dezessete anos de ditadura.

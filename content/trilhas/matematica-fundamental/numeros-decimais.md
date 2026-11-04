@@ -22,6 +22,10 @@ quiz:
     explicacao: "Alinhe as vírgulas: 2,50 + 1,75 = 4,25."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler e comparar números decimais, somar e subtrair com a vírgula embaixo da vírgula e ligar decimais, frações e porcentagens.
+
 ## Você já usa todo dia
 
 R$ 3,75. Um metro e sessenta e dois: 1,62 m. Meio quilo: 0,5 kg. Todo número com vírgula é um **número decimal**: tem uma parte inteira, antes da vírgula, e uma parte menor que um, depois dela.
@@ -94,8 +98,25 @@ São três jeitos de escrever a mesma coisa:
 
 Para passar de fração a decimal, divida o número de cima pelo de baixo: 3 ÷ 4 = 0,75. Veja também as aulas de [frações](/trilhas/matematica-fundamental/fracoes) e de [porcentagem](/trilhas/matematica-fundamental/porcentagem).
 
+## Exemplo resolvido
+
+**Você comprou pão (R$ 7,80), leite (R$ 5,49) e café (R$ 18,90) e pagou com R$ 50. Qual é o troco?**
+
+1. Some as compras, com a vírgula embaixo da vírgula: 7,80 + 5,49 = 13,29; 13,29 + 18,90 = 32,19.
+2. Subtraia de R$ 50: 50,00 − 32,19 = 17,81.
+3. O troco é R$ 17,81.
+
+Confira: pela prova real, 32,19 + 17,81 = 50,00. Acrescentar zeros à direita (50 = 50,00) não muda o valor.
+
 ## Para praticar
 
 1. Escreva por extenso: 0,8; 5,02; 10,125.
 2. Ponha em ordem crescente: 0,3; 0,25; 0,305; 0,03.
 3. Você comprou pão (R$ 7,80), leite (R$ 5,49) e café (R$ 18,90) e pagou com R$ 50. Qual é o troco? Confira na [calculadora](/ferramentas/calculadora).
+
+## Resumo
+
+- Número decimal tem parte inteira e parte menor que um, separadas pela vírgula; cada casa vale dez vezes menos que a da esquerda (décimos, centésimos, milésimos).
+- Zeros à direita da parte decimal não mudam o valor: 2,5 = 2,50; para comparar, iguale as casas (0,5 é maior que 0,45).
+- Somar e subtrair: vírgula embaixo de vírgula.
+- Fração vira decimal dividindo o de cima pelo de baixo: 3 ÷ 4 = 0,75.

@@ -23,6 +23,10 @@ quiz:
     resposta: 0
     explicacao: "Ele comparou o ângulo das sombras em duas cidades do Egito e chegou a um valor próximo do real."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como surgiu a Biblioteca de Alexandria, quem trabalhou nela, o que realmente aconteceu com ela e o que ela ensina sobre preservar o conhecimento.
+
 
 ## Uma cidade nova
 
@@ -67,3 +71,22 @@ Se quiser ler um autor que trabalhou em Alexandria, [Os Elementos, de Euclides](
 ## Para refletir
 
 Hoje guardamos quase tudo em formato digital. O que pode fazer um conhecimento digital se perder? E o que ajuda a preservá-lo?
+
+## Exemplo resolvido
+
+**Em quantos anos a Biblioteca passou da fundação da cidade à primeira expulsão de estudiosos?**
+
+1. Datas da aula: Alexandria foi fundada em 331 a.C.; Eratóstenes calculou a circunferência da Terra por volta de 240 a.C.; em 145 a.C., Ptolomeu VIII expulsou estudiosos da cidade.
+2. Da fundação a Eratóstenes: 331 − 240 = **91 anos**.
+3. De Eratóstenes à expulsão: 240 − 145 = **95 anos**.
+4. Da fundação à expulsão: 331 − 145 = **186 anos**.
+
+Conclusão: a Biblioteca não acabou em uma noite de incêndio. Foram séculos de perda lenta de apoio, de estudiosos e de cópias, que a aula descreve.
+
+## Resumo
+
+- Alexandria foi fundada em 331 a.C. por Alexandre, o Grande; depois dele, os Ptolomeus governaram o Egito por quase trezentos anos.
+- No começo do século III a.C., os Ptolomeus criaram o Museu, de que a biblioteca fazia parte, com a ambição de reunir todo o saber.
+- Calímaco organizou o catálogo Pínakes; Eratóstenes calculou a circunferência da Terra por volta de 240 a.C.
+- A biblioteca não foi destruída em uma noite: houve perda lenta, com episódios como a expulsão de estudiosos em 145 a.C.
+- Papiro estraga: sem cópias novas, os textos se perdem. O que preserva o conhecimento é o interesse e o apoio para copiá-lo.

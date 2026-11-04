@@ -25,6 +25,10 @@ quiz:
     explicacao: "A = lá, B = si, C = dó, D = ré, E = mi, F = fá, G = sol."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer os nomes das sete notas, usar as letras das cifras, achar o dó no teclado e dizer o que é a oitava.
+
 ## Sete nomes que se repetem
 
 A música ocidental dá nome a sete notas:
@@ -69,6 +73,25 @@ Qual nota fica na tecla branca logo à esquerda do grupo de três teclas pretas?
 
 Como há vários dós no teclado, usa-se um número para dizer a oitava. Neste site (e nos programas de música em geral), o dó que fica no meio do piano é o **C4**, também chamado de **dó central**. O lá logo acima dele é o A4, aquele de 440 Hz. Livros brasileiros mais antigos chamam esse mesmo dó de "dó 3"; a nota é a mesma, só muda a contagem.
 
+## Exemplo resolvido
+
+**Como achar a nota fá no teclado, e que letra a representa na cifra?**
+
+1. Procure as teclas pretas: elas aparecem em grupos de duas e de três.
+2. O dó é a tecla branca logo à esquerda do grupo de duas pretas. O fá é a tecla branca logo à esquerda do grupo de três pretas.
+3. Confirme pela sequência dó, ré, mi, fá: o fá é a quarta tecla branca a partir do dó.
+4. Na cifra, as letras são A (lá), B (si), C (dó), D (ré), E (mi), F (fá), G (sol). O fá é F.
+
+Conclusão: o desenho de duas e três pretas é o mapa que mostra onde cada nota está, em qualquer oitava.
+
 ## Para praticar
 
 Abra o [teclado](/ferramentas/teclado) e toque as sete teclas brancas a partir do dó, dizendo o nome de cada uma em voz alta. Depois faça o caminho de volta, do si ao dó.
+
+## Resumo
+
+- Sete notas: dó, ré, mi, fá, sol, lá, si; depois do si recomeça a sequência.
+- Oitava é a distância entre um dó e o seguinte; a nota mais aguda vibra o dobro de vezes por segundo.
+- Cifras usam letras: A (lá), B (si), C (dó), D (ré), E (mi), F (fá), G (sol).
+- No teclado, as teclas brancas são as sete notas; as pretas aparecem em grupos de duas e de três; o dó fica à esquerda das duas pretas.
+- O dó central é o C4; o lá logo acima, A4, tem 440 Hz.

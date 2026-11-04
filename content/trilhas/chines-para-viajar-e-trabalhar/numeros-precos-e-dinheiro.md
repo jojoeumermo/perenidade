@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "O número indica quanto se paga: 八折 = 80% do preço."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler e dizer números grandes em chinês (blocos de dez mil), perguntar preços, entender descontos em "折" e usar o vocabulário de pagamento.
 
 ## Números grandes
 
@@ -100,3 +103,20 @@ Em feiras e mercados de rua, a negociação é comum. Em lojas com preço fixo e
 2. Calcule e diga em chinês: 300 yuan com 打八折.
 3. Monte um diálogo de compra com pergunta de preço, desconto e forma de pagamento.
 4. Pesquise quanto vale hoje um real em yuan e converta três preços do seu dia a dia.
+
+## Exemplo resolvido
+
+**Uma camisa custa 200 yuan e está 打七折. Quanto você paga? E como se diz 35 000?**
+
+1. **Entenda o desconto.** Em chinês, o desconto é dito pelo quanto se **paga**, em décimos: 七折 = paga-se **70%** do preço.
+2. **Faça a conta.** 200 × 0,7 = **140 yuan**. Em chinês: 一百四十块.
+3. **35 000.** Separe em grupos de quatro algarismos a partir da direita: 3|5000 → **三万五千** (sānwàn wǔqiān).
+
+Confira: 打八折 é pagar 80% (desconto de 20%), e 打五折 é pagar metade.
+
+## Resumo
+
+- O chinês conta em blocos de **dez mil** (万): separe o número em grupos de quatro algarismos a partir da direita (35 000 = 三万五千).
+- Zeros no meio se leem como 零: 一百零五 (105), 一千零二十 (1 020).
+- Preços: **多少钱？**, **一共多少钱？**; escreve-se 元, fala-se 块; 角 se fala 毛.
+- **Descontos** dizem quanto se paga, em décimos: 打八折 (80%), 打五折 (metade), 打九五折 (95%).

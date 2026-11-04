@@ -35,6 +35,9 @@ quiz:
     resposta: 0
     explicacao: "Recompra de ações, demissões para agradar o mercado e distribuição máxima de dividendos são marcas desse modelo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o capital portador de juros e o capital fictício em Marx, como a financeirização se acelerou desde os anos 1970 e como ela aparece nas empresas, no Estado e nas famílias.
 
 Nos noticiários, a "saúde da economia" é medida pela bolsa de valores, pelos juros e pelo dólar. Raramente pela fome, pelo emprego ou pelos salários. Essa inversão tem nome: **financeirização**. Esta aula explica o conceito a partir de Marx e de seus continuadores.
 
@@ -92,3 +95,23 @@ A financeirização não significa que o capitalismo deixou de depender do traba
 ## Para pesquisar e debater
 
 Escolha uma grande empresa brasileira de capital aberto. Quanto ela distribuiu em dividendos no último ano? Quanto investiu? Quantos trabalhadores demitiu ou contratou?
+
+## Exemplo resolvido
+
+**Uma empresa lucra R$ 10 milhões por ano, mas as suas ações, somadas, valem R$ 2 bilhões, porque o mercado acredita que ela crescerá muito. O que explica essa diferença?**
+
+1. **Compare os dois números.** R$ 2 bilhões ÷ R$ 10 milhões = 200. As ações valem 200 vezes o lucro de um ano.
+2. **Pergunte o que o preço mede.** O preço da ação não mede o que a empresa já produziu; mede o que o mercado **espera** que ela renda no futuro.
+3. **Dê o nome.** Essa parte do valor é **capital fictício**: baseado em expectativas de rendimentos futuros. Uma parte é real (o título dá direito a uma parte da mais-valia futura); a outra é **aposta**.
+4. **Veja o risco.** Se a produção real não gerar o que foi prometido, o valor do papel evapora.
+
+Confira: as crises financeiras são momentos em que o capital fictício é confrontado com a economia real.
+
+## Resumo
+
+- No **capital portador de juros**, o circuito parece ser D - D': dinheiro que gera dinheiro, sem passar pela fábrica; a exploração do trabalho some de vista.
+- **Capital fictício:** o mercado trata títulos e ações como se valessem a soma de seus rendimentos futuros; parte é real, parte é aposta.
+- Hilferding (1910) e Lenin ligaram bancos e indústria; Chesnais descreveu um capitalismo dominado pela finança.
+- Desde os anos 1970: fim de Bretton Woods (1971), liberalização dos fluxos de capital, novos instrumentos (derivativos, securitização), fundos de pensão e de investimento.
+- Efeitos: empresas voltadas ao valor para o acionista; dívida pública como renda garantida; famílias endividadas.
+- A economia passa de bolha em bolha; a financeirização não elimina a dependência do trabalho: uma parte crescente da mais-valia vai para quem vive de juros, dividendos e especulação.

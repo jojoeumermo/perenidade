@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "奶奶 é a mãe do pai. A mãe da mãe é 外婆 (wàipó) ou 姥姥 (lǎolao)."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber nomear os parentes em chinês (separando mais velho e mais novo, lado do pai e lado da mãe), usar 有 e 没有 e dizer quantas pessoas tem a sua família.
 
 Em português, "irmão" serve para qualquer irmão, e "avó" para qualquer avó. Em chinês, não: a língua separa o irmão **mais velho** do **mais novo** e os avós do **lado do pai** dos avós do **lado da mãe**. Essa riqueza de palavras mostra a importância que a família e a idade têm na tradição chinesa.
 
@@ -134,3 +137,23 @@ Repare em 我爸爸 e 我妈妈, sem 的: com a família, o 的 costuma sumir.
 1. Responda em chinês: 你家有几口人？
 2. Escreva quem são as pessoas da sua família, com 有 e 没有: *我有… / 我没有…*
 3. Desenhe a sua árvore genealógica e escreva, ao lado de cada pessoa, a palavra chinesa: lembre-se de separar mais velho e mais novo, e o lado do pai e o da mãe.
+
+## Exemplo resolvido
+
+**Como dizer "Na minha família somos três: mãe, irmão mais novo e eu. Não tenho irmã mais velha"?**
+
+1. **Quantas pessoas.** A família se conta em bocas, com **口** (kǒu): **我家有三口人** (Wǒ jiā yǒu sān kǒu rén).
+2. **Quem são.** Os nomes vêm depois, ligados por **和** (hé) antes do último: **妈妈、弟弟和我** (māma, dìdi hé wǒ). 弟弟 é o irmão mais novo.
+3. **A negativa.** O verbo 有 se nega com **没**, nunca com 不: **我没有姐姐** (Wǒ méiyǒu jiějie). 姐姐 é a irmã mais velha.
+4. **Junte.** 我家有三口人：妈妈、弟弟和我。我没有姐姐。
+
+Confira: com a família, o 的 costuma sumir (我妈妈), e "不有" está sempre errado.
+
+## Resumo
+
+- O chinês separa o irmão **mais velho** (哥哥) do **mais novo** (弟弟), a irmã mais velha (姐姐) da mais nova (妹妹), e os avós do lado do pai (爷爷, 奶奶) dos do lado da mãe (外公/姥爷, 外婆/姥姥).
+- Pais: 爸爸, 妈妈; filhos: 儿子, 女儿, 孩子; marido e esposa: 丈夫, 妻子.
+- **叔叔** e **阿姨** também tratam adultos que não são da família.
+- **有** (ter) se nega com **没** (méiyǒu), não com 不.
+- A família se conta com **口** (kǒu): 你家有几口人？
+- Palavras de família repetem a sílaba, e a segunda perde o tom (gēge, dìdi).

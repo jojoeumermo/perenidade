@@ -26,6 +26,9 @@ quiz:
     resposta: 2
     explicacao: "1.000 × 1,1 multiplicado por ele mesmo doze vezes. Em juros simples seriam R$ 2.200."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre juros simples e compostos, calcular o quanto uma dívida cresce e se defender dos créditos mais caros.
 
 ## Aluguel de dinheiro
 
@@ -85,3 +88,22 @@ Juros altos não são um fenômeno da natureza. São uma transferência de renda
 1. Na ferramenta de juros compostos, simule uma dívida de R$ 500 a 12% ao mês por 12 meses, sem depósitos. Quanto se paga de juros?
 2. Agora simule R$ 100 guardados todo mês, a 0,6% ao mês, por 10 anos. Quanto você depositou e quanto ganhou de juros?
 3. Compare os dois resultados. O que eles dizem sobre quem ganha com os juros?
+
+## Exemplo resolvido
+
+**R$ 1.000 a 10% ao mês: quanto se deve no fim do terceiro mês, e quanto de juros foi cobrado nesse mês? Faça mês a mês.**
+
+1. **Mês 1.** 10% de R$ 1.000 = R$ 100; a dívida vai a R$ 1.100.
+2. **Mês 2.** Os 10% agora incidem sobre R$ 1.100: R$ 110; a dívida vai a R$ 1.210.
+3. **Mês 3.** 10% de R$ 1.210 = R$ 121; a dívida vai a R$ 1.331.
+4. **Conclua.** Os juros do terceiro mês são de R$ 121, e não de R$ 100, porque a taxa incide sobre tudo o que já se acumulou.
+
+Confira: nos juros simples, o mesmo prazo de 12 meses daria R$ 2.200; nos compostos, R$ 3.138,43. A dívida mais que triplicou.
+
+## Resumo
+
+- **Juro** é o aluguel do dinheiro; a **taxa** é uma porcentagem por período.
+- **Juros simples:** a taxa incide sempre sobre o valor inicial. **Juros compostos:** incide sobre tudo o que já se acumulou (juro sobre juro), e é assim que funcionam cartão, cheque especial, empréstimos e aplicações.
+- R$ 1.000 a 10% ao mês viram R$ 3.138,43 em 12 meses nos compostos.
+- Desde janeiro de 2024, uma lei limita os juros e encargos do rotativo do cartão ao valor original da dívida.
+- Defesa: fugir do rotativo e do cheque especial, comparar o Custo Efetivo Total (CET), desconfiar de "sem juros", renegociar (Procon e Defensoria orientam de graça) e fazer a conta antes.

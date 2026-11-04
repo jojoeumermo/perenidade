@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "O ultravioleta está além do violeta. Não o vemos, mas ele queima a pele."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como se forma a sombra, o que são reflexão e refração e por que a luz branca contém todas as cores.
+
 
 ## O que é a luz
 
@@ -124,9 +128,29 @@ Quanto maior a frequência, mais energia a radiação carrega e mais ela pode da
 
 Quem trabalha ao ar livre (na lavoura, na construção, na rua) recebe ultravioleta o dia inteiro. Chapéu de aba larga, roupa de manga comprida e protetor solar são equipamentos de proteção.
 
+## Exemplo resolvido
+
+**Um poste projeta uma sombra de 6 m. No mesmo instante, uma vara de 1 m projeta sombra de 1,5 m. Qual é a altura do poste?**
+
+1. A luz anda em linha reta, e o Sol está tão longe que seus raios chegam paralelos. Os dois corpos, no mesmo momento, recebem a luz com a mesma inclinação.
+2. Logo, a razão entre a altura e a sombra é a mesma para a vara e para o poste.
+3. Para a vara: 1 ÷ 1,5 = cerca de 0,67.
+4. Para o poste: altura ÷ 6 = 0,67.
+5. Então altura = 0,67 × 6 = 4 m.
+
+Confira com frações: 1/1,5 = 2/3, e 2/3 de 6 m são 4 m. O poste tem 4 metros.
+
 ## Para pesquisar e debater
 
 1. Por que a sua sombra muda de tamanho ao longo do dia?
 2. Um lápis mergulhado em um copo com água parece quebrado. Que fenômeno explica isso?
 3. Por que as casas de regiões muito quentes costumam ser pintadas de branco?
 4. Quem, na sua família, trabalha exposto ao sol? Que proteção usa?
+
+## Resumo
+
+- Vemos um objeto quando a luz que vem dele chega aos olhos; há corpos luminosos e iluminados.
+- A luz anda em linha reta em um meio uniforme; por isso há sombra e eclipse.
+- Reflexão: a luz bate e volta (espelho). Refração: a luz muda de meio, muda de velocidade e desvia.
+- A luz branca contém todas as cores, como mostrou Newton com o prisma.
+- A luz visível é só uma faixa das ondas eletromagnéticas.

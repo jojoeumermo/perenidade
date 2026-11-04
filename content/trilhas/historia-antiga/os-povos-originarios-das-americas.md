@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "Era uma das maiores cidades do mundo na época, ligada à terra firme por calçadas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer quando e como as Américas foram povoadas, o que os povos americanos deram ao mundo, como eram a Mesoamérica e os Andes e como foi a conquista europeia.
+
 
 ## Um continente povoado
 
@@ -105,8 +109,28 @@ O que veio depois foi o trabalho forçado nas minas de prata e nas fazendas, a d
 
 Os povos originários não desapareceram. Milhões de pessoas falam hoje quéchua, aimará, guarani, náuatle e as línguas maias. Em países como a Bolívia, a Guatemala e o Peru, formam grande parte da população, e em toda a América lutam pela terra, pela língua e pelo direito de existir como povos.
 
+## Exemplo resolvido
+
+**Quantos anos durou a civilização olmeca? E quanto tempo se passou entre a chegada de Colombo e a conquista de Tenochtitlán?**
+
+1. Os olmecas viveram entre cerca de 1200 e 400 a.C. As duas datas são a.C.: 1200 − 400 = **800 anos**.
+2. Colombo chegou às ilhas do Caribe em 1492. Cortés conquistou Tenochtitlán entre 1519 e 1521.
+3. De 1492 a 1519: 1519 − 1492 = **27 anos**. Entre 1519 e 1521, a conquista durou cerca de **2 anos**.
+4. A cidade de Caral, no Peru, tem cerca de cinco mil anos: 5.000 − 2.026 = cerca de **3000 a.C.**
+
+Leitura: a conquista dos grandes impérios americanos foi rápida: a aula diz que em poucas décadas os espanhóis os destruíram. Mas essa história não acabou com a conquista: milhões de pessoas falam hoje quéchua, aimará, guarani, náuatle e línguas maias.
+
 ## Para pesquisar e debater
 
 1. Por que se costuma dizer que Colombo "descobriu" a América? Quem estava aqui?
 2. O que os conquistadores ganhavam ao apresentar os indígenas como "selvagens"?
 3. Compare o modo como os incas guardavam alimentos para os tempos difíceis com o que acontece hoje em tempos de crise.
+
+## Resumo
+
+- Os primeiros seres humanos chegaram às Américas vindos da Ásia, há pelo menos 15 mil anos; a data exata e os caminhos são discutidos.
+- Os povos americanos domesticaram milho, batata, tomate, feijão, mandioca, cacau, amendoim, abóbora e abacaxi.
+- Na Mesoamérica, os olmecas (cerca de 1200 a 400 a.C.) construíram centros cerimoniais e esculpiram cabeças de pedra.
+- Nos Andes, Caral tem cerca de cinco mil anos; no século XV, os incas, a partir de Cusco, formaram o maior império da América antiga.
+- Em 1492, Colombo chegou ao Caribe; entre 1519 e 1521, Cortés conquistou Tenochtitlán.
+- Os povos originários não desapareceram: falam suas línguas e lutam pela terra.

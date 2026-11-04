@@ -597,3 +597,14 @@
     display: revert !important;
   }
 }
+
+/* ── Ouvir uma instrução (alfabetização, Etapa 3) ──
+   O texto que o leitor vai ler (a pergunta de um teste e as respostas) fica num elemento só enquanto dura a leitura.
+   Fora da tela, mas sem display:none (o leitor pula o que está escondido). */
+.ouvir-texto-oculto {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

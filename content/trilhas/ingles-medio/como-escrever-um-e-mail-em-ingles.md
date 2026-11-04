@@ -26,6 +26,10 @@ quiz:
     explicacao: "Exemplo: Subject: Job application – Electrician."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber montar um e-mail em inglês, formal ou informal, com assunto, saudação, pedido e despedida no tom certo.
+
 ## A estrutura
 
 Um e-mail tem as mesmas partes em qualquer língua:
@@ -93,9 +97,27 @@ Qual é a frase mais adequada para pedir uma informação em um e-mail formal?
 - Seja direto: e-mails em inglês costumam ser mais curtos e objetivos que em português.
 - Se usar um tradutor automático, revise o resultado: ele erra com frequência em tom e em falsos cognatos.
 
+## Exemplo resolvido
+
+**Como reescrever "Hi! Can you send me the form? Thanks!" de modo formal?**
+
+1. Troque a saudação informal pela formal: *Hi!* vira *Dear Ms. Oliveira,* (ou *Dear Sir or Madam,* se não souber o nome).
+2. Troque o pedido: *Can you...?* vira *Could you please send me the form?*
+3. Troque o fecho: *Thanks!* vira *I look forward to hearing from you.* e a despedida *Kind regards,* com a assinatura.
+4. Dê um assunto curto: *Subject: Request for form.*
+
+Confira: nada de formas curtas nem gírias. O conteúdo é o mesmo, mas o tom mudou do informal para o formal.
+
 ## Para praticar
 
 1. Escreva o assunto de três e-mails: pedir informação sobre um curso, enviar um currículo, remarcar uma reunião.
 2. Reescreva de modo formal: "Hi! Can you send me the form? Thanks!"
 3. Escreva um e-mail formal se candidatando a uma vaga da sua área.
 4. Escreva um e-mail informal para um colega combinando um encontro.
+
+## Resumo
+
+- O e-mail tem assunto curto, saudação, abertura, corpo, fechamento, despedida e assinatura.
+- Formal: *Dear Ms. Oliveira*, *I am writing to...*, *Could you please...?*, *Kind regards*. Informal: *Hi Ana*, *Can you...?*, *Talk soon!*
+- Em e-mails formais, evite formas curtas e gírias.
+- Se usar tradutor automático, revise o resultado.

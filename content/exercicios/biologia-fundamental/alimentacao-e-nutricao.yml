@@ -1,0 +1,67 @@
+# Exercícios da aula "Alimentação e nutrição" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-alimentacao-01
+  tema: "Para que serve cada nutriente"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual nutriente é a principal fonte de energia, segundo a aula?"
+  alternativas:
+    - texto: "As proteínas"
+      erro: "As proteínas servem para construção e reparo: músculos, pele, enzimas."
+    - texto: "Os carboidratos"
+      certa: true
+    - texto: "As vitaminas"
+      erro: "As vitaminas regulam reações do corpo."
+  explicacao: "Carboidratos: arroz, mandioca, milho, batata, pão, frutas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-alimentacao-02
+  tema: "As fibras"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre as fibras?"
+  alternativas:
+    - texto: "São a principal fonte de energia"
+      erro: "Quem é a principal fonte de energia são os carboidratos."
+    - texto: "São absorvidas e viram músculos"
+      erro: "As fibras não são absorvidas."
+    - texto: "Não são absorvidas, mas fazem o intestino funcionar bem"
+      certa: true
+  explicacao: "Estão em frutas, verduras, feijões e cereais integrais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-alimentacao-03
+  tema: "Arroz com feijão"
+  dificuldade: 1
+  enunciado: "Por que arroz com feijão é uma combinação muito boa?"
+  alternativas:
+    - texto: "Juntos, os dois fornecem os componentes de proteína de que o corpo precisa"
+      certa: true
+    - texto: "Porque os dois são só gordura"
+      erro: "A aula fala em proteína, não em gordura."
+    - texto: "Porque os dois têm só vitaminas"
+      erro: "A combinação é boa pelos componentes de proteína."
+  explicacao: "É um prato tradicional brasileiro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-alimentacao-04
+  tema: "Primeira etapa da digestão"
+  dificuldade: 1
+  enunciado: "O que acontece na boca durante a digestão?"
+  alternativas:
+    - texto: "O alimento é absorvido pelo sangue"
+      erro: "A digestão quebra os alimentos em partes pequenas o bastante para entrar no sangue; a boca só começa o processo."
+    - texto: "Os dentes trituram e a saliva começa a digerir o amido"
+      certa: true
+    - texto: "O alimento é filtrado como urina"
+      erro: "A boca tritura e a saliva começa a digerir o amido."
+  explicacao: "O caminho segue pelo esôfago, tubo que empurra o alimento até o estômago."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

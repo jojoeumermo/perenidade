@@ -34,6 +34,9 @@ quiz:
     resposta: 0
     explicacao: "Se o salário mínimo legal fica muito abaixo do que a própria Constituição define como necessário, há remuneração abaixo do valor da força de trabalho."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Marini chama de superexploração, descrever os três mecanismos (intensificação, prolongamento da jornada e salário abaixo do valor da força de trabalho) e aplicá-los a um caso do Brasil.
 
 Na aula anterior vimos que, para Ruy Mauro Marini, as economias dependentes compensam o valor que perdem para os países centrais **superexplorando** a força de trabalho. Esta aula detalha o conceito e o confronta com a realidade brasileira.
 
@@ -85,3 +88,23 @@ O conceito ajuda a entender por que, no Brasil, lutas aparentemente "mínimas" (
 ## Para pesquisar e debater
 
 Calcule, para a sua família, a jornada real de trabalho somando horas de deslocamento, horas extras e segundo emprego. Compare com as 40 horas semanais da Constituição (limite fixado pela Emenda Constitucional nº 141, de 2026).
+
+## Exemplo resolvido
+
+**Um motorista de aplicativo trabalha 12 horas por dia, sete dias por semana, para uma renda próxima do salário mínimo. Que mecanismos da superexploração aparecem?**
+
+1. **Compare a jornada com o limite legal.** 12 horas × 7 dias = 84 horas por semana, mais que o dobro das 40 horas semanais da Constituição citadas na aula. É o **prolongamento da jornada**.
+2. **Compare a renda com o necessário.** A Constituição (art. 7º, IV) diz que o salário mínimo deve atender às necessidades vitais básicas do trabalhador e da família, e o DIEESE calcula todo mês quanto deveria ser esse valor. Uma renda próxima do mínimo, para tantas horas, indica **remuneração abaixo do valor da força de trabalho**.
+3. **A intensificação?** O caso não a descreve (metas, ritmo acelerado), então não se pode afirmar.
+4. **Conclua.** Aparecem o prolongamento da jornada e a remuneração abaixo do valor, e ser "autônomo" não tira o problema.
+
+Confira: o resultado, para Marini, é o trabalhador ser consumido mais depressa: envelhece antes, adoece mais.
+
+## Resumo
+
+- Em Marx, há exploração mesmo quando o salário paga o valor da força de trabalho; na **superexploração**, o capital invade também a parte que deveria repor a vida do trabalhador.
+- Mecanismos: **intensificação do trabalho**, **prolongamento da jornada** e **remuneração abaixo do valor da força de trabalho**.
+- Marini toma isso como regra estrutural das economias dependentes.
+- No Brasil: salário mínimo abaixo do que o DIEESE calcula como necessário, informalidade, deslocamento que estica a jornada, acidentes e trabalho análogo à escravidão.
+- O conceito é debatido: aparece também nos países centrais? O aumento real do salário mínimo dos anos 2000 mudou o quadro?
+- Lutas "mínimas" (jornada legal, escala 6x1, mínimo, carteira) atacam o mecanismo diretamente.

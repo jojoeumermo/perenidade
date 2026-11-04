@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é comunismo" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-que-e-01
+  tema: "A origem do Manifesto"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quem escreveu o programa da Liga dos Comunistas, publicado em 1848?"
+  alternativas:
+    - texto: "Lenin e Gramsci"
+      erro: "Eles escreveram em outras épocas."
+    - texto: "Thomas More e Platão"
+      erro: "Esses são autores de épocas anteriores, citados em outra aula."
+    - texto: "Karl Marx e Friedrich Engels"
+      certa: true
+  explicacao: "Foi o Manifesto do Partido Comunista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-que-e-02
+  tema: "O que é comunismo para Marx e Engels"
+  dificuldade: 2
+  enunciado: "Para Marx e Engels, qual destas é uma ideia da sociedade comunista?"
+  alternativas:
+    - texto: "Não há classes sociais, porque os meios de produção pertencem a todos"
+      certa: true
+    - texto: "Há patrões e empregados, mas todos ricos"
+      erro: "Para eles, não há classes sociais nem exploração."
+    - texto: "O Estado é cada vez mais forte"
+      erro: "Para eles, o Estado deixa de ser necessário."
+  explicacao: "O trabalho deixa de ser só um meio de sobreviver, e cada pessoa tem tempo e condições para desenvolver suas capacidades."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-que-e-03
+  tema: "Sem plano pronto"
+  dificuldade: 3
+  enunciado: "Marx e Engels descreveram em detalhe a sociedade comunista?"
+  alternativas:
+    - texto: "Sim, em muitos detalhes"
+      erro: "A aula diz que sempre evitaram descrever em detalhe."
+    - texto: "Não: diziam que ela seria o resultado de um movimento real da história, não um plano inventado"
+      certa: true
+    - texto: "Sim, com um plano para cada país"
+      erro: "Eles diziam que não seria um plano inventado por alguém."
+  explicacao: "A expressão \"país comunista\" é, segundo a aula, enganosa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

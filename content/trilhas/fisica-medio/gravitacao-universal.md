@@ -29,6 +29,10 @@ quiz:
     resposta: 1
     explicacao: "A Lua atrai com mais força o lado da Terra voltado para ela do que o lado oposto."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como se passou do modelo geocêntrico ao Sistema Solar, enunciar as três leis de Kepler e a lei da gravitação universal e explicar por que a Lua não cai e por que existem marés.
+
 
 ## Do céu dos antigos ao Sistema Solar
 
@@ -118,3 +122,12 @@ A lei de Newton descreve com enorme precisão as órbitas, as marés e os lança
 2. Um planeta imaginário está 4 vezes mais longe do Sol do que a Terra. Quanto dura o seu ano? (Use a 3ª lei de Kepler.)
 3. Explique a alguém por que a antena parabólica não precisa se mover para acompanhar o satélite.
 4. Pesquise a tábua de marés de uma cidade litorânea e relacione as maiores marés com as fases da Lua.
+
+## Resumo
+
+- Durante quase dois mil anos prevaleceu o modelo geocêntrico; Copérnico, Galileu e Kepler levaram ao modelo com o Sol no centro.
+- Kepler: os planetas descrevem elipses com o Sol em um foco; varrem áreas iguais em tempos iguais; e há relação entre o período e a distância.
+- Newton: a mesma força que faz a maçã cair mantém a Lua em órbita; a força diminui com o quadrado da distância.
+- A Lua e os satélites caem o tempo todo, mas se movem de lado com velocidade suficiente para não chegar ao chão.
+- A ausência de peso dos astronautas é queda livre junto com a nave.
+- As marés vêm da diferença da atração da Lua sobre os lados da Terra.

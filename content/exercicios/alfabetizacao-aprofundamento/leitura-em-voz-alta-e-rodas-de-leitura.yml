@@ -1,0 +1,51 @@
+# Exercícios da aula "Leitura em voz alta e rodas de leitura" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-voz-alta-01
+  tema: "Por que ler em voz alta"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas é uma razão da aula para ler em voz alta no círculo?"
+  alternativas:
+    - texto: "Evitar que as pessoas aprendam a ler sozinhas"
+      erro: "A leitura em voz alta dá vontade de ler e mostra como se lê."
+    - texto: "Substituir o estudo das letras"
+      erro: "Ela abre a porta dos textos escritos; não substitui o resto do trabalho."
+    - texto: "Mostrar a linguagem escrita e ampliar o vocabulário"
+      certa: true
+  explicacao: "Ler em voz alta mostra a linguagem escrita, amplia o vocabulário, dá vontade de ler, mostra como se lê e junta o grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-voz-alta-02
+  tema: "Roda de leitura"
+  dificuldade: 2
+  enunciado: "Como deve ser a roda de leitura, segundo a aula?"
+  alternativas:
+    - texto: "Convidar sem constranger"
+      certa: true
+    - texto: "Obrigar cada um a ler em voz alta na vez"
+      erro: "A aula diz que a roda deve convidar sem constranger."
+    - texto: "Só quem já lê bem participa"
+      erro: "A roda é para todo o grupo, inclusive quem ainda não lê."
+  explicacao: "Uma roda de leitura convida sem constranger."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-voz-alta-03
+  tema: "Antes de ler sozinho"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que quem cresceu ouvindo histórias tem?"
+  alternativas:
+    - texto: "Nenhuma vantagem"
+      erro: "A aula diz que é uma vantagem enorme."
+    - texto: "Uma vantagem enorme quando chega às letras"
+      certa: true
+    - texto: "Dificuldade para aprender a ler"
+      erro: "Quem cresceu ouvindo histórias chega às letras com vantagem."
+  explicacao: "Antes de ler sozinho, a gente aprende a gostar de ouvir."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

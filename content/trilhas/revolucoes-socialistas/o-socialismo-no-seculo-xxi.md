@@ -32,6 +32,10 @@ quiz:
     explicacao: "Os zapatistas recusaram tomar o poder do Estado e construíram autonomia nos territórios."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber apresentar as principais experiências e debates do socialismo depois de 1991, dos zapatistas e do MST à onda progressista latino-americana.
+
 Em 1991, a União Soviética deixou de existir. Muitos anunciaram o "fim da história": o capitalismo liberal seria o destino final da humanidade. Três décadas depois, crises econômicas, desigualdade recorde e emergência climática reabriram a pergunta. Esta aula apresenta as principais experiências e debates do socialismo no século XXI.
 
 ## Os anos 1990: resistência
@@ -78,6 +82,24 @@ O socialismo do século XXI discute questões que o século XX deixou em aberto:
 - **Tecnologia**: plataformas digitais e inteligência artificial podem servir a um planejamento democrático?
 - **Estratégia**: eleições, poder popular, autonomia territorial, ou combinações dessas vias?
 
+## Exemplo resolvido
+
+**Como comparar a estratégia dos zapatistas com a dos governos progressistas?**
+
+1. Identifique o caminho de cada um. Os zapatistas se levantaram em 1º de janeiro de 1994, em Chiapas, e não buscaram tomar o poder do Estado: construíram autonomia nos territórios, com governos comunitários e o princípio de "mandar obedecendo".
+2. Os governos progressistas, a partir de 1998, chegaram ao poder do Estado por eleições, como Chávez (1998) e Evo Morales (2005).
+3. Compare os resultados sem simplificar: na Bolívia, a pobreza caiu e se refundou o país como Estado Plurinacional; na Venezuela, houve uma crise profunda, com grande divergência, inclusive na esquerda, sobre as causas.
+
+Conclusão: "tomar o Estado" e "construir autonomia" são estratégias diferentes, e o mesmo rótulo de socialismo esconde experiências muito diversas.
+
 ## Para conversar
 
 Que movimentos ou experiências da sua região você vê como sementes de outra forma de organizar a vida, mesmo dentro do capitalismo? O que falta para que elas cresçam?
+
+## Resumo
+
+- Em 1991 a URSS deixou de existir; surgiu o discurso do "fim da história", mas a pergunta sobre o socialismo voltou.
+- Nos anos 1990, resistência: os zapatistas (1994), o Fórum Social Mundial (2001) e o MST.
+- A partir de 1998, governos de esquerda na América Latina: Venezuela, Bolívia e Equador falaram em socialismo; Brasil, Argentina e Uruguai reduziram a pobreza sem romper com o capitalismo.
+- China, Vietnã, Cuba e Laos seguem governados por partidos comunistas.
+- Há debates abertos, e a aula pede que cada experiência seja avaliada com fatos.

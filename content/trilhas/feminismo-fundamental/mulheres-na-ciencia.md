@@ -28,6 +28,7 @@ quiz:
     opcoes: ["42%", "90%", "5%"]
     resposta: 0
     explicacao: "Em cargos de liderança e em áreas como computação, a proporção é ainda menor."
+modelo: 9
 ---
 
 ```provocacao
@@ -37,6 +38,10 @@ Feche os olhos e imagine "um cientista". Você imaginou um homem ou uma mulher? 
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer mulheres importantes da ciência, no mundo e no Brasil, e os números que mostram a desigualdade que ainda existe.
+
+```suarealidade
+Na sua escola, no seu bairro ou no seu serviço, quem são as mulheres que "entendem do assunto" (de saúde, de conta, de máquina, de lei)? A que elas chegaram sem ter o título?
+```
 
 ## Marie Curie
 
@@ -69,6 +74,20 @@ O que o estudo da Unicamp mostra?
 1. Geral: **42%** de 100 = **42 mulheres**.
 2. Computação: **20%** de 100 = **20 mulheres**.
 3. **Leitura**: quanto mais "prestígio" e mais área tecnológica, **menos mulheres**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se há menos mulheres na ciência, é porque elas escolhem outras áreas. Não é desigualdade, é preferência".
+---
+Como você responderia, usando os dados da aula?
+---
+Uma resposta possível: escolha também sofre influência do meio. A aula mostra que a própria Sonia Guimarães deu aula no ITA em 1993, quando a instituição ainda não aceitava mulheres como estudantes, e que no estudo da Unicamp as mulheres são 42% dos autores, 35% na liderança e 20% na computação: quanto mais prestígio, menos mulheres. Para quem discorda, vale perguntar quais barreiras existiam quando as escolhas foram feitas.
+```
+
+```agir
+# Esta semana
+Escolha uma das cientistas da aula e conte a história dela, em uma ou duas frases, para uma pessoa da sua casa ou do seu trabalho. Ou faça o cartaz proposto no fim da aula.
+```
 
 ## Resumo
 

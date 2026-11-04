@@ -36,6 +36,9 @@ quiz:
     resposta: 0
     explicacao: "住 (zhù) é morar, e 哪儿 (nǎr) pergunta \"onde\"."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber fazer perguntas de sim ou não com 吗, usar as palavras de pergunta, devolver a pergunta com 呢, oferecer escolha com 还是 e responder sem uma palavra única para "sim".
 
 Perguntar é a forma mais rápida de aprender uma língua, e em chinês perguntar é bem simples. Você não precisa mudar a ordem das palavras nem usar verbos auxiliares, como em inglês. Há só duas ferramentas principais: a partícula **吗** e as palavras de pergunta, como **什么**.
 
@@ -150,3 +153,22 @@ Para oferecer uma escolha, usa-se **还是** (háishi, "ou"):
 3. Corrija: 你是谁吗？ / 你是哪国人吗？
 
 Respostas do 1: 他是医生吗？/ 你有哥哥吗？/ 她忙吗？ Respostas do 2: 你叫什么名字？/ 这是什么？/ 你住在哪儿？ Respostas do 3: 你是谁？/ 你是哪国人？
+
+## Exemplo resolvido
+
+**Faça as três tarefas: (1) 他是医生。 em pergunta com 吗; (2) pergunta para a resposta 我住在里约。; (3) corrija 你是谁吗？**
+
+1. **Com 吗.** Coloca-se 吗 no fim da frase, sem mudar mais nada: **他是医生吗？** (Tā shì yīshēng ma?)
+2. **Com palavra de pergunta.** A palavra fica no mesmo lugar em que a resposta vai ficar: 住在**里约** → 住在**哪儿**: **你住在哪儿？** (Nǐ zhù zài nǎr?)
+3. **Correção.** Pergunta com palavra interrogativa nunca leva 吗. Correto: **你是谁？** (Nǐ shì shéi?)
+
+Confira: para responder "sim", repete-se o verbo (是, 有, 忙); para "não", 不是, 没有, 不忙.
+
+## Resumo
+
+- **吗** no fim da frase faz uma pergunta de sim ou não; nada mais muda na frase.
+- Não há uma palavra única para "sim": repete-se o verbo ou o adjetivo, na forma afirmativa ou negativa (是 / 不是, 有 / 没有).
+- **Palavras de pergunta** ficam no lugar da resposta: 什么, 谁, 哪儿/哪里, 哪, 什么时候, 几, 多少, 怎么, 为什么. Nunca levam 吗.
+- **呢** devolve a pergunta ("e você?"); 是不是, 忙不忙 e 有没有 são outro jeito de perguntar, também sem 吗.
+- **还是** oferece uma escolha ("chá ou café?").
+- Frase útil: **这个用中文怎么说？** (Como se diz isto em chinês?)

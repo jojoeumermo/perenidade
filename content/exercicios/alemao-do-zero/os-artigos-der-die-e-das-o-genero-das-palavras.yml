@@ -1,0 +1,67 @@
+# Exercícios da aula "Os artigos der, die e das" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-artigos-01
+  tema: "Pistas de gênero"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual artigo vai com Mädchen (menina), palavra terminada em -chen?"
+  alternativas:
+    - texto: "das"
+      certa: true
+    - texto: "die"
+      erro: "Apesar de menina ser feminina em português, as terminações -chen e -lein são sempre das. O gênero não depende do sentido."
+    - texto: "der"
+      erro: "Palavras em -chen e -lein (diminutivos) são sempre das."
+  explicacao: "Os diminutivos em -chen e -lein são sempre neutros: das Mädchen, das Brötchen."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-artigos-02
+  tema: "Terminações femininas"
+  dificuldade: 2
+  enunciado: "Qual artigo vai com Gewerkschaft (sindicato) e Freiheit (liberdade)?"
+  alternativas:
+    - texto: "die, porque -schaft e -heit são terminações femininas"
+      certa: true
+    - texto: "das, porque são coisas abstratas"
+      erro: "O gênero não depende do sentido. As terminações -ung, -heit, -keit, -schaft e -ion dão sempre die."
+    - texto: "der, porque são palavras masculinas"
+      erro: "Essas terminações dão sempre die: die Freiheit, die Gewerkschaft."
+  explicacao: "-ung, -heit, -keit, -schaft e -ion são sempre die."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-artigos-03
+  tema: "Maiúscula nos substantivos"
+  dificuldade: 1
+  enunciado: "Qual escrita está certa?"
+  alternativas:
+    - texto: "das Buch"
+      certa: true
+    - texto: "das buch"
+      erro: "Todo substantivo em alemão começa com letra maiúscula: Buch."
+    - texto: "Das buch"
+      erro: "A maiúscula é do substantivo (Buch), não do artigo."
+  explicacao: "Todo substantivo alemão se escreve com maiúscula: das Buch, der Tisch, die Stadt."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-artigos-04
+  tema: "Dias da semana"
+  dificuldade: 2
+  enunciado: "Qual artigo vai com Montag (segunda-feira)?"
+  alternativas:
+    - texto: "der"
+      certa: true
+    - texto: "die"
+      erro: "Dias, meses e estações são masculinos: der Montag, der Mai."
+    - texto: "das"
+      erro: "Dias da semana são der: der Montag."
+  explicacao: "Dias, meses e estações são masculinos: der Montag, der Mai."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -34,6 +34,10 @@ quiz:
     explicacao: "Os componentes andam com velocidades diferentes através de uma fase estacionária."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar análise qualitativa e quantitativa, exatidão e precisão, e calcular uma concentração por titulação.
+
 ## As duas perguntas
 
 A **química analítica** responde a duas perguntas sobre uma amostra:
@@ -121,3 +125,12 @@ Comunidades atingidas por contaminação muitas vezes precisam de análises inde
 2. Dê um exemplo de erro sistemático e um de erro aleatório em uma pesagem.
 3. Uma solução tem absorbância 0,40; outra, da mesma substância e na mesma cubeta, 0,20. Como se comparam as concentrações?
 4. Faça a cromatografia de canetas em papel-filtro. Quais cores tinham mais de um pigmento?
+
+## Resumo
+
+- A química analítica responde o que há na amostra (qualitativa) e quanto há (quantitativa).
+- Exatidão é o quanto o resultado se aproxima do valor verdadeiro; precisão é o quanto as medidas repetidas concordam.
+- Erro sistemático vem do instrumento ou do método e se reduz calibrando; erro aleatório se reduz repetindo e tirando a média.
+- Titulação: o volume do titulante de concentração conhecida, no ponto de equivalência, dá a quantidade da substância dosada (na proporção da equação).
+- Gravimetria transforma a substância em um sólido pouco solúvel que é pesado.
+- Espectrofotometria e cromatografia completam o conjunto de métodos.

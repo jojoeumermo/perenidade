@@ -30,6 +30,11 @@ quiz:
     explicacao: "Dizer isso não diminui a sua importância: Dandara é o símbolo das mulheres que lutaram em Palmares, cujos nomes os documentos coloniais não registraram."
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que foram os quilombos, contar a história de Palmares, de Zumbi e de Dandara e dizer por que a luta quilombola continua.
+
 ## Fugir era lutar
 
 Durante mais de três séculos, milhões de africanas e africanos foram trazidos à força para o Brasil e escravizados. Eles nunca aceitaram essa condição. Resistiam trabalhando devagar, quebrando ferramentas, organizando revoltas e, sempre que possível, **fugindo**.
@@ -71,3 +76,21 @@ Isso não a torna menos importante. Dandara é hoje o nome que representa todas 
 Os quilombos não ficaram no passado. Milhares de comunidades descendem deles e continuam nas mesmas terras. A Constituição de 1988 reconheceu a essas comunidades o direito à propriedade definitiva das terras que ocupam. No Censo de 2022, o primeiro a contá-las, mais de 1,3 milhão de pessoas se declararam quilombolas. A maior parte dos territórios, porém, ainda espera a titulação.
 
 Desde 2023, o **20 de novembro** é feriado nacional: o Dia Nacional de Zumbi e da Consciência Negra.
+
+## Exemplo resolvido
+
+**Por que Zumbi e seus companheiros recusaram o acordo de 1678?**
+
+1. Em 1678, Ganga Zumba, líder de Palmares, aceitou um acordo de paz com o governador de Pernambuco.
+2. O acordo previa que os **nascidos no quilombo** seriam livres e receberiam terras.
+3. Mas os que chegassem **depois** teriam de ser devolvidos aos senhores.
+4. Uma parte dos palmarinos recusou, porque o acordo deixava de fora quem ainda estava escravizado. À frente deles estava **Zumbi**, que manteve a resistência por mais quinze anos.
+
+Confira: Zumbi foi morto em **20 de novembro de 1695**, data que hoje é o Dia Nacional de Zumbi e da Consciência Negra (feriado nacional desde 2023).
+
+## Resumo
+
+- Quilombos (ou mocambos) foram comunidades de pessoas que fugiam da escravidão; existiram em todas as regiões do Brasil.
+- Palmares, na Serra da Barriga (hoje União dos Palmares, Alagoas), durou quase cem anos e chegou, pelas estimativas, a 20 mil pessoas.
+- Zumbi recusou o acordo de 1678 e foi morto em 20 de novembro de 1695; Dandara é lembrada pela tradição, sem registros da época.
+- A Constituição de 1988 reconheceu às comunidades quilombolas a propriedade definitiva das terras que ocupam; a maior parte dos territórios ainda espera a titulação.

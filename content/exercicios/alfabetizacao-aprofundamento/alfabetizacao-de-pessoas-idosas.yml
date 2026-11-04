@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização de pessoas idosas" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-idosas-01
+  tema: "Ler números do IBGE"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Segundo a PNAD Contínua citada na aula, a taxa de analfabetismo das pessoas de 60 anos ou mais em 2025 era de 13,8%. Isso é cerca de quantos milhões de pessoas?"
+  alternativas:
+    - texto: "Cerca de 13,8 milhões"
+      erro: "13,8 é a porcentagem, não o número de pessoas. A aula fala em cerca de 4,9 milhões."
+    - texto: "Cerca de 4,9 milhões"
+      certa: true
+    - texto: "Cerca de 58 milhões"
+      erro: "58% é a parcela dos analfabetos que são idosos, não o número de pessoas."
+  explicacao: "A taxa de 13,8% corresponde a cerca de 4,9 milhões de pessoas com 60 anos ou mais; elas eram 58% de todos os brasileiros de 15 anos ou mais que não sabiam ler e escrever."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-idosas-02
+  tema: "Por que tantos idosos não leem"
+  dificuldade: 1
+  enunciado: "Segundo a aula, por que quem tem 70 anos hoje muitas vezes não aprendeu a ler?"
+  alternativas:
+    - texto: "Porque as pessoas idosas não têm capacidade de aprender"
+      erro: "A aula diz: não é falta de capacidade, é um direito negado na infância."
+    - texto: "Porque nunca quiseram estudar"
+      erro: "A aula mostra que foi falta de escola, trabalho infantil e outras razões, não falta de vontade."
+    - texto: "Foi criança nos anos 1950 e 1960, quando boa parte do país não tinha escola para todos"
+      certa: true
+  explicacao: "Não é falta de capacidade: é um direito negado na infância, sobretudo no campo e no Nordeste."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-idosas-03
+  tema: "Desigualdade racial"
+  dificuldade: 2
+  enunciado: "Na aula, a taxa de analfabetismo entre pretos e pardos de 60 anos ou mais era de 20,6% e entre brancos, 7,3%. O que isso mostra?"
+  alternativas:
+    - texto: "Que o analfabetismo entre idosos pesa mais sobre a população preta e parda"
+      certa: true
+    - texto: "Que o analfabetismo é igual entre brancos e pretos e pardos"
+      erro: "20,6% e 7,3% são taxas bem diferentes: a taxa de pretos e pardos é quase o triplo."
+    - texto: "Que os brancos têm mais analfabetos que os pretos e pardos"
+      erro: "É o contrário: 7,3% é a taxa dos brancos e 20,6% a de pretos e pardos."
+  explicacao: "A taxa de pretos e pardos idosos (20,6%) é quase o triplo da dos brancos (7,3%)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

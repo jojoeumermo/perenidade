@@ -32,6 +32,10 @@ quiz:
     explicacao: "E que muitos créditos não correspondem a reduções reais."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como funciona o mercado de carbono, quais são os seus problemas e o que é maquiagem verde.
+
 Diante da crise ambiental, a resposta mais ouvida de governos e grandes empresas é que o próprio mercado pode resolvê-la. Bastaria dar preço à poluição, criar novos negócios "verdes" e inovar. Essa aposta é chamada, por quem a critica, de **capitalismo verde**.
 
 ## O mercado de carbono
@@ -79,3 +83,21 @@ Isso não quer dizer que qualquer regulação seja inútil. Limites obrigatório
 ## Para pesquisar e debater
 
 Procure a propaganda "verde" de uma grande empresa (de petróleo, mineração, carne ou aviação). O que ela promete? O que a atividade principal da empresa continua fazendo?
+
+## Exemplo resolvido
+
+**Uma companhia aérea diz que voa "neutro em carbono" porque comprou créditos de um projeto florestal. O que perguntar?**
+
+1. Entenda o crédito: cada crédito representa uma tonelada de gás carbônico que deixou de ir para a atmosfera, e a empresa o usa para compensar, em vez de reduzir.
+2. Pergunte o que seria sem o projeto: a floresta seria mesmo derrubada? É difícil provar o que teria acontecido.
+3. Pergunte por quanto tempo: a árvore pode queimar no ano seguinte, e o carbono do combustível queimado fica na atmosfera por séculos.
+4. Pergunte quem continua poluindo: a compensação deixa as chaminés (ou turbinas) funcionando.
+
+Confira: a pergunta essencial da aula é "a floresta seria mesmo derrubada sem o projeto, e por quanto tempo ficará de pé?".
+
+## Resumo
+
+- No mercado de carbono, quem emite menos vende a sobra e quem emite mais compra permissões ou créditos.
+- Problemas: difícil provar a compensação, o carbono guardado pode voltar, comunidades podem perder o uso do território e quem polui segue poluindo.
+- Maquiagem verde (greenwashing) é apresentar como ecológico o que não é.
+- Para Löwy, o mercado de carbono faz do direito de poluir uma mercadoria; regras obrigatórias e investimento público funcionam melhor do que confiar só no mercado.

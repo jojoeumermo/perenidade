@@ -29,6 +29,10 @@ quiz:
     explicacao: "Marx defendia os sindicatos, mas dizia que eles também deviam lutar pelo fim do assalariamento."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é um sindicato, por que um trabalhador sozinho tem menos força e o que o sindicato faz.
+
 Imagine uma fábrica com 200 trabalhadores. Um deles vai ao chefe pedir aumento. O chefe diz: "Se não está satisfeito, tem uma fila lá fora querendo o seu lugar". Agora imagine os 200 indo juntos. A conversa é outra.
 
 Essa é a ideia do **sindicato**: a união dos trabalhadores para defender os seus interesses.
@@ -76,6 +80,25 @@ Em 1865, num debate com outros membros da Associação Internacional dos Trabalh
 
 Há sindicatos combativos e sindicatos acomodados, democráticos e burocráticos. O que faz a diferença é a **participação da base**: ir às assembleias, votar, cobrar, propor. A próxima aula fala da ferramenta mais poderosa de um sindicato: a greve.
 
+## Exemplo resolvido
+
+**Por que 200 trabalhadores juntos têm outra conversa com o chefe do que um sozinho?**
+
+1. Sozinho, o trabalhador ouve: "tem uma fila lá fora querendo o seu lugar". O patrão pode trocá-lo; o trabalhador não pode trocar de vida.
+2. O patrão pode esperar; o trabalhador tem aluguel e comida para pagar no fim do mês. O patrão também conhece os números da empresa, e o trabalhador, não.
+3. Quando os 200 vão juntos, se todos param a produção para, e o patrão não consegue substituir todo mundo de uma vez.
+4. Essa união, para defender os interesses da categoria, é o **sindicato**.
+
+Confira: o que um sindicato faz (negocia, organiza a luta, assessora) depende da participação da base: ir às assembleias, votar, cobrar, propor.
+
 ## Para conversar
 
 Qual é o sindicato da sua categoria (ou da categoria de alguém da sua família)? Você sabe quando é a data-base, o mês em que se negocia o reajuste?
+
+## Resumo
+
+- Sindicato é a união dos trabalhadores para defender seus interesses.
+- Sozinho, o trabalhador é desigual diante do patrão: pode ser trocado e depende do salário do mês.
+- Os sindicatos nasceram na Inglaterra da Revolução Industrial; primeiro foram proibidos.
+- Negociam salários e condições (convenção ou acordo coletivo), organizam a luta e, para Marx, são "escolas" de organização da classe.
+- Um sindicato é o que os trabalhadores fazem dele: a participação da base faz a diferença.

@@ -31,6 +31,9 @@ quiz:
     resposta: 1
     explicacao: "O bem-estar do centro conviveu com a exploração da periferia e com guerras coloniais, como as da Argélia e do Vietnã."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que foi o Estado de bem-estar do pós-guerra, por que os capitalistas o aceitaram, como foi o caso do Brasil e por que ele acabou.
 
 Entre o fim da Segunda Guerra Mundial (1945) e meados da década de 1970, os países capitalistas mais ricos viveram um período único: crescimento rápido, quase pleno emprego, salários em alta e a criação de sistemas públicos de saúde, educação e previdência. Os franceses chamam esse período de "Trinta Gloriosos"; o historiador Eric Hobsbawm, de **Era de Ouro**. Como isso foi possível, e por que acabou?
 
@@ -86,3 +89,24 @@ A lição é dupla: direitos sociais amplos são possíveis dentro do capitalism
 ## Para conversar
 
 O SUS atende a sua família? Que direitos que você tem hoje foram conquistados por gerações anteriores, e quais estão ameaçados?
+
+## Exemplo resolvido
+
+**Por que governos capitalistas criaram sistemas públicos de saúde e previdência depois de 1945? Reúna as razões.**
+
+1. **A força operária.** Os trabalhadores saíram da guerra organizados, com partidos socialistas e comunistas fortes, que tinham liderado a resistência ao nazismo.
+2. **O medo do comunismo.** A União Soviética tinha derrotado o nazismo no leste e se tornado uma superpotência; conceder direitos era um jeito de impedir que os trabalhadores se voltassem para o socialismo.
+3. **A memória de 1929.** A Grande Depressão desmoralizou a ideia de que o mercado se regula sozinho, e as ideias de Keynes viraram senso comum.
+4. **O crescimento.** A reconstrução, o petróleo barato e novas tecnologias permitiram lucros altos e salários crescentes ao mesmo tempo.
+5. **Conclua.** Nenhuma conquista foi presente: vieram sob pressão. Quando a taxa de lucro caiu e veio a crise do petróleo de 1973, o pacto acabou.
+
+Confira: o Relatório Beveridge (1942) propunha proteger a população "do berço ao túmulo", e o NHS britânico nasceu em 1948.
+
+## Resumo
+
+- Entre 1945 e meados dos anos 1970, os países ricos tiveram crescimento rápido, quase pleno emprego e sistemas públicos de saúde, previdência e educação (a "Era de Ouro" de Hobsbawm).
+- Os capitalistas aceitaram por quatro razões: força operária, medo do comunismo, memória de 1929 e crescimento.
+- Nem todos foram beneficiados: colônias, imigrantes, mulheres e populações negras.
+- No Brasil houve só algumas peças (a CLT em 1943, previdência limitada); a saúde universal veio com o SUS, na Constituição de 1988.
+- Nos anos 1970, a queda do lucro e a crise do petróleo levaram ao neoliberalismo.
+- Direitos amplos são possíveis no capitalismo, mas só sob pressão e nunca estão garantidos para sempre.

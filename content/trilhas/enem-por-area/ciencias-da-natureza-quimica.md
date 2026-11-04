@@ -27,6 +27,11 @@ quiz:
     explicacao: "Veja a aula de Química ambiental."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como a química costuma cair no ENEM, fazer as contas básicas (estequiometria, concentração e diluição) e relacionar cada conceito a uma aplicação.
+
+
 ## Química em contexto
 
 O ENEM quase nunca pergunta química "pura". As questões partem de **situações**: o tratamento da água, um combustível, um alimento, um remédio, a poluição, a reciclagem. É preciso **reconhecer o conceito** por trás da situação.
@@ -78,3 +83,10 @@ Diluem-se 100 mL de uma solução de 20 g/L até 1 L. Qual é a nova concentraç
 2. Calcule quanto CO₂ se forma na queima de 24 g de carbono.
 3. Leia o rótulo de um produto de limpeza e identifique uma informação química.
 4. Resolva 10 questões de química de provas anteriores.
+
+## Resumo
+
+- O ENEM raramente pergunta química "pura": as questões partem de situações (água, combustível, alimento, remédio, poluição, reciclagem).
+- Temas: química ambiental, estequiometria, soluções, ácidos e bases, orgânica, eletroquímica, termoquímica e separação de misturas.
+- Contas básicas: C = m ÷ V; diluição C₁·V₁ = C₂·V₂; proporções entre massas na estequiometria.
+- Para estudar: ligar cada conceito a uma aplicação, tornar as contas automáticas e saber ler tabelas de dados.

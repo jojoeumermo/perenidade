@@ -24,6 +24,11 @@ quiz:
     explicacao: "Crianças, aposentados, estudantes e outras pessoas fora da força de trabalho não entram na conta."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como o IBGE mede o desemprego (a desocupação), quem conta como desocupado, como se calcula a taxa e o que ela deixa de mostrar, como os desalentados.
+
+
 ## A pergunta por trás do número
 
 "O desemprego ficou em tantos por cento." Para entender a frase, é preciso saber três coisas: quem pesquisa, quem conta como desempregado e por quanto se divide.
@@ -119,3 +124,11 @@ Na sua família ou na sua rua, quem estaria em cada categoria: ocupado, desocupa
 3. Classifique: (a) um aposentado que não procura trabalho; (b) uma jovem que entrega currículos toda semana; (c) um pedreiro que trabalhou dois dias na semana e queria ter trabalhado mais.
 
 **Respostas:** 1) 5 ÷ 50 = 10%. 2) 3 ÷ 48 = 6,25%. 3) (a) Fora da força de trabalho; (b) desocupada; (c) ocupado e, se trabalhou menos de 40 horas e estava disponível, subocupado por insuficiência de horas.
+
+## Resumo
+
+- O IBGE mede o desemprego pela **PNAD Contínua**, uma pesquisa por amostragem em domicílios; o termo é **desocupação**.
+- **Desocupado** é quem não tem trabalho, está disponível e **tomou providência** para conseguir; quem não procura fica **fora da força de trabalho**.
+- **Taxa de desocupação = desocupados ÷ força de trabalho** (ocupados + desocupados).
+- A taxa pode cair sem ninguém arrumar emprego, se as pessoas desistem de procurar.
+- Por isso olhe também os **desalentados** e os outros indicadores que o IBGE publica.

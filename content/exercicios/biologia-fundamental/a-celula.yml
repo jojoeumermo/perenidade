@@ -1,0 +1,67 @@
+# Exercícios da aula "A célula" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-celula-01
+  tema: "A teoria celular"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas afirmações faz parte da teoria celular?"
+  alternativas:
+    - texto: "Os seres vivos são formados por átomos soltos, não por células"
+      erro: "A teoria diz que todos os seres vivos são formados por células."
+    - texto: "A célula é formada por seres menores que ela, e esses são a menor unidade viva"
+      erro: "Para a teoria, a célula é a menor unidade viva."
+    - texto: "Toda célula nasce de outra célula"
+      certa: true
+  explicacao: "A teoria celular: todos os seres vivos são formados por células; a célula é a menor unidade viva; toda célula nasce de outra célula."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-celula-02
+  tema: "Partes da célula"
+  dificuldade: 1
+  enunciado: "Qual parte da célula é a \"pele\" que controla o que entra e o que sai?"
+  alternativas:
+    - texto: "A membrana plasmática"
+      certa: true
+    - texto: "O citoplasma"
+      erro: "O citoplasma é o interior gelatinoso, onde ficam as estruturas que fazem o trabalho."
+    - texto: "O material genético"
+      erro: "O DNA guarda as instruções da célula."
+  explicacao: "As três partes básicas: membrana plasmática, citoplasma e material genético (DNA)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-celula-03
+  tema: "Procarionte e eucarionte"
+  dificuldade: 2
+  enunciado: "Qual é a diferença de núcleo entre procarionte e eucarionte?"
+  alternativas:
+    - texto: "As duas têm núcleo, mas só a eucarionte tem membrana"
+      erro: "A procarionte não tem núcleo."
+    - texto: "A procarionte não tem núcleo (o DNA fica solto no citoplasma); a eucarionte tem núcleo"
+      certa: true
+    - texto: "A procarionte tem núcleo e a eucarionte não"
+      erro: "É o contrário: a eucarionte tem o DNA dentro do núcleo."
+  explicacao: "Bactérias são exemplos de seres de uma célula, sem núcleo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-celula-04
+  tema: "A descoberta"
+  dificuldade: 1
+  enunciado: "Quem deu o nome de célula ao que viu numa fatia de cortiça em 1665?"
+  alternativas:
+    - texto: "Carlos Lineu"
+      erro: "Lineu criou o sistema de classificação dos seres vivos, no século XVIII."
+    - texto: "Matthias Schleiden"
+      erro: "Schleiden participou da teoria celular, entre 1838 e 1855."
+    - texto: "Robert Hooke"
+      certa: true
+  explicacao: "Hooke viu pequenos compartimentos e os chamou de cells, \"celas\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -29,6 +29,7 @@ quiz:
     opcoes: ["Eles buscaram explicar a natureza de forma racional, sem recorrer ao sobrenatural", "Eles proibiram os mitos", "Eles inventaram os deuses"]
     resposta: 0
     explicacao: "Eram os estudiosos da physis, a natureza."
+modelo: 9
 ---
 
 ```provocacao
@@ -38,6 +39,10 @@ Por que chove? Um povo pode responder: "porque um deus está chorando". Outro po
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender a diferença entre a explicação mítica e a explicação racional do mundo.
+
+```suarealidade
+Que histórias sobre a origem do mundo, dos rios, das plantas ou de um lugar você já ouviu na sua família, na sua religião ou na sua região?
+```
 
 ## O que é mito
 
@@ -70,6 +75,20 @@ Qual é a principal diferença entre a explicação de Tales e um mito de criaç
 1. **(a)**: **mítica**, recorre a um ser sobrenatural.
 2. **(b)**: **racional**, busca a causa na natureza.
 3. **(c)**: **mítica**, é uma **cosmogonia**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Chamar a religião e as histórias dos antigos de 'mito' é desrespeito. Para quem tem fé, aquilo é verdade, e a ciência não tem de passar por cima disso".
+---
+Como você responderia, com respeito?
+---
+Uma resposta possível: a aula define mito como narrativa simbólica ligada à religião e ao imaginário coletivo, que procura explicar por que as coisas são como são, e não como mentira. Os mitos são estudados pela antropologia, pela sociologia e pela psicologia. O ponto da aula é a diferença de tipo de explicação: Tales procurou a resposta na própria natureza, com observação e raciocínio. Cada um pode conviver com as duas coisas sem desrespeitar a fé de ninguém.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha da sua família ou do seu bairro uma história que ela conhece sobre a origem de alguma coisa (um rio, uma planta, um lugar). Escute com respeito e anote em poucas linhas, com a permissão dela.
+```
 
 ## Resumo
 

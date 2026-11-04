@@ -1,0 +1,51 @@
+# Exercícios da aula "Planejar um círculo de cultura" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-planejar-01
+  tema: "Troca de palavras"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "No lugar de \"professor\", como Paulo Freire passou a chamar quem conduz o círculo de cultura?"
+  alternativas:
+    - texto: "Coordenador de debates"
+      certa: true
+    - texto: "Instrutor"
+      erro: "Na aula, o professor é trocado por coordenador de debates."
+    - texto: "Aluno"
+      erro: "Aluno virou participante de grupo. Quem conduz é o coordenador de debates."
+  explicacao: "Escola vira círculo de cultura, professor vira coordenador de debates, aula vira diálogo e aluno vira participante de grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-planejar-02
+  tema: "A ideia por trás"
+  dificuldade: 2
+  enunciado: "Qual ideia está por trás dessa troca de palavras?"
+  alternativas:
+    - texto: "Quem não lê não sabe nada"
+      erro: "A aula diz o contrário: o círculo parte do que o grupo sabe."
+    - texto: "Quem chega para aprender a ler não é vazio: sabe plantar, cozinhar, construir e o círculo parte desse saber"
+      certa: true
+    - texto: "Quem coordena só ensina e nunca aprende"
+      erro: "Quem coordena também aprende a vida e as palavras do grupo."
+  explicacao: "O círculo parte do saber de quem chega, e quem coordena também aprende."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-planejar-03
+  tema: "Para quem é a trilha"
+  dificuldade: 1
+  enunciado: "Para quem são as aulas desta trilha, segundo a aula?"
+  alternativas:
+    - texto: "Só para quem está aprendendo a ler"
+      erro: "As aulas de Ler e escrever são para quem aprende. Estas são para quem acompanha."
+    - texto: "Só para professores concursados"
+      erro: "São para militantes de bairro, educadoras populares, gente de igreja, sindicato e associação."
+    - texto: "Para quem alfabetiza, como militantes de bairro, educadoras populares e voluntários"
+      certa: true
+  explicacao: "Esta trilha é para quem alfabetiza; a teoria está em Alfabetização: teoria e método."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

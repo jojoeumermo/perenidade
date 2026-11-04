@@ -28,6 +28,11 @@ quiz:
     explicacao: "As academias da língua de todos os países trabalham juntas e reconhecem essa diversidade."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber que não há um espanhol "certo" e reconhecer as principais diferenças de pronúncia, de tratamento (tú e vos) e de vocabulário entre os países, além da herança das línguas indígenas e africanas.
+
+
 ## Uma língua, muitos países
 
 O espanhol é **língua oficial em cerca de 20 países**: a Espanha, 18 países da América Latina e a Guiné Equatorial, na África. Também é língua oficial de Porto Rico e é falado por dezenas de milhões de pessoas nos Estados Unidos. Segundo o Instituto Cervantes, tem cerca de **500 milhões de falantes nativos**, o que o coloca entre as línguas maternas mais faladas do mundo.
@@ -95,9 +100,27 @@ Um uruguaio diz: "¿Vos querés venir?" O que isso mostra?
 > Vos + querés é a forma do voseo.
 ```
 
+## Exemplo resolvido
+
+**Um uruguaio diz: "¿Vos querés venir a tomar un jugo en el colectivo?" Que variedade é essa e o que quer dizer?**
+
+1. **Tratamento:** *vos querés* é voseo, a forma de *tú quieres*, usada na Argentina, no Uruguai e no Paraguai.
+2. **Vocabulário:** *jugo* é suco (na Espanha seria *zumo*) e *colectivo* é ônibus (no México, *camión*; na Espanha, *autobús*).
+3. **Tradução:** "Você quer vir tomar um suco no ônibus?"
+
+Confira: nenhuma das formas é um erro; são variedades legítimas, como o português do Brasil, de Portugal e de Angola.
+
 ## Para praticar
 
 1. Transforme para o voseo: *tú eres*, *tú tienes*, *¿tú puedes?*
 2. Pesquise três palavras do espanhol de origem náuatle ou quéchua além das da tabela.
 3. Ouça uma música da Argentina e uma do México e anote diferenças de pronúncia.
 4. Discuta: por que se considera, às vezes, que o espanhol da Espanha seria "mais correto"? O mesmo acontece com o português?
+
+## Resumo
+
+- O espanhol é língua oficial em cerca de 20 países e tem variedades, todas legítimas.
+- Pronúncia: *seseo* (z e c como s) na América; distinção s e z no centro e norte da Espanha; ll e y no Rio da Prata; s final aspirado no Caribe.
+- **Voseo**: *vos sos, vos tenés, vos querés*; norma na Argentina, no Uruguai e no Paraguai.
+- Vocabulário muda: *coche, carro, auto*; *zumo, jugo*; *autobús, camión, colectivo*.
+- O espanhol da América recebeu palavras do náuatle, do quéchua, do taíno e de línguas africanas.

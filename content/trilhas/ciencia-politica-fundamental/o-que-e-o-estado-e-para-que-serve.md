@@ -1,5 +1,6 @@
 ---
 titulo: "O que é o Estado e para que serve"
+modelo: 9
 resumo: "A diferença entre Estado, governo e nação, as funções do Estado no Brasil e as grandes leituras sobre ele: de Hobbes a Marx."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,9 +39,16 @@ quiz:
     resposta: 0
     explicacao: "Em A origem da família, da propriedade privada e do Estado, Engels liga o Estado ao surgimento das classes."
 ---
-
 ```provocacao
 A escola pública da sua rua, a polícia que passa na esquina e o juiz que decide um despejo: o que essas três coisas têm em comum?
+```
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar Estado, governo e nação, descrever como a Constituição organiza o Estado brasileiro (três poderes, três níveis, direitos sociais) e comparar duas leituras sobre para que o Estado serve.
+
+```suarealidade
+Quais serviços do Estado (escola, posto de saúde, polícia, documento) você usou nos últimos dias? Algum deles falhou?
 ```
 
 Todo mundo convive com o **Estado** todos os dias, mesmo sem perceber: na certidão de nascimento, na escola pública, no posto de saúde, no imposto embutido no preço do feijão, na polícia, no tribunal. Mas o que é, afinal, esse Estado?
@@ -96,3 +104,36 @@ Se o Estado não é neutro, ele também não é um bloco fechado: dentro dele h�
 - Em que situações o Estado protege você? Em quais ele parece proteger outros contra você?
 - Que direito do artigo 6º da Constituição mais falta no seu bairro?
 ```
+
+## Exemplo resolvido
+
+**Classifique: a escola municipal do bairro, o prefeito, a Câmara Municipal e o juiz que decide um despejo.**
+
+1. **A escola municipal** é parte do **Estado**: instituição permanente, que continua funcionando quando o prefeito muda. É serviço do nível **municipal** (art. 18).
+2. **O prefeito** é **governo**: comanda o Estado por um período (mandato de quatro anos). É o Poder **Executivo**.
+3. **A Câmara Municipal** faz as leis do município: Poder **Legislativo**.
+4. **O juiz** julga: Poder **Judiciário**.
+
+Confira: quando um novo prefeito toma posse, o hospital municipal continua com os mesmos médicos e enfermeiros. Mudou o governo, não o Estado.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O Estado é só um peso: cobra imposto, atrapalha e não resolve. Quanto menos Estado, melhor para quem trabalha." É uma crítica de quem paga imposto e enfrenta filas e burocracia.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Filas e burocracia existem, e a aula não nega isso. Mas lembra o que o Estado faz no dia a dia: certidão de nascimento, escola pública, posto de saúde, tribunal. A Constituição (art. 6º) coloca como obrigação do Estado garantir educação, saúde, alimentação, trabalho, moradia, transporte, previdência e outros direitos sociais, e, segundo a aula, muitas conquistas (SUS, educação pública, salário mínimo) vieram de pressão popular sobre ele. Entre as duas leituras apresentadas, a de Hobbes (segurança) e a de Marx e Engels (manter uma ordem que protege a propriedade), cabe discutir como melhorar o Estado e para quem ele funciona.
+```
+
+```agir
+# Esta semana
+Liste, num papel, três serviços do Estado que você usou esta semana e diga de qual nível é cada um: União, estado ou município. Explique a diferença entre Estado e governo a alguém de casa.
+```
+
+## Resumo
+
+- **Estado:** conjunto permanente de instituições que governam um território. **Governo:** quem comanda o Estado por um período. **Nação:** um povo que se reconhece em história, língua e cultura comuns.
+- A Constituição de 1988 organiza o Estado em **três poderes** (Executivo, Legislativo e Judiciário), **três níveis** (União, estados e municípios) e **direitos sociais** (art. 6º).
+- Para Hobbes (*Leviatã*, 1651), o Estado nasce de um pacto: liberdade em troca de segurança.
+- Para Marx, Engels e Lênin, o Estado surgiu com a divisão em classes e mantém a ordem que protege a propriedade.
+- O Estado não é um bloco fechado: muitas conquistas (SUS, educação pública, salário mínimo) vieram de pressão popular.

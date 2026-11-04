@@ -38,6 +38,10 @@ quiz:
     explicacao: "Calor, ácidos e outros agentes rompem as interações que mantêm a forma da proteína."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar carboidratos, lipídios e proteínas, explicar como as grandes moléculas são montadas e desmontadas e entender a intolerância à lactose.
+
 ## As moléculas da vida
 
 Quatro grandes grupos de moléculas formam os seres vivos: **carboidratos**, **lipídios**, **proteínas** e **ácidos nucleicos**. Três deles são o assunto desta aula; os ácidos nucleicos estão em [DNA, RNA e síntese de proteínas](/trilhas/biologia-medio/dna-rna-e-sintese-de-proteinas).
@@ -133,9 +137,28 @@ Calor, ácidos, bases, álcool e outros agentes rompem as interações que mant�
 
 As gorduras guardam mais que o dobro de energia por grama, por isso são a reserva preferida dos animais. A conta está em [Termoquímica](/trilhas/quimica-medio/termoquimica).
 
+## Exemplo resolvido
+
+**A sacarose (açúcar de mesa) é um dissacarídeo. O que acontece com ela na digestão?**
+
+1. Veja de que é feita: sacarose = glicose + frutose, duas unidades menores ligadas por uma síntese por desidratação.
+2. Na digestão ocorre o contrário, a hidrólise: uma molécula de água entra e quebra a ligação, com ajuda de uma enzima.
+3. Em símbolos: sacarose + H₂O → glicose + frutose.
+
+Conclusão: a digestão é uma sequência de hidrólises. A lactose segue o mesmo caminho, mas precisa da enzima lactase; sem ela, bactérias do intestino a fermentam e dão gases.
+
 ## Para praticar
 
 1. Escreva, em palavras, a reação de hidrólise da sacarose. Que enzima a realiza?
 2. Explique por que a celulose é chamada de fibra alimentar.
 3. Quantas ligações peptídicas há em uma proteína de 150 aminoácidos (uma só cadeia)?
 4. Cozinhe um ovo e descreva o que acontece com a clara usando a palavra desnaturação.
+
+## Resumo
+
+- Os seres vivos têm carboidratos, lipídios, proteínas e ácidos nucleicos.
+- As grandes moléculas são polímeros: a síntese por desidratação libera água; a hidrólise usa água para quebrar a ligação.
+- Carboidratos: monossacarídeos, dissacarídeos (sacarose, lactose, maltose) e polissacarídeos (amido, glicogênio, celulose).
+- Amido, glicogênio e celulose são polímeros de glicose; o intestino quebra o amido, não a celulose, que passa como fibra.
+- Lipídios não se dissolvem em água: triglicerídeos, fosfolipídios, esteroides e ceras.
+- Intolerância à lactose é falta da enzima lactase, e não alergia.

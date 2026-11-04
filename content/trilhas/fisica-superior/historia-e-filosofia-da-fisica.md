@@ -34,6 +34,10 @@ quiz:
     resposta: 1
     explicacao: "As teorias novas mostram os limites da antiga e a recuperam como caso particular."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar as grandes viradas da física, explicar a falseabilidade de Popper e as revoluções de Kuhn e relacionar a física com a sociedade e com quem ficou de fora de sua história.
+
 
 ## Por que estudar a história da física
 
@@ -106,9 +110,33 @@ Duas conclusões desta aula:
 - a ciência **muda**, e isso é a sua força, não a sua fraqueza: ela se corrige diante dos fatos;
 - a ciência **não é qualquer opinião**: as teorias valem pela sua capacidade de prever e de resistir a testes. A física de Newton continua levando sondas a outros planetas, mesmo depois de Einstein.
 
+## Exemplo resolvido
+
+**Duas frases foram ditas. Qual delas é científica, pelo critério de Popper?**
+
+- Frase A: "A água ferve a 100 °C ao nível do mar."
+- Frase B: "Em algum lugar do mundo, em algum momento, vai chover."
+
+1. Pergunte: que observação mostraria que a frase está **errada**? Popper chamou isso de falseabilidade.
+2. Frase A: se alguém medir a água fervendo ao nível do mar em outra temperatura, com instrumento bem calibrado, a frase cai. Há um teste que pode refutá-la.
+3. Frase B: nenhuma observação a refuta, porque "em algum lugar, em algum momento" nunca falha. Não há como mostrar que está errada.
+4. Conclusão pelo critério: A é uma afirmação científica; B não é, e por isso mesmo não nos ensina nada sobre o mundo.
+5. Cuidado com a leitura contrária: passar no teste não prova A para sempre. Ela fica de pé enquanto resistir às tentativas de refutá-la.
+
+Esse é o sentido de "a ciência se corrige": ela só vale porque aceita ser testada.
+
 ## Para pesquisar e debater
 
 1. Escolha uma das grandes viradas da tabela e pesquise que anomalias levaram a ela.
 2. Por que o eclipse de 1919 observado em Sobral ficou famoso na história da física?
 3. Discuta a tese de Hessen: que problemas da sociedade brasileira de hoje poderiam orientar a pesquisa científica no país?
 4. Pesquise a vida de Mário Schenberg ou de César Lattes e anote as fontes consultadas.
+
+## Resumo
+
+- As leis da física foram construídas por pessoas, em épocas e sociedades concretas; conhecer a história ajuda a entender a teoria.
+- Grandes viradas: de Aristóteles à física de Newton, e depois à relatividade e à quântica.
+- Popper (1934): uma afirmação é científica se pode ser refutada por algum teste (falseabilidade).
+- Kuhn (1962): a ciência avança também por revoluções, em que muda o paradigma dominante.
+- Hessen (1931) mostrou raízes materiais da ciência; o Projeto Manhattan mostrou o peso político da física.
+- Mulheres, pessoas negras e cientistas de países pobres foram deixados de fora da história; a ciência muda, e isso é sua força.

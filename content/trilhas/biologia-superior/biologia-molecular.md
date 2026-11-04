@@ -41,6 +41,9 @@ quiz:
     resposta: 1
     explicacao: "Marcas químicas no DNA e nas histonas ligam e desligam genes."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como as células com o mesmo DNA fabricam proteínas diferentes: o operon lac, a regulação em eucariontes, a epigenética e o splicing alternativo.
 
 ## Mesmo DNA, células diferentes
 
@@ -130,3 +133,22 @@ Além de mutações, alterações **epigenéticas** podem silenciar supressores 
 2. Diferencie mutação de alteração epigenética.
 3. Um gene com 3 éxons alternativos pode gerar quantas combinações diferentes, se cada um puder estar ou não presente (mantendo ao menos um)?
 4. Por que a perda de um gene supressor de tumor é comparada à perda de um freio?
+
+## Exemplo resolvido
+
+**Um gene tem os éxons 1, 2, 3 e 4. Em um tecido, o RNA maduro tem os éxons 1, 2 e 4; em outro, 1, 3 e 4. O que isso mostra?**
+
+1. **Lembre o que o splicing faz.** O RNA recém-transcrito passa por ajustes: os **íntrons** são retirados e os **éxons** são unidos.
+2. **Compare os dois tecidos.** O mesmo gene deu origem a dois RNAs maduros diferentes, pois os éxons foram combinados de jeitos diferentes.
+3. **Conclua.** É o **splicing alternativo**: **um gene pode dar origem a várias proteínas**.
+4. **Descarte a mutação.** O DNA é o mesmo nos dois tecidos; o que mudou foi o processamento do RNA.
+
+Confira: o mesmo raciocínio explica por que uma célula do fígado e um neurônio têm o mesmo DNA e funcionam de modo tão diferente: o que muda é quais genes são lidos e como.
+
+## Resumo
+
+- Células do mesmo corpo têm o mesmo DNA, mas expressam genes diferentes.
+- **Operon lac** (Jacob e Monod, 1961): sem lactose, o repressor bloqueia os genes; com lactose, o repressor se solta; com glicose disponível, a transcrição fica baixa. A bactéria só fabrica as enzimas quando há o que digerir e não há alimento melhor.
+- Em eucariontes há controle em vários níveis: epigenético, transcrição (fatores de transcrição), processamento do RNA, tradução e depois da tradução.
+- **Epigenética:** metilação do DNA e modificações nas histonas mudam a expressão dos genes sem alterar a sequência; algumas marcas são transmitidas na divisão celular.
+- **Splicing:** íntrons saem e éxons são unidos; no **alternativo**, um gene origina várias proteínas.

@@ -1,0 +1,51 @@
+# Exercícios da aula "Mitos sobre o comunismo" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-mitos-01
+  tema: "O Plano Cohen"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que foi o Plano Cohen, divulgado em setembro de 1937?"
+  alternativas:
+    - texto: "Um plano real de insurreição comunista"
+      erro: "A aula diz que o plano era falso."
+    - texto: "Um plano econômico do governo"
+      erro: "Foi um suposto plano comunista, redigido por um oficial integralista."
+    - texto: "Um suposto plano comunista para tomar o poder, que era falso e serviu de pretexto ao golpe do Estado Novo"
+      certa: true
+  explicacao: "Em novembro de 1937, Vargas deu o golpe do Estado Novo e fechou o Congresso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-mitos-02
+  tema: "Quem escreveu"
+  dificuldade: 3
+  enunciado: "Quem redigiu o Plano Cohen, segundo a aula?"
+  alternativas:
+    - texto: "O capitão Olímpio Mourão Filho, um oficial integralista"
+      certa: true
+    - texto: "Karl Marx"
+      erro: "Marx morreu em 1883."
+    - texto: "Getúlio Vargas pessoalmente"
+      erro: "A aula diz que foi o capitão Olímpio Mourão Filho."
+  explicacao: "Mourão depois admitiu a farsa e, em 1964, comandou as tropas que iniciaram o golpe militar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-mitos-03
+  tema: "Medo fabricado"
+  dificuldade: 2
+  enunciado: "O que Rodrigo Patto Sá Motta mostra, em Em Guarda contra o Perigo Vermelho?"
+  alternativas:
+    - texto: "Que o comunismo nunca foi assunto no Brasil"
+      erro: "Ele estudou o anticomunismo no Brasil entre 1917 e 1964."
+    - texto: "Que o medo do comunismo foi mobilizado em momentos decisivos por elites, Igreja conservadora, Forças Armadas e imprensa quando movimentos populares ganhavam força"
+      certa: true
+    - texto: "Que todo o medo vem de fatos reais"
+      erro: "A aula separa o medo fabricado dos fatos reais."
+  explicacao: "Parte do medo foi fabricada por propaganda; parte vem de fatos reais que precisam ser encarados com honestidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

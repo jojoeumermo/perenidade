@@ -28,6 +28,11 @@ quiz:
     explicacao: "Hoje a Academia trabalha em conjunto com as academias da língua de todos os países hispânicos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como o espanhol nasceu do latim falado na Península Ibérica, o que o árabe deixou nele, o que significou o ano de 1492 e como a língua chegou à América.
+
+
 ## Do latim ao castelhano
 
 A partir do século III antes de Cristo, os romanos conquistaram a Península Ibérica, e o **latim falado** pelos soldados, comerciantes e colonos substituiu, aos poucos, a maior parte das línguas locais. Com o tempo, esse latim se transformou, região por região, em línguas diferentes: o **galego-português**, o **castelhano**, o **catalão** e outras.
@@ -94,3 +99,22 @@ O espanhol é língua oficial em cerca de 20 países, tem centenas de milhões d
 2. Compare palavras do espanhol e do português de origem latina: *hijo / filho*, *hacer / fazer*, *llamar / chamar*. Que padrões você percebe?
 3. Pesquise o judeu-espanhol (ladino): onde ainda é falado?
 4. Discuta a frase de Nebrija sobre a língua como "companheira do império". O que ela revela sobre 1492?
+
+## Exemplo resolvido
+
+**Descubra a origem de três palavras: "aceite", "ojalá" e "hasta".**
+
+1. **Procure no dicionário** (por exemplo, o da Real Academia Española) a etimologia de cada uma.
+2. **Compare com o português:** *aceite* é "azeite", *ojalá* é "oxalá" e *hasta* é "até".
+3. **Observe o padrão:** as três vieram do árabe, que ficou na península por quase oito séculos (de 711 a 1492). Muitas palavras árabes começam com *al-*, o artigo árabe.
+4. **Conclusão:** a história de uma língua aparece nas palavras do dia a dia.
+
+Confira: *chocolate* e *papa*, ao contrário, vieram de línguas da América (náuatle e quéchua).
+
+## Resumo
+
+- O espanhol nasceu do **latim falado** trazido pelos romanos; é, na origem, o **castelhano**, língua do reino de Castela.
+- O árabe (a partir de 711, até 1492) deixou milhares de palavras: *aceite, almohada, azúcar, ojalá, hasta*.
+- Em **1492**: a tomada de Granada, a expulsão dos judeus, a gramática de Nebrija e a chegada de Colombo à América.
+- Século de Ouro: *Dom Quixote*, de Cervantes (1605 e 1615).
+- Na América o espanhol foi imposto, e muitas línguas indígenas sobrevivem. A Real Academia foi fundada em 1713.

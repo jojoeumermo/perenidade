@@ -1,0 +1,51 @@
+# Exercícios da aula "O que os comunistas defendem" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-defendem-01
+  tema: "O objetivo final"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o objetivo final dos comunistas, segundo a aula?"
+  alternativas:
+    - texto: "Uma sociedade só de patrões"
+      erro: "O objetivo é uma sociedade sem classes."
+    - texto: "Uma sociedade sem classes, sem exploração, com meios de produção comuns"
+      certa: true
+    - texto: "Uma sociedade sem leis nem pessoas"
+      erro: "É uma sociedade sem classes, sem exploração e com meios de produção comuns."
+  explicacao: "O Manifesto fala em uma associação em que o livre desenvolvimento de cada um é a condição para o livre desenvolvimento de todos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-defendem-02
+  tema: "Segundo o Manifesto"
+  dificuldade: 2
+  enunciado: "Segundo a segunda parte do Manifesto, qual é a posição dos comunistas no movimento operário?"
+  alternativas:
+    - texto: "Têm interesses separados e opostos aos dos trabalhadores"
+      erro: "O Manifesto diz que não têm interesses separados."
+    - texto: "Defendem só os interesses de um país"
+      erro: "Destacam os interesses comuns de todo o proletariado, independentemente da nacionalidade."
+    - texto: "Não têm interesses separados dos da classe trabalhadora e destacam os interesses comuns do proletariado, de qualquer nacionalidade"
+      certa: true
+  explicacao: "Nas diferentes fases da luta, representam o interesse do movimento em seu conjunto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-defendem-03
+  tema: "Bandeiras do momento"
+  dificuldade: 1
+  enunciado: "Qual bandeira de luta a aula cita como histórica?"
+  alternativas:
+    - texto: "A jornada de oito horas"
+      certa: true
+    - texto: "O aumento da jornada para dezesseis horas"
+      erro: "A bandeira foi uma jornada menor, sem redução de salário."
+    - texto: "O fim dos salários"
+      erro: "A aula cita jornada menor e salário digno."
+  explicacao: "Os comunistas combinaram o objetivo final com lutas concretas do presente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

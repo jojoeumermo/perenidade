@@ -34,6 +34,10 @@ quiz:
     explicacao: "Ela saudou a ousadia dos bolcheviques e alertou para os riscos de suprimir a democracia operária."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber expor a resposta de Rosa Luxemburgo a Bernstein em *Reforma ou Revolução?* e sua crítica fraterna aos bolcheviques.
+
 **Rosa Luxemburgo** (1871-1919) nasceu em Zamość, na Polônia então dominada pela Rússia, numa família judia. Militante desde a adolescência, exilou-se na Suíça, onde se doutorou em Economia, e depois viveu na Alemanha, onde se tornou uma das principais teóricas e oradoras da social-democracia. Foi assassinada em Berlim, em janeiro de 1919, por tropas paramilitares a serviço de um governo social-democrata. Sua obra é uma das mais originais do marxismo.
 
 ## Reforma ou revolução?
@@ -70,6 +74,24 @@ Em 1914, Rosa se opôs à guerra e ao voto dos créditos de guerra pelo seu part
 
 Na prisão, em 1918, Rosa escreveu *A Revolução Russa*, publicado depois de sua morte. Ela saúda os bolcheviques por terem ousado tomar o poder, mas critica a dissolução da Assembleia Constituinte e a restrição das liberdades. Escreve: "a liberdade só para os partidários do governo não é liberdade; a liberdade é sempre a liberdade de quem pensa de modo diferente". Para ela, sem eleições livres, imprensa livre e livre debate, a vida pública se apaga e só a burocracia permanece ativa.
 
+## Exemplo resolvido
+
+**Qual era a proposta de Bernstein, e o que Rosa respondeu?**
+
+1. Bernstein propôs revisar o marxismo: o capitalismo estaria se estabilizando (crédito, cartéis, democracia), as crises diminuiriam e o socialismo viria aos poucos, por reformas e conquistas parlamentares. Frase dele: "o objetivo final, seja ele qual for, não é nada; o movimento é tudo".
+2. Rosa respondeu que o crédito e os cartéis não eliminam as contradições do capitalismo: deslocam-nas e as agravam.
+3. Para ela, a luta por reformas é indispensável, mas é **meio**; a revolução é o **fim**.
+4. Quem escolhe só as reformas não escolhe um caminho mais lento para o mesmo objetivo: escolhe **outro objetivo**, a melhoria do capitalismo.
+
+Confira: Rosa (1871-1919) foi assassinada em Berlim, em janeiro de 1919, por tropas paramilitares a serviço de um governo social-democrata.
+
 ## Para pesquisar e debater
 
 No Brasil de hoje, quais reformas você considera conquistas importantes para os trabalhadores? Elas aproximam ou afastam a possibilidade de uma transformação mais profunda? Use os argumentos de Rosa na discussão.
+
+## Resumo
+
+- Rosa Luxemburgo (1871-1919), nascida em Zamość, na Polônia, foi teórica e oradora da social-democracia alemã.
+- Em *Reforma ou Revolução?* (1899-1900), respondeu a Bernstein: reformas são meio e a revolução é o fim.
+- A aula trata também da greve de massas, da acumulação do capital e do lema "socialismo ou barbárie".
+- Sua crítica fraterna aos bolcheviques defende a liberdade de quem pensa de modo diferente, com eleições, imprensa e debate livres.

@@ -23,6 +23,10 @@ quiz:
     resposta: 1
     explicacao: "O HTTPS impede que terceiros leiam ou alterem os dados no caminho. Ele não diz nada sobre as intenções de quem fez o site."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar que a internet é uma rede de redes, a diferença entre internet e web, o que fazem o IP, o DNS, os servidores e os pacotes, e por que o cadeado do HTTPS importa.
+
 
 ## Uma rede de redes
 
@@ -74,6 +78,28 @@ O conjunto de regras que navegador e servidor usam para conversar se chama **HTT
 
 O cadeado ao lado do endereço indica HTTPS. Ele garante que ninguém no meio do caminho consegue ler ou alterar os dados. **Ele não garante que o site seja honesto**: páginas de golpe também usam HTTPS. Por isso, confira sempre se o endereço é mesmo o do site que você queria visitar.
 
+## Exemplo resolvido
+
+**Você digita um endereço no navegador e a página não abre. Onde procurar o problema?**
+
+Percorra os passos de "o que acontece quando você abre um site", um de cada vez.
+
+1. **Seu aparelho está na rede?** Se nenhum site abre, o problema está entre você e o provedor (Wi-Fi, cabo, sinal). Se outros sites abrem, a rede está de pé.
+2. **O nome foi traduzido?** O DNS transforma o nome em IP. Se o navegador diz que não encontrou o endereço, confira se digitou certo: um erro de uma letra leva a um nome que não existe.
+3. **O servidor respondeu?** O servidor é quem guarda o site. Se o nome existe e ainda assim não abre, o servidor pode estar fora do ar ou sobrecarregado. O problema não está com você.
+4. **A conversa é segura?** Olhe o cadeado (HTTPS). Se o navegador avisa que a conexão não é segura, não digite senha nem dados.
+
+Lição do exemplo: a internet é uma cadeia (aparelho, rede, DNS, servidor). Saber a ordem da cadeia diz onde olhar primeiro.
+
 ## Pratique
 
 Pense no último site que você abriu hoje e descreva, com suas palavras, as cinco etapas que aconteceram entre digitar o endereço e ver a página.
+
+## Resumo
+
+- A internet é uma rede de redes (interconnected networks): computadores ligados por cabos, fibras ópticas e ondas de rádio.
+- Internet é a infraestrutura; a web é um dos serviços sobre ela. E-mail, chamadas de vídeo e mensagens também usam a internet.
+- Cada aparelho tem um endereço IP; o DNS traduz nomes em endereços IP, como uma lista telefônica.
+- O servidor guarda o site e o entrega; o cliente (seu celular ou computador) faz o pedido pelo navegador.
+- Os dados viajam em pacotes, que podem seguir caminhos diferentes e são reunidos na ordem certa no destino.
+- HTTP é o conjunto de regras; HTTPS é a versão criptografada, indicada pelo cadeado.

@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "Levitsky e Ziblatt listam esse entre os indicadores de comportamento autoritário."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer os passos pelos quais o fascismo chegou ao poder na Itália e na Alemanha e os sinais de alerta descritos por Levitsky e Ziblatt.
 
 O fascismo não chegou ao poder por acaso nem só pela força. Na Itália e na Alemanha, seguiu caminhos parecidos. Conhecer esses caminhos ajuda a reconhecer os sinais de perigo.
 
@@ -79,3 +82,24 @@ Eles mostram também que a erosão costuma ser **gradual** e "legal", e que os p
 ## Para conversar
 
 Quais desses mecanismos você reconhece em situações recentes, no Brasil ou em outros países? Que forças sociais poderiam impedir o seu avanço?
+
+## Exemplo resolvido
+
+**Aplique os passos da aula à Itália e à Alemanha.**
+
+1. **Crise profunda.** Itália: pós-guerra com desemprego e inflação. Alemanha: hiperinflação de 1923 e depressão de 1929.
+2. **Movimento de massas.** Classes médias arruinadas, ex-combatentes e desempregados, com uniforme, partido e desfile.
+3. **Violência de rua.** Camisas-negras na Itália; SA na Alemanha, atacando sindicatos, partidos de esquerda e jornais, muitas vezes com tolerância da polícia e da justiça.
+4. **Medo das elites.** Na Itália, o rei nomeou Mussolini; na Alemanha, Hindenburg nomeou Hitler, na crença de poder controlá-los.
+5. **Adversários divididos.** Na Alemanha, comunistas e social-democratas se acusavam mutuamente.
+6. **Destruição por dentro.** Leis de exceção, perseguição à oposição, controle da imprensa, fim dos sindicatos e partido único, em poucos meses.
+
+Confira: nenhum desses passos foi sozinho a causa. Foi a soma deles.
+
+## Resumo
+
+- O fascismo não chegou ao poder por acaso nem só pela força: seguiu passos parecidos na Itália e na Alemanha.
+- Passos: **crise profunda**, **movimento de massas**, **violência de rua**, **medo das elites**, **divisão dos adversários** e **destruição da democracia por dentro**.
+- As elites convidaram os fascistas ao governo acreditando que poderiam controlá-los.
+- Levitsky e Ziblatt (*Como as Democracias Morrem*, 2018): sinais de alerta são rejeitar as regras democráticas, negar a legitimidade dos adversários, tolerar a violência e restringir liberdades de adversários e da imprensa.
+- A erosão costuma ser **gradual** e "legal"; partidos e instituições podem impedi-la ou facilitá-la.

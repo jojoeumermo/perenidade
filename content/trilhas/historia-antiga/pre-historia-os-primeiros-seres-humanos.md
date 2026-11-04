@@ -32,6 +32,10 @@ quiz:
     resposta: 1
     explicacao: "Quando se produz mais do que o necessário para sobreviver, alguém pode se apropriar da sobra."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer como se reconstrói a vida dos primeiros seres humanos, discutir o nome "pré-história", comparar caçadores-coletores e agricultores e explicar como o excedente abriu caminho para a desigualdade.
+
 
 ## De onde viemos
 
@@ -94,8 +98,27 @@ Friedrich Engels, em um livro de 1884, apoiado nas pesquisas da sua época, defe
 
 Nas regiões de grandes rios, onde a agricultura rendia mais, surgiram as primeiras cidades e os primeiros Estados. É o assunto das aulas sobre a [Mesopotâmia](/trilhas/historia-antiga/mesopotamia) e o [Egito antigo](/trilhas/historia-antiga/egito-antigo).
 
+## Exemplo resolvido
+
+**Há quanto tempo a agricultura antecede a escrita? E a chegada às Américas?**
+
+1. Datas da aula: a escrita surgiu "há pouco mais de cinco mil anos"; a agricultura começou "há cerca de 10 a 12 mil anos"; os primeiros humanos chegaram às Américas "há pelo menos 15 mil anos".
+2. Da agricultura à escrita: 10.000 − 5.000 = 5.000 e 12.000 − 5.000 = 7.000. Então a agricultura veio **de 5 mil a 7 mil anos antes** da escrita.
+3. Das Américas à agricultura: 15.000 − 12.000 = 3.000 e 15.000 − 10.000 = 5.000. Os humanos já estavam nas Américas **3 mil a 5 mil anos ou mais** antes de começarem a plantar.
+4. Por isso a palavra "pré-história" é discutida: nesses milhares de anos antes da escrita houve mudanças, conflitos e saberes, e povos sem escrita têm história.
+
+Ao dar números, os historiadores usam "cerca de" e "pelo menos": a precisão é limitada pelas evidências que sobreviveram.
+
 ## Para pesquisar e debater
 
 1. Se a humanidade viveu quase toda a sua existência sem classes e sem Estado, o que isso diz sobre a ideia de que "sempre foi assim"?
 2. Que plantas domesticadas pelos povos das Américas você comeu esta semana?
 3. Existem sítios arqueológicos ou pinturas rupestres no seu estado?
+
+## Resumo
+
+- A história humana começou muito antes da escrita; é reconstruída com fósseis, ferramentas, restos de fogueiras, pinturas e DNA. Os nossos antepassados mais antigos viveram na África.
+- "Pré-história" é o período anterior à escrita (há pouco mais de cinco mil anos); o nome é criticado porque povos sem escrita também têm história.
+- No Paleolítico, os grupos pequenos viviam da caça, da pesca e da coleta, mudando de lugar.
+- Há cerca de 10 a 12 mil anos, em várias partes do mundo, grupos passaram a plantar e criar animais.
+- O excedente permitiu especializações (artesão, sacerdote, guerreiro, chefe) e abriu a possibilidade de alguém controlar a sobra: origem da desigualdade.

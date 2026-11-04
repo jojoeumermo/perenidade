@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "Quanto mais recente o ancestral comum de dois grupos, mais próximo o parentesco entre eles."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é a sistemática, usar o conceito biológico de espécie, distinguir estruturas homólogas de análogas e ler um cladograma.
 
 ## Da gaveta à árvore
 
@@ -163,3 +166,23 @@ Os povos indígenas e as comunidades tradicionais têm sistemas próprios, detal
 2. O cavalo e a zebra podem cruzar, mas os filhotes são estéreis. São da mesma espécie? Justifique.
 3. As asas das aves e as dos insetos são homólogas ou análogas? E a asa da ave e o braço humano?
 4. Desenhe um cladograma com: sapo, galinha, cachorro e sardinha.
+
+## Exemplo resolvido
+
+**Em um cladograma, as espécies A e B partem de um mesmo nó recente; a espécie C se separou de um nó bem mais antigo. O que se conclui?**
+
+1. **Leia os nós.** Cada nó é um ancestral comum.
+2. **Aplique a regra.** Dois grupos são tanto mais aparentados quanto **mais recente** é o ancestral comum deles.
+3. **Compare.** O ancestral comum de A e B é recente; o de A (ou B) com C é bem mais antigo.
+4. **Conclua.** A e B são mais aparentadas entre si do que qualquer uma delas com C. C não é ancestral de A nem de B.
+
+Confira: a posição lado a lado no desenho não indica parentesco; o que indica é o ancestral comum mais recente. A baleia, por exemplo, parece um peixe, mas tem pulmões, sangue quente, pelos e amamenta: só as homologias servem para classificar.
+
+## Resumo
+
+- Depois de Darwin, a classificação busca o **parentesco**; a ciência que reconstrói a árvore é a **sistemática**.
+- Nome científico: duas palavras em latim; gênero com inicial maiúscula, espécie com minúscula, em itálico (*Zea mays*).
+- **Conceito biológico de espécie:** populações que cruzam e geram descendentes **férteis** (jumento e égua: o burro é estéril). Tem limites (bactérias, fósseis).
+- **Homólogas:** mesma origem, indicam parentesco (braço humano, nadadeira da baleia, asa do morcego). **Análogas:** mesma função, origem diferente, não indicam parentesco.
+- A comparação do **DNA** é a ferramenta mais poderosa hoje.
+- **Cladograma:** pontas são grupos, nós são ancestrais comuns, e um ancestral com todos os seus descendentes forma um **clado**. As aves são dinossauros vivos.

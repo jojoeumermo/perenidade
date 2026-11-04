@@ -29,6 +29,10 @@ quiz:
     resposta: 1
     explicacao: "Cada aparelho puxa a sua corrente; o fio da tomada tem de suportar a soma de todas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são tensão, corrente e resistência, calcular a corrente que um aparelho puxa da tomada e reconhecer os cuidados que evitam choque e incêndio em casa.
+
 
 ## O que corre no fio
 
@@ -138,3 +142,11 @@ Fio fino, emenda com fita, ligação improvisada: grande parte dos incêndios em
 4. Sua casa tem fio terra e DR?
 
 **Respostas:** 1) Cerca de 8,7 A. 2) 2.000 ÷ 127, cerca de 15,7 A.
+
+## Resumo
+
+- Corrente elétrica é o movimento de cargas em um condutor; a tensão (volt) empurra, a corrente (ampere) é a vazão e a resistência (ohm) é a dificuldade.
+- Lei de Ohm: tensão = resistência × corrente. Potência = tensão × corrente.
+- Fio fino com corrente alta esquenta: é a origem de muito incêndio. Benjamim e curto-circuito somam corrente.
+- Disjuntor protege a fiação, fio terra e DR protegem a pessoa. Trocar por disjuntor maior sem trocar o fio é perigoso.
+- Pele molhada resiste menos à corrente. Diante de um choque, não toque na pessoa: desligue a energia e chame o socorro (192).

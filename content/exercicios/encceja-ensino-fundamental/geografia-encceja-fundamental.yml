@@ -1,0 +1,54 @@
+# Exercícios da aula "Geografia do Brasil e do mundo" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-geo-01
+  tema: "Regiões do Brasil"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas é uma das cinco regiões do Brasil?"
+  alternativas:
+    - texto: "Meio-Oeste"
+      erro: "O nome certo é Centro-Oeste. As regiões são Norte, Nordeste, Centro-Oeste, Sudeste e Sul."
+    - texto: "Centro-Oeste"
+      certa: true
+    - texto: "Noroeste"
+      erro: "Noroeste é um ponto colateral, e não uma região oficial do IBGE."
+  explicacao: "As cinco regiões do IBGE são Norte, Nordeste, Centro-Oeste, Sudeste e Sul."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-geo-02
+  tipo: numero
+  tema: "Escala"
+  dificuldade: 2
+  enunciado: "Num mapa de escala 1:100.000, a distância entre dois bairros é de 4 cm. Quantos quilômetros são na realidade?"
+  resposta: "4"
+  unidade: "km"
+  erros_comuns:
+    - resposta: "400000"
+      explicacao: "Esse é o valor em centímetros (4 × 100.000). Converta para quilômetros: 100.000 cm são 1 km."
+    - resposta: "40"
+      explicacao: "Você converteu 100.000 cm em 10 km. Na verdade, 100.000 cm são 1.000 m, ou seja, 1 km."
+  dica: "Na escala 1:100.000, cada 1 cm no mapa vale 1 km no chão."
+  explicacao: "4 cm × 100.000 = 400.000 cm = 4.000 m = 4 km."
+  conferir: "4 * 100000 / 100 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-geo-03
+  tema: "Biomas"
+  dificuldade: 1
+  enunciado: "Qual destes é um bioma brasileiro?"
+  alternativas:
+    - texto: "Tundra"
+      erro: "A tundra é um bioma de regiões muito frias e não existe no Brasil."
+    - texto: "Caatinga"
+      certa: true
+    - texto: "Savana africana"
+      erro: "A savana africana fica na África. O bioma parecido do Brasil é o Cerrado."
+  explicacao: "Os biomas brasileiros são Amazônia, Cerrado, Mata Atlântica, Caatinga, Pampa e Pantanal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

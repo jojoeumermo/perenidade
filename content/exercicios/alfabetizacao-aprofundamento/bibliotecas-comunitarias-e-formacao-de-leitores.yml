@@ -1,0 +1,51 @@
+# Exercícios da aula "Bibliotecas comunitárias e formação de leitores" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-bibliotecas-01
+  tema: "Retratos da Leitura"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Na 6ª edição dos Retratos da Leitura no Brasil (entrevistas de 2024), os não leitores passaram a ser quantos por cento da população?"
+  alternativas:
+    - texto: "Cerca de 5%"
+      erro: "53% é mais da metade. 5% seria uma fração pequena."
+    - texto: "Cerca de 23%"
+      erro: "O número é 53%: pela primeira vez os não leitores passaram de metade."
+    - texto: "53%, mais da metade, pela primeira vez"
+      certa: true
+  explicacao: "Os não leitores chegaram a 53%. Para a pesquisa, leitor é quem leu inteiro ou em parte ao menos um livro nos três meses anteriores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-bibliotecas-02
+  tema: "Por que ter o que ler"
+  dificuldade: 1
+  enunciado: "Por que todo círculo de alfabetização precisa pensar no que vem depois?"
+  alternativas:
+    - texto: "Porque a habilidade de ler se firma com o uso, e a pessoa precisa de livros e textos para continuar lendo"
+      certa: true
+    - texto: "Porque depois do círculo não é mais preciso ler"
+      erro: "A aula diz que a leitura se firma com o uso: sem o que ler, a pessoa perde a prática."
+    - texto: "Porque o círculo termina quando a pessoa lê o nome"
+      erro: "É preciso que a pessoa tenha onde encontrar livros, jornais e revistas para seguir lendo."
+  explicacao: "Aprender a ler sem ter o que ler é como aprender a nadar sem água por perto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-bibliotecas-03
+  tema: "A lei"
+  dificuldade: 2
+  enunciado: "Que lei de 2018 institui a Política Nacional de Leitura e Escrita?"
+  alternativas:
+    - texto: "A Lei nº 13.146"
+      erro: "A 13.146/2015 é a Lei Brasileira de Inclusão. A Política Nacional de Leitura e Escrita é a Lei nº 13.696/2018."
+    - texto: "A Lei nº 13.696"
+      certa: true
+    - texto: "A Lei nº 10.741"
+      erro: "A 10.741/2003 é o Estatuto da Pessoa Idosa. A da leitura é a Lei nº 13.696/2018."
+  explicacao: "A Política Nacional de Leitura e Escrita é a Lei nº 13.696, de 2018."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 13.696/2018)"
+  revisao:
+    status: em-revisao

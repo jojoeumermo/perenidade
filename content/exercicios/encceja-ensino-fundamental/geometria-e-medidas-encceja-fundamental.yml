@@ -1,0 +1,59 @@
+# Exercícios da aula "Geometria e medidas do dia a dia" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-geom-01
+  tipo: numero
+  tema: "Perímetro"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Um terreno retangular mede 12 m por 8 m. Quantos metros de cerca são precisos para dar uma volta completa?"
+  resposta: "40"
+  unidade: "metros"
+  erros_comuns:
+    - resposta: "96"
+      explicacao: "Você multiplicou (12 × 8), que é a área. A cerca acompanha o contorno: some os quatro lados."
+    - resposta: "20"
+      explicacao: "Você somou só dois lados (12 + 8). Um retângulo tem quatro: 12 + 8 + 12 + 8."
+  dica: "Cerca é contorno. Some todos os lados."
+  explicacao: "12 + 8 + 12 + 8 = 40 metros."
+  conferir: "12 + 8 + 12 + 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-geom-02
+  tipo: numero
+  tema: "Área do retângulo"
+  dificuldade: 1
+  enunciado: "Quantos metros quadrados de piso são precisos para uma sala de 5 m por 4 m, sem contar a sobra?"
+  resposta: "20"
+  unidade: "m²"
+  erros_comuns:
+    - resposta: "18"
+      explicacao: "Você somou os lados duas vezes (5 + 4 + 5 + 4), que é o perímetro. Piso cobre a superfície: base vezes altura."
+    - resposta: "9"
+      explicacao: "Você somou só 5 + 4. Para a área, multiplique."
+  dica: "Piso cobre a superfície. Multiplique um lado pelo outro."
+  explicacao: "Área do retângulo = base × altura = 5 × 4 = 20 m²."
+  conferir: "5 * 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-geom-03
+  tema: "Conversão de unidades"
+  dificuldade: 2
+  enunciado: "Uma garrafa tem 2 litros de água. Quantos copos de 250 mL dá para encher?"
+  alternativas:
+    - texto: "8 copos"
+      certa: true
+    - texto: "2 copos"
+      erro: "Você usou os 2 litros sem converter. 1 litro tem 1.000 mL; então 2 litros são 2.000 mL."
+    - texto: "80 copos"
+      erro: "Você dividiu 2.000 por 25 em vez de 250. Confira os zeros: 2.000 ÷ 250."
+  explicacao: "2 L = 2.000 mL. 2.000 ÷ 250 = 8 copos."
+  conferir: "2000 / 250"
+  valor: "8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

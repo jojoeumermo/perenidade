@@ -26,6 +26,10 @@ quiz:
     resposta: 1
     explicacao: "Em 28 de junho de 1970, milhares de pessoas marcharam para lembrar a rebelião. Foi o começo das paradas do orgulho."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar o que aconteceu no Stonewall Inn em 28 de junho de 1969, por que o episódio marcou uma virada e como o movimento se organizou no Brasil.
+
 
 ## Como era a vida antes
 
@@ -66,3 +70,25 @@ Aqui o movimento se organizou no fim dos anos 1970, ainda sob a ditadura militar
 - **2019**: o Supremo decide que a LGBTfobia deve ser punida como crime de racismo.
 
 Apesar dessas conquistas, o Brasil continua entre os países em que mais pessoas trans são assassinadas, segundo os levantamentos de organizações como a Associação Nacional de Travestis e Transexuais. A luta que ganhou as ruas em 1969 não terminou.
+
+## Exemplo resolvido
+
+**Quanto tempo separa as datas da aula? Como organizar uma linha do tempo?**
+
+1. Liste as datas: 1966 (revolta da lanchonete Compton's); 28/6/1969 (Stonewall); 28/6/1970 (primeiras marchas); 1978 (Somos e Lampião da Esquina no Brasil); 1990 (a OMS retira a homossexualidade da lista de doenças); 1997 (primeira Parada de São Paulo); 2011 (STF reconhece a união estável).
+2. De Compton's a Stonewall: 1969 − 1966 = **3 anos**. Stonewall não foi o primeiro protesto.
+3. De Stonewall à primeira marcha: **1 ano** exato, de 28 de junho de 1969 a 28 de junho de 1970.
+4. De Stonewall ao Somos: 1978 − 1969 = **9 anos**.
+5. Do Lampião (1978) até o fim de sua circulação, em 1981: **3 anos**.
+6. Da OMS (1990) ao reconhecimento da união estável (2011): 2011 − 1990 = **21 anos**.
+
+Leitura: a conquista de direitos não aconteceu de uma vez. A linha do tempo mostra que movimentos anteriores prepararam o terreno, e que cada passo no Brasil levou anos.
+
+## Resumo
+
+- Nos anos 1960, nos Estados Unidos, relações entre pessoas do mesmo sexo eram crime na maioria dos estados; pessoas podiam ser demitidas, despejadas ou internadas à força.
+- Na madrugada de 28 de junho de 1969, no Stonewall Inn (Greenwich Village), a polícia fez uma batida e as pessoas reagiram; os protestos se repetiram por várias noites.
+- Stonewall não foi o primeiro protesto (houve Compton's, em 1966), mas marcou a virada: em vez de pedir tolerância, o movimento passou a afirmar com orgulho a existência e a exigir direitos.
+- Em 28 de junho de 1970, milhares marcharam em várias cidades: nasciam as paradas do orgulho.
+- No Brasil, o movimento se organizou no fim dos anos 1970, sob a ditadura militar: em 1978, o grupo Somos (São Paulo) e o jornal Lampião da Esquina (Rio de Janeiro).
+- Datas seguintes: 1990 (OMS), 1997 (primeira Parada de São Paulo), 2011 (união estável reconhecida pelo STF).

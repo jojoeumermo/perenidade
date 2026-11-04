@@ -39,6 +39,7 @@ quiz:
     explicacao: "Milhares produzem juntos, mas o produto pertence a poucos."
 ---
 
+
 Muita gente acha a palavra "dialética" difícil. A ideia de fundo, porém, é simples: **tudo está em movimento, tudo está ligado, e as coisas mudam por causa das tensões que carregam dentro de si**. Esta aula apresenta o método que está por trás de toda a obra de Marx.
 
 ## Dois jeitos de pensar
@@ -83,6 +84,24 @@ Engels, em *Do Socialismo Utópico ao Socialismo Científico* (1880), aplica o m
 
 A dialética não é uma fórmula para aplicar mecanicamente. É um convite a perguntar, diante de qualquer situação: de onde isso veio? Com o que está ligado? Que tensões carrega? Para onde pode ir? Quem pensa assim não aceita que "as coisas são assim e sempre serão".
 
+## Exemplo resolvido
+
+**Como olhar uma semente com os olhos da dialética?**
+
+1. Pergunte **de onde veio**: a semente vem de uma planta anterior.
+2. Pergunte **com o que está ligada**: terra, água, luz.
+3. Pergunte **que tensões carrega**: ela já contém a planta que pode vir a ser.
+4. Pergunte **para onde pode ir**: deixa de ser semente quando germina.
+
+Confira: o olhar "metafísico" a trataria como uma coisa fixa e isolada. A dialética a vê em movimento, em conexão e em transformação.
+
 ## Para conversar
 
 Escolha algo que mudou muito na sua cidade nos últimos vinte anos. Que contradições levaram a essa mudança? O que do antigo foi conservado no novo?
+
+## Resumo
+
+- Dialética: tudo está em movimento, tudo está ligado e as coisas mudam pelas tensões que carregam dentro de si.
+- O modo de pensar metafísico vê as coisas fixas e isoladas; é útil no dia a dia, mas limitado.
+- Marx pegou a dialética de Hegel e a pôs "de pé", partindo do mundo material.
+- Não é fórmula mecânica: é um convite a perguntar de onde algo veio, com o que se liga, que tensões tem e para onde vai.

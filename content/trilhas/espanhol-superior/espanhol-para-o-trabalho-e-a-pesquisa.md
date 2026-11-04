@@ -33,6 +33,11 @@ quiz:
     explicacao: "Na Colômbia, por exemplo, é comum hoja de vida."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o vocabulário e as frases de uma entrevista de emprego, de uma reunião e de um congresso em espanhol, além de conhecer o contexto do espanhol no Mercosul e na escola brasileira.
+
+
 ## O espanhol ao lado
 
 O Brasil faz fronteira com **sete países de língua espanhola**: Uruguai, Argentina, Paraguai, Bolívia, Peru, Colômbia e Venezuela. Em **1991**, pelo **Tratado de Assunção**, Argentina, Brasil, Paraguai e Uruguai criaram o **Mercosul**. Comércio, turismo, migração, pesquisa e movimentos sociais conectam o país aos vizinhos todos os dias.
@@ -103,9 +108,30 @@ Em um congresso, alguém pergunta: "¿Usted va a presentar una ponencia?" O que 
 
 Antes de pagar um exame, confirme **qual** a instituição ou o empregador exige. Muitas pós-graduações brasileiras aplicam provas próprias de leitura em espanhol.
 
+## Exemplo resolvido
+
+**Responda em espanhol a uma pergunta de entrevista: "Cuénteme un poco sobre usted".**
+
+1. **Registro formal:** a pergunta usa *usted*; responda no mesmo tratamento.
+2. **Experiência:** *Tengo cinco años de experiencia en logística.*
+3. **Responsabilidade:** *Me encargo de organizar el almacén.* (*Me encargo de...* é "sou responsável por...".)
+4. **Interesse:** *Me gustaría trabajar con ustedes porque...*
+
+Frase pronta: *Tengo cinco años de experiencia en logística. Me encargo de organizar el almacén y me gustaría trabajar con ustedes porque...*
+
+Confira: *vacante* é vaga, *sueldo* é salário e *currículum* ou *hoja de vida* é currículo.
+
 ## Para praticar
 
 1. Escreva em espanhol três frases para se apresentar em uma entrevista de emprego.
 2. Prepare o título e o resumo de uma *ponencia* imaginária sobre um tema do seu interesse.
 3. Pesquise as datas e os locais do DELE mais próximos de você.
 4. Debata: o espanhol deveria voltar a ser oferecido obrigatoriamente nas escolas brasileiras? Por quê?
+
+## Resumo
+
+- O Brasil faz fronteira com sete países de língua espanhola; o Mercosul foi criado em 1991 (Tratado de Assunção).
+- A Lei 11.161/2005 tornou obrigatória a oferta do espanhol no ensino médio; a Lei 13.415/2017 a revogou.
+- Entrevista: *currículum, vacante, sueldo, jornada, contrato, tener experiencia en*.
+- Reunião: *propongo que..., estoy de acuerdo, ¿podría repetir?*.
+- Pesquisa: *ponencia, resumen, mesa redonda, beca, posgrado*; exames de proficiência **DELE** e **SIELE**.

@@ -26,6 +26,10 @@ quiz:
     explicacao: "The results suggest... / This may indicate...: os autores indicam o grau de certeza."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer a estrutura IMRaD de um artigo em inglês, ler numa ordem eficiente e avaliar com olhar crítico o que ele afirma.
+
 ## Um gênero com regras
 
 Grande parte da produção científica do mundo é publicada em inglês. Saber ler artigos nessa língua abre o acesso a pesquisas de todas as áreas, muitas delas gratuitas em revistas de acesso aberto.
@@ -97,9 +101,28 @@ Um artigo diz: "Our results suggest that the program may reduce school dropout."
 - Os autores reconhecem **limitações**?
 - O estudo foi feito em um contexto parecido com o brasileiro?
 
+## Exemplo resolvido
+
+**Em que ordem ler um artigo de acesso aberto da sua área?**
+
+1. Leia o **título** e o **abstract** e decida se interessa.
+2. Vá à **introdução**, ao último parágrafo, onde costuma estar o objetivo (*The aim of this study is...*).
+3. Leia a **conclusão** e depois olhe as **figuras e tabelas**, com as legendas.
+4. Leia **resultados e discussão**. Deixe os **métodos** para quando for preciso avaliar a qualidade do estudo.
+5. Pergunte: quem financiou? Quantos casos foram estudados? Os autores reconhecem limitações?
+
+Confira: você não leu palavra por palavra, e ainda assim sabe a pergunta, a resposta e o grau de confiança.
+
 ## Para praticar
 
 1. Escolha um artigo de acesso aberto da sua área e identifique as seções IMRaD.
 2. Copie a frase que apresenta o objetivo e traduza.
 3. Encontre três exemplos de hedging no artigo.
 4. Escreva, em português, um resumo de cinco linhas do artigo, incluindo uma limitação.
+
+## Resumo
+
+- Estrutura IMRaD: introdução, métodos, resultados e discussão, com título, abstract, conclusão e referências.
+- Ordem prática: título e abstract, introdução, conclusão, figuras e tabelas, resultados e discussão, métodos.
+- O *hedging* (*may*, *suggest*) mostra o grau de certeza dos autores.
+- Leitura crítica: financiamento, quantidade de casos, limitações e contexto.

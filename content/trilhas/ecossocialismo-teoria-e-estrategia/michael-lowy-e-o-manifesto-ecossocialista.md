@@ -1,5 +1,6 @@
 ---
 titulo: "Michael Löwy e o Manifesto Ecossocialista"
+modelo: 9
 resumo: "Em 2001, o marxista brasileiro Michael Löwy e o estadunidense Joel Kovel lançaram o Manifesto Ecossocialista. Quem é Löwy, de onde vem o ecossocialismo e o que o manifesto propõe."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ O planeta esquenta, os rios secam, as florestas queimam. Dá para resolver isso 
 
 Ao fim desta aula você vai conhecer Michael Löwy, o ecossocialismo e o Manifesto Ecossocialista de 2001.
 
+```suarealidade
+Qual problema ambiental aparece perto de você: rio sujo, área desmatada, lixo, calor? O que as pessoas ao redor costumam dizer que se pode fazer a respeito?
+```
+
 ## Michael Löwy
 
 **Michael Löwy** nasceu em **São Paulo**, em **1938**, filho de imigrantes judeus de **Viena**. Formou-se em Ciências Sociais pela **USP** em 1960 e fez doutorado na França, com uma tese sobre a revolução comunista na obra do **jovem Marx**. Trabalhou como assistente de **Nicos Poulantzas** e tornou-se diretor de pesquisas do **Centre National de la Recherche Scientifique**, em Paris.
@@ -61,6 +66,15 @@ Qual é a ideia central do ecossocialismo?
 > Releia a seção sobre o Manifesto.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Quem defende o crescimento verde diz que a crise ecológica pode ser enfrentada dentro do capitalismo: com tecnologia limpa, energia renovável e regras de mercado, como preço para quem emite carbono. Para essa corrente, não é preciso superar o sistema, só corrigi-lo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: o ecossocialismo de Löwy não despreza a tecnologia nem as mudanças de hábito; sustenta que a raiz da crise está no capitalismo e que a pergunta central é quem decide o que se produz e para quê. Quem defende o crescimento verde responde que o mercado regulado basta; o debate honesto compara resultados, e a trilha ecossocialismo-basico examina, na aula sobre capitalismo verde, o que se sabe do mercado de carbono.
+```
+
 ## Exemplo resolvido
 
 **Compare duas respostas ao desmatamento: (a) "cada um deve consumir menos"; (b) "é preciso mudar quem decide o que se produz e para quê".**
@@ -76,6 +90,11 @@ Qual é a ideia central do ecossocialismo?
 - Anos 1990: **ambientalismo dos pobres** e ecossocialismo feminista.
 - **2001**: **Manifesto Ecossocialista**, com **Joel Kovel**.
 - Crise ecológica com raiz no **capitalismo**.
+
+```agir
+# Esta semana
+Procure o texto do Manifesto Ecossocialista, escolha uma frase e escreva num papel por que você concorda ou discorda dela. Mostre a uma pessoa de confiança e ouça a opinião dela.
+```
 
 ```realidade
 Que conflito ambiental existe perto de você (um rio poluído, uma área desmatada)? Quem lucra e quem perde com ele?

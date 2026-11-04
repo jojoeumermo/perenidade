@@ -37,6 +37,10 @@ quiz:
     resposta: 1
     explicacao: "Se o corpo está em equilíbrio, as forças se anulam."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular densidade e pressão, explicar por que a pressão cresce com a profundidade e usar os princípios de Pascal e de Arquimedes para entender caixa-d'água, macaco hidráulico e flutuação.
+
 
 ## Fluidos em repouso
 
@@ -169,3 +173,12 @@ Se o bloco pesa 15 N, sobe e flutua. Se pesa 50 N, afunda, mas "pesa" só 30 N d
 2. Qual é a pressão total sobre um mergulhador a 20 m de profundidade, em atmosferas?
 3. Em um macaco hidráulico, o pistão maior tem 100 cm² e o menor, 2 cm². Que força é preciso aplicar para erguer um carro de 10 000 N?
 4. Um pedaço de madeira flutua com metade do volume fora da água. Qual é a densidade da madeira?
+
+## Resumo
+
+- Densidade: d = m ÷ V. Pressão: p = F ÷ A (pascal, Pa).
+- A pressão atmosférica ao nível do mar é de cerca de 101 000 Pa.
+- Em um líquido, a pressão cresce com a profundidade (Stevin): p = p atmosférica + d · g · h.
+- Na caixa-d'água, a pressão na torneira depende da altura, não do volume de água.
+- Vasos comunicantes: o mesmo líquido em repouso fica no mesmo nível.
+- Pascal: a pressão em um líquido fechado se transmite por igual. Arquimedes: o empuxo é igual ao peso do fluido deslocado.

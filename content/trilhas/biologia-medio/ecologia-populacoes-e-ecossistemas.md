@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "Um pasto abandonado, com os anos, vira capoeira e depois mata."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar população, comunidade e ecossistema, descrever os modelos de crescimento populacional, classificar as relações ecológicas e explicar a sucessão ecológica.
 
 ## A casa e os seus moradores
 
@@ -151,3 +154,22 @@ Evaporação dos mares e rios, **transpiração** das plantas, condensação em 
 2. Desenhe os gráficos de crescimento exponencial e logístico e indique a capacidade de suporte.
 3. Dê um exemplo, do seu cotidiano, de cada uma das relações: mutualismo, parasitismo e competição.
 4. Por que plantar feijão junto com milho, como se faz há séculos, é bom para o solo?
+
+## Exemplo resolvido
+
+**Classifique estas relações: (a) o carrapato suga o sangue do boi; (b) abelhas e flores; (c) orquídeas sobre o tronco de árvores.**
+
+1. **(a)** O carrapato vive à custa do boi e o prejudica, mas em geral não o mata: **parasitismo** (uma espécie ganha, a outra perde).
+2. **(b)** As abelhas se alimentam e as flores são polinizadas: as duas ganham: **mutualismo**.
+3. **(c)** A orquídea ganha apoio e a árvore não é afetada: **comensalismo**.
+4. **Lembre.** Relações "negativas", como predação e parasitismo, não são defeitos da natureza: controlam as populações.
+
+Confira: predação mata e come (onça e capivara); competição faz as duas perderem.
+
+## Resumo
+
+- **Ecologia** estuda as relações dos seres vivos entre si e com o ambiente. Níveis: **população**, **comunidade**, **ecossistema** e **biosfera**.
+- **Hábitat** é o "endereço"; **nicho ecológico** é o "modo de vida".
+- A população cresce com nascimentos e imigração e diminui com mortes e emigração. Crescimento **exponencial** (2, 4, 8, 16...) e **logístico** (desacelera: faltam alimento e espaço).
+- Relações: mutualismo, comensalismo, predação, parasitismo, competição e sociedade.
+- **Sucessão ecológica:** primária (começa em rocha nua) e secundária (a vegetação foi destruída, mas o solo ficou). A floresta se regenera em décadas ou séculos, e espécies extintas não voltam.

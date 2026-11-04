@@ -1,5 +1,6 @@
 ---
 titulo: "Por que disputar as eleições: a rua e o mandato"
+modelo: 9
 resumo: "Leis, orçamento e polícia são decididos nas câmaras e nos governos. Por que a militância disputa eleições sem trocar a rua pelo gabinete, do que Lênin escreveu em 1920 à bancada comunista eleita no Brasil em 1945."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,9 @@ quiz:
     resposta: 0
     explicacao: "Sem gente organizada fora da câmara, o mandato fica isolado, perde as votações e pode ser cassado."
 ---
+```suarealidade
+Na sua cidade, quem decide o preço da passagem, o horário do posto de saúde ou a obra da sua rua? Você sabe o nome de quem ocupa essa cadeira?
+```
 
 ```provocacao
 A câmara da sua cidade votou o aumento da passagem de ônibus, e você foi à manifestação contra. Daqui a dois anos tem eleição. Quem vai ocupar aquela cadeira?
@@ -112,4 +116,18 @@ Quem são os vereadores da sua cidade? Como votaram na última votação importa
 
 ```leve
 - Leia o capítulo 7 de *Esquerdismo, doença infantil do comunismo* e anote dois argumentos de Lênin.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Disputar eleição é entrar no jogo dos patrões. O parlamento burguês só serve para desmobilizar o povo; o certo é boicotá-lo e organizar a luta fora."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Foi o debate de 1920, e a aula traz a resposta de Lênin em *Esquerdismo, doença infantil do comunismo*: enquanto não há força para dissolver o parlamento, abandoná-lo é deixar quem ainda acredita nele nas mãos dos patrões; os revolucionários têm a obrigação de trabalhar dentro dele para denunciar seus limites. Mas a aula também concorda com o ponto de quem discorda: o mandato não substitui a organização, e sozinho perde as votações. A bancada comunista de 1945, cassada em 1947-1948, mostra o limite: só a organização de fora sustenta quem está dentro.
+```
+
+```agir
+# Esta semana
+Descubra o nome dos vereadores da sua cidade e como cada um votou na última votação importante, no site da câmara municipal. Anote dois nomes e uma votação num papel. Não é preciso procurar ninguém nem confrontar ninguém.
 ```

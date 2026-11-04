@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "A varíola é a única doença humana erradicada até hoje."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como o corpo se defende, o que são antígenos e anticorpos, o que a vacina faz, por que vacinar protege também os outros e alguns marcos da história da vacinação no Brasil.
 
 ## As defesas do corpo
 
@@ -108,3 +111,23 @@ As vacinas do calendário nacional são **gratuitas** nas unidades do [SUS](/tri
 1. Procure a sua caderneta de vacinação (ou a de uma criança da família). Há alguma dose atrasada? Leve à unidade de saúde.
 2. Explique a alguém, com as suas palavras, por que a vacina de uma pessoa protege também o vizinho.
 3. Pesquise em fonte oficial o calendário de vacinação para a sua idade.
+
+## Exemplo resolvido
+
+**Por que, em geral, só se pega catapora uma vez, e o que a vacina imita disso?**
+
+1. **Primeiro contato.** O invasor tem **antígenos**. Os linfócitos produzem **anticorpos**, que se encaixam neles como chave em fechadura. Essa resposta leva dias, e nesse tempo a pessoa adoece.
+2. **Depois da infecção.** Ficam no corpo as **células de memória**.
+3. **Segundo contato.** Se o mesmo invasor voltar, as células de memória o reconhecem e a resposta vem rápida e forte, muitas vezes antes de qualquer sintoma.
+4. **A vacina.** Apresenta o antígeno **sem o risco da doença**. O corpo produz anticorpos e guarda a memória, como num treino.
+
+Confira: dor no braço, febre baixa e cansaço são reações comuns e passageiras, sinal de que a defesa está respondendo.
+
+## Resumo
+
+- A defesa **inata** (pele, muco, glóbulos brancos que engolem micróbios, inflamação) age igual contra qualquer invasor; a **adaptativa** é lenta, **específica** e tem **memória**.
+- **Antígeno** é a molécula estranha; **anticorpo** é a proteína que se encaixa nele. Depois da infecção ficam as **células de memória**.
+- A **vacina** treina a defesa: apresenta o antígeno sem o risco da doença. Há vacinas atenuadas, inativadas, de subunidade e de RNA mensageiro (que não altera o DNA).
+- Reações graves são raras e são registradas e investigadas.
+- **Proteção coletiva:** vacinar-se protege também quem não pode se vacinar.
+- Marcos: Jenner (1796), Revolta da Vacina (1904), PNI (1973), varíola erradicada (1980) e poliomielite eliminada no Brasil (certificado de 1994). As vacinas do calendário são gratuitas no SUS.

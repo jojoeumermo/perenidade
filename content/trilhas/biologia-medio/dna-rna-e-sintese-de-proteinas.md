@@ -37,6 +37,9 @@ quiz:
     resposta: 0
     explicacao: "Mutações podem ser prejudiciais, neutras ou, raramente, vantajosas. São a matéria-prima da evolução."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever a estrutura do DNA, a replicação, a diferença entre DNA e RNA e o caminho do gene à proteína (transcrição e tradução), lendo o código genético.
 
 ## A molécula da hereditariedade
 
@@ -149,3 +152,23 @@ As mutações não são só problema: são a fonte de toda **variação** entre 
 2. Transcreva em RNA mensageiro a fita molde: T A C A A A G C T.
 3. Quantos aminoácidos tem uma proteína codificada por um RNA mensageiro de 300 bases, sendo as três últimas um códon de parada?
 4. Por que o uso de protetor solar reduz o risco de câncer de pele? Relacione com o que você aprendeu sobre mutações.
+
+## Exemplo resolvido
+
+**Dada a fita molde do DNA TAC GGA ATT, qual é o RNA mensageiro e quais são os aminoácidos?**
+
+1. **Transcrição.** O RNA pareia com a fita molde: A com U, T com A, C com G, G com C. Atenção: no RNA a timina é substituída pela **uracila (U)**.
+2. **Leia, trinca por trinca.** TAC → **AUG**; GGA → **CCU**; ATT → **UAA**. O RNA mensageiro é **AUG CCU UAA**.
+3. **Tradução (no ribossomo).** AUG indica o começo da proteína (e o aminoácido **metionina**); CCU corresponde à **prolina**; UAA é um códon de **fim**.
+4. **Resultado.** metionina – prolina – (fim).
+
+Confira: a replicação segue a regra A com T e C com G; na fita complementar de A T G C C A, vem T A C G G T.
+
+## Resumo
+
+- O **DNA** é um polímero de **nucleotídeos** (fosfato, açúcar e base nitrogenada: A, T, C, G). Em 1953, Watson e Crick propuseram a **dupla hélice**, apoiados em imagens de raios X de Rosalind Franklin.
+- Regra de pareamento: **A com T, C com G**; as fitas são complementares.
+- **Replicação semiconservativa:** as fitas se separam, cada uma serve de molde e formam-se duas moléculas idênticas.
+- **Gene:** trecho do DNA com a informação para uma proteína (ou RNA); **cromossomo:** DNA enrolado em proteínas; **genoma:** todo o DNA.
+- **RNA:** açúcar ribose, base **U** no lugar de T, uma fita.
+- **DNA → transcrição → RNA → tradução → proteína.** Cada **códon** (três bases) corresponde a um aminoácido: 64 códons para 20 aminoácidos.

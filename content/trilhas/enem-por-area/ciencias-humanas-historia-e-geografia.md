@@ -27,6 +27,11 @@ quiz:
     explicacao: "As questões costumam ligar o passado e o espaço à sociedade atual."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como história e geografia costumam cair no ENEM (processos, e não listas de datas), como cruzar mapas, gráficos e documentos e como estudar por temas.
+
+
 ## A prova
 
 **Ciências Humanas e suas Tecnologias** tem 45 questões no 1º dia, de **História**, **Geografia**, **Filosofia** e **Sociologia**. Muitas questões misturam disciplinas. Quase todas partem de um **texto**, um **mapa**, um **gráfico** ou um **documento**.
@@ -76,9 +81,27 @@ Uma questão traz um mapa com a distribuição da população negra em uma cidad
 3. Treine a **leitura de mapas, gráficos e documentos**.
 4. Resolva **questões anteriores** e anote os temas que se repetem.
 
+## Exemplo resolvido
+
+**Uma questão traz um mapa com a distribuição da população negra em uma cidade e outro com a oferta de serviços públicos. O que provavelmente se pede?**
+
+1. **Leia os dois mapas:** título, legenda, escala e fonte.
+2. **Cruze as informações:** onde a população negra é maior, a oferta de serviços (escola, posto de saúde, saneamento) é menor ou maior?
+3. **Ligue a um processo:** a pergunta costuma pedir que você relacione a distribuição da população com a desigualdade no acesso aos serviços.
+4. **Descarte:** calcular a área da cidade ou decorar o nome dos bairros não é o que se pede.
+
+Confira: as questões costumam cruzar informações e relacioná-las com processos sociais; o que da escravidão permanece na sociedade de hoje é uma boa pergunta para treinar.
+
 ## Para praticar
 
 1. Escolha um tema da tabela de história e escreva um parágrafo sobre causas e consequências.
 2. Resolva 10 questões de Ciências Humanas de uma prova anterior e classifique-as por disciplina.
 3. Leia um mapa de uma prova anterior e explique a legenda e a escala.
 4. Relacione um fato histórico estudado com uma notícia atual.
+
+## Resumo
+
+- A prova de Ciências Humanas tem 45 questões no 1º dia e mistura História, Geografia, Filosofia e Sociologia.
+- Na **história**, o ENEM pede menos datas e mais processos: causas, consequências, permanências e mudanças.
+- Na **geografia**, relaciona natureza, sociedade e economia.
+- Para estudar: por temas, relacionando com o presente, treinando leitura de mapas, gráficos e documentos e resolvendo questões anteriores.

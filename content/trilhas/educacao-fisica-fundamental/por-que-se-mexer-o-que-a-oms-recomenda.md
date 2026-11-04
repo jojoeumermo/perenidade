@@ -1,5 +1,6 @@
 ---
 titulo: "Por que se mexer: o que a OMS recomenda"
+modelo: 9
 resumo: "Quanto movimento faz bem? As diretrizes da Organização Mundial da Saúde (2020): 150 a 300 minutos por semana para adultos, média de 60 minutos por dia para crianças e adolescentes, e a mensagem principal: qualquer movimento é melhor do que nenhum."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Você trabalha o dia inteiro em pé, carrega peso, pega ônibus lotado. Ainda as
 
 Ao fim desta aula você vai conhecer as recomendações da Organização Mundial da Saúde sobre atividade física e conseguir planejar uma semana com mais movimento.
 
+```suarealidade
+Em que momentos da sua semana você já se mexe (a pé, no serviço, em casa) e em quais fica parado por horas? Onde caberia mais movimento?
+```
+
 ## Por que se mexer
 
 Segundo a **OMS**, a atividade física regular ajuda a **prevenir e controlar** doenças do coração, **diabetes tipo 2** e **câncer**, **reduz sintomas de depressão e ansiedade**, diminui o declínio cognitivo, melhora a **memória** e a **saúde do cérebro**. A OMS estima que até **5 milhões de mortes por ano** poderiam ser evitadas se a população mundial fosse mais ativa.
@@ -85,6 +90,15 @@ Uma pessoa caminha 30 minutos em ritmo rápido, cinco dias por semana. Ela ating
 > Releia "Quanto movimento".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que mandar a pessoa "fazer exercício" é conversa de quem tem tempo livre: quem trabalha o dia todo em pé, carrega peso e pega ônibus lotado já está cansado, e a cobrança só joga a culpa no indivíduo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a crítica tem razão em um ponto, e a própria aula o reconhece no quadro "tempo livre é questão de classe": tempo, rua segura e praça também dependem de jornada de trabalho, transporte e espaços públicos. A OMS, por sua vez, diz que qualquer quantidade de atividade é melhor do que nenhuma e que todo movimento conta, além de recomendar limitar o tempo parado. A conclusão não é culpar a pessoa, e sim pedir tempo e espaço para o movimento.
+```
+
 ## Exemplo resolvido
 
 **Monte uma semana de 150 minutos com o que você já faz.**
@@ -100,6 +114,11 @@ Uma pessoa caminha 30 minutos em ritmo rápido, cinco dias por semana. Ela ating
 | **Total** | | **150** |
 
 Junte **duas vezes por semana** exercícios de **força**, como agachar e levantar da cadeira.
+
+```agir
+# Esta semana
+Escolha um trajeto ou um momento do seu dia e some 10 minutos de movimento (descer um ponto antes, andar rápido, dançar em casa). Anote num papel quantos minutos você fez em cada dia.
+```
 
 ## Resumo
 

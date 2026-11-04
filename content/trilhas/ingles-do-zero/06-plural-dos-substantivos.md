@@ -30,6 +30,10 @@ quiz:
     explicacao: "Information é incontável em inglês: não tem plural e não aceita a nem an."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar o plural dos substantivos em inglês, incluindo os que terminam em -es e -ies e os irregulares.
+
 Na maior parte das vezes, o plural em inglês se forma como em português: com um **s** no final. *One book, two books.* Mas há detalhes de escrita, de pronúncia e um grupo de palavras que muda por inteiro. Esta aula passa por todos eles.
 
 ## A regra geral: acrescente -s
@@ -116,6 +120,16 @@ Dizer "an information" ou "some advices" é um erro comum de quem fala portuguê
 
 Coisas formadas por **duas partes iguais** ficam sempre no plural: *pants* ou *trousers* (calça), *jeans*, *shorts*, *glasses* (óculos), *scissors* (tesoura). *My glasses **are** on the table.* Para contar, usa-se *a pair of*: *a pair of jeans* (uma calça jeans).
 
+## Exemplo resolvido
+
+**Qual é o plural de *bus*, *baby* e *knife*?**
+
+1. *Bus* termina em **s**, um som de "chiado". Entra **-es**: *buses*.
+2. *Baby* termina em consoante + **y**. Troque o y por **-ies**: *babies*.
+3. *Knife* termina em **fe**. Troque por **-ves**: *knives*.
+
+Confira com as respostas da aula: *buses, babies, knives*. Palavras como *child* (*children*) e *person* (*people*) não seguem regra nenhuma e precisam ser decoradas.
+
 ## Para praticar
 
 Escreva o plural: *bus, baby, day, knife, child, person, box, tomato, woman, key.*
@@ -123,3 +137,10 @@ Escreva o plural: *bus, baby, day, knife, child, person, box, tomato, woman, key
 Depois, descreva o que tem na sua cozinha usando números: *There are two chairs…* (você vai ver o *there are* com calma na aula 12).
 
 Respostas: buses, babies, days, knives, children, people, boxes, tomatoes, women, keys.
+
+## Resumo
+
+- A regra geral é acrescentar **-s**; só o substantivo vai para o plural, o adjetivo fica igual.
+- Terminadas em s, ss, sh, ch, x, z levam **-es**.
+- Consoante + y vira **-ies** (*city, cities*); vogal + y só leva -s (*day, days*).
+- Há plurais irregulares (*child, children; person, people; woman, women*) e palavras só no plural (*jeans, glasses, scissors*).

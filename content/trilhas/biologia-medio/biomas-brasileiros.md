@@ -36,6 +36,9 @@ quiz:
     resposta: 1
     explicacao: "O ciclo anual de cheias e secas comanda toda a vida do bioma."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é um bioma, localizar os seis biomas brasileiros, descrever as características de cada um e citar as principais ameaças.
 
 ## O que é um bioma
 
@@ -147,3 +150,21 @@ Garantir os seus territórios é, portanto, também política ambiental. E a per
 2. Escolha um bioma e descreva duas adaptações das plantas às condições do lugar.
 3. Explique a relação entre a floresta amazônica e as chuvas de outras regiões do Brasil.
 4. Por que demarcar terras indígenas ajuda a conservar os biomas?
+
+## Exemplo resolvido
+
+**Que parte do território brasileiro cabe aos dois maiores biomas? E por que a Amazônia, tão exuberante, tem solo pobre?**
+
+1. **Some as porcentagens da tabela (IBGE).** Amazônia 49% + Cerrado 24% = **73%**. Os seis biomas somam 49 + 24 + 13 + 10 + 2 + 2 = **100%**.
+2. **O solo.** Os nutrientes não estão no solo, mas na própria floresta, e circulam depressa: a folha cai, é decomposta e os nutrientes voltam logo às plantas.
+3. **A consequência.** Se a floresta é derrubada, os nutrientes que estavam nela se perdem e o solo pobre não sustenta a vegetação.
+4. **A chuva.** A floresta também produz chuva: as árvores devolvem ao ar, pela transpiração, enorme quantidade de água.
+
+Confira: a exuberância da floresta engana; o que importa é a floresta em pé.
+
+## Resumo
+
+- **Bioma** (IBGE): conjunto de vida vegetal e animal, formado por tipos de vegetação próximos, identificável em escala regional. O clima, sobretudo chuva e temperatura, decide a vegetação.
+- Seis biomas: **Amazônia** (49%), **Cerrado** (24%), **Mata Atlântica** (13%), **Caatinga** (10%), **Pampa** (2%) e **Pantanal** (2%).
+- Amazônia: maior floresta tropical do mundo, solo pobre, produz chuva. Cerrado: savana de maior biodiversidade do mundo, "berço das águas". Mata Atlântica: o mais devastado. Caatinga: plantas adaptadas à seca (e dizer que é "pobre" é preconceito). Pampa: campos do Rio Grande do Sul.
+- Ameaças: desmatamento, garimpo, grilagem, expansão da soja e da pecuária, lenha e carvão, desertificação.

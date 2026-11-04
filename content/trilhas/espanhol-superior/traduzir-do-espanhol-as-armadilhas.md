@@ -28,6 +28,11 @@ quiz:
     explicacao: "Nas fronteiras, é uma forma legítima de comunicação; em textos formais, é sinal de tradução descuidada."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer as cinco armadilhas mais comuns ao traduzir do espanhol para o português: falsos amigos, gênero, tonicidade, regências e expressões idiomáticas.
+
+
 ## Línguas próximas, armadilhas sutis
 
 A proximidade entre o português e o espanhol ajuda muito, e também engana: como quase tudo parece igual, as diferenças passam despercebidas. A mistura das duas línguas tem até nome: **portunhol**. Nas fronteiras, ele é uma forma viva e legítima de comunicação. Em uma tradução ou em um texto formal, é sinal de descuido.
@@ -103,9 +108,29 @@ Como se traduz "Echo de menos a mi familia"?
 4. Peça a um falante nativo que revise textos importantes.
 5. Revise com especial cuidado **números, datas, nomes próprios e termos técnicos**.
 
+## Exemplo resolvido
+
+**Traduza: "Echo de menos a mi familia; mañana llamo a la directora y me pongo las pilas".**
+
+1. **Expressão idiomática:** *echar de menos* é sentir saudade, e não "jogar menos". "Sinto saudade da minha família."
+2. **Regência:** o objeto direto de pessoa leva *a*: *a mi familia*, *a la directora*. Isso não se traduz.
+3. **"Llamo a la directora":** *llamar a alguien* é ligar para alguém: "ligo para a diretora".
+4. **Outra expressão idiomática:** *ponerse las pilas* é se esforçar, se mexer.
+5. **Tradução final:** "Sinto saudade da minha família; amanhã ligo para a diretora e vou me mexer".
+
+Confira: se você traduzisse palavra por palavra, a frase perderia o sentido.
+
 ## Para praticar
 
 1. Traduza: "Conocí a tu prima ayer." / "Me hace falta un abrigo." / "Me tomaron el pelo."
 2. Pronuncie corretamente: policía, alcohol, nivel, democracia, océano.
 3. Traduza para o espanhol, cuidando das preposições: "Casei com ela em 2010." / "Sonhei com você."
 4. Encontre, em um texto traduzido do espanhol, um trecho que soe como portunhol e proponha uma tradução melhor.
+
+## Resumo
+
+- A proximidade entre as línguas ajuda e engana; a mistura tem nome: portunhol.
+- Armadilhas: **falsos amigos**, **gênero diferente**, **tonicidade** (*policía, alcohol*), **regências** (*soñar con, enamorarse de*) e **expressões idiomáticas**.
+- O objeto direto de pessoa leva *a* em espanhol: *conozco a tu hermano*.
+- Expressões: *echar de menos* (sentir saudade), *dar igual* (tanto faz), *tomar el pelo* (zoar).
+- Não traduza palavra por palavra; leia o sentido da frase.

@@ -1,0 +1,54 @@
+# Exercícios da aula "Salão parceiro e cadeira alugada: seus direitos" (Manicure e pedicure). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: man-parceiro-01
+  tema: "Contrato de parceria"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a Lei 12.592/2012, como deve ser o contrato de parceria entre salão e profissional?"
+  alternativas:
+    - texto: "Só verbal, para ser mais simples"
+      erro: "A lei exige contrato por escrito, com duas testemunhas e homologação pelo sindicato."
+    - texto: "Por escrito, com duas testemunhas e homologado pelo sindicato da categoria (ou pelo órgão do trabalho, se não houver sindicato)"
+      certa: true
+    - texto: "Não precisa de contrato"
+      erro: "Sem o contrato formalizado, a relação pode ser tratada como de emprego (art. 1º-C)."
+  explicacao: "Art. 1º-A, §8º: contrato escrito, com duas testemunhas e homologação pelo sindicato."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-parceiro-02
+  tipo: numero
+  tema: "Divisão do valor"
+  dificuldade: 1
+  enunciado: "A cliente paga R$ 80 por um serviço. O acerto é de 60% para a manicure. Quanto fica com ela, em reais?"
+  resposta: "48"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "32"
+      explicacao: "Esse é o valor do salão (40%). A manicure fica com 60%."
+    - resposta: "60"
+      explicacao: "Você usou o número 60 como se fosse reais. 60% de 80 é 0,60 × 80."
+  dica: "60% de 80: calcule 10% (8) e multiplique por 6."
+  explicacao: "80 × 0,60 = 48 reais. O salão fica com 80 × 0,40 = 32 reais."
+  conferir: "80 * 0.6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-parceiro-03
+  tema: "Vínculo de emprego"
+  dificuldade: 2
+  enunciado: "Qual situação, segundo a Lei 12.592/2012, pode indicar vínculo de emprego em vez de parceria?"
+  alternativas:
+    - texto: "Existir contrato de parceria formalizado e a profissional escolher seus horários"
+      erro: "Esse é o cenário de parceria em ordem. O vínculo aparece quando faltam as formalidades."
+    - texto: "Não existir contrato de parceria formalizado como a lei exige e a profissional exercer funções diferentes das previstas no contrato"
+      certa: true
+    - texto: "A profissional ser MEI"
+      erro: "A lei permite que a profissional-parceira seja MEI. O CNPJ, sozinho, não cria nem desfaz o vínculo."
+  explicacao: "O art. 1º-C trata dessas duas condições. Em caso de dúvida, procure o sindicato ou a Defensoria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

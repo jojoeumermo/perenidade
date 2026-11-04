@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "Quando dois terceiros tons se seguem, o primeiro é pronunciado como segundo tom."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber cumprimentar, perguntar como a pessoa está, agradecer, pedir desculpa, dizer o seu nome e se despedir em chinês, com os tons.
 
 Na aula anterior você conheceu o pinyin e os quatro tons. Agora é hora de usar: esta aula traz as frases que aparecem logo no primeiro contato com alguém que fala chinês. Para cada frase há os **caracteres**, o **pinyin** com os tons e a tradução.
 
@@ -145,3 +148,24 @@ Nomes estrangeiros costumam ganhar uma versão com caracteres de som parecido: A
 3. Pratique a troca de tom de 不: diga *bù hǎo* (não é bom), *bú shì* (não é), *bù máng* (não estou ocupado), *bú kèqi* (de nada). Em quais o 不 virou segundo tom, e por quê?
 
 Resposta do 3: em *bú shì* e *bú kèqi*, porque *shì* e *kè* são de quarto tom.
+
+## Exemplo resolvido
+
+**Como Ana se apresenta a uma pessoa nova, passo a passo?**
+
+1. **Cumprimenta.** 你好！ (Nǐ hǎo!) Com uma pessoa mais velha, um cliente ou uma autoridade, usaria 您好 (nín hǎo).
+2. **Diz o nome.** 我叫安娜。 (Wǒ jiào Ānnà.) Nomes estrangeiros ganham uma versão com caracteres de som parecido.
+3. **Diz de onde é.** 我是巴西人。 (Wǒ shì Bāxī rén.) País + 人 (rén, pessoa).
+4. **Diz o prazer.** 很高兴认识你。 (Hěn gāoxìng rènshi nǐ.)
+5. **Se despede.** 再见！ (Zàijiàn!)
+
+Confira: em chinês o sobrenome vem antes do nome; entre desconhecidos, chama-se a pessoa pelo sobrenome com um título.
+
+## Resumo
+
+- **你好** (nǐ hǎo) serve para qualquer pessoa; **您好** é respeitoso; **你们好** é para um grupo.
+- Bom dia: **早上好** ou **早**; boa noite: **晚上好** (ao chegar) e **晚安** (ao dormir).
+- Como vai: **你好吗？** (partícula **吗** faz a pergunta); **我很好**; **你呢？** devolve a pergunta.
+- Agradecer: **谢谢**; de nada: **不客气**; desculpe: **对不起**; sem problema: **没关系**.
+- Nome: **我叫…**, **我姓…**; o sobrenome vem antes do nome.
+- **不** vira segundo tom antes de quarto tom (bú kèqi). Despedidas: **再见**, **明天见**, **拜拜**.

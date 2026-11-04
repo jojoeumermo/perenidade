@@ -1079,6 +1079,27 @@
       "outroladoTreino": "Practice your answer",
       "outroladoPrompt": "Write how you would answer, respectfully and with facts. It stays on your device only.",
       "outroladoResposta": "See a possible answer",
+      "outrojeito": "Another way to explain",
+      "outrojeitoAbrir": "Not clear? See it another way",
+      "ouvirPergunta": "Listen to the question and the answers",
+      "pararAudio": "Stop",
+      "respostaFalar": "Or answer out loud",
+      "respostaGravar": "Record",
+      "respostaParar": "Stop recording",
+      "respostaGravando": "Recording… take your time.",
+      "respostaOuvir": "Your recorded answer",
+      "respostaApagar": "Delete the audio",
+      "respostaAviso": "The audio stays only on this device: the institute does not receive or hear it. If you erase the site's data, it goes away.",
+      "respostaSemMicrofone": "This device does not allow recording audio here. Write your answer.",
+      "respostaConferir": "Listen and check for yourself:",
+      "respostaConferir1": "Did I say the main idea?",
+      "respostaConferir2": "Did I give an example from my own life?",
+      "respostaConferir3": "Did I speak calmly, so it can be understood?",
+      "retornoPedir": "Ask the assistant for feedback",
+      "retornoPergunta": "This is my answer. Can you give me short feedback: what is right and what is missing?",
+      "retornoRotulo": "Your answer, for the assistant to comment on",
+      "retornoBotao": "Ask for feedback",
+      "retornoAviso": "It only goes to the assistant if you press the button, and only the written text. The audio never leaves the device.",
       "agir": "Act",
       "agirVou": "I will do this",
       "agirFeito": "Noted on this device. The next lesson will ask how it went.",
@@ -2202,6 +2223,22 @@
     "modelos-de-documentos": [
       "Document templates (Brazil)",
       "Consumer complaint, resignation letter, social security appeal and notice to a landlord."
+    ],
+    "arvore-trabalhista": [
+      "Work emergency (Brazil)",
+      "A decision tree for labour problems: gather evidence, read the law (CLT) and take it to the union or the Public Defender."
+    ],
+    "clausulas-de-contrato": [
+      "Contract clause explainer (Brazil)",
+      "Paste a rental or loan contract and see what the Tenancy Law and the Consumer Code say."
+    ],
+    "carga-eletrica": [
+      "Home electrical load",
+      "Add up appliances per circuit and check whether the wire and breaker can take it, with a safety warning (NBR 5410)."
+    ],
+    "mapa-de-servicos": [
+      "Public services map (Brazil)",
+      "What the CRAS, UBS, CAPS, Public Defender, Procon and adult education do, with official links to find your local unit."
     ]
   },
   "tools": {
@@ -5642,6 +5679,9 @@
     "baixarHtmlFalhou": "Could not build the file in this browser.",
     "baixarHtmlFonte": "Downloaded from",
     "baixarHtmlRodape": "Works offline. To take the quizzes and save your progress, open the lesson on the site.",
+    "baixarFerramenta": "Download the tool as a single file (to send on WhatsApp)",
+    "baixarFerramentaDica": "A small .html file with the calculation inside that opens offline on any phone, even old ones.",
+    "baixarFerramentaRodape": "Works offline and does not keep anything you type. For the full version, open the tool on the site.",
     "whatsapp": "Send on WhatsApp",
     "telegram": "Send on Telegram",
     "copiar": "Copy the link",

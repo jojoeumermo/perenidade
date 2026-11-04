@@ -28,6 +28,11 @@ quiz:
     explicacao: "Toda imprensa tem uma linha editorial."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler uma notícia em espanhol: a estrutura (titular, bajada, lead e cuerpo), o vocabulário da imprensa e como comparar veículos diferentes.
+
+
 ## Por que ler a imprensa em espanhol
 
 A América Latina é a vizinhança do Brasil. Ler a imprensa dos países vizinhos, na língua deles, ajuda a entender a região sem o filtro dos grandes veículos dos Estados Unidos e da Europa.
@@ -89,9 +94,28 @@ Manchete: "Docentes inician huelga por aumento salarial". O que aconteceu?
 4. Só depois procure no dicionário o que faltar.
 5. Compare com outro veículo.
 
+## Exemplo resolvido
+
+**Manchete: "Docentes inician huelga por aumento salarial". Leia como notícia.**
+
+1. **Titular no presente:** o presente narra um fato já ocorrido ou em curso.
+2. **Vocabulário:** *docentes* são professores; *huelga*, greve; *aumento salarial*, aumento de salário.
+3. **Lead:** quem (os docentes), o quê (iniciaram uma greve), por quê (aumento salarial); falta ver onde e quando no primeiro parágrafo.
+4. **Quem fala:** procure *según*, *afirmó*, *denunció* para saber a fonte.
+5. **Compare** com outro veículo.
+
+Confira: "Os professores começaram uma greve por aumento de salário".
+
 ## Para praticar
 
 1. Escolha uma notícia em espanhol e responda: quem, o quê, quando, onde?
 2. Liste cinco palavras novas da notícia e o sentido de cada uma.
 3. Compare como dois veículos de países diferentes noticiaram o mesmo fato.
 4. Escreva uma manchete em espanhol sobre um acontecimento do seu bairro.
+
+## Resumo
+
+- A notícia tem **titular**, **bajada**, **lead** (quem, o quê, quando, onde) e **cuerpo**.
+- Vocabulário: *huelga* (greve), *sindicato*, *desempleo* ou *paro* (Espanha), *inflación*, *según*.
+- Cada veículo tem linha editorial; ler mais de um sobre o mesmo fato ajuda contra a desinformação.
+- Estratégia: titular e lead, cognatos e números, quem fala, dicionário só depois.

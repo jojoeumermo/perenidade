@@ -29,6 +29,10 @@ quiz:
     resposta: 0
     explicacao: "O trabalho é o mesmo (mesma força, mesma altura); a potência mede a rapidez."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular trabalho, energia cinética e potencial, aplicar a conservação da energia mecânica e calcular potência e rendimento de uma máquina.
+
 
 ## Trabalho, no sentido da física
 
@@ -145,3 +149,11 @@ Um motor que recebe 1 000 J do combustível e entrega 300 J de trabalho tem rend
 2. Calcule a energia cinética de uma moto de 200 kg (com o piloto) a 20 m/s e a 30 m/s.
 3. Uma bomba eleva 600 kg de água a 10 m de altura em 1 minuto. Qual é a potência útil?
 4. De que altura um objeto precisa cair para chegar ao chão a 20 m/s?
+
+## Resumo
+
+- Trabalho de uma força: W = F · d · cos θ; com força e deslocamento na mesma direção, W = F · d.
+- Energia cinética: Ec = m · v² ÷ 2. Energia potencial gravitacional: Ep = m · g · h.
+- Sem atrito, a energia mecânica (cinética + potencial) se conserva; com atrito, parte vira calor, e a energia total não some.
+- Potência é o trabalho (ou energia) por unidade de tempo; dois guindastes que fazem o mesmo trabalho em tempos diferentes têm potências diferentes.
+- Rendimento: fração da energia recebida que a máquina aproveita; nenhuma máquina aproveita tudo.

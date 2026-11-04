@@ -1,0 +1,51 @@
+# Exercícios da aula "O verbo haben (ter) e a família" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-haben-01
+  tema: "Conjugar haben"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Complete: \"Er ___ zwei Kinder.\" (Ele tem dois filhos.)"
+  alternativas:
+    - texto: "hat"
+      certa: true
+    - texto: "habe"
+      erro: "Habe é a forma de ich (eu). Para er/sie/es, é hat."
+    - texto: "haben"
+      erro: "Haben serve para wir e sie/Sie (nós, eles, o senhor). Para er, é hat."
+  explicacao: "Haben: ich habe, du hast, er/sie/es hat, wir haben, ihr habt, sie/Sie haben."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-haben-02
+  tema: "Palavras da família"
+  dificuldade: 1
+  enunciado: "O que quer dizer die Eltern?"
+  alternativas:
+    - texto: "os pais (pai e mãe)"
+      certa: true
+    - texto: "os avós"
+      erro: "Os avós são Großeltern; Oma e Opa são a avó e o avô. Eltern são pai e mãe."
+    - texto: "os irmãos"
+      erro: "Os irmãos, juntos, são die Geschwister."
+  explicacao: "Die Eltern são o pai e a mãe; die Geschwister são os irmãos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-haben-03
+  tema: "Meu e minha"
+  dificuldade: 2
+  enunciado: "Qual frase está certa: \"Minha mãe mora comigo\"?"
+  alternativas:
+    - texto: "Meine Mutter wohnt bei mir."
+      certa: true
+    - texto: "Mein Mutter wohnt bei mir."
+      erro: "Mutter é feminina, então mein ganha -e: meine Mutter."
+    - texto: "Meine Mutter wohnen bei mir."
+      erro: "Com um sujeito só (a mãe), o verbo vai para a forma de er/sie: wohnt."
+  explicacao: "Com palavras femininas e no plural, mein ganha -e: meine Mutter, meine Kinder."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

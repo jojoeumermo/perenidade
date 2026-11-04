@@ -99,7 +99,7 @@ export const caixaPorDisciplina: Record<AreaSlug, readonly ToolId[]> = {
   direito: ["direitos-trabalhistas", "referencias-abnt", ...LEITURA],
   psicologia: ["estatistica", "referencias-abnt", ...LEITURA],
   neurodiversidade: ["cronometro", "estatistica", "dicionario"],
-  "servico-social": ["direitos-trabalhistas", "contas-do-dia-a-dia", "estatistica", ...LEITURA],
+  "servico-social": ["direitos-trabalhistas", "mapa-de-servicos", "contas-do-dia-a-dia", "estatistica", ...LEITURA],
   teologia: ["referencias-abnt", ...LEITURA],
   "educacao-popular": ["silabario", "palavras-geradoras", ...LEITURA],
   midia: ["cores", "html", "corretor-ortografico", "cronometro"],
@@ -108,8 +108,8 @@ export const caixaPorDisciplina: Record<AreaSlug, readonly ToolId[]> = {
   arquivologia: ["referencias-abnt", ...LEITURA],
 
   // ── Lutas ──
-  trabalho: ["direitos-trabalhistas", "mais-valia", "juros-compostos", "contas-do-dia-a-dia", "quanto-cobrar", "gerador-de-curriculo", "orcamento-e-contrato", "dividas-e-renegociacao", "modelos-de-documentos", ...LEITURA],
-  sindicalismo: ["direitos-trabalhistas", "mais-valia", ...LEITURA],
+  trabalho: ["direitos-trabalhistas", "mais-valia", "juros-compostos", "contas-do-dia-a-dia", "quanto-cobrar", "gerador-de-curriculo", "orcamento-e-contrato", "dividas-e-renegociacao", "modelos-de-documentos", "arvore-trabalhista", "clausulas-de-contrato", "mapa-de-servicos", ...LEITURA],
+  sindicalismo: ["direitos-trabalhistas", "arvore-trabalhista", "mais-valia", ...LEITURA],
   "luta-negra": ["estatistica", ...LEITURA],
   feminismo: ["estatistica", ...LEITURA],
   lgbtqia: [...LEITURA],
@@ -127,7 +127,7 @@ export const caixaPorDisciplina: Record<AreaSlug, readonly ToolId[]> = {
   // Medidas em centímetro e polegada.
   costureira: ["conversor-de-unidades", ...OFICIO],
   barbeiro: [...OFICIO],
-  eletricista: ["calculadoras-de-eletronica", "conversor-de-unidades", "resolvedor", ...CONTAS],
+  eletricista: ["calculadoras-de-eletronica", "carga-eletrica", "conversor-de-unidades", "resolvedor", ...CONTAS],
   // O cronômetro marca o tempo da fala.
   "oratoria-e-lideranca": ["cronometro", "dicionario"],
 };

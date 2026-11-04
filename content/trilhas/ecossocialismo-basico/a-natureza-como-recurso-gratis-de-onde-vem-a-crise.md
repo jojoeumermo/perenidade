@@ -33,6 +33,10 @@ quiz:
     explicacao: "A primeira contradição é entre capital e trabalho."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que são externalidades, por que o capital trata a natureza como fonte e esgoto gratuitos e o que O'Connor chamou de segunda contradição do capitalismo.
+
 Uma fábrica capta água limpa de um rio e a devolve suja. Na contabilidade da empresa, a água entrou como um custo mínimo e a sujeira não entrou em lugar nenhum. Rio abaixo, a cidade gasta mais para tratar a água, os pescadores perdem o sustento e as pessoas adoecem. **Quem pagou a conta?**
 
 ## O que não tem preço não entra na conta
@@ -79,3 +83,21 @@ Se o problema fosse só de preço errado, bastaria cobrar pelo que hoje é grát
 ## Para pesquisar e debater
 
 Escolha uma atividade econômica da sua região. Liste o que ela retira da natureza e o que devolve a ela. Quem arca com cada um desses custos?
+
+## Exemplo resolvido
+
+**Uma fábrica capta água limpa e devolve água suja. Quem paga a conta?**
+
+1. Veja o que entra na contabilidade da empresa: a água entra como custo mínimo; a sujeira não entra em lugar nenhum.
+2. Chame o custo que ficou de fora pelo nome certo: externalidade, um custo jogado para fora do negócio.
+3. Siga o custo rio abaixo: a cidade gasta mais para tratar a água, os pescadores perdem o sustento e as pessoas adoecem.
+4. Conclua: quem pagou foi a sociedade, não a empresa.
+
+Confira: se a empresa tivesse de pagar tudo isso, o preço do produto mudaria. O princípio do poluidor-pagador, de 1981, tenta corrigir exatamente isto.
+
+## Resumo
+
+- O custo que a empresa joga sobre a sociedade ou sobre o futuro chama-se externalidade.
+- A natureza serve à produção como fonte (matéria-prima) e como esgoto (rejeitos e gases), e os dois têm limite.
+- Para James O'Connor, a segunda contradição do capitalismo é com as próprias condições de produção: solo, água, clima, saúde de quem trabalha.
+- A lei do poluidor-pagador ajuda, mas o ecossocialismo propõe mudar o critério das decisões, não só os preços.

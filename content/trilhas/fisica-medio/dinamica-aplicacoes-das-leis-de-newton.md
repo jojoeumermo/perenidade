@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "O piso precisa empurrá-la com força maior que o peso para acelerá-la para cima."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber identificar as forças que agem em um corpo (peso, normal, atrito, tração) e aplicar a segunda lei de Newton ao elevador, ao plano inclinado e às polias.
+
 
 ## A ferramenta central
 
@@ -133,3 +137,12 @@ Uma corda ideal transmite a força de uma ponta à outra. Uma **polia fixa** só
 2. Um armário de 50 kg precisa ser arrastado em um piso com coeficiente de atrito 0,4. Que força mínima é necessária para mantê-lo em movimento?
 3. Uma pessoa de 80 kg está em um elevador que desce acelerando a 1 m/s². Qual é a força normal?
 4. Desenhe as forças sobre uma caixa parada em uma rampa com atrito. O que impede a caixa de descer?
+
+## Resumo
+
+- A dinâmica usa a segunda lei de Newton (F = m · a) como ferramenta central: a resultante das forças dá a aceleração.
+- Forças comuns: peso, normal, atrito e tração.
+- O atrito pode ser estático (o corpo não desliza) ou cinético (o corpo desliza).
+- No elevador, a normal do piso muda com a aceleração: é a sensação de ficar mais pesado ou mais leve.
+- No plano inclinado, decompõe-se o peso em uma parte paralela à rampa e outra perpendicular.
+- A polia fixa só muda a direção da força; a corda ideal transmite a força de uma ponta à outra.

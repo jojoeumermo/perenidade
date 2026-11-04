@@ -38,6 +38,10 @@ quiz:
     explicacao: "A guerra civil, a destruição da classe operária e a centralização política reduziram os sovietes a órgãos formais."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever a ideia de democracia por conselhos, da Comuna de Paris aos sovietes e aos conselhos de fábrica, e por que os sovietes perderam poder real na URSS.
+
 O socialismo não é só propriedade coletiva e planejamento. Para Marx e para boa parte da tradição socialista, ele é também uma **forma nova de democracia**, mais ampla e mais direta do que a democracia representativa burguesa. Esta aula percorre a história dessa ideia: os **conselhos**.
 
 ## A Comuna de Paris
@@ -94,6 +98,24 @@ A Iugoslávia, depois de romper com Stálin em 1948, adotou a partir de 1950 a *
 
 O problema que essas experiências enfrentam é sempre o mesmo: como combinar a democracia direta na base (fábrica, bairro, comunidade) com a coordenação de uma economia e de um Estado nacionais, sem que um aparelho burocrático tome o lugar dos trabalhadores?
 
+## Exemplo resolvido
+
+**Como a Comuna de Paris evitava que os representantes virassem uma casta separada do povo?**
+
+1. Veja como eram escolhidos: por sufrágio universal, e eram responsáveis e revogáveis a qualquer momento. Se não cumprissem o prometido, podiam ser trocados.
+2. Veja quanto ganhavam: salário de operário, e portanto sem privilégio material.
+3. Veja o que faziam: a Comuna era um órgão de trabalho, legislativo e executivo ao mesmo tempo, e o exército permanente foi substituído pelo povo armado.
+
+Conclusão: Marx a chamou de "a forma política enfim descoberta" para a emancipação econômica do trabalho. Os sovietes de 1905 e 1917 retomaram essa ideia.
+
 ## Para pesquisar e debater
 
 No seu local de trabalho ou de estudo, como seria um conselho que decidisse coletivamente? Que decisões ele poderia tomar? Que obstáculos encontraria?
+
+## Resumo
+
+- Para Marx e boa parte da tradição socialista, o socialismo é também uma forma nova de democracia, mais direta.
+- Comuna de Paris (1871): eleitos revogáveis a qualquer momento, com salário de operário, legislativo e executivo juntos, e o povo armado.
+- Sovietes: surgiram em 1905 e, em 1917, formaram a dualidade de poderes; "todo o poder aos sovietes".
+- Conselhos surgiram na Alemanha (1918-1919), na Itália (1919-1920, com Gramsci) e na Hungria (1956, esmagados).
+- Na Rússia, a guerra civil, a fome e o partido único esvaziaram os sovietes, que perderam o poder real.

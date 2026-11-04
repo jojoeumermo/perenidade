@@ -1,0 +1,51 @@
+# Exercícios da aula "Poder: força, consentimento e dominação" (Ciência política: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cpf-poder-01
+  tema: "O Estado e a força"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Como Max Weber define o Estado?"
+  alternativas:
+    - texto: "Pelo número de habitantes"
+      erro: "Weber define o Estado pelo monopólio do uso legítimo da força."
+    - texto: "Pelo monopólio do uso legítimo da força física num território"
+      certa: true
+    - texto: "Pela riqueza do território"
+      erro: "A definição é sobre a força legítima."
+  explicacao: "Só o Estado pode usar a força (polícia, exército, prisão) de forma considerada legítima."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-poder-02
+  tema: "Tipos de dominação"
+  dificuldade: 2
+  enunciado: "Um líder seguido pelas suas qualidades pessoais extraordinárias exerce qual tipo de dominação, segundo Weber?"
+  alternativas:
+    - texto: "Tradicional"
+      erro: "A tradicional se apoia nos costumes: \"sempre foi assim\"."
+    - texto: "Racional-legal"
+      erro: "A racional-legal se apoia em regras e leis, aplicadas por uma burocracia."
+    - texto: "Carismática"
+      certa: true
+  explicacao: "A carismática é instável, porque depende do êxito do líder."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-poder-03
+  tema: "Hegemonia"
+  dificuldade: 3
+  enunciado: "O que Gramsci chamou de hegemonia?"
+  alternativas:
+    - texto: "O poder pelo consentimento: a classe dominante influencia a forma de pensar e leva as classes subalternas a aderir às suas ideias"
+      certa: true
+    - texto: "O poder só pela força"
+      erro: "Gramsci mostrou que a classe dominante não mantém o poder só pela força."
+    - texto: "Um tipo de lei"
+      erro: "Hegemonia é poder pelo consentimento."
+  explicacao: "O poder combina coerção (força) e consentimento (aceitação)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

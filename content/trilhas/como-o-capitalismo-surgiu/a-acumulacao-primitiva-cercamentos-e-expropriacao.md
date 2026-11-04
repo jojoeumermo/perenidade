@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "Marx chama essas normas de 'legislação sanguinária': quem não tinha emprego era tratado como criminoso."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Marx chamou de acumulação primitiva, como os cercamentos transformaram camponeses em trabalhadores sem terra e onde esse mecanismo ainda aparece hoje.
 
 Os livros de economia contam uma história bonita sobre a origem dos ricos: em um passado distante, algumas pessoas trabalharam muito e pouparam, e outras foram preguiçosas e gastaram tudo. Os primeiros viraram capitalistas; os segundos, trabalhadores. Marx chamou essa versão de **conto de fadas**. A história real, escreveu, foi escrita "com letras de sangue e fogo".
 
@@ -82,3 +85,23 @@ No Brasil, a luta dos povos indígenas, quilombolas, ribeirinhos e sem-terra é,
 ## Para conversar
 
 Existe, na sua região, algum bem que já foi de uso comum (um rio, uma praia, um campo de futebol, uma mata) e que hoje tem cerca e dono? Como isso aconteceu?
+
+## Exemplo resolvido
+
+**Por que um camponês inglês, que vivia da terra comunal, acabou aceitando trabalhar por salário? Monte o caminho.**
+
+1. **Ponto de partida.** Os camponeses viviam de pequenos lotes e das terras comunais (pastos, bosques e campos de uso comum).
+2. **Os cercamentos.** Entre os séculos XV e XIX, senhores e depois o Parlamento cercaram essas terras e as transformaram em propriedade privada, primeiro para criar ovelhas e depois para a agricultura comercial.
+3. **A expulsão.** Sem terra, os camponeses foram para as estradas e as cidades, e não havia trabalho para todos.
+4. **A disciplina.** O Estado respondeu com as leis contra a vadiagem: açoites, prisão e, na reincidência, morte para quem fosse pego sem trabalho.
+5. **Conclua.** Quem ficou só com os braços passou a viver de vender a própria força de trabalho. Ninguém aceita isso se tem uma roça que o sustenta; por isso Marx chamou de conto de fadas a história de que uns enriqueceram só por poupar.
+
+Confira: a mesma pergunta serve hoje, quando uma comunidade é expulsa da terra por uma monocultura, uma mineradora ou uma barragem.
+
+## Resumo
+
+- Para existir capitalismo, precisam se encontrar donos de dinheiro e meios de produção e trabalhadores "livres", sem terra nem ferramentas.
+- **Acumulação primitiva** (ou originária): o processo que separou as pessoas dos seus meios de vida. Marx disse que foi escrita "com letras de sangue e fogo".
+- Na Inglaterra, os **cercamentos** (séculos XV a XIX) privatizaram as terras comunais; as **leis contra a vadiagem** forçaram os expulsos ao trabalho assalariado.
+- Também entram nessa história a pilhagem das colônias, a escravização e, segundo Federici, a caça às bruxas.
+- David Harvey chamou o processo que continua hoje de **acumulação por espoliação**.

@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "停 (tíng) = parar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber abrir uma pergunta com 请问, perguntar onde fica um lugar, entender as palavras de posição na resposta e usar as frases do transporte e do táxi.
 
 ## Perguntar
 
@@ -97,3 +100,22 @@ Ter o **endereço escrito em caracteres** facilita muito.
 2. Escreva em chinês o caminho da sua casa até o ponto de ônibus mais próximo.
 3. Encene uma corrida de táxi: destino, trajeto e parada.
 4. Pergunte e responda: 你家离你的工作远吗？
+
+## Exemplo resolvido
+
+**Você precisa achar o banheiro e depois chegar à estação de trem de táxi. O que diz?**
+
+1. **Abra com educação.** **请问** (qǐngwèn, "por favor, pergunto") abre qualquer pergunta a um desconhecido.
+2. **Pergunte pelo lugar.** Lugar + 在哪儿？ Fica: **请问，洗手间在哪儿？** (Qǐngwèn, xǐshǒujiān zài nǎr?)
+3. **Entenda a resposta.** Preste atenção às palavras de posição (前, 后, 旁边, 里...).
+4. **No táxi.** **师傅，去火车站。** (Shīfu, qù huǒchēzhàn.) E, para parar: **请在这儿停。** (Qǐng zài zhèr tíng.)
+5. **Prepare-se.** Ter o endereço escrito em caracteres facilita muito.
+
+Confira: "洗手间是谁？" não funciona, pois 谁 pergunta por pessoa. Para lugar, use 哪儿.
+
+## Resumo
+
+- **请问** abre qualquer pergunta a um desconhecido; **请问 + lugar + 在哪儿？** pergunta onde fica.
+- Para entender a resposta, revise as palavras de posição (上, 下, 里, 外, 前, 后, 旁边).
+- Transporte: **我坐地铁去**, **坐几路车？**, **在哪儿换车？**
+- Táxi: **师傅，去…** e **请在这儿停**; tenha o endereço escrito em caracteres.

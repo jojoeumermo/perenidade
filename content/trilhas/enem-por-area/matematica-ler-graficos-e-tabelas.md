@@ -29,6 +29,11 @@ quiz:
     explicacao: "Sem isso, é fácil interpretar errado."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler um gráfico ou uma tabela em cinco passos, reconhecer os tipos mais comuns, calcular o aumento absoluto e percentual e evitar as armadilhas de escala.
+
+
 ## Por que isso importa
 
 Gráficos e tabelas aparecem em **todas** as provas do ENEM, não só em Matemática: em Ciências Humanas, em Ciências da Natureza, até em Linguagens. Saber lê-los é uma das habilidades mais valiosas da prova, e da vida: notícias e propagandas usam gráficos o tempo todo.
@@ -86,3 +91,11 @@ Um gráfico de barras mostra o desemprego de uma cidade em 8% e o de outra em 9%
 2. Calcule o aumento percentual entre dois valores de uma tabela.
 3. Encontre um gráfico com eixo que não começa no zero e explique o efeito.
 4. Resolva 10 questões de provas anteriores com gráficos ou tabelas. Veja também [Como ler um gráfico sem ser enganado](/trilhas/estatistica-para-ler-o-brasil/como-ler-um-grafico-sem-ser-enganado).
+
+## Resumo
+
+- Gráficos e tabelas aparecem em todas as provas do ENEM, não só em Matemática.
+- Antes de tudo, leia: **título, eixos e unidades, escala, legenda, fonte e data**.
+- Tipos: colunas ou barras (comparar), linhas (evolução no tempo), setores (partes de um todo, 100%), tabela (valores exatos) e infográfico.
+- Aumento absoluto = valor final − valor inicial; aumento percentual = aumento ÷ valor inicial (40 para 50 é 25%).
+- Armadilhas: eixo que não começa no zero, escalas diferentes, absoluto no lugar de taxa e correlação confundida com causa.

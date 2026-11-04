@@ -28,6 +28,11 @@ quiz:
     explicacao: "Adjuntar = anexar."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber estruturar uma carta ou um e-mail em espanhol, escolher entre o registro formal (usted) e o informal e evitar os erros mais comuns de tradução.
+
+
 ## A estrutura
 
 1. **Lugar e data** (em cartas): *Montevideo, 14 de octubre de 2026*.
@@ -85,9 +90,28 @@ Qual é a abertura adequada para um e-mail formal a uma universidade?
 - Releia procurando **falsos amigos** (*oficina*, *largo*, *exquisito*).
 - Evite traduzir palavra por palavra fórmulas do português: "Venho por meio desta" fica *Me dirijo a usted*, não *Vengo por medio de esta*.
 
+## Exemplo resolvido
+
+**Escreva um e-mail formal pedindo informação sobre um curso gratuito.**
+
+1. **Saudação** com dois-pontos: *Estimada señora Gómez:*
+2. **Abertura** com o motivo: *Le escribo para solicitar información sobre el curso gratuito...*
+3. **Pedido educado**: *Me gustaría saber cuáles son los requisitos de inscripción.*
+4. **Fechamento**: *Quedo a la espera de su respuesta.*
+5. **Despedida e assinatura**: *Atentamente,* e o nome.
+
+Confira: usted, terceira pessoa, *le/su* e dois-pontos depois da saudação.
+
 ## Para praticar
 
 1. Escreva a saudação e a despedida de um e-mail formal e de um informal.
 2. Reescreva de modo formal: "Hola, mandame el formulario. Chau."
 3. Escreva um e-mail formal pedindo informações sobre um curso ou uma bolsa.
 4. Escreva uma mensagem informal a um amigo de outro país latino-americano contando uma novidade.
+
+## Resumo
+
+- A carta tem lugar e data, saudação (com dois-pontos), abertura, corpo, fechamento, despedida e assinatura.
+- Formal: *Estimado señor Pérez:*, *Le escribo para...*, *Atentamente*. Informal: *Hola, Ana:*, *Te escribo para...*, *Un abrazo*.
+- No formal usa-se **usted**, com o verbo na terceira pessoa.
+- O assunto deve ser curto e claro; cuidado com falsos amigos e com fórmulas traduzidas palavra por palavra.

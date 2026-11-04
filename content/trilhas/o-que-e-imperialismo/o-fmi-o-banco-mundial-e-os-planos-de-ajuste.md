@@ -30,6 +30,11 @@ quiz:
     resposta: 0
     explicacao: "Os Estados Unidos têm sozinhos votos suficientes para barrar as decisões mais importantes."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que são o FMI e o Banco Mundial, como funciona o voto por cota, o que são condicionalidades e planos de ajuste e que críticas foram feitas a eles.
+
+
 
 Quando um país fica sem dólares para pagar o que deve, há um endereço para onde quase todos acabam indo: o **Fundo Monetário Internacional (FMI)**. O dinheiro vem, mas com uma lista de exigências. Esta aula explica de onde vieram essas instituições e por que são tão criticadas.
 
@@ -82,3 +87,21 @@ O Brasil assinou acordos com o FMI em vários momentos, entre eles 1983, 1998 e 
 ## Para pesquisar e debater
 
 Procure notícias sobre um acordo recente de algum país com o FMI. Quais foram as exigências? Quem protestou e por quê?
+
+## Exemplo resolvido: quem tem poder de veto no FMI?
+
+Pergunta: por que se diz que os Estados Unidos têm, na prática, um poder de veto?
+
+1. Leia a regra: as decisões mais importantes do FMI exigem 85% dos votos.
+2. Veja a cota dos Estados Unidos: mais de 15% dos votos.
+3. Faça a conta: 100% - 15% = 85%. Sem os Estados Unidos, sobra menos de 85% dos votos, e a exigência de 85% não pode ser atingida.
+
+Confira: o voto não é "um país, um voto"; é proporcional à cota, isto é, ao dinheiro que cada país põe.
+
+## Resumo
+
+- O FMI e o Banco Mundial nasceram em Bretton Woods (julho de 1944, 44 países) e o dólar virou a moeda de referência.
+- O voto depende da cota; os Estados Unidos têm mais de 15% e, portanto, poder de veto nas decisões que exigem 85%.
+- Na crise da dívida, os países aceitaram condicionalidades: cortar gastos, privatizar, abrir a economia, desvalorizar a moeda e segurar salários (o Consenso de Washington, 1989).
+- Críticas de Stiglitz e de Vânia Bambirra: receitas iguais para países diferentes e dívida como transferência de riqueza.
+- O Brasil assinou acordos com o FMI em 1983, 1998 e 2002 e quitou antecipadamente a dívida no fim de 2005.

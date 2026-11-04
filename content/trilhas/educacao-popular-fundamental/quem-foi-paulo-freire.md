@@ -1,5 +1,6 @@
 ---
 titulo: "Quem foi Paulo Freire"
+modelo: 9
 resumo: "O educador pernambucano que ensinou trabalhadores rurais a ler em 40 horas e mudou a forma de pensar a educação no mundo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,14 @@ quiz:
     resposta: 1
     explicacao: "Tijolo, enxada, salário, voto: palavras com sentido para quem está aprendendo."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer quem foi Paulo Freire, como era o método das palavras geradoras e o que ele quis dizer com educação bancária e educação libertadora.
+
+```suarealidade
+Pense em alguém do seu trabalho ou do seu bairro que sabe fazer muito bem alguma coisa sem ter estudado na escola. O que essa pessoa ensinaria a você?
+```
 
 ## Do Recife para o mundo
 
@@ -76,3 +85,36 @@ Com a anistia, Freire voltou ao Brasil em 1980. Deu aulas em universidades e, de
 ## Por que ele importa aqui
 
 Este instituto tenta seguir o que ele ensinou: partir das perguntas reais de quem trabalha, usar linguagem simples, respeitar o tempo de cada pessoa e lembrar que quem aprende também tem o que ensinar. Se você sabe algo que não está aqui, [contribua](/contribuir).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem critique Freire por outro motivo: diz que a escola deve ensinar de forma direta e sistemática as letras e os conteúdos, e que a sala de aula não deve ser lugar de discussão política. Para essas pessoas, partir da conversa sobre a realidade pode atrasar quem precisa, antes de tudo, aprender a ler bem.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: no método descrito na aula, a conversa vem antes, mas depois vêm as sílabas (ti-jo-lo, com ta-te-ti-to-tu e outras famílias), e é com esses pedaços que o grupo forma palavras novas. Em Angicos, em 1963, cerca de 300 trabalhadores foram alfabetizados em 40 horas. Freire dizia que não existe educação neutra; quem discorda pode propor outro caminho, e a pergunta honesta é qual método ensina melhor quem está aprendendo.
+```
+
+```agir
+# Esta semana
+Converse com uma pessoa que sabe fazer algo que você não sabe e pergunte como ela aprendeu. Anote num papel três palavras que ela usou e que fazem parte da vida dela, como as palavras geradoras de Freire.
+```
+
+## Exemplo resolvido
+
+**Como Freire montaria uma aula a partir da palavra "tijolo"?**
+
+1. Ouvir: os educadores convivem com a comunidade e percebem que a palavra "tijolo" pesa na vida de quem constrói casas.
+2. Conversar: num círculo de cultura, a partir de uma imagem, perguntam quem faz o tijolo, de quem é a casa e quem mora nela.
+3. Dividir em sílabas: ti-jo-lo.
+4. Formar famílias: ta-te-ti-to-tu, ja-je-ji-jo-ju, la-le-li-lo-lu.
+5. Montar palavras novas com esses pedaços, o próprio grupo.
+
+Confira: aprende-se a ler a palavra discutindo o mundo; Freire dizia que a leitura do mundo precede a leitura da palavra.
+
+## Resumo
+
+- Paulo Freire nasceu no Recife em 1921; em 1963, em Angicos (RN), uma equipe alfabetizou cerca de 300 trabalhadores rurais em 40 horas.
+- O método: ouvir a comunidade, escolher palavras geradoras, conversar em círculo de cultura e só então trabalhar as sílabas.
+- Educação bancária deposita conteúdo; a educação libertadora investiga a realidade em diálogo.
+- Foi preso e exilado depois do golpe de 1964, escreveu a Pedagogia do Oprimido (1968) e é, por lei, Patrono da Educação Brasileira desde 2012.

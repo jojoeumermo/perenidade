@@ -1,5 +1,6 @@
 ---
 titulo: "A história das tranças na diáspora africana"
+modelo: 9
 resumo: "Das pinturas do Saara de 3000 a.C. às trancistas de hoje: o que as tranças significavam na África, o que elas foram para os africanos escravizados nas Américas, o preconceito contra o cabelo crespo e o ofício como herança."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -58,6 +59,9 @@ Quando você aprendeu a trançar, quem te ensinou? E quem ensinou essa pessoa? A
 
 Ao fim desta aula você vai conhecer a história das tranças na África, o que elas significaram para os africanos escravizados nas Américas, o preconceito contra o cabelo crespo e por que o ofício de trancista é também uma herança.
 
+```suarealidade
+Quem ensinou você, ou alguém da sua família, a trançar ou a cuidar do cabelo? O que essa pessoa contava sobre a história das tranças?
+```n
 ## Milhares de anos de tranças
 
 As tranças rentes ao couro cabeludo, que no Brasil chamamos de **trança nagô**, nasceram na África. As representações mais antigas de mulheres com o que parecem ser essas tranças estão em **pinturas da Idade da Pedra no planalto de Tassili, no Saara**, datadas de até **3000 a.C.** Há registros desse estilo entre os povos cuxitas do Chifre da África por volta de 2000 a.C., numa menina enterrada na Núbia entre 550 e 750 d.C. e nas culturas Nok (Nigéria), Mende (Serra Leoa) e Dan (Costa do Marfim).
@@ -99,6 +103,18 @@ Uma cliente diz que trança é "coisa de moda dos anos 90". Que resposta tem bas
 > As box braids só ganharam esse nome nos anos 1990, mas o estilo é muito mais antigo.
 ```
 
+```outrolado
+# O argumento de quem acha que a história é perda de tempo
+"A cliente paga pelo serviço, não por uma aula de história. Trança é moda e estética, e contar história só atrasa o atendimento."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma boa conversa não precisa atrasar o trabalho: a aula propõe uma fala de dois minutos, com fatos que dá para conferir, enquanto se trabalha. E tratar a trança como moda esconde a história dela: há tranças rentes em pinturas do Saara de até 3000 a.C., e na África o desenho podia indicar o povo, a idade e a posição da pessoa. Quem sabe a história valoriza o ofício e responde com segurança quando alguém diz que trança é "coisa de moda".
+```n
+```agir
+# Esta semana
+Converse com uma mulher mais velha da sua família ou do seu bairro e pergunte como ela aprendeu a trançar ou a cuidar do cabelo. Anote num papel, sem o nome dela, uma coisa que você não sabia. Se não tiver com quem conversar, escreva do que você se lembra da sua própria história com o cabelo.
+```n
 ## Exemplo resolvido
 
 **Monte uma fala de dois minutos para contar a história das tranças às clientes enquanto você trabalha, sem inventar nada.**

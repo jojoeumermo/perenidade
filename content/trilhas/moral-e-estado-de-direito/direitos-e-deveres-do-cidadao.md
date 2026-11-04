@@ -27,6 +27,11 @@ quiz:
     resposta: 0
     explicacao: "Igualdade perante a lei é um princípio comum às duas Constituições."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar o capítulo de direitos e deveres das Constituições da China e do Brasil, localizar os artigos 5º e 6º da brasileira e perceber a distância entre o texto e a vida.
+
+
 
 Toda Constituição tem um capítulo sobre **direitos e deveres**. É nele que o Estado diz o que garante às pessoas e o que espera delas. Esta aula compara o capítulo II da Constituição chinesa com os direitos e garantias da Constituição brasileira.
 
@@ -76,3 +81,21 @@ Nos dois países, há distância entre o texto e a realidade. No Brasil, a Const
 ## Para conversar
 
 Qual direito da Constituição brasileira você considera menos cumprido na sua cidade? Quem deveria garanti-lo, e como a comunidade pode cobrar?
+
+## Exemplo resolvido: em que artigo está?
+
+Usando só o que a aula apresenta, localize cada garantia.
+
+1. Liberdade de expressão, de reunião e de associação, e a proibição da tortura e da censura: **art. 5º** da Constituição brasileira, que começa a lista dos direitos individuais.
+2. Educação, saúde, alimentação, trabalho e moradia: **art. 6º**, os direitos sociais.
+3. Voto obrigatório para maiores de 18 anos: **art. 14**; serviço militar obrigatório: **art. 143**.
+4. Na China, a igualdade perante a lei está no **art. 33**, e a regra de que as liberdades não podem prejudicar os interesses do Estado, da sociedade e da coletividade, no **art. 51**.
+
+Confira: os direitos individuais vêm no art. 5º e os sociais logo depois; os deveres brasileiros ficam espalhados, e o capítulo chinês fala explicitamente de deveres.
+
+## Resumo
+
+- A Constituição chinesa dedica o capítulo II (arts. 33 a 56) aos direitos e deveres fundamentais; desde 2004, diz que o Estado respeita e garante os direitos humanos.
+- A brasileira abre os direitos no art. 5º (liberdades individuais) e no art. 6º (direitos sociais); os deveres estão espalhados.
+- O Brasil dá grande peso às liberdades individuais (reação à ditadura de 21 anos); a China, aos deveres e aos interesses coletivos e do Estado.
+- Nos dois países há distância entre o texto e a vida.

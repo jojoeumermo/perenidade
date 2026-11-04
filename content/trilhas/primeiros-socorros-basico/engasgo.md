@@ -31,6 +31,11 @@ quiz:
     resposta: 1
     explicacao: "Pessoa inconsciente precisa de atendimento de emergência. Chame o 192 e comece as compressões no peito."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar engasgo leve de grave e o que fazer em cada caso em adultos, crianças e bebês, incluindo o que fazer se a pessoa desmaiar.
+
+
 
 Esta aula segue a orientação do Ministério da Saúde. Ela não substitui um curso presencial.
 
@@ -97,3 +102,20 @@ Mesmo que a pessoa volte a respirar bem, é bom passar em um serviço de saúde,
 - Brinquedos sem peças pequenas ao alcance de menores de três anos. Atenção a moedas, botões e pilhas.
 - Comer sentado, sem correr, rir ou brincar com comida na boca.
 - Pessoas idosas e com dificuldade para engolir: comer devagar, com a cabeça erguida, e conversar com a equipe de saúde sobre a consistência dos alimentos.
+
+## Exemplo resolvido: quatro cenas
+
+1. **Um colega engasga, fica vermelho, tosse alto e diz "tô bem".** O ar está passando: é engasgo leve. Fique ao lado e incentive a tossir; não bata nas costas e não dê água.
+2. **Um adulto fica em silêncio, com as mãos no pescoço e o rosto arroxeado.** É engasgo grave. Peça para alguém ligar 192 e faça a manobra de Heimlich: fique atrás, passe os braços em volta da barriga, punho acima do umbigo e abaixo das costelas, puxe com força para dentro e para cima e repita até o objeto sair ou a pessoa desmaiar.
+3. **Um bebê com menos de um ano.** Não se faz compressão na barriga: deite-o de bruços no seu antebraço, com a cabeça mais baixa, dê cinco tapas firmes no meio das costas, vire-o e faça cinco compressões no meio do peito, olhe a boca e repita.
+4. **A pessoa desmaia.** Deite-a de costas no chão, ligue 192 e comece a massagem cardíaca.
+
+Confira: a pergunta que decide tudo é se o ar está passando.
+
+## Resumo
+
+- Engasgo leve: a pessoa tosse e fala; incentive a tossir, sem bater nas costas nem dar água.
+- Engasgo grave: não fala, tosse nem respira; peça para ligar 192 e aja.
+- Adultos e crianças maiores de um ano: manobra de Heimlich, com menos força nas crianças.
+- Bebês com menos de um ano: cinco tapas nas costas e cinco compressões no peito; nada de compressão na barriga nem dedo às cegas.
+- Se desmaiar: deitar, 192 e massagem cardíaca. Depois, passar por um serviço de saúde.

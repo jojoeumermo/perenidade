@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização de pessoas com deficiência intelectual" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-deficiencia-01
+  tema: "A lei"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Que lei, de 2015, diz no artigo 27 que a educação é direito da pessoa com deficiência, com aprendizado ao longo de toda a vida?"
+  alternativas:
+    - texto: "O Estatuto da Pessoa Idosa (Lei nº 10.741/2003)"
+      erro: "O Estatuto da Pessoa Idosa é de 2003 e trata dos direitos da pessoa idosa. O artigo 27 citado é da Lei Brasileira de Inclusão."
+    - texto: "A Lei Brasileira de Inclusão (Lei nº 13.146/2015)"
+      certa: true
+    - texto: "A Lei de Execução Penal (Lei nº 7.210/1984)"
+      erro: "Essa lei trata de quem está preso. A que garante educação à pessoa com deficiência é a Lei Brasileira de Inclusão."
+  explicacao: "A Lei Brasileira de Inclusão (Lei nº 13.146/2015) assegura sistema educacional inclusivo em todos os níveis e aprendizado ao longo de toda a vida."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 13.146/2015, arts. 27 e 28)"
+  revisao:
+    status: em-revisao
+
+- id: aprof-deficiencia-02
+  tema: "O rótulo falso"
+  dificuldade: 1
+  enunciado: "O que a aula diz sobre o rótulo de que a pessoa com deficiência intelectual \"não vai aprender\"?"
+  alternativas:
+    - texto: "É verdadeiro: não vale a pena tentar"
+      erro: "A aula afirma que o rótulo é falso."
+    - texto: "É verdadeiro só para adultos"
+      erro: "A aula diz que o rótulo é falso, e fala de jovens e adultos."
+    - texto: "É falso: com tempo, material adequado e respeito, muitos aprendem a ler e escrever"
+      certa: true
+  explicacao: "Com tempo, material adequado e respeito, muitos aprendem a ler e a escrever o suficiente para ganhar autonomia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-deficiencia-03
+  tema: "Onde estudar"
+  dificuldade: 2
+  enunciado: "Segundo a Política Nacional de Educação Especial (MEC, 2008), como deve ser o estudo de quem tem deficiência?"
+  alternativas:
+    - texto: "Nas turmas comuns, com o atendimento educacional especializado como apoio"
+      certa: true
+    - texto: "Só em escolas separadas, no lugar da escola comum"
+      erro: "A política orienta que o atendimento especializado seja apoio, e não no lugar da escola comum."
+    - texto: "Sem nenhum apoio especializado"
+      erro: "Há atendimento educacional especializado como apoio."
+  explicacao: "A orientação é estudar nas turmas comuns, com o atendimento educacional especializado como apoio, também na EJA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -33,6 +33,10 @@ quiz:
     explicacao: "Depois da guerra civil e da fome, o governo soviético voltou a permitir o mercado em pequena escala, mantendo sob controle do Estado a grande indústria e os bancos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar a vida de Lenin e explicar as suas ideias sobre o partido, o imperialismo e o Estado, sem esconder o que seu governo fez nem o que ele criticou em Stalin.
+
 ## Da juventude ao exílio
 
 Vladimir Ilitch Ulianov nasceu em 1870, em Simbirsk, cidade do rio Volga, em uma família de professores. Quando tinha 17 anos, seu irmão mais velho, Aleksandr, foi enforcado por participar de um plano para matar o czar. Vladimir formou-se em direito, aproximou-se dos círculos marxistas de São Petersburgo e, em 1895, foi preso por organizar operários. Passou três anos desterrado na Sibéria.
@@ -73,3 +77,21 @@ Lenin morreu em 21 de janeiro de 1924, aos 53 anos. Contra a vontade de sua comp
 ## Como é lembrado
 
 Poucos personagens do século XX dividem tanto as opiniões. Para milhões, foi o dirigente que mostrou que os trabalhadores podiam governar e que deu impulso à luta contra o colonialismo. Seus críticos apontam que o regime de partido único e a repressão dos primeiros anos abriram caminho para o que veio depois. Conhecer os seus textos é o melhor ponto de partida para formar a própria opinião.
+
+## Exemplo resolvido
+
+**De onde vêm os nomes "bolcheviques" e "mencheviques"?**
+
+1. Em 1903, uma divergência sobre a organização dividiu os socialistas russos. Lenin defendia um partido disciplinado, de militantes dedicados, como em *Que Fazer?* (1902).
+2. Na votação daquela divergência, o grupo de Lenin ficou com a maioria; o outro, com a minoria.
+3. "Bolchevique" vem da palavra russa para "maioria" e "menchevique" para "minoria".
+
+Conclusão: o nome vem do resultado de uma votação específica, e não de qual grupo era maior em geral. Em 1917, os bolcheviques tomaram o poder pelos sovietes.
+
+## Resumo
+
+- Lenin (Vladimir Ulianov) nasceu em 1870; seu irmão Aleksandr foi enforcado em 1887, e ele passou anos preso e exilado.
+- Em *Que Fazer?* (1902), defendeu um partido disciplinado; em 1903 os socialistas russos se dividiram em bolcheviques e mencheviques.
+- Em 1916, tratou do imperialismo (monopólios e capital financeiro); em *O Estado e a Revolução* (1917), do Estado como instrumento da classe dominante.
+- No poder: paz com a Alemanha em março de 1918, guerra civil, repressão e proibição dos outros partidos, e a NEP em 1921.
+- Doente a partir de 1922, sugeriu que Stalin fosse retirado do cargo de secretário-geral.

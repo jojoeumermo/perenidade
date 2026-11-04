@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "Vale para a imprensa chinesa, a brasileira e qualquer outra."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber identificar as principais fontes de notícias chinesas, ler manchetes condensadas, reconhecer o vocabulário frequente e converter números grandes (万 e 亿).
 
 ## Por que ler notícias em chinês
 
@@ -105,3 +108,21 @@ Uma notícia diz que algo cresceu 百分之三点五. Quanto é?
 2. Traduza a manchete: 中国经济增长百分之五.
 3. Encontre uma notícia em chinês sobre o Brasil e identifique quem, o quê, quando e onde.
 4. Compare como dois veículos diferentes noticiaram o mesmo fato.
+
+## Exemplo resolvido
+
+**Uma notícia diz que a economia cresceu 百分之三点五 e que a população é 十四亿. Quanto é cada um? E o que diz a manchete 中巴贸易额创新高?**
+
+1. **百分之三点五.** 百分之 quer dizer "por cento" e 点 (diǎn) é a vírgula decimal: 三点五 = 3,5. Logo, **3,5%**.
+2. **十四亿.** 亿 é cem milhões. 14 × 100 000 000 = 1 400 000 000, ou **1,4 bilhão**.
+3. **A manchete.** As manchetes omitem partículas e conectivos. 中巴 abrevia "China e Brasil" (巴 de 巴西). A leitura da aula: "Comércio entre China e Brasil bate novo recorde".
+4. **Leia criticamente.** Pergunte quem publicou (a 新华社 é a agência oficial; o 人民日报 é o jornal oficial do Partido Comunista), que fontes cita e o que outros veículos dizem.
+
+Confira: o chinês conta em unidades de dez mil (万) e de cem milhões (亿), e não de mil e de milhão.
+
+## Resumo
+
+- Fontes: **新华社** (agência oficial de notícias) e **人民日报** (jornal oficial do Partido Comunista da China); muitos veículos têm versões em outras línguas. Toda imprensa tem um ponto de vista: leia criticamente.
+- Manchetes são condensadas: omitem partículas, conectivos e às vezes o verbo "ser"; abreviações como 中巴 e 中美.
+- Vocabulário frequente: 经济, 发展, 政府, 国家, 合作, 贸易, 增长, 会议, 记者, 报道, 据报道, 表示, 百分之…, 亿.
+- Números: 万 = 10 000; 亿 = 100 000 000; 十四亿 = 1,4 bilhão. 点 é a vírgula decimal (三点五 = 3,5).

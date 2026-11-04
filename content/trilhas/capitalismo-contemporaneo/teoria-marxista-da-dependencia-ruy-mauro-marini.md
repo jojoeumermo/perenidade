@@ -34,6 +34,9 @@ quiz:
     resposta: 0
     explicacao: "Marini analisou o Brasil da ditadura como um caso de subimperialismo: expansão regional associada ao grande capital estrangeiro."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quem foi Ruy Mauro Marini, por que a teoria da dependência critica a ideia de "atraso", os três passos da *Dialética da Dependência* e o que é subimperialismo.
 
 Durante boa parte do século XX, a explicação dominante para a pobreza da América Latina era simples: nós estaríamos "atrasados" e chegaríamos lá, desde que seguíssemos os passos dos países ricos. Nos anos 1960 e 1970, um grupo de intelectuais latino-americanos virou essa ideia do avesso. Um deles, o brasileiro **Ruy Mauro Marini**, formulou a versão mais elaborada da **teoria marxista da dependência**.
 
@@ -82,3 +85,22 @@ Ela também é objeto de críticas, inclusive dentro do marxismo: por exemplo, s
 ## Para pesquisar e debater
 
 Compare a pauta de exportações do Brasil na década de 1950 com a de hoje. O país se tornou menos ou mais dependente de produtos primários?
+
+## Exemplo resolvido
+
+**Por que, segundo Marini, o capitalista de uma economia exportadora dependente tem pouco interesse em aumentar o salário dos seus trabalhadores?**
+
+1. **Compare com o centro.** Nos países centrais, os trabalhadores são também consumidores importantes das mercadorias que produzem: o salário faz parte do mercado.
+2. **Veja a economia dependente exportadora.** O que se produz (café, minério) é vendido lá fora. O consumo dos trabalhadores pesa pouco na venda.
+3. **Lembre a perda de valor.** A periferia perde valor no comércio mundial e, sem poder elevar a produtividade como no centro (depende de tecnologia importada), compensa **superexplorando** a força de trabalho.
+4. **Conclua.** Como a mercadoria é vendida no mercado externo, e não aos próprios trabalhadores, o capitalista tem pouco interesse em aumentar o salário. É a **cisão do ciclo do capital**.
+
+Confira: isso mostra por que, para Marini, o subdesenvolvimento é parte do capitalismo mundial, e não um atraso.
+
+## Resumo
+
+- **Ruy Mauro Marini** (1932-1997): militante da POLOP, preso e exilado após o golpe de 1964.
+- A América Latina está **dentro** do capitalismo mundial desde o século XVI; o subdesenvolvimento é produto dessa inserção, e não etapa de atraso.
+- Três passos em *Dialética da Dependência* (1973): **transferência de valor**, **compensação pela superexploração** e **cisão do ciclo do capital**.
+- **Subimperialismo:** países dependentes intermediários que exercem papel de potência regional, sem deixar de ser subordinados ao centro.
+- Ajuda a explicar a reprimarização, a informalidade e o peso das remessas de lucro e juros; também é criticada, até dentro do marxismo.

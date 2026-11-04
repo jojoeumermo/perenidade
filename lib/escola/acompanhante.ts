@@ -159,11 +159,11 @@ export function gravarConversa(conversa: Conversa, o: { armazenamento?: Armazena
 }
 
 /** Apaga uma conversa (pelo id) ou, sem id, todas. */
-export function apagarConversas(id?: string, armazenamento: Armazenamento | null = local()): void {
+export function apagarConversas(id?: string, armazenamento: Armazenamento | null = local(), agora: number = Date.now()): void {
   try {
     if (!armazenamento) return;
     if (id) {
-      const resto = lerConversas(armazenamento).filter((c) => c.id !== id);
+      const resto = lerConversas(armazenamento, agora).filter((c) => c.id !== id);
       if (resto.length) armazenamento.setItem(CHAVE_CONVERSAS, JSON.stringify(resto));
       else armazenamento.removeItem(CHAVE_CONVERSAS);
     } else armazenamento.removeItem(CHAVE_CONVERSAS);

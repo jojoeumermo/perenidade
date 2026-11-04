@@ -1,0 +1,51 @@
+# Exercícios da aula "Pinyin e os quatro tons" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-pinyin-01
+  tema: "O que é o pinyin"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é o pinyin?"
+  alternativas:
+    - texto: "Um tipo de caractere antigo"
+      erro: "O pinyin não é caractere: é a escrita dos sons com letras."
+    - texto: "O nome de uma província"
+      erro: "É um sistema de escrita dos sons, adotado pela China em 1958."
+    - texto: "Um sistema que escreve os sons do mandarim com as letras do nosso alfabeto"
+      certa: true
+  explicacao: "Com ele as crianças chinesas aprendem a ler e se digita chinês no celular."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-pinyin-02
+  tema: "Partes da sílaba"
+  dificuldade: 2
+  enunciado: "Em hǎo, qual é a inicial, a final e o tom?"
+  alternativas:
+    - texto: "Inicial h, final ao, terceiro tom"
+      certa: true
+    - texto: "Inicial ha, final o, primeiro tom"
+      erro: "A inicial é a consoante do começo (h) e a final é ao. O acento ˇ é o terceiro tom."
+    - texto: "Inicial h, final ao, segundo tom"
+      erro: "O acento ˇ marca o terceiro tom."
+  explicacao: "Toda sílaba tem até três partes: inicial, final e tom."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-pinyin-03
+  tema: "Os tons"
+  dificuldade: 2
+  enunciado: "Qual tom \"sobe, como em Hã?\""
+  alternativas:
+    - texto: "O primeiro tom (mā)"
+      erro: "O primeiro é alto e reto."
+    - texto: "O segundo tom (má)"
+      certa: true
+    - texto: "O quarto tom (mà)"
+      erro: "O quarto desce de uma vez."
+  explicacao: "A mesma sílaba com tons diferentes forma palavras diferentes: mā (mãe), má (cânhamo), mǎ (cavalo), mà (repreender)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

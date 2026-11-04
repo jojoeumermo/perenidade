@@ -25,6 +25,10 @@ quiz:
     explicacao: "A tônica é a nota de repouso, a 'casa' da escala. Em dó maior, a tônica é o dó."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber aplicar a receita da escala maior (tom, tom, semitom, tom, tom, tom, semitom), explicar por que dó maior não leva sustenido nem bemol e dizer o que é a tônica.
+
 ## O que é uma escala
 
 **Escala** é uma sequência de notas em ordem, subindo ou descendo, organizada por uma receita de distâncias. A maior parte das melodias que você conhece foi feita com as notas de uma escala só.
@@ -84,8 +88,27 @@ nomes: sim
 
 Tente ler antes de tocar. É uma canção de ninar francesa do século XVIII, conhecida em todo o mundo, que em português virou "Brilha, brilha, estrelinha".
 
+## Exemplo resolvido
+
+**Por que a escala de sol maior precisa trocar o fá pelo fá sustenido?**
+
+1. Escreva a receita: T – T – S – T – T – T – S.
+2. Comece no sol, só com teclas brancas: sol→lá é tom; lá→si é tom; si→dó é semitom; dó→ré é tom; ré→mi é tom.
+3. O sexto passo pede um tom, mas mi→fá é um semitom. A receita não é respeitada.
+4. Conserte com o sustenido: mi→fá♯ é um tom e fá♯→sol é um semitom, como a receita pede.
+
+Conclusão: as outras escalas maiores precisam de sustenidos ou bemóis para consertar as distâncias. A de dó maior é a única que a receita satisfaz só com teclas brancas, e por isso é a primeira que todo mundo aprende.
+
 ## Para praticar
 
 1. Toque a escala de dó maior no [teclado](/ferramentas/teclado), subindo e descendo, dizendo o nome das notas.
 2. Ligue o [metrônomo](/ferramentas/metronomo) em 60 e toque uma nota por clique.
 3. Toque a melodia acima. As notas de cabeça vazia valem dois cliques.
+
+## Resumo
+
+- Escala é uma sequência de notas em ordem, organizada por uma receita de distâncias.
+- A escala maior segue T – T – S – T – T – T – S e tem sete notas (a oitava repete a primeira).
+- Dó maior usa só as teclas brancas, sem sustenido nem bemol.
+- A tônica é a primeira nota da escala, a nota de repouso, a "casa" da melodia.
+- Outras escalas maiores precisam de sustenidos ou bemóis para ajustar as distâncias.

@@ -56,6 +56,10 @@ quiz:
     resposta: 1
     explicacao: "Nascem um pouco mais meninos, mas os homens morrem mais cedo, por doenças, acidentes e violência."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer quantos somos e como nos distribuímos no território, ler uma pirâmide etária, explicar por que nascem menos crianças e interpretar os dados do Censo 2022 sobre sexo e cor ou raça.
+
 
 ## Quantos somos
 
@@ -146,6 +150,18 @@ Esses números não são curiosidade. Cruzados com renda, emprego, escolaridade 
 
 Uma população que envelhece precisa de mais geriatras, de calçadas sem buracos, de transporte acessível e de uma previdência que pague as aposentadorias. Uma cidade com muitas crianças precisa de creches e escolas. Saber quem somos, quantos somos e onde estamos é a base de qualquer planejamento sério, e de qualquer cobrança séria ao poder público.
 
+## Exemplo resolvido
+
+**Com os números do Censo, quanto a população cresceu entre 2010 e 2022? E qual é a razão de sexo?**
+
+1. Pegue os dois totais: 190.755.799 pessoas em 2010 e 203.080.756 em 2022.
+2. Calcule o aumento: 203.080.756 − 190.755.799 = 12.324.957 pessoas.
+3. Divida pelo total de 2010: 12.324.957 ÷ 190.755.799 = 0,0646. Em porcentagem, cerca de **6,5%** em doze anos.
+4. Para o ritmo por ano, divida o período em doze partes: o crescimento fica em pouco mais de **0,5% ao ano**.
+5. Para a razão de sexo, divida os homens pelas mulheres e multiplique por 100: 98.532.431 ÷ 104.548.325 × 100 = cerca de **94,2**.
+
+Leitura: para cada 100 mulheres, há cerca de 94 homens, ou seja, seis milhões de mulheres a mais (104.548.325 − 98.532.431 = 6.015.894).
+
 ## Para praticar
 
 Use os números desta aula. Se quiser, faça as contas na [calculadora](/ferramentas/calculadora) do Instituto.
@@ -156,3 +172,12 @@ Use os números desta aula. Se quiser, faça as contas na [calculadora](/ferrame
 4. Pergunte às pessoas mais velhas da sua família quantos irmãos elas tiveram. Compare com o número de filhos das pessoas da sua geração. O que mudou?
 
 **Respostas:** 1) 12.324.957 pessoas. 2) Cerca de 10,9%. 3) 6.015.894.
+
+## Resumo
+
+- O Censo 2022 contou 203.080.756 pessoas, e o crescimento desde 2010 foi de cerca de 6,5%, o ritmo mais lento já registrado por um censo no país.
+- A densidade demográfica média é de cerca de 23,8 hab/km², mas vai de menos de 5 no Norte a mais de 90 no Sudeste.
+- A pirâmide etária mostra a idade da população; a transição demográfica explica por que nascem menos crianças e a população envelhece.
+- Em 2022, 51,5% das pessoas eram mulheres, e a razão de sexo foi de 94,2 homens para cada 100 mulheres.
+- Cor ou raça é declarada pela própria pessoa, entre cinco opções.
+- Os números orientam a política pública: mais geriatras e previdência para uma população que envelhece, mais escolas onde há mais crianças.

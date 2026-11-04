@@ -1,0 +1,54 @@
+# Exercícios da aula "Ciências Humanas: Geografia" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-geo-01
+  tema: "Urbanização"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que explica o crescimento acelerado das cidades brasileiras no século XX?"
+  alternativas:
+    - texto: "O êxodo rural, com pessoas saindo do campo em busca de trabalho"
+      certa: true
+    - texto: "A proibição de morar no campo"
+      erro: "Não houve proibição. A mecanização e a concentração de terra empurraram pessoas do campo, e a indústria atraía para a cidade."
+    - texto: "O fim da indústria nas cidades"
+      erro: "Ao contrário: a industrialização atraiu gente para as cidades."
+  explicacao: "O êxodo rural e a industrialização levaram muita gente do campo para a cidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-geo-02
+  tema: "Energia"
+  dificuldade: 1
+  enunciado: "Qual destas é uma fonte de energia renovável?"
+  alternativas:
+    - texto: "Petróleo"
+      erro: "O petróleo é fóssil e demora milhões de anos para se formar, então não é renovável."
+    - texto: "Energia solar"
+      certa: true
+    - texto: "Carvão mineral"
+      erro: "O carvão mineral também é fóssil e não se renova na escala de tempo humana."
+  explicacao: "Solar, eólica e hidráulica são fontes renováveis."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-geo-03
+  tipo: numero
+  tema: "Crescimento da população"
+  dificuldade: 2
+  enunciado: "Uma cidade tinha 25.000 habitantes e passou a ter 100.000. Quantas vezes a população cresceu?"
+  resposta: "4"
+  unidade: "vezes"
+  erros_comuns:
+    - resposta: "75000"
+      explicacao: "Esse é o aumento em habitantes (100.000 − 25.000). A pergunta é quantas vezes: divida."
+    - resposta: "0,25"
+      explicacao: "Você dividiu a população antiga pela nova. Divida a nova pela antiga."
+  dica: "Divida a população nova pela antiga."
+  explicacao: "100.000 ÷ 25.000 = 4 vezes."
+  conferir: "100000 / 25000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -26,6 +26,10 @@ quiz:
     explicacao: "Um hectare é um quadrado de 100 m por 100 m: 10.000 m²."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular perímetro e área de retângulos, triângulos e outras figuras e dizer quando usar cada um (cerca, piso, tinta).
+
 ## Duas medidas diferentes
 
 - **Perímetro** é a medida do **contorno**. É o que você calcula para comprar arame de cerca, rodapé ou meio-fio. Mede-se em metros.
@@ -121,3 +125,10 @@ No Brasil ainda se usa o **alqueire**, que muda de tamanho conforme a região. O
 5. Quantos metros quadrados têm 3 hectares? E 2 alqueires paulistas?
 
 **Respostas:** 1) 26 m e 40 m². 2) 18 m². 3) 18,84 m e 28,26 m². 4) 360 m². 5) 30.000 m² e 48.400 m².
+
+## Resumo
+
+- Perímetro é a medida do contorno (m); área é a medida da superfície (m²).
+- Retângulo: área = base × altura; perímetro = 2 × (base + altura). Quadrado: área = lado × lado.
+- Com o mesmo perímetro, a área muda; entre os retângulos, o quadrado cerca mais área com a mesma tela.
+- Triângulo: base × altura ÷ 2; a altura forma ângulo reto com a base.

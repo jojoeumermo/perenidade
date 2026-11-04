@@ -126,6 +126,23 @@ O gerente disse: "Não haverá demissões".
 
 **Parênteses ( )** guardam uma informação complementar, que o leitor pode pular.
 
+## Exemplo resolvido: pontuando três frases
+
+1. **"Dona Lúcia presidente da associação abriu a reunião."** O trecho "presidente da associação" é uma explicação encaixada; vai entre duas vírgulas: **Dona Lúcia, presidente da associação, abriu a reunião.**
+2. **"Ontem à noite faltou luz no bairro inteiro."** A expressão de tempo veio para o começo; a vírgula marca o deslocamento: **Ontem à noite, faltou luz no bairro inteiro.**
+3. **"Os moradores do bairro, pediram mais ônibus."** Pergunte "quem fez?" (os moradores do bairro) e "fez o quê?" (pediu mais ônibus): as respostas ficam coladas ao verbo, sem vírgula: **Os moradores do bairro pediram mais ônibus.**
+
+Confira: a vírgula não marca onde se respira, e sim a organização da frase.
+
+## Resumo
+
+- Pontuação organiza o texto: a vírgula não marca onde se respira.
+- Fim de frase: ponto, interrogação, exclamação e reticências; depois, letra maiúscula. Na dúvida, ponto.
+- Vírgula: separa itens de uma lista, o vocativo, uma explicação encaixada (sempre duas), tempo ou lugar deslocados, vem antes de mas, porém, pois, portanto e logo, e separa o lugar da data.
+- Não se separa com vírgula o sujeito do verbo nem o verbo do complemento.
+- A vírgula muda o sentido: "Não, espere" e "Não espere".
+- Dois-pontos anunciam; ponto e vírgula, pausa maior que a vírgula; aspas, falas de outros; travessão, diálogos; parênteses, informação complementar.
+
 ## Para praticar
 
 Pontue as frases.

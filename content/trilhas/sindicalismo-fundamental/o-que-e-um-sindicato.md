@@ -1,5 +1,6 @@
 ---
 titulo: "O que é um sindicato"
+modelo: 9
 resumo: "Para que serve, o que a lei garante a quem se organiza e por que negociar junto é diferente de negociar sozinho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,14 @@ quiz:
     resposta: 1
     explicacao: "A Constituição protege o dirigente, e também o suplente, justamente para que ele possa enfrentar o patrão sem perder o emprego."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é um sindicato, o que a Constituição garante, como ele funciona no dia a dia e como a categoria pode participar das decisões.
+
+```suarealidade
+Na sua profissão ou no seu serviço, existe sindicato? Você sabe qual é, quando é a data-base da sua categoria e o que já foi conquistado por ele (ou o que faltou)?
+```
 
 ## A conta que explica tudo
 
@@ -98,3 +107,35 @@ Um sindicato vive de quem o sustenta:
 Há sindicatos combativos e há sindicatos acomodados, que o movimento operário chama de **pelegos**: os que amortecem o conflito em vez de representar a categoria. A palavra vem da pele de carneiro que se põe entre a sela e o cavalo.
 
 A lei não resolve isso. O que faz um sindicato ser bom é gente participando: indo à assembleia, cobrando prestação de contas, elegendo representantes no local de trabalho e disputando a direção quando ela não presta. Sindicato vazio vira cartório. Sindicato cheio é ferramenta.
+
+## Exemplo resolvido
+
+**Os empregados de uma rede de supermercados conseguiram vale-refeição maior depois de uma negociação do sindicato com a empresa. O documento é uma convenção coletiva ou um acordo coletivo?**
+
+1. Veja com quem o sindicato dos trabalhadores assinou. Se fosse com o sindicato dos patrões, seria convenção coletiva, que vale para toda a categoria na região.
+2. Aqui a negociação foi com uma empresa. Esse é o acordo coletivo, que vale só nela.
+3. Veja onde isso é decidido: a pauta e a aceitação ou recusa da proposta passam pela assembleia da categoria.
+
+Conclusão: é um acordo coletivo, e quem decide se aceita ou recusa a proposta é a assembleia, e não só a diretoria.
+
+```outrolado
+# O argumento de quem desconfia dos sindicatos
+"Sindicato só serve para a diretoria. É cabide de emprego, desconta dinheiro de quem não pediu e eu me viro melhor negociando sozinho com o patrão."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Há sindicatos acomodados, que o movimento operário chama de pelegos, e a aula reconhece isso. Mas a Constituição (art. 8º) diz que ninguém é obrigado a se filiar, e a contribuição sindical hoje exige autorização prévia e expressa; a contribuição negocial aprovada em assembleia deve garantir o direito de oposição, segundo o STF em 2023. E a conta da aula continua valendo: um empregado sozinho ouve "tem fila lá fora", enquanto quinhentos juntos não podem ser trocados no mesmo dia. O que torna um sindicato bom é gente indo à assembleia e cobrando prestação de contas.
+```
+
+```agir
+# Esta semana
+Procure no seu contracheque, na carteira de trabalho ou com um colega de confiança qual é o sindicato da sua categoria e escreva num papel o nome e a data-base. Se não houver sindicato ou você não souber, escreva as duas perguntas que você faria a ele. Não precisa falar com ninguém do trabalho nem confrontar a chefia.
+```
+
+## Resumo
+
+- Sindicato é a união permanente dos trabalhadores de uma categoria para negociar e defender direitos em conjunto.
+- A Constituição (art. 8º) garante a livre associação sindical, a não obrigatoriedade da filiação e a participação do sindicato nas negociações coletivas; o art. 9º garante o direito de greve.
+- Convenção coletiva vale para toda a categoria; acordo coletivo vale só para a empresa que o assinou.
+- As decisões importantes passam pela assembleia; a greve exige aviso de 48 horas, ou 72 nos serviços essenciais (Lei 7.783/1989).
+- O sindicato vive de mensalidade e contribuições; o que faz um sindicato ser bom é a participação da categoria.

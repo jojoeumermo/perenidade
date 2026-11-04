@@ -35,6 +35,9 @@ quiz:
     resposta: 1
     explicacao: "A plataforma transfere ao trabalhador os meios de trabalho e os riscos, e fica com uma parte de cada corrida."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são plataformas e uberização, ligar o trabalho por aplicativo ao salário por peça descrito por Marx, entender o controle algorítmico e conhecer o debate jurídico e as formas de organização dos trabalhadores.
 
 Entregadores de bicicleta com mochilas térmicas, motoristas que passam o dia no carro, faxineiras e professores contratados por aplicativo. Para as empresas, essas pessoas são "parceiras" ou "empreendedoras". Para a sociologia crítica do trabalho, são o retrato de uma nova fase da exploração: a **uberização**.
 
@@ -89,3 +92,23 @@ Os trabalhadores de aplicativo também se organizam. No Brasil, o **Breque dos A
 ## Para pesquisar e debater
 
 Converse com um entregador ou motorista de aplicativo. Quantas horas trabalha por dia? Quanto gasta com o veículo? Quanto sobra, de fato, por hora trabalhada?
+
+## Exemplo resolvido
+
+**Um aplicativo reduz o valor pago por quilômetro rodado. O que tende a acontecer com a jornada dos motoristas que dependem dele?**
+
+1. **Lembre do salário por peça.** No *Capital*, Marx mostrou que o pagamento por peça (aqui, por corrida) leva o trabalhador a correr mais e a trabalhar mais horas para ganhar o suficiente.
+2. **Aplique ao caso.** Se cada quilômetro paga menos, para manter a renda o motorista precisa rodar mais quilômetros, e isso exige mais horas ao volante.
+3. **Some o resto.** Os meios de trabalho (carro, combustível, celular) e os riscos (acidente, roubo, doença) ficam por conta do motorista; o algoritmo decide que corrida aparece, por quanto e quem é bloqueado.
+4. **Conclua.** A jornada tende a **aumentar**.
+
+Confira: o aplicativo é novo, mas a lógica é a do salário por peça, que também facilita o controle sem capataz.
+
+## Resumo
+
+- **Plataformas** (Srnicek): infraestruturas digitais que se põem no meio de grupos diferentes e lucram com a intermediação e com os dados.
+- **Uberização:** sem vínculo de emprego, pagamento por tarefa, meios de trabalho e riscos por conta do trabalhador e controle por algoritmo.
+- Marx já descrevera o **salário por peça**: mais intensidade e jornada mais longa.
+- Antunes fala de um "novo proletariado de serviços", em permanente disponibilidade.
+- O discurso é de liberdade; na prática há menos corridas a quem recusa, bloqueios por nota e critérios que são segredo comercial.
+- Debate: Lei Rider na Espanha (2021), decisão da Suprema Corte do Reino Unido (2021). No Brasil, o Breque dos Apps (julho de 2020).

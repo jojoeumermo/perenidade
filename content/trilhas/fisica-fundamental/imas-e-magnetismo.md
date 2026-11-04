@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "Muda o que faz girar: a água, o vapor ou o vento."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são polos e campo magnético, explicar por que a bússola aponta sempre para o mesmo lado e descrever como o movimento de um ímã perto de um fio gera a eletricidade que chega à tomada.
+
 
 ## A pedra que atrai o ferro
 
@@ -105,9 +109,29 @@ A exceção importante são os **painéis solares**, que transformam a luz diret
 
 Entender isso ajuda a discutir a energia como cidadão. Toda forma de gerar eletricidade tem custos: a hidrelétrica alaga terras e desloca populações; a termelétrica polui e aquece o planeta; a nuclear produz lixo radioativo. A pergunta nunca é só técnica: é quem decide, quem ganha e quem arca com as consequências.
 
+## Exemplo resolvido
+
+**Da água que cai à lâmpada que acende: como o movimento vira eletricidade?**
+
+1. Comece pelo que a aula conta sobre Faraday: quando um ímã se move perto de um fio enrolado, aparece corrente no fio. É preciso haver movimento.
+2. Um gerador é isso em tamanho grande: ímãs (ou eletroímãs) girando dentro de bobinas de fio.
+3. Alguma coisa precisa fazer o gerador girar. Em uma hidrelétrica, é a água que desce e empurra a turbina; em outras usinas, é o vapor, o vento.
+4. A turbina gira o eixo, o eixo gira o gerador, e o gerador entrega corrente aos fios da rede.
+5. A corrente chega à sua tomada e acende a lâmpada.
+
+Conclusão: o que muda de uma usina para outra é o que faz girar. O princípio, ímã em movimento perto de fio, é o mesmo.
+
 ## Para pesquisar e debater
 
 1. Teste em casa: que objetos um ímã de geladeira atrai? Faça uma lista dos que atrai e dos que não atrai.
 2. Construa um eletroímã com um prego grande, um metro de fio fino encapado e uma pilha. O que acontece quando você desliga a pilha?
 3. De que tipo de usina vem a maior parte da eletricidade do seu estado?
 4. Que comunidades foram atingidas pela construção de usinas na sua região?
+
+## Resumo
+
+- Todo ímã tem dois polos, norte e sul: polos iguais se repelem, diferentes se atraem.
+- Em volta do ímã existe um campo magnético, que age à distância.
+- A Terra se comporta como um ímã gigante; por isso a bússola aponta sempre para a mesma direção.
+- Corrente elétrica produz magnetismo (Oersted, 1820) e ímã em movimento produz corrente (Faraday, 1831).
+- Quase toda a eletricidade vem de geradores girando; o que muda é o que os faz girar.

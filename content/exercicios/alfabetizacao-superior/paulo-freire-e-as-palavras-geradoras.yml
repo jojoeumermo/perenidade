@@ -1,0 +1,51 @@
+# Exercícios da aula "Paulo Freire e as palavras geradoras" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-freire-01
+  tema: "Educação bancária"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que Freire chama de educação bancária?"
+  alternativas:
+    - texto: "O professor \"deposita\" conteúdos em alunos vistos como recipientes vazios"
+      certa: true
+    - texto: "Uma educação sobre dinheiro e bancos"
+      erro: "É uma crítica: o professor deposita conteúdos que o aluno deve guardar e repetir."
+    - texto: "Uma educação em que educador e educando aprendem juntos"
+      erro: "Isso é a educação dialógica e problematizadora, a alternativa."
+  explicacao: "A educação bancária domestica; a alternativa é dialógica, parte da realidade e busca a conscientização."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-freire-02
+  tema: "Primeira etapa"
+  dificuldade: 2
+  enunciado: "Qual é a primeira etapa do método descrita em Educação como prática da liberdade?"
+  alternativas:
+    - texto: "A escolha das fichas de sílabas"
+      erro: "As famílias silábicas vêm depois."
+    - texto: "O levantamento do universo vocabular"
+      certa: true
+    - texto: "A prova de entrada"
+      erro: "O método começa conversando com os moradores e registrando as palavras e temas da vida do grupo."
+  explicacao: "A equipe conversa com os moradores e registra as palavras e os temas que marcam a vida do grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-freire-03
+  tema: "Quem foi Freire"
+  dificuldade: 1
+  enunciado: "Qual lei, de 2012, declarou Paulo Freire Patrono da Educação Brasileira?"
+  alternativas:
+    - texto: "A Lei nº 5.379"
+      erro: "Essa lei é de 1967 e autorizou o Mobral."
+    - texto: "A Lei nº 10.436"
+      erro: "Essa lei é de 2002 e reconheceu a Libras."
+    - texto: "A Lei nº 12.612"
+      certa: true
+  explicacao: "A Lei nº 12.612, de 2012, declarou Freire (1921-1997) Patrono da Educação Brasileira."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 12.612/2012)"
+  revisao:
+    status: em-revisao

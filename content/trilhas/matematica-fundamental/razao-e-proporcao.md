@@ -26,6 +26,10 @@ quiz:
     explicacao: "O primeiro sai a R$ 18 o quilo (9 ÷ 0,5). O segundo, a R$ 17 o quilo (13,60 ÷ 0,8)."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar quantidades por razão, calcular taxas como o preço por quilo e resolver proporções.
+
 ## Comparar dividindo
 
 Há dois jeitos de comparar quantidades. Um é pela **diferença**: "ela ganha R$ 500 a mais". O outro é pela **divisão**: "ela ganha o dobro". Esse segundo jeito é a **razão**.
@@ -107,3 +111,10 @@ Duas pessoas fizeram um serviço juntas e receberam R$ 1.200. Uma trabalhou 3 di
 5. Três famílias vão dividir 90 kg de farinha na proporção do número de pessoas: 2, 3 e 4. Quanto cabe a cada uma?
 
 **Respostas:** 1) 3:5. 2) 3 m por 3,5 m. 3) x = 10. 4) A de 2 litros (R$ 4,50 o litro, contra R$ 4,80). 5) 20 kg, 30 kg e 40 kg.
+
+## Resumo
+
+- Razão compara por divisão (2 para 3, ou 2/3); a ordem importa; razões equivalentes saem de multiplicar ou dividir os dois termos pelo mesmo número.
+- Taxa é a razão entre grandezas diferentes (km/h, R$/kg).
+- O preço por quilo mostra qual embalagem compensa: 500 g por R$ 9,00 saem a R$ 18,00 o quilo; 800 g por R$ 13,60 saem a R$ 17,00.
+- Proporção é a igualdade entre duas razões; serve para escalas e para dividir em partes proporcionais.

@@ -36,6 +36,10 @@ quiz:
     explicacao: "A revolta de Kronstadt e as revoltas camponesas mostraram o esgotamento do comunismo de guerra."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que Lenin propôs a NEP em 1921, o que ela mudou em relação ao comunismo de guerra e quais foram os seus resultados e tensões.
+
 Em 1921, a Rússia soviética tinha vencido a guerra civil e a intervenção estrangeira, mas estava em ruínas. A produção industrial tinha despencado, as cidades se esvaziavam, o campo estava em revolta. Lenin propôs um recuo que surpreendeu muitos militantes: a **Nova Política Econômica**, a **NEP**.
 
 ## O comunismo de guerra
@@ -85,6 +89,24 @@ No partido, formaram-se posições opostas. **Bukharin** defendia manter e aprof
 
 A NEP foi lembrada décadas depois como referência por reformadores de vários países socialistas, inclusive na China de Deng Xiaoping, como exemplo de convivência entre setor estatal estratégico e mercado. O historiador Stephen Cohen, em seu estudo sobre Bukharin, defendeu que a NEP representava uma alternativa real ao stalinismo. Outros historiadores consideram que suas contradições a tornavam insustentável. O debate continua.
 
+## Exemplo resolvido
+
+**Como o imposto em espécie mudou a vida do camponês em relação à requisição de grãos?**
+
+1. No comunismo de guerra (1918-1921), o Estado requisitava à força os excedentes de grãos dos camponeses. Quando a guerra acabou, isso se tornou insuportável e houve revoltas, como a de Tambov e a de Kronstadt, em março de 1921.
+2. Com a NEP, a requisição foi trocada por um imposto em espécie: o camponês entregava uma parte fixa ao Estado.
+3. O que sobrava podia ser vendido no mercado. Assim, produzir mais passou a compensar.
+
+Conclusão: Lenin chamou isso de recuo estratégico para reconstruir a aliança entre operários e camponeses. O Estado manteve as "alturas de comando": grande indústria, bancos, transportes e comércio exterior.
+
 ## Para pesquisar e debater
 
 A NEP foi um recuo necessário ou um caminho que deveria ter sido mantido? Compare os argumentos de Bukharin e de Preobrajenski.
+
+## Resumo
+
+- Em 1921, a Rússia soviética estava em ruínas; o comunismo de guerra (requisição de grãos, estatização, racionamento) era sobretudo uma economia de sítio.
+- Revoltas camponesas e a de Kronstadt levaram o 10º Congresso a aprovar a NEP em março de 1921.
+- A NEP trocou a requisição por um imposto em espécie, devolveu o pequeno comércio e a pequena indústria ao setor privado e criou uma moeda estável.
+- O Estado manteve a grande indústria, os bancos, os transportes e o comércio exterior.
+- Resultados: a produção se recuperou, mas surgiram os nepmen, os kulaks, a crise das tesouras (1923) e o desemprego urbano.

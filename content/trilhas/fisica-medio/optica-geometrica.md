@@ -33,6 +33,10 @@ quiz:
     resposta: 0
     explicacao: "No olho míope, a imagem se forma antes da retina; a lente divergente a leva para trás."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber aplicar a lei da reflexão, descrever as imagens de espelhos e lentes, explicar a refração e relacionar o grau dos óculos com a lente e o olho.
+
 
 ## Luz em linha reta
 
@@ -169,3 +173,12 @@ Muitas crianças vão mal na escola simplesmente porque não enxergam o quadro. 
 2. Calcule a velocidade da luz no vidro comum.
 3. Um objeto está a 20 cm de uma lente convergente de distância focal 5 cm. Onde se forma a imagem?
 4. Uma receita indica lentes de −2 dioptrias. A lente é convergente ou divergente? Qual é o defeito mais provável? Qual é a distância focal?
+
+## Resumo
+
+- A óptica geométrica trata a luz como raios em linha reta.
+- Lei da reflexão: o ângulo de reflexão é igual ao ângulo de incidência.
+- No espelho plano, a imagem tem o mesmo tamanho do objeto e fica à mesma distância atrás do espelho.
+- Espelhos côncavos e convexos, e lentes convergentes e divergentes, desviam a luz de modos diferentes.
+- Refração: a luz muda de velocidade ao mudar de meio; a reflexão total ocorre na saída de meio de índice maior para menor, com ângulo suficiente.
+- O grau dos óculos é a vergência da lente, em dioptrias (inverso da distância focal em metros).

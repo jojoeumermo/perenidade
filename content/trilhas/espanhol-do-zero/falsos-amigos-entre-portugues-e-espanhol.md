@@ -33,9 +33,19 @@ quiz:
     opcoes: ["O apelido", "O sobrenome", "O nome do meio"]
     resposta: 1
     explicacao: "Apellido é o sobrenome. O apelido é el apodo (ou sobrenombre)."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer os falsos amigos mais comuns entre português e espanhol, entender frases que os trazem sem cair na armadilha e montar uma lista própria para não errar de novo.
+
+
 O português e o espanhol vêm do latim e têm milhares de palavras em comum. Isso é uma vantagem enorme para quem estuda. Mas algumas palavras têm a mesma forma, ou quase, e sentidos diferentes. São os **falsos amigos** (ou falsos cognatos), e eles estão por trás das confusões mais engraçadas do "portunhol", e de algumas bem constrangedoras.
+
+```suarealidade
+Já aconteceu de você entender errado uma palavra de outra língua só porque ela parecia com uma palavra do português? O que era, e o que ela queria dizer de verdade?
+```
 
 ## Por que eles existem
 
@@ -117,6 +127,30 @@ Tradução: — Que jantar delicioso! Quem fez? — Minha sogra. Mas espere um p
 3. **Aprenda a palavra com a frase.** Decorar "oficina = escritório" ajuda, mas lembrar *trabajo en una oficina* ajuda mais.
 4. **Crie uma lista própria.** Cada vez que um falso amigo o enganar, anote. É assim que eles deixam de enganar.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "As duas línguas são tão parecidas que dá para falar misturando. Quem não sabe uma palavra, inventa, e o outro entende".
+---
+Como você responderia, reconhecendo o que há de verdade nisso?
+---
+Uma resposta possível: a semelhança é uma vantagem real, e a aula começa dizendo isso. Mas é a semelhança que engana em palavras como embarazada (grávida), exquisito (delicioso) e borracha (bêbada). A saída não é ter medo: é conhecer os falsos amigos um a um e guardar uma lista própria.
+```
+
+## Exemplo resolvido
+
+**O que quer dizer "Mi hermana está embarazada y trabaja en una oficina"?**
+
+1. **embarazada** parece "embaraçada", mas é um falso amigo: quer dizer *grávida*. Para "envergonhada", o espanhol usa *avergonzada*.
+2. **oficina** parece "oficina mecânica", mas quer dizer *escritório*. A oficina mecânica é *taller*.
+3. Monte a frase em português: "Minha irmã está grávida e trabalha num escritório".
+
+Confira: se você tivesse lido "embaraçada" e "oficina mecânica", a frase teria perdido o sentido. É esse o sinal de alerta: frase estranha com palavra fácil, consulte o dicionário.
+
+```agir
+# Esta semana
+Anote num papel três falsos amigos que mais te surpreenderam e escreva uma frase em espanhol com cada um. Mostre a lista a alguém e explique o que cada palavra quer dizer.
+```
+
 ## Para praticar
 
 1. Traduza para o português: *Mi hermana está embarazada. El pulpo estaba exquisito. Trabajo en una oficina en el centro. No me acuerdo de tu apellido.*
@@ -124,3 +158,10 @@ Tradução: — Que jantar delicioso! Quem fez? — Minha sogra. Mas espere um p
 3. Escolha cinco palavras das tabelas e escreva uma frase com cada uma.
 
 Respostas do 1: *Minha irmã está grávida. O polvo estava delicioso. Trabalho num escritório no centro. Não me lembro do seu sobrenome.* Uma resposta possível do 2: *Mi perro tuvo cachorros. / Todavía no estoy listo. / Hay mucho polvo en la oficina.*
+
+## Resumo
+
+- Falsos amigos são palavras parecidas nas duas línguas, com sentidos diferentes.
+- Os clássicos: *embarazada* (grávida), *exquisito* (delicioso), *oficina* (escritório), *borracha* (bêbada), *rato* (momento).
+- Alguns do dia a dia: *pronto* (logo), *todavía* (ainda), *acordarse* (lembrar-se).
+- Para se proteger: desconfie de palavra fácil demais, use um dicionário em espanhol, aprenda a palavra dentro de uma frase e mantenha uma lista própria.

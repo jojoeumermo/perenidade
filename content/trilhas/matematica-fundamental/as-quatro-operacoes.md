@@ -23,7 +23,16 @@ quiz:
     opcoes: ["Somando 316 + 187 e vendo se dá 503", "Multiplicando 316 por 187", "Subtraindo 503 de 187"]
     resposta: 0
     explicacao: "A soma desfaz a subtração. Se 316 + 187 = 503, a conta está certa."
+modelo: 9
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escolher a operação certa para cada situação, fazer as quatro contas no papel e conferir o resultado com a prova real.
+
+```suarealidade
+Que contas você faz de cabeça no trabalho ou em casa (dar troco, rachar a conta do gás, calcular passagens)? Como você pensa quando faz, e como seria escrever isso no papel?
+```
 
 ## Você já faz conta
 
@@ -128,6 +137,28 @@ Cuidado: na subtração e na divisão a ordem **importa**. 10 − 4 não é o me
 
 **Respostas:** 1) 2.125. 2) 635. 3) 540. 4) 125. 5) 60 kg. 6) R$ 220.
 
+```outrolado
+# O argumento de quem diz que a conta se aprende na calculadora
+"Todo celular tem calculadora. Aprender a fazer as quatro operações no papel é perda de tempo."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A calculadora ajuda, e a aula até sugere treinar com ela, tentando acertar antes de apertar o igual. Mas ela não escolhe a operação: a parte mais importante é perguntar se você está juntando, tirando, repetindo ou repartindo. E quem sabe a prova real e os atalhos de cabeça percebe quando um número digitado errado deu uma resposta que não faz sentido.
+```
+
+```agir
+# Esta semana
+Escolha uma conta que você faz de cabeça no seu dia a dia e escreva no papel, passo a passo, como você a resolve. Depois confira com a prova real (a operação inversa). Anote se o seu jeito é diferente do jeito da escola.
+```
+
 ## Para conversar
 
 Que contas você faz de cabeça no trabalho ou em casa? Tente escrever uma delas no papel, passo a passo. Onde o seu jeito de pensar é diferente do jeito da escola?
+
+## Resumo
+
+- Antes de calcular, pergunte: estou juntando (soma), tirando (subtração), repetindo (multiplicação) ou repartindo (divisão)?
+- Soma e subtração: unidade embaixo de unidade, da direita para a esquerda; na subtração, "completar" ajuda de cabeça.
+- Multiplicar é somar parcelas iguais; para números maiores, quebre um deles (36 × 24 = 720 + 144).
+- Dividendo = divisor × quociente + resto, e o resto é menor que o divisor.
+- Soma e subtração são inversas, assim como multiplicação e divisão: use a prova real.

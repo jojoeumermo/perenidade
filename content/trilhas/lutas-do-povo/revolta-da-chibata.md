@@ -30,6 +30,10 @@ quiz:
     explicacao: "O próprio manifesto dos marinheiros falava em não poder mais suportar 'a escravidão na Marinha brasileira'."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como os marinheiros se revoltaram contra a chibata em novembro de 1910, o que pediram e o que aconteceu depois.
+
 ## A Marinha depois da abolição
 
 Em 1910, a escravidão tinha acabado havia 22 anos. Mas, nos navios da Marinha de Guerra, quem estava embaixo ainda vivia como se ela não tivesse terminado.
@@ -111,3 +115,10 @@ A revolta aconteceu na mesma Primeira República que destruiu [Canudos](/trilhas
 1. Os marinheiros pediram, entre outras coisas, educação. Por que você acha que isso estava na lista, ao lado do fim da chibata?
 2. Por que o governo prometeu a anistia e depois perseguiu os marinheiros? O que isso diz sobre negociar com quem tem o poder?
 3. Que castigos e humilhações no trabalho existem ainda hoje, mesmo proibidos por lei? Como os trabalhadores podem enfrentá-los?
+
+## Resumo
+
+- Em 1910, passados 22 anos da abolição, os marinheiros da Marinha (na maioria homens negros e pardos, pobres) ainda eram castigados com a chibata.
+- A revolta foi preparada em reuniões secretas; o estopim foi o castigo de 250 chibatadas em Marcelino Rodrigues Menezes, do Minas Geraes.
+- O levante começou em 22 de novembro de 1910; veio uma anistia e depois a perseguição aos marinheiros.
+- A revolta ensina sobre a luta contra castigos e humilhações no trabalho.

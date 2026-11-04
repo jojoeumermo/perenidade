@@ -29,6 +29,11 @@ quiz:
     resposta: 1
     explicacao: "Repassar 'por via das dúvidas' é exatamente como a mentira se espalha."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir conteúdo inventado, fora de contexto e distorcido, aplicar sete perguntas para conferir uma mensagem e usar busca reversa e agências de checagem.
+
+
 
 ## Mentira corre mais
 
@@ -81,6 +86,27 @@ Perguntar "a quem isso interessa?" não prova que uma informação é falsa, mas
 ## A regra final
 
 **Na dúvida, não compartilhe.** Cada pessoa que deixa de repassar uma mentira quebra a corrente. E, quando alguém próximo compartilhar algo falso, responda em particular, com a fonte, sem humilhar: quase todo mundo já caiu em alguma.
+
+## Exemplo resolvido: aplicando as sete perguntas
+
+Mensagem inventada, para treinar: "URGENTE! Chá milagroso cura a doença, segundo um médico famoso. Repasse antes que apaguem!"
+
+1. **O que isso me faz sentir?** O "urgente" e o "antes que apaguem" tentam provocar medo e pressa: é o gancho. Pare.
+2. **Quem publicou?** Não há veículo, autor nem órgão responsável.
+3. **Qual é a fonte?** "Um médico famoso" não é fonte: não diz o nome, a pesquisa nem onde foi publicado.
+4. **Mais alguém deu?** Pesquise o assunto: um fato importante aparece em vários veículos. Se só existe na corrente, desconfie.
+5. **Já foi checado?** Consulte a Lupa, o Aos Fatos e o Comprova.
+6. **Decisão:** na dúvida, não compartilhe; se alguém próximo repassou, responda em particular.
+
+Confira: a mensagem falha em pelo menos quatro das sete perguntas. Nem precisou de busca reversa, que serve quando a mensagem traz uma imagem.
+
+## Resumo
+
+- Em 2018, pesquisadores do MIT mostraram que histórias falsas circulam mais do que as verdadeiras, porque são feitas para provocar espanto, raiva ou medo.
+- Três tipos de conteúdo enganoso: inventado, fora de contexto e distorcido. Nem todo erro é mentira: os sérios corrigem.
+- As sete perguntas: o que sinto, quem publicou, quando, qual a fonte, quem mais deu, a imagem é dessa história e já foi checado.
+- A busca reversa mostra onde uma imagem já apareceu; agências de checagem: Lupa, Aos Fatos e Comprova.
+- Alguém ganha com a mentira (dinheiro, poder, plataformas). Na dúvida, não compartilhe.
 
 ## Para praticar
 

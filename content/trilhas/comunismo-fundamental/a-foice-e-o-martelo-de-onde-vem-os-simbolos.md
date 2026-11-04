@@ -28,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "O vermelho passou a simbolizar o sangue dos trabalhadores e a revolução."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer de onde vêm a bandeira vermelha, a foice e o martelo, a estrela, o punho erguido, o hino A Internacional e o 1º de Maio.
 
 Bandeiras, canções e gestos têm força: unem pessoas, lembram lutas passadas, dão coragem. O movimento operário criou os seus próprios símbolos ao longo de mais de dois séculos. Esta aula conta de onde eles vêm.
 
@@ -74,3 +77,24 @@ O movimento operário e popular brasileiro também criou os seus símbolos: a ba
 ## Para conversar
 
 Que símbolos, cores ou canções unem as pessoas na sua comunidade, no seu sindicato ou no seu movimento? De onde eles vêm?
+
+## Exemplo resolvido
+
+**Por que a bandeira vermelha, que servia às autoridades, virou símbolo dos trabalhadores? Siga a história.**
+
+1. **Na Revolução Francesa.** Uma bandeira vermelha era usada pelas autoridades para anunciar a lei marcial contra multidões.
+2. **A inversão.** Os revolucionários inverteram o sentido: o vermelho passou a representar a insurreição do povo.
+3. **1848.** Operários de Paris levantaram a bandeira vermelha.
+4. **1871.** Na Comuna de Paris, ela foi adotada como bandeira do governo dos trabalhadores.
+5. **Conclua.** Desde então o vermelho simboliza o sangue derramado pelos trabalhadores em suas lutas e a própria revolução.
+
+Confira: o mesmo raciocínio vale para a foice e o martelo, que em 1917 representavam a aliança entre camponeses (foice) e operários (martelo).
+
+## Resumo
+
+- **Bandeira vermelha:** de sinal de lei marcial na Revolução Francesa a símbolo da insurreição popular (1848) e do governo da Comuna de Paris (1871).
+- **Foice e martelo:** a aliança entre camponeses e operários na Rússia de 1917; adotados pelo Estado soviético a partir de 1918.
+- **Estrela vermelha:** adotada pelo Exército Vermelho soviético.
+- **Punho erguido:** saudação antifascista dos anos 1920 e 1930; usado também por Tommie Smith e John Carlos em 1968.
+- **A Internacional:** letra de Eugène Pottier (1871), música de Pierre De Geyter (1888).
+- **1º de Maio:** lembra a greve de 1886 em Chicago pela jornada de oito horas.

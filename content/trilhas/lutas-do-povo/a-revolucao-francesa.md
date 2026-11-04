@@ -28,6 +28,11 @@ quiz:
     explicacao: "Ela denunciou que a declaração de 1789 deixava as mulheres de fora. Foi guilhotinada em 1793."
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar as causas da Revolução Francesa de 1789, seus principais acontecimentos e por que Marx a chamou de revolução burguesa.
+
 ## A França do Antigo Regime
 
 Em 1789, a França tinha cerca de 28 milhões de habitantes, quase todos camponeses. O rei Luís XVI governava como monarca absoluto. A sociedade era dividida em três "estados", com direitos diferentes por nascimento:
@@ -75,3 +80,21 @@ Em julho de 1794 (o mês de Termidor, no calendário revolucionário), Robespier
 - Um modelo de revolução que inspirou o Haiti, a América Latina e os movimentos do século XIX.
 
 Para Marx, foi o exemplo clássico de **revolução burguesa**: o povo fez a revolução, mas quem ficou com o poder foi a burguesia. Ainda durante a revolução, Gracchus Babeuf e a sua "Conspiração dos Iguais" (1796) já diziam que a igualdade perante a lei não bastava sem igualdade de condições. Dessa crítica nasceria, no século seguinte, o socialismo.
+
+## Exemplo resolvido
+
+**Por que o terceiro estado se proclamou Assembleia Nacional em 1789?**
+
+1. A sociedade era dividida em três "estados": clero e nobreza (que não pagavam a maior parte dos impostos) e o **terceiro estado** (camponeses, artesãos, trabalhadores das cidades e a burguesia).
+2. O Estado estava falido e o pão, caríssimo; o rei convocou os **Estados Gerais** para criar novos impostos.
+3. Os deputados do terceiro estado recusaram votar em separado e, em junho, proclamaram-se **Assembleia Nacional**, representante de toda a nação.
+4. Em 14 de julho, a população tomou a Bastilha; na noite de 4 de agosto, a Assembleia aboliu os privilégios feudais.
+
+Confira: a pressão do povo nas ruas e no campo empurrou a Assembleia. Mas, para Marx, quem ficou com o poder foi a burguesia.
+
+## Resumo
+
+- Em 1789, a França tinha cerca de 28 milhões de habitantes, quase todos camponeses, sob um monarca absoluto e uma sociedade de três estados.
+- Os Estados Gerais, a Assembleia Nacional, a tomada da Bastilha (14 de julho) e o fim dos privilégios feudais marcaram 1789.
+- A Declaração dos Direitos do Homem e do Cidadão afirmou a liberdade e a igualdade perante a lei, ainda que incompleta.
+- Para Marx, foi o exemplo clássico de revolução burguesa; a crítica de Babeuf (1796) anunciava o socialismo.

@@ -28,6 +28,11 @@ quiz:
     explicacao: "Yo que tú (eu, no seu lugar) + condicional."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber falar do futuro com ir a + infinitivo e com o futuro simples, e pedir ou aconselhar com educação usando o condicional.
+
+
 ## O futuro mais usado: ir a + infinitivo
 
 Na conversa do dia a dia, o futuro mais comum é igual ao nosso "vou fazer":
@@ -99,9 +104,26 @@ Como se pede algo de forma educada: "Poderia repetir, por favor?"
 > Pedido educado: condicional.
 ```
 
+## Exemplo resolvido
+
+**Como dizer "Amanhã vou trabalhar, mas semana que vem terei tempo; poderia me ajudar com este formulário?"**
+
+1. **Plano próximo:** *Mañana voy a trabajar* (ir + a + infinitivo, com o *a*).
+2. **Futuro simples:** *tener* tem radical irregular, *tendr-*: *la semana que viene tendré tiempo*.
+3. **Pedido educado:** condicional, *podría*: *¿Podría ayudarme con este formulario?*
+
+Confira: o radical *tendr-* serve para o futuro (*tendré*) e para o condicional (*tendría*).
+
 ## Para praticar
 
 1. Escreva três planos para o próximo mês com *ir a + infinitivo*.
 2. Conjugue no futuro e no condicional, com yo: hacer, decir, salir, poder.
 3. Dê três conselhos a um amigo que vai começar a trabalhar, com *yo que tú* e *deberías*.
 4. Faça suposições com o futuro: *¿Qué hora es? —Serán las...*
+
+## Resumo
+
+- **Ir a + infinitivo** é o futuro mais usado na conversa: *voy a estudiar*.
+- **Futuro simples**: infinitivo + *-é, -ás, -á, -emos, -éis, -án*; irregulares como *tendré, saldré, haré, diré*.
+- O futuro também faz suposição sobre o presente: *Estará en el trabajo*.
+- **Condicional**: mesmo radical + *-ía, -ías, -ía, -íamos, -íais, -ían*; serve para pedidos educados, conselhos e hipóteses.

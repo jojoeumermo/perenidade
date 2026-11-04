@@ -1,0 +1,51 @@
+# Exercícios da aula "A foice e o martelo: de onde vêm os símbolos" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-foice-01
+  tema: "A bandeira vermelha"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Como a bandeira vermelha passou a simbolizar a insurreição do povo, segundo a aula?"
+  alternativas:
+    - texto: "Sempre foi o símbolo do povo, desde a Idade Média"
+      erro: "Na Revolução Francesa as autoridades usavam a bandeira para anunciar lei marcial."
+    - texto: "Os revolucionários inverteram o sentido: ela era usada pelas autoridades para anunciar a lei marcial contra multidões"
+      certa: true
+    - texto: "Foi criada pela URSS em 1918"
+      erro: "Ela já era usada nas revoluções de 1848 e na Comuna de Paris de 1871."
+  explicacao: "Na Comuna de Paris de 1871 foi adotada como bandeira do governo dos trabalhadores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-foice-02
+  tema: "Foice e martelo"
+  dificuldade: 1
+  enunciado: "O que representam a foice e o martelo cruzados?"
+  alternativas:
+    - texto: "A aliança entre soldados e padres"
+      erro: "A foice é o trabalho no campo e o martelo, na fábrica."
+    - texto: "Apenas ferramentas de trabalho sem sentido político"
+      erro: "Representavam a aliança operário-camponesa na Rússia de 1917."
+    - texto: "A aliança entre camponeses (foice) e operários (martelo)"
+      certa: true
+  explicacao: "O símbolo foi adotado pelo Estado soviético a partir de 1918."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-foice-03
+  tema: "Adaptações"
+  dificuldade: 2
+  enunciado: "O que a bandeira de Angola tem, adaptando a foice e o martelo?"
+  alternativas:
+    - texto: "Uma meia roda dentada e um facão"
+      certa: true
+    - texto: "Um pincel"
+      erro: "O pincel foi acrescentado pelo Partido dos Trabalhadores da Coreia, para os intelectuais."
+    - texto: "Uma estrela de cinco pontas e uma espada"
+      erro: "A bandeira de Angola tem meia roda dentada e um facão."
+  explicacao: "Alguns partidos e países adaptaram o símbolo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

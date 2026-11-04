@@ -1,0 +1,51 @@
+# Exercícios da aula "História do Brasil para a prova" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-hist-01
+  tema: "Marcos da história"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual lei pôs fim à escravidão no Brasil, em 13 de maio de 1888?"
+  alternativas:
+    - texto: "Lei do Ventre Livre"
+      erro: "A Lei do Ventre Livre (1871) libertou os filhos de mulheres escravizadas nascidos a partir dela, mas não acabou com a escravidão."
+    - texto: "Lei Áurea"
+      certa: true
+    - texto: "Lei dos Sexagenários"
+      erro: "Essa lei (1885) tratava de pessoas escravizadas com mais de 60 anos. A escravidão só acabou com a Lei Áurea."
+  explicacao: "A Lei Áurea (Lei 3.353, de 13 de maio de 1888) declarou extinta a escravidão no Brasil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-hist-02
+  tema: "Direitos do trabalho"
+  dificuldade: 2
+  enunciado: "No governo de Getúlio Vargas foi criada a CLT. Em que ano?"
+  alternativas:
+    - texto: "1822"
+      erro: "Esse é o ano da Independência. A CLT veio muito depois."
+    - texto: "1943"
+      certa: true
+    - texto: "1988"
+      erro: "Em 1988 foi aprovada a Constituição atual. A CLT é de 1943."
+  explicacao: "A Consolidação das Leis do Trabalho (CLT) é de 1943, na Era Vargas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-hist-03
+  tema: "Democracia"
+  dificuldade: 2
+  enunciado: "Qual é a Constituição em vigor no Brasil, chamada de Constituição Cidadã?"
+  alternativas:
+    - texto: "A de 1824"
+      erro: "A de 1824 foi a do Império. A Constituição atual é bem mais recente."
+    - texto: "A de 1937"
+      erro: "A de 1937 foi a do Estado Novo, em período de ditadura."
+    - texto: "A de 1988"
+      certa: true
+  explicacao: "A Constituição de 1988 é a que vale hoje e garantiu direitos sociais e liberdades após a ditadura militar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

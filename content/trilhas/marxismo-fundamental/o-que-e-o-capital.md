@@ -26,6 +26,10 @@ quiz:
     explicacao: "Uma máquina parada num deserto não é capital. Ela vira capital quando há gente obrigada a trabalhar nela para outro."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir dinheiro usado para consumir de dinheiro usado como capital e explicar as fórmulas M–D–M e D–M–D'.
+
 "Precisamos atrair capital." "Faltou capital para abrir a empresa." A palavra **capital** aparece o tempo todo. Mas o que ela quer dizer exatamente? Para Marx, a resposta é a chave para entender o nosso tempo, e é por isso que o seu livro mais famoso se chama *O Capital*.
 
 ## Nem todo dinheiro é capital
@@ -79,3 +83,10 @@ Uma vez em movimento, o capital parece ter vida própria. O patrão que não rei
 ## Para conversar
 
 No seu bairro, quais negócios funcionam como capital (contratam gente e vivem do lucro) e quais são trabalho por conta própria (a pessoa vive do próprio trabalho)? Qual é a diferença na vida de quem trabalha em cada um?
+
+## Resumo
+
+- Nem todo dinheiro é capital: o de Dona Cida (para comprar uma geladeira) é para consumir; o de Seu Roberto (para fazer pães e vender com lucro) é capital.
+- M–D–M: vender mercadoria para comprar outra; é o caminho de quem vive do salário.
+- D–M–D': usar dinheiro para comprar mercadorias e vendê-las por mais dinheiro; é o movimento do capital.
+- O capital é uma relação social e funciona como lógica que manda em patrões e trabalhadores.

@@ -1,0 +1,57 @@
+# Exercícios da aula "Hidrômetro e conta de água" (Encanador). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: enc-hidrometro-01
+  tipo: numero
+  tema: "Consumo pelo hidrômetro"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A leitura do hidrômetro passou de 312 m³ para 327 m³ em um mês. Qual foi o consumo, em m³?"
+  resposta: "15"
+  unidade: "m³"
+  erros_comuns:
+    - resposta: "639"
+      explicacao: "Você somou as leituras. O consumo é a diferença entre a leitura atual e a anterior."
+    - resposta: "327"
+      explicacao: "Essa é a leitura atual, e não o consumo do mês. Subtraia a leitura anterior."
+  dica: "Leitura atual menos leitura anterior."
+  explicacao: "327 − 312 = 15 m³."
+  conferir: "327 - 312"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-hidrometro-02
+  tipo: numero
+  tema: "Metros cúbicos em litros"
+  dificuldade: 1
+  enunciado: "Uma casa consumiu 12 m³ em um mês. Quantos litros são?"
+  resposta: "12000"
+  unidade: "litros"
+  erros_comuns:
+    - resposta: "120"
+      explicacao: "Você multiplicou por 10. 1 m³ tem 1.000 litros."
+    - resposta: "12"
+      explicacao: "Esse é o valor em m³. Para litros, multiplique por 1.000."
+  dica: "1 m³ = 1.000 litros."
+  explicacao: "12 × 1.000 = 12.000 litros."
+  conferir: "12 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-hidrometro-03
+  tema: "Conta alta"
+  dificuldade: 2
+  enunciado: "A conta de água veio bem mais alta que o normal, sem explicação. Qual é a melhor sequência de ações?"
+  alternativas:
+    - texto: "Pagar sem olhar e esperar que baixe"
+      erro: "Sem conferir, pode-se pagar por erro ou vazamento. Confira a leitura e teste vazamento."
+    - texto: "Conferir a leitura do hidrômetro, fazer o teste de vazamento e, se não bater, reclamar à companhia e guardar o protocolo"
+      certa: true
+    - texto: "Cortar a água da casa por conta própria no cavalete e esperar a companhia vir"
+      erro: "Mexer no cavalete e no hidrômetro por conta própria pode ser proibido. Reclame pelos canais da companhia."
+  explicacao: "Conferir, testar e reclamar com protocolo é o caminho. Se não resolver, ouvidoria, agência reguladora e Procon."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

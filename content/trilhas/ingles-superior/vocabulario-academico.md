@@ -27,6 +27,10 @@ quiz:
     explicacao: "Em inglês se diz conduct ou carry out research, e não make research."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer o vocabulário comum a todas as disciplinas, montar famílias de palavras e estudar colocações acadêmicas.
+
 ## Um vocabulário à parte
 
 Textos acadêmicos usam, além das palavras do dia a dia e dos termos técnicos de cada área, um conjunto de palavras **comuns a todas as disciplinas**: *analyze, approach, concept, data, evidence, factor, method, significant, theory*.
@@ -120,9 +124,26 @@ Dizer *make a research* é um erro comum de quem pensa em português.
 4. Revise em intervalos crescentes (um dia, uma semana, um mês).
 5. Use as palavras ao escrever um resumo.
 
+## Exemplo resolvido
+
+**Corrija: "We made a research." / "There is an evidence." / "The economical crisis."**
+
+1. *Research* é incontável e a colocação usual é *do research* ou *conduct research*: *We did research.*
+2. *Evidence* também é incontável: não leva *an* nem plural: *There is evidence.*
+3. O adjetivo de *economy* para crise é *economic*, e não *economical*: *The economic crisis.*
+
+Confira: as três correções são de **colocação e família de palavras**, o que a aula pede para registrar junto com cada palavra nova.
+
 ## Para praticar
 
 1. Monte a família de palavras de: develop, interpret, analyze.
 2. Encontre cinco palavras da tabela em um artigo da sua área e copie a frase em que aparecem.
 3. Corrija: "We made a research." / "There is an evidence." / "The economical crisis."
 4. Escreva três frases com colocações acadêmicas sobre um tema que você estuda.
+
+## Resumo
+
+- Existe um vocabulário acadêmico comum a todas as áreas (*analyze, concept, evidence, method, theory*).
+- A *Academic Word List*, de Averil Coxhead (2000), reúne 570 famílias de palavras frequentes em textos acadêmicos.
+- Aprender a família (verbo, substantivo, adjetivo) e a colocação rende mais que decorar a palavra isolada.
+- Boa parte vem do latim e tem cognatos em português.

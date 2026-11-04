@@ -29,6 +29,10 @@ quiz:
     resposta: 1
     explicacao: "Esse período, em que a cultura grega se misturou com as do Oriente, é chamado de helenístico."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que a Grécia era um mundo de cidades, como funcionava a democracia ateniense, o que foram as guerras e o império de Alexandre e o que herdamos dos gregos.
+
 
 ## Um mundo de cidades
 
@@ -93,8 +97,27 @@ Dos gregos vêm palavras e ideias que usamos todos os dias.
 
 Os gregos, porém, não inventaram tudo sozinhos. Aprenderam muito com os egípcios, os fenícios (de quem adaptaram o alfabeto) e os povos da Mesopotâmia.
 
+## Exemplo resolvido
+
+**Em que século surgiu a democracia ateniense, e quanto tempo se passou até a morte de Alexandre?**
+
+1. A aula diz que Atenas adotou a democracia no fim do século VI a.C. O século VI a.C. vai de 600 a 501 a.C.; seu fim está por volta do ano 500 a.C.
+2. Alexandre morreu em 323 a.C., que está no século IV a.C. (400 a 301 a.C.).
+3. Subtraia as datas: 500 − 323 = cerca de **177 anos**, aproximadamente dois séculos menos uns anos.
+4. Entre as duas datas, no século V a.C., as cidades gregas enfrentaram as invasões persas e depois houve a guerra entre Atenas e Esparta, como a aula conta.
+
+Leitura: a democracia de Atenas e o império de Alexandre não são do mesmo tempo. Uma é da cidade que governa a si mesma; o outro, de um reino que conquistou grandes territórios.
+
 ## Para pesquisar e debater
 
 1. Compare a democracia de Atenas com a nossa. O que cada uma tem que falta à outra?
 2. O sorteio para cargos públicos seria uma boa ideia hoje? Por quê?
 3. Quem faz, hoje, o trabalho que permite a outros ter tempo livre para a política e o estudo?
+
+## Resumo
+
+- A Grécia antiga era um conjunto de centenas de cidades independentes, cada uma com seu governo, suas leis e seu exército.
+- No fim do século VI a.C., Atenas adotou a democracia (poder do povo), uma democracia direta.
+- No século V a.C., as cidades gregas se uniram contra as invasões persas e venceram; depois Atenas e Esparta se enfrentaram em uma guerra.
+- No século IV a.C., a Macedônia dominou a Grécia; Alexandre conquistou o Império Persa, chegou à Índia e morreu em 323 a.C.
+- Dos gregos vêm a filosofia (Sócrates, Platão, Aristóteles), o teatro e muitas palavras que usamos até hoje.

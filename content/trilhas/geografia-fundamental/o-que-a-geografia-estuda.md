@@ -42,7 +42,16 @@ quiz:
     opcoes: ["Que a fome é um castigo da natureza", "Que a fome no Brasil era resultado da forma como a sociedade e a economia estavam organizadas", "Que só havia fome no exterior"]
     resposta: 1
     explicacao: "Ele mapeou a fome pelo país e mostrou que ela tinha causas sociais, e não naturais."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que o espaço geográfico é, reconhecer os conceitos-chave da geografia e olhar um problema do seu bairro como um geógrafo.
+
+
+```suarealidade
+Pense no caminho entre a sua casa e o seu trabalho. O que você vê nele é natureza e o que foi construído? Quem decidiu que ali seria assim?
+```
 
 ## Geografia não é decorar capitais
 
@@ -123,3 +132,25 @@ Estudar geografia, portanto, é ganhar ferramentas para entender o lugar onde se
 1. Descreva a paisagem que você vê da sua janela ou do ponto de ônibus. O que é natural e o que foi construído?
 2. Escolha um problema do seu bairro (falta de transporte, alagamento, lixo, falta de posto de saúde). Que perguntas geográficas ajudam a explicá-lo: onde, por que ali, desde quando, quem decide?
 3. Que territórios existem no seu bairro? Quem controla cada um, e quem fica de fora?
+
+```outrolado
+# O argumento de quem acha que o celular já basta
+Hoje o aplicativo de mapa diz onde eu estou e por onde ir. Para que estudar geografia, se a resposta vem pronta no celular?
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O aplicativo responde "onde" e "como chegar". A geografia pergunta por quê: por que as mesmas ruas alagam todo verão, por que a população se concentra em certas regiões, por que um mapa-múndi distorce o tamanho dos países. Quem sabe ler a escala, a legenda e a projeção percebe o que o mapa mostra e o que esconde, e também quem o fez e para quê (como lembra Lacoste, citado na aula).
+```
+
+```agir
+# Esta semana
+Desenhe à mão, em um papel, o seu caminho de casa até o trabalho ou o ponto de ônibus. Marque três lugares que importam para você (uma praça, um posto de saúde, um ponto de ônibus) e escreva ao lado de cada um se é natureza ou foi construído. Marque lugares, não pessoas. O papel fica com você.
+```
+
+## Resumo
+
+- A geografia não é decorar capitais: pergunta por que as coisas estão onde estão e o que isso significa para as pessoas.
+- O objeto da geografia é o espaço geográfico: a natureza transformada pelo trabalho humano.
+- Conceitos-chave (BNCC): paisagem, lugar, território, região e natureza.
+- No exemplo da enchente, natureza, ocupação, obras e decisões políticas se juntam para explicar o problema.
+- Mapas e dados são as ferramentas; a geografia também serve ao poder (Lacoste, 1976), por isso é preciso saber lê-la criticamente.

@@ -36,7 +36,17 @@ quiz:
     opcoes: ["Que ela era inconstitucional", "Que ela é constitucional e que o piso se refere ao vencimento básico", "Que só valia para escolas federais"]
     resposta: 1
     explicacao: "Ao julgar a ADI 4.167, o STF confirmou a lei e definiu que gratificações não entram na conta para alcançar o piso."
+modelo: 9
 ---
+
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é o piso salarial nacional do magistério (Lei 11.738), a quem vale, o que a hora-atividade garante e o que fazer quando o piso não é pago.
+
+```suarealidade
+Você sabe qual é o vencimento básico, e não o total, de quem dá aula na escola do seu bairro? Se trabalha na educação ou conhece alguém que trabalha, o que costuma aparecer além do básico no contracheque?
+```
 
 ## Uma lei conquistada
 
@@ -101,3 +111,25 @@ Na prática, o descumprimento aparece de várias formas:
 ## Por que isso é assunto de todo mundo
 
 Salário baixo afasta gente boa da profissão, obriga quem fica a dar aula em três escolas e tira o tempo de preparar aula. Quem paga é o aluno da escola pública. Por isso, quando professoras e professores fazem greve pelo piso, estão defendendo o próprio salário e, junto, a escola dos filhos de quem trabalha.
+
+```outrolado
+# O argumento de quem diz que o piso não cabe no orçamento
+"Estados e municípios não têm dinheiro para pagar o piso. Se a lei obrigar, falta para a merenda, para a reforma da escola e para o transporte."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A preocupação com o orçamento é real, e a lei a considera: parte dos recursos da educação básica vem do Fundeb, o fundo que redistribui dinheiro entre as redes, e há complementação da União para os lugares que comprovem não conseguir pagar. O Supremo Tribunal Federal, ao julgar a ADI 4.167 (2011), decidiu que a lei é constitucional. E salário baixo afasta gente boa da profissão e obriga quem fica a dar aula em três escolas, o que prejudica o aluno da escola pública.
+```
+
+```agir
+# Esta semana
+No papel, calcule o piso proporcional para a jornada de uma professora de 20 horas semanais, a partir do valor do piso para 40 horas que a aula traz. Depois escreva em duas linhas o que a hora-atividade garante (um terço da jornada fora da sala) e converse sobre isso com alguém da sua convivência. Não é preciso mostrar o contracheque a ninguém.
+```
+
+## Resumo
+
+- A Lei 11.738, de 16 de julho de 2008 (Lei do Piso), fixa o valor abaixo do qual o vencimento inicial do magistério público da educação básica não pode ficar, para 40 horas semanais.
+- Jornadas menores recebem, no mínimo, o valor proporcional.
+- No máximo dois terços da jornada podem ser com os alunos; o terço restante é hora-atividade.
+- O Supremo (ADI 4.167, 2011) decidiu que a lei é constitucional e que o piso se refere ao vencimento básico, sem penduricalhos.
+- Se o piso não é pago: confira o contracheque, procure o sindicato, cobre em conjunto, acione a Câmara e o Ministério Público e, se preciso, a Justiça.

@@ -26,6 +26,10 @@ quiz:
     explicacao: "A mais-valia absoluta cresce esticando o tempo de trabalho. A relativa cresce aumentando a produtividade."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar de onde vem o lucro segundo Marx, o que é a força de trabalho e como se calcula a parte da jornada trabalhada de graça.
+
 ## A pergunta
 
 Um empresário compra máquinas, matéria-prima e contrata trabalhadores. No fim do mês, vende os produtos e fica com mais dinheiro do que gastou. **De onde vem essa diferença?**
@@ -40,7 +44,7 @@ Uma máquina só transfere ao produto o valor que ela mesma custou, pouco a pouc
 
 E aqui está o ponto central: o trabalhador não vende ao patrão o **produto** do seu trabalho. Ele vende a sua **força de trabalho por um certo tempo**. O salário paga o que o trabalhador precisa para viver e voltar a trabalhar no dia seguinte. Mas, durante a jornada, ele produz mais do que isso.
 
-## Um exemplo
+## Um exemplo resolvido
 
 Uma costureira trabalha 8 horas por dia em uma confecção.
 
@@ -72,3 +76,10 @@ Quando a tecnologia permite produzir o mesmo em metade do tempo, o que costuma a
 ## Para ler
 
 Em [Salário, Preço e Lucro](/acervo/salario-preco-e-lucro), o próprio Marx explica a mais-valia em uma conferência para trabalhadores. Para ir fundo, o caminho é [O Capital](/acervo/o-capital).
+
+## Resumo
+
+- O lucro não vem só de "comprar barato e vender caro": alguém precisa produzir o valor a mais.
+- Só o trabalho humano cria valor novo; a máquina transfere ao produto o valor que ela custou.
+- O trabalhador vende a força de trabalho por um tempo; o salário paga o necessário para viver, e a jornada produz mais que isso.
+- A mais-valia é o valor produzido além do equivalente ao salário; ela aumenta com a jornada mais longa ou com a produção mais rápida.

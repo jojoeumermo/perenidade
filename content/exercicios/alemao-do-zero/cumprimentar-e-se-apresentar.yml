@@ -1,0 +1,51 @@
+# Exercícios da aula "Cumprimentar e se apresentar" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-cumprimentar-01
+  tema: "Cumprimentos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Você chega a um lugar à noite. Qual cumprimento em alemão você usa ao chegar?"
+  alternativas:
+    - texto: "Guten Abend!"
+      certa: true
+    - texto: "Gute Nacht!"
+      erro: "Gute Nacht é a boa noite de quem vai dormir, uma despedida. Ao chegar, diz-se Guten Abend."
+    - texto: "Guten Morgen!"
+      erro: "Guten Morgen é bom dia, até umas 11h."
+  explicacao: "Guten Abend é a boa noite ao chegar; Gute Nacht é a boa noite ao ir dormir."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-cumprimentar-02
+  tema: "Du ou Sie"
+  dificuldade: 2
+  enunciado: "Você vai falar com uma pessoa adulta que não conhece, num atendimento formal. Qual tratamento usar, na dúvida?"
+  alternativas:
+    - texto: "Sie, o tratamento formal"
+      certa: true
+    - texto: "du, o tratamento informal"
+      erro: "O du é para amigos, família, crianças e colegas próximos. Com adulto desconhecido, na dúvida, comece com Sie."
+    - texto: "ihr, que é o tratamento para uma pessoa só"
+      erro: "ihr é o informal para mais de uma pessoa (vocês). Para um adulto desconhecido use Sie."
+  explicacao: "Na dúvida, comece com Sie, sempre com maiúscula. Se a pessoa quiser, ela propõe: Wir können uns duzen."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-cumprimentar-03
+  tema: "Dizer o nome"
+  dificuldade: 1
+  enunciado: "Como se diz, em alemão, \"Eu me chamo Maria\"?"
+  alternativas:
+    - texto: "Ich heiße Maria."
+      certa: true
+    - texto: "Du heißt Maria."
+      erro: "Du heißt quer dizer \"você se chama\". Para \"eu\", use ich heiße."
+    - texto: "Wie heißt du?"
+      erro: "Essa é a pergunta \"Como você se chama?\", não a resposta."
+  explicacao: "O verbo heißen (chamar-se) com ich fica heiße. Também vale Ich bin Maria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

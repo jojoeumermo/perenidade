@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "É um caso clássico de vantagem do heterozigoto."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular frequências alélicas e genotípicas, aplicar o equilíbrio de Hardy-Weinberg, conhecer as condições do equilíbrio e estimar portadores de uma condição recessiva.
 
 ## A evolução medida em números
 
@@ -135,3 +138,21 @@ A genética de populações mostrou que a espécie humana tem **pouca** diversid
 2. Uma condição recessiva atinge 1 em cada 2 500 pessoas. Estime a frequência de portadores.
 3. Por que a deriva genética é mais forte em populações pequenas?
 4. Explique a vantagem do heterozigoto na anemia falciforme com as suas palavras.
+
+## Exemplo resolvido
+
+**Em uma população em equilíbrio, a frequência do alelo recessivo é 0,2. Qual é a frequência de heterozigotos?**
+
+1. **Defina q e p.** q = 0,2. Como p + q = 1, p = 1 − 0,2 = **0,8**.
+2. **Use Hardy-Weinberg.** p² + 2pq + q² = 1, e os heterozigotos (Aa) têm frequência **2pq**.
+3. **Calcule.** 2 × 0,8 × 0,2 = **0,32**.
+4. **Confira as outras classes.** p² = 0,64 (AA) e q² = 0,04 (aa); 0,64 + 0,32 + 0,04 = 1.
+
+Confira: a resposta é 32% de heterozigotos. Uma condição rara pode ter um número de portadores cem vezes maior que o de afetados.
+
+## Resumo
+
+- **p** é a frequência do alelo A e **q** a do alelo a; **p + q = 1**. Em 49 AA, 42 Aa e 9 aa: p = 0,7 e q = 0,3.
+- **Hardy-Weinberg:** **p² + 2pq + q² = 1** (AA = p², Aa = 2pq, aa = q²).
+- Condições do equilíbrio: sem mutação, sem seleção natural, população muito grande, sem migração e cruzamentos ao acaso. Na natureza quase nunca se cumprem; por isso o modelo é uma **hipótese nula**.
+- Uso prático: se uma condição recessiva atinge 1 em 10 000 (q² = 0,0001), q = 0,01 e os portadores são cerca de 2%.

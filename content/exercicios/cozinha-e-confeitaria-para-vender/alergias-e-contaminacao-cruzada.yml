@@ -1,0 +1,51 @@
+# Exercícios da aula "Alergias e contaminação cruzada" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: coz-alergia-01
+  tema: "Contaminação cruzada"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual cuidado evita a contaminação cruzada entre carne crua e salada?"
+  alternativas:
+    - texto: "Usar a mesma tábua e a mesma faca, só passando um pano"
+      erro: "O pano não tira a sujeira e os micro-organismos da tábua. Use tábuas separadas ou lave bem com água e sabão."
+    - texto: "Usar tábuas e utensílios separados, ou lavar muito bem com água e sabão entre um e outro"
+      certa: true
+    - texto: "Cortar a salada primeiro e a carne depois, na mesma tábua, sem lavar"
+      erro: "A ordem não resolve se a tábua não for lavada: o resíduo da carne ainda passa para a salada que vier depois."
+  explicacao: "Tábuas separadas, ou lavadas completamente entre os usos, impedem a transferência de bactérias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-alergia-02
+  tema: "Alérgenos"
+  dificuldade: 1
+  enunciado: "Qual destes alimentos está entre os principais causadores de alergia, que a Anvisa manda avisar nos rótulos?"
+  alternativas:
+    - texto: "Leite"
+      certa: true
+    - texto: "Alface"
+      erro: "A alface não está entre os principais alérgenos da lista da Anvisa."
+    - texto: "Sal"
+      erro: "O sal não causa alergia alimentar. A lista traz leite, ovos, trigo, soja, amendoim, castanhas, crustáceos, peixes, entre outros."
+  explicacao: "A RDC 26/2015 inclui o leite entre os alimentos que causam alergia e devem ser avisados no rótulo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-alergia-03
+  tema: "Atender o cliente alérgico"
+  dificuldade: 2
+  enunciado: "Uma cliente avisa que o filho é alérgico a amendoim, e a sua cozinha usa amendoim em outros doces. O que fazer?"
+  alternativas:
+    - texto: "Dizer que 'provavelmente' não tem problema, para não perder a venda"
+      erro: "Para quem tem alergia, uma pequena quantidade pode causar reação grave. Nunca prometa o que não pode garantir."
+    - texto: "Explicar com clareza o risco de contato e só aceitar o pedido se conseguir evitar o amendoim, com utensílios e bancada limpos"
+      certa: true
+    - texto: "Aceitar e não contar nada sobre o amendoim da cozinha"
+      erro: "Esconder a informação tira da família o direito de decidir. A informação clara é um direito do consumidor."
+  explicacao: "Honestidade e cuidado: informe o risco e só assuma o pedido se conseguir garantir a separação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -26,6 +26,10 @@ quiz:
     explicacao: "Do hidrogênio (1) ao oganessônio (118)."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever as partes do átomo, dizer o que é o número atômico e usar a tabela periódica para achar um elemento e a sua família.
+
 ## Do que tudo é feito
 
 Corte um pedaço de ferro ao meio. Corte de novo, e de novo. Se fosse possível continuar, você chegaria a uma partícula que ainda é ferro, mas não pode mais ser dividida sem deixar de sê-lo: o **átomo**. A água, o ar, o seu corpo, as estrelas: tudo é feito de átomos.
@@ -87,6 +91,16 @@ Algumas famílias para conhecer:
 
 A maior parte dos elementos é de **metais**: brilhantes, bons condutores de eletricidade e de calor.
 
+## Exemplo resolvido
+
+**Quantos prótons, elétrons e nêutrons tem um átomo neutro de carbono-14?**
+
+1. O carbono tem número atômico 6, ou seja, 6 prótons.
+2. Em um átomo neutro, o número de elétrons é igual ao de prótons: 6 elétrons.
+3. O número de massa é 14 (prótons mais nêutrons). Então os nêutrons são 14 − 6 = 8.
+
+Confira: a aula diz que o carbono-12 e o carbono-14 têm ambos 6 prótons, mas 6 e 8 nêutrons. São isótopos do mesmo elemento.
+
 ## Para praticar
 
 Abra a [tabela periódica](/ferramentas/tabela-periodica) do instituto e descubra:
@@ -95,3 +109,11 @@ Abra a [tabela periódica](/ferramentas/tabela-periodica) do instituto e descubr
 2. o nome dos elementos de símbolo K, Ag e Hg;
 3. qual é o único metal líquido em condições normais;
 4. quantos prótons, elétrons e nêutrons tem um átomo de sódio com número de massa 23.
+
+## Resumo
+
+- O átomo tem núcleo (prótons positivos e nêutrons sem carga) e eletrosfera (elétrons negativos).
+- O número de prótons, o número atômico, dá a identidade do elemento.
+- Em um átomo neutro, elétrons e prótons são em igual número.
+- Isótopos são átomos do mesmo elemento com números diferentes de nêutrons.
+- A tabela periódica, organizada por Mendeleiev em 1869, tem 118 elementos em sete períodos e dezoito grupos; a mesma coluna indica comportamento parecido.

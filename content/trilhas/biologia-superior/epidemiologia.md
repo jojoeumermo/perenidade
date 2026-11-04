@@ -35,6 +35,9 @@ quiz:
     resposta: 0
     explicacao: "O valor preditivo positivo depende da prevalência."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber os tipos de estudo epidemiológico (descritivos, transversais, caso-controle, coorte e ensaio clínico), calcular risco relativo e risco atribuível e reconhecer erros possíveis, como o viés.
 
 ## A ciência das populações
 
@@ -135,3 +138,22 @@ Mesmo com um bom teste, só cerca de 15% dos positivos estão doentes. Por isso,
 2. Calcule o risco relativo: 30 casos em 600 expostos; 10 casos em 1 000 não expostos.
 3. Dê um exemplo de possível fator de confusão na relação entre renda e uma doença.
 4. Refaça o cálculo do valor preditivo positivo com prevalência de 10%. O que muda?
+
+## Exemplo resolvido
+
+**Em um acompanhamento de 10 anos, 20 de 1 000 fumantes e 2 de 1 000 não fumantes tiveram a doença. Calcule o risco relativo e o risco atribuível. (Exemplo hipotético da aula.)**
+
+1. **Risco nos expostos.** 20 ÷ 1 000 = **0,020**.
+2. **Risco nos não expostos.** 2 ÷ 1 000 = **0,002**.
+3. **Risco relativo (RR).** 0,020 ÷ 0,002 = **10**. RR maior que 1 indica maior risco nos expostos.
+4. **Risco atribuível.** 0,020 − 0,002 = **0,018**, ou 18 casos a mais por mil expostos.
+
+Confira: RR = 1 indica ausência de associação; menor que 1, efeito protetor. Associação não prova causa sozinha: é preciso pensar no acaso e no viés.
+
+## Resumo
+
+- A epidemiologia estuda a distribuição das doenças e dos seus determinantes nas populações.
+- Estudos **descritivos** (quem, onde, quando); **analíticos**: transversal, caso-controle (parte dos doentes; bom para doenças raras) e coorte (acompanha expostos e não expostos); **ensaio clínico randomizado** (participantes sorteados).
+- O estudo de caso-controle de Doll e Bradford Hill (1950) mostrou a relação entre cigarro e câncer de pulmão.
+- **Risco relativo** = risco nos expostos ÷ risco nos não expostos; **risco atribuível** = diferença entre os riscos.
+- Erros: **acaso** (intervalos de confiança, testes) e **viés** (de seleção, de memória).

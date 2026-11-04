@@ -1,0 +1,51 @@
+# Exercícios da aula "Radicais: as peças dos caracteres" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-radicais-01
+  tema: "O que é um radical"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é um radical?"
+  alternativas:
+    - texto: "O som de um caractere"
+      erro: "O radical indica a categoria de sentido."
+    - texto: "Um traço que sempre vem no fim"
+      erro: "É uma peça do caractere."
+    - texto: "A peça que indica a categoria de sentido de um caractere e sob a qual ele é organizado nos dicionários"
+      certa: true
+  explicacao: "O dicionário Kangxi, de 1716, organizou os caracteres em 214 radicais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-radicais-02
+  tema: "Radical da água"
+  dificuldade: 2
+  enunciado: "O que indicam os caracteres com o radical 氵(forma de 水)?"
+  alternativas:
+    - texto: "Água ou líquido, como 河 (rio) e 海 (mar)"
+      certa: true
+    - texto: "Fogo"
+      erro: "Fogo é 火 ou 灬."
+    - texto: "Boca e fala"
+      erro: "Boca é 口 e fala é 言 ou 讠."
+  explicacao: "Reconhecer as peças ajuda a memorizar e adivinhar caracteres."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-radicais-03
+  tema: "Radical da boca"
+  dificuldade: 2
+  enunciado: "Em qual destes caracteres aparece o radical 口 (boca)?"
+  alternativas:
+    - texto: "河 (rio)"
+      erro: "河 tem o radical 氵, de água."
+    - texto: "吃 (comer) e 喝 (beber)"
+      certa: true
+    - texto: "树 (árvore)"
+      erro: "树 tem o radical 木, de madeira."
+  explicacao: "口 aparece em ações ligadas à boca, à fala e ao comer: 吃, 喝, 叫."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

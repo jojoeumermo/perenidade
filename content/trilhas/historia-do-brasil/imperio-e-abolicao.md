@@ -30,6 +30,10 @@ quiz:
     resposta: 1
     explicacao: "Foi um golpe militar, com apoio de cafeicultores e republicanos, sem participação popular."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dividir o Império em três fases, explicar a Regência, o café, a Guerra do Paraguai e a crise que levou à proclamação da República em 1889.
+
 
 ## Três tempos
 
@@ -106,9 +110,31 @@ Não houve participação popular. Um jornalista republicano da época, Aristide
 
 Como em 1822, a mudança de regime veio **de cima**, por um acordo entre grupos dominantes (agora militares e cafeicultores), e deixou intactas a concentração da terra e a exclusão da maioria.
 
+## Exemplo resolvido
+
+**Quanto durou cada fase do Império?**
+
+1. O período imperial vai de 1822 a 1889: 1889 − 1822 = **67 anos**.
+2. Primeiro Reinado, de 1822 a 1831: 1831 − 1822 = **9 anos**.
+3. Regência, de 1831 a 1840: 1840 − 1831 = **9 anos**. A aula diz que o herdeiro tinha cinco anos e que o país foi governado por regentes durante nove anos.
+4. O Segundo Reinado vai de 1840 a 1889: 1889 − 1840 = **49 anos**.
+5. Confira a soma: 9 + 9 + 49 = 67. Fecha.
+6. A Guerra do Paraguai durou de 1864 a 1870: **6 anos**.
+
+Leitura: o Segundo Reinado, de quase meio século, foi a maior parte do Império. É nele que o café vira o produto de exportação, e é nele que a monarquia perde, a partir de 1870, os apoios que tinha.
+
 ## Para pesquisar e debater
 
 1. Houve alguma revolta do período regencial no seu estado? Quem participou e como terminou?
 2. Por que as elites tinham tanta pressa em coroar um menino de 14 anos?
 3. Que relação existe entre a abolição, em 1888, e a queda da monarquia, em 1889?
 4. A República foi proclamada sem povo. Que consequências isso teve para o regime que veio a seguir?
+
+## Resumo
+
+- O Império (1822-1889) tem três fases: Primeiro Reinado (1822-1831), Regência (1831-1840) e Segundo Reinado.
+- Na Regência, com o herdeiro criança, o poder central enfraqueceu e estouraram revoltas em quase todas as províncias.
+- No Segundo Reinado, o café, plantado primeiro no vale do rio Paraíba e depois no oeste paulista, repetiu a fórmula colonial: grande propriedade e trabalho escravo.
+- Entre 1864 e 1870, a Tríplice Aliança (Brasil, Argentina e Uruguai) lutou contra o Paraguai, o maior conflito armado da história da América do Sul; o Paraguai foi arrasado.
+- A partir de 1870, a monarquia perdeu apoios (cafeicultores do oeste paulista, Exército, entre outros).
+- Em 15 de novembro de 1889, militares liderados por Deodoro da Fonseca depuseram o governo, sem participação popular.

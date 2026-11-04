@@ -36,6 +36,10 @@ quiz:
     explicacao: "O condor é símbolo de liberdade; Castro Alves é o grande nome."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber citar as três gerações do Romantismo brasileiro e discutir a contradição do indianismo.
+
 ## Um país que queria se inventar
 
 O **Romantismo** chegou ao Brasil pouco depois da Independência. Os escritores queriam criar uma literatura **nacional**, diferente da portuguesa. O marco inicial é **Suspiros Poéticos e Saudades** (1836), de Gonçalves de Magalhães.
@@ -77,9 +81,26 @@ Qual é a contradição do indianismo romântico?
 > Compare a imagem literária com a realidade do século XIX.
 ```
 
+## Exemplo resolvido
+
+**A que geração pertence cada tema: "o indígena idealizado", "a morte e o amor impossível" e "a abolição"?**
+
+1. O indígena idealizado, a pátria e a natureza são da **1ª geração**, indianista ou nacionalista (Gonçalves Dias).
+2. A morte, o tédio e o amor impossível são da **2ª geração**, ultrarromântica ou "mal do século" (Álvares de Azevedo, Casimiro de Abreu).
+3. A abolição e a crítica social são da **3ª geração**, condoreira (Castro Alves).
+
+Confira: a *Canção do Exílio* (1843), de Gonçalves Dias, é da primeira. E a leitura crítica da aula: enquanto a literatura exaltava um indígena idealizado, os povos reais eram expulsos de suas terras.
+
 ## Para praticar
 
 1. Leia a *Canção do Exílio* e identifique o sentimento do poeta.
 2. Escreva uma paródia da *Canção do Exílio* sobre o seu bairro.
 3. Compare o indígena de *Iracema* com a realidade dos povos indígenas no século XIX.
 4. Pesquise a trajetória de Luiz Gama e apresente-a ao grupo.
+
+## Resumo
+
+- O Romantismo chegou depois da Independência e buscou uma literatura nacional; marco: *Suspiros Poéticos e Saudades* (1836).
+- Traços: sentimentalismo, nacionalismo, natureza, idealização do amor.
+- Três gerações da poesia: indianista, ultrarromântica e condoreira.
+- *O Guarani* e *Iracema* (Alencar) idealizam o indígena, enquanto os povos reais perdiam as terras.

@@ -28,6 +28,11 @@ quiz:
     explicacao: "Soler + infinitivo = ter o costume de."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar as perífrases verbais mais comuns do espanhol com infinitivo, gerúndio e particípio, e distinguir deber de deber de.
+
+
 ## Verbo auxiliar + forma nominal
 
 As **perífrases verbais** combinam um verbo auxiliar com um **infinitivo**, um **gerúndio** ou um **particípio**, formando um sentido novo. O português tem muitas parecidas ("vou fazer", "acabei de chegar", "estou trabalhando"). Algumas, porém, são próprias do espanhol.
@@ -84,9 +89,29 @@ A norma recomenda distinguir:
 
 Na fala, os dois se misturam com frequência.
 
+## Exemplo resolvido
+
+**Como dizer "Os trabalhadores continuam em greve há três semanas; acabei de chegar e tenho que organizar a assembleia"?**
+
+1. **"Há três semanas" (duração até agora):** *llevar* + tempo: *llevan tres semanas en huelga*.
+2. **"Acabei de chegar":** *acabar de* + infinitivo: *acabo de llegar*.
+3. **"Tenho que organizar":** *tener que* + infinitivo: *tengo que organizar la asamblea*.
+
+Frase pronta: *Los trabajadores llevan tres semanas en huelga. Acabo de llegar y tengo que organizar la asamblea.*
+
+Confira: *llevar* + tempo não tem equivalente direto em português.
+
 ## Para praticar
 
 1. Reescreva com perífrases: "Llamó otra vez." / "Ya no fumo." / "Normalmente ceno a las nueve."
 2. Responda com *llevar + gerúndio*: ¿Cuánto tiempo llevas trabajando / estudiando / viviendo en tu ciudad?
 3. Escreva três frases com *hay que* sobre o que é preciso fazer no seu bairro.
 4. Explique a diferença entre *Debe trabajar* e *Debe de trabajar*.
+
+## Resumo
+
+- Perífrase verbal: verbo auxiliar + infinitivo, gerúndio ou particípio, com sentido novo.
+- **Infinitivo:** *ir a* (futuro próximo), *acabar de* (acabou de), *volver a* (de novo), *dejar de* (parar de), *tener que* e *hay que* (obrigação), *soler* (costume).
+- **Gerúndio:** *estar* (em curso), *seguir* (continuar), *llevar* + tempo (duração até agora), *ir* (progressão).
+- **Particípio:** *tener, llevar, dejar* + particípio.
+- *Deber* + infinitivo é obrigação; *deber de* é suposição.

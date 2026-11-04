@@ -34,6 +34,9 @@ quiz:
     resposta: 0
     explicacao: "Milhares perderam o emprego; artistas de Hollywood entraram em listas negras."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como a acusação de "comunista" foi usada como política de Estado, com os exemplos dos Estados Unidos, da Indonésia, da América Latina e do Brasil.
 
 Ao longo do século XX, a acusação de "comunista" foi usada para justificar golpes, prisões, torturas e massacres. Muitas vítimas eram comunistas; muitas outras eram sindicalistas, camponeses, estudantes, religiosos, democratas. Esta aula mostra a dimensão mundial do **anticomunismo** como política de Estado.
 
@@ -72,3 +75,24 @@ O anticomunismo não acabou com a Guerra Fria. No Brasil, a palavra "comunista" 
 ## Para conversar
 
 Por que a acusação de "comunista" foi tão eficaz para justificar violências? O que ela permite fazer com quem é acusado?
+
+## Exemplo resolvido
+
+**Como a acusação de "comunista" servia para justificar violências? Compare o Brasil de 1937 e o de 1964.**
+
+1. **1937.** O governo divulgou o Plano Cohen, um suposto plano comunista, que era falso; em novembro veio o golpe do Estado Novo.
+2. **1964.** O anticomunismo justificou o golpe militar.
+3. **Durante a ditadura.** A acusação de "subversão" atingiu comunistas, católicos progressistas, estudantes, camponeses, sindicalistas, artistas e indígenas.
+4. **Os registros.** A Comissão Nacional da Verdade (Lei 12.528, de 2011) documentou 434 mortos e desaparecidos políticos e reconheceu que as violações foram política de Estado.
+5. **Conclua.** A acusação funcionou para atingir muita gente que não era comunista e para esconder a violência por trás do medo.
+
+Confira: a aula traz casos de outros países (macarthismo, Indonésia 1965-1966, Operação Condor) com o mesmo padrão.
+
+## Resumo
+
+- A acusação de "comunista" justificou golpes, prisões, torturas e massacres no século XX, e atingiu também sindicalistas, camponeses, estudantes e religiosos.
+- Estados Unidos: macarthismo, listas negras e a execução dos Rosenberg (1953).
+- Indonésia (1965-1966): massacre de meio milhão a um milhão de pessoas, segundo estimativas de historiadores.
+- América Latina: golpes (Brasil 1964, Bolívia 1971, Uruguai e Chile 1973, Argentina 1976) e **Operação Condor**.
+- Brasil: Plano Cohen (1937) e golpe de 1964; a Comissão Nacional da Verdade documentou 434 mortos e desaparecidos.
+- Hoje a palavra ainda é usada para atacar quem defende direitos.

@@ -39,6 +39,11 @@ quiz:
     explicacao: "Romero denunciava a repressão militar em El Salvador. Foi morto em 24 de março de 1980 e canonizado em 2018."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como a Teologia da Libertação nasceu na América Latina, o que ela afirma, o que são as Comunidades Eclesiais de Base, qual foi a reação e o que ficou até hoje.
+
+
 ## O chão em que ela nasceu
 
 Nos anos 1960, a América Latina era o continente mais católico do mundo e um dos mais desiguais. Era também um continente de ditaduras militares. Padres, freiras e leigos que trabalhavam em favelas e no campo viam todos os dias a distância entre o que pregavam e a vida de quem os ouvia.
@@ -88,3 +93,22 @@ Fora da Igreja, a reação foi violenta. Em **24 de março de 1980**, o arcebisp
 Com menos espaço dentro da hierarquia católica a partir dos anos 1980 e com o crescimento de outras igrejas, a Teologia da Libertação perdeu força institucional. Suas ideias seguiram vivas nas pastorais sociais, nos movimentos do campo, em teologias negras, feministas e indígenas, e também em comunidades evangélicas e em outras tradições de fé. Romero foi declarado santo em 2018.
 
 Para quem estuda a luta dos povos, ela deixa uma lição que vale para além da religião: a mesma fé pode servir para pedir paciência aos oprimidos ou para organizá-los. O que decide é de que lado se está.
+
+## Exemplo resolvido
+
+**Um grupo de vizinhos lê um trecho da Bíblia, discute a falta de creche no bairro e decide fazer um abaixo-assinado. Que método usaram?**
+
+1. **Ver:** olharam a realidade do bairro (falta de creche).
+2. **Julgar:** leram o texto da Bíblia e pensaram sobre a situação à luz da fé.
+3. **Agir:** decidiram o que fazer (o abaixo-assinado).
+4. **Nome do método:** *ver, julgar e agir*, o método da Teologia da Libertação, praticado nas Comunidades Eclesiais de Base.
+
+Confira: a teologia, nesse modelo, vem depois da prática e nasce da reflexão de quem já está comprometido com a luta.
+
+## Resumo
+
+- A Teologia da Libertação nasceu nos anos 1960 e 1970, depois do Concílio Vaticano II e da conferência de Medellín (1968); o nome vem do livro de Gustavo Gutiérrez (1971).
+- Afirma que Deus toma partido dos oprimidos, a **opção preferencial pelos pobres** (Puebla, 1979), que o pecado também é estrutura e que a salvação começa aqui.
+- O método tem três verbos: **ver, julgar e agir**.
+- Tomou corpo nas **Comunidades Eclesiais de Base**, escola de organização popular; a Comissão Pastoral da Terra foi criada em 1975.
+- Houve reação do Vaticano e violência fora da Igreja (Óscar Romero, 1980); as ideias seguem vivas nas pastorais e nos movimentos.

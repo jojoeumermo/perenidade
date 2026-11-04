@@ -25,6 +25,10 @@ quiz:
     explicacao: "São dois nomes para a mesma tecla preta. Notas assim são chamadas de enarmônicas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são tom e semitom, achar os semitons no teclado e usar sustenido, bemol e bequadro.
+
 ## A menor distância
 
 No teclado, a distância entre uma tecla e a tecla **imediatamente vizinha**, branca ou preta, chama-se **semitom**. É a menor distância entre duas notas na música ocidental. Dois semitons formam um **tom**.
@@ -74,6 +78,25 @@ Qual é a distância entre sol e lá?
 
 Um sustenido ou bemol escrito ao lado de uma nota vale para aquela nota **até o fim do compasso**. No compasso seguinte, ela volta ao normal, a não ser que o sinal apareça de novo.
 
+## Exemplo resolvido
+
+**Qual é a distância de mi a fá, e de dó a ré?**
+
+1. Olhe o teclado: entre dó e ré existe uma tecla preta. Entre mi e fá não existe.
+2. De dó a ré há dois semitons, ou seja, um tom (dois semitons formam um tom).
+3. De mi a fá não há tecla no meio: são vizinhas de parede, a distância é de um semitom.
+
+Conclusão: a sequência dó –T– ré –T– mi –S– fá –T– sol –T– lá –T– si –S– dó é a base de toda a teoria das escalas. A tecla preta à direita do dó é o dó sustenido (♯, sobe um semitom) ou o ré bemol (♭, desce um semitom): uma tecla, dois nomes.
+
 ## Para praticar
 
 No [teclado](/ferramentas/teclado), toque todas as teclas em ordem, brancas e pretas, de um dó até o dó seguinte. São doze semitons. Depois toque mi–fá e si–dó e compare com dó–ré: dá para ouvir que o passo é menor.
+
+## Resumo
+
+- Semitom é a distância entre duas teclas vizinhas; dois semitons formam um tom.
+- Entre mi e fá e entre si e dó a distância é de um semitom; nos demais pares de teclas brancas, um tom.
+- O sustenido (♯) sobe a nota um semitom; o bemol (♭) desce; o bequadro (♮) cancela os dois.
+- A mesma tecla preta tem dois nomes, conforme a música.
+- O sinal escrito ao lado de uma nota vale para ela até o fim do compasso.
+- De um dó ao dó seguinte há doze semitons.

@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "买 (mǎi, comprar) e 卖 (mài, vender) diferem pelo tom."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber a diferença entre caractere e palavra, procurar no dicionário pelo pinyin, pelo radical e pelos traços ou pela escrita à mão, e ler um verbete.
 
 ## Caractere e palavra
 
@@ -91,3 +94,23 @@ Em substantivos, procure também o **classificador** indicado.
 2. Procure pelo radical: 休, 林, 说.
 3. Use a escrita à mão para encontrar 国.
 4. Escolha uma palavra e copie dois exemplos de uso do verbete.
+
+## Exemplo resolvido
+
+**Você encontrou o caractere 河 em uma placa e não sabe ler. Como descobrir o que é?**
+
+1. **Pelo pinyin não dá**, porque você não sabe a pronúncia.
+2. **Pelo radical.** Identifique o radical 氵 (água) e procure no índice.
+3. **Conte os traços restantes** do caractere (aqui, 5) e procure na lista correspondente.
+4. **Ou desenhe.** Em um dicionário digital, desenhe o caractere na tela com o dedo (a ordem dos traços ajuda).
+5. **Leia o verbete.** Ele traz o pinyin com tom, o sentido e exemplos de uso. 河 (hé) é "rio".
+
+Confira: procure a palavra inteira, não só cada caractere, e veja os exemplos antes de confiar numa tradução isolada.
+
+## Resumo
+
+- **字** (zì) é o caractere; **词** (cí) é a palavra, que pode ter um ou vários caracteres. Procure a palavra inteira.
+- Três jeitos de procurar: pelo **pinyin** (nos dicionários digitais, com tons em números: *ni3 hao3*); pelo **radical e número de traços restantes**; por **escrita à mão** ou câmera.
+- Um verbete traz caracteres (simplificados e tradicionais), pinyin com tom, sentido, classe de palavra, exemplos de uso e, em alguns, o nível do HSK.
+- Em substantivos, procure o **classificador**.
+- Desconfie de traduções isoladas e de tradutores automáticos; muitos dicionários são de chinês-inglês.

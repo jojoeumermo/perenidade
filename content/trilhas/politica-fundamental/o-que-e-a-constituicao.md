@@ -33,6 +33,7 @@ quiz:
     opcoes: ["Os direitos e garantias individuais", "O valor do salário mínimo", "O nome dos ministérios"]
     resposta: 0
     explicacao: "Também são cláusulas pétreas a federação, o voto direto e secreto e a separação dos Poderes."
+modelo: 9
 ---
 
 ```provocacao
@@ -42,6 +43,10 @@ Se o Congresso aprovasse amanhã uma lei acabando com o voto, ela valeria? Quem 
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é a Constituição, conhecer os seus princípios e entender como ela pode ou não ser mudada.
+
+```suarealidade
+Qual direito da Constituição (saúde, escola, trabalho, moradia, voto) faz diferença na sua semana? Em que momento ele foi cumprido ou faltou?
+```
 
 ## A lei das leis
 
@@ -81,6 +86,20 @@ Uma emenda que acabasse com o voto secreto poderia ser votada?
 1. Três quintos de 81 = 81 × 3 ÷ 5 = **48,6**.
 2. Como não existe "meio senador", são necessários **49 votos**.
 3. E isso **em dois turnos** de votação.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Thomas Jefferson, o futuro presidente dos Estados Unidos, em carta a James Madison de 1789, defendeu que "a terra pertence aos vivos": cada geração deveria poder rever as regras que valem para ela, e ninguém deveria estar preso às decisões de gerações passadas. Por essa linha, as cláusulas pétreas, que nenhuma emenda pode abolir, seriam uma forma de os mortos mandarem nos vivos.
+---
+Como você responderia, com respeito e com fatos? Pense no que as cláusulas pétreas protegem de fato e em como a Constituição pode ser mudada.
+---
+Uma resposta possível: a objeção tem peso, e é por isso que a Constituição pode ser emendada (art. 60), com três quintos dos votos em cada casa e em dois turnos. As cláusulas pétreas, porém, não congelam o país: protegem o que torna possível decidir de novo (voto direto, secreto, universal e periódico, separação dos Poderes, federação e direitos individuais). Sem elas, uma maioria do momento poderia acabar com o próprio voto das gerações seguintes.
+```
+
+```agir
+# Esta semana
+Leia, devagar, o começo do art. 5º da Constituição e escolha um direito. Anote num papel um caso da sua semana em que ele fez diferença ou em que faltou, sem escrever o nome de ninguém.
+```
 
 ## Resumo
 

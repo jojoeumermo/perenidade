@@ -26,6 +26,10 @@ quiz:
     explicacao: "Quickly = rapidamente; slowly = lentamente."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler um texto em inglês sem conhecer todas as palavras, usando cognatos, pistas de forma e o contexto.
+
 ## Você sabe mais do que pensa
 
 Ler em inglês não exige conhecer todas as palavras. Exige **estratégia**. Quem fala português tem uma vantagem enorme: milhares de palavras do inglês vêm do latim, como as nossas.
@@ -106,9 +110,27 @@ Há duas técnicas que se completam:
 
 Veja mais em [Leitura instrumental: skimming e scanning](/trilhas/ingles-superior/leitura-instrumental-skimming-e-scanning).
 
+## Exemplo resolvido
+
+**Como entender *incorrect* e *quickly* sem consultar o dicionário?**
+
+1. Procure uma palavra parecida com o português. *Incorrect* lembra "incorreto": é um cognato.
+2. Olhe o começo: *in-* indica negação, então quer dizer "não correto".
+3. Olhe o final de *quickly*: **-ly** indica advérbio (-mente). Pelo contexto e pela terminação, é um modo de fazer algo: rapidamente.
+4. Se ainda houver dúvida, leia a frase inteira e a seguinte antes de parar.
+
+Confira: duas palavras entendidas só com as pistas da própria palavra, sem dicionário. Os falsos cognatos, porém, exigem cuidado.
+
 ## Para praticar
 
 1. Pegue uma notícia curta em inglês e sublinhe todos os cognatos. Você entende a ideia geral só com eles?
 2. Encontre três conectivos no texto e diga o que cada um indica.
 3. Escolha duas palavras desconhecidas e tente adivinhar o sentido pelo contexto antes de consultar o dicionário.
 4. Escreva um resumo do texto em português, com no máximo três frases.
+
+## Resumo
+
+- Ler em inglês exige estratégia, não conhecer todas as palavras.
+- Antes de ler: olhe título, imagens, datas, nomes e números, e lembre o que já sabe do assunto.
+- Durante: cognatos, palavras repetidas, terminações (-tion, -ly, -ed, -ing, un-, in-) e o contexto ajudam.
+- Cuidado com os falsos cognatos.

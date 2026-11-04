@@ -27,6 +27,10 @@ quiz:
     resposta: 0
     explicacao: "Só as assembleias de condado e de município são eleitas diretamente."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever as instituições políticas da China segundo a Constituição, o papel do Partido Comunista e as diferentes avaliações do seu funcionamento real.
+
 
 Como funciona o Estado chinês? O ensino médio chinês estuda isso no módulo de Política e Estado de direito. Esta aula apresenta as instituições segundo a Constituição, e o que observadores de diferentes posições dizem sobre o seu funcionamento real.
 
@@ -77,3 +81,25 @@ Comparar sistemas políticos exige cuidado: palavras como "democracia", "eleiç�
 ## Para conversar
 
 O que faz um sistema político ser democrático, na sua opinião? Eleições, participação, igualdade social, liberdade de expressão? Como o Brasil se sairia nesses critérios?
+
+## Exemplo resolvido
+
+**Com os números da aula, que fração da população da China é membro do Partido? E como separar o que a Constituição diz do que observadores dizem?**
+
+1. **Os números da aula.** A China tem cerca de 1,4 bilhão de habitantes e o Partido tem cerca de cem milhões de membros.
+2. **Conta.** 100 milhões ÷ 1.400 milhões = 0,071. Em porcentagem: **cerca de 7%**, ou seja, uma em cada catorze pessoas.
+3. **A Constituição.** A Assembleia Popular Nacional é o órgão supremo do poder do Estado; tem cerca de três mil delegados e se reúne uma vez por ano, em março. A direção do Partido está afirmada na Constituição desde 2018.
+4. **O discurso oficial.** Chama o sistema de "democracia popular de processo integral" e destaca planejamento de longo prazo, estabilidade e participação consultiva.
+5. **Os críticos.** Apontam que não há competição eleitoral real pelo poder central e que os partidos democráticos não podem disputar a direção do país.
+6. **Fatos e avaliações.** Os números (3.000 delegados, 56 nacionalidades, 100 milhões de membros) são verificáveis. "Democracia" e "ditadura" são avaliações, que dependem do conceito de cada um.
+
+Cuidado ao comparar: "democracia", "eleição" e "partido" têm sentidos diferentes em cada contexto.
+
+## Resumo
+
+- A Assembleia Popular Nacional é, pela Constituição, o órgão supremo do poder do Estado: cerca de três mil delegados, uma sessão por ano, elege o presidente e aprova leis, orçamento e planos quinquenais.
+- Além do Partido Comunista há oito partidos democráticos, que reconhecem sua direção e participam da Conferência Consultiva Política do Povo Chinês.
+- A China reconhece 56 nacionalidades; há cinco regiões autônomas. Nas aldeias, os comitês de aldeões são eleitos diretamente.
+- A direção do Partido, com cerca de cem milhões de membros, está afirmada na Constituição desde 2018.
+- O discurso oficial fala em "democracia popular de processo integral"; os críticos apontam a falta de competição eleitoral real pelo poder central.
+- Comparar sistemas exige cuidado: as palavras têm sentidos diferentes em cada contexto.

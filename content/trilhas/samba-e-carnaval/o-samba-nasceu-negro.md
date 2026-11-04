@@ -37,6 +37,10 @@ quiz:
     explicacao: "Foi em 1932, na Praça Onze, organizado pelo jornal Mundo Sportivo. A Mangueira venceu."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como o samba nasceu da cultura negra, da roda baiana à casa de Tia Ciata e às escolas de samba, e por que ele foi perseguido antes de virar símbolo nacional.
+
 ## Antes do Rio, a Bahia
 
 Muito antes de existir escola de samba, havia **samba de roda** no Recôncavo baiano, a região em volta da Baía de Todos os Santos. Africanos escravizados e seus descendentes, a maioria de povos bantos, faziam a roda nos terreiros dos engenhos e nas festas: alguém puxa o canto, o coro responde, as palmas marcam, e um por vez entra no meio para dançar. Tocam-se pandeiro, atabaque, viola e prato raspado com faca.
@@ -84,3 +88,21 @@ Em 2007, o Instituto do Patrimônio Histórico e Artístico Nacional registrou a
 O samba é festa, e é também memória. Ele guarda a história de um povo que foi sequestrado, escravizado, libertado sem nada e perseguido por se divertir, e que respondeu a tudo isso criando a música pela qual o país inteiro é reconhecido.
 
 Quando uma escola leva para a avenida a história de Zumbi, de Dandara, de Marielle ou dos trabalhadores de um barracão, ela está fazendo o que o samba sempre fez: contar a história do Brasil pelo lado de quem não aparece nos livros.
+
+## Exemplo resolvido
+
+**Por que tantos sambas nasceram dentro de casas de mães de santo no Rio de Janeiro?**
+
+1. Veja a perseguição: o Código Penal de 1890 punia a "vadiagem" (artigo 399) e a "capoeiragem" (artigo 402), e a polícia usava isso para prender homens negros pobres na rua; batuque, pandeiro e violão eram tratados como prova.
+2. Veja o abrigo: as tias baianas, como Tia Ciata, eram mães de santo e quituteiras respeitadas, com relações com gente influente, o que protegia a festa.
+3. Veja a casa: na de Tia Ciata havia candomblé nos fundos, choro na sala e samba no quintal.
+
+Conclusão: a casa era um espaço protegido de uma comunidade perseguida, onde religião, comida, música e ajuda mútua andavam juntas. Dali saiu "Pelo Telefone", registrado por Donga no fim de 1916.
+
+## Resumo
+
+- O samba de roda do Recôncavo baiano veio de africanos escravizados, em sua maioria bantos; a UNESCO o reconheceu em 2005.
+- Depois de 1888, muita gente negra migrou da Bahia para o Rio e formou a Pequena África, perto da Praça Onze.
+- As tias baianas, como Tia Ciata, abrigaram o samba; "Pelo Telefone" foi registrado por Donga em 1916.
+- O Código Penal de 1890 (artigos 399 e 402) servia para perseguir quem batucava.
+- No fim dos anos 1920, no Estácio, nasceu a Deixa Falar, apontada como a primeira escola de samba; o primeiro concurso foi em 1932.

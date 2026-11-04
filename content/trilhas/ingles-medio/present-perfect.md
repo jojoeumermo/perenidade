@@ -27,6 +27,10 @@ quiz:
     explicacao: "I've lived here for ten years / since 2015."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar o present perfect e usá-lo para experiência, ação recente com resultado agora e situação que continua, com *for* e *since*.
+
 ## Um tempo que liga o passado ao presente
 
 O **present perfect** não tem equivalente exato em português, e por isso confunde. A ideia central: uma ação ou situação do passado que tem **relação com o presente**.
@@ -95,9 +99,26 @@ Qual frase está correta?
 | already | já (afirmativa) | She's already left. |
 | yet | já (pergunta) / ainda (negativa) | Have you finished yet? I haven't finished yet. |
 
+## Exemplo resolvido
+
+**Complete com *for* ou *since*: "___ 2020" e "___ three months".**
+
+1. *Since* marca o **ponto de partida**: *since 2020*, *since Monday*.
+2. *For* marca a **duração**: *for three months*, *for a long time*.
+3. Frase: *She's worked at the school since 2018.* e *I've lived here for ten years.*
+
+Confira: a mesma situação ("moro aqui há dez anos") usa o present perfect, e não o presente simples. Com *I started here in 2021* (data passada fechada), o passado simples.
+
 ## Para praticar
 
 1. Escreva o particípio: go, see, do, eat, write, take, be, have, work, live.
 2. Complete com for ou since: ___ 2020, ___ three months, ___ Monday, ___ a long time.
 3. Escreva três frases sobre experiências: I've ever / I've never...
 4. Escolha entre passado simples e present perfect: "I (work) here since 2021." / "I (start) here in 2021."
+
+## Resumo
+
+- Present perfect: **have / has + particípio passado**.
+- Usos: experiência (*I've been to Rio*), ação recente com resultado agora (*I've lost my keys*), situação que continua (*I've lived here for ten years*).
+- *For* é duração; *since* é ponto de partida.
+- Palavras comuns: *ever, never, just, already, yet*.

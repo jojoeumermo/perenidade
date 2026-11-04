@@ -26,6 +26,9 @@ quiz:
     resposta: 0
     explicacao: "Os tipos móveis viriam mais tarde, no século XI, com Bi Sheng."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever as etapas da escrita chinesa (ossos e bronzes, padronização, estilos), classificar os caracteres pelos quatro modos de formação e citar marcos do papel e da impressão.
 
 ## Uma escrita de mais de três mil anos
 
@@ -88,3 +91,23 @@ Os caracteres foram usados para escrever também outras línguas: o japonês, o 
 2. Explique a diferença entre um caractere pictográfico e um semântico-fonético, com exemplos.
 3. Por que a padronização da escrita foi importante para a unificação do império Qin?
 4. Pesquise a história dos tipos móveis de Bi Sheng.
+
+## Exemplo resolvido
+
+**Classifique os caracteres 日, 上, 休 e 河 pelo modo como se formam.**
+
+1. **日 (sol).** É um desenho estilizado: **pictográfico**.
+2. **上 (acima).** É um sinal abstrato: **indicativo**.
+3. **休 (descansar).** Junta 人 (pessoa) e 木 (árvore), e os dois componentes contribuem com o sentido: **associativo**.
+4. **河 (rio).** Tem uma parte de sentido, 氵 (água), e uma de som, 可 (*kě*): **semântico-fonético**.
+
+Confira: os semântico-fonéticos são a grande maioria. A ideia de que o chinês é uma "escrita de desenhos" é um mito: os pictográficos são uma pequena parte.
+
+## Resumo
+
+- A escrita chinesa é um dos sistemas de uso contínuo mais antigos do mundo, com mais de três mil anos.
+- Registros antigos: **ossos e cascos de tartaruga** (甲骨文) e **inscrições em bronze** (金文), da época Shang e Zhou.
+- Houve padronização a partir da unificação sob a dinastia **Qin**.
+- Estilos: selo (篆书), chancelaria (隶书), regular (楷书), corrente (行书) e cursiva (草书).
+- **Xu Shen** compilou o *Shuowen Jiezi* (c. ano 100). Quatro tipos: pictográficos, indicativos, associativos e semântico-fonéticos (a grande maioria).
+- Papel (Cai Lun), impressão com blocos de madeira e tipos móveis de Bi Sheng (século XI).

@@ -28,6 +28,11 @@ quiz:
     resposta: 1
     explicacao: "O protocolo é a prova de que o pedido foi feito e de quando foi feito."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escrever um bilhete, um e-mail e um requerimento, fazer um pedido com protocolo e usar o pedido de informação.
+
+
 
 ## O texto certo para cada situação
 
@@ -157,6 +162,27 @@ Os pedidos são feitos nos serviços de informação ao cidadão de cada órgão
 ## Escrever junto
 
 Um requerimento assinado por uma pessoa é um pedido. O mesmo requerimento, acompanhado de um **abaixo-assinado** com dezenas de nomes, ou entregue em nome de uma associação, é uma reivindicação. Escrever é também um jeito de se organizar: redigir o pedido em grupo obriga todos a concordar sobre o que se quer, e o protocolo vira um instrumento de cobrança.
+
+## Exemplo resolvido: consertando um e-mail
+
+**O e-mail:** Assunto: "oi". Texto: "preciso do documento. manda logo".
+
+1. **Assunto:** troque "oi" por um resumo do conteúdo, como "Pedido de declaração de matrícula".
+2. **Saudação:** acrescente "Prezada Secretaria,".
+3. **Corpo, em parágrafos curtos:** quem é você ("Meu nome é...") e o que você quer, logo no começo, com as informações de que a pessoa precisa para atender.
+4. **Anexo:** se houver, diga no texto o que vai anexado e confira se anexou.
+5. **Despedida e assinatura:** "Agradeço desde já.", "Atenciosamente," e o nome completo.
+6. **Antes de enviar:** releia e confira o endereço do destinatário.
+
+Confira: o e-mail original não informa nada, não se identifica e não tem saudação. O novo diz quem é, o que quer e para quê.
+
+## Resumo
+
+- Bilhete: recado curto para alguém próximo: para quem, o recado, a despedida com nome e a data ou hora, se fizer diferença.
+- E-mail: assunto claro, saudação, corpo em parágrafos curtos (quem é, o que quer, informações, o que espera), despedida e assinatura, anexos avisados.
+- Requerimento: pedido formal a uma autoridade, com destinatário, identificação, pedido, justificativa, fecho ("Nestes termos, pede deferimento.") e local, data e assinatura.
+- Leve duas vias e peça o protocolo na sua: pedido escrito deixa registro.
+- Pedido de informação a órgão público: sem precisar explicar o motivo; resposta em até 20 dias, prorrogáveis por mais 10.
 
 ## Para praticar
 

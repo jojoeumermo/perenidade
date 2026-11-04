@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { textosDoPlantao } from "@/i18n/plantao";
 import { textosDaBase } from "@/lib/escola/textos";
 import { ligado } from "@/lib/recursos";
 import { textosDoEstudo } from "@/lib/textos-estudo";
@@ -45,6 +46,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         ...se("professores", [novos.professores.titulo, "/professores", novos.professores.descricao]),
         ...se("guia-contribuir", [novos.guia.titulo, "/contribuir/guia", novos.guia.descricao]),
         [n.tutoring, "/reforco", d.tutoring],
+        [textosDoPlantao(lang).titulo, "/plantao", textosDoPlantao(lang).meta.descricao],
         [n.tools, "/ferramentas", d.tools],
         [n.labs, "/laboratorios", t.labs.lead],
         [n.freeRoom, "/sala-livre", d.freeRoom],
