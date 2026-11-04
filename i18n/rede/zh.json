@@ -1,0 +1,171 @@
+{
+  "_rascunho": true,
+  "marca": "卢西亚网络",
+  "menu": {
+    "principal": "网络菜单",
+    "barra": "网络栏",
+    "inicio": "首页",
+    "comunidades": "社区",
+    "chamados": "行动号召",
+    "nucleos": "学习小组",
+    "avisos": "通知",
+    "salvos": "已保存",
+    "perfil": "个人资料",
+    "escrever": "写帖子",
+    "busca": "搜索",
+    "explorar": "探索"
+  },
+  "abas": {
+    "rotulo": "网络时间线",
+    "seguindo": "关注",
+    "comunidades": "我的社区",
+    "tudo": "全部",
+    "geral": "公开时间线"
+  },
+  "novos": {
+    "um": "1 条新帖子，点击显示",
+    "outros": "{n} 条新帖子，点击显示"
+  },
+  "postando": "以「{codinome}」发帖",
+  "quemVe": "可见范围：{publico}",
+  "porQueEstaOrdem": "为什么是这个顺序？",
+  "publicos": {
+    "internet": "互联网（任何人，无需账号）",
+    "membros": "网络成员",
+    "seguidores": "关注我的人",
+    "comunidade": "仅本社区",
+    "nucleo": "仅本小组",
+    "equipe": "仅研究所团队"
+  },
+  "tipos": {
+    "post": "帖子",
+    "discussao": "讨论",
+    "duvida": "提问",
+    "enquete": "投票",
+    "chamado": "行动号召",
+    "aviso": "研究所通知"
+  },
+  "acoes": {
+    "responder": "回复",
+    "citar": "引用",
+    "apoiar": "支持",
+    "salvar": "保存",
+    "mais": "更多",
+    "denunciar": "举报",
+    "util": "有用"
+  },
+  "post": {
+    "editado": "已编辑",
+    "respostas": {
+      "um": "1 条回复",
+      "outros": "{n} 条回复"
+    },
+    "util": "{n} 人觉得有用",
+    "resolvida": "已解决",
+    "travado": "讨论已锁定：不能再回复。",
+    "retido": "此帖子正在等待调解组审核，只有你能看到。",
+    "restrito": "受限内容",
+    "continuar": "继续对话",
+    "avisoConteudo": "内容提示",
+    "verMais": "查看全文"
+  },
+  "casca": {
+    "escrever": "在网络上发帖",
+    "fechar": "关闭",
+    "publicar": "发布",
+    "publicando": "发布中…",
+    "cancelar": "取消",
+    "textoDica": "你想说什么？",
+    "tituloDica": "标题",
+    "corpoDica": "慢慢写，最多 10,000 个字符。",
+    "contador": "{n} / {max}",
+    "tipo": "帖子类型",
+    "publico": "谁可以看到",
+    "comunidade": "社区（可选）",
+    "saltarParaConteudo": "跳到时间线",
+    "sairRapido": "快速退出",
+    "sairRapidoAjuda": "打开一个中性页面，并清除本设备上的网络数据。",
+    "cartaoSeguranca": "安全第一：不要发布家庭住址、电话或证件。如有担心，请举报。",
+    "cuidados": {
+      "titulo": "守护",
+      "regras": "守护规则",
+      "denuncias": "我的举报",
+      "silenciados": "已静音",
+      "moderacao": "审核面板"
+    }
+  },
+  "codinome": {
+    "aviso": "在网络上，任何人都不会以真名出现，团队也一样。"
+  },
+  "chamado": {
+    "pontoPublico": "公共集合地点（广场、图书馆、工会、学校），绝不是住家地址。"
+  },
+  "denuncia": {
+    "sigilo": "举报人身份绝不公开。你可以在「通知」中跟进进度。"
+  },
+  "entrada": {
+    "titulo": "加入卢西亚网络",
+    "texto": "这里讨论学习与斗争，使用化名，没有私聊。加入之前，请阅读规则并确认两件事。",
+    "maior": "我已年满 18 岁。",
+    "consentimento": "我明白谈论政治可能暴露我的政治观点或工会成员身份，并依据规则明确同意网络处理这些数据。",
+    "regras": "阅读网络规则",
+    "aderir": "加入网络",
+    "idadeNegada": "本网络仅限 18 岁以上人士。网站的其他部分仍然对你开放。",
+    "menor": "我未满 18 岁",
+    "codinome": "你的化名（3 到 30 个字符，不含 @ 和真名）",
+    "entreNaConta": "登录后即可参与。无需账号即可阅读各学科的问答。",
+    "entrar": "登录"
+  },
+  "estados": {
+    "carregando": "加载中…",
+    "vazioLinha": "这里还没有内容。选择要关注的社区，或写下第一条帖子。",
+    "vazioSeguindo": "你还没有关注任何人。可以通过社区去关注。",
+    "vazioComunidades": "你还没有加入任何社区。",
+    "erro": "暂时无法加载。",
+    "tentar": "重试",
+    "maisPosts": "加载更多",
+    "fim": "已经到底了。",
+    "naoEncontrado": "找不到此内容，或你没有访问权限。",
+    "emBreve": "此页面即将上线。"
+  },
+  "comunidade": {
+    "sobre": "关于",
+    "posts": "帖子",
+    "regras": "规则",
+    "moderacao": "管理员",
+    "tipoAberta": "开放",
+    "tipoRestrita": "受限：网络成员可读，仅加入者可写",
+    "tipoFechada": "封闭：仅社区成员",
+    "banido": "你暂时不能在此社区发帖。"
+  },
+  "perfil": {
+    "trancado": "锁定的个人资料：关注需要批准。",
+    "equipe": "研究所团队",
+    "semContagens": "不公开显示关注者或支持数量。"
+  },
+  "erros": {
+    "entre_primeiro": "请先登录再进行此操作。",
+    "conta_suspensa": "你的账号已被暂停。",
+    "area_interditada": "此区域暂时关闭。",
+    "confirme_idade": "请确认你已年满 18 岁后再加入网络。",
+    "idade_minima": "本网络仅限 18 岁以上人士。",
+    "consentimento": "请阅读规则并表示同意后再加入网络。",
+    "confirme_codinome": "发帖前请先选择或确认你的化名。",
+    "dado_pessoal": "请删除文中的证件号、电话或邮箱：个人信息不能发布到网络上。",
+    "sem_permissao": "你在这里没有权限执行此操作。",
+    "nao_encontrado": "找不到此内容，或你没有访问权限。",
+    "travado": "此讨论已锁定。",
+    "limite_de_niveis": "对话层级已达上限：请从更靠上的回复继续。",
+    "muitos_pedidos": "请稍等：连续请求太多，请稍后再试。",
+    "banco_desatualizado": "数据库尚未收到网络更新。",
+    "sem_servico": "此环境未启用账号服务。",
+    "sem_conexao": "无网络连接。请检查网络后重试。",
+    "falha": "出了点问题，请重试。",
+    "invalido": "请检查字段：{campo}。",
+    "modo_lento": "此处处于慢速模式：请稍等片刻再发言。",
+    "nivel_links": "你的等级暂不允许在一个帖子里放这么多链接。请在“网络如何守护”中查看限制。",
+    "nivel_imagens": "你的等级暂不允许在一个帖子里放这么多图片。请在“网络如何守护”中查看限制。",
+    "limite_diario": "你已达到今天按你等级可发的帖子上限。",
+    "lista_bloqueio": "此处的调解人不允许你在这里发帖。"
+  }
+}

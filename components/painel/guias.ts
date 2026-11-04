@@ -168,6 +168,15 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "Ninguém aprova o próprio envio. Parecer bom é curto, gentil e diz o que fazer.",
   },
+  "rede-propostas": {
+    paraQue: "Decidir quais comunidades novas nascem na Rede Lúcia: só por proposta, e a coordenação tem a palavra.",
+    passos: [
+      { titulo: "Leia a proposta", texto: "Cada proposta traz o endereço, o objetivo, as regras e os dois moderadores indicados (só codinomes). A comunidade tem de ter um propósito claro e que cuide de quem participa." },
+      { titulo: "Confira os moderadores", texto: "São pessoas da Rede que concordaram em cuidar do espaço. Elas recebem um aviso quando a proposta é aprovada e podem sair quando quiserem." },
+      { titulo: "Aprove ou recuse", texto: "Aprovar cria a comunidade entre as lutas, com as regras da proposta. Recusar pede o motivo, que quem propôs lê, e vale como orientação para tentar de novo." },
+    ],
+    dica: "Nada de nome civil: a Rede só mostra codinome. Se a proposta pedir algo que mistura o instituto com campanha eleitoral ou partido, recuse e explique.",
+  },
   "vale-curadoria": {
     paraQue: "Revisar o que o robô e o público sugerem ao Vale o Escrito e publicar só o que está em fonte pública.",
     passos: [

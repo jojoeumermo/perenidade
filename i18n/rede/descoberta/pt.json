@@ -1,0 +1,145 @@
+{
+  "entrada": {
+    "titulo": "Bem-vinda, bem-vindo à Rede Lúcia",
+    "passo": "Passo {n} de {total}",
+    "voltar": "Voltar",
+    "continuar": "Continuar",
+    "passos": {
+      "regras": "Regras",
+      "consentimento": "Consentimento",
+      "idade": "Idade",
+      "codinome": "Codinome",
+      "escolhas": "Lutas e trilhas",
+      "guia": "Guia de segurança"
+    },
+    "regras": {
+      "titulo": "As regras da Rede, em quatro frases",
+      "pontos": [
+        "A conversa é sobre estudo e luta: respeito a quem pensa diferente, crítica a ideias e nunca a pessoas.",
+        "Ninguém aparece com o nome de verdade: só o codinome, nem a equipe.",
+        "Não há chat privado. Nada de endereço de casa, telefone ou documento em post.",
+        "Quem denuncia nunca é revelado. Toda decisão da moderação tem regra, motivo e direito a recurso."
+      ],
+      "completas": "Ler as regras completas"
+    },
+    "consentimento": {
+      "titulo": "Dados sensíveis: você decide",
+      "texto": "Falar de política e de luta pode revelar a sua opinião política ou a sua filiação sindical. A lei trata isso como dado pessoal sensível (LGPD, art. 5º, II).",
+      "finalidade": "Usamos só para mostrar o que você escreve a quem você escolheu e para a moderação cuidar da conversa. Não vendemos, não fazemos perfil comercial e não rastreamos o que você lê.",
+      "revogar": "Você pode retirar o consentimento a qualquer hora e pedir a eliminação dos seus dados (LGPD, art. 18). A versão das regras em vigor fica registrada.",
+      "caixa": "Consinto, de forma específica e destacada, com o tratamento dos dados sensíveis que eu revelar ao participar da Rede, para esta finalidade (LGPD, art. 11, I).",
+      "base": "Sem este consentimento você continua com o resto do site; só não entra na Rede."
+    },
+    "idade": {
+      "titulo": "A Rede é só para maiores de 18 anos",
+      "texto": "Não tratamos dados de crianças e adolescentes na Rede (LGPD, art. 14). Esta é uma declaração sua; o resto do site fica aberto para todas as idades.",
+      "caixa": "Tenho 18 anos ou mais.",
+      "menor": "Tenho menos de 18 anos",
+      "negada": "Tudo bem: a Rede é só para maiores de 18 anos. O resto do site continua aberto para você."
+    },
+    "codinome": {
+      "titulo": "Escolha o seu codinome",
+      "texto": "É o nome que todo mundo vai ver. Não use o seu nome de verdade nem nome de outra pessoa.",
+      "rotulo": "Codinome (3 a 30 caracteres)",
+      "salvar": "Entrar na Rede"
+    },
+    "escolhas": {
+      "titulo": "Escolha 3 lutas e 3 trilhas",
+      "texto": "Isso monta a sua linha e entra você nas comunidades abertas ligadas. Você muda quando quiser, em Explorar.",
+      "lutas": "Três lutas",
+      "lutasVazio": "Ainda não há comunidades de luta abertas. Siga em frente.",
+      "trilhas": "Três trilhas de estudo",
+      "trilhasCarregando": "Carregando as trilhas…",
+      "trilhasFalha": "Não foi possível listar as trilhas agora.",
+      "filtro": "Filtrar trilhas",
+      "contador": "{n} de {max} escolhidas",
+      "aparecer": "Aceito aparecer nos pacotes de pessoas para seguir (só se o meu perfil estiver aberto). Você desliga quando quiser.",
+      "salvar": "Salvar escolhas"
+    },
+    "guia": {
+      "titulo": "Guia de segurança",
+      "pular": "Pular o guia",
+      "concluir": "Entendi, ir para a Rede",
+      "proximo": "Próximo cartão",
+      "cartao": "Cartão {n} de {total}",
+      "cartoes": [
+        { "titulo": "O codinome te protege", "texto": "Não conte onde mora, onde trabalha nem com quem convive. Nem a equipe vê o seu nome de verdade na Rede." },
+        { "titulo": "Nada de dado pessoal", "texto": "Endereço de casa, telefone, CPF e e-mail ficam fora do post. Para chamados, use um ponto público: praça, biblioteca, sindicato." },
+        { "titulo": "Denuncie, sem medo", "texto": "O botão Denunciar está em todo post. Você acompanha o andamento em Avisos e ninguém descobre quem denunciou." },
+        { "titulo": "Sair rápido", "texto": "O botão Sair rápido abre uma página neutra e apaga o que a Rede guardou neste aparelho. Use quando precisar." }
+      ]
+    },
+    "erro": "Não foi possível salvar agora. Tente de novo."
+  },
+  "ordens": {
+    "rotulo": "Ordem",
+    "porQue": "Por que esta ordem?",
+    "semAlgoritmo": "Não existe nota escondida: a ordem é só a regra abaixo. Nenhuma ordem usa tempo de leitura, cliques ou o que você curtiu.",
+    "teto": "Cada ordem mostra no máximo 100 posts, e a lista acaba aí. Para ir além, refine por tag, comunidade ou busca.",
+    "novos": { "nome": "Novos", "formula": "Do mais novo para o mais velho. Sem mais nada." },
+    "uteis": { "nome": "Mais úteis", "formula": "Quantas pessoas marcaram Útil, do maior número para o menor. Empate: o mais novo. Só posts dos últimos 30 dias." },
+    "sem_resposta": { "nome": "Sem resposta", "formula": "Posts que ainda não têm nenhuma resposta que você possa ver nem resposta aceita, do mais novo para o mais velho. Só os últimos 30 dias." },
+    "em_debate": { "nome": "Em debate", "formula": "Quantas respostas a conversa recebeu nos últimos 7 dias (só as que você pode ver), do maior número para o menor. Empate: o mais novo. Só posts dos últimos 30 dias." },
+    "relevancia": { "nome": "Relevância", "formula": "O quanto o texto do post combina com o que você buscou (ts_rank_cd do Postgres, em português, sem acento). Empate: o mais novo." }
+  },
+  "tag": {
+    "titulo": "Posts com #{tag}",
+    "regraDaLinha": "Linha temática {titulo}: {regra}",
+    "vazio": "Ainda não há posts com esta hashtag que você possa ver.",
+    "voltar": "Voltar para Explorar"
+  },
+  "explorar": {
+    "titulo": "Explorar",
+    "lead": "Descubra comunidades, linhas temáticas e conversas do momento. Tudo com regra escrita, sem algoritmo escondido.",
+    "mudarEscolhas": "Mudar minhas 3 lutas e 3 trilhas",
+    "comunidades": "Comunidades",
+    "categorias": { "lutas": "Lutas", "disciplinas": "Disciplinas", "instituto": "Instituto" },
+    "membro": "Você participa",
+    "entrar": "Abrir",
+    "linhas": "Linhas temáticas",
+    "linhasAjuda": "Cada linha mostra os posts que cumprem uma regra pública.",
+    "regra": "Regra",
+    "ver": "Ver a linha",
+    "linhaAtiva": "Linha: {titulo}",
+    "fecharLinha": "Sair da linha",
+    "tags": "Em alta esta semana",
+    "tagsAjuda": "Hashtags usadas por 3 pessoas diferentes ou mais nos últimos 7 dias, só com posts que você pode ver.",
+    "tagsVazio": "Ainda não há hashtag em alta.",
+    "posts": "{n} posts",
+    "pacotes": "Pessoas para seguir",
+    "pacotesAjuda": "Pacotes escolhidos pela equipe. Só entra quem tem perfil aberto e aceitou aparecer.",
+    "pacotesVazio": "Ainda não há pacotes de pessoas.",
+    "pessoas": "{n} pessoas",
+    "abrirPacote": "Ver quem está no pacote",
+    "seguirTodos": "Seguir todas",
+    "seguiu": "Você passou a seguir {n} pessoas.",
+    "jaSegue": "Você já segue todas.",
+    "sigo": "Seguindo",
+    "aparecerTitulo": "Aparecer nos pacotes",
+    "aparecerAjuda": "Se ligar, o seu perfil aberto pode ser incluído pela equipe em pacotes de pessoas para seguir. Desligado, ninguém te inclui.",
+    "aparecerLigar": "Quero aparecer",
+    "aparecerDesligar": "Não quero aparecer"
+  },
+  "buscar": {
+    "titulo": "Buscar na Rede",
+    "rotulo": "O que você procura?",
+    "dica": "Funciona sem acento e com plural: greve acha greves. Use aspas para uma frase e - para tirar uma palavra.",
+    "botao": "Buscar",
+    "posts": "Posts",
+    "pessoas": "Pessoas",
+    "comunidades": "Comunidades",
+    "vazio": "Nada encontrado que você possa ver.",
+    "curta": "Escreva pelo menos duas letras.",
+    "soComuns": "Só palavras muito comuns: tente termos mais específicos.",
+    "visitante": "Sem conta, a busca mostra só o que é aberto à internet.",
+    "irParaTag": "Ver a página da hashtag #{tag}"
+  },
+  "estados": {
+    "carregando": "Carregando…",
+    "erro": "Não foi possível carregar agora.",
+    "tentar": "Tentar de novo",
+    "maisPosts": "Carregar mais",
+    "fim": "Fim da lista.",
+    "fimPorTeto": "Chegamos ao limite de 100 posts desta ordem."
+  }
+}

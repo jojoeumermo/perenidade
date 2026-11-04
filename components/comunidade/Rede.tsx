@@ -3,7 +3,17 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Dict } from "@/i18n/types";
-import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
+import { BackendError, evaluatePost, hasBackend, rpc, useMe } from "@/lib/backend";
+import { consertos } from "@/lib/rede/cliente-consertos";
+import { agruparConvite, conviteOk, rotuloDosNovos } from "@/lib/rede/tipos-consertos";
+import { BotaoEscrever } from "../rede/consertos/BotaoEscrever";
+import { preencher, useConsertos } from "../rede/consertos/contexto";
+import { Convites } from "../rede/consertos/Convites";
+import { ForaDaRede } from "../rede/consertos/ForaDaRede";
+import { Idade } from "../rede/consertos/Idade";
+import { useLinha } from "../rede/consertos/useLinha";
+import { useNovosPorAba } from "../rede/consertos/useNovosPorAba";
+import { EsqueletoDaLinha } from "../rede/Esqueletos";
 import { L, useI18n } from "../I18n";
 import { Formatado } from "../painel/Formatado";
 
@@ -44,8 +54,10 @@ interface Post {
   retido: boolean;
   autor: Autor;
   respostas: number;
-  apoios: number;
+  /** O total de apoios só vem para quem escreveu o post (nulo para as outras pessoas). */
+  apoios: number | null;
   apoiei: boolean;
+  /** O total de "eu vou" só vem para quem organizou o chamado. */
   vou: number | null;
   vou_eu: boolean;
   resposta_a: { id: string; autor: string } | null;
@@ -56,7 +68,10 @@ interface Espaco {
   nome: string;
   descricao: string;
   cuido: boolean;
+  /** Sempre nulo: o código em texto saiu do banco (convites com hash). */
   codigo: string | null;
+  convites?: number | null;
+  codigo_antigo_ate?: string | null;
   membros: number;
 }
 interface Perfil {
@@ -79,6 +94,9 @@ interface RedeEu {
   codinome?: boolean;
   codinome_ok?: boolean;
   sugestao?: string;
+  rede_18?: boolean;
+  /** Declarou ter menos de 18 anos: fica fora só da Rede. */
+  menor?: boolean;
 }
 interface Aviso {
   id: string;
@@ -177,6 +195,7 @@ const pilula = "inline-flex cursor-pointer items-center justify-center gap-1.5 r
 
 export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) {
   const { lang, t } = useI18n();
+  const x = useConsertos();
   const me = useMe();
   const logado = me.status === "in";
   const [vista, setVista] = useState<Vista>("inicio");
@@ -185,22 +204,26 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
   const [comunidade, setComunidade] = useState<string | null>(null);
   const [perfil, setPerfil] = useState<string | null>(null);
   const [fio, setFio] = useState<string | null>(() => (typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("post")));
-  const [posts, setPosts] = useState<Post[] | null>(null);
-  const [erro, setErro] = useState("");
   const [busca, setBusca] = useState("");
   const [achados, setAchados] = useState<Post[] | null>(null);
   const [silenciadas, setSilenciadas] = useState<string[]>([]);
   const [seguidas, setSeguidas] = useState<string[]>([]);
   const [espacos, setEspacos] = useState<Espaco[]>([]);
-  const [novos, setNovos] = useState(0);
+  const [novosComunidade, setNovosComunidade] = useState(0);
   const [versao, setVersao] = useState(0);
   const [redeEu, setRedeEu] = useState<RedeEu | null>(null);
-  const carregadoEm = useRef(new Date().toISOString());
   const caixa = useRef<HTMLTextAreaElement>(null);
   const recarregar = useCallback(() => setVersao((v) => v + 1), []);
   const nomeDaComunidade = (slug: string) => espacos.find((e) => e.slug === slug)?.nome ?? (s.lutasLista as Record<string, string>)[slug] ?? (t.areas as Record<string, string[]>)[slug]?.[0] ?? slug;
   const equipe = logado && me.status === "in" && me.me.papeis.length > 0;
   const modo: Modo | null = vista === "inicio" ? aba : vista === "chamados" || vista === "comunidade" || vista === "perfil" ? vista : null;
+  // A linha por cursor ("carregar mais", sem repetir nem pular) e o "N novos" de cada aba (pacote consertos).
+  const linha = useLinha<Post>({ ativo: hasBackend && !fio && Boolean(modo) && !redeEu?.menor, modo, comunidade, usuario: perfil, versao });
+  const posts = linha.posts;
+  const erro = linha.erro ? s.erro : "";
+  const abaDoContador = vista === "inicio" && !fio ? aba : null;
+  const contador = useNovosPorAba({ ativo: hasBackend && logado && !redeEu?.menor, aberta: abaDoContador });
+  const novosAqui = abaDoContador ? (contador.novos[abaDoContador] ?? 0) : vista === "comunidade" ? novosComunidade : 0;
 
   // Quem entra na conta começa pela aba Seguindo, como no desenho (enquanto não escolher outra).
   useEffect(() => {
@@ -235,32 +258,20 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
     return () => window.clearTimeout(espera);
   }, [busca]);
 
+  // "N novos" na página de uma comunidade (as abas da linha têm o contador por aba, acima).
   useEffect(() => {
-    if (!hasBackend || fio || !modo) return;
-    let vivo = true;
-    rpc<Post[]>("rede_linha", { p_modo: modo, p_comunidade: comunidade, p_usuario: perfil, p_antes: null })
-      .then((r) => {
-        if (!vivo) return;
-        setPosts(r);
-        setErro("");
-        setNovos(0);
-        carregadoEm.current = new Date().toISOString();
-      })
-      .catch(() => vivo && setErro(s.erro));
-    return () => {
-      vivo = false;
-    };
-  }, [modo, comunidade, perfil, fio, versao, s.erro]);
-
-  // "N posts novos": de tempos em tempos pergunta quantos chegaram, sem mexer na lista que a pessoa está lendo.
-  useEffect(() => {
-    if (!hasBackend || fio || !modo || modo === "perfil") return;
+    if (!hasBackend || fio || vista !== "comunidade" || !comunidade) return;
     const relogio = window.setInterval(() => {
       if (document.visibilityState !== "visible") return;
-      void rpc<number>("rede_novos", { p_desde: carregadoEm.current }).then((n) => setNovos(typeof n === "number" ? n : 0)).catch(() => undefined);
+      void consertos.novos("comunidade", linha.carregadoEm.current, { comunidade }).then((n) => setNovosComunidade(typeof n === "number" ? n : 0)).catch(() => undefined);
     }, 30000);
     return () => window.clearInterval(relogio);
-  }, [fio, modo]);
+  }, [fio, vista, comunidade, linha.carregadoEm]);
+  const mostrarNovos = () => {
+    setNovosComunidade(0);
+    if (abaDoContador) contador.vi(abaDoContador);
+    recarregar();
+  };
 
   const abrir = (proxima: Vista, extra?: { comunidade?: string; perfil?: string }) => {
     setFio(null);
@@ -268,21 +279,27 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
     setVista(proxima);
     setComunidade(extra?.comunidade ?? null);
     setPerfil(extra?.perfil ?? null);
-    setPosts(null);
+    setNovosComunidade(0);
+    linha.limpar();
     window.scrollTo({ top: 0 });
   };
   const trocarAba = (proxima: Aba) => {
     escolheuAba.current = true;
     setAba(proxima);
-    setPosts(null);
+    contador.vi(proxima);
+    linha.limpar();
   };
   const seguirComunidade = async (slug: string, sim: boolean) => {
     await rpc("rede_comunidade_seguir", { p_comunidade: slug, p_sim: sim }).catch(() => undefined);
     setSeguidas(sim ? [...seguidas, slug] : seguidas.filter((c) => c !== slug));
   };
   const escrever = () => {
+    if (fio) setFio(null);
     if (vista !== "inicio" && vista !== "comunidade") abrir("inicio");
-    window.setTimeout(() => caixa.current?.focus(), 50);
+    window.setTimeout(() => {
+      caixa.current?.focus();
+      caixa.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+    }, 50);
   };
   const vistos = useMemo(() => {
     const lista = achados ?? posts ?? [];
@@ -365,6 +382,9 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
               {([["seguindo", s.seguindo], ["minhas", s.comunidades], ["tudo", s.abaTudo]] as [Aba, string][]).map(([id, nome]) => (
                 <button key={id} type="button" role="tab" aria-selected={aba === id} disabled={id !== "tudo" && !logado} onClick={() => trocarAba(id)} className={`flex-1 cursor-pointer border-b-[3px] pt-4 pb-3 text-center font-sans disabled:cursor-not-allowed disabled:opacity-40 ${aba === id ? "border-[#c21f16] font-extrabold text-ink" : "border-transparent font-semibold text-ink-soft hover:text-ink"}`}>
                   {nome}
+                  {id !== aba && (contador.novos[id] ?? 0) > 0 && (
+                    <span className="ml-1.5 rounded-full bg-[#c21f16] px-1.5 py-0.5 font-mono text-[10px] font-semibold text-white">{preencher(x.novosAba, { n: rotuloDosNovos(contador.novos[id] ?? 0) })}</span>
+                  )}
                 </button>
               ))}
             </div>
@@ -375,7 +395,9 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
           <div className="border-t border-rule p-3 xl:hidden">{buscaCampo}</div>
         </header>
 
-        {fio ? (
+        {redeEu?.menor ? (
+          <ForaDaRede />
+        ) : fio ? (
           <Fio id={fio} s={s} logado={logado} abrirPerfil={(id) => abrir("perfil", { perfil: id })} abrirFio={setFio} />
         ) : vista === "comunidades" ? (
           <IndiceDeComunidades s={s} logado={logado} seguidas={seguidas} nome={nomeDaComunidade} abrir={(slug) => abrir("comunidade", { comunidade: slug })} seguir={seguirComunidade} />
@@ -388,13 +410,13 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
             {vista === "perfil" && perfil && <CabecaDoPerfil id={perfil} s={s} logado={logado} mudou={recarregar} />}
             {achados && <p className="border-b border-rule px-[18px] py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-soft">{s.resultados} · {achados.length}</p>}
             {vista !== "perfil" && vista !== "chamados" && !achados && <Escrever key={comunidade ?? "geral"} s={s} logado={logado} equipe={equipe} comunidade={comunidade} nomeDaComunidade={nomeDaComunidade} postou={recarregar} lang={lang} caixa={caixa} redeEu={redeEu} mudouCodinome={setRedeEu} />}
-            {novos > 0 && (
-              <button type="button" onClick={recarregar} className={`${pilula} m-3 w-[calc(100%-1.5rem)] bg-[#c21f16] text-white`}>
-                {s.novos.replace("{n}", String(novos))}
+            {novosAqui > 0 && (
+              <button type="button" onClick={mostrarNovos} className={`${pilula} m-3 w-[calc(100%-1.5rem)] bg-[#c21f16] text-white`}>
+                {s.novos.replace("{n}", rotuloDosNovos(novosAqui))}
               </button>
             )}
             {erro && <p className="px-[18px] py-4 text-oxblood" role="alert">{erro}</p>}
-            {posts === null && !erro && <p className="px-[18px] py-4 text-ink-soft">…</p>}
+            {posts === null && !erro && <EsqueletoDaLinha rotulo={x.linhaCarregando} />}
             {posts && vistos.length === 0 && (
               <p className="px-[18px] py-6 text-ink-soft">
                 {modo === "seguindo" ? s.vazioSeguindo : s.vazio}{" "}
@@ -408,6 +430,14 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
                 </li>
               ))}
             </ul>
+            {posts && !achados && linha.proximo && (
+              <div className="p-4 text-center">
+                <button type="button" disabled={linha.maisOcupado} onClick={() => void linha.maisUma()} className={`${pilula} border-[1.5px] border-ink`}>
+                  {linha.maisOcupado ? x.carregando : x.carregarMais}
+                </button>
+              </div>
+            )}
+            {posts && !achados && !linha.proximo && posts.length >= 20 && <p className="px-[18px] py-4 text-center font-sans text-sm text-ink-soft">{x.fimDaLinha}</p>}
           </>
         )}
       </section>
@@ -419,6 +449,7 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
         <ProximosChamados s={s} abrirFio={setFio} />
         <Seguranca key={silenciadas.join(",")} s={s} logado={logado} silenciadas={silenciadas} silenciar={(lista) => { setSilenciadas(lista); try { localStorage.setItem(CHAVE_SILENCIADAS, lista.join(", ")); } catch { /* sem armazenamento */ } }} />
       </aside>
+      {logado && !fio && !redeEu?.menor && (vista === "inicio" || vista === "comunidade") && <BotaoEscrever aoClicar={escrever} />}
     </div>
   );
 }
@@ -551,6 +582,10 @@ function Avisos({ s }: { s: Textos }) {
 
 /** A vista "Núcleos fechados": os espaços da pessoa, entrar com o código do convite e (a equipe) abrir um novo. */
 function EspacosFechados({ s, espacos, equipe, abrir, mudou }: { s: Textos; espacos: Espaco[]; equipe: boolean; abrir: (slug: string) => void; mudou: () => void }) {
+  const x = useConsertos();
+  const { lang } = useI18n();
+  /** O convite que acabou de nascer com o espaço: o código só aparece agora. */
+  const [criado, setCriado] = useState<{ nome: string; codigo: string } | null>(null);
   const [codigo, setCodigo] = useState("");
   const [nome, setNome] = useState("");
   const [recado, setRecado] = useState("");
@@ -568,11 +603,7 @@ function EspacosFechados({ s, espacos, equipe, abrir, mudou }: { s: Textos; espa
                 <span className="block font-sans text-xs text-ink-soft">{e.membros} {s.membros}</span>
               </span>
             </button>
-            {e.cuido && e.codigo && (
-              <p className="mt-2 ml-12 rounded-md bg-parchment-deep px-2 py-1 font-sans text-xs">
-                {s.codigoConvite}: <code className="select-all font-mono">{e.codigo}</code>
-              </p>
-            )}
+            {e.cuido && <Convites alvo={e.slug} antigoAte={e.codigo_antigo_ate} lang={lang} mudou={mudou} />}
           </li>
         ))}
       </ul>
@@ -581,17 +612,22 @@ function EspacosFechados({ s, espacos, equipe, abrir, mudou }: { s: Textos; espa
         onSubmit={async (e) => {
           e.preventDefault();
           try {
-            const r = await rpc<{ slug: string }>("rede_espaco_entrar", { p_codigo: codigo.trim() });
+            const r = await consertos.conviteUsar(codigo.trim());
+            if (!r.ok) {
+              setRecado(x.conviteVencido);
+              return;
+            }
             setCodigo("");
+            setRecado("");
             mudou();
-            abrir(r.slug);
+            if (r.tipo === "espaco") abrir(r.slug);
           } catch {
             setRecado(s.erro);
           }
         }}
       >
         <input value={codigo} onChange={(e) => setCodigo(e.target.value)} placeholder={s.convitePlaceholder} aria-label={s.entrarConvite} className={`${campo} font-mono`} />
-        <button type="submit" disabled={codigo.trim().length !== 12} className={`${pilula} bg-ink text-parchment`}>{s.entrarConvite}</button>
+        <button type="submit" disabled={!conviteOk(codigo)} className={`${pilula} bg-ink text-parchment`}>{s.entrarConvite}</button>
       </form>
       {equipe && (
         <form
@@ -599,10 +635,11 @@ function EspacosFechados({ s, espacos, equipe, abrir, mudou }: { s: Textos; espa
           onSubmit={async (e) => {
             e.preventDefault();
             try {
-              const r = await rpc<{ slug: string }>("rede_espaco_criar", { p_nome: nome, p_descricao: "" });
+              const r = await rpc<{ slug: string; codigo?: string }>("rede_espaco_criar", { p_nome: nome, p_descricao: "" });
+              setCriado(r.codigo ? { nome, codigo: r.codigo } : null);
               setNome("");
               mudou();
-              abrir(r.slug);
+              if (!r.codigo) abrir(r.slug);
             } catch {
               setRecado(s.erro);
             }
@@ -611,6 +648,13 @@ function EspacosFechados({ s, espacos, equipe, abrir, mudou }: { s: Textos; espa
           <input value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} placeholder={s.nomeEspaco} aria-label={s.nomeEspaco} className={campo} />
           <button type="submit" disabled={nome.trim().length < 3} className={`${pilula} bg-[#c21f16] text-white`}>{s.abrirEspaco}</button>
         </form>
+      )}
+      {criado && (
+        <div className="mx-[18px] mt-3 rounded-md border border-ink bg-parchment-deep p-3 font-sans text-xs" role="status">
+          <p className="font-semibold">{criado.nome}</p>
+          <p>{x.conviteCodigo}</p>
+          <code className="mt-1 block select-all break-all font-mono text-sm">{agruparConvite(criado.codigo)}</code>
+        </div>
       )}
       {recado && <p className="px-[18px] pt-2 font-sans text-sm text-oxblood">{recado}</p>}
     </div>
@@ -642,6 +686,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
   const [ocupado, setOcupado] = useState(false);
   const [mensagem, setMensagem] = useState("");
   const [idade, setIdade] = useState(false);
+  const [fora, setFora] = useState(false);
   const [pedeCodinome, setPedeCodinome] = useState(false);
   const embutido = Boolean(respondendo || repostando);
   // O codinome confirmado de quem escreve; sem ele, o primeiro post abre a escolha.
@@ -675,7 +720,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
     setOcupado(true);
     setMensagem("");
     try {
-      await rpc("rede_postar", {
+      const publicado = await rpc<{ id?: string; avaliar?: boolean }>("rede_postar", {
         p: {
           texto,
           alcance,
@@ -688,6 +733,8 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
           chamado: chamado && chamado.quando ? { tipo: chamado.tipo, quando: new Date(chamado.quando).toISOString(), onde: chamado.onde } : undefined,
         },
       });
+      // O banco pede a segunda avaliação (função avaliar-comunidade, tipo "rede"): o post espera retido até ela voltar.
+      if (publicado?.avaliar && publicado.id) void evaluatePost("rede", publicado.id);
       setTexto("");
       setAviso(null);
       setCita(null);
@@ -697,6 +744,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
     } catch (e) {
       const codigo = e instanceof BackendError ? e.code : "";
       if (codigo === "confirme_idade") setIdade(true);
+      else if (codigo === "idade_minima") setFora(true);
       else if (codigo === "confirme_codinome") setPedeCodinome(true);
       else setMensagem((s.erros as Record<string, string>)[codigo] ?? s.erro);
     } finally {
@@ -803,22 +851,18 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
           />
         )}
         {idade && (
-          <div className="mt-3 rounded-xl border-[1.5px] border-ink bg-parchment-deep p-3 font-sans text-sm">
-            <p className="font-semibold">{s.idadeTitulo}</p>
-            <p className="mt-1">{s.idadeTexto}</p>
-            <button
-              type="button"
-              className={`${pilula} mt-2 bg-ink text-parchment`}
-              onClick={async () => {
-                await rpc("rede_confirmar_idade").catch(() => undefined);
-                setIdade(false);
-                void postar();
-              }}
-            >
-              {s.idadeOk}
-            </button>
-          </div>
+          <Idade
+            titulo={s.idadeTitulo}
+            texto={s.idadeTexto}
+            rotuloMaior={s.idadeOk}
+            aoConfirmar={() => {
+              setIdade(false);
+              void postar();
+            }}
+            aoSerMenor={() => setIdade(false)}
+          />
         )}
+        {fora && <ForaDaRede />}
       </div>
     </div>
   );
@@ -888,8 +932,13 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
 }) {
   const { lang } = useI18n();
   const [aberto, setAberto] = useState(!post.aviso);
-  const [apoios, setApoios] = useState({ n: post.apoios, eu: post.apoiei });
+  const [apoios, setApoios] = useState({ n: post.apoios ?? 0, eu: post.apoiei });
   const [vou, setVou] = useState({ n: post.vou ?? 0, eu: post.vou_eu });
+  // Apoiar e "Eu vou" também pedem os 18 anos confirmados: sem isso o banco recusa com confirme_idade, e a pergunta aparece aqui.
+  const [pedeIdade, setPedeIdade] = useState(false);
+  const recusaDeIdade = (e: unknown) => {
+    if (e instanceof BackendError && e.code === "confirme_idade") setPedeIdade(true);
+  };
   const [repostando, setRepostando] = useState(false);
   const [denunciando, setDenunciando] = useState(false);
   const [recado, setRecado] = useState("");
@@ -940,12 +989,12 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
                 disabled={!logado}
                 aria-pressed={vou.eu}
                 onClick={async () => {
-                  const r = await rpc<{ vou: number }>("rede_vou", { p_id: post.id, p_sim: !vou.eu }).catch(() => null);
-                  if (r) setVou({ n: r.vou, eu: !vou.eu });
+                  const r = await rpc<{ vou: number | null }>("rede_vou", { p_id: post.id, p_sim: !vou.eu }).catch((e) => { recusaDeIdade(e); return null; });
+                  if (r) setVou({ n: r.vou ?? vou.n, eu: !vou.eu });
                 }}
                 className={`${pilula} ${vou.eu ? "bg-[#c21f16] text-white" : "bg-[#f4ecd8] text-[#1f1a14]"}`}
               >
-                {s.vou} · {vou.n}
+                {s.vou}{post.vou !== null && ` · ${vou.n}`}
               </button>
             </div>
           </div>
@@ -985,10 +1034,10 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
               onClick={async () => {
                 const sim = !apoios.eu;
                 setApoios({ n: apoios.n + (sim ? 1 : -1), eu: sim });
-                await rpc("rede_apoiar", { p_id: post.id, p_sim: sim }).catch(() => setApoios(apoios));
+                await rpc("rede_apoiar", { p_id: post.id, p_sim: sim }).catch((e) => { setApoios(apoios); recusaDeIdade(e); });
               }}
             >
-              {s.apoiar} · {apoios.n}
+              {s.apoiar}{post.apoios !== null && ` · ${apoios.n}`}
             </button>
             <button
               type="button"
@@ -1022,6 +1071,7 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
           </div>
         )}
         {recado && <p className={`mt-1 font-sans text-xs ${suave}`} role="status">{recado}</p>}
+        {pedeIdade && <Idade titulo={s.idadeTitulo} texto={s.idadeTexto} rotuloMaior={s.idadeOk} aoConfirmar={() => setPedeIdade(false)} aoSerMenor={() => setPedeIdade(false)} />}
         {repostando && (
           <div className="mt-2 text-ink">
             <Escrever s={s} logado={logado} equipe={false} comunidade={null} nomeDaComunidade={nomeDaComunidade} postou={mudou} lang={lang} repostando={post} cancelar={() => setRepostando(false)} />

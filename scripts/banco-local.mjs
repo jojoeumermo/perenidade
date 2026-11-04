@@ -11,7 +11,11 @@ import { pgcrypto } from "@electric-sql/pglite/contrib/pgcrypto";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-export async function criarBanco() {
+/**
+ * `semRede`: carrega o install.sql só até o começo dos blocos da Rede v2 (supabase/migracoes/2026-11-rede-*.sql, que ficam no fim). Os
+ * testes de cada pacote da Rede usam isso para aplicar as migrações eles mesmos, na ordem que querem, sobre o banco de antes da v2.
+ */
+export async function criarBanco({ semRede = false } = {}) {
   // O pgcrypto vem ligado no serviço real (no esquema "extensions"); é com ele que a coordenação grava uma senha redefinida.
   const pg = new PGlite({ extensions: { pgcrypto } });
   // O mínimo que o serviço real já traz pronto: papéis, a extensão de criptografia e o esquema de autenticação.
@@ -36,7 +40,12 @@ export async function criarBanco() {
     grant usage on schema public to anon, authenticated, service_role;
     alter default privileges in schema public grant execute on functions to anon, authenticated, service_role;
   `);
-  const sql = fs.readFileSync(path.join(raiz, "supabase/install.sql"), "utf8");
+  let sql = fs.readFileSync(path.join(raiz, "supabase/install.sql"), "utf8");
+  if (semRede) {
+    const corte = sql.indexOf("-- ───────────────────────────── Rede Lúcia v2: fundação das funções");
+    if (corte < 0) throw new Error("install.sql sem o bloco da fundação da Rede v2");
+    sql = sql.slice(0, corte);
+  }
   await pg.exec(sql);
 
   let fila = Promise.resolve();

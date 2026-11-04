@@ -1,0 +1,129 @@
+{
+  "_rascunho": true,
+  "enquete": {
+    "rotulo": "Sondage",
+    "pergunta": "Question du sondage",
+    "opcao": "Option {n}",
+    "mais": "Ajouter une option",
+    "tirar": "Retirer l'option {n}",
+    "prazo": "Durée d'ouverture",
+    "p1": "1 heure",
+    "p6": "6 heures",
+    "p24": "1 jour",
+    "p72": "3 jours",
+    "p168": "7 jours",
+    "multipla": "Autoriser plusieurs choix",
+    "secreto": "Vote secret : personne ne voit qui a voté quoi, seulement les totaux.",
+    "votar": "Voter",
+    "votou": "Vous avez voté.",
+    "encerrada": "Sondage clos",
+    "termina": "Se termine {quando}",
+    "votos": "{n} votes",
+    "voto": "1 vote",
+    "depois": "Les totaux s'affichent après votre vote."
+  },
+  "imagens": {
+    "titulo": "Images (jusqu'à 4)",
+    "adicionar": "Ajouter une image",
+    "tirar": "Retirer l'image {n}",
+    "alt": "Décrivez l'image (texte alternatif)",
+    "altDica": "Pour qui ne peut pas la voir : que montre l'image ?",
+    "altFalta": "Sans description, les lecteurs d'écran perdent l'image. Mieux vaut en écrire une.",
+    "limpa": "La localisation et les données de l'appareil sont retirées de l'image avant l'envoi.",
+    "borrar": "Flouter les visages",
+    "achar": "Trouver les visages",
+    "semDetector": "Cet appareil ne trouve pas les visages seul : faites glisser sur chaque visage pour le flouter.",
+    "desfazer": "Annuler",
+    "pronto": "Terminé",
+    "cancelar": "Annuler",
+    "borradas": "{n} zones floutées",
+    "preparando": "Préparation de l'image…",
+    "invalida": "Utilisez une image JPG, PNG ou WebP.",
+    "grande": "L'image est trop grande.",
+    "maximo": "4 images au maximum.",
+    "ver": "Image {n} sur {total}",
+    "semAcesso": "Connectez-vous pour voir l'image."
+  },
+  "audio": {
+    "titulo": "Audio (jusqu'à 1 minute)",
+    "gravar": "Enregistrer",
+    "parar": "Arrêter",
+    "regravar": "Réenregistrer",
+    "tirar": "Retirer l'audio",
+    "gravando": "Enregistrement… {s} s sur 60",
+    "semSuporte": "Ce navigateur n'enregistre pas l'audio.",
+    "semPermissao": "Pas d'autorisation pour le micro.",
+    "ouvir": "Écouter l'audio ({s} s)",
+    "carregando": "Chargement…",
+    "falha": "Impossible de charger l'audio."
+  },
+  "previa": {
+    "titulo": "Aperçu du lien",
+    "gerar": "Créer l'aperçu du lien",
+    "gerando": "Recherche…",
+    "tirar": "Retirer l'aperçu",
+    "falha": "Impossible de construire l'aperçu de ce lien. Il s'affichera en texte simple.",
+    "nota": "Notre serveur construit l'aperçu : ni votre navigateur ni celui du lecteur ne touche le site."
+  },
+  "quem": {
+    "rotulo": "Qui peut répondre",
+    "todos": "Tout le monde",
+    "seguindo": "Les personnes que je suis",
+    "mencionados": "Seulement les personnes mentionnées",
+    "ninguem": "Personne",
+    "so": "L'auteur a limité les réponses : {quem}."
+  },
+  "agendar": {
+    "rotulo": "Publier plus tard",
+    "quando": "Date et heure",
+    "marcar": "Programmer",
+    "agendado": "Programmé pour {quando}. Si le Réseau est fermé à ce moment, il sort à votre prochaine ouverture.",
+    "fila": "Publications programmées",
+    "cancelar": "Annuler la programmation",
+    "falhou": "Non publié : {erro}",
+    "cedo": "Choisissez une heure entre 5 minutes et 30 jours."
+  },
+  "rascunho": {
+    "guardado": "Brouillon enregistré sur cet appareil.",
+    "recuperado": "Nous avons récupéré le brouillon enregistré sur cet appareil.",
+    "apagar": "Supprimer le brouillon"
+  },
+  "checagem": {
+    "cpf": "Cela ressemble à un CPF. Retirez-le : les données personnelles ne vont pas sur le Réseau.",
+    "telefone": "Cela ressemble à un numéro de téléphone. Retirez-le : les données personnelles ne vont pas sur le Réseau.",
+    "email": "Cela ressemble à une adresse e-mail. Retirez-la : les données personnelles ne vont pas sur le Réseau.",
+    "endereco": "Cela ressemble à une adresse avec numéro. Retirez-la : dire où quelqu'un habite ou se trouve l'expose.",
+    "odio": "Le texte contient des mots qui blessent souvent. Vous pouvez l'envoyer, mais la modération le lit avant publication."
+  },
+  "editar": {
+    "botao": "Modifier",
+    "titulo": "Modifier la publication",
+    "salvar": "Enregistrer",
+    "cancelar": "Annuler",
+    "livre": "Pendant les 15 premières minutes, vous modifiez sans laisser de trace.",
+    "marca": "Ensuite, la publication est marquée comme modifiée et le texte précédent reste visible.",
+    "editado": "modifié",
+    "historico": "Voir le texte précédent",
+    "esconder": "Masquer le texte précédent",
+    "anterior": "Avant {quando}",
+    "retido": "La modification est passée en lecture par la modération avant de réapparaître."
+  },
+  "fio": {
+    "badge": "Fil",
+    "continuar": "Continuer le fil"
+  },
+  "erros": {
+    "invalido_midia": "Vérifiez les images : JPG, PNG ou WebP, 4 au maximum.",
+    "invalido_audio": "Vérifiez l'audio : 1 minute au maximum.",
+    "invalido_opcoes": "Vérifiez les options : de 2 à 4, différentes, 80 caractères au maximum.",
+    "invalido_enquete": "Vérifiez le sondage.",
+    "invalido_prazo": "Un sondage dure de 1 heure à 7 jours.",
+    "invalido_previa": "Le lien de l'aperçu n'est pas valide.",
+    "invalido_quando": "Choisissez une heure entre 5 minutes et 30 jours.",
+    "invalido_fio": "Vous ne pouvez continuer que votre propre publication.",
+    "invalido_responde_quem": "Vérifiez qui peut répondre.",
+    "ja_votou": "Vous avez déjà voté dans ce sondage.",
+    "encerrada": "Ce sondage est terminé.",
+    "dado_pessoal": "Retirez du texte CPF, téléphone, e-mail ou adresse avec numéro : les données personnelles ne vont pas sur le Réseau."
+  }
+}

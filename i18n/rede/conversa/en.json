@@ -1,0 +1,74 @@
+{
+  "_rascunho": true,
+  "ordem": {
+    "rotulo": "Sort replies",
+    "uteis": "Most useful",
+    "antigas": "Oldest",
+    "novas": "Newest",
+    "porQue": "Why this order?",
+    "formulaUteis": "Most useful: first the reply that solved the question; then whoever got the most “Useful” marks; ties go to the older reply. Supports are not counted: only the author sees how many supports a post got.",
+    "formulaAntigas": "Oldest: from the oldest reply to the newest, with no other criterion.",
+    "formulaNovas": "Newest: from the newest reply to the oldest, with no other criterion.",
+    "aoLado": "The order applies to each group of replies to the same post; the replies to a reply always stay right below it."
+  },
+  "arvore": {
+    "carregando": "Loading the conversation",
+    "respostas": "Replies",
+    "nenhuma": "Nobody has replied yet. You can be the first.",
+    "continuar": "Continue the conversation ({n} replies)",
+    "continuarUm": "Continue the conversation (1 reply)",
+    "silenciada": "Reply from a person you muted.",
+    "mais": "We show the first 400 replies. Open a reply to see what comes next.",
+    "acima": "The conversation so far",
+    "desdeOComeco": "See the conversation from the start",
+    "nivel": "Conversation level {n}",
+    "naoEncontrada": "We could not find this conversation, or you do not have access to it."
+  },
+  "resolveu": {
+    "marcar": "This reply solved it",
+    "desmarcar": "Unmark",
+    "selo": "Reply that solved it",
+    "ajuda": "Only the person who asked and the moderation mark the reply that solved it. There is one per question; marking another moves the mark.",
+    "marcada": "Marked as the reply that solved it.",
+    "desmarcada": "Mark removed."
+  },
+  "sintese": {
+    "titulo": "Conversation summary",
+    "fixada": "Pinned at the top",
+    "por": "Written by {autor}, {quando}",
+    "escrever": "Write the summary",
+    "novaVersao": "Write a new version",
+    "retirar": "Remove the summary",
+    "confirmarRetirar": "Remove the summary from the top of the conversation? It stays in the history.",
+    "confirmar": "Remove",
+    "cancelar": "Cancel",
+    "salvar": "Pin to the top",
+    "salva": "Summary pinned.",
+    "retirada": "Summary removed from the top.",
+    "placeholder": "In a few lines: what the conversation concluded and what is still open.",
+    "dica": "Only whoever opened the conversation and the moderation write the summary. Do not include ID numbers, phone numbers or e-mail. Every version stays in the history.",
+    "contador": "{n} of {max}",
+    "historico": "See the history ({n} versions)",
+    "versaoAtual": "current version",
+    "versaoAntiga": "removed version",
+    "escritaPor": "{autor}, {quando}"
+  },
+  "citar": {
+    "botao": "Quote",
+    "titulo": "Quote this post",
+    "placeholder": "Write what you want to say about this post",
+    "enviar": "Publish the quote",
+    "cancelar": "Cancel",
+    "quemVe": "Who can see it: {publico}",
+    "restrito": "Whoever cannot see the original post will see only “restricted content”.",
+    "publicada": "Quote published.",
+    "verPublicada": "Open the quote",
+    "contador": "{n} of {max}"
+  },
+  "mencao": {
+    "lista": "People to mention",
+    "dica": "Type @ and the start of the @name to mention someone. The person is only notified if they can see the conversation and have not blocked you.",
+    "nenhuma": "Nobody found.",
+    "equipe": "team"
+  }
+}

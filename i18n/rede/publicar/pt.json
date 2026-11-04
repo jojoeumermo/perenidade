@@ -1,0 +1,128 @@
+{
+  "enquete": {
+    "rotulo": "Enquete",
+    "pergunta": "Pergunta da enquete",
+    "opcao": "Opção {n}",
+    "mais": "Mais uma opção",
+    "tirar": "Tirar a opção {n}",
+    "prazo": "Quanto tempo fica aberta",
+    "p1": "1 hora",
+    "p6": "6 horas",
+    "p24": "1 dia",
+    "p72": "3 dias",
+    "p168": "7 dias",
+    "multipla": "Pode marcar mais de uma opção",
+    "secreto": "Voto secreto: ninguém vê quem votou em quê, só os totais.",
+    "votar": "Votar",
+    "votou": "Você votou.",
+    "encerrada": "Enquete encerrada",
+    "termina": "Termina em {quando}",
+    "votos": "{n} votos",
+    "voto": "1 voto",
+    "depois": "Os totais aparecem depois que você votar."
+  },
+  "imagens": {
+    "titulo": "Imagens (até 4)",
+    "adicionar": "Adicionar imagem",
+    "tirar": "Tirar a imagem {n}",
+    "alt": "Descreva a imagem (texto alternativo)",
+    "altDica": "Para quem não enxerga: o que aparece na imagem?",
+    "altFalta": "Sem descrição, quem usa leitor de tela perde a imagem. Vale escrever.",
+    "limpa": "A localização e os dados da câmera são tirados da imagem antes de enviar.",
+    "borrar": "Borrar rostos",
+    "achar": "Achar rostos",
+    "semDetector": "Este aparelho não acha rostos sozinho: arraste sobre cada rosto para borrar.",
+    "desfazer": "Desfazer",
+    "pronto": "Pronto",
+    "cancelar": "Cancelar",
+    "borradas": "{n} áreas borradas",
+    "preparando": "Preparando a imagem…",
+    "invalida": "Use uma imagem JPG, PNG ou WebP.",
+    "grande": "A imagem é grande demais.",
+    "maximo": "No máximo 4 imagens.",
+    "ver": "Imagem {n} de {total}",
+    "semAcesso": "Entre na sua conta para ver a imagem."
+  },
+  "audio": {
+    "titulo": "Áudio (até 1 minuto)",
+    "gravar": "Gravar",
+    "parar": "Parar",
+    "regravar": "Gravar de novo",
+    "tirar": "Tirar o áudio",
+    "gravando": "Gravando… {s} s de 60",
+    "semSuporte": "Este navegador não grava áudio.",
+    "semPermissao": "Sem permissão para usar o microfone.",
+    "ouvir": "Ouvir áudio ({s} s)",
+    "carregando": "Carregando…",
+    "falha": "Não foi possível carregar o áudio."
+  },
+  "previa": {
+    "titulo": "Prévia do link",
+    "gerar": "Gerar prévia do link",
+    "gerando": "Buscando…",
+    "tirar": "Tirar a prévia",
+    "falha": "Não conseguimos montar a prévia deste link. Ele aparece só como texto.",
+    "nota": "A prévia é montada pelo nosso servidor: nem o seu navegador nem o de quem lê toca no site."
+  },
+  "quem": {
+    "rotulo": "Quem pode responder",
+    "todos": "Todos",
+    "seguindo": "Quem eu sigo",
+    "mencionados": "Só quem eu mencionar",
+    "ninguem": "Ninguém",
+    "so": "Quem escreveu limitou as respostas: {quem}."
+  },
+  "agendar": {
+    "rotulo": "Publicar mais tarde",
+    "quando": "Data e hora",
+    "marcar": "Agendar",
+    "agendado": "Agendado para {quando}. Se a Rede estiver fechada na hora, sai na próxima vez que você a abrir.",
+    "fila": "Publicações agendadas",
+    "cancelar": "Cancelar agendamento",
+    "falhou": "Não saiu: {erro}",
+    "cedo": "Escolha um horário entre 5 minutos e 30 dias à frente."
+  },
+  "rascunho": {
+    "guardado": "Rascunho guardado neste aparelho.",
+    "recuperado": "Recuperamos o rascunho guardado neste aparelho.",
+    "apagar": "Apagar o rascunho"
+  },
+  "checagem": {
+    "cpf": "Parece um CPF. Tire do texto: dado pessoal não vai para a Rede.",
+    "telefone": "Parece um telefone. Tire do texto: dado pessoal não vai para a Rede.",
+    "email": "Parece um e-mail. Tire do texto: dado pessoal não vai para a Rede.",
+    "endereco": "Parece um endereço com número. Tire: dizer onde alguém mora ou está expõe a pessoa.",
+    "odio": "O texto tem palavras que costumam ferir. Pode enviar, mas passa pela leitura da mediação antes de aparecer."
+  },
+  "editar": {
+    "botao": "Editar",
+    "titulo": "Editar o post",
+    "salvar": "Salvar",
+    "cancelar": "Cancelar",
+    "livre": "Nos primeiros 15 minutos você edita sem deixar marca.",
+    "marca": "Depois disso o post fica marcado como editado e o texto anterior fica visível.",
+    "editado": "editado",
+    "historico": "Ver o texto anterior",
+    "esconder": "Esconder o texto anterior",
+    "anterior": "Antes de {quando}",
+    "retido": "A edição foi para a leitura da mediação antes de reaparecer."
+  },
+  "fio": {
+    "badge": "Fio",
+    "continuar": "Continuar o fio"
+  },
+  "erros": {
+    "invalido_midia": "Confira as imagens: JPG, PNG ou WebP, no máximo 4.",
+    "invalido_audio": "Confira o áudio: até 1 minuto.",
+    "invalido_opcoes": "Confira as opções da enquete: de 2 a 4, diferentes, até 80 letras cada.",
+    "invalido_enquete": "Confira a enquete.",
+    "invalido_prazo": "O prazo da enquete vai de 1 hora a 7 dias.",
+    "invalido_previa": "O link da prévia não vale.",
+    "invalido_quando": "Escolha um horário entre 5 minutos e 30 dias à frente.",
+    "invalido_fio": "Só dá para continuar o seu próprio post.",
+    "invalido_responde_quem": "Confira quem pode responder.",
+    "ja_votou": "Você já votou nesta enquete.",
+    "encerrada": "Esta enquete já terminou.",
+    "dado_pessoal": "Tire do texto CPF, telefone, e-mail ou endereço com número: dado pessoal não vai para a Rede."
+  }
+}
