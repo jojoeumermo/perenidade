@@ -32,6 +32,10 @@ quiz:
     explicacao: "Bento chega a assistir a Otelo no teatro."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar o enredo de *Dom Casmurro* e explicar por que a aula pede que se desconfie do narrador.
+
 ## A história
 
 **Bento Santiago**, chamado de Bentinho na juventude e de "Dom Casmurro" na velhice, conta a sua vida. Ainda menino, ama a vizinha **Capitu**. A mãe, Dona Glória, prometera fazê-lo padre, e ele vai para o seminário, onde conhece **Escobar**, que se torna o seu melhor amigo. Bento escapa da batina, forma-se em Direito e casa com Capitu; Escobar casa com Sancha. Nasce **Ezequiel**, filho de Bento e Capitu.
@@ -71,9 +75,27 @@ Durante décadas, muitos leitores aceitaram a versão de Bento. Em 1960, a estud
 
 Hoje, o mais comum é dizer que o romance **não responde** se houve traição. O que ele mostra com clareza é o **ciúme** e o **poder** de um homem que pode decidir sozinho o destino da mulher.
 
+## Exemplo resolvido
+
+**Por que não dá para tomar como prova que Ezequiel "tem a cara de Escobar"?**
+
+1. Quem conta é **Bento Santiago**, em primeira pessoa: ele é, ao mesmo tempo, quem conta, o marido que acusa e o juiz que condena.
+2. A semelhança é uma **impressão** de Bento depois da morte de Escobar. Usar impressões como provas é uma das estratégias da tabela da aula.
+3. Capitu **nunca tem a palavra**: só se conhece a versão dele, reconstruída na velhice pela memória.
+4. Conclusão da aula: o livro não responde se houve traição. Mostra com clareza o ciúme e o poder de um homem que decide sozinho o destino da mulher.
+
+Confira: desconfiar do narrador não é decidir que Capitu é inocente; é notar que a prova depende de quem conta.
+
 ## Para praticar
 
 1. Leia os capítulos sobre os "olhos de ressaca" no [acervo](/acervo/dom-casmurro) e descreva Capitu com as suas palavras.
 2. Liste três momentos em que Bento mostra ciúme antes do casamento.
 3. Escreva uma página contando um episódio do livro do ponto de vista de Capitu.
 4. Debata: o livro é sobre uma traição ou sobre um ciúme?
+
+## Resumo
+
+- Bento Santiago conta a própria vida; o livro é a reconstrução de um homem velho e amargo.
+- O narrador em primeira pessoa é parte interessada e Capitu nunca tem a palavra.
+- Bento usa estratégias como pintar Capitu como dissimulada e tomar impressões como provas.
+- O romance não responde se houve traição: mostra o ciúme e o poder.

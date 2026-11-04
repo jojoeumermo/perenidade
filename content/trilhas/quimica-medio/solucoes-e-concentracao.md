@@ -38,6 +38,10 @@ quiz:
     explicacao: "O volume ficou 10 vezes maior, então a concentração ficou 10 vezes menor."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir soluto e solvente, ler a solubilidade e calcular concentrações em g/L, em porcentagem e em mol/L.
+
 ## Misturas que parecem uma coisa só
 
 Uma **solução** é uma mistura **homogênea**: os componentes estão tão bem misturados que não se distinguem, nem ao microscópio. Água com sal, vinagre, soro, o ar, o aço.
@@ -157,3 +161,12 @@ A água da torneira tem sais dissolvidos e conduz o bastante para tornar perigos
 2. Que massa de sal é necessária para preparar 2 litros de soro fisiológico?
 3. Calcule a concentração em mol/L de uma solução com 40 g de NaOH (massa molar 40 g/mol) em 500 mL.
 4. Um suco concentrado deve ser diluído na proporção de 1 parte para 4 de água. Se o concentrado tem 20% de polpa, quanto tem o suco pronto?
+
+## Resumo
+
+- Solução é uma mistura homogênea: soluto é o dissolvido e solvente é o que dissolve.
+- Solubilidade é o máximo de soluto que dissolve em certa quantidade de solvente, a uma temperatura; a do sal é cerca de 36 g em 100 g de água, a 20 °C.
+- Sólidos costumam dissolver mais em água quente; gases dissolvem menos, e mais sob pressão.
+- Concentração comum: C = massa do soluto ÷ volume da solução (g/L); em mol/L: M = n ÷ V.
+- O soro fisiológico tem 9 g de NaCl por litro (0,9%); o álcool 70 é o indicado para desinfetar.
+- Água quente devolvida ao rio tira oxigênio da água: poluição térmica.

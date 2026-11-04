@@ -31,6 +31,10 @@ quiz:
     resposta: 0
     explicacao: "O governo chinês rejeita o modelo de separação de poderes e independência judicial de tipo ocidental."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer os três elementos da política chinesa, o que é o Estado socialista de direito e em que as duas concepções de Estado de direito divergem.
+
 
 O terceiro módulo obrigatório de Ideologia e Política chama-se **Política e Estado de direito** (政治与法治). Ele apresenta as instituições políticas chinesas e a ideia oficial de Estado de direito. Esta aula resume o conteúdo e apresenta os debates em torno dele. O funcionamento das instituições é detalhado na aula [O sistema político chinês](/trilhas/ideologia-e-politica-medio/o-sistema-politico-chines).
 
@@ -77,3 +81,23 @@ O Brasil adota o modelo da separação de poderes, com Judiciário independente 
 ## Para conversar
 
 O que significa, para você, "todos são iguais perante a lei"? Isso acontece no Brasil? Que mudanças tornariam a justiça mais igual para todos?
+
+## Exemplo resolvido
+
+**Como comparar as duas concepções de Estado de direito sem tomar partido de saída?**
+
+1. **Datas.** A emenda constitucional de 1999 incluiu a construção de um Estado socialista de direito no art. 5º; em 2014, o Partido dedicou inteira uma sessão plenária ao tema: 2014 − 1999 = **15 anos** depois.
+2. **Tradição liberal** (que inspira a Constituição brasileira): exige separação de poderes, Judiciário independente, eleições competitivas e garantias contra o próprio governo.
+3. **Discurso oficial chinês:** rejeita a separação de poderes e a independência judicial nos moldes ocidentais, e defende a direção do Partido como parte do Estado de direito.
+4. **Marque o ponto central do debate.** A diferença está em quem controla o poder: instituições separadas ou o Partido.
+5. **Olhe para casa.** A aula observa que o modelo brasileiro também tem limites: seletividade da justiça penal contra pobres e negros, lentidão dos processos, peso do dinheiro nas campanhas. Nenhum sistema realiza por completo o seu ideal.
+
+Pergunta da aula: o que significa "todos são iguais perante a lei", e isso acontece no Brasil?
+
+## Resumo
+
+- O terceiro módulo apresenta as instituições políticas chinesas e a ideia oficial de Estado de direito.
+- Três elementos apresentados como "unidade orgânica": a direção do Partido Comunista, o povo como senhor do país (assembleias populares) e o governo de acordo com a lei.
+- A emenda de 1999 incluiu no art. 5º a construção de um Estado socialista de direito; em 2014, uma sessão plenária do Comitê Central foi dedicada ao tema.
+- Na tradição liberal, o Estado de direito exige separação de poderes, Judiciário independente e eleições competitivas; o discurso oficial chinês rejeita a separação de poderes nesses moldes.
+- O modelo brasileiro tem limites próprios: seletividade da justiça penal contra pobres e negros, lentidão e peso do dinheiro nas campanhas.

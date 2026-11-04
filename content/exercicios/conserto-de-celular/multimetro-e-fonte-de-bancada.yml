@@ -1,0 +1,51 @@
+# Exercícios da aula "Multímetro e fonte de bancada" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-multimetro-01
+  tema: "Continuidade"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer o multímetro apitar no teste de continuidade?"
+  alternativas:
+    - texto: "Que o aparelho está sem bateria"
+      erro: "O apito mostra que há caminho elétrico entre os pontos."
+    - texto: "Que há tensão alta"
+      erro: "Isso é outra função: tensão."
+    - texto: "Que há caminho elétrico entre os dois pontos"
+      certa: true
+  explicacao: "Sempre com o aparelho desligado e sem bateria."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-multimetro-02
+  tema: "O que a fonte mostra"
+  dificuldade: 2
+  enunciado: "Na fonte de bancada, um aparelho que consome demais, com a corrente subindo e ficando alta, pode ter:"
+  alternativas:
+    - texto: "Um curto"
+      certa: true
+    - texto: "Um caminho aberto"
+      erro: "Aparelho que não consome nada pode ter caminho aberto ou bateria ausente."
+    - texto: "Bateria nova"
+      erro: "Consumo alto e crescente sugere curto."
+  explicacao: "O limite de corrente da fonte protege a placa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-multimetro-03
+  tema: "Segurança"
+  dificuldade: 2
+  enunciado: "Qual cuidado a aula pede ao usar a fonte de bancada?"
+  alternativas:
+    - texto: "Ligar primeiro e ajustar depois"
+      erro: "Ajuste antes de ligar."
+    - texto: "Ajustar a tensão e o limite de corrente antes de ligar e respeitar a polaridade (positivo no positivo)"
+      certa: true
+    - texto: "Ignorar a polaridade"
+      erro: "Não ligue sem saber a polaridade."
+  explicacao: "Não passe do indicado para o aparelho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -33,6 +33,10 @@ quiz:
     explicacao: "O Estado mantém as 'alturas de comando' e usa os bancos públicos para dirigir o investimento."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever a reforma e abertura iniciada por Deng Xiaoping em 1978, as fórmulas oficiais do partido e os resultados e problemas, sem tomar nenhum lado como definitivo.
+
 A China é hoje a segunda maior economia do mundo, a maior potência industrial e a maior exportadora. É governada pelo Partido Comunista e se define oficialmente como socialista. Ao mesmo tempo, tem bilionários, bolsas de valores e grandes empresas privadas. Como entender isso? Esta aula apresenta os fatos e as principais interpretações.
 
 ## A reforma de Deng
@@ -80,6 +84,24 @@ O caráter da China divide profundamente a esquerda mundial:
 
 O sociólogo italiano Giovanni Arrighi, em *Adam Smith em Pequim* (2007), propôs ainda outra leitura: a China representaria um tipo de economia de mercado não capitalista, nos termos de Adam Smith.
 
+## Exemplo resolvido
+
+**Como funcionava o sistema de duplo preço que a China usou nos anos 1980?**
+
+1. O Estado mantinha preços planejados para as cotas de produção, ou seja, para a parte que as empresas deviam entregar dentro do plano.
+2. O excedente, o que passava da cota, era vendido a preços de mercado.
+3. Assim, o mercado entrava aos poucos, sem soltar todos os preços de uma vez.
+
+Conclusão: segundo Isabella Weber, a China evitou a terapia de choque que, nos anos 1990, provocou o colapso na Rússia, onde os preços foram liberados e as empresas privatizadas de forma rápida e ampla.
+
 ## Para pesquisar e debater
 
 O que a experiência chinesa ensina sobre a relação entre desenvolvimento das forças produtivas e socialismo? O crescimento econômico é condição, meio ou obstáculo para o socialismo?
+
+## Resumo
+
+- Em 1978, sob Deng Xiaoping, a China lançou a reforma e abertura: sistema de responsabilidade familiar no campo, zonas econômicas especiais e mais autonomia às empresas.
+- Houve gradualismo, com duplo preço, em vez de terapia de choque.
+- Fórmulas oficiais: socialismo com características chinesas (1982), estágio primário do socialismo (1987), economia de mercado socialista (1992) e nova era (a partir de 2017).
+- Resultados: crescimento muito rápido e centenas de milhões fora da pobreza extrema, segundo o Banco Mundial.
+- Problemas: desigualdade maior que na era maoísta, bilionários, danos ambientais, duras condições de trabalho e falta de oposição organizada e de imprensa livre.

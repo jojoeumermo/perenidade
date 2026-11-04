@@ -27,7 +27,17 @@ quiz:
     opcoes: ["Conhecê-lo a partir das fontes, descrevê-lo com precisão e discuti-lo criticamente", "Copiá-lo sem pensar", "Rejeitá-lo sem conhecer"]
     resposta: 0
     explicacao: "Conhecer como outros países educam ajuda a pensar a nossa própria educação."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é a disciplina chinesa Moral e Estado de Direito, quais são as cinco competências do padrão curricular de 2022 e como ler o currículo de outro país com perguntas críticas.
+
+```suarealidade
+Você teve, na escola, alguma aula sobre leis, direitos e deveres? Onde, na sua semana (no trabalho, no posto de saúde, na rua), você precisou saber o que a lei garante?
+```
+
+
 
 Em toda a China, crianças e adolescentes do 1º ao 9º ano têm uma disciplina obrigatória chamada **道德与法治** (*dàodé yǔ fǎzhì*), **Moral e Estado de Direito**. Esta trilha apresenta o que ela ensina. A ideia não é concordar com tudo nem recusar tudo, mas **conhecer**: entender como o país mais populoso da Ásia forma os seus cidadãos.
 
@@ -77,3 +87,33 @@ As próximas aulas percorrem os principais temas da disciplina, sempre com uma c
 ## Para conversar
 
 Você teve, na escola, alguma aula sobre leis, direitos e deveres? Como foi? Você acha que esse conteúdo deveria ser uma disciplina própria?
+
+## Exemplo resolvido: lendo o currículo com as quatro perguntas
+
+1. **O que o currículo diz de si mesmo?** Os documentos chineses declaram a sua orientação política: a primeira competência da tabela é a identificação política, apoiar o sistema político do país e a direção do Partido Comunista.
+2. **O que ele ensina de fato?** Há muitos conteúdos práticos: segurança no trânsito, prevenção de drogas, direitos do consumidor, proteção de menores.
+3. **O que deixa de fora?** Críticos apontam pouco espaço para questionar as posições oficiais.
+4. **O que podemos aprender?** Por exemplo, a presença da educação jurídica desde cedo.
+
+Confira: as quatro respostas juntas dão uma leitura mais justa do que só elogiar ou só condenar.
+
+```outrolado
+# O argumento mais forte de quem discorda
+O padrão curricular de 2022 para o ensino obrigatório da China declara abertamente que a disciplina tem uma orientação política e define a identificação política como primeira competência. Quem defende esse modelo argumenta que toda escola forma valores e que é mais honesto declarar a orientação do que fingir neutralidade; e que ensinar desde cedo o que é uma lei e uma Constituição ajuda as crianças a conhecerem os próprios direitos e deveres.
+---
+Como você responderia, com respeito e com fatos? Pense no que significa ensinar a apoiar um sistema e o que isso deixa fora, e em como o Brasil forma cidadãos.
+---
+Uma resposta possível: a franqueza sobre a orientação é um mérito, e a educação jurídica desde cedo é um ponto que o Brasil pode aprender, como diz a aula. A pergunta que fica, apontada por críticos citados na aula, é se sobra espaço para questionar as posições oficiais. Já a LDB brasileira (1996) fala em pleno desenvolvimento do educando, preparo para a cidadania e qualificação para o trabalho; e o Brasil teve, na ditadura, Educação Moral e Cívica, com orientação conservadora, o que mostra que o risco existe em qualquer lugar.
+```
+
+```agir
+# Esta semana
+Pergunte a duas pessoas da sua casa ou do trabalho se aprenderam na escola o que são direitos e deveres. Anote num papel o que cada uma lembra, sem escrever o nome de ninguém, e leve para a conversa da roda.
+```
+
+## Resumo
+
+- A disciplina Moral e Estado de Direito (道德与法治) é obrigatória do 1º ao 9º ano na China.
+- O padrão curricular de 2022 define cinco competências: identificação política, cultivo moral, noção de Estado de direito, personalidade saudável e senso de responsabilidade.
+- Nos primeiros anos, os temas são segurança, saúde, hábitos e convivência; nos finais, a Constituição e as leis.
+- Para ler um currículo de outro país: o que diz de si, o que ensina de fato, o que deixa de fora e o que podemos aprender.

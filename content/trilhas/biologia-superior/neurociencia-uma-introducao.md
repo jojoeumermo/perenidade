@@ -41,6 +41,9 @@ quiz:
     resposta: 1
     explicacao: "É a lei da reforma psiquiátrica brasileira."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever as células do sistema nervoso, explicar o potencial de repouso e o potencial de ação, a sinapse química e os principais neurotransmissores, e como remédios e drogas agem nesse ponto.
 
 ## O órgão mais complexo que se conhece
 
@@ -139,3 +142,22 @@ Sofrimento psíquico também tem causas sociais: desemprego, jornadas exaustivas
 2. Por que a esclerose múltipla torna mais lentos os movimentos e as sensações?
 3. Que região do encéfalo provavelmente foi lesada em uma pessoa que perdeu a capacidade de formar memórias novas?
 4. Descubra onde fica o CAPS mais próximo de você e que atendimentos oferece.
+
+## Exemplo resolvido
+
+**Um remédio bloqueia os canais de sódio dos neurônios de uma região do corpo. O que se espera?**
+
+1. **Lembre o potencial de ação.** Quando um estímulo leva a membrana ao limiar, os canais de sódio se abrem e o **sódio entra** (despolarização); depois o potássio sai (repolarização).
+2. **Aplique ao caso.** Se os canais de sódio estão bloqueados, o sódio não entra e a despolarização não acontece.
+3. **Conclua.** Os neurônios não conseguem gerar potenciais de ação e a **sensação daquela região é bloqueada**.
+4. **Relacione.** Os anestésicos locais usados pelo dentista agem justamente bloqueando canais de sódio.
+
+Confira: o potencial de ação é do tipo tudo ou nada: ou atinge o limiar e dispara inteiro, ou não dispara.
+
+## Resumo
+
+- O encéfalo humano tem cerca de **86 bilhões de neurônios** (Herculano-Houzel). **Neurônios** transmitem sinais; **células da glia** sustentam, nutrem, protegem e produzem a mielina. Cajal mostrou que o sistema nervoso é feito de células individuais.
+- **Potencial de repouso:** cerca de −70 mV no interior, mantido pela bomba de sódio e potássio.
+- **Potencial de ação:** despolarização (entra sódio), repolarização (sai potássio); tudo ou nada. Com mielina, o sinal "salta" e é mais rápido.
+- **Sinapse química:** neurotransmissores (glutamato, GABA, acetilcolina, dopamina, serotonina, noradrenalina).
+- Muitos remédios e drogas agem na sinapse: imitam o neurotransmissor, bloqueiam o receptor ou impedem a recaptação.

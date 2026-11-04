@@ -1,5 +1,6 @@
 ---
 titulo: "Pinyin e os quatro tons"
+modelo: 9
 resumo: "O alfabeto que ensina a pronunciar o mandarim e a melodia que muda o sentido de cada sílaba."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,13 @@ quiz:
     resposta: 1
     explicacao: "Xièxie soa, aproximadamente, 'chié-chie'."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler o pinyin, dividir uma sílaba em inicial, final e tom, distinguir os quatro tons e ler as primeiras palavras (nǐ hǎo, xièxie, zàijiàn).
+
+```suarealidade
+Que palavras de outra língua você já ouve ou usa no dia a dia (no trabalho, na rua, na internet)? Como você aprendeu a dizê-las?
+```
 
 ## Uma língua, dois sistemas
 
@@ -101,3 +109,37 @@ Uma curiosidade útil: quando dois terceiros tons se encontram, o primeiro vira 
 1. Abra a ferramenta de [pronúncia](/ferramentas/pronuncia), escolha "中文" e cole: 妈 麻 马 骂. Ouça devagar várias vezes e tente imitar a melodia.
 2. Faça o mesmo com 你好, 谢谢 e 再见.
 3. Desenhe no ar, com a mão, a linha de cada tom enquanto fala. Parece bobo, e funciona.
+
+## Exemplo resolvido
+
+**Como ler 你好 em voz alta?**
+
+1. **Do caractere ao pinyin.** 你好 se escreve **nǐ hǎo**.
+2. **Divida cada sílaba.** Em **hǎo**: inicial *h*, final *ao*, terceiro tom. Em **nǐ**: inicial *n*, final *i*, terceiro tom.
+3. **Leia o tom como melodia.** O terceiro tom desce e sobe.
+4. **Aplique a regra.** Quando dois terceiros tons se encontram, o primeiro vira segundo. Por isso *nǐ hǎo* se pronuncia "ní hǎo".
+
+Confira: a mesma sílaba com tons diferentes é outra palavra. *mā* (mãe) e *mǎ* (cavalo) não são a mesma coisa.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Aprender chinês é quase impossível para quem fala português, por causa dos tons e dos caracteres. Melhor se concentrar em línguas mais fáceis ou só no inglês." É uma avaliação honesta de quem já tentou e desistiu.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Os tons exigem prática, e a aula não esconde isso: em mandarim a melodia faz parte da palavra. Mas o começo é mais acessível do que parece. O **pinyin** escreve os sons do mandarim com as letras do nosso alfabeto, foi adotado oficialmente pela China em 1958, é o padrão internacional e é com ele que as crianças chinesas aprendem a ler. Os acentos desenham a melodia (reta, sobe, desce e sobe, desce), e treinar com a ferramenta de pronúncia, desenhando o tom no ar, ajuda. Cada pessoa decide se vale a pena, e quem tem um motivo (trabalho, família, curiosidade) tem um caminho claro.
+```
+
+```agir
+# Esta semana
+Aprenda a dizer 你好, 谢谢 e 再见 com os tons, desenhando no ar a linha de cada tom enquanto fala. No fim da semana, diga as três a alguém de casa e explique a diferença entre *mā* e *mǎ*.
+```
+
+## Resumo
+
+- O chinês usa **caracteres**; o **pinyin** escreve os sons do mandarim com letras do nosso alfabeto (oficial desde 1958).
+- O mandarim padrão se chama **pǔtōnghuà** (普通话), "língua comum".
+- A sílaba tem **inicial**, **final** e **tom**.
+- Quatro tons mais o neutro: 1º alto e reto, 2º sobe, 3º desce e sobe, 4º desce de uma vez. O tom faz parte da palavra (mā, má, mǎ, mà).
+- Algumas letras enganam: q, x, zh, c, z, r, h, ü.
+- Dois terceiros tons seguidos: o primeiro vira segundo (nǐ hǎo se diz "ní hǎo").

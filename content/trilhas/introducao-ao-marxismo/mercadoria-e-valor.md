@@ -33,6 +33,10 @@ quiz:
     explicacao: "Marx usa exemplos como esse: coisas úteis que não são produto do trabalho humano não têm valor."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir valor de uso e valor, explicar como o valor é medido e dizer o que é o fetiche da mercadoria.
+
 *O Capital* começa com uma frase: a riqueza das sociedades capitalistas aparece como uma "imensa coleção de mercadorias". Por isso Marx começa a investigação pela coisa mais comum do mundo: **a mercadoria**. Esta aula percorre o seu primeiro capítulo.
 
 ## Dois lados de uma mesma coisa
@@ -80,6 +84,24 @@ No fim do capítulo, Marx descreve o **fetichismo da mercadoria**. Numa sociedad
 
 O fetiche esconde o essencial: por trás de cada mercadoria há trabalho humano, e por trás do preço há relações de produção, de propriedade e de exploração.
 
+## Exemplo resolvido
+
+**Por que um casaco pode valer "tantos pães", se casaco e pão são coisas tão diferentes?**
+
+1. O **valor de uso** (a utilidade) de cada um é diferente: o pão mata a fome, o casaco esquenta. Não dá para comparar a utilidade.
+2. No mercado, porém, eles são comparados. O que têm em comum? Ambos são **produtos do trabalho humano**: o valor é o trabalho humano abstrato contido neles.
+3. A grandeza do valor é medida pelo **tempo de trabalho socialmente necessário**: o tempo médio que a sociedade gasta para produzir a mercadoria.
+4. Se uma máquina nova reduz esse tempo, o valor de cada unidade cai. É por isso que eletrônicos ficam mais baratos com o tempo.
+
+Confira: um trabalhador lento não faz a mercadoria valer mais. O que conta é o tempo médio, e não o de uma pessoa.
+
 ## Para conversar
 
 Escolha um objeto da sua casa e tente reconstruir todo o trabalho humano que ele contém: quem extraiu a matéria-prima, quem fabricou, quem transportou, quem vendeu. Quantas pessoas você conta?
+
+## Resumo
+
+- Mercadoria é um produto do trabalho feito para ser trocado.
+- Tem valor de uso (utilidade) e valor (trabalho humano abstrato); o valor de troca é a forma em que o valor aparece.
+- O valor se mede pelo tempo de trabalho socialmente necessário.
+- O fetiche da mercadoria faz as relações entre pessoas parecerem relações entre coisas.

@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "迟到 (chídào) = chegar atrasado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber marcar compromissos em chinês, diferenciar o momento (antes do verbo) da duração (depois do verbo) e falar de prazos e pontualidade.
 
 ## Marcar um compromisso
 
@@ -95,3 +98,20 @@ Como se diz "Eu trabalho oito horas por dia"?
 2. Escreva três frases com duração: quanto tempo você trabalha, dorme e leva no transporte.
 3. Diferencie: 一月 e 一个月; 两点 e 两个小时.
 4. Escreva em chinês o horário de funcionamento de um lugar que você frequenta.
+
+## Exemplo resolvido
+
+**Como dizer "Eu trabalho oito horas por dia"?**
+
+1. **Separe o momento da duração.** "Todo dia" (每天) é **momento**: vem **antes** do verbo. "Oito horas" (八个小时) é **duração**: vem **depois** do verbo.
+2. **Monte.** Sujeito + momento + verbo + duração: **我每天工作八个小时。** (Wǒ měitiān gōngzuò bā ge xiǎoshí.)
+3. **Compare com o horário.** 我八点上班 diz a que horas você começa (momento, antes do verbo).
+
+Confira: 一个月 (yí ge yuè) é **um mês** de duração, mas 一月 (yīyuè) é **janeiro**.
+
+## Resumo
+
+- O **momento** em que algo acontece vem **antes** do verbo (我八点上班); a **duração** vem **depois** (我工作了八个小时).
+- 一个月 é um mês de duração; 一月 é janeiro.
+- Prazos e pontualidade: 准时 (pontual), 迟到 (chegar atrasado), 提前 (com antecedência), 截止日期 (prazo final), …以前 (antes de…), …以后 (depois de…).
+- Exemplos úteis: 星期五以前交 (entregar antes de sexta); 营业时间 (horário de funcionamento).

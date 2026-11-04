@@ -1079,6 +1079,27 @@
       "outroladoTreino": "Entraînez votre réponse",
       "outroladoPrompt": "Écrivez comment vous répondriez, avec respect et avec des faits. Cela reste sur votre appareil.",
       "outroladoResposta": "Voir une réponse possible",
+      "outrojeito": "Une autre façon d'expliquer",
+      "outrojeitoAbrir": "Ce n'est pas clair ? Voyez-le autrement",
+      "ouvirPergunta": "Écouter la question et les réponses",
+      "pararAudio": "Arrêter",
+      "respostaFalar": "Ou répondez à voix haute",
+      "respostaGravar": "Enregistrer",
+      "respostaParar": "Arrêter l'enregistrement",
+      "respostaGravando": "Enregistrement… parlez calmement.",
+      "respostaOuvir": "Votre réponse enregistrée",
+      "respostaApagar": "Effacer l'audio",
+      "respostaAviso": "L'audio reste uniquement sur cet appareil : l'institut ne le reçoit ni ne l'écoute. Si vous effacez les données du site, il disparaît.",
+      "respostaSemMicrofone": "Cet appareil ne permet pas d'enregistrer ici. Écrivez la réponse.",
+      "respostaConferir": "Écoutez et vérifiez par vous-même :",
+      "respostaConferir1": "Ai-je dit l'idée principale ?",
+      "respostaConferir2": "Ai-je donné un exemple de ma vie ?",
+      "respostaConferir3": "Ai-je parlé calmement, est-ce compréhensible ?",
+      "retornoPedir": "Demander un retour à l'assistant",
+      "retornoPergunta": "Voici ma réponse. Pouvez-vous me faire un bref retour : ce qui est juste et ce qui manque ?",
+      "retornoRotulo": "Votre réponse, pour que l'assistant la commente",
+      "retornoBotao": "Demander le retour",
+      "retornoAviso": "Cela ne part vers l'assistant que si vous appuyez sur le bouton, et seulement le texte écrit. L'audio ne quitte jamais l'appareil.",
       "agir": "Agir",
       "agirVou": "Je vais le faire",
       "agirFeito": "Noté sur cet appareil. Le prochain cours demandera comment cela s'est passé.",
@@ -2202,6 +2223,22 @@
     "modelos-de-documentos": [
       "Modèles de documents (Brésil)",
       "Réclamation au Procon, démission, recours à l'INSS et notification au bailleur."
+    ],
+    "arvore-trabalhista": [
+      "Urgence au travail (Brésil)",
+      "Arbre de décision pour les problèmes de travail : réunissez les preuves, lisez la loi (CLT) et portez-les au syndicat ou à la Défense publique."
+    ],
+    "clausulas-de-contrato": [
+      "Explicateur de clauses (Brésil)",
+      "Collez un contrat de location ou de prêt et voyez ce que disent la loi sur les baux et le Code de la consommation."
+    ],
+    "carga-eletrica": [
+      "Charge électrique du logement",
+      "Additionnez les appareils par circuit et voyez si le fil et le disjoncteur tiennent, avec un avertissement de sécurité (NBR 5410)."
+    ],
+    "mapa-de-servicos": [
+      "Carte des services publics (Brésil)",
+      "Ce que font CRAS, UBS, CAPS, Défense publique, Procon et éducation des adultes, avec des liens officiels pour trouver votre unité."
     ]
   },
   "tools": {
@@ -5642,6 +5679,9 @@
     "baixarHtmlFalhou": "Impossible de créer le fichier dans ce navigateur.",
     "baixarHtmlFonte": "Téléchargé depuis",
     "baixarHtmlRodape": "Fonctionne hors ligne. Pour faire les quiz et garder votre progression, ouvrez la leçon sur le site.",
+    "baixarFerramenta": "Télécharger l'outil en un seul fichier (pour l'envoyer sur WhatsApp)",
+    "baixarFerramentaDica": "Un petit fichier .html, avec le calcul dedans, qui s'ouvre hors ligne sur n'importe quel téléphone, même ancien.",
+    "baixarFerramentaRodape": "Fonctionne hors ligne et ne garde rien de ce que vous saisissez. Pour la version complète, ouvrez l'outil sur le site.",
     "whatsapp": "Envoyer sur WhatsApp",
     "telegram": "Envoyer sur Telegram",
     "copiar": "Copier le lien",

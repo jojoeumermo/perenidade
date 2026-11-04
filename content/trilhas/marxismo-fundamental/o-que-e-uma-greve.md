@@ -30,6 +30,10 @@ quiz:
     explicacao: "A Lei 7.783 lista os serviços essenciais e exige a manutenção dos atendimentos indispensáveis."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é uma greve, por que ela funciona e por que precisa ser coletiva.
+
 Numa segunda-feira, os motoristas de ônibus de uma cidade cruzam os braços. A cidade para. As lojas ficam vazias, as fábricas sem gente, os escritórios fechados. Ninguém pensa nos motoristas no dia a dia, mas, quando eles param, todo mundo descobre o quanto eles são necessários.
 
 Isso é uma **greve**: a parada coletiva do trabalho, decidida pelos trabalhadores, para pressionar por suas reivindicações.
@@ -74,6 +78,24 @@ Antes de 1988, durante a ditadura, as greves eram praticamente proibidas. Foi en
 - A **greve geral de 1917** no Brasil, que começou em São Paulo e conquistou aumentos e o compromisso de libertar grevistas presos.
 - As greves do **ABC** (1978-1980), que fizeram nascer um novo sindicalismo no Brasil.
 
+## Exemplo resolvido
+
+**Por que um trabalhador que falta é demitido e mil que param juntos não podem ser substituídos de uma vez?**
+
+1. O lucro vem do trabalho: se o trabalho para, o lucro para. Um dia de greve numa grande fábrica pode custar milhões ao patrão.
+2. Um trabalhador que falta sozinho é fácil de punir e de substituir.
+3. Mil que param juntos não podem ser substituídos de uma vez, e a produção para.
+4. Por isso a greve precisa ser **coletiva**, decidida pelos trabalhadores, em assembleia, a partir das reivindicações.
+
+Confira: Lenin (1899) chamou as greves de "escola de guerra" da classe operária, porque nelas o operário percebe que luta contra toda a classe dos patrões.
+
 ## Para conversar
 
 Você já participou de uma greve, ou conhece alguém que participou? O que foi conquistado? O que foi mais difícil?
+
+## Resumo
+
+- Greve é a parada coletiva do trabalho, decidida pelos trabalhadores para pressionar por suas reivindicações.
+- Funciona porque o lucro vem do trabalho; por isso os patrões sempre tentaram proibi-la.
+- Precisa ser coletiva e costuma seguir etapas: reivindicações, assembleia e outras.
+- Marcos: a jornada de oito horas (1º de Maio, da greve de Chicago, 1886), a greve geral de 1917 e as greves do ABC (1978-1980).

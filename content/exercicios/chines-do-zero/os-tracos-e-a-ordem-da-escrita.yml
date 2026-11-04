@@ -1,0 +1,51 @@
+# Exercícios da aula "Os traços e a ordem da escrita" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-tracos-01
+  tema: "O quadrado"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a aula diz sobre o espaço de cada caractere?"
+  alternativas:
+    - texto: "Todo caractere ocupa o mesmo espaço, um quadrado imaginário"
+      certa: true
+    - texto: "Caracteres mais complicados ocupam mais espaço"
+      erro: "Um simples como 一 e um complicado como 谢 têm o mesmo tamanho na linha."
+    - texto: "Só os simples ocupam um quadrado"
+      erro: "Todo caractere ocupa o mesmo espaço."
+  explicacao: "Nos cadernos de caligrafia, treina-se em um quadrado dividido em quatro, 田字格."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-tracos-02
+  tema: "Traço horizontal"
+  dificuldade: 1
+  enunciado: "Como se escreve o traço horizontal (横 héng)?"
+  alternativas:
+    - texto: "De cima para baixo"
+      erro: "Isso é o vertical (竖 shù)."
+    - texto: "Da esquerda para a direita"
+      certa: true
+    - texto: "De baixo para cima"
+      erro: "O horizontal vai da esquerda para a direita."
+  explicacao: "Aparece em 一 (um)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-tracos-03
+  tema: "Caractere de treino"
+  dificuldade: 2
+  enunciado: "Qual caractere os calígrafos chineses treinam tradicionalmente porque reúne os principais tipos de traço?"
+  alternativas:
+    - texto: "一 (yī, \"um\")"
+      erro: "一 tem só um traço."
+    - texto: "人 (rén, \"pessoa\")"
+      erro: "人 tem só dois traços."
+    - texto: "永 (yǒng, \"eterno\")"
+      certa: true
+  explicacao: "O método é conhecido como \"Oito princípios do 永\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

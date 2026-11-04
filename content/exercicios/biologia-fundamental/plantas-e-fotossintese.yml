@@ -1,0 +1,69 @@
+# Exercícios da aula "Plantas e fotossíntese" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-plantas-01
+  tema: "A receita"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o resumo da fotossíntese?"
+  alternativas:
+    - texto: "Oxigênio + açúcar + luz, produzindo água"
+      erro: "Isso inverte a receita: oxigênio e açúcar são os produtos."
+    - texto: "Gás carbônico + água + luz, produzindo açúcar (glicose) + oxigênio"
+      certa: true
+    - texto: "Água + terra, produzindo gás carbônico"
+      erro: "A fotossíntese usa gás carbônico, água e luz para fazer açúcar e oxigênio."
+  explicacao: "6 CO₂ + 6 H₂O + luz → C₆H₁₂O₆ + 6 O₂."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-plantas-02
+  tipo: numero
+  tema: "Moléculas de oxigênio"
+  dificuldade: 2
+  enunciado: "Na equação 6 CO₂ + 6 H₂O + luz → C₆H₁₂O₆ + 6 O₂, quantas moléculas de oxigênio (O₂) são liberadas?"
+  resposta: "6"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "O 12 aparece no H₁₂ da glicose, não no oxigênio liberado."
+    - resposta: "1"
+      explicacao: "O coeficiente do O₂ na equação é 6."
+  dica: "Olhe o número que vem antes do O₂ no lado direito da equação."
+  explicacao: "A equação mostra 6 moléculas de O₂."
+  conferir: "6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-plantas-03
+  tema: "Onde acontece"
+  dificuldade: 1
+  enunciado: "Em quais organelas acontece a fotossíntese?"
+  alternativas:
+    - texto: "Nos cloroplastos, onde está a clorofila"
+      certa: true
+    - texto: "No núcleo"
+      erro: "O núcleo guarda o DNA nas células eucariontes."
+    - texto: "Nas raízes, sem organelas"
+      erro: "Acontece nas células das folhas, nos cloroplastos."
+  explicacao: "A clorofila é o pigmento que capta a luz, principalmente a vermelha e a azul."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-plantas-04
+  tema: "Por que a folha é verde"
+  dificuldade: 2
+  enunciado: "Por que enxergamos as folhas verdes?"
+  alternativas:
+    - texto: "Porque a folha absorve a luz verde"
+      erro: "A clorofila usa principalmente a luz vermelha e a azul."
+    - texto: "Porque a clorofila quase não usa a luz verde: ela é refletida"
+      certa: true
+    - texto: "Porque as raízes são verdes"
+      erro: "Os pigmentos da folha refletem a luz verde."
+  explicacao: "A luz verde quase não é usada, por isso é refletida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

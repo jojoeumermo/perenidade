@@ -26,6 +26,7 @@ quiz:
     opcoes: ["No século VI a.C., na Grécia Antiga", "No século XX", "No ano 2000"]
     resposta: 0
     explicacao: "Com pensadores como Tales e Pitágoras."
+modelo: 9
 ---
 
 ```provocacao
@@ -35,6 +36,10 @@ Por que as coisas existem? Como saber se algo é verdade? O que é viver bem? Cr
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é filosofia, de onde vem a palavra e como a filosofia trabalha.
+
+```suarealidade
+Qual é a pergunta mais difícil que você já se fez sobre a vida, no meio do trabalho ou do caminho de casa? Alguém já te ajudou a pensar nela?
+```
 
 ## A palavra
 
@@ -75,6 +80,20 @@ Qual destas é uma pergunta filosófica?
 1. A pergunta do dia a dia é sobre **um caso**.
 2. A pergunta filosófica vai ao **fundamento**: "**por que** é errado ficar com o que não é meu, mesmo quando ninguém vê?".
 3. Para responder, é preciso dar **argumentos**, e não só dizer "porque sim".
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Filosofia não enche barriga. Quem tem conta para pagar não tem tempo de ficar perguntando 'o que é a verdade'".
+---
+Como você responderia?
+---
+Uma resposta possível: a preocupação com as contas é justa. A aula mostra que a filosofia não é só dos gregos nem de quem tem tempo livre: outros povos, na África, na Ásia e nas Américas, também pensaram sobre as perguntas fundamentais. E perguntas como "o que torna uma ação justa ou injusta?" aparecem no trabalho e na vida todos os dias; a filosofia ensina a dar razões e a não aceitar uma resposta só porque "sempre foi assim".
+```
+
+```agir
+# Esta semana
+Anote três perguntas "de criança" (por quê?) que você nunca soube responder. Escolha uma e tente responder em duas frases, com um argumento. Converse sobre ela com alguém de casa.
+```
 
 ## Resumo
 

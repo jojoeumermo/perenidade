@@ -36,6 +36,9 @@ quiz:
     resposta: 1
     explicacao: "Foi proposta por Niles Eldredge e Stephen Jay Gould em 1972."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é a teoria sintética da evolução, como surgem as espécies (alopátrica, simpátrica, radiação adaptativa), os tipos de isolamento reprodutivo e as visões sobre o ritmo da evolução.
 
 ## A síntese
 
@@ -109,3 +112,23 @@ A América foi a última grande região a ser ocupada. Sítios arqueológicos no
 2. Por que as ilhas são bons "laboratórios" para estudar a especiação?
 3. Pesquise o que se sabe hoje sobre a ocupação humana da América e o papel dos sítios da Serra da Capivara. Anote as fontes.
 4. Discuta a frase de Dobzhansky: dê três exemplos de fenômenos biológicos que só fazem sentido à luz da evolução.
+
+## Exemplo resolvido
+
+**Duas populações de uma mesma espécie de sapo ficam separadas por um rio durante milhares de anos. Quando o rio seca, os sapos voltam a se encontrar, mas não se reproduzem entre si. O que aconteceu?**
+
+1. **Veja a barreira.** Um rio separou as populações: uma **barreira geográfica**.
+2. **Veja o isolamento.** Separadas, as duas populações acumularam diferenças por mutação, recombinação, seleção natural e deriva.
+3. **Veja o resultado.** Quando se reencontram, já não cruzam entre si: há **isolamento reprodutivo**. Pelo conceito biológico de espécie, são agora espécies distintas.
+4. **Conclua.** É **especiação alopátrica**.
+
+Confira: na simpátrica não há separação geográfica; nas plantas, um mecanismo importante é a poliploidia.
+
+## Resumo
+
+- **Síntese moderna** (décadas de 1920-1940): une a seleção natural de Darwin à genética de Mendel. A variação vem de mutações e recombinação; as frequências dos alelos mudam por seleção natural, deriva e fluxo gênico; o acúmulo dessas mudanças produz novas espécies.
+- **Conceito biológico de espécie** (Mayr).
+- **Isolamento reprodutivo:** pré-zigótico (impede o acasalamento ou a fecundação) e pós-zigótico (age depois: híbrido inviável ou estéril, como a mula).
+- Especiação **alopátrica** (barreira geográfica), **simpátrica** (sem separação; poliploidia nas plantas) e **radiação adaptativa**.
+- Ritmo: **gradualismo** (Darwin) e **equilíbrio pontuado** (Eldredge e Gould, 1972); as visões não se excluem.
+- Novas fronteiras: biologia evolutiva do desenvolvimento e relógio molecular.

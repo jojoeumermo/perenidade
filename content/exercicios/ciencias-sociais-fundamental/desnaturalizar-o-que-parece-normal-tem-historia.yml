@@ -1,0 +1,67 @@
+# Exercícios da aula "Desnaturalizar: o que parece normal tem história" (Ciências sociais: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: csf-desnat-01
+  tema: "Natural ou social"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas coisas é social, e não natural?"
+  alternativas:
+    - texto: "A gravidade"
+      erro: "A gravidade acontece independentemente das decisões humanas."
+    - texto: "A chuva"
+      erro: "A chuva é natural."
+    - texto: "O dinheiro"
+      certa: true
+  explicacao: "Social é o que as pessoas criaram e mantêm: leis, dinheiro, horários, propriedade, costumes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: csf-desnat-02
+  tema: "A jornada de oito horas"
+  dificuldade: 2
+  enunciado: "Como a aula explica a jornada de oito horas?"
+  alternativas:
+    - texto: "Foi conquistada com greves, como a de 1º de maio de 1886 em Chicago"
+      certa: true
+    - texto: "Sempre existiu, é natural"
+      erro: "No século XIX operários trabalhavam 14 e 16 horas por dia."
+    - texto: "Foi dada de presente pelos patrões"
+      erro: "Foi conquistada com greves."
+  explicacao: "Essa greve deu origem ao Dia do Trabalhador."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: csf-desnat-03
+  tema: "A pergunta que desnaturaliza"
+  dificuldade: 2
+  enunciado: "Qual pergunta ajuda a desnaturalizar uma regra?"
+  alternativas:
+    - texto: "Por que sempre foi assim?"
+      erro: "Isso aceita a regra como natural."
+    - texto: "Quem criou essa regra e como ela pode mudar?"
+      certa: true
+    - texto: "Quem é o culpado?"
+      erro: "A pergunta da aula é sobre quem criou a regra e como pode mudar."
+  explicacao: "O que é social tem história: começou em algum momento e pode mudar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: csf-desnat-04
+  tema: "Data histórica"
+  dificuldade: 1
+  enunciado: "Em que ano a escravidão acabou por lei no Brasil, depois de mais de 300 anos?"
+  alternativas:
+    - texto: "1822"
+      erro: "1822 é um ano da Independência, não da abolição."
+    - texto: "1962"
+      erro: "Em 1962 mudou a regra da mulher casada, citada na aula."
+    - texto: "1888"
+      certa: true
+  explicacao: "Só acabou depois de muita luta dos escravizados e do movimento abolicionista."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

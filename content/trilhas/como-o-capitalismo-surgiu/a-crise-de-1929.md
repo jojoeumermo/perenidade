@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "O desemprego em massa e o medo das elites diante do movimento operário abriram caminho para Hitler."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar o que foi a crise de 1929, quais foram suas causas de fundo, como ela chegou ao Brasil e quais foram as três respostas que o mundo deu.
 
 Na década de 1920, os Estados Unidos viviam uma euforia. Fábricas produziam carros e eletrodomésticos como nunca, as ações subiam sem parar e o crédito era fácil. Em outubro de 1929, tudo desabou. Começava a **Grande Depressão**, a pior crise da história do capitalismo até então.
 
@@ -80,3 +83,23 @@ A crise de 1929 mostrou que o mercado, deixado por conta própria, pode afundar 
 ## Para conversar
 
 Em uma crise, gastar dinheiro público para gerar emprego é desperdício ou necessidade? Quem costuma defender cada posição, e por quê?
+
+## Exemplo resolvido
+
+**A quebra da Bolsa de Nova York causou a Grande Depressão? Separe o estopim das causas.**
+
+1. **O estopim.** Em 24 e 29 de outubro de 1929 a Bolsa despencou. Quem tinha comprado ações com dinheiro emprestado ficou com dívidas impagáveis e os bancos quebraram em cadeia.
+2. **As causas de fundo.** Superprodução (salários cresciam muito menos que a produtividade), especulação (dinheiro saindo da produção para apostar em ações) e crédito fácil, além da renda real.
+3. **O contágio.** Os Estados Unidos eram o centro da economia mundial e emprestavam à Europa; na crise cortaram os empréstimos e fecharam o mercado com tarifas altas, e o comércio mundial encolheu.
+4. **Conclua.** A quebra da Bolsa foi o estopim, não a causa: por baixo havia a produção que as pessoas não conseguiam comprar.
+
+Confira: em 1933, cerca de um quarto da força de trabalho dos Estados Unidos estava desempregada.
+
+## Resumo
+
+- Em outubro de 1929 a Bolsa de Nova York quebrou e começou a **Grande Depressão**.
+- Causas de fundo: **superprodução**, **especulação** e **crédito** fácil.
+- Os Estados Unidos cortaram os empréstimos à Europa e fecharam o mercado; o comércio mundial encolheu.
+- No Brasil, o preço do café despencou; para Celso Furtado, a defesa da renda dos cafeicultores sustentou a demanda interna e abriu espaço para a industrialização.
+- Três respostas: o **New Deal** (com pressão operária), o **fascismo** (Alemanha, a partir de 1933) e a **planificação soviética**.
+- A saída de uma crise não é técnica: depende de quem tem força para impor a sua solução.

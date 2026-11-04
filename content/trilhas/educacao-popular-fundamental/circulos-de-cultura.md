@@ -111,3 +111,22 @@ A coordenação **roda**: cada encontro, uma pessoa. Coordenar se aprende coorde
 ## Onde achar textos
 
 Qualquer aula deste site pode ser lida em um círculo: escolha um trecho de uma página. A página [Por onde começar](/comecar) sugere uma ordem, e os cartões de debate e a galeria de cartazes servem bem para abrir a conversa.
+
+## Exemplo resolvido
+
+**Como conduzir um círculo de quarenta minutos com dez colegas e um texto curto?**
+
+1. Prepare: leia o texto antes e anote três ou quatro perguntas, sem preparar respostas. Arrume as cadeiras em roda.
+2. Chegada (5 min): cada pessoa diz o nome e uma palavra sobre como chegou; combinem as regras.
+3. Leitura (5 min) e primeiras palavras (5 min): leiam em voz alta e façam uma volta com "Que palavra ficou na sua cabeça?".
+4. Conversa (15 min): suba os três degraus: o que acontece, por que acontece, o que dá para fazer.
+5. Síntese (5 min) e combinado (5 min): leiam o que o grupo disse, corrijam, e marquem o próximo encontro e quem coordena.
+
+Confira: somando os tempos, 5 + 5 + 5 + 15 + 5 + 5 = 40 minutos, e o círculo termina com uma ação, por menor que seja.
+
+## Resumo
+
+- No círculo de cultura, a roda substitui a fileira; o professor vira coordenador de debates e o aluno, participante.
+- Um bom círculo tem de seis a doze pessoas, um texto curto e perguntas preparadas em três degraus: o que acontece, por que acontece e o que dá para fazer.
+- Roteiro de 40 minutos: chegada, leitura, primeiras palavras, conversa, síntese e combinado.
+- Quem coordena pergunta mais do que afirma, cuida de quem não falou e a coordenação roda a cada encontro.

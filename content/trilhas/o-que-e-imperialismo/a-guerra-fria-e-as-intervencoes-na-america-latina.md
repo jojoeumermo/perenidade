@@ -32,6 +32,11 @@ quiz:
     resposta: 1
     explicacao: "Os Estados Unidos não acataram a sentença."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber citar os casos de intervenção na América Latina durante a Guerra Fria (Guatemala, Cuba, Brasil, República Dominicana, Chile, Nicarágua), a Operação Condor e distinguir o que os documentos mostram do que seria exagero.
+
+
 
 Depois de 1945, Estados Unidos e União Soviética disputaram a influência sobre o mundo sem entrar em guerra direta: a **Guerra Fria**. A América Latina, que os Estados Unidos consideravam o seu "quintal" desde a **Doutrina Monroe** (1823), foi tratada como área que não podia "cair" para o outro lado. Qualquer governo que mexesse na propriedade da terra ou em empresas estrangeiras passava a ser visto como ameaça.
 
@@ -80,3 +85,22 @@ Reconhecer o papel dos Estados Unidos não significa dizer que tudo veio de fora
 ## Para pesquisar e debater
 
 Procure o capítulo do relatório da Comissão Nacional da Verdade sobre as conexões internacionais da ditadura brasileira. O que ele registra sobre a Operação Condor?
+
+## Exemplo resolvido: comparando Guatemala (1954) e Chile (1970 a 1973)
+
+Pergunta: que padrão aparece nos dois casos, e o que os documentos provam?
+
+1. Quem governava: um presidente eleito nos dois casos (Jacobo Árbenz, na Guatemala; Salvador Allende, eleito em 1970, no Chile).
+2. O que eles fizeram: Árbenz iniciou uma reforma agrária que atingia terras da United Fruit Company; Allende era socialista, e a pista da aula fala da nacionalização do cobre.
+3. O que as fontes registram: na Guatemala, uma operação organizada pela CIA derrubou Árbenz em 1954; no Chile, a Comissão Church, do Senado dos Estados Unidos, documentou em 1975 que a CIA financiou a oposição e trabalhou para desestabilizar o governo, e o golpe de Pinochet veio em 11 de setembro de 1973.
+4. O cuidado da aula: em cada país os golpes também tiveram apoio de grupos locais.
+
+Confira: o padrão é governo eleito, reforma que atinge interesses estrangeiros e ação externa documentada, sem esquecer os aliados locais.
+
+## Resumo
+
+- Na Guerra Fria, os Estados Unidos consideravam a América Latina a sua área de influência.
+- Casos: Guatemala (1954), Cuba (Baía dos Porcos, 1961), Brasil (1964), República Dominicana (1965), Chile (golpe de 1973) e Nicarágua (os "contras").
+- A Operação Condor reuniu ditaduras do Cone Sul para trocar informações e prisioneiros e eliminar opositores.
+- A Escola das Américas treinou muitos militares até 1984.
+- Reconhecer o papel dos Estados Unidos não apaga o apoio de grupos locais aos golpes.

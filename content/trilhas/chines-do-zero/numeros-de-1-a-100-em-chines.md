@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "Cem é 一百: \"um cento\". O 一 aqui se pronuncia yì."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar de 0 a 100 em chinês, usar 二 e 两 do jeito certo, escolher a palavra de medida, dizer a idade e perguntar o preço.
 
 Os números chineses são um dos pontos mais fáceis da língua: com apenas onze palavras, você conta de 0 a 99, sem nenhuma exceção. Mas há dois detalhes que todo iniciante precisa conhecer: a diferença entre **二** e **两**, e as palavras de medida que aparecem entre o número e a coisa contada.
 
@@ -141,3 +144,22 @@ E em números de telefone e de quarto, o **一** costuma ser lido **yāo**, para
 3. Conte em chinês, de 1 a 20, e depois de 10 em 10 até 100. Use a ferramenta de [pronúncia](/ferramentas/pronuncia), com "中文", para conferir.
 
 Respostas do 1: 九 (jiǔ), 十六 (shíliù), 三十 (sānshí), 五十二 (wǔshí'èr), 七十七 (qīshíqī), 一百 (yìbǎi).
+
+## Exemplo resolvido
+
+**Diga em chinês: 52, "tenho 25 anos" e "duas pessoas".**
+
+1. **52.** Dezena + unidade: cinco-dez (五十) + dois (二) = **五十二** (wǔshí'èr).
+2. **Tenho 25 anos.** A idade usa **岁** (suì), **sem verbo**: 二十五 (20 + 5) + 岁 = **我二十五岁。** (Wǒ èrshíwǔ suì.)
+3. **Duas pessoas.** Depois do "dois" vem uma palavra de medida (个), então usa-se **两**, e não 二: **两个人** (liǎng ge rén).
+
+Confira: a ordem é tudo. 十四 (shísì) é 14, mas 四十 (sìshí) é 40.
+
+## Resumo
+
+- Com 11 palavras (零 a 十) conta-se de 0 a 99, como uma conta: 11 a 19 = dez + unidade; dezenas = unidade + dez; o resto = dezena + unidade. 100 é **一百** (yìbǎi).
+- O **一** muda de tom: yī sozinho, yí antes de quarto tom, yì antes dos outros.
+- **二** para contar e nos números; **两** para dizer quantas coisas.
+- Entre o número e a coisa vem a palavra de medida: 个, 本, 张, 杯.
+- Idade: número + **岁**, sem verbo. Perguntas: 你几岁？ (crianças), 你多大？ (jovens e adultos), 您多大年纪？ (idosos).
+- Preço: 多少钱？ A unidade da moeda é o 元, dito 块.

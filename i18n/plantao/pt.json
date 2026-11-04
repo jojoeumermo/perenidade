@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "descricao": "Onde tirar uma dúvida de estudo no Instituto Lúcia: reforço com voluntários, assistente, comunidade, aulas ao vivo e estudo em grupo, num lugar só."
+  },
+  "eyebrow": "Ninguém estuda sozinho",
+  "titulo": "Plantão de dúvidas",
+  "lead": "Travou numa matéria? Aqui estão, num lugar só, os caminhos que o instituto já tem para tirar uma dúvida. Escolha o que combina com a sua pressa.",
+  "semHorario": "Não existe um horário fixo de plantão: cada caminho funciona do seu jeito, e a linha “Como funciona” de cada um diz como. A única agenda marcada é a das aulas ao vivo, publicada pelos educadores.",
+  "antesTitulo": "Antes de perguntar",
+  "antesTexto": "Muita dúvida já tem resposta pronta no site. Procure primeiro:",
+  "canaisTitulo": "Onde perguntar",
+  "comoFunciona": "Como funciona",
+  "abrir": "Abrir",
+  "paraEnsinarTitulo": "Para quem ensina",
+  "canais": {
+    "reforco": {
+      "quem": "Uma pessoa voluntária da equipe de ensino",
+      "como": "Sem horário marcado. Você escreve a dúvida; alguém da equipe da disciplina assume o pedido e responde no e-mail que você indicou."
+    },
+    "assistente": {
+      "quem": "Um assistente automático",
+      "como": "Responde na hora, mas é para quem tem conta e pode errar. Fica na página de reforço, antes do pedido a uma pessoa voluntária.",
+      "acompanhante": "Se a Escola estiver aberta para você, o assistente também ajuda dentro da aula, pelo acompanhante."
+    },
+    "comunidade": {
+      "quem": "Outras pessoas que estudam",
+      "como": "Sem horário: as conversas ficam abertas, por sala de disciplina, e cada pessoa responde quando pode."
+    },
+    "aovivo": {
+      "quem": "Educadores, em aula marcada",
+      "como": "Na hora marcada você entra, assiste e pergunta no bate-papo. Os dias e horários estão na agenda."
+    },
+    "grupo": {
+      "quem": "Quem estuda com você",
+      "como": "Você abre uma sala, manda o link e vocês estudam juntos, com vídeo."
+    },
+    "salalivre": {
+      "quem": "Professoras, professores e instrutores",
+      "como": "Uma ferramenta para montar e projetar a própria aula com o que o site tem. Fica só no seu navegador."
+    }
+  }
+}

@@ -21,6 +21,10 @@ quiz:
     resposta: 0
     explicacao: "Para passar de km/h para m/s, divida por 3,6: 72 ÷ 3,6 = 20."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é velocidade média, calcular a distância, o tempo ou a velocidade de uma viagem e converter km/h em m/s.
+
 
 ## Parado ou em movimento?
 
@@ -81,8 +85,29 @@ Um carro a 72 km/h anda 72 ÷ 3,6 = 20 metros a cada segundo. É por isso que um
 | Terra em volta do Sol | 107.000 km/h |
 | Luz no vácuo | 300.000 km **por segundo** |
 
+## Exemplo resolvido
+
+**Um ônibus viaja 150 km em 2 horas e 30 minutos. Qual foi a velocidade média? E quanto é isso em m/s?**
+
+1. Passe o tempo para horas: 30 minutos são 0,5 h, então o tempo total é 2,5 h.
+2. Use velocidade média = distância ÷ tempo: 150 ÷ 2,5 = 60.
+3. A velocidade média foi de **60 km/h**.
+4. Para m/s, divida por 3,6: 60 ÷ 3,6 = cerca de 16,7 m/s.
+
+Confira com o sentido inverso: 60 km/h × 2,5 h = 150 km. Fecha com a distância do enunciado.
+
+Atenção: "média" não quer dizer que o ônibus andou sempre a 60 km/h; ele parou, acelerou e freou. A média resume a viagem inteira.
+
 ## Para praticar
 
 1. Você caminha 3 km em 40 minutos. Qual é a sua velocidade média em km/h? (Atenção: transforme os minutos em hora.)
 2. Um trem viaja a 90 km/h. Que distância percorre em 20 minutos?
 3. A luz do Sol leva cerca de 500 segundos para chegar à Terra. A que distância está o Sol, aproximadamente?
+
+## Resumo
+
+- Parado ou em movimento depende do referencial.
+- Velocidade média = distância ÷ tempo; da mesma relação saem a distância (velocidade × tempo) e o tempo (distância ÷ velocidade).
+- Cuidado com as unidades: minutos precisam virar horas.
+- De km/h para m/s, divida por 3,6; de m/s para km/h, multiplique.
+- A velocidade média resume a viagem; não diz que a velocidade foi constante.

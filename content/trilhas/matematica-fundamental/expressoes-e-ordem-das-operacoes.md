@@ -22,6 +22,10 @@ quiz:
     explicacao: "(4 + 6) × 3 − 1 = 10 × 3 − 1 = 29. A primeira opção dá 21 e a terceira dá 16."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber resolver uma expressão numérica na ordem combinada: parênteses, potências e raízes, multiplicações e divisões, somas e subtrações.
+
 ## Uma conta, duas respostas?
 
 Quanto é 2 + 3 × 4? Quem faz na ordem em que lê chega a 20. Quem faz primeiro a multiplicação chega a 14. Uma conta não pode ter duas respostas, e por isso existe uma **combinação** seguida no mundo inteiro. Por ela, a resposta é **14**.
@@ -116,3 +120,10 @@ Os parênteses dizem: primeiro calcule a compra inteira, depois tire dos 50. Sem
 6. Escreva e resolva: um pedreiro cobra R$ 150 por dia; trabalhou 4 dias e gastou R$ 35 de passagem ao todo. Quanto sobrou?
 
 **Respostas:** 1) 17. 2) 1. 3) 28. 4) 16. 5) 4 + 6 × (3 − 1). 6) 4 × 150 − 35 = R$ 565.
+
+## Resumo
+
+- Por combinação mundial, 2 + 3 × 4 dá 14: formam-se os grupos antes de juntar.
+- Ordem: parênteses (de dentro para fora), potências e raízes, multiplicações e divisões, somas e subtrações.
+- Multiplicação e divisão têm a mesma prioridade, e o mesmo vale para soma e subtração: resolva da esquerda para a direita.
+- Na dúvida, ponha parênteses; copie a expressão a cada passo.

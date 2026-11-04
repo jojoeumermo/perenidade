@@ -30,6 +30,11 @@ quiz:
     resposta: 2
     explicacao: "A derrota do nazifascismo foi uma conquista dos povos, paga com dezenas de milhões de vidas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar em que sentido a Primeira Guerra foi uma disputa de repartilha entre potências, o que mudou na Segunda (o nazismo e o extermínio) e como os socialistas se dividiram diante da guerra.
+
+
 
 No século XX, duas guerras envolveram quase o mundo inteiro e mataram dezenas de milhões de pessoas. As duas têm relação com o imperialismo, mas não da mesma maneira.
 
@@ -70,3 +75,21 @@ As antigas potências coloniais saíram enfraquecidas. Estados Unidos e União S
 ## Para pesquisar e debater
 
 Soldados das colônias (indianos, senegaleses, argelinos e outros) lutaram nas duas guerras pelos impérios que os dominavam. Pesquise um desses casos. O que esses soldados receberam em troca?
+
+## Exemplo resolvido: o que os acordos revelam sobre a guerra de 1914
+
+Pergunta: como saber o que as potências queriam, além do que diziam?
+
+1. Olhe os acordos feitos durante a guerra: em 1916, pelo acordo secreto Sykes-Picot, Inglaterra e França combinaram como dividiriam entre si as terras árabes do Império Otomano.
+2. Olhe o desfecho: o Tratado de Versalhes (1919) tirou da Alemanha as suas colônias e as entregou aos vencedores com o nome de "mandatos".
+3. Pergunte quem participou: nenhum dos povos que viviam ali foi chamado.
+
+Confira: os acordos tratam de territórios e colônias, não de libertação. Por isso a aula diz que a guerra não acabou com o colonialismo, mudou os donos.
+
+## Resumo
+
+- A Primeira Guerra (1914) foi uma guerra de repartilha entre potências que já tinham dividido o mundo; o estopim foi o assassinato de Sarajevo, em 28 de junho de 1914.
+- Os acordos secretos (Sykes-Picot) e o Tratado de Versalhes mostram disputa por territórios e colônias.
+- A maioria dos partidos socialistas apoiou os próprios governos; uma minoria, reunida em Zimmerwald (1915), denunciou a guerra.
+- A Segunda Guerra teve disputa por territórios, mas também o extermínio planejado de povos: seis milhões de judeus foram assassinados.
+- Depois de 1945, EUA e URSS se tornaram as maiores forças e os povos colonizados ganharam impulso.

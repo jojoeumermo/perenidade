@@ -23,7 +23,17 @@ quiz:
     opcoes: ["Apelo à autoridade", "Falso dilema", "Generalização apressada"]
     resposta: 1
     explicacao: "Apresentam-se só duas opções quando existem muitas outras."
+modelo: 9
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é um argumento (premissas e conclusão), reconhecer oito falácias comuns e discutir sem transformar a conversa em briga.
+
+
+```suarealidade
+Em que conversa recente, no trabalho, em casa ou nas redes, você sentiu que a pessoa "ganhou" a discussão sem ter razão? O que ela fez?
+```
 
 ## Argumentar não é brigar
 
@@ -91,8 +101,40 @@ Se a resposta for "sim" às duas, o argumento é bom. Se falhar em qualquer uma,
 - Separe a pessoa da ideia.
 - Admita quando não sabe. "Vou pesquisar" é uma resposta honesta.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Falácia é coisa de gente que estudou para ganhar discussão. Na vida real, quem tem experiência sabe o que é verdade, e não precisa de nome difícil para isso".
+---
+Como você responderia, reconhecendo o valor da experiência?
+---
+Uma resposta possível: a experiência vale muito, mas a aula mostra que um caso isolado vira generalização apressada (o avô que fumou e viveu até os 95 anos). Conhecer os nomes serve de vacina: ajuda a ver quando um argumento convence sem sustentar. E a aula lembra que apontar uma falácia não prova que a conclusão é falsa.
+```
+
+## Exemplo resolvido
+
+**"Se aumentarem o salário mínimo, as empresas fecham, vem o desemprego e o país acaba." Analise o argumento.**
+
+1. **Premissas e conclusão.** A conclusão é "o país acaba"; as premissas são os passos do meio (empresas fecham, vem o desemprego).
+2. **Pergunta 1: as premissas são verdadeiras?** Nada é dito para provar que cada passo acontece.
+3. **Pergunta 2: a conclusão decorre delas?** Mesmo que um passo acontecesse, não se mostra que levaria ao seguinte.
+4. **Nome da falácia:** *ladeira escorregadia*, que afirma sem provas que um passo leva inevitavelmente a uma catástrofe.
+5. **Cuidado:** isso não prova que aumentar o salário mínimo seja bom ou ruim; mostra só que esse argumento não serve. Pergunte pelas provas.
+
+```agir
+# Esta semana
+Anote num papel duas frases que você ouvir no seu dia a dia (em conversa, na TV ou numa propaganda) que lhe pareçam ter uma falácia. Diga de que tipo são e reescreva uma delas como argumento honesto.
+```
+
 ## Para praticar
 
 1. Encontre três falácias em comentários de redes sociais ou em propagandas, e diga de que tipo são.
 2. Reescreva uma delas como um argumento honesto: que premissas seriam necessárias para a conclusão se sustentar?
 3. Veja os [cartões de debate](/debates) do instituto e identifique as falácias a que eles respondem.
+
+## Resumo
+
+- **Argumento**: premissas que apoiam uma conclusão. Duas perguntas: as premissas são verdadeiras? A conclusão decorre delas?
+- **Falácia**: raciocínio que parece válido, mas não é.
+- Oito para reconhecer: ataque à pessoa, espantalho, falso dilema, generalização apressada, apelo à autoridade, apelo à maioria, ladeira escorregadia e "depois disso, logo por causa disso".
+- Apontar uma falácia não prova que a conclusão é falsa; examine primeiro os próprios argumentos.
+- Discutir bem: repita a posição do outro, peça e dê fontes, separe a pessoa da ideia.

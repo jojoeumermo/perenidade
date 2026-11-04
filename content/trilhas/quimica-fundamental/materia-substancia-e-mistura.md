@@ -30,6 +30,10 @@ quiz:
     explicacao: "O ar é sobretudo nitrogênio (cerca de 78%) e oxigênio (cerca de 21%), além de outros gases."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber separar substâncias puras (simples e compostas) de misturas (homogêneas e heterogêneas) e usar a densidade e o rótulo para entender o que está comprando.
+
 ## Classificar para entender
 
 O ar, o leite, o sal, a gasolina, o aço, a areia: quase nada do que nos cerca é uma coisa só. A primeira tarefa da química é separar em categorias.
@@ -119,6 +123,16 @@ Isso serve para detectar fraudes. O leite e o combustível têm densidades conhe
 
 **No preço.** Pagar por um produto de limpeza "pronto para uso" é, muitas vezes, pagar caro por água. Ler a concentração permite comparar.
 
+## Exemplo resolvido
+
+**O soro caseiro (água, sal e açúcar) é substância pura ou mistura? Que tipo?**
+
+1. Veja quantos componentes há: três (água, sal e açúcar). Substância pura tem um único tipo de partícula, então não é pura.
+2. São substâncias que não se transformaram umas nas outras e podem ser separadas: é uma mistura.
+3. Olhe o aspecto: depois de mexer, não se distinguem as partes, só há uma fase. É uma mistura homogênea, ou solução.
+
+Confira: a água é o solvente (quem dissolve) e o sal e o açúcar são os solutos (os dissolvidos).
+
 ## Para praticar
 
 1. Classifique: sal de cozinha, ar, água com areia, ferro, vinagre, granito, gás carbônico.
@@ -127,3 +141,11 @@ Isso serve para detectar fraudes. O leite e o combustível têm densidades conhe
 4. Pegue o rótulo de um alimento industrializado. Qual é o primeiro ingrediente da lista? O que isso indica?
 
 **Respostas:** 1) Substância composta; mistura homogênea; mistura heterogênea; substância simples; mistura homogênea; mistura heterogênea; substância composta. 2) A água; o sal e o açúcar. 3) Porque é menos denso que a água líquida.
+
+## Resumo
+
+- Substância pura tem um só tipo de partícula; pode ser simples (um elemento, como o O₂) ou composta (dois ou mais, como a H₂O).
+- Mistura é a reunião de substâncias que mantêm a identidade e podem ser separadas.
+- Mistura homogênea tem uma fase só (solução); heterogênea mostra duas ou mais fases.
+- Propriedades físicas (como a densidade) não mudam a substância; as químicas mostram como ela se transforma.
+- Quem é menos denso que a água flutua nela; quem é mais denso afunda.

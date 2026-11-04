@@ -30,6 +30,10 @@ quiz:
     explicacao: "Em negativas e perguntas, usa-se any; some fica nas afirmativas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que existe num lugar com *there is* e *there are*, negar e perguntar.
+
 Em português falado, usamos o verbo **ter** para dizer que alguma coisa existe num lugar: "**Tem** uma farmácia na esquina", "**Tem** muita gente na fila". Na escrita mais formal, usamos **haver**: "**Há** uma farmácia na esquina".
 
 Em inglês, nenhum dos dois funciona com *have*. Dizer "have a pharmacy on the corner" não faz sentido. A forma certa é **there is** e **there are**.
@@ -106,6 +110,17 @@ Com *there is*, *there are* e as preposições de lugar, já dá para descrever 
 
 > I live in a big neighborhood on the east side of the city. There are many houses and some small buildings. There's a health center near my house, and there's a school next to it. There isn't a library, but there are two churches and a soccer field. There aren't many trees on my street. Is there a library in your neighborhood?
 
+## Exemplo resolvido
+
+**Como dizer "Tem uma padaria na minha rua" e "Tem cinco pessoas na minha família"?**
+
+1. Veja se é uma coisa só ou várias. Uma padaria: **there is**.
+2. Frase: *There is a bakery on my street.*
+3. Cinco pessoas é plural: **there are**. Frase: *There are five people in my family.*
+4. Negativa e pergunta com *there are*: *There aren't any buses on Sunday.* / *Are there any buses on Sunday?*
+
+Confira: nas duas primeiras frases não aparece *have*. *Have a bakery* não serve para dizer que algo existe.
+
 ## Para praticar
 
 1. Complete com *there is* ou *there are*: ___ a bakery on my street. ___ five people in my family. ___ some milk in the fridge.
@@ -113,3 +128,10 @@ Com *there is*, *there are* e as preposições de lugar, já dá para descrever 
 3. Escreva cinco frases descrevendo o seu bairro: o que tem e o que falta.
 
 Respostas do 1: *There is, There are, There is.* Respostas do 2: *There aren't any buses on Sunday. / Are there any buses on Sunday?*
+
+## Resumo
+
+- **There is** (*there's*) para uma coisa só ou incontável; **there are** para várias.
+- O *there* aqui não é "lá": é o sujeito da frase.
+- Negativa: *isn't* / *aren't*; pergunta: *Is there...? Are there...?*
+- Nas frases negativas e perguntas, costuma-se usar *any*.

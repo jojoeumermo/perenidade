@@ -31,6 +31,10 @@ quiz:
     resposta: 1
     explicacao: "A bancada dos grandes proprietários conseguiu impedir a desapropriação de terras consideradas produtivas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como a ditadura terminou, como a Constituinte funcionou com participação popular, o que a Constituição de 1988 trouxe e quais foram os seus limites.
+
 
 ## Uma transição negociada
 
@@ -99,9 +103,28 @@ A década de 1990 foi marcada pela estabilização da moeda, com o **Plano Real*
 
 A disputa em torno da Constituição, do que manter, cumprir ou retirar, continua sendo o centro da política brasileira.
 
+## Exemplo resolvido
+
+**Quanto tempo trabalhou a Assembleia Constituinte? E quanto tempo passou sem eleição direta para presidente?**
+
+1. A Assembleia trabalhou de fevereiro de 1987 a outubro de 1988.
+2. De fevereiro de 1987 a fevereiro de 1988 são 12 meses; de fevereiro a outubro de 1988, mais 8. Total: **20 meses**, ou 1 ano e 8 meses.
+3. A aula diz que, em 1989, os brasileiros votaram para presidente pela primeira vez desde 1960. Subtraia: 1989 − 1960 = **29 anos** sem eleição direta para a Presidência.
+4. O presidente eleito, Fernando Collor, foi afastado por impeachment em 1992: 1992 − 1989 = **3 anos** depois.
+
+Leitura: a ditadura acabou em 1985, mas a democracia ainda estava por fazer. Foram quatro anos de 1985 a 1989 e uma Constituinte em que sindicatos, movimentos de moradia, de saúde, de mulheres, o movimento negro, os povos indígenas e as igrejas pressionaram.
+
 ## Para pesquisar e debater
 
 1. Escolha um direito da tabela e descubra que movimento lutou por ele.
 2. Que artigo da Constituição você acha que é menos cumprido? Por quê?
 3. Leia o artigo 5º e o artigo 7º. Quais direitos você já precisou reivindicar?
 4. "A Constituição vale o quanto a sociedade consegue fazê-la valer." Você concorda? Dê um exemplo.
+
+## Resumo
+
+- A ditadura acabou em 1985, mas o país tinha um presidente civil escolhido indiretamente, uma Constituição herdada dos generais, inflação altíssima e dívida externa pesada.
+- A Constituinte, presidida por Ulysses Guimarães, trabalhou de fevereiro de 1987 a outubro de 1988, com forte pressão de movimentos populares.
+- A Constituição trouxe direitos individuais, políticos e sociais: proibição da tortura e da censura, racismo como crime inafiançável e imprescritível, entre outros.
+- Os limites: a reforma agrária saiu enfraquecida (a propriedade "produtiva" não pode ser desapropriada), e os militares mantiveram ampla autonomia, com os crimes da ditadura cobertos pela anistia de 1979. 
+- Em 1989, houve eleição direta para presidente pela primeira vez desde 1960; Collor foi afastado por impeachment em 1992.

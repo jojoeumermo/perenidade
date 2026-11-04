@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "O português, o espanhol, o francês, o italiano e o romeno vêm do latim falado pelo povo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar as três fases de Roma, a luta dos plebeus, a conquista e a escravidão, a revolta dos Gracos, o fim da República e o que herdamos dos romanos.
+
 
 ## De aldeia a potência
 
@@ -111,8 +115,27 @@ O Império foi dividido em duas partes. A do Ocidente desfez-se no século V, co
 - **As palavras da política:** república, senado, cidadão, plebe, ditador, veto.
 - **E os problemas:** a concentração da terra, o pão e circo, os generais que tomam o poder.
 
+## Exemplo resolvido
+
+**Quantos anos tinha Roma, segundo a lenda, quando Júlio César foi morto? E quanto durou a guerra com Cartago?**
+
+1. A lenda diz que Roma foi fundada em 753 a.C. Júlio César foi assassinado em 44 a.C. As duas datas são a.C.: 753 − 44 = **709 anos**.
+2. As Guerras Púnicas vão de 264 a 146 a.C.: 264 − 146 = **118 anos** (com interrupções, não de combate contínuo).
+3. A República (que veio depois dos reis) cai com as guerras civis entre generais, e César se torna ditador antes de ser morto em 44 a.C.
+
+Leitura: 753 a.C. é a data da lenda, a tradição romana; use-a com esse aviso, não como data de um documento.
+
 ## Para pesquisar e debater
 
 1. A retirada dos plebeus lembra que forma de luta dos trabalhadores de hoje?
 2. Compare a proposta dos irmãos Graco com o debate sobre a reforma agrária no Brasil. O que há de parecido na reação dos proprietários?
 3. O que seria o "pão e circo" dos nossos dias?
+
+## Resumo
+
+- Roma começou como aldeia de pastores e agricultores; a lenda a data de 753 a.C. A sua história costuma ser dividida em três períodos (os reis, a República e o Império).
+- Na República (res publica), magistrados eleitos por um ano e o Senado governavam; na prática mandava uma minoria, e os plebeus lutaram por direitos.
+- Roma expandiu-se pela guerra: nas Guerras Púnicas (264-146 a.C.) destruiu Cartago; conquistou a Grécia, o Egito, a Gália e a península Ibérica.
+- No século II a.C., Tibério e Caio Graco propuseram limitar propriedades e distribuir terras públicas aos pobres; os grandes proprietários reagiram com violência.
+- Generais com exércitos fiéis a eles disputaram o poder; Júlio César tornou-se ditador e foi assassinado em 44 a.C.
+- Herança: o português vem do latim; o direito de propriedade, contratos e família tem origem romana; palavras da política como república.

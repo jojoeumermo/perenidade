@@ -1,5 +1,6 @@
 ---
 titulo: "De onde vem a palavra comunismo"
+modelo: 9
 resumo: "A ideia de viver com tudo em comum é muito mais antiga que Marx: dos primeiros cristãos aos camponeses rebeldes e aos operários de Paris."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,13 @@ quiz:
     resposta: 0
     explicacao: "Liderados por Gerrard Winstanley, defendiam que a terra era um 'tesouro comum' de todos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar de onde vem a ideia de bens em comum, quem foram alguns dos que a defenderam antes de Marx e como o Manifesto de 1848 a ligou à luta dos trabalhadores.
+
+```suarealidade
+Existe alguma coisa que, no seu bairro ou na sua família, é de todos e cuidada por todos (uma horta, uma festa, um mutirão)? Como ela funciona?
+```
 
 Muita gente pensa que o comunismo foi inventado por Karl Marx. Não foi. A **ideia** de uma vida em que os bens sejam comuns é muito antiga. O que Marx e Engels fizeram foi dar a ela uma base científica e ligá-la ao movimento real dos trabalhadores. Esta aula conta essa longa história.
 
@@ -75,3 +83,37 @@ Ao longo do século XX, a palavra passou a designar também os partidos comunist
 ## Para conversar
 
 Na sua comunidade, existe algo que é de todos e cuidado por todos (uma horta, uma festa, um time, um mutirão)? Como ele funciona? O que acontece quando alguém tenta tomar para si?
+
+## Exemplo resolvido
+
+**Marx inventou o comunismo? Monte a linha do tempo.**
+
+1. **Antes.** Platão (propriedade comum entre os guardiões), os Atos dos Apóstolos ("tinham tudo em comum") e a *Utopia* de Thomas More (1516).
+2. **Revoltas.** Thomas Müntzer, com os camponeses alemães (1525), e os Diggers, que ocuparam terras comuns na Inglaterra (1649).
+3. **Revolução Francesa.** Babeuf organizou a Conspiração dos Iguais (1796) e foi executado em 1797.
+4. **1830-1840.** A palavra comunismo passou a ser usada por operários e autores como Cabet; Owen, Fourier e Saint-Simon propunham comunidades modelo.
+5. **1847-1848.** A Liga dos Comunistas encarregou Marx e Engels do programa: o Manifesto.
+6. **Conclua.** A ideia é antiga; o Manifesto a ligou à luta de classes dentro do próprio capitalismo.
+
+Confira: por isso Engels chamou Owen e Fourier de utópicos.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Essa ideia de tudo em comum é um sonho bonito, mas que nunca funciona; sempre alguém se aproveita do que é de todos."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O argumento tem uma ponta de verdade que a aula reconhece: Engels chamou de utópicos os que imaginavam a sociedade nova como um plano bonito, sem ligação com a realidade. A aula mostra, porém, que a ideia de partilha atravessa a história, dos Diggers (que ocuparam terras comuns em 1649) ao mutirão de hoje, e que o Manifesto a tratou como resultado possível da luta de classes, e não como sonho. Pergunte também o que acontece em casos reais de bens comuns na sua comunidade.
+```
+
+```agir
+# Esta semana
+Escolha uma coisa que é de todos na sua comunidade (uma horta, um time, um mutirão) e anote num papel quem cuida dela e como as decisões são tomadas. Se puder, converse com uma pessoa que participa.
+```
+
+## Resumo
+
+- A ideia de bens comuns é antiga: Platão, os Atos dos Apóstolos, a *Utopia* de More (1516), Müntzer (1525), os Diggers (1649) e Babeuf (1796).
+- Nos anos 1830 e 1840, na França, a palavra **comunismo** passou a ser usada por grupos operários; Owen, Fourier e Saint-Simon propunham comunidades modelo, que Engels chamou de **utópicas**.
+- Em 1847 a Liga dos Justos virou **Liga dos Comunistas** e encomendou o Manifesto (1848).
+- Com o Manifesto, o comunismo passou a ser entendido como resultado possível da luta de classes.

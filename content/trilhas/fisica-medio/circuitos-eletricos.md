@@ -37,6 +37,10 @@ quiz:
     resposta: 1
     explicacao: "1 ÷ R = 1 ÷ 6 + 1 ÷ 3 = 3 ÷ 6, logo R = 2 Ω. Em paralelo, a equivalente é sempre menor que a menor das resistências."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar a lei de Ohm, distinguir ligações em série e em paralelo, calcular a potência de um aparelho e explicar por que benjamins e extensões são perigosos.
+
 
 ## Cargas em movimento
 
@@ -157,3 +161,11 @@ Instalação malfeita, com fio fino, emendas e "gatos", é comum onde o poder p�
 2. Três resistores de 12 Ω são ligados em série; depois, em paralelo. Calcule a resistência equivalente em cada caso.
 3. Em uma tomada de 127 V com fiação que suporta 10 A, pode-se ligar ao mesmo tempo um micro-ondas de 1 200 W e uma cafeteira de 600 W?
 4. Calcule o consumo mensal, em kWh, de um chuveiro de 5 500 W usado 30 minutos por dia.
+
+## Resumo
+
+- Circuito elétrico: caminho fechado por onde passa a corrente; grandezas: corrente (i), tensão (U) e resistência (R).
+- Lei de Ohm: U = R · i. Potência: P = U · i.
+- Em série, a corrente é a mesma em todos os componentes; em paralelo, a tensão é a mesma em todos os ramos.
+- Todo fio percorrido por corrente esquenta (efeito Joule): é útil no chuveiro e perigoso na fiação sobrecarregada.
+- Benjamins e extensões somam correntes no mesmo fio; instalação elétrica é serviço de profissional.

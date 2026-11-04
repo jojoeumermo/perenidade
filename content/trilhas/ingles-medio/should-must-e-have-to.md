@@ -27,6 +27,10 @@ quiz:
     explicacao: "I had to work late yesterday."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar *should*, *must*, *have to*, *mustn't* e *don't have to* para conselho, obrigação e proibição, e entender avisos.
+
 ## Conselho, obrigação, proibição
 
 Estes verbos expressam o que é **recomendado**, o que é **obrigatório** e o que é **proibido**. São muito usados em regras de trabalho, avisos de segurança e orientações de saúde.
@@ -75,9 +79,25 @@ Em um aviso de segurança: "Você não pode usar o celular perto da máquina." Q
 | You **should** wash your hands. | Recomenda-se lavar as mãos. |
 | Staff **only**. | Somente funcionários. |
 
+## Exemplo resolvido
+
+**Complete com *mustn't* ou *don't have to*: "It's a holiday. We ___ work." / "You ___ touch that wire. It's dangerous."**
+
+1. Na primeira frase, ninguém é obrigado: **não é necessário**. Use *don't have to*: *We don't have to work.*
+2. Na segunda, é **proibido**, por causa do perigo. Use *mustn't*: *You mustn't touch that wire.*
+
+Confira: as duas formas são muito diferentes. *Mustn't* é proibição; *don't have to* quer dizer só que não é preciso.
+
 ## Para praticar
 
 1. Dê três conselhos com should a alguém que vai começar em um emprego novo.
 2. Escreva três obrigações do seu dia a dia com have to (*I have to...*).
 3. Complete com mustn't ou don't have to: "It's a holiday. We ___ work." / "You ___ touch that wire. It's dangerous."
 4. Passe para o passado: "I have to work on Saturday." / "She has to take a test."
+
+## Resumo
+
+- **Should**: conselho (*You should see a doctor*).
+- **Must** e **have to**: obrigação; *have to* vem de fora (regras, circunstâncias) e é o que se usa no passado e no futuro.
+- **Mustn't**: proibido. **Don't have to**: não é necessário.
+- Avisos de trabalho e saúde usam esses verbos.

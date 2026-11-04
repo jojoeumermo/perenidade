@@ -36,6 +36,11 @@ quiz:
     resposta: 1
     explicacao: "O direito está em lei. Pedido por escrito e protocolo são a prova de que os estudantes fizeram a parte deles."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que a Lei nº 7.398, de 1985, garante aos estudantes, como são escolhidos os dirigentes e o estatuto de um grêmio e o que fazer quando a escola não respeita a lei.
+
+
 
 Esta aula é informação geral. Ela não substitui a orientação da Defensoria Pública, que atende de graça.
 
@@ -101,3 +106,21 @@ Por que entregar o pedido em duas vias e guardar a que tem o protocolo?
 ```
 
 A próxima aula é o passo a passo: comissão, assembleia, estatuto e eleição.
+
+## Exemplo resolvido: a direção quer escrever o estatuto
+
+Situação inventada: a direção diz que o estatuto do grêmio será escrito por ela, "para ajudar".
+
+1. Procure o que a lei diz: o § 2º do art. 1º manda que a organização e o funcionamento do grêmio sejam estabelecidos nos estatutos, aprovados em assembleia geral do corpo discente.
+2. Aplique: quem aprova o estatuto são os estudantes reunidos em assembleia, e não a direção.
+3. Escolha o caminho da aula: conversar mostrando a lei; pedir por escrito, em duas vias, com protocolo; procurar o conselho escolar; subir à diretoria de ensino ou à secretaria; buscar apoio de fora (Conselho Tutelar, Defensoria Pública, Ministério Público).
+
+Confira: a direção pode ajudar e apoiar, mas não escreve nem aprova o estatuto no lugar dos estudantes.
+
+## Resumo
+
+- A Lei nº 7.398 foi sancionada em 4 de novembro de 1985, tem três artigos e garante grêmios como entidades autônomas.
+- O estatuto é aprovado em assembleia geral dos estudantes; dirigentes e representantes são escolhidos por voto direto e secreto de cada estudante.
+- A Constituição de 1988, o ECA (art. 53) e o Estatuto da Juventude reforçam o direito; estados e municípios podem ter leis próprias.
+- Se a escola não respeita: conversar, pedir por escrito com protocolo, procurar o conselho escolar, subir um degrau e buscar apoio de fora.
+- Guarde cópia de tudo: um pedido protocolado é prova.

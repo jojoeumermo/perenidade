@@ -37,6 +37,10 @@ quiz:
     explicacao: "A TRI vale para as quatro provas objetivas. A redação tem correção própria, feita por dois corretores."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que duas pessoas com o mesmo número de acertos podem ter notas diferentes no ENEM e como usar isso a favor na hora da prova.
+
 Quem faz o ENEM pela primeira vez costuma se assustar com o boletim: "Acertei 30 questões e tirei 580. Minha amiga acertou 30 e tirou 610. Como assim?" A explicação é a **Teoria de Resposta ao Item**, a TRI, o método que o Inep usa desde 2009 para calcular as notas das quatro provas objetivas. Entender como ela funciona ajuda a fazer a prova de um jeito mais inteligente.
 
 A **redação** fica de fora: ela é corrigida por pessoas, como você viu na primeira aula da trilha.
@@ -120,3 +124,21 @@ O Inep publica todas as provas e gabaritos anteriores. Uma forma de treinar:
 1. Explique, com as suas palavras, por que duas pessoas com o mesmo número de acertos podem ter notas diferentes.
 2. Faça uma prova antiga de uma área e marque, ao lado de cada questão, se ela pareceu fácil, média ou difícil. Depois veja quais você errou. Os erros estão concentrados em qual grupo?
 3. Monte a sua regra pessoal para o dia da prova, em três frases. Por exemplo: "Faço as fáceis primeiro, não deixo nada em branco, reviso no fim."
+
+## Exemplo resolvido
+
+**Ana e Bruno acertaram 30 questões de Matemática. Por que a nota de Ana tende a ser maior?**
+
+1. Olhe o padrão de Ana: acertou quase todas as fáceis, muitas médias e poucas difíceis.
+2. Olhe o padrão de Bruno: errou várias fáceis, acertou algumas médias e várias difíceis.
+3. Lembre a ideia da TRI: o conhecimento é cumulativo, então quem acerta difíceis costuma acertar as fáceis do mesmo assunto.
+4. Conclua: o padrão de Ana é coerente; o de Bruno parece ter mais chute, e o modelo faz a nota subir menos.
+
+Confira: foi o que a aula chamou de coerência. A conta de 30 acertos é igual; o que muda é quais questões foram acertadas.
+
+## Resumo
+
+- A nota das quatro provas objetivas é calculada pela TRI; a redação é corrigida por pessoas.
+- Cada questão tem três parâmetros: discriminação, dificuldade e acerto casual.
+- A escala usa 500 como a média e 100 como o desvio padrão dos concluintes de 2009; a nota não vai sempre de 0 a 1.000.
+- Na prova: não perca as fáceis, faça primeiro o que sabe, nunca deixe em branco (erro não desconta) e revise as fáceis no fim.

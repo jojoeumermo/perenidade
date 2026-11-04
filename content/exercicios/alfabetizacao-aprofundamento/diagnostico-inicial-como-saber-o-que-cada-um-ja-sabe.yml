@@ -1,0 +1,51 @@
+# Exercícios da aula "Diagnóstico inicial: como saber o que cada um já sabe" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-diagnostico-01
+  tema: "Para que serve"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para que serve o diagnóstico inicial, segundo a aula?"
+  alternativas:
+    - texto: "Para dar nota e separar os alunos"
+      erro: "A aula diz: \"não é prova, não tem nota\"."
+    - texto: "Para saber onde cada um está, e não para dizer o que falta"
+      certa: true
+    - texto: "Para provar que a pessoa não sabe nada"
+      erro: "Ninguém começa do zero: o diagnóstico mostra o que a pessoa já sabe."
+  explicacao: "O diagnóstico serve para saber onde cada um está e planejar a ajuda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-diagnostico-02
+  tema: "Cuidado na sondagem"
+  dificuldade: 2
+  enunciado: "Qual cuidado a aula recomenda na sondagem?"
+  alternativas:
+    - texto: "Fazer na frente do grupo inteiro, para dar exemplo"
+      erro: "A aula recomenda nunca fazer na frente do grupo, para não constranger."
+    - texto: "Corrigir cada erro na hora"
+      erro: "A sondagem é para ver, não para ensinar: não se corrige na hora."
+    - texto: "Fazer com cada pessoa a sós ou em dupla, sem corrigir na hora"
+      certa: true
+  explicacao: "Explique para que serve, faça a sós ou em dupla, não corrija, comece pelo que a pessoa sabe e pare se ela ficar desconfortável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-diagnostico-03
+  tema: "Hipóteses de escrita"
+  dificuldade: 2
+  enunciado: "Quem descreveu as hipóteses de escrita citadas na aula?"
+  alternativas:
+    - texto: "Emilia Ferreiro e Ana Teberosky"
+      certa: true
+    - texto: "Paulo Freire e Magda Soares"
+      erro: "Freire e Soares são citados em outras aulas. As hipóteses de escrita são de Ferreiro e Teberosky."
+    - texto: "Cipriano Luckesi e Jussara Hoffmann"
+      erro: "Eles falam de avaliação. As hipóteses de escrita são de Ferreiro e Teberosky."
+  explicacao: "As hipóteses de escrita foram descritas por Emilia Ferreiro e Ana Teberosky."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -38,6 +38,10 @@ quiz:
     explicacao: "Papéis Avulsos está no acervo do Instituto."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar três contos de Machado e dizer qual recurso cada um usa: o suspense, o não dito e a sátira.
+
 ## Por que começar pelos contos
 
 Os contos de Machado são curtos e mostram todo o estilo do autor. São uma boa porta de entrada antes dos romances. Os três desta aula estão em domínio público e podem ser lidos de graça.
@@ -74,9 +78,27 @@ O que os três contos têm em comum?
 > Suspense, não dito e sátira são formas de dizer sem dizer.
 ```
 
+## Exemplo resolvido
+
+**Como ler "A Cartomante" com atenção ao recurso do conto?**
+
+1. Resuma a trama: Camilo tem um caso com Rita, mulher do amigo Vilela; recebe cartas anônimas e um bilhete urgente de Vilela.
+2. Veja a passagem pela **cartomante**, que lhe garante que tudo vai dar certo.
+3. Note a ironia: a confiança de Camilo e o que o espera na casa de Vilela. É o recurso do conto, o **suspense** construído passo a passo.
+4. Pergunte: em que momento você desconfiou do final?
+
+Confira: em "Missa do Galo" o recurso é o **não dito** (quase nada acontece, e tudo está no ar); em "O Alienista", a **sátira**.
+
 ## Para praticar
 
 1. Leia *A Cartomante* e aponte o momento em que você desconfiou do final.
 2. Leia *Missa do Galo* e escreva o que você acha que Conceição pensava naquela noite.
 3. Leia *O Alienista* e compare a Casa Verde com instituições reais que trancaram pessoas "incômodas".
 4. Organize uma leitura em voz alta de um dos contos com o seu grupo.
+
+## Resumo
+
+- Os contos de Machado são curtos e boa porta de entrada; os três da aula estão em domínio público.
+- "A Cartomante" (1884) usa o suspense e a ironia entre a confiança do personagem e o desfecho.
+- "Missa do Galo" (1894) usa o não dito: gestos, silêncios e olhares.
+- "O Alienista" é uma sátira.

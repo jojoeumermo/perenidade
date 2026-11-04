@@ -28,6 +28,11 @@ quiz:
     explicacao: "O cenário em andamento vai no imperfecto; a ação pontual, no indefinido."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar o pretérito imperfecto para falar de hábitos e descrições no passado e combiná-lo com o indefinido para contar histórias.
+
+
 ## O passado que dura
 
 O **pretérito imperfecto** corresponde, quase sempre, ao nosso **pretérito imperfeito** ("eu trabalhava", "ela comia"). É o passado das **descrições** e dos **hábitos**.
@@ -83,9 +88,27 @@ Complete: "Cuando ___ (ser) joven, mi abuela ___ (trabajar) en el campo."
 
 *antes* (antigamente), *de niño / de niña* (quando criança), *siempre*, *todos los días*, *a menudo* (com frequência), *cuando era...*
 
+## Exemplo resolvido
+
+**Conte: "Eu trabalhava na fábrica quando a greve começou".**
+
+1. **O cenário é o que durava:** "eu trabalhava", imperfecto de *trabajar*: *yo trabajaba*.
+2. **O fato que interrompeu:** "a greve começou", indefinido: *empezó la huelga*.
+3. **Ligue as duas partes** com *cuando*: *Yo trabajaba en la fábrica cuando empezó la huelga.*
+
+Confira: imperfecto para o cenário (como era, o que estava acontecendo) e indefinido para o fato (o que aconteceu de repente).
+
 ## Para praticar
 
 1. Conjugue no imperfecto: hablar, tener, escribir, ser, ir.
 2. Descreva em cinco frases como era a sua vida quando você era criança.
 3. Escolha entre imperfecto e indefinido: "Mientras yo (cocinar), (sonar) el teléfono."
 4. Escreva uma história curta de seis frases, com cenário no imperfecto e fatos no indefinido.
+
+## Resumo
+
+- O **imperfecto** é o passado dos hábitos, das descrições e das ações em andamento: *trabajaba, comía, vivía*.
+- Só três irregulares: *ser* (*era*), *ir* (*iba*) e *ver* (*veía*).
+- Também serve para pedidos educados: *Quería hablar con usted*.
+- Numa narrativa, o imperfecto monta o cenário e o indefinido conta os fatos.
+- Palavras que acompanham: *antes, siempre, todos los días, de niño*.

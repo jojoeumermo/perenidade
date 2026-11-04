@@ -37,6 +37,10 @@ quiz:
     resposta: 0
     explicacao: "Os núcleos mais firmemente ligados estão na região do ferro e do níquel."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever o núcleo atômico e a força forte, calcular com a meia-vida e conhecer as partículas elementares e as forças do Modelo Padrão.
+
 
 ## O núcleo
 
@@ -139,3 +143,12 @@ O Modelo Padrão é uma das teorias mais bem testadas da ciência, mas é incomp
 2. Uma amostra de 120 g de um isótopo com meia-vida de 10 anos: quanto resta depois de 30 anos?
 3. Um osso tem 1/8 do carbono-14 de um osso atual. Qual é a sua idade aproximada?
 4. Calcule a carga do méson formado por um quark up e um antiquark down.
+
+## Resumo
+
+- O núcleo tem cerca de 10⁻¹⁵ m e concentra quase toda a massa do átomo; a força forte segura prótons e nêutrons juntos.
+- A massa de um núcleo é menor que a soma de suas partes; a diferença é a energia de ligação (E = m · c²).
+- Núcleos instáveis decaem emitindo radiação; a radioatividade foi descoberta em 1896.
+- Meia-vida é o tempo para a metade de uma amostra decair; não se sabe quando um núcleo em particular vai decair.
+- Prótons e nêutrons são formados por quarks. A matéria é feita de quarks e léptons, e as forças têm partículas mediadoras.
+- O Modelo Padrão é muito bem testado, mas incompleto: não inclui a gravidade.

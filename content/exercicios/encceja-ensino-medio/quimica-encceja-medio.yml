@@ -1,0 +1,51 @@
+# Exercícios da aula "Ciências da Natureza: Química" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-qui-01
+  tema: "pH"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Um produto tem pH 3. Ele é:"
+  alternativas:
+    - texto: "Ácido"
+      certa: true
+    - texto: "Neutro"
+      erro: "O pH neutro é 7, como o da água pura. O 3 está bem abaixo."
+    - texto: "Básico"
+      erro: "Substâncias básicas têm pH acima de 7. O pH 3 é de um meio ácido, como o vinagre."
+  explicacao: "pH abaixo de 7 indica meio ácido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-qui-02
+  tema: "Transformações"
+  dificuldade: 1
+  enunciado: "Qual destes fenômenos é uma transformação química?"
+  alternativas:
+    - texto: "O gelo derretendo"
+      erro: "Derreter é mudança de estado: a substância continua sendo água."
+    - texto: "O ferro enferrujando"
+      certa: true
+    - texto: "O açúcar dissolvendo na água"
+      erro: "Dissolver é uma transformação física: o açúcar continua açúcar e pode ser recuperado ao evaporar a água."
+  explicacao: "A ferrugem é uma substância nova, formada quando o ferro reage com o oxigênio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-qui-03
+  tema: "Segurança com produtos"
+  dificuldade: 1
+  enunciado: "Qual cuidado vale para a água sanitária?"
+  alternativas:
+    - texto: "Misturar com outros produtos de limpeza, para limpar mais"
+      erro: "A mistura pode liberar gases tóxicos. Use cada produto sozinho e siga o rótulo."
+    - texto: "Usar sem misturar com outros produtos, em local ventilado, e guardar longe de crianças"
+      certa: true
+    - texto: "Guardar em garrafa de refrigerante, sem rótulo"
+      erro: "Sem rótulo, alguém pode beber por engano. Guarde na embalagem original."
+  explicacao: "Siga o rótulo, ventile o ambiente, não misture produtos e guarde na embalagem original, longe de crianças."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

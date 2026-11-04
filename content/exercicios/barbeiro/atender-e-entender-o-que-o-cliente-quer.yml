@@ -1,0 +1,51 @@
+# Exercícios da aula "Atender e entender o que o cliente quer" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-atender-01
+  tema: "As três partes do corte"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quais são as três partes do corte clássico, na ordem tradicional?"
+  alternativas:
+    - texto: "Contorno, laterais e topo"
+      certa: true
+    - texto: "Topo, laterais e contorno"
+      erro: "A ordem tradicional começa pelo contorno."
+    - texto: "Nuca, barba e bigode"
+      erro: "As três partes do corte são contorno, laterais e topo."
+  explicacao: "Usar essas palavras com o cliente ajuda a combinar cada parte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-atender-02
+  tema: "\"Só dá uma aparada\""
+  dificuldade: 2
+  enunciado: "O cliente diz \"só dá uma aparada\". O que a aula recomenda?"
+  alternativas:
+    - texto: "Cortar o que achar melhor"
+      erro: "Para ele pode ser um dedo; para você, meio palmo. Combine antes."
+    - texto: "Perguntar quanto ele quer tirar e mostrar com os dedos ou com o pente na cabeça dele"
+      certa: true
+    - texto: "Cortar o mínimo possível sem perguntar"
+      erro: "Pergunte e mostre na cabeça dele, para confirmar o pedido antes de começar."
+  explicacao: "Confirmar o pedido antes de começar evita que o cliente se olhe no espelho e perceba que o combinado era outro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-atender-03
+  tema: "Costeletas e rosto"
+  dificuldade: 2
+  enunciado: "Como as costeletas mais longas mudam a aparência do rosto?"
+  alternativas:
+    - texto: "Alongam o rosto"
+      erro: "Costeletas mais longas encurtam a aparência do rosto."
+    - texto: "Não mudam nada"
+      erro: "A aula diz que as costeletas mudam a aparência do rosto."
+    - texto: "Tendem a encurtar o rosto; as mais curtas tendem a alongar"
+      certa: true
+  explicacao: "Costeletas um pouco mais longas encurtam a aparência do rosto; mais curtas, alongam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

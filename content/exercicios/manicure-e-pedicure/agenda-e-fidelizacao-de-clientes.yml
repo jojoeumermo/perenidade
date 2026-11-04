@@ -1,0 +1,54 @@
+# Exercícios da aula "Agenda e fidelização de clientes" (Manicure e pedicure). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: man-agenda-01
+  tipo: numero
+  tema: "Montar a agenda"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Você trabalha 6 horas por dia. Cada atendimento dura 45 minutos mais 15 minutos de intervalo. Quantas clientes cabem no dia?"
+  resposta: "6"
+  unidade: "clientes"
+  erros_comuns:
+    - resposta: "8"
+      explicacao: "Você contou só os 45 minutos de cada atendimento (360 ÷ 45). Some o intervalo: 45 + 15 = 60."
+    - resposta: "360"
+      explicacao: "Esse é o total de minutos do dia. A pergunta é quantos atendimentos de 60 minutos cabem."
+  dica: "Passe as horas para minutos e divida pelo tempo de cada atendimento com intervalo."
+  explicacao: "6 horas = 360 minutos. Cada atendimento ocupa 45 + 15 = 60 minutos. 360 ÷ 60 = 6 clientes."
+  conferir: "360 / (45 + 15)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-agenda-02
+  tema: "Reduzir faltas"
+  dificuldade: 1
+  enunciado: "Qual é uma forma honesta de reduzir faltas sem aviso?"
+  alternativas:
+    - texto: "Combinar as regras de atraso e cancelamento antes e mandar um lembrete no dia anterior"
+      certa: true
+    - texto: "Cobrar uma multa que a cliente não sabia que existia"
+      erro: "Cobrança surpresa fere o direito à informação. Toda taxa deve ser avisada antes, com clareza."
+    - texto: "Não marcar hora com ninguém"
+      erro: "Sem agenda, o trabalho fica desorganizado e o tempo se perde. O melhor é combinar regras."
+  explicacao: "Regra clara e lembrete evitam a maior parte das faltas, sem prejudicar a confiança."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-agenda-03
+  tema: "Dados das clientes"
+  dificuldade: 2
+  enunciado: "O que fazer com as observações de saúde das clientes anotadas na agenda (como alergias)?"
+  alternativas:
+    - texto: "Mostrar a agenda a outras clientes para conversarem"
+      erro: "Dados de saúde são sensíveis. Mostrá-los a outras pessoas fere a privacidade e a LGPD."
+    - texto: "Guardar com cuidado, usar só para o atendimento e não repassar"
+      certa: true
+    - texto: "Publicar nas redes para divulgar o cuidado com a cliente"
+      erro: "Divulgar dado de saúde de alguém sem autorização clara é violação da privacidade."
+  explicacao: "A LGPD pede usar os dados só para o fim combinado, com segurança, sem repassar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

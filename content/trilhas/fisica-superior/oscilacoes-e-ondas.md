@@ -37,6 +37,10 @@ quiz:
     resposta: 1
     explicacao: "É o efeito Doppler: com a fonte se aproximando, as frentes de onda chegam mais juntas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever o movimento harmônico simples, calcular o período de uma mola e de um pêndulo e explicar ondas em cordas, ondas estacionárias e efeito Doppler.
+
 
 ## O movimento que se repete
 
@@ -138,3 +142,12 @@ O som é uma onda longitudinal de pressão. Quando a **fonte** ou o **ouvinte** 
 2. Qual deve ser o comprimento de um pêndulo com período de 2 s? (Use g = 9,8 m/s².)
 3. Uma corda de 0,65 m vibra com frequência fundamental de 110 Hz. Qual é a velocidade da onda na corda?
 4. Por que soldados quebram o passo ao atravessar uma ponte? Use a palavra ressonância.
+
+## Resumo
+
+- Oscilação é um movimento que se repete; no movimento harmônico simples, a força da mola obedece à lei de Hooke: F = −k·x.
+- A energia alterna entre cinética e potencial elástica, com total E = k·A²/2.
+- Pêndulo simples (pequenas oscilações): T = 2π√(L/g).
+- Com atrito, a oscilação é amortecida; empurrões na frequência natural dão ressonância.
+- Em uma corda, v = √(T/μ); duas ondas se somam (superposição) e formam ondas estacionárias em cordas presas.
+- O som é uma onda longitudinal de pressão; quando fonte ou ouvinte se movem, a frequência percebida muda (efeito Doppler).

@@ -1,0 +1,54 @@
+# Exercícios da aula "Postura e saúde de quem trabalha" (Manicure e pedicure). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: man-postura-01
+  tema: "Posto de trabalho"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual mudança ajuda a proteger o pescoço e as costas durante o atendimento?"
+  alternativas:
+    - texto: "Curvar-se o máximo possível sobre a mão da cliente"
+      erro: "Curvar-se demais sobrecarrega o pescoço e as costas. O ideal é trazer o trabalho até você, com apoio para a mão da cliente."
+    - texto: "Ajustar a altura da cadeira e da bancada e apoiar a mão da cliente no nível certo"
+      certa: true
+    - texto: "Trabalhar de pé por oito horas sem pausa"
+      erro: "Ficar de pé o dia todo sem pausa cansa as pernas e as costas. Ajuste o posto e faça pausas."
+  explicacao: "Ajustar altura e apoio reduz a curvatura. A NR-17 trata da ideia de adaptar o trabalho a quem trabalha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-postura-02
+  tipo: numero
+  tema: "Pausas"
+  dificuldade: 1
+  enunciado: "Se você faz 3 minutos de alongamento entre cada uma de 8 clientes, quantos minutos de pausa tem no dia?"
+  resposta: "24"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "11"
+      explicacao: "Você somou 8 + 3. Cada cliente tem uma pausa de 3 minutos, então multiplique."
+    - resposta: "21"
+      explicacao: "Você contou 7 pausas (entre as 8 clientes). Se faz a pausa após cada atendimento, são 8 pausas."
+  dica: "Número de clientes vezes minutos de pausa."
+  explicacao: "8 × 3 = 24 minutos de pausa no dia."
+  conferir: "8 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-postura-03
+  tema: "Sinais de alerta"
+  dificuldade: 2
+  enunciado: "Você sente formigamento nas mãos e dor que acorda à noite há semanas. O que fazer?"
+  alternativas:
+    - texto: "Ignorar até passar e trabalhar mais rápido"
+      erro: "Dor persistente e formigamento são sinais de alerta. Ignorar pode piorar a lesão."
+    - texto: "Procurar a UBS para avaliação, sem se automedicar"
+      certa: true
+    - texto: "Tomar o remédio que uma amiga indicou"
+      erro: "Remédio indicado por outra pessoa pode não servir e esconder o problema. A avaliação é de um profissional de saúde."
+  explicacao: "Sintomas persistentes pedem avaliação na UBS. Não se automedique."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

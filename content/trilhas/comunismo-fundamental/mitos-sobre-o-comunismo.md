@@ -28,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "O historiador Rodrigo Patto Sá Motta mostra como o 'perigo vermelho' foi mobilizado pelas elites em momentos decisivos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber separar o medo fabricado do comunismo (como o Plano Cohen) dos fatos reais, reconhecer os mitos mais comuns e responder a eles com fontes.
 
 Poucos assuntos despertam tanto medo quanto o comunismo. Parte desse medo foi **fabricada** por décadas de propaganda. Parte vem de **fatos reais**, que precisam ser encarados com honestidade. Esta aula separa uma coisa da outra.
 
@@ -74,3 +77,23 @@ Também é fato que os comunistas brasileiros foram **perseguidos, presos, tortu
 ## Para conversar
 
 Você já ouviu alguém ser chamado de "comunista" de forma pejorativa? O que essa pessoa defendia de fato?
+
+## Exemplo resolvido
+
+**Como saber se uma frase sobre o comunismo é mito ou fato? Teste "comunistas querem tomar a sua casa".**
+
+1. **Pergunte o que a proposta trata.** A proposta fala dos grandes meios de produção, e não dos bens pessoais.
+2. **Procure a fonte.** A aula remete à aula sobre propriedade privada e coletiva da trilha de socialismo.
+3. **Veja quem repete a frase e para quê.** O historiador Rodrigo Patto Sá Motta mostra que o medo do comunismo foi mobilizado no Brasil, entre 1917 e 1964, sempre que movimentos populares ganhavam força.
+4. **Compare com um caso documentado.** O Plano Cohen (1937) era falso, e dois meses depois veio o golpe do Estado Novo.
+5. **Conclua.** A frase mistura bens pessoais com meios de produção; é mito. Mas isso não apaga os crimes reais em países governados por partidos comunistas, que a aula também reconhece.
+
+Confira: os números de vítimas são objeto de debate entre historiadores; busque fontes sérias.
+
+## Resumo
+
+- O medo do comunismo foi em parte **fabricado**: o **Plano Cohen** (1937) era falso e antecedeu o golpe do Estado Novo.
+- Mitos comuns: "come criancinha", "quer tomar a sua casa" (a proposta trata dos grandes meios de produção), "quer acabar com a família", "odeia a religião" e "quem defende direitos é comunista".
+- Também são **fatos reais** a repressão, os campos de trabalho forçado, os expurgos e as fomes agravadas por decisões políticas na URSS e na China.
+- Os números de vítimas são debatidos por historiadores; use fontes sérias.
+- Comunistas brasileiros foram perseguidos, presos, torturados e mortos, sobretudo no Estado Novo e na ditadura de 1964-1985.

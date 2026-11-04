@@ -132,6 +132,7 @@ Além das partes acima, a aula pode (e deve, sempre que couber) usar os **blocos
 | `realidade` | Um exercício sobre a vida de quem estuda, com espaço para responder (fica só no aparelho). Não é a parte "Na sua realidade", que vem antes da explicação e usa `suarealidade`. | Antes do resumo |
 | `leve` | Leve para a sua comunidade: como ensinar isso a outra pessoa, em passos curtos. | No fim |
 | `roda` | Perguntas para discutir na sala da disciplina, com o link direto para ela. | No fim |
+| `outrojeito` | Uma segunda explicação da mesma ideia, por outro caminho (outro exemplo, outra imagem, o passo a passo mais devagar). Opcional; fica fechada até a pessoa abrir. Não muda nenhum fato, número nem fonte. | Depois da explicação difícil |
 
 Formato de cada um:
 
@@ -155,6 +156,17 @@ Texto da história, com **negrito** e *itálico* se precisar. Linha em branco se
 - Termine com uma pergunta.
 ```
 ````
+
+O `outrojeito` leva um título opcional na primeira linha e o texto da segunda explicação:
+
+````markdown
+```outrojeito
+# Pensando de outro jeito
+Imagine uma folha de papel dividida em quatro partes iguais. Cada parte é um quarto do papel.
+```
+````
+
+Use quando uma ideia costuma travar quem estuda (é o que o botão "Não entendi" da Escola mostra). Não é um resumo: é outro caminho até a mesma conclusão. Na página aparece como "Não ficou claro? Veja de outro jeito", fechado; o assistente do "Não entendi" continua sendo o jeito de pedir uma explicação feita para o trabalho da pessoa, e só quando ela pede.
 
 Dentro dos blocos vale texto simples: parágrafos (linha em branco entre eles), listas com `- ` ou `1. `, **negrito**, *itálico*, `código` e links para páginas do próprio site (`[Máquinas simples](/trilhas/fisica-fundamental/maquinas-simples)`). Uma primeira linha começando com `# ` vira o título do bloco.
 

@@ -1,5 +1,6 @@
 ---
 titulo: "O que é política e o que estuda a ciência política"
+modelo: 9
 resumo: "Política não é só eleição e político: é como uma sociedade decide quem fica com o quê. O que a ciência política pergunta e por que ninguém fica fora da política."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,9 +37,16 @@ quiz:
     resposta: 0
     explicacao: "A Constituição reconhece a participação direta do povo, além do voto."
 ---
-
 ```provocacao
 O preço da passagem de ônibus subiu. Quem decidiu? Você foi consultado? E se ninguém reclamar, o que acontece no ano que vem?
+```
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é política (quem fica com o quê, quando e como), dizer o que a ciência política estuda e citar formas de participar além do voto.
+
+```suarealidade
+Que decisão tomada por alguém de fora (prefeitura, empresa, governo) mexeu na sua semana este mês: preço, horário, serviço? Você foi consultado?
 ```
 
 Muita gente diz: "não gosto de política", "política é coisa de político". Mas a política está em tudo o que é **comum**: o preço da passagem, o salário mínimo, o posto de saúde, a escola, a polícia, o imposto que você paga no arroz. **Não se meter em política** não tira ninguém da política: só deixa que outros decidam por você.
@@ -87,3 +95,37 @@ A Constituição de 1988 diz, no artigo 1º, que **todo o poder emana do povo**,
 - Por que tanta gente diz que não gosta de política? Quem ganha com isso?
 - Fora o voto, que forma de participação você já viu dar resultado?
 ```
+
+## Exemplo resolvido
+
+**Moradores de um bairro pressionam a prefeitura por uma creche. Isso é política, no sentido da ciência política?**
+
+1. **É sobre algo comum?** Sim: uma creche é um serviço público que afeta todo o bairro.
+2. **Há divisão de "quem fica com o quê"?** Sim: o orçamento da cidade decide quanto vai para asfalto no centro e quanto vai para creche na periferia. Alguns ganham mais, outros menos.
+3. **Há poder em disputa?** Sim: os moradores pesam na decisão pressionando a prefeitura, com abaixo-assinado, audiência pública ou associação de moradores.
+4. **Conclua.** É política, mesmo que ninguém fale em partido.
+
+Confira: escolher a cor da própria camiseta ou treinar pênaltis não envolve decidir sobre o que é comum, com poder em disputa.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Política é coisa de político, e é suja. Quem trabalha e cuida da família vive melhor se não se meter nisso." É uma posição de quem já foi enganado por promessas e tem pouco tempo livre.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A desconfiança tem motivos, e ninguém é obrigado a gostar de política. Mas, como diz a aula, não se meter em política não tira ninguém dela: só deixa que outros decidam por você o preço da passagem, o posto de saúde, a escola. A Constituição, no art. 1º, diz que todo o poder emana do povo, que o exerce por representantes eleitos ou diretamente. E votar é só uma parte: abaixo-assinado, audiência pública, conselho de saúde, associação de moradores também pesam na decisão.
+```
+
+```agir
+# Esta semana
+Escolha um problema da sua rua (iluminação, linha de ônibus, coleta de lixo). Num papel, escreva quem decide sobre ele e uma forma de participar além do voto. Não precisa procurar ninguém ainda.
+```
+
+## Resumo
+
+- **Política** é decidir **quem fica com o quê, quando e como** (Lasswell): a divisão do que é comum nunca é neutra.
+- Para Aristóteles, o ser humano é um **animal político**; na Atenas dele, porém, mulheres, estrangeiros e escravizados ficavam de fora.
+- A **ciência política** estuda o Estado e os governos, as eleições e os partidos, os movimentos sociais e o **poder**.
+- Para Max Weber, o Estado moderno detém o **monopólio do uso legítimo da força** num território.
+- **Política não é só votar** (art. 1º da Constituição): abaixo-assinado, audiência pública, conselhos, greve, associações.
+- Não se meter em política não tira ninguém dela.

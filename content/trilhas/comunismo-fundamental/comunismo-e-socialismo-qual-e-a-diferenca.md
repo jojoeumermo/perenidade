@@ -29,6 +29,9 @@ quiz:
     resposta: 0
     explicacao: "Lenin, em O Estado e a Revolução, chamou de socialismo o que Marx tinha chamado de primeira fase."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que o Manifesto de 1848 se chamou comunista, quais são as duas fases da sociedade futura em Marx e como as palavras comunista e socialista ganharam sentidos diferentes.
 
 "Comunismo" e "socialismo" são usados ora como sinônimos, ora como opostos. A confusão tem razões históricas. Esta aula separa os sentidos.
 
@@ -75,3 +78,23 @@ Hoje, as palavras convivem com vários sentidos. Há partidos comunistas, partid
 ## Para conversar
 
 No Brasil, quais partidos ou movimentos você conhece que usam as palavras "comunista" ou "socialista" no nome? O que eles defendem de fato?
+
+## Exemplo resolvido
+
+**Na terminologia de Lenin, a URSS dizia ter alcançado o comunismo? Teste com o nome oficial.**
+
+1. **Marx (1875).** Distinguiu uma primeira fase, em que a distribuição é proporcional ao trabalho, e uma fase superior, de abundância, "a cada um segundo as suas necessidades".
+2. **Lenin (1917).** Popularizou chamar a primeira fase de socialismo e a fase superior de comunismo.
+3. **Os países.** URSS, China, Cuba, Vietnã e outros governados por partidos comunistas se definiram como socialistas, ou seja, na primeira fase.
+4. **O nome oficial.** União das Repúblicas Socialistas Soviéticas.
+5. **Conclua.** Nenhum desses países disse ter alcançado o comunismo pleno.
+
+Confira: ao ouvir "socialista" ou "comunista", pergunte em que sentido a palavra está sendo usada.
+
+## Resumo
+
+- Em 1848, "socialista" nomeava utopistas e reformadores de fora da classe operária; "comunista" era o nome dos setores operários que queriam uma transformação radical (Engels, 1888).
+- Marx (1875): duas fases da sociedade comunista, uma proporcional ao trabalho e outra "segundo as necessidades".
+- Lenin (1917) chamou a primeira de **socialismo** e a superior de **comunismo**.
+- Em 1914 a maioria dos partidos social-democratas apoiou a guerra; em 1918 os bolcheviques passaram a se chamar comunistas, e em 1919 nasceu a Internacional Comunista.
+- Países governados por comunistas se disseram socialistas; hoje as palavras têm vários sentidos.

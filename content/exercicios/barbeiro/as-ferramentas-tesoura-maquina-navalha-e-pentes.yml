@@ -1,0 +1,51 @@
+# Exercícios da aula "As ferramentas: tesoura, máquina, navalha e pentes" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-ferramentas-01
+  tema: "Como a máquina corta"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Como funciona a máquina de cortar cabelo, segundo a aula?"
+  alternativas:
+    - texto: "Uma lâmina gira como um ventilador"
+      erro: "A máquina tem duas lâminas em forma de pente que deslizam de lado."
+    - texto: "Uma lâmina fixa puxa o cabelo até arrancar"
+      erro: "O corte acontece como numa tesoura, entre as duas lâminas."
+    - texto: "Duas lâminas em forma de pente deslizam de lado, e o cabelo é cortado quando uma passa sobre a outra"
+      certa: true
+  explicacao: "O atrito precisa ser baixo, por isso as lâminas pedem lubrificação frequente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-ferramentas-02
+  tema: "Tipos de máquina"
+  dificuldade: 1
+  enunciado: "Qual máquina tem lâmina muito fina, sem alavanca, para contornos?"
+  alternativas:
+    - texto: "O acabador"
+      certa: true
+    - texto: "A máquina de corte com alavanca"
+      erro: "Essa é para o corte do dia a dia, com altura ajustável."
+    - texto: "A máquina de lâminas trocáveis"
+      erro: "Essa aceita lâminas padronizadas de vários fabricantes."
+  explicacao: "Acabador: contornos, como o arco da orelha, a nuca e o desenho da barba."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-ferramentas-03
+  tema: "A história do ofício"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que faziam os barbeiros do Brasil nos séculos XVI e XVII, além de cortar cabelo e fazer barba?"
+  alternativas:
+    - texto: "Só vendiam navalhas"
+      erro: "Eles faziam pequenas cirurgias, sangrias e extraíam dentes."
+    - texto: "Pequenas cirurgias, sangrias e extração de dentes"
+      certa: true
+    - texto: "Nada além de cortar cabelo"
+      erro: "O ofício incluía pequenas cirurgias, sangrias e extração de dentes."
+  explicacao: "O cilindro listrado de branco e vermelho, símbolo das barbearias, lembra os curativos e o sangue dessa época."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

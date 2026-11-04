@@ -29,6 +29,10 @@ quiz:
     explicacao: "As frases seguintes desenvolvem e sustentam essa ideia."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar os conectivos mais comuns do inglês para ler e escrever parágrafos com a lógica das ideias bem marcada.
+
 ## A lógica do texto
 
 Os **conectivos** (*linking words*) mostram como as ideias se relacionam. Na leitura, são placas de trânsito: avisam se vem uma adição, uma oposição ou uma conclusão. Na escrita, dão coesão.
@@ -78,9 +82,26 @@ Repare como os conectivos (*therefore, for example, as a result*) costuram as fr
 
 Diante de um parágrafo difícil, um bom exercício é **circular os conectivos** e desenhar setas: o que se soma, o que se opõe, o que causa o quê. A estrutura do argumento aparece, mesmo antes de entender todas as palavras.
 
+## Exemplo resolvido
+
+**Una as frases: "Rents went up. Wages stayed the same." e "The bus was late. I missed the meeting."**
+
+1. A primeira frase **contrasta** duas coisas. O conectivo indicado é *whereas*: *Rents went up, whereas wages stayed the same.*
+2. A segunda traz uma **consequência**. O conectivo é *as a result*: *The bus was late. As a result, I missed the meeting.*
+3. Cuidado com a gramática: *although* e *whereas* são seguidos de oração completa; *despite* é seguido de substantivo ou -ing.
+
+Confira: *However* costuma começar a frase, seguido de vírgula. Os conectivos mostram para onde o argumento vai.
+
 ## Para praticar
 
 1. Classifique: moreover, whereas, thus, for instance, despite, finally.
 2. Una as frases com o conectivo indicado: "Rents went up. Wages stayed the same." (whereas) / "The bus was late. I missed the meeting." (as a result)
 3. Escreva um parágrafo de quatro frases em inglês sobre um problema do seu bairro, com topic sentence e dois conectivos.
 4. Circule os conectivos de um parágrafo de artigo acadêmico em inglês e explique a lógica do argumento.
+
+## Resumo
+
+- Conectivos mostram a relação entre as ideias: adição, contraste, concessão, causa, consequência, exemplo, sequência, ênfase e conclusão.
+- *Although / even though* + oração; *despite / in spite of* + substantivo ou -ing.
+- *Because* + oração; *because of / due to* + substantivo.
+- Na leitura, os conectivos funcionam como placas de trânsito.

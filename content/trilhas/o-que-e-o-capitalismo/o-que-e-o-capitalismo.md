@@ -36,7 +36,16 @@ quiz:
     opcoes: ["Sim, faz parte da natureza humana", "Não: tem poucos séculos e foi precedido por outras formas de organizar a produção", "Só existe no Brasil"]
     resposta: 1
     explicacao: "A humanidade viveu a maior parte da sua história sem ele. O que nasceu na história pode mudar na história."
+modelo: 9
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber nomear as três peças do capitalismo (propriedade privada dos meios de produção, produção para o lucro e trabalho assalariado), explicar de onde sai o lucro e dizer por que o sistema tem crises.
+
+```suarealidade
+Pense no seu trabalho, ou no de alguém da sua casa: de quem é o que se usa para trabalhar (a máquina, o carro, o ponto, o aplicativo)? E quanto do que se produz volta para quem trabalha?
+```
 
 Esta aula apresenta a explicação crítica do capitalismo, a que nasce com Karl Marx e é a base da tradição socialista. Economistas liberais descrevem o mesmo sistema de outro jeito, como a soma de trocas livres entre pessoas livres. Aqui a pergunta é outra: o que acontece **dentro** do lugar de trabalho, antes de a mercadoria chegar à loja?
 
@@ -103,3 +112,26 @@ Como cada empresa produz o máximo que pode, sem combinar com ninguém, e ao mes
 O capitalismo tem poucos séculos. Antes dele, houve sociedades sem classes, o escravismo antigo, o feudalismo. Ele nasceu na Europa, entre os séculos XVI e XVIII, quando camponeses foram expulsos das terras comuns e ficaram sem nada além dos próprios braços, e cresceu com o saque colonial e a escravização de africanos e de povos indígenas.
 
 Saber disso muda a conversa. Se o capitalismo teve começo, não é "a natureza humana". É uma forma de organizar a vida, feita por pessoas, e que pessoas podem mudar.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Economistas liberais, desde Adam Smith (A Riqueza das Nações, 1776), respondem que o capitalismo é um sistema de trocas livres: ninguém é obrigado a comprar nem a vender, o trabalhador aceita o emprego porque o salário lhe parece melhor do que as outras saídas, e a busca de lucro de cada um acaba oferecendo ao público o que ele quer, com preços que a concorrência força para baixo. Para essa tradição, o lucro é a recompensa de quem arrisca o dinheiro em investir.
+---
+Como você responderia a esse argumento, com respeito e com fatos? Pense no que a pessoa que depende do salário para viver tem como alternativa, e se o risco de quem investe e o de quem não tem outra renda são iguais.
+---
+Uma resposta possível: a troca é livre no papel, mas quem não tem terra, máquina nem loja precisa vender o seu trabalho para viver, e por isso as duas partes não negociam em pé de igualdade (é a terceira peça desta aula). A concorrência, de fato, pode baratear produtos; a aula discute outra coisa: de onde sai o lucro (do trabalho excedente) e por que o sistema obriga cada empresa a acumular. A divergência está em saber se a troca entre patrão e empregado é livre de fato ou apenas de direito.
+```
+
+```agir
+# Esta semana
+Num papel, anote três coisas que você (ou alguém da sua casa) usa para trabalhar e escreva ao lado de cada uma de quem ela é. Depois escreva uma frase: o que mudaria se fosse de quem trabalha com ela?
+```
+
+## Resumo
+
+- Capitalismo: meios de produção de propriedade privada, produção de mercadorias para o lucro e trabalho assalariado.
+- O trabalhador vende a sua força de trabalho; o salário é o preço dela.
+- A força de trabalho produz mais valor do que custa; a diferença é a mais-valia, de onde saem lucro, juros e aluguel.
+- A concorrência obriga cada empresa a reinvestir e a cortar custos: não é questão de caráter do patrão.
+- Há crises quando se produz mais do que quem tem salário consegue comprar.
+- O capitalismo tem poucos séculos e teve começo: foi feito por pessoas e pode ser mudado por pessoas.

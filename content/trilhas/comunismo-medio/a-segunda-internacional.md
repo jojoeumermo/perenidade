@@ -28,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "Ali se reuniram as correntes que, mais tarde, dariam origem à Internacional Comunista."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como e quando nasceu a Segunda Internacional, que debates a atravessaram e por que ela se desfez em agosto de 1914.
 
 Entre 1889 e 1914, o movimento socialista viveu o seu período de maior crescimento até então. Partidos com centenas de milhares de membros, sindicatos de massa, jornais diários, deputados. Tudo isso desabou em poucos dias, em agosto de 1914. Esta aula conta a história da **Segunda Internacional**.
 
@@ -76,3 +79,24 @@ A Segunda Internacional foi refeita depois da guerra e, com outras organizaçõe
 ## Para conversar
 
 Por que tantos trabalhadores e dirigentes socialistas, que se diziam internacionalistas, apoiaram a guerra dos seus países em 1914? Que forças pesaram mais: o nacionalismo, a burocracia dos partidos, o medo da repressão?
+
+## Exemplo resolvido
+
+**Por que se diz que a Segunda Internacional faliu em agosto de 1914? Compare o compromisso com o que aconteceu.**
+
+1. **O compromisso.** Em Stuttgart (1907) e Basileia (1912), a Internacional aprovou lutar contra a guerra e, se ela viesse, usar a crise para acelerar a queda do capitalismo (emenda de Rosa Luxemburgo e Lenin).
+2. **O que aconteceu.** Em agosto de 1914, a maioria dos partidos apoiou os governos dos próprios países.
+3. **Os fatos.** Em 4 de agosto, a bancada do SPD votou a favor dos créditos de guerra; na França, os socialistas entraram no governo de "união sagrada".
+4. **As exceções.** Karl Liebknecht foi o primeiro deputado a votar contra os créditos, em dezembro de 1914; também se opuseram os bolcheviques, os socialistas sérvios e parte do partido italiano.
+5. **Conclua.** Operários que tinham jurado solidariedade foram mandados para se matar nas trincheiras; Lenin chamou isso de falência da Internacional.
+
+Confira: em 1915, em Zimmerwald, os contrários à guerra começaram a formar a corrente que fundaria a Internacional Comunista.
+
+## Resumo
+
+- A Segunda Internacional foi fundada em **julho de 1889**, em Paris, como federação de partidos nacionais e sindicatos; decidiu que o **1º de Maio** seria dia de manifestação pela jornada de oito horas.
+- O modelo era o SPD alemão (Programa de Erfurt, 1891).
+- Debates: **reforma ou revolução** (Bernstein e Rosa Luxemburgo) e o colonialismo.
+- Stuttgart (1907) e Basileia (1912): compromisso contra a guerra.
+- Em **agosto de 1914**, a maioria dos partidos apoiou os próprios governos; Lenin falou em falência.
+- Zimmerwald (1915) reuniu os contrários à guerra.

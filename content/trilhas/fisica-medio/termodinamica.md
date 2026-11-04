@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "A grade atrás da geladeira é quente porque é por ali que o calor sai."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber enunciar as leis da termodinâmica, explicar por que o calor passa do quente para o frio, o que é o rendimento de uma máquina térmica e como a geladeira funciona.
+
 
 ## A ciência das máquinas a vapor
 
@@ -148,3 +152,12 @@ A termodinâmica mostra que a energia tem **qualidade**. A eletricidade pode vir
 2. Uma usina termelétrica recebe 2 000 J de calor para cada 700 J de energia elétrica produzida. Qual é o rendimento? Para onde vai o resto?
 3. Calcule o rendimento máximo de uma máquina que opera entre 600 K e 300 K.
 4. Explique, com a segunda lei, por que o gelo derrete no copo e a bebida esfria, e nunca o contrário.
+
+## Resumo
+
+- A termodinâmica nasceu das máquinas a vapor. Temperatura mede a agitação; calor é energia em trânsito; energia interna é o total guardado.
+- Lei zero: corpos em equilíbrio térmico com um terceiro estão em equilíbrio entre si.
+- 1ª lei: a energia se conserva (variação da energia interna = calor recebido − trabalho realizado).
+- 2ª lei: o calor não passa sozinho do frio para o quente; a entropia (desordem) tende a aumentar.
+- Máquina térmica: recebe calor da fonte quente, transforma parte em trabalho e joga o resto na fonte fria. Carnot (1824) mostrou que há um rendimento máximo.
+- A geladeira é a máquina ao contrário: retira calor do interior e o lança na cozinha; não cria frio.

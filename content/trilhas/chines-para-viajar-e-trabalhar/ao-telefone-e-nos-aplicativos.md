@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "Resposta curta muito comum para confirmar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber atender e fazer uma ligação em chinês, deixar recado, ler um número de telefone e usar as frases mais comuns nos aplicativos de mensagem.
 
 ## Ao telefone
 
@@ -88,3 +91,24 @@ Seu chefe manda uma mensagem pedindo para chegar às 8h amanhã. Qual é a respo
 2. Leia em voz alta, em chinês, o seu número de telefone.
 3. Escreva três mensagens curtas: confirmar um horário, avisar um atraso e agradecer.
 4. Explique a um colega o que significam 收到 e 辛苦了.
+
+## Exemplo resolvido
+
+**Você liga para a empresa de um colega e ele não está. Como conduzir a conversa?**
+
+1. **Atenda ao ser atendido.** Quem atende diz **喂？** (wéi?, alô?).
+2. **Pergunte por ele.** **请问……在吗？** (qǐngwèn… zài ma?): o(a)… está?
+3. **A resposta.** **他不在。** (Tā bú zài.) Ele não está.
+4. **Recado.** **要留言吗？** (Quer deixar recado?) Você responde: **请告诉他给我回电话。** (Peça para ele me ligar de volta.)
+5. **Seu número.** **我的电话号码是…** Nos números, o 1 se lê **幺** (yāo): 13800138000 se lê *yāo sān bā líng líng yāo sān bā líng líng líng*.
+6. **Despedida.** **谢谢！**
+
+Confira: se o número estiver errado, ouvirá **您打错了** (foi engano).
+
+## Resumo
+
+- Ao telefone: **喂？**, **请问您是哪位？**, **我是…**, **请问…在吗？**, **他不在**, **请稍等**, **您打错了**.
+- Recados: **要留言吗？**, **请告诉他给我回电话**, **我的电话号码是…**; nos números, o 1 se lê **幺** (yāo).
+- O aplicativo de mensagens mais usado na China é o **微信** (Wēixìn): 加个微信吧, 扫一下二维码, 发消息, 语音, 群.
+- Respostas curtas: **好的**, **收到**, **稍等**; **辛苦了** agradece o esforço de alguém.
+- Na escrita informal, números substituem palavras: 88 (拜拜), 520 (我爱你).

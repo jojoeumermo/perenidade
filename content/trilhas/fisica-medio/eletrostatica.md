@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "A lataria conduz a descarga por fora, protegendo quem está dentro. Árvores isoladas e campo aberto são os piores lugares."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a carga elétrica, os modos de eletrizar um corpo, usar a lei de Coulomb e adotar as precauções corretas contra raios.
+
 
 ## Cargas paradas
 
@@ -143,3 +147,12 @@ Trabalhadores rurais e da construção estão entre os mais atingidos. Parar o t
 2. Duas cargas se atraem com força de 8 N. Se a distância entre elas dobrar, qual será a nova força?
 3. Esfregue um balão de borracha no cabelo e encoste-o na parede. Explique o que acontece usando a ideia de indução.
 4. Por que não se deve ficar debaixo de uma árvore durante uma tempestade?
+
+## Resumo
+
+- Toda matéria tem cargas positivas (prótons) e negativas (elétrons); corpos de cargas iguais se repelem e de cargas opostas se atraem.
+- Condutores deixam as cargas se mover; isolantes, não.
+- Eletriza-se por atrito, contato e indução.
+- Lei de Coulomb (1785): F = k · q₁ · q₂ ÷ d²; a força diminui com o quadrado da distância.
+- Campo elétrico é a influência de uma carga no espaço em volta; nas pontas de um condutor o campo é muito forte.
+- O para-raios e a gaiola de Faraday protegem; em tempestade, abrigue-se em lugar fechado e evite campo aberto, água e árvores isoladas.

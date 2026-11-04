@@ -34,6 +34,9 @@ quiz:
     resposta: 0
     explicacao: "O debate é sobre o que deve crescer, o que deve diminuir e para quem."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar as duas grandes posições atuais sobre a abundância comunista (automação e decrescimento), as críticas cruzadas e a síntese proposta pelos ecossocialistas.
 
 Marx imaginava a fase superior do comunismo como uma sociedade em que as riquezas **jorrariam em abundância**. No século XXI, essa ideia enfrenta duas novidades: tecnologias que poderiam automatizar boa parte do trabalho e uma **crise ecológica** que mostra os limites do planeta. Esta aula apresenta o debate.
 
@@ -73,3 +76,23 @@ Muitos ecossocialistas buscam uma síntese: **crescer** o que atende às necessi
 ## Para pesquisar e debater
 
 Faça duas listas: o que deveria crescer no Brasil numa transição justa e o que deveria diminuir. Quem ganharia e quem perderia com cada item?
+
+## Exemplo resolvido
+
+**Bastani e Saito discordam sobre o que é abundância. Compare os dois.**
+
+1. **Bastani (2019).** Aposta na automação, na energia solar barata, na biotecnologia e na mineração de asteroides para criar abundância material, se forem controladas socialmente.
+2. **Saito (2020).** Propõe um comunismo do decrescimento: os países ricos reduzem a produção material supérflua e reorganizam a economia em torno dos bens comuns.
+3. **A crítica a Bastani.** Toda tecnologia depende de energia e matérias-primas, e o planeta tem limites físicos.
+4. **A crítica a Saito.** Bilhões de pessoas ainda precisam de moradia, saneamento, energia e alimento, e pedir sacrifícios genéricos pesa sobre quem já tem pouco.
+5. **Conclua.** Muitos ecossocialistas propõem crescer o que atende às necessidades básicas, reduzir o supérfluo e concentrado nos mais ricos, planejar democraticamente e transformar produtividade em tempo livre.
+
+Confira: nessa síntese, abundância é vida digna num planeta habitável, e não montanha de mercadorias.
+
+## Resumo
+
+- Em Marx, a fase superior depende de riquezas "em abundância"; o capitalismo desenvolve as forças produtivas mas produz para o lucro.
+- Posição 1: **automação e abundância** (Bastani; Phillips e Rozworski, que lembram que grandes empresas já planejam suas cadeias).
+- Posição 2: **decrescimento** (Kohei Saito): reduzir a produção material nos países ricos e ver a abundância como riqueza social.
+- Críticas cruzadas: limites do planeta e matérias-primas do Sul global; necessidades de bilhões que ainda não foram atendidas (decrescimento seletivo).
+- Síntese ecossocialista: crescer o necessário, reduzir o supérfluo, planejar democraticamente e ganhar tempo livre.

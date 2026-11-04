@@ -26,6 +26,9 @@ quiz:
     resposta: 0
     explicacao: "A Coluna nunca foi derrotada militarmente e terminou com o exílio dos seus membros na Bolívia."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar a história de Luís Carlos Prestes e de Olga Benário, como ela foi deportada para a Alemanha nazista e o que isso mostra sobre o Estado Novo.
 
 Esta é a história de duas pessoas que dedicaram a vida à causa comunista e pagaram por isso um preço enorme. Ela ajuda a entender o Brasil dos anos 1930 e a relação do governo Vargas com a Alemanha nazista.
 
@@ -76,3 +79,24 @@ A deportação de Olga mostra até onde foi a colaboração do Estado Novo com o
 ## Para conversar
 
 Por que a história de Olga é pouco ensinada nas escolas brasileiras? O que ela revela sobre o Brasil da época?
+
+## Exemplo resolvido
+
+**Como Olga Benário foi parar nas mãos da Gestapo? Siga a cronologia.**
+
+1. **1934-1935.** A Internacional Comunista designou Olga para acompanhar e proteger Prestes na volta clandestina ao Brasil; os dois chegaram em 1935.
+2. **Março de 1936.** Prestes e Olga foram presos no Rio de Janeiro.
+3. **A decisão.** O governo Vargas decidiu deportá-la para a Alemanha nazista, sabendo que era judia e comunista; ela estava grávida.
+4. **O recurso.** Um *habeas corpus* foi apresentado ao Supremo Tribunal Federal, que o negou.
+5. **Setembro de 1936.** Olga foi embarcada para Hamburgo e entregue à Gestapo; em 27 de novembro nasceu Anita Leocádia, entregue à avó em janeiro de 1938 após campanha internacional.
+6. **Desfecho.** Olga foi assassinada em 1942, em Bernburg, aos 34 anos.
+
+Confira: a história mostra como o anticomunismo justificou a entrega de uma mulher grávida aos seus algozes.
+
+## Resumo
+
+- **Luís Carlos Prestes** (nascido em 1898): tenentista, comandou a Coluna Prestes (1925-1927, cerca de 25 mil km) e entrou no Partido Comunista em 1934.
+- **Olga Benário** (nascida em 1908, em Munique): militante comunista, foi designada em 1934 para proteger Prestes no Brasil.
+- Presos em março de 1936; Olga, grávida, foi deportada para a Alemanha nazista, depois de o STF negar o *habeas corpus*.
+- Anita Leocádia nasceu em 1936 e foi entregue à avó em 1938; Olga foi assassinada em 1942.
+- Prestes passou nove anos preso, foi eleito senador em 1945 e morreu em 1990.

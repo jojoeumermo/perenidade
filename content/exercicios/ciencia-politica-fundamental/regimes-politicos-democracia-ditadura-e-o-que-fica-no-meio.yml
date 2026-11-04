@@ -1,0 +1,51 @@
+# Exercícios da aula "Regimes políticos: democracia, ditadura e o que fica no meio" (Ciência política: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cpf-regimes-01
+  tema: "Democracia"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "De onde vem a palavra democracia?"
+  alternativas:
+    - texto: "Do latim communis"
+      erro: "Communis é a origem de comunismo."
+    - texto: "Do grego dêmos (povo) e kratos (governo)"
+      certa: true
+    - texto: "Do inglês democrat"
+      erro: "A palavra vem do grego."
+  explicacao: "Numa definição mínima, os governantes são escolhidos em eleições justas e competitivas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-regimes-02
+  tema: "Ditadura"
+  dificuldade: 2
+  enunciado: "O que caracteriza a ditadura, segundo a aula?"
+  alternativas:
+    - texto: "Poder dividido entre Legislativo, Executivo e Judiciário"
+      erro: "Isso é a democracia."
+    - texto: "Eleições livres e competitivas"
+      erro: "Isso é a definição mínima de democracia."
+    - texto: "Regime sem participação popular, ou com participação muito restrita, em que o poder fica concentrado em uma só instância"
+      certa: true
+  explicacao: "O ditador busca controlar os três poderes; uma ditadura moderna normalmente começa por um golpe de Estado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-regimes-03
+  tema: "Não confundir"
+  dificuldade: 2
+  enunciado: "Com o que o regime político NÃO deve ser confundido?"
+  alternativas:
+    - texto: "Com a forma de Estado (unitário ou federal) e o sistema de governo (presidencialismo ou parlamentarismo)"
+      certa: true
+    - texto: "Com a democracia"
+      erro: "A democracia é um dos regimes."
+    - texto: "Com a ditadura"
+      erro: "A ditadura é outro regime."
+  explicacao: "Regime político é o conjunto de instituições pelas quais o Estado exerce o poder."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -29,6 +29,10 @@ quiz:
     explicacao: "6, 10 e 30 não são primos. Decompondo até o fim: 60 = 2 × 2 × 3 × 5."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são múltiplos, divisores e números primos, usar os critérios de divisibilidade e achar o MMC e o MDC.
+
 ## Múltiplos: a tabuada que não acaba
 
 Os **múltiplos** de um número são os resultados da sua tabuada, continuada sem parar. Os múltiplos de 6 são 0, 6, 12, 18, 24, 30, 36 e assim por diante. Não existe um último.
@@ -109,6 +113,17 @@ Múltiplos de 12: 12, 24, **36**, 48... Múltiplos de 18: 18, **36**, 54... O MM
 
 **Para que serve:** repartir em grupos iguais sem sobra. Com 48 pães e 36 frutas, quantas cestas iguais dá para montar usando tudo? O MDC de 48 e 36 é 12: são 12 cestas, cada uma com 4 pães e 3 frutas.
 
+## Exemplo resolvido
+
+**Um remédio é tomado de 6 em 6 horas e outro de 8 em 8. Tomados juntos às 8h da manhã, quando serão tomados juntos de novo?**
+
+1. Procure os múltiplos de 6: 6, 12, 18, 24...
+2. Procure os múltiplos de 8: 8, 16, 24...
+3. O menor múltiplo comum (MMC) é **24**.
+4. Some 24 horas às 8h: de novo às **8h da manhã seguinte**.
+
+Confira: o MMC serve para achar quando duas coisas que se repetem de tempos em tempos voltam a coincidir.
+
 ## Para praticar
 
 1. Escreva todos os divisores de 36.
@@ -118,3 +133,10 @@ Múltiplos de 12: 12, 24, **36**, 48... Múltiplos de 18: 18, **36**, 54... O MM
 5. Um remédio é tomado de 6 em 6 horas e outro de 8 em 8. Os dois foram tomados juntos às 8h da manhã. Quando serão tomados juntos de novo?
 
 **Respostas:** 1) 1, 2, 3, 4, 6, 9, 12, 18 e 36. 2) Por todos: termina em 0 e a soma dos algarismos é 9. 3) 2 × 2 × 3 × 3 × 5. 4) MMC = 24; MDC = 20. 5) Depois de 24 horas, às 8h da manhã seguinte.
+
+## Resumo
+
+- Múltiplos de um número são a sua tabuada sem fim; divisores são os números que dividem sem deixar resto.
+- Critérios de divisibilidade (por 2, 3, 4, 5, 6, 9 e 10) permitem saber sem fazer a divisão.
+- Primo tem exatamente dois divisores; o 1 não é primo e o 2 é o único primo par; Euclides demonstrou que os primos nunca acabam.
+- MMC é o menor múltiplo comum; MDC é o maior divisor comum.

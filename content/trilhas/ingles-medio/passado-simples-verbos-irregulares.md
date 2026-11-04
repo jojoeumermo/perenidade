@@ -27,6 +27,10 @@ quiz:
     explicacao: "Buy, bought. Cuidado: brought é o passado de bring (trazer)."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o passado do *to be* (*was* e *were*) e dos verbos irregulares mais comuns, e fazer negativa e pergunta com *did*.
+
 ## Os que fogem da regra
 
 Muitos dos verbos mais usados do inglês são **irregulares**: o passado não termina em -ed. É preciso aprendê-los um a um, mas a lista dos realmente frequentes não é tão grande, e eles se repetem tanto que logo ficam familiares.
@@ -100,9 +104,27 @@ Complete: "We ___ (meet) at the union last Friday, but we ___ (not have) time to
 
 > Yesterday I **woke** up late. I **took** the bus, but it **broke** down. I **got** to work at 9 and my boss **said** nothing. At lunch I **ate** rice and beans with my friends. We **talked** about the new contract. I **left** at 6 and **went** home.
 
+## Exemplo resolvido
+
+**Passe "She bought a new phone" e "We went to the beach" para a negativa.**
+
+1. Os verbos *buy* e *go* são irregulares: o passado é *bought* e *went*.
+2. Na negativa, o auxiliar é **did** + **not**: *didn't*.
+3. Com *didn't*, o verbo principal **volta à forma básica**: *buy* e *go*.
+4. Frases: *She didn't buy a new phone.* / *We didn't go to the beach.*
+
+Confira: nunca "didn't bought" nem "didn't went". O passado aparece só uma vez, no auxiliar. O *to be* é exceção: *I wasn't*, *they weren't*, sem *did*.
+
 ## Para praticar
 
 1. Escreva o passado: go, have, see, make, take, buy, write, think, leave, eat.
 2. Complete com was ou were: "I ___ happy." / "They ___ at the meeting." / "___ you at home?"
 3. Passe para a negativa: "She bought a new phone." / "We went to the beach."
 4. Conte, em seis frases, como foi o seu último fim de semana.
+
+## Resumo
+
+- *To be* no passado: **was** (I, he, she, it) e **were** (you, we, they).
+- Irregulares frequentes: *go/went*, *have/had*, *see/saw*, *make/made*, *take/took*, *buy/bought*, *eat/ate*, *write/wrote*.
+- Negativa e pergunta com **did**, e o verbo volta à forma básica.
+- Os irregulares se aprendem um a um, pelo uso.

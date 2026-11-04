@@ -25,6 +25,10 @@ quiz:
     explicacao: "Cada figura vale metade da anterior. Duas colcheias ocupam o tempo de uma semínima."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler a duração pelas figuras (semibreve, mínima, semínima e colcheia) e somar quantos tempos duram juntas.
+
 ## A altura está no lugar; a duração, no desenho
 
 Na aula anterior você viu que o **lugar** da nota na pauta diz a altura. Agora falta a duração: por quanto tempo a nota soa. Quem conta isso é o **formato** da nota, a sua figura.
@@ -68,6 +72,16 @@ A semínima vale um tempo. Quantos tempos duram, somadas, uma mínima e duas sem
 > Some: a mínima vale dois tempos; cada semínima, um.
 ```
 
+## Exemplo resolvido
+
+**Quantos tempos duram, somadas, uma mínima e duas semínimas? Considere que a semínima vale um tempo.**
+
+1. A mínima vale o dobro da semínima: 2 tempos.
+2. Cada semínima vale 1 tempo; duas semínimas: 1 + 1 = 2 tempos.
+3. Some: 2 + 2 = 4 tempos.
+
+Conclusão: dá o mesmo que uma semibreve, que vale quatro tempos. Confira pela regra de que cada figura vale metade da anterior: uma semibreve é igual a duas mínimas, a quatro semínimas ou a oito colcheias.
+
 ## Para praticar
 
 Abra o [metrônomo](/ferramentas/metronomo) em 60 batidas por minuto. Cada clique é uma semínima.
@@ -77,3 +91,11 @@ Abra o [metrônomo](/ferramentas/metronomo) em 60 batidas por minuto. Cada cliqu
 3. Bata duas palmas iguais por clique: colcheias.
 
 Quando ficar fácil, alterne: quatro semínimas, duas mínimas, oito colcheias, uma semibreve.
+
+## Resumo
+
+- O lugar da nota na pauta diz a altura; o formato, a figura, diz a duração.
+- Cada figura vale metade da anterior: semibreve, mínima, semínima e colcheia.
+- Uma semibreve dura o mesmo que duas mínimas, quatro semínimas ou oito colcheias.
+- As figuras têm duração relativa; com a semínima valendo um tempo, a semibreve vale 4, a mínima 2 e a colcheia meio tempo.
+- O andamento decide a velocidade das batidas; as proporções continuam as mesmas.

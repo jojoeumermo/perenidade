@@ -35,6 +35,9 @@ quiz:
     resposta: 1
     explicacao: "É o sistema formado pelos comitês locais e pela Comissão Nacional de Ética em Pesquisa."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é bioética, que abusos a originaram, quais são os quatro princípios de Beauchamp e Childress e a crítica latino-americana a eles, e como a pesquisa com seres humanos é regulada no Brasil.
 
 ## Ética diante da vida
 
@@ -113,3 +116,23 @@ O uso de [inteligência artificial](/trilhas/ia-e-sociedade) e de dados de saúd
 2. Discuta, com os quatro princípios, o caso de Henrietta Lacks.
 3. Pesquise como funciona o Sistema Nacional de Transplantes e o que a família precisa saber para autorizar uma doação.
 4. Debata: patentes de remédios devem ter limites quando está em jogo a vida de muitas pessoas?
+
+## Exemplo resolvido
+
+**Uma empresa quer testar um remédio novo em uma comunidade pobre, oferecendo dinheiro aos participantes e sem explicar bem os riscos. Que princípio está em jogo?**
+
+1. **Releia os quatro princípios.** Autonomia, beneficência, não maleficência e justiça.
+2. **Pergunte o que torna válida a concordância.** Para respeitar a **autonomia**, é preciso que a pessoa esteja **devidamente informada** e escolha livremente.
+3. **Aplique ao caso.** Sem explicação clara dos riscos, a pessoa não está informada. Com pressão financeira sobre pessoas pobres, a escolha também não é plenamente livre.
+4. **Conclua.** O princípio central é **autonomia e consentimento**. Também há risco para a **justiça**, pois os abusos do passado recaíram sobre os mais vulneráveis.
+5. **O que o Brasil exige.** A Resolução 466/2012 do Conselho Nacional de Saúde pede o Termo de Consentimento Livre e Esclarecido, em linguagem acessível, e a avaliação do projeto por um Comitê de Ética em Pesquisa.
+
+Confira: que o remédio possa ser bom (beneficência) não dispensa o consentimento.
+
+## Resumo
+
+- **Bioética:** reflexão moral sobre a vida e a saúde, nascida de abusos (experimentos nazistas, estudo de Tuskegee, caso de Henrietta Lacks) que recaíram sobre os mais vulneráveis.
+- Documentos: Código de Nuremberg, Declaração de Helsinque (1964) e Relatório Belmont (1979).
+- **Quatro princípios** (Beauchamp e Childress, 1979): autonomia, beneficência, não maleficência e justiça. Podem entrar em conflito.
+- Crítica latino-americana: a ênfase na autonomia individual deve considerar as desigualdades das sociedades.
+- Brasil: **Resolução 466/2012** (consentimento livre e esclarecido, Comitês de Ética em Pesquisa, proteção a grupos vulneráveis); **Lei 9.434/1997** regula os transplantes.

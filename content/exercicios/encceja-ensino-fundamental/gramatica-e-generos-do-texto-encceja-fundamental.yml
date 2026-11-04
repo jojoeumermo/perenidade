@@ -1,0 +1,51 @@
+# Exercícios da aula "Gramática e gêneros do texto" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-gram-01
+  tema: "Concordância"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual frase está de acordo com a concordância?"
+  alternativas:
+    - texto: "Os vizinhos limpou a rua."
+      erro: "O sujeito 'os vizinhos' está no plural, mas o verbo 'limpou' ficou no singular. Corrija para 'limparam'."
+    - texto: "Os vizinhos limparam a rua."
+      certa: true
+    - texto: "O vizinhos limparam a rua."
+      erro: "Aqui o artigo ficou no singular e o substantivo no plural. Os dois devem combinar: 'os vizinhos'."
+  explicacao: "O verbo concorda com quem faz a ação: sujeito no plural pede verbo no plural. 'Os vizinhos limparam a rua.'"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-gram-02
+  tema: "Gêneros do texto"
+  dificuldade: 1
+  enunciado: "Um texto traz: 'Ingredientes: 2 ovos, 1 xícara de açúcar. Modo de fazer: bata os ovos...'. De que gênero ele é?"
+  alternativas:
+    - texto: "Notícia"
+      erro: "A notícia conta um fato que aconteceu, com título e informações de onde e quando. Este texto ensina a preparar algo."
+    - texto: "Receita"
+      certa: true
+    - texto: "Carta"
+      erro: "A carta tem saudação e despedida e conversa com alguém. Este texto traz lista e passos de preparo."
+  explicacao: "Lista de ingredientes e modo de fazer são as duas partes típicas de uma receita, que serve para ensinar a fazer algo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-gram-03
+  tema: "Tempos do verbo"
+  dificuldade: 2
+  enunciado: "Em 'Ontem eu trabalhei até tarde e amanhã vou trabalhar cedo', qual é o tempo de cada verbo, na ordem?"
+  alternativas:
+    - texto: "Presente e passado"
+      erro: "Nenhum dos dois fala do agora. 'Ontem' mostra o passado e 'amanhã', o futuro."
+    - texto: "Futuro e passado"
+      erro: "Você inverteu a ordem. O primeiro verbo (trabalhei) é passado e o segundo (vou trabalhar) é futuro."
+    - texto: "Passado e futuro"
+      certa: true
+  explicacao: "'Trabalhei' fala de algo que já aconteceu (passado, pista: ontem). 'Vou trabalhar' fala do que ainda vai acontecer (futuro, pista: amanhã)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

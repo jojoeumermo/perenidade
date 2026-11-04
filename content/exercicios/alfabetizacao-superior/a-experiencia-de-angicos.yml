@@ -1,0 +1,51 @@
+# Exercícios da aula "A experiência de Angicos" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-angicos-01
+  tema: "As 40 horas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em Angicos (RN), em 1963, cerca de quantas pessoas foram alfabetizadas em aproximadamente quarenta horas?"
+  alternativas:
+    - texto: "Cerca de trezentas"
+      certa: true
+    - texto: "Cerca de três mil"
+      erro: "A aula fala em cerca de trezentas pessoas."
+    - texto: "Cerca de trinta"
+      erro: "Foram cerca de trezentas pessoas."
+  explicacao: "Uma equipe coordenada por Paulo Freire, com estudantes como monitores, alfabetizou cerca de trezentas pessoas em cerca de quarenta horas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-angicos-02
+  tema: "Voto e leitura"
+  dificuldade: 1
+  enunciado: "Por que alfabetizar adultos pesava tanto, naquele tempo, sobre o direito de votar?"
+  alternativas:
+    - texto: "Porque o voto era obrigatório só para quem lia"
+      erro: "A regra era: analfabetos não podiam votar."
+    - texto: "Porque analfabetos não podiam votar"
+      certa: true
+    - texto: "Porque a alfabetização era condição para ter título de eleitor só no campo"
+      erro: "A aula diz que analfabetos não podiam votar, excluindo parte enorme do povo, sobretudo no campo."
+  explicacao: "Com cerca de metade dos adultos sem ler, a regra tirava da política uma parte enorme do povo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-angicos-03
+  tema: "O golpe"
+  dificuldade: 2
+  enunciado: "O que fez o Decreto nº 53.886, de 14 de abril de 1964?"
+  alternativas:
+    - texto: "Instituiu o Programa Nacional de Alfabetização"
+      erro: "Quem instituiu foi o Decreto nº 53.465, de 21 de janeiro de 1964."
+    - texto: "Criou o Mobral"
+      erro: "O Mobral foi autorizado pela Lei nº 5.379, de 1967."
+    - texto: "Revogou o Programa Nacional de Alfabetização"
+      certa: true
+  explicacao: "Duas semanas após o golpe de 1º de abril de 1964, o decreto revogou o programa baseado no sistema de Paulo Freire."
+  fonte: "Questão original do Instituto Lúcia (Decretos nº 53.465 e nº 53.886, de 1964)"
+  revisao:
+    status: em-revisao

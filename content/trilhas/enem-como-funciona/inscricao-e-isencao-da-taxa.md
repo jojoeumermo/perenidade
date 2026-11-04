@@ -36,6 +36,10 @@ quiz:
     explicacao: "O edital do ENEM 2026 fixou a taxa em R$ 85,00."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o passo a passo da inscrição no ENEM, como pedir a isenção da taxa no prazo certo e o que fazer se faltou no ano anterior.
+
 Todo ano, muita gente que tinha direito a fazer o ENEM de graça acaba pagando, ou fica sem fazer a prova, porque perdeu um prazo. Esta aula mostra o caminho completo, com as datas e as regras do **ENEM 2026** como exemplo. As datas mudam de um ano para o outro, mas a ordem das etapas costuma ser a mesma: confira sempre o edital do seu ano no site do Inep.
 
 ## As três etapas
@@ -120,3 +124,21 @@ Antes da prova, o Inep publica na Página do Participante o **Cartão de Confirm
 1. Entre no site do Inep, abra o edital mais recente do ENEM e encontre: o período de inscrição, o valor da taxa e as datas da prova.
 2. Faça uma lista dos documentos que você precisaria para pedir isenção ou justificar uma falta.
 3. Se você ainda não tem conta gov.br, crie hoje.
+
+## Exemplo resolvido
+
+**Carla pediu a isenção em abril e foi aprovada. Em junho, o prazo de inscrição acabou e ela não entrou no sistema. O que aconteceu?**
+
+1. Separe as etapas: pedir a isenção (13 a 30 de abril em 2026) e fazer a inscrição (25 de maio a 12 de junho) são etapas diferentes.
+2. Lembre o aviso do Inep: todo mundo precisa se inscrever no período das inscrições, mesmo quem já tem isenção.
+3. Conclua: a isenção aprovada não é a inscrição; Carla pode ter ficado sem inscrição.
+4. Veja a exceção de 2026: concluinte de escola pública poderia ser inscrito automaticamente, mas o mais seguro é fazer a inscrição por conta própria.
+
+Confira: confira sempre o edital do seu ano para ver se a regra continua.
+
+## Resumo
+
+- São três etapas: pedir a isenção, fazer a inscrição e conferir o local no Cartão de Confirmação, tudo na Página do Participante, com conta gov.br.
+- A isenção precisa ser pedida e não substitui a inscrição; quem teve isenção e faltou aos dois dias precisa justificar a ausência com documento.
+- Na inscrição, escolha a língua estrangeira, a cidade, o atendimento especializado e o nome social, se precisar; sem isenção, a taxa de 2026 foi de R$ 85,00.
+- O treineiro faz a prova, mas a nota não vale para o Sisu, o Prouni, o Fies nem a certificação. Confira sempre o edital do seu ano.

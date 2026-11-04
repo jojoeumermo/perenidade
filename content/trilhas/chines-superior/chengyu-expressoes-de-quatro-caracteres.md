@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "Expressão antiga, muito usada na política chinesa do século XX."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são os chengyu, conhecer alguns dos mais usados com a história de cada um e escolher o chengyu certo para uma situação.
 
 ## Histórias em quatro caracteres
 
@@ -82,3 +85,20 @@ Algumas expressões antigas ganharam novo uso no século XX. **实事求是** ap
 2. Escreva uma frase em português em que caberia 半途而废.
 3. Procure no dicionário um chengyu com o caractere 马 e anote o sentido.
 4. Compare: que provérbio brasileiro corresponde a 一举两得? E a 对牛弹琴?
+
+## Exemplo resolvido
+
+**Um sindicato só começa a cuidar da segurança depois de um acidente grave. Que chengyu descreve a atitude de corrigir depois do prejuízo?**
+
+1. **Veja as opções.** 画蛇添足 é estragar algo por exagero; 对牛弹琴 é falar para quem não pode entender; 亡羊补牢 é "perder a ovelha, consertar o curral".
+2. **Compare com a situação.** Corrigir só depois do prejuízo é consertar o curral depois que a ovelha foi perdida.
+3. **Escolha.** **亡羊补牢** (wáng yáng bǔ láo), que a aula traduz como "antes tarde do que nunca".
+
+Confira: respeite o sentido e o tom, e use os mais comuns; os raros podem soar pedantes.
+
+## Resumo
+
+- **Chengyu** (成语) são expressões fixas, quase sempre de quatro caracteres, muitas vindas de histórias e fábulas.
+- Exemplos: 画蛇添足 (estragar por exagero), 守株待兔 (esperar a sorte sem se esforçar), 对牛弹琴 (falar para quem não entende), 亡羊补牢 (antes tarde do que nunca), 半途而废 (desistir no meio), 一举两得, 自力更生, 众志成城 (a união faz a força), 实事求是 (buscar a verdade nos fatos).
+- Algumas expressões antigas ganharam novo uso no século XX (实事求是).
+- Como usar: os mais comuns; respeitar o sentido e o tom; aprender com a história e com uma frase de exemplo.

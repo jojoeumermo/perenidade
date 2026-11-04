@@ -38,6 +38,10 @@ quiz:
     resposta: 1
     explicacao: "A Emenda Constitucional nº 72 estendeu às domésticas direitos como a jornada limitada e as horas extras."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber separar o que é verificável (leis, números oficiais, datas) do que é avaliação, ler os dados do Censo 2022 e organizar os grandes episódios do século XXI no Brasil.
+
 
 Esta aula trata de fatos recentes, sobre os quais ainda há muita disputa. O objetivo é organizar o que é verificável (as leis, os números oficiais, as datas) e deixar as avaliações para o debate.
 
@@ -117,9 +121,30 @@ Passados mais de cinco séculos da invasão, algumas questões atravessam toda e
 
 Nenhuma dessas questões é fatalidade. Todas têm história, e por isso podem ter outro desfecho. Conhecer essa história é o primeiro passo para participar dela.
 
+## Exemplo resolvido
+
+**Com os números do Censo 2022 citados na aula, que parte da população mora em área urbana e que parte é indígena?**
+
+1. Total: 203 milhões de habitantes. Urbana: 177,5 milhões.
+2. Divida: 177,5 ÷ 203 = 0,874. Em porcentagem: **cerca de 87%**, como a aula diz.
+3. Indígenas: 1,69 milhão. 1,69 ÷ 203 = 0,0083, ou seja, **cerca de 0,8%** da população.
+4. Quilombolas, contados pela primeira vez: 1,33 milhão. 1,33 ÷ 203 = cerca de **0,65%**.
+5. Mais de 16 milhões moram em favelas: 16 ÷ 203 = cerca de **8%**.
+
+Leitura: são números oficiais, que se pode conferir. Qual o seu significado político é outra coisa, e a aula deixa essa avaliação para o debate. Aprender a separar as duas camadas é o objetivo.
+
 ## Para pesquisar e debater
 
 1. Que políticas públicas mudaram a vida da sua família nos últimos vinte anos, para melhor ou para pior?
 2. Compare a sua situação de trabalho com a dos seus pais na mesma idade. O que melhorou? O que se perdeu?
 3. Dos problemas em aberto, qual é o mais urgente no lugar onde você mora? Quem está organizado para enfrentá-lo?
 4. Escolha um fato desta aula e procure como ele foi noticiado por dois veículos de linhas diferentes. O que cada um destacou?
+
+## Resumo
+
+- A aula trata de fatos recentes: organiza o que é verificável (leis, números oficiais, datas) e deixa as avaliações para o debate.
+- Censo 2022: 203 milhões de habitantes, 177,5 milhões (cerca de 87%) em áreas urbanas, mais de 16 milhões em favelas, 1,69 milhão de indígenas e 1,33 milhão de quilombolas.
+- Políticas sociais e de inclusão nas duas primeiras décadas: por exemplo, o Bolsa Família (2003).
+- Em junho de 2013, protestos contra o aumento das tarifas de transporte reuniram multidões com reivindicações diversas; seu significado ainda é debatido.
+- A partir de 2016, reformas redefiniram o papel do Estado e os direitos do trabalho (por exemplo, a Emenda Constitucional nº 95, o teto de gastos).
+- A covid-19 ultrapassou 700 mil mortes no país, atingindo mais quem não pôde ficar em casa. Em 8 de janeiro de 2023, as sedes dos três Poderes foram invadidas em Brasília.

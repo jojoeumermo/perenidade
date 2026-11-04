@@ -1,5 +1,6 @@
 ---
 titulo: "O que a química estuda"
+modelo: 9
 resumo: "Objetivo: entender do que trata a química, por que tudo o que existe é feito de substâncias químicas e como esse conhecimento afeta a vida e o trabalho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,14 @@ quiz:
     resposta: 1
     explicacao: "Há venenos naturais e substâncias sintéticas seguras. O que importa é qual substância, quanto e como."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que a química estuda, por que tudo o que existe é feito de substâncias químicas e como esse conhecimento protege quem trabalha e quem mora perto de fábricas.
+
+```suarealidade
+Que produtos químicos passam pelas suas mãos numa semana, no trabalho ou em casa (limpeza, cozinha, ferramentas)? Você sabe ler o rótulo de algum deles?
+```
 
 ## Do que as coisas são feitas
 
@@ -91,9 +100,41 @@ A química trabalha em três níveis ao mesmo tempo:
 
 A dificuldade costuma estar em passar de um nível para o outro. Nesta trilha, partimos sempre do primeiro, o da cozinha, da casa e do trabalho.
 
+## Exemplo resolvido
+
+**A vela acesa vai diminuindo até acabar. A matéria da vela deixou de existir?**
+
+1. Lembre a ideia de Lavoisier: em uma transformação em recipiente fechado, a massa total não muda.
+2. Olhe os átomos: na queima, os átomos da parafina se combinam com o oxigênio do ar e formam outras substâncias, em geral gases e vapor.
+3. Esses gases se espalham no ar e por isso parece que a vela sumiu. Se fosse possível recolher e pesar tudo, a conta fecharia.
+
+Conclusão: a matéria não desapareceu, foi transformada. Os átomos são os mesmos; o arranjo mudou.
+
+```outrolado
+# O argumento de quem prefere o "natural"
+"Produto natural é sempre mais seguro. Química é coisa de fábrica, e o que vem da planta ou da roça não faz mal. Prefiro tudo sem química."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A preocupação é legítima: muita gente já foi prejudicada por produto industrial mal controlado, e a aula mostra isso no caso de Bhopal. Mas a aula também lembra que água, sal e vitaminas das frutas são substâncias químicas, e que há cogumelos e plantas mortais. O que decide se uma substância faz mal é qual ela é, a quantidade e o modo de contato, e não se ela é natural ou fabricada.
+```
+
+```agir
+# Esta semana
+Pegue o rótulo de um produto de limpeza ou de um alimento que você usa em casa. Num papel, copie o nome do produto, os três primeiros ingredientes e qualquer aviso de cuidado. Escreva uma frase: "Para usar este produto com segurança, eu preciso...". Só leia, não misture nem teste nada.
+```
+
 ## Para pesquisar e debater
 
 1. Dê cinco exemplos de transformações químicas que você viu hoje.
 2. Por que a expressão "produto sem química" é enganosa? A quem ela interessa?
 3. Há alguma fábrica, lixão ou rio poluído perto de onde você mora? Quem é mais atingido?
 4. Que produtos químicos você usa no trabalho? Você conhece os riscos de cada um?
+
+## Resumo
+
+- A química estuda a matéria: do que ela é feita, que propriedades tem e como se transforma.
+- Toda matéria é feita de substâncias químicas; "sem química" não existe.
+- A química moderna nasce de Lavoisier: em recipiente fechado, a massa total não muda.
+- Na transformação química os átomos se separam e se juntam de outro jeito; não são criados nem destruídos.
+- Os riscos da química não se repartem por igual: saber ler rótulo e exigir a ficha de segurança é uma forma de defesa.

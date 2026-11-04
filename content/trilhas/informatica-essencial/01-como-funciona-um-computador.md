@@ -20,7 +20,16 @@ quiz:
     opcoes: ["Linux", "Processador", "Navegador"]
     resposta: 0
     explicacao: "Linux, Windows, macOS, Android e iOS são sistemas operacionais."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar hardware e software, dizer o que fazem o processador, a memória RAM, o armazenamento e o sistema operacional e explicar por que um trabalho não salvo se perde quando falta luz.
+
+
+```suarealidade
+Qual aparelho você mais usa (celular, computador, TV)? Já perdeu alguma coisa por não ter salvado ou por falta de espaço? O que você fez?
+```
 
 ## Hardware e software
 
@@ -70,6 +79,40 @@ Os mais conhecidos são **Windows**, **macOS** e **Linux** nos computadores, e *
 
 Os outros programas, como navegadores, editores de texto e jogos, são chamados de **aplicativos**. Eles pedem ao sistema operacional tudo de que precisam: "abra este arquivo", "mostre isto na tela", "envie isto pela rede".
 
+## Exemplo resolvido
+
+**Você está digitando um texto no celular, sem salvar, e a bateria acaba. O que aconteceu com o texto?**
+
+1. Pense na cozinha da aula. O texto que você digita está na **bancada**, a memória RAM, que guarda o que está sendo usado agora.
+2. A RAM é rápida, mas **temporária**: quando o aparelho desliga, o que estava nela se apaga.
+3. O **armazenamento** é a despensa: guarda de forma permanente. Salvar um arquivo é copiá-lo da RAM para o armazenamento.
+4. Como você não salvou, nada foi copiado para a despensa. Ao desligar, a bancada foi limpa, e o texto se perdeu.
+5. Solução: salve de tempos em tempos, e use programas que salvam sozinhos.
+
+Segunda pergunta: o computador ficou lento com programas demais abertos. Por quê? A RAM enche (a bancada ficou sem espaço), e o processador (o cozinheiro) não tem onde trabalhar.
+
+```outrolado
+# O argumento de quem diz que basta saber usar
+Não preciso entender como o computador funciona por dentro. Quem dirige não precisa saber de mecânica, e quem usa o celular só precisa saber apertar os botões certos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Em boa parte tem razão: a aula começa dizendo que usar um computador não exige entender como ele funciona. Mas quem entende resolve problemas com mais facilidade, desconfia de golpes e aprende ferramentas novas mais rápido. Saber que a RAM apaga ao desligar, por exemplo, evita perder o trabalho que não foi salvo, e saber o que é um sistema operacional ajuda a perceber por que um aplicativo pede certas permissões.
+```
+
+```agir
+# Esta semana
+Em Configurações > Sobre do seu aparelho, anote num papel o sistema operacional, a memória RAM e o espaço de armazenamento. E, ao fazer um trabalho importante no aparelho, salve no meio, sem esperar acabar.
+```
+
 ## Pratique
 
 Descubra três informações sobre o aparelho que você está usando agora: qual é o sistema operacional, quanta memória RAM ele tem e quanto de armazenamento. Em geral, elas ficam em "Configurações", na parte "Sobre".
+
+## Resumo
+
+- Hardware é a parte física; software são os programas, as instruções que dizem ao hardware o que fazer.
+- Processador executa as instruções; memória RAM guarda o que está em uso agora; armazenamento (SSD ou HD) guarda de forma permanente; placa-mãe liga tudo.
+- RAM não é armazenamento: a RAM é rápida e temporária (apaga ao desligar); salvar é copiar da RAM para o armazenamento.
+- Dispositivos de entrada levam informação para dentro (teclado, mouse, microfone); os de saída trazem para fora (tela, alto-falante).
+- O sistema operacional (Windows, macOS, Linux, Android, iOS) administra o hardware, organiza os arquivos e oferece a interface; os aplicativos pedem a ele o que precisam.

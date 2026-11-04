@@ -27,6 +27,9 @@ quiz:
     resposta: 1
     explicacao: "Em transcrições de falas, o tradutor pode precisar decidir o gênero."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber identificar o que o chinês não marca e o português exige (tempo, número, artigo, sujeito, gênero), decidir como traduzir chengyu e palavras de cultura, e reconhecer os limites dos tradutores automáticos.
 
 ## Duas línguas muito diferentes
 
@@ -98,3 +101,23 @@ Ajudam a entender a ideia geral, mas falham justamente nos pontos desta aula: es
 2. Traduza 他们是老师 e 老师来了, decidindo artigos e número. Justifique.
 3. Proponha uma tradução para 亡羊补牢 em um texto jornalístico e outra em um conto.
 4. Pesquise um livro chinês traduzido no Brasil e descubra se a tradução foi direta ou indireta.
+
+## Exemplo resolvido
+
+**Como traduzir 我买了书, sem mais contexto?**
+
+1. **Tempo.** O verbo não se conjuga. O 了 mostra que a compra se completou, e o contexto indica o passado: "comprei".
+2. **Número.** O substantivo chinês não marca plural. "Um livro" ou "livros"? É preciso decidir com o **contexto**: o parágrafo, a situação, o texto inteiro.
+3. **Artigo.** Não existe em chinês; em português é preciso escolher.
+4. **Decida e registre.** Com o contexto, "Comprei um livro" ou "Comprei livros". Sem contexto, a escolha é do tradutor e pode ser anotada.
+
+Confira: 了 não indica futuro, e um tradutor automático pode escolher tempo e número ao acaso.
+
+## Resumo
+
+- O chinês **não marca** tempo verbal, número, artigo, gênero (na fala) e muitas vezes omite o sujeito; o tradutor completa pelo **contexto**.
+- O que o chinês diz e o português não precisa: classificadores, conectivos em pares, repetições e paralelismos.
+- **Chengyu:** usar o equivalente quando existe (一举两得); explicar o sentido quando não existe (画蛇添足); em textos literários, às vezes manter a imagem.
+- Palavras que carregam cultura: 面子, 关系, 江湖, 小康; manter o termo com explicação, aproximar ou usar nota.
+- Nomes próprios: o sobrenome vem primeiro; padronizar a romanização (Mao Tse-tung / Mao Zedong).
+- Tradução indireta (via inglês ou francês) e tradutores automáticos exigem cuidado.

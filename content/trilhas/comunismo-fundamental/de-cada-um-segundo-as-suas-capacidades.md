@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "Marx não pensava numa distribuição da escassez, mas numa sociedade em que a riqueza 'jorrasse em abundância'."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar as duas metades da frase "de cada um segundo as suas capacidades, a cada um segundo as suas necessidades", em que fase da sociedade comunista Marx a colocou e quais condições ele via para ela.
 
 > De cada um segundo as suas capacidades, a cada um segundo as suas necessidades!
 
@@ -81,3 +84,23 @@ Repare que algumas instituições que já existem funcionam assim: no **SUS**, c
 ## Para conversar
 
 Que coisas você acha que deveriam ser distribuídas segundo as necessidades, já hoje? Por quê?
+
+## Exemplo resolvido
+
+**Pela fórmula, quanto recebe uma pessoa com doença crônica que exige remédio caro? Aplique as duas metades.**
+
+1. **Primeira metade.** "De cada um segundo as suas capacidades": cada pessoa contribui com o que pode; ninguém é obrigado a fazer o que não consegue.
+2. **Segunda metade.** "A cada um segundo as suas necessidades": cada pessoa recebe o que precisa para viver bem e se desenvolver.
+3. **Aplique ao caso.** A pessoa com doença crônica recebe os remédios de que precisa, mesmo que sejam caros, porque a distribuição segue a necessidade.
+4. **Cuidado com a leitura.** A frase não diz que todos recebem a mesma coisa: as necessidades são diferentes e a justiça está em atender cada uma.
+5. **Lembre o lugar.** Para Marx (1875), a frase descreve a fase superior da sociedade comunista, e não a primeira fase depois do capitalismo.
+
+Confira: a aula dá o exemplo do SUS, em que se contribui por impostos segundo a renda e se recebe atendimento segundo a necessidade.
+
+## Resumo
+
+- A frase foi retomada por Marx em 1875, na *Crítica do Programa de Gotha*, para a **fase superior** da sociedade comunista.
+- "De cada um segundo as suas capacidades": cada um contribui com o que pode. "A cada um segundo as suas necessidades": cada um recebe o que precisa, o que não é receber o mesmo.
+- Condições (Marx): fim da subordinação à divisão do trabalho e da separação entre trabalho manual e intelectual, trabalho como primeira necessidade vital e abundância.
+- Os marxistas respondem à dúvida sobre as necessidades infinitas: as necessidades básicas são limitadas, parte do consumo é criada pela publicidade e a abundância deve ser pensada como vida boa dentro dos limites do planeta.
+- Uma pista no presente: o SUS.

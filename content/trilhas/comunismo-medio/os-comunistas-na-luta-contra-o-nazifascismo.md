@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "O pacto desorientou militantes no mundo inteiro, até a invasão da URSS em junho de 1941."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer por que os comunistas estiveram entre as primeiras vítimas e os adversários mais determinados do fascismo e do nazismo, e quais foram suas glórias e contradições.
 
 O fascismo e o nazismo nasceram, em grande parte, como reação ao movimento operário e ao comunismo. Não é por acaso que os comunistas estiveram entre as suas primeiras vítimas e entre os seus adversários mais determinados. Esta aula conta essa história com suas glórias e suas contradições.
 
@@ -81,3 +84,24 @@ A vitória sobre o nazifascismo deu aos comunistas enorme prestígio. Em 1945, o
 ## Para conversar
 
 Por que, em vários países, o fascismo se apresentou como "anticomunista"? Que semelhanças você vê entre o discurso fascista dos anos 1930 e discursos de extrema direita de hoje?
+
+## Exemplo resolvido
+
+**Por que muitos historiadores veem a frente oriental como decisiva para a derrota do nazismo? Siga os fatos.**
+
+1. **A invasão.** Em 22 de junho de 1941, a Alemanha invadiu a União Soviética, na maior operação militar da história.
+2. **O avanço alemão.** Os nazistas chegaram às portas de Moscou e cercaram Leningrado por quase 900 dias.
+3. **A virada.** Em Stalingrado (1942-1943), o exército alemão foi cercado e se rendeu.
+4. **A contraofensiva.** O Exército Vermelho avançou até Berlim, onde chegou em maio de 1945.
+5. **Conclua.** A maior parte das forças da Alemanha nazista foi destruída na frente oriental; a URSS perdeu mais de 20 milhões de pessoas.
+
+Confira: a aula também trata das contradições, como o pacto de não agressão de agosto de 1939 com protocolo secreto, que "precisa ser estudado com honestidade".
+
+## Resumo
+
+- Os comunistas foram dos primeiros alvos: Gramsci preso em 1926; os primeiros presos de Dachau (1933) foram sobretudo comunistas e social-democratas.
+- Espanha (1936-1939): Brigadas Internacionais com voluntários de dezenas de países; a República foi derrotada.
+- Pacto de não agressão URSS-Alemanha (agosto de 1939): um choque para muitos militantes.
+- Frente oriental: invasão de 22 de junho de 1941, Stalingrado (1942-1943), chegada a Berlim em maio de 1945.
+- Resistências lideradas ou integradas por comunistas na Iugoslávia, na França, na Itália e na Grécia.
+- No Brasil, o Estado Novo mantinha presos comunistas enquanto o país combatia o fascismo na Europa.

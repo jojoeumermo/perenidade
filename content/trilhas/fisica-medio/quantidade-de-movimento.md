@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "A energia cinética só se conserva nas colisões perfeitamente elásticas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular a quantidade de movimento e o impulso, explicar por que mais tempo de frenagem significa menos força e usar a conservação da quantidade de movimento em recuos e colisões.
+
 
 ## Massa em movimento
 
@@ -134,3 +138,11 @@ Quando um caminhão e um carro pequeno batem de frente, a força sobre os dois �
 2. Um martelo de 1 kg atinge um prego a 6 m/s e para em 0,002 s. Qual é a força média sobre o prego?
 3. Uma criança de 30 kg corre a 4 m/s e pula em um carrinho parado de 10 kg. Com que velocidade seguem juntos?
 4. Explique, usando a ideia de impulso, por que o piso de um parquinho deve ser de areia ou de borracha.
+
+## Resumo
+
+- Quantidade de movimento: Q = m · v. Impulso: I = F · Δt, e o impulso é igual à variação da quantidade de movimento.
+- Para parar um corpo, a variação ΔQ está dada: com mais tempo, a força é menor (cinto e airbag).
+- Em um sistema isolado, a quantidade de movimento total se conserva.
+- No recuo, a quantidade de movimento total antes e depois é zero: o corpo que sai para um lado empurra o outro para o lado oposto.
+- Colisões elásticas conservam a energia cinética; as inelásticas, não. Nos dois casos a quantidade de movimento se conserva.

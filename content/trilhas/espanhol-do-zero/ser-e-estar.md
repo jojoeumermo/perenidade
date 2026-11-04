@@ -29,9 +29,19 @@ quiz:
     opcoes: ["Está un banco en la esquina.", "Es un banco en la esquina.", "Hay un banco en la esquina."]
     resposta: 2
     explicacao: "Para dizer que algo existe, usa-se hay. Para dizer onde fica algo já conhecido, usa-se estar: el banco está en la esquina."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escolher entre ser e estar nos casos do dia a dia, reconhecer o caso do lugar de um evento e dizer que algo existe com hay.
+
+
 Para quem fala inglês, *ser* e *estar* são um pesadelo: no inglês há um verbo só, *to be*. Para quem fala português, é quase um presente: nós também temos os dois, e na maior parte das vezes os usamos do mesmo jeito. Esta aula mostra as formas e se concentra nos poucos casos em que as duas línguas se separam.
+
+```suarealidade
+Pense em alguém do seu bairro ou do seu serviço que fala espanhol, ou numa música em espanhol que você conhece. Onde você já ouviu "es" ou "está"?
+```
 
 ## As formas no presente
 
@@ -117,6 +127,32 @@ Você quer perguntar se existe um banheiro no restaurante. Qual frase está cert
 > Para perguntar se algo existe, usa-se hay. Para perguntar onde fica, depois de saber que existe: ¿Dónde está el baño?
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para que perder tempo com ser e estar? Falando portunhol, a pessoa já se faz entender, e o resto é capricho de professor".
+---
+Como você responderia, com respeito e com exemplos?
+---
+Uma resposta possível: em conversa simples, quase sempre a pessoa se faz entender. Mas a aula mostra casos em que a troca muda o sentido: ser listo é ser esperto e estar listo é estar pronto; ser aburrido é ser chato e estar aburrido é estar entediado. E o lugar de um evento usa ser: la reunión es en el sindicato.
+```
+
+## Exemplo resolvido
+
+**Complete: "Marta ___ de Bahía, pero ahora ___ en São Paulo. La asamblea ___ a las siete y ___ en el sindicato. ¿___ un baño aquí?"**
+
+1. **Origem usa ser.** Marta *es* de Bahía.
+2. **Onde a pessoa está agora usa estar.** Ahora *está* en São Paulo.
+3. **Hora usa ser** (son las tres, es la una). A assembleia *es* a las siete.
+4. **Lugar de um evento também usa ser.** E *es* en el sindicato.
+5. **Para perguntar se algo existe, usa-se hay.** ¿*Hay* un baño aquí?
+
+Frase pronta: *Marta es de Bahía, pero ahora está en São Paulo. La asamblea es a las siete y es en el sindicato. ¿Hay un baño aquí?*
+
+```agir
+# Esta semana
+Escreva num papel cinco frases suas em espanhol: seu nome, de onde você é, sua profissão, como você está hoje e onde você está agora. Leia em voz alta para alguém de casa ou só para você.
+```
+
 ## Para praticar
 
 1. Complete com a forma certa de *ser* ou *estar*: *Mi hermana ___ enfermera. Hoy ___ muy cansada porque ___ trabajando de noche. El hospital ___ lejos de su casa.*
@@ -124,3 +160,11 @@ Você quer perguntar se existe um banheiro no restaurante. Qual frase está cert
 3. Descreva o seu bairro com *hay* e *no hay*.
 
 Respostas do 1: *es, está, está, está.*
+
+## Resumo
+
+- **Ser** diz o que a coisa é: identidade, origem, profissão, características, material, horas e datas.
+- **Estar** diz como a coisa está e onde fica: estados passageiros, localização e ação em andamento (com o gerúndio).
+- O lugar de um **evento** usa ser: *la reunión es en el sindicato*.
+- Com certos adjetivos, trocar ser por estar muda o sentido: *ser listo* (esperto) e *estar listo* (pronto).
+- Para dizer que algo existe, use **hay**: *hay un mercado cerca*.

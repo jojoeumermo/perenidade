@@ -80,3 +80,20 @@ Mas a história também mostra o outro lado: foi depois da crise de 1929, sob a 
 ## Para conversar
 
 Você lembra de alguma crise que atingiu a sua família ou a sua cidade? O que faltava, de fato: coisas ou dinheiro para comprá-las?
+
+## Exemplo resolvido: a crise do excesso, em pequeno
+
+Um exemplo inventado, para ver o mecanismo. Num bairro há cinco lojas; cada uma emprega 10 pessoas e paga R$ 2.000 de salário a cada uma. Para cortar custos, cada loja demite 5 pessoas.
+
+1. Conte as demissões: 5 lojas × 5 pessoas = 25 pessoas sem salário.
+2. Calcule o poder de compra perdido: 25 × R$ 2.000 = R$ 50.000 por mês que deixam de circular no bairro.
+3. Veja o efeito: quem foi demitido compra menos, as lojas vendem menos e o patrão sente a necessidade de cortar de novo.
+
+Confira: o corte que era racional para cada loja foi irracional para o conjunto, porque os trabalhadores também eram os clientes.
+
+## Resumo
+
+- No capitalismo a crise é de excesso: sobram mercadorias e faltam compradores com dinheiro, porque se produz para o lucro, não para a necessidade.
+- As crises voltam por vários motivos: a produção cresce mais do que o poder de compra, a produção é anárquica, a taxa de lucro tende a cair e o crédito alimenta a especulação.
+- Para o capital, a crise limpa o terreno: empresas fracas quebram, o desemprego enfraquece sindicatos e os salários caem.
+- Quem paga a crise não é decidido sozinho: depende da força de quem trabalha, como mostrou o pós-1929.

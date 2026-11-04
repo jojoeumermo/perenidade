@@ -1,0 +1,51 @@
+# Exercícios da aula "Doenças transmissíveis e saneamento" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-doencas-01
+  tema: "O que é transmissível"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas doenças NÃO é transmissível, segundo a aula?"
+  alternativas:
+    - texto: "Gripe"
+      erro: "A gripe é causada por vírus e passa de pessoa a pessoa."
+    - texto: "Tuberculose"
+      erro: "A tuberculose é causada por bactérias e passa pelo ar."
+    - texto: "Diabetes"
+      certa: true
+  explicacao: "Pressão alta e diabetes não são transmissíveis: ninguém as \"pega\" de outra pessoa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-doencas-02
+  tema: "Agentes"
+  dificuldade: 2
+  enunciado: "A malária é causada por qual tipo de agente, segundo a tabela da aula?"
+  alternativas:
+    - texto: "Protozoário"
+      certa: true
+    - texto: "Vírus"
+      erro: "Vírus causam gripe, dengue, sarampo, entre outras."
+    - texto: "Verme"
+      erro: "Vermes causam lombriga, esquistossomose e amarelão."
+  explicacao: "Protozoários: seres de uma célula, com núcleo (malária, doença de Chagas, giardíase)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-doencas-03
+  tema: "Caminhos de transmissão"
+  dificuldade: 2
+  enunciado: "Como passam doenças como cólera, hepatite A e diarreias?"
+  alternativas:
+    - texto: "Por gotículas da tosse"
+      erro: "Isso é o caminho pelo ar, como na gripe e no sarampo."
+    - texto: "Pela água e pelos alimentos contaminados por fezes"
+      certa: true
+    - texto: "Pela picada do Aedes aegypti"
+      erro: "Isso é o caminho por vetores, como dengue e zika."
+  explicacao: "Prevenção: água tratada, esgoto, lavar as mãos e os alimentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -26,6 +26,9 @@ quiz:
     resposta: 1
     explicacao: "Ela foi escolhida entre centenas de candidatas, em parte pela experiência com paraquedas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar o que foram os voos de Laika, de Yuri Gagarin e de Valentina Tereshkova e o que essas histórias dizem sobre ciência e educação.
 
 ## Laika
 
@@ -69,3 +72,23 @@ Um piloto filho de carpinteiro e uma operária têxtil foram os primeiros repres
 
 1. Monte uma linha do tempo de 1957 a 1969 com os principais marcos da corrida espacial, soviéticos e norte-americanos.
 2. Pesquise quem foi Aleksei Leonov e o que ele fez em 18 de março de 1965.
+
+## Exemplo resolvido
+
+**Quem ficou mais tempo e deu mais voltas em órbita, Gagarin ou Tereshkova? Compare os dois voos.**
+
+1. **Gagarin.** Em 12 de abril de 1961, na Vostok 1, deu uma volta completa em torno da Terra e pousou 108 minutos depois da decolagem.
+2. **Tereshkova.** Em 16 de junho de 1963, na Vostok 6, ficou quase três dias no espaço e deu 48 voltas.
+3. **Compare as voltas.** Uma volta contra 48.
+4. **Compare o tempo.** 108 minutos contra quase três dias.
+5. **Conclua.** O voo de Tereshkova durou muito mais; a aula diz que ela passou mais tempo em órbita do que todos os astronautas norte-americanos tinham somado até então.
+
+Confira: antes, Laika (3 de novembro de 1957) provou que um organismo sobrevivia ao lançamento, mas a missão não tinha como trazê-la de volta.
+
+## Resumo
+
+- **Laika**, a cadela do Sputnik 2 (3 de novembro de 1957), foi o primeiro animal em órbita; a missão não previa retorno e, segundo revelação de 2002, ela morreu poucas horas depois da decolagem.
+- Belka e Strelka (agosto de 1960) passaram um dia em órbita e voltaram vivas.
+- **Yuri Gagarin**, filho de carpinteiro, deu uma volta à Terra em 108 minutos, em 12 de abril de 1961; o dia é hoje o Dia Internacional do Voo Espacial Tripulado.
+- **Valentina Tereshkova**, operária têxtil, deu 48 voltas em junho de 1963; continua sendo a única mulher a ter feito um voo espacial sozinha.
+- Os Estados Unidos só enviaram uma mulher ao espaço vinte anos depois, em 1983.

@@ -42,6 +42,10 @@ quiz:
     explicacao: "Por isso ela inverte a configuração do carbono e é favorecida em carbonos pouco impedidos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o mecanismo de uma reação, distinguir nucleófilo de eletrófilo e usar setas curvas e a regra de Markovnikov para prever o produto principal.
+
 ## Do "o quê" ao "como"
 
 Em [Química orgânica: cadeias e funções](/trilhas/quimica-medio/quimica-organica-cadeias-e-funcoes), vimos quais são os compostos e as suas funções. Agora a pergunta é: **como** uma molécula se transforma em outra? A descrição passo a passo de quais ligações se rompem e se formam, e em que ordem, é o **mecanismo** da reação.
@@ -139,3 +143,12 @@ As enzimas fazem as mesmas reações de nucleófilos e eletrófilos, mas em águ
 2. Qual é o produto principal da reação do 2-metilpropeno com HCl? Justifique pela estabilidade do carbocátion.
 3. Por que o bromometano reage bem por SN2, e o 2-bromo-2-metilpropano, não?
 4. Desenhe as setas curvas da etapa em que o Br⁻ ataca um carbocátion.
+
+## Resumo
+
+- Mecanismo é a descrição passo a passo de quais ligações se rompem e se formam, e em que ordem.
+- Ruptura homolítica forma radicais; a heterolítica forma íons e é a base das reações polares.
+- Nucleófilo é rico em elétrons e doa um par; eletrófilo é pobre e recebe.
+- Setas curvas mostram os elétrons andando do nucleófilo para o eletrófilo.
+- Carbocátions: terciário > secundário > primário > metila em estabilidade; a etapa de maior barreira controla a velocidade.
+- Regra de Markovnikov: o hidrogênio se liga ao carbono da dupla que já tem mais hidrogênios.

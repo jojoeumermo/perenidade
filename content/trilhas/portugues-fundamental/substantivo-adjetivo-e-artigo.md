@@ -26,6 +26,11 @@ quiz:
     resposta: 1
     explicacao: "O artigo indefinido apresenta algo ainda não identificado; o definido retoma algo já conhecido."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer substantivo, adjetivo e artigo, fazer o plural e a concordância e perceber como a escolha dos adjetivos muda a opinião do leitor.
+
+
 
 ## Três classes que andam juntas
 
@@ -127,6 +132,23 @@ Substantivos nomeiam; adjetivos **avaliam**. Leia duas manchetes sobre o mesmo f
 - "Invasores tomam imóvel particular"
 
 Trocaram-se os substantivos e os adjetivos, e o leitor é levado para lados opostos. Ao ler uma notícia, repare nas palavras que qualificam: elas mostram de onde o autor está olhando.
+
+## Exemplo resolvido: analisando "A greve longa cansou os operários"
+
+1. **Substantivos** (dão nome): *greve* e *operários*. Teste: dá para pôr "a" ou "os" antes.
+2. **Adjetivo** (dá característica): *longa* diz como é a greve. Concorda com *greve* em gênero (feminino) e número (singular).
+3. **Artigos** (vêm antes do substantivo): *a* e *os*, definidos, porque se fala de algo conhecido.
+4. **Troque os adjetivos e substantivos** e veja o efeito: "Manifestantes ocupam prédio abandonado" e "Invasores tomam imóvel particular" falam do mesmo fato, mas levam o leitor para lados opostos.
+
+Confira: substantivos nomeiam; adjetivos avaliam. Ao ler uma notícia, repare nas palavras escolhidas.
+
+## Resumo
+
+- Substantivo dá nome (comum, próprio, concreto, abstrato, coletivo) e tem gênero e número.
+- Plural: -s na maioria; -r e -z + es; -al, -el, -ol, -ul trocam o l por -is; -m vira -ns; -ão pode ser -ões, -ães ou -ãos.
+- Adjetivo dá característica e concorda com o substantivo; a posição pode mudar o sentido (homem pobre, pobre homem).
+- Artigo definido (o, a, os, as) e indefinido (um, uma, uns, umas); junta-se a de, em, por, a (a + a = à, a crase).
+- Adjetivo é escolha: o mesmo fato pode ser contado com palavras que levam a conclusões opostas.
 
 ## Para praticar
 

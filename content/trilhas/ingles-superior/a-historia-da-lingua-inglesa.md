@@ -26,6 +26,10 @@ quiz:
     explicacao: "A difusão de uma língua acompanha a força de quem a fala, não qualidades da língua."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar as grandes fases do inglês e mostrar, com exemplos, como a história de invasões e de classes sociais aparece nas palavras.
+
 ## Uma língua com muitas camadas
 
 O inglês é uma língua de origem **germânica**, parente do alemão e do holandês. Mas cerca de metade do seu vocabulário veio do **francês** e do **latim**. Essa mistura conta a história das invasões, das classes sociais e dos impérios.
@@ -89,9 +93,27 @@ Nenhuma língua se torna internacional por ser "melhor" ou "mais fácil". O ingl
 
 Aprender inglês é ter acesso a muito conhecimento produzido nessa língua. Também é saber de onde vem o seu prestígio, e valorizar as outras línguas, inclusive o português e as línguas indígenas e de sinais do Brasil.
 
+## Exemplo resolvido
+
+**Por que o animal se chama *pig* e a carne se chama *pork*?**
+
+1. Em **1066**, os normandos, vindos do norte da França, conquistaram a Inglaterra.
+2. Por cerca de três séculos, a nobreza, a corte e a justiça falaram **francês**; o povo continuou falando **inglês**.
+3. Quem criava o animal era o povo, e usou a palavra inglesa: *pig* (porco). A carne que chegava à mesa da nobreza recebeu a palavra francesa: *pork* (*porc*).
+4. O mesmo vale para *cow* e *beef* (*bœuf*), e *sheep* e *mutton* (*mouton*).
+
+Confira: o par de palavras guarda a divisão de classes da época. É um exemplo de como a história social fica registrada na língua.
+
 ## Para pesquisar e debater
 
 1. Procure cinco palavras inglesas de origem francesa e cinco de origem germânica no dicionário (a etimologia costuma vir no verbete).
 2. Explique, com o exemplo de pig e pork, como a história social aparece na língua.
 3. Liste diferenças de grafia entre o inglês britânico e o estadunidense.
 4. Debata: por que o inglês é exigido em tantos processos seletivos? Isso é justo?
+
+## Resumo
+
+- O inglês é de origem germânica, mas cerca de metade do vocabulário veio do francês e do latim.
+- Fases: inglês antigo (séculos V a XI), médio (XII a XV), moderno inicial (XVI e XVII) e moderno (do XVIII em diante).
+- A conquista normanda de 1066 pôs o francês na corte e deixou o inglês com o povo.
+- Pares como *pig/pork* e *cow/beef* guardam essa divisão de classes.

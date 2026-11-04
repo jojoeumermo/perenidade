@@ -36,6 +36,7 @@ quiz:
     opcoes: ["Sim", "Não: o nervosismo é normal e aparece até em quem fala bem e há anos", "Só se a voz tremer"]
     resposta: 1
     explicacao: "Até oradores experientes sentem. O que muda é como eles interpretam essa energia e a usam a favor."
+modelo: 9
 ---
 
 ```provocacao
@@ -45,6 +46,10 @@ Você sabe tudo sobre o problema do bairro. Mas, na hora de falar na reunião, o
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é a ansiedade de comunicação, entender o que o corpo faz quando sente medo de falar, reconhecer os mitos que atrapalham e montar um plano para enfrentar o nervosismo antes e durante uma fala.
+
+```suarealidade
+Em que situação (reunião, igreja, escola, trabalho) você quis falar e não falou? Qual foi o primeiro pensamento que passou pela sua cabeça?
+```
 
 ## Um medo normal
 
@@ -116,6 +121,20 @@ Faltam dois minutos para a sua fala na assembleia e você sente o coração disp
 4. **Antes de falar**: respirar fundo, lembrar que o pico do medo é esse minuto.
 5. **Ao falar**: começar com uma pergunta ao público ("Quem aqui já atolou o pé na Rua das Flores?"), olhar uma pessoa de cada vez, seguir a ficha.
 6. **Depois**: anotar o que deu certo para a próxima vez.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Platão, no diálogo Górgias (século IV a.C.), criticou a retórica de sua época: para o personagem Sócrates, ela era a arte de agradar e convencer a plateia, sem compromisso com a verdade. Quem pensa assim desconfia de aulas de oratória: ensinar alguém a falar bem pode ensinar a manipular.
+---
+Como você responderia, com respeito e com fatos? Pense em quem costuma falar nas reuniões do seu bairro e em quem fica calado.
+---
+Uma resposta possível: a desconfiança é saudável, e falar bem não substitui ter razão nem fatos. Mas o silêncio também não é neutro: quem tem medo de falar deixa a palavra com quem não tem. A aula ensina a organizar tópicos, ensaiar e olhar para as pessoas, ou seja, a dizer o que se sabe, e não a enganar. Para falar a favor da própria comunidade, o argumento precisa de fatos que as pessoas possam conferir.
+```
+
+```agir
+# Esta semana
+Escolha um problema do seu bairro, escreva três tópicos num papel (o problema, quem sofre, o pedido) e fale em voz alta, de pé, duas vezes. Depois fale por dois minutos para uma pessoa de confiança.
+```
 
 ## Resumo
 

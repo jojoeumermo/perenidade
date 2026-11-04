@@ -25,6 +25,10 @@ quiz:
     explicacao: "As cidades cresciam, as fábricas mudavam o trabalho e as antigas explicações religiosas já não davam conta."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que a sociologia estuda, por que ela nasceu no século XIX e como a imaginação sociológica liga a vida pessoal à história da sociedade.
+
 ## Nem tudo é escolha pessoal
 
 Por que os filhos de médicos têm muito mais chance de se tornar médicos do que os filhos de pedreiros? Por que as mulheres ganham menos que os homens na mesma função? Por que em alguns bairros a polícia mata muito mais do que em outros?
@@ -82,7 +86,25 @@ A sociologia brasileira sempre esteve ligada aos grandes problemas do país. **F
 
 Não é coincidência. Uma ciência que pergunta "por que as coisas são assim?" e "a quem isso interessa?" costuma incomodar quem prefere que as coisas pareçam naturais.
 
+## Exemplo resolvido
+
+**Em uma cidade de cem mil habitantes, um homem está desempregado. Em um país com 50 milhões de trabalhadores, 15 milhões estão desempregados. Os dois casos são do mesmo tipo?**
+
+1. Calcule o peso do segundo caso: 15 milhões ÷ 50 milhões = 0,3, ou 30% dos trabalhadores.
+2. Compare: no primeiro, é uma pessoa entre muitas; a solução talvez esteja nela. No segundo, quase um em cada três trabalhadores está sem emprego.
+3. Aplique a imaginação sociológica de C. Wright Mills: ligue a biografia à história.
+
+Conclusão: o primeiro é um problema pessoal, e o segundo é um problema público, para o qual nenhuma solução individual dará conta. É o mesmo raciocínio de perguntar por que o desemprego entre os jovens negros é mais alto que a média, em vez de por que "João" perdeu o emprego.
+
 ## Para praticar
 
 1. Escolha um problema que você vive (transporte, aluguel, jornada de trabalho) e pergunte: quantas outras pessoas passam por isso? O que elas têm em comum?
 2. Procure no site do IBGE um dado sobre desigualdade no Brasil e escreva três linhas sobre o que ele mostra.
+
+## Resumo
+
+- Sociologia é o estudo científico da vida em sociedade: relações, grupos, instituições e regras.
+- Ela começa quando se percebe um padrão que se repete em milhões de vidas e que não se explica só pelo indivíduo.
+- Nasceu na Europa do século XIX, com a Revolução Industrial e a Revolução Francesa; a palavra foi criada por Comte, por volta de 1838.
+- Marx pergunta quem fica com o que é produzido; Durkheim, o que mantém a sociedade unida; Weber, o sentido que as pessoas dão às suas ações.
+- Imaginação sociológica, de C. Wright Mills: ligar a biografia de cada pessoa à história da sociedade.

@@ -47,6 +47,10 @@ quiz:
     resposta: 0
     explicacao: "O norte de Minas Gerais, por exemplo, fica no Nordeste geoeconômico, embora o estado seja do Sudeste."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é uma região, nomear as cinco grandes regiões do IBGE com seus números, calcular a densidade demográfica e conhecer outras formas de dividir o país.
+
 
 ## O que é uma região
 
@@ -137,3 +141,12 @@ Os números mostram regiões muito desiguais em população, em renda e em servi
 4. Proponha uma regionalização do seu município: em quantas partes você o dividiria, e com que critério?
 
 **Resposta da 3:** 54.600.000 ÷ 1.552.000 ≈ 35 hab/km².
+
+## Resumo
+
+- Região é um pedaço do espaço com algo em comum que o distingue dos vizinhos; há mais de uma forma de dividir.
+- A divisão em cinco regiões do IBGE foi delimitada no fim dos anos 1960 e oficializada em 1970; ela agrupa estados inteiros para facilitar as estatísticas.
+- Densidade demográfica = população ÷ área; para o Sudeste, cerca de 92 hab/km².
+- Em 1967, Pedro Pinchas Geiger propôs três complexos regionais, pelo modo como cada área foi ocupada e se integra à economia.
+- Em 2017, o IBGE publicou 510 regiões geográficas imediatas e 133 intermediárias, pela rede de cidades.
+- Região não é destino: a desigualdade entre regiões tem causas históricas e políticas, não é efeito do clima ou do "jeito" do povo.

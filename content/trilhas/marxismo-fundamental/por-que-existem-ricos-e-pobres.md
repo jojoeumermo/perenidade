@@ -27,7 +27,16 @@ quiz:
     opcoes: ["Salário", "Propriedade: empresas, terras, imóveis, aplicações financeiras", "Prêmios de loteria"]
     resposta: 1
     explicacao: "Os mais ricos vivem, sobretudo, dos rendimentos da propriedade, e não do próprio trabalho."
+modelo: 9
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar duas explicações para a riqueza e a pobreza (o esforço e a propriedade dos meios de produção) e dizer qual delas a conta do dia a dia sustenta.
+
+```suarealidade
+Pense, sem dizer o nome de ninguém, na pessoa que mais trabalha entre as que você conhece. Ela vive bem? E de onde vem o dinheiro das pessoas que você conhece que vivem melhor: do próprio trabalho ou de ser donas de alguma coisa?
+```
 
 Você já deve ter ouvido muitas explicações para a pobreza e a riqueza. "Rico é quem trabalha duro." "Pobre é quem não se esforça." "É a vontade de Deus." "É sorte." Vamos olhar com calma.
 
@@ -80,6 +89,38 @@ Pode, e muda. O que foi organizado por pessoas pode ser reorganizado por pessoas
 
 O marxismo vai mais longe: propõe que os meios de produção sejam de toda a sociedade, para que ninguém viva do trabalho dos outros. Vamos conversar sobre isso nas próximas aulas.
 
+## Exemplo resolvido
+
+**Seu Antônio e Dona Marta: de onde vem o dinheiro de cada um?**
+
+1. **Seu Antônio** trabalha numa fábrica de móveis e ganha um salário. Se parar de trabalhar, não recebe: ele vive do **próprio trabalho**.
+2. **Dona Marta** é dona da fábrica e recebe o lucro do que os 50 funcionários produzem. Mesmo viajando um mês, o dinheiro continua entrando: ela vive do **trabalho dos outros**.
+3. Com o tempo, ela compra outra fábrica; ele, com muito esforço, talvez quite a casa.
+4. A diferença está em **quem é dono do quê**: os meios de produção (terra, máquinas, fábricas) estão com uma minoria.
+
+Confira: o dia só tem 24 horas para todo mundo, então o esforço sozinho não explica a diferença entre quem mais trabalha e quem mais tem.
+
+```outrolado
+# O argumento de quem defende o esforço e o risco
+"Quem é rico muitas vezes começou com pouco, trabalhou muito e arriscou o próprio dinheiro para abrir um negócio e dar emprego. Se o resultado depende do esforço e do risco, a desigualdade é justa."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Esforço e risco existem, e a aula não nega: quem abre um negócio pode perder. Mas há dois pontos. Primeiro, a conta do tempo: se o esforço explicasse tudo, a diarista, o pedreiro e o entregador, que mais suam, seriam os mais ricos, e não são. Segundo, o risco explica por que o dono quer lucro, mas não de onde o lucro vem: ele vem do trabalho de quem produz. Os trabalhadores também arriscam: o emprego, a saúde, o corpo. Para ver números, o IBGE publica todos os anos dados sobre a desigualdade no Brasil.
+```
+
+```agir
+# Esta semana
+Numa folha, liste cinco profissões de pessoas que trabalham muito (só as profissões, sem nomes) e, ao lado de cada uma, anote se ela vive do próprio trabalho ou de ser dona de alguma coisa. Converse sobre o resultado com alguém da sua convivência, ouvindo o que a pessoa pensa.
+```
+
 ## Para conversar
 
 Pense em alguém muito rico que você conhece (ou de quem já ouviu falar). De onde vem o dinheiro dessa pessoa: do próprio trabalho ou de ser dona de alguma coisa?
+
+## Resumo
+
+- O esforço sozinho não explica a riqueza: quem mais trabalha não é quem mais tem, e o dia tem 24 horas para todos.
+- Marx propôs perguntar quem é dono do quê: para produzir é preciso trabalho e meios de produção (terra, máquinas, fábricas).
+- Quem tem só a capacidade de trabalhar vive do próprio trabalho; quem é dono dos meios de produção vive do trabalho dos outros.
+- No Brasil, a desigualdade tem cor e gênero; os direitos conquistados (salário mínimo, férias, aposentadoria) vieram de organização e luta.

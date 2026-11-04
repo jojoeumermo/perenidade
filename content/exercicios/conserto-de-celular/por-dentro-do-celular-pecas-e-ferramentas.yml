@@ -1,0 +1,51 @@
+# Exercícios da aula "Por dentro do celular: peças e ferramentas" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-pecas-01
+  tema: "Qual peça"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A tela mostra imagem, mas não responde ao toque. Qual é o raciocínio da aula?"
+  alternativas:
+    - texto: "É a bateria"
+      erro: "Se a tela mostra imagem, a bateria está fornecendo energia."
+    - texto: "É o alto-falante"
+      erro: "O alto-falante não tem ligação com o toque."
+    - texto: "O problema não é a bateria, e sim a tela ou o toque"
+      certa: true
+  explicacao: "Entender o que cada peça faz ajuda a pensar no defeito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-pecas-02
+  tema: "Peça que mais quebra"
+  dificuldade: 1
+  enunciado: "Qual peça a aula diz ser uma das que mais quebram, porque é usada todo dia?"
+  alternativas:
+    - texto: "O conector de carga"
+      certa: true
+    - texto: "A placa-mãe"
+      erro: "A placa-mãe é a placa principal, com processador e circuitos."
+    - texto: "As antenas"
+      erro: "É o conector de carga, a entrada do cabo."
+  explicacao: "A tela e o vidro vêm, em geral, numa peça só: painel e toque colados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-pecas-03
+  tema: "Estática"
+  dificuldade: 2
+  enunciado: "Qual item da bancada ajuda a evitar danos da eletricidade estática?"
+  alternativas:
+    - texto: "Chaves de precisão"
+      erro: "As chaves servem para parafusos."
+    - texto: "Tapete e pulseira antiestática"
+      certa: true
+    - texto: "Ventosa"
+      erro: "A ventosa serve para abrir a tela."
+  explicacao: "A pinça de ponta fina também pode ser antiestática."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

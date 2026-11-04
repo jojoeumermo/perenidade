@@ -29,6 +29,10 @@ quiz:
     explicacao: "Pode-se sair depois de 2 horas de prova, mas o caderno só pode ser levado por quem sai nos últimos 30 minutos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que levar e o que é proibido no dia do ENEM, quais são os horários e como dividir o tempo nos dois dias de prova.
+
 Depois de meses de estudo, ninguém quer perder a prova por um documento esquecido ou um minuto de atraso. Esta aula reúne as regras do dia do ENEM, com base nas orientações do Inep e no edital de 2026, e uma estratégia para usar bem o tempo. Confira sempre o edital do seu ano: as regras costumam se repetir, mas podem mudar.
 
 ## Na véspera
@@ -126,3 +130,21 @@ Dicas para os dois dias:
 1. Monte agora a sua lista do que levar e prenda num lugar visível.
 2. Faça um simulado de um dia inteiro, começando às 13h30, sem relógio de pulso e sem celular, e teste uma divisão do tempo.
 3. Descubra quanto tempo você leva de casa até um local de prova provável, no domingo, de transporte público.
+
+## Exemplo resolvido
+
+**Como dividir as 5 horas e 30 minutos do primeiro dia?**
+
+1. Leia a proposta de redação logo no começo: 5 minutos.
+2. Faça as questões de Linguagens e de Humanas, começando pelas mais fáceis: cerca de 2 horas e 45 minutos.
+3. Escreva a redação: cerca de 1 hora de planejamento e rascunho e 30 minutos de passagem a limpo.
+4. Use o que sobrar para revisar e passar as respostas ao cartão.
+
+Confira a conta: 5 min + 165 min + 90 min = 260 min; de 330 minutos sobram 70 minutos para revisão e cartão. No segundo dia, 300 minutos para 90 questões dão pouco mais de 3 minutos por questão.
+
+## Resumo
+
+- Na véspera: confira o local, separe o que levar e durma bem.
+- Leve documento oficial com foto, original, e caneta esferográfica preta de corpo transparente (duas). Portões abrem às 12h e fecham às 13h (horário de Brasília); a prova começa às 13h30.
+- Celular, relógio de qualquer tipo, lápis, borracha, boné e papéis vão para o envelope ou causam eliminação.
+- Faça duas voltas, não fique preso, passe as respostas ao cartão aos poucos e reserve os últimos 15 minutos; erro não desconta ponto.

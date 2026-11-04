@@ -30,6 +30,9 @@ quiz:
     resposta: 2
     explicacao: "Mudou o que se importava, mas não a necessidade de importar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como o Brasil se industrializou entre 1930 e 1980, o que mudou de fato e quais foram os limites apontados pelos autores da dependência.
 
 Entre 1930 e 1980, o Brasil deixou de ser um país agrário e se tornou uma das maiores economias industriais do mundo. Essa transformação tem nome: **industrialização por substituição de importações**.
 
@@ -76,3 +79,23 @@ A conclusão dos autores da dependência foi que a industrialização não acabo
 ## Para pesquisar e debater
 
 Escolha um produto industrial feito no Brasil (um carro, um celular, um remédio). De que país é a empresa? Onde foram desenvolvidas a tecnologia e as peças mais caras?
+
+## Exemplo resolvido
+
+**Uma montadora estrangeira se instala no Brasil e os carros passam a ser feitos aqui. O país deixou de depender de fora? Faça o balanço.**
+
+1. **O que mudou.** O carro passou a ser montado no país; surgiram empregos, uma classe operária numerosa e grandes cidades.
+2. **A tecnologia.** Continuou vindo de fora: para fabricar bens duráveis é preciso importar as máquinas que os fabricam.
+3. **Os lucros.** Os setores mais dinâmicos ficaram com filiais estrangeiras, que enviam os lucros à sede e pagam pelo uso de patentes.
+4. **Os dólares.** Para pagar máquinas, peças, lucros e patentes, o país seguia dependendo de exportar produtos primários ou de se endividar.
+5. **Conclua.** A dependência não acabou: mudou de forma, de vender café para comprar tecidos a depender de tecnologia, capitais e máquinas de fora.
+
+Confira: por isso continuam saindo do país lucros, pagamentos por patentes e dólares gastos em máquinas e peças.
+
+## Resumo
+
+- Entre 1930 e 1980, o Brasil se industrializou **substituindo importações**, depois da crise de 1929 e da queda do preço do café.
+- O Estado criou a base: CSN (1941), BNDE (1952), Petrobras (1953); JK trouxe as montadoras com o Plano de Metas.
+- Limites: tecnologia de fora, setores dinâmicos nas mãos de filiais estrangeiras, fome de dólares, mercado interno estreito e dívida crescente.
+- Para os autores da dependência, a industrialização **mudou a forma** da dependência, e não a eliminou.
+- Vânia Bambirra: a burguesia industrial preferiu ser sócia menor do capital estrangeiro.

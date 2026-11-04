@@ -32,6 +32,7 @@ quiz:
     opcoes: ["Mais de 40 mil", "Cerca de 100", "Cerca de 1 milhão"]
     resposta: 0
     explicacao: "Vieram de todo o mundo, inclusive brasileiros e portugueses."
+modelo: 9
 ---
 
 ```provocacao
@@ -41,6 +42,10 @@ Uma fábrica fecha no Brasil e reabre num país onde os salários são menores. 
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender o internacionalismo e conhecer três momentos da sua história.
+
+```suarealidade
+No seu serviço ou no seu bairro, há trabalhadores de outros estados ou países? Que produtos que você usa vêm de longe, e você sabe quem os fez?
+```
 
 ## O Manifesto: "uni-vos!"
 
@@ -71,6 +76,20 @@ Por que o internacionalismo diz que os trabalhadores de países diferentes estã
 1. Os trabalhadores dos dois países estão sendo **jogados uns contra os outros**.
 2. Se cada um lutar sozinho, a empresa vence **os dois**.
 3. O internacionalismo propõe **organização conjunta**: sindicatos dos dois países trocando informações e lutando juntos.
+
+```outrolado
+# O argumento de quem defende o emprego nacional primeiro
+Quando uma fábrica fecha aqui e abre em outro país, quem perde o emprego é o trabalhador de cá. Defender primeiro o emprego e a indústria do nosso país é o que protege a família agora; o trabalhador de fora que aceita salário menor é, na prática, concorrente.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A preocupação é real: o emprego perdido dói. O internacionalismo responde que a empresa se aproveita justamente dessa divisão: se cada país lutar sozinho, a empresa vence os dois, como mostra o exemplo da aula. Por isso a Primeira Internacional (1864) apoiou greves e manteve os trabalhadores de cada país informados das lutas nos outros, e o Manifesto (1848) fala em interesses comuns contra a exploração. Defender o emprego daqui e se organizar com quem está do outro lado não são coisas opostas: a segunda pode ser o meio da primeira.
+```
+
+```agir
+# Esta semana
+Olhe a etiqueta de três coisas que você usa (roupa, aparelho, alimento) e anote num papel onde foram feitas. Ao lado, escreva uma pergunta: quem trabalhou para isso chegar até mim, e em que condições? Guarde a lista para conversar na próxima aula.
+```
 
 ## Resumo
 

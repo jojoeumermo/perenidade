@@ -1,0 +1,51 @@
+# Exercícios da aula "A redação do Encceja" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-red-01
+  tema: "Estrutura do texto"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a ordem das partes de uma redação?"
+  alternativas:
+    - texto: "Conclusão, desenvolvimento, introdução"
+      erro: "A ordem está invertida. O texto começa apresentando o tema e a opinião, que é a introdução."
+    - texto: "Introdução, desenvolvimento, conclusão"
+      certa: true
+    - texto: "Desenvolvimento, introdução, conclusão"
+      erro: "Os argumentos (desenvolvimento) só fazem sentido depois de dito o assunto e a opinião na introdução."
+  explicacao: "Começo (introdução com a tese), meio (argumentos) e fim (conclusão)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-red-02
+  tema: "Tese"
+  dificuldade: 2
+  enunciado: "Qual destas frases é uma tese, isto é, uma opinião a ser defendida?"
+  alternativas:
+    - texto: "Este texto vai falar sobre o lixo."
+      erro: "Essa frase só anuncia o assunto. A tese diz o que você pensa sobre ele."
+    - texto: "O lixo jogado na rua prejudica a saúde de todo o bairro."
+      certa: true
+    - texto: "Lixo."
+      erro: "Uma palavra solta não é uma opinião. A tese é uma frase com a sua posição."
+  explicacao: "A tese é a posição que você defende. 'O lixo jogado na rua prejudica a saúde de todo o bairro' pode ser defendida com argumentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-red-03
+  tema: "Revisão"
+  dificuldade: 1
+  enunciado: "Qual destes cuidados NÃO ajuda na revisão da redação?"
+  alternativas:
+    - texto: "Reler procurando erros de ortografia e pontuação"
+      erro: "Esse cuidado ajuda sim: a releitura pega erros que passam na primeira escrita."
+    - texto: "Conferir se o texto fala do tema pedido"
+      erro: "Esse cuidado ajuda: fugir do tema prejudica a nota."
+    - texto: "Entregar sem reler para ganhar tempo"
+      certa: true
+  explicacao: "Entregar sem reler deixa passar erros. Reservar uns minutos finais para revisar melhora o texto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

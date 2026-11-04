@@ -31,6 +31,9 @@ quiz:
     resposta: 0
     explicacao: "O movimento de 2011 apontava que a crise tinha sido provocada pelos de cima e paga pelos de baixo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como os empréstimos subprime viraram uma crise mundial em 2008, o que é capital fictício e quem pagou a conta.
 
 Em 2008, o sistema financeiro mundial esteve a um passo do colapso. Bancos centenários quebraram, milhões de famílias perderam a casa e o emprego, e governos gastaram somas gigantescas para salvar quem tinha provocado a crise. Esta aula explica o que aconteceu.
 
@@ -79,3 +82,24 @@ A crise de 2008 mostrou que o capitalismo financeirizado continua tão instável
 ## Para conversar
 
 Se o governo pode encontrar trilhões para salvar bancos, por que diz que não há dinheiro para saúde e educação? Quem decide essas prioridades?
+
+## Exemplo resolvido
+
+**Por que a falência de um banco em Nova York derrubou o crédito no mundo? Siga o caminho do empréstimo.**
+
+1. **O empréstimo.** Nos anos 2000, bancos americanos emprestavam para comprar casas a quase qualquer pessoa (subprime), porque não ficavam com a dívida.
+2. **O empacotamento.** Os empréstimos eram empacotados em títulos e vendidos a bancos, fundos e investidores do mundo inteiro, com nota máxima das agências de risco.
+3. **O estouro.** Por volta de 2006 e 2007, os juros subiram, o preço das casas parou de subir e milhões de famílias deixaram de pagar; os títulos perderam valor e ninguém sabia quem tinha quanto papel "podre".
+4. **O pânico.** Os bancos pararam de emprestar uns aos outros e, em 15 de setembro de 2008, o Lehman Brothers pediu falência.
+5. **Conclua.** Como os papéis estavam espalhados por todo o sistema, o problema atravessou o Atlântico e atingiu a Europa em cheio.
+
+Confira: Marx chamou de capital fictício os títulos que prometem pagamentos futuros além da riqueza real; em 2008 o castelo desabou.
+
+## Resumo
+
+- Bancos emprestaram a quem tinha pouca chance de pagar (**subprime**) e revenderam essas dívidas empacotadas em títulos.
+- Em **15 de setembro de 2008**, o Lehman Brothers faliu e o pânico se espalhou.
+- **Capital fictício** (Marx): títulos que prometem rendas futuras e podem se multiplicar muito além da riqueza real.
+- Governos salvaram os grandes bancos, e o prejuízo virou dívida pública; depois vieram cortes de austeridade (caso da Grécia).
+- Em 2011, protestos como os indignados e o Occupy Wall Street ("Somos os 99%").
+- No Brasil, a crise chegou pela queda das exportações e do crédito.

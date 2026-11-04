@@ -30,6 +30,10 @@ quiz:
     explicacao: "É o que acontece com a naftalina e com o gelo seco."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever os três estados físicos, nomear as mudanças de estado e explicar por que a temperatura e a pressão decidem em que estado uma substância está.
+
 ## Três jeitos de ser
 
 A mesma água pode ser gelo, líquido ou vapor. Continua sendo água: H₂O. O que muda é o **estado físico**, isto é, a forma como as partículas estão organizadas.
@@ -120,6 +124,16 @@ As mudanças de estado movem a água pelo planeta.
 
 A água do planeta é sempre a mesma, circulando. As florestas são parte dessa máquina: as árvores devolvem ao ar enormes quantidades de vapor. A floresta amazônica alimenta as chuvas de boa parte do Centro-Oeste, do Sudeste e do Sul do Brasil. Derrubá-la é mexer na torneira de regiões que ficam a milhares de quilômetros.
 
+## Exemplo resolvido
+
+**Por que a comida cozinha mais depressa na panela de pressão?**
+
+1. Ao nível do mar, a água ferve a 100 °C e, enquanto ferve, a temperatura não sobe mais.
+2. Quanto maior a pressão, maior a temperatura de ebulição. Na panela de pressão a água chega a cerca de 120 °C.
+3. A diferença é de 120 − 100 = 20 °C a mais, e partículas mais quentes cozinham o alimento mais depressa.
+
+Confira: o contrário também vale. Em cidade muito alta, a pressão é menor, a água ferve abaixo de 100 °C e a comida demora mais.
+
 ## Para pesquisar e debater
 
 1. Dê o nome da mudança de estado: (a) a manteiga derretendo na frigideira; (b) o espelho do banheiro embaçando; (c) o gelo seco "fumegando"; (d) a lava do vulcão virando rocha.
@@ -128,3 +142,11 @@ A água do planeta é sempre a mesma, circulando. As florestas são parte dessa 
 4. De onde vem a chuva que cai na sua região? O que pode alterá-la?
 
 **Respostas do 1:** (a) fusão; (b) condensação; (c) sublimação; (d) solidificação.
+
+## Resumo
+
+- Os três estados são sólido, líquido e gasoso; o que muda é como as partículas estão organizadas.
+- As mudanças são fusão, solidificação, vaporização, condensação e sublimação, e todas são transformações físicas.
+- Enquanto a substância muda de estado, a temperatura não sobe.
+- Evaporação é lenta e só na superfície; ebulição é rápida e em todo o líquido.
+- Maior pressão, maior temperatura de ebulição. O gelo boia porque é menos denso que a água líquida.

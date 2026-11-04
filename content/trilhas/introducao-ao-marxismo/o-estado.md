@@ -34,6 +34,10 @@ quiz:
     explicacao: "Na Comuna, os representantes eram eleitos, revogáveis e ganhavam salário de operário."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a tese marxista de que o Estado surge com as classes, o que a fórmula do *Manifesto* quer dizer e por que o Estado também dá direitos.
+
 Polícia, tribunais, exército, prefeitura, escola pública, posto de saúde, Receita Federal. Tudo isso é Estado. A explicação que aprendemos na escola é que o Estado existe para garantir o bem comum, acima dos interesses particulares. O marxismo faz uma pergunta incômoda: **o Estado sempre existiu? E a quem ele serve?**
 
 ## Nem sempre houve Estado
@@ -72,6 +76,24 @@ Em 1917, às vésperas da Revolução de Outubro, Lenin retomou essas ideias em 
 
 A história real das revoluções do século XX não confirmou essa expectativa: em vários países, o Estado pós-revolucionário cresceu e se burocratizou, em vez de se extinguir. Entender por que isso aconteceu (cerco externo, guerra, atraso econômico, escolhas políticas) é um dos grandes debates do marxismo, tratado na trilha de [revoluções socialistas](/trilhas/revolucoes-socialistas).
 
+## Exemplo resolvido
+
+**Como Engels explica a origem do Estado?**
+
+1. Durante a maior parte da história humana, argumenta Engels, existiram sociedades **sem Estado**: decisões em assembleias, sem polícia nem exército separados do povo, porque não havia classes com interesses opostos.
+2. Quando a sociedade se divide em **classes** (proprietários e não proprietários), é preciso uma força especial, separada da sociedade, para manter a divisão sob controle.
+3. Daí a conclusão: o Estado é, em geral, o Estado da classe economicamente dominante, que por meio dele se torna também a classe politicamente dominante.
+4. No capitalismo, o *Manifesto* chama o governo moderno de **comitê para gerir os negócios comuns de toda a classe burguesa**.
+
+Confira: a palavra-chave é "comuns": o Estado garante as condições de toda a classe, e não defende cada capitalista. A aula lembra ainda que o Estado também dá direitos.
+
 ## Para conversar
 
 Na sua experiência, como o Estado aparece na sua vida: como polícia, como escola, como posto de saúde, como cobrança de impostos? Ele trata igualmente o seu bairro e os bairros ricos?
+
+## Resumo
+
+- Engels (*A Origem da Família, da Propriedade Privada e do Estado*, 1884) argumenta que o Estado não existiu sempre: surge com as classes.
+- O *Manifesto* chama o governo moderno de comitê para gerir os negócios comuns da classe burguesa.
+- O Estado também dá direitos, conquistados em lutas.
+- Debate posterior: por que o Estado pós-revolucionário cresceu em vez de se extinguir.

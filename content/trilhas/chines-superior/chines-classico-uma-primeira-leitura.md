@@ -26,6 +26,9 @@ quiz:
     resposta: 0
     explicacao: "之 é uma das partículas mais frequentes do chinês clássico."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o chinês clássico, como ele difere do moderno e ler, palavra por palavra, o início dos Analectos de Confúcio.
 
 ## A língua dos clássicos
 
@@ -91,3 +94,23 @@ O chinês clássico continua vivo em chengyu, em ditados, em nomes, em citaçõe
 2. Compare a frase clássica 学而时习之 com uma versão moderna possível. Quantos caracteres a mais são necessários?
 3. Pesquise o Movimento Quatro de Maio: quem participou e o que defendia?
 4. Discuta a comparação entre o chinês clássico e o latim: em que ela ajuda e em que ela falha?
+
+## Exemplo resolvido
+
+**Leia 学而时习之，不亦说乎？ passo a passo.**
+
+1. **Separe o trecho.** 学 / 而 / 时 / 习 / 之，不亦 / 说 / 乎？
+2. **Traduza cada parte.** 学 (aprender), 而 (e), 时 (no tempo certo), 习 (praticar), 之 (isso, o que se aprendeu). Resultado: "aprender e, no tempo certo, praticar o aprendido".
+3. **Veja a pergunta.** 不亦…乎 é uma pergunta retórica: "não é isso...?". O 乎 (*hū*) marca a pergunta, como o moderno 吗.
+4. **A palavra 说.** Aqui lê-se *yuè* e significa "alegrar-se" (hoje se escreve 悦).
+5. **Junte.** "Aprender e praticar o aprendido no tempo certo, não é uma alegria?"
+
+Confira: no clássico, 学 corresponde ao moderno 学习 (estudar) e 曰 a 说 (dizer): palavras de um caractere, no lugar de palavras de dois.
+
+## Resumo
+
+- O **chinês clássico** (文言文) foi a língua escrita por mais de dois mil anos; no começo do século XX, intelectuais defenderam escrever na língua falada (白话文).
+- Ele é mais conciso, usa palavras de um caractere, partículas próprias (之, 乎, 者, 也, 而, 其, 于) e omite o sujeito com frequência.
+- Os **Analectos** (论语) reúnem ditos atribuídos a **Confúcio**, registrados por discípulos.
+- No trecho lido: 而 liga ações ("e"), 之 é pronome ("isso"), 乎 marca a pergunta retórica, 说 lê-se *yuè* ("alegrar-se").
+- O chinês clássico continua vivo em chengyu, ditados, nomes e citações.

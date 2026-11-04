@@ -41,6 +41,9 @@ quiz:
     resposta: 0
     explicacao: "O uso excessivo ou incorreto de antibióticos, em pessoas e em criação animal, acelera o processo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar a história da microbiologia (Leeuwenhoek, Pasteur, Koch, Fleming), classificar os grupos de microrganismos, interpretar a coloração de Gram e explicar o que é o microbioma.
 
 ## O mundo invisível
 
@@ -127,3 +130,22 @@ E poucos antibióticos novos chegam ao mercado: para a indústria farmacêutica,
 2. Faça uma tabela com dois microrganismos úteis e dois causadores de doença, indicando o grupo de cada um.
 3. Por que tomar antibiótico contra gripe não ajuda e ainda pode prejudicar?
 4. Pesquise se a sua cidade tem uma estação de tratamento de esgoto e qual é o papel dos microrganismos nela.
+
+## Exemplo resolvido
+
+**Por que o resultado da coloração de Gram interessa ao médico que vai tratar uma infecção?**
+
+1. **Lembre o que a coloração faz.** Criada por Hans Christian Gram em 1884, ela divide as bactérias em dois grupos: **gram-positivas** (ficam roxas; parede com camada grossa de peptidoglicano) e **gram-negativas** (ficam rosadas; parede com camada fina e uma membrana externa).
+2. **Veja a diferença na estrutura.** A parede celular é justamente a estrutura que muitos antibióticos atacam.
+3. **Veja a consequência.** Algumas drogas não atravessam a membrana externa das gram-negativas, que funciona como barreira.
+4. **Conclua.** O tipo de parede celular influencia **quais antibióticos funcionam** contra a bactéria.
+
+Confira: o Gram não mostra se o paciente tem febre nem se a infecção é por vírus, pois vírus não são células.
+
+## Resumo
+
+- **Leeuwenhoek** (século XVII) viu microrganismos ao microscópio; **Pasteur** (1860) derrubou a geração espontânea com frascos de "pescoço de cisne"; Pasteur e **Koch** estabeleceram a **teoria dos germes**; **Fleming** (1928) observou a ação do *Penicillium* contra bactérias.
+- Grupos: bactérias e arqueias (procariontes); fungos, protozoários e algas microscópicas (eucariontes); **vírus** (não são células).
+- **Coloração de Gram** (1884): gram-positivas (roxas, parede grossa) e gram-negativas (rosadas, parede fina com membrana externa).
+- A **cultura** isola e identifica microrganismos, mas a maior parte das bactérias da natureza não cresce em laboratório.
+- **Microbioma:** trilhões de microrganismos no corpo, sobretudo no intestino, a maioria inofensiva ou benéfica (ajudam a digerir fibras, produzem vitaminas, competem com os causadores de doença).

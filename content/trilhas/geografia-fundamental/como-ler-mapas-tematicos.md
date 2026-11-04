@@ -44,6 +44,10 @@ quiz:
     resposta: 0
     explicacao: "Isotermas ligam pontos de mesma temperatura; isoietas, de mesma chuva; curvas de nível, de mesma altitude."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é um mapa temático, distinguir número absoluto de taxa e usar um roteiro de seis perguntas para ler um mapa sem ser enganado por cores e áreas.
+
 
 ## Mapa que mostra dados
 
@@ -136,3 +140,12 @@ Os dados são os mesmos; a mensagem, não. O Atlas Geográfico Escolar do IBGE l
 4. Desenhe um mapa simples do seu bairro com um tema: pontos de ônibus, alagamentos, postos de saúde ou árvores.
 
 **Respostas:** 2) 200 e 50 por 100 mil: o primeiro bairro está pior. 3) a) isolinhas (isoietas); b) fluxos; c) qualitativo.
+
+## Resumo
+
+- Mapa de base serve para se localizar; mapa temático mostra um assunto.
+- Tipos principais, como o coroplético, servem a dados diferentes; a forma do mapa tem de combinar com o dado.
+- Número absoluto é a contagem; número relativo é a taxa. Para comparar lugares de tamanhos diferentes, use a taxa.
+- Área não é gente: a Região Norte tem cerca de 45% do território e 8,5% da população.
+- Quem escolhe os cortes das classes pode mudar o que o mapa parece dizer.
+- Antes de confiar em um mapa, pergunte: tema, lugar e data; fonte; absoluto ou taxa; e o que a paisagem de cores esconde.

@@ -33,6 +33,10 @@ quiz:
     resposta: 0
     explicacao: "Os xiitas defendiam que a sucessão cabia a Ali, genro e primo do profeta, e aos seus descendentes."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como surgiu o islã, quais são os cinco pilares, como o mundo islâmico se expandiu e foi um centro de ciência e por que não se deve tratar o islã como um bloco único.
+
 
 ## O surgimento do islã
 
@@ -103,8 +107,28 @@ Foram séculos de convivência, e as marcas ficaram. O português tem centenas d
 
 O islã é hoje a religião de quase um quarto da humanidade, com fiéis em todos os continentes. Como o cristianismo, tem correntes muito diferentes entre si. Tratar bilhões de pessoas como um bloco único, e associá-lo à violência, é ignorar a história e alimentar o preconceito.
 
+## Exemplo resolvido
+
+**Que intervalos de tempo aparecem entre o nascimento de Maomé, a conquista de Al-Andalus e a fundação de Bagdá?**
+
+1. Datas da aula: Maomé nasceu por volta de 570; os exércitos muçulmanos cruzaram Gibraltar em 711; Bagdá foi fundada em 762.
+2. Do nascimento à travessia de Gibraltar: 711 − 570 = **141 anos**.
+3. Da travessia à fundação de Bagdá: 762 − 711 = **51 anos**.
+4. Os séculos: 570 está no século VI (501 a 600); 711 e 762 estão no século VIII (701 a 800). A aula diz que o mundo islâmico foi o grande centro de ciência entre os séculos VIII e XIII, cerca de seis séculos.
+
+Leitura: a expansão e o auge do saber vieram em poucas gerações depois do nascimento do islã. Em Bagdá, sábios de várias origens e religiões traduziram obras dos gregos, dos persas e dos indianos para o árabe.
+
 ## Para pesquisar e debater
 
 1. Faça uma lista de dez palavras de origem árabe que você usa no dia a dia.
 2. Por que os livros escolares costumam apresentar a ciência como uma criação só europeia?
 3. Que imagem do islã aparece nos filmes e nos noticiários? A quem ela serve?
+
+## Resumo
+
+- O islã surgiu na península Arábica, no começo do século VII; Maomé nasceu em Meca por volta de 570.
+- Os cinco pilares: profissão de fé, cinco orações diárias, esmola, jejum no Ramadã e peregrinação.
+- Em pouco mais de um século depois da morte de Maomé, os exércitos árabes conquistaram da península Ibérica até as fronteiras da Índia.
+- Entre os séculos VIII e XIII, o mundo islâmico foi grande centro de ciência; em Bagdá (762), sábios traduziram e foram além dos antigos.
+- Em 711, a península Ibérica foi conquistada em grande parte: Al-Andalus, com cidades como Córdoba.
+- O islã tem correntes muito diferentes; tratar bilhões de pessoas como bloco único e associá-lo à violência é ignorância.

@@ -31,6 +31,11 @@ quiz:
     resposta: 1
     explicacao: "Com o mundo todo repartido, uma potência só podia ganhar território tirando de outra."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber listar as cinco características do imperialismo segundo Lênin (1916), explicar por que ele o vê como fase e não como política e relacionar isso à guerra de 1914.
+
+
 
 Em 1916, a Europa estava em guerra havia dois anos. Milhões de trabalhadores morriam nas trincheiras. Exilado em Zurique, na Suíça, Lênin quis responder a uma pergunta: **por que essa guerra aconteceu?** O resultado foi um livro curto, publicado em 1917, que ele chamou de "ensaio popular".
 
@@ -75,3 +80,22 @@ O livro tem mais de cem anos. As colônias formais quase acabaram, e empresas de
 ## Para pesquisar e debater
 
 Escolha um setor (aplicativos de celular, sementes, cerveja, aviação). Quantas empresas controlam a maior parte do mercado mundial? De que países elas são?
+
+## Exemplo resolvido: por que a Alemanha entrou na disputa?
+
+Pergunta: como Lênin explica a guerra de 1914 com as cinco características?
+
+1. Os itens 1 a 4 descrevem a economia: monopólios, capital financeiro, exportação de capitais e associações de monopólios que repartem o mundo.
+2. O item 5 diz que a partilha territorial já estava concluída entre as maiores potências.
+3. Uma potência que cresceu depois, como a Alemanha, só consegue colônias e mercados tirando-os de outra.
+4. Logo, a guerra de 1914 foi uma disputa por uma nova repartilha.
+
+Confira: a conquista de colônias (item 5) é consequência da economia (itens 1 a 4), e não o contrário. É por isso que, para Lênin, o imperialismo é uma fase do capitalismo, e não uma política que se troca por outra.
+
+## Resumo
+
+- Em 1916, Lênin usou dados de Hobson e a análise de Hilferding para explicar por que a guerra aconteceu.
+- Cinco traços: monopólios, capital financeiro, exportação de capitais, associações internacionais de monopólios e partilha territorial concluída.
+- A conquista de colônias é consequência da economia.
+- Para Lênin, é uma fase do capitalismo (diferente de Kautsky, que via uma política que poderia ser trocada).
+- Lucros extraordinários das colônias ajudariam a explicar por que parte do movimento operário europeu apoiou a guerra.

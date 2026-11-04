@@ -24,6 +24,11 @@ quiz:
     resposta: 1
     explicacao: "Diferente dos países ricos, onde predomina a queima de combustíveis fósseis, aqui o maior peso vem da derrubada das florestas e do gado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o efeito estufa natural, por que ele está se intensificando, o que o IPCC (2023) concluiu, quem causou e quem paga e o que o Acordo de Paris propõe.
+
+
 
 ## O cobertor do planeta
 
@@ -76,6 +81,26 @@ No Brasil, a maior fonte de emissões não são as chaminés nem os escapamentos
 Em 2015, pelo **Acordo de Paris**, quase todos os países se comprometeram a manter o aquecimento bem abaixo de 2 °C, buscando limitá-lo a 1,5 °C. Para isso, as emissões precisam cair depressa: trocar os combustíveis fósseis por fontes renováveis, zerar o desmatamento, mudar a forma de produzir alimentos e de transportar pessoas e mercadorias.
 
 Atitudes individuais ajudam, mas não bastam: a maior parte das emissões depende de decisões de governos e de grandes empresas. É uma disputa política, e não só técnica.
+
+## Exemplo resolvido: o que vale o "cobertor" da atmosfera?
+
+Pergunta: quanto o efeito estufa natural esquenta a Terra, e quanto o CO₂ cresceu desde a Revolução Industrial?
+
+1. Compare as temperaturas médias da aula: sem o efeito estufa, cerca de 18 graus negativos; com ele, cerca de 15 graus positivos.
+2. Calcule a diferença: 15 - (-18) = 33 graus. O efeito estufa natural é o que torna o planeta habitável.
+3. Veja o CO₂: de cerca de 280 para mais de 410 partes por milhão. A diferença é 410 - 280 = 130, e 130 ÷ 280 ≈ 0,46, ou seja, um aumento de mais de 46%.
+4. Ligue as pontas: o problema não é o cobertor, é que ele está ficando mais grosso, e o IPCC (2023) registra 1,1 °C a mais na década de 2011 a 2020 do que no fim do século XIX.
+
+Confira: 1,1 °C parece pouco perto de 33 °C, mas é uma média do planeta inteiro, e pequenas mudanças na média significam grandes mudanças nos extremos.
+
+## Resumo
+
+- O efeito estufa é natural e necessário: sem ele, a média seria de cerca de 18 graus negativos.
+- Queimar carvão, petróleo e gás e desmatar libera carbono; o CO₂ subiu de cerca de 280 para mais de 410 ppm.
+- Segundo o IPCC (2023), a década de 2011 a 2020 foi 1,1 °C mais quente que o fim do século XIX, e as atividades humanas são a causa inequívoca.
+- Os países ricos respondem pela maior parte do carbono acumulado; as consequências caem sobre quem menos contribuiu.
+- No Brasil, a maior fonte é a mudança no uso da terra (desmatamento da Amazônia e do Cerrado).
+- Acordo de Paris (2015): manter o aquecimento bem abaixo de 2 °C, buscando 1,5 °C. Atitudes individuais ajudam, mas a maior parte depende de governos e de grandes empresas.
 
 ## Para praticar
 

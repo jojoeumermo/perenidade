@@ -41,6 +41,10 @@ quiz:
     resposta: 1
     explicacao: "Confinar uma onda obriga a energia a assumir valores discretos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar por que foi preciso outra mecânica, descrever o átomo de Bohr, a função de onda e a equação de Schrödinger e explicar a incerteza, o efeito túnel e o spin.
+
 
 ## Por que outra mecânica
 
@@ -145,3 +149,12 @@ Os criadores da teoria discordaram profundamente sobre o que ela significa. Eins
 2. Calcule o comprimento de onda de um elétron com velocidade de 10⁶ m/s.
 3. Explique por que não percebemos o comportamento ondulatório de uma pessoa andando.
 4. Um elétron está confinado em uma região de 0,1 nm. Estime a incerteza mínima do seu momento.
+
+## Resumo
+
+- No início do século XX, três problemas não cabiam na física clássica, e levaram à mecânica quântica.
+- Bohr (1913): o elétron do hidrogênio só ocupa órbitas com energias definidas. De Broglie (1924): partículas têm comportamento de onda.
+- O estado de uma partícula é descrito pela função de onda ψ; o seu módulo ao quadrado dá probabilidades (Born, 1926).
+- A equação de Schrödinger (1926) governa a evolução da função de onda; na partícula na caixa, só valores discretos de energia são permitidos.
+- Princípio da incerteza (Heisenberg, 1927): posição e momento não podem ser conhecidos ao mesmo tempo com precisão total.
+- Há efeito túnel, spin e princípio de exclusão. Os criadores da teoria discordaram sobre o seu sentido, e o debate continua.

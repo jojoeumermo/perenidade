@@ -1,0 +1,54 @@
+# Exercícios da aula "Piso, azulejo e revestimento" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-piso-01
+  tipo: numero
+  tema: "Quantidade de piso"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Uma cozinha mede 3 m por 3,5 m. Com 10% de perda, quantos m² de cerâmica comprar?"
+  resposta: "11,55"
+  unidade: "m²"
+  erros_comuns:
+    - resposta: "10,5"
+      explicacao: "Essa é a área sem a perda (3 × 3,5). Falta somar os 10% de perda."
+    - resposta: "13,5"
+      explicacao: "Você somou 3 m de perda. A perda é 10% da área, e não 3 m²."
+  dica: "Área vezes 1,10."
+  explicacao: "Área: 3 × 3,5 = 10,5 m². Com 10% de perda: 10,5 × 1,10 = 11,55 m²."
+  conferir: "3 * 3.5 * 1.1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-piso-02
+  tema: "Base"
+  dificuldade: 1
+  enunciado: "Qual é o cuidado essencial antes de assentar o piso?"
+  alternativas:
+    - texto: "Conferir se o contrapiso está limpo, firme, nivelado e curado"
+      certa: true
+    - texto: "Escolher a cor do rejunte e começar a assentar"
+      erro: "A cor do rejunte é detalhe. Sem uma boa base, o piso fica oco, desnivelado ou solta."
+    - texto: "Molhar muito o contrapiso, para aderir melhor"
+      erro: "Excesso de água atrapalha a aderência da argamassa colante. Siga a orientação do fabricante."
+  explicacao: "O piso é tão bom quanto a base. Limpa, firme, nivelada e curada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-piso-03
+  tema: "Áreas molhadas"
+  dificuldade: 2
+  enunciado: "No banheiro, o que deve vir antes do piso e do revestimento?"
+  alternativas:
+    - texto: "A impermeabilização da área molhada"
+      certa: true
+    - texto: "A pintura do teto"
+      erro: "A pintura vem no acabamento. Antes do piso é preciso proteger a laje da água."
+    - texto: "O rejunte"
+      erro: "O rejunte é a última etapa do assentamento, depois da cura da argamassa colante."
+  explicacao: "A impermeabilização impede a água de chegar à laje e às paredes. Ela vem antes do piso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

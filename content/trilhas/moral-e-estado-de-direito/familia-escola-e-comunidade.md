@@ -28,6 +28,11 @@ quiz:
     resposta: 0
     explicacao: "A lei entrou em vigor em 1º de janeiro de 2022."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o lugar da família na tradição e no currículo chineses, comparar com os arts. 226 a 230 da Constituição brasileira e reconhecer que a família também pode ser lugar de desigualdade e violência.
+
+
 
 Para a disciplina chinesa de Moral e Estado de Direito, a família é a **primeira escola** e a comunidade é o primeiro espaço de vida pública. Esta aula apresenta como o tema é tratado e o compara com a forma como a Constituição brasileira pensa a família.
 
@@ -74,3 +79,20 @@ Um olhar crítico lembra que a família também pode ser lugar de violência e d
 ## Para conversar
 
 Na sua família, quem cuida das crianças e dos idosos? Como esse trabalho é dividido? O que o Estado deveria oferecer para apoiar as famílias?
+
+## Exemplo resolvido: solidariedade entre gerações em dois países
+
+Pergunta: o que as duas sociedades afirmam em lei sobre o cuidado entre gerações?
+
+1. No Brasil (arts. 226 a 230): os pais têm o dever de assistir, criar e educar os filhos menores, e os filhos maiores têm o dever de ajudar e amparar os pais na velhice, na carência ou na enfermidade.
+2. Na China: a tradição confuciana valoriza a piedade filial (孝, xiào), e a Lei de Promoção da Educação Familiar, aprovada em 2021 e em vigor desde 2022, estabelece responsabilidades dos pais na educação dos filhos.
+3. Compare: nos dois casos a lei fala de deveres de cuidado nos dois sentidos, dos pais para os filhos e dos filhos para os pais.
+
+Confira: a aula resume dizendo que duas sociedades com histórias tão diferentes afirmam em lei a solidariedade entre gerações.
+
+## Resumo
+
+- Na tradição confuciana, o valor central é a piedade filial (xiào); em 1950, a lei do casamento acabou com os casamentos arranjados.
+- A China aprovou em 2021 a Lei de Promoção da Educação Familiar (em vigor desde 2022).
+- A Constituição brasileira (arts. 226 a 230) trata a família como base da sociedade e dá absoluta prioridade à criança, ao adolescente e ao jovem.
+- A família também pode ser lugar de violência e desigualdade, sobretudo para mulheres e crianças (Lei Maria da Penha, 2006).

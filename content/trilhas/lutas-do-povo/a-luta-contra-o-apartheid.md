@@ -36,6 +36,11 @@ quiz:
     explicacao: "O Congresso Nacional Africano venceu, e Nelson Mandela tomou posse como presidente em maio de 1994. O 27 de abril é o Dia da Liberdade no país."
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como o apartheid se formou e acabou na África do Sul, e o papel da resistência de massas e da solidariedade internacional.
+
 ## Antes do apartheid
 
 A colonização europeia do sul da África começou em 1652, quando a Companhia Holandesa das Índias Orientais fundou um posto na Cidade do Cabo. Os descendentes desses colonos, os **bôeres** ou africânderes, avançaram para o interior tomando terras dos povos africanos. Depois vieram os britânicos, que dominaram a região no século XIX, atraídos também pelas minas de **diamante** e de **ouro**, onde milhares de africanos trabalhavam por salários miseráveis.
@@ -117,3 +122,10 @@ Para entender o contexto de colonização e independência de que essa história
 1. No Brasil nunca houve leis de segregação como as do apartheid. Isso quer dizer que não houve segregação? Pense em onde moram, estudam e trabalham brancos e negros na sua cidade.
 2. A lei do passe controlava por onde os trabalhadores negros podiam andar. Que formas de controle sobre a circulação dos pobres você vê hoje?
 3. Por que a solidariedade internacional foi importante para derrubar o apartheid? Que lutas de hoje dependem dela?
+
+## Resumo
+
+- A colonização europeia do sul da África começou em 1652; em 1910 nasceu a União Sul-Africana, governada pela minoria branca.
+- A Lei de Terras dos Nativos (1913) limitou os africanos a pequenas "reservas", ampliadas até cerca de 13% do território.
+- Em 1948 a segregação virou sistema; houve resistência de massas, os estudantes de Soweto e os anos 1980 de um país "ingovernável".
+- O fim do regime não acabou com a desigualdade, que continua como desafio.

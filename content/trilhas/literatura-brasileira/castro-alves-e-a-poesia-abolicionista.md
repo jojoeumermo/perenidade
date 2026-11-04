@@ -31,6 +31,10 @@ quiz:
     explicacao: "Morreu em Salvador, em 1871."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quem foi Castro Alves, o que é a poesia condoreira e como *O Navio Negreiro* denuncia o tráfico de pessoas escravizadas.
+
 ## O poeta dos escravos
 
 **Antônio Frederico de Castro Alves** nasceu em 1847, no interior da Bahia, e morreu em Salvador em 1871, com **24 anos**. Estudou Direito no Recife e em São Paulo, recitava os seus poemas em teatros e praças e se tornou o poeta mais popular da sua geração. Ficou conhecido como o "poeta dos escravos".
@@ -71,9 +75,28 @@ Qual é o efeito de revelar, no fim do poema, que a bandeira do navio negreiro �
 
 Castro Alves deu enorme força à campanha abolicionista: os seus versos eram decorados e recitados em todo o país. Ao mesmo tempo, a sua poesia fala **sobre** os escravizados, vistos sobretudo como vítimas. Para ouvir a voz de pessoas negras do mesmo período, leia **Luiz Gama** e **Maria Firmina dos Reis**. Veja [Romantismo](/trilhas/literatura-brasileira/romantismo) e [Império e abolição](/trilhas/historia-do-brasil/imperio-e-abolicao).
 
+## Exemplo resolvido
+
+**Como ler a mudança de tom em *O Navio Negreiro*?**
+
+1. O poema tem **seis partes** e muda de ritmo conforme a cena.
+2. Começa com a **beleza do mar**.
+3. De repente revela o **horror no convés**: "Era um sonho dantesco... o tombadilho".
+4. Em seguida, o poeta **clama**: "Senhor Deus dos desgraçados!".
+5. No fim, descobre que a bandeira do navio é a do Brasil, e o apelo se volta à pátria.
+
+Confira: por ser poesia condoreira, o texto foi feito para ser declamado, com tom de discurso, exclamações e imagens grandiosas.
+
 ## Para praticar
 
 1. Leia *O Navio Negreiro* em voz alta, em grupo, dividindo as partes.
 2. Identifique a mudança de tom entre a primeira parte e a quarta.
 3. Explique por que a poesia condoreira é feita para ser declamada.
 4. Compare *O Navio Negreiro* com a crônica de Machado sobre Pancrácio, na aula [Machado e a escravidão](/trilhas/lendo-machado-de-assis/machado-e-a-escravidao).
+
+## Resumo
+
+- Castro Alves (1847-1871) morreu aos 24 anos; é o "poeta dos escravos". Em vida publicou *Espumas Flutuantes* (1870); *Os Escravos* saiu depois da sua morte.
+- A poesia condoreira busca grandeza e liberdade, é feita para ser declamada e tem como temas a abolição e a república.
+- *O Navio Negreiro* tem seis partes e denuncia o tráfico de pessoas escravizadas.
+- Leitura crítica: o poema foi escrito quase vinte anos depois da lei de 1850 que proibiu o tráfico, mas a escravidão seguia legal.

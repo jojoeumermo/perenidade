@@ -28,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "Com a derrota das revoluções, a repressão desmontou a organização."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como a Liga dos Justos virou a Liga dos Comunistas, por que o lema mudou e como nasceu o Manifesto Comunista.
 
 O *Manifesto Comunista* é famoso. A organização que o encomendou, nem tanto. Esta aula conta a história da **Liga dos Comunistas**, considerada o primeiro partido operário comunista internacional.
 
@@ -72,3 +75,23 @@ A Liga durou poucos anos e teve poucas centenas de membros. Mas deixou o *Manife
 ## Para conversar
 
 Por que uma organização tão pequena deixou um legado tão grande? O que isso diz sobre a importância das ideias e da organização?
+
+## Exemplo resolvido
+
+**Por que a Liga trocou o lema "Todos os homens são irmãos" por "Proletários de todos os países, uni-vos!"? Compare os dois.**
+
+1. **Primeiro lema.** "Todos os homens são irmãos": uma fraternidade genérica, que incluía até os patrões.
+2. **Contexto.** Em 1847, os dirigentes da Liga dos Justos convidaram Marx e Engels para reorganizá-la; no congresso de junho, em Londres, ela virou Liga dos Comunistas.
+3. **Segundo lema.** "Proletários de todos os países, uni-vos!": a unidade de uma classe, acima das fronteiras.
+4. **O programa.** No segundo congresso (fim de 1847), Marx e Engels foram encarregados do texto definitivo, publicado em fevereiro de 1848.
+5. **Conclua.** A troca marca a passagem de uma fraternidade abstrata para a afirmação da unidade dos trabalhadores como classe.
+
+Confira: a Liga se dissolveu em 1852, depois de presos julgados em Colônia, mas deixou o Manifesto.
+
+## Resumo
+
+- A **Liga dos Justos** (1836) reunia artesãos alemães exilados e defendia bens comuns.
+- Em **junho de 1847**, em Londres, virou **Liga dos Comunistas**, com o lema "Proletários de todos os países, uni-vos!".
+- Engels preparou os *Princípios Básicos do Comunismo*; Marx e Engels redigiram o **Manifesto** (fevereiro de 1848).
+- As revoluções de 1848 foram derrotadas em 1849; em 1852 a polícia prussiana prendeu membros da Liga e ela se dissolveu.
+- Legado: o Manifesto e a ideia de um partido internacional dos trabalhadores.

@@ -41,6 +41,9 @@ quiz:
     resposta: 1
     explicacao: "Diabetes tipo 1, lúpus e artrite reumatoide são exemplos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar a resposta inata da adaptativa, explicar a apresentação de antígenos (MHC), as funções dos linfócitos T e B e das classes de anticorpos, e como surge a diversidade dos receptores.
 
 ## Um sistema que aprende
 
@@ -130,3 +133,25 @@ O **soro antiofídico**, usado contra picadas de cobra, é produzido no Brasil p
 2. Por que é preciso compatibilidade para transplantes de órgãos?
 3. Classifique como imunidade ativa ou passiva, natural ou artificial: vacina contra sarampo; anticorpos do leite materno; soro antitetânico; ter tido catapora.
 4. Explique a diferença entre alergia e doença autoimune.
+
+## Exemplo resolvido
+
+**Uma célula do corpo foi infectada por um vírus. Como a resposta adaptativa a reconhece e elimina?**
+
+1. **Lembre da apresentação.** Os linfócitos T não reconhecem o micróbio inteiro: reconhecem **pedaços** (antígenos) exibidos na superfície das células, presos a moléculas MHC.
+2. **Veja o MHC de classe I.** Quase todas as células do corpo exibem pedaços das suas próprias proteínas no MHC I. Uma célula infectada exibe também pedaços do vírus.
+3. **Quem reconhece.** O linfócito **T citotóxico** (marcador CD8) reconhece o antígeno no MHC I e **mata** a célula infectada ou alterada.
+4. **Quem coordena.** O **T auxiliar** (CD4) reconhece antígeno no MHC II, apresentado por células como as dendríticas, e libera sinais que ativam B, T citotóxicos e macrófagos.
+5. **Quem fabrica anticorpos.** O linfócito **B**, com a ajuda do T auxiliar, se multiplica e vira plasmócito, que produz anticorpos.
+
+Confira: a resposta inata (fagócitos, células NK, complemento, inflamação, febre) age primeiro, em minutos ou horas; a adaptativa leva dias na primeira vez, mas é específica e deixa memória.
+
+## Resumo
+
+- O sistema imunitário reconhece uma variedade quase infinita de invasores sem atacar o próprio corpo.
+- **Inata** (minutos ou horas, sempre igual): barreiras, fagócitos, células NK, complemento, inflamação e febre.
+- **Adaptativa** (dias na primeira vez, específica, com memória): linfócitos T e B.
+- Os linfócitos T reconhecem **pedaços** do micróbio apresentados em moléculas **MHC**, que variam muito entre pessoas (compatibilidade em transplantes).
+- **T auxiliar** (CD4) coordena; **T citotóxico** (CD8) mata células infectadas; **T regulador** freia a resposta.
+- **Anticorpos:** IgM (primeira), IgG (mais abundante; atravessa a placenta), IgA (mucosas e leite), IgE (alergias e vermes) e IgD.
+- A diversidade dos receptores vem da recombinação ao acaso de segmentos de genes.

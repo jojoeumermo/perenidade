@@ -30,6 +30,10 @@ quiz:
     explicacao: "A resposta curta repete o auxiliar da pergunta: Yes, they do. / No, they don't."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber fazer perguntas no presente simples com *do* e *does*, responder de forma curta e usar as palavras de pergunta.
+
 Em português, uma pergunta muitas vezes é só uma afirmação com outra entonação: "Você mora aqui?" Em inglês isso também acontece na fala informal, mas a forma correta, e a que você vai ver em toda parte, muda a ordem das palavras. No presente simples, ela usa um ajudante: **do** ou **does**.
 
 ## A estrutura da pergunta
@@ -116,6 +120,17 @@ Há um caso em que o *do* some: quando o **who** ou o **what** é o próprio **s
 
 Não se preocupe com isso agora; basta saber que a forma existe, para não estranhar quando a encontrar.
 
+## Exemplo resolvido
+
+**Como transformar "She works at night" em pergunta e perguntar onde ela trabalha?**
+
+1. Escolha o auxiliar. O sujeito é *she*, então: **Does**.
+2. Ponha *Does* + sujeito + verbo na forma básica: *Does she work at night?* O -s fica no *does*, e não no *work*.
+3. Resposta curta: *Yes, she does.* ou *No, she doesn't.*
+4. Para saber o lugar, a palavra de pergunta vem antes: *Where does she work?*
+
+Confira: *Does she works?* seria erro. O -s só aparece uma vez, no auxiliar.
+
 ## Para praticar
 
 1. Transforme em pergunta: *She speaks Spanish. / They live in Manaus. / He likes his job.*
@@ -123,3 +138,11 @@ Não se preocupe com isso agora; basta saber que a forma existe, para não estra
 3. Escreva cinco perguntas para conhecer um colega de turma, usando palavras de pergunta diferentes.
 
 Respostas do 1: *Does she speak Spanish? / Do they live in Manaus? / Does he like his job?*
+
+## Resumo
+
+- Pergunta no presente simples: *Do/Does* + sujeito + verbo na forma básica.
+- *Do* com I, you, we, they; *does* com he, she, it.
+- Resposta curta repete o auxiliar: *Yes, I do.* / *No, she doesn't.*
+- A palavra de pergunta vem antes: *Where do you live?* *What time does the bus leave?*
+- O *to be* é exceção: basta inverter (*Are you tired?*).

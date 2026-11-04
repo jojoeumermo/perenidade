@@ -32,6 +32,10 @@ quiz:
     explicacao: "O 'teorema de Okishio' alimentou um longo debate; defensores da lei questionam suas hipóteses, como o tratamento estático e o salário real fixo."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber expor o argumento da queda tendencial da taxa de lucro, nomear as contratendências e distinguir as leituras do debate posterior.
+
 No Livro III do *Capital*, organizado por Engels a partir de manuscritos, Marx apresenta a **lei da queda tendencial da taxa de lucro**. Nos *Grundrisse*, ele a chamou de "a lei mais importante da economia política moderna" do ponto de vista histórico. Esta aula expõe o argumento, as contratendências e o debate que se seguiu.
 
 ## O argumento
@@ -88,3 +92,11 @@ Poucas teses marxistas foram tão discutidas.
 ## Para pesquisar e debater
 
 Pesquise o debate sobre a relação entre a queda da lucratividade nos anos 1970 e a virada neoliberal. A trilha [Como o capitalismo surgiu](/trilhas/como-o-capitalismo-surgiu/neoliberalismo-chile-thatcher-e-reagan) ajuda a situar o período.
+
+## Resumo
+
+- Taxa de mais-valia: m/v; composição orgânica: c/v; taxa de lucro: m/(c + v); a taxa de lucro sobe com a de mais-valia e cai com a composição orgânica.
+- A concorrência obriga a mecanizar: o trabalho vivo (fonte de valor novo) diminui em relação ao trabalho morto (máquinas e matérias-primas).
+- No exemplo da aula, com a mesma exploração e mais máquinas, a taxa cai de 50% para 25%.
+- Marx fala de uma tendência, contrariada por causas contrariantes (como o aumento do grau de exploração); as crises seriam um resultado.
+- Outras correntes marxistas explicam as crises pelo subconsumo, pela desproporção entre setores ou pela financeirização.

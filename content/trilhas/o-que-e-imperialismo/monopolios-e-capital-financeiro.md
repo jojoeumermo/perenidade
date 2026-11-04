@@ -32,6 +32,11 @@ quiz:
     resposta: 0
     explicacao: "O Cade atua com base na Lei nº 12.529, de 2011."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar cartel, truste e holding, explicar o que é capital financeiro e reconhecer a concentração de poder econômico hoje.
+
+
 
 Nos livros de economia, o capitalismo aparece como uma feira com muitos vendedores disputando o freguês. Na prática, em quase todo setor importante, poucas empresas gigantes dominam. Como se chegou a isso?
 
@@ -76,3 +81,23 @@ Quando poucas empresas dominam um setor, elas têm mais força para fixar preço
 ## Para pesquisar e debater
 
 Pegue cinco produtos da sua despensa. Descubra a que grupo empresarial cada marca pertence. Quantos grupos diferentes você encontrou?
+
+## Exemplo resolvido: cartel, truste ou holding?
+
+Três casos inventados.
+
+1. Três fabricantes de cimento combinam em segredo cobrar o mesmo preço e continuam separadas: é um **cartel**.
+2. Várias empresas do mesmo ramo passam a ter uma direção única: é um **truste**.
+3. Uma empresa cuja atividade é possuir ações de outras para controlá-las: é uma **holding**.
+
+Para ver como o Estado reage, use a história da Standard Oil: a Lei Sherman é de 1890 e a Suprema Corte mandou dividir a empresa em 1911, 21 anos depois (1911 - 1890). No Brasil, a Lei nº 12.529, de 2011, proíbe cartéis.
+
+Confira: o que muda o nome é se as empresas continuam separadas (cartel), passam a ter uma só direção (truste) ou uma controla as outras por ações (holding).
+
+## Resumo
+
+- A concentração e a centralização levam da concorrência ao monopólio.
+- Formas: cartel (combinam preços e continuam separadas), truste (direção única) e holding (possui ações para controlar).
+- Os bancos entram na indústria; Hilferding chamou a fusão de capital financeiro e Lênin acrescentou a oligarquia financeira.
+- Hoje a concentração continua em busca, sementes, aviões, sistemas de celular e nas gestoras de fundos.
+- No Brasil, a Lei 12.529/2011 proíbe cartéis e o Cade aprova grandes fusões.

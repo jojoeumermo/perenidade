@@ -1,0 +1,51 @@
+# Exercícios da aula "Arte indígena brasileira" (Artes: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: artes-indigena-01
+  tema: "Marajoara"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Onde e quando foi feita a cerâmica marajoara?"
+  alternativas:
+    - texto: "Na ilha de Marajó (Pará), por povos indígenas, entre 400 e 1400 d.C."
+      certa: true
+    - texto: "No Amapá, a partir de 1871"
+      erro: "1871 é o ano em que pesquisadores a \"descobriram\". A cerâmica foi feita em Marajó, entre 400 e 1400 d.C."
+    - texto: "Em Pernambuco, no século XX"
+      erro: "A cerâmica marajoara é da ilha de Marajó, no Pará, antes da colonização."
+  explicacao: "A fase marajoara, de uma elaborada civilização amazônica pré-cabralina, tem a cerâmica mais sofisticada da ilha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: artes-indigena-02
+  tema: "Kusiwa"
+  dificuldade: 2
+  enunciado: "Quem pratica a arte kusiwa e onde vivem?"
+  alternativas:
+    - texto: "Os povos de Marajó, no Pará"
+      erro: "Esses fizeram a cerâmica marajoara."
+    - texto: "Os Wajãpi, no Amapá"
+      certa: true
+    - texto: "Os xilógrafos de Bezerros, em Pernambuco"
+      erro: "Esses fazem xilogravura. A kusiwa é dos Wajãpi, no Amapá."
+  explicacao: "A kusiwa é registrada como patrimônio cultural do Brasil pelo Iphan, e a UNESCO reconheceu as expressões orais e gráficas dos Wajãpi."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: artes-indigena-03
+  tema: "Arte viva"
+  dificuldade: 2
+  enunciado: "Por que a aula diz que a arte indígena \"não é só coisa de museu\"?"
+  alternativas:
+    - texto: "Porque ela desapareceu"
+      erro: "A aula diz o contrário: ela é praticada hoje."
+    - texto: "Porque só existe em museus europeus"
+      erro: "A arte é viva e está nas aldeias."
+    - texto: "Porque os povos a praticam hoje, como os Wajãpi com a kusiwa"
+      certa: true
+  explicacao: "Proteger a arte indígena é também proteger as terras e os direitos dos povos que a criam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

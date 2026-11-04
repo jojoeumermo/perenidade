@@ -1,5 +1,6 @@
 ---
 titulo: "O que é ecossocialismo"
+modelo: 9
 resumo: "Uma corrente que une duas críticas: ao capitalismo, que destrói a natureza para lucrar, e ao socialismo que só pensou em produzir mais."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,14 @@ quiz:
     resposta: 1
     explicacao: "A pergunta deixa de ser 'o que dá lucro?' e passa a ser 'do que precisamos e o que o planeta suporta?'."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é o ecossocialismo, por que a palavra tem duas metades e que propostas a corrente defende.
+
+```suarealidade
+Qual problema ambiental aparece na sua semana: enchente, calor, lixo, rio sujo, ar ruim? Quem, na sua rua, mais sofre com ele?
+```
 
 Enchentes, secas, calor fora de época, rios contaminados, ar que faz mal. Quase todo mundo percebe que há algo errado na relação entre a sociedade e a natureza. O **ecossocialismo** é uma das respostas à pergunta "por quê?" e à pergunta "o que fazer?".
 
@@ -73,6 +82,15 @@ Por que o ecossocialismo não considera suficiente que cada pessoa "faça a sua 
 > Quem decide se uma usina será a carvão ou solar?
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Quem defende o chamado crescimento verde diz que não é preciso trocar o sistema: com tecnologia limpa, energia renovável e regras do mercado (como preço para quem emite carbono), a economia pode continuar crescendo e poluindo menos. Para essa corrente, o problema é a técnica atrasada, não o capitalismo em si.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a aula mostra que, segundo o IPCC, a queima de carvão, petróleo e gás segue sendo a principal causa do aquecimento, e que as grandes decisões sobre o que se produz ficam com quem controla as empresas. Quem defende o ecossocialismo não nega a tecnologia; pergunta quem decide, para quem e com que limite. A aula "Capitalismo verde" desta trilha examina essa promessa.
+```
+
 ## Raízes brasileiras
 
 O ecossocialismo não é só teoria vinda de fora. O seringueiro **Chico Mendes**, assassinado no Acre em 1988, uniu a defesa da floresta à luta dos trabalhadores e dizia que, no começo, pensava estar lutando para salvar seringueiras e, depois, compreendeu que lutava pela humanidade. A agroecologia praticada por movimentos do campo e os saberes de povos indígenas e quilombolas são parte dessa tradição.
@@ -82,3 +100,26 @@ O escritor uruguaio **Eduardo Galeano** resumiu a ideia em um título: direitos 
 ## Para pesquisar e debater
 
 Faça uma lista de três problemas ambientais do seu bairro ou da sua cidade. Para cada um, responda: quem causa? Quem sofre? Quem lucra?
+
+```agir
+# Esta semana
+Numa folha, anote o problema ambiental do seu bairro que você listou e responda: quem causa, quem sofre, quem lucra? Mostre a folha a uma pessoa de confiança e ouça o que ela acrescenta.
+```
+
+## Exemplo resolvido
+
+**Um rio do bairro está contaminado. Como olhar para isso como o ecossocialismo olha?**
+
+1. Pergunte quem causa: a aula diz que a crise tem causa no modo como a produção é organizada, para o lucro de poucos, e não só nos hábitos de cada pessoa.
+2. Pergunte quem sofre: normalmente quem mora ao lado do rio e não decide o que se despeja nele.
+3. Pergunte quem lucra: quem economiza ao não tratar o que joga fora.
+4. Pense na saída coletiva: decidir de forma democrática o que e como se produz, com limites que a natureza suporta.
+
+Confira: o "faça a sua parte" sozinho não resolve, pois a decisão grande não está na mão de quem consome.
+
+## Resumo
+
+- Ecossocialismo une ecologia e socialismo: critica o capitalismo, que cresce sem parar, e o produtivismo de países que se disseram socialistas.
+- A crise ambiental tem causa na organização da produção para o lucro, não só nos hábitos individuais.
+- As propostas incluem planejamento democrático, transição energética justa, agroecologia, transporte coletivo e respeito aos povos tradicionais.
+- Chico Mendes mostra a raiz brasileira da ideia.

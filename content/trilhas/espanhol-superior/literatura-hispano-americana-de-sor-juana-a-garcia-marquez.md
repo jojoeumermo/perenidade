@@ -31,6 +31,11 @@ quiz:
     explicacao: "Cortázar, García Márquez, Vargas Llosa e Carlos Fuentes estão entre os nomes associados."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai conhecer os grandes nomes da literatura hispano-americana, de Sor Juana ao boom, os temas que se repetem e uma obra de cada fase para começar a ler.
+
+
 ## Uma literatura de muitos países
 
 A literatura hispano-americana é escrita em espanhol por autores de quase vinte países, cada um com a sua história. Ainda assim, tem temas comuns: a conquista e a colonização, a mestiçagem, as ditaduras, a desigualdade, a natureza, os mitos indígenas e africanos, a busca de uma identidade própria.
@@ -90,3 +95,23 @@ O uruguaio **Eduardo Galeano**, com *Las venas abiertas de América Latina* (197
 2. Por que a defesa do estudo feita por Sor Juana foi tão ousada no século XVII?
 3. Pesquise o massacre dos trabalhadores das bananeiras na Colômbia, em 1928, e relacione-o com *Cien años de soledad*.
 4. Compare o boom latino-americano com a literatura brasileira da mesma época: que autores brasileiros você colocaria ao lado deles?
+
+## Exemplo resolvido
+
+**Monte um roteiro de leitura de quatro etapas, com uma obra de cada fase, usando a aula.**
+
+1. **Colonial:** Sor Juana Inés de la Cruz (México, século XVII).
+2. **Poesia do século XX:** Pablo Neruda (Chile), *Veinte poemas de amor* (1924).
+3. **Narrativa pré-boom:** Juan Rulfo (México), *Pedro Páramo* (1955), romance curto sobre o poder dos latifundiários.
+4. **Boom:** Gabriel García Márquez (Colômbia), *Cien años de soledad* (1967), com o realismo mágico em Macondo.
+5. **Escolha uma leitura curta** para começar: um poema ou um conto, em espanhol ou em tradução.
+
+Confira: cada etapa traz um país e um tema (colônia, poesia, campo, realismo mágico).
+
+## Resumo
+
+- A literatura hispano-americana tem temas comuns: conquista e colonização, mestiçagem, ditaduras e desigualdade.
+- **Sor Juana** (México, século XVII): poeta e intelectual que defendeu o estudo das mulheres.
+- **Modernismo:** Rubén Darío; **poesia do século XX:** Mistral, Vallejo, Neruda, Guillén, Paz.
+- **Narrativa:** Rulfo, Borges, Carpentier; o **boom** dos anos 1960 e 1970 com Cortázar, García Márquez, Vargas Llosa e Fuentes.
+- Além do boom: escritoras como Rosario Castellanos e Isabel Allende; Galeano, com *Las venas abiertas de América Latina*.

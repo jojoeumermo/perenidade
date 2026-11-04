@@ -1,0 +1,51 @@
+# Exercícios da aula "De onde vem a palavra comunismo" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-palavra-01
+  tema: "Origem da palavra"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "De onde vem a palavra comunismo?"
+  alternativas:
+    - texto: "Do grego dêmos"
+      erro: "Dêmos, \"povo\", está em democracia."
+    - texto: "Do latim communis, \"comum\""
+      certa: true
+    - texto: "Do nome de Marx"
+      erro: "A palavra vem do latim communis."
+  explicacao: "Da mesma raiz vêm comunidade, comunhão e comunicação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-palavra-02
+  tema: "Antes de Marx"
+  dificuldade: 2
+  enunciado: "Quem escreveu a Utopia, em 1516, sobre uma ilha imaginária sem propriedade privada nem dinheiro?"
+  alternativas:
+    - texto: "Karl Marx"
+      erro: "Marx escreveu muito depois, no século XIX."
+    - texto: "Platão"
+      erro: "Platão escreveu a República, na Grécia antiga."
+    - texto: "O inglês Thomas More"
+      certa: true
+  explicacao: "A ideia de bens em comum é muito antiga: o comunismo não foi inventado por Marx."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-palavra-03
+  tema: "Os Diggers"
+  dificuldade: 3
+  enunciado: "O que fizeram os Diggers, na Inglaterra de 1649, liderados por Gerrard Winstanley?"
+  alternativas:
+    - texto: "Ocuparam terras comuns para plantar coletivamente"
+      certa: true
+    - texto: "Lideraram camponeses na Alemanha de 1525"
+      erro: "Isso é Thomas Müntzer."
+    - texto: "Escreveram o Manifesto Comunista"
+      erro: "O Manifesto é de Marx e Engels, de 1848."
+  explicacao: "Diziam que a terra era um \"tesouro comum\" de todos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

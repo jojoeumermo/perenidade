@@ -1,5 +1,6 @@
 ---
 titulo: "Candomblé e umbanda: o básico para quem nunca entrou em um terreiro"
+modelo: 9
 resumo: "De onde vêm, em que acreditam e quais são os direitos das religiões de matriz africana no Brasil."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,14 @@ quiz:
     resposta: 1
     explicacao: "Discriminação religiosa é crime pela Lei 7.716, e a Constituição protege os locais de culto."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer de onde vêm o candomblé e a umbanda, no que acreditam, por que os terreiros foram perseguidos e o que a lei diz hoje sobre o respeito a eles.
+
+```suarealidade
+Que coisas você já ouviu falar do candomblé e da umbanda, em casa, na rua ou na igreja? Você sabe de onde vem cada uma delas, ou conhece alguém que frequenta um terreiro?
+```
 
 Esta aula é uma apresentação para quem é de fora. Ela não ensina fundamentos religiosos: esses se aprendem dentro de cada casa, com os mais velhos, e muitos deles não são para ser publicados.
 
@@ -118,3 +127,35 @@ O que a lei diz:
 - Não fotografe nem filme sem autorização.
 - Não toque em objetos, comidas ou pessoas em transe.
 - Quem é de outra religião, ou de nenhuma, é bem-vindo como visita. Ninguém vai tentar convertê-lo.
+
+## Exemplo resolvido
+
+**Um colega diz: "Candomblé e umbanda são a mesma coisa". Como mostrar a diferença?**
+
+1. Compare a origem. O candomblé tomou forma na Bahia, no século XIX, dividido em nações (queto, jeje, angola). A umbanda surgiu no Rio de Janeiro no começo do século XX, e a tradição umbandista toma como marco o dia 15 de novembro de 1908.
+2. Compare os elementos. A umbanda reúne elementos africanos, indígenas, católicos e do espiritismo de Allan Kardec.
+3. Compare o centro do culto. Na umbanda, as giras, em que médiuns recebem guias como caboclos e pretos velhos. No candomblé, a casa se organiza por nação, com orixás, voduns ou inquices.
+
+Conclusão: têm raízes africanas em comum, mas são tradições diferentes, e há ainda outras, como o tambor de mina, o xangô, o batuque e a jurema.
+
+```outrolado
+# O argumento de quem prefere dizer só "intolerância religiosa"
+"Todas as religiões já sofreram ataques. Falar em 'racismo religioso' divide as pessoas. Basta dizer que é intolerância religiosa, e a liberdade de crença já protege todo mundo."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que a Constituição protege a liberdade de crença e os locais de culto de todos. A aula lembra, porém, que a perseguição de que ela trata, com terreiros apedrejados e incendiados e crianças humilhadas por usar fios de conta, se dirige a religiões negras, e que o Código Penal de 1890 punia o "espiritismo" e o "curandeirismo" e a polícia invadia as casas. Por isso o movimento negro usa o nome racismo religioso, e a Lei 14.532, de 2023, também trata dele. Dar o nome certo ajuda a denunciar: Disque 100, delegacia e Ministério Público.
+```
+
+```agir
+# Esta semana
+Num papel, escreva três coisas que você já ouviu sobre o candomblé ou a umbanda. Ao lado de cada uma, marque se você sabe de onde ela vem. Depois leia de novo a lista "Como visitar com respeito" e escreva uma frase: o que você diria a alguém que fala mal dessas religiões sem conhecê-las. Nada de visitar sozinho nem de fotografar.
+```
+
+## Resumo
+
+- O candomblé tomou forma na Bahia no século XIX, em nações (queto, jeje e angola); a umbanda surgiu no Rio de Janeiro no começo do século XX.
+- Orixás, voduns e inquices são forças da natureza e ancestrais divinizados; axé é a força vital; o saber passa de boca em boca.
+- O sincretismo com santos católicos foi, para uns, disfarce e, para outros, parte da fé: as duas posições são legítimas.
+- Terreiros são também quilombo: acolhimento, memória e organização da comunidade negra. O primeiro tombado foi a Casa Branca do Engenho Velho, em 1984.
+- O racismo religioso é crime; a Constituição, a Lei 7.716/1989 e a Lei 14.532/2023 protegem. Para denunciar: Disque 100, delegacia e Ministério Público.

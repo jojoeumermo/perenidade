@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "A tomada de Monte Castello, em fevereiro de 1945, é a ação mais lembrada da FEB."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber citar formas de resistência ao nazifascismo (dentro da Alemanha, nos guetos, na Europa ocupada), o que foi a frente oriental, o papel do Brasil e o que nasceu da vitória de 1945.
 
 O nazifascismo foi derrotado por exércitos, mas também por milhões de pessoas comuns que resistiram de muitas formas, inclusive em condições desesperadas. Esta aula homenageia essas resistências.
 
@@ -68,3 +71,23 @@ A Alemanha se rendeu em **8 de maio de 1945** (9 de maio no horário de Moscou).
 ## Para conversar
 
 Que formas de resistência você considera mais corajosas entre as citadas? O que você teria feito no lugar dessas pessoas?
+
+## Exemplo resolvido
+
+**Quem derrotou o nazifascismo? Organize as formas de resistência da aula em grupos.**
+
+1. **Dentro da Alemanha.** O grupo estudantil Rosa Branca, em Munique, distribuiu panfletos; Hans e Sophie Scholl foram presos e executados em fevereiro de 1943.
+2. **Nos guetos e campos.** Em abril de 1943, os judeus do Gueto de Varsóvia pegaram em armas contra as deportações e resistiram por semanas; houve revoltas em Treblinka e Sobibor.
+3. **Na Europa ocupada.** Sabotagem, imprensa clandestina, proteção de perseguidos e guerrilha: os partisans de Tito na Iugoslávia, a Resistência francesa, os partisans italianos.
+4. **Nos exércitos.** A maior parte das forças alemãs foi combatida na frente oriental (Moscou, Stalingrado, Kursk); a FEB lutou na Itália em 1944 e 1945.
+5. **Conclua.** A vitória foi de exércitos e também de milhões de pessoas comuns.
+
+Confira: da vitória nasceram o Tribunal de Nuremberg, a ONU (1945) e a Declaração Universal dos Direitos Humanos (1948).
+
+## Resumo
+
+- Houve resistência dentro da Alemanha (Rosa Branca), nos guetos e campos (Gueto de Varsóvia, 1943) e em toda a Europa ocupada.
+- A maior parte das forças armadas alemãs foi destruída na **frente oriental**; o Exército Vermelho chegou a Berlim em abril-maio de 1945.
+- O Brasil entrou na guerra em 1942; a **FEB**, com cerca de 25 mil soldados, lutou na Itália (Monte Castello, fevereiro de 1945).
+- A Alemanha se rendeu em 8 de maio de 1945; a guerra deixou cerca de 70 milhões de mortos.
+- Da vitória vieram o Tribunal de Nuremberg, a ONU (1945) e a Declaração Universal dos Direitos Humanos (1948).

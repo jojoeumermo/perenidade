@@ -29,7 +29,17 @@ quiz:
     opcoes: ["Um quarteirão", "Uma quadra de esportes", "Uma janela"]
     resposta: 0
     explicacao: "Na Espanha, diz-se manzana."
+modelo: 9
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber pedir informação na rua em espanhol, entender o caminho que alguém explica e usar as palavras certas para o transporte.
+
+
+```suarealidade
+Quando foi a última vez que você precisou perguntar o caminho a alguém, ou explicar o caminho a alguém? Como foi, se a pessoa falava outra língua?
+```
 
 ## Perguntar
 
@@ -89,9 +99,40 @@ Outras palavras úteis: *el metro* / *el subte* (Buenos Aires) — metrô; *la p
 
 O verbo **coger** (pegar) é comum na Espanha (*coger el autobús*), mas em vários países da América Latina tem sentido vulgar. Lá, prefira **tomar**: *tomar el colectivo*.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hoje todo mundo tem mapa no celular. Aprender a perguntar o caminho em outra língua é perda de tempo".
+---
+Como você responderia, reconhecendo o que o celular resolve?
+---
+Uma resposta possível: o mapa resolve muita coisa, mas nem todo mundo tem celular com internet o tempo todo, e a bateria acaba. Perguntar também é o jeito de saber o ponto certo, o ônibus certo e se o caminho é seguro. E entender a resposta (todo derecho, a la izquierda, a dos cuadras) é o que faz a pergunta servir de alguma coisa.
+```
+
+## Exemplo resolvido
+
+**Alguém explica: "Siga dos cuadras todo derecho, doble a la derecha en el semáforo y el banco está enfrente de la farmacia". O que você faz?**
+
+1. **"Dos cuadras todo derecho"**: seguir em frente por dois quarteirões.
+2. **"Doble a la derecha en el semáforo"**: virar à direita no semáforo.
+3. **"El banco está enfrente de la farmacia"**: o banco fica em frente à farmácia.
+
+Confira: anote as três ações na ordem (em frente, direita, em frente à farmácia). Para pedir de novo, diga *¿Puede repetir, por favor?*
+
+```agir
+# Esta semana
+Escreva em espanhol, num papel, o caminho da sua casa até o ponto de ônibus em quatro ou cinco frases (todo derecho, a la derecha, en la esquina...). Leia em voz alta.
+```
+
 ## Para praticar
 
 1. Explique em espanhol o caminho da sua casa até o ponto de ônibus.
 2. Pergunte como chegar a três lugares: hospital, escola, farmácia.
 3. Escreva como se diz "ônibus" na Argentina, no México e em Cuba.
 4. Encene uma conversa pedindo informação a um desconhecido na rua.
+
+## Resumo
+
+- Para abordar alguém: *Disculpe* ou *perdone*, e depois *¿dónde está...?* ou *¿cómo llego a...?*.
+- Para entender o caminho: *todo derecho* (em frente), *a la derecha*, *a la izquierda*, *a dos cuadras*, *enfrente de*.
+- O ônibus urbano tem nomes diferentes por país: *autobús, camión, colectivo, micro, guagua*.
+- Na Espanha *coger* é pegar; em vários países da América Latina é melhor *tomar*.

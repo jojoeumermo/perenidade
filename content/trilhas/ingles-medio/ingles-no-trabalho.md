@@ -26,6 +26,10 @@ quiz:
     explicacao: "Wage costuma se referir ao pagamento por hora ou por semana; salary, ao pagamento mensal ou anual."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber apresentar o seu trabalho em inglês, entender avisos de segurança e usar o vocabulário básico do dia a dia profissional.
+
 ## Apresentar-se
 
 - *Hi, I'm Carla. I work in the maintenance department.*
@@ -98,9 +102,27 @@ Um colega estrangeiro pergunta: "Are you working overtime this week?" O que ele 
 > Overtime: tempo além da jornada.
 ```
 
+## Exemplo resolvido
+
+**Como ler o aviso "Danger: high voltage. Authorized personnel only."?**
+
+1. *Danger* é "perigo" (e vem antes de *caution*, que é "cuidado").
+2. *High voltage* é "alta tensão".
+3. *Authorized personnel only* é "somente pessoal autorizado".
+4. Junte o sentido: perigo, alta tensão; só entra quem está autorizado.
+
+Confira: entender esse tipo de aviso é questão de segurança. Se tiver dúvida, não opere nem entre.
+
 ## Para praticar
 
 1. Escreva cinco frases apresentando o seu trabalho: o que faz, onde, há quanto tempo, em que turno.
 2. Traduza três avisos de segurança do seu local de trabalho ou de algum lugar público para o inglês.
 3. Monte um diálogo curto entre um atendente e um cliente estrangeiro.
 4. Liste dez palavras do seu trabalho que você gostaria de saber em inglês e procure-as no dicionário.
+
+## Resumo
+
+- Para se apresentar: *I work in...*, *I'm responsible for...*, *I take care of...*
+- Vocabulário: *shift*, *overtime*, *day off*, *contract*, *union*, *strike*.
+- Avisos usam o imperativo e palavras como *Caution*, *Danger*, *Authorized personnel only*.
+- Entender os avisos de segurança é questão de segurança.

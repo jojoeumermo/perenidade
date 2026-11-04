@@ -27,6 +27,11 @@ quiz:
     explicacao: "O valor do meio na lista ordenada."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quais conteúdos de matemática mais caem no ENEM, resolver contas rápidas de porcentagem, escala, mediana e volume sem calculadora e evitar a pegadinha de aumentar e diminuir a mesma porcentagem.
+
+
 ## Matemática para a vida
 
 A prova de **Matemática e suas Tecnologias** tem 45 questões no 2º dia. As questões quase sempre trazem uma **situação**: uma compra, uma planta de casa, um gráfico de notícia, uma receita, uma conta de luz. Antes de calcular, é preciso **interpretar**.
@@ -76,3 +81,11 @@ Repare: aumentar 10% e depois tirar 10% **não** devolve ao valor inicial, porqu
 2. Converta a escala: 3 cm em um mapa de escala 1:50 000 correspondem a quantos km?
 3. Calcule média, mediana e moda de: 2, 4, 4, 5, 10.
 4. Resolva 15 questões de matemática de uma prova anterior, sem calculadora.
+
+## Resumo
+
+- A prova de Matemática tem 45 questões no 2º dia e quase sempre traz uma **situação**: compra, planta, gráfico, receita.
+- Domine primeiro **porcentagem**, **proporção** e **leitura de gráficos**.
+- Contas rápidas: 25% de desconto é × 0,75; escala 1:100 (5 cm são 5 m); mediana é o valor do meio; volume é comprimento × largura × altura.
+- Aumentar 10% e depois tirar 10% **não** devolve ao valor inicial (2.000 → 2.200 → 1.980).
+- A calculadora é proibida: treine contas e estimativas.

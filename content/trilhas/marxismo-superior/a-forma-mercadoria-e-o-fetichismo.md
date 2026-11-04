@@ -32,6 +32,10 @@ quiz:
     explicacao: "O fetiche não é um erro subjetivo: é a forma real em que as relações sociais aparecem numa sociedade produtora de mercadorias."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o duplo caráter do trabalho, as formas do valor e o fetichismo da mercadoria, tal como Marx os apresenta no primeiro capítulo de *O Capital*.
+
 O primeiro capítulo do *Capital* é o mais difícil e talvez o mais importante. A aula [Mercadoria e valor](/trilhas/introducao-ao-marxismo/mercadoria-e-valor) apresentou seus conceitos básicos. Aqui vamos mais fundo, em três movimentos: o duplo caráter do trabalho, a forma valor e o fetichismo.
 
 ## 1. O duplo caráter do trabalho
@@ -84,6 +88,24 @@ No fim da seção, Marx contrasta o mundo das mercadorias com outras formas de p
 
 O capítulo inspirou leituras importantes: Isaak Rubin, em *Ensaios sobre a teoria marxista do valor* (anos 1920), enfatizou o valor como relação social; György Lukács, em *História e Consciência de Classe* (1923), generalizou o fetichismo no conceito de **reificação**, tema de uma aula adiante.
 
+## Exemplo resolvido
+
+**Como Marx mostra que o valor só aparece na relação entre duas mercadorias?**
+
+1. O valor não pode ser visto nem tocado numa mercadoria isolada: "não contém um átomo de matéria natural".
+2. Na **forma simples**, 20 metros de linho = 1 casaco. O linho (forma **relativa**) expressa o seu valor no corpo do casaco (forma **equivalente**), que funciona como espelho.
+3. Na troca, o trabalho concreto do alfaiate e o do tecelão são igualados na prática: sobra o **trabalho abstrato**, dispêndio de energia humana em geral, que forma a substância do valor.
+4. Das formas simples, desdobrada e geral se chega à forma dinheiro.
+
+Confira: o trabalho abstrato é uma abstração **real**, produzida todos os dias pelo mercado, e não uma invenção do economista.
+
 ## Para pesquisar e debater
 
 Releia uma notícia de economia de hoje e sublinhe as frases em que coisas (o mercado, o dólar, a bolsa) aparecem como sujeitos que agem e sentem. Reescreva-as mostrando as pessoas e as classes por trás delas.
+
+## Resumo
+
+- O trabalho contido na mercadoria tem duplo caráter: concreto (produz valores de uso) e abstrato (forma a substância do valor).
+- O valor só aparece na relação com outra mercadoria; Marx reconstrói quatro formas do valor, da simples (20 m de linho = 1 casaco) à forma dinheiro.
+- O fetichismo faz as relações entre pessoas parecerem relações entre coisas.
+- Rubin (anos 1920) enfatizou o valor como relação social; Lukács (1923) generalizou o fetichismo no conceito de reificação.

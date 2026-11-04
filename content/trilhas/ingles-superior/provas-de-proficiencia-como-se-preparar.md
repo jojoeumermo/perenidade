@@ -27,6 +27,7 @@ quiz:
     explicacao: "São as quatro habilidades."
 ---
 
+
 ## Para que serve uma prova de proficiência
 
 Provas de proficiência medem o domínio de uma língua. São exigidas em:
@@ -90,9 +91,27 @@ Você vai prestar a prova de inglês de um mestrado em Educação, que é de lei
 
 O preço de uma prova internacional pode equivaler a uma parte grande de um salário mínimo. Isso transforma a exigência de proficiência em uma barreira de classe. Vale procurar programas de **isenção** e **bolsas** de instituições públicas e lutar para que universidades públicas ofereçam provas e cursos gratuitos.
 
+## Exemplo resolvido
+
+**Como começar a se preparar para a prova de língua de um programa de pós-graduação?**
+
+1. Pesquise o **edital** do programa e anote como é a prova de língua (qual prova, que nota, que validade).
+2. Faça uma **autoavaliação** com a tabela de níveis (de A1 a C2): em que nível você está em leitura? E em escuta?
+3. Monte um **plano de quatro semanas**, com 30 minutos por dia.
+4. Resolva uma **prova anterior**, cronometrando o tempo.
+
+Confira: antes de pagar qualquer prova, confirme qual prova e que nota a instituição aceita. O plano parte do edital, e não de um palpite.
+
 ## Para praticar
 
 1. Pesquise o edital de um programa de pós-graduação que interesse a você e anote como é a prova de língua.
 2. Faça uma autoavaliação com a tabela de níveis: em que nível você está em leitura? E em escuta?
 3. Monte um plano de estudos de quatro semanas, com 30 minutos por dia.
 4. Resolva uma prova de leitura anterior, cronometrando o tempo.
+
+## Resumo
+
+- Provas de proficiência são exigidas em pós-graduação, bolsas, empregos e vistos.
+- O Quadro Europeu Comum de Referência descreve os níveis de A1 a C2.
+- Provas internacionais (TOEFL, IELTS, Cambridge) avaliam quatro habilidades e são pagas; as da pós-graduação no Brasil costumam ser de leitura.
+- Um plano regular, a partir do edital, vale mais que estudar sem rumo.

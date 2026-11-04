@@ -28,6 +28,11 @@ quiz:
     explicacao: "É um erro comum, inclusive entre falantes nativos de algumas regiões."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar o imperfeito e o mais-que-perfeito do subjuntivo, montar as frases com si (real, hipotética e sobre o passado) e acertar a correspondência dos tempos.
+
+
 ## Além do presente do subjuntivo
 
 Depois dos [primeiros usos](/trilhas/espanhol-medio/subjuntivo-primeiros-usos), vêm as formas do **passado** do subjuntivo, indispensáveis para hipóteses, desejos irreais e textos escritos.
@@ -92,9 +97,27 @@ Complete: "La asamblea pidió que el sindicato ___ (convocar) una nueva reunión
 > O verbo principal (pidió) está no passado: imperfeito do subjuntivo.
 ```
 
+## Exemplo resolvido
+
+**Complete: "Si ___ (tener, yo) tiempo, ___ (estudiar) más. Si ___ (saber), ___ (venir)."**
+
+1. **Hipótese no presente ou futuro:** depois de *si*, imperfeito do subjuntivo; no resultado, condicional.
+2. **Forma:** *tuvieron* tira *-ron* e acrescenta *-ra*: *tuviera*. Resultado: *estudiaría*. *Si tuviera tiempo, estudiaría más.*
+3. **Hipótese sobre o passado:** mais-que-perfeito do subjuntivo e condicional composto: *Si hubiera sabido, habría venido.*
+
+Confira: nunca *si tendría*; depois de *si* hipotético, o condicional não aparece.
+
 ## Para praticar
 
 1. Forme o imperfeito do subjuntivo (yo): poder, saber, venir, estar, ir.
 2. Complete: "Si yo ___ (ser) presidente, ___ (cambiar) muchas cosas."
 3. Transforme em hipótese sobre o passado: "Si llueve, no vamos."
 4. Passe para o passado: "Te pido que me escuches." / "Espero que lleguen a tiempo."
+
+## Resumo
+
+- **Imperfeito do subjuntivo:** terceira pessoa do plural do indefinido, sem *-ron*, mais *-ra* ou *-se* (*hablaron → hablara*).
+- **Mais-que-perfeito:** *hubiera* (ou *hubiese*) + particípio.
+- Frases com **si**: real (*si llueve, no salgo*), hipótese (*si tuviera tiempo, estudiaría*), sobre o passado (*si hubiera sabido, habría venido*).
+- Outros usos: *como si* + imperfeito, *ojalá* + imperfeito, *quisiera*, *aunque* + indicativo (fato) ou subjuntivo (hipótese).
+- Verbo principal no passado ou condicional pede imperfeito na oração dependente.

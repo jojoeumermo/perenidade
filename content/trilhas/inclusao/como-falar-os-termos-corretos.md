@@ -12,6 +12,10 @@ fontes:
   - titulo: "Terminologia sobre deficiência na era da inclusão"
     autor: "Romeu Kazumi Sassaki"
     ano: "2003"
+  - titulo: "Decreto nº 6.949/2009 (Convenção sobre os Direitos das Pessoas com Deficiência)"
+    autor: "Presidência da República"
+    ano: "2009"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/decreto/d6949.htm"
 quiz:
   - pergunta: "Qual é a expressão adotada pela Convenção da ONU e pela lei brasileira?"
     opcoes: ["Portador de deficiência", "Pessoa com deficiência", "Pessoa especial"]
@@ -25,7 +29,16 @@ quiz:
     opcoes: ["Só o impedimento do corpo", "O encontro entre o impedimento e as barreiras que a sociedade coloca", "A falta de vontade"]
     resposta: 1
     explicacao: "Uma escada sem rampa, um vídeo sem legenda, um site que o leitor de tela não lê: a barreira está no ambiente."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar a expressão "pessoa com deficiência", evitar termos que ofendem, explicar onde está a deficiência segundo a Lei Brasileira de Inclusão e reconhecer o capacitismo.
+
+
+```suarealidade
+Pense em um lugar que você frequenta (mercado, ponto de ônibus, posto de saúde). O que nele dificultaria a vida de uma pessoa com deficiência: um degrau, uma calçada, um aviso sem letra grande?
+```
 
 ## As palavras contam uma história
 
@@ -78,3 +91,36 @@ Esse jeito de entender chama-se **modelo social** da deficiência, e é assunto 
 ## Quantas são
 
 Segundo a pesquisa domiciliar do IBGE de 2022, o Brasil tinha cerca de 18,6 milhões de pessoas com deficiência com dois anos de idade ou mais, perto de 9% da população. Não é um assunto "de minoria distante": é a vizinha, o colega de trabalho, alguém da família e, com o envelhecimento, possivelmente cada um de nós.
+
+## Exemplo resolvido
+
+**Reescreva a frase: "O deficiente não conseguiu entrar no prédio porque é cadeirante."**
+
+1. **Troque o rótulo.** A aula ensina que "deficiente" como rótulo reduz a pessoa a uma característica. Diga "pessoa com deficiência" (ou, quando for o caso, "pessoa que usa cadeira de rodas").
+2. **Pergunte onde está o problema.** Pela Lei Brasileira de Inclusão, a deficiência aparece na **interação com barreiras**. O que impediu a entrada foi o prédio, e não a pessoa.
+3. **Reescreva com a barreira no centro:** "A pessoa com deficiência não conseguiu entrar no prédio porque ele não tem rampa."
+4. **Confira o capacitismo.** A frase tratou a pessoa como incapaz? Não: agora diz que a falta de rampa é que impediu.
+
+Teste de bolso: antes de ajudar, **pergunte** se a pessoa quer ajuda; ao conversar, fale com a pessoa, e não com o acompanhante. São duas atitudes que a aula aponta como parte de combater o capacitismo.
+
+```outrolado
+# O argumento de quem acha que isso é exagero
+Isso é politicamente correto demais. Os nomes mudam de tempos em tempos e o que importa é a intenção de quem fala, não a palavra.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A intenção conta, mas a palavra também carrega uma ideia: "inválido" quer dizer sem valor, e "portador" faz da deficiência um objeto que se carrega. A expressão "pessoa com deficiência" não é capricho: é a que aparece na Convenção sobre os Direitos das Pessoas com Deficiência (Decreto nº 6.949/2009) e na Lei Brasileira de Inclusão (Lei nº 13.146/2015, art. 2º), que define a deficiência como impedimento de longo prazo que, em interação com uma ou mais barreiras, pode obstruir a participação plena e efetiva na sociedade. Falar certo é o começo, e tirar a barreira é o que muda a vida.
+```
+
+```agir
+# Esta semana
+No caminho que você faz todo dia, observe e anote no papel duas barreiras (uma escada sem rampa, uma calçada quebrada, um aviso só em letra pequena) que dificultariam a vida de alguém. Não fotografe pessoas. Se quiser, leve a anotação à associação de moradores ou à ouvidoria do lugar.
+```
+
+## Resumo
+
+- O jeito de nomear as pessoas com deficiência mudou muitas vezes; a expressão usada hoje é "pessoa com deficiência".
+- Evite "portador de deficiência", "deficiente" como rótulo e "pessoa especial" ou "necessidades especiais": a deficiência não se "porta" e a pessoa não se resume a ela.
+- Pela Lei Brasileira de Inclusão (2015), a deficiência é um impedimento de longo prazo que, em interação com barreiras, pode dificultar a participação na sociedade em igualdade de condições.
+- Capacitismo é o preconceito contra pessoas com deficiência: tratá-las como incapazes, dignas de pena ou "exemplos de superação" só por viverem a própria vida.
+- Segundo o IBGE (2022), há cerca de 18,6 milhões de pessoas com deficiência com dois anos ou mais no Brasil, perto de 9% da população.

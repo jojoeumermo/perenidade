@@ -47,6 +47,10 @@ quiz:
     resposta: 1
     explicacao: "O Decreto nº 9.772, de 2019, acabou com a hora de verão em todo o país."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que a hora muda de lugar para lugar, calcular a diferença entre dois fusos, conhecer os quatro fusos do Brasil e entender o que muda no dia a dia.
+
 
 ## Por que não é a mesma hora em todo lugar
 
@@ -132,3 +136,12 @@ Do outro lado do mundo, perto da longitude 180°, fica a **Linha Internacional d
 4. Você tem parentes ou amigos em outro fuso? Qual é a diferença de horário?
 
 **Respostas:** 1) 7h, 6h e 9h. 2) 4h da manhã. 3) 4 horas (60 ÷ 15).
+
+## Resumo
+
+- A Terra dá uma volta em cerca de 24 horas: 360° ÷ 24 h = 15° por hora; cada fuso tem cerca de 15° de longitude.
+- Para o leste, os relógios estão adiantados (soma-se); para o oeste, atrasados (subtrai-se).
+- A diferença entre dois fusos é a diferença entre os seus UTC; Brasília está em UTC−3.
+- O Brasil tem quatro fusos, definidos pelo Decreto nº 2.784/1913 e alterados pela Lei nº 12.876/2013.
+- A Hora Legal Brasileira é mantida pelo Observatório Nacional, com relógios atômicos.
+- Provas nacionais seguem a hora de Brasília. Perto da longitude 180° fica a Linha Internacional de Data.

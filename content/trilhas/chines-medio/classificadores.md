@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "个 é o classificador geral, embora o certo seja aprender o específico."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar o classificador entre o número e o substantivo, escolher os mais frequentes pela forma da coisa e fazer perguntas com 几 e 哪.
 
 ## Uma palavra no meio
 
@@ -91,3 +94,21 @@ Como se diz "duas ruas"?
 2. Descreva o que há na sua mesa, com classificadores.
 3. Transforme em plural com 些: 这本书, 那个人.
 4. Faça três perguntas com 几 + classificador.
+
+## Exemplo resolvido
+
+**Como se diz "duas ruas" e "este livro"?**
+
+1. **Duas ruas.** A rua é comprida: o classificador é **条** (tiáo). Antes de classificador, "dois" é **两**. Resultado: **两条路** (liǎng tiáo lù).
+2. **Este livro.** Depois de 这 (este) também vem classificador, e livros usam **本** (běn): **这本书** (zhè běn shū).
+3. **Plural.** Com 些 (xiē): 这些书, estes livros.
+
+Confira: 两个路 e 二条路 estão errados: o classificador tem de combinar com a forma da coisa, e o "dois" que acompanha classificador é 两.
+
+## Resumo
+
+- Em chinês, entre o número e o substantivo há um **classificador** (量词): **número + classificador + substantivo**. Também depois de 这 e 那.
+- Mais frequentes: 个 (geral; pessoas), 本 (livros), 张 (coisas planas), 条 (coisas longas), 只 (muitos animais), 件 (roupas, assuntos), 辆 (veículos), 杯, 位 (respeitoso), 家 (empresas, lojas), 口 (família), 双 (pares).
+- Lógica de forma: 条 para o comprido e 张 para o plano.
+- Perguntas: **几 + classificador** e **哪 + classificador**.
+- Plural depois de 这 e 那: **些**. O 个 é o classificador de reserva, mas é melhor usar o específico.

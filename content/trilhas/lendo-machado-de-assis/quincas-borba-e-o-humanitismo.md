@@ -29,6 +29,10 @@ quiz:
     explicacao: "Machado zomba de doutrinas que transformavam a desigualdade em lei natural."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar o enredo de *Quincas Borba* e explicar por que o humanitismo é uma paródia.
+
 ## A herança
 
 O filósofo **Quincas Borba**, que já aparecera em *Memórias Póstumas de Brás Cubas*, morre e deixa a fortuna para **Rubião**, ex-professor primário de Barbacena que cuidou dele. Há uma condição: Rubião deve cuidar do cachorro, que também se chama **Quincas Borba**.
@@ -61,9 +65,27 @@ No romance, quem fica com "as batatas"?
 
 O cão Quincas Borba acompanha Rubião até o fim, e é talvez o único personagem que lhe tem afeto sincero. A presença do animal faz pensar: quem, nesse mundo, age por interesse e quem age por lealdade?
 
+## Exemplo resolvido
+
+**Como explicar a parábola das batatas?**
+
+1. Duas tribos famintas disputam um campo de batatas que só basta para alimentar **uma** delas.
+2. Se dividirem, as duas morrem de fome; se uma vence, sobrevive.
+3. Daí a doutrina: "Ao vencedor, as batatas". A guerra e a destruição dos outros são boas, porque garantem a vida dos vencedores.
+4. Machado leva ao absurdo as teorias do fim do século XIX que tratavam a desigualdade como lei da natureza.
+
+Confira: o humanitismo é uma sátira, e o que acontece com Rubião (que perde tudo) mostra o resultado dessa "filosofia" posta em prática.
+
 ## Para praticar
 
 1. Explique a parábola das batatas com as suas palavras.
 2. Dê um exemplo atual de discurso que trata a desigualdade como "natural".
 3. Leia o início do romance no [acervo](/acervo/quincas-borba) e descreva Rubião.
 4. Compare Rubião e Brás Cubas: os dois ficam ricos sem trabalhar. O que os diferencia?
+
+## Resumo
+
+- Quincas Borba deixa a fortuna a Rubião, com a condição de cuidar do cachorro.
+- O casal Palha e Sofia explora Rubião, que enlouquece e morre em Barbacena.
+- O humanitismo ("Ao vencedor, as batatas") é uma paródia das teorias que tratavam a desigualdade como natural.
+- O romance é narrado em terceira pessoa.

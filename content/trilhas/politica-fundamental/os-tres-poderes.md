@@ -27,6 +27,11 @@ quiz:
     resposta: 1
     explicacao: "O veto do presidente, a derrubada do veto pelo Congresso e o controle das leis pelo Supremo são exemplos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que o poder é dividido em três, o que faz cada Poder, como um freia o outro e como a divisão se repete nos estados e nos municípios.
+
+
 
 ## Por que dividir o poder
 
@@ -90,6 +95,31 @@ A divisão se repete, com outros nomes:
 O artigo 1º da Constituição diz que **todo o poder emana do povo**, que o exerce por meio de representantes eleitos ou diretamente. O voto é só uma das formas. Há também o plebiscito, o referendo, os projetos de lei de iniciativa popular, os conselhos de políticas públicas e as audiências.
 
 No papel, os três poderes se equilibram. Na prática, o dinheiro pesa nas eleições, o acesso à Justiça é desigual e grupos econômicos pressionam os três. Por isso a organização popular, em sindicatos, associações e movimentos, sempre foi a forma de quem trabalha fazer valer a sua parte desse poder.
+
+## Exemplo resolvido: quantos senadores e quem freia quem?
+
+**Quantos senadores existem e por quê?**
+
+1. O Senado representa os estados e o Distrito Federal, com 3 senadores por unidade.
+2. São 26 estados mais o Distrito Federal: 27 unidades.
+3. Conta: 27 × 3 = 81 senadores. Compare com a Câmara dos Deputados, que representa a população: 513 deputados.
+
+**O Congresso aprova uma lei e o presidente a veta. E agora?**
+
+1. O presidente usou o seu freio sobre o Legislativo: o veto.
+2. O Congresso tem o seu freio: pode votar a derrubada do veto.
+3. Se ainda houver dúvida sobre a lei ser compatível com a Constituição, o Supremo pode declará-la inconstitucional.
+
+Confira: nenhum Poder decide sozinho, e é isso que a divisão do poder quer garantir.
+
+## Resumo
+
+- O poder é dividido para que ninguém, sozinho, faça, aplique e julgue as leis (art. 2º: independentes e harmônicos entre si).
+- Legislativo: Congresso Nacional (513 deputados por 4 anos e 81 senadores por 8 anos); faz leis, vota o orçamento e fiscaliza.
+- Executivo: presidente, eleito por 4 anos, com uma reeleição seguida, governa e administra.
+- Judiciário: julga; no topo, o STF (11 ministros), guardião da Constituição.
+- Freios: veto, derrubada do veto, impeachment, declaração de inconstitucionalidade e aprovação de indicados pelo Senado.
+- A divisão se repete em estados (Assembleia, governador, Tribunal de Justiça) e municípios (Câmara de Vereadores e prefeito).
 
 ## Para praticar
 

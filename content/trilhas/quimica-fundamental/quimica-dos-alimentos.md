@@ -29,6 +29,10 @@ quiz:
     explicacao: "É o aviso obrigatório da rotulagem nutricional frontal."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que cada nutriente faz, ler a lista de ingredientes e a tabela do rótulo e reconhecer um alimento ultraprocessado.
+
 ## Comer é química
 
 Um prato de arroz com feijão é uma mistura de substâncias que o corpo desmonta e usa para obter energia, construir e consertar os seus tecidos e fazer funcionar tudo o mais. Essas substâncias são os **nutrientes**.
@@ -114,9 +118,27 @@ A alimentação depende da **renda**, do **tempo**, do **preço** dos alimentos,
 
 O Brasil é um dos maiores produtores de alimentos do mundo, e a fome reaparece nele a cada crise. O que falta nunca foi comida.
 
+## Exemplo resolvido
+
+**Uma porção de um produto tem 20 g de carboidrato, 5 g de proteína e 10 g de gordura. Quantas quilocalorias ela tem?**
+
+1. Use a energia por grama: carboidrato e proteína, cerca de 4 kcal; gordura, cerca de 9 kcal.
+2. Carboidrato: 20 × 4 = 80 kcal. Proteína: 5 × 4 = 20 kcal. Gordura: 10 × 9 = 90 kcal.
+3. Some: 80 + 20 + 90 = 190 kcal.
+
+Confira: a gordura tem só 10 g, e mesmo assim entra com quase metade da energia, porque concentra mais que o dobro por grama.
+
 ## Para pesquisar e debater
 
 1. Leia o rótulo de três produtos da sua casa. Qual é o primeiro ingrediente de cada um? Algum tem a lupa?
 2. Classifique o que você comeu ontem nos quatro grupos da tabela.
 3. Compare o preço de um quilo de feijão com o de um quilo de biscoito recheado. E o que cada um oferece?
 4. O que dificulta, na sua rotina, comer comida feita na hora? O que poderia mudar isso?
+
+## Resumo
+
+- Os nutrientes são carboidratos, proteínas, gorduras, vitaminas, minerais, fibras e água, cada um com uma função.
+- Carboidrato e proteína dão cerca de 4 kcal por grama; a gordura, cerca de 9.
+- O Guia alimentar para a população brasileira recomenda fazer dos alimentos in natura ou minimamente processados a base da alimentação e evitar os ultraprocessados.
+- A lista de ingredientes vem em ordem decrescente de quantidade.
+- A coluna "por 100 g" da tabela nutricional permite comparar produtos.

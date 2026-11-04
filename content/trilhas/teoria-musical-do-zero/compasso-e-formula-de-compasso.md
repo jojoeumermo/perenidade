@@ -25,6 +25,10 @@ quiz:
     explicacao: "O primeiro tempo é o apoio do compasso. É ele que faz a gente sentir a valsa em 'UM, dois, três'."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são pulso e compasso, ler a fórmula de compasso e conferir se um compasso tem o número certo de tempos.
+
 ## O pulso e os grupos
 
 Quando você bate o pé ouvindo uma música, está marcando o **pulso**: batidas regulares, como as de um relógio. Mas as batidas não soam todas iguais. Algumas são mais apoiadas, e é isso que faz a gente sentir uma marcha como "UM, dois, UM, dois" e uma valsa como "UM, dois, três, UM, dois, três".
@@ -75,6 +79,24 @@ Em um compasso 2/4, quantas colcheias cabem?
 > O compasso tem dois tempos de semínima, e cada semínima vale duas colcheias.
 ```
 
+## Exemplo resolvido
+
+**Em um compasso 4/4, as figuras mínima, semínima e semínima estão certas?**
+
+1. Leia a fórmula: 4 em cima, quatro tempos por compasso; 4 embaixo, a semínima vale um tempo.
+2. Some os valores: a mínima vale dois tempos e cada semínima vale um: 2 + 1 + 1 = 4.
+3. Compare com o total do compasso: 4 tempos.
+
+Conclusão: o compasso está certo, pois as figuras somam exatamente quatro tempos. Em 2/4, o mesmo compasso estaria cheio demais, porque 2/4 só aceita dois tempos.
+
 ## Para praticar
 
 No [metrônomo](/ferramentas/metronomo), escolha três tempos por compasso e conte em voz alta, apoiando o "um": UM, dois, três. Troque para dois e para quatro tempos e repare como o "balanço" muda, mesmo com a velocidade igual.
+
+## Resumo
+
+- Pulso são as batidas regulares; compasso é um grupo de tempos, separado por barras de compasso, e o primeiro tempo costuma ser o mais forte.
+- A fórmula de compasso tem dois números: em cima, quantos tempos por compasso; embaixo, qual figura vale um tempo (2 é a mínima, 4 a semínima, 8 a colcheia).
+- 2/4 aparece em marchas, samba, baião e frevo; 3/4 em valsas; 4/4 na maior parte da música popular.
+- Em cada compasso, as figuras somam exatamente os tempos da fórmula.
+- Pausa é um tempo de silêncio, e o silêncio também é contado.

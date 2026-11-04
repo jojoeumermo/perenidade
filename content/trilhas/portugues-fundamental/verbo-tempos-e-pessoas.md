@@ -23,6 +23,11 @@ quiz:
     resposta: 1
     explicacao: "É o modo subjuntivo, usado para o que é possível, duvidoso ou desejado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer pessoa, tempo e modo do verbo, usar ser, estar, ter e ir e acertar as dúvidas frequentes (tem e têm, vir e vier, nós fomos).
+
+
 
 ## A palavra que faz a frase andar
 
@@ -112,6 +117,26 @@ Qual frase apresenta o fato como uma possibilidade, e não como certeza?
 ## A fala e a escrita
 
 Na conversa do dia a dia, em todas as regiões e classes, é comum reduzir as terminações: "nós vai", "eles foi", "tu vai". Isso não é falta de raciocínio: é uma gramática da fala, com regras próprias, estudada pelos linguistas. Mas a escrita formal (o requerimento, a prova, o currículo, a ata) cobra as formas da tabela, e quem não as domina é barrado. Aprender a norma-padrão é ganhar mais uma ferramenta, sem ter de jogar fora o jeito de falar de casa.
+
+## Exemplo resolvido: analisando "Ontem nós fomos à reunião"
+
+1. **Pessoa:** *nós*, 1ª pessoa do plural. O verbo concorda: *fomos*, e não "foi".
+2. **Verbo:** *fomos* é do verbo *ir* (fomos à reunião). *Ser* e *ir* têm o mesmo passado, e aqui o sentido (ir a um lugar) mostra que é *ir*.
+3. **Tempo:** pretérito perfeito, fato passado e terminado ("ontem").
+4. **Modo:** indicativo, porque apresenta o fato como certo.
+
+Compare: "Se eu **vir** o resultado, aviso" (futuro do subjuntivo de *ver*) e "Se você **vier** amanhã, traga a ata" (futuro do subjuntivo de *vir*).
+
+Confira: pessoa, tempo e modo respondem a três perguntas: quem faz, quando e com que certeza.
+
+## Resumo
+
+- O verbo indica ação, estado ou fenômeno da natureza e muda para dizer quem faz, quando e com que certeza.
+- Pessoas: eu, tu, ele/ela, nós, vós, eles/elas; você e a gente pedem o verbo na 3ª pessoa.
+- Tempos: presente, pretérito perfeito (fato terminado), imperfeito (fato que durava ou se repetia), futuro do presente e futuro do pretérito.
+- Modos: indicativo (certeza), subjuntivo (possibilidade ou desejo) e imperativo (ordem, conselho, pedido).
+- Ser, estar, ter e ir são irregulares; ser e ir têm o mesmo passado (fui, foi, fomos, foram).
+- Atenção: tem/têm, vem/vêm, nós fomos, trouxe, quando eu vir e quando eu vier.
 
 ## Para praticar
 

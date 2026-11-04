@@ -28,7 +28,16 @@ quiz:
     opcoes: ["A natureza", "A sociedade, por meio de quem controla o dinheiro e o poder", "Os próprios átomos"]
     resposta: 1
     explicacao: "A mesma descoberta serve para fazer um hospital ou uma bomba. A decisão é política."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que a física estuda, reconhecer suas áreas no dia a dia e explicar como ela testa o que afirma.
+
+
+```suarealidade
+Que coisa você faz com as mãos, no trabalho ou em casa, que só dá certo porque a natureza funciona de um jeito (carregar, medir, cozinhar, apertar)? Como você aprendeu a fazer isso?
+```
 
 ## Perguntas de criança
 
@@ -90,8 +99,43 @@ A física não acontece fora da sociedade. Pesquisar custa dinheiro, e quem paga
 
 As leis da natureza não têm lado. O **uso** que se faz delas tem. Quanto mais gente entender de ciência, menos essas decisões ficarão nas mãos de poucos.
 
+## Exemplo resolvido
+
+**A panela com tampa ferve a água mais depressa? Como a física responderia?**
+
+1. **Pergunta.** Escreva de modo que se possa medir: "Quanto tempo leva para 1 litro de água ferver com tampa e sem tampa?".
+2. **Hipótese.** Uma resposta provisória, que pode estar errada. Por exemplo: "com tampa, ferve mais depressa".
+3. **Teste justo.** Use duas panelas iguais, 1 litro de água em cada, a mesma temperatura inicial, o mesmo fogo. Só uma coisa muda: a tampa.
+4. **Medida.** Marque o tempo em cada panela com o relógio. Anote os números, não a impressão.
+5. **Repetição.** Repita algumas vezes. Se o resultado mudar muito, a conclusão ainda não é segura.
+6. **Conclusão.** Se os números mostrarem a diferença todas as vezes, a hipótese se sustenta. Se não, ela cai, e isso também é resultado.
+
+A força da física está nesse caminho: quem discorda pode refazer o teste e conferir.
+
+```outrolado
+# O argumento de quem acha que física é dispensável
+O pedreiro, a cozinheira e o eletricista fazem bem o seu trabalho sem ter estudado física. A experiência de anos vale mais que fórmula de livro, e quem diz o contrário quer pôr o povo a decorar o que já sabe fazer.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A experiência é um saber de verdade, e a aula diz isso: o pedreiro que usa a alavanca e o prumo, a cozinheira que controla a pressão da panela, o eletricista que dimensiona o fio já usam física. O que o estudo acrescenta é o porquê e a medida: com ele, dá para trocar o material, calcular o fio de um chuveiro novo ou reconhecer um risco que nunca se viu. E a física sabe o que sabe porque pode ser testada e repetida por qualquer pessoa, não por autoridade.
+```
+
+```agir
+# Esta semana
+Escolha uma coisa sem risco que você faz sempre do mesmo jeito (por exemplo, quanto tempo leva para esfriar uma bebida, ou como você arruma uma sacola). Faça um teste justo: mude só uma coisa, anote no papel o resultado de cada tentativa e escreva uma frase de conclusão. Nada de eletricidade, fogo ou peso.
+```
+
 ## Para pesquisar e debater
 
 1. Que conhecimentos de física você usa no seu trabalho ou em casa, mesmo sem ter estudado?
 2. Por que a possibilidade de errar e corrigir torna a ciência mais confiável, e não menos?
 3. Quem deveria decidir o que os cientistas pesquisam?
+
+## Resumo
+
+- A física estuda a natureza: movimento, calor, luz, som, eletricidade e a estrutura da matéria.
+- Suas áreas (mecânica, termologia, óptica, ondulatória, eletricidade, física moderna) aparecem no dia a dia.
+- Ela sabe o que sabe por observação, hipótese, medida e teste que outros podem repetir.
+- Usa grandezas medidas e a linguagem da matemática.
+- É conhecimento de todo mundo e não está fora da sociedade: quem paga a pesquisa escolhe as perguntas.

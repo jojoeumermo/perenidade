@@ -1079,6 +1079,27 @@
       "outroladoTreino": "Treine a sua resposta",
       "outroladoPrompt": "Escreva como você responderia, com respeito e com fatos. Fica só no seu aparelho.",
       "outroladoResposta": "Ver uma resposta possível",
+      "outrojeito": "Outro jeito de explicar",
+      "outrojeitoAbrir": "Não ficou claro? Veja de outro jeito",
+      "ouvirPergunta": "Ouvir a pergunta e as respostas",
+      "pararAudio": "Parar",
+      "respostaFalar": "Ou responda falando",
+      "respostaGravar": "Gravar",
+      "respostaParar": "Parar a gravação",
+      "respostaGravando": "Gravando… fale com calma.",
+      "respostaOuvir": "A sua resposta gravada",
+      "respostaApagar": "Apagar o áudio",
+      "respostaAviso": "O áudio fica só neste aparelho: o instituto não recebe nem ouve. Se você apagar os dados do site, ele some.",
+      "respostaSemMicrofone": "Este aparelho não deixa gravar áudio aqui. Escreva a resposta.",
+      "respostaConferir": "Ouça e confira por conta própria:",
+      "respostaConferir1": "Eu disse a ideia principal?",
+      "respostaConferir2": "Dei um exemplo da minha vida?",
+      "respostaConferir3": "Falei com calma, dá para entender?",
+      "retornoPedir": "Pedir um retorno ao assistente",
+      "retornoPergunta": "Esta é a minha resposta. Pode me dar um retorno curto: o que está certo e o que falta?",
+      "retornoRotulo": "Sua resposta, para o assistente comentar",
+      "retornoBotao": "Pedir o retorno",
+      "retornoAviso": "Só vai para o assistente se você apertar o botão, e só o texto escrito. O áudio nunca sai do aparelho.",
       "agir": "Agir",
       "agirVou": "Vou fazer isto",
       "agirFeito": "Anotado neste aparelho. A próxima aula vai perguntar como foi.",
@@ -2202,6 +2223,22 @@
     "modelos-de-documentos": [
       "Modelos de documentos",
       "Reclamação ao Procon, pedido de demissão, recurso ao INSS e notificação ao locador."
+    ],
+    "arvore-trabalhista": [
+      "Emergência no trabalho",
+      "Árvore de decisão para problemas trabalhistas: junte as provas, veja a lei (CLT) e leve ao sindicato ou à Defensoria."
+    ],
+    "clausulas-de-contrato": [
+      "Explicador de cláusulas",
+      "Cole um contrato de aluguel ou de empréstimo e veja o que a Lei do Inquilinato e o Código de Defesa do Consumidor dizem."
+    ],
+    "carga-eletrica": [
+      "Carga elétrica da casa",
+      "Some os aparelhos por circuito e veja se o fio e o disjuntor aguentam, com aviso de segurança (NBR 5410)."
+    ],
+    "mapa-de-servicos": [
+      "Mapa de serviços públicos",
+      "O que fazem CRAS, UBS, CAPS, Defensoria, Procon e EJA, e links oficiais para achar a unidade do seu município."
     ]
   },
   "tools": {
@@ -5642,6 +5679,9 @@
     "baixarHtmlFalhou": "Não deu para montar o arquivo neste navegador.",
     "baixarHtmlFonte": "Baixado de",
     "baixarHtmlRodape": "Funciona sem internet. Para fazer os testes e guardar o progresso, abra a aula no site.",
+    "baixarFerramenta": "Baixar a ferramenta num arquivo só (para mandar no WhatsApp)",
+    "baixarFerramentaDica": "Um arquivo .html pequeno, com a conta dentro, que abre sem internet em qualquer celular, até nos antigos.",
+    "baixarFerramentaRodape": "Funciona sem internet e não guarda nada do que você digita. Para a versão completa, abra a ferramenta no site.",
     "whatsapp": "Mandar no WhatsApp",
     "telegram": "Mandar no Telegram",
     "copiar": "Copiar o link",

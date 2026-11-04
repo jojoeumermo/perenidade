@@ -31,6 +31,11 @@ quiz:
     explicacao: "O sorteio faz com que os dois grupos sejam parecidos em tudo, menos no tratamento."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é correlação, por que ela não prova causa e quais são as quatro outras explicações possíveis (terceira causa, causa ao contrário, coincidência e seleção).
+
+
 ## Andar junto
 
 Duas grandezas têm **correlação** quando variam juntas. Quando uma sobe e a outra também sobe, a correlação é positiva (altura e peso). Quando uma sobe e a outra desce, é negativa (preço e quantidade vendida).
@@ -103,6 +108,17 @@ Mas a mesma frase é usada para **fabricar dúvida** sobre o que já está bem d
 
 A pergunta útil não é "isso é só correlação?", e sim: **que outras explicações existem, e elas foram examinadas?**
 
+## Exemplo resolvido
+
+**"Nos meses em que se vende mais sorvete, há mais afogamentos. Então sorvete causa afogamento?"**
+
+1. **Há correlação?** Sim: as duas coisas sobem juntas. Isso é um fato sobre os dados.
+2. **Teste a causa ao contrário:** afogamento causa venda de sorvete? Não faz sentido.
+3. **Procure uma terceira causa:** o **calor** leva as pessoas à sorveteria e à praia. Um fator escondido que move as duas coisas é uma *variável de confusão*.
+4. **Conclusão:** a correlação é real, mas a causa do sorvete está descartada.
+
+Confira: a pergunta útil não é "isso é só correlação?", e sim "que outras explicações existem, e elas foram examinadas?".
+
 ## Para praticar
 
 Para cada frase, proponha uma explicação que não seja a de causa direta.
@@ -114,3 +130,10 @@ Para cada frase, proponha uma explicação que não seja a de causa direta.
 5. "Pessoas que usam o cartão de crédito gastam mais."
 
 **Respostas possíveis:** 1) Terceira causa: riqueza do país, que permite consumir mais e financiar mais pesquisa. 2) Causa ao contrário: quem vai mal é quem procura aula particular. 3) Terceira causa: tamanho da população; e os doentes graves são levados para onde há hospital. 4) Coincidência, ou o time estava em uma fase ruim que passaria de qualquer modo. 5) Pode haver causa, mas também o contrário: quem pretende gastar mais é quem usa o cartão; e a renda influencia as duas coisas.
+
+## Resumo
+
+- **Correlação**: duas grandezas variam juntas (positiva ou negativa); é um fato sobre os dados, e não prova causa.
+- Quatro outras explicações: **terceira causa**, **causa ao contrário**, **coincidência** e **seleção** (viés de sobrevivência).
+- O método mais seguro para provar causa é o **experimento com sorteio**; quando não dá, reúnem-se indícios (muitos estudos, dose e efeito, causa antes do efeito, outras explicações descartadas, mecanismo).
+- A frase "correlação não é causa" protege de conclusões apressadas, mas também pode ser usada para fabricar dúvida sobre o que está bem demonstrado.

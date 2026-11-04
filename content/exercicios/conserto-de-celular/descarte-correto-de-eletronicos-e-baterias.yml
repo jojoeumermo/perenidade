@@ -1,0 +1,51 @@
+# Exercícios da aula "Descarte correto de eletrônicos e baterias" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-descarte-01
+  tema: "Logística reversa"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que a Política Nacional de Resíduos Sólidos (Lei 12.305/2010, art. 33) manda, segundo a aula?"
+  alternativas:
+    - texto: "Que fabricantes, importadores, distribuidores e comerciantes de pilhas, baterias e eletroeletrônicos organizem o retorno depois do uso"
+      certa: true
+    - texto: "Que o consumidor jogue no lixo comum"
+      erro: "A lei manda organizar o retorno depois do uso (logística reversa)."
+    - texto: "Que só o consumidor pague pelo descarte"
+      erro: "A lei põe a obrigação de organizar o retorno sobre fabricantes, importadores, distribuidores e comerciantes."
+  explicacao: "O consumidor deve devolver aos comerciantes ou distribuidores."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 12.305/2010, art. 33, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: cel-descarte-02
+  tema: "Antes de entregar"
+  dificuldade: 1
+  enunciado: "O que o consumidor deve fazer antes de entregar um aparelho eletrônico, segundo o Decreto 10.240/2020, citado na aula?"
+  alternativas:
+    - texto: "Entregar com a senha anotada"
+      erro: "A aula pede que apague os dados pessoais antes."
+    - texto: "Apagar os dados pessoais e entregar o aparelho desligado em ponto de recebimento"
+      certa: true
+    - texto: "Jogar fora com o lixo comum"
+      erro: "Deve separar dos demais resíduos e entregar em ponto de recebimento."
+  explicacao: "Jogar aparelho velho no lixo também pode expor seus dados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-descarte-03
+  tema: "Bateria de lítio na oficina"
+  dificuldade: 2
+  enunciado: "Como guardar uma bateria de lítio retirada na oficina?"
+  alternativas:
+    - texto: "Solta no balcão, ao lado de papéis"
+      erro: "Deve ficar longe de calor e de papel."
+    - texto: "Amassada para ocupar menos espaço"
+      erro: "Nunca amasse: pode pegar fogo."
+    - texto: "Em caixa ou recipiente de material não inflamável, sem amassar, com os contatos protegidos, longe de calor e de papel"
+      certa: true
+  explicacao: "Não deixe bateria estufada em balcão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

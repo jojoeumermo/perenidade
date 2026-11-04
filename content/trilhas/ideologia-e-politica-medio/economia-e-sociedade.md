@@ -27,6 +27,10 @@ quiz:
     resposta: 0
     explicacao: "O resultado é reconhecido como expressivo, embora a linha de pobreza adotada seja objeto de debate."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer como a Constituição chinesa define o sistema econômico básico, o que é a economia de mercado socialista e quais pontos a leitura crítica discute.
+
 
 O segundo módulo obrigatório de Ideologia e Política chama-se **Economia e sociedade** (经济与社会). Ele apresenta o sistema econômico chinês tal como definido pela Constituição e pelos documentos oficiais. Esta aula descreve esse conteúdo e oferece elementos para uma leitura crítica.
 
@@ -71,3 +75,23 @@ Alguns pontos para discutir:
 ## Para conversar
 
 No Brasil, quais setores da economia você acha que deveriam ser públicos? Quais podem ser privados? Por quê?
+
+## Exemplo resolvido
+
+**Como ler a fórmula "propriedade pública principal, várias formas de propriedade" e a data da "economia de mercado socialista"?**
+
+1. **O que diz a Constituição.** O artigo 6º define o sistema econômico básico como aquele em que a propriedade pública (estatal e coletiva) é a principal, e várias formas de propriedade se desenvolvem juntas.
+2. **Data.** O Partido adotou a fórmula "economia de mercado socialista" em 1992, e ela entrou na Constituição em 1993: **1 ano** depois.
+3. **Papel do mercado, pelo discurso oficial:** decisivo na alocação de recursos, com o governo "desempenhando melhor o seu papel" e planejamento de longo prazo (os planos quinquenais continuam).
+4. **Distribuição.** A fórmula oficial é "distribuição segundo o trabalho" como principal, ao lado de outras formas, e, desde os anos 2020, a "prosperidade comum".
+5. **Leitura crítica.** A aula lista pontos para discutir: a desigualdade de renda cresceu desde as reformas e segue alta, e trabalhadores migrantes rurais enfrentam longas jornadas e acesso desigual a serviços públicos.
+
+Para a sua vida: qual é a fórmula da economia brasileira? Quais setores deveriam ser públicos e quais privados? A aula termina com essa pergunta.
+
+## Resumo
+
+- O segundo módulo apresenta o sistema econômico chinês tal como definido pela Constituição e pelos documentos oficiais.
+- Pelo artigo 6º, a propriedade pública (estatal e coletiva) é a principal, e várias formas de propriedade se desenvolvem juntas.
+- Em 1992 o Partido adotou a fórmula "economia de mercado socialista", incluída na Constituição em 1993; o mercado teria papel decisivo, com planejamento de longo prazo (planos quinquenais).
+- A distribuição segundo o trabalho é apresentada como a principal; desde os anos 2020, o discurso oficial enfatiza a "prosperidade comum".
+- Leitura crítica: a desigualdade de renda cresceu desde as reformas e segue alta; trabalhadores migrantes rurais enfrentam jornadas longas e acesso desigual a serviços.

@@ -6,6 +6,7 @@ import { Fragment, type ReactNode, useEffect, useState } from "react";
 import { aulaDoEndereco, guardarAgir, lerAgir } from "@/lib/agir";
 import { partesDoOutroLado } from "@/lib/modelo-de-aula";
 import { L, useI18n } from "../I18n";
+import { RespostaAberta } from "./RespostaAberta";
 
 // Os blocos da aula-experiência: pedaços da aula que não são texto corrido. Quem escreve abre um bloco de código com o
 // nome dele (```provocacao, ```navidareal, ```escondido, ```formula, ```historia, ```realidade, ```leve, ```roda) e
@@ -189,7 +190,8 @@ export function Historia({ spec }: { spec: string }) {
 export function Realidade({ spec }: { spec: string }) {
   const { t } = useI18n();
   const pathname = usePathname();
-  const [resposta, setResposta] = useGuardado(chaveDe(pathname, "realidade", spec));
+  const chave = chaveDe(pathname, "realidade", spec);
+  const [resposta, setResposta] = useGuardado(chave);
   const { titulo, corpo } = titulado(spec);
   return (
     <aside className="bloco bloco-realidade">
@@ -199,6 +201,7 @@ export function Realidade({ spec }: { spec: string }) {
         {t.lesson.blocks.realidadePrompt}
         <textarea value={resposta} onChange={(e) => setResposta(e.target.value)} rows={3} maxLength={4000} className="bloco-campo" />
       </label>
+      <RespostaAberta chave={chave} pergunta={corpo} resposta={resposta} />
     </aside>
   );
 }
@@ -236,7 +239,8 @@ export function Roda({ spec, sala }: { spec: string; sala?: string }) {
 export function SuaRealidade({ spec }: { spec: string }) {
   const { t } = useI18n();
   const pathname = usePathname();
-  const [resposta, setResposta] = useGuardado(chaveDe(pathname, "suarealidade", spec));
+  const chave = chaveDe(pathname, "suarealidade", spec);
+  const [resposta, setResposta] = useGuardado(chave);
   const { titulo, corpo } = titulado(spec);
   return (
     <aside className="bloco bloco-suarealidade">
@@ -247,6 +251,7 @@ export function SuaRealidade({ spec }: { spec: string }) {
         {t.lesson.blocks.suarealidadePrompt}
         <textarea value={resposta} onChange={(e) => setResposta(e.target.value)} rows={3} maxLength={4000} className="bloco-campo" />
       </label>
+      <RespostaAberta chave={chave} pergunta={titulo || corpo} resposta={resposta} />
     </aside>
   );
 }
@@ -255,7 +260,8 @@ export function SuaRealidade({ spec }: { spec: string }) {
 export function OutroLado({ spec }: { spec: string }) {
   const { t } = useI18n();
   const pathname = usePathname();
-  const [resposta, setResposta] = useGuardado(chaveDe(pathname, "outrolado", spec));
+  const chave = chaveDe(pathname, "outrolado", spec);
+  const [resposta, setResposta] = useGuardado(chave);
   const { argumento, treino, resposta: possivel } = partesDoOutroLado(spec);
   const { titulo, corpo } = titulado(argumento);
   return (
@@ -271,6 +277,7 @@ export function OutroLado({ spec }: { spec: string }) {
             {t.lesson.blocks.outroladoPrompt}
             <textarea value={resposta} onChange={(e) => setResposta(e.target.value)} rows={4} maxLength={4000} className="bloco-campo" />
           </label>
+          <RespostaAberta chave={chave} pergunta={`${titulo || corpo}\n${treino}`} resposta={resposta} />
           {possivel && (
             <details className="no-print mt-3 font-sans text-sm">
               <summary className="cursor-pointer font-bold hover:text-oxblood">{t.lesson.blocks.outroladoResposta}</summary>
@@ -279,6 +286,25 @@ export function OutroLado({ spec }: { spec: string }) {
           )}
         </div>
       )}
+    </aside>
+  );
+}
+
+/**
+ * "Outro jeito" (Etapa 3, lacuna "segunda explicação"): a mesma ideia explicada de outra maneira, para quem não entendeu
+ * da primeira vez. Opcional em qualquer aula; fica fechado até a pessoa abrir, para não alongar a aula de quem já entendeu.
+ * Quem escreve não muda fato nenhum: só o caminho (outro exemplo, outra imagem, outro passo a passo).
+ */
+export function OutroJeito({ spec }: { spec: string }) {
+  const { t } = useI18n();
+  const { titulo, corpo } = titulado(spec);
+  return (
+    <aside className="bloco bloco-outrojeito">
+      <details>
+        <summary className="cursor-pointer font-sans font-bold hover:text-oxblood">{t.lesson.blocks.outrojeitoAbrir}</summary>
+        <p className="bloco-rotulo mt-3">{titulo || t.lesson.blocks.outrojeito}</p>
+        <TextoSimples texto={corpo} className="bloco-texto" />
+      </details>
     </aside>
   );
 }
@@ -323,4 +349,4 @@ export function Agir({ spec }: { spec: string }) {
   );
 }
 
-export const BLOCOS_DA_AULA = ["provocacao", "suarealidade", "navidareal", "escondido", "formula", "historia", "outrolado", "realidade", "agir", "leve", "roda"] as const;
+export const BLOCOS_DA_AULA = ["provocacao", "suarealidade", "navidareal", "escondido", "formula", "historia", "outrolado", "outrojeito", "realidade", "agir", "leve", "roda"] as const;

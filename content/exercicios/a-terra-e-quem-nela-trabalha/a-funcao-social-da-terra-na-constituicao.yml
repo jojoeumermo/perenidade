@@ -1,0 +1,67 @@
+# Exercícios da aula "A função social da terra na Constituição" (A terra e quem nela trabalha). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: terra-funcao-01
+  tema: "Os requisitos do artigo 186"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo o artigo 186 da Constituição, a propriedade rural cumpre a função social quando atende a quantos requisitos, e como?"
+  alternativas:
+    - texto: "Quatro requisitos, todos ao mesmo tempo"
+      certa: true
+    - texto: "Quatro requisitos, bastando cumprir um deles"
+      erro: "A aula destaca a palavra \"simultaneamente\": os quatro precisam ser cumpridos juntos, não só um."
+    - texto: "Um único requisito: produzir bastante"
+      erro: "Produzir é só um dos quatro (aproveitamento racional). Há também meio ambiente, leis do trabalho e bem-estar de proprietários e trabalhadores."
+  explicacao: "O artigo 186 lista quatro requisitos: aproveitamento racional e adequado, uso adequado dos recursos naturais e preservação do ambiente, respeito às leis do trabalho e exploração que favoreça o bem-estar de donos e trabalhadores. Os quatro têm de ser cumpridos simultaneamente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula (Constituição Federal, art. 186)"
+  revisao:
+    status: em-revisao
+
+- id: terra-funcao-02
+  tema: "Aplicar os requisitos a um caso"
+  dificuldade: 2
+  enunciado: "Uma fazenda produz muito, mas os trabalhadores não têm carteira assinada e dormem em alojamentos degradantes. Ela cumpre a função social?"
+  alternativas:
+    - texto: "Não: falha nos requisitos sobre as relações de trabalho e o bem-estar dos trabalhadores"
+      certa: true
+    - texto: "Sim, porque produzir muito basta para cumprir a função social"
+      erro: "Produzir é só um dos quatro requisitos do artigo 186. Como eles são simultâneos, desrespeitar as leis do trabalho já impede de cumprir a função social."
+    - texto: "Sim, porque a fazenda é grande e dá emprego"
+      erro: "Dar emprego sem respeitar as leis do trabalho não basta. O artigo 186 exige a observância das disposições que regulam as relações de trabalho."
+  explicacao: "Como os quatro requisitos valem ao mesmo tempo, a fazenda produtiva que desrespeita as leis do trabalho e o bem-estar dos trabalhadores não cumpre o artigo 186."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: terra-funcao-03
+  tema: "Desapropriação"
+  dificuldade: 1
+  enunciado: "Qual artigo permite à União desapropriar, para a reforma agrária, o imóvel rural que não cumpre a função social?"
+  alternativas:
+    - texto: "Artigo 184"
+      certa: true
+    - texto: "Artigo 185"
+      erro: "O artigo 185 faz o contrário: protege da desapropriação a pequena e média propriedade e a propriedade produtiva. A desapropriação é o artigo 184."
+    - texto: "Artigo 186"
+      erro: "O artigo 186 diz quais são os requisitos da função social. Quem permite desapropriar é o artigo 184."
+  explicacao: "O artigo 184 permite à União desapropriar o imóvel rural que não cumpre a função social. O 186 diz quais são os requisitos e o 185 protege certas propriedades."
+  fonte: "Questão original do Instituto Lúcia (Constituição Federal, arts. 184 a 186)"
+  revisao:
+    status: em-revisao
+
+- id: terra-funcao-04
+  tema: "Classificar três fazendas"
+  dificuldade: 3
+  enunciado: "Uma fazenda tem a terra parada há anos, sem produzir nada. Qual requisito do artigo 186 ela deixa de cumprir com mais clareza?"
+  alternativas:
+    - texto: "O aproveitamento racional e adequado"
+      certa: true
+    - texto: "A preservação do meio ambiente"
+      erro: "Não há nada no caso sobre o ambiente. Terra parada há anos é falta de aproveitamento, o primeiro requisito."
+    - texto: "As disposições das relações de trabalho"
+      erro: "O caso fala de terra parada, sem trabalhadores. O requisito que falha é o do aproveitamento racional e adequado."
+  explicacao: "Terra parada há anos não tem aproveitamento racional e adequado, primeiro requisito do artigo 186. Por isso, não cumpre a função social."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

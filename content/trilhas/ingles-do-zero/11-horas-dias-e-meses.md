@@ -30,6 +30,10 @@ quiz:
     explicacao: "Monday, Tuesday, January, February: sempre com maiúscula."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer as horas, os dias da semana, os meses e as datas em inglês, e escolher entre *at*, *on* e *in*.
+
 Marcar um horário, combinar um dia, dizer a data do aniversário: tudo isso usa os números que você aprendeu na aula 4 e três preposições pequenas, **at**, **on** e **in**, que confundem muita gente.
 
 ## Perguntar as horas
@@ -134,6 +138,17 @@ Uma forma de lembrar: do ponto mais exato ao mais amplo, **at** (hora), **on** (
 - *Brazil became a republic **in** 1889.* — O Brasil virou república em 1889.
 - *Workers' Day is **on** May 1st.* — O Dia do Trabalhador é em 1º de maio.
 
+## Exemplo resolvido
+
+**Como dizer "A aula começa às 7h45 da noite, na terça-feira"?**
+
+1. A hora, do jeito mais fácil: *seven forty-five*. Do jeito tradicional: *a quarter to eight*.
+2. Para separar tarde de manhã, use *p.m.* (do meio-dia à meia-noite): *7:45 p.m.*
+3. Hora exata leva **at**; dia da semana leva **on**: *at 7:45 p.m.*, *on Tuesday*.
+4. Junte: *The class starts at 7:45 p.m. on Tuesday.*
+
+Confira: do ponto mais exato ao mais amplo, *at* (hora), *on* (dia), *in* (mês, ano).
+
 ## Para praticar
 
 1. Escreva em inglês, dos dois jeitos: 9:15, 12:30, 18:45.
@@ -141,3 +156,11 @@ Uma forma de lembrar: do ponto mais exato ao mais amplo, **at** (hora), **on** (
 3. Complete com *at*, *on* ou *in*: ___ Friday, ___ 6 p.m., ___ December, ___ the morning, ___ June 12th.
 
 Respostas do 1: *nine fifteen / a quarter past nine; twelve thirty / half past twelve; six forty-five (p.m.) / a quarter to seven.* Respostas do 3: *on, at, in, in, on.*
+
+## Resumo
+
+- Horas: *seven fifteen* ou *a quarter past seven*; *half past seven*; *a quarter to eight*.
+- *a.m.* vai da meia-noite ao meio-dia; *p.m.*, do meio-dia à meia-noite.
+- Dias e meses se escrevem com letra maiúscula; o dia do mês usa ordinais (*1st*, *2nd*, *3rd*, *4th*).
+- *At* para hora, *on* para dia e data, *in* para mês, ano e partes do dia.
+- Nos Estados Unidos o mês vem antes do dia: 05/04 é 4 de maio.

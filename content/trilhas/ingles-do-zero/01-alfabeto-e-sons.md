@@ -66,7 +66,12 @@ pratica:
       - { frente: "G", verso: "dji" }
       - { frente: "J", verso: "djei" }
       - { frente: "R", verso: "ar" }
+modelo: 9
 ---
+
+```suarealidade
+Em que situação da sua semana você precisaria soletrar um nome, um e-mail ou um endereço para alguém (no telefone, num cadastro, no trabalho)? Como você faz isso hoje, em português?
+```
 
 O inglês usa as mesmas 26 letras do português. O que muda é o **nome** de cada letra e, principalmente, o som que elas fazem dentro das palavras.
 
@@ -112,6 +117,37 @@ Em inglês, a escrita de uma palavra nem sempre revela a pronúncia. Por isso é
 - **H**: no começo das palavras é um sopro leve, parecido com o nosso "r" de "rato". *House* (casa) soa como "rauss".
 - **R**: nunca é raspado na garganta. A língua se curva para trás sem encostar no céu da boca, como o "r" caipira de "porta".
 
+## Exemplo resolvido
+
+**Como soletrar "Maria" em inglês?**
+
+1. Separe o nome letra por letra: M-A-R-I-A.
+2. Troque cada letra pelo nome dela em inglês, olhando a tabela: M é "ém", A é "ei", R é "ar", I é "ai" e A de novo é "ei".
+3. Diga em voz alta, uma letra de cada vez: ém, ei, ar, ai, ei.
+
+Confira: nenhuma letra foi lida como em português. Se você disse "a" no lugar de "ei", ou "i" no lugar de "ai", volte à tabela: A, E e I trocam de lugar.
+
+```outrolado
+# O argumento de quem acha que inglês não é para o seu dia a dia
+"Eu moro e trabalho no Brasil, falo português o dia inteiro. Aprender até o nome das letras em inglês é perda de tempo para a minha vida."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Cada pessoa sabe o que precisa estudar, e ninguém é obrigado a aprender inglês. Mas a aula mostra um uso bem pequeno: em inglês é comum pedir para soletrar nomes, e-mails e endereços, e quem sabe o nome das letras resolve isso em um minuto. É um começo de poucos passos, que não exige viajar nem gastar dinheiro.
+```
+
+```agir
+# Esta semana
+Todos os dias, em casa, soletre em voz alta em inglês o seu nome e o nome da sua rua. Anote num papel as letras em que você errou e repita só essas no dia seguinte.
+```
+
 ## Pratique
 
 Soletre em voz alta, com os nomes em inglês: o seu nome, o nome da sua cidade e a palavra *computer*.
+
+## Resumo
+
+- O inglês usa as mesmas 26 letras do português, mas o nome de cada letra é outro.
+- A, E e I se chamam "ei", "i" e "ai"; G é "dji" e J é "djei".
+- Soletrar com *How do you spell...?* é comum para nomes, e-mails e endereços.
+- O TH, o H do começo das palavras e o R não têm som igual em português.

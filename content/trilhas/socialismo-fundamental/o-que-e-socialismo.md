@@ -1,5 +1,6 @@
 ---
 titulo: "O que é socialismo"
+modelo: 9
 resumo: "A ideia central em linguagem simples: o que é de todos deve servir a todos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,14 @@ quiz:
     resposta: 0
     explicacao: "As outras duas alternativas são confusões comuns, tratadas em outras aulas desta trilha."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é socialismo, o que são meios de produção e desfazer três confusões comuns sobre o assunto.
+
+```suarealidade
+No seu trabalho, ou no de alguém da sua família, quem é o dono do local, das máquinas e das ferramentas? E quem decide o que se faz com o dinheiro que o trabalho rende?
+```
 
 ## Uma pergunta simples
 
@@ -75,3 +84,35 @@ Qual destes itens é um meio de produção?
 O socialismo não é uma receita única. Ao longo de dois séculos, movimentos de trabalhadores, partidos e revoluções tentaram colocá-lo em prática de maneiras diferentes, com conquistas importantes e erros graves. Há socialistas que defendem a via das eleições e das reformas e outros que defendem a revolução; uns priorizam o Estado e outros, as cooperativas e os conselhos.
 
 As próximas aulas desta trilha tratam dessas dúvidas uma a uma. A trilha [As revoluções socialistas](/trilhas/revolucoes-socialistas) conta o que aconteceu quando a ideia saiu do papel.
+
+## Exemplo resolvido
+
+**Qual destes itens é um meio de produção: uma bicicleta usada para ir ao trabalho, uma fazenda de dez mil hectares que emprega centenas de pessoas ou um par de sapatos?**
+
+1. Lembre a definição: meios de produção são as coisas usadas para produzir outras coisas, como terras, fábricas, máquinas, minas, usinas, bancos e redes de transporte.
+2. Teste cada item: a bicicleta e os sapatos são bens pessoais; não exploram ninguém. A fazenda produz, e quem trabalha nela não é dono dela.
+3. Responda: a fazenda é o meio de produção. Quando é privada, permite a alguém viver do trabalho dos outros.
+
+Conclusão: a proposta do socialismo trata dos meios de produção, e não dos bens pessoais. Por isso "vão tomar a minha casa" é uma confusão.
+
+```outrolado
+# O argumento de quem diz que o socialismo já foi tentado e deu errado
+"Já tentaram o socialismo no século XX. Teve partido único, censura e fome. Não funciona, e quem defende isso ignora o que aconteceu."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A crítica tem fundamento, e a própria trilha a reconhece: houve repressão política, fomes ligadas a decisões políticas (como a coletivização forçada na URSS, em 1932-1933, e o Grande Salto Adiante na China, em 1959-1961), burocratização e dificuldades econômicas. A aula pede um estudo honesto, que também registre o que se conquistou, como a alfabetização em massa e a saúde pública universal. Há ainda socialistas que defendem a via das eleições e das reformas e outros que defendem a revolução, e muitos criticam os regimes de partido único. Responder bem é dar os fatos dos dois lados, e não repetir um slogan.
+```
+
+```agir
+# Esta semana
+Num papel, escolha uma atividade de trabalho que você conhece (a sua, ou a de alguém de casa) e anote: o local, as máquinas ou ferramentas, quem é o dono de cada uma e quem decide o que fazer com o dinheiro das vendas. Não escreva nomes de pessoas. Depois escreva uma frase: o que mudaria se a decisão fosse de quem trabalha?
+```
+
+## Resumo
+
+- Socialismo começa com uma pergunta: se a riqueza é produzida por muitos, por que é controlada por poucos?
+- Meios de produção são terras, fábricas, máquinas, minas, usinas, bancos e transportes; no capitalismo, são propriedade privada de uma minoria.
+- A proposta: propriedade coletiva dos grandes meios de produção (estatal, cooperativa ou comunitária), planejamento, direitos para todos e poder político de quem trabalha.
+- Não é tomar a casa nem os bens pessoais; não é todos ganharem igual, e sim cada um segundo o trabalho numa primeira fase.
+- É uma ideia com muitas histórias: há quem defenda reformas e quem defenda a revolução, o Estado ou as cooperativas e os conselhos.

@@ -25,6 +25,10 @@ quiz:
     resposta: 2
     explicacao: "Os outros dois são a consciência do Estado de direito e a participação pública."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer como se chama a disciplina em cada etapa do ensino chinês, quais são os quatro módulos obrigatórios do ensino médio e como ler esse currículo com atenção, sem aderir nem rejeitar de saída.
+
 
 ## Por que estudar isso
 
@@ -90,3 +94,23 @@ Algumas observações para quem estuda o assunto de fora:
 - **O conteúdo teórico é extenso.** Um estudante chinês termina o ensino médio tendo tido contato com noções de economia política, filosofia e direito que, em muitos países, só aparecem na universidade.
 
 As próximas aulas desta trilha percorrem cada módulo. A trilha [Teoria política no ensino superior chinês](/trilhas/teoria-politica-chinesa) apresenta as disciplinas universitárias, entre elas as que tratam do pensamento de Mao Tsé-tung, da teoria de Deng Xiaoping e do pensamento de Xi Jinping.
+
+## Exemplo resolvido
+
+**Como ler o currículo em três camadas: o que ele diz, o que pretende e o que fica de fora?**
+
+1. **O que ele diz.** A disciplina do ensino médio é Ideologia e Política (思想政治). Segundo o padrão de 2017, revisado em 2020, todo estudante cursa quatro módulos obrigatórios; quem vai prestar o exame de ingresso à universidade nessa área cursa mais três.
+2. **Conte.** Quatro obrigatórios + três de aprofundamento = **7 módulos** para quem vai ao exame, além dos optativos.
+3. **O que ele pretende.** O documento oficial define quatro "competências centrais". A primeira, identificação política, é apoiar a direção do Partido Comunista e o socialismo com características chinesas. Esse é o objetivo declarado, tal como o documento o apresenta.
+4. **Compare com o Brasil.** Todo país ensina valores. O Brasil já teve Educação Moral e Cívica obrigatória durante a ditadura militar, com orientação oposta. A diferença é que o currículo chinês é explícito sobre o que pretende formar.
+5. **Pergunte o que fica de fora.** Em cada módulo, quais correntes de ideias não aparecem? Quem decide?
+
+A aula descreve o currículo; não pede que você o aprove nem o condene.
+
+## Resumo
+
+- Em todas as etapas há uma disciplina obrigatória de formação moral e política: Moral e Estado de Direito (1º ao 9º ano), Ideologia e Política (ensino médio) e cursos de teoria ideológica e política (superior).
+- Pelo padrão curricular de 2017, revisado em 2020, todo estudante do ensino médio cursa quatro módulos obrigatórios.
+- Quem vai prestar o exame de ingresso nessa área cursa mais três módulos: política e economia internacionais, direito e vida cotidiana, lógica e pensamento.
+- O documento define quatro competências centrais, a primeira delas a identificação política (apoiar a direção do Partido Comunista e o socialismo com características chinesas).
+- Todo país ensina valores; o currículo chinês é explícito. A aula descreve o currículo sem pedir adesão ou rejeição.

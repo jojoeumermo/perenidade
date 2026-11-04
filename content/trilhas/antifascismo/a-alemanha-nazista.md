@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "Além dos judeus, foram perseguidos e mortos roma e sinti, pessoas com deficiência, homossexuais, prisioneiros soviéticos, opositores e outros grupos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como o nazismo chegou ao poder na Alemanha, como destruiu a democracia em poucos meses, o que foi o Holocausto e como o regime foi derrotado.
 
 O nazismo foi a forma mais extrema do fascismo. Em doze anos (1933-1945), levou ao poder um regime que destruiu a democracia alemã, assassinou milhões de pessoas em campos de extermínio e provocou a guerra mais mortal da história. Esta aula percorre esse caminho.
 
@@ -76,3 +79,23 @@ O nazismo foi derrotado em **maio de 1945**, pela ação conjunta dos Aliados, c
 ## Para conversar
 
 A filósofa Hannah Arendt falou da "banalidade do mal": muitos crimes nazistas foram cometidos por funcionários comuns que "só cumpriam ordens". O que isso nos ensina sobre a responsabilidade de cada pessoa?
+
+## Exemplo resolvido
+
+**Hitler venceu as eleições e governou com o voto da maioria? Monte os fatos para responder.**
+
+1. **Antes de 1929.** O NSDAP era um grupo marginal. A crise de 1929 trouxe milhões de desempregados, e os nazistas ofereciam culpados e promessas de grandeza.
+2. **Eleições.** Hitler **nunca obteve maioria absoluta** em eleições livres. Comunistas e social-democratas, que juntos tinham votação próxima à dos nazistas, estavam divididos.
+3. **30 de janeiro de 1933.** Foi **nomeado chanceler** pelo presidente Hindenburg, depois de negociações com políticos conservadores e com o apoio de setores empresariais, que acreditavam poder controlá-lo.
+4. **Meses seguintes.** Incêndio do Reichstag e suspensão das liberdades civis (fevereiro); Lei de Plenos Poderes (março); sindicatos dissolvidos (maio); outros partidos proibidos (julho).
+
+Confira: a chegada ao poder foi por nomeação e acordo, e a democracia foi desmontada em poucos meses.
+
+## Resumo
+
+- O nazismo foi a forma mais extrema do fascismo: 1933-1945.
+- A **República de Weimar** nasceu frágil (indenizações de Versalhes, hiperinflação de 1923); a **crise de 1929** fez crescer o NSDAP.
+- Hitler **nunca teve maioria absoluta** em eleições livres; foi **nomeado chanceler** em 30 de janeiro de 1933.
+- Em poucos meses: liberdades suspensas, Lei de Plenos Poderes, sindicatos dissolvidos, partidos proibidos.
+- Perseguição crescente (Leis de Nuremberg, 1935; Noite dos Cristais, 1938) e o **Holocausto**: cerca de seis milhões de judeus assassinados, além de outras vítimas.
+- Derrota em maio de 1945; julgamento em Nuremberg (1945-1946). Primo Levi deixou um testemunho essencial em *É Isto um Homem?*.

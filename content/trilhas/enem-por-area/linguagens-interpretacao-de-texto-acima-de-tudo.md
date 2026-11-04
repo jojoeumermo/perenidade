@@ -27,6 +27,11 @@ quiz:
     explicacao: "O comando diz o que procurar no texto."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que a prova de Linguagens cobra, aplicar cinco estratégias de leitura e reconhecer a resposta que está apoiada no texto.
+
+
 ## A prova
 
 **Linguagens, Códigos e suas Tecnologias** tem 45 questões no 1º dia: Língua Portuguesa, Literatura, Artes, Educação Física, Tecnologias da Informação e Comunicação e **cinco questões de língua estrangeira** (inglês ou espanhol, à escolha na inscrição).
@@ -76,9 +81,27 @@ Qual é a alternativa correta na questão de exemplo?
 
 O ENEM costuma tratar as variedades linguísticas (regionais, sociais, da fala) como legítimas, e cobra a capacidade de reconhecer **adequação** à situação, e não de condenar quem fala diferente. Veja as trilhas de [Português](/trilhas/portugues-medio).
 
+## Exemplo resolvido
+
+**Cartaz de uma campanha: "Vacina no braço, comida no prato e educação para todos: isso é saúde." O cartaz relaciona a saúde a: (A) apenas à vacinação; (B) um conjunto de condições sociais, como alimentação e educação; (C) à responsabilidade individual de cada pessoa.**
+
+1. **Leia o comando primeiro:** a pergunta é a que o cartaz relaciona a saúde.
+2. **Leia o texto inteiro:** o cartaz junta vacina, comida e educação.
+3. **Volte ao texto para cada alternativa.** (A) diz "apenas", e o cartaz cita três coisas. (C) fala de responsabilidade individual, que o cartaz não diz.
+4. **Marque a que o texto sustenta:** (B).
+
+Confira: desconfie de "sempre", "nunca" e "apenas"; a resposta tem de estar no texto, e não na sua opinião.
+
 ## Para praticar
 
 1. Resolva 10 questões de Linguagens de uma prova anterior, lendo o comando primeiro.
 2. Para cada questão errada, anote: o erro foi de leitura, de vocabulário ou de conteúdo?
 3. Escolha uma charge do jornal e explique por escrito a crítica que ela faz.
 4. Encontre, em uma propaganda, um exemplo de linguagem que tenta convencer o leitor.
+
+## Resumo
+
+- Linguagens junta Português, Literatura, Artes, Educação Física e outras; o que une tudo é a **leitura**.
+- É cobrado: tema e finalidade, gêneros textuais, intenção e efeitos de sentido, variação linguística, funções da linguagem e relação entre linguagem verbal e não verbal.
+- Estratégias: ler o comando primeiro, ler o texto inteiro, voltar ao texto em cada alternativa, desconfiar de "sempre", "nunca" e "apenas" e eliminar o que o texto não diz.
+- As variedades linguísticas são tratadas como legítimas; o que se cobra é a adequação à situação.

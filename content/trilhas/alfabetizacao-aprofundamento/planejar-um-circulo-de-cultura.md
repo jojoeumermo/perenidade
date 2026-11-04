@@ -1,5 +1,6 @@
 ---
 titulo: "Planejar um círculo de cultura"
+modelo: 9
 resumo: "Como organizar um círculo de cultura de alfabetização: o lugar, o grupo, o papel de quem coordena, o roteiro de um encontro e o que fazer antes e depois."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -44,6 +45,10 @@ Ao fim desta aula você vai saber montar um círculo de cultura: escolher o luga
 
 ```provocacao
 Lembre de uma reunião em que você aprendeu muito e de uma aula em que não aprendeu nada. O que era diferente entre as duas?
+```
+
+```suarealidade
+No seu bairro ou no seu serviço, onde as pessoas se reúnem para conversar de igual para igual (associação, igreja, sindicato, roda de amigos)? O que faz esses encontros funcionarem?
 ```
 
 ## O que é um círculo de cultura
@@ -127,4 +132,18 @@ Pense num grupo de pessoas que você conhece e que poderia formar um círculo. O
 ```roda
 - O que muda quando ninguém é chamado de "aluno"?
 - Como fazer os mais tímidos falarem sem expor ninguém?
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O círculo de cultura é bonito, mas lento. Quem quer aprender a ler precisa de método direto e de treino de letra e de sílaba, e muita conversa em roda pode ficar só em conversa." Uma crítica parecida aparece na própria bibliografia sobre Paulo Freire: a de que a ênfase na conscientização pode secundarizar a técnica da leitura, ou que a sistematização silábica não basta para a fluência.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A crítica deve ser levada a sério, e é por isso que o encontro do roteiro não termina na conversa: tem **40 minutos de palavra**, com a palavra escrita, dividida em sílabas, famílias silábicas e criação de palavras novas que cada pessoa escreve no caderno. Quem coordena apresenta a palavra, as sílabas e as fichas no momento certo. A conversa serve para que a pessoa saiba por que quer aprender, e o debate entre os métodos continua na aula [Métodos sintéticos, analíticos e o debate do método fônico](/trilhas/alfabetizacao-superior/metodos-sinteticos-analiticos-e-o-debate-do-metodo-fonico).
+```
+
+```agir
+# Esta semana
+Num papel, escreva o roteiro de um primeiro encontro de uma hora e meia, com os quatro momentos (acolhida, conversa sobre a situação, a palavra e fechamento), a imagem e a palavra que você escolheria. Treine contá-lo em voz alta a uma pessoa de confiança, sem anotar o nome de ninguém.
 ```

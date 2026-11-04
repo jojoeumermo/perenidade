@@ -31,6 +31,10 @@ quiz:
     resposta: 0
     explicacao: "O currículo valoriza a herança tradicional, depois de um período (a Revolução Cultural) em que ela foi atacada."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que o módulo ensina de materialismo dialético e histórico, o que é "buscar a verdade nos fatos", como o currículo trata a cultura tradicional e quais críticas se fazem.
+
 
 O quarto módulo obrigatório de Ideologia e Política chama-se **Filosofia e cultura** (哲学与文化). Ele combina o estudo da filosofia marxista com a valorização da cultura chinesa. Esta aula descreve o conteúdo e o relaciona com textos que estão disponíveis em português.
 
@@ -74,3 +78,23 @@ Parte dessa tradição está no [acervo](/acervo) do Instituto: os *Analectos* d
 ## Para conversar
 
 Você estudou filosofia na escola? Que ideias ou autores marcaram você? Que pergunta filosófica você gostaria de discutir com seus colegas?
+
+## Exemplo resolvido
+
+**Como aplicar "buscar a verdade nos fatos" a uma afirmação do dia a dia?**
+
+1. **A expressão.** 实事求是 (*shí shì qiú shì*) quer dizer "buscar a verdade nos fatos". Vem de um texto da dinastia Han, de cerca de dois mil anos atrás; Mao a usou nos anos 1940 contra o dogmatismo, e Deng Xiaoping a retomou em 1978 para justificar as reformas.
+2. **Escolha uma afirmação.** Por exemplo: "O preço do arroz subiu muito no seu bairro."
+3. **Procure o fato.** Compare preços de meses diferentes em notas ou em tabelas que você mesmo guarde, ou nos dados oficiais de preços.
+4. **Compare com a afirmação.** Subiu quanto, em que período? "Muito" é uma impressão; a diferença em reais é um fato.
+5. **Conclua e corrija.** Se os números não confirmarem, mude a afirmação, e não os números.
+
+Leitura crítica da aula: a filosofia é ensinada a partir de uma interpretação oficial, com pouco espaço para correntes divergentes. A pergunta de comparação é: que ideias aparecem na sua escola, e quais ficam de fora?
+
+## Resumo
+
+- O quarto módulo combina o estudo da filosofia marxista (materialismo e dialética) com a valorização da cultura chinesa.
+- Materialismo: o mundo é material e existe independentemente da consciência. Dialética: tudo está em conexão e em movimento, e a contradição é a fonte do desenvolvimento.
+- "Buscar a verdade nos fatos" (实事求是) vem de um texto da dinastia Han; Mao a usou contra o dogmatismo nos anos 1940 e Deng Xiaoping a retomou em 1978.
+- A parte de cultura trata a herança (confucionismo, taoismo, literatura clássica, festas) como "excelente cultura tradicional" a preservar, junto com a cultura revolucionária e a socialista.
+- Críticos observam que a filosofia é ensinada a partir de uma interpretação oficial, com pouco espaço para correntes divergentes.

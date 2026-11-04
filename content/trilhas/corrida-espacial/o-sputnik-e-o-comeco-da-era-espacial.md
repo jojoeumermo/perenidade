@@ -23,6 +23,9 @@ quiz:
     resposta: 0
     explicacao: "O susto levou os Estados Unidos a criar uma agência espacial e a investir pesado em ciência e educação."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que foi o Sputnik 1, por que um satélite em órbita não cai no chão e por que o lançamento deu início à corrida espacial.
 
 ## Bip, bip, bip
 
@@ -70,3 +73,22 @@ Hoje há milhares de satélites em funcionamento. Eles fazem a previsão do temp
 
 1. Calcule: se o Sputnik dava uma volta a cada 96 minutos, quantas voltas dava em um dia?
 2. Pesquise que satélites o Brasil opera e para que servem. Anote as fontes.
+
+## Exemplo resolvido
+
+**Quantas voltas o Sputnik dava em torno da Terra num dia? Faça a conta.**
+
+1. **O dado.** O satélite dava uma volta a cada 96 minutos, aproximadamente.
+2. **Passe o dia para minutos.** Um dia tem 24 horas, e 24 × 60 = 1.440 minutos.
+3. **Divida.** 1.440 ÷ 96 = 15.
+4. **Conclua.** O Sputnik dava cerca de 15 voltas por dia.
+
+Confira: 15 × 96 = 1.440. A conta fecha.
+
+## Resumo
+
+- Em **4 de outubro de 1957**, a União Soviética lançou o **Sputnik 1**, o primeiro satélite artificial: uma esfera de 58 cm e 83,6 kg que dava uma volta a cada 96 minutos aproximadamente.
+- Estar em órbita é cair o tempo todo em volta da Terra, a cerca de 28 mil km/h; a gravidade continua agindo.
+- O foguete R-7, da equipe de Koroliov, também servia como míssil, em plena Guerra Fria.
+- Reação dos Estados Unidos: Explorer 1 (janeiro de 1958), criação da NASA e mais verbas para ciência e matemática.
+- Hoje há milhares de satélites: previsão do tempo, TV, internet, navegação e monitoramento de desmatamento.

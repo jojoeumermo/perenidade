@@ -7,6 +7,8 @@ import { fill } from "@/i18n/config";
 import type { QuizQuestion } from "@/lib/content";
 import { idDaQuestao, lerErros, refazerErro, registrarErro } from "@/lib/estudo";
 import { L, useI18n } from "./I18n";
+import { IconeCerto, IconeErrado, IconeRefazer, IconeSeta } from "./aula/IconesDeTraco";
+import { OuvirTexto } from "./aula/OuvirTexto";
 
 /** Uma permutação de 0..n-1 sorteada a partir de um texto (sempre a mesma para o mesmo texto). */
 function embaralhar(n: number, texto: string): number[] {
@@ -25,8 +27,11 @@ function embaralhar(n: number, texto: string): number[] {
 /**
  * `registro` (opcional): a aula ("trilha/aula"). Com ele, o fim do teste soma um às contagens anônimas da aula e, com
  * `guardarNoAparelho`, o resultado vai para o "Meu estudo". Sem ele, nada é guardado além do caderno de erros.
+ *
+ * `audio` (aulas de alfabetização, Etapa 3): "Ouvir a pergunta e as respostas" com a voz do aparelho e um ícone antes do
+ * texto nos botões e no "certo / ainda não" (quem lê pouco reconhece o desenho antes da palavra).
  */
-export function Quiz({ questions, registro, guardarNoAparelho = false }: { questions: QuizQuestion[]; registro?: string; guardarNoAparelho?: boolean }) {
+export function Quiz({ questions, registro, guardarNoAparelho = false, audio = false }: { questions: QuizQuestion[]; registro?: string; guardarNoAparelho?: boolean; audio?: boolean }) {
   const { t } = useI18n();
   const pathname = usePathname();
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -75,6 +80,7 @@ export function Quiz({ questions, registro, guardarNoAparelho = false }: { quest
         {fill(t.lesson.quizOf, { i: atual + 1, n: questions.length })}
       </h2>
       <p className="mt-2.5 font-serif text-[1.45rem] leading-snug text-ink">{q.question}</p>
+      {audio && !answered && <OuvirTexto key={atual} className="mt-3" texto={[q.question, ...ordem.map((j, p) => `${letras[p]}. ${q.options[j]}`)].join("\n")} rotulo={t.lesson.blocks.ouvirPergunta} parar={t.lesson.blocks.pararAudio} />}
       <div className="mt-5 flex flex-col gap-3">
         {ordem.map((j, posicao) => {
           const option = q.options[j];
@@ -99,14 +105,24 @@ export function Quiz({ questions, registro, guardarNoAparelho = false }: { quest
         })}
       </div>
       {answered && (
-        <p role="status" className={`mt-4 font-serif text-[1.1rem] leading-snug ${chosen === q.answer ? "text-ok" : "text-ink"}`}>
-          <strong className={chosen === q.answer ? "text-ok" : "text-prelo-texto"}>{chosen === q.answer ? t.lesson.correct : t.lesson.notYet}</strong> {q.explanation}
+        <p role="status" className={`mt-4 font-serif text-[1.1rem] leading-snug ${chosen === q.answer ? "text-ok" : "text-ink"} ${audio ? "flex items-start gap-2" : ""}`}>
+          {audio && <span className={chosen === q.answer ? "text-ok" : "text-prelo-texto"}>{chosen === q.answer ? <IconeCerto /> : <IconeErrado />}</span>}
+          <span>
+            <strong className={chosen === q.answer ? "text-ok" : "text-prelo-texto"}>{chosen === q.answer ? t.lesson.correct : t.lesson.notYet}</strong> {q.explanation}
+          </span>
         </p>
       )}
       <div className="mt-5 flex flex-wrap items-center gap-3">
         {answered && atual < questions.length - 1 && (
-          <button type="button" onClick={() => setAtual(atual + 1)} className="botao botao-tinta botao-menor">
-            {t.lesson.nextQuestion} →
+          <button type="button" onClick={() => setAtual(atual + 1)} className="botao botao-tinta botao-menor" aria-label={audio ? t.lesson.nextQuestion : undefined}>
+            {audio ? (
+              <span className="inline-flex items-center gap-2">
+                <IconeSeta />
+                {t.lesson.nextQuestion}
+              </span>
+            ) : (
+              <>{t.lesson.nextQuestion} →</>
+            )}
           </button>
         )}
         {/* A régua: dá para voltar e rever as já respondidas, mas não pular para a frente. Com muitas questões (as
@@ -137,8 +153,9 @@ export function Quiz({ questions, registro, guardarNoAparelho = false }: { quest
               setAnswers({});
               setAtual(0);
             }}
-            className="cursor-pointer underline hover:text-oxblood"
+            className={`cursor-pointer underline hover:text-oxblood ${audio ? "inline-flex items-center gap-2" : ""}`}
           >
+            {audio && <IconeRefazer />}
             {t.lesson.tryAgain}
           </button>
         </div>

@@ -29,9 +29,19 @@ quiz:
     opcoes: ["Nenhuma", "Pez é o peixe vivo; pescado é o peixe como comida", "Pez é de rio e pescado é de mar"]
     resposta: 1
     explicacao: "Pez é o animal na água. Pescado é o peixe pescado, que vai para a mesa."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber nomear em espanhol os parentes, os cômodos da casa e as refeições, usar mi, tu e su sem artigo e fazer um pedido simples num restaurante.
+
+
 Esta aula reúne as palavras de três assuntos de toda conversa: a família, a casa e a comida. O espanhol é falado em mais de vinte países, e algumas coisas do dia a dia têm nomes diferentes em cada lugar. Quando a diferença for grande, a tabela mostra as formas mais comuns.
+
+```suarealidade
+Se você fosse apresentar a sua família e a sua casa a alguém que fala espanhol, o que diria primeiro? E o que você come num dia comum?
+```
 
 ## A família
 
@@ -136,6 +146,31 @@ Uma distinção que não existe em português: ***el pez*** é o peixe vivo, na 
 
 Atenção: ***vaso*** é o copo; a taça de vinho é ***copa***.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que "aprender o espanhol" não existe: "cada país fala de um jeito, a geladeira tem três nomes, então melhor esperar para saber qual espanhol estudar".
+---
+Como você responderia?
+---
+Uma resposta possível: a base é a mesma em todos os países e as diferenças são de vocabulário pontual, como a aula mostra na tabela da casa (nevera, heladera, refrigerador). Escolha pelo uso: aprenda a forma da região de quem você quer entender e, a cada palavra nova, anote de onde ela é.
+```
+
+## Exemplo resolvido
+
+**Como dizer "Meus pais moram numa casa com um quintal, e a minha irmã mora num apartamento"?**
+
+1. **"Meus pais"**: possessivo sem artigo e no plural: *mis padres*.
+2. **"Moram"**: *viven*; **"numa casa"**: *en una casa*.
+3. **"Com um quintal"**: *con un patio*.
+4. **"A minha irmã"**: de novo sem artigo, *mi hermana*; **"mora"**: *vive*; **"num apartamento"**: *en un apartamento*.
+
+Frase pronta: *Mis padres viven en una casa con un patio, y mi hermana vive en un apartamento.*
+
+```agir
+# Esta semana
+Escreva em espanhol, em papeizinhos, o nome de cinco coisas da sua casa (por exemplo la mesa, la puerta, la ventana, la cama, la cocina) e cole em cada uma. Diga o nome em voz alta toda vez que passar por elas.
+```
+
 ## Para praticar
 
 1. Apresente a sua família em cinco frases: *Tengo dos hermanos. Mi madre se llama…*
@@ -143,3 +178,11 @@ Atenção: ***vaso*** é o copo; a taça de vinho é ***copa***.
 3. Conte o que você come num dia comum, no café da manhã, no almoço e no jantar.
 
 Se quiser, leia em voz alta com a ferramenta de [pronúncia](/ferramentas/pronuncia), escolhendo "Español".
+
+## Resumo
+
+- Família: *padre, madre, hijo, hermano, abuelo, tío, primo*; *novio* e *novia* são namorado e namorada.
+- Possessivos **mi, tu, su, nuestro** vêm sem artigo: *mi casa*.
+- Casa: *la cocina, el baño, el dormitorio, el patio*; os nomes de alguns objetos mudam de país para país.
+- Refeições: *desayuno, almuerzo, merienda, cena*; *vaso* é copo e *copa* é taça.
+- *Pez* é o peixe na água; *pescado* é o peixe na mesa.

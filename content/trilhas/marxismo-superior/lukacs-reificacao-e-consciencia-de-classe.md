@@ -33,6 +33,10 @@ quiz:
     explicacao: "A autoconsciência da mercadoria é, ao mesmo tempo, conhecimento da sociedade que a produz."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a ortodoxia como método, a totalidade e a reificação em Lukács e por que *História e Consciência de Classe* (1923) fundou o chamado marxismo ocidental.
+
 **György Lukács** (1885-1971), filósofo húngaro, vinha de uma família rica de Budapeste e de uma formação na filosofia e na crítica literária alemãs. Em 1918, aderiu ao Partido Comunista da Hungria e foi comissário de educação e cultura na breve República Soviética Húngara de 1919. No exílio, publicou em 1923 *História e Consciência de Classe*, um conjunto de ensaios que se tornou um dos textos fundadores do chamado **marxismo ocidental**.
 
 ## A ortodoxia como método
@@ -73,6 +77,24 @@ O livro foi condenado pela direção da Internacional Comunista em 1924. Mais ta
 
 *História e Consciência de Classe* influenciou a Escola de Frankfurt (Adorno, Horkheimer, Marcuse), Lucien Goldmann, e boa parte da teoria crítica do século XX. No Brasil, Lukács foi estudado por autores como Leandro Konder, Carlos Nelson Coutinho e José Paulo Netto, e influenciou fortemente o serviço social e a crítica literária.
 
+## Exemplo resolvido
+
+**O que Lukács quer dizer com "ortodoxia" e com "totalidade"?**
+
+1. Ortodoxia, para ele, não é crer em cada tese de Marx nem fazer exegese de um livro sagrado: refere-se **exclusivamente ao método**, a dialética materialista.
+2. Mesmo que a pesquisa refutasse afirmações isoladas de Marx, o marxista ortodoxo poderia aceitá-lo sem abandonar o marxismo.
+3. O núcleo do método é a **totalidade**: o domínio do todo sobre as partes.
+4. O pensamento burguês fragmenta a realidade em especialidades isoladas (economia, direito, psicologia); a dialética vê cada fato como **momento de um processo histórico total**.
+
+Confira: a reificação generaliza o fetichismo da mercadoria, e a pergunta da aula é onde, na sua vida, você se sente "peça de um sistema" que não controla.
+
 ## Para pesquisar e debater
 
 Pense numa área da sua vida em que você se sente "peça de um sistema" que não controla. Que relações sociais estão escondidas por trás dessa aparência de coisa?
+
+## Resumo
+
+- György Lukács (1885-1971), filósofo húngaro, publicou em 1923 *História e Consciência de Classe*, texto fundador do marxismo ocidental.
+- Ortodoxia refere-se ao método (a dialética materialista), e não à crença em cada tese.
+- A categoria central é a totalidade: cada fato é momento de um processo histórico total.
+- A reificação generaliza o fetichismo da mercadoria; a obra influenciou a Escola de Frankfurt e, no Brasil, o serviço social e a crítica literária.

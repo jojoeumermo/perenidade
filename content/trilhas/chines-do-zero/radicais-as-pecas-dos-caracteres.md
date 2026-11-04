@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "打, 找 (procurar), 拿 (pegar) têm a ver com ações da mão."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é um radical, reconhecer os radicais mais comuns e usar a ideia e o som das peças para memorizar e adivinhar caracteres.
 
 ## Caracteres têm peças
 
@@ -93,3 +96,21 @@ O caractere 河 (hé) tem o radical 氵. O que é mais provável que ele signifi
 2. Procure três caracteres com o radical 氵 e três com 扌 e anote o sentido.
 3. Use a parte sonora para adivinhar a pronúncia de 蚂 (formiga, com 马) e confira no dicionário.
 4. Invente uma pequena história para memorizar 休 ou 好.
+
+## Exemplo resolvido
+
+**Os caracteres 请, 清 e 晴 têm a mesma parte sonora, 青 (qīng). Como o radical ajuda a distingui-los?**
+
+1. **Separe as peças.** Todos têm a parte sonora 青 (qīng), que dá a pista da pronúncia.
+2. **Veja o radical de cada um.** 请 tem **讠** (fala): é "pedir, por favor". 清 tem **氵** (água): é "claro, límpido". 晴 tem **日** (sol): é "céu limpo".
+3. **Conclua.** A parte sonora dá uma pista da pronúncia (qīng, qǐng, qíng); o radical dá o campo de sentido: fala, água, sol.
+
+Confira: a pista do som não é garantia, pois o tom muitas vezes muda. Com um caractere novo, o radical sugere o sentido (河, com 氵, é provavelmente algo ligado à água: é "rio").
+
+## Resumo
+
+- **Radical** (部首, bùshǒu) é a peça que dá a categoria de sentido e organiza o caractere nos dicionários.
+- Muitos radicais mudam de forma ao fazer parte de outro caractere: 水 → 氵, 人 → 亻, 手 → 扌, 草 → 艹, 言 → 讠, 心 → 忄.
+- O tipo de caractere mais comum combina **uma peça de ideia** (radical) e **uma peça de som**.
+- A parte sonora é só uma pista: o tom muda e a pronúncia mudou com os séculos.
+- As peças ajudam a memorizar, a adivinhar e a procurar no dicionário. Exemplos: 休 (pessoa + árvore, descansar), 林 (duas árvores, bosque), 森 (três árvores, floresta).

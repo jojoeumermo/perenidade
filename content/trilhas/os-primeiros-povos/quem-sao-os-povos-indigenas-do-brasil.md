@@ -32,7 +32,17 @@ quiz:
     opcoes: ["O direito originário às terras que tradicionalmente ocupam", "O direito de serem tutelados", "Nenhum direito específico"]
     resposta: 0
     explicacao: "Direito originário quer dizer anterior à criação do próprio Estado brasileiro. Cabe à União demarcar e proteger essas terras."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer quantos são e onde vivem os indígenas do Brasil (Censo 2022), por que se diz "povos" no plural e "indígena" em vez de "índio" e o que o art. 231 da Constituição garante.
+
+```suarealidade
+O que você sabe sobre os povos indígenas da sua região? De onde vem o que você sabe: da escola, da televisão, de conversas, de alguém que você conhece?
+```
+
+
 
 ## Já estavam aqui
 
@@ -75,3 +85,34 @@ Para os povos indígenas, a terra não é mercadoria: é o lugar de onde vêm o 
 A Constituição de 1988, no artigo 231, reconhece aos indígenas "os direitos originários sobre as terras que tradicionalmente ocupam" e manda a União **demarcar** e proteger essas terras. As terras indígenas somam hoje perto de 14% do território nacional, quase todas na Amazônia, e estão entre as áreas mais preservadas do país.
 
 Muitas ainda aguardam demarcação, e as já demarcadas sofrem invasões de garimpeiros, madeireiros e grileiros. A luta pela terra é o centro do movimento indígena e é o assunto da trilha seguinte.
+
+## Exemplo resolvido: "só é indígena quem mora na floresta" é verdade?
+
+1. Pergunte o que os dados dizem. No Censo de 2022 foram contadas 1.694.836 pessoas indígenas. Pouco mais da metade vive na Amazônia Legal; ou seja, uma parte grande vive fora dela, e uma parte grande vive em cidades.
+2. Pergunte o que a aula diz sobre a identidade: ser indígena não depende de aparência nem de morar em aldeia. Uma pessoa indígena que usa celular, cursa medicina ou mora em São Paulo continua indígena.
+3. Pergunte sobre os povos: não existe "o índio" genérico; existem povos (Guarani, Yanomami, Tikuna, Pataxó, Xavante, Kaingang e centenas de outros), com línguas e histórias diferentes.
+4. Conclusão: a frase é falsa.
+
+Confira: o erro vem de uma imagem única, de cocar e arco e flecha, que apaga a diferença entre os povos e a vida real.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Quem defende a chamada tese do marco temporal sustenta que só podem ser demarcadas como terras indígenas as que já eram ocupadas na data da promulgação da Constituição, 5 de outubro de 1988. O argumento é de segurança jurídica: quem comprou ou herdou terra com título de boa-fé precisa saber o que é seu. Essa tese foi incluída na Lei nº 14.701, de 2023.
+---
+Como você responderia, com respeito e com fatos? Pense no que o art. 231 diz sobre "direitos originários" e sobre as terras que os indígenas "tradicionalmente ocupam".
+---
+Uma resposta possível: a segurança jurídica é um valor legítimo, de quem tem título e de quem espera a demarcação. Mas o art. 231 reconhece aos indígenas direitos originários, anteriores à própria Constituição, sobre as terras que tradicionalmente ocupam, e muitos povos foram expulsos delas antes de 1988. Por isso a aula lembra que muitas terras ainda aguardam demarcação. O Supremo Tribunal Federal, em 2023, entendeu que o marco temporal é inconstitucional; a disputa política e jurídica continua.
+```
+
+```agir
+# Esta semana
+Anote num papel três coisas que você sabia sobre os povos indígenas e, ao lado de cada uma, se ela fala de um povo específico ou de "o índio" em geral. Depois, pesquise o nome de um povo indígena da sua região e escreva uma coisa que aprendeu sobre ele.
+```
+
+## Resumo
+
+- Quando os portugueses chegaram, em 1500, o território era habitado havia milhares de anos; a colonização trouxe guerras, escravização e doenças.
+- Censo 2022: 1.694.836 pessoas indígenas (cerca de 0,83% da população); pouco mais da metade vive na Amazônia Legal; muitas vivem em cidades.
+- Existem povos, no plural, com línguas, histórias e conhecimentos diferentes.
+- "Indígena" (natural do lugar) é o termo preferido; "índio" nasceu de um engano dos navegadores.
+- O art. 231 da Constituição de 1988 reconhece os direitos originários sobre as terras que tradicionalmente ocupam e manda a União demarcá-las e protegê-las; muitas ainda aguardam demarcação.

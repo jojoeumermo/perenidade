@@ -1,5 +1,6 @@
 ---
 titulo: "O que é saúde mental"
+modelo: 9
 resumo: "Saúde mental não é só ausência de doença, nem depende só de força de vontade: o que ela é, o que a adoece e onde buscar cuidado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,14 @@ quiz:
     resposta: 1
     explicacao: "Falar sobre o assunto não \"dá ideia\": abre espaço para pedir ajuda. Em risco imediato, ligue 192."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é saúde mental segundo a OMS, reconhecer quando procurar ajuda e saber onde o SUS cuida e que o CVV atende pelo 188.
+
+```suarealidade
+Pense na sua semana: o que pesa no seu sono, no seu humor ou no seu ânimo (trabalho, transporte, dinheiro, casa)? E o que ajuda a aguentar? Escreva só para você.
+```
 
 Esta aula é informação, e não atendimento. Se você está em sofrimento, procure a unidade de saúde do seu bairro. Se precisa conversar agora, o **CVV atende pelo telefone 188**, de graça, a qualquer hora. Em emergência, ligue **192**.
 
@@ -102,3 +111,35 @@ A **Lei 10.216**, de 2001, mudou a lógica do atendimento no Brasil. Ela garante
 - **"Quem tem transtorno mental é perigoso."** Na imensa maioria dos casos, não. É bem mais comum essas pessoas sofrerem violência do que praticarem.
 - **"Remédio psiquiátrico vicia e muda quem a pessoa é."** Usado com acompanhamento, é um tratamento como qualquer outro. Não se começa nem se para por conta própria.
 - **"Terapia é coisa de rico."** O SUS oferece atendimento, e muitas universidades têm clínicas-escola gratuitas ou de baixo custo.
+
+## Exemplo resolvido
+
+**Uma trabalhadora dorme quatro horas por noite, pega três ônibus, tem medo de perder o emprego, anda sem ânimo e chora à toa há três semanas. O que fazer?**
+
+1. Não chame isso de fraqueza. A aula diz que a saúde mental resulta de fatores individuais combinados com fatores sociais e econômicos; jornada exaustiva e medo de perder o emprego pesam contra.
+2. Confira os sinais de procurar ajuda: o sofrimento dura mais de duas semanas sem melhorar e atrapalha o sono e o trabalho. Aqui, os dois aparecem.
+3. Escolha o primeiro passo: a unidade básica de saúde do bairro, porta de entrada da rede, que acolhe e encaminha. Se precisar conversar agora, o CVV atende no 188, de graça, a qualquer hora; em emergência, 192.
+
+Conclusão: ela tem direito a cuidado, e pedir ajuda é o que se faz quando algo dói.
+
+```outrolado
+# O argumento de quem diz que é questão de força de vontade
+"Sofrimento mental é frescura. Quem trabalha de verdade não tem tempo de ficar triste. Basta se esforçar, ter fé e levantar da cama."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Cada pessoa tem dias ruins, e esforço e fé podem ajudar muita gente. Mas a aula mostra que a saúde mental não é só força de vontade: segundo a OMS, resulta de fatores individuais e de fatores sociais e econômicos, como pobreza, desemprego, dívida, violência, racismo e jornadas exaustivas. Em 2019, cerca de 970 milhões de pessoas, uma em cada oito, viviam com algum transtorno mental. Cuidar é também garantir salário, descanso, moradia e segurança, e procurar ajuda é um direito.
+```
+
+```agir
+# Esta semana
+Num papel, escreva o número do CVV (188) e o nome da unidade de saúde mais próxima da sua casa, com o horário em que ela abre. Guarde o papel na carteira ou na parede de casa. Se alguém pedir, mostre onde ele está. Não é preciso contar nada a ninguém.
+```
+
+## Resumo
+
+- A OMS define saúde mental como um estado de bem-estar em que a pessoa lida com as tensões da vida, aprende, trabalha e contribui com a comunidade.
+- Saúde mental é mais do que não ter transtorno, não é estar feliz o tempo todo e é um direito.
+- Ela resulta de fatores individuais combinados com fatores sociais e econômicos.
+- Vale procurar ajuda quando o sofrimento dura mais de duas semanas, atrapalha a vida, traz pensamentos de morte ou leva ao uso de álcool e drogas.
+- O SUS tem a Rede de Atenção Psicossocial, com unidade básica de saúde e CAPS; o CVV atende pelo 188 e a emergência é 192.

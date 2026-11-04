@@ -28,6 +28,10 @@ quiz:
     explicacao: "Já em D – M – D', o objetivo é o próprio valor, e o movimento não tem fim."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber as funções do dinheiro segundo Marx e reconstruir o argumento da passagem do dinheiro ao capital, da fórmula D–M–D' à força de trabalho.
+
 Os capítulos 2 e 3 do Livro I tratam do dinheiro; o capítulo 4, da transformação do dinheiro em capital. É a passagem da circulação simples de mercadorias para o capitalismo propriamente dito. Esta aula reconstrói o argumento.
 
 ## As funções do dinheiro
@@ -87,6 +91,25 @@ O capítulo termina com uma das passagens mais irônicas do livro. A esfera da c
 
 Mas, quando se sai dessa esfera e se entra no "local oculto da produção", a fisionomia dos personagens muda: o dono do dinheiro marcha à frente, sorridente e ocupado, e o dono da força de trabalho segue atrás, tímido, "como alguém que levou a própria pele ao mercado e agora não tem mais nada a esperar além do curtume".
 
+## Exemplo resolvido
+
+**Qual a diferença entre M–D–M e D–M–D'?**
+
+1. **M–D–M** (vender para comprar) começa e termina numa mercadoria. As pontas são qualitativamente diferentes (vendo milho, compro sapatos); o objetivo é o **valor de uso**, e o circuito acaba quando a necessidade é satisfeita.
+2. **D–M–D'** (comprar para vender) começa e termina em dinheiro. As pontas são qualitativamente iguais, e só faz sentido se forem diferentes na quantidade: D' > D.
+3. Portanto, no segundo circuito o objetivo é o próprio valor que cresce.
+4. A solução do enigma (de onde vem o D' maior) está numa mercadoria especial: a **força de trabalho**.
+
+Confira: na circulação tudo parece troca de equivalentes; só no "local oculto da produção" se vê de onde vem a mais-valia.
+
 ## Para pesquisar e debater
 
 Releia um contrato de trabalho real (o seu ou um modelo). Onde aparecem a liberdade, a igualdade e a propriedade do "Éden" descrito por Marx? O que o contrato não diz?
+
+## Resumo
+
+- Funções do dinheiro: medida dos valores, meio de circulação e dinheiro propriamente dito (entesouramento, meio de pagamento e dinheiro mundial).
+- O meio de pagamento introduz a possibilidade de crise quando uma cadeia de pagamentos se rompe.
+- M–D–M busca o valor de uso; D–M–D' busca mais valor.
+- A fórmula geral do capital esconde uma contradição, que se resolve com a força de trabalho.
+- O contrato parece um "Éden dos direitos humanos" (liberdade, igualdade, propriedade); na produção, a relação de classe aparece.

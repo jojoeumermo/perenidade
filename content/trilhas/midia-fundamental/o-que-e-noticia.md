@@ -29,6 +29,7 @@ quiz:
     opcoes: ["Coloca o restante no sublide, o segundo parágrafo", "Inventa o que falta", "Deixa sem as informações para sempre"]
     resposta: 0
     explicacao: "O sublide completa o lide."
+modelo: 9
 ---
 
 ```provocacao
@@ -38,6 +39,10 @@ Você lê só a manchete e já acha que entendeu a notícia? O que pode estar es
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é uma notícia, como ela é organizada e como lê-la com atenção.
+
+```suarealidade
+Qual foi a última notícia que mexeu com o seu dia (um preço, um bairro, uma obra, uma greve)? Quem foi ouvido nela, e quem não foi?
+```
 
 ## O que é notícia
 
@@ -86,6 +91,20 @@ Por que é arriscado ler só o título de uma notícia?
 4. **Onde**: na avenida principal.
 5. **Como**: com faixas e cartazes.
 6. **Por quê**: para cobrar o conserto da ponte.
+
+```outrolado
+# O argumento mais forte de quem discorda
+O Digital News Report, do Instituto Reuters para o Estudo do Jornalismo, tem registrado em vários países que muita gente evita as notícias, com frequência, por cansaço, excesso de informação e sensação de impotência. Para quem pensa assim, ler a notícia inteira, e conferir quem foi ouvido, é um luxo: quem tem pouco tempo se contenta com a manchete e com os veículos que já conhece.
+---
+Como você responderia, com respeito e com fatos? Pense no que a aula diz sobre o lide e sobre o risco de ler só o título.
+---
+Uma resposta possível: o cansaço é real, e ninguém precisa ler tudo. A aula propõe ler menos, mas melhor: o lide traz as seis perguntas (o quê, quem, quando, onde, como e por quê) em um parágrafo, e o título resume e pode deixar de fora as circunstâncias, o contexto e as falas. Em um minuto dá para ler o lide e ver quem foi ouvido; é isso que separa saber do assunto de só reconhecer a manchete.
+```
+
+```agir
+# Esta semana
+Escolha uma notícia por dia, durante três dias, e no papel marque no lide as respostas às seis perguntas. No fim, escreva em uma frase quem foi ouvido e quem não foi.
+```
 
 ## Resumo
 

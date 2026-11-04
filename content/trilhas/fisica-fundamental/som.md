@@ -31,6 +31,10 @@ quiz:
     resposta: 0
     explicacao: "A luz chega quase na hora; o som percorre cerca de 340 metros por segundo no ar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o som, a diferença entre grave e agudo, fraco e forte, e como se protege a audição do ruído.
+
 
 ## Uma vibração que viaja
 
@@ -112,6 +116,17 @@ A ordem correta das medidas é: primeiro, **reduzir o ruído na fonte** (manuten
 
 Fora do trabalho, o risco está no fone de ouvido: volume alto, por horas, todos os dias, causa o mesmo dano.
 
+## Exemplo resolvido
+
+**Você vê o clarão de um raio e ouve o trovão 9 segundos depois. A que distância o raio caiu?**
+
+1. A luz do clarão chega quase na hora. O que demora é o som.
+2. Use a velocidade do som no ar, 343 m/s, que aparece na aula.
+3. Distância = velocidade × tempo = 343 × 9 = 3.087 m.
+4. Em quilômetros: cerca de 3 km.
+
+Confira de volta: 3.087 ÷ 343 = 9 s. Se o trovão chegasse em 3 segundos, a conta daria cerca de 1 km: o raio estaria três vezes mais perto.
+
 ## Para pesquisar e debater
 
 1. Você vê um raio e ouve o trovão 6 segundos depois. A que distância ele caiu?
@@ -120,3 +135,11 @@ Fora do trabalho, o risco está no fone de ouvido: volume alto, por horas, todos
 4. Como melhorar a acústica do salão onde a sua comunidade se reúne?
 
 **Resposta do 1:** Cerca de 2 km (6 × 340 m).
+
+## Resumo
+
+- Todo som nasce de algo que vibra e é uma onda mecânica: precisa de matéria e não se propaga no vácuo.
+- Frequência (Hz) define grave e agudo; intensidade (dB) define fraco e forte.
+- O eco é o som refletido que chega bem depois do original; em sala vazia de paredes lisas, as reflexões se embolam.
+- O ruído forte por muito tempo destrói as células do ouvido interno, e a perda é irreversível.
+- A NR-15 fixa limites de exposição ao ruído; a ordem das medidas é reduzir o ruído na fonte, reduzir o tempo de exposição e só por último usar o protetor.

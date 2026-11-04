@@ -24,6 +24,10 @@ quiz:
     resposta: 2
     explicacao: "Cada bit dobra o número de combinações: 2 multiplicado por si mesmo 8 vezes dá 256."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é um bit e um byte, converter um número pequeno para binário, ver como um texto vira número e não confundir megabits com megabytes.
+
 
 ## Por que só zeros e uns
 
@@ -82,6 +86,36 @@ O mesmo princípio vale para tudo: uma foto é uma grade de pontos, cada um com 
 
 Velocidade de internet costuma ser medida em **megabits** por segundo (Mb/s, com b minúsculo), e tamanho de arquivo em **megabytes** (MB, com B maiúsculo). Como um byte tem 8 bits, uma conexão de 100 megabits por segundo baixa, no máximo, cerca de 12,5 megabytes por segundo.
 
+## Exemplo resolvido
+
+**Escreva o número 13 em binário. Depois, calcule quanto tempo leva para baixar um arquivo de 500 MB em uma conexão de 100 Mb/s.**
+
+**Parte 1: 13 em binário**
+
+1. Em binário, cada posição vale o dobro da anterior: da direita para a esquerda, 1, 2, 4, 8.
+2. Procure as posições cuja soma dá 13: 8 + 4 + 1 = 13. O 2 não entra.
+3. Marque 1 nas posições usadas e 0 na que sobrou: 8 → 1, 4 → 1, 2 → 0, 1 → 1.
+4. Resultado: **1101**.
+
+Confira: 1×8 + 1×4 + 0×2 + 1×1 = 8 + 4 + 0 + 1 = 13.
+
+**Parte 2: tempo de download**
+
+1. A velocidade vem em **megabits** por segundo, e o arquivo em **megabytes**. Um byte tem 8 bits.
+2. Converta: 100 Mb/s ÷ 8 = **12,5 MB/s** no máximo.
+3. Divida o tamanho pela velocidade: 500 ÷ 12,5 = **40 segundos**.
+
+Na prática leva um pouco mais, porque a velocidade de uma conexão varia. A conta dá o tempo mínimo.
+
 ## Pratique
 
 Converta para decimal: `110`, `1010` e `1111`. As respostas são 6, 10 e 15.
+
+## Resumo
+
+- Por dentro, o computador é feito de interruptores que estão ligados ou desligados: 1 e 0. Cada 0 ou 1 é um bit, a menor unidade de informação.
+- O sistema binário usa dois algarismos e cada posição vale o dobro da anterior (1, 2, 4, 8, 16...).
+- 8 bits formam um byte, com 256 combinações, o suficiente para uma letra.
+- Texto vira número por uma tabela como a ASCII: A é 65, B é 66, a é 97.
+- Unidades: KB (mil bytes), MB (um milhão), GB (um bilhão), TB (um trilhão).
+- Bit não é byte: a internet é medida em megabits por segundo (Mb/s) e os arquivos em megabytes (MB); 100 Mb/s baixam, no máximo, cerca de 12,5 MB/s.

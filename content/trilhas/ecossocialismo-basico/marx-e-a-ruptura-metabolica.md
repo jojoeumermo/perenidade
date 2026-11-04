@@ -32,6 +32,10 @@ quiz:
     explicacao: "A passagem está no Livro III de O Capital."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Marx chamou de ruptura metabólica e por que ele não pode ser lido como alguém indiferente à natureza.
+
 É comum ouvir que Marx só se preocupava com fábricas e que a ecologia não fazia parte do seu pensamento. Pesquisas das últimas décadas mostraram que não é bem assim. Marx acompanhou de perto a ciência agrícola do seu tempo e escreveu sobre um problema ambiental que afligia a Europa: o **esgotamento dos solos**.
 
 ## O problema dos solos
@@ -77,3 +81,21 @@ Marx não foi um ecologista no sentido de hoje, e há trechos da sua obra que ce
 ## Para pesquisar e debater
 
 Para onde vai o esgoto da sua cidade? E o lixo orgânico? De onde vêm os adubos usados nas lavouras do seu estado? O ciclo se fecha em algum ponto?
+
+## Exemplo resolvido
+
+**Qual é a "ruptura" de que Marx fala?**
+
+1. Parta do campo: a colheita retira do solo nutrientes como nitrogênio, fósforo e potássio.
+2. Siga os alimentos: vão para as cidades, onde os nutrientes viram esgoto e lixo despejados nos rios.
+3. Veja o que falta: eles não voltam ao solo; a terra empobrece a cada colheita (Liebig chamou isso de sistema de roubo).
+4. Dê o nome: o ciclo se rompeu; Marx diz que a produção capitalista perturba o metabolismo entre o homem e a terra.
+
+Confira: a Inglaterra tentou repor o que faltava importando guano do Peru, ou seja, deslocou o problema para outro lugar.
+
+## Resumo
+
+- Marx acompanhou a ciência agrícola do seu tempo e escreveu sobre o esgotamento dos solos.
+- Ruptura metabólica: os nutrientes saem do campo com os alimentos, vão para as cidades e não retornam à terra.
+- Para Marx, a sociedade é apenas usufrutuária da Terra e deve legá-la melhorada às gerações seguintes.
+- John Bellamy Foster reuniu essas passagens; o conceito serve hoje, por exemplo, para o ciclo do carbono. Marx deixou ferramentas, não uma teoria ecológica pronta.

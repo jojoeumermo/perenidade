@@ -26,6 +26,10 @@ quiz:
     resposta: 0
     explicacao: "Seus painéis Guerra e Paz estão na sede das Nações Unidas, em Nova York."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que o México pós-revolução entregou as paredes aos pintores, reconhecer os três grandes do muralismo e dizer o que o caso do mural destruído mostra sobre quem paga pela arte pública.
+
 
 ## Uma revolução precisa de imagens
 
@@ -67,8 +71,29 @@ O episódio resume a tensão que acompanha toda arte pública: quem paga pela pa
 
 O muralismo espalhou-se pela América. Nos Estados Unidos, inspirou os programas públicos de arte dos anos 1930. No Brasil, marcou **Candido Portinari**, filho de imigrantes pobres que trabalhavam em uma fazenda de café, autor de painéis sobre os trabalhadores brasileiros e de *Guerra e Paz*, na sede das Nações Unidas. Os murais e grafites das periferias de hoje são, de certo modo, herdeiros dessa ideia: a parede é de todos.
 
+## Exemplo resolvido
+
+**Com as datas da aula, quanto tempo viveu cada um dos três grandes e quanto tempo se passou entre a ideia do muralismo e o mural destruído?**
+
+1. Rivera: 1886–1957. Subtraia: 1957 − 1886 = **71 anos**.
+2. Orozco: 1883–1949. 1949 − 1883 = **66 anos**.
+3. Siqueiros: 1896–1974. 1974 − 1896 = **78 anos**.
+4. A ideia de pintar paredes públicas é de 1921 (Vasconcelos). O manifesto do sindicato dos pintores é de 1923: 1923 − 1921 = **2 anos**.
+5. O mural do Rockefeller Center é de 1933 e foi destruído no ano seguinte, 1934. De 1921 a 1933: **12 anos**.
+
+Leitura: os três nasceram entre 1883 e 1896, e a revolução (1910 a 1920) os pegou jovens. Foi uma geração inteira que pintou a história do povo mexicano nas paredes.
+
 ## Para praticar
 
 1. Procure na internet imagens dos murais de Rivera no Palácio Nacional. Que grupos sociais aparecem? Quem está no centro e quem está nas bordas?
 2. Existe algum mural ou grafite no seu bairro? O que ele conta? Quem o fez?
 3. Se você pudesse pintar a história da sua comunidade em uma parede, o que não poderia faltar?
+
+## Resumo
+
+- Entre 1910 e 1920, o México viveu a primeira grande revolução social do século XX; terminada a guerra, a maioria da população não sabia ler.
+- Em 1921, José Vasconcelos entregou paredes de escolas, ministérios e palácios a jovens pintores: nascia o muralismo.
+- Em 1923, o sindicato de pintores lançou um manifesto contra a "pintura de cavalete" e a favor da arte monumental, de propriedade pública.
+- Os três grandes: Diego Rivera (claro e narrativo), José Clemente Orozco (sombrio e crítico) e David Alfaro Siqueiros (experimental e militante).
+- Em 1933, o mural de Rivera no Rockefeller Center foi destruído por causa do retrato de Lenin; quem paga pela parede quer decidir o que ela diz.
+- O muralismo inspirou a arte pública dos Estados Unidos nos anos 1930, Portinari no Brasil e, de certo modo, os murais e grafites das periferias de hoje.

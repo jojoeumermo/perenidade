@@ -30,6 +30,10 @@ quiz:
     explicacao: "Sódio e potássio têm, cada um, 1 elétron de valência, e reagem de modo parecido."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber fazer a distribuição eletrônica de um átomo ou íon pelo diagrama de Pauling e achar os elétrons da camada de valência.
+
 ## Por que isso importa
 
 O comportamento químico de um elemento (com quem ele se liga, se forma sal, se conduz eletricidade) depende quase só de uma coisa: **como os seus elétrons estão arrumados**, sobretudo os mais externos. A **distribuição eletrônica** é o endereço dos elétrons.
@@ -153,9 +157,29 @@ O Na⁺ ficou com a mesma distribuição do gás nobre neônio; o Cl⁻, com a d
 
 No ferro, os elétrons saem primeiro do 4s, que é a camada mais externa: o Fe²⁺ é 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁶.
 
+## Exemplo resolvido
+
+**Faça a distribuição eletrônica do oxigênio (Z = 8) e diga quantos elétrons há na camada de valência.**
+
+1. O átomo neutro tem 8 elétrons. Siga a ordem do diagrama de Pauling: 1s, 2s, 2p...
+2. Preencha: 1s² (2 elétrons), 2s² (mais 2, total 4) e 2p com os 4 que faltam: 1s² 2s² 2p⁴.
+3. Confira a soma dos expoentes: 2 + 2 + 4 = 8, igual ao número atômico.
+4. A camada mais externa é a 2ª, e nela há 2 + 4 = 6 elétrons.
+
+O oxigênio tem 6 elétrons de valência e, como os calcogênios (grupo 16), tende a ganhar 2 elétrons e formar ânion 2−.
+
 ## Para praticar
 
 1. Faça a distribuição eletrônica de: carbono (Z = 6), magnésio (Z = 12), enxofre (Z = 16) e potássio (Z = 19).
 2. Para cada um, indique a camada de valência e o número de elétrons nela.
 3. Sem olhar a tabela periódica, diga em que período está cada um desses elementos.
 4. Faça a distribuição dos íons Mg²⁺ e S²⁻. A que gás nobre cada um se iguala?
+
+## Resumo
+
+- Os elétrons ocupam níveis (camadas K a Q) e subníveis s, p, d e f, que comportam 2, 6, 10 e 14 elétrons.
+- A ordem de preenchimento vem do diagrama de Linus Pauling, lido em diagonais.
+- A soma dos expoentes da distribuição tem de dar o número atômico.
+- A camada de valência é a mais externa com elétrons e é ela que faz as ligações.
+- O período indica o número de camadas; o grupo reúne elementos com a mesma configuração de valência.
+- Num cátion retiram-se elétrons da camada mais externa; num ânion acrescentam-se.

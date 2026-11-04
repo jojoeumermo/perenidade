@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "Antropólogos e arqueólogos mostram grande diversidade de formas de organização social antes do Estado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Engels chamou de comunismo primitivo, como ele via o surgimento das classes e do Estado e o que a pesquisa posterior (Clastres, Graeber e Wengrow) acrescentou.
 
 Ricos e pobres, patrões e empregados, polícia e prisão parecem ter existido sempre. Mas não é verdade. A espécie humana tem cerca de 300 mil anos; as primeiras cidades e Estados surgiram há cerca de 5 mil a 6 mil anos. Durante a imensa maior parte da nossa história, vivemos sem classes e sem Estado.
 
@@ -76,3 +79,24 @@ Muitos povos indígenas brasileiros ainda hoje organizam a vida com base na part
 ## Para conversar
 
 Se as classes e o Estado tiveram um começo, podem ter um fim? O que seria preciso para isso?
+
+## Exemplo resolvido
+
+**Segundo Engels, como surgiram as classes sociais? Siga o raciocínio.**
+
+1. **Ponto de partida.** Em sociedades como as dos iroqueses, estudadas por Morgan, a terra era de uso comum, o que se caçava era dividido e as decisões saíam de assembleias.
+2. **A mudança.** A agricultura e a criação de animais permitiram produzir um excedente, uma sobra além do necessário para viver.
+3. **O controle.** Quem controlava o excedente (rebanhos, terras, celeiros) passou a acumular riqueza e poder.
+4. **O resultado.** Surgiram a propriedade privada, a herança e a divisão em classes e, para proteger essa divisão, o Estado.
+5. **Conclua.** Para Engels, a desigualdade e o Estado têm origem histórica; não são naturais.
+
+Confira: parte dos dados de Morgan e Engels foi corrigida depois, e Graeber e Wengrow (2021) argumentam que a desigualdade não foi consequência inevitável da agricultura.
+
+## Resumo
+
+- A espécie humana tem cerca de 300 mil anos; as primeiras cidades e Estados surgiram há cerca de 5 a 6 mil anos.
+- Engels (1884) chamou de **comunismo primitivo** sociedades com terra de uso comum, partilha do que se produzia e decisões em assembleia.
+- O **excedente** permitiu acumular riqueza e deu origem à propriedade privada, às classes e ao Estado.
+- Clastres mostrou povos indígenas organizados **contra** o surgimento do Estado.
+- Pesquisas recentes mostram sociedades muito diversas; a desigualdade e o Estado são invenções históricas.
+- Muitos povos indígenas brasileiros ainda organizam a vida pela partilha e pelo uso comum da terra.

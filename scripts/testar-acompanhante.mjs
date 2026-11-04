@@ -62,7 +62,7 @@ const conversa = (i, atualizada = agora - i * 1000) => ({ id: `c-${String(i).pad
   igual("modo seguro: não grava o trabalho", gravarTrabalho("pedreiro", { armazenamento: limpo, sessao: segura }), false);
   igual("modo seguro: o aparelho fica vazio", limpo.length, 0);
 
-  apagarConversas("c-0003", velhas);
+  apagarConversas("c-0003", velhas, agora);
   igual("apagar uma conversa", lerConversas(velhas, agora).map((c) => c.id), ["c-0002"]);
   apagarConversas(undefined, velhas);
   igual("apagar tudo", [velhas.getItem(CHAVE_CONVERSAS), lerConversas(velhas, agora).length], [null, 0]);

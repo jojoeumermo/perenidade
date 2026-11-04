@@ -32,6 +32,9 @@ quiz:
     resposta: 0
     explicacao: "Rosa apoiava a revolução e criticava a restrição das liberdades."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a diferença entre emancipação política e humana em Marx, por que as liberdades formais importam para os marxistas e quais contradições a experiência do século XX trouxe.
 
 A acusação mais frequente ao comunismo é a de que ele sacrifica o indivíduo ao coletivo. Os clássicos do marxismo diziam o contrário: que o comunismo seria a **realização** da liberdade individual. Esta aula examina essa promessa, e a sua relação difícil com a história do século XX.
 
@@ -72,3 +75,24 @@ Nos países governados por partidos comunistas, as conquistas sociais (emprego, 
 ## Para pesquisar e debater
 
 Que liberdades você considera indispensáveis em qualquer sociedade justa? Em que situações a liberdade de uns limita a liberdade de outros, e como uma sociedade democrática deveria resolver isso?
+
+## Exemplo resolvido
+
+**Por que, para Marx, a igualdade perante a lei não basta para a liberdade? Siga o argumento de 1843.**
+
+1. **O avanço.** Em *A Questão Judaica*, Marx reconheceu a emancipação política (igualdade perante a lei, liberdade religiosa, fim dos privilégios de nascimento) como grande progresso.
+2. **O limite.** O Estado declara todos iguais como cidadãos, mas na sociedade civil as pessoas continuam separadas pela propriedade, pela riqueza e pela concorrência.
+3. **A consequência.** O cidadão é livre no papel; o trabalhador continua dependente na fábrica.
+4. **A proposta.** A emancipação humana exigiria superar essa divisão, com condições materiais: tempo livre, educação, saúde, segurança, cultura.
+5. **Conclua.** Ter o direito no papel é diferente de ter condições de exercê-lo.
+
+Confira: Rosa Luxemburgo lembrou, em 1918, que a liberdade é sempre a liberdade de quem pensa diferente.
+
+## Resumo
+
+- Marx (1843) distinguiu **emancipação política**, um grande progresso, de **emancipação humana**, que exige superar a divisão entre cidadão e trabalhador.
+- Manifesto (1848): "o livre desenvolvimento de cada um é a condição para o livre desenvolvimento de todos".
+- Muitos marxistas defendem as liberdades formais (expressão, imprensa, organização, voto, greve) como conquistas da luta popular.
+- Rosa Luxemburgo (1918): liberdade só para os partidários do governo não é liberdade.
+- Nos países governados por comunistas, conquistas sociais conviveram com partido único, censura e perseguição de dissidentes, contradição criticada também por muitos comunistas.
+- O debate: circunstâncias ou algo na concentração do poder?

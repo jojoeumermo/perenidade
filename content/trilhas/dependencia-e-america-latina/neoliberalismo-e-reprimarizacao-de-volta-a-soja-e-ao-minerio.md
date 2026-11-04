@@ -31,6 +31,9 @@ quiz:
     resposta: 1
     explicacao: "A China compra do Brasil sobretudo soja, minério de ferro e petróleo, e vende produtos industrializados."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como o neoliberalismo dos anos 1990 e o ciclo das commodities levaram o Brasil à reprimarização e à desindustrialização, e o que isso traz.
 
 Nos anos 1980, o Brasil era um país que exportava automóveis, aviões e máquinas. Hoje, os produtos que mais vende ao exterior são soja, minério de ferro e petróleo bruto. O que aconteceu no meio do caminho?
 
@@ -83,3 +86,23 @@ A discussão que parecia superada nos anos 1950 retorna. **Vânia Bambirra** esc
 ## Para pesquisar e debater
 
 Qual é a principal atividade exportadora do seu estado? Quantas pessoas ela emprega? Para onde vai o produto e o que é feito com ele lá?
+
+## Exemplo resolvido
+
+**O Brasil exporta minério de ferro e importa trilhos de aço. O que essa troca indica?**
+
+1. **O que sai.** Minério de ferro, produto primário.
+2. **O que entra.** Trilhos de aço, produto transformado e mais caro, feito com o mesmo minério.
+3. **Os estímulos.** A abertura comercial deixou mais barato importar do que produzir, e a Lei Kandir (1996) isentou do ICMS as exportações de primários e semielaborados.
+4. **O ciclo.** Nos anos 2000, a alta das *commodities*, puxada pela China, reforçou a aposta (o "Consenso das Commodities" de Maristella Svampa).
+5. **Conclua.** O país vende o produto bruto e compra de volta o produto transformado, mais caro.
+
+Confira: o IBGE mostra que a indústria de transformação caiu, desde meados dos anos 1980, para cerca de metade da sua participação no PIB: a desindustrialização precoce.
+
+## Resumo
+
+- Nos anos 1990: abertura comercial, privatizações (Vale em 1997, Telebrás em 1998), livre entrada e saída de capitais e juros altos.
+- **Lei Kandir** (1996): isentou do ICMS as exportações de primários e semielaborados.
+- A China (maior parceiro comercial do Brasil desde 2009) elevou o preço das *commodities*; Svampa chamou de **Consenso das Commodities**.
+- **Desindustrialização precoce**: o país perdeu indústria antes de ficar rico.
+- Consequências: vulnerabilidade a preços de fora, poucos empregos, pressão sobre terra e natureza (Mariana, 2015; Brumadinho, 2019) e mais poder para o setor exportador.

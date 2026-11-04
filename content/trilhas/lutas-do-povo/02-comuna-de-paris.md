@@ -25,6 +25,10 @@ quiz:
     explicacao: "O exército do governo de Versalhes retomou Paris bairro por bairro, fuzilando milhares de pessoas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como a Comuna de Paris nasceu em 18 de março de 1871, o que ela decidiu e o que ficou dela.
+
 ## Uma cidade cercada
 
 Em 1870, a França entrou em guerra com a Prússia e foi derrotada rapidamente. O imperador Napoleão III caiu, e a República foi proclamada. **Paris ficou cercada** pelo exército prussiano durante meses, em um inverno de fome.
@@ -73,3 +77,21 @@ A Comuna determinou que quem governa deve ganhar o mesmo que um trabalhador e po
 ## Para ler
 
 [A Guerra Civil em França](/acervo/a-guerra-civil-em-franca), de Marx, foi escrita em 1871, logo após a derrota da Comuna.
+
+## Exemplo resolvido
+
+**Como a Comuna começou, e o que ela decidiu sobre o salário dos governantes?**
+
+1. Em 1870, a França foi derrotada pela Prússia; Paris ficou cercada, e quem defendeu a cidade foi a Guarda Nacional, formada em grande parte por operários e artesãos.
+2. Em **18 de março de 1871**, Thiers mandou tropas retirarem os canhões da Guarda Nacional em Montmartre. As mulheres do bairro deram o alarme, e os soldados se recusaram a atirar.
+3. O governo fugiu para Versalhes, e Paris elegeu um conselho, a **Comuna**.
+4. Entre as medidas: o salário dos governantes passou a ser o de um trabalhador qualificado, e os eleitos podiam ser destituídos a qualquer momento (**mandatos revogáveis**).
+
+Confira: a Comuna durou pouco mais de dois meses; algumas medidas (como a separação entre Igreja e Estado) foram adotadas mais tarde em muitos países, e outras (salário de operário para os governantes) continuam sendo reivindicações.
+
+## Resumo
+
+- Em 1870 a França foi derrotada pela Prússia e Paris ficou cercada; a Guarda Nacional, de operários e artesãos, defendeu a cidade.
+- Em 18 de março de 1871, soldados se recusaram a atirar no povo de Montmartre; o governo fugiu para Versalhes e Paris elegeu a Comuna.
+- A Comuna decidiu salário de operário para os governantes, mandatos revogáveis e separação entre Igreja e Estado.
+- Terminou na Semana Sangrenta; Marx a analisou em *A Guerra Civil em França* (1871).

@@ -1,0 +1,51 @@
+# Exercícios da aula "O comunismo primitivo" (Comunismo: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: comf-primitivo-01
+  tema: "O que Engels descreveu"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual destas é característica das sociedades que Engels chamou de comunismo primitivo?"
+  alternativas:
+    - texto: "A terra e os recursos eram de uso comum e as decisões eram tomadas em assembleias"
+      certa: true
+    - texto: "Havia polícia e exército separados do povo"
+      erro: "Não havia polícia nem exército separados do povo."
+    - texto: "A propriedade privada era a regra"
+      erro: "O que se caçava ou coletava era dividido."
+  explicacao: "Engels apoiou-se nas pesquisas de Lewis Morgan sobre os povos iroqueses (A Origem da Família, da Propriedade Privada e do Estado, 1884)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-primitivo-02
+  tema: "Como surgiram as classes"
+  dificuldade: 2
+  enunciado: "Para Engels, o que permitiu o surgimento das classes e do Estado?"
+  alternativas:
+    - texto: "A invenção do dinheiro de papel"
+      erro: "Para Engels, foi o excedente da agricultura e da criação."
+    - texto: "A agricultura e a criação de animais, que geraram um excedente que alguns passaram a controlar"
+      certa: true
+    - texto: "O fim das assembleias"
+      erro: "A mudança começou com o excedente."
+  explicacao: "Quem controlava o excedente passou a acumular riqueza e poder; surgiram propriedade privada, herança, classes e Estado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: comf-primitivo-03
+  tema: "Quanto tempo"
+  dificuldade: 2
+  enunciado: "A espécie humana tem cerca de 300 mil anos e as primeiras cidades e Estados surgiram há cerca de 5 mil a 6 mil anos. Em quanto dessa história vivemos sem Estado?"
+  alternativas:
+    - texto: "Em uma pequena parte"
+      erro: "Foram cerca de 300 mil anos contra 5 mil a 6 mil."
+    - texto: "Em nenhuma parte"
+      erro: "Durante a imensa maior parte da história vivemos sem classes e sem Estado."
+    - texto: "Na imensa maior parte dela"
+      certa: true
+  explicacao: "5 mil a 6 mil anos é, no máximo, 2% de 300 mil anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

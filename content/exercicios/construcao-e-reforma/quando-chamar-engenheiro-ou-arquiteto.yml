@@ -1,0 +1,51 @@
+# Exercícios da aula "Quando chamar engenheiro ou arquiteto" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-eng-01
+  tema: "ART e RRT"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que registra a ART (Lei 6.496/1977)?"
+  alternativas:
+    - texto: "O engenheiro responsável por uma obra ou serviço"
+      certa: true
+    - texto: "O preço do metro quadrado da obra"
+      erro: "A ART não trata de preço. Ela registra quem responde tecnicamente pelo serviço."
+    - texto: "O número de pedreiros contratados"
+      erro: "A ART registra o responsável técnico, e não a equipe de execução."
+  explicacao: "A Anotação de Responsabilidade Técnica identifica o engenheiro responsável. O RRT faz o mesmo para a arquitetura, no CAU."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-eng-02
+  tema: "O que exige profissional"
+  dificuldade: 2
+  enunciado: "Qual destes serviços exige avaliação de engenheiro ou arquiteto?"
+  alternativas:
+    - texto: "Pintar um quarto"
+      erro: "Pintura não mexe na estrutura. Cuidados de segurança, sim, mas não exige responsável técnico."
+    - texto: "Retirar uma parede que pode sustentar a laje"
+      certa: true
+    - texto: "Trocar uma torneira"
+      erro: "Troca de torneira é serviço comum de instalação hidráulica."
+  explicacao: "Mexer em parede estrutural, laje, viga, pilar ou fundação exige projeto e responsável técnico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-eng-03
+  tema: "Reforma em apartamento"
+  dificuldade: 2
+  enunciado: "Antes de uma reforma em apartamento que pode afetar a segurança, o que a NBR 16280 pede?"
+  alternativas:
+    - texto: "Nada: o apartamento é seu e o condomínio não opina"
+      erro: "O condomínio tem regras e a segurança do prédio afeta todos. A norma pede plano de reforma."
+    - texto: "Um plano de reforma apresentado ao condomínio, com responsável técnico quando a obra afetar a segurança"
+      certa: true
+    - texto: "Só avisar o vizinho do lado, de boca"
+      erro: "O aviso informal não basta. O plano deve ser formal e seguir a convenção do condomínio."
+  explicacao: "A NBR 16280 estabelece o plano de reforma e a responsabilidade técnica quando há impacto na segurança."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

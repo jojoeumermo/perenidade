@@ -35,6 +35,9 @@ quiz:
     resposta: 1
     explicacao: "Em Desenvolvimento e Subdesenvolvimento, Furtado afirma que o subdesenvolvimento não é uma etapa, mas uma condição estrutural."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o "sentido da colonização" em Caio Prado Júnior, a tese de Celso Furtado de que o subdesenvolvimento não é uma etapa, e comparar o que os dois propõem.
 
 Para transformar um país é preciso entendê-lo. No século XX, dois pensadores deram contribuições decisivas para compreender a economia brasileira: o historiador **Caio Prado Júnior** e o economista **Celso Furtado**. Partindo de lugares diferentes, os dois chegaram a uma conclusão comum: o Brasil não é um país "atrasado" que vai chegar lá sozinho; é um país cuja estrutura foi moldada para servir de fora.
 
@@ -87,3 +90,21 @@ Os dois se encontram na crítica ao latifúndio, à dependência e à ideia de q
 ## Para pesquisar e debater
 
 Releia a sua resposta ao exercício da aula anterior sobre as exportações brasileiras. Como Caio Prado e Furtado explicariam o peso atual da soja, do minério e do petróleo na nossa pauta de exportações?
+
+## Exemplo resolvido
+
+**Por que importava, politicamente, saber se o Brasil tinha ou não "restos feudais"?**
+
+1. **Veja a posição da direção do Partido Comunista nos anos 1950 e 1960.** Ela defendia que o campo brasileiro tinha "restos feudais" e que era preciso uma revolução democrático-burguesa, aliada à burguesia nacional, antes do socialismo.
+2. **Veja o que muda se a leitura do país for outra.** Caio Prado, em *A Revolução Brasileira* (1966), entrou nesse debate com uma leitura diferente da formação do país, a do "sentido da colonização": a colônia foi organizada como empresa comercial para fornecer gêneros tropicais e metais ao mercado europeu.
+3. **Conclua.** A interpretação da história decidia a estratégia: quem seriam os aliados e quem seriam os adversários.
+
+Confira: Furtado chega a outro caminho (desenvolvimento planejado e reformas pelo Estado), mas os dois criticam o latifúndio, a dependência e a ideia de que o mercado sozinho levaria o país ao desenvolvimento.
+
+## Resumo
+
+- **Caio Prado Júnior** (1907-1990): historiador e militante marxista; em *Formação do Brasil Contemporâneo* (1942), propõe o **sentido da colonização**: a colônia como empresa comercial voltada ao mercado europeu.
+- A polêmica sobre os "restos feudais" definia a estratégia política da esquerda.
+- **Celso Furtado** (1920-2004): trabalhou na CEPAL; *Formação Econômica do Brasil* (1959); em *Desenvolvimento e Subdesenvolvimento* (1961), o subdesenvolvimento **não é uma etapa**, é um processo histórico próprio.
+- Furtado criou a SUDENE (1959) e foi ministro do Planejamento de João Goulart; foi cassado e exilado após 1964.
+- Saídas: transformação revolucionária das estruturas (Caio Prado) ou desenvolvimento planejado e reformas pelo Estado (Furtado). Convergem na crítica ao latifúndio e à dependência.

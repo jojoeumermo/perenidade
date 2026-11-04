@@ -42,6 +42,11 @@ quiz:
     resposta: 1
     explicacao: "Ser e Tempo é uma obra de filosofia. Psiquiatras como Ludwig Binswanger e Medard Boss levaram essas ideias para a clínica."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai ter um mapa das principais abordagens da psicologia (psicanálise, psicologia analítica, análise do comportamento, fenomenologia e histórico-cultural) e saber a pergunta que cada uma faz.
+
+
 
 Esta aula é um mapa, e não um curso. Ela não forma psicólogos nem ensina a atender ninguém: no Brasil, a profissão é regulamentada pela Lei 4.119, de 1962, e exige curso superior e registro no conselho. O objetivo aqui é só saber do que cada escola fala.
 
@@ -100,3 +105,23 @@ Na União Soviética dos anos 1920, **Lev Vygotsky** defendeu que as funções m
 ## Um cuidado
 
 Nenhuma dessas escolas explica tudo, e o sofrimento de uma pessoa não se resolve escolhendo a teoria "certa" em um texto. Quem está sofrendo precisa de atendimento, e ele existe de graça no SUS: o caminho começa na unidade básica de saúde do bairro. Em crise, o CVV atende pelo telefone 188, a qualquer hora.
+
+## Exemplo resolvido: uma mesma cena, quatro perguntas
+
+Uma criança faz birra no mercado, ganha o doce e passa a fazer birra sempre. Este exemplo não serve para diagnosticar ninguém; só mostra como cada abordagem pergunta.
+
+1. **Análise do comportamento (Skinner):** que consequências mantêm esse comportamento? A birra foi seguida do doce, o que a reforça.
+2. **Psicanálise (Freud):** o que esse sintoma diz que a pessoa não consegue dizer?
+3. **Fenomenológico-existencial:** como essa criança vive a situação?
+4. **Histórico-cultural (Vygotsky):** que relações sociais formaram esse modo de agir?
+
+Confira: nenhuma resposta substitui as outras, e a aula lembra que nenhuma explica tudo. Quem está sofrendo precisa de atendimento.
+
+## Resumo
+
+- A psicologia virou ciência independente no fim do século XIX; o marco costuma ser 1879, o laboratório de Wundt em Leipzig.
+- Psicanálise (Freud, com Jung e Lacan): o inconsciente.
+- Análise do comportamento (Pavlov, Watson, Skinner): o que se observa e a relação com o ambiente.
+- Fenomenologia e existencial: a experiência vivida (Husserl, Heidegger).
+- Histórico-cultural (Vygotsky): a mente se forma nas relações sociais.
+- Nenhuma abordagem explica tudo; a aula é um mapa, não forma psicólogos. A profissão é regulamentada pela Lei 4.119/1962.

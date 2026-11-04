@@ -52,13 +52,19 @@ quiz:
     resposta: 2
     explicacao: "A experiência, coordenada por Paulo Freire, tornou o método conhecido no país inteiro."
 ferramentas: [palavras-geradoras, silabario]
+modelo: 9
 ---
+
 
 Esta aula é para quem vai **ensinar**: um filho, uma vizinha, uma militante do bairro, um voluntário. As aulas seguintes da trilha são para quem está aprendendo, e foram feitas para serem lidas a dois. Nada aqui substitui a formação de um professor; é um ponto de partida para quem quer ajudar sem atrapalhar.
 
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber quem são os adultos que não leem no Brasil e por que isso é um direito negado, não uma falta de capacidade. Vai conhecer o caminho das palavras geradoras de Paulo Freire, as etapas que Emilia Ferreiro descreveu e dez conselhos para ajudar alguém sem atrapalhar.
+
+```suarealidade
+Você conhece alguém (da família, do trabalho ou do bairro) que não lê ou lê com dificuldade? Sem dizer o nome, como essa pessoa se vira no dia a dia (ônibus, remédio, conta de luz)?
+```
 
 ## Quem não lê no Brasil
 
@@ -186,6 +192,20 @@ Ainda sem ligar letra e som: rabiscos, letras soltas sem ordem
 Uma letra para cada sílaba: AEA, PNL
 Às vezes uma, às vezes duas letras por sílaba: PAEA, PNLA
 Uma letra para cada som: PANELA, PANELLA
+```
+
+```outrolado
+# O argumento de quem acha que adulto não aprende mais
+"Quem não aprendeu a ler quando era criança já passou da idade. Gastar tempo e esforço com isso depois dos 40 ou dos 60 não dá resultado."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É uma ideia comum, e a aula a responde com a história de Angicos: em 1963, no Rio Grande do Norte, uma equipe coordenada por Paulo Freire alfabetizou cerca de trezentos trabalhadores em quarenta horas de aula. O que pesa não é a idade, mas o jeito de ensinar: partir do que o adulto já sabe do mundo, sem cartilha infantil, e fazer a pessoa se sentir capaz. Além disso, a Educação de Jovens e Adultos (EJA) é um direito garantido pela Lei de Diretrizes e Bases, gratuito.
+```
+
+```agir
+# Esta semana
+Descubra onde existe turma de EJA (Educação de Jovens e Adultos) perto de você: pergunte numa escola pública do seu bairro como é a matrícula e anote o dia, o horário e o que precisa levar. Guarde a anotação para passar a quem precisar. Não é preciso dar o nome de ninguém.
 ```
 
 ## Resumo

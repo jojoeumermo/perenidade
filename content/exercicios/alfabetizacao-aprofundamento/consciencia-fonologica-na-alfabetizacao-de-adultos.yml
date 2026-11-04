@@ -1,0 +1,51 @@
+# Exercícios da aula "Consciência fonológica na alfabetização de adultos" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-fonologica-01
+  tema: "O que é"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é consciência fonológica?"
+  alternativas:
+    - texto: "Saber o significado de todas as palavras"
+      erro: "Consciência fonológica é perceber os sons, separados do sentido."
+    - texto: "Saber escrever sem errar"
+      erro: "É perceber que a fala é feita de pedaços de som, antes de escrever."
+    - texto: "Prestar atenção nos sons da fala, separados do sentido"
+      certa: true
+  explicacao: "Quando a gente fala, pensa no sentido. Consciência fonológica é prestar atenção nos sons, separados do sentido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-fonologica-02
+  tema: "Rima"
+  dificuldade: 1
+  enunciado: "Qual par de palavras rima, como na atividade da aula?"
+  alternativas:
+    - texto: "DURA e FURA"
+      certa: true
+    - texto: "MARIA e MANGA"
+      erro: "Essas começam com o mesmo som (MA-), mas não rimam: rimas terminam igual."
+    - texto: "PATO e FURA"
+      erro: "Não terminam com o mesmo som."
+  explicacao: "Rima é terminar igual: DURA e FURA, MÃO e PÃO."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-fonologica-03
+  tema: "Nível mais difícil"
+  dificuldade: 2
+  enunciado: "Qual nível da consciência fonológica é o mais difícil, segundo a aula?"
+  alternativas:
+    - texto: "A rima"
+      erro: "Sílaba e rima são, em geral, os mais fáceis."
+    - texto: "O fonema isolado"
+      certa: true
+    - texto: "A sílaba"
+      erro: "Sílaba e rima se percebem com facilidade, mesmo por quem nunca leu."
+  explicacao: "Sílaba e rima são mais fáceis; o fonema isolado, como o primeiro som que muda entre PATO e GATO, é o mais difícil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

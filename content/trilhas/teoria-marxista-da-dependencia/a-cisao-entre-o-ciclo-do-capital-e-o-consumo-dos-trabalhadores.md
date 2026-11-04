@@ -31,6 +31,10 @@ quiz:
     explicacao: "A indústria de bens duráveis se volta para a esfera alta."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Marini chama de cisão do ciclo do capital, na economia exportadora e na industrial, e por que isso ajuda a entender a concentração de renda e o endividamento.
+
 Esta é talvez a ideia mais abstrata de Marini e, ao mesmo tempo, a que melhor ajuda a entender o cotidiano de um país como o Brasil.
 
 ## O ciclo do capital
@@ -80,6 +84,24 @@ O chileno **Jaime Osorio** desenvolveu essas ideias na noção de **padrão de r
 
 Em alguns períodos, os salários reais subiram e milhões de pessoas passaram a consumir mais. Isso desmente a tese? Os autores da corrente respondem que é preciso ver se o movimento se sustenta quando o preço das exportações cai. A discussão não está encerrada.
 
+## Exemplo resolvido
+
+**Uma montadora produz carros que a maioria dos seus próprios operários não consegue comprar. Como a ideia de cisão descreve essa situação?**
+
+1. Lembre o ciclo: o capital compra meios de produção e força de trabalho, produz e depois precisa vender, para o valor se realizar.
+2. Veja quem compra: nos países centrais, o operário é também comprador. Aqui, a indústria de duráveis, a partir dos anos 1950, não produz para os operários, cujos salários são baixos demais, e sim para as camadas de renda alta e média.
+3. Veja a separação: o mercado interno fica dividido em uma esfera alta, alimentada pela mais-valia e pelos altos salários de uma minoria, e uma esfera baixa, a dos trabalhadores, restrita ao indispensável.
+
+Conclusão: a cisão, que na economia exportadora era entre o país e o exterior, passa a existir dentro do país. Quem faz o carro e quem compra o carro não estão na mesma esfera de consumo.
+
 ## Para pesquisar e debater
 
 Pense nos produtos anunciados na televisão e na internet. Quais são acessíveis a quem ganha um salário mínimo sem recorrer a prestações? O que isso diz sobre para quem a indústria produz?
+
+## Resumo
+
+- No ciclo do capital há circulação, produção e realização (venda); nos países centrais, a realização depende em boa medida do consumo dos trabalhadores.
+- Na economia exportadora latino-americana, o salário é só custo, nunca demanda; por isso a superexploração se assenta nela.
+- Na industrialização, a cisão muda de lugar: o mercado interno se divide em esfera alta e esfera baixa.
+- A cisão ajuda a explicar a concentração de renda como necessidade do mercado de duráveis, o crédito ao consumo e a volta à exportação.
+- É a ideia mais abstrata de Marini e, para a aula, a que melhor explica o cotidiano de um país como o Brasil.

@@ -1,5 +1,6 @@
 ---
 titulo: "O círculo cromático"
+modelo: 9
 resumo: "Doze cores num círculo: três primárias, três secundárias e seis terciárias. Como usar o círculo para combinar cores (complementares, análogas, triádicas) num cartaz, numa roupa ou numa pintura."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ Por que o cartaz da liquidação é vermelho e amarelo? Por que o quarto calmo c
 ## O que você vai aprender
 
 Ao fim desta aula você vai montar um círculo cromático e usar as combinações de cores para fazer um cartaz.
+
+```suarealidade
+Olhe os cartazes, avisos e embalagens que você vê no caminho de casa ao trabalho: quais chamam a sua atenção de longe? Que cores eles usam?
+```
 
 ## De onde veio
 
@@ -95,4 +100,18 @@ Olhe as embalagens e os cartazes perto de você. Que combinação de cores eles 
 ```leve
 - Pinte um círculo cromático com lápis de cor ou guache, misturando as primárias.
 - Faça um cartaz com cores complementares para um evento do seu grupo.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cor é gosto pessoal. Regras de combinação engessam a criatividade, e quem decora o círculo cromático acaba fazendo tudo igual."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O gosto continua sendo de cada um. O círculo organiza possibilidades, a partir das experiências de Newton com a luz, e as combinações (complementares, análogas, triádicas) são pontos de partida: cada uma produz um efeito, de contraste ou de harmonia. Elas ajudam quando o objetivo é comunicar, como num cartaz de assembleia que precisa ser visto de longe. E o teste final da aula (olhar o cartaz a três metros) vale mais do que qualquer regra.
+```
+
+```agir
+# Esta semana
+Faça num papel um cartaz ou aviso para algo do seu bairro ou do seu grupo, usando duas cores complementares, e teste se dá para ler a três metros. Não fotografe nem desenhe outras pessoas.
 ```

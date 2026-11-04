@@ -1072,6 +1072,27 @@
       "outroladoTreino": "练习你的回应",
       "outroladoPrompt": "写下你会如何回应，要尊重对方并依据事实。只保存在你的设备上。",
       "outroladoResposta": "查看一个可能的回答",
+      "outrojeito": "换个方式讲",
+      "outrojeitoAbrir": "没看明白？换个方式看",
+      "ouvirPergunta": "听问题和选项",
+      "pararAudio": "停止",
+      "respostaFalar": "或者用说的来回答",
+      "respostaGravar": "录音",
+      "respostaParar": "停止录音",
+      "respostaGravando": "正在录音……慢慢说。",
+      "respostaOuvir": "你录下的回答",
+      "respostaApagar": "删除录音",
+      "respostaAviso": "录音只保存在这台设备上：本院既不接收也不收听。清除本站数据后，录音也会消失。",
+      "respostaSemMicrofone": "这台设备在这里不能录音。请写下你的回答。",
+      "respostaConferir": "听一遍，自己检查：",
+      "respostaConferir1": "我说出主要想法了吗？",
+      "respostaConferir2": "我举了自己生活中的例子吗？",
+      "respostaConferir3": "我说得从容、听得明白吗？",
+      "retornoPedir": "请助手给个反馈",
+      "retornoPergunta": "这是我的回答。能给我一个简短的反馈吗：哪里对，还缺什么？",
+      "retornoRotulo": "你的回答，供助手点评",
+      "retornoBotao": "请求反馈",
+      "retornoAviso": "只有你按下按钮，才会发给助手，而且只发文字。录音绝不会离开设备。",
       "agir": "行动",
       "agirVou": "我要去做",
       "agirFeito": "已记在这台设备上。下一课会问你进展如何。",
@@ -2131,6 +2152,22 @@
     "modelos-de-documentos": [
       "常用文书模板（巴西）",
       "向 Procon 投诉、辞职信、向 INSS 申诉和致房东的通知。"
+    ],
+    "arvore-trabalhista": [
+      "职场紧急情况（巴西）",
+      "劳动问题决策树：收集证据，查看法律（CLT），再交给工会或公设辩护处。"
+    ],
+    "clausulas-de-contrato": [
+      "合同条款解读（巴西）",
+      "粘贴租房或贷款合同，看《租赁法》和《消费者保护法》怎么说。"
+    ],
+    "carga-eletrica": [
+      "家庭用电负荷",
+      "按回路汇总电器，检查电线和断路器是否承受得住，并附安全提示（NBR 5410）。"
+    ],
+    "mapa-de-servicos": [
+      "公共服务地图（巴西）",
+      "CRAS、UBS、CAPS、公设辩护处、Procon 和成人教育各自做什么，并提供官方链接查找所在市的机构。"
     ]
   },
   "tools": {
@@ -5565,6 +5602,9 @@
     "baixarHtmlFalhou": "无法在此浏览器中生成文件。",
     "baixarHtmlFonte": "下载自",
     "baixarHtmlRodape": "可离线使用。要做测验和保存进度，请在网站上打开课程。",
+    "baixarFerramenta": "将工具下载为单个文件（可通过 WhatsApp 发送）",
+    "baixarFerramentaDica": "一个内含计算功能的小 .html 文件，在任何手机上都能离线打开，旧手机也可以。",
+    "baixarFerramentaRodape": "可离线使用，不会保存你输入的任何内容。完整版本请在网站上打开该工具。",
     "whatsapp": "通过 WhatsApp 发送",
     "telegram": "通过 Telegram 发送",
     "copiar": "复制链接",

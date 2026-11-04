@@ -1,0 +1,67 @@
+# Exercícios da aula "O que é favela" (A cidade que o povo fez). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cidade-favela-01
+  tema: "De onde vem a palavra favela"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, de onde vem a palavra favela?"
+  alternativas:
+    - texto: "De uma planta espinhosa do sertão nordestino que deu nome a um morro perto de Canudos"
+      certa: true
+    - texto: "De uma lei do governo que criou os primeiros conjuntos de casas populares"
+      erro: "Não foi o governo que deu o nome. A palavra veio de uma planta do sertão, que batizou um morro perto de Canudos. Releia a seção \"Uma palavra que veio do sertão\"."
+    - texto: "Do nome de um engenheiro que projetou os primeiros morros habitados do Rio"
+      erro: "Ninguém projetou. Os próprios soldados e moradores ergueram as casas. O nome vem de uma planta espinhosa do sertão."
+  explicacao: "Favela é o nome popular de uma planta do sertão nordestino. Ela batizou um morro perto do arraial de Canudos e, depois, o Morro da Providência, no Rio, que passou a ser chamado de Morro da Favela."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é favela\""
+  revisao:
+    status: em-revisao
+
+- id: cidade-favela-02
+  tema: "Por que existem favelas"
+  dificuldade: 2
+  enunciado: "A aula diz que a favela é \"a solução que os trabalhadores deram a um problema que não foi criado por eles\". Qual destes fatos ajuda a explicar essa frase?"
+  alternativas:
+    - texto: "Os salários não cobrem o aluguel perto do trabalho e o poder público não oferece moradia"
+      certa: true
+    - texto: "Os moradores das favelas preferem não ter documento da casa"
+      erro: "A aula não diz isso. Quem constrói por conta própria faz isso porque não tem como pagar aluguel nem recebe moradia. Releia \"Por que existem favelas\"."
+    - texto: "As cidades têm casas sobrando, mas os trabalhadores não querem morar nelas"
+      erro: "A aula mostra o contrário: falta moradia que o trabalhador consiga pagar, e por isso ele constrói com as próprias mãos."
+  explicacao: "A cidade precisa de quem constrói, limpa, cozinha e cuida, mas paga salário que não cobre o aluguel e não oferece moradia. Quem trabalha resolve como pode: constrói a casa, muitas vezes em mutirão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é favela\""
+  revisao:
+    status: em-revisao
+
+- id: cidade-favela-03
+  tema: "Os números do Censo 2022"
+  dificuldade: 2
+  enunciado: "No Censo de 2022, o IBGE contou 16.390.815 moradores de favelas e comunidades urbanas, 8,1% da população do país. Esse número é mais próximo de quantos habitantes do Brasil no total? (Conta: 16.390.815 dividido por 0,081, arredondado em milhões.)"
+  alternativas:
+    - texto: "cerca de 202 milhões"
+      certa: true
+    - texto: "cerca de 20 milhões"
+      erro: "Quase o número da parte, não do todo. Os 16,4 milhões são só 8,1% da população; o total é bem maior. Divida 16,4 milhões por 0,081."
+    - texto: "cerca de 133 milhões"
+      erro: "Essa conta não usa os 8,1%. Lembre que 8,1% é 0,081: divida 16,4 milhões por 0,081 para achar o total."
+  explicacao: "16.390.815 ÷ 0,081 é cerca de 202 milhões. Quando você sabe uma parte e a porcentagem que ela representa, divide a parte pela porcentagem escrita como decimal para achar o todo."
+  fonte: "Questão original do Instituto Lúcia; dados do Censo 2022 do IBGE, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cidade-favela-04
+  tema: "Direito à moradia"
+  dificuldade: 1
+  enunciado: "Em que artigo da Constituição a moradia aparece como direito, ao lado da saúde e da educação?"
+  alternativas:
+    - texto: "Artigo 6º"
+      certa: true
+    - texto: "Artigo 1º"
+      erro: "O artigo 1º trata dos fundamentos da República. A moradia como direito está no artigo 6º, segundo a aula."
+    - texto: "Artigo 186"
+      erro: "O artigo 186 trata da função social da propriedade rural. A moradia como direito está no artigo 6º."
+  explicacao: "A aula cita o artigo 6º da Constituição: moradia é direito, como a saúde e a educação. O artigo 182 completa dizendo que a cidade deve garantir o bem-estar dos habitantes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é favela\" (Constituição Federal, art. 6º)"
+  revisao:
+    status: em-revisao

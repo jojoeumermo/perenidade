@@ -23,6 +23,11 @@ quiz:
     resposta: 1
     explicacao: "Mais indica quantidade (o contrário de menos). Mas indica oposição (igual a porém)."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escolher entre mal e mau, mas e mais, a e há, onde e aonde, a gente e agente, sessão, seção e cessão, tem e têm, senão e se não, usando um teste simples para cada par.
+
+
 
 Na fala, essas palavras soam iguais ou quase. Na escrita, cada uma tem o seu lugar. Para cada par há um teste de troca que resolve na hora.
 
@@ -127,6 +132,25 @@ O teste: troque por **"caso não"**. Se couber, é separado.
 ## Para que tanto cuidado?
 
 Nenhuma dessas trocas impede que a mensagem seja entendida. O que está em jogo é outra coisa: a escrita funciona como cartão de visita. Um currículo, uma reclamação ao Procon ou uma carta ao vereador com essas trocas tende a ser lido com má vontade, por injusto que isso seja. Saber as formas é tirar do outro lado um pretexto para não ouvir.
+
+## Exemplo resolvido: um teste para cada par
+
+1. **"Dormi ___."** Troque pelo contrário: "dormi bem" cabe, então é **mal**: "Dormi mal." Já "Ele não é ___ sujeito": "bom sujeito" cabe, então é **mau**.
+2. **"Prometeu, ___ não cumpriu."** Troque por "porém": cabe, então é **mas**. "Quero ___ café": troque por "menos café", que faz sentido, então é **mais**.
+3. **"Cheguei ___ duas horas."** Troque por "faz": "faz duas horas" cabe, então é **há**. **"A consulta é daqui ___ duas horas"** é tempo que ainda vem: **a**.
+4. **"___ chover, haverá mutirão."** Troque por "caso não": cabe, então é **Se não**, separado.
+
+Confira: cada teste troca a palavra por outra que a aula dá como par certo.
+
+## Resumo
+
+- Mau é o contrário de bom (tem má, maus, más); mal é o contrário de bem.
+- Mas é "porém"; mais é o contrário de menos.
+- Há indica tempo que passou (troque por "faz"); a indica tempo que vem ou distância. Evite "há dez anos atrás".
+- Onde é lugar em que se está; aonde é lugar para onde se vai.
+- A gente é "nós"; agente é quem age.
+- Sessão (reunião), seção (parte) e cessão (ato de ceder). Tem/vem no singular; têm/vêm no plural.
+- Senão é "caso contrário"; se não é "caso não".
 
 ## Para praticar
 

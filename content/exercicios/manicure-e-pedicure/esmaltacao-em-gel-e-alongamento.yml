@@ -1,0 +1,54 @@
+# Exercícios da aula "Esmaltação em gel e alongamento com segurança" (Manicure e pedicure). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: man-gel-01
+  tema: "Quando não atender"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A unha da cliente está com pus, dor e vermelhidão. O que fazer?"
+  alternativas:
+    - texto: "Cobrir com gel para esconder"
+      erro: "Cobrir esconde e piora a infecção. Quem não é profissional de saúde não trata."
+    - texto: "Não fazer o procedimento e orientar a procurar a UBS ou um profissional de saúde"
+      certa: true
+    - texto: "Lixar mais forte até sair o pus"
+      erro: "Machucar a região piora a infecção. O correto é não atender e encaminhar."
+  explicacao: "Sinais de infecção pedem avaliação de saúde. A manicure não diagnostica nem trata."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-gel-02
+  tema: "Higiene do material"
+  dificuldade: 1
+  enunciado: "O que a Lei 12.592/2012 (art. 4º) exige em relação aos materiais usados nas clientes?"
+  alternativas:
+    - texto: "Esterilizar os materiais e utensílios usados e seguir as normas sanitárias"
+      certa: true
+    - texto: "Nada, o material pode ser usado em todas sem limpar"
+      erro: "O uso sem esterilização pode passar doenças de uma cliente para outra."
+    - texto: "Lavar os materiais só no fim do mês"
+      erro: "A limpeza e a esterilização devem ocorrer entre uma cliente e outra."
+  explicacao: "O art. 4º determina cumprir as normas sanitárias e esterilizar os materiais e utensílios usados no atendimento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-gel-03
+  tipo: numero
+  tema: "Custo do serviço"
+  dificuldade: 2
+  enunciado: "Um serviço de gel leva R$ 8 de material e 1 hora e meia de trabalho. Se você quer ganhar R$ 20 por hora, quanto cobra no mínimo, em reais?"
+  resposta: "38"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "28"
+      explicacao: "Você contou só 1 hora de trabalho (20 + 8). O serviço leva 1 hora e meia: 1,5 × 20 = 30, mais o material."
+    - resposta: "30"
+      explicacao: "Você contou só o trabalho (1,5 × 20) e esqueceu o material de R$ 8."
+  dica: "Some o material ao valor do tempo de trabalho."
+  explicacao: "Trabalho: 1,5 × 20 = 30. Material: 8. Total: 38 reais."
+  conferir: "1.5 * 20 + 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

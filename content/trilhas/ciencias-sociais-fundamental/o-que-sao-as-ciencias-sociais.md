@@ -1,5 +1,6 @@
 ---
 titulo: "O que são as ciências sociais"
+modelo: 9
 resumo: "As ciências que estudam a vida em sociedade: o que elas perguntam, como pesquisam e por que servem para entender a própria vida."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,13 @@ quiz:
     resposta: 0
     explicacao: "Pesquisa social combina números (como o Censo) com conversa e observação."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que estudam a sociologia, a antropologia e a ciência política, o que é a imaginação sociológica e como as ciências sociais pesquisam a sociedade.
+
+```suarealidade
+Pense em um problema que atinge a sua rua ou o seu serviço (transporte, lixo, emprego). Você costuma achar que ele é culpa de cada pessoa, ou de algo maior?
+```
 
 ```provocacao
 Uma pessoa perde o emprego e se sente culpada. No mesmo mês, outras 500 mil pessoas perdem o emprego no país. Ainda é só culpa dela?
@@ -91,3 +99,36 @@ Entender a sociedade serve para **parar de se culpar** pelo que não é só culp
 - Que problema da sua vida você achava que era só seu e depois descobriu que era de muita gente?
 - Por que alguém teria interesse em que as pessoas pensem que tudo é culpa individual?
 ```
+
+## Exemplo resolvido
+
+**Um jovem do bairro largou o ensino médio. É só falta de esforço dele? Use a imaginação sociológica.**
+
+1. **Comece pelo caso pessoal.** É um jovem, uma história, uma decisão que parece individual.
+2. **Olhe quantos são.** Se metade dos jovens do bairro não termina o ensino médio, deixa de ser um caso: é uma questão do bairro.
+3. **Procure o que eles têm em comum.** As escolas, o trabalho e a vida do bairro que empurram tantos jovens para fora.
+4. **Escolha o método.** Os números do Censo mostram quem tem escola e emprego; entrevistas mostram como cada um vê a própria vida.
+5. **Conclua.** Quando o problema é de muitos, a causa se procura no que eles têm em comum, e não na preguiça de cada um.
+
+Confira: foi o mesmo raciocínio de Mills com o desemprego, que é problema pessoal quando atinge um e questão pública quando atinge milhões.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "No fim das contas, cada um é responsável pelas próprias escolhas. Explicar tudo pela sociedade é arrumar desculpa para quem não se esforça."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A responsabilidade pessoal existe, e a aula não a nega: o que ela diz é que, quando o problema atinge milhões, ele não se explica só pela escolha de cada um. Mills usava o exemplo do desemprego, que é um problema pessoal numa cidade onde um homem está sem trabalho e uma questão pública quando milhões estão. Entender a sociedade serve para parar de se culpar pelo que não é só culpa sua e para saber onde mexer.
+```
+
+```agir
+# Esta semana
+Escolha um problema da sua rua e pergunte a três vizinhos o que eles acham que causa isso. Anote as respostas num papel e veja se alguém falou de algo que vai além da culpa de uma pessoa. Não precisa anotar o nome de ninguém.
+```
+
+## Resumo
+
+- As **ciências sociais** são principalmente três: **sociologia** (grupos, instituições e desigualdades), **antropologia** (culturas e modos de vida) e **ciência política** (poder, Estado, partidos e movimentos).
+- **Imaginação sociológica** (C. Wright Mills): ligar a história de uma pessoa às forças maiores da sociedade. Desemprego de um é problema pessoal; de milhões, questão pública.
+- Elas **pesquisam**: números (como o Censo do IBGE), questionários, entrevistas e observação.
+- Servem para parar de se culpar pelo que não é só culpa sua, enxergar quem se beneficia e saber onde mexer.

@@ -27,6 +27,10 @@ quiz:
     explicacao: "Present perfect passivo: has/have been + particípio."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber formar a voz passiva em vários tempos e reconhecer quando ela é a melhor escolha.
+
 ## Quem fez ou o que foi feito
 
 Compare:
@@ -82,9 +86,27 @@ O português também tem a passiva ("foi aprovada"), mas usa muito a forma com *
 
 E uma construção muito usada em textos acadêmicos: *It **is argued** that...* (argumenta-se que...), *It **has been shown** that...* (foi demonstrado que...), *It **is estimated** that...* (estima-se que...).
 
+## Exemplo resolvido
+
+**Passe para a passiva: "Someone stole my bag." e "They will open a new school."**
+
+1. A voz passiva é **be + particípio passado**, no tempo da frase original.
+2. Passado simples: *stole* vira *was stolen*. O objeto vira sujeito: *My bag was stolen.* (Quem roubou não é conhecido.)
+3. Futuro: *will open* vira *will be opened*. *A new school will be opened.*
+4. Se quiser dizer quem fez, use *by*: *...by the city.*
+
+Confira: o particípio dos irregulares precisa ser conhecido (*stolen*, *built*, *written*, *done*).
+
 ## Para praticar
 
 1. Passe para a passiva: "They clean the streets every day." / "Someone stole my bag." / "They will open a new school."
 2. Passe para a ativa: "The decision was made by the assembly." / "The report has been written by the committee."
 3. Encontre três frases na voz passiva em um resumo de artigo científico em inglês e traduza-as.
 4. Reescreva uma frase passiva de notícia, explicitando quem praticou a ação.
+
+## Resumo
+
+- Ativa: o sujeito pratica a ação; passiva: o sujeito sofre a ação (agente com *by*, ou omitido).
+- Forma: **be** no tempo desejado + **particípio passado**.
+- Usa-se quando quem fez não importa, é óbvio ou desconhecido, e em textos científicos e técnicos.
+- Na leitura crítica, vale perguntar quem praticou a ação omitida.

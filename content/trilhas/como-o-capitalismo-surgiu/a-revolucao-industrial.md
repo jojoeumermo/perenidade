@@ -37,6 +37,9 @@ quiz:
     resposta: 0
     explicacao: "Marx dedica o capítulo 8 do Capital à luta pela limitação legal da jornada e, na Mensagem Inaugural da Internacional (1864), chamou a lei das dez horas de vitória da economia política da classe operária."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer por que a Revolução Industrial começou na Inglaterra, como era a vida operária e como os trabalhadores reagiram.
 
 Em menos de um século, entre 1760 e 1850 aproximadamente, a Inglaterra mudou mais do que em mil anos. Surgiram fábricas, ferrovias, cidades enormes e uma classe social nova: o **proletariado industrial**. Esta aula conta essa transformação do ponto de vista de quem trabalhava nela.
 
@@ -91,3 +94,23 @@ A Revolução Industrial multiplicou a capacidade humana de produzir como nunca 
 ## Para conversar
 
 Hoje, quem "serve à máquina" no seu trabalho, ou no de pessoas que você conhece? O algoritmo de um aplicativo de entrega pode ser comparado à máquina que dita o ritmo na fábrica?
+
+## Exemplo resolvido
+
+**Como a máquina a vapor mudou o lugar onde as fábricas ficavam e a vida de quem trabalhava nelas?**
+
+1. **Antes do vapor.** As primeiras fábricas dependiam da força da água e ficavam à beira de rios.
+2. **O vapor.** A máquina de James Watt, patenteada em 1769, permitiu instalar fábricas longe dos rios, perto das cidades e das minas de carvão.
+3. **Dentro da fábrica.** Segundo Marx, na oficina o trabalhador usava a ferramenta; na fábrica, ele serve à máquina, que dita o ritmo.
+4. **A vida operária.** Engels, em 1845, descreveu jornadas de 12, 14, 16 horas, crianças de seis e sete anos trabalhando e bairros sem esgoto.
+5. **A resposta.** Luditas, sindicatos (legalizados em 1824), cartismo e, em 1847, a lei das dez horas para mulheres e jovens nas fábricas têxteis.
+
+Confira: nenhum desses direitos "caiu do céu"; vieram da luta.
+
+## Resumo
+
+- A Revolução Industrial (cerca de 1760 a 1850) começou na Inglaterra: cercamentos, capital do comércio colonial, algodão escravista, carvão e ferro, e um Estado que protegia a indústria.
+- A máquina a vapor tirou as fábricas da beira dos rios; na fábrica, o trabalhador serve à máquina.
+- Engels descreveu jornadas de 12 a 16 horas, trabalho infantil e bairros operários sem esgoto.
+- A classe operária se fez na luta: luditas, sindicatos, cartismo e a lei das dez horas (1847).
+- Dessa contradição nasceram o movimento operário e as leis trabalhistas.

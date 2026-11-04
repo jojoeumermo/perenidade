@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "A Etiópia derrotou a Itália na Batalha de Adwa, em 1896. A Libéria mantinha a independência, sob forte influência dos Estados Unidos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que foi o imperialismo, como a África foi partilhada e o que Lenin e Rosa Luxemburgo disseram sobre isso.
 
 Em 1870, a maior parte da África ainda era governada por povos africanos. Em 1914, quase todo o continente estava dividido entre potências europeias. O que aconteceu nesses quarenta e poucos anos?
 
@@ -83,3 +86,24 @@ Os dois condenaram a guerra e os partidos socialistas que, em 1914, apoiaram os 
 ## Para conversar
 
 O que o Brasil exporta hoje e o que importa? Há semelhanças com a divisão do trabalho criada na era do imperialismo?
+
+## Exemplo resolvido
+
+**Por que as potências europeias partilharam a África entre 1870 e 1914? Monte a resposta.**
+
+1. **A situação.** Em 1870, a maior parte da África ainda era governada por povos africanos; em 1914, quase todo o continente estava dividido entre potências europeias.
+2. **O que os monopólios e bancos queriam.** Matérias-primas baratas, mercados para vender e lugares para investir com lucro maior.
+3. **O que o Estado fez.** Na Conferência de Berlim (1884-1885), as potências definiram as regras da ocupação, sem convidar nenhum africano.
+4. **O resultado.** Fronteiras traçadas em mapas na Europa, muitas vezes cortando povos ao meio; só a Etiópia e a Libéria ficaram independentes por volta de 1914.
+5. **A análise.** Para Lenin (1916), com o mundo já partilhado, uma potência só poderia crescer tomando territórios de outra; a guerra de 1914 seria a disputa pela repartilha.
+
+Confira: por isso muitas fronteiras africanas são linhas retas.
+
+## Resumo
+
+- Em 1870 a África era governada em maior parte por africanos; em 1914, quase toda estava dividida entre potências europeias.
+- O **imperialismo** é a fase em que monopólios e bancos precisam de matérias-primas, mercados e lugares para investir.
+- **Conferência de Berlim** (1884-1885): regras da partilha, sem africanos presentes. No Congo de Leopoldo II, o trabalho forçado na borracha matou milhões.
+- Ásia: Guerras do Ópio na China; Sudeste Asiático dividido; Filipinas, Porto Rico e Guam para os Estados Unidos em 1898.
+- Lenin (1916): a partilha completa leva à disputa armada. Rosa Luxemburgo: o capitalismo precisa de regiões não capitalistas.
+- Consequências: duas guerras mundiais, economias coloniais e movimentos de libertação nacional.

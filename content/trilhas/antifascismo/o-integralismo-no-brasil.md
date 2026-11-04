@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "O ataque ao Palácio Guanabara, em maio de 1938, foi derrotado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que foi o integralismo, quais elementos ele copiou do fascismo europeu, o que foi a Batalha da Praça da Sé (1934) e o que a Constituição de 1988 diz sobre grupos armados contra a ordem democrática.
 
 Nos anos 1930, enquanto o fascismo avançava na Europa, o Brasil teve o seu próprio movimento fascista de massas: o **integralismo**. Esta aula conta a sua história, que ajuda a entender a força da extrema direita no país.
 
@@ -74,3 +77,24 @@ A Constituição brasileira considera **crime inafiançável e imprescritível**
 ## Para conversar
 
 O lema "Deus, Pátria e Família" voltou a circular no Brasil nos últimos anos. De onde ele vem? O que significa usá-lo hoje?
+
+## Exemplo resolvido
+
+**O integralismo foi um movimento fascista? Compare com a lista de características.**
+
+1. **Nacionalismo e culto à autoridade.** Defendia um Estado forte e "integral", hierárquico, corporativo e nacionalista; lema "Deus, Pátria e Família".
+2. **Mobilização de massas e milícias.** Camisa verde (como os camisas-negras), sigma, saudação "Anauê!", milícias, desfiles e organizações de jovens e de mulheres.
+3. **Anticomunismo e inimigos internos.** Era anticomunista; dirigentes como Gustavo Barroso difundiam antissemitismo.
+4. **Tamanho.** Segundo os estudos históricos, chegou a centenas de milhares de membros: o maior movimento fascista da América Latina.
+5. **Conclua.** Hélgio Trindade mostrou, em 1974, as ligações ideológicas do integralismo com os fascismos europeus.
+
+Confira: em 7 de outubro de 1934, uma frente de várias correntes da esquerda enfrentou os integralistas na Praça da Sé, e eles fugiram em debandada.
+
+## Resumo
+
+- A **Ação Integralista Brasileira** foi fundada por Plínio Salgado em 7 de outubro de 1932 (*Manifesto de Outubro*).
+- Elementos: "Deus, Pátria e Família", camisa verde, sigma, "Anauê!", milícias e desfiles; anticomunismo e, em dirigentes como Gustavo Barroso, antissemitismo.
+- Foi o maior movimento fascista de massas da América Latina.
+- **Praça da Sé, 7 de outubro de 1934:** a unidade de várias correntes da esquerda derrotou o desfile integralista.
+- Depois do Estado Novo (1937), Vargas fechou a AIB; em maio de 1938 os integralistas tentaram um levante armado e fracassaram.
+- A Constituição de 1988 (art. 5º, XLIV) considera crime inafiançável e imprescritível a ação de grupos armados contra a ordem constitucional e o Estado democrático.

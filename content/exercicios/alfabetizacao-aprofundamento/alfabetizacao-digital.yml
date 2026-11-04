@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização digital" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-digital-01
+  tema: "O que muda na tela"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas é uma diferença da leitura na tela, segundo a aula?"
+  alternativas:
+    - texto: "Ícones e botões substituem palavras, como a lixeira e o microfone"
+      certa: true
+    - texto: "Não há nenhuma diferença da leitura no papel"
+      erro: "A aula lista diferenças: ícones, textos curtos, campos para preencher e rapidez."
+    - texto: "Um toque errado nunca tem consequência"
+      erro: "A aula alerta: um toque errado pode mandar, apagar ou pagar."
+  explicacao: "Na tela, ícones substituem palavras, o texto é curto e misturado com imagens, há campos a preencher e um toque errado tem consequência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-digital-02
+  tema: "O celular a favor"
+  dificuldade: 1
+  enunciado: "Qual recurso do celular a aula cita para ajudar quem está aprendendo a ler?"
+  alternativas:
+    - texto: "Desligar o teclado e só usar imagens"
+      erro: "A aula cita o teclado, o áudio e a leitura em voz alta como aliados."
+    - texto: "Aumentar a letra grande nas configurações, usar o áudio e a leitura em voz alta"
+      certa: true
+    - texto: "Apagar todos os aplicativos de mensagem"
+      erro: "A aula quer usar o celular a favor da alfabetização, não evitá-lo."
+  explicacao: "Letra grande, áudio, teclado e leitura em voz alta são ajudas que o papel não tem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-digital-03
+  tema: "Letramento digital"
+  dificuldade: 2
+  enunciado: "Quem chamou atenção, num artigo de 2002, para o letramento digital, segundo a aula?"
+  alternativas:
+    - texto: "Paulo Freire"
+      erro: "Freire escreveu sobre palavras geradoras e leitura do mundo. O artigo de 2002 citado é de Magda Soares."
+    - texto: "Emilia Ferreiro"
+      erro: "Ferreiro estudou as hipóteses de escrita. O letramento digital, na aula, vem de Magda Soares."
+    - texto: "Magda Soares"
+      certa: true
+  explicacao: "Magda Soares chamou atenção para o letramento digital: a tela tem práticas de leitura e escrita próprias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

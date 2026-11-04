@@ -31,9 +31,19 @@ quiz:
     opcoes: ["Abandonou a política", "Publicou os livros 2 e 3 do Capital e continuou orientando o movimento socialista internacional", "Escreveu contra o marxismo"]
     resposta: 1
     explicacao: "Engels viveu até 1895, editou os manuscritos de Marx e escreveu obras importantes como A Origem da Família."
+modelo: 9
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar quem foram Marx e Engels, como a parceria começou e de que três fontes vieram as suas ideias.
+
 O marxismo leva o nome de Karl Marx, mas foi obra de dois. Esta aula conta a história da parceria entre **Karl Marx** (1818-1883) e **Friedrich Engels** (1820-1895), e mostra de onde vieram as suas ideias.
+
+```suarealidade
+Que pessoas do seu bairro ou do seu serviço passaram a pensar diferente depois de conviver com outras, de ler ou de ver a vida de perto? O que mudou no que elas diziam?
+```
 
 ## Dois jovens, duas origens
 
@@ -79,6 +89,38 @@ Engels sempre se definiu como o "segundo violino" da dupla. Mas, sem ele, o marx
 
 A história de Marx e Engels ensina que o conhecimento revolucionário não nasce de um gênio isolado. Nasce do diálogo, da cooperação, do estudo e do contato com as lutas reais dos trabalhadores, tudo o que esta escola procura praticar.
 
+## Exemplo resolvido
+
+**Como duas origens diferentes levaram às mesmas conclusões?**
+
+1. **Marx**, filho de um advogado, estudou Direito e Filosofia, doutorou-se em 1841 e virou jornalista.
+2. **Engels**, filho de um industrial têxtil, foi mandado a Manchester, onde conheceu de perto a vida operária e escreveu *A Situação da Classe Trabalhadora na Inglaterra* (1845).
+3. Em **Paris, em agosto de 1844**, descobriram que, por caminhos diferentes, tinham chegado às mesmas conclusões.
+4. A partir daí trabalharam juntos por quase quarenta anos e escreveram, entre outros, o *Manifesto do Partido Comunista* (1848).
+
+Confira: as três fontes do marxismo, segundo Lenin (1913), vieram de correntes já existentes; o conhecimento nasceu do diálogo e das lutas reais, e não de um gênio isolado.
+
 ## Para conversar
 
 Engels sustentou Marx com o dinheiro de uma empresa capitalista. Isso é uma contradição? Como você julgaria essa escolha?
+
+```outrolado
+# O argumento de quem desconfia de pensadores de livros
+"Marx e Engels eram intelectuais, e um deles era filho de um industrial rico. Quem nunca pegou no pesado não pode falar pelos trabalhadores."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A crítica toca num ponto que a aula não esconde: Engels era filho de um industrial têxtil e sustentou Marx com o dinheiro de uma empresa capitalista, e a aula pergunta se isso é uma contradição. Mas há fatos a pesar: o pai mandou Engels trabalhar em Manchester, onde ele conheceu de perto a vida operária (com a ajuda de Mary Burns, operária irlandesa) e escreveu *A Situação da Classe Trabalhadora na Inglaterra* (1845), aos 24 anos; e Marx viveu na pobreza e no exílio por causa das suas ideias. Você pode julgar a escolha de cada um e, ainda assim, ler o que escreveram e conferir os argumentos.
+```
+
+```agir
+# Esta semana
+Escolha uma ideia desta aula e explique-a em voz alta, com as suas palavras, para uma pessoa da sua convivência, em até três minutos. Depois pergunte o que ela achou e anote uma dúvida que surgiu para levar à próxima aula.
+```
+
+## Resumo
+
+- Karl Marx (1818-1883) e Friedrich Engels (1820-1895) construíram o marxismo juntos.
+- Encontraram-se em Paris, em agosto de 1844, e trabalharam juntos por quase quarenta anos.
+- Escreveram *A Sagrada Família*, *A Ideologia Alemã* e o *Manifesto do Partido Comunista* (1848).
+- Lenin (1913) falou das três fontes do marxismo; o pensamento é coletivo.

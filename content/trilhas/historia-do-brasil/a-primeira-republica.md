@@ -30,6 +30,10 @@ quiz:
     resposta: 1
     explicacao: "Vinte e dois anos depois da abolição, os marinheiros, em sua maioria negros, ainda eram punidos com chibatadas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como funcionava o poder na Primeira República, quem ficou de fora (Canudos, operários) e como a crise dos anos 1920 levou ao fim do período.
+
 
 ## A república dos fazendeiros
 
@@ -91,9 +95,28 @@ A década de 1920 foi de contestação por todos os lados.
 
 Em **1929**, a quebra da bolsa de Nova York derrubou o preço do café e arruinou a base econômica do regime. Em 1930, o acordo entre São Paulo e Minas rompeu-se. Um movimento armado, com apoio de oligarquias descontentes, dos tenentes e das camadas médias, levou **Getúlio Vargas** ao poder. Terminava a Primeira República.
 
+## Exemplo resolvido
+
+**Quanto durou a Primeira República? E quanto durou a Coluna Prestes?**
+
+1. A aula chama de Primeira República o período de 1889 a 1930. Subtraia: 1930 − 1889 = **41 anos**.
+2. Os dois primeiros governos foram militares; a partir de 1894, os civis assumiram. De 1889 a 1894: **5 anos** de governos militares, e **36 anos** de governos civis dos grandes proprietários.
+3. A Coluna Prestes percorreu o interior entre 1925 e 1927: 1927 − 1925 = **2 anos**, sem ser derrotada.
+4. O tenentismo se rebelou em 1922 e em 1924; a aula fala de uma década de contestação por todos os lados.
+
+Leitura: nesses 41 anos, o poder esteve nas mãos dos grandes proprietários rurais, com os cafeicultores de São Paulo à frente. Por isso a aula a chama de "república dos fazendeiros".
+
 ## Para pesquisar e debater
 
 1. Existe hoje algo parecido com o voto de cabresto? Que formas de dependência ainda influenciam o voto?
 2. Por que a República tratou Canudos como inimigo a ser destruído?
 3. João Cândido passou décadas esquecido pela história oficial. Por quê?
 4. "A questão social é caso de polícia." Onde essa ideia ainda aparece?
+
+## Resumo
+
+- A Primeira República (1889-1930) começou com dois governos militares e, de 1894 em diante, passou aos grandes proprietários rurais, com os cafeicultores de São Paulo à frente.
+- Victor Nunes Leal descreveu o sistema em Coronelismo, enxada e voto: o coronel, grande proprietário, controlava os votos dos que dependiam dele para ter terra, trabalho e proteção.
+- Canudos (1896-1897), no sertão da Bahia, reuniu sertanejos pobres em torno de Antônio Conselheiro e foi destruído por expedições militares.
+- Com o café vieram cidades, ferrovias e fábricas; os operários, muitos imigrantes, trabalhavam mais de dez horas por dia, sem descanso semanal, férias ou proteção.
+- Nos anos 1920, a contestação veio de todos os lados: tenentismo (1922 e 1924), Coluna Prestes (1925-1927) e outros movimentos.

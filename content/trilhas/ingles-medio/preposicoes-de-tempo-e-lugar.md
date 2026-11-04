@@ -27,6 +27,10 @@ quiz:
     explicacao: "Into: He walked into the room. Onto: para cima de."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar *in*, *on* e *at* para lugar e para tempo e reconhecer as preposições de posição e de movimento.
+
 ## Três preposições, muitos usos
 
 As preposições **in**, **on** e **at** são das palavras mais usadas do inglês, e não correspondem exatamente a "em", "no", "na". A ideia geral vai do **maior** ao **mais preciso**:
@@ -92,9 +96,26 @@ Complete: "I arrived ___ the station ___ 7 o'clock ___ Monday."
 > A estação é um ponto; a hora leva at; o dia da semana leva on.
 ```
 
+## Exemplo resolvido
+
+**Corrija: "I go to home at 6." / "She is in the bus." / "The meeting is in Friday."**
+
+1. *Go home* não leva *to*: *I go home at 6.* A hora exata leva **at**.
+2. Transporte coletivo leva **on**: *She is on the bus*. (Carro é *in a car*.)
+3. Dia da semana leva **on**: *The meeting is on Friday.*
+
+Confira: do mais amplo ao mais preciso, *in* (grande, dentro), *on* (superfície, dia), *at* (ponto, hora).
+
 ## Para praticar
 
 1. Complete com in, on ou at: ___ the kitchen, ___ the wall, ___ the corner, ___ São Paulo, ___ the bus, ___ work.
 2. Descreva o caminho da sua casa até o ponto de ônibus usando preposições de movimento.
 3. Desenhe a sua rua e escreva três frases com next to, opposite e between.
 4. Corrija: "I go to home at 6." / "She is in the bus." / "The meeting is in Friday."
+
+## Resumo
+
+- Lugar: **in** (cidades, espaços fechados), **on** (superfície, ruas, andares, transporte coletivo), **at** (ponto, endereço com número, *at work*).
+- Tempo: **at** (horas), **on** (dias e datas), **in** (meses, anos, estações, partes do dia).
+- *In a car*, mas *on the bus*, *on the train*.
+- Há palavras de posição (*under, next to, between*) e de movimento.

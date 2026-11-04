@@ -29,9 +29,19 @@ quiz:
     opcoes: ["Voy a el mercado.", "Voy al mercado.", "Voy ao mercado."]
     resposta: 1
     explicacao: "A + el vira al. É uma das duas únicas contrações do espanhol, junto com del (de + el)."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar os artigos el, la, los, las, un e una, lembrar as duas únicas contrações (al e del), acertar o gênero das palavras que mudam de uma língua para a outra e formar o plural.
+
+
 Os artigos do espanhol são muito parecidos com os do português. A dificuldade está em dois pontos: algumas palavras têm **gênero diferente** nas duas línguas, e o espanhol quase não faz contrações. Quem sabe disso evita os erros mais comuns do "portunhol".
+
+```suarealidade
+Quais palavras em espanhol você já viu escritas no seu dia a dia, numa embalagem, num cartaz ou numa música? Alguma delas vinha com "el" ou "la" na frente?
+```
 
 ## Os artigos
 
@@ -144,6 +154,31 @@ Não existem plurais como os nossos *-ões*, *-ães* ou *-ais*: *canción → ca
 
 E um uso a mais que o português não tem: os **dias da semana** levam artigo para dizer "na segunda", "no sábado": ***El** lunes trabajo. **Los** sábados descanso.* (Na segunda eu trabalho. Aos sábados eu descanso.)
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem ache que o gênero das palavras é detalhe: "o povo entende mesmo se você disser el leche em vez de la leche".
+---
+Como você responderia, sem desmerecer quem pensa assim?
+---
+Uma resposta possível: em conversa, quase sempre se faz entender. Mas a lista da aula mostra que os erros mais comuns são justamente os que o português puxa para o lado errado (la leche, la sal, el viaje, el color). Quem corrige cedo não precisa desaprender depois, e em carta, e-mail ou prova o gênero errado aparece.
+```
+
+## Exemplo resolvido
+
+**Como dizer "Moro no apartamento da minha tia, perto da ponte"?**
+
+1. **"Moro"**: *vivo*.
+2. **"No apartamento"**: em português a preposição gruda no artigo (no); em espanhol fica separada: *en el apartamento*.
+3. **"Da minha tia"**: de + possessivo, sem artigo: *de mi tía*.
+4. **"Perto da ponte"**: *cerca de* + el puente; **de + el = del**, e *puente* é masculino: *cerca del puente*.
+
+Frase pronta: *Vivo en el apartamento de mi tía, cerca del puente.*
+
+```agir
+# Esta semana
+Pegue um rótulo, uma embalagem ou uma música em espanhol que haja na sua casa. Copie cinco palavras com o artigo e confira o gênero na lista da aula ou no dicionário da Real Academia Española (dle.rae.es).
+```
+
 ## Para praticar
 
 1. Ponha o artigo definido: ___ leche, ___ árbol, ___ agua, ___ viaje, ___ nariz, ___ color, ___ costumbre.
@@ -151,3 +186,11 @@ E um uso a mais que o português não tem: os **dias da semana** levam artigo pa
 3. Passe para o plural: *la ciudad, el pez, la canción, el lápiz.*
 
 Respostas do 1: *la, el, el, el, la, el, la.* Uma resposta possível do 2: *Voy al mercado y después vuelvo de la feria con la leche y la sal.* Respostas do 3: *las ciudades, los peces, las canciones, los lápices.*
+
+## Resumo
+
+- Os artigos são **el, la, los, las** (definidos) e **un, una, unos, unas** (indefinidos); o **lo** é neutro e acompanha adjetivos.
+- Só existem duas contrações, **al** (a + el) e **del** (de + el); o resto fica separado: *en la casa*, *en el autobús*.
+- Palavras como *la leche* e *el viaje* têm gênero diferente do português; *-aje* é masculino e *-umbre* é feminino.
+- Plural: vogal + **-s**, consoante + **-es**, z vira **-ces**.
+- Possessivos não levam artigo: *mi casa*.

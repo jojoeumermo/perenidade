@@ -26,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/apoie/contas",
     "/estudio-de-pratica",
     "/estudo-em-grupo",
+    "/plantao",
     "/estudio-de-pratica/antes-de-comecar",
     "/explorar",
     "/autores",

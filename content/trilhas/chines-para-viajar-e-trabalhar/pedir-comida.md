@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "辣 (là) = apimentado. 微辣 = pouco apimentado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber pedir comida e bebida em um restaurante chinês, escolher entre opções com 还是, pedir um prato pouco apimentado e conhecer alguns costumes à mesa.
 
 ## No restaurante
 
@@ -96,3 +99,22 @@ A cozinha chinesa é muito variada: cada região tem a sua. A de Sichuan é famo
 2. Escreva em caracteres as suas restrições alimentares, se houver.
 3. Encene a cena completa: chegar, pedir, pedir sem pimenta e pedir a conta.
 4. Pesquise um prato regional chinês e descubra de que região ele é.
+
+## Exemplo resolvido
+
+**Você está num restaurante e quer um prato pouco apimentado e chá, não café. O que diz?**
+
+1. **Escolha entre opções.** Com **还是** (ou): **你要茶还是咖啡？** Você responde pela escolha: **茶，谢谢！**
+2. **Peça o prato.** Use **我要…** (querer), como na aula de comida.
+3. **Peça pouca pimenta.** **微辣** (wēi là): 微 (wēi) é "pouco, leve". "很辣" seria muito apimentado.
+4. **Se tiver alergia,** mostre a frase escrita em caracteres.
+5. **À mesa.** Não se espetam os pauzinhos na tigela de arroz; para brindar, **干杯！** (gānbēi!).
+
+Confira: os pratos costumam ser compartilhados no centro da mesa, e quem convida costuma pagar a conta toda.
+
+## Resumo
+
+- **还是** (háishi) oferece escolha em perguntas: 你要茶还是咖啡？
+- Para pedir pouca pimenta: **微辣**. Em caso de alergia, leve a frase escrita em caracteres.
+- A cozinha chinesa é muito variada: cada região tem a sua (a de Sichuan é famosa pela pimenta).
+- À mesa: pratos compartilhados; não espetar pauzinhos no arroz; quem convida costuma pagar; **干杯！** para brindar.

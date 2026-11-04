@@ -1,0 +1,51 @@
+# Exercícios da aula "Produtos químicos, esmaltes e ventilação" (Manicure e pedicure). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: man-quimica-01
+  tema: "Guardar produtos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como guardar a acetona e outros removedores?"
+  alternativas:
+    - texto: "Bem fechados, longe de fogo e de calor, e fora do alcance de crianças"
+      certa: true
+    - texto: "Abertos, perto do fogão, para secar mais rápido"
+      erro: "Os vapores são inflamáveis. Fogo por perto e frasco aberto aumentam o risco de incêndio."
+    - texto: "Em garrafa de refrigerante, sem rótulo"
+      erro: "Sem rótulo, alguém pode confundir com bebida. Guarde na embalagem original."
+  explicacao: "Frasco fechado, fresco, longe de chama e de crianças reduz o risco."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-quimica-02
+  tema: "Escolher produtos"
+  dificuldade: 2
+  enunciado: "Qual é um sinal de produto responsável para usar nas clientes?"
+  alternativas:
+    - texto: "Rótulo completo, com composição, validade, lote e regularização na Anvisa"
+      certa: true
+    - texto: "Preço muito abaixo do normal e sem fabricante identificado"
+      erro: "Produto sem fabricante e muito barato pode não ser regularizado e causar reação. Desconfie."
+    - texto: "Embalagem sem nenhuma informação"
+      erro: "Sem informação não dá para saber o que é, a validade nem como usar."
+  explicacao: "Cosméticos devem ser regularizados pela Anvisa (Lei 6.360/1976) e trazer rótulo com as informações."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: man-quimica-03
+  tema: "Reação da cliente"
+  dificuldade: 2
+  enunciado: "Depois de aplicar um produto, a cliente fica com vermelhidão e coceira. O que fazer primeiro?"
+  alternativas:
+    - texto: "Passar mais produto, para cobrir"
+      erro: "Mais produto aumenta a reação. Pare de usar."
+    - texto: "Parar de usar, retirar o produto com cuidado, anotar qual foi e orientar a procurar a UBS se persistir"
+      certa: true
+    - texto: "Dizer que isso é normal e não fazer nada"
+      erro: "Reação alérgica não deve ser ignorada. Ela pode piorar."
+  explicacao: "Pare, anote o produto e o lote e oriente a procurar a UBS. Em falta de ar ou inchaço no rosto, ligue 192."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

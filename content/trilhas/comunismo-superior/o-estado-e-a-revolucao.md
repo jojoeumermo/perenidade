@@ -29,6 +29,9 @@ quiz:
     resposta: 0
     explicacao: "Contra os primeiros, defende a destruição da máquina estatal; contra os segundos, a necessidade de um Estado de transição."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber resumir, capítulo a capítulo, as ideias de *O Estado e a Revolução* (Lenin, 1917) e a distância entre o livro e a história que veio depois.
 
 *O Estado e a Revolução* é um livro curto, escrito às pressas, num momento extraordinário. Lenin o redigiu em agosto e setembro de **1917**, escondido na Finlândia, enquanto a revolução russa avançava. No posfácio, explicou por que não terminou o último capítulo: é "mais agradável e mais útil viver a experiência da revolução do que escrever sobre ela". Esta aula propõe uma leitura capítulo a capítulo.
 
@@ -74,3 +77,25 @@ O livro é, ao mesmo tempo, uma teoria e uma promessa. A Rússia soviética, sob
 ## Para pesquisar e debater
 
 Lenin imaginava que funções de administração poderiam ser exercidas em rodízio por qualquer trabalhador. Que funções públicas, hoje, você acha que poderiam ser rotativas? Quais exigiriam especialização?
+
+## Exemplo resolvido
+
+**Por que Lenin chama o Estado da Comuna de "semi-Estado"? Siga as medidas.**
+
+1. **A tese.** Para Lenin, a revolução proletária precisa quebrar a máquina do Estado, e não apenas aperfeiçoá-la.
+2. **O modelo.** A Comuna de Paris mostrou com o que substituí-la: representantes eleitos e revogáveis a qualquer momento, com salário de operário.
+3. **Outras medidas.** Fim do exército permanente, órgãos ao mesmo tempo legislativos e executivos e funcionários sob controle popular.
+4. **O sentido.** É o poder da maioria contra a minoria exploradora, e não de uma minoria contra a maioria.
+5. **Conclua.** Por ser exercido de forma tão simples e próxima do povo, esse Estado já começa a deixar de ser um aparelho separado da sociedade: um semi-Estado.
+
+Confira: no capítulo 5, Lenin imagina funções de contabilidade e controle exercidas em rodízio por qualquer pessoa alfabetizada.
+
+## Resumo
+
+- O livro foi escrito em agosto e setembro de **1917**, na Finlândia; o último capítulo ficou sem terminar.
+- Cap. 1: o Estado é produto das contradições de classe; mesmo a república democrática é instrumento de dominação do capital.
+- Caps. 2 e 3: a revolução precisa **quebrar** a máquina do Estado; a Comuna mostrou a alternativa (eleitos revogáveis, salário de operário, fim do exército permanente).
+- Cap. 4: o Estado burguês é **abolido**; o Estado proletário **se extingue**.
+- Cap. 5: primeira fase (socialismo) e fase superior (comunismo); funções de controle em rodízio.
+- Cap. 6: crítica a Plekhanov e Kautsky.
+- Na prática, a Rússia soviética caminhou para centralização, polícia política, partido único e burocracia.

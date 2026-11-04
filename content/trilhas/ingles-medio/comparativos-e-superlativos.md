@@ -30,6 +30,10 @@ quiz:
     explicacao: "Comparação de igualdade: as + adjetivo + as."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar duas coisas e dizer qual é a maior, a melhor ou a pior, com adjetivos curtos, longos e irregulares.
+
 ## Comparar
 
 Comparar é útil para quase tudo: preços, salários, distâncias, condições de trabalho. O inglês tem dois caminhos, conforme o tamanho do adjetivo.
@@ -85,9 +89,28 @@ Complete: "Today's traffic is ___ than yesterday's. It's ___ traffic of the year
 
 > Rent in the city center is **more expensive than** in the suburbs. But the suburbs are **farther** from work, and the bus fare is **higher**. For many workers, the **cheapest** rent means the **longest** commute.
 
+## Exemplo resolvido
+
+**Compare o ônibus e o táxi, e fale do tráfego de hoje (*bad*).**
+
+1. *Cheap* é curto: acrescente **-er** + **than**. *The bus is cheaper than the taxi.*
+2. O superlativo leva *the* e **-est**: *This is the cheapest option.*
+3. *Expensive* é longo: use **more** + adjetivo. *The taxi is more expensive than the bus.*
+4. *Bad* é irregular: *Today's traffic is worse than yesterday's. It's the worst traffic of the year.*
+
+Confira: nunca "badder" nem "more bad". Os irregulares (*good, bad, far, much, little*) precisam ser decorados.
+
 ## Para praticar
 
 1. Escreva o comparativo e o superlativo: small, big, happy, dangerous, good, bad, cheap, beautiful.
 2. Compare dois meios de transporte da sua cidade em três frases.
 3. Complete com as ... as: "This street is ___ (noisy) the other one."
 4. Escreva duas frases com superlativos sobre a sua cidade: *The biggest problem is ...*
+
+## Resumo
+
+- Adjetivos curtos: **-er than** e **the -est** (*cheaper*, *the cheapest*).
+- Adjetivos longos: **more ... than** e **the most** (*more expensive*, *the most important*).
+- "Menos": *less ... than* e *the least*.
+- Irregulares: *better / the best*, *worse / the worst*, *farther*, *more / the most*, *less / the least*.
+- Regras de escrita: -e só leva -r/-st; consoante-vogal-consoante dobra (*bigger*); consoante + y vira -ier/-iest (*easier*).

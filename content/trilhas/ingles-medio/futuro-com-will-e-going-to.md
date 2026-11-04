@@ -30,6 +30,10 @@ quiz:
     explicacao: "Plano já decidido antes: going to."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escolher entre *will* e *be going to* para falar de decisões, planos e previsões.
+
 ## Dois jeitos principais
 
 O inglês não tem uma única forma de futuro. As duas mais usadas são ***will*** e ***be going to***.
@@ -92,9 +96,26 @@ Para compromissos **marcados**, com data e hora, usa-se muito o [presente contí
 
 *tomorrow* (amanhã), *next week / next month / next year* (semana, mês, ano que vem), *in two days* (daqui a dois dias), *soon* (em breve), *someday* (algum dia).
 
+## Exemplo resolvido
+
+**Complete com *will* ou *going to*: "I've decided. I ___ study English every day." e "— It's hot here. — I ___ open the window."**
+
+1. Na primeira frase a decisão **já foi tomada** antes de falar. Plano ou intenção pede *going to*: *I'm going to study English every day.*
+2. Na segunda, a decisão acontece **na hora**, em resposta ao calor. Pede *will*: *I'll open the window.*
+3. Teste de conferência: "decidi agora" é *will*; "já tinha decidido" é *going to*.
+
+Confira: a tabela da aula traz o mesmo contraste com o exemplo do leite (*OK, I'll buy some*) e do terno (*I'm going to have a job interview*).
+
 ## Para praticar
 
 1. Complete com will ou going to: "I've decided. I ___ study English every day." / "— It's hot here. — I ___ open the window."
 2. Escreva três planos para o próximo ano com going to.
 3. Escreva três previsões sobre o futuro da sua cidade com will.
 4. Faça perguntas: "you / help me?" (will) / "she / move?" (going to).
+
+## Resumo
+
+- **Will** + verbo na forma básica: decisão na hora, previsão, promessa, oferta e pedido.
+- **Be going to**: plano já decidido e previsão com evidência no presente.
+- Negativa: *won't*; *isn't going to*. Pergunta: *Will you...?*; *Is she going to...?*
+- O presente contínuo também serve para planos combinados.

@@ -30,6 +30,7 @@ quiz:
     opcoes: ["Em 1975", "Em 1910", "Em 2010"]
     resposta: 0
     explicacao: "1975 foi o Ano Internacional da Mulher."
+modelo: 9
 ---
 
 ```provocacao
@@ -39,6 +40,10 @@ No 8 de março, muita gente recebe flores e bombons. Mas a data nasceu de passea
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber como nasceu o Dia Internacional da Mulher e por que ele é um dia de luta.
+
+```suarealidade
+No último 8 de março, como a data apareceu no seu trabalho, na sua escola ou no seu bairro? Qual reivindicação das mulheres da sua comunidade merece ser dita nesse dia?
+```
 
 ## Um dia das mulheres
 
@@ -72,6 +77,20 @@ Por que se diz que o 8 de março é um dia de luta?
 2. **(b)** 1910: Clara Zetkin propõe um dia anual.
 3. **(d)** 1917: passeata de 8 de março na Rússia.
 4. **(a)** 1975: a ONU adota a data.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O 8 de março virou dia de flor e de propaganda de loja. Falar em luta e em revolução é exagero, a data é só uma homenagem".
+---
+Como você responderia, com a história da data?
+---
+Uma resposta possível: concordar que hoje a data é lembrada de jeitos muito diferentes (em alguns países como protesto, em outros como homenagem, como a própria aula diz) e mostrar a origem: o Dia das Mulheres de 1909 em Nova York pela igualdade e pelo voto, a proposta de Clara Zetkin em 1910 e a passeata de 8 de março de 1917 contra a carestia e o desemprego, até a adoção pela ONU em 1975.
+```
+
+```agir
+# Esta semana
+Escreva numa frase uma reivindicação das mulheres da sua comunidade (por exemplo, creche perto de casa ou iluminação na rua) e converse sobre ela com duas pessoas de confiança. Sem expor ninguém e sem gravar ou fotografar outras pessoas.
+```
 
 ## Resumo
 

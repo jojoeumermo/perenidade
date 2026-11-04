@@ -1,0 +1,51 @@
+# Exercícios da aula "Esgoto e desentupimento" (Encanador). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: enc-esgoto-01
+  tema: "Sifão"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para que serve o sifão da pia?"
+  alternativas:
+    - texto: "Guardar um pouco de água que impede o retorno do mau cheiro do esgoto"
+      certa: true
+    - texto: "Aquecer a água da pia"
+      erro: "O sifão não aquece nada. Ele retém água no formato de curva."
+    - texto: "Medir a vazão da torneira"
+      erro: "Medir vazão não é função do sifão."
+  explicacao: "A água retida no sifão forma o fecho hídrico que bloqueia o cheiro e os gases."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-esgoto-02
+  tema: "Prevenir entupimento"
+  dificuldade: 1
+  enunciado: "Qual hábito ajuda a evitar o entupimento da pia da cozinha?"
+  alternativas:
+    - texto: "Jogar o óleo usado no ralo, com água quente"
+      erro: "O óleo esfria e gruda nos canos, formando um bloqueio. Descarte em garrafa, no lixo."
+    - texto: "Usar peneira no ralo e descartar o óleo usado em garrafa, no lixo"
+      certa: true
+    - texto: "Nunca limpar a caixa de gordura"
+      erro: "A caixa de gordura cheia transborda e entope. Ela precisa de limpeza periódica."
+  explicacao: "Reter os restos e descartar a gordura de forma correta evita a maior parte dos entupimentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-esgoto-03
+  tema: "Proteção no serviço"
+  dificuldade: 2
+  enunciado: "Por que usar luvas e botas em serviço de esgoto?"
+  alternativas:
+    - texto: "Para proteger de bactérias, vírus e parasitas presentes no esgoto"
+      certa: true
+    - texto: "Só por aparência profissional"
+      erro: "O motivo é a saúde: o esgoto tem micro-organismos que causam doenças."
+    - texto: "Porque o esgoto é frio"
+      erro: "A temperatura não é o ponto. O risco é biológico."
+  explicacao: "O esgoto tem micro-organismos que causam doenças. Proteção e lavar as mãos reduzem o risco."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

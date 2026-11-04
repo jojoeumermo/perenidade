@@ -37,6 +37,9 @@ quiz:
     resposta: 0
     explicacao: "A muda feita de um galho é um clone da planta-mãe. Gêmeos idênticos são clones naturais um do outro."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é biotecnologia, como funcionam o DNA recombinante, a PCR, o sequenciamento, a clonagem, as células-tronco e a edição de genes (CRISPR), e o que a lei brasileira diz sobre alguns desses usos.
 
 ## Uma técnica antiga, uma revolução recente
 
@@ -153,3 +156,24 @@ A biotecnologia pode produzir vacinas baratas ou remédios inacessíveis; sement
 2. Por que a insulina fabricada por bactérias é igual à humana?
 3. Organize um debate: quais são os argumentos a favor e contra o patenteamento de sementes?
 4. Existe banco ou casa de sementes crioulas na sua região? Qual é a sua importância?
+
+## Exemplo resolvido
+
+**Um laboratório quer que uma bactéria produza um hormônio humano. Qual é a sequência correta? (O exemplo clássico é a insulina.)**
+
+1. **Isole o gene humano** que traz a "receita" do hormônio (o DNA guarda a receita).
+2. **Corte um plasmídeo** (pequeno anel de DNA das bactérias) com uma **enzima de restrição** e encaixe nele o gene, unindo as pontas com a **DNA ligase**.
+3. **Introduza o plasmídeo nas bactérias.**
+4. **As bactérias se multiplicam** em grandes tanques e fabricam o hormônio humano.
+5. **Por que funciona?** Porque o código genético é praticamente universal.
+
+Confira: clonar a bactéria ou injetar o hormônio nela não faria a bactéria produzi-lo. Ela precisa receber a "receita".
+
+## Resumo
+
+- **Biotecnologia:** uso de seres vivos, ou de partes deles, para obter produtos e processos úteis (pão, queijo, vinho; e, desde os anos 1970, cortar, colar e copiar DNA).
+- Ferramentas: **enzimas de restrição** (tesouras), **DNA ligase** (cola) e **plasmídeos** (veículos). Resultado: **DNA recombinante**, como a insulina humana produzida por bactérias, e organismos **transgênicos**.
+- **PCR:** faz milhões de cópias de um trecho de DNA; usos em diagnóstico (referência na covid-19), paternidade e perícia.
+- **Sequenciar** é ler as bases do DNA. O genoma humano foi concluído em 2003; marcos brasileiros em 2000 (*Xylella fastidiosa*) e em 2020 (genoma do coronavírus).
+- **Clonagem:** a ovelha Dolly (1996). A Lei de Biossegurança (Lei 11.105/2005) proíbe a clonagem humana no Brasil.
+- **Células-tronco** e **CRISPR** (desde 2012) abrem caminhos para tratar doenças, e levantam questões éticas.

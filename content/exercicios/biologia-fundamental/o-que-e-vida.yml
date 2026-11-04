@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é vida" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-vida-01
+  tema: "Características da vida"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A biologia define a vida com uma frase só?"
+  alternativas:
+    - texto: "Não: lista um conjunto de características, e é preciso reunir todas"
+      certa: true
+    - texto: "Sim, com uma frase curta"
+      erro: "A biologia não define a vida com uma frase só."
+    - texto: "Basta ter uma das características"
+      erro: "Ter uma delas não basta: é preciso reunir todas."
+  explicacao: "Organização, metabolismo, homeostase, resposta a estímulos, crescimento e desenvolvimento, reprodução e adaptação e evolução."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-vida-02
+  tema: "Homeostase"
+  dificuldade: 2
+  enunciado: "Qual exemplo da aula ilustra a homeostase?"
+  alternativas:
+    - texto: "O girino virar sapo"
+      erro: "Isso é crescimento e desenvolvimento."
+    - texto: "Suar no calor"
+      certa: true
+    - texto: "A planta crescer em direção à luz"
+      erro: "Isso é resposta a estímulos."
+  explicacao: "Homeostase é manter o interior estável mesmo quando o exterior muda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-vida-03
+  tema: "Fogo e vida"
+  dificuldade: 3
+  enunciado: "Por que o fogo, que cresce, consome e se espalha, não é considerado vivo?"
+  alternativas:
+    - texto: "Porque não se espalha"
+      erro: "O fogo se espalha, mas não tem células nem genes."
+    - texto: "Porque é quente"
+      erro: "O motivo é que não tem células nem genes."
+    - texto: "Porque não tem células nem genes"
+      certa: true
+  explicacao: "O cristal de sal também cresce, mas não é vivo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

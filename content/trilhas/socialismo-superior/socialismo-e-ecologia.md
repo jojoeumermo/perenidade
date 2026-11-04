@@ -33,6 +33,10 @@ quiz:
     explicacao: "A experiência cubana é estudada como exemplo de transição agroecológica forçada pela crise."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Marx e Engels disseram sobre a natureza, o que a experiência soviética mostrou e o que propõe o ecossocialismo.
+
 Socialistas criticam o capitalismo por destruir a natureza em busca de lucro. Mas os países que se disseram socialistas no século XX também causaram desastres ambientais graves. Esta aula enfrenta essa contradição e apresenta a proposta do **ecossocialismo**.
 
 ## Marx, Engels e a natureza
@@ -79,6 +83,24 @@ Mais recentemente, o filósofo japonês **Kohei Saito**, em *O Capital no Antrop
 
 A agroecologia praticada por movimentos como o MST e por povos indígenas e quilombolas é uma referência do ecossocialismo. As trilhas de [Ecossocialismo](/trilhas/ecossocialismo-basico) aprofundam o tema.
 
+## Exemplo resolvido
+
+**Por que o Mar de Aral encolheu, e que lição os socialistas tiram disso?**
+
+1. Veja a causa: a partir dos anos 1960, os rios que alimentavam o Mar de Aral, na Ásia Central, foram desviados para irrigar plantações de algodão.
+2. Veja a lógica por trás: com a industrialização acelerada, prevaleceu a ideia de "conquistar" a natureza e de cumprir metas de crescimento quantitativo.
+3. Compare com Engels: não devemos nos vangloriar demais das nossas vitórias sobre a natureza, porque para cada uma a natureza se vinga.
+
+Conclusão: a propriedade estatal, por si só, não garante uma relação sustentável com a natureza. É preciso planejamento democrático com critérios ecológicos e não apenas metas de crescimento.
+
 ## Para pesquisar e debater
 
 Que atividades econômicas deveriam crescer e quais deveriam diminuir numa transição ecossocialista no Brasil? Quem seria afetado por cada escolha?
+
+## Resumo
+
+- Marx analisou a ruptura metabólica entre sociedade e natureza e disse que as sociedades são apenas usufrutuárias da Terra, que devem legar melhorada.
+- Engels alertou que cada vitória sobre a natureza tem o seu preço.
+- A URSS teve reservas naturais e a ideia de biosfera, de Vernadsky, mas também o Mar de Aral, a poluição industrial e Chernobyl (1986).
+- Cuba, nos anos 1990, desenvolveu agricultura urbana e agroecologia, forçada pela crise.
+- O ecossocialismo (Löwy, Kovel, O'Connor, Foster) afirma que o capitalismo é incompatível com a sustentabilidade; o *Manifesto Ecossocialista* é de 2001.

@@ -30,6 +30,10 @@ quiz:
     explicacao: "Cada unidade de pH corresponde a um fator de 10. Duas unidades: 10 × 10."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer ácidos e bases do dia a dia, ler a escala de pH e usar esse conhecimento com segurança na cozinha e na limpeza.
+
 ## Azedo e escorregadio
 
 O limão é azedo. O sabão é escorregadio e amarga na boca. Sem saber, você acabou de separar dois grandes grupos de substâncias: os **ácidos** e as **bases** (também chamadas de **álcalis**).
@@ -124,6 +128,16 @@ Regras de segurança:
 
 **Se cair na pele ou nos olhos:** lave imediatamente com **muita água corrente**, por vários minutos, e procure atendimento. **Se alguém engolir:** não provoque vômito e não dê nada para beber sem orientação. Ligue para o serviço de emergência (192) ou para o Disque-Intoxicação da sua região, e leve a embalagem do produto.
 
+## Exemplo resolvido
+
+**Um produto tem pH 3 e outro tem pH 5. Qual é mais ácido, e quantas vezes?**
+
+1. Lembre que, abaixo de 7, quanto menor o pH, mais ácida a solução. Então o de pH 3 é o mais ácido.
+2. Veja a diferença entre os dois valores: 5 − 3 = 2 unidades.
+3. Cada unidade da escala vale um fator de dez. Duas unidades: 10 × 10 = 100.
+
+O produto de pH 3 é cem vezes mais ácido que o de pH 5. Confira: a escala não é uma régua, e por isso a diferença não é "só 2".
+
 ## Para praticar
 
 1. Classifique como ácido, base ou neutro: limão, sabão, água pura, vinagre, leite de magnésia.
@@ -132,3 +146,11 @@ Regras de segurança:
 4. Faça o indicador de repolho roxo e teste cinco líquidos da sua cozinha. Anote as cores.
 
 **Respostas:** 1) Ácido; base; neutro; ácido; base. 2) O de pH 2, cem vezes mais. 3) Para reduzir a acidez do solo, por neutralização.
+
+## Resumo
+
+- Ácidos são azedos e liberam partículas de hidrogênio em água; bases são amargas, escorregadias e capazes de capturá-las.
+- A escala de pH vai de 0 a 14: abaixo de 7 é ácida, 7 é neutra, acima de 7 é básica. Cada unidade vale um fator de dez.
+- Indicadores, como o caldo de repolho roxo, mudam de cor conforme o pH.
+- Ácido e base reagem e se neutralizam, formando sal e água.
+- Soda cáustica e ácido muriático são perigosos: luvas, óculos, lugar ventilado, produto na água e nunca o contrário.

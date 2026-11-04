@@ -66,6 +66,10 @@ const QuantoCobrar = dynamic(() => import("./novas/VidaReal").then((m) => m.Quan
 const GeradorDeCurriculo = dynamic(() => import("./novas/VidaReal").then((m) => m.GeradorDeCurriculo), { ssr: false, loading: espera });
 const OrcamentoEContrato = dynamic(() => import("./novas/VidaReal").then((m) => m.OrcamentoEContrato), { ssr: false, loading: espera });
 const SimuladorDeDivida = dynamic(() => import("./novas/VidaReal").then((m) => m.SimuladorDeDivida), { ssr: false, loading: espera });
+const EmergenciaTrabalhista = dynamic(() => import("./novas/ServicosDaVida").then((m) => m.EmergenciaTrabalhista), { ssr: false, loading: espera });
+const ClausulasDeContrato = dynamic(() => import("./novas/ServicosDaVida").then((m) => m.ClausulasDeContrato), { ssr: false, loading: espera });
+const CargaEletrica = dynamic(() => import("./novas/ServicosDaVida").then((m) => m.CargaEletrica), { ssr: false, loading: espera });
+const MapaDeServicos = dynamic(() => import("./novas/ServicosDaVida").then((m) => m.MapaDeServicos), { ssr: false, loading: espera });
 const ModelosDeDocumentos = dynamic(() => import("./novas/VidaReal").then((m) => m.ModelosDeDocumentos), { ssr: false, loading: espera });
 
 /** Mostra uma ferramenta pelo nome, com os textos que a página da aula mandou (só os das ferramentas daquela disciplina). */
@@ -202,6 +206,14 @@ function Ferramenta({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>; lang
       return <div lang="pt-BR"><SimuladorDeDivida /></div>;
     case "modelos-de-documentos":
       return <div lang="pt-BR"><ModelosDeDocumentos /></div>;
+    case "arvore-trabalhista":
+      return <div lang="pt-BR"><EmergenciaTrabalhista /></div>;
+    case "clausulas-de-contrato":
+      return <div lang="pt-BR"><ClausulasDeContrato /></div>;
+    case "carga-eletrica":
+      return <div lang="pt-BR"><CargaEletrica /></div>;
+    case "mapa-de-servicos":
+      return <div lang="pt-BR"><MapaDeServicos /></div>;
   }
 }
 

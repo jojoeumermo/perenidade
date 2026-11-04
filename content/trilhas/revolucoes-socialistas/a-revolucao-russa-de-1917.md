@@ -32,6 +32,10 @@ quiz:
     explicacao: "A Rússia usava o calendário juliano. O dia 25 de outubro de lá era 7 de novembro no calendário gregoriano, adotado pelo país em 1918."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como caiu o czar em fevereiro de 1917, o que foi o duplo poder e quais decretos os sovietes aprovaram em outubro.
+
 ## A Rússia em 1917
 
 No início do século XX, o Império Russo era governado por um czar com poder quase absoluto. A grande maioria da população era de camponeses pobres, muitos sem terra. Nas cidades, uma indústria recente concentrava milhares de operários em fábricas enormes, com salários baixos e jornadas longas.
@@ -83,3 +87,21 @@ Os vermelhos venceram, mas o país saiu arrasado: milhões de mortos pela guerra
 ## Por que ela importa
 
 Pela primeira vez, um Estado dirigido em nome dos trabalhadores durava mais que alguns meses (a [Comuna de Paris](/trilhas/lutas-do-povo/comuna-de-paris) tinha resistido 72 dias). A revolução inspirou movimentos operários e de libertação nacional em todo o mundo e obrigou governos de muitos países a conceder direitos sociais. Os caminhos que ela tomou depois, com conquistas e tragédias, são o assunto das próximas aulas.
+
+## Exemplo resolvido
+
+**O que foi o "duplo poder" na Rússia de 1917?**
+
+1. Depois da abdicação do czar, em 2 de março, surgiram dois centros de poder ao mesmo tempo.
+2. De um lado, o governo provisório, de liberais e depois de socialistas moderados, que manteve a Rússia na guerra e adiou a reforma agrária. Do outro, os sovietes, conselhos eleitos nas fábricas, nos quartéis e nas aldeias, onde estava a confiança da população.
+3. Compare com as palavras de ordem dos bolcheviques, "Paz, pão e terra" e "Todo o poder aos sovietes": elas respondiam ao que o governo provisório não resolvia.
+
+Conclusão: em setembro, os bolcheviques conquistaram a maioria nos sovietes de Petrogrado e de Moscou, e em outubro os sovietes tomaram o poder.
+
+## Resumo
+
+- Em 1917 o Império Russo estava em guerra, com fome nas cidades e milhões de soldados mortos, feridos ou capturados.
+- Em fevereiro, greve de operárias têxteis em Petrogrado, soldados aderindo e abdicação do czar Nicolau II em 2 de março.
+- Duplo poder: o governo provisório e os sovietes.
+- Em outubro, os sovietes tomaram o poder; o II Congresso aprovou o Decreto sobre a Paz e o Decreto sobre a Terra.
+- Vieram a jornada de oito horas, o controle operário, a igualdade de direitos entre mulheres e homens, o divórcio e a separação entre Igreja e Estado.

@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é política e o que estuda a ciência política" (Ciência política: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cpf-politica-01
+  tema: "A definição de Lasswell"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como Harold Lasswell resumiu a política?"
+  alternativas:
+    - texto: "Disputar eleições"
+      erro: "Lasswell descreveu política como a decisão de quem fica com o quê, quando e como."
+    - texto: "Obedecer às leis"
+      erro: "É decidir como dividir os recursos."
+    - texto: "Decidir quem fica com o quê, quando e como"
+      certa: true
+  explicacao: "Toda sociedade tem recursos limitados e precisa decidir como dividi-los; essa divisão nunca é neutra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-politica-02
+  tema: "Não se meter"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre \"não se meter em política\"?"
+  alternativas:
+    - texto: "Não tira ninguém da política: só deixa que outros decidam por você"
+      certa: true
+    - texto: "Garante que nada será decidido contra você"
+      erro: "A aula diz o contrário: outros decidem por você."
+    - texto: "Só vale para quem não vota"
+      erro: "A política está em tudo o que é comum, como o preço da passagem."
+  explicacao: "A política está no preço da passagem, no salário mínimo, no posto de saúde."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-politica-03
+  tema: "O animal político"
+  dificuldade: 2
+  enunciado: "O que Aristóteles quis dizer com \"animal político\"?"
+  alternativas:
+    - texto: "Que o ser humano é um animal selvagem"
+      erro: "É alguém que vive na pólis e decide junto."
+    - texto: "Que o ser humano vive em comunidade e só se realiza decidindo junto com os outros"
+      certa: true
+    - texto: "Que só os políticos são humanos"
+      erro: "Quer dizer que o ser humano vive em comunidade."
+  explicacao: "Na Atenas dele, a política era só para homens livres: mulheres, estrangeiros e escravizados ficavam de fora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

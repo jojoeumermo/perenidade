@@ -32,6 +32,10 @@ quiz:
     explicacao: "Ramón Mercader o atacou em sua casa, em Coyoacán, em 20 de agosto de 1940. Trotsky morreu no dia seguinte."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber expor as duas respostas ao problema de uma revolução isolada, a de Stalin e a de Trotsky, e o que aconteceu com cada um, sem reduzir o debate a uma caricatura.
+
 ## Dois revolucionários
 
 **Leon Trotsky** (1879–1940), nascido Lev Bronstein na Ucrânia, presidiu o Soviete de Petrogrado em 1905 e em 1917, dirigiu o Comitê Militar Revolucionário que organizou a insurreição de outubro e criou e comandou o Exército Vermelho na guerra civil. Era orador e escritor brilhante.
@@ -76,3 +80,22 @@ Stalin dirigiu a URSS até morrer, em 1953: os anos da industrialização, do Gr
 Até hoje, organizações de esquerda no mundo inteiro se definem em parte por sua posição nesse debate. Algumas reivindicam o legado de Stalin, lembrando a construção da indústria e a derrota de Hitler. Outras reivindicam o de Trotsky, lembrando a sua crítica à burocracia. Outras ainda criticam os dois. Os historiadores, por sua vez, discutem o quanto o resultado dependeu das pessoas e o quanto dependeu das condições de um país atrasado e isolado.
 
 Este instituto não toma partido nessa disputa. A recomendação é a de sempre: leia os dois, nas fontes indicadas acima, e compare com o trabalho dos historiadores.
+
+## Exemplo resolvido
+
+**Como comparar as duas posições sem escolher um lado antes de ler os fatos?**
+
+1. Descubra o problema comum: em 1924 a URSS estava sozinha, pobre, cercada de países hostis, com uma classe operária pequena e exausta, porque as revoluções na Alemanha e na Hungria foram derrotadas.
+2. Leia cada resposta com as palavras do seu campo. Stalin e a maioria: socialismo em um só país, e depois, a partir de 1928, industrialização acelerada e coletivização forçada. Trotsky e a Oposição de Esquerda: sem vitórias em países mais desenvolvidos a revolução degenera (revolução permanente), industrialização planejada sem coletivização à força e mais debate interno.
+3. Anote a acusação de cada lado: os partidários de Stalin viam a outra linha como aventureira; os de Trotsky, a linha oficial como subordinada a uma camada de funcionários.
+4. Só então confira o desfecho: a disputa foi decidida dentro do aparelho do partido, Trotsky foi banido em 1929 e morreu em 1940, e os Processos de Moscou (1936-1938) condenaram antigos dirigentes por confissões obtidas sob coação.
+
+Conclusão: o debate real tem argumentos dos dois lados; o desfecho mostra como a discordância foi resolvida.
+
+## Resumo
+
+- Trotsky foi dirigente da insurreição de outubro e criador do Exército Vermelho; Stalin tornou-se secretário-geral do partido em 1922.
+- O problema: a revolução russa ficou isolada depois que os levantes na Alemanha e na Hungria foram derrotados.
+- Stalin e a maioria defendiam o socialismo em um só país; Trotsky, a revolução permanente e mais debate interno.
+- Trotsky foi afastado, expulso do partido (1927), banido da URSS (1929) e morto no México em 1940.
+- Os Processos de Moscou (1936-1938) condenaram antigos dirigentes com confissões coagidas; as vítimas foram reabilitadas décadas depois.

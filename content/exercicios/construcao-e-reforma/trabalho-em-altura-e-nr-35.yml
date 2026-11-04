@@ -1,0 +1,51 @@
+# Exercícios da aula "Trabalho em altura e NR-35" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-altura-01
+  tema: "Definição"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a NR-35, a partir de que altura, com risco de queda, o trabalho é considerado em altura?"
+  alternativas:
+    - texto: "Acima de 20 metros"
+      erro: "O limite é bem menor. Acima de 2 metros já se aplica a NR-35."
+    - texto: "Acima de 2 metros do nível inferior"
+      certa: true
+    - texto: "Só em prédio de mais de 5 andares"
+      erro: "A norma vale para qualquer lugar acima de 2 m com risco de queda, como telhado, laje e andaime."
+  explicacao: "A NR-35 trata de atividade acima de 2 m do nível inferior, onde haja risco de queda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-altura-02
+  tema: "Equipamentos"
+  dificuldade: 2
+  enunciado: "Qual equipamento é próprio para proteger quem trabalha em altura contra queda?"
+  alternativas:
+    - texto: "Cinto de couro comum, de cintura"
+      erro: "Cinto de cintura não protege contra queda. O equipamento é o cinto tipo paraquedista."
+    - texto: "Cinto tipo paraquedista ligado a um ponto de ancoragem firme, por talabarte ou trava-quedas"
+      certa: true
+    - texto: "Uma corda de varal amarrada na cintura"
+      erro: "Corda de varal não é equipamento de proteção e pode causar lesões em uma queda."
+  explicacao: "O cinto paraquedista, preso a uma ancoragem firme, é o equipamento correto, com CA válido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-altura-03
+  tema: "Clima"
+  dificuldade: 1
+  enunciado: "Está chovendo forte e ventando no dia de trocar telhas. O que fazer?"
+  alternativas:
+    - texto: "Subir mesmo assim, para não atrasar a obra"
+      erro: "Chuva e vento aumentam muito o risco de queda. Atrasar um dia é melhor do que um acidente."
+    - texto: "Suspender o trabalho em altura até as condições melhorarem"
+      certa: true
+    - texto: "Pedir ao ajudante para subir sozinho, sem equipamento"
+      erro: "Expor o ajudante sem proteção só transfere o risco. Ninguém deve subir em condição insegura."
+  explicacao: "Em condições climáticas adversas, o trabalho em altura deve ser suspenso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

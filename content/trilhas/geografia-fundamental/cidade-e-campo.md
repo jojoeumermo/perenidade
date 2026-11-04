@@ -49,6 +49,10 @@ quiz:
     resposta: 0
     explicacao: "Muitos estabelecimentos em pouca terra, e poucos estabelecimentos em muita terra: é a concentração fundiária."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar a cidade e o campo, calcular a taxa de urbanização, explicar as causas do êxodo rural e dizer o que a Constituição de 1988 garante sobre a terra e a cidade.
+
 
 ## Dois modos de vida, um mesmo país
 
@@ -134,3 +138,12 @@ Entre a lei e a realidade há uma distância que movimentos de trabalhadores sem
 4. O seu município tem plano diretor? Procure no site da prefeitura ou da câmara de vereadores.
 
 **Resposta da 3:** 25.572.339 ÷ 203.080.756 × 100 ≈ 12,6%.
+
+## Resumo
+
+- Segundo o Censo 2022, 87,4% da população mora em área urbana e 12,6% em área rural.
+- Taxa de urbanização = população urbana ÷ população total × 100.
+- O êxodo rural foi, em boa parte, uma expulsão: concentração da terra e mudanças no campo empurraram gente para as cidades.
+- Cidade e campo dependem um do outro: o campo manda alimentos e matérias-primas; a cidade manda máquinas, ferramentas e crédito.
+- O Censo Agropecuário de 2017 mostra que a agricultura familiar reúne cerca de 77% dos estabelecimentos rurais.
+- A Constituição de 1988 trata da função social da propriedade urbana (arts. 182 e 183) e permite desapropriar para a reforma agrária o imóvel rural que não cumpre a função social.

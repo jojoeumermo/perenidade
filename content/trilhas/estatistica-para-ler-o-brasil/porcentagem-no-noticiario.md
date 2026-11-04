@@ -25,6 +25,11 @@ quiz:
     explicacao: "1,05 ÷ 1,08 ≈ 0,972. O salário compra cerca de 2,8% menos que antes."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber perguntar "por cento de quê?", separar ponto percentual de porcentagem, entender por que subir e descer não se anulam e distinguir aumento nominal de aumento real.
+
+
 Os exemplos numéricos desta aula são inventados para o exercício. O que importa é o raciocínio, que serve para qualquer notícia.
 
 ## Por cento de quê?
@@ -110,3 +115,11 @@ Sempre que aparecer "X% dos casos são do grupo A", pergunte que parte da popula
 5. Um salário foi reajustado em 4% em um ano de inflação de 6%. Houve ganho ou perda real? De quanto, aproximadamente?
 
 **Respostas:** 1) 6 pontos percentuais; 15%. 2) R$ 75. 3) 100%. 4) 33,1%. 5) Perda de cerca de 1,9% (1,04 ÷ 1,06 ≈ 0,981).
+
+## Resumo
+
+- Toda porcentagem tem uma **base**; com base pequena, qualquer mudança parece enorme.
+- **Ponto percentual** é a diferença simples (8% para 10% são 2 pontos); a **porcentagem** é relativa (2 é 25% de 8).
+- Subir 20% e depois descer 20% não volta ao ponto de partida (100 → 120 → 96); aumentos em sequência se multiplicam (1,10 × 1,10 = 1,21).
+- Depois de uma queda de 50%, é preciso um aumento de 100% para voltar ao início.
+- **Nominal** é o valor no papel; **real** é o que ele compra depois da inflação: 1,05 ÷ 1,08 ≈ 0,972.

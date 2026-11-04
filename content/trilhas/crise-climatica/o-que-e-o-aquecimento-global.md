@@ -36,6 +36,9 @@ quiz:
     resposta: 1
     explicacao: "Ao contrário da maioria dos países, aqui o peso maior não é a energia, e sim a mudança de uso da terra e a agropecuária, segundo o SEEG."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é o efeito estufa, o que mudou com a queima de combustíveis, a diferença entre tempo e clima, quem causa e quem paga e o que os países combinaram em Paris.
 
 ## Um cobertor em volta da Terra
 
@@ -104,3 +107,23 @@ Para ficar em 1,5 °C, diz o IPCC, as emissões globais de gases de efeito estuf
 Trocar lâmpadas e separar o lixo é bom, mas não resolve. As grandes fontes de emissão são decisões de governos e de grandes empresas: que energia se produz, que transporte se oferece, quanto se desmata, o que se planta e para quem.
 
 Por isso, a ação mais eficaz é **coletiva**: cobrar transporte público de qualidade, o fim do desmatamento, energia limpa, moradia segura fora de áreas de risco e proteção para quem trabalha exposto ao calor. A luta pelo clima é a mesma luta por uma vida digna.
+
+## Exemplo resolvido
+
+**Num dia de geada, alguém diz: "cadê o aquecimento global?". Como responder?**
+
+1. **Separe tempo de clima.** Tempo é o que acontece hoje (chove, faz sol, esfriou); clima é o padrão ao longo de muitos anos.
+2. **Veja o que os cientistas medem.** A média do planeta inteiro ao longo de décadas.
+3. **Traga o dado.** Segundo o IPCC, a temperatura média da superfície em 2011-2020 foi cerca de 1,1 °C mais alta que em 1850-1900.
+4. **Conclua.** Uma semana de frio não desmente o aquecimento global; a média do planeta, ao longo de décadas, está subindo.
+
+Confira: um grau parece pouco, mas, sendo a média de um planeta inteiro, pequenas mudanças significam grandes mudanças nos extremos, como ondas de calor e chuvas intensas.
+
+## Resumo
+
+- O **efeito estufa** é natural; o problema é que a queima de carvão, petróleo e gás e o desmatamento estão "engrossando o cobertor".
+- Segundo o IPCC: 410 ppm de CO₂ em 2019 (a maior concentração em pelo menos 2 milhões de anos), cerca de 1,1 °C de aquecimento em 2011-2020 e cerca de 20 cm de elevação do mar entre 1901 e 2018.
+- **Tempo** não é **clima**.
+- Quem mais emite não é quem mais sofre: os 10% de domicílios que mais emitem respondem por 34% a 45% das emissões do consumo das famílias; a metade mais pobre, por 13% a 15%. É a **injustiça climática**.
+- No Brasil, a maior parte das emissões vem do desmatamento e da agropecuária (SEEG).
+- Acordo de Paris (2015): bem abaixo de 2 °C e esforços para 1,5 °C.

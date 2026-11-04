@@ -41,6 +41,10 @@ quiz:
     explicacao: "A Mulher na Sociedade de Classes é um marco do feminismo marxista no Brasil."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que Engels, Zetkin e Kollontai disseram sobre a opressão das mulheres e o que a teoria da reprodução social acrescenta.
+
 O marxismo nasceu falando de fábricas e de operários. Mas quem lavava a roupa, cozinhava a comida e cuidava dos filhos desses operários? Esta aula apresenta duas gerações de respostas: a da revolucionária russa **Alexandra Kollontai** e a das teóricas da **reprodução social**.
 
 ## Engels e a "grande derrota histórica"
@@ -75,6 +79,24 @@ Em 1983, a norte-americana **Lise Vogel**, em *Marxism and the Oppression of Wom
 
 A socióloga **Heleieth Saffioti** publicou em 1969 *A Mulher na Sociedade de Classes: mito e realidade*, um estudo pioneiro sobre como o capitalismo brasileiro se apoiou na desigualdade entre os sexos. Mais tarde, ela desenvolveu a ideia de um "nó" entre gênero, raça e classe.
 
+## Exemplo resolvido
+
+**O que Engels propôs sobre a opressão das mulheres, e o que Zetkin propôs em 1910?**
+
+1. Em *A Origem da Família, da Propriedade Privada e do Estado* (1884), Engels associou a opressão das mulheres ao surgimento da propriedade privada e da família monogâmica patriarcal, a "grande derrota histórica do sexo feminino".
+2. Para ele, a emancipação exigiria a volta das mulheres à produção social e a transformação do trabalho doméstico privado em atividade social.
+3. Clara Zetkin organizou o movimento de mulheres trabalhadoras e propôs, em 1910, na conferência de Copenhague, a criação de um dia internacional da mulher.
+4. Kollontai, depois de 1917, foi comissária do povo para a assistência social e ajudou a criar o Zhenotdel.
+
+Confira: muitas das antropologias usadas por Engels foram superadas, mas a pergunta que ele levantou permaneceu: quem produz o trabalhador?
+
 ## Para pesquisar e debater
 
 Use a pesquisa do IBGE sobre "outras formas de trabalho" para comparar as horas semanais que homens e mulheres dedicam a afazeres domésticos e cuidados. O que esses números dizem sobre a reprodução social no Brasil?
+
+## Resumo
+
+- Engels (1884) ligou a opressão das mulheres à propriedade privada e à família monogâmica patriarcal.
+- Clara Zetkin propôs, em 1910, um dia internacional da mulher.
+- Alexandra Kollontai (1872-1952) foi comissária do povo para a assistência social e ajudou a criar o Zhenotdel.
+- A teoria da reprodução social pergunta quem produz o trabalhador (o trabalho doméstico e de cuidado); no Brasil, Heleieth Saffioti publicou em 1969 *A Mulher na Sociedade de Classes*.

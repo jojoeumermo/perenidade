@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é cultura" (Antropologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: antrop-cultura-01
+  tema: "Cultura é aprendida"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destes itens é cultura no sentido da antropologia?"
+  alternativas:
+    - texto: "Um jeito de cumprimentar"
+      certa: true
+    - texto: "A cor dos olhos"
+      erro: "A cor dos olhos vem da genética, não é aprendida."
+    - texto: "A altura de uma pessoa"
+      erro: "Também vem da genética, não é aprendida convivendo."
+  explicacao: "Cultura é tudo o que se aprende vivendo em sociedade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-cultura-02
+  tema: "Definição de Tylor"
+  dificuldade: 2
+  enunciado: "Duas ideias importantes da definição de Tylor são que a cultura é:"
+  alternativas:
+    - texto: "Só arte e museu, e herdada"
+      erro: "Para Tylor inclui conhecimento, crença, moral, lei, costume e hábitos adquiridos."
+    - texto: "Um todo complexo e adquirida (aprendida)"
+      certa: true
+    - texto: "Só dos povos \"cultos\" e fixa para sempre"
+      erro: "Todo grupo tem cultura, e ela muda ao longo do tempo."
+  explicacao: "A cultura é um todo (língua, comida, religião, leis, trabalho) e é adquirida: a gente aprende convivendo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-cultura-03
+  tema: "Quem tem cultura"
+  dificuldade: 1
+  enunciado: "Quem tem cultura, segundo a antropologia?"
+  alternativas:
+    - texto: "Só quem frequenta museus e teatros"
+      erro: "Esse é o uso do dia a dia. A antropologia usa a palavra de modo mais amplo."
+    - texto: "Só os povos urbanos"
+      erro: "Plantar mandioca e fazer festa junina também é cultura."
+    - texto: "Todo grupo humano"
+      certa: true
+  explicacao: "Se cultura é o que se aprende vivendo em sociedade, todo grupo humano tem cultura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

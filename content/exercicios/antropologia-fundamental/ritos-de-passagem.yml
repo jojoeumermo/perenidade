@@ -1,0 +1,51 @@
+# Exercícios da aula "Ritos de passagem" (Antropologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: antrop-ritos-01
+  tema: "As três fases"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Quais são as três fases dos ritos de passagem, segundo van Gennep?"
+  alternativas:
+    - texto: "Início, meio e fim da vida"
+      erro: "As fases são separação, margem e incorporação."
+    - texto: "Nascimento, casamento e morte"
+      erro: "Esses são exemplos de ritos, não as fases deles."
+    - texto: "Separação, margem (liminar) e incorporação"
+      certa: true
+  explicacao: "A pessoa sai da posição anterior, fica entre dois lugares e é recebida na nova posição."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-ritos-02
+  tema: "Fase da margem"
+  dificuldade: 2
+  enunciado: "No casamento, qual fase é a cerimônia em si, em que a pessoa já não é solteira, mas ainda não está casada?"
+  alternativas:
+    - texto: "A margem, ou fase liminar"
+      certa: true
+    - texto: "A separação"
+      erro: "A separação é deixar a condição anterior, como sair da casa dos pais."
+    - texto: "A incorporação"
+      erro: "É quando o casal é recebido na nova posição, como na festa e na vida a dois."
+  explicacao: "A fase liminar (de limiar, a soleira da porta) é estar entre dois lugares."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-ritos-03
+  tema: "Religiosos ou não"
+  dificuldade: 1
+  enunciado: "Todos os ritos de passagem são religiosos?"
+  alternativas:
+    - texto: "Sim, todos"
+      erro: "Muitos são conduzidos por religiões, mas outros, como as formaturas, não."
+    - texto: "Não: formaturas, por exemplo, não são religiosas em si"
+      certa: true
+    - texto: "Só os de nascimento não são"
+      erro: "Os de nascimento são muitas vezes ligados a religiões. A formatura é exemplo de rito não religioso em si."
+  explicacao: "Os ritos têm um lado individual e um coletivo, e podem ser religiosos ou não."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

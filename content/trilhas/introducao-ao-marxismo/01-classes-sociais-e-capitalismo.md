@@ -26,6 +26,10 @@ quiz:
     explicacao: "Não é questão de caráter. Quanto maior o salário, menor o lucro, e vice-versa: o conflito está na própria relação."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é capitalismo, o que são meios de produção e por que, para Marx, a classe depende da relação com eles, e não do quanto se ganha.
+
 ## O que é o capitalismo
 
 **Capitalismo** é o modo de organizar a economia em que vivemos. Ele tem três características centrais:
@@ -72,3 +76,21 @@ A jornada de oito horas, as férias, o descanso semanal e a proibição do traba
 ## Para ler
 
 O [Manifesto do Partido Comunista](/acervo/manifesto-do-partido-comunista) é curto e foi escrito para ser lido por operários. A primeira parte, "Burgueses e proletários", aprofunda tudo o que você viu aqui.
+
+## Exemplo resolvido
+
+**Classifique: uma máquina de costura de uma fábrica, o celular de uma operária e a terra de uma grande fazenda.**
+
+1. **Meios de produção** são tudo o que é necessário para produzir, além do trabalho humano: terra, ferramentas, máquinas, prédios, matérias-primas.
+2. A máquina da fábrica e a terra da fazenda são meios de produção.
+3. O celular da operária é um **bem de uso pessoal**, como a casa, a roupa e a bicicleta: não é meio de produção.
+4. Quem é dono dos meios de produção forma uma classe; quem precisa vender a sua capacidade de trabalhar forma outra.
+
+Confira: o que define a classe é a relação com os meios de produção, e não o valor do salário. Criticar a propriedade privada, no marxismo, é falar de fábricas, terras e bancos, e não da escova de dentes.
+
+## Resumo
+
+- Capitalismo: meios de produção de propriedade privada, maioria vive de salário, produz-se para o lucro.
+- Meios de produção são terra, máquinas, ferramentas, prédios e matérias-primas; bens de uso pessoal não são meios de produção.
+- A classe depende da relação com os meios de produção, e não da renda.
+- No capitalismo há duas classes fundamentais, e entre elas existe luta de classes.

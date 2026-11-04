@@ -1,0 +1,51 @@
+# Exercícios da aula "Gramática, variação da língua e literatura" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-lit-01
+  tema: "Figuras de linguagem"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em 'O dia amanheceu preguiçoso', que figura de linguagem aparece?"
+  alternativas:
+    - texto: "Hipérbole"
+      erro: "Hipérbole é exagero (como 'morri de rir'). Aqui o dia ganha uma característica humana."
+    - texto: "Personificação"
+      certa: true
+    - texto: "Ironia"
+      erro: "Ironia diz o contrário do que se pensa. Aqui não há inversão de sentido."
+  explicacao: "Atribuir a uma coisa (o dia) uma característica humana (preguiça) é personificação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-lit-02
+  tema: "Variação linguística"
+  dificuldade: 2
+  enunciado: "Sobre as variedades da língua, qual afirmação é correta?"
+  alternativas:
+    - texto: "Só existe um jeito certo de falar, e os outros são erros"
+      erro: "As línguas variam por região, grupo e situação. Cada variedade tem seu lugar; a norma-padrão é pedida em situações formais."
+    - texto: "Toda língua varia, e a adequação à situação é o que importa"
+      certa: true
+    - texto: "A norma-padrão deve ser usada sempre, até numa conversa com amigos"
+      erro: "A fala coloquial funciona bem entre amigos. A norma-padrão é pedida em documentos, provas e entrevistas."
+  explicacao: "Variar é natural. O falante escolhe a variedade adequada à situação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-lit-03
+  tema: "Períodos literários"
+  dificuldade: 2
+  enunciado: "Qual obra de Graciliano Ramos retrata a seca e a fome de uma família no sertão?"
+  alternativas:
+    - texto: "Dom Casmurro"
+      erro: "Dom Casmurro é de Machado de Assis (1899), um romance realista sobre ciúme e dúvida."
+    - texto: "Vidas Secas"
+      certa: true
+    - texto: "Quarto de Despejo"
+      erro: "Quarto de Despejo é o diário de Carolina Maria de Jesus sobre a vida na favela."
+  explicacao: "Vidas Secas (1938), de Graciliano Ramos, mostra a seca e a fome de uma família sertaneja."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

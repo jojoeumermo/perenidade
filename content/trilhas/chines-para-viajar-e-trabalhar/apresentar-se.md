@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "Entregar e receber o cartão com as duas mãos é sinal de respeito."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber se apresentar em situações reais (nome, país, moradia, profissão, local de trabalho), fazer as perguntas mais comuns e nomear as profissões.
 
 ## Revisão rápida
 
@@ -98,3 +101,20 @@ Alguém pergunta 你是哪国人？. O que responder?
 2. Faça as cinco perguntas da tabela a um colega e anote as respostas.
 3. Procure no dicionário a sua profissão em chinês.
 4. Encene uma apresentação formal com troca de cartões.
+
+## Exemplo resolvido
+
+**Alguém pergunta: 你是哪国人？ 你做什么工作？ 你住在哪儿？ Como responder?**
+
+1. **你是哪国人？** (De que país você é?) Responda com país + 人: **我是巴西人。** (Wǒ shì Bāxī rén.)
+2. **你做什么工作？** (O que você faz?) Use 我是… com a profissão: por exemplo, **我是厨师。** (Wǒ shì chúshī.) Sou cozinheiro(a).
+3. **你住在哪儿？** (Onde você mora?) A palavra de pergunta é substituída pela resposta: **我住在圣保罗。** (Wǒ zhù zài Shèngbǎoluó.)
+4. **Feche.** **我会说一点儿中文。** (Falo um pouco de chinês.)
+
+Confira: cada resposta ocupa o lugar da palavra de pergunta na frase.
+
+## Resumo
+
+- Para se apresentar: **我叫…**, **我姓…**, **我是巴西人**, **我从巴西来**, **我住在…**, **我是…** (profissão), **我在…工作**, **我会说一点儿中文**.
+- Perguntas: **您贵姓？** (formal), **你叫什么名字？**, **你是哪国人？**, **你做什么工作？**, **你住在哪儿？**
+- Profissões: 老师, 学生, 医生, 护士, 工人, 司机, 厨师, 工程师, 农民.

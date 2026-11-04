@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "A 和 B 一样 = A é igual a B."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar em chinês com 比 ("mais que"), 没有 ("não tão quanto") e 一样 ("igual"), e dizer quanto uma coisa é maior ou menor que outra.
 
 ## Mais que: 比
 
@@ -86,3 +89,22 @@ Como se diz "Este trabalho é mais cansativo que aquele" (cansativo = 累, lèi;
 2. Acrescente a diferença: 他比我大 (dois anos); 这个比那个便宜 (um pouco).
 3. Reescreva com 没有: 我比你忙。
 4. Escreva duas frases com 一样 e duas com 不一样 sobre você e alguém da família.
+
+## Exemplo resolvido
+
+**Como dizer "Este trabalho é mais cansativo que aquele"? (cansativo = 累, lèi; trabalho = 工作)**
+
+1. **Use a estrutura.** A + 比 + B + adjetivo.
+2. **Sem 很 e sem 是.** O próprio 比 já faz a comparação.
+3. **Monte.** **这个工作比那个工作累。** (Zhège gōngzuò bǐ nàge gōngzuò lèi.)
+4. **Acrescente a diferença, se quiser, depois do adjetivo.** 这个工作比那个工作累多了 (muito mais cansativo).
+5. **O contrário, com 没有.** 那个工作没有这个工作累。 (Aquele trabalho não é tão cansativo quanto este.)
+
+Confira: "这个工作比那个工作很累" está errado, pois não se usa 很 depois de 比.
+
+## Resumo
+
+- **A + 比 + B + adjetivo:** A é mais... que B (我比他高). Não se usa 很 nem 是 antes do adjetivo.
+- A diferença vem **depois** do adjetivo: 一点儿 (um pouco), 多了 (muito mais), 三岁. Para "ainda mais", 更 vem antes do adjetivo.
+- **A + 没有 + B + adjetivo:** A não é tão... quanto B.
+- **A + 和/跟 + B + 一样:** A é igual a B; **不一样** é "diferente".

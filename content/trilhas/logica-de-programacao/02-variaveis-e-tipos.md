@@ -24,6 +24,10 @@ quiz:
     explicacao: "preco_total diz o que a variável guarda. Além disso, nomes não podem começar com número."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber guardar valores em variáveis, reconhecer os quatro tipos básicos (`int`, `float`, `str`, `bool`) e converter o que a pessoa digita.
+
 ## Uma caixa com etiqueta
 
 **Variável** é um espaço na memória do computador onde o programa guarda um valor. Pense em uma caixa com uma etiqueta: a etiqueta é o **nome** e o que está dentro é o **valor**.
@@ -87,6 +91,24 @@ idade = int(input("Sua idade: "))
 - O nome não pode começar com número.
 - Maiúsculas e minúsculas fazem diferença: `Idade` e `idade` são variáveis diferentes.
 
+## Exemplo resolvido
+
+**O que este programa mostra?**
+
+```python
+a = 4
+b = a * 2
+a = b - 1
+print(a, b)
+```
+
+1. `a = 4`: `a` guarda 4.
+2. `b = a * 2`: o computador calcula 4 × 2 e guarda 8 em `b`.
+3. `a = b - 1`: calcula 8 − 1 e guarda 7 de volta em `a`. O valor antigo de `a` (4) se perde.
+4. `print(a, b)` mostra `7 8`.
+
+Confira: o sinal `=` aqui significa "guarde", e não "é igual a". Anotar o valor de cada variável a cada linha é o jeito de acompanhar o programa.
+
 ## Pratique
 
 Sem usar o computador, diga o que este programa mostra na tela:
@@ -99,3 +121,11 @@ print(a, b)
 ```
 
 A resposta é `7 8`. Se você chegou a outro resultado, refaça linha por linha, anotando o valor de cada variável.
+
+## Resumo
+
+- Variável é um espaço na memória com um nome e um valor; o `=` significa "guarde" (atribuição).
+- Tipos básicos: inteiro (`int`), real (`float`, com ponto), texto (`str`, entre aspas) e lógico (`bool`).
+- O tipo importa: `2 + 3` dá 5, mas `"2" + "3"` dá `23`.
+- Tudo o que o usuário digita chega como texto; use `int(input(...))` para converter.
+- Bons nomes dizem o que a variável guarda, sem espaços e sem começar por número.

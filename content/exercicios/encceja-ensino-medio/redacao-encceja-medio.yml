@@ -1,0 +1,51 @@
+# Exercícios da aula "A redação do Encceja" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-red-01
+  tema: "Tese e argumentos"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual destas é uma tese bem formulada para o tema 'conciliar trabalho e estudo'?"
+  alternativas:
+    - texto: "Trabalho e estudo são coisas que existem."
+      erro: "Essa frase não toma posição. Uma tese diz o que você defende sobre o tema."
+    - texto: "Conciliar trabalho e estudo é difícil por falta de tempo e de apoio, e exige medidas públicas."
+      certa: true
+    - texto: "Eu vou escrever sobre trabalho e estudo."
+      erro: "Anunciar o assunto não é defender uma ideia. A tese é a sua posição, com razões."
+  explicacao: "A tese é a posição defendida no texto. A segunda frase toma posição e já indica as razões."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-red-02
+  tema: "Conectivos"
+  dificuldade: 2
+  enunciado: "Complete: 'O transporte é caro; ______, muitos deixam de estudar à noite.' Qual conectivo liga a causa à consequência?"
+  alternativas:
+    - texto: "mas"
+      erro: "'Mas' marca oposição. Aqui a segunda ideia é consequência da primeira."
+    - texto: "por isso"
+      certa: true
+    - texto: "embora"
+      erro: "'Embora' marca concessão, como 'apesar de'. A frase pede uma consequência."
+  explicacao: "'Por isso' indica consequência: o transporte caro leva muitos a deixar de estudar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-red-03
+  tema: "Repertório"
+  dificuldade: 2
+  enunciado: "Qual é o uso mais adequado de repertório num argumento?"
+  alternativas:
+    - texto: "Citar um dado, uma lei ou um fato real que sustenta a ideia"
+      certa: true
+    - texto: "Colocar uma citação qualquer só para enfeitar"
+      erro: "Citação solta, que não se liga ao argumento, não sustenta a tese e pode parecer enrolação."
+    - texto: "Evitar fatos para não correr o risco de errar"
+      erro: "Sem fatos, o argumento fica fraco. O melhor é usar o que você conhece bem, com precisão."
+  explicacao: "O repertório sustenta a tese com um dado, uma lei ou um fato verdadeiro e ligado ao tema."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

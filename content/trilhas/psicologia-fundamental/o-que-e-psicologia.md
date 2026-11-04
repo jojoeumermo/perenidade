@@ -32,6 +32,7 @@ quiz:
     opcoes: ["A Lei nº 5.766, de 1971", "A Lei Áurea", "O ECA"]
     resposta: 0
     explicacao: "Eles regulamentam, orientam e fiscalizam a profissão."
+modelo: 9
 ---
 
 ```provocacao
@@ -41,6 +42,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender o que é psicologia, o que ela estuda e como é a profissão no Brasil.
+
+```suarealidade
+Quando você pensa em "psicólogo", o que vem à cabeça? De onde você tirou essa imagem: de filme, de novela, de alguém que você conhece?
+```
 
 ## O que é
 
@@ -75,6 +80,20 @@ Por que é importante procurar um psicólogo registrado no conselho?
 1. **(a)** **Verdadeiro**: é o estudo da mente e do comportamento.
 2. **(b)** **Falso**: quem é médico e receita remédio é o **psiquiatra**.
 3. **(c)** **Verdadeiro**: desde a **Lei nº 4.119, de 1962**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+O filósofo Karl Popper, em Conjecturas e Refutações (1963), argumentou que certas teorias psicológicas, como a psicanálise, não podem ser testadas, porque qualquer comportamento "confirma" a teoria; para ele, isso as afastava da ciência. Quem pensa assim duvida que a psicologia seja uma ciência de verdade.
+---
+Como você responderia, com respeito e com fatos? Pense no que a aula diz sobre pesquisas e métodos e sobre os vários objetos de estudo da psicologia.
+---
+Uma resposta possível: a crítica atinge uma parte da psicologia, e é por isso que existem abordagens diferentes. Mas a aula mostra que o campo é amplo: estuda percepção, atenção, emoção, memória e o funcionamento do cérebro, com pesquisas e métodos que podem ser testados. Ser ciência não é ter uma só teoria; é submeter as afirmações a teste.
+```
+
+```agir
+# Esta semana
+Pergunte a três pessoas o que elas acham que um psicólogo faz e anote as respostas num papel, sem nomes. Marque o que é verdade e o que é mito, segundo a aula.
+```
 
 ## Resumo
 

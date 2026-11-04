@@ -1,0 +1,51 @@
+# Exercícios da aula "Acabamento e contorno" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-acabamento-01
+  tema: "O acabador"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para que serve o acabador, segundo a aula?"
+  alternativas:
+    - texto: "Para desenhar o contorno, como o arco da orelha e a linha da nuca, com lâmina muito fina"
+      certa: true
+    - texto: "Para cortar o topo em camadas"
+      erro: "O topo costuma ser feito com tesoura sobre os dedos. O acabador faz o contorno."
+    - texto: "Para fazer a barba na navalha"
+      erro: "O acabador é uma máquina de lâmina fina, sem alavanca, para contornos."
+  explicacao: "O acabador é uma máquina de lâmina muito fina, sem alavanca, feita para o arco em volta da orelha e a linha da nuca."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-acabamento-02
+  tema: "Tipos de nuca"
+  dificuldade: 2
+  enunciado: "Em qual nuca a borda é raspada numa linha, passando direto do cabelo para a pele?"
+  alternativas:
+    - texto: "Nuca em degradê"
+      erro: "No degradê a borda vai até a pele aos poucos, sem linha."
+    - texto: "Nuca em bloco"
+      certa: true
+    - texto: "Nuca arredondada"
+      erro: "Na arredondada a linha acompanha uma curva, sem cantos."
+  explicacao: "Em bloco: a borda é raspada numa linha reta, ligando o contorno de uma costeleta à outra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-acabamento-03
+  tema: "Navalha no acabamento"
+  dificuldade: 1
+  enunciado: "Qual cuidado a aula indica com a navalha no acabamento?"
+  alternativas:
+    - texto: "Usar a mesma lâmina em toda a manhã"
+      erro: "A navalha é perfurocortante: lâmina nova para cada cliente."
+    - texto: "Passar a navalha sem preparar a pele"
+      erro: "É preciso preparar a pele e trabalhar com a lâmina inclinada."
+    - texto: "Usar lâmina nova para cada cliente, aberta na frente dele"
+      certa: true
+  explicacao: "A navalha deixa o contorno nítido, mas é perfurocortante."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

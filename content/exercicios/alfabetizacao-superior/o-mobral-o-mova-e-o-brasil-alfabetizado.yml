@@ -1,0 +1,51 @@
+# Exercícios da aula "O Mobral, o MOVA e o Brasil Alfabetizado" (Alfabetização: teoria e método). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfsup-mobral-01
+  tema: "O Mobral"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual lei autorizou o Mobral e em que ano ele foi instituído?"
+  alternativas:
+    - texto: "Lei nº 5.379, de 1967; instituído em 1968"
+      certa: true
+    - texto: "Decreto nº 53.465, de 1964"
+      erro: "Esse decreto criou o Programa Nacional de Alfabetização, ligado a Freire."
+    - texto: "Lei nº 12.612, de 2012"
+      erro: "Essa lei declarou Paulo Freire Patrono da Educação Brasileira."
+  explicacao: "O Mobral (1967-1985) foi autorizado pela Lei nº 5.379/1967 e instituído em 1968."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 5.379/1967)"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-mobral-02
+  tema: "Crítica ao Mobral"
+  dificuldade: 2
+  enunciado: "Qual era uma crítica ao Mobral, segundo a aula?"
+  alternativas:
+    - texto: "Era totalmente descentralizado"
+      erro: "Era centralizado, com materiais padronizados."
+    - texto: "Usava técnicas inspiradas em Freire, mas sem a dimensão crítica, e com resultados contestados"
+      certa: true
+    - texto: "Seguia fielmente o método crítico de Freire"
+      erro: "Usou técnicas parecidas, mas sem a dimensão crítica."
+  explicacao: "O objetivo era formar mão de obra e integrar os adultos ao projeto do regime, não questionar a realidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfsup-mobral-03
+  tema: "O MOVA"
+  dificuldade: 2
+  enunciado: "Como funcionava o MOVA, criado em 1989 em São Paulo?"
+  alternativas:
+    - texto: "Só a prefeitura organizava tudo, sem participação social"
+      erro: "Associações, sindicatos e pastorais organizavam as turmas."
+    - texto: "Como programa do regime militar"
+      erro: "O MOVA nasceu em 1989, com Freire secretário de Educação de São Paulo."
+    - texto: "Como parceria entre o poder público e movimentos sociais, que organizavam as turmas"
+      certa: true
+  explicacao: "Associações de moradores, sindicatos, pastorais e grupos populares organizavam as turmas; a prefeitura dava apoio e formação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

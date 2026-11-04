@@ -26,6 +26,11 @@ quiz:
     resposta: 2
     explicacao: "Vem depois de artigo e significa 'o motivo': é substantivo, junto e com acento."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quando usar por que, por quê, porque e porquê, com um teste de troca para cada forma.
+
+
 
 ## O resumo
 
@@ -111,6 +116,23 @@ Qual frase está escrita corretamente?
 ## E na fala?
 
 Na fala não há diferença: as quatro formas soam praticamente iguais. A distinção existe **só na escrita**, e é uma convenção. Ninguém fala errado por não distingui-las, e errar uma delas em uma mensagem não muda o sentido de nada. Mas em uma redação, em um concurso ou em um documento, a convenção é cobrada, e os quatro testes resolvem.
+
+## Exemplo resolvido: as quatro formas em quatro frases
+
+1. **"Quero saber ___ o aluguel subiu."** É pergunta indireta; dá para dizer "por qual motivo": **por que**, separado.
+2. **"O aluguel subiu ___?"** A palavra está no fim, encostada no ponto: **por quê**, com acento.
+3. **"O aluguel subiu ___ o contrato foi reajustado."** É a resposta, a causa; troque por "pois": **porque**, junto.
+4. **"Ninguém explicou o ___ da demissão."** Vem depois de "o" e quer dizer "o motivo": **porquê**, substantivo.
+
+Confira: "Explique porque você discorda" estaria fora da norma, porque é pergunta indireta: o certo é "por que".
+
+## Resumo
+
+- Por que (separado): em perguntas, inclusive indiretas, e quando significa "pelo qual". Teste: "por qual motivo".
+- Por quê (com acento): no fim da frase, antes do ponto.
+- Porque (junto): introduz a resposta, a causa. Teste: "pois" ou "já que".
+- Porquê (junto, com acento): substantivo, "o motivo"; vem depois de o, um, os.
+- Na fala as quatro soam iguais; a diferença existe só na escrita.
 
 ## Para praticar
 

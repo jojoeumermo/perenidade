@@ -29,6 +29,10 @@ quiz:
     resposta: 1
     explicacao: "A gravidade ali é quase tão forte quanto no chão. Eles flutuam porque caem junto com a estação."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir massa de peso, calcular o peso de um objeto em newtons e explicar por que todos os corpos caem juntos quando não há ar.
+
 
 ## Duas palavras, duas coisas
 
@@ -116,3 +120,11 @@ Por isso a legislação brasileira considera trabalho em altura toda atividade f
 4. No seu local de trabalho há risco de queda de pessoas ou de objetos? O que é feito para evitá-lo?
 
 **Respostas:** 1) Cerca de 500 N. 2) A resistência do ar. 3) Cerca de 20 m/s, ou 72 km/h.
+
+## Resumo
+
+- Massa é a quantidade de matéria (quilograma); peso é a força da gravidade sobre o corpo (newton): peso = massa × gravidade.
+- Gravidade é a atração entre corpos com massa; é a mesma força que faz a maçã cair e a Lua girar em volta da Terra.
+- Sem a resistência do ar, todos os corpos caem juntos, como mostrou Galileu.
+- Os astronautas flutuam porque estão em queda livre, não porque não há gravidade.
+- Trabalho em altura (acima de 2 m) exige do empregador treinamento, equipamentos de proteção e sistemas contra a queda.

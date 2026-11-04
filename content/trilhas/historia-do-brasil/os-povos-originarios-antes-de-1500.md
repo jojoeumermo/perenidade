@@ -35,6 +35,10 @@ quiz:
     resposta: 1
     explicacao: "A mandioca foi domesticada na Amazônia. Trigo e café vieram de outros continentes."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer quem vivia nesta terra em 1500, há quanto tempo, como eram suas sociedades, o que a arqueologia mostrou sobre a Amazônia, o que aconteceu depois do contato e o que diz a Constituição.
+
 
 ## Uma terra habitada
 
@@ -95,9 +99,29 @@ A Constituição de 1988, no artigo 231, reconhece aos povos indígenas "sua org
 
 A palavra **originários** é decisiva. Ela afirma que o direito à terra não foi concedido pelo Estado: já existia antes dele. É esse princípio que está em jogo, hoje, em cada disputa sobre demarcação.
 
+## Exemplo resolvido
+
+**Há quanto tempo viveu Luzia, e quanto tempo durou a cultura marajoara?**
+
+1. A aula diz que Luzia viveu há cerca de 11.500 anos. Em ano do calendário: 11.500 − 2.026 = cerca de **9.500 a.C.**
+2. O esqueleto foi encontrado em 1975, em Lagoa Santa (Minas Gerais). De 1975 até 2026 se passaram **51 anos** de pesquisa.
+3. A cultura marajoara floresceu na ilha de Marajó entre cerca de 400 e 1400 d.C.: 1400 − 400 = **1000 anos**.
+4. Quando Cabral chegou, em abril de 1500, a cultura marajoara tinha terminado pouco antes, ou estava em seu fim: 1500 − 1400 = **100 anos**.
+
+Leitura: a ocupação do território é muito antiga e diversa. Quando as caravelas chegaram, a terra não estava vazia nem era "selvagem": tinha milhões de pessoas, centenas de povos e centenas de línguas.
+
 ## Para pesquisar e debater
 
 1. Que povos indígenas viviam, ou vivem, na região onde você mora? Que nomes de rios, bairros e cidades vêm das línguas deles?
 2. Por que a ideia de uma terra "vazia" e de povos "atrasados" interessava aos colonizadores?
 3. Compare o modo de usar a terra dos povos tupis com o da grande lavoura de exportação. Quem dependia de quem em cada caso?
 4. O que muda quando se troca "descobrimento" por "invasão"?
+
+## Resumo
+
+- Em abril de 1500, a terra era habitada por milhões de pessoas, em centenas de povos que falavam centenas de línguas.
+- A presença humana é muito antiga: Luzia, encontrada em Lagoa Santa (1975), viveu há cerca de 11.500 anos.
+- Não existia "o índio": os povos eram muito diferentes entre si (troncos como Tupi e Macro-Jê, entre outros).
+- A arqueologia desmontou a imagem da Amazônia "virgem": na ilha de Marajó floresceu, entre cerca de 400 e 1400 d.C., a cultura marajoara.
+- O contato com os europeus foi catástrofe demográfica: guerras e escravização, e sobretudo doenças como varíola, sarampo e gripe.
+- A Constituição de 1988, art. 231, reconhece aos povos indígenas seus direitos originários sobre as terras que tradicionalmente ocupam e manda a União demarcá-las.

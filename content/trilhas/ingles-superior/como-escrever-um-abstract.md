@@ -26,6 +26,10 @@ quiz:
     explicacao: "O abstract é um resumo fiel e autossuficiente."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber montar um abstract em inglês, com contexto, objetivo, método, resultados e conclusão, no tempo verbal certo.
+
 ## O texto mais lido
 
 O **abstract** é a parte mais lida de qualquer trabalho acadêmico. Muitas vezes é a **única** que o leitor lê para decidir se continua. Em revistas e eventos científicos brasileiros, é comum exigir um resumo em português e um em inglês.
@@ -78,9 +82,28 @@ Qual frase é adequada para apresentar os resultados em um abstract?
 - **Não traduza palavra por palavra** o resumo em português; reescreva em inglês, usando as estruturas acima.
 - Tradutores automáticos ajudam, mas erram em termos técnicos e em falsos cognatos. Revise sempre.
 
+## Exemplo resolvido
+
+**Como escrever o objetivo e o método de um trabalho sobre professores?**
+
+1. Objetivo, em presente ou passado: *This study aims to describe the working conditions of teachers.*
+2. Método e resultados vão para o **passado**. A frase "We interview teachers and analyze their answers" fica: *We interviewed teachers and analyzed their answers.*
+3. Resultados: *Most teachers reported...* (passado, como na tabela).
+4. Conclusão, no presente: *The findings suggest that...*
+5. Feche com três a seis palavras-chave (*keywords*).
+
+Confira: contexto e conclusão no presente; método e resultados no passado.
+
 ## Para praticar
 
 1. Identifique as cinco partes no exemplo acima.
 2. Escreva o objetivo de um trabalho seu (real ou imaginado) com *This study aims to...*
 3. Reescreva no passado: "We interview teachers and analyze their answers."
 4. Escreva um abstract de cerca de 150 palavras sobre um trabalho que você fez ou gostaria de fazer, com quatro palavras-chave.
+
+## Resumo
+
+- O abstract tem em geral de 150 a 300 palavras, em um parágrafo.
+- Partes: contexto, objetivo, método, resultados e conclusão, depois as *keywords*.
+- Tempos: presente para contexto e conclusão; passado para método e resultados.
+- Tradutor automático erra em termos técnicos: revise sempre.

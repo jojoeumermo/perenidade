@@ -27,6 +27,10 @@ quiz:
     explicacao: "Terceira condicional: fala de um passado que não aconteceu."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir e formar os quatro tipos de condicional (zero, primeira, segunda e terceira) e escolher o certo para cada situação.
+
 ## Se isso, então aquilo
 
 As frases condicionais têm duas partes: a **condição** (com ***if***, "se") e o **resultado**. A ordem pode ser invertida: *If it rains, I'll stay home* = *I'll stay home if it rains*. Quando a frase começa com *if*, usa-se vírgula.
@@ -84,9 +88,27 @@ Qual frase expressa uma hipótese pouco provável no presente?
 
 Condicionais aparecem em hipóteses e previsões: *If emissions continue at the current rate, temperatures **will** rise...* E a terceira condicional aparece em análises históricas, sempre com cuidado: o que "teria acontecido" é especulação.
 
+## Exemplo resolvido
+
+**Complete: "If you mix red and blue, you ___ (get) purple." e "If she ___ (call), I'll tell her."**
+
+1. Na primeira frase, é um fato geral, sempre verdadeiro: condicional **zero**. Presente nas duas partes: *you get purple.*
+2. Na segunda, o resultado usa *will*: possibilidade real no futuro, condicional **primeira**.
+3. Na parte do *if*, usa-se o **presente**, e não o futuro: *If she calls, I'll tell her.*
+
+Confira: nunca "If she will call". Se a frase fosse "If I had more time, I would study more", seria a segunda (hipótese irreal no presente).
+
 ## Para praticar
 
 1. Complete com o tipo certo: "If you mix red and blue, you ___ (get) purple." / "If she ___ (call), I'll tell her."
 2. Escreva três frases na segunda condicional sobre o que você faria se fosse prefeito ou prefeita da sua cidade.
 3. Escreva duas frases na terceira condicional sobre um fato histórico.
 4. Reescreva com unless: "If you don't sign, you can't start."
+
+## Resumo
+
+- Zero: *if* + presente, presente (fatos gerais).
+- Primeira: *if* + presente, *will* + verbo (possibilidade real).
+- Segunda: *if* + passado, *would* + verbo (hipótese; *were* para todas as pessoas).
+- Terceira: *if* + *had* + particípio, *would have* + particípio (passado que não aconteceu).
+- Na parte do *if*, não se usa *will*.

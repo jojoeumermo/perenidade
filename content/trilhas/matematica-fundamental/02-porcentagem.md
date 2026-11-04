@@ -22,6 +22,10 @@ quiz:
     explicacao: "Sobe para 110. A queda de 10% é calculada sobre 110, ou seja, 11. Fica 99."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular porcentagens de um valor, descontos e aumentos e dizer que porcentagem uma parte representa.
+
 ## Por cento quer dizer "a cada cem"
 
 **Porcentagem** é uma fração com denominador 100. O símbolo `%` lê-se "por cento".
@@ -94,6 +98,16 @@ Não. Com o aumento, vai a R$ 110. A queda de 10% é calculada sobre os R$ 110, 
 
 Uma porcentagem é sempre calculada sobre algum valor. Quando esse valor muda, o mesmo percentual passa a representar outra quantia. Vale lembrar disso ao ler notícias sobre preços, salários e inflação.
 
+## Exemplo resolvido
+
+**Uma conta de R$ 90 terá 10% de taxa de serviço. Qual é o total?**
+
+1. 10% de um valor é o valor dividido por 10: 90 ÷ 10 = 9.
+2. Some a taxa à conta: 90 + 9 = 99.
+3. Caminho curto: 90 × 1,10 = 99.
+
+Confira: o total é R$ 99. O atalho dos 10% serve para montar outras porcentagens de cabeça: 5% é a metade, 20% é o dobro, 1% é um décimo dos 10%.
+
 ## Pratique
 
 1. Quanto é 35% de 60?
@@ -101,3 +115,11 @@ Uma porcentagem é sempre calculada sobre algum valor. Quando esse valor muda, o
 3. Em uma turma de 25 alunos, 5 faltaram. Qual foi a porcentagem de faltas?
 
 Respostas: 21; R$ 99; 20%.
+
+## Resumo
+
+- Porcentagem é uma fração com denominador 100: 25% = 25/100 = 0,25.
+- Porcentagem de um valor: multiplique o valor pela porcentagem na forma decimal (15% de 200 = 200 × 0,15 = 30).
+- Desconto de 30% é pagar 70% do preço; aumento de 8% é multiplicar por 1,08.
+- Para saber quanto uma parte representa: divida a parte pelo total e multiplique por 100.
+- Uma porcentagem é sempre calculada sobre algum valor; se o valor muda, o mesmo percentual vale outra quantia.

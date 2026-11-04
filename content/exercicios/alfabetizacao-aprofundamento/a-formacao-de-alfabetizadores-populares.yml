@@ -1,0 +1,51 @@
+# Exercícios da aula "A formação de alfabetizadores populares" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-formacao-01
+  tema: "Quem alfabetiza"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que a formação é parte do trabalho de quem alfabetiza em movimentos populares?"
+  alternativas:
+    - texto: "Porque saber ler não é o mesmo que saber ensinar a ler"
+      certa: true
+    - texto: "Porque quem alfabetiza precisa ser professor formado"
+      erro: "A aula diz que a maioria não é professora de formação: é a vizinha, o estudante, a militante. Por isso a formação é necessária."
+    - texto: "Porque basta saber ler para ensinar bem"
+      erro: "A aula diz o contrário: saber ler não é saber ensinar a ler."
+  explicacao: "Muita gente alfabetiza sem ser professora de formação. Conhecer o grupo é uma força, mas ensinar exige formação do começo ao fim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-formacao-02
+  tema: "Saberes de Freire"
+  dificuldade: 2
+  enunciado: "Qual destes é um dos saberes necessários à prática educativa que Freire lista em Pedagogia da autonomia, segundo a aula?"
+  alternativas:
+    - texto: "Decorar a cartilha para repetir"
+      erro: "Nenhum dos saberes listados é decorar cartilha. Entre eles estão respeitar o que o outro sabe e saber escutar."
+    - texto: "Saber escutar: quem só fala não ensina"
+      certa: true
+    - texto: "Evitar discutir política nas aulas"
+      erro: "A aula diz o contrário: é preciso assumir que ensinar é político."
+  explicacao: "Entre os saberes estão respeitar o que o outro sabe, escutar, refletir sobre a prática, ter rigor, ter esperança e alegria e assumir que ensinar é político."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-formacao-03
+  tema: "Ensinar não é improvisar"
+  dificuldade: 2
+  enunciado: "O que a aula quer dizer com \"ter rigor\"?"
+  alternativas:
+    - texto: "Ser duro com quem erra"
+      erro: "Rigor, na aula, é estudar e planejar, não ser duro com ninguém."
+    - texto: "Seguir sempre o mesmo roteiro sem mudar nada"
+      erro: "Rigor é preparar o trabalho com estudo e planejamento, sem improviso."
+    - texto: "Estudar e planejar, porque ensinar não é improvisar"
+      certa: true
+  explicacao: "Ter rigor é estudar e planejar: ensinar não é improvisar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

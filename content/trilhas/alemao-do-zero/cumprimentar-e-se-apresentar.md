@@ -1,5 +1,6 @@
 ---
 titulo: "Cumprimentar e se apresentar"
+modelo: 9
 resumo: "Bom dia, tudo bem, como você se chama, de onde você é: as primeiras frases em alemão e a diferença entre o du (você, informal) e o Sie (o senhor, a senhora)."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,9 +32,16 @@ quiz:
     resposta: 0
     explicacao: "Wie heißen Sie? = Como o senhor/a senhora se chama?"
 ---
-
 ```provocacao
 No Brasil, chamamos quase todo mundo de "você". Na Alemanha, chamar um desconhecido de "você" pode soar grosseiro. Como você faria para não errar?
+```
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber cumprimentar em alemão, escolher entre **du** e **Sie**, perguntar como a pessoa está e dizer o seu nome e de onde você é.
+
+```suarealidade
+Com quem você conversa, no dia a dia, usando "o senhor" ou "a senhora", e com quem usa "você" ou o primeiro nome? Como você decide?
 ```
 
 Nesta aula você aprende a dizer oi, perguntar como a pessoa está, dizer seu nome e de onde você é. São as frases da primeira conversa em qualquer lugar: no trabalho, na escola, na fila do mercado.
@@ -113,3 +121,38 @@ Para dizer de onde você é:
 - Grave um áudio de 30 segundos se apresentando em alemão: cumprimento, nome, de onde você é e onde mora.
 - Ensine a alguém de casa a dizer Guten Tag e Tschüss.
 ```
+
+## Exemplo resolvido
+
+**Você chega ao balcão de uma repartição na Alemanha e não conhece a atendente. Como cumprimentar, perguntar como ela está e se apresentar?**
+
+1. **Cumprimento.** É durante o dia: *Guten Tag!*
+2. **Du ou Sie?** É uma adulta desconhecida, num atendimento: use **Sie**. *Wie geht es Ihnen?* (Como vai a senhora?)
+3. **Resposta.** Ela pode dizer *Gut, danke. Und Ihnen?* (Bem, obrigada. E o senhor / a senhora?)
+4. **Nome.** Com *Sie*, o verbo é *heißen*: *Ich heiße Maria. Wie heißen Sie?*
+5. **Origem.** *Ich komme aus Brasilien.* (Eu sou do Brasil.) Se quiser, *Ich wohne in Recife.* (Eu moro em Recife.)
+6. **Despedida formal.** *Auf Wiedersehen!*
+
+Confira: em nenhum momento você usou *du* nem *dir*, porque a pessoa é desconhecida. Na dúvida, comece com **Sie**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Essa história de **du** e **Sie** é formalismo antigo. Separar as pessoas por tratamento é criar hierarquia, e seria mais justo tratar todo mundo igual, por **du**." É uma crítica feita por muita gente jovem e por quem vê no tratamento formal uma distância desnecessária.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o **du** já é o tratamento comum entre amigos, família, crianças, colegas próximos e, em geral, entre jovens. O **Sie** aparece com adultos desconhecidos, no trabalho mais formal e com autoridades, e é um sinal de respeito, como o nosso "o senhor" e "a senhora". Não é uma barreira fixa: se a pessoa quiser, ela mesma propõe a troca (*Wir können uns duzen*). Quem está aprendendo a língua erra menos, e ofende menos, começando pelo **Sie**.
+```
+
+```agir
+# Esta semana
+Diga em voz alta, uma vez por dia, a conversa da aula (cumprimento, nome, de onde você é e onde mora), trocando os nomes pelos seus. No fim da semana, apresente-se em alemão a alguém de casa, em poucas frases.
+```
+
+## Resumo
+
+- Cumprimentos: *Hallo*, *Guten Morgen* (até umas 11h), *Guten Tag* (durante o dia), *Guten Abend*, *Tschüss* e, mais formal, *Auf Wiedersehen*.
+- **du** é informal (amigos, família, crianças, colegas próximos); **Sie** é formal (desconhecidos adultos, autoridades). Na dúvida, use **Sie**.
+- *Wie geht's?* (informal) e *Wie geht es Ihnen?* (formal) perguntam como a pessoa está.
+- **heißen** (chamar-se): *ich heiße*, *du heißt*, *Sie heißen*.
+- *Woher kommst du?* / *Ich komme aus Brasilien.* / *Ich wohne in Recife.*

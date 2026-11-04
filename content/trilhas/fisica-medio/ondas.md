@@ -33,6 +33,10 @@ quiz:
     resposta: 1
     explicacao: "É a interferência destrutiva, usada nos fones com cancelamento de ruído."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir os tipos de onda, usar v = λ · f e reconhecer reflexão, refração, difração, interferência e ressonância em exemplos do dia a dia.
+
 
 ## O que é uma onda
 
@@ -153,3 +157,11 @@ Da primeira à última linha, a frequência **aumenta** e o comprimento de onda 
 2. Calcule o comprimento de onda de um som de 100 Hz e de um de 10 000 Hz, no ar.
 3. Por que ouvimos o trovão depois de ver o relâmpago?
 4. Explique por que soldados costumam atravessar pontes sem marchar em passo cadenciado.
+
+## Resumo
+
+- Onda transporta energia sem transportar matéria; pode ser mecânica (precisa de meio) ou eletromagnética.
+- Medidas: amplitude, comprimento de onda (λ), frequência (f) e período.
+- Equação fundamental: v = λ · f.
+- Reflexão (eco, espelho), refração (mudança de meio), difração (contornar obstáculos), interferência (ondas que se somam) e ressonância (vibrar na frequência natural).
+- As ondas eletromagnéticas são todas da mesma natureza; mudam frequência e comprimento de onda, e formam o espectro.

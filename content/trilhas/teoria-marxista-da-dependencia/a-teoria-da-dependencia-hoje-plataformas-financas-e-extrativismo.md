@@ -30,6 +30,10 @@ quiz:
     explicacao: "É o que outros chamam de reprimarização."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber aplicar os conceitos da teoria da dependência a três campos atuais: o trabalho por aplicativo, as finanças e o extrativismo.
+
 Por quase trinta anos, a teoria marxista da dependência foi tratada como peça de museu. A partir dos anos 2000, voltou às universidades, aos sindicatos e aos movimentos sociais da América Latina. Por quê? Porque a região, depois de décadas de abertura econômica, continuava com os problemas que a teoria descreveu.
 
 Esta aula percorre três campos em que os conceitos antigos estão sendo postos à prova.
@@ -80,6 +84,25 @@ Outros pesquisadores defendem os conceitos originais e os aplicam a novos temas,
 
 Mais do que respostas prontas, ela oferece **perguntas** que continuam úteis diante de qualquer novidade. Onde fica a propriedade? Para onde vai o lucro? Quem decide? E quem paga a conta, aqui, para que o negócio feche lá?
 
+## Exemplo resolvido
+
+**Como aplicar os três mecanismos da superexploração ao trabalho de um entregador de aplicativo?**
+
+1. Jornada prolongada: muitos trabalham dez, doze horas ou mais para alcançar uma renda mínima.
+2. Intensidade: o algoritmo define o ritmo, pune recusas e estimula a pressa.
+3. Remuneração abaixo do necessário: o trabalhador paga o veículo, o combustível, a manutenção e o celular, e não tem férias, descanso remunerado nem proteção em caso de acidente.
+4. Some a dimensão tecnológica: as plataformas têm sede em poucos países, e os dados, os algoritmos e a maior parte do lucro ficam lá.
+
+Conclusão: os três mecanismos aparecem juntos. Ricardo Antunes chamou isso de novo proletariado de serviços, num trabalho apresentado como autonomia e vivido como subordinação.
+
 ## Para pesquisar e debater
 
 Converse com alguém que trabalha por aplicativo. Quantas horas faz por dia? Quanto gasta para trabalhar? Quanto sobra? Compare as respostas com os três mecanismos da superexploração.
+
+## Resumo
+
+- A teoria marxista da dependência voltou nos anos 2000 porque a região continuava com os problemas que ela descreveu.
+- Plataformas: os três mecanismos da superexploração (jornada, intensidade e remuneração abaixo do necessário) e uma nova dependência tecnológica.
+- Finanças: dívida pública comprada por estrangeiros, capital de curto prazo e remessas de lucros; juros altos para evitar a fuga de capitais.
+- Extrativismo: soja, minério, petróleo, carne e, agora, lítio, cobre, nióbio e terras raras, com os custos ambientais nos territórios.
+- A cisão do ciclo do capital reaparece: produz-se aqui, vende-se lá fora.

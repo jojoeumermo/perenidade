@@ -1,0 +1,67 @@
+# Exercícios da aula "Água e oxidação: o que fazer e o que não fazer" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-agua-01
+  tema: "Primeiros minutos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O celular molhou. Qual é o primeiro passo, segundo a aula?"
+  alternativas:
+    - texto: "Tirar da água e desligar o quanto antes"
+      certa: true
+    - texto: "Ligar na tomada para secar por dentro"
+      erro: "Não carregue nem ligue na tomada."
+    - texto: "Apertar os botões para ver se funciona"
+      erro: "A aula diz: não aperte botões à toa."
+  explicacao: "Depois, retire capa, cartão e bateria removível, e seque por fora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-agua-02
+  tema: "O que NÃO fazer"
+  dificuldade: 1
+  enunciado: "Qual destas ações a aula manda NÃO fazer?"
+  alternativas:
+    - texto: "Secar o que está por fora com pano ou papel absorvente"
+      erro: "Isso é recomendado."
+    - texto: "Usar secador quente, forno ou congelador"
+      certa: true
+    - texto: "Levar a um técnico o quanto antes"
+      erro: "Isso é recomendado: quanto mais cedo, melhor."
+  explicacao: "O calor forte danifica peças. O arroz também não é recomendado como tratamento principal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-agua-03
+  tema: "A oxidação"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre a oxidação depois que o celular molha?"
+  alternativas:
+    - texto: "Para assim que o aparelho seca por fora"
+      erro: "A oxidação continua mesmo depois de o aparelho parecer seco."
+    - texto: "Só acontece com água limpa"
+      erro: "Água com sal, suco, café ou água suja corrói mais rápido que água limpa."
+    - texto: "Continua mesmo depois de o aparelho parecer seco; água com sal ou suco corrói mais rápido"
+      certa: true
+  explicacao: "O técnico limpa com álcool isopropílico e escova macia e testa com fonte de bancada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-agua-04
+  tema: "Honestidade no balcão"
+  dificuldade: 2
+  enunciado: "O que o técnico deve dizer ao cliente sobre um aparelho molhado?"
+  alternativas:
+    - texto: "Que não pode prometer o que não garante: o aparelho pode voltar a funcionar e falhar dias depois"
+      certa: true
+    - texto: "Que o conserto tem 100% de garantia de sucesso"
+      erro: "A aula diz: não prometa o que não pode garantir."
+    - texto: "Nada, para não assustar"
+      erro: "Avise o cliente antes e combine o orçamento por escrito."
+  explicacao: "O orçamento por escrito está no art. 40 do CDC."
+  fonte: "Questão original do Instituto Lúcia (CDC, art. 40, conforme a aula)"
+  revisao:
+    status: em-revisao

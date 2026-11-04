@@ -1,0 +1,51 @@
+# Exercícios da aula "Higiene, limpeza e esterilização" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-higiene-01
+  tema: "Três níveis"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual nível de cuidado elimina todos os micróbios, como a autoclave para alicates e espátulas?"
+  alternativas:
+    - texto: "Limpar"
+      erro: "Limpar é tirar sujeira e fios com água e sabão ou escova."
+    - texto: "Esterilizar"
+      certa: true
+    - texto: "Desinfetar"
+      erro: "Desinfetar elimina a maior parte dos micróbios do objeto já limpo, como com álcool 70%."
+  explicacao: "Limpar, desinfetar e esterilizar são três níveis diferentes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-higiene-02
+  tema: "O risco do sangue"
+  dificuldade: 1
+  enunciado: "Por que a barbearia exige cuidado com o sangue?"
+  alternativas:
+    - texto: "Porque o cabelo transmite hepatite"
+      erro: "A transmissão é pelo compartilhamento de objetos que furam ou cortam, sem esterilização."
+    - texto: "Porque só a hepatite A passa na barbearia"
+      erro: "O Ministério da Saúde cita as hepatites B e C."
+    - texto: "Porque as hepatites B e C podem ser transmitidas por lâminas, tesouras e outros objetos que furam ou cortam"
+      certa: true
+  explicacao: "A hepatite B muitas vezes não dá sintomas e só é descoberta décadas depois."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula (Ministério da Saúde)"
+  revisao:
+    status: em-revisao
+
+- id: barb-higiene-03
+  tema: "A lei da profissão"
+  dificuldade: 2
+  enunciado: "O que a Lei nº 12.592, de 2012, obriga, segundo a aula?"
+  alternativas:
+    - texto: "Obedecer às normas sanitárias e esterilizar os materiais usados no atendimento"
+      certa: true
+    - texto: "Só ter um diploma de curso técnico"
+      erro: "A aula cita a obrigação de seguir normas sanitárias e esterilizar materiais."
+    - texto: "Nada sobre higiene"
+      erro: "A lei obriga a obedecer às normas sanitárias e esterilizar os materiais."
+  explicacao: "A lei reconhece a profissão de barbeiro e obriga a esterilizar os materiais."
+  fonte: "Questão original do Instituto Lúcia (Lei nº 12.592/2012, conforme a aula)"
+  revisao:
+    status: em-revisao

@@ -37,6 +37,11 @@ quiz:
     explicacao: "Ganhou força nos anos 1960 e 1970 em vários países."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai conhecer a Nova Canção latino-americana, três de suas vozes (Violeta Parra, Víctor Jara e Mercedes Sosa) e um jeito de aprender espanhol com canções.
+
+
 ## A Nova Canção
 
 Nos anos 1960 e 1970, em vários países da América Latina, músicos e poetas uniram as **tradições populares** (o folclore camponês, indígena e mestiço) a **canções de tema social e político**: a terra, o trabalho, a pobreza, a resistência às ditaduras. O movimento ficou conhecido como **Nova Canção** (*Nueva Canción*).
@@ -88,3 +93,24 @@ Nas canções da Nova Canção aparecem muitas palavras do campo, do trabalho e 
 2. Pesquise a história do Estádio Víctor Jara.
 3. Compare a Nova Canção com a música de protesto brasileira dos anos 1960 e 1970: que semelhanças você encontra?
 4. Escolha uma canção de um dos três artistas e escreva, em espanhol, um parágrafo sobre o que ela diz.
+
+## Exemplo resolvido
+
+**Como estudar a canção "Gracias a la vida" para aprender espanhol?**
+
+1. **Ouça** a canção inteira, sem ler a letra.
+2. **Leia** a letra e marque só as palavras que você não conhece.
+3. **Procure no dicionário** apenas as essenciais.
+4. **Ouça de novo** acompanhando a letra e **cante**, que é um bom treino de pronúncia.
+5. **Pesquise o contexto:** a canção é de Violeta Parra, foi gravada em 1966 e depois regravada por Mercedes Sosa.
+6. **Anote** as coisas pelas quais a canção agradece, como pede o exercício da aula.
+
+Confira: você terá ouvido, lido, cantado e entendido o contexto, e terá aprendido palavras novas na frase, e não soltas.
+
+## Resumo
+
+- A **Nova Canção** uniu tradições populares e temas sociais e políticos, nos anos 1960 e 1970, em vários países da América Latina.
+- **Violeta Parra** (Chile): recolheu canções camponesas e compôs *Gracias a la vida*.
+- **Víctor Jara** (Chile): foi assassinado depois do golpe de 11 de setembro de 1973; o Estádio Chile hoje leva o nome dele.
+- **Mercedes Sosa** (Argentina): intérprete gigante; presa num show em 1979, foi para o exílio e voltou em 1982.
+- Para aprender com canções: ouvir, ler, procurar o essencial, cantar e pesquisar o contexto.

@@ -46,6 +46,10 @@ quiz:
     explicacao: "A norma-padrão não foi escolhida por ser mais lógica ou bonita, mas pelo prestígio de quem a usava."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que o linguista faz, distinguir as três gramáticas (normativa, descritiva e internalizada) e explicar por que "falar errado" não é uma boa descrição científica.
+
 Quase todo mundo já ouviu que "fala errado" ou que "português é difícil". A linguística começa desconfiando dessas frases. Ela não pergunta como as pessoas *deveriam* falar, e sim como elas *falam*, e por quê. Nesta trilha, que trata de variação, preconceito e poder, esta primeira aula apresenta a atitude e o método do linguista.
 
 Se você quer um panorama das áreas da linguística (fonologia, morfologia, sintaxe, semântica e outras), veja também a aula [O que estuda a linguística](/trilhas/portugues-superior/o-que-estuda-a-linguistica), da trilha de português do nível superior. Aqui o foco é outro: como se faz essa ciência, e o que ela tem a dizer sobre quem fala e quem é calado.
@@ -129,3 +133,10 @@ As próximas aulas desta trilha começam pela base teórica, com [Saussure: lín
 4. Explique a diferença entre combater o preconceito linguístico e abandonar o ensino da norma-padrão.
 
 **Respostas do 2:** (a) normativa; (b) descritiva; (c) internalizada.
+
+## Resumo
+
+- A linguística pergunta como as pessoas falam, e não como deveriam falar.
+- Três gramáticas (Possenti): normativa (como se deve falar), descritiva (como as pessoas falam) e internalizada (o que o falante sabe sem ter estudado).
+- Descrever não é dizer que "tudo vale".
+- Língua e poder se ligam: chamar de "errado" o modo de falar de um grupo costuma ser preconceito.

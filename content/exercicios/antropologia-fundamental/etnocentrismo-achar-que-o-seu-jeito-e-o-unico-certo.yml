@@ -1,0 +1,51 @@
+# Exercícios da aula "Etnocentrismo: achar que o seu jeito é o único certo" (Antropologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: antrop-etnocentrismo-01
+  tema: "O que é"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é etnocentrismo?"
+  alternativas:
+    - texto: "A tendência de ver o mundo só pela própria cultura, colocando-a no centro"
+      certa: true
+    - texto: "O respeito a todas as culturas"
+      erro: "Isso é o contrário. Etnocentrismo coloca a própria cultura no centro de tudo."
+    - texto: "O estudo dos povos antigos"
+      erro: "É uma atitude, não um campo de estudo: julgar tudo pela própria cultura."
+  explicacao: "A palavra junta etno (povo) e centro: a minha cultura no centro de tudo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-etnocentrismo-02
+  tema: "Reconhecer a frase"
+  dificuldade: 2
+  enunciado: "Qual frase é etnocêntrica?"
+  alternativas:
+    - texto: "\"Quero entender como essa festa é feita e o que significa.\""
+      erro: "Essa frase busca entender o costume dentro do seu contexto."
+    - texto: "\"Esse jeito de viver é atrasado.\""
+      certa: true
+    - texto: "\"Cada povo tem seu modo de fazer.\""
+      erro: "Reconhece a diferença sem julgar."
+  explicacao: "Chamar o diferente de errado, estranho, inferior ou atrasado é etnocentrismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: antrop-etnocentrismo-03
+  tema: "A resposta da antropologia"
+  dificuldade: 2
+  enunciado: "Que princípio Franz Boas estabeleceu, nas primeiras décadas do século XX, como resposta ao etnocentrismo?"
+  alternativas:
+    - texto: "O evolucionismo"
+      erro: "O relativismo cultural foi a resposta: interpretar cada cultura em seu contexto."
+    - texto: "O universalismo"
+      erro: "A resposta foi o relativismo cultural."
+    - texto: "O relativismo cultural"
+      certa: true
+  explicacao: "Cada atividade humana deve ser interpretada dentro do contexto da sua própria cultura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

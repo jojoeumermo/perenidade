@@ -1,5 +1,6 @@
 ---
 titulo: "Os instrumentos do samba: surdo, tamborim, pandeiro, cuíca, agogô e cavaquinho"
+modelo: 9
 resumo: "Conheça os instrumentos básicos do samba: o que cada um faz, como se toca e de onde vem. Do surdo, \"coração do samba\", inventado no Estácio, ao agogô, que vem do iorubá."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -58,6 +59,9 @@ Numa bateria de escola com centenas de pessoas, cada instrumento tem uma funçã
 
 Ao fim desta aula você vai reconhecer os instrumentos básicos do samba, saber a função de cada um e um pouco da origem deles.
 
+```suarealidade
+Na sua casa, no seu bairro ou no seu serviço, quem toca ou canta samba? Que instrumentos você já viu ser feitos com o que se tinha à mão?
+```n
 ## A percussão
 
 - **Surdo**: tambor grande e grave. A **função principal** é **marcar o tempo**; por isso é chamado de **"coração do samba"**. Uma escola tem em média de **25 a 35 surdos** na bateria. Sua criação é atribuída a **Bide**, da Deixa Falar, com latão de manteiga e pele de cabrito.
@@ -84,6 +88,18 @@ Que instrumento faz o "ronco" característico do samba?
 > Releia o item "Cuíca".
 ```
 
+```outrolado
+# O argumento de quem acha que samba não precisa de estudo
+"Samba é de roda e de rua. Quem toca de verdade nasceu sabendo, e estudar instrumento tira a alma da música."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O samba nasceu na roda, e a aula valoriza isso: o surdo começou num latão de manteiga e, no samba de roda, um prato e uma faca viram instrumento. Mas saber a função de cada instrumento é o que deixa a roda afinada: numa bateria de centenas de pessoas, se o surdo sair do tempo, todo mundo sente. Conhecer a origem e a função de cada instrumento é uma forma de respeitar essa tradição, e não de afastá-la.
+```n
+```agir
+# Esta semana
+Pegue dois objetos de casa que façam barulho sem risco (um balde virado, duas colheres de pau, uma lata fechada) e invente, num papel, qual deles faria o papel do surdo e qual o do agogô. Bata o tempo com calma, em volume baixo, por poucos minutos. Não use nada que possa quebrar ou machucar.
+```n
 ## Exemplo resolvido
 
 **Distribua os instrumentos numa roda de seis pessoas.**

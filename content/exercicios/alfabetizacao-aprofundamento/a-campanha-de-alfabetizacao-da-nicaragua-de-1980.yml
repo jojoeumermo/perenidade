@@ -1,0 +1,51 @@
+# Exercícios da aula "A campanha de alfabetização da Nicarágua de 1980" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-nicaragua-01
+  tema: "Quando e quem"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A Cruzada Nacional de Alfabetização da Nicarágua durou de março a 23 de agosto de qual ano, e quem a coordenou?"
+  alternativas:
+    - texto: "1980, coordenada pelo padre jesuíta Fernando Cardenal"
+      certa: true
+    - texto: "1979, coordenada por Paulo Freire"
+      erro: "1979 foi o ano da revolução sandinista, que derrubou a ditadura dos Somoza. A Cruzada foi em 1980 e coordenada por Fernando Cardenal."
+    - texto: "1980, coordenada por Djalma Maranhão"
+      erro: "Djalma Maranhão foi prefeito de Natal, no Brasil. A Cruzada nicaraguense foi coordenada por Fernando Cardenal."
+  explicacao: "A Cruzada foi de março a 23 de agosto de 1980, coordenada pelo padre jesuíta Fernando Cardenal."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-nicaragua-02
+  tema: "O ponto de partida"
+  dificuldade: 1
+  enunciado: "Segundo a aula, qual era a situação da Nicarágua em 1979 quanto à leitura?"
+  alternativas:
+    - texto: "Quase todos sabiam ler, mas faltavam livros"
+      erro: "A aula fala em cerca de metade da população sem saber ler."
+    - texto: "Cerca de metade da população não sabia ler, com taxas ainda maiores no campo"
+      certa: true
+    - texto: "Só as crianças não sabiam ler"
+      erro: "As estimativas falavam em cerca de metade da população, sobretudo no campo pobre."
+  explicacao: "As estimativas da época falavam em cerca de metade da população sem saber ler, e em taxas ainda maiores no campo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-nicaragua-03
+  tema: "Alfabetizar como direito e projeto"
+  dificuldade: 2
+  enunciado: "Para o novo governo sandinista, por que alfabetizar era importante?"
+  alternativas:
+    - texto: "Era só uma tarefa técnica, sem ligação com a política"
+      erro: "A aula diz que alfabetizar era direito e também projeto político."
+    - texto: "Servia apenas para aumentar o número de escolas nas cidades"
+      erro: "A campanha foi sobretudo para o campo, onde as taxas eram maiores. O objetivo era direito e reconstrução do país."
+    - texto: "Era ao mesmo tempo um direito e um projeto político: quem lê participa da reconstrução do país"
+      certa: true
+  explicacao: "O governo via a alfabetização como direito e projeto político: uma população que lê participa da reconstrução do país."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

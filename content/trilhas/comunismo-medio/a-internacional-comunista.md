@@ -34,6 +34,9 @@ quiz:
     resposta: 0
     explicacao: "A dissolução ocorreu em maio de 1943, no meio da Segunda Guerra."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer como e por que foi criada a Internacional Comunista (Comintern), quais linhas ela adotou entre 1919 e 1943 e qual foi o seu balanço.
 
 Depois da Revolução de Outubro, os bolcheviques acreditavam que a revolução russa só sobreviveria se a revolução se espalhasse para a Europa industrializada. Para isso, criaram um partido mundial: a **Internacional Comunista**, também chamada **Terceira Internacional** ou **Comintern**.
 
@@ -80,3 +83,24 @@ A Internacional Comunista ajudou a criar partidos comunistas em dezenas de país
 ## Para conversar
 
 Por que a divisão entre comunistas e social-democratas foi tão grave na Alemanha dos anos 1930? Que lições isso traz para a luta contra a extrema direita hoje?
+
+## Exemplo resolvido
+
+**Por que a linha do "terceiro período" (1928-1934) foi considerada desastrosa? Siga os fatos.**
+
+1. **A linha.** Entre 1928 e 1934, a Internacional previa uma nova onda revolucionária e tratava os social-democratas como "social-fascistas", o inimigo principal.
+2. **O efeito na Alemanha.** Comunistas e social-democratas, divididos, não conseguiram se unir contra o nazismo.
+3. **O desfecho.** Hitler chegou ao poder em 1933 e destruiu os dois partidos.
+4. **A correção.** Em 1935, no sétimo congresso, Georgi Dimitrov defendeu a frente popular: aliança ampla de comunistas, socialistas e setores democráticos contra o fascismo.
+5. **Conclua.** A aula cita essa linha entre as que a Internacional impôs aos partidos como "desastrosas"; já a frente única (1921) e a frente popular buscavam unir a classe.
+
+Confira: frentes populares venceram eleições na França e na Espanha em 1936.
+
+## Resumo
+
+- A Internacional Comunista (Comintern, Terceira Internacional) foi fundada em **março de 1919**, em Moscou; em 1920 aprovou as **21 condições** de admissão.
+- Deu grande importância à libertação dos povos coloniais.
+- **Frente única** (1921): ações comuns com os social-democratas. **Terceiro período** (1928-1934): social-democratas tratados como "social-fascistas". **Frente popular** (1935): aliança ampla contra o fascismo.
+- Organizou as Brigadas Internacionais na Guerra Civil Espanhola (1936-1939).
+- Pacto Molotov-Ribbentrop (agosto de 1939); a Internacional foi dissolvida em maio de 1943.
+- Balanço: criou partidos e apoiou lutas anticoloniais, mas os subordinou à política externa soviética.

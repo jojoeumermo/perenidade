@@ -1,0 +1,54 @@
+# Exercícios da aula "Encomendas, entrega e redes sociais" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: coz-encomenda-01
+  tipo: numero
+  tema: "Sinal da encomenda"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma encomenda de 40 salgados custa R$ 0,90 cada. Você pede 50% de sinal. Quanto é o sinal, em reais?"
+  resposta: "18"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "36"
+      explicacao: "Esse é o valor total (40 × 0,90). O sinal é 50%, ou seja, a metade."
+    - resposta: "20"
+      explicacao: "Você tirou 50% de 40, que é a quantidade de salgados. O sinal é sobre o valor em reais."
+  dica: "Primeiro ache o total em reais. Depois pegue a metade."
+  explicacao: "Total: 40 × 0,90 = 36. Sinal de 50%: 36 ÷ 2 = 18 reais."
+  conferir: "40 * 0.9 * 0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-encomenda-02
+  tema: "Divulgação honesta"
+  dificuldade: 1
+  enunciado: "Segundo o Código de Defesa do Consumidor, o que acontece com a oferta feita na divulgação (foto, preço, promessa)?"
+  alternativas:
+    - texto: "Obriga quem a faz, nos termos em que foi feita"
+      certa: true
+    - texto: "Não vale nada, é só propaganda"
+      erro: "O art. 30 do CDC diz que a oferta suficientemente precisa obriga o fornecedor."
+    - texto: "Só vale se estiver assinada em cartório"
+      erro: "Não é preciso cartório. A oferta feita ao público já obriga."
+  explicacao: "A oferta obriga (CDC, art. 30). Anuncie só o que de fato entrega."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: coz-encomenda-03
+  tema: "Dados dos clientes"
+  dificuldade: 2
+  enunciado: "O que a LGPD pede de quem guarda nome, telefone e endereço dos clientes?"
+  alternativas:
+    - texto: "Guardar só o necessário, usar para o fim combinado e proteger os dados"
+      certa: true
+    - texto: "Divulgar a lista em um grupo, para todos se conhecerem"
+      erro: "Repassar ou expor os dados sem o consentimento fere a LGPD."
+    - texto: "Guardar tudo o que puder, sem apagar nunca"
+      erro: "A LGPD fala em necessidade: guarde apenas o preciso e apague quando o cliente pedir."
+  explicacao: "A LGPD (art. 6º) pede finalidade, necessidade e segurança no uso dos dados pessoais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

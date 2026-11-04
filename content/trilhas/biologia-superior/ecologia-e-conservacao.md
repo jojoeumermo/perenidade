@@ -41,6 +41,9 @@ quiz:
     resposta: 0
     explicacao: "A conservação no próprio hábitat é a prioridade; a ex situ é um complemento."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber os três níveis da biodiversidade, por que ela importa, quais são as cinco grandes ameaças e o que a biologia da conservação propõe, incluindo as unidades de conservação da Lei 9.985/2000.
 
 ## Uma crise em curso
 
@@ -126,3 +129,22 @@ E a pergunta de fundo é econômica: enquanto destruir a floresta der mais lucro
 2. Explique a diferença entre uma unidade de conservação de proteção integral e uma de uso sustentável, com um exemplo de cada.
 3. Que serviços ecossistêmicos o seu bairro ou cidade recebe de áreas naturais próximas?
 4. Por que a fragmentação pode levar uma espécie à extinção mesmo sem que se perca muita área total?
+
+## Exemplo resolvido
+
+**Uma floresta contínua é cortada por uma rodovia e dividida em fragmentos isolados. O que tende a acontecer com uma espécie de macaco que vive nela?**
+
+1. **Identifique a ameaça.** É **perda e fragmentação de hábitat**, a principal das cinco ameaças.
+2. **Veja o efeito nas populações.** Os fragmentos isolados abrigam populações **pequenas e isoladas**.
+3. **Relacione com a genética.** Em populações pequenas, a deriva genética faz perder **diversidade genética**, e sem variação as populações se adaptam pior.
+4. **Conclua.** O risco de **extinção local** aumenta. A área total de floresta ser quase a mesma não resolve.
+5. **Some as ameaças.** Um fragmento cercado de lavoura também recebe agrotóxico, perde os animais maiores e fica mais seco.
+
+Confira: mais bordas não multiplicam a espécie, e a conservação inclui áreas protegidas e a ligação entre fragmentos.
+
+## Resumo
+
+- A história da vida registra **cinco grandes extinções em massa**; a biodiversidade tem três níveis: **genética**, **de espécies** e **de ecossistemas**.
+- Importa por alimento, remédios, polinização, água, clima, solo e cultura.
+- Ameaças: **perda e fragmentação de hábitats** (a principal), espécies invasoras, exploração excessiva, poluição e mudança do clima. Elas se somam.
+- A **Lei 9.985/2000** criou o Sistema Nacional de Unidades de Conservação: **proteção integral** (parques, estações ecológicas, reservas biológicas) e **uso sustentável** (reservas extrativistas, reservas de desenvolvimento sustentável, florestas nacionais).

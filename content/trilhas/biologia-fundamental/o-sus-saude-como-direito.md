@@ -33,6 +33,9 @@ quiz:
     resposta: 1
     explicacao: "A Lei nº 8.142 determina que a representação dos usuários seja paritária em relação ao conjunto dos demais segmentos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber de onde veio o SUS, o que diz o artigo 196 da Constituição, quais são os princípios do sistema, como usá-lo e como a população participa do seu controle.
 
 ## Como era antes
 
@@ -120,3 +123,22 @@ Ainda assim, a maior parte da população brasileira depende **só** do SUS. Def
 1. Onde e quando se reúne o conselho de saúde do seu município? Quem representa os usuários?
 2. Liste os serviços do SUS que você ou a sua família usaram no último ano, incluindo os que não parecem "atendimento".
 3. Converse com alguém mais velho: como era conseguir atendimento médico antes de 1988?
+
+## Exemplo resolvido
+
+**Uma pessoa com plano de saúde particular diz que nunca usa o SUS. Ela tem razão?**
+
+1. **Pense além da consulta.** O SUS não é só o posto e o hospital público.
+2. **Procure o SUS no dia a dia dela.** A vacina que ela tomou é gratuita pelo SUS. O restaurante onde almoça é fiscalizado pela vigilância sanitária. O remédio que compra passa pela vigilância sanitária. O SAMU (192) atende qualquer pessoa. Os bancos de sangue e os transplantes também são do SUS.
+3. **Conclua.** Mesmo sem saber, ela usa o SUS.
+
+Confira: a saúde é "direito de todos" (art. 196), e a universalidade quer dizer que é para qualquer pessoa em território brasileiro, sem exigência de contribuição.
+
+## Resumo
+
+- Até 1988, a saúde pública atendia sobretudo quem contribuía à previdência; os demais ficavam sem atendimento ou dependiam da caridade.
+- O SUS foi **conquistado** pelo Movimento da Reforma Sanitária e pela 8ª Conferência Nacional de Saúde (1986), e entrou na Constituição de 1988.
+- **Art. 196:** a saúde é direito de todos e dever do Estado.
+- Princípios: **universalidade**, **integralidade**, **equidade**, **descentralização** e **participação da comunidade**.
+- O SUS vai de postos e Saúde da Família a vacinas, SAMU (192), transplantes, vigilância sanitária e medicamentos.
+- Os **conselhos** (metade das vagas é dos usuários) e as **conferências** de saúde controlam o sistema. Os problemas, como as filas, têm uma causa central apontada: o subfinanciamento.

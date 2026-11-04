@@ -1,0 +1,54 @@
+# Exercícios da aula "Ciências: matéria, energia e eletricidade" (ENCCEJA: ensino fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encf-energia-01
+  tema: "Estados da matéria"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A água líquida virando vapor é qual mudança de estado?"
+  alternativas:
+    - texto: "Fusão"
+      erro: "Fusão é do sólido para o líquido, como o gelo derretendo."
+    - texto: "Evaporação (vaporização)"
+      certa: true
+    - texto: "Solidificação"
+      erro: "Solidificação é do líquido para o sólido, como a água virando gelo."
+  explicacao: "Do líquido para o gás é vaporização ou evaporação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-energia-02
+  tipo: numero
+  tema: "Consumo em kWh"
+  dificuldade: 2
+  enunciado: "Uma lâmpada de 100 W fica acesa 5 horas por dia. Quantos kWh ela consome em 10 dias?"
+  resposta: "5"
+  unidade: "kWh"
+  erros_comuns:
+    - resposta: "500"
+      explicacao: "Você multiplicou 100 × 5, sem converter watts em quilowatts. 100 W são 0,1 kW."
+    - resposta: "0,5"
+      explicacao: "Esse é o consumo de um só dia (0,1 kW × 5 h). Você esqueceu de multiplicar pelos 10 dias."
+  dica: "Passe watts para kW (divida por 1.000) e multiplique pelas horas totais."
+  explicacao: "100 W = 0,1 kW. Em 10 dias, são 5 × 10 = 50 horas. 0,1 × 50 = 5 kWh."
+  conferir: "0.1 * 5 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encf-energia-03
+  tema: "Segurança elétrica"
+  dificuldade: 1
+  enunciado: "Antes de trocar uma tomada, o que fazer?"
+  alternativas:
+    - texto: "Desligar o disjuntor do circuito e conferir que não há energia"
+      certa: true
+    - texto: "Molhar as mãos para sentir melhor"
+      erro: "Água conduz eletricidade. Mãos molhadas aumentam o risco de choque."
+    - texto: "Usar uma ferramenta qualquer, rápido, sem desligar"
+      erro: "Mesmo rápido, o fio ligado pode dar choque. Desligar no disjuntor é a regra básica."
+  explicacao: "Desligar o disjuntor e conferir é o primeiro passo de qualquer serviço na instalação elétrica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

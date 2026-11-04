@@ -29,6 +29,10 @@ quiz:
     resposta: 1
     explicacao: "Por isso ela esquentava tanto e foi substituída pelas lâmpadas de LED, que dão a mesma luz com muito menos energia."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber nomear as formas de energia, explicar por que a energia se transforma sem se perder e calcular quanto um aparelho gasta em kWh na conta de luz.
+
 
 ## O que é energia
 
@@ -128,3 +132,11 @@ Saber fazer a conta do kWh é o primeiro passo. O segundo é perguntar por que a
 4. Liste os três aparelhos da sua casa que mais consomem.
 
 **Respostas:** 1) Elétrica em cinética, som e calor; potencial em cinética e, no freio, em calor. 2) 1 kW × 8 h = 8 kWh.
+
+## Resumo
+
+- Energia é a capacidade de produzir mudanças; a unidade é o joule (J).
+- Ela existe em várias formas (cinética, potencial, térmica, química, elétrica, luminosa, nuclear) e passa de uma à outra.
+- A energia não é criada nem destruída; em cada transformação uma parte vira calor e não se aproveita. Por isso não existe máquina que funcione sem receber energia.
+- Potência é a energia por segundo (watt). Energia na conta de luz: kWh = kW × horas.
+- Os aparelhos que aquecem, como o chuveiro, são os que mais gastam.

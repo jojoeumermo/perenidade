@@ -1,5 +1,6 @@
 ---
 titulo: "Ferramentas e segurança na costura"
+modelo: 9
 resumo: "O kit de quem costura (tesoura, alfinetes, agulhas, dedal, fita métrica, giz e desmanchador), como guardar e cuidar de cada um e as regras de segurança com agulha, tesoura, ferro de passar e máquina."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,9 @@ quiz:
     resposta: 1
     explicacao: "Alfinete na boca pode ser engolido; espalhado, espeta e cai no chão."
 ---
+```suarealidade
+Quais ferramentas de costura existem na sua casa hoje, e quem usa a tesoura boa para outras coisas? Já houve algum acidente ou susto com agulha, tesoura ou ferro?
+```
 
 ```provocacao
 Uma tesoura boa, uma fita métrica e uma caixa de alfinetes custam pouco. Será que fazem tanta diferença no resultado quanto uma máquina cara?
@@ -138,4 +142,18 @@ Quais destas ferramentas você já tem em casa? Qual falta? Escreva também um c
 ```leve
 - Ensine alguém a fazer uma almofada de alfinetes com um retalho.
 - Combine com quem mora com você que a tesoura de tecido é só para tecido.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para costurar de verdade e vender, o que importa é ter uma máquina boa. Ficar falando de tesoura, fita e alfinete é perder tempo."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A máquina importa, mas a aula mostra que o resultado depende também do kit básico: tesoura de tecido só para tecido, fita métrica, régua, giz, alfinetes, agulhas e desmanchador, que custam pouco e permitem começar em casa com pouco dinheiro. Além disso, a máquina é justamente onde mais pede cuidado: dedos longe da agulha e do calcador, e desligar da tomada para trocar agulha ou linha. Boas ferramentas e rotina de segurança fazem parte do ofício, seja com máquina cara ou barata.
+```
+
+```agir
+# Esta semana
+Faça esta semana a lista do seu kit: marque o que você já tem, o que falta e um cuidado de segurança que ainda não segue. Marque a tesoura de tecido com uma fita no cabo e combine com quem mora com você que ela é só para tecido.
 ```

@@ -34,6 +34,10 @@ quiz:
     explicacao: "As moléculas de água se atraem fortemente entre si e não abrem espaço para as do óleo."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que os átomos se ligam e diferenciar as ligações iônica, covalente e metálica pelas propriedades das substâncias que formam.
+
 ## Por que os átomos se ligam
 
 Na natureza, quase nenhum átomo vive sozinho. Eles se ligam porque, ligados, ficam em uma situação de **menor energia**, mais estável.

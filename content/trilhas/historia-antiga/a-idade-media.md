@@ -33,6 +33,10 @@ quiz:
     resposta: 0
     explicacao: "O nome foi dado mais tarde, por quem queria valorizar a própria época."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que foi a Idade Média, como funcionava a sociedade feudal, qual era o papel da Igreja, como as cidades renasceram e o que a crise do século XIV mudou.
+
 
 ## Um nome inventado depois
 
@@ -98,8 +102,26 @@ Com tanta gente morta, faltaram braços. Os camponeses que sobreviveram perceber
 
 O enfraquecimento dos senhores, o crescimento das cidades e do comércio e o fortalecimento dos reis prepararam o mundo que viria depois: o das grandes navegações, da colonização e do capitalismo.
 
+## Exemplo resolvido
+
+**Em que século está 1347, o ano da chegada da Peste Negra? Quanto dura a Idade Média, nos números da aula?**
+
+1. Para achar o século, ignore os dois últimos algarismos e some 1: de 1347, fica 13 + 1 = 14. É o **século XIV**.
+2. A Idade Média vai do século V ao século XV. Do começo do século V (ano 401) ao fim do século XV (ano 1500) são cerca de mil anos, como diz a aula.
+3. A aula diz que a peste matou "um terço ou mais" da população, segundo as estimativas. Em uma cidade imaginária de 30.000 pessoas, um terço seria 30.000 ÷ 3 = 10.000 mortes.
+4. Repare no que isso causou: com tanta gente morta, faltaram braços para o trabalho, e a economia e a sociedade mudaram.
+
 ## Para pesquisar e debater
 
 1. Que ideias de hoje cumprem o papel que a teoria das três ordens cumpria na Idade Média?
 2. Compare o servo, o escravizado e o trabalhador assalariado. O que cada um entrega, e a quem?
 3. Por que a falta de trabalhadores, depois da peste, fortaleceu os camponeses? Isso acontece hoje?
+
+## Resumo
+
+- Idade Média é o nome dado ao período da Europa entre o fim do Império Romano do Ocidente (século V) e o século XV, cerca de mil anos.
+- Depois de Roma, o comércio diminuiu, as cidades se esvaziaram e povos germânicos formaram reinos; o dos francos foi o mais poderoso.
+- Na sociedade feudal, a riqueza era a terra: senhores donos de feudos, vassalos ligados por fidelidade e camponeses que trabalhavam a terra.
+- A Igreja Católica era a instituição mais poderosa: maior proprietária de terras e dona do ensino e da escrita.
+- A partir do século XI, a agricultura, a população e o comércio cresceram e as cidades renasceram, com corporações de ofício.
+- No século XIV, fomes, guerras e a Peste Negra (1347) mataram uma parte enorme da população.

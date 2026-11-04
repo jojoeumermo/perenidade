@@ -39,6 +39,9 @@ quiz:
     resposta: 1
     explicacao: "Complemento de grau: verbo + 得 + avaliação."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar as estruturas essenciais dos níveis 3 e 4 do HSK: a frase com 把 e com 被, o complemento de grau e o potencial, os aspectos 过, 着 e 正在 e os conectivos mais frequentes.
 
 ## O nível intermediário
 
@@ -125,3 +128,23 @@ Em chinês, é comum usar os **dois** termos do par (虽然 **e** 但是), o que
 2. Reescreva com 被: 小偷 (ladrão) 偷了我的钱包。
 3. Use o complemento de grau: 她 / 唱歌 (cantar) / 好.
 4. Escreva três frases com conectivos sobre a sua semana.
+
+## Exemplo resolvido
+
+**Como dizer "Eu nunca vi este filme" e "Feche a porta, por favor"?**
+
+1. **Experiência.** "Já fez alguma vez" usa **过**; a negação de experiência é **没 + verbo + 过**.
+2. **Monte.** **我没看过这个电影。** (Wǒ méi kànguo zhège diànyǐng.)
+3. **Pedido com 把.** A estrutura é sujeito + 把 + objeto + verbo + complemento: o objeto (门) vem antes do verbo e o verbo traz um complemento (上).
+4. **Monte.** **请把门关上。** (Qǐng bǎ mén guānshang.)
+
+Confira: "我不看这个电影" diria "eu não vejo este filme", e "我把作业做" fica incompleto, pois o verbo não pode ficar sozinho depois de 把.
+
+## Resumo
+
+- **把:** sujeito + 把 + objeto + verbo + complemento (我把作业做完了). O verbo precisa de um complemento.
+- **被:** passiva, muitas vezes para algo desagradável (我的手机被偷了); na fala, também 叫 e 让.
+- **Complemento de grau:** verbo + 得 + avaliação (他说得很快); se há objeto, repete-se o verbo.
+- **Complemento potencial:** verbo + 得/不 + complemento (听得懂 / 听不懂).
+- **Aspectos:** 过 (experiência), 着 (estado que continua), 正在 (ação em andamento); negação de 过: 没…过.
+- **Conectivos:** 因为…所以…, 虽然…但是…, 如果…就…, 一…就…, 越来越 + adjetivo.

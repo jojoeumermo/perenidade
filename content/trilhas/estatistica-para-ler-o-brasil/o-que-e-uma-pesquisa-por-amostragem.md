@@ -29,6 +29,11 @@ quiz:
     explicacao: "O artigo 33 da Lei nº 9.504 exige, entre outros itens, o contratante, o valor e a origem dos recursos, a metodologia e o plano amostral."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são população e amostra, por que o sorteio é o segredo de uma boa pesquisa, por que amostra grande e enviesada erra e como reconhecer os vieses mais comuns.
+
+
 ## A colher de sopa
 
 Para saber se a sopa está boa de sal, ninguém toma a panela inteira. Mexe-se bem e prova-se uma colher. Se a sopa foi bem mexida, a colher basta, seja a panela pequena ou um caldeirão.
@@ -96,6 +101,17 @@ Esses registros são públicos e podem ser consultados no site da Justiça Eleit
 
 Organize uma pequena pesquisa no seu bairro, na sua escola ou no seu local de trabalho. Quem é a população? Como sortear a amostra em vez de perguntar só aos conhecidos? Que pergunta você faria, e de que outro jeito ela poderia ser redigida?
 
+## Exemplo resolvido
+
+**Um portal publica: "Enquete com 200 mil votos mostra que 80% dos brasileiros apoiam a medida". Dá para confiar?**
+
+1. **Quem é a população?** Os brasileiros.
+2. **Quem respondeu?** Os leitores do portal que quiseram votar: é **autosseleção**; ninguém sorteou a amostra.
+3. **O tamanho resolve?** Não. A revista *Literary Digest*, em 1936, recebeu mais de dois milhões de respostas e errou, porque a amostra vinha de listas de gente mais rica que a média. Uma amostra grande e enviesada erra com muita convicção.
+4. **Falta o cálculo do erro:** sem sorteio, não se pode calcular a margem de erro.
+
+Confira: a enquete diz algo sobre quem votou, e não sobre os brasileiros.
+
 ## Para praticar
 
 1. Uma rádio pede que os ouvintes liguem para dizer se aprovam o prefeito. Que vieses há nesse método?
@@ -103,3 +119,11 @@ Organize uma pequena pesquisa no seu bairro, na sua escola ou no seu local de tr
 3. Reescreva de modo neutro: "Você concorda que os vândalos que fecharam a avenida devem ser punidos?"
 
 **Respostas:** 1) Autosseleção (liga quem quer e quem pode) e seleção (só os ouvintes daquela rádio, naquele horário). 2) Viés de seleção: quem mora fora das capitais não teve chance de entrar. 3) Por exemplo: "Qual é a sua opinião sobre a manifestação que interrompeu o trânsito na avenida?"
+
+## Resumo
+
+- **População** é o conjunto que se quer conhecer; **amostra** é a parte entrevistada; entrevistar todo mundo é um **censo**.
+- O **sorteio** dá a cada pessoa uma chance conhecida de ser escolhida e permite calcular a margem de erro.
+- Amostra grande e enviesada erra (caso da *Literary Digest*, 1936): tamanho não corrige viés.
+- Vieses comuns: **seleção**, **autosseleção** (enquetes), **não resposta**, a **redação** e a **ordem** das perguntas.
+- Os números mensais da PNAD Contínua são de um **trimestre móvel**; pesquisas eleitorais devem ser registradas na Justiça Eleitoral (Lei 9.504/1997, art. 33).

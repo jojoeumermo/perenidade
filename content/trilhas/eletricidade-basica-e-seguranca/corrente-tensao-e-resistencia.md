@@ -1,5 +1,6 @@
 ---
 titulo: "Corrente, tensão e resistência"
+modelo: 9
 resumo: "As três grandezas que todo eletricista usa todo dia, explicadas com a água do cano: o que cada uma é, em que unidade se mede e o que acontece quando uma muda."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -55,6 +56,10 @@ Por que o mesmo chuveiro esquenta mais numa posição do que na outra, se a águ
 
 Ao fim desta aula você vai saber o que são corrente, tensão e resistência, em que unidade cada uma é medida e como uma depende da outra. São as palavras que aparecem em todo manual, em toda etiqueta de aparelho e em toda conversa de eletricista.
 
+```suarealidade
+Em que aparelho da sua casa ou do seu trabalho você já percebeu que mais "força" ou mais calor muda o resultado, como o chuveiro no verão e no inverno?
+```
+
 ## A eletricidade é um movimento
 
 Os fios de cobre têm **elétrons** que podem se mover. Quando ligamos um aparelho, esses elétrons andam pelo circuito, da tomada até o aparelho e de volta. Esse movimento de carga é a **corrente elétrica**. Sem caminho fechado, não há corrente: é por isso que um fio cortado "não funciona".
@@ -82,6 +87,15 @@ A **corrente** é quanta carga atravessa um ponto do fio a cada segundo. Um amp�
 Todo material oferece alguma **resistência** à passagem da corrente. O cobre oferece pouca: por isso é usado nos fios. A borracha e o plástico oferecem muita: por isso cobrem os fios e os cabos das ferramentas. Um material que deixa a corrente passar com facilidade é um **condutor**; um que quase não deixa é um **isolante**.
 
 A resistência também é o que faz um aparelho esquentar de propósito. O chuveiro, o ferro de passar e a resistência do forno elétrico são fios feitos para esquentar quando a corrente passa.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Muita gente de ofício diz que não precisa de teoria: "sempre fiz sem saber o que é volt ou ohm, e nunca aconteceu nada". Para essas pessoas, a prática de anos basta e conversa de tensão e resistência é coisa de livro.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a experiência vale muito, mas a aula mostra que as palavras servem para decisões do dia a dia: conferir na etiqueta se o aparelho é de 127 V ou 220 V antes de ligar, saber por que o fio precisa ser mais grosso quando passa mais corrente e entender por que o chuveiro muda de temperatura. Quem sabe o porquê erra menos, e a aula sobre choque elétrico desta trilha mostra o preço do erro.
+```
 
 ```navidareal
 **O chuveiro de duas posições.** Dentro dele há uma resistência com um trecho a mais. Na posição "verão", a corrente passa por um caminho mais longo, com mais resistência: passa menos corrente e a água esquenta menos. Na posição "inverno", o caminho fica mais curto, a resistência cai, passa mais corrente e a água sai mais quente. A tensão da casa é a mesma; quem muda é a resistência.
@@ -117,6 +131,11 @@ Na próxima aula, essa relação vira uma conta simples: a lei de Ohm.
 - Com a mesma tensão, mais resistência significa menos corrente.
 - A rede brasileira é de corrente alternada, 60 Hz, com 127 V ou 220 V conforme a região.
 - Cobre conduz; plástico e borracha isolam.
+
+```agir
+# Esta semana
+Pegue três aparelhos de casa, sem abri-los nem mexer em fio, e anote num papel a tensão (V) e a potência (W) de cada etiqueta. Veja se a tensão bate com a da sua tomada.
+```
 
 ```leve
 - Pegue três aparelhos de casa e leia a etiqueta de cada um: procure a tensão (V) e a potência (W).

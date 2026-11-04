@@ -37,6 +37,9 @@ quiz:
     resposta: 0
     explicacao: "É a teoria da endossimbiose: uma célula ancestral englobou uma bactéria, e as duas passaram a viver juntas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever a membrana plasmática, diferenciar transporte passivo (difusão e osmose) de ativo, prever o que acontece com a célula em meios hipotônico, isotônico e hipertônico e conhecer as organelas em detalhe.
 
 ## A célula por dentro
 
@@ -137,3 +140,22 @@ A ideia foi recebida com desconfiança e hoje é amplamente aceita. Ela mostra q
 2. Por que não se rega uma planta com água salgada?
 3. Uma célula do fígado tem muito retículo endoplasmático liso. Relacione isso com a função do órgão.
 4. Liste as evidências de que as mitocôndrias já foram bactérias de vida livre.
+
+## Exemplo resolvido
+
+**Hemácias (glóbulos vermelhos) são colocadas em um copo com água destilada. O que se espera?**
+
+1. **Compare as concentrações.** A água destilada não tem soluto: é **hipotônica** em relação ao interior da célula, que tem soluto.
+2. **Siga a osmose.** A água vai do meio menos concentrado em soluto para o mais concentrado: **entra** na célula.
+3. **Veja o resultado.** Uma célula animal, sem parede celular, **incha e pode estourar**.
+4. **Relacione com a prática.** Por isso o soro aplicado na veia é **isotônico** em relação ao sangue: água pura na veia faria as hemácias estourar.
+
+Confira: numa célula vegetal, a parede celular impede que estoure: ela fica cheia e firme.
+
+## Resumo
+
+- A **membrana plasmática** é uma dupla camada de fosfolipídios com proteínas em movimento lateral (modelo de 1972) e tem **permeabilidade seletiva**.
+- **Transporte passivo** (sem gasto de energia): difusão simples, difusão facilitada e **osmose** (a água vai do meio menos concentrado em soluto para o mais concentrado).
+- Meios: **hipotônico** (a célula animal incha), **isotônico** (nada muda) e **hipertônico** (a célula murcha).
+- **Transporte ativo** (com gasto de energia): bomba de sódio e potássio; **endocitose** e **exocitose** para partículas grandes.
+- Aplicações: soro isotônico, salada que murcha, conservação por sal ou açúcar, água do mar que desidrata.

@@ -29,9 +29,19 @@ quiz:
     opcoes: ["Com letra maiúscula", "Com letra minúscula, como em português", "Com maiúscula só nos meses"]
     resposta: 1
     explicacao: "Lunes, martes, enero, febrero: todos com minúscula."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar e escrever os números em espanhol, dizer a idade e o preço, perguntar e dizer as horas e dar uma data.
+
+
 Os números do espanhol são primos dos nossos, e por isso parecem fáceis. Mas alguns detalhes de escrita e de pronúncia mudam, e as horas seguem um modelo um pouco diferente do que usamos no Brasil.
+
+```suarealidade
+Em que momentos da sua semana você usa números: preço, horário do ônibus, data de pagamento? Qual deles você teria de dizer em espanhol primeiro?
+```
 
 ## De 0 a 15
 
@@ -139,6 +149,31 @@ Para as datas, a ordem é a mesma nossa: dia, mês e ano.
 
 Os anos se leem como número inteiro: *1990* é *mil novecientos noventa*; *2026* é *dos mil veintiséis*.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Números são universais. Basta escrever no papel ou digitar na calculadora, não precisa aprender a dizer".
+---
+Como você responderia?
+---
+Uma resposta possível: no papel funciona, mas na rua, no telefone e no mercado o número é falado. E a aula mostra diferenças que o português não ensina: sem "e" depois da centena (ciento cinco), cien e ciento, uno que vira un. Quem sabe dizer o número entende o preço e o horário sem depender de ninguém.
+```
+
+## Exemplo resolvido
+
+**Como dizer "São três e quarenta e cinco; a aula começa às quatro e custa 115 pesos"?**
+
+1. **A hora:** 3:45 se diz pelo "menos": *son las cuatro menos cuarto*.
+2. **A que horas algo acontece** usa *a las*: *empieza a las cuatro*.
+3. **O 115:** do 101 ao 199 usa-se *ciento*, sem "e" depois da centena: *ciento quince*.
+4. **O preço:** *Son ciento quince pesos.*
+
+Frase pronta: *Son las cuatro menos cuarto. La clase empieza a las cuatro y cuesta ciento quince pesos.*
+
+```agir
+# Esta semana
+Escreva por extenso, em espanhol, os números do seu dia a dia: a sua idade, o preço de três coisas que você comprou e a hora em que você acorda e em que sai de casa. Leia em voz alta.
+```
+
 ## Para praticar
 
 1. Escreva por extenso: 17, 26, 48, 115, 500, 1.250.
@@ -146,3 +181,11 @@ Os anos se leem como número inteiro: *1990* é *mil novecientos noventa*; *2026
 3. Diga em voz alta a que horas você acorda, sai de casa, almoça e vai dormir: *Me levanto a las…*
 
 Respostas do 1: *diecisiete, veintiséis, cuarenta y ocho, ciento quince, quinientos, mil doscientos cincuenta.*
+
+## Resumo
+
+- De 16 a 29 os números se escrevem juntos (*dieciséis, veintidós*); do 31 em diante, dezena e unidade se ligam com *y* (*treinta y uno*).
+- Centenas: *cien* (100 redondo), *ciento* (101 a 199); sem "e" depois da centena; *quinientos, setecientos, novecientos* são irregulares.
+- *Uno* vira *un* antes de substantivo masculino.
+- Horas: *es la una, son las dos*; minutos com *y* e *menos*; *a las* para dizer a que horas.
+- Datas: dia, mês e ano, com mês e dia da semana em minúscula.

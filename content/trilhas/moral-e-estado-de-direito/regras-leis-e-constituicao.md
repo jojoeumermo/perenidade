@@ -31,6 +31,11 @@ quiz:
     resposta: 0
     explicacao: "No Brasil, o Supremo Tribunal Federal pode anular leis que contrariem a Constituição."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que existem regras, diferenciar regra moral de lei, dizer como nasce uma lei e o que é uma Constituição, comparando a China e o Brasil.
+
+
 
 Um dos eixos da disciplina chinesa de Moral e Estado de Direito é a **educação jurídica**: aprender por que existem regras, o que é uma lei e o que é uma Constituição. Nos anos finais do ensino obrigatório, a Constituição do país ganha lugar de destaque, com unidades inteiras dedicadas a ela. Esta aula apresenta o tema e compara com o Brasil.
 
@@ -74,3 +79,20 @@ Nos dois países, há distância entre o que a Constituição promete e o que ac
 ## Para conversar
 
 Escolha um artigo da Constituição brasileira que você considera muito importante. Ele é cumprido na sua cidade? O que poderia ser feito para que fosse?
+
+## Exemplo resolvido: regra moral ou lei?
+
+1. "Ser honesto" e "ajudar quem precisa": são regras **morais**, ditadas pelo costume e pela consciência.
+2. "Respeitar o trânsito": é uma regra **jurídica** quando está numa lei, criada pelo Estado, e a sua obediência pode ser exigida pela força.
+3. Quem faz a lei nacional: na China, a Assembleia Popular Nacional e o seu Comitê Permanente; no Brasil, o Congresso Nacional (Câmara dos Deputados e Senado Federal).
+4. E se a lei contraria a Constituição? Nenhuma lei pode contrariá-la. No Brasil, o Supremo Tribunal Federal pode declará-la inconstitucional e anulá-la.
+
+Confira: a mesma conduta pode ser, ao mesmo tempo, regra moral e regra jurídica; o que distingue a lei é que o Estado pode exigir a sua obediência.
+
+## Resumo
+
+- Sem regras, a vida em grupo vira confusão e quem é mais forte impõe a vontade.
+- As regras podem ser morais (costume e consciência) ou jurídicas (leis, que o Estado pode exigir).
+- A Constituição é a lei fundamental: organiza o Estado, define os poderes e lista direitos e deveres. A chinesa em vigor é de 1982; a brasileira, de 1988.
+- No Brasil, o STF pode declarar uma lei inconstitucional.
+- Nos dois países há distância entre o que a Constituição promete e o que acontece.

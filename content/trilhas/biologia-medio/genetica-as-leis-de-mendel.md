@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "Na mulher, um segundo X com o alelo normal costuma compensar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o vocabulário da genética (gene, alelo, dominante, recessivo, genótipo, fenótipo), enunciar as duas leis de Mendel e prever descendentes com o quadro de Punnett.
 
 ## Um monge e as ervilhas
 
@@ -159,3 +162,29 @@ O **racismo**, porém, existe: é um fato **social e histórico**, com efeitos r
 2. Um homem de sangue tipo AB tem filhos com uma mulher de tipo O. Que grupos sanguíneos os filhos podem ter?
 3. Uma mulher portadora do alelo do daltonismo tem filhos com um homem de visão normal. Qual é a probabilidade de um filho homem ser daltônico? E de uma filha?
 4. Descubra o seu grupo sanguíneo e o hemocentro mais próximo. Quais são os requisitos para doar?
+
+## Exemplo resolvido
+
+**Uma ervilha de semente amarela heterozigota (Aa) é cruzada com uma de semente verde (aa). Que proporção de sementes verdes se espera?**
+
+1. **Veja os gametas.** A ervilha Aa produz gametas **A** e **a**. A ervilha aa produz só gametas **a**.
+2. **Monte o quadro de Punnett.**
+
+| | **a** | **a** |
+| --- | --- | --- |
+| **A** | Aa | Aa |
+| **a** | aa | aa |
+
+3. **Leia os genótipos.** 2 Aa (amarelas) e 2 aa (verdes).
+4. **Conclua.** Verde (aa) é 2 em 4: **50%**.
+
+Confira: a proporção é uma probabilidade, não uma garantia: vale para cada descendente, independentemente dos anteriores, como num lance de moeda. O verde é recessivo e só se manifesta em dose dupla.
+
+## Resumo
+
+- **Mendel** (monge, ervilhas) fundou a genética sem saber de DNA nem de meiose.
+- Vocabulário: **gene**, **alelos**, **dominante** (A), **recessivo** (a), **homozigoto** (AA ou aa), **heterozigoto** (Aa), **genótipo** e **fenótipo**. Cada indivíduo tem dois alelos de cada gene.
+- **Primeira lei (segregação):** os fatores de cada característica se separam na formação dos gametas. Aa × Aa dá 1 AA : 2 Aa : 1 aa (3 : 1 nos fenótipos).
+- **Segunda lei (segregação independente):** alelos de genes diferentes se distribuem de modo independente (proporção 9 : 3 : 3 : 1); vale para genes em cromossomos diferentes.
+- O **albinismo** mais comum é recessivo: só é albino quem tem genótipo aa.
+- Muitas características não seguem o esquema simples de dominante e recessivo.

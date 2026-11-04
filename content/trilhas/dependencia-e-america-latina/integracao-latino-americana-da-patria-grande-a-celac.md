@@ -32,6 +32,9 @@ quiz:
     resposta: 2
     explicacao: "São 33 países."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar a história da ideia de integração latino-americana, do sonho de Bolívar ao Mercosul, à derrota da ALCA e à CELAC, e quais são seus limites.
 
 Um país latino-americano que negocia sozinho com uma grande potência ou com uma multinacional negocia em desvantagem. A ideia de que a região precisa se unir para ter voz é tão antiga quanto as independências.
 
@@ -80,3 +83,24 @@ A integração enfrenta obstáculos reais. As economias da região vendem coisas
 ## Para pesquisar e debater
 
 Com quais países o Brasil mais comercia? Quantos deles são da América Latina? O que seria preciso para que os países vizinhos trocassem mais entre si?
+
+## Exemplo resolvido
+
+**Por que tantos movimentos sociais se opuseram à ALCA? Siga o argumento.**
+
+1. **A proposta.** Em 1994, os Estados Unidos propuseram a Área de Livre Comércio das Américas, do Alasca à Terra do Fogo.
+2. **A oposição.** Sindicatos, movimentos sociais e igrejas de todo o continente fizeram campanha contra.
+3. **O argumento.** Um acordo entre economias tão desiguais destruiria a indústria e a agricultura familiar dos países mais fracos.
+4. **Lembre a aula sobre centro e periferia.** O comércio entre desiguais não iguala ninguém.
+5. **O desfecho.** Na cúpula de Mar del Plata, em novembro de 2005, a proposta foi abandonada.
+
+Confira: um acordo de livre comércio entre economias muito desiguais tende a favorecer a mais forte.
+
+## Resumo
+
+- Bolívar defendeu a união das antigas colônias (*Carta da Jamaica*, 1815; Congresso do Panamá, 1826); Martí (1891) e Mariátegui (1924) retomaram a ideia; Ugarte popularizou "Pátria Grande".
+- **Mercosul:** Tratado de Assunção, 26 de março de 1991 (Argentina, Brasil, Paraguai e Uruguai).
+- **ALCA:** proposta em 1994 e abandonada em Mar del Plata, em novembro de 2005.
+- Nos anos 2000: ALBA (2004), UNASUL (tratado de 2008) e **CELAC** (2011), com os 33 países da região sem Estados Unidos e Canadá.
+- Constituição de 1988, art. 4º, parágrafo único: o Brasil buscará a integração dos povos da América Latina.
+- Limites: economias que vendem coisas parecidas, infraestrutura voltada aos portos e integração só entre governos e grandes empresas.

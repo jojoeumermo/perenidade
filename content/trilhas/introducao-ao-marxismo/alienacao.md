@@ -29,6 +29,10 @@ quiz:
     explicacao: "Condições melhores aliviam o sofrimento, mas, enquanto o trabalho for comandado por outro para fins alheios, a alienação permanece."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que Marx chamou de alienação do trabalho, nomear as suas quatro dimensões e dar exemplos do dia a dia.
+
 Segunda-feira de manhã. Milhões de pessoas acordam com um peso no peito porque vão trabalhar. Contam as horas para a sexta. Sentem que a vida de verdade acontece fora do trabalho. Marx deu um nome a essa experiência e explicou a sua origem: **alienação**.
 
 ## O trabalho como essência humana
@@ -79,6 +83,23 @@ Por isso a alienação não se resolve com autoajuda, meditação ou um ambiente
 
 Para Marx, a superação da alienação exige uma sociedade em que os produtores associados controlem conscientemente a produção, de acordo com as necessidades humanas. Experiências como cooperativas autogestionárias, mutirões e a gestão operária de fábricas recuperadas dão uma pequena amostra do que é trabalhar sem patrão.
 
+## Exemplo resolvido
+
+**Em qual dimensão da alienação entram estas duas situações: "o operário da montadora não tem carro" e "quem decide o ritmo é o patrão"?**
+
+1. A primeira trata do **produto**: o que o trabalhador produz não lhe pertence, e se ergue diante dele como algo estranho. É a alienação do produto (dimensão 1).
+2. A segunda trata do **próprio ato de trabalhar**: quem decide o que fazer, como, em que ritmo e por quanto tempo é o patrão ou a máquina. É a alienação da atividade (dimensão 2).
+3. As outras duas são a do **ser genérico** (o trabalho livre e consciente deixa de ser o que nos distingue) e a dos **outros seres humanos** (a convivência vira concorrência).
+
+Confira: cada exemplo se encaixa numa dimensão. A alienação, para Marx, vem da estrutura do trabalho assalariado, e não de "falta de consciência" de quem trabalha.
+
 ## Para conversar
 
 Em que momentos da sua vida o trabalho não foi alienado, foi seu, criativo, cooperativo? O que tornava isso possível?
+
+## Resumo
+
+- Para Marx, o trabalho é a atividade pela qual o ser humano transforma a natureza e a si mesmo.
+- Nos *Manuscritos de 1844* ele descreve quatro dimensões da alienação: do produto, da atividade, do ser genérico e dos outros seres humanos.
+- A alienação vem da estrutura do trabalho assalariado, e não de falta de consciência.
+- A superação exige que os produtores associados controlem a produção.

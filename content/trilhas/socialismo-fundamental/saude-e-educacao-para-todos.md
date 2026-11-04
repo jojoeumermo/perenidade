@@ -30,6 +30,10 @@ quiz:
     explicacao: "Brigadas de estudantes alfabetizaram centenas de milhares de pessoas em um ano."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a diferença entre tratar saúde e educação como direito ou como mercadoria, citar o SUS como conquista popular e conhecer o que a experiência dos países socialistas mostra.
+
 Quando a saúde é mercadoria, quem tem dinheiro se trata e quem não tem espera, ou morre. Quando a educação é mercadoria, quem nasce rico estuda nas melhores escolas e quem nasce pobre fica para trás. Os socialistas defendem que saúde e educação sejam **direitos de todos**, e não produtos à venda.
 
 ## Direito ou mercadoria?
@@ -70,6 +74,24 @@ Esses resultados mostram que, quando saúde e educação deixam de ser mercadori
 
 Num país capitalista, o lucro está sempre de olho na saúde e na educação: planos de saúde, faculdades privadas, venda de remédios, plataformas de ensino. Há sempre pressão para cortar o orçamento público e abrir espaço para o mercado. Defender o SUS e a escola pública é, por isso, uma luta permanente.
 
+## Exemplo resolvido
+
+**O SUS é um direito ou uma mercadoria? Como testar?**
+
+1. Pergunte quem recebe e em que condição. Na mercadoria, você recebe se puder pagar; no direito, você recebe porque é gente. No SUS, o atendimento é sem cobrança na hora.
+2. Pergunte quem paga: no direito, o serviço é pago por toda a sociedade, por meio de impostos. É o caso do SUS.
+3. Pergunte para que o serviço existe: um hospital privado existe para dar lucro; o SUS nasceu da Constituição de 1988, art. 196: "a saúde é direito de todos e dever do Estado".
+
+Conclusão: o SUS é um direito. Para os socialistas ele mostra que um serviço essencial pode ser organizado fora da lógica do lucro, mesmo num país capitalista.
+
 ## Para conversar
 
 Você ou alguém da sua família já foi atendido pelo SUS? Já estudou em escola pública? O que funcionou bem e o que precisa melhorar? Quem deveria decidir essas melhorias?
+
+## Resumo
+
+- Mercadoria é para quem pode pagar; direito é para quem é gente, pago por toda a sociedade com impostos.
+- O Manifesto Comunista (1848) já propunha educação pública e gratuita e o fim do trabalho infantil nas fábricas.
+- A Constituição de 1988 (arts. 196 e 205) trata saúde e educação como direito de todos; o SUS nasceu da reforma sanitária e da 8ª Conferência Nacional de Saúde (1986).
+- Cuba fez uma campanha de alfabetização em 1961 e construiu um sistema de saúde universal; a URSS levou a educação a um país de maioria analfabeta.
+- Quando saúde e educação viram prioridade coletiva, é possível avançar mesmo em países pobres.

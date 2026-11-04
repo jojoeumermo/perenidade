@@ -29,6 +29,10 @@ quiz:
     resposta: 1
     explicacao: "Em compensação, é preciso puxar o dobro de corda."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer a alavanca, a roldana, o plano inclinado e a roda com eixo, e explicar a regra de que o que se ganha em força se perde em distância.
+
 
 ## Fazer mais com o mesmo braço
 
@@ -128,3 +132,11 @@ Conhecê-las protege o corpo. Usar o carrinho em vez dos braços, a rampa em vez
 4. Liste cinco máquinas simples que você usou hoje.
 
 **Respostas:** 1) Interfixa; inter-resistente; interpotente; interfixa. 2) 100 N. 3) Porque a força é aplicada mais longe do eixo: é uma alavanca com braço maior.
+
+## Resumo
+
+- Máquinas simples ajudam a vencer uma força grande com uma força menor.
+- Regra de ouro: o que se ganha em força, perde-se em distância; a máquina não cria energia.
+- Alavanca: barra que gira em torno de um apoio; a roldana fixa muda a direção da força; o plano inclinado é a rampa.
+- Roda com eixo e engrenagens (como as da bicicleta) trocam força por velocidade.
+- Na alavanca, força × distância ao apoio = carga × distância da carga ao apoio; a roldana móvel reduz a força à metade, mas exige puxar o dobro de corda.

@@ -1,5 +1,6 @@
 ---
 titulo: "O que é comunismo"
+modelo: 9
 resumo: "O significado da palavra para quem a criou: uma sociedade sem classes, sem exploração e sem Estado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,13 @@ quiz:
     resposta: 1
     explicacao: "Nem a União Soviética nem outros países afirmaram ter alcançado a sociedade sem classes e sem Estado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer de onde vem a palavra comunismo, o que Marx e Engels entendiam por ela, quais são as duas fases da sociedade futura e por que "país comunista" é uma expressão enganosa.
+
+```suarealidade
+Quando você ouve a palavra "comunismo" na sua família, no serviço ou nas redes, o que costumam dizer sobre ela? De onde você acha que vem essa ideia?
+```
 
 ## A palavra
 
@@ -78,3 +86,36 @@ Criticar ou defender uma dessas coisas não é o mesmo que criticar ou defender 
 ## Por que a palavra assusta
 
 Desde o século XIX, "comunista" é usado como xingamento por quem teme perder privilégios. O próprio *Manifesto* começa falando disso: um "espectro" que ronda a Europa, contra o qual se unem todas as potências. No Brasil, o anticomunismo serviu de justificativa para ditaduras, prisões e mortes. Conhecer o significado real da palavra é o primeiro passo para discutir o assunto sem medo e sem caricaturas.
+
+## Exemplo resolvido
+
+**A União Soviética era um "país comunista"? Teste com a distinção da aula.**
+
+1. **Separe as três coisas.** O comunismo como objetivo (a sociedade sem classes), o movimento comunista (partidos e organizações) e os Estados dirigidos por partidos comunistas.
+2. **Veja como o Estado se definia.** A União Soviética se chamava União das Repúblicas *Socialistas* Soviéticas.
+3. **Compare com as duas fases de Marx.** Na primeira fase, os meios de produção já são coletivos mas cada um recebe pelo trabalho; só na fase superior vale "a cada um segundo as suas necessidades".
+4. **Conclua.** Nenhum desses países afirmou ter chegado ao comunismo: todos se definiram como socialistas, em transição.
+
+Confira: criticar ou defender o objetivo, o movimento ou os Estados são coisas diferentes.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O comunismo foi tentado no século XX e deu em ditaduras e repressão. Discutir comunismo hoje é defender um projeto que já fracassou."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega os problemas dos Estados governados por partidos comunistas: ela pede para separar três coisas que a mesma palavra mistura, o objetivo (a sociedade sem classes), o movimento comunista e esses Estados, com as suas conquistas e os seus problemas. Nenhum deles disse ter chegado ao comunismo; todos se definiram como socialistas, em transição. Criticar um não é o mesmo que criticar os outros, e conhecer o significado real da palavra permite discutir sem medo e sem caricaturas.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa da sua convivência o que ela entende por "comunismo" e ouça sem discutir. Depois escreva num papel, com as suas palavras, a diferença entre o objetivo (a sociedade sem classes) e os países que se disseram socialistas.
+```
+
+## Resumo
+
+- **Comunismo** vem do latim *communis*, "comum". Em 1847, a Liga dos Comunistas encarregou Marx e Engels do programa; o Manifesto saiu em 1848.
+- Para eles, é uma sociedade futura **sem classes**, sem exploração e, com o tempo, sem necessidade de Estado, em que o trabalho deixa de ser só meio de sobreviver.
+- **Duas fases** (Marx, 1875): na primeira, cada um recebe segundo o trabalho; na superior, "de cada um segundo as suas capacidades, a cada um segundo as suas necessidades".
+- Os países governados por partidos comunistas se chamaram **socialistas**, e nenhum disse ter chegado ao comunismo.
+- Separe o objetivo, o movimento e os Estados.

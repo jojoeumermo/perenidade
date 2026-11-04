@@ -1,0 +1,54 @@
+# Exercícios da aula "Caixa d'água: limpeza e boia" (Encanador). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: enc-caixa-01
+  tema: "Frequência de limpeza"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Com que frequência as orientações de saúde indicam limpar a caixa d'água?"
+  alternativas:
+    - texto: "A cada seis meses, e antes se houver sinal de contaminação"
+      certa: true
+    - texto: "A cada dez anos"
+      erro: "Dez anos é muito tempo: sujeira e lodo se acumulam. A orientação é limpar pelo menos duas vezes ao ano."
+    - texto: "Só quando a caixa entupir"
+      erro: "A caixa não entope como um cano, mas a água pode se contaminar sem aviso. Limpe por rotina."
+  explicacao: "A orientação divulgada é limpar a cada seis meses. Confira a recomendação da vigilância do seu município."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-caixa-02
+  tipo: numero
+  tema: "Desinfecção"
+  dificuldade: 2
+  enunciado: "Pela orientação de 1 litro de água sanitária (2,0% a 2,5%) para cada 1.000 litros, quantos litros de água sanitária para uma caixa de 3.000 litros?"
+  resposta: "3"
+  unidade: "litros"
+  erros_comuns:
+    - resposta: "0,33"
+      explicacao: "Você dividiu 1 por 3. A caixa é maior que 1.000 litros, então a quantidade de produto também aumenta."
+    - resposta: "3000"
+      explicacao: "Esse é o volume da caixa, e não do produto. São 1 litro de água sanitária para cada 1.000 litros de água."
+  dica: "Quantas vezes 1.000 litros cabem em 3.000 litros?"
+  explicacao: "3.000 ÷ 1.000 = 3. Então são 3 litros de água sanitária. Sempre confira a orientação da sua cidade e o rótulo do produto."
+  conferir: "3000 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: enc-caixa-03
+  tema: "Segurança"
+  dificuldade: 2
+  enunciado: "Qual cuidado vale para uma cisterna ou reservatório enterrado e fundo?"
+  alternativas:
+    - texto: "Entrar sem avisar ninguém, rápido, para economizar tempo"
+      erro: "Reservatório fundo pode ter falta de oxigênio e gases. Entrar sem preparo é arriscado."
+    - texto: "Não entrar sem treinamento e equipamento, pois pode ser espaço confinado (NR-33)"
+      certa: true
+    - texto: "Pedir a uma criança para entrar, pois é menor"
+      erro: "Jamais exponha uma criança a esse risco. Espaço confinado exige treinamento e proteção."
+  explicacao: "A NR-33 trata dos espaços confinados, em que há risco de falta de ar e de gases."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

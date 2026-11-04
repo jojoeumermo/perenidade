@@ -23,6 +23,10 @@ quiz:
     resposta: 1
     explicacao: "Cada projeção escolhe o que preservar e o que sacrificar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler os elementos de um mapa, calcular distâncias pela escala, localizar um ponto por latitude e longitude e explicar por que todo mapa-múndi distorce.
+
 
 ## O que é um mapa
 
@@ -89,8 +93,36 @@ A mais conhecida, a de **Mercator** (1569), foi criada para a navegação: mant�
 
 Projeções como a de Gall-Peters preservam as áreas, à custa das formas. Nenhuma é "a certa". Mas vale notar: o mapa que mais vimos na escola agiganta a Europa e a América do Norte e encolhe a África e a América do Sul. Mapas também carregam um ponto de vista.
 
+## Exemplo resolvido
+
+**1) No mapa em escala 1:250.000, duas cidades estão a 6 cm uma da outra. Qual é a distância real? 2) Uma rota real de 35 km, desenhada em um mapa 1:500.000, ocupa quantos centímetros?**
+
+**Parte 1**
+
+1. Escala 1:250.000 quer dizer que 1 cm no mapa vale 250.000 cm na realidade.
+2. Multiplique a medida do mapa pela escala: 6 × 250.000 = 1.500.000 cm.
+3. Passe para metros (÷ 100): 15.000 m. Passe para quilômetros (÷ 1.000): **15 km**.
+
+**Parte 2**
+
+1. Passe a distância real para centímetros: 35 km = 35.000 m = 3.500.000 cm.
+2. Agora divida pela escala: 3.500.000 ÷ 500.000 = **7 cm**.
+
+Confira: 7 cm × 500.000 = 3.500.000 cm = 35 km. Fecha.
+
+Lembre: a escala 1:250.000 é maior (mostra mais detalhes) que a 1:500.000 para a mesma área.
+
 ## Para praticar
 
 1. Pegue um mapa do seu estado, encontre a escala e calcule a distância em linha reta entre a sua cidade e a capital.
 2. Descubra a latitude e a longitude aproximadas da sua cidade.
 3. Compare, em um globo ou em um aplicativo que mostre a Terra como esfera, o tamanho do Brasil com o da Groenlândia.
+
+## Resumo
+
+- Mapa é uma representação reduzida e simplificada da superfície vista de cima; tem título, legenda, escala e orientação.
+- Escala 1:100.000 quer dizer que 1 cm no mapa vale 100.000 cm (1 km) na realidade; distância real = medida no mapa × número da escala.
+- Escala grande mostra pouca área com muitos detalhes; escala pequena mostra muita área com poucos.
+- Latitude é a distância ao Equador (0° a 90°, norte ou sul); longitude é a distância a Greenwich (0° a 180°, leste ou oeste).
+- Brasília fica a cerca de 15° 47′ S e 47° 53′ O; o Trópico de Capricórnio passa pela cidade de São Paulo.
+- Toda projeção distorce alguma coisa ao passar a esfera para o plano.

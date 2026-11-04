@@ -1,5 +1,6 @@
 ---
 titulo: "Desnaturalizar: o que parece normal tem história"
+modelo: 9
 resumo: "Por que tantas coisas parecem naturais e eternas, quando na verdade foram criadas pelas pessoas em algum momento, e por isso podem mudar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,13 @@ quiz:
     resposta: 0
     explicacao: "A desigualdade é social; a fervura da água e o nascer do Sol são fenômenos da natureza."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber separar o que é natural do que é social, dar exemplos brasileiros de regras que já foram "normais" e mudaram, e fazer a pergunta que desnaturaliza: quem criou essa regra e como ela pode mudar?
+
+```suarealidade
+Qual frase do tipo "sempre foi assim" você mais ouve no seu trabalho ou no seu bairro? Você acha que ela é natural ou foi criada por alguém?
+```
 
 ```provocacao
 Por que a semana tem sete dias, o trabalho tem oito horas e a escola tem recreio? Alguém sempre fez assim, em todo lugar?
@@ -90,3 +98,35 @@ Quem diz que uma desigualdade é "natural" está dizendo, sem perceber, que **n�
 - Que frase do tipo "sempre foi assim" você mais ouve? Ela é natural ou social?
 - Que coisa que hoje parece normal pode parecer absurda daqui a cinquenta anos?
 ```
+
+## Exemplo resolvido
+
+**"Sempre foi assim: a jornada é de oito horas." Isso é natural ou social? Teste.**
+
+1. **Pergunte: isso acontece sem decisão humana?** Gravidade e chuva, sim. Jornada de trabalho, não: alguém definiu.
+2. **Procure o começo.** No século XIX, operários trabalhavam 14, 16 horas por dia, inclusive crianças.
+3. **Procure quem mudou.** As oito horas foram conquistadas com greves, como a de 1º de maio de 1886 em Chicago, que deu origem ao Dia do Trabalhador.
+4. **Conclua.** A jornada é social: tem história, foi diferente e pode mudar de novo.
+
+Confira: a mesma pergunta serve para a escravidão (legal até 1888), a autorização do marido para a mulher trabalhar (até 1962) e o voto das mulheres (a partir de 1932).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Algumas desigualdades vêm da natureza humana: sempre houve gente que manda e gente que obedece, gente rica e gente pobre. Querer mudar isso é perder tempo."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que muita coisa parece ter existido sempre, e foi justamente isso que a escravidão pareceu durante mais de 300 anos no Brasil, até a Lei Áurea de 1888. Também parecia normal a mulher casada precisar da autorização do marido para trabalhar, até o Estatuto da Mulher Casada (Lei 4.121, de 1962). O que muda é separar o que é natural, como a gravidade, do que é social: leis, dinheiro, horários e costumes têm começo e podem mudar.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha da sua família como era uma coisa do dia a dia quando ela era jovem (trabalho, escola, casamento, voto). Anote num papel o que mudou e por quê.
+```
+
+## Resumo
+
+- **Natural** é o que acontece sem decisão humana (gravidade, chuva); **social** é o que as pessoas criaram e mantêm (leis, dinheiro, horários, costumes).
+- O que é social **tem história** e pode mudar: a escravidão acabou por lei em 1888; a mulher casada deixou de precisar da autorização do marido em 1962; as mulheres votam desde 1932 e os analfabetos desde 1985.
+- **Estranhamento**: olhar o familiar como se fosse a primeira vez.
+- Dizer que uma desigualdade é "natural" é dizer que não adianta lutar. A pergunta certa: quem criou essa regra, quem ganha com ela e como pode mudar?

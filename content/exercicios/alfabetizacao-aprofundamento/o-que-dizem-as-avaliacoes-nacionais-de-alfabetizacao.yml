@@ -1,0 +1,51 @@
+# Exercícios da aula "O que dizem as avaliações nacionais de alfabetização" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-avaliacoes-01
+  tema: "Censo 2022"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "No Censo de 2022, 7,0% das pessoas de 15 anos ou mais disseram não saber ler e escrever um bilhete simples. Em 2010 eram 9,6%. O que aconteceu com a taxa?"
+  alternativas:
+    - texto: "Subiu"
+      erro: "De 9,6% para 7,0% a taxa diminuiu."
+    - texto: "Caiu"
+      certa: true
+    - texto: "Ficou igual"
+      erro: "9,6% e 7,0% são valores diferentes: a taxa caiu."
+  explicacao: "A taxa caiu de 9,6% (2010) para 7,0% (2022): 11,4 milhões de pessoas em 2022."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-avaliacoes-02
+  tema: "PNAD Contínua"
+  dificuldade: 2
+  enunciado: "Qual foi a taxa de analfabetismo da PNAD Contínua em 2025, a primeira vez abaixo de 5%?"
+  alternativas:
+    - texto: "7,0%, ou 11,4 milhões"
+      erro: "Esses são os números do Censo de 2022. A PNAD de 2025 deu 4,9% e 8,4 milhões."
+    - texto: "29%"
+      erro: "29% é do Inaf 2024 (analfabeto e rudimentar), que mede outra coisa."
+    - texto: "4,9%, ou 8,4 milhões de pessoas"
+      certa: true
+  explicacao: "A PNAD Contínua de 2025 mediu 4,9%: 8,4 milhões de pessoas de 15 anos ou mais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-avaliacoes-03
+  tema: "Medidas diferentes"
+  dificuldade: 3
+  enunciado: "Por que \"4,9% não sabem ler\" e \"29% são analfabetos funcionais ou rudimentares\" podem ser verdade ao mesmo tempo?"
+  alternativas:
+    - texto: "Porque cada pesquisa mede uma coisa diferente, de um jeito diferente"
+      certa: true
+    - texto: "Porque uma das duas pesquisas está errada"
+      erro: "As duas podem estar certas: medem coisas diferentes."
+    - texto: "Porque as duas medem exatamente a mesma coisa"
+      erro: "Não: uma pergunta se a pessoa lê um bilhete; a outra mede o uso da leitura em situações da vida."
+  explicacao: "Censo e PNAD perguntam se a pessoa sabe ler e escrever um bilhete simples. O Inaf mede níveis de uso da leitura e dos números na vida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

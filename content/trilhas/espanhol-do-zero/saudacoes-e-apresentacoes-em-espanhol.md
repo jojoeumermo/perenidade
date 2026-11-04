@@ -25,7 +25,17 @@ quiz:
     opcoes: ["Não se usa ponto de interrogação", "A pergunta começa com um ponto de interrogação invertido (¿)", "Usam-se dois pontos de interrogação no final"]
     resposta: 1
     explicacao: "O mesmo vale para as exclamações: ¡Hola!"
+modelo: 9
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber cumprimentar, perguntar como a pessoa está, se apresentar e se despedir em espanhol, escolhendo entre tú e usted.
+
+
+```suarealidade
+Com quem, na sua semana, você poderia usar uma saudação em espanhol: um vizinho, um colega, alguém de uma música ou de um vídeo? Que saudação seria?
+```
 
 ## Parecido, mas não igual
 
@@ -102,8 +112,41 @@ Repare também: *Soy de Brasil*, sem artigo. Em espanhol, a maior parte dos nome
 > — ¡Qué bien! Bueno, hasta luego.
 > — Hasta luego, Marta.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para que aprender saudação? É só dizer 'olá' e sorrir, que todo mundo entende".
+---
+Como você responderia?
+---
+Uma resposta possível: sorrir ajuda muito, e a aula não nega isso. Mas as saudações são o primeiro contato e mostram respeito: usted com quem é mais velho ou desconhecido, os sinais invertidos na escrita, o plural de buenos días. Quem cumprimenta na língua do outro costuma ser bem recebido.
+```
+
+## Exemplo resolvido
+
+**Você vai falar com a avó de um amigo, à tarde, e quer perguntar como ela está e se apresentar. Como dizer?**
+
+1. **A hora do dia:** à tarde, *buenas tardes* (no plural).
+2. **O tratamento:** pessoa mais velha e desconhecida pede *usted*: *¿Cómo está usted?*
+3. **Apresentar-se:** *Me llamo Ana. Mucho gusto.*
+4. **Despedir-se:** *Hasta luego.*
+
+Frase pronta: *Buenas tardes. Me llamo Ana. Mucho gusto. ¿Cómo está usted?*
+
+```agir
+# Esta semana
+Escreva a sua apresentação em espanhol: nome, de onde você é e uma despedida. Treine em voz alta, uma vez com tú e outra com usted.
+```
+
 ## Para praticar
 
 1. Cole o diálogo na ferramenta de [pronúncia](/ferramentas/pronuncia), escolha "Español" e ouça devagar. Depois repita em voz alta.
 2. Escreva a sua apresentação: nome, de onde você é e uma despedida.
 3. Reescreva o diálogo no tratamento formal, com *usted*.
+
+## Resumo
+
+- Saudações: *hola, buenos días, buenas tardes, buenas noches*, no plural.
+- Perguntas e exclamações levam sinais no começo e no fim: *¿Cómo estás?* *¡Qué bien!*.
+- **Tú** entre amigos; **usted** com quem é mais velho ou desconhecido.
+- Apresentar-se: *me llamo..., soy de..., mucho gusto*.
+- Despedidas: *adiós, hasta luego, hasta mañana, nos vemos, chao*.

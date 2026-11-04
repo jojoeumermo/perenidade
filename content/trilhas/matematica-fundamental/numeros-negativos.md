@@ -33,6 +33,10 @@ quiz:
     explicacao: "Sinais iguais na multiplicação dão resultado positivo."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar números negativos para dívidas, temperaturas e alturas, e fazer as quatro operações com eles.
+
 ## Menos que nada
 
 Você tem R$ 150 na conta e o banco debita uma fatura de R$ 230. O saldo fica em **−80**: oitenta reais abaixo de zero. Os números negativos servem para medir o que está **abaixo de um ponto de referência**:
@@ -109,6 +113,16 @@ A cada linha, o resultado sobe 3. Para o padrão não quebrar, (−3) × (−1) 
 
 Na China antiga, os calculistas usavam varetas de duas cores, uma para ganhos e outra para perdas. No século VII, o matemático indiano Brahmagupta escreveu regras para operar com "fortunas" e "dívidas", muito parecidas com as desta aula. Na Europa, os negativos foram vistos com desconfiança por séculos; havia quem os chamasse de números absurdos. Só foram aceitos de vez quando o comércio, a contabilidade e a ciência mostraram que não dava para passar sem eles.
 
+## Exemplo resolvido
+
+**Uma conta tinha R$ 150. Entraram R$ 200 e saíram R$ 420. Qual é o saldo?**
+
+1. Comece com +150 e some a entrada: 150 + 200 = 350.
+2. Subtraia a saída: 350 − 420.
+3. Como 420 é maior que 350, o saldo fica abaixo de zero: 350 − 420 = −70.
+
+Confira: o saldo é **−R$ 70**, uma dívida de setenta reais. Na reta numérica, andou-se para a direita com a entrada e mais para a esquerda com a saída.
+
 ## Para praticar
 
 1. Ponha em ordem crescente: 3, −7, 0, −2, 5.
@@ -119,3 +133,11 @@ Na China antiga, os calculistas usavam varetas de duas cores, uma para ganhos e 
 6. Uma conta tinha R$ 150. Entraram R$ 200 e saíram R$ 420. Qual é o saldo?
 
 **Respostas:** 1) −7, −2, 0, 3, 5. 2) −5. 3) −6. 4) 5. 5) 24 e −4. 6) −R$ 70.
+
+## Resumo
+
+- Números negativos medem o que está abaixo de um ponto de referência (dinheiro, temperatura, altura, tempo).
+- Na reta, quanto mais à direita, maior o número: −3 é maior que −8.
+- Sinais iguais: some e mantenha o sinal; sinais diferentes: subtraia e fique com o sinal de quem pesa mais.
+- Subtrair um número é somar o seu oposto.
+- Por séculos os negativos foram vistos com desconfiança; foram aceitos quando o comércio e a ciência mostraram que eram necessários.

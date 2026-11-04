@@ -31,6 +31,11 @@ quiz:
     resposta: 1
     explicacao: "O DEA foi feito para qualquer pessoa usar: ele fala o que fazer e só dá choque se o coração precisar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer uma parada cardíaca e fazer a massagem cardíaca em adultos, usar o desfibrilador (DEA) e perder o medo de ajudar.
+
+
 
 Esta aula não substitui um curso presencial. Ela existe porque, na parada cardíaca, quem está por perto é quem faz a diferença nos primeiros minutos.
 
@@ -90,3 +95,11 @@ O aparelho só libera o choque se o coração precisar. Não dá para errar o di
 - **"E se eu quebrar uma costela?"** Pode acontecer, e costela se recupera. Sem massagem, a pessoa não sobrevive.
 - **"E se o coração estiver batendo?"** Se a pessoa não responde e não respira direito, comece. O risco de fazer é muito menor que o de não fazer.
 - **"E se eu fizer errado?"** Uma massagem imperfeita ajuda mais do que nenhuma. O atendente do 192 conta o ritmo com você.
+
+## Resumo
+
+- Parada cardíaca: a pessoa não responde e não respira (ou respira de forma estranha). Ligue 192 e peça um DEA.
+- Massagem: mãos no centro do peito, braços esticados, peito afunda de 5 a 6 cm, de 100 a 120 vezes por minuto, sem parar; trocar a cada dois minutos.
+- Para adultos não treinados, só compressões; em crianças, bebês e afogamento as ventilações fazem diferença.
+- DEA: ligar, colar os adesivos, ninguém toca, afastar todos se mandar o choque e voltar à massagem.
+- Uma massagem imperfeita ajuda mais do que nenhuma.

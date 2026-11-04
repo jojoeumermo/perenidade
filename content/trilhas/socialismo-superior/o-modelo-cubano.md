@@ -27,6 +27,10 @@ quiz:
     explicacao: "Em geral, só os Estados Unidos e pouquíssimos aliados votam contra."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar as fases do modelo cubano desde 1959, apontar conquistas e problemas e explicar o papel do bloqueio, do fim da URSS e das reformas recentes.
+
 Cuba é uma ilha de cerca de 10 milhões de habitantes, a menos de 200 quilômetros da Flórida. Desde 1959, vive uma experiência socialista sob o bloqueio da maior potência do mundo. Esta aula examina como esse modelo se formou, suas conquistas, seus problemas e suas reformas.
 
 ## A formação (1959-1970)
@@ -65,6 +69,25 @@ Em **2011**, o Partido Comunista aprovou os **Lineamentos** de política econôm
 
 Cuba é, ao mesmo tempo, exemplo de solidariedade internacional (médicos em dezenas de países, apoio às lutas africanas, como em Angola) e objeto de críticas pela restrição de liberdades políticas e pela crise econômica. Para os socialistas, estudar Cuba exige reconhecer as suas conquistas, compreender o peso do bloqueio e discutir com franqueza os limites do seu modelo.
 
+## Exemplo resolvido
+
+**Por que o fim da União Soviética atingiu Cuba de forma tão grave?**
+
+1. Veja a ligação: em 1972, Cuba entrou no Conselho de Assistência Econômica Mútua e passou a trocar açúcar por petróleo e máquinas em condições favoráveis.
+2. Veja o corte: com o fim da URSS, Cuba perdeu de repente a maior parte do seu comércio exterior e do petróleo que importava.
+3. Veja o efeito: a economia encolheu drasticamente, com fome, apagões e falta de transporte, e os Estados Unidos endureceram o bloqueio com as leis Torricelli (1992) e Helms-Burton (1996).
+4. Veja as respostas: turismo, sociedades mistas, trabalho por conta própria e, na agricultura, agricultura urbana e agroecologia.
+
+Conclusão: a dependência de um só bloco econômico tornou a crise dos anos 1990, o Período Especial, mais profunda.
+
 ## Para pesquisar e debater
 
 Quais conquistas sociais cubanas você considera mais relevantes para o Brasil? Que aspectos do modelo você considera que não deveriam ser seguidos? Justifique com fontes.
+
+## Resumo
+
+- Entre 1959 e 1970: reforma agrária, nacionalizações, campanha de alfabetização (1961), Baía dos Porcos e crise dos mísseis (1962).
+- Entre 1970 e 1990: integração ao bloco soviético (1972), planejamento mais próximo ao da URSS e indicadores sociais muito melhores.
+- Nos anos 1990, o Período Especial: crise profunda, bloqueio endurecido e medidas de emergência.
+- O bloqueio, oficializado em 1962, é condenado todos os anos pela Assembleia Geral da ONU desde 1992; a aula registra também os problemas e as reformas recentes.
+- A avaliação do modelo continua em debate.

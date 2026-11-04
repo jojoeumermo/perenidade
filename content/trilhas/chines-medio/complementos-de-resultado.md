@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "做完 = terminar de fazer; 吃完 = terminar de comer."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber combinar um verbo de ação com um complemento de resultado (听懂, 找到, 做完), negar com 没 e dizer "não consigo" com a forma potencial.
 
 ## Ação e resultado
 
@@ -94,3 +97,21 @@ Esse tema volta no nível superior, em [HSK 3 e 4: gramática essencial](/trilha
 2. Passe para a negativa: 我听懂了。/ 他找到了工作。
 3. Traduza: "Não entendi, por favor, repita." / "Já terminou o trabalho?"
 4. Escreva duas frases com a forma potencial: 听得懂 / 听不懂.
+
+## Exemplo resolvido
+
+**Na aula, você ouviu a explicação, mas não entendeu. Como dizer isso em chinês?**
+
+1. **A ação aconteceu.** Você ouviu: **听了**.
+2. **O resultado não aconteceu.** Entender (**懂**) não se completou, e o complemento de resultado se nega com **没**: **没听懂**.
+3. **Junte com "mas" (可是).** **我听了，可是没听懂。** (Wǒ tīng le, kěshì méi tīngdǒng.)
+4. **Peça ajuda.** **我没听懂，请再说一遍。** (Wǒ méi tīngdǒng, qǐng zài shuō yí biàn.)
+
+Confira: "我没听" diria só que você não ouviu, e "我不听懂" está errado.
+
+## Resumo
+
+- O chinês combina um verbo de **ação** com um **resultado**: 看见 (ver), 听懂 (entender o que se ouve), 找到 (encontrar), 做完 (terminar de fazer), 写错 (escrever errado), 学会 (aprender), 洗干净 (lavar até ficar limpo).
+- Afirmativa, em geral com 了 (我找到了). Negativa com **没**, e o 了 sai (我没听懂).
+- Forma potencial: **得** ou **不** entre o verbo e o complemento (听得懂 = consigo entender; 听不懂 = não consigo).
+- Frase útil: **我没听懂，请再说一遍。**

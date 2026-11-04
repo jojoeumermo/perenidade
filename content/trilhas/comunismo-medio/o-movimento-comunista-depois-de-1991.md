@@ -28,6 +28,9 @@ quiz:
     resposta: 0
     explicacao: "Não existe mais uma Internacional única; há fóruns e redes de partidos e movimentos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever o que aconteceu com o movimento comunista depois de 1989-1991, onde os partidos comunistas governam ou disputam eleições e que debates ocupam o movimento no século XXI.
 
 Em 1991, com o fim da União Soviética, muitos anunciaram a morte do comunismo. Três décadas depois, partidos comunistas governam países, disputam eleições, dirigem sindicatos e movimentos, e uma nova geração voltou a ler Marx. Esta aula faz um balanço desse período.
 
@@ -79,3 +82,24 @@ Depois da crise de 2008, as vendas do *Capital* e do *Manifesto* aumentaram em v
 ## Para conversar
 
 Na sua opinião, o que um movimento comunista do século XXI precisa conservar da tradição, e o que precisa mudar?
+
+## Exemplo resolvido
+
+**O comunismo "morreu" em 1991? Confira o que aconteceu com os partidos.**
+
+1. **O choque.** A queda do Muro (1989) e o fim da URSS (1991) fizeram muitos partidos perderem referências, financiamento, prestígio e membros.
+2. **As reações.** O Partido Comunista Italiano virou partido de centro-esquerda em 1991 (uma minoria fundou a Refundação Comunista); no Brasil, em 1992, a maioria do PCB fez movimento parecido; outros partidos mantiveram a identidade comunista.
+3. **No poder.** China, Vietnã, Cuba e Laos continuaram com partidos comunistas no governo.
+4. **Nas eleições.** Na Índia, partidos comunistas governaram estados como Kerala; no Nepal chegaram ao governo nacional; na África do Sul, o Partido Comunista integra a aliança de governo.
+5. **Conclua.** O movimento mudou e se dividiu, mas não desapareceu.
+
+Confira: Hobsbawm observou que o capitalismo do século XXI parecia mais próximo do Manifesto do que o de 1848.
+
+## Resumo
+
+- A queda do Muro (1989) e o fim da URSS (1991) foram um terremoto para o movimento comunista.
+- Reações: mudança de nome e programa (PCI em 1991, maioria do PCB em 1992), continuidade e renovação em novos partidos e movimentos.
+- Continuam no poder os partidos comunistas da China, do Vietnã, de Cuba e do Laos.
+- Em democracias eleitorais: Kerala (Índia), Nepal, África do Sul, Portugal e Grécia.
+- Debates atuais: democracia, ecologia, opressões, tecnologia e trabalho, internacionalismo.
+- Depois da crise de 2008, aumentou a leitura de Marx.

@@ -28,6 +28,10 @@ quiz:
     explicacao: "Estudantes, soldados veteranos, o movimento negro e intelectuais tornaram a guerra cada vez mais impopular."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como o Vietnã enfrentou o Japão, a França e os Estados Unidos e por que Dien Bien Phu teve impacto no mundo colonizado.
+
 O Vietnã é um país estreito e longo no Sudeste Asiático. No século XX, seu povo enfrentou, um depois do outro, três impérios: o japonês, o francês e o norte-americano. E venceu. Esta aula conta como.
 
 ## Colônia francesa
@@ -68,6 +72,24 @@ Estimativas apontam milhões de vietnamitas mortos ao longo das guerras.
 
 O Vietnã reunificado enfrentou um país destruído, o embargo econômico dos Estados Unidos e novos conflitos regionais. Em **1986**, o Partido Comunista lançou o **Doi Moi** (renovação), uma reforma que abriu espaço para o mercado e o investimento estrangeiro, mantendo o controle do partido. O país cresceu muito e reduziu fortemente a pobreza.
 
+## Exemplo resolvido
+
+**Por que Dien Bien Phu, em 1954, importou para além do Vietnã?**
+
+1. Veja o contexto: a guerra contra a França durou de 1946 a 1954, e em 1954 boa parte da África e da Ásia ainda era colônia.
+2. Veja o fato: sob o comando de Võ Nguyên Giáp, o exército popular, apoiado pelos camponeses, cercou e derrotou os franceses em maio de 1954.
+3. Veja o significado: foi a primeira vez que um exército colonial europeu foi derrotado numa batalha desse porte por um movimento de libertação.
+
+Conclusão: a vitória mostrou aos povos colonizados que o exército de uma metrópole podia ser derrotado. Logo depois vieram os Acordos de Genebra (1954), que dividiram o país no paralelo 17, com eleições de reunificação previstas para 1956 que nunca ocorreram.
+
 ## Para conversar
 
 Como um povo camponês, sem a tecnologia militar dos seus adversários, conseguiu vencer três impérios? Que papel tiveram a organização, a unidade e a solidariedade internacional?
+
+## Resumo
+
+- A França conquistou o Vietnã no século XIX e o integrou à Indochina Francesa; Ho Chi Minh fundou o Partido Comunista da Indochina em 1930.
+- Em 2 de setembro de 1945, Ho Chi Minh leu a Declaração de Independência, que começava citando a dos Estados Unidos.
+- A guerra contra a França (1946-1954) terminou em Dien Bien Phu; os Acordos de Genebra dividiram o país no paralelo 17.
+- Os Estados Unidos ampliaram a intervenção a partir de 1965, com bombardeios, napalm e agente laranja.
+- A resistência combinou guerrilha, exército regular, túneis, apoio camponês e diplomacia.

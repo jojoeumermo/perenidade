@@ -38,6 +38,10 @@ quiz:
     explicacao: "Esgoto e fertilizantes carregam nitrogênio e fósforo para rios e lagos."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar a química para entender o efeito estufa, a camada de ozônio, a chuva ácida e a poluição da água, e perguntar quem polui e quem sofre.
+
 ## A química como ferramenta de leitura
 
 Os grandes problemas ambientais são, no fundo, problemas de **química**: substâncias que mudam de lugar, de quantidade ou de forma. Entender as reações envolvidas ajuda a separar fato de boato e a perceber **quem** produz o dano e **quem** arca com ele.
@@ -155,3 +159,12 @@ A mesma ciência que ajudou a criar os problemas oferece saídas. A **química v
 2. Para onde vai o esgoto da sua cidade? Há algum rio, lagoa ou represa com sinais de eutrofização?
 3. Calcule: quantos quilos de CO₂ um carro lança no ar ao queimar um tanque de 40 litros de gasolina? (Use o valor aproximado de 2 kg de CO₂ por litro.)
 4. Há, perto de onde você mora, alguma fonte de poluição? Quem mora ao redor dela?
+
+## Resumo
+
+- O efeito estufa natural é indispensável; o que mudou foi o aumento dos gases de efeito estufa pela atividade humana (CO₂, CH₄, N₂O).
+- Cada quilo de carbono queimado vira cerca de 3,7 kg de CO₂.
+- No Brasil, grande parte das emissões vem do desmatamento e da agropecuária.
+- A camada de ozônio absorve o ultravioleta; os CFCs, com o cloro que liberam, a destroem. É outro problema, diferente do efeito estufa.
+- O CO₂ dissolvido no mar forma ácido carbônico e acidifica os oceanos.
+- Quem produz o dano e quem arca com ele nem sempre são os mesmos.

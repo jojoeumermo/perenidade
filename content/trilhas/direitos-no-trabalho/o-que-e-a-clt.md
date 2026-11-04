@@ -1,5 +1,6 @@
 ---
 titulo: "O que é a CLT"
+modelo: 9
 resumo: "De onde vieram e quais são os direitos básicos de quem trabalha com carteira assinada no Brasil."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -27,6 +28,13 @@ quiz:
     resposta: 1
     explicacao: "A CLT consolidou, em 1943, reivindicações que o movimento operário fazia desde o começo do século."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é a CLT, para quem ela vale, quais são os direitos principais de quem tem carteira assinada e onde buscar ajuda.
+
+```suarealidade
+Você, ou alguém da sua casa, trabalha de carteira assinada, por conta própria ou como "parceiro" de aplicativo? Que direitos dessa lista você sabe que tem?
+```
 
 ## Uma lei que junta muitas leis
 
@@ -81,3 +89,38 @@ A reforma trabalhista (Lei nº 13.467, de 2017) alterou mais de cem pontos da CL
 - A **Defensoria Pública** e o **Ministério Público do Trabalho**, para denúncias.
 
 Guarde sempre contracheques, mensagens e qualquer registro de horário. Direito que não se consegue provar é difícil de cobrar.
+
+## Exemplo resolvido
+
+**Quanto o empregador deve depositar de FGTS por mês para um salário de R$ 2.000? Use a tabela da aula.**
+
+1. **Veja a regra.** O FGTS é um depósito mensal de 8% do salário, feito pelo empregador, em conta do trabalhador.
+2. **Escreva a conta.** 8% de R$ 2.000 = 0,08 × 2.000.
+3. **Calcule.** 0,08 × 2.000 = R$ 160 por mês.
+4. **Confira o que o depósito não é.** Não é descontado do salário: quem paga é o empregador, em uma conta em nome do trabalhador.
+5. **Guarde as provas.** Contracheques e registros de horário ajudam a cobrar qualquer direito.
+
+Confira: R$ 160 × 12 meses = R$ 1.920 por ano. O valor do salário aqui é só um exemplo para a conta.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A CLT é de 1943 e é rígida demais; encarece a contratação e deixa muita gente na informalidade. As regras precisam ser modernizadas para dar mais emprego."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula registra que esse debate existe: a reforma trabalhista (Lei 13.467, de 2017) alterou mais de cem pontos da CLT, e seus defensores dizem que modernizou as regras, enquanto sindicatos e parte dos pesquisadores afirmam que enfraqueceu a proteção ao trabalhador. Também mostra que os direitos não foram "dados": vieram de greves por jornada de oito horas, descanso semanal e fim do trabalho infantil, como a greve geral de 1917. E que muitas empresas contratam como "autônomos" quem cumpre horário e recebe ordens, caso em que a Justiça do Trabalho pode reconhecer o vínculo.
+```
+
+```agir
+# Esta semana
+Procure o seu contracheque (ou peça a alguém da casa que trabalha de carteira assinada) e confira num papel: o depósito do FGTS, o desconto do INSS e as horas extras, se houver. Se faltar algo, anote a dúvida para levar ao sindicato da categoria. Não mostre o documento a quem não conhece.
+```
+
+## Resumo
+
+- **CLT**: Consolidação das Leis do Trabalho, assinada em 1º de maio de 1943; vale para o **empregado** (trabalha para outro, de forma habitual, com salário e ordens).
+- Em 1988, os principais direitos foram para o artigo 7º da Constituição.
+- Não foi um presente: veio de greves como a de 1917.
+- Direitos principais: carteira assinada, salário mínimo, jornada, hora extra (pelo menos 50% a mais), descanso semanal, férias de 30 dias com um terço a mais, 13º, FGTS (8%), aviso prévio de 30 dias, seguro-desemprego e licença-maternidade de 120 dias.
+- Quem contrata "autônomo" mas dá ordens e horário pode ter o vínculo reconhecido pela Justiça do Trabalho; a reforma de 2017 (Lei 13.467) mudou mais de cem pontos.
+- Ajuda: sindicato, Justiça do Trabalho, Defensoria Pública e Ministério Público do Trabalho.

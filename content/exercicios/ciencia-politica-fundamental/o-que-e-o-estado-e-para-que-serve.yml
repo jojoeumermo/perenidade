@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é o Estado e para que serve" (Ciência política: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cpf-estado-01
+  tema: "Estado e governo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a diferença entre Estado e governo, segundo a aula?"
+  alternativas:
+    - texto: "O Estado é o conjunto permanente de instituições; o governo é quem o comanda por um período"
+      certa: true
+    - texto: "São a mesma coisa"
+      erro: "O governo passa; o Estado fica."
+    - texto: "O governo é permanente e o Estado muda a cada eleição"
+      erro: "É o contrário: o Estado é permanente e o governo muda."
+  explicacao: "Quando um novo prefeito toma posse, o hospital municipal continua funcionando: mudou o governo, não o Estado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-estado-02
+  tema: "Os três poderes"
+  dificuldade: 1
+  enunciado: "Qual poder faz as leis, segundo a aula?"
+  alternativas:
+    - texto: "O Executivo"
+      erro: "O Executivo governa e administra."
+    - texto: "O Legislativo"
+      certa: true
+    - texto: "O Judiciário"
+      erro: "O Judiciário julga."
+  explicacao: "A Constituição de 1988 organiza o Estado em três poderes (art. 2º) e três níveis (art. 18)."
+  fonte: "Questão original do Instituto Lúcia (Constituição Federal, arts. 2º e 18)"
+  revisao:
+    status: em-revisao
+
+- id: cpf-estado-03
+  tema: "Três níveis"
+  dificuldade: 1
+  enunciado: "Quais são os três níveis em que o Estado brasileiro é organizado?"
+  alternativas:
+    - texto: "Executivo, Legislativo e Judiciário"
+      erro: "Esses são os três poderes."
+    - texto: "Presidente, governador e juiz"
+      erro: "Os níveis são União, estados e municípios."
+    - texto: "União, estados e municípios"
+      certa: true
+  explicacao: "Os mandatos do governo (presidente, governadores e prefeitos) são de quatro anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

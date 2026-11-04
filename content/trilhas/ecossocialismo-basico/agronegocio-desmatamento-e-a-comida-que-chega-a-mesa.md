@@ -34,6 +34,10 @@ quiz:
     explicacao: "Pouca soja é consumida diretamente como alimento pelas pessoas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar produção de mercadorias agrícolas e produção de comida, e usar os números do Censo Agropecuário de 2017 para comparar agricultura familiar e agronegócio.
+
 O Brasil é um dos maiores produtores de alimentos do mundo. É também um país onde milhões de pessoas não têm certeza de que vão comer amanhã. Para entender essa contradição, é preciso separar duas coisas que a propaganda costuma misturar: produzir **mercadorias agrícolas** e produzir **comida**.
 
 ## Dois modelos no campo
@@ -82,3 +86,21 @@ O agronegócio recebe a maior parte do crédito rural público, tem tratamento t
 ## Para pesquisar e debater
 
 Olhe o que há na sua cozinha: arroz, feijão, farinha, legumes, carne, leite. Tente descobrir de onde veio cada item. Quais vieram de perto? Quais são de agricultura familiar?
+
+## Exemplo resolvido
+
+**Como ler os números do Censo Agropecuário de 2017 sobre a agricultura familiar?**
+
+1. Pegue a proporção de estabelecimentos: cerca de 77% são de agricultura familiar.
+2. Pegue a proporção da área: esses mesmos estabelecimentos ocupam cerca de 23% da terra.
+3. Compare: a maioria dos estabelecimentos tem menos de um quarto da área, e o restante, mais de três quartos, está nos estabelecimentos não familiares, em geral grandes.
+4. Olhe o que sai dessa pequena área: cerca de 80% do valor da produção de mandioca e 42% do feijão.
+
+Confira: pouca terra, muito alimento básico; muita terra, mercadoria voltada sobretudo à exportação.
+
+## Resumo
+
+- Segundo o Censo Agropecuário de 2017, a agricultura familiar tem cerca de 77% dos estabelecimentos, ocupa cerca de 23% da área e emprega cerca de dois terços de quem trabalha no campo.
+- Ela responde por cerca de 80% do valor da mandioca e 42% do feijão; a soja é sobretudo do agronegócio e vai em grande parte para exportação e ração.
+- O que orienta o agronegócio é o preço no mercado mundial, não a necessidade de quem mora aqui.
+- Desmatar ou não é decisão, não fatalidade.

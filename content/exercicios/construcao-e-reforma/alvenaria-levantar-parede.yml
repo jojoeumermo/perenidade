@@ -1,0 +1,54 @@
+# Exercícios da aula "Alvenaria: levantar parede com prumo e nível" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-alvenaria-01
+  tema: "Esquadro"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para conferir o esquadro de um canto com o triângulo 3-4-5, o que deve acontecer?"
+  alternativas:
+    - texto: "Dois lados medirem 3 m e 4 m e a diagonal entre as pontas medir 5 m"
+      certa: true
+    - texto: "Os três lados medirem 3 m"
+      erro: "Com três lados iguais o triângulo é equilátero, e não tem ângulo reto."
+    - texto: "A diagonal medir 7 m"
+      erro: "7 é a soma de 3 + 4. Em um canto reto, a diagonal mede 5 (pelo teorema de Pitágoras)."
+  explicacao: "3² + 4² = 5². Se a diagonal mede 5 m, o canto é reto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-alvenaria-02
+  tipo: numero
+  tema: "Quantidade de tijolos"
+  dificuldade: 2
+  enunciado: "Uma parede de 5 m por 2,4 m, sem vãos, será feita com 25 tijolos por m². Quantos tijolos, sem contar perda?"
+  resposta: "300"
+  unidade: "tijolos"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "Esse é o valor da área em m² (5 × 2,4). Falta multiplicar por 25 tijolos por m²."
+    - resposta: "185"
+      explicacao: "Você somou 5 + 2,4 e multiplicou por 25 (7,4 × 25). Para a área, multiplique largura e altura."
+  dica: "Primeiro a área da parede. Depois, tijolos por m² vezes a área."
+  explicacao: "Área: 5 × 2,4 = 12 m². Tijolos: 12 × 25 = 300."
+  conferir: "5 * 2.4 * 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-alvenaria-03
+  tema: "Parede estrutural"
+  dificuldade: 2
+  enunciado: "O dono quer derrubar uma parede que talvez sustente a laje. O que fazer?"
+  alternativas:
+    - texto: "Quebrar logo, porque 'parede é parede'"
+      erro: "Se for estrutural, tirar a parede pode causar queda da laje. Não se arrisca."
+    - texto: "Pedir avaliação de engenheiro ou arquiteto antes de mexer"
+      certa: true
+    - texto: "Escorar com um pedaço de madeira e quebrar"
+      erro: "Um escoramento improvisado não substitui o cálculo de um responsável técnico."
+  explicacao: "Mexer em estrutura exige projeto e responsável técnico, com ART ou RRT."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

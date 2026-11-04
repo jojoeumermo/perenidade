@@ -1,0 +1,51 @@
+# Exercícios da aula "Esquerda e direita: de onde vêm as palavras" (Ciência política: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cpf-esqdir-01
+  tema: "A origem"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Onde e quando surgiram os termos esquerda e direita?"
+  alternativas:
+    - texto: "Na Revolução Francesa, em 1789, pelo lugar onde os deputados se sentavam na Assembleia Nacional"
+      certa: true
+    - texto: "Na Revolução Russa, em 1917"
+      erro: "Os termos surgiram na Revolução Francesa, em 1789."
+    - texto: "Na Grécia antiga"
+      erro: "Foi na Assembleia Nacional francesa, em 1789."
+  explicacao: "Os partidários do rei se sentavam à direita do presidente da assembleia e os simpatizantes da revolução, à esquerda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-esqdir-02
+  tema: "Dois partidos"
+  dificuldade: 2
+  enunciado: "Como a França chamou a esquerda e a direita?"
+  alternativas:
+    - texto: "\"O partido da ordem\" e \"o partido do movimento\""
+      erro: "A esquerda foi chamada de partido do movimento e a direita, de partido da ordem."
+    - texto: "\"O partido do movimento\" e \"o partido da ordem\""
+      certa: true
+    - texto: "\"O partido do rei\" e \"o partido do povo\""
+      erro: "Os nomes foram partido do movimento e partido da ordem."
+  explicacao: "A esquerda é ligada à mudança e ao futuro; a direita, à continuidade e ao status quo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cpf-esqdir-03
+  tema: "Um tema por vez"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre uma pessoa estar à esquerda ou à direita?"
+  alternativas:
+    - texto: "Fica sempre no mesmo lado em todos os temas"
+      erro: "A aula diz que pode variar de tema em tema."
+    - texto: "Só pode ser de esquerda quem for de partido"
+      erro: "Uma pessoa ou grupo pode ficar em lados diferentes conforme o tema."
+    - texto: "Pode ficar mais à esquerda num tema e mais à direita em outro"
+      certa: true
+  explicacao: "Há um consenso geral sobre as correntes de cada lado, mas as pessoas podem se posicionar de modos diferentes em cada tema."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,51 @@
+# Exercícios da aula "Postura e saúde do barbeiro" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-postura-01
+  tema: "Riscos do ofício"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que são as LER/DORT, segundo a aula?"
+  alternativas:
+    - texto: "Lesões por esforço repetitivo, que atingem músculos, tendões e nervos"
+      certa: true
+    - texto: "Doenças causadas pelo contato com o cabelo"
+      erro: "Vêm de tarefas repetitivas, força, vibração e posturas ruins."
+    - texto: "Alergias a produtos de barbearia"
+      erro: "São lesões por esforço repetitivo."
+  explicacao: "Vêm de tarefas repetitivas, força, vibração, compressão e posturas ruins mantidas por muito tempo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-postura-02
+  tema: "Medidas de prevenção"
+  dificuldade: 2
+  enunciado: "Quais medidas de prevenção a aula cita, a partir da NR-17?"
+  alternativas:
+    - texto: "Trabalhar mais depressa para acabar logo"
+      erro: "A NR-17 fala em pausas e alternância de tarefas."
+    - texto: "Pausas, alternância de tarefas e mudança na forma de fazer o trabalho"
+      certa: true
+    - texto: "Nunca sentar"
+      erro: "Sempre que der, alternar de pé e sentado."
+  explicacao: "Para quem é empregado, as pausas contam como tempo de trabalho. Os princípios servem a qualquer barbeiro."
+  fonte: "Questão original do Instituto Lúcia (NR-17, itens 17.4.3 e 17.6, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: barb-postura-03
+  tema: "O posto de trabalho"
+  dificuldade: 2
+  enunciado: "O que a NR-17 diz sobre o mobiliário, segundo a aula?"
+  alternativas:
+    - texto: "Deve ser igual para todos"
+      erro: "Deve ter regulagem para se adaptar ao corpo."
+    - texto: "Não precisa de ajuste"
+      erro: "A norma pede regulagem (item 17.6.1)."
+    - texto: "Deve ter regulagem para se adaptar ao corpo de quem trabalha"
+      certa: true
+  explicacao: "Onde o trabalho é de pé, deve haver assento para pausas."
+  fonte: "Questão original do Instituto Lúcia (NR-17, item 17.6.1, conforme a aula)"
+  revisao:
+    status: em-revisao

@@ -40,6 +40,10 @@ quiz:
     resposta: 0
     explicacao: "Nas planícies predomina a deposição: a água traz areia e argila e as deixa ali."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever relevo, clima e vegetação, distinguir tempo de clima, estimar a temperatura em uma serra e ligar os três.
+
 
 ## A paisagem natural tem três andares
 
@@ -145,3 +149,12 @@ A natureza não "castiga" ninguém. Os desastres acontecem quando a forma de ocu
 4. Pela regra dos 0,6 °C a cada 100 metros, quanto mais frio deve fazer no alto de um morro de 500 metros em relação à sua base?
 
 **Resposta da 4:** cerca de 3 °C a menos.
+
+## Resumo
+
+- A paisagem natural tem três andares: o chão (relevo), o céu (clima) e o que cresce (vegetação).
+- O relevo é moldado por forças internas (placas, terremotos, vulcões) e externas (chuva, vento, rios).
+- Tempo é o estado da atmosfera agora; clima é o padrão que se repete ao longo de muitos anos.
+- Regra prática: a temperatura cai cerca de 0,6 °C a cada 100 m de subida.
+- A maior parte do Brasil fica entre os trópicos; a vegetação responde sobretudo à chuva e à temperatura.
+- Relevo, clima e vegetação conversam: a serra, por exemplo, faz o ar úmido subir, esfriar e chover.

@@ -38,6 +38,10 @@ quiz:
     explicacao: "Com 11 prótons e 10 elétrons, sobra uma carga positiva. O elemento continua sendo sódio."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar a sequência dos modelos do átomo, de Dalton a Bohr e ao modelo atual, e dizer que experimento levou a cada mudança.
+
 ## O que é um modelo
 
 Ninguém nunca viu um átomo como se vê uma laranja. O que a ciência faz é construir **modelos**: representações que explicam os resultados dos experimentos. Quando aparece um resultado que o modelo não explica, ele é corrigido ou trocado.
@@ -152,3 +156,12 @@ O número de prótons não muda: o elemento continua o mesmo.
 2. O ferro tem Z = 26 e A = 56. Quantos prótons, nêutrons e elétrons tem o átomo neutro? E o íon Fe³⁺?
 3. O que há de igual e de diferente entre o carbono-12 e o carbono-14?
 4. Pesquise o acidente de Goiânia em uma fonte oficial. Que falhas permitiram que ele acontecesse?
+
+## Resumo
+
+- Um modelo é uma representação que explica experimentos e é trocado quando um resultado novo não cabe nele.
+- Dalton: átomos maciços e indivisíveis (bola de bilhar).
+- Thomson, em 1897, descobriu o elétron: pudim de passas.
+- Rutherford, em 1911, concluiu pelo experimento da folha de ouro que o átomo é quase todo vazio, com um núcleo minúsculo e eletrosfera.
+- Bohr propôs os níveis de energia; o modelo atual é o quântico.
+- A ciência avança por aproximações cada vez melhores, não por certezas definitivas.

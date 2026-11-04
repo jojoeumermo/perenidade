@@ -32,7 +32,9 @@ quiz:
     opcoes: ["Para dar mais visibilidade à luta das lésbicas", "Por ordem alfabética", "Por engano"]
     resposta: 0
     explicacao: "A decisão foi tomada na Conferência Nacional GLBT."
+modelo: 9
 ---
+
 
 ```provocacao
 GLS, GLBT, LGBT, LGBTQIA+... Por que essa sigla vive mudando? Será só uma moda, ou cada letra conta uma história de luta?
@@ -41,6 +43,10 @@ GLS, GLBT, LGBT, LGBTQIA+... Por que essa sigla vive mudando? Será só uma moda
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que significa cada letra da sigla LGBTQIA+ e por que ela foi crescendo.
+
+```suarealidade
+Que siglas e palavras sobre diversidade você ouve na escola, no trabalho ou em casa? Quais você entende e quais não? Alguma é usada de forma ofensiva?
+```
 
 ## As letras
 
@@ -78,6 +84,20 @@ Por que a sigla foi ganhando letras?
 1. Ela sente atração por **mais de um gênero**.
 2. Isso corresponde à letra **B**, de **bissexual**.
 3. Mas atenção: quem define a própria identidade é **a própria pessoa**. A sigla ajuda a nomear, não a rotular os outros.
+
+```outrolado
+# O argumento de quem acha a sigla complicada
+"A sigla é longa e vive mudando. Seria mais simples ter um nome só para todo mundo, sem tantas letras."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A reclamação de que a sigla é longa é compreensível, e há quem prefira um termo único. A aula mostra por que ela foi crescendo: cada letra entrou para incluir e dar visibilidade a pessoas que viviam uma exclusão parecida (por exemplo, em 2008 a Conferência Nacional GLBT pôs o L na frente, para dar mais visibilidade à luta das lésbicas). Além disso, a sigla é uma autodesignação, o nome que o próprio movimento escolheu. Na dúvida, o respeito pede o simples: use o termo que a própria pessoa usa para si.
+```
+
+```agir
+# Esta semana
+Escreva num papel a sigla LGBTQIA+ e, ao lado de cada letra, o que ela significa, sem olhar a aula. Confira depois e corrija. Se quiser, mostre a quem mora com você e converse sobre o que mais chamou a atenção.
+```
 
 ## Resumo
 

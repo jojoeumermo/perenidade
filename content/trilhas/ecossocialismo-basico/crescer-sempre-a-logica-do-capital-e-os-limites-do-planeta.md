@@ -31,6 +31,10 @@ quiz:
     explicacao: "Um estudo de 2023 concluiu que seis dos nove já foram ultrapassados."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que o capital precisa crescer, o que são os limites planetários e o que diz o paradoxo de Jevons.
+
 Todo noticiário de economia traz a mesma medida de sucesso: o **crescimento**. Se a economia cresceu 3%, a notícia é boa; se cresceu 0,5%, é ruim; se encolheu, é crise. Raramente alguém pergunta: crescer o quê? Para quem? Até quando?
 
 ## Por que o capital precisa crescer
@@ -74,3 +78,21 @@ A diferença está em **quem decide** e com que **critério**. No capitalismo, c
 ## Para pesquisar e debater
 
 Faça duas listas: coisas que, na sua opinião, o Brasil precisa produzir mais, e coisas que poderia produzir menos sem prejuízo para a vida da maioria. Compare com as listas dos colegas.
+
+## Exemplo resolvido
+
+**Os carros ficaram mais econômicos, mas o consumo mundial de combustível aumentou. Como explicar?**
+
+1. Lembre a ideia de Jevons: quando uma máquina gasta menos carvão (ou combustível) por unidade, usá-la fica mais vantajoso.
+2. Aplique aos carros: cada carro gasta menos, então andar de carro fica mais barato e há mais carros e mais quilômetros rodados.
+3. Compare os dois movimentos: o ganho em cada unidade foi superado pelo aumento do número de unidades.
+4. Conclua: enquanto o objetivo for vender mais, a economia de cada unidade tende a ser compensada pelo volume.
+
+Confira: foi o que Jevons notou em 1865 com o carvão na Inglaterra.
+
+## Resumo
+
+- Na fórmula de Marx, D – M – D', o objetivo do capital é a diferença entre o dinheiro final e o inicial; a concorrência obriga a crescer.
+- A Terra tem tamanho fixo; segundo a atualização de 2023 dos limites planetários, seis dos nove limites já foram ultrapassados.
+- O paradoxo de Jevons mostra que eficiência, sozinha, não reduz o consumo total.
+- O ecossocialismo pergunta o que deve crescer (saneamento, moradia, transporte coletivo) e o que deve encolher, com decisão planejada da sociedade.

@@ -42,6 +42,10 @@ quiz:
     explicacao: "Em setembro de 1983. O núcleo Linux, de Linus Torvalds, veio em 1991 e completou o sistema."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é software livre, citar as quatro liberdades e explicar por que livre não é o mesmo que gratuito.
+
 ## Uma receita de bolo
 
 Pense em uma receita. Com ela na mão, você faz o bolo quando quiser, descobre por que ele cresce, troca o leite por suco porque alguém em casa não pode tomar leite, e passa a receita para a vizinha, com a sua mudança.
@@ -138,3 +142,21 @@ Uma associação de bairro ganhou cinco computadores antigos. O que o software l
 - Instalar só em um, porque a licença é por máquina
 > Lembre das liberdades 0 e 2.
 ```
+
+## Exemplo resolvido
+
+**Um aplicativo de mensagens é gratuito, mas ninguém fora da empresa pode ver o código. Ele é software livre?**
+
+1. Confira as quatro liberdades: usar (0), estudar e adaptar (1), compartilhar cópias (2) e distribuir versões modificadas (3).
+2. As liberdades 1 e 3 só existem se o código-fonte estiver disponível. Aqui ele está fechado: não dá para estudar nem modificar.
+3. O preço não entra na definição: "livre" é como em liberdade de expressão, e não como em cerveja grátis.
+4. Resposta: **não**, é um programa gratuito e fechado.
+
+Confira: um programa livre pode até ser vendido; o que não se pode é tirar de quem compra as quatro liberdades.
+
+## Resumo
+
+- Software livre garante quatro liberdades: usar, estudar e adaptar, compartilhar e distribuir versões modificadas.
+- O código-fonte é a "receita"; sem ele, as liberdades 1 e 3 não existem.
+- Livre não é o mesmo que gratuito.
+- O copyleft usa a licença para passar adiante as mesmas liberdades; o Projeto GNU (1983), a GPL (1989) e o Linux (1991) fazem parte da história.

@@ -1,0 +1,51 @@
+# Exercícios da aula "Vacinas: como funcionam" (Biologia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: biof-vacinas-01
+  tema: "Antígenos e anticorpos"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que são antígenos?"
+  alternativas:
+    - texto: "Proteínas que o corpo produz para atacar o micróbio"
+      erro: "Essas são os anticorpos."
+    - texto: "Moléculas na superfície do micróbio, que o corpo reconhece como estranhas"
+      certa: true
+    - texto: "Um tipo de vitamina"
+      erro: "Antígenos são moléculas do micróbio."
+  explicacao: "Os anticorpos se encaixam no antígeno como chave em fechadura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-vacinas-02
+  tema: "Células de memória"
+  dificuldade: 2
+  enunciado: "Por que, em geral, só se pega catapora uma vez?"
+  alternativas:
+    - texto: "Porque a catapora só existe uma vez"
+      erro: "O motivo é a memória do sistema de defesa."
+    - texto: "Porque a pele fica mais grossa"
+      erro: "A explicação são as células de memória."
+    - texto: "Porque ficam no corpo células de memória, que reagem rápido e forte se o invasor voltar"
+      certa: true
+  explicacao: "Na primeira vez, a resposta leva dias para ficar forte e a pessoa adoece."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: biof-vacinas-03
+  tema: "O que a vacina faz"
+  dificuldade: 1
+  enunciado: "O que a vacina faz, segundo a aula?"
+  alternativas:
+    - texto: "Apresenta o antígeno ao corpo, sem o risco da doença, aproveitando o mecanismo de defesa"
+      certa: true
+    - texto: "Cura a doença que a pessoa já tem"
+      erro: "A vacina apresenta o antígeno sem o risco da doença, para o corpo se preparar."
+    - texto: "Coloca anticorpos prontos de outra pessoa para sempre"
+      erro: "Ela faz o corpo responder ao antígeno e formar memória."
+  explicacao: "A aula também diz que vacinar protege os outros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -27,6 +27,11 @@ quiz:
     resposta: 0
     explicacao: "O art. 17 do ECA define o direito ao respeito."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer como a disciplina chinesa trata a convivência, o que a tradição confuciana e a pedagogia libertadora de Paulo Freire propõem e como o ECA parte dos direitos da criança.
+
+
 
 Antes de falar de leis e de Estado, a disciplina chinesa de Moral e Estado de Direito começa pelo mais próximo: **como conviver** com os colegas, com a família, com os professores. Esta aula apresenta esse ponto de partida e o compara com a forma como o Brasil trata o tema.
 
@@ -74,3 +79,20 @@ Para Paulo Freire, a convivência democrática na escola não se ensina com serm
 ## Para conversar
 
 Na sua escola (ou na de alguém que você conhece), quem decide as regras de convivência? Os estudantes participam? Como seria uma escola em que todos construíssem as regras juntos?
+
+## Exemplo resolvido: duas portas de entrada para a mesma convivência
+
+Pergunta: por onde começa cada documento quando o assunto é como conviver na escola?
+
+1. O ECA (1990) parte dos **direitos** da criança como sujeito, entre eles o direito ao respeito.
+2. A disciplina chinesa parte mais das **responsabilidades** da criança em relação ao grupo (a turma, a escola, a comunidade, o país).
+3. Paulo Freire acrescenta o método: a convivência democrática se aprende com prática (diálogo, participação nas decisões, respeito à palavra do outro), e não com sermões.
+
+Confira: nenhuma das três portas dispensa as outras. Direitos sem responsabilidade viram disputa; responsabilidade sem direito vira obediência.
+
+## Resumo
+
+- A disciplina chinesa começa pela vida cotidiana: segurança, hábitos, convivência e emoções; nos anos finais, adolescência, amizades e vida em grupo.
+- Confúcio (séculos VI-V a.C.) valorizava a benevolência e o respeito nas relações humanas.
+- A formação moral chinesa dá ênfase ao coletivo; o ECA parte dos direitos da criança.
+- Para Paulo Freire, a convivência democrática se aprende na prática: diálogo, participação e respeito à palavra do outro.

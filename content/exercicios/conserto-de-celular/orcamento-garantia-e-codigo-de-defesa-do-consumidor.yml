@@ -1,0 +1,73 @@
+# Exercícios da aula "Orçamento, garantia e Código de Defesa do Consumidor" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-orcamento-01
+  tipo: numero
+  tema: "Validade do orçamento"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por quanto tempo vale o orçamento, salvo combinação diferente (art. 40, § 1º do CDC)?"
+  resposta: "10"
+  unidade: "dias"
+  erros_comuns:
+    - resposta: "30"
+      explicacao: "30 dias é o prazo para reclamar de vício aparente em serviço e produto não durável (art. 26)."
+    - resposta: "90"
+      explicacao: "90 dias é o prazo para reclamar de vício em serviço e produto durável (art. 26)."
+  dica: "É um prazo curto, de um número redondo entre 5 e 15 dias."
+  explicacao: "Salvo combinação diferente, o orçamento vale dez dias."
+  conferir: "10"
+  fonte: "Questão original do Instituto Lúcia (CDC, art. 40, § 1º, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: cel-orcamento-02
+  tema: "O que o orçamento traz"
+  dificuldade: 2
+  enunciado: "O que deve constar no orçamento prévio, segundo o art. 40 do CDC?"
+  alternativas:
+    - texto: "Só o valor total, sem detalhar"
+      erro: "O art. 40 pede mão de obra, materiais, pagamento e datas."
+    - texto: "Valor da mão de obra e dos materiais, condições de pagamento e datas de início e término"
+      certa: true
+    - texto: "Só o nome do cliente"
+      erro: "O orçamento traz valores, condições e prazos."
+  explicacao: "Depois de aprovado, obriga os dois lados e só muda com acordo."
+  fonte: "Questão original do Instituto Lúcia (CDC, art. 40, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: cel-orcamento-03
+  tema: "Serviço sem orçamento"
+  dificuldade: 2
+  enunciado: "Executar serviço sem orçamento e sem autorização expressa do consumidor é:"
+  alternativas:
+    - texto: "Permitido se o cliente confia no técnico"
+      erro: "O art. 39, VI, trata como prática abusiva."
+    - texto: "Obrigatório em caso de urgência"
+      erro: "A aula trata como prática abusiva, não como obrigação."
+    - texto: "Prática abusiva (art. 39, VI)"
+      certa: true
+  explicacao: "Um bom orçamento cabe numa folha ou mensagem: defeito, o que será feito, peça, valor, prazo e garantia."
+  fonte: "Questão original do Instituto Lúcia (CDC, art. 39, VI, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: cel-orcamento-04
+  tipo: numero
+  tema: "Prazo para reclamar"
+  dificuldade: 2
+  enunciado: "Qual é o prazo do art. 26 do CDC para reclamar de vício aparente em serviço e produto duráveis?"
+  resposta: "90"
+  unidade: "dias"
+  erros_comuns:
+    - resposta: "30"
+      explicacao: "30 dias é para serviço e produto não duráveis."
+    - resposta: "10"
+      explicacao: "10 dias é a validade do orçamento."
+  dica: "Para o durável o prazo é maior que o do não durável."
+  explicacao: "30 dias para não durável e 90 dias para durável."
+  conferir: "90"
+  fonte: "Questão original do Instituto Lúcia (CDC, art. 26, conforme a aula)"
+  revisao:
+    status: em-revisao

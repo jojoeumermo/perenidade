@@ -37,6 +37,10 @@ quiz:
     explicacao: "O art. 165 da Constituição define essas três peças, todas votadas pelo Congresso."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber de onde vem o dinheiro do Estado, por que o sistema de impostos brasileiro pesa mais sobre o pobre e como consultar para onde vai o orçamento.
+
 O Estado cobra impostos de todos e gasta em nome de todos. Mas quem paga mais, e quem recebe mais? Esta aula olha para o dinheiro público com os olhos de quem trabalha.
 
 ## O Estado não está acima das classes
@@ -68,6 +72,16 @@ Ana ganha R$ 2.000 e gasta tudo em consumo. Pedro ganha R$ 40.000 e gasta R$ 8.0
 - Ana paga 4%; Pedro, 20%
 > Ana: 20% de 2.000 = 400, que é 20% da renda dela. Pedro: 20% de 8.000 = 1.600, que é 4% de 40.000.
 ```
+
+## Exemplo resolvido: quanto do salário vira imposto?
+
+Um exemplo inventado, com a mesma hipótese da aula: um imposto embutido de 20% no preço de tudo o que se consome. Marcos ganha R$ 3.000 por mês e gasta R$ 2.700 em consumo. Helena ganha R$ 30.000 e gasta R$ 9.000 em consumo.
+
+1. Calcule o imposto de cada um: 20% de R$ 2.700 = R$ 540 (Marcos) e 20% de R$ 9.000 = R$ 1.800 (Helena).
+2. Divida pelo que cada um ganha: 540 ÷ 3.000 = 0,18, ou 18% da renda de Marcos; 1.800 ÷ 30.000 = 0,06, ou 6% da renda de Helena.
+3. Compare: Helena paga mais reais de imposto, mas Marcos paga três vezes mais em proporção da renda.
+
+Confira: quem consome quase toda a renda paga imposto sobre quase toda a renda. É isso que a aula chama de sistema regressivo.
 
 ## O que fica de fora
 

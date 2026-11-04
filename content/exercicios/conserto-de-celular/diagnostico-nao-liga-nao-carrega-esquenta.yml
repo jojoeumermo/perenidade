@@ -1,0 +1,51 @@
+# Exercícios da aula "Diagnóstico: não liga, não carrega, esquenta" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-diagnostico-01
+  tema: "Diagnosticar antes de trocar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a regra do diagnóstico, segundo a aula?"
+  alternativas:
+    - texto: "Trocar a peça mais cara primeiro"
+      erro: "A regra é do mais simples e barato ao mais difícil."
+    - texto: "Trocar por palpite"
+      erro: "Quem troca por palpite gasta o dinheiro do cliente e o seu."
+    - texto: "Descobrir a causa antes de trocar a peça, do mais simples e barato ao mais difícil, anotando o que testou"
+      certa: true
+  explicacao: "Diagnosticar é descobrir a causa antes de trocar peça."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-diagnostico-02
+  tema: "Não liga"
+  dificuldade: 2
+  enunciado: "O celular não liga, mas a tela está apagada e ele vibra ou toca. O que pode ser?"
+  alternativas:
+    - texto: "A tela"
+      certa: true
+    - texto: "A bateria, certamente"
+      erro: "Se vibra ou toca, o aparelho está funcionando: pode ser a tela."
+    - texto: "O carregador"
+      erro: "O aparelho dá sinal, o que aponta para a tela."
+  explicacao: "Se nada responde, bateria, conector ou placa são suspeitos, e aí é com técnico preparado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-diagnostico-03
+  tema: "Esquenta"
+  dificuldade: 2
+  enunciado: "Qual destes sinais é de risco quando o celular esquenta?"
+  alternativas:
+    - texto: "Alguma esquentada leve ao carregar"
+      erro: "Isso é normal."
+    - texto: "Muito calor parado, cheiro, bateria estufada ou tela levantando"
+      certa: true
+    - texto: "Esquentar só um pouco no sol"
+      erro: "O sinal de risco é calor forte, cheiro, bateria estufada ou tela levantando."
+  explicacao: "Nesses casos: não carregue e afaste de pano, papel e cama."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

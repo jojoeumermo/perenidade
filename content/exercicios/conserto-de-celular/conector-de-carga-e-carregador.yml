@@ -1,0 +1,67 @@
+# Exercícios da aula "Conector de carga e carregador" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-conector-01
+  tema: "Ordem do teste"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Em qual ordem a aula manda testar, de fora para dentro?"
+  alternativas:
+    - texto: "Tomada, carregador, cabo, conector, placa, bateria"
+      certa: true
+    - texto: "Bateria, placa, conector, cabo, carregador, tomada"
+      erro: "A ordem é de fora para dentro, começando pela tomada."
+    - texto: "Conector, bateria, tomada, cabo, placa, carregador"
+      erro: "O teste vai de fora para dentro: tomada, carregador, cabo, conector, placa, bateria."
+  explicacao: "Um defeito pode estar em qualquer ponto do caminho da energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-conector-02
+  tema: "Teste do cabo"
+  dificuldade: 1
+  enunciado: "Como testar o cabo e o carregador?"
+  alternativas:
+    - texto: "Abrir o carregador com metal"
+      erro: "A aula manda trocar por um conjunto que funciona."
+    - texto: "Trocar por um conjunto que você sabe que funciona"
+      certa: true
+    - texto: "Só ver se o plugue está limpo"
+      erro: "Troque por um conjunto bom; se carregar, o defeito era do cabo ou do carregador."
+  explicacao: "O defeito mais comum é cabo dobrado perto do plugue."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-conector-03
+  tema: "Limpar o conector"
+  dificuldade: 1
+  enunciado: "Como limpar o conector de carga com segurança?"
+  alternativas:
+    - texto: "Com um alfinete de metal"
+      erro: "Nunca use metal."
+    - texto: "Com álcool pingado dentro do conector"
+      erro: "Nunca coloque líquido."
+    - texto: "Com o aparelho desligado, usando palito de madeira ou plástico fino ou ar de pera, sem metal e sem líquido"
+      certa: true
+  explicacao: "Poeira de bolso e pelos formam uma camada que impede o encaixe completo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-conector-04
+  tema: "Peça e CDC"
+  dificuldade: 2
+  enunciado: "O que o art. 21 do CDC presume no conserto, segundo a aula?"
+  alternativas:
+    - texto: "O uso de componentes originais, adequados e novos, salvo autorização do consumidor"
+      certa: true
+    - texto: "O uso de qualquer peça usada"
+      erro: "O art. 21 presume peças originais, adequadas e novas."
+    - texto: "Que o cliente nunca pode autorizar outra peça"
+      erro: "Salvo se o consumidor autorizar outra coisa."
+  explicacao: "Se o cliente aceita peça compatível ou usada, escreva isso."
+  fonte: "Questão original do Instituto Lúcia (CDC, art. 21, conforme a aula)"
+  revisao:
+    status: em-revisao

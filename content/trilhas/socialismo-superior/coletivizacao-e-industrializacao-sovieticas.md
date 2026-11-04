@@ -37,6 +37,10 @@ quiz:
     explicacao: "A base industrial construída nos anos 1930 e transferida para o leste durante a guerra foi decisiva."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que a direção soviética acelerou a industrialização, o que foram os planos quinquenais e a coletivização forçada e como entender a fome de 1932-1933 sem esconder os fatos.
+
 Em 1928, a União Soviética ainda era um país majoritariamente camponês. Em 1941, quando foi invadida pela Alemanha nazista, era uma potência industrial. Entre essas datas aconteceu uma das transformações mais rápidas e mais violentas da história. Esta aula procura entender as duas faces desse processo.
 
 ## Por que acelerar
@@ -81,6 +85,25 @@ O mesmo período viu também os **expurgos** de 1936-1938, em que centenas de mi
 
 A experiência mostrou que o planejamento pode mobilizar recursos e transformar uma economia em pouco tempo. Mostrou também que, sem democracia, sem respeito à vontade dos trabalhadores e camponeses e com metas impostas de cima, o custo humano pode ser terrível. Para quem defende o socialismo hoje, estudar esse período com honestidade não é concessão aos adversários: é condição para não repetir os mesmos erros.
 
+## Exemplo resolvido
+
+**Como a coletivização forçada levou à fome de 1932-1933?**
+
+1. Veja o objetivo: a partir de 1929, coletivizar a agricultura para financiar a industrialização, alimentar as cidades e exportar grãos em troca de máquinas.
+2. Veja a reação: muitos camponeses abateram os próprios animais para não entregá-los, e o Estado respondeu com a deskulakização, expropriando e deportando centenas de milhares de famílias.
+3. Veja o efeito: a agricultura se desorganizou e as metas de requisição de grãos continuaram altas.
+4. Veja o resultado: a fome de 1932-1933 matou milhões de pessoas, sobretudo na Ucrânia (onde é chamada de Holodomor) e no Cazaquistão.
+
+Conclusão: os historiadores debatem o grau de intencionalidade em relação à Ucrânia, mas há amplo acordo de que decisões políticas transformaram a crise em catástrofe.
+
 ## Para pesquisar e debater
 
 A reforma agrária no Brasil é muitas vezes associada pelos seus adversários à coletivização soviética. Quais são as diferenças entre a proposta dos movimentos sociais brasileiros (assentamentos, cooperativas voluntárias, agricultura familiar) e a coletivização forçada dos anos 1930?
+
+## Resumo
+
+- Em 1928 a URSS era majoritariamente camponesa; em 1941 era uma potência industrial; a aula examina as duas faces dessa mudança.
+- O primeiro plano quinquenal (1928-1932) priorizou a indústria pesada e criou cidades industriais; houve alfabetização e fim do desemprego, mas também consumo comprimido e trabalho forçado do Gulag.
+- A coletivização forçada (kolkhozes e sovkhozes) encontrou resistência e levou à deskulakização.
+- Sua desorganização, com requisições altas, provocou a fome de 1932-1933, que matou milhões.
+- Stálin justificou a pressa dizendo que a URSS estava cinquenta ou cem anos atrás dos países avançados.

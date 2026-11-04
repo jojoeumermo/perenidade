@@ -32,6 +32,10 @@ quiz:
     explicacao: "O plano serve para guiar, não para punir. Constância vale mais que maratona."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber montar um plano de estudos que cabe na sua semana: descobrir o tempo livre, fazer um diagnóstico com prova antiga, escolher prioridades e seguir um ciclo.
+
 Muita gente começa a estudar para o ENEM com um plano lindo, de oito horas por dia, e desiste na segunda semana. Não é falta de força de vontade: é um plano que não cabe na vida real. Esta aula mostra como montar um plano que funcione para quem trabalha, cuida de filhos, pega duas conduções e ainda quer entrar na faculdade.
 
 ## Passo 1: o tempo que você tem de verdade
@@ -131,3 +135,10 @@ Ele vai vir. Algumas coisas ajudam:
 1. Desenhe o quadro da sua semana e conte quantas horas de estudo você tem de verdade.
 2. Faça uma prova antiga de um dos dias do ENEM e separe os erros nos três grupos.
 3. Monte o seu ciclo de estudos para as próximas quatro semanas e cole num lugar que você veja todo dia.
+
+## Resumo
+
+- Comece pelo tempo que você tem de verdade: no exemplo, cerca de 9 horas por semana, mais de 300 horas em oito meses.
+- Faça um diagnóstico com uma prova antiga e separe os erros: não sabia, errei por atenção ou não deu tempo.
+- Escolha prioridades cruzando o curso desejado, a matemática básica e a leitura, e a redação; use um ciclo em vez de horário fixo.
+- Cada sessão: revisar, aprender, resolver questões e anotar o caderno de erros. Se faltar um dia, recomece no seguinte, sem compensar.

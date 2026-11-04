@@ -1,0 +1,67 @@
+# Exercícios da aula "O círculo cromático" (Artes: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: artes-circulo-01
+  tema: "Primárias"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quais são as cores primárias do círculo da aula?"
+  alternativas:
+    - texto: "Verde, laranja e roxo"
+      erro: "Essas são as secundárias."
+    - texto: "Azul, vermelho e amarelo"
+      certa: true
+    - texto: "Preto, branco e cinza"
+      erro: "Branco e preto são somados às 12 cores, mas não são primárias."
+  explicacao: "Primárias: azul, vermelho, amarelo. Secundárias: verde, laranja e roxo. Mais as seis terciárias, são 12 cores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: artes-circulo-02
+  tema: "Complementares"
+  dificuldade: 1
+  enunciado: "Qual par é de cores complementares?"
+  alternativas:
+    - texto: "Azul e azul-esverdeado"
+      erro: "São vizinhas: análogas."
+    - texto: "Vermelho, azul e amarelo"
+      erro: "As três à mesma distância são triádicas."
+    - texto: "Vermelho e verde"
+      certa: true
+  explicacao: "Complementares são opostas no círculo e criam grande contraste."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: artes-circulo-03
+  tema: "Cartaz"
+  dificuldade: 2
+  enunciado: "Qual é a cor de texto sobre fundo amarelo, no exemplo do cartaz para ser visto de longe?"
+  alternativas:
+    - texto: "Roxo, o oposto do amarelo"
+      certa: true
+    - texto: "Amarelo-esverdeado"
+      erro: "É vizinha do amarelo, pouco contraste."
+    - texto: "Amarelo-alaranjado"
+      erro: "Essa é análoga e serve para um detalhe, não para o texto principal."
+  explicacao: "Para ser visto de longe, use complementares: fundo amarelo e texto roxo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: artes-circulo-04
+  tema: "A origem"
+  dificuldade: 1
+  enunciado: "O círculo cromático nasceu das experiências de quem?"
+  alternativas:
+    - texto: "Franz Boas"
+      erro: "Boas é antropólogo, do início do século XX."
+    - texto: "Isaac Newton, na década de 1660, com luz branca e um prisma"
+      certa: true
+    - texto: "Paulo Freire"
+      erro: "Freire é educador. O círculo vem de Newton."
+  explicacao: "Newton separou a luz branca em cores com um prisma e as organizou em círculo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

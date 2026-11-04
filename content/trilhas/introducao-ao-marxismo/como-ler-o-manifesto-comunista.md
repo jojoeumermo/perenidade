@@ -26,6 +26,10 @@ quiz:
     explicacao: "Os próprios autores tratavam o Manifesto como documento histórico, a ser lido à luz das novas experiências, como a Comuna de Paris."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o contexto e a estrutura do *Manifesto do Partido Comunista* e ter um roteiro para fazer a primeira leitura.
+
 O *Manifesto do Partido Comunista* tem poucas dezenas de páginas e é um dos textos mais lidos e traduzidos da história. Pode ser lido numa tarde. Mas lê-lo bem exige saber de onde ele vem e o que ele quer fazer. Este é um guia para a primeira leitura. O texto completo está no [acervo](/acervo/manifesto-do-partido-comunista).
 
 ## O contexto
@@ -82,6 +86,24 @@ O texto termina com frases que atravessaram o tempo: os comunistas declaram aber
 - Pergunte: o que mudou desde 1848? O que continua igual?
 - Leia em grupo. O *Manifesto* foi escrito para ser discutido em reuniões de trabalhadores.
 
+## Exemplo resolvido
+
+**Onde procurar, no *Manifesto*, "o que os comunistas querem"?**
+
+1. Veja a estrutura: introdução e quatro partes.
+2. A parte I (Burgueses e proletários) trata da história como luta de classes. Não é ali.
+3. A parte II (**Proletários e comunistas**) trata do que os comunistas querem: a abolição da propriedade burguesa, a resposta às acusações e as medidas práticas.
+4. Anote as dúvidas e pergunte: o que mudou desde 1848? O que continua igual?
+
+Confira: o texto foi publicado em fevereiro de 1848, e a aula separa as **medidas datadas** das **ideias vivas**. Ler em grupo é o modo para o qual ele foi escrito.
+
 ## Para conversar
 
 Que trecho do *Manifesto* parece mais atual para você? Qual parece mais distante do mundo de hoje?
+
+## Resumo
+
+- O *Manifesto* foi encomendado pela Liga dos Comunistas e publicado em Londres, em fevereiro de 1848.
+- Tem uma introdução e quatro partes; a primeira é "Burgueses e proletários".
+- Há medidas datadas e ideias que continuam vivas.
+- Leia uma parte por vez, anote dúvidas e, de preferência, leia em grupo.

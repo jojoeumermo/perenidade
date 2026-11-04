@@ -30,6 +30,10 @@ quiz:
     resposta: 0
     explicacao: "A campanha 'O petróleo é nosso' mobilizou estudantes, militares e sindicatos pelo monopólio estatal."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer quando e como Vargas governou, o que mudou em 1930, como surgiram os direitos trabalhistas, o que foi o Estado Novo e por que o balanço da Era Vargas é contraditório.
+
 
 ## Quinze anos e mais quatro
 
@@ -96,9 +100,30 @@ Essas medidas uniram contra ele os grandes empresários, parte dos militares, a 
 
 A Era Vargas não cabe em um rótulo. Foi o período em que o Brasil se industrializou, criou a sua legislação social e fortaleceu as empresas públicas. E foi o período do Estado Novo, da tortura e do sindicato amarrado ao governo. Boa parte do debate político brasileiro, até hoje, gira em torno dessa herança: a CLT, as estatais, o papel do Estado na economia.
 
+## Exemplo resolvido
+
+**Quanto tempo Vargas ficou no poder, e como separar as fases na linha do tempo?**
+
+1. Primeiro período: de 1930 a 1945. Subtraia: 1945 − 1930 = **15 anos**.
+2. Segundo período, eleito: de 1951 a 1954. A aula conta quatro anos (1951, 1952, 1953 e 1954).
+3. Soma: 15 + 4 = **19 anos** no total, em dois períodos, o que explica o título "quinze anos e mais quatro".
+4. A primeira fase, o Governo Provisório, vai de 1930 a 1934: 1934 − 1930 = **4 anos**.
+5. A Petrobras foi criada em 1953, depois da campanha "O petróleo é nosso", já no segundo governo.
+
+Leitura: o segundo período começou com Vargas eleito (1950). Por isso a aula diz que a Era Vargas não cabe em um rótulo: criou a legislação social e as empresas públicas, e também foi o Estado Novo, da tortura e do sindicato amarrado ao governo.
+
 ## Para pesquisar e debater
 
 1. Que direitos da CLT estão presentes na sua vida de trabalho? Quais foram retirados ou enfraquecidos nos últimos anos?
 2. Qual é a diferença entre um direito conquistado e um direito "concedido"? Por que essa diferença importa?
 3. Por que os trabalhadores rurais ficaram fora das leis trabalhistas?
 4. É possível separar o Vargas das leis sociais do Vargas da ditadura?
+
+## Resumo
+
+- Getúlio Vargas governou de 1930 a 1945 e de 1951 a 1954; nenhum outro político marcou tanto o Brasil no século XX.
+- Em 1930, depois da crise de 1929, o governo fortaleceu o poder central contra as oligarquias e estimulou a indústria: o Estado tornou-se o motor da industrialização.
+- Na questão social, em vez de só reprimir, regulou: criou o Ministério do Trabalho e direitos como limite de jornada, descanso semanal e férias.
+- Nos anos 1930, o país se dividiu entre a Ação Integralista Brasileira e a Aliança Nacional Libertadora; veio a ditadura do Estado Novo.
+- Na Segunda Guerra, o Brasil se alinhou aos Estados Unidos e mandou a FEB à Itália contra o nazifascismo, em 1944.
+- Vargas voltou eleito em 1950; a Petrobras foi criada em 1953, com monopólio estatal do petróleo.

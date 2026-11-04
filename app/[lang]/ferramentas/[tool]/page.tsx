@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { IDEPagina } from "@/components/labs/IDEPagina";
 import { PhetLista } from "@/components/labs/Phet";
+import { BaixarFerramentaUnica } from "@/components/BaixarFerramentaUnica";
 import { PageHeading } from "@/components/PageHeading";
 import { Keyboard, Metronome, NoteReading, Tuner } from "@/components/tools/Music";
 import { Pronounce } from "@/components/tools/Pronounce";
@@ -26,6 +27,7 @@ import { Alfabetos, TonsDoMandarim } from "@/components/tools/novas/Linguas";
 import { ContasDoDia, Solidos } from "@/components/tools/novas/Matematica";
 import { DireitosDoTrabalhador } from "@/components/tools/novas/Trabalho";
 import { GeradorDeCurriculo, ModelosDeDocumentos, OrcamentoEContrato, QuantoCobrar, SimuladorDeDivida } from "@/components/tools/novas/VidaReal";
+import { CargaEletrica, ClausulasDeContrato, EmergenciaTrabalhista, MapaDeServicos } from "@/components/tools/novas/ServicosDaVida";
 import { FisicaSimulada, Reacoes } from "@/components/tools/Simulacoes";
 import { Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
 import { loadLang } from "@/i18n";
@@ -34,7 +36,9 @@ import { Moldura } from "@/components/tools/Vitrine";
 import { Selo } from "@/components/Selo";
 import { ICONES, textosDe } from "@/components/tools/vitrine-dados";
 import { areaLabs, areaTools, LABS, tools, universalTools, type AreaSlug, type LabId, type ToolId } from "@/lib/areas";
+import { temVersaoOffline } from "@/lib/ferramentas-offline";
 import { withLangs } from "@/lib/params";
+import { site } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -44,7 +48,7 @@ export function generateStaticParams() {
 
 const isTool = (value: string): value is ToolId => (tools as readonly string[]).includes(value);
 /** As ferramentas da rodada nova: a interface e os exercícios estão em português por enquanto. */
-const NOVAS_EM_PT = new Set<string>(["algoritmos", "criptografia", "grafos", "sudoku", "referencias-abnt", "palavras-geradoras", "solidos", "contas-do-dia-a-dia", "tons-do-mandarim", "alfabetos", "ceu", "calculadoras-de-eletronica", "direitos-trabalhistas", "dicionario-chines", "escrita-chinesa", "corretor-ortografico", "quanto-cobrar", "gerador-de-curriculo", "orcamento-e-contrato", "dividas-e-renegociacao", "modelos-de-documentos"]);
+const NOVAS_EM_PT = new Set<string>(["algoritmos", "criptografia", "grafos", "sudoku", "referencias-abnt", "palavras-geradoras", "solidos", "contas-do-dia-a-dia", "tons-do-mandarim", "alfabetos", "ceu", "calculadoras-de-eletronica", "direitos-trabalhistas", "dicionario-chines", "escrita-chinesa", "corretor-ortografico", "quanto-cobrar", "gerador-de-curriculo", "orcamento-e-contrato", "dividas-e-renegociacao", "modelos-de-documentos", "arvore-trabalhista", "clausulas-de-contrato", "carga-eletrica", "mapa-de-servicos"]);
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ferramentas/[tool]">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -120,6 +124,10 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     "orcamento-e-contrato": <div lang="pt-BR"><OrcamentoEContrato /></div>,
     "dividas-e-renegociacao": <div lang="pt-BR"><SimuladorDeDivida /></div>,
     "modelos-de-documentos": <div lang="pt-BR"><ModelosDeDocumentos /></div>,
+    "arvore-trabalhista": <div lang="pt-BR"><EmergenciaTrabalhista /></div>,
+    "clausulas-de-contrato": <div lang="pt-BR"><ClausulasDeContrato /></div>,
+    "carga-eletrica": <div lang="pt-BR"><CargaEletrica /></div>,
+    "mapa-de-servicos": <div lang="pt-BR"><MapaDeServicos /></div>,
   };
 
   // O que mais serve a quem está aqui: ferramentas das mesmas matérias e os laboratórios dessas matérias.
@@ -134,6 +142,8 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
       </PageHeading>
       {lang !== "pt" && NOVAS_EM_PT.has(tool) && <p className="mt-4 border-l-4 border-gold bg-parchment-deep px-3 py-2 font-sans text-sm">{t.labs.ptOnly}</p>}
       <Moldura id={tool} s={textosDe(t)}>{body[tool]}</Moldura>
+      {/* Só as ferramentas que funcionam sem servidor viram arquivo único (lib/ferramentas-offline.ts); nas outras o botão não aparece. */}
+      {temVersaoOffline(tool) && <BaixarFerramentaUnica id={tool} titulo={name} descricao={description} url={`${site.url}${localePath(lang, `/ferramentas/${tool}`)}`} lang={lang} s={t.compartilhar} />}
       {(parecidas.length > 0 || labIds.length > 0) && (
         <div className="mt-10 grid gap-6 border-t border-rule pt-6 font-sans sm:grid-cols-2">
           {parecidas.length > 0 && (

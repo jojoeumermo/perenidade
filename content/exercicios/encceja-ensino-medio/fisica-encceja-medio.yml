@@ -1,0 +1,57 @@
+# Exercícios da aula "Ciências da Natureza: Física" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-fis-01
+  tipo: numero
+  tema: "Velocidade média"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Um ônibus percorre 240 km em 4 horas. Qual é a velocidade média, em km/h?"
+  resposta: "60"
+  unidade: "km/h"
+  erros_comuns:
+    - resposta: "960"
+      explicacao: "Você multiplicou distância e tempo. A velocidade média é a distância dividida pelo tempo."
+    - resposta: "244"
+      explicacao: "Você somou 240 + 4. Velocidade é distância dividida por tempo."
+  dica: "Velocidade média = distância ÷ tempo."
+  explicacao: "240 ÷ 4 = 60 km/h."
+  conferir: "240 / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-fis-02
+  tipo: numero
+  tema: "Potência e corrente"
+  dificuldade: 2
+  enunciado: "Um ferro de passar de 1.100 W é ligado em 110 V. Qual é a corrente, em ampères?"
+  resposta: "10"
+  unidade: "A"
+  erros_comuns:
+    - resposta: "121000"
+      explicacao: "Você multiplicou potência e tensão. A corrente é a potência dividida pela tensão."
+    - resposta: "0,1"
+      explicacao: "Você dividiu a tensão pela potência (110 ÷ 1.100). Inverta: potência ÷ tensão."
+  dica: "P = U · i, então i = P ÷ U."
+  explicacao: "i = 1.100 ÷ 110 = 10 A."
+  conferir: "1100 / 110"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-fis-03
+  tema: "Leis de Newton"
+  dificuldade: 1
+  enunciado: "Quando o ônibus freia, os passageiros são jogados para a frente. Que ideia explica isso?"
+  alternativas:
+    - texto: "Inércia: o corpo tende a manter o movimento que tinha"
+      certa: true
+    - texto: "O ônibus empurra os passageiros com a roda"
+      erro: "Ninguém empurra os passageiros para a frente. Eles continuam o movimento enquanto o ônibus diminui a velocidade."
+    - texto: "A gravidade puxa os passageiros para frente"
+      erro: "A gravidade puxa para baixo, e não para a frente. O efeito vem da inércia."
+  explicacao: "Pela inércia (1ª lei de Newton), o corpo mantém o movimento que tinha se nenhuma força o frear."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

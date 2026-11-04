@@ -1,0 +1,51 @@
+# Exercícios da aula "Formalização e direitos de quem trabalha por conta própria" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-formalizacao-01
+  tema: "Ocupação do MEI"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, qual ocupação do MEI cabe ao barbeiro?"
+  alternativas:
+    - texto: "Não existe ocupação de barbeiro no MEI"
+      erro: "Está na lista oficial de ocupações do MEI."
+    - texto: "\"Barbeiro independente\", CNAE 9602-5/01"
+      certa: true
+    - texto: "Cabeleireiro empregado, com carteira"
+      erro: "A ocupação é \"barbeiro independente\"."
+  explicacao: "Com o MEI, o barbeiro tem CNPJ, pode emitir nota fiscal e contribui para o INSS."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-formalizacao-02
+  tema: "O que o INSS garante"
+  dificuldade: 2
+  enunciado: "Segundo o Portal do Empreendedor, citado na aula, o que o MEI com contribuições em dia tem direito?"
+  alternativas:
+    - texto: "A nenhum benefício do INSS"
+      erro: "Os benefícios existem, com carência."
+    - texto: "A todos os benefícios sem carência"
+      erro: "Cada benefício tem uma carência: um número mínimo de contribuições em dia."
+    - texto: "A benefícios como aposentadoria por idade, auxílio-doença e salário-maternidade, cada um com sua carência"
+      certa: true
+  explicacao: "Dúvidas: Central 135 ou aplicativo Meu INSS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula (Portal do Empreendedor)"
+  revisao:
+    status: em-revisao
+
+- id: barb-formalizacao-03
+  tema: "Custo de abrir"
+  dificuldade: 2
+  enunciado: "Quanto custa abrir o MEI, segundo a aula?"
+  alternativas:
+    - texto: "Nada: a Lei Complementar 123 zera taxas e custos de abertura, registro e alvará"
+      certa: true
+    - texto: "Uma taxa de abertura única, paga ao INSS"
+      erro: "A aula diz que abrir não custa nada, pela Lei Complementar 123 (art. 4º, § 3º)."
+    - texto: "Depende do tamanho da barbearia"
+      erro: "A lei zera as taxas de abertura, registro, alvará, licença e cadastro do MEI."
+  explicacao: "O que se paga é o DAS mensal, depois de aberto."
+  fonte: "Questão original do Instituto Lúcia (Lei Complementar 123/2006, art. 4º, § 3º, conforme a aula)"
+  revisao:
+    status: em-revisao

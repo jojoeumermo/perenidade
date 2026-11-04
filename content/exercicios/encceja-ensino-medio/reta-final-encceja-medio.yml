@@ -1,0 +1,54 @@
+# Exercícios da aula "Simulado e reta final" (ENCCEJA: ensino médio). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: encm-reta-01
+  tipo: numero
+  tema: "Ler o simulado"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Num simulado de Matemática de 30 questões, João acertou 18. Qual foi a porcentagem de acertos?"
+  resposta: "60"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "Esse é o número de erros (30 − 18). A porcentagem de acertos usa os acertos."
+    - resposta: "18"
+      explicacao: "Esse é o número de acertos. Divida por 30 e multiplique por 100 para achar a porcentagem."
+  dica: "Acertos ÷ total × 100."
+  explicacao: "18 ÷ 30 = 0,6, ou 60%."
+  conferir: "18 / 30 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-reta-02
+  tema: "Plano de estudo"
+  dificuldade: 2
+  enunciado: "Depois de um simulado, João notou que errou muitas questões por ler a pergunta com pressa. Qual ação é mais adequada?"
+  alternativas:
+    - texto: "Estudar um assunto novo, sem relação com os erros"
+      erro: "O erro dele foi de leitura, e não de conteúdo. Estudar um assunto novo não resolve esse tipo de erro."
+    - texto: "Treinar ler com calma, sublinhando o que a pergunta pede e palavras como 'não' e 'exceto'"
+      certa: true
+    - texto: "Ignorar os erros e fazer outro simulado"
+      erro: "Sem entender os erros, o próximo simulado tende a repetir os mesmos. Anote o motivo de cada um."
+  explicacao: "Cada tipo de erro pede uma ação diferente. Para erro de leitura, o treino é ler com atenção e sublinhar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: encm-reta-03
+  tema: "Redação na reta final"
+  dificuldade: 1
+  enunciado: "Como a redação deve entrar no plano das últimas semanas?"
+  alternativas:
+    - texto: "Treinada ao longo das semanas, com revisão"
+      certa: true
+    - texto: "Deixada para o dia da prova, sem treino"
+      erro: "Sem treino, é fácil se atrapalhar com o tempo e a estrutura. Na regra de 2026, Linguagens exige nota mínima na redação."
+    - texto: "Ignorada, pois só a prova objetiva conta"
+      erro: "A redação faz parte de Linguagens e pode barrar a aprovação na área. Confira a regra do edital do seu ano."
+  explicacao: "Treinar a redação toda semana, com revisão, é o caminho para chegar mais seguro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

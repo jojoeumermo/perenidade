@@ -33,6 +33,10 @@ quiz:
     explicacao: "Em Um mestre na periferia do capitalismo (1990)."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer as formas da ironia em Machado e explicar o que ela revela sobre a sociedade da época.
+
 ## O que é ironia
 
 **Ironia** é dizer uma coisa dando a entender outra, muitas vezes o contrário. Veja [Figuras de linguagem](/trilhas/portugues-medio/figuras-de-linguagem). Em Machado, ela é o centro de tudo: o narrador fala com elegância, e o leitor atento percebe o que há de terrível por trás.
@@ -69,9 +73,27 @@ Quando Brás Cubas conta, com graça, que montava em Prudêncio como num cavalo,
 2. Pergunte: **quem fala** e **a que classe pertence**?
 3. Procure o que o narrador **não percebe** sobre si mesmo.
 
+## Exemplo resolvido
+
+**Como ler a ironia de "Ao vencedor, as batatas"?**
+
+1. Observe o **tom**: a frase soa como uma lei natural, dita com elegância.
+2. Pergunte **quem fala**: Quincas Borba, o filósofo do humanitismo, que exalta a guerra e a destruição dos outros como boas, porque garantem a vida dos vencedores.
+3. Procure o que o personagem **não percebe**: ele defende a desigualdade como natural.
+4. Compare **o que é dito e o que é mostrado**: o leitor atento percebe o terrível por trás da elegância. É o "elogio que é crítica".
+
+Confira: a ironia diz uma coisa para dar a entender outra, e é o leitor que fecha o sentido.
+
 ## Para praticar
 
 1. Leia *Teoria do medalhão* em *Papéis Avulsos*, no [acervo](/acervo/papeis-avulsos), e liste os conselhos do pai.
 2. Dê um exemplo atual de "medalhão".
 3. Escreva um parágrafo irônico sobre um problema do seu bairro.
 4. Escolha um trecho de Machado e explique a diferença entre o que é dito e o que é mostrado.
+
+## Resumo
+
+- Ironia é dizer uma coisa dando a entender outra, muitas vezes o contrário.
+- Em Machado aparece quando o narrador se revela sem perceber, no elogio que é crítica, no conselho cínico, no contraste entre tom e fato e na conversa com o leitor.
+- *Teoria do medalhão* (*Papéis Avulsos*, 1882) é uma sátira do sucesso social sem conteúdo.
+- Para ler: preste atenção no tom, pergunte quem fala e procure o que o narrador não percebe sobre si.

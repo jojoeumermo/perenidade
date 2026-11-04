@@ -1,0 +1,51 @@
+# Exercícios da aula "Verbos regulares no presente" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-verbos-01
+  tema: "Conjugar um verbo regular"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como fica wohnen (morar) com du?"
+  alternativas:
+    - texto: "du wohnst"
+      certa: true
+    - texto: "du wohnt"
+      erro: "A terminação -t é de er/sie/es e de ihr. Com du é -st."
+    - texto: "du wohne"
+      erro: "A terminação -e é de ich. Com du é -st."
+  explicacao: "Tira-se o -en e põe-se: -e, -st, -t, -en, -t, -en. Du wohnst."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-verbos-02
+  tema: "O -e- de apoio"
+  dificuldade: 2
+  enunciado: "Como fica arbeiten (trabalhar) com er?"
+  alternativas:
+    - texto: "er arbeitet"
+      certa: true
+    - texto: "er arbeit"
+      erro: "Falta a terminação -t. Como o radical já termina em -t, entra um -e- de apoio: arbeitet."
+    - texto: "er arbeitt"
+      erro: "O radical arbeit- já termina em t. Entra um -e- antes do -t: arbeitet."
+  explicacao: "Radicais em -t ou -d ganham um -e- de apoio antes de -st e -t: du arbeitest, er arbeitet."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-verbos-03
+  tema: "Verbo na segunda posição"
+  dificuldade: 3
+  enunciado: "Qual frase está certa: \"À noite eu aprendo alemão\"?"
+  alternativas:
+    - texto: "Abends lerne ich Deutsch."
+      certa: true
+    - texto: "Abends ich lerne Deutsch."
+      erro: "O verbo fica sempre na segunda posição. Se a frase começa com abends, o verbo vem antes do sujeito."
+    - texto: "Ich abends lerne Deutsch."
+      erro: "O verbo precisa ficar na segunda posição da frase: Ich lerne abends Deutsch ou Abends lerne ich Deutsch."
+  explicacao: "O verbo fica na 2ª posição: quando a frase começa com abends, o verbo vem antes do sujeito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -34,6 +34,10 @@ quiz:
     explicacao: "Por isso os termoplásticos são mais fáceis de reciclar."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são polímeros e monômeros, distinguir polímeros naturais e sintéticos e entender por que os plásticos viraram um problema ambiental.
+
 ## Moléculas gigantes
 
 Um colar de contas é feito de muitas contas iguais presas em fila. Um **polímero** é isso em escala molecular: uma molécula enorme, uma **macromolécula**, formada pela repetição de unidades pequenas, os **monômeros**. A reação que une os monômeros é a **polimerização**.
@@ -135,3 +139,12 @@ A responsabilidade não é só de quem consome. Quem decide fabricar embalagens 
 2. A sua cidade tem coleta seletiva? Para onde vai o material? Há cooperativa de catadores?
 3. Dê dois exemplos de polímeros naturais presentes na sua alimentação e dois presentes na sua roupa.
 4. Por que um cabo de panela é feito de plástico termofixo, e não de termoplástico?
+
+## Resumo
+
+- Polímero é uma macromolécula formada pela repetição de unidades pequenas, os monômeros; a reação é a polimerização.
+- Há polímeros naturais (celulose, amido, proteínas, DNA, borracha) e sintéticos, feitos a partir do petróleo.
+- A polimerização pode ser por adição (polietileno, PVC) ou por condensação (náilon, PET).
+- Termoplásticos amolecem com o calor e são mais fáceis de reciclar; termofixos, não.
+- O número no triângulo da embalagem indica o tipo de plástico, não que ela foi ou será reciclada.
+- A vulcanização, descoberta por Goodyear em 1839, tornou possível o pneu.

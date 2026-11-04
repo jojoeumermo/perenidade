@@ -30,6 +30,11 @@ quiz:
     resposta: 1
     explicacao: "A Etiópia derrotou a Itália em Adua, em 1896. A Libéria tinha sido fundada por ex-escravizados vindos dos Estados Unidos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que foi a Conferência de Berlim (1884-1885), a regra da ocupação efetiva, o caso do Congo de Leopoldo II e por que tantas fronteiras africanas são linhas retas.
+
+
 
 Olhe um mapa político da África. Muitas fronteiras são linhas retas, como se alguém as tivesse traçado com régua. Foi mais ou menos isso que aconteceu.
 
@@ -73,3 +78,22 @@ O historiador guianense **Walter Rodney** argumentou que o colonialismo não "at
 ## Para pesquisar e debater
 
 Compare um mapa dos povos e línguas da África com o mapa das fronteiras atuais. Escolha um povo dividido entre dois ou mais países e descubra que consequências isso tem hoje.
+
+## Exemplo resolvido: como a regra da ocupação efetiva acelerou a corrida
+
+Pergunta: por que a África passou, em poucas décadas, de pontos no litoral a quase toda sob domínio europeu?
+
+1. Leia a regra do Ato Geral (26 de fevereiro de 1885): para reclamar um território, a potência tinha de ocupá-lo de fato e avisar as outras.
+2. Pense na consequência: quem chegasse depois perdia o direito. Todas passaram a ocupar o interior o quanto antes.
+3. Meça o resultado: por volta de 1870 o controle era sobretudo litorâneo; em 1914, só Etiópia e Libéria continuavam independentes. Foram cerca de 44 anos (1914 - 1870).
+
+Confira: ninguém perguntou aos povos africanos; a regra servia para as potências não brigarem entre si.
+
+## Resumo
+
+- Até cerca de 1870 os europeus controlavam sobretudo o litoral africano; a indústria queria matérias-primas e mercados.
+- A Conferência de Berlim (novembro de 1884 a fevereiro de 1885) fixou regras no Ato Geral: livre comércio e navegação nos rios Congo e Níger e ocupação efetiva.
+- Em 1914, só Etiópia e Libéria seguiam independentes.
+- O Estado Livre do Congo foi posse pessoal de Leopoldo II e teve trabalho forçado e mutilações.
+- Houve resistência em toda parte (Etiópia, Samori Touré, herero e nama).
+- Para Walter Rodney, o colonialismo subdesenvolveu a África: organizou as colônias para exportar poucos produtos.

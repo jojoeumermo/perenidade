@@ -34,6 +34,10 @@ quiz:
     explicacao: "Seus sermões são obras-primas da prosa, e também documentos das contradições da colônia."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o Quinhentismo e o Barroco no Brasil, reconhecer o olhar do colonizador na Carta de Caminha e distinguir Gregório de Matos e Antônio Vieira.
+
 ## Os primeiros textos: o olhar de quem chegou
 
 Chama-se **Quinhentismo** o conjunto de textos escritos no século XVI (os anos 1500) sobre o Brasil. Não é ainda uma literatura feita no Brasil, mas **sobre** o Brasil, por europeus.
@@ -81,9 +85,27 @@ O que o trecho "o melhor fruto que dela se pode tirar parece-me que será salvar
 > Pense no que "salvar" significava para um cristão português de 1500.
 ```
 
+## Exemplo resolvido
+
+**O que a frase de Caminha "o melhor fruto que dela se pode tirar parece-me que será salvar esta gente" mostra?**
+
+1. Veja quem escreve: Pero Vaz de Caminha, um europeu, ao rei de Portugal, em 1º de maio de 1500.
+2. Veja como a terra é vista: algo a **aproveitar** ("querendo-a aproveitar, dar-se-á nela tudo").
+3. Veja como os povos são vistos: gente a **converter** ("salvar esta gente").
+4. Conclusão: a carta é valiosa como documento, mas é a versão de **um lado só**: a de quem chegou.
+
+Confira: o Quinhentismo é o conjunto de textos escritos no século XVI **sobre** o Brasil, por europeus; ainda não é uma literatura feita no Brasil.
+
 ## Para praticar
 
 1. Leia um trecho da Carta de Caminha e reescreva-o do ponto de vista de um tupiniquim que viu os navios chegarem.
 2. Identifique uma antítese no verso de Gregório citado acima.
 3. Explique a contradição de Vieira com as suas palavras.
 4. Debata: quem escreveu a história do Brasil nos primeiros séculos? Quem ficou sem voz?
+
+## Resumo
+
+- Quinhentismo: textos do século XVI sobre o Brasil, escritos por europeus (a Carta de Caminha, 1500; os textos jesuítas de Anchieta).
+- Barroco: estilo do século XVII, de contrastes (fé e prazer, céu e terra); marco: *Prosopopeia* (1601), de Bento Teixeira.
+- Recursos: antítese e outros; autores: Gregório de Matos e Antônio Vieira.
+- Pergunta crítica: quem escreveu a história dos primeiros séculos, e quem ficou sem voz.

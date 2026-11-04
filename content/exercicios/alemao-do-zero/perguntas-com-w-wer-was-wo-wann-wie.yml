@@ -1,0 +1,51 @@
+# Exercícios da aula "Perguntas com W: wer, was, wo, wann, wie" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-perguntas-01
+  tema: "Palavras W"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer wer?"
+  alternativas:
+    - texto: "quem"
+      certa: true
+    - texto: "onde"
+      erro: "Onde é wo. Cuidado com o falso amigo: wer é quem."
+    - texto: "quando"
+      erro: "Quando é wann."
+  explicacao: "Wer é quem; wo é onde; wann é quando; wie é como."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-perguntas-02
+  tema: "Ordem da pergunta"
+  dificuldade: 2
+  enunciado: "Qual é a ordem certa da pergunta aberta \"Onde você mora?\""
+  alternativas:
+    - texto: "Wo wohnst du?"
+      certa: true
+    - texto: "Wo du wohnst?"
+      erro: "Na pergunta aberta, o verbo vem em segundo lugar, logo depois da palavra W."
+    - texto: "Du wohnst wo?"
+      erro: "A palavra W vem primeiro, e o verbo depois: Wo wohnst du?"
+  explicacao: "Pergunta aberta: palavra W + verbo + sujeito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-perguntas-03
+  tema: "Sim ou não"
+  dificuldade: 2
+  enunciado: "Uma pergunta de sim ou não, como \"Você mora em Recife?\", começa com o quê?"
+  alternativas:
+    - texto: "O verbo: Wohnst du in Recife?"
+      certa: true
+    - texto: "Uma palavra W: Wo wohnst du in Recife?"
+      erro: "Com palavra W a pergunta é aberta. A de sim ou não começa com o verbo."
+    - texto: "O sujeito: Du wohnst in Recife?"
+      erro: "Na pergunta de sim ou não o verbo vem antes do sujeito."
+  explicacao: "Perguntas de sim ou não começam com o verbo (verbo + sujeito) e a resposta é ja ou nein."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

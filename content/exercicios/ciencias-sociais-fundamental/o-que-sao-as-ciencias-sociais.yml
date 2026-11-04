@@ -1,0 +1,51 @@
+# Exercícios da aula "O que são as ciências sociais" (Ciências sociais: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: csf-cienciassociais-01
+  tema: "Três olhares"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual ciência social estuda as culturas, os modos de vida e os significados que cada povo dá ao mundo?"
+  alternativas:
+    - texto: "A sociologia"
+      erro: "A sociologia estuda grupos, instituições e desigualdades."
+    - texto: "A ciência política"
+      erro: "A ciência política estuda o poder, o Estado, os governos, os partidos e os movimentos."
+    - texto: "A antropologia"
+      certa: true
+  explicacao: "As três conversam entre si e com a história, a geografia e a economia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: csf-cienciassociais-02
+  tema: "Imaginação sociológica"
+  dificuldade: 2
+  enunciado: "O que C. Wright Mills chamou de imaginação sociológica?"
+  alternativas:
+    - texto: "A capacidade de ligar a história de uma pessoa às forças maiores da sociedade"
+      certa: true
+    - texto: "Imaginar uma sociedade perfeita"
+      erro: "É ligar a vida de uma pessoa às forças da sociedade."
+    - texto: "Estudar só os sonhos"
+      erro: "É a capacidade de ver o pessoal e o público ligados."
+  explicacao: "Um desempregado numa cidade pequena é um problema pessoal; milhões desempregados são uma questão pública."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: csf-cienciassociais-03
+  tema: "Culpa pessoal"
+  dificuldade: 2
+  enunciado: "Se 500 mil pessoas perdem o emprego no mesmo mês, é só culpa de cada uma?"
+  alternativas:
+    - texto: "Sim, é preguiça de cada um"
+      erro: "A aula diz que não se explica pela preguiça de cada um."
+    - texto: "Não: a aula diz que é questão pública, explicada pela economia e pelas decisões políticas"
+      certa: true
+    - texto: "Sim, é sempre falta de sorte"
+      erro: "Explica-se pela economia e pelas decisões políticas."
+  explicacao: "A vida de cada um acontece dentro de uma sociedade, com regras e desigualdades que ninguém escolheu sozinho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

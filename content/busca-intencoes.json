@@ -469,5 +469,14 @@
       { "tipo": "pagina", "caminho": "/contribuir" }
     ],
     "nota": "Voluntariado e contribuição."
+  },
+  {
+    "id": "tirar-duvida",
+    "padroes": ["tirar uma duvida", "tenho uma duvida", "quem responde a minha duvida", "plantao de duvidas", "preciso de ajuda para estudar"],
+    "destinos": [
+      { "tipo": "pagina", "caminho": "/plantao" },
+      { "tipo": "pagina", "caminho": "/reforco" }
+    ],
+    "nota": "Onde tirar uma dúvida de estudo."
   }
 ]

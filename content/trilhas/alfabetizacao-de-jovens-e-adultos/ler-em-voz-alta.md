@@ -1,5 +1,6 @@
 ---
 titulo: "Ler em voz alta"
+modelo: 9
 resumo: "Ganhar fluência lendo em voz alta textos curtos, com ritmo e entonação, e perceber que ler bem é entender o que se lê."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Ao fim desta aula você vai ler em voz alta um texto curto com ritmo, fazendo as
 
 ```provocacao
 Tem algum texto que você sabe de cor, de tanto ouvir? Uma oração, uma música, um ditado? Diga ele em voz alta antes de começar.
+```
+
+```suarealidade
+Em que situação da sua semana seria bom ler em voz alta para alguém (para um neto, na igreja, numa reunião, um aviso na porta)?
 ```
 
 ## Ler bem é entender
@@ -166,4 +171,18 @@ Escolha um texto curto que importa para você e leia três vezes em voz alta. Es
 - Leia um texto curto para alguém da sua casa.
 - Peça para a pessoa contar o que entendeu.
 - Troquem: agora ela lê para você.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ler em voz alta é coisa de criança. Adulto tem de ler em silêncio, e treinar em voz alta só expõe e envergonha quem lê devagar ou tropeça."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O medo de passar vergonha é real e deve ser respeitado. Por isso o treino da aula começa **em silêncio**, devagar, e só depois vai para a voz alta, sozinho e com textos que a pessoa já conhece de ouvido (oração, música). Quem acompanha ouve sem interromper a cada erro. Quem aprendeu a ler adulto muitas vezes conta que o primeiro texto lido em público foi um momento de orgulho. Ninguém é obrigado a ler para os outros: a leitura em voz alta é um treino que a pessoa faz no seu ritmo.
+```
+
+```agir
+# Esta semana
+Escolha um texto curto que você conhece (uma oração, uma música, um ditado) e leia em voz alta, por cinco minutos, em três dias da semana. Anote num papel qual palavra foi mais difícil e como você a leu por pedaços.
 ```

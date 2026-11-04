@@ -1,0 +1,51 @@
+# Exercícios da aula "Os pronomes e o verbo sein (ser, estar)" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-sein-01
+  tema: "Conjugar sein"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Complete: \"Wir ___ Kollegen.\" (Nós somos colegas.)"
+  alternativas:
+    - texto: "sind"
+      certa: true
+    - texto: "ist"
+      erro: "Ist é a forma de er/sie/es. Para wir, é sind."
+    - texto: "bin"
+      erro: "Bin é só para ich (eu)."
+  explicacao: "Sein: ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-sein-02
+  tema: "Profissão sem artigo"
+  dificuldade: 2
+  enunciado: "Como se diz \"Eu sou enfermeiro\" em alemão, segundo a aula?"
+  alternativas:
+    - texto: "Ich bin Krankenpfleger."
+      certa: true
+    - texto: "Ich bin ein Krankenpfleger."
+      erro: "Ao dizer a profissão, em alemão não se usa artigo."
+    - texto: "Ich habe Krankenpfleger."
+      erro: "Habe é do verbo ter. Para dizer o que você é, use sein: ich bin."
+  explicacao: "Ao dizer a profissão não se usa artigo: Ich bin Krankenpfleger."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-sein-03
+  tema: "O Sie formal"
+  dificuldade: 2
+  enunciado: "Qual pronome é o \"o senhor / a senhora\" e como se escreve?"
+  alternativas:
+    - texto: "Sie, sempre com maiúscula"
+      certa: true
+    - texto: "sie, com minúscula, em qualquer lugar da frase"
+      erro: "Com minúscula, sie é \"ela\" ou \"eles\". O formal é sempre Sie, com maiúscula."
+    - texto: "du, com maiúscula"
+      erro: "Du é o \"você\" informal. O formal é Sie."
+  explicacao: "O Sie formal leva sempre maiúscula, em qualquer lugar da frase."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

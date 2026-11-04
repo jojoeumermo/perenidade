@@ -45,6 +45,7 @@ export const editorPt: EditorLabels = {
       roda: "Discuta na sala",
       suarealidade: "Na sua realidade (antes da explicação)",
       outrolado: "O outro lado (com treino de resposta)",
+      outrojeito: "Outro jeito de explicar (opcional)",
       agir: "Agir (tarefa da aula)",
     },
   },

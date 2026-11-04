@@ -33,6 +33,10 @@ quiz:
     explicacao: "Quando se fala de uma coisa em geral, o inglês não usa artigo, ao contrário do português."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber escolher entre *a*, *an*, *the* e nenhum artigo, e lembrar que profissão leva artigo em inglês.
+
 O português tem oito artigos: o, a, os, as, um, uma, uns, umas. O inglês tem só três: **a**, **an** e **the**. Eles não mudam com o gênero nem, no caso do *the*, com o número. A dificuldade está em outra coisa: saber **quando** usar, porque o inglês às vezes usa artigo onde o português não usa, e o contrário também acontece.
 
 ## A e an: "um" e "uma"
@@ -113,6 +117,18 @@ Dizer "she is nurse" é um erro muito comum de quem fala português.
 | coisa já conhecida ou única | the | *the bus to the city center, the sun* |
 | coisa em geral (incontável ou no plural) | nenhum | *Water is important. Cats sleep a lot.* |
 | profissão | a / an | *He is a driver.* |
+
+## Exemplo resolvido
+
+**Complete: "___ hour" e "___ university".**
+
+1. Olhe o **som** da primeira letra, não a letra escrita.
+2. *Hour* começa com som de vogal ("au"), porque o h é mudo. Então: **an** hour.
+3. *University* começa com som de consoante ("iu"). Então: **a** university.
+
+Agora uma frase inteira: *I bought a shirt and a cap. The shirt is blue.* Primeiro *a*, porque a camisa era novidade; depois *the*, porque agora se sabe de qual camisa se fala.
+
+Confira: nas respostas da própria aula, *an hour* e *a university*. A regra é sobre a pronúncia.
 
 ## Para praticar
 

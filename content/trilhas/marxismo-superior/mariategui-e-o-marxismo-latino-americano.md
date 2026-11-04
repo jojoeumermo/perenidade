@@ -35,6 +35,10 @@ quiz:
     explicacao: "Amauta, palavra quéchua para 'sábio' ou 'mestre', reuniu vanguardas artísticas, indigenismo e socialismo."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber quem foi Mariátegui, o que defendeu nos *Sete Ensaios* e por que ele pensou o socialismo a partir da realidade latino-americana.
+
 **José Carlos Mariátegui** (1894-1930) é considerado o primeiro grande marxista latino-americano a pensar o socialismo a partir da realidade do continente, e não como aplicação mecânica de esquemas europeus. Morreu aos 35 anos, mas deixou uma obra que continua a inspirar movimentos indígenas, camponeses e socialistas.
 
 ## Uma vida curta e intensa
@@ -77,6 +81,24 @@ Mariátegui também tinha uma visão original da subjetividade revolucionária. 
 
 Sua obra influenciou movimentos indígenas e camponeses andinos, a teologia da libertação, a teoria da dependência e debates contemporâneos sobre plurinacionalidade, bem viver e decolonialidade. Michael Löwy, entre outros, ajudou a difundi-lo no Brasil.
 
+## Exemplo resolvido
+
+**Por que Mariátegui é chamado de primeiro grande marxista latino-americano?**
+
+1. Ele pensou o socialismo **a partir da realidade do continente**, e não como aplicação mecânica de esquemas europeus.
+2. Entre 1919 e 1923, viveu na Europa, sobretudo na Itália, e conheceu o pensamento marxista europeu.
+3. De volta a Lima, fundou a revista **Amauta** (1926, "sábio" ou "mestre" em quéchua) e o Partido Socialista do Peru (1928).
+4. Nos *Sete Ensaios de Interpretação da Realidade Peruana* (1928) aplicou o método marxista ao seu país, incluindo o "problema do índio".
+
+Confira: ele morreu aos 35 anos, mas a obra continua a inspirar movimentos indígenas, camponeses e socialistas.
+
 ## Para pesquisar e debater
 
 Que formas comunitárias de trabalho e de uso da terra existem no Brasil (mutirão, fundo de pasto, terras de quilombo, terras indígenas)? Elas poderiam inspirar outra organização da sociedade?
+
+## Resumo
+
+- José Carlos Mariátegui (1894-1930) nasceu em Moquegua, no Peru, numa família pobre, e foi gráfico e jornalista.
+- Fundou a revista *Amauta* (1926) e o Partido Socialista do Peru (1928).
+- Os *Sete Ensaios* (1928) aplicam o método marxista à realidade peruana.
+- Sua obra influenciou movimentos indígenas e camponeses andinos, a teologia da libertação e a teoria da dependência.

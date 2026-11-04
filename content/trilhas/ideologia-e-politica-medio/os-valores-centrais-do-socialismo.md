@@ -29,6 +29,10 @@ quiz:
     resposta: 0
     explicacao: "O art. 3º funciona como uma espécie de lista de valores oficiais do Estado brasileiro."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber listar os doze valores centrais do socialismo, dizer como são ensinados e comparar com os fundamentos da Constituição brasileira de 1988.
+
 
 Quem visita uma cidade chinesa vê, em muros, escolas e estações, um conjunto de palavras em vermelho: são os **valores centrais do socialismo** (社会主义核心价值观). Eles foram formulados pelo Partido Comunista em **2012**, no seu 18º Congresso, e aparecem nos currículos escolares de todas as etapas. Esta aula apresenta esses valores e propõe uma comparação.
 
@@ -77,3 +81,23 @@ Comparar os dois conjuntos de valores é um bom exercício: o que eles têm em c
 ## Para conversar
 
 Se a sua turma tivesse de escolher quatro valores para orientar a escola, quais seriam? Como garantir que eles não fiquem só no papel?
+
+## Exemplo resolvido
+
+**Como contar os valores e comparar "palavras iguais, sentidos diferentes"?**
+
+1. **Conte.** São doze valores, em três níveis (Estado, sociedade e cidadão), com quatro em cada um: 3 × 4 = **12**. Em chinês, cada valor tem dois caracteres: 12 × 2 = **24 caracteres**.
+2. **Data.** Foram formulados em 2012, no 18º Congresso do Partido.
+3. **Nível da sociedade.** Liberdade, igualdade, justiça e Estado de direito, como na aula.
+4. **Compare com o Brasil.** A Constituição de 1988, art. 1º, lista os fundamentos da República: soberania, cidadania, dignidade da pessoa humana, valores sociais do trabalho e da livre iniciativa, pluralismo político.
+5. **Palavras iguais, sentidos diferentes.** "Democracia" e "liberdade" aparecem tanto nos valores chineses quanto em constituições ocidentais, mas são interpretadas de formas diferentes. No discurso oficial chinês, a democracia é entendida dentro do sistema dirigido pelo Partido.
+
+A pergunta final da aula serve de exercício: se a sua turma tivesse de escolher quatro valores para a escola, quais seriam, e como garantir que não fiquem só no papel?
+
+## Resumo
+
+- Os valores centrais do socialismo foram formulados em 2012, no 18º Congresso do Partido Comunista, e aparecem nos currículos de todas as etapas.
+- São doze valores em três níveis (Estado, sociedade e cidadão), quatro em cada: Estado (prosperidade, democracia, civilidade, harmonia), sociedade (liberdade, igualdade, justiça, Estado de direito) e cidadão (patriotismo, dedicação ao trabalho, honestidade, amizade).
+- São ensinados nos padrões curriculares, em atividades escolares e no espaço público (painéis em ruas, estações e prédios do governo).
+- Palavras iguais, sentidos diferentes: "democracia" e "liberdade" são interpretadas de formas distintas na China e nas constituições ocidentais.
+- O Brasil não tem lista oficial ensinada, mas a Constituição de 1988 (arts. 1º e 3º) cumpre papel parecido.

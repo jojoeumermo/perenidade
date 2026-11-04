@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "A palavra interrogativa fica no lugar da resposta."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer onde algo está com 在, usar as palavras de posição (上, 下, 里, 外, 前, 后, 旁边), dizer onde uma ação acontece e o que há em um lugar com 有.
 
 ## Estar em: 在
 
@@ -96,3 +99,21 @@ Compare: 书在桌子上 (o livro, já conhecido, está sobre a mesa) e 桌子�
 2. Escreva onde você e duas pessoas da sua família trabalham ou estudam, com 在 + lugar + verbo.
 3. Descreva o que há perto da sua casa com 有.
 4. Corrija: 我住在北京吗哪儿？ / 我工作在银行。
+
+## Exemplo resolvido
+
+**Como dizer "Eu almoço no trabalho" e "O celular está sobre a mesa"? (almoçar = 吃午饭, chī wǔfàn; trabalho/empresa = 公司, gōngsī)**
+
+1. **Onde a ação acontece.** 在 + lugar vem **antes do verbo**, nunca no fim: 在公司 + 吃午饭.
+2. **Monte.** **我在公司吃午饭。** (Wǒ zài gōngsī chī wǔfàn.)
+3. **Onde algo está.** Pessoa ou coisa + 在 + lugar. A palavra de posição vem **depois** do lugar, na ordem inversa do português: "mesa sobre" = 桌子上.
+4. **Monte.** **手机在桌子上。** (Shǒujī zài zhuōzi shang.)
+
+Confira: "我吃午饭在公司" está errado, pois 在 + lugar vai antes do verbo. Para "o que há" em um lugar, a ordem muda: lugar + 有 + coisa (桌子上有一本书).
+
+## Resumo
+
+- **在** (zài): pessoa ou coisa + 在 + lugar (我在家); negação **不在**.
+- Palavras de posição vêm **depois** do lugar: 上 (sobre), 下 (embaixo), 里 (dentro), 外 (fora), 前 (na frente), 后 (atrás), 旁边 (ao lado); em posição de lugar, 上, 下 e 里 costumam ter tom neutro.
+- Onde a ação acontece: **在 + lugar antes do verbo** (我在医院工作).
+- O que há num lugar: **lugar + 有 + coisa**.

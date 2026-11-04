@@ -31,6 +31,10 @@ quiz:
     explicacao: "Os leitores brasileiros conheceram por muito tempo só um lado."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber distinguir as duas correntes da teoria da dependência e resumir, com justiça para os dois lados, a polêmica de 1978 entre Marini e Cardoso e Serra.
+
 A teoria da dependência nunca foi uma só. Desde o início, conviveram nela pelo menos duas correntes, com conclusões políticas opostas. Em 1978, elas se enfrentaram de modo aberto.
 
 ## Duas leituras da dependência
@@ -79,6 +83,25 @@ A obra de Marini só começou a ser editada no Brasil a partir de 2000. Desde en
 
 Leia os três textos na ordem: o livro de Cardoso e Faletto, a crítica de 1978 e a resposta de Marini. Desconfie dos resumos, inclusive deste. Em polêmicas, cada lado tende a simplificar o outro.
 
+## Exemplo resolvido
+
+**Como resumir a polêmica de 1978 sem atribuir a cada lado o que ele não disse?**
+
+1. Situe a corrente de Cardoso e Faletto (*Dependência e Desenvolvimento na América Latina*, 1969): dependência não significa estagnação; pode haver crescimento e industrialização em situação de dependência (desenvolvimento dependente-associado).
+2. Situe a de Marini, Bambirra e Theotonio: a dependência é insuperável dentro do capitalismo.
+3. Resuma o ataque de Cardoso e Serra (1978): a troca desigual estaria errada, a superexploração não seria necessária e a visão seria estagnacionista.
+4. Resuma a resposta de Marini (1978): ele nunca negou o crescimento nem o aumento da produtividade; sustentou que se combinam com a superexploração em vez de eliminá-la.
+
+Conclusão: a divergência central é se o capitalismo dependente pode se desenvolver de modo a superar a dependência. Note também o debate desigual: a crítica saiu no Brasil, a resposta no México, e Marini estava no exílio.
+
 ## Para pesquisar e debater
 
 Nos períodos em que a economia brasileira cresceu, os salários acompanharam a produtividade? Que dados você usaria para testar a tese de cada lado?
+
+## Resumo
+
+- Houve duas correntes: a marxista (Marini, Bambirra, Theotonio) e a de Cardoso e Faletto, de 1969, com o desenvolvimento dependente-associado.
+- Em 1978, Cardoso e Serra publicaram "As desventuras da dialética da dependência", e Marini respondeu em "Las razones del neodesarrollismo".
+- O ponto central: se o capitalismo dependente pode superar a superexploração e a própria dependência.
+- O debate foi desigual: durante anos, estudantes brasileiros conheceram a teoria pela crítica que lhe foi feita.
+- Para estudar a polêmica, a aula pede a leitura dos textos originais dos dois lados.

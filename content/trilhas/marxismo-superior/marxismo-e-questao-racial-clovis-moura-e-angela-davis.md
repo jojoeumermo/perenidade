@@ -37,6 +37,10 @@ quiz:
     explicacao: "Raça e classe se constituem mutuamente: separar uma da outra empobrece a análise das duas."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer por que, no Brasil, não se entendem as classes sem o racismo, e o que Du Bois, Clóvis Moura e Angela Davis acrescentaram ao marxismo.
+
 No Brasil, o país que mais recebeu africanos escravizados e o último das Américas a abolir a escravidão, é impossível entender as classes sociais sem entender o racismo. Esta aula apresenta duas contribuições fundamentais do marxismo à questão racial: a do brasileiro **Clóvis Moura** e a da norte-americana **Angela Davis**.
 
 ## Um debate antigo
@@ -73,6 +77,24 @@ Davis dedicou boa parte da obra posterior à crítica do sistema prisional, em l
 
 No Brasil, a articulação entre raça, classe e gênero foi desenvolvida também por **Lélia Gonzalez**, que pensou a "amefricanidade" e o lugar da mulher negra na formação social brasileira, e por intelectuais e militantes do movimento negro organizado. A trilha [Marxismo negro](/trilhas/marxismo-negro) aprofunda esses autores.
 
+## Exemplo resolvido
+
+**O que é o "salário psicológico" da branquitude, segundo Du Bois?**
+
+1. Em *Black Reconstruction in America* (1935), Du Bois mostrou que os trabalhadores brancos norte-americanos recebiam, além do salário, uma espécie de "salário psicológico".
+2. Esse "salário" vinha da branquitude e **dividia** os trabalhadores brancos dos negros.
+3. O efeito foi enfraquecer toda a classe trabalhadora.
+4. Por isso uma tradição de intelectuais negros insistiu que raça e classe se constituem mutuamente, em vez de tratar o racismo como mero reflexo da exploração.
+
+Confira: Marx escreveu no *Capital* que "o trabalho de pele branca não pode se emancipar onde o trabalho de pele negra é marcado a ferro".
+
 ## Para pesquisar e debater
 
 Use dados do IBGE sobre rendimento, desemprego e informalidade por cor ou raça. O que eles dizem sobre a relação entre racismo e classe no Brasil de hoje?
+
+## Resumo
+
+- Parte do marxismo tratou o racismo como mero reflexo da exploração econômica; outra tradição, sobretudo de intelectuais negros, mostrou que raça e classe se constituem mutuamente.
+- Du Bois (*Black Reconstruction in America*, 1935) descreveu o "salário psicológico" da branquitude.
+- Clóvis Moura (1925-2003), em *Rebeliões da Senzala* (1959), rompeu com a ideia da escravidão branda e do escravizado passivo.
+- A articulação entre raça, classe e gênero foi desenvolvida também por Lélia Gonzalez e por Angela Davis.

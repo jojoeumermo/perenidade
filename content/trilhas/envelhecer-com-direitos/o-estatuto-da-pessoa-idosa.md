@@ -35,9 +35,19 @@ quiz:
     opcoes: ["Nada: é assunto de família", "Ligar para o Disque 100 ou procurar a delegacia", "Esperar que ela mesma resolva"]
     resposta: 1
     explicacao: "Agressão e apropriação da renda de pessoa idosa são crimes. A denúncia pode ser anônima."
+modelo: 9
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que o Estatuto da Pessoa Idosa garante (prioridade, transporte, saúde, renda), como se proteger de violência e golpes e onde pedir ajuda.
+
+
 Esta aula é informação geral. Para o seu caso, procure o CRAS do seu bairro, a Defensoria Pública ou o conselho da pessoa idosa do seu município.
+
+```suarealidade
+Pense numa pessoa com 60 anos ou mais da sua família, do seu prédio ou da sua rua, sem dizer o nome. Qual desses direitos (transporte, remédio, atendimento preferencial, renda) ela já usa, e qual ela talvez não conheça?
+```
 
 ## Uma lei para quem chegou aos 60
 
@@ -113,3 +123,36 @@ Os serviços de saúde são **obrigados a comunicar** às autoridades os casos s
 ## Um direito de todo mundo
 
 Envelhecer não é um problema individual. Uma sociedade que usa as pessoas enquanto elas produzem e as descarta depois não foi feita para gente. Quem luta hoje por aposentadoria digna, por transporte e por saúde pública para os mais velhos está construindo a velhice que também vai ter.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Tantos direitos para a pessoa idosa pesam nas contas públicas e nas das empresas. Prioridade, gratuidade e desconto acabam sobrando para os mais jovens".
+---
+Como você responderia, reconhecendo que as contas existem?
+---
+Uma resposta possível: o Estatuto diz que garantir os direitos da pessoa idosa é obrigação da família, da comunidade, da sociedade e do poder público, e não favor (art. 3º). A gratuidade no ônibus urbano vale a partir dos 65 anos e entre 60 e 65 depende da lei de cada cidade, como a aula mostra. E a velhice é uma etapa de todo mundo que viver bastante: quem luta hoje por esses direitos está construindo a velhice que também vai ter.
+```
+
+## Exemplo resolvido
+
+**Seu Raimundo tem 68 anos, nunca teve carteira assinada, mora sozinho, sem renda, e vai de ônibus urbano ao posto de saúde. Que direitos ele pode usar?**
+
+1. **Transporte:** ônibus, trem e metrô urbanos são gratuitos para maiores de 65 anos; basta mostrar um documento com a idade (art. 39 do Estatuto).
+2. **Remédios:** o poder público deve fornecer gratuitamente os medicamentos, especialmente os de uso continuado (art. 15, § 2º).
+3. **Renda:** com 65 anos ou mais, sem como se manter e sem família que possa mantê-lo, ele pode pedir o BPC, de um salário mínimo por mês. Não é preciso ter contribuído; a regra geral pede renda familiar por pessoa de até um quarto do salário mínimo e inscrição no Cadastro Único. O pedido começa no CRAS.
+4. **Se alguém ficar com o cartão ou com o benefício dele:** isso pode ser crime; o Disque 100 recebe a denúncia, gratuita e podendo ser anônima.
+
+Confira: a aula é informação geral. Para o caso concreto, procure o CRAS, a Defensoria Pública ou o conselho da pessoa idosa do município.
+
+```agir
+# Esta semana
+Anote num papel o endereço e o telefone do CRAS do seu bairro e o número do Disque 100. Guarde junto aos documentos de casa, ou mostre a uma pessoa idosa de confiança. Não é preciso pedir dados de ninguém.
+```
+
+## Resumo
+
+- O Estatuto da Pessoa Idosa (Lei 10.741/2003) vale para quem tem **60 anos ou mais**; garantir os direitos é obrigação da família, da comunidade, da sociedade e do poder público.
+- **Prioridade** no atendimento; **ônibus urbano gratuito** a partir dos 65 anos (entre 60 e 65 depende da cidade); 10% dos assentos reservados.
+- **Saúde** pelo SUS, com remédios gratuitos e acompanhante na internação; o plano não pode reajustar só pela idade.
+- **BPC** de um salário mínimo para quem tem 65 anos ou mais e não tem como se manter; o pedido começa no CRAS.
+- Denúncias: **Disque 100**, **190**, delegacia, Defensoria Pública e Ministério Público.

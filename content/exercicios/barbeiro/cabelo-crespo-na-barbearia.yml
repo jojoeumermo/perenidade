@@ -1,0 +1,51 @@
+# Exercícios da aula "Cabelo crespo na barbearia" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-crespo-01
+  tema: "O que o crespo tem de diferente"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que o fio crespo cresce em espiral fechada?"
+  alternativas:
+    - texto: "Por causa do folículo quase redondo"
+      erro: "O folículo quase redondo dá fio liso."
+    - texto: "Por causa do folículo oval"
+      erro: "O oval dá fio ondulado."
+    - texto: "Por causa do folículo achatado"
+      certa: true
+  explicacao: "O fio crespo também encolhe, principalmente molhado, e precisa de mais umidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-crespo-02
+  tema: "Encolhimento"
+  dificuldade: 2
+  enunciado: "Por que é preciso considerar o encolhimento ao combinar o comprimento do topo no cabelo crespo?"
+  alternativas:
+    - texto: "Porque o que parece \"um dedo\" solto pode ser bem mais comprido esticado"
+      certa: true
+    - texto: "Porque o cabelo crespo cresce mais devagar"
+      erro: "O ponto é o encolhimento: solto, o fio parece mais curto do que é."
+    - texto: "Porque o cabelo crespo não encolhe"
+      erro: "Ele encolhe, e mais quando está molhado."
+  explicacao: "Combine o comprimento sabendo que o fio solto parece bem mais curto do que esticado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-crespo-03
+  tema: "Desembaraçar"
+  dificuldade: 2
+  enunciado: "Como desembaraçar o cabelo crespo sem machucar?"
+  alternativas:
+    - texto: "Pentear seco com força"
+      erro: "Pentear seco com força pode fazer mal ao fio e ao couro cabeludo."
+    - texto: "Hidratar e usar pente de dentes largos ou garfo, das pontas para a raiz, sem pressa"
+      certa: true
+    - texto: "Da raiz para as pontas, com pente fino"
+      erro: "A aula manda desembaraçar das pontas para a raiz, com dentes largos ou garfo."
+  explicacao: "Na máquina, comece mais longo e desça aos poucos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

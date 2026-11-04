@@ -1,0 +1,51 @@
+# Exercícios da aula "Barba: desenho e aparo" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-barba-aparo-01
+  tema: "Aparar com máquina"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Ao aparar a barba com máquina e pente de altura, por qual pente começar?"
+  alternativas:
+    - texto: "Um pente acima do combinado"
+      certa: true
+    - texto: "O pente mais curto, para adiantar"
+      erro: "O que se corta não volta: comece um pente acima, como no cabelo."
+    - texto: "Sem pente, direto na lâmina"
+      erro: "A máquina com pente deixa o comprimento combinado; comece um pente acima."
+  explicacao: "Primeiro pentear a barba no sentido do crescimento; depois máquina com pente, e tesoura e pente para o volume e as pontas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-barba-aparo-02
+  tema: "Linha do pescoço"
+  dificuldade: 2
+  enunciado: "O que acontece se a linha do pescoço for desenhada alta demais?"
+  alternativas:
+    - texto: "O pescoço fica com barba"
+      erro: "Isso acontece quando a linha é baixa demais."
+    - texto: "Ela \"encurta\" a barba"
+      certa: true
+    - texto: "Nada, a linha não importa"
+      erro: "A linha muda o rosto: combine a altura com o cliente, de frente e de perfil."
+  explicacao: "Linha alta demais encurta a barba; baixa demais deixa o pescoço com barba."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-barba-aparo-03
+  tema: "O que combinar"
+  dificuldade: 1
+  enunciado: "Qual destes é um dos itens a combinar antes de aparar a barba?"
+  alternativas:
+    - texto: "A cor da barba"
+      erro: "A aula lista comprimento, linha da bochecha, linha do pescoço, bigode e ligação com a costeleta."
+    - texto: "O preço do vizinho"
+      erro: "Os itens são sobre a barba: comprimento, linhas, bigode e costeleta."
+    - texto: "O comprimento e a linha da bochecha"
+      certa: true
+  explicacao: "Combine comprimento, linha da bochecha, linha do pescoço, bigode e ligação com a costeleta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

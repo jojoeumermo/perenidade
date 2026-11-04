@@ -27,6 +27,9 @@ quiz:
     resposta: 1
     explicacao: "A riqueza de uns e a pobreza de outros foram construídas juntas."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é dependência segundo Theotonio dos Santos, reconhecer seus sinais e explicar por que ela não é a mesma coisa que atraso.
 
 O Brasil é uma das maiores economias do mundo, tem indústria, universidades, petróleo e uma agricultura gigantesca. Mesmo assim, quando o preço da soja cai lá fora ou os juros sobem nos Estados Unidos, a vida aqui muda. Por quê?
 
@@ -75,3 +78,23 @@ Nas próximas aulas vamos percorrer essa história, da colônia aos dias de hoje
 ## Para pesquisar e debater
 
 Procure quais são os cinco produtos que o Brasil mais exporta e os cinco que mais importa. O que essa lista diz sobre o lugar do país na economia mundial?
+
+## Exemplo resolvido
+
+**Um país bate recorde de exportação de minério, mas importa quase todos os trilhos, vagões e máquinas que usa nas minas. Ele deixou de ser dependente?**
+
+1. **Veja o que sai.** Minério, um produto primário.
+2. **Veja o que entra.** Máquinas, trilhos e vagões.
+3. **Use os sinais.** Exportar primários e importar máquinas e tecnologia é um dos sinais de dependência listados na aula.
+4. **Lembre a definição.** Dependência é condicionamento pela expansão de outra economia (Theotonio dos Santos, 1970): o país decide, mas o espaço é desenhado de fora.
+5. **Conclua.** Crescer em exportações não é o mesmo que deixar de ser dependente.
+
+Confira: o país dependente não está isolado do mercado mundial; está dentro dele desde o século XVI, e o problema é o lugar que ocupa.
+
+## Resumo
+
+- **Dependência** (Theotonio dos Santos, 1970): a economia de certos países é condicionada pelo desenvolvimento e pela expansão de outra economia.
+- O país dependente está **dentro** do mercado mundial; o problema é o lugar que ocupa.
+- Sinais: exporta produtos primários e importa máquinas e tecnologia, setores lucrativos nas mãos de filiais estrangeiras, dívida em moeda que não emite, decisões tomadas fora e salários baixos mesmo com crescimento.
+- Não é "atraso": desenvolvimento e subdesenvolvimento são dois lados de um só processo.
+- A teoria nasceu nos anos 1960 como crítica à ideia de copiar os ricos e à de uma burguesia nacional disposta a enfrentar o capital estrangeiro (Vânia Bambirra).

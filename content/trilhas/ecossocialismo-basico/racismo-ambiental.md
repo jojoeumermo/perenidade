@@ -31,6 +31,10 @@ quiz:
     explicacao: "E impõe ao poder público e à coletividade o dever de defendê-lo para as presentes e futuras gerações."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é racismo ambiental, de onde vem o conceito e como ele aparece no Brasil.
+
 Pense na sua cidade. Onde fica o lixão ou o aterro? Onde ficam as fábricas que soltam fumaça, a estação de esgoto, o córrego que transborda? E onde ficam os parques arborizados? Na maioria das cidades, a resposta desenha um mapa que coincide com o mapa da renda e da cor da pele.
 
 ## De onde vem o conceito
@@ -75,3 +79,21 @@ Durante muito tempo, "meio ambiente" foi visto como assunto de quem tinha tempo 
 ## Para pesquisar e debater
 
 Desenhe um mapa simples da sua cidade. Marque onde estão o aterro, as indústrias, as áreas que alagam e os parques. Depois marque os bairros mais ricos e os mais pobres. O que o mapa mostra?
+
+## Exemplo resolvido
+
+**Uma prefeitura põe o aterro ao lado de um bairro pobre e de maioria negra porque o terreno é mais barato. É racismo ambiental?**
+
+1. Lembre que o conceito não exige intenção declarada: olha o resultado.
+2. Veja o resultado: o dano se concentra sobre um grupo que já tem menos poder de se defender.
+3. Veja as causas que a aula lista: terreno mais barato onde os pobres moram, menos voz política e uma história de segregação que já empurrou essas pessoas para lá.
+4. Conclua: sim, pode ser um caso de racismo ambiental, mesmo sem intenção.
+
+Confira: o artigo 225 da Constituição diz que todos têm direito ao meio ambiente equilibrado; a distribuição desigual viola esse direito.
+
+## Resumo
+
+- A expressão racismo ambiental vem da luta em Warren, na Carolina do Norte (1982), ligada a Benjamin Chavis; Robert Bullard aprofundou os estudos.
+- O conceito olha o resultado: as mesmas populações sofrem repetidamente o que polui e recebem menos do que protege.
+- No Brasil aparece no saneamento, nas áreas de risco, em grandes obras e mineração e no lixo e na indústria perto de bairros populares.
+- O artigo 225 da Constituição garante o meio ambiente equilibrado a todos.

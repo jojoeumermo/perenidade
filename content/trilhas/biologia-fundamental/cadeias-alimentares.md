@@ -29,6 +29,9 @@ quiz:
     resposta: 2
     explicacao: "Substâncias que o corpo não elimina se concentram a cada nível da cadeia."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber montar uma cadeia e uma teia alimentar, dizer o papel de cada ser (produtor, consumidor, decompositor), explicar por que a energia se perde de um nível para o outro e o que é biomagnificação.
 
 ## Quem come quem
 
@@ -108,3 +111,12 @@ Por isso, a onça, o gavião e a cobra não são "bichos inúteis": controlam as
 1. Monte uma cadeia alimentar com quatro seres vivos da sua região. Indique o papel de cada um.
 2. Transforme a cadeia em teia: acrescente outros alimentos de cada animal.
 3. Em um ambiente que você conhece (uma lagoa, um quintal, um mangue), o que aconteceria se os sapos sumissem?
+
+## Resumo
+
+- **Cadeia alimentar:** sequência de quem serve de alimento a quem (capim, gafanhoto, sapo, cobra, gavião). A seta mostra o caminho da energia e da matéria.
+- Papéis: **produtores**, **consumidores** (primários, secundários, terciários) e **decompositores**, que devolvem os nutrientes ao ambiente.
+- Na natureza as cadeias se cruzam e formam uma **teia**; teias com muitas ligações são mais resistentes.
+- A **matéria circula**; a **energia** segue em mão única e, a cada nível, só cerca de um décimo fica para o seguinte.
+- **Biomagnificação:** substâncias como o mercúrio e certos agrotóxicos se acumulam e aumentam de concentração a cada nível.
+- Tirar ou acrescentar uma espécie mexe na teia inteira.

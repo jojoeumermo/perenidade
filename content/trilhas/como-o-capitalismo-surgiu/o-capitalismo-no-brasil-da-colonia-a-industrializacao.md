@@ -33,6 +33,9 @@ quiz:
     resposta: 0
     explicacao: "O Estado assumiu setores básicos, como aço e petróleo, que o capital privado nacional não tinha força para desenvolver."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como o capitalismo se formou no Brasil, do latifúndio e da monocultura escravista à industrialização a partir de 1930, e por que as marcas da colônia continuam.
 
 O capitalismo não chegou ao Brasil como chegou à Inglaterra. Aqui ele entrou **de fora para dentro**, como parte de um sistema mundial em que o país tinha um lugar definido: fornecer matérias-primas e comprar manufaturas. Esta aula percorre cinco séculos em poucos passos.
 
@@ -93,3 +96,24 @@ O Brasil tornou-se um país industrial e urbano, mas sem resolver as marcas da c
 ## Para conversar
 
 Na sua região, qual foi o "ciclo" econômico mais importante? Quem enriqueceu com ele, e quem trabalhou?
+
+## Exemplo resolvido
+
+**Por que a Lei de Terras de 1850 ajuda a entender a desigualdade brasileira? Monte o raciocínio.**
+
+1. **A regra.** Em 1850, o Império determinou que as terras públicas só poderiam ser adquiridas por compra.
+2. **Quem podia comprar.** Quem tinha dinheiro, e não os libertos nem os imigrantes pobres.
+3. **O que viria depois.** Quando a escravidão acabasse (1888), os libertos e os imigrantes pobres teriam de trabalhar para os fazendeiros.
+4. **O mecanismo.** É o mesmo da acumulação primitiva: separar o trabalhador da terra para que ele não tenha escolha senão vender a sua força de trabalho.
+5. **Conclua.** A abolição libertou cerca de 700 mil pessoas sem terra, sem indenização e sem escola, enquanto o Estado subsidiava a vinda de imigrantes europeus para o café.
+
+Confira: por isso a concentração da terra aparece entre as marcas da colônia que a industrialização não resolveu.
+
+## Resumo
+
+- Na colônia, o Brasil foi organizado para fornecer produtos à Europa (Caio Prado Júnior: o "sentido da colonização"), com **latifúndio**, **monocultura de exportação** e **trabalho escravizado**.
+- **Lei de Terras (1850):** terra só por compra; fechou o acesso a libertos e imigrantes pobres.
+- **Abolição (1888):** sem terra, sem indenização, sem escola.
+- O café financiou ferrovias, bancos e as primeiras fábricas; surgiu um operariado urbano (greve geral de 1917).
+- Depois de 1930, a indústria passou a substituir importações, com a CSN (1941), a CLT (1943) e a Petrobras (1953).
+- Florestan Fernandes: uma revolução burguesa "pelo alto", aliada ao latifúndio e ao capital estrangeiro.

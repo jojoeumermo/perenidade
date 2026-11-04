@@ -41,6 +41,11 @@ quiz:
     explicacao: "A Arena e o MDB eram os partidos criados pela ditadura em 1965-1966. A CLT é de 1943."
 ---
 
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como os metalúrgicos do ABC desafiaram o arrocho da ditadura entre 1978 e 1980 e o que o "novo sindicalismo" deixou.
+
 ## O ABC e as montadoras
 
 O **ABC paulista** é a região formada por Santo André, São Bernardo do Campo e São Caetano do Sul, cidades vizinhas à capital, às quais se juntaram Diadema e outros municípios. A partir dos anos 1950, ali se instalaram as grandes **montadoras de automóveis** e as fábricas de peças. O ABC virou o maior polo industrial do país.
@@ -121,3 +126,10 @@ Compare estas greves com a [greve geral de 1917](/trilhas/lutas-do-povo/a-greve-
 1. Os metalúrgicos de 1978 pararam dentro da fábrica, para evitar a repressão na rua. Que formas criativas de luta você conhece hoje, em categorias com pouca proteção, como os entregadores de aplicativo?
 2. Por que a ditadura tinha tanto medo de uma greve por salário?
 3. O direito de greve está na Constituição. Isso basta para que ele seja respeitado? Pense em casos recentes que você conheça.
+
+## Resumo
+
+- A partir dos anos 1950, o ABC paulista virou o maior polo industrial do país, com montadoras e fábricas de peças.
+- Depois de 1964, a ditadura interveio nos sindicatos, tornou a greve quase impossível dentro da lei e fixou reajustes abaixo da inflação (arrocho salarial).
+- Em 1977 veio à tona a manipulação do índice de inflação; seguiram-se os braços cruzados de 1978, o estádio de Vila Euclides (1979) e os 41 dias de 1980.
+- Dessa luta nasceu o "novo sindicalismo".

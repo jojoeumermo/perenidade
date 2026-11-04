@@ -84,9 +84,27 @@ Responda com pronomes: "¿Le diste las llaves a tu hermano?" —Sí, ...
 
 Em partes da Espanha, usa-se **le** no lugar de *lo* para pessoas do sexo masculino: *Le vi ayer* (vi-o ontem). A Real Academia aceita esse uso para pessoas no masculino singular. Na América Latina, prefere-se *lo vi*.
 
+## Exemplo resolvido
+
+**Responda com pronomes: "¿Le diste las llaves a tu hermano?" — Sí, ...**
+
+1. **Objeto direto:** o que se deu? *las llaves*, feminino plural: *las*.
+2. **Objeto indireto:** a quem? *a tu hermano*: *le*.
+3. **Os dois juntos:** o indireto vem primeiro, e *le* vira *se* antes de *lo, la, los, las*: *se las*.
+4. **Resposta:** *Sí, se las di.*
+
+Confira: "Sim, dei as chaves a ele". Nunca *le las di*.
+
 ## Para praticar
 
 1. Substitua pelo pronome: "Compré la leche." / "Llamé a mis padres." / "Escribí una carta a la directora."
 2. Use dois pronomes: "Doy el informe al jefe." / "Mando los documentos a ustedes."
 3. Escreva de duas formas: "Voy a comprar el pan."
 4. Transforme em ordens: "Dime la verdad" (com pronome) / "No digas la verdad a él" (com pronomes).
+
+## Resumo
+
+- Os pronomes de objeto evitam repetir palavras e são **obrigatórios** em espanhol.
+- **Direto** (o quê? quem?): *me, te, lo, la, nos, os, los, las*. **Indireto** (a quem?): *me, te, le, nos, os, les*.
+- Com dois pronomes, o indireto vem primeiro; *le/les* viram **se** antes de *lo, la, los, las*: *se lo doy*.
+- Posição: antes do verbo conjugado; unido ao infinitivo, ao gerúndio e ao imperativo afirmativo; antes no imperativo negativo.

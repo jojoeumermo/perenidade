@@ -24,6 +24,10 @@ quiz:
     explicacao: "O Haiti foi obrigado a pagar pela própria liberdade, e essa dívida pesou sobre o país por mais de um século."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como os escravizados de São Domingos derrotaram o domínio francês, quem foi Toussaint Louverture e por que essa história é pouco contada.
+
 ## A colônia mais rica do Caribe
 
 No fim do século XVIII, a metade oeste da ilha de Hispaniola era uma colônia francesa chamada **São Domingos** (Saint-Domingue). Era a colônia mais lucrativa do Caribe: produzia grande parte do açúcar e do café consumidos na Europa.
@@ -71,3 +75,21 @@ Por que você acha que a Revolução Haitiana ocupa tão pouco espaço nos livro
 ## Para ler
 
 A [Narrativa da Vida de Frederick Douglass](/acervo/narrativa-da-vida-de-frederick-douglass), no acervo, é o relato em primeira pessoa de um homem que escapou da escravidão nos Estados Unidos algumas décadas depois.
+
+## Exemplo resolvido
+
+**Por que a revolta de 1791 aconteceu depois da Revolução Francesa?**
+
+1. São Domingos era a colônia mais lucrativa do Caribe, movida pelo trabalho de cerca de meio milhão de pessoas escravizadas, a imensa maioria da população.
+2. Em 1789, a Revolução Francesa proclamou que os homens nascem livres e iguais. Os donos das plantações queriam essa liberdade para si, mas não para quem escravizavam.
+3. Na noite de 22 para 23 de agosto de 1791, os escravizados do norte se levantaram; a revolta virou uma guerra de treze anos.
+4. Pressionada, a França declarou a abolição em suas colônias em 1794, e Toussaint Louverture tornou-se o governante de fato.
+
+Confira: a aula conclui que a Revolução Haitiana foi mais longe que as outras: levou a sério a ideia de que todos os seres humanos são livres e iguais, sem exceção de cor.
+
+## Resumo
+
+- No fim do século XVIII, São Domingos (Saint-Domingue) era a colônia mais lucrativa do Caribe, com cerca de meio milhão de pessoas escravizadas.
+- A revolta começou na noite de 22 para 23 de agosto de 1791 e virou uma guerra de treze anos.
+- Toussaint Louverture, ex-escravizado, foi grande estrategista; a França declarou a abolição em 1794 e Napoleão enviou uma expedição em 1802.
+- A revolução levou a sério a ideia de que todos são livres e iguais, e é pouco contada nos livros escolares.

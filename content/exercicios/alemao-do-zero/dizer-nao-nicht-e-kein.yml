@@ -1,0 +1,51 @@
+# Exercícios da aula "Dizer não: nicht e kein" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-nao-01
+  tema: "Kein ou nicht"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"Não tenho tempo\" em alemão?"
+  alternativas:
+    - texto: "Ich habe keine Zeit."
+      certa: true
+    - texto: "Ich habe nicht Zeit."
+      erro: "Para negar um substantivo sem artigo (Zeit), use kein, no feminino keine."
+    - texto: "Ich habe kein Zeit."
+      erro: "Zeit é feminino, então fica keine, com -e, como eine."
+  explicacao: "Kein nega substantivos que teriam ein/eine ou nenhum artigo. Zeit é feminino: keine Zeit."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-nao-02
+  tema: "Negar o verbo"
+  dificuldade: 2
+  enunciado: "Qual frase nega corretamente o verbo: \"Eu não trabalho hoje\"?"
+  alternativas:
+    - texto: "Ich arbeite heute nicht."
+      certa: true
+    - texto: "Ich arbeite heute kein."
+      erro: "Kein só nega substantivo. Para negar o verbo, use nicht."
+    - texto: "Ich nicht arbeite heute."
+      erro: "Para negar a frase inteira, o nicht costuma ir para o fim."
+  explicacao: "Nicht nega verbos e costuma ir para o fim da frase quando nega a frase inteira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-nao-03
+  tema: "Negar um possessivo"
+  dificuldade: 2
+  enunciado: "Complete: \"Das ist ___ mein Problem.\" (Esse não é o meu problema.)"
+  alternativas:
+    - texto: "nicht"
+      certa: true
+    - texto: "kein"
+      erro: "Com possessivo (mein), a negação é nicht, não kein."
+    - texto: "keine"
+      erro: "Keine nega nomes com eine ou no plural. Antes de um possessivo, use nicht."
+  explicacao: "Nome com der/die/das ou possessivo é negado com nicht: Das ist nicht mein Problem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

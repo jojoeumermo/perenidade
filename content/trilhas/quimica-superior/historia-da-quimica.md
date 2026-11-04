@@ -34,6 +34,10 @@ quiz:
     explicacao: "Destilação, sublimação, cristalização e muitos equipamentos vêm dessa tradição."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar como a química passou de técnica de ofício e alquimia a ciência, com Boyle, Lavoisier, Dalton e Wöhler, e que a história não é só europeia.
+
 ## Antes da ciência, as técnicas
 
 Muito antes de existir a palavra "química", os povos já transformavam a matéria: fundiam metais, faziam cerâmica, vidro, tintas, sabão, cerveja e remédios. Essas técnicas, desenvolvidas em muitas regiões do mundo, foram o ponto de partida.
@@ -96,9 +100,27 @@ No século XIX, a química se casou com a indústria: corantes sintéticos, fert
 
 A história oficial da ciência tende a lembrar sobretudo homens europeus. Recuperar essas trajetórias faz parte de uma história mais justa.
 
+## Exemplo resolvido
+
+**Uma palha de aço de 10 g é queimada e passa a pesar 12 g. De onde vieram os 2 g? (números de exemplo)**
+
+1. Pelo flogisto, o metal deveria perder algo ao queimar e ficar mais leve. Mas a balança mostra o contrário.
+2. Lavoisier explicaria pela lei da conservação da massa: nada se cria. O aumento é 12 − 10 = 2 g.
+3. Esses 2 g só podem vir de fora: o ferro se combinou com o oxigênio do ar, e o óxido formado tem a massa do ferro mais a do oxigênio.
+
+Conclusão: a medida com balança, em recipiente fechado, derrubou a explicação do flogisto. É o método que Boyle já defendia: o experimento como juiz.
+
 ## Para pesquisar e debater
 
 1. Leia o início de *O químico cético* no acervo e anote quais ideias Boyle critica.
 2. Por que a pesagem cuidadosa foi decisiva para derrubar a teoria do flogisto?
 3. Pesquise as previsões de Mendeleev para o "eka-silício" e compare com as propriedades do germânio.
 4. Escolha uma das pessoas da lista "Quem também fez a química" e escreva um pequeno texto sobre ela, com fontes.
+
+## Resumo
+
+- Antes da ciência houve técnicas: metais, cerâmica, vidro, tintas, sabão, remédios, em muitas regiões do mundo.
+- A alquimia, árabe e europeia, não fez ouro, mas deixou a destilação, a sublimação, a cristalização e aparelhos de laboratório.
+- Boyle (1661) defendeu o experimento como juiz; Lavoisier mostrou que a combustão combina a substância com o oxigênio e que a massa se conserva (1789).
+- Dalton usou átomos para explicar as proporções fixas das reações.
+- Em 1828, Wöhler obteve ureia de um composto mineral, e a "força vital" perdeu força.

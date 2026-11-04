@@ -26,6 +26,7 @@ quiz:
     opcoes: ["Condenado em Atenas, em 399 a.C., a beber cicuta", "Numa batalha naval", "De velhice, sem nenhum julgamento"]
     resposta: 0
     explicacao: "Platão considerou que ele foi condenado por razões políticas."
+modelo: 9
 ---
 
 ```provocacao
@@ -35,6 +36,10 @@ Imagine alguém que passa o dia na praça perguntando às pessoas "o que é a co
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer Sócrates, o seu método de perguntas e por que ele foi condenado.
+
+```suarealidade
+Quem na sua vida faz as perguntas que te fazem pensar melhor? E você, faz esse tipo de pergunta a alguém do seu trabalho ou da sua casa?
+```
 
 ## Quem foi
 
@@ -70,6 +75,20 @@ Por que o método de Sócrates incomodava os poderosos de Atenas?
 2. "Uma criança que nasceu pobre **merece** ter menos?"
 3. "Se o juiz se enganar, a decisão continua **justa**?"
 4. Cada pergunta mostra que a definição ainda **não está pronta**, e obriga a pensar melhor.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Fazer pergunta o tempo todo é jeito de provocar e de enrolar. Quem sabe, responde; quem pergunta demais só quer atrapalhar".
+---
+Como você responderia?
+---
+Uma resposta possível: perguntar pode irritar, e a aula lembra que Sócrates foi condenado e que Platão achou que por razões políticas. Mas o método dele não era para enrolar: com perguntas, ele ajudava as pessoas a conhecer aquilo que não sabiam e a ver dogmas e preconceitos escondidos nas suas certezas, como a parteira que ajuda a nascer. Pergunta de boa fé pede escuta, e quem pergunta também admite que não sabe.
+```
+
+```agir
+# Esta semana
+Escolha uma palavra, como amizade ou respeito, e pergunte a duas pessoas o que ela significa. Depois faça mais uma pergunta sobre a resposta de cada uma, com calma e sem discutir.
+```
 
 ## Resumo
 

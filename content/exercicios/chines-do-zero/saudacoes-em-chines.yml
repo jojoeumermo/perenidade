@@ -1,0 +1,51 @@
+# Exercícios da aula "Saudações em chinês" (Chinês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: chinz-saudacoes-01
+  tema: "Olá respeitoso"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual saudação se usa com pessoas mais velhas, clientes e autoridades?"
+  alternativas:
+    - texto: "你好 (nǐ hǎo)"
+      erro: "你好 é o olá com qualquer pessoa."
+    - texto: "您好 (nín hǎo)"
+      certa: true
+    - texto: "你们好 (nǐmen hǎo)"
+      erro: "Essa é para um grupo."
+  explicacao: "您 é o pronome respeitoso, \"o senhor, a senhora\"."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-saudacoes-02
+  tema: "Boa noite"
+  dificuldade: 2
+  enunciado: "Qual expressão é \"boa noite\" ao se despedir ou ao dormir?"
+  alternativas:
+    - texto: "晚上好 (wǎnshang hǎo)"
+      erro: "晚上好 é a boa noite ao chegar."
+    - texto: "早上好 (zǎoshang hǎo)"
+      erro: "É \"bom dia\"."
+    - texto: "晚安 (wǎn'ān)"
+      certa: true
+  explicacao: "O apóstrofo em wǎn'ān mostra onde uma sílaba termina e a outra começa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: chinz-saudacoes-03
+  tema: "Para um grupo"
+  dificuldade: 1
+  enunciado: "Como cumprimentar um grupo, dizendo \"olá, pessoal\"?"
+  alternativas:
+    - texto: "你们好 (nǐmen hǎo)"
+      certa: true
+    - texto: "你好 (nǐ hǎo)"
+      erro: "Esse é para uma pessoa."
+    - texto: "晚安 (wǎn'ān)"
+      erro: "Esse é boa noite ao dormir."
+  explicacao: "们 (men) forma o plural dos pronomes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

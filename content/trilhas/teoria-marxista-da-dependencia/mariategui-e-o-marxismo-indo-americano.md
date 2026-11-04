@@ -33,6 +33,10 @@ quiz:
     explicacao: "Ele expôs essa posição nas teses de 1929 sobre o ponto de vista anti-imperialista."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar quem foi Mariátegui, o que ele quis dizer com "criação heroica" e por que, para ele, o problema do índio era o problema da terra.
+
 Quarenta anos antes da teoria da dependência, um jornalista peruano autodidata, doente e preso a uma cadeira de rodas, já tinha formulado várias das suas teses. **José Carlos Mariátegui** (1894-1930) é considerado o primeiro grande marxista da América Latina.
 
 ## Vida curta, obra extensa
@@ -81,6 +85,24 @@ Em 1929, Mariátegui enviou à conferência dos partidos comunistas da América 
 
 Hoje, quando movimentos indígenas estão entre as forças políticas mais ativas do continente, a leitura dos *Sete Ensaios* parece menos um exercício de história do que de atualidade.
 
+## Exemplo resolvido
+
+**Por que Mariátegui rejeitava tratar a questão indígena como um problema de educação?**
+
+1. Veja o que se discutia no Peru dos anos 1920: o "problema do índio" como questão de educação, higiene, moral ou raça.
+2. Veja a virada dele: o problema tem raiz no regime de propriedade da terra, onde a maioria indígena vivia submetida aos grandes proprietários.
+3. Veja a conclusão: enquanto existir o latifúndio e a servidão que ele impõe, nenhuma escola e nenhuma lei protetora resolverão nada. A questão é econômica e social, não étnica nem pedagógica.
+
+Conclusão: educação importa, mas sem mexer na base material da dominação ela não basta. Em "O Problema das Raças na América Latina" (1929), ele ainda mostra como o racismo serve para justificar a exploração.
+
 ## Para pesquisar e debater
 
 Substitua "índio" e "Peru" por outros grupos e países. A tese de que a opressão de um povo tem raiz na estrutura da propriedade ajuda a entender a situação da população negra no Brasil? O que ela explica e o que deixa de fora?
+
+## Resumo
+
+- José Carlos Mariátegui (1894-1930), peruano autodidata, fundou a revista *Amauta* (1926), o Partido Socialista Peruano (1928) e a central sindical do país (1929).
+- Sua obra principal é *Sete Ensaios de Interpretação da Realidade Peruana* (1928).
+- O socialismo na América não deve ser "decalque e cópia", e sim "criação heroica", usando Marx como método.
+- O problema do índio é o problema da terra, e não de educação, higiene ou raça.
+- Viu nos *ayllus* indígenas um apoio para o socialismo, ideia criticada como idealização.

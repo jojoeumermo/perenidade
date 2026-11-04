@@ -1161,6 +1161,17 @@ body {
   background: var(--parchment-deep);
   box-shadow: 6px 6px 0 var(--sombra);
 }
+/* "Outro jeito": a segunda explicação, fechada até a pessoa abrir. Aberta na impressão para não sumir do papel. */
+.prose-lesson .bloco-outrojeito {
+  background: var(--folha);
+  border-style: dotted;
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.prose-lesson .bloco-outrojeito summary {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+}
 .prose-lesson .bloco-treino {
   margin-top: 1.2rem;
   border-top: 2px dashed var(--ink);

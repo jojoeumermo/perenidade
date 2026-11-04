@@ -36,6 +36,9 @@ quiz:
     resposta: 0
     explicacao: "A imagem, em tom de brincadeira, critica a divisão do trabalho que prende cada pessoa a uma única atividade."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a distinção de Marx entre reino da necessidade e reino da liberdade, por que a produtividade não vira tempo livre no capitalismo e como a luta pela jornada atravessa a história operária.
 
 Desde a Revolução Industrial, a produtividade do trabalho humano multiplicou-se dezenas de vezes. Mesmo assim, milhões de pessoas trabalham tanto quanto os seus avós, ou mais. Esta aula examina o que o marxismo diz sobre **trabalho** e **tempo livre**, um dos temas centrais da sociedade comunista.
 
@@ -79,3 +82,24 @@ A história do movimento operário é, em grande parte, a história da luta pelo
 ## Para pesquisar e debater
 
 Se a sua jornada de trabalho fosse reduzida pela metade, sem redução de salário, o que você faria com o tempo livre? O que a sociedade ganharia com isso?
+
+## Exemplo resolvido
+
+**Por que, no capitalismo, mais produtividade não significa menos horas de trabalho? Siga o raciocínio de Marx.**
+
+1. **A riqueza.** Nos *Grundrisse*, a verdadeira riqueza não é a massa de mercadorias, mas o tempo disponível para o desenvolvimento de cada um.
+2. **O destino do ganho.** No capitalismo, o aumento da produtividade se converte em mais produção para mais lucro.
+3. **Os efeitos.** Desemprego para uns e excesso de trabalho para outros.
+4. **A prova histórica.** Keynes previu em 1930 jornadas de cerca de 15 horas semanais nos países ricos em cem anos; a produtividade cresceu como ele imaginou, mas a jornada não.
+5. **Conclua.** A pergunta é quem decide o destino dos ganhos de produtividade; para Marx, a redução da jornada é a condição fundamental do reino da liberdade.
+
+Confira: no Brasil, a Constituição de 1988 fixou a jornada máxima em 44 horas semanais, depois de séculos de luta pelo tempo.
+
+## Resumo
+
+- Marx (*Capital*, Livro III): o **reino da necessidade** (o trabalho que a vida exige) nunca desaparece; o **reino da liberdade** começa onde ele termina, e a redução da jornada é a condição fundamental.
+- Nos *Grundrisse*: a verdadeira riqueza é o **tempo disponível**.
+- *A Ideologia Alemã* critica a divisão do trabalho que prende cada pessoa a uma única atividade.
+- Lafargue (1880), *O Direito à Preguiça*: com as máquinas, três horas por dia bastariam.
+- Keynes (1930): jornadas de cerca de 15 horas semanais em cem anos; a produtividade cresceu, a jornada não.
+- A história operária é, em grande parte, a história da luta pelo tempo: dez horas, oito horas, descanso semanal e férias.

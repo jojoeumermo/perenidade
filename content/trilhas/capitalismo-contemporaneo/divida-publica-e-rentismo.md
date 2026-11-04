@@ -35,6 +35,9 @@ quiz:
     resposta: 0
     explicacao: "Com um sistema tributário regressivo, a transferência é dos de baixo para os de cima."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber como funciona a dívida pública, o que é rentismo, que regras do orçamento protegem os juros e quais são as propostas, como a auditoria da dívida.
 
 O Estado brasileiro deve aos seus credores trilhões de reais. Todo ano, uma parte enorme do orçamento vai para pagar juros dessa dívida. Ao mesmo tempo, governos dizem que "não há dinheiro" para saúde e educação. Esta aula examina essa contradição.
 
@@ -85,3 +88,23 @@ Movimentos sociais brasileiros defendem a **auditoria da dívida**, prevista no 
 ## Para pesquisar e debater
 
 No Portal da Transparência e nos relatórios do Tesouro Nacional, procure quanto o governo federal pagou de juros no último ano e compare com o orçamento da saúde e da educação. Quem são os principais detentores dos títulos?
+
+## Exemplo resolvido
+
+**Se uma grande parcela dos tributos vem do consumo (pago por todos) e os juros da dívida vão principalmente para bancos e grandes aplicadores, qual é o efeito líquido?**
+
+1. **Quem paga.** Os tributos sobre o consumo são pagos por todas as pessoas que compram, inclusive as mais pobres.
+2. **Quem recebe.** Os títulos públicos são comprados sobretudo por bancos, fundos de investimento, fundos de pensão, seguradoras, investidores estrangeiros e pessoas de alta renda.
+3. **Como os juros sobem.** Parte importante da dívida é corrigida pela Selic; quando a Selic sobe, sobem os juros pagos aos credores.
+4. **Conclua.** O efeito líquido é uma **transferência de renda dos mais pobres para os mais ricos**, como disse a aula que Marx já apontava: a dívida transfere renda de quem paga impostos para quem empresta ao Estado.
+
+Confira: os defensores dos juros altos dizem que são necessários para controlar a inflação; os críticos dizem que encarecem o crédito e drenam recursos do orçamento.
+
+## Resumo
+
+- Marx: a dívida pública é "uma das alavancas mais enérgicas da acumulação primitiva".
+- O governo emite **títulos públicos**; parte importante da dívida é corrigida pela **Selic**.
+- **Rentista** vive de rendas (juros, aluguéis, dividendos); a financeirização ampliou esse grupo.
+- Proteções aos credores: art. 166 da Constituição; a Emenda Constitucional 95 (2016) congelou despesas primárias mas deixou os juros fora do limite; em 2023, a Lei Complementar 200 trouxe um novo regime fiscal.
+- **Resultado primário** é receita menos despesa sem contar os juros.
+- Propostas: **auditoria da dívida** (ADCT, art. 26), como a do Equador em 2007-2008, e tributação dos rentistas.

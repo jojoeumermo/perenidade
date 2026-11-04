@@ -51,6 +51,7 @@ quiz:
     explicacao: "A mesma pessoa muda o jeito de falar conforme a situação. Isso é variação diafásica."
 ---
 
+
 Que existem sotaques, gírias e jeitos diferentes de falar, todo mundo sabe. A aula [Variação linguística e preconceito linguístico](/trilhas/portugues-medio/variacao-linguistica-e-preconceito-linguistico), do ensino médio, apresenta esses tipos de variação e o problema do preconceito. Esta aula dá um passo além: mostra como a **sociolinguística** estuda a variação com método científico, contando, comparando e explicando, e o que ela descobriu sobre o português do Brasil.
 
 ## A variação não é um caos
@@ -161,3 +162,10 @@ Saber que a variação tem regras muda o jeito de ensinar. Stella Maris Bortoni-
 4. Com os dados do exemplo resolvido, que nova pesquisa você faria para confirmar a mudança em curso?
 
 **Respostas:** 3) Por exemplo: entre "ele é" e "eles são" a diferença é grande, e a concordância tende a se manter; entre "ele canta" e "eles cantam", é menor. 4) Uma pesquisa em tempo real: voltar ao mesmo bairro anos depois, ou reentrevistar as mesmas pessoas, e comparar.
+
+## Resumo
+
+- A sociolinguística mostra que a variação não é caos: a língua é heterogênea e essa heterogeneidade é ordenada.
+- Labov fundou a sociolinguística variacionista, com estudos como o de Martha's Vineyard (1963).
+- Uma variável tem variantes (por exemplo, "nós vamos" e "a gente vai"), e fatores sociais e linguísticos condicionam a escolha.
+- A variação pode ser estável ou sinal de mudança em curso.

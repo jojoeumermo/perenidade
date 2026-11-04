@@ -30,7 +30,17 @@ quiz:
     opcoes: ["Adam Smith", "Cristóvão Colombo", "Kwame Nkrumah, primeiro presidente de Gana"]
     resposta: 2
     explicacao: "Nkrumah descreveu países com independência formal cuja economia e política seguiam dirigidas de fora."
+modelo: 9
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar colonialismo de imperialismo, explicar o que é neocolonialismo e dar exemplos de domínio sem ocupação do território.
+
+```suarealidade
+Pense nos produtos que você compra de marcas estrangeiras e no que o Brasil vende ao mundo (soja, minério, café, petróleo). Quem você acha que decide o preço?
+```
+
+
 
 As duas palavras aparecem juntas o tempo todo, e muita gente usa uma pela outra. Elas falam de coisas parecidas, mas não iguais. Entender a diferença ajuda a entender por que um país pode ter hino, bandeira e presidente e, mesmo assim, não mandar no próprio destino.
 
@@ -75,3 +85,34 @@ Todo colonialismo é uma forma de imperialismo. Nem todo imperialismo precisa de
 ## Para pesquisar e debater
 
 Escolha um produto que o Brasil exporta em grande quantidade (soja, minério de ferro, petróleo, café). Descubra quem são os maiores compradores e quais empresas controlam o comércio. Quem decide o preço?
+
+## Exemplo resolvido: colonialismo ou imperialismo?
+
+Dois casos da aula, para decidir qual palavra serve.
+
+1. O Brasil de 1500 a 1822: um país ocupou o território e o governou diretamente, por meio de um governador. Isso é colonialismo. O período durou 1822 - 1500 = 322 anos.
+2. A América Latina no século XIX: quase todos os países já eram independentes, mas a Inglaterra, que não era dona de nenhum deles, emprestava dinheiro e comprava os produtos da região. Ninguém ocupou o território, e o domínio continuava, pela economia. Isso é imperialismo sem colônia, o que Mariátegui chamou de economia colonial.
+
+Confira com a regra da aula: todo colonialismo é uma forma de imperialismo; nem todo imperialismo precisa de colônias.
+
+```outrolado
+# O argumento mais forte de quem discorda
+O argumento clássico de quem defende o livre comércio vem de David Ricardo (Princípios de Economia Política e Tributação, 1817): cada país ganha ao produzir o que faz com menor custo relativo e ao trocar com os outros. Por essa lógica, um país que exporta matéria-prima e compra produtos industrializados está fazendo um bom negócio, e falar de "domínio" seria exagero, porque ninguém é obrigado a comerciar.
+---
+Como você responderia a esse argumento, com respeito e com fatos? Pense em quem decide o que o país produz e em que condições, e no que a aula diz sobre independência no papel.
+---
+Uma resposta possível: o argumento descreve uma troca entre iguais. Mariátegui e Nkrumah, citados na aula, respondem que um país pode ser independente no papel e ter uma economia organizada para servir a um mercado de fora, com credores e empresas estrangeiras ditando as regras. A pergunta que separa as duas posições é se as duas partes decidem em condições parecidas; vale pesquisar, no caso de um produto que o Brasil exporta, quem compra e quem controla o comércio.
+```
+
+```agir
+# Esta semana
+Olhe o rótulo de cinco produtos da sua casa e anote o país de origem de cada um. Depois escreva uma frase: o que o Brasil vende ao mundo e o que compra?
+```
+
+## Resumo
+
+- Colonialismo: um país ocupa o território de outro povo e o governa diretamente (o Brasil foi colônia de Portugal de 1500 a 1822).
+- Imperialismo é mais amplo: domínio político, econômico ou militar, com ou sem colônias.
+- Para Lênin, é uma fase do capitalismo, a dos monopólios e bancos que disputam o mundo.
+- Neocolonialismo (Nkrumah): Estado com sinais de soberania e economia dirigida de fora.
+- Todo colonialismo é uma forma de imperialismo; nem todo imperialismo precisa de colônias.

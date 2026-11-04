@@ -30,6 +30,10 @@ quiz:
     explicacao: "No Brasil, essa conta é tradicionalmente negativa."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é transferência de valor, as duas explicações da troca desigual (Emmanuel e Marini) e os principais canais pelos quais a riqueza sai dos países dependentes.
+
 Na trilha introdutória, vimos que os países dependentes "perdem" nas trocas com os centrais. Esta aula examina o que exatamente se perde e por quais caminhos.
 
 ## O que é valor, aqui
@@ -72,6 +76,17 @@ Uma multinacional instalada no Brasil compra peças da própria matriz por um pr
 
 Para Marini, a transferência de valor é o **elo** entre o sistema mundial e a vida do trabalhador latino-americano. O capitalista daqui, que perde parte do valor para fora, procura recompor o seu lucro. Como não domina a tecnologia de ponta, recorre ao que tem à mão: pagar menos e exigir mais de quem trabalha. A superexploração é a **resposta** à transferência.
 
+## Exemplo resolvido
+
+**Uma multinacional instalada no Brasil compra peças da própria matriz por um preço acima do de mercado. Que mecanismo é esse?**
+
+1. Veja quem vende e quem compra: matriz e filial pertencem ao mesmo grupo.
+2. Veja o efeito do preço inflado: a filial paga mais do que deveria e, por isso, mostra menos lucro aqui; o dinheiro vai para a matriz.
+3. Veja o objetivo: deslocar o lucro para onde o imposto é menor.
+4. Dê o nome: preço de transferência, um dos canais de transferência de valor, ao lado da remessa de lucros e dividendos, dos juros, das patentes e marcas e dos fretes e seguros.
+
+Conclusão: é um canal fácil de medir no balanço de pagamentos, em que lucros e juros aparecem na conta de renda primária, que a aula diz ser tradicionalmente negativa no Brasil.
+
 ## Debates em aberto
 
 Medir a transferência de valor é difícil, porque valores não aparecem nas estatísticas, só preços. Há autores que tentam estimá-la a partir das diferenças salariais e das cadeias globais de produção; outros consideram o conceito impreciso. O que ninguém contesta são os fluxos visíveis de lucros, juros e pagamentos por tecnologia.
@@ -79,3 +94,11 @@ Medir a transferência de valor é difícil, porque valores não aparecem nas es
 ## Para pesquisar e debater
 
 Procure, nas estatísticas do Banco Central, o saldo da conta de renda primária do Brasil no último ano. Compare com o saldo da balança comercial. O que os dois números, lado a lado, sugerem?
+
+## Resumo
+
+- Transferência de valor é a apropriação, em um país, de parte da riqueza criada pelo trabalho em outro.
+- Pela concorrência, capitais que empregam mais máquinas recebem valor produzido por capitais que empregam mais trabalhadores.
+- Emmanuel (1969): o capital circula livremente, os trabalhadores não; os salários diferem, e a troca é desigual. Marini põe a ênfase no monopólio dos centrais sobre manufaturas e tecnologia.
+- Canais: remessa de lucros e dividendos, juros, patentes e marcas, fretes e seguros, preços de transferência.
+- No balanço de pagamentos, lucros e juros aparecem na conta de renda primária.

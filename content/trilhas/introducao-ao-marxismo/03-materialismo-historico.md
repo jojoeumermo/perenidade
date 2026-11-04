@@ -26,6 +26,10 @@ quiz:
     explicacao: "Para Marx, compreender a realidade é o primeiro passo para mudá-la."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar o que é o materialismo histórico, o que são forças produtivas e relações de produção e como Marx e Engels explicam a mudança das sociedades.
+
 ## Por onde começar a explicar a história
 
 Por que a escravidão existiu durante milênios e depois foi abolida? Por que os reis perderam o poder? Há muitas maneiras de responder: a vontade divina, o gênio dos grandes homens, o progresso das ideias.
@@ -87,3 +91,21 @@ Pense em uma ideia que hoje parece "natural" na sua sociedade, como a de que cad
 ## Para ler
 
 As [Teses sobre Feuerbach](/acervo/teses-sobre-feuerbach) cabem em uma página. Depois, [Do Socialismo Utópico ao Socialismo Científico](/acervo/do-socialismo-utopico-ao-socialismo-cientifico), de Engels, é a introdução mais didática ao método.
+
+## Exemplo resolvido
+
+**Como Marx e Engels analisam uma sociedade, por exemplo a feudal?**
+
+1. A primeira pergunta é: **como ela produz o que precisa para viver, e quem fica com o que é produzido?**
+2. No modo de produção feudal, quem trabalha são os **servos presos à terra**.
+3. Quem fica com o excedente são os **senhores feudais**.
+4. Compare com o escravista (pessoas escravizadas, senhores de escravos) e o capitalista (trabalhadores assalariados).
+
+Confira: "materialismo", aqui, não tem a ver com gostar de dinheiro. Significa partir das condições materiais e concretas em que as pessoas vivem, e depois perguntar como elas mudam.
+
+## Resumo
+
+- Materialismo histórico: explicar a sociedade a partir de como ela produz o que precisa e de quem fica com o produzido.
+- Toda sociedade combina forças produtivas (ferramentas, máquinas, técnicas) e relações de produção (quem é dono de quê, quem trabalha para quem).
+- O conjunto forma um modo de produção: escravista, feudal, capitalista.
+- O objetivo é compreender a sociedade para transformá-la.

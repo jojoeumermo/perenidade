@@ -29,6 +29,10 @@ quiz:
     explicacao: "O projeto, de 1971-1973, foi interrompido pelo golpe de 1973."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber comparar quem decide o que produzir no capitalismo e na proposta socialista e por que a pergunta "quem planeja?" importa tanto.
+
 Num mesmo país, há prédios vazios e gente sem casa; plantações de soja para exportar e famílias com fome; remédios para doenças de ricos e doenças de pobres sem remédio. Isso acontece porque alguém **decide** o que produzir. A pergunta desta aula é: **quem decide, e com que critério?**
 
 ## No capitalismo: o mercado e o lucro
@@ -67,6 +71,25 @@ O Brasil tem uma experiência conhecida: o **orçamento participativo**, iniciad
 
 Hoje, com computadores e internet, muitos pesquisadores discutem se seria possível combinar planejamento democrático e tecnologia para coordenar a economia sem depender do lucro.
 
+## Exemplo resolvido
+
+**Por que há prédios vazios e gente sem casa ao mesmo tempo?**
+
+1. Pergunte quem decide: no capitalismo, são os donos das empresas, e o critério é o lucro.
+2. Aplique o critério: se dá mais lucro construir apartamentos de luxo do que casas populares, constroem-se apartamentos de luxo.
+3. Olhe o limite do mercado: ele só "ouve" quem tem dinheiro. A necessidade de quem não pode pagar não aparece nele.
+
+Conclusão: a falta de casas não é só falta de material ou de gente que saiba construir. É o resultado de um critério de decisão. O socialismo propõe planejar a economia como um todo a partir das necessidades da população, e a aula pergunta como fazer isso com a participação de todos.
+
 ## Para conversar
 
 Se o seu bairro pudesse decidir como gastar o orçamento da prefeitura para ele, quais seriam as três prioridades? Como vocês organizariam essa decisão?
+
+## Resumo
+
+- No capitalismo, os donos das empresas decidem o que produzir e o critério é o lucro; o mercado só "ouve" quem tem dinheiro.
+- Engels chamou de anarquia da produção o fato de cada empresa produzir sem combinar, com erros que aparecem nas crises.
+- Grandes empresas já planejam, mas dentro de cada uma e para o seu lucro; o socialismo propõe planejar a economia como um todo.
+- Na URSS, o planejamento central industrializou rápido, mas foi muito centralizado, por uma burocracia sem controle popular.
+- No Chile de Allende, o Projeto Cybersyn tentou ligar fábricas estatais a uma sala de operações, até o golpe de 1973.
+- A pergunta central é quem planeja: uma burocracia ou a própria população, por planejamento democrático.

@@ -30,6 +30,10 @@ quiz:
     explicacao: "O 3 é seguido de oito zeros: 3 × 10⁸."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber calcular potências e raízes, usar as regras com a mesma base e perceber como um crescimento que dobra pode enganar.
+
 ## Uma multiplicação repetida
 
 Assim como a multiplicação abrevia uma soma repetida, a **potência** abrevia uma multiplicação repetida:
@@ -107,6 +111,16 @@ A maioria dos números não tem raiz exata. Para estimar √50, cerque com os qu
 
 A **raiz cúbica** faz o mesmo para o cubo: ∛27 = 3, porque 3 × 3 × 3 = 27.
 
+## Exemplo resolvido
+
+**Uma dívida dobra a cada ano. Começando em R$ 500, quanto ela vale depois de 6 anos?**
+
+1. Dobrar a cada ano é multiplicar por 2 seis vezes: 2⁶.
+2. Calcule a potência: 2 × 2 × 2 × 2 × 2 × 2 = 64.
+3. Multiplique pelo valor inicial: 500 × 64 = 32.000.
+
+Confira: depois de 6 anos a dívida é de **R$ 32.000**. O erro comum é multiplicar a base pelo expoente (2⁶ não é 12).
+
 ## Para praticar
 
 1. Calcule 3⁴, 10⁵ e 1²⁰.
@@ -117,3 +131,11 @@ A **raiz cúbica** faz o mesmo para o cubo: ∛27 = 3, porque 3 × 3 × 3 = 27.
 6. Uma dívida dobra a cada ano. Começando em R$ 500, quanto ela vale depois de 6 anos?
 
 **Respostas:** 1) 81; 100.000; 1. 2) 5⁷. 3) 11 e 2. 4) Entre 5 e 6. 5) 4,5 × 10⁷. 6) 500 × 2⁶ = R$ 32.000.
+
+## Resumo
+
+- Potência é multiplicação repetida: base e expoente; 2³ é 2 × 2 × 2 = 8, e não 6.
+- Quadrado (área) e cubo (volume) vêm da geometria; por isso m² e m³.
+- Mesma base: multiplicando, somam-se os expoentes; dividindo, subtraem-se; potência de potência, multiplicam-se.
+- Raiz é o caminho de volta: √121 = 11 e ∛8 = 2.
+- Crescimento que dobra parece lento no começo e explode depois.

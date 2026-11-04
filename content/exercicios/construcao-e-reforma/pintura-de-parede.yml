@@ -1,0 +1,54 @@
+# Exercícios da aula "Pintura de parede" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-pintura-01
+  tipo: numero
+  tema: "Quantidade de tinta"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Uma tinta rende 12 m² por litro por demão. Para pintar 36 m² com 2 demãos, quantos litros são precisos?"
+  resposta: "6"
+  unidade: "litros"
+  erros_comuns:
+    - resposta: "3"
+      explicacao: "Esse é o volume de uma só demão (36 ÷ 12). Com 2 demãos, dobre."
+    - resposta: "864"
+      explicacao: "Você multiplicou 36 × 12 × 2. O rendimento divide a área: litros = área ÷ rendimento × demãos."
+  dica: "Litros = área ÷ rendimento × número de demãos."
+  explicacao: "36 ÷ 12 = 3 litros por demão. Com 2 demãos: 6 litros."
+  conferir: "36 / 12 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-pintura-02
+  tema: "Preparo"
+  dificuldade: 1
+  enunciado: "Qual é o primeiro passo antes de pintar uma parede?"
+  alternativas:
+    - texto: "Passar a tinta direto sobre a parede suja"
+      erro: "Sujeira, poeira e tinta solta fazem a tinta descascar e mostrar defeitos."
+    - texto: "Limpar, remover o que está solto, corrigir as falhas e lixar"
+      certa: true
+    - texto: "Misturar duas marcas de tinta"
+      erro: "Misturar marcas pode alterar a cor e o desempenho. Use uma só, conforme a lata."
+  explicacao: "Preparar a superfície é a etapa que mais pesa na durabilidade da pintura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-pintura-03
+  tema: "Segurança em altura"
+  dificuldade: 2
+  enunciado: "Para pintar uma fachada a 4 m de altura, a partir de uma escada, o que vale?"
+  alternativas:
+    - texto: "Nada de especial, pintura é serviço leve"
+      erro: "Acima de 2 m com risco de queda aplica-se a NR-35, mesmo em serviço leve."
+    - texto: "Aplicam-se as regras de trabalho em altura da NR-35: planejamento, equipamento e treinamento"
+      certa: true
+    - texto: "Basta usar chinelo e ter cuidado"
+      erro: "Chinelo piora o risco. Use calçado adequado e proteção contra queda."
+  explicacao: "Acima de 2 m do nível inferior, com risco de queda, vale a NR-35."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

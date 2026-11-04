@@ -1,0 +1,51 @@
+# Exercícios da aula "O degradê" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-degrade-01
+  tema: "O que é o degradê"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é o degradê?"
+  alternativas:
+    - texto: "Cabelo dos lados e de trás que fica mais comprido aos poucos, de baixo para cima, sem linhas visíveis"
+      certa: true
+    - texto: "Um corte todo da mesma altura"
+      erro: "Isso é o corte numa altura única."
+    - texto: "Só o desenho da nuca"
+      erro: "O degradê vai da borda de baixo até perto do alto da cabeça."
+  explicacao: "A máquina é afastada em arco na linha do chapéu e as linhas de cada altura são esfumadas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-degrade-02
+  tema: "Onde começa"
+  dificuldade: 1
+  enunciado: "Que tipo de degradê começa perto da orelha e da nuca?"
+  alternativas:
+    - texto: "Degradê alto"
+      erro: "O alto começa mais perto do alto da cabeça."
+    - texto: "Degradê baixo"
+      certa: true
+    - texto: "Degradê médio"
+      erro: "O médio começa no meio das laterais."
+  explicacao: "Combine com o cliente onde começa e qual a altura mais curta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-degrade-03
+  tema: "Passo a passo"
+  dificuldade: 2
+  enunciado: "Qual é o primeiro passo do degradê passo a passo da aula?"
+  alternativas:
+    - texto: "Esfumar as linhas"
+      erro: "Esfumar vem depois de subir as alturas."
+    - texto: "Cortar o topo"
+      erro: "O primeiro passo é marcar a linha guia dos dois lados e atrás."
+    - texto: "Desenhar a linha guia com a altura mais curta"
+      certa: true
+  explicacao: "Linha guia, área de baixo, subir as alturas e esfumar cada linha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

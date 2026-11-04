@@ -29,6 +29,9 @@ quiz:
     resposta: 1
     explicacao: "O 'centro' são os países industrializados, de onde saem a tecnologia e os produtos de maior valor."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar a ideia de centro e periferia de Prebisch e da CEPAL, o que são termos de troca e por que a CEPAL propôs industrializar.
 
 Durante muito tempo, os economistas dos países ricos ensinaram que cada país deveria se dedicar àquilo que produz melhor. O Brasil plantaria café, a Inglaterra faria máquinas, os dois trocariam e ambos sairiam ganhando. Em 1949, um argentino pôs essa ideia em dúvida, com números.
 
@@ -76,3 +79,23 @@ A CEPAL acertou ao mostrar que o comércio entre desiguais não iguala ninguém.
 ## Para pesquisar e debater
 
 O preço das matérias-primas sobe muito em alguns períodos, como aconteceu nos anos 2000. Isso desmente a tese de Prebisch? O que acontece com os países exportadores quando os preços voltam a cair?
+
+## Exemplo resolvido
+
+**Um país precisa exportar cada vez mais soja para importar a mesma quantidade de máquinas. O que aconteceu com os termos de troca?**
+
+1. **Lembre o conceito.** Termos de troca é a relação entre o preço do que um país vende e o preço do que ele compra.
+2. **Use o exemplo da aula (inventado, só para entender).** Num ano, 100 sacas de café compram um trator; vinte anos depois, são precisas 200 sacas.
+3. **Compare.** O país exportou mais e ficou com menos.
+4. **Conclua.** Os termos de troca **pioraram**: o que ele vende vale cada vez menos em relação ao que compra.
+5. **A explicação da CEPAL.** No centro, sindicatos fortes e grandes empresas seguram salários e preços; na periferia, o ganho de produtividade vira queda de preço.
+
+Confira: Prebisch e Singer observaram que, no longo prazo, os preços dos produtos primários tendiam a cair em relação aos dos manufaturados.
+
+## Resumo
+
+- A **CEPAL** foi criada pela ONU em 1948, com sede em Santiago; em 1949, Raúl Prebisch apresentou sua análise; Celso Furtado desenvolveu essas ideias.
+- **Centro:** países industrializados; **periferia:** fornecedores de alimentos e matérias-primas.
+- **Termos de troca:** relação entre o preço do que se vende e o do que se compra; Prebisch e Singer observaram a deterioração no longo prazo para os produtos primários.
+- Proposta: industrializar com planejamento e ação do Estado, proteger a indústria nascente e fazer reforma agrária.
+- A industrialização aconteceu e a dependência não acabou.

@@ -23,6 +23,10 @@ quiz:
     explicacao: "Forty não tem a letra u, embora four tenha."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar de 0 a 99 em inglês e dizer a sua idade e a de outras pessoas.
+
 ## De 0 a 12
 
 | Número | Inglês | Número | Inglês |
@@ -63,6 +67,24 @@ Em português a gente **tem** uma idade. Em inglês a gente **é** uma idade: us
 
 Dizer *I have twenty years* é um dos erros mais comuns de quem fala português.
 
+## Exemplo resolvido
+
+**Como dizer que uma pessoa tem 35 anos?**
+
+1. Monte o número. 35 é dezena mais unidade: *thirty* (30) e *five* (5), com hífen: *thirty-five*.
+2. Escolha o verbo. Em inglês a gente **é** uma idade, então se usa *to be*: *She is*.
+3. Junte: *She is thirty-five years old.* (Pode-se dizer só *She is thirty-five.*)
+4. Para perguntar: *How old are you?*
+
+Confira: não há o verbo *have* ("tem") na frase. *She has thirty-five years* é o erro mais comum de quem fala português.
+
 ## Pratique
 
 Diga em voz alta: a sua idade, a idade de alguém da sua família e o número da sua casa, algarismo por algarismo.
+
+## Resumo
+
+- De 13 a 19 os números terminam em -teen; as dezenas terminam em -ty.
+- Números intermediários levam hífen: *twenty-one*, *ninety-nine*.
+- Cuidado com *thirteen*/*thirty* e *fifteen*/*fifty*.
+- Em inglês a gente é uma idade: *I'm twenty years old*, e não "I have twenty".

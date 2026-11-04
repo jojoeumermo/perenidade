@@ -31,6 +31,11 @@ quiz:
     resposta: 0
     explicacao: "Segundo o SIPRI, os Estados Unidos respondem sozinhos por mais de um terço do gasto militar mundial."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber diferenciar base militar, sanção, embargo e bloqueio, dizer quem pode decidir sanções pela Carta da ONU e o que a Constituição brasileira diz sobre as relações com outros países.
+
+
 
 Hoje quase nenhum país anexa o território de outro abertamente. As formas de pressão mudaram. Esta aula apresenta três delas.
 
@@ -73,3 +78,21 @@ A Constituição brasileira, no artigo 4º, manda que o país se guie nas relaç
 ## Para pesquisar e debater
 
 Procure o resultado da última votação da Assembleia Geral da ONU sobre o embargo a Cuba. Como o Brasil votou? Por que a resolução, mesmo aprovada todos os anos, não muda a situação?
+
+## Exemplo resolvido: que nome dar a cada medida?
+
+Três casos inventados para treinar os termos da aula.
+
+1. O Conselho de Segurança da ONU decide proibir o comércio com um país. É uma **sanção** prevista no capítulo VII da Carta das Nações Unidas.
+2. Um país decide, por conta própria, proibir que qualquer empresa do mundo negocie com um terceiro. É uma **medida coercitiva unilateral**: quem decidiu não foi o Conselho de Segurança.
+3. Um país proíbe o comércio com outro e ameaça punir as empresas de terceiros países que negociem com ele. É um **bloqueio**, como a lei Helms-Burton (1996) em relação a Cuba, que está sob embargo dos Estados Unidos desde 1962.
+
+Confira: o que muda o nome é quem decide e se atinge também o comércio com terceiros.
+
+## Resumo
+
+- Base militar no exterior: instalação de um país no território de outro. Os EUA têm a maior rede (cerca de 750 instalações em uns 80 países e territórios, segundo David Vine).
+- Os EUA respondem sozinhos por mais de um terço do gasto militar mundial (SIPRI).
+- Sanção: punição econômica; a Carta da ONU a prevê no capítulo VII e cabe ao Conselho de Segurança decidi-la. Por conta própria, é medida coercitiva unilateral.
+- Embargo é a proibição de comerciar; bloqueio mira também o comércio do país com terceiros.
+- A Constituição (art. 4º) manda o Brasil se guiar por autodeterminação, não intervenção e igualdade entre os Estados.

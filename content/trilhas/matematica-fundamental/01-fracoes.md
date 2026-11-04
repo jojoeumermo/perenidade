@@ -22,6 +22,10 @@ quiz:
     explicacao: "Em sextos, 1/2 é 3/6 e 1/3 é 2/6. A soma é 5/6."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que são numerador e denominador, achar frações equivalentes, simplificar e somar frações com denominadores diferentes.
+
 ## Partes de um todo
 
 Uma **fração** representa partes de algo que foi dividido em pedaços iguais. Se uma pizza é cortada em 8 fatias iguais e você come 3, você comeu **três oitavos** da pizza:
@@ -76,6 +80,16 @@ A subtração funciona do mesmo jeito: iguale os denominadores e subtraia os num
 
 A fração `3/4` é o mesmo que 3 dividido por 4, que dá 0,75. Essa ideia vai ser útil na próxima aula, sobre porcentagem.
 
+## Exemplo resolvido
+
+**Quanto é 1/4 + 1/2?**
+
+1. Os denominadores são diferentes. Procure um número que seja múltiplo de 4 e de 2: o 4.
+2. Transforme as frações em quartos: 1/4 fica 1/4, e 1/2 = 2/4.
+3. Some os numeradores e mantenha o denominador: 1/4 + 2/4 = 3/4.
+
+Confira: 3/4 é maior que a metade, e a soma começou de uma metade mais um pedaço. O erro comum seria somar em cima e embaixo (2/6), que dá menos que a metade.
+
 ## Pratique
 
 Resolva e simplifique o resultado:
@@ -85,3 +99,11 @@ Resolva e simplifique o resultado:
 3. `2/3 − 1/6`
 
 Respostas: `1/2`, `3/4` e `1/2`.
+
+## Resumo
+
+- Fração são partes iguais de um todo: o numerador diz quantas partes se tomam; o denominador, em quantas o todo foi dividido (nunca zero).
+- Frações equivalentes saem de multiplicar ou dividir em cima e embaixo pelo mesmo número.
+- Simplificar é dividir os dois termos até não dar mais.
+- Para somar ou subtrair com denominadores diferentes, iguale os denominadores antes.
+- Fração também é divisão: 3/4 = 3 ÷ 4 = 0,75.

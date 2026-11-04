@@ -1,0 +1,70 @@
+# Exercícios da aula "O que é reforma agrária" (A terra e quem nela trabalha). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: terra-reforma-01
+  tema: "O que é reforma agrária"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, reforma agrária é:"
+  alternativas:
+    - texto: "Reorganizar a estrutura fundiária, redistribuindo propriedades rurais para que a terra cumpra a função social"
+      certa: true
+    - texto: "Dar dinheiro a quem tem fazendas grandes para plantar mais"
+      erro: "Não é um subsídio. É mudar as regras de posse e uso da terra, redistribuindo-a."
+    - texto: "Proibir qualquer pessoa de comprar terra"
+      erro: "A reforma agrária não proíbe a compra. Ela redistribui a terra para que cumpra a função social."
+  explicacao: "Toda reforma agrária muda as regras de posse e uso da terra, transferindo-a de poucos proprietários para quem trabalha nela."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula"
+  revisao:
+    status: em-revisao
+
+- id: terra-reforma-02
+  tema: "Quem conduz a reforma agrária"
+  dificuldade: 1
+  enunciado: "Qual órgão conduz a reforma agrária no Brasil?"
+  alternativas:
+    - texto: "O INCRA, Instituto Nacional de Colonização e Reforma Agrária"
+      certa: true
+    - texto: "O IBGE"
+      erro: "O IBGE faz os censos e as estatísticas. Quem conduz a reforma agrária é o INCRA."
+    - texto: "O Congresso, sozinho, sem nenhum órgão"
+      erro: "A Constituição dá à União a competência de desapropriar, e o órgão que conduz o processo é o INCRA."
+  explicacao: "O INCRA é o órgão que conduz a reforma agrária, regulamentada pela Lei nº 8.629/1993."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula"
+  revisao:
+    status: em-revisao
+
+- id: terra-reforma-03
+  tema: "Média de área por família"
+  dificuldade: 2
+  enunciado: "Se o INCRA assentou 1,2 milhão de famílias em 96 milhões de hectares, quantos hectares couberam, em média, a cada família?"
+  tipo: numero
+  resposta: "80"
+  unidade: "hectares"
+  erros_comuns:
+    - resposta: "8"
+      explicacao: "Você perdeu um zero na divisão. 96.000.000 ÷ 1.200.000 dá 80, não 8."
+    - resposta: "800"
+      explicacao: "Sobrou um zero. Confira: 1.200.000 × 80 = 96.000.000."
+  dica: "Divida a área total pelo número de famílias. Lembre que 1,2 milhão é 1.200.000."
+  explicacao: "96.000.000 ÷ 1.200.000 = 80 hectares por família. É só uma média: cada lote varia conforme a região e o tipo de terra."
+  conferir: "96000000 / 1200000"
+  fonte: "Questão original do Instituto Lúcia (números fictícios, no modelo do exemplo da aula)"
+  revisao:
+    status: em-revisao
+
+- id: terra-reforma-04
+  tema: "A indenização"
+  dificuldade: 2
+  enunciado: "Na desapropriação para reforma agrária, como é paga a indenização da terra, segundo a aula?"
+  alternativas:
+    - texto: "Prévia e justa, em títulos da dívida agrária (e as benfeitorias úteis e necessárias, em dinheiro)"
+      certa: true
+    - texto: "Não há nenhuma indenização"
+      erro: "Há indenização: a Constituição fala em indenização prévia e justa."
+    - texto: "Toda em dinheiro, à vista, incluindo a terra nua"
+      erro: "A terra nua é paga em títulos da dívida agrária. Só as benfeitorias úteis e necessárias são pagas em dinheiro."
+  explicacao: "O artigo 184 prevê indenização prévia e justa em títulos da dívida agrária; as benfeitorias úteis e necessárias saem em dinheiro."
+  fonte: "Questão original do Instituto Lúcia (Constituição Federal, art. 184)"
+  revisao:
+    status: em-revisao

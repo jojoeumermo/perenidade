@@ -33,6 +33,9 @@ quiz:
     resposta: 2
     explicacao: "A solidariedade internacional entre os povos é justamente uma forma de resistência ao imperialismo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que continua igual e o que mudou no imperialismo desde Lenin (o dólar, a dívida, as cadeias globais de valor, as patentes, a força militar e a espoliação) e conhecer o debate sobre a China.
 
 Lenin escreveu sobre o imperialismo em 1916, num mundo de impérios coloniais. Hoje quase todos os países são formalmente independentes. O imperialismo acabou? Esta aula mostra que ele mudou de forma, mas não de conteúdo.
 
@@ -87,3 +90,21 @@ O imperialismo também gera resistência: movimentos de libertação nacional no
 ## Para pesquisar e debater
 
 Escolha um objeto que você usa todo dia (celular, tênis, camiseta). Descubra onde foi produzido, por quem e quanto essa pessoa ganha. Onde fica o lucro?
+
+## Exemplo resolvido
+
+**Uma camiseta costurada em Bangladesh é vendida por 20 dólares em uma loja europeia. Onde fica a maior parte desse valor?**
+
+1. **Veja a cadeia.** Desde os anos 1980, grandes empresas transferiram etapas da produção para países de salários baixos, como Bangladesh. É a **cadeia global de valor**.
+2. **Compare quem recebe.** Quem costura recebe um salário baixo; quem controla a marca, a distribuição e o varejo fica com a maior parte do preço final, segundo a análise do economista John Smith.
+3. **Conclua.** A maior parte do valor fica com as empresas que controlam a marca, a distribuição e o varejo, em geral no Norte.
+4. **Lembre o custo humano.** O desabamento do edifício Rana Plaza, em Bangladesh, em 2013, matou mais de mil trabalhadores de confecções que produziam para marcas internacionais.
+
+Confira: por isso a aula propõe descobrir, de um objeto seu, onde foi produzido, por quem e onde fica o lucro.
+
+## Resumo
+
+- Os cinco traços de Lenin (monopólios, capital financeiro, exportação de capitais, associações internacionais de monopólios e partilha do mundo) continuam reconhecíveis.
+- O que mudou: o **dólar** como moeda do mundo (sem conversão em ouro desde 1971); a **dívida** e o poder de voto no FMI e no Banco Mundial; as **cadeias globais de valor**; as **patentes**; a **força militar**; a **acumulação por espoliação** (Harvey).
+- Há debate na esquerda sobre o papel da China: nova potência imperialista ou alternativa que amplia a margem de manobra dos países do Sul.
+- Resistências: movimentos de libertação nacional, governos que buscam soberania sobre os recursos, articulações entre países do Sul e a Via Campesina.

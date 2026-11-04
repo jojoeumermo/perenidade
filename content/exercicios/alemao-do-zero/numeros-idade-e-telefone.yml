@@ -1,0 +1,67 @@
+# Exercícios da aula "Números, idade e telefone" (Alemão do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alemao-numeros-01
+  tema: "Números de 21 a 99"
+  dificuldade: 2
+  nivelamento: true
+  tipo: numero
+  enunciado: "Que número é fünfunddreißig (cinco-e-trinta)?"
+  resposta: "35"
+  erros_comuns:
+    - resposta: "53"
+      explicacao: "Em alemão a unidade vem primeiro: fünf (5) und dreißig (30) é 35, não 53."
+  dica: "Cinco é fünf e trinta é dreißig. Lembre que a unidade vem antes da dezena."
+  explicacao: "fünf (5) + und (e) + dreißig (30) = 35."
+  conferir: "30 + 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-numeros-02
+  tema: "Escrever um número"
+  dificuldade: 2
+  enunciado: "Como se escreve 48 em alemão?"
+  alternativas:
+    - texto: "achtundvierzig"
+      certa: true
+    - texto: "vierzigacht"
+      erro: "Em alemão diz-se primeiro a unidade, depois und, depois a dezena: acht-und-vierzig."
+    - texto: "achtzehn"
+      erro: "achtzehn é 18 (acht + zehn). Para 48, a dezena é vierzig: achtundvierzig."
+  explicacao: "De 21 a 99: unidade + und + dezena, tudo junto. 8 + und + 40 = achtundvierzig."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-numeros-03
+  tema: "Idade com sein"
+  dificuldade: 1
+  enunciado: "Como se diz \"Eu tenho 34 anos\" em alemão?"
+  alternativas:
+    - texto: "Ich bin 34 Jahre alt."
+      certa: true
+    - texto: "Ich habe 34 Jahre."
+      erro: "Em português a idade usa \"ter\", mas em alemão se usa sein (ser/estar): Ich bin 34."
+    - texto: "Ich heiße 34."
+      erro: "Heißen é chamar-se. A idade se diz com sein: Ich bin 34 Jahre alt."
+  explicacao: "Em alemão a idade se diz com o verbo sein: Ich bin 34 (Jahre alt)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alemao-numeros-04
+  tema: "Zwo ao telefone"
+  dificuldade: 1
+  enunciado: "Por que muita gente diz \"zwo\" em vez de \"zwei\" ao ditar um telefone?"
+  alternativas:
+    - texto: "Para não confundir zwei (2) com drei (3)"
+      certa: true
+    - texto: "Porque zwo é o número 12"
+      erro: "Zwo é só outra forma de dizer 2. O 12 é zwölf."
+    - texto: "Porque zwei não existe"
+      erro: "Zwei existe e é o 2. Zwo é a variante usada ao telefone."
+  explicacao: "Zwei e drei soam parecidos, então ao telefone muita gente diz zwo para o 2."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

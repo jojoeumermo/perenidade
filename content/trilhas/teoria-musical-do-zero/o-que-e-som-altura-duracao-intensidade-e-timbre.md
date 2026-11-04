@@ -1,5 +1,6 @@
 ---
 titulo: "O que é som: altura, duração, intensidade e timbre"
+modelo: 9
 resumo: "As quatro propriedades que a partitura registra, explicadas a partir do que o ouvido já sabe."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -24,6 +25,14 @@ quiz:
     resposta: 0
     explicacao: "No dia a dia dizemos 'alto' para volume. Em música, alto é agudo e baixo é grave; para o volume usam-se forte e fraco."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é o som e descrever qualquer som pelas quatro propriedades da música: altura, duração, intensidade e timbre.
+
+```suarealidade
+Quais sons fazem parte do seu dia, no trabalho, na rua ou em casa? Qual deles você reconheceria de olhos fechados, e o que nele ajuda a reconhecer?
+```
 
 ## Tudo começa com uma vibração
 
@@ -61,6 +70,39 @@ Uma corda vibra 100 vezes por segundo e outra, 800. Qual produz o som mais agudo
 
 É a propriedade que permite reconhecer a voz da sua mãe no telefone. Quase nenhum som é uma vibração só: junto com a vibração principal soam várias outras, mais fracas, chamadas harmônicos. A mistura de harmônicos de cada instrumento é o seu timbre.
 
+## Exemplo resolvido
+
+**A nota lá de referência vibra 440 vezes por segundo (440 Hz). Quantas vibrações em 2 segundos? E em meio segundo?**
+
+1. Lembre que a altura depende da frequência, isto é, de quantas vezes a fonte vibra por segundo, e a unidade é o hertz.
+2. Em 2 segundos: 440 × 2 = 880 vibrações.
+3. Em meio segundo: 440 ÷ 2 = 220 vibrações.
+4. Compare com uma corda de 100 vibrações por segundo: a de 440 vibra mais rápido, então o som é mais agudo.
+
+Conclusão: o número de vibrações por segundo não muda com o tempo que se observa; o que muda é só a conta. Vibração rápida dá som agudo, lenta dá som grave. Em música, "alto" quer dizer agudo, e não volume.
+
+```outrolado
+# O argumento de quem diz que a música não se aprende no papel
+"Música é dom e ouvido. Quem toca de verdade toca de ouvido. Escrever nota e aprender teoria só atrapalha e é coisa de gente de conservatório."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Tocar de ouvido é um saber de verdade, e muita gente boa faz música assim. A aula não diz o contrário: ela mostra que o som tem quatro propriedades, e que a escrita musical que a trilha vai ensinar serve para anotar essas quatro coisas. Com ela, dá para guardar uma melodia, ensinar a outra pessoa e tocar junto sem depender de a pessoa estar ao lado. A teoria é uma ferramenta a mais, e não um substituto do ouvido: o afinador da aula, por exemplo, mostra no número de hertz o que o ouvido já sente.
+```
+
+```agir
+# Esta semana
+Escolha três sons do seu dia (por exemplo: um apito, uma voz, uma panela). Num papel, descreva cada um pelas quatro propriedades: grave ou agudo, curto ou longo, fraco ou forte e o que o torna reconhecível (o timbre). Se quiser, use o afinador do site para ver o número de hertz de uma nota cantada. Nada de gravar a voz de outras pessoas.
+```
+
 ## Para praticar
 
 Abra o [afinador](/ferramentas/afinador) e cante um "aaa" bem grave; depois, um bem agudo. Veja o número de hertz subir e a nota mudar. Depois cante a mesma nota fraco e forte: a nota não muda, porque você mexeu na intensidade, e não na altura.
+
+## Resumo
+
+- O som nasce de uma vibração (corda, pele, ar num tubo, pregas vocais) que viaja pelo ar em ondas.
+- Altura: grave ou agudo, conforme a frequência (vibrações por segundo, em hertz); o lá de referência é 440 Hz. Em música, "alto" é agudo.
+- Duração: quanto tempo o som fica soando.
+- Intensidade: fraco ou forte, conforme a amplitude da vibração; mexer na intensidade não muda a nota.
+- Timbre: a mistura de harmônicos de cada instrumento, que permite reconhecer uma voz.

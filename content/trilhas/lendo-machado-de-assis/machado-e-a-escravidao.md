@@ -33,6 +33,10 @@ quiz:
     explicacao: "O leitor atento percebe a crítica por trás da voz do senhor."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber mostrar, com trechos de Machado, como ele tratou a escravidão de forma oblíqua e irônica.
+
 ## Um escritor numa sociedade escravista
 
 Machado nasceu em 1839 e tinha 48 anos quando a escravidão foi abolida, em 1888. Os seus avós paternos haviam sido escravizados. Viveu toda a vida no Rio de Janeiro, cidade onde jornais publicavam anúncios de pessoas fugidas e onde a escravidão estava em toda parte. Veja [Império e abolição](/trilhas/historia-do-brasil/imperio-e-abolicao).
@@ -68,9 +72,27 @@ No conto Pai contra mãe, o que o título indica?
 > Pense em quem é o "pai" e quem é a "mãe" do título.
 ```
 
+## Exemplo resolvido
+
+**Como ler a crônica de 19 de maio de 1888, sobre Pancrácio?**
+
+1. A data: seis dias depois da Lei Áurea, na coluna "Bons Dias!", da *Gazeta de Notícias*.
+2. Quem fala: um senhor que "liberta" o escravizado Pancrácio num jantar, para parecer generoso e ganhar fama política.
+3. O que ele faz depois: contrata o rapaz por um salário miserável e continua a tratá-lo com pancadas e insultos.
+4. O que o leitor entende: a abolição, feita sem terra, sem indenização aos libertos e sem direitos, mudou pouco a vida de quem foi escravizado.
+
+Confira: Machado fala pela voz de quem oprime; a ironia está na distância entre o que o senhor diz de si e o que o leitor vê.
+
 ## Para praticar
 
 1. Leia *Pai contra mãe* e escreva o que mais o impressionou.
 2. Explique a ironia da crônica sobre Pancrácio: o que o narrador diz e o que o leitor entende?
 3. Releia o capítulo "O vergalho" e compare com o conto.
 4. Pesquise outros textos de Machado sobre a escravidão e apresente um ao grupo.
+
+## Resumo
+
+- Machado nasceu em 1839 e tinha 48 anos na abolição (1888); seus avós paternos haviam sido escravizados.
+- Ele tratou da escravidão de forma oblíqua, quase sempre pela voz irônica de quem oprime.
+- Em *Memórias Póstumas*, "O vergalho" mostra a violência passada adiante.
+- A crônica de 19 de maio de 1888 e o conto *Pai contra mãe* tratam do tema.

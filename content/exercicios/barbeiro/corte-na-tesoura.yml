@@ -1,0 +1,51 @@
+# Exercícios da aula "Corte na tesoura" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-tesoura-01
+  tema: "Onde entra a tesoura"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "No corte clássico, onde se usa a tesoura sobre os dedos?"
+  alternativas:
+    - texto: "No contorno"
+      erro: "O contorno costuma ser feito com a máquina."
+    - texto: "No topo"
+      certa: true
+    - texto: "Nas laterais"
+      erro: "As laterais costumam usar a tesoura sobre o pente."
+  explicacao: "Contorno com máquina, laterais com tesoura sobre o pente e topo com tesoura sobre os dedos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-tesoura-02
+  tema: "O ângulo"
+  dificuldade: 2
+  enunciado: "O que decide se o topo fica em camadas, graduado ou do mesmo comprimento, na tesoura sobre os dedos?"
+  alternativas:
+    - texto: "A marca da tesoura"
+      erro: "O ângulo da mecha é decisivo."
+    - texto: "A cor do cabelo"
+      erro: "O que define é o ângulo da mecha."
+    - texto: "O ângulo em que a mecha é levantada em relação à cabeça"
+      certa: true
+  explicacao: "Mantenha o mesmo ângulo nas faixas vizinhas e use a mecha já cortada como guia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-tesoura-03
+  tema: "Redemoinhos"
+  dificuldade: 2
+  enunciado: "Como os barbeiros tratam redemoinhos na tesoura, segundo a aula?"
+  alternativas:
+    - texto: "Cortando poucos fios com a ponta da tesoura, sobre o pente, em vez de tirar muito de uma vez"
+      certa: true
+    - texto: "Raspando tudo de uma vez"
+      erro: "A aula manda cortar poucos fios por vez."
+    - texto: "Ignorando o redemoinho"
+      erro: "Os barbeiros tratam com a ponta da tesoura, sobre o pente."
+  explicacao: "Poucos fios por vez, com a ponta da tesoura, sobre o pente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "descricao": "Dónde resolver una duda de estudio en el Instituto Lúcia: refuerzo con voluntarios, asistente, comunidad, clases en vivo y estudio en grupo, en un solo lugar."
+  },
+  "eyebrow": "Nadie estudia solo",
+  "titulo": "Consultorio de dudas",
+  "lead": "¿Te trabaste en una materia? Aquí están, en un solo lugar, los caminos que el instituto ya tiene para resolver una duda. Elige el que va con tu prisa.",
+  "semHorario": "No hay un horario fijo de consultorio: cada camino funciona a su manera, y la línea “Cómo funciona” de cada uno lo explica. La única agenda marcada es la de las clases en vivo, publicada por los educadores.",
+  "antesTitulo": "Antes de preguntar",
+  "antesTexto": "Muchas dudas ya tienen respuesta en el sitio. Busca primero:",
+  "canaisTitulo": "Dónde preguntar",
+  "comoFunciona": "Cómo funciona",
+  "abrir": "Abrir",
+  "paraEnsinarTitulo": "Para quien enseña",
+  "canais": {
+    "reforco": {
+      "quem": "Una persona voluntaria del equipo de enseñanza",
+      "como": "Sin horario marcado. Escribes la duda; alguien del equipo de la materia toma el pedido y responde al correo que indicaste."
+    },
+    "assistente": {
+      "quem": "Un asistente automático",
+      "como": "Responde al instante, pero es para quien tiene cuenta y puede equivocarse. Está en la página de refuerzo, antes del pedido a una persona voluntaria.",
+      "acompanhante": "Si la Escuela está abierta para ti, el asistente también ayuda dentro de la clase, con el acompañante."
+    },
+    "comunidade": {
+      "quem": "Otras personas que estudian",
+      "como": "Sin horario: las conversaciones quedan abiertas, por sala de materia, y cada persona responde cuando puede."
+    },
+    "aovivo": {
+      "quem": "Educadores, en clase marcada",
+      "como": "A la hora marcada entras, miras y preguntas en el chat. Los días y horarios están en la agenda."
+    },
+    "grupo": {
+      "quem": "Quienes estudian contigo",
+      "como": "Abres una sala, mandas el enlace y estudian juntos, con video."
+    },
+    "salalivre": {
+      "quem": "Profesoras, profesores e instructores",
+      "como": "Una herramienta para armar y proyectar tu propia clase con lo que tiene el sitio. Se queda solo en tu navegador."
+    }
+  }
+}

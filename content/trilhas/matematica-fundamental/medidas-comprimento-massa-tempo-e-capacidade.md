@@ -31,6 +31,10 @@ quiz:
     explicacao: "Um metro cúbico tem 1.000 litros. 14 × 1.000 = 14.000 litros."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar os prefixos quilo, centi e mili para converter medidas e fazer contas com horas e minutos.
+
 ## Medir é comparar
 
 Medir é escolher uma **unidade** e ver quantas vezes ela cabe no que se quer medir. Durante muito tempo, as unidades vinham do corpo e do trabalho: o palmo, o pé, a braça, a légua. O problema é que mudavam de uma vila para a outra, e quem controlava o padrão (o senhor, o comerciante, o cobrador de impostos) levava vantagem.
@@ -113,6 +117,16 @@ Para converter:
 
 Essa conta importa no contracheque. Se a hora de trabalho vale R$ 12 e você fez 2 h 45 min a mais, o valor é 2,75 × 12 = R$ 33, e não 2,45 × 12. A Constituição limita a jornada normal a 8 horas por dia e 40 por semana (limite fixado pela Emenda Constitucional nº 141, de 2026); o que passa disso é hora extra. Anotar os seus horários, em horas e minutos, é o primeiro passo para conferir se o pagamento veio certo.
 
+## Exemplo resolvido
+
+**Converta 135 minutos em horas e minutos, e escreva 3 h 15 min em horas com vírgula.**
+
+1. O tempo é a exceção do sistema decimal: 1 hora tem **60** minutos, e não 100.
+2. 135 ÷ 60 = 2, e sobram 15: **2 h 15 min**.
+3. Para 3 h 15 min: 15 min são 15/60 = 0,25 hora, então 3 h 15 min = **3,25 h**.
+
+Confira: 3,25 h não é "3 horas e 25 minutos". Na vírgula, a parte decimal da hora vale de 60, e não de 100.
+
 ## Para praticar
 
 1. Passe 750 g para quilos e 2,5 L para mililitros.
@@ -123,3 +137,11 @@ Essa conta importa no contracheque. Se a hora de trabalho vale R$ 12 e você fez
 6. Uma torneira pingando desperdiça 2 litros por hora. Quantos litros em 30 dias? E quantos metros cúbicos?
 
 **Respostas:** 1) 0,75 kg e 2.500 mL. 2) 175 cm e 4,5 km. 3) 2 h 15 min. 4) 3,25 h. 5) 70 sacos. 6) 1.440 litros, ou 1,44 m³.
+
+## Resumo
+
+- Medir é escolher uma unidade e ver quantas vezes ela cabe; o sistema métrico decimal nasceu na Revolução Francesa (década de 1790).
+- Prefixos: quilo (1.000 vezes), centi (centésima parte) e mili (milésima parte).
+- De unidade maior para menor, multiplique; de menor para maior, divida.
+- O tempo é a exceção: 60 minutos numa hora.
+- No Brasil, a lei de 1862 adotou o sistema; a revolta do Quebra-Quilos (1874-1875) mostrou a resistência de quem via nele mais impostos.

@@ -1,0 +1,51 @@
+# Exercícios da aula "Senhas fortes e verificação em duas etapas" (Autodefesa digital). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: autodef-senhas-01
+  tema: "Qual senha é mais forte"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas senhas é a mais forte, segundo a aula?"
+  alternativas:
+    - texto: "P@ssw0rd!"
+      erro: "Palavra conhecida com trocas é fraca: todo programa de ataque conhece essas trocas."
+    - texto: "Maria1987"
+      erro: "Nome e ano caem em pouco tempo: são testados primeiro."
+    - texto: "girafa panela trovão sexta"
+      certa: true
+  explicacao: "O comprimento é o que mais dificulta a vida de quem ataca. Uma frase-senha de quatro ou cinco palavras ao acaso é forte e fácil de lembrar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: autodef-senhas-02
+  tema: "Reaproveitar senha"
+  dificuldade: 2
+  enunciado: "Por que repetir a mesma senha em várias contas é perigoso?"
+  alternativas:
+    - texto: "Se um site vaza, programas testam o par e-mail e senha em centenas de outros serviços, e uma porta aberta abre todas"
+      certa: true
+    - texto: "Porque os sites proíbem senhas repetidas"
+      erro: "O perigo é o vazamento: a lista cai em mãos criminosas e é testada em outros serviços."
+    - texto: "Porque senhas repetidas são mais difíceis de lembrar"
+      erro: "É mais fácil de lembrar, e por isso é perigosa: uma conta invadida abre as outras."
+  explicacao: "Use uma senha diferente em cada conta, com um cofre de senhas ou um caderno."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: autodef-senhas-03
+  tema: "Como as contas são invadidas"
+  dificuldade: 2
+  enunciado: "Segundo a aula, como as contas costumam ser invadidas?"
+  alternativas:
+    - texto: "Alguém adivinhando a senha na frente do computador"
+      erro: "A aula diz que quase nunca é assim."
+    - texto: "Por vazamento, reaproveitamento de senha, engano (página ou ligação falsa) e senha óbvia"
+      certa: true
+    - texto: "Só por vírus no celular"
+      erro: "A aula lista quatro caminhos: vazamento, reaproveitamento, engano e senha óbvia."
+  explicacao: "Para cada caminho há uma defesa simples: senha longa, senha única por conta, verificação em duas etapas e desconfiar de códigos pedidos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

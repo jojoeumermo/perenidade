@@ -25,6 +25,9 @@ quiz:
     resposta: 0
     explicacao: "Na mitocôndria ocorre a respiração celular, que libera a energia dos alimentos."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que diz a teoria celular, quais são as três partes básicas da célula, a diferença entre célula procarionte e eucarionte, o que cada organela faz e o que distingue a célula vegetal da animal.
 
 ## A descoberta
 
@@ -93,3 +96,23 @@ Entender a célula é entender a saúde. Uma infecção é uma invasão de célu
 1. Desenhe uma célula animal e uma vegetal e marque o que cada uma tem.
 2. Por que um vírus não é considerado uma célula? Pesquise e anote as fontes.
 3. Explique com as suas palavras a comparação entre a célula e uma fábrica.
+
+## Exemplo resolvido
+
+**O que uma célula do músculo da perna e uma célula da folha de uma mangueira têm em comum, e no que diferem?**
+
+1. **Em comum.** As duas são células eucariontes: têm membrana plasmática, citoplasma e DNA dentro de um núcleo.
+2. **Célula do músculo.** Gasta muita energia, então tem muitas **mitocôndrias**, as "casas de força" que liberam a energia dos alimentos.
+3. **Célula da folha.** É vegetal, então tem o que a animal não tem: **parede celular** de celulose, **cloroplastos** (onde acontece a fotossíntese) e um **vacúolo** grande, que guarda água.
+4. **Para comparar.** Uma bactéria seria uma célula procarionte: sem núcleo, com o DNA solto no citoplasma.
+
+Confira: a diferença entre as duas células vem do trabalho que cada uma faz.
+
+## Resumo
+
+- **Teoria celular:** todos os seres vivos são formados por células; a célula é a menor unidade viva; toda célula nasce de outra célula.
+- Há seres de **uma célula** (bactérias, amebas, leveduras) e de **trilhões** (você).
+- Partes básicas: **membrana plasmática**, **citoplasma** e **material genético** (DNA).
+- **Procarionte** não tem núcleo (bactérias); **eucarionte** tem (animais, plantas, fungos, protozoários).
+- Organelas: núcleo (direção), mitocôndria (energia), ribossomo (proteínas), retículo e Golgi (transporte), lisossomo (reciclagem).
+- A célula vegetal tem parede celular, cloroplastos e um vacúolo grande.

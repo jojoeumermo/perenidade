@@ -1,0 +1,54 @@
+# Exercícios da aula "Chapisco, emboço e reboco" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-reboco-01
+  tema: "Camadas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a função do chapisco?"
+  alternativas:
+    - texto: "Dar o acabamento liso para a pintura"
+      erro: "O acabamento fino é do reboco. O chapisco é áspero de propósito."
+    - texto: "Criar aderência para a camada seguinte"
+      certa: true
+    - texto: "Impermeabilizar a parede"
+      erro: "O chapisco não impermeabiliza. A impermeabilização usa produtos próprios."
+  explicacao: "O chapisco, áspero, faz a próxima camada de argamassa grudar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-reboco-02
+  tipo: numero
+  tema: "Volume de argamassa"
+  dificuldade: 2
+  enunciado: "Um emboço de 2 cm de espessura vai cobrir 20 m² de parede. Qual é o volume de argamassa, em m³, sem contar perda?"
+  resposta: "0,4"
+  unidade: "m³"
+  erros_comuns:
+    - resposta: "40"
+      explicacao: "Você multiplicou 20 por 2 sem converter 2 cm para metros. 2 cm são 0,02 m."
+    - resposta: "0,04"
+      explicacao: "Você usou 0,002 m de espessura. 2 cm são 0,02 m."
+  dica: "Volume = área × espessura, com a espessura em metros."
+  explicacao: "2 cm = 0,02 m. 20 × 0,02 = 0,4 m³."
+  conferir: "20 * 0.02"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: obra-reboco-03
+  tema: "Cura"
+  dificuldade: 1
+  enunciado: "Em dia quente e seco, por que molhar o reboco nos primeiros dias?"
+  alternativas:
+    - texto: "Para a argamassa não secar rápido demais e rachar, curando bem"
+      certa: true
+    - texto: "Para escorrer o excesso de água"
+      erro: "O objetivo não é escorrer, e sim manter a umidade para o cimento endurecer devagar."
+    - texto: "Para pintar no mesmo dia"
+      erro: "Pintar em argamassa úmida não é indicado. A cura é para o cimento endurecer sem fissurar."
+  explicacao: "A cura mantém a umidade para o cimento endurecer sem rachar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

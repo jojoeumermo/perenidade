@@ -31,6 +31,10 @@ quiz:
     explicacao: "Quando o salário não fecha o mês, a dívida tapa o buraco, e uma parte do salário futuro já fica comprometida com juros."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que o dinheiro faz, como o crédito e os juros funcionam e por que a dívida das famílias cresce como bola de neve.
+
 Dinheiro parece a coisa mais natural do mundo. Mas ele é uma relação social: só funciona porque todos aceitam que um papel ou um número na tela vale comida, casa e roupa. Esta aula explica o que é o dinheiro, o que é o crédito e por que a dívida virou uma forma de exploração a mais.
 
 ## As funções do dinheiro
@@ -91,3 +95,11 @@ O banco leva a lógica ao extremo: **D – D'**, dinheiro que parece gerar dinhe
 ## Para conversar
 
 Na sua casa, quanto do salário vai para parcelas e juros? Se essa parte ficasse com a família, o que mudaria?
+
+## Resumo
+
+- O dinheiro mede o valor, faz as mercadorias circularem, guarda valor e paga dívidas.
+- Crédito é usar hoje um dinheiro que será pago depois com juros; para a empresa, o juro é uma fatia da mais-valia; para a família, sai do salário.
+- Juros compostos incidem sobre os próprios juros: dívida de cartão e de cheque especial vira bola de neve.
+- Antes de contratar crédito, compare o custo efetivo total e fuja do rotativo.
+- A fórmula do capital é D - M - D'; a do trabalhador, M - D - M.

@@ -36,6 +36,10 @@ quiz:
     explicacao: "A Lei 14.723 incluiu os quilombolas ao lado de pretos, pardos, indígenas e pessoas com deficiência."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar como a Lei de Cotas divide as vagas das instituições federais, o que mudou em 2023 e como se candidatar a uma vaga de cota.
+
 Durante a maior parte da história do Brasil, a universidade pública foi um lugar quase só de gente branca e de famílias com dinheiro, que podiam pagar escola particular e cursinho. A **Lei de Cotas**, de 2012, mudou esse quadro nas instituições federais. Esta aula explica como ela funciona, com as regras atualizadas pela **Lei nº 14.723, de 2023**.
 
 ## De onde vieram as cotas
@@ -109,3 +113,10 @@ Os dados do Censo da Educação Superior, publicados pelo Inep, mostram que a pr
 1. Calcule a renda por pessoa da sua família e veja se você se encaixa no recorte de renda.
 2. Escolha um curso de uma universidade federal do seu estado e procure, no edital do Sisu, quantas vagas ele tem em cada modalidade.
 3. Separe hoje os documentos que você precisaria apresentar, como o histórico escolar e os comprovantes de renda.
+
+## Resumo
+
+- A Lei de Cotas (Lei 12.711, de 2012) reserva pelo menos 50% das vagas, em cada curso e turno, a quem fez todo o ensino médio em escola pública.
+- Dentro da reserva, metade é para renda de até 1 salário mínimo por pessoa; há vagas para pretos, pardos, indígenas, quilombolas e pessoas com deficiência, em proporção mínima igual à da população do estado.
+- A Lei 14.723, de 2023, baixou o limite de renda de 1,5 para 1 salário mínimo, incluiu quilombolas, fez todos disputarem primeiro a ampla concorrência e prevê auxílio estudantil prioritário e ações afirmativas na pós-graduação.
+- Leia o edital antes de escolher a modalidade: quem não comprova o direito perde a vaga.

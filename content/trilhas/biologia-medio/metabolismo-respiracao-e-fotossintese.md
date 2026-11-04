@@ -37,6 +37,9 @@ quiz:
     resposta: 1
     explicacao: "Na fase clara, a energia da luz quebra moléculas de água; o oxigênio é liberado."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar catabolismo e anabolismo, o papel do ATP e das enzimas, as etapas da respiração celular, a fermentação e as duas fases da fotossíntese.
 
 ## O que é metabolismo
 
@@ -131,3 +134,22 @@ O que uma libera, a outra usa. O carbono e o oxigênio circulam entre os seres v
 2. Por que um atleta em esforço muito intenso sente o músculo "queimar"? Que processo está ocorrendo?
 3. Faça o teste: misture fermento biológico, açúcar e água morna em uma garrafa e prenda um balão na boca. O que enche o balão?
 4. Compare, em uma tabela, a quantidade de ATP obtida por glicose na respiração aeróbica e na fermentação.
+
+## Exemplo resolvido
+
+**Por que a massa de pão cresce mais depressa em um lugar morno do que na geladeira?**
+
+1. **Quem faz a massa crescer.** As **leveduras** (fungos) fazem **fermentação alcoólica**: sem oxigênio, só com a glicólise, produzem álcool etílico e **gás carbônico**.
+2. **O gás.** O gás carbônico fica preso na massa e a faz crescer; o álcool evapora no forno.
+3. **A temperatura.** A fermentação é feita por seres vivos e depende de **enzimas**, que funcionam em uma faixa estreita de temperatura. Em temperatura morna, as enzimas das leveduras trabalham mais rápido; na geladeira, ficam lentas.
+4. **Conclua.** A massa cresce mais depressa no morno porque as enzimas das leveduras trabalham mais rápido.
+
+Confira: a fermentação rende só 2 ATP por glicose, muito menos que a respiração celular (cerca de 30).
+
+## Resumo
+
+- **Metabolismo:** catabolismo (quebra moléculas e libera energia: respiração) e anabolismo (constrói moléculas e consome energia: fotossíntese).
+- **ATP:** a "bateria recarregável" da célula. **Enzimas:** proteínas que aceleram as reações, em faixa estreita de temperatura e pH.
+- **Respiração celular:** C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + energia. Etapas: glicólise (citoplasma), ciclo de Krebs e cadeia respiratória (mitocôndria); cerca de 30 ATP por glicose. O oxigênio recebe os elétrons no final.
+- **Fermentação** (sem oxigênio): lática (iogurte, queijo; músculo em esforço intenso) e alcoólica (pão, cerveja, etanol); só 2 ATP.
+- **Fotossíntese:** nos cloroplastos, em duas fases: fase clara (luz, água, oxigênio, ATP) e ciclo de Calvin (gás carbônico, açúcar). O oxigênio vem da água.

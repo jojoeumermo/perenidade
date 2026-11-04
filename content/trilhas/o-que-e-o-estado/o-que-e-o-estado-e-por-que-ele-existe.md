@@ -32,6 +32,7 @@ quiz:
     opcoes: ["Porque a sociedade se divide em classes com interesses inconciliáveis, e é preciso um poder que abafe o conflito", "Por vontade divina", "Porque as pessoas precisam de alguém que mande, mesmo sem classes"]
     resposta: 0
     explicacao: "Lenin retomou essa ideia em O Estado e a Revolução."
+modelo: 9
 ---
 
 ```provocacao
@@ -41,6 +42,10 @@ Se durante dezenas de milhares de anos os seres humanos viveram sem Estado, por 
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber como o Estado surgiu e conhecer duas explicações para a sua existência.
+
+```suarealidade
+Quem o Estado protege na sua rua: todo mundo do mesmo jeito? Pense em um exemplo da sua semana (polícia, posto de saúde, ônibus, escola).
+```
 
 ## Uma invenção recente
 
@@ -69,6 +74,20 @@ Qual é a diferença entre as explicações de Weber e de Engels?
 1. **Weber**: a polícia mostra o **monopólio da força** do Estado: só ela pode prender legalmente.
 2. **Engels**: é preciso perguntar **a serviço de que ordem** essa força atua e **contra quem** ela costuma ser usada.
 3. **Conclusão**: as duas ideias se completam: uma descreve **como** o Estado age; a outra pergunta **por quê** e **para quem**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Para Thomas Hobbes (Leviatã, 1651), sem um poder comum que imponha regras a todos, a vida em sociedade vira uma guerra de todos contra todos; por isso as pessoas aceitam um Estado forte em troca de segurança. Nessa tradição, o Estado não nasce de uma divisão de classes, e sim da necessidade de paz e de ordem para todos, ricos e pobres.
+---
+Como você responderia, com respeito e com fatos? Pense no que a aula diz sobre as sociedades sem Estado e sobre a pergunta "a serviço de que ordem?".
+---
+Uma resposta possível: a segurança é uma necessidade real de todos, e Weber ajuda a descrever como o Estado a garante, pelo monopólio da força legítima. Mas a aula lembra que durante a maior parte da pré-história houve sociedades sem Estado, e que ele surgiu há cerca de 5,5 mil anos, com a estratificação social e o crescimento das cidades. A pergunta de Engels completa a de Hobbes: a ordem que o Estado garante é a ordem de quem, e a força é usada contra quem?
+```
+
+```agir
+# Esta semana
+Anote num papel três coisas que o Estado fez por você ou pela sua rua nesta semana (escola, posto de saúde, ônibus, iluminação) e uma situação em que ele usou regra ou força. Ao lado de cada uma, escreva para quem ela serve.
+```
 
 ## Resumo
 

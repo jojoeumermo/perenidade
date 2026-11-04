@@ -26,6 +26,7 @@ quiz:
     opcoes: ["Sólido, líquido e gasoso", "Só líquido", "Só gasoso"]
     resposta: 0
     explicacao: "É a única substância que existe, em condições normais, nos três estados."
+modelo: 9
 ---
 
 ```provocacao
@@ -35,6 +36,10 @@ A água que você bebeu hoje pode já ter sido nuvem, rio, gelo e até parte de 
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer os processos do ciclo da água e por que ele é importante.
+
+```suarealidade
+Onde, na sua casa ou na sua rua, você vê a água mudar de forma durante a semana: poça que seca, vapor da panela, gelo derretendo, roupa secando no varal?
+```
 
 ## O que é
 
@@ -76,6 +81,20 @@ Por que o desmatamento pode afetar as chuvas?
 2. **(c)** condensa e forma uma nuvem.
 3. **(a)** precipita como chuva.
 4. **(d)** escoa pelo rio de volta ao mar, e o ciclo recomeça.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Quem defende abrir mais áreas para lavoura e pasto costuma lembrar que o proprietário rural tem direito, pelo Código Florestal (Lei nº 12.651/2012), de usar a parte da terra que está fora da reserva legal e das áreas de preservação, e que o país precisa produzir alimento e gerar renda no campo. Restringir mais, nessa visão, seria tirar o sustento de quem produz.
+---
+Como você responderia, com respeito e com fatos? Pense no que a aula diz sobre o papel das plantas no ciclo da água e no que acontece com a chuva quando uma região grande perde a floresta.
+---
+Uma resposta possível: a lei de fato permite o uso da terra, dentro de limites, e ninguém discute que é preciso produzir alimento. A aula mostra que as plantas devolvem água ao ar pela evapotranspiração, de modo que desmatar muito em uma região pode reduzir o vapor que forma chuva, o que também atinge as lavouras. A pergunta passa a ser quanto e onde desmatar, e não se alguém pode produzir.
+```
+
+```agir
+# Esta semana
+Anote num papel três lugares da sua casa ou rua onde você viu a água mudar de estado. Ao lado de cada um, escreva o nome do processo (evaporação, condensação...).
+```
 
 ## Resumo
 

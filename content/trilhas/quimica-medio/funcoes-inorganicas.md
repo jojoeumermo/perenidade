@@ -34,6 +34,10 @@ quiz:
     explicacao: "Com ácidos, libera-se gás cloro; com amoníaco, formam-se cloraminas. Ambos atacam os pulmões."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber reconhecer e dar nome a ácidos, bases, sais e óxidos, e escrever a neutralização entre um ácido e uma base.
+
 ## Organizar para entender
 
 Existem milhões de substâncias. Para estudá-las, a química as agrupa em **funções**: conjuntos de substâncias com comportamento parecido. As quatro funções inorgânicas principais são **ácidos**, **bases**, **sais** e **óxidos**.
@@ -158,9 +162,28 @@ A terceira reação libera muito calor: a mistura esquenta e borbulha. A cal vir
 - Guarde os produtos na **embalagem original**, longe de crianças. Nunca em garrafas de refrigerante.
 - Em caso de contato com a pele ou os olhos, lave com **muita água corrente** e procure atendimento.
 
+## Exemplo resolvido
+
+**Ácido clorídrico (HCl) reage com soda cáustica (NaOH). Que função resulta e qual é o nome do sal?**
+
+1. Identifique as funções: HCl é um ácido (libera H⁺ em água) e NaOH é uma base (libera OH⁻).
+2. Ácido mais base é neutralização: formam-se sal e água. HCl + NaOH → NaCl + H₂O.
+3. Dê nome ao sal. O ácido é clorídrico, terminação -ídrico, que vira -eto no sal: cloreto. O cátion vem da base: sódio.
+
+O sal é o cloreto de sódio, o sal de cozinha, e o outro produto é a água.
+
 ## Para praticar
 
 1. Classifique em ácido, base, sal ou óxido: HNO₃, KOH, MgO, CaCl₂, H₂S, Na₂SO₄.
 2. Dê o nome de: HBr, KOH, NaNO₃, CaO.
 3. Complete a neutralização e dê o nome do sal: H₂SO₄ + 2 NaOH → ?
 4. Leia os rótulos de cinco produtos de limpeza da sua casa. Que substâncias desta aula aparecem? Que avisos de segurança trazem?
+
+## Resumo
+
+- As quatro funções inorgânicas principais são ácidos, bases, sais e óxidos.
+- Para Arrhenius, ácido libera H⁺ em água e base libera OH⁻; para Brønsted e Lowry, ácido doa H⁺ e base recebe.
+- Ácido forte se separa quase todo em íons; forte não é o mesmo que concentrado.
+- Ácido mais base dá sal e água (neutralização).
+- Nome do sal: -ídrico vira -eto, -ico vira -ato, -oso vira -ito.
+- Óxido é composto de dois elementos, sendo um o oxigênio.

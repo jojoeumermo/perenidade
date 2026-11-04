@@ -1,0 +1,51 @@
+# Exercícios da aula "Barba na navalha e cuidados com a pele" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-navalha-01
+  tema: "Lâmina nova"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que usar lâmina nova para cada cliente na barba na navalha?"
+  alternativas:
+    - texto: "Só para a lâmina ficar mais afiada"
+      erro: "Afiar ajuda, mas o motivo principal é a saúde: hepatites B e C."
+    - texto: "Porque o cliente prefere"
+      erro: "É uma regra de saúde: lâmina nova e descarte na caixa de perfurocortantes."
+    - texto: "Porque a navalha é perfurocortante e o compartilhamento de lâminas está entre as formas de transmissão das hepatites B e C"
+      certa: true
+  explicacao: "O Ministério da Saúde lista o compartilhamento de lâminas entre as formas de transmissão da hepatite C e da B."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-navalha-02
+  tema: "Preparar a pele"
+  dificuldade: 2
+  enunciado: "Como amolecer a barba antes da navalha, segundo a aula?"
+  alternativas:
+    - texto: "Com toalha quente e úmida por cerca de cinco minutos"
+      certa: true
+    - texto: "Com toalha seca e fria"
+      erro: "É toalha quente e úmida, cerca de cinco minutos."
+    - texto: "Com álcool direto na pele"
+      erro: "O passo é a toalha quente e úmida, depois espuma ou creme."
+  explicacao: "Depois, espuma ou creme, para a lâmina deslizar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-navalha-03
+  tema: "Quem tem pseudofoliculite"
+  dificuldade: 3
+  enunciado: "Para quem tem pseudofoliculite, o que ajuda ao barbear, segundo a aula?"
+  alternativas:
+    - texto: "Barbear contra o pelo, bem rente, todos os dias"
+      erro: "Isso piora: ajuda barbear no sentido do crescimento e sem rente demais."
+    - texto: "Barbear no sentido do crescimento, com lâmina afiada, sem rente demais, e não todos os dias"
+      certa: true
+    - texto: "Voltar várias vezes sobre o mesmo lugar"
+      erro: "A aula manda não voltar várias vezes sobre o mesmo lugar."
+  explicacao: "Lave a lâmina a cada passada e não volte várias vezes sobre o mesmo ponto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -33,6 +33,10 @@ quiz:
     explicacao: "Para pessoas, o inglês usa o 's: o dono vem primeiro, depois a coisa."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar os pronomes de sujeito e de objeto e os possessivos (*my*, *mine*, *'s*) em frases simples.
+
 Na aula do verbo *to be* você já conheceu os pronomes que fazem a ação: *I, you, he, she, it, we, they*. Agora vamos completar o quadro com as outras formas: a de quem **recebe** a ação (*me, him, her…*) e as que dizem **de quem é** alguma coisa (*my, his, mine…*).
 
 ## O quadro completo
@@ -105,6 +109,16 @@ Para dizer "o carro do meu pai", o inglês não costuma usar *of*. Usa um apóst
 
 Se o dono está no plural com **s**, só se acrescenta o apóstrofo: ***my parents'** house* (a casa dos meus pais), ***the workers'** union* (o sindicato dos trabalhadores). Plural irregular volta a usar 's: ***the children's** school* (a escola das crianças).
 
+## Exemplo resolvido
+
+**Troque os nomes por pronomes: "Maria is my friend. I see Maria every day."**
+
+1. *Maria* é o sujeito da primeira frase. Pronome de sujeito para ela: **She**. Frase: *She is my friend.*
+2. Na segunda, *Maria* é quem **recebe** a ação. Pronome de objeto: **her**. Frase: *I see her every day.*
+3. Para dizer "a casa dela", use o possessivo antes da coisa: **her** house.
+
+Confira com as respostas da aula: *She is my friend. I see her every day. Her house…*. Repare que *her* serve tanto de objeto quanto de possessivo.
+
 ## Para praticar
 
 1. Troque as palavras entre parênteses por pronomes: *(Maria) is my friend. I see (Maria) every day. (Maria's) house is near (my and my family's) house.*
@@ -112,3 +126,10 @@ Se o dono está no plural com **s**, só se acrescenta o apóstrofo: ***my paren
 3. Escreva duas frases sobre a sua família usando *'s*: *My sister's name is…*
 
 Respostas do 1: *She is my friend. I see her every day. Her house is near our house.* Resposta do 2: *Mine is blue.*
+
+## Resumo
+
+- Pronomes de sujeito: *I, you, he, she, it, we, they*; de objeto: *me, you, him, her, it, us, them*.
+- Possessivo antes da coisa: *my, your, his, her, its, our, their*; sozinho: *mine, yours, hers, ours, theirs*.
+- O sujeito quase sempre aparece em inglês: *It's raining*.
+- Para nomes, usa-se o **'s**: *my sister's name*.

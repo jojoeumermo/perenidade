@@ -30,6 +30,10 @@ quiz:
     resposta: 1
     explicacao: "O valor foi coberto com empréstimo tomado na Inglaterra, o que inaugurou a dívida externa do novo país."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber confrontar o quadro famoso da independência com os fatos, explicar o papel da vinda da Corte em 1808, a solução dos proprietários e o preço que o Brasil pagou por reconhecimento.
+
 
 ## O quadro famoso
 
@@ -98,9 +102,29 @@ A reação veio de Pernambuco. Em 1824, a **Confederação do Equador** proclamo
 
 O Brasil foi, além disso, o único país da América do Sul que se tornou independente como **monarquia**, e não como república.
 
+## Exemplo resolvido
+
+**O quadro "Independência ou morte" foi pintado perto do fato? E quanto o Brasil pagou a Portugal?**
+
+1. A aula diz que a pintura de Pedro Américo foi concluída em 1888 e que a independência foi proclamada em 1822. Subtraia: 1888 − 1822 = **66 anos**, "mais de sessenta", como diz a aula. A imagem não é um retrato do momento, é uma construção posterior.
+2. A família real chegou ao Brasil em 1808. Até 1822: 1822 − 1808 = **14 anos** de Corte no Rio de Janeiro antes da independência.
+3. Portugal só reconheceu a independência em 1825, três anos depois: 1825 − 1822 = **3 anos**.
+4. O preço: uma indenização de **2 milhões de libras esterlinas**, para o que o Brasil tomou empréstimos em Londres. O país nasceu endividado com a principal potência da época.
+
+Leitura: pergunte "independência para quem?". Os grandes proprietários queriam manter a escravidão e o comércio livre; não queriam uma independência feita de baixo, com participação popular.
+
 ## Para pesquisar e debater
 
 1. Como a independência é comemorada na sua cidade? Quem aparece nas comemorações e quem fica de fora?
 2. Por que a Bahia comemora o 2 de Julho? Que diferença há entre essa memória e a do 7 de Setembro?
 3. "Mudar para que tudo continue como está." Em que medida a frase se aplica a 1822?
 4. Em que outros momentos da história do Brasil as mudanças políticas foram feitas "por cima"?
+
+## Resumo
+
+- O quadro mais conhecido da independência foi concluído em 1888, mais de sessenta anos depois do fato.
+- Em 1808, a família real portuguesa se transferiu para o Brasil, fugindo de Napoleão, e o Rio de Janeiro virou sede do império português.
+- Os grandes proprietários e comerciantes do Centro-Sul queriam manter a liberdade de comércio e a escravidão, e temiam uma independência feita de baixo.
+- Houve guerra: tropas fiéis a Portugal resistiram na Bahia (mais de um ano), no Maranhão, no Piauí, no Pará e na Cisplatina.
+- Portugal só reconheceu a independência em 1825, e o Brasil se comprometeu a pagar 2 milhões de libras esterlinas, com empréstimos de Londres.
+- A Constituição de 1824 foi outorgada por Dom Pedro depois de fechar a Constituinte de 1823. Mudou o governo; ficaram a grande propriedade, a dependência e a escravidão.

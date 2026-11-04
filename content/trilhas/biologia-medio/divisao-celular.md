@@ -37,6 +37,9 @@ quiz:
     resposta: 1
     explicacao: "Mutações em genes que controlam o ciclo celular fazem a célula se dividir sem parar."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber descrever as fases da mitose e da meiose, explicar para que serve cada uma, contar cromossomos em células diploides e haploides e dizer de onde vem a variabilidade da reprodução sexuada.
 
 ## Toda célula vem de outra célula
 
@@ -152,3 +155,23 @@ Quanto mais cedo o diagnóstico, maior a chance de cura. Os exames preventivos (
 2. Explique por que a meiose é necessária para manter constante o número de cromossomos de uma espécie.
 3. Dois irmãos, filhos dos mesmos pais, têm aparência bem diferente. Cite dois mecanismos da meiose que explicam isso.
 4. Pesquise em fonte oficial quais exames de prevenção de câncer são oferecidos pelo SUS e para quem.
+
+## Exemplo resolvido
+
+**Quantos cromossomos tem cada célula formada na mitose e na meiose de uma célula humana? E por que os gametas têm só 23?**
+
+1. **Ponto de partida.** A célula do corpo humano é diploide: 2n = 46 cromossomos, em 23 pares.
+2. **Mitose.** Uma divisão, duas células-filhas **idênticas**, cada uma com 46 cromossomos (2n). Serve para crescer, repor células e cicatrizar.
+3. **Meiose.** Duas divisões seguidas, depois de uma única duplicação do DNA: **quatro células haploides**, com 23 cromossomos (n), **diferentes entre si**.
+4. **Por que 23?** Se os gametas tivessem 46, o filho teria 92 e o neto, 184. A meiose reduz à metade para que, na fecundação, o número volte a 46.
+5. **Variabilidade.** Com 23 pares que se separam de modo independente, são mais de 8 milhões de combinações possíveis (2²³), sem contar a permutação (*crossing-over*).
+
+Confira: por isso irmãos, filhos dos mesmos pais, são diferentes entre si.
+
+## Resumo
+
+- O DNA da célula eucarionte está em **cromossomos**. No ser humano: **46 cromossomos em 23 pares** (diploide, 2n); os gametas têm 23 (haploide, n).
+- **Ciclo celular:** interfase (a célula cresce e duplica o DNA) e divisão (mitose e citocinese).
+- **Mitose:** prófase, metáfase, anáfase e telófase; duas células-filhas idênticas. Serve para crescimento, reposição, cicatrização e reprodução assexuada.
+- **Meiose:** duas divisões; de uma célula diploide saem quatro haploides, diferentes entre si (permutação e separação ao acaso).
+- A **variabilidade** é a grande vantagem da reprodução sexuada.

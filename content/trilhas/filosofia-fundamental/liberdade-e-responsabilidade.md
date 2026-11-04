@@ -29,6 +29,7 @@ quiz:
     opcoes: ["Que ninguém será obrigado a fazer ou deixar de fazer alguma coisa senão em virtude de lei", "Que todos devem obedecer ao vizinho", "Que não existe liberdade"]
     resposta: 0
     explicacao: "A liberdade tem como limite a lei, feita para proteger todos."
+modelo: 9
 ---
 
 ```provocacao
@@ -38,6 +39,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender a relação entre liberdade e responsabilidade.
+
+```suarealidade
+Qual foi a última vez que você disse ou ouviu "não tive escolha" ou "todo mundo faz"? Havia mesmo escolha, ainda que ruim?
+```
 
 ## Somos livres
 
@@ -73,6 +78,20 @@ Um aluno cola na prova e diz: "eu não tive escolha, todo mundo estava colando".
 2. Mas ela **afeta** a liberdade dos vizinhos de **dormir**.
 3. A liberdade de um encontra a dos **outros**: por isso existem **regras** de convivência.
 4. Ser livre, aqui, inclui ser **responsável** pelo efeito da escolha nos outros.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Falar em liberdade e responsabilidade é culpar o pobre. Quem trabalha dez horas, pega dois ônibus e mal tem tempo de comer não escolhe nada, e cobrar dele é cruel".
+---
+Como você responderia, reconhecendo o que a crítica tem de justo?
+---
+Uma resposta possível: a aula diz o mesmo em parte: nem todo mundo escolhe nas mesmas condições, e quem tem pouco dinheiro, pouco tempo ou pouca proteção tem menos opções. Por isso pensar a liberdade é também pensar em ampliar as opções de todos. Ao mesmo tempo, reconhecer que há alguma escolha, ainda que pequena, é o que permite assumir as próprias decisões e lutar por mais.
+```
+
+```agir
+# Esta semana
+Escreva três escolhas que você fez hoje e uma consequência de cada uma. Depois marque aquela em que as condições limitaram mais as suas opções, e escreva o que seria preciso mudar para ter mais escolha.
+```
 
 ## Resumo
 

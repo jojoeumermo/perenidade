@@ -27,6 +27,7 @@ quiz:
     explicacao: "Verbos de estado, como know, like, want e need, costumam ficar no presente simples: I know, I want."
 ---
 
+
 ## O que está acontecendo agora
 
 O **presente contínuo** corresponde ao nosso "estou fazendo", "estamos trabalhando". Forma-se com o [verbo to be](/trilhas/ingles-do-zero/verbo-to-be) mais o verbo com **-ing**:
@@ -82,9 +83,27 @@ Verbos de **estado** (que falam de pensamentos, sentimentos, posse, percepção)
 - *I **understand** now.* (e não *I'm understanding*)
 - *She **wants** a coffee.* (e não *she's wanting*)
 
+## Exemplo resolvido
+
+**Como dizer "Ela está cozinhando agora" e perguntar?**
+
+1. Escolha o verbo *to be* para o sujeito: com *she*, **is**.
+2. Acrescente o verbo com -ing: *cook* vira *cooking*. Frase: *She is cooking.*
+3. Negativa: *She isn't cooking.* Pergunta: *Is she cooking?*
+4. Um caso com regra de escrita: *run* tem consoante-vogal-consoante, então dobra o n: *running*.
+
+Confira: *make* perde o e (*making*) e *lie* vira *lying*, como na tabela da aula.
+
 ## Para praticar
 
 1. Escreva o -ing: work, make, run, swim, study, write, sit, play.
 2. Responda: What are you doing now? What is your family doing at this moment?
 3. Escolha entre presente simples e contínuo: "She (cook) dinner now." / "He (work) at night every week." / "Listen! The baby (cry)."
 4. Descreva uma foto ou uma cena da sua rua em cinco frases no presente contínuo.
+
+## Resumo
+
+- Presente contínuo: **am / is / are + verbo + -ing**.
+- Serve para o que acontece agora, neste período e para planos já combinados.
+- Regras do -ing: tirar o -e mudo (*make, making*), dobrar a consoante (*run, running*), trocar -ie por -ying (*lie, lying*).
+- Verbos como *understand*, *want* e *belong* preferem o presente simples.

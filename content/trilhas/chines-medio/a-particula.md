@@ -30,6 +30,9 @@ quiz:
     resposta: 1
     explicacao: "我昨天去, 我明天去: o verbo 去 é sempre o mesmo."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber usar 了 depois do verbo (ação concluída) e no fim da frase (mudança de situação), negar com 没 e saber quando não usar 了.
 
 ## O verbo não muda
 
@@ -95,3 +98,22 @@ Não se usa 了 para hábitos do passado nem com verbos de estado:
 2. Passe para a negativa: 我看了那个电影。/ 她来了。
 3. Use 了 no fim para dizer: "Agora está frio" (冷, lěng); "Fiquei cansado" (累, lèi).
 4. Conte em quatro frases o que você fez ontem, usando 了 e 没.
+
+## Exemplo resolvido
+
+**Como dizer "Ontem eu não fui trabalhar"? (ir trabalhar = 上班, shàngbān)**
+
+1. **A ação não aconteceu.** Para isso usa-se **没** (ou 没有) antes do verbo, e **o 了 sai**.
+2. **Onde vai o tempo?** "Ontem" (昨天) vem antes do verbo.
+3. **Monte a frase.** **我昨天没上班。** (Wǒ zuótiān méi shàngbān.)
+
+Confira: 不 seria recusa ou hábito (我不吃, "eu não como"); 没 diz que não aconteceu (我没吃, "eu não comi"). E, para a ação concluída, 我买一件衣服 vira 我买**了**一件衣服 (comprei uma peça de roupa).
+
+## Resumo
+
+- O verbo chinês não se conjuga; **了** mostra o que se completou ou mudou.
+- **Verbo + 了 + objeto** (com quantidade ou detalhe): ação concluída (我买了一本书).
+- **Frase + 了**: mudança de situação, como "já", "agora", "passou a" (下雨了, 我饿了).
+- Negação de uma ação que não aconteceu: **没（有）** + verbo, sem 了 (我没吃).
+- Perguntas: 你吃了吗？ e 你吃了没有？
+- Não se usa 了 para hábitos do passado nem com verbos de estado (我昨天很忙).

@@ -1,5 +1,6 @@
 ---
 titulo: "Como funciona o ENEM"
+modelo: 9
 resumo: "O que cai, como são os dois dias de prova, como a redação é corrigida e para que serve a nota."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,14 @@ quiz:
     resposta: 1
     explicacao: "O Prouni dá bolsas integrais e parciais em instituições privadas. O Sisu distribui vagas em instituições públicas."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que cai no ENEM, como são os dois dias de prova, como a redação é corrigida e para que serve a nota.
+
+```suarealidade
+Que dia e horário de estudo você realmente teria na sua semana, entre trabalho, transporte e casa? E quem, perto de você, já fez o ENEM e poderia contar como foi?
+```
 
 As regras de cada edição estão no **edital** que o Inep publica todo ano. Datas, taxa e prazos mudam: antes de se inscrever, leia o edital do seu ano. Esta aula explica o que não costuma mudar.
 
@@ -149,3 +158,24 @@ Uma estudante do 3º ano de escola pública tem direito à isenção. O que ela 
 O melhor material é o próprio exame. O Inep publica **todas as provas e gabaritos** das edições anteriores, de graça. Resolver uma prova antiga inteira, com relógio, ensina mais sobre o ENEM do que qualquer resumo.
 
 O resto desta trilha cuida do que vem depois: inscrição, TRI, Sisu, Prouni e Fies, cotas, plano de estudos e o dia da prova.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem critique o ENEM por medir, numa prova única, de dois domingos, mais a resistência e o acesso a cursinhos e a bons materiais do que o que a pessoa realmente sabe. Para essas pessoas, quem estudou em escola com poucos recursos já chega em desvantagem e uma prova só não corrige isso.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a crítica tem um ponto, pois a desigualdade de escola existe. A aula mostra o que o sistema faz a respeito: o Inep publica todas as provas e gabaritos de graça, há isenção da taxa para muita gente, e a Lei de Cotas reserva pelo menos metade das vagas das universidades e institutos federais para quem fez o ensino médio em escola pública, com recortes de renda e de cor. Quem discorda pode argumentar que isso ainda não basta; vale checar os dados antes de debater.
+```
+
+```agir
+# Esta semana
+Escolha uma prova antiga do ENEM no site do Inep e leia só as instruções e a primeira página. Num papel, escreva três coisas que você ainda não sabia sobre a prova.
+```
+
+## Resumo
+
+- O ENEM tem 180 questões objetivas (45 por área) e uma redação, em dois domingos seguidos; o primeiro tem Linguagens, Ciências Humanas e redação, o segundo, Ciências da Natureza e Matemática.
+- A redação vale até 1.000 pontos: cinco competências de 0 a 200.
+- A nota das objetivas usa a TRI: contam quais questões você acerta, não só quantas.
+- A nota serve ao Sisu, ao Prouni, ao Fies e à certificação do ensino médio; a isenção da taxa não é automática e a Lei de Cotas reserva vagas.

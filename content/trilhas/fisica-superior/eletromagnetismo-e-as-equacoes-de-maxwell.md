@@ -37,6 +37,10 @@ quiz:
     resposta: 1
     explicacao: "c = 1/√(μ₀·ε₀) ≈ 3 × 10⁸ m/s. Daí a conclusão de que a luz é uma onda eletromagnética."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber enunciar as quatro equações de Maxwell na forma integral, dizer o que cada uma afirma e explicar como elas levam à luz como onda eletromagnética.
+
 
 ## Quatro equações para tudo
 
@@ -114,3 +118,12 @@ E elas deixaram um enigma: a velocidade c não aparece referida a nenhum observa
 2. Por que não existe um "ímã com um polo só"? Qual das equações trata disso?
 3. Um ímã cai por dentro de um tubo de cobre e desce muito devagar. Explique com as leis de Faraday e de Lenz.
 4. Refaça a conta de c com os valores de μ₀ e ε₀ e compare com a velocidade da luz.
+
+## Resumo
+
+- Maxwell reuniu, em quatro equações, toda a eletricidade e todo o magnetismo conhecidos no século XIX.
+- Fluxo de um campo mede quanto campo atravessa uma superfície.
+- Lei de Gauss: o fluxo elétrico em uma superfície fechada é proporcional à carga dentro dela. Gauss do magnetismo: o fluxo magnético é zero (não há monopolos).
+- Lei de Faraday: fluxo magnético variável induz campo elétrico. Lei de Ampère-Maxwell: corrente e campo elétrico variável criam campo magnético.
+- Juntando as duas últimas, um campo varia e gera o outro: surge a onda eletromagnética, e a luz é uma delas.
+- Maxwell morreu em 1879 sem ver as ondas detectadas; Hertz as produziu no fim da década de 1880.

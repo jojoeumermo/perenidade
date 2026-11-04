@@ -115,6 +115,10 @@ export const SELOS_DAS_FERRAMENTAS: Record<ToolId, SelosDeUmItem> = {
   "orcamento-e-contrato": aparelho,
   "dividas-e-renegociacao": aparelho,
   "modelos-de-documentos": aparelho,
+  "arvore-trabalhista": aparelho,
+  "clausulas-de-contrato": aparelho,
+  "carga-eletrica": aparelho,
+  "mapa-de-servicos": aparelho,
 };
 
 /** Os selos fora da caixa de ferramentas. */

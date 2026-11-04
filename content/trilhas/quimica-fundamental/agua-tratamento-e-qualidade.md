@@ -32,6 +32,10 @@ quiz:
     explicacao: "Um produto faz as partículas finas se aglomerarem; os flocos, mais pesados, assentam."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar as etapas do tratamento da água, tratar em casa uma água que não é confiável e dizer por que o esgoto faz parte da mesma história.
+
 ## A substância da vida
 
 A **água** (H₂O) cobre a maior parte da superfície do planeta e compõe a maior parte do nosso corpo. Sem ela, não há vida.
@@ -105,6 +109,16 @@ No entanto, a água é tratada cada vez mais como mercadoria. A maior parte da �
 
 Defender a água é defender as nascentes, as matas que as protegem e o controle público sobre um bem de que ninguém pode abrir mão.
 
+## Exemplo resolvido
+
+**Você precisa tratar 5 litros de água de uma fonte não confiável com hipoclorito de sódio a 2,5%. Quantas gotas, e quanto tempo esperar?**
+
+1. Primeiro filtre ou coe a água em pano limpo, para tirar a sujeira visível.
+2. A orientação do Ministério da Saúde é de 2 gotas para cada litro. Para 5 litros: 5 × 2 = 10 gotas.
+3. Misture e espere 30 minutos antes de beber.
+
+Confira: se a água tivesse só 1 litro, seriam 2 gotas; 5 litros pedem cinco vezes mais. Água sanitária com perfume ou aditivo não serve.
+
 ## Para pesquisar e debater
 
 1. De onde vem a água da sua cidade? Qual é o rio ou a represa?
@@ -112,3 +126,11 @@ Defender a água é defender as nascentes, as matas que as protegem e o controle
 3. O esgoto do seu bairro é coletado? Para onde vai?
 4. Quando foi a última vez que a caixa-d'água da sua casa foi lavada?
 5. Em caso de falta de água na sua região, quem fica sem água primeiro?
+
+## Resumo
+
+- Água limpa não é água potável: bactérias, vírus e substâncias dissolvidas não se veem.
+- O tratamento tem captação, coagulação, floculação, decantação, filtração, desinfecção com cloro, fluoretação e correção do pH.
+- Em casa: caixa-d'água tampada e lavada a cada seis meses; se a água não é confiável, filtrar e depois ferver ou usar hipoclorito (2 gotas por litro, 30 minutos).
+- Esgoto sem tratamento contamina rios e poços e espalha doenças.
+- Saneamento básico é água, esgoto, lixo e drenagem, e a lei tem como princípio o acesso de todos.

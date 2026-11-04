@@ -1,0 +1,51 @@
+# Exercícios da aula "Software, backup e restauração de fábrica" (Conserto de celular). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cel-software-01
+  tema: "Software ou peça"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destes defeitos pode ser de software, e não de peça?"
+  alternativas:
+    - texto: "Tela quebrada"
+      erro: "Tela quebrada é peça."
+    - texto: "Aparelho lento, que reinicia, trava em um aplicativo ou fica no logotipo"
+      certa: true
+    - texto: "Conector de carga solto"
+      erro: "É peça, não software."
+  explicacao: "Primeiro teste: atualizar o sistema, liberar espaço, desinstalar app suspeito, reiniciar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-software-02
+  tema: "Restauração apaga os dados"
+  dificuldade: 1
+  enunciado: "O que a restauração de fábrica faz com os dados?"
+  alternativas:
+    - texto: "Guarda tudo em segurança automaticamente"
+      erro: "A restauração de fábrica apaga os dados."
+    - texto: "Copia para a oficina"
+      erro: "Nunca copie, leia ou guarde nada do cliente."
+    - texto: "Apaga: por isso o backup é feito ou autorizado pelo dono, antes"
+      certa: true
+  explicacao: "Combine por escrito que os dados serão apagados e que o backup é responsabilidade do cliente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: cel-software-03
+  tema: "Bloqueio de conta"
+  dificuldade: 3
+  enunciado: "O cliente esqueceu a senha da conta que bloqueia o aparelho. O que fazer?"
+  alternativas:
+    - texto: "Orientá-lo a recuperar a conta pelo site oficial e pedir um comprovante de que o aparelho é dele"
+      certa: true
+    - texto: "Burlar o bloqueio para ajudar"
+      erro: "A aula manda não burlar o bloqueio, que protege contra roubo."
+    - texto: "Trocar a placa sem perguntar"
+      erro: "Oriente a recuperação pelo site oficial e peça a nota fiscal ou outro comprovante."
+  explicacao: "O bloqueio de ativação protege contra roubo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

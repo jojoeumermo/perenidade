@@ -27,6 +27,11 @@ quiz:
     explicacao: "Ele mede concentração, e não nível. Um país pode ser pobre e igualitário, ou rico e muito desigual."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o índice de Gini (de 0 a 1), ler uma tabela de renda acumulada, e reconhecer o que o índice não mostra: nível de vida, o topo de verdade, a riqueza, a terra e quem é quem.
+
+
 ## Medir a desigualdade
 
 Dizer que um país é desigual é fácil. Dizer **quanto**, de um jeito que permita comparar países e épocas, exige um método. O mais usado é o **índice de Gini**, criado pelo estatístico italiano Corrado Gini em 1912.
@@ -92,6 +97,16 @@ A desigualdade não é um fenômeno da natureza. O índice sobe ou desce conform
 
 Mas lembre-se dos limites: um número só não conta a história inteira. Use o Gini como porta de entrada, e peça os outros dados.
 
+## Exemplo resolvido
+
+**Use a tabela da aula (20% mais pobres: 3%; seguintes: 7%; do meio: 12%; seguintes: 20%; 20% mais ricos: 58%). Compare os 60% mais pobres com os 20% mais ricos.**
+
+1. **Os 60% mais pobres** são os três primeiros grupos: 3% + 7% + 12% = **22%** da renda (confira na coluna "renda acumulada").
+2. **Os 20% mais ricos** ficam, sozinhos, com **58%**.
+3. **Compare:** três vezes mais gente (60% contra 20%) fica com bem menos da metade da renda do topo (22% contra 58%).
+
+Confira: se a renda fosse igual, 60% da população teria 60% da renda. A diferença entre o que se tem (22%) e o que se teria (60%) é o que a curva de Lorenz e o Gini medem.
+
 ## Para praticar
 
 1. Usando a tabela de exemplo, que parte da renda fica com os 80% mais pobres?
@@ -100,3 +115,11 @@ Mas lembre-se dos limites: um número só não conta a história inteira. Use o 
 4. Por que um Gini calculado com dados do imposto de renda tende a ser maior que o calculado com pesquisas em domicílios?
 
 **Respostas:** 1) 42%. 2) Cerca de 19 vezes (58 ÷ 3). 3) No país A. Não dá para dizer: depende também do nível de renda e dos serviços públicos de cada um. 4) Porque o imposto de renda registra melhor os rendimentos mais altos, que as pesquisas em domicílios captam mal.
+
+## Resumo
+
+- O **índice de Gini** vai de 0 (igualdade perfeita) a 1 (uma pessoa fica com toda a renda); foi criado por Corrado Gini em 1912.
+- A **curva de Lorenz** mostra a renda acumulada, da fila do mais pobre ao mais rico; quanto mais "barriguda", maior o Gini.
+- O Brasil aparece há décadas entre os países mais desiguais (índice em torno de 0,5); os mais igualitários ficam perto de 0,25.
+- O Gini **não mostra** nível de vida, onde está a desigualdade, o topo de verdade, a riqueza, a terra nem quem é quem.
+- A desigualdade depende de salário, emprego, impostos, gastos sociais, educação e terra; use o Gini como porta de entrada.

@@ -27,6 +27,9 @@ quiz:
     resposta: 0
     explicacao: "《人民日报》: o título do jornal."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler um texto curto em chinês: reconhecer palavras sem espaços, ler a pontuação, seguir a ordem da frase e usar estratégias de leitura.
 
 ## Sem espaços
 
@@ -96,3 +99,23 @@ Para progredir, é melhor ler **muitos textos fáceis** do que poucos textos dif
 2. Responda em chinês: 王芳做什么工作？她怎么去医院？
 3. Escreva um texto de cinco frases sobre você, no mesmo modelo.
 4. Leia o texto em voz alta, prestando atenção aos tons.
+
+## Exemplo resolvido
+
+**No texto da aula, a que horas Wang Fang começa a trabalhar?**
+
+1. **Procure as palavras conhecidas.** Na segunda frase: 每天 (todo dia), 早上 (de manhã), 七点 (sete horas), 上班 (começar a trabalhar).
+2. **Separe as palavras com barras:** 每天 / 早上 / 七点 / 上班.
+3. **Lembre a ordem.** Sujeito + tempo + lugar + verbo + objeto: o tempo vem antes do verbo.
+4. **Junte o sentido.** "Todo dia, de manhã, às sete, começa o trabalho."
+5. **Responda.** Às sete da manhã.
+
+Confira: não foi preciso traduzir palavra por palavra, só achar o essencial.
+
+## Resumo
+
+- Em chinês **não há espaços** entre as palavras: o vocabulário ajuda a "ver" onde cada uma começa e termina.
+- Pontuação: 。 ， 、 ？ ！ ： “ ” 《 》.
+- Ordem: **sujeito + tempo + lugar + verbo + objeto**; tempo e lugar vêm antes do verbo.
+- Estratégias: ler o título; achar as palavras conhecidas; separar as palavras com barras; encontrar o verbo principal; usar o dicionário só para o essencial; reler o texto inteiro.
+- É melhor ler **muitos textos fáceis** do que poucos difíceis.

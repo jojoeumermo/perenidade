@@ -1,0 +1,54 @@
+# Exercícios da aula "O couro cabeludo e os tipos de cabelo" (Barbeiro). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: barb-couro-01
+  tipo: numero
+  tema: "Crescimento do cabelo"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O cabelo cresce em média 0,3 mm por dia na fase de crescimento. Quantos milímetros cresce em 10 dias?"
+  resposta: "3"
+  unidade: "mm"
+  erros_comuns:
+    - resposta: "0,3"
+      explicacao: "0,3 mm é o crescimento de um dia. Em 10 dias, multiplique por 10."
+    - resposta: "30"
+      explicacao: "Sobrou um zero: 10 × 0,3 = 3."
+  dica: "Multiplique 0,3 mm por 10 dias."
+  explicacao: "10 × 0,3 mm = 3 mm."
+  conferir: "10 * 0.3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-couro-02
+  tema: "Textura"
+  dificuldade: 1
+  enunciado: "O formato do folículo oval dá que tipo de fio?"
+  alternativas:
+    - texto: "Liso"
+      erro: "O folículo quase redondo dá fio liso."
+    - texto: "Crespo"
+      erro: "O folículo achatado dá fio crespo."
+    - texto: "Ondulado"
+      certa: true
+  explicacao: "Quase redondo: liso; oval: ondulado; achatado: crespo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: barb-couro-03
+  tema: "Por que cortar não dói"
+  dificuldade: 1
+  enunciado: "Por que cortar o cabelo não dói?"
+  alternativas:
+    - texto: "Porque a haste, a parte que vemos, é feita de células mortas"
+      certa: true
+    - texto: "Porque o cabelo não tem raiz"
+      erro: "A raiz, dentro da pele, é viva; a haste é de células mortas."
+    - texto: "Porque a tesoura é afiada"
+      erro: "O motivo é que a haste é formada por células mortas."
+  explicacao: "O fio nasce do folículo e é feito de queratina; só a raiz, dentro da pele, é viva."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

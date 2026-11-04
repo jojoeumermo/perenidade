@@ -29,6 +29,11 @@ quiz:
     resposta: 0
     explicacao: "Os militares portugueses, desgastados pelas guerras coloniais, derrubaram o regime em 25 de abril de 1974."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber explicar por que a Ásia e a África se descolonizaram depois de 1945, citar casos como Índia, Vietnã, Gana, Argélia e as colônias portuguesas e dizer por que a bandeira nova não resolveu tudo.
+
+
 
 Em 1945, a maior parte da Ásia e quase toda a África eram governadas por potências europeias. Trinta anos depois, restavam poucas colônias. Essa mudança, uma das maiores da história recente, é chamada de **descolonização**.
 
@@ -78,3 +83,21 @@ A bandeira nova não resolveu tudo. O primeiro-ministro do Congo, **Patrice Lumu
 ## Para pesquisar e debater
 
 Angola e Moçambique falam português, como o Brasil. Pesquise como foi a luta de independência de um deles e que relação o Brasil teve com esse processo.
+
+## Exemplo resolvido: por que a Argélia demorou mais?
+
+Pergunta: por que a independência da Argélia exigiu uma guerra, se outras colônias se libertaram antes?
+
+1. Procure o que a aula diz sobre a resistência da potência: onde havia muitos colonos europeus, ela resistiu mais.
+2. Aplique à Argélia: viviam ali cerca de um milhão de colonos europeus, e a França a considerava parte do seu território.
+3. Conte o tempo da guerra: de 1954 a 1962, ou seja, 1962 - 1954 = 8 anos.
+
+Confira: o motivo não foi a falta de movimento de libertação, e sim o tamanho do interesse da potência em ficar.
+
+## Resumo
+
+- Em 1945 a maior parte da Ásia e quase toda a África eram colônias; trinta anos depois restavam poucas.
+- Fatores: potências enfraquecidas pela guerra, colonizados que voltaram da guerra pedindo a própria liberdade, movimentos de libertação e o desinteresse de EUA e URSS nos velhos impérios.
+- Marcos: Índia (1947), Vietnã (Dien Bien Phu, 1954), Bandung (1955), Gana (1957), 1960 (o "Ano da África"), Argélia (1954 a 1962).
+- Portugal resistiu até a Revolução dos Cravos (25 de abril de 1974); Angola, Moçambique e outras colônias se libertaram em 1974 e 1975.
+- A independência formal não resolveu tudo: o caso de Lumumba, no Congo, mostra a pressão por riquezas minerais.

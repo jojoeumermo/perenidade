@@ -28,6 +28,11 @@ quiz:
     explicacao: "O cuidado fica com os falsos amigos e algumas construções."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber ler um texto acadêmico em espanhol: reconhecer os conectivos, evitar as armadilhas do vocabulário, achar a tese do autor e fazer um fichamento em português.
+
+
 ## Uma vantagem enorme
 
 Para quem fala português, ler espanhol acadêmico é muito mais fácil que ler inglês: boa parte do vocabulário científico é **igual ou muito parecida**, e a estrutura das frases é semelhante. Com pouco estudo dirigido, é possível ler artigos e livros inteiros.
@@ -88,9 +93,28 @@ Nas **referências bibliográficas**, os autores costumam aparecer com os **dois
 
 A tradição latino-americana em espanhol inclui autores fundamentais para o pensamento crítico, como os da [teoria da dependência](/trilhas/teoria-marxista-da-dependencia), José Carlos Mariátegui e Paulo Freire em tradução. Ler esses textos no original amplia o acesso ao debate do continente.
 
+## Exemplo resolvido
+
+**Leia: "En este trabajo se plantea que la dependencia no es una etapa, sino una condición estructural."**
+
+1. **Procure a tese.** *En este trabajo se plantea que...* anuncia a ideia central.
+2. **Palavra-armadilha:** *plantear* é propor ou colocar uma questão, e não "plantar".
+3. **Estrutura:** *no es una etapa, sino una condición estructural*: nega uma ideia e afirma outra.
+4. **Tradução:** "Neste trabalho se propõe que a dependência não é uma etapa, mas uma condição estrutural".
+5. **Fichamento em português:** tese do autor, em uma linha.
+
+Confira: a leitura se fez sem traduzir palavra por palavra e sem dicionário.
+
 ## Para praticar
 
 1. Escolha um artigo em espanhol da sua área em um portal de acesso aberto e leia o resumo.
 2. Copie os conectivos que aparecem e classifique-os (oposição, consequência, explicação...).
 3. Encontre a frase que apresenta o objetivo do artigo e traduza-a.
 4. Faça um fichamento de meia página em português.
+
+## Resumo
+
+- Para quem fala português, ler espanhol acadêmico é mais fácil que ler inglês: vocabulário e estrutura são parecidos; há muito em acesso aberto.
+- Conectivos: *sin embargo, por lo tanto, es decir, a pesar de, mientras que, además*.
+- Armadilhas: *plantear* (propor), *asignatura* (disciplina), *carrera* (curso universitário), *apellido* (sobrenome); autores com dois sobrenomes.
+- Estratégias: ler sem traduzir palavra por palavra, marcar o que não entendeu, identificar a tese, fazer fichamento em português.

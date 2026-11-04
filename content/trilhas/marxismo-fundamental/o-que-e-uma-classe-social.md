@@ -25,6 +25,10 @@ quiz:
     explicacao: "O termo 'classe média' mistura grupos diferentes. Muitos de seus integrantes são assalariados, como os demais trabalhadores."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber dizer o que é classe social para o marxismo e por que a renda sozinha não define a classe.
+
 Na televisão, fala-se em "classe A, B, C, D e E" conforme a renda das famílias. É um jeito de medir quanto cada um ganha. O marxismo propõe olhar mais fundo: **de onde vem** o que cada um ganha.
 
 ## Duas grandes classes
@@ -82,6 +86,24 @@ No Brasil, a classe trabalhadora tem cor e tem gênero. A maioria dos trabalhado
 
 Pertencer a uma classe é um fato. **Saber** que pertence, e agir junto com os outros da mesma classe, é outra coisa: é a **consciência de classe**. Ela não nasce sozinha; nasce da experiência, da conversa, do estudo e da luta. Este curso existe para ajudar nisso.
 
+## Exemplo resolvido
+
+**Um enfermeiro e o dono de três apartamentos ganham o mesmo por mês. Pertencem à mesma classe?**
+
+1. Olhe de onde vem o dinheiro. O enfermeiro trabalha 12 horas por plantão para receber; se adoecer, perde a renda.
+2. O dono dos apartamentos recebe o aluguel sem trabalhar; se adoecer, o aluguel continua caindo.
+3. Um vive do **trabalho**, o outro da **propriedade**.
+4. Por isso, para o marxismo, pertencem a classes diferentes, ainda que ganhem igual.
+
+Confira: no *Manifesto* (1848), as duas grandes classes são a burguesia (donos dos meios de produção, que vivem do lucro) e o proletariado (quem vende a força de trabalho por salário).
+
 ## Para conversar
 
 Na sua família, de onde vem o dinheiro: de salário, de bico, de aposentadoria, de um pequeno negócio, de aluguel? A que classe vocês pertencem, nesse sentido?
+
+## Resumo
+
+- A classe mede-se por de onde vem o que se ganha, e não só por quanto se ganha.
+- Duas grandes classes: burguesia (dona dos meios de produção) e proletariado (vende a força de trabalho).
+- Para Lenin, classes se diferenciam pelo lugar na produção, pela relação com os meios de produção, pelo papel na organização do trabalho e pela parte da riqueza que recebem.
+- Consciência de classe é saber que se pertence a uma classe e agir junto; nasce da experiência, da conversa, do estudo e da luta.

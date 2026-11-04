@@ -26,6 +26,7 @@ quiz:
     opcoes: ["A imoral vai contra a moral; a amoral não tem relação com a moral", "São a mesma coisa", "A amoral é sempre crime"]
     resposta: 0
     explicacao: "Escolher a cor da camiseta, por exemplo, é amoral."
+modelo: 9
 ---
 
 ```provocacao
@@ -35,6 +36,10 @@ Você encontra uma carteira com dinheiro e documentos na rua. Ninguém viu. O qu
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender o que é ética, a diferença entre ética e moral e como as questões éticas aparecem no dia a dia.
+
+```suarealidade
+Qual foi a última decisão sobre certo e errado que você tomou no trabalho, em casa ou no bairro? Que razão pesou mais: a regra, o medo de ser pego ou o que você acha justo?
+```
 
 ## A palavra
 
@@ -72,6 +77,20 @@ Qual destas é uma questão ética?
 1. **(a)**: **moral**, respeita o que é do outro.
 2. **(b)**: **imoral**, prejudica alguém de propósito.
 3. **(c)**: **amoral**, não tem relação com certo e errado.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ética é luxo de quem tem a barriga cheia. Quem precisa sobreviver faz o que for preciso, e discutir certo e errado é conversa de filósofo".
+---
+Como você responderia, com respeito a quem vive aperto?
+---
+Uma resposta possível: é verdade que as condições de vida pesam nas escolhas, e ninguém deve julgar sem conhecer a situação. Mas a aula mostra que a ética não está só nos livros: aparece quando alguém decide devolver o troco errado ou compartilhar um boato, e pensar eticamente é dar razões para a escolha. Quem tem pouco costuma sofrer mais com quem não pensa assim.
+```
+
+```agir
+# Esta semana
+Escolha um dilema pequeno do seu dia a dia (devolver um troco errado, avisar um colega sobre um erro, repassar um boato) e escreva duas razões para cada lado. Depois diga qual escolha você faria e por quê.
+```
 
 ## Resumo
 

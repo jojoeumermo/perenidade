@@ -27,6 +27,10 @@ quiz:
     explicacao: "Marx argues that... Freire claims that... Os verbos de citação mostram a posição do autor."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber passar uma fala para o discurso indireto, com o recuo dos tempos e as mudanças de pronomes e de marcadores de tempo.
+
 ## Contar o que foi dito
 
 - **Discurso direto**: as palavras exatas, entre aspas. *She said, "I am tired."*
@@ -107,9 +111,26 @@ Em textos acadêmicos, o discurso indireto aparece o tempo todo, com **verbos de
 
 *Freire **argues** that education is never neutral.* Na escrita acadêmica, esses verbos costumam ficar no **presente**, mesmo para autores já falecidos.
 
+## Exemplo resolvido
+
+**Passe para o indireto: "I live in Fortaleza," she said.**
+
+1. O verbo de relato (*said*) está no passado, então os tempos **recuam**: o presente simples (*live*) vira passado simples (*lived*).
+2. O pronome *I* passa para a terceira pessoa: *she*.
+3. Sem aspas, com *that* opcional: *She said (that) she lived in Fortaleza.*
+
+Confira: outro caso da aula, "We have finished the report," they said, vira *They said they had finished the report* (present perfect recua para past perfect).
+
 ## Para praticar
 
 1. Passe para o indireto: "I live in Fortaleza," she said. / "We have finished the report," they said.
 2. Complete com say ou tell: "He ___ me the truth." / "She ___ that she was busy."
 3. Passe para o indireto: "Do you speak English?" he asked me. / "Close the door," she told me.
 4. Escreva três frases relatando o que um autor que você leu defende, usando argues, shows e suggests.
+
+## Resumo
+
+- Discurso direto: as palavras exatas entre aspas; indireto: o relato, sem aspas.
+- Com verbo de relato no passado, os tempos recuam: presente vira passado, passado vira past perfect, *will* vira *would*, *can* vira *could*.
+- Pronomes e marcadores mudam: *I* vira *he/she*, *here* vira *there*, *tomorrow* vira *the next day*.
+- *Say* + o que foi dito; *tell* + a pessoa.

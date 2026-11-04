@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "太…了 = demais."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber pedir comida e bebida em chinês com 要, usar os classificadores da comida, dizer valores em yuan e perguntar e negociar preços.
 
 ## Querer: 要
 
@@ -119,3 +122,22 @@ Na feira, você quer dizer "Quero dois quilos de maçã" (maçã = 苹果, píng
 2. Pergunte o preço de três coisas e responda com valores inventados por você.
 3. Escreva a diferença entre 买 e 卖 e pratique a pronúncia dos dois.
 4. Encene uma negociação curta em uma feira, usando 太贵了 e 便宜一点吧.
+
+## Exemplo resolvido
+
+**Na feira, como dizer "Quero dois quilos de maçã"? (maçã = 苹果, píngguǒ)**
+
+1. **Veja a unidade.** Na feira, o peso se conta em **斤** (jīn), que é meio quilo.
+2. **Faça a conta.** Dois quilos são quatro 斤.
+3. **Monte a frase.** 要 (querer) + número + classificador + comida: **我要四斤苹果。** (Wǒ yào sì jīn píngguǒ.)
+4. **Pergunte o preço.** 多少钱？ (Duōshao qián?)
+
+Confira: 我要二斤苹果 pediria só um quilo. E 买 (mǎi, terceiro tom) é comprar, enquanto 卖 (mài, quarto tom) é vender.
+
+## Resumo
+
+- **要** (yào) é "querer"; **我想要…** é um pouco mais educado.
+- Comidas: 米饭, 面条, 饺子, 包子, 鸡蛋, 鸡肉, 猪肉, 牛肉, 鱼, 菜, 水, 茶; **好吃** é gostoso; **肉** é carne.
+- Classificadores: 个 (uso geral), 碗 (tigela), 杯 (copo), 瓶 (garrafa), 斤 (meio quilo).
+- A moeda é o **人民币**; a unidade é o **元**, falado **块** (kuài); 角, falado 毛 (máo), é um décimo.
+- Comprar e vender: **买** (mǎi), **卖** (mài), **多少钱？**, **贵**, **便宜**, **太贵了！**, **便宜一点吧。**

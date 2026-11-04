@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabetização no campo: a educação do campo" (Alfabetização: aprofundamento). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: aprof-campo-01
+  tema: "Do campo ou no campo"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual é a diferença entre a educação do campo e a velha educação rural, segundo a aula?"
+  alternativas:
+    - texto: "A educação do campo é feita com os povos do campo e parte do trabalho na terra, da cultura e das lutas do lugar"
+      certa: true
+    - texto: "A educação rural trazia a cultura do campo para as aulas"
+      erro: "A velha educação rural trazia a escola da cidade em versão piorada, com livros que falavam de elevador e metrô."
+    - texto: "Não há diferença: são nomes para a mesma coisa"
+      erro: "A ideia é uma educação do campo, e não apenas no campo."
+  explicacao: "A educação do campo é feita com os povos do campo, parte da vida e das lutas do lugar e não trata o campo como atraso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-campo-02
+  tema: "A conferência de 1998"
+  dificuldade: 1
+  enunciado: "Onde foi realizada, em 1998, a I Conferência Nacional Por uma Educação Básica do Campo?"
+  alternativas:
+    - texto: "Em Natal (RN)"
+      erro: "Natal foi onde aconteceu a campanha De Pé no Chão. A conferência foi em Luziânia (GO)."
+    - texto: "Em Luziânia (GO)"
+      certa: true
+    - texto: "No Recife (PE)"
+      erro: "O Recife foi sede do MCP. A conferência de 1998 foi em Luziânia (GO)."
+  explicacao: "A conferência de 1998 reuniu movimentos como o MST, universidades e a CNBB em Luziânia (GO)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: aprof-campo-03
+  tema: "Povos do campo"
+  dificuldade: 1
+  enunciado: "Quem são os \"povos do campo\", segundo a aula?"
+  alternativas:
+    - texto: "Só os grandes fazendeiros"
+      erro: "O termo é amplo e inclui agricultores familiares, assentados, quilombolas e ribeirinhos."
+    - texto: "Só quem mora na cidade grande"
+      erro: "São povos que vivem e trabalham no campo."
+    - texto: "Agricultores familiares, assentados e acampados, quilombolas, ribeirinhos, entre outros"
+      certa: true
+  explicacao: "\"Povos do campo\" é um termo amplo que inclui agricultores familiares, assentados e acampados, quilombolas, ribeirinhos e pescadores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

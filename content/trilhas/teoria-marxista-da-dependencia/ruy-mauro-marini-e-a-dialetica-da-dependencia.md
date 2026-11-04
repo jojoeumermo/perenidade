@@ -31,6 +31,10 @@ quiz:
     explicacao: "No Brasil, o livro só teve edição décadas depois."
 ---
 
+## O que você vai aprender
+
+Ao fim desta aula você vai saber contar quem foi Marini, definir dependência como ele a definiu e seguir os três passos do argumento da Dialética da Dependência até a superexploração.
+
 A **teoria marxista da dependência** tem um texto fundador reconhecido por todos os seus autores: *Dialética da Dependência*, de **Ruy Mauro Marini**. É um ensaio de poucas dezenas de páginas, denso, que ainda hoje organiza o debate.
 
 ## Quem foi
@@ -73,6 +77,25 @@ A consequência política é direta. Se a dependência é produzida pelo própri
 
 O ensaio é difícil na primeira leitura, porque supõe familiaridade com as categorias de *O Capital*. Vale lê-lo junto com o pós-escrito que o próprio autor acrescentou, em que responde às primeiras objeções. As aulas seguintes desta trilha destrincham os conceitos um a um.
 
+## Exemplo resolvido
+
+**Por que a exportação de alimentos baratos pela América Latina favoreceu a acumulação nos países centrais, e o que ela causou na região?**
+
+1. Primeiro passo: no século XIX, a região fornece alimentos e matérias-primas ao mercado mundial. Os bens que o operário europeu consome ficam mais baratos.
+2. Com isso, cai o valor da força de trabalho lá, e o capital pode aumentar a mais-valia sem prolongar a jornada: passa da mais-valia absoluta para a relativa.
+3. Segundo passo: nessa troca, a América Latina perde valor, entregando mais trabalho do que recebe (intercâmbio desigual).
+4. Terceiro passo: os capitalistas locais compensam a perda não aumentando a produtividade, e sim explorando mais o trabalhador: a superexploração.
+
+Conclusão: o círculo se fecha. O que no centro permitiu elevar o consumo operário aqui se apoia em comprimi-lo.
+
 ## Para pesquisar e debater
 
 Marini afirma que a superexploração é uma **necessidade** do capitalismo dependente, não um abuso de patrões isolados. Que consequências essa diferença tem para a estratégia dos sindicatos e dos partidos?
+
+## Resumo
+
+- *Dialética da Dependência*, de Ruy Mauro Marini, é o texto fundador da teoria marxista da dependência.
+- Marini recusa o esquema dos "restos feudais": o que existe na América Latina é capitalismo, de tipo particular.
+- Dependência é uma relação de subordinação entre nações formalmente independentes, na qual as relações de produção das subordinadas são modificadas ou recriadas.
+- O argumento em três passos: alimentos baratos reduzem o valor da força de trabalho no centro; a região perde valor (intercâmbio desigual); os capitalistas locais compensam com superexploração.
+- O capitalismo dependente é *sui generis*, e não uma versão incompleta do capitalismo central.

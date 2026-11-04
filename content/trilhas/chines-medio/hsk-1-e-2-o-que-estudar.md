@@ -30,6 +30,9 @@ quiz:
     resposta: 0
     explicacao: "A prova cobra vocabulário e estruturas de uma lista conhecida."
 ---
+## O que você vai aprender
+
+Ao fim desta aula você vai saber o que é o HSK, o que se cobra nos níveis 1 e 2 (versão de 2009), o que estudar em gramática, vocabulário e compreensão oral e como montar um plano de 12 semanas.
 
 ## O exame
 
@@ -98,3 +101,24 @@ O exame é aplicado em centros autorizados no mundo inteiro, inclusive em instit
 2. Faça uma lista de 20 palavras do HSK 1 que você já conhece.
 3. Monte o seu próprio plano de estudo de quatro semanas.
 4. Resolva a parte de compreensão oral de uma prova de exemplo e anote o que foi mais difícil.
+
+## Exemplo resolvido
+
+**Você tem três meses (12 semanas) até o HSK 2. Quantas palavras novas precisa aprender e como distribuir o estudo?**
+
+1. **Conte o vocabulário novo.** O HSK 2 soma cerca de 300 palavras (acumuladas) e o HSK 1 tem cerca de 150: 300 − 150 = **150 palavras novas**.
+2. **Distribua.** No plano de exemplo, são cerca de 40 palavras por semana: 150 ÷ 40 ≈ 4 semanas, as semanas **5 a 8**.
+3. **Antes disso (semanas 1 a 4).** Revisar o nível 1, pronúncia e tons, e 15 minutos de áudio por dia.
+4. **Depois (semanas 9 a 11).** Uma prova anterior por semana, com tempo marcado, e revisão dos erros.
+5. **Semana 12.** Revisão leve e descanso antes do dia.
+
+Confira: estude as palavras em frases, ouça chinês todos os dias e lembre que a fala é avaliada em outro exame, o HSKK.
+
+## Resumo
+
+- O **HSK** é o exame oficial de proficiência em mandarim. A versão de 2009 tem seis níveis; em 2021 foram publicadas novas normas, com nove níveis.
+- **HSK 1:** cerca de 150 palavras; **HSK 2:** cerca de 300 (acumuladas). Compreensão oral e leitura; a **fala** é do HSKK.
+- Gramática: 是 e adjetivos com 很, perguntas, números e classificadores, datas e horas, 有 e 没有, 在, 了, 比, e 想, 要, 会, 能.
+- Vocabulário: listas oficiais por nível, estudadas em frases, com caractere, pinyin com tom e classificador.
+- Ouvir todo dia, mesmo que pouco: a compreensão oral costuma ser a parte mais difícil por causa dos tons.
+- Plano de exemplo: 12 semanas (revisão, vocabulário novo, provas anteriores, descanso).
