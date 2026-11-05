@@ -18,7 +18,7 @@ Este é o documento de referência do projeto: como ele é organizado, como se e
 - **Direitos autorais:** nenhum arquivo de terceiros é hospedado. O acervo guarda a ficha e o link para a fonte legítima; nunca um link direto para PDF, nunca um link de loja ou de editora. Obra protegida vira "ficha de referência" e aponta para um catálogo de bibliotecas. Letras de música e livros protegidos não são reproduzidos.
 - **Privacidade:** nada de rastreadores de publicidade nem anúncios. Estudar não exige conta. O que o site guarda está descrito, sem enfeite, em `content/paginas/privacidade.md`: mudou o que se guarda, mude a página.
 - **Licenças:** o código é software livre sob a GNU AGPL versão 3 ou posterior (`LICENSE`); o conteúdo educacional é CC BY-SA 4.0 (`LICENSE-CONTEUDO.md`).
-- **Idiomas:** o site abre sempre em português. Os outros idiomas são inglês, espanhol, chinês e russo.
+- **Idiomas:** o site abre sempre em português. Os outros idiomas são inglês, espanhol, francês, russo e chinês; o que foi escrito depois de outubro de 2026 em `en`, `es`, `fr`, `ru` e `zh` é **rascunho marcado** (`_rascunho: true`) até alguém que fala o idioma revisar.
 
 ## 3. Organização das pastas
 
@@ -40,7 +40,13 @@ Este é o documento de referência do projeto: como ele é organizado, como se e
 | `i18n/` | textos da interface (`pt.json` é a referência) |
 | `lib/areas.ts` | lista de disciplinas, grupos, etapas, licenças e ferramentas |
 | `lib/tipos.json` | tipos de contribuição aceitos pelo painel |
-| `supabase/install.sql` | banco de apoio, em um arquivo só |
+| `supabase/install.sql` | banco de apoio, em um arquivo só (traz inteiras as migrações de `supabase/migracoes/`: seção 20) |
+| `supabase/migracoes/`, `supabase/functions/` | uma migração por pacote de novembro de 2026 e as funções do Supabase (e-mails, assistente, push, moderação externa, transcrição, YouTube) |
+| `components/painel/`, `styles/painel-tema.css` | o painel: `ui/` (componentes únicos), `moldes/` (quatro telas-modelo), `estrutura.ts` (mapa seção, espaço, molde) e o tema (`docs/PAINEL-COMPONENTES.md`) |
+| `components/app/`, `components/offline/`, `public/sw.js`, `capacitor.config.ts`, `app-loja/` | a casca do aplicativo, o modo sem internet e o pacote da loja (`docs/APP.md`) |
+| `content/vale-o-escrito/`, `content/labs-externos/`, `content/territorios.json`, `content/jogos/` | dados do observatório, dos laboratórios de fora, dos coletivos e dos baralhos dos jogos |
+| `infra/` | `servidor/` (a máquina do site) e `aula-ao-vivo/` (a sala própria de vídeo, Galène) |
+| `docs/plano-2026-11/` | o plano de novembro de 2026, o progresso, as notas de cada etapa e `notas/PENDENCIAS-PARA-O-JONATHAN.md` |
 | `scripts/` | roteiros de apoio (ver seção 9) |
 
 Rotas ficam em `app/[lang]/`. Os nomes das rotas são em português (`/trilhas`, `/acervo`, `/ferramentas`…).
@@ -527,6 +533,15 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | `testar-interdicao.mjs` | confere a lógica de caminhos da interdição e que a lista de áreas do site é a mesma do banco |
 | `testar-ferramentas.mjs` | confere as contas das ferramentas práticas (resolvedor, unidades, química, genética, estatística, lógica e as demais) |
 | `testar-assistente.mjs` | confere, sem rede e sem chave, o pedido e a leitura da resposta do assistente de reforço |
+| `testar-*.mjs` (mais de cem) | um teste por pacote, ligado a `npm run testar:<nome>`; a lista por área está na seção 10a |
+| `conferir-rastreio.mjs` | depois do build, conta os arquivos que cada função do servidor leva e falha acima do limite (seção 10a) |
+| `orcamento-peso.mjs` | depois do build, confere o peso da primeira visita a uma aula (JS, fontes, textos de tradução) |
+| `vercel-ignorar.mjs` | o "Ignored Build Step" da Vercel: diz se um commit muda o site e só deixa montar preview em branch `preview/` (`docs/HOSPEDAGEM.md`) |
+| `vale-o-escrito/coletar.mjs`, `exportar.mjs`, `gerar-municipios.mjs`, `gerar-malhas.mjs` | o robô de coleta, a exportação das entradas aprovadas para `content/` e os dados do IBGE do mapa (`docs/vale-o-escrito/ROBO.md`) |
+| `textos-do-painel.mjs` | lista as frases em português do painel para a tradução (`npm run conferir:painel` confere) |
+| `gerar-manual-painel.mjs` | copia `docs/MANUAL-DA-COORDENACAO.md` para `components/painel/manual-texto.ts` (`npm run manual-painel`) |
+| `mural-saude-sincronizar.mjs` | leva as regras do Mural de Saúde de `content/saude/regras.json` para o bloco gerado do `install.sql` (`npm run mural:sincronizar`) |
+| `gerar-capturas-app.mjs` | tira as capturas de tela do aplicativo para o convite de instalação (precisa do site no ar: `npm run gerar:capturas-app`) |
 
 ## 10. Antes de publicar uma mudança
 
@@ -539,11 +554,45 @@ npm run testar:interdicao
 npm run testar:ferramentas
 npm run testar:assistente
 npm run build
+npm run conferir:rastreio
 ```
+
+Mexeu numa área nova (painel, Rede v2, Vale o Escrito, jogos, aplicativo, Escola)? Rode também os testes dela: a lista está na seção 10a. `conferir:rastreio` e `orcamento:peso` leem a saída do `build`, então vêm depois dele.
 
 Mudou a interface? Rode `npm run dev:local` e confira no navegador, inclusive no tamanho de celular e nos cinco idiomas. No banco de teste, o código do segundo fator é sempre `123456`.
 
 O modo sem internet (`public/sw.js`) só funciona no site montado (`npm run build` e `npm run start`), nunca no modo de desenvolvimento. Se mudar o que ele guarda, troque o número da versão no começo do arquivo, senão os aparelhos continuam com a cópia antiga.
+
+## 10a. Os testes `testar:*`, o rastreio do deploy e o limite
+
+Os testes não precisam de internet, de chave nem de banco de verdade: o banco é um Postgres dentro do Node (PGlite, `scripts/banco-local.mjs`) e os serviços de fora são trocados por respostas montadas no próprio teste. Rode só o do que você mexeu (`npm run testar:<nome>`) e, antes de publicar uma mudança grande, a lista da seção 10 mais `npm run build` e `npm run conferir:rastreio`.
+
+**Atenção: o CI (`.github/workflows/ci.yml`) roda só uma lista fixa** (lint, typecheck, `conferir:i18n`, `testar:banco`, `moderacao`, `emails`, `podcast`, `fumaca`, `mensagens`, `anexos`, `redes`, `curriculo`, `blocos`, `eletrica`, `seo`, `ia`, `modelos`, `rodada`, `chines`, `estudo`, `etapa4`, `exercicios`, `enem`, `cobertura:enem`, `fila:enem`, `jogos`, `meu-estudo`, `pendencias`, `assistente`, `tarefas`, `interdicao`, `externo`, `isolamento`, `aovivo`, `depositos`, o `build`, `orcamento:peso` e `conferir:rastreio`). Todos os testes marcados "à mão" abaixo passam hoje, mas **nenhuma rotina os roda sozinha**: quem mexer na área precisa rodá-los. Pôr mais testes no CI gasta minutos do GitHub Actions (decisão listada em `docs/plano-2026-11/notas/PENDENCIAS-PARA-O-JONATHAN.md`).
+
+| Área | Testes (`npm run …`) | O que conferem |
+| --- | --- | --- |
+| Banco e permissões | `testar:banco` (CI), `testar:depositos` (CI), `testar:interdicao` (CI), `testar:escola-banco`, `testar:departamentos-termos`, `testar:integracao-5689` | Instala o `install.sql` do zero em memória e prova quem pode o quê; as migrações de novembro dentro do `install.sql`, inteiras e na ordem. `testar:interdicao` falha se uma rota nova não pertencer a nenhuma área da interdição. |
+| Painel | `testar:painel-fundacao`, `testar:painel-confirms`, `testar:controles`, `testar:mesa`, `testar:manual-painel`, `testar:backend-1`, `testar:backend-2`, `testar:eixos-equipe`, `conferir:painel` | Mapa seção, espaço, molde e tema sem cor solta; nenhum `confirm`, `prompt` ou `alert` do navegador; Centro de controle; Mesa por função; manual da coordenação em dia com `components/painel/manual-texto.ts`; as funções `public.*` do back-end novo; frases do painel nos cinco dicionários. |
+| Rede v2 (recurso `rede-v2`) | `testar:rede`, `testar:rede-fundacao`, `testar:rede-consertos`, `testar:rede-perfil`, `testar:rede-publicar`, `testar:rede-conversa`, `testar:rede-descoberta`, `testar:rede-comunidades`, `testar:rede-avisos`, `testar:rede-moderacao`, `testar:rede-integracao` | A matriz de quem vê o quê (`rede_ve`), cada pacote da Rede no banco em memória, na ordem das migrações, e a integração. |
+| Vale o Escrito (recurso `vale-o-escrito`) | `testar:vale-o-escrito`, `testar:vale-o-escrito-curadoria`, `testar:vale-o-escrito-visual`, `testar:vale-o-escrito-mapa`, `testar:vale-o-escrito-publico`, `testar:vale-o-escrito-robo` | Modelo e regras (situação jurídica sempre escrita), a curadoria, os componentes, o mapa e a teia, as páginas públicas e o robô de coleta sem rede (feeds de teste em `scripts/testes/vale-o-escrito/`). |
+| Escola (recurso `escola`) | `testar:etapa4` (CI), `testar:escola`, `testar:escola-cursos`, `testar:escola-matricula`, `testar:escola-campus`, `testar:escola-vida`, `testar:escola-organizacao`, `testar:escola-avaliacao`, `testar:escola-formatura`, `testar:escola-turma`, `testar:textos-escola`, `testar:acesso`, `testar:acompanhante`, `testar:agentes`, `testar:leveza`, `testar:busca-viva`, `testar:som`, `testar:aula-viva` | Cada onda da Escola e os textos dela nos seis idiomas. |
+| Estudo e aulas | `testar:estudo` (CI), `testar:meu-estudo` (CI), `testar:exercicios` (CI), `testar:blocos` (CI), `testar:lacunas-3`, `testar:simuladores-aulas`, `testar:ferramentas`, `testar:vida-real`, `testar:ferramentas-offline`, `testar:caixa`, `testar:tri`, `testar:enem` (CI), `incidencia:enem`, `pendencias` (CI) | Repetição espaçada e cópia do estudo, exercícios refeitos conta a conta, toda aula passa pelo editor por blocos e volta igual, as ferramentas e os simuladores, o ENEM e a pendência de aulas. |
+| Jogos, laboratórios e páginas | `testar:jogos` (CI), `testar:jogos-pagina`, `testar:jogos-proprios`, `testar:jogos-proprios2`, `testar:rumos-baralhos`, `testar:labs-externos`, `testar:territorios`, `testar:galeria-memorial-materiais`, `testar:eixos`, `testar:mural` | Motor e baralhos do Rumos; a página de jogos nos seis idiomas e o redirecionamento; catálogo de laboratórios de fora (licença, crédito, hosts do `frame-src`); páginas dos coletivos; galeria, memorial e materiais; os 12 eixos; Mural de Saúde. |
+| Aplicativo e offline | `testar:app-casca`, `testar:app-telas`, `testar:app-offline`, `testar:app-loja`; com site no ar: `testar:app-aparelho`, `testar:ponta`, `testar:entrada` | Abas, gesto, telas, `public/sw.js`, fila offline, configuração do Capacitor; os três últimos usam Playwright e o banco local (`npm run dev:local`). |
+| Aula ao vivo e mídia | `testar:aovivo` (CI), `testar:aula-ao-vivo`, `testar:vozes`, `testar:video`, `testar:podcast` (CI) | Token da sala, plano B, vozes e vídeos das aulas, podcast. |
+| Segurança e privacidade | `testar:isolamento` (CI), `testar:externo` (CI), `testar:sigilo`, `testar:anexos` (CI), `testar:mensagens` (CI), `testar:moderacao` (CI), `testar:assistente` (CI), `testar:emails` (CI), `testar:fumaca` (CI) | Executores de código sem acesso à sessão, porta de saída só para a lista de serviços, cifra das conversas, moderação e assistente sem rede. |
+| Conferências gerais | `conferir:i18n` (CI), `conferir:links`, `conferir:rastreio` (CI), `orcamento:peso` (CI), `testar:seo` (CI), `testar:docs-etapa12` | Seis dicionários com as mesmas chaves; links externos do conteúdo (rodam toda segunda pelo `links.yml`); rastreio e peso do build; e `testar:docs-etapa12`, que confere que `PAINEL-COMPONENTES`, `DESENHO-DAS-PAGINAS`, esta `MANUTENCAO`, `HOSPEDAGEM` e a lista de pendências do Jonathan só citam caminhos, scripts, variáveis, rotinas e migrações que existem. Mexeu num deles? Rode-o. |
+
+Dois testes vigiam as regras desta casa e valem mais que o resto: `testar:interdicao` (rota nova sem área) e `testar:integracao-5689` (o `install.sql` precisa trazer as migrações idênticas aos arquivos).
+
+### O limite do rastreio do deploy (`npm run conferir:rastreio`)
+
+A Vercel empacota, em cada função do servidor, os arquivos que o código "pode ler". Quando um módulo lê disco com **caminho dinâmico** e esse módulo entra no layout raiz (ou em outro arquivo que quase toda página importa), o rastreio leva o projeto inteiro em quase toda função e o envio do deploy passa de 45 minutos: em 3 de novembro de 2026 foram 1,44 milhão de arquivos, contra 450 mil na onda 1 da Escola, que publicou em 17 minutos. Depois do conserto o número caiu para 589 mil; **em 5 de novembro de 2026, com as etapas 5 a 11, está em 679 mil de 700 mil**: a folga acabou.
+
+- O script (`scripts/conferir-rastreio.mjs`, depois do `npm run build`) falha acima de **700 mil arquivos no total** ou com **mais de 6 funções que levam o projeto inteiro** (as que trazem arquivos de `components/`).
+- **Regras para código novo:** (1) nada que leia disco com caminho montado em tempo de execução (`fs.readFileSync(path.join(pasta, variavel))`): leia com pasta e nome **literais** ou importe o JSON estaticamente; (2) nada de módulo que lê disco no layout raiz (`app/[lang]/layout.tsx`), no `proxy.ts` nem em componente global ou da casca do app; o que o layout precisa vai num módulo só de textos (exemplo: `lib/escola/textos-da-presenca.ts`); (3) biblioteca pesada (mapa, grafo, Pyodide, Blockly, editor) por `dynamic import`, só no clique ou na rota que usa; (4) dado novo grande vai em arquivo lido por **uma** página, não por um módulo importado por todas.
+- O teste de cada pacote novo (`testar:app-casca`, `testar:rede-fundacao`…) já proíbe `fs`, `path` e `readFileSync` no que não pode ler disco. Se o número estourar: o script imprime as funções mais pesadas; procure o módulo com `fs` que entrou nelas e mova o que o layout precisa para um módulo de textos.
+- Antes de fazer **qualquer** mudança que importe um módulo novo em `app/[lang]/layout.tsx`, `components/Masthead.tsx`, `components/celular/` ou `components/app/`, rode o build e o `conferir:rastreio`. Com 21 mil de folga, um único `getTracks` no lugar errado derruba a publicação.
 
 ## 11. Rádio
 
@@ -623,6 +672,83 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 ## 18. Histórico público
 
 A página de histórico (`/historico`) e o quadro de novidades da página inicial mostram o que mudou no conteúdo desde a data de `historyFrom`, em `lib/site.ts` (deixe vazio para desligar). Nada de processo interno aparece: commits de junção (merge) são ignorados, o assunto dos commits nunca é mostrado, e só contam os arquivos das coleções de estudo e leitura (aulas, acervo, catálogo, autores, memorial, glossário, jornal, checagens, debates, vídeos, galeria, rádios e afins). Páginas legais (privacidade, termos), o aviso de abertura e arquivos de funcionamento ficam de fora. Cada dia vira um resumo gerado a partir dos arquivos ("9 aulas novas em Geografia · 191 obras novas no acervo"), com os títulos de algumas aulas. A lista de pastas e os textos ficam em `lib/history.ts` e no objeto `history` dos dicionários. Em clones rasos (como o da Vercel), o registro mais antigo que veio no clone, a "fronteira", fica de fora: senão ele apareceria como se tivesse criado o acervo inteiro naquele dia.
+
+## 19. Recursos que só ligam pelo nome, e o interruptor do painel
+
+Todo recurso novo entra desligado (`lib/recursos.ts`; a lista e o texto de cada um estão em `docs/RECURSOS.md`). Desligado, as páginas novas respondem "não encontrado" e o resto do site fica como era. O valor vem de `NEXT_PUBLIC_RECURSOS`, lido **na montagem** do site: mudou a variável, monte e publique de novo.
+
+**Três recursos "só pelo nome"** (`SO_PELO_NOME`): `escola`, `vale-o-escrito` e `rede-v2`. A produção usa `NEXT_PUBLIC_RECURSOS=todos`, e `todos` **não liga** esses três: só ligam com o nome escrito (`todos,escola,vale-o-escrito,rede-v2`, ou só os que a coordenação decidir). Cada um tem um motivo para esperar:
+
+| Recurso | O que abre | O que precisa estar pronto antes de ligar |
+| --- | --- | --- |
+| `escola` | Escola Lúcia Maria: entrada, cursos, matrícula, campus, calendário | o texto "Quem foi Lúcia Maria" vindo da coordenação, no lugar do marcador de `content/escola/quem-foi-lucia-maria.md` (`docs/ESCOLA.md`) |
+| `vale-o-escrito` | observatório de crimes de interesse público já em fonte pública (teia, mapa, dossiês, envio de fonte e correção) | migração rodada no Supabase, curadoria revisando as entradas (18 casos esperam), assessoria jurídica e o robô de coleta configurado (`docs/vale-o-escrito/ESPEC.md`, `ROBO.md`) |
+| `rede-v2` | Rede e Fórum numa só, comunidades, perfil com `@nome`, avisos | as dez migrações `rede-*` rodadas, funções republicadas, segredos, semeadura e revisão jurídica da idade (`docs/rede/V2.md`, seção 12) |
+
+**Interruptor no painel** (Site e operação, seção Controles avançados; `lib/recursos-vivos.ts`, `docs/backend-1.md`): a coordenação liga e desliga recurso sem publicar de novo. Regras: desligado no banco desliga **sempre** (é o freio de emergência); ligado no banco liga, inclusive os "só pelo nome", mas o banco só grava esses depois da **confirmação de uma segunda pessoa**; banco fora do ar vale só a variável de montagem. A leitura tem cache de 60 s. **Limite honesto:** página já gerada na montagem (estática) só muda quando for gerada de novo, então o interruptor vale para rotas dinâmicas e componentes do navegador, e o resto pede novo deploy. Por isso, para abrir um recurso de verdade, ponha o nome também em `NEXT_PUBLIC_RECURSOS` e publique.
+
+Recurso novo: acrescente a linha em `RECURSOS`, decida se entra em `SO_PELO_NOME`, guarde com `ligado("nome")` as páginas, o menu, o sitemap e a busca, e rode `npm run testar:meu-estudo` (a leitura das flags) e `npm run testar:escola-organizacao` (a regra de antes continua igual).
+
+## 20. Banco: migrações de novembro de 2026
+
+O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente** (pode ser rodado de novo sem apagar dado). As migrações de novembro vivem também em arquivos separados, em `supabase/migracoes/`, e **estão inteiras e na ordem no fim do `install.sql`**; `testar:escola-banco`, `testar:vale-o-escrito`, `testar:rede-integracao` e `testar:integracao-5689` confirmam que cada bloco é idêntico ao arquivo.
+
+| Arquivo | O que traz |
+| --- | --- |
+| `2026-11-escola.sql` | contagens anônimas, presença, turmas, ouvidoria e "Isso ajudou?" da Escola |
+| `2026-11-acertos.sql` | acertos por aula, para a equipe (já rodada em produção em 04/11/2026) |
+| `2026-11-seguranca.sql` | segurança: `equipe_sessao` (as rotas `/api/fontes` e `/api/radios` perguntam ao banco se quem pede é da equipe), contagens só para alvos que existem, e-mails com o segredo próprio da função e o freio da transcrição automática |
+| `2026-11-vale-o-escrito.sql` | tabelas e funções do observatório e do robô (`vale_robo_sugerir`, só `service_role`) |
+| `2026-11-rede-fundacao.sql` até `2026-11-rede-integracao.sql` (10 arquivos) | a Rede v2: fundação, consertos, perfil, publicar, conversa, descoberta, comunidades, avisos, moderação, integração |
+| `2026-11-departamentos-termos.sql` | Design e Desenvolvimento viram "UI/UX e Desenvolvimento", arte vai para Comunicação, termo na abertura |
+| `2026-11-eixos-equipe.sql` | pesquisa anônima dos 12 eixos para a equipe, só agregado |
+| `2026-11-controles.sql`, `2026-11-backend-1.sql`, `2026-11-backend-2.sql` | Centro de controle, recursos vivos, operação, caixa de imprensa, resumo diário |
+
+**Para rodar no Supabase:** SQL Editor, colar o `install.sql` inteiro e executar (ou, só para a Rede, as dez migrações `rede-*` em ordem). **Antes de produção, rode num projeto Supabase de teste**: o banco local (PGlite) não cobre `auth.mfa_factors`, `auth.sessions`, `pg_cron` nem `pg_net`, e nenhuma das migrações novas foi provada num Supabase de verdade. Crie índice grande (GIN da busca e das hashtags da Rede) em horário calmo.
+
+**Funções do Supabase** (`supabase/functions/`: `assistente`, `avaliar-comunidade`, `enviar-emails`, `enviar-push`, `transcrever-audio`, `transcrever-podcast`, `youtube`): quem publica é a rotina `funcoes.yml`, só com a variável `FUNCOES=sim` e o segredo `SUPABASE_ACCESS_TOKEN`. Mudou o SQL que uma função chama? Publique a função de novo (a `avaliar-comunidade` precisa aceitar o tipo `rede` antes de ligar a avaliação externa; a `enviar-push` é nova).
+
+**Mudou uma regra do Mural de Saúde?** Edite `content/saude/regras.json` e rode `npm run mural:sincronizar` (ele regrava o bloco do `install.sql`); `npm run testar:mural` confere. As funções `interno.saude_conferir`, `interno.saude_categoria_ligada` e `interno.limite` são redefinidas pelos blocos `backend-1` e `backend-2`, que **ficam por último** de propósito: não mude a ordem.
+
+## 21. As rotinas do GitHub (`.github/workflows/`)
+
+Rotina que depende de segredo ou variável fica **pulada** (sem gastar minutos) até a coordenação criá-los em Settings, Secrets and variables, Actions. Para pausar uma, apague a variável. As actions estão fixadas por SHA.
+
+| Rotina | Quando roda | Precisa de |
+| --- | --- | --- |
+| `ci.yml` Verificação | todo envio e pedido de junção que mexe em código (não em `content/`, `docs/`, `historico/`, `*.md`) | nada |
+| `ponta-a-ponta.yml` Testes de ponta a ponta | idem, mais pedido com a etiqueta `ponta-a-ponta` ou botão: a fumaça das telas no computador e no Galaxy S24 | nada (usa o banco local) |
+| `producao.yml` Publicar no servidor | envio no `master` que mexe no site; **fica pulada sem `COOLIFY_URL`** | variáveis `COOLIFY_URL`, `COOLIFY_APP_UUID`, as `NEXT_PUBLIC_*`; segredos `COOLIFY_TOKEN`, `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET` (`docs/HOSPEDAGEM.md`) |
+| `oracle.yml` | de minuto em minuto até a Oracle entregar a máquina grátis; abre uma issue quando conseguir | `OCI_CHAVE_PRIVADA`, `OCI_TUNEL_TOKEN`; variáveis `OCI_USUARIO`, `OCI_TENANCIA`, `OCI_DIGITAL` |
+| `limpar-cache.yml` | a cada publicação de produção na Vercel (seletiva quando só mudou conteúdo) | `CF_TOKEN_CACHE`, variável `CF_ZONE_ID` |
+| `publicar.yml` Publicar contribuições aprovadas | todo dia 06h17 (Brasília); o botão "Publicar agora" do painel dispara | variável `PUBLICAR=sim` |
+| `emails.yml` Enviar e-mails | a cada 6 horas (reserva do envio pelo banco) | variável `EMAILS=sim`, `RESEND_API_KEY`, `SUPABASE_*`, `EMAIL_REMETENTE`, `EMAIL_RESPOSTA` |
+| `funcoes.yml` | envio que muda `supabase/functions/` | variável `FUNCOES=sim`, `SUPABASE_PROJECT_REF`, segredo `SUPABASE_ACCESS_TOKEN` |
+| **`vale-o-escrito.yml` Robô de coleta** | de 3 em 3 horas (`17 */3 * * *`); botão com "rodada seca" | variável `VALE_O_ESCRITO=sim`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`; chaves de IA opcionais (`GEMINI_API_KEY`, `GROQ_API_KEY`, `CEREBRAS_API_KEY`, `OPENROUTER_API_KEY`); `docs/vale-o-escrito/ROBO.md` |
+| `estudio-agendados.yml` | a cada 15 minutos | variável `AGENDA_INSTAGRAM=sim`, `ESTUDIO_CRON_SECRET` |
+| `questoes.yml` | segunda 06h40: provas públicas novas | nada |
+| `links.yml` | segunda 09h: confere se as fontes citadas respondem | nada (falha manda e-mail) |
+| `espelho.yml` | dia 1 de cada mês: espelho estático das aulas e do acervo | opcionais `CLOUDFLARE_*`, `ESPELHO_PROJETO` |
+| `backup.yml` e `copia-do-banco.yml` | semanais: cópia cifrada do banco | `BACKUP_DB_URL` e `BACKUP_SENHA`, ou `SUPABASE_DB_URL` e `COPIA_SENHA`; **não rodam com o repositório público** |
+| `seguranca.yml` | quando o código muda e toda semana no histórico inteiro (gitleaks e dependências) | nada |
+
+**Operação pelo painel** (Site e operação, seção Operação do site): a coordenação vê o estado da última publicação, da última cópia do banco e pede a limpeza do cache, sem sair do painel. Cada botão só aparece se o servidor do site tiver o **token de operação** dele (todos só de leitura, exceto o do cache): `VERCEL_TOKEN_LEITURA` e `VERCEL_PROJECT_ID` (e `VERCEL_TEAM_ID`) para a publicação; `GITHUB_LEITURA_TOKEN` (fine-grained, só "Actions: leitura") para a cópia; `CF_TOKEN_CACHE` (só "Cache Purge") e `CF_ZONE_ID` para o cache. O banco limita o ritmo (cache: 3 por hora). A rota `GET /api/painel/operacao` exige o token da sessão. Lista de chaves e prazos de troca: `docs/seguranca/ROTACAO.md`.
+
+## 22. Páginas e recursos novos: onde mexer
+
+| O quê | Onde está | Documento |
+| --- | --- | --- |
+| Jogos (`/jogos`) | `app/[lang]/jogos/page.tsx`, `components/jogos/`, `i18n/jogos/` | `docs/jogos/PAGINA.md`, `docs/JOGOS-PROPRIOS-2.md`, `docs/RUMOS-BARALHOS.md` |
+| Vale o Escrito | `app/[lang]/vale-o-escrito/`, `components/vale-o-escrito/`, `lib/vale-o-escrito/`, `content/vale-o-escrito/`, `styles/vale-o-escrito.css`, `scripts/vale-o-escrito/` | `docs/vale-o-escrito/` |
+| Rede Lúcia v2 | `app/[lang]/comunidade/`, `components/rede/`, `lib/rede/`, `i18n/rede/`, `app/api/rede/` | `docs/rede/` |
+| Territórios | `content/territorios.json`, `components/territorios/`, `lib/territorios-identidades.ts` | `docs/TERRITORIOS.md` |
+| Imprensa | `app/[lang]/imprensa/`, caixa no painel | `docs/backend-2.md` |
+| Laboratórios abertos de fora | `content/labs-externos/catalogo.json`, `components/labs/LabsExternos.tsx`, cópias em `public/labs/` | `docs/LABS-EXTERNOS.md` |
+| Aula ao vivo | `lib/aula-sala.ts`, `app/api/aula-ao-vivo/`, `components/aovivo/`, `infra/aula-ao-vivo/` | `docs/AULA-AO-VIVO.md` |
+| Aplicativo (casca, offline, loja) | `components/app/`, `components/offline/`, `public/sw.js`, `lib/manifesto.ts`, `capacitor.config.ts`, `app-loja/` | `docs/APP.md`, `APP-OFFLINE.md`, `APP-LOJA.md` |
+| Painel novo | `components/painel/ui/`, `components/painel/moldes/`, `styles/painel-tema.css` | `docs/PAINEL-NOVO.md`, `PAINEL-COMPONENTES.md` |
+
+Todo recurso de fora (Instagram, GeoGebra, NetLogo, PeerTube, Galène) só abre depois do clique e entra no `frame-src` do `next.config.ts`. Mudou o `public/sw.js`? Suba `VERSAO` ali e `NOME_DAS_PAGINAS` em `components/Offline.tsx`, senão os aparelhos ficam com a cópia antiga (`docs/APP-OFFLINE.md`).
 
 ## Serviços abertos de fora
 

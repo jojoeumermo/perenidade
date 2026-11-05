@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { TextosDaAula } from "@/i18n/escola/aula";
 import { L, useI18n } from "../I18n";
+import { useTelaDaVez } from "../app/telas";
 
 // O cartão (canvas e compartilhar) só baixa quando a pessoa pede.
 const CartaoDoTrecho = dynamic(() => import("./CartaoDoTrecho").then((m) => m.CartaoDoTrecho), { ssr: false });
@@ -127,6 +128,8 @@ export function BarraDeSelecao({ termos, titulo, endereco, s, cartao }: { termos
     [lang, termos],
   );
 
+  useTelaDaVez("cartao-do-trecho", Boolean(trecho), () => setTrecho(null));
+  useTelaDaVez("consulta-de-palavra", Boolean(consulta), () => setConsulta(null));
   useEffect(() => {
     if (!consulta) return;
     fechar.current?.focus();

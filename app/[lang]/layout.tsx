@@ -4,9 +4,12 @@ import { Anton, Caveat, EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/goog
 import "../globals.css";
 // O celular (navegador e aplicativo) com cara de aplicativo: só vale até 767,98 px e fora do leitor de tinta.
 import "../celular.css";
+// A casca do aplicativo (barra de baixo, voltar por gesto, transições): só vale no celular e no site instalado.
+import "../app-casca.css";
 import { A11yWidget } from "@/components/A11yWidget";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { BottomNav } from "@/components/BottomNav";
+import { CascaDoApp } from "@/components/app/CascaDoApp";
 import { BarraDoCelular } from "@/components/celular/BarraDoCelular";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -130,6 +133,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <Footer lang={lang} t={t} />
             <RadioPlayer />
             <BottomNav />
+            <CascaDoApp />
             <VoltarAoTopo label={t.lists.top} />
             <OpeningNotice initial={abertura.ativo ? abertura : null} close={t.a11y.close} />
             <MaisGaveta

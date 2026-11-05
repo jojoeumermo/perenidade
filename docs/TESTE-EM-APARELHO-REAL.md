@@ -49,6 +49,52 @@ Marque cada item com **ok**, **demorou** (funcionou, mas a espera incomodou: ano
     aparece "Fica no seu aparelho". No Dicionário aparece "Passa pelo servidor do Instituto". O link leva à página de
     privacidade?
 
+## O aplicativo da loja e a casca de app (Etapa 11)
+
+A casca de aplicativo (barra de baixo de 5 abas, voltar por gesto, transições: `docs/APP.md`) e o pacote da loja
+(`docs/APP-LOJA.md`) pedem estes itens a mais, no **celular de entrada** e, se houver, num aparelho de tela grande (tipo
+Galaxy S24). Faça com a barra de navegação do Android **por gestos** e depois **por três botões** (Configurações ›
+Sistema › Navegação do sistema). Marque ok, demorou ou falhou, como acima.
+
+11. **Barra de baixo.** Início, Estudar, Jogos e labs, Comunidade, Eu: cada aba abre, a aba atual fica marcada e a barra não
+    cobre o fim da página nem o botão de gestos do sistema. Tocar na aba que já está aberta volta ao começo dela.
+12. **Voltar.** Entre numa aula e aperte o botão Voltar do Android (ou o gesto do sistema): volta **uma** tela, nunca duas.
+    Na raiz de uma aba, o mesmo gesto sai do aplicativo. A seta do alto também volta uma tela.
+13. **Gesto da borda.** Arraste do canto esquerdo para o centro, devagar, numa aula: aparece o indicador e volta uma tela.
+    Rolar a página para baixo, rolar uma tabela para o lado e escrever num campo **não** podem voltar a página sem querer.
+14. **Laboratório.** Abra um laboratório: a barra de baixo some (tela cheia) e volta ao sair. Abra uma aula com a caixa de
+    ferramentas e depois um laboratório, e o contrário: nada trava nem aparece duas vezes (defeito conhecido, ainda do
+    pacote `app-telas`: anote o que viu).
+15. **Aula do dia.** Na tela Início aparece a aula do dia, abaixo do "continuar estudando". Fazer a aula troca a sugestão.
+16. **Movimento reduzido.** Acessibilidade › Movimento › parado: as transições de tela viram corte seco.
+17. **Dentro do aplicativo da loja** (só depois de gerar o pacote, `docs/APP-LOJA.md`): ícone e nome certos, sem barra de
+    endereço, links de fora do Instituto abrem no navegador, e só a permissão de internet foi pedida.
+
+## O que dá para imitar no computador (e o que ainda não foi medido)
+
+Imitar não é o mesmo que usar, mas pega boa parte dos defeitos de largura, de barra e de lentidão antes do aparelho.
+
+| Aparelho imitado | Como | Comando |
+|---|---|---|
+| **Galaxy S24** (Playwright, `devices["Galaxy S24"]`: 360 × 780, densidade 3) | Navegador do celular | `BASE_URL=http://localhost:3951 npm run testar:app-aparelho` |
+| **Galaxy S24, tamanho padrão de fábrica** (1080 × 2340 com densidade 2,8125 = **384 × 832**) | Mesmo teste, bloco "384x832" | o mesmo comando |
+| **Galaxy S24 dentro do aplicativo** (WebView: `; wv)` e `InstitutoLuciaApp/2`) | Mesmo teste, agente de usuário do Capacitor | o mesmo comando |
+| **Celular de entrada** (360 × 640, densidade 2, CPU 4 vezes mais lenta, 3G de 400 kbps e 400 ms) | Limites do Chrome (CDP) | `BASE_URL=... npm run testar:entrada` (LCP e JavaScript) e o bloco do mesmo arquivo (tempo e rolagem lateral) |
+
+Use **uma montagem de produção**: `npm run build` e depois `npx next start -p 3951` (o `dev:local` manda JavaScript sem
+compactar e não serve de régua). O teste `testar:app-aparelho` roda só no projeto `computador` (ele troca de aparelho
+sozinho) e **anota "sem casca neste build"** em vez de falhar se o `next start` for de um build anterior ao pacote
+`app-casca`. Confira a anotação: se aparecer, refaça o `npm run build` antes de confiar no resultado.
+
+### Resultados registrados
+
+| Data | Build | O que rodou | Resultado |
+|---|---|---|---|
+| 05/11/2026 | `next start` do build das 01h26, **anterior** à casca (não refeito para não sobrescrever o `.next` que outros pacotes usam) | `npm run testar:app-aparelho` (S24 360 × 780, S24 384 × 832, S24 no WebView, celular de entrada) e `npm run testar:entrada` | S24 nos três tamanhos: **sem rolagem lateral** em `/pt`, `/pt/trilhas`, `/pt/jogos`, `/pt/laboratorios`, `/pt/comunidade` e `/pt/meu-estudo` (0 px de sobra). Os itens da casca (5 abas, voltar, tela cheia no laboratório) foram **anotados como "sem casca neste build" e não conferidos**. Celular de entrada: texto de `/pt` em 4,8 s, de `/pt/jogos` em 14,3 s (a mais lenta, a olhar) e de `/pt/meu-estudo` em 1,8 s; sem rolagem lateral. `testar:entrada`: início com LCP 4616 ms, JavaScript 261 KB, total 563 KB; aula de Ler e escrever com LCP 4896 ms, JavaScript 357 KB, total 652 KB (a escola, desligada, foi pulada). Os limites do teste ainda são `null` (só mede). |
+
+O gesto do dedo (borda esquerda), o botão Voltar do Android, a navegação por três botões, o calor e a memória **não** se
+imitam: ficam para os itens 11 a 17 acima, no aparelho.
+
 ## Como relatar
 
 - **Tudo ok:** uma linha no grupo da equipe: "Teste no celular de entrada, DD/MM, ok, gastou N MB".
@@ -64,4 +110,6 @@ Marque cada item com **ok**, **demorou** (funcionou, mas a espera incomodou: ano
 | Tempo até a maior pintura (LCP) e JavaScript baixado em `/pt`, numa aula de Ler e escrever e em `/pt/escola` | sim, com limites | não mede, só a impressão |
 | Rolagem lateral em 360 px | sim | sim |
 | Instalar, abrir sem rede, ouvir, gasto real de dados | não | sim |
+| Barra de baixo, tela cheia no laboratório, ausência de rolagem lateral no S24 (360 × 780 e 384 × 832) e no WebView | `testar:app-aparelho` | sim |
+| Gesto de voltar da borda, botão Voltar do Android, gestos x três botões | não | sim |
 | Calor, travamento, teclado cobrindo campo, toque difícil | não | sim |

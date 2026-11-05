@@ -8,6 +8,7 @@ import { htmlLang } from "@/i18n/config";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { EditorPorBlocos } from "./EditorPorBlocos";
 import { useI18n } from "./I18n";
+import { travarRolagem } from "./app/telas";
 import { Markdown } from "./Markdown";
 
 export interface EditorLabels {
@@ -421,14 +422,13 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
   const [telaCheia, setTelaCheia] = useState(false);
   useEffect(() => {
     if (!telaCheia) return;
-    const raiz = document.documentElement;
-    raiz.style.setProperty("overflow", "hidden");
+    const soltar = travarRolagem();
     const tecla = (e: KeyboardEvent) => {
       if (e.key === "Escape") setTelaCheia(false);
     };
     window.addEventListener("keydown", tecla);
     return () => {
-      raiz.style.removeProperty("overflow");
+      soltar();
       window.removeEventListener("keydown", tecla);
     };
   }, [telaCheia]);

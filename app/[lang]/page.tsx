@@ -15,6 +15,9 @@ import { quadroDaInicial } from "@/lib/escola/quadro-servidor";
 import { ligado } from "@/lib/recursos";
 import { type EstanteDoCelular, InicioDoCelular } from "@/components/celular/InicioDoCelular";
 import { corDaCapa } from "@/lib/capas";
+import { AulaDoDia } from "@/components/app/AulaDoDia";
+import type { AulaSugerida } from "@/components/app/aula-do-dia";
+import comecar from "@/content/comecar.json";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
 import { territorios } from "@/lib/territorios";
 import { loadLang } from "@/i18n";
@@ -104,6 +107,15 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
     .sort((a, b) => b.n - a.n)
     .slice(0, 12)
     .map((estante) => ({ slug: estante.slug, nome: t.areas[estante.slug][0], etapa: estante.grupo, aulas: `${numero(lang, estante.n)} ${estante.n === 1 ? t.common.lessons.one : t.common.lessons.other}`, cor: corDaCapa(estante.slug) }));
+  // A "aula do dia" da tela Início do aplicativo: as aulas curtas do "Comece aqui" que já existem neste idioma.
+  const aulasDoDia: AulaSugerida[] = comecar
+    .flatMap((bloco) => bloco.aulas)
+    .flatMap((id) => {
+      const [trilha, aula] = id.split("/");
+      const track = tracks.find((item) => item.slug === trilha);
+      const lesson = track?.lessons.find((item) => item.slug === aula);
+      return track && lesson ? [{ href: `/trilhas/${track.slug}/${lesson.slug}`, titulo: lesson.title, trilha: track.title, minutos: lesson.minutes }] : [];
+    });
   const territorio = territorios.at(-1);
   // E4-09: o quadro de avisos da Escola, só com ela ligada (e, dentro dele, só para quem volta).
   const quadro = ligado("escola") ? quadroDaInicial(lang) : null;
@@ -127,6 +139,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           verTodas: fill(h.seeAllShelves, { n: areas }),
           muro: t.celular.muro,
         }}
+        doDia={<AulaDoDia aulas={aulasDoDia} />}
         quadro={quadro ? <QuadroDeAvisos {...quadro} className="block px-4 pt-6" /> : undefined}
         lambe={<LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />}
         aulaDaSemana={<JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />}
