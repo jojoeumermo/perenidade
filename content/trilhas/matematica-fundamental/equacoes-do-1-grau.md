@@ -1,5 +1,6 @@
 ---
 titulo: "Equações do 1º grau"
+modelo: 9
 resumo: "Como descobrir um número desconhecido mantendo a balança equilibrada."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -25,6 +26,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber resolver equações do 1º grau desfazendo as operações com a ideia da balança e conferir o resultado.
+
+```suarealidade
+Já aconteceu de você saber o resultado de uma conta e precisar descobrir um valor que falta: quanto custa cada um, quantas horas faltam, quanto é preciso juntar? Como você fez?
+```
 
 ## Um número escondido
 
@@ -98,6 +103,15 @@ Você talvez tenha aprendido a regra "passa para o outro lado trocando o sinal".
 
 Chame de x o número de quilômetros: 2x + 4 = 26. Tirando 4: 2x = 22. Dividindo por 2: x = 11 quilômetros.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Equação é coisa de escola e de quem faz prova. Na vida, a gente resolve de cabeça ou com a calculadora, e pronto." É a experiência de quem resolve os problemas do dia a dia sem papel.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula começa com um problema que todo mundo resolve de cabeça ("pensei num número, somei 7 e deu 12") e diz que quem o resolve já resolveu uma equação. A balança é o jeito de escrever esse mesmo raciocínio quando a conta fica maior e não cabe mais na cabeça. Ela ensina a desfazer as operações, a conferir sempre o resultado e a passar do problema da vida para a equação. A calculadora faz a conta, mas é preciso saber que conta fazer.
+```
+
 ## Exemplo resolvido
 
 **Resolva 3x − 8 = 19.**
@@ -116,6 +130,11 @@ Confira: tudo o que se faz de um lado se faz igual do outro, como numa balança 
 3. 3x − 8 = 19
 4. 6x + 2 = 4x + 14
 5. Um salário de R$ 1.800 é formado por um valor fixo de R$ 1.200 mais R$ 30 por venda. Quantas vendas foram feitas?
+
+```agir
+# Esta semana
+Pense num problema do seu mês em que falta um valor (por exemplo, quanto falta para pagar uma conta) e escreva a equação no papel com x. Depois resolva e confira se o resultado faz sentido.
+```
 
 ## Resumo
 

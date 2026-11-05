@@ -1,5 +1,6 @@
 ---
 titulo: "Postura e saúde do barbeiro"
+modelo: 9
 resumo: "O dia inteiro de pé, braços erguidos, punho repetindo o corte e cabelo picado no ar: o que a NR-17 diz sobre postura, mobiliário e pausas, como ajustar a cadeira e o posto, a vacina de hepatite B e onde buscar atendimento quando o corpo reclama."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -53,6 +54,10 @@ Doze cortes por dia, seis dias por semana. Quantas vezes por semana o seu punho 
 ## O que você vai aprender
 
 Ao fim desta aula você vai reconhecer os riscos do trabalho do barbeiro para o corpo, conhecer o que a NR-17 diz sobre mobiliário, postura, vibração e pausas, ajustar o posto de trabalho e saber onde buscar atendimento.
+
+```suarealidade
+Doze cortes por dia, seis dias por semana: quantas vezes por semana o seu punho abre e fecha a tesoura? E o que seu corpo diz no fim do dia?
+```
 
 ## O que o ofício exige do corpo
 
@@ -111,6 +116,20 @@ Você sente dor no punho direito toda noite, e ela já acorda você. O que é ma
 4. **Ferramentas**: afiar a tesoura e limpar e lubrificar a máquina.
 5. **Agenda**: encaixar os cortes mais longos alternados com os mais rápidos (próxima aula).
 6. **Saúde**: conferir a vacina de hepatite B; se a dor persistir, UBS e, se for o caso, Cerest.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dor nas costas e no punho é do ofício, e quem reclama não aguenta o serviço. Parar para descansar é perder cliente." É um argumento de quem aprendeu que trabalhar é aguentar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o trabalho exige horas de pé, braços erguidos, movimentos repetitivos e vibração, e que isso pode causar LER/DORT. A NR-17 pede mobiliário com regulagem, alternância de posição, assento para as pausas e pausas em tarefas repetitivas. O Cerest atende também autônomos e informais. Cuidar do corpo é o que permite trabalhar por muitos anos, e não é fraqueza.
+```
+
+```agir
+# Esta semana
+Ajuste esta semana um item do seu posto de trabalho (altura da cadeira do cliente, luz, posição das ferramentas) e anote num papel se o corpo sentiu diferença no fim do dia.
+```
 
 ## Resumo
 

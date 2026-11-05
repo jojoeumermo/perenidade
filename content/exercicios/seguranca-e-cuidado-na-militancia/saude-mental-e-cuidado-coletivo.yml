@@ -1,0 +1,50 @@
+# Exercícios da aula "Saúde mental e cuidado coletivo" (seguranca-e-cuidado-na-militancia). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: seguranca-e-cuidado-na-saude-mental-e-cuidado-coletivo-01
+  tema: "O que não pode"
+  dificuldade: 2
+  enunciado: "O que o coletivo NÃO deve fazer ao cuidar de alguém em sofrimento?"
+  alternativas:
+    - texto: "Dar diagnóstico, indicar remédio, fazer papel de terapeuta, expor a pessoa ao grupo ou forçá-la a falar"
+      certa: true
+    - texto: "Escutar sem julgar"
+      erro: "Escutar sem julgar é o que o coletivo pode fazer."
+    - texto: "Oferecer companhia"
+      erro: "É o que o coletivo pode fazer."
+  explicacao: "O coletivo pode escutar, criar um ambiente de respeito e sigilo, dividir tarefas e ajudar a procurar serviços."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde mental e cuidado coletivo\""
+  revisao:
+    status: em-revisao
+
+- id: seguranca-e-cuidado-na-saude-mental-e-cuidado-coletivo-02
+  tema: "Frases que ajudam"
+  dificuldade: 1
+  enunciado: "Qual destas frases ajuda, segundo a aula?"
+  alternativas:
+    - texto: "\"Estou aqui\" e \"O que ajudaria agora?\""
+      certa: true
+    - texto: "\"Isso não é nada\""
+      erro: "A aula a coloca entre as frases que machucam."
+    - texto: "\"Pensa positivo\""
+      erro: "Também machuca."
+  explicacao: "Frases que machucam: \"Outros estão pior\" e \"Você é forte, aguenta\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde mental e cuidado coletivo\""
+  revisao:
+    status: em-revisao
+
+- id: seguranca-e-cuidado-na-saude-mental-e-cuidado-coletivo-03
+  tema: "Cuidado é política"
+  dificuldade: 2
+  enunciado: "Por que a aula diz que cuidar uns dos outros é política?"
+  alternativas:
+    - texto: "Porque mantém as pessoas vivas e na luta, e o sofrimento vem também das condições de vida"
+      certa: true
+    - texto: "Porque dá votos"
+      erro: "Não é o motivo."
+    - texto: "Porque substitui os serviços de saúde"
+      erro: "O coletivo ajuda a procurar os serviços, e não os substitui."
+  explicacao: "Uma roda de cuidado de 45 a 60 minutos, uma vez por mês, é uma sugestão da aula."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde mental e cuidado coletivo\""
+  revisao:
+    status: em-revisao

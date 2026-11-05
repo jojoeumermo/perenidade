@@ -1,5 +1,6 @@
 ---
 titulo: "Diagnóstico inicial: como saber o que cada um já sabe"
+modelo: 9
 resumo: "Uma sondagem simples e respeitosa da escrita, da leitura e da matemática de cada pessoa no começo do círculo, e como ler o que ela mostra."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Ao fim desta aula você vai saber fazer uma sondagem curta de escrita, de leitur
 
 ```provocacao
 Como você se sentiria se, no primeiro dia de um curso, alguém lhe desse uma prova sobre um assunto que você nunca estudou?
+```
+
+```suarealidade
+Como você se sentiria se, no primeiro dia de um curso, alguém lhe desse uma prova sobre um assunto que nunca estudou? E se, em vez disso, perguntassem o que você já sabe?
 ```
 
 ## O cuidado antes de tudo
@@ -107,6 +112,20 @@ Confira: o diagnóstico não disse "ele não sabe escrever". Disse o que ele já
 
 ```realidade
 Escreva quatro palavras de um mesmo campo da vida de um grupo que você conhece: uma de quatro sílabas, uma de três, uma de duas e uma de uma.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para ensinar bem é preciso medir. Sem prova e sem nota, ninguém sabe de verdade quem está avançando e quem está parado." É uma opinião de quem confia em números para organizar o ensino.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não abre mão de saber onde cada um está: propõe uma sondagem curta de escrita, leitura e números, repetida de tempos em tempos. A diferença é que ela é um retrato de um momento, para planejar, e não prova nem nota, feita a sós ou em dupla e sem constrangimento. As hipóteses de Ferreiro e Teberosky (pré-silábica, silábica, silábico-alfabética e alfabética) mostram que cada fase é uma conquista.
+```
+
+```agir
+# Esta semana
+Escolha quatro palavras do mesmo campo (por exemplo, do mercado) com quatro, três, duas e uma sílaba, e escreva-as num papel para usar, quando for oportuno, numa sondagem com alguém que queira participar. Não aplique sem o consentimento da pessoa.
 ```
 
 ## Resumo

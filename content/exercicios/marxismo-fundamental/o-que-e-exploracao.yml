@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é exploração" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-exp-01
+  tema: "Exploração como relação"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "No sentido marxista, o que é explorar?"
+  alternativas:
+    - texto: "Viver do trabalho não pago de outra pessoa"
+      certa: true
+    - texto: "Tratar mal o funcionário"
+      erro: "Patrão educado também pode explorar. A exploração está na estrutura, e não no humor do chefe."
+    - texto: "Atrasar o salário"
+      erro: "Salário atrasado é abuso, mas a exploração, para Marx, é mais profunda: viver do trabalho não pago."
+  explicacao: "Na escravidão, na servidão e no capitalismo, a exploração aparece de formas diferentes. No capitalismo, ela fica escondida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-exp-02
+  tema: "Patrão educado"
+  dificuldade: 2
+  enunciado: "Uma empresa paga bem, tem plano de saúde e trata os funcionários com respeito. Ela lucra. Do ponto de vista marxista:"
+  alternativas:
+    - texto: "Há exploração, porque o lucro vem do valor produzido pelos trabalhadores e não pago a eles"
+      certa: true
+    - texto: "Não há exploração, porque os trabalhadores estão satisfeitos"
+      erro: "Para Marx, a exploração é estrutural. Ela existe mesmo com bom patrão."
+    - texto: "Só há exploração se os salários forem baixos"
+      erro: "A exploração pode ser maior ou menor, mas existe também com salários melhores."
+  explicacao: "A exploração está na regra do jogo: quem é dono fica com parte do resultado do trabalho de quem não é."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-exp-03
+  tema: "Quando aumenta"
+  dificuldade: 2
+  enunciado: "Qual destas situações aumenta a exploração?"
+  alternativas:
+    - texto: "Aumentar a jornada, por exemplo com hora extra não paga"
+      certa: true
+    - texto: "Reduzir a jornada mantendo o salário"
+      erro: "Isso diminui a exploração: o trabalhador produz menos para o patrão sem perder salário."
+    - texto: "Pagar o salário em dia"
+      erro: "Pagar em dia é cumprir o combinado, e não muda a estrutura."
+  explicacao: "A exploração aumenta com jornada mais longa, ritmo mais intenso (metas, mais tarefas para menos gente) e salários mais baixos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

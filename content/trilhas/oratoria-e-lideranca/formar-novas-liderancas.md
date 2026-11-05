@@ -1,5 +1,6 @@
 ---
 titulo: "Formar novas lideranças"
+modelo: 9
 resumo: "Liderança se aprende: como identificar quem pode assumir tarefas, ensinar fazendo junto, dar retorno que ajuda, abrir espaço para quem fala pouco e garantir que o grupo continue quando as lideranças de hoje saírem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -55,6 +56,10 @@ Na sua associação, se as três pessoas que mais fazem saíssem amanhã, quem s
 
 Ao fim desta aula você vai saber identificar quem pode assumir tarefas, ensinar fazendo junto, dar retorno que ajuda a crescer, abrir espaço para quem fala pouco e montar um plano para que o grupo não dependa sempre das mesmas pessoas.
 
+```suarealidade
+No seu grupo, se as três pessoas que mais fazem saíssem amanhã, quem saberia marcar uma reunião, fazer a ata e prestar contas?
+```
+
 ## Liderança se aprende
 
 O livro aberto de oratória mostra que o medo de falar diminui com a **exposição gradual** e lembra uma ideia antiga: falar bem é algo que **se conquista**, não um dom. O mesmo vale para coordenar, negociar, organizar. Ninguém nasce sabendo fazer uma ata ou conduzir uma assembleia: aprende fazendo, de preferência junto com quem já faz.
@@ -100,6 +105,15 @@ Você coordena as reuniões há três anos e quer formar alguém. Qual é o melh
 > Aprende-se fazendo junto, com retorno.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Liderança é dom: ou a pessoa nasce com jeito para mandar e falar, ou não nasce. Perder tempo ensinando quem não tem vocação atrasa o grupo." É a opinião de quem aprendeu fazendo e acha que quem tem talento aparece sozinho.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que falar bem se conquista, não é um dom: o medo diminui com a exposição gradual. Ninguém nasce sabendo fazer uma ata ou conduzir uma assembleia; aprende fazendo, de preferência em dupla com quem já faz. Para Paulo Freire, aprender é diálogo, não depósito de conteúdo. O caminho é começar com tarefas pequenas, dar retorno durante e depois, passar ao rodízio e abrir espaço para quem fala pouco. Quem ensina não perde tempo: o grupo deixa de depender das mesmas pessoas.
+```
+
 ## Exemplo resolvido
 
 **Monte um plano de três meses para que a associação tenha duas pessoas novas capazes de coordenar reuniões.**
@@ -110,6 +124,11 @@ Você coordena as reuniões há três anos e quer formar alguém. Qual é o melh
 | 2 | Cada uma coordena **metade** de uma reunião, em dupla com quem coordena hoje. Estudo juntos das aulas de assembleia, reunião e ata desta trilha. |
 | 3 | Cada uma coordena uma reunião inteira, com quem coordena hoje só acompanhando. Avaliação do conjunto no fim do mês. |
 | Depois | As duas entram no rodízio da coordenação e começam a formar outras duas. |
+
+```agir
+# Esta semana
+Convide uma pessoa do seu grupo para fazer com você, em dupla, a próxima tarefa que você faria sozinho. Anote num papel o que ela aprendeu e o que você aprendeu com ela.
+```
 
 ## Resumo
 

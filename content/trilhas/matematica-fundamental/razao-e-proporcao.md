@@ -1,5 +1,6 @@
 ---
 titulo: "Razão e proporção"
+modelo: 9
 resumo: "Comparar quantidades por divisão: preço por quilo, escala de mapa, traço do concreto e divisão justa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber comparar quantidades por razão, calcular taxas como o preço por quilo e resolver proporções.
+
+```suarealidade
+Onde você usa proporção sem perceber: na receita que dobra, na mistura de tinta, no traço do concreto? Como você mantém a "proporção certa"?
+```
 
 ## Comparar dividindo
 
@@ -111,6 +116,20 @@ Duas pessoas fizeram um serviço juntas e receberam R$ 1.200. Uma trabalhou 3 di
 5. Três famílias vão dividir 90 kg de farinha na proporção do número de pessoas: 2, 3 e 4. Quanto cabe a cada uma?
 
 **Respostas:** 1) 3:5. 2) 3 m por 3,5 m. 3) x = 10. 4) A de 2 litros (R$ 4,50 o litro, contra R$ 4,80). 5) 20 kg, 30 kg e 40 kg.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem trabalha com as mãos dispensa essas contas: aprende com o mestre e acerta de olho." É a experiência de quem aprendeu um ofício na prática.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece isso: diz que quem trabalha em obra usa proporção o dia inteiro e explica o traço do concreto. Um traço 1:2:3 significa 1 parte de cimento, 2 de areia e 3 de brita, tanto faz se a parte é uma lata, um balde ou um carrinho, desde que a razão se mantenha. O que a razão e a proporção acrescentam é um jeito de escrever o que o mestre já faz, e de conferir, comparar preço por quilo (as taxas) e dividir em partes proporcionais.
+```
+
+```agir
+# Esta semana
+Escolha uma receita da sua casa e escreva no papel as quantidades para o dobro de pessoas, mantendo a razão entre os ingredientes. Confira se cada razão se manteve.
+```
 
 ## Resumo
 

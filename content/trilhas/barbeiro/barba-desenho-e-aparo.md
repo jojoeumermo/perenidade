@@ -1,5 +1,6 @@
 ---
 titulo: "Barba: desenho e aparo"
+modelo: 9
 resumo: "Como combinar a barba com o cliente, aparar com máquina, pente de altura e tesoura, desenhar as linhas da bochecha e do pescoço, ligar a barba ao cabelo e por que deixar um pouco de barba protege a pele de quem tem fio crespo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Uma barba bem desenhada muda o rosto inteiro. Mas quem decide onde passa a linha
 ## O que você vai aprender
 
 Ao fim desta aula você vai combinar a barba com o cliente, aparar com máquina, pente de altura e tesoura, desenhar as linhas da bochecha e do pescoço, ligar a barba à costeleta e saber por que, em quem tem fio crespo, deixar um pouco de barba protege a pele.
+
+```suarealidade
+Quem decide onde passa a linha da barba: o barbeiro, a moda ou o cliente? Já aconteceu de você ficar com um corte que não era o que queria?
+```
 
 ## A conversa
 
@@ -106,6 +111,20 @@ Um cliente de barba crespa quer barba bem curta e tem bolinhas no pescoço. O qu
 4. **Bochecha** com o acabador, seguindo a linha natural.
 5. **Pescoço**: em vez de raspar, aparar com a máquina sem pente no ponto mais baixo (pouco abaixo de 1 mm) abaixo da linha, por causa da foliculite.
 6. **Conferir** de frente e de perfil.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Barba boa é a raspada rente, bem lisa. Deixar um pouco de pelo é desleixo, e o cliente reclama." É uma opinião muito comum em muitas barbearias.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula lembra que o gosto do cliente conta, mas em quem tem fio crespo deixar de 0,5 a 1 mm de barba, aparando em vez de raspar, ajuda a prevenir a foliculite. O caminho é explicar isso com respeito, mostrar a alternativa (apará-la bem desenhada) e deixar o cliente escolher. A barba bem desenhada também agrada.
+```
+
+```agir
+# Esta semana
+Desenhe num papel três tipos de linha de bochecha e de pescoço e escreva a frase que você diria ao cliente para explicar por que, em cabelo crespo, é melhor aparar do que raspar rente.
+```
 
 ## Resumo
 

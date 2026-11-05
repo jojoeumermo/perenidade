@@ -1,5 +1,6 @@
 ---
 titulo: "Postura e saúde de quem tranca"
+modelo: 9
 resumo: "Horas de pé, braços erguidos e dedos repetindo o mesmo movimento: o que a NR-17 diz sobre postura, mobiliário e pausas, como montar o espaço de trabalho em casa ou no salão e onde buscar atendimento quando o corpo reclama."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Seis horas de pé, braços para cima, dedos repetindo o mesmo cruzamento milhare
 ## O que você vai aprender
 
 Ao fim desta aula você vai reconhecer os riscos do corpo no trabalho de trançar, conhecer o que a NR-17 diz sobre postura, mobiliário e pausas, montar um espaço de trabalho melhor e saber onde buscar atendimento quando o corpo reclama.
+
+```suarealidade
+Quantas horas por dia você fica de pé ou com os braços erguidos no trabalho? Onde dói no fim do dia?
+```
 
 ## O que o trabalho de trançar exige do corpo
 
@@ -102,6 +107,15 @@ Você trança com a cliente sentada numa cadeira baixa e passa horas curvada. Qu
 > A NR-17 pede regulagem do mobiliário e alternância de posições.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dor nas costas e nos braços faz parte do ofício. Quem se queixa é fraco, e não adianta mudar nada." É a opinião de quem aprendeu a aguentar calada.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que trançar exige horas de pé, braços erguidos e movimentos repetitivos, com risco de LER/DORT. A NR-17 pede alternância de pé e sentada, mobiliário com regulagem, apoio para os pés, assento para as pausas e pausas e alternância em tarefas repetitivas. Ajustar a altura da cliente às suas mãos, ter um banco, boa luz e materiais ao alcance ajuda. O Cerest do SUS atende também autônomas e informais, e no salão-parceiro as condições de trabalho são responsabilidade do salão.
+```
+
 ## Exemplo resolvido
 
 **Uma trancista atende uma cliente de box braids por 8 horas, de pé, sem pausa, com a cliente numa cadeira de cozinha. No fim do dia, sente dor no ombro direito e formigamento nos dedos. Monte um plano.**
@@ -111,6 +125,11 @@ Você trança com a cliente sentada numa cadeira baixa e passa horas curvada. Qu
 3. **Pausas**: 10 minutos a cada 2 horas, combinadas com a cliente.
 4. **Organização**: em penteados muito longos, propor dois dias ou trabalhar com outra trancista.
 5. **Preço**: o tempo das pausas entra no tempo do atendimento (próxima aula).
+
+```agir
+# Esta semana
+Nas pausas, solte os braços, gire os ombros e abra e feche as mãos. Descubra também onde fica a UBS mais perto de você e se a sua região tem um Cerest.
+```
 
 ## Resumo
 

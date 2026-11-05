@@ -1,5 +1,6 @@
 ---
 titulo: "Preço, salário e inflação"
+modelo: 9
 resumo: "Inflação é o aumento geral dos preços. Quando os preços sobem, o mesmo dinheiro compra menos: o poder de compra cai. No Brasil, o IBGE mede a inflação com índices como o IPCA e o INPC. Por que um salário que não acompanha a inflação, na prática, diminui."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ O seu salário não mudou, mas no fim do mês sobra menos dinheiro do que no ano
 
 Ao fim desta aula você vai entender o que é inflação, como ela é medida e o que ela faz com o salário.
 
+```suarealidade
+Qual produto do mercado ou da conta de casa mais subiu no último ano? O seu salário (ou a sua renda) acompanhou?
+```
+
 ## O que é inflação
 
 **Inflação** é um **aumento geral** nos **preços** de bens e serviços numa economia. Quando o nível geral de preços sobe, **cada real compra menos**: a inflação é uma **redução do poder de compra** do dinheiro.
@@ -72,6 +77,15 @@ Um salário de R$ 2.000 não teve reajuste num ano em que a inflação foi de 5%
 > Releia a seção "Salário e inflação".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Reajuste de salário alimenta a inflação: se o trabalhador ganha mais, os preços sobem de novo. O melhor é segurar os salários." É um argumento antigo no debate econômico.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula leva a inflação a sério: ela é um aumento geral dos preços que reduz o poder de compra, e o Brasil sofreu com hiperinflação até 1994, quando os preços mudavam quase todo dia, até o Plano Real. Mas mostra o outro lado da conta: se os preços sobem e o salário fica igual, o salário real cai, e a inflação pesa mais sobre quem gasta quase tudo com comida, aluguel e transporte. Por isso os sindicatos lutam por reajustes que ao menos reponham a inflação e, de preferência, por aumentos reais. O debate é como combater a inflação sem que o peso caia sobre o salário.
+```
+
 ## Exemplo resolvido
 
 **Uma cesta de compras custava R$ 600. A inflação desses produtos foi de 10%. Quanto a cesta passa a custar, e quanto o salário precisaria subir para comprar a mesma coisa?**
@@ -79,6 +93,11 @@ Um salário de R$ 2.000 não teve reajuste num ano em que a inflação foi de 5%
 1. 10% de R$ 600 = **R$ 60**.
 2. A cesta passa a custar 600 + 60 = **R$ 660**.
 3. Para comprar a mesma cesta, o salário precisaria subir **pelo menos 10%**.
+
+```agir
+# Esta semana
+Pergunte a alguém mais velho de casa quanto custava um produto que vocês compram até hoje e compare com o preço de agora. Anote os dois valores e calcule em quantas vezes ele subiu.
+```
 
 ## Resumo
 

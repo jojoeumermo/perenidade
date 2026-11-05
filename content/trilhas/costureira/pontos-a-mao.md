@@ -1,5 +1,6 @@
 ---
 titulo: "Pontos à mão"
+modelo: 9
 resumo: "Os pontos que resolvem quase tudo sem máquina: o ponto corrido e o alinhavo, o ponto atrás, o mais forte, o ponto invisível das bainhas, o chuleado contra o desfiado e o ponto de caseado, com o nó para começar e o arremate para terminar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -54,6 +55,10 @@ A barra da calça descosturou no caminho para o trabalho e não há máquina por
 
 Ao fim desta aula você vai começar e terminar uma costura à mão com nó e arremate e fazer cinco pontos: corrido (e alinhavo), atrás, invisível, chuleado e caseado.
 
+```suarealidade
+O que você faz hoje quando uma barra descostura ou um botão cai longe de casa, sem máquina por perto?
+```
+
 ## Antes de começar
 
 - **Linha**: corte um pedaço do comprimento do seu braço. Linha longa demais embola.
@@ -99,6 +104,15 @@ Você precisa prender a barra de uma calça social sem que os pontos apareçam d
 > A dobra esconde a linha e só alguns fios são pegos.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ponto à mão é coisa do passado. Hoje tem máquina, e para pequeno conserto é só levar numa costureira." É a visão de quem tem uma costureira por perto.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A provocação da aula mostra a situação: a barra descosturou a caminho do trabalho e não há máquina por perto. Com agulha, linha e o ponto invisível, dá para resolver na hora, sem que ninguém perceba. A aula lembra que o ponto atrás é o ponto básico mais forte, que o chuleado é o acabamento de quem não tem overloque e que casa de botão também se faz à mão. E levar na costureira custa tempo e dinheiro, como lembra a aula sobre consertos. Saber os pontos à mão complementa a máquina, e não a substitui.
+```
+
 ## Exemplo resolvido
 
 **Consertar à mão a barra descosturada de uma calça social, sem máquina.**
@@ -109,6 +123,11 @@ Você precisa prender a barra de uma calça social sem que os pontos apareçam d
 4. **Ponto invisível**: a agulha corre por dentro da dobra uns 5 mm e pega **dois ou três fios** do tecido da perna; repita até fechar.
 5. **Arremate** no avesso, com três pontinhos no mesmo lugar.
 6. **Tirar o alinhavo** e passar a barra com o ferro.
+
+```agir
+# Esta semana
+Monte um kit de bolsa: uma agulha espetada num pedaço de papelão, com linha preta, branca e da cor da sua roupa de trabalho. Treine num retalho uma fileira de ponto atrás e uma de ponto invisível.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Cidade e campo"
+modelo: 9
 resumo: "Como o Brasil deixou de ser rural em poucas décadas, por que tanta gente saiu do campo e como cidade e campo dependem um do outro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -52,6 +53,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber comparar a cidade e o campo, calcular a taxa de urbanização, explicar as causas do êxodo rural e dizer o que a Constituição de 1988 garante sobre a terra e a cidade.
+
+```suarealidade
+Alguém da sua família veio do campo para a cidade? De onde, quando e por quê?
+```
 
 
 ## Dois modos de vida, um mesmo país
@@ -138,6 +143,20 @@ Entre a lei e a realidade há uma distância que movimentos de trabalhadores sem
 4. O seu município tem plano diretor? Procure no site da prefeitura ou da câmara de vereadores.
 
 **Resposta da 3:** 25.572.339 ÷ 203.080.756 × 100 ≈ 12,6%.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem saiu do campo foi porque quis, atrás de emprego e de uma vida melhor na cidade. Ninguém expulsou ninguém."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que as fábricas e as obras das cidades do Sudeste ofereciam emprego com carteira assinada, ainda que pagando pouco. Mas mostra que o êxodo rural foi, em boa parte, uma expulsão: a concentração da terra (quem era meeiro, parceiro ou morador em terra alheia podia ser mandado embora a qualquer momento), a mecanização (uma máquina passou a fazer o trabalho de dezenas de pessoas) e as secas somadas à falta de apoio. Muita gente foi, sim, buscar uma vida melhor, e muita gente também não teve escolha.
+```
+
+```agir
+# Esta semana
+Escolha três alimentos da sua cozinha e tente descobrir de onde vieram e quem os produziu. Anote o que descobriu e, se puder, pergunte a quem vende na feira ou no mercado do bairro.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização em contextos indígenas"
+modelo: 9
 resumo: "Os direitos dos povos indígenas a uma educação própria, na língua materna e com processos próprios de aprendizagem; o que muda quando a alfabetização é em duas línguas; e o papel de quem vem de fora."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -53,6 +54,10 @@ Ao fim desta aula você vai conhecer os direitos dos povos indígenas a uma educ
 
 ```provocacao
 Que palavras de origem indígena você usa no dia a dia sem perceber? Pense em nomes de frutas, de bichos, de lugares.
+```
+
+```suarealidade
+Que palavras de origem indígena você usa no dia a dia, sem perceber (nomes de frutas, bichos, lugares)? Você conhece alguma língua indígena falada perto de você?
 ```
 
 ## Quantos povos, quantas línguas
@@ -116,6 +121,20 @@ Confira: a língua dela foi tratada como saber, o português como segunda língu
 
 ```realidade
 Procure saber que povos indígenas vivem ou viveram na região onde você mora. Anote o nome de um deles e, se puder, a língua.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Seria melhor ensinar só português nas aldeias. Assim os jovens têm mais chance de arranjar emprego, e as línguas indígenas ficam para a vida em casa." É um argumento de quem pensa em oportunidade de trabalho.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a Constituição (art. 210, § 2º) assegura o uso das línguas maternas e de processos próprios de aprendizagem, e que a LDB garante educação bilíngue e intercultural. Também lembra que muitas línguas têm poucos falantes e correm risco de desaparecer, e que escolas que antes apagavam as línguas causaram dano. A decisão sobre em que língua alfabetizar é de cada povo, e não de quem vem de fora.
+```
+
+```agir
+# Esta semana
+Procure em um dicionário ou site de museu confiável o significado de três palavras de origem indígena que você usa (por exemplo, nomes de frutas ou de lugares) e anote no papel de que língua elas vêm.
 ```
 
 ## Resumo

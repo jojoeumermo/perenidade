@@ -1,5 +1,6 @@
 ---
 titulo: "Cooperativas e economia solidária"
+modelo: 9
 resumo: "A economia solidária reúne atividades de produção, consumo, poupança e crédito organizadas em autogestão: cooperativas, associações, clubes de troca. Os próprios trabalhadores decidem e dividem os resultados. O que propunha o economista Paul Singer e como o movimento se organizou no Brasil."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ E se uma empresa não tivesse patrão? E se as trabalhadoras e os trabalhadores 
 
 Ao fim desta aula você vai entender o que é a economia solidária, como funcionam as cooperativas e como esse movimento se organizou no Brasil.
 
+```suarealidade
+Se você e as pessoas do seu serviço fossem donas do negócio, o que mudaria na sua rotina? E o que daria medo?
+```
+
 ## O que é
 
 A **economia solidária** é o **conjunto de atividades econômicas**, de **produção**, **distribuição**, **consumo**, **poupança** e **crédito**, organizadas sob a forma de **autogestão**. Ela inclui:
@@ -66,6 +71,15 @@ Qual é a principal diferença entre uma cooperativa e uma empresa comum?
 > Releia a seção "Autogestão".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Empresa sem patrão não dá certo: sem quem mande e assuma o risco, falta eficiência e o negócio quebra. Emprego é com patrão." É a experiência de quem viu negócio coletivo desandar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não promete que é fácil. Ela define autogestão como a forma em que os próprios trabalhadores decidem juntos e dividem os resultados, e diz que a finalidade básica de um empreendimento solidário não é maximizar o lucro, mas garantir trabalho em quantidade e qualidade. Paul Singer propunha a economia solidária como estratégia de luta contra as desigualdades e o desemprego. E o movimento se organizou: em 2003 foram criados a Secretaria Nacional de Economia Solidária (SENAES) e o Fórum Brasileiro de Economia Solidária (FBES). Quando e como esses empreendimentos funcionam é uma conversa real, que vale ter com quem já participou de um.
+```
+
 ## Exemplo resolvido
 
 **Uma cooperativa de costureiras teve R$ 12.000 de sobra num mês. Elas decidiram em assembleia guardar 25% para comprar máquinas e dividir o resto igualmente entre as 9 associadas. Quanto cada uma recebe?**
@@ -74,6 +88,11 @@ Qual é a principal diferença entre uma cooperativa e uma empresa comum?
 2. Sobra para dividir: 12.000 − 3.000 = **R$ 9.000**.
 3. Para cada associada: 9.000 ÷ 9 = **R$ 1.000**.
 4. Quem decidiu a divisão foram **as próprias trabalhadoras**.
+
+```agir
+# Esta semana
+Pergunte a uma pessoa de confiança que participe de uma cooperativa ou associação de trabalhadores como as decisões são tomadas lá. Se não conhecer ninguém, anote duas perguntas que faria a uma cooperativa de catadores ou de costureiras.
+```
 
 ## Resumo
 

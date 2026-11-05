@@ -1,5 +1,6 @@
 ---
 titulo: "Acentuação: as regras essenciais"
+modelo: 9
 resumo: "Quatro regras resolvem quase todas as dúvidas de acento. Tudo começa por achar a sílaba mais forte."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber achar a sílaba tônica, aplicar as quatro regras de acentuação e reconhecer o que o Acordo Ortográfico mudou.
 
 
+
+```suarealidade
+Qual palavra você sempre fica em dúvida se leva acento? Onde isso já atrapalhou: no trabalho, num currículo, numa mensagem?
+```
 
 ## Primeiro passo: a sílaba forte
 
@@ -94,6 +99,15 @@ O acordo vale no Brasil desde 2009. Na acentuação, as mudanças principais for
 
 Atenção: **herói, papéis, chapéu, dói** continuam com acento, porque são oxítonas ou monossílabos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Acento é frescura. Quem lê entende de qualquer jeito, e o importante é se fazer entender, não decorar regra." É a opinião de quem escreve do jeito que fala e nunca teve problema para ser entendido.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diz que quem erra o acento é menos inteligente. Mostra que o acento gráfico existe para avisar quando a sílaba forte da palavra não é a esperada, e que a maioria das palavras do português é paroxítona e não leva acento. Quatro regras, a partir da sílaba tônica, resolvem quase tudo: proparoxítonas sempre levam acento, e as oxítonas e as paroxítonas têm terminações que o pedem. O Acordo Ortográfico (no Brasil, desde 2009) até simplificou a escrita de algumas palavras, como ideia, voo e pelo. Aprender a regra economiza dúvida e erro.
+```
+
 ## Exemplo resolvido: acentuar ou não?
 
 **Acentue, se for preciso: armazem, lampada, facil, cafe.**
@@ -104,6 +118,11 @@ Atenção: **herói, papéis, chapéu, dói** continuam com acento, porque são 
 4. **cafe**: ca-**fé**. Oxítona terminada em e leva acento: **café**.
 
 Confira: o primeiro passo é sempre a sílaba tônica; só depois se olha para a terminação.
+
+```agir
+# Esta semana
+Escolha cinco palavras que você usa no trabalho ou em casa e marque a sílaba tônica de cada uma num papel. Diga se é oxítona, paroxítona ou proparoxítona e acentue se for preciso.
+```
 
 ## Resumo
 

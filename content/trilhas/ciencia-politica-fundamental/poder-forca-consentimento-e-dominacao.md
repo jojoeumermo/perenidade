@@ -1,5 +1,6 @@
 ---
 titulo: "Poder: força, consentimento e dominação"
+modelo: 9
 resumo: "Por que as pessoas obedecem? Max Weber definiu o Estado pelo monopólio do uso legítimo da força e descreveu três tipos de dominação. Gramsci mostrou que o poder também se apoia no consentimento. Duas formas de pensar o poder."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Por que você para no sinal vermelho, paga impostos e obedece ao chefe? Por medo
 
 Ao fim desta aula você vai conhecer duas formas de pensar o poder: a de Max Weber, sobre a dominação, e a de Gramsci, sobre a hegemonia.
 
+```suarealidade
+Por que você para no sinal vermelho, paga impostos e obedece ao chefe? Por medo da punição, por costume, porque acha justo, ou porque nunca pensou nisso?
+```
+
 ## O Estado e a força
 
 Para o sociólogo alemão **Max Weber**, o **Estado** se define pela **reivindicação bem-sucedida do monopólio do uso legítimo da força física** num território. Ou seja: só o Estado pode usar a força (polícia, exército, prisão) de forma considerada **legítima**.
@@ -72,6 +77,20 @@ Um líder religioso é seguido porque as pessoas acreditam que ele tem dons espe
 1. **(a)** **racional-legal**.
 2. **(b)** **tradicional**.
 3. **(c)** **carismática**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O poder é simples: quem manda manda e quem obedece obedece. Falar em consentimento e hegemonia é complicar o que todo mundo vê no dia a dia." É uma visão de quem vê o poder como força.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que, para Weber, o Estado tem o monopólio do uso legítimo da força, e que a dominação legítima (a que as pessoas aceitam) pode ser carismática, tradicional ou racional-legal. Gramsci acrescenta que o poder também se apoia no consentimento (hegemonia): muita gente obedece não por medo, mas por achar normal. O poder combina força e consentimento, e perceber isso ajuda a perguntar por que certas coisas parecem naturais.
+```
+
+```agir
+# Esta semana
+Escreva num papel três regras que você obedece sem pensar (no trabalho, em casa, no bairro) e, ao lado de cada uma, o motivo: medo, costume, ou porque você acha justo. Veja se a resposta muda de uma regra para outra.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Como uma máquina aprende com exemplos"
+modelo: 9
 resumo: "O aprendizado supervisionado em linguagem simples: exemplos com a resposta certa, um modelo que procura o padrão e o teste com casos novos. Por que os exemplos precisam representar o mundo real, e o que acontece quando não representam."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Ninguém escreveu, linha por linha, a regra "isto é um gato". Mesmo assim, o ce
 
 Ao fim desta aula você vai entender, sem fórmulas difíceis, como funciona o aprendizado supervisionado: exemplos com a resposta certa, a busca de um padrão e o teste com casos novos.
 
+```suarealidade
+Já aconteceu de um sistema errar com você (o celular que não reconheceu o seu rosto, um crédito negado, uma conta bloqueada)? O que você acha que ele "aprendeu" para decidir assim?
+```
+
 ## Aprender com respostas certas
 
 No **aprendizado supervisionado**, a máquina recebe **exemplos com a resposta certa**, chamados de **dados rotulados**: milhares de fotos marcadas "gato" e "cachorro", milhares de e-mails marcados "spam" e "não spam". O nome "supervisionado" vem da ideia de um **professor** que mostra a resposta. O sistema ajusta um **modelo** até ele acertar a maior parte desses exemplos.
@@ -86,6 +91,20 @@ Um sistema foi treinado só com fotos de gatos tiradas de dia. O que provavelmen
 Olhando os exemplos, um padrão simples aparece: **vermelha → maçã; amarela → banana**. Agora teste com uma fruta nova: **160 g, vermelha**. O modelo diz **maçã**: ele generalizou.
 
 E uma **maçã verde**? Nenhum exemplo era verde: o "modelo" não sabe o que fazer. É o problema dos dados que não representam o mundo.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Máquina não tem preconceito. É só matemática e dados, então é neutra e mais justa do que gente."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a máquina só aprende o padrão que está nos exemplos. Em 2018, as pesquisadoras Joy Buolamwini e Timnit Gebru mostraram que dois bancos de fotos muito usados para treinar análise de rostos tinham 79,6% e 86,2% de pessoas de pele clara, e que três sistemas comerciais erravam mais com mulheres de pele escura: até 34,7% de erro. A máquina não inventa o preconceito, mas repete o que os exemplos mostram. Por isso o treino precisa representar o mundo real.
+```
+
+```agir
+# Esta semana
+Escolha 10 objetos ou fotos da sua casa, separe em duas ou três categorias e anote que padrão você usou para separar. Depois explique a alguém o exemplo da maçã verde da aula.
+```
 
 ## Resumo
 

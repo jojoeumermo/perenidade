@@ -1,0 +1,50 @@
+# Exercícios da aula "O Estácio e o samba que a gente conhece hoje" (samba-a-historia-de-um-povo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: samba-a-historia-de-um-o-estacio-e-o-samba-que-a-gente-conhece-01
+  tema: "Deixa Falar"
+  dificuldade: 1
+  enunciado: "Em que data os sambistas do Estácio fundaram a Deixa Falar, considerada a primeira escola de samba?"
+  alternativas:
+    - texto: "Em 27 de novembro de 1916"
+      erro: "Essa é a data do registro de \"Pelo Telefone\"."
+    - texto: "Em 12 de agosto de 1928"
+      certa: true
+    - texto: "Em 1 de janeiro de 2000"
+      erro: "Foi no fim dos anos 1920."
+  explicacao: "Ela desfilou na Praça Onze nos carnavais de 1929, 1930 e 1931."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O Estácio e o samba que a gente conhece hoje\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-o-estacio-e-o-samba-que-a-gente-conhece-02
+  tema: "Surdo"
+  dificuldade: 2
+  enunciado: "A quem a aula atribui a invenção do surdo?"
+  alternativas:
+    - texto: "A Bide (Alcebíades Barcelos), com latão de manteiga, aros e pele de cabrito"
+      certa: true
+    - texto: "A Tia Ciata"
+      erro: "Tia Ciata é lembrada pela casa e pelo partido-alto."
+    - texto: "A Pixinguinha"
+      erro: "Pixinguinha frequentava a casa de Tia Ciata."
+  explicacao: "O surdo, \"coração do samba\", marca o passo do desfile."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O Estácio e o samba que a gente conhece hoje\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-o-estacio-e-o-samba-que-a-gente-conhece-03
+  tema: "Samba para andar"
+  dificuldade: 2
+  enunciado: "Por que o Estácio precisou de instrumentos novos, segundo a aula?"
+  alternativas:
+    - texto: "Porque o samba de roda era para ficar parado, e o desfile precisava de um ritmo que fizesse o povo andar junto"
+      certa: true
+    - texto: "Porque os instrumentos antigos eram proibidos"
+      erro: "A aula não diz isso."
+    - texto: "Porque as escolas desfilavam em palco fechado"
+      erro: "O desfile era na rua."
+  explicacao: "Em 1929, Bide participou da gravação de \"Na Pavuna\", a primeira gravação em disco com os instrumentos típicos das escolas de samba."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O Estácio e o samba que a gente conhece hoje\""
+  revisao:
+    status: em-revisao

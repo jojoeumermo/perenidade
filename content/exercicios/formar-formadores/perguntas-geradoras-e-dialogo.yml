@@ -1,0 +1,51 @@
+# Exercícios da aula "Perguntas geradoras e diálogo" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-per-01
+  tema: "Pergunta geradora"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas é uma boa pergunta geradora?"
+  alternativas:
+    - texto: "'O que mudou no preço da comida na sua casa nos últimos anos?'"
+      certa: true
+    - texto: "'Vocês sabem o que é mais-valia?'"
+      erro: "É pergunta de prova: quem não sabe se cala."
+    - texto: "'Concordam que o patrão explora?'"
+      erro: "É pergunta de armadilha: fecha a conversa."
+  explicacao: "Pergunta geradora parte do que as pessoas vivem e sabem, e todos podem responder com a vida deles."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-per-02
+  tema: "Como escolher"
+  dificuldade: 2
+  enunciado: "Como escolher a pergunta geradora?"
+  alternativas:
+    - texto: "Escutar o grupo antes, escolher um tema que muita gente vive, escrever com as palavras do grupo e testar com duas pessoas"
+      certa: true
+    - texto: "Escolher a pergunta mais difícil, para desafiar"
+      erro: "A pergunta deve ser acessível."
+    - texto: "Copiar uma pergunta de um livro"
+      erro: "A pergunta deve vir da vida do próprio grupo."
+  explicacao: "Anote as queixas e as falas repetidas do grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-per-03
+  tema: "Depois da pergunta"
+  dificuldade: 2
+  enunciado: "Logo depois de fazer a pergunta geradora, o que o formador faz?"
+  alternativas:
+    - texto: "Dá um minuto de silêncio para cada um pensar ou anotar"
+      certa: true
+    - texto: "Responde logo, para o grupo não perder tempo"
+      erro: "Responder de imediato corta a conversa."
+    - texto: "Escolhe alguém para responder primeiro"
+      erro: "O silêncio dá a todos tempo de pensar."
+  explicacao: "A conversa termina sem entregar uma 'resposta certa' pronta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

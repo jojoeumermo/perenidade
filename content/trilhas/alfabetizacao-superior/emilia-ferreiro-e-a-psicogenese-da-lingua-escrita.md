@@ -1,5 +1,6 @@
 ---
 titulo: "Emilia Ferreiro e a psicogênese da língua escrita"
+modelo: 9
 resumo: "Objetivo: compreender a pesquisa de Emilia Ferreiro e Ana Teberosky sobre como as crianças constroem hipóteses sobre a escrita, os níveis de conceitualização e as implicações para quem alfabetiza."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai explicar a mudança de pergunta que Emilia Ferreiro e Ana Teberosky propuseram (de "como ensinar" para "como se aprende"), reconhecer os níveis de conceitualização da escrita numa produção real e distinguir erro de hipótese de erro de ortografia. E vai tirar as consequências para quem alfabetiza crianças e adultos.
+
+```suarealidade
+Pense numa pessoa que não sabe ler: ela já tem ideias sobre o que são as letras e para que servem? Como você descobriria o que ela pensa?
+```
 
 ## Uma mudança de pergunta
 
@@ -89,6 +94,20 @@ A psicogênese foi muitas vezes mal traduzida na prática, como se bastasse deix
 5. **O que planejar.** Para (a), muito contato com a escrita e com a ideia de que ela representa a fala (o próprio nome, palavras conhecidas). Para (b) e (c), atividades que façam perceber os sons dentro da sílaba. Para (d), revisão do próprio texto e ortografia.
 
 Confira: a classificação veio da escrita **junto com a leitura que a pessoa fez dela**, e cada nível levou a uma ação diferente. Veja como fazer a sondagem em [Diagnóstico inicial](/trilhas/alfabetizacao-aprofundamento/diagnostico-inicial-como-saber-o-que-cada-um-ja-sabe).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Deixar a pessoa 'construir' a escrita sozinha é perda de tempo. O professor tem de ensinar letra por letra, e o erro tem de ser corrigido na hora." É uma preocupação de quem teme que a psicogênese vire falta de ensino.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula afasta esse mal-entendido: a psicogênese não diz que se aprende sozinho, mas que é preciso partir do que a pessoa pensa e propor desafios. Ferreiro e Teberosky mostraram que quem aprende passa por hipóteses (pré-silábica, silábica, silábico-alfabética e alfabética) e que o erro é pista dessa hipótese. Também lembram que alfabético não é ortográfico: depois de entender o princípio alfabético, ainda é preciso aprender a ortografia.
+```
+
+```agir
+# Esta semana
+Peça a uma pessoa de confiança que escreva do jeito dela quatro palavras ditadas (do mesmo campo, como alimentos). Sem corrigir, observe a escrita e anote em que hipótese você acha que ela está. Só faça com o consentimento dela.
+```
 
 ## Resumo
 

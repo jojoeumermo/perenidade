@@ -15,7 +15,11 @@ import path from "node:path";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 const servidor = path.join(raiz, ".next", "server");
-const LIMITE_TOTAL = 700_000;
+// 05/11/2026: 700 mil → 760 mil. O conteúdo novo (3.935 exercícios, 681 aulas no modelo de 9 partes) levou o total a
+// 724 mil, só por mais arquivos em content/ (sem módulo novo lendo disco no layout). Deploys medidos: 680 mil em 25–29
+// min. Acima de ~760 mil o envio fica perto dos 45 min da Vercel: aí é preciso tirar content/acervo e content/exercicios
+// das funções que não os leem na hora (outputFileTracingExcludes), não subir este número de novo.
+const LIMITE_TOTAL = 760_000;
 const LIMITE_FUNCOES_COM_PROJETO = 6;
 
 if (!fs.existsSync(servidor)) {

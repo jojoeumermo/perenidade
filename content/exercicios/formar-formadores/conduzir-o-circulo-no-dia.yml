@@ -1,0 +1,51 @@
+# Exercícios da aula "Conduzir o círculo no dia" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-con-01
+  tema: "Quem fala demais"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Marcos responde a todas as perguntas do círculo. O que a formadora pode dizer?"
+  alternativas:
+    - texto: "'Obrigada, Marcos. Quero ouvir quem ainda não falou hoje.'"
+      certa: true
+    - texto: "'Marcos, cale a boca.'"
+      erro: "Isso humilha. É possível redistribuir a palavra com respeito."
+    - texto: "Nada: quem sabe mais deve falar mais"
+      erro: "Todos têm direito à voz. Quem fala demais ocupa o espaço dos outros."
+  explicacao: "Dar voz a todos vale para quem fala demais, para quem fala pouco e para quem não fala nada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-con-02
+  tema: "O silêncio"
+  dificuldade: 2
+  enunciado: "Depois de uma pergunta ao grupo, o que o formador deve fazer?"
+  alternativas:
+    - texto: "Esperar, contando devagar até dez, para dar tempo de pensar"
+      certa: true
+    - texto: "Responder sozinho logo, para não ficar silêncio"
+      erro: "Se o formador responde sozinho, o grupo aprende a esperar a resposta pronta."
+    - texto: "Passar logo para a próxima pergunta"
+      erro: "Sem tempo para pensar, quase ninguém responde."
+  explicacao: "O silêncio é uma ferramenta. Se durar demais, reformule a pergunta com outras palavras."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-con-03
+  tema: "Quando você não sabe"
+  dificuldade: 2
+  enunciado: "Alguém pergunta uma coisa que o formador não sabe. O que ele faz?"
+  alternativas:
+    - texto: "Diz que não sabe, anota a pergunta, pede ajuda ao grupo e combina trazer a resposta com fonte no próximo encontro"
+      certa: true
+    - texto: "Inventa uma resposta para não perder o respeito"
+      erro: "Isso ensina desonestidade. Dizer que não sabe é honesto."
+    - texto: "Muda de assunto"
+      erro: "Evitar a pergunta tira a chance de aprender juntos."
+  explicacao: "Isso ensina honestidade e mostra que estudar é permanente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

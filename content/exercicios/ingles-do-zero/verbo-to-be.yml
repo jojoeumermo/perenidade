@@ -1,0 +1,67 @@
+# Exercícios da aula "Verbo to be" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-tob-01
+  tema: "Forma do verbo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a forma correta?  She ___ a nurse."
+  alternativas:
+    - texto: "is"
+      certa: true
+    - texto: "am"
+      erro: "am só se usa com I."
+    - texto: "are"
+      erro: "are se usa com you, we e they."
+  explicacao: "Am só com I; is com he, she e it; are com os demais pronomes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-tob-02
+  tema: "Pergunta"
+  dificuldade: 2
+  enunciado: "Como se transforma 'He is a teacher' em pergunta?"
+  alternativas:
+    - texto: "Is he a teacher?"
+      certa: true
+    - texto: "Does he is a teacher?"
+      erro: "Com o verbo to be não se usa do nem does: basta inverter."
+    - texto: "He is a teacher?"
+      erro: "Na escrita correta, o verbo vai para a frente."
+  explicacao: "Respostas curtas: Yes, he is. / No, he isn't."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-tob-03
+  tema: "Sujeito obrigatório"
+  dificuldade: 2
+  enunciado: "Como se diz 'Está frio' em inglês?"
+  alternativas:
+    - texto: "It's cold."
+      certa: true
+    - texto: "Is cold."
+      erro: "Em inglês a frase precisa de sujeito: é preciso o it."
+    - texto: "Has cold."
+      erro: "Para frio, usa-se to be, e não have."
+  explicacao: "Em inglês, a frase sempre precisa de sujeito. O it faz esse papel quando não há outro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-tob-04
+  tema: "Negativa"
+  dificuldade: 2
+  enunciado: "Qual é a negativa de 'They are students'?"
+  alternativas:
+    - texto: "They are not students. (They aren't students.)"
+      certa: true
+    - texto: "They don't are students."
+      erro: "Com to be não se usa don't: põe-se not depois do verbo."
+    - texto: "Not they are students."
+      erro: "O not vem depois do verbo."
+  explicacao: "Coloque not depois do verbo: am not, is not (isn't) e are not (aren't)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

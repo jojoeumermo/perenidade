@@ -1,5 +1,6 @@
 ---
 titulo: "Medidas e unidades"
+modelo: 9
 resumo: "Objetivo: aprender o que é medir, quais são as unidades do Sistema Internacional e como evitar os erros mais comuns com unidades."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é medir, usar os prefixos do Sistema Internacional (quilo, mili, giga) e converter unidades como km/h em m/s sem errar.
+
+```suarealidade
+Onde você mede coisas no trabalho ou em casa (trena, balança, receita, litros, quilos)? Já desconfiou de alguma medida?
+```
 
 
 ## Medir é comparar
@@ -122,6 +127,20 @@ Vale para a balança da feira, o medidor de pressão e o hidrômetro. E é um di
 4. Meça três vezes o comprimento de uma mesa. Os resultados foram idênticos? Por quê?
 
 **Respostas:** 1) 25 m/s; 54 km/h; 150 minutos. 2) 0,5 g. 3) 2 bilhões de watts.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Balança de feira e bomba de posto sempre foram assim. Desconfiar de medida é implicância."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que nenhuma medida é exata e que conferir a unidade é a verificação mais barata que existe: em 1999, a sonda Mars Climate Orbiter foi perdida porque uma equipe usou unidades do sistema inglês e a outra, do Sistema Internacional. E diz que, no Brasil, as balanças e as bombas de combustível usadas no comércio devem ser verificadas pelo órgão de metrologia, e que o consumidor pode exigir a conferência. Conferir não é implicância: é um direito.
+```
+
+```agir
+# Esta semana
+Converta 90 km/h em metros por segundo e meça três vezes o comprimento de uma mesa da sua casa. Anote se os três resultados deram iguais e por quê.
+```
 
 ## Resumo
 

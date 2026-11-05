@@ -1,5 +1,6 @@
 ---
 titulo: "O voto proporcional: como se elege vereador e deputado"
+modelo: 9
 resumo: "Por que quem tem mais votos nem sempre se elege: o quociente eleitoral, o quociente partidário, a votação mínima de 10%, a divisão das sobras e a decisão do STF de 2024, com uma conta passo a passo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -52,6 +53,10 @@ Na última eleição, uma candidata teve 3 mil votos e não se elegeu. Outro can
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber como vereadores e deputados são eleitos, fazer a conta das cadeiras e entender por que o voto no partido pesa tanto.
+
+```suarealidade
+Na última eleição para vereador da sua cidade, você votou numa pessoa ou num partido? Sabe para onde vai o seu voto se a pessoa não for eleita?
+```
 
 ## Primeiro o partido, depois a pessoa
 
@@ -116,6 +121,15 @@ Por que o voto de legenda (só no número do partido) importa?
 > Releia a seção "Primeiro o partido, depois a pessoa".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "É injusto: uma candidata com 3 mil votos ficar de fora e outro com 900 entrar é desrespeitar o eleitor. Deveria ser eleito quem teve mais votos, ponto." É uma crítica comum ao sistema proporcional.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica a lógica: nas eleições para vereador e deputado, primeiro as cadeiras são divididas entre os partidos, na proporção dos votos de cada um, e só depois vão para os mais votados de cada partido. Por isso o voto num candidato também é um voto no partido, e o voto de legenda conta para a divisão. A conta é feita passo a passo (quociente eleitoral, quociente partidário e sobras). A regra não é parada no tempo: o candidato precisa de pelo menos 10% do quociente eleitoral (regra de 2021) e, em 2024, o STF decidiu que a última fase das sobras fica aberta a todos os partidos. Para prefeito, governador, senador e presidente vale outro sistema, o majoritário: ganha quem tem mais votos.
+```
+
 ## Exemplo resolvido
 
 **O movimento tem uma candidata forte, mas o partido dela é pequeno. O que fazer?**
@@ -124,6 +138,11 @@ Por que o voto de legenda (só no número do partido) importa?
 2. Por isso a estratégia é **coletiva**: uma **chapa completa**, com candidaturas de vários bairros e categorias, que somem votos para o partido.
 3. A **federação** com partidos aliados pode juntar votos de todos numa conta só.
 4. E a campanha pede também o **voto no partido**, não só na pessoa.
+
+```agir
+# Esta semana
+Explique a três pessoas de confiança, usando o exemplo da provocação, que o voto num candidato a vereador também conta para o partido. Anote o que elas acharam da regra, sem escrever o nome de ninguém.
+```
 
 ## Resumo
 

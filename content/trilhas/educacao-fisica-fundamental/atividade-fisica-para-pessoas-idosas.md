@@ -1,5 +1,6 @@
 ---
 titulo: "Atividade física para pessoas idosas"
+modelo: 9
 resumo: "Para quem tem 65 anos ou mais, a OMS recomenda o mesmo movimento dos adultos e mais: exercícios de equilíbrio, coordenação e força, que ajudam a prevenir quedas. Como começar com segurança e em grupo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ quiz:
 
 Ao fim desta aula você vai saber o que a OMS recomenda para pessoas idosas e montar uma sessão simples e segura de exercícios.
 
+```suarealidade
+Pense numa pessoa idosa da sua família ou do seu bairro. O que ela faz de movimento na semana (ir à feira, subir escada, cuidar da horta) e o que a deixa parada em casa?
+```
+
 ## O que a OMS recomenda
 
 Para pessoas com **65 anos ou mais**, as diretrizes da OMS de 2020 recomendam a mesma base dos adultos (**150 a 300 minutos por semana** de atividade aeróbica moderada a vigorosa) e mais: atividades que trabalhem **equilíbrio e coordenação** e **fortalecimento muscular**, para **prevenir quedas** e melhorar a saúde.
@@ -89,6 +94,20 @@ Para uma pessoa de 70 anos, o que a OMS recomenda além da atividade aeróbica?
 | Equilíbrio | ficar num pé só, segurando no encosto (10 segundos cada lado, 3 vezes) | 4 min |
 | Coordenação | bater palma e tocar o joelho oposto, alternando | 3 min |
 | Voltar à calma | respirar fundo, alongar braços e pernas sem forçar | 3 min |
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que, depois dos 65 anos, o certo é descansar: o corpo já deu o que tinha, e exercício na velhice só aumenta o risco de queda e de passar mal.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a preocupação com a segurança é justa, e por isso a aula manda começar devagar, ter um apoio por perto e conversar com a equipe de saúde quem tem alguma doença. Mas, segundo a OMS, para pessoas com 65 anos ou mais as atividades de equilíbrio, coordenação e força existem justamente para prevenir quedas, e qualquer movimento é melhor do que nenhum. Ficar parado não protege: o que protege é o movimento certo, no ritmo certo.
+```
+
+```agir
+# Esta semana
+Convide uma pessoa idosa de quem você gosta para fazer, junto com você, 10 minutos de movimento com uma cadeira firme como apoio (sentar e levantar devagar, marchar no lugar). Se ela tiver alguma doença, converse antes com a equipe de saúde. Anote num papel como foi.
+```
 
 ## Resumo
 

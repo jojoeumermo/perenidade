@@ -1,0 +1,50 @@
+# Exercícios da aula "Trabalho infantil e os direitos da criança" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-trabalho-infantil-e-os-direitos-da-crian-01
+  tema: "Idade mínima"
+  dificuldade: 1
+  enunciado: "Qual é a idade mínima para entrar no mercado de trabalho, segundo a lei brasileira citada na aula, e para trabalhar como aprendiz?"
+  alternativas:
+    - texto: "16 anos; 14 anos como aprendiz"
+      certa: true
+    - texto: "12 anos; 10 anos como aprendiz"
+      erro: "Está abaixo do previsto na aula."
+    - texto: "18 anos; 16 anos como aprendiz"
+      erro: "Está acima do previsto na aula."
+  explicacao: "O aprendiz recebe formação profissional e precisa continuar frequentando a escola."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Trabalho infantil e os direitos da criança\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-trabalho-infantil-e-os-direitos-da-crian-02
+  tema: "Números de 2025"
+  dificuldade: 2
+  enunciado: "Segundo o IBGE, em 2025, quantas crianças e adolescentes de 5 a 17 anos estavam em trabalho infantil?"
+  alternativas:
+    - texto: "Cerca de 1,5 milhão, 4,0% dessa faixa de idade"
+      certa: true
+    - texto: "Cerca de 15 milhões"
+      erro: "É dez vezes mais."
+    - texto: "Cerca de 150 mil"
+      erro: "É dez vezes menos."
+  explicacao: "Foi o menor valor da série histórica, com queda de 9,2% em relação ao ano anterior."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Trabalho infantil e os direitos da criança\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-trabalho-infantil-e-os-direitos-da-crian-03
+  tema: "ECA art. 4º"
+  dificuldade: 2
+  enunciado: "O artigo 4º do ECA diz que é dever de quem garantir os direitos da criança e do adolescente com absoluta prioridade?"
+  alternativas:
+    - texto: "Da família, da comunidade, da sociedade e do poder público"
+      certa: true
+    - texto: "Só do poder público"
+      erro: "O artigo inclui a família, a comunidade e a sociedade."
+    - texto: "Só da família"
+      erro: "O artigo inclui outros."
+  explicacao: "Algumas atividades estão na Lista das Piores Formas de Trabalho Infantil (Lista TIP): em 2025, cerca de 525 mil estavam nelas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Trabalho infantil e os direitos da criança\""
+  revisao:
+    status: em-revisao

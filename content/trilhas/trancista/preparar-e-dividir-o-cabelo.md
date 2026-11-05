@@ -1,5 +1,6 @@
 ---
 titulo: "Preparar e dividir o cabelo"
+modelo: 9
 resumo: "Como deixar o cabelo pronto para trançar (limpo, hidratado e desembaraçado), planejar as divisões com o pente de cauda, calcular quantas tranças vão caber e quanto tempo o trabalho vai levar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Duas trancistas fazem box braids com o mesmo cabelo. Uma termina com tranças al
 
 Ao fim desta aula você vai preparar o cabelo para trançar, planejar e riscar as divisões com o pente de cauda, proteger a linha da testa e calcular quantas tranças vão caber e quanto tempo o trabalho vai levar.
 
+```suarealidade
+Antes de começar uma trança, o que você faz com o cabelo? Lava, hidrata, desembaraça? Quanto tempo gasta nessa parte?
+```
+
 ## Cabelo pronto para trançar
 
 1. **Avaliar o couro cabeludo** (aula anterior). Se houver sinal de problema, não seguir.
@@ -91,6 +96,15 @@ A cliente quer box braids finas e só tem três horas. O que é honesto dizer?
 > Divisão pequena significa muitas tranças e muitas horas.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dividir bonitinho é perda de tempo. O que importa é a trança pronta, e o cabelo a gente divide no olho, na pressa." É a opinião de quem trabalha contra o relógio.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a divisão é o desenho do penteado: quadrados nas box braids, linhas na nagô. Use o pente de cauda para riscar e presilhas para separar, seguindo uma ordem. Divisão menor significa mais tranças, mais finas e mais tempo, então dividir no olho muda o tempo e o preço. E é preciso proteger a linha da testa e as têmporas, com menos tração e menos peso ali. Dividir com calma poupa trabalho depois.
+```
+
 ## Exemplo resolvido
 
 **A cliente quer box braids médias. Você planeja 8 fileiras, de 10 tranças cada. Você leva, em média, 6 minutos por trança, e faz uma pausa de 15 minutos a cada 2 horas. Quanto tempo vai levar o atendimento?**
@@ -103,6 +117,11 @@ Total: 8 h + 45 min = 8 h 45 min
 ```
 
 O atendimento leva **quase 9 horas**. Antes de marcar, combine com a cliente e pense se vale propor divisões maiores (menos tranças), dividir em dois dias ou trabalhar com outra trancista. Esse cálculo também entra no preço (aula de atendimento e preço).
+
+```agir
+# Esta semana
+Treine riscar divisões retas com o pente de cauda numa boneca ou peruca de treino. Depois faça a conta do tempo: fileiras × tranças × minutos por trança.
+```
 
 ## Resumo
 

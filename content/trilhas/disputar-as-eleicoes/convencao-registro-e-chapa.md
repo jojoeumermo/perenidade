@@ -1,5 +1,6 @@
 ---
 titulo: "Do partido à urna: convenção, registro e chapa"
+modelo: 9
 resumo: "Como o partido escolhe os candidatos na convenção, o que o registro exige até as 19 horas de 15 de agosto, quantos nomes cabem na chapa, a cota mínima de 30% de cada sexo, as federações partidárias e o número de cada candidatura na urna."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ O seu coletivo decidiu lançar uma candidatura. Mas quem decide de verdade se o 
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber como o partido escolhe os candidatos, o que o registro exige, quantos nomes cabem numa chapa e como funcionam as federações e as coligações.
+
+```suarealidade
+Quem escolhe os candidatos do partido que você conhece? Já viu uma reunião ou convenção partidária no seu bairro?
+```
 
 ## A convenção
 
@@ -98,6 +103,15 @@ Uma chapa para a câmara municipal tem 20 candidaturas. Qual é o número mínim
 > 30% de 20 são 6.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Convenção é jogo de cartas marcadas: quem manda no partido escolhe os nomes, e a base não tem vez. Não vale a pena entrar em partido." É a desconfiança de quem já se sentiu de fora.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que a disputa por uma candidatura começa dentro do partido, meses antes: quem chega à convenção, de 20 de julho a 5 de agosto, com base organizada e proposta clara, tem mais força para ser escolhido. E, como não existe candidatura sem partido (veja a aula sobre título, domicílio e filiação), é lá dentro que a escolha acontece. A lei põe limites ao jogo: a ata da convenção é o primeiro documento do registro, qualquer candidato, partido ou o Ministério Público pode impugnar um registro, e cada chapa precisa ter no mínimo 30% e no máximo 70% de candidaturas de cada sexo.
+```
+
 ## Exemplo resolvido
 
 **O seu coletivo quer lançar a Rosa, liderança do bairro, para vereadora. Qual é o caminho?**
@@ -106,6 +120,11 @@ Uma chapa para a câmara municipal tem 20 candidaturas. Qual é o número mínim
 2. **No partido**: o coletivo apresenta o nome da Rosa nas reuniões, com a proposta e a lista de apoios do bairro.
 3. **Na convenção** (20 de julho a 5 de agosto): o nome dela entra na ata.
 4. **Até 15 de agosto, 19 horas**: o partido pede o registro com todos os documentos. Vale juntar tudo **semanas antes**: certidão vencida ou foto errada atrasa o registro.
+
+```agir
+# Esta semana
+Anote num papel as datas-chave do ano da eleição (convenção de 20 de julho a 5 de agosto; registro até as 19 horas de 15 de agosto) e cole num lugar onde o seu coletivo veja. Confira as datas exatas no calendário do TSE.
+```
 
 ## Resumo
 

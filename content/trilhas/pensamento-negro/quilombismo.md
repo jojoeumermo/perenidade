@@ -30,7 +30,7 @@ quiz:
   - pergunta: "O que Abdias fez ao voltar do exílio, em 1978?"
     opcoes: ["Colaborou fortemente para a criação do MNU", "Foi viver nos EUA", "Abandonou a política"]
     resposta: 0
-    explicacao: "Depois foi deputado federal, o primeiro parlamentar engajado no combate ao racismo."
+    explicacao: "Depois foi deputado federal e levou o combate ao racismo para o Congresso."
 ---
 
 ```provocacao

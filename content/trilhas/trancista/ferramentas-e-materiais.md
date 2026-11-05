@@ -1,5 +1,6 @@
 ---
 titulo: "Ferramentas e materiais"
+modelo: 9
 resumo: "O kit básico da trancista, para que serve cada pente, a diferença entre fibra sintética e cabelo humano, por que não usar chapinha na fibra, como limpar e desinfetar os materiais entre uma cliente e outra e o que exigir dos produtos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -56,6 +57,10 @@ Você passou o dia trançando quatro clientes com o mesmo pente de cauda. Ele fo
 
 Ao fim desta aula você vai montar o kit básico de trabalho, saber para que serve cada ferramenta, conhecer a diferença entre fibra sintética e cabelo humano, limpar e desinfetar os materiais do jeito certo e saber o que exigir dos produtos.
 
+```suarealidade
+O que tem no seu kit de trabalho, ou no de quem tranca perto de você? Você sabe dizer quando foi a última vez que o pente foi desinfetado?
+```
+
 ## O kit básico
 
 | Ferramenta | Para que serve |
@@ -104,6 +109,15 @@ Qual é a ordem certa para cuidar do pente entre duas clientes?
 > A sujeira protege os micróbios: primeiro se limpa, depois se desinfeta.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Pente é pente, passa um pano e pronto. Desinfetar a cada cliente é exagero e gasta tempo e dinheiro." É a opinião de quem tem pressa e pouco tempo entre uma cliente e outra.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que micose e piolho podem passar por pente compartilhado. Por isso é preciso limpar com água e sabão e depois desinfetar com álcool 70% a cada atendimento, usar só produto com registro na Anvisa e dentro da validade e ler a embalagem das fibras, porque a maioria das sintéticas não aguenta calor. O cuidado é pequeno perto do risco de uma cliente se contaminar.
+```
+
 ## Exemplo resolvido
 
 **Monte a lista de compras e a rotina de limpeza para quem vai começar a trançar em casa, atendendo até três clientes por dia.**
@@ -122,6 +136,11 @@ Qual é a ordem certa para cuidar do pente entre duas clientes?
 3. Passar álcool 70% nos pentes, na tesoura, na cadeira e na mesa.
 4. Separar a toalha e a capa usadas para lavar.
 5. Usar o pente seco e desinfetado na cliente seguinte.
+
+```agir
+# Esta semana
+Escreva a rotina de limpeza entre clientes (água e sabão, depois álcool 70%) e cole perto da sua bancada. Procure também o telefone ou o site da vigilância sanitária da sua cidade e anote.
+```
 
 ## Resumo
 

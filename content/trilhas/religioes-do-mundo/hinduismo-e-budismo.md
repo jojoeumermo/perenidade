@@ -1,5 +1,6 @@
 ---
 titulo: "Hinduísmo e budismo"
+modelo: 9
 resumo: "Duas grandes tradições nascidas na Índia antiga. O hinduísmo reúne muitas tradições unidas pelo dharma, com ideias como carma e samsara. O budismo, baseado nos ensinamentos de Sidarta Gautama, o Buda, busca a superação do sofrimento. O que elas têm em comum e onde se diferenciam."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ E se a vida não fosse uma linha reta, do nascimento à morte, mas um círculo q
 
 Ao fim desta aula você vai conhecer as ideias centrais do hinduísmo e do budismo.
 
+```suarealidade
+Você conhece alguém, no trabalho ou no bairro, que siga uma religião diferente da sua? O que você sabe sobre ela?
+```
+
 ## Hinduísmo
 
 **Hinduísmo** é um termo para uma **ampla gama** de tradições religiosas e espirituais **indianas**, unidas pelo conceito de **dharma**: uma **ordem universal** mantida pelos fiéis por meio de **rituais** e de uma **vida justa**. Alguns o chamam de *Sanātana Dharma*, o "dharma eterno".
@@ -71,6 +76,15 @@ Qual é uma diferença importante entre o budismo e as religiões abraâmicas?
 > Releia a seção "Budismo".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Só preciso conhecer a minha religião. Estudar a dos outros é perda de tempo e pode até enfraquecer a minha fé." É a opinião de quem leva a própria fé a sério.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Conhecer não é aderir. A aula apresenta o hinduísmo, que reúne muitas tradições indianas unidas pelo dharma, com escrituras como os Vedas, as Upanixades e o Bhagavad Gita, e o budismo, baseado nos ensinamentos de Sidarta Gautama, o Buda, uma fé não teísta. Saber o que cada tradição ensina ajuda a conviver com respeito e a não repetir o que se ouve por aí.
+```
+
 ## Exemplo resolvido
 
 **Compare as duas tradições em três pontos.**
@@ -78,6 +92,11 @@ Qual é uma diferença importante entre o budismo e as religiões abraâmicas?
 1. **Origem**: as duas nasceram na **Índia antiga**.
 2. **Ideia comum**: o **samsara**, o ciclo de renascimentos, e a busca da **libertação** dele (moksha no hinduísmo, Nirvana no budismo).
 3. **Diferença**: o hinduísmo inclui crenças em **deuses**; o budismo é **não teísta**.
+
+```agir
+# Esta semana
+Se uma pessoa de outra religião quiser conversar, pergunte com respeito o que é mais importante na fé dela e escute sem discutir.
+```
 
 ## Resumo
 

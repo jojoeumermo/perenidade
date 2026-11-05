@@ -1,5 +1,6 @@
 ---
 titulo: "Atender e entender o que o cliente quer"
+modelo: 9
 resumo: "A conversa antes do corte: as perguntas que evitam decepção, as palavras do ofício (contorno, laterais e topo), como a costeleta muda o rosto, confirmar com o espelho e informar o preço antes, como manda o Código de Defesa do Consumidor."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ O cliente diz: "Só dá uma aparada". Para ele, isso é um dedo. Para você, mei
 ## O que você vai aprender
 
 Ao fim desta aula você vai conduzir a conversa antes do corte, usar as palavras do ofício para combinar o corte, entender como a costeleta muda o rosto, confirmar o pedido antes de começar e informar o preço como manda o Código de Defesa do Consumidor.
+
+```suarealidade
+O cliente diz "só dá uma aparada". Para ele isso é um dedo e para você é meio palmo. Em que outras situações do seu trabalho a mesma palavra quer dizer coisas diferentes para cada lado?
+```
 
 ## As três partes do corte
 
@@ -107,6 +112,20 @@ O cliente mostra a foto de um jogador com o topo longo e as laterais raspadas. O
 5. **Costeletas**: médias, porque ele tem o rosto mais longo e não quer alongar mais.
 6. **Confirmação**: "Então: topo tirando um dedo, laterais na tesoura sem aparecer a pele, nuca arredondada e costeletas médias. Fica R$ 35, como está na tabela. Pode ser?"
 7. **Registro** (num caderno ou no celular): nome, data e o que foi feito. Na próxima vez, é só repetir.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Perder tempo conversando antes do corte atrasa a fila e irrita o cliente. O barbeiro com experiência sabe o que o cliente quer só de olhar." É um argumento de quem tem a agenda cheia.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a conversa é curta e evita o retrabalho: perguntar o que, quanto, laterais, nuca, costeletas e frequência, repetir o pedido e conferir no espelho antes de começar. O que se corta não volta. O preço claro antes é direito do cliente (Código de Defesa do Consumidor, artigos 6º e 39). Dois minutos de conversa custam menos do que um corte refeito.
+```
+
+```agir
+# Esta semana
+Escreva num papel as sete perguntas da aula e treine-as em voz alta com um amigo ou parente, como se ele fosse o cliente. Peça que ele diga com as próprias palavras como quer o corte.
+```
 
 ## Resumo
 

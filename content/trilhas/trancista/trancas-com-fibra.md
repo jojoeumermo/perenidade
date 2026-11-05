@@ -1,5 +1,6 @@
 ---
 titulo: "Tranças com fibra"
+modelo: 9
 resumo: "Os tipos de fibra e de cabelo para alongar as tranças, o que muda com o calor, como acrescentar a fibra com e sem nó, na nagô e nas tranças soltas, como calcular quanta fibra comprar e quem paga por ela."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -53,6 +54,10 @@ A cliente chega com quatro pacotes de fibra comprados por ela. Você calcula que
 
 Ao fim desta aula você vai conhecer os tipos de fibra e de cabelo usados em tranças, saber o que pode e o que não pode ir ao calor, acrescentar fibra com e sem nó, na nagô e nas tranças soltas, calcular a quantidade e combinar com a cliente quem compra.
 
+```suarealidade
+Quando a fibra é escolhida, quem decide quanto comprar e quem paga? Já faltou ou sobrou fibra?
+```
+
 ## Os tipos
 
 O **alongamento** pode ser feito com **cabelo humano** ou com **fibra sintética**.
@@ -100,6 +105,15 @@ A cliente quer passar chapinha nas pontas das box braids recém-feitas com fibra
 > Leia sempre a embalagem da fibra.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quanto mais fibra, melhor o volume e o resultado. A cliente quer cheia, e é só aguentar o peso." É a opinião de quem quer agradar a cliente.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que mais fibra é mais peso, com risco de dor de cabeça por tração e de alopecia. Por isso é preciso calcular os pacotes antes e mostrar os materiais separados no orçamento. A fibra mais usada é a modacrílica, e a maioria das sintéticas não aguenta calor: leia a embalagem.
+```
+
 ## Exemplo resolvido
 
 **Box braids médias, 9 fileiras com 10 tranças. Pela sua tabela, um pacote da fibra que você usa rende 8 tranças desse comprimento. O pacote custa R$ 18 (preço do exemplo). Calcule os pacotes e o valor dos materiais para o orçamento.**
@@ -111,6 +125,11 @@ Materiais: 12 × R$ 18 = R$ 216
 ```
 
 No orçamento, a linha de **materiais** traz "12 pacotes de fibra: R$ 216", separada da **mão de obra**. Se a cliente preferir comprar, você passa a lista: "12 pacotes da fibra tal, na cor tal".
+
+```agir
+# Esta semana
+Monte com outra trancista uma tabela com o rendimento (quantos pacotes por penteado) das fibras que vocês usam.
+```
 
 ## Resumo
 

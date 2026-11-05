@@ -1,5 +1,6 @@
 ---
 titulo: "Figuras de duração: quanto tempo dura cada nota"
+modelo: 9
 resumo: "Semibreve, mínima, semínima e colcheia: cada figura vale metade da anterior."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber ler a duração pelas figuras (semibreve, mínima, semínima e colcheia) e somar quantos tempos duram juntas.
+
+```suarealidade
+Quando você bate palma no ritmo de uma música, algumas palmas são mais curtas e outras mais longas? Como você sabe quanto segurar cada uma?
+```
 
 ## A altura está no lugar; a duração, no desenho
 
@@ -72,6 +77,15 @@ A semínima vale um tempo. Quantos tempos duram, somadas, uma mínima e duas sem
 > Some: a mínima vale dois tempos; cada semínima, um.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Isso de figura e valor é matemática, e eu sempre fui ruim de conta. Música é coração." É a opinião de quem teve má experiência com a escola.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a conta é simples: cada figura vale metade da anterior (semibreve, mínima, semínima e colcheia). Uma semibreve dura o mesmo que duas mínimas, quatro semínimas ou oito colcheias. Com a semínima valendo um tempo, a semibreve vale 4, a mínima 2 e a colcheia meio tempo. O andamento decide a velocidade, mas as proporções continuam as mesmas. A conta está a serviço do coração: é ela que deixa várias pessoas tocarem juntas.
+```
+
 ## Exemplo resolvido
 
 **Quantos tempos duram, somadas, uma mínima e duas semínimas? Considere que a semínima vale um tempo.**
@@ -91,6 +105,11 @@ Abra o [metrônomo](/ferramentas/metronomo) em 60 batidas por minuto. Cada cliqu
 3. Bata duas palmas iguais por clique: colcheias.
 
 Quando ficar fácil, alterne: quatro semínimas, duas mínimas, oito colcheias, uma semibreve.
+
+```agir
+# Esta semana
+Marque quatro tempos batendo o pé. Bata uma palma por tempo e depois duas palmas por tempo. Perceba que cada palma do segundo jeito dura metade da primeira.
+```
 
 ## Resumo
 

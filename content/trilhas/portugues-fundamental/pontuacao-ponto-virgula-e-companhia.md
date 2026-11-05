@@ -1,5 +1,6 @@
 ---
 titulo: "Pontuação: ponto, vírgula e companhia"
+modelo: 9
 resumo: "Os sinais que organizam a frase escrita, os usos da vírgula e os dois lugares onde ela nunca entra."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,10 @@ quiz:
     resposta: 0
     explicacao: "Os dois-pontos anunciam o que vem a seguir: uma lista, uma explicação, uma fala."
 ---
+
+```suarealidade
+Você costuma pontuar as suas mensagens? Já teve um mal-entendido porque alguém leu uma frase sua de um jeito que você não quis dizer?
+```
 
 ## Para que serve
 
@@ -126,6 +131,15 @@ O gerente disse: "Não haverá demissões".
 
 **Parênteses ( )** guardam uma informação complementar, que o leitor pode pular.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Vírgula é onde a gente respira: na dúvida, é só pôr onde dá uma pausa. O resto é detalhe de gramática." É a opinião de quem aprendeu a pontuar pela respiração.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula traz um conselho contra isso: a vírgula não marca onde se respira, marca a organização da frase. Há pausas na fala sem vírgula na escrita e vírgulas na escrita sem pausa na fala. E a vírgula muda o sentido: "Não, espere" e "Não espere" dizem coisas opostas. Entre as regras, não se separa com vírgula o sujeito do verbo nem o verbo do complemento. Na dúvida, a aula recomenda o ponto. Pontuar bem evita o mal-entendido, sem precisar de nenhuma regra decorada.
+```
+
 ## Exemplo resolvido: pontuando três frases
 
 1. **"Dona Lúcia presidente da associação abriu a reunião."** O trecho "presidente da associação" é uma explicação encaixada; vai entre duas vírgulas: **Dona Lúcia, presidente da associação, abriu a reunião.**
@@ -133,6 +147,11 @@ O gerente disse: "Não haverá demissões".
 3. **"Os moradores do bairro, pediram mais ônibus."** Pergunte "quem fez?" (os moradores do bairro) e "fez o quê?" (pediu mais ônibus): as respostas ficam coladas ao verbo, sem vírgula: **Os moradores do bairro pediram mais ônibus.**
 
 Confira: a vírgula não marca onde se respira, e sim a organização da frase.
+
+```agir
+# Esta semana
+Pegue uma mensagem longa que você escreveu esta semana, sem pontuação, e reescreva num papel dividindo em frases curtas com ponto. Leia a versão nova para alguém e veja se ele entende de primeira.
+```
 
 ## Resumo
 

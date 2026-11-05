@@ -1,0 +1,50 @@
+# Exercícios da aula "A trança de três mechas" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-a-tranca-de-tres-mechas-01
+  tema: "Mechas"
+  dificuldade: 1
+  enunciado: "Como a aula manda dividir o cabelo na trança de três mechas?"
+  alternativas:
+    - texto: "Em três partes iguais, com o pente de cauda, e não no olho"
+      certa: true
+    - texto: "Em uma mecha grossa e duas finas"
+      erro: "Se uma mecha é mais grossa, a trança fica torta."
+    - texto: "Em quatro partes"
+      erro: "A trança é de três mechas."
+  explicacao: "Os três segredos: mechas iguais, tensão constante e mãos perto da cabeça."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A trança de três mechas\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-a-tranca-de-tres-mechas-02
+  tema: "Por cima ou por baixo"
+  dificuldade: 2
+  enunciado: "Que efeito tem passar a mecha da ponta por baixo da do meio?"
+  alternativas:
+    - texto: "A trança fica em relevo, saltada para fora, como nas tranças nagô"
+      certa: true
+    - texto: "A trança fica achatada"
+      erro: "Achatada é a trança feita por cima."
+    - texto: "A trança desmancha"
+      erro: "O efeito é relevo, e não desmanchar."
+  explicacao: "Por cima: a trança fica achatada. Por baixo: fica em relevo, como na nagô."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A trança de três mechas\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-a-tranca-de-tres-mechas-03
+  tema: "Tensão"
+  dificuldade: 2
+  enunciado: "Por que a tensão deve ser constante, nem frouxa nem muito apertada?"
+  alternativas:
+    - texto: "Trança frouxa desmancha; apertada demais machuca e pode causar alopecia de tração"
+      certa: true
+    - texto: "Porque a trança só fica bonita assim"
+      erro: "A aula explica pelos riscos."
+    - texto: "Porque o cabelo cresce mais rápido"
+      erro: "Não é o motivo."
+  explicacao: "Quanto mais perto do couro você trança, mais controle tem, sem precisar puxar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A trança de três mechas\""
+  revisao:
+    status: em-revisao

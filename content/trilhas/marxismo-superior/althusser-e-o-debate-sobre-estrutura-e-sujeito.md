@@ -25,7 +25,7 @@ quiz:
     resposta: 0
     explicacao: "Aparece em Pour Marx (1965)."
   - pergunta: "Qual é a tese do 'anti-humanismo teórico'?"
-    opcoes: ["A primazia da luta de classes e a crítica da individualidade como produto da ideologia burguesa", "Que os humanos não importam", "Que a teoria é inútil"]
+    opcoes: ["A recusa de explicar a história por uma essência humana universal: para Althusser, são as relações sociais e as estruturas que formam as pessoas, e não o contrário", "Que os humanos não importam", "Que a teoria é inútil"]
     resposta: 0
     explicacao: "Por isso o debate sobre estrutura e sujeito."
 ---

@@ -1,5 +1,6 @@
 ---
 titulo: "Verbos regulares no presente"
+modelo: 9
 resumo: "Tire o -en do infinitivo e ponha as terminações -e, -st, -t, -en, -t, -en: assim se conjugam os verbos regulares do alemão no presente. Com wohnen, arbeiten, lernen e kaufen você já fala do dia a dia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Morar, trabalhar, aprender, comprar: com quatro verbos você já conta a sua rot
 ## O que você vai aprender
 
 Ao fim desta aula você vai conjugar verbos regulares no presente e falar da sua rotina.
+
+```suarealidade
+Se você contasse a sua semana em cinco ações (acordar, trabalhar, cozinhar, estudar, descansar), quais verbos você usaria? O que mais aparece na sua rotina?
+```
 
 ## A receita
 
@@ -88,6 +93,20 @@ Complete: "Wir ___ in Porto Alegre." (wohnen)
 3. ***Abends lerne ich Deutsch.*** — À noite eu aprendo alemão.
    → Repare: quando a frase começa com *abends* (à noite), o verbo vem **antes** do sujeito. O verbo fica sempre na **2ª posição**.
 4. ***Am Samstag koche ich.*** — No sábado eu cozinho.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Conjugar verbo é coisa chata e decorada. Melhor aprender frases prontas e usar direto, sem entender a conta." É uma crítica de quem aprendeu língua de ouvido, na prática.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Frases prontas ajudam muito, e a aula mesma usa muitas. Mas ela mostra que, nos verbos regulares, a conta é uma só (radical mais -e, -st, -t, -en, -t, -en): quem entende uma vez conjuga dezenas de verbos, e o presente também serve para falar do futuro. Entender a regra poupa de decorar cada frase separadamente.
+```
+
+```agir
+# Esta semana
+Escreva num papel cinco frases sobre o que você faz durante a semana, em alemão, com verbos como wohnen, arbeiten e lernen. Confira as terminações com a tabela da aula.
+```
 
 ## Resumo
 

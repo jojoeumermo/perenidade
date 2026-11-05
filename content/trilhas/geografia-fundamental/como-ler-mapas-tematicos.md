@@ -1,5 +1,6 @@
 ---
 titulo: "Como ler mapas temáticos"
+modelo: 9
 resumo: "Os tipos de mapa que mostram dados, como lê-los sem cair em armadilhas e por que número absoluto e taxa contam histórias diferentes."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é um mapa temático, distinguir número absoluto de taxa e usar um roteiro de seis perguntas para ler um mapa sem ser enganado por cores e áreas.
+
+```suarealidade
+Que mapa você viu esta semana na TV ou no celular (previsão do tempo, dengue, eleição)? Você olhou o título, a fonte e a data?
+```
 
 
 ## Mapa que mostra dados
@@ -140,6 +145,20 @@ Os dados são os mesmos; a mensagem, não. O Atlas Geográfico Escolar do IBGE l
 4. Desenhe um mapa simples do seu bairro com um tema: pontos de ônibus, alagamentos, postos de saúde ou árvores.
 
 **Respostas:** 2) 200 e 50 por 100 mil: o primeiro bairro está pior. 3) a) isolinhas (isoietas); b) fluxos; c) qualitativo.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Mapa é só desenho e não mente. Se a cor está mais escura num lugar, é ali que está o problema."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a cor sozinha pode enganar. Com os números inventados para o exercício, a cidade A tem 500 casos para 1 milhão de habitantes (50 por 100 mil) e a cidade B tem 200 casos para 20 mil (1.000 por 100 mil): pelo número absoluto A parece pior, mas na B a doença está vinte vezes mais espalhada. Além disso, o tamanho da área engana (a Região Norte tem cerca de 45% do território e 8,5% da população) e quem escolhe os cortes das classes muda o que o mapa parece dizer. Segundo o Atlas Geográfico Escolar do IBGE, os mapas traduzem os interesses e objetivos de quem os propõe. Por isso vale o roteiro de seis perguntas.
+```
+
+```agir
+# Esta semana
+Escolha um mapa que apareça para você esta semana (jornal, site, celular) e responda às seis perguntas do roteiro: tema, lugar e data; fonte; absoluto ou taxa; legenda; onde estão os valores mais altos e mais baixos; o que o mapa não mostra.
+```
 
 ## Resumo
 

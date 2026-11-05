@@ -1,5 +1,6 @@
 ---
 titulo: "Família, escola e comunidade"
+modelo: 9
 resumo: "A família como primeira escola: o lugar da piedade filial na tradição chinesa, a Lei de Promoção da Educação Familiar e o que diz a Constituição brasileira."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ Ao fim desta aula você vai saber explicar o lugar da família na tradição e n
 
 
 Para a disciplina chinesa de Moral e Estado de Direito, a família é a **primeira escola** e a comunidade é o primeiro espaço de vida pública. Esta aula apresenta como o tema é tratado e o compara com a forma como a Constituição brasileira pensa a família.
+
+```suarealidade
+Na sua família, quem cuida das crianças e dos idosos? Esse trabalho é dividido, ou fica nas costas de uma pessoa só?
+```
 
 ## A família na tradição chinesa
 
@@ -76,6 +81,15 @@ Repare na semelhança: as duas sociedades, com histórias tão diferentes, afirm
 
 Um olhar crítico lembra que a família também pode ser lugar de violência e de desigualdade, sobretudo para mulheres e crianças. No Brasil, a **Lei Maria da Penha** (2006) enfrenta a violência doméstica; na China, uma lei contra a violência doméstica foi aprovada em 2015. E o trabalho de cuidado dentro de casa, feito principalmente por mulheres, continua pouco reconhecido nos dois países.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A família é a base de tudo, e o dever de cuidar dos pais idosos e de educar os filhos é de cada família. O Estado deve ficar de fora e a comunidade, só ajudar." É a opinião de quem aprendeu a cuidar dos seus em casa e valoriza essa tradição.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que a solidariedade entre gerações é um valor forte nos dois países: a Constituição brasileira (arts. 226 a 230) trata a família como base da sociedade e os pais têm o dever de criar os filhos e os filhos maiores têm o de amparar os pais. Mas o art. 227 diz que é dever da família, da sociedade e do Estado assegurar à criança, ao adolescente e ao jovem, com absoluta prioridade, direitos como saúde, educação e convivência. E a aula lembra que a família também pode ser lugar de violência e desigualdade, sobretudo para mulheres e crianças, por isso existe a Lei Maria da Penha (2006).
+```
+
 ## Para conversar
 
 Na sua família, quem cuida das crianças e dos idosos? Como esse trabalho é dividido? O que o Estado deveria oferecer para apoiar as famílias?
@@ -89,6 +103,11 @@ Pergunta: o que as duas sociedades afirmam em lei sobre o cuidado entre geraçõ
 3. Compare: nos dois casos a lei fala de deveres de cuidado nos dois sentidos, dos pais para os filhos e dos filhos para os pais.
 
 Confira: a aula resume dizendo que duas sociedades com histórias tão diferentes afirmam em lei a solidariedade entre gerações.
+
+```agir
+# Esta semana
+Anote num papel, durante uma semana, quem faz cada tarefa de cuidado em casa (cozinhar, limpar, cuidar de criança ou idoso). Depois mostre a lista a quem mora com você e proponha conversar sobre a divisão.
+```
 
 ## Resumo
 

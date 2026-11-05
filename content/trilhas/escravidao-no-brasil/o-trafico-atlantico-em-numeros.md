@@ -33,7 +33,7 @@ quiz:
     resposta: 1
     explicacao: "A diferença entre embarcados e desembarcados mostra a mortalidade nos navios."
   - pergunta: "Por que o Cais do Valongo é Patrimônio Mundial?"
-    opcoes: ["Por ser o único vestígio material da chegada de africanos escravizados à América", "Por ser o porto mais bonito do Rio", "Por ter sido construído por Pedro II"]
+    opcoes: ["Por ser o mais importante vestígio material da chegada de africanos escravizados à América", "Por ser o porto mais bonito do Rio", "Por ter sido construído por Pedro II"]
     resposta: 0
     explicacao: "Recebeu o título da UNESCO em 2017; por ali chegaram cerca de um milhão de africanos."
 ---
@@ -78,7 +78,7 @@ Por que fontes diferentes dão números diferentes para o tráfico?
 
 O **Cais do Valongo**, na zona portuária do Rio de Janeiro, foi construído em **1811** e funcionou como local de desembarque e comércio de africanos escravizados até **1831**. Em vinte anos, recebeu **cerca de um milhão de africanos**: foi o maior porto receptor da diáspora africana no mundo.
 
-Em **2017**, a UNESCO o declarou **Patrimônio Mundial**, por ser o **único vestígio material** da chegada de africanos escravizados à América. Entre 1850 e 1920, a região em volta foi ocupada por negros escravizados e libertos, área que Heitor dos Prazeres chamou de **Pequena África**.
+Em **2017**, a UNESCO o declarou **Patrimônio Mundial**, por ser o **mais importante vestígio material** da chegada de africanos escravizados à América. Entre 1850 e 1920, a região em volta foi ocupada por negros escravizados e libertos, área que Heitor dos Prazeres chamou de **Pequena África**.
 
 ## Exemplo resolvido
 

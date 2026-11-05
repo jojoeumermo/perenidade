@@ -1,5 +1,6 @@
 ---
 titulo: "O que é uma crise"
+modelo: 9
 resumo: "Por que, de tempos em tempos, a economia para mesmo com fábricas prontas, gente querendo trabalhar e necessidades sem atender."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -23,17 +24,21 @@ quiz:
     opcoes: ["Que a sociedade sofra porque produziu demais", "Que falte chuva", "Que os reis gastem muito"]
     resposta: 0
     explicacao: "Nas sociedades antigas, a crise era falta. No capitalismo, a crise aparece como excesso: mercadorias encalhadas ao lado de gente sem nada."
-  - pergunta: "Por que segurar salários pode, no conjunto, piorar as vendas das empresas?"
+  - pergunta: "Segundo a análise da aula, por que segurar salários pode, no conjunto, piorar as vendas das empresas?"
     opcoes: ["Porque os trabalhadores são também a maior parte dos compradores", "Porque salário baixo aumenta impostos", "Porque as máquinas quebram"]
     resposta: 0
     explicacao: "O que é bom para cada patrão isolado (pagar menos) é ruim para todos juntos (menos gente com dinheiro para comprar)."
-  - pergunta: "Em uma crise, quem costuma pagar a conta primeiro?"
+  - pergunta: "Segundo a análise da aula, em uma crise quem costuma pagar a conta primeiro?"
     opcoes: ["Os grandes acionistas", "Os trabalhadores, com demissões, cortes de salário e de serviços públicos", "Os bancos, que quebram primeiro"]
     resposta: 1
     explicacao: "As empresas cortam custos, e o custo mais fácil de cortar é o trabalho. Governos costumam cortar gastos sociais."
 ---
 
 Nas sociedades antigas, crise era sinônimo de falta: seca, praga, guerra. No capitalismo aparece uma crise de tipo novo, que o *Manifesto Comunista* descreveu em 1848 como uma "epidemia" que pareceria absurda em qualquer época anterior: **a epidemia da superprodução**.
+
+```suarealidade
+Você já viu o comércio do seu bairro esvaziar, ou alguém da sua família perder o emprego numa época ruim? Faltava coisa para comprar ou faltava dinheiro para comprar?
+```
 
 ## A crise do excesso
 
@@ -77,6 +82,15 @@ Na hora da crise, as empresas cortam primeiro o trabalho: demissões, salários 
 
 Mas a história também mostra o outro lado: foi depois da crise de 1929, sob a pressão de grandes greves e de partidos operários fortes, que muitos países criaram seguro-desemprego, previdência pública e leis trabalhistas. A crise não decide sozinha quem paga. Quem decide é a luta.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Crise é gasto demais do governo e do povo, ou azar, como uma pandemia ou uma guerra. Passado o aperto, o mercado se acerta sozinho." É a opinião de quem confia que o mercado se ajusta com o tempo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diz que toda crise tem uma só causa: ela lista várias explicações dentro do marxismo, que se completam, entre elas o crédito e a especulação, que levaram às crises de 1929 e de 2008. O que ela destaca é a crise do excesso: mercadorias encalhadas e gente querendo trabalhar, porque se produz para o lucro, e não para a necessidade. Também mostra que o mercado "se acertar" tem preço: empresas quebram e o desemprego derruba salários. Quem paga a conta não é decidido sozinho, depende da força de quem trabalha.
+```
+
 ## Para conversar
 
 Você lembra de alguma crise que atingiu a sua família ou a sua cidade? O que faltava, de fato: coisas ou dinheiro para comprá-las?
@@ -90,6 +104,11 @@ Um exemplo inventado, para ver o mecanismo. Num bairro há cinco lojas; cada uma
 3. Veja o efeito: quem foi demitido compra menos, as lojas vendem menos e o patrão sente a necessidade de cortar de novo.
 
 Confira: o corte que era racional para cada loja foi irracional para o conjunto, porque os trabalhadores também eram os clientes.
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha da sua família ou do bairro como foi uma época difícil que ela viveu (desemprego, preços altos). Anote num papel uma frase do que ela contar.
+```
 
 ## Resumo
 

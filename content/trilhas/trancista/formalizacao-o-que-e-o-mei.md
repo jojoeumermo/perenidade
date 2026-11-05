@@ -1,5 +1,6 @@
 ---
 titulo: "Formalização: o que é o MEI"
+modelo: 9
 resumo: "O que muda ao virar microempreendedora individual, em qual ocupação a trancista se encaixa, quanto custa o boleto mensal, os limites de faturamento com a lei nova de 2026, o perdão de dívidas antigas e os direitos de quem trabalha como parceira num salão."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -58,6 +59,10 @@ Você trança há anos, atende dezenas de clientes por mês e nunca pagou INSS. 
 
 Ao fim desta aula você vai entender o que é o MEI, saber em que ocupação a trancista se encaixa, quanto custa o boleto mensal, quais são os limites de faturamento, conhecer o perdão de dívidas de 2026 e os direitos de quem trabalha como parceira num salão.
 
+```suarealidade
+Você, ou alguém que você conhece, trabalha por conta própria sem CNPJ? O que acontece quando precisa de nota fiscal ou fica doente?
+```
+
 ## O que muda com o MEI
 
 O **microempreendedor individual** é uma forma simples de formalizar quem trabalha por conta própria. Com o MEI, você tem **CNPJ**, pode **emitir nota fiscal** e passa a **contribuir para o INSS** com um valor fixo por mês.
@@ -107,6 +112,15 @@ Uma trancista trabalha há dois anos num salão, recebe uma parte de cada servi�
 > Leia o artigo 1º-C da lei.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Formalizar é pagar imposto e não ganhar nada. Trabalhando por fora, o dinheiro fica todo comigo." É a opinião de quem já viu o imposto pesar no bolso.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra o que o MEI dá em troca: CNPJ, nota fiscal e contribuição ao INSS com um boleto fixo. Abrir é de graça por lei, e o DAS é 5% do salário mínimo (INSS) mais R$ 5 (ISS). A trancista se formaliza como cabeleireiro(a) independente, CNAE 9602-5/01. E quem trabalha como parceira num salão precisa de contrato por escrito e homologado; sem ele, há vínculo de emprego. Cada um decide, mas é melhor decidir sabendo.
+```
+
 ## Exemplo resolvido
 
 **Uma trancista faz, em média, 16 atendimentos por mês a R$ 250 cada. Ela pode ser MEI em 2026? E em 2027?**
@@ -119,6 +133,11 @@ Limite em 2027: R$ 110.000 → cabe
 ```
 
 Ela cabe no MEI nos dois anos. Atenção: o limite é sobre o **faturamento bruto**, tudo o que entra pelos serviços e vendas, inclusive o valor da fibra quando é você quem compra e cobra da cliente. Guardar o registro de cada atendimento ajuda a acompanhar.
+
+```agir
+# Esta semana
+Ache a lista oficial de ocupações do MEI e confira se a ocupação de cabeleireiro(a) independente combina com o que você faz. Anote o que ainda precisa saber.
+```
 
 ## Resumo
 

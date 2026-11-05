@@ -1,0 +1,52 @@
+# Exercícios da aula "O que é o capital" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-cap-01
+  tema: "Consumir ou crescer"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas situações mostra dinheiro funcionando como capital?"
+  alternativas:
+    - texto: "Um empresário contrata costureiras para fazer roupas e vendê-las com lucro"
+      certa: true
+    - texto: "Uma pessoa compra remédio para a mãe"
+      erro: "Isso é dinheiro usado para consumir: sai o dinheiro e entra o remédio."
+    - texto: "Um estudante compra um caderno"
+      erro: "Comprar para usar é consumo, e não capital."
+  explicacao: "Capital é dinheiro usado para crescer: compra-se, produz-se, vende-se por mais e se repete."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-cap-02
+  tipo: numero
+  tema: "D – M – D'"
+  dificuldade: 2
+  enunciado: "Seu Roberto gastou R$ 10.000 e vendeu os pães por R$ 13.000. Quantos reais a mais ele tem no fim (D' − D)?"
+  resposta: "3000"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "13000"
+      explicacao: "R$ 13.000 é o D', o dinheiro que ele tem no fim. O que se pede é a diferença em relação ao que gastou."
+  dica: "Subtraia o que gastou do que recebeu."
+  explicacao: "13.000 − 10.000 = R$ 3.000 a mais."
+  conferir: "13000 - 10000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-cap-03
+  tema: "M – D – M"
+  dificuldade: 2
+  enunciado: "A fórmula M – D – M descreve o quê?"
+  alternativas:
+    - texto: "Vender uma mercadoria, como a força de trabalho, para ter dinheiro e comprar outra mercadoria, como comida"
+      certa: true
+    - texto: "Usar dinheiro para ganhar mais dinheiro"
+      erro: "Isso é D – M – D', o movimento do capital."
+    - texto: "Guardar dinheiro sem usar"
+      erro: "A fórmula descreve o movimento de vender para comprar."
+  explicacao: "M – D – M é o que faz quem trabalha: vende sua força de trabalho, recebe salário, compra o que precisa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Preconceito e discriminação" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-preconceito-e-discriminacao-01
+  tema: "Diferença"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre preconceito e discriminação?"
+  alternativas:
+    - texto: "Preconceito é a opinião formada antes de conhecer; discriminação é o ato de tratar pior ou negar oportunidade a alguém por causa do grupo"
+      certa: true
+    - texto: "São a mesma coisa"
+      erro: "A aula diferencia: um é a ideia e o outro é o ato."
+    - texto: "Preconceito é um ato e discriminação é uma opinião"
+      erro: "Está invertido."
+  explicacao: "Primeiro vem a ideia (\"pessoas daquele grupo não são confiáveis\"); depois, o ato (\"não vou contratar\")."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preconceito e discriminação\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-preconceito-e-discriminacao-02
+  tema: "Classificar"
+  dificuldade: 2
+  enunciado: "\"Toda pessoa idosa é atrasada.\" É preconceito ou discriminação?"
+  alternativas:
+    - texto: "Preconceito: é uma generalização sem base em fatos"
+      certa: true
+    - texto: "Discriminação: é um tratamento injusto"
+      erro: "Aqui há só uma opinião. Discriminação seria um ato, como recusar um emprego."
+    - texto: "Nenhum dos dois"
+      erro: "É uma opinião sem base, ou seja, preconceito."
+  explicacao: "Recusar emprego a alguém por ser idoso é discriminação."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preconceito e discriminação\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-preconceito-e-discriminacao-03
+  tema: "Cotas"
+  dificuldade: 2
+  enunciado: "Que tipo de medida muitos países adotaram para combater os efeitos da discriminação, segundo a aula?"
+  alternativas:
+    - texto: "Políticas como as cotas"
+      certa: true
+    - texto: "Proibir qualquer opinião"
+      erro: "A aula cita as cotas."
+    - texto: "Nenhuma medida"
+      erro: "Muitos países adotaram políticas como as cotas."
+  explicacao: "A discriminação pode estar em tradições, ideias, práticas e até em leis."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preconceito e discriminação\""
+  revisao:
+    status: em-revisao

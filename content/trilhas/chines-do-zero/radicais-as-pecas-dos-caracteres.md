@@ -1,5 +1,6 @@
 ---
 titulo: "Radicais: as peças dos caracteres"
+modelo: 9
 resumo: "Objetivo: entender que a maioria dos caracteres é formada por peças, reconhecer os radicais mais comuns e o seu significado, e usar a parte sonora para adivinhar a pronúncia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é um radical, reconhecer os radicais mais comuns e usar a ideia e o som das peças para memorizar e adivinhar caracteres.
+
+```suarealidade
+Quando você vê uma palavra nova em português, tenta separar as partes (prefixo, raiz) para adivinhar o sentido? Como seria fazer isso com uma letra que parece um desenho?
+```
 
 ## Caracteres têm peças
 
@@ -106,6 +111,20 @@ O caractere 河 (hé) tem o radical 氵. O que é mais provável que ele signifi
 3. **Conclua.** A parte sonora dá uma pista da pronúncia (qīng, qǐng, qíng); o radical dá o campo de sentido: fala, água, sol.
 
 Confira: a pista do som não é garantia, pois o tom muitas vezes muda. Com um caractere novo, o radical sugere o sentido (河, com 氵, é provavelmente algo ligado à água: é "rio").
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Caractere chinês é desenho, é só decorar um por um: são milhares. Radical e peça são conversa para facilitar o que não tem como facilitar." É um argumento de quem desanima com a quantidade.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a maioria dos caracteres é feita de peças que se repetem, e que o tipo mais comum combina uma peça de ideia (radical) e uma peça de som. O grande dicionário Kangxi, de 1716, organizou os caracteres em 214 radicais. A parte sonora é só uma pista, porque o tom muda e a pronúncia mudou com os séculos, mas as peças ajudam a memorizar, a adivinhar e a procurar no dicionário, como em 休 (pessoa mais árvore: descansar).
+```
+
+```agir
+# Esta semana
+Escolha três caracteres da aula que tenham os radicais 水, 人 ou 手 (como 河, 你, 打) e escreva-os num papel, separando a peça de ideia da peça de som. Veja se o sentido combina com o radical.
+```
 
 ## Resumo
 

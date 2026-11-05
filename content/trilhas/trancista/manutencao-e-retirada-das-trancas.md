@@ -1,5 +1,6 @@
 ---
 titulo: "Manutenção e retirada das tranças"
+modelo: 9
 resumo: "Quanto tempo cada penteado aguenta, o que a cliente precisa fazer em casa, por que não passar do tempo, como retirar as tranças sem quebrar o cabelo e o que observar depois."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -53,6 +54,10 @@ A cliente gostou tanto das tranças que quer ficar com elas quatro meses. Você 
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber quanto tempo cada penteado aguenta, orientar a manutenção em casa, explicar por que não passar do tempo, retirar as tranças sem quebrar o cabelo e observar o couro cabeludo depois.
+
+```suarealidade
+Quando você faz ou usa tranças, quanto tempo deixa passar até desmanchar? O que acontece com o cabelo e com o couro nesse tempo?
+```
 
 ## Quanto tempo cada penteado aguenta
 
@@ -112,6 +117,15 @@ Uma cliente usou box braids por 8 semanas. Quanto o cabelo dela cresceu perto da
 > 8 semanas são 56 dias. Multiplique por 0,3 mm.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Trança boa é a que dura. Quanto mais tempo ficar, mais o dinheiro rendeu. Retirar com calma é perder tempo." É a opinião de quem quer aproveitar ao máximo o que pagou.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que passar do tempo cobra um preço: o cabelo cresce cerca de 0,3 mm por dia, e deixar a trança além do tempo aumenta a tração e o risco de entrelaçar. Box braids duram de seis a oito semanas; twists senegaleses, de um a três meses. A retirada deve ser com calma, com o cabelo umedecido, de baixo para cima, desembaraçando das pontas para a raiz. Depois, examine o couro: sinal de tração pede parar a tração.
+```
+
 ## Exemplo resolvido
 
 **Uma cliente quer manter as box braids por 16 semanas. Explique, com números, por que é melhor não.**
@@ -123,6 +137,11 @@ Fios caídos presos: 112 × 50 = 5.600 fios
 ```
 
 Com mais de 3 cm de cabelo novo sustentando o peso de cada trança e milhares de fios soltos se misturando aos que continuam, o risco é a **tração na raiz** e o **entrelaçamento** do cabelo. O tempo indicado para as box braids é **de seis a oito semanas**. Combine com ela: retirar no prazo e, se quiser, refazer depois de avaliar o couro cabeludo.
+
+```agir
+# Esta semana
+Escreva um bilhete de manutenção para entregar às clientes, com os quatro cuidados em casa: lavar o couro com cuidado, hidratar, cobrir à noite e voltar se houver problema.
+```
 
 ## Resumo
 

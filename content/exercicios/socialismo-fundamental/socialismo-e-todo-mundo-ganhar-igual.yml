@@ -1,0 +1,50 @@
+# Exercícios da aula "Socialismo é todo mundo ganhar igual?" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-socialismo-e-todo-mundo-ganhar-igual-01
+  tema: "Primeira fase"
+  dificuldade: 2
+  enunciado: "Qual regra Marx descreveu para a primeira fase, depois do capitalismo?"
+  alternativas:
+    - texto: "Cada produtor recebe o equivalente ao que deu à sociedade em trabalho, depois dos descontos dos fundos sociais"
+      certa: true
+    - texto: "Todo mundo recebe exatamente igual"
+      erro: "A aula mostra que recebe segundo o trabalho."
+    - texto: "Quem tem mais terra recebe mais"
+      erro: "Não há renda de propriedade na primeira fase."
+  explicacao: "De cada um segundo as suas capacidades, a cada um segundo o seu trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Socialismo é todo mundo ganhar igual?\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-socialismo-e-todo-mundo-ganhar-igual-02
+  tema: "Fundos sociais"
+  dificuldade: 2
+  enunciado: "O que se separa do total produzido antes de distribuir segundo o trabalho?"
+  alternativas:
+    - texto: "Os fundos sociais: repor máquinas, investir, manter escolas e hospitais e cuidar de quem não pode trabalhar"
+      certa: true
+    - texto: "O lucro do patrão"
+      erro: "Não há patrão nem lucro nessa descrição."
+    - texto: "Nada: tudo é distribuído de uma vez"
+      erro: "Primeiro se separam os fundos sociais."
+  explicacao: "Ninguém enriquece com o trabalho dos outros: não há patrão, lucro, juros ou aluguel."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Socialismo é todo mundo ganhar igual?\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-socialismo-e-todo-mundo-ganhar-igual-03
+  tema: "Crítica do Programa de Gotha"
+  dificuldade: 1
+  enunciado: "Em que obra Marx tratou dessas perguntas?"
+  alternativas:
+    - texto: "Crítica do Programa de Gotha, de 1875"
+      certa: true
+    - texto: "Manifesto Comunista, de 1917"
+      erro: "O Manifesto é de 1848."
+    - texto: "O Capital, de 1902"
+      erro: "Não é esta a obra citada na aula."
+  explicacao: "Em 1875 os socialistas alemães aprovaram o Programa de Gotha, e Marx escreveu comentários duros sobre ele."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Socialismo é todo mundo ganhar igual?\""
+  revisao:
+    status: em-revisao

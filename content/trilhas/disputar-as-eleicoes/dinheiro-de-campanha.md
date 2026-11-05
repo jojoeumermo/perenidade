@@ -1,5 +1,6 @@
 ---
 titulo: "Dinheiro de campanha: sem empresa, com conta aberta"
+modelo: 9
 resumo: "De onde pode vir o dinheiro de uma campanha: doação de pessoas até 10% da renda, vaquinha pela internet desde 15 de maio, recursos próprios até 10% do teto, fundos públicos com a parte das mulheres e das candidaturas negras, a proibição das empresas e a prestação de contas."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ A campanha de um grande empresário tem helicóptero, carro de som em todo bairr
 
 Ao fim desta aula você vai saber de onde pode vir o dinheiro de uma campanha, o que é proibido e como prestar contas sem cair em armadilha.
 
+```suarealidade
+Quem paga a campanha de quem pede o seu voto? Você já perguntou isso a alguma candidatura?
+```
+
 ## Primeiro: CNPJ e conta específica
 
 Depois do registro, cada candidatura ganha um **CNPJ** próprio e precisa **abrir uma conta bancária específica** para a campanha. **Todo** dinheiro que entra e sai passa por ela. Dinheiro de campanha fora da conta é problema certo na prestação de contas.
@@ -91,6 +96,15 @@ Qual destas doações é permitida?
 > Lembre das fontes proibidas e do limite das pessoas físicas.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Proibir empresa de doar não resolve: campanha custa caro, e é natural que quem tem dinheiro apoie quem defende o que ele quer." É um argumento de quem acha que a lei atrapalha o jogo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que, em 2015, o STF julgou inconstitucional a doação de empresas (ADI 4650), e a proibição vale desde as eleições de 2016. A lei também fixa um teto de gastos por cargo, exige CNPJ e conta bancária específica para a campanha, limita a doação de pessoas físicas a 10% dos rendimentos do ano anterior e obriga toda candidatura a prestar contas à Justiça Eleitoral, com recibos e notas. Quem não presta contas perde a quitação eleitoral e não pode se candidatar de novo. E há regras para que o dinheiro público não fique só com quem já manda no partido, como o mínimo de 30% do fundo para candidaturas de mulheres.
+```
+
 ## Exemplo resolvido
 
 **Como a professora do bairro da provocação monta uma campanha com dinheiro limpo?**
@@ -99,6 +113,11 @@ Qual destas doações é permitida?
 2. **Depois do registro**: abre a **conta da campanha**, recebe o dinheiro da vaquinha e cobra do partido a parte dos **fundos** que cabe às candidaturas de mulheres.
 3. **Durante a campanha**: guarda **todo recibo** e não aceita nada de empresa.
 4. **Depois da eleição**: presta contas no prazo. A disputa com o empresário não é igual, e é por isso que a **organização** compensa o dinheiro que falta.
+
+```agir
+# Esta semana
+Desenhe numa folha o caminho do dinheiro de uma campanha: de onde pode vir (pessoas, vaquinha, recursos próprios, fundos) e onde passa (conta específica). Marque com um X o que é proibido.
+```
 
 ## Resumo
 

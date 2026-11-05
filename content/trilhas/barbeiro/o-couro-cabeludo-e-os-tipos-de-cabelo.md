@@ -1,5 +1,6 @@
 ---
 titulo: "O couro cabeludo e os tipos de cabelo"
+modelo: 9
 resumo: "O que o barbeiro precisa saber sobre o fio, as texturas, os redemoinhos e a calvície, e os sinais no couro cabeludo e na nuca que pedem cuidado ou encaminhamento para a unidade de saúde."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -58,6 +59,10 @@ Dois clientes pedem o mesmo corte. Num deles, fica perfeito; no outro, um tufo n
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender como o fio é formado, reconhecer as texturas, os redemoinhos e a calvície de padrão e saber os sinais no couro cabeludo e na nuca que pedem cuidado ou encaminhamento.
+
+```suarealidade
+Dois clientes pedem o mesmo corte: num ele fica perfeito e no outro um tufo teima em ficar em pé. O corte foi errado ou o cabelo é diferente? Como você explicaria isso ao cliente?
+```
 
 ## O fio por dentro
 
@@ -119,6 +124,20 @@ Um cliente de cabelo liso tem um tufo no alto da cabeça que fica em pé depois 
 3. **Propor opções**: laterais mais curtas e o alto não muito comprido, para o contraste diminuir; ou, se ele quiser, cabeça raspada.
 4. **Combinar** o comprimento e mostrar no espelho durante o corte.
 5. Se ele perguntar sobre tratamento: orientar a procurar um profissional de saúde, sem indicar remédio.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se o cabelo não ficou como o cliente queria, o barbeiro errou. Redemoinho e textura são desculpas." É uma opinião de quem já ficou frustrado com um corte.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a textura vem do formato do folículo (achatado dá fio crespo), que existem redemoinhos que pedem cortar poucos fios de cada vez e que a calvície de padrão é a causa mais comum de queda. O barbeiro bom explica antes o que o cabelo permite, conversa com o cliente e, quando vê micose, foliculite ou feridas, encaminha à UBS.
+```
+
+```agir
+# Esta semana
+Observe o cabelo de três pessoas da sua casa ou do seu trabalho (sem comentar) e anote no papel a textura (liso, ondulado, crespo) e se há redemoinho. Depois escreva o que você muda no corte de cada uma.
+```
 
 ## Resumo
 

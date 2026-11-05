@@ -1,5 +1,6 @@
 ---
 titulo: "Os artigos der, die e das: o gênero das palavras"
+modelo: 9
 resumo: "O alemão tem três gêneros: masculino (der), feminino (die) e neutro (das). O gênero nem sempre combina com o português, por isso a regra é aprender cada palavra junto com o seu artigo. E todo substantivo começa com letra maiúscula."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Em alemão, a mesa é "ele", a porta é "ela" e a menina é "isso". Parece loucu
 
 Ao fim desta aula você vai usar os artigos der, die e das, reconhecer algumas pistas do gênero e criar o hábito de aprender cada palavra com seu artigo.
 
+```suarealidade
+Em português, "a mesa" é feminino e "o carro" é masculino. Você nunca precisou decorar isso, porque já sabia desde criança. O que você acha que muda quando se aprende outra língua já adulto?
+```
+
 ## Três gêneros
 
 O alemão tem **três gêneros**, e o **gênero não depende do sentido** da palavra:
@@ -91,6 +96,20 @@ Qual é o artigo de "Gewerkschaft" (sindicato)?
 | Freitag (sexta-feira) | dia da semana | **der** |
 | Gerechtigkeit (justiça) | -keit | **die** |
 | Lehrerin (professora) | profissão feminina com -in | **die** |
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Três gêneros e artigos que não seguem lógica nenhuma: o alemão é difícil demais para quem estuda à noite, depois de um dia de trabalho. Melhor escolher outra língua." É uma opinião sincera de quem já tentou e se cansou.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que o gênero não depende do sentido da palavra. Mas a aula mostra que há pistas (-chen leva das; -ung, -heit e -keit levam die; dias e meses levam der) e um método simples: aprender sempre a palavra com o artigo, como uma coisa só. Aprender em pequenos passos, aos poucos, cabe numa rotina cansada.
+```
+
+```agir
+# Esta semana
+Escolha cinco objetos da sua casa, procure o artigo de cada um num dicionário de alemão e escreva "der Tisch", "die Tür" etc. num papel. Se puder, cole o papel no objeto.
+```
 
 ## Resumo
 

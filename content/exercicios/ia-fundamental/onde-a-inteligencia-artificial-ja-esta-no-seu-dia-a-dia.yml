@@ -1,0 +1,51 @@
+# Exercícios da aula "Onde a inteligência artificial já está no seu dia a dia" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-dia-01
+  tema: "Filtro de spam"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O filtro de spam do e-mail é um exemplo de qual uso da inteligência artificial?"
+  alternativas:
+    - texto: "Classificação: decidir se cada mensagem é spam ou não, com base em muitos exemplos já marcados"
+      certa: true
+    - texto: "Reconhecimento de rostos"
+      erro: "O reconhecimento facial compara rostos. O filtro de spam classifica mensagens."
+    - texto: "Tradução automática"
+      erro: "Tradução converte textos entre línguas. O filtro de spam classifica mensagens."
+  explicacao: "Classificar é pôr cada coisa numa categoria, e é um dos usos mais comuns da IA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-dia-02
+  tema: "Sistema de recomendação"
+  dificuldade: 2
+  enunciado: "A playlist e os vídeos 'sugeridos para você' vêm de que tipo de sistema?"
+  alternativas:
+    - texto: "De sistemas de recomendação, que sugerem o que seria mais relevante para cada pessoa"
+      certa: true
+    - texto: "De sorteio feito por um funcionário"
+      erro: "São sistemas automáticos que usam seus cliques e suas escolhas."
+    - texto: "De uma lista igual para todo mundo"
+      erro: "A recomendação é diferente para cada pessoa."
+  explicacao: "Os sistemas de recomendação usam o que você faz para escolher o que mostrar, quase sempre sem aviso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-dia-03
+  tema: "Reconhecimento facial"
+  dificuldade: 2
+  enunciado: "Como funciona o reconhecimento facial?"
+  alternativas:
+    - texto: "Compara o rosto de uma imagem com rostos guardados num banco de dados"
+      certa: true
+    - texto: "Lê os pensamentos da pessoa"
+      erro: "O sistema só compara imagens. Não lê pensamentos."
+    - texto: "Pergunta o nome da pessoa"
+      erro: "Ele compara a imagem com um banco de rostos, sem perguntar nada."
+  explicacao: "Por isso o banco de rostos e quem o controla importam: decisões que afetam a vida das pessoas já usam esses sistemas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

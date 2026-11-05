@@ -1,5 +1,6 @@
 ---
 titulo: "Ímãs e magnetismo"
+modelo: 9
 resumo: "Objetivo: conhecer as propriedades dos ímãs, a ligação entre magnetismo e eletricidade e como ela faz funcionar o motor e a usina."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são polos e campo magnético, explicar por que a bússola aponta sempre para o mesmo lado e descrever como o movimento de um ímã perto de um fio gera a eletricidade que chega à tomada.
+
+```suarealidade
+Quantos ímãs há na sua casa, no seu serviço ou na sua rua (geladeira, alto-falante, motor, fecho de bolsa)? Onde você nunca imaginaria que há um?
+```
 
 
 ## A pedra que atrai o ferro
@@ -127,6 +132,20 @@ Conclusão: o que muda de uma usina para outra é o que faz girar. O princípio,
 2. Construa um eletroímã com um prego grande, um metro de fio fino encapado e uma pilha. O que acontece quando você desliga a pilha?
 3. De que tipo de usina vem a maior parte da eletricidade do seu estado?
 4. Que comunidades foram atingidas pela construção de usinas na sua região?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Usina é assunto de engenheiro. Quem mora perto tem de aceitar, é o preço do progresso. O que importa é a luz acender."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o princípio é o mesmo em toda usina (ímã em movimento perto de fio, um gerador girando), e que o que muda é o que o faz girar. Mas diz também que toda forma de gerar eletricidade tem custos: a hidrelétrica alaga terras e desloca populações; a termelétrica polui e aquece o planeta; a nuclear produz lixo radioativo. A pergunta nunca é só técnica: é quem decide, quem ganha e quem arca com as consequências.
+```
+
+```agir
+# Esta semana
+Descubra de que tipo de usina vem a maior parte da eletricidade do seu estado e anote. Pergunte a uma pessoa mais velha se alguma comunidade da sua região foi atingida pela construção de uma usina.
+```
 
 ## Resumo
 

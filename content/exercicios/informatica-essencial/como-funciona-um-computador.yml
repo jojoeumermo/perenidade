@@ -1,0 +1,67 @@
+# Exercícios da aula "Como funciona um computador" (Informática essencial). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ie-com-01
+  tema: "RAM e armazenamento"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que um trabalho não salvo se perde quando falta luz?"
+  alternativas:
+    - texto: "Porque estava na memória RAM, que é temporária e se apaga quando o computador desliga"
+      certa: true
+    - texto: "Porque o computador cobra para guardar"
+      erro: "Não é cobrança: a RAM é rápida, mas temporária. Salvar copia o trabalho para o armazenamento, que é permanente."
+    - texto: "Porque o processador esquece o que fez"
+      erro: "O processador executa instruções. O que estava na RAM se apaga ao desligar, e por isso é preciso salvar."
+  explicacao: "A RAM é a bancada de trabalho: rápida, mas temporária. O armazenamento (SSD ou HD) é a despensa: mais lento, mas permanente."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-com-02
+  tema: "O processador"
+  dificuldade: 1
+  enunciado: "Qual peça executa as instruções dos programas, uma a uma, muito rápido?"
+  alternativas:
+    - texto: "O processador (CPU)"
+      certa: true
+    - texto: "A memória RAM"
+      erro: "A RAM guarda o que está sendo usado agora. Quem executa é o processador."
+    - texto: "O armazenamento"
+      erro: "O armazenamento guarda arquivos e programas de forma permanente. Quem executa é o processador."
+  explicacao: "Na comparação da cozinha, o processador é o cozinheiro, a RAM é a bancada, o armazenamento é a despensa e a placa-mãe é a própria cozinha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-com-03
+  tema: "Entrada e saída"
+  dificuldade: 1
+  enunciado: "Qual destes é um dispositivo de saída?"
+  alternativas:
+    - texto: "Impressora"
+      certa: true
+    - texto: "Teclado"
+      erro: "O teclado leva informação para dentro: é de entrada."
+    - texto: "Microfone"
+      erro: "O microfone também é de entrada: leva o som para dentro do computador."
+  explicacao: "Dispositivos de saída trazem a informação para fora: tela, alto-falante e impressora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-com-04
+  tema: "Computador lento"
+  dificuldade: 2
+  enunciado: "Com muitos programas abertos, o computador fica lento. Qual é uma das causas?"
+  alternativas:
+    - texto: "A RAM encheu: a bancada ficou sem espaço"
+      certa: true
+    - texto: "O armazenamento está com sede"
+      erro: "É uma brincadeira de linguagem: o que enche é a RAM, que guarda o que está em uso."
+    - texto: "O teclado esquentou"
+      erro: "O teclado não causa lentidão. O que importa é a RAM, que tem espaço limitado."
+  explicacao: "Fechar programas que não usa libera a RAM e ajuda o computador a ficar mais rápido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

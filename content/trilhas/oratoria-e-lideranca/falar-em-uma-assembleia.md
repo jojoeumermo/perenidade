@@ -1,5 +1,6 @@
 ---
 titulo: "Falar em uma assembleia"
+modelo: 9
 resumo: "Como pedir a palavra, defender uma proposta em pouco tempo, discordar sem atacar a pessoa, usar a questão de ordem e conhecer os direitos dos associados numa assembleia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Na assembleia, você tem três minutos e uma proposta. Logo antes de você, algu
 
 Ao fim desta aula você vai saber pedir a palavra, montar uma fala curta para defender uma proposta, discordar sem atacar pessoas, usar a questão de ordem e conhecer os direitos dos associados numa assembleia.
 
+```suarealidade
+Em que assembleia você já esteve ou poderia estar (escola, condomínio, associação, sindicato, igreja)? Você sabe onde está o estatuto dela?
+```
+
 ## As regras da casa
 
 Cada grupo tem as suas regras: o **estatuto**, o regimento, os combinados da própria assembleia. No começo, a mesa costuma dizer o tempo de cada fala e a forma de inscrição. Ouça com atenção: falar dentro das regras dá força ao que você diz.
@@ -91,6 +96,15 @@ Um morador, na sua vez, diz: "Essa proposta é ruim porque quem fez só quer apa
 > O debate é sobre a medida, não sobre a pessoa.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Assembleia só serve para quem gosta de discurso. As decisões saem da direção, e fala de quem não é da turma não muda nada." É a opinião de quem já foi a assembleias em que tudo parecia combinado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não promete que toda assembleia seja justa. Mas mostra o que cada associado pode: pedir a palavra, falar dentro do tempo, defender uma proposta com razão e apoio, discordar sem atacar pessoas e usar a questão de ordem para fazer cumprir a regra. Pelo Código Civil, só a assembleia destitui a direção e muda o estatuto, e um quinto dos associados pode promover a convocação. Conhecer o estatuto e as regras é o que dá força à sua fala.
+```
+
 ## Exemplo resolvido
 
 **Na assembleia da associação de moradores, a direção propôs aumentar a mensalidade em 30%. Você quer propor um aumento menor, de 15%, e uma comissão para rever os gastos. Monte a sua fala de três minutos.**
@@ -100,6 +114,11 @@ Um morador, na sua vez, diz: "Essa proposta é ruim porque quem fez só quer apa
 3. **Razão com apoio**: "Na minha rua, 9 das 24 famílias associadas já estão com a mensalidade atrasada. Com 30% de aumento, o risco é mais gente deixar de pagar."
 4. **A objeção, sem atacar ninguém**: "A direção tem razão quando diz que o aluguel da sede subiu. A minha dúvida é se todos os outros gastos ainda são necessários."
 5. **O pedido**: "Peço que votem pela proposta de 15% e pela comissão. Eu me ofereço para fazer parte dela."
+
+```agir
+# Esta semana
+Peça uma cópia do estatuto de uma associação ou do condomínio de que você faz parte e marque num papel o que ele diz sobre assembleia e convocação. Anote uma proposta que você levaria.
+```
 
 ## Resumo
 

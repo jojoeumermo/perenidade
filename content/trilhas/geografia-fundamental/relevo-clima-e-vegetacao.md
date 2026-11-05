@@ -1,5 +1,6 @@
 ---
 titulo: "Relevo, clima e vegetação"
+modelo: 9
 resumo: "As formas do terreno, o clima e as plantas de cada lugar estão ligados entre si, e entender essa ligação ajuda a entender enchentes, secas e deslizamentos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber descrever relevo, clima e vegetação, distinguir tempo de clima, estimar a temperatura em uma serra e ligar os três.
+
+```suarealidade
+Como é o chão do lugar onde você mora: plano, morro, encosta? Você já viu a chuva forte causar problema perto de casa?
+```
 
 
 ## A paisagem natural tem três andares
@@ -149,6 +154,20 @@ A natureza não "castiga" ninguém. Os desastres acontecem quando a forma de ocu
 4. Pela regra dos 0,6 °C a cada 100 metros, quanto mais frio deve fazer no alto de um morro de 500 metros em relação à sua base?
 
 **Resposta da 4:** cerca de 3 °C a menos.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Desastre de chuva é castigo da natureza. Quem mora em encosta já sabia do risco e ficou porque quis."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula responde que a natureza não "castiga" ninguém: os desastres acontecem quando a forma de ocupar o espaço ignora o relevo, o clima e a vegetação, e quase sempre caem sobre os mais pobres. A mata segura o solo das encostas com as raízes; sem ela, numa chuva forte, a terra desce. E quem mora nas encostas, quase sempre, é quem não conseguiu pagar por um terreno seguro.
+```
+
+```agir
+# Esta semana
+Olhe, de um lugar seguro e sem se aproximar de área de risco, uma encosta ou um terreno perto de onde você mora e anote se há mata ou se o solo está descoberto. Descreva também em duas linhas o clima da sua região e qual era a vegetação original do lugar.
+```
 
 ## Resumo
 

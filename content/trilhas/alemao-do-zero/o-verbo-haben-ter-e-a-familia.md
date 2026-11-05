@@ -1,5 +1,6 @@
 ---
 titulo: "O verbo haben (ter) e a família"
+modelo: 9
 resumo: "Haben é o verbo ter: ich habe, du hast, er hat. Com ele, você fala da família, dos filhos, do que tem e do que não tem. As palavras da família e os possessivos mein e dein."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Família não é só pai, mãe e filhos: tem avó que cria, tia que ajuda, vizin
 ## O que você vai aprender
 
 Ao fim desta aula você vai conjugar o verbo **haben** (ter), conhecer as palavras da família e falar de quem mora com você.
+
+```suarealidade
+Quem mora com você hoje, ou quem cuida de você e de quem você cuida? Todo mundo dessa lista cabe na palavra "família" que você aprendeu na escola?
+```
 
 ## O verbo haben
 
@@ -99,6 +104,20 @@ Complete: "___ Schwester wohnt in Berlin." (Minha irmã mora em Berlim.)
 2. ***Meine Mutter wohnt bei mir.*** (Minha mãe mora comigo.)
 3. ***Mein Bruder hat drei Kinder.*** (Meu irmão tem três filhos.)
 4. ***Wir sind eine große Familie.*** (Somos uma família grande.)
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Aprender o vocabulário de família numa língua estrangeira é desperdício: são palavras que todo mundo já sabe falar na própria língua." É um argumento de quem prefere ir direto ao que parece mais útil.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Falar da família é das primeiras coisas que se faz ao conhecer alguém, no trabalho, na consulta ou na vizinhança. A aula junta isso ao verbo haben (ich habe, du hast), que aparece o tempo todo, e mostra frases prontas como Ich habe zwei Kinder. Começar pelo que é próximo ajuda a perder o medo de falar.
+```
+
+```agir
+# Esta semana
+Desenhe num papel a sua árvore de família (ou de quem mora com você) e escreva ao lado de cada pessoa a palavra em alemão (Mutter, Vater, Oma, Opa...). Pratique uma frase com Ich habe...
+```
 
 ## Resumo
 

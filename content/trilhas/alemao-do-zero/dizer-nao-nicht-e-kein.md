@@ -1,5 +1,6 @@
 ---
 titulo: "Dizer não: nicht e kein"
+modelo: 9
 resumo: "O alemão tem dois jeitos de negar: kein, para substantivos sem artigo ou com ein (\"nenhum\"), e nicht, para todo o resto. Quando usar cada um e onde pôr o nicht na frase."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Saber dizer "não" é das primeiras coisas importantes em qualquer língua: não
 
 Ao fim desta aula você vai saber quando usar **kein** e quando usar **nicht** e montar frases negativas.
 
+```suarealidade
+No seu trabalho ou na sua casa, em que momentos você precisa dizer "não" (não tenho, não posso, não aceito)? Como você diz isso hoje, em português?
+```
+
 ## Kein: "nenhum"
 
 Use **kein** para negar um **substantivo** que estaria com **ein/eine** ou **sem artigo**. Ele muda como o **ein**:
@@ -86,6 +91,20 @@ Complete: "Ich habe ___ Geld." (Não tenho dinheiro.)
 1. ***Nein, danke. Ich habe heute keine Zeit.*** — Não, obrigado. Hoje não tenho tempo. (*keine* + Zeit, feminino)
 2. ***Ich arbeite am Sonntag nicht.*** — Eu não trabalho no domingo. (*nicht* nega o verbo)
 3. ***Das ist nicht meine Aufgabe.*** — Essa não é minha tarefa. (*nicht* antes do possessivo)
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para que perder tempo com regra de negação em alemão? Hoje o tradutor do celular resolve, e a pessoa só precisa saber falar o básico." É uma crítica de quem tem pouco tempo livre depois do trabalho e quer aprender só o que usa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O tradutor ajuda, mas a aula mostra que, em alemão, há duas palavras para negar (kein e nicht) e que escolher a certa depende do que se nega. Quem entende a regra sabe o que escreve e confere o que o aparelho entrega. Saber dizer "não, obrigado" e "não é minha tarefa" sem depender do celular dá segurança na hora.
+```
+
+```agir
+# Esta semana
+Escolha três frases afirmativas que você diz no dia a dia (por exemplo: "Tenho tempo") e escreva a versão negativa de cada uma em alemão, com kein ou nicht. Confira com a tabela da aula.
+```
 
 ## Resumo
 

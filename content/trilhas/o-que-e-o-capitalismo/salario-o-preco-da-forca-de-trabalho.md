@@ -1,5 +1,6 @@
 ---
 titulo: "Salário: o preço da força de trabalho"
+modelo: 9
 resumo: "Por que o salário parece pagar o trabalho inteiro, e por que ele sobe e desce conforme a luta."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Ao fim desta aula você vai saber explicar o que o salário paga de fato, difere
 
 No fim do mês, o salário cai na conta e parece pagar o mês inteiro de trabalho. É essa aparência que esta aula desmonta.
 
+```suarealidade
+No fim do mês, o seu salário (ou o de alguém da casa) cobre o que a família precisa para viver? Quanto falta, ou quanto sobra?
+```
+
 ## O que exatamente é comprado
 
 Na aula anterior vimos que o trabalhador vende a sua **força de trabalho**: a capacidade de trabalhar por um tempo. O salário é o preço dessa mercadoria.
@@ -83,6 +88,15 @@ O **DIEESE**, órgão de pesquisa criado pelo movimento sindical, calcula todo m
 
 Marx debateu esse ponto com um operário inglês, John Weston, que achava inútil lutar por aumento porque os patrões subiriam os preços. A resposta de Marx (é o texto *Salário, Preço e Lucro*) foi: um aumento geral de salário reduz o lucro, não aumenta automaticamente os preços. E a luta salarial é necessária, embora não baste: ela trata dos efeitos, não da causa. A causa é o próprio assalariamento.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Salário mínimo mais alto vira preço mais alto e inflação. No fim, o trabalhador ganha mais e não compra mais nada." É a opinião de quem teme que o aumento seja engolido pelos preços.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que Marx respondeu a essa dúvida em Salário, Preço e Lucro, em debate com um operário inglês: um aumento geral de salário reduz o lucro, não aumenta automaticamente os preços. Ela também lembra a diferença entre salário nominal e real: sem reajuste, a inflação reduz o poder de compra sozinha. E o art. 7º da Constituição diz o que o mínimo deveria cobrir (moradia, alimentação, educação, saúde, lazer, vestuário, higiene, transporte e previdência). Dá para olhar o número do DIEESE para ver a distância entre o que se paga e o que a vida custa.
+```
+
 ## Para conversar
 
 Calcule, com a sua família ou turma, quanto custa um mês de vida digna onde vocês moram. Compare com o salário mínimo. O que explica a diferença?
@@ -96,6 +110,11 @@ Um exemplo inventado: o salário de Carlos é de R$ 1.500 e ele recebe um reajus
 3. Compare com o salário antigo: 1.528 - 1.500 = R$ 28, cerca de 1,9% a mais de poder de compra.
 
 Confira: o aumento nominal foi de 8%, mas o poder de compra só subiu 1,9%. Se o reajuste fosse de 6%, o salário real ficaria igual; abaixo disso, cairia.
+
+```agir
+# Esta semana
+Faça no papel a conta de um mês de gastos básicos da sua casa: comida, moradia, transporte, saúde. Compare o total com o salário mínimo em vigor e anote a diferença.
+```
 
 ## Resumo
 

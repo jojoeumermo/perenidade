@@ -1,0 +1,51 @@
+# Exercícios da aula "Escola de formação do coletivo: calendário e continuidade" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-esc-01
+  tema: "O que é uma escola de formação"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma escola de formação do coletivo precisa de prédio e de professor titular?"
+  alternativas:
+    - texto: "Não: é um espaço regular de estudo do coletivo, com encontros em dias marcados e formadores que se revezam"
+      certa: true
+    - texto: "Sim, sem prédio não há escola"
+      erro: "Pode ser na sala do sindicato, da igreja, da associação, na quadra ou na casa de alguém."
+    - texto: "Sim, precisa de um professor titular que explique tudo"
+      erro: "Os formadores se revezam, com apoio de uma pessoa mais experiente."
+  explicacao: "Os temas são escolhidos pelo próprio grupo, com avaliação ao fim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-esc-02
+  tema: "Ritmo que cabe"
+  dificuldade: 2
+  enunciado: "Qual é um bom ritmo para começar uma escola de formação?"
+  alternativas:
+    - texto: "Um encontro por mês, de 2 horas, no mesmo dia e horário, e um encontro maior uma vez por semestre"
+      certa: true
+    - texto: "Um encontro por dia, de 8 horas"
+      erro: "É demais para quem trabalha. O ritmo precisa caber na vida do grupo."
+    - texto: "Um único encontro por ano"
+      erro: "Fica distante demais para manter a continuidade."
+  explicacao: "Escolha quatro temas, um por trimestre."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-esc-03
+  tema: "Começar pelo grupo"
+  dificuldade: 2
+  enunciado: "Qual é o primeiro passo para montar o calendário da escola?"
+  alternativas:
+    - texto: "Escutar o grupo: 'o que precisamos aprender neste ano para fazer melhor o que fazemos?'"
+      certa: true
+    - texto: "Copiar o calendário de outra organização"
+      erro: "O tema deve vir da necessidade do próprio grupo."
+    - texto: "Escolher os temas sozinho, na direção"
+      erro: "Os temas são escolhidos pelo grupo."
+  explicacao: "Depois, agrupe as respostas em temas e defina o ritmo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "Cooperação e competição"
+modelo: 9
 resumo: "O ser humano é egoísta por natureza? O que a biologia, a história e a experiência dos trabalhadores dizem sobre isso."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 Ao fim desta aula você vai saber examinar a frase "o ser humano é egoísta por natureza" com argumentos da natureza, da história e do trabalho.
 
 "O ser humano é egoísta por natureza. Por isso o socialismo nunca vai dar certo." Você certamente já ouviu essa frase. Vamos examiná-la.
+
+```suarealidade
+No seu bairro ou no seu trabalho, quando foi a última vez que as pessoas se juntaram para resolver algo, como um mutirão ou uma vaquinha? E quando a competição falou mais alto?
+```
 
 ## O que a natureza mostra
 
@@ -82,6 +87,15 @@ Mude as regras, e o comportamento muda. Num mutirão para construir a casa de um
 
 O socialismo não exige que as pessoas virem santas. Propõe mudar as **regras do jogo**, para que a cooperação seja recompensada e a exploração deixe de ser possível. Ninguém precisa abrir mão dos seus interesses: o interesse de cada um passa a estar ligado ao interesse de todos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O ser humano é egoísta por natureza. Cada um cuida do seu, e quem diz o contrário não conhece gente." É a opinião de quem já se decepcionou com muita gente.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que exista competição; mostra que a frase "egoísta por natureza" não resiste ao exame. Kropotkin, em Ajuda Mútua (1902), mostrou que a cooperação é um fator de evolução tão importante quanto a competição. Por quase toda a história, grupos pequenos dividiram a comida e cuidaram uns dos outros, e muitos povos indígenas organizam a vida pela reciprocidade. A competição de hoje também vem de como a sociedade está organizada. No Brasil, mutirão, cooperativas, cozinhas solidárias e SUS são exemplos de cooperação.
+```
+
 ## Exemplo resolvido
 
 **Por que dez pedreiros juntos costumam produzir mais do que dez trabalhando cada um sozinho, e quem fica com esse ganho?**
@@ -95,6 +109,11 @@ Conclusão: a cooperação aumenta o que se produz, e a discussão do socialismo
 ## Para conversar
 
 Lembre de uma situação em que você cooperou com outras pessoas e de outra em que precisou competir. Em qual delas você se sentiu melhor? O que fazia a situação ser de cooperação ou de competição?
+
+```agir
+# Esta semana
+Anote um exemplo de cooperação que você viu no seu bairro ou no seu trabalho e agradeça a uma pessoa que participou.
+```
 
 ## Resumo
 

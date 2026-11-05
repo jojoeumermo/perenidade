@@ -1,5 +1,6 @@
 ---
 titulo: "Parada cardíaca: a massagem só com as mãos"
+modelo: 9
 resumo: "Como reconhecer uma parada cardíaca e manter o sangue circulando com as mãos até o socorro chegar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ Ao fim desta aula você vai saber reconhecer uma parada cardíaca e fazer a mass
 
 
 Esta aula não substitui um curso presencial. Ela existe porque, na parada cardíaca, quem está por perto é quem faz a diferença nos primeiros minutos.
+
+```suarealidade
+Se alguém caísse na sua frente, sem responder e sem respirar, você saberia o que fazer? O que faria você ter medo de ajudar?
+```
 
 ## O que é uma parada cardíaca
 
@@ -95,6 +100,20 @@ O aparelho só libera o choque se o coração precisar. Não dá para errar o di
 - **"E se eu quebrar uma costela?"** Pode acontecer, e costela se recupera. Sem massagem, a pessoa não sobrevive.
 - **"E se o coração estiver batendo?"** Se a pessoa não responde e não respira direito, comece. O risco de fazer é muito menor que o de não fazer.
 - **"E se eu fizer errado?"** Uma massagem imperfeita ajuda mais do que nenhuma. O atendente do 192 conta o ritmo com você.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não é do ramo não deve mexer: pode piorar a situação e ainda ser culpado. O certo é esperar o socorro chegar e deixar para os profissionais." É a opinião de quem tem medo de errar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde que o primeiro passo é chamar o 192 e pedir um DEA. Mas lembra que, na parada cardíaca, quem está por perto é quem faz a diferença nos primeiros minutos: a massagem faz o trabalho do coração, empurra sangue para o cérebro e ganha tempo até chegar o desfibrilador e a equipe de saúde. Para adultos não treinados, só compressões (mãos no centro do peito, de 100 a 120 vezes por minuto). Segundo a aula, uma massagem imperfeita ajuda mais do que nenhuma. Ela também diz que não substitui um curso presencial.
+```
+
+```agir
+# Esta semana
+Procure um curso presencial de primeiros socorros na sua cidade ou no seu trabalho e anote num papel onde fica e quando acontece. Pergunte onde há um desfibrilador (DEA) perto de você.
+```
 
 ## Resumo
 

@@ -1,0 +1,51 @@
+# Exercícios da aula "China e Índia antigas" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-chi-01
+  tema: "Cidades do Indo"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que chamou a atenção dos arqueólogos nas cidades do vale do Indo, como Harappa e Mohenjo-Daro?"
+  alternativas:
+    - texto: "Ruas retas em ângulo reto, casas de tijolos padronizados, esgotos cobertos e pesos e medidas iguais"
+      certa: true
+    - texto: "Palácios enormes e túmulos de reis"
+      erro: "Justamente o contrário: não foram achados grandes palácios nem túmulos de reis."
+    - texto: "Pirâmides maiores que as do Egito"
+      erro: "O que se achou foi um planejamento urbano notável, e não pirâmides."
+  explicacao: "As cidades do Indo tinham mais de 4.500 anos. A escrita delas ainda não foi decifrada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-chi-02
+  tema: "As castas"
+  dificuldade: 2
+  enunciado: "Como a ordem das castas na Índia era justificada?"
+  alternativas:
+    - texto: "Pela religião: cada pessoa nasceria no lugar que lhe cabia"
+      certa: true
+    - texto: "Pelo voto dos moradores"
+      erro: "Não havia voto. Era uma divisão hierarquizada pelo nascimento."
+    - texto: "Pela riqueza acumulada no comércio"
+      erro: "A justificativa era religiosa, e não de riqueza."
+  explicacao: "É um exemplo de como uma crença pode servir para manter uma desigualdade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-chi-03
+  tema: "Buda e Ashoka"
+  dificuldade: 2
+  enunciado: "O que o imperador Ashoka fez depois de uma guerra de conquista sangrenta?"
+  alternativas:
+    - texto: "Adotou o budismo e mandou gravar em rochas e colunas princípios de não violência e tolerância religiosa"
+      certa: true
+    - texto: "Proibiu qualquer religião"
+      erro: "Ashoka adotou o budismo e defendeu a tolerância."
+    - texto: "Conquistou a China"
+      erro: "Ashoka governou quase toda a Índia, mas a aula não fala de conquista da China."
+  explicacao: "Ashoka, da dinastia Máuria, no século III a.C., espalhou o budismo e princípios de não violência e cuidado com os súditos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

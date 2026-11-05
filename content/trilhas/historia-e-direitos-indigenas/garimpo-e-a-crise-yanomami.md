@@ -19,10 +19,10 @@ quiz:
     resposta: 0
     explicacao: "A invasão foi comparada à corrida do ouro de Serra Pelada, nos anos 1980."
   - pergunta: "Quando o Ministério da Saúde declarou emergência na Terra Yanomami?"
-    opcoes: ["21 de janeiro de 2023", "5 de outubro de 1988", "1º de maio de 2010"]
+    opcoes: ["20 de janeiro de 2023", "5 de outubro de 1988", "1º de maio de 2010"]
     resposta: 0
-    explicacao: "No mesmo dia, o presidente e ministros foram a Roraima."
-  - pergunta: "Quantas crianças yanomami morreram de desnutrição, fome e envenenamento por mercúrio entre 2019 e 2023, segundo os relatórios?"
+    explicacao: "No dia seguinte, o presidente e ministros foram a Roraima."
+  - pergunta: "Quantas crianças yanomami morreram por causas evitáveis, como desnutrição, fome e envenenamento por mercúrio, entre 2019 e 2022, segundo dados do governo?"
     opcoes: ["570", "5", "57 mil"]
     resposta: 0
     explicacao: "Os dados são incompletos por causa da distância e da subnotificação."
@@ -54,7 +54,7 @@ Há denúncias de que verbas para levar médicos e enfermeiros à região foram 
 
 ## A emergência
 
-Em **21 de janeiro de 2023**, o **Ministério da Saúde declarou emergência** na Terra Yanomami. No mesmo dia, o presidente Lula e ministros foram a Roraima anunciar ajuda. Os relatórios mostraram que, entre **2019 e 2023**, **570 crianças yanomami** morreram de **desnutrição, fome e envenenamento por mercúrio**. A crise é frequentemente descrita como **genocídio**.
+Em **20 de janeiro de 2023**, o **Ministério da Saúde declarou emergência** na Terra Yanomami. No dia seguinte, o presidente Lula e ministros foram a Roraima anunciar ajuda. Os dados do governo mostraram que, entre **2019 e 2022**, **570 crianças yanomami** morreram de **desnutrição, fome e envenenamento por mercúrio**. A crise é frequentemente descrita como **genocídio**.
 
 Mesmo depois da emergência, as mortes continuaram altas: **428** registros em 2023 e **337** em 2024.
 
@@ -81,7 +81,7 @@ Por que o garimpo provoca fome numa terra indígena?
 - A partir de **2019**: proteção enfraquecida e **mais de 20 mil garimpeiros** ilegais.
 - **Mercúrio, fome e doenças**.
 - **21/1/2023**: **emergência em saúde pública**.
-- **570 crianças** mortas entre 2019 e 2023, segundo os relatórios.
+- **570 crianças** mortas entre 2019 e 2022, segundo dados do governo.
 
 ```realidade
 De onde vem o ouro das joias vendidas na sua cidade? Pesquise o que é "rastreabilidade do ouro" e por que ela é cobrada pelo movimento indígena.

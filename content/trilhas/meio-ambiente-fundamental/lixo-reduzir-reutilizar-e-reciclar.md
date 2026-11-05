@@ -1,5 +1,6 @@
 ---
 titulo: "Lixo: reduzir, reutilizar e reciclar"
+modelo: 9
 resumo: "A Política Nacional de Resíduos Sólidos, de 2010, define uma ordem de prioridade para o lixo: primeiro não gerar, depois reduzir, reutilizar, reciclar, tratar e, só no fim, dar destino adequado ao que sobra. Por que a reciclagem não é o primeiro passo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Separar o lixo para a reciclagem é uma boa ação. Mas e se a melhor coisa a fa
 
 Ao fim desta aula você vai conhecer a ordem de prioridade para o lixo definida pela lei brasileira e o que cada passo significa.
 
+```suarealidade
+Para onde vai o lixo da sua casa depois que o caminhão passa? Existe coleta seletiva ou alguém que recicla perto de você?
+```
+
 ## A lei do lixo
 
 A **Política Nacional de Resíduos Sólidos (PNRS)** foi instituída pela **Lei nº 12.305**, de **2 de agosto de 2010**, para **reduzir o impacto** do lixo no meio ambiente. Os seus princípios incluem o **desenvolvimento sustentável**, a **responsabilidade compartilhada** entre governo, empresas e consumidores, e o reconhecimento de que o resíduo sólido pode **gerar trabalho e renda**.
@@ -70,6 +75,15 @@ Qual atitude está mais no começo da ordem de prioridade da lei?
 > Releia a seção "A ordem de prioridade".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Separar lixo é bobagem: reciclar não resolve, e o povo que paga imposto não precisa fazer esse trabalho. Quem deve se preocupar com o lixo é a prefeitura e as empresas." É a opinião de quem já separou o lixo e viu tudo misturado no caminhão.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que o dever não é só do consumidor: a Política Nacional de Resíduos Sólidos (Lei 12.305/2010) estabelece a responsabilidade compartilhada entre governo, empresas e consumidores. E diz que reciclar é bom, mas gasta energia, transporte e água, por isso vem depois de evitar o lixo, reduzir e reutilizar (art. 9º). Também mostra que o lixo pode gerar trabalho e renda, por meio de cooperativas e associações. Cada pessoa faz a sua parte, mas as empresas e o governo têm a sua.
+```
+
 ## Exemplo resolvido
 
 **Classifique pela ordem da lei: (a) consertar um tênis rasgado; (b) separar latinhas para a reciclagem; (c) recusar um canudo de plástico; (d) usar um pote de vidro como porta-lápis.**
@@ -77,6 +91,11 @@ Qual atitude está mais no começo da ordem de prioridade da lei?
 1. **(c)** recusar o canudo: **não geração**.
 2. **(a)** consertar o tênis e **(d)** usar o pote de novo: **reutilização**.
 3. **(b)** latinhas: **reciclagem**.
+
+```agir
+# Esta semana
+Durante um dia, anote num papel tudo o que você jogou fora e marque o que poderia ter sido evitado ou reutilizado. Escolha uma coisa para tentar mudar esta semana.
+```
 
 ## Resumo
 

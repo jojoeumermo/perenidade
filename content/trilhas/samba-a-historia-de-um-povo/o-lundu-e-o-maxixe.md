@@ -1,5 +1,6 @@
 ---
 titulo: "O lundu e o maxixe"
+modelo: 9
 resumo: "Antes do samba, duas danças de origem negra agitaram o Brasil: o lundu, que veio de Angola e virou o primeiro gênero gravado no país, e o maxixe, criado na Cidade Nova do Rio e chamado de indecente pela elite."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Toda vez que uma dança nascida no meio do povo negro faz sucesso, alguém da el
 
 Ao fim desta aula você vai conhecer o lundu e o maxixe, duas danças de origem negra que vieram antes do samba, e entender por que foram perseguidas.
 
+```suarealidade
+Já aconteceu de uma música ou dança do seu bairro ser chamada de "indecente" por quem não gostava dela? Quem eram essas pessoas?
+```
+
 ## O lundu: de Angola para o Brasil
 
 O **lundu** é uma dança e canto de **origem africana**, trazida ao Brasil provavelmente por **escravizados de Angola**. Começa a aparecer em documentos a partir de **1780**. Em Portugal chegou a ser **proibido** por ser "contrário aos bons costumes".
@@ -74,6 +79,15 @@ O que o lundu e o maxixe têm em comum?
 > Releia "O lundu" e "Indecente para quem?".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Naquela época, lundu e maxixe eram mesmo indecentes. Não era preconceito, era a moral da época." É a opinião de quem olha o passado pelos costumes de então.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula pergunta justamente: indecente para quem? O lundu veio provavelmente de Angola e foi o primeiro gênero gravado no Brasil (1902); o maxixe nasceu na Cidade Nova do Rio, criado por afrodescendentes, misturando lundu, polca e havaneira. Os dois foram chamados de indecentes, e o maxixe ganhou o nome de "tango brasileiro" para disfarçar. Quando a fama de indecente cai sobre a dança de gente negra, vale perguntar quem deu o nome e por quê.
+```
+
 ## Exemplo resolvido
 
 **Monte uma linha do tempo com o que você aprendeu.**
@@ -84,6 +98,11 @@ O que o lundu e o maxixe têm em comum?
 | 2ª metade do séc. XIX | nasce o maxixe na Cidade Nova |
 | 1902 | "Isto é bom", lundu, é a primeira gravação feita no Brasil |
 | começo do séc. XX | o maxixe faz sucesso em Paris e nos EUA |
+
+```agir
+# Esta semana
+Procure uma gravação de maxixe e outra de samba e compare o balanço. Anote uma semelhança que você ouviu.
+```
 
 ## Resumo
 

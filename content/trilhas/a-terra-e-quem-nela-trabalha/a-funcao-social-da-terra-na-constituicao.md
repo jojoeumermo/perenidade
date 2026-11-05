@@ -1,5 +1,6 @@
 ---
 titulo: "A função social da terra na Constituição"
+modelo: 9
 resumo: "Para a Constituição, não basta ser dono da terra: ela tem de cumprir uma função social. Os quatro requisitos do artigo 186, que vão da produção à preservação ambiental e ao respeito às leis do trabalho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Uma fazenda produz muito, mas usa trabalho escravo e destrói nascentes. Ela cum
 
 Ao fim desta aula você vai conhecer os quatro requisitos da função social da propriedade rural e saber aplicá-los a casos concretos.
 
+```suarealidade
+Pense numa fazenda ou num sítio que você conhece. Quem trabalha lá, em que condições, e o que a terra produz? Se um terreno fica parado por anos, para quem isso serve?
+```
+
 ## Não basta ser dono
 
 A Constituição de 1988 diz que a terra tem de cumprir uma **função social**. O **artigo 184** permite à União **desapropriar** para a reforma agrária o imóvel rural que **não cumpre** essa função.
@@ -73,6 +78,20 @@ Uma fazenda muito produtiva que desmata ilegalmente cumpre a função social?
 1. **(a)** cumpre os **quatro** requisitos: **cumpre** a função social.
 2. **(b)** falha no **aproveitamento racional**: **não cumpre**.
 3. **(c)** falha nas **relações de trabalho** e no **bem-estar dos trabalhadores**: **não cumpre** o artigo 186.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A propriedade privada é um direito sagrado: quem comprou a terra faz o que quiser com ela. Falar em função social é abrir a porta para a invasão e a insegurança no campo." É uma preocupação de quem teme perder o que construiu.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a própria Constituição de 1988 protege a propriedade e, ao mesmo tempo, exige a função social. O artigo 186 pede quatro requisitos simultâneos: aproveitamento racional, uso adequado dos recursos naturais e preservação do meio ambiente, observância das leis do trabalho e exploração que favoreça o bem-estar de proprietários e trabalhadores. O artigo 185 protege a pequena e a média propriedade e a propriedade produtiva, o que também gera debate, e o artigo 184 só permite a desapropriação de imóvel que não cumpre a função social.
+```
+
+```agir
+# Esta semana
+Escreva num papel os quatro requisitos do artigo 186 e, ao lado de cada um, uma pergunta que você faria sobre uma fazenda que conhece. Não escreva nomes de pessoas nem de propriedades.
+```
 
 ## Resumo
 

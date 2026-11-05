@@ -1,5 +1,6 @@
 ---
 titulo: "Orientação sexual e identidade de gênero"
+modelo: 9
 resumo: "Por quem você sente atração e com que gênero você se identifica são duas coisas diferentes. A diferença entre orientação sexual e identidade de gênero, com exemplos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ quiz:
 
 Ao fim desta aula você vai saber a diferença entre orientação sexual e identidade de gênero e conseguir aplicá-la a exemplos.
 
+```suarealidade
+Você já ouviu alguém confundir "quem eu sou" com "por quem sinto atração"? Em que conversa, na TV ou no trabalho, isso apareceu?
+```
+
 ## Orientação sexual: por quem sinto atração
 
 **Orientação sexual** é um **padrão duradouro de atração romântica ou sexual**. Ela costuma ser agrupada em:
@@ -74,6 +79,15 @@ Ser trans é uma orientação sexual?
 > Identidade = quem eu sou; orientação = por quem sinto atração.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hoje inventam palavra demais. Bastava dizer homem e mulher, sem tanta classificação." É a reclamação de quem acha o vocabulário difícil de acompanhar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É compreensível que o vocabulário pareça muito. A aula procura simplificar com duas perguntas: a orientação sexual responde "por quem eu sinto atração?" e a identidade de gênero responde "quem eu sou?". As duas são independentes. A aula ainda lembra que há quem use outros nomes ou nenhum rótulo, e que, na lei brasileira, o Decreto nº 8.727/2016 define identidade de gênero como a forma como a pessoa se reconhece e se apresenta, sem relação necessária com o sexo atribuído no nascimento. Entender a diferença ajuda a tratar bem as pessoas.
+```
+
 ## Exemplo resolvido
 
 **Classifique: (a) homem cisgênero que gosta de mulheres; (b) mulher trans que gosta de mulheres; (c) homem trans que gosta de homens.**
@@ -81,6 +95,11 @@ Ser trans é uma orientação sexual?
 1. **(a)** identidade: homem cis; orientação: **heterossexual**.
 2. **(b)** identidade: mulher trans; orientação: **lésbica**.
 3. **(c)** identidade: homem trans; orientação: **gay**.
+
+```agir
+# Esta semana
+Monte num papel uma tabela com duas colunas, "quem eu sou" e "por quem sinto atração", e preencha com os três exemplos da aula (homem cis, mulher trans, homem trans). Confira com o exemplo resolvido.
+```
 
 ## Resumo
 

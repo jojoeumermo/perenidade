@@ -1,5 +1,6 @@
 ---
 titulo: "Ácidos e bases em casa"
+modelo: 9
 resumo: "Objetivo: reconhecer ácidos e bases no dia a dia, entender a escala de pH e usar esse conhecimento na cozinha, na limpeza e na segurança."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber reconhecer ácidos e bases do dia a dia, ler a escala de pH e usar esse conhecimento com segurança na cozinha e na limpeza.
+
+```suarealidade
+Que produtos de limpeza e de cozinha você usa em casa ou no trabalho? Algum deles traz aviso no rótulo? O que o aviso diz?
+```
 
 ## Azedo e escorregadio
 
@@ -128,6 +133,15 @@ Regras de segurança:
 
 **Se cair na pele ou nos olhos:** lave imediatamente com **muita água corrente**, por vários minutos, e procure atendimento. **Se alguém engolir:** não provoque vômito e não dê nada para beber sem orientação. Ligue para o serviço de emergência (192) ou para o Disque-Intoxicação da sua região, e leve a embalagem do produto.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Produto de limpeza é coisa comum, todo mundo usa há anos. Essa conversa de luva e óculos é exagero." É a opinião de quem faz faxina há muito tempo e nunca se machucou.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que soda cáustica e ácido muriático são perigosos: pedem luvas, óculos e lugar ventilado, e o produto vai na água, nunca o contrário. Acostumar-se com o produto não protege a pele nem os olhos. O cuidado não atrapalha o trabalho: é o que deixa você trabalhar por muitos anos.
+```
+
 ## Exemplo resolvido
 
 **Um produto tem pH 3 e outro tem pH 5. Qual é mais ácido, e quantas vezes?**
@@ -146,6 +160,11 @@ O produto de pH 3 é cem vezes mais ácido que o de pH 5. Confira: a escala não
 4. Faça o indicador de repolho roxo e teste cinco líquidos da sua cozinha. Anote as cores.
 
 **Respostas:** 1) Ácido; base; neutro; ácido; base. 2) O de pH 2, cem vezes mais. 3) Para reduzir a acidez do solo, por neutralização.
+
+```agir
+# Esta semana
+Leia o rótulo de dois produtos de limpeza da sua casa ou do seu trabalho e anote o que o fabricante manda fazer para usar com segurança.
+```
 
 ## Resumo
 

@@ -1,0 +1,51 @@
+# Exercícios da aula "Orientação sexual e identidade de gênero" (LGBTQIA+ fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lg-ori-01
+  tema: "Duas perguntas diferentes"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Ser trans é uma orientação sexual?"
+  alternativas:
+    - texto: "Não: ser trans diz respeito à identidade de gênero, e não à atração"
+      certa: true
+    - texto: "Sim, é a mesma coisa"
+      erro: "Orientação sexual é por quem sinto atração. Identidade de gênero é quem eu sou."
+    - texto: "Só às vezes"
+      erro: "Nunca: são duas coisas diferentes. Uma pessoa trans pode ter qualquer orientação."
+  explicacao: "Orientação sexual responde: por quem eu sinto atração? Identidade de gênero responde: quem eu sou?"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-ori-02
+  tema: "Exemplo"
+  dificuldade: 2
+  enunciado: "Um homem trans sente atração por mulheres. O que isso diz?"
+  alternativas:
+    - texto: "A identidade de gênero dele é a de homem, e a orientação sexual, a atração por mulheres: duas coisas separadas"
+      certa: true
+    - texto: "Que ele é mulher"
+      erro: "Ele se identifica como homem. É a identidade de gênero dele."
+    - texto: "Que ele não é trans"
+      erro: "A atração não diz se alguém é trans ou não."
+  explicacao: "Uma pessoa trans pode ser heterossexual, gay, lésbica, bissexual ou assexual, como qualquer outra pessoa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-ori-03
+  tema: "Definição de orientação"
+  dificuldade: 2
+  enunciado: "O que é orientação sexual?"
+  alternativas:
+    - texto: "Um padrão duradouro de atração romântica ou sexual"
+      certa: true
+    - texto: "O gênero com que a pessoa se identifica"
+      erro: "Isso é identidade de gênero."
+    - texto: "O nome que a pessoa usa"
+      erro: "Isso é nome social."
+  explicacao: "Costuma ser agrupada em heterossexualidade, homossexualidade, bissexualidade e assexualidade. Há quem use outros nomes, como pansexual, ou nenhum rótulo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

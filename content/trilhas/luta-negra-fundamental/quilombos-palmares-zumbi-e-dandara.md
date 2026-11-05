@@ -1,5 +1,6 @@
 ---
 titulo: "Quilombos: Palmares, Zumbi e Dandara"
+modelo: 9
 resumo: "Por quase um século, pessoas que fugiram da escravidão viveram livres na Serra da Barriga. A história do maior quilombo das Américas."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar o que foram os quilombos, contar a história de Palmares, de Zumbi e de Dandara e dizer por que a luta quilombola continua.
+
+```suarealidade
+Você conhece alguma comunidade quilombola ou algum lugar da sua cidade com nome ligado a Zumbi, a Dandara ou a Palmares? O que se conta sobre ele?
+```
 
 ## Fugir era lutar
 
@@ -77,6 +82,15 @@ Os quilombos não ficaram no passado. Milhares de comunidades descendem deles e 
 
 Desde 2023, o **20 de novembro** é feriado nacional: o Dia Nacional de Zumbi e da Consciência Negra.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Isso é coisa de muito tempo atrás. Falar de quilombo hoje é remexer no passado em vez de olhar para o futuro." É a opinião de quem acha que a história antiga já foi superada.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a história não ficou lá atrás: o último trecho trata dos quilombos hoje, e diz por que a luta quilombola continua. Ela conta que Palmares durou quase cem anos e que, no auge, viviam ali milhares de pessoas, com estimativas de historiadores que chegam a 20 mil. Conhecer como os quilombos resistiram ajuda a entender a história do país e as comunidades que existem ainda hoje.
+```
+
 ## Exemplo resolvido
 
 **Por que Zumbi e seus companheiros recusaram o acordo de 1678?**
@@ -87,6 +101,11 @@ Desde 2023, o **20 de novembro** é feriado nacional: o Dia Nacional de Zumbi e 
 4. Uma parte dos palmarinos recusou, porque o acordo deixava de fora quem ainda estava escravizado. À frente deles estava **Zumbi**, que manteve a resistência por mais quinze anos.
 
 Confira: Zumbi foi morto em **20 de novembro de 1695**, data que hoje é o Dia Nacional de Zumbi e da Consciência Negra (feriado nacional desde 2023).
+
+```agir
+# Esta semana
+Procure no mapa da sua cidade ou na memória de alguém da família algum lugar, rua, escola ou comunidade com o nome de Zumbi, Dandara ou Palmares. Anote o nome num papel e pergunte a uma pessoa de confiança o que ela sabe sobre ele.
+```
 
 ## Resumo
 

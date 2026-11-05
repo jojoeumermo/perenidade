@@ -18,7 +18,7 @@ quiz:
   - pergunta: "Segundo a OMS (CID-11), o burnout é:"
     opcoes: ["Um fenômeno ocupacional resultante de estresse crônico no trabalho que não foi administrado com sucesso, com exaustão, distanciamento mental e queda de eficácia", "Preguiça", "Falta de caráter", "Uma doença contagiosa"]
     resposta: 0
-    explicacao: "A OMS o descreve como fenômeno ligado ao contexto de trabalho, com três dimensões: exaustão, distanciamento mental ou cinismo e redução da eficácia."
+    explicacao: "A OMS o descreve como fenômeno ligado ao contexto de trabalho, com três dimensões: exaustão, distanciamento mental ou cinismo e redução da eficácia. A OMS define o fenômeno para o trabalho; quem milita pode sentir sinais parecidos."
   - pergunta: "Qual é um sinal de esgotamento em quem milita?"
     opcoes: ["Cansaço que o descanso não resolve, irritação constante, distanciamento do grupo e sensação de que nada adianta", "Disposição constante", "Sono tranquilo", "Fome normal"]
     resposta: 0

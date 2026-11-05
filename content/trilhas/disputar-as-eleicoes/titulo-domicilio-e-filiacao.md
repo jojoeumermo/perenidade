@@ -1,5 +1,6 @@
 ---
 titulo: "O primeiro passo: título, domicílio eleitoral e filiação"
+modelo: 9
 resumo: "Antes de qualquer campanha vêm três prazos: o título de eleitor em dia, o domicílio eleitoral na cidade ou no estado da disputa e a filiação a um partido, as duas últimas pelo menos seis meses antes da eleição."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Uma liderança comunitária muito querida decide, em julho do ano da eleição, 
 
 Ao fim desta aula você vai conhecer os três prazos que vêm antes de qualquer campanha: o título de eleitor, o domicílio eleitoral e a filiação a um partido.
 
+```suarealidade
+O seu título de eleitor está em dia e no município onde você mora? Você sabe desde quando?
+```
+
 ## O título de eleitor
 
 Ninguém é candidato sem estar **alistado**, isto é, sem ter **título de eleitor**. Pela Constituição, o voto é **obrigatório** a partir dos 18 anos e **facultativo** para quem tem 16 ou 17, mais de 70, ou é analfabeto.
@@ -95,6 +100,15 @@ Uma pessoa se filia a um partido em junho do ano da eleição. O que acontece?
 > Releia a seção sobre a filiação partidária.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Prazo de seis meses e cadastro fechado 150 dias antes é burocracia que exclui quem decide se candidatar em cima da hora. Uma liderança querida deveria poder se candidatar a qualquer momento." É a queixa de quem tem pouco tempo e pouca informação.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde que os prazos pesam sobre quem tem pouca informação: por isso traz a linha do tempo das eleições de 2028 para se planejar com folga. A regra é clara: o domicílio eleitoral na circunscrição da disputa e a filiação aprovada pelo partido precisam estar prontos pelo menos seis meses antes da eleição, e o cadastro de eleitores fecha 150 dias antes. Também não existe candidatura avulsa: todo candidato precisa de um partido. Por isso, no caso da provocação, a liderança que decide em julho só consegue se já estiver filiada e com domicílio no município desde antes do prazo; se não, os prazos já passaram. Vale conferir sempre o calendário do TSE.
+```
+
 ## Exemplo resolvido
 
 **Volte à liderança comunitária da provocação. Ela se decidiu em julho do ano da eleição. Consegue ser candidata?**
@@ -102,6 +116,11 @@ Uma pessoa se filia a um partido em junho do ano da eleição. O que acontece?
 1. Se ela **já vota na cidade há mais de seis meses** e **já era filiada** a um partido há mais de seis meses, sim: falta só a convenção e o registro.
 2. Se ela **não era filiada**, não. A filiação precisava estar aprovada seis meses antes. A candidatura fica para a eleição seguinte.
 3. A lição para o movimento: **quem pode ser candidato se decide cedo**. A organização planeja as candidaturas com pelo menos um ano de antecedência.
+
+```agir
+# Esta semana
+Pergunte a alguém de casa onde está inscrito o título de eleitor dela e se já mudou de cidade sem transferir. Conte a essa pessoa o prazo de 150 dias antes da eleição para o cadastro fechar.
+```
 
 ## Resumo
 

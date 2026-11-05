@@ -1,5 +1,6 @@
 ---
 titulo: "Recursos naturais"
+modelo: 9
 resumo: "Água, solo, florestas, minérios e fontes de energia: o que se renova, o que acaba, de quem é e quem paga a conta quando a exploração dá errado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber distinguir recursos renováveis e não renováveis, ler o consumo de água na conta, conhecer os principais minérios e fontes de energia do Brasil e perguntar de quem é a riqueza.
+
+```suarealidade
+De onde vem a água que chega à sua torneira? Você sabe quantos litros a sua casa gasta por pessoa, por dia?
+```
 
 
 ## O que é um recurso natural
@@ -126,6 +131,20 @@ Há também o que se pode **reaproveitar**. A Política Nacional de Resíduos S�
 4. Classifique como renovável ou não renovável: lenha, gasolina, energia solar, cobre, peixe.
 
 **Respostas da 4:** lenha, energia solar e peixe são renováveis (se usados dentro do ritmo de reposição); gasolina (do petróleo) e cobre não são.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Mineração e exportação de matéria-prima trazem progresso. Reclamar de barragem e de rejeito é ser contra o desenvolvimento."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que o país vive de recursos naturais: o Brasil é grande produtor de minério de ferro, bauxita, ouro e nióbio. Mas mostra o custo: em 2015, o rompimento de uma barragem de rejeitos em Mariana, Minas Gerais, matou 19 pessoas e levou a lama pelo Rio Doce até o mar, e em 2019 outra barragem se rompeu em Brumadinho e matou 270 pessoas, a maior parte trabalhadores da própria mina. A Constituição de 1988 diz que os recursos minerais são bens da União (artigo 20), e que empresas só podem explorá-los com autorização ou concessão do governo (artigo 176). A pergunta da aula é de quem é a riqueza e quem decide o seu uso.
+```
+
+```agir
+# Esta semana
+Pegue a sua conta de água, calcule quantos litros a sua casa gasta por pessoa, por dia (1 m³ são 1.000 litros) e anote o resultado. Descubra também de que rio ou represa vem a água do seu bairro.
+```
 
 ## Resumo
 

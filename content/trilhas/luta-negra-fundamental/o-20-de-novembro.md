@@ -1,5 +1,6 @@
 ---
 titulo: "O 20 de novembro"
+modelo: 9
 resumo: "O Dia de Zumbi e da Consciência Negra foi proposto em 1971 por um grupo de militantes negros de Porto Alegre, contra a ideia de que a liberdade foi presente da princesa. Como a data nasceu, por que 20 de novembro e quando virou feriado nacional."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,10 @@ quiz:
 
 Ao fim desta aula você vai saber como nasceu o Dia de Zumbi e da Consciência Negra, por que ele é em 20 de novembro e quando virou feriado nacional.
 
+```suarealidade
+Como o 20 de novembro é lembrado na sua escola, no seu trabalho ou no seu bairro: é dia de folga, de festa ou de luta? Quem lembra dele com você?
+```
+
 ## O Grupo Palmares
 
 Em **1971**, em plena ditadura, militantes negros fundaram em **Porto Alegre** o **Grupo Palmares**. Seu principal líder foi o poeta, professor e pesquisador **Oliveira Silveira**. O grupo se inspirava no **Teatro Experimental do Negro**, no pan-africanismo e no movimento negro dos Estados Unidos.
@@ -62,6 +67,15 @@ Por que o movimento negro preferiu o 20 de novembro ao 13 de maio?
 > O 20 de novembro lembra Zumbi, um líder que lutou contra a escravidão.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Já existe o 13 de maio, que lembra a liberdade. Uma data a mais só para dividir, em vez de unir todo mundo." É a opinião de quem prefere um único dia de lembrança.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a proposta do Grupo Palmares, de 1971, foi um contraponto ao 13 de maio, a data da Lei Áurea, assinada pela princesa Isabel. A ideia era lembrar a liberdade não como um presente, mas o protagonismo das próprias pessoas negras na luta contra a escravidão. O 20 de novembro é o dia atribuído à morte de Zumbi dos Palmares, em 1695. A data nasceu do movimento negro, entrou nos calendários escolares em 2003 e foi transformada em feriado nacional por lei sancionada em 21 de dezembro de 2023.
+```
+
 ## Exemplo resolvido
 
 **Quantos anos levou para a proposta de 1971 virar feriado nacional?**
@@ -70,6 +84,11 @@ Por que o movimento negro preferiu o 20 de novembro ao 13 de maio?
 2. Feriado nacional: **2023**.
 3. 2023 − 1971 = **52 anos**.
 4. **Leitura**: a data nasceu da **luta do movimento negro** e levou mais de meio século para ser reconhecida em todo o país.
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha de confiança o que ela sabe sobre o 20 de novembro e quando ouviu falar de Zumbi pela primeira vez. Anote a resposta num papel e conte o que você aprendeu nesta aula.
+```
 
 ## Resumo
 

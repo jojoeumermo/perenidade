@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é trabalho" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-tra-01
+  tema: "Trabalho e emprego"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma mãe cuida da casa e dos filhos o dia inteiro, sem salário. Ela está trabalhando?"
+  alternativas:
+    - texto: "Sim: faz um trabalho necessário para a vida, mesmo sem pagamento"
+      certa: true
+    - texto: "Não, porque não tem carteira assinada"
+      erro: "Trabalho é mais do que emprego. Sem esse trabalho, a sociedade pararia."
+    - texto: "Só se vender alguma coisa"
+      erro: "Trabalhar não depende de vender. É atividade necessária à vida."
+  explicacao: "Cozinhar, lavar, cuidar de crianças e idosos é trabalho feito sobretudo por mulheres e, em geral, sem pagamento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-tra-02
+  tema: "A abelha e o arquiteto"
+  dificuldade: 2
+  enunciado: "Qual a diferença, para Marx, entre o pior arquiteto e a melhor abelha?"
+  alternativas:
+    - texto: "O arquiteto constrói a casa na cabeça antes de construí-la: o trabalho humano é consciente"
+      certa: true
+    - texto: "A abelha constrói melhor, então ganha"
+      erro: "A comparação mostra que a abelha pode fazer favos perfeitos, mas o que difere é o planejamento consciente."
+    - texto: "O arquiteto usa mais material"
+      erro: "A diferença não é de material, mas de planejamento prévio."
+  explicacao: "O trabalho humano é consciente: imaginamos o resultado antes de fazer."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-tra-03
+  tema: "O trabalho muda quem trabalha"
+  dificuldade: 2
+  enunciado: "Quem aprende a costurar ou a consertar um motor muda só o tecido ou o motor?"
+  alternativas:
+    - texto: "Não: muda também a si mesmo, ganhando novas habilidades e conhecimentos"
+      certa: true
+    - texto: "Sim, só o objeto muda"
+      erro: "O trabalho é criador: transforma o objeto e a pessoa."
+    - texto: "Não muda nada, porque já sabia tudo"
+      erro: "Quem aprende desenvolve habilidades novas."
+  explicacao: "Ao trabalhar, mudamos a natureza e a nós mesmos. Engels, em 1876, escreveu sobre o papel do trabalho na transformação do macaco em homem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

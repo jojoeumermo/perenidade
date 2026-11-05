@@ -1,0 +1,50 @@
+# Exercícios da aula "Cultura e diversidade" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-cultura-e-diversidade-01
+  tema: "Cultura"
+  dificuldade: 1
+  enunciado: "Segundo E. B. Tylor, citado na aula, o que é cultura?"
+  alternativas:
+    - texto: "O todo complexo que inclui conhecimento, crença, arte, moral, lei, costume e outros hábitos adquiridos como membro de uma sociedade"
+      certa: true
+    - texto: "O que se herda pelo sangue"
+      erro: "A aula diz que é aprendida, e não herdada pelo sangue."
+    - texto: "Só a música e a dança"
+      erro: "Inclui conhecimento, crença, moral, lei e costume."
+  explicacao: "Como é aprendida, todo grupo humano tem cultura."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cultura e diversidade\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-cultura-e-diversidade-02
+  tema: "Diversidade"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre uma cultura ser \"melhor\" que outra?"
+  alternativas:
+    - texto: "Nenhuma é melhor ou mais avançada: são diferentes"
+      certa: true
+    - texto: "Algumas são mais avançadas"
+      erro: "A aula diz o contrário."
+    - texto: "A melhor é a da maioria"
+      erro: "Nenhuma é melhor."
+  explicacao: "Respeitar a diversidade é combater o etnocentrismo, a ideia de que o próprio jeito é o único certo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cultura e diversidade\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-cultura-e-diversidade-03
+  tema: "UNESCO"
+  dificuldade: 2
+  enunciado: "Em que data se celebra o Dia Mundial da Diversidade Cultural para o Diálogo e o Desenvolvimento, criado pela ONU em 2002?"
+  alternativas:
+    - texto: "21 de maio"
+      certa: true
+    - texto: "21 de janeiro"
+      erro: "Essa é a data de combate à intolerância religiosa."
+    - texto: "19 de abril"
+      erro: "Esse é o Dia dos Povos Indígenas."
+  explicacao: "Em 2005, a UNESCO aprovou a Convenção sobre a Proteção e Promoção da Diversidade das Expressões Culturais."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cultura e diversidade\""
+  revisao:
+    status: em-revisao

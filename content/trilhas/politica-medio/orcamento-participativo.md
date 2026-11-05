@@ -23,9 +23,9 @@ quiz:
     resposta: 0
     explicacao: "Cidades como Paris e Saint-Denis adotaram depois o modelo."
   - pergunta: "O orçamento participativo é obrigatório por lei no Brasil?"
-    opcoes: ["Em geral, não há lei que obrigue", "Sim, em todas as cidades", "É proibido"]
+    opcoes: ["Não: a lei exige audiências públicas sobre o orçamento, mas não obriga a população a decidir parte dele", "Sim, em todas as cidades", "É proibido"]
     resposta: 0
-    explicacao: "Depende da vontade política de cada governo."
+    explicacao: "O Estatuto da Cidade (art. 44) exige debates e audiências públicas para aprovar o orçamento municipal, mas o orçamento participativo, em que o povo decide parte do dinheiro, depende da vontade política de cada governo."
 ---
 
 ```provocacao

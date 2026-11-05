@@ -1,5 +1,6 @@
 ---
 titulo: "Movimentos sociais: o povo organizado fora do parlamento"
+modelo: 9
 resumo: "Movimentos sociais são ações coletivas para defender interesses, mudar a sociedade ou preservá-la. O que os define, o que diz o sociólogo Alain Touraine e exemplos brasileiros, do MST ao movimento negro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Muitas conquistas, como a reforma agrária, as cotas e os direitos LGBTQIA+, nã
 
 Ao fim desta aula você vai saber o que é um movimento social, o que o diferencia de outras formas de organização e conhecer exemplos brasileiros.
 
+```suarealidade
+Você conhece alguma associação, sindicato, igreja, grupo de mulheres ou de moradores que já conseguiu alguma coisa no seu bairro ou no seu trabalho? Como começou?
+```
+
 ## O que é
 
 **Movimento social** é a **ação coletiva** de setores da sociedade para **defender ou promover** objetivos ou interesses, no âmbito das **relações de classes**. Pode ser de **transformação** da sociedade ou de **preservação** da ordem estabelecida.
@@ -75,6 +80,20 @@ Qual é a principal diferença entre um partido e um movimento social, segundo a
 2. Há um **objetivo**: o direito ao saneamento.
 3. Atuam **fora do parlamento**, pressionando o poder público.
 4. **Conclusão**: sim, é um movimento social, ainda que local.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Movimento social é bagunça: ocupação, marcha e greve atrapalham a vida de quem trabalha. Quem quer mudar alguma coisa deve votar e esperar o Congresso." É uma crítica de quem se sente prejudicado por bloqueios e protestos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula define movimento social como ação coletiva para defender ou promover objetivos, que pode buscar transformar ou preservar a ordem, e que atua fora do parlamento com ocupações, marchas, greves e campanhas. A aula dá exemplos, como o MNU (1978) e o MST (1984), e lembra a pergunta da provocação: muitas conquistas não começaram no Congresso, mas na rua, no campo e nas associações. Votar e se organizar não se excluem.
+```
+
+```agir
+# Esta semana
+Anote num papel o nome de uma associação ou grupo organizado do seu bairro ou do seu trabalho (associação de moradores, sindicato, grupo de igreja) e o dia em que ele se reúne. Se quiser, vá a uma reunião como visitante.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Números negativos"
+modelo: 9
 resumo: "Dívida, temperatura abaixo de zero e subsolo: como comparar, somar, subtrair e multiplicar números com sinal."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber usar números negativos para dívidas, temperaturas e alturas, e fazer as quatro operações com eles.
+
+```suarealidade
+Você já ficou com o saldo negativo na conta, ou viu uma temperatura abaixo de zero? O que o sinal de menos queria dizer nessa situação?
+```
 
 ## Menos que nada
 
@@ -113,6 +118,15 @@ A cada linha, o resultado sobe 3. Para o padrão não quebrar, (−3) × (−1) 
 
 Na China antiga, os calculistas usavam varetas de duas cores, uma para ganhos e outra para perdas. No século VII, o matemático indiano Brahmagupta escreveu regras para operar com "fortunas" e "dívidas", muito parecidas com as desta aula. Na Europa, os negativos foram vistos com desconfiança por séculos; havia quem os chamasse de números absurdos. Só foram aceitos de vez quando o comércio, a contabilidade e a ciência mostraram que não dava para passar sem eles.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Número negativo é invenção de matemático. Na vida só existe dinheiro que tem ou que não tem." É uma impressão natural de quem lida com o que é palpável.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que essa estranheza é antiga: na Europa, os negativos foram vistos com desconfiança por séculos, e havia quem os chamasse de números absurdos. Só foram aceitos de vez quando o comércio, a contabilidade e a ciência mostraram que não dava para passar sem eles. Na China antiga, os calculistas usavam varetas de duas cores, uma para ganhos e outra para perdas, e no século VII o matemático indiano Brahmagupta escreveu regras para fortunas e dívidas. Quem tem uma dívida no banco já convive com o negativo.
+```
+
 ## Exemplo resolvido
 
 **Uma conta tinha R$ 150. Entraram R$ 200 e saíram R$ 420. Qual é o saldo?**
@@ -133,6 +147,11 @@ Confira: o saldo é **−R$ 70**, uma dívida de setenta reais. Na reta numéric
 6. Uma conta tinha R$ 150. Entraram R$ 200 e saíram R$ 420. Qual é o saldo?
 
 **Respostas:** 1) −7, −2, 0, 3, 5. 2) −5. 3) −6. 4) 5. 5) 24 e −4. 6) −R$ 70.
+
+```agir
+# Esta semana
+Anote no papel três situações da sua vida em que existe um número negativo (saldo devedor, temperatura, subsolo) e escreva ao lado o que o sinal de menos quer dizer em cada uma.
+```
 
 ## Resumo
 

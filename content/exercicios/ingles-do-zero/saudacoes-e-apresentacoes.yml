@@ -1,0 +1,51 @@
+# Exercícios da aula "Saudações e apresentações" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-sau-01
+  tema: "Good evening e good night"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Você chega a uma reunião às sete da noite. Qual cumprimento usar ao chegar?"
+  alternativas:
+    - texto: "Good evening"
+      certa: true
+    - texto: "Good night"
+      erro: "Good night é para se despedir ou ir dormir."
+    - texto: "Good morning"
+      erro: "Good morning é até o meio-dia."
+  explicacao: "O português usa 'boa noite' para chegar e para sair. O inglês separa: Good evening abre a conversa, Good night a encerra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-sau-02
+  tema: "Como vai você"
+  dificuldade: 1
+  enunciado: "Qual é uma resposta comum para 'How are you?'"
+  alternativas:
+    - texto: "I'm fine, thanks."
+      certa: true
+    - texto: "My name is Ana."
+      erro: "Essa frase é para dizer o nome. A pergunta é 'Como vai você?'."
+    - texto: "I'm twenty."
+      erro: "Essa frase é para dizer a idade."
+  explicacao: "Outras respostas comuns: I'm good e Not bad."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-sau-03
+  tema: "Apresentar-se"
+  dificuldade: 1
+  enunciado: "Qual frase se usa para dizer o próprio nome?"
+  alternativas:
+    - texto: "My name is Ana."
+      certa: true
+    - texto: "I have Ana."
+      erro: "Em inglês não se usa 'have' para o nome."
+    - texto: "Name Ana me."
+      erro: "A ordem está errada."
+  explicacao: "Também se pode dizer I'm Ana. Depois: Nice to meet you."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

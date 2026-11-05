@@ -1,5 +1,6 @@
 ---
 titulo: "O dia do orgulho"
+modelo: 9
 resumo: "Todo 28 de junho se celebra o Dia Internacional do Orgulho LGBT, em memória da Rebelião de Stonewall, de 1969. Por que 'orgulho', e como a Parada de São Paulo se tornou uma das maiores do mundo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,10 @@ Por que "orgulho"? Ninguém faz um dia do "orgulho hétero". O que essa palavra 
 
 Ao fim desta aula você vai saber a origem do Dia do Orgulho LGBT, o sentido da palavra orgulho e a importância das paradas.
 
+```suarealidade
+No seu bairro ou no seu serviço, quem tem que esconder quem é para não sofrer? O que muda quando uma pessoa pode falar de si sem medo?
+```
+
 ## 28 de junho
 
 O **Dia Internacional do Orgulho LGBT** é celebrado em todo o mundo em **28 de junho**, em memória da **Rebelião de Stonewall**, de **1969**, em Nova York. A data serve para **reafirmar o orgulho** de orientações sexuais e identidades de gênero historicamente **marginalizadas e reprimidas**, tornar visível a sua presença e as suas reivindicações e promover o **acolhimento da diversidade**. Em muitas cidades há também a **semana** ou o **mês do orgulho**.
@@ -57,6 +62,15 @@ Por que não faz sentido um "dia do orgulho hétero" do mesmo jeito?
 > O orgulho LGBT é uma resposta política a uma opressão.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Orientação sexual é assunto particular. Para que fazer parada e desfile com tanta exposição?" É a opinião de quem acha que a vida íntima deveria ficar em casa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que o orgulho surge como resposta política à vergonha, à exclusão e às agressões, que podem chegar à morte, e que a palavra quer dizer amor-próprio: a ideia básica é que nenhuma pessoa deve ter vergonha do que é. As paradas, como a de São Paulo, que acontece na Avenida Paulista desde 1997, têm entre as suas principais reivindicações a defesa dos direitos LGBT e o combate à LGBTfobia. Ou seja, não é só festa: é um dia de reivindicar direitos.
+```
+
 ## Exemplo resolvido
 
 **Explique a ligação entre 1969 e as paradas de hoje.**
@@ -64,6 +78,11 @@ Por que não faz sentido um "dia do orgulho hétero" do mesmo jeito?
 1. Em **28 de junho de 1969**, frequentadores do bar Stonewall, em Nova York, **resistiram** a uma batida policial.
 2. Um ano depois, a data foi lembrada com **marchas**.
 3. As marchas se espalharam pelo mundo e viraram as **paradas do orgulho**, como a de **São Paulo**, desde **1997**.
+
+```agir
+# Esta semana
+Escreva num papel três frases que explicam, com as suas palavras, por que o dia 28 de junho é lembrado e o que quer dizer a palavra orgulho. Se quiser, leia para alguém de confiança.
+```
 
 ## Resumo
 

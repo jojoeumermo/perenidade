@@ -1,5 +1,6 @@
 ---
 titulo: "Métodos sintéticos, analíticos e o debate do método fônico"
+modelo: 9
 resumo: "Objetivo: conhecer os principais métodos de alfabetização, sintéticos e analíticos, e os termos do debate recente sobre o método fônico no Brasil, incluindo as políticas nacionais de 2019 e de 2023."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai distinguir os métodos sintéticos (alfabético, fônico, silábico) dos analíticos (palavração, sentenciação, global), situar o método de Paulo Freire entre eles e explicar os termos do debate recente sobre o método fônico, incluindo as políticas nacionais de 2019 e de 2023.
+
+```suarealidade
+Como você aprendeu a ler (ou como foi com alguém que você conhece)? Começou pelas letras, pelos sons, por palavras inteiras ou por histórias?
+```
 
 ## A velha pergunta
 
@@ -102,6 +107,20 @@ Magda Soares, em *Alfabetização: a questão dos métodos* (2016), propôs supe
 3. **A partir de uma foto da obra, o grupo conversa sobre o trabalho; aparece a palavra TIJOLO; ela é dividida em sílabas, as famílias são montadas e o grupo cria palavras novas.** Parte de uma palavra com sentido (**analítico**) e chega às famílias silábicas (**sintético**), com o debate no centro: o **método de Paulo Freire**, que combina os dois.
 
 Confira: em cada caso, perguntou-se por onde a aula começa (pelo menor ou pelo maior) e o que fica de fora. É o mesmo raciocínio da convergência que muitos pesquisadores apontam: ensino explícito do princípio alfabético **junto** com textos reais e compreensão.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O método fônico é o único que funciona: ensina o som de cada letra e pronto. Os outros métodos só atrasam a criança e o adulto." É uma posição defendida por pesquisadores e por parte das políticas públicas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula apresenta o debate sem escolher um lado simples: o Decreto nº 9.765/2019 (Política Nacional de Alfabetização, com ênfase fônica) foi criticado por associações de pesquisadores e revogado pelo Decreto nº 11.556/2023. E aponta um ponto de convergência: ensinar o princípio alfabético de forma explícita, junto com textos reais e compreensão, com diagnóstico e com condições de trabalho para quem ensina. O método de Freire também combina: parte de palavras com sentido e chega às famílias silábicas.
+```
+
+```agir
+# Esta semana
+Escolha uma palavra importante da sua vida (o seu nome, o de um filho) e escreva-a num papel de três jeitos: inteira, dividida em sílabas e com os sons. Qual jeito te pareceu mais fácil de lembrar?
+```
 
 ## Resumo
 

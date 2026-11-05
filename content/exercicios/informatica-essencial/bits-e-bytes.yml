@@ -1,0 +1,69 @@
+# Exercícios da aula "Bits e bytes" (Informática essencial). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ie-bit-01
+  tipo: numero
+  tema: "Binário para decimal"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é, em decimal, o número binário 1011?"
+  resposta: "11"
+  erros_comuns:
+    - resposta: "1011"
+      explicacao: "1.011 é o mesmo desenho lido como decimal. Em binário, cada posição vale o dobro da anterior: 1, 2, 4, 8."
+  dica: "Da direita para a esquerda, as posições valem 1, 2, 4 e 8. Some as que têm 1."
+  explicacao: "Posições ligadas: 8, 2 e 1. 8 + 2 + 1 = 11."
+  conferir: "8 + 2 + 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-bit-02
+  tema: "Decimal para binário"
+  dificuldade: 2
+  enunciado: "Qual é o número 9 escrito em binário?"
+  alternativas:
+    - texto: "1001"
+      certa: true
+    - texto: "1010"
+      erro: "1010 é o 10: 8 + 2. O 9 é 8 + 1."
+    - texto: "111"
+      erro: "111 vale 7: 4 + 2 + 1. O 9 precisa da posição do 8."
+  explicacao: "9 = 8 + 1: posição do 8 ligada, posições do 4 e do 2 desligadas, posição do 1 ligada: 1001."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-bit-03
+  tipo: numero
+  tema: "Bits em bytes"
+  dificuldade: 2
+  enunciado: "Um byte tem 8 bits. Quantos bits há em 3 bytes?"
+  resposta: "24"
+  unidade: "bits"
+  erros_comuns:
+    - resposta: "3"
+      explicacao: "3 é o número de bytes. Cada byte tem 8 bits: multiplique."
+  dica: "Multiplique o número de bytes por 8."
+  explicacao: "3 × 8 = 24 bits."
+  conferir: "3 * 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-bit-04
+  tipo: numero
+  tema: "Megabits e megabytes"
+  dificuldade: 3
+  enunciado: "Uma conexão de 80 megabits por segundo (Mb/s) baixa, no máximo, quantos megabytes por segundo (MB/s)?"
+  resposta: "10"
+  unidade: "MB/s"
+  erros_comuns:
+    - resposta: "640"
+      explicacao: "640 é 80 × 8. Mas um byte tem 8 bits, então para passar de bits para bytes se divide por 8."
+  dica: "Divida os megabits por 8."
+  explicacao: "Como 1 byte tem 8 bits, 80 ÷ 8 = 10 MB/s, no máximo."
+  conferir: "80 / 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

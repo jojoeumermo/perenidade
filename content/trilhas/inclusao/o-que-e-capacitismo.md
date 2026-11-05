@@ -1,5 +1,6 @@
 ---
 titulo: "O que é capacitismo"
+modelo: 9
 resumo: "Capacitismo é o preconceito e a discriminação contra pessoas com deficiência, tratando-as como inferiores ou definidas só pela deficiência. Exemplos do dia a dia, os estereótipos mais comuns e o que diz a lei."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ quiz:
 
 Ao fim desta aula você vai saber o que é capacitismo, reconhecer exemplos no dia a dia e conhecer o que a lei diz sobre a discriminação de pessoas com deficiência.
 
+```suarealidade
+Que expressões do dia a dia, que você já ouviu ou falou, podem machucar pessoas com deficiência? Que palavras dá para usar no lugar?
+```
+
 ## O que é
 
 **Capacitismo** é a **discriminação e o preconceito** contra pessoas com **deficiência**. Ele **define as pessoas pela deficiência** e as classifica como **inferiores** às pessoas sem deficiência. A partir disso, a sociedade **atribui ou nega** habilidades e competências a elas, muitas vezes de forma **falsa**.
@@ -76,6 +81,20 @@ Por que a frase "nem parece que você tem deficiência" pode ser capacitista?
 1. **(a)** **discriminação capacitista**, que pode ser crime pela LBI.
 2. **(b)** **atitude capacitista**: trata a pessoa cega como incapaz de responder por si.
 3. **(c)** **não é capacitismo**: é **acessibilidade**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Isso é exagero. É só brincadeira ou elogio, ninguém quis ofender. Hoje em dia não se pode falar mais nada."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que capacitismo é preconceito e discriminação que define as pessoas pela deficiência e as vê como inferiores. A frase "nem parece que você tem deficiência" pode parecer elogio, mas supõe que ter deficiência é algo ruim e que o normal seria não ter. Mesmo sem má intenção, os estereótipos limitam as opções da pessoa e mudam a forma como ela é vista. E a lei vai além da palavra: a Lei Brasileira de Inclusão (Lei nº 13.146/2015), no artigo 88, define como crime praticar, induzir ou incitar discriminação de pessoa em razão de sua deficiência, com pena de 1 a 3 anos de reclusão e multa.
+```
+
+```agir
+# Esta semana
+Faça uma lista de três atitudes ou frases capacitistas que você já viu ou ouviu e escreva como cada uma poderia ser dita ou feita de outro jeito. Não cite o nome de ninguém.
+```
 
 ## Resumo
 

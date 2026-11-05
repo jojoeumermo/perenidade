@@ -1,5 +1,6 @@
 ---
 titulo: "Pauta, ata e encaminhamentos"
+modelo: 9
 resumo: "Como montar e divulgar a pauta, o que uma ata precisa ter, por que ela registra o que foi decidido e não tudo o que foi dito, e como transformar decisões em tarefas com responsável e prazo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -44,6 +45,10 @@ Três meses depois, alguém pergunta: "Mas quem ficou de levar o ofício à pref
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber montar e divulgar a pauta de uma reunião, escrever uma ata com o que ela precisa ter e transformar cada decisão em um encaminhamento com responsável e prazo.
+
+```suarealidade
+O seu grupo tem atas das reuniões? Onde ficam, e quem consegue consultá-las?
+```
 
 ## A pauta: antes da reunião
 
@@ -99,6 +104,15 @@ A secretária escreveu na ata: "Houve longa discussão sobre a festa. Seu Zé fa
 > A ata registra o que foi feito: propostas, votações e tarefas.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ata é papelada que só serve para a direção. Entre gente de confiança, o combinado vale mais do que o papel, e escrever tudo só gera briga." É a opinião de quem confia na palavra dos companheiros.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra o que acontece sem registro: três meses depois, ninguém lembra quem ficou de levar o ofício à prefeitura. A ata registra o que foi feito (propostas, votações e encaminhamentos), e cada encaminhamento tem o quê, quem e até quando. Atas e listas de presença em ordem também protegem as decisões do grupo. A pauta divulgada antes, com dia, hora, local e hora de terminar, evita que assunto importante seja decidido com pouca gente presente. Confiança e registro andam juntos.
+```
+
 ## Exemplo resolvido
 
 **Escreva a ata de uma reunião curta da associação de moradores.**
@@ -114,6 +128,11 @@ A secretária escreveu na ata: "Houve longa discussão sobre a festa. Seu Zé fa
 > **Encaminhamentos**: Juliana e Pedro entregam o abaixo-assinado até sexta, dia 14. A comissão da festa (Rosa, Tiago e Neide) apresenta o orçamento na próxima reunião.
 >
 > Nada mais havendo, a reunião foi encerrada às 20h25. Assinam: Carlos (secretário) e Maria Aparecida (presidente).
+
+```agir
+# Esta semana
+Ofereça-se para secretariar a próxima reunião de um grupo seu e anote num papel, ao final, cada encaminhamento com quem e até quando. Leia em voz alta no fim para o grupo conferir.
+```
 
 ## Resumo
 

@@ -1,0 +1,51 @@
+# Exercícios da aula "Como funcionam os assistentes de texto" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-ass-01
+  tema: "Prever a próxima palavra"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a tarefa simples em que os modelos de linguagem do tipo GPT são pré-treinados?"
+  alternativas:
+    - texto: "Prever a próxima palavra de um texto"
+      certa: true
+    - texto: "Consultar uma enciclopédia confiável a cada pergunta"
+      erro: "O modelo não consulta uma enciclopédia por conta própria. Ele aprende padrões prevendo a próxima palavra em uma quantidade enorme de texto."
+    - texto: "Entender o que as palavras significam, como uma pessoa"
+      erro: "O modelo aprende padrões do texto, o que explica muitos acertos, mas ele não 'entende' como uma pessoa."
+  explicacao: "De tanto prever a próxima palavra em muito texto, o modelo aprende padrões de gramática, de assunto e de estilo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-ass-02
+  tema: "Fonte inventada"
+  dificuldade: 2
+  enunciado: "Por que um assistente de texto pode inventar uma fonte que não existe?"
+  alternativas:
+    - texto: "Porque ele gera o texto que parece mais provável, e isso não garante que seja verdade"
+      certa: true
+    - texto: "Porque ele quer enganar quem pergunta"
+      erro: "O modelo não tem intenção. Ele gera o texto mais provável para a sequência, e o provável pode ser falso."
+    - texto: "Porque tem sempre uma enciclopédia e erra na cópia"
+      erro: "O modelo gera texto, e não copia de uma base fixa. Por isso pode inventar com segurança."
+  explicacao: "Ele gera o que é provável, e não o que foi conferido. Por isso é preciso conferir fontes, datas e números."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-ass-03
+  tema: "Quando o assistente pesquisa"
+  dificuldade: 2
+  enunciado: "Quando um assistente 'pesquisa na internet', quem faz a busca?"
+  alternativas:
+    - texto: "Um programa em volta do modelo, que busca; o modelo continua só gerando texto"
+      certa: true
+    - texto: "O próprio modelo de linguagem, que navega sozinho"
+      erro: "A busca é feita por uma camada de ferramentas em volta do modelo."
+    - texto: "O seu celular, sem ligação com o assistente"
+      erro: "A busca faz parte do conjunto que roda o assistente: o modelo gera texto e o programa em volta faz a busca."
+  explicacao: "Um programa em volta do modelo pode dar a ele memória e ferramentas, como busca na internet. O modelo continua gerando texto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -23,7 +23,7 @@ quiz:
     resposta: 0
     explicacao: "Depois veio A Ciência da Lógica (1812–1816)."
   - pergunta: "Quem adaptou a dialética de Hegel a uma crítica materialista da sociedade?"
-    opcoes: ["Karl Marx e Ludwig Feuerbach, ligados aos hegelianos de esquerda", "Platão", "Tomás de Aquino"]
+    opcoes: ["Karl Marx e Friedrich Engels, ligados aos hegelianos de esquerda", "Platão", "Tomás de Aquino"]
     resposta: 0
     explicacao: "Os seguidores de Hegel se dividiram em direita, centro e esquerda."
 ---

@@ -1,5 +1,6 @@
 ---
 titulo: "A população brasileira"
+modelo: 9
 resumo: "Quantos somos, onde vivemos, como estamos envelhecendo e quem somos, segundo o Censo 2022 do IBGE."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -59,6 +60,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer quantos somos e como nos distribuímos no território, ler uma pirâmide etária, explicar por que nascem menos crianças e interpretar os dados do Censo 2022 sobre sexo e cor ou raça.
+
+```suarealidade
+Quantos irmãos tinham os seus avós? E quantos filhos as pessoas da sua geração, na sua família, têm ou querem ter?
+```
 
 
 ## Quantos somos
@@ -172,6 +177,20 @@ Use os números desta aula. Se quiser, faça as contas na [calculadora](/ferrame
 4. Pergunte às pessoas mais velhas da sua família quantos irmãos elas tiveram. Compare com o número de filhos das pessoas da sua geração. O que mudou?
 
 **Respostas:** 1) 12.324.957 pessoas. 2) Cerca de 10,9%. 3) 6.015.894.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quantos filhos a pessoa tem é escolha de cada família. Não adianta contar gente nem o governo se preocupar com isso."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que ter filhos é escolha de cada família, e a aula mostra o que mudou nessas escolhas: a taxa de fecundidade era de 2,32 filhos por mulher em 2000 e caiu para 1,57 em 2023, segundo o IBGE, com a mudança para as cidades, a entrada das mulheres no trabalho fora de casa, o acesso a métodos para evitar a gravidez e o custo de criar filhos. Contar gente serve para planejar: uma população que envelhece precisa de mais geriatras, calçadas sem buracos, transporte acessível e previdência; uma cidade com muitas crianças precisa de creches e escolas.
+```
+
+```agir
+# Esta semana
+Pergunte a duas pessoas mais velhas da sua família quantos irmãos elas tiveram e compare com o número de filhos das pessoas da sua geração. Anote o que mudou e por que vocês acham que mudou.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Cadeias alimentares"
+modelo: 9
 resumo: "Objetivo: entender como a energia e a matéria passam de um ser vivo a outro, o papel de produtores, consumidores e decompositores, e o que acontece quando um elo é quebrado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber montar uma cadeia e uma teia alimentar, dizer o papel de cada ser (produtor, consumidor, decompositor), explicar por que a energia se perde de um nível para o outro e o que é biomagnificação.
+
+```suarealidade
+Pense num lugar perto de você (um quintal, um rio, uma horta, uma mata). Quem come quem ali? O que aconteceria se um desses seres desaparecesse?
+```
 
 ## Quem come quem
 
@@ -111,6 +116,20 @@ Por isso, a onça, o gavião e a cobra não são "bichos inúteis": controlam as
 1. Monte uma cadeia alimentar com quatro seres vivos da sua região. Indique o papel de cada um.
 2. Transforme a cadeia em teia: acrescente outros alimentos de cada animal.
 3. Em um ambiente que você conhece (uma lagoa, um quintal, um mangue), o que aconteceria se os sapos sumissem?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se uma espécie atrapalha a lavoura ou a criação, o certo é acabar com ela. Cadeia alimentar é coisa de livro, o que conta é a plantação." É um argumento de quem depende da colheita para viver.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que, na natureza, as cadeias se cruzam e formam uma teia, e que tirar ou acrescentar uma espécie mexe na teia inteira. Teias com muitas ligações são mais resistentes. Também mostra a biomagnificação: substâncias como o mercúrio e certos agrotóxicos se acumulam e aumentam de concentração a cada nível, e podem chegar até a gente. Cuidar da teia é, no fim, cuidar do que se come.
+```
+
+```agir
+# Esta semana
+Desenhe num papel uma cadeia alimentar com quatro seres que existem perto de você, com setas mostrando quem serve de alimento a quem. Marque o produtor, o consumidor e, se souber, o decompositor.
+```
 
 ## Resumo
 

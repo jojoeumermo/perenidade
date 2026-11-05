@@ -1,0 +1,51 @@
+# Exercícios da aula "Ler junto com quem lê pouco" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-ler-01
+  tema: "Ler pouco não é falta de inteligência"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que muita gente lê pouco?"
+  alternativas:
+    - texto: "Não é falta de inteligência: muitas pessoas não tiveram oportunidade de praticar a leitura e a escrita"
+      certa: true
+    - texto: "Porque são menos inteligentes"
+      erro: "A aula é clara: não é falta de inteligência."
+    - texto: "Porque não gostam de aprender"
+      erro: "A dificuldade vem da falta de oportunidade, e não de desinteresse."
+  explicacao: "O Inaf, criado pela Ação Educativa, classifica o alfabetismo em cinco níveis. A leitura do mundo precede a leitura da palavra, diz Freire."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-ler-02
+  tema: "Quem lê em voz alta"
+  dificuldade: 2
+  enunciado: "Ao conduzir a leitura em grupo, quem deve ler o trecho seguinte?"
+  alternativas:
+    - texto: "Quem quiser: ninguém é obrigado, e pode-se ler em duplas"
+      certa: true
+    - texto: "Cada um por ordem, obrigatoriamente"
+      erro: "Obrigar constrange quem lê com dificuldade."
+    - texto: "Só quem lê melhor"
+      erro: "Isso exclui. Todos devem poder participar."
+  explicacao: "O formador lê o primeiro trecho devagar, para dar o exemplo. Depois, pergunta quem quer ler."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-ler-03
+  tema: "O texto"
+  dificuldade: 2
+  enunciado: "Como deve ser o texto escolhido para a leitura coletiva?"
+  alternativas:
+    - texto: "Curto (no máximo uma página), ligado à vida do grupo, impresso em letra grande e com parágrafos numerados"
+      certa: true
+    - texto: "Longo e difícil, para o grupo se esforçar"
+      erro: "Texto difícil afasta. Escolha um curto e ligado à vida do grupo."
+    - texto: "Em letra pequena, para caber mais"
+      erro: "Letra grande e bom espaçamento ajudam quem lê com dificuldade."
+  explicacao: "Leia antes, marque as palavras difíceis e prepare uma explicação com palavras do dia a dia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Ferramentas e materiais" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-ferramentas-e-materiais-01
+  tema: "Pente de cauda"
+  dificuldade: 1
+  enunciado: "Para que serve o pente de cauda?"
+  alternativas:
+    - texto: "Riscar as divisões, retas e precisas"
+      certa: true
+    - texto: "Desembaraçar o cabelo crespo"
+      erro: "Isso é o pente de dentes largos."
+    - texto: "Aparar a fibra"
+      erro: "Isso é a tesoura."
+  explicacao: "O pente de dentes largos desembaraça o cabelo crespo com menos quebra."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e materiais\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-ferramentas-e-materiais-02
+  tema: "Limpar e desinfetar"
+  dificuldade: 2
+  enunciado: "Quais são as duas etapas dos materiais, segundo a aula?"
+  alternativas:
+    - texto: "Limpar com água e sabão e, depois de seco, desinfetar com álcool 70%"
+      certa: true
+    - texto: "Só passar um pano"
+      erro: "São duas etapas."
+    - texto: "Só desinfetar sem limpar"
+      erro: "Primeiro se limpa."
+  explicacao: "A cartilha de boas práticas da Vigilância Sanitária de Campos dos Goytacazes (RJ) orienta desinfetar a cada atendimento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e materiais\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-ferramentas-e-materiais-03
+  tema: "Fibra e calor"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre usar chapinha e secador nas fibras sintéticas?"
+  alternativas:
+    - texto: "A maioria não aguenta calor; só as resistentes ao calor, indicadas na embalagem"
+      certa: true
+    - texto: "Todas aguentam"
+      erro: "A aula diz que a maioria não aguenta."
+    - texto: "Nenhuma fibra aguenta, nunca"
+      erro: "Há fibras mais novas resistentes ao calor."
+  explicacao: "O tipo de fibra mais usado foi criado no Japão nos anos 1950 e hoje é modacrílico (Kanekalon)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e materiais\""
+  revisao:
+    status: em-revisao

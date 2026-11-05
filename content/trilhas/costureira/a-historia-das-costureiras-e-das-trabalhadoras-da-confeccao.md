@@ -1,5 +1,6 @@
 ---
 titulo: "A história das costureiras e das trabalhadoras da confecção"
+modelo: 9
 resumo: "Da fábrica de Thimonnier queimada em 1830 ao incêndio da Triangle em 1911, da greve geral de 1917 que começou numa fábrica têxtil de São Paulo ao desabamento do Rana Plaza em 2013, e as oficinas de costura com trabalho escravo no Brasil de hoje: o que a lei diz e como denunciar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -59,6 +60,10 @@ A etiqueta diz "made in" algum país e o preço é muito baixo. Quem costurou es
 
 Ao fim desta aula você vai conhecer momentos da história do trabalho na costura e na confecção, entender o que a lei brasileira chama de trabalho análogo ao de escravo e saber como denunciar.
 
+```suarealidade
+Olhe a etiqueta da roupa que você está vestindo: você sabe onde ela foi feita e por quem? Alguém que você conhece costura para vender ou trabalha numa confecção?
+```
+
 ## Paris, 1830: a primeira fábrica
 
 A primeira máquina de costura prática foi criada em 1829 por **Barthélemy Thimonnier**. Em 1830, ele abriu a primeira fábrica de roupas feitas à máquina, para fazer uniformes do exército francês. A fábrica foi **queimada**, segundo os relatos, por **trabalhadores com medo de perder o sustento**. Desde o começo, a máquina que acelerava a costura também mudava a vida de quem costurava.
@@ -98,6 +103,15 @@ Numa oficina, as costureiras moram no fundo, trabalham das 7h à meia-noite e n�
 > Basta uma das situações do artigo 149 para caracterizar o crime.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Roupa barata ajuda quem ganha pouco, e uma oficina, mesmo ruim, dá emprego a quem não acharia outro. Se tudo for fiscalizado e pago como deve, a roupa fica cara e o pobre não consegue comprar." É uma preocupação de quem pensa no bolso e no emprego.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Preço baixo e emprego importam, e a aula não nega isso. Mas mostra o que o "barato" pode esconder: na Triangle, em 1911, as portas das escadas estavam trancadas e 146 pessoas morreram; no Rana Plaza, em 2013, o aviso das rachaduras foi ignorado e morreram 1.134 pessoas. No Brasil, o Código Penal (art. 149) chama de trabalho análogo ao de escravo submeter alguém a trabalhos forçados, jornada exaustiva, condições degradantes ou restrição de locomoção por dívida, com pena de 2 a 8 anos de reclusão e multa. Segurança e dignidade não impedem o trabalho: depois da Triangle, o incêndio levou a novas leis de segurança nas fábricas.
+```
+
 ## Exemplo resolvido
 
 **Monte uma linha do tempo, com os fatos desta aula, para uma roda de conversa num grupo de costureiras.**
@@ -111,6 +125,11 @@ Numa oficina, as costureiras moram no fundo, trabalham das 7h à meia-noite e n�
 | hoje | Brasil | resgates de trabalhadoras em oficinas de costura; denúncia pelo Sistema Ipê |
 
 Pergunta para a roda: **o que se repete** em todos esses casos? E **o que mudou** quando as trabalhadoras se organizaram?
+
+```agir
+# Esta semana
+Leia a etiqueta de três roupas suas e anote o país e a marca de cada uma. Anote também, num lugar onde você ache depois, o nome do Sistema Ipê, que recebe denúncias de trabalho análogo ao de escravo.
+```
 
 ## Resumo
 

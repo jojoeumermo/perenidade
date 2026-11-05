@@ -24617,7 +24617,8 @@ end $$;
 --   * quem guarda: no máximo 6 pedidos por hora por origem; quem lê: no máximo 30 por 10 minutos por origem (interno.limite);
 --   * o pacote some assim que é lido (a leitura já o apaga) ou em até 1 dia, o que vier primeiro; a limpeza roda a cada
 --     chamada e, quando existe pg_cron, também de hora em hora;
---   * nenhum registro de quem enviou, nem endereço, nem data de leitura: só o código, o texto cifrado e o prazo.
+--   * a tabela do pacote não guarda quem enviou, nem endereço, nem data de leitura: só o código, o texto cifrado e o prazo. O limite de
+--     pedidos usa o contador comum do projeto (interno.limite), que guarda só um hash da origem e some em até 2 dias.
 --
 -- Nenhuma tabela no esquema public (trava do projeto: npm run testar:banco); a tabela fica em interno e só as duas funções
 -- public.* (security definer, search_path = interno, pg_temp) abrem. Teste: npm run testar:progresso-qr.
@@ -24685,6 +24686,7 @@ do $$ begin
   if exists (select 1 from pg_roles where rolname = 'anon') then
     revoke all on function public.progresso_qr_guardar(text, text) from anon, authenticated;
     revoke all on function public.progresso_qr_buscar(text) from anon, authenticated;
+    revoke all on function interno.progresso_qr_limpar() from anon, authenticated;
     grant execute on function public.progresso_qr_guardar(text, text) to anon, authenticated, service_role;
     grant execute on function public.progresso_qr_buscar(text) to anon, authenticated, service_role;
   end if;

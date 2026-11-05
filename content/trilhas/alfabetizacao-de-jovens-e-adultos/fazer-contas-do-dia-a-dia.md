@@ -1,5 +1,6 @@
 ---
 titulo: "Fazer contas do dia a dia"
+modelo: 9
 resumo: "Escrever e conferir as quatro contas (somar, tirar, multiplicar e dividir) nas compras, no salário e nas contas da casa, registrando no papel o que muitas vezes já se faz de cabeça."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Ao fim desta aula você vai escolher qual das quatro contas resolve cada problem
 
 ```provocacao
 Quanto você gasta de passagem por semana? Como você faria essa conta de cabeça?
+```
+
+```suarealidade
+Quanto você gasta de passagem por semana? E de comida? Como você faz essa conta hoje, de cabeça, no papel ou no celular?
 ```
 
 ## As quatro contas
@@ -157,6 +162,20 @@ Escreva a conta de quanto você gasta de transporte por semana. Use multiplicaç
 4. Use a [calculadora](/ferramentas/calculadora) para conferir as suas contas.
 
 **Resposta do item 3:** 90 ÷ 3 = 30; 30 × 3 = 90.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Anotar cada gasto é perda de tempo: o dinheiro é pouco, acaba antes do fim do mês, e não adianta fazer conta para saber isso." É um sentimento muito comum de quem vive com orçamento apertado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que muita gente faz a conta de cabeça e que o caminho dela costuma ser ótimo. Mas diz que anotar os gastos do mês mostra para onde vai o dinheiro, e que toda conta se confere com a contrária: a soma confere a subtração, a multiplicação confere a divisão. Saber quanto sai em passagem e em comida não aumenta o salário, mas dá base para pedir, comparar preços e não ser enganado.
+```
+
+```agir
+# Esta semana
+Durante uma semana, anote num caderno ou num papel tudo que você gastou, sem se preocupar em ser perfeito. No fim, some e confira o total fazendo a conta contrária. Guarde o papel só para você.
+```
 
 ## Resumo
 

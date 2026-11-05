@@ -1,5 +1,6 @@
 ---
 titulo: "Nome social"
+modelo: 9
 resumo: "Nome social é o nome pelo qual a pessoa trans ou travesti se identifica e quer ser chamada. O que diz o decreto federal de 2016, como pedir o uso do nome social e por que respeitá-lo é questão de dignidade."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Imagine ser chamado na frente da turma, todos os dias, por um nome que não é o
 
 Ao fim desta aula você vai saber o que é nome social, o que a lei garante e como respeitar e pedir o seu uso.
 
+```suarealidade
+Como você gosta de ser chamado ou chamada? Imagine ser chamado todos os dias, na escola, no posto de saúde ou no trabalho, por um nome com o qual você não se reconhece. Como seria?
+```
+
 ## O que é
 
 **Nome social** é o nome pelo qual a pessoa **se identifica** e quer ser **reconhecida**, diferente do nome de registro nos documentos, que pode não corresponder à sua **identidade de gênero**. É usado principalmente por **pessoas trans e travestis**.
@@ -68,6 +73,15 @@ Qual a diferença entre usar o nome social e mudar o nome no registro?
 > São dois direitos diferentes, que podem ser usados juntos.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O documento tem um nome só. Se cada um usar o nome que quiser, vira confusão nos cadastros e nos atendimentos." É uma preocupação prática, de quem lida com papelada.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula distingue as duas coisas: o nome social é usado no atendimento e nos cadastros, e a mudança no registro civil é outro direito, que altera a certidão e os documentos. O Decreto nº 8.727, de 2016, vale para a administração pública federal e manda adotar o nome social a pedido da pessoa, em documentos, cadastros, fichas e prontuários. Ou seja, o nome social não troca o documento: é uma forma de a administração tratar a pessoa pelo nome com que ela se identifica, sem confundir os registros.
+```
+
 ## Exemplo resolvido
 
 **Uma estudante trans quer ser chamada pelo seu nome na universidade federal. O que ela pode fazer?**
@@ -75,6 +89,11 @@ Qual a diferença entre usar o nome social e mudar o nome no registro?
 1. Pedir à universidade a **inclusão do nome social** nos registros, como garante o Decreto nº 8.727/2016.
 2. A partir daí, listas, cadastros e chamadas devem usar o **nome social**.
 3. Se quiser, ela também pode pedir no **cartório** a **mudança do nome e do gênero** no registro civil.
+
+```agir
+# Esta semana
+Escreva num papel a diferença entre nome social e mudança de nome no registro, em duas frases suas. Depois, se quiser, explique a diferença a alguém de confiança.
+```
 
 ## Resumo
 

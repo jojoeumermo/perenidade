@@ -1,5 +1,6 @@
 ---
 titulo: "Analisar discursos que marcaram a história"
+modelo: 9
 resumo: "Um roteiro para analisar qualquer discurso (contexto, objetivo, estrutura, apoio, linguagem e os apelos de Aristóteles) aplicado a falas de Sojourner Truth, Frederick Douglass e Rui Barbosa, e por que é preciso saber qual versão de um discurso estamos lendo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -58,6 +59,10 @@ Por que alguns discursos são lembrados cem, cento e cinquenta anos depois, e a 
 ## O que você vai aprender
 
 Ao fim desta aula você vai ter um roteiro para analisar qualquer discurso, conhecer os apelos clássicos da retórica, aplicá-los a três falas históricas e entender por que é preciso saber qual versão de um discurso estamos lendo.
+
+```suarealidade
+Qual discurso, de uma liderança, de um professor ou de alguém da sua família, marcou você? O que nele ficou na sua memória?
+```
 
 ## Um roteiro de análise
 
@@ -124,6 +129,15 @@ Você vai citar, numa fala, a pergunta repetida do discurso de Sojourner Truth. 
 > Saber de onde vem o texto é parte de analisar um discurso.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Discurso bonito é só truque para emocionar a plateia e enganar quem ouve. O que vale são os atos, não as palavras." É a opinião de quem já viu promessas bonitas que não foram cumpridas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não ignora esse risco: por isso propõe um roteiro para analisar qualquer discurso, com contexto, objetivo, estrutura, apoio, linguagem, apelos e fonte. Os apelos clássicos de Aristóteles são ethos (credibilidade), pathos (emoção), logos (razão) e kairos (momento): emoção é só um deles, e o roteiro ajuda a ver se há razão e fatos por trás. A aula também lembra que muitos discursos famosos circulam em versões diferentes da original, então vale perguntar qual versão se está lendo. Palavras e atos podem ser conferidos juntos.
+```
+
 ## Exemplo resolvido
 
 **Analise, com o roteiro, uma fala de três minutos de uma liderança comunitária numa audiência pública sobre o fechamento de uma escola.**
@@ -139,6 +153,11 @@ Você vai citar, numa fala, a pergunta repetida do discurso de Sojourner Truth. 
 | Pathos | a história da criança que andaria 4 km a pé |
 | Logos | o número de vagas que faltariam nas outras escolas |
 | Kairos | uma semana antes da votação, com o plenário cheio |
+
+```agir
+# Esta semana
+Escolha um discurso curto que você ouviu esta semana (assembleia, culto, TV, família) e preencha num papel as perguntas do roteiro. Escreva o que foi emoção e o que foi razão.
+```
 
 ## Resumo
 

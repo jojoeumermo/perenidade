@@ -1,5 +1,6 @@
 ---
 titulo: "Amor ao país e ao povo"
+modelo: 9
 resumo: "Como a educação patriótica é tratada na China (inclusive a lei de 2023) e no Brasil, e a diferença entre patriotismo, nacionalismo e internacionalismo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ Ao fim desta aula você vai saber explicar como a China ensina o amor ao país n
 
 
 "Amar o país" aparece nos currículos escolares de muitos países, com sentidos muito diferentes. Na China, a **educação patriótica** é um dos eixos centrais da disciplina de Moral e Estado de Direito. Esta aula apresenta como o tema é tratado lá, como aparece no Brasil, e propõe uma reflexão crítica.
+
+```suarealidade
+O que significa, no seu dia a dia, gostar do Brasil: o hino, a bandeira, o seu bairro, a sua gente? Você já viu alguém usar a palavra "pátria" para pedir ou para calar alguma coisa?
+```
 
 ## A educação patriótica na China
 
@@ -76,6 +81,15 @@ Os grandes movimentos de **libertação nacional** do século XX (Vietnã, Argé
 
 O *Manifesto Comunista* termina com "Proletários de todos os países, uni-vos!". Para a tradição socialista, amar o próprio povo inclui querer bem aos outros povos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Amar o país é ter orgulho da sua história, dos seus símbolos e das suas conquistas. Ensinar isso na escola dá identidade e união a um povo, e crítica demais enfraquece o país." É a opinião de quem vê na escola o lugar de formar um sentimento comum.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece esse argumento: lembra que os defensores da educação patriótica chinesa veem nela a formação de uma identidade comum num país enorme e diverso, com uma história de invasões. Mas lembra também que críticos apontam o risco de a ênfase desestimular o questionamento e alimentar o nacionalismo, e que no Brasil, durante a ditadura militar (1964-1985), o patriotismo escolar foi usado com sentido autoritário. A aula propõe distinguir amor ao próprio povo, nacionalismo agressivo e internacionalismo, e perguntar se existe amor ao país sem justiça para quem vive nele.
+```
+
 ## Para conversar
 
 O que significa, para você, amar o Brasil? Isso tem a ver com a bandeira e o hino, com o povo, com a natureza, com a luta por direitos? Pode existir amor ao país sem justiça para quem vive nele?
@@ -89,6 +103,11 @@ Três frases inventadas para usar as definições da aula.
 3. "Os trabalhadores e os povos do mundo têm interesses comuns." É **internacionalismo**.
 
 Confira com os movimentos de libertação do século XX (Vietnã, Argélia, Angola, Moçambique): eles uniram a primeira com a terceira, e nenhum deles precisou da segunda.
+
+```agir
+# Esta semana
+Escreva num papel três coisas do seu país ou do seu bairro de que você gosta e uma que você gostaria de melhorar. Mostre a lista a alguém de casa e pergunte o que essa pessoa colocaria.
+```
 
 ## Resumo
 

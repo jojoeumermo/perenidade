@@ -1,5 +1,6 @@
 ---
 titulo: "Os três poderes"
+modelo: 9
 resumo: "Quem faz as leis, quem as executa e quem julga: como o poder é dividido no Brasil e por quê."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 Ao fim desta aula você vai saber explicar por que o poder é dividido em três, o que faz cada Poder, como um freia o outro e como a divisão se repete nos estados e nos municípios.
 
 
+
+```suarealidade
+Você sabe quem são os três senadores do seu estado e quantos vereadores tem a câmara da sua cidade? Já viu uma sessão aberta ao público?
+```
 
 ## Por que dividir o poder
 
@@ -96,6 +101,15 @@ O artigo 1º da Constituição diz que **todo o poder emana do povo**, que o exe
 
 No papel, os três poderes se equilibram. Na prática, o dinheiro pesa nas eleições, o acesso à Justiça é desigual e grupos econômicos pressionam os três. Por isso a organização popular, em sindicatos, associações e movimentos, sempre foi a forma de quem trabalha fazer valer a sua parte desse poder.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Divisão de poderes só atrasa. Um governo forte, que faz as leis e as aplica sem tanta trava, resolveria mais depressa os problemas do povo." É a opinião de quem se cansou de ver projetos parados.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra por que a divisão existe: quando uma só pessoa ou um só grupo faz as leis, aplica as leis e julga quem as descumpre, nada o impede de abusar. Foi o que Montesquieu defendeu em 1748, para que "o poder freie o poder". A Constituição de 1988 adota a ideia no art. 2º, com poderes independentes e harmônicos entre si. Os freios incluem veto, derrubada do veto, impeachment, declaração de inconstitucionalidade e aprovação de indicados pelo Senado. A lentidão tem custo, e a concentração do poder tem risco.
+```
+
 ## Exemplo resolvido: quantos senadores e quem freia quem?
 
 **Quantos senadores existem e por quê?**
@@ -111,6 +125,11 @@ No papel, os três poderes se equilibram. Na prática, o dinheiro pesa nas elei�
 3. Se ainda houver dúvida sobre a lei ser compatível com a Constituição, o Supremo pode declará-la inconstitucional.
 
 Confira: nenhum Poder decide sozinho, e é isso que a divisão do poder quer garantir.
+
+```agir
+# Esta semana
+Descubra os nomes dos três senadores do seu estado e quantos vereadores tem a câmara do seu município, e anote num papel. Veja se as sessões da câmara são abertas ao público e quando acontecem.
+```
 
 ## Resumo
 

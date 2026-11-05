@@ -1,5 +1,6 @@
 ---
 titulo: "O que é uma classe social"
+modelo: 9
 resumo: "Classe não é só quanto você ganha: é o lugar que você ocupa na produção da riqueza."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,10 @@ quiz:
 Ao fim desta aula você vai saber dizer o que é classe social para o marxismo e por que a renda sozinha não define a classe.
 
 Na televisão, fala-se em "classe A, B, C, D e E" conforme a renda das famílias. É um jeito de medir quanto cada um ganha. O marxismo propõe olhar mais fundo: **de onde vem** o que cada um ganha.
+
+```suarealidade
+Na sua vizinhança, quais pessoas vivem do próprio trabalho e quais vivem de aluguel, de comércio próprio ou de renda de propriedade? Como você descreveria cada uma?
+```
 
 ## Duas grandes classes
 
@@ -86,6 +91,15 @@ No Brasil, a classe trabalhadora tem cor e tem gênero. A maioria dos trabalhado
 
 Pertencer a uma classe é um fato. **Saber** que pertence, e agir junto com os outros da mesma classe, é outra coisa: é a **consciência de classe**. Ela não nasce sozinha; nasce da experiência, da conversa, do estudo e da luta. Este curso existe para ajudar nisso.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dividir todo mundo em burguesia e proletariado é simplificar demais. Cada um tem a sua vida, e muita gente começa de baixo e chega ao topo." É a visão de quem acredita no mérito individual.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não pretende que a vida caiba em duas caixas: diz que a sociedade capitalista tende a se dividir em duas grandes classes, mas que há grupos intermediários, e que a classe trabalhadora é diversa: inclui quem trabalha na indústria, no comércio, nos serviços, no campo, servidores públicos, domésticas, entregadores de aplicativo e quem está desempregado. O ponto da aula é que a renda sozinha não define a classe: um enfermeiro e o dono de três apartamentos podem ganhar o mesmo, mas um vive do trabalho e o outro da propriedade.
+```
+
 ## Exemplo resolvido
 
 **Um enfermeiro e o dono de três apartamentos ganham o mesmo por mês. Pertencem à mesma classe?**
@@ -100,6 +114,11 @@ Confira: no *Manifesto* (1848), as duas grandes classes são a burguesia (donos 
 ## Para conversar
 
 Na sua família, de onde vem o dinheiro: de salário, de bico, de aposentadoria, de um pequeno negócio, de aluguel? A que classe vocês pertencem, nesse sentido?
+
+```agir
+# Esta semana
+Anote num papel o caso do enfermeiro e do dono dos apartamentos e escreva duas diferenças na vida deles, além da renda. Se quiser, converse sobre isso com alguém de casa.
+```
 
 ## Resumo
 

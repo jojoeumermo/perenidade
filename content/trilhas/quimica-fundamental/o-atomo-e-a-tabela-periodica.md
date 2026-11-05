@@ -1,5 +1,6 @@
 ---
 titulo: "O átomo e a tabela periódica"
+modelo: 9
 resumo: "Do que tudo é feito, o que diferencia um elemento do outro e como ler a tabela que os organiza."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber descrever as partes do átomo, dizer o que é o número atômico e usar a tabela periódica para achar um elemento e a sua família.
+
+```suarealidade
+Você já parou para pensar do que o seu corpo, o ferro da obra ou a água da torneira são feitos? O que você imagina que existe dentro de uma coisa bem pequena?
+```
 
 ## Do que tudo é feito
 
@@ -91,6 +96,15 @@ Algumas famílias para conhecer:
 
 A maior parte dos elementos é de **metais**: brilhantes, bons condutores de eletricidade e de calor.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ninguém nunca viu um átomo. Isso é só ideia de cientista, e eu acredito no que enxergo." É a opinião de quem desconfia do que não vê.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que o átomo é pequeno demais para ser visto a olho nu. Mas a aula mostra que a ideia explica o que a gente vê: o número de prótons dá a identidade de cada elemento, e a tabela periódica, organizada por Mendeleiev em 1869, tem 118 elementos, e os da mesma coluna têm comportamento parecido. Uma ideia que ajuda a prever como as coisas se comportam merece ser examinada com calma.
+```
+
 ## Exemplo resolvido
 
 **Quantos prótons, elétrons e nêutrons tem um átomo neutro de carbono-14?**
@@ -109,6 +123,11 @@ Abra a [tabela periódica](/ferramentas/tabela-periodica) do instituto e descubr
 2. o nome dos elementos de símbolo K, Ag e Hg;
 3. qual é o único metal líquido em condições normais;
 4. quantos prótons, elétrons e nêutrons tem um átomo de sódio com número de massa 23.
+
+```agir
+# Esta semana
+Ache uma tabela periódica (num livro, numa parede de escola ou no celular) e localize três elementos de que você já ouviu falar. Anote o número atômico de cada um.
+```
 
 ## Resumo
 

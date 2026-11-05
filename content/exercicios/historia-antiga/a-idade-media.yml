@@ -1,0 +1,51 @@
+# Exercícios da aula "A Idade Média" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-ida-01
+  tema: "Servo não é escravo"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual era a diferença entre o servo medieval e o escravizado?"
+  alternativas:
+    - texto: "O servo não podia ser vendido separadamente da terra, mas estava preso a ela e devia trabalho e parte da colheita ao senhor"
+      certa: true
+    - texto: "O servo era livre para ir embora quando quisesse"
+      erro: "O servo estava preso à terra e não podia deixá-la."
+    - texto: "Não havia nenhuma diferença"
+      erro: "Havia: o servo não era vendido como mercadoria, tinha seus instrumentos e seu pedaço de chão, mas era explorado pelo senhor."
+  explicacao: "O servo devia trabalho gratuito, parte da colheita, taxas pelo uso do moinho, do forno e da ponte, e o dízimo à Igreja."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-ida-02
+  tema: "As três ordens"
+  dificuldade: 2
+  enunciado: "Como os pensadores da Igreja explicavam a sociedade medieval?"
+  alternativas:
+    - texto: "Deus a dividiu em três ordens: uns rezam, outros guerreiam, outros trabalham"
+      certa: true
+    - texto: "Todos eram iguais e escolhiam seus governantes"
+      erro: "A explicação servia para manter cada um no seu lugar: quem contestasse a ordem contestava Deus."
+    - texto: "Só havia duas classes: ricos e pobres, escolhidos pelo voto"
+      erro: "A divisão era em clero, nobres e camponeses, e dizia-se que vinha de Deus."
+  explicacao: "A ideia das três ordens (clero, nobreza e camponeses) justificava a desigualdade como vontade divina."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-ida-03
+  tema: "Idade das Trevas?"
+  dificuldade: 2
+  enunciado: "Por que a expressão 'Idade das Trevas' para a Idade Média não se sustenta?"
+  alternativas:
+    - texto: "Porque foi nesse período que surgiram as primeiras escolas de ensino superior, as catedrais e as cidades com feiras, além de florescerem outras civilizações fora da Europa"
+      certa: true
+    - texto: "Porque a Idade Média durou só poucos anos"
+      erro: "A Idade Média durou cerca de mil anos, do século V ao XV."
+    - texto: "Porque nada de importante aconteceu naquele tempo"
+      erro: "Aconteceram muitas coisas: surgiram escolas de ensino superior e catedrais, e as cidades renasceram."
+  explicacao: "O nome foi criado depois, por quem via aquele tempo como um intervalo sem importância. Além disso, a divisão só vale para a Europa: florescia o mundo islâmico, a China, a África e a América."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

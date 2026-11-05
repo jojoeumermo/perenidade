@@ -1,5 +1,6 @@
 ---
 titulo: "Publicidade"
+modelo: 9
 resumo: "Publicidade é o conjunto de técnicas para chamar a atenção para um produto ou serviço e fazer as pessoas consumirem. O Código de Defesa do Consumidor proíbe a publicidade enganosa e a abusiva, inclusive a que se aproveita da falta de experiência das crianças."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Você precisava daquele tênis, ou começou a precisar depois de ver o anúncio 
 
 Ao fim desta aula você vai entender o que é publicidade, como ela funciona e o que a lei proíbe.
 
+```suarealidade
+Que propagandas você mais vê no celular e na rua? Alguma vez você comprou algo só por causa de um anúncio?
+```
+
 ## O que é publicidade
 
 **Publicidade** é o conjunto de **práticas e técnicas** usadas para **chamar a atenção** para um **produto** ou **serviço**. O objetivo é mostrar o produto pela sua **utilidade**, **vantagens** e **qualidades**, e fazer as pessoas **consumirem mais**.
@@ -62,6 +67,15 @@ Um anúncio de biscoito mostra um personagem de desenho dizendo às crianças "p
 > Releia a lista de publicidade abusiva.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Propaganda é só informação sobre produto. Ninguém é obrigado a comprar, cada um é adulto e sabe o que faz. Regular anúncio atrapalha a empresa e a liberdade de escolha." É a opinião de quem trabalha com vendas e vive de anunciar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que publicidade serve para mostrar um produto pela utilidade e pelas vantagens. Mas lembra que o Código de Defesa do Consumidor (1990) diz, no art. 37, que a publicidade tem de ser fácil de identificar e proíbe a enganosa e a abusiva, entre elas a que se aproveita da inexperiência da criança. Quem anuncia tem de provar que a informação é verdadeira. Uma técnica como o branding associa o produto a felicidade, sucesso ou liberdade: dá para valorizar a liberdade de anunciar e, ao mesmo tempo, querer que a regra seja cumprida.
+```
+
 ## Exemplo resolvido
 
 **Um anúncio diz "celular com bateria de 3 dias", mas a bateria dura 1 dia. Que tipo de publicidade é essa, e o que o consumidor pode fazer?**
@@ -69,6 +83,11 @@ Um anúncio de biscoito mostra um personagem de desenho dizendo às crianças "p
 1. A informação é **falsa** sobre uma característica do produto.
 2. Isso é **publicidade enganosa**, proibida pelo **art. 37** do CDC.
 3. O consumidor pode **reclamar** no **Procon**, e quem anunciou é que tem de provar que a informação era verdadeira.
+
+```agir
+# Esta semana
+Conte quantos anúncios aparecem em 10 minutos de rede social ou de vídeo no seu celular e anote o número num papel. Escolha um e escreva o que ele promete e o que ele não diz.
+```
 
 ## Resumo
 

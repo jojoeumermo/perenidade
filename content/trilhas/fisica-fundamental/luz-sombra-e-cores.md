@@ -1,5 +1,6 @@
 ---
 titulo: "Luz, sombra e cores"
+modelo: 9
 resumo: "Objetivo: entender como a luz se propaga, por que existem sombras e eclipses, como vemos as cores e o que são as luzes que o olho não vê."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar como se forma a sombra, o que são reflexão e refração e por que a luz branca contém todas as cores.
+
+```suarealidade
+Quem na sua casa trabalha exposto ao sol durante o dia? Que proteção essa pessoa usa?
+```
 
 
 ## O que é a luz
@@ -146,6 +151,20 @@ Confira com frações: 1/1,5 = 2/3, e 2/3 de 6 m são 4 m. O poste tem 4 metros.
 2. Um lápis mergulhado em um copo com água parece quebrado. Que fenômeno explica isso?
 3. Por que as casas de regiões muito quentes costumam ser pintadas de branco?
 4. Quem, na sua família, trabalha exposto ao sol? Que proteção usa?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sol nunca fez mal a ninguém. Sempre trabalhei no sol sem protetor e estou bem. Isso é invenção para vender creme."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que o ultravioleta queima a pele e, com os anos, pode causar câncer, e que quem trabalha ao ar livre (na lavoura, na construção, na rua) recebe ultravioleta o dia inteiro. Chapéu de aba larga, roupa de manga comprida e protetor solar são equipamentos de proteção. A aula lembra ainda que a luz do Sol queima a retina sem causar dor: a falta de dor não prova que não há dano.
+```
+
+```agir
+# Esta semana
+Observe como uma pessoa da sua família que trabalha ao sol se protege (chapéu, manga comprida, protetor) e converse com ela sobre o que poderia melhorar. Se for você, anote uma proteção que pode começar a usar.
+```
 
 ## Resumo
 

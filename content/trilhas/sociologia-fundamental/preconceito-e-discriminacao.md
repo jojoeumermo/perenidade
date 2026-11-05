@@ -1,5 +1,6 @@
 ---
 titulo: "Preconceito e discriminação"
+modelo: 9
 resumo: "Preconceito é uma opinião formada antes de conhecer, sem base em fatos. Discriminação é o ato de tratar pessoas de forma injusta por pertencerem a um grupo. Qual a diferença entre os dois, e como um leva ao outro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ quiz:
 
 Ao fim desta aula você vai saber diferenciar preconceito de discriminação e entender como os dois se ligam.
 
+```suarealidade
+Você já foi julgado por alguém antes de ser conhecido, por causa da cor, do bairro, do trabalho ou do sotaque? Como foi?
+```
+
 ## O que é preconceito
 
 A própria palavra explica: **pré-conceito**, um conceito formado **antes** de se conhecer. **Preconceito** é uma opinião formada às pressas, sem base em **dados** nem em **experiência própria**, muitas vezes motivada por **hábitos de julgamento** ou **generalizações apressadas**.
@@ -63,6 +68,15 @@ Um dono de loja acha que jovens de bairro pobre roubam, e por isso manda o segur
 > Preconceito é ideia; discriminação é ato.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Isso de preconceito é exagero: é só brincadeira, e hoje em dia tudo é discriminação." É a opinião de quem diz que não quis ofender.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula separa as duas coisas: preconceito é uma opinião formada antes de conhecer, sem base em fatos; discriminação é o ato de tratar alguém de forma injusta pelo seu grupo. O preconceito gera e justifica a discriminação, e a brincadeira que ri de um grupo costuma se apoiar nele. Por isso existem políticas como as cotas, que buscam combater os efeitos da discriminação.
+```
+
 ## Exemplo resolvido
 
 **Classifique: (a) "toda pessoa idosa é atrasada"; (b) recusar um emprego a alguém por ser idoso.**
@@ -70,6 +84,11 @@ Um dono de loja acha que jovens de bairro pobre roubam, e por isso manda o segur
 1. **(a)** é uma **opinião** sem base em fatos, uma generalização: **preconceito**.
 2. **(b)** é um **tratamento injusto** que nega uma oportunidade: **discriminação**.
 3. **(a)** pode servir de **justificativa** para **(b)**.
+
+```agir
+# Esta semana
+Se ouvir uma frase preconceituosa, anote-a e escreva uma resposta respeitosa. Só responda em voz alta se estiver seguro e a conversa for com alguém de confiança.
+```
 
 ## Resumo
 

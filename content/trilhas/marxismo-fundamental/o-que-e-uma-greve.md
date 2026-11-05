@@ -1,5 +1,6 @@
 ---
 titulo: "O que é uma greve"
+modelo: 9
 resumo: "Quando quem produz para de produzir, todo mundo descobre quem sustenta a sociedade."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,10 @@ Ao fim desta aula você vai saber dizer o que é uma greve, por que ela funciona
 Numa segunda-feira, os motoristas de ônibus de uma cidade cruzam os braços. A cidade para. As lojas ficam vazias, as fábricas sem gente, os escritórios fechados. Ninguém pensa nos motoristas no dia a dia, mas, quando eles param, todo mundo descobre o quanto eles são necessários.
 
 Isso é uma **greve**: a parada coletiva do trabalho, decidida pelos trabalhadores, para pressionar por suas reivindicações.
+
+```suarealidade
+Você já foi afetado por uma greve, como a de ônibus, de professores ou de bancários? O que você sentiu na hora e o que pensou depois, ao conhecer o motivo?
+```
 
 ## Por que a greve funciona
 
@@ -78,6 +83,15 @@ Antes de 1988, durante a ditadura, as greves eram praticamente proibidas. Foi en
 - A **greve geral de 1917** no Brasil, que começou em São Paulo e conquistou aumentos e o compromisso de libertar grevistas presos.
 - As greves do **ABC** (1978-1980), que fizeram nascer um novo sindicalismo no Brasil.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Greve prejudica o povo, e não o patrão: quem fica sem ônibus ou sem aula é o trabalhador. Dá para negociar sem parar." É a reclamação de quem sentiu o efeito da paralisação.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde que a greve causa transtorno: diz que, nos serviços essenciais, a lei exige aviso com 72 horas de antecedência. Ela explica que a greve funciona porque, se o trabalho para, o lucro para, e por isso é a arma mais poderosa dos trabalhadores, e que ela precisa ser coletiva, porque um trabalhador que falta é demitido e mil que param juntos não podem ser substituídos de uma vez. A greve também é feita para ser negociada: a assembleia decide se aceita a proposta. A Constituição de 1988, no art. 9º, garante o direito de greve.
+```
+
 ## Exemplo resolvido
 
 **Por que um trabalhador que falta é demitido e mil que param juntos não podem ser substituídos de uma vez?**
@@ -92,6 +106,11 @@ Confira: Lenin (1899) chamou as greves de "escola de guerra" da classe operária
 ## Para conversar
 
 Você já participou de uma greve, ou conhece alguém que participou? O que foi conquistado? O que foi mais difícil?
+
+```agir
+# Esta semana
+Pense numa greve de que você ouviu falar e escreva num papel quais eram as reivindicações e como terminou, perguntando a alguém de confiança, se precisar. Não é preciso participar de nada.
+```
 
 ## Resumo
 

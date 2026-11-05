@@ -1,5 +1,6 @@
 ---
 titulo: "Preparar uma fala: objetivo, público e roteiro"
+modelo: 9
 resumo: "Antes de abrir a boca: decidir se a fala é para informar, convencer ou animar, escrever o objetivo numa frase, conhecer quem vai ouvir e montar um roteiro de tópicos numa ficha."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Você tem três minutos na reunião. Dá para dizer tudo o que sabe sobre o prob
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber escolher o objetivo de uma fala, escrevê-lo numa frase, conhecer o público antes de falar, escolher a forma de falar e montar um roteiro de tópicos numa ficha.
+
+```suarealidade
+Pense numa causa do seu bairro, do seu trabalho ou da sua escola. O que você diria sobre ela em três minutos, e o que deixaria de fora?
+```
 
 ## Primeiro: para que serve a fala?
 
@@ -112,6 +117,15 @@ Você vai falar na escola do seu filho, numa reunião de pais às 19h, depois do
 > Situação é ocasião, lugar, horário e tempo disponível.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem sabe do assunto não precisa de roteiro: é só chegar e falar o que sabe, de cabeça. Preparar demais tira a verdade da fala." É a opinião de quem confia no que viveu.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não pede decorar nem ler: na maioria das vezes, recomenda falar com uma ficha de tópicos, só com palavras-chave. O que ela propõe é decidir antes o objetivo (informar, convencer ou animar), escrevê-lo numa frase e conhecer o público: quem são, o que pensam e em que situação estão. Com três minutos, é preciso escolher o que fica e o que sai. Preparar não tira a verdade da fala: ajuda quem sabe muito a dizer o que importa no tempo que tem.
+```
+
 ## Exemplo resolvido
 
 **Seu Antônio quer falar na reunião do conselho de saúde sobre a falta de médico no posto do bairro. Ele terá 3 minutos. Prepare a fala.**
@@ -126,6 +140,11 @@ Você vai falar na escola do seu filho, numa reunião de pais às 19h, depois do
    - médico 2 dias por semana
    - Dona Lurdes: 3 meses esperando
    - pedido: votar na próxima reunião
+
+```agir
+# Esta semana
+Pense numa fala curta que você precisa fazer e escreva num papel o objetivo específico numa frase, com objetivo geral, público e tema exato. Depois liste três palavras-chave para a sua ficha.
+```
 
 ## Resumo
 

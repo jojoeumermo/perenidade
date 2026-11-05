@@ -1,5 +1,6 @@
 ---
 titulo: "A foice e o martelo: de onde vêm os símbolos"
+modelo: 9
 resumo: "A bandeira vermelha, a foice e o martelo, a estrela, o punho erguido e a Internacional: a história dos símbolos do movimento operário."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer de onde vêm a bandeira vermelha, a foice e o martelo, a estrela, o punho erguido, o hino A Internacional e o 1º de Maio.
+
+```suarealidade
+Que cor, canção ou gesto aparece nas lutas e nas festas do seu bairro, do seu sindicato ou da sua igreja? Você sabe de onde ele veio?
+```
 
 Bandeiras, canções e gestos têm força: unem pessoas, lembram lutas passadas, dão coragem. O movimento operário criou os seus próprios símbolos ao longo de mais de dois séculos. Esta aula conta de onde eles vêm.
 
@@ -78,6 +83,15 @@ O movimento operário e popular brasileiro também criou os seus símbolos: a ba
 
 Que símbolos, cores ou canções unem as pessoas na sua comunidade, no seu sindicato ou no seu movimento? De onde eles vêm?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Bandeira vermelha, foice e martelo lembram governos que prenderam e mataram gente. Não são símbolo de luta, são símbolo de opressão." É a fala de quem guarda na memória a repressão em países governados por partidos comunistas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Um símbolo tem origem, e a aula conta cada uma: a bandeira vermelha, que antes servia às autoridades para anunciar a lei marcial, virou bandeira da insurreição do povo em 1848 e do governo dos trabalhadores na Comuna de Paris (1871); a foice e o martelo representavam a aliança entre camponeses e operários na Rússia de 1917; o punho erguido foi saudação antifascista nos anos 1920 e 1930; o 1º de Maio lembra a greve de 1886 em Chicago pela jornada de oito horas. A aula sobre os mitos do comunismo reconhece, com honestidade, os crimes reais cometidos em países governados por partidos comunistas. As duas coisas cabem juntas: conhecer a origem do símbolo e não esquecer o que foi feito em nome dele.
+```
+
 ## Exemplo resolvido
 
 **Por que a bandeira vermelha, que servia às autoridades, virou símbolo dos trabalhadores? Siga a história.**
@@ -89,6 +103,11 @@ Que símbolos, cores ou canções unem as pessoas na sua comunidade, no seu sind
 5. **Conclua.** Desde então o vermelho simboliza o sangue derramado pelos trabalhadores em suas lutas e a própria revolução.
 
 Confira: o mesmo raciocínio vale para a foice e o martelo, que em 1917 representavam a aliança entre camponeses (foice) e operários (martelo).
+
+```agir
+# Esta semana
+Pergunte a duas pessoas mais velhas, da sua família ou do seu serviço, que canção, cor ou símbolo marcou uma luta que elas conheceram. Anote num papel o que cada uma contou e de onde vem.
+```
 
 ## Resumo
 

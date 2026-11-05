@@ -1,0 +1,50 @@
+# Exercícios da aula "Box braids" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-box-braids-01
+  tema: "O que são"
+  dificuldade: 1
+  enunciado: "O que são as box braids?"
+  alternativas:
+    - texto: "Tranças soltas, cada uma saindo de uma divisão quadrada do couro cabeludo"
+      certa: true
+    - texto: "Tranças coladas ao couro em fileiras"
+      erro: "Isso descreve a nagô."
+    - texto: "Um tipo de fibra"
+      erro: "Box braids são o penteado."
+  explicacao: "São um penteado protetor e podem ser arrumadas em coque, rabo ou soltas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Box braids\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-box-braids-02
+  tema: "Grade"
+  dificuldade: 2
+  enunciado: "Por que se alterna a posição dos quadrados entre uma fileira e outra, como tijolos numa parede?"
+  alternativas:
+    - texto: "Para não abrir \"caminhos\" no couro"
+      certa: true
+    - texto: "Para gastar mais fibra"
+      erro: "O motivo é proteger o couro."
+    - texto: "Para a trança durar menos"
+      erro: "O motivo é não abrir caminhos no couro."
+  explicacao: "Com o pente de cauda, risque fileiras horizontais e divida cada uma em quadrados do mesmo tamanho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Box braids\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-box-braids-03
+  tema: "Tamanhos"
+  dificuldade: 1
+  enunciado: "Qual tamanho de box braids dá menos horas de trabalho?"
+  alternativas:
+    - texto: "Jumbo: poucas tranças, grossas"
+      certa: true
+    - texto: "Finas: muitas tranças"
+      erro: "As finas exigem muitas horas."
+    - texto: "Médias"
+      erro: "As médias ficam no equilíbrio."
+  explicacao: "O nome \"box braids\" só apareceu nos anos 1990, depois de um filme estadunidense de 1993."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Box braids\""
+  revisao:
+    status: em-revisao

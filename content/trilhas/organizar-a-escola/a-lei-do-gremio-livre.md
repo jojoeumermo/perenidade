@@ -1,5 +1,6 @@
 ---
 titulo: "A Lei do Grêmio Livre"
+modelo: 9
 resumo: "O texto da lei de 1985, artigo por artigo, de onde ela veio e o que fazer quando a escola não respeita."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Ao fim desta aula você vai saber dizer o que a Lei nº 7.398, de 1985, garante 
 
 
 Esta aula é informação geral. Ela não substitui a orientação da Defensoria Pública, que atende de graça.
+
+```suarealidade
+Na sua escola, ou na escola de quem você conhece, existe um grêmio? Os estudantes decidem alguma coisa, ou a direção resolve tudo?
+```
 
 ## Uma lei curta
 
@@ -107,6 +112,15 @@ Por que entregar o pedido em duas vias e guardar a que tem o protocolo?
 
 A próxima aula é o passo a passo: comissão, assembleia, estatuto e eleição.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A escola é lugar de estudar, e o grêmio vira bagunça e política. Quem deve organizar a vida do aluno é a direção, que é responsável por tudo." É a opinião de quem teme que a atividade estudantil atrapalhe as aulas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a Lei 7.398, de 4 de novembro de 1985, tem apenas três artigos e garante aos estudantes organizar grêmios como entidades autônomas, aprovando o estatuto em assembleia geral e escolhendo dirigentes por voto direto e secreto de cada estudante. Foi sancionada depois de vinte e um anos de ditadura, quando os grêmios livres tinham dado lugar a "centros cívicos" sob controle da direção. A Constituição de 1988, o ECA (art. 53) e o Estatuto da Juventude reforçam o direito. A direção continua responsável pela escola, e o grêmio é o espaço dos estudantes.
+```
+
 ## Exemplo resolvido: a direção quer escrever o estatuto
 
 Situação inventada: a direção diz que o estatuto do grêmio será escrito por ela, "para ajudar".
@@ -116,6 +130,11 @@ Situação inventada: a direção diz que o estatuto do grêmio será escrito po
 3. Escolha o caminho da aula: conversar mostrando a lei; pedir por escrito, em duas vias, com protocolo; procurar o conselho escolar; subir à diretoria de ensino ou à secretaria; buscar apoio de fora (Conselho Tutelar, Defensoria Pública, Ministério Público).
 
 Confira: a direção pode ajudar e apoiar, mas não escreve nem aprova o estatuto no lugar dos estudantes.
+
+```agir
+# Esta semana
+Descubra se a sua escola, ou uma escola do seu bairro, tem grêmio e anote num papel como os estudantes são escolhidos para dirigi-lo. Se não tiver, escreva uma pergunta para fazer a um professor ou a um estudante.
+```
 
 ## Resumo
 

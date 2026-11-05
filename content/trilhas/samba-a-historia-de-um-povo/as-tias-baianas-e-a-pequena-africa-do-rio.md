@@ -1,5 +1,6 @@
 ---
 titulo: "As tias baianas e a Pequena África do Rio"
+modelo: 9
 resumo: "Depois da abolição, mulheres negras vindas da Bahia sustentaram a família com o tabuleiro e abriram suas casas para o candomblé e para o samba. A mais famosa foi Tia Ciata, na região que Heitor dos Prazeres chamou de Pequena África."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Quando se conta a história do samba, aparecem muitos nomes de homens. Mas onde 
 
 Ao fim desta aula você vai conhecer as tias baianas, a Pequena África do Rio e o papel de Tia Ciata no nascimento do samba carioca.
 
+```suarealidade
+Quem na sua família ou no seu bairro sustenta a casa e a cultura com o trabalho das mãos, cozinhando, costurando, rezando ou benzendo?
+```
+
 ## A Pequena África
 
 **Pequena África** foi o nome que o sambista e pintor **Heitor dos Prazeres** deu à região portuária do Rio de Janeiro (**Gamboa**, **Saúde**, onde fica a comunidade quilombola da **Pedra do Sal**, **Santo Cristo**) e arredores, habitada por gente negra liberta. Entre **1850 e 1920**, a região ficou conhecida por esse nome.
@@ -72,6 +77,15 @@ Por que as casas das tias baianas foram importantes para o samba?
 > Releia "Tia Ciata".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A história do samba é feita de compositores e cantores famosos. Quituteira e mãe de santo é coisa de cozinha e de terreiro, não de história da música." É a opinião de quem conta a história pelos nomes que apareceram.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a Pequena África, região portuária do Rio e arredores da Praça Onze (nome dado por Heitor dos Prazeres), foi o lugar das tias baianas, mães de santo e quituteiras que sustentavam a família e a cultura. Tia Ciata (1854-1924) trouxe o samba de roda e abriu a casa para os primeiros sambistas. Os nomes dessas mulheres aparecem menos nas histórias, e a aula pede justamente que reparemos nisso.
+```
+
 ## Exemplo resolvido
 
 **Monte o "mapa" de uma tarde na casa de Tia Ciata, com o que as fontes contam.**
@@ -80,6 +94,11 @@ Por que as casas das tias baianas foram importantes para o samba?
 2. **O que se fazia**: comida das quituteiras, rodas de samba, partido-alto, candomblé.
 3. **Onde**: perto da Praça Onze, na Pequena África.
 4. **Por quê**: era um lugar seguro para a cultura negra num tempo de perseguição.
+
+```agir
+# Esta semana
+Conte a história de Tia Ciata a alguém que gosta de samba e pergunte se essa pessoa já a conhecia.
+```
 
 ## Resumo
 

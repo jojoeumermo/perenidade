@@ -1,5 +1,6 @@
 ---
 titulo: "Como escrever um parágrafo"
+modelo: 9
 resumo: "Uma ideia por parágrafo: a frase que anuncia, as frases que sustentam e a que fecha."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 Ao fim desta aula você vai saber montar um parágrafo com tópico frasal, desenvolvimento e conclusão, ligar as frases, escrever com clareza e revisar o próprio texto.
 
 
+
+```suarealidade
+Quando você precisa escrever algo importante (um pedido, um aviso, um relatório), onde você trava? Na primeira frase, na organização das ideias, ou em reescrever?
+```
 
 ## O tijolo do texto
 
@@ -119,6 +124,15 @@ Ninguém escreve bem de primeira. Escrever é **reescrever**.
 4. **Confira a língua:** pontuação, concordância, ortografia.
 5. **Peça a alguém que leia.** Se a pessoa não entender, o problema está no texto, e não nela.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Escrever é dom: quem tem jeito escreve bem de primeira, e o resto é perda de tempo. Ficar reescrevendo só deixa o texto frio." É a opinião de quem acredita que o primeiro impulso é o mais verdadeiro.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra um caminho concreto, em vez de dom: ideia nova, parágrafo novo; um tópico frasal que diz a ideia, um desenvolvimento com exemplo, causa e consequência, dados ou comparação, e uma conclusão, que é opcional. Frases curtas, ordem direta, palavras conhecidas e verbos em vez de substantivos deixam o texto claro. A aula resume: escrever é reescrever, e reler em voz alta ou pedir a alguém que leia mostra onde o leitor tropeça. Reescrever não esfria o texto: ajuda o leitor a entender.
+```
+
 ## Exemplo resolvido: um parágrafo sobre o lixo no bairro
 
 Exemplo inventado, seguindo os passos da aula.
@@ -131,6 +145,11 @@ Exemplo inventado, seguindo os passos da aula.
 6. **Revise:** leia em voz alta. Uma ideia só? Frases curtas?
 
 Confira: quem leu só a primeira frase já sabe o essencial.
+
+```agir
+# Esta semana
+Escolha um tema do seu cotidiano (a merenda, o ônibus, a praça) e escreva num papel um parágrafo de três frases: tópico frasal, um exemplo e uma conclusão. Leia em voz alta e corte o que não faz falta.
+```
 
 ## Resumo
 

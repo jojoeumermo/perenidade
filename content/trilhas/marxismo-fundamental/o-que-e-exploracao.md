@@ -1,5 +1,6 @@
 ---
 titulo: "O que é exploração"
+modelo: 9
 resumo: "Para o marxismo, exploração não é só patrão malvado: é uma relação em que uns vivem do trabalho dos outros."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber dizer o que é exploração no sentido marxista, por que ela existe mesmo com patrão educado e que cumpre a lei, e como ela pode ser maior ou menor.
 
 "Esse patrão é um explorador!" Muita gente usa essa frase quando o salário atrasa ou quando o chefe grita. Mas, para o marxismo, a palavra **exploração** tem um sentido mais preciso, e mais profundo.
+
+```suarealidade
+No seu trabalho, quem decide quanto você ganha e quanto sobra para a empresa? Você já parou para pensar de onde vem o lucro de quem emprega você?
+```
 
 ## Exploração é uma relação
 
@@ -74,6 +79,15 @@ Exploração não é o mesmo que **opressão**. Opressão é a discriminação e
 
 O *Manifesto Comunista* diz que a história de todas as sociedades até hoje é a história da luta de classes, ou seja, da luta entre exploradores e explorados. A proposta do socialismo é a primeira, na história, a imaginar uma sociedade **sem classes**, em que ninguém viva do trabalho dos outros.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Patrão que paga em dia, assina a carteira e trata bem não explora ninguém. Exploração é coisa de quem rouba." É a opinião de quem trabalha com um patrão correto e se sente respeitado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que, para o marxismo, a palavra tem um sentido mais preciso do que "patrão ruim": explorar é viver do trabalho não pago de outra pessoa. Por isso Marx diz que, mesmo com um patrão que cumpre as leis e trata bem os funcionários, há exploração: ela está na estrutura, e não no humor do chefe. Ainda assim, a aula admite que a exploração pode ser maior ou menor: cresce quando a jornada fica mais longa ou o ritmo mais intenso, e diminui quando os trabalhadores conseguem se organizar. É uma tese de Marx, e vale discuti-la com calma.
+```
+
 ## Exemplo resolvido
 
 **Uma empresa paga bem, oferece plano de saúde, trata os funcionários com respeito e tem lucro. Há exploração, no sentido marxista?**
@@ -88,6 +102,11 @@ Confira: ela pode ser maior ou menor. Aumenta com jornada mais longa, ritmo mais
 ## Para conversar
 
 Liste situações de trabalho que você conhece em que a exploração aumentou nos últimos anos. O que mudou: a jornada, o ritmo, o salário?
+
+```agir
+# Esta semana
+Anote num papel o que a sua jornada de trabalho inclui numa semana: horas, tarefas e pausas. Depois escreva uma pergunta que você faria a um colega de confiança sobre como o trabalho de vocês é pago.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "A campanha de alfabetização de Cuba de 1961"
+modelo: 9
 resumo: "Objetivo: conhecer a Campanha Nacional de Alfabetização realizada em Cuba em 1961, a sua organização, os seus números, o seu contexto revolucionário e o seu lugar na história das campanhas de alfabetização em massa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer a Campanha Nacional de Alfabetização de Cuba (1961): o ponto de partida, a organização em três grandes grupos de alfabetizadores, os resultados declarados e os debates sobre eles. E vai comparar essa campanha com as experiências brasileiras e com a da Nicarágua.
+
+```suarealidade
+Se o seu bairro, por um ano, mobilizasse todas as pessoas que sabem ler para ensinar quem não sabe, quem poderia ensinar e quem iria querer aprender?
+```
 
 ## O ponto de partida
 
@@ -90,6 +95,20 @@ No mesmo começo dos anos 1960, o Brasil discutia a alfabetização de adultos c
 Confira: 178 + 30 + 100 = 308 (em milhares), e 100 é um pouco menos que um terço de 308.
 
 Para ver como a experiência se repetiu e se transformou duas décadas depois, leia [A campanha de alfabetização da Nicarágua de 1980](/trilhas/alfabetizacao-aprofundamento/a-campanha-de-alfabetizacao-da-nicaragua-de-1980).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A campanha de Cuba foi propaganda política: acabar com o analfabetismo em um ano é impossível, e os números do governo não merecem confiança." É uma crítica que a própria aula registra.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula traz os dois lados: a escala da mobilização é pouco contestada (178 mil alfabetizadores populares, além de brigadistas operários e jovens brigadistas), e Cuba se declarou território livre de analfabetismo em 22 de dezembro de 1961, com taxa de 3,9% segundo a campanha. Mas há debates sobre os critérios para considerar alguém alfabetizado e o peso da propaganda nos materiais. Por isso a aula recomenda ler os números com cuidado e olhar a continuidade depois de 1961.
+```
+
+```agir
+# Esta semana
+Escreva num papel três diferenças entre uma campanha de um ano (como a de Cuba) e um círculo de alfabetização que dura anos num bairro. Diga qual delas você acha que ajuda mais a continuar lendo depois, e por quê.
+```
 
 ## Resumo
 

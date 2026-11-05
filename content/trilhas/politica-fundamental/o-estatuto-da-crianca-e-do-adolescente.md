@@ -1,5 +1,6 @@
 ---
 titulo: "O Estatuto da Criança e do Adolescente"
+modelo: 9
 resumo: "O ECA, de 1990, garante às crianças e aos adolescentes proteção integral e prioridade absoluta. Quem é criança e quem é adolescente pela lei, que direitos eles têm e o que faz o Conselho Tutelar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Uma criança fora da escola, trabalhando no sinal. De quem é a responsabilidade
 
 Ao fim desta aula você vai conhecer o Estatuto da Criança e do Adolescente, quem ele protege e que direitos ele garante.
 
+```suarealidade
+Você já viu uma criança fora da escola ou trabalhando no sinal? De quem você acha que é a responsabilidade: só da família, ou de todo mundo?
+```
+
 ## A base na Constituição
 
 O **artigo 227** da Constituição diz que é **dever da família, da sociedade e do Estado** assegurar à criança, ao adolescente e ao jovem, **com absoluta prioridade**, o direito à **vida**, à **saúde**, à **alimentação**, à **educação**, ao **lazer**, à **profissionalização**, à **cultura**, à **dignidade**, ao **respeito**, à **liberdade** e à **convivência familiar e comunitária**, além de protegê-los de toda forma de **negligência, discriminação, exploração, violência, crueldade e opressão**.
@@ -69,6 +74,15 @@ Uma pessoa de 13 anos é, pelo ECA:
 > Adolescente: entre 12 e 18 anos.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Criança é responsabilidade da família. O Estado e a lei não devem se meter na educação dos filhos dos outros, e tanta regra tira a autoridade dos pais." É a opinião de quem acredita que cuidar dos filhos é assunto da casa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o art. 227 da Constituição diz que é dever da família, da sociedade e do Estado assegurar à criança, ao adolescente e ao jovem, com absoluta prioridade, direitos como vida, saúde, educação e convivência familiar. A família vem em primeiro lugar na lista. O ECA (Lei 8.069/1990) segue a ideia de proteção integral e protege de negligência, discriminação, exploração, violência, crueldade e opressão. Quando a família falha ou a criança corre risco, existe o Conselho Tutelar, órgão de proteção no município. Proteger não é tirar o papel dos pais: é dividir a responsabilidade.
+```
+
 ## Exemplo resolvido
 
 **Uma vizinha percebe que uma criança de 9 anos está sempre sozinha, sem ir à escola e com sinais de maus-tratos. O que fazer?**
@@ -76,6 +90,11 @@ Uma pessoa de 13 anos é, pelo ECA:
 1. Pela Constituição, proteger a criança é **dever também da sociedade**.
 2. Ela pode procurar o **Conselho Tutelar** da cidade, que zela pelos direitos de crianças e adolescentes.
 3. Em caso de violência, pode também acionar a **polícia** e o **Disque 100**, canal de denúncia de violações de direitos humanos.
+
+```agir
+# Esta semana
+Descubra onde fica o Conselho Tutelar da sua cidade e como ele pode ser acionado, e anote o endereço e o telefone num papel. Guarde a informação num lugar que a sua família encontre.
+```
 
 ## Resumo
 

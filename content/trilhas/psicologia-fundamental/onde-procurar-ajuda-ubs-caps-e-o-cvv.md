@@ -1,5 +1,6 @@
 ---
 titulo: "Onde procurar ajuda: UBS, CAPS e o CVV"
+modelo: 9
 resumo: "Quando o sofrimento aperta, ninguém precisa enfrentar sozinho. O SUS tem a Unidade Básica de Saúde e os Centros de Atenção Psicossocial (CAPS), e o CVV atende de graça, 24 horas, pelo telefone 188. Para que serve cada um."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Quando a gente quebra um braço, todo mundo sabe que é para ir ao hospital. Mas
 
 Ao fim desta aula você vai conhecer os serviços que oferecem ajuda para o sofrimento emocional e mental, e para que serve cada um.
 
+```suarealidade
+Se você ou alguém da sua casa estivesse sofrendo por dentro, para onde iria? Você sabe onde fica a UBS mais perto e se a sua cidade tem CAPS?
+```
+
 ## O CVV: alguém para ouvir
 
 O **Centro de Valorização da Vida (CVV)** presta um serviço **voluntário, sigiloso e gratuito** de **apoio emocional**, com atendimento **presencial**, por **chat** e, principalmente, pelo **telefone 188**, com chamada **gratuita e anônima**. São **postos em todo o país** e **milhares de voluntários**, que se revezam para atender **24 horas por dia**, nos **365 dias** do ano. Desde **2017**, uma parceria com o Ministério da Saúde tornou as ligações gratuitas.
@@ -68,6 +73,15 @@ Uma amiga diz que está muito triste e não aguenta mais, e é madrugada. Qual �
 > Releia a seção "O CVV: alguém para ouvir".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Isso se resolve com fé, com trabalho e com força de vontade. Procurar psicólogo ou CAPS é coisa de quem não aguenta, e atendimento no SUS demora e nem resolve." É a opinião de quem aprendeu a superar as dificuldades sozinho.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diz que a fé ou a força de vontade não ajudem. Ela mostra que, para quem precisa de apoio, existem serviços: o CVV, com apoio emocional gratuito, sigiloso e 24 horas pelo telefone 188; a UBS, o posto de saúde do bairro e a porta de entrada do SUS; e o CAPS, que cuida de sofrimento mental grave (há o CAPS ad e o CAPSi). A Lei 10.216/2001, da reforma psiquiátrica, prevê o cuidado em liberdade. Procurar ajuda é um jeito de cuidar de si, tal como se vai ao hospital com um braço quebrado.
+```
+
 ## Exemplo resolvido
 
 **Para onde encaminhar cada situação: (a) um jovem quer conversar sobre angústia à noite; (b) um adulto quer começar um acompanhamento no SUS; (c) uma família procura ajuda para um parente com dependência de álcool?**
@@ -75,6 +89,11 @@ Uma amiga diz que está muito triste e não aguenta mais, e é madrugada. Qual �
 1. **(a)**: **CVV**, pelo **188**, a qualquer hora.
 2. **(b)**: a **UBS** do bairro, a porta de entrada do SUS.
 3. **(c)**: o **CAPS ad**.
+
+```agir
+# Esta semana
+Salve o número 188 no seu celular e conte para alguém da sua família para que ele serve. Anote num papel o endereço da UBS mais perto de casa.
+```
 
 ## Resumo
 

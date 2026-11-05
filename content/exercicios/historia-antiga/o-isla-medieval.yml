@@ -1,0 +1,51 @@
+# Exercícios da aula "O islã medieval" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-isl-01
+  tema: "A mensagem de Maomé"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Por que a mensagem de Maomé incomodou os grandes comerciantes de Meca?"
+  alternativas:
+    - texto: "Porque afirmava a igualdade dos fiéis e condenava a ganância dos ricos"
+      certa: true
+    - texto: "Porque proibia o comércio"
+      erro: "A mensagem não proibia o comércio, mas condenava a ganância."
+    - texto: "Porque era escrita em outra língua"
+      erro: "O incômodo vinha do conteúdo, que contestava privilégios."
+  explicacao: "Perseguido, Maomé migrou para Medina em 622, a Hégira. Quando morreu, em 632, quase toda a Arábia estava unida sob o islã."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-isl-02
+  tema: "Cinco pilares"
+  dificuldade: 1
+  enunciado: "Qual destes é um dos cinco pilares do islã?"
+  alternativas:
+    - texto: "O jejum durante o mês do Ramadã"
+      certa: true
+    - texto: "A construção de uma pirâmide"
+      erro: "Os pilares são deveres de fé: profissão de fé, cinco orações, esmola, jejum e peregrinação."
+    - texto: "A coroação de um imperador"
+      erro: "Não é um dever religioso do islã."
+  explicacao: "Os cinco pilares são: profissão de fé, as cinco orações diárias, a esmola, o jejum no Ramadã e a peregrinação a Meca, ao menos uma vez na vida, para quem puder."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-isl-03
+  tema: "Bagdá abássida"
+  dificuldade: 2
+  enunciado: "Qual era a capital do califado abássida, auge da ciência e da cultura?"
+  alternativas:
+    - texto: "Bagdá"
+      certa: true
+    - texto: "Damasco"
+      erro: "Damasco foi a capital do califado omíada, que teve a maior expansão territorial."
+    - texto: "Meca"
+      erro: "Meca é cidade sagrada e de peregrinação, mas a capital abássida foi Bagdá."
+  explicacao: "Califado omíada (661-750): Damasco. Califado abássida (750-1258): Bagdá."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

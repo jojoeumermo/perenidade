@@ -1,5 +1,6 @@
 ---
 titulo: "Quantos povos, quantas línguas"
+modelo: 9
 resumo: "No Censo de 2022, 1,69 milhão de pessoas indígenas foram contadas no Brasil, de 391 etnias, com 295 línguas indígenas. Em 2010, eram 305 povos e 274 línguas. Antes de 1500, eram cerca de 1.300 línguas. O que esses números mostram."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Se você reunisse uma pessoa de cada povo indígena do Brasil numa sala, quantas
 
 Ao fim desta aula você vai conhecer os números dos povos e línguas indígenas do Brasil e entender por que a "língua dos índios" não existe.
 
+```suarealidade
+Quais povos indígenas vivem no seu estado? Você sabe que línguas eles falam?
+```
+
 ## Os números de hoje
 
 No **Censo do IBGE de 2022**, foram contadas **1.694.836** pessoas **indígenas** no Brasil, cerca de **0,83%** da população. O IBGE registrou **391 etnias** e **295 línguas indígenas** faladas ou usadas nos domicílios. No Censo de **2010**, eram **305 povos** e **274 línguas**. Parte da diferença vem de **mudanças de método**: algumas etnias foram desmembradas e novos nomes de povos foram reconhecidos.
@@ -77,6 +82,15 @@ Existe "a língua indígena" do Brasil?
 > Falar em "língua dos índios" apaga essa diversidade.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Os índios de hoje já são todos misturados, usam celular e falam português. Não tem tanto povo nem tanta língua assim: é tudo uma coisa só." É a opinião de quem conhece pouco sobre esses povos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula traz os números do Censo do IBGE de 2022: 1.694.836 pessoas indígenas (cerca de 0,83% da população), 391 etnias e 295 línguas indígenas faladas ou usadas nos domicílios. No Censo de 2010 eram 305 povos e 274 línguas, e parte da diferença vem de mudanças de método. Antes de 1500, eram cerca de 1.300 línguas. A população caiu para cerca de 150 mil em meados do século XX e voltou a crescer a partir dos anos 1980. Por isso não existe uma única "língua dos índios".
+```
+
 ## Exemplo resolvido
 
 **Antes de 1500 eram cerca de 1.300 línguas; o Censo de 2022 registrou 295. Que porcentagem sobreviveu, aproximadamente?**
@@ -84,6 +98,11 @@ Existe "a língua indígena" do Brasil?
 1. 295 ÷ 1.300 ≈ 0,23.
 2. Ou seja, cerca de **23%**.
 3. **Leitura**: de cada **cinco** línguas, cerca de **quatro** desapareceram.
+
+```agir
+# Esta semana
+Escolha um povo indígena do seu estado ou do Brasil e descubra como ele chama a si mesmo na própria língua. Anote num papel o nome e a língua que ele fala.
+```
 
 ## Resumo
 

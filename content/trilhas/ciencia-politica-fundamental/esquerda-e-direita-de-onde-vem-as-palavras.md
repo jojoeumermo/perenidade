@@ -1,5 +1,6 @@
 ---
 titulo: "Esquerda e direita: de onde vêm as palavras"
+modelo: 9
 resumo: "As palavras esquerda e direita nasceram dos lugares onde os deputados se sentavam na Revolução Francesa, em 1789. O que elas passaram a significar, que correntes ficam de cada lado e o critério da igualdade, de Norberto Bobbio."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ Por que "esquerda" e "direita"? Por que não "alto" e "baixo", ou "norte" e "sul
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber de onde vêm os termos esquerda e direita, o que eles costumam significar e que correntes ficam de cada lado.
+
+```suarealidade
+Quando você ouve "esquerda" ou "direita" na televisão ou numa conversa, o que isso quer dizer para você? E para as pessoas do seu trabalho ou da sua família: é a mesma coisa?
+```
 
 ## Um salão em Paris, 1789
 
@@ -73,6 +78,20 @@ Por que os simpatizantes da revolução de 1789 ficaram conhecidos como "esquerd
 
 1. **(a)** busca **reduzir desigualdades**: tende à **esquerda**.
 2. **(b)** aceita ou amplia as **desigualdades**: tende à **direita**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Esquerda e direita são rótulos que já não servem: hoje o que importa é se o político é honesto e resolve os problemas, não de que lado ele senta." É uma opinião comum entre quem está cansado da política.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que o rótulo sozinho diz pouco, e a aula reconhece que uma pessoa pode ter posições diferentes em temas diferentes. Mas mostra que os termos nasceram na Revolução Francesa, em 1789, pelos lugares na Assembleia, e que, para Bobbio, o critério central é a igualdade. Conhecer de onde vêm as palavras ajuda a perguntar do político não só se ele é honesto, mas o que ele quer: mudar ou conservar, e a favor de quem.
+```
+
+```agir
+# Esta semana
+Escolha três temas (por exemplo, salário mínimo, transporte, segurança) e escreva num papel o que você pensa de cada um. Veja se as suas posições caem sempre do mesmo lado ou variam. Não precisa mostrar a ninguém.
+```
 
 ## Resumo
 

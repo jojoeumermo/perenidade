@@ -1,5 +1,6 @@
 ---
 titulo: "Os biomas do Brasil"
+modelo: 9
 resumo: "O Brasil tem seis grandes biomas: Amazônia, Cerrado, Caatinga, Mata Atlântica, Pampa e Pantanal. A Amazônia ocupa quase metade do país; o Pampa está só no Rio Grande do Sul; o Pantanal, em Mato Grosso e Mato Grosso do Sul. As características de cada um."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Floresta úmida, sertão seco, campo aberto, planície que alaga. Tudo isso cabe
 
 Ao fim desta aula você vai conhecer os seis grandes biomas do Brasil e as características de cada um.
 
+```suarealidade
+Em qual bioma fica a sua cidade? Que plantas, bichos ou comidas da região você reconhece como daqui?
+```
+
 ## O que é bioma
 
 Um **bioma** é uma grande área com **clima**, **vegetação** e **vida animal** parecidos. Dentro de um bioma pode haver "ilhas" de outros tipos de vegetação, então a divisão não é perfeitamente uniforme.
@@ -61,6 +66,15 @@ Por que é errado dizer que "o Brasil é todo floresta"?
 > Releia a seção "Os seis biomas".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Mato é mato, e o que importa é que a terra seja produtiva. Conhecer bioma é coisa de livro, e quem vive do campo precisa de espaço para plantar e criar." É a opinião de quem vive da terra e quer trabalhar sem entraves.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diz que o campo não deve produzir. Mostra que cada bioma tem características próprias: a Amazônia ocupa quase metade do país, o Cerrado é uma savana com duas estações bem definidas, a Caatinga tem alto risco de desertificação por causa da degradação da vegetação e do solo, e o Pampa e o Pantanal só existem em alguns estados. Conhecer o bioma ajuda a saber o que cada lugar aguenta. Dá para valorizar quem trabalha na terra e, ao mesmo tempo, querer saber o que cada região precisa para continuar produzindo.
+```
+
 ## Exemplo resolvido
 
 **Em qual bioma provavelmente está cada lugar: (a) uma fazenda de gado em campo aberto perto de Bagé (RS); (b) uma cidade do sertão da Paraíba; (c) Manaus (AM)?**
@@ -68,6 +82,11 @@ Por que é errado dizer que "o Brasil é todo floresta"?
 1. **(a)** Rio Grande do Sul, campo aberto: **Pampa**.
 2. **(b)** Sertão nordestino, clima seco: **Caatinga**.
 3. **(c)** O Amazonas está todo na **Amazônia**.
+
+```agir
+# Esta semana
+Descubra em qual bioma fica a sua cidade e escreva num papel três plantas ou animais dele que você já viu. Pergunte a alguém mais velho o que mudou nesse lugar ao longo dos anos.
+```
 
 ## Resumo
 

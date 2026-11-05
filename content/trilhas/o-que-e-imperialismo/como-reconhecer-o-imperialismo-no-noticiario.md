@@ -23,7 +23,7 @@ quiz:
     resposta: 2
     explicacao: "O relatório final do grupo de inspeção norte-americano, de 2004, concluiu que o Iraque não tinha esses estoques."
   - pergunta: "Por que vale reparar se um governo é chamado de 'governo' ou de 'regime'?"
-    opcoes: ["Porque a escolha da palavra já carrega um julgamento e costuma variar conforme o país seja aliado ou adversário", "Porque 'regime' é o termo jurídico correto", "Porque 'governo' só vale para países pobres"]
+    opcoes: ["Porque a escolha da palavra já carrega um julgamento e pode variar conforme o país seja aliado ou adversário", "Porque 'regime' é o termo jurídico correto", "Porque 'governo' só vale para países pobres"]
     resposta: 0
     explicacao: "Compare como a mesma agência descreve dois países com práticas parecidas."
   - pergunta: "Qual é uma boa prática ao ler uma notícia sobre um conflito distante?"

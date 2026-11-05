@@ -1,0 +1,51 @@
+# Exercícios da aula "Família, casa e rotina" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-fam-01
+  tema: "Vocabulário"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz 'sogra' em inglês?"
+  alternativas:
+    - texto: "mother-in-law"
+      certa: true
+    - texto: "stepmother"
+      erro: "Stepmother é madrasta."
+    - texto: "grandmother"
+      erro: "Grandmother é avó."
+  explicacao: "Parentes por casamento levam -in-law: mother-in-law (sogra), brother-in-law (cunhado)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-fam-02
+  tema: "Tio e sobrinho"
+  dificuldade: 1
+  enunciado: "Qual destas palavras quer dizer 'sobrinho'?"
+  alternativas:
+    - texto: "nephew"
+      certa: true
+    - texto: "niece"
+      erro: "Niece é sobrinha."
+    - texto: "cousin"
+      erro: "Cousin é primo ou prima."
+  explicacao: "Aunt (tia), uncle (tio), niece (sobrinha), nephew (sobrinho)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-fam-03
+  tema: "Rotina"
+  dificuldade: 2
+  enunciado: "Qual frase diz 'Eu acordo às seis' de forma correta?"
+  alternativas:
+    - texto: "I wake up at six."
+      certa: true
+    - texto: "I am wake up at six."
+      erro: "Para hábitos, usa-se o presente simples, sem to be."
+    - texto: "I waking at six."
+      erro: "A forma com -ing exige o verbo to be e é para o que acontece agora."
+  explicacao: "A rotina se diz com o presente simples."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
