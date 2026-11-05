@@ -8,6 +8,7 @@ import { partir, tipoDe } from "@/lib/blocos";
 import { useI18n } from "../I18n";
 import type { Membro } from "./Equipe";
 import { Abas, Aviso, botao, botaoClaro, campo, data, dia, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 interface Aula {
   slug: string;
@@ -206,7 +207,7 @@ export function Traducoes({ irEscrever }: { irEscrever: () => void }) {
                   {item.minha && item.status === "em_andamento" && (
                     <span className="flex gap-3 text-sm">
                       {x && aula && <button type="button" className={elo} onClick={() => setEditando({ trilha: x, aula, idioma: item.idioma })}>Continuar</button>}
-                      <button type="button" className={elo} onClick={() => { if (window.confirm("Liberar a reserva? A aula volta para a lista de quem quer traduzir.")) void acao.agir("traducao_liberar", { p_alvo: alvo, p_idioma: item.idioma }, "Reserva liberada."); }}>Liberar</button>
+                      <button type="button" className={elo} onClick={async () => { if ((await confirmarFrase("Liberar a reserva? A aula volta para a lista de quem quer traduzir."))) void acao.agir("traducao_liberar", { p_alvo: alvo, p_idioma: item.idioma }, "Reserva liberada."); }}>Liberar</button>
                     </span>
                   )}
                 </li>
@@ -327,7 +328,7 @@ function EditorDeTraducao({ trilha, aula, idioma, fechar }: { trilha: Trilha; au
 
   async function enviar() {
     if (!rascunho) return;
-    if (prontos < blocos.length && !window.confirm(`Faltam ${blocos.length - prontos} blocos sem tradução. Enviar assim mesmo para a revisão?`)) return;
+    if (prontos < blocos.length && !(await confirmarFrase(`Faltam ${blocos.length - prontos} blocos sem tradução. Enviar assim mesmo para a revisão?`))) return;
     setEnviando(true);
     setAviso("");
     try {

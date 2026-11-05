@@ -5,7 +5,7 @@ import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { can, leads, type Me, nivelDe, nivelDoPapel, porNivel, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, GRUPOS_DEPARTAMENTO, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, GRUPOS_DEPARTAMENTO, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papelAposentado, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 import { Departamentos, FotosParaAprovar, TermosAceitos } from "./PessoasExtras";
@@ -194,7 +194,7 @@ export function Pessoas({ me }: { me: Me }) {
   // A coordenação não se concede por aqui (muda de mãos em Segurança e sucessão); vice e supervisão, só a coordenação nomeia;
   // curadoria e mediação ficam com coordenação e vice.
   const concediveis = (Object.keys(papeis) as Role["papel"][]).filter(
-    (papel) => papel !== "coordenacao" && nivelDoPapel(papel) < meuNivel && (!["vice", "supervisao"].includes(papel) || lider) && (!["curadoria", "mediacao"].includes(papel) || coordena),
+    (papel) => papel !== "coordenacao" && !papelAposentado(papel) && nivelDoPapel(papel) < meuNivel && (!["vice", "supervisao"].includes(papel) || lider) && (!["curadoria", "mediacao"].includes(papel) || coordena),
   );
   /** Posso mexer nos cargos desta pessoa? Nunca nos meus; a coordenação em todos; os outros, só em quem está abaixo. */
   const podeMexer = (pessoa: { id: string; nivel: number }) => pessoa.id !== me.id && (lider || pessoa.nivel < meuNivel);
@@ -371,7 +371,7 @@ export function Pessoas({ me }: { me: Me }) {
                     ))}
                   </optgroup>
                   <optgroup label="Funções">
-                    {(["educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "desenvolvimento", "saude"] as const).map((dep) => (
+                    {(["educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "desenvolvimento", "saude"] as const).map((dep) => (
                       <option key={dep} value={dep}>{papeis[dep]}</option>
                     ))}
                   </optgroup>

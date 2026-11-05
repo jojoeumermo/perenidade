@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { expect, test } from "@playwright/test";
-import { abrir, entrarComo, rpc, sessao } from "./ajuda";
+import { abrir, aceitarTermo, entrarComo, rpc, sessao } from "./ajuda";
 
 // Os fluxos que não podem quebrar: estudar uma aula, buscar, entrar, postar na Comunidade, o painel de cada cargo,
 // contribuir e imprimir material. Rodam contra o banco de teste local (playwright.config.ts).
@@ -66,7 +66,7 @@ test("postar na Rede Lúcia e ver o post na linha", async ({ page }) => {
 test("o painel abre com o menu da função de quem entra", async ({ page, isMobile }) => {
   const s = await entrarComo(page, "jornal@local");
   // Na primeira vez, o termo de voluntariado vem antes de tudo: aceito direto no banco local.
-  await rpc(s.access_token, "termo_voluntario_aceitar").catch(() => null);
+  await aceitarTermo(s.access_token);
   // O passeio do painel abre sozinho na primeira visita e cobre a tela; aqui ele já foi visto.
   await page.addInitScript(() => window.localStorage.setItem("lucia:tutorial-painel", String(Date.now())));
   await abrir(page, "/pt/painel");

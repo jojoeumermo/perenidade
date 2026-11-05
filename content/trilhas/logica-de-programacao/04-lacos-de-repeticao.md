@@ -81,6 +81,16 @@ print(soma)   # mostra 5050
 
 A variável `soma` começa em zero e vai **acumulando** os valores a cada volta. Esse padrão, chamado de acumulador, aparece em quase todo programa.
 
+```simulador
+execucao-python
+# Acompanhe o while volta por volta
+contador = 1
+while contador <= 3:
+    print(contador)
+    contador = contador + 1
+print("fim")
+```
+
 ## Qual usar
 
 - Use `for` quando souber quantas repetições serão, ou quando for percorrer uma sequência.

@@ -1,7 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
-import { CapaDaEdicao } from "@/components/Territorios";
+import { CapaDaEdicao, Letreiro } from "@/components/Territorios";
+import { IDENTIDADES } from "@/lib/territorios-identidades";
 import { originalLang } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -28,6 +29,11 @@ export default async function Territorios({ params }: PageProps<"/[lang]/territo
         <p className="mt-4 max-w-3xl font-serif text-xl leading-relaxed text-ink-soft">{s.lead}</p>
       </header>
 
+      {/* A faixa com os temas de todos os coletivos (pausa ao passar o mouse, ao focar e no botão). */}
+      <div className="mt-8">
+        <Letreiro temas={territorios.flatMap((territorio) => territorio.temas)} rotulo={s.letreiroRotulo} pausar={s.letreiroPausar} retomar={s.letreiroRetomar} />
+      </div>
+
       <ul className="mt-10 grid gap-8">
         {territorios.map((territorio) => (
           <li key={territorio.slug} className="grid items-center gap-8 border-2 border-ink bg-folha p-6 shadow-[6px_6px_0_var(--sombra)] md:grid-cols-[minmax(0,1fr)_16rem]" {...originalLang(lang === "pt")}>
@@ -43,10 +49,21 @@ export default async function Territorios({ params }: PageProps<"/[lang]/territo
                 </a>
               </div>
             </div>
-            {territorio.edicoes[0] && (
+            {territorio.edicoes[0] ? (
               <div className="w-full max-md:max-w-[15rem]">
                 <CapaDaEdicao edicao={territorio.edicoes[0]} perfil={territorio.instagram} assinatura={s.byCollective} />
               </div>
+            ) : (
+              territorio.visual && (
+                <div
+                  aria-hidden
+                  className="flex aspect-[4/5] w-full flex-col justify-end border-[1.5px] border-ink p-4 shadow-[6px_6px_0_var(--sombra)] max-md:max-w-[15rem]"
+                  style={{ backgroundColor: IDENTIDADES[territorio.visual].fundo, color: IDENTIDADES[territorio.visual].tinta }}
+                >
+                  <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em]" style={{ color: IDENTIDADES[territorio.visual].destaque }}>@{territorio.instagram}</span>
+                  <span className="mt-2 font-serif text-[2rem] font-black leading-[0.95]">{territorio.nome}</span>
+                </div>
+              )
             )}
           </li>
         ))}

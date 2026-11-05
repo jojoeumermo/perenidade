@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { type Aula } from "@/lib/aovivo";
+import { GALENE_URL, tipoNoSite } from "@/lib/aula-sala";
 import { areaSlugs } from "@/lib/areas";
 import { can, rpc, type Me } from "@/lib/backend";
 import { linkDoYoutube, mensagemDoCanal, pedirAoCanal } from "@/lib/canal-youtube";
@@ -13,6 +14,7 @@ import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, localDoPainel, papeis, rotulo, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
+import { confirmarFrase } from "./ui";
 
 /** "2026-10-20T19:00" no fuso do aparelho, para o campo de data e hora. */
 const paraCampo = (iso: string) => {
@@ -95,14 +97,14 @@ export function AulasAoVivo({ me }: { me: Me }) {
   };
   const copiar = (aula: Aula) => void navigator.clipboard.writeText(`${window.location.origin}${abrirSala(aula.id)}`).then(() => acao.setAviso("Endereço da sala copiado."), () => acao.setAviso(`${window.location.origin}${abrirSala(aula.id)}`));
   const comecar = (aula: Aula) => void acao.agir("aula_ao_vivo_estado", { p_id: aula.id, p_status: "ao_vivo" }, "Aula começada: quem marcou presença foi avisado.");
-  const encerrar = (aula: Aula) => {
-    if (window.confirm("Encerrar a aula?")) void acao.agir("aula_ao_vivo_estado", { p_id: aula.id, p_status: "encerrada" }, "Aula encerrada. Se gravou, ponha o endereço da gravação.");
+  const encerrar = async (aula: Aula) => {
+    if ((await confirmarFrase("Encerrar a aula?"))) void acao.agir("aula_ao_vivo_estado", { p_id: aula.id, p_status: "encerrada" }, "Aula encerrada. Se gravou, ponha o endereço da gravação.");
   };
-  const cancelar = (aula: Aula) => {
-    if (window.confirm("Cancelar a aula? Quem marcou presença será avisado.")) void acao.agir("aula_ao_vivo_estado", { p_id: aula.id, p_status: "cancelada" }, "Aula cancelada.");
+  const cancelar = async (aula: Aula) => {
+    if ((await confirmarFrase("Cancelar a aula? Quem marcou presença será avisado."))) void acao.agir("aula_ao_vivo_estado", { p_id: aula.id, p_status: "cancelada" }, "Aula cancelada.");
   };
-  const apagar = (aula: Aula) => {
-    if (window.confirm("Apagar a aula e o bate-papo dela?")) void acao.agir("aula_ao_vivo_apagar", { p_id: aula.id }, "Aula apagada.");
+  const apagar = async (aula: Aula) => {
+    if ((await confirmarFrase("Apagar a aula e o bate-papo dela?"))) void acao.agir("aula_ao_vivo_apagar", { p_id: aula.id }, "Aula apagada.");
   };
   const quem = (aula: Aula) => `${aula.educador.nome}${aula.co_educadores.length ? ` com ${aula.co_educadores.map((c) => c.nome).join(", ")}` : ""}`;
 
@@ -197,7 +199,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
                         <p className="text-xs text-ink-soft">{aula.duracao} min</p>
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs text-ink-soft">{nomeDaArea(aula.disciplina)}{aula.sala_externa ? ` · sala em ${aula.sala_externa.includes(JITSI_DOMINIO) ? "Jitsi" : "outro site"}` : ""}</p>
+                        <p className="text-xs text-ink-soft">{nomeDaArea(aula.disciplina)}{aula.sala_externa ? ` · sala ${{ propria: "do instituto", peertube: "PeerTube", meet: "no Google Meet", youtube: "no YouTube", jitsi: "no Jitsi", outro: aula.sala_externa.includes(JITSI_DOMINIO) ? "no Jitsi" : "em outro site", nenhum: "" }[tipoNoSite(aula.sala_externa)]}` : ""}</p>
                         <p className="font-semibold leading-snug">{aula.titulo}</p>
                         <p className="text-xs text-ink-soft">{quem(aula)} · {aula.inscritos} {aula.inscritos === 1 ? "presença" : "presenças"}</p>
                         <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
@@ -285,7 +287,7 @@ function TransmitirNoYoutube({ aula, escuro = false, aberto = false }: { aula: A
     setAviso("Transmissão criada no canal do instituto. Ponha o servidor e a chave no programa de transmissão.");
   }
   async function encerrarNoYoutube() {
-    if (!window.confirm("Encerrar a transmissão no YouTube? Ela normalmente termina sozinha quando o programa para de transmitir.")) return;
+    if (!(await confirmarFrase("Encerrar a transmissão no YouTube? Ela normalmente termina sozinha quando o programa para de transmitir."))) return;
     setOcupado(true);
     const r = await pedirAoCanal({ acao: "encerrar", aula: aula.id });
     setOcupado(false);
@@ -357,6 +359,7 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
   const trilhas = tracks.filter((x) => x.area === form.disciplina);
   const passou = aula && (aula.status === "encerrada" || aula.status === "cancelada");
   const inicio = new Date(form.inicio);
+  const salaPropria = tipoNoSite(form.sala_externa) === "propria";
 
   useEffect(() => {
     const tecla = (e: KeyboardEvent) => e.key === "Escape" && fechar();
@@ -465,21 +468,27 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
 
               <div>
                 <p className="font-semibold">Sala de vídeo</p>
-                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                <div className={`mt-2 grid gap-2 ${GALENE_URL ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
                   <button type="button" aria-pressed={!form.sala_externa} onClick={() => mudar("sala_externa", "")} className={`cursor-pointer rounded-lg border-2 p-3 text-left ${!form.sala_externa ? "border-ink bg-parchment-deep" : "border-rule hover:border-ink-soft"}`}>
                     <span className="block text-sm font-semibold">Sala do site</span>
                     <span className="block text-xs text-ink-soft">O vídeo vai direto do seu navegador para cada pessoa. Boa para turma pequena.</span>
                   </button>
-                  <button type="button" aria-pressed={Boolean(form.sala_externa)} onClick={() => !form.sala_externa && mudar("sala_externa", novaSalaJitsi())} className={`cursor-pointer rounded-lg border-2 p-3 text-left ${form.sala_externa ? "border-ink bg-parchment-deep" : "border-rule hover:border-ink-soft"}`}>
+                  {GALENE_URL && (
+                    <button type="button" aria-pressed={salaPropria} onClick={() => mudar("sala_externa", `${GALENE_URL}/`)} className={`cursor-pointer rounded-lg border-2 p-3 text-left ${salaPropria ? "border-ink bg-parchment-deep" : "border-rule hover:border-ink-soft"}`}>
+                      <span className="block text-sm font-semibold">Sala do instituto (aula com gravação)</span>
+                      <span className="block text-xs text-ink-soft">Turma de até uns 50, chat, tela compartilhada e gravação. Você entra como professor pela página da aula.</span>
+                    </button>
+                  )}
+                  <button type="button" aria-pressed={Boolean(form.sala_externa) && !salaPropria} onClick={() => (!form.sala_externa || salaPropria) && mudar("sala_externa", novaSalaJitsi())} className={`cursor-pointer rounded-lg border-2 p-3 text-left ${form.sala_externa && !salaPropria ? "border-ink bg-parchment-deep" : "border-rule hover:border-ink-soft"}`}>
                     <span className="block text-sm font-semibold">Sala no Jitsi</span>
                     <span className="block text-xs text-ink-soft">Recomendada para turma grande. Abre dentro da página da aula, com nome sorteado.</span>
                   </button>
                 </div>
-                {form.sala_externa && (
+                {form.sala_externa && !salaPropria && (
                   <label className="mt-2 block text-sm">
                     Endereço da sala
                     <input value={form.sala_externa} onChange={(e) => mudar("sala_externa", e.target.value)} placeholder="https://" maxLength={500} className={`${campo} font-mono text-sm`} />
-                    <span className="mt-1 block text-xs text-ink-soft">A sala em {JITSI_DOMINIO} abre dentro da página; outro endereço (Meet etc.) abre fora do site.</span>
+                    <span className="mt-1 block text-xs text-ink-soft">A sala em {JITSI_DOMINIO} abre dentro da página. Reunião interna: cole o link do Google Meet (abre fora do site). Transmissão no PeerTube do instituto: cole o link do vídeo (abre dentro da página, só depois do clique de quem assiste).</span>
                   </label>
                 )}
               </div>
@@ -489,7 +498,7 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
           {aula && aula.status !== "agendada" && (
             <label className="block font-semibold">
               Gravação
-              <span className="block text-xs font-normal text-ink-soft">O endereço do vídeo, depois da aula (opcional). Aparece na agenda para quem não pôde vir.</span>
+              <span className="block text-xs font-normal text-ink-soft">O endereço do vídeo, depois da aula (opcional). Link do PeerTube do instituto ou do YouTube toca dentro da página, só depois do clique. Aparece na agenda para quem não pôde vir.</span>
               <input value={form.gravacao} onChange={(e) => mudar("gravacao", e.target.value)} placeholder="https://… ou /pt/videoaulas…" maxLength={500} className={`${campo} font-mono text-sm`} />
             </label>
           )}

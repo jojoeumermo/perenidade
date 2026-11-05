@@ -8,10 +8,15 @@ import { Contas } from "./Contas";
 import { Historias } from "./Historias";
 import { Letras } from "./Letras";
 import { ParaImprimir } from "./ParaImprimir";
+import { SonsInfantis } from "@/components/jogos/SonsInfantis";
+import pt from "@/i18n/jogos/pt.json";
 import { Robo } from "./Robo";
 import { SegurancaDigital } from "./SegurancaDigital";
 
 
+
+/** Música e sons: os mesmos jogos da página /jogos (components/jogos), com os textos em português da área infantil. */
+const Sons = () => <SonsInfantis s={pt} />;
 
 const COMPONENTES: Record<AtividadeId, () => React.ReactElement> = {
   letras: Letras,
@@ -19,6 +24,7 @@ const COMPONENTES: Record<AtividadeId, () => React.ReactElement> = {
   contas: Contas,
   robo: Robo,
   seguranca: SegurancaDigital,
+  sons: Sons,
   imprimir: ParaImprimir,
 };
 

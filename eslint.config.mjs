@@ -20,6 +20,9 @@ const eslintConfig = defineConfig([
     "public/lua/**",
     "public/ruby/**",
     "public/jscpp/**",
+    // Cópias locais de LOOPY e Parable of the Polygons (CC0, Nicky Case), sem modificação do código (docs/LABS-EXTERNOS.md).
+    "public/labs/loopy/**",
+    "public/labs/polygons/**",
     // Livros digitais gerados a cada montagem (npm run epub).
     "public/epub/**",
     // Função que roda no serviço de contas (Deno), fora do site.

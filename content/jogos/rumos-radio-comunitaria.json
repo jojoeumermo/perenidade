@@ -1,0 +1,882 @@
+{
+ "formato": "rumos/1",
+ "id": "radio-comunitaria",
+ "titulo": "Rádio comunitária",
+ "resumo": "Uma rádio de bairro do zero: associação, conselho, potência, programação, voluntários, música, anunciantes, criança no microfone e o que a lei de radiodifusão comunitária permite.",
+ "papel": "Você ajuda a montar uma rádio comunitária num bairro de uma cidade média, junto com vizinhos, uma escola e a associação de moradores. Cada decisão pesa nos ouvintes, na regularidade, no caixa e na equipe. As leis citadas são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica nem técnica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "ouvintes",
+   "nome": "Ouvintes",
+   "descricao": "A audiência e a participação do bairro. Sem ela a rádio fala sozinha; demais, o microfone vira palanque de quem grita mais."
+  },
+  {
+   "id": "regularidade",
+   "nome": "Regularidade",
+   "descricao": "A situação da rádio diante da lei e das regras. Perdida, vem multa e lacre; cuidado excessivo trava a rádio."
+  },
+  {
+   "id": "caixa",
+   "nome": "Caixa",
+   "descricao": "O dinheiro para luz, equipamento e manutenção. Zerado, a rádio sai do ar; demais, atrai quem quer comprar a antena."
+  },
+  {
+   "id": "equipe",
+   "nome": "Equipe",
+   "descricao": "O gás e o número de voluntários. Sem ela ninguém fala no microfone; demais, a rádio vira um clube fechado."
+  }
+ ],
+ "inicio": {
+  "ouvintes": 40,
+  "regularidade": 50,
+  "caixa": 40,
+  "equipe": 50
+ },
+ "personagens": [
+  {
+   "id": "dora",
+   "nome": "Dona Dora",
+   "papel": "presidente da associação de moradores"
+  },
+  {
+   "id": "ze",
+   "nome": "Zé Carlos",
+   "papel": "locutor veterano, voluntário"
+  },
+  {
+   "id": "lia",
+   "nome": "Lia",
+   "papel": "professora da escola do bairro"
+  },
+  {
+   "id": "chico",
+   "nome": "Seu Chico",
+   "papel": "dono da padaria da esquina"
+  },
+  {
+   "id": "candidato",
+   "nome": "Dr. Edson",
+   "papel": "candidato a vereador"
+  },
+  {
+   "id": "miguel",
+   "nome": "Miguel",
+   "papel": "menino de 12 anos que adora rádio"
+  }
+ ],
+ "fases": [
+  {
+   "id": "colocando-no-ar",
+   "nome": "Colocando no ar",
+   "cartas": 5
+  },
+  {
+   "id": "a-radio-no-ar",
+   "nome": "A rádio no ar",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "rc-associacao",
+   "fase": "colocando-no-ar",
+   "titulo": "Em nome de quem?",
+   "personagem": "dora",
+   "texto": "Para pedir a autorização da rádio, é preciso ter quem peça. Zé Carlos sugere registrar tudo no nome dele, para ganhar tempo. Dona Dora prefere fundar uma associação comunitária sem fins lucrativos.",
+   "esquerda": {
+    "texto": "Fundar a associação comunitária",
+    "efeito": {
+     "regularidade": 11,
+     "equipe": 9,
+     "caixa": -9,
+     "ouvintes": 3
+    },
+    "retorno": "O estatuto leva alguns dias, mas a rádio passa a ser de uma entidade da comunidade, com ata, diretoria e prestação de contas.",
+    "liga": [
+     "associacao-comunitaria"
+    ]
+   },
+   "direita": {
+    "texto": "Registrar no nome do Zé Carlos",
+    "efeito": {
+     "caixa": 9,
+     "regularidade": -11,
+     "equipe": -9,
+     "ouvintes": 2
+    },
+    "retorno": "É rápido, mas a rádio vira \"do Zé\". Quando ele muda de bairro, ninguém sabe de quem é a emissora."
+   },
+   "historia": {
+    "texto": "Podem executar o Serviço de Radiodifusão Comunitária as fundações e associações comunitárias, sem fins lucrativos, desde que legalmente instituídas (art. 7º da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 7º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-conselho",
+   "fase": "colocando-no-ar",
+   "titulo": "O conselho comunitário",
+   "personagem": "lia",
+   "texto": "A rádio precisa de um conselho comunitário. Lia sugere chamar a escola, a igreja, a associação, o comércio e o clube de futebol. Zé Carlos prefere cinco amigos que \"não dão trabalho\".",
+   "esquerda": {
+    "texto": "Chamar entidades de todo o bairro",
+    "efeito": {
+     "ouvintes": 10,
+     "regularidade": 9,
+     "equipe": -6,
+     "caixa": -3
+    },
+    "retorno": "O conselho tem pessoas diferentes e vozes que raramente se encontram. As reuniões demoram, mas a rádio passa a ter dono coletivo.",
+    "liga": [
+     "conselho"
+    ]
+   },
+   "direita": {
+    "texto": "Cinco amigos de confiança",
+    "efeito": {
+     "equipe": 8,
+     "ouvintes": -10,
+     "regularidade": -8,
+     "caixa": 3
+    },
+    "retorno": "É fácil de marcar reunião, mas o conselho é só um carimbo. Ninguém de fora se sente representado."
+   },
+   "historia": {
+    "texto": "A entidade autorizada deve instituir um Conselho Comunitário, composto por no mínimo cinco pessoas representantes de entidades da comunidade local (art. 8º da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 8º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Conduzir uma reunião",
+    "href": "/trilhas/oratoria-e-lideranca/conduzir-uma-reuniao"
+   }
+  },
+  {
+   "id": "rc-antena",
+   "fase": "colocando-no-ar",
+   "titulo": "A potência da antena",
+   "personagem": "ze",
+   "texto": "O vendedor de equipamentos mostra um transmissor mais forte: a rádio alcançaria a cidade toda, e não só o bairro. Zé Carlos fica empolgado. A lei fala de um limite de potência e de altura da antena.",
+   "esquerda": {
+    "texto": "Ficar no limite da lei",
+    "efeito": {
+     "regularidade": 11,
+     "ouvintes": -4,
+     "caixa": 6,
+     "equipe": 3
+    },
+    "retorno": "A rádio cobre o bairro e as vilas vizinhas, e só isso. Dá menos alcance, mas ninguém fica com medo de lacre na porta."
+   },
+   "direita": {
+    "texto": "Comprar o transmissor forte",
+    "efeito": {
+     "ouvintes": 10,
+     "caixa": -10,
+     "regularidade": -12,
+     "equipe": 4
+    },
+    "retorno": "A voz chega longe, mas a rádio atrapalha outras estações e vira alvo da fiscalização."
+   },
+   "historia": {
+    "texto": "O serviço de radiodifusão comunitária é operado em baixa potência e cobertura restrita, com potência limitada a um máximo de 25 watts ERP e altura do sistema irradiante não superior a trinta metros. A cobertura restrita atende a determinada comunidade de um bairro e/ou vila (art. 1º, §§ 1º e 2º da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 1º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-programacao",
+   "fase": "colocando-no-ar",
+   "titulo": "Quem fala no microfone",
+   "personagem": "lia",
+   "texto": "A grade de programas está em branco. Zé Carlos propõe música o dia todo, porque dá menos trabalho. Lia sugere programas com moradores: o dono da padaria, a escola, o posto de saúde, os poetas do bairro.",
+   "esquerda": {
+    "texto": "Abrir o microfone ao bairro",
+    "efeito": {
+     "ouvintes": 12,
+     "equipe": -8,
+     "caixa": -4,
+     "regularidade": 5
+    },
+    "retorno": "A grade tem gente de verdade, falando do que conhece. Preparar programas dá trabalho, mas a rádio tem cara de bairro."
+   },
+   "direita": {
+    "texto": "Só música, sem programa",
+    "efeito": {
+     "equipe": 9,
+     "ouvintes": -10,
+     "caixa": 4,
+     "regularidade": -4
+    },
+    "retorno": "A rádio toca bem, mas ninguém se vê nela. Qualquer aplicativo de música faz o mesmo."
+   },
+   "historia": {
+    "texto": "O Serviço de Radiodifusão Comunitária tem, entre suas finalidades, dar oportunidade à difusão de ideias, elementos de cultura, tradições e hábitos sociais da comunidade, e permitir a capacitação dos cidadãos no exercício do direito de expressão (art. 3º, I e V da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 3º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-candidato",
+   "fase": "colocando-no-ar",
+   "titulo": "O candidato quer horário",
+   "personagem": "candidato",
+   "texto": "O Dr. Edson, candidato a vereador, oferece uma doação generosa para a rádio em troca de um programa só dele, todas as manhãs. Zé Carlos acha que o dinheiro resolveria o caixa.",
+   "esquerda": {
+    "texto": "Recusar e abrir debate para todos",
+    "efeito": {
+     "regularidade": 10,
+     "ouvintes": 9,
+     "caixa": -10,
+     "equipe": 3
+    },
+    "retorno": "Vocês convidam todos os candidatos para entrevistas com o mesmo tempo. O caixa continua apertado, mas a rádio mantém a credibilidade."
+   },
+   "direita": {
+    "texto": "Vender o programa ao candidato",
+    "efeito": {
+     "caixa": 12,
+     "ouvintes": -9,
+     "regularidade": -11,
+     "equipe": -3
+    },
+    "retorno": "O dinheiro entra. O bairro percebe que o programa é propaganda, e os ouvintes mudam de estação."
+   },
+   "historia": {
+    "texto": "É vedado o proselitismo de qualquer natureza na programação das emissoras de radiodifusão comunitária (art. 4º, §1º da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 4º, §1º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Checar antes de publicar",
+    "href": "/trilhas/comunicacao-popular/checar-antes-de-publicar"
+   }
+  },
+  {
+   "id": "rc-voluntarios",
+   "fase": "colocando-no-ar",
+   "titulo": "Os voluntários da rádio",
+   "personagem": "dora",
+   "texto": "Dez moradores querem ajudar: dois jovens, um aposentado, uma costureira. A associação quer reconhecer o trabalho deles, mas ninguém tem certeza de como combinar. Há um jovem que pede o reembolso do transporte.",
+   "esquerda": {
+    "texto": "Assinar termo de adesão",
+    "efeito": {
+     "equipe": 11,
+     "regularidade": 6,
+     "caixa": -8,
+     "ouvintes": 3
+    },
+    "retorno": "Cada voluntário assina um termo curto com o que faz. O transporte é ressarcido contra comprovante. Todos sabem seus limites.",
+    "liga": [
+     "termo-voluntario"
+    ]
+   },
+   "direita": {
+    "texto": "Combinar de boca",
+    "efeito": {
+     "caixa": 7,
+     "equipe": -9,
+     "regularidade": -6,
+     "ouvintes": 2
+    },
+    "retorno": "Dá certo por dois meses. Depois, uma briga sobre quem prometeu o quê esvazia o estúdio."
+   },
+   "historia": {
+    "texto": "O serviço voluntário é a atividade não remunerada prestada por pessoa física a instituição privada de fins não lucrativos, e não gera vínculo empregatício. É prestado por termo de adesão (art. 2º), e o voluntário poderá ser ressarcido pelas despesas comprovadas que a entidade autorizar (art. 3º da Lei 9.608/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.608, de 18 de fevereiro de 1998 (Serviço Voluntário), arts. 1º a 3º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-musica",
+   "fase": "colocando-no-ar",
+   "titulo": "As músicas da rádio",
+   "personagem": "ze",
+   "texto": "Zé Carlos quer tocar de tudo, inclusive os sucessos do rádio. Lia lembra que há músicos do bairro com gravações boas e que gostariam de tocar na rádio, e que existem regras sobre execução pública de música.",
+   "esquerda": {
+    "texto": "Priorizar artistas do bairro que autorizam",
+    "efeito": {
+     "ouvintes": 10,
+     "regularidade": 8,
+     "equipe": -5,
+     "caixa": -4
+    },
+    "retorno": "Cada músico assina uma autorização simples. A rádio ganha cara própria e vira vitrine dos artistas locais."
+   },
+   "direita": {
+    "texto": "Tocar tudo sem se preocupar",
+    "efeito": {
+     "ouvintes": 9,
+     "equipe": 6,
+     "regularidade": -10,
+     "caixa": -5
+    },
+    "retorno": "O programa fica ótimo para ouvir. Meses depois, aparece uma cobrança de direitos autorais que a rádio nunca contou."
+   },
+   "historia": {
+    "texto": "Sem prévia e expressa autorização do autor ou titular, não poderão ser utilizadas composições musicais ou lítero-musicais e fonogramas em representações e execuções públicas (art. 68 da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais), art. 68",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cultura de quebrada é política: organizar a partir do que a gente faz",
+    "href": "/trilhas/funk-pixo-e-baile/cultura-de-quebrada-e-politica-organizar-a-partir-do-que-a-gente-faz"
+   }
+  },
+  {
+   "id": "rc-apoio",
+   "fase": "a-radio-no-ar",
+   "titulo": "O apoio cultural",
+   "personagem": "chico",
+   "texto": "Seu Chico, da padaria, quer anunciar. Uma rede de supermercados da capital também oferece pagar bem pelo anúncio. A lei de rádio comunitária chama isso de \"apoio cultural\" e tem regra.",
+   "esquerda": {
+    "texto": "Aceitar apoio dos comércios do bairro",
+    "efeito": {
+     "caixa": 9,
+     "ouvintes": 9,
+     "regularidade": 8,
+     "equipe": 3
+    },
+    "retorno": "A padaria, a farmácia e a oficina aparecem na programação. O dinheiro é menor, mas circula no bairro."
+   },
+   "direita": {
+    "texto": "Aceitar o supermercado da capital",
+    "efeito": {
+     "caixa": 12,
+     "regularidade": -11,
+     "ouvintes": -8,
+     "equipe": -3
+    },
+    "retorno": "O pagamento é bom, mas a rádio passa a anunciar quem não é da comunidade. A fiscalização pergunta."
+   },
+   "historia": {
+    "texto": "As emissoras de radiodifusão comunitária podem receber apoio cultural sob a forma de patrocínio das atividades, desde que restrito aos estabelecimentos situados na área da comunidade atendida (art. 18 da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 18",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-arrendar",
+   "fase": "a-radio-no-ar",
+   "titulo": "A proposta de arrendar",
+   "personagem": "candidato",
+   "texto": "Uma empresa de comunicação oferece alugar o horário da rádio por um valor mensal alto, e promete \"manter o nome do bairro\". Com isso, o caixa estaria resolvido por anos.",
+   "esquerda": {
+    "texto": "Recusar o arrendamento",
+    "efeito": {
+     "regularidade": 11,
+     "ouvintes": 7,
+     "caixa": -11,
+     "equipe": 4
+    },
+    "retorno": "A rádio continua do bairro, e o caixa segue apertado. Vocês organizam uma feira para financiar o equipamento novo."
+   },
+   "direita": {
+    "texto": "Alugar o horário",
+    "efeito": {
+     "caixa": 13,
+     "ouvintes": -8,
+     "regularidade": -9,
+     "equipe": -5
+    },
+    "retorno": "O dinheiro chega. Dois meses depois, a fiscalização aparece e quer ver os contratos.",
+    "proxima": "rc-fiscalizacao"
+   },
+   "historia": {
+    "texto": "É vedada a cessão ou arrendamento da emissora do Serviço de Radiodifusão Comunitária (art. 19 da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 19",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-alerta",
+   "fase": "a-radio-no-ar",
+   "titulo": "A chuva forte",
+   "personagem": "dora",
+   "texto": "Uma chuva forte alaga duas ruas do bairro. Moradores ligam para a rádio pedindo ajuda. Zé Carlos está de folga e a programação é só música automática. Lia sugere tirar a música e fazer plantão.",
+   "esquerda": {
+    "texto": "Fazer plantão com avisos",
+    "efeito": {
+     "ouvintes": 12,
+     "equipe": -9,
+     "regularidade": 6,
+     "caixa": -3
+    },
+    "retorno": "A rádio passa informações da defesa civil, avisa quais ruas estão alagadas e onde há abrigo. Vira o canal em que o bairro confia."
+   },
+   "direita": {
+    "texto": "Manter a música automática",
+    "efeito": {
+     "equipe": 9,
+     "ouvintes": -11,
+     "regularidade": -4,
+     "caixa": 4
+    },
+    "retorno": "A programação segue. Na manhã seguinte, o bairro lembra que a rádio calou quando precisava de voz."
+   },
+   "historia": {
+    "texto": "A programação das emissoras comunitárias deve dar preferência a finalidades educativas, artísticas, culturais e informativas em benefício do desenvolvimento geral da comunidade (art. 4º, I da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 4º, I",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Checar antes de publicar",
+    "href": "/trilhas/comunicacao-popular/checar-antes-de-publicar"
+   }
+  },
+  {
+   "id": "rc-edital",
+   "fase": "a-radio-no-ar",
+   "titulo": "O edital do município",
+   "personagem": "dora",
+   "texto": "A prefeitura abre um edital para apoiar associações com equipamentos e formação. A associação da rádio pode concorrer, mas Zé Carlos prefere pedir direto ao vereador, \"que resolve mais rápido\".",
+   "esquerda": {
+    "texto": "Concorrer pelo chamamento público",
+    "efeito": {
+     "caixa": 9,
+     "regularidade": 8,
+     "equipe": -6,
+     "ouvintes": 3
+    },
+    "retorno": "A inscrição dá trabalho e exige documentos. Mas a regra é igual para todas as associações, e o resultado sai por escrito."
+   },
+   "direita": {
+    "texto": "Pedir direto ao vereador",
+    "efeito": {
+     "caixa": 8,
+     "regularidade": -8,
+     "ouvintes": -7,
+     "equipe": 2
+    },
+    "retorno": "O equipamento chega mais rápido. Mas a rádio fica devendo favor, e o vereador passa a pedir espaço na programação."
+   },
+   "historia": {
+    "texto": "A celebração de termo de colaboração ou de termo de fomento com organização da sociedade civil será precedida de chamamento público, com as exceções previstas na lei (art. 24 da Lei 13.019/2014).",
+    "fonte": {
+     "titulo": "Lei nº 13.019, de 31 de julho de 2014 (parcerias com organizações da sociedade civil), art. 24",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "rc-miguel",
+   "fase": "a-radio-no-ar",
+   "titulo": "O menino do microfone",
+   "personagem": "miguel",
+   "texto": "Miguel, 12 anos, pede um programa só dele aos sábados. Ele é desinibido e engraçado. Ele quer também que as gravações sejam postadas na internet. Os pais ainda não foram consultados.",
+   "esquerda": {
+    "texto": "Falar com os pais e acompanhar",
+    "efeito": {
+     "ouvintes": 9,
+     "equipe": 8,
+     "regularidade": 6,
+     "caixa": -4
+    },
+    "retorno": "A mãe assina a autorização, e uma voluntária acompanha o programa. Miguel vira o rosto da rádio entre as crianças."
+   },
+   "direita": {
+    "texto": "Gravar e postar sem avisar",
+    "efeito": {
+     "ouvintes": 9,
+     "equipe": 4,
+     "regularidade": -12,
+     "caixa": 2
+    },
+    "retorno": "A gravação viraliza no bairro. A mãe, sem ter sido consultada, pede a retirada e fica furiosa."
+   },
+   "historia": {
+    "texto": "O tratamento de dados pessoais de crianças e de adolescentes deve ser realizado em seu melhor interesse e, no caso de crianças, com o consentimento específico e em destaque dado por pelo menos um dos pais ou pelo responsável legal (art. 14, caput e §1º da LGPD).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), art. 14",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O Estatuto da Criança e do Adolescente",
+    "href": "/trilhas/politica-fundamental/o-estatuto-da-crianca-e-do-adolescente"
+   }
+  },
+  {
+   "id": "rc-cultura-viva",
+   "fase": "a-radio-no-ar",
+   "titulo": "Ponto de Cultura",
+   "personagem": "lia",
+   "texto": "Lia descobre que existe uma política pública que reconhece grupos culturais da comunidade, mesmo os que não têm CNPJ. Ela sugere inscrever a rádio e o grupo de teatro do bairro.",
+   "esquerda": {
+    "texto": "Inscrever a rádio e o teatro",
+    "efeito": {
+     "caixa": 9,
+     "ouvintes": 8,
+     "equipe": 6,
+     "regularidade": 4
+    },
+    "retorno": "A inscrição leva um fim de semana. A rádio passa a fazer parte de uma rede de pontos de cultura do país."
+   },
+   "direita": {
+    "texto": "Deixar para depois",
+    "efeito": {
+     "equipe": 6,
+     "caixa": -9,
+     "ouvintes": -7,
+     "regularidade": -3
+    },
+    "retorno": "A rotina engole a ideia. No ano seguinte, o grupo vizinho recebe equipamento e a rádio, nada."
+   },
+   "historia": {
+    "texto": "A Política Nacional de Cultura Viva tem como instrumentos os pontos de cultura, que podem ser entidades jurídicas de direito privado sem fins lucrativos, grupos ou coletivos sem constituição jurídica (art. 4º, I da Lei 13.018/2014).",
+    "fonte": {
+     "titulo": "Lei nº 13.018, de 22 de julho de 2014 (Política Nacional de Cultura Viva), art. 4º, I",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13018.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-fiscalizacao",
+   "fase": "a-radio-no-ar",
+   "soEncadeada": true,
+   "titulo": "A fiscalização chega",
+   "personagem": "dora",
+   "texto": "Dois técnicos da fiscalização aparecem com uma notificação: querem ver o contrato do arrendamento e a ata do conselho. Dona Dora olha para você e espera uma resposta.",
+   "esquerda": {
+    "texto": "Mostrar tudo e se explicar",
+    "efeito": {
+     "regularidade": 8,
+     "ouvintes": 3,
+     "caixa": -10,
+     "equipe": -6
+    },
+    "retorno": "A associação desfaz o contrato e recebe uma advertência. A rádio volta a ser só do bairro."
+   },
+   "direita": {
+    "texto": "Negar tudo",
+    "efeito": {
+     "caixa": 5,
+     "regularidade": -13,
+     "equipe": -7,
+     "ouvintes": -4
+    },
+    "retorno": "Os técnicos anotam as respostas e voltam com a lista de infrações. A rádio corre risco de perder a autorização."
+   },
+   "historia": {
+    "texto": "A infração a qualquer dispositivo da lei ou da regulamentação pode levar a advertência, multa e, na reincidência, revogação da autorização (art. 21, IV e parágrafo único da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 21",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-oficina",
+   "fase": "a-radio-no-ar",
+   "titulo": "Oficina de locução",
+   "personagem": "lia",
+   "texto": "O conselho comunitário propõe uma oficina de locução para jovens do bairro. A rádio precisa de gente nova, e os jovens precisam de voz e espaço para falar. Mas é mais uma tarefa.",
+   "condicao": {
+    "flags": [
+     "conselho"
+    ]
+   },
+   "esquerda": {
+    "texto": "Fazer a oficina",
+    "efeito": {
+     "equipe": 11,
+     "ouvintes": 9,
+     "caixa": -9,
+     "regularidade": 4
+    },
+    "retorno": "Doze jovens aprendem a falar ao microfone. Dois deles passam a apresentar programas."
+   },
+   "direita": {
+    "texto": "Adiar a oficina",
+    "efeito": {
+     "caixa": 8,
+     "equipe": -9,
+     "ouvintes": -6,
+     "regularidade": -2
+    },
+    "retorno": "O dinheiro e o tempo ficam para outra coisa. A rádio segue com os mesmos três locutores."
+   },
+   "historia": {
+    "texto": "Entre as finalidades do serviço de radiodifusão comunitária está permitir a capacitação dos cidadãos no exercício do direito de expressão da forma mais acessível possível (art. 3º, V da Lei 9.612/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.612, de 19 de fevereiro de 1998 (Radiodifusão Comunitária), art. 3º, V",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9612.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Falar com clareza e simplicidade",
+    "href": "/trilhas/oratoria-e-lideranca/falar-com-clareza-e-simplicidade"
+   }
+  },
+  {
+   "id": "rc-dedicatoria",
+   "fase": "a-radio-no-ar",
+   "titulo": "Dedicatória com endereço",
+   "personagem": "ze",
+   "texto": "No programa de pedidos, um ouvinte manda recado pedindo uma música para a vizinha \"da casa azul da rua Sete, que mora sozinha\". Zé Carlos quer ler tudo ao vivo, com nome, rua e número.",
+   "condicao": {
+    "partidas": 1
+   },
+   "esquerda": {
+    "texto": "Ler só o primeiro nome",
+    "efeito": {
+     "ouvintes": 9,
+     "regularidade": 6,
+     "equipe": -4,
+     "caixa": -2
+    },
+    "retorno": "O recado é lido com carinho, sem endereço. Dona Rosa recebe a música e a vizinhança sabe quem é, sem expor a casa dela."
+   },
+   "direita": {
+    "texto": "Ler nome, rua e número",
+    "efeito": {
+     "ouvintes": 7,
+     "equipe": 4,
+     "regularidade": -9,
+     "caixa": 2
+    },
+    "retorno": "O programa fica popular. Mas uma moradora que mora sozinha se sente exposta e pede para a rádio não falar mais dela."
+   },
+   "historia": {
+    "texto": "O tratamento de dados pessoais deve se limitar ao mínimo necessário para a realização de suas finalidades (art. 6º, III da LGPD). Dado pessoal é a informação relacionada a pessoa natural identificada ou identificável (art. 5º, I).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), arts. 5º e 6º",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Seus dados valem dinheiro",
+    "href": "/trilhas/midia-fundamental/seus-dados-valem-dinheiro"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "rc-ouvintes-zero",
+   "tipo": "queda",
+   "medidor": "ouvintes",
+   "limite": "zero",
+   "titulo": "A rádio que ninguém ouve",
+   "texto": "A rádio está no ar, bonita e legal, mas ninguém liga. Sem programa do bairro, sem utilidade, sem a voz de quem mora ali, a emissora vira só um ruído.",
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-ouvintes-cem",
+   "tipo": "queda",
+   "medidor": "ouvintes",
+   "limite": "cem",
+   "titulo": "Microfone de quem grita mais",
+   "texto": "O bairro inteiro quer falar, e quem grita mais ocupa o microfone. A rádio perde o equilíbrio, e quem tem opinião diferente se cala.",
+   "aula": {
+    "titulo": "Ouvir antes de falar",
+    "href": "/trilhas/oratoria-e-lideranca/ouvir-antes-de-falar"
+   }
+  },
+  {
+   "id": "rc-regularidade-zero",
+   "tipo": "queda",
+   "medidor": "regularidade",
+   "limite": "zero",
+   "titulo": "Lacre na porta",
+   "texto": "A fiscalização chega, aponta as infrações e lacra os equipamentos. Anos de trabalho coletivo param por falta de cuidado com a regra.",
+   "aula": {
+    "titulo": "Direito de imagem e de resposta",
+    "href": "/trilhas/comunicacao-popular/direito-de-imagem-e-de-resposta"
+   }
+  },
+  {
+   "id": "rc-regularidade-cem",
+   "tipo": "queda",
+   "medidor": "regularidade",
+   "limite": "cem",
+   "titulo": "Tanto papel que não sobra rádio",
+   "texto": "A direção só trata de ata, relatório e carimbo. Sobra pouco tempo e pouca gente para fazer programa. A rádio é impecável no papel e muda no ar.",
+   "aula": {
+    "titulo": "Pauta, ata e encaminhamentos",
+    "href": "/trilhas/oratoria-e-lideranca/pauta-ata-e-encaminhamentos"
+   }
+  },
+  {
+   "id": "rc-caixa-zero",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "zero",
+   "titulo": "A luz foi cortada",
+   "texto": "A conta de energia venceu e o dinheiro acabou. Sem transmissor ligado, a antena é só um mastro no topo do prédio da associação.",
+   "aula": {
+    "titulo": "Orçamento para sair do aperto",
+    "href": "/trilhas/dividas-e-nome-sujo/orcamento-para-sair-do-aperto"
+   }
+  },
+  {
+   "id": "rc-caixa-cem",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "cem",
+   "titulo": "Mais dinheiro, menos rádio",
+   "texto": "O caixa só cresce, e agora há gente de fora querendo comprar a emissora. Rádio comunitária com dinheiro demais atrai cobiça e perde o rumo.",
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "rc-equipe-zero",
+   "tipo": "queda",
+   "medidor": "equipe",
+   "limite": "zero",
+   "titulo": "Estúdio vazio",
+   "texto": "Os voluntários foram saindo, um por um. Sobrou o Zé Carlos, de plantão, e uma playlist automática. Rádio sem gente não é rádio.",
+   "aula": {
+    "titulo": "Por que se organizar: ninguém muda a vida sozinho",
+    "href": "/trilhas/primeiros-passos-na-militancia/por-que-se-organizar-ninguem-muda-a-vida-sozinho"
+   }
+  },
+  {
+   "id": "rc-equipe-cem",
+   "tipo": "queda",
+   "medidor": "equipe",
+   "limite": "cem",
+   "titulo": "Clube fechado",
+   "texto": "A equipe cresceu tanto e ficou tão entrosada que ninguém de fora entra. A rádio virou grupo de amigos e perdeu a ideia de ser da comunidade.",
+   "aula": {
+    "titulo": "Liderança coletiva e democracia interna",
+    "href": "/trilhas/oratoria-e-lideranca/lideranca-coletiva-e-democracia-interna"
+   }
+  },
+  {
+   "id": "rc-fim-viva",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "associacao-comunitaria",
+     "conselho",
+     "termo-voluntario"
+    ]
+   },
+   "titulo": "Rádio de todos",
+   "texto": "Um ano depois, a rádio tem associação, conselho de verdade, equipe com termo de adesão e programação com a voz do bairro. O que era sonho de poucos virou serviço de todos.",
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-fim-associacao",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "associacao-comunitaria"
+    ]
+   },
+   "titulo": "No ar, ainda em construção",
+   "texto": "A rádio está no ar com associação regular. Falta o conselho ganhar corpo e a equipe se organizar, mas o essencial está de pé.",
+   "aula": {
+    "titulo": "O que é comunicação popular",
+    "href": "/trilhas/comunicacao-popular/o-que-e-comunicacao-popular"
+   }
+  },
+  {
+   "id": "rc-fim-fragil",
+   "tipo": "chegada",
+   "titulo": "No ar por um fio",
+   "texto": "A rádio funciona, mas depende de poucas pessoas e de regras ainda frágeis. Uma fiscalização ou uma saída pode derrubar tudo.",
+   "aula": {
+    "titulo": "Checar antes de publicar",
+    "href": "/trilhas/comunicacao-popular/checar-antes-de-publicar"
+   }
+  }
+ ]
+}

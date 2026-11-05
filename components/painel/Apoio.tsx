@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { type Confirmavel, type ConfigDoApoio, type Custo, type Faixa, nomeDoMes, type NumerosDoSite, reais, type Relatorio, textoParaBenfeitoria } from "@/lib/apoio";
 import { CampoData } from "./Campos";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 interface Painel {
   publicado: ConfigDoApoio;
@@ -183,8 +184,8 @@ function EditorDaPagina({ d, recarregar }: { d: Painel; recarregar: () => void }
       <div className="sticky bottom-0 z-10 flex flex-wrap items-center gap-3 border-t-2 border-ink bg-parchment py-3">
         <button type="button" className={botao} disabled={acao.ocupado || !mudou} onClick={() => void guardar()}>Guardar rascunho</button>
         <a href="/pt/apoie?previa=1" target="_blank" rel="noopener" className={botaoClaro}>Ver a prévia ↗</a>
-        <button type="button" className={botaoClaro} disabled={acao.ocupado || mudou || !rascunhoDiferente} title={mudou ? "Guarde o rascunho antes" : undefined} onClick={() => { if (window.confirm("Publicar o rascunho na página de Apoie?")) void acao.agir("apoio_publicar", {}, "Publicado ✓ A página de Apoie já mostra a versão nova."); }}>Publicar</button>
-        {d.pode_desfazer && <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm("Voltar a página ao que era antes da última publicação?")) void acao.agir("apoio_desfazer", {}, "Desfeito: a página voltou à versão anterior."); }}>Desfazer a última publicação</button>}
+        <button type="button" className={botaoClaro} disabled={acao.ocupado || mudou || !rascunhoDiferente} title={mudou ? "Guarde o rascunho antes" : undefined} onClick={async () => { if ((await confirmarFrase("Publicar o rascunho na página de Apoie?"))) void acao.agir("apoio_publicar", {}, "Publicado ✓ A página de Apoie já mostra a versão nova."); }}>Publicar</button>
+        {d.pode_desfazer && <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Voltar a página ao que era antes da última publicação?"))) void acao.agir("apoio_desfazer", {}, "Desfeito: a página voltou à versão anterior."); }}>Desfazer a última publicação</button>}
         {mudou && <span className="text-sm text-oxblood">Há mudanças não guardadas.</span>}
         <Aviso texto={acao.aviso} />
       </div>
@@ -232,7 +233,7 @@ function Mural({ d, recarregar }: { d: Painel; recarregar: () => void }) {
               <p className="text-xs text-ink-soft">{x.consentimento}</p>
               <p className="mt-1 flex gap-3 text-sm">
                 <button type="button" className={elo} disabled={acao.ocupado} onClick={() => void acao.agir("apoio_mural_visivel", { p_id: x.id, p_visivel: !x.visivel }, x.visivel ? "Escondido do mural." : "De volta ao mural.")}>{x.visivel ? "Esconder" : "Mostrar"}</button>
-                <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm(`Retirar ${x.nome} do mural de vez?`)) void acao.agir("apoiador_remover", { p_id: x.id }, "Nome retirado."); }}>Retirar</button>
+                <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Retirar ${x.nome} do mural de vez?`))) void acao.agir("apoiador_remover", { p_id: x.id }, "Nome retirado."); }}>Retirar</button>
               </p>
             </li>
           ))}
@@ -290,7 +291,7 @@ function ContasDoMes({ d, recarregar }: { d: Painel; recarregar: () => void }) {
                       <td className="py-1">{x.tipo === "entrada" ? "↘ entrada" : "↗ saída"}</td>
                       <td>{x.categoria}{x.descricao && <span className="text-ink-soft"> · {x.descricao}</span>}{x.comprovante && <span className="block text-xs text-ink-soft">comprovante: {x.comprovante}</span>}</td>
                       <td className="text-right">{reais(Number(x.valor))}</td>
-                      <td className="text-right"><button type="button" className={elo} onClick={() => setL({ ...x, mes: x.mes.slice(0, 7), valor: String(x.valor) })}>Corrigir</button> <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm("Apagar este lançamento?")) void acao.agir("apoio_lancamento_remover", { p_id: x.id }, "Lançamento apagado."); }}>Apagar</button></td>
+                      <td className="text-right"><button type="button" className={elo} onClick={() => setL({ ...x, mes: x.mes.slice(0, 7), valor: String(x.valor) })}>Corrigir</button> <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Apagar este lançamento?"))) void acao.agir("apoio_lancamento_remover", { p_id: x.id }, "Lançamento apagado."); }}>Apagar</button></td>
                     </tr>
                   ))}
                 </tbody>

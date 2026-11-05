@@ -51,6 +51,16 @@ Na segunda linha, o computador primeiro calcula `pontos + 5` (que dá 15) e depo
 
 O que vem depois de `#` é um **comentário**: uma anotação para quem lê o código. O computador ignora.
 
+```simulador
+execucao-python
+# Veja a caixa com etiqueta mudar de valor
+nome = "Ana"
+pontos = 10
+pontos = pontos + 5
+dobro = pontos * 2
+print(nome, pontos, dobro)
+```
+
 ## Tipos de dados
 
 Cada valor tem um tipo, e o tipo define o que se pode fazer com ele.

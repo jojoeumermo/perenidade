@@ -29,6 +29,12 @@ export async function rpc<T>(token: string, fn: string, args: object = {}): Prom
   return (texto ? JSON.parse(texto) : null) as T;
 }
 
+/** O termo de voluntário só vale com o texto guardado: registra o texto e confirma, direto no banco local. */
+export async function aceitarTermo(token: string) {
+  await rpc(token, "termo_registrar", { p_termo: "voluntario", p_versao: "2026-10-20", p_texto: "Termo de voluntário aceito direto no banco local, só para os testes de ponta a ponta seguirem.", p_dados: { maior_de_idade: true } }).catch(() => null);
+  await rpc(token, "termo_voluntario_aceitar").catch(() => null);
+}
+
 /** Abre o site já com a sessão guardada, como se a pessoa tivesse entrado pelo formulário. */
 export async function entrarComo(page: Page, email: string) {
   const s = await sessao(email);
@@ -65,7 +71,7 @@ export async function sessaoForte(email: string) {
 export async function entrarForteComo(page: Page, email: string) {
   const s = await sessaoForte(email);
   // O termo de voluntariado vem antes de tudo no painel: aceito direto no banco local.
-  await rpc(s.access_token, "termo_voluntario_aceitar").catch(() => null);
+  await aceitarTermo(s.access_token);
   await page.addInitScript((valor) => window.localStorage.setItem("lucia:sessao", valor), JSON.stringify(s));
   return s;
 }

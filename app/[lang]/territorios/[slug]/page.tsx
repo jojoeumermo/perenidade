@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "@/components/Link";
 import { notFound } from "next/navigation";
 import { CapaDaEdicao, Letreiro, MarcaNaAtividade } from "@/components/Territorios";
+import PaginaDoColetivo from "@/components/territorios/PaginaDoColetivo";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -40,6 +41,8 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
   const { slug } = await params;
   const territorio = territorios.find((item) => item.slug === slug);
   if (!territorio) notFound();
+  // Os coletivos com identidade visual própria (NoizOcupa, Coletivo Kamikaze) têm a sua página.
+  if (territorio.visual) return <PaginaDoColetivo territorio={territorio} lang={lang} t={t} />;
   const s = t.territorios;
   const to = (path: string) => localePath(lang, path);
   const areas = t.areas as Record<string, string[]>;
@@ -107,7 +110,7 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
         </div>
       </section>
 
-      <Letreiro temas={territorio.temas} />
+      <Letreiro temas={territorio.temas} rotulo={s.letreiroRotulo} pausar={s.letreiroPausar} retomar={s.letreiroRetomar} />
 
       <div className="mx-auto max-w-[78rem] px-4 sm:px-8">
         {/* As edições: cada série é uma revista. */}

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/enem/labor
   return paginaMeta(lang, "/enem/laboratorio-tri", s.enem.tri.titulo, s.enem.tri.lead);
 }
 
-/** O laboratório da TRI (recurso "enem-curso"): modelo de 3 parâmetros com itens ilustrativos; não calcula a nota oficial. */
+/** O laboratório da TRI (recurso "enem-curso"): modelo de 3 parâmetros com os itens reais do Inep; estima a nota, não a oficial. */
 export default async function Page({ params }: PageProps<"/[lang]/enem/laboratorio-tri">) {
   if (!ligado("enem-curso")) notFound();
   const { lang, t } = await loadLang(params);
@@ -36,7 +36,7 @@ export default async function Page({ params }: PageProps<"/[lang]/enem/laborator
       <p className="mt-6 font-sans text-sm">
         {s.tri.oficial} {formatarFato(tri)} (<a href={fonte.url} className="underline hover:text-oxblood" rel="noopener noreferrer">{fonte.titulo}, item {tri.item}</a>).
       </p>
-      <LaboratorioTri s={s.tri} />
+      <LaboratorioTri s={s.tri} hrefProvas={localePath(lang, "/enem/provas")} />
       <p className="mt-6 font-sans text-sm">
         <Link href={localePath(lang, "/trilhas/enem-como-funciona/a-nota-o-que-e-a-tri")} className="underline hover:text-oxblood">{s.tri.aula} →</Link>
       </p>

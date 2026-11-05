@@ -1,0 +1,925 @@
+{
+ "formato": "rumos/1",
+ "id": "reforma-agraria-e-mutirao",
+ "titulo": "Reforma agrária e mutirão",
+ "resumo": "Quarenta famílias de um acampamento do Brasil rural, entre a lei da terra, o mutirão das casas, a roça agroecológica e a cooperativa que precisa se sustentar.",
+ "papel": "Você coordena, ao lado de outras pessoas, um acampamento de 40 famílias que luta por terra e depois por casa, água e roça. A fazenda, as famílias e o município são inventados. As leis citadas são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica nem técnica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "familias",
+   "nome": "Famílias",
+   "descricao": "A adesão e a permanência das famílias. Sem elas a terra fica vazia; demais, ninguém decide nada sozinho."
+  },
+  {
+   "id": "terra",
+   "nome": "Terra",
+   "descricao": "O solo, a água e a roça. Esgotados, a terra não dá comida; protegida demais, não produz o que a família precisa."
+  },
+  {
+   "id": "caixa",
+   "nome": "Recursos",
+   "descricao": "O dinheiro e o material do coletivo. Zerados, a obra e a roça param; demais, atraem cobiça e dependência."
+  },
+  {
+   "id": "luta",
+   "nome": "Luta",
+   "descricao": "A organização e a força política do coletivo. Sem ela a demanda é esquecida; no limite, o conflito foge ao controle."
+  }
+ ],
+ "inicio": {
+  "familias": 50,
+  "terra": 45,
+  "caixa": 40,
+  "luta": 45
+ },
+ "personagens": [
+  {
+   "id": "dona-maria",
+   "nome": "Dona Maria",
+   "papel": "agricultora, uma das mais antigas do acampamento"
+  },
+  {
+   "id": "joao",
+   "nome": "João",
+   "papel": "jovem agrônomo voluntário"
+  },
+  {
+   "id": "irene",
+   "nome": "Irene",
+   "papel": "coordenadora de uma escola do campo"
+  },
+  {
+   "id": "fazendeiro",
+   "nome": "Seu Osvaldo",
+   "papel": "dono da fazenda vizinha"
+  },
+  {
+   "id": "atravessador",
+   "nome": "Seu Tadeu",
+   "papel": "comprador que busca a produção na estrada"
+  },
+  {
+   "id": "engenheira",
+   "nome": "Cláudia",
+   "papel": "engenheira voluntária da assistência técnica"
+  }
+ ],
+ "fases": [
+  {
+   "id": "no-acampamento",
+   "nome": "No acampamento",
+   "cartas": 5
+  },
+  {
+   "id": "no-assentamento",
+   "nome": "No assentamento",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "rm-fazenda",
+   "fase": "no-acampamento",
+   "titulo": "A fazenda parada",
+   "personagem": "dona-maria",
+   "texto": "A fazenda vizinha está abandonada há anos, com cerca caída e mato alto. Dona Maria acha que o dono não faz nada com ela. João sugere reunir informações antes de agir e pedir vistoria ao órgão federal.",
+   "esquerda": {
+    "texto": "Reunir dados e pedir a vistoria",
+    "efeito": {
+     "luta": 10,
+     "familias": 6,
+     "caixa": -9,
+     "terra": 3
+    },
+    "retorno": "Vocês levantam o que dá para saber da propriedade, juntam fotos e escrevem ao órgão que cuida da reforma agrária. É lento, mas é um caminho com papel.",
+    "liga": [
+     "levantamento"
+    ]
+   },
+   "direita": {
+    "texto": "Dar o assunto por perdido",
+    "efeito": {
+     "caixa": 9,
+     "luta": -10,
+     "familias": -9,
+     "terra": -3
+    },
+    "retorno": "Sem dados e sem pedido, ninguém olha a fazenda. As famílias começam a achar que a espera é sem fim."
+   },
+   "historia": {
+    "texto": "A função social é cumprida quando a propriedade rural atende simultaneamente a requisitos como o aproveitamento racional e adequado, a utilização adequada dos recursos naturais e a preservação do meio ambiente, a observância das normas trabalhistas e a exploração que favoreça o bem-estar dos proprietários e dos trabalhadores (art. 9º da Lei 8.629/1993).",
+    "fonte": {
+     "titulo": "Lei nº 8.629, de 25 de fevereiro de 1993 (reforma agrária), art. 9º",
+     "autor": "Presidência da República",
+     "ano": "1993",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A função social da terra na Constituição",
+    "href": "/trilhas/a-terra-e-quem-nela-trabalha/a-funcao-social-da-terra-na-constituicao"
+   }
+  },
+  {
+   "id": "rm-pressa",
+   "fase": "no-acampamento",
+   "titulo": "A pressa de ocupar",
+   "personagem": "joao",
+   "texto": "Uma parte do acampamento quer ocupar a fazenda hoje, sem esperar o órgão. Dona Maria teme as consequências, mas há muita gente cansada de esperar.",
+   "esquerda": {
+    "texto": "Esperar a resposta do órgão",
+    "efeito": {
+     "luta": -9,
+     "familias": -8,
+     "caixa": 6,
+     "terra": 3
+    },
+    "retorno": "Parte do acampamento fica impaciente. Mas o processo corre sem que a ocupação dê ao dono um argumento contra vocês."
+   },
+   "direita": {
+    "texto": "Ocupar a fazenda agora",
+    "efeito": {
+     "luta": 11,
+     "familias": 7,
+     "terra": -4,
+     "caixa": -9
+    },
+    "retorno": "A ocupação chama atenção da imprensa. Mas pela lei, o imóvel objeto de esbulho ou invasão não pode ser vistoriado nos dois anos seguintes à desocupação."
+   },
+   "historia": {
+    "texto": "O imóvel rural de domínio público ou particular objeto de esbulho possessório ou invasão não será vistoriado, avaliado ou desapropriado nos dois anos seguintes à sua desocupação (art. 2º, §6º da Lei 8.629/1993).",
+    "fonte": {
+     "titulo": "Lei nº 8.629, de 25 de fevereiro de 1993 (reforma agrária), art. 2º, §6º",
+     "autor": "Presidência da República",
+     "ano": "1993",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é reforma agrária",
+    "href": "/trilhas/a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria"
+   }
+  },
+  {
+   "id": "rm-produtiva",
+   "fase": "no-acampamento",
+   "titulo": "A fazenda é produtiva?",
+   "personagem": "fazendeiro",
+   "texto": "Seu Osvaldo diz que a terra é produtiva e que a vistoria vai provar. João diz que, pelo que viu, só uma parte pequena é plantada. Ninguém tem laudo e a vistoria vai acontecer na semana que vem.",
+   "esquerda": {
+    "texto": "Pedir o laudo e acompanhar a vistoria",
+    "efeito": {
+     "luta": 10,
+     "terra": 5,
+     "caixa": -9,
+     "familias": 4
+    },
+    "retorno": "Vocês acompanham a visita com um engenheiro de confiança. O laudo mostra, linha por linha, o que é plantado e o que é mato."
+   },
+   "direita": {
+    "texto": "Contestar sem dados",
+    "efeito": {
+     "familias": 6,
+     "caixa": 7,
+     "luta": -10,
+     "terra": -4
+    },
+    "retorno": "A discussão é longa e emotiva, e Seu Osvaldo apresenta papéis. Sem dados, a contestação perde força."
+   },
+   "historia": {
+    "texto": "Considera-se propriedade produtiva aquela que, explorada econômica e racionalmente, atinge simultaneamente graus de utilização da terra e de eficiência na exploração segundo índices fixados pelo órgão federal: a utilização deve ser igual ou superior a 80% e a eficiência igual ou superior a 100% (art. 6º, §§ 1º e 2º da Lei 8.629/1993).",
+    "fonte": {
+     "titulo": "Lei nº 8.629, de 25 de fevereiro de 1993 (reforma agrária), art. 6º",
+     "autor": "Presidência da República",
+     "ano": "1993",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é reforma agrária",
+    "href": "/trilhas/a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria"
+   }
+  },
+  {
+   "id": "rm-sitio",
+   "fase": "no-acampamento",
+   "titulo": "O vizinho do sítio",
+   "personagem": "dona-maria",
+   "texto": "Perto do acampamento mora Seu Nilo, que tem um sítio pequeno e planta mandioca com a família. Há quem queira incluir o sítio na lista de terras para a reforma agrária, \"porque é perto\".",
+   "esquerda": {
+    "texto": "Respeitar e fazer aliança",
+    "efeito": {
+     "familias": 9,
+     "luta": 8,
+     "terra": 4,
+     "caixa": -9
+    },
+    "retorno": "Seu Nilo vira aliado e empresta o trator nos mutirões. A luta ganha mais um vizinho."
+   },
+   "direita": {
+    "texto": "Incluir o sítio na lista",
+    "efeito": {
+     "luta": -9,
+     "familias": 8,
+     "caixa": 4,
+     "terra": -9
+    },
+    "retorno": "A lista se espalha, e Seu Nilo vira inimigo de quem poderia ser amigo. O sítio, pela lei, não podia entrar na lista."
+   },
+   "historia": {
+    "texto": "São insuscetíveis de desapropriação, para fins de reforma agrária, a pequena e a média propriedade rural, desde que o seu proprietário não possua outra propriedade rural (art. 4º, §1º da Lei 8.629/1993). A pequena propriedade tem área até quatro módulos fiscais (art. 4º, II, a).",
+    "fonte": {
+     "titulo": "Lei nº 8.629, de 25 de fevereiro de 1993 (reforma agrária), art. 4º",
+     "autor": "Presidência da República",
+     "ano": "1993",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A fundação do MST",
+    "href": "/trilhas/historia-da-luta-pela-terra/a-fundacao-do-mst"
+   }
+  },
+  {
+   "id": "rm-criterio",
+   "fase": "no-acampamento",
+   "titulo": "Quem entra na lista",
+   "personagem": "joao",
+   "texto": "Chegam novas famílias ao acampamento. Algumas vivem do trabalho na roça, em família. Outras têm renda de outro emprego e outras terras. Há pressão para aceitar todas, para aumentar o número de pessoas na luta.",
+   "esquerda": {
+    "texto": "Priorizar quem vive da roça em família",
+    "efeito": {
+     "familias": 8,
+     "terra": 9,
+     "luta": -8,
+     "caixa": -3
+    },
+    "retorno": "A lista fica menor, mas fiel ao que o coletivo quer: terra para quem trabalha nela."
+   },
+   "direita": {
+    "texto": "Aceitar todas, sem critério",
+    "efeito": {
+     "luta": 10,
+     "familias": -10,
+     "terra": -9,
+     "caixa": 4
+    },
+    "retorno": "O acampamento cresce e vira feira. Alguns entram só para garantir lote e não plantam."
+   },
+   "historia": {
+    "texto": "Considera-se agricultor familiar e empreendedor familiar rural quem pratica atividades no meio rural atendendo simultaneamente a requisitos: não detenha área maior do que 4 módulos fiscais, utilize predominantemente mão de obra da própria família, tenha renda familiar predominantemente originada de atividades do estabelecimento e dirija o estabelecimento com sua família (art. 3º da Lei 11.326/2006).",
+    "fonte": {
+     "titulo": "Lei nº 11.326, de 24 de julho de 2006 (Agricultura Familiar), art. 3º",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11326.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é reforma agrária",
+    "href": "/trilhas/a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria"
+   }
+  },
+  {
+   "id": "rm-escravidao",
+   "fase": "no-acampamento",
+   "titulo": "Os trabalhadores da fazenda vizinha",
+   "personagem": "fazendeiro",
+   "texto": "Dois trabalhadores da fazenda de Seu Osvaldo procuram o acampamento: dormem em barraco, trabalham de sol a sol e devem o gasto da cantina ao patrão. Eles têm medo de reclamar.",
+   "esquerda": {
+    "texto": "Ajudar a denunciar com cuidado",
+    "efeito": {
+     "luta": 10,
+     "familias": 7,
+     "caixa": -9,
+     "terra": 3
+    },
+    "retorno": "Vocês levam os trabalhadores a um órgão de proteção e acompanham o caso. O medo diminui, e outros procuram o acampamento."
+   },
+   "direita": {
+    "texto": "Não se meter",
+    "efeito": {
+     "caixa": 9,
+     "luta": -9,
+     "familias": -10,
+     "terra": -2
+    },
+    "retorno": "O acampamento evita um conflito com o vizinho. Mas quem passou por ali e viu não esquece."
+   },
+   "historia": {
+    "texto": "É crime reduzir alguém a condição análoga à de escravo, submetendo-o a trabalhos forçados ou a jornada exaustiva, a condições degradantes de trabalho, ou restringindo, por qualquer meio, sua locomoção em razão de dívida contraída com o empregador (art. 149 do Código Penal, reclusão de dois a oito anos, e multa).",
+    "fonte": {
+     "titulo": "Código Penal (Decreto-Lei nº 2.848/1940), art. 149, redação da Lei nº 10.803/2003, art. 149",
+     "autor": "Presidência da República",
+     "ano": "2003",
+     "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A Comissão Pastoral da Terra",
+    "href": "/trilhas/historia-da-luta-pela-terra/a-comissao-pastoral-da-terra"
+   }
+  },
+  {
+   "id": "rm-agua",
+   "fase": "no-acampamento",
+   "titulo": "O córrego do acampamento",
+   "personagem": "joao",
+   "texto": "O acampamento fica perto de um córrego estreito. As famílias querem plantar até a beira, para aproveitar a terra boa. João lembra que a vegetação da margem protege a água.",
+   "esquerda": {
+    "texto": "Manter a mata ciliar",
+    "efeito": {
+     "terra": 11,
+     "familias": 4,
+     "caixa": -6,
+     "luta": 3
+    },
+    "retorno": "Vocês cercam uma faixa de 30 metros e plantam mudas nativas. A roça perde um pouco de área, e o córrego continua limpo no verão."
+   },
+   "direita": {
+    "texto": "Plantar até a beira",
+    "efeito": {
+     "caixa": 8,
+     "terra": -12,
+     "familias": 6,
+     "luta": -4
+    },
+    "retorno": "A roça produz bem na primeira safra. Na chuva, a terra desce para dentro do córrego, e a água fica barrenta."
+   },
+   "historia": {
+    "texto": "No Código Florestal, a faixa marginal de 30 metros é Área de Preservação Permanente ao longo dos cursos d'água de menos de 10 metros de largura, medida a partir da borda da calha do leito regular (art. 4º, I, a da Lei 12.651/2012).",
+    "fonte": {
+     "titulo": "Lei nº 12.651, de 25 de maio de 2012 (Código Florestal), art. 4º, I, a",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O ciclo da água",
+    "href": "/trilhas/meio-ambiente-fundamental/o-ciclo-da-agua"
+   }
+  },
+  {
+   "id": "rm-titulo",
+   "fase": "no-assentamento",
+   "titulo": "O comprador do lote",
+   "personagem": "atravessador",
+   "texto": "Seu Tadeu oferece comprar um lote de uma família assentada, \"no papel, sem ninguém saber\". A família está endividada, e o dinheiro ajudaria. O título ainda é recente.",
+   "esquerda": {
+    "texto": "Explicar e recusar a venda",
+    "efeito": {
+     "familias": 9,
+     "luta": 7,
+     "caixa": -9,
+     "terra": 5
+    },
+    "retorno": "A família entende que o lote não pode ser vendido agora. O coletivo ajuda a renegociar a dívida."
+   },
+   "direita": {
+    "texto": "Deixar vender no papel",
+    "efeito": {
+     "caixa": 11,
+     "familias": -10,
+     "luta": -9,
+     "terra": -4
+    },
+    "retorno": "A família recebe e sai. Pouco tempo depois, o comprador aparece querendo tomar posse.",
+    "proxima": "rm-comprador"
+   },
+   "historia": {
+    "texto": "A distribuição de imóveis rurais pela reforma agrária far-se-á por meio de títulos de domínio e de concessão de direito real de uso, inegociáveis pelo prazo de dez anos, contado da data de celebração do contrato (art. 18 e §1º da Lei 8.629/1993).",
+    "fonte": {
+     "titulo": "Lei nº 8.629, de 25 de fevereiro de 1993 (reforma agrária), art. 18",
+     "autor": "Presidência da República",
+     "ano": "1993",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A fundação do MST",
+    "href": "/trilhas/historia-da-luta-pela-terra/a-fundacao-do-mst"
+   }
+  },
+  {
+   "id": "rm-merenda",
+   "fase": "no-assentamento",
+   "titulo": "A merenda da escola",
+   "personagem": "irene",
+   "texto": "Irene conta que a prefeitura compra comida para a merenda das escolas e que uma parte do dinheiro federal precisa ir para a agricultura familiar. As famílias vendem para Seu Tadeu, que paga pouco e não dá nota.",
+   "esquerda": {
+    "texto": "Fornecer à escola pelo programa",
+    "efeito": {
+     "caixa": 11,
+     "familias": 8,
+     "terra": 4,
+     "luta": 4
+    },
+    "retorno": "As famílias entregam hortaliças e mandioca na escola, com nota e preço combinado. As crianças comem comida do próprio lugar.",
+    "liga": [
+     "merenda"
+    ]
+   },
+   "direita": {
+    "texto": "Seguir vendendo ao atravessador",
+    "efeito": {
+     "caixa": 5,
+     "familias": -9,
+     "luta": -8,
+     "terra": -4
+    },
+    "retorno": "O dinheiro vem rápido, e a família que planta fica com a menor parte do que a comida vale."
+   },
+   "historia": {
+    "texto": "Do total dos recursos financeiros repassados pelo FNDE no âmbito do PNAE, no mínimo 30% (na redação original, de 2009) deveriam ser utilizados na aquisição de gêneros alimentícios diretamente da agricultura familiar e do empreendedor familiar rural ou de suas organizações, priorizando-se os assentamentos da reforma agrária, as comunidades indígenas e quilombolas (art. 14). Alterações posteriores ampliaram o percentual.",
+    "fonte": {
+     "titulo": "Lei nº 11.947, de 16 de junho de 2009 (alimentação escolar), art. 14, art. 14",
+     "autor": "Presidência da República",
+     "ano": "2009",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l11947.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Agroecologia e reforma agrária popular",
+    "href": "/trilhas/ecossocialismo-basico/agroecologia-e-reforma-agraria-popular"
+   }
+  },
+  {
+   "id": "rm-reserva",
+   "fase": "no-assentamento",
+   "titulo": "A reserva do lote",
+   "personagem": "joao",
+   "texto": "Cada família quer plantar em todo o lote. João explica que parte da área precisa ficar com vegetação nativa, a chamada reserva legal, e propõe plantar árvores frutíferas e nativas em consórcio.",
+   "esquerda": {
+    "texto": "Separar a reserva e plantar consorciado",
+    "efeito": {
+     "terra": 12,
+     "familias": 4,
+     "caixa": -9,
+     "luta": 3
+    },
+    "retorno": "A reserva fica bem definida e o consórcio produz fruta e madeira com o tempo. A família planta menos, mas colhe por mais anos."
+   },
+   "direita": {
+    "texto": "Plantar em todo o lote",
+    "efeito": {
+     "caixa": 9,
+     "terra": -12,
+     "familias": 5,
+     "luta": -4
+    },
+    "retorno": "A colheita no primeiro ano é grande. Mas a mata que protegia o solo foi toda embora, e a erosão aparece."
+   },
+   "historia": {
+    "texto": "A Reserva Legal é a área localizada no interior de uma propriedade ou posse rural, delimitada nos termos do art. 12, com a função de assegurar o uso econômico de modo sustentável dos recursos naturais. Nos imóveis localizados fora da Amazônia Legal, a reserva é de 20% da área (art. 3º, III e art. 12, II da Lei 12.651/2012).",
+    "fonte": {
+     "titulo": "Lei nº 12.651, de 25 de maio de 2012 (Código Florestal), arts. 3º e 12",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Os biomas do Brasil",
+    "href": "/trilhas/meio-ambiente-fundamental/os-biomas-do-brasil"
+   }
+  },
+  {
+   "id": "rm-mutirao",
+   "fase": "no-assentamento",
+   "titulo": "O mutirão das casas",
+   "personagem": "engenheira",
+   "texto": "As famílias querem levantar as casas em mutirão, no fim de semana, cada uma do seu jeito. Cláudia, engenheira voluntária, lembra que há direito a assistência técnica pública e gratuita para famílias de baixa renda construírem moradia.",
+   "esquerda": {
+    "texto": "Pedir assistência técnica e fazer projeto",
+    "efeito": {
+     "familias": 9,
+     "terra": 4,
+     "luta": 8,
+     "caixa": -10
+    },
+    "retorno": "Com projeto e acompanhamento, as casas saem mais firmes e mais baratas. O mutirão ganha método, e o aprendizado fica no assentamento.",
+    "liga": [
+     "assistencia-tecnica"
+    ]
+   },
+   "direita": {
+    "texto": "Construir sem projeto",
+    "efeito": {
+     "caixa": 9,
+     "familias": 5,
+     "luta": -8,
+     "terra": -9
+    },
+    "retorno": "As casas saem rápido e cada uma do seu jeito. Meses depois, aparecem rachaduras e umidade em duas delas."
+   },
+   "historia": {
+    "texto": "As famílias com renda mensal de até 3 salários mínimos, residentes em áreas urbanas ou rurais, têm direito à assistência técnica pública e gratuita para o projeto e a construção de habitação de interesse social (arts. 1º e 2º da Lei 11.888/2008).",
+    "fonte": {
+     "titulo": "Lei nº 11.888, de 24 de dezembro de 2008 (assistência técnica para habitação de interesse social), arts. 1º e 2º",
+     "autor": "Presidência da República",
+     "ano": "2008",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11888.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Quando chamar engenheiro ou arquiteto",
+    "href": "/trilhas/construcao-e-reforma/quando-chamar-engenheiro-ou-arquiteto"
+   }
+  },
+  {
+   "id": "rm-cooperativa",
+   "fase": "no-assentamento",
+   "titulo": "Uma cooperativa para vender junto",
+   "personagem": "irene",
+   "texto": "A produção das 40 famílias cresceu, e Seu Tadeu ainda manda no preço. Irene sugere montar uma cooperativa do assentamento para vender junto, com nota e preço combinado.",
+   "esquerda": {
+    "texto": "Montar a cooperativa",
+    "efeito": {
+     "caixa": 9,
+     "familias": 9,
+     "luta": 8,
+     "terra": -3
+    },
+    "retorno": "A cooperativa precisa de pelo menos vinte pessoas físicas, e o assentamento tem quarenta famílias. A venda conjunta fortalece o preço.",
+    "liga": [
+     "cooperativa"
+    ]
+   },
+   "direita": {
+    "texto": "Cada família vende por si",
+    "efeito": {
+     "caixa": -8,
+     "familias": -9,
+     "luta": -9,
+     "terra": 3
+    },
+    "retorno": "Cada um negocia sozinho, e Seu Tadeu segue fixando o preço."
+   },
+   "historia": {
+    "texto": "A cooperativa singular é constituída pelo número mínimo de 20 pessoas físicas (art. 6º, I da Lei 5.764/1971). Sociedades cooperativas são as formadas por pessoas que reciprocamente se obrigam a contribuir com bens ou serviços para o exercício de uma atividade econômica (art. 3º).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), arts. 3º e 6º",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "rm-solo",
+   "fase": "no-assentamento",
+   "titulo": "O solo cansado",
+   "personagem": "joao",
+   "texto": "Depois de três safras de milho no mesmo talhão, a produção cai. João propõe rotação de culturas e adubo verde, que dão trabalho agora e rendem depois. Outras famílias querem plantar soja, \"que paga melhor\".",
+   "esquerda": {
+    "texto": "Rotacionar e adubar com cobertura",
+    "efeito": {
+     "terra": 12,
+     "familias": 5,
+     "caixa": -9,
+     "luta": 3
+    },
+    "retorno": "O solo se recupera aos poucos, e a roça passa a dar o ano todo. A família vê que o cuidado com a terra volta como comida."
+   },
+   "direita": {
+    "texto": "Plantar só soja",
+    "efeito": {
+     "caixa": 11,
+     "terra": -12,
+     "familias": -4,
+     "luta": -4
+    },
+    "retorno": "A primeira safra paga as contas. Duas safras depois, o solo é duro e depende de adubo e veneno comprado."
+   },
+   "historia": {
+    "texto": "Segundo o Estatuto da Terra, a propriedade da terra desempenha integralmente sua função social quando, simultaneamente, favorece o bem-estar dos proprietários e dos trabalhadores, mantém níveis satisfatórios de produtividade, assegura a conservação dos recursos naturais e observa as disposições legais que regulam as justas relações de trabalho (art. 2º, §1º da Lei 4.504/1964).",
+    "fonte": {
+     "titulo": "Lei nº 4.504, de 30 de novembro de 1964 (Estatuto da Terra), art. 2º, §1º",
+     "autor": "Presidência da República",
+     "ano": "1964",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l4504.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Agronegócio, desmatamento e a comida que chega à mesa",
+    "href": "/trilhas/ecossocialismo-basico/agronegocio-desmatamento-e-a-comida-que-chega-a-mesa"
+   }
+  },
+  {
+   "id": "rm-mulheres",
+   "fase": "no-assentamento",
+   "titulo": "O nome no lote",
+   "personagem": "dona-maria",
+   "texto": "O cadastro do assentamento trouxe só o nome do marido nos lotes. As mulheres, que cuidam da horta, da criação e da escola, reclamam. Alguns homens dizem que \"isso é bobagem\".",
+   "esquerda": {
+    "texto": "Incluir as mulheres como titulares",
+    "efeito": {
+     "familias": 10,
+     "luta": 9,
+     "terra": 4,
+     "caixa": -3
+    },
+    "retorno": "As mulheres assinam junto, e a reunião seguinte tem o dobro de gente. A horta ganha irrigação, porque agora ela decide o investimento."
+   },
+   "direita": {
+    "texto": "Manter só o nome do marido",
+    "efeito": {
+     "caixa": 3,
+     "familias": -10,
+     "luta": -9,
+     "terra": -4
+    },
+    "retorno": "O cadastro segue simples. Mas, na reunião, ninguém fala por elas, e a ausência se sente."
+   },
+   "historia": {
+    "texto": "Entre os princípios da Política Nacional da Agricultura Familiar estão a equidade na aplicação das políticas, respeitando os aspectos de gênero, geração e etnia, e a participação dos agricultores familiares na formulação e implementação da política (art. 4º da Lei 11.326/2006).",
+    "fonte": {
+     "titulo": "Lei nº 11.326, de 24 de julho de 2006 (Agricultura Familiar), art. 4º",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11326.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A Marcha das Margaridas",
+    "href": "/trilhas/historia-da-luta-pela-terra/a-marcha-das-margaridas"
+   }
+  },
+  {
+   "id": "rm-comprador",
+   "fase": "no-assentamento",
+   "soEncadeada": true,
+   "titulo": "O comprador na porteira",
+   "personagem": "atravessador",
+   "texto": "O comprador do lote chega com o papel na mão e quer tomar posse. A família que \"vendeu\" já foi embora. Ele diz que pagou e quer a terra.",
+   "esquerda": {
+    "texto": "Desfazer o negócio e devolver o dinheiro",
+    "efeito": {
+     "familias": 8,
+     "luta": 6,
+     "caixa": -12,
+     "terra": 4
+    },
+    "retorno": "O coletivo faz uma vaquinha, devolve o dinheiro e traz a família de volta. O recado fica claro: lote não se vende."
+   },
+   "direita": {
+    "texto": "Ignorar o comprador",
+    "efeito": {
+     "caixa": 5,
+     "luta": -11,
+     "familias": -9,
+     "terra": -4
+    },
+    "retorno": "O comprador volta com um advogado, e o conflito expõe o assentamento a críticas."
+   },
+   "historia": {
+    "texto": "Os títulos de domínio e a concessão de direito real de uso são inegociáveis pelo prazo de dez anos, contado da data de celebração do contrato de concessão de uso (art. 18, §1º da Lei 8.629/1993).",
+    "fonte": {
+     "titulo": "Lei nº 8.629, de 25 de fevereiro de 1993 (reforma agrária), art. 18, §1º",
+     "autor": "Presidência da República",
+     "ano": "1993",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A fundação do MST",
+    "href": "/trilhas/historia-da-luta-pela-terra/a-fundacao-do-mst"
+   }
+  },
+  {
+   "id": "rm-sobras",
+   "fase": "no-assentamento",
+   "titulo": "As sobras da cooperativa",
+   "personagem": "irene",
+   "texto": "No fim do primeiro ano, a cooperativa tem sobra no caixa. Uns querem dividir tudo em dinheiro. Outros querem comprar um trator coletivo e uma câmara fria. A assembleia está marcada.",
+   "condicao": {
+    "flags": [
+     "cooperativa"
+    ]
+   },
+   "esquerda": {
+    "texto": "Dividir pelo que cada família entregou",
+    "efeito": {
+     "familias": 10,
+     "caixa": -9,
+     "luta": 7,
+     "terra": 3
+    },
+    "retorno": "A sobra volta na proporção do que cada um vendeu pela cooperativa. Todos entendem a conta."
+   },
+   "direita": {
+    "texto": "Comprar o trator coletivo",
+    "efeito": {
+     "caixa": 10,
+     "terra": 7,
+     "familias": -9,
+     "luta": -4
+    },
+    "retorno": "O trator ajuda todos, mas quem queria o dinheiro de volta, para a casa ou para um remédio, reclama."
+   },
+   "historia": {
+    "texto": "Entre as características das sociedades cooperativas está o retorno das sobras líquidas do exercício, proporcionalmente às operações realizadas pelo associado, salvo deliberação em contrário da Assembleia Geral (art. 4º, VII da Lei 5.764/1971).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), art. 4º, VII",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "rm-escola",
+   "fase": "no-assentamento",
+   "titulo": "A escola visita o assentamento",
+   "personagem": "irene",
+   "texto": "A escola da cidade quer levar uma turma para conhecer o assentamento. Irene sugere uma roda de conversa e uma visita à horta, com dados sobre a luta pela terra. Parte do coletivo teme que a visita vire exposição.",
+   "condicao": {
+    "partidas": 1
+   },
+   "esquerda": {
+    "texto": "Receber com roda de conversa",
+    "efeito": {
+     "luta": 10,
+     "familias": 7,
+     "caixa": -8,
+     "terra": 4
+    },
+    "retorno": "As crianças veem a roça, comem fruta do pé e perguntam sobre a terra. Voltam para casa com uma outra ideia do que é reforma agrária."
+   },
+   "direita": {
+    "texto": "Fechar o portão",
+    "efeito": {
+     "caixa": 7,
+     "luta": -9,
+     "familias": -3,
+     "terra": -3
+    },
+    "retorno": "O assentamento segue discreto. Mas a imagem pública continua sendo a do jornal, sem a voz de quem planta."
+   },
+   "historia": {
+    "texto": "O Estatuto da Terra considera Reforma Agrária o conjunto de medidas que visem a promover melhor distribuição da terra, mediante modificações no regime de sua posse e uso, a fim de atender aos princípios de justiça social e ao aumento de produtividade (art. 1º, §1º da Lei 4.504/1964).",
+    "fonte": {
+     "titulo": "Lei nº 4.504, de 30 de novembro de 1964 (Estatuto da Terra), art. 1º, §1º",
+     "autor": "Presidência da República",
+     "ano": "1964",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l4504.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Chico Mendes e os povos da floresta",
+    "href": "/trilhas/historia-da-luta-pela-terra/chico-mendes-e-os-povos-da-floresta"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "rm-familias-zero",
+   "tipo": "queda",
+   "medidor": "familias",
+   "limite": "zero",
+   "titulo": "O acampamento esvaziou",
+   "texto": "As famílias foram voltando para a cidade, uma a uma, cansadas de esperar. A terra segue onde estava, mas quem lutava por ela já não está lá.",
+   "aula": {
+    "titulo": "A fundação do MST",
+    "href": "/trilhas/historia-da-luta-pela-terra/a-fundacao-do-mst"
+   }
+  },
+  {
+   "id": "rm-familias-cem",
+   "tipo": "queda",
+   "medidor": "familias",
+   "limite": "cem",
+   "titulo": "Gente demais, terra de menos",
+   "texto": "O acampamento só cresce e já não há lote para todo mundo. Quem chegou por último descobre que a luta também tem fila e disputa.",
+   "aula": {
+    "titulo": "O que é reforma agrária",
+    "href": "/trilhas/a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria"
+   }
+  },
+  {
+   "id": "rm-terra-zero",
+   "tipo": "queda",
+   "medidor": "terra",
+   "limite": "zero",
+   "titulo": "Terra cansada",
+   "texto": "A erosão levou o solo, o córrego secou e a roça deixou de dar. Quem lutou por terra descobre que sem cuidado ela não alimenta ninguém.",
+   "aula": {
+    "titulo": "Agronegócio, desmatamento e a comida que chega à mesa",
+    "href": "/trilhas/ecossocialismo-basico/agronegocio-desmatamento-e-a-comida-que-chega-a-mesa"
+   }
+  },
+  {
+   "id": "rm-terra-cem",
+   "tipo": "queda",
+   "medidor": "terra",
+   "limite": "cem",
+   "titulo": "Mato demais, roça de menos",
+   "texto": "Tanta área protegida e tanta regra que sobrou pouca roça. As famílias não conseguem tirar o sustento do lote.",
+   "aula": {
+    "titulo": "Agroecologia e reforma agrária popular",
+    "href": "/trilhas/ecossocialismo-basico/agroecologia-e-reforma-agraria-popular"
+   }
+  },
+  {
+   "id": "rm-caixa-zero",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "zero",
+   "titulo": "Sem semente e sem tijolo",
+   "texto": "O dinheiro acabou. A obra parou no meio do telhado e a roça ficou sem semente. Sem recurso, o que era projeto vira apenas esperança.",
+   "aula": {
+    "titulo": "Orçamento de obra pequena e reforma",
+    "href": "/trilhas/construcao-e-reforma/orcamento-de-obra-pequena"
+   }
+  },
+  {
+   "id": "rm-caixa-cem",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "cem",
+   "titulo": "A cobiça chegou",
+   "texto": "O assentamento tem dinheiro e passa a atrair todo tipo de proposta, de grande empresa a político. Quem tem a chave do cofre pesa demais nas decisões.",
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "rm-luta-zero",
+   "tipo": "queda",
+   "medidor": "luta",
+   "limite": "zero",
+   "titulo": "Ninguém lembra de nós",
+   "texto": "Sem organização, o pedido de terra, estrada e escola fica na gaveta. As famílias seguem esperando, e a pauta some do noticiário.",
+   "aula": {
+    "titulo": "A Comissão Pastoral da Terra",
+    "href": "/trilhas/historia-da-luta-pela-terra/a-comissao-pastoral-da-terra"
+   }
+  },
+  {
+   "id": "rm-luta-cem",
+   "tipo": "queda",
+   "medidor": "luta",
+   "limite": "cem",
+   "titulo": "O conflito fugiu do controle",
+   "texto": "A organização virou confronto permanente. Um dia, uma discussão com um vizinho acaba mal, e o assentamento passa a ser visto só como problema de segurança.",
+   "aula": {
+    "titulo": "Eldorado do Carajás",
+    "href": "/trilhas/historia-da-luta-pela-terra/eldorado-do-carajas"
+   }
+  },
+  {
+   "id": "rm-fim-chao",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "assistencia-tecnica",
+     "cooperativa"
+    ]
+   },
+   "titulo": "Terra, casa e comida",
+   "texto": "O assentamento chegou ao fim do primeiro ano com mutirão feito com projeto, venda organizada em cooperativa e roça cuidada. A terra deixou de ser só promessa e passou a ser lugar de viver.",
+   "aula": {
+    "titulo": "O que é reforma agrária",
+    "href": "/trilhas/a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria"
+   }
+  },
+  {
+   "id": "rm-fim-luta",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "levantamento",
+     "merenda"
+    ]
+   },
+   "titulo": "A luta pelo papel",
+   "texto": "As famílias fizeram o levantamento e conseguiram entrar na pauta do órgão. Falta organizar a produção e a obra, mas a terra já tem nome e caminho.",
+   "aula": {
+    "titulo": "A função social da terra na Constituição",
+    "href": "/trilhas/a-terra-e-quem-nela-trabalha/a-funcao-social-da-terra-na-constituicao"
+   }
+  },
+  {
+   "id": "rm-fim-aberto",
+   "tipo": "chegada",
+   "titulo": "Um caminho ainda aberto",
+   "texto": "O assentamento resiste, com avanços e tropeços. O que aprenderam nesse primeiro ano é a base para o próximo: lei, cooperação e cuidado com a terra.",
+   "aula": {
+    "titulo": "As Ligas Camponesas e Francisco Julião",
+    "href": "/trilhas/historia-da-luta-pela-terra/as-ligas-camponesas-e-francisco-juliao"
+   }
+  }
+ ]
+}

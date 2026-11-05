@@ -1,0 +1,367 @@
+[
+  {
+    "id": "loopy",
+    "nome": "LOOPY",
+    "areas": [
+      "sistemas",
+      "sociais"
+    ],
+    "forma": "local",
+    "url": "/labs/loopy/index.html",
+    "pagina": "https://github.com/ncase/loopy",
+    "licenca": "CC0 1.0 (domínio público)",
+    "credito": "Nicky Case. Tradução da interface para o português: Instituto Lúcia.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Desenhe círculos e setas para ver como as coisas se afetam: ciclos que se reforçam e ciclos que se equilibram. Cópia do próprio site, sem rastreio.",
+      "aviso": "A interface está em português; as páginas \"como usar\" e \"exemplos\" ficam no original em inglês."
+    },
+    "en": {
+      "descricao": "Draw circles and arrows to see how things affect each other: reinforcing and balancing loops. A copy hosted on this site, no tracking.",
+      "aviso": "The interface is translated to Portuguese; the how-to and examples pages stay in the original English."
+    }
+  },
+  {
+    "id": "polygons",
+    "nome": "Parable of the Polygons",
+    "areas": [
+      "sociais",
+      "sistemas"
+    ],
+    "forma": "local",
+    "url": "/labs/polygons/index.html",
+    "pagina": "https://github.com/ncase/polygons",
+    "licenca": "CC0 1.0 (domínio público)",
+    "credito": "Vi Hart e Nicky Case.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Formas felizes e tristes mostram como pequenas preferências individuais criam bairros segregados, e o que muda a história. Cópia do próprio site, sem rastreio.",
+      "aviso": "Em inglês (original). Não encontramos tradução oficial; tradução para o português fica como tarefa aberta (o próprio projeto traz um tradutor em translator/)."
+    },
+    "en": {
+      "descricao": "Happy and sad shapes show how small individual preferences create segregated neighbourhoods, and what changes the story. A copy hosted on this site, no tracking.",
+      "aviso": ""
+    }
+  },
+  {
+    "id": "trust",
+    "nome": "A Evolução da Confiança (The Evolution of Trust)",
+    "areas": [
+      "sociais",
+      "sistemas"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://brunolemos.github.io/trust/",
+    "pagina": "https://ncase.me/trust/",
+    "licenca": "CC0 1.0 (domínio público) no original e na tradução",
+    "credito": "Nicky Case (original); tradução para o português do Brasil: Bruno Lemos.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Teoria dos jogos da cooperação: dilema do prisioneiro repetido, quem confia em quem, e como a confiança nasce ou morre.",
+      "aviso": "Carrega do GitHub Pages do tradutor só quando você abre. Não hospedamos cópia porque o original traz um efeito sonoro CC BY-NC."
+    },
+    "en": {
+      "descricao": "Game theory of cooperation: the repeated prisoner's dilemma, who trusts whom, and how trust is born or dies.",
+      "aviso": "Loads from the translator's GitHub Pages only when you open it. We do not host a copy because the original includes a CC BY-NC sound effect."
+    }
+  },
+  {
+    "id": "complexity-explorables",
+    "nome": "Complexity Explorables",
+    "areas": [
+      "sistemas",
+      "sociais",
+      "simulacoes"
+    ],
+    "forma": "link",
+    "url": "https://www.complexity-explorables.org/",
+    "pagina": "https://www.complexity-explorables.org/about/",
+    "licenca": "CC BY 2.0 Alemanha (informada na página \"about\")",
+    "credito": "Dirk Brockmann e colaboradores, Complexity Explorables.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Simulações interativas sobre sistemas complexos, de Dirk Brockmann e colaboradores.",
+      "aviso": "Só link: a página não diz se o código-fonte tem a mesma licença, então não copiamos nada."
+    },
+    "en": {
+      "descricao": "Interactive simulations about complex systems, by Dirk Brockmann and collaborators.",
+      "aviso": "Link only: the page does not say whether the source code has the same licence, so nothing is copied."
+    }
+  },
+  {
+    "id": "netlogo-segregation",
+    "nome": "NetLogo: Segregação (Segregation)",
+    "areas": [
+      "simulacoes",
+      "sociais"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://netlogoweb.org/launch#https://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogox",
+    "pagina": "https://netlogoweb.org/",
+    "licenca": "CC BY-NC-SA 3.0 (modelo); NetLogo em GPL",
+    "credito": "Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Agentes de duas cores se mudam quando ficam muito em minoria na vizinhança. Compare com Parable of the Polygons.",
+      "aviso": "Modelo oficial carregado do netlogoweb.org só quando você abre, sem cópia nem alteração. A licença do modelo é não comercial."
+    },
+    "en": {
+      "descricao": "Agents of two colours move when they are too much in the minority in their neighbourhood.",
+      "aviso": "Official model loaded from netlogoweb.org only when you open it, no copy, no changes. The model licence is non-commercial."
+    }
+  },
+  {
+    "id": "netlogo-wolf-sheep",
+    "nome": "NetLogo: Lobos e ovelhas (Wolf Sheep Predation)",
+    "areas": [
+      "simulacoes",
+      "sistemas"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://netlogoweb.org/launch#https://netlogoweb.org/assets/modelslib/Sample%20Models/Biology/Wolf%20Sheep%20Predation.nlogox",
+    "pagina": "https://netlogoweb.org/",
+    "licenca": "CC BY-NC-SA 3.0 (modelo); NetLogo em GPL",
+    "credito": "Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Presas, predadores e grama: populações que sobem e descem em ciclos.",
+      "aviso": "Modelo oficial carregado do netlogoweb.org só quando você abre. A licença do modelo é não comercial."
+    },
+    "en": {
+      "descricao": "Prey, predators and grass: populations that rise and fall in cycles.",
+      "aviso": "Official model loaded from netlogoweb.org only when you open it. The model licence is non-commercial."
+    }
+  },
+  {
+    "id": "netlogo-fire",
+    "nome": "NetLogo: Incêndio florestal (Fire)",
+    "areas": [
+      "simulacoes"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://netlogoweb.org/launch#https://netlogoweb.org/assets/modelslib/Sample%20Models/Earth%20Science/Fire.nlogox",
+    "pagina": "https://netlogoweb.org/",
+    "licenca": "CC BY-NC-SA 3.0 (modelo); NetLogo em GPL",
+    "credito": "Wilensky, U. (1997). NetLogo Fire model. Center for Connected Learning and Computer-Based Modeling, Northwestern University.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Como o fogo se espalha numa floresta conforme a densidade das árvores.",
+      "aviso": "Modelo oficial carregado do netlogoweb.org só quando você abre. A licença do modelo é não comercial."
+    },
+    "en": {
+      "descricao": "How fire spreads through a forest depending on tree density.",
+      "aviso": "Official model loaded from netlogoweb.org only when you open it. The model licence is non-commercial."
+    }
+  },
+  {
+    "id": "netlogo-virus",
+    "nome": "NetLogo: Vírus (Virus)",
+    "areas": [
+      "simulacoes"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://netlogoweb.org/launch#https://netlogoweb.org/assets/modelslib/Sample%20Models/Biology/Virus.nlogox",
+    "pagina": "https://netlogoweb.org/",
+    "licenca": "CC BY-NC-SA 3.0 (modelo); NetLogo em GPL",
+    "credito": "Wilensky, U. (1998). NetLogo Virus model. Center for Connected Learning and Computer-Based Modeling, Northwestern University.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Propagação de um vírus numa população: contágio, imunidade e recuperação.",
+      "aviso": "Modelo oficial carregado do netlogoweb.org só quando você abre. A licença do modelo é não comercial."
+    },
+    "en": {
+      "descricao": "Spread of a virus in a population: infection, immunity and recovery.",
+      "aviso": "Official model loaded from netlogoweb.org only when you open it. The model licence is non-commercial."
+    }
+  },
+  {
+    "id": "netlogo-traffic",
+    "nome": "NetLogo: Trânsito básico (Traffic Basic)",
+    "areas": [
+      "simulacoes",
+      "sistemas"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://netlogoweb.org/launch#https://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Traffic%20Basic.nlogox",
+    "pagina": "https://netlogoweb.org/",
+    "licenca": "CC BY-NC-SA 3.0 (modelo); NetLogo em GPL",
+    "credito": "Wilensky, U. (1997). NetLogo Traffic Basic model. Center for Connected Learning and Computer-Based Modeling, Northwestern University.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Por que surgem engarrafamentos mesmo sem acidente: um carro freia e a onda de frenagem anda para trás.",
+      "aviso": "Modelo oficial carregado do netlogoweb.org só quando você abre. A licença do modelo é não comercial."
+    },
+    "en": {
+      "descricao": "Why traffic jams appear even without an accident: one car brakes and the braking wave travels backwards.",
+      "aviso": "Official model loaded from netlogoweb.org only when you open it. The model licence is non-commercial."
+    }
+  },
+  {
+    "id": "netlogo-climate",
+    "nome": "NetLogo: Mudança climática (Climate Change)",
+    "areas": [
+      "simulacoes"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://netlogoweb.org/launch#https://netlogoweb.org/assets/modelslib/Sample%20Models/Earth%20Science/Climate%20Change.nlogox",
+    "pagina": "https://netlogoweb.org/",
+    "licenca": "CC BY-NC-SA 3.0 (modelo); NetLogo em GPL",
+    "credito": "Wilensky, U. (2007). NetLogo Climate Change model. Center for Connected Learning and Computer-Based Modeling, Northwestern University.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Modelo simples do balanço de calor da Terra: sol, gases do efeito estufa e temperatura.",
+      "aviso": "Modelo oficial carregado do netlogoweb.org só quando você abre. A licença do modelo é não comercial."
+    },
+    "en": {
+      "descricao": "A simple model of the Earth's heat balance: sunlight, greenhouse gases and temperature.",
+      "aviso": "Official model loaded from netlogoweb.org only when you open it. The model licence is non-commercial."
+    }
+  },
+  {
+    "id": "geogebra",
+    "nome": "GeoGebra (Calculadora gráfica e Geometria)",
+    "areas": [
+      "matematica"
+    ],
+    "forma": "sob-demanda",
+    "url": "https://www.geogebra.org/classic",
+    "pagina": "https://www.geogebra.org/license",
+    "licenca": "GeoGebra Non-Commercial License Agreement (uso gratuito não comercial)",
+    "credito": "Made with GeoGebra®. www.geogebra.org",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Gráficos de funções, geometria dinâmica, planilha e 3D para estudar matemática.",
+      "aviso": "Carrega do site do GeoGebra só quando você abre, e o GeoGebra tem a própria medição de audiência e aviso de cookies. A página de licença não trata de incorporação; o uso aqui é educacional, gratuito e sem fins comerciais. Pendência: confirmar por escrito com office@geogebra.org."
+    },
+    "en": {
+      "descricao": "Function graphs, dynamic geometry, spreadsheet and 3D for studying mathematics.",
+      "aviso": "Loads from GeoGebra's site only when you open it; GeoGebra runs its own audience measurement and cookie notice. The licence page does not address embedding; use here is educational, free and non-commercial. Pending: confirm in writing with office@geogebra.org."
+    }
+  },
+  {
+    "id": "musica-chrome-music-lab",
+    "nome": "Chrome Music Lab (site completo)",
+    "areas": [
+      "musica"
+    ],
+    "forma": "link",
+    "url": "https://musiclab.chromeexperiments.com/",
+    "pagina": "https://github.com/googlecreativelab/chrome-music-lab",
+    "licenca": "Apache-2.0 só nos 8 experimentos do repositório (arquivado em 2026); os demais não têm código publicado",
+    "credito": "Google Creative Lab.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Song Maker e outros experimentos para brincar com música.",
+      "aviso": "Só link. Testamos hospedar o experimento Ondas sonoras (Apache-2.0), mas ele exige executar código gerado em tempo de execução (unsafe-eval), o que a política de segurança do site proíbe; o experimento Harmonics depende do Tone.js hospedado pelo Google. Ficam como link."
+    },
+    "en": {
+      "descricao": "Song Maker and other experiments for playing with music.",
+      "aviso": "Link only. We tried hosting the Sound Waves experiment (Apache-2.0), but it needs runtime-generated code (unsafe-eval), which the site security policy forbids; Harmonics depends on Tone.js hosted by Google."
+    }
+  },
+  {
+    "id": "cyberchef",
+    "nome": "CyberChef",
+    "areas": [
+      "seguranca"
+    ],
+    "forma": "link",
+    "url": "https://gchq.github.io/CyberChef/",
+    "pagina": "https://github.com/gchq/CyberChef",
+    "licenca": "Apache-2.0",
+    "credito": "GCHQ (Government Communications Headquarters), projeto de código aberto.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "O canivete suíço de dados: codificar, decodificar, cifrar, comprimir e analisar bytes, tudo no navegador (a operação roda na sua máquina).",
+      "aviso": "Só link: a versão estável v11.5.0 pesa 79,3 MB (acima do limite de 15 MB para hospedar aqui). Você também pode baixar o arquivo oficial no GitHub e abri-lo sem internet."
+    },
+    "en": {
+      "descricao": "The cyber Swiss Army knife: encode, decode, encrypt, compress and analyse bytes in the browser (operations run on your machine).",
+      "aviso": "Link only: stable release v11.5.0 is 79.3 MB (above the 15 MB limit for hosting here). You can also download the official file from GitHub and open it offline."
+    }
+  },
+  {
+    "id": "earth-nullschool",
+    "nome": "earth.nullschool.net",
+    "areas": [
+      "simulacoes"
+    ],
+    "forma": "link",
+    "url": "https://earth.nullschool.net/",
+    "pagina": "https://github.com/cambecc/earth",
+    "licenca": "Código MIT; dados meteorológicos do GFS (serviço meteorológico dos EUA) e mapas do Natural Earth",
+    "credito": "Cameron Beccario.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Mapa animado dos ventos, correntes oceânicas e temperatura do planeta.",
+      "aviso": "Só link."
+    },
+    "en": {
+      "descricao": "Animated map of the planet's winds, ocean currents and temperature.",
+      "aviso": "Link only."
+    }
+  },
+  {
+    "id": "geacron",
+    "nome": "GeaCron",
+    "areas": [
+      "sociais"
+    ],
+    "forma": "link",
+    "url": "https://www.geacron.com/",
+    "pagina": "https://www.geacron.com/",
+    "licenca": "Não conferida (a página não pôde ser lida automaticamente)",
+    "credito": "GeaCron.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Atlas histórico interativo: como as fronteiras e os impérios mudaram ao longo do tempo.",
+      "aviso": "Só link, sem licença conferida; nada é copiado."
+    },
+    "en": {
+      "descricao": "Interactive historical atlas: how borders and empires changed over time.",
+      "aviso": "Link only, licence not verified; nothing is copied."
+    }
+  },
+  {
+    "id": "circuitverse",
+    "nome": "CircuitVerse",
+    "areas": [
+      "simulacoes"
+    ],
+    "forma": "link",
+    "url": "https://circuitverse.org/simulator",
+    "pagina": "https://github.com/CircuitVerse/CircuitVerse",
+    "licenca": "MIT",
+    "credito": "Projeto CircuitVerse.",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Simulador de circuitos digitais no navegador.",
+      "aviso": "Só link: o site não permite ser aberto dentro de outro (X-Frame-Options). Para circuitos dentro do site, use o Laboratório de elétrica."
+    },
+    "en": {
+      "descricao": "Digital circuit simulator in the browser.",
+      "aviso": "Link only: the site does not allow being opened inside another (X-Frame-Options)."
+    }
+  },
+  {
+    "id": "oimo",
+    "nome": "oimo.io",
+    "areas": [
+      "simulacoes"
+    ],
+    "forma": "link",
+    "url": "https://oimo.io/",
+    "pagina": "https://oimo.io/",
+    "licenca": "Não informada na página",
+    "credito": "shr (saharan).",
+    "conferido_em": "2026-11-04",
+    "pt": {
+      "descricao": "Simulações de física interativas no navegador, do site pessoal de um programador.",
+      "aviso": "Só link, sem licença informada; nada é copiado."
+    },
+    "en": {
+      "descricao": "Interactive physics simulations in the browser, from a programmer's personal site.",
+      "aviso": "Link only, no licence stated; nothing is copied."
+    }
+  }
+]

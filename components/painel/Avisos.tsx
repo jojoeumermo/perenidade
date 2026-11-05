@@ -3,7 +3,8 @@
 
 import { useEffect, useState } from "react";
 import { Star } from "../Masthead";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, papeis, rotulo, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, dataHora, elo, papelAposentado, papeis, rotulo, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 interface AvisoGeral {
   id: string;
@@ -18,7 +19,7 @@ interface AvisoGeral {
 }
 
 /** Para quem um aviso pode ir: a equipe do podcast e cada função. */
-const destinos: [string, string][] = [["podcast", "Equipe do podcast"], ...(Object.entries(papeis) as [string, string][]).filter(([id]) => id !== "coordenacao")];
+const destinos: [string, string][] = [["podcast", "Equipe do podcast"], ...(Object.entries(papeis) as [string, string][]).filter(([id]) => id !== "coordenacao" && !papelAposentado(id))];
 const nomeDoDestino = (id: string) => destinos.find(([chave]) => chave === id)?.[1] ?? id;
 const prazos = [1, 3, 7, 14, 30, 60];
 
@@ -180,7 +181,7 @@ export function AvisosEquipe() {
                   <span>{aviso.autor} · {dataHora(aviso.criado_em)}</span>
                   <span>{aviso.vistos ?? 0} {aviso.vistos === 1 ? "pessoa fechou" : "pessoas fecharam"}</span>
                   {aviso.expira_em && <span>sai do ar em {dataHora(aviso.expira_em)}</span>}
-                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm("Tirar este aviso do ar?")) void acao.agir("aviso_geral_apagar", { p_id: aviso.id }, "Aviso retirado."); }}>
+                  <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Tirar este aviso do ar?"))) void acao.agir("aviso_geral_apagar", { p_id: aviso.id }, "Aviso retirado."); }}>
                     Tirar do ar
                   </button>
                 </p>

@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { rpc } from "@/lib/backend";
 import { caixaDeVarias, type Camada, novoId } from "../motor";
 import type { Editor } from "../ui";
+import { perguntarTexto } from "../../ui";
 
 export interface ItemDaBiblioteca {
   id: string;
@@ -82,7 +83,7 @@ export async function guardarBloco(ed: Editor) {
   const lista = ed.selecionadas;
   if (!lista.length) return;
   const sugestao = lista.length === 1 ? (lista[0].nome || "Bloco") : `Bloco de ${lista.length} camadas`;
-  const nome = window.prompt("Nome do bloco (aparece em Elementos › Blocos):", sugestao)?.trim();
+  const nome = (await perguntarTexto("Nome do bloco (aparece em Elementos › Blocos):", sugestao))?.trim();
   if (!nome) return;
   const b = caixaDeVarias(lista);
   const camadas = lista.map((c) => ({ ...c, x: c.x - b.x, y: c.y - b.y }));

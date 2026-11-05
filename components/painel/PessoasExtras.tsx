@@ -168,7 +168,7 @@ export function Departamentos({ pessoas }: { pessoas: PessoaDaEquipe[] }) {
   const funcoes: { id: string; nome: string; papeis: string[] }[] = [
     ...(["curadoria", "mediacao", "revisao", "traducao"] as const).map((f) => ({ id: f, nome: papeis[f], papeis: [f] })),
     { id: "jornalismo", nome: "Departamento de Comunicação (jornal, rádio, podcast e marketing)", papeis: ["jornalismo", "marketing"] },
-    ...(["mentoria", "design", "desenvolvimento", "saude"] as const).map((f) => ({ id: f, nome: papeis[f], papeis: [f] })),
+    ...(["mentoria", "desenvolvimento", "saude"] as const).map((f) => ({ id: f, nome: papeis[f], papeis: [f] })),
   ];
   return (
     <section>

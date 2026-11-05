@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { expect, test } from "@playwright/test";
-import { abrir, entrarComo, rpc } from "./ajuda";
+import { abrir, aceitarTermo, entrarComo } from "./ajuda";
 
 // A aula em vídeo de ponta a ponta, pelo gravador do painel: quem ensina liga a câmera, grava alguns segundos, para,
 // confere a prévia, preenche título e fonte e envia para a revisão; a aula aparece em "Minhas". Câmera e microfone são
@@ -12,7 +12,7 @@ test.use({
 
 test("aula em vídeo: gravar com a câmera e enviar para revisão", async ({ page }) => {
   const s = await entrarComo(page, "prof@local");
-  await rpc(s.access_token, "termo_voluntario_aceitar").catch(() => null);
+  await aceitarTermo(s.access_token);
   // O tutorial da primeira visita ao painel fica fechado.
   await page.addInitScript(() => window.localStorage.setItem("lucia:tutorial-painel", String(Date.now())));
   await abrir(page, "/pt/painel?aba=videoaulas");

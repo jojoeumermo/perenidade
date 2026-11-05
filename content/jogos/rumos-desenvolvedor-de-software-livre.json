@@ -1,0 +1,878 @@
+{
+ "formato": "rumos/1",
+ "id": "desenvolvedor-de-software-livre",
+ "titulo": "Desenvolvedor de software livre",
+ "resumo": "Dois anos mantendo um programa aberto: licença, contribuições, dados dos usuários, dinheiro, voluntários e o cansaço de quem sustenta uma infraestrutura que todo mundo usa.",
+ "papel": "Você mantém um programa de código aberto, usado por escolas e associações do seu bairro e de outros lugares. Você escreve código à noite, depois do trabalho. As leis citadas em cada carta são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica nem técnica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "comunidade",
+   "nome": "Comunidade",
+   "descricao": "Quem usa, contribui e confia no projeto. Sem ela o código é seu quintal; demais, o projeto vira refém da opinião de todo mundo."
+  },
+  {
+   "id": "codigo",
+   "nome": "Código",
+   "descricao": "A qualidade e a segurança do programa. Quebrado, ninguém usa; perfeccionismo demais, nada é lançado."
+  },
+  {
+   "id": "sustento",
+   "nome": "Sustento",
+   "descricao": "O dinheiro para viver e manter o projeto. Zerado, você larga tudo; demais, o patrocinador começa a mandar."
+  },
+  {
+   "id": "folego",
+   "nome": "Fôlego",
+   "descricao": "Sua energia, seu sono e seus fins de semana. Sem ela você desiste; sem nada para fazer, o projeto esfria."
+  }
+ ],
+ "inicio": {
+  "comunidade": 45,
+  "codigo": 50,
+  "sustento": 45,
+  "folego": 55
+ },
+ "personagens": [
+  {
+   "id": "lia",
+   "nome": "Lia",
+   "papel": "professora que usa o programa na escola"
+  },
+  {
+   "id": "otavio",
+   "nome": "Otávio",
+   "papel": "desenvolvedor de uma empresa grande"
+  },
+  {
+   "id": "samira",
+   "nome": "Samira",
+   "papel": "contribuidora frequente do projeto"
+  },
+  {
+   "id": "prefeitura",
+   "nome": "Dona Célia",
+   "papel": "secretária de educação da cidade"
+  },
+  {
+   "id": "kauan",
+   "nome": "Kauan",
+   "papel": "estudante de 16 anos que quer aprender"
+  },
+  {
+   "id": "edu",
+   "nome": "Edu",
+   "papel": "contador voluntário do bairro"
+  }
+ ],
+ "fases": [
+  {
+   "id": "o-projeto-nasce",
+   "nome": "O projeto nasce",
+   "cartas": 5
+  },
+  {
+   "id": "o-projeto-cresce",
+   "nome": "O projeto cresce",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "sl-licenca",
+   "fase": "o-projeto-nasce",
+   "titulo": "Que licença usar?",
+   "personagem": "lia",
+   "texto": "Você vai publicar o programa. Lia pergunta: \"Posso usar na escola e adaptar para a turma?\". Você não colocou licença nenhuma, e todo mundo está com receio de mexer.",
+   "esquerda": {
+    "texto": "Publicar com licença livre (GPL)",
+    "efeito": {
+     "comunidade": 10,
+     "codigo": 4,
+     "sustento": -10,
+     "folego": -4
+    },
+    "retorno": "Com a GPL, qualquer pessoa pode usar, estudar, modificar e distribuir, e quem distribuir versões modificadas precisa manter as mesmas liberdades.",
+    "liga": [
+     "gpl"
+    ]
+   },
+   "direita": {
+    "texto": "Deixar sem licença por enquanto",
+    "efeito": {
+     "comunidade": -9,
+     "folego": 5,
+     "sustento": 10,
+     "codigo": -9
+    },
+    "retorno": "Sem licença, ninguém sabe o que pode fazer com o código. Quem teme problemas simplesmente não usa."
+   },
+   "historia": {
+    "texto": "O programa de computador é protegido por direitos autorais, independentemente de registro (art. 2º, §3º da Lei 9.609/1998), e o uso de programa de computador no País é objeto de contrato de licença (art. 9º). A GPL é uma licença desse tipo: livre e copyleft, para que o programa continue livre para todos os seus usuários.",
+    "fonte": {
+     "titulo": "Lei nº 9.609, de 19 de fevereiro de 1998 (Programa de Computador), arts. 2º e 9º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9609.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-contribuicao",
+   "fase": "o-projeto-nasce",
+   "titulo": "O pedido de alteração",
+   "personagem": "samira",
+   "texto": "Samira, que você não conhece, manda um pedido de alteração com 400 linhas, corrigindo um erro grave e mudando também a interface. Você está cansado e não quer ler tudo.",
+   "esquerda": {
+    "texto": "Revisar com calma e dar o crédito",
+    "efeito": {
+     "codigo": 10,
+     "comunidade": 8,
+     "folego": -9,
+     "sustento": -10
+    },
+    "retorno": "Você revisa por partes e pede que ela divida o pedido. O erro é corrigido, o nome de Samira entra no histórico e ela volta a contribuir."
+   },
+   "direita": {
+    "texto": "Aceitar sem ler",
+    "efeito": {
+     "folego": 7,
+     "comunidade": 3,
+     "codigo": -11,
+     "sustento": 10
+    },
+    "retorno": "Funciona por uma semana. Depois, uma mudança escondida na interface quebra o programa de quem usa."
+   },
+   "historia": {
+    "texto": "Na proteção dos programas de computador, os direitos morais em geral não se aplicam, ressalvado o direito do autor de reivindicar a paternidade do programa (art. 2º, §1º da Lei 9.609/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.609, de 19 de fevereiro de 1998 (Programa de Computador), art. 2º, §1º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9609.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-dados",
+   "fase": "o-projeto-nasce",
+   "titulo": "Relatório de erros com tudo",
+   "personagem": "otavio",
+   "texto": "Para achar erros mais rápido, Otávio sugere que o programa envie para um servidor o endereço, a lista de arquivos abertos e o nome do usuário, \"por padrão e sem perguntar\". Ia ser mais fácil corrigir.",
+   "esquerda": {
+    "texto": "Coletar o mínimo e perguntar antes",
+    "efeito": {
+     "comunidade": 9,
+     "codigo": -9,
+     "folego": -5,
+     "sustento": -10
+    },
+    "retorno": "O programa só envia o necessário, depois de a pessoa aceitar. Os relatórios são menos completos, mas ninguém se sente vigiado."
+   },
+   "direita": {
+    "texto": "Coletar tudo por padrão",
+    "efeito": {
+     "codigo": 9,
+     "folego": 5,
+     "comunidade": -11,
+     "sustento": 10
+    },
+    "retorno": "Os erros aparecem rápido. Mas quando alguém descobre o envio, a notícia corre: o programa livre \"espiona\"."
+   },
+   "historia": {
+    "texto": "A LGPD exige finalidades legítimas, específicas, explícitas e informadas ao titular (art. 6º, I) e a limitação do tratamento ao mínimo necessário (art. 6º, III). O tratamento depende, em regra, do consentimento do titular (art. 7º, I).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), arts. 6º e 7º",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Seus dados valem dinheiro",
+    "href": "/trilhas/midia-fundamental/seus-dados-valem-dinheiro"
+   }
+  },
+  {
+   "id": "sl-empresa",
+   "fase": "o-projeto-nasce",
+   "titulo": "A empresa que usa e não devolve",
+   "personagem": "otavio",
+   "texto": "Otávio mostra que a empresa dele distribui, dentro de um produto, uma versão modificada do seu programa, sem publicar o código nem avisar o projeto. O chefe dele diz que \"é só um detalhe\".",
+   "esquerda": {
+    "texto": "Cobrar o cumprimento da licença",
+    "efeito": {
+     "comunidade": 7,
+     "sustento": 10,
+     "folego": -8,
+     "codigo": 3
+    },
+    "retorno": "Você escreve com firmeza e educação, citando a licença. Eles publicam o código e passam a contribuir de verdade."
+   },
+   "direita": {
+    "texto": "Deixar passar",
+    "efeito": {
+     "folego": 6,
+     "comunidade": -7,
+     "sustento": -10,
+     "codigo": -9
+    },
+    "retorno": "A versão modificada circula fechada e a empresa ganha com o seu trabalho. Quem contribui para o projeto se pergunta para que existe a licença."
+   },
+   "historia": {
+    "texto": "A GPLv3 é uma licença livre e copyleft. Ela permite distribuir versões modificadas do programa (seção 5) e formas não fonte, como código objeto (seção 6), desde que sob os termos da própria licença, que inclui a entrega do código-fonte correspondente.",
+    "fonte": {
+     "titulo": "GNU General Public License, versão 3, seções 5 e 6",
+     "autor": "Free Software Foundation",
+     "ano": "2007",
+     "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
+   },
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-logs",
+   "fase": "o-projeto-nasce",
+   "titulo": "O servidor do projeto",
+   "personagem": "samira",
+   "texto": "O projeto tem um servidor que recebe pedidos de atualização. Samira pergunta quanto tempo você guarda os registros de acesso e se isso aparece em algum lugar para os usuários.",
+   "esquerda": {
+    "texto": "Guardar só o prazo da lei e avisar",
+    "efeito": {
+     "comunidade": 8,
+     "codigo": 3,
+     "folego": -5,
+     "sustento": -10
+    },
+    "retorno": "Você escreve uma política curta, guarda os registros pelo tempo devido e depois apaga. Ninguém mais pergunta."
+   },
+   "direita": {
+    "texto": "Guardar tudo para sempre",
+    "efeito": {
+     "codigo": 4,
+     "folego": 6,
+     "comunidade": -8,
+     "sustento": 10
+    },
+    "retorno": "É mais cômodo para achar erros. Mas um vazamento no servidor exporia os endereços de todo mundo."
+   },
+   "historia": {
+    "texto": "O Marco Civil da Internet fixa prazos de guarda de registros (por exemplo, 6 meses para registros de acesso a aplicações, art. 15) e assegura ao usuário o não fornecimento a terceiros de seus dados pessoais, inclusive registros de conexão (art. 7º, VII).",
+    "fonte": {
+     "titulo": "Lei nº 12.965, de 23 de abril de 2014 (Marco Civil da Internet), arts. 7º e 15",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Como funciona a internet",
+    "href": "/trilhas/informatica-essencial/03-como-funciona-a-internet"
+   }
+  },
+  {
+   "id": "sl-voluntario",
+   "fase": "o-projeto-nasce",
+   "titulo": "O ajudante voluntário",
+   "personagem": "kauan",
+   "texto": "Kauan, 16 anos, quer ajudar no projeto, escrever documentação e testar o programa. Ele não quer dinheiro, mas quer ter o nome no histórico e um certificado de participação.",
+   "esquerda": {
+    "texto": "Combinar por escrito o que ele faz",
+    "efeito": {
+     "comunidade": 8,
+     "folego": 7,
+     "sustento": -10,
+     "codigo": 3
+    },
+    "retorno": "Vocês escrevem juntos o que ele fará e como será reconhecido. Ele aprende de verdade e ajuda a organizar o trabalho.",
+    "liga": [
+     "acordo-voluntarios"
+    ]
+   },
+   "direita": {
+    "texto": "Aceitar na palavra",
+    "efeito": {
+     "folego": 4,
+     "comunidade": 3,
+     "codigo": -9,
+     "sustento": 10
+    },
+    "retorno": "Funciona no começo. Depois de dois meses, ninguém sabe mais quem prometeu o quê."
+   },
+   "historia": {
+    "texto": "O serviço voluntário é a atividade não remunerada prestada por pessoa física a entidade pública ou a instituição privada sem fins lucrativos, e não gera vínculo empregatício. Ele é prestado mediante termo de adesão entre a entidade e o voluntário (arts. 1º e 2º da Lei 9.608/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.608, de 18 de fevereiro de 1998 (Serviço Voluntário), arts. 1º e 2º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e aplicativos do povo",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/cooperativas-e-aplicativos-do-povo"
+   }
+  },
+  {
+   "id": "sl-mei",
+   "fase": "o-projeto-nasce",
+   "titulo": "Receber para manter",
+   "personagem": "edu",
+   "texto": "Uma escola oferece pagar uma pequena mensalidade para você cuidar do programa e atender chamados. Edu pergunta como você vai receber: por Pix pessoal ou com nota fiscal?",
+   "esquerda": {
+    "texto": "Abrir o MEI e emitir nota",
+    "efeito": {
+     "sustento": 10,
+     "comunidade": 3,
+     "folego": -6,
+     "codigo": 3
+    },
+    "retorno": "Com CNPJ, a escola pode pagar. Você passa a ter mais um papel, mas o projeto ganha dinheiro previsível."
+   },
+   "direita": {
+    "texto": "Receber por Pix pessoal",
+    "efeito": {
+     "sustento": 10,
+     "folego": 4,
+     "comunidade": -3,
+     "codigo": -9
+    },
+    "retorno": "É rápido. Mas escolas e prefeituras costumam exigir nota, e o dinheiro some quando você mais precisa."
+   },
+   "historia": {
+    "texto": "A Lei Complementar 123/2006 define o MEI como quem teve, no ano anterior, receita bruta de até R$ 81.000,00 (art. 18-A, §1º, redação da LC 188/2021), com valores fixos mensais.",
+    "fonte": {
+     "titulo": "Lei Complementar nº 123, de 14 de dezembro de 2006 (Estatuto da Microempresa), redação da LC 188/2021, art. 18-A",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é o MEI e quem pode ser",
+    "href": "/trilhas/mei-passo-a-passo/o-que-e-o-mei-e-quem-pode-ser"
+   }
+  },
+  {
+   "id": "sl-fork",
+   "fase": "o-projeto-cresce",
+   "titulo": "O fork",
+   "personagem": "samira",
+   "texto": "Um grupo de desenvolvedores insatisfeitos faz uma cópia do programa e continua por conta própria, com outro nome e outro rumo. Parte da comunidade quer ir com eles.",
+   "esquerda": {
+    "texto": "Conversar e compartilhar as correções",
+    "efeito": {
+     "comunidade": 10,
+     "codigo": 5,
+     "folego": -8,
+     "sustento": -10
+    },
+    "retorno": "Os dois projetos seguem, trocando correções. Quem usa ganha duas opções, e as brigas esfriam."
+   },
+   "direita": {
+    "texto": "Brigar publicamente",
+    "efeito": {
+     "folego": -9,
+     "comunidade": -8,
+     "sustento": 10,
+     "codigo": -9
+    },
+    "retorno": "A discussão toma semanas. A comunidade se divide, e quem só queria usar o programa se afasta."
+   },
+   "historia": {
+    "texto": "A GPL declara, em seu preâmbulo, que a licença serve para garantir que o programa continue sendo software livre para todos os seus usuários. Fazer um fork é uma liberdade que a própria licença protege.",
+    "fonte": {
+     "titulo": "GNU General Public License, versão 3, preâmbulo",
+     "autor": "Free Software Foundation",
+     "ano": "2007",
+     "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
+   },
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-cessao",
+   "fase": "o-projeto-cresce",
+   "titulo": "Contrato de cessão",
+   "personagem": "otavio",
+   "texto": "A empresa de Otávio oferece uma boa quantia para você ceder todos os direitos do programa. Eles prometem manter o código aberto, mas o contrato fala em \"cessão total e definitiva\".",
+   "esquerda": {
+    "texto": "Manter a autoria e licenciar",
+    "efeito": {
+     "comunidade": 9,
+     "sustento": -10,
+     "codigo": 3,
+     "folego": 3
+    },
+    "retorno": "Você oferece uma licença comercial separada e continua dono do projeto. O dinheiro é menor, mas a decisão continua sua."
+   },
+   "direita": {
+    "texto": "Ceder tudo pelo valor",
+    "efeito": {
+     "sustento": 13,
+     "folego": 6,
+     "comunidade": -8,
+     "codigo": -9
+    },
+    "retorno": "O dinheiro paga um ano de contas. Mas, com a assinatura, o rumo do projeto passa a ser deles.",
+    "proxima": "sl-cessao-depois"
+   },
+   "historia": {
+    "texto": "Pertencem ao autor os direitos morais e patrimoniais sobre a obra que criou (art. 22). Os direitos de autor poderão ser total ou parcialmente transferidos a terceiros (art. 49 da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais), arts. 22 e 49",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-escola",
+   "fase": "o-projeto-cresce",
+   "titulo": "Código na sala de aula",
+   "personagem": "lia",
+   "texto": "Lia quer usar trechos do seu programa e do código de uma outra biblioteca em uma apostila para ensinar programação, e pergunta o que pode copiar para a apostila e como creditar.",
+   "esquerda": {
+    "texto": "Citar com crédito e licença",
+    "efeito": {
+     "comunidade": 8,
+     "codigo": 5,
+     "folego": -4,
+     "sustento": 10
+    },
+    "retorno": "Cada trecho vem com o nome do autor, a origem e a licença. A apostila circula sem medo de ninguém reclamar."
+   },
+   "direita": {
+    "texto": "Copiar sem dizer a origem",
+    "efeito": {
+     "folego": 5,
+     "comunidade": -7,
+     "codigo": -9,
+     "sustento": 10
+    },
+    "retorno": "É mais rápido. Mas um autor descobre o trecho sem crédito, e a apostila vira motivo de reclamação."
+   },
+   "historia": {
+    "texto": "Não constitui ofensa aos direitos do titular do programa a citação parcial do programa, para fins didáticos, desde que identificados o programa e o titular dos direitos respectivos (art. 6º, II da Lei 9.609/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.609, de 19 de fevereiro de 1998 (Programa de Computador), art. 6º, II",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9609.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é um algoritmo",
+    "href": "/trilhas/logica-de-programacao/01-o-que-e-um-algoritmo"
+   }
+  },
+  {
+   "id": "sl-prefeitura",
+   "fase": "o-projeto-cresce",
+   "titulo": "A prefeitura quer o programa",
+   "personagem": "prefeitura",
+   "texto": "A secretária de educação quer usar o programa em todas as escolas da cidade. Sugere que você receba por contrato direto. Edu, o contador, lembra que há regras para parcerias com entidades sem fins lucrativos.",
+   "esquerda": {
+    "texto": "Criar associação e disputar o chamamento",
+    "efeito": {
+     "comunidade": 7,
+     "sustento": 10,
+     "folego": -9,
+     "codigo": 3
+    },
+    "retorno": "Vocês fundam uma associação e entram no chamamento público. A regra é igual para todos, e o contrato vale para a associação, não para você."
+   },
+   "direita": {
+    "texto": "Aceitar o contrato direto",
+    "efeito": {
+     "sustento": 10,
+     "folego": 3,
+     "comunidade": -7,
+     "codigo": -9
+    },
+    "retorno": "O contrato sai rápido. Mas vira questão de favor político, e a comunidade desconfia do projeto."
+   },
+   "historia": {
+    "texto": "A celebração de termo de colaboração ou de termo de fomento com organização da sociedade civil será precedida de chamamento público, com as exceções previstas na lei (art. 24 da Lei 13.019/2014).",
+    "fonte": {
+     "titulo": "Lei nº 13.019, de 31 de julho de 2014 (parcerias com organizações da sociedade civil), art. 24",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "sl-criancas",
+   "fase": "o-projeto-cresce",
+   "titulo": "O jogo para crianças",
+   "personagem": "lia",
+   "texto": "Lia pede uma versão do programa para a turma de 9 anos, com contas de aluno e histórico de desempenho. Para ela, seria mais fácil acompanhar o progresso.",
+   "esquerda": {
+    "texto": "Pedir autorização e coletar o mínimo",
+    "efeito": {
+     "comunidade": 9,
+     "codigo": -9,
+     "folego": -6,
+     "sustento": -10
+    },
+    "retorno": "Vocês pedem autorização dos responsáveis e guardam só o que ajuda o ensino, sem identificar quem é quem fora da escola."
+   },
+   "direita": {
+    "texto": "Guardar nome, idade e histórico",
+    "efeito": {
+     "codigo": 8,
+     "folego": 4,
+     "comunidade": -9,
+     "sustento": 10
+    },
+    "retorno": "A turma é acompanhada de perto. Mas o histórico das crianças fica em um servidor, sem regra de apagar."
+   },
+   "historia": {
+    "texto": "O tratamento de dados pessoais de crianças e de adolescentes deve ser realizado em seu melhor interesse (art. 14) e, para crianças, com o consentimento específico e em destaque dado por pelo menos um dos pais ou pelo responsável legal (art. 14, §1º da LGPD).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), art. 14",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Privacidade e dados",
+    "href": "/trilhas/enem-linguagens-tecnologias-da-comunicacao/privacidade-e-dados"
+   }
+  },
+  {
+   "id": "sl-esgotamento",
+   "fase": "o-projeto-cresce",
+   "titulo": "Mais um fim de semana",
+   "personagem": "kauan",
+   "texto": "Faz três meses que você não tem um fim de semana livre. Entram dezenas de pedidos novos por dia. Kauan, já mais experiente, se oferece para cuidar de parte do trabalho, mas pede ressarcimento do transporte.",
+   "esquerda": {
+    "texto": "Dividir o trabalho e ressarcir",
+    "efeito": {
+     "folego": 11,
+     "comunidade": 7,
+     "sustento": -10,
+     "codigo": 3
+    },
+    "retorno": "Você divide as tarefas, e o projeto passa a funcionar também sem você. As despesas do Kauan são pagas com os recursos do projeto."
+   },
+   "direita": {
+    "texto": "Seguir sozinho à noite",
+    "efeito": {
+     "codigo": 6,
+     "sustento": 10,
+     "folego": -13,
+     "comunidade": -3
+    },
+    "retorno": "O programa continua saindo no prazo. Mas você esquece o aniversário de um amigo e dorme sobre o teclado."
+   },
+   "historia": {
+    "texto": "O prestador de serviço voluntário poderá ser ressarcido pelas despesas que comprovadamente realizar no desempenho das atividades, desde que expressamente autorizadas pela entidade a que for prestado o serviço (art. 3º da Lei 9.608/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.608, de 18 de fevereiro de 1998 (Serviço Voluntário), art. 3º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Liderança coletiva e democracia interna",
+    "href": "/trilhas/oratoria-e-lideranca/lideranca-coletiva-e-democracia-interna"
+   }
+  },
+  {
+   "id": "sl-cessao-depois",
+   "fase": "o-projeto-cresce",
+   "soEncadeada": true,
+   "titulo": "A licença mudou",
+   "personagem": "otavio",
+   "texto": "Seis meses depois da cessão, Otávio avisa que a nova versão sairá só em uma edição paga, com código fechado. A versão antiga continua aberta, mas sem atualização. A comunidade te cobra.",
+   "esquerda": {
+    "texto": "Pedir para cumprir o combinado",
+    "efeito": {
+     "comunidade": 6,
+     "sustento": -10,
+     "codigo": 4,
+     "folego": -6
+    },
+    "retorno": "Você mostra o contrato e cobra a promessa de manter aberto. A conversa é longa e termina em um acordo parcial."
+   },
+   "direita": {
+    "texto": "Aceitar a mudança",
+    "efeito": {
+     "sustento": 10,
+     "folego": 4,
+     "comunidade": -11,
+     "codigo": -9
+    },
+    "retorno": "O dinheiro continua. Mas a comunidade que você criou passa a trabalhar de graça para uma versão que não é mais livre."
+   },
+   "historia": {
+    "texto": "A utilização da obra, por quaisquer modalidades, depende de autorização prévia e expressa do autor (art. 29 da Lei 9.610/1998). Quem recebe a cessão dos direitos patrimoniais passa a decidir sobre essa autorização, nos termos do contrato.",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais), art. 29",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-licenca-comercial",
+   "fase": "o-projeto-cresce",
+   "titulo": "Licença comercial",
+   "personagem": "otavio",
+   "texto": "Uma empresa quer usar o programa em um produto fechado e pergunta se existe uma licença comercial separada, com suporte e sem a obrigação de abrir o código.",
+   "condicao": {
+    "flags": [
+     "gpl"
+    ]
+   },
+   "esquerda": {
+    "texto": "Oferecer licença comercial",
+    "efeito": {
+     "sustento": 12,
+     "comunidade": -4,
+     "folego": -6,
+     "codigo": 4
+    },
+    "retorno": "Você escreve um contrato simples. O dinheiro entra, e o programa continua livre para quem quer a GPL."
+   },
+   "direita": {
+    "texto": "Manter só a GPL",
+    "efeito": {
+     "comunidade": 7,
+     "sustento": -10,
+     "folego": 4,
+     "codigo": 2
+    },
+    "retorno": "A empresa busca outro programa ou cumpre a GPL. O projeto fica mais coerente, e o caixa fica mais apertado."
+   },
+   "historia": {
+    "texto": "O uso de programa de computador no País será objeto de contrato de licença (art. 9º da Lei 9.609/1998). Quem detém os direitos pode oferecer licenças diferentes a públicos diferentes.",
+    "fonte": {
+     "titulo": "Lei nº 9.609, de 19 de fevereiro de 1998 (Programa de Computador), art. 9º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9609.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Quando virar microempresa ou cooperativa",
+    "href": "/trilhas/mei-passo-a-passo/quando-virar-microempresa-ou-cooperativa"
+   }
+  },
+  {
+   "id": "sl-citacao",
+   "fase": "o-projeto-cresce",
+   "titulo": "O tutorial copiado",
+   "personagem": "kauan",
+   "texto": "Para o tutorial do projeto, Kauan colou páginas inteiras de um livro técnico, \"porque é a melhor explicação\". Ele não colocou o nome do autor.",
+   "condicao": {
+    "partidas": 1
+   },
+   "esquerda": {
+    "texto": "Citar um trecho com fonte",
+    "efeito": {
+     "comunidade": 8,
+     "codigo": 4,
+     "folego": -4,
+     "sustento": 10
+    },
+    "retorno": "O tutorial cita só o trecho necessário, com autor e origem, e explica o resto com palavras próprias."
+   },
+   "direita": {
+    "texto": "Deixar a página inteira",
+    "efeito": {
+     "folego": 4,
+     "comunidade": -6,
+     "codigo": -9,
+     "sustento": 10
+    },
+    "retorno": "O tutorial é publicado. Meses depois, a editora do livro pede a retirada, e o projeto perde seguidores."
+   },
+   "historia": {
+    "texto": "Não constitui ofensa aos direitos autorais a citação, em livros, jornais, revistas ou qualquer outro meio de comunicação, de passagens de qualquer obra, para fins de estudo, crítica ou polêmica, na medida justificada, indicando-se o nome do autor e a origem da obra (art. 46, III da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais), art. 46, III",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é notícia",
+    "href": "/trilhas/midia-fundamental/o-que-e-noticia"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "sl-comunidade-zero",
+   "tipo": "queda",
+   "medidor": "comunidade",
+   "limite": "zero",
+   "titulo": "O repositório vazio",
+   "texto": "Ninguém contribui, ninguém pergunta, ninguém responde. O programa continua no ar, mas é só você. Software livre sem comunidade é só um arquivo parado.",
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-comunidade-cem",
+   "tipo": "queda",
+   "medidor": "comunidade",
+   "limite": "cem",
+   "titulo": "Opinião demais",
+   "texto": "Toda decisão vira votação e debate sem fim. O projeto não anda porque cada mudança desagrada alguém, e quem mantém o código fica sem poder de decidir.",
+   "aula": {
+    "titulo": "Liderança coletiva e democracia interna",
+    "href": "/trilhas/oratoria-e-lideranca/lideranca-coletiva-e-democracia-interna"
+   }
+  },
+  {
+   "id": "sl-codigo-zero",
+   "tipo": "queda",
+   "medidor": "codigo",
+   "limite": "zero",
+   "titulo": "O programa quebrou",
+   "texto": "Erros se acumularam, um atualizou o outro quebrou. Escolas e associações que dependiam do programa ficam sem ele no pior momento.",
+   "aula": {
+    "titulo": "O que é um algoritmo",
+    "href": "/trilhas/logica-de-programacao/01-o-que-e-um-algoritmo"
+   }
+  },
+  {
+   "id": "sl-codigo-cem",
+   "tipo": "queda",
+   "medidor": "codigo",
+   "limite": "cem",
+   "titulo": "A versão perfeita que nunca saiu",
+   "texto": "Você refaz o código três vezes para não ter nenhum defeito e nunca publica. Quem esperava uma versão utilizável vai usar outra coisa.",
+   "aula": {
+    "titulo": "Como funciona um computador",
+    "href": "/trilhas/informatica-essencial/01-como-funciona-um-computador"
+   }
+  },
+  {
+   "id": "sl-sustento-zero",
+   "tipo": "queda",
+   "medidor": "sustento",
+   "limite": "zero",
+   "titulo": "Sem dinheiro, sem tempo",
+   "texto": "Sem dinheiro, você aceita um segundo emprego e para de responder ao projeto. Quem vive de código aberto sem receber vira voluntário até o limite.",
+   "aula": {
+    "titulo": "Limite de faturamento: o que conta e o que fazer se passar",
+    "href": "/trilhas/mei-passo-a-passo/limite-de-faturamento-do-mei"
+   }
+  },
+  {
+   "id": "sl-sustento-cem",
+   "tipo": "queda",
+   "medidor": "sustento",
+   "limite": "cem",
+   "titulo": "O patrocinador manda",
+   "texto": "O projeto agora depende de uma empresa que paga quase tudo. Aos poucos, é ela quem escolhe o que entra, o que sai e para quem o programa serve.",
+   "aula": {
+    "titulo": "Capitalismo de plataforma e uberização",
+    "href": "/trilhas/capitalismo-contemporaneo/capitalismo-de-plataforma-e-uberizacao"
+   }
+  },
+  {
+   "id": "sl-folego-zero",
+   "tipo": "queda",
+   "medidor": "folego",
+   "limite": "zero",
+   "titulo": "Queimou",
+   "texto": "Você esqueceu de si. Sem dormir, sem fins de semana, responde com rispidez a quem só queria ajudar. Um dia, desliga o computador e não volta.",
+   "aula": {
+    "titulo": "Estudar cansado: sono e descanso",
+    "href": "/trilhas/estudar-trabalhando/estudar-cansado-sono-e-descanso"
+   }
+  },
+  {
+   "id": "sl-folego-cem",
+   "tipo": "queda",
+   "medidor": "folego",
+   "limite": "cem",
+   "titulo": "O projeto esfriou",
+   "texto": "Tanto descanso que as atualizações atrasaram e as pessoas foram embora. Manter um projeto vivo exige um mínimo de constância.",
+   "aula": {
+    "titulo": "O plano da semana e como recomeçar",
+    "href": "/trilhas/estudar-trabalhando/o-plano-da-semana-e-como-recomecar"
+   }
+  },
+  {
+   "id": "sl-fim-comum",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "gpl",
+     "acordo-voluntarios"
+    ]
+   },
+   "titulo": "Bem comum",
+   "texto": "Dois anos depois, o programa é livre de verdade, tem licença clara, dados respeitados e voluntários com acordo escrito. Mais gente usa, mais gente conserta e o projeto não depende só de você.",
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-fim-licenca",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "gpl"
+    ]
+   },
+   "titulo": "Livre e frágil",
+   "texto": "O projeto tem licença livre e usuários fiéis, mas muita coisa ainda depende de combinados de boca. Falta organizar as pessoas para o projeto sobreviver a quem o começou.",
+   "aula": {
+    "titulo": "O que é software livre",
+    "href": "/trilhas/linux-e-software-livre/o-que-e-software-livre"
+   }
+  },
+  {
+   "id": "sl-fim-quintal",
+   "tipo": "chegada",
+   "titulo": "O quintal do código",
+   "texto": "O programa funciona, mas sem licença clara e sem acordos escritos ele segue sendo um quintal sem muro: todo mundo entra, ninguém sabe o que pode levar.",
+   "aula": {
+    "titulo": "Seus dados valem dinheiro",
+    "href": "/trilhas/midia-fundamental/seus-dados-valem-dinheiro"
+   }
+  }
+ ]
+}

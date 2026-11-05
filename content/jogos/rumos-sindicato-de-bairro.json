@@ -1,0 +1,881 @@
+{
+ "formato": "rumos/1",
+ "id": "sindicato-de-bairro",
+ "titulo": "Sindicato de bairro (entregadores)",
+ "resumo": "Entregadores de aplicativo de um bairro se organizam: associação, lista de nomes, conta bloqueada, caixa de greve, assembleia, piquete e a diferença entre pressionar e perder a razão.",
+ "papel": "Você é entregador(a) de moto e de bicicleta num bairro de cidade média e ajuda a começar uma organização da categoria. Cada decisão pesa na base, na pressão sobre as empresas, no caixa e na segurança na rua. As leis citadas são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica nem técnica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "base",
+   "nome": "Base",
+   "descricao": "A adesão e a confiança dos entregadores do bairro. Sem ela ninguém aparece; demais, a organização vira só o seu nome."
+  },
+  {
+   "id": "pressao",
+   "nome": "Pressão",
+   "descricao": "A força diante de aplicativos e lojas. Sem ela ninguém escuta; no extremo, a empresa vê só confronto."
+  },
+  {
+   "id": "caixa",
+   "nome": "Caixa",
+   "descricao": "O fundo comum. Zerado, não há nem como imprimir um cartaz; cheio e parado, vira desconfiança."
+  },
+  {
+   "id": "rua",
+   "nome": "Rua",
+   "descricao": "A segurança e a saúde de quem pedala e roda. Sem ela alguém se machuca; cuidado demais e a corrida não rende."
+  }
+ ],
+ "inicio": {
+  "base": 45,
+  "pressao": 40,
+  "caixa": 40,
+  "rua": 55
+ },
+ "personagens": [
+  {
+   "id": "jair",
+   "nome": "Jair",
+   "papel": "entregador veterano de moto"
+  },
+  {
+   "id": "luana",
+   "nome": "Luana",
+   "papel": "entregadora de bicicleta"
+  },
+  {
+   "id": "aurelio",
+   "nome": "Seu Aurélio",
+   "papel": "dono de uma pizzaria"
+  },
+  {
+   "id": "marta",
+   "nome": "Dra. Marta",
+   "papel": "advogada trabalhista voluntária"
+  },
+  {
+   "id": "tito",
+   "nome": "Tito",
+   "papel": "entregador novo, desconfiado"
+  },
+  {
+   "id": "vereador",
+   "nome": "Vereador Neto",
+   "papel": "vereador que quer aparecer"
+  }
+ ],
+ "fases": [
+  {
+   "id": "primeiros-encontros",
+   "nome": "Primeiros encontros",
+   "cartas": 5
+  },
+  {
+   "id": "a-paralisacao",
+   "nome": "A paralisação",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "sd-associacao",
+   "fase": "primeiros-encontros",
+   "titulo": "Associação ou sindicato?",
+   "personagem": "marta",
+   "texto": "Depois de três reuniões na praça, vocês são quarenta. A Dra. Marta pergunta: querem começar já como associação de entregadores, ou esperar para organizar um sindicato?",
+   "esquerda": {
+    "texto": "Fundar a associação agora",
+    "efeito": {
+     "base": 11,
+     "caixa": -9,
+     "pressao": 6,
+     "rua": 3
+    },
+    "retorno": "A associação pode nascer sem pedir licença ao Estado e já dá um endereço, um nome e uma ata. Depois, o grupo decide o passo seguinte.",
+    "liga": [
+     "associacao"
+    ]
+   },
+   "direita": {
+    "texto": "Esperar para virar sindicato",
+    "efeito": {
+     "base": -9,
+     "pressao": -6,
+     "caixa": 9,
+     "rua": -3
+    },
+    "retorno": "Sem nada formal, a empolgação esfria nas semanas de espera. Algumas pessoas voltam a rodar sozinhas."
+   },
+   "historia": {
+    "texto": "A Constituição garante a plena liberdade de associação para fins lícitos, vedada a de caráter paramilitar (art. 5º, XVII), e a criação de associações e, na forma da lei, de cooperativas independe de autorização (art. 5º, XVIII). Para fundar sindicato, a lei não poderá exigir autorização do Estado, ressalvado o registro no órgão competente (art. 8º, I).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, arts. 5º e 8º",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Organização coletiva de entregadores e motoristas",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/organizacao-coletiva-de-entregadores-e-motoristas"
+   }
+  },
+  {
+   "id": "sd-filiacao",
+   "fase": "primeiros-encontros",
+   "titulo": "Quem não quer entrar",
+   "personagem": "tito",
+   "texto": "Tito, entregador novo, diz que não quer pagar nada nem entrar em nada: \"Já me bastam os aplicativos\". Jair acha que quem não ajuda a pagar não deveria ter nenhum benefício.",
+   "esquerda": {
+    "texto": "Respeitar e convidar de novo",
+    "efeito": {
+     "base": 9,
+     "pressao": -5,
+     "caixa": -6,
+     "rua": 4
+    },
+    "retorno": "Vocês explicam o que a organização faz e deixam a porta aberta. Tito volta meses depois, quando ganha a primeira conta bloqueada."
+   },
+   "direita": {
+    "texto": "Cobrar de todo mundo",
+    "efeito": {
+     "caixa": 9,
+     "base": -12,
+     "pressao": 5,
+     "rua": -3
+    },
+    "retorno": "O dinheiro entra, mas Tito e outros se sentem obrigados. A organização ganha a fama de cobrar, não de ajudar."
+   },
+   "historia": {
+    "texto": "A Constituição garante que ninguém será obrigado a filiar-se ou a manter-se filiado a sindicato (art. 8º, V).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, art. 8º, V",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é um sindicato",
+    "href": "/trilhas/marxismo-fundamental/o-que-e-um-sindicato"
+   }
+  },
+  {
+   "id": "sd-lista",
+   "fase": "primeiros-encontros",
+   "titulo": "A lista de nomes",
+   "personagem": "luana",
+   "texto": "Luana montou uma planilha com nome, telefone, apelido e quem apoia o movimento. Alguém sugere colar a lista no grupo geral \"para todo mundo se conhecer\". Há entregadores com medo de ser punidos pelas empresas.",
+   "esquerda": {
+    "texto": "Pedir consentimento e guardar o mínimo",
+    "efeito": {
+     "base": 10,
+     "rua": 4,
+     "pressao": -5,
+     "caixa": -4
+    },
+    "retorno": "Cada pessoa autoriza o que quer que apareça. A lista é menor, mas quem está nela confia que não vai sofrer retaliação."
+   },
+   "direita": {
+    "texto": "Colar a lista no grupo",
+    "efeito": {
+     "base": -11,
+     "pressao": 8,
+     "rua": -5,
+     "caixa": 3
+    },
+    "retorno": "O grupo se conhece rápido. Um nome da lista é bloqueado logo depois, e ninguém sabe se foi coincidência."
+   },
+   "historia": {
+    "texto": "A LGPD considera dado pessoal sensível, entre outros, o dado sobre filiação a sindicato (art. 5º, II). O tratamento de dados sensíveis depende, em regra, do consentimento do titular, de forma específica e destacada, para finalidades específicas (art. 11, I).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), arts. 5º e 11",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Seus dados valem dinheiro",
+    "href": "/trilhas/midia-fundamental/seus-dados-valem-dinheiro"
+   }
+  },
+  {
+   "id": "sd-bloqueio",
+   "fase": "primeiros-encontros",
+   "titulo": "A conta bloqueada",
+   "personagem": "jair",
+   "texto": "Jair acorda com a conta bloqueada, sem explicação. Ele tem aluguel para pagar. As mensagens do aplicativo dizem que a decisão foi automática e que não cabe resposta.",
+   "esquerda": {
+    "texto": "Pedir revisão formal",
+    "efeito": {
+     "base": 10,
+     "pressao": 9,
+     "caixa": -6,
+     "rua": 2
+    },
+    "retorno": "A associação ajuda a escrever o pedido por escrito, pedindo informações e revisão da decisão. O caso vira exemplo e outros entregadores contam histórias parecidas."
+   },
+   "direita": {
+    "texto": "Sugerir criar outra conta",
+    "efeito": {
+     "base": -8,
+     "caixa": 6,
+     "pressao": -9,
+     "rua": -2
+    },
+    "retorno": "É o jeito rápido. Mas a empresa continua bloqueando sem explicar, e o grupo perde a chance de mostrar o padrão."
+   },
+   "historia": {
+    "texto": "O titular dos dados tem direito de solicitar a revisão de decisões tomadas unicamente com base em tratamento automatizado de dados pessoais que afetem seus interesses (art. 20 da LGPD).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), art. 20",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Bloqueio e nota baixa: como contestar",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/bloqueio-e-nota-baixa-como-contestar"
+   }
+  },
+  {
+   "id": "sd-colete",
+   "fase": "primeiros-encontros",
+   "titulo": "O colete e o capacete",
+   "personagem": "jair",
+   "texto": "Em uma semana, dois entregadores de moto se acidentaram no escuro, sem colete refletivo. A associação tem dinheiro para comprar coletes em lote, mas é pouco, e as máscaras também estão no orçamento.",
+   "esquerda": {
+    "texto": "Comprar coletes e distribuir",
+    "efeito": {
+     "rua": 11,
+     "base": 8,
+     "caixa": -11,
+     "pressao": 2
+    },
+    "retorno": "Os coletes chegam em uma semana. Na reunião seguinte, todos aparecem de colete e é a primeira vez que a categoria parece uma equipe."
+   },
+   "direita": {
+    "texto": "Deixar cada um se virar",
+    "efeito": {
+     "caixa": 9,
+     "rua": -11,
+     "base": -6,
+     "pressao": 2
+    },
+    "retorno": "O caixa fica intacto. Dias depois, um colega cai de noite no mesmo cruzamento."
+   },
+   "historia": {
+    "texto": "A Lei 12.009/2009, que regulamenta atividades de motofrete, inclui entre os requisitos para exercer a atividade estar vestido com colete de segurança dotado de dispositivos retrorrefletivos, nos termos da regulamentação do Contran (art. 2º, IV).",
+    "fonte": {
+     "titulo": "Lei nº 12.009, de 29 de julho de 2009 (atividades de motofrete), art. 2º, IV",
+     "autor": "Presidência da República",
+     "ano": "2009",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12009.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Segurança na rua e no trânsito",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/seguranca-na-rua-e-no-transito"
+   }
+  },
+  {
+   "id": "sd-seguro",
+   "fase": "primeiros-encontros",
+   "titulo": "A lei que acabou",
+   "personagem": "marta",
+   "texto": "Durante a pandemia, uma lei obrigou os aplicativos a contratar seguro contra acidentes e dar ajuda a quem adoeceu. Agora a emergência acabou e essas obrigações não valem mais. Os entregadores perguntam: e agora?",
+   "esquerda": {
+    "texto": "Negociar proteção com as empresas",
+    "efeito": {
+     "pressao": 10,
+     "base": 8,
+     "caixa": -7,
+     "rua": 5
+    },
+    "retorno": "Vocês levam o caso para conversa e abaixo-assinado: querem seguro e apoio por escrito, sem depender de emergência."
+   },
+   "direita": {
+    "texto": "Esperar uma nova lei",
+    "efeito": {
+     "pressao": -9,
+     "base": -7,
+     "caixa": 8,
+     "rua": -4
+    },
+    "retorno": "Cada um segue se virando. Quem se machuca depois descobre que não há seguro e vai pedir ajuda ao grupo."
+   },
+   "historia": {
+    "texto": "A Lei 14.297/2022 previa, para entregadores que prestam serviço por empresa de aplicativo, seguro contra acidentes sem franquia (art. 3º), mas suas medidas valiam apenas enquanto durasse a emergência de saúde pública da covid-19.",
+    "fonte": {
+     "titulo": "Lei nº 14.297, de 5 de janeiro de 2022 (proteção ao entregador por aplicativo na emergência da covid-19), arts. 1º e 3º",
+     "autor": "Presidência da República",
+     "ano": "2022",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14297.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Seguro e proteção se você se machucar",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/seguro-e-protecao-se-voce-se-machucar"
+   }
+  },
+  {
+   "id": "sd-caixa",
+   "fase": "primeiros-encontros",
+   "titulo": "O caixa da greve",
+   "personagem": "luana",
+   "texto": "Vocês querem juntar um fundo para sustentar quem ficar sem rodar durante um protesto. Alguém propõe que o dinheiro caia no Pix pessoal de Jair, \"que é de confiança\".",
+   "esquerda": {
+    "texto": "Abrir conta e prestar contas",
+    "efeito": {
+     "base": 10,
+     "caixa": 8,
+     "pressao": 4,
+     "rua": 3
+    },
+    "retorno": "A conta é da associação, o extrato é lido na assembleia e quem doa sabe para onde vai o dinheiro.",
+    "liga": [
+     "caixa-aberto"
+    ]
+   },
+   "direita": {
+    "texto": "Usar o Pix pessoal",
+    "efeito": {
+     "caixa": 9,
+     "base": -11,
+     "pressao": -4,
+     "rua": -2
+    },
+    "retorno": "O dinheiro entra rápido. Mas Jair vira alvo de suspeita, e ninguém consegue provar o contrário."
+   },
+   "historia": {
+    "texto": "Entre os direitos assegurados aos grevistas estão o emprego de meios pacíficos para persuadir ou aliciar os trabalhadores a aderirem à greve e a arrecadação de fundos e a livre divulgação do movimento (art. 6º, I e II da Lei 7.783/1989).",
+    "fonte": {
+     "titulo": "Lei nº 7.783, de 28 de junho de 1989 (Lei de Greve), art. 6º",
+     "autor": "Presidência da República",
+     "ano": "1989",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Greve na prática: a Lei 7.783/1989",
+    "href": "/trilhas/organizacao-sindical-de-base/greve-na-pratica"
+   }
+  },
+  {
+   "id": "sd-assembleia",
+   "fase": "a-paralisacao",
+   "titulo": "Assembleia antes da parada",
+   "personagem": "marta",
+   "texto": "A turma quer parar na sexta, no horário de pico, sem avisar ninguém. A Dra. Marta lembra que a lei trata da greve como decisão da categoria, tomada em assembleia, com aviso prévio.",
+   "esquerda": {
+    "texto": "Assembleia e aviso com 48 horas",
+    "efeito": {
+     "base": 10,
+     "pressao": 7,
+     "caixa": -4,
+     "rua": 3
+    },
+    "retorno": "A assembleia aprova a pauta, o aviso é enviado e a imprensa local é chamada. A paralisação nasce com legitimidade.",
+    "liga": [
+     "assembleia"
+    ]
+   },
+   "direita": {
+    "texto": "Parar sem avisar",
+    "efeito": {
+     "pressao": 11,
+     "base": -7,
+     "rua": -7,
+     "caixa": 3
+    },
+    "retorno": "A surpresa pesa, e a empresa responde com bloqueios e conversa dura. Parte da categoria se sente atropelada."
+   },
+   "historia": {
+    "texto": "A entidade sindical correspondente convocará assembleia geral que definirá as reivindicações da categoria e deliberará sobre a paralisação coletiva (art. 4º). Frustrada a negociação, a cessação coletiva do trabalho é facultada, e o empregador deve ser notificado com antecedência mínima de 48 horas (art. 3º e parágrafo único da Lei 7.783/1989).",
+    "fonte": {
+     "titulo": "Lei nº 7.783, de 28 de junho de 1989 (Lei de Greve), arts. 3º e 4º",
+     "autor": "Presidência da República",
+     "ano": "1989",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Falar em uma assembleia",
+    "href": "/trilhas/oratoria-e-lideranca/falar-em-uma-assembleia"
+   }
+  },
+  {
+   "id": "sd-piquete",
+   "fase": "a-paralisacao",
+   "titulo": "O piquete na pizzaria",
+   "personagem": "tito",
+   "texto": "No dia da parada, Tito quer bloquear a porta da pizzaria de Seu Aurélio, onde entregadores continuam trabalhando. Luana propõe ficar na calçada, panfletando e conversando.",
+   "esquerda": {
+    "texto": "Conversar e panfletar",
+    "efeito": {
+     "base": 9,
+     "pressao": 7,
+     "rua": 5,
+     "caixa": -2
+    },
+    "retorno": "A conversa convence alguns colegas a pararem e Seu Aurélio, que ouve, se oferece para escrever um bilhete de apoio."
+   },
+   "direita": {
+    "texto": "Bloquear a porta",
+    "efeito": {
+     "pressao": 10,
+     "base": -8,
+     "rua": -8,
+     "caixa": 2
+    },
+    "retorno": "A porta fica trancada por uma hora. Tem xingamento, um empurrão e um vídeo que circula como se a categoria fosse violenta.",
+    "proxima": "sd-ordem"
+   },
+   "historia": {
+    "texto": "Os grevistas podem empregar meios pacíficos tendentes a persuadir ou aliciar os trabalhadores a aderirem à greve (art. 6º, I da Lei 7.783/1989). Os meios empregados não podem violar direitos fundamentais de terceiros nem impedir o acesso ao trabalho ou ameaçar pessoas e propriedades.",
+    "fonte": {
+     "titulo": "Lei nº 7.783, de 28 de junho de 1989 (Lei de Greve), art. 6º",
+     "autor": "Presidência da República",
+     "ano": "1989",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Greve na prática: a Lei 7.783/1989",
+    "href": "/trilhas/organizacao-sindical-de-base/greve-na-pratica"
+   }
+  },
+  {
+   "id": "sd-contribuicao",
+   "fase": "a-paralisacao",
+   "titulo": "A contribuição de todos",
+   "personagem": "jair",
+   "texto": "A parada gastou dinheiro com cartaz, som, lanche e passagem. Jair propõe uma contribuição mensal e quer fixar o valor sozinho para \"não perder tempo\".",
+   "esquerda": {
+    "texto": "Levar o valor à assembleia",
+    "efeito": {
+     "base": 10,
+     "caixa": 9,
+     "pressao": 3,
+     "rua": 2
+    },
+    "retorno": "A assembleia debate, ajusta o valor e vota. Cada um sabe quanto paga e para quê."
+   },
+   "direita": {
+    "texto": "Jair fixa o valor",
+    "efeito": {
+     "caixa": 10,
+     "base": -11,
+     "pressao": 2,
+     "rua": -2
+    },
+    "retorno": "O dinheiro entra, mas a categoria vê que as regras da organização são decididas por poucos."
+   },
+   "historia": {
+    "texto": "Para sindicatos, a assembleia geral fixará a contribuição, que, em se tratando de categoria profissional, será descontada em folha, para custeio do sistema confederativo da representação sindical (art. 8º, IV da Constituição).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, art. 8º, IV",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Pauta, ata e encaminhamentos",
+    "href": "/trilhas/oratoria-e-lideranca/pauta-ata-e-encaminhamentos"
+   }
+  },
+  {
+   "id": "sd-mei",
+   "fase": "a-paralisacao",
+   "titulo": "Quem se machuca sem proteção",
+   "personagem": "luana",
+   "texto": "Luana se machucou numa queda e está sem poder pedalar há semanas. Ela nunca contribuiu para o INSS. A associação discute orientar os colegas sobre o MEI.",
+   "esquerda": {
+    "texto": "Ensinar a abrir o MEI",
+    "efeito": {
+     "rua": 9,
+     "base": 8,
+     "caixa": -7,
+     "pressao": 2
+    },
+    "retorno": "A oficina de MEI ensina o passo a passo e o que ele garante. Alguns abrem logo; outros decidem depois."
+   },
+   "direita": {
+    "texto": "Dizer que é problema de cada um",
+    "efeito": {
+     "caixa": 7,
+     "rua": -10,
+     "base": -8,
+     "pressao": -2
+    },
+    "retorno": "O grupo se mantém, mas cada pessoa que se machuca descobre sozinha que não tinha proteção."
+   },
+   "historia": {
+    "texto": "O MEI recolhe valor fixo mensal, que inclui a contribuição previdenciária, e pode ter receita bruta de até R$ 81.000,00 por ano (art. 18-A da Lei Complementar 123/2006, redação da LC 188/2021).",
+    "fonte": {
+     "titulo": "Lei Complementar nº 123, de 14 de dezembro de 2006 (Estatuto da Microempresa), redação da LC 188/2021, art. 18-A",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    }
+   },
+   "aula": {
+    "titulo": "INSS para quem roda no app",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/inss-para-quem-roda-no-app"
+   }
+  },
+  {
+   "id": "sd-seguranca",
+   "fase": "a-paralisacao",
+   "titulo": "O grupo de segurança",
+   "personagem": "vereador",
+   "texto": "O vereador Neto oferece pagar seguranças para a manifestação. Jair sugere montar, em vez disso, um grupo de colegas com bastões \"para proteger a turma\".",
+   "esquerda": {
+    "texto": "Combinar a rota e usar monitores",
+    "efeito": {
+     "rua": 11,
+     "base": 8,
+     "pressao": 5,
+     "caixa": -5
+    },
+    "retorno": "Vocês avisam a prefeitura sobre a rota e organizam monitores de colete, sem armas. A manifestação anda sem incidentes."
+   },
+   "direita": {
+    "texto": "Montar grupo com bastões",
+    "efeito": {
+     "pressao": 8,
+     "rua": -11,
+     "base": -9,
+     "caixa": 3
+    },
+    "retorno": "O grupo de bastões assusta quem passa, e a imagem da manifestação muda. Alguns entregadores se afastam."
+   },
+   "historia": {
+    "texto": "A Constituição garante a plena liberdade de associação para fins lícitos, vedada a de caráter paramilitar (art. 5º, XVII).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, art. 5º, XVII",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Greve na prática: a Lei 7.783/1989",
+    "href": "/trilhas/organizacao-sindical-de-base/greve-na-pratica"
+   }
+  },
+  {
+   "id": "sd-vinculo",
+   "fase": "a-paralisacao",
+   "titulo": "Vínculo ou autônomo?",
+   "personagem": "marta",
+   "texto": "A Dra. Marta explica que há quem queira exigir o reconhecimento do vínculo de emprego e quem prefira negociar melhorias como autônomo. Nos dois casos, é preciso entender o que a lei diz.",
+   "esquerda": {
+    "texto": "Pedir o reconhecimento do vínculo",
+    "efeito": {
+     "base": 7,
+     "pressao": 11,
+     "caixa": -10,
+     "rua": 3
+    },
+    "retorno": "A associação apoia ações individuais. É um caminho longo e sem garantia, que mostra à categoria o tamanho do conflito."
+   },
+   "direita": {
+    "texto": "Negociar repasse e proteção",
+    "efeito": {
+     "caixa": 9,
+     "base": 6,
+     "pressao": -8,
+     "rua": 4
+    },
+    "retorno": "As empresas escutam, e algumas melhorias saem. Mas a questão do vínculo fica em aberto."
+   },
+   "historia": {
+    "texto": "A CLT considera empregado toda pessoa física que presta serviços de natureza não eventual a empregador, sob a dependência dele e mediante salário (art. 3º). Se um entregador de aplicativo preenche esses requisitos é uma questão em disputa nos tribunais.",
+    "fonte": {
+     "titulo": "Consolidação das Leis do Trabalho (Decreto-Lei nº 5.452/1943), art. 2º e 3º, art. 3º",
+     "autor": "Presidência da República",
+     "ano": "1943",
+     "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que a lei diz e o que está em disputa",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/o-que-a-lei-diz-e-o-que-esta-em-disputa"
+   }
+  },
+  {
+   "id": "sd-ordem",
+   "fase": "a-paralisacao",
+   "soEncadeada": true,
+   "titulo": "A notificação",
+   "personagem": "marta",
+   "texto": "Dois dias depois do bloqueio na pizzaria, Seu Aurélio procura a Dra. Marta com uma notificação. Ele diz que não quer processar, mas quer que a categoria se comprometa a não bloquear de novo.",
+   "esquerda": {
+    "texto": "Pedir desculpa e se comprometer",
+    "efeito": {
+     "base": 5,
+     "pressao": -9,
+     "rua": 8,
+     "caixa": -4
+    },
+    "retorno": "A associação assume o erro e reafirma o piquete pacífico. A relação se reconstrói, e Aurélio passa a ouvir a pauta."
+   },
+   "direita": {
+    "texto": "Negar e atacar o dono",
+    "efeito": {
+     "pressao": 6,
+     "base": -9,
+     "rua": -9,
+     "caixa": -6
+    },
+    "retorno": "A briga vira processo e as lojas do bairro passam a desconfiar da categoria."
+   },
+   "historia": {
+    "texto": "Os meios empregados pelos grevistas não podem impedir o acesso ao trabalho nem ameaçar pessoas e propriedades (art. 6º, §§ 1º a 3º da Lei 7.783/1989), e as manifestações e atos de persuasão não podem violar direitos fundamentais de outrem.",
+    "fonte": {
+     "titulo": "Lei nº 7.783, de 28 de junho de 1989 (Lei de Greve), art. 6º, §§ 1º a 3º",
+     "autor": "Presidência da República",
+     "ano": "1989",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Greve na prática: a Lei 7.783/1989",
+    "href": "/trilhas/organizacao-sindical-de-base/greve-na-pratica"
+   }
+  },
+  {
+   "id": "sd-pauta",
+   "fase": "a-paralisacao",
+   "titulo": "A pauta de quarenta itens",
+   "personagem": "marta",
+   "texto": "Com a assembleia aprovada, é hora de escrever as reivindicações. Há quem queira listar quarenta pedidos. A Dra. Marta sugere uma pauta de poucos itens, com número, prazo e pessoa responsável.",
+   "condicao": {
+    "flags": [
+     "assembleia"
+    ]
+   },
+   "esquerda": {
+    "texto": "Pauta enxuta e clara",
+    "efeito": {
+     "base": 9,
+     "pressao": 10,
+     "caixa": -3,
+     "rua": 4
+    },
+    "retorno": "Cinco pedidos claros são fáceis de explicar e de cobrar. A empresa responde a três deles na primeira rodada."
+   },
+   "direita": {
+    "texto": "Lista com tudo que a turma quer",
+    "efeito": {
+     "base": 8,
+     "pressao": -10,
+     "caixa": -3,
+     "rua": -4
+    },
+    "retorno": "Todo mundo se sente ouvido, mas a pauta fica impossível de negociar, e as empresas respondem com um pedido de \"prioridades\"."
+   },
+   "historia": {
+    "texto": "Frustrada a negociação ou verificada a impossibilidade de recurso via arbitral, é facultada a cessação coletiva do trabalho (art. 3º da Lei 7.783/1989). Por isso, a negociação com pauta clara precede a paralisação.",
+    "fonte": {
+     "titulo": "Lei nº 7.783, de 28 de junho de 1989 (Lei de Greve), art. 3º",
+     "autor": "Presidência da República",
+     "ano": "1989",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Pauta, ata e encaminhamentos",
+    "href": "/trilhas/oratoria-e-lideranca/pauta-ata-e-encaminhamentos"
+   }
+  },
+  {
+   "id": "sd-foto",
+   "fase": "a-paralisacao",
+   "titulo": "A foto no cartaz",
+   "personagem": "luana",
+   "texto": "Vocês fazem um cartaz com fotos de entregadores no trabalho, para mostrar a rotina. Algumas fotos mostram o rosto e o nome do bairro onde moram. Um colega pede para tirar a dele.",
+   "condicao": {
+    "partidas": 1
+   },
+   "esquerda": {
+    "texto": "Pedir autorização e tirar a foto",
+    "efeito": {
+     "base": 10,
+     "rua": 5,
+     "pressao": -6,
+     "caixa": -3
+    },
+    "retorno": "Quem concorda aparece de rosto, quem prefere sai desfocado ou de costas. O cartaz fica menos bonito, mas ninguém se sente exposto."
+   },
+   "direita": {
+    "texto": "Manter todas as fotos",
+    "efeito": {
+     "pressao": 8,
+     "base": -10,
+     "rua": -5,
+     "caixa": 3
+    },
+    "retorno": "O cartaz chama atenção. Mas um colega é reconhecido pelo patrão de outro emprego e perde o serviço."
+   },
+   "historia": {
+    "texto": "O tratamento de dados pessoais deve ter finalidades legítimas, específicas, explícitas e informadas ao titular (art. 6º, I da LGPD), e depende, em regra, do consentimento do titular (art. 7º, I). Dado pessoal é a informação relacionada a pessoa natural identificada ou identificável (art. 5º, I).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), arts. 5º, 6º e 7º",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Seus dados valem dinheiro",
+    "href": "/trilhas/midia-fundamental/seus-dados-valem-dinheiro"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "sd-base-zero",
+   "tipo": "queda",
+   "medidor": "base",
+   "limite": "zero",
+   "titulo": "Reunião vazia",
+   "texto": "Ninguém mais aparece na praça. A organização existe no grupo de mensagens, mas ninguém responde. Sem base, não há quem pare, quem pague ou quem acredite.",
+   "aula": {
+    "titulo": "O que é solidariedade de classe",
+    "href": "/trilhas/marxismo-fundamental/o-que-e-solidariedade-de-classe"
+   }
+  },
+  {
+   "id": "sd-base-cem",
+   "tipo": "queda",
+   "medidor": "base",
+   "limite": "cem",
+   "titulo": "Tudo depende de você",
+   "texto": "A base confia tanto em você que ninguém mais decide nada. Quando você fica doente uma semana, a organização para. Dependência de uma pessoa é fragilidade.",
+   "aula": {
+    "titulo": "Por que se organizar: ninguém muda a vida sozinho",
+    "href": "/trilhas/primeiros-passos-na-militancia/por-que-se-organizar-ninguem-muda-a-vida-sozinho"
+   }
+  },
+  {
+   "id": "sd-pressao-zero",
+   "tipo": "queda",
+   "medidor": "pressao",
+   "limite": "zero",
+   "titulo": "Ninguém escuta",
+   "texto": "As empresas ignoram os pedidos, as lojas não respondem e o bairro não se importa. Sem força para negociar, os entregadores continuam sozinhos diante do aplicativo.",
+   "aula": {
+    "titulo": "O Breque dos Apps",
+    "href": "/trilhas/uberizacao-e-cooperativismo/o-breque-dos-apps"
+   }
+  },
+  {
+   "id": "sd-pressao-cem",
+   "tipo": "queda",
+   "medidor": "pressao",
+   "limite": "cem",
+   "titulo": "O confronto sem saída",
+   "texto": "A organização só sabe parar e confrontar. As empresas passam a ver só ameaça, e quem precisava de conversa para resolver bloqueios e repasses fica sem canal.",
+   "aula": {
+    "titulo": "Greve na prática: a Lei 7.783/1989",
+    "href": "/trilhas/organizacao-sindical-de-base/greve-na-pratica"
+   }
+  },
+  {
+   "id": "sd-caixa-zero",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "zero",
+   "titulo": "Sem fundo",
+   "texto": "O caixa zerou antes da primeira parada. Sem dinheiro para cartaz, som e apoio a quem fica sem rodar, a mobilização perde a força.",
+   "aula": {
+    "titulo": "Orçamento para sair do aperto",
+    "href": "/trilhas/dividas-e-nome-sujo/orcamento-para-sair-do-aperto"
+   }
+  },
+  {
+   "id": "sd-caixa-cem",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "cem",
+   "titulo": "Cofre fechado",
+   "texto": "O dinheiro só cresce e ninguém sabe para onde vai. Quem entrou para mudar a vida na rua passa a desconfiar de quem guarda a chave.",
+   "aula": {
+    "titulo": "Pauta, ata e encaminhamentos",
+    "href": "/trilhas/oratoria-e-lideranca/pauta-ata-e-encaminhamentos"
+   }
+  },
+  {
+   "id": "sd-rua-zero",
+   "tipo": "queda",
+   "medidor": "rua",
+   "limite": "zero",
+   "titulo": "O acidente",
+   "texto": "Alguém se machucou de verdade: noite, chuva, pressa e sem colete. A organização perde mais do que um colega: perde a confiança de que cuida da gente.",
+   "aula": {
+    "titulo": "Segurança na rua e no trânsito",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/seguranca-na-rua-e-no-transito"
+   }
+  },
+  {
+   "id": "sd-rua-cem",
+   "tipo": "queda",
+   "medidor": "rua",
+   "limite": "cem",
+   "titulo": "Cuidado que não paga a conta",
+   "texto": "Tanto cuidado e tanta regra que ninguém roda mais o suficiente para pagar as contas. A segurança sem renda é só outro jeito de passar aperto.",
+   "aula": {
+    "titulo": "Quanto sobra por hora de verdade",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/quanto-sobra-por-hora"
+   }
+  },
+  {
+   "id": "sd-fim-forca",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "assembleia",
+     "caixa-aberto"
+    ]
+   },
+   "titulo": "Categoria que se reconhece",
+   "texto": "A organização nasceu com associação, assembleia e caixa aberto. A empresa passou a responder por escrito, e os entregadores descobriram que estar juntos muda o jogo.",
+   "aula": {
+    "titulo": "Organização coletiva de entregadores e motoristas",
+    "href": "/trilhas/trabalho-por-aplicativo-na-pratica/organizacao-coletiva-de-entregadores-e-motoristas"
+   }
+  },
+  {
+   "id": "sd-fim-associacao",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "associacao"
+    ]
+   },
+   "titulo": "Um começo firme",
+   "texto": "A associação existe e tem nome, ata e gente. Falta o caminho da paralisação e das negociações, mas o chão está firme.",
+   "aula": {
+    "titulo": "Greve na prática: a Lei 7.783/1989",
+    "href": "/trilhas/organizacao-sindical-de-base/greve-na-pratica"
+   }
+  },
+  {
+   "id": "sd-fim-grupo",
+   "tipo": "chegada",
+   "titulo": "Um grupo de WhatsApp",
+   "texto": "A turma continua unida só no grupo de mensagens. Sem ata, sem caixa e sem assembleia, qualquer conversa dura até o próximo bloqueio.",
+   "aula": {
+    "titulo": "Por que se organizar: ninguém muda a vida sozinho",
+    "href": "/trilhas/primeiros-passos-na-militancia/por-que-se-organizar-ninguem-muda-a-vida-sozinho"
+   }
+  }
+ ]
+}

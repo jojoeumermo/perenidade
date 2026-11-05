@@ -1,9 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import Link from "@/components/Link";
+import { menuDosJogos } from "@/lib/jogos/menu";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { textosDaBusca } from "@/lib/escola/textos-da-busca";
 import { site } from "@/lib/site";
+
+/** O nome da página de imprensa (o texto dela só existe em português; a página avisa nos outros idiomas). */
+const ROTULO_IMPRENSA: Record<string, string> = { pt: "Imprensa", en: "Press", es: "Prensa", fr: "Presse", ru: "Пресса", zh: "媒体联络" };
 
 /** O desenho da câmera do Instagram, em traço, na cor do texto ao redor. */
 export function InstagramIcon({ className = "h-4 w-4" }: { className?: string }) {
@@ -31,6 +35,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         [t.nav.questions, "/perguntas"],
         [t.nav.tools, "/ferramentas"],
         [t.nav.labs, "/laboratorios"],
+        [menuDosJogos(lang).rotulo, "/jogos"],
         [t.nav.glossary, "/glossario"],
         [t.nav.tutoring, "/reforco"],
         [t.nav.authors, "/autores"],
@@ -67,6 +72,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         [t.nav.about, "/sobre"],
         [t.nav.institute, "/instituto"],
         [t.nav.team, "/quem-somos"],
+        [ROTULO_IMPRENSA[lang] ?? ROTULO_IMPRENSA.pt, "/imprensa"],
         [t.nav.memorial, "/memorial"],
         [t.nav.timeline, "/linha-do-tempo"],
         [t.nav.gallery, "/galeria"],

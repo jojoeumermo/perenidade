@@ -39,6 +39,12 @@ export interface Territorio {
   credito?: string;
   podcast?: { titulo: string; com: string };
   lancamento?: { titulo: string };
+  /** A identidade visual própria da página (components/territorios/PaginaDoColetivo.tsx); sem ela, vale o desenho do Na Atividade. */
+  visual?: "noizocupa" | "kamikaze";
+  slogan?: string;
+  /** O post do anúncio no Instagram (só o código do endereço /p/<código>/) e o texto que o apresenta. */
+  anuncio?: { post: string; titulo: string; texto: string };
+  agenda?: { titulo: string; quando: string; onde: string; como: string };
 }
 
 /** Os coletivos parceiros, na ordem em que chegaram (content/territorios.json). */

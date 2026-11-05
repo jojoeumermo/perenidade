@@ -4400,8 +4400,8 @@
       "jornalismo": "Jornalista, radialista ou podcaster",
       "mentoria": "Aula de reforço",
       "design": "Designer",
-      "marketing": "Marketing e divulgação",
-      "desenvolvimento": "Infraestrutura e desenvolvimento",
+      "marketing": "Marketing, divulgação, arte e design gráfico",
+      "desenvolvimento": "UI/UX e desenvolvimento",
       "curadoria": "Curador(a)",
       "educacao_secundaria": "Educador(a) secundário(a): materiais e aulas avulsas"
     },
@@ -5506,7 +5506,20 @@
     "podcastKicker": "Podcast · em preparação",
     "launchKicker": "Lançamento · presencial · data em breve",
     "followUpdates": "Acompanhar no Instagram",
-    "reels": "Os vídeos estão no Instagram"
+    "reels": "Os vídeos estão no Instagram",
+    "anuncioKicker": "O vídeo do anúncio",
+    "anuncioLoad": "Carregar o vídeo do Instagram",
+    "anuncioAviso": "Ao clicar, este quadro abre conteúdo do Instagram (Meta), que pode registrar a sua visita. Enquanto você não clicar, nada é carregado de fora.",
+    "anuncioAbrir": "Abrir o post no Instagram",
+    "anuncioQuadro": "Vídeo do anúncio no Instagram",
+    "anuncioLocal": "Vídeo do anúncio",
+    "agendaKicker": "Na agenda",
+    "agendaQuando": "Quando",
+    "agendaOnde": "Onde",
+    "letreiroRotulo": "Temas do território",
+    "letreiroPausar": "Pausar a faixa de temas",
+    "letreiroRetomar": "Retomar a faixa de temas",
+    "cartaoVer": "Ver a página"
   },
   "rede": {
     "abaRede": "Rede",
@@ -6042,7 +6055,7 @@
       "3": {
         "name": "Completo",
         "count": "{n} perguntas",
-        "desc": "O retrato mais detalhado: oito perguntas por eixo."
+        "desc": "O retrato mais detalhado: vinte perguntas por eixo."
       }
     },
     "privacy": "Suas respostas ficam só neste aparelho, para você poder parar e continuar depois. Nada é enviado ao instituto.",

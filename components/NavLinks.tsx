@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { fill, localeNames, localePath, locales } from "@/i18n/config";
 import { hasBackend, rpc, signOut, useMe } from "@/lib/backend";
 import { ligado } from "@/lib/recursos";
+import { menuDosJogos } from "@/lib/jogos/menu";
 import { menuDoObservatorio, ROTA_DO_OBSERVATORIO } from "@/lib/vale-o-escrito/menu";
 import { AVATARES } from "./painel/Avatar";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
@@ -18,7 +19,7 @@ export const SAIR_MAIS = "lucia:sair-mais";
 export const abrirMais = (mouse = false) => window.dispatchEvent(new CustomEvent(ABRIR_MAIS, { detail: { mouse } }));
 
 /** O que já está no menu do topo do computador: a janela do "Mais" não repete. */
-export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/saude", "/dedicatoria", "/apoie", ...(ligado("escola") ? ["/escola"] : []), ...(ligado("vale-o-escrito") ? [ROTA_DO_OBSERVATORIO] : [])];
+export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/jogos", "/saude", "/dedicatoria", "/apoie", ...(ligado("escola") ? ["/escola"] : []), ...(ligado("vale-o-escrito") ? [ROTA_DO_OBSERVATORIO] : [])];
 
 export function NavLinks() {
   const pathname = usePathname();
@@ -36,6 +37,7 @@ export function NavLinks() {
     [t.nav.journal, "/jornal"],
     [t.nav.podcasts, "/podcasts"],
     [t.nav.community, "/comunidade"],
+    [menuDosJogos(lang).rotulo, "/jogos"],
     [t.nav.health, "/saude"],
     [t.nav.dedication, "/dedicatoria"],
   ];

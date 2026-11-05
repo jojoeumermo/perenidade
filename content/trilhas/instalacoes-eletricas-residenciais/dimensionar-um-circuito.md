@@ -112,6 +112,14 @@ Esta tabela e estes passos são a versão simplificada do manual para casas. O m
 **O chuveiro novo no fio velho.** Trocar um chuveiro por outro mais potente muda a corrente do circuito. Se o fio e o disjuntor foram escolhidos para o chuveiro antigo, ou o disjuntor desarma, ou, pior, alguém troca o disjuntor por um maior e o fio passa a esquentar dentro da parede. Antes de comprar o chuveiro, faça a conta deste passo a passo.
 ```
 
+```simulador
+circuito
+# Some os aparelhos e compare com o disjuntor
+tensao 127
+disjuntor 16
+modo paralelo
+```
+
 ```verificar
 Um circuito tem corrente de 18 A e passa sozinho no eletroduto. Pela tabela, qual fio e qual disjuntor?
 - 1,5 mm² e 15 A

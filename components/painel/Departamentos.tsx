@@ -13,14 +13,14 @@ import { Abas, Aviso, botao, botaoClaro, campo, data, elo, papeis, textoDoErro, 
 
 export const NOMES_DOS_DEPARTAMENTOS: Record<string, string> = {
   jornalismo: "Comunicação",
-  design: "Design",
+  design: "Arte e design (Comunicação)",
   educacao: "Pedagógico",
   mentoria: "Reforço",
   curadoria: "Acervo e curadoria",
   revisao: "Revisão",
   traducao: "Tradução",
   mediacao: "Comunidade e mediação",
-  desenvolvimento: "Desenvolvimento",
+  desenvolvimento: "UI/UX e Desenvolvimento",
   saude: "Mural de Saúde",
   coordenacao: "Coordenação",
 };
