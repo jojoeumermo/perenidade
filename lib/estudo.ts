@@ -383,6 +383,18 @@ function juntarProjeto(atual: string | null, vindo: string): string {
 }
 
 /** Restaura a cópia: listas com id (cadernos, cartões, erros, caderneta) e registros por item se juntam, o projeto final se junta por curso; o resto é trocado. Devolve quantas chaves mudaram. */
+/** Listas de nomes (aulas concluídas): junta as duas sem repetir, para a restauração nunca apagar o que já havia. */
+function unirTextos(atual: string | null, vindo: string): string {
+  try {
+    const a: unknown = JSON.parse(atual ?? "[]");
+    const b: unknown = JSON.parse(vindo);
+    if (!Array.isArray(a) || !Array.isArray(b)) return vindo;
+    return JSON.stringify([...new Set([...a, ...b])]);
+  } catch {
+    return vindo;
+  }
+}
+
 export function restaurarCopia(copia: Copia, armazenamento: Pick<Storage, "getItem" | "setItem">): number {
   let n = 0;
   for (const [chave, valor] of Object.entries(copia.dados)) {
@@ -392,7 +404,9 @@ export function restaurarCopia(copia: Copia, armazenamento: Pick<Storage, "getIt
         ? juntarProjeto(armazenamento.getItem(chave), valor)
         : REGISTROS.includes(chave)
           ? juntarRegistros(armazenamento.getItem(chave), valor)
-          : valor;
+          : chave === "lucia:concluidas" || chave === "lucia:lab:concluidos"
+            ? unirTextos(armazenamento.getItem(chave), valor)
+            : valor;
     try {
       armazenamento.setItem(chave, final);
       n++;
