@@ -1,5 +1,6 @@
 ---
 titulo: "As vogais"
+modelo: 9
 resumo: "A, E, I, O, U: as cinco letras que aparecem em toda palavra e que você já fala o dia inteiro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Se você vai ajudar alguém, leia antes a aula [Para quem vai ensinar](/trilhas/
 ## O que você vai aprender
 
 Ao fim desta aula você vai reconhecer as cinco vogais, A, E, I, O, U, em letra grande e pequena. Vai achar as vogais no começo, no meio e no fim das palavras. E vai perceber que o acento e o til mudam o som.
+
+```suarealidade
+Onde, na sua casa ou no seu caminho para o trabalho, você vê as letras A, E, I, O, U escritas? Numa embalagem, numa placa, num letreiro de ônibus?
+```
 
 ## Você já sabe muito
 
@@ -190,6 +195,15 @@ Começa com O: OBRA, OLHO, ÔNIBUS
 Começa com U: UNHA, URNA, UNIÃO
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Adulto não precisa desenhar letra: hoje o celular fala, escuta e resolve. Voltar às vogais é coisa de criança." É a opinião de quem já se vira sem escrever.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não trata você como criança: diz que você já tem os sons, porque fala português desde pequeno, e que as letras são só um jeito de desenhar esses sons. Ela lembra Paulo Freire, para quem a leitura do mundo vem antes da leitura da palavra, e você leu o mundo a vida inteira. As letras grandes são justamente as das placas, dos letreiros de ônibus e das embalagens. Aprender as vogais é o primeiro passo para ler o que está escrito sem depender de ninguém.
+```
+
 ## Exemplo resolvido
 
 **Quais são as vogais da palavra TRABALHO?**
@@ -219,6 +233,11 @@ Façam juntos, quem aprende e quem ajuda.
 5. Leia em voz alta: **AVÓ, AVÔ, PÃO, MÃE, OI, EU**.
 
 **Respostas da roda nas vogais:** FEIJÃO (E, I, Ã, O), MULHER (U, E), TRABALHO (A, A, O), SAÚDE (A, Ú, E), DOMINGO (O, I, O).
+
+```agir
+# Esta semana
+Escolha uma embalagem da sua casa (arroz, sabão, biscoito) e procure nela as cinco vogais, A, E, I, O, U. Faça um risco embaixo de cada vogal que achar e conte quantas encontrou.
+```
 
 ## Resumo
 

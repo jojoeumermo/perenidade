@@ -23,7 +23,7 @@ glossario:
   - termo: "Confederação Abolicionista"
     definicao: "Organização de 1883 que reuniu os clubes abolicionistas do país."
 quiz:
-  - pergunta: "O que aconteceu com Luiz Gama aos 9 anos?"
+  - pergunta: "O que aconteceu com Luiz Gama aos 10 anos?"
     opcoes: ["Foi vendido como escravo pelo próprio pai, embora fosse livre", "Entrou na faculdade", "Foi para a Europa"]
     resposta: 0
     explicacao: "Ficou analfabeto até os 17 e depois conquistou na Justiça a própria liberdade."
@@ -51,7 +51,7 @@ Ao fim desta aula você vai conhecer três abolicionistas negros, Luiz Gama, And
 
 ## Luiz Gama: o advogado que tinha sido escravizado
 
-**Luiz Gama** (Salvador, 1831 – São Paulo, 1882) era filho de uma africana livre. Mesmo sendo livre, foi **vendido como escravo pelo próprio pai aos 9 anos** e ficou analfabeto até os 17. Conquistou **na Justiça a própria liberdade**.
+**Luiz Gama** (Salvador, 1830 – São Paulo, 1882) era filho de uma africana livre. Mesmo sendo livre, foi **vendido como escravo pelo próprio pai aos 10 anos** e ficou analfabeto até os 17. Conquistou **na Justiça a própria liberdade**.
 
 Depois, atuou como **rábula** (advogado sem diploma) em favor dos cativos. Em carta, estimou ter libertado **mais de 500 escravizados**. Num caso de **1869**, a "Questão Netto", garantiu a liberdade de **217 pessoas** de uma vez. Foi também poeta, chamado de **"Orfeu de carapinha"**, autor das *Primeiras Trovas Burlescas*.
 

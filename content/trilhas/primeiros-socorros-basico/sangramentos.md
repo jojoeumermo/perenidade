@@ -1,5 +1,6 @@
 ---
 titulo: "Sangramentos: como estancar"
+modelo: 9
 resumo: "Pressão firme, direta e sem interrupção: o que estanca a maior parte dos sangramentos, e o que nunca fazer."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ Ao fim desta aula você vai saber estancar um sangramento com pressão direta, q
 
 
 Esta aula não substitui um curso presencial. Sangramento forte é emergência: enquanto você age, alguém liga para o 192.
+
+```suarealidade
+Se alguém se cortasse feio na sua frente, o que você faria primeiro? O que você já viu alguém usar para estancar sangue?
+```
 
 ## Proteja-se primeiro
 
@@ -100,6 +105,15 @@ Estanque o sangramento primeiro. Depois, **enrole a parte amputada em um pano li
 
 Procure atendimento se não parar em vinte minutos, se veio depois de uma pancada forte na cabeça ou se acontece com frequência.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Corte sangrando? Põe pó de café, ou um torniquete bem apertado logo no começo, que para na hora. Receita de família que sempre funcionou." É a opinião de quem aprendeu isso com os mais velhos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula diz o que estanca: pressão direta, com pano limpo e a palma da mão, por pelo menos dez minutos, sem soltar para olhar. Ela diz o que não fazer: nada de receitas caseiras, nada de arrancar objeto cravado ou empurrar algo de volta, nem dar remédio, comida ou bebida. O torniquete é só para sangramento que ameaça a vida e com treino; sem treino, aperte direto no ferimento. E ligue 192 se o sangue sair em jato, não parar em dez minutos ou o corte for grande ou fundo. Proteja-se antes, com luvas ou um saco plástico limpo.
+```
+
 ## Exemplo resolvido: um corte fundo no braço de um colega
 
 1. **Proteja-se:** cubra as mãos com luvas ou, se não houver, com um saco plástico limpo, e peça para alguém ligar 192.
@@ -111,6 +125,11 @@ Procure atendimento se não parar em vinte minutos, se veio depois de uma pancad
 7. **Se não parou em dez minutos**, ou o sangue sai em jato, ligue ou confirme o 192.
 
 Confira: o erro mais comum é soltar a toda hora para conferir. Nada de pó de café, açúcar ou pasta de dente.
+
+```agir
+# Esta semana
+Separe num lugar visível de casa um pano limpo, luvas ou saco plástico limpo e anote o 192 num papel. Explique a alguém da sua casa como se faz pressão direta num ferimento.
+```
 
 ## Resumo
 

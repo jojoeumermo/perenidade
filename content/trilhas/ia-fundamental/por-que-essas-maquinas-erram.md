@@ -1,5 +1,6 @@
 ---
 titulo: "Por que essas máquinas erram"
+modelo: 9
 resumo: "Três fontes de erro: a alucinação, quando o modelo inventa com segurança; os dados de treino que não representam todo mundo; e o uso em decisões importantes sem revisão humana. E o que fazer diante de cada uma."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ A máquina errou o seu nome, inventou um livro que não existe e não reconheceu
 
 Ao fim desta aula você vai conhecer três fontes de erro da inteligência artificial e o que fazer diante de cada uma.
 
+```suarealidade
+Alguém que você conhece já foi barrado, cobrado ou negado por um sistema automático (catraca, aplicativo, banco)? O que aconteceu, e quem resolveu?
+```
+
 ## 1. Inventar com segurança: a alucinação
 
 Chama-se **alucinação** a resposta de um sistema de IA com **informação falsa ou enganosa apresentada como fato**. Assistentes baseados em modelos de linguagem podem misturar, num texto convincente, falsidades que **parecem verdade**, como **citações e referências inventadas**. Isso acontece porque o modelo gera o texto **provável**, e não confere se ele é **verdadeiro**.
@@ -82,6 +87,20 @@ Um assistente cita um "estudo da Universidade X de 2019" para provar o que diz. 
 | alucinação | referência que não existe | conferir em fonte confiável antes de usar |
 | viés | sistema que não reconhece um grupo | denunciar, exigir dados representativos e testes |
 | decisão sem revisão | crédito negado por máquina | pedir revisão com base no art. 20 da LGPD |
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Errar é humano. Máquina erra bem menos que gente, então é melhor deixar a máquina decidir."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o erro fica perigoso quando a máquina decide sozinha algo importante: um crédito, uma vaga, uma abordagem policial. E que ele não cai igual para todos: em 2018, o estudo Gender Shades mostrou que três sistemas comerciais erravam mais com mulheres de pele escura, até 34,7%. Quando um sistema que erra mais com pessoas negras é usado para identificar suspeitos, o erro vira abordagem, prisão e humilhação para quem já era mais vigiado. Por isso a LGPD (artigo 20) garante o direito de pedir a revisão de decisões tomadas só por tratamento automatizado. E o assistente de texto pode inventar com segurança uma referência que não existe, de modo que é preciso conferir.
+```
+
+```agir
+# Esta semana
+Teste um assistente de texto com uma pergunta cuja resposta você já sabe e anote se ele errou, e como errou. Conte o resultado a alguém.
+```
 
 ## Resumo
 

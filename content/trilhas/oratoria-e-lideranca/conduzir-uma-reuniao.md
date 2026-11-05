@@ -1,5 +1,6 @@
 ---
 titulo: "Conduzir uma reunião"
+modelo: 9
 resumo: "O papel de quem coordena: abrir na hora, conferir o quórum, seguir a pauta, distribuir a palavra, cuidar do tempo, manter o respeito, pôr em votação e anunciar o resultado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Reunião marcada para as 19h. Começou às 19h50, durou três horas, quatro pess
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer as tarefas de quem coordena uma reunião, montar a ordem dos trabalhos, distribuir a palavra com justiça, cuidar do tempo e do respeito e fechar cada ponto com uma decisão clara.
+
+```suarealidade
+Pense na última reunião de que você participou. Começou na hora? Todos puderam falar? Ficou claro o que foi decidido?
+```
 
 ## A coordenação está a serviço do grupo
 
@@ -106,6 +111,15 @@ No meio da reunião, a coordenação percebe que metade das pessoas foi embora e
 > Sem quórum, não se decide: só se encerra.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Reunião com regra demais e pauta engessada vira burocracia. O melhor é deixar o grupo conversar solto, que no fim a gente se entende." É a opinião de quem já se cansou de reuniões formais e demoradas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não defende burocracia: lembra que quem coordena representa a vontade do grupo, não a própria. A pauta, a inscrição para falar, o tempo combinado e a vez de quem ainda não falou evitam que quatro pessoas falem o tempo todo e que ninguém saiba o que foi decidido. A ordem clássica (ata, informes das comissões, assuntos pendentes, assuntos novos) vem do manual de Henry Robert, de 1876. Sem quórum, não se decide: só se encerra ou se marca outra data. Debate-se a proposta, não a pessoa.
+```
+
 ## Exemplo resolvido
 
 **Monte o roteiro de coordenação de uma reunião de 1h30 da associação de moradores, com três assuntos: a festa junina, o abaixo-assinado do posto e a prestação de contas.**
@@ -118,6 +132,11 @@ No meio da reunião, a coordenação percebe que metade das pessoas foi embora e
 6. **20h10 — Festa junina** (assunto novo): formação de uma comissão.
 7. **20h25 — Encaminhamentos**: ler em voz alta quem faz o quê e até quando.
 8. **20h30 — Encerramento**, na hora combinada.
+
+```agir
+# Esta semana
+Na próxima reunião de que você participar, ofereça-se para controlar o tempo e a lista de inscrições, ou anote num papel o que foi decidido ao final de cada assunto. Depois pergunte ao grupo se ajudou.
+```
 
 ## Resumo
 

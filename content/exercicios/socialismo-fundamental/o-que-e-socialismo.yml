@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é socialismo" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-o-que-e-socialismo-01
+  tema: "Meios de produção"
+  dificuldade: 1
+  enunciado: "O que são meios de produção?"
+  alternativas:
+    - texto: "As coisas usadas para produzir outras coisas: terras, fábricas, máquinas, minas, usinas, bancos"
+      certa: true
+    - texto: "Só o dinheiro do patrão"
+      erro: "São terras, máquinas, fábricas e outros."
+    - texto: "As roupas e a casa de cada um"
+      erro: "Isso é propriedade pessoal."
+  explicacao: "No capitalismo, são propriedade privada de uma minoria."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é socialismo\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-o-que-e-socialismo-02
+  tema: "A proposta"
+  dificuldade: 2
+  enunciado: "Qual é a proposta do socialismo, segundo a aula?"
+  alternativas:
+    - texto: "Que os grandes meios de produção pertençam à sociedade e a produção atenda às necessidades das pessoas, e não ao lucro de poucos"
+      certa: true
+    - texto: "Que o Estado tome as casas das pessoas"
+      erro: "Isso seria uma das confusões comuns, que a aula desfaz."
+    - texto: "Que o lucro seja de uma só pessoa"
+      erro: "É o contrário."
+  explicacao: "Na prática: propriedade coletiva, planejamento, direitos garantidos a todos e poder político nas mãos de quem trabalha."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é socialismo\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-o-que-e-socialismo-03
+  tema: "A pergunta"
+  dificuldade: 1
+  enunciado: "Que pergunta o socialismo faz diante de uma fábrica onde muitos trabalham e poucos decidem?"
+  alternativas:
+    - texto: "Se a riqueza é produzida por muitos, por que é controlada por poucos?"
+      certa: true
+    - texto: "Por que os trabalhadores não trabalham mais?"
+      erro: "A pergunta é sobre quem controla a riqueza."
+    - texto: "Por que a fábrica é tão grande?"
+      erro: "A pergunta é sobre quem controla."
+  explicacao: "O dono não fez os sapatos, mas é dono das máquinas e do prédio, e por isso fica com o lucro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é socialismo\""
+  revisao:
+    status: em-revisao

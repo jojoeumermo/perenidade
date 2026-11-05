@@ -1,5 +1,6 @@
 ---
 titulo: "De Pé no Chão Também se Aprende a Ler"
+modelo: 9
 resumo: "A campanha de educação popular da prefeitura de Natal entre 1961 e 1964: os acampamentos escolares cobertos de palha, a escola pública feita com o povo e o fim imposto pelo golpe."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Ao fim desta aula você vai conhecer a campanha De Pé no Chão Também se Apren
 
 ```provocacao
 Se o seu bairro precisasse de uma escola amanhã e não houvesse prédio nem verba, o que vocês fariam?
+```
+
+```suarealidade
+Se o seu bairro precisasse de uma escola amanhã e não houvesse prédio nem verba, o que os moradores poderiam fazer juntos? Quem você procuraria primeiro?
 ```
 
 ## Como começou
@@ -99,6 +104,20 @@ Confira: como em Natal, o círculo começou com o que havia, sem esperar, e ao m
 
 ```realidade
 Liste três lugares do seu bairro onde um círculo de alfabetização poderia funcionar à noite.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Escola de palha e chão de terra não é escola de verdade. A solução digna seria esperar o prédio de alvenaria, e não conformar o povo com improviso." É uma crítica de quem defende que o poder público não deve se contentar com pouco.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A crítica tem razão em um ponto, e a aula a registra: a lição é começar com o que há, sem desistir do direito a uma escola digna. A campanha de Natal (1961-1964) atendeu crianças e adultos de bairros que não tinham escola nenhuma, com os comitês de bairro, e foi interrompida pelo golpe de 1964. O galpão de palha não era o ponto final, e sim o começo de um direito.
+```
+
+```agir
+# Esta semana
+Anote num papel três lugares do seu bairro que poderiam servir de sala de aula ou de leitura (um salão, uma igreja, uma associação) e quem seria a pessoa a procurar para conversar sobre isso. Não é preciso agir agora: é um mapa.
 ```
 
 ## Resumo

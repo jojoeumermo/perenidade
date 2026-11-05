@@ -1,5 +1,6 @@
 ---
 titulo: "Os números e o dinheiro"
+modelo: 9
 resumo: "Ler e escrever os números até mil, conhecer as notas e as moedas do real, entender a vírgula do preço e conferir o troco."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Quem nunca foi à escola faz conta todo dia: na feira, no ônibus, no fim do mê
 ## O que você vai aprender
 
 Ao fim desta aula você vai ler e escrever números com os dez algarismos e entender por que a posição muda o valor. Vai reconhecer as notas e as moedas do real, ler preços com vírgula e conferir o troco contando do preço até o valor pago.
+
+```suarealidade
+Na última vez em que você fez uma compra, como conferiu o troco? Qual preço você mais lê no seu mês: o do mercado, o da passagem, o do aluguel?
+```
 
 ## Os dez algarismos
 
@@ -190,6 +195,15 @@ Outro exemplo: compra de **R$ 13,20**, paga com **R$ 20**.
 
 Esse é o jeito de "completar", que muita gente já faz de cabeça. Para ver as contas no papel, passo a passo, veja a aula [As quatro operações](/trilhas/matematica-fundamental/as-quatro-operacoes).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Eu faço conta de cabeça melhor que muita gente que estudou. Escrever número é perda de tempo." E a experiência de quem faz conta na feira todo dia dá razão em boa parte.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula começa dizendo isso: muita gente que não lê palavras lê números muito bem. O que ela acrescenta é ligar esse saber à escrita. A posição muda o valor (150 e 510 são muito diferentes), e quem confere o preço escrito e o troco não corre o risco de errar a ordem. Contar do preço até o valor pago é um jeito de conferir o troco que a aula ensina, partindo do que você já faz.
+```
+
 ## Exemplo resolvido
 
 **Uma compra no mercadinho deu R$ 23,60. Você pagou com uma nota de R$ 50. Quanto deve voltar de troco?**
@@ -237,6 +251,11 @@ Vire duas cartas por vez e junte o número com o jeito de escrever por extenso.
 5. Uma passagem custa R$ 5,30 e você paga com R$ 10. Qual é o troco?
 
 **Respostas:** 1) OITO, QUINZE, QUARENTA, NOVENTA E NOVE, TREZENTOS. 2) 22, 110, 500. 3) quatro reais e vinte e cinco centavos; dezenove reais e noventa centavos; cento e cinquenta reais. 4) Oito moedas. 5) R$ 4,70.
+
+```agir
+# Esta semana
+Na próxima compra, leia o preço escrito, some de cabeça o que vai pagar e confira o troco contando do preço até o valor que você deu. Anote num papel a conta que fez.
+```
 
 ## Resumo
 

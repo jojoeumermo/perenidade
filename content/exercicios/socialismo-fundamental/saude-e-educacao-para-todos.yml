@@ -1,0 +1,50 @@
+# Exercícios da aula "Saúde e educação para todos" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-saude-e-educacao-para-todos-01
+  tema: "Direito ou mercadoria"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre direito e mercadoria, segundo a aula?"
+  alternativas:
+    - texto: "Mercadoria: recebe quem pode pagar; direito: recebe porque é gente, pago por toda a sociedade pelos impostos"
+      certa: true
+    - texto: "Mercadoria é grátis e direito é pago"
+      erro: "É o contrário."
+    - texto: "Não há diferença"
+      erro: "A aula mostra diferença."
+  explicacao: "Os socialistas defendem que saúde e educação sejam direitos, e não produtos à venda."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde e educação para todos\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-saude-e-educacao-para-todos-02
+  tema: "SUS"
+  dificuldade: 2
+  enunciado: "Em que artigo da Constituição está a frase \"a saúde é direito de todos e dever do Estado\"?"
+  alternativas:
+    - texto: "Artigo 205"
+      erro: "O art. 205 trata da educação."
+    - texto: "Artigo 196"
+      certa: true
+    - texto: "Artigo 8º"
+      erro: "O art. 8º trata da liberdade sindical."
+  explicacao: "Dali nasceu o SUS, conquista do movimento da reforma sanitária; a 8ª Conferência Nacional de Saúde, em 1986, aprovou as bases."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde e educação para todos\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-saude-e-educacao-para-todos-03
+  tema: "Manifesto"
+  dificuldade: 2
+  enunciado: "Que proposta de educação o Manifesto Comunista (1848) já incluía, segundo a aula?"
+  alternativas:
+    - texto: "Educação pública e gratuita para todas as crianças e o fim do trabalho infantil nas fábricas"
+      certa: true
+    - texto: "Educação paga para todos"
+      erro: "Era o contrário."
+    - texto: "Escola só para os ricos"
+      erro: "Era o contrário."
+  explicacao: "Na época, era uma ideia radical; hoje está em quase todas as constituições."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde e educação para todos\""
+  revisao:
+    status: em-revisao

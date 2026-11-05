@@ -1,5 +1,6 @@
 ---
 titulo: "O seu nome"
+modelo: 9
 resumo: "Ler e escrever o próprio nome, letra por letra, aprender a assinar e saber por que o nome é um direito."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Esta aula também é para ler a dois. Quem ajuda vai precisar de papel, lápis e
 ## O que você vai aprender
 
 Ao fim desta aula você vai escrever o seu nome do jeito do documento, letra por letra, com os sinais que ele tem. Vai saber o que é prenome e sobrenome. E vai ter um caminho, em cinco passos, para treinar a sua assinatura.
+
+```suarealidade
+Você escreve o seu nome com segurança? Em que situação do seu dia a dia alguém já pediu para você escrever ou assinar o seu nome?
+```
 
 ## A palavra mais importante
 
@@ -144,6 +149,15 @@ Em qualquer papel, valem quatro regras:
 
 Essas regras valem também para quem já lê. Ler um contrato antes de assinar é assunto de uma aula mais adiante.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O meu nome já está no documento. Treinar assinatura é bobagem: quando precisa, alguém me ajuda." É a experiência de quem sempre contou com a ajuda de outra pessoa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O nome é a palavra mais sua. A aula lembra que o Código Civil, no artigo 16, diz que toda pessoa tem direito ao nome, com prenome e sobrenome. E ela ensina a assinar em cinco passos e a ouvir antes de assinar, porque quem assina precisa saber o que está assinando. Ter ajuda é bom, mas poder escrever o próprio nome e entender o papel diante de você é uma segurança que ninguém tira.
+```
+
 ## Exemplo resolvido
 
 **Como escrever o nome CONCEIÇÃO SOUSA letra por letra?**
@@ -185,6 +199,11 @@ Sobrenome: SILVA, SANTOS, SOUZA, OLIVEIRA
 3. Diga o nome de cada letra, como na tabela: eme, á, erre...
 4. Escreva o nome completo de alguém da sua família: um filho, uma neta, a mãe.
 5. Ache o seu nome escrito em algum papel da casa: uma conta, uma receita, um envelope. Compare com o que você escreveu.
+
+```agir
+# Esta semana
+Pegue um documento seu (identidade, certidão ou carteira de trabalho) e copie o seu nome, letra por letra, num papel, cinco vezes. Depois confira se ficou igual ao documento.
+```
 
 ## Resumo
 

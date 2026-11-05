@@ -1,0 +1,50 @@
+# Exercícios da aula "Os instrumentos do samba: surdo, tamborim, pandeiro, cuíca, agogô e cavaquinho" (tocar-e-cantar-samba). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: tocar-e-cantar-samba-os-instrumentos-do-samba-surdo-tamborim-01
+  tema: "Surdo"
+  dificuldade: 1
+  enunciado: "Qual é a função principal do surdo, tambor grande e grave?"
+  alternativas:
+    - texto: "Marcar o tempo; é chamado de \"coração do samba\""
+      certa: true
+    - texto: "Fazer a melodia"
+      erro: "Quem faz a base de acordes é o violão e o cavaquinho."
+    - texto: "Soar como sino"
+      erro: "Quem faz som de sino é o agogô."
+  explicacao: "Sua criação é atribuída a Bide, da Deixa Falar, com latão de manteiga e pele de cabrito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os instrumentos do samba: surdo, tamborim, pandeiro, cuíca, agogô e cavaquinho\""
+  revisao:
+    status: em-revisao
+
+- id: tocar-e-cantar-samba-os-instrumentos-do-samba-surdo-tamborim-02
+  tema: "Cuíca"
+  dificuldade: 2
+  enunciado: "Como se tira o \"ronco\" da cuíca?"
+  alternativas:
+    - texto: "Friccionando com um pano molhado a haste presa no centro da pele, por dentro, e apertando a pele com o dedo"
+      certa: true
+    - texto: "Soprando por um tubo"
+      erro: "Não é assim."
+    - texto: "Batendo com duas baquetas"
+      erro: "O ronco vem da fricção da haste."
+  explicacao: "Quanto mais perto do centro, mais agudo. A cuíca foi trazida por africanos escravizados."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os instrumentos do samba: surdo, tamborim, pandeiro, cuíca, agogô e cavaquinho\""
+  revisao:
+    status: em-revisao
+
+- id: tocar-e-cantar-samba-os-instrumentos-do-samba-surdo-tamborim-03
+  tema: "Cavaquinho"
+  dificuldade: 2
+  enunciado: "Qual é a afinação comum do cavaquinho no Brasil, segundo a aula?"
+  alternativas:
+    - texto: "Ré-sol-si-ré, com quatro cordas"
+      certa: true
+    - texto: "Mi-mi-mi-mi"
+      erro: "Não é a afinação citada na aula."
+    - texto: "Dó-ré-mi-fá"
+      erro: "Não é a afinação."
+  explicacao: "O cavaquinho é de origem portuguesa (Minho). O violão faz a base de acordes, inspirado no choro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os instrumentos do samba: surdo, tamborim, pandeiro, cuíca, agogô e cavaquinho\""
+  revisao:
+    status: em-revisao

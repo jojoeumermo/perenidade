@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização de pessoas idosas"
+modelo: 9
 resumo: "Quem são os idosos que não leem no Brasil, o que muda na alfabetização depois dos 60 (visão, audição, memória, ritmo, história de vida) e como adaptar o círculo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -44,6 +45,10 @@ Ao fim desta aula você vai saber quantos idosos não leem no Brasil e por quê.
 
 ```provocacao
 Qual é a pessoa mais velha que você conhece que não sabe ler? Por que ela não aprendeu quando era criança?
+```
+
+```suarealidade
+Quem é a pessoa mais velha de quem você é próximo e que não lê, ou lê pouco? O que ela gostaria de ler, se pudesse?
 ```
 
 ## Quem são
@@ -105,6 +110,20 @@ Confira: começou pelo desejo dela, cuidou da visão antes de tudo, usou um text
 
 ```realidade
 Pense numa pessoa idosa do seu bairro. O que ela gostaria de ler, se pudesse? Escreva.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Depois dos 60 anos não vale a pena ensinar a ler: a memória falha, o tempo é curto, e o dinheiro público deve ir para as crianças." É uma ideia comum, dita muitas vezes sem maldade.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o Estatuto da Pessoa Idosa (art. 20 e 21) garante o direito à educação e manda adaptar métodos e material. Segundo a PNAD Contínua citada na aula, havia 4,9 milhões de pessoas com 60 anos ou mais que não sabiam ler: é um direito negado na infância, e não falta de capacidade. Com letra grande, boa luz, exame de vista e ritmo respeitado, muita gente aprende. E o benefício é concreto: assinar o nome, ler a Bíblia, ler a mensagem do neto.
+```
+
+```agir
+# Esta semana
+Procure uma pessoa idosa de confiança e pergunte, com delicadeza, o que ela gostaria de ler. Anote a resposta num papel, sem pedir nenhum dado pessoal. Se ela não quiser conversar, tudo bem: tente de novo outro dia.
 ```
 
 ## Resumo

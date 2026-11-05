@@ -1,5 +1,6 @@
 ---
 titulo: "Quem não tem religião: ateus, agnósticos e sem religião"
+modelo: 9
 resumo: "No Censo 2022, 9,3% dos brasileiros se declararam sem religião, contra 7,9% em 2010. Mas 'sem religião' não quer dizer a mesma coisa para todos: há ateus, agnósticos e pessoas que creem em algo sem seguir uma religião formal."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ quiz:
 
 Ao fim desta aula você vai entender quem são as pessoas sem religião e as diferenças entre ateus, agnósticos e outros grupos.
 
+```suarealidade
+Entre as pessoas que você conhece, há quem não tenha religião? Como as pessoas em volta tratam essa pessoa?
+```
+
 ## Os números
 
 O **Censo 2022** do IBGE, com resultados divulgados em **junho de 2025**, mostrou que **9,3%** dos brasileiros se declararam **sem religião**. Em **2010**, eram **7,9%**. No mesmo período, os **católicos** caíram para **56,7%**, e os **evangélicos** passaram de **21,6%** para **26,9%**.
@@ -66,6 +71,15 @@ Uma pessoa acredita que existe "uma força maior", mas não vai a nenhuma igreja
 > Releia a seção "Muitas formas de não ter religião".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não tem religião não tem valores. Sem fé, a pessoa não tem o que a segure." É a opinião de quem encontra na fé a sua força.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que "sem religião" é um grupo variado: inclui ateus, agnósticos, deístas e pessoas com crença sem religião formal. Pelo Censo 2022, 9,3% da população não tem religião (eram 7,9% em 2010). A Constituição garante o direito de crer e também o de não crer. O que uma pessoa faz diz mais sobre ela do que a religião que declara.
+```
+
 ## Exemplo resolvido
 
 **Em quantos pontos percentuais cresceu o grupo sem religião entre 2010 e 2022?**
@@ -73,6 +87,11 @@ Uma pessoa acredita que existe "uma força maior", mas não vai a nenhuma igreja
 1. 2022: **9,3%**.
 2. 2010: **7,9%**.
 3. 9,3 − 7,9 = **1,4 ponto percentual**.
+
+```agir
+# Esta semana
+Se as pessoas quiserem responder, pergunte a duas de idades diferentes se têm religião e por quê. Anote as respostas sem discutir.
+```
 
 ## Resumo
 

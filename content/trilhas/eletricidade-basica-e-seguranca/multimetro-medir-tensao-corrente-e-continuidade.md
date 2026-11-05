@@ -1,5 +1,6 @@
 ---
 titulo: "Multímetro: medir tensão, corrente e continuidade"
+modelo: 9
 resumo: "Como escolher a escala, onde encaixar as pontas de prova, como medir tensão em paralelo e corrente em série, como testar continuidade e por que testar o próprio multímetro antes de confiar nele."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Se o multímetro marcou zero no fio, você pode encostar a mão? Como ter certez
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber escolher a função e a escala do multímetro, medir tensão alternada numa tomada, entender por que a corrente se mede em série, testar continuidade e fazer a verificação de ausência de tensão do jeito seguro.
+
+```suarealidade
+Você já precisou saber se um fio ou uma tomada estava com energia ou sem? Como tirou a dúvida: olhando, usando um aparelho, perguntando a alguém? O que poderia ter dado errado?
+```
 
 ## Um aparelho, vários instrumentos
 
@@ -108,6 +113,20 @@ A NR-10 põe a "constatação da ausência de tensão" como passo obrigatório d
 3. **Teste o aparelho de novo** na tomada ligada. Se ele continua funcionando, o zero do passo 2 era verdadeiro.
 
 Sem o primeiro e o terceiro passos, um multímetro com bateria fraca ou ponta partida mostraria zero num fio ligado.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que testar o multímetro antes e depois é demora à toa: o visor marcou zero, então o fio está desligado, e quem tem prática confia no aparelho.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: com a prática, o hábito fica rápido, mas o risco continua. Um multímetro com bateria fraca ou ponta partida mostra zero num fio ligado, e o visor sozinho não diz qual é o caso. Só testar o aparelho numa tomada que se sabe ligada, medir o ponto de trabalho e testar de novo mostra que o zero era verdadeiro. A própria NR-10 coloca a constatação da ausência de tensão como passo obrigatório depois de desligar e travar o circuito (item 10.5.1).
+```
+
+```agir
+# Esta semana
+Escreva num papel os três tempos para conferir que um circuito está desligado (testar o aparelho numa tomada ligada, medir o ponto de trabalho, testar de novo) e explique a uma pessoa de confiança por que o primeiro e o terceiro passos existem. Se tiver um multímetro, treine só medindo uma pilha, nunca uma tomada ou um fio ligado.
+```
 
 ## Resumo
 

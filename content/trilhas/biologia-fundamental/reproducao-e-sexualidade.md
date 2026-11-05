@@ -1,5 +1,6 @@
 ---
 titulo: "Reprodução e sexualidade"
+modelo: 9
 resumo: "Objetivo: entender como os seres vivos se reproduzem, como funciona a reprodução humana, quais são os métodos de prevenção e por que respeito e consentimento fazem parte do assunto."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber a diferença entre reprodução assexuada e sexuada, como funcionam o ciclo menstrual, a fecundação e a gravidez, quais métodos protegem da gravidez e das infecções e o que é consentimento.
+
+```suarealidade
+Onde você aprendeu o que sabe sobre o corpo, a menstruação, a gravidez e a prevenção? Foi em casa, na escola, na rua? O que você teria gostado de ter aprendido antes?
+```
 
 ## Por que os seres vivos se reproduzem
 
@@ -138,6 +143,20 @@ Qualquer ato sexual sem consentimento é violência. Com crianças, é sempre cr
 4. **Conclua.** Quem quer evitar a gravidez **e** as IST precisa considerar os dois cuidados. A escolha do método deve ser feita com orientação de um profissional de saúde, e o SUS oferece os métodos gratuitamente.
 
 Confira: várias IST não dão sintoma no começo, por isso os testes gratuitos do SUS também fazem parte do cuidado.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Esse assunto é da família e da religião, não é para a escola nem para um curso: falar de camisinha e de planejamento incentiva os jovens a começar cedo." É uma preocupação sincera de muitos pais e mães.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula respeita a família e não incentiva nada: informa. A Lei 9.263/1996 garante o planejamento familiar, o pré-natal é gratuito no SUS e só a camisinha protege também das infecções sexualmente transmissíveis. A aula também ensina o consentimento: "não" é não, silêncio não é sim, e violência sexual é crime, sem culpa da vítima (Disque 100 e Ligue 180). Informação clara protege, sobretudo quem não teve com quem conversar.
+```
+
+```agir
+# Esta semana
+Anote num papel os números do Disque 100 e do Ligue 180 e guarde onde você ou alguém de casa possa achar. Se quiser, procure na unidade de saúde do bairro onde se faz o pré-natal e o planejamento familiar.
+```
 
 ## Resumo
 

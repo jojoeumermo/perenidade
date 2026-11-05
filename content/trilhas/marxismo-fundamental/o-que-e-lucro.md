@@ -1,5 +1,6 @@
 ---
 titulo: "O que é lucro"
+modelo: 9
 resumo: "A sobra que fica com o dono da empresa tem uma origem: o trabalho que não é pago."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber explicar, com a conta de uma lanchonete, de onde sai o lucro segundo Marx e por que salário e lucro saem do mesmo bolo.
 
 Toda empresa existe para ter lucro. Os jornais comemoram quando o lucro dos bancos sobe. Mas de onde sai esse dinheiro? Esta aula mostra, com um exemplo do dia a dia, a resposta de Marx.
+
+```suarealidade
+Se você trabalha numa empresa, quanto do que ela vende você acha que fica como salário e quanto fica como lucro? Você sabe como esse cálculo é feito aí?
+```
 
 ## Uma lanchonete
 
@@ -82,6 +87,20 @@ Numa grande empresa, os donos (os acionistas) muitas vezes nem sabem onde ficam 
 ## Para conversar
 
 Pense num lugar onde você trabalhou (ou onde alguém da família trabalha). Quantos clientes eram atendidos por dia? Quanto custava cada produto? Dá para estimar quanto valor os trabalhadores produziam e quanto recebiam?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O lucro é o prêmio de quem arrisca o dinheiro e organiza o negócio. Sem lucro, ninguém abre empresa e ninguém tem emprego." É a visão de quem já tentou montar um negócio.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não ignora esse argumento: tem uma seção própria sobre "Mas a dona arriscou o dinheiro dela!" e outra sobre "Mas a dona trabalha também!", e reconhece que o trabalho do pequeno dono também cria valor. O que Marx propõe é olhar de onde sai o lucro: no exemplo da lanchonete, as duas funcionárias acrescentaram R$ 500 de valor e receberam R$ 200; os R$ 300 restantes ficaram com a dona, e os números são inventados só para mostrar o mecanismo. Salário e lucro saem do mesmo bolo, e é por isso que há disputa por aumento.
+```
+
+```agir
+# Esta semana
+Refaça no papel a conta da lanchonete da aula, mudando o salário das duas funcionárias de R$ 100 para R$ 150, e confira que o lucro cai de R$ 300 para R$ 200. Mostre a conta a alguém de casa, se quiser.
+```
 
 ## Resumo
 

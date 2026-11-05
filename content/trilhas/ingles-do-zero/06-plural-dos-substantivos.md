@@ -1,5 +1,6 @@
 ---
 titulo: "Plural dos substantivos"
+modelo: 9
 resumo: "Como formar o plural em inglês, as palavras que fogem da regra e as que não têm plural."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 Ao fim desta aula você vai saber formar o plural dos substantivos em inglês, incluindo os que terminam em -es e -ies e os irregulares.
 
 Na maior parte das vezes, o plural em inglês se forma como em português: com um **s** no final. *One book, two books.* Mas há detalhes de escrita, de pronúncia e um grupo de palavras que muda por inteiro. Esta aula passa por todos eles.
+
+```suarealidade
+Pense nas coisas que você compra ou usa em quantidade no dia a dia: caixas, panelas, ferramentas. Você diria que o plural é sempre "só botar um s"?
+```
 
 ## A regra geral: acrescente -s
 
@@ -120,6 +125,15 @@ Dizer "an information" ou "some advices" é um erro comum de quem fala portuguê
 
 Coisas formadas por **duas partes iguais** ficam sempre no plural: *pants* ou *trousers* (calça), *jeans*, *shorts*, *glasses* (óculos), *scissors* (tesoura). *My glasses **are** on the table.* Para contar, usa-se *a pair of*: *a pair of jeans* (uma calça jeans).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "É só colocar um s no fim e pronto. Quem se preocupa com plural em inglês está complicando." É uma regra simples, que quase sempre vale.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Na maior parte das vezes é isso mesmo: a aula começa dizendo que o plural se forma como em português, com um s. Mas ela mostra os detalhes: as palavras terminadas em s, ss, sh, ch, x, z levam -es; as terminadas em consoante mais y viram -ies; e há plurais irregulares, em que a palavra muda por inteiro. Conhecer a regra geral e as exceções evita erros comuns.
+```
+
 ## Exemplo resolvido
 
 **Qual é o plural de *bus*, *baby* e *knife*?**
@@ -137,6 +151,11 @@ Escreva o plural: *bus, baby, day, knife, child, person, box, tomato, woman, key
 Depois, descreva o que tem na sua cozinha usando números: *There are two chairs…* (você vai ver o *there are* com calma na aula 12).
 
 Respostas: buses, babies, days, knives, children, people, boxes, tomatoes, women, keys.
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, cinco coisas do seu trabalho ou da sua casa no plural, como "boxes", "tools" e "buses". Confira cada uma na regra que você aprendeu.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Separação de misturas"
+modelo: 9
 resumo: "Objetivo: conhecer os principais métodos para separar os componentes de uma mistura, da peneira à destilação, e onde eles são usados."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber escolher o método certo para separar uma mistura, a partir da propriedade em que os componentes são diferentes.
+
+```suarealidade
+No seu trabalho ou na sua casa, o que você separa com frequência: feijão e pedrinha, lixo reciclável, areia e água? Como você faz?
+```
 
 ## Separar é aproveitar diferenças
 
@@ -123,6 +128,15 @@ A **coleta seletiva** é uma catação feita na origem. A **reciclagem** que vem
 
 Quem faz a maior parte desse trabalho no Brasil são as **catadoras e os catadores** de materiais recicláveis. A Política Nacional de Resíduos Sólidos, de 2010, reconhece o papel deles e determina que as suas cooperativas e associações sejam integradas à gestão do lixo. Separar o lixo em casa, limpo e seco, é respeitar o trabalho de quem vive da triagem.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Separar lixo em casa é inútil, porque no fim vai tudo para o mesmo lugar. Não vale o esforço." É a opinião de quem já se cansou de tentar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o lixo é uma mistura, e que a coleta seletiva é uma catação feita na origem, o jeito mais simples de separar os componentes. Para separar, escolhe-se uma propriedade em que os componentes sejam diferentes, como tamanho, densidade ou atração pelo ímã. Se a coleta da sua rua não funciona direito, isso é um problema a cobrar de quem administra, mas não muda o método.
+```
+
 ## Exemplo resolvido
 
 **Como separar uma mistura de água, óleo e sal?**
@@ -141,6 +155,11 @@ Confira: primeiro se resolve o que é heterogêneo, com métodos físicos simple
 4. Existe coleta seletiva ou cooperativa de catadores no seu bairro? Como o material é separado?
 
 **Respostas:** 1) (a) catação; (b) decantação e filtração; (c) separação magnética; (d) destilação fracionada. 2) Porque as partículas do açúcar dissolvido são muito menores que os furos do coador. 3) Por exemplo: juntar água (a serragem boia e é retirada); filtrar (a areia fica no filtro); evaporar a água (o sal fica).
+
+```agir
+# Esta semana
+Separe em casa o lixo reciclável do que não é, e descubra se passa coleta seletiva na sua rua e em que dia.
+```
 
 ## Resumo
 

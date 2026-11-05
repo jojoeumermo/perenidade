@@ -1,5 +1,6 @@
 ---
 titulo: "Regra de três"
+modelo: 9
 resumo: "Conhecendo três valores, descobrir o quarto: a regra direta, a inversa e os casos em que ela não vale."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber resolver problemas de regra de três direta e inversa e conferir se a resposta faz sentido.
+
+```suarealidade
+Quando você faz "se 3 kg custam tanto, 5 kg custam quanto", como você calcula? Já teve que fazer isso na feira, no mercado ou na obra?
+```
 
 ## A conta mais usada da vida
 
@@ -120,6 +125,20 @@ Vale um cuidado a mais quando a conta envolve gente. "Se 10 operários fazem 200
 5. Oito pessoas colhem uma roça em 9 dias. Para colher em 6 dias, no mesmo ritmo, quantas pessoas são necessárias?
 
 **Respostas:** 1) R$ 7,50. 2) 2 horas. 3) 625 g. 4) 6%. 5) 12 pessoas.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Regra de três resolve tudo: se 10 operários fazem 200 peças, 5 fazem 100. Quem questiona está complicando." É a lógica de quem aprendeu a regra como receita.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a regra só funciona quando as grandezas são de fato proporcionais: um ovo cozinha em 10 minutos e três ovos não levam 30, e numa corrida de táxi com bandeirada o dobro da distância não custa o dobro. Sobre o exemplo dos operários, a aula diz que é verdade no papel, mas que, quando a empresa demite cinco e continua exigindo as 200 peças, a regra vira aumento de ritmo, hora extra e adoecimento. A matemática diz o que é proporcional, e decidir o que é justo é outra conversa.
+```
+
+```agir
+# Esta semana
+Faça uma regra de três com um preço da sua semana (por exemplo, quanto custam 5 kg se 3 kg custam R$ 24) e confira pelo "valor de um". Anote no papel as duas contas.
+```
 
 ## Resumo
 

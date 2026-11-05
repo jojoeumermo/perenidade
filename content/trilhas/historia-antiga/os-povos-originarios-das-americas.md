@@ -1,5 +1,6 @@
 ---
 titulo: "Os povos originários das Américas"
+modelo: 9
 resumo: "Objetivo: conhecer as grandes civilizações americanas (maias, astecas e incas, entre outras) e o que significou para elas a conquista europeia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer quando e como as Américas foram povoadas, o que os povos americanos deram ao mundo, como eram a Mesoamérica e os Andes e como foi a conquista europeia.
+
+```suarealidade
+Que alimentos que você comeu esta semana (milho, mandioca, feijão, batata, tomate) vieram de plantas cultivadas pelos povos originários das Américas?
+```
 
 
 ## Um continente povoado
@@ -125,6 +130,20 @@ Leitura: a conquista dos grandes impérios americanos foi rápida: a aula diz qu
 1. Por que se costuma dizer que Colombo "descobriu" a América? Quem estava aqui?
 2. O que os conquistadores ganhavam ao apresentar os indígenas como "selvagens"?
 3. Compare o modo como os incas guardavam alimentos para os tempos difíceis com o que acontece hoje em tempos de crise.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Os europeus conquistaram a América porque eram superiores. Poucas centenas de espanhóis derrotaram impérios de milhões de pessoas."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que os historiadores apontam outras causas. A primeira, e decisiva, foram as doenças: a varíola, o sarampo e a gripe, desconhecidas aqui, mataram a maior parte da população. A segunda, as alianças: povos dominados pelos astecas e facções em disputa entre os incas juntaram-se aos espanhóis, esperando livrar-se dos seus dominadores. A terceira, as armas de ferro e de fogo e os cavalos. Depois vieram o trabalho forçado nas minas de prata e nas fazendas, a destruição dos templos e dos livros, a imposição de outra religião e de outra língua.
+```
+
+```agir
+# Esta semana
+Liste cinco alimentos que você comeu esta semana e que vieram das Américas (por exemplo, milho, batata, tomate, feijão, mandioca, cacau). Conte a alguém da sua casa de onde eles vieram.
+```
 
 ## Resumo
 

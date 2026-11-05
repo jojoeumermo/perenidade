@@ -26,9 +26,9 @@ quiz:
     resposta: 1
     explicacao: "Ernesto Guevara nasceu em Rosário, na Argentina, em 1928, e formou-se médico em Buenos Aires."
   - pergunta: "O que foi a campanha de alfabetização de 1961?"
-    opcoes: ["Uma mobilização que levou cerca de 250 mil voluntários a ensinar a ler em todo o país", "Um programa de rádio", "Um curso para estrangeiros"]
+    opcoes: ["Uma mobilização de centenas de milhares de voluntários que foram ensinar a ler em todo o país", "Um programa de rádio", "Um curso para estrangeiros"]
     resposta: 0
-    explicacao: "Em um ano, a taxa de analfabetismo caiu de mais de 20% para menos de 4%, segundo os dados cubanos reconhecidos pela Unesco."
+    explicacao: "Em um ano, segundo dados oficiais cubanos, a taxa de analfabetismo caiu de mais de 20% para menos de 4%. A campanha é reconhecida internacionalmente, inclusive pela Unesco, como um grande esforço de alfabetização."
 ---
 
 ## O que você vai aprender

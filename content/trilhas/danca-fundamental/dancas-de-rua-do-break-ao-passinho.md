@@ -1,5 +1,6 @@
 ---
 titulo: "Danças de rua: do break ao passinho"
+modelo: 9
 resumo: "O breaking nasceu na década de 1970, em Nova Iorque, criado por jovens negros e latinos, e chegou às Olimpíadas de Paris 2024. No Brasil, a periferia inventa os próprios passos, como o Passinho do Romano, da Zona Leste de São Paulo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Uma dança inventada na calçada do Bronx, por jovens pobres, foi parar nas Olim
 
 Ao fim desta aula você vai conhecer a origem do breaking e da cultura hip-hop e um exemplo de dança criada na periferia brasileira.
 
+```suarealidade
+Quem na sua rua dança, canta, faz grafite ou batida? O que a cidade oferece para essas pessoas?
+```
+
 ## O breaking
 
 O **breaking** (também chamado de **b-boying** ou **breakdance**) é uma dança urbana de movimentos **acrobáticos e atléticos**, parte da **cultura hip-hop**. Foi criado por **afro-americanos e latinos** na **década de 1970**, em **Nova Iorque**, e se dança ao som de **rap, funk ou breakbeat**. No começo, era também uma **alternativa** para que jovens **não entrassem nas gangues** de rua. Teve influência de outras danças, entre elas a **capoeira**. Quem dança é **b-boy** ou **b-girl**.
@@ -72,6 +77,15 @@ O que o breaking e o passinho têm em comum?
 > Releia "O breaking" e "O passinho".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dança de rua é diversão, não é cultura de verdade nem profissão. O jovem deveria estudar e trabalhar." É a preocupação de pais e mães com o futuro dos filhos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o breaking nasceu nas ruas do Bronx, nos anos 1970, criado por afro-americanos e latinos, e que no começo era também uma alternativa para que jovens não entrassem nas gangues de rua. O hip-hop reúne DJ, rap, dança e grafite, e o Comitê Olímpico Internacional incluiu o breaking nas Olimpíadas de Paris 2024. No Brasil, o Passinho do Romano nasceu no Jardim Romano, em São Miguel Paulista, e ganhou mais de duzentos mil vídeos. Estudar e dançar não precisam ser coisas opostas.
+```
+
 ## Exemplo resolvido
 
 **Monte uma sequência de 8 tempos misturando o que você aprendeu.**
@@ -84,6 +98,11 @@ O que o breaking e o passinho têm em comum?
 | 7-8 | pose final, como numa batalha de breaking |
 
 Repita até ficar solto e depois **crie** o seu próprio movimento para os tempos 7-8.
+
+```agir
+# Esta semana
+Ensine a alguém de casa um passo seu, ou peça que essa pessoa lhe ensine um, e anote o nome do passo e de onde ele vem. Descubra se há uma roda ou batalha de dança de rua perto de você e anote onde e quando acontece.
+```
 
 ## Resumo
 

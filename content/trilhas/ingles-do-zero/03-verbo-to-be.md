@@ -1,5 +1,6 @@
 ---
 titulo: "O verbo to be"
+modelo: 9
 resumo: "O verbo mais usado do inglês, que vale por \"ser\" e por \"estar\"."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 Ao fim desta aula você vai saber usar *am*, *is* e *are* em frases afirmativas, negativas e perguntas, e entender por que o inglês precisa do sujeito.
 
 Em português existem dois verbos: **ser** ("eu sou alto") e **estar** ("eu estou cansado"). Em inglês, os dois são o mesmo verbo: **to be**.
+
+```suarealidade
+Como você se apresentaria numa frase: quem é, de onde é, como está hoje? Quais palavras do português você usaria: "sou" ou "estou"?
+```
 
 ## As três formas
 
@@ -69,6 +74,15 @@ Em inglês, a frase sempre precisa de sujeito. Em português dizemos "Está frio
 - It is cold. — Está frio.
 - It is late. — Está tarde.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ninguém fala 'I am' o tempo todo. Quem fala inglês de verdade corta o verbo, como a gente corta o sujeito em português." É a observação de quem escuta o inglês informal.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica a razão da regra: em português existem dois verbos, ser e estar, e o inglês junta os dois em to be. Ela ensina que o inglês precisa do sujeito na frase (I, you, he), ao contrário do português, e dá as formas curtas (I'm, you're, he's), que são as que se usam na fala. Quem aprende to be tem a base para as aulas seguintes.
+```
+
 ## Exemplo resolvido
 
 **Como passar "Ele é professor" para a negativa e para a pergunta?**
@@ -83,6 +97,11 @@ Confira: nas três frases o verbo continua *is*, porque o sujeito não mudou. O 
 ## Pratique
 
 Escreva três frases sobre você, uma afirmativa, uma negativa e uma pergunta para alguém. Por exemplo: *I'm a student. I'm not a doctor. Are you a student?*
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, cinco frases sobre você com am, is ou are: seu nome, seu trabalho, de onde você é, como você está. Leia em voz alta, usando as formas curtas.
+```
 
 ## Resumo
 

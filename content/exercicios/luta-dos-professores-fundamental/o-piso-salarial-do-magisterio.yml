@@ -1,0 +1,55 @@
+# Exercícios da aula "O piso salarial do magistério" (Luta dos professores, fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: pr-pis-01
+  tipo: numero
+  tema: "Hora-atividade"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Pela Lei do Piso, no máximo dois terços da jornada podem ser de trabalho direto com os alunos. Numa jornada de 30 horas semanais, no máximo quantas horas ficam em sala com os alunos?"
+  resposta: "20"
+  unidade: "horas"
+  erros_comuns:
+    - resposta: "10"
+      explicacao: "10 horas é o terço, que fica para planejar aula, corrigir, estudar e se reunir (a hora-atividade). Em sala fica no máximo o dobro disso."
+  dica: "Calcule dois terços de 30."
+  explicacao: "30 × 2/3 = 20 horas em sala. As outras 10 horas são de hora-atividade."
+  conferir: "30 * 2 / 3"
+  fonte: "Lei 11.738/2008, art. 2º, § 4º, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: pr-pis-02
+  tipo: numero
+  tema: "Piso proporcional"
+  dificuldade: 2
+  enunciado: "Suponha, só como exemplo, que o piso fosse de R$ 4.000 para 40 horas semanais. Qual seria o menor vencimento para uma professora com jornada de 25 horas?"
+  resposta: "2500"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "4000"
+      explicacao: "R$ 4.000 é o piso de 40 horas. Para jornada menor, o valor é proporcional."
+    - resposta: "1000"
+      explicacao: "Você calculou 4.000 × 25 ÷ 100. A proporção é com as 40 horas."
+  dica: "Ache o valor de uma hora e multiplique por 25."
+  explicacao: "4.000 ÷ 40 = R$ 100 por hora. 100 × 25 = R$ 2.500. Jornadas menores recebem, no mínimo, o valor proporcional (valores de exemplo; o do ano está no site do Ministério da Educação)."
+  conferir: "4000 / 40 * 25"
+  fonte: "Lei 11.738/2008, art. 2º, planalto.gov.br (valores do exercício são de exemplo)"
+  revisao:
+    status: em-revisao
+
+- id: pr-pis-03
+  tema: "O que entra no piso"
+  dificuldade: 3
+  enunciado: "Segundo o Supremo (ADI 4.167, 2011), a que o piso se refere?"
+  alternativas:
+    - texto: "Ao vencimento básico: gratificações e abonos não entram na conta"
+      certa: true
+    - texto: "Ao total do contracheque, com gratificações e abonos"
+      erro: "O STF decidiu que o piso é o vencimento básico. Um governo não pode pagar um vencimento baixo e somar penduricalhos."
+    - texto: "Ao valor que cada prefeitura quiser"
+      erro: "O piso é o mínimo nacional, e nenhum ente pode fixar o vencimento inicial abaixo dele."
+  explicacao: "A Lei do Piso (Lei 11.738, de 2008) diz que o piso é o valor abaixo do qual União, estados, Distrito Federal e municípios não podem fixar o vencimento inicial."
+  fonte: "Lei 11.738/2008, art. 2º; STF, ADI 4.167 (2011), conforme a aula"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,51 @@
+# Exercícios da aula "Racismo é crime" (Luta negra, fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ln-cri-01
+  tema: "Lei de 2023"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que a Lei 14.532, de 2023, mudou?"
+  alternativas:
+    - texto: "Tornou a injúria racial crime de racismo, com pena de 2 a 5 anos de reclusão e multa"
+      certa: true
+    - texto: "Acabou com a punição do racismo"
+      erro: "Fez o contrário: reforçou a punição."
+    - texto: "Passou a injúria racial a contravenção"
+      erro: "Antes de 2023 ela era tratada de outro modo. Agora é crime de racismo."
+  explicacao: "A pena aumenta de metade se o crime for cometido por duas ou mais pessoas. A lei também previu punição para o racismo religioso e recreativo."
+  fonte: "Lei 14.532/2023, que acrescentou o art. 2º-A à Lei 7.716/1989, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: ln-cri-02
+  tema: "Constituição de 1988"
+  dificuldade: 2
+  enunciado: "O que a Constituição de 1988 estabeleceu sobre a prática do racismo?"
+  alternativas:
+    - texto: "Que é crime, inafiançável e imprescritível, sujeito a prisão"
+      certa: true
+    - texto: "Que é só contravenção penal"
+      erro: "Contravenção era o que dizia a Lei Afonso Arinos, de 1951. Em 1988 virou crime."
+    - texto: "Que não tem punição"
+      erro: "A Constituição fez do racismo um crime sujeito a prisão."
+  explicacao: "Em 1951, a Lei Afonso Arinos tratou o racismo como contravenção. Em 1989, a Lei Caó definiu os crimes de preconceito de raça ou de cor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-cri-03
+  tema: "O que fazer"
+  dificuldade: 2
+  enunciado: "Diante de um caso de racismo, qual é um bom passo?"
+  alternativas:
+    - texto: "Reunir provas (vídeos, prints, nomes de testemunhas) e registrar ocorrência, ou ligar para o 190 se for flagrante"
+      certa: true
+    - texto: "Apagar tudo e esquecer"
+      erro: "Sem provas e sem registro, é mais difícil responsabilizar."
+    - texto: "Esperar que o agressor peça desculpas"
+      erro: "O caminho é registrar a ocorrência e buscar a Defensoria, o Ministério Público ou um advogado."
+  explicacao: "Também é possível procurar a Defensoria Pública, o Ministério Público ou um advogado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

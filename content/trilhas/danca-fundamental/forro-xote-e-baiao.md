@@ -1,5 +1,6 @@
 ---
 titulo: "Forró, xote e baião"
+modelo: 9
 resumo: "O forró é a festa e também um conjunto de gêneros (xote, baião, arrasta-pé, xaxado). Luiz Gonzaga levou a sanfona, a zabumba e o triângulo para o país inteiro, cantando a seca e a vida do sertanejo. Patrimônio do Brasil desde 2021."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ quiz:
 
 Ao fim desta aula você vai distinguir forró, xote e baião, conhecer o papel de Luiz Gonzaga e dançar o passo básico do xote.
 
+```suarealidade
+Que música ou dança de festa junina ou de forró lembra de onde a sua família veio?
+```
+
 ## Forró: a festa e os gêneros
 
 **Forró** é uma **festa** do **Nordeste**, muito ligada às **festas juninas**, e é também o nome de vários gêneros: **xote, baião, arrasta-pé e xaxado**. Tradicionalmente, toca o trio de **sanfona, zabumba e triângulo**. Desde os anos 1990, esses gêneros juntos também são chamados de **forró pé de serra**. As maiores festas juninas do país são em **Campina Grande** e **Caruaru**. Em **2021**, o forró foi reconhecido como **patrimônio cultural imaterial do Brasil**.
@@ -77,6 +82,15 @@ O que é verdade sobre o forró?
 > Releia "Forró: a festa e os gêneros".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O forró de hoje não é o de Luiz Gonzaga: virou festa comercial, e o forró pé de serra ficou no passado." É o lamento de quem sente falta do jeito antigo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que o forró mudou: ele é ao mesmo tempo uma festa e o nome de vários gêneros (xote, baião, arrasta-pé e xaxado). O que a aula mostra é que a tradição continua reconhecida: o trio de sanfona, zabumba e triângulo foi definido por Luiz Gonzaga; desde os anos 1990 os gêneros juntos também são chamados de forró pé de serra; as maiores festas juninas do país acontecem em Campina Grande e Caruaru; e, em 2021, o forró foi reconhecido como patrimônio cultural imaterial do Brasil. A memória de "Asa Branca" (1947), da seca e da migração, continua viva em quem a canta.
+```
+
 ## Exemplo resolvido
 
 **Dance o "dois pra lá, dois pra cá" do xote, contando até quatro.**
@@ -85,6 +99,11 @@ O que é verdade sobre o forró?
 2. **3 e 4**: dois passos para a direita (pisa e junta).
 3. Repita, solto, sentindo a **zabumba**.
 4. Em par: um conduz, o outro acompanha, mantendo o abraço leve.
+
+```agir
+# Esta semana
+Ouça "Asa Branca" com alguém de casa e pergunte o que a letra lembra a essa pessoa. Anote uma frase do que ela contar.
+```
 
 ## Resumo
 

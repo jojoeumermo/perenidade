@@ -1,0 +1,67 @@
+# Exercícios da aula "Como funciona a internet" (Informática essencial). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ie-net-01
+  tema: "Internet e web"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a diferença entre internet e web?"
+  alternativas:
+    - texto: "A internet é a rede em si; a web é um dos serviços que funcionam sobre ela, as páginas do navegador"
+      certa: true
+    - texto: "São a mesma coisa"
+      erro: "E-mail, chamadas de vídeo e jogos online também usam a internet e não são a web."
+    - texto: "A web é a rede; a internet é só o navegador"
+      erro: "É o contrário: a internet é a infraestrutura, e a web é um serviço sobre ela."
+  explicacao: "A internet é uma rede de redes, ligada por cabos, fibras ópticas e ondas de rádio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-net-02
+  tema: "DNS"
+  dificuldade: 2
+  enunciado: "Para que serve o DNS?"
+  alternativas:
+    - texto: "Para traduzir nomes de sites, como wikipedia.org, em endereços IP"
+      certa: true
+    - texto: "Para proteger o site com senha"
+      erro: "O DNS traduz nomes em números. A proteção é outra coisa."
+    - texto: "Para dividir os dados em pacotes"
+      erro: "Quem divide os dados em pacotes são os protocolos da rede. O DNS é a 'lista telefônica' dos nomes."
+  explicacao: "Ninguém quer decorar números. O DNS entrega o IP correspondente ao nome que você digita."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-net-03
+  tema: "Pacotes"
+  dificuldade: 2
+  enunciado: "Por que os dados da internet viajam em pacotes?"
+  alternativas:
+    - texto: "Porque cada pedaço pode seguir um caminho diferente, e se um caminho falha, os pacotes vão por outro"
+      certa: true
+    - texto: "Porque a internet só aceita arquivos pequenos"
+      erro: "Os arquivos podem ser grandes. Eles são divididos em pedaços pequenos para viajar."
+    - texto: "Porque isso esconde a conversa de quem quiser ler"
+      erro: "A divisão em pacotes não é segredo. Quem embaralha a conversa é a criptografia do HTTPS."
+  explicacao: "Cada pacote leva o endereço de origem e o de destino. No destino, são reunidos na ordem certa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ie-net-04
+  tema: "Cadeado do HTTPS"
+  dificuldade: 3
+  enunciado: "O que o cadeado do HTTPS garante?"
+  alternativas:
+    - texto: "Que a conversa entre você e o site é criptografada, e ninguém no meio consegue ler ou alterar"
+      certa: true
+    - texto: "Que o site é honesto"
+      erro: "Páginas de golpe também usam HTTPS. Confira sempre se o endereço é o do site que você queria."
+    - texto: "Que o site não tem vírus nem anúncios"
+      erro: "O cadeado não diz nada sobre o conteúdo nem sobre as intenções de quem fez o site."
+  explicacao: "O HTTPS embaralha a conversa de modo que só as duas pontas consigam ler. Não garante honestidade do site."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

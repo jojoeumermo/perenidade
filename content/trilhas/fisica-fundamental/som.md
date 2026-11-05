@@ -1,5 +1,6 @@
 ---
 titulo: "Som"
+modelo: 9
 resumo: "Objetivo: entender o que é o som, o que diferencia o grave do agudo e o fraco do forte, e como proteger a audição no trabalho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é o som, a diferença entre grave e agudo, fraco e forte, e como se protege a audição do ruído.
+
+```suarealidade
+Há barulho forte no seu trabalho ou perto da sua casa? Você já saiu de lá com o ouvido zunindo?
+```
 
 
 ## Uma vibração que viaja
@@ -135,6 +140,20 @@ Confira de volta: 3.087 ÷ 343 = 9 s. Se o trovão chegasse em 3 segundos, a con
 4. Como melhorar a acústica do salão onde a sua comunidade se reúne?
 
 **Resposta do 1:** Cerca de 2 km (6 × 340 m).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Barulho a gente se acostuma. Protetor de ouvido incomoda, e eu escuto muito bem."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que o som alto por muito tempo destrói as células do ouvido interno, e elas não se regeneram: a perda é irreversível, não dói e avança devagar. Quando a pessoa nota, o dano está feito. Por isso a ordem correta das medidas é reduzir o ruído na fonte, depois reduzir o tempo de exposição e só por último usar o protetor, que não pode ser a única resposta da empresa. Quem trabalha em ambiente ruidoso tem direito a exames periódicos de audição.
+```
+
+```agir
+# Esta semana
+Repare no volume do seu fone de ouvido e baixe um pouco. Pergunte a alguém que trabalha em lugar barulhento se já fez exame de audição e o que a empresa faz para diminuir o ruído.
+```
 
 ## Resumo
 

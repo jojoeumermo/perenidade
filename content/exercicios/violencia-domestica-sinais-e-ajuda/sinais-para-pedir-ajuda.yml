@@ -1,0 +1,50 @@
+# Exercícios da aula "Pedir ajuda sem alertar o agressor: o X vermelho, o sinal com a mão e o Ligue 180" (violencia-domestica-sinais-e-ajuda). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: violencia-domestica-si-sinais-para-pedir-ajuda-01
+  tema: "Sinal Vermelho"
+  dificuldade: 1
+  enunciado: "Como a mulher faz o Sinal Vermelho?"
+  alternativas:
+    - texto: "Desenha um X na palma da mão, de preferência em vermelho, e mostra a um atendente de um estabelecimento participante"
+      certa: true
+    - texto: "Liga para a polícia em voz alta"
+      erro: "O sinal serve para pedir ajuda sem alertar o agressor."
+    - texto: "Escreve uma carta"
+      erro: "O sinal é um X na palma da mão."
+  explicacao: "Quem vê o sinal não pergunta nada na frente de outras pessoas, leva a mulher para um lugar reservado e liga para o 190."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pedir ajuda sem alertar o agressor: o X vermelho, o sinal com a mão e o Ligue 180\""
+  revisao:
+    status: em-revisao
+
+- id: violencia-domestica-si-sinais-para-pedir-ajuda-02
+  tema: "Lei 14.188"
+  dificuldade: 2
+  enunciado: "O que a Lei 14.188, de 2021, fez, segundo a aula?"
+  alternativas:
+    - texto: "Transformou o Sinal Vermelho em programa nacional e incluiu no Código Penal o crime de violência psicológica contra a mulher"
+      certa: true
+    - texto: "Acabou com o Sinal Vermelho"
+      erro: "A lei o transformou em programa nacional."
+    - texto: "Proibiu o sinal com a mão"
+      erro: "A lei não trata do gesto de mão."
+  explicacao: "Humilhar, ameaçar, isolar, vigiar e controlar também é crime."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pedir ajuda sem alertar o agressor: o X vermelho, o sinal com a mão e o Ligue 180\""
+  revisao:
+    status: em-revisao
+
+- id: violencia-domestica-si-sinais-para-pedir-ajuda-03
+  tema: "Sinal com a mão"
+  dificuldade: 2
+  enunciado: "Como é o sinal com a mão para pedir ajuda?"
+  alternativas:
+    - texto: "Palma aberta virada para quem vê, polegar dobrado sobre a palma e os outros quatro dedos fechados sobre o polegar"
+      certa: true
+    - texto: "Cruzar os braços no peito"
+      erro: "Não é o gesto da aula."
+    - texto: "Acenar com os dois braços"
+      erro: "Não é o gesto da aula."
+  explicacao: "Foi criado em abril de 2020 pela Canadian Women's Foundation, e não deixa mensagem escrita nem gravação de voz."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pedir ajuda sem alertar o agressor: o X vermelho, o sinal com a mão e o Ligue 180\""
+  revisao:
+    status: em-revisao

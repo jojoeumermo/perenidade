@@ -1,5 +1,6 @@
 ---
 titulo: "Família, casa e rotina"
+modelo: 9
 resumo: "Vocabulário para falar da família, dos cômodos da casa e do dia a dia, com o que você já aprendeu de gramática."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 Ao fim desta aula você vai saber falar em inglês da sua família, da sua casa e do seu dia, juntando o *to be*, os possessivos e o presente simples.
 
 Esta aula junta o que você aprendeu até aqui (o *to be*, os possessivos e o presente simples) com o vocabulário do dia a dia: a família, a casa e a rotina. É o tipo de conversa que aparece em qualquer primeiro contato.
+
+```suarealidade
+Como é a sua família e a sua casa? Quem mora com você, quantos cômodos têm, e como é o seu dia, do acordar ao dormir? Pense em como você contaria isso a um estranho.
+```
 
 ## A família
 
@@ -122,6 +127,15 @@ Tradução: Meu nome é Joana. Moro numa casa pequena em Nova Iguaçu com meu ma
 
 Repare nos verbos com -s quando o sujeito é *my husband* (*he works, he takes*) e sem -s quando o sujeito é *I* ou *we*.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Inglês para trabalhador adulto é perda de tempo. O tradutor do celular resolve, e o que a gente precisa mesmo é de português e de conta." É a opinião de quem tem pouco tempo e muita coisa a resolver.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O tradutor ajuda, mas a aula mostra o que ele não faz por você: conversar. Ela junta o que já foi aprendido (o to be, os possessivos e o presente simples) com o vocabulário da família, da casa e da rotina, que é o tipo de conversa que aparece em qualquer primeiro contato. Falar de quem você é e do seu dia, com as suas palavras, dá autonomia numa conversa de poucos minutos.
+```
+
 ## Exemplo resolvido
 
 **Como dizer "Tenho dois irmãos e uma irmã. Meus avós moram no interior"?**
@@ -140,6 +154,11 @@ Escreva um parágrafo como o da Joana, sobre você: quem mora na sua casa, como 
 - *How many rooms does your house have?*
 - *What time do you get up?*
 - *What do you do on weekends?*
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, três frases curtas sobre a sua família e a sua casa, como "My mother is at home" ou "I have two brothers". Leia em voz alta para alguém de confiança.
+```
 
 ## Resumo
 

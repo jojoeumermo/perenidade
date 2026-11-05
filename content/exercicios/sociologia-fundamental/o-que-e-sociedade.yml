@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é sociedade" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-o-que-e-sociedade-01
+  tema: "Papéis"
+  dificuldade: 1
+  enunciado: "O que são papéis sociais, segundo a aula?"
+  alternativas:
+    - texto: "Comportamentos esperados de quem ocupa um lugar na divisão do trabalho, como estudante, professora, motorista e mãe"
+      certa: true
+    - texto: "Papéis de teatro apenas"
+      erro: "A aula fala de funções na sociedade."
+    - texto: "Leis escritas"
+      erro: "As leis são um tipo de norma social."
+  explicacao: "Cada pessoa ocupa vários papéis ao mesmo tempo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é sociedade\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-o-que-e-sociedade-02
+  tema: "Normas"
+  dificuldade: 2
+  enunciado: "O que são normas sociais?"
+  alternativas:
+    - texto: "Expectativas sobre o comportamento: algumas viram leis, outras são costumes"
+      certa: true
+    - texto: "Só as leis escritas e com punição"
+      erro: "Há também costumes, como cumprimentar alguém."
+    - texto: "Regras iguais para todas as sociedades"
+      erro: "As normas mudam de uma sociedade para outra e com o tempo."
+  explicacao: "Cumprimentar alguém ao chegar é um exemplo de costume."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é sociedade\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-o-que-e-sociedade-03
+  tema: "Sociedade"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre viver em sociedade?"
+  alternativas:
+    - texto: "A gente aprende a falar, a vestir e a pensar dentro de uma sociedade, e usa saberes que outras pessoas criaram"
+      certa: true
+    - texto: "Quem mora longe de todos vive sem sociedade"
+      erro: "Mesmo quem mora longe usa a língua e os saberes criados por outros."
+    - texto: "Cada um inventa tudo sozinho"
+      erro: "Ninguém vive sozinho."
+  explicacao: "A sociologia estuda como as relações moldam a vida de cada um e como as pessoas juntas podem mudar a sociedade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é sociedade\""
+  revisao:
+    status: em-revisao

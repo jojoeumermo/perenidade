@@ -1,5 +1,6 @@
 ---
 titulo: "Saneamento básico"
+modelo: 9
 resumo: "Saneamento básico não é só esgoto: a lei brasileira inclui água potável, esgoto, limpeza urbana e lixo, e drenagem da chuva. O Marco Legal de 2020 definiu a meta de levar água a 99% da população e coleta e tratamento de esgoto a 90% até o fim de 2033."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Quando chove forte e a rua alaga, o problema é só a chuva? Ou falta alguma coi
 
 Ao fim desta aula você vai saber o que é saneamento básico segundo a lei e quais são as metas do Brasil para ele.
 
+```suarealidade
+Na sua rua, existe água encanada, esgoto, coleta de lixo e escoamento da chuva? Qual dessas quatro coisas falta?
+```
+
 ## O que diz a lei
 
 Pela **Lei nº 11.445, de 2007**, com a redação dada pela **Lei nº 14.026, de 2020**, saneamento básico é o conjunto de serviços públicos, infraestruturas e instalações de:
@@ -64,6 +69,15 @@ Uma rua tem água encanada, mas o esgoto corre a céu aberto. O saneamento bási
 > Releia a seção "O que diz a lei".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Saneamento é obra cara e demorada, e o poder público não dá conta. O melhor é entregar para empresas privadas, que têm dinheiro e eficiência, ou cada um resolver o seu." É a opinião de quem vê o poder público falhar e quer uma saída rápida.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o Marco Legal do Saneamento (2020) fixou metas de universalização: água potável para 99% da população e coleta e tratamento de esgoto para 90%, até 31 de dezembro de 2033, e exige que os contratos tenham metas também de não interromper o abastecimento e reduzir perdas de água. Quem executa o serviço é um debate legítimo. O que a aula afirma é que saneamento é saúde pública: sem água tratada e sem esgoto, as pessoas adoecem. Dá para acompanhar se as metas estão sendo cumpridas na sua cidade.
+```
+
 ## Exemplo resolvido
 
 **Uma cidade tem 200 mil habitantes. Quantos precisam ter coleta e tratamento de esgoto até o fim de 2033 para cumprir a meta?**
@@ -71,6 +85,11 @@ Uma rua tem água encanada, mas o esgoto corre a céu aberto. O saneamento bási
 1. A meta é de **90%** da população.
 2. 200.000 × 0,90 = **180.000** pessoas.
 3. Para a água potável, a meta de **99%** dá 200.000 × 0,99 = **198.000** pessoas.
+
+```agir
+# Esta semana
+Anote num papel quais das quatro partes do saneamento (água, esgoto, lixo, drenagem da chuva) existem na sua rua. Depois, observe os bueiros depois de uma chuva e escreva se dão conta da água.
+```
 
 ## Resumo
 

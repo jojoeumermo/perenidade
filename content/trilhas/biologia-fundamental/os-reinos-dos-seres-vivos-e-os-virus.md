@@ -1,5 +1,6 @@
 ---
 titulo: "Os reinos dos seres vivos e os vírus"
+modelo: 9
 resumo: "Objetivo: entender como a biologia classifica os seres vivos, reconhecer os grandes grupos e explicar por que os vírus ficam fora dessa classificação."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber como a biologia classifica os seres vivos (do domínio à espécie), ler um nome científico, reconhecer os grandes grupos e explicar por que os vírus não aparecem entre eles.
+
+```suarealidade
+Quando alguém da sua família está com gripe ou resfriado, o que costuma tomar? Alguém já sugeriu antibiótico? Como saber se é vírus ou bactéria?
+```
 
 ## Por que classificar
 
@@ -133,6 +138,20 @@ Contra muitos vírus, a melhor defesa é a [vacina](/trilhas/biologia-fundamenta
 4. **Conclua.** É um **fungo**, como os cogumelos e os bolores.
 
 Confira: tem núcleo (não é bactéria) e não faz fotossíntese (não é planta).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se o antibiótico curou da última vez, vai curar de novo. Esse negócio de vírus e bactéria é detalhe de cientista." É uma ideia muito difundida, até entre quem vende remédio.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que vírus não são células: são parasitas obrigatórios, que só se multiplicam dentro de uma célula viva, e que antibiótico não mata vírus. A maior parte das bactérias, aliás, não causa doença. Quem toma antibiótico à toa não melhora de gripe e ainda pode atrapalhar o tratamento no futuro. A diferença entre vírus e bactéria é o que decide o remédio certo, e por isso vale ouvir o profissional de saúde.
+```
+
+```agir
+# Esta semana
+Escreva num papel três doenças que você conhece e marque ao lado se são causadas por vírus ou por bactéria. Se não souber, pergunte ao profissional da unidade de saúde ou procure no Ministério da Saúde.
+```
 
 ## Resumo
 

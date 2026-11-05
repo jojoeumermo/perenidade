@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é racismo" (Luta negra, fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ln-rac-01
+  tema: "Preconceito ou discriminação"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O segurança de uma loja segue só os clientes negros. Isso é:"
+  alternativas:
+    - texto: "Discriminação: uma ação que trata alguém de forma diferente e pior"
+      certa: true
+    - texto: "Preconceito: só uma ideia, sem ação"
+      erro: "Preconceito é a ideia. Seguir só os clientes negros é uma ação: discriminação."
+    - texto: "Apenas uma brincadeira"
+      erro: "É discriminação, e pode ser crime."
+  explicacao: "Preconceito é uma ideia formada antes de conhecer a pessoa. Discriminação é uma ação. Racismo é o preconceito e a discriminação baseados na ideia de raças superiores e inferiores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-rac-02
+  tema: "Racismo estrutural"
+  dificuldade: 2
+  enunciado: "Uma empresa nunca xinga ninguém, mas quase não tem pessoas negras na diretoria. Isso pode ser racismo?"
+  alternativas:
+    - texto: "Sim, pode ser racismo estrutural: a desigualdade aparece na forma como as oportunidades são distribuídas"
+      certa: true
+    - texto: "Não, racismo é só xingamento"
+      erro: "O racismo estrutural não depende de ofensa. Ele aparece no funcionamento da sociedade."
+    - texto: "Não, porque é uma empresa"
+      erro: "O conceito vale para empresas e outras instituições."
+  explicacao: "Para Silvio Almeida, a sociedade é uma máquina produtora de desigualdade racial. O conceito é usado para defender ações afirmativas, como as cotas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-rac-03
+  tema: "Classificar"
+  dificuldade: 3
+  enunciado: "Pensar que pessoas negras 'não são boas em matemática' é:"
+  alternativas:
+    - texto: "Preconceito: uma ideia baseada em estereótipo"
+      certa: true
+    - texto: "Discriminação: uma ação que prejudica alguém"
+      erro: "Ainda é só a ideia. Recusar um candidato por isso seria a discriminação."
+    - texto: "Racismo estrutural"
+      erro: "O racismo estrutural trata de desigualdades do funcionamento da sociedade."
+  explicacao: "Recusar um candidato por ser negro é discriminação. Bairros mais pobres e com menos serviços serem os de maioria negra é racismo estrutural."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

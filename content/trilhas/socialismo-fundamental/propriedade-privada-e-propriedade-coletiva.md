@@ -1,5 +1,6 @@
 ---
 titulo: "Propriedade privada e propriedade coletiva"
+modelo: 9
 resumo: "A sua casa não é o problema: a diferença entre propriedade pessoal, propriedade privada dos meios de produção e propriedade coletiva."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 Ao fim desta aula você vai saber separar propriedade pessoal, propriedade privada dos meios de produção e propriedade coletiva, e dizer o que o socialismo propõe sobre cada uma.
 
 Quando alguém diz "os socialistas querem acabar com a propriedade privada", muita gente pensa logo na própria casa, no carro, no celular. Vamos separar as coisas com calma.
+
+```suarealidade
+O que você tem que é seu de verdade: casa, moto, ferramentas? E o que é de todos no seu bairro, como a praça ou o posto de saúde?
+```
 
 ## Três tipos de propriedade
 
@@ -78,6 +83,15 @@ Mesmo no capitalismo, a propriedade não é absoluta. A **Constituição brasile
 - As **terras indígenas**, que pela Constituição são bens da União de usufruto exclusivo dos povos que as ocupam.
 - **Fábricas recuperadas**, que os trabalhadores assumiram depois da falência dos donos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O socialismo quer tomar a casa, o carro e as economias de quem trabalhou a vida inteira." É o medo de muita gente que lutou para ter o que tem.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que há três tipos de propriedade: a pessoal (casa, roupas, celular, economias), a privada dos meios de produção e a coletiva. O socialismo não propõe tomar a propriedade pessoal; quer transformar a propriedade privada dos meios de produção. O Manifesto Comunista (1848) já respondia a essa confusão, dizendo que a propriedade privada só existe para poucos porque não existe para a maioria. E a Constituição brasileira (art. 5º e art. 186) já exige função social da propriedade.
+```
+
 ## Exemplo resolvido
 
 **Uma costureira que vive de uma máquina própria e uma grande fábrica de roupas com centenas de empregados são a mesma coisa para a proposta socialista?**
@@ -91,6 +105,11 @@ Conclusão: não são a mesma coisa. A casa, o carro e as economias de dona Rosa
 ## Para conversar
 
 Na sua cidade, quais bens são de uso coletivo (praça, escola, posto de saúde, biblioteca)? Como seria a vida se eles também fossem privatizados?
+
+```agir
+# Esta semana
+Faça duas listas: o que é propriedade pessoal sua e o que é de uso coletivo no seu bairro (praça, posto, escola). Mostre a alguém e pergunte o que essa pessoa pensa.
+```
 
 ## Resumo
 

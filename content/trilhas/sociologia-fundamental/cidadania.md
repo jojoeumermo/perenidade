@@ -1,5 +1,6 @@
 ---
 titulo: "Cidadania"
+modelo: 9
 resumo: "Ser cidadão é ter direitos e deveres e poder participar da vida da sociedade e do governo. Segundo o sociólogo T. H. Marshall, a cidadania moderna junta três grupos de direitos, conquistados em épocas diferentes: civis, políticos e sociais."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Ter um documento de identidade faz de alguém um cidadão? Ou cidadania é mais 
 
 Ao fim desta aula você vai entender o que é cidadania e conhecer os três grupos de direitos que a formam.
 
+```suarealidade
+Qual direito você usou esta semana sem nem pensar nele, como a escola, o posto de saúde, o transporte ou o voto?
+```
+
 ## O que é cidadania
 
 **Cidadania** é a relação de uma pessoa com a sociedade em que vive, com **direitos e deveres**. Segundo o jurista **Dalmo de Abreu Dallari**, são esses direitos e práticas que dão à pessoa a possibilidade de **participar ativamente** da vida social e do governo do seu povo.
@@ -62,6 +67,15 @@ Uma pessoa tem direito ao voto, mas não tem acesso a escola nem a hospital. A c
 > Releia a seção "Os três grupos de direitos".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cidadania é só ter documento e votar. O resto é favor do governo." É a opinião de quem aprendeu que direito é concessão.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que cidadania é ter direitos e deveres para participar da vida social e política. T. H. Marshall separou os direitos civis (séc. XVIII), os políticos (séc. XIX) e os sociais (séc. XX), e todos foram conquistados em lutas, não dados de favor. Por isso cidadania é conhecer, usar e defender os direitos.
+```
+
 ## Exemplo resolvido
 
 **Classifique cada direito: (a) liberdade de expressão; (b) votar; (c) estudar na escola pública; (d) ser atendido num posto de saúde.**
@@ -69,6 +83,11 @@ Uma pessoa tem direito ao voto, mas não tem acesso a escola nem a hospital. A c
 1. **(a)**: direito **civil**.
 2. **(b)**: direito **político**.
 3. **(c)** e **(d)**: direitos **sociais**.
+
+```agir
+# Esta semana
+Faça uma lista de três direitos que você usa e diga a que grupo cada um pertence (civil, político ou social). Mostre a alguém de casa.
+```
 
 ## Resumo
 

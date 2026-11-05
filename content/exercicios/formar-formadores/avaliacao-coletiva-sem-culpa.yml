@@ -1,0 +1,51 @@
+# Exercícios da aula "Avaliação coletiva sem culpa" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-ava-01
+  tema: "Sem culpado"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que a avaliação coletiva não deve virar busca de culpado?"
+  alternativas:
+    - texto: "Porque as pessoas se defendem, se calam ou escondem, e o grupo perde a informação de que precisa"
+      certa: true
+    - texto: "Porque ninguém erra"
+      erro: "Todo grupo erra. O ponto é aprender com o processo."
+    - texto: "Porque culpado só existe fora do grupo"
+      erro: "O foco é o processo, e não a pessoa."
+  explicacao: "Pergunte 'o que faltou na nossa preparação?' em vez de 'quem errou?'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-ava-02
+  tema: "As quatro perguntas"
+  dificuldade: 2
+  enunciado: "Qual é a ordem das quatro perguntas da avaliação?"
+  alternativas:
+    - texto: "O que esperávamos? O que aconteceu? Por que foi diferente ou igual? O que fazemos na próxima vez?"
+      certa: true
+    - texto: "Quem errou? Quem pede desculpas? Quem paga? Quem sai?"
+      erro: "Essa ordem procura culpado, e não aprendizado."
+    - texto: "O que foi bom? O que foi ruim? Quem vai explicar? Fim"
+      erro: "Faltam as causas e as mudanças para a próxima vez."
+  explicacao: "Em português de grupo: combinamos o quê? O que rolou? Por quê? E agora?"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-ava-03
+  tema: "Regras de respeito"
+  dificuldade: 2
+  enunciado: "Qual destas é uma boa regra para a avaliação coletiva?"
+  alternativas:
+    - texto: "Crítica à ideia, e não à pessoa, e ninguém é interrompido"
+      certa: true
+    - texto: "Quem falou mais deve falar primeiro e por mais tempo"
+      erro: "Isso silencia os outros. Todos devem ter voz."
+    - texto: "O que foi dito deve ser divulgado fora do grupo"
+      erro: "A regra é que o que foi dito ali fica ali."
+  explicacao: "Falamos de fatos, sem opinião sobre a pessoa. Depois, transformamos o que aprendemos em tarefas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

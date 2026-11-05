@@ -1,5 +1,6 @@
 ---
 titulo: "Juros: o preço do dinheiro"
+modelo: 9
 resumo: "O que são juros, por que os compostos fazem a dívida explodir e como se defender."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber a diferença entre juros simples e compostos, calcular o quanto uma dívida cresce e se defender dos créditos mais caros.
+
+```suarealidade
+Você ou alguém da sua casa já deixou uma conta, a fatura do cartão ou o cheque especial acumular? Quanto a dívida cresceu?
+```
 
 ## Aluguel de dinheiro
 
@@ -89,6 +94,15 @@ Juros altos não são um fenômeno da natureza. São uma transferência de renda
 2. Agora simule R$ 100 guardados todo mês, a 0,6% ao mês, por 10 anos. Quanto você depositou e quanto ganhou de juros?
 3. Compare os dois resultados. O que eles dizem sobre quem ganha com os juros?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem pega empréstimo sabia do juro: ninguém é obrigado. Se o juro é alto, é porque o risco de calote é alto, e limitar juro faz o crédito sumir." É a posição de quem empresta e de quem estuda crédito.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra a conta que muita gente não vê: R$ 1.000 a 10% ao mês viram R$ 3.138,43 em 12 meses nos juros compostos. Segundo dados do Banco Central citados na aula, o rotativo do cartão tem ficado acima de 400% ao ano, e, desde janeiro de 2024, uma lei limita os juros e encargos dessa modalidade ao valor original da dívida. A aula também ensina a se defender, sem negar que crédito tem custo: pedir o Custo Efetivo Total (CET), fugir do rotativo e do cheque especial, desconfiar de "sem juros", renegociar (Procon e Defensoria orientam de graça) e fazer a conta antes. Segundo a aula, juros altos pesam como transferência de renda de quem precisa de crédito para quem tem dinheiro sobrando.
+```
+
 ## Exemplo resolvido
 
 **R$ 1.000 a 10% ao mês: quanto se deve no fim do terceiro mês, e quanto de juros foi cobrado nesse mês? Faça mês a mês.**
@@ -99,6 +113,11 @@ Juros altos não são um fenômeno da natureza. São uma transferência de renda
 4. **Conclua.** Os juros do terceiro mês são de R$ 121, e não de R$ 100, porque a taxa incide sobre tudo o que já se acumulou.
 
 Confira: nos juros simples, o mesmo prazo de 12 meses daria R$ 2.200; nos compostos, R$ 3.138,43. A dívida mais que triplicou.
+
+```agir
+# Esta semana
+Na ferramenta de juros compostos do instituto, simule uma compra parcelada ou uma dívida da sua vida real e anote o total que seria pago. Compare com o preço à vista.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "A campanha de alfabetização da Nicarágua de 1980"
+modelo: 9
 resumo: "A Cruzada Nacional de Alfabetização da Nicarágua, logo depois da revolução de 1979: como foi organizada, o que alcançou segundo os números oficiais, as críticas e o que ela ensina a quem alfabetiza hoje."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Ao fim desta aula você vai conhecer a Cruzada Nacional de Alfabetização da Ni
 
 ```provocacao
 O que aconteceria no seu bairro se, por cinco meses, os estudantes do ensino médio fossem morar nas casas de quem não lê, para alfabetizar?
+```
+
+```suarealidade
+No seu bairro ou no seu trabalho, quem não lê ou lê com dificuldade? O que mudaria na vida dessas pessoas, e na de quem mora perto delas, se um grande esforço coletivo as ajudasse a aprender?
 ```
 
 ## O país em 1979
@@ -107,6 +112,20 @@ Confira: a minicruzada aproveitou a força da mobilização e evitou os dois pro
 
 ```realidade
 Escreva o que você faria para que as pessoas alfabetizadas numa campanha curta não perdessem a leitura nos anos seguintes.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Uma campanha de alguns meses feita por jovens sem formação de professor não alfabetiza de verdade. É propaganda do governo, e os números nunca foram conferidos." É uma crítica séria, e a própria aula a registra.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A crítica tem base: a aula diz que os resultados oficiais nunca foram auditados de forma independente e que um estudo de 1994 achou mulheres alfabetizadas na campanha que, uma década depois, já não liam. Mas o mesmo texto mostra o que a campanha deixou: a mobilização de dezenas de milhares de jovens e o prêmio da UNESCO. A conclusão honesta é aprender com os dois lados: mobilizar muita gente, conferir os números e garantir continuidade depois.
+```
+
+```agir
+# Esta semana
+Num papel, escreva duas coisas que poderiam ser feitas no seu bairro para que quem aprendeu a ler não perca a leitura depois (por exemplo, uma estante de livros ou um grupo de leitura). Converse sobre isso com alguém de confiança, se quiser.
 ```
 
 ## Resumo

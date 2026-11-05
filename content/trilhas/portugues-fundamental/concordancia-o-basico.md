@@ -1,5 +1,6 @@
 ---
 titulo: "Concordância: o básico"
+modelo: 9
 resumo: "As palavras da frase combinam entre si em número, gênero e pessoa. As regras gerais e os casos que mais confundem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber fazer a concordância nominal e a verbal, reconhecer verbos sem sujeito (haver, fazer) e evitar os tropeços mais comuns, sem confundir norma-padrão com inteligência.
 
 
+
+```suarealidade
+Você já foi corrigido, ou já corrigiu alguém, pela forma de falar? Como foi? Como você se sentiu?
+```
 
 ## Combinar
 
@@ -146,6 +151,15 @@ O linguista Marcos Bagno chama de **preconceito linguístico** o hábito de trat
 
 Duas coisas são verdadeiras ao mesmo tempo. Ninguém é menos inteligente por dizer "os menino". E a escrita formal, o concurso, a entrevista de emprego e o tribunal cobram a concordância da norma-padrão. Dominá-la é um direito, e a escola pública existe, entre outras coisas, para garantir esse direito a todos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Falar do jeito do povo é falar certo, porque a língua é de quem usa. Cobrar concordância é preconceito contra quem não teve estudo." É a opinião de quem já viu alguém ser humilhado pelo jeito de falar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda com a parte mais importante: ninguém é menos inteligente por dizer "os menino", e a aula cita Marcos Bagno sobre o preconceito linguístico. Ao mesmo tempo, explica que a norma-padrão pede o plural em todas as palavras na escrita formal, e que quem domina a norma-padrão tem mais um recurso, por exemplo para escrever um requerimento. As duas coisas podem ser verdade: respeitar quem fala de outro jeito e ensinar a norma-padrão como uma ferramenta a mais, sem desprezar ninguém.
+```
+
 ## Exemplo resolvido: três frases para consertar
 
 1. **"Chegou as encomendas."** Pergunte ao verbo: o que chegou? As encomendas. O sujeito (plural) vem depois do verbo; o verbo concorda com ele: **Chegaram as encomendas.**
@@ -153,6 +167,11 @@ Duas coisas são verdadeiras ao mesmo tempo. Ninguém é menos inteligente por d
 3. **"É proibido a entrada."** Com artigo, o adjetivo varia: **É proibida a entrada.** Sem artigo, ficaria "É proibido entrada".
 
 Confira: em todos os casos o erro vinha de procurar o sujeito perto do verbo, quando ele estava depois.
+
+```agir
+# Esta semana
+Escolha uma frase que você escreveu ou ouviu esta semana e confira num papel se o verbo concorda com o sujeito (pergunte "quem?" ao verbo). Se corrigir alguém, faça em particular e com respeito.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Calor e temperatura"
+modelo: 9
 resumo: "Objetivo: diferenciar calor de temperatura, conhecer as formas como o calor passa de um corpo a outro e aplicar isso na cozinha, na casa e no trabalho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber diferenciar calor de temperatura, dizer por onde o calor passa (condução, convecção e radiação) e explicar por que a água fervendo não esquenta além de 100 °C.
+
+```suarealidade
+Pense no seu trabalho ou na sua casa: onde você sente calor demais ou frio demais? De onde esse calor vem e como ele chega até você?
+```
 
 
 ## Quente e frio não bastam
@@ -119,6 +124,20 @@ Para converter para a escala científica, some 273: 25 °C são cerca de 298 K, 
 2. Por que as panelas têm fundo de metal e cabo de outro material?
 3. Onde, na sua casa ou no seu bairro, você já viu juntas de dilatação?
 4. No seu trabalho há exposição ao calor? Que pausas e proteções existem?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Calor no serviço é coisa de quem não aguenta. Sempre trabalhei no sol e nunca morri disso. Pausa e água são frescura."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula diz o contrário. Trabalhar sob sol forte, em fornos, fundições, cozinhas e lavouras expõe o corpo a um risco real: cãibras, exaustão e, no limite, a insolação, que pode matar. Em ambiente muito úmido, o suor não evapora e o corpo não consegue se resfriar. As normas brasileiras de segurança do trabalho estabelecem limites de exposição ao calor e exigem pausas, água e medidas de proteção. Ter aguentado até hoje não prova que não há risco.
+```
+
+```agir
+# Esta semana
+Olhe o seu local de trabalho ou a sua casa e anote um ponto em que o calor passa demais (janela sem proteção, teto sem forro, perto do forno) e um material isolante que poderia ajudar. Se você trabalha no calor, anote também que água e que pausas existem. Converse sobre isso com uma pessoa de confiança.
+```
 
 ## Resumo
 

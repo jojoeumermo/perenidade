@@ -1,5 +1,6 @@
 ---
 titulo: "Cooperativas de costura"
+modelo: 9
 resumo: "O que é uma cooperativa de trabalho, quantas pessoas precisa, os direitos que a lei garante às sócias, por que ela não pode ser usada para esconder emprego, como se decide em assembleia e o que a Política Nacional de Economia Solidária oferece."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ Sozinha, cada costureira do bairro compra tecido no varejo, tem uma máquina e v
 
 Ao fim desta aula você vai saber o que é uma cooperativa de trabalho, quantas pessoas precisa, quais direitos a lei garante, por que ela não pode esconder emprego, como se decide em assembleia e o que a Política Nacional de Economia Solidária prevê.
 
+```suarealidade
+Se você e mais seis pessoas de confiança abrissem um negócio juntas, quem decidiria o preço e a divisão do dinheiro?
+```
+
 ## O que é uma cooperativa de trabalho
 
 A **Lei nº 12.690, de 2012**, define a **cooperativa de trabalho** como a sociedade formada por **trabalhadoras e trabalhadores** para exercer suas atividades com **proveito comum, autonomia e autogestão**, para obter **melhor qualificação, renda e condições de trabalho**.
@@ -100,6 +105,15 @@ Uma cooperativa de costura paga às sócias, por uma jornada de 44 horas semanai
 > Veja o artigo 7º, inciso I.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cooperativa é dor de cabeça: sem patrão, ninguém manda, todo mundo briga, e quando falta serviço quem paga é a sócia. Melhor ter carteira assinada." É a experiência de quem já viu cooperativa não dar certo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece o risco e mostra o que a lei exige. As decisões saem da assembleia, com uma sócia, um voto, e a Lei 12.690 manda a cooperativa garantir retiradas não inferiores ao piso da categoria ou ao salário mínimo, jornada de até 8 horas por dia e 44 por semana, repousos remunerados, adicionais e seguro de acidente de trabalho (art. 7º). Mais: o artigo 5º proíbe usar cooperativa para esconder emprego. Se a empresa continua mandando como antes, com chefe, horário e ordens, isso é fraude. Cooperativa de verdade é para quem decide junto como trabalhar e dividir o resultado.
+```
+
 ## Exemplo resolvido
 
 **Sete costureiras de um bairro querem formar uma cooperativa de produção de uniformes escolares. Monte os primeiros passos.**
@@ -110,6 +124,11 @@ Uma cooperativa de costura paga às sócias, por uma jornada de 44 horas semanai
 4. **Contas**: o que cada uma traz (máquinas, dinheiro, trabalho), quanto custa o tecido em atacado e quanto se cobra por uniforme.
 5. **Direitos**: planejar retiradas acima do piso ou do salário mínimo, jornada dentro da lei e seguro de acidente.
 6. **Procurar apoio**: incubadoras de cooperativas, sindicatos e órgãos de economia solidária da cidade ou do estado.
+
+```agir
+# Esta semana
+Leia com outra costureira, ou com alguém de confiança, o artigo 7º da Lei 12.690 e marque num papel quais desses direitos você tem hoje no seu trabalho e quais não tem.
+```
 
 ## Resumo
 

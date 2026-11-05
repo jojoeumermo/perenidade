@@ -1,5 +1,6 @@
 ---
 titulo: "O Estácio e o samba que a gente conhece hoje"
+modelo: 9
 resumo: "No fim dos anos 1920, os sambistas do bairro do Estácio, no Rio, criaram a Deixa Falar, inventaram o nome \"escola de samba\" e levaram para a rua o surdo, a cuíca e uma batida própria para o desfile."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Experimente bater o samba de "Pelo Telefone" e depois um samba de escola. É o m
 
 Ao fim desta aula você vai entender o papel do bairro do Estácio, da Deixa Falar e de Ismael Silva na criação do samba de escola que a gente conhece hoje.
 
+```suarealidade
+Que instrumento de samba você já viu ou ouviu tocar? Você sabe quem o inventou ou de onde veio?
+```
+
 ## Os bambas do Estácio
 
 No fim dos anos 1920, o bairro do **Estácio**, no Rio, reunia uma geração de sambistas. Um deles era **Ismael Silva** (1905-1978), filho de um cozinheiro e de uma lavadeira, que chegou ao Estácio com três anos. Com **Nílton Bastos** e **Francisco Alves**, formou o trio conhecido como **Bambas do Estácio**; depois foi o parceiro mais frequente de **Noel Rosa**.
@@ -72,6 +77,15 @@ O que a Deixa Falar trouxe para o samba?
 > Releia "A Deixa Falar" e "Instrumentos novos para andar na rua".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O samba sempre foi do jeito que é hoje. Essa conversa de quem inventou o quê é detalhe de museu." É a opinião de quem ama o samba como ele é.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o samba que a gente conhece foi construído: nos anos 1920, no Estácio, surgiu uma geração de sambistas como Ismael Silva, e a Deixa Falar (1928) é considerada a primeira escola de samba. Seus membros introduziram a cuíca e inventaram o surdo, atribuído a Bide, para o samba poder andar na rua. "Na Pavuna" (1929) foi a primeira gravação com a percussão típica das escolas. Saber disso é reconhecer o trabalho de quem fez.
+```
+
 ## Exemplo resolvido
 
 **Compare o antes e o depois do Estácio.**
@@ -81,6 +95,11 @@ O que a Deixa Falar trouxe para o samba?
 | Lugar | rodas nas casas e quintais | desfile na rua |
 | Instrumentos | pandeiro, palmas, prato e faca | surdo, cuíca, tamborim, pandeiro |
 | Organização | grupos informais | "escola de samba" |
+
+```agir
+# Esta semana
+Ouça "Na Pavuna" e preste atenção na percussão. Depois diga a alguém o que você percebeu no som do surdo.
+```
 
 ## Resumo
 

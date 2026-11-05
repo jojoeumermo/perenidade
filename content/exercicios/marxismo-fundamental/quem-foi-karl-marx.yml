@@ -1,0 +1,68 @@
+# Exercícios da aula "Quem foi Karl Marx" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-kar-01
+  tema: "Quem publicou O Capital"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Quem organizou e publicou os volumes 2 e 3 de O Capital?"
+  alternativas:
+    - texto: "Friedrich Engels, depois da morte de Marx"
+      certa: true
+    - texto: "O próprio Marx, em vida"
+      erro: "O volume 1 saiu em 1867, em vida. Os volumes 2 e 3 foram organizados por Engels depois da morte do amigo."
+    - texto: "Lenin"
+      erro: "Lenin viveu depois. Quem organizou os volumes foi Engels."
+  explicacao: "Marx morreu em 14 de março de 1883, em Londres."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-kar-02
+  tema: "O Manifesto"
+  dificuldade: 2
+  enunciado: "Com quem Marx escreveu o Manifesto Comunista, publicado em 1848?"
+  alternativas:
+    - texto: "Friedrich Engels"
+      certa: true
+    - texto: "Paulo Freire"
+      erro: "Paulo Freire viveu no século XX."
+    - texto: "Karl Kautsky"
+      erro: "O Manifesto foi escrito com Engels."
+  explicacao: "Engels era filho de um industrial têxtil e tinha visto de perto a miséria dos operários de Manchester."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-kar-03
+  tipo: numero
+  tema: "Idade de Marx"
+  dificuldade: 2
+  enunciado: "Marx nasceu em 1818 e morreu em 1883. Quantos anos viveu?"
+  resposta: "65"
+  unidade: "anos"
+  erros_comuns:
+    - resposta: "2701"
+      explicacao: "2.701 é a soma dos dois anos. Para a idade, subtraia."
+  dica: "Subtraia o ano de nascimento do ano de morte."
+  explicacao: "1883 − 1818 = 65 anos."
+  conferir: "1883 - 1818"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-kar-04
+  tema: "Marx militante"
+  dificuldade: 3
+  enunciado: "Marx foi só um estudioso de gabinete?"
+  alternativas:
+    - texto: "Não: ajudou a fundar a Primeira Internacional, em 1864, e defendeu a Comuna de Paris"
+      certa: true
+    - texto: "Sim, nunca saiu da biblioteca"
+      erro: "Ele estudava na biblioteca, mas também organizava os trabalhadores."
+    - texto: "Não, foi presidente da Alemanha"
+      erro: "Nunca foi governante. Foi jornalista, pensador e militante."
+  explicacao: "No túmulo está gravada a 11ª tese sobre Feuerbach: o que importa é transformar o mundo, e não só interpretá-lo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

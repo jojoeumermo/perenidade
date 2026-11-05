@@ -1,5 +1,6 @@
 ---
 titulo: "Povos indígenas isolados"
+modelo: 9
 resumo: "Ainda há povos que vivem sem contato com o resto da sociedade, por decisão própria ou pelas circunstâncias. A maior concentração do mundo está no Vale do Javari, no Amazonas. Por que o contato pode ser mortal e por que se defende o direito ao isolamento."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Um povo vive na floresta sem contato com o resto do país. Alguém diz: "Temos q
 
 Ao fim desta aula você vai saber o que são povos indígenas isolados, onde vivem no Brasil e por que se defende o direito deles ao isolamento.
 
+```suarealidade
+Você já ouviu alguém dizer que "falta levar o progresso" para quem vive isolado na floresta? Você acha que esses povos querem esse contato?
+```
+
 ## O que são
 
 **Povos isolados** são comunidades que, **por decisão própria** ou por **circunstâncias**, vivem **sem contato significativo** com a sociedade em geral. Pouquíssimos povos no mundo continuam totalmente sem contato.
@@ -56,6 +61,15 @@ Por que uma gripe pode ser mortal para um povo isolado?
 > O corpo não tem defesa contra doenças que nunca encontrou.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Todo mundo tem direito a saúde, escola e conforto. Deixar um povo isolado é privá-lo do que o resto do país tem, e o contato seria um benefício." É a opinião de quem quer o bem dessas pessoas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que povos isolados são comunidades que, por decisão própria ou por circunstâncias, vivem sem contato significativo com a sociedade em geral. O risco do contato é concreto: doenças, porque falta imunidade, e violência. Por isso se defende o direito ao isolamento e à autodeterminação, ou seja, que o povo decida o que quer. O Brasil é o país com o maior número de povos isolados, e a maior concentração do mundo está na bacia do rio Javari. A intenção de ajudar não muda o risco: quem decide é o próprio povo.
+```
+
 ## Exemplo resolvido
 
 **Uma empresa quer abrir uma estrada que passa perto de uma área com povos isolados. Que riscos isso traz?**
@@ -64,6 +78,11 @@ Por que uma gripe pode ser mortal para um povo isolado?
 2. **Doenças**: sem imunidade, o povo pode ser atingido por gripes e outras doenças.
 3. **Violência**: a chegada de pessoas pode levar a conflitos.
 4. **Conclusão**: proteger a área é proteger a **vida** e a **autodeterminação** desse povo.
+
+```agir
+# Esta semana
+Procure num mapa onde fica o Vale do Javari e a fronteira com o Peru e anote num papel o que mais ameaça esses povos, segundo a aula (garimpo e desmatamento ilegais). Compartilhe o que aprendeu com alguém da sua casa.
+```
 
 ## Resumo
 

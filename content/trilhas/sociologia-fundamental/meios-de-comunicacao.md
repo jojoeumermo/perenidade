@@ -1,5 +1,6 @@
 ---
 titulo: "Meios de comunicação"
+modelo: 9
 resumo: "Jornais, revistas, livros, rádio, televisão, cinema e internet formam a mídia. A comunicação de massa parte de um único emissor e chega a muitos receptores ao mesmo tempo, e por isso tem grande poder sobre a sociedade. Como funciona e o que muda com a internet."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Um único programa de TV, um único vídeo viral ou uma única manchete pode ser
 
 Ao fim desta aula você vai entender o que são os meios de comunicação e o que é comunicação de massa.
 
+```suarealidade
+De onde vem a informação que você recebe todo dia: TV, rádio, WhatsApp, redes? Quem você acha que decide o que aparece para você?
+```
+
 ## A mídia
 
 **Mídia** é o nome do **sistema** formado pelos meios de comunicação: **jornais**, **revistas**, **livros**, **rádio**, **televisão**, **cinema** e **internet**. Por meio deles, informações, ideias e entretenimento circulam pela sociedade.
@@ -65,6 +70,15 @@ Por que se diz que a comunicação de massa tem grande poder sobre a sociedade?
 > Releia a seção "O poder da mídia".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hoje, com a internet, cada um fala o que quer. A mídia já não manda em ninguém." É a opinião de quem se informa pelo celular.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que, na internet, há mais vozes. Mas lembra que também há plataformas e algoritmos que escolhem o que aparece, e que a mídia tem grande poder sobre a sociedade. Por isso vale perguntar quem fala, por quê e a quem interessa.
+```
+
 ## Exemplo resolvido
 
 **Classifique: (a) uma conversa por mensagem entre duas amigas; (b) o jornal da noite na TV aberta; (c) um vídeo publicado por um influenciador com milhões de seguidores.**
@@ -72,6 +86,11 @@ Por que se diz que a comunicação de massa tem grande poder sobre a sociedade?
 1. **(a)**: comunicação em **pequena escala**.
 2. **(b)**: comunicação de **massa**, um emissor para milhões.
 3. **(c)**: também de **massa**, mesmo vindo de uma pessoa, porque chega a muitos ao mesmo tempo.
+
+```agir
+# Esta semana
+Durante um dia, anote os meios de comunicação que você usou. Depois escolha uma notícia e procure saber quem a publicou.
+```
 
 ## Resumo
 

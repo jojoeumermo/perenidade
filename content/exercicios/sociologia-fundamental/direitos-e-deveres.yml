@@ -1,0 +1,50 @@
+# Exercícios da aula "Direitos e deveres" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-direitos-e-deveres-01
+  tema: "Art. 5º"
+  dificuldade: 1
+  enunciado: "O que diz o início do artigo 5º da Constituição?"
+  alternativas:
+    - texto: "Todos são iguais perante a lei, sem distinção de qualquer natureza"
+      certa: true
+    - texto: "Só os brasileiros têm direitos"
+      erro: "O artigo garante também aos estrangeiros que moram no país."
+    - texto: "Os direitos dependem da renda"
+      erro: "O artigo diz sem distinção de qualquer natureza."
+  explicacao: "O artigo garante a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e deveres\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-direitos-e-deveres-02
+  tema: "Voto"
+  dificuldade: 2
+  enunciado: "Segundo a aula, para quem o voto é obrigatório?"
+  alternativas:
+    - texto: "Para qualquer pessoa"
+      erro: "Há faixa de idade."
+    - texto: "Para quem tem entre 18 e 70 anos"
+      certa: true
+    - texto: "Só para maiores de 70"
+      erro: "É o contrário."
+  explicacao: "Cumprir as leis, votar e respeitar os direitos dos outros são deveres."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e deveres\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-direitos-e-deveres-03
+  tema: "Dever do filho"
+  dificuldade: 2
+  enunciado: "Pelo artigo 229, qual é o dever dos filhos maiores?"
+  alternativas:
+    - texto: "Ajudar e amparar os pais na velhice, na carência ou na doença"
+      certa: true
+    - texto: "Pagar o aluguel dos pais para sempre"
+      erro: "A aula fala em ajudar e amparar."
+    - texto: "Nenhum"
+      erro: "O artigo cria o dever."
+  explicacao: "Os pais devem assistir, criar e educar os filhos menores."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e deveres\""
+  revisao:
+    status: em-revisao

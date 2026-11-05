@@ -1,5 +1,6 @@
 ---
 titulo: "Respiração, voz e postura"
+modelo: 9
 resumo: "Como aquecer a voz, respirar para acalmar, usar volume, ritmo, tom e pausas, ficar de pé e mexer o corpo de um jeito que ajude quem ouve, com e sem microfone."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Duas pessoas dizem a mesma frase na assembleia. Uma é ouvida e aplaudida; a out
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber aquecer a voz, respirar para se acalmar, usar volume, ritmo, tom e pausas a seu favor, ficar de pé e se mexer de um jeito que ajude a mensagem e usar o microfone sem susto.
+
+```suarealidade
+Quando você precisa falar na frente de outras pessoas, o que acontece com o seu corpo e com a sua voz? O que ajuda você a ficar mais calmo?
+```
 
 ## Aquecer antes de falar
 
@@ -107,6 +112,15 @@ Você vai falar numa quadra, ao ar livre, com o barulho da avenida ao lado. O qu
 > Barulho ambiente pede volume. Grito cansa a voz e o ouvido de quem escuta.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O que importa é o conteúdo da fala, não a voz nem a postura. Ficar treinando respiração e gesto é coisa de ator e de político." É a opinião de quem acha que boas ideias falam por si.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula compara quem fala a quem faz esporte ou toca um instrumento: todos precisam aquecer. Respirar fundo antes da primeira frase acalma, e volume, ritmo, tom e pausa são quatro botões que ajudam a mensagem a chegar. Ela diz também que sotaque não é defeito e que clareza é articular, o que mostra que o objetivo não é fingir outra voz. Uma boa ideia dita baixo demais ou depressa demais pode não ser ouvida, e quem treina é quem consegue se fazer escutar.
+```
+
 ## Exemplo resolvido
 
 **Monte um treino de 10 minutos para fazer em casa antes de uma fala de 3 minutos.**
@@ -116,6 +130,11 @@ Você vai falar numa quadra, ao ar livre, com o barulho da avenida ao lado. O qu
 3. **3 minutos de fala gravada**: de pé, gravar a fala no celular, com a ficha de tópicos na mão.
 4. **3 minutos ouvindo a gravação** com três perguntas: o volume dá para ouvir lá do fundo? O tom sobe no fim das frases? Quantas palavras-muleta apareceram?
 5. **1 minuto para escolher uma só coisa** a melhorar no próximo treino.
+
+```agir
+# Esta semana
+Grave um áudio de um minuto no celular, ouça e conte as palavras-muleta. Grave de novo trocando cada uma por uma pausa e anote num papel a diferença.
+```
 
 ## Resumo
 

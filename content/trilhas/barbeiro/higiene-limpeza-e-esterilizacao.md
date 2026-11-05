@@ -1,5 +1,6 @@
 ---
 titulo: "Higiene, limpeza e esterilização"
+modelo: 9
 resumo: "Por que a barbearia precisa de cuidados de saúde: as doenças que passam por lâminas e tesouras, a diferença entre limpar, desinfetar e esterilizar, a rotina entre clientes, o descarte das lâminas e a vacina de hepatite B, de graça no SUS."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -56,6 +57,10 @@ Um corte pequeno na nuca, quase invisível, uma gota de sangue na lâmina. O pr�
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber quais doenças podem passar por lâminas e tesouras, distinguir limpar, desinfetar e esterilizar, seguir uma rotina entre clientes, descartar as lâminas do jeito certo e saber como se vacinar contra a hepatite B no SUS.
+
+```suarealidade
+Um corte pequeno na nuca, uma gota de sangue na lâmina, e o próximo cliente senta na cadeira. O que precisa acontecer entre um e outro no lugar onde você trabalha ou corta?
+```
 
 ## Por que a barbearia é um lugar de cuidado com o sangue
 
@@ -120,6 +125,20 @@ Caixa de perfurocortantes: trocar quando chegar ao limite indicado nela
 ```
 
 E mais: anotar a data de esterilização dos alicates, se houver serviço de unha, e conferir a validade dos produtos.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Passar álcool na tesoura e na máquina já resolve. Esterilizar é coisa de dentista e de hospital, não de barbearia." É um argumento de quem tem pouco material e pouca estrutura.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula distingue três coisas: limpar, desinfetar (com álcool 70%) e esterilizar (com autoclave). O Ministério da Saúde informa que as hepatites B e C podem passar por lâminas, tesouras e alicates compartilhados. Por isso a rotina entre clientes inclui desinfetar pentes, escovas, tesouras, cadeira e bancada, e lâmina nova por cliente. A vacina de hepatite B é gratuita no SUS, em qualquer idade, para quem não foi vacinado.
+```
+
+```agir
+# Esta semana
+Faça uma lista no papel do que você limpa ou desinfeta entre um cliente e outro e marque o que ainda não faz. Escolha uma coisa para começar na semana que vem. Se não for vacinado contra hepatite B, procure uma UBS.
+```
 
 ## Resumo
 

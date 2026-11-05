@@ -1,5 +1,6 @@
 ---
 titulo: "Divulgar o próprio trabalho"
+modelo: 9
 resumo: "Como mostrar o seu trabalho com fotos, indicações e redes sociais sem desrespeitar as clientes: autorização de imagem, cuidado com crianças, fotos que são suas de verdade, preço e informações claras, e segurança para quem atende em casa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -52,6 +53,10 @@ A trança ficou linda e você quer postar. Mas o rosto que aparece na foto é de
 ## O que você vai aprender
 
 Ao fim desta aula você vai montar um portfólio com fotos que são suas de verdade, pedir autorização de imagem às clientes, cuidar das fotos de crianças, divulgar preço e informações sem enganar e proteger a sua segurança ao atender em casa.
+
+```suarealidade
+Como você, ou quem você conhece, divulga o trabalho hoje: no boca a boca, no Instagram, no WhatsApp? Já postou a foto de uma cliente?
+```
 
 ## O melhor anúncio é a cliente satisfeita
 
@@ -110,6 +115,15 @@ Uma cliente autorizou a foto há três meses e agora pede para você apagar. O q
 > Pense no artigo 20 do Código Civil e no consentimento da LGPD.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A foto da cliente é o melhor anúncio, e quem veio fazer o cabelo comigo não vai se importar de aparecer. Pedir autorização atrapalha a divulgação." É a opinião de quem quer clientes novos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a imagem é da cliente: é preciso pedir autorização para usá-la (Código Civil, artigo 20; LGPD, artigo 7º) e apagar se ela pedir. Para crianças, é preciso o consentimento específico de pelo menos um dos pais ou responsável (LGPD, artigo 14). Pedir a autorização é também cuidado com a cliente, e a cliente satisfeita é o melhor anúncio.
+```
+
 ## Exemplo resolvido
 
 **Monte um texto de divulgação e uma mensagem de autorização de imagem para usar com as clientes.**
@@ -123,6 +137,11 @@ Uma cliente autorizou a foto há três meses e agora pede para você apagar. O q
 > Oi, Joana! Posso postar fotos das suas tranças no meu perfil de trabalho? Posso mostrar só de costas, sem o seu rosto, se preferir. Se um dia quiser que eu apague, é só me avisar.
 
 O valor do exemplo é fictício: use o seu, calculado como na aula de preço.
+
+```agir
+# Esta semana
+Escreva uma mensagem curta pedindo autorização para usar a foto de uma cliente e guarde a resposta dela antes de postar qualquer coisa.
+```
 
 ## Resumo
 

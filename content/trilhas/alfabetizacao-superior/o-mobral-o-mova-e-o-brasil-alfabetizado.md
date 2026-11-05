@@ -1,5 +1,6 @@
 ---
 titulo: "O Mobral, o MOVA e o Brasil Alfabetizado"
+modelo: 9
 resumo: "Objetivo: conhecer as grandes políticas e movimentos de alfabetização de adultos no Brasil depois de 1964 (o Mobral, da ditadura; o MOVA, da educação popular; e o Brasil Alfabetizado), comparando as suas concepções e resultados."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer as três grandes experiências de alfabetização de adultos no Brasil depois de 1964: o Mobral, o MOVA e o Brasil Alfabetizado. Vai comparar quem organizava, com que concepção e com que resultados. E vai tirar lições para uma política de alfabetização hoje, incluindo o Pacto de 2024.
+
+```suarealidade
+Você ou alguém de perto passou por algum programa de alfabetização de adultos (Mobral, MOVA, Brasil Alfabetizado ou outro)? Como foi, e a pessoa continuou estudando depois?
+```
 
 ## Depois de 1964
 
@@ -95,6 +100,20 @@ A história mostra alguns pontos:
 | Principal crítica | números contestados, regressão | depende do governo local | pouca continuidade na EJA |
 
 Confira: cada linha do quadro saiu do texto da aula. Em 2024, o governo federal criou o **Pacto Nacional pela Superação do Analfabetismo e Qualificação da Educação de Jovens e Adultos** (Decreto nº 12.048/2024), que retomou o Brasil Alfabetizado. A pergunta para o debate é se ele vai resolver a crítica mais repetida: a continuidade.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O Mobral acabou com o analfabetismo no país e mostrou que programa central e rápido funciona. Esses debates sobre método são só ideologia." É uma opinião que já foi muito repetida, inclusive pelos próprios gestores do programa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o Mobral (Lei nº 5.379/1967, até 1985) foi centralizado, sem a dimensão crítica da educação popular, e que seus números foram contestados. O analfabetismo continuou grande. O MOVA, de 1989, com Freire na Secretaria de São Paulo, nasceu da parceria entre o poder público e os movimentos sociais. A lição que se repete é que, sem continuidade e sem formação, a alfabetização se perde, e isso vale para qualquer programa.
+```
+
+```agir
+# Esta semana
+Escreva num papel três condições que um programa de alfabetização de adultos precisaria ter, na sua opinião, para que as pessoas continuassem lendo depois (por exemplo, formação de quem ensina, continuidade, livros à mão). Guarde ou converse com alguém de confiança.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Peso, massa e gravidade"
+modelo: 9
 resumo: "Objetivo: distinguir massa de peso, entender a gravidade e saber por que todos os corpos caem do mesmo jeito."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber distinguir massa de peso, calcular o peso de um objeto em newtons e explicar por que todos os corpos caem juntos quando não há ar.
+
+```suarealidade
+No seu trabalho ou no seu bairro, existe algum lugar alto de onde algo ou alguém pode cair (laje, andaime, telhado)? Quem passa ou trabalha embaixo?
+```
 
 
 ## Duas palavras, duas coisas
@@ -120,6 +125,20 @@ Por isso a legislação brasileira considera trabalho em altura toda atividade f
 4. No seu local de trabalho há risco de queda de pessoas ou de objetos? O que é feito para evitá-lo?
 
 **Respostas:** 1) Cerca de 500 N. 2) A resistência do ar. 3) Cerca de 20 m/s, ou 72 km/h.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Trabalho em altura é coisa rápida. Cinto e capacete só atrasam a obra. Sempre fiz sem e nunca caí."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a queda de altura está entre as principais causas de morte no trabalho no Brasil, e que de uma altura de seis metros o corpo chega ao solo a cerca de 40 km/h. A legislação brasileira considera trabalho em altura toda atividade feita acima de dois metros do nível inferior e exige do empregador treinamento, equipamentos de proteção e sistemas que impeçam a queda. Capacete e cinto não são frescura: são a resposta possível a uma força que não se pode desligar. E a obrigação de garantir a proteção é do empregador, não só de quem sobe.
+```
+
+```agir
+# Esta semana
+Se há trabalho em altura no seu serviço ou numa obra que você vê da rua, observe de longe e anote o que protege quem trabalha (capacete, cinto, rede, guarda-corpo). Não se aproxime da obra nem fotografe ninguém. Se não houver nada, anote isso também e converse com uma pessoa de confiança.
+```
 
 ## Resumo
 

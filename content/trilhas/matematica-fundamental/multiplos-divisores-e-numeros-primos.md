@@ -1,5 +1,6 @@
 ---
 titulo: "Múltiplos, divisores e números primos"
+modelo: 9
 resumo: "A tabuada vista por dentro: o que são múltiplos e divisores, como reconhecer um número primo e para que servem o MMC e o MDC."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são múltiplos, divisores e números primos, usar os critérios de divisibilidade e achar o MMC e o MDC.
+
+```suarealidade
+Você já precisou dividir algo em partes iguais, como arrumar cadeiras em fileiras, dividir um lote de produtos ou combinar horários que se repetem? Como você descobriu quantos dava?
+```
 
 ## Múltiplos: a tabuada que não acaba
 
@@ -113,6 +118,15 @@ Múltiplos de 12: 12, 24, **36**, 48... Múltiplos de 18: 18, **36**, 54... O MM
 
 **Para que serve:** repartir em grupos iguais sem sobra. Com 48 pães e 36 frutas, quantas cestas iguais dá para montar usando tudo? O MDC de 48 e 36 é 12: são 12 cestas, cada uma com 4 pães e 3 frutas.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Número primo, MMC e MDC são coisas para vestibular. Ninguém usa isso no trabalho." É uma queixa comum de quem estudou a matéria de forma decorada.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula parte de usos concretos: os divisores de 12 são as maneiras de arrumar 12 cadeiras em fileiras iguais, e os múltiplos de um número são a sua tabuada continuada sem parar. O MMC serve para saber quando duas coisas que se repetem de tempos em tempos voltam a coincidir, e o MDC para dividir em grupos iguais sem sobrar. Com os critérios de divisibilidade, dá para saber se uma divisão é exata sem fazer a conta.
+```
+
 ## Exemplo resolvido
 
 **Um remédio é tomado de 6 em 6 horas e outro de 8 em 8. Tomados juntos às 8h da manhã, quando serão tomados juntos de novo?**
@@ -133,6 +147,11 @@ Confira: o MMC serve para achar quando duas coisas que se repetem de tempos em t
 5. Um remédio é tomado de 6 em 6 horas e outro de 8 em 8. Os dois foram tomados juntos às 8h da manhã. Quando serão tomados juntos de novo?
 
 **Respostas:** 1) 1, 2, 3, 4, 6, 9, 12, 18 e 36. 2) Por todos: termina em 0 e a soma dos algarismos é 9. 3) 2 × 2 × 3 × 3 × 5. 4) MMC = 24; MDC = 20. 5) Depois de 24 horas, às 8h da manhã seguinte.
+
+```agir
+# Esta semana
+Pense em duas coisas que se repetem na sua rotina, como o ônibus que passa de 12 em 12 minutos e outro de 15 em 15. Use o MMC para descobrir de quanto em quanto tempo eles passam juntos, e escreva a conta no papel.
+```
 
 ## Resumo
 

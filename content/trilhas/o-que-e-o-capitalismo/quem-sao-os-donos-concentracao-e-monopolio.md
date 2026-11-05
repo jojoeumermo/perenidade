@@ -1,5 +1,6 @@
 ---
 titulo: "Quem são os donos: concentração e monopólio"
+modelo: 9
 resumo: "Como a concorrência leva ao seu contrário: poucas empresas gigantes controlando setores inteiros."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 Ao fim desta aula você vai saber diferenciar concentração de centralização de capital, citar os cinco traços do imperialismo segundo Lenin e dizer o que muda para quem compra e para quem trabalha quando há poucos donos.
 
 Os livros de economia costumam descrever o capitalismo como um mercado cheio de pequenas empresas disputando o cliente. Olhe em volta: quantas empresas controlam os supermercados da sua cidade? Os bancos? A internet do seu celular? Esta aula explica por que a concorrência produz o seu contrário.
+
+```suarealidade
+Pense em algo que você compra toda semana, como remédio, comida ou serviço de internet: você tem muitas opções de onde comprar, ou poucas?
+```
 
 ## A concorrência engole a si mesma
 
@@ -83,6 +88,15 @@ Hoje, boa parte das grandes empresas do mundo tem como acionistas os mesmos gran
 
 Marx viu nisso também uma possibilidade. Quando a produção de um setor inteiro já está organizada por meia dúzia de empresas, planejada de cima a baixo, ela já é **social** na prática, embora continue privada na propriedade. O socialismo propõe resolver essa contradição: o que é produzido coletivamente pode ser controlado coletivamente.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Empresa grande é empresa que deu certo. Ela cresce porque serve melhor o cliente, com preço menor e mais qualidade. Quem não gosta, compra do concorrente." É a opinião de quem vê na grande empresa a prova de que o mercado premia o melhor.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diz que toda empresa grande é ruim. Mostra que a concorrência é uma corrida em que os grandes largam na frente: quem tem mais capital compra máquinas melhores, aguenta prejuízo e compra o rival, muitas vezes com dinheiro emprestado. Quando sobram poucos donos, os preços, os salários e o que se paga aos fornecedores sofrem a pressão do poder econômico, e às vezes há cartel, que a lei proíbe. Dá para valorizar quem serve bem o cliente e ainda assim querer saber quantas empresas de fato disputam aquele mercado.
+```
+
 ## Para conversar
 
 Escolha um produto que você compra toda semana. Descubra quem fabrica e quem vende. Quantas empresas diferentes existem de fato nesse mercado?
@@ -96,6 +110,11 @@ Dois casos inventados para treinar a distinção. Caso A: uma rede de farmácias
 3. No caso B, o capital cresceu com o próprio lucro e foram criadas 50 lojas que antes não existiam: isso é **concentração**.
 
 Confira: no caso A ninguém investiu em lojas novas e o número de donos caiu; no caso B o número de donos continua o mesmo. O efeito sobre a concorrência é maior no caso A.
+
+```agir
+# Esta semana
+Escolha um produto que você compra toda semana e descubra, olhando a embalagem e conversando no mercado, quem fabrica e quem vende. Anote num papel quantas empresas diferentes você encontrou.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "O que é solidariedade de classe"
+modelo: 9
 resumo: "Não é caridade: é entender que a luta de um trabalhador é a luta de todos, e agir de acordo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 Ao fim desta aula você vai saber distinguir caridade de solidariedade de classe, dar exemplos e explicar por que a classe trabalhadora precisa dela.
 
 Um grupo de entregadores para de trabalhar por algumas horas. Os clientes ficam sem a comida. Alguns reclamam. Outros pensam: "eles estão lutando por uma coisa justa, posso esperar". Esse segundo grupo está praticando **solidariedade de classe**.
+
+```suarealidade
+Quando um colega de trabalho está em apuros, o que vocês fazem: ajudam cada um por si ou se organizam juntos? Já aconteceu alguma coisa assim no seu serviço ou no seu bairro?
+```
 
 ## Não é caridade
 
@@ -80,6 +85,15 @@ Cada divisão enfraquece a classe inteira. Por isso a luta contra o racismo, o m
 
 Ninguém nasce solidário com a sua classe. A solidariedade se aprende na experiência: na greve, na assembleia, no mutirão, na conversa. Lenin dizia que nas greves os operários aprendem a sentir que são parte de uma classe. Cada gesto de apoio ensina.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cada um tem que se virar. Essa história de solidariedade de classe só atrapalha quem quer crescer na vida." É a opinião de quem acredita no esforço individual.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diminui o esforço de cada um. Ela mostra, porém, que um trabalhador sozinho é substituível, enquanto uma categoria inteira não é, e que os trabalhadores são muitos, mas só têm força quando estão unidos. Distingue caridade de solidariedade de classe: a caridade ajuda sem mudar a situação, a solidariedade é o apoio entre iguais que têm o mesmo problema. E cita exemplos práticos, como o fundo de greve e as cozinhas solidárias que se espalharam pelo Brasil na pandemia de covid-19.
+```
+
 ## Exemplo resolvido
 
 **Caridade ou solidariedade de classe: "doar uma cesta a quem passa fome" e "doar ao fundo de greve de outra categoria"?**
@@ -94,6 +108,11 @@ Confira: os exemplos da aula incluem a greve de solidariedade, o boicote e as co
 ## Para conversar
 
 Lembre de uma situação em que você ou alguém da sua família recebeu apoio de outros trabalhadores, ou deu apoio. Como foi? O que mudou depois?
+
+```agir
+# Esta semana
+Pense numa pessoa do seu bairro ou do seu serviço que passou por dificuldade e anote duas formas de ajudar que fossem solidariedade entre iguais, e não só caridade. Se puder, converse com alguém de confiança sobre elas.
+```
 
 ## Resumo
 

@@ -1,0 +1,50 @@
+# Exercícios da aula "Propriedade privada e propriedade coletiva" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-propriedade-privada-e-propriedade-coleti-01
+  tema: "Três tipos"
+  dificuldade: 1
+  enunciado: "A casa, as roupas e o celular de uma pessoa são que tipo de propriedade?"
+  alternativas:
+    - texto: "Propriedade pessoal"
+      certa: true
+    - texto: "Propriedade privada dos meios de produção"
+      erro: "Meios de produção são fazendas, fábricas, minas e bancos."
+    - texto: "Propriedade coletiva"
+      erro: "Coletiva é quando pertence a um grupo ou à sociedade."
+  explicacao: "O socialismo não propõe tomar a propriedade pessoal: quer que todo mundo tenha casa, roupa e comida."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Propriedade privada e propriedade coletiva\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-propriedade-privada-e-propriedade-coleti-02
+  tema: "Formas coletivas"
+  dificuldade: 2
+  enunciado: "Qual destas é uma forma de propriedade coletiva citada na aula?"
+  alternativas:
+    - texto: "Cooperativa, em que a propriedade é dos próprios trabalhadores"
+      certa: true
+    - texto: "Fábrica de um único dono"
+      erro: "Isso é propriedade privada."
+    - texto: "A casa da família"
+      erro: "Isso é propriedade pessoal."
+  explicacao: "As outras formas são estatal (uma empresa pública de água) e comunitária (as terras de muitos povos indígenas e quilombolas)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Propriedade privada e propriedade coletiva\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-propriedade-privada-e-propriedade-coleti-03
+  tema: "Manifesto"
+  dificuldade: 2
+  enunciado: "O que Marx e Engels responderam, em 1848, a quem os acusava de querer abolir a propriedade privada?"
+  alternativas:
+    - texto: "Que na sociedade deles a propriedade privada já está abolida para nove décimos da população"
+      certa: true
+    - texto: "Que realmente queriam tirar a casa de todos"
+      erro: "Eles responderam o contrário."
+    - texto: "Que não tinham opinião"
+      erro: "Eles responderam com um argumento."
+  explicacao: "A maioria das pessoas não tem fazenda, fábrica nem banco: tem só a força de trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Propriedade privada e propriedade coletiva\""
+  revisao:
+    status: em-revisao

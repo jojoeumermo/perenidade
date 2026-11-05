@@ -1,5 +1,6 @@
 ---
 titulo: "Horas, dias e meses"
+modelo: 9
 resumo: "Perguntar e dizer as horas, os dias da semana, os meses, as datas e as preposições at, on e in."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 Ao fim desta aula você vai saber dizer as horas, os dias da semana, os meses e as datas em inglês, e escolher entre *at*, *on* e *in*.
 
 Marcar um horário, combinar um dia, dizer a data do aniversário: tudo isso usa os números que você aprendeu na aula 4 e três preposições pequenas, **at**, **on** e **in**, que confundem muita gente.
+
+```suarealidade
+Quantas vezes por semana você olha as horas, combina um dia ou marca um compromisso? Como você diria, em inglês, a hora em que você acorda?
+```
 
 ## Perguntar as horas
 
@@ -138,6 +143,15 @@ Uma forma de lembrar: do ponto mais exato ao mais amplo, **at** (hora), **on** (
 - *Brazil became a republic **in** 1889.* — O Brasil virou república em 1889.
 - *Workers' Day is **on** May 1st.* — O Dia do Trabalhador é em 1º de maio.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hora e data qualquer relógio e calendário mostram. Para que decorar isso em inglês?" É um argumento prático, de quem usa o celular para tudo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O relógio mostra o número, mas só você pode dizer a hora numa conversa. A aula ensina isso em passos curtos: o jeito mais fácil de dizer as horas (como num relógio digital), os dias da semana, os meses e as datas. Ela também esclarece as três preposições que confundem muita gente: at, on e in. Marcar um horário e dizer a data do aniversário é o tipo de frase que se usa no dia a dia, sem apoio de tela.
+```
+
 ## Exemplo resolvido
 
 **Como dizer "A aula começa às 7h45 da noite, na terça-feira"?**
@@ -156,6 +170,11 @@ Confira: do ponto mais exato ao mais amplo, *at* (hora), *on* (dia), *in* (mês,
 3. Complete com *at*, *on* ou *in*: ___ Friday, ___ 6 p.m., ___ December, ___ the morning, ___ June 12th.
 
 Respostas do 1: *nine fifteen / a quarter past nine; twelve thirty / half past twelve; six forty-five (p.m.) / a quarter to seven.* Respostas do 3: *on, at, in, in, on.*
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, a hora em que você acorda, a hora em que começa o trabalho e o dia da semana de folga, como "I wake up at five". Se quiser, conte a alguém de casa.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Danças de roda: ciranda, coco e samba de roda"
+modelo: 9
 resumo: "Três danças em que ninguém precisa de par nem de palco: a ciranda de Pernambuco e da Paraíba, o coco do litoral nordestino e o samba de roda do Recôncavo baiano. De onde vêm, como se dançam e como puxar uma roda."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Numa roda, todo mundo vê todo mundo. Não há primeira fila, nem fundo. Por que
 
 Ao fim desta aula você vai reconhecer três danças de roda do Nordeste, saber de onde vêm e conseguir puxar uma roda simples.
 
+```suarealidade
+Que roda (de música, de samba, de brincadeira ou de conversa) existe na sua rua ou na sua família? Quem puxa?
+```
+
 ## Ciranda
 
 A **ciranda** é uma brincadeira de **dança, música e canto** da **Paraíba** e de **Pernambuco**. Popularizou-se em Pernambuco nas décadas de **1960 e 1970**. Grandes nomes: **Lia de Itamaracá**, **Odete de Pilar** e **Penha Cirandeira**.
@@ -76,6 +81,15 @@ Qual destas danças tem o sapateado de tamancos como marca?
 > Releia "Coco".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dança de roda é coisa antiga e de interior. O jovem quer o que toca nas redes, e a roda não tem futuro." É a impressão de quem vê as danças novas ocupando a atenção.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra danças vivas: a ciranda se popularizou em Pernambuco nas décadas de 1960 e 1970 e tem grandes nomes, como Lia de Itamaracá, Odete de Pilar e Penha Cirandeira; o samba de roda do Recôncavo baiano, com registros desde a década de 1860, é patrimônio da humanidade pela UNESCO desde 2005. Danças novas, como o passinho (aula de danças de rua), nascem também da criação coletiva e convivem com elas. A roda é um jeito de a comunidade se encontrar sem precisar de dinheiro: nada impede de dançar as duas coisas.
+```
+
 ## Exemplo resolvido
 
 **Puxe uma ciranda com o grupo.**
@@ -85,6 +99,11 @@ Qual destas danças tem o sapateado de tamancos como marca?
 3. **Pé esquerdo à frente** na batida forte.
 4. **Andem para a direita**: dois passos para trás, dois para a frente.
 5. **Cantem**: uma pessoa puxa um verso, todos respondem.
+
+```agir
+# Esta semana
+Procure um vídeo de ciranda ou de samba de roda e aprenda com alguém de casa o passo básico (na ciranda: pisa-se forte com o pé esquerdo e a roda anda para a direita). Convide uma pessoa para dançar com você.
+```
 
 ## Resumo
 

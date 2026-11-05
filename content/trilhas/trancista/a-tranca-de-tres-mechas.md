@@ -1,5 +1,6 @@
 ---
 titulo: "A trança de três mechas"
+modelo: 9
 resumo: "O movimento que está por trás de quase todas as tranças: dividir em três, cruzar por cima ou por baixo, manter as mechas iguais e a tensão constante, e acrescentar cabelo pelo caminho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ A trança de três mechas é a primeira que muita gente aprende, ainda criança.
 
 Ao fim desta aula você vai fazer a trança de três mechas com mechas iguais e tensão constante, entender a diferença entre cruzar por cima e por baixo e acrescentar cabelo pelo caminho, que é a base das tranças coladas à cabeça.
 
+```suarealidade
+Quem ensinou você, ou alguém da sua família, a trançar? Como foi a primeira vez?
+```
+
 ## A trança mais simples e mais comum
 
 A trança é feita entrelaçando **três ou mais mechas**. A versão mais simples e mais comum é a de **três mechas**, achatada e firme. Nela, cada mecha tem a mesma função e vai **ziguezagueando** pela trança. Quase todos os estilos que vêm depois partem desse movimento.
@@ -85,6 +90,15 @@ Na sua trança, a parte de cima ficou apertada e a de baixo, frouxa. O que prova
 > Trança regular pede a mesma firmeza do começo ao fim.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Trança se aprende vendo, com a mão. Essa história de regra de tensão e de mechas iguais é frescura." É a opinião de quem aprendeu a trançar na prática.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que se aprende com as mãos, mas mostra que as regras evitam problemas: mechas iguais, tensão constante e mãos perto da cabeça. Apertar demais machuca e pode causar alopecia de tração. Por cima, a trança fica achatada; por baixo, em relevo, como a nagô. Acrescentar cabelo a cada cruzamento prende a trança à cabeça e é a base da nagô e das tranças sem nó.
+```
+
 ## Exemplo resolvido
 
 **Explique, passo a passo, a uma aprendiz como fazer as primeiras dez voltas de uma trança de três mechas num cabelo de comprimento médio.**
@@ -95,6 +109,11 @@ Na sua trança, a parte de cima ficou apertada e a de baixo, frouxa. O que prova
 4. **Volta 1**: direita sobre o meio. **Volta 2**: esquerda sobre o meio.
 5. Seguir até a **volta 10**, conferindo a cada duas voltas se as mechas continuam iguais.
 6. Parar e olhar: a trança está **reta**? A **grossura** é a mesma em cima e embaixo? A cliente sente **dor**? Se sim, afrouxar.
+
+```agir
+# Esta semana
+Treine a trança de três mechas com três fios de lã, mantendo a tensão igual, e confira se as mechas ficaram do mesmo tamanho.
+```
 
 ## Resumo
 

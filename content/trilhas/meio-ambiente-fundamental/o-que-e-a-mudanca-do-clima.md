@@ -1,5 +1,6 @@
 ---
 titulo: "O que é a mudança do clima"
+modelo: 9
 resumo: "A Terra está esquentando por causa das atividades humanas, sobretudo a queima de carvão, petróleo e gás. Os gases de efeito estufa prendem calor na atmosfera, e o resultado são ondas de calor, secas, tempestades mais fortes e o mar subindo. O que é o Acordo de Paris."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ O verão parece mais quente que antigamente? As chuvas vêm mais fortes ou não 
 
 Ao fim desta aula você vai entender o que é a mudança do clima, o que a causa e quais são os seus efeitos.
 
+```suarealidade
+Você percebe, onde vive, mais calor, chuva mais forte ou seca do que antigamente? O que os mais velhos dizem sobre isso?
+```
+
 ## O que é
 
 A **mudança do clima** atual inclui o **aquecimento global**, que é o aumento contínuo da **temperatura média** do planeta, e os seus efeitos sobre todo o **sistema climático** da Terra.
@@ -69,12 +74,26 @@ Por que o desmatamento contribui para a mudança do clima?
 > Releia a seção "A causa".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O clima sempre mudou, com calor e frio em todas as épocas. Isso é coisa da natureza, e pouca coisa que o ser humano faz muda alguma coisa." É a opinião de quem lembra de verões muito quentes e invernos rigorosos de décadas atrás.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que o clima da Terra sempre variou, mas explica que o aquecimento atual é impulsionado por atividades humanas, principalmente a queima de carvão, petróleo e gás natural desde a Revolução Industrial, além do desmatamento. A atmosfera tem hoje cerca de 50% mais dióxido de carbono do que no fim da era pré-industrial, um nível que não se via havia milhões de anos. A conta do exemplo mostra que, com os compromissos atuais, o planeta chegaria a cerca de 2,8 °C, bem acima do limite do Acordo de Paris. Dá para conversar sobre isso com calma e olhar os dados.
+```
+
 ## Exemplo resolvido
 
 **O Acordo de Paris quer o aquecimento bem abaixo de 2 °C, e os compromissos atuais levariam a cerca de 2,8 °C. Qual é a diferença?**
 
 1. 2,8 − 2,0 = **0,8 °C** acima do limite de 2 °C.
 2. Ou seja, os compromissos atuais **não bastam**, e seriam necessárias metas mais ambiciosas.
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha da família ou do bairro como era o clima quando ela era jovem (calor, chuva, seca). Anote num papel duas coisas que ela disser.
+```
 
 ## Resumo
 

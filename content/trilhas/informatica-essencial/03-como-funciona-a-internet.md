@@ -1,5 +1,6 @@
 ---
 titulo: "Como funciona a internet"
+modelo: 9
 resumo: "O caminho que uma página percorre do servidor até a sua tela."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar que a internet é uma rede de redes, a diferença entre internet e web, o que fazem o IP, o DNS, os servidores e os pacotes, e por que o cadeado do HTTPS importa.
+
+```suarealidade
+Você já caiu, ou quase caiu, em um site falso ou em um golpe por link? Como percebeu?
+```
 
 
 ## Uma rede de redes
@@ -94,6 +99,20 @@ Lição do exemplo: a internet é uma cadeia (aparelho, rede, DNS, servidor). Sa
 ## Pratique
 
 Pense no último site que você abriu hoje e descreva, com suas palavras, as cinco etapas que aconteceram entre digitar o endereço e ver a página.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se o site tem cadeado, é seguro e pode confiar. O navegador não mostraria o cadeado se fosse golpe."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que o cadeado indica HTTPS: a conversa entre o navegador e o servidor é criptografada, de modo que ninguém no meio do caminho consegue ler ou alterar os dados. Mas o cadeado não garante que o site seja honesto: páginas de golpe também usam HTTPS. Por isso é preciso conferir sempre se o endereço é mesmo o do site que você quer, e, se o navegador avisar que a conexão não é segura, não digitar senha nem dados.
+```
+
+```agir
+# Esta semana
+Pense no último site que você abriu hoje e descreva em voz alta, para alguém, as cinco etapas entre digitar o endereço e ver a página. No próximo site em que for digitar uma senha, confira o endereço letra por letra, além do cadeado.
+```
 
 ## Resumo
 

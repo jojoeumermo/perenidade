@@ -1,5 +1,6 @@
 ---
 titulo: "Força e as leis de Newton"
+modelo: 9
 resumo: "Objetivo: entender o que é força e conhecer as três leis que explicam por que os corpos param, andam, aceleram e reagem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ Por que o ônibus te joga para a frente quando o motorista freia de repente, se 
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber enunciar as três leis de Newton com exemplos do dia a dia e usar F = m · a para calcular a aceleração de um corpo.
+
+```suarealidade
+No seu dia, onde você carrega, empurra ou puxa peso? Em que momento o seu corpo diz que é demais?
+```
 
 ## O que é força
 
@@ -143,6 +148,20 @@ Pense no seu dia de hoje (no trabalho, em casa, no caminho). Onde você usou for
 ```roda
 - Na sua cidade, que trabalhos ainda exigem carregar peso demais? O que a física diz sobre isso?
 - Conte um caso em que o cinto de segurança fez diferença.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cinto de segurança é exagero. Se o carro está devagar, na cidade, não acontece nada."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica pela inércia: em uma batida a 60 km/h, o carro para em uma fração de segundo, e quem está sem cinto continua a 60 km/h até encontrar o painel ou o para-brisa. Ninguém precisa empurrar o corpo: ele segue em movimento até que uma força o pare. O cinto é essa força, que faz o corpo parar junto com o carro. A aula não dá números para velocidades menores, mas a lógica é a mesma.
+```
+
+```agir
+# Esta semana
+Empurre uma sacola vazia e outra cheia com a mesma força e veja qual anda mais. Depois explique a primeira lei de Newton para alguém da sua casa, usando o exemplo do ônibus que freia.
 ```
 
 ## Resumo

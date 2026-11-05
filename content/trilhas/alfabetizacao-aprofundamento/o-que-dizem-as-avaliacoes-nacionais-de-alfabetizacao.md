@@ -1,5 +1,6 @@
 ---
 titulo: "O que dizem as avaliações nacionais de alfabetização"
+modelo: 9
 resumo: "Como o Brasil mede a alfabetização de adultos (Censo, PNAD Contínua, Inaf) e de crianças (ANA, Saeb, Indicador Criança Alfabetizada), o que cada número mostra, o que ele não mostra e como ler essas pesquisas com cuidado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -54,6 +55,10 @@ Ao fim desta aula você vai conhecer as principais pesquisas que medem a alfabet
 
 ```provocacao
 "O Brasil quase acabou com o analfabetismo." "Três em cada dez brasileiros não entendem o que leem." As duas frases podem ser verdadeiras ao mesmo tempo? Como?
+```
+
+```suarealidade
+Você já ouviu números sobre quantas pessoas não sabem ler no Brasil? Em quem você confiou, e como saber se o número está certo?
 ```
 
 ## Os adultos: três medidas diferentes
@@ -117,6 +122,20 @@ Confira: a frase nova diz a pesquisa, o ano, a idade, compara números comparáv
 
 ```realidade
 Procure uma notícia recente com um número sobre alfabetização. Escreva: de que pesquisa é, de que ano e o que ela mede.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Esses números não servem para nada: cada hora sai um diferente, uns dizem 4,9%, outros 29%. Estatística é manipulação." É uma desconfiança compreensível, porque os números realmente parecem se contradizer.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica por que eles diferem: o Censo 2022 e a PNAD Contínua 2025 (7,0% e 4,9%) perguntam se a pessoa sabe ler e escrever um bilhete simples e não se comparam diretamente; o Inaf (29% em 2024) testa o alfabetismo funcional, que é outra coisa. Cada pesquisa mede uma coisa de um jeito. A saída é perguntar: que pesquisa, quem, que ano, o que mede, dá para comparar e quem divulgou.
+```
+
+```agir
+# Esta semana
+Procure um número sobre alfabetização que você viu na imprensa ou numa conversa e escreva, no papel, as seis perguntas da aula (que pesquisa, quem, que ano, mede o quê, dá para comparar, quem divulgou). Responda as que conseguir.
 ```
 
 ## Resumo

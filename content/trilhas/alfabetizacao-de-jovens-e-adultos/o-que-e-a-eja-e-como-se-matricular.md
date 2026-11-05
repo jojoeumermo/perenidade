@@ -1,5 +1,6 @@
 ---
 titulo: "O que é a EJA e como se matricular"
+modelo: 9
 resumo: "A Educação de Jovens e Adultos (EJA) é um direito garantido por lei a quem não estudou na idade esperada. Como funciona, onde procurar e o que levar na matrícula."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -54,6 +55,10 @@ Ao fim desta aula você vai saber o que é a EJA e que ela é um direito, gratui
 
 ```provocacao
 Se você pudesse voltar a estudar amanhã, o que gostaria de aprender primeiro?
+```
+
+```suarealidade
+Se você pudesse voltar a estudar amanhã, o que gostaria de aprender primeiro? O que hoje impede você, ou alguém de perto, de voltar?
 ```
 
 ## Um direito
@@ -134,6 +139,20 @@ Escreva o nome da escola mais perto da sua casa e, se souber, o horário em que 
 2. Separe os documentos para a matrícula.
 3. Converse com alguém da família ou do trabalho que também queira voltar a estudar.
 4. Escreva em uma frase por que você quer estudar.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Voltar a estudar depois dos 30 ou 40 anos não compensa: o tempo é curto, o cansaço é grande e a escola não vai mudar a vida de quem já trabalha." É um cansaço real de quem trabalha o dia inteiro.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O cansaço e a falta de tempo são os motivos mais reais de desistência, e a aula os reconhece, com apoios como estudar em grupo e combinar horários. Ela também mostra que a EJA é um direito gratuito, garantido pela Constituição (art. 208) e pela LDB (art. 37), que não tem idade máxima e que, sem histórico escolar, a escola faz uma avaliação para achar a etapa certa. Não precisa começar do zero nem pagar nada.
+```
+
+```agir
+# Esta semana
+Descubra qual é a escola pública mais perto de você que oferece EJA e anote no papel o nome, o endereço e o horário das turmas. Se puder, ligue ou visite para perguntar. Se não puder agora, deixe o papel guardado.
+```
 
 ## Resumo
 

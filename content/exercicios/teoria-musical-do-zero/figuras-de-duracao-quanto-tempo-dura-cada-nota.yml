@@ -1,0 +1,52 @@
+# Exercícios da aula "Figuras de duração: quanto tempo dura cada nota" (teoria-musical-do-zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teoria-musical-do-zero-figuras-de-duracao-quanto-tempo-dura-cad-01
+  tema: "Metade da anterior"
+  dificuldade: 1
+  enunciado: "Qual é a ideia central das figuras de duração?"
+  alternativas:
+    - texto: "Cada figura vale metade da anterior"
+      certa: true
+    - texto: "Cada figura vale o dobro da anterior"
+      erro: "É o contrário: cada uma vale metade."
+    - texto: "Todas valem o mesmo"
+      erro: "Cada uma vale metade da anterior."
+  explicacao: "Uma semibreve dura o mesmo que duas mínimas, quatro semínimas ou oito colcheias."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Figuras de duração: quanto tempo dura cada nota\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-figuras-de-duracao-quanto-tempo-dura-cad-02
+  tema: "Tempos"
+  dificuldade: 2
+  enunciado: "Considerando que a semínima vale um tempo, quantos tempos duram juntas uma mínima e duas semínimas?"
+  alternativas:
+    - texto: "3"
+      erro: "A mínima vale dois tempos, e não um."
+    - texto: "4"
+      certa: true
+      valor: "4"
+    - texto: "5"
+      erro: "Soma demais. A mínima vale 2 e cada semínima vale 1."
+  explicacao: "A mínima vale 2 tempos e cada semínima, 1: 2 + 1 + 1 = 4 tempos."
+  conferir: "2 + 1 + 1"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Figuras de duração: quanto tempo dura cada nota\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-figuras-de-duracao-quanto-tempo-dura-cad-03
+  tema: "Andamento"
+  dificuldade: 2
+  enunciado: "Se a música é rápida ou lenta, quem decide, segundo a aula?"
+  alternativas:
+    - texto: "O andamento, a velocidade das batidas; as proporções entre as figuras continuam as mesmas"
+      certa: true
+    - texto: "A figura da semibreve"
+      erro: "As figuras têm duração relativa."
+    - texto: "A clave"
+      erro: "A clave dá nome às linhas."
+  explicacao: "As figuras não têm duração fixa em segundos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Figuras de duração: quanto tempo dura cada nota\""
+  revisao:
+    status: em-revisao

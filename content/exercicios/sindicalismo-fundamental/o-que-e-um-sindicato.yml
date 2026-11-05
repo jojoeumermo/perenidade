@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é um sindicato" (sindicalismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sindicalismo-fundament-o-que-e-um-sindicato-01
+  tema: "A conta"
+  dificuldade: 1
+  enunciado: "Segundo a aula, por que quinhentos trabalhadores pedindo juntos têm mais força do que um sozinho?"
+  alternativas:
+    - texto: "Porque o dono não pode trocar todo mundo amanhã: sem eles, nada sai da fábrica"
+      certa: true
+    - texto: "Porque o dono tem medo de processo"
+      erro: "A aula explica pela força de estar unido."
+    - texto: "Porque cada um grita mais alto"
+      erro: "É a união, e não o volume."
+  explicacao: "Sindicato é o nome dessa união quando ganha forma permanente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é um sindicato\""
+  revisao:
+    status: em-revisao
+
+- id: sindicalismo-fundament-o-que-e-um-sindicato-02
+  tema: "Art. 8º"
+  dificuldade: 2
+  enunciado: "O que o artigo 8º da Constituição garante, segundo a aula?"
+  alternativas:
+    - texto: "Liberdade sindical: o Estado não pode exigir autorização nem interferir, e ninguém é obrigado a se filiar"
+      certa: true
+    - texto: "Que todo trabalhador é obrigado a se filiar"
+      erro: "A aula diz que ninguém é obrigado a se filiar nem a continuar filiado."
+    - texto: "Que o sindicato só pode agir fora da Justiça"
+      erro: "A aula diz que ele pode defender a categoria inclusive na Justiça."
+  explicacao: "A participação do sindicato nas negociações coletivas é obrigatória, e o dirigente eleito tem proteção contra demissão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é um sindicato\""
+  revisao:
+    status: em-revisao
+
+- id: sindicalismo-fundament-o-que-e-um-sindicato-03
+  tema: "Marx e os sindicatos"
+  dificuldade: 3
+  enunciado: "O que Karl Marx disse, em 1865, segundo a aula, sobre os sindicatos?"
+  alternativas:
+    - texto: "Funcionam bem como centros de resistência, mas falham quando se limitam a uma \"guerra de guerrilhas\" contra os efeitos do sistema, sem tentar mudar o sistema"
+      certa: true
+    - texto: "Que são inúteis"
+      erro: "Marx disse que funcionam bem como centros de resistência."
+    - texto: "Que bastam sozinhos para mudar tudo"
+      erro: "Ele disse que falham se não tentam mudar o sistema."
+  explicacao: "Sindicato é a organização dos trabalhadores de uma categoria para negociar e defender direitos em conjunto."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é um sindicato\""
+  revisao:
+    status: em-revisao

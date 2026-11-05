@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é solidariedade de classe" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-sol-01
+  tema: "Caridade e solidariedade"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual é a diferença entre caridade e solidariedade de classe?"
+  alternativas:
+    - texto: "Caridade é quem tem ajudando quem não tem, sem mudar a situação; solidariedade de classe é o apoio entre iguais, que reconhecem o mesmo problema e o mesmo interesse"
+      certa: true
+    - texto: "Nenhuma, são a mesma coisa"
+      erro: "Na caridade, em geral, um fica em cima e o outro embaixo. Na solidariedade, são iguais em luta comum."
+    - texto: "A caridade é obrigatória por lei"
+      erro: "Não existe essa obrigação. A diferença é na relação entre as pessoas."
+  explicacao: "Paulo Freire falava de uma 'falsa generosidade', que precisa que a injustiça continue. A verdadeira é lutar para que desapareçam as razões da esmola."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-sol-02
+  tema: "Fundo de greve"
+  dificuldade: 2
+  enunciado: "Qual destes é um exemplo de solidariedade de classe?"
+  alternativas:
+    - texto: "Trabalhadores de outras categorias doarem dinheiro a um fundo de greve"
+      certa: true
+    - texto: "Um patrão dar uma cesta básica no Natal"
+      erro: "Isso é caridade ou benefício, e não apoio entre iguais."
+    - texto: "Furar a greve de uma categoria"
+      erro: "É o contrário de solidariedade."
+  explicacao: "Outros exemplos: greve de solidariedade, boicote, cozinhas solidárias e campanhas internacionais."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-sol-03
+  tema: "Lema do Manifesto"
+  dificuldade: 2
+  enunciado: "Como termina o Manifesto Comunista?"
+  alternativas:
+    - texto: "'Proletários de todos os países, uni-vos!'"
+      certa: true
+    - texto: "'Cada um por si'"
+      erro: "O lema é de união."
+    - texto: "'Trabalhadores, esperem seu patrão'"
+      erro: "O lema chama os trabalhadores do mundo a se unirem."
+  explicacao: "A ideia é que os trabalhadores do mundo todo têm mais em comum entre si do que com os patrões do próprio país."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

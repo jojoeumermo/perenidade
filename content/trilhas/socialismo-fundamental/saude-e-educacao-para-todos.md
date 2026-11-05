@@ -1,5 +1,6 @@
 ---
 titulo: "Saúde e educação para todos"
+modelo: 9
 resumo: "Por que os socialistas defendem que saúde e educação sejam direitos, e não mercadorias, e o que a experiência histórica mostra."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -23,9 +24,9 @@ quiz:
   - pergunta: "Qual medida aparece entre as propostas do Manifesto Comunista, em 1848?"
     opcoes: ["Educação pública e gratuita para todas as crianças", "Privatização das escolas", "Proibição de estudar"]
     resposta: 0
-    explicacao: "O Manifesto também propunha acabar com o trabalho infantil nas fábricas."
+    explicacao: "O Manifesto também propunha abolir o trabalho das crianças nas fábricas, na forma como existia então."
   - pergunta: "Qual campanha de 1961 levou milhares de jovens às zonas rurais para ensinar adultos a ler?"
-    opcoes: ["A Campanha Nacional de Alfabetização em Cuba", "A Copa do Mundo", "A Revolução Industrial"]
+    opcoes: ["A Campanha Nacional de Alfabetização em Cuba", "O Mobral, no Brasil", "A Cruzada Nacional de Alfabetização, na Nicarágua"]
     resposta: 0
     explicacao: "Brigadas de estudantes alfabetizaram centenas de milhares de pessoas em um ano."
 ---
@@ -35,6 +36,10 @@ quiz:
 Ao fim desta aula você vai saber explicar a diferença entre tratar saúde e educação como direito ou como mercadoria, citar o SUS como conquista popular e conhecer o que a experiência dos países socialistas mostra.
 
 Quando a saúde é mercadoria, quem tem dinheiro se trata e quem não tem espera, ou morre. Quando a educação é mercadoria, quem nasce rico estuda nas melhores escolas e quem nasce pobre fica para trás. Os socialistas defendem que saúde e educação sejam **direitos de todos**, e não produtos à venda.
+
+```suarealidade
+Quando você ou alguém da sua casa precisou de médico ou de vaga na escola, o que foi mais difícil: o atendimento, o custo ou a espera?
+```
 
 ## Direito ou mercadoria?
 
@@ -74,6 +79,15 @@ Esses resultados mostram que, quando saúde e educação deixam de ser mercadori
 
 Num país capitalista, o lucro está sempre de olho na saúde e na educação: planos de saúde, faculdades privadas, venda de remédios, plataformas de ensino. Há sempre pressão para cortar o orçamento público e abrir espaço para o mercado. Defender o SUS e a escola pública é, por isso, uma luta permanente.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Saúde e educação funcionam melhor quando são pagas. O que é de graça é ruim e cheio de fila." É a opinião de quem já enfrentou a fila.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que mercadoria é para quem pode pagar, e direito é para quem é gente, pago por toda a sociedade com impostos. A Constituição de 1988 (arts. 196 e 205) trata saúde e educação como direito de todos, e o SUS nasceu da reforma sanitária e da 8ª Conferência Nacional de Saúde (1986). Filas e falhas existem, e a aula lembra que essas conquistas estão sempre em disputa: cabe à sociedade defendê-las e cobrar que funcionem.
+```
+
 ## Exemplo resolvido
 
 **O SUS é um direito ou uma mercadoria? Como testar?**
@@ -87,6 +101,11 @@ Conclusão: o SUS é um direito. Para os socialistas ele mostra que um serviço 
 ## Para conversar
 
 Você ou alguém da sua família já foi atendido pelo SUS? Já estudou em escola pública? O que funcionou bem e o que precisa melhorar? Quem deveria decidir essas melhorias?
+
+```agir
+# Esta semana
+Anote um serviço do SUS ou da escola pública que você ou alguém da sua família já usou e que funcionou bem. Conte a história a outra pessoa.
+```
 
 ## Resumo
 

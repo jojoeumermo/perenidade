@@ -1,5 +1,6 @@
 ---
 titulo: "Da palavra à frase"
+modelo: 9
 resumo: "Juntar palavras para dizer uma ideia inteira: o espaço entre as palavras, a letra grande no começo e o ponto no fim."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Ao fim desta aula você vai juntar palavras numa frase curta e ler frases de tr�
 
 ```provocacao
 Quando você fala "o pão acabou", você para entre uma palavra e outra? Fale bem rápido e repare.
+```
+
+```suarealidade
+Qual frase curta você escreveria hoje para alguém da sua casa ou do seu serviço, como "o pão acabou" ou "cheguei"? Onde você marcaria o espaço entre as palavras?
 ```
 
 ## Na fala, tudo junto
@@ -141,6 +146,15 @@ QUE BOM, EU PASSEI!
 ARROZ E FEIJÃO.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para me virar, basta falar. Frase escrita, com letra grande e ponto, é capricho de quem estudou." É o jeito de pensar de quem sempre resolveu tudo de boca.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a escrita serve para o que a fala não alcança: fica no papel quando você não está. Ela usa frases da vida, como FUI AO POSTO DE SAÚDE, e diz que quem começa escrevendo tudo junto não erra à toa: está escrevendo o que ouve, e só falta descobrir onde cada palavra termina. Os três cuidados são o espaço entre as palavras, a letra grande no começo e o ponto no fim, e eles se aprendem batendo uma palma em cada palavra.
+```
+
 ## Exemplo resolvido
 
 **Dona Fátima escreveu: AAGUAFALTOUNORUA. Como transformar isso numa frase?**
@@ -166,6 +180,11 @@ Escreva uma frase sobre o seu dia. Pode ser bem curta: "EU TRABALHEI HOJE." Depo
 5. Escreva uma frase com o seu nome. Por exemplo: MEU NOME É ANTÔNIO.
 
 **Respostas:** 1) O CAFÉ ESTÁ QUENTE. 2) Seis palavras. 3) O SALÁRIO ATRASOU. 4) VAI CHOVER. VAI CHOVER? VAI CHOVER!
+
+```agir
+# Esta semana
+Escreva num papel uma frase curta sobre a sua vida, com espaço entre as palavras, letra grande no começo e ponto no fim. Leia em voz alta para alguém de confiança.
+```
 
 ## Resumo
 

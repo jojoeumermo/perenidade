@@ -1,5 +1,6 @@
 ---
 titulo: "Trabalho e vida coletiva"
+modelo: 9
 resumo: "A educação para o trabalho nas escolas chinesas (com a disciplina de Trabalho criada em 2022) e o lugar do trabalho na formação humana, de Marx a Paulo Freire."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Ao fim desta aula você vai saber explicar a educação para o trabalho na China
 
 Na disciplina chinesa de Moral e Estado de Direito, o **trabalho** aparece como valor: respeitar quem trabalha, participar das tarefas da casa e da escola, entender o trabalho como contribuição à coletividade. Nos últimos anos, o tema ganhou uma disciplina própria. Esta aula apresenta essa orientação e a relaciona com a tradição da educação socialista e da educação popular.
 
+```suarealidade
+Que trabalhos você aprendeu a fazer em casa ou na comunidade? Eles são valorizados por quem está à sua volta?
+```
+
 ## A educação para o trabalho na China
 
 Em **março de 2020**, o Comitê Central do Partido Comunista e o Conselho de Estado publicaram orientações para **fortalecer a educação para o trabalho** em todas as etapas escolares. Em **2022**, o Ministério da Educação publicou um padrão curricular próprio, e o **Trabalho** (劳动, *láodòng*) passou a ser uma **disciplina** do ensino obrigatório, a partir do segundo semestre daquele ano.
@@ -75,6 +80,15 @@ No Brasil, a herança da **escravidão** deixou um desprezo profundo pelo trabal
 
 Valorizar o trabalho não é o mesmo que valorizar a **exploração**. Uma educação crítica ensina a respeitar quem trabalha e, ao mesmo tempo, a perguntar por que quem trabalha mais ganha menos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O trabalho manual e doméstico é para quem não estudou. A escola deve preparar para as profissões que dão dinheiro e posição, não perder tempo com tarefas simples." É a opinião de quem acredita que o estudo existe para tirar a pessoa do trabalho pesado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra de onde vem esse desprezo: no Brasil, a herança da escravidão deixou o trabalho manual visto como "coisa de escravo", e a escola dos pobres costuma ser pensada só como preparação para o mercado, enquanto a das elites prepara para a universidade. Paulo Freire propõe outro caminho: partir da experiência de trabalho de quem estuda (o pedreiro, a lavadeira, o agricultor) e reconhecer nela um saber. Valorizar o trabalho não é valorizar a exploração: respeita-se quem trabalha e pergunta-se também por que quem trabalha mais ganha menos.
+```
+
 ## Para conversar
 
 Que trabalhos você aprendeu a fazer em casa ou na comunidade? Eles são valorizados? Como a escola poderia reconhecer esses saberes?
@@ -90,6 +104,11 @@ As três formas de educação para o trabalho previstas nas orientações chines
 Agora o olhar crítico: para Paulo Freire, parte-se da experiência de trabalho dos educandos (o pedreiro, a lavadeira, o agricultor) e reconhece-se nela um saber. E valorizar o trabalho não é valorizar a exploração: pergunta-se também por que quem trabalha tanto tem tão pouco.
 
 Confira: o objetivo, segundo a aula, é superar a separação entre quem pensa e manda e quem executa e obedece.
+
+```agir
+# Esta semana
+Escolha uma pessoa do seu círculo que faz um trabalho manual (pedreiro, cozinheira, diarista, motorista) e pergunte a ela o que ela sabe fazer que quase ninguém percebe. Anote a resposta num papel.
+```
 
 ## Resumo
 

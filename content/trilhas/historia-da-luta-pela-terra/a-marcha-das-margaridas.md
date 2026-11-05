@@ -20,7 +20,7 @@ quiz:
     resposta: 0
     explicacao: "Foi uma das primeiras mulheres a dirigir um sindicato no país."
   - pergunta: "De quanto em quanto tempo acontece a Marcha das Margaridas?"
-    opcoes: ["A cada quatro anos, desde 2000", "Todo mês", "Só aconteceu uma vez"]
+    opcoes: ["A cada três ou quatro anos, desde 2000", "Todo mês", "Só aconteceu uma vez"]
     resposta: 0
     explicacao: "Sempre em agosto, na Esplanada dos Ministérios, em Brasília."
   - pergunta: "Por que a marcha acontece em agosto?"

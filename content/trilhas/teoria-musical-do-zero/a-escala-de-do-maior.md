@@ -1,5 +1,6 @@
 ---
 titulo: "A escala de dó maior"
+modelo: 9
 resumo: "A receita de tons e semitons que organiza as sete notas, e a primeira escala para ler e tocar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber aplicar a receita da escala maior (tom, tom, semitom, tom, tom, tom, semitom), explicar por que dó maior não leva sustenido nem bemol e dizer o que é a tônica.
+
+```suarealidade
+Quando você assobia ou canta uma música, como sabe qual nota fecha a melodia e dá a sensação de ponto final?
+```
 
 ## O que é uma escala
 
@@ -88,6 +93,15 @@ nomes: sim
 
 Tente ler antes de tocar. É uma canção de ninar francesa do século XVIII, conhecida em todo o mundo, que em português virou "Brilha, brilha, estrelinha".
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem toca de ouvido não precisa de escala nem de teoria. Música é sentimento, não é conta." É a opinião de quem aprendeu a tocar ouvindo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diz que tocar de ouvido vale menos. Mostra que a escala maior segue uma receita, T – T – S – T – T – T – S, com sete notas, e que dó maior usa só as teclas brancas. A tônica é a nota de repouso, a "casa" da melodia, e saber isso explica o que o ouvido já sente. A teoria dá nome ao que o ouvido faz.
+```
+
 ## Exemplo resolvido
 
 **Por que a escala de sol maior precisa trocar o fá pelo fá sustenido?**
@@ -104,6 +118,11 @@ Conclusão: as outras escalas maiores precisam de sustenidos ou bemóis para con
 1. Toque a escala de dó maior no [teclado](/ferramentas/teclado), subindo e descendo, dizendo o nome das notas.
 2. Ligue o [metrônomo](/ferramentas/metronomo) em 60 e toque uma nota por clique.
 3. Toque a melodia acima. As notas de cabeça vazia valem dois cliques.
+
+```agir
+# Esta semana
+Num teclado ou num aplicativo de piano, toque as sete notas da escala de dó maior e anote qual delas dá a sensação de repouso.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Números decimais"
+modelo: 9
 resumo: "Como ler, comparar, somar e multiplicar números com vírgula, usando o dinheiro como guia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -25,6 +26,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber ler e comparar números decimais, somar e subtrair com a vírgula embaixo da vírgula e ligar decimais, frações e porcentagens.
+
+```suarealidade
+Onde você lê números com vírgula todo dia: preço, altura, peso, litros de combustível? Já errou o valor por causa da vírgula?
+```
 
 ## Você já usa todo dia
 
@@ -98,6 +103,15 @@ São três jeitos de escrever a mesma coisa:
 
 Para passar de fração a decimal, divida o número de cima pelo de baixo: 3 ÷ 4 = 0,75. Veja também as aulas de [frações](/trilhas/matematica-fundamental/fracoes) e de [porcentagem](/trilhas/matematica-fundamental/porcentagem).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem se importa com a vírgula? É só olhar o preço e a calculadora faz o resto." É uma opinião de quem deixa a máquina conferir tudo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a vírgula muda o valor: cada casa vale dez vezes menos que a casa à sua esquerda, e há zeros que não mudam nada, e é preciso saber quais. R$ 3,75 e R$ 37,50 são valores muito diferentes. Ela também ensina a somar e subtrair com a vírgula embaixo da vírgula e a ligar decimais, frações e porcentagens. A calculadora ajuda, mas quem sabe ler o número percebe quando o resultado não faz sentido.
+```
+
 ## Exemplo resolvido
 
 **Você comprou pão (R$ 7,80), leite (R$ 5,49) e café (R$ 18,90) e pagou com R$ 50. Qual é o troco?**
@@ -113,6 +127,11 @@ Confira: pela prova real, 32,19 + 17,81 = 50,00. Acrescentar zeros à direita (5
 1. Escreva por extenso: 0,8; 5,02; 10,125.
 2. Ponha em ordem crescente: 0,3; 0,25; 0,305; 0,03.
 3. Você comprou pão (R$ 7,80), leite (R$ 5,49) e café (R$ 18,90) e pagou com R$ 50. Qual é o troco? Confira na [calculadora](/ferramentas/calculadora).
+
+```agir
+# Esta semana
+Pegue uma nota de mercado e some, no papel, os preços de cinco itens, colocando a vírgula embaixo da vírgula. Depois compare com o total da nota.
+```
 
 ## Resumo
 

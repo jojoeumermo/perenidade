@@ -1,0 +1,50 @@
+# Exercícios da aula "Países que seguiram esse caminho: um panorama" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-paises-que-seguiram-esse-caminho-um-pano-01
+  tema: "URSS"
+  dificuldade: 1
+  enunciado: "Em que anos existiu a União Soviética, segundo a tabela da aula?"
+  alternativas:
+    - texto: "De 1917 a 1991"
+      certa: true
+    - texto: "De 1949 até hoje"
+      erro: "Esse é o caso da China."
+    - texto: "De 1959 até hoje"
+      erro: "Esse é o caso de Cuba."
+  explicacao: "A revolução foi operária e camponesa, durante a Primeira Guerra, e a URSS foi dissolvida em 1991."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Países que seguiram esse caminho: um panorama\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-paises-que-seguiram-esse-caminho-um-pano-02
+  tema: "Cuba e China"
+  dificuldade: 2
+  enunciado: "Como a aula descreve a origem das experiências de Cuba e da China?"
+  alternativas:
+    - texto: "Cuba: revolução guerrilheira contra a ditadura de Batista, desde 1959; China: longa guerra revolucionária camponesa dirigida pelo Partido Comunista, desde 1949"
+      certa: true
+    - texto: "Cuba: desde 1949; China: desde 1959"
+      erro: "As datas estão trocadas."
+    - texto: "As duas nasceram de eleições em 1990"
+      erro: "Não é o que a aula diz."
+  explicacao: "A aula também cita Vietnã, Laos, Coreia do Norte, Nicarágua e países africanos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Países que seguiram esse caminho: um panorama\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-paises-que-seguiram-esse-caminho-um-pano-03
+  tema: "Um terço"
+  dificuldade: 1
+  enunciado: "Quanto da humanidade chegou a viver em países governados em nome do socialismo no século XX, segundo a aula?"
+  alternativas:
+    - texto: "Um terço"
+      certa: true
+    - texto: "Um centésimo"
+      erro: "É bem mais."
+    - texto: "Todos"
+      erro: "Não chegou a todos."
+  explicacao: "A aula pede avaliar cada experiência olhando as conquistas e os problemas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Países que seguiram esse caminho: um panorama\""
+  revisao:
+    status: em-revisao

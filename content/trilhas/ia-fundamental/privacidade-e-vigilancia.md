@@ -1,5 +1,6 @@
 ---
 titulo: "Privacidade e vigilância"
+modelo: 9
 resumo: "Câmeras com reconhecimento facial, aplicativos que estudam o seu comportamento e bancos de dados com o seu rosto: o que é vigilância com IA, quem ela atinge mais e que direitos a LGPD garante."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Uma câmera na estação reconhece o seu rosto; o aplicativo sabe onde você dor
 
 Ao fim desta aula você vai entender o que é vigilância com inteligência artificial, por que ela atinge mais alguns grupos e que direitos a LGPD garante.
 
+```suarealidade
+Há câmeras no seu bairro, no ônibus ou na estação que você usa? Você sabe quem cuida das imagens?
+```
+
 ## Duas vigilâncias
 
 - **A das empresas**: os sistemas de recomendação **analisam o comportamento** de quem usa (o que vê, quanto tempo fica, o que compra) para montar um **perfil** e prender a atenção.
@@ -91,6 +96,20 @@ Por que o reconhecimento facial na segurança pública preocupa os movimentos ne
 3. **Peça seus dados** a um aplicativo com base no artigo 18 da LGPD.
 4. **Desconfie** de cadastro com foto do rosto que não é obrigatório.
 5. **Converse** no seu bairro e no seu movimento sobre câmeras de reconhecimento facial: quem decidiu instalá-las?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Câmera com reconhecimento facial deixa tudo mais seguro. Quem não deve não teme."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o erro e a vigilância não pesam igual: segundo estimativa citada na Wikipédia, cerca de 90% dos presos por reconhecimento facial no Brasil em 2018 eram negros, e o estudo Gender Shades (2018) mostrou que sistemas comerciais erravam mais com mulheres de pele escura. A aula lembra que privacidade não é esconder coisa errada: é ter o direito de andar pela cidade, ir a uma manifestação, entrar num baile ou num culto sem ser registrado, analisado e classificado. E pela LGPD o rosto e a digital são dados sensíveis (artigo 5º, II), com proteção maior.
+```
+
+```agir
+# Esta semana
+Revise as permissões de três aplicativos do seu celular (localização, câmera, microfone e contatos só para quem precisa) e desligue o que não for necessário. Pergunte na sua cidade, de maneira tranquila, se há câmeras com reconhecimento facial e quem cuida dos dados.
+```
 
 ## Resumo
 

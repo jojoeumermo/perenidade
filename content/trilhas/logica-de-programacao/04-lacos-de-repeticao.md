@@ -1,5 +1,6 @@
 ---
 titulo: "Laços de repetição"
+modelo: 9
 resumo: "Como mandar o computador repetir uma tarefa sem reescrever o código."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,10 @@ quiz:
 Ao fim desta aula você vai saber repetir tarefas com `while` e `for`, evitar o laço infinito e usar um acumulador.
 
 Computadores são ótimos em repetir tarefas sem cansar e sem errar. Os **laços** (em inglês, *loops*) dizem ao programa para executar um bloco várias vezes.
+
+```suarealidade
+Qual tarefa do seu dia se repete muitas vezes até acabar, como contar itens, conferir uma fila ou somar valores? Como você sabe a hora de parar?
+```
 
 ## Enquanto: `while`
 
@@ -96,6 +101,15 @@ print("fim")
 - Use `for` quando souber quantas repetições serão, ou quando for percorrer uma sequência.
 - Use `while` quando a repetição depender de algo que acontece durante o programa, como "repita até a pessoa digitar a senha certa".
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Repetir tarefa é trabalho de máquina. Programador que escreve laço está se livrando de pensar." É o receio de quem acha que a automação tira o trabalho das pessoas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula começa dizendo que computadores são ótimos em repetir tarefas sem cansar e sem errar, e que os laços (while e for) dizem ao programa para executar um bloco várias vezes. Ela também alerta para o laço infinito e mostra um exemplo útil: somar de 1 a 100. Aprender isso é entender o que as máquinas fazem por nós e como pensar na parte do trabalho que ainda exige a decisão de uma pessoa.
+```
+
 ## Exemplo resolvido
 
 **Como somar os números de 1 a 100?**
@@ -119,6 +133,11 @@ Confira: o primeiro valor do `range` entra e o último não. Com `while`, lembre
 ## Pratique
 
 Escreva um laço que mostre a tabuada do 7, de 7 × 1 até 7 × 10. Dica: dentro do laço, multiplique 7 pela variável que conta as voltas.
+
+```agir
+# Esta semana
+Escreva no papel, em português, o passo a passo de uma tarefa repetitiva sua com a frase "enquanto... faça", por exemplo, "enquanto houver caixa fechada, abro e confiro". Depois diga qual é a condição de parar.
+```
 
 ## Resumo
 

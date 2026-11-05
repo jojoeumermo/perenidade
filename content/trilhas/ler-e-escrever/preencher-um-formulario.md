@@ -1,5 +1,6 @@
 ---
 titulo: "Preencher um formulário"
+modelo: 9
 resumo: "Reconhecer os campos mais comuns (nome, data de nascimento, documentos, endereço, telefone), preencher com calma e saber quando não dar os seus dados."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Ao fim desta aula você vai reconhecer os campos mais comuns de um formulário e
 
 ```provocacao
 Qual foi o último papel que você precisou preencher? Quem preencheu? Como você se sentiu?
+```
+
+```suarealidade
+Qual foi o último formulário que você precisou preencher? Quem preencheu por você, e o que você sentiu ao esperar?
 ```
 
 ## Os campos
@@ -124,6 +129,15 @@ O CPF, o RG e os dados do banco são **seus**. A Lei Geral de Proteção de Dado
 - **Nunca** diga a sua senha a ninguém. Nem a quem diz ser do banco.
 - Leia antes de **assinar**. Se não entender, peça para lerem em voz alta ou para explicarem.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "É mais fácil deixar o atendente ou um conhecido preencher. Eu só assino." É uma saída prática para quem não quer errar nem atrasar a fila.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Ajuda é bem-vinda, e a aula diz que quem acompanha deve achar os campos, mas quem escreve é você. Um formulário é só uma lista de perguntas sobre você, e as respostas você já sabe. Preencher você mesmo é saber o que está sendo pedido e também quando não dar os seus dados: a aula tem uma seção inteira de cuidado com os dados pessoais. Quem lê os campos decide o que entregar.
+```
+
 ## Exemplo resolvido
 
 **Preencher a ficha de matrícula da EJA de Seu Raimundo, nascido em 9 de julho de 1958.**
@@ -147,6 +161,11 @@ Escreva a sua data de nascimento em números, do jeito do formulário. Depois es
 2. Escreva a sua data de nascimento em números.
 3. Escreva o seu endereço completo, com CEP.
 4. Converse: você já recebeu alguma mensagem pedindo seus dados? O que fez?
+
+```agir
+# Esta semana
+Pegue uma folha e monte o seu próprio formulário: escreva nome completo, data de nascimento (dia, mês e ano) e bairro, com letra de forma. Guarde para treinar de novo na semana que vem.
+```
 
 ## Resumo
 

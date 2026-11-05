@@ -25,10 +25,10 @@ quiz:
     opcoes: ["Em novembro de 1975, a pedido de Pinochet", "Em 1945", "Em 2001"]
     resposta: 0
     explicacao: "Por iniciativa de Manuel Contreras, chefe da polícia secreta chilena."
-  - pergunta: "Que países participaram desde o início?"
-    opcoes: ["Chile, Uruguai, Argentina, Paraguai, Bolívia e Brasil", "EUA e Canadá", "Só a Argentina"]
+  - pergunta: "Que países formaram a Operação Condor?"
+    opcoes: ["Chile, Uruguai, Argentina, Paraguai e Bolívia, com a adesão do Brasil em 1976", "EUA e Canadá", "Só a Argentina"]
     resposta: 0
-    explicacao: "Depois Equador e Peru se juntaram com funções periféricas."
+    explicacao: "As fontes divergem sobre a presença do Brasil na reunião de 1975; todas o apontam como membro a partir de 1976. Depois Equador e Peru se juntaram com funções periféricas."
   - pergunta: "Qual é uma das estimativas de vítimas atribuídas à Condor?"
     opcoes: ["Pelo menos 50 mil mortes, 30 mil desaparecidos e 400 mil presos", "Cerca de mil mortes e mil presos", "Cerca de 5 mil mortes e 10 mil presos"]
     resposta: 0

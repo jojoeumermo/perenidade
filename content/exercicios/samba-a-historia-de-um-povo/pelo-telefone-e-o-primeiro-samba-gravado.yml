@@ -1,0 +1,50 @@
+# Exercícios da aula ""Pelo telefone" e o primeiro samba gravado" (samba-a-historia-de-um-povo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: samba-a-historia-de-um-pelo-telefone-e-o-primeiro-samba-gravado-01
+  tema: "Registro"
+  dificuldade: 1
+  enunciado: "Em que data Donga registrou \"Pelo Telefone\" na Biblioteca Nacional?"
+  alternativas:
+    - texto: "Em 27 de novembro de 1916"
+      certa: true
+    - texto: "Em 12 de agosto de 1928"
+      erro: "Essa é a data da fundação da Deixa Falar."
+    - texto: "Em 1902"
+      erro: "Em 1902 foi gravado \"Isto é bom\"."
+  explicacao: "Donga registrou como só dele; depois incluiu Mauro de Almeida, autor da letra, como parceiro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"\"Pelo telefone\" e o primeiro samba gravado\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-pelo-telefone-e-o-primeiro-samba-gravado-02
+  tema: "Criação coletiva"
+  dificuldade: 2
+  enunciado: "Como nasceu a melodia de \"Pelo Telefone\", segundo a aula?"
+  alternativas:
+    - texto: "Numa criação coletiva no quintal da casa de Tia Ciata, com João da Baiana, Pixinguinha e outros"
+      certa: true
+    - texto: "Foi composta por Donga sozinho em casa"
+      erro: "A aula mostra que foi criação coletiva, e a briga de autoria veio depois."
+    - texto: "Foi copiada de uma música europeia"
+      erro: "A aula não diz isso."
+  explicacao: "A melodia se chamava originalmente \"Roceiro\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"\"Pelo telefone\" e o primeiro samba gravado\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-pelo-telefone-e-o-primeiro-samba-gravado-03
+  tema: "A letra"
+  dificuldade: 2
+  enunciado: "Segundo Donga, de onde veio a letra do \"chefe da polícia\"?"
+  alternativas:
+    - texto: "De uma paródia feita por jornalistas sobre a roleta posta no Largo da Carioca em 1913"
+      certa: true
+    - texto: "De uma ordem do chefe de polícia"
+      erro: "A letra criticava a polícia."
+    - texto: "De uma música de Tia Ciata"
+      erro: "Segundo Donga, foi paródia de jornalistas."
+  explicacao: "Os repórteres tinham posto uma roleta para mostrar que a polícia tolerava o jogo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"\"Pelo telefone\" e o primeiro samba gravado\""
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "Barras e bainhas"
+modelo: 9
 resumo: "Para que serve a bainha, como marcar o comprimento, a bainha dobrada duas vezes, a bainha invisível, a barra feita à máquina e a de malha, e o cálculo de quanto tecido deixar para dobrar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ A calça ficou ótima, mas arrasta no chão. Você corta a sobra e dobra. Quanto
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender para que serve a bainha, marcar o comprimento, calcular quanto tecido deixar e fazer a bainha dupla, a invisível, a pespontada e a de malha.
+
+```suarealidade
+Qual roupa sua ou da sua família está com a barra torta, curta demais ou descosturada? Quanto custaria mandar arrumar?
+```
 
 ## Para que serve
 
@@ -95,6 +100,15 @@ Uma calça precisa subir 5 cm e você quer manter a barra de 4 cm, com a primeir
 > Abaixo da linha do comprimento ficam a barra e a primeira dobra.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Bainha é perda de tempo. É só cortar a sobra reta e pronto, que o tecido não desfia tão rápido assim." É o jeito de quem quer resolver depressa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que a bainha tem duas funções: evitar que o tecido desfie e acertar o comprimento. A mais comum dobra a beirada duas vezes para deixar a beirada cortada totalmente fechada; só cortar deixa a beirada crua, exposta ao desfiado. E a conta "tecido abaixo da marca = barra pronta + primeira dobra" evita cortar demais e deixar a peça curta. Quem tem pressa pode escolher uma bainha mais simples, como a de overloque, que só envolve a beirada, mas o acabamento continua sendo necessário.
+```
+
 ## Exemplo resolvido
 
 **Fazer a barra de uma calça jeans que está 6 cm comprida, com bainha dupla pespontada de 2 cm.**
@@ -111,6 +125,11 @@ Tecido abaixo da nova marca: 2 + 1 = 3 cm
 4. **Dobrar** 1 cm, passar; dobrar mais 2 cm, passar e alfinetar.
 5. **Pespontar** perto da dobra de cima, começando pela costura interna da perna.
 6. **Passar** e conferir as duas pernas lado a lado.
+
+```agir
+# Esta semana
+Pegue uma peça que precisa de barra e marque o comprimento com alfinetes, com a pessoa de sapato. Faça a conta "barra pronta + primeira dobra" num papel e confira de frente, de lado e de trás.
+```
 
 ## Resumo
 

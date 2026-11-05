@@ -1,5 +1,6 @@
 ---
 titulo: "Artigos: a, an e the"
+modelo: 9
 resumo: "Quando usar a, an e the, e quando não usar artigo nenhum."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ quiz:
 Ao fim desta aula você vai saber escolher entre *a*, *an*, *the* e nenhum artigo, e lembrar que profissão leva artigo em inglês.
 
 O português tem oito artigos: o, a, os, as, um, uma, uns, umas. O inglês tem só três: **a**, **an** e **the**. Eles não mudam com o gênero nem, no caso do *the*, com o número. A dificuldade está em outra coisa: saber **quando** usar, porque o inglês às vezes usa artigo onde o português não usa, e o contrário também acontece.
+
+```suarealidade
+Pense numa frase simples do seu dia, como "eu trabalho num hospital" ou "tem um ovo na geladeira". Em português você usa "um", "uma" ou "o" sem pensar. E em inglês, você acha que precisaria de artigo nessa frase?
+```
 
 ## A e an: "um" e "uma"
 
@@ -109,6 +114,15 @@ Em português dizemos "ela é enfermeira", sem artigo. Em inglês, profissão se
 
 Dizer "she is nurse" é um erro muito comum de quem fala português.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Artigo é detalhe. Quem fala 'I have car' é entendido do mesmo jeito, então não vale perder tempo com isso." É o argumento de quem quer se comunicar logo, sem se prender a regras.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Em parte, a pessoa será entendida. Mas a aula lembra que o inglês às vezes usa artigo onde o português não usa, e o contrário também acontece, e que o inglês exige o artigo até nas profissões. São só três artigos (a, an, the), contra os oito do português, e eles não mudam com o gênero. Aprender esse pouco já deixa a frase mais natural, e quem ouve não se atrapalha.
+```
+
 ## Resumo da aula
 
 | Situação | Artigo | Exemplo |
@@ -129,6 +143,11 @@ Dizer "she is nurse" é um erro muito comum de quem fala português.
 Agora uma frase inteira: *I bought a shirt and a cap. The shirt is blue.* Primeiro *a*, porque a camisa era novidade; depois *the*, porque agora se sabe de qual camisa se fala.
 
 Confira: nas respostas da própria aula, *an hour* e *a university*. A regra é sobre a pronúncia.
+
+```agir
+# Esta semana
+Escolha três coisas da sua cozinha e escreva em inglês, num papel, com o artigo certo (a, an ou the): por exemplo, "a pot" ou "an egg". Se tiver dúvida na escolha entre a e an, lembre que o que manda é o som.
+```
 
 ## Para praticar
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Mal e mau, mas e mais, a e há"
+modelo: 9
 resumo: "Palavras parecidas que confundem na hora de escrever, cada uma com um teste simples."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,10 @@ Ao fim desta aula você vai saber escolher entre mal e mau, mas e mais, a e há,
 
 
 Na fala, essas palavras soam iguais ou quase. Na escrita, cada uma tem o seu lugar. Para cada par há um teste de troca que resolve na hora.
+
+```suarealidade
+Qual par de palavras que soam iguais você mais confunde na escrita: mal e mau, mas e mais, a e há? Onde isso aparece?
+```
 
 ## Mal e mau
 
@@ -133,6 +138,15 @@ O teste: troque por **"caso não"**. Se couber, é separado.
 
 Nenhuma dessas trocas impede que a mensagem seja entendida. O que está em jogo é outra coisa: a escrita funciona como cartão de visita. Um currículo, uma reclamação ao Procon ou uma carta ao vereador com essas trocas tende a ser lido com má vontade, por injusto que isso seja. Saber as formas é tirar do outro lado um pretexto para não ouvir.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Na fala todo mundo se entende, então essas confusões não importam. Cobrar a letra certa é implicância de professor." É a opinião de quem acha que o importante é a mensagem chegar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que, na fala, essas palavras soam iguais ou quase. Mas na escrita cada uma tem o seu lugar, e o sentido muda: mau é o contrário de bom, mal é o contrário de bem. Para cada par há um teste de troca que resolve na hora (por exemplo, trocar por "faz" para saber se é "há"). Num currículo, num requerimento ou num recado ao patrão, a letra errada pode distrair quem lê do que você quer dizer. O teste simples resolve sem decorar regras longas.
+```
+
 ## Exemplo resolvido: um teste para cada par
 
 1. **"Dormi ___."** Troque pelo contrário: "dormi bem" cabe, então é **mal**: "Dormi mal." Já "Ele não é ___ sujeito": "bom sujeito" cabe, então é **mau**.
@@ -141,6 +155,11 @@ Nenhuma dessas trocas impede que a mensagem seja entendida. O que está em jogo 
 4. **"___ chover, haverá mutirão."** Troque por "caso não": cabe, então é **Se não**, separado.
 
 Confira: cada teste troca a palavra por outra que a aula dá como par certo.
+
+```agir
+# Esta semana
+Escolha dois pares da aula e escreva no papel duas frases com cada palavra, aplicando o teste de troca. Releia uma mensagem que você escreveu esta semana e confira se acertou.
+```
 
 ## Resumo
 

@@ -18,7 +18,7 @@ quiz:
   - pergunta: "Qual é a jornada máxima normal de trabalho prevista na Constituição?"
     opcoes: ["8 horas por dia e 40 por semana", "10 horas por dia e 60 por semana", "6 horas por dia e 30 por semana"]
     resposta: 0
-    explicacao: "É o que diz o artigo 7º, inciso XIII, com a redação da Emenda Constitucional nº 141, de 2026, que baixou o limite semanal de 44 para 40 horas. O que passar disso é hora extra."
+    explicacao: "É o que diz o artigo 7º, inciso XIII, com a redação da Emenda Constitucional nº 141, de 2026, que baixou o limite semanal de 44 para 40 horas. A emenda prevê transição: o teto cai para 42 horas dois meses depois da publicação e para 40 horas um ano depois disso. O que passar do limite em vigor é hora extra."
   - pergunta: "Quanto a mais vale, no mínimo, uma hora extra?"
     opcoes: ["10%", "50%", "100%"]
     resposta: 1

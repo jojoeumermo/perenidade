@@ -1,0 +1,84 @@
+# Exercícios da aula "Higiene e boas práticas na cozinha" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: a vigilância sanitária do município diz o que vale para quem vende de casa.
+
+- id: coz-higiene-01
+  tema: "As mãos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quando se deve lavar as mãos na cozinha, segundo a aula?"
+  alternativas:
+    - texto: "Antes de começar, depois de ir ao banheiro, depois de mexer em carne, frango, peixe ou ovo crus, e depois de pegar no lixo, no dinheiro ou no celular"
+      certa: true
+    - texto: "Só no fim do dia"
+      erro: "Mão suja é o caminho mais comum do germe até a comida. Lave sempre que mudar de tarefa."
+    - texto: "Só quando a mão estiver visivelmente suja"
+      erro: "Germes não se veem. Lave nos momentos da lista, mesmo com a mão aparentemente limpa."
+  explicacao: "Lave com água e sabão, esfregando a palma, as costas da mão, entre os dedos, as unhas e os punhos, por cerca de 40 a 60 segundos, e seque com papel descartável ou pano limpo que só serve para isso. O celular volta o tempo todo para a mão: guarde-o fora da bancada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene e boas práticas na cozinha\""
+  revisao:
+    status: em-revisao
+
+- id: coz-higiene-02
+  tema: "Roupa, cabelo e corpo"
+  dificuldade: 1
+  enunciado: "Qual destas é uma regra de higiene pessoal para quem cozinha para vender?"
+  alternativas:
+    - texto: "Cabelo preso e coberto, unhas curtas e sem esmalte, sem joias, roupa limpa usada só na cozinha"
+      certa: true
+    - texto: "Usar anel e pulseira, para a cozinha ficar bonita"
+      erro: "Anel, pulseira, relógio e brinco grande acumulam sujeira e podem cair na massa."
+    - texto: "Cozinhar mesmo com diarreia ou vômito, se for pouco"
+      erro: "Quem está com gripe forte, diarreia, vômito ou ferida infectada deve ficar fora do preparo."
+  explicacao: "Machucado ou corte na mão: cubra com curativo e luva. O esmalte descasca e pode cair na comida."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene e boas práticas na cozinha\""
+  revisao:
+    status: em-revisao
+
+- id: coz-higiene-03
+  tema: "Cru e cozido"
+  dificuldade: 2
+  enunciado: "Como evitar a contaminação cruzada, em que o germe da carne crua vai parar no que já está pronto?"
+  alternativas:
+    - texto: "Tábuas e facas separadas, o cru embaixo e o pronto em cima na geladeira, tudo fechado, e as mãos lavadas entre uma tarefa e outra"
+      certa: true
+    - texto: "Usar a mesma tábua para tudo, só passando um paninho"
+      erro: "Tábuas e facas separadas para o cru e para o que será comido sem cozinhar evitam a passagem do germe."
+    - texto: "Pôr a carne crua em cima da salada pronta na geladeira"
+      erro: "O líquido da carne pode pingar. Na geladeira, o cru fica embaixo e o pronto em cima, em recipientes fechados."
+  explicacao: "Carne, frango e ovo precisam ser bem cozidos: a norma da Anvisa (RDC 216/2004) pede chegar a pelo menos 70 graus no centro do alimento, segundo a aula."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene e boas práticas na cozinha\""
+  revisao:
+    status: em-revisao
+
+- id: coz-higiene-04
+  tema: "A zona de perigo"
+  dificuldade: 2
+  enunciado: "Você fez uma panela grande de feijão para vender de marmita e sobrou. Qual é a forma mais segura de guardar?"
+  alternativas:
+    - texto: "Dividir em potes pequenos e rasos, esfriar logo e levar à geladeira"
+      certa: true
+    - texto: "Deixar a panela tampada no fogão até a manhã seguinte"
+      erro: "Bactéria se multiplica depressa entre mais ou menos 5 e 60 graus. Comida pronta não deve ficar horas na bancada ou no fogão."
+    - texto: "Colocar a panela fervendo direto na geladeira"
+      erro: "Panela grande esfria devagar no centro. Divida em potes pequenos e rasos para esfriar logo."
+  explicacao: "Frio fica na geladeira, de 5 graus ou menos (compre um termômetro para geladeira); quente fica acima de 60 graus. Descongele na geladeira, e não em cima da pia."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene e boas práticas na cozinha\""
+  revisao:
+    status: em-revisao
+
+- id: coz-higiene-05
+  tema: "Limpeza do lugar"
+  dificuldade: 2
+  enunciado: "Qual destes cuidados de limpeza a aula recomenda?"
+  alternativas:
+    - texto: "Trocar o pano de prato todo dia, usar panos diferentes para a louça e para as mãos, e nunca misturar produtos de limpeza entre si"
+      certa: true
+    - texto: "Misturar água sanitária com outros produtos para limpar melhor"
+      erro: "Nunca misture produtos de limpeza entre si: a mistura pode soltar gás tóxico."
+    - texto: "Usar o mesmo pano de prato por semanas, se parecer limpo"
+      erro: "Pano de prato é um dos maiores criadores de germe. Troque todo dia."
+  explicacao: "Limpeza é tirar a sujeira visível, com água e detergente; desinfecção mata a maior parte dos germes depois da limpeza. Lixo com tampa fora da área do preparo, esvaziado todo dia; tela nas janelas e ralo com tampa afastam bichos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene e boas práticas na cozinha\""
+  revisao:
+    status: em-revisao

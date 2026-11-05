@@ -46,7 +46,7 @@ Segundo o MST, a **expansão da fronteira agrícola**, os **megaprojetos** (as *
 
 ## Os acampamentos antes do MST
 
-No fim dos anos **1970**, surgiram acampamentos no **Rio Grande do Sul**, como o de **Encruzilhada Natalino**. Lá, as **mães** começaram a se organizar para garantir **educação** às crianças acampadas, excluídas da escola. Movimentos **locais e regionais** de luta pela terra se multiplicavam.
+Entre o fim dos anos **1970** e o começo dos anos **1980**, surgiram acampamentos no **Rio Grande do Sul**, como o de **Encruzilhada Natalino**. Lá, as **mães** começaram a se organizar para garantir **educação** às crianças acampadas, excluídas da escola. Movimentos **locais e regionais** de luta pela terra se multiplicavam.
 
 ## Cascavel, 1984
 
@@ -77,7 +77,7 @@ Por que o MST fala em terras "improdutivas"?
 
 - Concentração da terra por **fronteira agrícola, barragens e mecanização**.
 - **Mais de 30 milhões** migraram do campo para as cidades.
-- Fim dos anos 1970: acampamentos como **Encruzilhada Natalino (RS)**.
+- Fim dos anos 1970 e começo dos 1980: acampamentos como **Encruzilhada Natalino (RS)**.
 - **24/1/1984**: fundação do **MST** em **Cascavel (PR)**, com apoio da **CPT**.
 - Objetivo: **redistribuir as terras improdutivas**; **Reforma Agrária Popular**.
 

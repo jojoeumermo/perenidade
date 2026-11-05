@@ -1,0 +1,50 @@
+# Exercícios da aula "Compasso e fórmula de compasso" (teoria-musical-do-zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teoria-musical-do-zero-compasso-e-formula-de-compasso-01
+  tema: "Fórmula 4/4"
+  dificuldade: 1
+  enunciado: "O que significa 4/4 na fórmula de compasso?"
+  alternativas:
+    - texto: "Quatro tempos por compasso, e a semínima vale um tempo"
+      certa: true
+    - texto: "Quatro compassos por música"
+      erro: "O número de cima conta os tempos de cada compasso."
+    - texto: "A música tem quatro notas"
+      erro: "Não é isso."
+  explicacao: "O número de cima diz quantos tempos tem cada compasso; o de baixo diz qual figura vale um tempo: 2 é a mínima, 4 é a semínima, 8 é a colcheia."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Compasso e fórmula de compasso\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-compasso-e-formula-de-compasso-02
+  tema: "Valsa"
+  dificuldade: 2
+  enunciado: "Qual é a fórmula de compasso das valsas, segundo a aula?"
+  alternativas:
+    - texto: "3/4"
+      certa: true
+    - texto: "2/4"
+      erro: "O 2/4 é de marchas, de boa parte do samba, do baião e do frevo."
+    - texto: "4/4"
+      erro: "O 4/4 é a maior parte da música popular."
+  explicacao: "Compasso é cada grupo de tempos separados pelas barras de compasso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Compasso e fórmula de compasso\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-compasso-e-formula-de-compasso-03
+  tema: "Pulso"
+  dificuldade: 1
+  enunciado: "O que é o pulso?"
+  alternativas:
+    - texto: "As batidas regulares, como as de um relógio, que se marcam batendo o pé"
+      certa: true
+    - texto: "A nota mais aguda"
+      erro: "Isso não é pulso."
+    - texto: "O número de baixo do compasso"
+      erro: "O número de baixo diz a figura que vale um tempo."
+  explicacao: "O primeiro tempo de cada compasso costuma ser o mais forte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Compasso e fórmula de compasso\""
+  revisao:
+    status: em-revisao

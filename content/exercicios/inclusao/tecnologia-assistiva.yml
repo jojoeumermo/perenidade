@@ -1,0 +1,51 @@
+# Exercícios da aula "Tecnologia assistiva" (Inclusão). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: inc-tec-01
+  tema: "O que é"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é tecnologia assistiva?"
+  alternativas:
+    - texto: "Produtos, equipamentos, recursos, estratégias, práticas e serviços que promovem a autonomia da pessoa com deficiência"
+      certa: true
+    - texto: "Só aparelhos eletrônicos caros"
+      erro: "Pode ser um aparelho, mas também uma técnica ou um serviço."
+    - texto: "Um tipo de remédio"
+      erro: "Não é remédio: é recurso para aumentar a autonomia."
+  explicacao: "A Lei Brasileira de Inclusão (art. 3º) define a tecnologia assistiva, ou ajuda técnica. O objetivo é a autonomia, a independência e a inclusão social."
+  fonte: "Lei Brasileira de Inclusão (Lei 13.146/2015), art. 3º, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: inc-tec-02
+  tema: "Prancha de figuras"
+  dificuldade: 2
+  enunciado: "Uma prancha com figuras que uma criança autista não verbal usa para pedir água é tecnologia assistiva?"
+  alternativas:
+    - texto: "Sim: é um recurso que promove a comunicação e a autonomia dela"
+      certa: true
+    - texto: "Não, porque não tem eletrônica"
+      erro: "Tecnologia assistiva não precisa de eletrônica. Uma prancha de comunicação é um recurso que dá autonomia."
+    - texto: "Não, porque só vale para adultos"
+      erro: "A tecnologia assistiva vale para pessoas de qualquer idade."
+  explicacao: "O que define é a função: promover autonomia e participação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-tec-03
+  tema: "Prova no computador"
+  dificuldade: 2
+  enunciado: "Que tecnologias ajudam um estudante cego a fazer uma prova no computador?"
+  alternativas:
+    - texto: "Leitor de tela e mostrador braille, junto com o teclado que ele já usa"
+      certa: true
+    - texto: "Nenhuma: ele precisa de alguém que faça a prova por ele"
+      erro: "Com a tecnologia certa, ele faz a prova com autonomia."
+    - texto: "Só aumentar o tamanho da letra"
+      erro: "Para quem é cego, aumentar a letra não resolve. Servem o leitor de tela e o braille."
+  explicacao: "Leitor de tela lê as questões em voz alta e o mostrador braille permite ler com os dedos. O artigo 16 da LBI garante tecnologia assistiva na habilitação e reabilitação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

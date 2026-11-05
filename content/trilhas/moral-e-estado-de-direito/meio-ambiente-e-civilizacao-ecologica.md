@@ -1,5 +1,6 @@
 ---
 titulo: "Meio ambiente e civilização ecológica"
+modelo: 9
 resumo: "O conceito chinês de 'civilização ecológica', as metas de carbono e o que diz a Constituição brasileira sobre o meio ambiente."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Ao fim desta aula você vai saber explicar o conceito de civilização ecológic
 
 Proteger o meio ambiente é tema escolar em muitos países. Na China, ele aparece na disciplina de Moral e Estado de Direito ligado a um conceito oficial: a **civilização ecológica** (生态文明, *shēngtài wénmíng*). Esta aula explica o conceito, olha para a realidade e compara com o Brasil.
 
+```suarealidade
+Qual é o maior problema ambiental perto de você: lixo, esgoto, calor, enchente, queimada? Quem sofre mais com ele?
+```
+
 ## O conceito
 
 A expressão **civilização ecológica** passou a ter grande destaque nos documentos do Partido Comunista da China a partir de **2012**, quando a "construção da civilização ecológica" foi incluída entre as cinco grandes áreas do desenvolvimento do país (ao lado da economia, da política, da cultura e da sociedade). Em **2018**, uma emenda incluiu o termo na **Constituição**.
@@ -76,6 +81,15 @@ No Brasil, a maior parte das emissões de gases de efeito estufa vem do **desmat
 
 O conceito de civilização ecológica é interessante porque admite que o desenvolvimento precisa respeitar limites. Mas, na China como no Brasil, a questão decisiva é **quem decide** e **com que prioridades**: o lucro, o crescimento a qualquer custo, ou as necessidades das pessoas e a preservação da vida. As trilhas de [Meio ambiente](/trilhas/meio-ambiente-fundamental) e de [Ecossocialismo](/trilhas/ecossocialismo-basico) aprofundam esse debate.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cuidar do meio ambiente não pode travar o crescimento nem o emprego. Primeiro vem o desenvolvimento do país; depois, com a riqueza, se limpa o ambiente." É a opinião de quem vive da produção e teme perder renda com regras ambientais.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não ignora o argumento: lembra que o Brasil e a China têm situações diferentes (no Brasil, a maior parte das emissões vem do desmatamento e da agropecuária; na China, da energia e da indústria) e que os países ricos respondem pela maior parte das emissões históricas. Mas mostra que o art. 225 da Constituição garante a todos o meio ambiente ecologicamente equilibrado, para as presentes e futuras gerações, e que a questão decisiva é quem decide e com que prioridades: o lucro, o crescimento a qualquer custo, ou as necessidades das pessoas e a preservação da vida.
+```
+
 ## Para conversar
 
 Qual é o maior problema ambiental da sua região? Quem é responsável por ele? Quem sofre as consequências?
@@ -89,6 +103,11 @@ Pergunta: por que a defesa do clima não pede a mesma coisa da China e do Brasil
 3. Conclusão: na China, o desafio passa pela energia e pela indústria; no Brasil, pela floresta e pelo campo. Por isso a defesa da Amazônia pesa tanto no caso brasileiro.
 
 Confira: a aula lembra ainda que os países ricos do Norte respondem pela maior parte das emissões históricas acumuladas. A pergunta decisiva, nos dois países, é quem paga o custo e quem se beneficia.
+
+```agir
+# Esta semana
+Dê uma volta de dez minutos pelo seu bairro e anote num papel um problema ambiental que você viu (lixo, esgoto, falta de árvore). Escreva também quem, na sua cidade, deveria resolver.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "O celular no dia a dia: mensagens, áudios e serviços do governo"
+modelo: 9
 resumo: "Ler e escrever no celular: mensagens, áudios, a conta gov.br e os aplicativos de serviço público, com cuidado contra golpes."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -54,6 +55,10 @@ Ao fim desta aula você vai ler e escrever mensagens curtas no celular, usar a l
 
 ```provocacao
 O que você mais faz no celular? E o que você ainda pede para alguém fazer por você?
+```
+
+```suarealidade
+O que você mais faz no celular? E o que você ainda pede para alguém fazer por você? Já recebeu alguma mensagem que parecia golpe?
 ```
 
 ## Ler e escrever mensagens
@@ -173,6 +178,20 @@ Escreva uma mensagem curta para alguém de confiança, do jeito de um bilhete: p
 3. Use o microfone do teclado para ditar uma frase. Leia o que saiu e corrija.
 4. Ache no seu celular, com ajuda, o aplicativo gov.br ou o Meu INSS.
 5. Conte para alguém da casa as três regras de ouro.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem está aprendendo a ler não deve usar o celular para serviço do governo ou do banco: é perigoso, melhor ir pessoalmente e não arriscar." É uma preocupação de quem já viu parente cair em golpe.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O risco existe, e a aula ensina as três regras de ouro: senha e código não se passam para ninguém; mensagem com pressa, ameaça, prêmio ou link pedindo dados, não clique; confira por outro caminho. Também mostra que o celular tem ajudas (letra grande, leitura em voz alta, microfone) e que a conta gov.br dá entrada no Meu INSS, na Carteira de Trabalho Digital e no Meu SUS Digital. Ir pessoalmente continua possível, mas cada vez mais o serviço só funciona pela tela.
+```
+
+```agir
+# Esta semana
+Escreva num papel as três regras de ouro com as suas palavras e cole perto de onde você usa o celular. Se alguém da família tiver dúvida sobre uma mensagem suspeita, mostre a regra. Não anote senhas nem códigos em nenhum lugar.
+```
 
 ## Resumo
 

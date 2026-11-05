@@ -1,5 +1,6 @@
 ---
 titulo: "Produzir materiais a partir de textos reais"
+modelo: 9
 resumo: "Como transformar textos que circulam na vida do grupo (conta de luz, receita, folheto, notícia, letra de música) em material de alfabetização, sem cartilha."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ A cartilha clássica tem frases que ninguém fala: "Vovó viu a uva." O adulto q
 Ao fim desta aula você vai saber escolher textos reais que façam sentido para o grupo, preparar esses textos para o círculo (aumentar, recortar, cobrir dados) e planejar o que ensinar com cada um: palavras, sílabas, leitura de números e a função do texto na vida.
 
 ```provocacao
+Que papéis escritos entraram na sua casa esta semana? Quantos deles alguém da casa precisou ler para outra pessoa?
+```
+
+```suarealidade
 Que papéis escritos entraram na sua casa esta semana? Quantos deles alguém da casa precisou ler para outra pessoa?
 ```
 
@@ -120,6 +125,20 @@ Confira: o texto veio do grupo, a conversa partiu da vida (o bolo é trabalho), 
 
 ```realidade
 Escolha um texto real que circula na casa de alguém do seu grupo. Escreva para que ele serve e três palavras dele que você usaria no círculo.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Conta de luz e receita não são material de ensino. A cartilha, com sílabas bem organizadas, é o jeito certo de alfabetizar. Texto real é difícil demais para quem está começando." É um argumento de quem valoriza a ordem do ensino.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não joga fora o estudo do sistema: com Magda Soares, defende alfabetizar letrando, ensinando letras e sons dentro de textos que têm uso, porque uma coisa sem a outra não basta. Quem só decora sílabas não sabe para que serve a escrita. Para o texto real não ser difícil demais, a aula pede cobrir dados pessoais, aumentar a letra, recortar o essencial e trabalhar em três camadas: função, palavras-chave e sistema.
+```
+
+```agir
+# Esta semana
+Escolha um papel real da sua casa (uma conta, uma receita, uma embalagem), cubra com lápis ou papel qualquer dado pessoal e circule três palavras que podem servir de ponto de partida para estudar. Anote-as numa folha.
 ```
 
 ## Resumo

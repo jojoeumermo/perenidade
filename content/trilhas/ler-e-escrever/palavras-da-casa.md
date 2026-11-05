@@ -1,5 +1,6 @@
 ---
 titulo: "Palavras da casa"
+modelo: 9
 resumo: "Ler as palavras que estão em volta da gente, da panela à lista de compras, e montar palavras novas com os pedaços delas."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Nas duas primeiras aulas, você conheceu [as vogais](/trilhas/ler-e-escrever/as-
 ## O que você vai aprender
 
 Ao fim desta aula você vai ler palavras da casa pela primeira letra e pelos pedaços. Vai dividir PANELA em sílabas, conhecer as famílias PA, NE e LA e montar palavras novas com elas. E vai escrever uma lista de compras.
+
+```suarealidade
+Qual é a primeira palavra que você leria na sua casa se tivesse que escolher uma: PANELA, CAMA, PORTA? Por que essa?
+```
 
 ## Primeiro, a conversa
 
@@ -168,6 +173,15 @@ Se errar uma letra, não tem problema. O importante é que você consiga ler a s
 
 Algumas palavras da casa chegam todo mês num papel com valor para pagar: **LUZ**, **ÁGUA**, **GÁS**, **ALUGUEL**. Aprender a ler essas palavras é o começo para entender as contas. Isso fica para a aula [Ler placas, ônibus e contas](/trilhas/ler-e-escrever/ler-placas-onibus-e-contas).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para alfabetizar adulto, o certo é começar direto pelas letras, sem conversa. Falar da casa e da vida é perder tempo." É o método de quem acha que ler é só decorar letras.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula conta que Paulo Freire começava a alfabetização sem letra nenhuma: primeiro vinha a conversa sobre uma cena da vida, depois a palavra escrita. Ela não deixa de lado o ensino das letras: divide PANELA em sílabas, mostra as famílias PA, NE e LA e monta palavras novas. A conversa serve para a palavra ter peso na vida de quem aprende. E a casa é assunto de luta: a Constituição, no artigo 6º, diz que a moradia é um direito social.
+```
+
 ## Exemplo resolvido
 
 **Quantas palavras dá para montar com os pedaços de PANELA? Vamos achar uma: LONA.**
@@ -219,6 +233,11 @@ palavras-geradoras | Abrir as palavras geradoras
 3. Ache na sua cozinha três pacotes e diga a primeira letra de cada um.
 4. Faça uma lista de compras com cinco coisas.
 5. Leia em voz alta: CASA, MESA, CAMISA. Escute o som de Z.
+
+```agir
+# Esta semana
+Escreva num papel quatro palavras de cada lugar da sua casa (cozinha, quarto, banheiro). Leia em voz alta cada uma e, se puder, cole uma etiqueta com o nome em dois objetos.
+```
 
 ## Resumo
 

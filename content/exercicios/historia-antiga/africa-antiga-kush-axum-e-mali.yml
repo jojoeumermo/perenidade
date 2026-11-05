@@ -1,0 +1,67 @@
+# Exercícios da aula "África antiga: Kush, Axum e Mali" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-afr-01
+  tema: "Os faraós negros"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Quem foram os chamados 'faraós negros'?"
+  alternativas:
+    - texto: "Reis de Kush, na Núbia, que no século VIII a.C. conquistaram o Egito e governaram os dois países por quase um século"
+      certa: true
+    - texto: "Faraós egípcios que governaram a Etiópia"
+      erro: "Foram reis de Kush, ao sul do Egito, que conquistaram o Egito."
+    - texto: "Reis do Mali que visitaram o Egito"
+      erro: "O Mali é muito posterior. Os faraós negros eram de Kush, na Núbia."
+  explicacao: "Kush ficava na Núbia, no atual Sudão. A capital depois foi transferida para Méroe, onde havia produção de ferro e rainhas poderosas, as candaces."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-afr-02
+  tema: "As moedas de Axum"
+  dificuldade: 2
+  enunciado: "O que as moedas próprias de Axum indicam sobre esse reino?"
+  alternativas:
+    - texto: "Que tinha um Estado organizado e participava intensamente do comércio internacional"
+      certa: true
+    - texto: "Que era um povo isolado"
+      erro: "Cunhar moeda exige governo forte e trocas com outros povos."
+    - texto: "Que copiava tudo de Roma"
+      erro: "Axum cunhava as próprias moedas de ouro, prata e bronze, o que poucos Estados faziam então."
+  explicacao: "Pelo porto de Adúlis passavam mercadorias entre a África, o Egito romano, a Arábia e a Índia. No século IV, o rei Ezana adotou o cristianismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-afr-03
+  tema: "O império do Mali"
+  dificuldade: 2
+  enunciado: "Em que se apoiou a riqueza do império do Mali?"
+  alternativas:
+    - texto: "No controle das rotas das caravanas que levavam sal do norte e traziam ouro do sul"
+      certa: true
+    - texto: "Na venda de petróleo"
+      erro: "Nada disso existia: a riqueza vinha do comércio de sal e ouro nas rotas do Saara."
+    - texto: "Na pesca no oceano"
+      erro: "O Mali ficava no interior, nas savanas do Sahel, e prosperou com as caravanas de sal e ouro."
+  explicacao: "Quem controlava as rotas do Saara enriquecia. O Mali foi fundado por Sundiata Keita, por volta de 1235. Em 1324, Mansa Musa fez a peregrinação a Meca."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-afr-04
+  tema: "África 'sem história'"
+  dificuldade: 3
+  enunciado: "Por que se repetiu durante muito tempo que a África não tinha história?"
+  alternativas:
+    - texto: "Foi uma imagem construída na época do tráfico de escravizados e da colonização, que servia para justificá-los"
+      certa: true
+    - texto: "Porque realmente não havia reinos nem cidades"
+      erro: "Isso é falso: a arqueologia mostra reinos, impérios, cidades e rotas de comércio."
+    - texto: "Porque os africanos nunca fizeram comércio"
+      erro: "Fizeram: as rotas ligavam a África à Europa, à Arábia, à Índia e à China."
+  explicacao: "Se os africanos não tinham passado, a escravização e a colonização pareciam menos injustas. Conhecer a história da África importa muito para o Brasil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "Convivência, respeito e responsabilidade"
+modelo: 9
 resumo: "Como os anos iniciais da disciplina chinesa tratam a vida em grupo, as emoções e o cuidado consigo e com os outros, comparados com a proposta brasileira."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ Ao fim desta aula você vai saber dizer como a disciplina chinesa trata a conviv
 
 
 Antes de falar de leis e de Estado, a disciplina chinesa de Moral e Estado de Direito começa pelo mais próximo: **como conviver** com os colegas, com a família, com os professores. Esta aula apresenta esse ponto de partida e o compara com a forma como o Brasil trata o tema.
+
+```suarealidade
+Na escola, no trabalho ou na vizinhança, quem decide as regras de convivência? Você já participou de alguma decisão dessas?
+```
 
 ## O ponto de partida: a vida cotidiana
 
@@ -76,6 +81,15 @@ Repare numa diferença de ênfase: o ECA parte dos **direitos** da criança como
 
 Para Paulo Freire, a convivência democrática na escola não se ensina com sermões, mas com **prática**: diálogo, participação nas decisões, respeito à palavra do outro. Uma escola em que os estudantes decidem juntos as regras da sala, por exemplo, ensina convivência e responsabilidade melhor do que qualquer lista de normas.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Respeito se aprende em casa e se cobra com regra firme. Criança e jovem precisam, antes de tudo, de responsabilidade e de obediência ao grupo, e não de ficar discutindo direitos." É a opinião de quem vê o excesso de direitos sem deveres como ameaça à convivência.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que as duas dimensões existem nos dois países: o Estatuto da Criança e do Adolescente parte dos direitos da criança, inclusive o direito ao respeito (art. 17) e à liberdade de opinião e expressão (art. 16), e a disciplina chinesa parte mais das responsabilidades em relação ao grupo. A conclusão da aula é que nenhuma das portas dispensa as outras: direitos sem responsabilidade viram disputa, e responsabilidade sem direito vira obediência. Paulo Freire acrescenta que a convivência se aprende na prática, com diálogo e participação.
+```
+
 ## Para conversar
 
 Na sua escola (ou na de alguém que você conhece), quem decide as regras de convivência? Os estudantes participam? Como seria uma escola em que todos construíssem as regras juntos?
@@ -89,6 +103,11 @@ Pergunta: por onde começa cada documento quando o assunto é como conviver na e
 3. Paulo Freire acrescenta o método: a convivência democrática se aprende com prática (diálogo, participação nas decisões, respeito à palavra do outro), e não com sermões.
 
 Confira: nenhuma das três portas dispensa as outras. Direitos sem responsabilidade viram disputa; responsabilidade sem direito vira obediência.
+
+```agir
+# Esta semana
+Escolha uma regra da sua casa, do seu trabalho ou da sua escola e anote num papel: quem a criou, para que serve e como ela poderia ser conversada por todos. Leve a pergunta a alguém de confiança.
+```
 
 ## Resumo
 

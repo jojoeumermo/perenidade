@@ -1,5 +1,6 @@
 ---
 titulo: "Começo, meio e fim"
+modelo: 9
 resumo: "Como abrir uma fala prendendo a atenção, organizar o meio com uma ordem que o público acompanha, fazer as passagens entre as ideias e terminar com força, sem o \"bom, acho que é isso\"."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Você já saiu de uma reunião sem saber o que a pessoa que falou queria? Ela fa
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber abrir uma fala prendendo a atenção, apresentar a ideia central, escolher uma ordem para o meio, fazer as passagens entre as ideias e terminar com força.
+
+```suarealidade
+Lembre de uma fala que você ouviu e gostou, ou de uma que não entendeu. Como ela começou? Como terminou?
+```
 
 ## Por que a ordem importa
 
@@ -106,6 +111,15 @@ Você vai falar para convencer a assembleia a aprovar um mutirão de limpeza do 
 > Para convencer, mostre o problema, explique por que ele existe e termine com a proposta.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem tem o que dizer fala de improviso e do coração. Roteiro e estrutura deixam a fala dura e artificial." É a opinião de quem acredita mais na espontaneidade do que na técnica.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não proíbe a espontaneidade. Ela lembra que quem lê pode voltar a página, mas quem ouve não pode voltar a fala: por isso a fala precisa de um começo que diga o que vem, de um meio numa ordem clara e de um fim que amarre tudo. A estrutura é um caminho para o público não se perder, e dentro dela cabe a sua voz. O começo tem cinco passos (chamar a atenção, ligar ao tema, mostrar por que importa, dizer quem você é, dizer a ideia central), e o fim repete a ideia, lembra as principais e fecha com força.
+```
+
 ## Exemplo resolvido
 
 **Monte a estrutura de uma fala de 3 minutos para convencer a associação a organizar um mutirão de limpeza do córrego.**
@@ -116,6 +130,11 @@ Você vai falar para convencer a assembleia a aprovar um mutirão de limpeza do 
   2. *Transição*: "E por que ela piora?" *Causa*: entulho jogado na margem entupindo a passagem da água.
   3. *Transição*: "Então, o que podemos fazer?" *Solução*: mutirão no sábado, com pedido de caçamba à prefeitura.
 - **Fim**: "Enchente não é destino: tem causa, e a causa a gente pode tirar" (ideia central com outras palavras). "Vimos o problema, a causa e a saída" (ideias principais). "Quem vem no sábado, às 8h, levante a mão" (chamado à ação).
+
+```agir
+# Esta semana
+Pense numa fala curta que você precisa fazer em breve (reunião, escola, trabalho) e escreva num papel só três linhas: o começo, o meio e o fim. Leia em voz alta, sozinho ou para alguém de confiança.
+```
 
 ## Resumo
 

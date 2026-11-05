@@ -1,5 +1,6 @@
 ---
 titulo: "Grécia antiga"
+modelo: 9
 resumo: "Objetivo: conhecer as cidades gregas, a invenção da democracia em Atenas e os seus limites, e a herança que os gregos deixaram."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar por que a Grécia era um mundo de cidades, como funcionava a democracia ateniense, o que foram as guerras e o império de Alexandre e o que herdamos dos gregos.
+
+```suarealidade
+Quem decide as coisas no seu bairro, na sua associação ou no seu sindicato? Todo mundo participa ou só alguns?
+```
 
 
 ## Um mundo de cidades
@@ -113,6 +118,20 @@ Leitura: a democracia de Atenas e o império de Alexandre não são do mesmo tem
 1. Compare a democracia de Atenas com a nossa. O que cada uma tem que falta à outra?
 2. O sorteio para cargos públicos seria uma boa ideia hoje? Por quê?
 3. Quem faz, hoje, o trabalho que permite a outros ter tempo livre para a política e o estudo?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A democracia de Atenas é que era de verdade: o povo votava direto, sem político no meio. Era bem melhor que a de hoje."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que foi uma invenção extraordinária: os cidadãos votavam as leis, a guerra e a paz em assembleia, e muitos cargos eram preenchidos por sorteio. Mas só era cidadão o homem adulto, livre, filho de pai e mãe atenienses. Ficavam de fora as mulheres, os estrangeiros e os escravizados, que eram uma parte muito grande da população. A democracia de Atenas era o governo de uma minoria, e só era possível porque outros trabalhavam: o tempo na assembleia era tempo liberado pelo trabalho dos escravizados.
+```
+
+```agir
+# Esta semana
+Na próxima reunião de que você participar (igreja, associação, escola, sindicato, condomínio), observe quem fala e quem decide, e anote quem ficou de fora.
+```
 
 ## Resumo
 

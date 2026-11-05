@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é uma greve" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-gre-01
+  tema: "Por que a greve funciona"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que a greve funciona?"
+  alternativas:
+    - texto: "Porque o lucro vem do trabalho: se o trabalho para, o lucro para"
+      certa: true
+    - texto: "Porque o patrão fica com pena"
+      erro: "A greve funciona pela pressão econômica."
+    - texto: "Porque a lei obriga o patrão a aceitar tudo"
+      erro: "A greve é feita para ser negociada. A lei garante o direito de fazê-la."
+  explicacao: "Um trabalhador que falta é demitido; mil que param juntos não podem ser substituídos de uma vez. Por isso a greve precisa ser coletiva."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-gre-02
+  tema: "Fundo de greve"
+  dificuldade: 2
+  enunciado: "Por que muitos sindicatos criam um fundo de greve?"
+  alternativas:
+    - texto: "Para ajudar quem fica sem salário durante a paralisação, para que a greve não termine pela fome"
+      certa: true
+    - texto: "Para pagar o patrão"
+      erro: "O fundo ajuda os grevistas, e não o patrão."
+    - texto: "Para comprar máquinas"
+      erro: "O fundo é para sustentar quem está parado."
+  explicacao: "Outras etapas: reivindicações, assembleia, comunicação, organização (comando de greve, piquetes) e negociação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-gre-03
+  tema: "Aviso nos serviços essenciais"
+  dificuldade: 2
+  enunciado: "Pela Lei 7.783, de 1989, com quanta antecedência mínima se deve comunicar uma greve em serviços essenciais?"
+  alternativas:
+    - texto: "72 horas"
+      certa: true
+    - texto: "24 horas"
+      erro: "Em serviços essenciais a lei exige antecedência mínima de 72 horas."
+    - texto: "Não é preciso avisar"
+      erro: "Nos serviços essenciais, a lei exige comunicar empregadores e usuários."
+  explicacao: "São serviços essenciais, por exemplo, a distribuição de água, energia, o transporte coletivo e o atendimento hospitalar. A Constituição, no art. 9º, garante o direito de greve."
+  fonte: "Lei 7.783/1989, arts. 10 e 13, planalto.gov.br"
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "O 19 de abril"
+modelo: 9
 resumo: "O 19 de abril nasceu de um congresso indigenista no México, em 1940, em que lideranças indígenas boicotaram os primeiros dias para serem ouvidas. Desde 2022, no Brasil, a data se chama Dia dos Povos Indígenas."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ Por muito tempo, no 19 de abril, crianças nas escolas pintavam o rosto e usavam
 
 Ao fim desta aula você vai conhecer a origem do 19 de abril e entender por que o nome da data mudou.
 
+```suarealidade
+Como o 19 de abril foi lembrado na escola que você frequentou, ou que seus filhos frequentam? Foi com cocar de papel e rosto pintado, ou alguém indígena falou?
+```
+
 ## O congresso de 1940
 
 Em **1940**, aconteceu no **México** o **Congresso Indigenista Interamericano**. As **lideranças indígenas** do continente **boicotaram os primeiros dias** do evento, com medo de que suas reivindicações não fossem ouvidas pelos "não indígenas". Foram essas lideranças que propuseram a data de **19 de abril**. No congresso também se criou o **Instituto Indigenista Interamericano**.
@@ -56,6 +61,15 @@ Por que o 19 de abril tem relação com a participação indígena?
 > A data nasceu de uma reivindicação indígena.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Mudar o nome de Dia do Índio para Dia dos Povos Indígenas é palavra à toa, politicamente correto. O que importa é lembrar a data, e a homenagem de criança com cocar é inocente." É a opinião de quem sempre viu a data como festa escolar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não trata a homenagem das escolas como má intenção. Ela conta a origem da data: em 1940, no Congresso Indigenista Interamericano, no México, as lideranças indígenas boicotaram os primeiros dias, com medo de não serem ouvidas, e foram elas que propuseram o 19 de abril. Em 1943, Vargas criou o "Dia do Índio" no Brasil, e em 2022 a Lei 14.402 mudou o nome para Dia dos Povos Indígenas, depois de derrubado o veto. "Povos indígenas" reconhece a diversidade, e dá voz a quem a data deveria lembrar.
+```
+
 ## Exemplo resolvido
 
 **Uma escola quer comemorar o 19 de abril. Compare duas propostas.**
@@ -64,6 +78,11 @@ Por que o 19 de abril tem relação com a participação indígena?
 2. **Proposta B**: a escola convida uma pessoa indígena para falar do seu povo, da sua língua e das suas lutas.
 3. **Análise**: a A reforça **estereótipos** de um "índio genérico"; a B mostra um **povo real** e dá voz a quem é indígena.
 4. **Conclusão**: a B combina com o **sentido original** da data.
+
+```agir
+# Esta semana
+Escreva num papel uma sugestão de atividade para o 19 de abril que dê voz aos próprios povos indígenas (convidar alguém, ler um texto de autoria indígena). Leve a sugestão a um professor ou a alguém da sua escola.
+```
 
 ## Resumo
 

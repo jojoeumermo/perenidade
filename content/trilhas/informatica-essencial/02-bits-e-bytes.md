@@ -1,5 +1,6 @@
 ---
 titulo: "Bits e bytes"
+modelo: 9
 resumo: "Como textos, fotos e músicas viram zeros e uns."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -27,6 +28,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é um bit e um byte, converter um número pequeno para binário, ver como um texto vira número e não confundir megabits com megabytes.
+
+```suarealidade
+Quando você contrata internet ou compra um celular ou um cartão de memória, que números aparecem (mega, giga)? Você sabe o que eles significam?
+```
 
 
 ## Por que só zeros e uns
@@ -110,6 +115,20 @@ Na prática leva um pouco mais, porque a velocidade de uma conexão varia. A con
 ## Pratique
 
 Converta para decimal: `110`, `1010` e `1111`. As respostas são 6, 10 e 15.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Contratei 100 mega, então tenho de baixar 100 megas por segundo. Se baixa menos, estão me enganando."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra de onde vem a diferença, sem acusar ninguém: a velocidade da internet costuma ser medida em megabits por segundo (Mb/s, com b minúsculo), e o tamanho dos arquivos, em megabytes (MB, com B maiúsculo). Como um byte tem 8 bits, uma conexão de 100 Mb/s baixa, no máximo, cerca de 12,5 MB por segundo. Um arquivo de 500 MB leva, no mínimo, 40 segundos, e na prática um pouco mais, porque a velocidade da conexão varia. Saber a diferença ajuda a conferir o que foi contratado.
+```
+
+```agir
+# Esta semana
+Descubra a velocidade do seu plano de internet (ou do wi-fi que você usa) e divida por 8 para saber quantos megabytes por segundo ela baixa, no máximo. Anote o resultado.
+```
 
 ## Resumo
 

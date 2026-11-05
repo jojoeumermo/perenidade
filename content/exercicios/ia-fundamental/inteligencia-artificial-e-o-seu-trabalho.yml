@@ -1,0 +1,51 @@
+# Exercícios da aula "Inteligência artificial e o seu trabalho" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-tra-01
+  tema: "Mudar tarefas ou acabar empregos"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual foi a conclusão geral do estudo da OIT de 2023 sobre IA generativa e empregos?"
+  alternativas:
+    - texto: "A IA generativa tende a mudar tarefas dentro dos empregos mais do que eliminar empregos inteiros"
+      certa: true
+    - texto: "Que todos os empregos vão acabar logo"
+      erro: "O estudo concluiu que a maioria dos empregos é só em parte exposta, e tende a ser complementada, mais do que substituída."
+    - texto: "Que a IA não vai afetar nenhum emprego"
+      erro: "O estudo viu exposição em várias ocupações, sobretudo no trabalho de escritório."
+  explicacao: "Os autores dizem que as políticas vão definir o resultado e pedem uma transição ordenada, justa e com consulta aos trabalhadores."
+  fonte: "OIT, 'Generative AI and Jobs' (2023), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: ia-tra-02
+  tema: "Quem é mais exposto"
+  dificuldade: 2
+  enunciado: "Segundo o estudo da OIT, qual grupo de trabalho é o mais exposto à IA generativa?"
+  alternativas:
+    - texto: "O trabalho de escritório (administrativo)"
+      certa: true
+    - texto: "O trabalho de colheita na lavoura"
+      erro: "O grupo mais exposto, no estudo, é o de escritório."
+    - texto: "O trabalho de pedreiro"
+      erro: "O estudo aponta o trabalho de escritório como o mais exposto."
+  explicacao: "A exposição é de tarefas, e não de empregos inteiros. A maior parte dos empregos é só em parte exposta."
+  fonte: "OIT, 'Generative AI and Jobs' (2023), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: ia-tra-03
+  tema: "Quem fica com o ganho"
+  dificuldade: 3
+  enunciado: "Uma central de atendimento passa a usar IA para escrever as respostas. Qual é a pergunta mais importante para quem trabalha lá?"
+  alternativas:
+    - texto: "Quem fica com o ganho de tempo: o patrão cobrando mais tarefas ou todos dividindo o benefício?"
+      certa: true
+    - texto: "Se a máquina é mais esperta que as pessoas"
+      erro: "A tecnologia não decide sozinha. O que importa é como o ganho é dividido e quem decide."
+    - texto: "Se é possível desligar a internet"
+      erro: "A pergunta é sobre ritmo e controle: a tecnologia é a mesma, o conflito é sobre quem fica com o fruto do trabalho."
+  explicacao: "Se a máquina faz metade da tarefa, o patrão pode cobrar o dobro no mesmo tempo ou dividir o ganho. É o mesmo velho conflito sobre quem fica com o fruto do trabalho. A organização dos trabalhadores conta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

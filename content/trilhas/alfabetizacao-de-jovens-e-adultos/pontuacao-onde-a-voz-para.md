@@ -1,5 +1,6 @@
 ---
 titulo: "Pontuação: onde a voz para"
+modelo: 9
 resumo: "Os principais sinais de pontuação, o que eles mostram na leitura e como usá-los para escrever frases e pequenos textos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Ao fim desta aula você vai reconhecer os sinais de pontuação mais usados e sa
 
 ```provocacao
 Diga em voz alta "Você vem amanhã" como quem avisa. Agora como quem pergunta. Agora como quem se espanta. O que mudou na sua voz?
+```
+
+```suarealidade
+Diga em voz alta "Você vem amanhã" como quem avisa, depois como quem pergunta e depois como quem se espanta. Onde, numa mensagem escrita, a gente perde essa diferença?
 ```
 
 ## Os sinais
@@ -160,6 +165,20 @@ Escreva três frases sobre o seu dia: uma que termine com ponto, uma com interro
 4. Escreva um pequeno diálogo de quatro falas usando travessão.
 
 **Respostas:** 1) Você trabalha amanhã? / Que calor! 3) Ontem fui à feira. Comprei frutas e verduras. Estava tudo caro.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Pontuação é frescura de gramática. Todo mundo entende uma mensagem mesmo sem vírgula e sem ponto, e ninguém precisa ficar corrigindo." É uma opinião de quem escreve rápido no celular.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Na maior parte das mensagens, a pessoa entende pelo contexto. Mas a aula mostra casos em que um sinal muda o sentido, como "Não, espere." e "Não espere.", que dizem o contrário. Em cartas, avisos e contratos, onde ninguém está ao lado para explicar, a pontuação faz o trabalho da voz. Aprender poucos sinais evita mal-entendido.
+```
+
+```agir
+# Esta semana
+Escreva num papel uma mensagem curta que você mandaria a alguém, sem nenhum sinal. Depois pontue de duas maneiras que mudem o sentido (como pergunta e como aviso) e leia em voz alta cada uma.
+```
 
 ## Resumo
 

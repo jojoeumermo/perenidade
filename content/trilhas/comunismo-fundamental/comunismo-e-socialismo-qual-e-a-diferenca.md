@@ -1,5 +1,6 @@
 ---
 titulo: "Comunismo e socialismo: qual é a diferença"
+modelo: 9
 resumo: "Duas palavras com histórias cruzadas: por que o Manifesto se chamou 'comunista', o que Lenin quis dizer com as duas fases e como os nomes dos partidos mudaram."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar por que o Manifesto de 1848 se chamou comunista, quais são as duas fases da sociedade futura em Marx e como as palavras comunista e socialista ganharam sentidos diferentes.
+
+```suarealidade
+Quando alguém diz "comunista" ou "socialista" perto de você, no trabalho, em casa ou na televisão, o que a pessoa quer dizer com a palavra?
+```
 
 "Comunismo" e "socialismo" são usados ora como sinônimos, ora como opostos. A confusão tem razões históricas. Esta aula separa os sentidos.
 
@@ -79,6 +84,15 @@ Hoje, as palavras convivem com vários sentidos. Há partidos comunistas, partid
 
 No Brasil, quais partidos ou movimentos você conhece que usam as palavras "comunista" ou "socialista" no nome? O que eles defendem de fato?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Comunismo e socialismo são a mesma coisa, e onde governaram viraram ditadura. Separar as palavras é truque para fugir do que aconteceu." É a posição de quem quer um debate sem rodeios sobre os resultados.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde os governos que se disseram socialistas. O que ela mostra é que as palavras mudaram de sentido ao longo do tempo: em 1848, Engels explica (prefácio de 1888) por que o Manifesto se chamou comunista; em 1875, Marx separou duas fases da sociedade futura; em 1917, Lenin popularizou chamar a primeira fase de socialismo e a superior de comunismo; e os países governados por partidos comunistas se definiram como socialistas. Por isso a pergunta útil é "em que sentido você usa essa palavra?". Perguntar isso não impede ninguém de criticar o que cada governo fez; só evita que a conversa se perca num rótulo.
+```
+
 ## Exemplo resolvido
 
 **Na terminologia de Lenin, a URSS dizia ter alcançado o comunismo? Teste com o nome oficial.**
@@ -90,6 +104,11 @@ No Brasil, quais partidos ou movimentos você conhece que usam as palavras "comu
 5. **Conclua.** Nenhum desses países disse ter alcançado o comunismo pleno.
 
 Confira: ao ouvir "socialista" ou "comunista", pergunte em que sentido a palavra está sendo usada.
+
+```agir
+# Esta semana
+Esta semana, numa conversa tranquila com alguém de confiança, quando surgir a palavra "comunista" ou "socialista", pergunte: "em que sentido você usa essa palavra?". Anote num papel o que a pessoa respondeu.
+```
 
 ## Resumo
 

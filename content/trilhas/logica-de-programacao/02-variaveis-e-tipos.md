@@ -1,5 +1,6 @@
 ---
 titulo: "Variáveis e tipos"
+modelo: 9
 resumo: "Como o programa guarda informações e por que o tipo de cada uma importa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -27,6 +28,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber guardar valores em variáveis, reconhecer os quatro tipos básicos (`int`, `float`, `str`, `bool`) e converter o que a pessoa digita.
+
+```suarealidade
+Que informações você guarda de cabeça ou num caderno todo dia, como o preço, o nome do cliente ou o saldo? Onde você anota o que muda ao longo do dia?
+```
 
 ## Uma caixa com etiqueta
 
@@ -101,6 +106,15 @@ idade = int(input("Sua idade: "))
 - O nome não pode começar com número.
 - Maiúsculas e minúsculas fazem diferença: `Idade` e `idade` são variáveis diferentes.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Computador é uma caixa-preta. Para usar, não preciso saber como ele guarda os dados." É a opinião de quem prefere usar a tecnologia sem se preocupar com os detalhes.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Em muitos casos, usar basta. Mas a aula mostra que a ideia é simples, uma caixa com etiqueta: o nome é a etiqueta e o valor é o que está dentro. Ela explica os quatro tipos básicos (int, float, str, bool) e por que o tipo importa: o que a pessoa digita chega como texto, e é preciso converter para fazer contas. Entender isso ajuda a saber por que um sistema erra ao somar ou ao comparar, e é o primeiro passo para criar o seu.
+```
+
 ## Exemplo resolvido
 
 **O que este programa mostra?**
@@ -131,6 +145,11 @@ print(a, b)
 ```
 
 A resposta é `7 8`. Se você chegou a outro resultado, refaça linha por linha, anotando o valor de cada variável.
+
+```agir
+# Esta semana
+Escolha três informações que você anota no dia a dia (nome, valor, idade) e escreva no papel o nome da "caixa" e o tipo de dado de cada uma (número inteiro, com vírgula, texto, verdadeiro ou falso).
+```
 
 ## Resumo
 

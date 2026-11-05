@@ -1,0 +1,69 @@
+# Exercícios da aula "Funções" (Lógica de programação). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lp-fun-01
+  tema: "Definir não é executar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que aparece na tela?\n\ndef saudacao():\n    print(\"Oi\")"
+  alternativas:
+    - texto: "Nada: definir uma função não a executa; falta chamar saudacao()"
+      certa: true
+    - texto: "Oi"
+      erro: "A função só roda quando alguém a chama. Aqui só foi definida."
+    - texto: "Um erro, porque falta o return"
+      erro: "Não falta return. A função só não foi chamada."
+  explicacao: "Definir uma função não a executa. Sem a chamada, nada acontece."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-fun-02
+  tipo: numero
+  tema: "Função com retorno"
+  dificuldade: 2
+  enunciado: "O que o programa mostra?\n\ndef dobro(n):\n    return n * 2\nprint(dobro(7) + 1)"
+  resposta: "15"
+  erros_comuns:
+    - resposta: "14"
+      explicacao: "14 é o dobro de 7. Falta somar 1: dobro(7) + 1."
+    - resposta: "71"
+      explicacao: "O + aqui soma números, e dobro(7) devolve 14, e não o texto 7."
+  dica: "Calcule dobro(7) e depois some 1."
+  explicacao: "dobro(7) devolve 14. 14 + 1 = 15."
+  conferir: "7 * 2 + 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-fun-03
+  tema: "Parâmetro"
+  dificuldade: 2
+  enunciado: "O que é um parâmetro?"
+  alternativas:
+    - texto: "Uma variável que só existe dentro da função e recebe o valor passado na chamada"
+      certa: true
+    - texto: "O nome da função"
+      erro: "O nome é o que vem depois de def. O parâmetro fica entre parênteses e recebe o valor."
+    - texto: "O resultado que a função devolve"
+      erro: "O que a função devolve é o retorno, com return."
+  explicacao: "Em def saudacao(nome), nome é o parâmetro. Na chamada saudacao('Ana'), ele recebe 'Ana'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-fun-04
+  tema: "return e print"
+  dificuldade: 3
+  enunciado: "Qual é a diferença entre return e print numa função?"
+  alternativas:
+    - texto: "O return devolve o resultado para ser usado depois; o print só mostra na tela"
+      certa: true
+    - texto: "Não há diferença"
+      erro: "O que o return devolve pode ser guardado numa variável ou usado numa conta. O print só mostra."
+    - texto: "O print devolve o resultado e o return mostra na tela"
+      erro: "É o contrário: return devolve o valor; print mostra."
+  explicacao: "Com return, a função entrega o valor a quem a chamou, e esse valor pode entrar em outras contas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,51 @@
+# Exercícios da aula "Acolher quem chega e formar novos formadores" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-aco-01
+  tema: "Acolhida"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quem chega a um coletivo costuma sentir medo de não entender os códigos e de ser julgado. Qual é um bom primeiro passo da acolhida?"
+  alternativas:
+    - texto: "Alguém recebe a pessoa pelo nome, na porta, e senta ao lado dela na primeira reunião"
+      certa: true
+    - texto: "Entregar logo uma tarefa grande para ela se sentir útil"
+      erro: "Tarefa grande sobrecarrega. A tarefa deve ser pequena e dar para fazer em pouco tempo."
+    - texto: "Deixar a pessoa sozinha, para ela se virar"
+      erro: "Muita gente desiste na segunda reunião por não se sentir bem-vinda."
+  explicacao: "A acolhida tem quatro passos: recepção, explicação curta, tarefa pequena e acompanhamento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-aco-02
+  tema: "Tarefa pequena"
+  dificuldade: 2
+  enunciado: "Por que dar uma tarefa pequena a quem chega?"
+  alternativas:
+    - texto: "Porque dá para fazer em pouco tempo, aparece e faz a pessoa se sentir parte, sem sobrecarregar"
+      certa: true
+    - texto: "Porque quem chega não serve para nada maior"
+      erro: "A ideia é não sobrecarregar, e não duvidar da pessoa. Com o tempo, as tarefas crescem."
+    - texto: "Para testar se a pessoa desiste"
+      erro: "O objetivo é acolher, e não testar."
+  explicacao: "Exemplos: levar o café, anotar a presença, convidar uma vizinha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-aco-03
+  tema: "Formar novos formadores"
+  dificuldade: 3
+  enunciado: "Qual é a ordem do caminho para formar um novo formador?"
+  alternativas:
+    - texto: "Observar um círculo, fazer uma parte com apoio e depois conduzir um círculo inteiro, com alguém observando"
+      certa: true
+    - texto: "Conduzir sozinho já no primeiro dia"
+      erro: "Sem apoio, a pessoa pode se desanimar. O caminho é gradual."
+    - texto: "Só ler livros sobre o assunto"
+      erro: "Ler ajuda, mas formar é também praticar, com apoio."
+  explicacao: "Formar formadores é dividir o saber e o poder."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

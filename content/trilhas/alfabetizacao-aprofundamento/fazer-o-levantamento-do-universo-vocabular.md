@@ -1,5 +1,6 @@
 ---
 titulo: "Fazer o levantamento do universo vocabular"
+modelo: 9
 resumo: "Como descobrir as palavras que pesam na vida do grupo, anotar, escolher as palavras geradoras e ordená-las da mais simples à mais difícil."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ A palavra geradora não sai da cabeça de quem coordena nem de uma lista pronta.
 Ao fim desta aula você vai saber fazer o levantamento do universo vocabular de um grupo: onde escutar, o que anotar e como organizar o que ouviu. Vai saber escolher de 15 a 20 palavras geradoras pelos critérios de Paulo Freire e pôr essas palavras em ordem, da mais simples à mais difícil.
 
 ```provocacao
+Que palavras só as pessoas do seu bairro ou do seu trabalho usam? Que palavra de fora delas não teria o mesmo sentido?
+```
+
+```suarealidade
 Que palavras só as pessoas do seu bairro ou do seu trabalho usam? Que palavra de fora delas não teria o mesmo sentido?
 ```
 
@@ -130,6 +135,20 @@ palavras-geradoras | Abrir as palavras geradoras
 
 ```realidade
 Escolha um grupo que você conhece. Escreva cinco palavras que ele usa muito e diga, para cada uma, se as sílabas são simples ou difíceis.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Perder tempo escutando o grupo é desnecessário. Uma boa cartilha, já testada, ensina mais rápido do que palavras do bairro." É um argumento de quem tem pouco tempo e quer resultado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A cartilha pronta é mais rápida, e a aula reconhece que a palavra só de cartilha rende sílabas, mas não rende conversa. Em Educação como prática da liberdade, Freire propõe começar escutando o grupo, porque, se as palavras não forem dele, as pessoas não se reconhecem e o resto desmorona. O levantamento é a base: de 15 a 20 palavras escolhidas por riqueza fonêmica, dificuldade crescente e peso na vida do grupo.
+```
+
+```agir
+# Esta semana
+Durante esta semana, anote num papel cinco palavras que você ouviu no trabalho, na feira ou na fila e que dizem algo da vida de lá. Escreva também quem disse e o que a palavra queria dizer. Não anote nomes de pessoas.
 ```
 
 ## Resumo

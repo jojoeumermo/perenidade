@@ -1,5 +1,6 @@
 ---
 titulo: "Conhecer a máquina de costura"
+modelo: 9
 resumo: "Como a máquina faz o ponto com duas linhas, o nome e a função de cada peça, como passar a linha de cima e encher a bobina, escolher a agulha certa, regular a tensão e um pouco da história, que começou com máquinas queimadas por trabalhadores com medo do desemprego."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ A máquina dá dois pontos bonitos e depois embola a linha embaixo, num ninho. O
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender como a máquina forma o ponto, conhecer as peças principais, passar a linha de cima e encher a bobina, escolher a agulha certa, regular a tensão e conhecer um pouco da história da máquina de costura.
+
+```suarealidade
+Você tem acesso a uma máquina de costura (sua, de um parente, de uma vizinha, de um curso)? O que acontece quando a linha embola?
+```
 
 ## Um pouco de história
 
@@ -108,6 +113,15 @@ A costura fez um ninho de linha embaixo do tecido. Qual é a primeira coisa a co
 > O ninho embaixo costuma ser falta de tensão na linha de cima.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Máquina de costura estraga toda hora e é difícil de regular. Melhor comprar a roupa pronta ou deixar o serviço com quem entende." É o que muita gente conclui depois de um ninho de linha.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que boa parte desses problemas tem causa simples e conhecida: o ninho de linha embaixo quase sempre significa que a linha de cima não entrou na tensão, e basta passar de novo, com o calcador levantado. Também ensina a testar sempre num retalho do mesmo tecido, olhando os dois lados, a escolher a agulha pelo número (90/14, por exemplo, em que 90 é o diâmetro em centésimos de milímetro) e a consultar o manual, que muitos fabricantes deixam para baixar. A máquina deixa de ser um mistério quando se sabe como o ponto é feito.
+```
+
 ## Exemplo resolvido
 
 **Você vai costurar uma camiseta de malha fina e depois uma calça de brim. Prepare a máquina para cada uma.**
@@ -118,6 +132,11 @@ A costura fez um ninho de linha embaixo do tecido. Qual é a primeira coisa a co
 | Ponto | zigue-zague estreito ou ponto próprio para malha, que acompanha o estica | ponto reto, comprimento maior |
 | Teste | retalho de malha, puxar a costura para ver se estoura | retalho dobrado em duas camadas, como na costura da calça |
 | Tensão | ajustar até o ponto ficar igual dos dois lados | idem |
+
+```agir
+# Esta semana
+Com uma máquina (ou só com o manual dela, se não tiver acesso a uma), passe a linha de cima com o calcador levantado, encha a bobina e faça uma fileira de pontos num retalho, olhando os dois lados. Anote o que viu.
+```
 
 ## Resumo
 

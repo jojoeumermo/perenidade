@@ -1,5 +1,6 @@
 ---
 titulo: "Esporte para pessoas com deficiência"
+modelo: 9
 resumo: "Os Jogos Paralímpicos nasceram da reabilitação de soldados feridos na Segunda Guerra e são hoje o maior evento esportivo de pessoas com deficiência. Esportes adaptados e esportes próprios, como o golbol, criado para pessoas cegas."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Uma partida inteira jogada de olhos vendados, em silêncio total, guiada pelo so
 
 Ao fim desta aula você vai conhecer a história dos Jogos Paralímpicos, a diferença entre esporte adaptado e esporte próprio e como incluir pessoas com deficiência em atividades.
 
+```suarealidade
+Pense no lugar onde você se mexe ou joga (a praça, a quadra, o campinho). Uma pessoa em cadeira de rodas ou uma pessoa cega conseguiria chegar lá e participar? O que a impediria?
+```
+
 ## De Stoke Mandeville a Roma
 
 Os **Jogos Paralímpicos** são o **maior evento esportivo mundial** de **pessoas com deficiência**. Sua origem está em **Stoke Mandeville**, na Inglaterra, onde aconteceram as primeiras competições para pessoas com deficiência física, como forma de **reabilitar militares feridos na Segunda Guerra Mundial**. A primeira edição dos Jogos foi em **1960**, em **Roma**.
@@ -85,6 +90,20 @@ Qual é a diferença entre esporte adaptado e esporte próprio?
 3. **Regras**: três de cada lado, todos vendados; a bola é **rolada** com as mãos; quem defende se deita para bloquear.
 4. **Silêncio**: quem assiste fica em silêncio total.
 5. **Conversa**: como foi depender só da audição? O que você aprendeu?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que esporte para pessoas com deficiência é caro e atende a poucos: com o dinheiro e o espaço da cidade sempre curtos, melhor investir no que serve à maioria.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a preocupação com o dinheiro é real, mas a aula mostra que dá para começar com pouco: a atividade de golbol usa uma bola com sacola plástica, vendas e cadeiras. E, segundo a OMS, a recomendação de 150 a 300 minutos por semana vale também para pessoas com deficiência, e todas as pessoas, de todas as idades e capacidades, podem ser ativas. Quando falta calçada ou quadra acessível, a deficiência não está na pessoa: está na cidade, e consertar isso serve a muita gente.
+```
+
+```agir
+# Esta semana
+Olhe com atenção para um espaço de esporte ou lazer do seu bairro (a praça, a quadra, o campo) e anote num papel três coisas que dificultariam a entrada de uma pessoa em cadeira de rodas ou de uma pessoa cega. Guarde a lista: ela pode virar uma pauta para a associação de moradores.
+```
 
 ## Resumo
 

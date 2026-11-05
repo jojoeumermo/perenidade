@@ -1,5 +1,6 @@
 ---
 titulo: "Engasgo em adultos, crianças e bebês"
+modelo: 9
 resumo: "Como saber se o engasgo é grave e o que fazer em cada idade, segundo o Ministério da Saúde."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ Ao fim desta aula você vai saber diferenciar engasgo leve de grave e o que faze
 
 
 Esta aula segue a orientação do Ministério da Saúde. Ela não substitui um curso presencial.
+
+```suarealidade
+Se alguém engasgasse agora na sua casa ou no seu trabalho, você saberia o que fazer? O que você já ouviu que se faz?
+```
 
 ## O que é
 
@@ -103,6 +108,15 @@ Mesmo que a pessoa volte a respirar bem, é bom passar em um serviço de saúde,
 - Comer sentado, sem correr, rir ou brincar com comida na boca.
 - Pessoas idosas e com dificuldade para engolir: comer devagar, com a cabeça erguida, e conversar com a equipe de saúde sobre a consistência dos alimentos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Engasgou? É só dar uns tapas nas costas e um gole d'água, que desce. Sempre se fez assim em casa e sempre deu certo." É a opinião de quem aprendeu isso com a família.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula, que segue a orientação do Ministério da Saúde, diz o contrário no engasgo leve: se a pessoa tosse e consegue falar, incentive a tossir e fique por perto, sem bater nas costas e sem dar água, porque mexer pode empurrar o objeto. No engasgo grave, quando a pessoa não fala, não tosse e não respira, peça para alguém ligar 192 e aja: manobra de Heimlich em adultos e crianças maiores de um ano; em bebês, cinco tapas nas costas e cinco compressões no peito. A aula não substitui um curso presencial.
+```
+
 ## Exemplo resolvido: quatro cenas
 
 1. **Um colega engasga, fica vermelho, tosse alto e diz "tô bem".** O ar está passando: é engasgo leve. Fique ao lado e incentive a tossir; não bata nas costas e não dê água.
@@ -111,6 +125,11 @@ Mesmo que a pessoa volte a respirar bem, é bom passar em um serviço de saúde,
 4. **A pessoa desmaia.** Deite-a de costas no chão, ligue 192 e comece a massagem cardíaca.
 
 Confira: a pergunta que decide tudo é se o ar está passando.
+
+```agir
+# Esta semana
+Salve o número 192 no seu celular, se ainda não tiver, e conte a alguém da sua casa a diferença entre engasgo leve e grave. Se puder, procure um curso presencial de primeiros socorros na sua cidade.
+```
 
 ## Resumo
 

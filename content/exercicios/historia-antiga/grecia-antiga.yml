@@ -1,0 +1,51 @@
+# Exercícios da aula "Grécia antiga" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-gre-01
+  tema: "Democracia limitada"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Por que se diz que a democracia ateniense era limitada?"
+  alternativas:
+    - texto: "Porque a maioria da população (mulheres, estrangeiros e escravizados) não participava"
+      certa: true
+    - texto: "Porque as votações eram secretas"
+      erro: "O limite era quem podia votar, e não o segredo do voto."
+    - texto: "Porque só havia eleições a cada dez anos"
+      erro: "A assembleia reunia os cidadãos. O limite era quem era considerado cidadão."
+  explicacao: "Só era cidadão o homem adulto, livre, filho de pai e mãe atenienses. E a democracia só era possível porque outros trabalhavam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-gre-02
+  tema: "Cidades-estado"
+  dificuldade: 1
+  enunciado: "Como era a Grécia antiga?"
+  alternativas:
+    - texto: "Um conjunto de centenas de cidades independentes, com governo, leis e exército próprios"
+      certa: true
+    - texto: "Um país único, com capital em Atenas"
+      erro: "A Grécia nunca foi um país unido. Cada cidade-estado era independente."
+    - texto: "Um império governado por um só rei"
+      erro: "Havia centenas de cidades independentes, cada uma com seu governo."
+  explicacao: "O que unia os gregos era a língua, a religião e festas comuns, como os Jogos Olímpicos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-gre-03
+  tema: "Atenas e Esparta"
+  dificuldade: 2
+  enunciado: "Qual era a base da cidade de Esparta?"
+  alternativas:
+    - texto: "A agricultura e a guerra, com treinamento militar desde a infância"
+      certa: true
+    - texto: "O comércio marítimo e o artesanato"
+      erro: "Essa era a base de Atenas."
+    - texto: "A democracia direta, com sorteio de cargos"
+      erro: "Essa era a forma de governo de Atenas. Esparta tinha dois reis e um conselho de anciãos."
+  explicacao: "Em Esparta, os hilotas, uma população dominada, eram obrigados a cultivar a terra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

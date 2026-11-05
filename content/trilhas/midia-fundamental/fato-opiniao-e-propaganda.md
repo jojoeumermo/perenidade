@@ -1,5 +1,6 @@
 ---
 titulo: "Fato, opinião e propaganda"
+modelo: 9
 resumo: "Um fato é algo que aconteceu e pode ser verificado. Uma opinião é o que alguém pensa sobre ele. A propaganda é a comunicação feita para persuadir o público, muitas vezes escolhendo só os fatos que interessam. Como separar uma coisa da outra."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ quiz:
 
 Ao fim desta aula você vai saber diferenciar fato, opinião e propaganda.
 
+```suarealidade
+Nas mensagens e vídeos que chegam no seu celular, o que aparece mais: fato, opinião ou propaganda? Você consegue dizer a diferença na hora?
+```
+
 ## Fato
 
 Um **fato** é algo que **aconteceu** e que pode ser **verificado**: por documentos, por números, por testemunhas, por fotos. "A escola ficou sem merenda por três dias" é um fato: dá para conferir.
@@ -63,6 +68,15 @@ Um panfleto diz: "Nosso candidato construiu 10 escolas!", mas não diz que ele f
 > Releia a seção "Propaganda".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Não existe fato puro: toda notícia já vem com opinião de quem escolheu o que contar. No fim, é tudo ponto de vista, então cada um fica com a sua verdade." É a opinião de quem já viu o mesmo acontecimento contado de formas opostas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que todo mundo tem direito a opinião e que opiniões dependem de valores e de pontos de vista. Mas separa o fato: algo que aconteceu e que pode ser verificado, por documentos, números, testemunhas ou fotos. "A escola ficou sem merenda por três dias" dá para conferir. Uma boa opinião se apoia em fatos; sem fatos, é só achismo. E a propaganda, que busca persuadir, costuma ser seletiva e emocional. Ler bem é saber separar os três, mesmo quando se discorda.
+```
+
 ## Exemplo resolvido
 
 **Classifique: (a) "O ônibus 302 passou a sair a cada 40 minutos"; (b) "O transporte da cidade é uma vergonha"; (c) "Só o nosso partido vai salvar o transporte!".**
@@ -70,6 +84,11 @@ Um panfleto diz: "Nosso candidato construiu 10 escolas!", mas não diz que ele f
 1. **(a)**: **fato**, dá para verificar no horário da empresa.
 2. **(b)**: **opinião**, é um julgamento.
 3. **(c)**: **propaganda**, quer persuadir e usa emoção.
+
+```agir
+# Esta semana
+Pegue um texto de jornal ou uma mensagem que você recebeu e grife os fatos de uma cor e as opiniões de outra, num papel ou no próprio texto. Conte quantos de cada você achou.
+```
 
 ## Resumo
 

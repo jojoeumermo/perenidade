@@ -1,5 +1,6 @@
 ---
 titulo: "Atendimento, tempo de trabalho e preço do serviço"
+modelo: 9
 resumo: "Do primeiro contato à despedida: combinar o penteado, avaliar o cabelo, calcular o tempo, montar o preço com o valor da hora, os materiais e os custos, entregar um orçamento como manda o Código de Defesa do Consumidor e combinar sinal e remarcação."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ Uma box braid longa leva o dia inteiro. Se você cobra o mesmo que a vizinha cob
 ## O que você vai aprender
 
 Ao fim desta aula você vai organizar o atendimento do primeiro contato à despedida, calcular o tempo de cada penteado, montar o preço com o valor da sua hora, os materiais e os custos, entregar um orçamento como manda o Código de Defesa do Consumidor e combinar sinal e remarcação.
+
+```suarealidade
+Como você, ou uma trancista que você conhece, combina o valor e o tempo do serviço com a cliente? É por escrito ou só de boca?
+```
 
 ## O atendimento passo a passo
 
@@ -107,6 +112,15 @@ Você leva 10 horas numa box braid longa e cobra R$ 150, com a cliente trazendo 
 > Divida o valor pela quantidade de horas.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cliente de trança é de confiança, e orçamento por escrito é burocracia. O preço a gente combina na hora, de boca." É a opinião de quem trabalha na base da confiança.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o orçamento escrito protege as duas partes. O Código de Defesa do Consumidor, no artigo 40, manda entregar orçamento prévio com o valor da mão de obra, dos materiais, as condições de pagamento e as datas de início e fim; sem ele, é prática abusiva. O artigo 14 faz quem presta o serviço responder por danos e por não informar os riscos. A conta é simples: tempo = tranças × minutos por trança + pausas; preço = mão de obra (horas × valor da hora) + materiais + custos fixos + desgaste e reserva. Escrever evita mal-entendido.
+```
+
 ## Exemplo resolvido
 
 **Calcule o preço de box braids médias, com 90 tranças. Você leva 7 minutos por trança e faz 3 pausas de 15 minutos. Você precisa de R$ 2.400 por mês e consegue cobrar 120 horas no mês. Seus custos fixos são R$ 300 por mês e você faz cerca de 16 atendimentos. A fibra (12 pacotes) custa R$ 216. Os valores são do exemplo.**
@@ -121,6 +135,11 @@ Total: 225 + 18,75 + 216 ≈ R$ 460
 ```
 
 No orçamento: **mão de obra R$ 243,75** (incluindo a parte dos custos fixos), **materiais R$ 216**, total **R$ 459,75**, pagamento combinado, data e horário, validade de dez dias. Se a cliente trouxer a fibra, o total cai para **R$ 243,75**.
+
+```agir
+# Esta semana
+Monte um modelo de orçamento com as linhas do artigo 40 (mão de obra, materiais, pagamento, datas de início e fim) e guarde para o próximo atendimento.
+```
 
 ## Resumo
 

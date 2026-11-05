@@ -1,5 +1,6 @@
 ---
 titulo: "Verbo: tempos e pessoas"
+modelo: 9
 resumo: "A palavra que diz o que acontece: como ela muda conforme quem faz, quando faz e com que certeza."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 Ao fim desta aula você vai saber reconhecer pessoa, tempo e modo do verbo, usar ser, estar, ter e ir e acertar as dúvidas frequentes (tem e têm, vir e vier, nós fomos).
 
 
+
+```suarealidade
+Você já ouviu ou escreveu "a gente fomos", "eles tem" ou "eu trazi"? Em que situação a forma da frase fez diferença para você?
+```
 
 ## A palavra que faz a frase andar
 
@@ -118,6 +123,15 @@ Qual frase apresenta o fato como uma possibilidade, e não como certeza?
 
 Na conversa do dia a dia, em todas as regiões e classes, é comum reduzir as terminações: "nós vai", "eles foi", "tu vai". Isso não é falta de raciocínio: é uma gramática da fala, com regras próprias, estudada pelos linguistas. Mas a escrita formal (o requerimento, a prova, o currículo, a ata) cobra as formas da tabela, e quem não as domina é barrado. Aprender a norma-padrão é ganhar mais uma ferramenta, sem ter de jogar fora o jeito de falar de casa.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O verbo do jeito que o povo fala já está bom, e todo mundo se entende. Cobrar conjugação certa é exigir de quem não teve escola a mesma coisa que de quem teve." É a opinião de quem quer respeitar o falar do povo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não trata ninguém como menos capaz: os verbos irregulares, como ser, estar, ter e ir, são difíceis mesmo, e ser e ir têm o mesmo passado (fui, foi, fomos, foram). Ela mostra que a norma-padrão pede formas como "nós fomos", "eles têm" (com acento, no plural) e "eu trouxe", principalmente na escrita formal. O verbo muda para dizer quem faz, quando faz e com que grau de certeza, e dominar essas formas é uma ferramenta a mais, que se usa quando a situação pede, sem desprezar quem fala de outro jeito.
+```
+
 ## Exemplo resolvido: analisando "Ontem nós fomos à reunião"
 
 1. **Pessoa:** *nós*, 1ª pessoa do plural. O verbo concorda: *fomos*, e não "foi".
@@ -128,6 +142,11 @@ Na conversa do dia a dia, em todas as regiões e classes, é comum reduzir as te
 Compare: "Se eu **vir** o resultado, aviso" (futuro do subjuntivo de *ver*) e "Se você **vier** amanhã, traga a ata" (futuro do subjuntivo de *vir*).
 
 Confira: pessoa, tempo e modo respondem a três perguntas: quem faz, quando e com que certeza.
+
+```agir
+# Esta semana
+Escolha cinco frases que você disse ou escreveu esta semana com o verbo no passado e confira num papel se estão na forma da norma-padrão (nós fomos, eles têm, eu trouxe). Corrija o que precisar.
+```
 
 ## Resumo
 

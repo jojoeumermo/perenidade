@@ -1,5 +1,6 @@
 ---
 titulo: "Regimes políticos: democracia, ditadura e o que fica no meio"
+modelo: 9
 resumo: "Regime político é o conjunto de instituições pelas quais o Estado exerce o poder. A diferença entre democracia e ditadura, o que é totalitarismo e por que, segundo os índices internacionais, menos da metade do mundo vive numa democracia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,10 +30,10 @@ quiz:
     opcoes: ["Do grego: 'dêmos' (povo) e 'kratos' (governo)", "Do latim 'domus'", "Do árabe"]
     resposta: 0
     explicacao: "Governo do povo."
-  - pergunta: "Como uma ditadura moderna normalmente começa?"
+  - pergunta: "Como começou a ditadura militar no Brasil, em 1964?"
     opcoes: ["Por um golpe de Estado", "Por uma eleição limpa", "Por um plebiscito"]
     resposta: 0
-    explicacao: "Como no Brasil em 1964."
+    explicacao: "O presidente João Goulart foi derrubado por um golpe. Nem toda ditadura nasce assim: algumas chegam ao poder por nomeação ou por eleição e depois fecham o regime."
   - pergunta: "Qual é uma diferença entre democracia e ditadura citada na aula?"
     opcoes: ["Na ditadura o poder está concentrado numa só instância; na democracia, dividido entre Legislativo, Executivo e Judiciário", "Na ditadura há mais eleições", "Não há diferença"]
     resposta: 0
@@ -50,6 +51,10 @@ Um país tem eleições, mas a imprensa é censurada e os opositores são presos
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é um regime político e diferenciar democracia, ditadura e totalitarismo.
+
+```suarealidade
+Um país tem eleições, mas a imprensa é censurada e os opositores são presos. Para você, é democracia? O que não pode faltar para você chamar um país de democrático?
+```
 
 ## O que é regime político
 
@@ -87,6 +92,20 @@ Um país com eleições, mas sem liberdade de imprensa e com opositores presos, 
 2. O Executivo controlou o Legislativo e o Judiciário: **poder concentrado**.
 3. A participação popular foi **restrita**: a imprensa foi **censurada**, opositores foram **torturados** e exilados, e só em 1985 houve eleição presidencial, ainda **indireta**.
 4. **Conclusão**: foi uma **ditadura**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Democracia é só voto: se há eleição, é democracia. Falar em liberdades e direitos é querer impor valores de fora e desvalorizar o resultado das urnas." É a definição que a própria aula chama de mínima.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que há duas definições: a mínima (governantes escolhidos em eleições justas e competitivas) e a mais ampla (que exige também liberdades civis e direitos humanos). A palavra importante é justas e competitivas: eleição com opositor preso ou imprensa censurada não é competitiva. Segundo os índices V-Dem e The Economist citados na aula, em 2022 menos da metade do mundo vivia numa democracia, por isso conhecer as definições serve para avaliar com critério.
+```
+
+```agir
+# Esta semana
+Escreva num papel três coisas que, para você, uma democracia precisa ter além do voto (por exemplo, liberdade de imprensa, direito de protestar). Compare com a definição mínima e a ampla da aula.
+```
 
 ## Resumo
 

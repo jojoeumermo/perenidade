@@ -1,0 +1,51 @@
+# Exercícios da aula "Os povos originários das Américas" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-amer-01
+  tema: "O que a América deu ao mundo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destes alimentos foi domesticado pelos povos originários das Américas?"
+  alternativas:
+    - texto: "Milho"
+      certa: true
+    - texto: "Trigo"
+      erro: "O trigo foi domesticado no Oriente Médio."
+    - texto: "Arroz"
+      erro: "O arroz foi domesticado na China."
+  explicacao: "Os povos americanos domesticaram milho, batata, tomate, feijão, mandioca, cacau, amendoim, abóbora e abacaxi."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-amer-02
+  tema: "Os maias"
+  dificuldade: 2
+  enunciado: "Qual destas coisas os maias fizeram?"
+  alternativas:
+    - texto: "Criaram uma escrita completa, calendários precisos e usaram o zero nos cálculos"
+      certa: true
+    - texto: "Formaram um império único e centralizado"
+      erro: "Os maias eram cidades-Estado que ora se aliavam, ora guerreavam."
+    - texto: "Registravam tudo em quipos, cordões com nós"
+      erro: "Os quipos eram dos incas. Os maias tinham escrita completa."
+  explicacao: "O auge das cidades maias foi entre os anos 250 e 900. Milhões de descendentes mantêm hoje as línguas maias."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-amer-03
+  tema: "Os incas"
+  dificuldade: 2
+  enunciado: "Como os incas registravam números e informações, sem escrita alfabética?"
+  alternativas:
+    - texto: "Em quipos, conjuntos de cordões com nós"
+      certa: true
+    - texto: "Em papiros"
+      erro: "Papiro é do Egito. Os incas usavam quipos."
+    - texto: "Em tabuletas de argila"
+      erro: "Tabuletas de argila eram da Mesopotâmia."
+  explicacao: "No século XV, a partir de Cusco, os incas formaram o maior império da América antiga, com estradas, terraços de cultivo, armazéns e a mita, o trabalho obrigatório."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

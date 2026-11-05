@@ -1,5 +1,6 @@
 ---
 titulo: "Preço, agenda e clientela"
+modelo: 9
 resumo: "Como calcular o preço de cada serviço a partir do tempo e dos custos, montar uma tabela clara, organizar a agenda para não perder horário nem atrasar, combinar faltas e remarcações e fazer o cliente voltar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Você cobra o mesmo por um corte simples de 20 minutos e por um degradê com des
 ## O que você vai aprender
 
 Ao fim desta aula você vai calcular o preço de cada serviço a partir do tempo e dos custos, montar uma tabela de preços clara, organizar a agenda, combinar faltas e remarcações e fazer o cliente voltar.
+
+```suarealidade
+Você cobra o mesmo por um corte simples de 20 minutos e por um degradê com desenho de uma hora. Qual dos dois está pagando o outro?
+```
 
 ## O preço de cada serviço
 
@@ -116,6 +121,20 @@ Barba: 0,5 h × 20 + 3 = R$ 13
 ```
 
 Esses são os preços **mínimos** para cobrir a sua renda e os custos. Para ter **reserva** para meses fracos, férias e troca de ferramentas, acrescente uma margem. Se o preço da sua região estiver abaixo disso, a conta mostra o tamanho do problema, e a solução pode passar por organização coletiva dos barbeiros do bairro.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Preço baixo traz cliente. Quem cobra mais perde freguês, e o melhor é cobrar o mesmo de todo mundo para ninguém reclamar." É um receio real de quem vive da clientela do bairro.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra a conta: preço mínimo = tempo × valor da hora + custo por cliente. Um corte mais demorado precisa custar mais que um rápido, e promoção abaixo do custo é prejuízo. Tabela visível com o que cada serviço inclui é direito do cliente (Código de Defesa do Consumidor, artigos 6º e 39). Preço claro e justo também gera confiança.
+```
+
+```agir
+# Esta semana
+Faça num papel a conta do valor da sua hora (quanto você precisa por mês dividido pelas horas que consegue atender) e o preço mínimo de dois serviços seus. Compare com o que cobra hoje.
+```
 
 ## Resumo
 

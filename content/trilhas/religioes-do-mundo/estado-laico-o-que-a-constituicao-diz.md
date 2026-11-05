@@ -1,5 +1,6 @@
 ---
 titulo: "Estado laico: o que a Constituição diz"
+modelo: 9
 resumo: "O Brasil é um Estado laico: o poder público não adota, não financia e não persegue nenhuma religião, e garante a liberdade de crença e de não crer. O que dizem os artigos 5º e 19 da Constituição de 1988, e o que laicidade não quer dizer."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Uma escola pública obriga todos os alunos a rezar uma oração de uma religião
 
 Ao fim desta aula você vai entender o que é um Estado laico e o que a Constituição brasileira garante sobre religião.
 
+```suarealidade
+Alguma vez alguém tentou impor ou proibir uma crença sua no trabalho ou na escola? Como você se sentiu?
+```
+
 ## O que é Estado laico
 
 Um **Estado laico** (ou secular) é aquele em que o poder público é **imparcial** em relação às religiões: **não apoia nem se opõe** a nenhuma delas. Ele procura tratar **todos os cidadãos de forma igual**, qualquer que seja a sua religião, ou a falta dela.
@@ -71,6 +76,15 @@ Por que um prefeito que fecha um terreiro sem motivo legal fere a Constituição
 > Releia a seção "O que diz a Constituição".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Estado laico é Estado contra a religião. Num país de maioria religiosa, o governo deveria seguir a fé do povo." É a opinião de quem acha que a fé da maioria deveria valer para todos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que Estado laico não é Estado ateu: é imparcial, não apoia nem se opõe a religiões. O art. 5º, VI, garante a liberdade de consciência e de crença e o livre exercício dos cultos, o art. 5º, VIII, diz que ninguém perde direitos por crença, e o art. 19 impede o Estado de estabelecer, financiar ou atrapalhar cultos. Assim a laicidade protege todos, inclusive quem é de religião diferente da maioria e quem não tem religião.
+```
+
 ## Exemplo resolvido
 
 **Diga se cada situação respeita ou não a laicidade: (a) a prefeitura paga a construção de uma igreja; (b) a escola pública ensina sobre várias religiões, sem obrigar ninguém a seguir nenhuma; (c) um funcionário é demitido por ser umbandista.**
@@ -78,6 +92,11 @@ Por que um prefeito que fecha um terreiro sem motivo legal fere a Constituição
 1. **(a)**: **não respeita**, porque o Estado não pode **subvencionar** igrejas.
 2. **(b)**: **respeita**, porque **informa** sem impor.
 3. **(c)**: **não respeita**, porque ninguém pode ser privado de direitos por **crença religiosa**.
+
+```agir
+# Esta semana
+Leia o art. 5º, inciso VI, da Constituição e explique com as suas palavras a uma pessoa de confiança. Peça que ela diga o que entendeu.
+```
 
 ## Resumo
 

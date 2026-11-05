@@ -1,5 +1,6 @@
 ---
 titulo: "Falar em entrevistas e vídeos"
+modelo: 9
 resumo: "Como se preparar para uma entrevista, por que cada resposta precisa ficar de pé sozinha, como usar o microfone e a câmera do celular, gravar e rever, e o direito de resposta quando uma matéria ofende."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Você falou cinco minutos com a repórter sobre a enchente. À noite, na TV, for
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber se preparar para uma entrevista, escolher as mensagens-chave, responder de forma que cada frase fique de pé sozinha, usar o microfone e a câmera do celular, gravar e rever a própria fala e conhecer o direito de resposta.
+
+```suarealidade
+Se um jornal ou uma TV viesse falar do problema que mais afeta o seu bairro, quais seriam as duas coisas que você gostaria que fossem ao ar?
+```
 
 ## O trecho que vai ao ar
 
@@ -100,6 +105,15 @@ A repórter pergunta: "Por que vocês estão protestando?". Qual resposta fica d
 > A resposta precisa trazer o problema completo, mesmo que a pergunta seja cortada.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem fala com a imprensa se arrisca à toa: sempre cortam o que a gente diz e deixam só o que serve para a matéria. Melhor não falar." É a opinião de quem já viu a sua fala ser cortada.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece o risco: na edição vai ao ar um trecho curto, que pode deixar de fora o contexto e às vezes engana. A saída que ela propõe é se preparar: escolher duas ou três mensagens-chave, com dado e caso, e fazer com que cada resposta fique de pé sozinha. Gravar e rever a própria fala antes ajuda. E quem se sentir prejudicado tem o direito de resposta, previsto na Lei 13.188/2015. Falar ou não falar é decisão de cada pessoa, mas dá para decidir sabendo como funciona.
+```
+
 ## Exemplo resolvido
 
 **A associação foi chamada para uma entrevista gravada de 3 minutos sobre o despejo de 40 famílias. Prepare quem vai falar.**
@@ -111,6 +125,11 @@ A repórter pergunta: "Por que vocês estão protestando?". Qual resposta fica d
 3. **Pergunta difícil**: "Mas o terreno não é de outra pessoa?". Resposta preparada: "O que nós pedimos é que ninguém seja jogado na rua sem ter para onde ir."
 4. **Ensaio gravado** no celular, duas vezes, para conferir se as mensagens aparecem logo no começo de cada resposta.
 5. **No dia**: falar "nós", frases curtas, a conclusão primeiro.
+
+```agir
+# Esta semana
+Grave no celular, com alguém de confiança, um vídeo de 30 segundos dizendo uma mensagem-chave sobre um problema do seu bairro. Assistam juntos e anotem num papel o que ficou claro e o que não.
+```
 
 ## Resumo
 

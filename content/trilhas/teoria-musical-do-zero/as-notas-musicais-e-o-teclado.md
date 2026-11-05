@@ -1,5 +1,6 @@
 ---
 titulo: "As notas musicais e o teclado"
+modelo: 9
 resumo: "As sete notas, a oitava e o mapa mais claro que existe para enxergá-las: o teclado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer os nomes das sete notas, usar as letras das cifras, achar o dó no teclado e dizer o que é a oitava.
+
+```suarealidade
+Se você tem ou já viu um teclado, um piano ou um aplicativo de música, o que percebe nas teclas pretas e brancas?
+```
 
 ## Sete nomes que se repetem
 
@@ -73,6 +78,15 @@ Qual nota fica na tecla branca logo à esquerda do grupo de três teclas pretas?
 
 Como há vários dós no teclado, usa-se um número para dizer a oitava. Neste site (e nos programas de música em geral), o dó que fica no meio do piano é o **C4**, também chamado de **dó central**. O lá logo acima dele é o A4, aquele de 440 Hz. Livros brasileiros mais antigos chamam esse mesmo dó de "dó 3"; a nota é a mesma, só muda a contagem.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Nome de nota, cifra, oitava... é nome demais para decorar. Quem toca, toca, e não aprende lendo." É a opinião de quem prefere a prática.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que é pouco para decorar: são sete notas (dó, ré, mi, fá, sol, lá, si), e depois do si a sequência recomeça. O teclado é um mapa: as teclas brancas são as sete notas, as pretas aparecem em grupos de duas e de três, e o dó fica à esquerda das duas pretas. As cifras só trocam os nomes por letras: A (lá), B (si), C (dó), D (ré), E (mi), F (fá), G (sol). Conhecer o mapa ajuda a achar qualquer nota.
+```
+
 ## Exemplo resolvido
 
 **Como achar a nota fá no teclado, e que letra a representa na cifra?**
@@ -87,6 +101,11 @@ Conclusão: o desenho de duas e três pretas é o mapa que mostra onde cada nota
 ## Para praticar
 
 Abra o [teclado](/ferramentas/teclado) e toque as sete teclas brancas a partir do dó, dizendo o nome de cada uma em voz alta. Depois faça o caminho de volta, do si ao dó.
+
+```agir
+# Esta semana
+Ache o dó no teclado (à esquerda do grupo de duas teclas pretas) e toque as sete notas até o dó seguinte. Anote a cifra de cada uma.
+```
 
 ## Resumo
 

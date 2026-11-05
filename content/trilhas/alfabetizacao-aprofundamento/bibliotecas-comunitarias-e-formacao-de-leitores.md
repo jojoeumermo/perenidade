@@ -1,5 +1,6 @@
 ---
 titulo: "Bibliotecas comunitárias e formação de leitores"
+modelo: 9
 resumo: "Por que quem acaba de aprender a ler precisa de livros por perto, o que é uma biblioteca comunitária, como montar uma e como formar leitores para além do círculo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Ao fim desta aula você vai saber o que é uma biblioteca comunitária e por que
 
 ```provocacao
 Onde fica a biblioteca mais perto da sua casa? Quanto tempo você levaria para chegar lá?
+```
+
+```suarealidade
+Onde fica a biblioteca mais perto da sua casa? Quanto tempo você levaria para chegar lá, e o que você levaria para ler?
 ```
 
 ## O país dos poucos livros
@@ -111,6 +116,20 @@ Confira: o grupo não ficou sem ter o que ler, os próprios participantes virara
 
 ```realidade
 Faça uma lista de cinco livros ou textos que você colocaria numa estante para quem acabou de aprender a ler.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Biblioteca comunitária é pegar caixa de livro velho. Sem profissional, sem verba e sem acervo organizado, não vai durar e não forma leitor." É uma dúvida de quem já viu iniciativas que fecharam depois de pouco tempo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que a leitura se firma com o uso e que quem aprende a ler precisa de textos à mão. Segundo a Retratos da Leitura (2024), 53% dos brasileiros não eram leitores de livros, e muitos apontam a falta de bibliotecas perto de casa. Para durar, a aula pede lugar acessível, acervo escolhido para o público, organização simples, empréstimo sem burocracia e voluntários do bairro, além da mediação (ler em voz alta, indicar, conversar).
+```
+
+```agir
+# Esta semana
+Separe, entre os livros, revistas ou folhetos da sua casa, um que você possa emprestar a um vizinho ou parente de confiança, e anote num papel de quem emprestou e a data para lembrar de pedir de volta.
 ```
 
 ## Resumo

@@ -1,5 +1,6 @@
 ---
 titulo: "Pronomes pessoais e possessivos"
+modelo: 9
 resumo: "I, me, my, mine: os pronomes que dizem quem faz, quem recebe e de quem é."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ quiz:
 Ao fim desta aula você vai saber usar os pronomes de sujeito e de objeto e os possessivos (*my*, *mine*, *'s*) em frases simples.
 
 Na aula do verbo *to be* você já conheceu os pronomes que fazem a ação: *I, you, he, she, it, we, they*. Agora vamos completar o quadro com as outras formas: a de quem **recebe** a ação (*me, him, her…*) e as que dizem **de quem é** alguma coisa (*my, his, mine…*).
+
+```suarealidade
+Pense em algo que é seu e em algo que é de outra pessoa da sua casa. Como você diria, em inglês, "é meu" e "é dela"?
+```
 
 ## O quadro completo
 
@@ -109,6 +114,15 @@ Para dizer "o carro do meu pai", o inglês não costuma usar *of*. Usa um apóst
 
 Se o dono está no plural com **s**, só se acrescenta o apóstrofo: ***my parents'** house* (a casa dos meus pais), ***the workers'** union* (o sindicato dos trabalhadores). Plural irregular volta a usar 's: ***the children's** school* (a escola das crianças).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Eu falo 'me car' e todo mundo entende. Pronome é detalhe." É o argumento de quem aprendeu a se virar falando.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Entender, entendem: mas a aula mostra que o inglês separa quem faz a ação (I, he, she), quem recebe (me, him, her) e de quem é (my, his, mine), e que cada um tem a sua hora. O quadro completo cabe numa página, e conhecê-lo ajuda tanto a falar quanto a ler. O 's, por exemplo, é o jeito de dizer que algo é de alguém, como em "my sister's phone".
+```
+
 ## Exemplo resolvido
 
 **Troque os nomes por pronomes: "Maria is my friend. I see Maria every day."**
@@ -126,6 +140,11 @@ Confira com as respostas da aula: *She is my friend. I see her every day. Her ho
 3. Escreva duas frases sobre a sua família usando *'s*: *My sister's name is…*
 
 Respostas do 1: *She is my friend. I see her every day. Her house is near our house.* Resposta do 2: *Mine is blue.*
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, três frases sobre coisas que são suas e de pessoas da sua casa, com my, his, her ou 's, como "This is my bag" e "That is Ana's phone".
+```
 
 ## Resumo
 

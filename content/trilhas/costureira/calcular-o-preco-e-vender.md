@@ -1,5 +1,6 @@
 ---
 titulo: "Calcular o preço e vender"
+modelo: 9
 resumo: "Como calcular o preço de uma peça ou de um conserto (materiais, tempo, custos e margem), orçar como manda o Código de Defesa do Consumidor, vender pela internet respeitando o direito de arrependimento e se formalizar como MEI costureira."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -52,6 +53,10 @@ Uma blusa feita por você leva três horas e R$ 30 de tecido. Na loja de departa
 
 Ao fim desta aula você vai calcular o preço de uma peça e de um conserto, entregar orçamento como manda o Código de Defesa do Consumidor, vender pela internet respeitando o direito de arrependimento e saber como se formalizar como MEI.
 
+```suarealidade
+Quanto você cobra, ou cobraria, por uma peça que sabe fazer? Já contou as horas de trabalho e o que gastou de tecido e linha?
+```
+
 ## O preço
 
 ```formula
@@ -96,6 +101,15 @@ Uma cliente comprou pela internet um vestido pronto que você vendeu e quer devo
 > Veja o artigo 49.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Costureira de bairro não pode cobrar muito: o cliente compara com a loja de departamento. O jeito é cobrar só o tecido e um pouco mais, para não perder a freguesia." É a pressão que quem vende no bairro sente todo dia.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula diz que o preço precisa cobrir materiais, horas de trabalho, custos por peça e margem; quem cobra só o tecido trabalha de graça. Ela também diz que não dá para ganhar da loja de departamento no preço, e que não precisa: a peça industrial é feita em escala e, às vezes, com trabalho em condições degradantes, como mostra a aula sobre a história das trabalhadoras da confecção. A sua peça vende outra coisa: sob medida, tecido escolhido, acabamento caprichado, conserto garantido. Mostre isso e cobre o que o trabalho vale.
+```
+
 ## Exemplo resolvido
 
 **Calcule o preço de uma saia de elástico sob medida. Tecido R$ 24 (70 cm), elástico e linha R$ 6, etiqueta e embalagem R$ 2. Tempo: 2 h 30 min. Você precisa de R$ 2.400 por mês e costura e cobra 160 horas no mês. Custos do mês: R$ 320 para 80 peças. Margem de 15%. Valores do exemplo.**
@@ -111,6 +125,11 @@ Preço: 73,50 + 11,03 ≈ R$ 84,50
 ```
 
 O preço fica em torno de **R$ 85**. Se o mercado da sua região paga menos, a conta mostra **quanto** você estaria deixando de ganhar, e ajuda a decidir entre baixar custos, ganhar tempo com prática ou mostrar melhor o valor do sob medida.
+
+```agir
+# Esta semana
+Escolha uma peça que você faz. Cronometre quanto tempo leva, liste os materiais e faça a conta do preço com a fórmula da aula. Anote o resultado num papel e compare com o que você cobra hoje.
+```
 
 ## Resumo
 

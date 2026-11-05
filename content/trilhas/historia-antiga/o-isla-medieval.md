@@ -1,5 +1,6 @@
 ---
 titulo: "O islã medieval"
+modelo: 9
 resumo: "Objetivo: conhecer o surgimento do islã, a formação de um mundo que ia da Espanha à Índia e a sua contribuição para a ciência e a cultura."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber contar como surgiu o islã, quais são os cinco pilares, como o mundo islâmico se expandiu e foi um centro de ciência e por que não se deve tratar o islã como um bloco único.
+
+```suarealidade
+Que imagem do islã você já viu em filmes e noticiários? Você conhece alguém muçulmano ou já conversou com alguém que conheça?
+```
 
 
 ## O surgimento do islã
@@ -123,6 +128,20 @@ Leitura: a expansão e o auge do saber vieram em poucas gerações depois do nas
 1. Faça uma lista de dez palavras de origem árabe que você usa no dia a dia.
 2. Por que os livros escolares costumam apresentar a ciência como uma criação só europeia?
 3. Que imagem do islã aparece nos filmes e nos noticiários? A quem ela serve?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A ciência é uma criação europeia, herdada dos gregos. O mundo islâmico, no máximo, guardou os livros antigos."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que foi mais do que guardar. Entre os séculos VIII e XIII, o mundo islâmico foi o grande centro de ciência do planeta: em Bagdá, sábios de várias origens e religiões traduziram obras dos gregos, dos persas e dos indianos e foram além delas. Al-Khwarizmi sistematizou a resolução de equações (dele vêm as palavras álgebra e algoritmo); Avicena escreveu um tratado de medicina usado nas escolas europeias por séculos; Ibn Khaldun é considerado um precursor da sociologia. Os algarismos indianos, com o zero, chegaram à Europa por meio dos árabes. Sem as traduções e os estudos feitos em árabe, grande parte da ciência antiga teria se perdido.
+```
+
+```agir
+# Esta semana
+Faça uma lista de dez palavras de origem árabe que você usa no dia a dia (a aula dá exemplos, como açúcar, arroz, alface, azeite e algodão) e mostre a lista a alguém da sua casa.
+```
 
 ## Resumo
 

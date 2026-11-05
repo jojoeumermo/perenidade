@@ -25,7 +25,7 @@ quiz:
   - pergunta: "Qual foi o resultado da votação de 25 de abril de 1984?"
     opcoes: ["298 votos a favor, 65 contra, mas a emenda foi rejeitada por não alcançar o mínimo", "Aprovada por unanimidade", "Não houve votação"]
     resposta: 0
-    explicacao: "Por manobra de aliados do regime, 112 deputados não compareceram."
+    explicacao: "Por manobra de aliados do regime, mais de cem deputados não compareceram (as fontes citam 112 ou 113)."
   - pergunta: "Quem foi eleito presidente pelo Colégio Eleitoral em janeiro de 1985?"
     opcoes: ["Tancredo Neves", "Lula", "Castelo Branco"]
     resposta: 0

@@ -1,0 +1,51 @@
+# Exercícios da aula "Como falar: os termos corretos" (Inclusão). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: inc-ter-01
+  tema: "A expressão atual"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a expressão adotada hoje, escolhida pelo próprio movimento, para falar de quem tem deficiência?"
+  alternativas:
+    - texto: "Pessoa com deficiência"
+      certa: true
+    - texto: "Portador de deficiência"
+      erro: "Deficiência não se 'porta' como um objeto."
+    - texto: "Pessoa com necessidades especiais"
+      erro: "É um eufemismo vago: todo mundo tem necessidades."
+  explicacao: "Foi escolhida pelo próprio movimento e adotada pela Convenção da ONU, de 2006. O lema: 'Nada sobre nós sem nós'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-ter-02
+  tema: "Cadeira de rodas"
+  dificuldade: 2
+  enunciado: "Qual frase está mais adequada?"
+  alternativas:
+    - texto: "Ela usa cadeira de rodas"
+      certa: true
+    - texto: "Ela está presa a uma cadeira de rodas"
+      erro: "A cadeira dá liberdade de movimento, e não prende."
+    - texto: "Ela é uma coitada aleijada"
+      erro: "'Aleijada' é termo ofensivo, e 'coitada' trata a pessoa com pena."
+  explicacao: "Prefira 'pessoa que usa cadeira de rodas'. Na dúvida, pergunte à pessoa como ela prefere ser chamada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-ter-03
+  tema: "Surdo-mudo"
+  dificuldade: 2
+  enunciado: "Por que não se deve dizer 'surdo-mudo'?"
+  alternativas:
+    - texto: "Porque a surdez não impede a fala: muitas pessoas surdas se comunicam em Libras, que é uma língua"
+      certa: true
+    - texto: "Porque 'surdo' é um termo ofensivo"
+      erro: "'Pessoa surda' é o termo adequado. O que não se diz é 'surdo-mudo'."
+    - texto: "Porque as pessoas surdas nunca falam"
+      erro: "Muitas falam, e muitas usam Libras, que é uma língua com gramática própria."
+  explicacao: "Diga 'pessoa surda'. Libras é uma língua, e não 'mímica'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

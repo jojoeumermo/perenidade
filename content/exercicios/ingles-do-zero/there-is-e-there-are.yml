@@ -1,0 +1,51 @@
+# Exercícios da aula "There is e there are" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-the-01
+  tema: "Existe"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz 'Tem uma farmácia na esquina' em inglês?"
+  alternativas:
+    - texto: "There is a pharmacy on the corner."
+      certa: true
+    - texto: "Have a pharmacy on the corner."
+      erro: "Para dizer que algo existe num lugar, usa-se there is, e não have."
+    - texto: "There has a pharmacy on the corner."
+      erro: "Não se usa has. O certo é there is."
+  explicacao: "O there aqui não quer dizer 'lá'. É um sujeito 'de enfeite'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-the-02
+  tema: "Plural"
+  dificuldade: 2
+  enunciado: "Qual é a forma certa?  ___ two buses to downtown."
+  alternativas:
+    - texto: "There are"
+      certa: true
+    - texto: "There is"
+      erro: "Com plural (two buses), usa-se there are."
+    - texto: "They are"
+      erro: "They are quer dizer 'eles são'."
+  explicacao: "There is para singular e incontável; there are para plural."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-the-03
+  tema: "Pergunta"
+  dificuldade: 2
+  enunciado: "Como se pergunta 'Tem banheiro aqui?'"
+  alternativas:
+    - texto: "Is there a bathroom here?"
+      certa: true
+    - texto: "Does there a bathroom here?"
+      erro: "Não se usa does. Inverta como no verbo to be."
+    - texto: "There is a bathroom here?"
+      erro: "Na pergunta, o is vai para a frente."
+  explicacao: "Resposta curta: Yes, there is. / No, there isn't."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

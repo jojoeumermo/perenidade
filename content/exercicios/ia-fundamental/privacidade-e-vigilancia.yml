@@ -1,0 +1,51 @@
+# Exercícios da aula "Privacidade e vigilância" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-pri-01
+  tema: "Privacidade não é esconder"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que é privacidade, de acordo com a aula?"
+  alternativas:
+    - texto: "O direito de andar pela cidade, ir a uma manifestação ou a um culto sem ser registrado, analisado e classificado"
+      certa: true
+    - texto: "Esconder coisas erradas"
+      erro: "Privacidade não é esconder coisa errada. É um direito de todos."
+    - texto: "Um luxo de quem tem celular caro"
+      erro: "É um direito, e quem está na mira da vigilância costuma ser quem já é mais vulnerável."
+  explicacao: "Quem está na mira da vigilância costuma ser quem já é mais vigiado. A LGPD garante direitos sobre os dados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-pri-02
+  tema: "Permissões do celular"
+  dificuldade: 1
+  enunciado: "Qual passo ajuda a proteger um pouco a sua privacidade no celular?"
+  alternativas:
+    - texto: "Revisar as permissões dos aplicativos: localização, câmera, microfone e contatos só para quem precisa"
+      certa: true
+    - texto: "Dar todas as permissões, para o aplicativo funcionar melhor"
+      erro: "Quanto mais permissão, mais dados saem. Dê só o necessário."
+    - texto: "Instalar aplicativos de fonte desconhecida"
+      erro: "Isso aumenta o risco."
+  explicacao: "Também ajudam: desligar o histórico de localização quando não precisar, pedir seus dados com base no art. 18 da LGPD e desconfiar de cadastro com foto do rosto que não é obrigatório."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-pri-03
+  tema: "Reconhecimento facial e movimentos negros"
+  dificuldade: 3
+  enunciado: "Por que o reconhecimento facial na segurança pública preocupa os movimentos negros?"
+  alternativas:
+    - texto: "Porque os sistemas erram mais com pessoas negras, e o erro vira abordagem e prisão para quem já é mais vigiado"
+      certa: true
+    - texto: "Porque as câmeras são caras"
+      erro: "O preocupante é o erro e a vigilância desigual, e não o preço."
+    - texto: "Porque as câmeras deixam as ruas muito iluminadas"
+      erro: "A preocupação é com o erro do sistema e a vigilância sobre quem já é mais vigiado."
+  explicacao: "O erro e a vigilância não pesam igual. Por isso se defende revisão humana, transparência e os direitos da LGPD."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

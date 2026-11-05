@@ -1,5 +1,6 @@
 ---
 titulo: "Can: habilidade e pedido"
+modelo: 9
 resumo: "Objetivo: usar can e can't para falar do que se sabe ou se consegue fazer, pedir e dar permissão, e fazer pedidos educados com could."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber usar *can* para dizer o que sabe fazer, pedir e dar permissão, e usar *could* para um pedido mais educado.
+
+```suarealidade
+Em que momento do seu trabalho alguém já perguntou se você sabe fazer alguma coisa: dirigir, usar uma planilha, atender o cliente? O que você respondeu?
+```
 
 ## Um verbo diferente
 
@@ -90,6 +95,15 @@ Como se diz "Eu não consigo abrir este arquivo"?
 
 Na frase afirmativa, *can* costuma ser dito rápido e fraco ("kən"); *can't* é mais forte e longo ("kænt" nos Estados Unidos, "kɑːnt" no Reino Unido). Muitas vezes, é a força da palavra que permite distinguir *I can go* de *I can't go*. Pratique com a ferramenta de [pronúncia](/ferramentas/pronuncia).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Inglês é coisa de quem trabalha em escritório ou viaja. Para quem é trabalhador comum, não adianta nada." É a impressão de quem nunca viu o inglês aparecer na sua rotina.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A própria aula mostra o contrário: usa exemplos como "I can drive a truck" e "Can you use a spreadsheet?", e lembra que, em entrevistas de emprego e currículos, dizer o que se sabe fazer é justamente o que se faz com *can*. É um verbo de regras simples: não muda na terceira pessoa e faz a negativa e a pergunta sozinho. Dizer o que sabe fazer não é privilégio de ninguém.
+```
+
 ## Exemplo resolvido
 
 **Como dizer "Ele sabe consertar computadores" e depois perguntar?**
@@ -107,6 +121,11 @@ Confira: o verbo *fix* ficou igual nas três frases. Dizer *He cans* ou *Does he
 2. Transforme em pergunta: "He can fix computers." / "They can work on Sunday."
 3. Reescreva de forma mais educada: "Can you repeat that?" / "Give me a glass of water."
 4. Prepare uma pequena apresentação para uma entrevista de emprego com três habilidades: *I can ...*
+
+```agir
+# Esta semana
+Escreva num papel três coisas que você sabe fazer no seu trabalho, em inglês, usando "I can": por exemplo, "I can cook" ou "I can drive". Depois pergunte a uma pessoa de casa o que ela "can" fazer, usando "Can you...?".
+```
 
 ## Resumo
 

@@ -1,0 +1,50 @@
+# Exercícios da aula "Manutenção e retirada das tranças" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-manutencao-e-retirada-das-trancas-01
+  tema: "Tempo"
+  dificuldade: 1
+  enunciado: "Quanto tempo dura uma box braids, segundo a tabela da aula?"
+  alternativas:
+    - texto: "De seis a oito semanas"
+      certa: true
+    - texto: "De seis a oito dias"
+      erro: "A aula diz semanas."
+    - texto: "De um a três meses"
+      erro: "Esse é o tempo dos twists senegaleses com fibra."
+  explicacao: "Os tempos dependem da manutenção, do cabelo da cliente e do estilo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Manutenção e retirada das tranças\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-manutencao-e-retirada-das-trancas-02
+  tema: "Cabelo novo"
+  dificuldade: 2
+  enunciado: "O cabelo cresce cerca de 0,3 mm por dia. Quantos centímetros de cabelo novo aparecem em 8 semanas (56 dias)? Faça a conta 56 × 0,3 mm e converta para centímetros."
+  alternativas:
+    - texto: "17 cm"
+      erro: "A vírgula escorregou: 56 × 0,3 = 16,8 mm, que são 1,68 cm."
+    - texto: "Cerca de 1,7 cm"
+      certa: true
+    - texto: "Cerca de 0,17 cm"
+      erro: "A vírgula escorregou para o outro lado."
+  explicacao: "56 × 0,3 = 16,8 mm, cerca de 1,7 cm."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Manutenção e retirada das tranças\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-manutencao-e-retirada-das-trancas-03
+  tema: "Passar do tempo"
+  dificuldade: 2
+  enunciado: "Por que não se deve passar muito do tempo da trança?"
+  alternativas:
+    - texto: "Aumenta o risco de alopecia de tração e o cabelo pode se entrelaçar, tornando a retirada difícil"
+      certa: true
+    - texto: "Porque a fibra desbota"
+      erro: "A aula cita os riscos ao cabelo."
+    - texto: "Porque o cabelo para de crescer"
+      erro: "O cabelo continua crescendo."
+  explicacao: "Entregue as orientações por escrito: em semanas, a cliente esquece."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Manutenção e retirada das tranças\""
+  revisao:
+    status: em-revisao

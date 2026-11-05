@@ -32,7 +32,7 @@ quiz:
   - pergunta: "Qual documento é o mais traduzido do mundo, segundo o Guinness?"
     opcoes: ["A Declaração Universal dos Direitos Humanos", "O Manifesto Comunista", "A Bíblia"]
     resposta: 0
-    explicacao: "Em 2018, havia 525 traduções."
+    explicacao: "Em 2018, já eram mais de 500 traduções, e a lista continua crescendo."
 modelo: 9
 ---
 

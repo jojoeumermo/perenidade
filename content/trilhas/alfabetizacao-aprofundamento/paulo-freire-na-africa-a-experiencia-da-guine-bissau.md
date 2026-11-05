@@ -1,5 +1,6 @@
 ---
 titulo: "Paulo Freire na África: a experiência da Guiné-Bissau"
+modelo: 9
 resumo: "O trabalho de Paulo Freire com o governo da Guiné-Bissau recém-independente, a partir de 1975, as Cartas à Guiné-Bissau e o grande problema da experiência: alfabetizar em português, uma língua que a maioria do povo não falava."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Ao fim desta aula você vai conhecer o contexto da Guiné-Bissau independente, o
 
 ```provocacao
 Você aprenderia a ler mais fácil na língua que fala em casa ou numa língua que só ouve na rádio e no governo?
+```
+
+```suarealidade
+Você aprenderia a ler mais fácil na língua que fala em casa ou numa língua que só ouve no rádio e no governo? O que isso muda para quem estuda à noite depois do trabalho?
 ```
 
 ## O contexto
@@ -105,6 +110,20 @@ Confira: o plano tratou o português como segunda língua, valorizou a escrita q
 
 ```realidade
 Há imigrantes ou falantes de outras línguas no seu bairro? Que línguas? Escreva o que mudaria no círculo para recebê-los.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se a língua do governo e do emprego é o português, é melhor alfabetizar logo nela. Ensinar na língua da casa atrasa quem precisa entrar no mercado." É um argumento prático, de quem quer resultado rápido.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula conta que, na Guiné-Bissau, a alfabetização foi feita em português, língua de uma minoria, enquanto a maioria se comunicava em crioulo e em línguas africanas. O próprio Freire depois apontou a escolha da língua como causa central dos maus resultados. A lição da aula é que ninguém aprende a ler numa língua que não entende: o caminho mais rápido no papel pode ser o mais lento na prática.
+```
+
+```agir
+# Esta semana
+Escreva num papel três palavras que você usa em casa e que não aparecem na escola ou no trabalho (palavras da sua família ou da sua terra) e o que elas querem dizer em português de escola. Se quiser, mostre para alguém de casa.
 ```
 
 ## Resumo

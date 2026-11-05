@@ -1,0 +1,67 @@
+# Exercícios da aula "Presente simples" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-pre-01
+  tema: "O -s do he/she/it"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual frase está correta?"
+  alternativas:
+    - texto: "She works on Sundays."
+      certa: true
+    - texto: "She work on Sundays."
+      erro: "Com he, she e it, o verbo ganha -s."
+    - texto: "She works on Sundays?"
+      erro: "A frase afirmativa não leva ponto de interrogação."
+  explicacao: "Use a forma básica com I, you, we e they. Com he, she e it, acrescente -s."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-pre-02
+  tema: "Negativa"
+  dificuldade: 2
+  enunciado: "Qual é a negativa de 'He likes coffee'?"
+  alternativas:
+    - texto: "He doesn't like coffee."
+      certa: true
+    - texto: "He doesn't likes coffee."
+      erro: "Depois de doesn't, o verbo volta à forma básica, sem -s."
+    - texto: "He don't like coffee."
+      erro: "Com he, usa-se doesn't, e não don't."
+  explicacao: "O -s vai para o doesn't, e o verbo principal fica na forma básica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-pre-03
+  tema: "Have e has"
+  dificuldade: 1
+  enunciado: "Qual é a forma certa?  She ___ two kids."
+  alternativas:
+    - texto: "has"
+      certa: true
+    - texto: "have"
+      erro: "Com she, have vira has."
+    - texto: "haves"
+      erro: "Não existe 'haves'."
+  explicacao: "Have é irregular: com he, she e it, vira has."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-pre-04
+  tema: "-es e -ies"
+  dificuldade: 3
+  enunciado: "Qual é a forma de 'study' com he?"
+  alternativas:
+    - texto: "He studies"
+      certa: true
+    - texto: "He studys"
+      erro: "Consoante + y: troque o y por ies."
+    - texto: "He study"
+      erro: "Com he, o verbo precisa do -s (aqui, -ies)."
+  explicacao: "As regras do -s são as mesmas do plural: -es para s, sh, ch, x, z; consoante + y vira ies."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

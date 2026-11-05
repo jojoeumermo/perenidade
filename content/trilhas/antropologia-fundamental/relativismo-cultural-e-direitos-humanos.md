@@ -1,5 +1,6 @@
 ---
 titulo: "Relativismo cultural e direitos humanos"
+modelo: 9
 resumo: "O relativismo cultural ensina a entender cada costume dentro da sua cultura. Os direitos humanos dizem que algumas garantias valem para todas as pessoas. Como as duas ideias convivem, e onde está o debate."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Se cada cultura deve ser entendida por dentro, então nunca podemos dizer que um
 
 Ao fim desta aula você vai entender o que é o relativismo cultural, o que são os direitos humanos e o debate entre as duas ideias.
 
+```suarealidade
+Existe algum costume, no seu trabalho ou no seu bairro, que você respeita mas que, se pudesse, mudaria? E algum que as pessoas de fora criticam e você defende? O que decide uma coisa ou outra?
+```
+
 ## O relativismo cultural
 
 O **relativismo cultural** parte da ideia de que **cada cultura se expressa de um jeito**. Por isso, a atividade humana deve ser **interpretada dentro do contexto** da sua própria cultura. O princípio foi estabelecido na pesquisa do antropólogo **Franz Boas**, nas **primeiras décadas do século XX**, e popularizado pelos seus alunos.
@@ -73,6 +78,20 @@ Qual destas frases junta bem as duas ideias?
 1. **(a)**: é só um **costume diferente**, que não fere ninguém. O relativismo ajuda a entender e respeitar.
 2. **(b)**: fere um **direito humano** básico, a proibição da **escravidão**.
 3. Entender o contexto de **(b)** ajuda a explicar por que existe, mas **não** o torna aceitável.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se cada cultura deve ser entendida por dentro, ninguém pode criticar nenhum costume: tudo vira questão de opinião. Direitos humanos são coisa de uma cultura só, imposta aos outros." É uma objeção séria, feita por quem teme que um país ou grupo domine os demais.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o debate é real: o relativismo (Franz Boas) pede entender cada costume no contexto, e a Declaração Universal dos Direitos Humanos, de 10 de dezembro de 1948, afirma garantias para todos. A saída que a aula propõe é que entender não é concordar: é possível respeitar a diversidade e, ao mesmo tempo, defender as garantias de todas as pessoas. Entender o contexto é o começo do diálogo, e não o fim da crítica.
+```
+
+```agir
+# Esta semana
+Escolha um costume qualquer sobre o qual você tem dúvida e escreva num papel duas colunas: o que ajuda a entender o contexto dele e o que garante a segurança e a dignidade das pessoas envolvidas. Não precisa chegar a uma conclusão.
+```
 
 ## Resumo
 

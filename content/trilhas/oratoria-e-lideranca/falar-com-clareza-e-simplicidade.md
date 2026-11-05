@@ -1,5 +1,6 @@
 ---
 titulo: "Falar com clareza e simplicidade"
+modelo: 9
 resumo: "Por que fala não é texto escrito, como trocar palavra difícil por palavra comum, explicar a sigla e o termo técnico, cortar o que sobra e usar verbos, \"nós\" e perguntas para que todos entendam de primeira."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -52,6 +53,10 @@ Na reunião com a prefeitura, o técnico disse: "o pleito encontra-se em fase de
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender por que a fala é diferente do texto escrito, trocar palavras difíceis por comuns, explicar siglas e termos técnicos, cortar o que sobra e usar verbos, "nós" e perguntas para ser entendido de primeira.
+
+```suarealidade
+Qual frase difícil você já ouviu de um banco, de um órgão público ou do patrão e não entendeu? Você pediu para explicarem?
+```
 
 ## Fala não é texto
 
@@ -110,6 +115,15 @@ Qual é a melhor forma de dizer, numa assembleia, que a reunião com a secretari
 > O mais importante primeiro, palavras comuns e a informação que a pessoa precisa para agir.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Falar difícil dá credibilidade. Se eu falo simples demais, passo a impressão de que não estudei e perco o respeito de quem ouve." É a opinião de quem sente que precisa mostrar preparo para ser levado a sério.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra o contrário: quem ouve não pode "voltar a fita", e a fala existe para ser entendida de primeira. Por isso se usam frases curtas, verbos, "nós" e perguntas, a sigla por extenso na primeira vez e o mais importante em primeiro lugar. Clareza e economia não são falta de preparo: dão trabalho. E a Lei 15.263/2025 (Política Nacional de Linguagem Simples) obriga o poder público a usar linguagem simples com o cidadão, o que mostra que a clareza também é direito de quem ouve.
+```
+
 ## Exemplo resolvido
 
 **Reescreva para uma assembleia de moradores a frase do técnico: "O pleito encontra-se em fase de análise de viabilidade orçamentária, sendo que a deliberação será efetivada após a aprovação da LOA."**
@@ -120,6 +134,11 @@ Qual é a melhor forma de dizer, numa assembleia, que a reunião com a secretari
 4. **Voz ativa e verbo**: quem decide e quando.
 
 Resultado: "A creche ainda não foi aprovada. A prefeitura está vendo se há dinheiro para ela. A decisão sai depois que a Câmara votar a Lei Orçamentária Anual, a lei que diz em que a cidade vai gastar no ano que vem. Então, o nosso trabalho agora é pressionar para a creche entrar nessa lei."
+
+```agir
+# Esta semana
+Pegue um aviso, uma conta ou um documento difícil e "traduza" em voz alta para alguém da sua casa. Anote num papel a palavra mais difícil que você trocou e por qual.
+```
 
 ## Resumo
 

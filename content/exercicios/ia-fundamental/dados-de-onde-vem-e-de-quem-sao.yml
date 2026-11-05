@@ -1,0 +1,51 @@
+# Exercícios da aula "Dados: de onde vêm e de quem são" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-dad-01
+  tema: "Dado pessoal sensível"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Um aplicativo de saúde guarda informações sobre a sua pressão e os seus remédios. Pela LGPD, esses dados são:"
+  alternativas:
+    - texto: "Dados pessoais sensíveis, que têm proteção especial"
+      certa: true
+    - texto: "Dados públicos, que qualquer um pode usar"
+      erro: "Dados de saúde são dados sensíveis pela LGPD, com proteção especial."
+    - texto: "Dados da empresa, e não seus"
+      erro: "São informações sobre você: são dados pessoais, e dos sensíveis."
+  explicacao: "Pela LGPD (art. 5º, II), dado sensível é o dado pessoal sobre origem racial ou étnica, religião, opinião política, filiação a sindicato, saúde, vida sexual, dado genético ou biométrico."
+  fonte: "Lei Geral de Proteção de Dados (Lei 13.709/2018), art. 5º"
+  revisao:
+    status: em-revisao
+
+- id: ia-dad-02
+  tema: "Direito de acesso"
+  dificuldade: 2
+  enunciado: "Qual destes é um direito seu pelo artigo 18 da LGPD?"
+  alternativas:
+    - texto: "Pedir a quem trata os seus dados a confirmação de que os trata e o acesso a eles"
+      certa: true
+    - texto: "Receber dinheiro por cada dado usado"
+      erro: "A LGPD garante acesso, correção, eliminação e portabilidade, e não pagamento por dado."
+    - texto: "Impedir qualquer uso de qualquer dado, sempre"
+      erro: "Os direitos são os listados no art. 18, como acesso, correção, anonimização, eliminação e portabilidade."
+  explicacao: "Você pode pedir confirmação e acesso, correção, anonimização, bloqueio ou eliminação de dados desnecessários ou tratados fora da lei, e portabilidade."
+  fonte: "Lei Geral de Proteção de Dados (Lei 13.709/2018), art. 18"
+  revisao:
+    status: em-revisao
+
+- id: ia-dad-03
+  tema: "Decisão só de máquina"
+  dificuldade: 3
+  enunciado: "Um banco recusa seu crédito, decidido só por um sistema automático. O que a LGPD garante?"
+  alternativas:
+    - texto: "O direito de pedir a revisão da decisão tomada só por tratamento automatizado"
+      certa: true
+    - texto: "Nada: a máquina nunca erra"
+      erro: "A lei garante a revisão, justamente porque decisões automáticas podem errar."
+    - texto: "Obrigar o banco a conceder o crédito"
+      erro: "A lei garante a revisão da decisão, e não a concessão do crédito."
+  explicacao: "O artigo 20 da LGPD garante o direito de pedir a revisão de decisões tomadas só por máquina que afetem seus interesses, como as de perfil de consumo ou de crédito."
+  fonte: "Lei Geral de Proteção de Dados (Lei 13.709/2018), art. 20"
+  revisao:
+    status: em-revisao

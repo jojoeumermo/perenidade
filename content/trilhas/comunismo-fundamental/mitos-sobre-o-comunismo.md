@@ -1,5 +1,6 @@
 ---
 titulo: "Mitos sobre o comunismo"
+modelo: 9
 resumo: "Do 'comunista come criança' ao Plano Cohen: como o medo foi fabricado no Brasil, e como falar com honestidade dos erros reais."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber separar o medo fabricado do comunismo (como o Plano Cohen) dos fatos reais, reconhecer os mitos mais comuns e responder a eles com fontes.
+
+```suarealidade
+Que frase sobre os comunistas você já ouviu e acreditou, ou desconfiou? De quem ouviu e onde?
+```
 
 Poucos assuntos despertam tanto medo quanto o comunismo. Parte desse medo foi **fabricada** por décadas de propaganda. Parte vem de **fatos reais**, que precisam ser encarados com honestidade. Esta aula separa uma coisa da outra.
 
@@ -78,6 +83,15 @@ Também é fato que os comunistas brasileiros foram **perseguidos, presos, tortu
 
 Você já ouviu alguém ser chamado de "comunista" de forma pejorativa? O que essa pessoa defendia de fato?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Os comunistas mataram milhões de pessoas e fecharam países. Quem fala em 'mito' está querendo limpar essa história." É a posição de quem se preocupa com as vítimas de governos autoritários.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não limpa nada: reconhece crimes reais em países governados por partidos comunistas, como repressão política, campos de trabalho forçado, os expurgos soviéticos dos anos 1930 e fomes agravadas por decisões políticas na URSS e na China. Ao mesmo tempo, mostra que parte do medo foi fabricada, como o Plano Cohen, um documento falso de 1937 usado para justificar o golpe do Estado Novo, e que os números totais de vítimas são debatidos entre historiadores, porque alguns cálculos misturam mortes de guerras, fomes e repressão de forma pouco rigorosa. Separar mito de fato é o contrário de negar: é estudar com fontes sérias.
+```
+
 ## Exemplo resolvido
 
 **Como saber se uma frase sobre o comunismo é mito ou fato? Teste "comunistas querem tomar a sua casa".**
@@ -89,6 +103,11 @@ Você já ouviu alguém ser chamado de "comunista" de forma pejorativa? O que es
 5. **Conclua.** A frase mistura bens pessoais com meios de produção; é mito. Mas isso não apaga os crimes reais em países governados por partidos comunistas, que a aula também reconhece.
 
 Confira: os números de vítimas são objeto de debate entre historiadores; busque fontes sérias.
+
+```agir
+# Esta semana
+Escolha uma frase que você já ouviu sobre comunismo e procure uma fonte séria sobre ela (a aula traz três). Anote num papel se ela é mito, fato ou ainda debatida pelos historiadores, e por quê.
+```
 
 ## Resumo
 

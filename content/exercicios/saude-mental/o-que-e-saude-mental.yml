@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é saúde mental" (saude-mental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: saude-mental-o-que-e-saude-mental-01
+  tema: "Definição da OMS"
+  dificuldade: 1
+  enunciado: "Como a OMS define saúde mental, segundo a aula?"
+  alternativas:
+    - texto: "Um estado de bem-estar em que a pessoa lida com as tensões da vida, desenvolve suas capacidades, aprende, trabalha bem e contribui com a comunidade"
+      certa: true
+    - texto: "Ausência de qualquer tristeza"
+      erro: "A aula diz que tristeza depois de uma perda é reação saudável."
+    - texto: "Só não ter transtorno mental"
+      erro: "A aula diz que é mais que isso."
+  explicacao: "Saúde mental também é um direito, e não um luxo de quem pode pagar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é saúde mental\""
+  revisao:
+    status: em-revisao
+
+- id: saude-mental-o-que-e-saude-mental-02
+  tema: "O que adoece"
+  dificuldade: 2
+  enunciado: "Segundo a aula, o que pesa contra a saúde mental?"
+  alternativas:
+    - texto: "Pobreza, desemprego, dívida, fome, violência, racismo, moradia precária, jornadas exaustivas, assédio e solidão"
+      certa: true
+    - texto: "Só a falta de força de vontade"
+      erro: "A aula diz que sofrimento mental não é fraqueza ou frescura."
+    - texto: "Só a herança genética"
+      erro: "A OMS aponta fatores individuais e também sociais e econômicos."
+  explicacao: "O que ajuda: renda garantida, casa, trabalho digno, tempo livre, escola, amigos, família e comunidade de confiança."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é saúde mental\""
+  revisao:
+    status: em-revisao
+
+- id: saude-mental-o-que-e-saude-mental-03
+  tema: "Números e telefone"
+  dificuldade: 2
+  enunciado: "Em 2019, segundo a OMS, quantas pessoas no mundo viviam com algum transtorno mental, e qual é o telefone do CVV?"
+  alternativas:
+    - texto: "Cerca de 970 milhões (uma em cada oito); CVV: 188"
+      certa: true
+    - texto: "Cerca de 970 mil; CVV: 192"
+      erro: "São 970 milhões, e o 192 é o SAMU."
+    - texto: "Cerca de 9 milhões; CVV: 100"
+      erro: "Os números são bem maiores, e o 100 é o Disque 100."
+  explicacao: "Os transtornos mais comuns são os de ansiedade e a depressão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é saúde mental\""
+  revisao:
+    status: em-revisao

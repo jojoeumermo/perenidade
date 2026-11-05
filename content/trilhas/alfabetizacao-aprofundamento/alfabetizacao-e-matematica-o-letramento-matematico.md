@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização e matemática: o letramento matemático"
+modelo: 9
 resumo: "O saber matemático que os adultos já trazem da vida, como registrá-lo no papel e como ensinar números, contas e medidas a partir do trabalho e do dinheiro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Ao fim desta aula você vai saber reconhecer o saber matemático que o grupo já
 
 ```provocacao
 Pergunte a alguém que não estudou: "Como você faz para saber se o troco está certo?". Anote o caminho que a pessoa descreve.
+```
+
+```suarealidade
+Como você confere o troco, calcula quanto material comprar ou divide uma conta? Você faz de cabeça, no papel ou na calculadora? Quem lhe ensinou?
 ```
 
 ## O saber que já existe
@@ -110,6 +115,20 @@ Confira: o saber delas veio primeiro, foi escrito, comparado com outros caminhos
 
 ```realidade
 Escolha uma situação de trabalho do seu grupo que envolva conta. Escreva o problema e como você acha que alguém do grupo resolveria de cabeça.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não sabe ler não sabe matemática de verdade: faz conta de cabeça, errada ou sem método. É preciso começar pelas contas da escola." É um pensamento comum em quem aprendeu só o jeito escolar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra o contrário: segundo Maria da Conceição Fonseca, os adultos trazem uma matemática da vida, mental, oral e muito eficiente, e Ubiratan D'Ambrosio chamou de etnomatemática a matemática que cada grupo cria no trabalho. A feirante sabe o troco, o pedreiro sabe quantos sacos de cimento a laje pede. Falta muitas vezes só o registro no papel, e é daí que o círculo deve partir, com a conta da escola entrando como mais um jeito.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa de confiança, do trabalho ou da família, como ela faz uma conta do dia a dia (troco, desconto, medida). Anote no papel o caminho que ela descreve, sem corrigir. Depois escreva a conta do jeito da escola ao lado.
 ```
 
 ## Resumo

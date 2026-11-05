@@ -1,5 +1,6 @@
 ---
 titulo: "A pauta e as claves"
+modelo: 9
 resumo: "As cinco linhas onde as notas moram e o sinal que diz qual nota fica em cada lugar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber ler a pauta, dizer o que faz a clave de sol e a de fá e achar as notas nas linhas, nos espaços e nas linhas suplementares.
+
+```suarealidade
+Você já viu uma partitura, num caderno de igreja, de banda ou de escola? O que você achava que aqueles risquinhos queriam dizer?
+```
 
 ## Cinco linhas e quatro espaços
 
@@ -91,6 +96,15 @@ nomes: sim
 
 Nesta trilha vamos trabalhar principalmente na clave de sol. A clave de fá volta na trilha seguinte.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ler partitura é coisa de conservatório. Quem é do povo aprende no ouvido e não precisa de pauta." É a opinião de quem aprendeu música sem papel.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a pauta é simples: cinco linhas e quatro espaços, contados de baixo para cima, e quanto mais alta a bolinha, mais agudo o som. Na clave de sol, as linhas são mi, sol, si, ré, fá, e os espaços, fá, lá, dó, mi. Aprender a ler soma ao ouvido e abre conversa com outros músicos; não o substitui.
+```
+
 ## Exemplo resolvido
 
 **Na clave de sol, qual nota fica no primeiro espaço, o de baixo?**
@@ -104,6 +118,11 @@ Conclusão: o primeiro espaço é fá. Confira subindo: mi (linha), fá (espaço
 ## Para praticar
 
 Use o [treino de leitura de notas](/ferramentas/leitura-de-notas). Comece pela clave de sol e não tenha pressa: o objetivo é reconhecer cada nota sem precisar contar as linhas.
+
+```agir
+# Esta semana
+Desenhe uma pauta de cinco linhas num papel, marque a clave de sol e escreva o nome das notas das linhas. Depois confira com a aula.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Desigualdade social"
+modelo: 9
 resumo: "Desigualdade social é quando os recursos e as oportunidades de uma sociedade são distribuídos de forma desigual entre grupos de pessoas. Por classe, raça, gênero, idade e outros eixos. E como se mede a desigualdade de renda com o coeficiente de Gini."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Duas crianças nascem no mesmo dia, na mesma cidade. Uma vai ter escola boa, mé
 
 Ao fim desta aula você vai entender o que é desigualdade social, quais são os seus eixos e como ela é medida.
 
+```suarealidade
+Na sua rua e no bairro do outro lado da cidade, o que muda: transporte, escola, posto de saúde, esgoto?
+```
+
 ## O que é
 
 **Desigualdade social** acontece quando os **recursos** de uma sociedade são distribuídos de forma desigual, favorecendo certas categorias de pessoas. Hoje ela é entendida como **disparidades sistemáticas e duráveis** no acesso a **bens sociais**, **oportunidades** e **resultados**.
@@ -70,6 +75,15 @@ O país A tem Gini 0,30 e o país B, 0,50. Qual é mais desigual?
 > Quanto mais perto de 1, maior a desigualdade.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Desigualdade é natural: sempre vai ter quem tem mais e quem tem menos. Quem se esforça sobe." É a opinião de quem acredita no esforço de cada um.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que desigualdade social é a distribuição desigual de recursos e oportunidades, e que ela segue eixos como classe, raça, gênero e idade, que se cruzam. Aparece na renda, no trabalho, na saúde, na educação e na moradia. Ela pode ser medida, por exemplo, pelo coeficiente de Gini, de 0 (igualdade) a 1 (desigualdade máxima), e o que se mede pode ser acompanhado e cobrado.
+```
+
 ## Exemplo resolvido
 
 **Numa sala, 10 pessoas dividem R$ 1.000. Compare dois casos.**
@@ -77,6 +91,11 @@ O país A tem Gini 0,30 e o país B, 0,50. Qual é mais desigual?
 1. **Caso 1**: cada uma recebe **R$ 100**. Todas iguais: Gini **0**.
 2. **Caso 2**: uma pessoa recebe **R$ 910** e as outras nove, **R$ 10** cada.
 3. No caso 2, uma pessoa tem **91%** do dinheiro: o Gini fica **perto de 1**.
+
+```agir
+# Esta semana
+Compare duas ruas ou dois bairros que você conhece em três pontos (escola, saúde, transporte) e anote as diferenças que viu.
+```
 
 ## Resumo
 

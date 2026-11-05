@@ -1,5 +1,6 @@
 ---
 titulo: "O que é racismo"
+modelo: 9
 resumo: "Racismo é o preconceito e a discriminação baseados na ideia de que existem raças superiores e inferiores. A diferença entre preconceito, discriminação e racismo, e o que quer dizer 'racismo estrutural'."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ quiz:
 
 Ao fim desta aula você vai entender o que é racismo, diferenciar preconceito de discriminação e saber o que é racismo estrutural.
 
+```suarealidade
+Em que lugares do seu trabalho, da sua escola ou do seu bairro você percebe a cor da pele fazendo diferença: quem é seguido na loja, quem chefia, quem mora onde?
+```
+
 ## Preconceito, discriminação, racismo
 
 - **Preconceito** é uma **ideia** formada antes de conhecer a pessoa, baseada em **estereótipos**. Ex.: achar que alguém é "perigoso" pela cor da pele.
@@ -65,6 +70,15 @@ Uma empresa nunca xinga ninguém, mas quase não tem pessoas negras na diretoria
 > Releia a seção "Racismo estrutural".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Racismo é xingar ou agredir alguém por causa da cor. Se ninguém xingou, não existe racismo. Chamar tudo de racismo estrutural é exagero." É a ideia de quem entende racismo só como ato intencional.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece essa definição: diz que algumas definições de racismo incluem só os atos intencionais. Mas mostra que outras incluem também a discriminação não intencional e as formas institucionalizadas. O conceito de racismo estrutural diz que o racismo é resultado do funcionamento normal da sociedade, e o exemplo que a aula dá é a ausência de pessoas negras em cargos de liderança nas maiores empresas do país: ninguém precisa xingar para que isso aconteça, a desigualdade está na distribuição das oportunidades. Quem discorda tem argumentos que merecem ser ouvidos.
+```
+
 ## Exemplo resolvido
 
 **Classifique: (a) pensar que pessoas negras "não são boas em matemática"; (b) recusar um candidato a emprego por ser negro; (c) uma cidade em que os bairros mais pobres e com menos serviços são os de maioria negra.**
@@ -72,6 +86,11 @@ Uma empresa nunca xinga ninguém, mas quase não tem pessoas negras na diretoria
 1. **(a)** **preconceito**: uma ideia baseada em estereótipo.
 2. **(b)** **discriminação**: uma ação que prejudica alguém.
 3. **(c)** **racismo estrutural**: desigualdade produzida pelo funcionamento da sociedade.
+
+```agir
+# Esta semana
+Escreva num papel, com as suas palavras, a diferença entre preconceito (uma ideia) e discriminação (uma ação), com um exemplo para cada um que você já viu ou ouviu falar. Não escreva nomes de pessoas.
+```
 
 ## Resumo
 

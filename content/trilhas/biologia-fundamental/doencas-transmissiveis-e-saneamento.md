@@ -1,5 +1,6 @@
 ---
 titulo: "Doenças transmissíveis e saneamento"
+modelo: 9
 resumo: "Objetivo: reconhecer os agentes e os caminhos de transmissão das doenças infecciosas e entender por que água tratada e esgoto coletado são as medidas de saúde mais eficazes."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é uma doença transmissível, quais agentes e caminhos de transmissão existem, quais são os quatro serviços do saneamento básico e o que cada pessoa pode fazer para se proteger.
+
+```suarealidade
+Na sua rua ou no seu bairro, a água chega limpa? Há esgoto a céu aberto, lixo acumulado ou água parada? Quem costuma ficar doente primeiro quando isso acontece?
+```
 
 ## O que é uma doença transmissível
 
@@ -122,6 +127,20 @@ Por isso, o combate a essas doenças não depende só do cuidado de cada um. Nã
 4. **Prevenção do bairro.** O saneamento corta o caminho: drenagem e manejo das águas da chuva evitam enchentes, e lixo recolhido tira o alimento dos ratos.
 
 Confira: lavar as mãos sozinho não resolveria. A doença tem endereço, e parte da solução é obra pública e direito.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Doença é questão de cuidado de cada um: quem lava a mão e ferve a água não adoece. Saneamento é desculpa para culpar o governo." É uma opinião de quem acredita que higiene pessoal resolve tudo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula valoriza o que está ao alcance de cada um: lavar as mãos, tratar a água, evitar água parada, manter a vacinação em dia. Mas mostra que doença tem endereço: as doenças ligadas ao saneamento atingem mais quem mora em áreas sem esgoto e sem água tratada, e saneamento (Lei 11.445/2007: água potável, esgotamento, limpeza urbana e drenagem) é obra pública e direito. Em 1854, John Snow ligou os casos de cólera de Londres a uma bomba de água contaminada: o problema era a água, e não o descuido das pessoas.
+```
+
+```agir
+# Esta semana
+Faça num papel um mapa simples da sua rua com os pontos de água parada, lixo acumulado ou esgoto aberto, se houver. Não precisa fotografar nem anotar nome de ninguém. Se quiser, mostre o mapa a um vizinho de confiança.
+```
 
 ## Resumo
 

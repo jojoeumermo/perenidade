@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização nas prisões"
+modelo: 9
 resumo: "O direito à educação de quem está privado de liberdade, a remição da pena pelo estudo e pela leitura, e os cuidados de quem alfabetiza dentro de uma unidade prisional."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Ao fim desta aula você vai conhecer o direito à educação de quem está priva
 
 ```provocacao
 Para que serve a prisão? Para castigar, para afastar, para devolver a pessoa melhor à sociedade? Onde a escola entra nisso?
+```
+
+```suarealidade
+Para que serve a prisão: castigar, afastar ou devolver a pessoa melhor à sociedade? Onde a escola entra nisso, na sua opinião?
 ```
 
 ## Um direito que continua
@@ -110,6 +115,20 @@ Confira: tudo passou pela unidade e pela escola, as horas foram registradas para
 
 ```realidade
 Faça a conta: quem estuda 3 horas por dia, 5 dias por semana, durante 4 semanas, acumula quantas horas? Quantos dias de remição?
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem cometeu crime não merece benefício. Dar estudo e ainda reduzir pena é premiar o criminoso, e o dinheiro devia ir para quem está em liberdade." É uma opinião de quem sofreu violência ou convive com o medo dela.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula lembra que a pessoa presa perdeu a liberdade, mas não os outros direitos: a Lei de Execução Penal (arts. 17 e 18) torna o ensino fundamental obrigatório na prisão. A remição não é um perdão automático: é 1 dia a cada 12 horas de frequência escolar, e na leitura, 4 dias por obra validada, até 12 obras por ano. Estudar na prisão é uma forma de preparar quem vai voltar ao convívio, e é regulado por lei.
+```
+
+```agir
+# Esta semana
+Num papel, escreva em duas frases o que você pensa sobre a função da prisão e o papel do estudo. Depois conte a uma pessoa de confiança e ouça o que ela pensa. Não é preciso concordar: o objetivo é ouvir.
 ```
 
 ## Resumo

@@ -1,5 +1,6 @@
 ---
 titulo: "O corpo humano e seus sistemas"
+modelo: 9
 resumo: "Objetivo: conhecer os principais sistemas do corpo humano, o que cada um faz e como trabalham juntos para manter o organismo em equilíbrio."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber quais são os principais sistemas do corpo e o que cada um faz, seguir o caminho do ar e do sangue e explicar o que é homeostase.
+
+```suarealidade
+Depois de um dia de trabalho, que partes do seu corpo mais reclamam? Quando você corre, sua, treme ou fica com sede, qual sistema do corpo está trabalhando?
+```
 
 ## Uma equipe
 
@@ -120,6 +125,20 @@ Pense em uma corrida para pegar o ônibus. O sistema nervoso dá a ordem; os mú
 4. **Resultado.** A urina fica escura e em pouca quantidade, sinal de que falta água.
 
 Confira: pausa, sombra e água, no trabalho no calor, são necessidades do corpo, não favores.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Saber os nomes dos sistemas do corpo é decoreba. Quem entende de verdade é o médico, e o resto das pessoas só precisa obedecer." É uma opinião de quem já foi mal atendido ou mal informado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O objetivo da aula não é decorar nomes: é entender que os sistemas trabalham juntos como setores de uma fábrica e que o corpo busca o equilíbrio (homeostase), como suar no calor, tremer no frio e urinar menos quando falta água. Quem entende isso conversa melhor com o profissional de saúde, faz perguntas e percebe sinais do próprio corpo. O médico faz o diagnóstico, mas a pessoa informada participa do cuidado.
+```
+
+```agir
+# Esta semana
+Escolha um sistema do corpo (por exemplo, o respiratório) e explique, num papel e com as suas palavras, o caminho de uma respiração, do nariz até o sangue. Depois conte a alguém de casa o que escreveu.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Perguntas com 吗 e 什么"
+modelo: 9
 resumo: "Fazer perguntas de sim ou não com 吗, perguntas com 什么, 谁, 哪儿 e outras, e responder sem ter uma palavra para \"sim\"."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ quiz:
 Ao fim desta aula você vai saber fazer perguntas de sim ou não com 吗, usar as palavras de pergunta, devolver a pergunta com 呢, oferecer escolha com 还是 e responder sem uma palavra única para "sim".
 
 Perguntar é a forma mais rápida de aprender uma língua, e em chinês perguntar é bem simples. Você não precisa mudar a ordem das palavras nem usar verbos auxiliares, como em inglês. Há só duas ferramentas principais: a partícula **吗** e as palavras de pergunta, como **什么**.
+
+```suarealidade
+Quais perguntas você faz com mais frequência no trabalho ou na rua (quanto custa, onde fica, que horas são)? E como seria perguntar isso numa língua que você está começando a aprender?
+```
 
 ## Sim ou não: 吗
 
@@ -163,6 +168,20 @@ Respostas do 1: 他是医生吗？/ 你有哥哥吗？/ 她忙吗？ Respostas d
 3. **Correção.** Pergunta com palavra interrogativa nunca leva 吗. Correto: **你是谁？** (Nǐ shì shéi?)
 
 Confira: para responder "sim", repete-se o verbo (是, 有, 忙); para "não", 不是, 没有, 不忙.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para perguntar é só apontar e falar a palavra solta. Aprender partículas como 吗 e 呢 é detalhe que atrapalha quem quer começar a falar logo." É um argumento de quem tem pouco tempo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Falar palavras soltas ajuda no começo, mas a aula mostra que perguntar em chinês é mais simples do que parece: para sim ou não, basta pôr 吗 no fim da frase, sem mudar a ordem das palavras; as palavras de pergunta (什么, 谁, 哪儿, 几, 多少) ficam no lugar da resposta, e 呢 devolve a pergunta ("e você?"). Poucas ferramentas rendem muitas conversas.
+```
+
+```agir
+# Esta semana
+Escreva num papel cinco perguntas curtas em chinês para uma pessoa que você acabou de conhecer (nome, de onde é, o que faz, se tem filhos, onde mora), usando 吗 ou palavras de pergunta.
+```
 
 ## Resumo
 

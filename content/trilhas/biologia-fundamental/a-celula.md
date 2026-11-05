@@ -1,5 +1,6 @@
 ---
 titulo: "A célula"
+modelo: 9
 resumo: "A menor parte viva de todo ser vivo: como foi descoberta, de que é feita e que tipos existem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que diz a teoria celular, quais são as três partes básicas da célula, a diferença entre célula procarionte e eucarionte, o que cada organela faz e o que distingue a célula vegetal da animal.
+
+```suarealidade
+Quando você pensa no seu corpo, pensa em órgãos, em músculos, em sangue. Já parou para pensar que tudo isso é feito de células? Em que situação do seu dia (comida, doença, remédio) esse assunto aparece sem você perceber?
+```
 
 ## A descoberta
 
@@ -107,6 +112,20 @@ Entender a célula é entender a saúde. Uma infecção é uma invasão de célu
 4. **Para comparar.** Uma bactéria seria uma célula procarionte: sem núcleo, com o DNA solto no citoplasma.
 
 Confira: a diferença entre as duas células vem do trabalho que cada uma faz.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Estudar célula é conversa de laboratório e de livro. Para quem trabalha e tem pouco tempo, isso não muda nada na vida." É uma opinião de quem acha que ciência só serve para quem estuda muito.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a ideia é simples e vale para tudo que vive: todos os seres vivos são formados por células, a célula é a menor unidade viva e toda célula nasce de outra célula. Saber que bactéria é uma célula sem núcleo (procarionte) e que animais, plantas e fungos têm células com núcleo (eucariontes) ajuda a entender o que é doença, o que é um alimento e o que acontece no corpo. A aula tem uma seção própria sobre por que isso importa.
+```
+
+```agir
+# Esta semana
+Escolha três seres vivos que você vê no seu dia (uma planta, um bicho, uma bactéria que você sabe que existe) e escreva num papel se cada um tem uma célula só ou muitas, e se tem núcleo. Se tiver dúvida, releia a tabela da aula.
+```
 
 ## Resumo
 

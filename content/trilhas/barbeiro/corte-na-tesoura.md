@@ -1,5 +1,6 @@
 ---
 titulo: "Corte na tesoura"
+modelo: 9
 resumo: "As duas técnicas clássicas da tesoura (sobre o pente, nas laterais, e sobre os dedos, no topo), o ângulo que decide o resultado, como tirar volume com a tesoura de desbaste e como tratar redemoinhos com a ponta da tesoura."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Por que um corte todo na tesoura leva mais tempo que um na máquina e, mesmo ass
 ## O que você vai aprender
 
 Ao fim desta aula você vai usar a tesoura sobre o pente nas laterais e sobre os dedos no topo, controlar o ângulo que decide o resultado, tirar volume com o desbaste e tratar redemoinhos com a ponta da tesoura.
+
+```suarealidade
+Por que um corte todo na tesoura leva mais tempo e, mesmo assim, há clientes que só cortam com tesoura? O que eles buscam?
+```
 
 ## Onde entra a tesoura
 
@@ -104,6 +109,20 @@ No topo, as faixas ficaram com comprimentos diferentes, umas mais curtas que as 
 5. **Ligar** o topo às laterais com tesoura sobre o pente.
 6. **Desbaste** leve se o cabelo for muito volumoso.
 7. **Conferir** no espelho com o cliente.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Tesoura é perda de tempo: a máquina faz tudo mais rápido, e quem demora cobra caro à toa." É um argumento de quem pensa em produzir mais cortes por dia.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que cada ferramenta tem o seu lugar: no corte clássico, o contorno vai na máquina, as laterais na tesoura sobre o pente e o topo na tesoura sobre os dedos. A tesoura controla o ângulo e as camadas, tira volume com o desbaste e resolve redemoinhos, o que a máquina não faz do mesmo jeito. Além disso, o ofício também tem riscos para o corpo, por isso as pausas contam.
+```
+
+```agir
+# Esta semana
+Treine por alguns minutos o movimento de levantar a mecha, segurar entre o indicador e o médio e cortar, usando pente e tesoura sem cortar cabelo de ninguém (por exemplo, num pedaço de lã ou num boneco de treino).
+```
 
 ## Resumo
 

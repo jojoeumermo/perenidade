@@ -1,0 +1,50 @@
+# Exercícios da aula "Postura e saúde de quem tranca" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-postura-e-saude-de-quem-tranca-01
+  tema: "LER"
+  dificuldade: 1
+  enunciado: "O que são as LER, também chamadas DORT, segundo a aula?"
+  alternativas:
+    - texto: "Lesões por esforço repetitivo, que atingem músculos, tendões e nervos"
+      certa: true
+    - texto: "Doenças causadas por frio"
+      erro: "A aula as liga a tarefas repetitivas e posturas ruins."
+    - texto: "Alergias a produtos"
+      erro: "Não é isso."
+  explicacao: "Trançar junta ficar de pé por horas, braços erguidos, movimento repetido e pescoço dobrado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Postura e saúde de quem tranca\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-postura-e-saude-de-quem-tranca-02
+  tema: "NR-17"
+  dificuldade: 2
+  enunciado: "O que a NR-17 diz sobre alternar posições, segundo a aula?"
+  alternativas:
+    - texto: "Sempre que possível, o posto deve ser planejado para alternar de pé e sentada (item 17.6.2)"
+      certa: true
+    - texto: "Que se deve trabalhar sempre de pé"
+      erro: "A norma recomenda alternar."
+    - texto: "Que se deve trabalhar sempre curvada"
+      erro: "A aula lista isso como risco."
+  explicacao: "O assento deve ter altura ajustável, borda da frente arredondada e encosto que proteja a lombar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Postura e saúde de quem tranca\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-postura-e-saude-de-quem-tranca-03
+  tema: "Para quem vale"
+  dificuldade: 2
+  enunciado: "A NR-17 vale para quem tem empregados, mas serve para a trancista autônoma?"
+  alternativas:
+    - texto: "Os princípios dela servem para qualquer trancista"
+      certa: true
+    - texto: "Não serve de nada para a autônoma"
+      erro: "A aula diz que os princípios servem."
+    - texto: "Só vale para trancista MEI"
+      erro: "A aula diz que servem para qualquer trancista."
+  explicacao: "Também: apoio para os pés e área de trabalho ao alcance das mãos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Postura e saúde de quem tranca\""
+  revisao:
+    status: em-revisao

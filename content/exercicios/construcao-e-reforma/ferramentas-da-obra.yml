@@ -1,0 +1,83 @@
+# Exercícios da aula "Ferramentas da obra" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: obra-ferram-01
+  tema: "Medir e conferir"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual ferramenta mostra se uma parede ou um batente está bem na vertical?"
+  alternativas:
+    - texto: "O prumo, um peso preso a um fio"
+      certa: true
+    - texto: "O nível de bolha"
+      erro: "O nível de bolha mostra a horizontal. A vertical é do prumo."
+    - texto: "A trena"
+      erro: "A trena mede distâncias. Para conferir a vertical, use o prumo."
+  explicacao: "Prumo: vertical. Nível de bolha: horizontal. Mangueira de nível: pontos na mesma altura, mesmo longe um do outro. Esquadro: ângulo reto. Linha de pedreiro: guia para a fiada de tijolo ou a altura de um piso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas da obra\""
+  revisao:
+    status: em-revisao
+
+- id: obra-ferram-02
+  tema: "Mangueira de nível"
+  dificuldade: 2
+  enunciado: "Para que serve a mangueira de nível, e o que não pode ter dentro dela?"
+  alternativas:
+    - texto: "Marcar pontos na mesma altura, mesmo longe um do outro; não pode ter bolhas de ar, que enganam a leitura"
+      certa: true
+    - texto: "Medir distâncias; pode ter bolhas, que não atrapalham"
+      erro: "Ela serve para nivelar, e não para medir distância. E as bolhas enganam a leitura."
+    - texto: "Conferir o ângulo reto dos cantos"
+      erro: "O ângulo reto se confere com o esquadro. A mangueira de nível, cheia de água, marca a mesma altura."
+  explicacao: "A água, pela gravidade, fica na mesma altura nas duas pontas: marque a parede na altura da água, repita nos outros cantos e ligue as marcas com a linha de pedreiro. Do traço, meça para baixo a altura do piso acabado."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Ferramentas da obra\""
+  revisao:
+    status: em-revisao
+
+- id: obra-ferram-03
+  tema: "Cuidados com a ferramenta"
+  dificuldade: 1
+  enunciado: "Por que se deve lavar colher, desempenadeira, masseira e carrinho no mesmo dia em que se usa cimento?"
+  alternativas:
+    - texto: "Porque cimento e argamassa secos endurecem e estragam a ferramenta"
+      certa: true
+    - texto: "Porque o cimento só gruda se estiver molhado"
+      erro: "O problema é o contrário: seco, o cimento endurece e fica grudado na ferramenta."
+    - texto: "Porque lavar não faz diferença"
+      erro: "Faz: lavar na hora poupa a ferramenta e o seu bolso. Guarde também seca e arrumada, e mantenha o cabo firme."
+  explicacao: "Cuidados: limpe no fim do dia, mantenha o cabo firme (cabo de martelo ou enxada solto é acidente esperando), guarde seco e arrumado, afie e troque o que está gasto (serra cega obriga a força demais; broca gasta aquece e escapa). Peso: dobre os joelhos, mantenha a coluna reta, peça ajuda ou use o carrinho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas da obra\""
+  revisao:
+    status: em-revisao
+
+- id: obra-ferram-04
+  tema: "Esmerilhadeira"
+  dificuldade: 2
+  enunciado: "Seu colega tirou a proteção do disco da esmerilhadeira \"porque atrapalha\". O que você diz?"
+  alternativas:
+    - texto: "Que a proteção segura os estilhaços se o disco quebrar e que ela precisa voltar"
+      certa: true
+    - texto: "Que ele está certo, porque assim corta melhor"
+      erro: "A proteção não atrapalha o corte; ela evita ferimentos graves se o disco quebrar. Nunca tire."
+    - texto: "Que só atrapalha para cortar azulejo"
+      erro: "Em nenhum material se tira a proteção do disco. Use também disco certo para o material, óculos, protetor facial e luvas."
+  explicacao: "A esmerilhadeira é uma das ferramentas que mais machuca. Segure com as duas mãos (ela dá coice), faça o corte para longe do corpo e dos pés, desligue da tomada antes de trocar o disco e use protetor auricular."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas da obra\""
+  revisao:
+    status: em-revisao
+
+- id: obra-ferram-05
+  tema: "Ferramentas elétricas"
+  dificuldade: 2
+  enunciado: "Qual destas regras vale para ferramentas elétricas na obra?"
+  alternativas:
+    - texto: "Desligar da tomada antes de trocar disco, broca ou lâmina, e nunca usar com a mão molhada ou no chão molhado"
+      certa: true
+    - texto: "Emendar o fio descascado com fita e continuar usando"
+      erro: "Fio descascado ou emendado com fita não serve. Cabo e tomada precisam estar em bom estado."
+    - texto: "Trocar a broca com a máquina ligada, para ganhar tempo"
+      erro: "Desligue da tomada antes de trocar disco, broca ou lâmina. E use broca certa para o material."
+  explicacao: "Também: tomada com aterramento e DR no quadro (o DR corta a energia num choque); uma peça de cada vez, bem presa; protetor auricular para martelete, esmerilhadeira e serra circular."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas da obra\""
+  revisao:
+    status: em-revisao

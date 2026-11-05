@@ -1,5 +1,6 @@
 ---
 titulo: "Alimentação e nutrição"
+modelo: 9
 resumo: "Objetivo: conhecer os nutrientes, o caminho da digestão e a diferença entre comida de verdade e ultraprocessados, entendendo a alimentação como direito."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber para que servem os nutrientes, qual é o caminho da comida no corpo, como o Guia Alimentar classifica os alimentos em quatro grupos e como ler a lista de ingredientes de um rótulo.
+
+```suarealidade
+O que você comeu ontem? Quanto veio de comida feita em casa e quanto veio de pacote ou de produto pronto? O que decide o que você coloca no prato: o preço, o tempo ou o gosto?
+```
 
 ## Comer para quê
 
@@ -127,6 +132,20 @@ A **alimentação** está entre os direitos sociais do artigo 6º da Constituiç
 5. **Leia o rótulo do biscoito.** Os ingredientes vêm em ordem decrescente: se o primeiro é açúcar, o produto é sobretudo açúcar.
 
 Confira: o guia recomenda que a base da alimentação seja o primeiro grupo (arroz, feijão, ovo) e que se evitem os ultraprocessados.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Falar em 'comida de verdade' e em evitar ultraprocessados é conversa de quem tem dinheiro. Para quem trabalha o dia inteiro e tem pouco, o pacote é o que dá." É uma crítica real, feita por quem sente o aperto do bolso e do tempo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A própria aula reconhece que comer bem depende também de renda, tempo e preço, e lembra que a alimentação é um direito social (art. 6º da Constituição): quem pode escolher tem de ter condição para isso. O Guia Alimentar não diz que todo mundo deve comer o que não pode pagar: pede que a base do prato seja a comida in natura ou minimamente processada (arroz, feijão, ovos, frutas, verduras) e que se evite os ultraprocessados sempre que possível.
+```
+
+```agir
+# Esta semana
+Anote num papel o que você comeu em um dia e marque, ao lado de cada item, o grupo do Guia Alimentar (in natura, ingrediente culinário, processado ou ultraprocessado). Veja qual grupo ficou maior, sem se culpar: é só um retrato.
+```
 
 ## Resumo
 

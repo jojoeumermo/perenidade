@@ -1,0 +1,67 @@
+# Exercícios da aula "Paulo Freire: educação bancária e educação libertadora" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-fre-01
+  tema: "Educação bancária"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que Paulo Freire chamou de educação bancária?"
+  alternativas:
+    - texto: "Aquela em que o educador 'deposita' conhecimento nos educandos, como dinheiro numa conta vazia"
+      certa: true
+    - texto: "A educação que ensina a lidar com o banco"
+      erro: "É uma metáfora: o conhecimento é 'depositado', sem diálogo."
+    - texto: "A educação paga pelos bancos"
+      erro: "Não se refere a quem paga."
+  explicacao: "O educador sabe, o educando não sabe. O educador fala, o educando escuta, copia e repete."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-fre-02
+  tema: "Educação libertadora"
+  dificuldade: 2
+  enunciado: "Qual destas cenas é mais próxima da educação libertadora?"
+  alternativas:
+    - texto: "O formador parte do salário que não chega e pergunta ao grupo o que cada um vive e o que pode ser feito"
+      certa: true
+    - texto: "O dirigente explica a linha política e o grupo só concorda"
+      erro: "Mesmo com bom conteúdo, o método ensina a obedecer, e não a pensar."
+    - texto: "O professor dita o texto e os alunos copiam"
+      erro: "Isso é educação bancária."
+  explicacao: "Nela, educador e educandos aprendem juntos, a partir da realidade vivida: dialogar é escutar, perguntar e problematizar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-fre-03
+  tema: "Leitura do mundo"
+  dificuldade: 2
+  enunciado: "O que Freire quis dizer com 'a leitura do mundo precede a leitura da palavra'?"
+  alternativas:
+    - texto: "Que, antes de aprender as letras, as pessoas já leem a vida onde vivem: sabem quem manda, quem paga e quem sofre"
+      certa: true
+    - texto: "Que quem não sabe ler não entende nada do mundo"
+      erro: "Freire dizia o contrário: o povo já lê o mundo."
+    - texto: "Que só se deve ler depois de viajar"
+      erro: "A frase é sobre a experiência de vida como ponto de partida."
+  explicacao: "A tarefa do formador é ligar a palavra e o texto a essa leitura do mundo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-fre-04
+  tema: "Angicos"
+  dificuldade: 3
+  enunciado: "Em que experiência de 1963 Paulo Freire ficou famoso, segundo a aula?"
+  alternativas:
+    - texto: "A de Angicos, no Rio Grande do Norte, em que trabalhadores adultos aprenderam a ler em cerca de quarenta horas, segundo os relatos da época"
+      certa: true
+    - texto: "A de uma escola em Paris"
+      erro: "A experiência famosa foi em Angicos, no Rio Grande do Norte."
+    - texto: "A de uma escola nos Estados Unidos"
+      erro: "A experiência foi de alfabetização de adultos em Angicos."
+  explicacao: "Freire (Recife, 1921 – São Paulo, 1997) foi educador e trabalhou com alfabetização de adultos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

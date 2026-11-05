@@ -1,5 +1,6 @@
 ---
 titulo: "O voto majoritário: prefeito, governador, senador e presidente"
+modelo: 9
 resumo: "Como se elegem prefeitos, governadores, senadores e o presidente: maioria absoluta e segundo turno, a regra das cidades com mais de 200 mil eleitores, o Senado de oito anos com renovação de um e dois terços, a reeleição e as novas datas de posse."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Numa cidade de 120 mil eleitores, o candidato a prefeito do movimento teve 38% d
 
 Ao fim desta aula você vai saber como são eleitos prefeitos, governadores, senadores e o presidente, quando há segundo turno e quanto dura cada mandato.
 
+```suarealidade
+A sua cidade tem mais ou menos de 200 mil eleitores? Na última eleição para prefeito, o vencedor teve quantos por cento dos votos?
+```
+
 ## Ganha quem tem mais votos
 
 Prefeito, governador, senador e presidente são eleitos pelo **sistema majoritário**: ganha quem tem **mais votos**. Não há quociente nem sobras. Cada candidato a cargo executivo concorre numa **chapa com o vice**: votar no titular é votar também no vice dele.
@@ -84,6 +89,15 @@ No primeiro turno para governador, a candidata A teve 48% dos votos válidos, o 
 > Para governador, é preciso a maioria absoluta dos votos válidos.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Segundo turno só gasta dinheiro e cansa o eleitor. Quem tem mais votos já deveria ganhar." É um argumento simples e comum.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Para as cidades de até 200 mil eleitores, a aula mostra que é assim mesmo: o prefeito é eleito em turno único, e ganha quem tiver mais votos, mesmo sem a metade. Já para presidente, governador e prefeito de cidade com mais de 200 mil eleitores, a Constituição pede maioria absoluta dos votos válidos, sem contar brancos e nulos; se ninguém chega lá no primeiro turno, os dois mais votados disputam o segundo, no último domingo de outubro. A ideia é que quem governa os maiores colégios eleitorais tenha o apoio de mais da metade de quem votou. Na provocação (cidade de 120 mil eleitores, 38% contra 40%), não há segundo turno: ganha quem teve 40%.
+```
+
 ## Exemplo resolvido
 
 **Volte à provocação: cidade de 120 mil eleitores, o movimento teve 38% e o adversário, 40%. Tem segundo turno?**
@@ -92,6 +106,11 @@ No primeiro turno para governador, a candidata A teve 48% dos votos válidos, o 
 2. Com **120 mil eleitores**, a eleição tem **turno único**.
 3. O adversário, com **40%**, venceu. Os 38% não bastaram, mesmo que somados aos votos de outros candidatos aliados.
 4. A lição: em cidades sem segundo turno, a **aliança se faz antes**, na coligação do primeiro turno.
+
+```agir
+# Esta semana
+Procure o resultado da última eleição para prefeito da sua cidade, veja se houve segundo turno e anote o percentual do vencedor. Anote também se a cidade tem até 200 mil eleitores.
+```
 
 ## Resumo
 

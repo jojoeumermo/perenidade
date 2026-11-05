@@ -1,5 +1,6 @@
 ---
 titulo: "Os Centros Populares de Cultura e o Movimento de Cultura Popular"
+modelo: 9
 resumo: "O Movimento de Cultura Popular do Recife (1960), os Centros Populares de Cultura da UNE (1961) e outros movimentos do começo dos anos 1960 que juntaram arte, cultura e alfabetização, até serem fechados pelo golpe de 1964."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Ao fim desta aula você vai conhecer o Movimento de Cultura Popular do Recife e 
 
 ```provocacao
 Uma peça de teatro, uma música ou um filme já fizeram você pensar diferente sobre a sua vida? Qual?
+```
+
+```suarealidade
+Uma peça de teatro, uma música ou um filme já fizeram você pensar diferente sobre a sua vida? Qual foi, e o que mudou?
 ```
 
 ## O contexto: ler para votar
@@ -118,6 +123,20 @@ Confira: a praça partiu da cultura que o bairro já tem (e não de uma "cultura
 
 ```realidade
 Que expressões de cultura popular existem no seu bairro? Escreva três: uma música, uma festa, um saber.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Esses movimentos de cultura popular eram política disfarçada de cultura e alfabetização. Quem faz política não devia usar a educação para isso." É uma crítica antiga, feita na época e depois dela.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que, pela Constituição de 1946, analfabeto não votava, e que no Censo de 1960 quase 40% das pessoas de 15 anos ou mais não sabiam ler e escrever: alfabetizar era também ampliar a democracia. A aula também registra uma crítica interna: os CPCs foram criticados por, às vezes, querer levar ao povo uma cultura pronta. E lembra que o golpe de 1964 fechou os movimentos e muitos educadores foram presos ou exilados.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha de confiança se, na juventude dela, existia alguma atividade cultural ou de estudo no bairro. Anote no papel o que ela contou, sem pedir nome de ninguém.
 ```
 
 ## Resumo

@@ -1,5 +1,6 @@
 ---
 titulo: "O SUS: saúde como direito"
+modelo: 9
 resumo: "Objetivo: entender o que é o Sistema Único de Saúde, como era antes dele, quais são os seus princípios, o que ele faz e como a população participa do seu controle."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber de onde veio o SUS, o que diz o artigo 196 da Constituição, quais são os princípios do sistema, como usá-lo e como a população participa do seu controle.
+
+```suarealidade
+Quando você ou alguém da sua família precisou de atendimento de saúde, o que usou: o SUS, um plano ou pagou do bolso? Como foi a experiência, e o que a pessoa fez quando algo não funcionou?
+```
 
 ## Como era antes
 
@@ -133,6 +138,20 @@ Ainda assim, a maior parte da população brasileira depende **só** do SUS. Def
 3. **Conclua.** Mesmo sem saber, ela usa o SUS.
 
 Confira: a saúde é "direito de todos" (art. 196), e a universalidade quer dizer que é para qualquer pessoa em território brasileiro, sem exigência de contribuição.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O SUS não funciona: fila de meses, falta de remédio e médico. Seria melhor cada um ter plano privado e deixar o público para quem não pode pagar." É uma crítica baseada na experiência de quem enfrentou fila.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece os problemas, como as filas, e aponta uma causa central: o subfinanciamento. Mas lembra de onde o SUS veio: até 1988, a saúde pública atendia sobretudo quem contribuía à previdência, e os demais ficavam sem atendimento ou dependiam da caridade. O artigo 196 da Constituição diz que saúde é direito de todos e dever do Estado, com universalidade, integralidade e equidade. O SUS vai de vacinas e SAMU (192) a transplantes, e tem conselhos em que metade das vagas é dos usuários.
+```
+
+```agir
+# Esta semana
+Descubra no papel ou numa conversa com um agente de saúde o nome e o endereço da unidade básica de saúde do seu bairro, e anote o dia em que há atendimento. Veja também quando é a próxima reunião do conselho de saúde, se houver.
+```
 
 ## Resumo
 

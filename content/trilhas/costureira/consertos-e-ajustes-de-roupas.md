@@ -1,5 +1,6 @@
 ---
 titulo: "Consertos e ajustes de roupas"
+modelo: 9
 resumo: "Os consertos mais pedidos: costura aberta, furo e rasgo (cerzido e remendo), elástico frouxo, apertar e soltar laterais, encurtar manga, e como avaliar se um ajuste vale a pena e quanto cobrar por ele."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ A calça preferida rasgou no joelho e a camisa boa ficou larga. Jogar fora e com
 
 Ao fim desta aula você vai fazer os consertos mais comuns (costura aberta, furo, rasgo e elástico), apertar e soltar laterais, encurtar manga e avaliar se um ajuste vale a pena e como orçar.
 
+```suarealidade
+Qual roupa da sua casa está encostada por um defeito pequeno (barra, botão, furo, elástico)? Vale mais consertar ou comprar outra?
+```
+
 ## Antes de qualquer conserto
 
 1. **Olhe a peça inteira**: tecido, costuras, se há folga por dentro.
@@ -95,6 +100,15 @@ Uma cliente quer alargar uma saia em 4 cm de cintura. Você abre as costuras lat
 > Duas laterais, duas margens de cada lado da costura: quanto de tecido há de verdade?
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Conserto não compensa: o tempo e o preço quase se igualam ao de uma peça nova, e a roupa fica remendada." É uma conta que muita gente faz.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula pede que se faça essa conta com a pessoa: avaliar o tempo do conserto, o preço e o valor da roupa para ela. Ela reconhece que alguns ajustes são simples (barra, lateral, elástico) e que outros mexem na estrutura da peça (ombro, gola, cava de paletó) e levam muito tempo, nem sempre compensando. Para o que vale a pena, o orçamento prévio com valor, materiais e prazo (Código de Defesa do Consumidor, art. 40) evita mal-entendido, e uma tabela de preços dos consertos mais comuns ajuda a organizar a semana de quem costura.
+```
+
 ## Exemplo resolvido
 
 **Orçar e fazer três consertos para a mesma cliente: barra de calça, botão caído e furo pequeno na camiseta.**
@@ -106,6 +120,11 @@ Uma cliente quer alargar uma saia em 4 cm de cintura. Você abre as costuras lat
 | Furo de 1 cm na camiseta | 20 min | cerzido à mão, com linha da cor da malha |
 
 Com um valor da hora de R$ 24 (do exemplo), a mão de obra seria: 1 hora no total → **R$ 24**, mais a linha e o botão, se forem seus. Orçamento entregue por escrito, com a data de entrega.
+
+```agir
+# Esta semana
+Separe uma roupa com defeito pequeno e faça o conserto, ou anote qual conserto ela precisa e quanto tempo levaria. Se você costura para fora, comece a tabela de preços dos consertos mais comuns.
+```
 
 ## Resumo
 

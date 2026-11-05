@@ -1,5 +1,6 @@
 ---
 titulo: "Leitura de gráficos e tabelas"
+modelo: 9
 resumo: "Como tirar informação de uma tabela e de um gráfico, e as perguntas a fazer antes de acreditar no que eles mostram."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -25,6 +26,10 @@ quiz:
     explicacao: "Cortar a base das barras estica as diferenças. Sempre leia os números do eixo."
 ---
 
+
+```suarealidade
+Qual foi o último gráfico ou tabela que você viu: na conta de luz, num exame, numa pesquisa eleitoral, numa notícia? Você leu o título e a fonte antes de olhar os números?
+```
 
 ## Para que servem
 
@@ -115,6 +120,15 @@ B █████████████████████ 52   B ██�
 
 Nada disso exige mentir nos números. Basta escolher como mostrar. Por isso a regra é: **leia os números, não só o desenho**. A trilha [Estatística para ler o Brasil](/trilhas/estatistica-para-ler-o-brasil) aprofunda esses cuidados.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Gráfico é desenho bonito para enfeitar notícia. Quem precisa de número quer o número, não o desenho." É a opinião de quem desconfia de gráficos.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Em parte a desconfiança tem razão, e a aula a leva a sério: tem uma seção chamada "Como um gráfico engana", com truques como o eixo cortado (48% e 52% parecem muito diferentes se o eixo começa em 45). Ela cita o jornalista Darrell Huff, que reuniu esses truques em 1954 no livro "Como mentir com estatística". Por isso a aula ensina cinco perguntas antes de acreditar e diz que saber ler tabelas e gráficos é uma defesa. A conclusão: ler com cuidado em vez de aceitar ou recusar tudo.
+```
+
 ## Exemplo resolvido
 
 **Que porcentagem da colheita da horta foi de alface?**
@@ -137,6 +151,11 @@ Use a tabela da horta e a tabela do feijão.
 5. Pegue um gráfico de um jornal ou de uma conta de luz e responda às cinco perguntas desta aula.
 
 **Respostas:** 1) 20 kg. 2) 20%. 3) Em março: R$ 1,50. 4) R$ 1,50, que são 25% de R$ 6,00.
+
+```agir
+# Esta semana
+Procure uma tabela ou gráfico em casa (conta, jornal, bula, extrato) e escreva no papel o título, a fonte e o que ele mostra, em duas frases. Se algo não estiver claro, anote como pergunta.
+```
 
 ## Resumo
 

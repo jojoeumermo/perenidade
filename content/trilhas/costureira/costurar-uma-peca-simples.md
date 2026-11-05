@@ -1,5 +1,6 @@
 ---
 titulo: "Costurar uma peça simples"
+modelo: 9
 resumo: "Do cálculo do tecido ao acabamento: uma saia de cós de elástico, feita com dois retângulos, passo a passo, com as contas de largura, comprimento, elástico e margens."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Dois retângulos de tecido, um elástico e uma tarde. Dá para sair com uma saia
 
 Ao fim desta aula você vai calcular o tecido e o elástico de uma saia de cós de elástico, cortar os dois retângulos no fio certo e costurar a peça do começo ao fim, juntando tudo o que viu nas aulas anteriores.
 
+```suarealidade
+Que peça simples de roupa você gostaria de saber fazer? Quanto gasta hoje para comprá-la?
+```
+
 ## A peça
 
 Uma **saia de cós de elástico** é feita com **dois retângulos** (frente e costas). Ela passa pelo **quadril** e o **elástico** fecha na **cintura**, franzindo o tecido. É uma peça boa para começar: não tem zíper, nem botão, nem molde complicado.
@@ -94,6 +99,15 @@ O elástico ficou frouxo e a saia cai. Qual é a correção mais rápida?
 > O comprimento do elástico define o quanto a cintura segura.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Fazer a própria roupa não compensa: tecido, elástico e tempo saem mais caros do que uma saia pronta no comércio." É a conta de quem olha só o preço da etiqueta.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A conta é sua, e a aula ensina a fazê-la: largura, altura e elástico calculados com as suas medidas, para comprar só o necessário. A saia de elástico foi escolhida por ser simples, com dois retângulos, sem zíper, sem botão e sem molde complicado. O tempo também conta: a aula sobre calcular o preço mostra como incluir as horas. E a peça sai no tamanho e no comprimento do seu corpo, como a aula sobre medidas mostra que o número da etiqueta nem sempre garante. Vale a pena quando você quer esse ajuste ou quando quer aprender uma habilidade que serve para consertar e vender.
+```
+
 ## Exemplo resolvido
 
 **Saia para cintura 72 cm, quadril 98 cm, comprimento até o joelho de 58 cm. Elástico de 3 cm de largura. Folga no quadril de 20 cm. Margens laterais de 1 cm. Calcule.**
@@ -108,6 +122,11 @@ Tecido: 2 retângulos de 61 × 65,5 cm
 ```
 
 Com um tecido de **1,40 m** de largura, os dois retângulos (61 + 61 = 122 cm) cabem lado a lado: basta comprar **cerca de 70 cm** de comprimento. Quanto tirar do elástico (aqui, 6 cm) depende do elástico e de quanto a pessoa gosta de aperto: prove antes de costurar as pontas.
+
+```agir
+# Esta semana
+Tire as suas medidas de quadril e cintura e faça, num papel, as contas da saia de elástico: largura de cada retângulo, altura e elástico. Descubra quanto de tecido e de elástico você precisaria comprar.
+```
 
 ## Resumo
 

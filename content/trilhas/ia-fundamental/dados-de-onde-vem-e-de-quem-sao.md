@@ -1,5 +1,6 @@
 ---
 titulo: "Dados: de onde vêm e de quem são"
+modelo: 9
 resumo: "A inteligência artificial come dados: textos da internet, fotos, cliques, localização. O que a LGPD chama de dado pessoal e de dado sensível, os direitos que você tem sobre os seus dados e o direito de pedir revisão de uma decisão tomada por máquina."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Você nunca preencheu um formulário dizendo do que gosta. Mesmo assim, o aplica
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber de onde vêm os dados que alimentam a inteligência artificial, o que a LGPD chama de dado pessoal e sensível e quais direitos você tem sobre os seus dados.
+
+```suarealidade
+Quais aplicativos do seu celular sabem onde você está, o que você ouve ou a que horas você acorda? Você já olhou o que cada um coleta?
+```
 
 ## De onde vêm os dados
 
@@ -92,6 +97,20 @@ Um aplicativo de saúde guarda informações sobre a sua pressão e os seus rem�
 > Olá. Com base no artigo 18 da Lei 13.709/2018 (LGPD), peço: (1) confirmação de que vocês tratam meus dados pessoais; (2) acesso a todos os dados que têm sobre mim; (3) a informação de com quem eles foram compartilhados. Meu cadastro está no e-mail [seu e-mail]. Obrigado(a).
 
 Envie pelo canal de atendimento ou ao **encarregado de dados** do aplicativo: a LGPD manda divulgar publicamente o contato dele, de preferência no site da empresa (artigo 41).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Não tenho nada a esconder. Se o aplicativo sabe do que eu gosto, até ajuda. Os meus dados não valem nada."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que os seus dados valem dinheiro para as empresas: cada clique ensina o sistema a prender a sua atenção e a vender para você. A Lei Geral de Proteção de Dados (Lei 13.709, de 2018) trata como dado sensível o que diz respeito a origem racial ou étnica, religião, opinião política, filiação a sindicato, saúde, vida sexual, dado genético ou biométrico, como o rosto e a digital (artigo 5º, II). E dá direitos: pedir acesso, correção, eliminação e portabilidade dos dados (artigo 18) e pedir a revisão de decisões tomadas só por máquina, como as de crédito (artigo 20).
+```
+
+```agir
+# Esta semana
+Abra as configurações de privacidade de um aplicativo que você usa muito, anote o que ele diz que coleta e desligue uma coleta de que você não precisa. Não anote nem compartilhe senhas ou dados pessoais.
+```
 
 ## Resumo
 

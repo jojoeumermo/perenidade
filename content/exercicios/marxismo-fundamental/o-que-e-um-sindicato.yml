@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é um sindicato" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-sin-01
+  tema: "Por que sozinho não dá"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que um trabalhador sozinho tem menos força que o patrão numa negociação?"
+  alternativas:
+    - texto: "Porque o patrão pode trocá-lo por outro e esperar, enquanto o trabalhador tem aluguel e comida para pagar"
+      certa: true
+    - texto: "Porque o trabalhador não sabe falar bem"
+      erro: "O problema não é a fala. É a desigualdade de poder."
+    - texto: "Porque a lei proíbe o trabalhador de negociar"
+      erro: "A lei permite. O que pesa é que o patrão pode substituir quem pede."
+  explicacao: "Se todos param juntos, a produção para, e o patrão não consegue substituir todo mundo de uma vez."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-sin-02
+  tema: "O que o sindicato faz"
+  dificuldade: 2
+  enunciado: "O que um sindicato faz?"
+  alternativas:
+    - texto: "Negocia salários e condições, organiza a luta, defende trabalhadores e informa e forma"
+      certa: true
+    - texto: "Só faz festa e vende seguro"
+      erro: "Isso é secundário. O sindicato negocia, organiza a luta e defende direitos."
+    - texto: "Contrata e demite funcionários"
+      erro: "Quem contrata e demite é a empresa."
+  explicacao: "A convenção ou acordo coletivo vale para toda a categoria. O DIEESE é um órgão de pesquisa criado e mantido pelo movimento sindical."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-sin-03
+  tema: "A força do sindicato"
+  dificuldade: 2
+  enunciado: "Qual é a principal força de um sindicato?"
+  alternativas:
+    - texto: "A união e a mobilização dos trabalhadores da categoria"
+      certa: true
+    - texto: "Ter um prédio grande"
+      erro: "O prédio não negocia. A força vem da união."
+    - texto: "Ter um presidente famoso"
+      erro: "A fama de uma pessoa não substitui a mobilização da categoria."
+  explicacao: "Os sindicatos nasceram na Inglaterra da Revolução Industrial. Primeiro foram proibidos, e quem se organizava podia ser preso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

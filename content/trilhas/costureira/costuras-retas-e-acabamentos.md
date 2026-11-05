@@ -1,5 +1,6 @@
 ---
 titulo: "Costuras retas e acabamentos"
+modelo: 9
 resumo: "A margem de costura, como costurar reto e virar cantos, a costura simples e os jeitos de acabar a beirada para não desfiar (overloque, zigue-zague, viés, costura francesa e costura inglesa) e por que passar a costura a ferro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ Por fora, a roupa parece igual. Vire do avesso: numa, as beiradas estão desfian
 
 Ao fim desta aula você vai respeitar a margem de costura, costurar reto e virar cantos, fazer a costura simples e escolher o acabamento certo para a beirada não desfiar.
 
+```suarealidade
+Vire do avesso as roupas que mais desfiaram nas lavagens. O que as beiradas por dentro têm em comum?
+```
+
 ## A margem de costura
 
 A **margem de costura** é a faixa de tecido entre a **linha de costura** e a **beirada cortada**. O molde diz quanto é a margem; muitos moldes usam 1 cm ou 1,5 cm. Para costurar reto com a margem certa:
@@ -100,6 +105,15 @@ Você vai costurar uma blusa de tecido fino e quase transparente e não tem over
 > No tecido transparente, a margem aparece por fora.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sem overloque não tem como fazer roupa durável: isso é coisa de fábrica. Quem costura em casa só faz roupa que desfia." É a ideia de quem acha que só a máquina industrial dá bom acabamento.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que dá, sim: um zigue-zague na beirada da margem ou uma costura francesa nos tecidos finos segura o desfiado por muitas lavagens. Quem não tem máquina pode usar o chuleado à mão, e há ainda o viés e a costura inglesa (a rebatida) para tecidos como o jeans e as roupas de trabalho. O overloque é o acabamento das roupas prontas, rápido e firme, mas não é o único. A costura simples deixa a margem crua por dentro e precisa de acabamento, e o que importa é escolher o certo para o tecido.
+```
+
 ## Exemplo resolvido
 
 **Unir as laterais de uma ecobag de tecido de algodão, com acabamento que aguente peso.**
@@ -110,6 +124,11 @@ Você vai costurar uma blusa de tecido fino e quase transparente e não tem over
 4. **Acabamento**: costura inglesa (aparar uma margem, dobrar a outra por cima e pespontar), que deixa a lateral firme e sem beirada solta.
 5. **Passar a ferro** cada etapa.
 6. **Conferir** puxando a costura: ela não pode abrir nem enrugar.
+
+```agir
+# Esta semana
+Faça num retalho uma costura simples e passe um zigue-zague na margem, passando a ferro cada etapa. Depois anote qual acabamento você usaria em cada peça da sua casa e por quê.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Família em chinês"
+modelo: 9
 resumo: "Os nomes da família em mandarim, que distinguem irmão mais velho e mais novo, avós paternos e maternos, e o verbo 有 (ter)."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ quiz:
 Ao fim desta aula você vai saber nomear os parentes em chinês (separando mais velho e mais novo, lado do pai e lado da mãe), usar 有 e 没有 e dizer quantas pessoas tem a sua família.
 
 Em português, "irmão" serve para qualquer irmão, e "avó" para qualquer avó. Em chinês, não: a língua separa o irmão **mais velho** do **mais novo** e os avós do **lado do pai** dos avós do **lado da mãe**. Essa riqueza de palavras mostra a importância que a família e a idade têm na tradição chinesa.
+
+```suarealidade
+Como as pessoas da sua família se tratam? Quem é "tio", "tia", "mais velho", "mais novo"? Que palavras você usa para chamar quem cuida de você e não é parente de sangue?
+```
 
 ## Pais e filhos
 
@@ -148,6 +153,20 @@ Repare em 我爸爸 e 我妈妈, sem 的: com a família, o 的 costuma sumir.
 4. **Junte.** 我家有三口人：妈妈、弟弟和我。我没有姐姐。
 
 Confira: com a família, o 的 costuma sumir (我妈妈), e "不有" está sempre errado.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Palavras diferentes para irmão mais velho e mais novo são complicação à toa. Em português, 'irmão' basta, e a língua mais simples é a melhor." É um argumento de quem busca eficiência.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a diferença não é complicação: o chinês separa o irmão mais velho (哥哥) do mais novo (弟弟) e os avós do lado do pai dos do lado da mãe, e isso mostra a importância que a família e a idade têm na tradição chinesa. Toda língua guarda o que a sua gente considera importante, e conhecer isso ajuda a respeitar quem fala de outro jeito. A aula também lembra que 叔叔 e 阿姨 tratam adultos que não são da família, como acontece com "tio" e "tia" no Brasil.
+```
+
+```agir
+# Esta semana
+Escreva num papel o nome de cinco pessoas da sua família em chinês, separando mais velho e mais novo quando for o caso, e diga em voz alta a frase 我家有...口人 (minha família tem... pessoas) com o número certo.
+```
 
 ## Resumo
 

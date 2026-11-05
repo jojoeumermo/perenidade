@@ -1,0 +1,50 @@
+# Exercícios da aula "Meios de comunicação" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-meios-de-comunicacao-01
+  tema: "Comunicação de massa"
+  dificuldade: 1
+  enunciado: "O que é comunicação de massa, segundo a aula?"
+  alternativas:
+    - texto: "Quando parte de um único emissor e chega a uma grande quantidade de receptores ao mesmo tempo"
+      certa: true
+    - texto: "Uma conversa entre duas pessoas"
+      erro: "Isso é comunicação em pequena escala."
+    - texto: "Um bilhete"
+      erro: "É comunicação em pequena escala."
+  explicacao: "Exemplo: o jornal da noite na TV aberta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Meios de comunicação\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-meios-de-comunicacao-02
+  tema: "Mídia"
+  dificuldade: 1
+  enunciado: "O que é a mídia, segundo a aula?"
+  alternativas:
+    - texto: "O sistema formado pelos meios de comunicação: jornais, revistas, livros, rádio, TV, cinema e internet"
+      certa: true
+    - texto: "Só a televisão"
+      erro: "Inclui outros meios."
+    - texto: "Só as redes sociais"
+      erro: "Inclui jornais, rádio, TV e outros."
+  explicacao: "Por meio deles circulam informações, ideias e entretenimento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Meios de comunicação\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-meios-de-comunicacao-03
+  tema: "Internet"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre a internet e a comunicação?"
+  alternativas:
+    - texto: "Qualquer pessoa pode ser emissora, mas as plataformas decidem com algoritmos o que aparece para cada um"
+      certa: true
+    - texto: "A internet acabou com o poder da mídia"
+      erro: "A aula mostra que as grandes plataformas também têm poder."
+    - texto: "Na internet todo mundo é ouvido igualmente"
+      erro: "Os algoritmos decidem o que aparece."
+  explicacao: "Vale perguntar: quem fala, para quem, com que interesse, e quem fica de fora?"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Meios de comunicação\""
+  revisao:
+    status: em-revisao

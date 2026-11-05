@@ -1,5 +1,6 @@
 ---
 titulo: "Ouvir antes de falar"
+modelo: 9
 resumo: "A diferença entre escutar e ouvir de verdade, as cinco etapas da escuta, os ruídos e preconceitos que atrapalham e por que quem quer liderar precisa ouvir mais do que fala."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ Na reunião, enquanto a outra pessoa fala, você está ouvindo o que ela diz ou 
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber a diferença entre escutar e ouvir de verdade, conhecer as cinco etapas da escuta, reconhecer o que atrapalha quem ouve e usar a escuta para falar melhor e liderar melhor.
+
+```suarealidade
+Pense numa conversa recente em que você não foi ouvido. O que a outra pessoa fez que mostrou isso? E numa em que você não ouviu alguém?
+```
 
 ## Escutar não é ouvir
 
@@ -104,6 +109,15 @@ Na assembleia, um morador fala com raiva e usa palavras duras contra a direção
 > Separe a forma (a raiva) do conteúdo (o problema). A escuta começa pelo conteúdo.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem lidera tem de falar e decidir. Ficar ouvindo todo mundo é perder tempo e mostrar fraqueza." É a opinião de quem vê na liderança a capacidade de decidir rápido.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que é preciso decidir. Mostra que ouvir de verdade exige atenção e esforço e que serve para quem fala: quem ouve sabe o que o grupo pensa antes de falar e, por isso, fala melhor e lidera melhor. A escuta tem cinco etapas (receber, entender, lembrar, avaliar e responder), e repetir com as suas palavras o que a pessoa disse mostra que você entendeu. Para Paulo Freire, a educação e a organização começam pelo diálogo. Ouvir antes de decidir não é fraqueza: é saber o que se está decidindo.
+```
+
 ## Exemplo resolvido
 
 **Uma comissão vai visitar as famílias de uma rua para preparar uma reunião sobre o lixo. Monte um roteiro de escuta.**
@@ -114,6 +128,11 @@ Na assembleia, um morador fala com raiva e usa palavras duras contra a direção
 4. **Repetir para conferir**: "Então o caminhão passa só na segunda e o lixo fica acumulado até lá, é isso?".
 5. **Anotar** o que foi dito, com as palavras da pessoa.
 6. **Na reunião**: abrir contando o que as famílias disseram. A proposta nasce do que foi ouvido.
+
+```agir
+# Esta semana
+Na próxima conversa importante, antes de responder, repita com as suas palavras o que a pessoa disse e pergunte: "É isso?". Anote num papel o que mudou na conversa.
+```
 
 ## Resumo
 

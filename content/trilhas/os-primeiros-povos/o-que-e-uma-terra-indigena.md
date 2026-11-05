@@ -1,5 +1,6 @@
 ---
 titulo: "O que é uma terra indígena"
+modelo: 9
 resumo: "Terras indígenas são bens da União destinados à posse permanente dos povos indígenas. Elas somavam, em 2025, cerca de 13,8% do território nacional. O que a Constituição diz e por que não são 'terra demais para pouco índio'."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ quiz:
 
 Ao fim desta aula você vai saber o que é uma terra indígena, o que a Constituição garante e como responder a frases comuns sobre o tema.
 
+```suarealidade
+Existe uma terra indígena perto de onde você mora? Você sabe se ela já está demarcada e o que significa isso na prática?
+```
+
 ## O que diz a Constituição
 
 Pela Constituição de 1988, terras indígenas são as **tradicionalmente ocupadas** por um ou mais povos: as **habitadas em caráter permanente**, as usadas para **atividades produtivas**, as **imprescindíveis à preservação dos recursos naturais** e as necessárias à sua **reprodução física e cultural**, segundo seus **usos, costumes e tradições**.
@@ -59,6 +64,15 @@ Um fazendeiro pode comprar um pedaço de uma terra indígena?
 > Inalienável quer dizer que não pode ser vendida.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "É muita terra para pouca gente. Essas áreas poderiam produzir alimento e gerar emprego para todos, e não ficar paradas." É a opinião de quem vive do campo e vê terra sem uso como desperdício.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula traz os dados: em 2025, as terras indígenas somavam 117,4 milhões de hectares, cerca de 13,8% do território. A Constituição de 1988 define como terras tradicionalmente ocupadas, inclusive as usadas para atividades produtivas e as necessárias à preservação dos recursos naturais e à reprodução física e cultural dos povos. São bens da União, inalienáveis, de posse permanente dos indígenas, com usufruto exclusivo das riquezas do solo, dos rios e dos lagos. Quem vive ali também produz, de acordo com os seus usos e costumes, e a demarcação é feita pelo Ministério dos Povos Indígenas e pela Funai.
+```
+
 ## Exemplo resolvido
 
 **Responda à frase: "É muita terra para pouco índio".**
@@ -66,6 +80,11 @@ Um fazendeiro pode comprar um pedaço de uma terra indígena?
 1. **História**: antes de 1500, os povos indígenas ocupavam todo o território; hoje as terras indígenas são cerca de **13,8%**.
 2. **Lei**: a Constituição garante as terras **tradicionalmente ocupadas**, incluindo as necessárias à **reprodução física e cultural**, e não só o espaço das casas.
 3. **Conclusão**: a frase ignora a **história** e o que a **lei** reconhece como terra indígena.
+
+```agir
+# Esta semana
+Procure num mapa na internet a terra indígena mais próxima de onde você mora e anote num papel o nome, o povo e se está demarcada. Escreva com as suas palavras o que é "posse permanente com usufruto exclusivo".
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Quem foi Karl Marx"
+modelo: 9
 resumo: "Um filósofo exilado, pobre e perseguido, que passou a vida estudando o capitalismo para ajudar os trabalhadores a superá-lo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 Ao fim desta aula você vai saber contar em poucas palavras quem foi Karl Marx, o que fez e por que estudá-lo é aprender um método, e não decorar frases.
 
 Ele é um dos pensadores mais citados da história, amado por uns e odiado por outros. Mas quem foi, de verdade, **Karl Marx**?
+
+```suarealidade
+O que você já ouviu falar sobre Karl Marx, em casa, na escola, na igreja ou nas redes? Quem falou e como falou: com elogio, com raiva, com informação?
+```
 
 ## Juventude
 
@@ -79,6 +84,15 @@ No túmulo de Marx está gravada a 11ª das suas *Teses sobre Feuerbach*: **"Os 
 
 As ideias de Marx foram usadas, desenvolvidas, discutidas e também deformadas ao longo de mais de um século. Inspiraram revoluções, sindicatos, partidos, movimentos de libertação, pesquisas científicas. Estudar Marx não é decorar frases: é aprender um método para entender a sociedade e agir nela.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Marx é um autor ultrapassado, que causou sofrimento onde as ideias dele foram aplicadas. Não vale perder tempo com ele." É a opinião de quem vê o autor pelos regimes que se disseram marxistas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula começa reconhecendo que Marx é um dos pensadores mais citados da história, amado por uns e odiado por outros. Ela propõe estudá-lo como um método, e não decorar frases, e conta quem foi: nasceu em 1818, estudou Direito e Filosofia, virou jornalista, foi expulso de vários países, viveu em Londres na pobreza e publicou o primeiro volume de O Capital em 1867. Os volumes 2 e 3 saíram depois da morte dele, organizados por Engels. Conhecer o autor pelos textos permite concordar ou discordar com fundamento.
+```
+
 ## Exemplo resolvido
 
 **Como situar Marx no tempo, em cinco datas?**
@@ -94,6 +108,11 @@ Confira: as datas mostram um caminho de perseguição e exílio por causa das id
 ## Para conversar
 
 Marx viveu na pobreza e no exílio por causa das suas ideias. Que pessoas você conhece, na história do Brasil, que também foram perseguidas por defender os trabalhadores?
+
+```agir
+# Esta semana
+Escolha uma coisa que você ouviu sobre Marx e que não sabe se é verdade. Escreva num papel a dúvida em forma de pergunta e, depois, confira na aula se ela traz a resposta.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Mãe Menininha, Mãe Stella e outras ialorixás"
+modelo: 9
 resumo: "Mãe Menininha do Gantois (1894–1986), a mais famosa ialorixá da Bahia, e Mãe Stella de Oxóssi (1925–2018), do Ilê Axé Opô Afonjá, que questionou o sincretismo e entrou para a Academia de Letras da Bahia. As mulheres que lideraram os terreiros e guardaram a tradição."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Por que, em tantos terreiros de candomblé, quem lidera são mulheres? O que ess
 
 Ao fim desta aula você vai conhecer duas das mais importantes ialorixás do Brasil e o papel das mulheres nos terreiros.
 
+```suarealidade
+Você conhece alguma mulher da sua comunidade que seja referência e guarde a memória do bairro? O que ela faz?
+```
+
 ## O que é uma ialorixá
 
 **Ialorixá** é a **mãe de santo**: a sacerdotisa que **lidera** um terreiro de **candomblé**. Ela conduz os rituais, cuida dos filhos e filhas de santo e guarda os **saberes** da tradição.
@@ -70,6 +75,15 @@ Por que muitos terreiros adotaram o sincretismo com santos católicos no passado
 > Releia a seção sobre Mãe Stella.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Mãe de santo é pessoa de religião. Contar a história delas como se fossem figuras importantes da cultura do país não faz sentido." É a opinião de quem separa religião e cultura.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a ialorixá é a mãe de santo que lidera o terreiro e guarda a tradição. Mãe Menininha do Gantois (1894–1986) foi ialorixá desde 1922; Mãe Stella de Oxóssi (1925–2018), do Ilê Axé Opô Afonjá, questionou o sincretismo e, em 2013, foi eleita por unanimidade para a cadeira 33 da Academia de Letras da Bahia. Conhecer a vida delas é conhecer parte da história da cultura brasileira, e ninguém precisa adotar a religião para respeitá-la.
+```
+
 ## Exemplo resolvido
 
 **Calcule por quanto tempo Mãe Menininha foi ialorixá.**
@@ -77,6 +91,11 @@ Por que muitos terreiros adotaram o sincretismo com santos católicos no passado
 1. Empossada em **1922**.
 2. Morreu em **1986**.
 3. 1986 − 1922 = **64 anos** à frente do terreiro.
+
+```agir
+# Esta semana
+Procure uma entrevista ou um texto de Mãe Stella de Oxóssi e anote uma ideia dela que chamou a sua atenção.
+```
 
 ## Resumo
 

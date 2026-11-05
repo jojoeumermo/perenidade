@@ -1,5 +1,6 @@
 ---
 titulo: "Saudações e apresentações"
+modelo: 9
 resumo: "Como cumprimentar, dizer seu nome e se despedir."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber cumprimentar em inglês, perguntar como a pessoa está, se apresentar e se despedir.
+
+```suarealidade
+Como você cumprimenta quem chega ao seu trabalho ou ao seu bairro? Como se apresenta a uma pessoa nova? Pense em como faria isso em inglês.
+```
 
 ## Cumprimentar
 
@@ -71,6 +76,15 @@ Repare que o português usa "boa noite" para chegar e para sair. O inglês separ
 - *See you tomorrow* — Até amanhã
 - *Take care* — Cuide-se
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Oi, tchau e pronto: quem fala inglês entende. Aprender cumprimento formal é perda de tempo." É a impressão de quem acha que o básico basta.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não complica: mostra que hello e hi servem para quase tudo, e acrescenta duas diferenças que o português não tem: good evening abre a conversa à noite e good night encerra. Também ensina a perguntar como a pessoa está, a se apresentar e a se despedir. Um cumprimento certo é o primeiro passo para ser bem recebido e é o que mais se usa.
+```
+
 ## Exemplo resolvido
 
 **Como começar e terminar uma conversa às sete da noite?**
@@ -85,6 +99,11 @@ Confira: *Good evening* abre a conversa e *Good night* a encerra. Em português 
 ## Pratique
 
 Monte, em voz alta, um diálogo completo: cumprimente, pergunte como a pessoa está, diga seu nome, diga de onde você é e se despeça.
+
+```agir
+# Esta semana
+Escreva num papel um pequeno diálogo em inglês, de quatro linhas, entre você e uma pessoa que acabou de conhecer: cumprimento, pergunta "How are you?", seu nome e despedida. Leia em voz alta.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Círculos de cultura"
+modelo: 9
 resumo: "A roda no lugar da fileira: o que é um círculo de cultura e um roteiro de quarenta minutos para conduzir um, com dez colegas e um texto curto."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,10 @@ quiz:
     resposta: 1
     explicacao: "Sem síntese, a conversa se perde; sem combinado, o grupo não volta."
 ---
+
+```suarealidade
+Pense nos lugares onde você se reúne com outras pessoas (trabalho, igreja, associação, família). Em quais deles só um fala enquanto os outros ouvem? E em quais todo mundo consegue falar?
+```
 
 ## A roda no lugar da fileira
 
@@ -112,6 +117,15 @@ A coordenação **roda**: cada encontro, uma pessoa. Coordenar se aprende coorde
 
 Qualquer aula deste site pode ser lida em um círculo: escolha um trecho de uma página. A página [Por onde começar](/comecar) sugere uma ordem, e os cartões de debate e a galeria de cartazes servem bem para abrir a conversa.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que círculo de cultura é perda de tempo: quem sabe tem de explicar, e deixar todo mundo opinar só faz a conversa rodar sem chegar a lugar nenhum.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: o risco de a conversa se perder existe, e o roteiro da aula foi feito para evitá-lo: tempo marcado (quarenta minutos), texto curto, perguntas preparadas em três degraus, síntese e combinado no fim. O círculo também não dispensa o saber de quem sabe: quem coordena pode dizer o que pensa, por último, como mais um da roda. A ideia de Freire é que todos sabem alguma coisa e todos ignoram alguma coisa, e que o grupo aprende da conversa entre esses saberes.
+```
+
 ## Exemplo resolvido
 
 **Como conduzir um círculo de quarenta minutos com dez colegas e um texto curto?**
@@ -123,6 +137,11 @@ Qualquer aula deste site pode ser lida em um círculo: escolha um trecho de uma 
 5. Síntese (5 min) e combinado (5 min): leiam o que o grupo disse, corrijam, e marquem o próximo encontro e quem coordena.
 
 Confira: somando os tempos, 5 + 5 + 5 + 15 + 5 + 5 = 40 minutos, e o círculo termina com uma ação, por menor que seja.
+
+```agir
+# Esta semana
+Escolha um texto de uma página ou menos e escreva três perguntas, uma de cada degrau (o que acontece, por que acontece, o que dá para fazer). Depois convide de seis a doze pessoas de confiança para um círculo de quarenta minutos. Se não der para reunir o grupo, teste as perguntas com uma ou duas pessoas e anote o que elas disseram.
+```
 
 ## Resumo
 

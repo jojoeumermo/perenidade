@@ -1,5 +1,6 @@
 ---
 titulo: "Máquinas simples"
+modelo: 9
 resumo: "Objetivo: entender como a alavanca, a roldana, o plano inclinado e outras máquinas simples permitem fazer mais força com menos esforço, e o que se paga por isso."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber reconhecer a alavanca, a roldana, o plano inclinado e a roda com eixo, e explicar a regra de que o que se ganha em força se perde em distância.
+
+```suarealidade
+No seu trabalho ou em casa, que ferramenta poupa o seu corpo (carrinho, rampa, alavanca)? E o que você ainda levanta só com a força dos braços?
+```
 
 
 ## Fazer mais com o mesmo braço
@@ -132,6 +137,20 @@ Conhecê-las protege o corpo. Usar o carrinho em vez dos braços, a rampa em vez
 4. Liste cinco máquinas simples que você usou hoje.
 
 **Respostas:** 1) Interfixa; inter-resistente; interpotente; interfixa. 2) 100 N. 3) Porque a força é aplicada mais longe do eixo: é uma alavanca com braço maior.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Usar carrinho, rampa e talha é preguiça. Trabalhador de verdade levanta no braço."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula responde que não é preguiça: é inteligência acumulada por gerações de trabalhadores. O corpo humano tem limites de força, e as máquinas simples permitem vencê-los. Usar o carrinho em vez dos braços, a rampa em vez do degrau, a talha em vez das costas protege o corpo. A regra de ouro vale para todas: o que se ganha em força, perde-se em distância, porque a máquina não cria energia. E a aula acrescenta uma pergunta: quando a máquina alivia o trabalho, quem fica com o ganho?
+```
+
+```agir
+# Esta semana
+Liste cinco máquinas simples que você usou hoje e escolha uma tarefa pesada da sua semana que poderia ser feita com carrinho, rampa ou alavanca. Anote como seria.
+```
 
 ## Resumo
 

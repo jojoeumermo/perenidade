@@ -1,5 +1,6 @@
 ---
 titulo: "As regiões do Brasil"
+modelo: 9
 resumo: "Como e por que o Brasil é dividido em regiões, o que cada uma tem de próprio e o que os números do Censo 2022 mostram sobre elas."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer o que é uma região, nomear as cinco grandes regiões do IBGE com seus números, calcular a densidade demográfica e conhecer outras formas de dividir o país.
+
+```suarealidade
+Em que região você mora, e o que da descrição dela você reconhece no seu dia a dia? E de que região veio a sua família?
+```
 
 
 ## O que é uma região
@@ -141,6 +146,20 @@ Os números mostram regiões muito desiguais em população, em renda e em servi
 4. Proponha uma regionalização do seu município: em quantas partes você o dividiria, e com que critério?
 
 **Resposta da 3:** 54.600.000 ÷ 1.552.000 ≈ 35 hab/km².
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Algumas regiões são pobres por causa do clima e do jeito do povo. O trabalhador de lá é que não quer produzir."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra outra coisa: a desigualdade regional foi construída pela história. A economia colonial voltada para fora, a concentração das indústrias e dos investimentos públicos no Sudeste durante o século XX e a migração de trabalhadores de umas regiões para outras moldaram o mapa que temos hoje. Os números também desmentem a ideia de "terra vazia": média baixa de densidade não quer dizer ausência de gente, pois nessas áreas vivem povos indígenas, ribeirinhos e extrativistas. O que foi construído pode ser mudado.
+```
+
+```agir
+# Esta semana
+Descubra qual é a cidade-polo da sua região imediata, aquela para onde as pessoas vão ao hospital ou procurar um serviço público, e anote por que ela é o centro. Pergunte a alguém do bairro se concorda.
+```
 
 ## Resumo
 

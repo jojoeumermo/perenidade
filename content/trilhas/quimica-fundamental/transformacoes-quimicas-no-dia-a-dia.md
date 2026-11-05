@@ -1,5 +1,6 @@
 ---
 titulo: "Transformações químicas no dia a dia"
+modelo: 9
 resumo: "Objetivo: reconhecer quando uma substância se transforma em outra, entender o que acontece com os átomos e identificar reações comuns na cozinha, em casa e no trabalho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber distinguir transformação física de transformação química, reconhecer os sinais de uma reação e dar exemplos do dia a dia.
+
+```suarealidade
+Pense numa coisa que mudou na sua cozinha ou no seu serviço: o pão que cresce, o ferro que enferruja, a comida que estraga. O que mudou nela?
+```
 
 ## Física ou química?
 
@@ -126,6 +131,15 @@ Em um banheiro fechado, essas misturas podem matar. As regras são simples:
 
 Quem trabalha com limpeza usa esses produtos todos os dias, muitas vezes concentrados. Tem direito a receber luvas e proteção, a ser informado sobre os riscos e a não ser obrigado a fazer misturas "para render mais".
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Química é coisa de laboratório, de gente de jaleco. Na minha vida as coisas só esquentam, esfriam ou estragam." É a opinião de quem nunca estudou o assunto.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a química está no dia a dia: combustão, ferrugem, fermentação, cozimento, fotossíntese, respiração e decomposição são reações. Os sinais são mudança de cor, gás, luz ou calor, mudança de cheiro ou sabor e formação de sólido, mas nenhum sozinho é prova. Na reação os átomos se rearranjam e a massa se conserva. O pão que cresce e a comida que estraga são química.
+```
+
 ## Exemplo resolvido
 
 **Um ovo cozido é transformação física ou química?**
@@ -144,6 +158,11 @@ Confira com a água: o gelo derretido volta a ser gelo, então é transformaçã
 4. Na reação CH₄ + 2 O₂ → CO₂ + 2 H₂O, quantos átomos de oxigênio há de cada lado?
 
 **Respostas:** 1) (a) química; (b) física; (c) química; (d) física; (e) química. 2) Para impedir o contato do ferro com o ar e a umidade. 3) Porque o frio torna mais lentas as reações de decomposição e a multiplicação dos microrganismos. 4) Quatro de cada lado.
+
+```agir
+# Esta semana
+Ache em casa duas transformações que são reações químicas e duas que são só mudanças de estado ou de forma. Anote por que você as classificou assim.
+```
 
 ## Resumo
 

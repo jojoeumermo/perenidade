@@ -1,5 +1,6 @@
 ---
 titulo: "Tom e semitom: sustenidos e bemóis"
+modelo: 9
 resumo: "A menor distância entre duas notas, as teclas pretas e os sinais que alteram uma nota."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são tom e semitom, achar os semitons no teclado e usar sustenido, bemol e bequadro.
+
+```suarealidade
+Num teclado ou aplicativo de piano, o que acontece com o som quando você passa de uma tecla para a vizinha?
+```
 
 ## A menor distância
 
@@ -78,6 +83,15 @@ Qual é a distância entre sol e lá?
 
 Um sustenido ou bemol escrito ao lado de uma nota vale para aquela nota **até o fim do compasso**. No compasso seguinte, ela volta ao normal, a não ser que o sinal apareça de novo.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sustenido e bemol são complicação sem necessidade. Bastava dar um nome só para cada tecla." É a opinião de quem quer aprender o mais simples.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra por que há dois nomes: a mesma tecla preta tem dois nomes, conforme a música. Semitom é a distância entre duas teclas vizinhas, e dois semitons formam um tom; entre mi e fá e entre si e dó a distância é de um semitom, e nos demais pares de teclas brancas, um tom. O sustenido (♯) sobe a nota um semitom, o bemol (♭) desce e o bequadro (♮) cancela os dois. É esse sistema que permite escrever a música.
+```
+
 ## Exemplo resolvido
 
 **Qual é a distância de mi a fá, e de dó a ré?**
@@ -91,6 +105,11 @@ Conclusão: a sequência dó –T– ré –T– mi –S– fá –T– sol –T
 ## Para praticar
 
 No [teclado](/ferramentas/teclado), toque todas as teclas em ordem, brancas e pretas, de um dó até o dó seguinte. São doze semitons. Depois toque mi–fá e si–dó e compare com dó–ré: dá para ouvir que o passo é menor.
+
+```agir
+# Esta semana
+Num teclado ou aplicativo de piano, toque de um dó até o dó seguinte e conte as teclas, brancas e pretas. Confira se dá doze semitons.
+```
 
 ## Resumo
 

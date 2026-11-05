@@ -1,5 +1,6 @@
 ---
 titulo: "Como funcionam os assistentes de texto"
+modelo: 9
 resumo: "Os assistentes que escrevem, resumem e traduzem são modelos de linguagem: treinados com enormes quantidades de texto para prever a próxima palavra, depois ajustados para seguir instruções. O que isso explica sobre os acertos e os erros deles."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Você pergunta, e em segundos sai um texto bem escrito, seguro, cheio de detalhe
 
 Ao fim desta aula você vai entender, em linguagem simples, como funcionam os assistentes de texto e por que isso explica tanto os acertos quanto os erros deles.
 
+```suarealidade
+Você já usou um assistente de texto (no celular, no trabalho)? Para quê? Você conferiu o que ele respondeu?
+```
+
 ## Um modelo de linguagem
 
 Os assistentes de texto se baseiam em **modelos de linguagem grandes**: programas de **aprendizado de máquina**, quase sempre **redes neurais**, treinados com uma **enorme quantidade de texto**. Eles conseguem **gerar, resumir, traduzir e analisar** textos.
@@ -84,6 +89,20 @@ Frase: "Ninguém nasce sabendo que é ___"
 | feliz | talvez |
 
 Um modelo de linguagem faz esse tipo de cálculo, palavra por palavra, com base em tudo o que leu. Ele escolhe o que **soa certo**, e não o que **é certo**: por isso, sempre **confira** o que ele diz.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se o assistente respondeu com tanta segurança e tantos detalhes, deve estar certo. É uma máquina que sabe tudo."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que o modelo gera o texto provável, e não o verdadeiro: ele foi treinado para prever a próxima palavra de um texto, e escolhe o que soa certo, não o que é certo. Por isso pode inventar, com a mesma segurança, uma citação ou uma referência que não existe, o que se chama de alucinação. A segurança do tom não prova nada. Por isso a regra da aula é conferir sempre.
+```
+
+```agir
+# Esta semana
+Combine com alguém da sua casa ou do seu trabalho uma regra: nada que vier de um assistente de texto é usado sem conferir em outra fonte.
+```
 
 ## Resumo
 

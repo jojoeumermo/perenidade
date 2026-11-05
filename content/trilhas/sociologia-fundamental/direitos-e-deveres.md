@@ -1,5 +1,6 @@
 ---
 titulo: "Direitos e deveres"
+modelo: 9
 resumo: "A Constituição de 1988 diz que todos são iguais perante a lei e lista direitos individuais, como a vida e a liberdade, e direitos sociais, como educação, saúde, alimentação, moradia e transporte. E também fala de deveres, como o dos pais de cuidar dos filhos e o dos filhos de ajudar os pais na velhice."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 
 Ao fim desta aula você vai conhecer alguns dos principais direitos e deveres previstos na Constituição de 1988.
 
+```suarealidade
+Qual direito da Constituição você sente que falta na sua vida (moradia, transporte, saúde, trabalho)? E qual dever você cumpre todo dia?
+```
+
 ## Todos são iguais
 
 O **artigo 5º** da **Constituição de 1988** começa dizendo que **todos são iguais perante a lei**, **sem distinção de qualquer natureza**. Ele garante aos brasileiros e aos estrangeiros que moram no país a **inviolabilidade** do direito à **vida**, à **liberdade**, à **igualdade**, à **segurança** e à **propriedade**. Alguns incisos:
@@ -64,6 +69,15 @@ Por que o direito à educação de uma criança também cria deveres?
 > Releia a seção "Andam juntos".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Todo mundo só fala de direitos e esquece dos deveres. Primeiro cumpra o seu dever, depois cobre." É a opinião de quem cumpre o que deve.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que os dois andam juntos: o art. 229, por exemplo, trata dos deveres entre pais e filhos. Mas mostra também que o art. 5º diz que todos são iguais perante a lei e que o art. 6º lista educação, saúde, alimentação, trabalho, moradia, transporte e lazer como direitos sociais. Direito não é prêmio por cumprir dever: é garantia que vale para todos.
+```
+
 ## Exemplo resolvido
 
 **Classifique: (a) ser atendido no SUS; (b) cuidar dos pais idosos; (c) não ser torturado; (d) ter acesso ao transporte.**
@@ -72,6 +86,11 @@ Por que o direito à educação de uma criança também cria deveres?
 2. **(b)** **dever** dos filhos maiores (art. 229).
 3. **(c)** **direito** individual (art. 5º, III).
 4. **(d)** **direito** social (transporte, art. 6º).
+
+```agir
+# Esta semana
+Escolha um dos direitos do art. 6º e anote um jeito concreto de reivindicá-lo no seu bairro, como pedir uma consulta ou uma vaga em creche.
+```
 
 ## Resumo
 

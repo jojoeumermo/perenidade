@@ -1,0 +1,68 @@
+# Exercícios da aula "Egito antigo" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-egi-01
+  tema: "O presente do Nilo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que o Egito foi chamado de 'presente do Nilo'?"
+  alternativas:
+    - texto: "Porque as cheias anuais deixavam lama fértil nas margens, tornando a vida possível num lugar muito seco"
+      certa: true
+    - texto: "Porque o Nilo trazia ouro todo ano"
+      erro: "O que o rio trazia era a lama fértil, que permitia plantar num dos lugares mais secos do planeta."
+    - texto: "Porque o Nilo ficava longe do deserto"
+      erro: "O Egito é muito seco. Foi o rio que tornou a vida possível ali."
+  explicacao: "O Nilo transbordava todo ano e, ao recuar, deixava uma camada de lama escura e fértil. Também era a grande estrada do país."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-egi-02
+  tema: "Quem construiu as pirâmides"
+  dificuldade: 2
+  enunciado: "Uma ideia muito repetida diz que as pirâmides foram construídas por escravos. O que apontam as escavações?"
+  alternativas:
+    - texto: "Perto das pirâmides havia uma vila de trabalhadores, com padarias e túmulos: eram operários e camponeses organizados em turmas"
+      certa: true
+    - texto: "Que foram construídas por visitantes de outros planetas"
+      erro: "Não há evidência disso. As escavações mostram uma vila de trabalhadores egípcios."
+    - texto: "Que foram construídas só por soldados estrangeiros presos"
+      erro: "As evidências mostram operários e camponeses alimentados e sustentados pelo Estado."
+  explicacao: "Conferir uma informação 'que todo mundo sabe' é parte do ofício de historiar. Aqui, as escavações da vila de trabalhadores mudam a ideia comum."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-egi-03
+  tema: "Pedra de Roseta"
+  dificuldade: 2
+  enunciado: "Para que serviu a Pedra de Roseta, encontrada em 1799?"
+  alternativas:
+    - texto: "Trazia o mesmo decreto em hieróglifos, em demótico e em grego, e permitiu decifrar os hieróglifos"
+      certa: true
+    - texto: "Era o mapa do túmulo de um faraó"
+      erro: "A pedra traz um decreto em três escritas. Comparando os textos, foi possível ler os hieróglifos."
+    - texto: "Era um calendário das cheias do Nilo"
+      erro: "O valor da pedra está no mesmo texto escrito em três formas, o que serviu de chave para os hieróglifos."
+  explicacao: "Depois que o Egito antigo desapareceu, ninguém sabia ler hieróglifos. A Pedra de Roseta, com o mesmo texto em grego, que se conhecia, foi a chave."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-egi-04
+  tipo: numero
+  tema: "Do Egito unido às pirâmides"
+  dificuldade: 2
+  enunciado: "O Egito foi unificado por volta de 3100 a.C. e as pirâmides de Gizé foram erguidas por volta de 2500 a.C. Quantos anos se passaram entre os dois fatos?"
+  resposta: "600"
+  unidade: "anos"
+  erros_comuns:
+    - resposta: "5600"
+      explicacao: "5.600 é a soma. Em datas a.C., o maior número é o mais antigo, e a diferença se acha subtraindo."
+  dica: "Subtraia as datas a.C."
+  explicacao: "3100 − 2500 = 600 anos."
+  conferir: "3100 - 2500"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

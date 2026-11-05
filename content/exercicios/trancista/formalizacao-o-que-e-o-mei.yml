@@ -1,0 +1,50 @@
+# Exercícios da aula "Formalização: o que é o MEI" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-formalizacao-o-que-e-o-mei-01
+  tema: "Abrir o MEI"
+  dificuldade: 1
+  enunciado: "Quanto custa abrir o MEI, segundo a aula?"
+  alternativas:
+    - texto: "Nada: a LC 123 zera taxas e custos de abertura e registro"
+      certa: true
+    - texto: "Uma taxa alta de abertura"
+      erro: "A aula diz que abrir não custa nada."
+    - texto: "Só se paga com um despachante"
+      erro: "A aula manda desconfiar de quem cobra para \"abrir o MEI\"."
+  explicacao: "Desconfie de sites e pessoas que cobram para abrir o MEI."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Formalização: o que é o MEI\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-formalizacao-o-que-e-o-mei-02
+  tema: "Ocupação"
+  dificuldade: 2
+  enunciado: "Em qual ocupação a trancista se encaixa na lista do MEI, segundo a aula?"
+  alternativas:
+    - texto: "Cabeleireiro(a) independente, CNAE 9602-5/01"
+      certa: true
+    - texto: "Trancista, que está na lista"
+      erro: "A aula diz que não há a ocupação \"trancista\"."
+    - texto: "Professora"
+      erro: "A que trata do cabelo é cabeleireiro(a) independente."
+  explicacao: "O mesmo código serve a barbeiro e a manicure e pedicure. Confira no Portal do Empreendedor."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Formalização: o que é o MEI\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-formalizacao-o-que-e-o-mei-03
+  tema: "DAS"
+  dificuldade: 2
+  enunciado: "O DAS mensal do MEI de serviços, segundo a aula, junta 5% do salário mínimo para o INSS e mais quanto de ISS?"
+  alternativas:
+    - texto: "R$ 1"
+      erro: "O valor citado é R$ 5."
+    - texto: "R$ 5"
+      certa: true
+    - texto: "R$ 50"
+      erro: "O valor citado é R$ 5."
+  explicacao: "O limite anual de faturamento é de R$ 81 mil até 2026, conforme a tabela da aula."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Formalização: o que é o MEI\""
+  revisao:
+    status: em-revisao

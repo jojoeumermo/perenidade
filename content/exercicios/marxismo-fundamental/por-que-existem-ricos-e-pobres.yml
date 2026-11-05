@@ -1,0 +1,51 @@
+# Exercícios da aula "Por que existem ricos e pobres" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-ric-01
+  tema: "Uma conta que não fecha"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Por que a explicação 'rico é quem trabalha mais' não fecha com a vida real?"
+  alternativas:
+    - texto: "Porque quem mais trabalha, como a diarista ou o pedreiro, não é o mais rico, e o dia só tem 24 horas para todo mundo"
+      certa: true
+    - texto: "Porque ninguém rico trabalha"
+      erro: "Alguns trabalham, mas ninguém trabalha 10 mil vezes mais que os outros."
+    - texto: "Porque pobre não gosta de trabalhar"
+      erro: "As pessoas que mais suam muitas vezes são as mais pobres."
+  explicacao: "Se o esforço explicasse tudo, as pessoas que mais suam seriam as mais ricas. Precisamos de outra explicação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-ric-02
+  tema: "Quem é dono do quê"
+  dificuldade: 2
+  enunciado: "Qual é a pergunta que Marx propõe?"
+  alternativas:
+    - texto: "Quem é dono do quê: de quem são as terras, as máquinas e as fábricas, os meios de produção"
+      certa: true
+    - texto: "Quem tem mais sorte"
+      erro: "Marx olha para a estrutura da propriedade, e não para a sorte."
+    - texto: "Quem nasceu primeiro"
+      erro: "A pergunta é sobre propriedade dos meios de produção."
+  explicacao: "Para produzir é preciso trabalho e meios de produção. A maioria só tem a capacidade de trabalhar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-ric-03
+  tema: "Seu Antônio e Dona Marta"
+  dificuldade: 2
+  enunciado: "Por que Dona Marta continua recebendo dinheiro mesmo quando viaja?"
+  alternativas:
+    - texto: "Porque é dona da fábrica e recebe o lucro do trabalho dos funcionários"
+      certa: true
+    - texto: "Porque trabalha à distância o tempo todo"
+      erro: "O dinheiro continua entrando porque ela é dona."
+    - texto: "Porque o governo paga a ela"
+      erro: "O dinheiro vem do lucro da fábrica."
+  explicacao: "Seu Antônio vive do próprio trabalho. Dona Marta vive do trabalho dos outros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

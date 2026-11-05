@@ -1,0 +1,90 @@
+# Exercícios da aula "Traço de concreto e argamassa" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Os traços são exemplos usuais de cartilhas técnicas; confira com o projeto ou o fabricante.
+
+- id: obra-traco-01
+  tema: "O que é o traço"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer \"traço 1:3\" numa mistura de chapisco?"
+  alternativas:
+    - texto: "1 parte de cimento para 3 de areia, em volume, medidas sempre com a mesma vasilha"
+      certa: true
+    - texto: "1 kg de cimento para 3 kg de areia"
+      erro: "O traço é em volume, e não em quilos. Use a mesma vasilha para todos os materiais, como uma lata de 18 litros."
+    - texto: "1 parte de areia para 3 de cimento"
+      erro: "A ordem é cimento primeiro: 1 de cimento para 3 de areia."
+  explicacao: "O traço é a receita da mistura. No concreto, 1:2:3 é 1 de cimento, 2 de areia e 3 de brita. Um saco de cimento de 50 kg tem cerca de 36 litros, ou seja, mais ou menos 2 latas de 18 litros."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Traço de concreto e argamassa\""
+  revisao:
+    status: em-revisao
+
+- id: obra-traco-02
+  tipo: numero
+  tema: "Contar as latas"
+  dificuldade: 2
+  enunciado: "Para uma calçada, o Zé vai usar 3 sacos de cimento no traço 1:2:3 (cimento : areia : brita). Cada saco tem cerca de 2 latas de 18 litros. Quantas latas de areia ele precisa?"
+  resposta: "12"
+  unidade: "latas"
+  erros_comuns:
+    - resposta: "6"
+      explicacao: "6 latas é o cimento (3 sacos × 2 latas). A areia é 2 partes para cada 1 de cimento: 6 × 2."
+    - resposta: "18"
+      explicacao: "18 latas é a brita (3 partes). A areia é 2 partes: 6 × 2 = 12."
+  dica: "Primeiro conte as latas de cimento e depois multiplique pela parte da areia."
+  explicacao: "Cimento: 3 × 2 = 6 latas. Areia: 6 × 2 = 12 latas. Brita: 6 × 3 = 18 latas. Total seco: 6 + 12 + 18 = 36 latas, e a água vai por último, aos poucos."
+  conferir: "3 * 2 * 2"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Traço de concreto e argamassa\""
+  revisao:
+    status: em-revisao
+
+- id: obra-traco-03
+  tipo: numero
+  tema: "Contar as latas"
+  dificuldade: 2
+  enunciado: "Com os mesmos 3 sacos de cimento (6 latas), quantas latas de areia grossa o Zé precisa para o chapisco, no traço 1:3?"
+  resposta: "18"
+  unidade: "latas"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "12 seria a areia do traço 1:2 (6 × 2). No chapisco 1:3, são 3 partes de areia para 1 de cimento: 6 × 3."
+    - resposta: "9"
+      explicacao: "Você somou 6 + 3. A conta é de multiplicar: 6 latas de cimento × 3 partes de areia."
+  dica: "Multiplique as latas de cimento pelas partes de areia do traço."
+  explicacao: "6 × 3 = 18 latas de areia grossa. Para saber quanto comprar para uma área, calcule o volume (comprimento × largura × espessura) e peça ao fornecedor a tabela de consumo do traço."
+  conferir: "6 * 3"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Traço de concreto e argamassa\""
+  revisao:
+    status: em-revisao
+
+- id: obra-traco-04
+  tema: "A água e a cura"
+  dificuldade: 2
+  enunciado: "A argamassa ficou dura na masseira. A solução é jogar água para amolecer de novo?"
+  alternativas:
+    - texto: "Não: massa que endureceu perde a força; o certo é descartar e fazer outra"
+      certa: true
+    - texto: "Sim, água resolve"
+      erro: "Massa que começou a endurecer não se \"reanima\" com água: fica fraca. Só misture o que vai gastar nas próximas horas."
+    - texto: "Sim, mas só com água quente"
+      erro: "Água quente também não resolve. A massa que endureceu deve ser descartada."
+  explicacao: "Água demais enfraquece: depois que evapora, deixa buracos na massa. Misture seco primeiro, faça um buraco no meio e coloque a água aos poucos. Cura: mantenha a peça úmida por cerca de 7 dias."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Traço de concreto e argamassa\""
+  revisao:
+    status: em-revisao
+
+- id: obra-traco-05
+  tema: "Quando não improvisar"
+  dificuldade: 3
+  enunciado: "Para qual destes serviços não se improvisa o traço, e é preciso engenheiro ou outro profissional habilitado?"
+  alternativas:
+    - texto: "Para peça estrutural, como fundação, pilar, viga, laje ou escada"
+      certa: true
+    - texto: "Para o chapisco da parede de um muro baixo"
+      erro: "O chapisco usa traço usual de cartilha. A peça estrutural é que pede engenheiro, com concreto de resistência definida em projeto."
+    - texto: "Para a calçada do quintal"
+      erro: "Calçada, base e piso que não sustentam a casa usam traço usual (1:2:3). A peça estrutural é que não se improvisa."
+  explicacao: "A peça estrutural tem resistência definida em projeto (em megapascal, MPa), calculada por engenheiro ou outro profissional habilitado, com ART (ou RRT, no caso de arquiteto). Muitas vezes se usa concreto de usina. Cimento queima a pele e o pó faz mal: use luvas, bota, óculos e máscara PFF2."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Traço de concreto e argamassa\""
+  revisao:
+    status: em-revisao

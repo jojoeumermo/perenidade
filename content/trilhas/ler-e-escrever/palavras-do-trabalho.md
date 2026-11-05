@@ -1,5 +1,6 @@
 ---
 titulo: "Palavras do trabalho"
+modelo: 9
 resumo: "Ler as palavras da carteira, do contracheque e do dia de serviço, e conhecer os pedaços que aparecem muito nelas: ÃO, LH, NH, CH e RR."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Você já leu [as palavras da casa](/trilhas/ler-e-escrever/palavras-da-casa). A
 ## O que você vai aprender
 
 Ao fim desta aula você vai ler palavras que todo trabalhador encontra, como SALÁRIO, PATRÃO e FÉRIAS. Vai dividir TIJOLO em sílabas e montar palavras novas com ele. Vai conhecer os pedaços que aparecem muito (ÃO, CH, LH, NH, RR). E vai achar no contracheque o que entra e o que sai.
+
+```suarealidade
+Qual palavra do seu trabalho você já conhece de ouvido mas nunca viu escrita? Já olhou com calma o contracheque ou a carteira de trabalho?
+```
 
 ## Primeiro, a conversa
 
@@ -166,6 +171,15 @@ Se um desconto parecer estranho, pergunte no setor de pessoal ou no sindicato da
 
 Hoje a carteira de trabalho é, em geral, **digital**: fica no celular, num aplicativo do governo, e se entra nela com a conta gov.br. Se você tem a carteira de papel antiga, **guarde**. Ela prova os empregos de antes e pode ser importante na hora de pedir aposentadoria.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O contracheque é coisa do RH. Trabalhador não precisa ler isso: confia no patrão e pronto." É a confiança de quem não quer problema no serviço.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não duvida de ninguém: ensina a ler o contracheque e achar o que entra e o que sai, e a entender o que fica registrado na carteira de trabalho. Quem lê o seu papel não precisa discutir com ninguém: só confere. Palavras como SALÁRIO, FÉRIAS, FOLGA, HORA EXTRA e DÉCIMO TERCEIRO são do vocabulário de todo trabalhador, e a aula as ensina junto com os pedaços (ÃO, CH, LH, NH, RR) que aparecem em quase todas.
+```
+
 ## Exemplo resolvido
 
 **Como ler uma palavra nova do trabalho: MARMITA?**
@@ -209,6 +223,11 @@ Tem CH: CHEFE, CHAVE, FICHA
 5. Se tiver um contracheque em casa, ache as palavras PROVENTOS, DESCONTOS e LÍQUIDO.
 
 **Respostas do item 3:** PATRÃO (ÃO), CHEFE (CH), TRABALHO (LH), GANHO (NH), FERRO (RR).
+
+```agir
+# Esta semana
+Se tiver um contracheque (seu ou de alguém de confiança que deixe), leia as palavras SALÁRIO e DESCONTOS e escreva num papel o que entra e o que sai. Se não tiver, escreva cinco palavras do seu trabalho e leia em voz alta.
+```
 
 ## Resumo
 

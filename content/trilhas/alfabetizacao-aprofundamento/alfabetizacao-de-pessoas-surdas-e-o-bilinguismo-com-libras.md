@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização de pessoas surdas e o bilinguismo com Libras"
+modelo: 9
 resumo: "Por que a pessoa surda aprende o português escrito como segunda língua, a partir da Libras; o que diz a lei sobre a educação bilíngue; e o que muda no jeito de ensinar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Ao fim desta aula você vai entender por que a pessoa surda aprende o português
 
 ```provocacao
 Imagine aprender a ler numa língua que você nunca ouviu, como o russo, sem ninguém que fale a sua língua por perto. Por onde você começaria?
+```
+
+```suarealidade
+Você conhece ou já encontrou no trabalho ou no bairro alguém que usa Libras? Como vocês se comunicaram, e quem precisou se esforçar mais?
 ```
 
 ## A Libras é uma língua
@@ -103,6 +108,20 @@ Confira: o caminho foi visual e pelo sentido, a Libras foi a base, e a coordenad
 
 ```realidade
 Procure saber se há uma associação de surdos ou um curso de Libras na sua cidade. Anote o contato.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A pessoa surda deveria aprender a falar e a ler os lábios, como todo mundo. Ensinar em Libras isola o surdo da sociedade." É uma opinião de quem teme que a pessoa fique fechada num grupo pequeno.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula lembra que a Libras é uma língua completa, reconhecida pela Lei nº 10.436/2002, e que desde a Lei nº 14.191/2021 a educação bilíngue de surdos faz parte da LDB: Libras como primeira língua e português escrito como segunda. Ou seja, a pessoa surda aprende o português, só que pelos olhos, na escrita. Longe de isolar, a Libras é o caminho para chegar ao português escrito.
+```
+
+```agir
+# Esta semana
+Procure, num site de uma associação ou do poder público, o alfabeto manual de Libras e aprenda a soletrar o seu primeiro nome com as mãos. Treine em casa por alguns minutos; se um dia encontrar uma pessoa surda, você já terá um primeiro gesto de respeito.
 ```
 
 ## Resumo

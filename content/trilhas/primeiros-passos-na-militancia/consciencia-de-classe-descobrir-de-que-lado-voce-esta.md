@@ -1,5 +1,6 @@
 ---
 titulo: "Consciência de classe: descobrir de que lado você está"
+modelo: 9
 resumo: "O que são classes sociais, por que a renda não basta para entendê-las e como uma pessoa passa a se ver como parte de uma classe com interesses comuns."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,10 +33,10 @@ quiz:
     opcoes: ["Uma classe que já se reconhece como tal e age junta pelos seus interesses", "Uma classe que só pensa em si e não trabalha", "Os donos das empresas"]
     resposta: 0
     explicacao: "Em A miséria da filosofia, Marx distingue a classe que existe na situação comum da classe que se organiza e luta."
-  - pergunta: "Um motorista de aplicativo que usa o próprio carro é patrão de si mesmo?"
-    opcoes: ["Na prática, não: ele não controla preço, regras nem clientes, e vive do próprio trabalho", "Sim, porque tem um carro", "Sim, porque não tem carteira assinada"]
+  - pergunta: "Pela leitura marxista desta aula, um motorista de aplicativo que usa o próprio carro é patrão de si mesmo?"
+    opcoes: ["Não: ele vive do próprio trabalho e, segundo essa leitura, quem define preço e regras é a plataforma", "Sim, porque tem um carro", "Sim, porque não tem carteira assinada"]
     resposta: 0
-    explicacao: "Ter uma ferramenta não faz alguém dono dos meios de produção; quem define as regras e fica com o lucro é a plataforma."
+    explicacao: "Ter uma ferramenta não faz alguém dono dos meios de produção. A lei e a Justiça tratam o tema de formas diferentes e o debate continua; aqui a pergunta é só sobre a leitura marxista."
 ---
 
 ```provocacao
@@ -48,6 +49,10 @@ Ao fim desta aula você vai saber explicar o que é classe social para Marx (lug
 
 
 "Classe social" costuma aparecer como faixa de renda: classe A, B, C, D, E. Essa divisão serve para pesquisa de mercado, mas esconde a pergunta mais importante: **de onde vem o dinheiro de cada um, e quem manda em quem?**
+
+```suarealidade
+Pense nas pessoas do seu trabalho ou do seu bairro: elas vivem do próprio trabalho ou do trabalho de outros? Você se reconhece mais perto de quem?
+```
 
 ## Classe é lugar na produção
 
@@ -104,6 +109,15 @@ Uma pergunta simples ajuda: **você vive do próprio trabalho ou do trabalho dos
 - Que experiência comum do seu bairro ou trabalho poderia juntar as pessoas?
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hoje todo mundo é classe média, ou pode virar patrão. Falar de classes é fabricar conflito onde não existe. Quem trabalha duro e tem mérito sobe na vida." É a opinião de quem subiu por esforço e acredita que o caminho está aberto.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que o esforço conte nem que alguém possa subir. Ela explica que, para Marx, classe não é faixa de renda: é o lugar na produção, dono dos meios de produção ou quem precisa vender a sua força de trabalho. Por isso a renda engana: um professor bem pago e uma diarista mal paga ganham muito diferente, mas os dois vivem do próprio trabalho. A aula também lista o que atrapalha a consciência de classe, e uma dessas barreiras é justamente a esperança de subir sozinho. É uma forma de ler a sociedade, e você pode discuti-la com calma.
+```
+
 ## Exemplo resolvido: de que lado está cada um?
 
 Pergunta da aula: a dona de uma padaria com três funcionários e um entregador de aplicativo ganham parecido no fim do mês. Estão na mesma classe?
@@ -114,6 +128,11 @@ Pergunta da aula: a dona de uma padaria com três funcionários e um entregador 
 4. Conclusão: a renda é parecida, mas o lugar na produção é diferente.
 
 Confira: por isso a aula diz que a renda engana. Um professor bem pago e uma diarista mal paga ganham muito diferente, mas os dois vivem do próprio trabalho.
+
+```agir
+# Esta semana
+Escreva num papel a pergunta "Eu vivo do meu trabalho ou do trabalho dos outros?" e a sua resposta. Depois, converse com alguém de casa sobre a diferença entre ganhar pouco e ser dono de alguma coisa.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Movimento e velocidade média"
+modelo: 9
 resumo: "O que significa estar em movimento, como calcular a velocidade média e como passar de km/h para m/s."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -24,6 +25,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é velocidade média, calcular a distância, o tempo ou a velocidade de uma viagem e converter km/h em m/s.
+
+```suarealidade
+No seu caminho de casa para o trabalho, quantos quilômetros você anda e quanto tempo leva? Mais ou menos, qual é a sua velocidade média?
+```
 
 
 ## Parado ou em movimento?
@@ -103,6 +108,20 @@ Atenção: "média" não quer dizer que o ônibus andou sempre a 60 km/h; ele pa
 1. Você caminha 3 km em 40 minutos. Qual é a sua velocidade média em km/h? (Atenção: transforme os minutos em hora.)
 2. Um trem viaja a 90 km/h. Que distância percorre em 20 minutos?
 3. A luz do Sol leva cerca de 500 segundos para chegar à Terra. A que distância está o Sol, aproximadamente?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dois segundinhos olhando o celular no volante não são nada. Eu dirijo bem e nunca aconteceu nada comigo."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula faz a conta: um carro a 72 km/h anda 20 metros a cada segundo. Uma distração de dois segundos para olhar o celular significa 40 metros percorridos às cegas. Dirigir bem não muda a conta, e nunca ter acontecido nada até hoje não diz que não vai acontecer.
+```
+
+```agir
+# Esta semana
+Anote a distância e o tempo do trajeto que você mais faz e calcule a sua velocidade média em km/h. Depois passe o resultado para metros por segundo, dividindo por 3,6.
+```
 
 ## Resumo
 

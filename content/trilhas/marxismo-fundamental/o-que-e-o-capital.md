@@ -1,5 +1,6 @@
 ---
 titulo: "O que é o capital"
+modelo: 9
 resumo: "Capital não é qualquer dinheiro: é dinheiro usado para comprar trabalho e voltar maior."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber distinguir dinheiro usado para consumir de dinheiro usado como capital e explicar as fórmulas M–D–M e D–M–D'.
 
 "Precisamos atrair capital." "Faltou capital para abrir a empresa." A palavra **capital** aparece o tempo todo. Mas o que ela quer dizer exatamente? Para Marx, a resposta é a chave para entender o nosso tempo, e é por isso que o seu livro mais famoso se chama *O Capital*.
+
+```suarealidade
+Na sua vida, você tem dinheiro que serve para consumir (a geladeira, o mercado) ou algum que serve para crescer (um negócio, uma ferramenta de trabalho)? Qual a diferença entre os dois?
+```
 
 ## Nem todo dinheiro é capital
 
@@ -83,6 +88,20 @@ Uma vez em movimento, o capital parece ter vida própria. O patrão que não rei
 ## Para conversar
 
 No seu bairro, quais negócios funcionam como capital (contratam gente e vivem do lucro) e quais são trabalho por conta própria (a pessoa vive do próprio trabalho)? Qual é a diferença na vida de quem trabalha em cada um?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Capital é só dinheiro bem usado. Quem poupa e investe merece o que ganha, e isso é bom para todo mundo, porque gera emprego." É a visão de quem acredita no valor do investimento.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que o investimento cria negócios: o exemplo é Seu Roberto, que compra farinha, aluga um forno e contrata padeiros. O que ela mostra, com Marx, é a diferença entre o dinheiro usado para consumir (M–D–M) e o dinheiro usado como capital (D–M–D'), que precisa voltar maior. E pergunta de onde vem o D' maior: segundo Marx, do trabalho dos padeiros, que produzem mais valor do que recebem de salário. É a tese central do autor, e a aula pede que a pessoa pense nela, sem decorar.
+```
+
+```agir
+# Esta semana
+Escreva num papel dois exemplos da sua vida: um de dinheiro usado para consumir e outro de dinheiro usado como capital. Se não tiver o segundo, escreva um que você conheça de alguém do bairro.
+```
 
 ## Resumo
 

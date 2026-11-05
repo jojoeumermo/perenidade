@@ -1,0 +1,67 @@
+# Exercícios da aula "Condições" (Lógica de programação). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lp-con-01
+  tema: "if e else"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que o programa mostra?\n\nnota = 5\nif nota >= 6:\n    print(\"Aprovado\")\nelse:\n    print(\"Reprovado\")"
+  alternativas:
+    - texto: "Reprovado"
+      certa: true
+    - texto: "Aprovado"
+      erro: "5 não é maior ou igual a 6. A condição é falsa e o programa vai para o else."
+    - texto: "Aprovado e Reprovado"
+      erro: "Só um dos blocos é executado, nunca os dois."
+  explicacao: "Lê-se: se a nota for maior ou igual a 6, mostre Aprovado; senão, mostre Reprovado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-con-02
+  tema: "Comparar valores"
+  dificuldade: 1
+  enunciado: "Qual operador pergunta se dois valores são iguais?"
+  alternativas:
+    - texto: "=="
+      certa: true
+    - texto: "="
+      erro: "O = guarda um valor numa variável. Para perguntar se são iguais, usa-se ==."
+    - texto: "!="
+      erro: "!= pergunta se são diferentes."
+  explicacao: "== é igual a; != é diferente de; > maior que; < menor que; >= maior ou igual; <= menor ou igual."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-con-03
+  tema: "and exige as duas"
+  dificuldade: 2
+  enunciado: "O que o programa mostra?\n\nidade = 17\ntem_carteira = True\nprint(idade >= 18 and tem_carteira)"
+  alternativas:
+    - texto: "False"
+      certa: true
+    - texto: "True"
+      erro: "Com and, as duas condições precisam ser verdadeiras. Aqui 17 >= 18 é falso."
+    - texto: "17"
+      erro: "print mostra o resultado da condição, que é True ou False."
+  explicacao: "and só dá True quando as duas condições são verdadeiras. or dá True se pelo menos uma for."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-con-04
+  tema: "elif"
+  dificuldade: 2
+  enunciado: "O que o programa mostra?\n\nnota = 8\nif nota >= 9:\n    print(\"A\")\nelif nota >= 7:\n    print(\"B\")\nelse:\n    print(\"C\")"
+  alternativas:
+    - texto: "B"
+      certa: true
+    - texto: "A"
+      erro: "8 não é maior ou igual a 9, então o primeiro if é falso."
+    - texto: "C"
+      erro: "O elif nota >= 7 é verdadeiro para 8, então o else não é executado."
+  explicacao: "O programa testa na ordem e executa só o primeiro bloco cuja condição é verdadeira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

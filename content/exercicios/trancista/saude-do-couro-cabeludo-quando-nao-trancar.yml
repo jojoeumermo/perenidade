@@ -1,0 +1,50 @@
+# Exercícios da aula "Saúde do couro cabeludo: quando não trançar" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-saude-do-couro-cabeludo-quando-nao-tranc-01
+  tema: "Alopecia de tração"
+  dificuldade: 1
+  enunciado: "O que é a alopecia de tração, segundo a aula?"
+  alternativas:
+    - texto: "A queda de cabelo causada por puxar o fio com força durante muito tempo"
+      certa: true
+    - texto: "Uma micose"
+      erro: "Micose é outro problema."
+    - texto: "Uma alergia a fibra"
+      erro: "Não é isso."
+  explicacao: "O risco é maior quando o cabelo foi alisado com química, que enfraquece o fio."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde do couro cabeludo: quando não trançar\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-saude-do-couro-cabeludo-quando-nao-tranc-02
+  tema: "Sinais"
+  dificuldade: 2
+  enunciado: "Qual é um sinal de alopecia de tração, segundo a aula?"
+  alternativas:
+    - texto: "A linha do cabelo recua, principalmente nas têmporas e laterais, e fica uma franjinha de fios finos na beira da testa"
+      certa: true
+    - texto: "O cabelo cresce mais rápido"
+      erro: "Não é sinal."
+    - texto: "O cabelo muda de cor"
+      erro: "Não é sinal."
+  explicacao: "O tratamento começa por parar a tração."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde do couro cabeludo: quando não trançar\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-saude-do-couro-cabeludo-quando-nao-tranc-03
+  tema: "Olhar antes"
+  dificuldade: 1
+  enunciado: "O que fazer antes de dividir o cabelo?"
+  alternativas:
+    - texto: "Olhar o couro cabeludo inteiro com boa luz e perguntar sobre dor, coceira, falhas e química recente"
+      certa: true
+    - texto: "Trançar logo para ganhar tempo"
+      erro: "A aula manda olhar primeiro."
+    - texto: "Aplicar fibra sem conversar"
+      erro: "A aula manda perguntar."
+  explicacao: "Se houver sinal de problema, a aula manda não seguir e encaminhar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saúde do couro cabeludo: quando não trançar\""
+  revisao:
+    status: em-revisao

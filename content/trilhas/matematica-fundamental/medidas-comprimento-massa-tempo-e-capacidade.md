@@ -1,5 +1,6 @@
 ---
 titulo: "Medidas: comprimento, massa, tempo e capacidade"
+modelo: 9
 resumo: "Metro, quilo, litro e hora: de onde vêm as unidades, como converter uma na outra e por que o tempo não se conta de dez em dez."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber usar os prefixos quilo, centi e mili para converter medidas e fazer contas com horas e minutos.
+
+```suarealidade
+Que medidas você usa no trabalho ou em casa: metros, quilos, litros, horas? Já teve dúvida ao converter, por exemplo, de gramas para quilos ou de minutos para horas?
+```
 
 ## Medir é comparar
 
@@ -117,6 +122,15 @@ Para converter:
 
 Essa conta importa no contracheque. Se a hora de trabalho vale R$ 12 e você fez 2 h 45 min a mais, o valor é 2,75 × 12 = R$ 33, e não 2,45 × 12. A Constituição limita a jornada normal a 8 horas por dia e 40 por semana (limite fixado pela Emenda Constitucional nº 141, de 2026); o que passa disso é hora extra. Anotar os seus horários, em horas e minutos, é o primeiro passo para conferir se o pagamento veio certo.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O sistema métrico é coisa de governo. O povo sempre mediu no palmo, no litro e na lata, e funciona do mesmo jeito." É a memória de quem trabalha com unidades do próprio ofício.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra por que um padrão único importa: as unidades antigas (o palmo, o pé, a braça, a légua) mudavam de uma vila para a outra, e quem controlava o padrão, como o comerciante ou o cobrador de impostos, levava vantagem. Ela também conta, sem esconder, que a adoção do sistema métrico no Brasil, por uma lei de 1862, causou a revolta do Quebra-Quilos, entre 1874 e 1875, de gente pobre do interior que destruiu os novos pesos e medidas, que chegaram junto com mais impostos. Ou seja, a resistência tinha razões, e um padrão comum protege quem compra e quem vende.
+```
+
 ## Exemplo resolvido
 
 **Converta 135 minutos em horas e minutos, e escreva 3 h 15 min em horas com vírgula.**
@@ -137,6 +151,11 @@ Confira: 3,25 h não é "3 horas e 25 minutos". Na vírgula, a parte decimal da 
 6. Uma torneira pingando desperdiça 2 litros por hora. Quantos litros em 30 dias? E quantos metros cúbicos?
 
 **Respostas:** 1) 0,75 kg e 2.500 mL. 2) 175 cm e 4,5 km. 3) 2 h 15 min. 4) 3,25 h. 5) 70 sacos. 6) 1.440 litros, ou 1,44 m³.
+
+```agir
+# Esta semana
+Escolha três coisas da sua casa e meça com uma fita ou uma régua (comprimento) ou com uma balança (massa), anotando a medida em duas unidades, como centímetros e metros. Confira a conversão no papel.
+```
 
 ## Resumo
 

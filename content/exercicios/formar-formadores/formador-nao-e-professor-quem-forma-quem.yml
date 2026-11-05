@@ -1,0 +1,51 @@
+# Exercícios da aula "Formador não é professor: quem forma quem" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-for-01
+  tema: "O formador"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Na educação popular, o que faz o formador?"
+  alternativas:
+    - texto: "Organiza a conversa para que o grupo pense junto: prepara, pergunta e junta o que cada um disse"
+      certa: true
+    - texto: "Fica na frente falando enquanto os outros anotam"
+      erro: "Isso é a imagem do professor que deposita conhecimento."
+    - texto: "Fica calado o tempo todo"
+      erro: "O formador prepara e conduz. Só não é o dono do saber."
+  explicacao: "Paulo Freire escreveu que ensinar não é transferir conhecimento, e sim criar as possibilidades para que ele seja produzido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-for-02
+  tema: "Pouco estudo"
+  dificuldade: 2
+  enunciado: "Alguém se acha 'sem estudo' para formar os outros. O que diz Gramsci, segundo a aula?"
+  alternativas:
+    - texto: "Que todos os homens são intelectuais, porque todos pensam e interpretam o mundo"
+      certa: true
+    - texto: "Que só quem fez faculdade pode formar"
+      erro: "Gramsci disse o contrário: todos pensam e interpretam o mundo."
+    - texto: "Que a formação é só para dirigentes"
+      erro: "Ele defendia que o pensar é de todos, embora a função de intelectual nem sempre seja reconhecida."
+  explicacao: "Todos pensam; a organização organiza esse pensamento. Por isso formar é tarefa de todos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-for-03
+  tema: "Três atitudes"
+  dificuldade: 2
+  enunciado: "Qual destas é uma das três atitudes do formador?"
+  alternativas:
+    - texto: "Ouvir primeiro: descobrir o que o grupo já sabe antes de explicar"
+      certa: true
+    - texto: "Explicar tudo logo no começo"
+      erro: "Antes de explicar, é preciso ouvir."
+    - texto: "Responder mais do que perguntar"
+      erro: "Uma boa pergunta faz mais gente pensar do que uma resposta pronta."
+  explicacao: "Ouvir primeiro, perguntar mais do que responder e devolver ao grupo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

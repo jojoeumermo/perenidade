@@ -1,5 +1,6 @@
 ---
 titulo: "Porcentagem"
+modelo: 9
 resumo: "Calcular descontos, aumentos e a parte de um total, sem decorar fórmula."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -25,6 +26,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber calcular porcentagens de um valor, descontos e aumentos e dizer que porcentagem uma parte representa.
+
+```suarealidade
+Quando você vê "30% de desconto" ou um aumento de 10% no aluguel, como você confere o valor? Você faz de cabeça, na calculadora ou confia no que está escrito?
+```
 
 ## Por cento quer dizer "a cada cem"
 
@@ -98,6 +103,15 @@ Não. Com o aumento, vai a R$ 110. A queda de 10% é calculada sobre os R$ 110, 
 
 Uma porcentagem é sempre calculada sobre algum valor. Quando esse valor muda, o mesmo percentual passa a representar outra quantia. Vale lembrar disso ao ler notícias sobre preços, salários e inflação.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Porcentagem é conta de banco e de loja. Quem desconfia demais perde tempo, é melhor confiar." É a opinião de quem não quer se estressar com cada compra.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que conferir leva poucos minutos: 10% de um valor é a décima parte, 25% é um quarto, 50% é a metade. Ensina a calcular descontos e aumentos e tem uma seção sobre uma armadilha comum. A confiança é boa, mas conferir é um direito de quem paga.
+```
+
 ## Exemplo resolvido
 
 **Uma conta de R$ 90 terá 10% de taxa de serviço. Qual é o total?**
@@ -115,6 +129,11 @@ Confira: o total é R$ 99. O atalho dos 10% serve para montar outras porcentagen
 3. Em uma turma de 25 alunos, 5 faltaram. Qual foi a porcentagem de faltas?
 
 Respostas: 21; R$ 99; 20%.
+
+```agir
+# Esta semana
+Na próxima compra com desconto ou aumento, confira a conta de cabeça usando o atalho dos 10% e escreva no papel quanto deveria ser. Compare com o valor cobrado.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "África antiga: Kush, Axum e Mali"
+modelo: 9
 resumo: "Objetivo: conhecer três grandes Estados africanos e desfazer a ideia de que a África não tinha história antes da chegada dos europeus."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber nomear três grandes reinos africanos (Kush, Axum e Mali), dizer em que se apoiava a força de cada um e explicar por que conhecer essa história importa para o Brasil.
+
+```suarealidade
+O que você aprendeu na escola sobre a África? O que faltou? E quem, na sua família ou na sua comunidade, guarda a memória do lugar?
+```
 
 
 ## Um continente com história
@@ -113,6 +118,20 @@ Compare com a imagem de um continente "sem história", que a aula mostra ter sid
 1. O que você aprendeu sobre a África na escola? O que faltou?
 2. Por que a história de um povo é apagada quando se quer dominá-lo?
 3. Pesquise sobre os griôs. Existe alguém na sua comunidade que guarda a memória do lugar?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A África antiga não teve civilização como o Egito, a Grécia e Roma. O que se sabe de lá começa com os europeus."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que essa imagem de um continente "sem história" foi construída na época do tráfico de escravizados e da colonização, e servia a um propósito. A arqueologia e os documentos mostram o contrário: o reino de Kush conquistou o Egito no século VIII a.C.; Axum cunhava moedas próprias de ouro, prata e bronze e comerciava com o Egito romano, a Arábia e a Índia; no Mali, a cidade de Tombuctu tinha escolas e bibliotecas. Por isso, desde 2003, uma lei federal torna obrigatório o ensino de história e cultura afro-brasileira e africana nas escolas.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha da sua comunidade se ela guarda histórias do lugar, como fazem os griôs, e peça que conte uma. Anote o que ouviu.
+```
 
 ## Resumo
 

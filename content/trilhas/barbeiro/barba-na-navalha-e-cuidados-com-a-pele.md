@@ -1,5 +1,6 @@
 ---
 titulo: "Barba na navalha e cuidados com a pele"
+modelo: 9
 resumo: "Como preparar a pele, fazer a barba na navalha com lâmina nova para cada cliente, a diferença entre irritação, foliculite infecciosa e pelo encravado, os cuidados depois e quando não passar a navalha."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ O cliente adora sair "lisinho". Duas semanas depois, volta com o pescoço cheio 
 ## O que você vai aprender
 
 Ao fim desta aula você vai preparar a pele, fazer a barba na navalha com segurança e com lâmina nova para cada cliente, distinguir irritação, foliculite e pseudofoliculite, orientar os cuidados depois e reconhecer quando não passar a navalha.
+
+```suarealidade
+O cliente adora sair "lisinho", mas duas semanas depois volta com o pescoço cheio de bolinhas. Quem avisou a ele do risco? O que você faria no lugar do barbeiro?
+```
 
 ## A navalha e a saúde
 
@@ -112,6 +117,20 @@ Qual é a ordem correta para fazer uma barba na navalha?
 4. **Depois**: pedra-ume e loção pós-barba.
 5. **Lâmina nova**, aberta na frente dele, e descarte na caixa de perfurocortantes.
 6. **Orientação**: se as bolinhas inflamarem, tiverem pus ou não melhorarem, procurar a UBS.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Trocar a lâmina a cada cliente é desperdício e encarece o serviço. Se a lâmina é boa e eu limpo com álcool, serve para vários." É um argumento de quem calcula o custo do dia.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula traz uma regra clara: lâmina nova para cada cliente, descartada na caixa de perfurocortantes, porque o Ministério da Saúde lista o compartilhamento de lâminas de barbear entre as formas de transmissão das hepatites C e B. O custo de uma lâmina é pequeno perto do risco para o cliente e para o barbeiro. A aula também ensina a não passar a navalha quando há lesão na pele.
+```
+
+```agir
+# Esta semana
+Faça uma lista, num papel, do que precisa estar à mão antes de começar uma barba na navalha (lâmina nova, caixa de perfurocortantes, toalha, espuma, antisséptico) e marque o que falta no seu ambiente de trabalho.
+```
 
 ## Resumo
 

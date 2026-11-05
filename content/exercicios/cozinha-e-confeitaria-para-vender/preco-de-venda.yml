@@ -1,0 +1,93 @@
+# Exercícios da aula "Preço de venda" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Os valores em reais são só para treinar a conta.
+
+- id: coz-preco-01
+  tema: "As partes do preço"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que o preço de venda precisa pagar, segundo a aula?"
+  alternativas:
+    - texto: "O custo direto, as despesas gerais do mês, o seu trabalho e uma sobra (margem)"
+      certa: true
+    - texto: "Só o custo dos ingredientes"
+      erro: "Se o trabalho, as despesas gerais e a sobra ficam fora, o dinheiro da venda não fecha a conta, e o prejuízo vai para o seu bolso sem aparecer."
+    - texto: "O mesmo preço do vizinho, sem fazer conta"
+      erro: "Comparar com o mercado ajuda, mas copiar sem conta pode levar ao prejuízo. Faça primeiro a sua conta."
+  explicacao: "Despesas gerais: guia do MEI (se formalizada), internet, divulgação, entrega, taxa da maquininha ou do aplicativo, reposição de panela e forma. A margem é para o imprevisto, para crescer e para o mês fraco."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço de venda\""
+  revisao:
+    status: em-revisao
+
+- id: coz-preco-02
+  tipo: numero
+  tema: "Despesas gerais por unidade"
+  dificuldade: 2
+  enunciado: "As despesas gerais do mês são R$ 120, e num mês normal se vendem 1.200 unidades. Quantos reais de despesa geral entram em cada unidade?"
+  resposta: "0,10"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "10"
+      explicacao: "Você dividiu 1.200 por 120. Para o valor por unidade, divida a despesa pelo número de unidades: 120 ÷ 1.200."
+    - resposta: "1"
+      explicacao: "Você deve ter dividido 120 por 120. Divida os R$ 120 pelas 1.200 unidades: 0,10."
+  dica: "Divida a despesa do mês pelas unidades vendidas no mês."
+  explicacao: "120 ÷ 1.200 = R$ 0,10 por unidade."
+  conferir: "120 / 1200"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço de venda\""
+  revisao:
+    status: em-revisao
+
+- id: coz-preco-03
+  tipo: numero
+  tema: "O custo do seu trabalho"
+  dificuldade: 2
+  enunciado: "Dona Maria quer ganhar R$ 15,00 por hora. Fazer 50 brigadeiros leva 1 hora e 30 minutos. Quantos reais de trabalho entram em cada brigadeiro?"
+  resposta: "0,45"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "22,5"
+      explicacao: "R$ 22,50 é o valor do trabalho da receita inteira (15,00 × 1,5). Divida pelo rendimento, 50 unidades: 22,50 ÷ 50."
+    - resposta: "0,3"
+      explicacao: "Você deve ter dividido 15 por 50. Falta multiplicar pelo tempo da receita: 15 × 1,5 = 22,50, e só depois dividir por 50."
+  dica: "Valor da hora vezes o tempo, dividido pelo rendimento."
+  explicacao: "15,00 × 1,5 = R$ 22,50 pela receita, e 22,50 ÷ 50 = R$ 0,45 por brigadeiro."
+  conferir: "15 * 1.5 / 50"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Preço de venda\""
+  revisao:
+    status: em-revisao
+
+- id: coz-preco-04
+  tipo: numero
+  tema: "Preço com margem"
+  dificuldade: 3
+  enunciado: "O custo total por unidade ficou em R$ 2,40 e você quer 20% de margem sobre o preço. Qual é o preço de venda, em reais? (preço = custo ÷ (1 − margem))"
+  resposta: "3"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "2,88"
+      explicacao: "Você multiplicou por 1,20. A margem de 20% é sobre o preço, e não sobre o custo: divida por 0,80."
+    - resposta: "2,4"
+      explicacao: "R$ 2,40 é o custo. O preço precisa cobrir o custo e a sobra: 2,40 ÷ 0,80."
+  dica: "Divida o custo por 0,80."
+  explicacao: "2,40 ÷ 0,80 = R$ 3,00. Conferindo: 20% de 3,00 é R$ 0,60, e 3,00 − 0,60 = R$ 2,40, o custo. Se o preço calculado ficar muito acima do bairro, olhe o custo, o tamanho da porção e o que você oferece de diferente, em vez de baixar na marra."
+  conferir: "2.40 / 0.80"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço de venda\""
+  revisao:
+    status: em-revisao
+
+- id: coz-preco-05
+  tema: "Vender abaixo do custo"
+  dificuldade: 3
+  enunciado: "O custo total do brigadeiro da Dona Maria é de R$ 1,11 por unidade. O que acontece se ela vender a R$ 1,00?"
+  alternativas:
+    - texto: "Vende no prejuízo: trabalha de graça e ainda paga para vender"
+      certa: true
+    - texto: "Vende bem, porque o preço baixo atrai clientes"
+      erro: "Com custo de R$ 1,11, vender a R$ 1,00 dá prejuízo em cada unidade, não importa quantas venda."
+    - texto: "Nada, porque o trabalho dela não conta no custo"
+      erro: "O trabalho conta: as horas fazendo, comprando, limpando e atendendo. Se ficarem fora da conta, o prejuízo vai para o seu bolso sem aparecer."
+  explicacao: "Custo total: R$ 0,56 (custo direto) + R$ 0,10 (despesas gerais) + R$ 0,45 (trabalho) = R$ 1,11. Com 20% de margem, 1,11 ÷ 0,80 ≈ R$ 1,39, e ela arredondou para R$ 1,50. No bairro o brigadeiro vai de R$ 1,50 a R$ 2,50, então o preço cabe."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Preço de venda\""
+  revisao:
+    status: em-revisao

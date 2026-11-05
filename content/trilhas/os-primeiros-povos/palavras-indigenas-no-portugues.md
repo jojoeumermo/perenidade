@@ -1,5 +1,6 @@
 ---
 titulo: "Palavras indígenas no português"
+modelo: 9
 resumo: "Capivara, mutirão, pipoca, pindaíba, Sergipe, Jacareí: o português do Brasil está cheio de palavras do tupi. De onde elas vêm e o que significavam."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Você já ficou na pindaíba? Já ajudou num mutirão? Já comeu pipoca vendo um
 
 Ao fim desta aula você vai reconhecer palavras de origem tupi no português e conhecer o significado original de algumas delas.
 
+```suarealidade
+Procure a sua cidade, o seu bairro ou um rio perto de você: o nome é de origem indígena? Você sabe o que ele quer dizer?
+```
+
 ## O tupi no português
 
 Entre as línguas indígenas, o **tupi** foi a que **mais deixou palavras** no português do Brasil. Os **tupinismos** são especialmente numerosos em nomes de **animais e plantas**, de **lugares** e no **folclore**.
@@ -76,6 +81,15 @@ Em tupi, "y" quer dizer "rio". O que deve significar "Tatuí"?
 > Junte "tatu" com "y" (rio).
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O português é a nossa língua, vinda de Portugal. Essas palavras indígenas são só curiosidade de livro, e quem quer falar bem usa a língua culta." É a opinião de quem estuda a norma-padrão e vê o português como herança europeia.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não discute a norma-padrão. Mostra que o tupi é a língua indígena que mais deixou palavras no português do Brasil, especialmente em nomes de animais e plantas, de lugares e no folclore. Palavras do dia a dia vêm dele: capivara quer dizer "comedor de capim" e mutirão, "trabalhar em conjunto", e pindaíba, arapuca e pipoca também aparecem. Cidades como Jacareí e Tatuí levam o "y" de rio. Quem fala português já fala um pouco de tupi, sem perceber.
+```
+
 ## Exemplo resolvido
 
 **Descubra o sentido de "Jacareí" a partir das partes.**
@@ -83,6 +97,11 @@ Em tupi, "y" quer dizer "rio". O que deve significar "Tatuí"?
 1. **jacaré**: o animal.
 2. **y**: rio.
 3. **Jacareí**: **"rio dos jacarés"**.
+
+```agir
+# Esta semana
+Faça uma lista de dez palavras de origem tupi que você usa no dia a dia e escreva num papel o que elas querem dizer. Pergunte a alguém mais velho se conhece o significado do nome de um rio ou lugar da região.
+```
 
 ## Resumo
 

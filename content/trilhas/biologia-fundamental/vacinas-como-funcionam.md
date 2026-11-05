@@ -1,5 +1,6 @@
 ---
 titulo: "Vacinas: como funcionam"
+modelo: 9
 resumo: "Objetivo: entender como o corpo se defende, como a vacina treina essa defesa sem causar a doença e por que vacinar é também proteger os outros."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber como o corpo se defende, o que são antígenos e anticorpos, o que a vacina faz, por que vacinar protege também os outros e alguns marcos da história da vacinação no Brasil.
+
+```suarealidade
+Você ou alguém da sua família tem a caderneta de vacinação em dia? Já ficou com receio de alguma vacina? De onde veio a informação que você ouviu?
+```
 
 ## As defesas do corpo
 
@@ -122,6 +127,20 @@ As vacinas do calendário nacional são **gratuitas** nas unidades do [SUS](/tri
 4. **A vacina.** Apresenta o antígeno **sem o risco da doença**. O corpo produz anticorpos e guarda a memória, como num treino.
 
 Confira: dor no braço, febre baixa e cansaço são reações comuns e passageiras, sinal de que a defesa está respondendo.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Vacina é coisa nova demais, e cada um deve decidir o que põe no próprio corpo. Já teve gente que passou mal depois de tomar." É uma preocupação de quem ouviu relatos de reação.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que as reações existem: as graves são raras e são registradas e investigadas. A vacina treina a defesa do corpo apresentando o antígeno sem o risco da doença, e as de RNA mensageiro não alteram o DNA. Também mostra a proteção coletiva: vacinar-se protege quem não pode se vacinar. As vacinas do calendário são gratuitas no SUS, e marcos como a varíola erradicada (1980) e a poliomielite eliminada no Brasil (certificado de 1994) mostram o que a vacinação já fez.
+```
+
+```agir
+# Esta semana
+Procure a caderneta de vacinação sua e de quem mora com você e anote num papel quais vacinas estão em dia e quais não. Se alguma estiver atrasada, descubra o horário da unidade de saúde mais próxima.
+```
 
 ## Resumo
 

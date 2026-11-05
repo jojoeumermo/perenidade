@@ -1,5 +1,6 @@
 ---
 titulo: "Ferramentas e equipamentos de proteção do eletricista"
+modelo: 9
 resumo: "A caixa de ferramentas básica, o que é EPI e EPC, o Certificado de Aprovação e os direitos e deveres de quem trabalha e de quem contrata, segundo as normas regulamentadoras."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Se o eletricista desligou o disjuntor, por que ele ainda precisa de luva, óculo
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer as ferramentas básicas do eletricista, saber a diferença entre proteção coletiva e individual, o que é o Certificado de Aprovação e quais são os deveres da empresa e do trabalhador quanto ao EPI.
+
+```suarealidade
+Se você trabalha, já trabalhou ou conhece alguém que trabalha com obra, manutenção ou eletricidade: quem paga as luvas, os óculos e as ferramentas? Esses equipamentos têm número de CA gravado?
+```
 
 ## A caixa de ferramentas básica
 
@@ -109,6 +114,20 @@ Um eletricista vai trocar um disjuntor. Qual destas medidas é proteção coleti
 2. Sem CA, não há garantia de que a luva isola a tensão do serviço.
 3. O ajudante deve comunicar o problema ao responsável e não fazer o serviço energizado com essa luva.
 4. A empresa deve trocar a luva por uma com CA, sem cobrar nada.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que EPI é frescura e atrasa o serviço: quem é bom no ofício sabe o que faz, desligou o disjuntor, e luva e óculos só atrapalham.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: ter prática é valioso, mas a norma não depende de sorte. Pela NR-10, a proteção coletiva vem primeiro, e a principal é a desenergização; o EPI entra quando a coletiva é inviável ou insuficiente. E desligar o disjuntor não basta: é preciso testar a ausência de tensão, e ferramenta isolada não autoriza trabalhar com o circuito ligado, é só uma camada a mais. Os óculos e o protetor facial existem por causa das faíscas e do clarão de um curto. Para quem tem vínculo de emprego, a NR-6 manda a empresa fornecer o EPI de graça.
+```
+
+```agir
+# Esta semana
+Faça no papel uma lista das suas ferramentas e dos seus equipamentos de proteção (luva, óculos, calçado) e confira se cada EPI traz o número do CA gravado. Anote o que falta: se você trabalha por conta própria, inclua no preço do serviço; se tem patrão, leve a dúvida primeiro a uma conversa com colegas de confiança, sem se expor sozinho.
+```
 
 ## Resumo
 

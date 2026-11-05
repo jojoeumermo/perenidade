@@ -1,5 +1,6 @@
 ---
 titulo: "Frevo, maracatu e cavalo-marinho"
+modelo: 9
 resumo: "Três tradições de Pernambuco: o frevo, que nasceu da capoeira e virou patrimônio da humanidade; o maracatu, com registros desde 1711; e o cavalo-marinho, um auto com dezenas de personagens que pode durar a noite inteira."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Nos carnavais do Recife, o cabo de um guarda-chuva velho, na mão de um capoeiri
 
 Ao fim desta aula você vai conhecer o frevo, o maracatu e o cavalo-marinho, três tradições de Pernambuco, e o que cada uma conta sobre o povo que as criou.
 
+```suarealidade
+Que festa popular do seu lugar nasceu da resistência de gente pobre, escravizada ou perseguida? Você sabe contar essa história?
+```
+
 ## Frevo
 
 O **frevo** surgiu em **Pernambuco no fim do século XIX**. A música mistura **marcha, maxixe, dobrado e polca**, com ritmo **muito acelerado**. A dança, o **passo**, nasceu da **capoeira**: nos carnavais, capoeiristas saíam à frente dos blocos para **intimidar rivais e proteger o grupo**, usando porretes ou **cabos de guarda-chuvas velhos**.
@@ -79,6 +84,15 @@ Qual destas tradições é um auto com dezenas de personagens, ligado ao Natal e
 > Releia "Cavalo-marinho".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Frevo, maracatu e cavalo-marinho são só folclore, enfeite de turismo e de carnaval. Resistência de verdade é outra coisa." É a visão de quem separa festa de luta.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a festa guarda a memória de quem a criou. O passo do frevo nasceu da capoeira: capoeiristas saíam à frente dos blocos para proteger o grupo, usando até cabos de guarda-chuvas velhos. O maracatu nação tem registro de 1711, e o Maracatu Elefante foi fundado em 1800 por Manuel Santiago, um homem escravizado. O cavalo-marinho guarda o teatro popular do Natal e de Reis, com 76 personagens. A UNESCO declarou o frevo patrimônio imaterial da humanidade em 2012, e o maracatu é patrimônio cultural do Brasil, registrado pelo Iphan. Dançar também é lembrar.
+```
+
 ## Exemplo resolvido
 
 **Monte uma ficha comparando as três.**
@@ -88,6 +102,11 @@ Qual destas tradições é um auto com dezenas de personagens, ligado ao Natal e
 | Raiz | capoeira, marcha, maxixe | nações africanas, religião | auto popular, Natal e Reis |
 | Marca | sombrinha, ritmo acelerado | baque virado ou solto, calungas | 76 figuras, rabeca |
 | Reconhecimento | UNESCO, 2012 | patrimônio do Brasil (Iphan) | — |
+
+```agir
+# Esta semana
+Assista a um vídeo de frevo, maracatu ou cavalo-marinho e anote três coisas que viu: um instrumento, um passo e um personagem ou símbolo. Conte a alguém o que descobriu.
+```
 
 ## Resumo
 

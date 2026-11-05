@@ -1,0 +1,51 @@
+# Exercícios da aula "Números e idade" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-num-01
+  tema: "Dizer a idade"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz 'Eu tenho 20 anos' em inglês?"
+  alternativas:
+    - texto: "I am twenty years old. (I'm twenty.)"
+      certa: true
+    - texto: "I have twenty years."
+      erro: "Em inglês a gente é uma idade, e não 'tem'. Usa-se to be."
+    - texto: "I has twenty years."
+      erro: "Além de usar have, o erro é na forma do verbo. O certo é to be."
+  explicacao: "Em português a gente tem uma idade. Em inglês, é uma idade: usa-se o verbo to be. Para perguntar: How old are you?"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-num-02
+  tipo: numero
+  tema: "Somar em inglês"
+  dificuldade: 2
+  enunciado: "Escreva em número: fourteen + twenty-one."
+  resposta: "35"
+  erros_comuns:
+    - resposta: "1421"
+      explicacao: "Você juntou os números em vez de somar. Fourteen é 14 e twenty-one é 21: 14 + 21."
+  dica: "Fourteen é 14 e twenty-one é 21."
+  explicacao: "14 + 21 = 35, que em inglês é thirty-five."
+  conferir: "14 + 21"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-num-03
+  tema: "Números -teen e -ty"
+  dificuldade: 2
+  enunciado: "Qual destes é o número 16?"
+  alternativas:
+    - texto: "sixteen"
+      certa: true
+    - texto: "sixty"
+      erro: "Sixty é 60. Os números de 13 a 19 terminam em -teen; as dezenas, em -ty."
+    - texto: "six"
+      erro: "Six é 6."
+  explicacao: "De 13 a 19 terminam em -teen (thirteen, fourteen...). As dezenas terminam em -ty (twenty, thirty...)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

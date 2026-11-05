@@ -1,5 +1,6 @@
 ---
 titulo: "Perguntas com W: wer, was, wo, wann, wie"
+modelo: 9
 resumo: "Quem, o quê, onde, quando, como, de onde, por quê: quase todas as palavras de pergunta do alemão começam com W. Como montar as perguntas e as perguntas de sim ou não."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Numa entrevista, numa consulta ou numa assembleia, quem faz as perguntas comanda
 ## O que você vai aprender
 
 Ao fim desta aula você vai fazer perguntas abertas com as palavras W e perguntas de sim ou não.
+
+```suarealidade
+Numa consulta, numa entrevista de emprego ou numa assembleia, que perguntas você gostaria de saber fazer com segurança? O que acontece quando a gente não sabe perguntar?
+```
 
 ## As palavras W
 
@@ -88,6 +93,20 @@ Qual pergunta está certa para "Onde você trabalha?"
 3. ***Wo wohnst du?*** — Onde você mora?
 4. ***Wann beginnt deine Schicht?*** — Quando começa o seu turno?
 5. ***Bist du in der Gewerkschaft?*** — Você é do sindicato? (pergunta de sim ou não: começa com o verbo)
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Perguntar não precisa de gramática: basta apontar, fazer gesto e dizer a palavra solta. Estudar a ordem das palavras da pergunta é exagero." É uma opinião de quem já se virou assim em viagem ou no trabalho.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Gesto e palavra solta resolvem uma situação simples, mas a aula mostra que a pergunta em alemão tem ordem fixa (palavra W, verbo, sujeito) e que isso se aprende com poucas palavras. Saber perguntar quanto custa, onde fica e quando começa dá autonomia: a pessoa deixa de depender sempre de quem fala por ela.
+```
+
+```agir
+# Esta semana
+Escolha três situações em que você precisaria perguntar algo (preço, endereço, horário) e escreva uma pergunta em alemão para cada uma, com a palavra W certa. Confira com a tabela da aula.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "There is e there are"
+modelo: 9
 resumo: "O jeito de dizer \"tem\" ou \"há\" em inglês, para descrever lugares e dizer o que existe."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,10 @@ Ao fim desta aula você vai saber dizer o que existe num lugar com *there is* e 
 Em português falado, usamos o verbo **ter** para dizer que alguma coisa existe num lugar: "**Tem** uma farmácia na esquina", "**Tem** muita gente na fila". Na escrita mais formal, usamos **haver**: "**Há** uma farmácia na esquina".
 
 Em inglês, nenhum dos dois funciona com *have*. Dizer "have a pharmacy on the corner" não faz sentido. A forma certa é **there is** e **there are**.
+
+```suarealidade
+Pense na rua onde você mora: o que tem na esquina, quantas lojas, quantos pontos de ônibus? Como você diria, em inglês, o que existe no seu bairro?
+```
 
 ## Singular e plural
 
@@ -110,6 +115,15 @@ Com *there is*, *there are* e as preposições de lugar, já dá para descrever 
 
 > I live in a big neighborhood on the east side of the city. There are many houses and some small buildings. There's a health center near my house, and there's a school next to it. There isn't a library, but there are two churches and a soccer field. There aren't many trees on my street. Is there a library in your neighborhood?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "É só traduzir o 'tem' do português: 'have a pharmacy'. Inglês é parecido com português." É um jeito natural de pensar, mas não funciona.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra por quê: em português dizemos "tem uma farmácia na esquina", mas em inglês "have a pharmacy" não faz sentido. A forma certa é there is, para uma coisa só, e there are, para várias. Ela ainda ensina a negativa, a pergunta, o uso de some e any e a diferença entre there is e it is. É um jeito de descrever um lugar que se usa o tempo todo.
+```
+
 ## Exemplo resolvido
 
 **Como dizer "Tem uma padaria na minha rua" e "Tem cinco pessoas na minha família"?**
@@ -128,6 +142,11 @@ Confira: nas duas primeiras frases não aparece *have*. *Have a bakery* não ser
 3. Escreva cinco frases descrevendo o seu bairro: o que tem e o que falta.
 
 Respostas do 1: *There is, There are, There is.* Respostas do 2: *There aren't any buses on Sunday. / Are there any buses on Sunday?*
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, quatro frases sobre o seu bairro com there is ou there are, como "There is a bakery on the corner". Leia para alguém de confiança.
+```
 
 ## Resumo
 

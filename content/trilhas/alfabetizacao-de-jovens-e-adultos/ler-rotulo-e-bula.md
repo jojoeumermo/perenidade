@@ -1,5 +1,6 @@
 ---
 titulo: "Ler rótulo e bula"
+modelo: 9
 resumo: "Ler o que importa nos rótulos de alimentos e de produtos de limpeza e nas bulas de remédios, para comprar, usar e guardar com segurança."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Ao fim desta aula você vai achar, no rótulo de um alimento, a validade, o prim
 
 ```provocacao
 Tem algum remédio ou produto na sua casa que você usa sem saber direito o que diz a embalagem? Qual?
+```
+
+```suarealidade
+Tem algum remédio ou produto na sua casa que você usa sem saber direito o que diz a embalagem? Qual? Quem costuma ler para você?
 ```
 
 ## O rótulo dos alimentos
@@ -144,6 +149,20 @@ Pegue um alimento da sua cozinha. Escreva aqui a validade e o primeiro ingredien
 2. Procure uma embalagem com a lupa e leia o que ela diz.
 3. Pegue a bula de um remédio de casa e encontre "para que serve" e "como usar".
 4. Confira a validade dos remédios da sua casa.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Bula e rótulo são feitos para quem tem estudo. O jeito é perguntar ao farmacêutico ou ao médico e deixar de lado esse texto de letra miúda." É um conselho de quem teme que a pessoa se confunda sozinha.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Perguntar ao farmacêutico é sempre bom, e a própria aula diz isso na dúvida. Mas mostra que quase tudo que importa está em poucas palavras que se repetem: validade, primeiro ingrediente, a lupa ALTO EM, modo de usar, cuidados, e na bula, as perguntas organizadas (para que serve, como tomar, o que fazer se esquecer uma dose). Quem aprende essas palavras não precisa ler tudo, e fica mais seguro para conversar com o profissional.
+```
+
+```agir
+# Esta semana
+Pegue uma embalagem de alimento da sua casa e procure no rótulo a validade e o primeiro ingrediente. Escreva os dois num papel. Se tiver uma bula, ache a parte que diz para que serve o remédio.
+```
 
 ## Resumo
 

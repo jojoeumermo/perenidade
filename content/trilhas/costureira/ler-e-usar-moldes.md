@@ -1,5 +1,6 @@
 ---
 titulo: "Ler e usar moldes"
+modelo: 9
 resumo: "O que significam a seta do fio, os piques, os furinhos e a dobra do tecido no molde, como escolher o tamanho pelas medidas, copiar o molde, colocar as peças no tecido sem desperdício e cortar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ O molde chegou dobrado, cheio de linhas cruzadas de tamanhos diferentes, setas, 
 
 Ao fim desta aula você vai ler os símbolos do molde, escolher o tamanho pelas medidas, copiar o molde, encaixar as peças no tecido respeitando o fio e cortar.
 
+```suarealidade
+Você já cortou tecido "no olho", sem molde? Como a peça ficou depois de costurada?
+```
+
 ## Os símbolos do molde
 
 | Símbolo | O que indica |
@@ -91,6 +96,15 @@ Você colocou a frente da saia no tecido com a seta do fio na diagonal para econ
 > O fio do tecido muda o caimento e o estica da peça.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Molde é complicado e atrasa o trabalho. Quem tem prática corta no olho e acerta." É a confiança de quem já tem anos de costura.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Cortar no olho serve para formas simples, como os dois retângulos da saia de elástico. Mas a aula mostra o que o molde guarda: a seta do fio, que deve ficar paralela ao fio reto do tecido (cortar fora do fio faz a peça torcer ou cair diferente depois de lavada, como diz a aula sobre os tipos de tecido); os piques, que dizem onde as partes se encontram; a margem de costura; e o tamanho pela tabela. O molde também permite encaixar as peças perto umas das outras, o que gasta menos tecido. Com o tempo, ler os símbolos vira hábito e não atrasa.
+```
+
 ## Exemplo resolvido
 
 **Prepare o molde de uma saia de duas peças (frente e costas, ambas "cortar 1 na dobra") para uma pessoa de cintura 72 cm e quadril 98 cm. Tabela do molde: tamanho 40 = cintura 72 / quadril 100; tamanho 38 = cintura 68 / quadril 96.**
@@ -100,6 +114,11 @@ Você colocou a frente da saia no tecido com a seta do fio na diagonal para econ
 3. **Margem**: o molde não traz margem → acrescentar 1 cm nas laterais e na cintura e 3 cm na barra.
 4. **Encaixe**: tecido dobrado ao meio, ourela com ourela; frente e costas com a beirada do centro **sobre a dobra**.
 5. **Cortar** e marcar os piques da cintura e do quadril.
+
+```agir
+# Esta semana
+Pegue um molde (de revista, da internet ou emprestado) e marque com caneta a seta do fio, três piques e a indicação de margem de costura. Meça a distância da seta até a ourela nas duas pontas, para conferir que é igual.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Os traços e a ordem da escrita"
+modelo: 9
 resumo: "Os traços básicos dos caracteres chineses, as regras da ordem de escrita e a diferença entre caracteres simplificados e tradicionais."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ quiz:
 Ao fim desta aula você vai saber reconhecer os traços básicos, seguir as regras da ordem de escrita, contar traços e distinguir caracteres simplificados e tradicionais.
 
 Os caracteres chineses parecem desenhos complicados. Mas cada um é feito de um número pequeno de **traços** básicos, escritos numa **ordem** que segue regras. Aprender essas regras desde o começo faz a escrita ficar mais rápida, mais bonita e mais fácil de memorizar. E ajuda numa coisa muito prática: procurar caracteres em dicionários e escrevê-los à mão na tela do celular, que reconhece melhor o desenho feito na ordem certa.
+
+```suarealidade
+Você já tentou copiar uma letra de outro alfabeto, ou escrever o seu nome do jeito que um estrangeiro vê as nossas letras? O que é mais difícil: saber o que é, ou saber por onde começar?
+```
 
 ## O quadrado
 
@@ -138,6 +143,20 @@ Não precisa ter pressa: cada caractere aprendido torna o próximo mais fácil, 
 4. **Some.** 7 + 6 = 13 traços em 你好.
 
 Confira: cada caractere cabe no mesmo quadrado imaginário, simples ou complicado.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hoje todo mundo escreve no celular com o pinyin. Aprender a ordem dos traços é coisa de caligrafia antiga e não serve para quem só quer se comunicar." É um argumento de quem escreve rápido no teclado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O pinyin ajuda muito, e a aula não o dispensa. Mas diz que a ordem dos traços torna a escrita mais rápida, mais fácil de memorizar e útil para procurar em dicionários e escrever à mão na tela do celular, que reconhece melhor o desenho feito na ordem certa. As regras são poucas: de cima para baixo, da esquerda para a direita, de fora para dentro, fechando por último.
+```
+
+```agir
+# Esta semana
+Copie num papel os caracteres 一, 人, 好 e 你, seguindo as regras da ordem (de cima para baixo, da esquerda para a direita). Conte os traços de cada um e confira com a aula.
+```
 
 ## Resumo
 

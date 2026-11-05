@@ -1,5 +1,6 @@
 ---
 titulo: "Química dos alimentos"
+modelo: 9
 resumo: "Objetivo: conhecer os nutrientes, aprender a ler o rótulo dos alimentos e entender a diferença entre comida de verdade e produtos ultraprocessados."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que cada nutriente faz, ler a lista de ingredientes e a tabela do rótulo e reconhecer um alimento ultraprocessado.
+
+```suarealidade
+O que tem na sua marmita ou na sua mesa durante a semana? Quanta coisa dali vem de um pacote com lista longa de ingredientes?
+```
 
 ## Comer é química
 
@@ -118,6 +123,15 @@ A alimentação depende da **renda**, do **tempo**, do **preço** dos alimentos,
 
 O Brasil é um dos maiores produtores de alimentos do mundo, e a fome reaparece nele a cada crise. O que falta nunca foi comida.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Comida boa é a que rende e cabe no bolso. Ficar lendo rótulo e fugindo de industrializado é luxo de quem tem dinheiro." É a opinião de quem faz o dinheiro render todo mês.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que comer bem não depende só de querer: a aula tem uma parte chamada "Comer bem não é só escolha". Mas ler o rótulo não custa nada. A lista de ingredientes vem em ordem decrescente de quantidade, e a coluna "por 100 g" da tabela nutricional permite comparar produtos. O Guia alimentar para a população brasileira recomenda fazer dos alimentos in natura ou minimamente processados a base da alimentação e evitar os ultraprocessados.
+```
+
 ## Exemplo resolvido
 
 **Uma porção de um produto tem 20 g de carboidrato, 5 g de proteína e 10 g de gordura. Quantas quilocalorias ela tem?**
@@ -134,6 +148,11 @@ Confira: a gordura tem só 10 g, e mesmo assim entra com quase metade da energia
 2. Classifique o que você comeu ontem nos quatro grupos da tabela.
 3. Compare o preço de um quilo de feijão com o de um quilo de biscoito recheado. E o que cada um oferece?
 4. O que dificulta, na sua rotina, comer comida feita na hora? O que poderia mudar isso?
+
+```agir
+# Esta semana
+Pegue o rótulo de um produto que você compra com frequência e leia os três primeiros ingredientes. Depois compare, pela coluna "por 100 g", com outro produto parecido.
+```
 
 ## Resumo
 

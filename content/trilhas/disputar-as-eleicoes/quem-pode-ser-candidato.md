@@ -1,5 +1,6 @@
 ---
 titulo: "Quem pode ser candidato: idade, condições e Ficha Limpa"
+modelo: 9
 resumo: "As seis condições da Constituição para ser candidato, a idade mínima de cada cargo e o dia em que ela é contada, quem fica de fora (analfabetos, parentes, condenados pela Ficha Limpa) e o prazo para servidores se afastarem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,10 +38,10 @@ quiz:
     opcoes: ["No dia da posse", "No dia da eleição", "No último dia do prazo de registro da candidatura"]
     resposta: 2
     explicacao: "Para o Executivo, conta a data da posse; para as câmaras municipais, o fim do prazo de registro; para as outras casas legislativas, a data prevista da posse."
-  - pergunta: "Um servidor público municipal quer disputar vereador. O que a lei exige?"
-    opcoes: ["Que se afaste do cargo até três meses antes da eleição, recebendo o salário", "Que peça demissão um ano antes", "Nada: ele pode trabalhar normalmente até a eleição"]
+  - pergunta: "Uma pessoa sem partido pode ser candidata a vereador por conta própria, sem se filiar a nenhum partido?"
+    opcoes: ["Não: a filiação partidária é uma condição de elegibilidade, e não existe candidatura avulsa", "Sim, basta juntar assinaturas de apoio", "Sim, desde que tenha mais de 30 anos"]
     resposta: 0
-    explicacao: "É a regra geral da Lei das Inelegibilidades (art. 1º, II, l) para servidores; alguns cargos têm prazos maiores."
+    explicacao: "A Constituição (art. 14, § 3º, V) exige filiação partidária para ser candidato. Servidor público que queira disputar deve consultar a Justiça Eleitoral e o seu órgão, pois a regra de afastamento do cargo depende do cargo e da função."
 ---
 
 ```provocacao
@@ -50,6 +51,10 @@ Uma estudante de 17 anos, muito ativa no grêmio, quer ser candidata a vereadora
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber quem pode ser candidato no Brasil, a idade de cada cargo e o dia em que ela é contada, e quem a lei deixa de fora.
+
+```suarealidade
+Quem na sua rua, no seu serviço ou no seu movimento teria cara de boa liderança, mas não poderia ser candidata ou candidato? Por quê?
+```
 
 ## As seis condições
 
@@ -102,6 +107,15 @@ Qual destas pessoas pode ser candidata a deputada federal?
 > Confira a tabela de idades e a lista das seis condições.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Exigir tantas condições afasta o povo da política. E a Ficha Limpa é injusta: condenar antes do fim de todos os recursos é perseguição." É a preocupação de quem teme que a regra seja usada contra adversários.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que as condições vêm da Constituição (art. 14) e valem para todos: nacionalidade, direitos políticos, título, domicílio, filiação e idade mínima. A Ficha Limpa (LC 135, de 2010) nasceu de um projeto de iniciativa popular e torna inelegível por oito anos quem foi condenado por certos crimes em decisão de tribunal (órgão colegiado), mesmo antes do fim de todos os recursos. A aula não esconde o debate: em 2025, a LC 219 mudou a forma de contar os oito anos e a mudança foi contestada no STF, por isso quem tem processo deve conferir a regra em vigor com uma advogada eleitoral. Já a exigência de saber ler e escrever é uma das questões que a própria aula coloca como luta política.
+```
+
 ## Exemplo resolvido
 
 **Volte à estudante da provocação: 17 anos hoje, 18 em setembro do ano da eleição. Pode ser candidata a vereadora?**
@@ -110,6 +124,11 @@ Qual destas pessoas pode ser candidata a deputada federal?
 2. Desde 2025, para a câmara municipal, a idade é conferida no **último dia do prazo de registro**, 15 de agosto.
 3. Em 15 de agosto ela ainda terá **17 anos**. **Não pode** naquela eleição.
 4. Mas pode **começar a se preparar**: filiar-se, organizar a base e disputar a eleição seguinte, já com experiência.
+
+```agir
+# Esta semana
+Escreva num papel as seis condições de elegibilidade e confira, para você, quais já cumpre e quais ainda faltam. Anote o que precisaria fazer e até quando.
+```
 
 ## Resumo
 

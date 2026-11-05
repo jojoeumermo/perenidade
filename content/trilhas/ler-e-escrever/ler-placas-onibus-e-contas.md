@@ -1,5 +1,6 @@
 ---
 titulo: "Ler placas, ônibus e contas"
+modelo: 9
 resumo: "As palavras da rua e dos boletos: como achar o que importa numa placa, no letreiro do ônibus e na conta de luz e de água."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ Você já sabe [as vogais](/trilhas/ler-e-escrever/as-vogais), já escreve [o se
 ## O que você vai aprender
 
 Ao fim desta aula você vai ler as placas mais comuns da rua, entender o letreiro do ônibus e as abreviações (AV., R., JD.) e achar, na conta de luz, o vencimento, o total a pagar e o consumo. Também vai saber desconfiar de uma conta falsa.
+
+```suarealidade
+Qual ônibus você pega todo dia e como você o reconhece: pela cor, pelo número ou pelo nome no letreiro? Quando foi a última vez que você olhou a sua conta de luz com atenção?
+```
 
 ## Você já lê a rua
 
@@ -159,6 +164,15 @@ Existe um desconto na conta de luz para famílias de baixa renda: a **Tarifa Soc
 
 Para saber se a sua casa tem direito, procure o **CRAS** (Centro de Referência de Assistência Social) ou o posto do Cadastro Único da sua cidade, e leve uma conta de luz.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Eu me viro muito bem sem ler: conheço o ônibus pela cor e pelo número, e a conta quem paga é o banco ou o aplicativo." É a experiência de quem aprendeu a ler a rua sem as letras.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula começa reconhecendo isso: muita gente que não lê livro lê a rua muito bem. Mas a rua tem conta, e a conta tem letras. Ela ensina a achar na conta de luz o vencimento, o total a pagar e o consumo, e a desconfiar de uma conta falsa, coisa que a cor do ônibus não resolve. Ler as letras junta com a leitura que você já faz, e dá segurança para conferir o que vai pagar.
+```
+
 ## Exemplo resolvido
 
 **Na conta de luz da Dona Cida, a leitura atual é 3.415 e a anterior é 3.270. Quanto a casa gastou? E até quando ela pode pagar?**
@@ -204,6 +218,11 @@ PQ. = PARQUE
 5. Faça a conta: a leitura atual é 2.480 e a anterior era 2.360. Quanto a casa gastou?
 
 **Resposta do item 5:** 2.480 menos 2.360 dá **120 kWh**.
+
+```agir
+# Esta semana
+Pegue uma conta de luz ou de água da sua casa e, com um lápis, marque três coisas: o vencimento, o total a pagar e o consumo. Se tiver dúvida, pergunte a alguém de confiança.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Potência e consumo: ler a conta de luz"
+modelo: 9
 resumo: "O que são watt e quilowatt-hora, como calcular quanto cada aparelho gasta no mês, o que são as bandeiras tarifárias e quem tem direito à Tarifa Social."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Na sua casa, qual aparelho você acha que pesa mais na conta de luz: a geladeira
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são watt e quilowatt-hora, calcular quanto um aparelho gasta por mês, entender as bandeiras tarifárias e saber quem tem direito à Tarifa Social de Energia Elétrica.
+
+```suarealidade
+Quando a conta de luz chega, você sabe dizer por que o valor veio daquele tamanho? O que você ou a sua família já fazem para tentar gastar menos?
+```
 
 ## Potência: quanto o aparelho usa por segundo
 
@@ -118,6 +123,20 @@ Com a Medida Provisória nº 1.300, de maio de 2025, quem tem direito deixou de 
 
 ```escondido
 A Tarifa Social existe desde 2010, mas durante anos o desconto dependia de a própria família pedir à distribuidora: quem não sabia do direito pagava a conta cheia. Só em janeiro de 2022 a concessão passou a ser automática, segundo a ANEEL. A conta também traz cobranças que não são da energia, como o ICMS e a contribuição de iluminação pública, definidos pelo estado e pelo município. Quem sabe ler a conta sabe o que reclamar e onde.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que a conta de luz é assim mesmo: ninguém entende, não adianta tentar economizar, e quem tem direito à Tarifa Social recebe o desconto sem precisar fazer nada.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a crítica tem parte de razão, porque, segundo a ANEEL, desde 2022 o desconto da Tarifa Social é dado automaticamente a quem tem direito e é titular da conta. Mas, se não aparecer, a pessoa deve procurar a distribuidora, e entender a conta ajuda a saber o que reclamar e onde. A conta também não é um mistério: a energia é potência vezes tempo, e o chuveiro pesa muito mais do que a lâmpada de LED; no exemplo da aula, reduzir 5 minutos em cada banho corta metade do gasto dele.
+```
+
+```agir
+# Esta semana
+Ache na sua conta de luz o consumo do mês em kWh e a bandeira, e escreva os dois num papel. Depois calcule, como no exemplo resolvido, quanto um aparelho da sua casa (o chuveiro ou o ferro, por exemplo) gasta no mês, e compare com o consumo total.
 ```
 
 ## Resumo

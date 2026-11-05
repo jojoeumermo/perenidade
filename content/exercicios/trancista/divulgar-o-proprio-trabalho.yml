@@ -1,0 +1,50 @@
+# Exercícios da aula "Divulgar o próprio trabalho" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-divulgar-o-proprio-trabalho-01
+  tema: "Imagem"
+  dificuldade: 1
+  enunciado: "O que o artigo 20 do Código Civil protege, segundo a aula?"
+  alternativas:
+    - texto: "A imagem das pessoas: o uso para fins comerciais pode ser proibido por elas"
+      certa: true
+    - texto: "O preço do serviço"
+      erro: "A aula trata da imagem."
+    - texto: "O endereço do salão"
+      erro: "A aula trata da imagem."
+  explicacao: "Peça autorização antes de fotografar e de postar, de preferência por mensagem, que fica registrada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Divulgar o próprio trabalho\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-divulgar-o-proprio-trabalho-02
+  tema: "Tirar a foto"
+  dificuldade: 2
+  enunciado: "A cliente pede para tirar a foto depois de postada. O que a aula manda fazer?"
+  alternativas:
+    - texto: "Tirar: pela LGPD, o consentimento pode ser revogado a qualquer momento, de forma gratuita e fácil"
+      certa: true
+    - texto: "Manter, pois já postou"
+      erro: "O consentimento pode ser revogado."
+    - texto: "Cobrar para tirar"
+      erro: "A revogação deve ser gratuita."
+  explicacao: "Pergunte também se ela prefere que o rosto não apareça: uma foto de costas ou de lado costuma mostrar bem a trança."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Divulgar o próprio trabalho\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-divulgar-o-proprio-trabalho-03
+  tema: "Portfólio"
+  dificuldade: 1
+  enunciado: "O que é o portfólio, segundo a aula?"
+  alternativas:
+    - texto: "A coleção de fotos do seu trabalho"
+      certa: true
+    - texto: "Uma lista de preços"
+      erro: "O portfólio é de fotos."
+    - texto: "Um contrato"
+      erro: "Não é contrato."
+  explicacao: "Fotos de frente, de lado e de trás, da nuca e das divisões, e a mesma cliente semanas depois mostram a qualidade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Divulgar o próprio trabalho\""
+  revisao:
+    status: em-revisao

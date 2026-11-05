@@ -1,0 +1,51 @@
+# Exercícios da aula "Mística na luta popular" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-mis-01
+  tema: "O que é a mística"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é a mística em movimentos populares?"
+  alternativas:
+    - texto: "Um momento coletivo curto de expressão cultural, com música, poesia, dramatização, símbolos e silêncio"
+      certa: true
+    - texto: "Uma reza obrigatória"
+      erro: "Não é uma reza nem uma obrigação. Pode até ser totalmente laica."
+    - texto: "Um discurso do dirigente"
+      erro: "Não é discurso. É um convite à emoção e à reflexão."
+  explicacao: "Ela fala à vida do grupo e pode ter elementos religiosos, quando o grupo os compartilha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-mis-02
+  tema: "Símbolos do cotidiano"
+  dificuldade: 2
+  enunciado: "Que símbolos podem ser usados numa mística simples?"
+  alternativas:
+    - texto: "Uma ferramenta, uma panela, uma semente, uma bandeira, uma foto antiga ou um pano"
+      certa: true
+    - texto: "Só objetos caros e raros"
+      erro: "Os símbolos vêm do cotidiano do grupo."
+    - texto: "Nenhum símbolo, só discurso"
+      erro: "A mística usa símbolos, música, poesia e silêncio."
+  explicacao: "Prepare um tema, um roteiro curto, convide algumas pessoas e faça um ensaio rápido de dez minutos antes."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-mis-03
+  tema: "Inclusiva"
+  dificuldade: 3
+  enunciado: "O que torna uma mística inclusiva?"
+  alternativas:
+    - texto: "Ninguém é obrigado a participar, e ela não constrange nem exige uma crença que o grupo não compartilha"
+      certa: true
+    - texto: "Obrigar todos a participar do mesmo jeito"
+      erro: "A obrigação exclui e constrange."
+    - texto: "Ter só elementos religiosos"
+      erro: "Ela pode ser laica. Só inclua elementos religiosos se o grupo os compartilhar."
+  explicacao: "A participação é um convite, e o cuidado é para unir o grupo sem constranger ninguém."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

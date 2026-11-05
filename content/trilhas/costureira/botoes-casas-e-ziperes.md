@@ -1,5 +1,6 @@
 ---
 titulo: "Botões, casas e zíperes"
+modelo: 9
 resumo: "Pregar botão com pé de linha, abrir casas na máquina e à mão, pregar zíper comum e invisível, colchetes e pressão, e um pouco da história do zíper, que nasceu como fecho de sapato."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ O botão da camisa caiu pela terceira vez no mesmo lugar. Pregar com mais linha 
 
 Ao fim desta aula você vai pregar botão com pé de linha, fazer casas na máquina e à mão, pregar zíper comum e invisível e colocar colchetes e botões de pressão.
 
+```suarealidade
+Que botão ou zíper mais dá problema nas roupas da sua casa? O que costuma acontecer com ele?
+```
+
 ## Pregar botão com pé de linha
 
 1. **Marque** o lugar do botão passando um alfinete pelo meio da casa fechada.
@@ -101,6 +106,15 @@ Ao abrir a casa com o desmanchador, você cortou os pontos da ponta e a casa fic
 > O alfinete funciona como freio para a lâmina.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Botão é bobagem: umas voltas de linha e pronto. Se cair de novo, é sinal de que a peça é ruim, e o melhor é trocar de roupa." É um jeito prático de ver as coisas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o detalhe faz o botão durar: o pé de linha, feito com um palito de dente por cima do botão, deixa espaço para o tecido da casa passar sem repuxar, e é por isso que o botão dura mais. Sem ele, o botão cai de novo, como na provocação. A casa também tem seu cuidado: teste num retalho do mesmo tecido, abra com o desmanchador e use um alfinete como freio. E o botão de reserva que vem preso na etiqueta existe justamente para salvar a camisa um dia.
+```
+
 ## Exemplo resolvido
 
 **Trocar o zíper quebrado de uma calça jeans por um novo do mesmo tamanho.**
@@ -111,6 +125,11 @@ Ao abrir a casa com o desmanchador, você cortou os pontos da ponta e a casa fic
 4. **Alfinetar** o novo exatamente na posição do antigo.
 5. Com o **calcador de zíper** e **agulha grossa** (brim), costurar primeiro o lado de baixo e depois o pesponto da frente, seguindo as marcas da costura antiga.
 6. **Arrematar** e testar o zíper várias vezes.
+
+```agir
+# Esta semana
+Pregue ou reforce um botão de uma roupa de casa usando o pé de linha, com o palito de dente por cima. Comece também um potinho com os botões de reserva da sua família.
+```
 
 ## Resumo
 

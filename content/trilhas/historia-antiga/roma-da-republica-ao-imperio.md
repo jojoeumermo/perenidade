@@ -1,5 +1,6 @@
 ---
 titulo: "Roma: da República ao Império"
+modelo: 9
 resumo: "Objetivo: acompanhar a história de Roma, das lutas entre patrícios e plebeus à expansão, à escravidão em massa e à passagem da República ao Império."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber contar as três fases de Roma, a luta dos plebeus, a conquista e a escravidão, a revolta dos Gracos, o fim da República e o que herdamos dos romanos.
+
+```suarealidade
+Você já participou ou viu uma paralisação ou uma greve de trabalhadores? Como foi, e o que se conseguiu?
+```
 
 
 ## De aldeia a potência
@@ -130,6 +135,20 @@ Leitura: 753 a.C. é a data da lenda, a tradição romana; use-a com esse aviso,
 1. A retirada dos plebeus lembra que forma de luta dos trabalhadores de hoje?
 2. Compare a proposta dos irmãos Graco com o debate sobre a reforma agrária no Brasil. O que há de parecido na reação dos proprietários?
 3. O que seria o "pão e circo" dos nossos dias?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Os irmãos Graco eram agitadores. Mexer na propriedade dos ricos só gera violência e desordem."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula conta como a situação chegou lá: as conquistas arruinaram os pequenos camponeses, que passavam anos na guerra, perdiam as terras para os latifúndios e iam engrossar a multidão de pobres de Roma. Tibério e Caio Graco, eleitos tribunos da plebe, propuseram limitar o tamanho das propriedades e distribuir terras públicas aos pobres. A violência veio dos grandes proprietários, que reagiram: Tibério foi assassinado e Caio morreu anos depois, perseguido com milhares de seguidores. A questão da terra ficou sem solução.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha se ela já participou de uma paralisação ou greve e o que se conseguiu com ela. Compare a história com a retirada em massa dos plebeus de Roma.
+```
 
 ## Resumo
 

@@ -1,0 +1,51 @@
+# Exercícios da aula "A Biblioteca de Alexandria" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-bib-01
+  tema: "Como acabou a biblioteca"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que a aula diz sobre o fim da Biblioteca de Alexandria?"
+  alternativas:
+    - texto: "Não foi um único incêndio: ela definhou por séculos, com guerras, perseguições e falta de recursos"
+      certa: true
+    - texto: "Foi destruída numa só noite por um incêndio"
+      erro: "Houve incêndios e destruições, mas a história é mais lenta: a instituição perdeu o apoio e foi sendo destruída ao longo de séculos."
+    - texto: "Foi queimada na conquista árabe, em 642, como todos sabem"
+      erro: "Essa versão aparece só em relatos escritos séculos depois e é considerada lenda pela maioria dos historiadores."
+  explicacao: "Houve expulsão de estudiosos em 145 a.C., um incêndio em 48 a.C., destruição do bairro do Museu por volta de 272 d.C. e a do Serapeu em 391 d.C. Nenhum desses fatos sozinho a destruiu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-bib-02
+  tema: "Eratóstenes"
+  dificuldade: 2
+  enunciado: "O que fez Eratóstenes, que dirigiu a biblioteca?"
+  alternativas:
+    - texto: "Calculou a circunferência da Terra comparando o ângulo das sombras ao meio-dia em duas cidades egípcias"
+      certa: true
+    - texto: "Escreveu Os Elementos"
+      erro: "Os Elementos é de Euclides, que também viveu em Alexandria."
+    - texto: "Fez o catálogo Pínakes"
+      erro: "O catálogo Pínakes foi organizado por Calímaco."
+  explicacao: "Por volta de 240 a.C., Eratóstenes chegou a um resultado surpreendentemente próximo do valor real da circunferência da Terra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-bib-03
+  tema: "Por que o conhecimento sobreviveu"
+  dificuldade: 3
+  enunciado: "Segundo a aula, por que uma parte da literatura antiga sobreviveu e outra se perdeu?"
+  alternativas:
+    - texto: "Sobreviveu o que existia em muitas cópias, em muitos lugares; o papiro estraga e, quando as cópias pararam, os textos se perderam"
+      certa: true
+    - texto: "Sobreviveu só o que ficou guardado em um único cofre"
+      erro: "Um único exemplar corre mais risco. Quanto mais cópias em lugares diferentes, maior a chance de sobreviver."
+    - texto: "Os textos antigos nunca se perderam"
+      erro: "Muita coisa se perdeu para sempre, porque o papiro estraga e deixaram de copiá-lo."
+  explicacao: "Papiro estraga, e alguém precisava copiar de novo a cada poucas gerações. Muitas cópias em muitos lugares é a ideia por trás de manter o conhecimento aberto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

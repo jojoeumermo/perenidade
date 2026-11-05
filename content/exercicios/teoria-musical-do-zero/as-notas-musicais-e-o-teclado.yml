@@ -1,0 +1,50 @@
+# Exercícios da aula "As notas musicais e o teclado" (teoria-musical-do-zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teoria-musical-do-zero-as-notas-musicais-e-o-teclado-01
+  tema: "Letras"
+  dificuldade: 1
+  enunciado: "Qual letra da cifra corresponde à nota lá?"
+  alternativas:
+    - texto: "A"
+      certa: true
+    - texto: "C"
+      erro: "C é dó."
+    - texto: "G"
+      erro: "G é sol."
+  explicacao: "A = lá, B = si, C = dó, D = ré, E = mi, F = fá, G = sol. O alfabeto começa no lá, e não no dó."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As notas musicais e o teclado\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-as-notas-musicais-e-o-teclado-02
+  tema: "Oitava"
+  dificuldade: 2
+  enunciado: "O que é uma oitava?"
+  alternativas:
+    - texto: "A distância entre um dó e o dó seguinte; a nota mais aguda vibra o dobro de vezes por segundo"
+      certa: true
+    - texto: "A distância entre dois semitons"
+      erro: "Isso é um tom."
+    - texto: "Um grupo de oito notas diferentes"
+      erro: "A aula diz que são sete notas que se repetem."
+  explicacao: "As duas notas soam \"iguais, só que uma mais fina\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As notas musicais e o teclado\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-as-notas-musicais-e-o-teclado-03
+  tema: "Achar o dó"
+  dificuldade: 1
+  enunciado: "Como achar o dó no teclado?"
+  alternativas:
+    - texto: "É a tecla branca logo à esquerda do grupo de duas pretas"
+      certa: true
+    - texto: "É a tecla branca logo à direita do grupo de três pretas"
+      erro: "A referência é à esquerda do grupo de duas pretas."
+    - texto: "É sempre a tecla mais à esquerda do piano"
+      erro: "O teclado tem vários dós."
+  explicacao: "O dó do meio do piano é o C4, o dó central; o lá logo acima é o A4, de 440 Hz."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As notas musicais e o teclado\""
+  revisao:
+    status: em-revisao

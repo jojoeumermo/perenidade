@@ -1,0 +1,50 @@
+# Exercícios da aula "Cooperação e competição" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-cooperacao-e-competicao-01
+  tema: "Kropotkin"
+  dificuldade: 2
+  enunciado: "O que Piotr Kropotkin mostrou no livro Ajuda Mútua (1902)?"
+  alternativas:
+    - texto: "Que em muitas espécies sobrevive melhor o grupo que coopera, e não só o indivíduo mais forte"
+      certa: true
+    - texto: "Que só os mais fortes sobrevivem"
+      erro: "Era a ideia que ele discordava."
+    - texto: "Que os animais nunca cooperam"
+      erro: "Ele mostrou o contrário."
+  explicacao: "A cooperação é um fator de evolução tão importante quanto a competição."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cooperação e competição\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-cooperacao-e-competicao-02
+  tema: "Cooperação no trabalho"
+  dificuldade: 2
+  enunciado: "Segundo Marx, o que acontece quando dez trabalhadores cooperam?"
+  alternativas:
+    - texto: "Produzem mais do que dez trabalhando separados: nasce uma força coletiva que nenhum tem sozinho"
+      certa: true
+    - texto: "Produzem menos por causa da confusão"
+      erro: "Marx observou o contrário."
+    - texto: "Produzem o mesmo de cada um separado"
+      erro: "Há ganho com a cooperação."
+  explicacao: "Um passa o tijolo, outro assenta, outro prepara a massa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cooperação e competição\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-cooperacao-e-competicao-03
+  tema: "A frase"
+  dificuldade: 1
+  enunciado: "A frase \"o ser humano é egoísta por natureza\" é examinada na aula com argumentos de onde?"
+  alternativas:
+    - texto: "Da natureza, da história e do trabalho"
+      certa: true
+    - texto: "Só da religião"
+      erro: "A aula usa natureza, história e trabalho."
+    - texto: "Só da economia atual"
+      erro: "A aula usa três campos."
+  explicacao: "Durante a maior parte da história, os humanos viveram em pequenos grupos que dividiam comida, cuidavam das crianças e dos doentes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cooperação e competição\""
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "Analfabetismo no Brasil: os números e as causas"
+modelo: 9
 resumo: "Objetivo: conhecer os números do analfabetismo absoluto e funcional no Brasil, a sua evolução histórica, a sua distribuição desigual por idade, região e cor, e as causas sociais que o produzem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer os números do analfabetismo absoluto e funcional no Brasil, pelas pesquisas mais recentes (Censo 2022, PNAD Contínua 2025 e Inaf 2024). Vai ver como ele se distribui por idade, região e cor ou raça. E vai explicar as causas sociais que o produzem e o mantêm.
+
+```suarealidade
+No seu bairro ou na sua família, quem não sabe ler ou lê com dificuldade? Por que essa pessoa não aprendeu quando era criança?
+```
 
 ## Os números de hoje
 
@@ -114,6 +119,20 @@ A **Lei de Diretrizes e Bases** (artigos 37 e 38) garante a Educação de Jovens
 6. **Conclua com a fonte.** "Segundo o Censo de 2022 (IBGE), a taxa entre pretos (10,1%) é mais que o dobro da taxa entre brancos (4,3%), reflexo de uma exclusão histórica da população negra da escola."
 
 Confira: a resposta usa o número, diz a fonte e o ano, e explica a diferença pela história e pelas condições sociais.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não sabe ler hoje é porque não quis estudar. A escola é gratuita, e a pessoa só precisava ter se esforçado." É uma opinião de quem acha que tudo depende do esforço individual.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o analfabetismo se concentra entre os idosos, no Nordeste, no campo e entre pretos, pardos e indígenas, e que suas causas são sociais: escola que não chegou, trabalho infantil, racismo estrutural, pobreza, escola que expulsa e falta de EJA. Os números do Censo 2022 (7,0%, 11,4 milhões) e da PNAD 2025 (4,9%) mostram queda, mas muita gente cresceu sem escola por perto, o que é direito negado, e não falta de vontade.
+```
+
+```agir
+# Esta semana
+Faça uma tabela simples no papel com três colunas (idade, região, motivo) e preencha com o que você sabe de três pessoas que conhece e que não aprenderam a ler. Não escreva nomes. Veja se aparece alguma causa que a aula citou.
+```
 
 ## Resumo
 

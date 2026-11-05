@@ -1,5 +1,6 @@
 ---
 titulo: "A lei que manda ensinar história e cultura afro-brasileira"
+modelo: 9
 resumo: "Desde 2003, a Lei nº 10.639 torna obrigatório, em todas as escolas de ensino fundamental e médio, públicas e particulares, o ensino de história e cultura afro-brasileira. O que a lei exige que se ensine e por que ela importa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Você estudou na escola os reis da Europa. Estudou os reinos da África? Sabe o 
 
 Ao fim desta aula você vai conhecer a Lei nº 10.639/2003, o que ela exige e por que ela importa.
 
+```suarealidade
+Na escola em que você estudou, ou em que alguém da sua família estuda, ensinaram algo sobre a história da África ou do povo negro no Brasil? O que você lembra?
+```
+
 ## O que a lei diz
 
 A **Lei nº 10.639**, de **2003**, acrescentou à **Lei de Diretrizes e Bases da Educação (LDB)** o **artigo 26-A**. Ele diz que, nos estabelecimentos de **ensino fundamental e médio**, **oficiais e particulares**, **torna-se obrigatório** o ensino sobre **História e Cultura Afro-Brasileira**.
@@ -67,6 +72,15 @@ Uma escola só fala de cultura afro-brasileira numa palestra em novembro. Ela es
 > Releia a seção "Em todo o currículo".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A escola tem de ensinar a mesma coisa para todo mundo. Separar história da África e cultura afro-brasileira é dividir o país, em vez de unir." É a opinião de quem quer um país mais unido.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A Lei nº 10.639/2003 acrescentou o art. 26-A à LDB e tornou obrigatório o ensino de História e Cultura Afro-Brasileira no fundamental e no médio, em escolas públicas e particulares. Não é um conteúdo à parte para uma turma: trata da África, da luta dos negros, da cultura negra e do negro na formação do Brasil, e deve aparecer em todo o currículo, em especial em Artes, Literatura e História. O objetivo, segundo a aula, é resgatar a contribuição do povo negro, que é parte da história de todos.
+```
+
 ## Exemplo resolvido
 
 **Dê um exemplo de como cada disciplina pode cumprir a lei.**
@@ -75,6 +89,11 @@ Uma escola só fala de cultura afro-brasileira numa palestra em novembro. Ela es
 2. **Literatura**: ler autores negros brasileiros.
 3. **Educação Artística**: conhecer a **arte** e a **música** de matriz africana.
 4. **Matemática** ou **Ciências**: conhecer saberes e tecnologias de povos africanos.
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha da sua família o que ela aprendeu na escola sobre a história do povo negro e anote a resposta.
+```
 
 ## Resumo
 

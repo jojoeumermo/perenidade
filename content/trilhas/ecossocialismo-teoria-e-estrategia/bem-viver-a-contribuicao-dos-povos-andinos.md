@@ -22,7 +22,7 @@ quiz:
     resposta: 0
     explicacao: "'Sumak' é a realização ideal e bela; 'kawsay' é vida."
   - pergunta: "Quem criou a expressão como proposta política?"
-    opcoes: ["Organizações indígenas socialistas", "Bancos internacionais", "Empresas de mineração"]
+    opcoes: ["Organizações indígenas dos Andes", "Bancos internacionais", "Empresas de mineração"]
     resposta: 0
     explicacao: "Depois ela foi adotada nas constituições do Equador e da Bolívia."
   - pergunta: "Qual destes é um objetivo do projeto do bem viver?"

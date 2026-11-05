@@ -1,5 +1,6 @@
 ---
 titulo: "Braille"
+modelo: 9
 resumo: "O braille é um sistema de escrita tátil, lido com os dedos, criado por Louis Braille, um jovem francês que ficou cego na infância. Como funciona a célula de seis pontos e como o braille é usado hoje."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Feche os olhos e tente ler esta frase com os dedos. Impossível, certo? Agora im
 
 Ao fim desta aula você vai saber o que é o braille, quem o criou e como funciona a célula de seis pontos.
 
+```suarealidade
+Você já viu braille em algum lugar (elevador, caixa de remédio, placa)? Conhece alguém que lê com os dedos?
+```
+
 ## O que é
 
 O **braille** é um sistema de **escrita tátil** usado por **pessoas cegas ou com baixa visão**. É escrito em **relevo**, tradicionalmente em papel, e lido com os **dedos**.
@@ -75,6 +80,20 @@ Por que cada célula tem só seis pontos?
 2. Seis pontos: 2 × 2 × 2 × 2 × 2 × 2 = **64** combinações.
 3. Uma delas é a célula **sem nenhum ponto** (o espaço em branco).
 4. Usando **um ou mais pontos**: 64 − 1 = **63**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hoje o celular lê tudo em voz alta. Braille é coisa do passado e não vale o gasto."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o braille continua em uso: pode ser escrito com reglete e punção, com máquina de escrever braille ou com computadores que imprimem em relevo, e lido em telas, com mostradores braille eletrônicos. A célula de seis pontos cabe sob a ponta do dedo e permite ler rápido. E a Lei Brasileira de Inclusão inclui o braille entre as formas de comunicação que devem ser garantidas. A leitura em voz alta ajuda muita gente, mas ler com os dedos é ler de fato, com a escrita à frente.
+```
+
+```agir
+# Esta semana
+Procure braille em placas, elevadores ou embalagens de remédio perto de você e anote onde ele aparece e onde faz falta. Desenhe também uma célula braille com os seis pontos numerados de 1 a 6.
+```
 
 ## Resumo
 

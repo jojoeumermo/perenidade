@@ -1,5 +1,6 @@
 ---
 titulo: "Cultura e diversidade"
+modelo: 9
 resumo: "Cultura é tudo o que aprendemos vivendo em sociedade, e cada povo tem a sua. A diversidade cultural é defendida pela UNESCO, que aprovou uma Declaração Universal sobre o tema e, em 2005, uma convenção para protegê-la. O Dia Mundial da Diversidade Cultural é 21 de maio."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Num mesmo ônibus, uma pessoa ouve funk, outra reza o terço, outra fala guarani
 
 Ao fim desta aula você vai entender o que é diversidade cultural e como ela é protegida.
 
+```suarealidade
+De onde vieram as pessoas da sua família, e que costume, comida ou música elas trouxeram de lá?
+```
+
 ## Cultura
 
 Para a antropologia, **cultura** é, nas palavras de **E. B. Tylor**, o **todo complexo** que inclui **conhecimento**, **crença**, **arte**, **moral**, **lei**, **costume** e outros **hábitos adquiridos** como membro de uma sociedade. Como é **aprendida**, e não herdada pelo sangue, **todo grupo humano** tem cultura.
@@ -68,6 +73,15 @@ Por que a UNESCO se preocupa com a homogeneização da cultura?
 > Releia a seção "Proteger a diversidade".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se todo mundo vive no mesmo país, devia ter uma cultura só. Tanta diferença só divide." É a opinião de quem quer um país unido.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que todo povo tem cultura e que diversidade cultural é a convivência de muitas culturas que se transformam. A UNESCO defende a diversidade desde 1945, a ONU criou o Dia Mundial da Diversidade Cultural, em 21 de maio (2002), e a Convenção de 2005 é contra a homogeneização. Conviver com muitas culturas não é dividir: é reconhecer que cada povo tem o seu jeito de viver.
+```
+
 ## Exemplo resolvido
 
 **Dê três exemplos de diversidade cultural no Brasil.**
@@ -76,6 +90,11 @@ Por que a UNESCO se preocupa com a homogeneização da cultura?
 2. **Religiões**: catolicismo, igrejas evangélicas, candomblé, umbanda, espiritismo e outras.
 3. **Festas**: festas juninas, carnaval, festas religiosas locais.
 4. Todas fazem parte da **cultura brasileira**.
+
+```agir
+# Esta semana
+Pergunte a uma pessoa de outra região ou de outra origem que costume ela trouxe de lá e anote.
+```
 
 ## Resumo
 

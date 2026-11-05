@@ -1,5 +1,6 @@
 ---
 titulo: "Números de 1 a 100 em chinês"
+modelo: 9
 resumo: "Contar até cem, dizer a idade e o preço, a diferença entre 二 e 两 e a troca de tom do 一."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -38,6 +39,10 @@ quiz:
 Ao fim desta aula você vai saber contar de 0 a 100 em chinês, usar 二 e 两 do jeito certo, escolher a palavra de medida, dizer a idade e perguntar o preço.
 
 Os números chineses são um dos pontos mais fáceis da língua: com apenas onze palavras, você conta de 0 a 99, sem nenhuma exceção. Mas há dois detalhes que todo iniciante precisa conhecer: a diferença entre **二** e **两**, e as palavras de medida que aparecem entre o número e a coisa contada.
+
+```suarealidade
+Em que momentos do seu dia você usa números (preço, horário, telefone, idade)? Como seria perguntar um preço sem saber os números da língua do vendedor?
+```
 
 ## De 0 a 10
 
@@ -154,6 +159,20 @@ Respostas do 1: 九 (jiǔ), 十六 (shíliù), 三十 (sānshí), 五十二 (wǔ
 3. **Duas pessoas.** Depois do "dois" vem uma palavra de medida (个), então usa-se **两**, e não 二: **两个人** (liǎng ge rén).
 
 Confira: a ordem é tudo. 十四 (shísì) é 14, mas 四十 (sìshí) é 40.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Chinês é difícil demais para um adulto que trabalha o dia todo. Melhor estudar uma língua mais fácil, como o inglês." É uma opinião de quem já tentou aprender uma língua e desistiu.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que os números são um dos pontos mais fáceis da língua: com apenas onze palavras (零 a 十) se conta de 0 a 99, sem exceção, como uma conta. Há detalhes a aprender, como a diferença entre 二 e 两 e as palavras de medida, mas nada que impeça começar. Aprender pelo que é mais simples e útil, como o preço (多少钱？) e a idade (岁), dá ânimo para continuar.
+```
+
+```agir
+# Esta semana
+Escreva num papel os números de 1 a 10 em chinês e diga em voz alta. Depois escreva o seu número de telefone, dígito por dígito, em chinês. Não mostre o telefone a ninguém; é só treino.
+```
 
 ## Resumo
 

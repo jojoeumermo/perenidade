@@ -24,7 +24,7 @@ quiz:
     opcoes: ["O fim de todo investimento estrangeiro", "A volta ao exclusivo colonial", "O investimento de multinacionais em indústrias voltadas para o mercado interno dos países dependentes"]
     resposta: 2
     explicacao: "A dependência passa a ser de tecnologia, máquinas e capitais."
-  - pergunta: "Que dilema Theotonio viu para a América Latina no fim dos anos 1960?"
+  - pergunta: "Que dilema Theotonio dos Santos formulou para a América Latina no livro Socialismo ou Fascismo?"
     opcoes: ["Socialismo ou fascismo", "Monarquia ou república", "Café ou açúcar"]
     resposta: 0
     explicacao: "Para ele, não havia espaço para um desenvolvimento capitalista nacional e democrático."

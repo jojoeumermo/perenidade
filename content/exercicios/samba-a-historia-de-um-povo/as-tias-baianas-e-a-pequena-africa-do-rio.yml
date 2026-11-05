@@ -1,0 +1,50 @@
+# Exercícios da aula "As tias baianas e a Pequena África do Rio" (samba-a-historia-de-um-povo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: samba-a-historia-de-um-as-tias-baianas-e-a-pequena-africa-do-ri-01
+  tema: "Pequena África"
+  dificuldade: 1
+  enunciado: "Quem deu o nome de Pequena África à região portuária do Rio de Janeiro, segundo a aula?"
+  alternativas:
+    - texto: "O sambista e pintor Heitor dos Prazeres"
+      certa: true
+    - texto: "O presidente Getúlio Vargas"
+      erro: "A aula atribui o nome a Heitor dos Prazeres."
+    - texto: "Os portugueses, no século XVI"
+      erro: "O nome aparece entre 1850 e 1920 e foi dado por Heitor dos Prazeres."
+  explicacao: "A região inclui a Gamboa, a Saúde, onde fica a comunidade quilombola da Pedra do Sal, e o Santo Cristo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As tias baianas e a Pequena África do Rio\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-as-tias-baianas-e-a-pequena-africa-do-ri-02
+  tema: "Tias baianas"
+  dificuldade: 1
+  enunciado: "Quem eram as tias baianas?"
+  alternativas:
+    - texto: "Mulheres negras vindas da Bahia, muitas ialorixás do candomblé, que sustentavam a família como quituteiras"
+      certa: true
+    - texto: "Cantoras de rádio"
+      erro: "A aula as apresenta como quituteiras e mães de santo."
+    - texto: "Professoras do Rio"
+      erro: "Eram mulheres da Bahia, quituteiras e ialorixás."
+  explicacao: "Elas mantinham vivos os ritos de tradição africana e deixaram Salvador também por causa de perseguições policiais."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As tias baianas e a Pequena África do Rio\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-as-tias-baianas-e-a-pequena-africa-do-ri-03
+  tema: "Tia Ciata"
+  dificuldade: 2
+  enunciado: "Qual destes dados sobre Tia Ciata está na aula?"
+  alternativas:
+    - texto: "Nasceu em Santo Amaro da Purificação, mudou-se para o Rio aos 22 anos e teve 14 filhos"
+      certa: true
+    - texto: "Nasceu em São Paulo e nunca saiu de lá"
+      erro: "Ela nasceu na Bahia e foi para o Rio."
+    - texto: "Foi a primeira presidente de escola de samba"
+      erro: "A aula não diz isso. Fala da casa dela, ponto de encontro de sambistas."
+  explicacao: "Em 1854-1924, ela levou o samba de roda para o Rio, e a casa dela, perto da Praça Onze, reunia Pixinguinha, Donga, Heitor dos Prazeres, Sinhô e João da Baiana."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As tias baianas e a Pequena África do Rio\""
+  revisao:
+    status: em-revisao

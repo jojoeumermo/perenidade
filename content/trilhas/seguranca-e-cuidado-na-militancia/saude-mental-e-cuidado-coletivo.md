@@ -30,7 +30,7 @@ quiz:
     resposta: 0
     explicacao: "Sigilo, respeito e canais de ajuda criam confiança. Sem isso, as pessoas se calam."
   - pergunta: "O que a Lei 10.216/2001 assegura às pessoas com transtornos mentais?"
-    opcoes: ["Direitos, como o acesso ao melhor tratamento do sistema de saúde, ser tratada com humanidade e respeito, e ter protegida a sua integridade e a sua autonomia, entre outros", "Nada", "Internação obrigatória para todas", "Perda dos direitos civis"]
+    opcoes: ["Direitos, como o acesso ao melhor tratamento do sistema de saúde, ser tratada com humanidade e respeito, ser protegida contra abuso e exploração e ter sigilo das informações, entre outros", "Nada", "Internação obrigatória para todas", "Perda dos direitos civis"]
     resposta: 0
     explicacao: "A lei, base da reforma psiquiátrica, afirma os direitos da pessoa com transtorno mental e a prioridade do cuidado em liberdade, com internação só quando os recursos extra-hospitalares são insuficientes."
 ---

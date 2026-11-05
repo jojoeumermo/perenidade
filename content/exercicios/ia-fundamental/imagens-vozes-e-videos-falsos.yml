@@ -1,0 +1,51 @@
+# Exercícios da aula "Imagens, vozes e vídeos falsos" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-fal-01
+  tema: "O que é deepfake"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é um deepfake?"
+  alternativas:
+    - texto: "Imagem, vídeo ou áudio editado ou gerado com inteligência artificial, que mostra pessoas fazendo ou dizendo o que nunca fizeram"
+      certa: true
+    - texto: "Qualquer foto com filtro bonito"
+      erro: "Um filtro de beleza não é, em geral, deepfake. O deepfake falsifica o que uma pessoa fez ou disse."
+    - texto: "Um vídeo antigo que foi restaurado"
+      erro: "Restaurar não é falsificar. O deepfake inventa algo que não aconteceu."
+  explicacao: "O nome junta deep learning (aprendizado profundo) e fake (falso)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-fal-02
+  tema: "Regra eleitoral"
+  dificuldade: 2
+  enunciado: "O que a Resolução nº 23.732, de 2024, do TSE, estabelece sobre IA na propaganda eleitoral?"
+  alternativas:
+    - texto: "Quem usar conteúdo fabricado ou manipulado por IA deve informar isso de forma explícita e destacada, e é proibido usar deepfake para prejudicar ou favorecer candidaturas"
+      certa: true
+    - texto: "Que a propaganda pode usar qualquer deepfake, se for engraçado"
+      erro: "É proibido usar deepfakes para prejudicar ou favorecer candidaturas."
+    - texto: "Que a IA é proibida em toda a campanha, até para corrigir texto"
+      erro: "A regra pede aviso explícito do conteúdo manipulado e proíbe o deepfake; não proíbe toda IA."
+  explicacao: "Em 2024, o Tribunal Superior Eleitoral mudou as regras da propaganda: aviso explícito do uso de IA e proibição do deepfake para prejudicar ou favorecer candidaturas."
+  fonte: "Resolução TSE nº 23.732/2024, conforme a aula 'Imagens, vozes e vídeos falsos'"
+  revisao:
+    status: em-revisao
+
+- id: ia-fal-03
+  tema: "Áudio pedindo dinheiro"
+  dificuldade: 2
+  enunciado: "Chega um áudio com a voz de um parente pedindo dinheiro com urgência. O que fazer?"
+  alternativas:
+    - texto: "Ligar para a pessoa em um número que você já conhece, antes de qualquer Pix"
+      certa: true
+    - texto: "Mandar o dinheiro, porque a voz é igualzinha"
+      erro: "A voz pode ser falsificada por IA. Confirme por outro caminho."
+    - texto: "Responder no mesmo número pedindo o código"
+      erro: "Continue no canal do golpista não ajuda. Ligue para um número conhecido."
+  explicacao: "Áudio pedindo dinheiro é um sinal para parar e conferir por um número que você já tem. Na dúvida, não repasse."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

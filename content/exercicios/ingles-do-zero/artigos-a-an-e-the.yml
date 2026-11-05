@@ -1,0 +1,67 @@
+# Exercícios da aula "Artigos a, an e the" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-art-01
+  tema: "A ou an"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a forma certa?  I have ___ umbrella."
+  alternativas:
+    - texto: "an"
+      certa: true
+    - texto: "a"
+      erro: "Umbrella começa com som de vogal, então se usa an."
+    - texto: "the"
+      erro: "The seria para uma coisa já conhecida. Aqui se fala de um guarda-chuva qualquer."
+  explicacao: "A regra é sobre o som da palavra seguinte, e não sobre a letra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-art-02
+  tema: "Profissão"
+  dificuldade: 2
+  enunciado: "Qual frase está correta?"
+  alternativas:
+    - texto: "She is a nurse."
+      certa: true
+    - texto: "She is nurse."
+      erro: "Em inglês, profissão sempre leva a ou an."
+    - texto: "She is the nurse a."
+      erro: "A ordem está errada. O artigo vem antes da profissão."
+  explicacao: "Dizer 'she is nurse' é um erro muito comum de quem fala português."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-art-03
+  tema: "A ou an: o som"
+  dificuldade: 2
+  enunciado: "Qual é o artigo certo?  ___ hour"
+  alternativas:
+    - texto: "an hour"
+      certa: true
+    - texto: "a hour"
+      erro: "O h de hour é mudo: a palavra começa com som de vogal, então se usa an."
+    - texto: "the hour a"
+      erro: "A ordem está errada."
+  explicacao: "O que manda é o som. Em hour e honest, o h é mudo, e se usa an."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-art-04
+  tema: "Sem artigo"
+  dificuldade: 3
+  enunciado: "Qual frase está correta para falar de música em geral?"
+  alternativas:
+    - texto: "I like music."
+      certa: true
+    - texto: "I like the music."
+      erro: "Falando de uma coisa em geral, o inglês não usa artigo."
+    - texto: "I like a music."
+      erro: "Music é incontável: não leva a."
+  explicacao: "Quando se fala de uma coisa em geral, não se usa artigo. Com the, fala-se de algo específico: I like the coffee from this bakery."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "Combustíveis e combustão"
+modelo: 9
 resumo: "Objetivo: entender o que é preciso para haver fogo, o que a queima produz, os riscos do gás de cozinha e do monóxido de carbono e a ligação entre combustíveis e clima."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é o fogo, como apagar cada tipo de fogo e como se proteger do gás de cozinha e do monóxido de carbono.
+
+```suarealidade
+Que fontes de fogo você usa no dia a dia: fogão, botijão, churrasqueira, aquecedor? Você já viu a chama ficar amarela ou sentiu cheiro de gás?
+```
 
 ## O que é o fogo
 
@@ -130,6 +135,15 @@ Os biocombustíveis emitem, na queima, o carbono que a planta absorveu ao cresce
 
 A responsabilidade pelo aquecimento também não é igual. Os países ricos e as grandes empresas de petróleo, carvão e gás respondem pela maior parte das emissões acumuladas. Quem menos emitiu (as populações pobres, os moradores de encostas e de beiras de rio) é quem mais sofre com as enchentes, as secas e as ondas de calor.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sempre cozinhei com botijão e nunca aconteceu nada. Ficar pensando em ventilação é medo à toa." É a opinião de quem tem anos de cozinha.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o perigo maior não se vê nem se cheira: o monóxido de carbono, que se forma na queima incompleta, não tem cor nem cheiro e mata em ambiente fechado. Chama azul indica queima completa; chama amarela, com fuligem, indica queima incompleta. Por isso, onde há chama, tem de haver ventilação. Se sentir cheiro de gás: não acenda nada, feche o registro, abra as janelas e chame o 193 de fora de casa.
+```
+
 ## Exemplo resolvido
 
 **Uma panela com óleo pegou fogo no fogão. Como apagar?**
@@ -146,6 +160,11 @@ Confira: óleo é líquido inflamável (classe B), e para ele a regra é abafar,
 2. Qual é a validade da mangueira e do regulador do seu botijão?
 3. Há extintores no seu local de trabalho? Para que classes de fogo servem? Você sabe usá-los?
 4. Por que quem menos contribuiu para o aquecimento global é quem mais sofre com ele?
+
+```agir
+# Esta semana
+Olhe a cor da chama do seu fogão e veja se a cozinha tem janela ou abertura para o ar circular. Anote o número 193 num lugar de fácil acesso.
+```
 
 ## Resumo
 

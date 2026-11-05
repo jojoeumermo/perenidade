@@ -1,0 +1,50 @@
+# Exercícios da aula "O ritmo do samba: compasso binário e síncope" (tocar-e-cantar-samba). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: tocar-e-cantar-samba-o-ritmo-do-samba-compasso-binario-e-sinc-01
+  tema: "Compasso"
+  dificuldade: 1
+  enunciado: "Qual é o compasso básico do samba urbano carioca, segundo a aula?"
+  alternativas:
+    - texto: "2/4: dois tempos, o primeiro forte e o segundo fraco"
+      certa: true
+    - texto: "3/4, como a valsa"
+      erro: "A valsa é 3/4."
+    - texto: "4/4, só com quatro tempos fortes"
+      erro: "O samba é basicamente 2/4."
+  explicacao: "Conte: UM-dois, UM-dois. O surdo faz a marcação."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O ritmo do samba: compasso binário e síncope\""
+  revisao:
+    status: em-revisao
+
+- id: tocar-e-cantar-samba-o-ritmo-do-samba-compasso-binario-e-sinc-02
+  tema: "Síncope"
+  dificuldade: 2
+  enunciado: "O que é a síncope?"
+  alternativas:
+    - texto: "Quando o som cai no tempo fraco, ou na parte fraca do tempo, e se prolonga até o forte"
+      certa: true
+    - texto: "Quando o som cai sempre certinho no UM"
+      erro: "Isso é marcação reta."
+    - texto: "Quando todos param de tocar"
+      erro: "Não é isso."
+  explicacao: "Isso desloca o acento e dá a sensação de balanço."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O ritmo do samba: compasso binário e síncope\""
+  revisao:
+    status: em-revisao
+
+- id: tocar-e-cantar-samba-o-ritmo-do-samba-compasso-binario-e-sinc-03
+  tema: "Contratempo"
+  dificuldade: 2
+  enunciado: "O que é o contratempo, segundo a aula?"
+  alternativas:
+    - texto: "O tempo forte fica em silêncio e a nota soa no tempo fraco"
+      certa: true
+    - texto: "Tocar duas notas no UM"
+      erro: "Não é isso."
+    - texto: "O mesmo que a síncope"
+      erro: "É parecido, mas diferente: na síncope o som se prolonga até o tempo forte."
+  explicacao: "No exercício da aula, o contratempo é bater só nos \"e\", com silêncio no UM e no DOIS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O ritmo do samba: compasso binário e síncope\""
+  revisao:
+    status: em-revisao

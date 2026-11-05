@@ -1,0 +1,50 @@
+# Exercícios da aula "Esgotamento na militância: reconhecer os sinais" (seguranca-e-cuidado-na-militancia). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: seguranca-e-cuidado-na-esgotamento-na-militancia-reconhecer-os-01
+  tema: "Burnout"
+  dificuldade: 2
+  enunciado: "Como a OMS descreveu o burnout na CID-11, em 2019?"
+  alternativas:
+    - texto: "Um fenômeno ocupacional de estresse crônico no trabalho não administrado com sucesso, com exaustão, distanciamento mental e redução da eficácia"
+      certa: true
+    - texto: "Uma doença só de quem é fraco"
+      erro: "A aula diz que quem vive isso não está \"fraco\"."
+    - texto: "Um transtorno que só aparece na militância"
+      erro: "A OMS refere ao contexto de trabalho; a militância não é emprego, mas os sinais se parecem."
+  explicacao: "Cuidar de quem luta é parte da luta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Esgotamento na militância: reconhecer os sinais\""
+  revisao:
+    status: em-revisao
+
+- id: seguranca-e-cuidado-na-esgotamento-na-militancia-reconhecer-os-02
+  tema: "Sinais"
+  dificuldade: 1
+  enunciado: "Qual destes é um sinal de esgotamento nas relações?"
+  alternativas:
+    - texto: "Distanciar-se do grupo, brigar à toa e evitar reuniões"
+      certa: true
+    - texto: "Dormir bem e comer bem"
+      erro: "Isso não é sinal."
+    - texto: "Participar com mais alegria"
+      erro: "Não é sinal de esgotamento."
+  explicacao: "No corpo: cansaço que o descanso não resolve. Nas emoções: irritação, vazio. No pensamento: \"nada adianta\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Esgotamento na militância: reconhecer os sinais\""
+  revisao:
+    status: em-revisao
+
+- id: seguranca-e-cuidado-na-esgotamento-na-militancia-reconhecer-os-03
+  tema: "Duas jornadas"
+  dificuldade: 1
+  enunciado: "Por que militar cansa, segundo a aula?"
+  alternativas:
+    - texto: "Porque muita gente trabalha o dia inteiro e ainda organiza o movimento, com o cuidado da casa, e carrega pressão e derrotas"
+      certa: true
+    - texto: "Porque a militância é fácil"
+      erro: "A aula mostra o contrário."
+    - texto: "Porque reclamar do cansaço é falta de compromisso"
+      erro: "A aula diz que é o contrário."
+  explicacao: "Muita gente acha que reclamar do cansaço é \"falta de compromisso\", mas cuidar de quem luta é parte da luta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Esgotamento na militância: reconhecer os sinais\""
+  revisao:
+    status: em-revisao

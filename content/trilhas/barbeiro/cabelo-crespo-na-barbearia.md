@@ -1,5 +1,6 @@
 ---
 titulo: "Cabelo crespo na barbearia"
+modelo: 9
 resumo: "O que o cabelo crespo tem de diferente, como desembaraçar e cortar sem machucar, os estilos que marcaram a história, os cuidados com a nuca e a barba de quem tem fio crespo e o preconceito do \"cabelo ruim\", que também é assunto da barbearia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -52,6 +53,10 @@ Você já viu alguém sair da barbearia com o couro cabeludo machucado porque o 
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender o que o cabelo crespo tem de diferente, desembaraçar e cortar sem machucar, conhecer os estilos que marcaram a história, cuidar da nuca e da barba de quem tem fio crespo e saber por que o preconceito do "cabelo ruim" também é assunto da barbearia.
+
+```suarealidade
+Você já viu alguém sair da barbearia com o couro cabeludo machucado porque o barbeiro "não sabia mexer nesse cabelo"? O que acontece com o cliente depois disso?
+```
 
 ## O que o crespo tem de diferente
 
@@ -110,6 +115,20 @@ O cliente de cabelo crespo pede o topo "um dedo". Com o cabelo seco e solto, voc
 5. **Topo**: máquina sobre o pente com o garfo levantando o cabelo, e tesoura para arredondar.
 6. **Contorno** com acabador, **sem navalha na nuca** inflamada.
 7. **Orientar**: se as bolinhas doerem ou inflamarem, UBS.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cabelo é cabelo: quem aprendeu a cortar corta qualquer um. Falar em técnica especial para cabelo crespo é complicar." É uma opinião de quem aprendeu um único jeito de trabalhar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra diferenças reais: o folículo achatado faz o fio crescer em espiral, o fio encolhe quando seca, precisa de mais umidade e sofre com pente seco e força. Por isso se usa garfo e pente de dentes largos, combinando o comprimento com a mecha esticada. E o preconceito do "cabelo ruim" desvaloriza a herança africana; ofender por raça ou cor é injúria racial (Lei 7.716, artigo 2º-A).
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa de cabelo crespo, de confiança, o que ela gosta e o que ela não gosta no atendimento que já recebeu numa barbearia ou salão. Anote as respostas num papel, sem nome.
+```
 
 ## Resumo
 

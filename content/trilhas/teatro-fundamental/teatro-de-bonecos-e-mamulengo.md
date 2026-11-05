@@ -1,5 +1,6 @@
 ---
 titulo: "Teatro de bonecos e mamulengo"
+modelo: 9
 resumo: "O mamulengo é o teatro de bonecos do Nordeste, feito em praça pública desde o tempo colonial, cômico e satírico. Patrimônio cultural do Brasil desde 2015. Como funciona e como montar um boneco simples."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Um boneco pode dizer o que uma pessoa não teria coragem de dizer. Por que, há 
 
 Ao fim desta aula você vai conhecer o mamulengo, entender como funciona uma "brincadeira" de bonecos e montar um boneco simples.
 
+```suarealidade
+Você já assistiu a um teatro de bonecos numa praça, numa escola ou numa festa? Do que a história falava e quem ria?
+```
+
 ## O que é o mamulengo
 
 O **mamulengo** é um tipo de **fantoche** típico do **Nordeste**, sobretudo de **Pernambuco**. O nome viria de **"mão molenga"**, a mão mole que dá **movimentos vivos** ao boneco. **Um ou mais manipuladores** dão **voz e movimento** aos bonecos.
@@ -66,6 +71,15 @@ Como são chamados a peça e o ator no mamulengo?
 > Releia "A brincadeira".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Teatro de boneco é coisa de criança, brincadeira sem importância. Cultura mesmo é o teatro grande." É a opinião de quem mede a cultura pelo tamanho do palco.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o mamulengo é o teatro de bonecos do Nordeste, feito desde a época colonial, em praça pública, com histórias cômicas e satíricas do cotidiano; a peça é a brincadeira e o ator, o brincante. Desde 2015 é patrimônio cultural do Brasil. Uma arte que atravessa séculos fazendo o povo rir e pensar tem valor de cultura.
+```
+
 ## Exemplo resolvido
 
 **Monte um boneco de mão simples e uma cena.**
@@ -75,6 +89,11 @@ Como são chamados a peça e o ator no mamulengo?
 3. **Rosto**: pinte ou cole olhos, boca, cabelo.
 4. **Empanada**: estique um lençol numa corda ou atrás de uma mesa, para esconder quem manipula.
 5. **Cena cômica de 2 minutos**: um boneco trabalhador e um boneco patrão discutem o salário; o público responde.
+
+```agir
+# Esta semana
+Procure um vídeo de mamulengo de Pernambuco e anote que situação do cotidiano a história põe em graça. Se houver criança em casa, mostre a ela.
+```
 
 ## Resumo
 

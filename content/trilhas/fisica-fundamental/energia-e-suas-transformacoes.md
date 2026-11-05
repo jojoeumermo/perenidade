@@ -1,5 +1,6 @@
 ---
 titulo: "Energia e suas transformações"
+modelo: 9
 resumo: "Objetivo: entender o que é energia, como ela muda de forma sem se perder e como ler a potência dos aparelhos e a conta de luz."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber nomear as formas de energia, explicar por que a energia se transforma sem se perder e calcular quanto um aparelho gasta em kWh na conta de luz.
+
+```suarealidade
+Pense na conta de luz da sua casa: qual aparelho você acha que mais pesa nela? E quanto tempo por dia o chuveiro fica ligado?
+```
 
 
 ## O que é energia
@@ -132,6 +137,20 @@ Saber fazer a conta do kWh é o primeiro passo. O segundo é perguntar por que a
 4. Liste os três aparelhos da sua casa que mais consomem.
 
 **Respostas:** 1) Elétrica em cinética, som e calor; potencial em cinética e, no freio, em calor. 2) 1 kW × 8 h = 8 kWh.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Economizar energia é bobagem. Energia não se perde, só se transforma. Apagar a luz não muda nada."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A primeira parte é verdadeira: a energia não é criada nem destruída. Mas a aula explica que em toda transformação uma parte vira calor que se espalha e não pode mais ser aproveitada; "gastar" é ficar inútil para nós. E a conta cobra energia em kWh, que é a potência (kW) vezes as horas. Um chuveiro de 5,5 kW usado meia hora por dia gasta 82,5 kWh por mês; uma lâmpada de LED de 9 W, 5 horas por dia, gasta 1,35 kWh. Por isso a conta pesa de verdade, e saber fazê-la mostra onde vale a pena economizar.
+```
+
+```agir
+# Esta semana
+Pegue a sua conta de luz e anote quantos kWh foram consumidos e quanto custa cada kWh. Depois liste os três aparelhos da sua casa que mais consomem.
+```
 
 ## Resumo
 

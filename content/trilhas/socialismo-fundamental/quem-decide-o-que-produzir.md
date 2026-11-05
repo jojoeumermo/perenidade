@@ -1,5 +1,6 @@
 ---
 titulo: "Quem decide o que produzir"
+modelo: 9
 resumo: "Mercado, planejamento e democracia: as diferentes formas de decidir o que uma sociedade produz, para quem e como."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 Ao fim desta aula você vai saber comparar quem decide o que produzir no capitalismo e na proposta socialista e por que a pergunta "quem planeja?" importa tanto.
 
 Num mesmo país, há prédios vazios e gente sem casa; plantações de soja para exportar e famílias com fome; remédios para doenças de ricos e doenças de pobres sem remédio. Isso acontece porque alguém **decide** o que produzir. A pergunta desta aula é: **quem decide, e com que critério?**
+
+```suarealidade
+Na empresa onde você trabalha ou já trabalhou, quem decidia o que produzir? Alguém perguntava o que o bairro precisava?
+```
 
 ## No capitalismo: o mercado e o lucro
 
@@ -71,6 +76,15 @@ O Brasil tem uma experiência conhecida: o **orçamento participativo**, iniciad
 
 Hoje, com computadores e internet, muitos pesquisadores discutem se seria possível combinar planejamento democrático e tecnologia para coordenar a economia sem depender do lucro.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ninguém no governo sabe melhor que o mercado o que as pessoas querem. Planejar a economia não funciona." É a opinião de quem viu a experiência de países que tentaram.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde as experiências: na URSS o planejamento central industrializou rápido, mas foi muito centralizado, feito por uma burocracia sem controle popular. Por isso a pergunta central é quem planeja: uma burocracia ou a própria população, por planejamento democrático. A aula lembra também que, no capitalismo, o critério é o lucro e o mercado só "ouve" quem tem dinheiro, e que no Chile de Allende o Projeto Cybersyn tentou ligar fábricas estatais a uma sala de operações, até o golpe de 1973.
+```
+
 ## Exemplo resolvido
 
 **Por que há prédios vazios e gente sem casa ao mesmo tempo?**
@@ -84,6 +98,11 @@ Conclusão: a falta de casas não é só falta de material ou de gente que saiba
 ## Para conversar
 
 Se o seu bairro pudesse decidir como gastar o orçamento da prefeitura para ele, quais seriam as três prioridades? Como vocês organizariam essa decisão?
+
+```agir
+# Esta semana
+Anote três coisas que faltam no seu bairro e se alguém já perguntou a você o que o bairro precisa.
+```
 
 ## Resumo
 

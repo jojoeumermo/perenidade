@@ -1,0 +1,67 @@
+# Exercícios da aula "O que é um algoritmo" (Lógica de programação). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lp-alg-01
+  tema: "Entrada, processamento e saída"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Num algoritmo que calcula o troco, o valor pago e o valor da compra são:"
+  alternativas:
+    - texto: "A entrada"
+      certa: true
+    - texto: "O processamento"
+      erro: "O processamento é o que o algoritmo faz com a entrada: aqui, a subtração."
+    - texto: "A saída"
+      erro: "A saída é o que ele entrega: o troco."
+  explicacao: "Entrada é o que o algoritmo recebe (os ingredientes), processamento é o que ele faz (o modo de preparo) e saída é o que entrega (o bolo, ou o troco)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-alg-02
+  tema: "Instrução precisa"
+  dificuldade: 2
+  enunciado: "Por que 'asse até dourar' não serve como passo de um algoritmo para um computador?"
+  alternativas:
+    - texto: "Porque o computador não tem bom senso: cada passo precisa ser preciso, entendido de um jeito só"
+      certa: true
+    - texto: "Porque computador não sabe cozinhar"
+      erro: "O ponto não é cozinha: é que o computador executa exatamente o que foi escrito e não adivinha."
+    - texto: "Porque dourar leva muito tempo"
+      erro: "O tempo não é o problema. A instrução é vaga, e o computador precisa de passos precisos."
+  explicacao: "Um bom algoritmo é preciso, ordenado e finito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-alg-03
+  tema: "Algoritmo finito"
+  dificuldade: 2
+  enunciado: "O que significa dizer que um algoritmo precisa ser finito?"
+  alternativas:
+    - texto: "Que em algum momento ele termina"
+      certa: true
+    - texto: "Que ele só pode ter três passos"
+      erro: "Pode ter quantos passos precisar. O que importa é que termine."
+    - texto: "Que ele só funciona uma vez"
+      erro: "Pode ser usado quantas vezes quiser. Finito quer dizer que cada execução chega ao fim."
+  explicacao: "Um algoritmo que nunca termina não resolve o problema. Por isso se evita o laço infinito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-alg-04
+  tema: "Ler um programa"
+  dificuldade: 2
+  enunciado: "O que este programa mostra?\n\nidade = 15\nif idade >= 16:\n    print(\"Pode votar\")\nelse:\n    print(\"Ainda não pode votar\")"
+  alternativas:
+    - texto: "Ainda não pode votar"
+      certa: true
+    - texto: "Pode votar"
+      erro: "A condição idade >= 16 é falsa para 15, então o programa vai para o else."
+    - texto: "Nada aparece"
+      erro: "Sempre aparece uma das duas mensagens: o if ou o else."
+  explicacao: "15 não é maior ou igual a 16, a condição é falsa, e o programa executa o bloco do else."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

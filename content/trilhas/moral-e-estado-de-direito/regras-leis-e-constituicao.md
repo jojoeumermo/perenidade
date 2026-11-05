@@ -1,5 +1,6 @@
 ---
 titulo: "Regras, leis e Constituição"
+modelo: 9
 resumo: "Por que existem regras, como nasce uma lei e o que é uma Constituição: o tema central da educação jurídica chinesa, comparado com o Brasil."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Ao fim desta aula você vai saber explicar por que existem regras, diferenciar r
 
 Um dos eixos da disciplina chinesa de Moral e Estado de Direito é a **educação jurídica**: aprender por que existem regras, o que é uma lei e o que é uma Constituição. Nos anos finais do ensino obrigatório, a Constituição do país ganha lugar de destaque, com unidades inteiras dedicadas a ela. Esta aula apresenta o tema e compara com o Brasil.
 
+```suarealidade
+Qual regra do seu dia a dia você acha injusta ou que ninguém cumpre? E qual regra protege você de verdade?
+```
+
 ## Por que existem regras
 
 A disciplina começa pelo cotidiano: a fila na cantina, as regras do jogo, o trânsito. Sem regras, a vida em grupo vira confusão, e quem é mais forte impõe a sua vontade. As regras protegem, sobretudo, os mais fracos.
@@ -76,6 +81,15 @@ No Brasil, o **Supremo Tribunal Federal** pode declarar uma lei inconstitucional
 
 Nos dois países, há distância entre o que a Constituição promete e o que acontece. A Constituição brasileira garante moradia, saúde e salário mínimo digno, mas milhões não têm acesso pleno a esses direitos. Conhecer a Constituição é o primeiro passo para **exigi-la**.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "As leis já são muitas demais e ninguém as conhece. O mais importante é a moral de cada um: quem é honesto não precisa de tanta regra escrita." É a opinião de quem confia mais no caráter das pessoas do que no papel.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que existem regras morais, ditadas pelo costume e pela consciência. Mas explica que as leis são diferentes porque o Estado pode exigir a sua obediência, e sem regras a vida em grupo vira confusão e o mais forte impõe a sua vontade: as regras protegem sobretudo os mais fracos. A Constituição é a lei fundamental e nenhuma lei pode contrariá-la. A aula também lembra que, nos dois países, há distância entre o que a Constituição promete e o que acontece, e que conhecer a Constituição é o primeiro passo para exigi-la.
+```
+
 ## Para conversar
 
 Escolha um artigo da Constituição brasileira que você considera muito importante. Ele é cumprido na sua cidade? O que poderia ser feito para que fosse?
@@ -88,6 +102,11 @@ Escolha um artigo da Constituição brasileira que você considera muito importa
 4. E se a lei contraria a Constituição? Nenhuma lei pode contrariá-la. No Brasil, o Supremo Tribunal Federal pode declará-la inconstitucional e anulá-la.
 
 Confira: a mesma conduta pode ser, ao mesmo tempo, regra moral e regra jurídica; o que distingue a lei é que o Estado pode exigir a sua obediência.
+
+```agir
+# Esta semana
+Escolha um artigo da Constituição que você considera importante, procure-o no site do Planalto e copie-o num papel. Depois anote se ele é cumprido na sua cidade e o que poderia mudar.
+```
 
 ## Resumo
 

@@ -1,0 +1,68 @@
+# Exercícios da aula "Mesopotâmia" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-mes-01
+  tema: "Por que a escrita nasceu"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, para que a escrita foi inventada na Mesopotâmia?"
+  alternativas:
+    - texto: "Para registrar quantidades de grãos, rebanhos e impostos: nasceu como ferramenta de contabilidade"
+      certa: true
+    - texto: "Para escrever poemas e orações"
+      erro: "Poemas, leis e orações vieram depois. A escrita nasceu para contar e registrar quantidades."
+    - texto: "Para enfeitar os templos"
+      erro: "Os primeiros sinais, em tabuletas de argila, serviam para a administração das cidades, e não para enfeite."
+  explicacao: "Com cidades grandes, depósitos e impostos, ficou impossível guardar tudo de cabeça. Por volta de 3300 a.C., em Uruk, começaram as marcas em argila."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula 'Mesopotâmia'"
+  revisao:
+    status: em-revisao
+
+- id: ha-mes-02
+  tipo: numero
+  tema: "Contar anos antes de Cristo"
+  dificuldade: 2
+  enunciado: "A escrita surgiu em Uruk por volta de 3300 a.C. e o Código de Hamurábi, por volta de 1750 a.C. Quantos anos separam os dois fatos?"
+  resposta: "1550"
+  unidade: "anos"
+  erros_comuns:
+    - resposta: "5050"
+      explicacao: "5.050 é a soma das datas. Em datas antes de Cristo, subtrai-se: o maior número é o mais antigo."
+  dica: "Nas datas a.C., subtraia o menor do maior."
+  explicacao: "3300 − 1750 = 1.550 anos."
+  conferir: "3300 - 1750"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-mes-03
+  tema: "Herança da base 60"
+  dificuldade: 2
+  enunciado: "O que os povos da Mesopotâmia nos deixaram ao contar em base 60?"
+  alternativas:
+    - texto: "A hora de 60 minutos, o minuto de 60 segundos e o círculo de 360 graus"
+      certa: true
+    - texto: "Os números romanos"
+      erro: "Os números romanos são de Roma. Da Mesopotâmia vem a base 60, usada no tempo e nos ângulos."
+    - texto: "A moeda de ouro"
+      erro: "A base 60 não tem relação com moeda. Ela aparece até hoje na medida do tempo e dos ângulos."
+  explicacao: "A base 60 dos mesopotâmicos sobrevive no relógio e na circunferência de 360 graus."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-mes-04
+  tema: "Código de Hamurábi"
+  dificuldade: 2
+  enunciado: "O que foi o Código de Hamurábi?"
+  alternativas:
+    - texto: "Um conjunto de quase 300 leis, gravado em pedra por volta de 1750 a.C., sobre comércio, família, trabalho e crimes"
+      certa: true
+    - texto: "O primeiro livro de poemas do mundo"
+      erro: "O poema famoso da região é a Epopeia de Gilgamesh. O Código de Hamurábi é um conjunto de leis."
+    - texto: "Um calendário de cheias do rio"
+      erro: "O código trata de leis, e não de calendário."
+  explicacao: "O rei Hamurábi, da Babilônia, mandou gravar as leis em pedra. Não é o código mais antigo, mas é o mais completo e bem preservado da época."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

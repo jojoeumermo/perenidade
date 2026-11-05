@@ -1,5 +1,6 @@
 ---
 titulo: "Box braids"
+modelo: 9
 resumo: "As tranças soltas que saem de divisões quadradas: de onde vêm, os tamanhos, como dividir a grade, prender a fibra com e sem nó, quanto duram e como evitar o peso e o aperto que machucam."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ A cliente mostra uma foto de box braids até a cintura, bem grossas. Elas vão f
 
 Ao fim desta aula você vai conhecer a origem das box braids, escolher o tamanho com a cliente, dividir a grade de quadrados, prender a fibra com e sem nó, calcular o tempo e orientar a manutenção, evitando o peso e o aperto que machucam.
 
+```suarealidade
+Você já usou ou já fez box braids? Quanto tempo durou e o que você sentiu na cabeça nos primeiros dias?
+```
+
 ## O que são e de onde vêm
 
 As **box braids** são **tranças soltas**, cada uma saindo de uma **divisão quadrada** do couro cabeludo (daí o nome, "tranças de caixa"). São um **penteado protetor**: podem ficar muito tempo e protegem as pontas do cabelo natural. Como não ficam presas ao couro como a nagô, podem ser arrumadas de vários jeitos: coque, rabo, solto.
@@ -96,6 +101,15 @@ Para que alternar a posição dos quadrados entre uma fileira e outra, como tijo
 > Pense em como ficam as tranças soltas caindo umas sobre as outras.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quanto mais longa e mais cheia, mais bonita a box braid. Dor de cabeça é o preço da beleza, e a cliente que pediu é quem sabe." É a opinião de quem gosta do visual volumoso.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a cliente nem sempre conhece o risco, e quem faz tem de informar. Box braids longas e pesadas podem dar dor de cabeça, e as apertadas podem causar alopecia de tração; tranças mais soltas têm menos risco. Elas duram de seis a oito semanas, com lavagem e hidratação do couro. Mostrar o peso de diferentes comprimentos de fibra antes da escolha faz parte do serviço.
+```
+
 ## Exemplo resolvido
 
 **A cliente quer box braids médias até o meio das costas. Você planeja 9 fileiras com 10 tranças cada, e leva 7 minutos por trança. Cada pacote de fibra rende 8 tranças desse comprimento. Calcule o tempo e os pacotes de fibra.**
@@ -107,6 +121,11 @@ Pacotes: 90 ÷ 8 = 11,25 → 12 pacotes
 ```
 
 O trabalho leva **mais de dez horas**, sem contar pausas, e precisa de **12 pacotes**. Combine com a cliente: dividir em dois dias, trabalhar com outra trancista ou propor tranças um pouco mais grossas (menos tranças, menos tempo e menos fibra). Quanto rende um pacote depende da fibra e do comprimento: confira com a sua, porque os números do exemplo são só para a conta.
+
+```agir
+# Esta semana
+Se você faz box braids, mostre a uma cliente o peso de diferentes comprimentos de fibra antes de ela escolher. Se não faz, pergunte a quem usa o que sentiu nos primeiros dias.
+```
 
 ## Resumo
 

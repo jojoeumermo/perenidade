@@ -1,5 +1,6 @@
 ---
 titulo: "Escrever um bilhete"
+modelo: 9
 resumo: "Para quem é, o recado e quem mandou: o primeiro texto inteiro, no papel ou no celular."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Até aqui você leu palavras soltas: o seu nome, as coisas da casa, as palavras 
 ## O que você vai aprender
 
 Ao fim desta aula você vai escrever um bilhete completo, com as quatro partes: para quem é, o recado, a despedida com o seu nome e o dia ou a hora. Vai saber conferir se o recado responde ao que a pessoa precisa saber. E vai mandar o primeiro bilhete escrito pelo celular.
+
+```suarealidade
+Qual foi o último recado que você deu a alguém de casa ou do serviço: um papel, uma mensagem no celular ou um áudio? Que informação não podia faltar nele?
+```
 
 ## Você já manda bilhetes
 
@@ -164,6 +169,15 @@ Algumas dicas:
 
 Escrever no celular todo dia é um ótimo treino. Cada "BOM DIA" no grupo da família é escrita.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hoje todo mundo manda áudio. Bilhete é coisa do passado." Quem fala assim tem razão em parte: o áudio é rápido e não exige escrever.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A própria aula conta o áudio como um jeito de bilhete, ao lado do recado na geladeira e da mensagem no celular, e ensina o bilhete no celular. As quatro partes (para quem é, o recado, a despedida com o seu nome e o dia ou a hora) servem para qualquer recado. A aula cita Paulo Freire: dizer a sua palavra não é privilégio de poucos, é direito de todos. Escrever é mais um jeito de dizer a sua palavra, e quem sabe os dois jeitos escolhe o que serve melhor a cada situação.
+```
+
 ## Exemplo resolvido
 
 **Transformar "VOU SAIR" num bilhete completo.**
@@ -217,6 +231,11 @@ Dia e hora: TERÇA, 8 HORAS; SEXTA À NOITE
 3. Leia em voz alta. Depois, peça a alguém para ler e diga se entendeu.
 4. Reescreva este bilhete para ficar completo: "PASSOU UM MOÇO AQUI."
 5. Mande uma mensagem escrita, não em áudio, para alguém de confiança. Pode ser só: "OI, TUDO BEM?"
+
+```agir
+# Esta semana
+Escreva um bilhete de verdade, com as quatro partes (para quem é, o recado, despedida com o seu nome, dia ou hora), e deixe-o para alguém da sua casa ou mande pelo celular. Depois pergunte se o recado ficou claro.
+```
 
 ## Resumo
 

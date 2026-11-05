@@ -1,0 +1,50 @@
+# Exercícios da aula "Teatro de bonecos e mamulengo" (teatro-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teatro-fundamental-teatro-de-bonecos-e-mamulengo-01
+  tema: "Mamulengo"
+  dificuldade: 1
+  enunciado: "De onde, segundo a aula, viria o nome \"mamulengo\"?"
+  alternativas:
+    - texto: "De \"mão molenga\", a mão mole que dá movimento ao boneco"
+      certa: true
+    - texto: "De uma cidade de Pernambuco"
+      erro: "A aula diz que viria de \"mão molenga\"."
+    - texto: "De uma fruta"
+      erro: "Não é isso."
+  explicacao: "O mamulengo é um tipo de fantoche típico do Nordeste, sobretudo de Pernambuco."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Teatro de bonecos e mamulengo\""
+  revisao:
+    status: em-revisao
+
+- id: teatro-fundamental-teatro-de-bonecos-e-mamulengo-02
+  tema: "Brincadeira"
+  dificuldade: 1
+  enunciado: "No mamulengo, como se chamam a peça e o ator?"
+  alternativas:
+    - texto: "A peça é \"brincadeira\" e o ator é \"brincante\""
+      certa: true
+    - texto: "A peça é \"show\" e o ator é \"artista\""
+      erro: "A aula usa brincadeira e brincante."
+    - texto: "A peça é \"ensaio\" e o ator é \"mestre\""
+      erro: "O mestre é o dono do toldo e dos bonecos."
+  explicacao: "Atuar é \"brincar\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Teatro de bonecos e mamulengo\""
+  revisao:
+    status: em-revisao
+
+- id: teatro-fundamental-teatro-de-bonecos-e-mamulengo-03
+  tema: "Patrimônio"
+  dificuldade: 2
+  enunciado: "Em 2015, o que aconteceu com o mamulengo, segundo a aula?"
+  alternativas:
+    - texto: "Foi reconhecido pelo Iphan como patrimônio cultural do Brasil"
+      certa: true
+    - texto: "Foi proibido nas praças"
+      erro: "Foi reconhecido como patrimônio."
+    - texto: "Acabou"
+      erro: "Continua vivo e foi reconhecido."
+  explicacao: "Em Olinda, o Museu do Mamulengo (Espaço Tiridá) guarda cerca de 1.500 peças; Glória do Goitá é a \"Capital do Mamulengo\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Teatro de bonecos e mamulengo\""
+  revisao:
+    status: em-revisao

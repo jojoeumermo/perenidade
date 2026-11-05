@@ -1,0 +1,50 @@
+# Exercícios da aula "Tranças nagô (rasteiras)" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-trancas-nago-rasteiras-01
+  tema: "Movimento"
+  dificuldade: 1
+  enunciado: "Como é o movimento da trança nagô?"
+  alternativas:
+    - texto: "Cruzar a mecha da ponta por baixo da do meio, pegando um pouco de cabelo da fileira a cada cruzamento"
+      certa: true
+    - texto: "Cruzar sempre por cima, sem pegar cabelo"
+      erro: "Isso é a trança comum."
+    - texto: "Torcer duas mechas"
+      erro: "Isso é o twist."
+  explicacao: "Forma uma fileira contínua em relevo, rente ao couro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tranças nagô (rasteiras)\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-trancas-nago-rasteiras-02
+  tema: "Tempo"
+  dificuldade: 2
+  enunciado: "Quanto tempo pode levar o trabalho da nagô, dependendo do número e da largura das fileiras?"
+  alternativas:
+    - texto: "Até cinco horas"
+      certa: true
+    - texto: "Até um minuto"
+      erro: "É bem mais que isso."
+    - texto: "Até cinco dias"
+      erro: "É bem menos que isso."
+  explicacao: "Com lavagem cuidadosa e hidratação do couro, pode ficar semanas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tranças nagô (rasteiras)\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-trancas-nago-rasteiras-03
+  tema: "Fileiras"
+  dificuldade: 2
+  enunciado: "Por onde se começa a conferir as fileiras retas, segundo a aula?"
+  alternativas:
+    - texto: "Pelas do meio, indo para os lados, conferindo no espelho se estão paralelas"
+      certa: true
+    - texto: "Pelas laterais, sem conferir"
+      erro: "A aula manda começar pelas do meio."
+    - texto: "Sem riscar antes"
+      erro: "Risque a fileira com o pente de cauda antes."
+  explicacao: "Nas curvas, risque o desenho inteiro antes e gire o corpo e as mãos junto com a fileira."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tranças nagô (rasteiras)\""
+  revisao:
+    status: em-revisao

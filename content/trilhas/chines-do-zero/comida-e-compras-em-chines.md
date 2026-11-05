@@ -1,5 +1,6 @@
 ---
 titulo: "Comida e compras em chinês"
+modelo: 9
 resumo: "Objetivo: pedir comida, perguntar preços, entender o dinheiro chinês e negociar em uma loja ou feira, com os classificadores mais usados para comida."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber pedir comida e bebida em chinês com 要, usar os classificadores da comida, dizer valores em yuan e perguntar e negociar preços.
+
+```suarealidade
+Quando você compra comida ou faz compras, o que você pergunta e como negocia o preço? Como seria fazer isso sem falar a língua do vendedor?
+```
 
 ## Querer: 要
 
@@ -133,6 +138,20 @@ Na feira, você quer dizer "Quero dois quilos de maçã" (maçã = 苹果, píng
 4. **Pergunte o preço.** 多少钱？ (Duōshao qián?)
 
 Confira: 我要二斤苹果 pediria só um quilo. E 买 (mǎi, terceiro tom) é comprar, enquanto 卖 (mài, quarto tom) é vender.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Aprender chinês para pedir comida é exagero. O cardápio tem foto, o celular traduz, e todo vendedor entende gesto e número na calculadora." É um argumento de quem só quer resolver o básico.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O tradutor e o gesto resolvem muitas situações, e a aula não nega isso. Mas poucas frases fazem diferença na hora do contato: 我要… (eu quero), 多少钱？ (quanto custa?), 太贵了！ (é caro demais!) e 便宜一点吧 (um pouco mais barato). Saber dizer o valor em yuan (元, dito 块) e escolher o classificador certo mostra respeito e dá mais autonomia para negociar.
+```
+
+```agir
+# Esta semana
+Escreva num papel as frases 我要…, 多少钱？ e 便宜一点吧 com a tradução ao lado e leia em voz alta três vezes. Escolha um prato e imagine o pedido completo, com o classificador.
+```
 
 ## Resumo
 

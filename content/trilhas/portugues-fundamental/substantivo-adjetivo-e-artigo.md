@@ -1,5 +1,6 @@
 ---
 titulo: "Substantivo, adjetivo e artigo"
+modelo: 9
 resumo: "As palavras que dão nome, as que dão característica e as que acompanham: como se combinam em gênero e número."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber reconhecer substantivo, adjetivo e artigo, fazer o plural e a concordância e perceber como a escolha dos adjetivos muda a opinião do leitor.
 
 
+
+```suarealidade
+Quando você lê uma notícia, repara nos adjetivos que escolheram? Você já percebeu que a mesma coisa pode ser contada com palavras que levam a opiniões opostas?
+```
 
 ## Três classes que andam juntas
 
@@ -133,6 +138,15 @@ Substantivos nomeiam; adjetivos **avaliam**. Leia duas manchetes sobre o mesmo f
 
 Trocaram-se os substantivos e os adjetivos, e o leitor é levado para lados opostos. Ao ler uma notícia, repare nas palavras que qualificam: elas mostram de onde o autor está olhando.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Classificar palavra (substantivo, adjetivo, artigo) é coisa de escola que ninguém usa na vida. O que importa é falar e escrever naturalmente." É a opinião de quem aprendeu a se virar sem gramática.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra por que o nome das classes importa: a escolha dos adjetivos muda a opinião do leitor. O mesmo fato pode ser contado com palavras que levam a conclusões opostas ("o prefeito apresentou uma proposta corajosa" ou "arriscada"). Reconhecer o substantivo, o adjetivo e o artigo também ajuda no plural e na concordância, que aparecem na escrita de qualquer pedido ou aviso. A gramática vira uma lupa para ler com mais cuidado e escrever com mais clareza.
+```
+
 ## Exemplo resolvido: analisando "A greve longa cansou os operários"
 
 1. **Substantivos** (dão nome): *greve* e *operários*. Teste: dá para pôr "a" ou "os" antes.
@@ -141,6 +155,11 @@ Trocaram-se os substantivos e os adjetivos, e o leitor é levado para lados opos
 4. **Troque os adjetivos e substantivos** e veja o efeito: "Manifestantes ocupam prédio abandonado" e "Invasores tomam imóvel particular" falam do mesmo fato, mas levam o leitor para lados opostos.
 
 Confira: substantivos nomeiam; adjetivos avaliam. Ao ler uma notícia, repare nas palavras escolhidas.
+
+```agir
+# Esta semana
+Pegue um título de notícia e sublinhe num papel os adjetivos. Depois troque cada um por um de sentido oposto e escreva o que mudou na impressão que o texto passa.
+```
 
 ## Resumo
 

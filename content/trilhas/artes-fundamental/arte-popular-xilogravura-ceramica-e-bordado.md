@@ -1,5 +1,6 @@
 ---
 titulo: "Arte popular: xilogravura, cerâmica e bordado"
+modelo: 9
 resumo: "A xilogravura das capas de cordel, com J. Borges, e o barro de Caruaru, com Mestre Vitalino: arte feita por trabalhadores do Nordeste que ganhou o mundo. Como fazer uma gravura simples em casa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Uma colher de pau vendida na feira, uma panela de barro, um folheto pendurado nu
 
 Ao fim desta aula você vai conhecer a xilogravura e a cerâmica popular do Nordeste e fazer uma gravura simples.
 
+```suarealidade
+Quem decide o que é "artesanato" e o que é "arte"? Na sua casa ou no seu bairro, quem faz alguma coisa à mão (bordado, barro, madeira) e como isso é valorizado?
+```
+
 ## Xilogravura
 
 A **xilogravura** é a gravura feita com uma **matriz de madeira**. Com faca, formão ou goiva, **entalha-se** a figura; depois, um **rolo com tinta** toca **só as partes elevadas**, e a imagem é **impressa** no papel ou no pano. É **muito parecido com um carimbo**. Também se pode gravar em **linóleo**.
@@ -84,6 +89,20 @@ O que a xilogravura e o carimbo têm em comum?
 3. **Atenção**: escreva as letras **ao contrário**, porque a impressão espelha.
 4. **Tinta**: passe guache com um rolinho ou pincel largo.
 5. **Impressão**: ponha o papel por cima, esfregue com a palma da mão e puxe.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Isso é artesanato, não é arte de verdade. Arte é a que está em museu e foi feita por quem estudou." É uma opinião de quem aprendeu a separar a arte de elite do trabalho popular.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o cordel, com capas em xilogravura, foi reconhecido pelo Iphan, em 2018, como patrimônio cultural imaterial do Brasil. J. Borges (de Bezerros) e Mestre Vitalino (de Caruaru) fizeram arte a partir da vida do povo. A divisão entre artesanato e arte vem de quem decide, e não do valor do que foi feito.
+```
+
+```agir
+# Esta semana
+Faça um carimbo simples com uma batata ou uma borracha: entalhe uma figura, passe tinta (ou café, ou carvão) e imprima numa folha. Use uma faca com cuidado, de preferência com um adulto por perto.
+```
 
 ## Resumo
 

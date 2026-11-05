@@ -1,5 +1,6 @@
 ---
 titulo: "De onde vem o lucro"
+modelo: 9
 resumo: "Valor, trabalho necessário e trabalho excedente: o segredo que não aparece na nota fiscal."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ quiz:
 Ao fim desta aula você vai saber explicar de onde sai o lucro segundo Marx, diferenciar trabalho necessário de trabalho excedente e reconhecer a mais-valia absoluta e a relativa no seu dia a dia.
 
 Toda empresa diz que existe para "gerar valor". A pergunta desta aula é simples e incômoda: **valor para quem, e tirado de onde?**
+
+```suarealidade
+Pense no lugar onde você trabalha, ou onde alguém da sua casa trabalha: de onde você acha que sai o lucro da empresa? Quanto do dia o seu salário já "pagou"?
+```
 
 ## A explicação que parece óbvia
 
@@ -102,9 +107,23 @@ Eles brigam entre si pelo tamanho de cada fatia. Mas todos concordam em uma cois
 
 Se o lucro fosse prêmio pela "esperteza" ou pelo "risco", nada haveria a discutir. Se ele é trabalho não pago, então a luta por salário, por redução de jornada e contra o ritmo massacrante não é "atrapalhar a economia": é disputar quem fica com o valor que os próprios trabalhadores produziram.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O lucro é o prêmio de quem arriscou o dinheiro, teve a ideia e organizou o negócio. O patrão também trabalha, e muito." É a opinião de muitos pequenos empresários, que acordam cedo e perdem o sono com as contas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que quem empreende trabalha e corre risco. Ela pergunta de onde nasce a riqueza nova que a sociedade produz a cada ano: não pode nascer só de vender mais caro, porque o que um ganha quando vende o outro perde quando compra. Segundo Marx, ela nasce na produção, na parte da jornada em que o trabalhador produz mais do que recebe de salário. É uma tese de Marx, e vale discutir com calma. Dá para concordar que o patrão trabalha e, mesmo assim, perguntar quem fica com o valor produzido além do salário.
+```
+
 ## Para conversar
 
 Pense no seu trabalho, ou no de alguém da família. Em quanto tempo do dia você acha que o salário já foi "pago"? O que o patrão faz para aumentar a outra parte?
+
+```agir
+# Esta semana
+Anote num papel quantas horas você trabalha por dia e chute quantas delas "pagam" o seu salário. Depois pergunte a um colega de confiança o que ele acha: o resultado é parecido?
+```
 
 ## Resumo
 

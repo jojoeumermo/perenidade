@@ -1,0 +1,51 @@
+# Exercícios da aula "Horas, dias e meses" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-hor-01
+  tema: "As horas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz 7:30 em inglês?"
+  alternativas:
+    - texto: "half past seven (ou seven thirty)"
+      certa: true
+    - texto: "seven o'clock"
+      erro: "O'clock só se usa na hora cheia."
+    - texto: "half to seven"
+      erro: "Half past é meia depois da hora. Aqui, depois das sete."
+  explicacao: "7:15 é a quarter past seven; 7:45 é a quarter to eight."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-hor-02
+  tema: "At, on e in"
+  dificuldade: 2
+  enunciado: "Qual é a preposição certa?  The class is ___ Monday."
+  alternativas:
+    - texto: "on"
+      certa: true
+    - texto: "at"
+      erro: "At é para horas (at seven). Para dias, usa-se on."
+    - texto: "in"
+      erro: "In é para meses e anos (in March)."
+  explicacao: "At para horas, on para dias e datas, in para meses e anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-hor-03
+  tema: "Meses"
+  dificuldade: 2
+  enunciado: "Qual é o mês de março em inglês?"
+  alternativas:
+    - texto: "March"
+      certa: true
+    - texto: "May"
+      erro: "May é maio."
+    - texto: "Monday"
+      erro: "Monday é segunda-feira."
+  explicacao: "March (março), May (maio), Monday (segunda-feira)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

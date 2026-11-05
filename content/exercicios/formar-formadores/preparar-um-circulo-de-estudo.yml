@@ -1,0 +1,51 @@
+# Exercícios da aula "Preparar um círculo de estudo" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-pre-01
+  tema: "Por onde começar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por onde começar a preparar um círculo de estudo?"
+  alternativas:
+    - texto: "Por quem vai participar: vizinhos, colegas, gente que lê pouco? Isso muda o assunto, o texto e o ritmo"
+      certa: true
+    - texto: "Pelo texto mais completo que existir"
+      erro: "O texto vem depois de conhecer o grupo."
+    - texto: "Pela sala mais bonita"
+      erro: "O lugar importa, mas o ponto de partida é o grupo."
+  explicacao: "O círculo de estudo herdou a ideia do círculo de cultura, de Paulo Freire: um grupo pequeno, em roda, em que todo mundo pode falar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-pre-02
+  tema: "O tempo"
+  dificuldade: 2
+  enunciado: "Quanto tempo costuma ser o máximo de um círculo de estudo?"
+  alternativas:
+    - texto: "Uma hora e meia, combinando hora de começar e de terminar e cumprindo"
+      certa: true
+    - texto: "Cinco horas seguidas"
+      erro: "Para quem trabalha o dia todo, é demais."
+    - texto: "Dez minutos"
+      erro: "É curto demais para uma conversa de estudo."
+  explicacao: "Quem tem filho ou pega ônibus tarde precisa saber quando vai sair."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-pre-03
+  tema: "O roteiro"
+  dificuldade: 2
+  enunciado: "Qual é a ordem dos quatro momentos do roteiro de perguntas?"
+  alternativas:
+    - texto: "Vida, texto, porquê e ação"
+      certa: true
+    - texto: "Texto, prova, nota e certificado"
+      erro: "O roteiro parte da vida do grupo."
+    - texto: "Ação, texto, vida e porquê"
+      erro: "A ordem é vida → texto → porquê → ação."
+  explicacao: "O roteiro é para o formador, que o ajusta ao que o grupo diz. Escreva 4 a 6 perguntas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

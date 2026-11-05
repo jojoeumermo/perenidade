@@ -1,5 +1,6 @@
 ---
 titulo: "Depois da vitória: o mandato a serviço da luta"
+modelo: 9
 resumo: "O que faz cada mandato, da câmara municipal ao Senado, as ferramentas de fiscalização, a imunidade parlamentar, a fidelidade ao partido, o que a lei diz das candidaturas coletivas e as práticas que mantêm o mandato preso à base que o elegeu."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -53,6 +54,10 @@ Uma vereadora do movimento foi eleita. Um ano depois, ninguém do bairro sabe o 
 
 Ao fim desta aula você vai saber o que faz cada mandato, quais ferramentas ele tem e que práticas mantêm o mandato a serviço de quem o elegeu.
 
+```suarealidade
+Você conhece o vereador ou o deputado do seu bairro? Sabe o que ele fez no último ano?
+```
+
 ## O que faz cada mandato
 
 | Mandato | Faz leis sobre | Vota o orçamento de | Fiscaliza |
@@ -101,6 +106,15 @@ Qual destas práticas ajuda o mandato a não se descolar da base?
 > Releia a seção "Práticas que prendem o mandato à base".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O mandato é da pessoa eleita: ninguém tem de dar satisfação a coletivo, partido ou movimento. Fidelidade partidária e conselho político tiram a liberdade do parlamentar." É a ideia de quem defende a independência de quem foi eleito.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece parte disso: para a lei, o registro, o voto no parlamento e o mandato são de uma pessoa só (a candidatura coletiva é um acordo político), e deputados e senadores têm imunidade por suas opiniões, palavras e votos. Mas a lei também prevê a fidelidade partidária (Lei dos Partidos, art. 22-A): quem sai do partido sem justa causa perde o mandato. E a aula sugere práticas que prendem o mandato à base, como prestar contas com regularidade, ter um conselho político e manter o gabinete na rua, porque o mandato vale o que vale a base organizada que o sustenta. Cada grupo decide o que combina, e o que vale é combinar antes.
+```
+
 ## Exemplo resolvido
 
 **Volte à vereadora da provocação. Como consertar?**
@@ -109,6 +123,11 @@ Qual destas práticas ajuda o mandato a não se descolar da base?
 2. **Criar o conselho político** do mandato, que se reúne antes das votações importantes.
 3. **Marcar uma prestação de contas** por mês no bairro, com a lista do que foi votado e por quê.
 4. **Usar as ferramentas**: um pedido de informação sobre a obra parada do bairro mostra, na prática, para que o mandato serve.
+
+```agir
+# Esta semana
+Descubra como pedir informação ao vereador ou à câmara da sua cidade (site, telefone ou ouvidoria) e anote o caminho num papel. Se quiser, escreva uma pergunta curta sobre um voto dele.
+```
 
 ## Resumo
 

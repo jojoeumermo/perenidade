@@ -1,0 +1,50 @@
+# Exercícios da aula "Tranças com fibra" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-trancas-com-fibra-01
+  tema: "Com nó e sem nó"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre fibra com nó e sem nó?"
+  alternativas:
+    - texto: "Com nó: a fibra é dobrada e presa na base da mecha logo no começo; sem nó: a trança começa só com cabelo natural e recebe a fibra a cada cruzamento"
+      certa: true
+    - texto: "Não há diferença"
+      erro: "A aula descreve as duas."
+    - texto: "Com nó a trança é sempre solta"
+      erro: "Não é o que a aula diz."
+  explicacao: "Na nagô, pequenos pedaços de fibra são acrescentados ao longo da fileira."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tranças com fibra\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-trancas-com-fibra-02
+  tema: "Peso"
+  dificuldade: 1
+  enunciado: "Por que usar só a fibra necessária?"
+  alternativas:
+    - texto: "Cada pacote a mais é peso na cabeça por semanas e pode causar dor de cabeça por tração e alopecia de tração"
+      certa: true
+    - texto: "Porque a fibra é cara e acaba rápido"
+      erro: "O motivo da aula é a saúde."
+    - texto: "Porque o cabelo humano é sempre melhor"
+      erro: "Não é o motivo."
+  explicacao: "Use a fibra necessária para o estilo, e não mais."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tranças com fibra\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-trancas-com-fibra-03
+  tema: "Calor"
+  dificuldade: 1
+  enunciado: "Pente quente, chapinha e babyliss podem ser usados em quais fibras?"
+  alternativas:
+    - texto: "Só nas que a embalagem indica como resistentes ao calor"
+      certa: true
+    - texto: "Em todas"
+      erro: "A maioria não aguenta calor."
+    - texto: "Em nenhuma"
+      erro: "Há fibras mais novas que aguentam calor."
+  explicacao: "A fibra sintética mais usada foi criada no Japão nos anos 1950."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tranças com fibra\""
+  revisao:
+    status: em-revisao

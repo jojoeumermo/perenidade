@@ -1,5 +1,6 @@
 ---
 titulo: "Tecnologia assistiva"
+modelo: 9
 resumo: "Cadeira de rodas, leitor de tela, prancha de comunicação, bengala, aparelho auditivo: tecnologia assistiva é tudo o que ajuda pessoas com deficiência a fazer as coisas com mais autonomia. O que diz a lei e exemplos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Os óculos são uma tecnologia que ajuda quem enxerga mal. Ninguém acha estranh
 
 Ao fim desta aula você vai saber o que é tecnologia assistiva, conhecer exemplos e saber o que a lei garante.
 
+```suarealidade
+Você ou alguém da sua casa usa óculos, bengala, aparelho auditivo ou legenda nos vídeos? Por que ninguém estranha uns e estranha outros?
+```
+
 ## O que é
 
 A **Lei Brasileira de Inclusão** (art. 3º) define **tecnologia assistiva**, ou **ajuda técnica**, como **produtos, equipamentos, dispositivos, recursos, metodologias, estratégias, práticas e serviços** que promovem a **funcionalidade** da pessoa com deficiência ou mobilidade reduzida, visando à sua **autonomia, independência, qualidade de vida e inclusão social**.
@@ -80,6 +85,20 @@ Uma prancha com figuras que uma criança autista não verbal usa para pedir águ
 2. **Mostrador braille**, para ler as questões com os dedos.
 3. **Teclado**, que ele já usa sem precisar ver, com os atalhos do leitor de tela.
 4. **Conclusão**: com a tecnologia certa, ele faz a prova **com autonomia**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Tecnologia assistiva é aparelho caro, coisa de hospital, para poucas pessoas. Cada um tem de se virar com o que tem."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a Lei Brasileira de Inclusão (artigo 3º) define tecnologia assistiva como produtos, equipamentos, recursos, metodologias, estratégias, práticas e serviços que promovem a funcionalidade da pessoa com deficiência. Ou seja, não é só aparelho: uma prancha com figuras que uma criança não verbal usa para pedir água também é. E o artigo 16 da lei garante, nos programas de habilitação e reabilitação, tecnologia assistiva, materiais e equipamentos adequados e apoio técnico, de acordo com as especificidades de cada pessoa. Por isso não é favor: é direito.
+```
+
+```agir
+# Esta semana
+Ligue por alguns minutos um recurso de acessibilidade do seu celular (leitor de tela, legendas ou lupa) e anote como foi usá-lo. Depois mostre a alguém que talvez precise dele.
+```
 
 ## Resumo
 

@@ -1,0 +1,84 @@
+# Exercícios da aula "Segurança na obra: NR-18 e EPI" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação do sindicato, do técnico de segurança ou da Defensoria.
+
+- id: obra-seg-01
+  tema: "As normas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual norma regulamentadora trata do trabalho em altura, acima de 2 metros com risco de queda?"
+  alternativas:
+    - texto: "A NR-35"
+      certa: true
+    - texto: "A NR-6"
+      erro: "A NR-6 diz como funciona o EPI. O trabalho em altura é da NR-35."
+    - texto: "A NR-18"
+      erro: "A NR-18 é a norma da construção em geral (canteiro, andaime, escada, escavação). O trabalho em altura tem norma própria, a NR-35."
+  explicacao: "NR-18: construção. NR-6: EPI (a empresa fornece de graça, com CA válido, treina e substitui). NR-35: altura, com treinamento, planejamento e equipamento próprio, como cinto tipo paraquedista com trava-quedas. NR-1: regras gerais, inclusive o direito de interromper o trabalho em risco grave e iminente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança na obra: NR-18 e EPI\""
+  revisao:
+    status: em-revisao
+
+- id: obra-seg-02
+  tema: "Quem fornece o EPI"
+  dificuldade: 2
+  enunciado: "Quem trabalha de carteira assinada numa obra, quem deve fornecer o EPI, e como deve ser?"
+  alternativas:
+    - texto: "A empresa, de graça, adequado ao risco, em bom estado, com CA válido, treinando para o uso e substituindo quando estragar"
+      certa: true
+    - texto: "O próprio trabalhador, comprando com o salário"
+      erro: "A CLT (arts. 157 e 166) e a NR-6 mandam a empresa fornecer o EPI gratuitamente. Já o autônomo e o MEI compram o próprio EPI e colocam no preço."
+    - texto: "Ninguém: EPI é opcional"
+      erro: "Não é opcional. A empresa deve fornecer, e o trabalhador tem o dever de usar e seguir as orientações."
+  explicacao: "E quem é autônomo, MEI ou faz reforma de casa de vizinho não tem patrão que dê EPI: o capacete, a bota, a máscara e a luva precisam entrar no custo do serviço."
+  fonte: "Questão original do Instituto Lúcia; CLT, arts. 157 e 166, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: obra-seg-03
+  tema: "Os EPI básicos"
+  dificuldade: 2
+  enunciado: "Qual EPI protege contra a poeira de cimento, de areia e de quebra de parede?"
+  alternativas:
+    - texto: "A máscara PFF2 (ou melhor)"
+      certa: true
+    - texto: "Os óculos de proteção"
+      erro: "Os óculos protegem os olhos de lascas e respingos. Para a poeira que se respira, use a máscara PFF2."
+    - texto: "O protetor auricular"
+      erro: "O protetor auricular protege contra o barulho do martelete, da serra e da esmerilhadeira. Para a poeira, máscara PFF2."
+  explicacao: "Capacete (queda de objetos), óculos (cortar, lixar, quebrar, furar, misturar cimento), protetor auricular (martelete, serra, esmerilhadeira, betoneira), luvas, botina de segurança e, em altura, cinto com trava-quedas, com treinamento. Cimento molhado queima a pele (é alcalino): use luva e bota, e lave com água se molhar a pele."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança na obra: NR-18 e EPI\""
+  revisao:
+    status: em-revisao
+
+- id: obra-seg-04
+  tema: "Acostumar com o pó"
+  dificuldade: 3
+  enunciado: "Um colega diz que não precisa de máscara \"porque já está acostumado com o pó\". O que você responde?"
+  alternativas:
+    - texto: "Que acostumar não protege: o pó com sílica pode causar silicose depois de anos, sem aviso"
+      certa: true
+    - texto: "Que ele tem razão, porque o corpo acostuma"
+      erro: "O corpo não se acostuma ao pó que vai para o pulmão. O dano aparece depois de anos, sem aviso."
+    - texto: "Que máscara só serve para tinta"
+      erro: "Máscara serve para poeira de cimento, areia, quebra de parede e lixa. A poeira é um risco que o corpo não sente na hora."
+  explicacao: "Proteção coletiva vem antes do EPI: guarda-corpo e rodapé na laje e na escada, tela de proteção, andaime montado por quem sabe, isolamento da área de quebra, sinalização, ordem e limpeza. Para tirar o pó, limpe molhando e varrendo com pano úmido, sem soprar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança na obra: NR-18 e EPI\""
+  revisao:
+    status: em-revisao
+
+- id: obra-seg-05
+  tema: "Se acontecer um acidente"
+  dificuldade: 2
+  enunciado: "Aconteceu um acidente de trabalho na obra. Qual é o caminho que a aula indica?"
+  alternativas:
+    - texto: "Socorrer e pedir ajuda (SAMU 192 ou Bombeiros 193), procurar atendimento de saúde dizendo que foi acidente de trabalho, ter a CAT emitida e guardar atestados, fotos e nomes de testemunhas"
+      certa: true
+    - texto: "Esconder o acidente para não ter problema"
+      erro: "Esconder prejudica o trabalhador, que perde direitos como estabilidade e auxílio do INSS. A empresa deve emitir a CAT, e o sindicato ou o médico também podem registrar."
+    - texto: "Mexer em quem caiu para levantar logo"
+      erro: "Não mexa em quem pode ter lesão na coluna. Chame o SAMU (192) ou os Bombeiros (193)."
+  explicacao: "A empresa deve emitir a CAT em até 1 dia útil depois do acidente. Se não emitir, o trabalhador, o sindicato ou o médico podem registrar (Lei 8.213/1991). Procure o sindicato ou a Defensoria para saber seus direitos (estabilidade, auxílio por acidente do INSS)."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 8.213/1991, conforme a aula"
+  revisao:
+    status: em-revisao

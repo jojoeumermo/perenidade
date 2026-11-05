@@ -1,5 +1,6 @@
 ---
 titulo: "Abordagem policial: os seus direitos"
+modelo: 9
 resumo: "O que a polícia pode e o que não pode fazer em uma abordagem, como agir para se proteger e onde reclamar de abuso."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber quando a polícia pode revistar, o que você pode exigir numa abordagem, como agir para se proteger e onde denunciar abuso.
+
+```suarealidade
+Você ou alguém do seu convívio já passou por uma abordagem policial? A pessoa sabia o que podia dizer e o que podia exigir?
+```
 
 Esta aula é informação geral e não substitui orientação jurídica. Quem não pode pagar advogado tem direito à **Defensoria Pública**. As regras abaixo valem para todo o país; a forma de agir das polícias muda de lugar para lugar.
 
@@ -116,6 +121,15 @@ Quem está de fora pode **filmar**. Não existe lei que proíba registrar a aç�
 
 Leve o que tiver: data, hora, lugar, nomes, vídeos, testemunhas, atestado médico. A Lei de Abuso de Autoridade pune, entre outras condutas, a prisão fora das hipóteses legais e o constrangimento de preso para que produza prova contra si.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não deve nada não tem por que reclamar. A polícia precisa poder revistar para combater o crime, e exigir motivo só atrapalha o trabalho dela." É a posição de quem quer segurança na rua.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que a polícia tem o dever de combater o crime e que o Código de Processo Penal (art. 244) permite a busca pessoal sem mandado em três situações, entre elas a fundada suspeita. O ponto é o limite: em 2022, o STJ decidiu que a suspeita precisa se apoiar em fatos concretos, que possam ser descritos e conferidos depois, e, em 2024, o STF fixou que a busca não pode se basear em raça, cor da pele, sexo, orientação sexual ou aparência. Revista sem fundada suspeita é ilegal e a prova que sair dela pode ser anulada. Esses limites existem para que o poder de revistar não vire abuso, e a Lei de Abuso de Autoridade pune os excessos. Na rua, a aula ensina a não resistir e a guardar tudo na memória.
+```
+
 ## Exemplo resolvido
 
 **Um policial para um jovem na rua, não diz o motivo e pede que ele desbloqueie o celular. O que o jovem pode fazer?**
@@ -127,6 +141,11 @@ Leve o que tiver: data, hora, lugar, nomes, vídeos, testemunhas, atestado médi
 5. **Guarde na memória.** Nomes, número da viatura, hora, lugar e testemunhas, para denunciar depois.
 
 Confira: ter razão não protege na hora; o que protege é chegar em casa. Em caso de abuso, procure a Defensoria Pública, a Corregedoria, o Ministério Público ou o Disque 100.
+
+```agir
+# Esta semana
+Aprenda de cor as três frases da aula ("Não autorizo a revista", "Não autorizo a entrada" e "Vou exercer o meu direito de ficar em silêncio"), dizendo-as em voz baixa, em casa. Anote num papel o endereço da Defensoria Pública da sua cidade e o número do Disque 100.
+```
 
 ## Resumo
 

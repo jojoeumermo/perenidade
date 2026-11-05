@@ -1,0 +1,112 @@
+# Exercícios da aula "Orçamento de obra pequena" (Construção e reforma). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Os valores em reais são só para treinar a conta.
+
+- id: obra-orcam-01
+  tema: "As partes do orçamento"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas é uma parte do orçamento de obra pequena, segundo a aula?"
+  alternativas:
+    - texto: "Visita e medida, lista de serviços, material, mão de obra, reserva para imprevistos, prazo e forma de pagamento"
+      certa: true
+    - texto: "Só o preço total, dito de cabeça"
+      erro: "Orçamento não é palpite. Muita obra pequena dá prejuízo porque o preço foi \"de cabeça\"."
+    - texto: "Só o nome do cliente"
+      erro: "O orçamento bem feito protege o cliente e protege você: lista o que será feito, material, mão de obra, imprevistos, prazo e pagamento."
+  explicacao: "Um orçamento bem feito protege o cliente e protege o profissional. Combine tudo por escrito e guarde recibos e fotos antes e depois."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Orçamento de obra pequena\""
+  revisao:
+    status: em-revisao
+
+- id: obra-orcam-02
+  tipo: numero
+  tema: "Área com perda"
+  dificuldade: 2
+  enunciado: "Um quarto de 3 m por 4 m vai receber piso. Contando 10% de perda, quantos metros quadrados de piso devem ser comprados?"
+  resposta: "13,2"
+  unidade: "m²"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "12 m² é a área do quarto (3 × 4), sem a perda. A perda, de cerca de 10%, cobre os cortes e as peças quebradas."
+    - resposta: "13"
+      explicacao: "Quase, mas 10% de 12 é 1,2, e não 1: 12 + 1,2 = 13,2 m²."
+  dica: "Calcule a área (comprimento vezes largura) e some 10% dela."
+  explicacao: "Área: 3 × 4 = 12 m². Com 10% de perda: 12 × 1,10 = 13,2 m². Para assentamento na diagonal ou peças grandes, a perda é maior (cerca de 15%); confira a recomendação do fabricante."
+  conferir: "3 * 4 * 1.10"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Orçamento de obra pequena\""
+  revisao:
+    status: em-revisao
+
+- id: obra-orcam-03
+  tipo: numero
+  tema: "Caixas de piso"
+  dificuldade: 2
+  enunciado: "Você precisa de 13,2 m² de piso e cada caixa cobre 2,5 m². Quantas caixas comprar?"
+  resposta: "6"
+  unidade: "caixas"
+  erros_comuns:
+    - resposta: "5"
+      explicacao: "13,2 ÷ 2,5 dá 5,28. Não se compra meia caixa nem se arredonda para baixo, senão falta piso. Arredonde para cima."
+    - resposta: "5,28"
+      explicacao: "5,28 é o resultado da divisão, mas só se compra caixa inteira. Arredonde para cima: 6."
+  dica: "Divida a área pela cobertura de uma caixa e arredonde para cima."
+  explicacao: "13,2 ÷ 2,5 = 5,28, e arredondando para cima, 6 caixas. Sempre convém guardar uma sobra para troca futura, porque o lote de cor pode mudar."
+  conferir: "6"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Orçamento de obra pequena\""
+  revisao:
+    status: em-revisao
+
+- id: obra-orcam-04
+  tipo: numero
+  tema: "A diária de quem trabalha"
+  dificuldade: 3
+  enunciado: "Um pedreiro quer ganhar R$ 3.000 por mês, mais R$ 600 de despesas (transporte, ferramenta, EPI, MEI). Ele só consegue serviço pago em 15 dias por mês. De quanto precisa ser a diária?"
+  resposta: "240"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "120"
+      explicacao: "R$ 120 seria a diária se ele trabalhasse 30 dias por mês e não tivesse despesas. Ninguém tem serviço todo dia: some os R$ 600 de despesas e divida por 15 dias."
+    - resposta: "200"
+      explicacao: "R$ 200 é R$ 3.000 dividido por 15 dias. Faltou somar as despesas (R$ 600): (3.000 + 600) ÷ 15."
+  dica: "Some o que ele quer ganhar com as despesas e divida pelos dias com serviço pago."
+  explicacao: "(3.000 + 600) ÷ 15 = 3.600 ÷ 15 = R$ 240. A aula mostra que é preciso contar os dias parados, e não o mês inteiro."
+  conferir: "(3000 + 600) / 15"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Orçamento de obra pequena\""
+  revisao:
+    status: em-revisao
+
+- id: obra-orcam-05
+  tipo: numero
+  tema: "O total com imprevistos"
+  dificuldade: 3
+  enunciado: "Material R$ 496 mais mão de obra R$ 660 dão R$ 1.156. Somando 10% de reserva para imprevistos, qual é o total do orçamento, em reais?"
+  resposta: "1271,60"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "1156"
+      explicacao: "R$ 1.156 é o subtotal, sem a reserva. Faltou somar os 10% (R$ 115,60)."
+    - resposta: "115,60"
+      explicacao: "R$ 115,60 é só a reserva. O total é o subtotal mais a reserva: 1.156 + 115,60."
+  dica: "Calcule 10% do subtotal e some ao subtotal."
+  explicacao: "10% de 1.156 = R$ 115,60. Total: 1.156 + 115,60 = R$ 1.271,60, cerca de R$ 1.272. Em reforma, o que está escondido aparece depois de abrir: cano furado, fiação velha, parede torta, umidade. Avise por escrito que serviço fora do combinado é orçado à parte."
+  conferir: "1156 * 1.10"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Orçamento de obra pequena\""
+  revisao:
+    status: em-revisao
+
+- id: obra-orcam-06
+  tema: "Combinar por escrito"
+  dificuldade: 2
+  enunciado: "O que a aula manda constar numa folha de combinado simples entre quem faz a obra e o cliente?"
+  alternativas:
+    - texto: "O que será feito e o que não está incluído, preço e forma de pagamento, prazos e garantia"
+      certa: true
+    - texto: "Só o preço, porque o resto se combina na hora"
+      erro: "Sem o que está incluído e o que não está, e sem prazo e garantia, sobram conflitos. O Código de Defesa do Consumidor também protege o cliente pessoa física com informação clara."
+    - texto: "Nada: combinar por escrito dá azar"
+      erro: "Combinar por escrito protege os dois. Guarde também recibos e fotos antes e depois."
+  explicacao: "O combinado traz também nome e telefone das duas partes, o endereço da obra, o que acontece se atrasar por chuva ou falta de material do cliente, e a garantia (por exemplo, 90 dias para defeito aparente). O CDC (art. 26) dá 90 dias para reclamar de defeito aparente em serviço durável."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 8.078/1990 (CDC), art. 26, conforme a aula"
+  revisao:
+    status: em-revisao

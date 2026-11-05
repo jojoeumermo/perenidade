@@ -35,7 +35,7 @@ quiz:
   - pergunta: "Como o Congresso reagiu?"
     opcoes: ["Não fez nada", "Aprovou a Lei 14.701 com o marco temporal e depois derrubou vetos do presidente", "Aprovou a demarcação de todas as terras"]
     resposta: 1
-    explicacao: "Em 14 de novembro de 2023, derrubou a maior parte dos vetos."
+    explicacao: "Em 14 de dezembro de 2023, derrubou a maior parte dos vetos."
   - pergunta: "O que o STF decidiu sobre a Lei 14.701 em dezembro de 2025?"
     opcoes: ["Considerou inconstitucional o trecho que institui o marco temporal", "Aprovou o marco temporal", "Mandou vender as terras indígenas"]
     resposta: 0
@@ -74,7 +74,7 @@ Por que se diz que o marco temporal "premia quem expulsou"?
 
 ## A reação do Congresso
 
-A bancada ruralista reagiu na hora. Em **outubro de 2023**, o Congresso aprovou em regime de urgência a **Lei 14.701**, que pôs o marco temporal em lei. O **presidente vetou** os pontos principais. Em **14 de novembro de 2023**, o Congresso **derrubou a maior parte dos vetos** e ainda retirou outras proteções às terras indígenas, como a proibição de **ampliar** terras já demarcadas. O Ministério Público considerou a lei **inconstitucional**.
+A bancada ruralista reagiu na hora. Em **outubro de 2023**, o Congresso aprovou em regime de urgência a **Lei 14.701**, que pôs o marco temporal em lei. O **presidente vetou** os pontos principais. Em **14 de dezembro de 2023**, o Congresso **derrubou a maior parte dos vetos** e ainda retirou outras proteções às terras indígenas, como a proibição de **ampliar** terras já demarcadas. O Ministério Público considerou a lei **inconstitucional**.
 
 ## A nova decisão do STF
 

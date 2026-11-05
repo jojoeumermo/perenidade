@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização e trabalho: o letramento no emprego"
+modelo: 9
 resumo: "Os textos que o trabalhador precisa ler e escrever no emprego, o que o Inaf mostra sobre trabalho e alfabetismo, a EJA integrada à formação profissional e como levar o trabalho para o círculo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Ao fim desta aula você vai conhecer os textos que mais aparecem no trabalho e o
 
 ```provocacao
 No seu trabalho (ou no último que você teve), que papéis você precisava ler ou assinar? Algum deles você assinou sem entender?
+```
+
+```suarealidade
+No seu trabalho, ou no último que você teve, que papéis você precisou ler ou assinar? Algum deles você assinou sem entender bem?
 ```
 
 ## O que o Inaf mostra
@@ -107,6 +112,20 @@ Confira: o texto veio do trabalho deles, a conversa levou a um direito, as palav
 
 ```realidade
 Escolha um texto do seu trabalho (um aviso, um formulário, uma mensagem). Escreva três palavras dele que você estudaria num círculo.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não sabe ler que se vire e aprenda sozinho, fora do horário. Cada um é responsável pelo próprio estudo, e a empresa não tem nada a ver com isso." É uma opinião comum entre quem acha que estudar é problema individual.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra, com o Inaf 2024, que 29% das pessoas de 15 a 64 anos estão nos níveis mais baixos de alfabetismo (analfabeto e rudimentar): não é um problema de poucos, e muita gente chegou assim por falta de escola na infância, e não por falta de esforço. No emprego, a falta da leitura custa caro: vaga, promoção, aviso de segurança, contracheque. Por isso a aula sugere levar o trabalho para o círculo e cita o Proeja, que junta a EJA à formação profissional.
+```
+
+```agir
+# Esta semana
+Pegue um papel do seu trabalho que você usa (por exemplo, um contracheque, sem mostrá-lo a ninguém) e marque com lápis as palavras que você não entende. Procure o significado de duas delas num dicionário ou pergunte a alguém de confiança.
 ```
 
 ## Resumo

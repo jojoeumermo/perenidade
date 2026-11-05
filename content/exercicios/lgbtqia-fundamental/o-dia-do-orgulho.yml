@@ -1,0 +1,51 @@
+# Exercícios da aula "O Dia do Orgulho" (LGBTQIA+ fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lg-org-01
+  tema: "A data"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em que dia se celebra o Dia Internacional do Orgulho LGBT, e em memória de quê?"
+  alternativas:
+    - texto: "28 de junho, em memória da Rebelião de Stonewall, de 1969, em Nova York"
+      certa: true
+    - texto: "1º de maio, em memória do Dia do Trabalho"
+      erro: "O 1º de maio é o Dia do Trabalhador. O Dia do Orgulho LGBT é em 28 de junho."
+    - texto: "20 de novembro, em memória de Zumbi"
+      erro: "O 20 de novembro é o Dia da Consciência Negra. O Dia do Orgulho LGBT é em 28 de junho."
+  explicacao: "Em 28 de junho de 1969, frequentadores do bar Stonewall resistiram a uma batida policial. A data foi lembrada com marchas, que viraram as paradas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-org-02
+  tema: "Por que orgulho"
+  dificuldade: 2
+  enunciado: "Por que a palavra 'orgulho'?"
+  alternativas:
+    - texto: "Porque ninguém deve ter vergonha do que é: o orgulho é uma resposta política à vergonha, à exclusão e à violência"
+      certa: true
+    - texto: "Porque quem é LGBT é melhor que os outros"
+      erro: "Orgulho aqui não é se achar superior. É responder à vergonha que a sociedade impõe."
+    - texto: "Porque é uma moda recente"
+      erro: "É uma resposta política a uma longa história de exclusão."
+  explicacao: "Por isso não faz o mesmo sentido um 'dia do orgulho hétero': o orgulho LGBT responde à vergonha, à exclusão e à violência que pessoas LGBT sofrem por serem quem são."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-org-03
+  tema: "Parada de São Paulo"
+  dificuldade: 2
+  enunciado: "Onde acontece a Parada do Orgulho LGBT de São Paulo, desde 1997?"
+  alternativas:
+    - texto: "Na Avenida Paulista"
+      certa: true
+    - texto: "No Parque do Ibirapuera"
+      erro: "A parada acontece na Avenida Paulista."
+    - texto: "Na Praça da Sé"
+      erro: "A parada acontece na Avenida Paulista."
+  explicacao: "A parada reivindica a defesa dos direitos LGBT e o combate à LGBTfobia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

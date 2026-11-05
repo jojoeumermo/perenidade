@@ -1,5 +1,6 @@
 ---
 titulo: "Matéria, substância e mistura"
+modelo: 9
 resumo: "Objetivo: diferenciar substância pura de mistura, mistura homogênea de heterogênea, e reconhecer cada uma no dia a dia."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber separar substâncias puras (simples e compostas) de misturas (homogêneas e heterogêneas) e usar a densidade e o rótulo para entender o que está comprando.
+
+```suarealidade
+Pense no café com leite, na água com açúcar e na água com óleo. Em qual deles você consegue ver duas partes separadas?
+```
 
 ## Classificar para entender
 
@@ -123,6 +128,15 @@ Isso serve para detectar fraudes. O leite e o combustível têm densidades conhe
 
 **No preço.** Pagar por um produto de limpeza "pronto para uso" é, muitas vezes, pagar caro por água. Ler a concentração permite comparar.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Substância, mistura... é tudo a mesma coisa. Está no copo, é só bebida, e dar nome para cada coisa não muda nada." É a opinião de quem prefere o que é prático.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que dar nome muda o que se pode fazer. Substância pura tem um só tipo de partícula; mistura é a reunião de substâncias que mantêm a identidade e podem ser separadas. A mistura com uma fase só é homogênea; a que mostra duas ou mais fases é heterogênea. Saber isso ajuda a escolher como separar, e propriedades como a densidade mostram quem flutua e quem afunda na água.
+```
+
 ## Exemplo resolvido
 
 **O soro caseiro (água, sal e açúcar) é substância pura ou mistura? Que tipo?**
@@ -141,6 +155,11 @@ Confira: a água é o solvente (quem dissolve) e o sal e o açúcar são os solu
 4. Pegue o rótulo de um alimento industrializado. Qual é o primeiro ingrediente da lista? O que isso indica?
 
 **Respostas:** 1) Substância composta; mistura homogênea; mistura heterogênea; substância simples; mistura homogênea; mistura heterogênea; substância composta. 2) A água; o sal e o açúcar. 3) Porque é menos denso que a água líquida.
+
+```agir
+# Esta semana
+Escolha três coisas da sua cozinha e classifique cada uma: substância pura, mistura homogênea ou mistura heterogênea. Explique a classificação a alguém da casa.
+```
 
 ## Resumo
 

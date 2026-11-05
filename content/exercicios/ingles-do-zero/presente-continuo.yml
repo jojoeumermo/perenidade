@@ -1,0 +1,51 @@
+# Exercícios da aula "Presente contínuo" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-con-01
+  tema: "Agora mesmo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual frase diz 'Estou falando ao telefone' (agora)?"
+  alternativas:
+    - texto: "I'm talking on the phone."
+      certa: true
+    - texto: "I talk on the phone."
+      erro: "O presente simples é para hábitos. Para o que acontece agora, usa-se to be + -ing."
+    - texto: "I talking on the phone."
+      erro: "Falta o verbo to be: I'm talking."
+  explicacao: "Presente contínuo: am, is ou are + verbo com -ing."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-con-02
+  tema: "Formar o -ing"
+  dificuldade: 2
+  enunciado: "Qual é o -ing de run?"
+  alternativas:
+    - texto: "running"
+      certa: true
+    - texto: "runing"
+      erro: "Uma sílaba com consoante-vogal-consoante dobra a última consoante."
+    - texto: "runeing"
+      erro: "Não existe essa forma."
+  explicacao: "Sit → sitting, stop → stopping. Em make → making, tira-se o e mudo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-con-03
+  tema: "Simples ou contínuo"
+  dificuldade: 3
+  enunciado: "Qual frase está certa?  Look! It ___ ."
+  alternativas:
+    - texto: "is raining"
+      certa: true
+    - texto: "rains"
+      erro: "Com Look!, o que acontece agora pede o presente contínuo."
+    - texto: "is rain"
+      erro: "Falta o -ing: is raining."
+  explicacao: "Look!, Listen!, now, right now e at the moment costumam acompanhar o presente contínuo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

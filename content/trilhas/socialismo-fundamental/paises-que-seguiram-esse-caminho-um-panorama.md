@@ -1,5 +1,6 @@
 ---
 titulo: "Países que seguiram esse caminho: um panorama"
+modelo: 9
 resumo: "Da Rússia de 1917 à China, a Cuba e ao Vietnã de hoje: onde se tentou construir o socialismo, o que se conquistou e o que deu errado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 Ao fim desta aula você vai saber situar os principais países que se disseram socialistas no século XX e avaliar cada experiência olhando as conquistas e os problemas.
 
 O socialismo não ficou só nos livros. No século XX, um terço da humanidade chegou a viver em países governados em nome do socialismo. Esta aula é um mapa inicial. Cada experiência tem uma aula própria na trilha [As revoluções socialistas](/trilhas/revolucoes-socialistas).
+
+```suarealidade
+O que você já ouviu falar sobre países como Cuba, a União Soviética ou a China? De onde vieram essas informações?
+```
 
 ## Os principais casos
 
@@ -88,6 +93,15 @@ Nenhuma dessas experiências aconteceu em condições escolhidas. Quase todas co
 
 Hoje, **China, Vietnã, Cuba e Laos**, além da Coreia do Norte, são governados por partidos comunistas, cada um com um modelo diferente. China e Vietnã combinam planejamento estatal com amplos setores de mercado e empresas privadas, e há um grande debate sobre se esses modelos ainda são socialistas. Em outros países, partidos e movimentos socialistas disputam eleições, governam cidades ou constroem experiências de economia solidária.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Todo país que tentou o socialismo acabou em ditadura, fome e pobreza. Não tem o que discutir." É a opinião de quem olha para a história do século XX.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde os problemas: cita repressão política, fomes ligadas a decisões políticas, burocratização e dificuldades econômicas. Mas também cita conquistas, como alfabetização em massa, saúde pública, industrialização, direitos das mulheres e apoio às lutas anticoloniais, e lembra que cada experiência teve o seu contexto. Um estudo honesto olha os dois lados.
+```
+
 ## Exemplo resolvido
 
 **Como ler a experiência da China com as duas listas da aula, a das conquistas e a dos problemas?**
@@ -102,6 +116,11 @@ Conclusão: avaliar uma experiência é manter o conjunto dos fatos. A atitude q
 ## Para conversar
 
 O que você já ouviu falar sobre a União Soviética, Cuba ou a China? De onde vinha essa informação? Que perguntas você gostaria de investigar com fontes mais sérias?
+
+```agir
+# Esta semana
+Escolha um dos países da aula e anote duas coisas que você ouviu sobre ele e de onde veio cada informação. Depois procure uma fonte que confirme ou corrija.
+```
 
 ## Resumo
 

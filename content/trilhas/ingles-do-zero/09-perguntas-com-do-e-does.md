@@ -1,5 +1,6 @@
 ---
 titulo: "Perguntas com do e does"
+modelo: 9
 resumo: "Como fazer perguntas no presente simples, responder de forma curta e usar what, where, when e outras palavras de pergunta."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 Ao fim desta aula você vai saber fazer perguntas no presente simples com *do* e *does*, responder de forma curta e usar as palavras de pergunta.
 
 Em português, uma pergunta muitas vezes é só uma afirmação com outra entonação: "Você mora aqui?" Em inglês isso também acontece na fala informal, mas a forma correta, e a que você vai ver em toda parte, muda a ordem das palavras. No presente simples, ela usa um ajudante: **do** ou **does**.
+
+```suarealidade
+Que pergunta você faz todo dia a quem trabalha com você: "Você mora longe?", "Você trabalha amanhã?" Como você montaria essa pergunta em inglês?
+```
 
 ## A estrutura da pergunta
 
@@ -120,6 +125,15 @@ Há um caso em que o *do* some: quando o **who** ou o **what** é o próprio **s
 
 Não se preocupe com isso agora; basta saber que a forma existe, para não estranhar quando a encontrar.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Basta falar a frase com tom de pergunta, como no português. Esse tal de do e does é complicação desnecessária." É um argumento prático, de quem quer falar rápido.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que, em português, uma pergunta muitas vezes é só uma afirmação com outra entonação, e diz que no inglês informal isso também acontece. Mas a forma que você vai ver em toda parte usa o ajudante do ou does, e conhecê-la ajuda a entender o que estão perguntando, e não só a falar. A regra é curta: do com I, you, we, they; does com he, she, it.
+```
+
 ## Exemplo resolvido
 
 **Como transformar "She works at night" em pergunta e perguntar onde ela trabalha?**
@@ -138,6 +152,11 @@ Confira: *Does she works?* seria erro. O -s só aparece uma vez, no auxiliar.
 3. Escreva cinco perguntas para conhecer um colega de turma, usando palavras de pergunta diferentes.
 
 Respostas do 1: *Does she speak Spanish? / Do they live in Manaus? / Does he like his job?*
+
+```agir
+# Esta semana
+Escreva num papel três perguntas em inglês com do ou does, sobre a rotina de alguém de casa, como "Do you work on Sunday?" ou "Does she live here?". Faça uma delas a essa pessoa e anote a resposta curta.
+```
 
 ## Resumo
 

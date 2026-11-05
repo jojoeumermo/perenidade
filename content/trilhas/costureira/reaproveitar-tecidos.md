@@ -1,5 +1,6 @@
 ---
 titulo: "Reaproveitar tecidos"
+modelo: 9
 resumo: "Por que reaproveitar é melhor que jogar fora, como separar e guardar retalhos, transformar roupas usadas em peças novas, fazer fuxico e patchwork e calcular quanto um retalho rende."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Depois de cortar uma saia, sobra quase meio metro de tecido em pedaços. Isso é
 
 Ao fim desta aula você vai entender por que reaproveitar tecido importa, separar e guardar retalhos, transformar roupas usadas em peças novas, fazer fuxico e patchwork e calcular quanto um retalho rende.
 
+```suarealidade
+O que a sua família faz hoje com roupa velha e retalho: guarda, doa, transforma ou joga fora?
+```
+
 ## Por que reaproveitar
 
 A Wikipédia registra que a **velocidade do consumo de roupas aumentou muito desde o fim dos anos 1990** e que o lixo de tecidos jogados fora cresce além da capacidade de a própria indústria dar conta. E que **estudos acadêmicos** mostram que **reusar e reciclar** tecidos é **mais vantajoso** do que **queimar** ou mandar para o **aterro**.
@@ -92,6 +97,15 @@ Você vai juntar retalhos de malha e de tricoline de algodão numa mesma colcha.
 > Malha e tecido plano esticam de jeitos diferentes.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Retalho é lixo: ocupa espaço e dá trabalho. Tempo é dinheiro, e é melhor jogar fora e comprar tecido novo." É a conta de quem tem pouco tempo e pouco espaço.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece o limite: um produto pequeno e barato que leva muito tempo pode não pagar o trabalho, então conte as horas e calcule o rendimento do retalho antes de cortar. Mas lembra que o retalho já foi pago, de modo que reaproveitar é também economia. A aula cita, segundo a Wikipédia, que o consumo de roupas aumentou muito desde o fim dos anos 1990 e que estudos acadêmicos mostram que reusar e reciclar tecidos é mais vantajoso do que queimar ou mandar para o aterro. Separar por tamanho, fibra e cor ajuda a achar logo o que serve.
+```
+
 ## Exemplo resolvido
 
 **Você tem um retalho de 50 × 40 cm de tricoline. Quantos quadrados de 12 cm (10 cm prontos + 1 cm de margem de cada lado) saem dele para um patchwork? E quantos círculos de 14 cm para fuxicos?**
@@ -109,6 +123,11 @@ Círculos de 14 cm (cada um ocupa um quadrado de 14 cm):
 ```
 
 O retalho rende **12 quadrados** ou **6 fuxicos**. As sobras (tiras de 2 a 12 cm) ainda servem para viés ou enchimento.
+
+```agir
+# Esta semana
+Separe os retalhos de uma caixa por tamanho, fibra e cor e anote o que cada grupo poderia virar. Se quiser, faça um fuxico com um retalho e uma xícara como molde.
+```
 
 ## Resumo
 

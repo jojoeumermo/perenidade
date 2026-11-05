@@ -1,5 +1,6 @@
 ---
 titulo: "Presente simples"
+modelo: 9
 resumo: "O tempo verbal dos hábitos, da rotina e das verdades gerais, com o -s da terceira pessoa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ O presente simples é o tempo que se usa para falar do que acontece **sempre**, 
 - *I wake up at 5 a.m.* — Eu acordo às 5 da manhã.
 - *She works in a factory.* — Ela trabalha numa fábrica.
 - *Water boils at 100 degrees.* — A água ferve a 100 graus.
+
+```suarealidade
+O que você faz todo dia, sempre do mesmo jeito: a que horas acorda, onde trabalha, como vai? Como você contaria isso em inglês?
+```
 
 ## A forma afirmativa
 
@@ -106,6 +111,15 @@ Em português, "eu trabalho" pode querer dizer "eu tenho um emprego" ou "estou t
 
 O segundo é o **presente contínuo**, que tem uma aula própria nesta trilha.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Eu não preciso do -s do he, she e it, o povo entende do mesmo jeito. Gramática é frescura." É a opinião de quem quer falar sem medo de errar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que muita gente é entendida sem o -s, e a aula não pede perfeição: ela diz que o verbo quase não muda, só ganha o -s com he, she e it. Mas conhecer a regra ajuda a entender o que se ouve e se lê, e a escrever uma frase de trabalho, como "She works in a factory", com segurança. Os poucos casos de escrita do -s (es, ies) seguem as mesmas regras do plural.
+```
+
 ## Exemplo resolvido
 
 **Como falar da rotina de uma irmã que acorda às seis e não toma café?**
@@ -124,6 +138,11 @@ Escreva cinco frases sobre a sua rotina com *I*. Depois, reescreva as mesmas fra
 - *I don't drink coffee.* → *She doesn't drink coffee.*
 
 Leia as frases em voz alta. A ferramenta de pronúncia desta página ajuda a ouvir como cada uma soa.
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, três frases sobre o seu trabalho ou o de alguém de casa, como "I work at night" ou "My brother drives a bus". Confira se colocou o -s onde precisa.
+```
 
 ## Resumo
 

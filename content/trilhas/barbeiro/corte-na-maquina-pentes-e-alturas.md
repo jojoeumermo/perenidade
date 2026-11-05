@@ -1,5 +1,6 @@
 ---
 titulo: "Corte na máquina: pentes e alturas"
+modelo: 9
 resumo: "Como escolher o pente de altura, usar a alavanca, subir a máquina em faixas, fazer o corte com altura única, a máquina sobre o pente e começar sempre um pouco mais longo, porque o que se corta não volta."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai escolher o pente de altura e usar a alavanca, subir a máquina em faixas com a mão firme, fazer o corte numa altura única, usar a técnica da máquina sobre o pente e começar sempre um pouco mais longo.
+
+```suarealidade
+"Passa a 2 dos lados e a 4 em cima." Parece simples. Mas a sua máquina "2" é a mesma "2" da barbearia em que o cliente cortava antes? Que outra medida, no trabalho, varia assim de lugar para lugar?
+```
 
 ## Antes de ligar a máquina
 
@@ -101,6 +106,20 @@ Você subiu a máquina com o pente nas laterais, mas apareceu uma linha marcada 
 3. **Topo**: começar com o pente de **13 mm** (o mais próximo acima de 12) e conferir; se o cliente quiser mais curto, usar a máquina sobre o pente ou a tesoura para chegar perto dos 12 mm.
 4. **Nuca**: arredondar o contorno (aula de acabamento).
 5. **Conferir** os dois lados no espelho e mostrar ao cliente.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Barbeiro bom não precisa conferir pente nem medir nada: a mão já sabe. Conferir é coisa de iniciante." É um orgulho do ofício, de quem tem muitos anos de prática.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A experiência conta muito, e a aula não nega isso. Mas lembra que a numeração do pente muda de fabricante para fabricante, que o que se corta não volta e que por isso se começa um pente acima do combinado, conferindo no espelho com o cliente. Perguntar a altura em milímetros evita mal-entendido, mesmo para quem já tem a mão firme.
+```
+
+```agir
+# Esta semana
+Pegue os pentes de altura da sua máquina e meça com uma régua a altura de cada um. Anote num papel o número e os milímetros reais. Guarde o papel junto da máquina.
+```
 
 ## Resumo
 

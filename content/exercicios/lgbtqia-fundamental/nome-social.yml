@@ -1,0 +1,51 @@
+# Exercícios da aula "Nome social" (LGBTQIA+ fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lg-nom-01
+  tema: "O que é nome social"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é nome social?"
+  alternativas:
+    - texto: "O nome pelo qual a pessoa se identifica e quer ser reconhecida, diferente do nome de registro, usado principalmente por pessoas trans e travestis"
+      certa: true
+    - texto: "Um apelido de brincadeira"
+      erro: "Não é brincadeira: é o nome pelo qual a pessoa se identifica."
+    - texto: "O nome do pai e da mãe juntos"
+      erro: "O nome social não tem relação com o sobrenome da família."
+  explicacao: "O nome de registro pode não corresponder à identidade de gênero da pessoa."
+  fonte: "Questão original do Instituto Lúcia; Decreto nº 8.727/2016, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: lg-nom-02
+  tema: "O decreto federal"
+  dificuldade: 2
+  enunciado: "O que determina o Decreto nº 8.727, de 2016?"
+  alternativas:
+    - texto: "Que os órgãos da administração pública federal adotem o nome social da pessoa travesti ou transexual, a pedido dela"
+      certa: true
+    - texto: "Que as pessoas trans sejam chamadas só pelo nome de registro"
+      erro: "O decreto determina o contrário: usar o nome social, a pedido da pessoa."
+    - texto: "Que a mudança do nome só pode ser feita na Justiça"
+      erro: "O decreto trata do nome social na administração federal. A mudança no registro foi tema de decisão do STF em 2018."
+  explicacao: "A pessoa pode pedir, a qualquer tempo, a inclusão do nome social em documentos, cadastros, fichas e prontuários (art. 6º)."
+  fonte: "Decreto nº 8.727/2016, arts. 2º e 6º, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: lg-nom-03
+  tema: "Nome social e registro"
+  dificuldade: 2
+  enunciado: "Qual a diferença entre usar o nome social e mudar o nome no registro civil?"
+  alternativas:
+    - texto: "O nome social é usado no atendimento e nos cadastros; a mudança no registro altera a certidão e os documentos"
+      certa: true
+    - texto: "Nenhuma"
+      erro: "São coisas diferentes: uma não substitui a outra."
+    - texto: "O nome social só vale dentro de casa"
+      erro: "Pelo decreto, vale na administração pública federal."
+  explicacao: "Em 2018, o STF decidiu que pessoas trans podem mudar nome e gênero no registro, sem cirurgia, hormônios nem diagnóstico médico, diretamente no cartório."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

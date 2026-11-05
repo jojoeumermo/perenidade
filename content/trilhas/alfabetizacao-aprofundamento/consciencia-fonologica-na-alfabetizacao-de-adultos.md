@@ -1,5 +1,6 @@
 ---
 titulo: "Consciência fonológica na alfabetização de adultos"
+modelo: 9
 resumo: "O que é perceber os sons das palavras (rimas, sílabas, sons iniciais e fonemas), por que isso ajuda a aprender a ler e como trabalhar com adultos sem infantilizar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ Ao fim desta aula você vai saber o que é consciência fonológica e em que ní
 
 ```provocacao
 "Água mole em pedra dura, tanto bate até que fura." Que palavras desse ditado terminam com o mesmo som?
+```
+
+```suarealidade
+Pense num ditado ou numa música de que você gosta. Que palavras terminam com o mesmo som, ou começam com o mesmo som? Onde você aprendeu a perceber isso?
 ```
 
 ## Os níveis da consciência fonológica
@@ -110,6 +115,20 @@ Confira: a atividade partiu de um texto da cultura do grupo, passou por sílaba 
 
 ```realidade
 Escolha um ditado popular ou uma música que o seu grupo conhece. Ache nele duas palavras que rimam e duas que começam com o mesmo som.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Brincar de rima e de som é coisa de criança. Adulto quer aprender a ler de verdade, sem brincadeira." É uma crítica de quem teme que o círculo trate o adulto como criança.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda com o cuidado: pede atividades só com cultura adulta (ditados, cordel, repente, músicas, nomes e palavras do trabalho), sem infantilizar. Mas mostra, com o estudo de Morais e colegas (1979), que adultos que nunca leram têm dificuldade com fonemas e que essa consciência se desenvolve junto com a escrita. Perceber os sons faz parte de aprender a ler, e não depende de tratar o adulto como criança.
+```
+
+```agir
+# Esta semana
+Escolha um ditado popular que você conhece e escreva-o num papel. Sublinhe duas palavras que rimam e escreva outra palavra que começa com o mesmo som de uma delas. Depois recite para alguém de casa.
 ```
 
 ## Resumo

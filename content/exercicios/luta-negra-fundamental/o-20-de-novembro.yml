@@ -1,0 +1,52 @@
+# Exercícios da aula "O 20 de novembro" (Luta negra, fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ln-vin-01
+  tema: "Origem da data"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quem propôs o 20 de novembro como data da consciência negra, e em que ano?"
+  alternativas:
+    - texto: "O Grupo Palmares, de Porto Alegre, liderado por Oliveira Silveira, em 1971"
+      certa: true
+    - texto: "A princesa Isabel, em 1888"
+      erro: "A princesa Isabel assinou a Lei Áurea, em 13 de maio. O 20 de novembro foi proposto por militantes negros."
+    - texto: "O governo, em 2003"
+      erro: "Em 2003, a data entrou nos calendários escolares. A proposta é de 1971."
+  explicacao: "O 20 de novembro é o dia atribuído à morte de Zumbi dos Palmares, em 1695."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-vin-02
+  tema: "Por que não o 13 de maio"
+  dificuldade: 2
+  enunciado: "Por que o movimento negro preferiu o 20 de novembro ao 13 de maio?"
+  alternativas:
+    - texto: "Para destacar a luta e o protagonismo negro, e não a liberdade como um presente da princesa"
+      certa: true
+    - texto: "Porque o 13 de maio cai num domingo"
+      erro: "A razão é política: lembrar a luta das próprias pessoas negras."
+    - texto: "Porque a Lei Áurea não existiu"
+      erro: "A Lei Áurea existiu. O movimento quis mudar o foco para o protagonismo negro."
+  explicacao: "Era um contraponto ao 13 de maio, data da Lei Áurea."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-vin-03
+  tipo: numero
+  tema: "Do 'tempo de Zumbi' ao feriado"
+  dificuldade: 2
+  enunciado: "Zumbi foi morto em 1695, e o 20 de novembro virou feriado nacional em 2023. Quantos anos se passaram?"
+  resposta: "328"
+  unidade: "anos"
+  erros_comuns:
+    - resposta: "3718"
+      explicacao: "3.718 é a soma dos anos. Subtraia o mais antigo do mais recente."
+  dica: "Subtraia 1695 de 2023."
+  explicacao: "2023 − 1695 = 328 anos."
+  conferir: "2023 - 1695"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

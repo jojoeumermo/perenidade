@@ -1,5 +1,6 @@
 ---
 titulo: "O que é um sindicato"
+modelo: 9
 resumo: "Sozinho, o trabalhador negocia com medo; junto, negocia com força. A ideia simples que mudou o mundo do trabalho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Ao fim desta aula você vai saber dizer o que é um sindicato, por que um trabal
 Imagine uma fábrica com 200 trabalhadores. Um deles vai ao chefe pedir aumento. O chefe diz: "Se não está satisfeito, tem uma fila lá fora querendo o seu lugar". Agora imagine os 200 indo juntos. A conversa é outra.
 
 Essa é a ideia do **sindicato**: a união dos trabalhadores para defender os seus interesses.
+
+```suarealidade
+No seu trabalho, quem negocia o salário e as condições: cada um por si ou a categoria junta? Você conhece o sindicato da sua categoria?
+```
 
 ## Por que sozinho não dá
 
@@ -80,6 +85,15 @@ Em 1865, num debate com outros membros da Associação Internacional dos Trabalh
 
 Há sindicatos combativos e sindicatos acomodados, democráticos e burocráticos. O que faz a diferença é a **participação da base**: ir às assembleias, votar, cobrar, propor. A próxima aula fala da ferramenta mais poderosa de um sindicato: a greve.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sindicato só serve para quem manda nele e para fazer greve. O trabalhador esforçado negocia direto com o patrão." É a experiência de quem desconfia das direções sindicais.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra por que sozinho dá pouca força: o patrão pode trocar o trabalhador por outro, pode esperar, e conhece os números da empresa. Mostra também que o sindicato negocia salários e condições (o resultado é a convenção ou o acordo coletivo, que vale para toda a categoria), defende trabalhadores em casos de demissão injusta, assédio e acidente, e informa e forma. Sobre a desconfiança, a aula diz que um sindicato é o que os trabalhadores fazem dele, e a Constituição, no art. 8º, garante que ninguém é obrigado a se filiar.
+```
+
 ## Exemplo resolvido
 
 **Por que 200 trabalhadores juntos têm outra conversa com o chefe do que um sozinho?**
@@ -94,6 +108,11 @@ Confira: o que um sindicato faz (negocia, organiza a luta, assessora) depende da
 ## Para conversar
 
 Qual é o sindicato da sua categoria (ou da categoria de alguém da sua família)? Você sabe quando é a data-base, o mês em que se negocia o reajuste?
+
+```agir
+# Esta semana
+Descubra, perguntando a um colega de confiança ou procurando no cartaz do serviço, qual é o sindicato da sua categoria e anote o nome num papel. Não é preciso ir até lá nem se filiar.
+```
 
 ## Resumo
 

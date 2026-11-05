@@ -1,5 +1,6 @@
 ---
 titulo: "Sílabas: pedaços que se repetem"
+modelo: 9
 resumo: "Bater palmas para achar os pedaços da palavra, conhecer as famílias de sílabas e montar palavras novas sozinho."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Nas aulas [Palavras da casa](/trilhas/ler-e-escrever/palavras-da-casa) e [Palavr
 ## O que você vai aprender
 
 Ao fim desta aula você vai separar qualquer palavra em sílabas, batendo palmas. Vai conhecer as famílias de sílabas e as que mudam de som (CA e CE, GA e GE). E vai montar e desmontar palavras trocando um pedaço por vez.
+
+```suarealidade
+Qual palavra do seu dia a dia você acha comprida, difícil de ler? Em quantos pedaços você a separaria?
+```
 
 ## Bater palmas
 
@@ -150,6 +155,15 @@ Numa dessas etapas, a pessoa já ouve as sílabas e põe **uma letra para cada p
 
 Se você escreve assim, ótimo sinal. Continue batendo palmas e procurando, em cada pedaço, a consoante que vem junto da vogal.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Bater palma para separar sílaba é coisa de criança. Adulto quer ler direto." É o receio de quem tem vergonha de aprender de um jeito que parece infantil.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula usa palavras da vida adulta, como TRABALHO e LIBERDADE, e mostra que as sílabas são um jeito de ler qualquer palavra, mesmo as compridas, trocando um pedaço por vez. As famílias de sílabas (BA, BE, BI, BO, BU) explicam como muitas palavras novas nascem de pedaços que você já conhece. E a aula diz com clareza que errar faz parte do caminho: não é vergonha, é parte de aprender.
+```
+
 ## Exemplo resolvido
 
 **Como ler uma palavra que você nunca viu escrita: SINDICATO?**
@@ -203,6 +217,11 @@ silabario | Abrir o silabário
 5. Separe em pedaços: PRATO, PORTA, CAMPO.
 
 **Respostas:** 1) SAL (1), FEI-JÃO (2), MAR-MI-TA (3), SIN-DI-CA-TO (4). 2) LOBO, TOMA, LAMA. 3) Um exemplo: LATA → MATA → MALA → MOLA. 5) PRA-TO, POR-TA, CAM-PO.
+
+```agir
+# Esta semana
+Escolha cinco palavras do seu dia (seu nome, um bairro, uma comida) e separe cada uma em sílabas, batendo palmas. Escreva os pedaços num papel.
+```
 
 ## Resumo
 

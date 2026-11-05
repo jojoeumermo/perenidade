@@ -1,5 +1,6 @@
 ---
 titulo: "Os tipos de tecido"
+modelo: 9
 resumo: "De onde vêm as fibras (naturais, artificiais e sintéticas), a diferença entre tecido plano e malha, o que são urdume, trama, ourela e viés, como o fio do tecido muda o caimento e como escolher o tecido para cada peça."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ Duas camisetas iguais, do mesmo tamanho: uma esquenta e gruda no corpo no calor,
 
 Ao fim desta aula você vai conhecer as fibras naturais, artificiais e sintéticas, diferenciar tecido plano de malha, entender urdume, trama, ourela e viés e escolher o tecido certo para cada peça.
 
+```suarealidade
+Pegue a roupa que você mais usa no calor e a que menos usa. Você sabe de que fibra cada uma é feita?
+```
+
 ## De onde vêm as fibras
 
 O tecido é feito de **fios**, e os fios, de **fibras**.
@@ -98,6 +103,15 @@ Você vai fazer uma saia que caia bem solta, moldando o corpo. Em que direção 
 > O viés é onde o tecido plano mais cede.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Tecido é tecido. O que importa é o preço por metro e a cor; essa conversa de fibra e de fio é enfeite de quem quer complicar." É o raciocínio de quem compra pelo bolso.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O preço pesa, e a aula não nega isso. Mas mostra que o tipo de tecido muda a roupa: as fibras podem ser naturais (algodão, linho, lã, seda), artificiais (viscose, modal) ou sintéticas (poliéster, poliamida, elastano), e muitos tecidos misturam fibras. Tecido plano e malha esticam de modo diferente; o fio com que se corta decide se a peça cai direito ou torce; e alguns tecidos encolhem na lavagem, por isso vale lavar e passar antes de cortar. A etiqueta, com a composição e os símbolos de cuidado, ajuda a escolher bem e evita prejuízo.
+```
+
 ## Exemplo resolvido
 
 **Escolha o tecido para três peças: uma camiseta de dia a dia, uma calça de trabalho resistente e uma blusa para o calor.**
@@ -107,6 +121,11 @@ Você vai fazer uma saia que caia bem solta, moldando o corpo. Em que direção 
 | Camiseta de dia a dia | **malha** de algodão, ou algodão com um pouco de elastano | estica e veste sem botão nem zíper |
 | Calça de trabalho | **tecido plano** grosso, como o brim | resiste ao uso; corte no fio reto |
 | Blusa para o calor | **tecido plano** leve de fibra natural ou artificial, como linho ou viscose | deixa o ar passar; confira a etiqueta e lave antes de cortar |
+
+```agir
+# Esta semana
+Leia a etiqueta de três roupas suas e anote a composição e o símbolo de lavagem de cada uma. Depois, com um retalho, puxe nas três direções (fio reto, transversal e viés) e veja onde ele estica mais.
+```
 
 ## Resumo
 

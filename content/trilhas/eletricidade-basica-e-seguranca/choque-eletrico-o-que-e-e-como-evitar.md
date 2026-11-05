@@ -1,5 +1,6 @@
 ---
 titulo: "Choque elétrico: o que é e como evitar"
+modelo: 9
 resumo: "Por que poucos miliamperes bastam para machucar, por que pele molhada é mais perigosa, o que fazer quando alguém leva um choque e as regras básicas para não levar um."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Por que um passarinho pousa no fio do poste e não leva choque, mas uma pessoa e
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que o choque faz no corpo, por que pouca corrente já é perigosa, por que água e chão aumentam o risco, como socorrer alguém sem virar a segunda vítima e as regras mínimas para não levar choque.
+
+```suarealidade
+Em que lugares da sua casa ou do seu trabalho a eletricidade fica perto de água (chuveiro, tanque, torneira elétrica, tomada na área de serviço)? Você já levou um choque, ou conhece quem levou? O que a pessoa estava fazendo?
+```
 
 ## O choque é corrente passando pelo corpo
 
@@ -111,6 +116,20 @@ I = V ÷ R
 ```
 
 Pela tabela, 22 mA já passa da faixa em que a pessoa não consegue soltar o fio e em que a respiração pode parar. Com pele seca, a resistência seria muito maior e a corrente, muito menor: a água fez a diferença.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que choque de casa é só um susto: "já levei vários e estou aqui". Quem se preocupa demais com cadeado, disjuntor e sola de borracha, dizem, perde tempo e não pega o serviço.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: quem levou um susto e está aqui teve sorte de a corrente ter sido pequena ou a pele estar seca. Pela tabela da OpenStax, de 10 a 20 mA o músculo contrai e a pessoa não consegue soltar o fio, e a pele molhada derruba a resistência do corpo: no exemplo da aula, os mesmos 120 V passam de 0,6 mA para 12 mA. O mesmo choque que num dia seco é um susto pode, com a mão molhada, prender a pessoa no fio. Cuidar não é ter medo: é ter método (desligar o disjuntor, secar as mãos, tirar anel e pulseira).
+```
+
+```agir
+# Esta semana
+Descubra onde fica o quadro de disjuntores da sua casa e leia as etiquetas, sem abrir nem mexer em nada. Escreva num papel os três passos do socorro (não tocar na pessoa, cortar a energia, chamar o 192) e cole num lugar que todos vejam.
+```
 
 ## Resumo
 

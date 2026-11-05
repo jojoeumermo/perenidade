@@ -1,5 +1,6 @@
 ---
 titulo: "Ler uma notícia curta"
+modelo: 9
 resumo: "Ler uma notícia curta sozinho, achando o quê, quem, quando e onde, e saber desconfiar da notícia falsa que chega pelo celular."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Ao fim desta aula você vai ler uma notícia curta e responder, sozinho, às per
 
 ```provocacao
 Qual foi a última notícia que você ouviu e quis saber se era verdade? Como você descobriu?
+```
+
+```suarealidade
+Qual foi a última notícia que chegou até você, pelo zap, pela TV ou pelo rádio? Você leu ou só ouviu alguém contar? Como soube se era verdade?
 ```
 
 ## Uma notícia de exemplo
@@ -134,6 +139,15 @@ Sinal de notícia confiável: diz o órgão que informou; tem data; dá para con
 
 Na dúvida, pergunte no posto de saúde, na escola ou a alguém de confiança. E não compartilhe.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Notícia hoje chega pronta pelo zap. Ler o texto inteiro é perda de tempo: o resumo que alguém manda basta." É a pressa de quem tem pouco tempo no dia.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula ensina que toda notícia responde a perguntas simples: o quê, quando, onde, quem e como. Quando você lê o texto inteiro, você mesmo confere cada uma dessas respostas, em vez de depender de quem repassou. A aula também ensina a entender uma palavra nova pelo resto da frase e a reconhecer os sinais de uma notícia falsa. Ler sozinho dá o poder de desconfiar.
+```
+
 ## Exemplo resolvido
 
 **Leia a notícia e responda às cinco perguntas.**
@@ -162,6 +176,11 @@ Peça a alguém uma notícia de verdade, curta, de um jornal ou do site da prefe
 2. Responda: o quê, quando, onde, quem.
 3. Peça a alguém para ler uma notícia de verdade com você e responda às mesmas perguntas.
 4. Converse: você toma vacina? Já tomou a da gripe este ano?
+
+```agir
+# Esta semana
+Pegue um texto curto que chegou até você (um aviso do posto de saúde, uma mensagem da escola, um jornal) e escreva num papel as respostas: o quê, quando e onde. Conte a alguém de confiança.
+```
 
 ## Resumo
 

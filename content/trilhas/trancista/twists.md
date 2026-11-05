@@ -1,5 +1,6 @@
 ---
 titulo: "Twists"
+modelo: 9
 resumo: "A torção de duas mechas: como fazer twists soltos e rentes ao couro, a diferença entre fazer com o cabelo molhado e seco, o twist out, os twists com fibra e como cuidar para durarem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Por que algumas clientes preferem twists às tranças, mesmo sendo um penteado t
 ## O que você vai aprender
 
 Ao fim desta aula você vai fazer twists de duas mechas, soltos e rentes ao couro, entender o efeito do cabelo molhado e seco, conhecer o twist out e os twists com fibra e orientar a manutenção.
+
+```suarealidade
+Você já viu twists soltos ou rentes ao couro? Como você acha que fazem para não desmanchar?
+```
 
 ## O que é o twist
 
@@ -95,6 +100,15 @@ Os twists da cliente desmancharam em dois dias. Ela conta que você torceu as du
 > O sentido contrário é o que trava o twist.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Twist é só torcer duas mechas. É coisa simples que desmancha rápido e não precisa de técnica." É a opinião de quem vê só o resultado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o twist tem técnica: duas mechas torcidas e enroladas uma na outra, torcendo para um lado e enrolando para o outro, para não desmanchar. Feito molhado, o cabelo encolhe e a trama fecha; seco, a textura é outra. O twist out desfaz os twists para deixar o cabelo solto e volumoso, e os twists senegaleses, com fibra, duram de um a três meses, e o cabelo deve ser coberto à noite. Técnica e cuidado são trabalho.
+```
+
 ## Exemplo resolvido
 
 **Explique a uma aprendiz a diferença entre fazer uma trança de três mechas e um twist na mesma mecha, e quando sugerir cada um.**
@@ -108,6 +122,11 @@ Os twists da cliente desmancharam em dois dias. Ela conta que você torceu as du
 | Com fibra | box braids | twists senegaleses (de um a três meses) |
 
 Sugira o twist a quem quer um penteado com outra textura ou que pense em fazer um twist out depois. Sugira a trança a quem quer um penteado mais firme e definido. A escolha é da cliente, com a sua orientação.
+
+```agir
+# Esta semana
+Ensine a alguém a regra "torce para um lado, enrola para o outro" com dois fios de lã e peça que a pessoa tente.
+```
 
 ## Resumo
 

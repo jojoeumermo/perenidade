@@ -1,0 +1,51 @@
+# Exercícios da aula "Internacionalismo: solidariedade entre os povos" (Formação militante, superior). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fm-int-01
+  tema: "A Primeira Internacional"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "O que foi a Primeira Internacional, fundada em 1864?"
+  alternativas:
+    - texto: "A primeira organização operária a superar as fronteiras nacionais, que promoveu a solidariedade entre os operários de vários países"
+      certa: true
+    - texto: "Um partido de um só país"
+      erro: "Era internacional: reunia operários de vários países."
+    - texto: "Um exército de voluntários"
+      erro: "Os voluntários da Guerra Civil Espanhola foram as Brigadas Internacionais, de 1936 a 1939."
+  explicacao: "Foi a Associação Internacional dos Trabalhadores. Marx ajudou a fundá-la."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: fm-int-02
+  tema: "Brigadas Internacionais"
+  dificuldade: 2
+  enunciado: "Quem foram as Brigadas Internacionais, na Guerra Civil Espanhola (1936–1939)?"
+  alternativas:
+    - texto: "Mais de 40 mil voluntários estrangeiros que lutaram ao lado da República contra as tropas de Franco"
+      certa: true
+    - texto: "Tropas de Franco vindas de outros países"
+      erro: "As Brigadas lutaram ao lado da República, contra Franco."
+    - texto: "Funcionários do governo espanhol"
+      erro: "Eram voluntários estrangeiros."
+  explicacao: "Vieram sobretudo da França e da Alemanha, entre outros países."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: fm-int-03
+  tema: "Trabalhadores jogados uns contra os outros"
+  dificuldade: 3
+  enunciado: "Uma multinacional ameaça levar a fábrica para outro país se os trabalhadores daqui não aceitarem salário menor. O que o internacionalismo sugere?"
+  alternativas:
+    - texto: "Que os trabalhadores dos dois países estão sendo jogados uns contra os outros, e que se unirem é mais forte do que cada um lutar sozinho"
+      certa: true
+    - texto: "Que cada país deve aceitar para manter o emprego"
+      erro: "Se cada um lutar sozinho, a empresa vence os dois."
+    - texto: "Que os trabalhadores do outro país são inimigos"
+      erro: "Os trabalhadores dos dois países têm interesses comuns diante da exploração."
+  explicacao: "O Manifesto, de 1848, termina com o chamado: 'Proletários de todos os países, uni-vos!'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

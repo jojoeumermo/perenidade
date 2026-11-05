@@ -1,5 +1,6 @@
 ---
 titulo: "Água: tratamento e qualidade"
+modelo: 9
 resumo: "Objetivo: saber como a água é tratada antes de chegar à torneira, como cuidar dela em casa e por que o acesso à água limpa é uma questão de direito."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar as etapas do tratamento da água, tratar em casa uma água que não é confiável e dizer por que o esgoto faz parte da mesma história.
+
+```suarealidade
+De onde vem a água que você bebe e usa em casa? Você sabe quando foi lavada a caixa-d'água pela última vez?
+```
 
 ## A substância da vida
 
@@ -109,6 +114,15 @@ No entanto, a água é tratada cada vez mais como mercadoria. A maior parte da �
 
 Defender a água é defender as nascentes, as matas que as protegem e o controle público sobre um bem de que ninguém pode abrir mão.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se a água está limpa e transparente, pode beber sem medo. Tratar água é frescura." É a opinião de quem sempre bebeu da torneira e nunca passou mal.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que água limpa não é o mesmo que água potável: bactérias, vírus e substâncias dissolvidas não se veem. Por isso a água passa por captação, coagulação, floculação, decantação, filtração, desinfecção com cloro, fluoretação e correção do pH antes de chegar à torneira. Em casa, a caixa-d'água deve ficar tampada e ser lavada a cada seis meses; se a água não é confiável, filtre e depois ferva ou use hipoclorito.
+```
+
 ## Exemplo resolvido
 
 **Você precisa tratar 5 litros de água de uma fonte não confiável com hipoclorito de sódio a 2,5%. Quantas gotas, e quanto tempo esperar?**
@@ -126,6 +140,11 @@ Confira: se a água tivesse só 1 litro, seriam 2 gotas; 5 litros pedem cinco ve
 3. O esgoto do seu bairro é coletado? Para onde vai?
 4. Quando foi a última vez que a caixa-d'água da sua casa foi lavada?
 5. Em caso de falta de água na sua região, quem fica sem água primeiro?
+
+```agir
+# Esta semana
+Olhe a caixa-d'água ou o filtro da sua casa e descubra quando foi a última limpeza. Se já passou de seis meses, combine com quem mora com você uma data para lavar.
+```
 
 ## Resumo
 

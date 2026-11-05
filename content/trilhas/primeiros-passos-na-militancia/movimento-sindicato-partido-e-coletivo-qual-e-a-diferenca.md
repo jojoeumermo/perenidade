@@ -1,5 +1,6 @@
 ---
 titulo: "Movimento, sindicato, partido e coletivo: qual é a diferença"
+modelo: 9
 resumo: "Quem quer se organizar encontra muitos nomes: movimento social, sindicato, partido, coletivo, associação. O que cada um é, o que diz a Constituição sobre eles e como escolher onde começar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -44,6 +45,10 @@ Você quer mudar alguma coisa e decide se organizar. Mas entra no sindicato, num
 
 Ao fim desta aula você vai diferenciar movimento social, sindicato, partido e coletivo e saber o que a Constituição garante a cada um.
 
+```suarealidade
+No seu bairro, trabalho ou escola, existe algum sindicato, associação ou grupo que luta por melhorias? Você conhece alguém que participa?
+```
+
 ## Movimento social
 
 **Movimento social** é a **ação coletiva** de setores da sociedade para **defender ou promover objetivos**, de **mudança** ou de **preservação** da ordem. Age **fora do parlamento**: com **ocupações, marchas, campanhas, atos**. Exemplos: **MST**, **movimento negro**, **movimento de moradia**.
@@ -68,6 +73,15 @@ Um grupo de trabalhadores de uma fábrica quer negociar salário com o patrão. 
 > O sindicato defende os interesses de uma categoria de trabalhadores.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sindicato e partido só servem a quem os dirige; o melhor é cada um cuidar da sua vida e resolver os seus problemas sozinho." É a opinião de quem já se decepcionou com alguma organização.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde que organizações podem decepcionar. Mas mostra o que a Constituição garante: liberdade de associação, sem autorização nem interferência do Estado (art. 5º, XVII e XVIII), e liberdade sindical (art. 8º), com a regra de que ninguém é obrigado a se filiar. Um aumento de salário, um posto de saúde ou uma lei nacional dificilmente saem de uma pessoa sozinha, e cada forma de organização serve a um objetivo: o sindicato, a categoria; o partido, o poder do Estado; a associação, o bairro. Escolher participar ou não é direito de cada pessoa.
+```
+
 ## Exemplo resolvido
 
 **Para cada objetivo, indique a forma de organização mais direta.**
@@ -78,6 +92,11 @@ Um grupo de trabalhadores de uma fábrica quer negociar salário com o patrão. 
 4. **Reforma agrária** → **movimento social**, como o MST.
 
 Essas formas **não se excluem**: a mesma pessoa pode estar em várias.
+
+```agir
+# Esta semana
+Escreva num papel o nome de uma organização do seu bairro, trabalho ou escola e pense em uma pergunta que você faria a quem participa dela. Pergunte esta semana a alguém de confiança.
+```
 
 ## Resumo
 

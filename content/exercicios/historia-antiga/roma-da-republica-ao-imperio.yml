@@ -1,0 +1,51 @@
+# Exercícios da aula "Roma, da República ao Império" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-rom-01
+  tema: "Luta dos plebeus"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual era a arma eficaz dos plebeus para conquistar direitos na República romana?"
+  alternativas:
+    - texto: "Retirar-se em massa da cidade e recusar-se a trabalhar e a lutar"
+      certa: true
+    - texto: "Pedir favores aos senadores"
+      erro: "Eles usaram a pressão: mais de uma vez recusaram trabalhar e lutar, como greves gerais."
+    - texto: "Comprar cargos públicos"
+      erro: "Com a pressão, conquistaram os tribunos da plebe, leis escritas e acesso aos cargos."
+  explicacao: "Foram, de certo modo, as primeiras greves gerais de que se tem notícia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-rom-02
+  tema: "Conquista e escravidão"
+  dificuldade: 2
+  enunciado: "O que as conquistas romanas causaram à sociedade?"
+  alternativas:
+    - texto: "Escravização de centenas de milhares de prisioneiros e arruinamento dos pequenos camponeses, enquanto as terras se concentravam em latifúndios"
+      certa: true
+    - texto: "Mais terras para os pobres"
+      erro: "Aconteceu o contrário: as terras se concentraram nas mãos dos ricos."
+    - texto: "O fim da escravidão"
+      erro: "A escravidão cresceu: a economia passou a depender dela."
+  explicacao: "Os pequenos camponeses voltavam arruinados da guerra, perdiam suas terras e iam engrossar a multidão de pobres de Roma."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-rom-03
+  tema: "Espártaco"
+  dificuldade: 2
+  enunciado: "Quem foi Espártaco?"
+  alternativas:
+    - texto: "Gladiador que liderou, entre 73 e 71 a.C., a maior revolta de escravizados da Antiguidade"
+      certa: true
+    - texto: "Imperador que acabou com a escravidão"
+      erro: "Espártaco foi um escravizado rebelde, e não imperador."
+    - texto: "Tribuno que propôs reforma agrária"
+      erro: "Isso foi dos irmãos Tibério e Caio Graco, no século II a.C."
+  explicacao: "Dezenas de milhares de pessoas se juntaram a ele e derrotaram vários exércitos romanos. Os vencidos foram crucificados ao longo de uma estrada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

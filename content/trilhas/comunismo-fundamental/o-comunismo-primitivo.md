@@ -1,5 +1,6 @@
 ---
 titulo: "O comunismo primitivo"
+modelo: 9
 resumo: "Durante a maior parte da história humana, não houve classes nem Estado. O que sabemos sobre essas sociedades, e por que o tema ainda gera debate."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar o que Engels chamou de comunismo primitivo, como ele via o surgimento das classes e do Estado e o que a pesquisa posterior (Clastres, Graeber e Wengrow) acrescentou.
+
+```suarealidade
+Na sua rua ou na sua família, o que ainda é dividido ou feito em conjunto, como um mutirão, uma horta ou uma panela grande em dia de festa? Isso parece natural para você?
+```
 
 Ricos e pobres, patrões e empregados, polícia e prisão parecem ter existido sempre. Mas não é verdade. A espécie humana tem cerca de 300 mil anos; as primeiras cidades e Estados surgiram há cerca de 5 mil a 6 mil anos. Durante a imensa maior parte da nossa história, vivemos sem classes e sem Estado.
 
@@ -80,6 +85,15 @@ Muitos povos indígenas brasileiros ainda hoje organizam a vida com base na part
 
 Se as classes e o Estado tiveram um começo, podem ter um fim? O que seria preciso para isso?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A desigualdade sempre existiu e é natural: em toda sociedade há quem mande e quem obedeça. Falar de um tempo sem classes é romance." É a objeção de quem vê a hierarquia como parte da natureza humana.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula lembra que a espécie humana tem cerca de 300 mil anos e que as primeiras cidades e Estados surgiram há cerca de 5 mil a 6 mil anos. Ela também avisa que muitos dados de Morgan e de Engels foram corrigidos, mas que a ideia central, de que existiram por muito tempo sociedades igualitárias, foi confirmada por muitos estudos. Clastres mostrou povos indígenas da América do Sul com mecanismos para impedir que um chefe virasse governante com poder de mando, e Graeber e Wengrow (2021) argumentam que os seres humanos experimentaram muitas formas de organização e que a desigualdade não foi consequência inevitável da agricultura. Hoje muitos estudiosos evitam a palavra "primitivo": as sociedades eram muito diversas.
+```
+
 ## Exemplo resolvido
 
 **Segundo Engels, como surgiram as classes sociais? Siga o raciocínio.**
@@ -91,6 +105,11 @@ Se as classes e o Estado tiveram um começo, podem ter um fim? O que seria preci
 5. **Conclua.** Para Engels, a desigualdade e o Estado têm origem histórica; não são naturais.
 
 Confira: parte dos dados de Morgan e Engels foi corrigida depois, e Graeber e Wengrow (2021) argumentam que a desigualdade não foi consequência inevitável da agricultura.
+
+```agir
+# Esta semana
+Descubra se existe na sua região um povo indígena, um quilombo ou um assentamento que usa a terra em comum. Anote o nome e o que a comunidade produz, a partir de uma fonte confiável (matéria de jornal, página de órgão público ou da própria comunidade).
+```
 
 ## Resumo
 

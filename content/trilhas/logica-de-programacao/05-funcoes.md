@@ -1,5 +1,6 @@
 ---
 titulo: "Funções"
+modelo: 9
 resumo: "Como dar nome a um trecho de código para usá-lo quantas vezes quiser."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -27,6 +28,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber criar funções com `def`, passar parâmetros, devolver resultados com `return` e dizer por que usar funções.
+
+```suarealidade
+Que tarefa você repete todo dia, sempre do mesmo jeito, que poderia ter um nome, como "abrir o caixa" ou "preparar o café"? Quais seriam os passos?
+```
 
 ## Dar nome a um conjunto de passos
 
@@ -119,6 +124,15 @@ O operador `%` dá o **resto da divisão**. Se o resto da divisão por 2 for zer
 
 Com algoritmos, variáveis, condições, laços e funções, você já conhece a base de toda linguagem de programação. Para continuar, o acervo indica dois livros gratuitos: [Think Python](/acervo/think-python) e [Automate the Boring Stuff with Python](/acervo/automate-the-boring-stuff).
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Função é complicação a mais. Basta copiar e colar o código onde precisar, que funciona do mesmo jeito." É uma ideia de quem quer terminar rápido.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica por que usar funções: uma função é um bloco de código com nome, que só roda quando alguém o chama, e que evita repetir os mesmos passos em vários lugares. Com parâmetros, a mesma função serve para entradas diferentes, e com return ela devolve um resultado. Copiar e colar funciona no começo, mas quando é preciso mudar um passo, é preciso mudar em todos os lugares onde foi copiado.
+```
+
 ## Exemplo resolvido
 
 **Como criar uma função que calcula a média de dois números?**
@@ -137,6 +151,11 @@ print(resultado)
 4. `print(resultado)` mostra `8.0`.
 
 Confira: `return` entrega o valor para o resto do programa; `print` apenas o mostra na tela. Definir a função não a executa: é preciso chamá-la.
+
+```agir
+# Esta semana
+Escolha uma tarefa de rotina e escreva os passos no papel, dando um nome a ela, como uma função. Depois diga em voz alta, para alguém de confiança, quando você "chama" essa função.
+```
 
 ## Resumo
 

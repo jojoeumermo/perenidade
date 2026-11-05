@@ -1,5 +1,6 @@
 ---
 titulo: "Onde a inteligência artificial já está no seu dia a dia"
+modelo: 9
 resumo: "A playlist que \"adivinha\" o que você quer ouvir, o filtro de spam, o tradutor, o reconhecimento facial no aeroporto e o assistente que escreve textos: a inteligência artificial já está em muita coisa, quase sempre sem aviso."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Você abre o aplicativo de música e a primeira sugestão é exatamente o que qu
 
 Ao fim desta aula você vai reconhecer onde a inteligência artificial já aparece no seu dia a dia, quase sempre sem aviso, e o que cada uso faz com os seus dados.
 
+```suarealidade
+Pense no seu dia de ontem: quantas vezes um aplicativo escolheu algo por você (uma música, um vídeo, um produto, um post)?
+```
+
 ## As recomendações
 
 Os **sistemas de recomendação** sugerem o que seria mais "relevante" para cada pessoa: a **playlist** do aplicativo de música, os **vídeos** sugeridos, os **produtos** da loja virtual, os **posts** da rede social. É o que muita gente chama, informalmente, de **"o algoritmo"**. Eles usam **aprendizado de máquina** para **analisar o comportamento** de quem usa (o que você vê, curte, pula, compra) e montar um feed **personalizado** para milhões de pessoas.
@@ -89,6 +94,20 @@ Qual destes NÃO é um exemplo de inteligência artificial no dia a dia?
 | abrir o e-mail | filtro de spam | classifica as mensagens |
 | entrar no metrô ou no aeroporto | câmeras | podem fazer reconhecimento facial |
 | pedir ajuda para escrever | assistente de texto | gera um texto a partir de um modelo de linguagem |
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Recomendação é só ajuda: o aplicativo mostra o que eu gosto. Qual é o problema?"
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega a utilidade: o filtro de spam e o tradutor ajudam. Mas mostra que os sistemas de recomendação analisam o seu comportamento (cliques, curtidas, tempo em cada vídeo) para escolher o que você vê, e que quase nunca há aviso. O aplicativo não diz que agora a inteligência artificial vai escolher o que você vê: ela simplesmente escolhe. Saber onde ela está é o primeiro passo para decidir quanto de você entregar a ela.
+```
+
+```agir
+# Esta semana
+Mostre a alguém da sua casa como desligar ou apagar o histórico de um aplicativo que você usa, e anote o que mudou nas sugestões dos dias seguintes.
+```
 
 ## Resumo
 
