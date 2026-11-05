@@ -1,0 +1,70 @@
+# Exercícios da aula "Ler e resumir de verdade" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-resumir-01
+  tema: "Grifar e reler"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a revisão de Dunlosky e colegas (2013) concluiu sobre grifar e reler o texto, segundo a aula?"
+  alternativas:
+    - texto: "Têm utilidade baixa: o texto fica familiar e dá a impressão de saber, mas depois a pessoa lembra pouco"
+      certa: true
+    - texto: "São as melhores técnicas, e por isso são tão usadas"
+      erro: "O fato de serem muito usadas não prova que funcionam. A revisão concluiu que grifar e reler têm utilidade baixa."
+    - texto: "Funcionam muito bem, desde que se use caneta de várias cores"
+      erro: "A cor não muda o resultado. O problema é que grifar e reler dão sensação de saber sem provar que se lembra."
+  explicacao: "Grifar e reler deixam o texto familiar, o que dá a sensação de saber, mas a pessoa lembra pouco depois. Por isso a aula propõe resumir de memória, com as próprias palavras."
+  fonte: "Dunlosky, Rawson, Marsh, Nathan e Willingham (2013), conforme a aula \"Ler e resumir de verdade\""
+  revisao:
+    status: em-revisao
+
+- id: estud-resumir-02
+  tema: "Resumo que serve"
+  dificuldade: 2
+  enunciado: "Qual destes é um bom resumo de estudo?"
+  alternativas:
+    - texto: "Copiar o parágrafo inteiro no caderno"
+      erro: "Copiar frases não faz pensar, e a aula diz que o resumo atrapalha quando vira cópia."
+    - texto: "Fechar o texto e escrever, com suas palavras, duas ou três frases sobre o que entendeu"
+      certa: true
+    - texto: "Grifar tudo e não escrever nada"
+      erro: "Grifar tem utilidade baixa. O resumo bom é curto, com suas palavras e feito de memória."
+  explicacao: "O bom resumo é curto (2 a 4 frases), com as próprias palavras e feito de memória, sem olhar. Assim ele vira também um teste do que você aprendeu."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ler e resumir de verdade\" (Roediger e Karpicke, 2006)"
+  revisao:
+    status: em-revisao
+
+- id: estud-resumir-03
+  tema: "Ler em passos"
+  dificuldade: 2
+  enunciado: "Qual é a ordem dos quatro passos de leitura da aula, inspirados no método SQ3R?"
+  alternativas:
+    - texto: "Ler tudo de uma vez, grifar, decorar e conferir"
+      erro: "Esse não é o caminho da aula, que usa perguntas e pausas."
+    - texto: "Olhar antes, perguntar, ler em partes, recitar e resumir"
+      certa: true
+    - texto: "Resumir, ler, perguntar e olhar antes"
+      erro: "O resumo vem no fim, depois de ler, como teste do que você entendeu."
+  explicacao: "Primeiro olhe os títulos por um minuto; depois transforme os subtítulos em perguntas; leia uma seção de cada vez; por fim feche o texto e diga ou escreva com suas palavras o que entendeu, e só então confira."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ler e resumir de verdade\" (Robinson, 1946, método SQ3R)"
+  revisao:
+    status: em-revisao
+
+- id: estud-resumir-04
+  tema: "Poder de compra"
+  tipo: numero
+  dificuldade: 3
+  enunciado: "No exemplo da aula, a cesta de comida passou de R$ 500 para R$ 550. De quantos por cento foi o aumento do preço da cesta?"
+  resposta: "10"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "50"
+      explicacao: "R$ 50 é a diferença em reais. Para achar a porcentagem, divida a diferença pelo preço de antes: 50 ÷ 500."
+    - resposta: "5"
+      explicacao: "Confira a divisão: o aumento foi de R$ 50 sobre uma cesta de R$ 500."
+  dica: "Divida o aumento em reais pelo preço de antes e multiplique por 100."
+  explicacao: "O aumento foi de 550 − 500 = R$ 50. Em relação a R$ 500: 50 ÷ 500 = 0,10, ou seja, 10%. Se o salário subir menos de 10%, ele compra menos comida do que antes."
+  conferir: "(550 - 500) / 500 * 100"
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Ler e resumir de verdade\""
+  revisao:
+    status: em-revisao

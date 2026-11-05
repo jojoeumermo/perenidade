@@ -1,0 +1,67 @@
+# Exercícios da aula "Calor e temperatura" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-cal-01
+  tema: "Calor passa do quente para o frio"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Ao abrir a porta da geladeira, o que acontece com a temperatura da cozinha e da geladeira?"
+  alternativas:
+    - texto: "O calor da cozinha entra na geladeira, que esquenta um pouco"
+      certa: true
+    - texto: "O frio da geladeira sai para a cozinha"
+      erro: "O frio não é uma coisa que sai ou entra. O que passa é o calor, sempre do mais quente (a cozinha) para o mais frio (a geladeira)."
+    - texto: "Nada acontece, porque a porta isola tudo"
+      erro: "Com a porta aberta, o ar da cozinha entra, trazendo calor. É por isso que a geladeira gasta mais energia para voltar ao frio."
+  explicacao: "Calor é energia que passa do corpo mais quente para o mais frio. Com a porta aberta, o calor da cozinha entra na geladeira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-cal-02
+  tema: "Formas de o calor passar"
+  dificuldade: 2
+  enunciado: "A colher de metal esquenta sozinha dentro da panela de sopa quente. De que forma o calor passou?"
+  alternativas:
+    - texto: "Condução"
+      certa: true
+    - texto: "Convecção"
+      erro: "Convecção é o calor levado pelo movimento de um líquido ou gás, como a água subindo e descendo na panela. Na colher, o calor anda de partícula em partícula, pelo contato: é condução."
+    - texto: "Radiação"
+      erro: "Radiação é o calor que viaja por ondas, como o do Sol. Na colher, o calor passa pelo próprio metal, pelo contato: é condução."
+  explicacao: "Na colher o calor anda de partícula em partícula, pelo contato com a sopa quente. Isso é condução, e os metais são bons condutores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-cal-03
+  tema: "Condutores e isolantes"
+  dificuldade: 2
+  enunciado: "Por que o cabo de muitas panelas é de plástico ou de madeira?"
+  alternativas:
+    - texto: "Porque esses materiais conduzem mal o calor e deixam a mão segurar sem queimar"
+      certa: true
+    - texto: "Porque o plástico e a madeira atraem o calor para a panela"
+      erro: "Material nenhum atrai calor. O calor passa mais ou menos fácil pelos materiais: plástico e madeira são isolantes, passam pouco calor para a mão."
+    - texto: "Porque o metal é mais caro"
+      erro: "O motivo é de física, e não de preço: o metal conduz bem o calor, e a mão queimaria. O cabo isolante protege."
+  explicacao: "Metais conduzem bem o calor; plástico e madeira são isolantes. O cabo isolante deixa o calor da panela chegar pouco à mão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-cal-04
+  tema: "Calor e temperatura são diferentes"
+  dificuldade: 3
+  enunciado: "Uma faísca de solda está a mais de mil graus e quase não queima a pele. Uma panela de água a 90 °C causa queimadura grave. Por quê?"
+  alternativas:
+    - texto: "A faísca tem pouquíssima energia para ceder; a panela tem muito mais. Calor e temperatura são coisas diferentes"
+      certa: true
+    - texto: "Porque a faísca, na verdade, está mais fria que a água"
+      erro: "A faísca está bem mais quente, mais de mil graus. A diferença está na quantidade de energia que cada um tem para passar para a pele."
+    - texto: "Porque água sempre queima mais que qualquer outra coisa"
+      erro: "Não é a água em si: é a grande quantidade de energia que a panela guarda. Uma faísca, mesmo muito mais quente, guarda pouquíssima."
+  explicacao: "Temperatura mede a agitação das partículas; calor é a energia que passa de um corpo para outro. A faísca é muito quente, mas guarda pouca energia; a panela de água guarda muita."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

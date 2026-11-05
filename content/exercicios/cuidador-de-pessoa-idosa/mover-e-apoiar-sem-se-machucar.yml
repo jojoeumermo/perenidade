@@ -1,0 +1,68 @@
+# Exercícios da aula "Mover e apoiar sem se machucar" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação da equipe de saúde.
+
+- id: cuid-mover-01
+  tema: "A postura de quem cuida"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a postura certa do cuidador ao ajudar a pessoa idosa a levantar ou virar na cama?"
+  alternativas:
+    - texto: "Pés afastados, joelhos dobrados, costas retas e a pessoa perto do corpo, sem torcer o tronco"
+      certa: true
+    - texto: "Pernas retas e costas curvadas, para alcançar mais fácil"
+      erro: "Curvar as costas com pernas retas machuca a coluna. Use as pernas, não as costas."
+    - texto: "Puxar a pessoa pelos braços, que é mais rápido"
+      erro: "Puxar pelos braços pode machucar o ombro. Apoie por baixo dos braços ou pelo tronco, com cuidado."
+  explicacao: "A carga longe do corpo pesa mais, e torcer o tronco machuca. Vire o corpo todo, com os pés. Deixe a cama na altura certa, com rodinhas travadas e o chão livre."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mover e apoiar sem se machucar\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-mover-02
+  tema: "Levantar da cama"
+  dificuldade: 2
+  enunciado: "Qual é a ordem certa para a pessoa idosa levantar da cama, segundo a aula?"
+  alternativas:
+    - texto: "Virar de lado, sentar na beirada, esperar um minuto e só então levantar"
+      certa: true
+    - texto: "Levantar de uma vez, para não ficar tonta deitada"
+      erro: "Levantar de uma vez pode derrubar a pressão e causar tontura. Sentar na beirada e esperar um minuto evita isso."
+    - texto: "Sentar já em pé, sem apoio, e sair andando"
+      erro: "Antes de andar, a pessoa precisa de um minuto sentada e, se preciso, de apoio ao lado e calçado antiderrapante."
+  explicacao: "Virar de lado, sentar, esperar um minuto e levantar, para a pressão não cair. Ao caminhar, fique ao lado e um pouco atrás do lado mais fraco, com a mão perto. Use bengala ou andador só se o profissional recomendou."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mover e apoiar sem se machucar\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-mover-03
+  tema: "Se a pessoa cair"
+  dificuldade: 2
+  enunciado: "A pessoa idosa caiu e sente muita dor no quadril. O que fazer?"
+  alternativas:
+    - texto: "Não mexer à força, mantê-la aquecida e calma e chamar o SAMU (192)"
+      certa: true
+    - texto: "Puxar pelos braços para levantar depressa"
+      erro: "Levantar à força pode piorar uma fratura. Com dor forte, deformidade, batida na cabeça ou sem conseguir levantar, chame o SAMU (192)."
+    - texto: "Dar qualquer remédio que tiver em casa"
+      erro: "Remédio só com orientação de profissional de saúde. O caminho é o SAMU (192)."
+  explicacao: "Depois de uma queda, pergunte onde dói e se a pessoa consegue se mexer. Se estiver bem, ajude a levantar com calma, de apoio em apoio. Depois, conte na UBS: queda é sinal para investigar remédio, visão, pressão e a casa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mover e apoiar sem se machucar\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-mover-04
+  tema: "Autonomia"
+  dificuldade: 3
+  enunciado: "Um familiar diz: \"É mais rápido eu fazer tudo pela vó, ela demora e se cansa.\" O que a aula responde?"
+  alternativas:
+    - texto: "Deixar a pessoa fazer o que consegue, no ritmo dela, preserva a autonomia e a dignidade, e ajudar demais enfraquece"
+      certa: true
+    - texto: "Tem razão: fazer tudo sempre é o melhor jeito"
+      erro: "Fazer tudo economiza tempo hoje, mas faz a pessoa perder força e confiança, e aumenta o trabalho do cuidador depois."
+    - texto: "Não ajudar em nada, para ela aprender"
+      erro: "A aula pede equilíbrio: apoiar o que ela não consegue e deixar que faça o que consegue. Pedir orientação à equipe de saúde alivia o cuidador."
+  explicacao: "Antes de mover, converse e peça a ajuda da pessoa. O Estatuto (art. 10) fala em liberdade, respeito e dignidade. Quando o cuidador está esgotado, peça apoio e orientação à UBS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mover e apoiar sem se machucar\""
+  revisao:
+    status: em-revisao

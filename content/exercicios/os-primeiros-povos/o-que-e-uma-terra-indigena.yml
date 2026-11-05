@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é uma terra indígena" (os-primeiros-povos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: os-primeiros-povos-o-que-e-uma-terra-indigena-01
+  tema: "Bens da União"
+  dificuldade: 1
+  enunciado: "Pela Constituição de 1988, de quem são as terras indígenas?"
+  alternativas:
+    - texto: "De quem as comprou"
+      erro: "As terras indígenas não podem ser vendidas."
+    - texto: "São bens da União, destinadas aos indígenas em posse permanente"
+      certa: true
+    - texto: "Dos fazendeiros vizinhos"
+      erro: "Elas são bens da União, com posse permanente dos indígenas."
+  explicacao: "São inalienáveis e indisponíveis, com usufruto exclusivo das riquezas do solo, rios e lagos. Os direitos dos indígenas sobre elas não caducam."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é uma terra indígena\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-o-que-e-uma-terra-indigena-02
+  tema: "Quanto é"
+  dificuldade: 2
+  enunciado: "Em 2025, as terras indígenas somavam 117,4 milhões de hectares. Isso é cerca de quanto do território nacional?"
+  alternativas:
+    - texto: "Cerca de 50%"
+      erro: "Está muito acima. São cerca de 13,8%."
+    - texto: "Cerca de 13,8%"
+      certa: true
+    - texto: "Cerca de 1%"
+      erro: "É maior que isso. São cerca de 13,8% do território."
+  explicacao: "A administração e a demarcação ficam a cargo do Ministério dos Povos Indígenas e da Funai, com outros órgãos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é uma terra indígena\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-o-que-e-uma-terra-indigena-03
+  tema: "\"Muita terra\""
+  dificuldade: 2
+  enunciado: "Diante da frase \"é muita terra para pouco índio\", qual resposta a aula apresenta?"
+  alternativas:
+    - texto: "A frase ignora a história e o que a lei reconhece como terra indígena, que inclui o necessário à reprodução física e cultural"
+      certa: true
+    - texto: "É verdade, porque a lei dá terra demais"
+      erro: "A aula mostra que hoje são cerca de 13,8% e que a Constituição garante o necessário à reprodução física e cultural."
+    - texto: "A frase está certa porque há poucos indígenas"
+      erro: "A aula mostra que a população indígena voltou a crescer e que antes de 1500 os povos ocupavam todo o território."
+  explicacao: "A terra indígena não é só o espaço das casas: inclui as terras usadas para atividades produtivas e para preservar os recursos naturais."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é uma terra indígena\""
+  revisao:
+    status: em-revisao

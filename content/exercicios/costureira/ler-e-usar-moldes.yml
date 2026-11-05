@@ -1,0 +1,67 @@
+# Exercícios da aula "Ler e usar moldes" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-moldes-01
+  tema: "Os símbolos do molde"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que indica a seta comprida do molde, e como colocá-la no tecido?"
+  alternativas:
+    - texto: "O fio: a seta deve ficar paralela ao fio reto do tecido, isto é, à ourela"
+      certa: true
+    - texto: "Onde cortar na diagonal"
+      erro: "A seta do fio indica o contrário: a peça fica alinhada ao fio reto, paralela à ourela. Fora do fio, a peça pode torcer."
+    - texto: "Onde fica o zíper"
+      erro: "O lugar do zíper é marcado por piques na beirada. A seta comprida é o fio."
+  explicacao: "Seta com ponta dos dois lados: a peça pode ir nos dois sentidos. Seta com ponta de um lado só: o tecido tem sentido, como estampa com cima e baixo. Meça a distância da seta até a ourela nas duas pontas: tem de ser igual."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ler e usar moldes\""
+  revisao:
+    status: em-revisao
+
+- id: cost-moldes-02
+  tema: "Piques e furinhos"
+  dificuldade: 2
+  enunciado: "Para que servem os piques (triângulos ou tracinhos na beirada) e os furinhos do molde?"
+  alternativas:
+    - texto: "Os piques mostram onde as partes se encontram, o centro, a cintura e o lugar do zíper; os furinhos marcam pences, cantos, bolsos e botões"
+      certa: true
+    - texto: "Servem só para enfeitar o molde"
+      erro: "São marcas de trabalho. Os piques casam as partes e os furinhos indicam pences, cantos, bolsos e botões."
+    - texto: "Indicam o preço do molde"
+      erro: "Não têm relação com preço. São marcas para montar a peça com exatidão."
+  explicacao: "\"Cortar na dobra\" quer dizer que a peça é cortada com essa beirada sobre a dobra do tecido, e sai inteira e simétrica. Marque os piques com um corte pequeno para fora ou com giz."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ler e usar moldes\""
+  revisao:
+    status: em-revisao
+
+- id: cost-moldes-03
+  tema: "Escolher o tamanho"
+  dificuldade: 2
+  enunciado: "Como escolher o tamanho do molde, segundo a aula?"
+  alternativas:
+    - texto: "Pelas medidas da pessoa, comparadas com a tabela do molde, e não com o número da loja; se cintura e quadril caem em tamanhos diferentes, ligar os tamanhos"
+      certa: true
+    - texto: "Pelo número da roupa que a pessoa compra na loja"
+      erro: "O número da loja varia de marca para marca. Compare as medidas com a tabela do molde."
+    - texto: "Sempre o maior tamanho, para garantir"
+      erro: "Escolha pelas medidas. Um tamanho grande demais fica sobrando. Se cintura e quadril são de tamanhos diferentes, copie uma linha na cintura e passe, numa curva suave, para a outra no quadril."
+  explicacao: "Molde com vários tamanhos sobrepostos não se corta: copie o seu tamanho para outro papel, com piques, setas, furinhos e nomes. Escreva em cada peça o nome, o tamanho e quantas vezes cortar. Confira se o molde já traz a margem de costura."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ler e usar moldes\""
+  revisao:
+    status: em-revisao
+
+- id: cost-moldes-04
+  tema: "Encaixar no tecido"
+  dificuldade: 3
+  enunciado: "Você colocou a frente da saia no tecido com a seta do fio na diagonal para economizar tecido. O que pode acontecer?"
+  alternativas:
+    - texto: "A peça pode torcer e cair diferente depois de costurada e lavada, porque ficou fora do fio"
+      certa: true
+    - texto: "Nada, só economiza"
+      erro: "O fio do tecido muda o caimento e o estica da peça. Economizar fora do fio pode estragar o resultado."
+    - texto: "A saia fica mais forte"
+      erro: "Fora do fio, a peça perde o caimento. Encaixe as peças próximas, mas sem desrespeitar o fio."
+  explicacao: "Encaixe as peças perto umas das outras para gastar menos tecido, sem desrespeitar o fio. Na indústria, essa arrumação de todas as peças sobre o tecido se chama risco ou encaixe. Lave e passe o tecido antes, se ele puder encolher."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ler e usar moldes\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,70 @@
+# Exercícios da aula "Máquinas simples" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-maq-01
+  tipo: numero
+  tema: "Alavanca"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Uma carga de 400 N está a 0,5 m do apoio de uma alavanca. Você empurra a 2 m do apoio. Que força, em newtons, precisa fazer para equilibrar a carga?"
+  resposta: "100"
+  unidade: "N"
+  erros_comuns:
+    - resposta: "1600"
+      explicacao: "Você inverteu as distâncias. Quem está mais longe do apoio faz menos força: força × 2 = 400 × 0,5."
+    - resposta: "400"
+      explicacao: "400 N é o peso da carga. Com a alavanca, empurrando mais longe do apoio, a força necessária é menor."
+  dica: "Use força × distância = carga × distância da carga."
+  explicacao: "força × 2 = 400 × 0,5, então força = 200 ÷ 2 = 100 N. Um quarto do peso da carga."
+  conferir: "400 * 0.5 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-maq-02
+  tema: "A regra de ouro das máquinas"
+  dificuldade: 1
+  enunciado: "Uma máquina simples permite fazer menos força. Qual é o preço disso?"
+  alternativas:
+    - texto: "Mover a força por um caminho maior: o que se ganha em força, perde-se em distância"
+      certa: true
+    - texto: "Gastar menos energia, de graça"
+      erro: "Máquina simples não cria energia: ela troca força por distância. Com o atrito, até se gasta um pouco mais."
+    - texto: "A máquina fica mais pesada"
+      erro: "O peso da máquina não é o preço. A troca é entre a força que se faz e a distância por onde ela age."
+  explicacao: "O que se ganha em força, perde-se em distância: a força é menor, mas o caminho é maior. A máquina troca, e não cria energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-maq-03
+  tema: "Tipos de alavanca"
+  dificuldade: 2
+  enunciado: "Em qual destes objetos o ponto de apoio fica no meio, entre a força e a carga?"
+  alternativas:
+    - texto: "Gangorra"
+      certa: true
+    - texto: "Carrinho de mão"
+      erro: "No carrinho de mão a carga fica no meio, entre o apoio (a roda) e a sua força (as mãos)."
+    - texto: "Pinça"
+      erro: "Na pinça a força fica no meio, entre o apoio (a ponta fechada) e a carga."
+  explicacao: "Na gangorra, o apoio fica no meio: é uma alavanca interfixa, como a tesoura e o alicate."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-maq-04
+  tema: "Roldana fixa"
+  dificuldade: 2
+  enunciado: "Uma roldana fixa, presa no teto, serve para quê?"
+  alternativas:
+    - texto: "Só para mudar a direção da força: puxa-se para baixo para levantar"
+      certa: true
+    - texto: "Para dividir o peso da carga pela metade"
+      erro: "Quem divide a força é a roldana móvel. A fixa só muda a direção, mas é cômoda porque se usa o peso do corpo."
+    - texto: "Para fazer a carga ficar mais leve"
+      erro: "A carga continua com o mesmo peso. A roldana fixa só muda o sentido em que se puxa a corda."
+  explicacao: "A roldana fixa não diminui a força: só muda a direção. Puxar para baixo é mais cômodo, pois se usa o peso do corpo. É a do varal e a do poço."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

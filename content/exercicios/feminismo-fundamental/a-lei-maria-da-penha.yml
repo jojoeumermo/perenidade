@@ -1,0 +1,70 @@
+# Exercícios da aula "A Lei Maria da Penha" (Feminismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fem-penha-01
+  tema: "As formas de violência"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quais são as cinco formas de violência doméstica e familiar que a Lei Maria da Penha descreve (art. 7º)?"
+  alternativas:
+    - texto: "Física, psicológica, sexual, patrimonial e moral"
+      certa: true
+    - texto: "Só a física e a sexual"
+      erro: "A lei vai além do que deixa marca no corpo. São cinco formas: física, psicológica, sexual, patrimonial e moral."
+    - texto: "Física, verbal, digital, religiosa e política"
+      erro: "Essa lista não é a da lei. As cinco formas do art. 7º são física, psicológica, sexual, patrimonial e moral."
+  explicacao: "O art. 7º da Lei 11.340/2006 descreve a violência física, psicológica, sexual, patrimonial e moral."
+  fonte: "Lei nº 11.340/2006 (Lei Maria da Penha), art. 7º, planalto.gov.br, e aula \"A Lei Maria da Penha\""
+  revisao:
+    status: em-revisao
+
+- id: fem-penha-02
+  tema: "Reconhecer a violência"
+  dificuldade: 2
+  enunciado: "O companheiro de Joana não bate nela, mas confere o celular dela todos os dias, proíbe que ela visite a mãe e fica com o cartão do banco. Isso é violência segundo a lei?"
+  alternativas:
+    - texto: "Não, porque não houve agressão física"
+      erro: "A lei não exige agressão física. Vigiar e isolar da família é violência psicológica; ficar com o cartão e o dinheiro dela é violência patrimonial."
+    - texto: "Sim, é violência psicológica e patrimonial"
+      certa: true
+    - texto: "Só se Joana provar que sofreu dano na saúde"
+      erro: "Basta uma das cinco formas de violência para a lei valer. Essas atitudes já se encaixam na tabela da aula."
+  explicacao: "Vigiar, proibir visitas e isolar da família são exemplos de violência psicológica; ficar com o cartão e o dinheiro é violência patrimonial. Nenhuma delas precisa de um soco."
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"A Lei Maria da Penha\""
+  revisao:
+    status: em-revisao
+
+- id: fem-penha-03
+  tema: "Medidas protetivas"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "Segundo o art. 18 da Lei Maria da Penha, em quantas horas, no máximo, o juiz deve decidir sobre o pedido de medida protetiva de urgência feito pela mulher?"
+  resposta: "48"
+  unidade: "horas"
+  erros_comuns:
+    - resposta: "24"
+      explicacao: "A lei dá o prazo de 48 horas, e não de 24."
+    - resposta: "72"
+      explicacao: "72 horas seria o prazo de três dias. O art. 18 fala em 48 horas."
+  dica: "Veja o art. 18 da lei: o prazo é de dois dias."
+  explicacao: "O art. 18 diz que, recebido o pedido, cabe ao juiz decidir no prazo de 48 horas (dois dias)."
+  conferir: "2 * 24"
+  fonte: "Lei nº 11.340/2006, art. 18, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: fem-penha-04
+  tema: "Onde pedir ajuda"
+  dificuldade: 1
+  enunciado: "Uma vizinha quer orientação sobre violência em casa e não quer sair de casa agora. Qual serviço da aula é gratuito, funciona 24 horas por dia e orienta e encaminha denúncias?"
+  alternativas:
+    - texto: "O Ligue 180, a Central de Atendimento à Mulher"
+      certa: true
+    - texto: "O 190, só para quem já tem processo na Justiça"
+      erro: "O 190 é da Polícia Militar e serve para emergência, com a agressão acontecendo. O serviço de orientação e encaminhamento é o 180."
+    - texto: "O Disque 100, que cuida só de violência contra pessoas idosas"
+      erro: "O Disque 100 recebe denúncias de violações de direitos humanos, mas o serviço da aula para mulheres, gratuito e 24 horas, é o Ligue 180."
+  explicacao: "O Ligue 180 é a Central de Atendimento à Mulher: gratuita, 24 horas, todos os dias, orienta e encaminha denúncias. O 190 é para emergência, e a delegacia e a Defensoria Pública também ajudam."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"A Lei Maria da Penha\""
+  revisao:
+    status: em-revisao

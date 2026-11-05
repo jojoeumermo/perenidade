@@ -1,0 +1,50 @@
+# Exercícios da aula "Quem são os donos: concentração e monopólio" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-quem-sao-os-donos-concentracao-e-monopol-01
+  tema: "Concentração e centralização"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre concentração e centralização de capital, segundo Marx na aula?"
+  alternativas:
+    - texto: "Concentração: cada capital cresce reinvestindo o próprio lucro; centralização: capitais que já existiam se juntam, por fusões, compras e quebras"
+      certa: true
+    - texto: "Nenhuma, são palavras iguais"
+      erro: "A aula as distingue em dois movimentos."
+    - texto: "Concentração é quebrar e centralização é abrir empresa"
+      erro: "Não é isso. Centralização é juntar capitais já existentes."
+  explicacao: "A centralização acelera nas crises, quando empresas pequenas quebram e são compradas barato, e é turbinada pelo crédito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem são os donos: concentração e monopólio\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-quem-sao-os-donos-concentracao-e-monopol-02
+  tema: "Traços do imperialismo"
+  dificuldade: 2
+  enunciado: "Em 1916, Lenin listou cinco traços do imperialismo. Qual destes é um deles?"
+  alternativas:
+    - texto: "A volta da concorrência perfeita"
+      erro: "O primeiro traço é o contrário: a concentração cria monopólios."
+    - texto: "A exportação de capitais ganha mais importância do que a exportação de mercadorias"
+      certa: true
+    - texto: "O fim de bancos"
+      erro: "Lenin fala da fusão do capital bancário com o industrial, formando o capital financeiro."
+  explicacao: "Os cinco: monopólios, capital financeiro, exportação de capitais, associações internacionais de monopólios e partilha territorial do mundo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem são os donos: concentração e monopólio\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-quem-sao-os-donos-concentracao-e-monopol-03
+  tema: "Poucos donos"
+  dificuldade: 1
+  enunciado: "O que muda para quem compra quando há poucos donos, segundo a aula?"
+  alternativas:
+    - texto: "Com poucos concorrentes, as empresas conseguem cobrar mais sem perder clientes e às vezes combinam preços (cartel)"
+      certa: true
+    - texto: "Os preços sempre caem"
+      erro: "É o contrário: poucos concorrentes podem cobrar mais."
+    - texto: "Nada muda"
+      erro: "A aula mostra mudanças em preços, salários, fornecedores e política."
+  explicacao: "Também podem impor salários, preços aos fornecedores e usar o poder econômico como poder político."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem são os donos: concentração e monopólio\""
+  revisao:
+    status: em-revisao

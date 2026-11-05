@@ -1,0 +1,67 @@
+# Exercícios da aula "O que é justiça" (Filosofia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fil-justica-01
+  tema: "Igualdade proporcional"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Como Aristóteles definiu a justiça, segundo a aula?"
+  alternativas:
+    - texto: "Tratar todos exatamente da mesma forma, sempre"
+      erro: "Para Aristóteles, tratar igual quem está em situação desigual não é justo. A justiça é igualdade proporcional."
+    - texto: "Tratar igualmente os iguais e desigualmente os desiguais, na proporção da desigualdade"
+      certa: true
+    - texto: "Dar mais a quem tem mais poder"
+      erro: "A medida não é o poder, mas a desigualdade real entre as pessoas e as situações."
+  explicacao: "Aristóteles definiu a justiça como igualdade proporcional: tratar igualmente os iguais e desigualmente os desiguais, na proporção da sua desigualdade."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é justiça\" (fonte da aula: Wikipédia, \"Justiça\")"
+  revisao:
+    status: em-revisao
+
+- id: fil-justica-02
+  tema: "Aplicar a ideia"
+  dificuldade: 2
+  enunciado: "Um aluno cego faz a prova com mais tempo do que os outros. Pela ideia de igualdade proporcional, isso é..."
+  alternativas:
+    - texto: "injusto, porque todos têm de ter exatamente o mesmo tempo"
+      erro: "Tratar igual quem está em situação desigual mantém a desigualdade. A igualdade proporcional pede tratamento diferente, na medida da diferença."
+    - texto: "justo, porque trata desigualmente quem está em situação desigual, na medida da diferença"
+      certa: true
+    - texto: "uma questão de sorte"
+      erro: "Não é sorte: é um critério de justiça, dar a cada um conforme a sua situação."
+  explicacao: "O tempo a mais corrige uma desigualdade de partida, sem tirar nada dos outros. Para Aristóteles, tratar desigualmente os desiguais, na medida da desigualdade, é justo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é justiça\""
+  revisao:
+    status: em-revisao
+
+- id: fil-justica-03
+  tema: "Tomás de Aquino"
+  dificuldade: 2
+  enunciado: "Na Idade Média, Tomás de Aquino definiu a justiça como..."
+  alternativas:
+    - texto: "a obediência ao rei"
+      erro: "A definição dele fala de uma vontade constante de dar a cada um o que é seu, e não de obedecer."
+    - texto: "o que a maioria decide"
+      erro: "Ele não definiu justiça pelo voto da maioria. A definição é dar a cada um o que é seu."
+    - texto: "a disposição constante da vontade de dar a cada um o que é seu"
+      certa: true
+  explicacao: "Tomás de Aquino definiu a justiça como a disposição constante da vontade de dar a cada um o que é seu (suum cuique tribuere)."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é justiça\" (fonte da aula: Wikipédia, \"Justiça\")"
+  revisao:
+    status: em-revisao
+
+- id: fil-justica-04
+  tema: "Teorias de hoje"
+  dificuldade: 3
+  enunciado: "Segundo a aula, as principais teorias modernas da justiça se dividem em duas grandes correntes. Quais são?"
+  alternativas:
+    - texto: "Justiça como equidade (regras justas e imparciais) e justiça como bem-estar (o que promove a vida boa das pessoas)"
+      certa: true
+    - texto: "Justiça dos ricos e justiça dos pobres"
+      erro: "Não é essa a divisão. As duas correntes são a justiça como equidade e a justiça como bem-estar."
+    - texto: "Justiça grega e justiça romana"
+      erro: "Essas são épocas e povos, não as correntes de hoje. Hoje o debate é entre equidade e bem-estar."
+  explicacao: "A justiça como equidade (fairness) pensa em regras justas e imparciais para a sociedade; a justiça como bem-estar (welfare) pensa no que promove a vida boa das pessoas. Cada corrente tem várias teorias, e o debate continua."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é justiça\""
+  revisao:
+    status: em-revisao

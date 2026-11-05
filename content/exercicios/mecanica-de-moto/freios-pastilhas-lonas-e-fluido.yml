@@ -1,0 +1,50 @@
+# Exercícios da aula "Freios: pastilhas, lonas e fluido" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-freios-pastilhas-lonas-e-fluido-01
+  tema: "Disco ou tambor"
+  dificuldade: 1
+  enunciado: "Quando você puxa o manete, a força vira pressão no fluido. O que o fluido empurra, no freio a disco?"
+  alternativas:
+    - texto: "A pastilha contra o disco"
+      certa: true
+    - texto: "A corrente contra a coroa"
+      erro: "A corrente faz parte da transmissão, não do freio."
+    - texto: "O pneu contra o asfalto"
+      erro: "O que o fluido empurra é a pastilha contra o disco."
+  explicacao: "A força da mão vira pressão no fluido, que empurra a pastilha contra o disco (ou a lona contra o tambor). O atrito faz a roda diminuir."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Freios: pastilhas, lonas e fluido\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-freios-pastilhas-lonas-e-fluido-02
+  tema: "Fluido velho"
+  dificuldade: 2
+  enunciado: "O que acontece com o fluido de freio com o tempo, segundo a aula?"
+  alternativas:
+    - texto: "Fica mais forte e freia melhor"
+      erro: "É o contrário: ele absorve umidade do ar e, velho, freia pior."
+    - texto: "Absorve umidade do ar e freia pior, por isso é trocado de tempos em tempos"
+      certa: true
+    - texto: "Nunca muda, pode ficar para sempre"
+      erro: "O manual manda trocar de tempos em tempos."
+  explicacao: "O fluido absorve umidade do ar com o tempo. A troca e a sangria exigem ferramenta e cuidado: faça na oficina."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Freios: pastilhas, lonas e fluido\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-freios-pastilhas-lonas-e-fluido-03
+  tema: "Pastilhas do mesmo eixo"
+  dificuldade: 2
+  enunciado: "A oficina trocou a pastilha dianteira que estava no limite. Por que a aula diz para trocar as duas do mesmo eixo?"
+  alternativas:
+    - texto: "Para cobrar mais"
+      erro: "Não é por isso. É para a moto frear igual dos dois lados."
+    - texto: "Para frear igual dos dois lados"
+      certa: true
+    - texto: "Porque a pastilha de trás nunca gasta"
+      erro: "A aula não diz isso. A troca das duas do eixo mantém a frenagem igual dos dois lados."
+  explicacao: "Trocar as duas pastilhas do mesmo eixo mantém a frenagem equilibrada. Depois, ande devagar nos primeiros quilômetros, pois as pastilhas novas assentam com o uso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Freios: pastilhas, lonas e fluido\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,83 @@
+# Exercícios da aula "Conhecer a máquina de costura" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-maquina-01
+  tema: "Como a máquina faz o ponto"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quantas linhas usa o ponto fixo da máquina de costura, e de onde vem cada uma?"
+  alternativas:
+    - texto: "Duas: a de cima, do carretel, passa pela agulha; a de baixo fica na bobina, dentro da caixinha embaixo do tecido"
+      certa: true
+    - texto: "Uma só, que passa pela agulha e volta"
+      erro: "O ponto fixo usa duas linhas, que se entrelaçam. Por isso existe a bobina embaixo."
+    - texto: "Três, uma de cada cor"
+      erro: "O ponto fixo, o mais comum, usa duas linhas: a de cima (carretel e agulha) e a de baixo (bobina)."
+  explicacao: "A cada ponto, a agulha desce e atravessa o tecido, um gancho pega a linha de cima e dá uma volta em torno da bobina, o puxa-linha recolhe a sobra formando o nó e os dentes puxam o tecido para a frente. O ideal é as duas linhas se entrelaçarem no meio da espessura do tecido."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conhecer a máquina de costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-maquina-02
+  tema: "As peças"
+  dificuldade: 1
+  enunciado: "Qual é a função dos dentes da máquina de costura?"
+  alternativas:
+    - texto: "Puxar o tecido um ponto para a frente"
+      certa: true
+    - texto: "Segurar o tecido no lugar"
+      erro: "Quem segura o tecido no lugar é o calcador. Os dentes puxam o tecido para a frente."
+    - texto: "Guardar a linha de baixo"
+      erro: "A linha de baixo fica na bobina, dentro da caixa de bobina."
+  explicacao: "Agulha: leva a linha de cima através do tecido. Calcador: segura o tecido. Dentes: puxam o tecido. Bobina e caixa: guardam a linha de baixo. Tensão: controla a força da linha de cima. Puxa-linha: recolhe a linha de cima. Volante: gira à mão para subir e descer a agulha devagar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conhecer a máquina de costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-maquina-03
+  tema: "Ninho de linha"
+  dificuldade: 2
+  enunciado: "A costura fez um ninho de linha embaixo do tecido. Qual é a primeira coisa a conferir?"
+  alternativas:
+    - texto: "Passar de novo a linha de cima, com o calcador levantado, para ela entrar na tensão"
+      certa: true
+    - texto: "Trocar a bobina por outra cor"
+      erro: "A cor da bobina não faz ninho. O ninho embaixo costuma ser falta de tensão na linha de cima."
+    - texto: "Apertar a tensão ao máximo"
+      erro: "Apertar ao máximo pode arrebentar a linha. Primeiro passe de novo a linha de cima com o calcador levantado, para ela entrar nos discos de tensão."
+  explicacao: "Teste sempre num retalho do mesmo tecido e olhe dos dois lados. Pontos perfeitos dos dois lados: tensões certas. Linha de baixo aparecendo em cima, ou de cima aparecendo embaixo: ajuste a tensão de cima aos poucos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conhecer a máquina de costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-maquina-04
+  tema: "A agulha certa"
+  dificuldade: 2
+  enunciado: "Na embalagem da agulha vem escrito 90/14. O que significa o número 90, e qual agulha usar para um tecido fino?"
+  alternativas:
+    - texto: "É o diâmetro da agulha em centésimos de milímetro; quanto maior, mais grossa, e tecido fino pede agulha mais fina"
+      certa: true
+    - texto: "É o comprimento da agulha em milímetros; tecido fino pede agulha mais grossa"
+      erro: "O número 90 é o diâmetro, e não o comprimento. E tecido fino pede agulha fina."
+    - texto: "É o preço da agulha; tecido fino pede a mais cara"
+      erro: "O número é a medida do diâmetro em centésimos de milímetro (90 = 0,9 mm). Tecido fino pede agulha fina; tecido grosso, agulha grossa."
+  explicacao: "O primeiro número (90) é a numeração métrica, o diâmetro em centésimos de milímetro; o segundo (14) é a numeração americana. Quanto maior o número, mais grossa a agulha. Camiseta de malha fina: agulha mais fina; calça de brim: agulha mais grossa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conhecer a máquina de costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-maquina-05
+  tema: "Um pouco de história"
+  dificuldade: 2
+  enunciado: "Segundo a aula, quem criou a primeira máquina de costura prática e muito usada, em 1829, e o que aconteceu com a fábrica dele em 1830?"
+  alternativas:
+    - texto: "Barthélemy Thimonnier, um alfaiate francês; a fábrica foi queimada, segundo os relatos, por trabalhadores com medo de perder o sustento"
+      certa: true
+    - texto: "Isaac Singer; a fábrica foi premiada pelo governo"
+      erro: "Isaac Singer patenteou, em 1851, uma máquina com agulha vertical, calcador, tensão e pedal. A primeira prática, de 1829, é de Thimonnier."
+    - texto: "Elias Howe; a fábrica virou museu"
+      erro: "Elias Howe recebeu patente em 1846. A primeira máquina prática e muito usada é de Thimonnier, em 1829, e a fábrica foi queimada em 1830."
+  explicacao: "Thimonnier abriu em 1830 a primeira fábrica de roupas feitas à máquina, para uniformes do exército francês. Depois vieram a máquina de ponto fixo de Walter Hunt (1832), a patente de Elias Howe (1846) e a máquina de Isaac Singer (1851), movida a pedal, que deixava as duas mãos livres."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conhecer a máquina de costura\""
+  revisao:
+    status: em-revisao

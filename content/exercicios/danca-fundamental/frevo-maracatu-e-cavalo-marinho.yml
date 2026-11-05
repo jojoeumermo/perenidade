@@ -1,0 +1,83 @@
+# Exercícios da aula "Frevo, maracatu e cavalo-marinho" (Dança: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: danf-frevo-01
+  tema: "De onde vem o passo do frevo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "De onde nasceu o passo do frevo, segundo a aula?"
+  alternativas:
+    - texto: "Da capoeira: capoeiristas iam à frente dos blocos para proteger o grupo, com porretes ou cabos de guarda-chuva velhos"
+      certa: true
+    - texto: "De uma dança de salão da nobreza portuguesa"
+      erro: "O passo do frevo nasceu da capoeira, nos carnavais do Recife. A dança de salão europeia da aula de forró é o xote."
+    - texto: "Do batuque dos engenhos de açúcar"
+      erro: "O batuque dos engenhos está na origem do coco. O passo do frevo nasceu da capoeira."
+  explicacao: "O frevo surgiu em Pernambuco no fim do século XIX. A música mistura marcha, maxixe, dobrado e polca. A dança nasceu da capoeira: nos carnavais, capoeiristas saíam à frente dos blocos para intimidar rivais e proteger o grupo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Frevo, maracatu e cavalo-marinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-frevo-02
+  tema: "Maracatu"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre o Maracatu Nação e o Maracatu Rural, segundo a aula?"
+  alternativas:
+    - texto: "O Nação (baque virado) é comum na região do Recife; o Rural (baque solto) é típico de Nazaré da Mata"
+      certa: true
+    - texto: "O Nação é um teatro de Natal e Reis; o Rural é uma dança de roda"
+      erro: "Teatro de Natal e Reis é o cavalo-marinho. Os dois tipos de maracatu são ritmo, dança e ritual de sincretismo religioso."
+    - texto: "Os dois são idênticos e nasceram na Bahia"
+      erro: "São dois tipos diferentes de maracatu, ambos de Pernambuco: o Nação (baque virado) e o Rural (baque solto)."
+  explicacao: "O Maracatu Nação (baque virado) é comum no Recife e é o mais antigo ritmo afro-brasileiro, com registro de 1711. O Maracatu Rural (baque solto) é típico de Nazaré da Mata, na Zona da Mata Norte. O maracatu é patrimônio cultural do Brasil, registrado pelo Iphan."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Frevo, maracatu e cavalo-marinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-frevo-03
+  tema: "Maracatu Elefante"
+  dificuldade: 2
+  enunciado: "Quem fundou o Maracatu Elefante, em 1800, segundo a aula?"
+  alternativas:
+    - texto: "Manuel Santiago, um homem escravizado"
+      certa: true
+    - texto: "Luiz Gonzaga, o Rei do Baião"
+      erro: "Luiz Gonzaga (1912-1989) é do baião e do forró. O Maracatu Elefante foi fundado em 1800, muito antes."
+    - texto: "Magrão, no Jardim Romano"
+      erro: "Magrão é lembrado pela ideia do Passinho do Romano, em São Paulo. O Maracatu Elefante é do Recife, de 1800."
+  explicacao: "O Maracatu Elefante, um dos mais antigos, foi fundado em 1800 por Manuel Santiago, homem escravizado. O cortejo do maracatu leva calungas, bonecas negras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Frevo, maracatu e cavalo-marinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-frevo-04
+  tema: "Cavalo-marinho"
+  dificuldade: 2
+  enunciado: "Qual destas tradições é um auto (teatro popular) com 76 personagens, ligado ao ciclo de Natal e Reis, que pode durar oito horas?"
+  alternativas:
+    - texto: "Cavalo-marinho"
+      certa: true
+    - texto: "Frevo"
+      erro: "O frevo é música e dança de ritmo acelerado, nascida da capoeira. Não é um teatro com dezenas de personagens."
+    - texto: "Maracatu Rural"
+      erro: "O Maracatu Rural (baque solto) é ritmo, dança e ritual de Nazaré da Mata. O auto de Natal e Reis é o cavalo-marinho."
+  explicacao: "O cavalo-marinho é um folguedo da Paraíba e de Pernambuco, com dança, música, improviso e toadas, tocado pelo banco (rabeca, ganzá, pandeiro, bage e zabumbas). Tem personagens como o Capitão, Mateus e Bastião, o Boi e a Morte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Frevo, maracatu e cavalo-marinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-frevo-05
+  tema: "Festa que guarda história"
+  dificuldade: 3
+  enunciado: "A aula diz que, nessas festas, dançar é também lembrar. O que cada uma guarda?"
+  alternativas:
+    - texto: "O frevo guarda a capoeira, o maracatu guarda a religião e as calungas das nações afro-brasileiras, e o cavalo-marinho guarda o teatro popular do Natal e de Reis"
+      certa: true
+    - texto: "Todas guardam só o samba de roda"
+      erro: "O samba de roda é do Recôncavo baiano. Cada tradição de Pernambuco guarda uma história própria: capoeira, religião afro-brasileira, teatro popular."
+    - texto: "Nenhuma guarda história: são só diversão"
+      erro: "A aula mostra que diversão e história andam juntas: o frevo nasceu da proteção dos blocos, o maracatu veio de nações africanas, e o cavalo-marinho conta o povo em cena."
+  explicacao: "O frevo guarda a capoeira, o maracatu guarda a religião e as calungas das nações afro-brasileiras, e o cavalo-marinho guarda o teatro popular do Natal e de Reis, com suas toadas e figuras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Frevo, maracatu e cavalo-marinho\""
+  revisao:
+    status: em-revisao

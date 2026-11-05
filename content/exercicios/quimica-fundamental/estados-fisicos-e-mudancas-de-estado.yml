@@ -1,0 +1,50 @@
+# Exercícios da aula "Estados físicos e mudanças de estado" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-estados-fisicos-e-mudancas-de-estado-01
+  tema: "Estados"
+  dificuldade: 1
+  enunciado: "No estado líquido, como é a forma e o volume, segundo a aula?"
+  alternativas:
+    - texto: "Forma do recipiente e volume fixo"
+      certa: true
+    - texto: "Forma própria e volume fixo"
+      erro: "Isso descreve o sólido."
+    - texto: "Forma e volume do recipiente"
+      erro: "Isso descreve o gasoso."
+  explicacao: "Líquido: partículas juntas, mas livres para deslizar umas sobre as outras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estados físicos e mudanças de estado\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-estados-fisicos-e-mudancas-de-estado-02
+  tema: "Vaporização"
+  dificuldade: 1
+  enunciado: "Como se chama a mudança do estado líquido para o gasoso, como a água fervendo?"
+  alternativas:
+    - texto: "Fusão"
+      erro: "Fusão é de sólido para líquido."
+    - texto: "Vaporização"
+      certa: true
+    - texto: "Condensação"
+      erro: "Condensação é de gasoso para líquido."
+  explicacao: "Condensação: o vapor virando gotas na tampa da panela. Solidificação: líquido para sólido."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estados físicos e mudanças de estado\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-estados-fisicos-e-mudancas-de-estado-03
+  tema: "Por que cabe tanto gás"
+  dificuldade: 2
+  enunciado: "Por que cabe tanto gás de cozinha em um botijão?"
+  alternativas:
+    - texto: "Porque os gases podem ser comprimidos: há muito espaço vazio entre as partículas"
+      certa: true
+    - texto: "Porque o gás vira sólido dentro do botijão"
+      erro: "A aula diz que as partículas são apertadas em um volume menor."
+    - texto: "Porque o botijão é feito de ferro"
+      erro: "O material do botijão não explica."
+  explicacao: "Dois fatores decidem o estado: a temperatura e a pressão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estados físicos e mudanças de estado\""
+  revisao:
+    status: em-revisao

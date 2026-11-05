@@ -1,0 +1,50 @@
+# Exercícios da aula "Meio ambiente e civilização ecológica" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-meio-ambiente-e-civilizacao-ecologica-01
+  tema: "Art. 225"
+  dificuldade: 1
+  enunciado: "O que diz o art. 225 da Constituição brasileira sobre o meio ambiente?"
+  alternativas:
+    - texto: "Que o meio ambiente é problema só do governo"
+      erro: "O artigo diz que o poder público e a coletividade têm o dever de defender e preservar."
+    - texto: "Que todos têm direito ao meio ambiente ecologicamente equilibrado, e o poder público e a coletividade devem preservá-lo para as presentes e futuras gerações"
+      certa: true
+    - texto: "Que o meio ambiente pode ser usado sem limites"
+      erro: "O artigo fala em defender e preservar para as gerações presentes e futuras."
+  explicacao: "O artigo 225 também prevê a educação ambiental em todos os níveis de ensino."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Meio ambiente e civilização ecológica\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-meio-ambiente-e-civilizacao-ecologica-02
+  tema: "Metas da China"
+  dificuldade: 2
+  enunciado: "Em setembro de 2020, que metas a China anunciou na ONU, segundo a aula?"
+  alternativas:
+    - texto: "Pico de emissões antes de 2030 e neutralidade de carbono antes de 2060"
+      certa: true
+    - texto: "Neutralidade de carbono antes de 2030"
+      erro: "A neutralidade foi prometida antes de 2060. O pico de emissões é que ficou para antes de 2030."
+    - texto: "Fechar todas as fábricas até 2025"
+      erro: "A aula não cita nada assim."
+  explicacao: "A China é a maior emissora anual de gases de efeito estufa e a maior consumidora de carvão, mas também a maior produtora de painéis solares, turbinas eólicas, baterias e veículos elétricos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Meio ambiente e civilização ecológica\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-meio-ambiente-e-civilizacao-ecologica-03
+  tema: "Emissões no Brasil"
+  dificuldade: 2
+  enunciado: "De onde vem a maior parte das emissões brasileiras de gases de efeito estufa, segundo a aula?"
+  alternativas:
+    - texto: "Da indústria, como na China"
+      erro: "A aula diz que no Brasil não é a indústria o principal."
+    - texto: "Do desmatamento e da agropecuária"
+      certa: true
+    - texto: "Dos painéis solares"
+      erro: "Painéis solares geram energia renovável. As emissões vêm sobretudo do desmatamento e da agropecuária."
+  explicacao: "Por isso a defesa da Amazônia, do Cerrado e dos territórios indígenas e quilombolas é central para a questão climática no Brasil."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Meio ambiente e civilização ecológica\""
+  revisao:
+    status: em-revisao

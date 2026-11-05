@@ -1,0 +1,103 @@
+# Exercícios da aula "Abordagem policial: seus direitos" (Direito: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação de advogado ou da Defensoria Pública.
+
+- id: dirf-abord-01
+  tema: "Quando a polícia pode revistar"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Pelo artigo 244 do Código de Processo Penal, em qual destas situações a polícia pode fazer a busca pessoal sem mandado?"
+  alternativas:
+    - texto: "Quando há fundada suspeita de que a pessoa esconde arma proibida ou objetos ligados a um crime"
+      certa: true
+    - texto: "Sempre que o policial quiser, em qualquer pessoa na rua"
+      erro: "Não pode. Sem prisão, sem busca em casa autorizada e sem fundada suspeita, a revista é ilegal, e a prova que sair dela pode ser anulada."
+    - texto: "Quando a pessoa parece nervosa, só por isso"
+      erro: "Segundo o STJ (2022), \"atitude suspeita\", nervosismo ou \"tirocínio policial\", sozinhos, não bastam. A suspeita precisa se apoiar em fatos concretos."
+  explicacao: "A busca pessoal sem mandado é permitida em três casos: quando a pessoa está sendo presa, durante busca em casa autorizada por juiz, ou quando há fundada suspeita. Essa suspeita precisa de fatos concretos, que possam ser descritos e conferidos depois."
+  fonte: "Questão original do Instituto Lúcia; Código de Processo Penal, art. 244 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dirf-abord-02
+  tema: "Quando a polícia pode revistar"
+  dificuldade: 2
+  enunciado: "Segundo a decisão do Supremo Tribunal Federal de 2024, citada na aula, a busca pessoal não pode se basear em quê?"
+  alternativas:
+    - texto: "Na raça, na cor da pele, no sexo, na orientação sexual ou na aparência de alguém"
+      certa: true
+    - texto: "Em fatos concretos que possam ser descritos depois"
+      erro: "É o contrário: fatos concretos são o que a suspeita precisa ter. O que não pode servir de base é a raça, a cor, o sexo, a orientação sexual ou a aparência."
+    - texto: "Em uma arma à vista na cintura da pessoa"
+      erro: "Uma arma à mostra é um fato concreto, e pode justificar a busca. O STF disse que não vale se basear em raça, cor, sexo, orientação sexual ou aparência."
+  explicacao: "O STF fixou, em 2024, que a busca pessoal não pode se basear na raça, na cor da pele, no sexo, na orientação sexual ou na aparência. A suspeita precisa de fatos concretos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Abordagem policial: seus direitos\" (decisão do STF de 2024, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: dirf-abord-03
+  tema: "Seus direitos na abordagem"
+  dificuldade: 1
+  enunciado: "Numa abordagem, o que você pode fazer em relação ao direito de ficar calado?"
+  alternativas:
+    - texto: "Dizer quem é e, sobre qualquer outra coisa, avisar com calma que vai exercer o direito de ficar em silêncio"
+      certa: true
+    - texto: "Recusar-se até a dizer o nome"
+      erro: "A aula diz que você deve dizer quem é. O silêncio vale para qualquer outra coisa."
+    - texto: "Responder a tudo, porque quem fica calado é culpado"
+      erro: "Ficar calado é um direito garantido na Constituição (art. 5º, LXIII) e não pode ser usado como prova de culpa."
+  explicacao: "Você deve dizer quem é. Sobre o resto, pode responder: \"Vou exercer o meu direito de ficar em silêncio\" (art. 5º, LXIII). Na delegacia, pode esperar pelo advogado ou defensor antes de falar."
+  fonte: "Questão original do Instituto Lúcia; Constituição Federal, art. 5º, LXIII, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dirf-abord-04
+  tema: "O celular"
+  dificuldade: 2
+  enunciado: "Um policial para um jovem na rua, não diz o motivo e pede que ele desbloqueie o celular. O que a aula recomenda?"
+  alternativas:
+    - texto: "Dizer com calma que não autoriza o acesso ao aparelho, sem resistir fisicamente"
+      certa: true
+    - texto: "Desbloquear, porque é obrigado a informar a senha"
+      erro: "Ele não é obrigado a informar a senha. O STJ tem anulado provas tiradas de celulares vasculhados sem ordem judicial e sem o consentimento do dono."
+    - texto: "Sair correndo para não entregar o celular"
+      erro: "Correr aumenta o risco. A aula manda não correr, não fazer movimentos bruscos e dizer com calma o que não autoriza."
+  explicacao: "Ter razão não protege na hora; o que protege é chegar em casa. Por isso: não correr, deixar as mãos à vista, dizer com calma \"Não autorizo o acesso ao aparelho\" e não resistir fisicamente, mesmo que a abordagem seja ilegal. Depois, guardar nomes, viatura, hora e lugar para denunciar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Abordagem policial: seus direitos\""
+  revisao:
+    status: em-revisao
+
+- id: dirf-abord-05
+  tema: "A casa"
+  dificuldade: 2
+  enunciado: "Sem o consentimento do morador, em qual destas situações a polícia pode entrar numa casa, segundo a aula?"
+  alternativas:
+    - texto: "Em caso de flagrante, desastre ou para prestar socorro (a qualquer hora), ou de dia com ordem do juiz"
+      certa: true
+    - texto: "Sempre que receber uma denúncia anônima, mesmo sem ordem"
+      erro: "O Supremo decidiu que denúncia anônima, sozinha, não basta. Para entrar sem mandado alegando flagrante, a polícia precisa de razões fundadas."
+    - texto: "Quando o morador não responde à porta, à noite"
+      erro: "A casa é asilo inviolável (art. 5º, XI). À noite, sem consentimento, só em flagrante, desastre ou socorro. Ordem do juiz vale apenas durante o dia."
+  explicacao: "A Constituição diz que a casa é asilo inviolável. Sem o consentimento do morador, só se entra em flagrante delito, desastre ou socorro (a qualquer hora), ou durante o dia com ordem do juiz. Você não é obrigado a autorizar a entrada, e uma autorização arrancada com pressão não vale."
+  fonte: "Questão original do Instituto Lúcia; Constituição Federal, art. 5º, XI, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dirf-abord-06
+  tema: "Audiência de custódia"
+  dificuldade: 1
+  tipo: numero
+  enunciado: "Quem é preso em flagrante tem de ser apresentado a um juiz na audiência de custódia, em até quantas horas?"
+  resposta: "24"
+  unidade: "horas"
+  erros_comuns:
+    - resposta: "48"
+      explicacao: "48 horas é o dobro. A aula diz que a audiência de custódia acontece em até 24 horas, um dia."
+    - resposta: "72"
+      explicacao: "72 horas seriam três dias. A aula diz que o preso em flagrante deve ser apresentado ao juiz em até 24 horas."
+  dica: "É o tempo de um dia."
+  explicacao: "O preso em flagrante tem de ser apresentado a um juiz em até 24 horas, na audiência de custódia. É o momento de contar ao juiz se houve agressão. Se machucou, peça também o exame de corpo de delito."
+  conferir: "24"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Abordagem policial: seus direitos\""
+  revisao:
+    status: em-revisao

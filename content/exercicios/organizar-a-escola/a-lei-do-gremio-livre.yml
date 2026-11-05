@@ -1,0 +1,50 @@
+# Exercícios da aula "A Lei do Grêmio Livre" (organizar-a-escola). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: organizar-a-escola-a-lei-do-gremio-livre-01
+  tema: "Número da lei"
+  dificuldade: 1
+  enunciado: "Qual é a lei conhecida como Lei do Grêmio Livre, sancionada em 4 de novembro de 1985?"
+  alternativas:
+    - texto: "A Lei nº 8.069, de 1990"
+      erro: "Essa é o Estatuto da Criança e do Adolescente."
+    - texto: "A Lei nº 7.398, de 1985"
+      certa: true
+    - texto: "A Lei nº 12.009, de 2009"
+      erro: "Essa é a lei do motofrete. A do grêmio é a Lei 7.398, de 1985."
+  explicacao: "Ela tem três artigos e devolveu aos estudantes o direito de se organizar por conta própria, depois de 21 anos de ditadura militar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A Lei do Grêmio Livre\""
+  revisao:
+    status: em-revisao
+
+- id: organizar-a-escola-a-lei-do-gremio-livre-02
+  tema: "Quem escreve o estatuto"
+  dificuldade: 2
+  enunciado: "Segundo o parágrafo 2º da lei, quem estabelece as regras de organização e funcionamento do grêmio?"
+  alternativas:
+    - texto: "A direção da escola"
+      erro: "Na ditadura, os \"centros cívicos\" ficavam sob controle da direção. A lei devolveu a autonomia aos estudantes."
+    - texto: "Os próprios estudantes, no estatuto aprovado em assembleia geral do corpo discente"
+      certa: true
+    - texto: "A secretaria de educação"
+      erro: "O estatuto é aprovado pelos estudantes, em assembleia geral."
+  explicacao: "\"Corpo discente\" é o conjunto dos estudantes da escola. Os estatutos são aprovados em assembleia convocada para isso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A Lei do Grêmio Livre\""
+  revisao:
+    status: em-revisao
+
+- id: organizar-a-escola-a-lei-do-gremio-livre-03
+  tema: "Voto direto e secreto"
+  dificuldade: 1
+  enunciado: "O que quer dizer que a escolha dos dirigentes do grêmio é por voto direto e secreto?"
+  alternativas:
+    - texto: "Cada estudante vota por si, e ninguém é obrigado a dizer em quem votou"
+      certa: true
+    - texto: "Um representante de turma vota por todos"
+      erro: "Voto direto quer dizer que ninguém vota no lugar de ninguém."
+    - texto: "O voto é aberto e a direção escolhe depois"
+      erro: "A lei diz voto direto e secreto, de cada estudante."
+  explicacao: "Cada estudante, um voto. A aprovação dos estatutos e a escolha dos dirigentes também seguem esse voto."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A Lei do Grêmio Livre\""
+  revisao:
+    status: em-revisao

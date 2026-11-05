@@ -1,0 +1,50 @@
+# Exercícios da aula "Estado laico: o que a Constituição diz" (religioes-do-mundo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-do-mundo-estado-laico-o-que-a-constituicao-diz-01
+  tema: "Estado laico"
+  dificuldade: 1
+  enunciado: "O que é um Estado laico, segundo a aula?"
+  alternativas:
+    - texto: "Um Estado ateu que proíbe religiões"
+      erro: "A aula diz que Estado laico não é Estado ateu."
+    - texto: "Aquele em que o poder público é imparcial em relação às religiões, sem apoiar nem se opor a nenhuma"
+      certa: true
+    - texto: "Um Estado que escolhe uma religião oficial"
+      erro: "É o contrário."
+  explicacao: "Ele aceita a crença religiosa e, ao mesmo tempo, respeita o direito de não crer."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estado laico: o que a Constituição diz\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-estado-laico-o-que-a-constituicao-diz-02
+  tema: "Artigo 19"
+  dificuldade: 2
+  enunciado: "O artigo 19 da Constituição proíbe à União, estados e municípios o quê?"
+  alternativas:
+    - texto: "Estabelecer cultos ou igrejas, subvencioná-los ou embaraçar o seu funcionamento, ressalvada a colaboração de interesse público"
+      certa: true
+    - texto: "Permitir qualquer religião"
+      erro: "O art. 19 trata do que o poder público não pode fazer em relação aos cultos."
+    - texto: "Ter relações com qualquer pessoa religiosa"
+      erro: "A proibição é a de manter relações de dependência ou aliança, com ressalva para colaboração de interesse público."
+  explicacao: "O art. 5º, inciso VI, garante a liberdade de consciência e de crença e a proteção aos locais de culto."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estado laico: o que a Constituição diz\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-estado-laico-o-que-a-constituicao-diz-03
+  tema: "Laicidade protege"
+  dificuldade: 1
+  enunciado: "Segundo a aula, quem a laicidade protege?"
+  alternativas:
+    - texto: "As religiões do Estado e as pessoas das religiões que não escolheram"
+      certa: true
+    - texto: "Só quem pertence à religião da maioria"
+      erro: "A aula diz que protege todos."
+    - texto: "Só quem não tem religião"
+      erro: "Protege todos, de qualquer religião ou sem religião."
+  explicacao: "Ela garante tratamento igual na escola pública e no posto de saúde, qualquer que seja a crença da pessoa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estado laico: o que a Constituição diz\""
+  revisao:
+    status: em-revisao

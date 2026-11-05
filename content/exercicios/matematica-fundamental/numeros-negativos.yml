@@ -1,0 +1,71 @@
+# Exercícios da aula "Números negativos" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-neg-01
+  tipo: numero
+  tema: "Saldo no banco"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Seu saldo é −35 reais. Você deposita 120 e depois paga uma conta de 60. Qual é o saldo final, em reais?"
+  resposta: "25"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "95"
+      explicacao: "Você tratou o saldo de −35 como se fosse +35. Dívida de 35 conta contra você: −35 + 120 = 85, e 85 − 60 = 25."
+  dica: "Comece do −35 e vá somando e tirando."
+  explicacao: "−35 + 120 = 85. Depois, 85 − 60 = 25 reais."
+  conferir: "-35 + 120 - 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-neg-02
+  tema: "Subtrair um negativo"
+  dificuldade: 2
+  enunciado: "Quanto é 3 − (−5)?"
+  alternativas:
+    - texto: "8"
+      certa: true
+    - texto: "−2"
+      erro: "Você fez 3 − 5. Mas o que se tira é um número negativo, e tirar uma dívida é o mesmo que ganhar: subtrair −5 é somar 5."
+    - texto: "−8"
+      erro: "Você deixou o resultado negativo. Subtrair um número é somar o seu oposto: 3 − (−5) = 3 + 5."
+  explicacao: "Subtrair um número é somar o seu oposto. O oposto de −5 é 5, então 3 − (−5) = 3 + 5 = 8."
+  conferir: "3 - (-5)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-neg-03
+  tema: "Comparar negativos"
+  dificuldade: 2
+  enunciado: "Numa madrugada fez −2 °C em uma cidade e −9 °C em outra. Qual foi a temperatura mais alta?"
+  alternativas:
+    - texto: "−2 °C"
+      certa: true
+    - texto: "−9 °C"
+      erro: "Você olhou só o 9, que é maior que o 2. Mas −9 está mais para a esquerda na reta, mais longe do zero: é mais frio."
+    - texto: "As duas foram iguais"
+      erro: "Não foram iguais: −2 fica mais perto do zero, e −9 está bem mais abaixo. Quanto mais à direita na reta, maior o número."
+  explicacao: "Quanto mais à direita na reta numérica, maior o número. −2 fica à direita de −9, então −2 °C é a temperatura mais alta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-neg-04
+  tipo: numero
+  tema: "Regra dos sinais"
+  dificuldade: 3
+  enunciado: "Quanto é (−8) × 3 + 10?"
+  resposta: "-14"
+  erros_comuns:
+    - resposta: "34"
+      explicacao: "Você ignorou o sinal negativo do 8: 8 × 3 + 10 = 34. Com sinais diferentes, a multiplicação dá negativo: (−8) × 3 = −24."
+    - resposta: "-104"
+      explicacao: "Você somou 3 + 10 antes de multiplicar. A multiplicação vem antes da soma: (−8) × 3 = −24 e, depois, −24 + 10."
+  dica: "Primeiro a multiplicação, lembrando da regra dos sinais; depois a soma."
+  explicacao: "(−8) × 3 = −24 (sinais diferentes dão negativo). Depois, −24 + 10 = −14."
+  conferir: "-8 * 3 + 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,70 @@
+# Exercícios da aula "Energia e suas transformações" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-ene-01
+  tema: "Transformação na hidrelétrica"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Na usina hidrelétrica, quais são as transformações de energia, na ordem?"
+  alternativas:
+    - texto: "Potencial da água no alto, depois cinética (turbina girando), depois elétrica"
+      certa: true
+    - texto: "Elétrica, depois potencial, depois cinética"
+      erro: "Está ao contrário. A água represada, lá no alto, guarda energia potencial; ao descer, vira cinética e gira a turbina; o gerador faz a elétrica."
+    - texto: "Térmica, depois luminosa, depois cinética"
+      erro: "Na hidrelétrica não se queima nada. A energia vem da água que cai: potencial, depois cinética, depois elétrica."
+  explicacao: "A água no alto tem energia potencial. Ao descer, vira energia cinética e gira a turbina; o gerador transforma essa energia em elétrica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ene-02
+  tema: "Conservação da energia"
+  dificuldade: 2
+  enunciado: "Por que se diz que a energia 'se gasta', se ela nunca é destruída?"
+  alternativas:
+    - texto: "Porque em toda transformação parte vira calor espalhado, que não dá mais para aproveitar"
+      certa: true
+    - texto: "Porque ela realmente some quando é usada"
+      erro: "A energia não some: não pode ser criada nem destruída. O que acontece é que uma parte vira calor espalhado no ambiente."
+    - texto: "Porque a energia só existe na tomada"
+      erro: "A energia existe em muitas formas: movimento, calor, luz, comida, altura. Em toda transformação, parte vira calor que não aproveitamos."
+  explicacao: "Pelo princípio da conservação, a energia só se transforma. 'Gastar' é parte dela virar calor que se espalha e não serve mais para o que queríamos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ene-03
+  tipo: numero
+  tema: "Consumo na conta de luz"
+  dificuldade: 2
+  enunciado: "Uma televisão de 100 W fica ligada 5 horas por dia durante 30 dias. Quantos quilowatts-hora (kWh) ela gasta no mês?"
+  resposta: "15"
+  unidade: "kWh"
+  erros_comuns:
+    - resposta: "15000"
+      explicacao: "Você usou 100 W sem passar para quilowatts. 100 W são 0,1 kW. A conta é: 0,1 × 5 × 30."
+    - resposta: "500"
+      explicacao: "500 é o gasto de um dia, em watts-hora (100 × 5). Faltou passar para quilowatts e multiplicar pelos 30 dias."
+  dica: "Passe 100 W para quilowatts (divida por 1.000) e multiplique pelas horas."
+  explicacao: "100 W = 0,1 kW. Em um dia: 0,1 × 5 = 0,5 kWh. Em 30 dias: 0,5 × 30 = 15 kWh."
+  conferir: "0.1 * 5 * 30"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ene-04
+  tema: "Máquina que funciona para sempre"
+  dificuldade: 3
+  enunciado: "Alguém vende uma máquina que 'gera energia de graça e funciona para sempre sem nada receber'. O que a física diz?"
+  alternativas:
+    - texto: "Isso não existe: nenhuma máquina entrega mais energia do que recebe, e parte sempre vira calor"
+      certa: true
+    - texto: "Existe, mas só ainda não foi popularizada"
+      erro: "Pelo princípio da conservação da energia, a máquina não pode criar energia. Quem promete isso está enganado ou enganando."
+    - texto: "Existe se a máquina for muito bem lubrificada"
+      erro: "A lubrificação reduz o atrito, mas não elimina a perda. Em toda transformação parte da energia vira calor."
+  explicacao: "A energia não pode ser criada. Toda máquina perde parte em calor e nenhuma entrega mais do que recebeu. Promessa de energia grátis e eterna é golpe ou engano."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

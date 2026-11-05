@@ -1,0 +1,52 @@
+# Exercícios da aula "O que é o capitalismo" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-o-que-e-o-capitalismo-01
+  tema: "Três peças"
+  dificuldade: 1
+  enunciado: "Qual destas é uma das três peças do capitalismo apresentadas na aula?"
+  alternativas:
+    - texto: "Que ninguém possa ter propriedade"
+      erro: "É o contrário. No capitalismo, os meios de produção são propriedade privada de uma minoria."
+    - texto: "A maioria das pessoas, sem meios de produção, precisa vender a sua capacidade de trabalhar por um salário"
+      certa: true
+    - texto: "Que tudo seja produzido de graça"
+      erro: "A aula diz que quase tudo é produzido como mercadoria, para vender com lucro."
+  explicacao: "As três peças: meios de produção privados de uma minoria, produção de mercadorias para o lucro e trabalho assalariado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é o capitalismo\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-o-que-e-o-capitalismo-02
+  tema: "Lucro da costureira"
+  dificuldade: 2
+  enunciado: "Uma costureira acrescenta R$ 400 de valor em 8 horas e recebe R$ 100 por dia. Quanto sobra para o dono?"
+  alternativas:
+    - texto: "R$ 100"
+      erro: "Esse é o salário dela. Sobra o que ela acrescentou menos o que recebeu: 400 − 100."
+    - texto: "R$ 500"
+      erro: "Aí você somou 400 e 100. Subtraia o salário do valor acrescentado."
+    - texto: "R$ 300"
+      certa: true
+      valor: "300"
+  explicacao: "400 − 100 = 300. A força de trabalho é a mercadoria que, posta para funcionar, produz mais valor do que custa."
+  conferir: "400 - 100"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é o capitalismo\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-o-que-e-o-capitalismo-03
+  tema: "Comida sobrando"
+  dificuldade: 2
+  enunciado: "Por que, segundo a aula, pode haver ao mesmo tempo comida sobrando e gente sem comer?"
+  alternativas:
+    - texto: "Porque se produz para vender com lucro, e não para atender a quem precisa"
+      certa: true
+    - texto: "Porque ninguém sabe fazer comida"
+      erro: "A aula explica pela lógica da mercadoria: se não dá lucro, a produção para, mesmo que haja fome."
+    - texto: "Porque o governo proíbe vender comida"
+      erro: "Não é isso. A questão é que o pão é feito para ser vendido com lucro."
+  explicacao: "Se vender pão deixar de dar lucro, a padaria fecha, mesmo que o bairro continue com fome."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é o capitalismo\""
+  revisao:
+    status: em-revisao

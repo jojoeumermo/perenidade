@@ -1,0 +1,69 @@
+# Exercícios da aula "Perguntar e dar direções" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-direcoes-01
+  tema: "Entender o caminho"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Alguém explica: \"Siga dos cuadras todo derecho y doble a la izquierda.\" O que você deve fazer?"
+  alternativas:
+    - texto: "Virar à direita depois de dois quarteirões"
+      erro: "Izquierda é esquerda, e não direita. Todo derecho quer dizer em frente."
+    - texto: "Seguir em frente dois quarteirões e virar à esquerda"
+      certa: true
+    - texto: "Voltar dois quarteirões"
+      erro: "Todo derecho é \"sempre em frente\", e não voltar."
+  explicacao: "Dos cuadras = dois quarteirões; todo derecho = sempre em frente; doble a la izquierda = vire à esquerda."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Perguntar e dar direções\""
+  revisao:
+    status: em-revisao
+
+- id: esp-direcoes-02
+  tema: "Abordar alguém"
+  dificuldade: 1
+  enunciado: "Como perguntar educadamente a um desconhecido \"Com licença, onde fica o hospital?\""
+  alternativas:
+    - texto: "Disculpe, ¿dónde está el hospital?"
+      certa: true
+    - texto: "Hola, ¿dónde tiene el hospital?"
+      erro: "Para perguntar onde fica algo, usa-se estar: ¿dónde está...? E disculpe é a forma educada de abordar."
+    - texto: "¡Eh! ¿Cómo hay hospital?"
+      erro: "Falta cortesia, e a frase não está correta. Use disculpe + ¿dónde está...?"
+  explicacao: "Disculpe (ou perdone) abre a conversa com educação; dónde está... pergunta onde fica."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Perguntar e dar direções\""
+  revisao:
+    status: em-revisao
+
+- id: esp-direcoes-03
+  tema: "Ônibus em cada país"
+  dificuldade: 2
+  enunciado: "Como o ônibus urbano é chamado na Argentina, segundo a aula?"
+  alternativas:
+    - texto: "Camión"
+      erro: "Camión é o nome no México."
+    - texto: "Colectivo"
+      certa: true
+    - texto: "Guagua"
+      erro: "Guagua é o nome em Cuba, em Porto Rico e nas Canárias."
+    - texto: "Micro"
+      erro: "Micro é o nome no Chile."
+  explicacao: "Na Argentina, colectivo. Na Espanha, autobús; no México, camión; no Chile, micro; em Cuba, Porto Rico e Canárias, guagua."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Perguntar e dar direções\" (fonte da aula: Wikilivros, Espanhol/Vocabulário/Transporte público)"
+  revisao:
+    status: em-revisao
+
+- id: esp-direcoes-04
+  tema: "Coger e tomar"
+  dificuldade: 3
+  enunciado: "Você está na América Latina e quer dizer \"pegar o ônibus\". Que verbo é mais seguro, segundo a aula?"
+  alternativas:
+    - texto: "Coger el colectivo"
+      erro: "Coger é comum na Espanha, mas em vários países da América Latina tem sentido vulgar."
+    - texto: "Tomar el colectivo"
+      certa: true
+    - texto: "Agarrar el colectivo"
+      erro: "Agarrar quer dizer \"segurar com força\", e não é a forma habitual para pegar o ônibus."
+  explicacao: "Na Espanha, coger el autobús é normal. Em vários países da América Latina, coger tem sentido vulgar: prefira tomar."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Perguntar e dar direções\""
+  revisao:
+    status: em-revisao

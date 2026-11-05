@@ -1,0 +1,105 @@
+# Exercícios da aula "Calcular o preço e vender" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-preco-01
+  tema: "Como se forma o preço"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, de que se compõe o preço de uma peça?"
+  alternativas:
+    - texto: "Materiais, horas de trabalho vezes o valor da hora, custos por peça e margem"
+      certa: true
+    - texto: "Só do preço do tecido"
+      erro: "Se você cobrar só o tecido, o seu trabalho, a luz, a manutenção da máquina e a reserva não são pagos. Entram também horas, custos por peça e margem."
+    - texto: "Só do que a concorrência cobra"
+      erro: "Olhar o mercado ajuda, mas a conta mostra quanto você precisa receber. Se o mercado paga menos, a conta mostra quanto você estaria deixando de ganhar."
+  explicacao: "Preço = materiais + (horas × valor da hora) + custos por peça + margem. O valor da hora é quanto você precisa por mês dividido pelas horas que consegue costurar e cobrar no mês. Cronometre as primeiras peças."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Calcular o preço e vender\""
+  revisao:
+    status: em-revisao
+
+- id: cost-preco-02
+  tipo: numero
+  tema: "Valor da hora"
+  dificuldade: 2
+  enunciado: "Você precisa de R$ 2.400 por mês e consegue costurar e cobrar 160 horas no mês. Qual é o seu valor da hora?"
+  resposta: "15"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "0,07"
+      explicacao: "Você dividiu 160 por 2.400. Faça o contrário: o que você precisa por mês dividido pelas horas do mês, 2.400 ÷ 160."
+    - resposta: "2240"
+      explicacao: "Você subtraiu as horas (2.400 menos 160). O valor da hora é uma divisão: 2.400 ÷ 160."
+  dica: "Divida o que você precisa por mês pelas horas que consegue cobrar."
+  explicacao: "2.400 ÷ 160 = R$ 15 por hora. Esse valor entra na conta do preço: horas da peça × valor da hora."
+  conferir: "2400 / 160"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Calcular o preço e vender\""
+  revisao:
+    status: em-revisao
+
+- id: cost-preco-03
+  tipo: numero
+  tema: "Preço de uma saia"
+  dificuldade: 3
+  enunciado: "Calcule o subtotal (sem a margem) de uma saia: materiais R$ 32; trabalho de 2,5 horas com a hora a R$ 15; custos por peça R$ 4. Quanto dá?"
+  resposta: "73,50"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "37,50"
+      explicacao: "R$ 37,50 é só o trabalho (2,5 × 15). Falta somar materiais (32) e custos por peça (4)."
+    - resposta: "36"
+      explicacao: "R$ 36 é materiais mais custos (32 + 4). Falta o trabalho: 2,5 horas × R$ 15 = R$ 37,50."
+  dica: "Calcule o trabalho (horas vezes valor da hora) e some com os materiais e os custos por peça."
+  explicacao: "Materiais 32; trabalho 2,5 × 15 = 37,50; custos por peça 4. Subtotal: 32 + 37,50 + 4 = R$ 73,50. Com margem de 15%, o preço fica em torno de R$ 85."
+  conferir: "32 + 2.5 * 15 + 4"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Calcular o preço e vender\""
+  revisao:
+    status: em-revisao
+
+- id: cost-preco-04
+  tema: "Orçamento"
+  dificuldade: 2
+  enunciado: "Segundo o Código de Defesa do Consumidor, o que deve constar no orçamento de um serviço sob encomenda, como um conserto?"
+  alternativas:
+    - texto: "O valor da mão de obra e dos materiais, a forma de pagamento e as datas de início e término"
+      certa: true
+    - texto: "Só o nome da costureira"
+      erro: "O art. 40 do CDC manda que o orçamento tenha o valor da mão de obra e dos materiais, a forma de pagamento e as datas de início e término."
+    - texto: "Nada: o orçamento pode ser só combinado de boca"
+      erro: "Para serviços sob encomenda, o CDC manda entregar orçamento prévio. Combinar tudo por escrito protege você e a cliente."
+  explicacao: "Para roupa sob medida e consertos, o CDC (art. 40) manda entregar orçamento prévio com o valor da mão de obra, dos materiais, a forma de pagamento e as datas de início e término. A cliente também tem direito a informação clara sobre o produto e o preço (art. 6º)."
+  fonte: "Questão original do Instituto Lúcia; Código de Defesa do Consumidor (Lei nº 8.078/1990), arts. 6º e 40, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-preco-05
+  tema: "Direito de arrependimento"
+  dificuldade: 2
+  enunciado: "Uma cliente comprou pela internet um vestido pronto e quer devolvê-lo 5 dias depois de recebê-lo, sem defeito. O que diz o CDC?"
+  alternativas:
+    - texto: "Ela pode desistir: o direito de arrependimento vale por 7 dias, para compras fora da loja física, com devolução do que pagou"
+      certa: true
+    - texto: "Ela não pode devolver, porque já abriu a embalagem"
+      erro: "O art. 49 do CDC garante o direito de desistir em até 7 dias do recebimento, nas compras fora da loja física, e os valores pagos devem ser devolvidos."
+    - texto: "Só se o vestido tiver defeito"
+      erro: "O direito de arrependimento não precisa de defeito: basta desistir em até 7 dias do recebimento."
+  explicacao: "O art. 49 do CDC garante, em compras fora da loja física (internet ou telefone), o direito de desistir em até 7 dias a contar do recebimento do produto, com devolução dos valores pagos. Informe isso na página de vendas e combine como o produto volta. Peças sob medida: combine tudo por escrito antes."
+  fonte: "Questão original do Instituto Lúcia; Código de Defesa do Consumidor (Lei nº 8.078/1990), art. 49, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-preco-06
+  tema: "Formalizar como MEI"
+  dificuldade: 2
+  enunciado: "Segundo a aula, quanto custa abrir o MEI?"
+  alternativas:
+    - texto: "Nada: abrir não custa nada (Lei Complementar 123, art. 4º, § 3º)"
+      certa: true
+    - texto: "Um salário mínimo"
+      erro: "Abrir é gratuito. O que se paga, mês a mês, é o DAS, que junta INSS e o imposto da atividade."
+    - texto: "R$ 500, pagos a um despachante"
+      erro: "Não é preciso pagar para abrir. O Portal do Empreendedor faz o cadastro de graça."
+  explicacao: "A abertura do MEI é gratuita. Há ocupações de costureiro(a) de roupas sob medida, de roupas exceto sob medida, alfaiate e bordadeiro(a). O DAS mensal junta 5% do salário mínimo para o INSS e o imposto da atividade; o Portal do Empreendedor calcula conforme a ocupação."
+  fonte: "Questão original do Instituto Lúcia; Lei Complementar nº 123/2006, art. 4º, § 3º, conforme a aula"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,67 @@
+# Exercícios da aula "Falso emprego, falso boleto e falsa central" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-fal-01
+  tema: "Vaga que cobra"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma vaga promete R$ 4.000 por mês trabalhando de casa e pede R$ 80 de 'material de treinamento'. O que fazer?"
+  alternativas:
+    - texto: "Não pagar: cobrança para contratar é sinal de golpe; conferir a empresa por canal oficial"
+      certa: true
+    - texto: "Pagar, é um valor pequeno"
+      erro: "Empregador de verdade não cobra para contratar. O valor pequeno é a isca, e depois vêm outros pedidos."
+    - texto: "Pagar metade, para ver se é verdade"
+      erro: "Qualquer pagamento adiantado é perda. Confira a empresa e o CNPJ por canal oficial."
+  explicacao: "Empregador de verdade não cobra para contratar. Confira empresa e CNPJ, o site oficial digitado por você e a vaga em plataformas oficiais, como Sine e gov.br."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-fal-02
+  tema: "Boleto falso"
+  dificuldade: 2
+  enunciado: "Qual cuidado ajuda a evitar o falso boleto?"
+  alternativas:
+    - texto: "Ler o nome do beneficiário e o CNPJ na tela de confirmação do banco e, na dúvida, baixar a segunda via no site oficial"
+      certa: true
+    - texto: "Pagar rápido, antes que o boleto perca a validade"
+      erro: "A pressa ajuda o golpista. Confira o beneficiário antes de pagar."
+    - texto: "Confiar no boleto que chegou de remetente desconhecido"
+      erro: "Boleto de remetente desconhecido pode levar o dinheiro ao golpista. Baixe a segunda via no site oficial."
+  explicacao: "No falso boleto, o dinheiro vai para a conta do golpista. O nome do beneficiário na tela de confirmação é o teste: se não for o da empresa, não pague."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-fal-03
+  tema: "Falsa central"
+  dificuldade: 2
+  enunciado: "Você procurou 'telefone do banco' na internet e o primeiro resultado atende pedindo senha e mandando 'instalar um programa de acesso remoto'. O que isso indica?"
+  alternativas:
+    - texto: "É a falsa central: use só o número do verso do cartão ou do aplicativo oficial"
+      certa: true
+    - texto: "É o suporte oficial, que pede a senha para ajudar"
+      erro: "Nenhuma central pede senha, código de SMS nem manda instalar aplicativo para 'proteger' o dinheiro."
+    - texto: "É normal, e o programa serve para proteger a conta"
+      erro: "Programa de acesso remoto dá controle do celular ao golpista."
+  explicacao: "Anúncios e páginas falsas aparecem no topo das buscas. Use o número do verso do cartão ou o do aplicativo oficial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-fal-04
+  tema: "O que os três têm em comum"
+  dificuldade: 3
+  enunciado: "O que o falso emprego, o falso boleto e a falsa central têm em comum?"
+  alternativas:
+    - texto: "Pressa, dinheiro ou dados adiantados e um canal escolhido pelo golpista"
+      certa: true
+    - texto: "Todos começam com um presente de graça"
+      erro: "O que têm em comum é a pressa, o pedido de dinheiro ou dados e o canal que o golpista escolheu."
+    - texto: "Todos só acontecem com quem tem pouco estudo"
+      erro: "Golpe pega gente de qualquer idade e instrução, porque usa pressa e emoção."
+  explicacao: "A defesa é inverter: você escolhe o canal e confere por outro meio. A fraude por meio eletrônico é crime (Código Penal, art. 171, § 2º-A)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

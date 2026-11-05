@@ -2,7 +2,9 @@
 import type { Metadata } from "next";
 import { DataPanel } from "@/components/DataPanel";
 import { PageHeading } from "@/components/PageHeading";
+import { LevarProgresso } from "@/components/progresso/LevarProgresso";
 import { loadLang } from "@/i18n";
+import { textosDoProgressoQr } from "@/i18n/progresso-qr";
 import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 
@@ -24,6 +26,7 @@ export default async function MeusDados({ params }: PageProps<"/[lang]/meus-dado
         {d.lead}
       </PageHeading>
       <DataPanel s={d} />
+      <LevarProgresso t={textosDoProgressoQr(lang)} />
       <div className="mt-10 grid gap-6 font-sans text-sm sm:grid-cols-2">
         {blocks.map(([title, description]) => (
           <div key={title} className="border-l-2 border-gold pl-4">

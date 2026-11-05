@@ -1,0 +1,50 @@
+# Exercícios da aula "Racismo religioso: o que é e como denunciar" (religioes-de-matriz-africana). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-de-matriz-af-racismo-religioso-o-que-e-e-como-denunci-01
+  tema: "Racismo religioso"
+  dificuldade: 2
+  enunciado: "Por que muitos estudiosos usam a expressão \"racismo religioso\" e não só \"intolerância\"?"
+  alternativas:
+    - texto: "Porque o ódio a essas religiões está ligado ao racismo contra a população negra e a sua herança africana"
+      certa: true
+    - texto: "Porque as religiões são todas iguais"
+      erro: "A expressão destaca a ligação com o racismo."
+    - texto: "Porque as pessoas não gostam do termo intolerância"
+      erro: "O motivo é a ligação do ódio com o racismo contra a população negra."
+  explicacao: "Os ataques incluem terreiros depredados ou queimados e ameaças a pais e mães de santo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Racismo religioso: o que é e como denunciar\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-racismo-religioso-o-que-e-e-como-denunci-02
+  tema: "Lei 7.716"
+  dificuldade: 2
+  enunciado: "Pela Lei nº 7.716/1989, art. 20, discriminar ou incitar preconceito por religião é o quê?"
+  alternativas:
+    - texto: "Uma simples falta, sem pena"
+      erro: "A lei prevê pena de reclusão de um a três anos e multa."
+    - texto: "Crime, com pena de reclusão de um a três anos e multa"
+      certa: true
+    - texto: "Direito de quem quer"
+      erro: "É crime, pela lei."
+  explicacao: "Se for pela internet ou meios de comunicação, a pena sobe para dois a cinco anos e multa (Lei 14.532/2023)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Racismo religioso: o que é e como denunciar\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-racismo-religioso-o-que-e-e-como-denunci-03
+  tema: "Denunciar"
+  dificuldade: 1
+  enunciado: "Qual destes passos a aula indica para quem sofre ou presencia um ataque?"
+  alternativas:
+    - texto: "Registrar fotos, vídeos, testemunhas, data e local, fazer boletim de ocorrência e ligar para o Disque 100"
+      certa: true
+    - texto: "Responder com violência"
+      erro: "A aula orienta registrar e denunciar."
+    - texto: "Não fazer nada para evitar problemas"
+      erro: "A aula orienta denunciar pelos canais indicados."
+  explicacao: "A Lei nº 11.635/2007 criou o Dia Nacional de Combate à Intolerância Religiosa, em 21 de janeiro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Racismo religioso: o que é e como denunciar\""
+  revisao:
+    status: em-revisao

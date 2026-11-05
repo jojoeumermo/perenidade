@@ -1,0 +1,85 @@
+# Exercícios da aula "Corrente, tensão e resistência" (Eletricidade básica e segurança). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eletr-ctr-01
+  tema: "Unidades"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em que unidade se mede a corrente elétrica?"
+  alternativas:
+    - texto: "Volt (V)"
+      erro: "O volt mede a tensão, o empurrão que faz a corrente andar."
+    - texto: "Ohm (Ω)"
+      erro: "O ohm mede a resistência, ou seja, o quanto o material dificulta a passagem da corrente."
+    - texto: "Ampère (A)"
+      certa: true
+  explicacao: "Corrente se mede em ampères (A), tensão em volts (V) e resistência em ohms (Ω)."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Corrente, tensão e resistência\" (fonte da aula: OpenStax, College Physics 2e, seção 20.1)"
+  revisao:
+    status: em-revisao
+
+- id: eletr-ctr-02
+  tema: "Água no cano"
+  dificuldade: 1
+  enunciado: "Na comparação da eletricidade com a água num cano, a tensão corresponde a quê?"
+  alternativas:
+    - texto: "À pressão que empurra a água"
+      certa: true
+    - texto: "À quantidade de água que passa por segundo"
+      erro: "Essa é a corrente. A tensão é o empurrão, a pressão."
+    - texto: "Ao quanto o cano é estreito ou entupido"
+      erro: "Isso é a resistência. A tensão é a pressão que empurra a água."
+  explicacao: "Tensão é a pressão (o empurrão); corrente é a quantidade que passa por segundo; resistência é o quanto o cano é estreito ou entupido."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Corrente, tensão e resistência\""
+  revisao:
+    status: em-revisao
+
+- id: eletr-ctr-03
+  tema: "Resistência e corrente"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "Uma lâmpada de lanterna recebe 3 V de duas pilhas. Se trocarmos por uma lâmpada com o dobro da resistência, a corrente passa a ser que fração da corrente de antes? (Escreva a fração, como 1/4.)"
+  resposta: "1/2"
+  erros_comuns:
+    - resposta: "2"
+      explicacao: "Você dobrou a corrente. Com mais resistência, o caminho fica mais difícil e passa menos corrente, e não mais."
+    - resposta: "1"
+      explicacao: "A corrente só ficaria igual se a resistência não mudasse. Como a resistência dobrou, a corrente cai."
+  dica: "Mesma tensão, caminho duas vezes mais difícil: pense no cano duas vezes mais estreito."
+  explicacao: "A tensão continua 3 V, e a resistência dobrou. Com o mesmo empurrão e um caminho duas vezes mais difícil, passa metade da corrente: 1/2."
+  conferir: "1/2"
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Corrente, tensão e resistência\""
+  revisao:
+    status: em-revisao
+
+- id: eletr-ctr-04
+  tema: "Tensão da etiqueta"
+  dificuldade: 2
+  enunciado: "Um aparelho diz \"220 V\" na etiqueta, mas a casa é de 127 V. O que acontece se ele for ligado?"
+  alternativas:
+    - texto: "Funciona do mesmo jeito"
+      erro: "Não funciona do mesmo jeito: ele precisa de mais tensão do que a casa oferece. Por isso a etiqueta deve ser conferida antes de ligar."
+    - texto: "Funciona mal ou não funciona, porque recebe menos tensão do que precisa"
+      certa: true
+    - texto: "Queima na hora, por excesso de tensão"
+      erro: "O excesso de tensão é o caso contrário: um aparelho de 127 V ligado em 220 V é que costuma queimar. Aqui falta empurrão: 127 V é menos que 220 V."
+  explicacao: "127 V é menos que os 220 V que o aparelho pede, então ele funciona mal ou nem funciona. Antes de ligar um aparelho novo, confira na etiqueta se serve para a tensão da casa."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Corrente, tensão e resistência\""
+  revisao:
+    status: em-revisao
+
+- id: eletr-ctr-05
+  tema: "Corrente alternada"
+  dificuldade: 2
+  enunciado: "Que tipo de corrente chega às tomadas das casas no Brasil, segundo a aula?"
+  alternativas:
+    - texto: "Corrente contínua, como a da pilha"
+      erro: "A pilha e a bateria dão corrente contínua. A da tomada é alternada: o carregador do celular é que a transforma em contínua."
+    - texto: "Corrente alternada de 60 hertz"
+      certa: true
+    - texto: "Corrente alternada de 50 hertz"
+      erro: "Na aula, a rede brasileira é de 60 hertz: o sentido da corrente vai e volta 60 vezes por segundo."
+  explicacao: "A rede brasileira é de corrente alternada em 60 hertz. O carregador de celular transforma a alternada da tomada na contínua de que a bateria precisa."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Corrente, tensão e resistência\" (fonte da aula: Wikipédia, \"Corrente alternada\")"
+  revisao:
+    status: em-revisao

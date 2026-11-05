@@ -1,0 +1,54 @@
+# Exercícios da aula "Etiqueta Procel e conta de luz" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-etiqueta-procel-e-conta-de-luz-01
+  tema: "Conta do consumo"
+  dificuldade: 2
+  enunciado: "Um aparelho de 1 kW fica ligado 8 horas por dia durante 30 dias. Qual é o consumo no mês, em kWh, pela fórmula da aula (potência × horas por dia × dias)?"
+  alternativas:
+    - texto: "8 kWh"
+      erro: "Aí você considerou só um dia. Multiplique também pelos 30 dias."
+    - texto: "38 kWh"
+      erro: "Aí você somou os números. A fórmula multiplica: 1 × 8 × 30."
+    - texto: "240 kWh"
+      certa: true
+      valor: "240"
+  explicacao: "Consumo no mês = potência em kW × horas por dia × dias do mês. Para os reais, multiplique pelo preço do kWh da sua conta."
+  conferir: "1 * 8 * 30"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Etiqueta Procel e conta de luz\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-etiqueta-procel-e-conta-de-luz-02
+  tema: "Watts e kW"
+  dificuldade: 2
+  enunciado: "Um aparelho tem 500 W na etiqueta. Quantos kW são, pela regra da aula (divida por 1.000)?"
+  alternativas:
+    - texto: "5 kW"
+      erro: "Aí você dividiu por 100. Divida por 1.000."
+    - texto: "0,5 kW"
+      certa: true
+      valor: "0.5"
+    - texto: "50 kW"
+      erro: "A vírgula escorregou. 500 ÷ 1.000 = 0,5."
+  explicacao: "A potência está na etiqueta ou no manual, em watts. Divida por 1.000 para ter kW."
+  conferir: "500 / 1000"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Etiqueta Procel e conta de luz\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-etiqueta-procel-e-conta-de-luz-03
+  tema: "Etiqueta"
+  dificuldade: 1
+  enunciado: "Segundo a aula, qual é a melhor forma de comparar aparelhos pela etiqueta?"
+  alternativas:
+    - texto: "Comparar o consumo em kWh entre os aparelhos, em vez de só olhar a letra"
+      certa: true
+    - texto: "Olhar só a letra da etiqueta"
+      erro: "A escala de letras foi mudando; compare o consumo em kWh."
+    - texto: "Olhar só o preço"
+      erro: "A etiqueta traz o consumo estimado do aparelho."
+  explicacao: "O Inmetro coordena o Programa Brasileiro de Etiquetagem (PBE). O selo Procel destaca produtos de melhor desempenho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Etiqueta Procel e conta de luz\""
+  revisao:
+    status: em-revisao

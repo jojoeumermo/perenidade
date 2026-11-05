@@ -1,0 +1,50 @@
+# Exercícios da aula "Amor ao país e ao povo" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-amor-ao-pais-e-ao-povo-01
+  tema: "Lei de Educação Patriótica"
+  dificuldade: 2
+  enunciado: "Segundo a aula, quando entrou em vigor a Lei de Educação Patriótica da China?"
+  alternativas:
+    - texto: "Em 1º de janeiro de 1949"
+      erro: "1949 é o ano da vitória que encerra o \"século de humilhação\". A lei foi aprovada em outubro de 2023."
+    - texto: "Em 1º de janeiro de 2024"
+      certa: true
+    - texto: "Em 2009"
+      erro: "2009 é o ano da lei brasileira sobre o hino nas escolas, citada na aula como comparação."
+  explicacao: "A lei foi aprovada em outubro de 2023 e entrou em vigor em 1º de janeiro de 2024. Prevê educação patriótica nas escolas, na família, na mídia e em museus."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Amor ao país e ao povo\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-amor-ao-pais-e-ao-povo-02
+  tema: "Três ideias"
+  dificuldade: 1
+  enunciado: "Como a aula diferencia amor ao próprio povo e nacionalismo agressivo?"
+  alternativas:
+    - texto: "Amor ao povo valoriza a cultura, a história e o bem-estar de quem vive no país; o nacionalismo agressivo acha o país superior e trata outros povos como inimigos"
+      certa: true
+    - texto: "São a mesma coisa, só mudam de nome"
+      erro: "A aula pede para distinguir: valorizar o próprio povo é diferente de considerar o país superior e outros povos inimigos."
+    - texto: "O nacionalismo agressivo é o respeito a todos os povos"
+      erro: "Respeito entre os povos se aproxima do internacionalismo. O nacionalismo agressivo é o oposto."
+  explicacao: "A aula distingue amor ao próprio povo, nacionalismo agressivo e internacionalismo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Amor ao país e ao povo\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-amor-ao-pais-e-ao-povo-03
+  tema: "Brasil na ditadura"
+  dificuldade: 2
+  enunciado: "O que a aula mostra sobre o patriotismo escolar durante a ditadura militar brasileira (1964-1985)?"
+  alternativas:
+    - texto: "Que ele foi usado só para ensinar a democracia"
+      erro: "A aula diz que foi usado com forte sentido autoritário e anticomunista."
+    - texto: "Que foi usado com sentido autoritário e anticomunista, com a disciplina de Educação Moral e Cívica e lemas como \"Brasil, ame-o ou deixe-o\""
+      certa: true
+    - texto: "Que não houve nenhum ensino de patriotismo"
+      erro: "Houve: Educação Moral e Cívica era disciplina obrigatória."
+  explicacao: "O \"amor à pátria\" pode servir a projetos opostos: à libertação de um povo ou à repressão de uma parte dele."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Amor ao país e ao povo\""
+  revisao:
+    status: em-revisao

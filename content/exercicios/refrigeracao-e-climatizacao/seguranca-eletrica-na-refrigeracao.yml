@@ -1,0 +1,50 @@
+# Exercícios da aula "Segurança elétrica na refrigeração" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-seguranca-eletrica-na-refrigeracao-01
+  tema: "Capacitor"
+  dificuldade: 1
+  enunciado: "O que o capacitor de partida do compressor guarda, mesmo desligado?"
+  alternativas:
+    - texto: "Carga elétrica"
+      certa: true
+    - texto: "Gás refrigerante"
+      erro: "O gás fica no circuito."
+    - texto: "Óleo"
+      erro: "O capacitor guarda carga."
+  explicacao: "Descarregue os capacitores com um resistor apropriado, antes de tocar neles."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança elétrica na refrigeração\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-seguranca-eletrica-na-refrigeracao-02
+  tema: "Regra de ouro"
+  dificuldade: 1
+  enunciado: "Qual é a primeira regra de ouro da eletricidade na aula?"
+  alternativas:
+    - texto: "Desligar da tomada e do disjuntor"
+      certa: true
+    - texto: "Testar com a mão se tem corrente"
+      erro: "A aula manda testar a ausência de tensão com instrumento adequado."
+    - texto: "Trabalhar com o chão molhado"
+      erro: "A aula manda evitar."
+  explicacao: "Teste a ausência de tensão com multímetro ou chave de teste; não confie no \"desligado\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança elétrica na refrigeração\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-seguranca-eletrica-na-refrigeracao-03
+  tema: "Gás inflamável"
+  dificuldade: 2
+  enunciado: "Por que geladeiras mais novas pedem cuidado com faísca e solda?"
+  alternativas:
+    - texto: "Usam gases como o isobutano (R600a) ou o propano (R290), que pegam fogo"
+      certa: true
+    - texto: "Usam gás que explode sempre"
+      erro: "A aula diz que são gases inflamáveis, que pegam fogo."
+    - texto: "Porque não têm capacitor"
+      erro: "Não é o motivo."
+  explicacao: "Cuidado com fonte de faísca e solda perto de tubo com gás."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança elétrica na refrigeração\""
+  revisao:
+    status: em-revisao

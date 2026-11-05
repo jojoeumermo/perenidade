@@ -1,0 +1,70 @@
+# Exercícios da aula "Revisão espaçada: como não esquecer" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-espacada-01
+  tema: "Curva do esquecimento"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que Ebbinghaus descobriu, em 1885, sobre o esquecimento, segundo a aula?"
+  alternativas:
+    - texto: "Esquecemos muito logo depois de aprender, e o ritmo do esquecimento vai diminuindo com o tempo"
+      certa: true
+    - texto: "Esquecemos tudo de uma vez, depois de um mês"
+      erro: "A curva do esquecimento mostra que o esquecimento é maior logo no início e depois vai ficando mais lento."
+    - texto: "Quem estuda bastante nunca esquece"
+      erro: "Todos esquecemos. O que ajuda é voltar ao conteúdo, lembrando com esforço, o que torna o esquecimento mais lento."
+  explicacao: "É a curva do esquecimento: esquece-se muito logo depois de aprender, e depois mais devagar. Cada vez que você lembra com esforço, a memória fica mais forte."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Revisão espaçada: como não esquecer\" (Ebbinghaus, 1885)"
+  revisao:
+    status: em-revisao
+
+- id: estud-espacada-02
+  tema: "Intervalos crescentes"
+  dificuldade: 2
+  enunciado: "Qual destes é o calendário de revisão em intervalos crescentes da aula, a partir do dia em que você estuda?"
+  alternativas:
+    - texto: "Amanhã, em 3 dias, em 1 semana e em 2 semanas"
+      certa: true
+    - texto: "Todo dia, durante um mês, no mesmo horário"
+      erro: "Revisar todo dia, sem aumentar o intervalo, gasta muito tempo. A aula propõe intervalos que crescem."
+    - texto: "Só no dia da prova"
+      erro: "Revisar só no dia da prova não aproveita o efeito de espaçamento. O melhor é voltar ao conteúdo quando você já começa a esquecer."
+  explicacao: "Os intervalos crescem: amanhã (5 a 10 minutos, sem olhar), em 3 dias, em 1 semana e em 2 semanas. Os números são um ponto de partida, e não uma lei."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Revisão espaçada: como não esquecer\""
+  revisao:
+    status: em-revisao
+
+- id: estud-espacada-03
+  tema: "Quando revisar antes da prova"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "Ana tem uma prova daqui a 30 dias. A aula usa, como ponto de partida, um intervalo entre revisões de 10% a 20% do tempo até a prova (Cepeda e colegas, 2008: cerca de 20% para prazos de algumas semanas, e menos para prazos de um ano). Quantos dias são 10% de 30?"
+  resposta: "3"
+  unidade: "dias"
+  erros_comuns:
+    - resposta: "6"
+      explicacao: "6 dias são 20% de 30, o limite de cima do intervalo. 10% são metade disso."
+    - resposta: "10"
+      explicacao: "Você usou o número 10 como se fossem dias. É 10% de 30: 30 × 0,10."
+  dica: "10% é a décima parte: divida 30 por 10."
+  explicacao: "10% de 30 = 3 dias, e 20% de 30 = 6 dias. Então revisar a cada 3 a 6 dias é um bom começo para uma prova daqui a 30 dias."
+  conferir: "30 * 0.10"
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Revisão espaçada: como não esquecer\" (Cepeda e colegas, 2008)"
+  revisao:
+    status: em-revisao
+
+- id: estud-espacada-04
+  tema: "Caixinha de Leitner"
+  dificuldade: 2
+  enunciado: "No sistema de Leitner, com caixas de papel, o que fazer com um cartão que você errou?"
+  alternativas:
+    - texto: "Passar para a caixa 3"
+      erro: "O cartão sobe de caixa quando você acerta. Quem errou ainda precisa de revisão frequente."
+    - texto: "Voltar para a caixa 1, para revisar de novo em breve"
+      certa: true
+    - texto: "Jogar o cartão fora"
+      erro: "O cartão errado é o que mais precisa de revisão. Ele volta para a caixa 1."
+  explicacao: "Acertou: o cartão sobe uma caixa e aparece menos. Errou: volta para a caixa 1, que se revisa todo dia. Assim o que já se sabe aparece menos, e o que é difícil aparece mais."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Revisão espaçada: como não esquecer\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Cortaram a luz ou a água" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-cortaram-a-luz-ou-a-agua-01
+  tema: "Corte de fim de semana"
+  dificuldade: 2
+  enunciado: "Pela Lei 8.987/1995 (§ 4º do art. 6º), em que dias o corte por inadimplemento não pode começar?"
+  alternativas:
+    - texto: "Sexta, sábado, domingo, feriado ou dia anterior a feriado"
+      certa: true
+    - texto: "Só às segundas"
+      erro: "A regra proíbe o início na sexta, no sábado, no domingo, em feriado ou na véspera."
+    - texto: "Qualquer dia, sem aviso"
+      erro: "Exige aviso e regras."
+  explicacao: "Se o corte caiu em um desses dias, reclame e guarde o protocolo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cortaram a luz ou a água\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-cortaram-a-luz-ou-a-agua-02
+  tema: "Tarifa social"
+  dificuldade: 1
+  enunciado: "O que a aula orienta pedir antes do corte, se a renda e o CadÚnico permitem?"
+  alternativas:
+    - texto: "A tarifa social de energia (Lei 12.212/2010)"
+      certa: true
+    - texto: "Um empréstimo no banco"
+      erro: "Não é o que a aula orienta."
+    - texto: "Que a conta seja cancelada"
+      erro: "A aula orienta negociar e pedir a tarifa social."
+  explicacao: "Também: ler o aviso, negociar o parcelamento por escrito, anotar o protocolo e procurar o CRAS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cortaram a luz ou a água\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-cortaram-a-luz-ou-a-agua-03
+  tema: "Serviço essencial"
+  dificuldade: 2
+  enunciado: "Segundo o art. 22 do CDC, como devem ser os serviços essenciais?"
+  alternativas:
+    - texto: "Adequados, eficientes, seguros e contínuos"
+      certa: true
+    - texto: "Sempre gratuitos"
+      erro: "O CDC não diz isso."
+    - texto: "Fornecidos só a quem paga em dia"
+      erro: "O corte por falta de pagamento é permitido, mas com aviso e regras."
+  explicacao: "A interrupção por inadimplemento é permitida, mas com aviso prévio e dentro das regras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cortaram a luz ou a água\""
+  revisao:
+    status: em-revisao

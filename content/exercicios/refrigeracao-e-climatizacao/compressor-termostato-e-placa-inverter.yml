@@ -1,0 +1,50 @@
+# Exercícios da aula "Compressor, termostato e placa inverter" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-compressor-termostato-e-placa-inverter-01
+  tema: "Termostato"
+  dificuldade: 1
+  enunciado: "O que faz o termostato, segundo a aula?"
+  alternativas:
+    - texto: "Controla a temperatura, ligando e desligando o compressor"
+      certa: true
+    - texto: "Dá a partida do motor como um capacitor"
+      erro: "Quem dá o empurrão de partida é o capacitor."
+    - texto: "Comprime o gás"
+      erro: "Quem comprime é o compressor."
+  explicacao: "Em equipamentos modernos, sensores mandam a informação a uma placa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Compressor, termostato e placa inverter\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-compressor-termostato-e-placa-inverter-02
+  tema: "Placa inverter"
+  dificuldade: 2
+  enunciado: "O que faz a placa inverter?"
+  alternativas:
+    - texto: "Controla a velocidade do compressor, gasta menos e liga e desliga menos"
+      certa: true
+    - texto: "Mede a pressão do gás"
+      erro: "Quem mede pressão é o manifold."
+    - texto: "Troca o gás sozinha"
+      erro: "A placa controla a velocidade do compressor."
+  explicacao: "Código de erro no visor ou luzes piscando: o manual explica os códigos e ajuda a achar o defeito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Compressor, termostato e placa inverter\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-compressor-termostato-e-placa-inverter-03
+  tema: "Capacitor"
+  dificuldade: 2
+  enunciado: "Por que o capacitor exige cuidado ao abrir o aparelho?"
+  alternativas:
+    - texto: "Pode guardar carga elétrica mesmo desligado"
+      certa: true
+    - texto: "Porque contém gás refrigerante"
+      erro: "O gás fica no circuito fechado, e não no capacitor."
+    - texto: "Porque esquenta o compressor"
+      erro: "O risco é a carga guardada."
+  explicacao: "Descarregar capacitor de forma correta é aprendido em curso. A NR-10 trata de segurança em eletricidade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Compressor, termostato e placa inverter\""
+  revisao:
+    status: em-revisao

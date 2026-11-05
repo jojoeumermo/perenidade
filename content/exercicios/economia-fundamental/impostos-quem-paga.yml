@@ -1,0 +1,86 @@
+# Exercícios da aula "Impostos: quem paga" (Economia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ecof-imposto-01
+  tema: "O que é tributo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destes é um tributo, segundo a aula?"
+  alternativas:
+    - texto: "Um imposto pago ao Estado, em dinheiro, previsto em lei"
+      certa: true
+    - texto: "Uma multa de trânsito"
+      erro: "Multa não é tributo, porque nasce de uma punição. Tributo é pagamento obrigatório, previsto em lei, que não é punição."
+    - texto: "Uma doação para uma campanha de rua"
+      erro: "Doação é voluntária. Tributo é obrigatório e instituído em lei."
+  explicacao: "Tributo é o pagamento obrigatório ao Estado, em dinheiro, instituído em lei, que não é punição. O imposto é um tipo de tributo. Os tributos pagam serviços como escola, SUS, estradas e aposentadorias."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Impostos: quem paga\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-imposto-02
+  tema: "Progressivo e regressivo"
+  dificuldade: 2
+  enunciado: "Num imposto progressivo, o que acontece quando a renda de uma pessoa aumenta?"
+  alternativas:
+    - texto: "A taxa aumenta: quem ganha mais paga uma porcentagem maior"
+      certa: true
+    - texto: "A taxa diminui: quem ganha mais paga porcentagem menor"
+      erro: "Isso descreve o imposto regressivo, que pesa mais, em proporção, sobre quem tem menos. No progressivo é o contrário."
+    - texto: "A taxa é sempre a mesma para todo mundo"
+      erro: "Taxa igual para todos não é progressiva. No imposto progressivo, a porcentagem sobe junto com a renda."
+  explicacao: "Progressivo: a taxa aumenta com a renda. Regressivo: pesa mais, em proporção, sobre quem tem menos. Saber a diferença ajuda a ver quem está carregando mais peso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Impostos: quem paga\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-imposto-03
+  tipo: numero
+  tema: "O imposto no preço"
+  dificuldade: 2
+  enunciado: "Numa compra de mercado vem embutido R$ 100 de imposto. Para uma pessoa que ganha R$ 2.000 por mês, que porcentagem da renda isso representa?"
+  resposta: "5"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "0,5"
+      explicacao: "0,5% é o valor para quem ganha R$ 20.000. Para quem ganha R$ 2.000, divida 100 por 2.000: dá 0,05, ou 5%."
+    - resposta: "20"
+      explicacao: "Você dividiu 2.000 por 100. Para saber que parte da renda é o imposto, divida o imposto pela renda: 100 ÷ 2.000 = 0,05, ou 5%."
+  dica: "Divida o valor do imposto pela renda e depois passe para porcentagem (multiplique por 100)."
+  explicacao: "100 ÷ 2.000 = 0,05, ou 5%. Para quem ganha R$ 20.000, o mesmo imposto é 0,5%. O imposto igual pesa dez vezes mais para quem ganha menos."
+  conferir: "100 / 2000 * 100"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Impostos: quem paga\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-imposto-04
+  tema: "O imposto no preço"
+  dificuldade: 3
+  enunciado: "Por que o imposto embutido no preço do arroz é considerado regressivo, mesmo que todos paguem o mesmo valor?"
+  alternativas:
+    - texto: "Porque o mesmo valor pesa muito mais na renda de quem ganha pouco"
+      certa: true
+    - texto: "Porque só os ricos compram arroz"
+      erro: "Os pobres compram arroz também, e muito. O ponto é que o mesmo valor de imposto é uma parte maior do salário de quem ganha pouco."
+    - texto: "Porque o arroz não paga imposto"
+      erro: "O imposto está embutido no preço. Quem gasta quase todo o salário em comida paga imposto sobre quase tudo o que ganha."
+  explicacao: "Quem ganha pouco gasta quase todo o salário com comida e roupa, então paga imposto sobre quase tudo o que ganha. Quem ganha muito gasta uma parte e guarda o resto, e por isso o imposto pesa menos em proporção."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Impostos: quem paga\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-imposto-05
+  tema: "Isenção do Imposto de Renda"
+  dificuldade: 2
+  enunciado: "Segundo a aula, a lei sancionada em novembro de 2025 isenta do Imposto de Renda quem ganha até quanto por mês, a partir de 2026?"
+  alternativas:
+    - texto: "Até R$ 5 mil"
+      certa: true
+    - texto: "Até R$ 600 mil"
+      erro: "R$ 600 mil por ano é o valor a partir do qual vale uma alíquota extra, de até 10%. A isenção é para quem ganha até R$ 5 mil por mês."
+    - texto: "Até R$ 500"
+      erro: "R$ 500 é um valor muito baixo. A lei isenta quem ganha até R$ 5 mil por mês, com desconto parcial para quem ganha até R$ 7.350."
+  explicacao: "A lei (Lei nº 15.270, de 26 de novembro de 2025) isenta quem ganha até R$ 5 mil por mês, com desconto parcial até R$ 7.350. Para compensar, criou uma alíquota extra, de até 10%, para quem recebe mais de R$ 600 mil por ano."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 15.270, de 26 de novembro de 2025 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao

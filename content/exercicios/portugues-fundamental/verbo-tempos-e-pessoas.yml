@@ -1,0 +1,50 @@
+# Exercícios da aula "Verbo: tempos e pessoas" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-verbo-tempos-e-pessoas-01
+  tema: "Conjugações"
+  dificuldade: 1
+  enunciado: "Quais são as três conjugações do verbo, pelo infinitivo?"
+  alternativas:
+    - texto: "Verbos terminados em -ar, -er e -ir"
+      certa: true
+    - texto: "Verbos no passado, presente e futuro"
+      erro: "Esses são os tempos."
+    - texto: "Verbos no singular e no plural"
+      erro: "Esses são os números."
+  explicacao: "O infinitivo é o nome do verbo no dicionário: cantar, vender, partir."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Verbo: tempos e pessoas\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-verbo-tempos-e-pessoas-02
+  tema: "Você e a gente"
+  dificuldade: 2
+  enunciado: "Que forma verbal vai com \"você\" e com \"vocês\"?"
+  alternativas:
+    - texto: "A da 3ª pessoa: você canta, vocês cantam"
+      certa: true
+    - texto: "A da 2ª pessoa: você cantas"
+      erro: "No Brasil, você pede o verbo na forma da 3ª pessoa."
+    - texto: "A da 1ª pessoa: você canto"
+      erro: "Não é a forma."
+  explicacao: "A gente quer dizer \"nós\" e pede o verbo no singular: a gente canta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Verbo: tempos e pessoas\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-verbo-tempos-e-pessoas-03
+  tema: "Pretérito imperfeito"
+  dificuldade: 2
+  enunciado: "Em \"cantava\", que valor o tempo expressa?"
+  alternativas:
+    - texto: "Fato passado que durava ou se repetia"
+      certa: true
+    - texto: "Fato passado e terminado"
+      erro: "Esse é o pretérito perfeito (cantei)."
+    - texto: "Fato que vai acontecer"
+      erro: "Esse é o futuro do presente (cantarei)."
+  explicacao: "Presente: canto. Perfeito: cantei. Imperfeito: cantava. Futuro do presente: cantarei. Futuro do pretérito: cantaria."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Verbo: tempos e pessoas\""
+  revisao:
+    status: em-revisao

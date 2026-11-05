@@ -1,0 +1,50 @@
+# Exercícios da aula "Por que falar em público dá medo" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-por-que-falar-em-publico-da-medo-01
+  tema: "Pico do medo"
+  dificuldade: 1
+  enunciado: "Quando a pesquisa citada na aula mediu o pico de estresse do corpo de quem vai falar?"
+  alternativas:
+    - texto: "No último minuto da fala"
+      erro: "O pico foi no minuto antes de começar."
+    - texto: "No minuto antes de começar"
+      certa: true
+    - texto: "No minuto depois da fala"
+      erro: "O pico foi antes. Depois que a fala começa, a ansiedade tende a cair."
+  explicacao: "Saber que o pior momento é antes da primeira frase já ajuda."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que falar em público dá medo\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-por-que-falar-em-publico-da-medo-02
+  tema: "Mito da piada"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre começar uma fala com uma piada?"
+  alternativas:
+    - texto: "Humor é difícil de acertar e pode ofender; se for usar, que seja sobre você, nunca sobre alguém"
+      certa: true
+    - texto: "É sempre a melhor forma de começar"
+      erro: "A aula chama isso de mito."
+    - texto: "É proibido por lei"
+      erro: "Não há lei. A aula só avisa dos riscos."
+  explicacao: "Outros mitos: \"quem tem medo de falar tem algum problema\" e \"imagine a plateia sem roupa\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que falar em público dá medo\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-por-que-falar-em-publico-da-medo-03
+  tema: "O corpo e o medo"
+  dificuldade: 2
+  enunciado: "Por que o corpo reage ao medo de falar com coração disparado e mãos suadas?"
+  alternativas:
+    - texto: "Porque a pessoa está doente"
+      erro: "Não. É uma reação normal."
+    - texto: "Porque o corpo não distingue ameaça social de física e se prepara para lutar ou fugir, soltando adrenalina"
+      certa: true
+    - texto: "Porque a pessoa não se preparou o suficiente"
+      erro: "O medo aparece até em quem se preparou e em oradores famosos."
+  explicacao: "O tremor aparece porque o corpo está pronto para se mexer e a gente fica parada. Essa energia, bem usada, vira animação e presença."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que falar em público dá medo\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,67 @@
+# Exercícios da aula "Liberdade e responsabilidade" (Filosofia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fil-liberdade-01
+  tema: "A existência precede a essência"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Para Sartre e Simone de Beauvoir, \"a existência precede a essência\". O que isso quer dizer, na aula?"
+  alternativas:
+    - texto: "Que cada pessoa já nasce com um destino pronto"
+      erro: "É o contrário: ninguém nasce com natureza ou destino prontos. Primeiro existimos, depois nos fazemos pelas escolhas."
+    - texto: "Que primeiro existimos e depois nos fazemos, pelas nossas escolhas"
+      certa: true
+    - texto: "Que as escolhas não importam, porque tudo já está decidido"
+      erro: "Para os existencialistas, as escolhas importam muito: é por elas que nos fazemos, e por isso somos responsáveis."
+  explicacao: "Para os existencialistas, ninguém nasce com uma natureza ou um destino prontos: primeiro existimos, e depois nos fazemos pelas nossas escolhas."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Liberdade e responsabilidade\" (fonte da aula: Wikipédia, \"Existencialismo\")"
+  revisao:
+    status: em-revisao
+
+- id: fil-liberdade-02
+  tema: "Liberdade e responsabilidade"
+  dificuldade: 2
+  enunciado: "Um aluno cola na prova e diz: \"eu não tive escolha, todo mundo estava colando\". O que a aula responde?"
+  alternativas:
+    - texto: "Que ele tinha a escolha de não colar e é responsável pelo que escolheu"
+      certa: true
+    - texto: "Que ele está certo, porque ninguém escolhe nada"
+      erro: "Mesmo quando as opções são poucas, há alguma escolha a fazer. Dizer \"todo mundo faz\" muitas vezes é um jeito de fugir da responsabilidade."
+    - texto: "Que a culpa é só do professor"
+      erro: "O professor pode ter responsabilidades, mas isso não tira a de quem escolheu colar."
+  explicacao: "Se somos livres para escolher, somos responsáveis pelo que escolhemos. \"Todo mundo fez\" não apaga a escolha de cada um."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Liberdade e responsabilidade\""
+  revisao:
+    status: em-revisao
+
+- id: fil-liberdade-03
+  tema: "Liberdade tem limite na lei"
+  dificuldade: 3
+  enunciado: "Segundo a aula, o artigo 5º, inciso II, da Constituição diz que..."
+  alternativas:
+    - texto: "ninguém será obrigado a fazer ou deixar de fazer alguma coisa senão em virtude de lei"
+      certa: true
+    - texto: "todos devem obedecer a qualquer ordem de uma autoridade"
+      erro: "O inciso diz o contrário: a obrigação precisa vir da lei, e não da vontade de quem manda."
+    - texto: "cada pessoa pode fazer o que quiser, sem nenhum limite"
+      erro: "A liberdade é a regra, mas os limites existem, e precisam estar na lei, feita para proteger todos."
+  explicacao: "O art. 5º, II, da Constituição de 1988 diz que ninguém será obrigado a fazer ou deixar de fazer alguma coisa senão em virtude de lei. A liberdade é a regra, e os limites precisam estar na lei."
+  fonte: "Constituição da República Federativa do Brasil de 1988, art. 5º, II (planalto.gov.br), conforme a aula \"Liberdade e responsabilidade\""
+  revisao:
+    status: em-revisao
+
+- id: fil-liberdade-04
+  tema: "Escolher em condições desiguais"
+  dificuldade: 2
+  enunciado: "Segundo a aula, por que é importante lembrar que nem todo mundo escolhe nas mesmas condições?"
+  alternativas:
+    - texto: "Porque quem tem pouco dinheiro, tempo ou proteção tem menos opções, e pensar a liberdade é também ampliar as opções de todos"
+      certa: true
+    - texto: "Porque, quem é pobre, não é responsável por nada"
+      erro: "A aula reconhece que as condições limitam as opções, mas diz que ainda há alguma escolha, e que reconhecê-la permite assumir as decisões e lutar por mais."
+    - texto: "Porque as condições são iguais para todos"
+      erro: "É justamente o contrário: as condições são desiguais, e isso precisa entrar na conversa sobre liberdade."
+  explicacao: "Quem tem pouco dinheiro, pouco tempo ou pouca proteção tem menos opções. Pensar a liberdade de verdade é também pensar em como ampliar as opções de todas as pessoas."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Liberdade e responsabilidade\""
+  revisao:
+    status: em-revisao

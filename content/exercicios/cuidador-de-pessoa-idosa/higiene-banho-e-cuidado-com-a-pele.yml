@@ -1,0 +1,84 @@
+# Exercícios da aula "Higiene, banho e cuidado com a pele" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação da equipe de saúde.
+
+- id: cuid-higiene-01
+  tema: "Dignidade no banho"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Ao ajudar uma pessoa idosa no banho, o que a aula manda fazer logo no começo?"
+  alternativas:
+    - texto: "Pedir permissão, explicar o que vai fazer, fechar a porta e cobrir com toalha as partes que não estão sendo lavadas"
+      certa: true
+    - texto: "Tirar a roupa rápido e lavar tudo sem avisar, para ganhar tempo"
+      erro: "Avisar e pedir permissão evita susto e preserva a dignidade da pessoa, que é um direito (Estatuto, art. 10)."
+    - texto: "Deixar a porta aberta para vigiar melhor"
+      erro: "O banho é um dos momentos mais íntimos de uma vida. Feche a porta e a cortina, e fique perto sem expor a pessoa."
+  explicacao: "O Estatuto da Pessoa Idosa garante dignidade e respeito (art. 10) e proíbe a negligência e a humilhação (art. 4º). Na prática: pedir permissão, explicar, fechar a porta, cobrir o corpo, deixar a pessoa fazer o que consegue e conversar sem pressa."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003 (Estatuto da Pessoa Idosa), arts. 4º e 10, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-higiene-02
+  tema: "Banho com segurança"
+  dificuldade: 2
+  enunciado: "Qual é o jeito certo de testar a temperatura da água do banho de uma pessoa idosa?"
+  alternativas:
+    - texto: "Testar com a parte de dentro do punho ou com um termômetro, e usar água morna"
+      certa: true
+    - texto: "Usar água bem quente, porque o idoso sente frio"
+      erro: "A pele idosa sente menos o calor e pode se queimar. A água deve ser morna, testada antes."
+    - texto: "Não testar, porque a pessoa avisa se estiver quente"
+      erro: "Quem tem a pele idosa pode não sentir a queimadura a tempo. Teste sempre antes."
+  explicacao: "O banho seguro tem ambiente aquecido e sem corrente de ar, água morna testada, piso antiderrapante, barra de apoio, cadeira de banho se a pessoa se cansa, tudo à mão e nunca deixar a pessoa sozinha. Sabonete neutro e sem esfregar forte, pois a pele idosa é fina e ressecada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene, banho e cuidado com a pele\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-higiene-03
+  tema: "Lesão por pressão"
+  dificuldade: 2
+  enunciado: "Ao dar banho, você vê uma área vermelha no calcanhar de uma pessoa que passa o dia na cama, e a vermelhidão não some quando a pressão é aliviada. O que fazer?"
+  alternativas:
+    - texto: "Aliviar a pressão (com um apoio sob o calcanhar), manter a pele limpa e seca e avisar a UBS no mesmo dia"
+      certa: true
+    - texto: "Massagear com força para melhorar a circulação"
+      erro: "Massagem forte numa área avermelhada pode piorar a lesão. Alivie a pressão e avise a UBS."
+    - texto: "Ignorar, porque é só uma mancha"
+      erro: "Vermelhidão que não some é o começo da lesão por pressão (escara), que pode infeccionar e é grave."
+  explicacao: "A lesão por pressão começa como vermelhidão que não some, em calcanhares, final da coluna, quadril, cotovelos e parte de trás da cabeça. Para evitar: mudar de posição conforme a equipe de saúde orientar, manter a pele limpa e seca, lençóis esticados, apoios e alimentação e água. Febre, mau cheiro ou pus pedem atendimento com urgência."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene, banho e cuidado com a pele\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-higiene-04
+  tema: "Unhas dos pés"
+  dificuldade: 3
+  enunciado: "Seu Antônio tem diabetes e as unhas dos pés estão grandes. O que a aula recomenda ao cuidador?"
+  alternativas:
+    - texto: "Não cortar sozinho: pedir orientação na UBS, porque diabetes e má circulação pedem cuidado especial"
+      certa: true
+    - texto: "Cortar bem rente, para não precisar cortar de novo tão cedo"
+      erro: "Quem tem diabetes ou problema de circulação pode se ferir e cicatrizar mal. A aula manda pedir orientação na UBS."
+    - texto: "Deixar crescer sem nunca mexer"
+      erro: "Unhas muito grandes também incomodam. A orientação é buscar a UBS para saber como cuidar."
+  explicacao: "As unhas das mãos podem ser cortadas retas, com cuidado, depois do banho. Nas unhas dos pés de quem tem diabetes ou problema de circulação, o cuidador não deve cortar sozinho: peça orientação na UBS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene, banho e cuidado com a pele\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-higiene-05
+  tema: "A dentadura"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que fazer com a dentadura de uma pessoa idosa à noite?"
+  alternativas:
+    - texto: "Retirar, limpar e guardar em um recipiente com água limpa"
+      certa: true
+    - texto: "Deixar na boca para dormir"
+      erro: "A aula manda retirar a dentadura à noite, limpar e guardar em recipiente com água limpa."
+    - texto: "Guardar seca dentro de um papel"
+      erro: "Deve ficar em recipiente com água limpa. E boca machucada ou dentadura que não encaixa merecem avaliação do dentista da UBS."
+  explicacao: "A higiene da boca é feita depois das refeições, com escova macia, nos dentes ou na prótese. À noite, retire a dentadura, limpe e guarde em recipiente com água limpa. Dor ao mastigar ou dentadura que não encaixa pedem o dentista da UBS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Higiene, banho e cuidado com a pele\""
+  revisao:
+    status: em-revisao

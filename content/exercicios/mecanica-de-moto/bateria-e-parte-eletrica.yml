@@ -1,0 +1,50 @@
+# Exercícios da aula "Bateria e parte elétrica" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-bateria-e-parte-eletrica-01
+  tema: "O que o fusível faz"
+  dificuldade: 1
+  enunciado: "Para que serve o fusível na moto?"
+  alternativas:
+    - texto: "Para guardar energia para a partida"
+      erro: "Quem guarda energia para a partida é a bateria. O fusível é o guarda do circuito."
+    - texto: "Para proteger a fiação, queimando antes que ela esquente demais"
+      certa: true
+    - texto: "Para regular a velocidade do motor"
+      erro: "O fusível não tem relação com a velocidade. Ele queima antes da fiação, protegendo o circuito."
+  explicacao: "O fusível queima antes da fiação. Por isso, ao trocar, use sempre o valor do manual, nunca fio nem fusível maior."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Bateria e parte elétrica\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-bateria-e-parte-eletrica-02
+  tema: "Tensão com o motor ligado"
+  dificuldade: 2
+  enunciado: "Você mede a bateria com o motor desligado e depois com ele ligado. O que a aula diz que deve acontecer com a tensão ao ligar o motor?"
+  alternativas:
+    - texto: "Deve cair a zero"
+      erro: "Com o motor ligado, o gerador está carregando a bateria e a tensão sobe, não cai."
+    - texto: "Deve subir, tipicamente para algo entre 13 e 14,5 V"
+      certa: true
+    - texto: "Deve ficar exatamente igual"
+      erro: "Se ficar igual, o problema pode estar no gerador ou no regulador. Com o motor ligado a tensão normalmente sobe."
+  explicacao: "Com o motor ligado, o gerador produz energia e a tensão costuma subir para algo entre 13 e 14,5 V. Se não sobe, suspeite do gerador ou do regulador, e não da bateria."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Bateria e parte elétrica\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-bateria-e-parte-eletrica-03
+  tema: "Segurança na bateria"
+  dificuldade: 2
+  enunciado: "Qual cuidado a aula manda ter ao mexer na bateria da moto?"
+  alternativas:
+    - texto: "Tirar o cabo positivo primeiro e colocar o negativo primeiro"
+      erro: "A aula manda tirar o negativo primeiro e colocar por último."
+    - texto: "Usar luvas e óculos, não fazer faísca perto e tirar o cabo negativo primeiro"
+      certa: true
+    - texto: "Fazer ligação direta para ver se pega"
+      erro: "A aula manda nunca fazer ligação direta ou \"tiro\" sem saber o que está fazendo."
+  explicacao: "A bateria pode ter ácido e faísca é perigosa. Use luvas e óculos, retire o negativo primeiro e recoloque por último."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Bateria e parte elétrica\""
+  revisao:
+    status: em-revisao

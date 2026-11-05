@@ -1,0 +1,70 @@
+# Exercícios da aula "Estudar em grupo" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-grupo-01
+  tema: "Montar o grupo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quantas pessoas a aula sugere para um grupo de estudo?"
+  alternativas:
+    - texto: "De três a cinco, com o mesmo objetivo"
+      certa: true
+    - texto: "Só duas, para ninguém se distrair"
+      erro: "Com duas pessoas é difícil manter o grupo se uma falta. A aula sugere de três a cinco."
+    - texto: "Dez ou mais, para ter mais ideias"
+      erro: "Grupos muito grandes dificultam que todos falem. A aula sugere de três a cinco pessoas."
+  explicacao: "O grupo ideal tem de três a cinco pessoas que tenham o mesmo objetivo (a mesma prova, o mesmo conteúdo), com horário fixo e pauta curta."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar em grupo\""
+  revisao:
+    status: em-revisao
+
+- id: estud-grupo-02
+  tema: "Boa pauta"
+  dificuldade: 2
+  enunciado: "Qual é uma boa pauta para um encontro de 60 minutos?"
+  alternativas:
+    - texto: "\"Estudar tudo de matemática\""
+      erro: "Pauta grande demais não cabe em uma hora. A pauta deve ser curta e combinada na semana anterior."
+    - texto: "\"Porcentagem: cada um explica um exemplo e resolvemos 3 exercícios\""
+      certa: true
+    - texto: "\"Conversar sobre a semana\""
+      erro: "Sem pauta de estudo, o encontro vira só desabafo. A aula lembra que isso é sinal de falta de pauta."
+  explicacao: "Uma boa pauta é curta e específica: um assunto, quem explica e quantos exercícios resolver. Foi combinada na semana anterior, para cada um estudar um pouco antes."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar em grupo\""
+  revisao:
+    status: em-revisao
+
+- id: estud-grupo-03
+  tema: "Tempo do encontro"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "No encontro de 60 minutos da aula, há 10 minutos para cada um dizer o que estudou, 30 para explicar e resolver exercícios e 5 para combinar a próxima vez. Quantos minutos sobram para cada um responder uma pergunta sem olhar?"
+  resposta: "15"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "45"
+      explicacao: "45 é a soma de 10 + 30 + 5. Para achar o que sobra, subtraia essa soma dos 60 minutos."
+    - resposta: "5"
+      explicacao: "5 minutos é o tempo de combinar a próxima vez. Calcule 60 menos os três tempos já dados."
+  dica: "Some os tempos já dados e subtraia de 60."
+  explicacao: "10 + 30 + 5 = 45 minutos. Sobram 60 − 45 = 15 minutos para cada um responder uma pergunta, sem olhar, sobre o que foi visto."
+  conferir: "60 - (10 + 30 + 5)"
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar em grupo\""
+  revisao:
+    status: em-revisao
+
+- id: estud-grupo-04
+  tema: "Quando alguém some"
+  dificuldade: 2
+  enunciado: "Duda faltou a dois encontros do grupo. O que a aula sugere?"
+  alternativas:
+    - texto: "Cobrar na frente de todos e tirar Duda do grupo"
+      erro: "A aula pede respeito: cada um fala, ninguém humilha. Cobrança pública afasta ainda mais."
+    - texto: "Mandar mensagem sem cobrança, perguntar se Duda precisa de ajuda ou mudar o horário"
+      certa: true
+    - texto: "Ignorar, porque cada um é responsável por si"
+      erro: "Estudar em grupo é justamente cuidar do grupo. Uma mensagem sem cobrança costuma trazer a pessoa de volta."
+  explicacao: "Se alguém some, mande mensagem sem cobrança, pergunte se precisa de ajuda ou mude o horário. Quem trabalha tem imprevistos, e o grupo precisa caber na rotina de todos."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar em grupo\""
+  revisao:
+    status: em-revisao

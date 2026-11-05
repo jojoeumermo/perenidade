@@ -1,0 +1,89 @@
+# Exercícios da aula "Barras e bainhas" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-barras-01
+  tema: "Para que serve a bainha"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para que serve a bainha, segundo a aula?"
+  alternativas:
+    - texto: "Evita que o tecido desfie e acerta o comprimento da peça"
+      certa: true
+    - texto: "Só enfeita a peça, sem outra função"
+      erro: "A bainha enfeita, mas a função principal é evitar que a beirada desfie e acertar o comprimento."
+    - texto: "Serve para o tecido encolher menos"
+      erro: "A bainha não controla o encolhimento. Ela fecha a beirada cortada e define o comprimento."
+  explicacao: "A bainha é a beirada dobrada e costurada, como na barra da calça, no punho da manga e na barra da saia. A mais comum dobra uma vez, dobra de novo e costura, deixando a beirada cortada totalmente fechada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Barras e bainhas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-barras-02
+  tema: "Marcar o comprimento"
+  dificuldade: 1
+  enunciado: "Como marcar o novo comprimento de uma calça, segundo a aula?"
+  alternativas:
+    - texto: "Com a pessoa vestindo a peça e com o sapato que vai usar, parada e reta, conferindo de frente, de lado e de trás"
+      certa: true
+    - texto: "Medindo a calça dobrada em cima da mesa, sem a pessoa"
+      erro: "A altura certa depende do sapato e de como a calça cai no corpo. Marque com a pessoa vestida e de sapato."
+    - texto: "Cortando direto, sem marcar, para ganhar tempo"
+      erro: "Primeiro prenda com alfinetes e confira de todos os lados; depois marque a linha da dobra com giz, por toda a volta."
+  explicacao: "Dobre a barra para dentro até o comprimento certo e prenda com alfinetes. Confira de frente, de lado e de trás. Tire a peça e marque a linha da dobra com giz, por toda a volta, sempre à mesma distância do chão ou da costura de baixo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Barras e bainhas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-barras-03
+  tipo: numero
+  tema: "Quanto tecido deixar"
+  dificuldade: 2
+  enunciado: "Você vai fazer uma bainha dupla com barra pronta de 3 cm e primeira dobra de 1 cm. Quantos centímetros de tecido deixar abaixo da marca do comprimento?"
+  resposta: "4"
+  unidade: "cm"
+  erros_comuns:
+    - resposta: "3"
+      explicacao: "Os 3 cm são só a barra que aparece. Falta a primeira dobra de 1 cm, que esconde a beirada crua: 3 + 1."
+    - resposta: "1"
+      explicacao: "1 cm é só a primeira dobra. Abaixo da marca ficam a barra pronta e a primeira dobra: 3 + 1."
+  dica: "Some a altura da barra pronta com a primeira dobra."
+  explicacao: "Tecido abaixo da marca = altura da barra pronta + primeira dobra = 3 + 1 = 4 cm. Corte o resto."
+  conferir: "3 + 1"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Barras e bainhas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-barras-04
+  tipo: numero
+  tema: "Quanto tecido deixar"
+  dificuldade: 2
+  enunciado: "Uma calça jeans está 6 cm comprida. Você vai fazer bainha dupla pespontada com barra pronta de 2 cm e primeira dobra de 1 cm. Quantos centímetros de tecido ficam abaixo da nova marca de comprimento?"
+  resposta: "3"
+  unidade: "cm"
+  erros_comuns:
+    - resposta: "6"
+      explicacao: "Os 6 cm são o quanto a calça está comprida, e não o que fica abaixo da marca. Abaixo da nova marca ficam a barra pronta e a primeira dobra: 2 + 1."
+    - resposta: "2"
+      explicacao: "Os 2 cm são só a barra que aparece. Falta a primeira dobra de 1 cm: 2 + 1."
+  dica: "Some a barra pronta com a primeira dobra."
+  explicacao: "2 + 1 = 3 cm abaixo da nova marca. Marque o novo comprimento com a pessoa vestida e de sapato, desmanche a barra antiga, passe a ferro, corte 3 cm abaixo da marca, dobre 1 cm e depois 2 cm e pesponte perto da dobra de cima."
+  conferir: "2 + 1"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Barras e bainhas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-barras-05
+  tema: "Qual bainha usar"
+  dificuldade: 2
+  enunciado: "Qual bainha a aula indica para camiseta e legging, que são de malha?"
+  alternativas:
+    - texto: "Bainha em malha: uma dobra e ponto que estica, como o zigue-zague estreito"
+      certa: true
+    - texto: "Dupla pespontada com ponto reto, bem apertado"
+      erro: "O ponto reto não estica, e a costura arrebenta quando a malha estica. Na malha, use ponto que estica."
+    - texto: "Nenhuma: malha não precisa de bainha"
+      erro: "Malha também precisa de acabamento na barra. A diferença é usar um ponto que acompanhe o esticar do tecido."
+  explicacao: "Dupla pespontada: jeans, roupas de casa, ecobag. Invisível: calça social e saia. Com overloque: tecidos grossos, para não ficar volume. Em malha: camiseta e legging, com ponto que estica."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Barras e bainhas\""
+  revisao:
+    status: em-revisao

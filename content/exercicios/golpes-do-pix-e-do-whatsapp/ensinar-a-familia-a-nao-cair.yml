@@ -1,0 +1,67 @@
+# Exercícios da aula "Ensinar a família a não cair" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-fam-01
+  tema: "Palavra-senha"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual é uma boa palavra-senha da família para pedidos urgentes por mensagem?"
+  alternativas:
+    - texto: "Uma lembrança ou pergunta que só a família sabe e que não está nas redes"
+      certa: true
+    - texto: "A data de aniversário de cada um"
+      erro: "Data de aniversário costuma estar nas redes ou ser fácil de achar. A palavra-senha deve ser algo que só vocês sabem."
+    - texto: "O nome do cachorro, que aparece em todas as fotos"
+      erro: "Se está nas fotos públicas, o golpista descobre. Escolha algo que só a família conhece."
+  explicacao: "A palavra-senha confirma que é mesmo o parente: não é desconfiar dele, é proteger a família de quem finge ser ele."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-fam-02
+  tema: "Conversar sem humilhar"
+  dificuldade: 1
+  enunciado: "Seu tio caiu num golpe e está calado de vergonha. Qual é a melhor primeira frase?"
+  alternativas:
+    - texto: "'Isso acontece com muita gente. Vamos ligar para o banco agora, que ainda dá tempo'"
+      certa: true
+    - texto: "'Eu avisei tantas vezes'"
+      erro: "Repreender faz a pessoa esconder o próximo golpe. Comece pelo apoio e pela ação."
+    - texto: "'Vou contar para todo mundo, para aprenderem'"
+      erro: "Expor o tio aumenta a vergonha. Dê apoio e vá ao banco."
+  explicacao: "Quem caiu merece apoio. Comece pelo respeito e combine o passo seguinte: ligar para o banco primeiro, depois fazer o boletim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-fam-03
+  tema: "Mensagem de golpe no grupo"
+  dificuldade: 2
+  enunciado: "Chegou no grupo da família uma mensagem de golpe. O que é melhor fazer?"
+  alternativas:
+    - texto: "Avisar com calma, apontar o sinal (pede dinheiro por link e tem pressa) e pedir que ninguém clique"
+      certa: true
+    - texto: "Encaminhar a mensagem para todo mundo, para alertar"
+      erro: "Encaminhar espalha o golpe. Avise sem reenviar o link."
+    - texto: "Ficar quieto, porque cada um que se cuide"
+      erro: "A proteção é coletiva: o golpista usa a conta de um parente para enganar os outros."
+  explicacao: "Proteção é coletiva. Aponte o sinal, peça que ninguém clique e evite reencaminhar o golpe 'para alertar'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-fam-04
+  tema: "Regra de ligar antes"
+  dificuldade: 2
+  enunciado: "O que diz a 'regra do ligar antes'?"
+  alternativas:
+    - texto: "Pedido de dinheiro por mensagem, mesmo de quem a gente ama, só se atende depois de ligar para a pessoa em um número que já tinha"
+      certa: true
+    - texto: "Ligar para o número que aparece na própria mensagem"
+      erro: "O número da mensagem pode ser do golpista. Ligue para um número que você já tinha."
+    - texto: "Só pagar quem ligou antes, mesmo sem conferir quem é"
+      erro: "A ligação precisa ser feita por você, para um número conhecido. Quem liga para você pode ser golpista."
+  explicacao: "A regra de ligar antes confirma por outro canal. Leva dez segundos e é um gesto de cuidado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

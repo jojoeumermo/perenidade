@@ -1,0 +1,50 @@
+# Exercícios da aula "Por que, porque, por quê e porquê" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-por-que-porque-por-que-e-porque-01
+  tema: "Pergunta"
+  dificuldade: 1
+  enunciado: "\"___ o aluguel subiu?\" Qual forma completa a pergunta?"
+  alternativas:
+    - texto: "Por que"
+      certa: true
+    - texto: "Porque"
+      erro: "\"Porque\" é a resposta."
+    - texto: "Porquê"
+      erro: "\"Porquê\" é substantivo, o motivo."
+  explicacao: "O teste: se dá para dizer \"por qual motivo\", é separado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que, porque, por quê e porquê\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-por-que-porque-por-que-e-porque-02
+  tema: "Resposta"
+  dificuldade: 1
+  enunciado: "\"Não fui ___ estava trabalhando.\" Qual forma completa a frase?"
+  alternativas:
+    - texto: "porque"
+      certa: true
+    - texto: "por que"
+      erro: "Aqui a frase dá a causa. Troque por \"pois\": \"Não fui pois estava trabalhando\"."
+    - texto: "por quê"
+      erro: "\"Por quê\" fica no fim da frase."
+  explicacao: "O teste: troque por \"pois\" ou \"já que\". Se a frase continua fazendo sentido, é junto."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que, porque, por quê e porquê\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-por-que-porque-por-que-e-porque-03
+  tema: "Fim de frase"
+  dificuldade: 2
+  enunciado: "\"Ela foi embora e não disse ___.\" Qual forma completa?"
+  alternativas:
+    - texto: "por quê"
+      certa: true
+    - texto: "porque"
+      erro: "\"Porque\" é a resposta, e não vai no fim da frase."
+    - texto: "porquê"
+      erro: "\"Porquê\" é substantivo, vem depois de o, um, os."
+  explicacao: "No fim da frase, o \"que\" é pronunciado com força e ganha acento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que, porque, por quê e porquê\""
+  revisao:
+    status: em-revisao

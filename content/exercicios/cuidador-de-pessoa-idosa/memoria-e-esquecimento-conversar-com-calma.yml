@@ -1,0 +1,68 @@
+# Exercícios da aula "Memória e esquecimento: conversar com calma" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a avaliação de profissional de saúde.
+
+- id: cuid-memoria-01
+  tema: "Esquecimento que pede avaliação"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual destes esquecimentos merece procurar a UBS, segundo a aula?"
+  alternativas:
+    - texto: "Perder-se em lugar conhecido, esquecer de comer ou de tomar o remédio, ou repetir muito a mesma pergunta"
+      certa: true
+    - texto: "Esquecer onde deixou a chave de vez em quando"
+      erro: "Todo mundo esquece a chave. Isso, em geral, não atrapalha a vida. O sinal de alerta é quando o esquecimento atrapalha o dia a dia."
+    - texto: "Esquecer o nome de uma música"
+      erro: "Esquecimentos pequenos, que não atrapalham a vida, são comuns. A UBS entra quando o esquecimento atrapalha o dia a dia."
+  explicacao: "Esquecer faz parte, mas nem tudo. As causas são muitas (remédio, depressão, problema de saúde, falta de sono) e só o profissional de saúde pode avaliar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Memória e esquecimento: conversar com calma\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-memoria-02
+  tema: "O papel do cuidador"
+  dificuldade: 1
+  enunciado: "O que o cuidador deve fazer diante de esquecimentos que atrapalham a vida da pessoa idosa?"
+  alternativas:
+    - texto: "Observar, anotar com exemplos e datas e levar à UBS para avaliação"
+      certa: true
+    - texto: "Fazer o diagnóstico em casa"
+      erro: "Cuidador e família não fazem diagnóstico. Quem avalia é o profissional de saúde."
+    - texto: "Esconder o problema para ninguém saber"
+      erro: "Esconder atrasa a ajuda. Anotar o que aconteceu e levar à UBS é o caminho."
+  explicacao: "Cuidador e família não fazem diagnóstico: observam, anotam e levam à consulta. Na UBS, a equipe de saúde da família pode também visitar a casa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Memória e esquecimento: conversar com calma\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-memoria-03
+  tema: "Conversar com calma"
+  dificuldade: 2
+  enunciado: "A pessoa idosa se confunde e afirma que é dia de outra semana. Qual resposta combina com a aula?"
+  alternativas:
+    - texto: "Acolher, sem discutir quem está certo, e redirecionar: \"Vamos tomar um café?\""
+      certa: true
+    - texto: "Corrigir com firmeza, até ela entender"
+      erro: "Corrigir com brusquidão e discutir quem está certo não ajuda. A pessoa não esquece por querer: acolha e redirecione."
+    - texto: "Falar com ela como se fosse criança"
+      erro: "A pessoa é adulta, com história e dignidade (Estatuto, art. 10). Fale devagar, de frente, com frases curtas, sem tratá-la como criança."
+  explicacao: "Conversar com calma é falar devagar, de frente, com uma ideia de cada vez, repetir sem cansar, usar lembretes visuais (quadro com o dia, relógio grande, fotos) e manter uma rotina de horários parecidos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Memória e esquecimento: conversar com calma\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-memoria-04
+  tema: "Segurança sem prender"
+  dificuldade: 2
+  enunciado: "Dona Teresa saiu para a padaria e demorou a voltar, sem saber o caminho. Qual atitude da filha, entre as da aula, ajuda na segurança?"
+  alternativas:
+    - texto: "Colocar um cartão com nome e telefone na bolsa dela, acompanhar nas saídas e cuidar do gás"
+      certa: true
+    - texto: "Trancar dona Teresa em casa para sempre"
+      erro: "A aula fala em segurança sem prender: identificação, acompanhamento e cuidado com o gás, e não em isolar a pessoa."
+    - texto: "Dar remédio por conta própria para ela esquecer menos"
+      erro: "Remédio só com indicação de profissional de saúde. O cuidador não faz diagnóstico nem receita."
+  explicacao: "Ana não brigou, conversou com calma, anotou os fatos das últimas semanas, levou à UBS para avaliação, passou a acompanhar as saídas, colocou o cartão na bolsa e deixou o gás desligado quando dona Teresa ia sozinha à cozinha."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Memória e esquecimento: conversar com calma\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Judaísmo: um povo e um livro" (religioes-do-mundo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-do-mundo-judaismo-um-povo-e-um-livro-01
+  tema: "Tanakh"
+  dificuldade: 1
+  enunciado: "De onde vem o nome Tanakh, da Bíblia Hebraica?"
+  alternativas:
+    - texto: "Das iniciais das três partes: Torá, Nevi'im e Ketuvim"
+      certa: true
+    - texto: "Do nome do primeiro profeta"
+      erro: "Vem das iniciais das três partes."
+    - texto: "Do nome de uma cidade"
+      erro: "Não é isso."
+  explicacao: "Torá são os cinco primeiros livros; Nevi'im, os Profetas; Ketuvim, os Escritos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Judaísmo: um povo e um livro\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-judaismo-um-povo-e-um-livro-02
+  tema: "Povo e religião"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre ser judeu?"
+  alternativas:
+    - texto: "Os judeus são um grupo etnorreligioso: é possível ser judeu pela origem e pela cultura, e a prática varia de muito estrita a inexistente"
+      certa: true
+    - texto: "Só é judeu quem pratica todos os rituais"
+      erro: "A prática varia de muito estrita a inexistente."
+    - texto: "Judaísmo é só uma questão de nacionalidade"
+      erro: "A aula o descreve como religião e povo, um grupo etnorreligioso."
+  explicacao: "O judaísmo é uma religião abraâmica e monoteísta, considerada uma das primeiras monoteístas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Judaísmo: um povo e um livro\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-judaismo-um-povo-e-um-livro-03
+  tema: "Perseguições"
+  dificuldade: 2
+  enunciado: "Que fato histórico a aula cita sobre perseguições aos judeus?"
+  alternativas:
+    - texto: "Foram expulsos da Espanha em 1492, e a França revolucionária, em 1791, foi o primeiro país a abolir completamente as restrições"
+      certa: true
+    - texto: "Foram expulsos da Espanha em 1791"
+      erro: "As datas estão trocadas: a expulsão foi em 1492 e a abolição na França, em 1791."
+    - texto: "Nunca sofreram restrições"
+      erro: "A aula cita proibições de ocupar cargos ou abrir sinagogas."
+  explicacao: "Em vários lugares foram proibidos de ocupar cargos ou de abrir sinagogas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Judaísmo: um povo e um livro\""
+  revisao:
+    status: em-revisao

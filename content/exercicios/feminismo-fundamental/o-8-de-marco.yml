@@ -1,0 +1,69 @@
+# Exercícios da aula "O 8 de março" (Feminismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fem-oito-marco-01
+  tema: "A origem do dia"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, de onde surgiu a ideia de um Dia das Mulheres?"
+  alternativas:
+    - texto: "De uma campanha de lojas para vender flores"
+      erro: "O comércio veio depois. A data nasceu de lutas: em 1909, o Partido Socialista da América organizou em Nova York um Dia das Mulheres pela igualdade de direitos e pelo voto feminino."
+    - texto: "De um Dia das Mulheres organizado em Nova York, em 1909, pela igualdade de direitos e pelo voto feminino"
+      certa: true
+    - texto: "De uma decisão da ONU em 1900"
+      erro: "A ONU só adotou o 8 de março em 1975, o Ano Internacional da Mulher."
+  explicacao: "A ideia surgiu depois que o Partido Socialista da América organizou um Dia das Mulheres em Nova York, em 28 de fevereiro de 1909, pela igualdade de direitos e pelo voto feminino."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O 8 de março\" (fontes da aula: Wikipédia, \"Dia Internacional das Mulheres\" e \"International Women's Day\")"
+  revisao:
+    status: em-revisao
+
+- id: fem-oito-marco-02
+  tema: "Clara Zetkin"
+  dificuldade: 2
+  enunciado: "O que a socialista alemã Clara Zetkin propôs em 1910, numa conferência de mulheres da Internacional Socialista em Copenhague?"
+  alternativas:
+    - texto: "Que o Dia das Mulheres fosse celebrado todos os anos"
+      certa: true
+    - texto: "Que o 8 de março virasse feriado em todos os países"
+      erro: "Em 1910 ainda não havia data fixa, e o 8 de março só foi adotado pela ONU em 1975. A proposta de Zetkin era que o dia fosse celebrado todo ano."
+    - texto: "Que as mulheres deixassem o trabalho nas fábricas"
+      erro: "A luta era por mais direitos, e não por sair do trabalho. A proposta foi um dia anual de manifestação das mulheres."
+  explicacao: "Clara Zetkin propôs que o Dia das Mulheres fosse celebrado todos os anos, ainda sem data fixa."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O 8 de março\" (fonte da aula: Wikipédia, \"Clara Zetkin\")"
+  revisao:
+    status: em-revisao
+
+- id: fem-oito-marco-03
+  tema: "A passeata de 1917"
+  dificuldade: 2
+  enunciado: "O que aconteceu em 8 de março de 1917 (23 de fevereiro no calendário russo da época), segundo a aula?"
+  alternativas:
+    - texto: "Uma grande passeata de mulheres na Rússia contra a carestia, o desemprego e a piora das condições de vida, que ajudou a começar a Revolução de 1917"
+      certa: true
+    - texto: "A ONU declarou o Dia Internacional da Mulher"
+      erro: "Isso só aconteceu em 1975."
+    - texto: "O primeiro Dia das Mulheres, em Nova York"
+      erro: "Em Nova York o Dia das Mulheres foi em 1909, bem antes."
+  explicacao: "Em 8 de março de 1917, na Rússia, mulheres fizeram uma grande passeata contra a carestia, o desemprego e a piora da vida. Operários metalúrgicos se juntaram a elas e a manifestação ajudou a começar a Revolução. Por isso o movimento socialista adotou o 8 de março."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O 8 de março\""
+  revisao:
+    status: em-revisao
+
+- id: fem-oito-marco-04
+  tema: "Linha do tempo"
+  dificuldade: 3
+  enunciado: "Qual destas sequências coloca os fatos na ordem certa: (a) a ONU adota o 8 de março; (b) Clara Zetkin propõe um dia anual; (c) Dia das Mulheres em Nova York; (d) passeata de mulheres na Rússia?"
+  alternativas:
+    - texto: "c, b, d, a"
+      certa: true
+    - texto: "b, c, a, d"
+      erro: "O Dia das Mulheres em Nova York (1909) veio antes da proposta de Zetkin (1910), e a ONU (1975) veio depois da passeata na Rússia (1917)."
+    - texto: "c, d, b, a"
+      erro: "A proposta de Zetkin foi em 1910, antes da passeata de 1917."
+    - texto: "a, b, c, d"
+      erro: "A ONU adotou o 8 de março só em 1975, o último fato da lista."
+  explicacao: "1909: Dia das Mulheres em Nova York (c). 1910: Clara Zetkin propõe um dia anual (b). 1917: passeata na Rússia (d). 1975: a ONU adota o 8 de março (a)."
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"O 8 de março\""
+  revisao:
+    status: em-revisao

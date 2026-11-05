@@ -1,0 +1,84 @@
+# Exercícios da aula "Sinais de violência e onde denunciar: o Disque 100" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação da Defensoria Pública ou de advogado.
+
+- id: cuid-violencia-01
+  tema: "O que diz a lei"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo o art. 4º do Estatuto da Pessoa Idosa, o que nenhuma pessoa idosa pode sofrer?"
+  alternativas:
+    - texto: "Qualquer tipo de negligência, discriminação, violência, crueldade ou opressão"
+      certa: true
+    - texto: "Apenas agressão física, e mais nada"
+      erro: "A lei vai além da agressão física: inclui negligência, discriminação, crueldade e opressão."
+    - texto: "Nada, porque a proteção é só para quem mora em instituição"
+      erro: "A proteção vale para toda pessoa idosa, em casa ou fora dela."
+  explicacao: "O art. 4º proíbe qualquer tipo de negligência, discriminação, violência, crueldade ou opressão. O art. 19 manda notificar a suspeita ou a confirmação de violência. E o art. 3º coloca o dever de assegurar os direitos na família, na comunidade, na sociedade e no poder público."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, arts. 3º, 4º e 19 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-violencia-02
+  tema: "Tipos de violência"
+  dificuldade: 2
+  enunciado: "Um vizinho fica com a aposentadoria e o cartão do avô e o pressiona a assinar papéis. Que tipo de violência a aula descreve?"
+  alternativas:
+    - texto: "Financeira (patrimonial)"
+      certa: true
+    - texto: "Física"
+      erro: "Violência física deixa hematomas, queimaduras ou fraturas sem explicação. Ficar com a aposentadoria e o cartão é violência financeira (patrimonial)."
+    - texto: "Nenhuma: é só ajuda da família"
+      erro: "Ficar com a aposentadoria, o cartão ou pressionar a assinar ou vender bens é violência financeira. A lei trata a apropriação desses recursos como crime (art. 102)."
+  explicacao: "Os tipos são: física, psicológica, negligência e abandono, financeira (patrimonial) e sexual. Um sinal isolado nem sempre prova violência (um hematoma pode ser de queda): vale observar o conjunto, como mudança de comportamento, medo de uma pessoa e explicações que não batem."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, art. 102 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-violencia-03
+  tema: "Sinais"
+  dificuldade: 2
+  enunciado: "Qual destes conjuntos de sinais, segundo a aula, pode indicar negligência ou abandono?"
+  alternativas:
+    - texto: "Higiene precária, desnutrição, feridas sem cuidado, remédio sem dar e pessoa deixada sozinha por muito tempo"
+      certa: true
+    - texto: "Pessoa limpa, bem alimentada e acompanhada"
+      erro: "Isso é o oposto: é sinal de cuidado."
+    - texto: "Um único hematoma depois de uma queda comentada por todos"
+      erro: "Um sinal isolado nem sempre prova violência. Vale observar o conjunto e a mudança de comportamento."
+  explicacao: "A negligência e o abandono aparecem em higiene precária, desnutrição, feridas sem cuidado, remédio sem dar ou pessoa deixada sozinha por muito tempo. O abandono, ou não prover as necessidades básicas, quando obrigado por lei ou mandado, é crime (art. 98)."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, art. 98, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-violencia-04
+  tema: "Como denunciar"
+  dificuldade: 2
+  enunciado: "Dona Celina vê que seu Joaquim, de 82 anos, está magro, com hematomas, e que o neto fica com a aposentadoria dele. O que a aula mostra como o caminho seguro?"
+  alternativas:
+    - texto: "Anotar o que viu, ligar para o Disque 100 (pode ser anônimo) e avisar a agente de saúde da UBS, sem confrontar o neto"
+      certa: true
+    - texto: "Confrontar o neto sozinha, na porta da casa"
+      erro: "Sua segurança também conta: não confronte quem agride. Registre e denuncie."
+    - texto: "Postar nas redes sociais e esperar"
+      erro: "Postar não aciona quem tem o dever de proteger. Use o Disque 100, a UBS, o CRAS/CREAS, o Ministério Público, a Defensoria ou a delegacia."
+  explicacao: "Em perigo imediato, 190 (polícia) ou 192 (SAMU). O Disque 100 é gratuito e recebe denúncias, inclusive anônimas. Outros caminhos: UBS, CRAS/CREAS, Conselho da Pessoa Idosa, Ministério Público, Defensoria e delegacia."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Sinais de violência e onde denunciar: o Disque 100\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-violencia-05
+  tema: "Perigo imediato"
+  dificuldade: 1
+  enunciado: "Em caso de perigo imediato para a pessoa idosa, qual é o primeiro passo?"
+  alternativas:
+    - texto: "Ligar para o 190 (polícia) ou o 192 (SAMU)"
+      certa: true
+    - texto: "Esperar para ver se melhora"
+      erro: "Em perigo imediato não se espera. Ligue para o 190 ou o 192."
+    - texto: "Só procurar a Defensoria na semana seguinte"
+      erro: "A Defensoria ajuda, mas em perigo imediato o primeiro passo é o 190 ou o 192."
+  explicacao: "Perigo imediato: 190 (polícia) ou 192 (SAMU). Depois, a denúncia no Disque 100 e o acompanhamento pela UBS, CRAS/CREAS, Ministério Público ou Defensoria."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Sinais de violência e onde denunciar: o Disque 100\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,83 @@
+# Exercícios da aula "Danças de roda: ciranda, coco e samba de roda" (Dança: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: danf-roda-01
+  tema: "Ciranda"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como é o passo da ciranda, segundo a aula?"
+  alternativas:
+    - texto: "Na batida grave da zabumba, pisa-se forte com o pé esquerdo à frente, e a roda anda para a direita, com dois passos para trás e dois para a frente"
+      certa: true
+    - texto: "Cada pessoa dança sozinha no meio, enquanto as outras cantam"
+      erro: "Isso é o samba de roda, em que uma pessoa por vez samba no meio. Na ciranda, a roda toda anda junta, de mãos dadas."
+    - texto: "Sapateado rápido de tamancos que imita o barulho do coco quebrado"
+      erro: "Isso é o coco, com o repicar acelerado dos tamancos. A ciranda tem ritmo lento."
+  explicacao: "A ciranda é lenta. A zabumba bate grave no começo do compasso, pisa-se forte com o pé esquerdo à frente e a roda anda para a direita, com dois passos para trás e dois para a frente. Vem da Paraíba e de Pernambuco."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de roda: ciranda, coco e samba de roda\""
+  revisao:
+    status: em-revisao
+
+- id: danf-roda-02
+  tema: "Coco"
+  dificuldade: 1
+  enunciado: "Qual destas danças tem o repicar dos tamancos, que imita o barulho do coco sendo quebrado, como marca?"
+  alternativas:
+    - texto: "Coco"
+      certa: true
+    - texto: "Ciranda"
+      erro: "A ciranda tem ritmo lento, com a zabumba grave. O repicar acelerado dos tamancos é do coco."
+    - texto: "Samba de roda"
+      erro: "No samba de roda uma pessoa por vez samba no meio, ao som de prato e faca, pandeiro e ganzá. Os tamancos são do coco."
+  explicacao: "O coco nasceu no século XVIII nos engenhos de açúcar da antiga Capitania de Pernambuco, do encontro do batuque africano com os bailados indígenas. Quem manda no som é o repicar acelerado dos tamancos, que imitam o coco sendo quebrado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de roda: ciranda, coco e samba de roda\""
+  revisao:
+    status: em-revisao
+
+- id: danf-roda-03
+  tema: "Samba de roda"
+  dificuldade: 2
+  enunciado: "Como se dança o samba de roda do Recôncavo baiano, segundo a aula?"
+  alternativas:
+    - texto: "Uma pessoa por vez samba sozinha no meio da roda, enquanto os outros cantam em solo e coro e tocam"
+      certa: true
+    - texto: "Todos dançam ao mesmo tempo, em fileiras, sem cantar"
+      erro: "No samba de roda os outros cantam em solo e coro e tocam prato e faca, pandeiro e ganzá, enquanto uma pessoa por vez dança no meio."
+    - texto: "Só os músicos dançam, e quem assiste fica parado"
+      erro: "Quem assiste faz parte: canta e toca, e cada pessoa da roda pode entrar no meio para sambar."
+  explicacao: "O samba de roda vem do Recôncavo baiano, com registros desde a década de 1860. Uma pessoa por vez samba no meio, e os outros cantam e tocam prato e faca, pandeiro e ganzá. A UNESCO o proclamou patrimônio da humanidade em 2005."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de roda: ciranda, coco e samba de roda\""
+  revisao:
+    status: em-revisao
+
+- id: danf-roda-04
+  tema: "De onde vêm as danças"
+  dificuldade: 2
+  enunciado: "De onde vem o coco, segundo a aula?"
+  alternativas:
+    - texto: "Dos engenhos de açúcar de Pernambuco, no século XVIII, do encontro do batuque africano com os bailados indígenas"
+      certa: true
+    - texto: "De um salão da nobreza europeia no século XIX"
+      erro: "O coco nasceu entre trabalhadores dos engenhos, no século XVIII. A dança de salão europeia da aula de forró é o xote, e não o coco."
+    - texto: "Dos Estados Unidos, nos anos 1970"
+      erro: "Os anos 1970 nos Estados Unidos são da origem do breaking, em outra aula. O coco nasceu nos engenhos do Nordeste no século XVIII."
+  explicacao: "O coco nasceu no século XVIII, nos engenhos de açúcar da antiga Capitania de Pernambuco (hoje Pernambuco, Alagoas e Paraíba). Tem muitos nomes: coco de roda, de embolada, de praia, de umbigada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de roda: ciranda, coco e samba de roda\""
+  revisao:
+    status: em-revisao
+
+- id: danf-roda-05
+  tema: "Por que a roda"
+  dificuldade: 2
+  enunciado: "A aula diz que, numa roda, todo mundo vê todo mundo, e que a roda é um jeito de a comunidade se encontrar sem precisar de dinheiro. Qual conclusão combina com isso?"
+  alternativas:
+    - texto: "São danças em que qualquer pessoa pode entrar, de qualquer idade, na praia, no terreiro ou no quintal"
+      certa: true
+    - texto: "Só quem comprou ingresso consegue dançar"
+      erro: "Pelo contrário: a aula chama de \"dança sem ingresso\". Ciranda na praia, coco no terreiro, samba de roda no quintal."
+    - texto: "Só mestres e mestras podem entrar na roda"
+      erro: "Os mestres e mestras são as pessoas que guardam a tradição, mas a roda é aberta a qualquer pessoa."
+  explicacao: "Ciranda na praia, coco no terreiro e samba de roda no quintal são danças abertas: qualquer pessoa pode entrar, de qualquer idade. Na roda ninguém fica na primeira fila ou no fundo, e a comunidade se encontra sem precisar de dinheiro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de roda: ciranda, coco e samba de roda\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,67 @@
+# Exercícios da aula "Gustar e verbos parecidos" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-gustar-01
+  tema: "Gusta ou gustan"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"Eu gosto dos cachorros\" em espanhol?"
+  alternativas:
+    - texto: "Me gusta los perros."
+      erro: "O verbo concorda com o que agrada, e não com a pessoa. Os cachorros são vários: gustan."
+    - texto: "Me gustan los perros."
+      certa: true
+    - texto: "Yo gusto de los perros."
+      erro: "Em espanhol, a frase é montada ao contrário: os cachorros me agradam. A estrutura é me gustan + o que agrada."
+  explicacao: "Me gusta com uma coisa (ou um infinitivo); me gustan com várias coisas. Los perros me agradam: me gustan los perros."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Gustar e verbos parecidos\""
+  revisao:
+    status: em-revisao
+
+- id: esp-gustar-02
+  tema: "Gustar com infinitivo"
+  dificuldade: 2
+  enunciado: "Qual frase está certa para \"A gente gosta de ler e escrever\"?"
+  alternativas:
+    - texto: "Nos gustan leer y escribir."
+      erro: "Com verbos no infinitivo, mesmo que sejam vários, o verbo fica no singular."
+    - texto: "Nos gusta leer y escribir."
+      certa: true
+    - texto: "Nosotros gustamos leer y escribir."
+      erro: "Quem agrada é a atividade (ler e escrever), e não nós. A estrutura é nos gusta + infinitivo."
+  explicacao: "Com o verbo no infinitivo, usa-se sempre gusta, mesmo que sejam dois verbos: nos gusta leer y escribir."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Gustar e verbos parecidos\""
+  revisao:
+    status: em-revisao
+
+- id: esp-gustar-03
+  tema: "Concordar e discordar"
+  dificuldade: 2
+  enunciado: "Alguém diz: \"No me gusta el frío.\" Você também não gosta. O que responde?"
+  alternativas:
+    - texto: "A mí también."
+      erro: "Também se usa para concordar com uma frase afirmativa. Com uma frase negativa, o certo é tampoco."
+    - texto: "A mí tampoco."
+      certa: true
+    - texto: "A mí sí."
+      erro: "A mí sí é discordar: significa que a você agrada o frio."
+  explicacao: "Com frase negativa, concorda-se com a mí tampoco, e discorda-se com a mí sí. Com frase afirmativa: a mí también concorda, a mí no discorda."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Gustar e verbos parecidos\""
+  revisao:
+    status: em-revisao
+
+- id: esp-gustar-04
+  tema: "Dor"
+  dificuldade: 2
+  enunciado: "No médico, como se diz \"Estou com dor nas costas\"?"
+  alternativas:
+    - texto: "Me duele mi espalda."
+      erro: "Em espanhol, as partes do corpo levam artigo (la espalda), e não possessivo."
+    - texto: "Me duele la espalda."
+      certa: true
+    - texto: "Yo duelo la espalda."
+      erro: "Doler funciona como gustar: a coisa que dói é o sujeito. A estrutura é me duele + a parte do corpo."
+  explicacao: "Doler funciona como gustar: me duele la espalda (uma parte), me duelen los pies (várias). Com artigo, e não com possessivo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Gustar e verbos parecidos\""
+  revisao:
+    status: em-revisao

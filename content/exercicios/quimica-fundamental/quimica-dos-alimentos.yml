@@ -1,0 +1,50 @@
+# Exercícios da aula "Química dos alimentos" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-quimica-dos-alimentos-01
+  tema: "Energia"
+  dificuldade: 1
+  enunciado: "Qual nutriente concentra mais energia por grama, segundo a aula?"
+  alternativas:
+    - texto: "Carboidrato, cerca de 4 kcal"
+      erro: "O carboidrato tem cerca de 4 kcal por grama."
+    - texto: "Gordura, cerca de 9 kcal"
+      certa: true
+    - texto: "Proteína, cerca de 4 kcal"
+      erro: "A proteína tem cerca de 4 kcal por grama."
+  explicacao: "A gordura concentra mais que o dobro da energia: 9 kcal por grama, contra 4 do carboidrato e da proteína."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Química dos alimentos\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-quimica-dos-alimentos-02
+  tema: "Proteínas"
+  dificuldade: 1
+  enunciado: "Para que servem as proteínas, segundo a tabela da aula?"
+  alternativas:
+    - texto: "Construir e renovar músculos, pele, sangue e defesas"
+      certa: true
+    - texto: "Ser a principal fonte de energia"
+      erro: "Essa é a função do carboidrato."
+    - texto: "Ajudar o funcionamento do intestino"
+      erro: "Essa é a função das fibras."
+  explicacao: "Entre as fontes: feijão, lentilha, ovo, leite, carnes e peixe."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Química dos alimentos\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-quimica-dos-alimentos-03
+  tema: "Arroz com feijão"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre o arroz com feijão?"
+  alternativas:
+    - texto: "Juntos fornecem proteína de boa qualidade, além de carboidrato, fibra, ferro e vitaminas"
+      certa: true
+    - texto: "Não tem nutriente nenhum"
+      erro: "A aula diz que merece o lugar que tem."
+    - texto: "Só dá gordura"
+      erro: "Fornece principalmente carboidrato e proteína, com fibra, ferro e vitaminas."
+  explicacao: "No rótulo, a energia mede-se em quilocalorias (kcal), que aparecem como \"calorias\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Química dos alimentos\""
+  revisao:
+    status: em-revisao

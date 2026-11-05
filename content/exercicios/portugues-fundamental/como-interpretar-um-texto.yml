@@ -1,0 +1,50 @@
+# Exercícios da aula "Como interpretar um texto" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-como-interpretar-um-texto-01
+  tema: "Ler o mundo"
+  dificuldade: 1
+  enunciado: "O que Paulo Freire escreveu, segundo a aula, sobre a leitura do mundo e a leitura da palavra?"
+  alternativas:
+    - texto: "Que a leitura da palavra precede a do mundo"
+      erro: "É o contrário."
+    - texto: "Que a leitura do mundo precede a leitura da palavra"
+      certa: true
+    - texto: "Que as duas são a mesma coisa"
+      erro: "Freire diz que uma vem antes da outra."
+  explicacao: "Antes de aprender as letras, todo mundo já lê o céu, o rosto do patrão, o preço na prateleira."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como interpretar um texto\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-como-interpretar-um-texto-02
+  tema: "Antes de ler"
+  dificuldade: 2
+  enunciado: "Antes de ler um texto, o que a aula manda observar?"
+  alternativas:
+    - texto: "Quem escreveu, onde foi publicado, quando, que tipo de texto é e qual é o título"
+      certa: true
+    - texto: "Só o tamanho do texto"
+      erro: "A aula pede olhar de onde o texto vem."
+    - texto: "Só se as letras são bonitas"
+      erro: "Não é o que a aula pede."
+  explicacao: "Uma notícia de cinco anos atrás, repassada hoje, engana sem ter uma palavra falsa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como interpretar um texto\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-como-interpretar-um-texto-03
+  tema: "Durante a leitura"
+  dificuldade: 1
+  enunciado: "O que a aula manda fazer ao ler cada parágrafo na segunda leitura?"
+  alternativas:
+    - texto: "Perguntar do que o parágrafo fala e tentar dizer em uma frase"
+      certa: true
+    - texto: "Pular os parágrafos difíceis"
+      erro: "A aula manda reler se não conseguir dizer em uma frase."
+    - texto: "Decorar palavra por palavra"
+      erro: "A aula pede entender a ideia principal."
+  explicacao: "Na primeira leitura, leia tudo sem parar e não trave na primeira palavra difícil."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como interpretar um texto\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,69 @@
+# Exercícios da aula "Medidas e unidades" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-uni-01
+  tipo: numero
+  tema: "Km/h em m/s"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Um carro anda a 72 km/h. Quantos metros ele percorre por segundo?"
+  resposta: "20"
+  unidade: "m/s"
+  erros_comuns:
+    - resposta: "259,2"
+      explicacao: "Você multiplicou por 3,6. De km/h para m/s, divide-se por 3,6."
+  dica: "Para passar de km/h para m/s, divida por 3,6."
+  explicacao: "72 ÷ 3,6 = 20 m/s."
+  conferir: "72 / 3.6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-uni-02
+  tipo: numero
+  tema: "Horas em segundos"
+  dificuldade: 2
+  enunciado: "Quantos segundos tem 1 hora e meia?"
+  resposta: "5400"
+  unidade: "segundos"
+  erros_comuns:
+    - resposta: "90"
+      explicacao: "90 é o número de minutos. Para segundos, multiplique por 60 de novo: 1 hora tem 3.600 segundos."
+  dica: "1 hora tem 3.600 segundos. Quanto é 1,5 hora?"
+  explicacao: "1,5 × 3.600 = 5.400 segundos."
+  conferir: "1.5 * 3600"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-uni-03
+  tema: "Prefixo mili"
+  dificuldade: 2
+  enunciado: "O que significa o prefixo 'mili', como em miligrama?"
+  alternativas:
+    - texto: "A milésima parte"
+      certa: true
+    - texto: "Mil vezes mais"
+      erro: "Mil vezes mais é o 'quilo' (quilograma = mil gramas). 'Mili' é o contrário: a milésima parte."
+    - texto: "Um milhão de vezes mais"
+      erro: "Isso é o 'mega'. 'Mili' é a milésima parte: um miligrama é 1/1.000 de grama."
+  explicacao: "Mili quer dizer a milésima parte. Um miligrama é a milésima parte do grama; um milímetro, a milésima parte do metro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-uni-04
+  tema: "Maiúscula e minúscula"
+  dificuldade: 3
+  enunciado: "Quanto vale 1 MW (megawatt)?"
+  alternativas:
+    - texto: "Um milhão de watts"
+      certa: true
+    - texto: "A milésima parte de um watt"
+      erro: "Isso seria 1 mW, com o 'm' minúsculo (mili). Com 'M' maiúsculo é mega, um milhão."
+    - texto: "Mil watts"
+      erro: "Mil watts é 1 kW (quilowatt). O mega é um milhão."
+  explicacao: "M maiúsculo é mega: um milhão. m minúsculo é mili: a milésima parte. Trocar um pelo outro erra por um fator de um bilhão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

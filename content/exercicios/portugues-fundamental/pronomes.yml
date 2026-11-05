@@ -1,0 +1,50 @@
+# Exercícios da aula "Pronomes" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-pronomes-01
+  tema: "Para eu ou para mim"
+  dificuldade: 2
+  enunciado: "Qual frase está certa, segundo o teste da aula?"
+  alternativas:
+    - texto: "Este serviço é para mim fazer."
+      erro: "\"Mim\" não faz nada."
+    - texto: "Este serviço é para eu fazer."
+      certa: true
+    - texto: "Este serviço é para me fazer."
+      erro: "Não é a forma pedida."
+  explicacao: "Se depois vier um verbo no infinitivo cuja ação é sua, use eu."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pronomes\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-pronomes-02
+  tema: "Entre"
+  dificuldade: 2
+  enunciado: "Na escrita formal, depois de \"entre\", a norma-padrão pede qual forma?"
+  alternativas:
+    - texto: "Entre mim e você"
+      certa: true
+    - texto: "Entre eu e você"
+      erro: "É comum na fala, mas a aula manda evitar na escrita formal."
+    - texto: "Entre me e você"
+      erro: "Não é a forma pedida."
+  explicacao: "\"Entre mim e você não há segredos.\""
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pronomes\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-pronomes-03
+  tema: "Para que servem"
+  dificuldade: 1
+  enunciado: "Para que servem os pronomes, segundo a aula?"
+  alternativas:
+    - texto: "Ficam no lugar de um nome ou o acompanham, apontando alguém ou algo sem repetir"
+      certa: true
+    - texto: "Dar nome às coisas"
+      erro: "Quem dá nome às coisas é o substantivo."
+    - texto: "Indicar a ação"
+      erro: "Quem indica a ação é o verbo."
+  explicacao: "Exemplo: \"Lúcia chegou. Ela pegou a sua ata e a entregou ao secretário.\""
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pronomes\""
+  revisao:
+    status: em-revisao

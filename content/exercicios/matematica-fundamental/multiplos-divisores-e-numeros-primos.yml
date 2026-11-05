@@ -1,0 +1,73 @@
+# Exercícios da aula "Múltiplos, divisores e números primos" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-mmc-01
+  tema: "Número primo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destes números é primo?"
+  alternativas:
+    - texto: "53"
+      certa: true
+    - texto: "51"
+      erro: "51 = 3 × 17: a soma dos algarismos (5 + 1 = 6) se divide por 3, então 51 não é primo."
+    - texto: "57"
+      erro: "57 = 3 × 19: a soma dos algarismos (5 + 7 = 12) se divide por 3, então 57 não é primo."
+  explicacao: "53 não se divide por 2, 3, 5 nem por 7 (7 × 7 = 49 e 7 × 8 = 56): só tem o 1 e ele mesmo como divisores. É primo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-mmc-02
+  tema: "Divisibilidade por 9"
+  dificuldade: 1
+  enunciado: "Qual destes números se divide por 9?"
+  alternativas:
+    - texto: "1.827"
+      certa: true
+    - texto: "1.826"
+      erro: "Some os algarismos: 1 + 8 + 2 + 6 = 17, que não é múltiplo de 9. Então 1.826 não se divide por 9."
+    - texto: "1.829"
+      erro: "Some os algarismos: 1 + 8 + 2 + 9 = 20, que não é múltiplo de 9. Então 1.829 não se divide por 9."
+  explicacao: "Um número se divide por 9 quando a soma dos algarismos se divide por 9. Em 1.827: 1 + 8 + 2 + 7 = 18, que é múltiplo de 9."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-mmc-03
+  tipo: numero
+  tema: "MMC"
+  dificuldade: 2
+  enunciado: "Dois ônibus saem juntos do terminal às 6h. Um passa a cada 12 minutos e o outro, a cada 18 minutos. Depois de quantos minutos saem juntos de novo?"
+  resposta: "36"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "216"
+      explicacao: "216 é 12 × 18. Isso é um múltiplo comum, mas não o menor. Procure o menor número que está na tabuada do 12 e na do 18."
+    - resposta: "6"
+      explicacao: "6 é o maior divisor comum (MDC). Aqui se quer o menor múltiplo comum (MMC)."
+  dica: "Liste os múltiplos de 12 e de 18 e procure o primeiro igual."
+  explicacao: "Múltiplos de 12: 12, 24, 36... Múltiplos de 18: 18, 36... O menor em comum é 36. Eles se encontram de novo 36 minutos depois, às 6h36."
+  conferir: "36"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-mmc-04
+  tipo: numero
+  tema: "MDC"
+  dificuldade: 2
+  enunciado: "Uma fita de 48 cm e outra de 72 cm serão cortadas em pedaços iguais, sem sobra, e o maior possível. Qual é o tamanho de cada pedaço?"
+  resposta: "24"
+  unidade: "cm"
+  erros_comuns:
+    - resposta: "144"
+      explicacao: "144 é o menor múltiplo comum de 48 e 72. Aqui se quer o maior divisor comum."
+    - resposta: "12"
+      explicacao: "12 divide as duas fitas sem sobra, mas não é o maior pedaço possível. Teste números maiores."
+  dica: "Procure o maior número que divide 48 e 72 sem deixar resto."
+  explicacao: "48 = 24 × 2 e 72 = 24 × 3. O maior número que divide os dois é 24, então cada pedaço mede 24 cm (2 pedaços da primeira fita e 3 da segunda)."
+  conferir: "72 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

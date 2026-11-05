@@ -1,0 +1,91 @@
+# Exercícios da aula "Direitos trabalhistas de quem cuida" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação do sindicato, da Defensoria ou de advogado.
+
+- id: cuid-direitos-01
+  tema: "Quem é empregado doméstico"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Segundo a Lei Complementar 150/2015 (art. 1º), a pessoa que presta serviço contínuo, pago, pessoal e subordinado numa residência por mais de quantos dias por semana é empregada doméstica?"
+  alternativas:
+    - texto: "Mais de 2 dias por semana"
+      certa: true
+      valor: "2"
+    - texto: "Mais de 5 dias por semana"
+      erro: "Não precisa chegar a cinco dias. A lei fala em mais de 2 dias por semana, e quem trabalha três dias regularmente já pode ter vínculo."
+      valor: "5"
+    - texto: "Só aos domingos"
+      erro: "O dia da semana não define o vínculo. O que conta é trabalhar de forma contínua por mais de 2 dias por semana."
+      valor: "1"
+  explicacao: "A LC 150/2015, art. 1º, aplica-se a quem presta serviço por mais de 2 dias por semana. Quem trabalha até 2 dias costuma ser diarista. Quem é contratado por empresa (clínica, casa de repouso, home care) é empregado da empresa, regido pela CLT."
+  conferir: "2"
+  fonte: "Questão original do Instituto Lúcia; Lei Complementar nº 150/2015, art. 1º (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-direitos-02
+  tema: "Jornada"
+  dificuldade: 2
+  enunciado: "Pela LC 150/2015, art. 2º, qual é a duração normal do trabalho doméstico?"
+  alternativas:
+    - texto: "Até 8 horas por dia e 44 por semana"
+      certa: true
+    - texto: "Até 12 horas por dia e 60 por semana"
+      erro: "A jornada normal é de até 8 horas por dia e 44 por semana. A escala de 12 horas existe, mas só no 12x36, por acordo escrito, com 36 horas de descanso."
+    - texto: "Não há limite para o trabalho doméstico"
+      erro: "Há limite, sim: 8 horas diárias e 44 semanais. O que passa disso é hora extra, paga com acréscimo de, no mínimo, 50%."
+  explicacao: "A jornada do trabalho doméstico não pode passar de 8 horas por dia e 44 por semana (art. 2º). A hora extra é paga com, no mínimo, 50% a mais (art. 2º, § 1º)."
+  fonte: "Questão original do Instituto Lúcia; Lei Complementar nº 150/2015, art. 2º, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-direitos-03
+  tipo: numero
+  tema: "Hora extra"
+  dificuldade: 2
+  enunciado: "Uma cuidadora doméstica recebe R$ 15 por hora normal. A hora extra deve ser paga com, no mínimo, 50% a mais. Quanto vale, no mínimo, cada hora extra dela?"
+  resposta: "22,50"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "7,50"
+      explicacao: "R$ 7,50 é só o acréscimo (50% de 15). A hora extra é a hora normal mais esse acréscimo: 15 + 7,50."
+    - resposta: "16"
+      explicacao: "Você somou 1 real, e não 50%. 50% de R$ 15 é R$ 7,50."
+  dica: "Calcule metade de R$ 15 e some à hora normal."
+  explicacao: "50% de R$ 15 = R$ 7,50, e 15 + 7,50 = R$ 22,50. O percentual de, no mínimo, 50% está no art. 2º, § 1º, da LC 150/2015."
+  conferir: "15 * 1.5"
+  fonte: "Questão original do Instituto Lúcia; Lei Complementar nº 150/2015, art. 2º, § 1º, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-direitos-04
+  tema: "O caso da Cláudia"
+  dificuldade: 3
+  enunciado: "Cláudia cuida de dona Ilda de segunda a sábado, 10 horas por dia, sem carteira assinada. O que a aula aponta?"
+  alternativas:
+    - texto: "Ela se enquadra como empregada doméstica, a jornada passa do limite e há horas extras a conferir; o caminho é procurar o sindicato dos trabalhadores domésticos"
+      certa: true
+    - texto: "Ela é diarista, porque não tem carteira assinada"
+      erro: "Diarista é quem trabalha até 2 dias por semana. Cláudia trabalha seis dias, de forma contínua, e isso a enquadra como empregada doméstica."
+    - texto: "Ela não tem nenhum direito, porque cuida de uma pessoa da família de outra pessoa"
+      erro: "Cuidador que trabalha na casa da pessoa, nessas condições, é empregado doméstico e tem direitos como carteira, jornada, hora extra, FGTS e INSS."
+  explicacao: "Seis dias por semana, de forma contínua, enquadra no art. 1º da LC 150. Seis dias de 10 horas passam do limite de 8 horas por dia e 44 por semana. A aula orienta anotar tudo, procurar o sindicato e propor à família o registro e um acordo de horários, sem briga."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Direitos trabalhistas de quem cuida\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-direitos-05
+  tema: "Adicional noturno"
+  dificuldade: 3
+  enunciado: "Segundo a aula, qual é o adicional mínimo pelo trabalho doméstico noturno, feito entre as 22h e as 5h?"
+  alternativas:
+    - texto: "20% sobre o valor da hora diurna"
+      certa: true
+    - texto: "50% sobre o valor da hora diurna"
+      erro: "50% é o mínimo da hora extra. O adicional noturno doméstico é de, no mínimo, 20% (art. 14)."
+    - texto: "Nenhum, o trabalho noturno vale igual ao diurno"
+      erro: "Há adicional: no mínimo 20% sobre a hora diurna, para o trabalho entre 22h e 5h."
+  explicacao: "O art. 14 da LC 150/2015 define como trabalho noturno o feito entre as 22h e as 5h do dia seguinte, com acréscimo de, no mínimo, 20% sobre a hora diurna."
+  fonte: "Questão original do Instituto Lúcia; Lei Complementar nº 150/2015, art. 14, conforme a aula"
+  revisao:
+    status: em-revisao

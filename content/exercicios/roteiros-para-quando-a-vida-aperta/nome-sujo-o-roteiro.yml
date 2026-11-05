@@ -1,0 +1,50 @@
+# Exercícios da aula "Nome sujo: o roteiro" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-nome-sujo-o-roteiro-01
+  tema: "Limite do nome sujo"
+  dificuldade: 2
+  enunciado: "Por quanto tempo, no máximo, o nome pode ficar negativado pela mesma dívida, segundo o CDC?"
+  alternativas:
+    - texto: "1 ano"
+      erro: "O limite é maior."
+    - texto: "5 anos, contados do vencimento"
+      certa: true
+    - texto: "20 anos"
+      erro: "O limite é bem menor."
+  explicacao: "Depois de pagar, o credor deve pedir a retirada em 5 dias úteis (Súmula 548 do STJ)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Nome sujo: o roteiro\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-nome-sujo-o-roteiro-02
+  tema: "Cobrança"
+  dificuldade: 1
+  enunciado: "O que o credor NÃO pode fazer na cobrança, segundo o art. 42 do CDC?"
+  alternativas:
+    - texto: "Ameaçar, expor você ao ridículo ou ligar no seu trabalho para humilhar"
+      certa: true
+    - texto: "Mandar carta de cobrança"
+      erro: "Cobrar é permitido, sem constrangimento."
+    - texto: "Pedir o pagamento"
+      erro: "É permitido pedir, sem constrangimento."
+  explicacao: "Cobrança indevida pode ter que ser devolvida em dobro. A multa de atraso é de no máximo 2% nos contratos de consumo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Nome sujo: o roteiro\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-nome-sujo-o-roteiro-03
+  tema: "O que fazer"
+  dificuldade: 2
+  enunciado: "Qual destas é um passo do roteiro?"
+  alternativas:
+    - texto: "Listar tudo o que deve, conferir se a dívida é sua e o valor, e proteger o básico (moradia, comida, luz, água, transporte e remédio)"
+      certa: true
+    - texto: "Pagar o cartão antes da comida"
+      erro: "A aula diz que o básico vem antes das parcelas."
+    - texto: "Ignorar todas as cobranças"
+      erro: "A aula manda conferir e negociar."
+  explicacao: "Quem consulta o Registrato, do Banco Central, vê as dívidas com bancos e financeiras em seu nome."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Nome sujo: o roteiro\""
+  revisao:
+    status: em-revisao

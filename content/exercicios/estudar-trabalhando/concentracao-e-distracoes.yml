@@ -1,0 +1,69 @@
+# Exercícios da aula "Concentração e distrações" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-concentracao-01
+  tema: "Objetivo do bloco"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o melhor objetivo para um bloco de 25 minutos de estudo?"
+  alternativas:
+    - texto: "Estudar matemática"
+      erro: "É grande e vago demais: não dá para saber quando o bloco acabou. Prefira uma meta que cabe no tempo, como \"fazer 5 questões de porcentagem\"."
+    - texto: "Resolver 5 questões de porcentagem e anotar as que errei"
+      certa: true
+    - texto: "Entender tudo de concurso"
+      erro: "Meta grande demais para um bloco só. Um objetivo por bloco, pequeno e claro, ajuda a começar e a terminar."
+  explicacao: "A aula pede um objetivo só por bloco, escrito num papel, e pequeno o bastante para caber no tempo: não \"estudar português\", mas \"ler a seção de crase e fazer 5 questões\"."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Concentração e distrações\""
+  revisao:
+    status: em-revisao
+
+- id: estud-concentracao-02
+  tema: "Plano quando X, faço Y"
+  dificuldade: 2
+  enunciado: "Qual destes planos tem momento e lugar definidos, como o plano \"quando X, faço Y\" que a aula apresenta?"
+  alternativas:
+    - texto: "\"Vou estudar mais, quando der.\""
+      erro: "É uma boa intenção, mas vaga. Falta um momento e um lugar."
+    - texto: "\"Quando eu terminar o jantar, sento na mesa da cozinha e estudo 20 minutos.\""
+      certa: true
+    - texto: "\"Um dia desses eu começo.\""
+      erro: "Sem gatilho e sem lugar, a intenção costuma ficar no papel. A aula pede um gatilho que já faz parte do seu dia."
+  explicacao: "Segundo Gollwitzer (1999), planos com momento e lugar definidos costumam funcionar melhor do que boas intenções vagas. Escolha um gatilho que já faz parte do seu dia, como depois do jantar."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Concentração e distrações\" (fonte da aula: Gollwitzer, 1999)"
+  revisao:
+    status: em-revisao
+
+- id: estud-concentracao-03
+  tema: "Quando a cabeça foge"
+  dificuldade: 1
+  enunciado: "No meio do bloco de estudo, você lembra de pagar a conta de luz. O que a aula sugere?"
+  alternativas:
+    - texto: "Anotar o pensamento num papel de rascunho para tratar depois e voltar ao texto"
+      certa: true
+    - texto: "Parar de estudar e resolver a conta na hora"
+      erro: "Isso quebra o bloco. Anote o pensamento, para não esquecer, e trate depois."
+    - texto: "Brigar consigo mesmo por ter se distraído"
+      erro: "A aula diz para não se culpar: voltar é o exercício."
+    - texto: "Pegar o celular para ver as mensagens"
+      erro: "O celular é uma das maiores fontes de distração. Mantenha-o silenciado ou em outro cômodo durante o bloco."
+  explicacao: "Anotar o pensamento e voltar ao texto resolve a preocupação sem quebrar o bloco. Se preciso, respire, releia a última frase e não se culpe."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Concentração e distrações\""
+  revisao:
+    status: em-revisao
+
+- id: estud-concentracao-04
+  tema: "O que funciona para aprender"
+  dificuldade: 2
+  enunciado: "Segundo a revisão de Dunlosky e colegas (2013), citada na aula, qual par de técnicas rende mais do que reler e sublinhar?"
+  alternativas:
+    - texto: "Testar-se (tentar lembrar sem olhar) e espaçar o estudo em vários dias"
+      certa: true
+    - texto: "Reler e sublinhar mais vezes"
+      erro: "Foram justamente as técnicas que renderam menos. Dão a sensação de saber, mas não provam que você lembra."
+    - texto: "Estudar tudo na véspera da prova"
+      erro: "Concentrar tudo num dia só rende menos do que espaçar o estudo em vários dias."
+  explicacao: "A revisão de Dunlosky e colegas achou que testar-se e espaçar o estudo rendem mais do que reler e sublinhar."
+  fonte: "Dunlosky, Rawson, Marsh, Nathan e Willingham (2013), conforme a aula \"Concentração e distrações\""
+  revisao:
+    status: em-revisao

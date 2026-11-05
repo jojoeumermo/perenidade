@@ -1,0 +1,99 @@
+# Exercícios da aula "O que diz a Constituição de 1988" (Direito: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: dirf-const-01
+  tema: "A lei acima de todas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a aula diz sobre a posição da Constituição entre as leis do país?"
+  alternativas:
+    - texto: "Ela está acima de todas as outras: nenhuma lei, decreto ou ordem pode contrariá-la"
+      certa: true
+    - texto: "Ela vale menos que um decreto do prefeito"
+      erro: "É o contrário. Se um decreto contrariar a Constituição, ele pode ser derrubado na Justiça."
+    - texto: "Ela vale só para o governo federal"
+      erro: "Ela diz como o Estado se organiza (União, estados e municípios) e quais direitos ninguém pode tirar de você. Vale para todos."
+  explicacao: "A Constituição é a lei acima de todas. Nenhuma lei, decreto ou ordem pode contrariá-la: se contrariar, pode ser derrubada na Justiça."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que diz a Constituição de 1988\""
+  revisao:
+    status: em-revisao
+
+- id: dirf-const-02
+  tema: "A Constituinte"
+  dificuldade: 2
+  enunciado: "Segundo a aula, em que data foi promulgada a Constituição, chamada por Ulysses Guimarães de \"Constituição Cidadã\"?"
+  alternativas:
+    - texto: "5 de outubro de 1988"
+      certa: true
+    - texto: "1º de fevereiro de 1987"
+      erro: "1º de fevereiro de 1987 é a data em que a Assembleia Nacional Constituinte foi instalada, e não a da promulgação do texto."
+    - texto: "1º de maio de 1943"
+      erro: "1º de maio de 1943 é a data da assinatura da CLT, outra lei importante, mas não a da Constituição."
+  explicacao: "A Assembleia Nacional Constituinte foi instalada em 1º de fevereiro de 1987 e o texto foi promulgado em 5 de outubro de 1988. Foi a Constituinte com mais participação popular da história do país, com emendas populares apoiadas por pelo menos 30 mil eleitores."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que diz a Constituição de 1988\""
+  revisao:
+    status: em-revisao
+
+- id: dirf-const-03
+  tema: "Os artigos para conhecer"
+  dificuldade: 1
+  enunciado: "Em qual artigo da Constituição está a lista dos direitos sociais, como educação, saúde, alimentação, trabalho e moradia?"
+  alternativas:
+    - texto: "Artigo 6º"
+      certa: true
+    - texto: "Artigo 3º"
+      erro: "O artigo 3º trata dos objetivos do país, como erradicar a pobreza e reduzir as desigualdades. Os direitos sociais estão no artigo 6º."
+    - texto: "Artigo 5º"
+      erro: "O artigo 5º traz os direitos individuais, como a igualdade perante a lei e a liberdade de crença. Os direitos sociais estão no artigo 6º."
+  explicacao: "O artigo 6º lista os direitos sociais: educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e à infância e assistência aos desamparados."
+  fonte: "Questão original do Instituto Lúcia; Constituição Federal, art. 6º (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dirf-const-04
+  tema: "Direito de reunião"
+  dificuldade: 2
+  enunciado: "O prefeito proíbe, por decreto, qualquer reunião pacífica em praça pública. O decreto vale?"
+  alternativas:
+    - texto: "Não vale: a Constituição garante o direito de se reunir pacificamente, e nenhum decreto pode contrariá-la"
+      certa: true
+    - texto: "Vale, porque o prefeito manda na cidade"
+      erro: "O prefeito não está acima da Constituição. O artigo 5º garante o direito de reunião pacífica, e um decreto que o contrarie pode ser derrubado na Justiça."
+    - texto: "Vale só para quem não mora na cidade"
+      erro: "O direito de se reunir não depende de onde a pessoa mora nem da vontade de quem governa a cidade."
+  explicacao: "O artigo 5º, XVI, diz que todos podem reunir-se pacificamente, sem armas, em locais abertos ao público, independentemente de autorização. Como a Constituição está acima de todas as outras normas, o decreto contrário a ela não vale."
+  fonte: "Questão original do Instituto Lúcia; Constituição Federal, art. 5º, XVI, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dirf-const-05
+  tema: "Cláusulas pétreas"
+  dificuldade: 3
+  enunciado: "A Constituição pode ser mudada por emendas. Qual destas coisas, segundo a aula, nenhuma emenda pode abolir?"
+  alternativas:
+    - texto: "Os direitos e garantias individuais, o voto direto, secreto, universal e periódico, a separação dos Poderes e a forma federativa do Estado"
+      certa: true
+    - texto: "Qualquer artigo, desde que três quintos do Congresso votem a favor"
+      erro: "Três quintos, em dois turnos, bastam para mudar a maior parte do texto. Mas existe um núcleo, as cláusulas pétreas, que nem emenda pode abolir."
+    - texto: "Só os artigos escritos em 1988 sobre os povos indígenas"
+      erro: "As cláusulas pétreas são as listadas no texto (forma federativa, voto, separação dos Poderes e direitos e garantias individuais), e não um grupo de artigos escolhido por data."
+  explicacao: "Emendas precisam do voto de três quintos dos deputados e dos senadores, em dois turnos. Mas as cláusulas pétreas (art. 60, §4º) protegem a forma federativa do Estado, o voto direto, secreto, universal e periódico, a separação dos Poderes e os direitos e garantias individuais."
+  fonte: "Questão original do Instituto Lúcia; Constituição Federal, art. 60, §§ 2º e 4º (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dirf-const-06
+  tema: "Do papel para a vida"
+  dificuldade: 2
+  enunciado: "A Constituição promete moradia e salário mínimo que atenda à família, e muita gente ainda não tem isso. Como a aula resume o que fazer com o texto?"
+  alternativas:
+    - texto: "Usá-lo como ferramenta: com base nele se entra na Justiça e os movimentos cobram o Estado; direito escrito só vira direito vivido com organização"
+      certa: true
+    - texto: "Esquecer o texto, porque ele não serve para nada"
+      erro: "A aula diz que o texto não é inútil: é com base nele que se entra na Justiça por vaga na creche, por remédio, contra despejo ilegal."
+    - texto: "Esperar, porque o Estado cumpre tudo sozinho com o tempo"
+      erro: "A aula diz que direito escrito só vira direito vivido com organização, ou seja, é preciso cobrar, junto com outras pessoas."
+  explicacao: "A Constituição promete muito que ainda não chegou a todos. Mas é uma ferramenta: serve para ir à Justiça (por uma vaga na creche, por um remédio, contra um despejo ilegal) e para os movimentos cobrarem o que o Estado prometeu. Direito escrito só vira direito vivido com organização."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que diz a Constituição de 1988\""
+  revisao:
+    status: em-revisao

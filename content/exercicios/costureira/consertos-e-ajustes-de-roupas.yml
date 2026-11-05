@@ -1,0 +1,86 @@
+# Exercícios da aula "Consertos e ajustes de roupas" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-conserto-01
+  tema: "Antes de qualquer conserto"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a aula manda fazer antes de começar qualquer conserto?"
+  alternativas:
+    - texto: "Olhar a peça inteira, lavar se estiver suja, perguntar como a pessoa usa e, se for pago, entregar o orçamento"
+      certa: true
+    - texto: "Começar a costurar logo, para ganhar tempo"
+      erro: "Costurar sobre sujeira fixa a mancha, e sem conversar você pode errar no que a pessoa espera. Olhe, lave, pergunte e oriente."
+    - texto: "Cortar a peça sem olhar as costuras"
+      erro: "Antes é preciso olhar tecido, costuras e se há folga por dentro. Cortar sem ver pode estragar a peça."
+  explicacao: "Em serviço pago, entregue o orçamento com valor, materiais e prazo. O CDC exige orçamento prévio para serviços sob encomenda."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Consertos e ajustes de roupas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-conserto-02
+  tema: "Cerzido e remendo"
+  dificuldade: 2
+  enunciado: "Qual conserto a aula indica para um furo fora da costura, como no calcanhar da meia, só com agulha e linha?"
+  alternativas:
+    - texto: "O cerzido, em que a linha é tecida em fileiras ao longo do fio do tecido, indo e voltando, até preencher o buraco"
+      certa: true
+    - texto: "O remendo grande por cima, em qualquer caso"
+      erro: "O remendo é para rasgos maiores. No calcanhar da meia, um remendo seria desconfortável; o cerzido resolve só com linha."
+    - texto: "Cortar a parte furada e jogar fora"
+      erro: "Não é preciso jogar fora. O cerzido conserta furos e desgastes só com agulha e linha."
+  explicacao: "Para rasgos maiores, remendo: um pedaço de tecido parecido, maior que o rasgo, costurado por baixo (o rasgo aparece fechado) ou por cima (o remendo aparece e pode virar enfeite). No joelho do jeans, o remendo por dentro com pespontos de ida e volta segura bem."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Consertos e ajustes de roupas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-conserto-03
+  tema: "Costura aberta"
+  dificuldade: 1
+  enunciado: "Como se conserta uma costura aberta, segundo a aula?"
+  alternativas:
+    - texto: "Recosturando sobre a linha da costura antiga, começando e terminando um pouco além das pontas da abertura, com retrocesso"
+      certa: true
+    - texto: "Fazendo uma costura nova a 2 cm da antiga"
+      erro: "A nova costura deve ir sobre a antiga, para a peça manter a forma. Comece e termine um pouco além das pontas da abertura."
+    - texto: "Colando com cola de tecido, sem costurar"
+      erro: "A aula ensina a recosturar sobre a linha antiga, com retrocesso e arremate, e conferir puxando de leve."
+  explicacao: "Arremate e confira puxando de leve. Já o elástico frouxo: abra uns centímetros da costura do cós por dentro, puxe o elástico velho, prenda o novo num alfinete de segurança e passe pelo túnel. Una as pontas com zigue-zague e feche a abertura."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Consertos e ajustes de roupas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-conserto-04
+  tema: "Apertar e soltar"
+  dificuldade: 2
+  enunciado: "Para apertar a lateral de uma peça, qual é o jeito certo?"
+  alternativas:
+    - texto: "Com a roupa vestida pelo avesso, alfinetar a nova linha, costurar, conferir vestida e só depois cortar a sobra e fazer o acabamento"
+      certa: true
+    - texto: "Cortar a sobra primeiro, depois costurar"
+      erro: "Se cortar antes de conferir, não dá para voltar atrás. Costure, confira vestida e só depois corte a sobra."
+    - texto: "Costurar sem provar na pessoa"
+      erro: "O ajuste precisa ser conferido com a roupa vestida. Soltar só vai até onde há folga nas margens de dentro."
+  explicacao: "Soltar só é possível até onde há folga nas margens de dentro: desmanche a costura com o desmanchador, costure mais para fora e passe a ferro para apagar a marca antiga. Encurtar manga: como a barra da calça, com a pessoa vestida e os braços soltos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Consertos e ajustes de roupas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-conserto-05
+  tipo: numero
+  tema: "Orçar três consertos"
+  dificuldade: 3
+  enunciado: "Uma cliente leva três consertos: barra de calça (30 min), botão caído (10 min) e furo na camiseta (20 min). Com o valor da hora a R$ 24, quanto fica a mão de obra, sem contar linha e botão?"
+  resposta: "24"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "60"
+      explicacao: "60 é o total em minutos (30 + 10 + 20). Isso é 1 hora. Multiplique a hora pelo valor: 1 × 24."
+    - resposta: "12"
+      explicacao: "Você usou meia hora. O total de 30 + 10 + 20 dá 60 minutos, ou seja, 1 hora inteira."
+  dica: "Some os minutos e transforme em horas antes de multiplicar pelo valor da hora."
+  explicacao: "30 + 10 + 20 = 60 minutos, ou seja, 1 hora. 1 × R$ 24 = R$ 24, mais a linha e o botão, se forem seus. O orçamento vai por escrito, com data de entrega."
+  conferir: "(30 + 10 + 20) / 60 * 24"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Consertos e ajustes de roupas\""
+  revisao:
+    status: em-revisao

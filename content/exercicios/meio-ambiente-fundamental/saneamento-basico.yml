@@ -1,0 +1,52 @@
+# Exercícios da aula "Saneamento básico" (meio-ambiente-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: meio-ambiente-fundamen-saneamento-basico-01
+  tema: "O que é saneamento"
+  dificuldade: 1
+  enunciado: "Qual destes serviços faz parte do saneamento básico segundo a Lei 11.445/2007?"
+  alternativas:
+    - texto: "Apenas o abastecimento de água"
+      erro: "O saneamento inclui também esgoto, limpeza urbana e manejo do lixo, e drenagem da água da chuva."
+    - texto: "Água potável, esgoto, limpeza urbana e lixo, e drenagem da água da chuva"
+      certa: true
+    - texto: "Transporte coletivo e iluminação"
+      erro: "Esses são serviços públicos, mas não fazem parte do saneamento básico definido na lei."
+  explicacao: "Saneamento básico é água, esgoto, lixo e drenagem da chuva. É saúde pública: sem ele, as pessoas adoecem e a rua alaga."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saneamento básico\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-saneamento-basico-02
+  tema: "Meta do esgoto"
+  dificuldade: 2
+  enunciado: "Pelo Marco Legal do Saneamento, de 2020, a meta é de 90% da população com coleta e tratamento de esgoto até 31/12/2033. Numa cidade de 200 mil habitantes, quantas pessoas isso é?"
+  alternativas:
+    - texto: "20.000"
+      erro: "Isso seria 10%. A meta é 90%: multiplique 200.000 por 0,90."
+    - texto: "198.000"
+      erro: "Esse seria o valor da meta da água potável (99%). Para o esgoto a meta é 90%."
+    - texto: "180.000"
+      certa: true
+      valor: "180000"
+  explicacao: "200.000 × 0,90 = 180.000 pessoas. Para a água potável, a meta de 99% dá 198.000."
+  conferir: "200000 * 0.9"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saneamento básico\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-saneamento-basico-03
+  tema: "Meta da água"
+  dificuldade: 1
+  enunciado: "Qual é a meta de água potável do Marco Legal do Saneamento até 31 de dezembro de 2033?"
+  alternativas:
+    - texto: "99% da população"
+      certa: true
+    - texto: "50% da população"
+      erro: "A meta é bem mais alta: 99% da população com água potável."
+    - texto: "90% da população"
+      erro: "90% é a meta do esgoto. A da água potável é 99%."
+  explicacao: "Água potável para 99% e coleta e tratamento de esgoto para 90% da população, até 31/12/2033."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Saneamento básico\""
+  revisao:
+    status: em-revisao

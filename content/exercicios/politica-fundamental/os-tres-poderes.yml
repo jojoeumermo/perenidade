@@ -1,0 +1,50 @@
+# Exercícios da aula "Os três poderes" (politica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: politica-fundamental-os-tres-poderes-01
+  tema: "Montesquieu"
+  dificuldade: 1
+  enunciado: "Quem defendeu, em 1748, que o poder do Estado fosse repartido para que \"o poder freie o poder\"?"
+  alternativas:
+    - texto: "Karl Marx"
+      erro: "Marx aparece em outras aulas. Quem defendeu a divisão em 1748 foi Montesquieu."
+    - texto: "Montesquieu"
+      certa: true
+    - texto: "Paulo Freire"
+      erro: "Freire é educador brasileiro, do século XX."
+  explicacao: "A Constituição de 1988 adota essa ideia no art. 2º: Legislativo, Executivo e Judiciário, independentes e harmônicos entre si."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os três poderes\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-os-tres-poderes-02
+  tema: "Câmara e Senado"
+  dificuldade: 2
+  enunciado: "Qual destas afirmações sobre o Congresso é correta?"
+  alternativas:
+    - texto: "A Câmara tem 513 deputados com mandato de 4 anos; o Senado tem 81 senadores com mandato de 8 anos"
+      certa: true
+    - texto: "O Senado tem 513 senadores"
+      erro: "São 81 senadores, 3 por estado e pelo Distrito Federal."
+    - texto: "Os deputados têm mandato de 8 anos"
+      erro: "O mandato de deputado é de 4 anos; o de senador é de 8."
+  explicacao: "A Câmara representa a população; o Senado representa os estados e o Distrito Federal."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os três poderes\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-os-tres-poderes-03
+  tema: "O Judiciário"
+  dificuldade: 1
+  enunciado: "Quantos ministros tem o Supremo Tribunal Federal, guardião da Constituição?"
+  alternativas:
+    - texto: "81"
+      erro: "São 81 os senadores."
+    - texto: "11"
+      certa: true
+    - texto: "513"
+      erro: "São 513 os deputados."
+  explicacao: "Cabe ao STF dizer se uma lei ou um ato do governo contraria a Constituição."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os três poderes\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,68 @@
+# Exercícios da aula "Estudar cansado: sono e descanso" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# A aula não faz diagnóstico nem indica remédio.
+
+- id: estud-cansado-01
+  tema: "Sono e aprendizado"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo o consenso de 2015 da Academia Americana de Medicina do Sono e da Sleep Research Society, citado na aula, quanto adultos saudáveis devem dormir por noite, regularmente?"
+  alternativas:
+    - texto: "7 horas ou mais"
+      certa: true
+    - texto: "4 horas"
+      erro: "É pouco para um adulto saudável. A recomendação do consenso é de 7 horas ou mais."
+    - texto: "5 horas, que é o que o corpo precisa"
+      erro: "Muita gente dorme assim por necessidade, e não por escolha, mas a recomendação é de 7 horas ou mais."
+  explicacao: "O consenso recomenda 7 horas ou mais de sono regular para adultos saudáveis. Durante o sono, o cérebro organiza o que foi aprendido."
+  fonte: "Watson e outros (2015), consenso AASM/SRS, conforme a aula \"Estudar cansado: sono e descanso\""
+  revisao:
+    status: em-revisao
+
+- id: estud-cansado-02
+  tema: "O que dá para fazer cansado"
+  dificuldade: 2
+  enunciado: "Depois de um dia exaustivo, qual é a melhor escolha de estudo, segundo a aula?"
+  alternativas:
+    - texto: "Estudar um conteúdo novo e difícil por 3 horas"
+      erro: "Textos novos e difíceis não rendem com o corpo esgotado. Deixe para um dia melhor."
+    - texto: "Fazer 15 minutos leves de revisão e dormir"
+      certa: true
+    - texto: "Passar a noite em claro para compensar"
+      erro: "Ir dormir é uma boa decisão de estudo: o sono ajuda a fixar o que foi aprendido."
+  explicacao: "Em dia de cansaço, dá para revisar anotações, ouvir um áudio ou resolver poucas questões, em blocos de 10 a 15 minutos. Pare se estiver relendo a mesma linha ou com sono forte."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar cansado: sono e descanso\""
+  revisao:
+    status: em-revisao
+
+- id: estud-cansado-03
+  tema: "Quando é mais que cansaço"
+  dificuldade: 2
+  enunciado: "Há três semanas Ricardo não tem vontade de nada e não consegue dormir, mesmo com tempo. O que a aula indica?"
+  alternativas:
+    - texto: "Que é preguiça e ele precisa se esforçar mais"
+      erro: "A aula diz que não é fraqueza nem preguiça. Cansaço e tristeza que duram semanas merecem cuidado de saúde."
+    - texto: "Procurar a UBS do bairro para conversar, e o CAPS se for grave"
+      certa: true
+    - texto: "Parar de estudar e esperar passar sozinho, sem falar com ninguém"
+      erro: "Esperar sozinho pode piorar. Procure a UBS; o CVV (188) atende de graça, 24 horas, quem precisa conversar."
+  explicacao: "Se o cansaço dura semanas, se a vontade some ou o sono não vem, procure a UBS do bairro e, se for grave, o CAPS. O CVV (188) atende de graça, 24 horas. Em risco imediato, ligue 192 (SAMU)."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar cansado: sono e descanso\" (CVV, 188)"
+  revisao:
+    status: em-revisao
+
+- id: estud-cansado-04
+  tema: "Telefone de apoio emocional"
+  dificuldade: 1
+  enunciado: "Qual número atende de graça, 24 horas, quem precisa conversar, segundo a aula?"
+  alternativas:
+    - texto: "O CVV, pelo 188"
+      certa: true
+    - texto: "O 192, que é só para risco imediato"
+      erro: "O 192 é o SAMU, para risco imediato. Para conversar e receber apoio emocional, o número da aula é o 188, do CVV."
+    - texto: "O 190, da Polícia Militar"
+      erro: "O 190 é para emergência policial. O apoio emocional gratuito é o CVV, pelo 188."
+  explicacao: "O CVV (Centro de Valorização da Vida) atende pelo 188, de graça, 24 horas. Em risco imediato, o número é o 192 (SAMU)."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar cansado: sono e descanso\" (fonte da aula: CVV)"
+  revisao:
+    status: em-revisao

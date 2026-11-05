@@ -1,0 +1,67 @@
+# Exercícios da aula "Ímãs e magnetismo" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-ima-01
+  tema: "Polos iguais"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Você aproxima dois ímãs, com os polos norte de frente um para o outro. O que acontece?"
+  alternativas:
+    - texto: "Eles se repelem"
+      certa: true
+    - texto: "Eles se atraem"
+      erro: "Polos iguais se repelem; só polos diferentes (norte e sul) se atraem."
+    - texto: "Nada acontece"
+      erro: "Há campo magnético em volta de cada ímã, e eles agem sem se tocar: polos iguais se repelem."
+  explicacao: "Polos iguais se repelem, e polos diferentes se atraem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ima-02
+  tema: "Quebrar um ímã"
+  dificuldade: 2
+  enunciado: "Se você quebrar um ímã ao meio, o que se obtém?"
+  alternativas:
+    - texto: "Dois ímãs menores, cada um com seu polo norte e seu polo sul"
+      certa: true
+    - texto: "Um pedaço só com polo norte e outro só com polo sul"
+      erro: "Não existe ímã de um polo só. Cada pedaço ganha os dois polos."
+    - texto: "Dois pedaços sem nenhum magnetismo"
+      erro: "O magnetismo continua: cada pedaço vira um ímã menor, com norte e sul."
+  explicacao: "Não existe ímã de um polo só. Cada pedaço de um ímã quebrado ganha os seus dois polos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ima-03
+  tema: "A bússola e a Terra"
+  dificuldade: 2
+  enunciado: "Por que a agulha da bússola aponta sempre para o mesmo lado?"
+  alternativas:
+    - texto: "Porque a Terra se comporta como um ímã gigante, e a agulha é um pequeno ímã"
+      certa: true
+    - texto: "Porque há um ímã enterrado em cada cidade"
+      erro: "Não é preciso ímã em cada cidade: o próprio planeta tem um campo magnético, que envolve toda a Terra."
+    - texto: "Porque a agulha aponta para onde há mais ferro na rua"
+      erro: "O que orienta a agulha é o campo magnético da Terra, que é o mesmo para todos, e não o ferro que esteja por perto."
+  explicacao: "A Terra tem um campo magnético, como um ímã gigante. A agulha da bússola, que é um pequeno ímã, se alinha com ele."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ima-04
+  tema: "O que o ímã atrai"
+  dificuldade: 2
+  enunciado: "Qual destes materiais um ímã comum NÃO atrai?"
+  alternativas:
+    - texto: "Uma panela de alumínio"
+      certa: true
+    - texto: "Um prego de ferro"
+      erro: "O ferro é o metal mais atraído pelos ímãs, junto com o níquel e o cobalto."
+    - texto: "Um pedaço de níquel"
+      erro: "O níquel é um dos metais que o ímã atrai, junto com o ferro e o cobalto."
+  explicacao: "Os ímãs atraem sobretudo o ferro, o níquel e o cobalto. Não atraem alumínio, cobre, ouro, madeira nem plástico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

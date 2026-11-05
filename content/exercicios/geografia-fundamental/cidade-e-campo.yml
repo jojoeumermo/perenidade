@@ -1,0 +1,70 @@
+# Exercícios da aula "Cidade e campo" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-cam-01
+  tipo: numero
+  tema: "Taxa de urbanização"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Um município tem 50.000 habitantes, dos quais 40.000 moram na área urbana. Qual é a taxa de urbanização, em por cento?"
+  resposta: "80"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "0,8"
+      explicacao: "0,8 é a fração escrita como decimal. Para chegar à porcentagem, multiplique por 100."
+    - resposta: "125"
+      explicacao: "Você dividiu a população total pela urbana. A taxa é urbana ÷ total × 100."
+  dica: "Taxa de urbanização = população urbana ÷ população total × 100."
+  explicacao: "40.000 ÷ 50.000 = 0,8; vezes 100, são 80%. Os outros 20% moram na área rural."
+  conferir: "40000 / 50000 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-cam-02
+  tema: "Onde termina a cidade"
+  dificuldade: 2
+  enunciado: "No Brasil, quem decide por lei onde termina a área urbana e começa a rural?"
+  alternativas:
+    - texto: "Cada município, por lei municipal"
+      certa: true
+    - texto: "O IBGE, medindo quantas casas há por rua"
+      erro: "O IBGE usa nos censos as linhas que cada município definiu em lei."
+    - texto: "A União, com uma regra igual para todo o país"
+      erro: "Quem fixa o limite urbano é cada município. Por isso a sede de um município pequeno, cercada de roças, conta como cidade."
+  explicacao: "Cada município fixa por lei municipal onde termina a área urbana, e o IBGE usa essas linhas no Censo."
+  fonte: "Questão original do Instituto Lúcia, com dados do Censo 2022 (IBGE)"
+  revisao:
+    status: em-revisao
+
+- id: gf-cam-03
+  tema: "Quando o Brasil virou urbano"
+  dificuldade: 2
+  enunciado: "Qual foi o primeiro censo a encontrar mais brasileiros nas cidades do que no campo?"
+  alternativas:
+    - texto: "O de 1970"
+      certa: true
+    - texto: "O de 1950"
+      erro: "Em 1950 a maioria ainda vivia no campo. A virada veio no Censo de 1970."
+    - texto: "O de 2010"
+      erro: "Em 2010 o país já era muito urbano. O primeiro censo com mais gente nas cidades foi o de 1970."
+  explicacao: "Até meados do século XX, a maioria vivia no campo. O Censo de 1970 foi o primeiro a encontrar mais gente nas cidades; em 2022, 87,4% moram em área urbana."
+  fonte: "Questão original do Instituto Lúcia, com dados do Censo 2022 (IBGE)"
+  revisao:
+    status: em-revisao
+
+- id: gf-cam-04
+  tema: "Causas do êxodo rural"
+  dificuldade: 3
+  enunciado: "Por que tanta gente saiu do campo para a cidade, a partir da metade do século XX?"
+  alternativas:
+    - texto: "Pela concentração da terra, pela mecanização das lavouras, pelo emprego nas fábricas e pelas secas sem apoio: em boa parte foi uma expulsão"
+      certa: true
+    - texto: "Porque ninguém gostava de trabalhar com a terra"
+      erro: "A saída foi, em boa parte, uma expulsão: a terra nas mãos de poucos, as máquinas que dispensavam trabalhadores e as secas sem apoio empurraram as famílias."
+    - texto: "Porque o campo deixou de produzir comida"
+      erro: "O campo continuou produzindo. O que mudou foi quem tinha a terra e quantas pessoas as máquinas dispensavam."
+  explicacao: "As causas principais foram a concentração da terra, a mecanização, a industrialização das cidades e as secas sem apoio. As cidades receberam essa gente sem plano e sem moradia, e nasceram periferias e favelas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,73 @@
+# Exercícios da aula "Perímetro e área" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-per-01
+  tipo: numero
+  tema: "Área do retângulo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Um salão retangular mede 8 m por 5 m. Quantos metros quadrados de piso são necessários?"
+  resposta: "40"
+  unidade: "m²"
+  erros_comuns:
+    - resposta: "26"
+      explicacao: "26 é o perímetro (o contorno). Piso cobre a superfície, então se calcula a área: base × altura."
+  dica: "Piso cobre a superfície: use a área."
+  explicacao: "Área = base × altura = 8 × 5 = 40 m²."
+  conferir: "8 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-per-02
+  tipo: numero
+  tema: "Perímetro do retângulo"
+  dificuldade: 1
+  enunciado: "Um terreno retangular mede 15 m de frente por 20 m de fundo. Quantos metros de tela são necessários para cercar os quatro lados?"
+  resposta: "70"
+  unidade: "metros"
+  erros_comuns:
+    - resposta: "300"
+      explicacao: "300 é a área (15 × 20). Tela de cerca acompanha o contorno: some os quatro lados."
+  dica: "Cerca é contorno: some todos os lados."
+  explicacao: "Perímetro = 2 × (15 + 20) = 2 × 35 = 70 metros."
+  conferir: "2 * (15 + 20)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-per-03
+  tipo: numero
+  tema: "Área do triângulo"
+  dificuldade: 2
+  enunciado: "Uma placa em forma de triângulo tem base de 10 m e altura de 6 m. Qual é a área dela?"
+  resposta: "30"
+  unidade: "m²"
+  erros_comuns:
+    - resposta: "60"
+      explicacao: "60 é a área de um retângulo de 10 por 6. O triângulo é metade dele: divida por 2."
+  dica: "O triângulo é metade de um retângulo de mesma base e altura."
+  explicacao: "Área do triângulo = base × altura ÷ 2 = 10 × 6 ÷ 2 = 30 m²."
+  conferir: "10 * 6 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-per-04
+  tipo: numero
+  tema: "Figura com recorte"
+  dificuldade: 3
+  enunciado: "Uma parede de 4 m de largura por 2,5 m de altura tem uma porta de 1 m por 2 m. Quantos metros quadrados há para pintar?"
+  resposta: "8"
+  unidade: "m²"
+  erros_comuns:
+    - resposta: "10"
+      explicacao: "10 m² é a parede inteira. Falta descontar a porta, que não se pinta."
+    - resposta: "12"
+      explicacao: "Você somou a porta à parede. A porta ocupa espaço da parede: ela deve ser tirada."
+  dica: "Área da parede menos a área da porta."
+  explicacao: "Parede: 4 × 2,5 = 10 m². Porta: 1 × 2 = 2 m². Para pintar: 10 − 2 = 8 m²."
+  conferir: "4 * 2.5 - 1 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

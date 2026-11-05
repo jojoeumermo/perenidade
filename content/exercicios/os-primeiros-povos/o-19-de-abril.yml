@@ -1,0 +1,50 @@
+# Exercícios da aula "O 19 de abril" (os-primeiros-povos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: os-primeiros-povos-o-19-de-abril-01
+  tema: "A mudança de nome"
+  dificuldade: 1
+  enunciado: "Em 2022, a Lei nº 14.402 mudou o nome do 19 de abril para qual?"
+  alternativas:
+    - texto: "Dia do Índio"
+      erro: "Esse era o nome criado em 1943, por Getúlio Vargas."
+    - texto: "Dia dos Povos Indígenas"
+      certa: true
+    - texto: "Dia da Terra"
+      erro: "Não é esse o nome."
+  explicacao: "\"Índio\" junta tudo numa palavra só, como se fosse um povo único. \"Povos indígenas\" reconhece que são muitos povos, com línguas e culturas diferentes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O 19 de abril\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-o-19-de-abril-02
+  tema: "Origem da data"
+  dificuldade: 2
+  enunciado: "Segundo a aula, quem propôs a data de 19 de abril, no congresso de 1940 no México?"
+  alternativas:
+    - texto: "O presidente Getúlio Vargas"
+      erro: "Vargas criou o \"Dia do Índio\" no Brasil em 1943, depois do congresso."
+    - texto: "As lideranças indígenas do continente"
+      certa: true
+    - texto: "Os governos que organizaram o congresso"
+      erro: "As lideranças indígenas boicotaram os primeiros dias e foram elas que propuseram a data."
+  explicacao: "O Congresso Indigenista Interamericano foi em 1940, no México. Em 1943, o Decreto-Lei nº 5.540 criou o \"Dia do Índio\" no Brasil."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O 19 de abril\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-o-19-de-abril-03
+  tema: "Como comemorar"
+  dificuldade: 2
+  enunciado: "Uma escola quer comemorar o 19 de abril. Qual proposta combina com o sentido original da data, segundo a aula?"
+  alternativas:
+    - texto: "Crianças fazem cocar de papel e \"brincam de índio\""
+      erro: "Isso reforça o estereótipo de um \"índio genérico\"."
+    - texto: "Convidar uma pessoa indígena para falar do seu povo, da sua língua e das suas lutas"
+      certa: true
+    - texto: "Não falar do assunto"
+      erro: "A data pede dar voz a quem é indígena."
+  explicacao: "A proposta que mostra um povo real e dá voz a quem é indígena combina com o sentido da data."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O 19 de abril\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Acidente de trabalho: o roteiro" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-acidente-de-trabalho-o-roteiro-01
+  tema: "Primeiras horas"
+  dificuldade: 1
+  enunciado: "Depois de um acidente de trabalho, qual é o primeiro passo da aula?"
+  alternativas:
+    - texto: "Cuidar do corpo: ligar para o SAMU (192) se for grave e ir à UPA ou ao hospital, mesmo que pareça leve"
+      certa: true
+    - texto: "Esperar passar para ver se melhora"
+      erro: "A aula manda procurar atendimento, pois dor que aparece no dia seguinte é comum."
+    - texto: "Assinar o papel dizendo que a culpa foi sua"
+      erro: "A aula manda não assinar."
+  explicacao: "Peça o atestado e o relatório e diga ao médico que o problema aconteceu no trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Acidente de trabalho: o roteiro\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-acidente-de-trabalho-o-roteiro-02
+  tema: "CAT"
+  dificuldade: 2
+  enunciado: "Qual é o prazo para a empresa emitir a CAT, segundo a aula?"
+  alternativas:
+    - texto: "Até o primeiro dia útil seguinte ao acidente, e de imediato se houver morte"
+      certa: true
+    - texto: "Em um ano"
+      erro: "O prazo é bem menor."
+    - texto: "Em 30 dias, só se o trabalhador pedir"
+      erro: "O prazo é até o primeiro dia útil seguinte."
+  explicacao: "Se a empresa não emitir, o trabalhador, a família, o sindicato ou o médico podem fazer."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Acidente de trabalho: o roteiro\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-acidente-de-trabalho-o-roteiro-03
+  tema: "Acidente de trajeto"
+  dificuldade: 2
+  enunciado: "O acidente no percurso normal entre casa e trabalho, ida e volta, é considerado o quê, pela Lei 8.213/1991?"
+  alternativas:
+    - texto: "Acidente de trabalho (acidente de trajeto, art. 21)"
+      certa: true
+    - texto: "Não é acidente de trabalho"
+      erro: "A lei inclui o de trajeto."
+    - texto: "Só se for de carro da empresa"
+      erro: "A lei considera o percurso normal entre casa e trabalho."
+  explicacao: "Entram também as doenças do trabalho, como lesão por esforço repetitivo ou perda de audição por barulho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Acidente de trabalho: o roteiro\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,70 @@
+# Exercícios da aula "Recursos naturais" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-rec-01
+  tema: "Renováveis e não renováveis"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destes é um recurso natural não renovável?"
+  alternativas:
+    - texto: "Petróleo"
+      certa: true
+    - texto: "Peixes"
+      erro: "Os peixes se reproduzem e são renováveis, desde que não se pesque mais depressa do que eles nascem."
+    - texto: "Vento"
+      erro: "O vento é renovável: a natureza o repõe o tempo todo."
+  explicacao: "Petróleo, gás natural, carvão mineral e minérios levaram milhões de anos para se formar e acabam. Água da chuva, florestas, peixes, Sol e vento são renováveis."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-rec-02
+  tipo: numero
+  tema: "Água por pessoa"
+  dificuldade: 2
+  enunciado: "Uma família de 5 pessoas gastou 18 m³ de água em um mês de 30 dias (1 m³ = 1.000 litros). Quantos litros cada pessoa gastou por dia, em média?"
+  resposta: "120"
+  unidade: "litros"
+  erros_comuns:
+    - resposta: "600"
+      explicacao: "600 litros é o gasto da casa inteira por dia. Falta dividir pelas 5 pessoas."
+    - resposta: "3,6"
+      explicacao: "3,6 é 18 ÷ 5. Antes é preciso passar para litros (× 1.000) e dividir pelos 30 dias."
+  dica: "Passe para litros, divida pelos dias e depois pelas pessoas."
+  explicacao: "18 m³ = 18.000 litros. 18.000 ÷ 30 = 600 litros por dia na casa. 600 ÷ 5 = 120 litros por pessoa, por dia."
+  conferir: "18 * 1000 / 30 / 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-rec-03
+  tema: "Prioridade da água"
+  dificuldade: 2
+  enunciado: "Pela Lei das Águas (Lei nº 9.433, de 1997), quando a água falta, qual é o uso prioritário?"
+  alternativas:
+    - texto: "O consumo humano e a dessedentação (dar de beber) dos animais"
+      certa: true
+    - texto: "A irrigação das lavouras"
+      erro: "Mesmo sendo o maior uso da água no país, a irrigação não é a prioridade quando a água falta."
+    - texto: "O uso da indústria"
+      erro: "A lei dá prioridade ao consumo humano e aos animais, não à indústria."
+  explicacao: "A Lei das Águas diz que, na escassez, a prioridade é o consumo humano e dar de beber aos animais. A água é bem de domínio público e recurso limitado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-rec-04
+  tema: "Água mal distribuída"
+  dificuldade: 3
+  enunciado: "O Brasil tem muita água doce, mas há gente que passa sede. Por quê?"
+  alternativas:
+    - texto: "Porque a água está mal distribuída: a maior parte corre na bacia amazônica, com pouca gente, e o semiárido recebe pouca chuva"
+      certa: true
+    - texto: "Porque a água do Brasil é toda salgada"
+      erro: "O Brasil é um dos países com mais água doce do mundo. O problema é onde ela está."
+    - texto: "Porque as pessoas desperdiçam toda a água da chuva"
+      erro: "Faltam água guardada e acesso, como cisternas. O problema é de distribuição, e não só de desperdício."
+  explicacao: "A Região Norte tem cerca de 45% do território e 8,5% da população, e é onde corre a maior parte da água. O semiárido tem pouca chuva e falta de água guardada. A cisterna é uma solução simples."
+  fonte: "Questão original do Instituto Lúcia, com dados do Censo 2022 (IBGE)"
+  revisao:
+    status: em-revisao

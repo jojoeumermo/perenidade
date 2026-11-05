@@ -1,0 +1,68 @@
+# Exercícios da aula "Quando a vida se aproxima do fim e o luto" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação de profissional de saúde, do cartório ou da Defensoria.
+
+- id: cuid-luto-01
+  tema: "Acompanhar com respeito"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "No cuidado de uma pessoa idosa no fim da vida, qual é o objetivo, segundo a aula?"
+  alternativas:
+    - texto: "Que a pessoa tenha o menor sofrimento possível, dignidade e companhia, com respeito às suas vontades"
+      certa: true
+    - texto: "Decidir sozinho tudo sobre o tratamento, sem conversar com ela"
+      erro: "As decisões sobre tratamento são tomadas com a equipe de saúde, a pessoa e a família. O Estatuto (art. 17) assegura à pessoa capaz o direito de optar pelo tratamento que considerar mais favorável."
+    - texto: "Evitar qualquer conversa sobre o assunto, mesmo que ela queira falar"
+      erro: "Converse sobre as vontades dela, se ela quiser: com quem deseja estar, onde, o que a tranquiliza. Escute mais do que explique. Não é preciso forçar o assunto."
+  explicacao: "Cuidar no fim da vida é estar presente. Os cuidados paliativos aliviam dor e outros sintomas: pergunte na UBS como acessá-los. Pequenos cuidados contam: boca úmida, pele limpa e seca, posição confortável, luz suave, música de que ela gosta."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, arts. 10 e 17, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-luto-02
+  tema: "Quando a pessoa morre"
+  dificuldade: 2
+  enunciado: "A pessoa idosa morreu em casa. Qual é um primeiro passo adequado, segundo a aula?"
+  alternativas:
+    - texto: "Manter a calma e chamar o SAMU (192) ou o serviço de saúde para constatar o óbito"
+      certa: true
+    - texto: "Enterrar logo, sem nenhum documento"
+      erro: "A declaração de óbito é feita por médico e é preciso para o enterro. Depois vem o registro em cartório."
+    - texto: "Esconder o fato por alguns dias"
+      erro: "Esconder não ajuda e pode trazer problemas. Chame o SAMU ou o serviço de saúde para constatar o óbito."
+  explicacao: "Primeiro, constatar o óbito (SAMU 192 ou serviço de saúde), com a declaração de óbito feita por médico. Depois, o registro em cartório. O CRAS informa sobre auxílio e serviço funerário para famílias de baixa renda, e o INSS sobre a pensão por morte, se houver direito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quando a vida se aproxima do fim e o luto\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-luto-03
+  tema: "Registro de óbito"
+  dificuldade: 2
+  enunciado: "Segundo a aula e a Lei 9.534/1997, quanto custa o registro do óbito e a primeira certidão?"
+  alternativas:
+    - texto: "São gratuitos"
+      certa: true
+    - texto: "Custam o valor de um salário mínimo"
+      erro: "Pela Lei 9.534/1997, o registro de óbito e a primeira certidão são gratuitos. Se o cartório cobrar, pergunte e peça orientação à Defensoria."
+    - texto: "São gratuitos só para quem tem mais de 80 anos"
+      erro: "A gratuidade não depende da idade de quem faleceu: vale para o assento de óbito e a primeira certidão, para todos."
+  explicacao: "A Lei 9.534/1997 estabelece a gratuidade do registro civil de nascimento e do assento de óbito, bem como da primeira certidão respectiva. Leve a declaração de óbito e os documentos da pessoa ao cartório."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 9.534/1997 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-luto-04
+  tema: "O luto"
+  dificuldade: 2
+  enunciado: "Seu Raimundo cuidou da esposa por dois anos e agora sente vazio e cansaço, junto com um certo alívio. O que a aula diz sobre isso?"
+  alternativas:
+    - texto: "É natural: cada pessoa vive o luto de um jeito, e sentir cansaço e alívio ao mesmo tempo não é falta de amor"
+      certa: true
+    - texto: "Sentir alívio mostra que ele não amava a esposa"
+      erro: "A aula diz o contrário: quem cuidou muito tempo pode sentir cansaço e alívio ao mesmo tempo, e isso não é falta de amor."
+    - texto: "Ele deve esconder o que sente e voltar logo ao normal"
+      erro: "Dê tempo e não se cobre \"estar bem\". Converse com quem é próximo e procure ajuda se a tristeza não der trégua."
+  explicacao: "O luto é natural e cada um vive de um jeito: choro, raiva, culpa, alívio, vazio. Mantenha uma rotina simples (comer, dormir, sair um pouco). Se a tristeza pesar demais, procure a UBS, o CAPS ou o CVV (188); em perigo imediato, 192."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Quando a vida se aproxima do fim e o luto\""
+  revisao:
+    status: em-revisao

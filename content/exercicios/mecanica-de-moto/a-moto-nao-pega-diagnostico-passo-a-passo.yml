@@ -1,0 +1,50 @@
+# Exercícios da aula "A moto não pega: diagnóstico passo a passo" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-a-moto-nao-pega-diagnostico-passo-a-pass-01
+  tema: "O que o motor precisa"
+  dificuldade: 1
+  enunciado: "Segundo a aula, quais são as três coisas que um motor a gasolina precisa ao mesmo tempo para funcionar?"
+  alternativas:
+    - texto: "Óleo, água e graxa"
+      erro: "Óleo é importante para lubrificar, mas não é uma das três coisas que fazem o motor pegar. As três são combustível, ar e faísca na hora certa. Releia \"O motor precisa de três coisas\"."
+    - texto: "Combustível, ar e faísca"
+      certa: true
+    - texto: "Bateria, pneu e corrente"
+      erro: "Essas peças são importantes na moto, mas não são o que faz o motor funcionar. O motor precisa de combustível, ar e faísca na hora certa."
+  explicacao: "Se a moto não pega, falta uma dessas três coisas. Diagnosticar é descobrir qual, começando pelo mais simples e barato."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A moto não pega: diagnóstico passo a passo\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-a-moto-nao-pega-diagnostico-passo-a-pass-02
+  tema: "Por onde começar"
+  dificuldade: 1
+  enunciado: "A moto não pega. Pelo roteiro da aula, o que conferir primeiro?"
+  alternativas:
+    - texto: "Desmontar o motor para ver as peças de dentro"
+      erro: "Isso fica para o fim, se nada mais resolver. O roteiro começa pelo mais simples e barato."
+    - texto: "Trocar logo a vela e a bateria"
+      erro: "Trocar peças sem conferir o básico pode gastar dinheiro à toa. Primeiro olhe o óbvio, que leva dois minutos."
+    - texto: "Se tem gasolina, se a chave de corte está em \"ligado\", se está em neutro e se o descanso lateral está recolhido"
+      certa: true
+  explicacao: "O primeiro nível do roteiro é o óbvio: gasolina, chave, botão de corte, neutro e descanso lateral. Muitas motos não dão partida com marcha engatada ou descanso baixo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A moto não pega: diagnóstico passo a passo\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-a-moto-nao-pega-diagnostico-passo-a-pass-03
+  tema: "A partida gira forte"
+  dificuldade: 2
+  enunciado: "O motor de partida gira com força, o painel acende normal, mas a moto não pega. O que a aula diz que isso indica?"
+  alternativas:
+    - texto: "A bateria provavelmente não é o problema; falta combustível, faísca ou ar"
+      certa: true
+    - texto: "A bateria está fraca e precisa ser trocada"
+      erro: "Bateria fraca aparece como luz que apaga ou partida que só faz \"clique\". Se a partida gira forte, olhe combustível, vela e ar."
+    - texto: "O pneu está murcho"
+      erro: "O pneu não impede a moto de pegar. Quando a partida gira bem, suspeite de combustível, faísca ou ar."
+  explicacao: "Partida forte quer dizer que a bateria está dando conta. Sobram combustível, faísca e ar: confira o tanque, a vela (seca e limpa) e o botão de corte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A moto não pega: diagnóstico passo a passo\""
+  revisao:
+    status: em-revisao
